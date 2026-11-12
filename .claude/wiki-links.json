@@ -1,17 +1,17 @@
 {
- "generated": "2026-11-12T05:06Z",
+ "generated": "2026-11-12T05:37Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6755,
-  "redirect-broader": 650,
-  "redirect-variant": 403,
-  "section-redirect": 141,
+  "ok": 7160,
+  "redirect-broader": 696,
+  "redirect-variant": 437,
+  "section-redirect": 155,
   "disambiguation": 149,
-  "none": 1027,
-  "disambig-resolved": 91,
+  "none": 1091,
+  "disambig-resolved": 97,
   "list-page": 6,
   "search-match": 9,
-  "no-article": 19
+  "no-article": 20
  },
  "cards": {
   "wh-001": {
@@ -72349,6 +72349,1455 @@
    "via": "glossary",
    "status": "ok"
   },
+  "art-081": {
+   "answer": "Eleusis Amphora",
+   "title": "Eleusis Amphora",
+   "url": "https://en.wikipedia.org/wiki/Eleusis_Amphora",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-082": {
+   "answer": "Lady of Auxerre",
+   "title": "Lady of Auxerre",
+   "url": "https://en.wikipedia.org/wiki/Lady_of_Auxerre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-083": {
+   "answer": "Chigi vase",
+   "title": "Chigi vase",
+   "url": "https://en.wikipedia.org/wiki/Chigi_vase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-084": {
+   "answer": "New York Kouros",
+   "title": "New York Kouros",
+   "url": "https://en.wikipedia.org/wiki/New_York_Kouros",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-085": {
+   "answer": "Kleobis and Biton",
+   "title": "Kleobis and Biton",
+   "url": "https://en.wikipedia.org/wiki/Kleobis_and_Biton",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-086": {
+   "answer": "François Vase",
+   "title": "François Vase",
+   "url": "https://en.wikipedia.org/wiki/Fran%C3%A7ois_Vase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-087": {
+   "answer": "Sophilos Dinos",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Dinos",
+    "Dinos of the Gorgon Painter",
+    "Dionysus",
+    "Tethys (mythology)",
+    "Oceanus"
+   ]
+  },
+  "art-088": {
+   "answer": "Peplos Kore",
+   "title": "Peplos Kore",
+   "url": "https://en.wikipedia.org/wiki/Peplos_Kore",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-089": {
+   "answer": "Achilles and Ajax Playing a Game",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ajax the Great",
+    "Exekias",
+    "Achilles",
+    "Five Lines",
+    "Trojan War"
+   ]
+  },
+  "art-090": {
+   "answer": "Anavysos Kouros",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Kouros",
+    "Kroisos Kouros",
+    "AP Art History",
+    "530 BC"
+   ]
+  },
+  "art-091": {
+   "answer": "Siphnian Treasury frieze",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Siphnian Treasury",
+    "Narrative art",
+    "Monument of Aemilius Paullus",
+    "Giants (Greek mythology)",
+    "Athenian Treasury"
+   ]
+  },
+  "art-092": {
+   "answer": "Andokides Painter's bilingual amphora",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Andokides (vase painter)",
+    "Bilingual kylix by the Andokides painter",
+    "Lysippides Painter",
+    "Belly Amphora by the Andokides Painter (Munich 2301)",
+    "Bilingual vase painting"
+   ]
+  },
+  "art-093": {
+   "answer": "Sarcophagus of the Spouses",
+   "title": "Sarcophagus of the Spouses",
+   "url": "https://en.wikipedia.org/wiki/Sarcophagus_of_the_Spouses",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-094": {
+   "answer": "Euphronios Krater",
+   "title": "Euphronios Krater",
+   "url": "https://en.wikipedia.org/wiki/Euphronios_Krater",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-095": {
+   "answer": "Apollo of Veii",
+   "title": "Apollo of Veii",
+   "url": "https://en.wikipedia.org/wiki/Apollo_of_Veii",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-096": {
+   "answer": "Apadana tribute-bearers relief",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Darius the Great",
+    "Achaemenid Empire",
+    "Tachara",
+    "Parthenon Frieze",
+    "Achaemenid conquest of the Indus Valley"
+   ]
+  },
+  "art-097": {
+   "answer": "Tomb of the Diver",
+   "title": "Tomb of the Diver",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_the_Diver",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-098": {
+   "answer": "Kritios Boy",
+   "title": "Kritios Boy",
+   "url": "https://en.wikipedia.org/wiki/Kritios_Boy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-099": {
+   "answer": "Berlin Foundry Cup",
+   "title": "Berlin Foundry Cup",
+   "url": "https://en.wikipedia.org/wiki/Berlin_Foundry_Cup",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-100": {
+   "answer": "Tyrannicides",
+   "title": "Tyrannicide",
+   "url": "https://en.wikipedia.org/wiki/Tyrannicide",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Tyrannicides"
+  },
+  "art-061": {
+   "answer": "Bull-Leaping Fresco",
+   "title": "Bull-Leaping Fresco",
+   "url": "https://en.wikipedia.org/wiki/Bull-Leaping_Fresco",
+   "via": "answer",
+   "status": "ok"
+  },
+  "art-062": {
+   "answer": "Vaphio Cups",
+   "title": "Vaphio",
+   "url": "https://en.wikipedia.org/wiki/Vaphio",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Vaphio cups"
+  },
+  "art-063": {
+   "answer": "Nebamun Hunting in the Marshes",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Nebamun",
+    "Tomb of Nebamun",
+    "Hierarchical proportion",
+    "Art of ancient Egypt",
+    "History of art"
+   ]
+  },
+  "art-064": {
+   "answer": "Akhenaten, Nefertiti and Three Daughters",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Nefertiti",
+    "Akhenaten",
+    "Amarna art",
+    "Nefertiti Bust",
+    "Royal Tomb of Akhenaten"
+   ]
+  },
+  "art-065": {
+   "answer": "Bust of Nefertiti",
+   "title": "Nefertiti Bust",
+   "url": "https://en.wikipedia.org/wiki/Nefertiti_Bust",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Bust of Nefertiti"
+  },
+  "art-066": {
+   "answer": "Mask of Tutankhamun",
+   "title": "Mask of Tutankhamun",
+   "url": "https://en.wikipedia.org/wiki/Mask_of_Tutankhamun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-067": {
+   "answer": "Book of the Dead of Hunefer",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Book of the Dead",
+    "Ancient Egyptian afterlife beliefs",
+    "Ammit",
+    "Book",
+    "Papyrus"
+   ]
+  },
+  "art-068": {
+   "answer": "Abu Simbel colossi",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Abu Simbel",
+    "Death on the Nile (1978 film)",
+    "Art of ancient Egypt",
+    "Nebettawy",
+    "Ramesseum"
+   ]
+  },
+  "art-069": {
+   "answer": "Lion Gate",
+   "title": "Lion Gate",
+   "url": "https://en.wikipedia.org/wiki/Lion_Gate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-070": {
+   "answer": "Houmuwu ding",
+   "title": "Houmuwu ding",
+   "url": "https://en.wikipedia.org/wiki/Houmuwu_ding",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-031": {
+   "answer": "Banpo human-face fish basin",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Banpo",
+    "Yangshao culture",
+    "Prehistory of China",
+    "Chinese art",
+    "Afanasievo culture"
+   ]
+  },
+  "art-032": {
+   "answer": "Varna Grave 43 sceptre",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Carnac stones",
+    "Islam in Europe"
+   ]
+  },
+  "art-033": {
+   "answer": "Gebel el-Arak Knife",
+   "title": "Gebel el-Arak Knife",
+   "url": "https://en.wikipedia.org/wiki/Gebel_el-Arak_Knife",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-034": {
+   "answer": "Newgrange entrance stone",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Newgrange",
+    "Stonehenge",
+    "Triskelion",
+    "Knowth",
+    "Carnac stones"
+   ]
+  },
+  "art-035": {
+   "answer": "Uruk Vase",
+   "title": "Warka Vase",
+   "url": "https://en.wikipedia.org/wiki/Warka_Vase",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Uruk Vase"
+  },
+  "art-036": {
+   "answer": "Mask of Warka",
+   "title": "Mask of Warka",
+   "url": "https://en.wikipedia.org/wiki/Mask_of_Warka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-037": {
+   "answer": "Battlefield Palette",
+   "title": "Battlefield Palette",
+   "url": "https://en.wikipedia.org/wiki/Battlefield_Palette",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-038": {
+   "answer": "Narmer Palette",
+   "title": "Narmer Palette",
+   "url": "https://en.wikipedia.org/wiki/Narmer_Palette",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-039": {
+   "answer": "Kneeling bull holding a spouted vessel",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Kneeling Bull with Vessel",
+    "Proto-Elamite (period)",
+    "Mithraism",
+    "Naqada II",
+    "Early Dynastic Period (Mesopotamia)"
+   ]
+  },
+  "art-040": {
+   "answer": "Umataka flame pot",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Japanese pottery and porcelain"
+   ]
+  },
+  "art-071": {
+   "answer": "San Lorenzo Colossal Head 1",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Olmec colossal heads",
+    "San Lorenzo Tenochtitlán",
+    "La Venta",
+    "Olmecs",
+    "Olmec Head, Number 8"
+   ]
+  },
+  "art-072": {
+   "answer": "Sanxingdui Bronze Standing Figure",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sanxingdui",
+    "Bronze Age",
+    "Chinese art",
+    "Chinese sculpture",
+    "Shang dynasty"
+   ]
+  },
+  "art-073": {
+   "answer": "Las Limas Monument 1",
+   "title": "Las Limas Monument 1",
+   "url": "https://en.wikipedia.org/wiki/Las_Limas_Monument_1",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-074": {
+   "answer": "Lanzón",
+   "title": "Lanzón",
+   "url": "https://en.wikipedia.org/wiki/Lanz%C3%B3n",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-075": {
+   "answer": "Tello Obelisk",
+   "title": "Tello Obelisk",
+   "url": "https://en.wikipedia.org/wiki/Tello_Obelisk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-076": {
+   "answer": "Ashurnasirpal II Winged Genius Relief",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ashurnasirpal II",
+    "Winged genie",
+    "Art & History Museum",
+    "Nimrud",
+    "Ninurta"
+   ]
+  },
+  "art-077": {
+   "answer": "Black Obelisk of Shalmaneser III",
+   "title": "Black Obelisk of Shalmaneser III",
+   "url": "https://en.wikipedia.org/wiki/Black_Obelisk_of_Shalmaneser_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-078": {
+   "answer": "Dipylon Amphora",
+   "title": "Dipylon Amphora",
+   "url": "https://en.wikipedia.org/wiki/Dipylon_Amphora",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-079": {
+   "answer": "Khorsabad Lamassu",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Lamassu",
+    "Dur-Sharrukin",
+    "Assyrian sculpture",
+    "Art of Mesopotamia",
+    "British Museum Department of the Middle East"
+   ]
+  },
+  "art-041": {
+   "answer": "Harp Player of Keros",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "28th century BC",
+    "Cycladic art",
+    "Cycladic culture",
+    "3rd millennium BC",
+    "Coachella Festival line-ups"
+   ]
+  },
+  "art-042": {
+   "answer": "Tell Asmar Worshipper",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Tell Asmar Hoard",
+    "Eshnunna",
+    "Art of Mesopotamia",
+    "Early Dynastic Period (Mesopotamia)",
+    "Tell Agrab"
+   ]
+  },
+  "art-043": {
+   "answer": "Standard of Ur",
+   "title": "Standard of Ur",
+   "url": "https://en.wikipedia.org/wiki/Standard_of_Ur",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-044": {
+   "answer": "Ram in a Thicket",
+   "title": "Ram in a Thicket",
+   "url": "https://en.wikipedia.org/wiki/Ram_in_a_Thicket",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-045": {
+   "answer": "Khafre Enthroned",
+   "title": "Khafre Enthroned",
+   "url": "https://en.wikipedia.org/wiki/Khafre_Enthroned",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-046": {
+   "answer": "Bull-Headed Lyre of Ur",
+   "title": "Bull Headed Lyre of Ur",
+   "url": "https://en.wikipedia.org/wiki/Bull_Headed_Lyre_of_Ur",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Bull-Headed Lyre of Ur"
+  },
+  "art-047": {
+   "answer": "Great Sphinx of Giza",
+   "title": "Great Sphinx of Giza",
+   "url": "https://en.wikipedia.org/wiki/Great_Sphinx_of_Giza",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-048": {
+   "answer": "Menkaure and His Queen",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Menkaure",
+    "Pyramid of Menkaure",
+    "Menkaure triads",
+    "Giza pyramid complex",
+    "Hatshepsut"
+   ]
+  },
+  "art-049": {
+   "answer": "Seated Scribe",
+   "title": "The Seated Scribe",
+   "url": "https://en.wikipedia.org/wiki/The_Seated_Scribe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-050": {
+   "answer": "Ti Watching a Hippopotamus Hunt",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "1865 in archaeology",
+    "Odd Taxi",
+    "The Snows of Kilimanjaro (1952 film)",
+    "List of common misconceptions about science, technology, and mathematics",
+    "List of Advanced Dungeons & Dragons 2nd edition monsters"
+   ]
+  },
+  "art-051": {
+   "answer": "Dancing Girl",
+   "title": "Dancing Girl (prehistoric sculpture)",
+   "url": "https://en.wikipedia.org/wiki/Dancing_Girl_(prehistoric_sculpture)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-052": {
+   "answer": "Mask of Sargon",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sargon of Akkad",
+    "Prince of Persia: The Lost Crown",
+    "Art of Mesopotamia",
+    "AP Art History",
+    "Ancient art"
+   ]
+  },
+  "art-053": {
+   "answer": "Victory Stele of Naram-Sin",
+   "title": "Victory Stele of Naram-Sin",
+   "url": "https://en.wikipedia.org/wiki/Victory_Stele_of_Naram-Sin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-054": {
+   "answer": "Gudea, Seated Statue B",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Statues of Gudea",
+    "Gudea",
+    "Art of Mesopotamia",
+    "Sculpture",
+    "Portrait"
+   ]
+  },
+  "art-055": {
+   "answer": "Priest-King",
+   "title": "Priest-King (sculpture)",
+   "url": "https://en.wikipedia.org/wiki/Priest-King_(sculpture)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-056": {
+   "answer": "Code of Hammurabi",
+   "title": "Code of Hammurabi",
+   "url": "https://en.wikipedia.org/wiki/Code_of_Hammurabi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-057": {
+   "answer": "Snake Goddess",
+   "title": "Minoan snake goddess figurines",
+   "url": "https://en.wikipedia.org/wiki/Minoan_snake_goddess_figurines",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Snake Goddess"
+  },
+  "art-058": {
+   "answer": "Spring Fresco",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Fresco",
+    "Minoan art",
+    "The Last Judgment (Michelangelo)",
+    "The Creation of Adam",
+    "Art"
+   ]
+  },
+  "art-059": {
+   "answer": "Nebra Sky Disc",
+   "title": "Nebra sky disc",
+   "url": "https://en.wikipedia.org/wiki/Nebra_sky_disc",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-060": {
+   "answer": "Mask of Agamemnon",
+   "title": "Mask of Agamemnon",
+   "url": "https://en.wikipedia.org/wiki/Mask_of_Agamemnon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-080": {
+   "answer": "Lioness Devouring a Boy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Liō",
+    "Cultural depictions of lions",
+    "Artemis",
+    "List of God of War characters",
+    "List of characters in mythology novels by Rick Riordan"
+   ]
+  },
+  "astro-101": {
+   "answer": "calcium–aluminium-rich inclusions",
+   "title": "Calcium–aluminium-rich inclusion",
+   "url": "https://en.wikipedia.org/wiki/Calcium%E2%80%93aluminium-rich_inclusion",
+   "via": "variant",
+   "status": "ok"
+  },
+  "astro-102": {
+   "answer": "angular momentum problem",
+   "title": "Angular momentum problem",
+   "url": "https://en.wikipedia.org/wiki/Angular_momentum_problem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-103": {
+   "answer": "invariable plane",
+   "title": "Invariable plane",
+   "url": "https://en.wikipedia.org/wiki/Invariable_plane",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-104": {
+   "answer": "prograde motion",
+   "title": "Retrograde and prograde motion",
+   "url": "https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Prograde motion"
+  },
+  "astro-105": {
+   "answer": "CI chondrites",
+   "title": "CI chondrite",
+   "url": "https://en.wikipedia.org/wiki/CI_chondrite",
+   "via": "variant",
+   "status": "ok"
+  },
+  "astro-106": {
+   "answer": "refractory elements",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Chemical element",
+    "Cosmic dust",
+    "Refractory (planetary science)",
+    "Chondrite",
+    "Volatile (astrogeology)"
+   ]
+  },
+  "astro-107": {
+   "answer": "aluminium-26",
+   "title": "Aluminium-26",
+   "url": "https://en.wikipedia.org/wiki/Aluminium-26",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-108": {
+   "answer": "solar siblings",
+   "title": "Solar sibling",
+   "url": "https://en.wikipedia.org/wiki/Solar_sibling",
+   "via": "variant",
+   "status": "ok"
+  },
+  "astro-109": {
+   "answer": "Local Interstellar Cloud",
+   "title": "Local Interstellar Cloud",
+   "url": "https://en.wikipedia.org/wiki/Local_Interstellar_Cloud",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-110": {
+   "answer": "Jupiter analogues",
+   "title": "Jupiter analogue",
+   "url": "https://en.wikipedia.org/wiki/Jupiter_analogue",
+   "via": "variant",
+   "status": "ok"
+  },
+  "astro-111": {
+   "answer": "terrestrial planet",
+   "title": "Terrestrial planet",
+   "url": "https://en.wikipedia.org/wiki/Terrestrial_planet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-112": {
+   "answer": "Mercury",
+   "title": "Mercury (planet)",
+   "url": "https://en.wikipedia.org/wiki/Mercury_(planet)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-113": {
+   "answer": "geology of Mercury",
+   "title": "Geology of Mercury",
+   "url": "https://en.wikipedia.org/wiki/Geology_of_Mercury",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-114": {
+   "answer": "spin–orbit resonance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Spin–orbit resonance",
+   "target": "Tidal locking#Eccentric orbits"
+  },
+  "astro-115": {
+   "answer": "Venus",
+   "title": "Venus",
+   "url": "https://en.wikipedia.org/wiki/Venus",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Venus (planet)"
+  },
+  "astro-116": {
+   "answer": "atmosphere of Venus",
+   "title": "Atmosphere of Venus",
+   "url": "https://en.wikipedia.org/wiki/Atmosphere_of_Venus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-117": {
+   "answer": "runaway greenhouse effect",
+   "title": "Runaway greenhouse effect",
+   "url": "https://en.wikipedia.org/wiki/Runaway_greenhouse_effect",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-118": {
+   "answer": "geology of Venus",
+   "title": "Geology of Venus",
+   "url": "https://en.wikipedia.org/wiki/Geology_of_Venus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-119": {
+   "answer": "retrograde rotation",
+   "title": "Retrograde and prograde motion",
+   "url": "https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Retrograde rotation"
+  },
+  "astro-120": {
+   "answer": "Earth",
+   "title": "Earth",
+   "url": "https://en.wikipedia.org/wiki/Earth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-121": {
+   "answer": "Earth's interior",
+   "title": "Internal structure of Earth",
+   "url": "https://en.wikipedia.org/wiki/Internal_structure_of_Earth",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Earth's interior"
+  },
+  "astro-122": {
+   "answer": "plate tectonics",
+   "title": "Plate tectonics",
+   "url": "https://en.wikipedia.org/wiki/Plate_tectonics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-123": {
+   "answer": "Earth's atmosphere",
+   "title": "Atmosphere of Earth",
+   "url": "https://en.wikipedia.org/wiki/Atmosphere_of_Earth",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Earth's atmosphere"
+  },
+  "astro-124": {
+   "answer": "Earth's magnetic field",
+   "title": "Earth's magnetic field",
+   "url": "https://en.wikipedia.org/wiki/Earth's_magnetic_field",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-125": {
+   "answer": "Moon",
+   "title": "Moon",
+   "url": "https://en.wikipedia.org/wiki/Moon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-126": {
+   "answer": "giant-impact hypothesis",
+   "title": "Giant-impact hypothesis",
+   "url": "https://en.wikipedia.org/wiki/Giant-impact_hypothesis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-127": {
+   "answer": "lunar regolith",
+   "title": "Lunar regolith",
+   "url": "https://en.wikipedia.org/wiki/Lunar_regolith",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-128": {
+   "answer": "lunar maria",
+   "title": "Lunar mare",
+   "url": "https://en.wikipedia.org/wiki/Lunar_mare",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Lunar maria"
+  },
+  "astro-129": {
+   "answer": "impact crater",
+   "title": "Impact crater",
+   "url": "https://en.wikipedia.org/wiki/Impact_crater",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-130": {
+   "answer": "Mars",
+   "title": "Mars",
+   "url": "https://en.wikipedia.org/wiki/Mars",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Mars (planet)"
+  },
+  "astro-131": {
+   "answer": "Martian surface",
+   "title": "Martian surface",
+   "url": "https://en.wikipedia.org/wiki/Martian_surface",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-132": {
+   "answer": "water on Mars",
+   "title": "Water on Mars",
+   "url": "https://en.wikipedia.org/wiki/Water_on_Mars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-133": {
+   "answer": "atmosphere of Mars",
+   "title": "Atmosphere of Mars",
+   "url": "https://en.wikipedia.org/wiki/Atmosphere_of_Mars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-134": {
+   "answer": "Olympus Mons",
+   "title": "Olympus Mons",
+   "url": "https://en.wikipedia.org/wiki/Olympus_Mons",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-135": {
+   "answer": "Valles Marineris",
+   "title": "Valles Marineris",
+   "url": "https://en.wikipedia.org/wiki/Valles_Marineris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-136": {
+   "answer": "moons of Mars",
+   "title": "Moons of Mars",
+   "url": "https://en.wikipedia.org/wiki/Moons_of_Mars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-137": {
+   "answer": "dust storms on Mars",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Dust storms on Mars",
+   "target": "Climate of Mars#Dust storms"
+  },
+  "astro-138": {
+   "answer": "atmospheric escape",
+   "title": "Atmospheric escape",
+   "url": "https://en.wikipedia.org/wiki/Atmospheric_escape",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-139": {
+   "answer": "comparative planetology",
+   "title": "Comparative planetary science",
+   "url": "https://en.wikipedia.org/wiki/Comparative_planetary_science",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Comparative planetology"
+  },
+  "astro-140": {
+   "answer": "planetary differentiation",
+   "title": "Planetary differentiation",
+   "url": "https://en.wikipedia.org/wiki/Planetary_differentiation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-141": {
+   "answer": "gas giant",
+   "title": "Gas giant",
+   "url": "https://en.wikipedia.org/wiki/Gas_giant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-142": {
+   "answer": "ice giant",
+   "title": "Ice giant",
+   "url": "https://en.wikipedia.org/wiki/Ice_giant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-143": {
+   "answer": "Jupiter",
+   "title": "Jupiter",
+   "url": "https://en.wikipedia.org/wiki/Jupiter",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Jupiter (planet)"
+  },
+  "astro-144": {
+   "answer": "atmosphere of Jupiter",
+   "title": "Atmosphere of Jupiter",
+   "url": "https://en.wikipedia.org/wiki/Atmosphere_of_Jupiter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-145": {
+   "answer": "Great Red Spot",
+   "title": "Great Red Spot",
+   "url": "https://en.wikipedia.org/wiki/Great_Red_Spot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-146": {
+   "answer": "Jupiter's interior",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Jupiter",
+    "Moons of Jupiter",
+    "Jupiter mass",
+    "Saturn",
+    "Galilean moons"
+   ]
+  },
+  "astro-147": {
+   "answer": "magnetosphere of Jupiter",
+   "title": "Magnetosphere of Jupiter",
+   "url": "https://en.wikipedia.org/wiki/Magnetosphere_of_Jupiter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-148": {
+   "answer": "Saturn",
+   "title": "Saturn",
+   "url": "https://en.wikipedia.org/wiki/Saturn",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Saturn (planet)"
+  },
+  "astro-149": {
+   "answer": "rings of Saturn",
+   "title": "Rings of Saturn",
+   "url": "https://en.wikipedia.org/wiki/Rings_of_Saturn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-150": {
+   "answer": "planetary ring",
+   "title": "Ring system",
+   "url": "https://en.wikipedia.org/wiki/Ring_system",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Planetary ring"
+  },
+  "astro-151": {
+   "answer": "Roche limit",
+   "title": "Roche limit",
+   "url": "https://en.wikipedia.org/wiki/Roche_limit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-152": {
+   "answer": "shepherd moons",
+   "title": "Shepherd moon",
+   "url": "https://en.wikipedia.org/wiki/Shepherd_moon",
+   "via": "variant",
+   "status": "ok"
+  },
+  "astro-153": {
+   "answer": "Saturn's hexagon",
+   "title": "Saturn's hexagon",
+   "url": "https://en.wikipedia.org/wiki/Saturn's_hexagon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-154": {
+   "answer": "Uranus",
+   "title": "Uranus",
+   "url": "https://en.wikipedia.org/wiki/Uranus",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Uranus (planet)"
+  },
+  "astro-155": {
+   "answer": "tilt of Uranus",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Tilt of Uranus",
+   "target": "Uranus#Axial tilt"
+  },
+  "astro-156": {
+   "answer": "Neptune",
+   "title": "Neptune",
+   "url": "https://en.wikipedia.org/wiki/Neptune",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Neptune (planet)"
+  },
+  "astro-157": {
+   "answer": "winds of Neptune",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Neptune",
+    "Exploration of Neptune",
+    "Triton (moon)",
+    "Green star (astronomy)",
+    "Uranus"
+   ]
+  },
+  "astro-158": {
+   "answer": "discovery of Neptune",
+   "title": "Discovery of Neptune",
+   "url": "https://en.wikipedia.org/wiki/Discovery_of_Neptune",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-159": {
+   "answer": "superionic water",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Superionic water",
+   "target": "Phases of ice#Ice XVIII (superionic water)"
+  },
+  "astro-160": {
+   "answer": "metallic hydrogen",
+   "title": "Metallic hydrogen",
+   "url": "https://en.wikipedia.org/wiki/Metallic_hydrogen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-161": {
+   "answer": "helium rain",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "History of astronomy",
+    "Jupiter",
+    "Saturn",
+    "Wolf–Rayet star",
+    "Zeta Puppis"
+   ]
+  },
+  "astro-162": {
+   "answer": "regular moon",
+   "title": "Regular moon",
+   "url": "https://en.wikipedia.org/wiki/Regular_moon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-163": {
+   "answer": "rings of Uranus",
+   "title": "Rings of Uranus",
+   "url": "https://en.wikipedia.org/wiki/Rings_of_Uranus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-164": {
+   "answer": "Kelvin–Helmholtz mechanism",
+   "title": "Kelvin–Helmholtz mechanism",
+   "url": "https://en.wikipedia.org/wiki/Kelvin%E2%80%93Helmholtz_mechanism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-165": {
+   "answer": "Great White Spot",
+   "title": "Great White Spot",
+   "url": "https://en.wikipedia.org/wiki/Great_White_Spot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-166": {
+   "answer": "natural satellite",
+   "title": "Natural satellite",
+   "url": "https://en.wikipedia.org/wiki/Natural_satellite",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-167": {
+   "answer": "Galilean moons",
+   "title": "Galilean moons",
+   "url": "https://en.wikipedia.org/wiki/Galilean_moons",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-168": {
+   "answer": "Io",
+   "title": "Io (moon)",
+   "url": "https://en.wikipedia.org/wiki/Io_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-169": {
+   "answer": "Europa",
+   "title": "Europa (moon)",
+   "url": "https://en.wikipedia.org/wiki/Europa_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-170": {
+   "answer": "chaos terrain",
+   "title": "Chaos terrain",
+   "url": "https://en.wikipedia.org/wiki/Chaos_terrain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-171": {
+   "answer": "Ganymede",
+   "title": "Ganymede (moon)",
+   "url": "https://en.wikipedia.org/wiki/Ganymede_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-172": {
+   "answer": "Callisto",
+   "title": "Callisto (moon)",
+   "url": "https://en.wikipedia.org/wiki/Callisto_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-173": {
+   "answer": "Titan",
+   "title": "Titan (moon)",
+   "url": "https://en.wikipedia.org/wiki/Titan_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-174": {
+   "answer": "lakes of Titan",
+   "title": "Lakes and rivers of Titan",
+   "url": "https://en.wikipedia.org/wiki/Lakes_and_rivers_of_Titan",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Lakes of Titan"
+  },
+  "astro-175": {
+   "answer": "Enceladus",
+   "title": "Enceladus",
+   "url": "https://en.wikipedia.org/wiki/Enceladus",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Enceladus (moon)"
+  },
+  "astro-176": {
+   "answer": "plumes of Enceladus",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Enceladus",
+    "Saturn",
+    "Enceladus Orbilander",
+    "Enceladus Life Finder",
+    "Europa (moon)"
+   ]
+  },
+  "astro-177": {
+   "answer": "tidal heating",
+   "title": "Tidal heating",
+   "url": "https://en.wikipedia.org/wiki/Tidal_heating",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-178": {
+   "answer": "ocean world",
+   "title": "Ocean world",
+   "url": "https://en.wikipedia.org/wiki/Ocean_world",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-179": {
+   "answer": "Triton",
+   "title": "Triton (moon)",
+   "url": "https://en.wikipedia.org/wiki/Triton_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-180": {
+   "answer": "irregular satellites",
+   "title": "Irregular moon",
+   "url": "https://en.wikipedia.org/wiki/Irregular_moon",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Irregular satellites"
+  },
+  "astro-181": {
+   "answer": "gravitational capture",
+   "title": "Gravitational capture",
+   "url": "https://en.wikipedia.org/wiki/Gravitational_capture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-182": {
+   "answer": "Rhea",
+   "title": "Rhea (moon)",
+   "url": "https://en.wikipedia.org/wiki/Rhea_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-183": {
+   "answer": "Iapetus",
+   "title": "Iapetus (moon)",
+   "url": "https://en.wikipedia.org/wiki/Iapetus_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-184": {
+   "answer": "Miranda",
+   "title": "Miranda (moon)",
+   "url": "https://en.wikipedia.org/wiki/Miranda_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-185": {
+   "answer": "Charon",
+   "title": "Charon (moon)",
+   "url": "https://en.wikipedia.org/wiki/Charon_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-186": {
+   "answer": "circumplanetary disc",
+   "title": "Circumplanetary disk",
+   "url": "https://en.wikipedia.org/wiki/Circumplanetary_disk",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Circumplanetary disc"
+  },
+  "astro-187": {
+   "answer": "Laplace resonance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Laplace resonance",
+   "target": "Orbital resonance#Laplace resonance"
+  },
+  "astro-188": {
+   "answer": "Europa Clipper",
+   "title": "Europa Clipper",
+   "url": "https://en.wikipedia.org/wiki/Europa_Clipper",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-189": {
+   "answer": "cryovolcanism",
+   "title": "Cryovolcano",
+   "url": "https://en.wikipedia.org/wiki/Cryovolcano",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Cryovolcanism"
+  },
+  "astro-190": {
+   "answer": "moonquakes",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Moonquakes",
+   "target": "Quake (natural phenomenon)#Moonquake"
+  },
+  "astro-191": {
+   "answer": "asteroid",
+   "title": "Asteroid",
+   "url": "https://en.wikipedia.org/wiki/Asteroid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-192": {
+   "answer": "asteroid belt",
+   "title": "Asteroid belt",
+   "url": "https://en.wikipedia.org/wiki/Asteroid_belt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-193": {
+   "answer": "exploded planet hypothesis",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Exploded planet hypothesis",
+   "target": "Phaeton (hypothetical planet)#Other hypotheses"
+  },
+  "astro-194": {
+   "answer": "Kirkwood gaps",
+   "title": "Kirkwood gap",
+   "url": "https://en.wikipedia.org/wiki/Kirkwood_gap",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Kirkwood gaps"
+  },
+  "astro-195": {
+   "answer": "Ceres",
+   "title": "Ceres (dwarf planet)",
+   "url": "https://en.wikipedia.org/wiki/Ceres_(dwarf_planet)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-196": {
+   "answer": "Vesta",
+   "title": "Vesta (mythology)",
+   "url": "https://en.wikipedia.org/wiki/Vesta_(mythology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-197": {
+   "answer": "asteroid families",
+   "title": "Asteroid family",
+   "url": "https://en.wikipedia.org/wiki/Asteroid_family",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Asteroid families"
+  },
+  "astro-198": {
+   "answer": "near-Earth asteroids",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Near-Earth asteroids",
+   "target": "Near-Earth object#Near-Earth asteroids"
+  },
+  "astro-199": {
+   "answer": "Trojan asteroids",
+   "title": "Trojan (celestial body)",
+   "url": "https://en.wikipedia.org/wiki/Trojan_(celestial_body)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Trojan asteroids"
+  },
+  "astro-200": {
+   "answer": "asteroid spectral types",
+   "title": "Asteroid spectral types",
+   "url": "https://en.wikipedia.org/wiki/Asteroid_spectral_types",
+   "via": "glossary",
+   "status": "ok"
+  },
   "us-451": {
    "answer": "Cotton Kingdom",
    "title": null,
@@ -73152,6 +74601,3101 @@
    "answer": "United States v. The Amistad",
    "title": "United States v. The Amistad",
    "url": "https://en.wikipedia.org/wiki/United_States_v._The_Amistad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-221": {
+   "answer": "neuron",
+   "title": "Neuron",
+   "url": "https://en.wikipedia.org/wiki/Neuron",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-222": {
+   "answer": "glial cells",
+   "title": "Glia",
+   "url": "https://en.wikipedia.org/wiki/Glia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Glial cells"
+  },
+  "ps-223": {
+   "answer": "axon",
+   "title": "Axon",
+   "url": "https://en.wikipedia.org/wiki/Axon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-224": {
+   "answer": "dendrite",
+   "title": "Dendrite",
+   "url": "https://en.wikipedia.org/wiki/Dendrite",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-225": {
+   "answer": "myelin sheath",
+   "title": "Myelin",
+   "url": "https://en.wikipedia.org/wiki/Myelin",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Myelin sheath"
+  },
+  "ps-226": {
+   "answer": "resting potential",
+   "title": "Resting potential",
+   "url": "https://en.wikipedia.org/wiki/Resting_potential",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-227": {
+   "answer": "action potential",
+   "title": "Action potential",
+   "url": "https://en.wikipedia.org/wiki/Action_potential",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-228": {
+   "answer": "saltatory conduction",
+   "title": "Saltatory conduction",
+   "url": "https://en.wikipedia.org/wiki/Saltatory_conduction",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-229": {
+   "answer": "synapse",
+   "title": "Synapse",
+   "url": "https://en.wikipedia.org/wiki/Synapse",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-230": {
+   "answer": "neurotransmitter",
+   "title": "Neurotransmitter",
+   "url": "https://en.wikipedia.org/wiki/Neurotransmitter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-231": {
+   "answer": "neurotransmitter receptor",
+   "title": "Neurotransmitter receptor",
+   "url": "https://en.wikipedia.org/wiki/Neurotransmitter_receptor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-232": {
+   "answer": "reuptake",
+   "title": "Reuptake",
+   "url": "https://en.wikipedia.org/wiki/Reuptake",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-233": {
+   "answer": "postsynaptic potential",
+   "title": "Postsynaptic potential",
+   "url": "https://en.wikipedia.org/wiki/Postsynaptic_potential",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-234": {
+   "answer": "acetylcholine",
+   "title": "Acetylcholine",
+   "url": "https://en.wikipedia.org/wiki/Acetylcholine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-235": {
+   "answer": "dopamine",
+   "title": "Dopamine",
+   "url": "https://en.wikipedia.org/wiki/Dopamine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-236": {
+   "answer": "serotonin",
+   "title": "Serotonin",
+   "url": "https://en.wikipedia.org/wiki/Serotonin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-237": {
+   "answer": "noradrenaline",
+   "title": "Norepinephrine",
+   "url": "https://en.wikipedia.org/wiki/Norepinephrine",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Noradrenaline"
+  },
+  "ps-238": {
+   "answer": "GABA",
+   "title": "GABA",
+   "url": "https://en.wikipedia.org/wiki/GABA",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-239": {
+   "answer": "glutamate",
+   "title": "Glutamate (neurotransmitter)",
+   "url": "https://en.wikipedia.org/wiki/Glutamate_(neurotransmitter)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-240": {
+   "answer": "endorphins",
+   "title": "Endorphins",
+   "url": "https://en.wikipedia.org/wiki/Endorphins",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-261": {
+   "answer": "limbic system",
+   "title": "Limbic system",
+   "url": "https://en.wikipedia.org/wiki/Limbic_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-262": {
+   "answer": "amygdala",
+   "title": "Amygdala",
+   "url": "https://en.wikipedia.org/wiki/Amygdala",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-263": {
+   "answer": "hippocampus",
+   "title": "Hippocampus",
+   "url": "https://en.wikipedia.org/wiki/Hippocampus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-264": {
+   "answer": "basal ganglia",
+   "title": "Basal ganglia",
+   "url": "https://en.wikipedia.org/wiki/Basal_ganglia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-265": {
+   "answer": "cerebral cortex",
+   "title": "Cerebral cortex",
+   "url": "https://en.wikipedia.org/wiki/Cerebral_cortex",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-266": {
+   "answer": "frontal lobe",
+   "title": "Frontal lobe",
+   "url": "https://en.wikipedia.org/wiki/Frontal_lobe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-267": {
+   "answer": "prefrontal cortex",
+   "title": "Prefrontal cortex",
+   "url": "https://en.wikipedia.org/wiki/Prefrontal_cortex",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-268": {
+   "answer": "motor cortex",
+   "title": "Motor cortex",
+   "url": "https://en.wikipedia.org/wiki/Motor_cortex",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-269": {
+   "answer": "parietal lobe",
+   "title": "Parietal lobe",
+   "url": "https://en.wikipedia.org/wiki/Parietal_lobe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-270": {
+   "answer": "somatosensory cortex",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Somatosensory cortex",
+   "target": "Somatosensory system#Somatosensory cortex"
+  },
+  "ps-271": {
+   "answer": "temporal lobe",
+   "title": "Temporal lobe",
+   "url": "https://en.wikipedia.org/wiki/Temporal_lobe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-272": {
+   "answer": "occipital lobe",
+   "title": "Occipital lobe",
+   "url": "https://en.wikipedia.org/wiki/Occipital_lobe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-273": {
+   "answer": "corpus callosum",
+   "title": "Corpus callosum",
+   "url": "https://en.wikipedia.org/wiki/Corpus_callosum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-274": {
+   "answer": "cerebral lateralisation",
+   "title": "Lateralization of brain function",
+   "url": "https://en.wikipedia.org/wiki/Lateralization_of_brain_function",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Cerebral lateralisation"
+  },
+  "ps-275": {
+   "answer": "split-brain research",
+   "title": "Split-brain",
+   "url": "https://en.wikipedia.org/wiki/Split-brain",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Split-brain research"
+  },
+  "ps-276": {
+   "answer": "left-brain right-brain myth",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Lateralization of brain function",
+    "Neuroscience of sex differences",
+    "Brain injury",
+    "Handedness",
+    "List of common misconceptions about science, technology, and mathematics"
+   ]
+  },
+  "ps-277": {
+   "answer": "Phineas Gage",
+   "title": "Phineas Gage",
+   "url": "https://en.wikipedia.org/wiki/Phineas_Gage",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-278": {
+   "answer": "Henry Molaison",
+   "title": "Henry Molaison",
+   "url": "https://en.wikipedia.org/wiki/Henry_Molaison",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-279": {
+   "answer": "aphasia",
+   "title": "Aphasia",
+   "url": "https://en.wikipedia.org/wiki/Aphasia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-280": {
+   "answer": "brain injury",
+   "title": "Brain injury",
+   "url": "https://en.wikipedia.org/wiki/Brain_injury",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-201": {
+   "answer": "confidentiality",
+   "title": "Confidentiality",
+   "url": "https://en.wikipedia.org/wiki/Confidentiality",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-202": {
+   "answer": "institutional review board",
+   "title": "Institutional review board",
+   "url": "https://en.wikipedia.org/wiki/Institutional_review_board",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-203": {
+   "answer": "Belmont Report",
+   "title": "Belmont Report",
+   "url": "https://en.wikipedia.org/wiki/Belmont_Report",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-204": {
+   "answer": "APA Ethics Code",
+   "title": "APA Ethics Code",
+   "url": "https://en.wikipedia.org/wiki/APA_Ethics_Code",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-205": {
+   "answer": "Three Rs",
+   "title": "Three Rs (animal research)",
+   "url": "https://en.wikipedia.org/wiki/Three_Rs_(animal_research)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-206": {
+   "answer": "Monster Study",
+   "title": "Monster Study",
+   "url": "https://en.wikipedia.org/wiki/Monster_Study",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-207": {
+   "answer": "Stanford prison experiment",
+   "title": "Stanford prison experiment",
+   "url": "https://en.wikipedia.org/wiki/Stanford_prison_experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-208": {
+   "answer": "demand characteristics",
+   "title": "Demand characteristics",
+   "url": "https://en.wikipedia.org/wiki/Demand_characteristics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-209": {
+   "answer": "Milgram experiment",
+   "title": "Milgram experiment",
+   "url": "https://en.wikipedia.org/wiki/Milgram_experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-210": {
+   "answer": "Diana Baumrind",
+   "title": "Diana Baumrind",
+   "url": "https://en.wikipedia.org/wiki/Diana_Baumrind",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-211": {
+   "answer": "replication crisis",
+   "title": "Replication crisis",
+   "url": "https://en.wikipedia.org/wiki/Replication_crisis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-212": {
+   "answer": "Reproducibility Project",
+   "title": "Reproducibility Project",
+   "url": "https://en.wikipedia.org/wiki/Reproducibility_Project",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-213": {
+   "answer": "questionable research practices",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Questionable research practices",
+   "target": "Research#Research ethics"
+  },
+  "ps-214": {
+   "answer": "p-hacking",
+   "title": "Data dredging",
+   "url": "https://en.wikipedia.org/wiki/Data_dredging",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "P-hacking"
+  },
+  "ps-215": {
+   "answer": "garden of forking paths",
+   "title": "The Garden of Forking Paths",
+   "url": "https://en.wikipedia.org/wiki/The_Garden_of_Forking_Paths",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Garden of forking paths"
+  },
+  "ps-216": {
+   "answer": "HARKing",
+   "title": "HARKing",
+   "url": "https://en.wikipedia.org/wiki/HARKing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-217": {
+   "answer": "publication bias",
+   "title": "Publication bias",
+   "url": "https://en.wikipedia.org/wiki/Publication_bias",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-218": {
+   "answer": "file drawer problem",
+   "title": "Publication bias",
+   "url": "https://en.wikipedia.org/wiki/Publication_bias",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "File drawer problem"
+  },
+  "ps-219": {
+   "answer": "registered report",
+   "title": "Registered report",
+   "url": "https://en.wikipedia.org/wiki/Registered_report",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-220": {
+   "answer": "open science",
+   "title": "Open science",
+   "url": "https://en.wikipedia.org/wiki/Open_science",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-281": {
+   "answer": "lesion method",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Visual pathway lesions",
+    "Cognitive psychology",
+    "Behavioral neuroscience",
+    "Developmental psychology",
+    "Ablative brain surgery"
+   ]
+  },
+  "ps-282": {
+   "answer": "electroencephalography",
+   "title": "Electroencephalography",
+   "url": "https://en.wikipedia.org/wiki/Electroencephalography",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-283": {
+   "answer": "event-related potential",
+   "title": "Event-related potential",
+   "url": "https://en.wikipedia.org/wiki/Event-related_potential",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-284": {
+   "answer": "single-unit recording",
+   "title": "Single-unit recording",
+   "url": "https://en.wikipedia.org/wiki/Single-unit_recording",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-285": {
+   "answer": "positron emission tomography",
+   "title": "Positron emission tomography",
+   "url": "https://en.wikipedia.org/wiki/Positron_emission_tomography",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-286": {
+   "answer": "magnetic resonance imaging",
+   "title": "Magnetic resonance imaging",
+   "url": "https://en.wikipedia.org/wiki/Magnetic_resonance_imaging",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-287": {
+   "answer": "functional magnetic resonance imaging",
+   "title": "Functional magnetic resonance imaging",
+   "url": "https://en.wikipedia.org/wiki/Functional_magnetic_resonance_imaging",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-288": {
+   "answer": "BOLD signal",
+   "title": "Blood-oxygenation-level–dependent imaging",
+   "url": "https://en.wikipedia.org/wiki/Blood-oxygenation-level%E2%80%93dependent_imaging",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "BOLD signal"
+  },
+  "ps-289": {
+   "answer": "diffusion tensor imaging",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Diffusion tensor imaging",
+   "target": "Diffusion-weighted magnetic resonance imaging#Diffusion tensor imaging"
+  },
+  "ps-290": {
+   "answer": "magnetoencephalography",
+   "title": "Magnetoencephalography",
+   "url": "https://en.wikipedia.org/wiki/Magnetoencephalography",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-291": {
+   "answer": "transcranial magnetic stimulation",
+   "title": "Transcranial magnetic stimulation",
+   "url": "https://en.wikipedia.org/wiki/Transcranial_magnetic_stimulation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-292": {
+   "answer": "optogenetics",
+   "title": "Optogenetics",
+   "url": "https://en.wikipedia.org/wiki/Optogenetics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-293": {
+   "answer": "functional near-infrared spectroscopy",
+   "title": "Functional near-infrared spectroscopy",
+   "url": "https://en.wikipedia.org/wiki/Functional_near-infrared_spectroscopy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-294": {
+   "answer": "reverse inference",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Bayesian inference",
+    "Correlation does not imply causation",
+    "Rule of inference",
+    "Fundamental attribution error",
+    "Structure-mapping theory"
+   ]
+  },
+  "ps-295": {
+   "answer": "dead salmon study",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Darwinian literary studies",
+    "Salmon conservation",
+    "Southern resident orcas",
+    "Ribot's law",
+    "Phyllis Bottome"
+   ]
+  },
+  "ps-296": {
+   "answer": "family-wise error rate",
+   "title": "Family-wise error rate",
+   "url": "https://en.wikipedia.org/wiki/Family-wise_error_rate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-297": {
+   "answer": "connectomics",
+   "title": "Connectomics",
+   "url": "https://en.wikipedia.org/wiki/Connectomics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-298": {
+   "answer": "animal model",
+   "title": "Animal disease model",
+   "url": "https://en.wikipedia.org/wiki/Animal_disease_model",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Animal model"
+  },
+  "ps-299": {
+   "answer": "neuropsychological assessment",
+   "title": "Neuropsychological assessment",
+   "url": "https://en.wikipedia.org/wiki/Neuropsychological_assessment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-300": {
+   "answer": "double dissociation",
+   "title": "Dissociation (neuropsychology)",
+   "url": "https://en.wikipedia.org/wiki/Dissociation_(neuropsychology)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Double dissociation"
+  },
+  "ps-241": {
+   "answer": "neuromodulation",
+   "title": "Neuromodulation",
+   "url": "https://en.wikipedia.org/wiki/Neuromodulation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-242": {
+   "answer": "agonist",
+   "title": "Agonist",
+   "url": "https://en.wikipedia.org/wiki/Agonist",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-243": {
+   "answer": "blood–brain barrier",
+   "title": "Blood–brain barrier",
+   "url": "https://en.wikipedia.org/wiki/Blood%E2%80%93brain_barrier",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-244": {
+   "answer": "neuroplasticity",
+   "title": "Neuroplasticity",
+   "url": "https://en.wikipedia.org/wiki/Neuroplasticity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-245": {
+   "answer": "neurogenesis",
+   "title": "Neurogenesis",
+   "url": "https://en.wikipedia.org/wiki/Neurogenesis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-246": {
+   "answer": "nervous system",
+   "title": "Nervous system",
+   "url": "https://en.wikipedia.org/wiki/Nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-247": {
+   "answer": "central nervous system",
+   "title": "Central nervous system",
+   "url": "https://en.wikipedia.org/wiki/Central_nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-248": {
+   "answer": "peripheral nervous system",
+   "title": "Peripheral nervous system",
+   "url": "https://en.wikipedia.org/wiki/Peripheral_nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-249": {
+   "answer": "autonomic nervous system",
+   "title": "Autonomic nervous system",
+   "url": "https://en.wikipedia.org/wiki/Autonomic_nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-250": {
+   "answer": "sympathetic nervous system",
+   "title": "Sympathetic nervous system",
+   "url": "https://en.wikipedia.org/wiki/Sympathetic_nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-251": {
+   "answer": "parasympathetic nervous system",
+   "title": "Parasympathetic nervous system",
+   "url": "https://en.wikipedia.org/wiki/Parasympathetic_nervous_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-252": {
+   "answer": "spinal cord",
+   "title": "Spinal cord",
+   "url": "https://en.wikipedia.org/wiki/Spinal_cord",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-253": {
+   "answer": "reflex arc",
+   "title": "Reflex arc",
+   "url": "https://en.wikipedia.org/wiki/Reflex_arc",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-254": {
+   "answer": "brainstem",
+   "title": "Brainstem",
+   "url": "https://en.wikipedia.org/wiki/Brainstem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-255": {
+   "answer": "medulla oblongata",
+   "title": "Medulla oblongata",
+   "url": "https://en.wikipedia.org/wiki/Medulla_oblongata",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-256": {
+   "answer": "pons",
+   "title": "Pons",
+   "url": "https://en.wikipedia.org/wiki/Pons",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ps-257": {
+   "answer": "reticular formation",
+   "title": "Reticular formation",
+   "url": "https://en.wikipedia.org/wiki/Reticular_formation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-258": {
+   "answer": "cerebellum",
+   "title": "Cerebellum",
+   "url": "https://en.wikipedia.org/wiki/Cerebellum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-259": {
+   "answer": "thalamus",
+   "title": "Thalamus",
+   "url": "https://en.wikipedia.org/wiki/Thalamus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-260": {
+   "answer": "hypothalamus",
+   "title": "Hypothalamus",
+   "url": "https://en.wikipedia.org/wiki/Hypothalamus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-341": {
+   "answer": "Catherine the Great",
+   "title": "Catherine the Great",
+   "url": "https://en.wikipedia.org/wiki/Catherine_the_Great",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-342": {
+   "answer": "coronation of Catherine II",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Catherine the Great",
+    "Coronation of the Russian monarch",
+    "Peter II of Russia",
+    "Imperial Crown of Russia",
+    "Coronation of Bokassa I and Catherine"
+   ]
+  },
+  "ru-343": {
+   "answer": "Nakaz",
+   "title": "Nakaz",
+   "url": "https://en.wikipedia.org/wiki/Nakaz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-344": {
+   "answer": "Legislative Commission",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2026 Russian legislative election",
+    "Russian legislative elections",
+    "1912 Russian legislative election",
+    "Nakaz",
+    "1990 Russian Supreme Soviet election"
+   ]
+  },
+  "ru-345": {
+   "answer": "Free Economic Society",
+   "title": "Free Economic Society",
+   "url": "https://en.wikipedia.org/wiki/Free_Economic_Society",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-346": {
+   "answer": "secularisation of church lands",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Peter III of Russia",
+    "Catherine the Great",
+    "Metropolis of Moscow and all Rus'",
+    "Secularization",
+    "Palmarian Catholic Church"
+   ]
+  },
+  "ru-347": {
+   "answer": "Denis Diderot",
+   "title": "Denis Diderot",
+   "url": "https://en.wikipedia.org/wiki/Denis_Diderot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-348": {
+   "answer": "Grigory Orlov",
+   "title": "Grigory Orlov",
+   "url": "https://en.wikipedia.org/wiki/Grigory_Orlov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-349": {
+   "answer": "Grigory Potemkin",
+   "title": "Grigory Potemkin",
+   "url": "https://en.wikipedia.org/wiki/Grigory_Potemkin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-350": {
+   "answer": "Russo-Turkish War of 1768–1774",
+   "title": "Russo-Turkish War (1768–1774)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1768%E2%80%931774)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Turkish War of 1768–1774"
+  },
+  "ru-301": {
+   "answer": "Spiritual Regulation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Central Spiritual Board of Buddhists of the USSR",
+    "Russian Empire",
+    "United Russia",
+    "Catherine the Great",
+    "French invasion of Russia"
+   ]
+  },
+  "ru-302": {
+   "answer": "soul tax",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "The Russian Tax Debate of 1870–1871",
+    "Dead Souls",
+    "Poll tax",
+    "Matryoshka doll",
+    "Russian Empire"
+   ]
+  },
+  "ru-303": {
+   "answer": "recruit levy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Levy",
+    "Iraq Levies",
+    "Clifford J. Levy",
+    "Russian Empire",
+    "Tsarist Russia"
+   ]
+  },
+  "ru-304": {
+   "answer": "Decree on Single Inheritance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Pomeshchik",
+    "Inheritance tax",
+    "Majorat",
+    "Tsarist Russia",
+    "Votchina"
+   ]
+  },
+  "ru-305": {
+   "answer": "possessional peasants",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Serfdom in Russia",
+    "Tambov Rebellion",
+    "Russian Empire",
+    "State peasant",
+    "Economy of Tsarist Russia"
+   ]
+  },
+  "ru-306": {
+   "answer": "Nikita Demidov",
+   "title": "Nikita Demidov",
+   "url": "https://en.wikipedia.org/wiki/Nikita_Demidov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-307": {
+   "answer": "Petrine assemblies",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Tsarist Russia",
+    "Russian Empire",
+    "Peter the Great",
+    "Primacy of Peter",
+    "Saint Petersburg"
+   ]
+  },
+  "ru-308": {
+   "answer": "civil script",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Civil script",
+   "target": "Reforms of Russian orthography#18th-century changes"
+  },
+  "ru-309": {
+   "answer": "Russian Academy of Sciences",
+   "title": "Russian Academy of Sciences",
+   "url": "https://en.wikipedia.org/wiki/Russian_Academy_of_Sciences",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-310": {
+   "answer": "Kunstkamera",
+   "title": "Kunstkamera",
+   "url": "https://en.wikipedia.org/wiki/Kunstkamera",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-311": {
+   "answer": "Tsarevich Alexei",
+   "title": "Alexei Petrovich, Tsarevich of Russia",
+   "url": "https://en.wikipedia.org/wiki/Alexei_Petrovich,_Tsarevich_of_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Tsarevich Alexei"
+  },
+  "ru-312": {
+   "answer": "law of succession of 1722",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Peter Petrovich, Tsarevich of Russia",
+    "1722",
+    "List of heirs to the Russian throne",
+    "Emperor of Russia",
+    "Peter the Great: His Law on the Imperial Succession"
+   ]
+  },
+  "ru-313": {
+   "answer": "Russo-Persian War of 1722–1723",
+   "title": "Russo-Persian War (1722–1723)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Persian_War_(1722%E2%80%931723)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Persian War of 1722–1723"
+  },
+  "ru-314": {
+   "answer": "household census of 1710",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Slavery in Russia",
+    "Abatsky District",
+    "Corrales, New Mexico",
+    "Pushkin, Saint Petersburg",
+    "Staraya Russa"
+   ]
+  },
+  "ru-315": {
+   "answer": "Bronze Horseman",
+   "title": "Bronze Horseman",
+   "url": "https://en.wikipedia.org/wiki/Bronze_Horseman",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-316": {
+   "answer": "era of palace revolutions",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "History of Russia (1721–1796)",
+    "Winter Palace",
+    "Russian Revolution",
+    "Great Gatchina Palace",
+    "Outline of the Russian Revolution"
+   ]
+  },
+  "ru-317": {
+   "answer": "Catherine I",
+   "title": "Catherine I of Russia",
+   "url": "https://en.wikipedia.org/wiki/Catherine_I_of_Russia",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Catherine I"
+  },
+  "ru-318": {
+   "answer": "Supreme Privy Council",
+   "title": "Supreme Privy Council",
+   "url": "https://en.wikipedia.org/wiki/Supreme_Privy_Council",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-319": {
+   "answer": "Peter II",
+   "title": "Peter II of Russia",
+   "url": "https://en.wikipedia.org/wiki/Peter_II_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Peter II"
+  },
+  "ru-320": {
+   "answer": "Anna of Russia",
+   "title": "Anna of Russia",
+   "url": "https://en.wikipedia.org/wiki/Anna_of_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-321": {
+   "answer": "konditsii",
+   "title": "Conditions (Russia)",
+   "url": "https://en.wikipedia.org/wiki/Conditions_(Russia)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-322": {
+   "answer": "Bironovshchina",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "History of Russia (1721–1796)",
+    "Ernst Johann von Biron"
+   ]
+  },
+  "ru-323": {
+   "answer": "War of the Polish Succession",
+   "title": "War of the Polish Succession",
+   "url": "https://en.wikipedia.org/wiki/War_of_the_Polish_Succession",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-324": {
+   "answer": "Russo-Turkish War of 1735–1739",
+   "title": "Russo-Turkish War (1735–1739)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1735%E2%80%931739)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Turkish War of 1735–1739"
+  },
+  "ru-325": {
+   "answer": "Ivan VI",
+   "title": "Ivan VI of Russia",
+   "url": "https://en.wikipedia.org/wiki/Ivan_VI_of_Russia",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Ivan VI"
+  },
+  "ru-326": {
+   "answer": "Elizabeth of Russia",
+   "title": "Elizabeth of Russia",
+   "url": "https://en.wikipedia.org/wiki/Elizabeth_of_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-327": {
+   "answer": "coup of 1741",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ivan VI of Russia",
+    "1741 in Russia",
+    "Catherine Antonovna of Brunswick",
+    "Russo-Swedish War (1741–1743)",
+    "1741"
+   ]
+  },
+  "ru-328": {
+   "answer": "moratorium on the death penalty",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Capital punishment in Russia",
+    "Resolutions concerning death penalty at the United Nations",
+    "Capital punishment by country",
+    "Capital punishment",
+    "Capital punishment in Europe"
+   ]
+  },
+  "ru-329": {
+   "answer": "Mikhail Lomonosov",
+   "title": "Mikhail Lomonosov",
+   "url": "https://en.wikipedia.org/wiki/Mikhail_Lomonosov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-330": {
+   "answer": "Moscow University",
+   "title": "Moscow State University",
+   "url": "https://en.wikipedia.org/wiki/Moscow_State_University",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Moscow University"
+  },
+  "ru-371": {
+   "answer": "Treaty of Georgievsk",
+   "title": "Treaty of Georgievsk",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Georgievsk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-372": {
+   "answer": "Russian America",
+   "title": "Russian colonization of North America",
+   "url": "https://en.wikipedia.org/wiki/Russian_colonization_of_North_America",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Russian America"
+  },
+  "ru-373": {
+   "answer": "Russian-American Company",
+   "title": "Russian-American Company",
+   "url": "https://en.wikipedia.org/wiki/Russian-American_Company",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-374": {
+   "answer": "Alexander Radishchev",
+   "title": "Alexander Radishchev",
+   "url": "https://en.wikipedia.org/wiki/Alexander_Radishchev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-375": {
+   "answer": "Nikolay Novikov",
+   "title": "Nikolay Novikov",
+   "url": "https://en.wikipedia.org/wiki/Nikolay_Novikov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-376": {
+   "answer": "Freemasonry in Russia",
+   "title": "History of Freemasonry in Russia",
+   "url": "https://en.wikipedia.org/wiki/History_of_Freemasonry_in_Russia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Freemasonry in Russia"
+  },
+  "ru-377": {
+   "answer": "Second Partition of Poland",
+   "title": "Second Partition of Poland",
+   "url": "https://en.wikipedia.org/wiki/Second_Partition_of_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-378": {
+   "answer": "Paul I",
+   "title": "Paul I of Russia",
+   "url": "https://en.wikipedia.org/wiki/Paul_I_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Paul I"
+  },
+  "ru-379": {
+   "answer": "Pauline Laws",
+   "title": "Pauline Laws",
+   "url": "https://en.wikipedia.org/wiki/Pauline_Laws",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-380": {
+   "answer": "Mikhailovsky Castle",
+   "title": "Saint Michael's Castle",
+   "url": "https://en.wikipedia.org/wiki/Saint_Michael's_Castle",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Mikhailovsky Castle"
+  },
+  "ru-381": {
+   "answer": "Alexander I",
+   "title": "Alexander I of Russia",
+   "url": "https://en.wikipedia.org/wiki/Alexander_I_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Alexander I"
+  },
+  "ru-382": {
+   "answer": "Unofficial Committee",
+   "title": "Private Committee",
+   "url": "https://en.wikipedia.org/wiki/Private_Committee",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-383": {
+   "answer": "Mikhail Speransky",
+   "title": "Mikhail Speransky",
+   "url": "https://en.wikipedia.org/wiki/Mikhail_Speransky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-384": {
+   "answer": "ministerial reform of 1802",
+   "title": "Ministerial reform in the Russian Empire",
+   "url": "https://en.wikipedia.org/wiki/Ministerial_reform_in_the_Russian_Empire",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-385": {
+   "answer": "War of the Third Coalition",
+   "title": "War of the Third Coalition",
+   "url": "https://en.wikipedia.org/wiki/War_of_the_Third_Coalition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-386": {
+   "answer": "Battle of Austerlitz",
+   "title": "Battle of Austerlitz",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Austerlitz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-387": {
+   "answer": "Battle of Eylau",
+   "title": "Battle of Eylau",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Eylau",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-388": {
+   "answer": "Battle of Friedland",
+   "title": "Battle of Friedland",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Friedland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-389": {
+   "answer": "Treaties of Tilsit",
+   "title": "Treaties of Tilsit",
+   "url": "https://en.wikipedia.org/wiki/Treaties_of_Tilsit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-390": {
+   "answer": "Continental System",
+   "title": "Continental System",
+   "url": "https://en.wikipedia.org/wiki/Continental_System",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-331": {
+   "answer": "Imperial Academy of Arts",
+   "title": "Imperial Academy of Arts",
+   "url": "https://en.wikipedia.org/wiki/Imperial_Academy_of_Arts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-332": {
+   "answer": "Bartolomeo Rastrelli",
+   "title": "Francesco Bartolomeo Rastrelli",
+   "url": "https://en.wikipedia.org/wiki/Francesco_Bartolomeo_Rastrelli",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Bartolomeo Rastrelli"
+  },
+  "ru-333": {
+   "answer": "Winter Palace",
+   "title": "Winter Palace",
+   "url": "https://en.wikipedia.org/wiki/Winter_Palace",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-334": {
+   "answer": "Russian Baroque",
+   "title": "Russian Baroque",
+   "url": "https://en.wikipedia.org/wiki/Russian_Baroque",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-335": {
+   "answer": "Seven Years' War",
+   "title": "Seven Years' War",
+   "url": "https://en.wikipedia.org/wiki/Seven_Years'_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-336": {
+   "answer": "Battle of Kunersdorf",
+   "title": "Battle of Kunersdorf",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kunersdorf",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-337": {
+   "answer": "raid on Berlin",
+   "title": "1760 raid on Berlin",
+   "url": "https://en.wikipedia.org/wiki/1760_raid_on_Berlin",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Raid on Berlin"
+  },
+  "ru-338": {
+   "answer": "Peter III",
+   "title": "Peter III of Russia",
+   "url": "https://en.wikipedia.org/wiki/Peter_III_of_Russia",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Peter III"
+  },
+  "ru-339": {
+   "answer": "Manifesto on the Freedom of the Nobility",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Emancipation reform of 1861",
+    "Tsarist Russia",
+    "Catherine the Great",
+    "Russian Revolution of 1905",
+    "Serfdom in Russia"
+   ]
+  },
+  "ru-340": {
+   "answer": "coup of 1762",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Peter III of Russia",
+    "Ivan VI of Russia",
+    "Elizabeth of Russia",
+    "Catherine the Great",
+    "Russia"
+   ]
+  },
+  "ru-351": {
+   "answer": "Battle of Chesma",
+   "title": "Battle of Chesma",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Chesma",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-352": {
+   "answer": "Treaty of Küçük Kaynarca",
+   "title": "Treaty of Küçük Kaynarca",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_K%C3%BC%C3%A7%C3%BCk_Kaynarca",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-353": {
+   "answer": "annexation of the Crimean Khanate",
+   "title": "1783 Russian annexation of Crimea",
+   "url": "https://en.wikipedia.org/wiki/1783_Russian_annexation_of_Crimea",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Annexation of the Crimean Khanate"
+  },
+  "ru-354": {
+   "answer": "New Russia",
+   "title": "Novorossiya",
+   "url": "https://en.wikipedia.org/wiki/Novorossiya",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "New Russia"
+  },
+  "ru-355": {
+   "answer": "Potemkin village",
+   "title": "Potemkin village",
+   "url": "https://en.wikipedia.org/wiki/Potemkin_village",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-356": {
+   "answer": "Sevastopol",
+   "title": "Sevastopol",
+   "url": "https://en.wikipedia.org/wiki/Sevastopol",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-357": {
+   "answer": "Russo-Turkish War of 1787–1792",
+   "title": "Russo-Turkish War (1787–1792)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1787%E2%80%931792)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Turkish War of 1787–1792"
+  },
+  "ru-358": {
+   "answer": "Alexander Suvorov",
+   "title": "Alexander Suvorov",
+   "url": "https://en.wikipedia.org/wiki/Alexander_Suvorov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-359": {
+   "answer": "Fyodor Ushakov",
+   "title": "Fyodor Ushakov",
+   "url": "https://en.wikipedia.org/wiki/Fyodor_Ushakov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-360": {
+   "answer": "Partitions of Poland",
+   "title": "Partitions of Poland",
+   "url": "https://en.wikipedia.org/wiki/Partitions_of_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-361": {
+   "answer": "First Partition of Poland",
+   "title": "First Partition of Poland",
+   "url": "https://en.wikipedia.org/wiki/First_Partition_of_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-362": {
+   "answer": "Kościuszko Uprising",
+   "title": "Kościuszko Uprising",
+   "url": "https://en.wikipedia.org/wiki/Ko%C5%9Bciuszko_Uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-363": {
+   "answer": "Third Partition of Poland",
+   "title": "Third Partition of Poland",
+   "url": "https://en.wikipedia.org/wiki/Third_Partition_of_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-364": {
+   "answer": "Pugachev's Rebellion",
+   "title": "Pugachev's Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Pugachev's_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-365": {
+   "answer": "Yemelyan Pugachev",
+   "title": "Yemelyan Pugachev",
+   "url": "https://en.wikipedia.org/wiki/Yemelyan_Pugachev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-366": {
+   "answer": "destruction of the Zaporozhian Sich",
+   "title": "Liquidation of the Zaporozhian Sich",
+   "url": "https://en.wikipedia.org/wiki/Liquidation_of_the_Zaporozhian_Sich",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-367": {
+   "answer": "provincial reform of 1775",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Governorate (Russia)",
+    "1775",
+    "Catherine the Great",
+    "Yemelyan Pugachev",
+    "Baltic Governorates"
+   ]
+  },
+  "ru-368": {
+   "answer": "Charter to the Nobility",
+   "title": "Charter to the Gentry",
+   "url": "https://en.wikipedia.org/wiki/Charter_to_the_Gentry",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Charter to the Nobility"
+  },
+  "ru-369": {
+   "answer": "Charter to the Towns",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russia",
+    "Magadan",
+    "Federal subjects of Russia",
+    "Russo-Ukrainian war",
+    "Anadyr (town)"
+   ]
+  },
+  "ru-370": {
+   "answer": "Pale of Settlement",
+   "title": "Pale of Settlement",
+   "url": "https://en.wikipedia.org/wiki/Pale_of_Settlement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-391": {
+   "answer": "Finnish War",
+   "title": "Finnish War",
+   "url": "https://en.wikipedia.org/wiki/Finnish_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-392": {
+   "answer": "Grand Duchy of Finland",
+   "title": "Grand Duchy of Finland",
+   "url": "https://en.wikipedia.org/wiki/Grand_Duchy_of_Finland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-393": {
+   "answer": "Russo-Turkish War of 1806–1812",
+   "title": "Russo-Turkish War (1806–1812)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Turkish_War_(1806%E2%80%931812)",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russo-Turkish War of 1806–1812"
+  },
+  "ru-394": {
+   "answer": "Bessarabia Governorate",
+   "title": "Bessarabia Governorate",
+   "url": "https://en.wikipedia.org/wiki/Bessarabia_Governorate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-395": {
+   "answer": "Russo-Persian War of 1804–1813",
+   "title": "Russo-Persian War (1804–1813)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Persian_War_(1804%E2%80%931813)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-396": {
+   "answer": "Treaty of Gulistan",
+   "title": "Treaty of Gulistan",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Gulistan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-397": {
+   "answer": "French invasion of Russia",
+   "title": "French invasion of Russia",
+   "url": "https://en.wikipedia.org/wiki/French_invasion_of_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-398": {
+   "answer": "Mikhail Kutuzov",
+   "title": "Mikhail Kutuzov",
+   "url": "https://en.wikipedia.org/wiki/Mikhail_Kutuzov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-399": {
+   "answer": "1812 Battle of Smolensk",
+   "title": "Battle of Smolensk (1812)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Smolensk_(1812)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ru-400": {
+   "answer": "Battle of Borodino",
+   "title": "Battle of Borodino",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Borodino",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-221": {
+   "answer": "Second Intermediate Period",
+   "title": "Second Intermediate Period of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Second_Intermediate_Period_of_Egypt",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Second Intermediate Period"
+  },
+  "eg-222": {
+   "answer": "Neferhotep I",
+   "title": "Neferhotep I",
+   "url": "https://en.wikipedia.org/wiki/Neferhotep_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-223": {
+   "answer": "Fourteenth Dynasty of Egypt",
+   "title": "Fourteenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Fourteenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-224": {
+   "answer": "Avaris",
+   "title": "Avaris",
+   "url": "https://en.wikipedia.org/wiki/Avaris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-225": {
+   "answer": "Tell el-Maskhuta",
+   "title": "Pithom",
+   "url": "https://en.wikipedia.org/wiki/Pithom",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Tell el-Maskhuta"
+  },
+  "eg-226": {
+   "answer": "Khyan",
+   "title": "Khyan",
+   "url": "https://en.wikipedia.org/wiki/Khyan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-227": {
+   "answer": "Against Apion",
+   "title": "Against Apion",
+   "url": "https://en.wikipedia.org/wiki/Against_Apion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-228": {
+   "answer": "Fifteenth Dynasty of Egypt",
+   "title": "Fifteenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Fifteenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-229": {
+   "answer": "Apepi",
+   "title": "Apepi",
+   "url": "https://en.wikipedia.org/wiki/Apepi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-230": {
+   "answer": "Salitis",
+   "title": "Salitis",
+   "url": "https://en.wikipedia.org/wiki/Salitis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-201": {
+   "answer": "Loyalist Teaching",
+   "title": "Loyalist Teaching",
+   "url": "https://en.wikipedia.org/wiki/Loyalist_Teaching",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-202": {
+   "answer": "Tale of the Shipwrecked Sailor",
+   "title": "Tale of the Shipwrecked Sailor",
+   "url": "https://en.wikipedia.org/wiki/Tale_of_the_Shipwrecked_Sailor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-203": {
+   "answer": "Middle Egyptian",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Middle Egyptian",
+   "target": "Egyptian language#Middle Egyptian"
+  },
+  "eg-204": {
+   "answer": "Beni Hasan",
+   "title": "Beni Hasan",
+   "url": "https://en.wikipedia.org/wiki/Beni_Hasan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-205": {
+   "answer": "Meir",
+   "title": "Meir, Egypt",
+   "url": "https://en.wikipedia.org/wiki/Meir,_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-206": {
+   "answer": "Ushabti",
+   "title": "Ushabti",
+   "url": "https://en.wikipedia.org/wiki/Ushabti",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-207": {
+   "answer": "Sithathoriunet",
+   "title": "Sithathoriunet",
+   "url": "https://en.wikipedia.org/wiki/Sithathoriunet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-208": {
+   "answer": "Sebek-khu Stele",
+   "title": "Sebek-khu Stele",
+   "url": "https://en.wikipedia.org/wiki/Sebek-khu_Stele",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-209": {
+   "answer": "Execration texts",
+   "title": "Execration texts",
+   "url": "https://en.wikipedia.org/wiki/Execration_texts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-210": {
+   "answer": "Royal necropolis of Byblos",
+   "title": "Royal necropolis of Byblos",
+   "url": "https://en.wikipedia.org/wiki/Royal_necropolis_of_Byblos",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-231": {
+   "answer": "Tell el-Yahudiyeh Ware",
+   "title": "Tell el-Yahudiyeh Ware",
+   "url": "https://en.wikipedia.org/wiki/Tell_el-Yahudiyeh_Ware",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-232": {
+   "answer": "Egyptian chariot",
+   "title": "Chariotry in ancient Egypt",
+   "url": "https://en.wikipedia.org/wiki/Chariotry_in_ancient_Egypt",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Egyptian chariot"
+  },
+  "eg-233": {
+   "answer": "recurve bow",
+   "title": "Recurve bow",
+   "url": "https://en.wikipedia.org/wiki/Recurve_bow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-234": {
+   "answer": "khopesh",
+   "title": "Khopesh",
+   "url": "https://en.wikipedia.org/wiki/Khopesh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-235": {
+   "answer": "Sixteenth Dynasty of Egypt",
+   "title": "Sixteenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Sixteenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-236": {
+   "answer": "Seventeenth Dynasty of Egypt",
+   "title": "Seventeenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Seventeenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-237": {
+   "answer": "Quarrel of Apophis and Seqenenre",
+   "title": "The Quarrel of Apophis and Seqenenre",
+   "url": "https://en.wikipedia.org/wiki/The_Quarrel_of_Apophis_and_Seqenenre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-238": {
+   "answer": "Seqenenre Tao",
+   "title": "Seqenenre Tao",
+   "url": "https://en.wikipedia.org/wiki/Seqenenre_Tao",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-239": {
+   "answer": "Dra' Abu el-Naga",
+   "title": "Dra' Abu el-Naga",
+   "url": "https://en.wikipedia.org/wiki/Dra'_Abu_el-Naga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-240": {
+   "answer": "Kamose",
+   "title": "Kamose",
+   "url": "https://en.wikipedia.org/wiki/Kamose",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-241": {
+   "answer": "Carnarvon Tablet",
+   "title": "Carnarvon Tablet",
+   "url": "https://en.wikipedia.org/wiki/Carnarvon_Tablet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-242": {
+   "answer": "Kerma culture",
+   "title": "Kerma culture",
+   "url": "https://en.wikipedia.org/wiki/Kerma_culture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-243": {
+   "answer": "Tombos",
+   "title": "Tombos (Nubia)",
+   "url": "https://en.wikipedia.org/wiki/Tombos_(Nubia)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-244": {
+   "answer": "Western Deffufa",
+   "title": "Western Deffufa",
+   "url": "https://en.wikipedia.org/wiki/Western_Deffufa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-245": {
+   "answer": "Cusae",
+   "title": "Cusae",
+   "url": "https://en.wikipedia.org/wiki/Cusae",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-246": {
+   "answer": "Ahmose I",
+   "title": "Ahmose I",
+   "url": "https://en.wikipedia.org/wiki/Ahmose_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-247": {
+   "answer": "Tjaru",
+   "title": "Tjaru",
+   "url": "https://en.wikipedia.org/wiki/Tjaru",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-248": {
+   "answer": "Ahmose, son of Ebana",
+   "title": "Ahmose, son of Ebana",
+   "url": "https://en.wikipedia.org/wiki/Ahmose,_son_of_Ebana",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eg-249": {
+   "answer": "Sharuhen",
+   "title": "Sharuhen",
+   "url": "https://en.wikipedia.org/wiki/Sharuhen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-250": {
+   "answer": "Pyramid of Ahmose",
+   "title": "Pyramid of Ahmose",
+   "url": "https://en.wikipedia.org/wiki/Pyramid_of_Ahmose",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-251": {
+   "answer": "Ahhotep I",
+   "title": "Ahhotep I",
+   "url": "https://en.wikipedia.org/wiki/Ahhotep_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-252": {
+   "answer": "Eighteenth Dynasty of Egypt",
+   "title": "Eighteenth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Eighteenth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-253": {
+   "answer": "Ahmose-Nefertari",
+   "title": "Ahmose-Nefertari",
+   "url": "https://en.wikipedia.org/wiki/Ahmose-Nefertari",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-254": {
+   "answer": "Amenhotep I",
+   "title": "Amenhotep I",
+   "url": "https://en.wikipedia.org/wiki/Amenhotep_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-255": {
+   "answer": "Thutmose I",
+   "title": "Thutmose I",
+   "url": "https://en.wikipedia.org/wiki/Thutmose_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-256": {
+   "answer": "Autobiography of Ahmose Pen-Nekhebet",
+   "title": "Autobiography of Ahmose Pen-Nekhebet",
+   "url": "https://en.wikipedia.org/wiki/Autobiography_of_Ahmose_Pen-Nekhebet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-257": {
+   "answer": "Thutmose II",
+   "title": "Thutmose II",
+   "url": "https://en.wikipedia.org/wiki/Thutmose_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-258": {
+   "answer": "Speos Artemidos",
+   "title": "Speos Artemidos",
+   "url": "https://en.wikipedia.org/wiki/Speos_Artemidos",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-259": {
+   "answer": "Chapelle Rouge",
+   "title": "Chapelle Rouge",
+   "url": "https://en.wikipedia.org/wiki/Chapelle_Rouge",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-260": {
+   "answer": "Mortuary temple of Hatshepsut",
+   "title": "Mortuary temple of Hatshepsut",
+   "url": "https://en.wikipedia.org/wiki/Mortuary_temple_of_Hatshepsut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-261": {
+   "answer": "myrrh",
+   "title": "Myrrh",
+   "url": "https://en.wikipedia.org/wiki/Myrrh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-262": {
+   "answer": "Senenmut",
+   "title": "Senenmut",
+   "url": "https://en.wikipedia.org/wiki/Senenmut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-263": {
+   "answer": "obelisk ship",
+   "title": "Obelisk ship",
+   "url": "https://en.wikipedia.org/wiki/Obelisk_ship",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-264": {
+   "answer": "Seated Statue of Hatshepsut",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mortuary temple of Hatshepsut",
+    "Merytre-Hatshepsut",
+    "Thebes, Egypt",
+    "Grand Egyptian Museum",
+    "Deir el-Bahari"
+   ]
+  },
+  "eg-265": {
+   "answer": "Festival Hall of Thutmose III",
+   "title": "Festival Hall of Thutmose III",
+   "url": "https://en.wikipedia.org/wiki/Festival_Hall_of_Thutmose_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-266": {
+   "answer": "Battle of Megiddo",
+   "title": "Battle of Megiddo (15th century BC)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Megiddo_(15th_century_BC)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-267": {
+   "answer": "Annals of Thutmose III",
+   "title": "Annals of Thutmose III",
+   "url": "https://en.wikipedia.org/wiki/Annals_of_Thutmose_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-268": {
+   "answer": "Retjenu",
+   "title": "Retjenu",
+   "url": "https://en.wikipedia.org/wiki/Retjenu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-269": {
+   "answer": "Djehuty",
+   "title": "Djehuty (general)",
+   "url": "https://en.wikipedia.org/wiki/Djehuty_(general)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-270": {
+   "answer": "Kurgus",
+   "title": "Kanisah Kurgus",
+   "url": "https://en.wikipedia.org/wiki/Kanisah_Kurgus",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Kurgus"
+  },
+  "eg-271": {
+   "answer": "Viceroy of Kush",
+   "title": "Viceroy of Kush",
+   "url": "https://en.wikipedia.org/wiki/Viceroy_of_Kush",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-272": {
+   "answer": "Amenhotep II",
+   "title": "Amenhotep II",
+   "url": "https://en.wikipedia.org/wiki/Amenhotep_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-273": {
+   "answer": "Thutmose IV",
+   "title": "Thutmose IV",
+   "url": "https://en.wikipedia.org/wiki/Thutmose_IV",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-274": {
+   "answer": "Dream Stele",
+   "title": "Dream Stele",
+   "url": "https://en.wikipedia.org/wiki/Dream_Stele",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-275": {
+   "answer": "Amenhotep III",
+   "title": "Amenhotep III",
+   "url": "https://en.wikipedia.org/wiki/Amenhotep_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-276": {
+   "answer": "Malkata",
+   "title": "Malkata",
+   "url": "https://en.wikipedia.org/wiki/Malkata",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-277": {
+   "answer": "Colossi of Memnon",
+   "title": "Colossi of Memnon",
+   "url": "https://en.wikipedia.org/wiki/Colossi_of_Memnon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-278": {
+   "answer": "Tiye",
+   "title": "Tiye",
+   "url": "https://en.wikipedia.org/wiki/Tiye",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-279": {
+   "answer": "Amenhotep, son of Hapu",
+   "title": "Amenhotep, son of Hapu",
+   "url": "https://en.wikipedia.org/wiki/Amenhotep,_son_of_Hapu",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eg-280": {
+   "answer": "Kadashman-Enlil I",
+   "title": "Kadashman-Enlil I",
+   "url": "https://en.wikipedia.org/wiki/Kadashman-Enlil_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-281": {
+   "answer": "Rib-Hadda",
+   "title": "Rib-Hadda",
+   "url": "https://en.wikipedia.org/wiki/Rib-Hadda",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-282": {
+   "answer": "Tushratta",
+   "title": "Tushratta",
+   "url": "https://en.wikipedia.org/wiki/Tushratta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-283": {
+   "answer": "Suppiluliuma I",
+   "title": "Šuppiluliuma I",
+   "url": "https://en.wikipedia.org/wiki/%C5%A0uppiluliuma_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-284": {
+   "answer": "Menkheperraseneb I",
+   "title": "Menkheperraseneb I",
+   "url": "https://en.wikipedia.org/wiki/Menkheperraseneb_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-285": {
+   "answer": "Burna-Buriash II",
+   "title": "Burna-Buriash II",
+   "url": "https://en.wikipedia.org/wiki/Burna-Buriash_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-286": {
+   "answer": "Yuya",
+   "title": "Yuya",
+   "url": "https://en.wikipedia.org/wiki/Yuya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-287": {
+   "answer": "Amenemhab",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "TT44",
+    "TT25",
+    "TT85",
+    "Seti (Viceroy of Kush)",
+    "List of ancient Egyptians"
+   ]
+  },
+  "eg-288": {
+   "answer": "Temple of Amada",
+   "title": "Temple of Amada",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Amada",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-289": {
+   "answer": "Puimre",
+   "title": "Puimre",
+   "url": "https://en.wikipedia.org/wiki/Puimre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-290": {
+   "answer": "Hapuseneb",
+   "title": "Hapuseneb",
+   "url": "https://en.wikipedia.org/wiki/Hapuseneb",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-291": {
+   "answer": "God's Wife of Amun",
+   "title": "God's Wife of Amun",
+   "url": "https://en.wikipedia.org/wiki/God's_Wife_of_Amun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-292": {
+   "answer": "Menhet, Menwi and Merti",
+   "title": "Menhet, Menwi and Merti",
+   "url": "https://en.wikipedia.org/wiki/Menhet,_Menwi_and_Merti",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eg-293": {
+   "answer": "Nine Bows",
+   "title": "Nine bows",
+   "url": "https://en.wikipedia.org/wiki/Nine_bows",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-294": {
+   "answer": "Tomb of Kheruef",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of Theban tombs",
+    "TT192",
+    "Akhenaten",
+    "Amenhotep III",
+    "TT407"
+   ]
+  },
+  "eg-295": {
+   "answer": "commemorative scarabs of Amenhotep III",
+   "title": "Commemorative scarabs of Amenhotep III",
+   "url": "https://en.wikipedia.org/wiki/Commemorative_scarabs_of_Amenhotep_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-296": {
+   "answer": "KV55",
+   "title": "KV55",
+   "url": "https://en.wikipedia.org/wiki/KV55",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-297": {
+   "answer": "Tomb of Ramose",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ramose",
+    "Southern Tomb 11",
+    "Ramesses II",
+    "Ramose and Hatnofer",
+    "Ramose (TT55)"
+   ]
+  },
+  "eg-298": {
+   "answer": "Aten",
+   "title": "Aten",
+   "url": "https://en.wikipedia.org/wiki/Aten",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-299": {
+   "answer": "Atenism",
+   "title": "Atenism",
+   "url": "https://en.wikipedia.org/wiki/Atenism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-300": {
+   "answer": "Great Hymn to the Aten",
+   "title": "Great Hymn to the Aten",
+   "url": "https://en.wikipedia.org/wiki/Great_Hymn_to_the_Aten",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-211": {
+   "answer": "Henenu",
+   "title": "Henenu (high steward)",
+   "url": "https://en.wikipedia.org/wiki/Henenu_(high_steward)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-212": {
+   "answer": "Serabit el-Khadim",
+   "title": "Serabit el-Khadim",
+   "url": "https://en.wikipedia.org/wiki/Serabit_el-Khadim",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-213": {
+   "answer": "Wah-Sut",
+   "title": "Wah-Sut",
+   "url": "https://en.wikipedia.org/wiki/Wah-Sut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-214": {
+   "answer": "Heliopolis",
+   "title": "Heliopolis (ancient Egypt)",
+   "url": "https://en.wikipedia.org/wiki/Heliopolis_(ancient_Egypt)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-215": {
+   "answer": "Ikhernofret",
+   "title": "Ikhernofret",
+   "url": "https://en.wikipedia.org/wiki/Ikhernofret",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-216": {
+   "answer": "Mysteries of Osiris",
+   "title": "Mysteries of Osiris",
+   "url": "https://en.wikipedia.org/wiki/Mysteries_of_Osiris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-217": {
+   "answer": "Dramatic Ramesseum Papyrus",
+   "title": "Dramatic Ramesseum Papyrus",
+   "url": "https://en.wikipedia.org/wiki/Dramatic_Ramesseum_Papyrus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-218": {
+   "answer": "Block statue",
+   "title": "Block statue",
+   "url": "https://en.wikipedia.org/wiki/Block_statue",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-219": {
+   "answer": "Papyrus Brooklyn 35.1446",
+   "title": "Papyrus Brooklyn 35.1446",
+   "url": "https://en.wikipedia.org/wiki/Papyrus_Brooklyn_35.1446",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-220": {
+   "answer": "Amenemhat IV",
+   "title": "Amenemhat IV",
+   "url": "https://en.wikipedia.org/wiki/Amenemhat_IV",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-101": {
+   "answer": "Sundo",
+   "title": null,
+   "url": null,
+   "via": "answer",
+   "status": "no-article",
+   "manual": true
+  },
+  "ko-102": {
+   "answer": "Five Classics",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Five Classics",
+   "target": "Four Books and Five Classics#Five Classics"
+  },
+  "ko-103": {
+   "answer": "Imsin Seogiseok",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "ko-104": {
+   "answer": "corvée",
+   "title": "Corvée",
+   "url": "https://en.wikipedia.org/wiki/Corv%C3%A9e",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-105": {
+   "answer": "Sobaek Mountains",
+   "title": "Sobaek Mountains",
+   "url": "https://en.wikipedia.org/wiki/Sobaek_Mountains",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-106": {
+   "answer": "Goguryeo",
+   "title": "Goguryeo",
+   "url": "https://en.wikipedia.org/wiki/Goguryeo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-107": {
+   "answer": "Jolbon",
+   "title": "Cholbon",
+   "url": "https://en.wikipedia.org/wiki/Cholbon",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Jolbon"
+  },
+  "ko-108": {
+   "answer": "Jumong",
+   "title": "Dongmyeong of Goguryeo",
+   "url": "https://en.wikipedia.org/wiki/Dongmyeong_of_Goguryeo",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Jumong"
+  },
+  "ko-109": {
+   "answer": "Taejo of Goguryeo",
+   "title": "Taejo of Goguryeo",
+   "url": "https://en.wikipedia.org/wiki/Taejo_of_Goguryeo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-110": {
+   "answer": "Goguryeo–Wei War",
+   "title": "Goguryeo–Wei War",
+   "url": "https://en.wikipedia.org/wiki/Goguryeo%E2%80%93Wei_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-111": {
+   "answer": "Gwanggaeto the Great",
+   "title": "Gwanggaeto the Great",
+   "url": "https://en.wikipedia.org/wiki/Gwanggaeto_the_Great",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-112": {
+   "answer": "Gwanggaeto Stele",
+   "title": "Gwanggaeto Stele",
+   "url": "https://en.wikipedia.org/wiki/Gwanggaeto_Stele",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-113": {
+   "answer": "Jangsu",
+   "title": "Jangsu of Goguryeo",
+   "url": "https://en.wikipedia.org/wiki/Jangsu_of_Goguryeo",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-114": {
+   "answer": "Anhak Palace",
+   "title": "Anhakkung",
+   "url": "https://en.wikipedia.org/wiki/Anhakkung",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Anhak Palace"
+  },
+  "ko-115": {
+   "answer": "Chungju Goguryeo Stele",
+   "title": "Goguryeo Monument, Chungju",
+   "url": "https://en.wikipedia.org/wiki/Goguryeo_Monument,_Chungju",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-116": {
+   "answer": "Mohe",
+   "title": "Mohe people",
+   "url": "https://en.wikipedia.org/wiki/Mohe_people",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Mohe"
+  },
+  "ko-117": {
+   "answer": "daedaero",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "ko-118": {
+   "answer": "gyeongdang",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Gyongdang",
+    "Chang Hŭnghyo"
+   ]
+  },
+  "ko-119": {
+   "answer": "cataphract",
+   "title": "Cataphract",
+   "url": "https://en.wikipedia.org/wiki/Cataphract",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-120": {
+   "answer": "Hwando",
+   "title": "Hwando",
+   "url": "https://en.wikipedia.org/wiki/Hwando",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-121": {
+   "answer": "Goguryeo tomb murals",
+   "title": "Goguryeo tombs",
+   "url": "https://en.wikipedia.org/wiki/Goguryeo_tombs",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Goguryeo tomb murals"
+  },
+  "ko-122": {
+   "answer": "Anak Tomb No. 3",
+   "title": "Anak Tomb No. 3",
+   "url": "https://en.wikipedia.org/wiki/Anak_Tomb_No._3",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-123": {
+   "answer": "Sosurim",
+   "title": "Sosurim of Goguryeo",
+   "url": "https://en.wikipedia.org/wiki/Sosurim_of_Goguryeo",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-124": {
+   "answer": "Yeongyang",
+   "title": "Yeongyang of Goguryeo",
+   "url": "https://en.wikipedia.org/wiki/Yeongyang_of_Goguryeo",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-125": {
+   "answer": "Battle of Salsu",
+   "title": "Battle of Salsu",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Salsu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-126": {
+   "answer": "Eulji Mundeok",
+   "title": "Ŭlchi Mundŏk",
+   "url": "https://en.wikipedia.org/wiki/%C5%AClchi_Mund%C5%8Fk",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Eulji Mundeok"
+  },
+  "ko-127": {
+   "answer": "Goguryeo–Tang War",
+   "title": "Goguryeo–Tang War",
+   "url": "https://en.wikipedia.org/wiki/Goguryeo%E2%80%93Tang_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-128": {
+   "answer": "Yeon Gaesomun",
+   "title": "Yŏn Kaesomun",
+   "url": "https://en.wikipedia.org/wiki/Y%C5%8Fn_Kaesomun",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Yeon Gaesomun"
+  },
+  "ko-129": {
+   "answer": "Siege of Ansi",
+   "title": "Battle of Ansi",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Ansi",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Siege of Ansi"
+  },
+  "ko-130": {
+   "answer": "Siege of Pyongyang",
+   "title": "Siege of Pyongyang (668)",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Pyongyang_(668)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-131": {
+   "answer": "Anseung",
+   "title": "Ansŭng",
+   "url": "https://en.wikipedia.org/wiki/Ans%C5%ADng",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Anseung"
+  },
+  "ko-132": {
+   "answer": "Tomb of King Tongmyong",
+   "title": "Tomb of King Tongmyong",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_King_Tongmyong",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-133": {
+   "answer": "Northeast Project",
+   "title": "Northeast Project",
+   "url": "https://en.wikipedia.org/wiki/Northeast_Project",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-134": {
+   "answer": "Achasan",
+   "title": "Achasan",
+   "url": "https://en.wikipedia.org/wiki/Achasan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-135": {
+   "answer": "Northern and Southern States period",
+   "title": "Northern and Southern States period",
+   "url": "https://en.wikipedia.org/wiki/Northern_and_Southern_States_period",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-136": {
+   "answer": "Baekje",
+   "title": "Paekche",
+   "url": "https://en.wikipedia.org/wiki/Paekche",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Baekje"
+  },
+  "ko-137": {
+   "answer": "Wiryeseong",
+   "title": "Wiryeseong",
+   "url": "https://en.wikipedia.org/wiki/Wiryeseong",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-138": {
+   "answer": "Onjo",
+   "title": "Onjo of Paekche",
+   "url": "https://en.wikipedia.org/wiki/Onjo_of_Paekche",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Onjo"
+  },
+  "ko-139": {
+   "answer": "Pungnaptoseong",
+   "title": "P'ungnapt'osŏng",
+   "url": "https://en.wikipedia.org/wiki/P'ungnapt'os%C5%8Fng",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Pungnaptoseong"
+  },
+  "ko-140": {
+   "answer": "Liaoxi",
+   "title": "Liaoxi Commandery",
+   "url": "https://en.wikipedia.org/wiki/Liaoxi_Commandery",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-141": {
+   "answer": "Geunchogo",
+   "title": "Geunchogo of Baekje",
+   "url": "https://en.wikipedia.org/wiki/Geunchogo_of_Baekje",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-142": {
+   "answer": "Liang Zhigongtu",
+   "title": "Portraits of Periodical Offering",
+   "url": "https://en.wikipedia.org/wiki/Portraits_of_Periodical_Offering",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Liang Zhigongtu"
+  },
+  "ko-143": {
+   "answer": "Gaero",
+   "title": "Gaero of Baekje",
+   "url": "https://en.wikipedia.org/wiki/Gaero_of_Baekje",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-144": {
+   "answer": "Ungjin",
+   "title": "Ungjin",
+   "url": "https://en.wikipedia.org/wiki/Ungjin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-145": {
+   "answer": "Sabi",
+   "title": "Sabi (Korea)",
+   "url": "https://en.wikipedia.org/wiki/Sabi_(Korea)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-146": {
+   "answer": "Muryeong",
+   "title": "Muryeong of Baekje",
+   "url": "https://en.wikipedia.org/wiki/Muryeong_of_Baekje",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-147": {
+   "answer": "Tomb of King Muryeong",
+   "title": "Tomb of King Muryeong",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_King_Muryeong",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-148": {
+   "answer": "jwapyeong",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "The King of Legend",
+    "Paekche",
+    "Mireuksa",
+    "Mireuksaji Stone Pagoda",
+    "Goi of Baekje"
+   ]
+  },
+  "ko-149": {
+   "answer": "Great Eight Families",
+   "title": "Great Eight Families",
+   "url": "https://en.wikipedia.org/wiki/Great_Eight_Families",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-150": {
+   "answer": "Marananta",
+   "title": "Marananta",
+   "url": "https://en.wikipedia.org/wiki/Marananta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-151": {
+   "answer": "Seosan Buddha Triad",
+   "title": "Rock-carved triad buddha in Seosan",
+   "url": "https://en.wikipedia.org/wiki/Rock-carved_triad_buddha_in_Seosan",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-152": {
+   "answer": "Gilt-bronze Incense Burner of Baekje",
+   "title": "Gilt-bronze Incense Burner of Baekje",
+   "url": "https://en.wikipedia.org/wiki/Gilt-bronze_Incense_Burner_of_Baekje",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-153": {
+   "answer": "Mireuksa",
+   "title": "Mireuksa",
+   "url": "https://en.wikipedia.org/wiki/Mireuksa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-154": {
+   "answer": "Seven-Branched Sword",
+   "title": "Seven-Branched Sword",
+   "url": "https://en.wikipedia.org/wiki/Seven-Branched_Sword",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-155": {
+   "answer": "Seong of Baekje",
+   "title": "Seong of Baekje",
+   "url": "https://en.wikipedia.org/wiki/Seong_of_Baekje",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-156": {
+   "answer": "Wani",
+   "title": "Wani (scholar)",
+   "url": "https://en.wikipedia.org/wiki/Wani_(scholar)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-157": {
+   "answer": "Naje alliance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Rosa Luxemburg"
+   ]
+  },
+  "ko-158": {
+   "answer": "Uija of Baekje",
+   "title": "Uija of Baekje",
+   "url": "https://en.wikipedia.org/wiki/Uija_of_Baekje",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-159": {
+   "answer": "Boksin",
+   "title": "Gwisil Boksin",
+   "url": "https://en.wikipedia.org/wiki/Gwisil_Boksin",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Boksin"
+  },
+  "ko-160": {
+   "answer": "Battle of Baekgang",
+   "title": "Battle of Baekgang",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Baekgang",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ko-161": {
+   "answer": "Silla",
+   "title": "Silla",
+   "url": "https://en.wikipedia.org/wiki/Silla",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-162": {
+   "answer": "Jinhan",
+   "title": "Jinhan confederacy",
+   "url": "https://en.wikipedia.org/wiki/Jinhan_confederacy",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Jinhan"
+  },
+  "ko-163": {
+   "answer": "Bak Hyeokgeose",
+   "title": "Hyeokgeose of Silla",
+   "url": "https://en.wikipedia.org/wiki/Hyeokgeose_of_Silla",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Bak Hyeokgeose"
+  },
+  "ko-164": {
+   "answer": "maripgan",
+   "title": "Silla",
+   "url": "https://en.wikipedia.org/wiki/Silla",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Maripgan"
+  },
+  "ko-165": {
+   "answer": "Kim Al-ji",
+   "title": "Kim Al-chi",
+   "url": "https://en.wikipedia.org/wiki/Kim_Al-chi",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kim Al-ji"
+  },
+  "ko-166": {
+   "answer": "bone-rank system",
+   "title": "Bone-rank system",
+   "url": "https://en.wikipedia.org/wiki/Bone-rank_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-167": {
+   "answer": "Beopheung",
+   "title": "Beopheung of Silla",
+   "url": "https://en.wikipedia.org/wiki/Beopheung_of_Silla",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-168": {
+   "answer": "Heungnyunsa",
+   "title": "Heungnyunsa",
+   "url": "https://en.wikipedia.org/wiki/Heungnyunsa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-169": {
+   "answer": "Ichadon",
+   "title": "Ichadon",
+   "url": "https://en.wikipedia.org/wiki/Ichadon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-170": {
+   "answer": "Jinheung",
+   "title": "Jinheung of Silla",
+   "url": "https://en.wikipedia.org/wiki/Jinheung_of_Silla",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-171": {
+   "answer": "Kim Muryeok",
+   "title": "Kim Muryŏk",
+   "url": "https://en.wikipedia.org/wiki/Kim_Mury%C5%8Fk",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Kim Muryeok"
+  },
+  "ko-172": {
+   "answer": "Bukhansan Monument",
+   "title": "Bukhansan Monument",
+   "url": "https://en.wikipedia.org/wiki/Bukhansan_Monument",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-173": {
+   "answer": "hwarang",
+   "title": "Hwarang",
+   "url": "https://en.wikipedia.org/wiki/Hwarang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-174": {
+   "answer": "Hwabaek",
+   "title": "Hwabaek",
+   "url": "https://en.wikipedia.org/wiki/Hwabaek",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-175": {
+   "answer": "nobi",
+   "title": "Nobi",
+   "url": "https://en.wikipedia.org/wiki/Nobi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-176": {
+   "answer": "Queen Seondeok",
+   "title": "Queen Seondeok of Silla",
+   "url": "https://en.wikipedia.org/wiki/Queen_Seondeok_of_Silla",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Queen Seondeok"
+  },
+  "ko-177": {
+   "answer": "Cheomseongdae",
+   "title": "Cheomseongdae",
+   "url": "https://en.wikipedia.org/wiki/Cheomseongdae",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-178": {
+   "answer": "Silla gold crowns",
+   "title": "Crowns of Silla",
+   "url": "https://en.wikipedia.org/wiki/Crowns_of_Silla",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-179": {
+   "answer": "Daereungwon",
+   "title": "Daereungwon",
+   "url": "https://en.wikipedia.org/wiki/Daereungwon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-180": {
+   "answer": "Wongwang",
+   "title": "Wŏn'gwang",
+   "url": "https://en.wikipedia.org/wiki/W%C5%8Fn'gwang",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-181": {
+   "answer": "Hwangnyongsa",
+   "title": "Hwangnyongsa",
+   "url": "https://en.wikipedia.org/wiki/Hwangnyongsa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-182": {
+   "answer": "Queen Jindeok",
+   "title": "Queen Jindeok of Silla",
+   "url": "https://en.wikipedia.org/wiki/Queen_Jindeok_of_Silla",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-183": {
+   "answer": "Kim Chunchu",
+   "title": "Muyeol of Silla",
+   "url": "https://en.wikipedia.org/wiki/Muyeol_of_Silla",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kim Chunchu"
+  },
+  "ko-184": {
+   "answer": "Kim Yusin",
+   "title": "Kim Yu-sin",
+   "url": "https://en.wikipedia.org/wiki/Kim_Yu-sin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-185": {
+   "answer": "Battle of Hwangsanbeol",
+   "title": "Battle of Hwangsanbeol",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Hwangsanbeol",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-186": {
+   "answer": "Gaya",
+   "title": "Gaya confederacy",
+   "url": "https://en.wikipedia.org/wiki/Gaya_confederacy",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-187": {
+   "answer": "Ara Gaya",
+   "title": "Ara Gaya",
+   "url": "https://en.wikipedia.org/wiki/Ara_Gaya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-188": {
+   "answer": "Geumgwan Gaya",
+   "title": "Geumgwan Gaya",
+   "url": "https://en.wikipedia.org/wiki/Geumgwan_Gaya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-189": {
+   "answer": "Daegaya",
+   "title": "Daegaya",
+   "url": "https://en.wikipedia.org/wiki/Daegaya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-190": {
+   "answer": "Byeonhan",
+   "title": "Byeonhan confederacy",
+   "url": "https://en.wikipedia.org/wiki/Byeonhan_confederacy",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Byeonhan"
+  },
+  "ko-191": {
+   "answer": "Nakdong River",
+   "title": "Nakdong River",
+   "url": "https://en.wikipedia.org/wiki/Nakdong_River",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-192": {
+   "answer": "stoneware",
+   "title": "Stoneware",
+   "url": "https://en.wikipedia.org/wiki/Stoneware",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-193": {
+   "answer": "Gaya Tumuli",
+   "title": "Gaya Tumuli",
+   "url": "https://en.wikipedia.org/wiki/Gaya_Tumuli",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-194": {
+   "answer": "Sue ware",
+   "title": "Sue pottery",
+   "url": "https://en.wikipedia.org/wiki/Sue_pottery",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Sue ware"
+  },
+  "ko-195": {
+   "answer": "Mimana",
+   "title": "Mimana",
+   "url": "https://en.wikipedia.org/wiki/Mimana",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-196": {
+   "answer": "Guhyeong",
+   "title": "Guhyeong of Geumgwan Gaya",
+   "url": "https://en.wikipedia.org/wiki/Guhyeong_of_Geumgwan_Gaya",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ko-197": {
+   "answer": "Garakguk-gi",
+   "title": "Garakguk-gi",
+   "url": "https://en.wikipedia.org/wiki/Garakguk-gi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-198": {
+   "answer": "Gimhae",
+   "title": "Gimhae",
+   "url": "https://en.wikipedia.org/wiki/Gimhae",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-199": {
+   "answer": "confederation",
+   "title": "Confederation",
+   "url": "https://en.wikipedia.org/wiki/Confederation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ko-200": {
+   "answer": "gayageum",
+   "title": "Gayageum",
+   "url": "https://en.wikipedia.org/wiki/Gayageum",
    "via": "glossary",
    "status": "ok"
   },
