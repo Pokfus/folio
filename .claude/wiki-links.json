@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T07:13Z",
+ "generated": "2026-11-12T07:55Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7621,
+  "ok": 7630,
   "redirect-broader": 744,
   "redirect-variant": 463,
   "section-redirect": 174,
   "disambiguation": 153,
-  "none": 1129,
+  "none": 1130,
   "disambig-resolved": 101,
   "list-page": 6,
   "search-match": 9,
@@ -83056,6 +83056,83 @@
    "answer": "autotroph",
    "title": "Autotroph",
    "url": "https://en.wikipedia.org/wiki/Autotroph",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-601": {
+   "answer": "Slavery during the American Civil War",
+   "title": "Slavery during the American Civil War",
+   "url": "https://en.wikipedia.org/wiki/Slavery_during_the_American_Civil_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-602": {
+   "answer": "Contraband",
+   "title": "Contraband (American Civil War)",
+   "url": "https://en.wikipedia.org/wiki/Contraband_(American_Civil_War)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-603": {
+   "answer": "Confiscation Acts",
+   "title": "Confiscation Acts",
+   "url": "https://en.wikipedia.org/wiki/Confiscation_Acts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-604": {
+   "answer": "Emancipation Proclamation",
+   "title": "Emancipation Proclamation",
+   "url": "https://en.wikipedia.org/wiki/Emancipation_Proclamation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-605": {
+   "answer": "General Order No. 3",
+   "title": "General Order No. 3",
+   "url": "https://en.wikipedia.org/wiki/General_Order_No._3",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-606": {
+   "answer": "Abraham Lincoln and slavery",
+   "title": "Abraham Lincoln and slavery",
+   "url": "https://en.wikipedia.org/wiki/Abraham_Lincoln_and_slavery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-607": {
+   "answer": "Self-emancipation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "United States",
+    "Emancipation of minors",
+    "Emancipation Proclamation",
+    "Emancipation",
+    "Slavery in the United States"
+   ]
+  },
+  "us-608": {
+   "answer": "United States Colored Troops",
+   "title": "United States Colored Troops",
+   "url": "https://en.wikipedia.org/wiki/United_States_Colored_Troops",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-609": {
+   "answer": "54th Massachusetts Infantry Regiment",
+   "title": "54th Massachusetts Infantry Regiment",
+   "url": "https://en.wikipedia.org/wiki/54th_Massachusetts_Infantry_Regiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-610": {
+   "answer": "Battle of Fort Pillow",
+   "title": "Battle of Fort Pillow",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Fort_Pillow",
    "via": "glossary",
    "status": "ok"
   }

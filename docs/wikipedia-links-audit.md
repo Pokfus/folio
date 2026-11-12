@@ -26,7 +26,7 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7621 | the title is the article |
+| `ok` | 7630 | the title is the article |
 | `redirect-variant` | 463 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 101 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
@@ -34,9 +34,9 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 174 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 153 | only a disambiguation page; no link could be chosen |
-| `none` | 1129 | nothing matched; no link |
+| `none` | 1130 | nothing matched; no link |
 
-**8945 of 10420 cards get a link.** The three "no link" rows are the honest state: a card whose
+**8954 of 10430 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -1257,7 +1257,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1129)
+## No article found (1130)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2328,6 +2328,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `us-499` **Virginia slavery debate** — search suggests `Thirteenth Amendment to the United States Constitution`, `United States`, `Slave states and free states`, `Slavery in the United States`, `Slavery and the United States Constitution`
 - `us-520` **quilt code** — search suggests `Quilting`, `Quilts of the Underground Railroad`, `Houston`, `Boykin, Alabama`, `Social class in the United States`
 - `us-535` **Higher law speech** — search suggests `Freedom of speech in the United States`, `United States`, `United States labor law`, `Child pornography laws in the United States`, `Law school in the United States`
+- `us-607` **Self-emancipation** — search suggests `United States`, `Emancipation of minors`, `Emancipation Proclamation`, `Emancipation`, `Slavery in the United States`
 - `wh-080` **Palaeolithic music** — search suggests `Paleolithic`, `History of music`, `Upper Paleolithic`, `Cro-Magnon`, `Music of Slovakia`
 - `wh-088` **southern dispersal route** — search suggests `Southern dispersal`, `Recent African origin of modern humans`, `Biological dispersal`, `Johor Bahru Eastern Dispersal Link Expressway`, `Genetic history of East Asians`
 - `wh-089` **archaic human admixture** — search suggests `Interbreeding between archaic and modern humans`, `Genetic history of Africa`, `Denisovan`, `Early human migrations`, `Human genetic variation`

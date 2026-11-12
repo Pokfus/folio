@@ -10580,7 +10580,16 @@ window.GLOSSARY = {
 "Chemosynthesis": "",
 "Photosynthetic_efficiency": "",
 "Compensation_point": "",
-"Autotroph": ""
+"Autotroph": "",
+"Slavery_during_the_American_Civil_War": "",
+"Contraband_(American_Civil_War)": "",
+"Confiscation_Acts": "",
+"General_Order_No._3": "",
+"Abraham_Lincoln_and_slavery": "",
+"Self-emancipation": "",
+"United_States_Colored_Troops": "",
+"54th_Massachusetts_Infantry_Regiment": "",
+"Battle_of_Fort_Pillow": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -15603,7 +15612,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Bimbisara": "c. 544–492 BCE",
 "Ajatashatru": "c. 492–460 BCE",
 "Two-streams_hypothesis": "1983–1992",
-"Golgi_apparatus": "1898"
+"Golgi_apparatus": "1898",
+"Slavery_during_the_American_Civil_War": "1861–1865",
+"Contraband_(American_Civil_War)": "1861–1865",
+"Confiscation_Acts": "1861–1862",
+"General_Order_No._3": "1865",
+"Abraham_Lincoln_and_slavery": "1837–1865",
+"United_States_Colored_Troops": "1863–1865",
+"54th_Massachusetts_Infantry_Regiment": "1863–1865",
+"Battle_of_Fort_Pillow": "1864"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -22422,11 +22439,21 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cyanobacteria": ["cyanobacterium","blue-green algae"],
 "Great_Oxidation_Event": ["Great Oxygenation Event"],
 "Compensation_point": ["light compensation point"],
-"Autotroph": ["autotrophs","autotrophic"]
+"Autotroph": ["autotrophs","autotrophic"],
+"Slavery_during_the_American_Civil_War": ["Slavery during the American Civil War","Emancipation in the American Civil War"],
+"Contraband_(American_Civil_War)": ["Contraband","Contrabands","Contraband of war"],
+"Confiscation_Acts": ["Confiscation Act"],
+"General_Order_No._3": ["General Order No. 3","General Order Number 3"],
+"Abraham_Lincoln_and_slavery": ["Abraham Lincoln and slavery","Lincoln and slavery"],
+"Self-emancipation": ["Self-emancipation","Self-emancipated"],
+"United_States_Colored_Troops": ["United States Colored Troops","USCT","U.S. Colored Troops"],
+"54th_Massachusetts_Infantry_Regiment": ["54th Massachusetts Infantry Regiment","54th Massachusetts","54th Massachusetts Volunteer Infantry"],
+"Battle_of_Fort_Pillow": ["Battle of Fort Pillow","Fort Pillow massacre","Fort Pillow Massacre"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
+"Contraband_(American_Civil_War)": true,
 "The_Few": true,
 "Do_no_harm": true,
 "SWIFT": true,
@@ -33162,7 +33189,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Chemosynthesis": ["concept","science","biology","bacteria","energy"],
 "Photosynthetic_efficiency": ["concept","science","biology","photosynthesis","agriculture"],
 "Compensation_point": ["concept","science","biology","photosynthesis","plants"],
-"Autotroph": ["concept","science","biology","energy","ecology"]
+"Autotroph": ["concept","science","biology","energy","ecology"],
+"Slavery_during_the_American_Civil_War": ["era","history","slavery","civil war","united states"],
+"Contraband_(American_Civil_War)": ["concept","history","slavery","civil war","united states"],
+"Confiscation_Acts": ["text","law","history","slavery","united states"],
+"General_Order_No._3": ["text","history","slavery","united states","texas"],
+"Abraham_Lincoln_and_slavery": ["concept","history","politics","slavery","united states"],
+"Self-emancipation": ["practice","history","slavery","united states"],
+"United_States_Colored_Troops": ["institution","history","warfare","civil war","united states"],
+"54th_Massachusetts_Infantry_Regiment": ["institution","history","warfare","civil war","united states","massachusetts"],
+"Battle_of_Fort_Pillow": ["battle","history","warfare","civil war","united states","tennessee"]
 });
 
 /* ============================================================================
