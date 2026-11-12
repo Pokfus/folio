@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T04:51Z",
+ "generated": "2026-11-12T05:30Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6952,
-  "redirect-broader": 661,
-  "redirect-variant": 413,
-  "section-redirect": 142,
+  "ok": 7018,
+  "redirect-broader": 670,
+  "redirect-variant": 425,
+  "section-redirect": 150,
   "disambiguation": 149,
-  "none": 1074,
+  "none": 1079,
   "disambig-resolved": 95,
   "list-page": 6,
   "search-match": 9,
@@ -73025,6 +73025,778 @@
     "List of God of War characters",
     "List of characters in mythology novels by Rick Riordan"
    ]
+  },
+  "astro-101": {
+   "answer": "calcium–aluminium-rich inclusions",
+   "title": "Calcium–aluminium-rich inclusion",
+   "url": "https://en.wikipedia.org/wiki/Calcium%E2%80%93aluminium-rich_inclusion",
+   "via": "variant",
+   "status": "ok"
+  },
+  "astro-102": {
+   "answer": "angular momentum problem",
+   "title": "Angular momentum problem",
+   "url": "https://en.wikipedia.org/wiki/Angular_momentum_problem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-103": {
+   "answer": "invariable plane",
+   "title": "Invariable plane",
+   "url": "https://en.wikipedia.org/wiki/Invariable_plane",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-104": {
+   "answer": "prograde motion",
+   "title": "Retrograde and prograde motion",
+   "url": "https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Prograde motion"
+  },
+  "astro-105": {
+   "answer": "CI chondrites",
+   "title": "CI chondrite",
+   "url": "https://en.wikipedia.org/wiki/CI_chondrite",
+   "via": "variant",
+   "status": "ok"
+  },
+  "astro-106": {
+   "answer": "refractory elements",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Chemical element",
+    "Cosmic dust",
+    "Refractory (planetary science)",
+    "Chondrite",
+    "Volatile (astrogeology)"
+   ]
+  },
+  "astro-107": {
+   "answer": "aluminium-26",
+   "title": "Aluminium-26",
+   "url": "https://en.wikipedia.org/wiki/Aluminium-26",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-108": {
+   "answer": "solar siblings",
+   "title": "Solar sibling",
+   "url": "https://en.wikipedia.org/wiki/Solar_sibling",
+   "via": "variant",
+   "status": "ok"
+  },
+  "astro-109": {
+   "answer": "Local Interstellar Cloud",
+   "title": "Local Interstellar Cloud",
+   "url": "https://en.wikipedia.org/wiki/Local_Interstellar_Cloud",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-110": {
+   "answer": "Jupiter analogues",
+   "title": "Jupiter analogue",
+   "url": "https://en.wikipedia.org/wiki/Jupiter_analogue",
+   "via": "variant",
+   "status": "ok"
+  },
+  "astro-111": {
+   "answer": "terrestrial planet",
+   "title": "Terrestrial planet",
+   "url": "https://en.wikipedia.org/wiki/Terrestrial_planet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-112": {
+   "answer": "Mercury",
+   "title": "Mercury (planet)",
+   "url": "https://en.wikipedia.org/wiki/Mercury_(planet)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-113": {
+   "answer": "geology of Mercury",
+   "title": "Geology of Mercury",
+   "url": "https://en.wikipedia.org/wiki/Geology_of_Mercury",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-114": {
+   "answer": "spin–orbit resonance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Spin–orbit resonance",
+   "target": "Tidal locking#Eccentric orbits"
+  },
+  "astro-115": {
+   "answer": "Venus",
+   "title": "Venus",
+   "url": "https://en.wikipedia.org/wiki/Venus",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Venus (planet)"
+  },
+  "astro-116": {
+   "answer": "atmosphere of Venus",
+   "title": "Atmosphere of Venus",
+   "url": "https://en.wikipedia.org/wiki/Atmosphere_of_Venus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-117": {
+   "answer": "runaway greenhouse effect",
+   "title": "Runaway greenhouse effect",
+   "url": "https://en.wikipedia.org/wiki/Runaway_greenhouse_effect",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-118": {
+   "answer": "geology of Venus",
+   "title": "Geology of Venus",
+   "url": "https://en.wikipedia.org/wiki/Geology_of_Venus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-119": {
+   "answer": "retrograde rotation",
+   "title": "Retrograde and prograde motion",
+   "url": "https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Retrograde rotation"
+  },
+  "astro-120": {
+   "answer": "Earth",
+   "title": "Earth",
+   "url": "https://en.wikipedia.org/wiki/Earth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-121": {
+   "answer": "Earth's interior",
+   "title": "Internal structure of Earth",
+   "url": "https://en.wikipedia.org/wiki/Internal_structure_of_Earth",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Earth's interior"
+  },
+  "astro-122": {
+   "answer": "plate tectonics",
+   "title": "Plate tectonics",
+   "url": "https://en.wikipedia.org/wiki/Plate_tectonics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-123": {
+   "answer": "Earth's atmosphere",
+   "title": "Atmosphere of Earth",
+   "url": "https://en.wikipedia.org/wiki/Atmosphere_of_Earth",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Earth's atmosphere"
+  },
+  "astro-124": {
+   "answer": "Earth's magnetic field",
+   "title": "Earth's magnetic field",
+   "url": "https://en.wikipedia.org/wiki/Earth's_magnetic_field",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-125": {
+   "answer": "Moon",
+   "title": "Moon",
+   "url": "https://en.wikipedia.org/wiki/Moon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-126": {
+   "answer": "giant-impact hypothesis",
+   "title": "Giant-impact hypothesis",
+   "url": "https://en.wikipedia.org/wiki/Giant-impact_hypothesis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-127": {
+   "answer": "lunar regolith",
+   "title": "Lunar regolith",
+   "url": "https://en.wikipedia.org/wiki/Lunar_regolith",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-128": {
+   "answer": "lunar maria",
+   "title": "Lunar mare",
+   "url": "https://en.wikipedia.org/wiki/Lunar_mare",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Lunar maria"
+  },
+  "astro-129": {
+   "answer": "impact crater",
+   "title": "Impact crater",
+   "url": "https://en.wikipedia.org/wiki/Impact_crater",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-130": {
+   "answer": "Mars",
+   "title": "Mars",
+   "url": "https://en.wikipedia.org/wiki/Mars",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Mars (planet)"
+  },
+  "astro-131": {
+   "answer": "Martian surface",
+   "title": "Martian surface",
+   "url": "https://en.wikipedia.org/wiki/Martian_surface",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-132": {
+   "answer": "water on Mars",
+   "title": "Water on Mars",
+   "url": "https://en.wikipedia.org/wiki/Water_on_Mars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-133": {
+   "answer": "atmosphere of Mars",
+   "title": "Atmosphere of Mars",
+   "url": "https://en.wikipedia.org/wiki/Atmosphere_of_Mars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-134": {
+   "answer": "Olympus Mons",
+   "title": "Olympus Mons",
+   "url": "https://en.wikipedia.org/wiki/Olympus_Mons",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-135": {
+   "answer": "Valles Marineris",
+   "title": "Valles Marineris",
+   "url": "https://en.wikipedia.org/wiki/Valles_Marineris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-136": {
+   "answer": "moons of Mars",
+   "title": "Moons of Mars",
+   "url": "https://en.wikipedia.org/wiki/Moons_of_Mars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-137": {
+   "answer": "dust storms on Mars",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Dust storms on Mars",
+   "target": "Climate of Mars#Dust storms"
+  },
+  "astro-138": {
+   "answer": "atmospheric escape",
+   "title": "Atmospheric escape",
+   "url": "https://en.wikipedia.org/wiki/Atmospheric_escape",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-139": {
+   "answer": "comparative planetology",
+   "title": "Comparative planetary science",
+   "url": "https://en.wikipedia.org/wiki/Comparative_planetary_science",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Comparative planetology"
+  },
+  "astro-140": {
+   "answer": "planetary differentiation",
+   "title": "Planetary differentiation",
+   "url": "https://en.wikipedia.org/wiki/Planetary_differentiation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-141": {
+   "answer": "gas giant",
+   "title": "Gas giant",
+   "url": "https://en.wikipedia.org/wiki/Gas_giant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-142": {
+   "answer": "ice giant",
+   "title": "Ice giant",
+   "url": "https://en.wikipedia.org/wiki/Ice_giant",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-143": {
+   "answer": "Jupiter",
+   "title": "Jupiter",
+   "url": "https://en.wikipedia.org/wiki/Jupiter",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Jupiter (planet)"
+  },
+  "astro-144": {
+   "answer": "atmosphere of Jupiter",
+   "title": "Atmosphere of Jupiter",
+   "url": "https://en.wikipedia.org/wiki/Atmosphere_of_Jupiter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-145": {
+   "answer": "Great Red Spot",
+   "title": "Great Red Spot",
+   "url": "https://en.wikipedia.org/wiki/Great_Red_Spot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-146": {
+   "answer": "Jupiter's interior",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Jupiter",
+    "Moons of Jupiter",
+    "Jupiter mass",
+    "Saturn",
+    "Galilean moons"
+   ]
+  },
+  "astro-147": {
+   "answer": "magnetosphere of Jupiter",
+   "title": "Magnetosphere of Jupiter",
+   "url": "https://en.wikipedia.org/wiki/Magnetosphere_of_Jupiter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-148": {
+   "answer": "Saturn",
+   "title": "Saturn",
+   "url": "https://en.wikipedia.org/wiki/Saturn",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Saturn (planet)"
+  },
+  "astro-149": {
+   "answer": "rings of Saturn",
+   "title": "Rings of Saturn",
+   "url": "https://en.wikipedia.org/wiki/Rings_of_Saturn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-150": {
+   "answer": "planetary ring",
+   "title": "Ring system",
+   "url": "https://en.wikipedia.org/wiki/Ring_system",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Planetary ring"
+  },
+  "astro-151": {
+   "answer": "Roche limit",
+   "title": "Roche limit",
+   "url": "https://en.wikipedia.org/wiki/Roche_limit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-152": {
+   "answer": "shepherd moons",
+   "title": "Shepherd moon",
+   "url": "https://en.wikipedia.org/wiki/Shepherd_moon",
+   "via": "variant",
+   "status": "ok"
+  },
+  "astro-153": {
+   "answer": "Saturn's hexagon",
+   "title": "Saturn's hexagon",
+   "url": "https://en.wikipedia.org/wiki/Saturn's_hexagon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-154": {
+   "answer": "Uranus",
+   "title": "Uranus",
+   "url": "https://en.wikipedia.org/wiki/Uranus",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Uranus (planet)"
+  },
+  "astro-155": {
+   "answer": "tilt of Uranus",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Tilt of Uranus",
+   "target": "Uranus#Axial tilt"
+  },
+  "astro-156": {
+   "answer": "Neptune",
+   "title": "Neptune",
+   "url": "https://en.wikipedia.org/wiki/Neptune",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Neptune (planet)"
+  },
+  "astro-157": {
+   "answer": "winds of Neptune",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Neptune",
+    "Exploration of Neptune",
+    "Triton (moon)",
+    "Green star (astronomy)",
+    "Uranus"
+   ]
+  },
+  "astro-158": {
+   "answer": "discovery of Neptune",
+   "title": "Discovery of Neptune",
+   "url": "https://en.wikipedia.org/wiki/Discovery_of_Neptune",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-159": {
+   "answer": "superionic water",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Superionic water",
+   "target": "Phases of ice#Ice XVIII (superionic water)"
+  },
+  "astro-160": {
+   "answer": "metallic hydrogen",
+   "title": "Metallic hydrogen",
+   "url": "https://en.wikipedia.org/wiki/Metallic_hydrogen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-161": {
+   "answer": "helium rain",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "History of astronomy",
+    "Jupiter",
+    "Saturn",
+    "Wolf–Rayet star",
+    "Zeta Puppis"
+   ]
+  },
+  "astro-162": {
+   "answer": "regular moon",
+   "title": "Regular moon",
+   "url": "https://en.wikipedia.org/wiki/Regular_moon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-163": {
+   "answer": "rings of Uranus",
+   "title": "Rings of Uranus",
+   "url": "https://en.wikipedia.org/wiki/Rings_of_Uranus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-164": {
+   "answer": "Kelvin–Helmholtz mechanism",
+   "title": "Kelvin–Helmholtz mechanism",
+   "url": "https://en.wikipedia.org/wiki/Kelvin%E2%80%93Helmholtz_mechanism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-165": {
+   "answer": "Great White Spot",
+   "title": "Great White Spot",
+   "url": "https://en.wikipedia.org/wiki/Great_White_Spot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-166": {
+   "answer": "natural satellite",
+   "title": "Natural satellite",
+   "url": "https://en.wikipedia.org/wiki/Natural_satellite",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-167": {
+   "answer": "Galilean moons",
+   "title": "Galilean moons",
+   "url": "https://en.wikipedia.org/wiki/Galilean_moons",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-168": {
+   "answer": "Io",
+   "title": "Io (moon)",
+   "url": "https://en.wikipedia.org/wiki/Io_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-169": {
+   "answer": "Europa",
+   "title": "Europa (moon)",
+   "url": "https://en.wikipedia.org/wiki/Europa_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-170": {
+   "answer": "chaos terrain",
+   "title": "Chaos terrain",
+   "url": "https://en.wikipedia.org/wiki/Chaos_terrain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-171": {
+   "answer": "Ganymede",
+   "title": "Ganymede (moon)",
+   "url": "https://en.wikipedia.org/wiki/Ganymede_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-172": {
+   "answer": "Callisto",
+   "title": "Callisto (moon)",
+   "url": "https://en.wikipedia.org/wiki/Callisto_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-173": {
+   "answer": "Titan",
+   "title": "Titan (moon)",
+   "url": "https://en.wikipedia.org/wiki/Titan_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-174": {
+   "answer": "lakes of Titan",
+   "title": "Lakes and rivers of Titan",
+   "url": "https://en.wikipedia.org/wiki/Lakes_and_rivers_of_Titan",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Lakes of Titan"
+  },
+  "astro-175": {
+   "answer": "Enceladus",
+   "title": "Enceladus",
+   "url": "https://en.wikipedia.org/wiki/Enceladus",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Enceladus (moon)"
+  },
+  "astro-176": {
+   "answer": "plumes of Enceladus",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Enceladus",
+    "Saturn",
+    "Enceladus Orbilander",
+    "Enceladus Life Finder",
+    "Europa (moon)"
+   ]
+  },
+  "astro-177": {
+   "answer": "tidal heating",
+   "title": "Tidal heating",
+   "url": "https://en.wikipedia.org/wiki/Tidal_heating",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-178": {
+   "answer": "ocean world",
+   "title": "Ocean world",
+   "url": "https://en.wikipedia.org/wiki/Ocean_world",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-179": {
+   "answer": "Triton",
+   "title": "Triton (moon)",
+   "url": "https://en.wikipedia.org/wiki/Triton_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-180": {
+   "answer": "irregular satellites",
+   "title": "Irregular moon",
+   "url": "https://en.wikipedia.org/wiki/Irregular_moon",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Irregular satellites"
+  },
+  "astro-181": {
+   "answer": "gravitational capture",
+   "title": "Gravitational capture",
+   "url": "https://en.wikipedia.org/wiki/Gravitational_capture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-182": {
+   "answer": "Rhea",
+   "title": "Rhea (moon)",
+   "url": "https://en.wikipedia.org/wiki/Rhea_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-183": {
+   "answer": "Iapetus",
+   "title": "Iapetus (moon)",
+   "url": "https://en.wikipedia.org/wiki/Iapetus_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-184": {
+   "answer": "Miranda",
+   "title": "Miranda (moon)",
+   "url": "https://en.wikipedia.org/wiki/Miranda_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-185": {
+   "answer": "Charon",
+   "title": "Charon (moon)",
+   "url": "https://en.wikipedia.org/wiki/Charon_(moon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-186": {
+   "answer": "circumplanetary disc",
+   "title": "Circumplanetary disk",
+   "url": "https://en.wikipedia.org/wiki/Circumplanetary_disk",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Circumplanetary disc"
+  },
+  "astro-187": {
+   "answer": "Laplace resonance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Laplace resonance",
+   "target": "Orbital resonance#Laplace resonance"
+  },
+  "astro-188": {
+   "answer": "Europa Clipper",
+   "title": "Europa Clipper",
+   "url": "https://en.wikipedia.org/wiki/Europa_Clipper",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-189": {
+   "answer": "cryovolcanism",
+   "title": "Cryovolcano",
+   "url": "https://en.wikipedia.org/wiki/Cryovolcano",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Cryovolcanism"
+  },
+  "astro-190": {
+   "answer": "moonquakes",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Moonquakes",
+   "target": "Quake (natural phenomenon)#Moonquake"
+  },
+  "astro-191": {
+   "answer": "asteroid",
+   "title": "Asteroid",
+   "url": "https://en.wikipedia.org/wiki/Asteroid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-192": {
+   "answer": "asteroid belt",
+   "title": "Asteroid belt",
+   "url": "https://en.wikipedia.org/wiki/Asteroid_belt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-193": {
+   "answer": "exploded planet hypothesis",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Exploded planet hypothesis",
+   "target": "Phaeton (hypothetical planet)#Other hypotheses"
+  },
+  "astro-194": {
+   "answer": "Kirkwood gaps",
+   "title": "Kirkwood gap",
+   "url": "https://en.wikipedia.org/wiki/Kirkwood_gap",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Kirkwood gaps"
+  },
+  "astro-195": {
+   "answer": "Ceres",
+   "title": "Ceres (dwarf planet)",
+   "url": "https://en.wikipedia.org/wiki/Ceres_(dwarf_planet)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-196": {
+   "answer": "Vesta",
+   "title": "Vesta (mythology)",
+   "url": "https://en.wikipedia.org/wiki/Vesta_(mythology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "astro-197": {
+   "answer": "asteroid families",
+   "title": "Asteroid family",
+   "url": "https://en.wikipedia.org/wiki/Asteroid_family",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Asteroid families"
+  },
+  "astro-198": {
+   "answer": "near-Earth asteroids",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Near-Earth asteroids",
+   "target": "Near-Earth object#Near-Earth asteroids"
+  },
+  "astro-199": {
+   "answer": "Trojan asteroids",
+   "title": "Trojan (celestial body)",
+   "url": "https://en.wikipedia.org/wiki/Trojan_(celestial_body)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Trojan asteroids"
+  },
+  "astro-200": {
+   "answer": "asteroid spectral types",
+   "title": "Asteroid spectral types",
+   "url": "https://en.wikipedia.org/wiki/Asteroid_spectral_types",
+   "via": "glossary",
+   "status": "ok"
   },
   "us-451": {
    "answer": "Cotton Kingdom",
