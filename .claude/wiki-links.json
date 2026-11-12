@@ -1,9 +1,9 @@
 {
- "generated": "2026-11-12T07:55Z",
+ "generated": "2026-11-12T07:59Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7630,
-  "redirect-broader": 744,
+  "ok": 7638,
+  "redirect-broader": 746,
   "redirect-variant": 463,
   "section-redirect": 174,
   "disambiguation": 153,
@@ -83135,6 +83135,78 @@
    "url": "https://en.wikipedia.org/wiki/Battle_of_Fort_Pillow",
    "via": "glossary",
    "status": "ok"
+  },
+  "us-621": {
+   "answer": "Reconstruction era",
+   "title": "Reconstruction era",
+   "url": "https://en.wikipedia.org/wiki/Reconstruction_era",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-622": {
+   "answer": "Presidential Reconstruction",
+   "title": "Reconstruction era",
+   "url": "https://en.wikipedia.org/wiki/Reconstruction_era",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Presidential Reconstruction"
+  },
+  "us-623": {
+   "answer": "Andrew Johnson",
+   "title": "Andrew Johnson",
+   "url": "https://en.wikipedia.org/wiki/Andrew_Johnson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-624": {
+   "answer": "Black Codes",
+   "title": "Black Codes (United States)",
+   "url": "https://en.wikipedia.org/wiki/Black_Codes_(United_States)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-625": {
+   "answer": "Freedmen's Bureau",
+   "title": "Freedmen's Bureau",
+   "url": "https://en.wikipedia.org/wiki/Freedmen's_Bureau",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-626": {
+   "answer": "Garrison Frazier",
+   "title": "Garrison Frazier",
+   "url": "https://en.wikipedia.org/wiki/Garrison_Frazier",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-627": {
+   "answer": "Forty acres and a mule",
+   "title": "Forty acres and a mule",
+   "url": "https://en.wikipedia.org/wiki/Forty_acres_and_a_mule",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-628": {
+   "answer": "Sharecropping",
+   "title": "Sharecropping",
+   "url": "https://en.wikipedia.org/wiki/Sharecropping",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-629": {
+   "answer": "Civil Rights Act of 1866",
+   "title": "Civil Rights Act of 1866",
+   "url": "https://en.wikipedia.org/wiki/Civil_Rights_Act_of_1866",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-630": {
+   "answer": "Fourteenth Amendment",
+   "title": "Fourteenth Amendment to the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Fourteenth_Amendment_to_the_United_States_Constitution",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Fourteenth Amendment"
   }
  }
 }

@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7630 | the title is the article |
+| `ok` | 7638 | the title is the article |
 | `redirect-variant` | 463 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 101 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 744 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 746 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 174 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 153 | only a disambiguation page; no link could be chosen |
 | `none` | 1130 | nothing matched; no link |
 
-**8954 of 10430 cards get a link.** The three "no link" rows are the honest state: a card whose
+**8964 of 10440 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (744)
+## Redirected to a differently named article — check each (746)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -643,6 +643,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-465` **State v. Mann** → [North Carolina v. Mann](https://en.wikipedia.org/wiki/North_Carolina_v._Mann) (from `State v. Mann`)
 - `us-478` **Weeping Time** → [Great Slave Auction](https://en.wikipedia.org/wiki/Great_Slave_Auction) (from `Weeping Time`)
 - `us-482` **whipping** → [Flagellation](https://en.wikipedia.org/wiki/Flagellation) (from `Whipping`)
+- `us-622` **Presidential Reconstruction** → [Reconstruction era](https://en.wikipedia.org/wiki/Reconstruction_era) (from `Presidential Reconstruction`)
+- `us-630` **Fourteenth Amendment** → [Fourteenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Fourteenth_Amendment_to_the_United_States_Constitution) (from `Fourteenth Amendment`)
 - `wh-005` **hominin** → [Hominini](https://en.wikipedia.org/wiki/Hominini) (from `Hominin`)
 - `wh-011` **Laetoli footprints** → [Laetoli](https://en.wikipedia.org/wiki/Laetoli) (from `Laetoli footprints`)
 - `wh-022` **Out of Africa I** → [Early expansions of hominins out of Africa](https://en.wikipedia.org/wiki/Early_expansions_of_hominins_out_of_Africa) (from `Out of Africa I`)

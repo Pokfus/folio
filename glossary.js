@@ -10589,7 +10589,15 @@ window.GLOSSARY = {
 "Self-emancipation": "",
 "United_States_Colored_Troops": "",
 "54th_Massachusetts_Infantry_Regiment": "",
-"Battle_of_Fort_Pillow": ""
+"Battle_of_Fort_Pillow": "",
+"Presidential_Reconstruction": "",
+"Black_Codes_(United_States)": "",
+"Freedmen's_Bureau": "",
+"Garrison_Frazier": "",
+"Forty_acres_and_a_mule": "",
+"Sharecropping": "",
+"Civil_Rights_Act_of_1866": "",
+"Fourteenth_Amendment_to_the_United_States_Constitution": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -22448,7 +22456,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Self-emancipation": ["Self-emancipation","Self-emancipated"],
 "United_States_Colored_Troops": ["United States Colored Troops","USCT","U.S. Colored Troops"],
 "54th_Massachusetts_Infantry_Regiment": ["54th Massachusetts Infantry Regiment","54th Massachusetts","54th Massachusetts Volunteer Infantry"],
-"Battle_of_Fort_Pillow": ["Battle of Fort Pillow","Fort Pillow massacre","Fort Pillow Massacre"]
+"Battle_of_Fort_Pillow": ["Battle of Fort Pillow","Fort Pillow massacre","Fort Pillow Massacre"],
+"Black_Codes_(United_States)": ["Black Codes","Black codes"],
+"Freedmen's_Bureau": ["Freedmen’s Bureau","Bureau of Refugees, Freedmen, and Abandoned Lands"],
+"Forty_acres_and_a_mule": ["40 acres and a mule"],
+"Fourteenth_Amendment_to_the_United_States_Constitution": ["Fourteenth Amendment","14th Amendment"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -33198,7 +33210,15 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Self-emancipation": ["practice","history","slavery","united states"],
 "United_States_Colored_Troops": ["institution","history","warfare","civil war","united states"],
 "54th_Massachusetts_Infantry_Regiment": ["institution","history","warfare","civil war","united states","massachusetts"],
-"Battle_of_Fort_Pillow": ["battle","history","warfare","civil war","united states","tennessee"]
+"Battle_of_Fort_Pillow": ["battle","history","warfare","civil war","united states","tennessee"],
+"Presidential_Reconstruction": ["era","history","politics","united states","reconstruction"],
+"Black_Codes_(United_States)": ["text","law","history","united states","reconstruction"],
+"Freedmen's_Bureau": ["institution","history","politics","united states","reconstruction"],
+"Garrison_Frazier": ["person","religion","history","united states","reconstruction"],
+"Forty_acres_and_a_mule": ["event","history","politics","united states","reconstruction"],
+"Sharecropping": ["practice","history","economics","agriculture"],
+"Civil_Rights_Act_of_1866": ["text","law","history","united states","reconstruction"],
+"Fourteenth_Amendment_to_the_United_States_Constitution": ["text","law","history","united states","reconstruction"]
 });
 
 /* ============================================================================
