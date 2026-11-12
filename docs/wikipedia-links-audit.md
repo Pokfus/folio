@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6683 | the title is the article |
-| `redirect-variant` | 399 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6765 | the title is the article |
+| `redirect-variant` | 401 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 90 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 638 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 647 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 137 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 140 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 149 | only a disambiguation page; no link could be chosen |
-| `none` | 1020 | nothing matched; no link |
+| `none` | 1024 | nothing matched; no link |
 
-**7826 of 9150 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7919 of 9250 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (638)
+## Redirected to a differently named article — check each (647)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -383,6 +383,15 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ps-182` **statistical power** → [Power (statistics)](https://en.wikipedia.org/wiki/Power_(statistics)) (from `Statistical power`)
 - `ps-189` **non-parametric test** → [Nonparametric statistics](https://en.wikipedia.org/wiki/Nonparametric_statistics) (from `Non-parametric test`)
 - `ps-194` **mediator variable** → [Mediation (statistics)](https://en.wikipedia.org/wiki/Mediation_(statistics)) (from `Mediator variable`)
+- `ps-214` **p-hacking** → [Data dredging](https://en.wikipedia.org/wiki/Data_dredging) (from `P-hacking`)
+- `ps-218` **file drawer problem** → [Publication bias](https://en.wikipedia.org/wiki/Publication_bias) (from `File drawer problem`)
+- `ps-222` **glial cells** → [Glia](https://en.wikipedia.org/wiki/Glia) (from `Glial cells`)
+- `ps-225` **myelin sheath** → [Myelin](https://en.wikipedia.org/wiki/Myelin) (from `Myelin sheath`)
+- `ps-237` **noradrenaline** → [Norepinephrine](https://en.wikipedia.org/wiki/Norepinephrine) (from `Noradrenaline`)
+- `ps-274` **cerebral lateralisation** → [Lateralization of brain function](https://en.wikipedia.org/wiki/Lateralization_of_brain_function) (from `Cerebral lateralisation`)
+- `ps-275` **split-brain research** → [Split-brain](https://en.wikipedia.org/wiki/Split-brain) (from `Split-brain research`)
+- `ps-288` **BOLD signal** → [Blood-oxygenation-level–dependent imaging](https://en.wikipedia.org/wiki/Blood-oxygenation-level%E2%80%93dependent_imaging) (from `BOLD signal`)
+- `ps-300` **double dissociation** → [Dissociation (neuropsychology)](https://en.wikipedia.org/wiki/Dissociation_(neuropsychology)) (from `Double dissociation`)
 - `rm-015` **Umbrians** → [Umbri](https://en.wikipedia.org/wiki/Umbri) (from `Umbrians`)
 - `rm-016` **Iguvine Tables** → [Iguvine Tablets](https://en.wikipedia.org/wiki/Iguvine_Tablets) (from `Iguvine Tables`)
 - `rm-018` **Ligurians** → [Ligures](https://en.wikipedia.org/wiki/Ligures) (from `Ligurians`)
@@ -957,7 +966,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (137)
+## Section redirects — no dedicated page (140)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1036,6 +1045,9 @@ Wikipedia treats these as part of another article. No link.
 - `ps-177` **null hypothesis** — `Null hypothesis` only redirects into `Statistical hypothesis test#Definition of terms`
 - `ps-181` **Type I error** — `Type I error` only redirects into `Type I and type II errors#Type I error`
 - `ps-184` **Cohen's d** — `Cohen's d` only redirects into `Effect size#Cohen's d`
+- `ps-213` **questionable research practices** — `Questionable research practices` only redirects into `Research#Research ethics`
+- `ps-270` **somatosensory cortex** — `Somatosensory cortex` only redirects into `Somatosensory system#Somatosensory cortex`
+- `ps-289` **diffusion tensor imaging** — `Diffusion tensor imaging` only redirects into `Diffusion-weighted magnetic resonance imaging#Diffusion tensor imaging`
 - `rm-006` **Bronze Age Italy** — `Bronze Age Italy` only redirects into `Prehistoric Italy#Bronze Age`
 - `rm-025` **Etruscan league** — `Etruscan league` only redirects into `Etruscan civilization#Etruscan League`
 - `rm-030` **Etrusca disciplina** — `Etrusca disciplina` only redirects into `Etruscan religion#Etrusca Disciplina`
@@ -1099,7 +1111,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1020)
+## No article found (1024)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1893,6 +1905,10 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ps-138` **single-case experimental design** — search suggests `Case study (psychology)`, `Experimental psychology`, `Single-subject design`, `Design of experiments`, `Gestalt psychology`
 - `ps-163` **implicit measure** — search suggests `Implicit-association test`, `Implicit attitude`, `Attitude (psychology)`, `Implicit stereotype`, `Implicit theories of intelligence`
 - `ps-164` **behavioural measure** — search suggests `Behavioural sciences`, `Behavioural finance`, `Behavioral economics`, `Behaviour therapy`, `Developmental psychology`
+- `ps-276` **left-brain right-brain myth** — search suggests `Lateralization of brain function`, `Neuroscience of sex differences`, `Brain injury`, `Handedness`, `List of common misconceptions about science, technology, and mathematics`
+- `ps-281` **lesion method** — search suggests `Visual pathway lesions`, `Cognitive psychology`, `Behavioral neuroscience`, `Developmental psychology`, `Ablative brain surgery`
+- `ps-294` **reverse inference** — search suggests `Bayesian inference`, `Correlation does not imply causation`, `Rule of inference`, `Fundamental attribution error`, `Structure-mapping theory`
+- `ps-295` **dead salmon study** — search suggests `Darwinian literary studies`, `Salmon conservation`, `Southern resident orcas`, `Ribot's law`, `Phyllis Bottome`
 - `rm-031` **Etruscan tomb painting** — search suggests `Etruscan art`, `François Tomb`, `Etruscan architecture`, `Etruscan civilization`, `Painting in ancient Rome`
 - `rm-034` **Banditaccia necropolis** — search suggests `Cerveteri`, `Necropolis`, `Monterozzi necropolis`, `Tholos (architecture)`, `Etruscan architecture`
 - `rm-037` **Etruscan bronzework** — search suggests `Etruscan art`, `Italic peoples`, `Ficoroni Cista`, `Griffin`, `Minoan civilization`
