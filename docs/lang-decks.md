@@ -3713,6 +3713,18 @@ changed was the one that had been wrong all along.
   Tatoeba's Tagalog). The plan and every finding (pointers written as prose, a lemma's own spelling, the -ng linker,
   capitalised days) are 📖 `docs/tagalog-decks-plan.md`. The `l1` row is Ethnologue's 32.8 million (via
   Wikipedia); the hue is measured, `#2A72DB` (re-swept at the merge: Swahili had taken a hue 1.1 from `#756366`).
+- `.claude/hebrew/` — the generator behind the Hebrew decks (Nov 2026, on request: "Add a Hebrew language
+  collection"; the Hindi and Persian answers taken, the owner not asked). **Built: the alphabet,
+  `decks/Hebrew-Alphabet.folio-deck.json`** (45 notes: the letters, the final forms, ג׳ ז׳ צ׳, the vowel points and
+  the dagesh) **and A1, `decks/Hebrew-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/hebrew/run.py
+  [--level a1]`, `python3 .claude/hebrew/alphabet.py`, `node .claude/hebrew/check-hebrew.js`, `node
+  .claude/hebrew/render-hebrew.js a1|alphabet`; a re-run is byte-identical. Persian's pipeline adapted, right to
+  left. **What is new**: every word and form in two spellings, the unpointed full spelling a reader meets and the
+  pointed form that says how it is pronounced; a card teaches ONE POINTED WORD of a spelling's several (`choose.py`;
+  A1 teaches `שם` three times), so uniqueness is on Word + Pointed; the subtitles' prefixes (ו ה ב ל …) read only
+  behind a surface that is no word; verbs by their past "he" form with binyan, infinitive, present and future. The
+  plan and every finding are 📖 `docs/hebrew-decks-plan.md`. The `l1` row is 5 million (9 in all, Ethnologue 2018,
+  via Wikipedia's infobox); the hue is measured, `#5E6EC0`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/

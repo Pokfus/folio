@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1285", released: "2026-11-12T07:17Z" };
+window.FOLIO_VERSION = { v: "1.1286", released: "2026-11-12T08:18Z" };
 
 window.CHANGELOG = [
   {
@@ -73,6 +73,7 @@ window.CHANGELOG = [
     items: [
       "The <b>home page now shows a brief loading screen</b> until your decks have loaded, instead of repainting itself a few seconds in.",
       "A new <b>Korean</b> language collection: the hangul alphabet, three graded vocabulary decks, and phrases, idioms and proverbs, all in both directions.",
+      "A new <b>Hebrew</b> language collection: an alphabet deck with the vowel points, and an A1 deck of 500 words in both directions, each shown unpointed and pointed.",
       "<b>100 China cards are rewritten</b>, from Chinese mythology to Shang burial, with more sources, corrected dates and legend told as legend.",
       "A <b>new date line for wars, battles and cities</b> — start, end and length, place, casualties, result, founding, peak and population — on 654 cards.",
       "<b>Hindi</b>, <b>Arabic</b>, <b>Telugu</b>, <b>Greek</b>, <b>Bengali</b>, <b>Urdu</b>, <b>Romanian</b>, <b>Vietnamese</b>, <b>Swahili</b>, <b>Thai</b>, <b>Polish</b>, <b>Latin</b>, <b>Tamil</b>, <b>Ukrainian</b>, <b>Hausa</b>, <b>Zulu</b>, <b>Persian (Farsi)</b>, <b>Old English</b>, <b>Swedish</b>, <b>Dutch</b>, <b>Hungarian</b> and <b>Tagalog</b> join the Languages section with first decks of 500 words (Polish 600), most with an alphabet deck.",
