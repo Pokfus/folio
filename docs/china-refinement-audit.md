@@ -262,8 +262,8 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Liu Bang's dragon birth | his mother dreaming of a god by a great marsh and a dragon over her, the dragon seen over him drunk, the white snake he killed (the *Shiji*, Gaozu's annals); signs of Heaven's choice for a commoner founder — confirmed B22 (`cnh-216`) | — | `cnh-216` | — |
 | Wang Mang as usurper | the *Hanshu*'s verdict (Ban Gu, completed after 92 CE): a hypocrite who seized the throne and whose reforms brought chaos; modern readings of him as a reformer (Hu Shi's "socialist emperor", 1928) and as a capable statesman whose record the Eastern Han's historians wrote against (Bielenstein) — confirmed B25 (`cnh-245`–`cnh-248`: the zan's 篡盜之禍 and its Qin comparison, 紫色蛙聲) | `cnh-246` | `cnh-245`, `cnh-247`, `cnh-248`, `cnh-249` | — |
 | The Peach Garden oath | Liu Bei, Guan Yu and Zhang Fei swearing brotherhood in a peach garden (the *Romance of the Three Kingdoms*, 14th-century novel, first printed 1522); the *Sanguozhi* says only that the three slept in one bed and were as close as brothers — confirmed B28 (`cnh-280`, de Crespigny) | — | `cnh-280`, `cnh-286`, `cnh-291` | — |
-| The Romance and the Records of the Three Kingdoms | Chen Shou's *Sanguozhi* (completed after 280 CE) with Pei Songzhi's notes (429 CE); the storytellers' and the Yuan *Sanguozhi pinghua* (printed 1321 – 1323); the *Romance* credited to Luo Guanzhong, first printed 1522, Mao Zonggang's edition c. 1679; its "seven parts fact, three parts fiction" (Zhang Xuecheng); Red Cliffs (the borrowed arrows, the east wind, Huarong), Guandu and Cao Cao's villainy told as the novel's; Guan Yu's deification as `cnh-039` tells it; Diaochan the novel's (the chronicle names only an unnamed maidservant, B27 `cnh-270`) — provisional | `cnh-291`, `cnh-290` | `cnh-273`, `cnh-274`, `cnh-276`, `cnh-281`, `cnh-286` | `cnh-039` |
-| The Seven Sages of the Bamboo Grove | seven men gathering in a bamboo grove at Shanyang to drink and talk (as a group in the 4th century CE — Sun Sheng's *Wei shi chunqiu*, quoted by Pei Songzhi — and the *Shishuo xinyu*, 5th century CE); the grouping and the grove read by modern scholars as a later construction (Chen Yinke took the grove for a Buddhist name); the Nanjing brick reliefs of the sages, dated by their tombs — provisional | `cnh-300` | `cnh-299` | — |
+| The Romance and the Records of the Three Kingdoms | Chen Shou's *Sanguozhi* (completed after 280 CE) with Pei Songzhi's notes (429 CE); the storytellers' and the Yuan *Sanguozhi pinghua* (printed 1321 – 1323); the *Romance* credited to Luo Guanzhong (doubted), its oldest preface dated 1494, first printed 1522, revised by Mao Lun with his son Mao Zonggang c. 1679; its "seven parts fact, three parts fiction" (Zhang Xuecheng); the empty-city ruse first told of a Wei commander (the *Weilüe* in Pei's notes); Red Cliffs (the borrowed arrows, the east wind, Huarong), Guandu and Cao Cao's villainy told as the novel's; Guan Yu's deification as `cnh-039` tells it; Diaochan the novel's (the chronicle names only an unnamed maidservant, B27 `cnh-270`) — confirmed B28 – B30 (`cnh-273`, `276`, `281`, `286`, `290`, `291`) | `cnh-291`, `cnh-290` | `cnh-273`, `cnh-274`, `cnh-276`, `cnh-281`, `cnh-286` | `cnh-039` |
+| The Seven Sages of the Bamboo Grove | seven men gathering in a bamboo grove at Shanyang to drink and talk (as a group in the 4th century CE — Sun Sheng's *Wei shi chunqiu*, quoted by Pei Songzhi — and the *Shishuo xinyu*, 5th century CE); the grouping and the grove read by modern scholars as a later construction (Spiro: no evidence all seven knew one another; Chen Yinke's Buddhist name for the grove on no page read); the Nanjing brick reliefs, from a tomb of the late 4th or early 5th century, their trees not bamboo (Spiro) — confirmed and corrected B30 (`cnh-300`) | `cnh-300` | `cnh-299` | — |
 | The Three Sovereigns and Five Emperors | the lists differ by text: the *Shiji*'s Five Emperors (Yellow Emperor, Zhuanxu, Ku, Yao, Shun); Three Sovereigns as Heavenly, Earthly and Human or Grand (the *Shiji*'s Qin annals), or as Fuxi, Nüwa and Shennong, or Fuxi, Shennong and the Yellow Emperor, or Fuxi, Suiren and Shennong, or Fuxi, Zhurong and Shennong in other texts; Sima Zhen's Tang chapter supplies Fuxi, Nüwa and Shennong — confirmed B1 (`cnh-002`, Chavannes) | `cnh-002` | `cnh-003`–`cnh-007`, `cnh-040` | `cnh-879` |
 
 ## Working a card
@@ -367,7 +367,7 @@ otherwise.
 | B27 | Eastern Han (`col-12`) | `cnh-261`–`cnh-270` | 10 | 93 | **done 2026-11-12** |
 | B28 | Eastern Han (`col-12`) / Three Kingdoms (`col-16`) | `cnh-271`–`cnh-280` | 10 | 92 | **done 2026-11-12** |
 | B29 | Three Kingdoms (`col-16`) | `cnh-281`–`cnh-290` | 10 | 84 | **done 2026-11-12** |
-| B30 | Three Kingdoms (`col-16`) / Western Jin (`col-18`) | `cnh-291`–`cnh-300` | 10 | 86 | to do |
+| B30 | Three Kingdoms (`col-16`) / Western Jin (`col-18`) | `cnh-291`–`cnh-300` | 10 | 86 | **done 2026-11-12** |
 | B31 | Western Jin (`col-18`) / Sixteen Kingdoms (`col-19`) | `cnh-301`–`cnh-310` | 10 | 83 | to do |
 | B32 | Sixteen Kingdoms (`col-19`) / Eastern Jin (`col-20`) | `cnh-311`–`cnh-320` | 10 | 79 | to do |
 | B33 | Eastern Jin (`col-20`) / Northern and Southern dynasties (`col-21`) | `cnh-321`–`cnh-330` | 10 | 105 | to do |
@@ -770,6 +770,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-288` | none | not re-checked (Commons 429): the card has no picture — wanted |
 | `cnh-289` | a Ming woodblock portrait | not re-checked (Commons 429): ok |
 | `cnh-290` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-291` | three heroes fight Lü Bu | not re-checked (Commons 429): ok |
+| `cnh-292` | none | not re-checked (Commons 429): the card has no picture; the glossary's Qing portrait would do |
+| `cnh-293` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-294` | Emperor Wu of Jin in the Thirteen Emperors Scroll | not re-checked (Commons 429): ok |
+| `cnh-295` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-296` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-297` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-298` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-299` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-300` | the Seven Sages in a tomb relief | not re-checked (Commons 429): ok; the caption's 5th-century date — Spiro: late 4th or early 5th |
 
 ## Glossary candidates
 
@@ -1939,7 +1949,7 @@ neither Gutenberg nor the Kanseki Repository; they were read on zggdwx.com or th
 | `cnh-276` Battle of Red Cliffs | 9 | 5 → 9 | **Location and Result off, `Fought 208 CE`; the register applied: Huang Gai's fire ships are the *Records*' ("several dozen"; ten in the *Jiangbiao zhuan*), the borrowed arrows, the east wind, the chained ships and Huarong the *Romance*'s; the 800,000 Cao Cao's boast against Zhou Yu's estimate; the site disputed (no locator by design); "one historian wondered whether any fighting took place" (not what de Crespigny says) dropped**. **`traditional` corrected: 赤壁之战 → 赤壁之戰.** |
 | `cnh-277` Cao Wei | 8 | 5 → 8 | **`Founded 220 CE` / `Ended 266 CE` (de Crespigny: 4 February 266) / `Also dated 265 CE` (Theobald, Giles, Cordier); the heartland and seventy per cent of the registered people, the surname added to tell it from other Weis, Cao Mao's death (one later account); the Himiko clue (`jp-045`'s) and the nine-rank and tuntian content (`cnh-288`'s, `cnh-287`'s) off; the Zhengshi *xuanxue***. |
 | `cnh-278` Cao Pi | 8 | 6 → 8 | **"Died at forty" (the Chinese count, against the line's c. 38 – 39) off card and glossary; the altar at Fanyang and "Shun and Yu" (the *Weishi chunqiu* in Pei's notes), the water sign in Luoyang's name (the *Weilüe*), the *Dianlun*'s one surviving chapter; the seven-step poem a later story (the *Shishuo xinyu*)**. Protected: the line stays (flagged below). |
-| `cnh-279` Shu Han | 8 | 6 → 8 | **The year and the Liu Bei, Zhuge Liang and Northern Expeditions clues out of the questions; the two names (Han to itself, Shu to its rivals), Liu Shan's surrender beside an empty coffin ("is said to"), no official historians; Wu's relief armies turning back; "smallest of the Three Kingdoms" (no source) dropped; de Crespigny cut to two**. **`traditional` corrected: 蜀汉 → 蜀漢.** |
+| `cnh-279` Shu Han | 8 | 6 → 8 | **The year and the Liu Bei, Zhuge Liang and Northern Expeditions clues out of the questions; the two names (Han to itself, Shu to its rivals), Wu's relief armies turning back at the news of the surrender, no official historians; Liu Shan's surrender beside an empty coffin ("is said to") in prose only, the coffin clue left to `cnh-292` (changed in B30 after `Q.sibling`); "smallest of the Three Kingdoms" (no source) dropped; de Crespigny cut to two**. **`traditional` corrected: 蜀汉 → 蜀漢.** |
 | `cnh-280` Liu Bei | 9 | 6 → 9 | **The Peach Garden oath told as the register row says (the *Sanguozhi*: one bed, like brothers; the oath the novel's); the shoe-and-mat seller, the night flight to Baidi, the deathbed charge; the glossary's 184 re-pointed to de Crespigny 1991 (Giles gives 185) and an unreferenced Giles source dropped from it**. **`traditional` corrected: 刘备 → 劉備.** Protected: the line stays (flagged below). |
 
 Read by eye. **Confusability**: Guandu stays `cnh-275`'s (off `cnh-271`'s and `cnh-274`'s questions), the abdication
@@ -1996,3 +2006,39 @@ Guan Yu's deification left to `cnh-039`. **Protected lines: unchanged** (diffed 
 "Linju, Xiangyang" is wrong (Linju lay in Nan commandery), and the twelfth month of Jian'an 24 may fall in early 220;
 `cnh-289`'s 13 March 239 and 7 September 251 are on no page read, Giles prints 178 for the birth and de Crespigny puts Cao
 Rui's death in 238.
+
+### B30 — `cnh-291`–`cnh-300`, Three Kingdoms and Western Jin: the Romance to the Seven Sages (2026-11-12)
+
+Run as B21. Every cited URL answered. **Pictures were not touched** (Commons 429). **The old cards dated the Romance by
+its printing alone and credited the Mao revision to the son, counted Sun Hao's people at 2,300,000 on no source, put
+battle templates on the War of the Eight Princes ("15 years", "Victory of Sima Yue"), made the Seven Sages' line two
+men's deaths with an "or" in a value, set the nine-rank sentence and the being-and-nothingness clue on qingtan, cited
+Liu Yi's saying on menfa (`cnh-288`'s), converted zhantian's allotments into "5,000 mu", and gave the Jin dynasty card
+three phrasings carrying years.** The *Jinshu* was read in Chinese from the Kanseki Repository (juan 1 – 33 only) and on
+zggdwx.com.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-291` Romance of the Three Kingdoms | 8 | 5 → 8 | **`Attested 1494` (the oldest preface) / `First printed 1522` / `Revised c. 1679` (the preface's twelfth month of Kangxi 18, early 1680); Mao Lun, the blind father, the main reviser; Luo Guanzhong's authorship doubted; Su Shi's children a friend's report; "seven parts history" traced to Zhang Xuecheng; the empty city first told of a Wei commander; the borrowed arrows left to `cnh-276`**; the glossary dated 1522 and given the 1494 preface. |
+| `cnh-292` Sun Hao | 6 | 5 → 6 | **The unsourced 2,300,000 and "one dynasty again" dropped; the surrender bound with a coffin, Wei Zhao's tea, Wuchang and the marquis title; the Chinese *Sanguozhi* with Pei Songzhi's notes**. Protected: the line stays (flagged below). |
+| `cnh-293` Jin dynasty | 7 | 5 → 7 | **`Dated 266 – 420 CE` / `Also dated 265 – 420 CE` (Theobald's 8 February 266; Giles's and Cordier's 265) / `Western Jin 266 – 316 CE` / `Eastern Jin 317 – 420 CE`; the founding sacrifice with the southern chanyu present, the name from Sima Zhao's title (not Aguda's Jurchen Jin), the *Jinshu* ordered under the Tang; the years out of the questions**; the glossary `Jin_dynasty_(266–420)` redrafted (the audit's pairing reads the Jurchen entry, below). |
+| `cnh-294` Emperor Wu of Jin | 7 | 5 → 7 | **The goat cart in the harem (the *Jinshu*, attributed), the restored 27-month mourning and the nineteen provinces (Giles), the heir kept on Empress Yang Yan's advice; the Wu palace women the *Jinshu*'s "several thousand" against Cordier's and Theobald's 5,000**. Protected: the line stays. |
+| `cnh-295` conquest of Wu by Jin | 7 | 6 → 7 | **Rebuilt on the *Jinshu* ch. 42: the wood shavings, the chains and spikes cleared with straw soldiers and oiled torches, Wang Jun passing Wang Hun "with the wind", his memorial; Yang Hu's recommendation of Du Yu sourced (Giles); the line kept (`Campaign 279 – 280 CE` / `Surrender 1 May 280 CE`, the day de Crespigny's own)**; "more than 5,000 ships" and the nineteen provinces dropped; the surrender ritual left to `cnh-292`. |
+| `cnh-296` zhantian | 5 | 5 → 5 | **The *Jinshu*'s own rule (ch. 26): 70 mu for a man and 30 for a woman, the *ketian* 50 and 20, the age bands, the *hudiao* levy, land and tenants by rank (50 tenant households for the top ranks; Theobald's 15 noted); "5,000 mu" (the old card's conversion) dropped; whether it was enforced given as two readings (de Crespigny; Chen 1911)**. 占田 kept as the traditional form (the *Jinshu*'s own), against OpenCC's 佔田. |
+| `cnh-297` War of the Eight Princes | 6 | 5 → 6 | **The battle template off, now `Fought 291 – 306 CE` / `Also dated 300 – 306 CE` (Zhao Qi's list, "now generally followed", de Crespigny); the *Jinshu*'s annals of Emperor Hui (the one-city orders, the arrows at Tangyin, Liu Yuan's title, the Xianbei sack of Chang'an); Balazs's 291 – 311**; Cordier's 100,000 dead and Chen 1911 dropped. |
+| `cnh-298` menfa | 5 | 5 → 5 | **Liu Yi's saying (`cnh-288`'s), the Wang and Xie pairing (`cnh-315`'s) and the shelter quotas (`cnh-296`'s) off the questions; the marriage bar, "Wang and Ma share the realm", the *Shishuo xinyu*'s people; Balazs on the walled estates and the graders' kin; the 5th-century opening to men of humble birth**. |
+| `cnh-299` qingtan | 7 | 6 → 7 | **The line tied to the Zhengshi era (240, Spiro) and the Jin's end (420); Wang Yan's capture and deathbed regret the *Jinshu*'s story, with Balazs's view that a historian wrote both speeches; its growth from late-Han "pure criticism"; Xie An's defence (the *Shishuo xinyu* in Chinese)**; the nine-rank sentence and the being-and-nothingness clue (`cnh-856`'s) dropped. |
+| `cnh-300` Seven Sages of the Bamboo Grove | 8 | 6 → 8 | **The man-naming labels and the "or" off, now `Lived 205 – 305 CE` / `Leader executed 262 CE` / `Also dated 263 CE`; told as a later grouping (Sun Sheng long after; the *Shishuo xinyu* fixes the name and the grove; Spiro: no evidence all seven knew one another); the Nanjing reliefs late 4th or early 5th century, their trees not bamboo; Ji Kang at his forge, Liu Ling's spade, Ruan Ji's sixty days drunk**. **Pinyin Zhúlín qī xián → Zhúlín Qīxián, joined as the official orthography has it.** |
+
+Read by eye. **Confusability**: the surrender ritual stays `cnh-292`'s, the chains and the wind `cnh-295`'s; the 27
+princes `cnh-294`'s; Liu Yi's saying `cnh-288`'s (the menfa agent was told); the goat cart and the nineteen provinces are
+`cnh-294`'s; answer word "emperor" cleared on `cnh-294`, its background trimmed to 285 words. **Legend**: the Seven Sages
+as a group and the grove are later tellings; Wang Yan's regret the *Jinshu*'s. **Chinese names corrected**: `cnh-300`
+pinyin. **Spellings fixed**: none needed; 0 hits. **Myth register**: the Seven Sages confirmed (Sun Sheng, then the
+*Shishuo xinyu*; Spiro's doubt) and corrected (the Nanjing tomb late 4th or early 5th century; Chen Yinke's Buddhist name
+and the *Wei shi chunqiu* title on no page read); the Romance and the Records confirmed (the 1494 preface; Mao Lun).
+**Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-292`'s 242 is Giles's (de Crespigny gives
+241) and 3 September 264 is on no page read; `cnh-294`'s 8 February 266 sits against de Crespigny's 4 February.
+**`cnh-293`'s glossary**: the card was never paired with the wrong entry on the site — the audit's lookup normalises the
+Jurchen entry's alias "Jin dynasty (1115–1234)" to "jin dynasty" and so reads `Jin_dynasty_(1115–1234)`; its `G.date`
+on `cnh-293` is that false lead, and the right entry, `Jin_dynasty_(266–420)`, was the one rewritten.

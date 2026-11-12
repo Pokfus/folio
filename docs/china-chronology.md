@@ -453,6 +453,14 @@ stood on main on 2026-11-12 (the years only; ages, days and months left out), an
 | tuntian revived / abolished by Wei / again by Jin | 196 CE / 264 CE / 266 CE | `cnh-287` |
 | the nine-rank system introduced | c. 220 CE | `cnh-288` |
 | the Records compiled / Pei Songzhi's commentary | c. 280 – 297 CE / 429 CE | `cnh-290` |
+| the Romance: the oldest preface / first printed / the Mao revision | 1494 / 1522 / c. 1679 | West; Theobald (`cnh-291`) |
+| the Jin dynasty / also dated / Western / Eastern | 266 – 420 CE / 265 – 420 CE / 266 – 316 CE / 317 – 420 CE | `cnh-293` |
+| the conquest of Wu / the surrender | 279 – 280 CE / 1 May 280 CE | de Crespigny (`cnh-295`) |
+| zhantian proclaimed | 280 CE | the *Jinshu* (`cnh-296`) |
+| the War of the Eight Princes / Zhao Qi's span | 291 – 306 CE / 300 – 306 CE | de Crespigny (`cnh-297`) |
+| the great families dominant | c. 220 – 589 CE | `cnh-298` |
+| qingtan flourished | c. 240 – 420 CE | Spiro (`cnh-299`) |
+| the Seven Sages lived / Ji Kang executed / also dated | 205 – 305 CE / 262 CE / 263 CE | `cnh-300` |
 
 ## Later periods
 
@@ -753,4 +761,12 @@ cnh-284: 222; 229; 280
 cnh-287: 196; 264; 266
 cnh-288: 220
 cnh-290: 280; 297; 429
+cnh-291: 1494; 1522; 1679
+cnh-293: 266; 420; 265; 316; 317
+cnh-295: 279; 280
+cnh-296: 280
+cnh-297: 291; 306; 300
+cnh-298: 220; 589
+cnh-299: 240; 420
+cnh-300: 205; 305; 262; 263
 ```
