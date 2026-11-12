@@ -9342,7 +9342,24 @@ window.GLOSSARY = {
 "Phineas_Gage": "",
 "Henry_Molaison": "",
 "Aphasia": "",
-"Brain_injury": ""
+"Brain_injury": "",
+"Confidentiality": "",
+"Institutional_review_board": "",
+"Belmont_Report": "",
+"APA_Ethics_Code": "",
+"Three_Rs_(animal_research)": "",
+"Monster_Study": "",
+"Stanford_prison_experiment": "",
+"Milgram_experiment": "",
+"Diana_Baumrind": "",
+"Reproducibility_Project": "",
+"Questionable_research_practices": "",
+"Data_dredging": "",
+"Researcher_degrees_of_freedom": "",
+"HARKing": "",
+"Publication_bias": "",
+"Registered_report": "",
+"Open_science": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13919,7 +13936,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Texas_Revolution": "1835–1836",
 "Texas_annexation": "1845",
 "Phineas_Gage": "1823–1860",
-"Henry_Molaison": "1926–2008"
+"Henry_Molaison": "1926–2008",
+"Belmont_Report": "1979",
+"Three_Rs_(animal_research)": "1959",
+"Monster_Study": "1939",
+"Stanford_prison_experiment": "1971",
+"Milgram_experiment": "1963",
+"Diana_Baumrind": "1927–2018",
+"Reproducibility_Project": "2015",
+"HARKing": "1998",
+"Registered_report": "2013"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19833,7 +19859,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Basal_ganglia": ["basal nuclei"],
 "Lateralization_of_brain_function": ["cerebral lateralisation","hemispheric lateralisation"],
 "Split-brain": ["split brain"],
-"Henry_Molaison": ["Patient H.M."]
+"Henry_Molaison": ["Patient H.M."],
+"Institutional_review_board": ["research ethics committee"],
+"APA_Ethics_Code": ["Ethical Principles of Psychologists and Code of Conduct"],
+"Three_Rs_(animal_research)": ["Three Rs","3Rs"],
+"Milgram_experiment": ["Milgram experiments","Milgram obedience experiments"],
+"Reproducibility_Project": ["Reproducibility Project: Psychology"],
+"Data_dredging": ["p-hacking"],
+"Researcher_degrees_of_freedom": ["garden of forking paths"],
+"Publication_bias": ["file drawer problem","file-drawer problem"],
+"Registered_report": ["registered reports"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29333,7 +29368,24 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Phineas_Gage": ["person","psychology","neuroscience","united states"],
 "Henry_Molaison": ["person","psychology","neuroscience","memory"],
 "Aphasia": ["concept","psychology","neuroscience","language"],
-"Brain_injury": ["concept","psychology","neuroscience","medicine"]
+"Brain_injury": ["concept","psychology","neuroscience","medicine"],
+"Confidentiality": ["concept","ethics","psychology","research methods"],
+"Institutional_review_board": ["institution","ethics","science","research methods"],
+"Belmont_Report": ["text","ethics","history","science"],
+"APA_Ethics_Code": ["text","ethics","psychology","science"],
+"Three_Rs_(animal_research)": ["concept","ethics","science","research methods"],
+"Monster_Study": ["event","ethics","psychology","history"],
+"Stanford_prison_experiment": ["event","psychology","ethics","history"],
+"Milgram_experiment": ["event","psychology","ethics","history"],
+"Diana_Baumrind": ["person","psychology","ethics","developmental psychology"],
+"Reproducibility_Project": ["event","psychology","research methods","science"],
+"Questionable_research_practices": ["concept","psychology","research methods","science"],
+"Data_dredging": ["practice","statistics","research methods","science"],
+"Researcher_degrees_of_freedom": ["concept","statistics","research methods","science"],
+"HARKing": ["practice","research methods","science","psychology"],
+"Publication_bias": ["concept","research methods","science","statistics"],
+"Registered_report": ["practice","research methods","science","psychology"],
+"Open_science": ["practice","science","research methods","psychology"]
 });
 
 /* ============================================================================

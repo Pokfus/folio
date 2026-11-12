@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6647 | the title is the article |
-| `redirect-variant` | 397 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6663 | the title is the article |
+| `redirect-variant` | 398 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 89 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 630 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 632 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 135 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 136 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
 | `none` | 1011 | nothing matched; no link |
 
-**7779 of 9090 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7798 of 9110 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (630)
+## Redirected to a differently named article — check each (632)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -383,6 +383,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ps-182` **statistical power** → [Power (statistics)](https://en.wikipedia.org/wiki/Power_(statistics)) (from `Statistical power`)
 - `ps-189` **non-parametric test** → [Nonparametric statistics](https://en.wikipedia.org/wiki/Nonparametric_statistics) (from `Non-parametric test`)
 - `ps-194` **mediator variable** → [Mediation (statistics)](https://en.wikipedia.org/wiki/Mediation_(statistics)) (from `Mediator variable`)
+- `ps-214` **p-hacking** → [Data dredging](https://en.wikipedia.org/wiki/Data_dredging) (from `P-hacking`)
+- `ps-218` **file drawer problem** → [Publication bias](https://en.wikipedia.org/wiki/Publication_bias) (from `File drawer problem`)
 - `ps-222` **glial cells** → [Glia](https://en.wikipedia.org/wiki/Glia) (from `Glial cells`)
 - `ps-225` **myelin sheath** → [Myelin](https://en.wikipedia.org/wiki/Myelin) (from `Myelin sheath`)
 - `ps-237` **noradrenaline** → [Norepinephrine](https://en.wikipedia.org/wiki/Norepinephrine) (from `Noradrenaline`)
@@ -946,7 +948,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (135)
+## Section redirects — no dedicated page (136)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1025,6 +1027,7 @@ Wikipedia treats these as part of another article. No link.
 - `ps-177` **null hypothesis** — `Null hypothesis` only redirects into `Statistical hypothesis test#Definition of terms`
 - `ps-181` **Type I error** — `Type I error` only redirects into `Type I and type II errors#Type I error`
 - `ps-184` **Cohen's d** — `Cohen's d` only redirects into `Effect size#Cohen's d`
+- `ps-213` **questionable research practices** — `Questionable research practices` only redirects into `Research#Research ethics`
 - `ps-270` **somatosensory cortex** — `Somatosensory cortex` only redirects into `Somatosensory system#Somatosensory cortex`
 - `rm-006` **Bronze Age Italy** — `Bronze Age Italy` only redirects into `Prehistoric Italy#Bronze Age`
 - `rm-025` **Etruscan league** — `Etruscan league` only redirects into `Etruscan civilization#Etruscan League`

@@ -1,11 +1,11 @@
 {
- "generated": "2026-11-12T04:13Z",
+ "generated": "2026-11-12T04:15Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6647,
-  "redirect-broader": 630,
-  "redirect-variant": 397,
-  "section-redirect": 135,
+  "ok": 6663,
+  "redirect-broader": 632,
+  "redirect-variant": 398,
+  "section-redirect": 136,
   "disambiguation": 147,
   "none": 1011,
   "disambig-resolved": 89,
@@ -72640,6 +72640,151 @@
    "answer": "brain injury",
    "title": "Brain injury",
    "url": "https://en.wikipedia.org/wiki/Brain_injury",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-201": {
+   "answer": "confidentiality",
+   "title": "Confidentiality",
+   "url": "https://en.wikipedia.org/wiki/Confidentiality",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-202": {
+   "answer": "institutional review board",
+   "title": "Institutional review board",
+   "url": "https://en.wikipedia.org/wiki/Institutional_review_board",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-203": {
+   "answer": "Belmont Report",
+   "title": "Belmont Report",
+   "url": "https://en.wikipedia.org/wiki/Belmont_Report",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-204": {
+   "answer": "APA Ethics Code",
+   "title": "APA Ethics Code",
+   "url": "https://en.wikipedia.org/wiki/APA_Ethics_Code",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-205": {
+   "answer": "Three Rs",
+   "title": "Three Rs (animal research)",
+   "url": "https://en.wikipedia.org/wiki/Three_Rs_(animal_research)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-206": {
+   "answer": "Monster Study",
+   "title": "Monster Study",
+   "url": "https://en.wikipedia.org/wiki/Monster_Study",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-207": {
+   "answer": "Stanford prison experiment",
+   "title": "Stanford prison experiment",
+   "url": "https://en.wikipedia.org/wiki/Stanford_prison_experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-208": {
+   "answer": "demand characteristics",
+   "title": "Demand characteristics",
+   "url": "https://en.wikipedia.org/wiki/Demand_characteristics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-209": {
+   "answer": "Milgram experiment",
+   "title": "Milgram experiment",
+   "url": "https://en.wikipedia.org/wiki/Milgram_experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-210": {
+   "answer": "Diana Baumrind",
+   "title": "Diana Baumrind",
+   "url": "https://en.wikipedia.org/wiki/Diana_Baumrind",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-211": {
+   "answer": "replication crisis",
+   "title": "Replication crisis",
+   "url": "https://en.wikipedia.org/wiki/Replication_crisis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-212": {
+   "answer": "Reproducibility Project",
+   "title": "Reproducibility Project",
+   "url": "https://en.wikipedia.org/wiki/Reproducibility_Project",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-213": {
+   "answer": "questionable research practices",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Questionable research practices",
+   "target": "Research#Research ethics"
+  },
+  "ps-214": {
+   "answer": "p-hacking",
+   "title": "Data dredging",
+   "url": "https://en.wikipedia.org/wiki/Data_dredging",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "P-hacking"
+  },
+  "ps-215": {
+   "answer": "garden of forking paths",
+   "title": "The Garden of Forking Paths",
+   "url": "https://en.wikipedia.org/wiki/The_Garden_of_Forking_Paths",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Garden of forking paths"
+  },
+  "ps-216": {
+   "answer": "HARKing",
+   "title": "HARKing",
+   "url": "https://en.wikipedia.org/wiki/HARKing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-217": {
+   "answer": "publication bias",
+   "title": "Publication bias",
+   "url": "https://en.wikipedia.org/wiki/Publication_bias",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-218": {
+   "answer": "file drawer problem",
+   "title": "Publication bias",
+   "url": "https://en.wikipedia.org/wiki/Publication_bias",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "File drawer problem"
+  },
+  "ps-219": {
+   "answer": "registered report",
+   "title": "Registered report",
+   "url": "https://en.wikipedia.org/wiki/Registered_report",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-220": {
+   "answer": "open science",
+   "title": "Open science",
+   "url": "https://en.wikipedia.org/wiki/Open_science",
    "via": "glossary",
    "status": "ok"
   }
