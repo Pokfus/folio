@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"08f62dfbf3391d40","counts":{"terms":939,"points":702,"countries":237,"windows":1510,"faces":375,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"090ef893f067ca36","counts":{"terms":940,"points":703,"countries":237,"windows":1515,"faces":375,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -324,6 +324,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"08f62dfbf3391d40","counts":
 "Hawaii":"adm1:usa:us-hi",
 "Heaven_Lake":"pl:q714023",
 "Hebei":"adm1:chn:cn-he",
+"Heian-kyō":"city:1159149967",
 "Heilongjiang":"adm1:chn:cn-hl",
 "Helsinki":"city:1159151419",
 "Henan":"adm1:chn:cn-ha",
@@ -1137,6 +1138,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"08f62dfbf3391d40","counts":
 "Byblos":[35.652,34.124,"coord",0,0,0],
 "Byzantine_Empire":[35.553,36.656,"polity","pol:byzantium",561,1.63],
 "Byzantium":[28.976,41.012,"city",0,0,0],
+"Byōdō-in":[135.808,34.889,"coord",0,0,0],
 "Caere":[12.108,42.002,"site",0,0,0],
 "Cahokia":[-90.064,38.654,"site",0,0,0],
 "Cairo":[31.248,30.052,"capital",0,0,0],
@@ -1351,6 +1353,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"08f62dfbf3391d40","counts":
 "French_Quarter":[-90.065,29.959,"coord",0,0,0],
 "Fujian":[118.178,26.408,"admin1","adm1:chn:cn-fj",0,14.41],
 "Fujian_tulou":[116.732,24.724,"coord",0,0,0],
+"Fukuhara-kyō":[135.167,34.676,"coord",0,0,0],
 "Fuzhou":[116.358,27.949,"coord",0,0,0],
 "Führerbunker":[13.382,52.512,"coord",0,0,0],
 "Gabii":[12.716,41.887,"site",0,0,0],
@@ -1445,6 +1448,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"08f62dfbf3391d40","counts":
 "Heaven_Lake":[128.057,42.006,"lake",0,0,0],
 "Heb-sed_court":[31.217,29.871,"coord",0,0,0],
 "Hebei":[115.314,38.521,"admin1","adm1:chn:cn-he",0,10.44],
+"Heian-kyō":[135.748,35.032,"city",0,0,0],
 "Heilongjiang":[127.97,46.845,"admin1","adm1:chn:cn-hl",0,6.76],
 "Heit_el-Ghurab":[31.133,29.976,"coord",0,0,0],
 "Heliopolis_(ancient_Egypt)":[31.308,30.129,"coord",0,0,0],
@@ -1459,6 +1463,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"08f62dfbf3391d40","counts":
 "Hierakonpolis":[32.779,25.097,"site",0,0,0],
 "Himalayas":[89.984,28.037,"range",0,0,0],
 "Hindu_Kush":[73.702,35.864,"range",0,0,0],
+"Hiraizumi":[141.114,38.987,"coord",0,0,0],
 "Hohlenstein-Stadel":[10.173,48.549,"coord",0,0,0],
 "Honduras":[-86.89,14.79,"country","adm0:hnd",0,11.37],
 "Hong_Kong":[114.1,22.45,"country","adm0:hkg",0,40],
@@ -1816,6 +1821,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"08f62dfbf3391d40","counts":
 "Mount_Fuji":[138.728,35.361,"coord",0,0,0],
 "Mount_Gongga":[101.879,29.596,"mountain",0,0,0],
 "Mount_Heng_(Hunan)":[112.685,27.302,"mountain",0,0,0],
+"Mount_Hiei":[135.838,35.067,"coord",0,0,0],
 "Mount_Hood":[-121.696,45.374,"mountain",0,0,0],
 "Mount_Hua":[110.083,34.483,"range",0,0,0],
 "Mount_Ida":[26.829,39.704,"range",0,0,0],
