@@ -71,6 +71,7 @@ ETYMS = {
     'пара': ['2', '1'],       # "pair, couple" AND "steam"
     'тікати': ['2'],          # "to run away"; etymology 1 is "to tick (of a clock)"
     'уряд': ['1'],            # "government"; etymology 2 is the adverb "in succession"
+    'ген': ['2'],             # "gene"; etymology 1 is a dialectal "far away"
 }
 
 # A PART OF SPEECH TO LEAD WITH, where Wiktionary's first is not the everyday word.

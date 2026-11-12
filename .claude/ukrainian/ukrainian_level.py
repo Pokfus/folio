@@ -77,6 +77,20 @@ SCOPE = {
                   'problems of travel, giving an opinion and arguing it, describing people and '
                   'things, and the verbs of deciding, changing, comparing and making',
     },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in their field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either '
+                 'party, and to produce clear, detailed text on a wide range of subjects and '
+                 'explain a viewpoint on a topical issue giving the advantages and disadvantages '
+                 'of various options',
+        'topics': 'the economy and business, the workplace, government, law and rights, science '
+                  'and technology, the environment and energy, society and its problems, the '
+                  'media, education and the mind, health and medicine, culture, history and '
+                  'identity, the arts and reviewing them, attitudes and character, the words '
+                  'that build an argument, and the verbs of change and judgement',
+    },
 }
 
 

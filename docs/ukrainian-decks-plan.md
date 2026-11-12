@@ -5,8 +5,8 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-09: "Add a Ukrainian language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/ukrainian/`, §6–§8). B2, C1 and a
-phrases deck are not.
+**STATUS (2026-11-12): the alphabet deck and A1 to B2 are built** (`.claude/ukrainian/`, §6–§9). C1 and a phrases
+deck are not.
 
 Later decks under `decks/` are community content, not a change to Folio: **no changelog line and no version bump**
 for them. The collection's first commit carried one line and one bump, because it also changed the APP (the
@@ -32,7 +32,7 @@ already use, and the owner may overrule any of it:
 | Ukrainian A1 Beginner — built | `Ukrainian-A1.folio-deck.json` | 500 |
 | Ukrainian A2 Elementary — built | `Ukrainian-A2.folio-deck.json` | 750 |
 | Ukrainian B1 Intermediate — built | `Ukrainian-B1.folio-deck.json` | 1,000 |
-| Ukrainian B2 Upper Intermediate | `Ukrainian-B2.folio-deck.json` | 1,500 |
+| Ukrainian B2 Upper Intermediate — built | `Ukrainian-B2.folio-deck.json` | 1,500 |
 | Ukrainian C1 Advanced | `Ukrainian-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
@@ -135,3 +135,24 @@ grew by thirty-four — names or other words taking a count (`ян`, `чан`, `
 the untagged adverb "in succession" had won) and a `STRESS` for `стривати`. **A1, A2 and B1 rebuild byte-identical.**
 Known, left: the fill keeps the subtitles' fantasy and police vocabulary (`дракон`, `меч`, `принц`, `сержант`,
 `прокурор`), as the levels below do.
+
+## 9. As built (2026-11-12): B2
+
+`python3 .claude/ukrainian/run.py --level b2`. 1,500 notes: 347 from the B2 inventory (the economy and business, the
+workplace, government, law and rights, science and technology, the environment and energy, society and its problems,
+the media, education and the mind, health and medicine, culture, history and identity, the arts and reviews,
+attitudes and character, the words of an argument, the verbs of change and judgement) and 1,153 by frequency, none
+taught below; sentences for 1,377, three apiece for 1,191. The B2 `SCOPE` quotes the CEFR B2 global descriptor.
+The inventory is the smallest share yet because B2's abstract vocabulary is where Wiktionary's Ukrainian is
+thinnest: 35 inventory words have no lemma there (`спад`, `оподаткування`, `мислення`, `рецензія`, `мораль`,
+`расизм`, `депортація` …, printed by `select.py`), and `становити` and `обурюватися` are pointer entries, so they
+were taken out; `засоби масової інформації` was taken out beside `ЗМІ`, the two being one meaning. New from reading
+the ranking: `select.EXCLUDE` grew by forty-five — lemmas whose own forms barely count (`піл`, `кайло`, `айва`,
+`рея`, `забрало`, `кода`, `руда`, `літ`, `віл`, `пустий`, `заказати`, `ич`), counts that are another word (`жила`
+the past of жити, `рота` the genitive of рот, the names Bill, Martin, Bond, Sonya, `францій` from Франції, `едем`
+from Russian, the subtitles' own credits), Russian words (`старик`, `воздух`, `кусок`, `спорити`, `власть`,
+`бизнес`, `хватати`, `судьба`, `грудь`, `дурак`, `стакан`, `строїти`), у-spellings and variants of a word shipped
+(`упасти`, `украсти`, `учити`, `учора`, `установити`, `аніж`, `адрес`), forms (`силою`, `удачі`), a pointer
+(`розлучення`), an old spelling (`барбар`) and a letter name (`мю`). `ETYMS` takes `ген` "gene", not a dialectal
+"far away". **A1, A2, B1 and B2 rebuild byte-identical.** Known, left: the fill carries the subtitles' genre
+vocabulary (`ельф`, `орк`, `вампір`, `шпигун`) and some slang (`кайф`, `фігня`, `бакс`), as the levels below do.
