@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T18:13Z",
+ "generated": "2026-11-12T18:17Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7977,
-  "redirect-broader": 774,
+  "ok": 8000,
+  "redirect-broader": 777,
   "redirect-variant": 480,
   "section-redirect": 188,
-  "disambiguation": 155,
-  "none": 1173,
-  "disambig-resolved": 108,
+  "disambiguation": 157,
+  "none": 1174,
+  "disambig-resolved": 109,
   "list-page": 6,
   "search-match": 9,
   "no-article": 20
@@ -86411,17 +86411,11 @@
   },
   "us-773": {
    "answer": "African American Great Migration",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Great Migration (African American)",
-    "Second Great Migration (African American)",
-    "List of African-American United States representatives",
-    "Demographics of the United States",
-    "African Americans in the United States Congress"
-   ]
+   "title": "Great Migration (African American)",
+   "url": "https://en.wikipedia.org/wiki/Great_Migration_(African_American)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "us-774": {
    "answer": "Women's suffrage in the United States",
@@ -86504,12 +86498,11 @@
   },
   "us-785": {
    "answer": "Second Ku Klux Klan",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "section-redirect",
-   "from": "Second Ku Klux Klan",
-   "target": "Ku Klux Klan#Second Klan"
+   "title": "Ku Klux Klan",
+   "url": "https://en.wikipedia.org/wiki/Ku_Klux_Klan",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "us-786": {
    "answer": "Immigration Act of 1924",
@@ -86584,15 +86577,11 @@
   },
   "us-796": {
    "answer": "Breadline",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "disambiguation",
-   "from": "Breadline",
-   "suggestions": [
-    "Breadline Africa",
-    "Breadline (song)"
-   ]
+   "title": "Breadline",
+   "url": "https://en.wikipedia.org/wiki/Breadline",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "us-797": {
    "answer": "Hooverville",
@@ -86668,17 +86657,11 @@
   },
   "us-717": {
    "answer": "Eastern European Jewish immigration",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "History of immigration to the United States",
-    "United States immigration statistics",
-    "History of the Jews in the United States",
-    "Immigration to Europe",
-    "Race and ethnicity in the United States"
-   ]
+   "title": "History of the Jews in the United States",
+   "url": "https://en.wikipedia.org/wiki/History_of_the_Jews_in_the_United_States",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "us-718": {
    "answer": "Lower East Side",
@@ -86769,6 +86752,223 @@
    "answer": "Chinese Exclusion Act",
    "title": "Chinese Exclusion Act",
    "url": "https://en.wikipedia.org/wiki/Chinese_Exclusion_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-731": {
+   "answer": "Chinese massacre of 1871",
+   "title": "Los Angeles Chinese massacre of 1871",
+   "url": "https://en.wikipedia.org/wiki/Los_Angeles_Chinese_massacre_of_1871",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Chinese massacre of 1871"
+  },
+  "us-732": {
+   "answer": "American Protective Association",
+   "title": "American Protective Association",
+   "url": "https://en.wikipedia.org/wiki/American_Protective_Association",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-733": {
+   "answer": "Jewish Daily Forward",
+   "title": "The Forward",
+   "url": "https://en.wikipedia.org/wiki/The_Forward",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Jewish Daily Forward"
+  },
+  "us-734": {
+   "answer": "melting pot",
+   "title": "Melting pot",
+   "url": "https://en.wikipedia.org/wiki/Melting_pot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-735": {
+   "answer": "Americanization movement",
+   "title": "Americanization (immigration)",
+   "url": "https://en.wikipedia.org/wiki/Americanization_(immigration)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-736": {
+   "answer": "Populism",
+   "title": "Populism",
+   "url": "https://en.wikipedia.org/wiki/Populism",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-737": {
+   "answer": "Farmers' Alliance",
+   "title": "Farmers' Alliance",
+   "url": "https://en.wikipedia.org/wiki/Farmers'_Alliance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-738": {
+   "answer": "People's Party",
+   "title": "Populist Party (United States)",
+   "url": "https://en.wikipedia.org/wiki/Populist_Party_(United_States)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-739": {
+   "answer": "Free silver",
+   "title": "Free silver",
+   "url": "https://en.wikipedia.org/wiki/Free_silver",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-740": {
+   "answer": "William Jennings Bryan",
+   "title": "William Jennings Bryan",
+   "url": "https://en.wikipedia.org/wiki/William_Jennings_Bryan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-741": {
+   "answer": "1896 United States presidential election",
+   "title": "1896 United States presidential election",
+   "url": "https://en.wikipedia.org/wiki/1896_United_States_presidential_election",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-742": {
+   "answer": "Progressive Era",
+   "title": "Progressive Era",
+   "url": "https://en.wikipedia.org/wiki/Progressive_Era",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-743": {
+   "answer": "muckraker",
+   "title": "Muckraker",
+   "url": "https://en.wikipedia.org/wiki/Muckraker",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-744": {
+   "answer": "Jungle",
+   "title": "The Jungle",
+   "url": "https://en.wikipedia.org/wiki/The_Jungle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-745": {
+   "answer": "Pure Food and Drug Act",
+   "title": "Pure Food and Drug Act",
+   "url": "https://en.wikipedia.org/wiki/Pure_Food_and_Drug_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-746": {
+   "answer": "Theodore Roosevelt",
+   "title": "Theodore Roosevelt",
+   "url": "https://en.wikipedia.org/wiki/Theodore_Roosevelt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-747": {
+   "answer": "Square Deal",
+   "title": "Square Deal",
+   "url": "https://en.wikipedia.org/wiki/Square_Deal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-748": {
+   "answer": "Wisconsin Idea",
+   "title": "Wisconsin Idea",
+   "url": "https://en.wikipedia.org/wiki/Wisconsin_Idea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-749": {
+   "answer": "New Freedom",
+   "title": "The New Freedom",
+   "url": "https://en.wikipedia.org/wiki/The_New_Freedom",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-750": {
+   "answer": "Federal Reserve System",
+   "title": "Federal Reserve",
+   "url": "https://en.wikipedia.org/wiki/Federal_Reserve",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Federal Reserve System"
+  },
+  "us-751": {
+   "answer": "Sixteenth Amendment",
+   "title": "Sixteenth Amendment to the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Sixteenth_Amendment_to_the_United_States_Constitution",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Sixteenth Amendment"
+  },
+  "us-752": {
+   "answer": "American imperialism",
+   "title": "American imperialism",
+   "url": "https://en.wikipedia.org/wiki/American_imperialism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-753": {
+   "answer": "Spanish–American War",
+   "title": "Spanish–American War",
+   "url": "https://en.wikipedia.org/wiki/Spanish%E2%80%93American_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-754": {
+   "answer": "Yellow journalism",
+   "title": "Yellow journalism",
+   "url": "https://en.wikipedia.org/wiki/Yellow_journalism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-755": {
+   "answer": "Battle of Manila Bay",
+   "title": "Battle of Manila Bay",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Manila_Bay",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-756": {
+   "answer": "Treaty of Paris (1898)",
+   "title": "Treaty of Paris (1898)",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Paris_(1898)",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-757": {
+   "answer": "Philippine–American War",
+   "title": "Philippine–American War",
+   "url": "https://en.wikipedia.org/wiki/Philippine%E2%80%93American_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-758": {
+   "answer": "American Anti-Imperialist League",
+   "title": "American Anti-Imperialist League",
+   "url": "https://en.wikipedia.org/wiki/American_Anti-Imperialist_League",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-759": {
+   "answer": "Panama Canal",
+   "title": "Panama Canal",
+   "url": "https://en.wikipedia.org/wiki/Panama_Canal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-760": {
+   "answer": "Roosevelt Corollary",
+   "title": "Roosevelt Corollary",
+   "url": "https://en.wikipedia.org/wiki/Roosevelt_Corollary",
    "via": "glossary",
    "status": "ok"
   }

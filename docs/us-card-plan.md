@@ -1455,15 +1455,15 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-728  Home Insurance Building
     us-729  Streetcar suburb
     us-730  Chinese Exclusion Act
-    us-731  Anti-Chinese violence in the American West
-    us-732  Nativism in the Gilded Age
-    us-733  The immigrant press and immigrant politics
-    us-734  The melting pot and its critics
-    us-735  What assimilation demanded
+    us-731  Chinese massacre of 1871
+    us-732  American Protective Association
+    us-733  Jewish Daily Forward
+    us-734  Melting pot
+    us-735  Americanization movement
 
 ### Populism, Progressivism and empire — `us-progressive`
 
-    us-736  Populism in the United States
+    us-736  Populism
     us-737  Farmers' Alliance
     us-738  People's Party (United States)
     us-739  Free silver

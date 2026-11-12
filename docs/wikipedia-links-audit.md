@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7977 | the title is the article |
+| `ok` | 8000 | the title is the article |
 | `redirect-variant` | 480 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 108 | chosen from a disambiguation page by hint words — listed below |
+| `disambig-resolved` | 109 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 774 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 777 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 188 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 155 | only a disambiguation page; no link could be chosen |
-| `none` | 1173 | nothing matched; no link |
+| `disambiguation` | 157 | only a disambiguation page; no link could be chosen |
+| `none` | 1174 | nothing matched; no link |
 
-**9355 of 10890 cards get a link.** The three "no link" rows are the honest state: a card whose
+**9382 of 10920 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (774)
+## Redirected to a differently named article — check each (777)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -671,6 +671,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-712` **Dillingham Commission** → [United States Congressional Joint Immigration Commission](https://en.wikipedia.org/wiki/United_States_Congressional_Joint_Immigration_Commission) (from `Dillingham Commission`)
 - `us-716` **Italian immigration to the United States** → [Italian Americans](https://en.wikipedia.org/wiki/Italian_Americans) (from `Italian immigration to the United States`)
 - `us-719` **Mutual aid society** → [Benefit society](https://en.wikipedia.org/wiki/Benefit_society) (from `Mutual aid society`)
+- `us-731` **Chinese massacre of 1871** → [Los Angeles Chinese massacre of 1871](https://en.wikipedia.org/wiki/Los_Angeles_Chinese_massacre_of_1871) (from `Chinese massacre of 1871`)
+- `us-733` **Jewish Daily Forward** → [The Forward](https://en.wikipedia.org/wiki/The_Forward) (from `Jewish Daily Forward`)
+- `us-750` **Federal Reserve System** → [Federal Reserve](https://en.wikipedia.org/wiki/Federal_Reserve) (from `Federal Reserve System`)
 - `us-768` **Harlem Hellfighters** → [369th Infantry Regiment (United States)](https://en.wikipedia.org/wiki/369th_Infantry_Regiment_(United_States)) (from `Harlem Hellfighters`)
 - `us-777` **1918 influenza pandemic** → [Spanish flu](https://en.wikipedia.org/wiki/Spanish_flu) (from `1918 influenza pandemic`)
 - `wh-005` **hominin** → [Hominini](https://en.wikipedia.org/wiki/Hominini) (from `Hominin`)
@@ -819,7 +822,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (108)
+## Settled from a disambiguation page (109)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -917,6 +920,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `us-330` **Twelfth Amendment** → [Twelfth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Twelfth_Amendment_to_the_United_States_Constitution) (via the disambiguation page `Twelfth Amendment`)
 - `us-472` **Slave quarters** → [Slave quarters in the United States](https://en.wikipedia.org/wiki/Slave_quarters_in_the_United_States) (via the disambiguation page `Slave quarters`)
 - `us-635` **Fifteenth Amendment** → [Fifteenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Fifteenth_Amendment_to_the_United_States_Constitution) (via the disambiguation page `Fifteenth Amendment`)
+- `us-751` **Sixteenth Amendment** → [Sixteenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Sixteenth_Amendment_to_the_United_States_Constitution) (via the disambiguation page `Sixteenth Amendment`)
 - `us-775` **Nineteenth Amendment** → [Nineteenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Nineteenth_Amendment_to_the_United_States_Constitution) (via the disambiguation page `Nineteenth Amendment`)
 - `wh-218` **Middle Kingdom** → [Middle Kingdom of Egypt](https://en.wikipedia.org/wiki/Middle_Kingdom_of_Egypt) (via the disambiguation page `Middle Kingdom`)
 - `wh-458` **Hijra** → [Hijra (South Asia)](https://en.wikipedia.org/wiki/Hijra_(South_Asia)) (via the disambiguation page `Hijra`)
@@ -946,7 +950,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (155)
+## Disambiguation pages that could not be settled (157)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -1093,6 +1097,8 @@ Pick the right article by hand, or leave the card without a link.
 - `us-169` **Royal governor** — `Royal governor` is a disambiguation page; its links: `Royal Governor of Hawaii`, `Royal Governor of Kauai`, `Royal Governor of Maui`, `Royal Governor of Oahu`
 - `us-410` **forty-niners** — `49er` is a disambiguation page; its links: `Forty-Niner (passenger train)`, `The Forty-Niners (1932 film)`, `The Forty-Niners (1954 film)`, `Top 10: The Forty-Niners`
 - `us-462` **overseer** — `Overseer` is a disambiguation page; its links: `Overseer (rank)`, `Overseer of the poor`, `Rob Overseer`, `Aerojet SD-2 Overseer`
+- `us-738` **People's Party** — `People's Party` is a disambiguation page; its links: `People's Party (United States)`, `People's party (politics)`, `People's Party (United States, 1971)`, `People's Party (United States, 2017)`, `PEOPLE Party`, `People Party`
+- `us-749` **New Freedom** — `New Freedom` is a disambiguation page; its links: `The New Freedom`, `New Freedom, New Jersey`, `New Freedom, Pennsylvania`, `New Freedom (SAFETEA-LU)`, `New Freedom Commission on Mental Health`, `New Freedom Railroad Station, Northern Central Railway`
 - `us-796` **Breadline** — `Breadline` is a disambiguation page; its links: `Breadline Africa`, `Breadline (song)`
 - `wh-069` **Lion-man** — `Lion man` is a disambiguation page; its links: `Lion-man of Hohlenstein-Stadel`
 - `wh-126` **'Ain Ghazal** — `Ayn Ghazal` is a disambiguation page
@@ -1310,7 +1316,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1173)
+## No article found (1174)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2424,6 +2430,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `us-662` **cattle kingdom** — search suggests `List of cattle terminology`, `Highland cattle`, `United States`, `Aberdeen Angus`, `American Brahman`
 - `us-682` **Industrialisation of the United States** — search suggests `Japan–United States relations`, `History of industrialisation`, `Singapore–United States relations`, `Industrialisation`, `International development`
 - `us-717` **Eastern European Jewish immigration** — search suggests `History of immigration to the United States`, `United States immigration statistics`, `History of the Jews in the United States`, `Immigration to Europe`, `Race and ethnicity in the United States`
+- `us-735` **Americanization movement** — search suggests `Americanization`, `Americanization (immigration)`, `United States`, `Joe Biden`, `Vigilantism in the United States`
 - `us-773` **African American Great Migration** — search suggests `Great Migration (African American)`, `Second Great Migration (African American)`, `List of African-American United States representatives`, `Demographics of the United States`, `African Americans in the United States Congress`
 - `wh-080` **Palaeolithic music** — search suggests `Paleolithic`, `History of music`, `Upper Paleolithic`, `Cro-Magnon`, `Music of Slovakia`
 - `wh-088` **southern dispersal route** — search suggests `Southern dispersal`, `Recent African origin of modern humans`, `Biological dispersal`, `Johor Bahru Eastern Dispersal Link Expressway`, `Genetic history of East Asians`

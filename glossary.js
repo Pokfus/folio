@@ -11016,7 +11016,35 @@ window.GLOSSARY = {
 "Metropolitan_Board_of_Health": "",
 "Home_Insurance_Building": "",
 "Streetcar_suburb": "",
-"Chinese_Exclusion_Act": ""
+"Chinese_Exclusion_Act": "",
+"Los_Angeles_Chinese_massacre_of_1871": "",
+"American_Protective_Association": "",
+"The_Forward": "",
+"Melting_pot": "",
+"Americanization_(immigration)": "",
+"Populism_in_the_United_States": "",
+"Farmers'_Alliance": "",
+"Populist_Party_(United_States)": "",
+"Free_silver": "",
+"William_Jennings_Bryan": "",
+"1896_United_States_presidential_election": "",
+"Progressive_Era": "",
+"Muckraker": "",
+"The_Jungle": "",
+"Pure_Food_and_Drug_Act": "",
+"Square_Deal": "",
+"Wisconsin_Idea": "",
+"The_New_Freedom": "",
+"Sixteenth_Amendment_to_the_United_States_Constitution": "",
+"American_imperialism": "",
+"Spanish–American_War": "",
+"Yellow_journalism": "",
+"Battle_of_Manila_Bay": "",
+"Treaty_of_Paris_(1898)": "",
+"Philippine–American_War": "",
+"American_Anti-Imperialist_League": "",
+"Panama_Canal": "",
+"Roosevelt_Corollary": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -16291,11 +16319,29 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Jacob_Riis": "1849–1914",
 "Metropolitan_Board_of_Health": "1866",
 "Home_Insurance_Building": "1885–1931",
-"Chinese_Exclusion_Act": "1882–1943"
+"Chinese_Exclusion_Act": "1882–1943",
+"Los_Angeles_Chinese_massacre_of_1871": "1871",
+"American_Protective_Association": "1887–1911",
+"The_Forward": "from 1897",
+"Farmers'_Alliance": "1877–1890s",
+"Populist_Party_(United_States)": "1891–1908",
+"Free_silver": "1870s–1900",
+"William_Jennings_Bryan": "1860–1925",
+"1896_United_States_presidential_election": "1896",
+"The_Jungle": "1906",
+"Pure_Food_and_Drug_Act": "1906",
+"Sixteenth_Amendment_to_the_United_States_Constitution": "1913",
+"Spanish–American_War": "1898",
+"Battle_of_Manila_Bay": "1 May 1898",
+"Treaty_of_Paris_(1898)": "10 December 1898",
+"Philippine–American_War": "1899–1902",
+"American_Anti-Imperialist_League": "1898",
+"Roosevelt_Corollary": "1904"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
 window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
+"The_New_Freedom": ["New Freedom"],
 "Spanish_flu": ["1918 influenza pandemic"],
 "Athena": ["Pallas Athene","Pallas Athena"],
 "Tiber": ["Tevere"],
@@ -23436,7 +23482,21 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Tenement": ["tenements","tenement house","tenement houses"],
 "Jacob_Riis": ["Jacob A. Riis"],
 "Metropolitan_Board_of_Health": ["New York Metropolitan Board of Health"],
-"Streetcar_suburb": ["streetcar suburbs"]
+"Streetcar_suburb": ["streetcar suburbs"],
+"Los_Angeles_Chinese_massacre_of_1871": ["Chinese massacre of 1871"],
+"The_Forward": ["Jewish Daily Forward","Forverts"],
+"Americanization_(immigration)": ["Americanization movement"],
+"Populism_in_the_United_States": ["Populism"],
+"Populist_Party_(United_States)": ["People's Party","People's Party (United States)"],
+"1896_United_States_presidential_election": ["election of 1896","1896 presidential election"],
+"Muckraker": ["muckrakers","muckraking"],
+"The_Jungle": ["Jungle"],
+"Pure_Food_and_Drug_Act": ["Food and Drugs Act","Wiley Act","Pure Food and Drug Act of 1906"],
+"Sixteenth_Amendment_to_the_United_States_Constitution": ["Sixteenth Amendment","16th Amendment"],
+"Spanish–American_War": ["Spanish-American War"],
+"Treaty_of_Paris_(1898)": ["Treaty of Paris of 1898"],
+"Philippine–American_War": ["Philippine-American War"],
+"American_Anti-Imperialist_League": ["Anti-Imperialist League"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -23595,7 +23655,11 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Magic_(cryptography)": true,
 "Legislative_Commission": true,
 "Pons_(neuroanatomy)": true,
-"Prohibition_in_the_United_States": true
+"Prohibition_in_the_United_States": true,
+"Populism_in_the_United_States": true,
+"The_Jungle": true,
+"Square_Deal": true,
+"The_New_Freedom": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -34615,7 +34679,35 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Metropolitan_Board_of_Health": ["institution","medicine","history","new york","united states"],
 "Home_Insurance_Building": ["building","architecture","history","chicago","united states"],
 "Streetcar_suburb": ["place","history","cities","transport","united states"],
-"Chinese_Exclusion_Act": ["text","law","history","immigration","united states"]
+"Chinese_Exclusion_Act": ["text","law","history","immigration","united states"],
+"Los_Angeles_Chinese_massacre_of_1871": ["event","history","immigration","violence","california","united states"],
+"American_Protective_Association": ["institution","history","politics","religion","united states"],
+"The_Forward": ["institution","history","immigration","jewish history","united states"],
+"Melting_pot": ["concept","history","immigration","culture"],
+"Americanization_(immigration)": ["event","history","immigration","education","united states"],
+"Populism_in_the_United_States": ["event","history","politics","agriculture","united states"],
+"Farmers'_Alliance": ["institution","history","agriculture","politics","united states"],
+"Populist_Party_(United_States)": ["institution","history","politics","agriculture","united states"],
+"Free_silver": ["concept","economics","politics","history","united states"],
+"William_Jennings_Bryan": ["person","history","politics","united states"],
+"1896_United_States_presidential_election": ["event","politics","history","united states","elections"],
+"Progressive_Era": ["era","history","politics","reform","united states"],
+"Muckraker": ["concept","history","journalism","united states"],
+"The_Jungle": ["text","literature","history","united states","labour"],
+"Pure_Food_and_Drug_Act": ["text","law","history","health","united states"],
+"Square_Deal": ["concept","politics","history","economics","united states"],
+"Wisconsin_Idea": ["concept","politics","history","education","united states","wisconsin"],
+"The_New_Freedom": ["concept","politics","history","economics","united states"],
+"Sixteenth_Amendment_to_the_United_States_Constitution": ["text","law","history","united states"],
+"American_imperialism": ["concept","history","politics","united states"],
+"Spanish–American_War": ["war","history","warfare","united states"],
+"Yellow_journalism": ["practice","history","journalism","politics"],
+"Battle_of_Manila_Bay": ["battle","history","warfare","united states"],
+"Treaty_of_Paris_(1898)": ["event","history","diplomacy","united states"],
+"Philippine–American_War": ["war","history","warfare","philippines"],
+"American_Anti-Imperialist_League": ["institution","history","politics","united states"],
+"Panama_Canal": ["building","geography","engineering","panama"],
+"Roosevelt_Corollary": ["text","history","politics","diplomacy"]
 });
 
 /* ============================================================================
