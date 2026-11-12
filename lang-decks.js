@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 243 MB of decks. The file itself is fetched on Add. */
+   section without fetching 244 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -62,6 +62,7 @@ window.LANG_DECKS = [
   { lang: "Urdu", file: "Urdu-A1.folio-deck.json", id: "urdua1", title: "Urdu A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 81, bytes: 1044098, rev: "f811da6d7c2f" },
   { lang: "Urdu", file: "Urdu-A2.folio-deck.json", id: "urdua2", title: "Urdu A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 45, bytes: 1120955, rev: "a971d1e1bea5" },
   { lang: "Urdu", file: "Urdu-B1.folio-deck.json", id: "urdub1", title: "Urdu B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 25, bytes: 1186252, rev: "291ddfd95fce" },
+  { lang: "Urdu", file: "Urdu-B2.folio-deck.json", id: "urdub2", title: "Urdu B2 Upper Intermediate", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 7, bytes: 1484954, rev: "f54d064d8fb5" },
   { lang: "Russian", file: "Russian-Alphabet.folio-deck.json", id: "ruabc", title: "Russian Alphabet", sub: "33 letters · both directions, as two cards per letter", notes: 33, cards: 66, ex: 0, bytes: 12340, rev: "9558c3d92472" },
   { lang: "Russian", file: "TORFL-A1-Russian.folio-deck.json", id: "torfla1", title: "TORFL A1 Elementary — Russian", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1419853, rev: "8175b41736fc" },
   { lang: "Russian", file: "TORFL-A2-Russian.folio-deck.json", id: "torfla2", title: "TORFL A2 Basic — Russian", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 100, bytes: 2560749, rev: "d8b025956b0b" },

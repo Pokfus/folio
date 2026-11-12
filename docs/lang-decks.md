@@ -3507,7 +3507,9 @@ changed was the one that had been wrong all along.
   collection"; Hindi's answers of the same day taken: CEFR A1–C1 assembled, a script deck, romanisation on
   every card). **Built: the alphabet, `decks/Urdu-Alphabet.folio-deck.json`** (56 notes), **A1,
   `decks/Urdu-A1.folio-deck.json`** (500 notes / 1,000 cards), **A2, `decks/Urdu-A2.folio-deck.json`**
-  (750 / 1,500) **and B1, `decks/Urdu-B1.folio-deck.json`** (1,000 / 2,000; both 2026-11-12, on request). `python3 .claude/urdu/run.py [--level a1]`
+  (750 / 1,500), **B1, `decks/Urdu-B1.folio-deck.json`** (1,000 / 2,000) **and B2,
+  `decks/Urdu-B2.folio-deck.json`** (1,500 / 3,000; all three 2026-11-12, on request — B2 reaches the end of
+  what Wiktionary's Urdu supports, the plan's §9). `python3 .claude/urdu/run.py [--level a1]`
   (the first fetch needs `wordfreq` on `PYTHONPATH`), `python3 .claude/urdu/alphabet.py`,
   `node .claude/urdu/check-urdu.js`; a re-run is byte-identical. Adapted from `.claude/hindi/`: the shelf's
   FIRST RIGHT-TO-LEFT decks (every Urdu span carries `dir="rtl"`, the face is the device's Nastaliq), two

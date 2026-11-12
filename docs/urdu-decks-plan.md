@@ -6,8 +6,8 @@ twelfth language set, built in the shape of the Hindi one (`docs/hindi-decks-pla
 rule there and in the Hindi plan applies here unless this file says otherwise. Asked for on 2026-11-09:
 "Add an Urdu language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/urdu/`, §6–§8). B2, C1 and
-the phrases deck are not.
+**STATUS (2026-11-12): the alphabet deck and A1 to B2 are built** (`.claude/urdu/`, §6–§9). C1 and the
+phrases deck are not — and §9 says why C1 should be decided before it is built.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one (raising the day's Hindi
@@ -35,7 +35,7 @@ If the owner wants any of these otherwise for Urdu, change them here first.
 | Urdu A1 Beginner — built | `Urdu-A1.folio-deck.json` | 500 |
 | Urdu A2 Elementary — built | `Urdu-A2.folio-deck.json` | 750 |
 | Urdu B1 Intermediate — built | `Urdu-B1.folio-deck.json` | 1,000 |
-| Urdu B2 Upper Intermediate | `Urdu-B2.folio-deck.json` | 1,500 |
+| Urdu B2 Upper Intermediate — built | `Urdu-B2.folio-deck.json` | 1,500 |
 | Urdu C1 Advanced | `Urdu-C1.folio-deck.json` | 1,500 |
 | Urdu Phrases and Expressions | `Urdu-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
@@ -103,7 +103,7 @@ as Wiktionary files it. `گانا` "song; to sing" is dealt early: its count inc
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2 and B1 done 2026-11-12) — A2 to C1, one level per session: write the
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2, B1 and B2 done 2026-11-12) — A2 to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `urdu_level.py`, run, read every card.
 **Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored.
 
@@ -175,3 +175,29 @@ unchanged. Read card by card; what that found:
 **Known, left.** Wiktionary tags `باندھنا` and `لہرانا` as nouns, and the cards print that. Religious vocabulary
 (`نماز`, `آیت`, `حدیث`, `جہاد`, `شریعت`) runs heavier than in a phrase book, as the written half of the count is
 partly religious text.
+
+## 9. As built (2026-11-12): B2 — and the source running dry
+
+Asked for on 2026-11-12: "Add B2." `python3 .claude/urdu/run.py --level b2`; 1,500 notes / 3,000 cards,
+**22 from the inventory and 1,478 by frequency**. Tatoeba gives 100 of the 1,500 a sentence, 8 three. **A
+re-run is byte-identical**; A1, A2 and B1 rebuilt after it are unchanged.
+
+- **THE INVENTORY BARELY RESOLVES.** Wiktionary has no Urdu entry for most of B2's topic words — vote,
+  campaign, judiciary, appeal, finance, import, invention, resources, psychology, diagnosis, historian,
+  equality, prejudice, rural, refugee, aspect, whereas, limited, sensitive, transparent, compare, and
+  more (the run prints them) — and the lower levels' fill had already taken many that it has. Stand-ins
+  used: `کوئلا`, `کشیدگی`, `افسردہ`, `مورتی`, `نقاش`, `کلا کار`, `نو آبادی`, `مہاجر`, `کے باوجود`, `شماریات`,
+  `بہر حال`, `نتیجتا`, `جائزہ`, `انکشاف`.
+- **THE FILL IS DEEP IN THE TAIL.** The deck's median frequency is 2.9 per million (B1's was 22.5) and 532
+  of the 1,500 sit under 2 per million: every word is attested at 0.5 or more (`select.py`'s floor), but at
+  this depth the ranking is close to noise, and what fills the deck is less "upper-intermediate" than "the
+  rest of what Wiktionary defines" — numbers to ninety-nine, fruits and spices, animals, poetry and
+  religious terms alongside the abstract nouns B2 wants.
+- **THE NOISE** — about 190 more `select.EXCLUDE` rows, each with its reason, read off four passes of
+  the ranking: names (most of them), suffixes, loans under a native homograph, forms, plurals, other
+  spellings of a word taught, two slurs in a gloss, and entries with no romanisation.
+
+**C1 SHOULD BE DECIDED BEFORE IT IS BUILT.** The lexicon holds ~7,000 lemmas; A1–B2 have used 3,750 and
+excluded some 400. A C1 of 1,500 would be drawn from what is left, nearly all of it under 1 per million,
+with almost no inventory and no sentences. The honest options: a smaller C1, a C1 built from another
+dictionary, or no C1 and the phrases deck next.
