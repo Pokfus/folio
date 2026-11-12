@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"63b5ba321d809a9b","counts":{"terms":940,"points":703,"countries":237,"windows":1522,"faces":375,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"421cf2970f555326","counts":{"terms":940,"points":703,"countries":237,"windows":1526,"faces":375,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -990,6 +990,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"63b5ba321d809a9b","counts":
 "Ancient_Agora_of_Athens":[23.723,37.975,"coord",0,0,0],
 "Ancient_Greek_temple":[23.726,37.972,"coord",0,0,0],
 "Ancient_Italy":[14,42,"coord",0,0,0],
+"Andersonville_Prison":[-84.129,32.195,"coord",0,0,0],
 "Andes":[-66.734,-20.353,"range",0,0,0],
 "Andorra":[1.54,42.55,"country","adm0:and",0,40],
 "Angara":[92.991,58.102,"coord",0,0,0],
@@ -1217,6 +1218,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"63b5ba321d809a9b","counts":
 "Column_of_Antoninus_Pius":[12.476,41.902,"coord",0,0,0],
 "Column_of_Marcus_Aurelius":[12.48,41.901,"coord",0,0,0],
 "Comoros":[43.32,-11.73,"country","adm0:com",0,40],
+"Comstock_Lode":[-119.648,39.308,"coord",0,0,0],
 "Congo_River":[12.45,-6.075,"coord",0,0,0],
 "Connecticut":[-72.759,41.649,"admin1","adm1:usa:us-ct",0,40],
 "Connecticut_River":[-72.334,41.272,"coord",0,0,0],
@@ -2052,6 +2054,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"63b5ba321d809a9b","counts":
 "Rakhigarhi":[76.114,29.293,"coord",0,0,0],
 "Rashid":[30.419,31.401,"town",0,0,0],
 "Rashidun_Caliphate":[48.14,25.961,"polity","pol:rashidun",647,1.3],
+"Reconstruction_Era_National_Historical_Park":[-80.683,32.433,"coord",0,0,0],
 "Red_Pyramid":[31.206,29.808,"coord",0,0,0],
 "Red_River_of_the_North":[-96.811,50.396,"coord",0,0,0],
 "Red_Sea":[38,22,"coord",0,0,0],
@@ -2440,6 +2443,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"63b5ba321d809a9b","counts":
 "Yekaterinburg":[61.708,58.895,"admin1","adm1:rus:ru-sve",0,11.53],
 "Yellow_River":[119.162,37.763,"coord",0,0,0],
 "Yellow_Sea":[122.958,34.685,"sea",0,0,0],
+"Yellowstone_National_Park":[-110.5,44.6,"coord",0,0,0],
 "Yellowstone_River":[-103.982,47.978,"coord",0,0,0],
 "Yemen":[45.87,15.33,"country","adm0:yem",0,5.93],
 "Yenisei":[82.667,71.833,"coord",0,0,0],

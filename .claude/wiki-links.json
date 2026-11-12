@@ -1,10 +1,10 @@
 {
- "generated": "2026-11-12T08:16Z",
+ "generated": "2026-11-12T08:20Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7706,
+  "ok": 7705,
   "redirect-broader": 749,
-  "redirect-variant": 464,
+  "redirect-variant": 465,
   "section-redirect": 175,
   "disambiguation": 153,
   "none": 1136,
@@ -83571,11 +83571,12 @@
    "status": "ok"
   },
   "us-667": {
-   "answer": "boomtown",
-   "title": "Boomtown",
-   "url": "https://en.wikipedia.org/wiki/Boomtown",
-   "via": "glossary",
-   "status": "ok"
+   "answer": "Black Hills Gold Rush",
+   "title": "Black Hills gold rush",
+   "url": "https://en.wikipedia.org/wiki/Black_Hills_gold_rush",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Black Hills Gold Rush"
   },
   "us-668": {
    "answer": "Comstock Lode",

@@ -1385,7 +1385,7 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-664  Cowboy
     us-665  Frontier Thesis
     us-666  Frederick Jackson Turner
-    us-667  Boomtown
+    us-667  Black Hills Gold Rush
     us-668  Comstock Lode
     us-669  Frontier myth
     us-670  Rain follows the plow

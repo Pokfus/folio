@@ -10676,7 +10676,8 @@ window.GLOSSARY = {
 "Eight-hour_day_movement": "",
 "National_Child_Labor_Committee": "",
 "Triangle_Shirtwaist_Factory_fire": "",
-"Knights_of_Labor": ""
+"Knights_of_Labor": "",
+"Black_Hills_Gold_Rush": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -15767,7 +15768,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Sears": "from 1886",
 "National_Child_Labor_Committee": "from 1904",
 "Triangle_Shirtwaist_Factory_fire": "25 March 1911",
-"Knights_of_Labor": "from 1869"
+"Knights_of_Labor": "from 1869",
+"Black_Hills_Gold_Rush": "1874–1877"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -22646,7 +22648,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Eight-hour_day_movement": ["eight-hour day","Eight-hour day","eight-hour workday"],
 "National_Child_Labor_Committee": ["NCLC"],
 "Triangle_Shirtwaist_Factory_fire": ["Triangle fire","Triangle Shirtwaist fire"],
-"Knights_of_Labor": ["Noble and Holy Order of the Knights of Labor"]
+"Knights_of_Labor": ["Noble and Holy Order of the Knights of Labor"],
+"Black_Hills_Gold_Rush": ["Black Hills gold rush"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -33484,7 +33487,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Eight-hour_day_movement": ["event","history","politics","labour"],
 "National_Child_Labor_Committee": ["institution","history","politics","reform","united states"],
 "Triangle_Shirtwaist_Factory_fire": ["event","history","labour","disaster","united states","new york"],
-"Knights_of_Labor": ["institution","history","politics","labour","united states"]
+"Knights_of_Labor": ["institution","history","politics","labour","united states"],
+"Black_Hills_Gold_Rush": ["event","history","mining","united states"]
 });
 
 /* ============================================================================
