@@ -859,9 +859,9 @@ keeps the question mark.
     art-039  The Met silver kneeling bull holding a spouted vessel — Proto-Elamite Iran, c. 3000 BCE
     art-040  The Umataka flame pot — Japan, c. 3000 BCE
     art-041  The Harp Player of Keros — the Cyclades, c. 2800 BCE
-    art-042  The Tell Asmar worshipper statue — Mesopotamia, c. 2750 BCE
+    art-042  The Tell Asmar standing worshipper in the Met — Mesopotamia, c. 2750 BCE
     art-043  The Standard of Ur — Sumer, c. 2600 BCE
-    art-044  The Ram in a Thicket — Ur, c. 2600 BCE
+    art-044  The Ram in a Thicket in the British Museum — Ur, c. 2600 BCE
     art-045  The Khafre Enthroned statue — Egypt, c. 2570 BCE
     art-046  The Bull-Headed Lyre of Ur — Sumer, c. 2550 BCE
     art-047  The Great Sphinx of Giza — Egypt, c. 2500 BCE

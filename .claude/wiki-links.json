@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T04:35Z",
+ "generated": "2026-11-12T04:38Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6640,
-  "redirect-broader": 628,
+  "ok": 6645,
+  "redirect-broader": 629,
   "redirect-variant": 398,
   "section-redirect": 134,
   "disambiguation": 147,
-  "none": 1029,
+  "none": 1033,
   "disambig-resolved": 89,
   "list-page": 6,
   "search-match": 9,
@@ -72819,6 +72819,105 @@
     "Assyrian sculpture",
     "Art of Mesopotamia",
     "British Museum Department of the Middle East"
+   ]
+  },
+  "art-041": {
+   "answer": "Harp Player of Keros",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "28th century BC",
+    "Cycladic art",
+    "Cycladic culture",
+    "3rd millennium BC",
+    "Coachella Festival line-ups"
+   ]
+  },
+  "art-042": {
+   "answer": "Tell Asmar Worshipper",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Tell Asmar Hoard",
+    "Eshnunna",
+    "Art of Mesopotamia",
+    "Early Dynastic Period (Mesopotamia)",
+    "Tell Agrab"
+   ]
+  },
+  "art-043": {
+   "answer": "Standard of Ur",
+   "title": "Standard of Ur",
+   "url": "https://en.wikipedia.org/wiki/Standard_of_Ur",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-044": {
+   "answer": "Ram in a Thicket",
+   "title": "Ram in a Thicket",
+   "url": "https://en.wikipedia.org/wiki/Ram_in_a_Thicket",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-045": {
+   "answer": "Khafre Enthroned",
+   "title": "Khafre Enthroned",
+   "url": "https://en.wikipedia.org/wiki/Khafre_Enthroned",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-046": {
+   "answer": "Bull-Headed Lyre of Ur",
+   "title": "Bull Headed Lyre of Ur",
+   "url": "https://en.wikipedia.org/wiki/Bull_Headed_Lyre_of_Ur",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Bull-Headed Lyre of Ur"
+  },
+  "art-047": {
+   "answer": "Great Sphinx of Giza",
+   "title": "Great Sphinx of Giza",
+   "url": "https://en.wikipedia.org/wiki/Great_Sphinx_of_Giza",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-048": {
+   "answer": "Menkaure and His Queen",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Menkaure",
+    "Pyramid of Menkaure",
+    "Menkaure triads",
+    "Giza pyramid complex",
+    "Hatshepsut"
+   ]
+  },
+  "art-049": {
+   "answer": "Seated Scribe",
+   "title": "The Seated Scribe",
+   "url": "https://en.wikipedia.org/wiki/The_Seated_Scribe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-050": {
+   "answer": "Ti Watching a Hippopotamus Hunt",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "1865 in archaeology",
+    "Odd Taxi",
+    "The Snows of Kilimanjaro (1952 film)",
+    "List of common misconceptions about science, technology, and mathematics",
+    "List of Advanced Dungeons & Dragons 2nd edition monsters"
    ]
   }
  }

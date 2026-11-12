@@ -9346,7 +9346,15 @@ window.GLOSSARY = {
 "Tello_Obelisk": "",
 "Ashurnasirpal_II_Winged_Genius_Relief": "",
 "Black_Obelisk_of_Shalmaneser_III": "",
-"Khorsabad_Lamassu": ""
+"Khorsabad_Lamassu": "",
+"Harp_Player_of_Keros": "",
+"Tell_Asmar_Worshipper": "",
+"Standard_of_Ur": "",
+"Ram_in_a_Thicket": "",
+"Bull_Headed_Lyre_of_Ur": "",
+"Menkaure_and_His_Queen": "",
+"The_Seated_Scribe": "",
+"Ti_Watching_a_Hippopotamus_Hunt": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13962,7 +13970,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Tello_Obelisk": "c. 850 – 500 BCE",
 "Ashurnasirpal_II_Winged_Genius_Relief": "c. 883 – 859 BCE",
 "Black_Obelisk_of_Shalmaneser_III": "c. 828 – 827 BCE",
-"Khorsabad_Lamassu": "c. 713 – 706 BCE"
+"Khorsabad_Lamassu": "c. 713 – 706 BCE",
+"Harp_Player_of_Keros": "c. 2800–2200 BCE",
+"Tell_Asmar_Worshipper": "c. 2900–2550 BCE",
+"Standard_of_Ur": "c. 2600–2400 BCE",
+"Ram_in_a_Thicket": "c. 2600–2400 BCE",
+"Bull_Headed_Lyre_of_Ur": "c. 2550–2400 BCE",
+"Menkaure_and_His_Queen": "c. 2490–2472 BCE",
+"The_Seated_Scribe": "c. 2675–2545 BCE",
+"Ti_Watching_a_Hippopotamus_Hunt": "c. 2420–2389 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19891,7 +19907,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Tello_Obelisk": ["Obelisco Tello"],
 "Ashurnasirpal_II_Winged_Genius_Relief": ["Winged genius relief"],
 "Black_Obelisk_of_Shalmaneser_III": ["Black Obelisk"],
-"Khorsabad_Lamassu": ["Khorsabad lamassu"]
+"Khorsabad_Lamassu": ["Khorsabad lamassu"],
+"Harp_Player_of_Keros": ["Harp Player of Keros","Harpist of Keros"],
+"Tell_Asmar_Worshipper": ["Tell Asmar Worshipper","Tell Asmar worshipper statue"],
+"Bull_Headed_Lyre_of_Ur": ["Bull-Headed Lyre of Ur","Bull-headed lyre"],
+"Menkaure_and_His_Queen": ["Menkaure and His Queen","King Menkaure and a Queen"],
+"The_Seated_Scribe": ["Seated Scribe"],
+"Ti_Watching_a_Hippopotamus_Hunt": ["Ti Watching a Hippopotamus Hunt"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29395,7 +29417,15 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Tello_Obelisk": ["sculpture","religion","art","peru","south america"],
 "Ashurnasirpal_II_Winged_Genius_Relief": ["sculpture","art","religion","assyria","mesopotamia"],
 "Black_Obelisk_of_Shalmaneser_III": ["sculpture","art","history","assyria","mesopotamia"],
-"Khorsabad_Lamassu": ["sculpture","art","religion","assyria","mesopotamia"]
+"Khorsabad_Lamassu": ["sculpture","art","religion","assyria","mesopotamia"],
+"Harp_Player_of_Keros": ["object","art","bronze age","greece","music"],
+"Tell_Asmar_Worshipper": ["object","art","bronze age","mesopotamia","religion"],
+"Standard_of_Ur": ["object","art","bronze age","mesopotamia","warfare"],
+"Ram_in_a_Thicket": ["object","art","bronze age","mesopotamia","gold"],
+"Bull_Headed_Lyre_of_Ur": ["object","art","bronze age","mesopotamia","music"],
+"Menkaure_and_His_Queen": ["object","art","egypt","old kingdom","giza"],
+"The_Seated_Scribe": ["object","art","egypt","old kingdom","limestone"],
+"Ti_Watching_a_Hippopotamus_Hunt": ["object","art","egypt","old kingdom","relief"]
 });
 
 /* ============================================================================
