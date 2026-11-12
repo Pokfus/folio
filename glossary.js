@@ -9323,7 +9323,26 @@ window.GLOSSARY = {
 "Norepinephrine": "",
 "GABA": "",
 "Glutamate_(neurotransmitter)": "",
-"Endorphins": ""
+"Endorphins": "",
+"Limbic_system": "",
+"Amygdala": "",
+"Hippocampus": "",
+"Basal_ganglia": "",
+"Cerebral_cortex": "",
+"Frontal_lobe": "",
+"Prefrontal_cortex": "",
+"Motor_cortex": "",
+"Parietal_lobe": "",
+"Somatosensory_cortex": "",
+"Temporal_lobe": "",
+"Occipital_lobe": "",
+"Corpus_callosum": "",
+"Lateralization_of_brain_function": "",
+"Split-brain": "",
+"Phineas_Gage": "",
+"Henry_Molaison": "",
+"Aphasia": "",
+"Brain_injury": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13898,7 +13917,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Joseph_Smith": "1805–1844",
 "Brigham_Young": "1801–1877",
 "Texas_Revolution": "1835–1836",
-"Texas_annexation": "1845"
+"Texas_annexation": "1845",
+"Phineas_Gage": "1823–1860",
+"Henry_Molaison": "1926–2008"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19808,7 +19829,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Norepinephrine": ["noradrenaline"],
 "GABA": ["gamma-aminobutyric acid","γ-aminobutyric acid"],
 "Glutamate_(neurotransmitter)": ["glutamate"],
-"Endorphins": ["endorphin","beta-endorphin","β-endorphin"]
+"Endorphins": ["endorphin","beta-endorphin","β-endorphin"],
+"Basal_ganglia": ["basal nuclei"],
+"Lateralization_of_brain_function": ["cerebral lateralisation","hemispheric lateralisation"],
+"Split-brain": ["split brain"],
+"Henry_Molaison": ["Patient H.M."]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29289,7 +29314,26 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Norepinephrine": ["concept","psychology","science","neuroscience","biology"],
 "GABA": ["concept","psychology","science","neuroscience","biology"],
 "Glutamate_(neurotransmitter)": ["concept","psychology","science","neuroscience","biology"],
-"Endorphins": ["concept","psychology","science","neuroscience","biology"]
+"Endorphins": ["concept","psychology","science","neuroscience","biology"],
+"Limbic_system": ["concept","psychology","neuroscience","anatomy"],
+"Amygdala": ["concept","psychology","neuroscience","anatomy"],
+"Hippocampus": ["concept","psychology","neuroscience","anatomy"],
+"Basal_ganglia": ["concept","psychology","neuroscience","anatomy"],
+"Cerebral_cortex": ["concept","psychology","neuroscience","anatomy"],
+"Frontal_lobe": ["concept","psychology","neuroscience","anatomy"],
+"Prefrontal_cortex": ["concept","psychology","neuroscience","anatomy"],
+"Motor_cortex": ["concept","psychology","neuroscience","anatomy"],
+"Parietal_lobe": ["concept","psychology","neuroscience","anatomy"],
+"Somatosensory_cortex": ["concept","psychology","neuroscience","anatomy"],
+"Temporal_lobe": ["concept","psychology","neuroscience","anatomy"],
+"Occipital_lobe": ["concept","psychology","neuroscience","anatomy"],
+"Corpus_callosum": ["concept","psychology","neuroscience","anatomy"],
+"Lateralization_of_brain_function": ["concept","psychology","neuroscience","language"],
+"Split-brain": ["concept","psychology","neuroscience","consciousness"],
+"Phineas_Gage": ["person","psychology","neuroscience","united states"],
+"Henry_Molaison": ["person","psychology","neuroscience","memory"],
+"Aphasia": ["concept","psychology","neuroscience","language"],
+"Brain_injury": ["concept","psychology","neuroscience","medicine"]
 });
 
 /* ============================================================================

@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T04:08Z",
+ "generated": "2026-11-12T04:13Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6631,
-  "redirect-broader": 628,
+  "ok": 6647,
+  "redirect-broader": 630,
   "redirect-variant": 397,
-  "section-redirect": 134,
+  "section-redirect": 135,
   "disambiguation": 147,
-  "none": 1010,
+  "none": 1011,
   "disambig-resolved": 89,
   "list-page": 6,
   "search-match": 9,
@@ -72489,6 +72489,157 @@
    "answer": "endorphins",
    "title": "Endorphins",
    "url": "https://en.wikipedia.org/wiki/Endorphins",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-261": {
+   "answer": "limbic system",
+   "title": "Limbic system",
+   "url": "https://en.wikipedia.org/wiki/Limbic_system",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-262": {
+   "answer": "amygdala",
+   "title": "Amygdala",
+   "url": "https://en.wikipedia.org/wiki/Amygdala",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-263": {
+   "answer": "hippocampus",
+   "title": "Hippocampus",
+   "url": "https://en.wikipedia.org/wiki/Hippocampus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-264": {
+   "answer": "basal ganglia",
+   "title": "Basal ganglia",
+   "url": "https://en.wikipedia.org/wiki/Basal_ganglia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-265": {
+   "answer": "cerebral cortex",
+   "title": "Cerebral cortex",
+   "url": "https://en.wikipedia.org/wiki/Cerebral_cortex",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-266": {
+   "answer": "frontal lobe",
+   "title": "Frontal lobe",
+   "url": "https://en.wikipedia.org/wiki/Frontal_lobe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-267": {
+   "answer": "prefrontal cortex",
+   "title": "Prefrontal cortex",
+   "url": "https://en.wikipedia.org/wiki/Prefrontal_cortex",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-268": {
+   "answer": "motor cortex",
+   "title": "Motor cortex",
+   "url": "https://en.wikipedia.org/wiki/Motor_cortex",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-269": {
+   "answer": "parietal lobe",
+   "title": "Parietal lobe",
+   "url": "https://en.wikipedia.org/wiki/Parietal_lobe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-270": {
+   "answer": "somatosensory cortex",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Somatosensory cortex",
+   "target": "Somatosensory system#Somatosensory cortex"
+  },
+  "ps-271": {
+   "answer": "temporal lobe",
+   "title": "Temporal lobe",
+   "url": "https://en.wikipedia.org/wiki/Temporal_lobe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-272": {
+   "answer": "occipital lobe",
+   "title": "Occipital lobe",
+   "url": "https://en.wikipedia.org/wiki/Occipital_lobe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-273": {
+   "answer": "corpus callosum",
+   "title": "Corpus callosum",
+   "url": "https://en.wikipedia.org/wiki/Corpus_callosum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-274": {
+   "answer": "cerebral lateralisation",
+   "title": "Lateralization of brain function",
+   "url": "https://en.wikipedia.org/wiki/Lateralization_of_brain_function",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Cerebral lateralisation"
+  },
+  "ps-275": {
+   "answer": "split-brain research",
+   "title": "Split-brain",
+   "url": "https://en.wikipedia.org/wiki/Split-brain",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Split-brain research"
+  },
+  "ps-276": {
+   "answer": "left-brain right-brain myth",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Lateralization of brain function",
+    "Neuroscience of sex differences",
+    "Brain injury",
+    "Handedness",
+    "List of common misconceptions about science, technology, and mathematics"
+   ]
+  },
+  "ps-277": {
+   "answer": "Phineas Gage",
+   "title": "Phineas Gage",
+   "url": "https://en.wikipedia.org/wiki/Phineas_Gage",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-278": {
+   "answer": "Henry Molaison",
+   "title": "Henry Molaison",
+   "url": "https://en.wikipedia.org/wiki/Henry_Molaison",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-279": {
+   "answer": "aphasia",
+   "title": "Aphasia",
+   "url": "https://en.wikipedia.org/wiki/Aphasia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-280": {
+   "answer": "brain injury",
+   "title": "Brain injury",
+   "url": "https://en.wikipedia.org/wiki/Brain_injury",
    "via": "glossary",
    "status": "ok"
   }
