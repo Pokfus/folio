@@ -50,6 +50,16 @@ COMPOSE = {
     'ภาษาอังกฤษ': ('ภาษา อังกฤษ', 'noun', 'English (the language)'),
     'คนไทย': ('คน ไทย', 'noun', 'a Thai person; Thai people'),
     'ฝนตก': ('ฝน ตก', 'verb', 'to rain (literally "rain falls")'),
+    # A2
+    'ปีหน้า': ('ปี หน้า', 'noun', 'next year'),
+    'ปีที่แล้ว': ('ปี ที่ แล้ว', 'noun', 'last year'),
+    'อาทิตย์หน้า': ('อาทิตย์ หน้า', 'noun', 'next week'),
+    'เนื้อวัว': ('เนื้อ วัว', 'noun', 'beef'),
+    'คนอื่น': ('คน อื่น', 'noun', 'other people; someone else'),
+    'ขับรถ': ('ขับ รถ', 'verb', 'to drive (a car)'),
+    'จ่ายเงิน': ('จ่าย เงิน', 'verb', 'to pay (money)'),
+    'แปรงฟัน': ('แปรง ฟัน', 'verb', 'to brush one\'s teeth'),
+    'มีความสุข': ('มี ความสุข', 'verb', 'to be happy (literally "to have happiness")'),
 }
 
 LEAD_TOPICS = {'greetings and politeness', 'particles'}

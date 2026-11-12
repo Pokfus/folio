@@ -95,6 +95,19 @@ ETYMS = {
     'ล้าน': ['2'],              # "million"; 1 is "bald"
     'บ่าย': ['2'],              # "afternoon"; 1 is "to turn"
     'เท้า': ['2'],              # "foot"; 1 is "to lean on"
+    # A2
+    'เบื่อ': ['2'],             # "to be bored"; 1 is "to poison"
+    'ไอ': ['2'],                # "to cough"; 1 is "vapour", 3 the letter I
+    'ซัก': ['2'],               # "to wash (clothes)"; 1 is "to interrogate"
+    'ลา': ['3'],                # "to take leave"; 1 is "donkey"
+    'กล้า': ['2'],              # "to be brave"; 1 is "rice seedling"
+    'จุด': ['2', '1'],          # "dot, point" AND "to light"
+    'ชน': ['2', '1'],           # "to collide" AND "person, people"
+    'ซอย': ['2'],               # "soi, lane"; 1 is "to mince"
+    'หวัด': ['2'],              # "a cold"; 1 is "carelessly"
+    'สลัด': ['2'],              # "salad"; 1 is "pirate"
+    'ห้าง': ['3', '2'],         # "department store" AND "shop"; 1 is "hut"
+    'โทร': ['2'],               # "to phone"; 1 is the prefix "tele-"
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one -- its
@@ -121,6 +134,25 @@ LEAD = {
     'ไทย': 'Thai person',
     'เงิน': 'money',            # first is "silver (metal)"
     'ดิฉัน': 'by a female',     # the woman's "I"; Wiktionary lists a rare man's use first
+    # A2
+    'แจ้ง': 'to inform',        # the adjective "free from darkness" comes first
+    'แต่ง': 'to adorn',         # first is an extraction artefact (DROP)
+    'ภาค': 'region',            # first is royal "luck"
+    'สัญญา': 'promise',         # first are "sign" and the Buddhist "perception"
+    'นาฬิกา': 'timepiece',      # first is "hour" (the abbreviation น.)
+    'เจ้านาย': 'boss',          # first is "royal person"
+    'สมัคร': 'to subscribe',    # "to sign up, apply"; first is "to want"
+    'ผีเสื้อ': 'butterfly',     # first is "tutelar spirit"
+    'กล้อง': 'camera',          # first is "pipe"
+    'เบา': 'not heavy',         # "light (in weight)" is fourth of the adjective's senses
+}
+
+# A GLOSS NEVER SHOWN: a vulgar sense Wiktionary leaves untagged (so it is not
+# weak), or an extraction artefact.  (word, substring of the gloss.)
+DROP = {
+    ('ยิ้ม', 'to fuck'),        # untagged vulgar slang under "to smile"
+    ('งู', 'penis'),            # untagged slang under "snake"
+    ('แต่ง', 'ตั้ง to appoint'),  # a Thai cross-reference fused onto the gloss
 }
 
 # A PART OF SPEECH TO LEAD WITH, for a frequency word (an inventory word says
@@ -128,7 +160,8 @@ LEAD = {
 # noun "attribute" before the pronoun "you".
 PREFER = {'กว่า': 'prep', 'หาก': 'conj', 'จน': 'conj', 'แต่': 'conj', 'คุณ': 'pron',
           'เพื่อน': 'noun', 'เมื่อ': 'conj', 'ใต้': 'prep', 'ข้าง': 'noun', 'มัก': 'adv',
-          'ทุ่ม': 'noun', 'เก็บ': 'verb', 'ต้อง': 'verb', 'จาก': 'prep', 'แล้ว': 'adv'}
+          'ทุ่ม': 'noun', 'เก็บ': 'verb', 'ต้อง': 'verb', 'จาก': 'prep', 'แล้ว': 'adv',
+          'แจ้ง': 'verb'}
 
 
 def entries_for(row, lex):
@@ -172,8 +205,9 @@ def english(ents, word=''):
         # a WEAK sense (rare, archaic, slang ...) only when there is nothing else --
         # ต้อง's first sense, "to touch", is literary; its everyday "must" is fourth
         lead = LEAD.get(word)
-        strong = [g for g in e['glosses'] if not g['weak'] or (lead and lead in g['g'])]
-        for g in strong or e['glosses'][:1]:
+        glosses = [g for g in e['glosses'] if not any(w == word and d in g['g'] for w, d in DROP)]
+        strong = [g for g in glosses if not g['weak'] or (lead and lead in g['g'])]
+        for g in strong or glosses[:1]:
             t = g['g'].rstrip(' :;,')
             if t and t not in seen:
                 seen.add(t)
@@ -269,6 +303,10 @@ def build(rows, lex, exs):
     return cards, entries
 
 
+WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
+
+
 def desc(entries, n):
     from_inv = sum(1 for e in entries if e['source'] == 'inventory')
     ex3 = sum(1 for e in entries if e['examples'] == 3)
@@ -282,7 +320,7 @@ def desc(entries, n):
         "Both study directions in one deck: Thai → English (see the Thai, recall the meaning) "
         "and English → Thai (see an English meaning, recall the Thai). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the Common European "
+        f"separately. {n} words for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
         f"Framework of Reference, whose global descriptor begins '{SC['quote']}' — a learner here "
         f"is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "

@@ -5,8 +5,8 @@ twelfth language set in the shape of the ones already shipped, Hindi's above all
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Thai language collection."
 
-**STATUS (2026-11-09): the alphabet deck and A1 are built** (`.claude/thai/`, §6). A2 to C1 and the phrases
-deck are not.
+**STATUS (2026-11-12): the alphabet deck, A1 and A2 are built** (`.claude/thai/`, §6, §7). B1 to C1 and the
+phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (merged into the day's Hindi line)
@@ -33,7 +33,7 @@ the owner's to overturn**:
 |---|---|---|
 | Thai Alphabet — built | `Thai-Alphabet.folio-deck.json` | 92 |
 | Thai A1 Beginner — built | `Thai-A1.folio-deck.json` | 500 |
-| Thai A2 Elementary | `Thai-A2.folio-deck.json` | 750 |
+| Thai A2 Elementary — built | `Thai-A2.folio-deck.json` | 750 |
 | Thai B1 Intermediate | `Thai-B1.folio-deck.json` | 1,000 |
 | Thai B2 Upper Intermediate | `Thai-B2.folio-deck.json` | 1,500 |
 | Thai C1 Advanced | `Thai-C1.folio-deck.json` | 1,500 |
@@ -115,3 +115,28 @@ sound side, since five letters say k and six say t), 28 vowels and vowel signs o
 signs, the 3 class rules, 10 digits; every sound side unique (asserted). The shelf's hue is measured:
 `#014764`, 16.0 from its nearest of 56 (re-swept at the merge: Arabic had taken a green 5.1 from the first
 sweep's `#0B791D`).
+
+## 7. As built (2026-11-12): A2
+
+On request ("Add Thai A2"). `python3 .claude/thai/run.py --level a2`. 750 notes: 508 from the A2 inventory
+(22 topics, `inventory.py` `A2`), 242 by frequency; A1's 500 words are not repeated. 124 show a classifier;
+sentences for 599, three for 375. The A1 deck re-runs byte-identical after these changes (verified).
+
+- **Twelve more ETYMS, ten more LEAD, one PREFER**, read off every A2 card: เบื่อ had opened on "to poison",
+  ไอ on "vapour", ซัก on "to interrogate", ลา on "donkey", กล้า on "rice seedling", ซอย on "to mince", หวัด on
+  "carelessly", สลัด on "pirate", โทร on "tele-"; ผีเสื้อ on "tutelar spirit", กล้อง on "pipe", เจ้านาย on
+  "royal person", สมัคร on "to want", and เบา's "light (in weight)" was its fourth sense, cut off.
+- **`DROP`, new** (`build_deck.py`): a gloss never shown — two vulgar senses Wiktionary leaves untagged (so
+  they were not weak, and showed under ยิ้ม "to smile" and งู "snake") and แต่ง's gloss with a Thai
+  cross-reference fused onto it.
+- **Inventory parts of speech**: เบา:adj, ช้อน:noun, เกม:noun, ชั่ง:verb, สงกรานต์:name (its noun entries are
+  "sea worms" and an astronomical sense; the festival is the proper noun).
+- **Nine more COMPOSE rows**: ปีหน้า, ปีที่แล้ว, อาทิตย์หน้า, เนื้อวัว, คนอื่น, ขับรถ, จ่ายเงิน, แปรงฟัน,
+  มีความสุข.
+- **Left out, with the reason**: ผู้จัดการ (Wiktionary's only sense is an estate's administrator, not
+  "manager"); ตักบาตร and มอเตอร์ไซค์ (defined only as synonyms of ใส่บาตร and จักรยานยนต์); หน้าร้อน, หน้าฝน,
+  หน้าหนาว (the colloquial doublets of ฤดูร้อน etc., which share their English side). Not in Wiktionary and
+  dropped by `select.py`: ใครๆ คนรู้จัก ปู่ย่าตายาย คนแก่ ต่อราคา เก็บเงิน คอนโด วีซ่า ดวงจันทร์ ฟ้าใส ก่อนที่
+  มะรืนนี้ เมื่อวานซืน น้อยกว่า จริงๆ ถึงแม้ หรือว่า ถ้าหาก เสียงดัง ใกล้ๆ ไกลๆ ร่ำรวย อยู่อาศัย หวีผม.
+- **Known, left**: the fill again carries written-Thai words (มาตรา, กฎหมาย, รัฐบาล, ราชการ, สมเด็จ) the two
+  corpora agree on; some glosses stay definitional (หมา "canine: any animal of the family Canidae, as dog …").
