@@ -83068,17 +83068,18 @@
   },
   "ru-402": {
    "answer": "Moscow fire of 1812",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
+   "title": "Fire of Moscow (1812)",
+   "url": "https://en.wikipedia.org/wiki/Fire_of_Moscow_(1812)",
+   "via": "manual",
+   "status": "ok",
    "suggestions": [
     "Fire of Moscow (1812)",
     "French invasion of Russia",
     "French occupation of Moscow",
     "1812 Overture",
     "Moscow"
-   ]
+   ],
+   "manual": true
   },
   "ru-403": {
    "answer": "Battle of Maloyaroslavets",
@@ -83208,10 +83209,11 @@
   },
   "ru-419": {
    "answer": "Southern Society",
-   "title": "Southern Society",
-   "url": "https://en.wikipedia.org/wiki/Southern_Society",
-   "via": "answer",
-   "status": "ok"
+   "title": "Southern Society of the Decembrists",
+   "url": "https://en.wikipedia.org/wiki/Southern_Society_of_the_Decembrists",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ru-420": {
    "answer": "Nerchinsk katorga",
@@ -83294,31 +83296,33 @@
   },
   "ru-430": {
    "answer": "Circassian expulsions",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
+   "title": "Circassian genocide",
+   "url": "https://en.wikipedia.org/wiki/Circassian_genocide",
+   "via": "manual",
+   "status": "ok",
    "suggestions": [
     "Circassian genocide",
     "Circassians",
     "Circassia",
     "Russo–Circassian War",
     "Alexander II of Russia"
-   ]
+   ],
+   "manual": true
   },
   "ru-431": {
    "answer": "Russo-Persian War of 1826–1828",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
+   "title": "Russo-Persian War (1826–1828)",
+   "url": "https://en.wikipedia.org/wiki/Russo-Persian_War_(1826–1828)",
+   "via": "manual",
+   "status": "ok",
    "suggestions": [
     "Russo-Persian War (1826–1828)",
     "Russo-Persian Wars",
     "Russo-Turkish War (1828–1829)",
     "Russo-Turkish wars",
     "Battle of Ganja (1826)"
-   ]
+   ],
+   "manual": true
   },
   "ru-432": {
    "answer": "Russo-Turkish War of 1828–1829",
@@ -83822,11 +83826,12 @@
   },
   "ru-492": {
    "answer": "Port Arthur",
-   "title": "Lüshunkou",
-   "url": "https://en.wikipedia.org/wiki/L%C3%BCshunkou",
-   "via": "disambiguation",
-   "status": "disambig-resolved",
-   "from": "Port Arthur"
+   "title": "Lüshunkou District",
+   "url": "https://en.wikipedia.org/wiki/Lüshunkou_District",
+   "via": "manual",
+   "status": "ok",
+   "from": "Port Arthur",
+   "manual": true
   },
   "ru-493": {
    "answer": "Russo-Japanese War",
@@ -83865,10 +83870,11 @@
   },
   "ru-498": {
    "answer": "Nicholas II",
-   "title": "Nicholas II",
-   "url": "https://en.wikipedia.org/wiki/Nicholas_II",
-   "via": "answer",
-   "status": "ok"
+   "title": "Nicholas II of Russia",
+   "url": "https://en.wikipedia.org/wiki/Nicholas_II_of_Russia",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "ru-499": {
    "answer": "Statute of 14 August 1881",
