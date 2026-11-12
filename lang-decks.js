@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 332 MB of decks. The file itself is fetched on Add. */
+   section without fetching 339 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -167,6 +167,11 @@ window.LANG_DECKS = [
   { lang: "Ukrainian", file: "Ukrainian-C1.folio-deck.json", id: "ukrainianc1", title: "Ukrainian C1 Advanced", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 81, bytes: 4763381, rev: "9db789e1bb60" },
   { lang: "Ukrainian", file: "Ukrainian-Phrases-and-Expressions.folio-deck.json", id: "ukphrase", title: "Ukrainian Phrases and Expressions", sub: "135 expressions · 62 everyday, 68 idioms, 5 proverbs · both directions", notes: 135, cards: 270, subs: 3, tree: [{"n":"Phrases","c":124,"x":69},{"n":"Idioms","c":136,"x":26},{"n":"Proverbs","c":10,"x":40}], flat: true, ex: 47, bytes: 95847, rev: "b167ecc8a6d8" },
   { lang: "Dutch", file: "Dutch-A1.folio-deck.json", id: "dutcha1", title: "Dutch A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 693368, rev: "6422f5d62d53" },
+  { lang: "Dutch", file: "Dutch-A2.folio-deck.json", id: "dutcha2", title: "Dutch A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 100, bytes: 1113607, rev: "613f68b6ec10" },
+  { lang: "Dutch", file: "Dutch-B1.folio-deck.json", id: "dutchb1", title: "Dutch B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 99, bytes: 1656589, rev: "33771daefdbf" },
+  { lang: "Dutch", file: "Dutch-B2.folio-deck.json", id: "dutchb2", title: "Dutch B2 Upper Intermediate", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 95, bytes: 2468934, rev: "82b06937a17c" },
+  { lang: "Dutch", file: "Dutch-C1.folio-deck.json", id: "dutchc1", title: "Dutch C1 Advanced", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 83, bytes: 2250684, rev: "6324bf996d84" },
+  { lang: "Dutch", file: "Dutch-Phrases-and-Expressions.folio-deck.json", id: "dutchphrase", title: "Dutch Phrases and Expressions", sub: "918 expressions · 306 everyday, 543 idioms, 69 proverbs · both directions", notes: 918, cards: 1836, subs: 3, tree: [{"n":"Phrases","c":612,"x":56},{"n":"Idioms","c":1086,"x":27},{"n":"Proverbs","c":138,"x":42}], flat: true, ex: 37, bytes: 564393, rev: "d2e22e7a2852" },
   { lang: "Zulu", file: "Zulu-Noun-Classes.folio-deck.json", id: "zuclasses", title: "Zulu Noun Classes and Sounds", sub: "16 noun classes and 23 sounds · both directions, as two cards each", notes: 39, cards: 78, ex: 0, bytes: 28170, rev: "b2f84006f718" },
   { lang: "Zulu", file: "Zulu-A1.folio-deck.json", id: "zulua1", title: "Zulu A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 11, bytes: 666445, rev: "35a3f4eb41c6" },
   { lang: "Zulu", file: "Zulu-A2.folio-deck.json", id: "zulua2", title: "Zulu A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 3, bytes: 1084475, rev: "7c6e128cc696" },

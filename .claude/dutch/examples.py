@@ -21,7 +21,7 @@ import csv, json, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from nl import fold, nfc, tokens
-from dutch_level import f
+from dutch_level import f, LEVEL
 
 csv.field_size_limit(10 ** 8)
 
@@ -66,6 +66,46 @@ def forms_of(row, lex):
     return out
 
 
+# THE PHRASES DECK ONLY.  A Dutch main clause moves the finite verb to second place, away
+# from the rest of its expression (`in de war zijn` -> "ik BEN helemaal in de war";
+# `om het leven komen` -> "hij KWAM om het leven"), so an expression that IS a verb is
+# matched as its other words in sequence plus any form of its verb within eight words
+# of them, before or after.  Any other expression is matched as written.  The level
+# decks keep their exact matching, so they rebuild byte-identical.
+WINDOW = 8
+
+
+def phrase_parts(row, lex):
+    words = [fold(t) for t in tokens(row['word'])]
+    L = lex.get(row['key'], {})
+    if len(words) > 1 and any(e['pos'] == 'verb' for e in L.get('entries', [])):
+        for vi in range(len(words) - 1, -1, -1):
+            V = lex.get(words[vi], {})
+            if words[vi].endswith('n') and any(e['pos'] == 'verb' for e in V.get('entries', [])):
+                forms = {words[vi]}
+                for e in V['entries']:
+                    if e['pos'] == 'verb':
+                        forms |= {fold(t['f']) for t in e['table'] if ' ' not in t['f']}
+                rest = words[:vi] + words[vi + 1:]
+                if rest:
+                    return rest, forms
+    return words, None
+
+
+def phrase_hit(ft, rest, forms):
+    n = len(rest)
+    for j in range(len(ft) - n + 1):
+        if ft[j:j + n] != rest:
+            continue
+        if forms is None:
+            return rest
+        lo, hi = max(0, j - WINDOW), min(len(ft), j + n + WINDOW)
+        for t in ft[lo:j] + ft[j + n:hi]:
+            if t in forms:
+                return rest + [t]
+    return None
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -79,7 +119,13 @@ def main():
     for row in rows:
         words = fold(row['word']).split()
         cands = []
-        if len(words) > 1:
+        if LEVEL == 'phr' and len(words) > 1:
+            rest, forms = phrase_parts(row, lex)
+            for i in index.get(rest[0], []):
+                hit = phrase_hit(toks[i][3], rest, forms)
+                if hit:
+                    cands.append((i, 0, hit))
+        elif len(words) > 1:
             for i in index.get(words[0], []):
                 ft = toks[i][3]
                 for j in range(len(ft) - len(words) + 1):

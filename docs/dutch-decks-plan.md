@@ -5,7 +5,7 @@ Dutch set built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose pip
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Create a Dutch language collection."
 
-**STATUS (2026-11-09): A1 is built** (`.claude/dutch/`, §6). A2 to C1 and a phrases deck are not.
+**STATUS (2026-11-12): the plan is complete** — all five levels, A1 to C1, and the phrases deck (`.claude/dutch/`, §6–§11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Dutch to the day's
@@ -28,10 +28,11 @@ for any deck this plan produces. The collection's first commit carried one (addi
 | deck | file | notes |
 |---|---|---|
 | Dutch A1 Beginner — built | `Dutch-A1.folio-deck.json` | 500 |
-| Dutch A2 Elementary | `Dutch-A2.folio-deck.json` | 750 |
-| Dutch B1 Intermediate | `Dutch-B1.folio-deck.json` | 1,000 |
-| Dutch B2 Upper Intermediate | `Dutch-B2.folio-deck.json` | 1,500 |
-| Dutch C1 Advanced | `Dutch-C1.folio-deck.json` | 1,500 |
+| Dutch A2 Elementary — built | `Dutch-A2.folio-deck.json` | 750 |
+| Dutch B1 Intermediate — built | `Dutch-B1.folio-deck.json` | 1,000 |
+| Dutch B2 Upper Intermediate — built | `Dutch-B2.folio-deck.json` | 1,500 |
+| Dutch C1 Advanced — built | `Dutch-C1.folio-deck.json` | 1,500 |
+| Dutch Phrases and Expressions — built | `Dutch-Phrases-and-Expressions.folio-deck.json` | 918 |
 
 ## 2. Sources and licences
 
@@ -89,7 +90,7 @@ card does not show one.
 ## 5. Phases
 
 **Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 to C1, one level per session: write the level's
-inventory into `inventory.py` and its `SCOPE` into `dutch_level.py`, run, read every card. **Phase 3** — a
+inventory into `inventory.py` and its `SCOPE` into `dutch_level.py`, run, read every card. **Phase 3 (done, §11)** — a
 phrases deck (`phrase` / `proverb` entries and idiomatic multi-word lemmas: `tot ziens`, `eet smakelijk`).
 
 ## 6. As built (2026-11-09): A1
@@ -99,3 +100,132 @@ phrases deck (`phrase` / `proverb` entries and idiomatic multi-word lemmas: `tot
 `node .claude/dutch/check-dutch.js` is the check. **A re-run is byte-identical** (verified). A1: 500 notes,
 380 from the inventory and 120 by frequency; three sentences for 499, one or two for the last; 493 with IPA.
 The shelf's hue is measured: `#934F5A`, 15.2 from its nearest of 65 (Visual Art); the first sweep's steel blue went to Vietnamese in a parallel session, so it was re-swept at the merge.
+
+## 7. As built (2026-11-12): A2
+
+`python3 .claude/dutch/run.py --level a2`. 750 notes, 424 from the A2 inventory (`inventory.py`: relatives,
+jobs and study, clothes, food and cooking, the home, the town, travel, nature and the compass, animals, health,
+feelings, free time, time words, the higher numbers and quantities, everyday verbs) and 326 by frequency; the
+A1 deck's words are left out (`words_below`). Three sentences for 746, none for 2; 713 with IPA. A re-run is
+byte-identical, and A1 still rebuilds byte for byte under the shared changes. One inventory word not in
+Wiktionary as a lemma: `liedje` (a diminutive), taught as `lied`; `Pasen` was dropped (Wiktionary's proper
+noun is not extracted; the lower-case `pasen` is a slang verb).
+
+**What the A2 ranking found** (the hand list is in `select.EXCLUDE`, each with its reason):
+- **A VERB WHOSE COUNT IS A NOUN'S PLURAL** — the mirror of §4's rule, and the bulk of the fill's faults one
+  level up: `kaarten`, `koppen`, `rechten`, `zinnen`, `moorden`, `verhalen`, `buurten`, `gassen`, `landen`,
+  `sporen`, `doelen`, `prijzen`, `wonden`, `stemmen`, `zakken`, `gebieden` all ranked on their nouns' plurals.
+  Excluded by hand, not by a rule: a real verb (`zakken` "to fail") can share the spelling, and a rule would
+  have to tell which forms the subtitles meant.
+- **A FORM LISTED IN ANOTHER WORD'S TABLE**: Wiktionary gives `school` as a past of `schuilen` and `lekker` as
+  the comparative of `lek`, so each took a common word's count.
+- **NAMES AND ENGLISH** fold into lower-case lemmas: `frank`, `peter`, `jack`, `joe`, `miss`.
+- **PARTICIPLES AND FORMS** of A1 words: `gemaakt`, `gegeven`, `betaald`, `zoek`, `help`, `goeie`, `slechte`.
+- Glosses written in `build_deck.py`: `intussen` (Wiktionary: "synonym of ondertussen", which printed
+  nothing), `kopje` (Wiktionary's only sense is a cat's head-rub), `sommige` (an "inflection of" pointer);
+  `zeer` leads with "very" (`ETYMS`).
+
+## 8. As built (2026-11-12): B1
+
+`python3 .claude/dutch/run.py --level b1`. 1,000 notes, 340 from the B1 inventory (work and careers,
+education, media, society and politics, the environment, housing, health, travel, money, relationships and
+feelings, opinion and argument with its connectives, describing things, culture, the verbs of change) and 660
+by frequency; A1 and A2 are left out. Three sentences for 949, none for 10; 886 with IPA. A re-run is
+byte-identical; A1 and A2 rebuild byte for byte. Five inventory compounds are not Wiktionary lemmas and were
+dropped (`kantoorbaan`, `nieuwsbericht`, `verhuurder`, `nutsvoorzieningen`, `gewond`).
+
+**What the B1 ranking found** — §7's faults again, at a larger scale, since the fill is two thirds of the
+deck: some thirty verbs or adjectives counted on a noun's plural (`bergen`, `huizen`, `ogen`, `benen`,
+`banen` …), forms in another word's table (`hongeren` ← honger, `lassen` ← las, `kies` ← kiezen), names
+(`bob`, `helen`, `kim`), English (`big`, `high`, `wow`), nominalised forms (`vreemde`, `Franse`, `oudere`),
+participles, and hesitation sounds — every one in `select.EXCLUDE` with its reason. **A POINTER GLOSS PRINTS
+AN EMPTY SIDE** and the shelf-wide dedupe pass then labels four empty sides "not …" against one another
+(`vanmorgen`, `zulke`, `vele`, `gelukken`): `zulke` is glossed in `build_deck.py`, the other three are
+excluded. `pesten` drops its noun (`DROP_POS`: the card game Mau Mau led over "to bully"); `klote` joins
+`SWEARS`. Known, left: the fill's crime-drama and fantasy share is larger than A2's (`rechercheur`,
+`vingerafdruk`, `vampier`, `heks`), as on every subtitle-ordered deck.
+
+## 9. As built (2026-11-12): B2
+
+`python3 .claude/dutch/run.py --level b2`. 1,500 notes, 354 from the B2 inventory (business and the economy,
+politics and law, science and technology, climate, medicine, higher education, media and the arts, abstract
+ideas and argument, the connectives of formal writing, character, states of mind, city planning, the verbs
+of getting things done) and 1,146 by frequency; A1 to B1 are left out. Three sentences for 1,251, none for
+78; 1,209 with IPA. A re-run is byte-identical; A1, A2 and B1 rebuild byte for byte. Sixteen inventory
+words are not Wiktionary lemmas and were dropped (among them `cao`, `branche`, `reportage`, `overtuigend`
+and five participle adjectives such as `gemotiveerd`, which Wiktionary files only under their verbs).
+
+**Reading 1,146 fill words** was made tractable by a throwaway pass that flagged every fill lemma that is
+also a form in another lemma's table or a noun's plural (219 of them); the flagged ones were read first,
+most were real words (`groeten`, `glimlachen`, `straffen`), and the rest were read by eye. What it found
+is §7–§8 again — plurals (`dagen`, `wegen`, `golven`, `neuzen` …), names (`steven`, `rob`, `pat`), English
+(`house`, `girl`, `loser`), nominalised forms, participles of lower levels — plus, new at this level:
+- **CRUDE WORDS THAT ARE NOT OATHS** (`pijpen`, `geil`, `poepen`, `pissen`, `zeiken`) and insults
+  (`wijf`, `kreng`, `rotzak`, `schoft`) — `SWEARS` now holds both.
+- **TWO PLURAL-ONLY NOUNS WITH NO GENDER** (`chips`, `gegevens`) and `kapitaal`'s "nc", which the check
+  caught as nouns with no article: `GENDER_FIX`. `chips` also drops its minced-oath interjection.
+- Glosses: `laken` (the bedsheet before the broadcloth), `kapitaal` (Wiktionary's senses end in stray
+  gender letters); `LEAD`: `inflatie` (not "stomach bloat"), `kijker` (not "telescope").
+
+## 10. As built (2026-11-12): C1
+
+`python3 .claude/dutch/run.py --level c1`. 1,500 notes, 327 from the C1 inventory (law and institutions,
+economy and finance, academic and analytical language, argument and rhetoric, the formal register's
+connectives, society and ethics, psychology, literature and the arts, science and the environment, formal
+verbs, adjectives and adverbs of degree and stance) and 1,173 by frequency; A1 to B2 are left out. Three
+sentences for 941, **none for 252** — the sparsest level by far, Tatoeba having few sentences for formal
+vocabulary; 1,156 with IPA. A re-run is byte-identical; A1 to B2 rebuild byte for byte.
+
+**Forty-five inventory words are not Wiktionary lemmas** — the most of any level, and the honest limit of an
+assembled C1: formal compounds (`belangengroep`, `kansengelijkheid`, `gedragspatroon`), participle adjectives
+filed only under their verbs (`gefascineerd`, `verontwaardigd`), the pronominal adverbs (`waardoor`,
+`waarbij`, `hiervan`, which the extract does not keep as lemmas), and some that are plainly missing
+(`ratificeren`, `inherent`, `validiteit`, `melancholie`). Each was dropped, never given a meaning.
+`voorbehoud` was taken out by hand: Wiktionary has only its verb-form entry, not the noun "reservation".
+
+**The fill** (185 flagged by the forms pass, the rest read by eye) found §7–§9's faults once more —
+plurals (`ramen`, `tranen`, `gebaren`, `ploegen` …), nominalised forms (`Ierse`, `zwangere`, `schuldige`),
+names, English, interjections, two insults and two crude words — and **four more pointer-only entries
+that printed an empty English side** (`inmiddels`, `esthetiek`, `luidens`, glossed in `build_deck.py`;
+`hemeltje`, excluded) plus `dergelijke` (excluded). `koolstofdioxide` had "nc" (`GENDER_FIX`: het).
+
+## 11. As built (2026-11-12): the phrases deck
+
+`python3 .claude/dutch/run.py --level phr` runs `phrases.py` in place of `select.py` (adapted from
+`.claude/hindi/phrases.py`). **918 expressions in three subdecks**, the Indonesian, Turkish and Hindi
+arrangement (`docs/lang-decks.md`, "THE PHRASES DECK"): **306 Phrases** (Wiktionary's multi-word phrases,
+prepositional phrases and interjections not tagged idiomatic — `weet je`, `het spijt me`, `tot nu toe`,
+`graag gedaan`), **543 Idioms** (a multi-word entry with a sense tagged idiomatic — `van plan zijn`, `in de
+steek laten`, `pijpenstelen regenen`) and **69 Proverbs** (Wiktionary's part of speech). Nothing a level
+teaches is repeated. 344 occur in a Tatoeba sentence; 344 have sentences, 167 three. A re-run is
+byte-identical, and every level rebuilt by the changed code is byte-identical too.
+
+**Findings:**
+- **THE VERB MOVES, so an expression that is a verb is matched with its verb anywhere near** — the Dutch
+  form of the Turkish and Hindi finding. A main clause puts the finite verb second, away from the rest of
+  its expression (`in de steek laten` → "Ze LIETEN Tom in de steek"; `om het leven komen` → "Tom KWAM bij
+  een auto-ongeluk om het leven"), so `examples.phrase_parts` / `phrase_hit` match the other words in
+  sequence and any form of the verb within eight words, before or after. The phrases deck ONLY: the level
+  decks keep their exact matching and rebuild unchanged.
+- **DUTCH WORDS ONLY.** Wiktionary's Dutch section files the Latin and French tags Dutch writing borrows
+  (`in vitro`, `al dente`, `s'il vous plaît`, `mea culpa`): an expression is kept only when every word is a
+  Dutch headword or a form in one (`_dutch`), which left out 140; two that pass the test because each word
+  is also a Dutch spelling are excluded by hand (`crème de la crème`, `nota bene`).
+- **A POINTER-ONLY ENTRY IS THE SAME EXPRESSION TWICE.** Twelve entries were only "synonym of …" (`in elk
+  geval` → in ieder geval, `gelukkige feestdagen` → fijne feestdagen); printed, each was an empty English
+  side, which the shelf's dedupe pass then labelled "not …" against the others. `phrases.POINTER` drops such
+  a sense, and with it Wiktionary's literal-sense note "Used other than figuratively or idiomatically: see
+  …", which `build_deck.NOT_A_MEANING` also keeps off every card.
+- **Wiktionary's Dutch phrases include a phrasebook** (`ik heb een taxi nodig`, `ik eet geen vis`, `hoe kom
+  ik bij het station`, `ik ben vegetariër`): 70 such sentences go by the Turkish and Hindi rule, listed in
+  `phrases.EXCLUDE`; the questions and formulas stay (`hoe gaat het`, `hoe laat is het`, `waar kom je
+  vandaan`, `wat kan ik voor u doen`, `ik heb slaap`). Also excluded, each with its reason: proverb variants
+  (one form kept), three exclamations the level decks keep out (`in godsnaam` …), sexual or crude idioms,
+  two eggcorns and a spoonerism, two whose Tatoeba sentences are all literal (`het gaat`, `mijn voeten`),
+  and one built on a racial image.
+- The check does not ask an article of a multi-word expression filed as a noun (`schering en inslag`).
+
+**Known, left.** 574 expressions have no sentence: idioms are literary where Tatoeba is conversational, as
+every phrases deck on the shelf records. Synonymous expressions are kept side by side (`buiten westen`,
+`buiten bewustzijn`, `buiten kennis`), the dedupe pass labelling their shared English. Some regional and
+dated expressions are kept as Wiktionary gives them (`beneden de Moerdijk`, `in dezer voege`).
