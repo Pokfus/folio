@@ -363,7 +363,7 @@ otherwise.
 | B23 | Western Han (`col-10`) | `cnh-221`–`cnh-230` | 10 | 80 | **done 2026-11-12** |
 | B24 | Western Han (`col-10`) | `cnh-231`–`cnh-240` | 10 | 78 | **done 2026-11-12** |
 | B25 | Western Han (`col-10`) / Xin (`col-11`) | `cnh-241`–`cnh-250` | 10 | 66 | **done 2026-11-12** |
-| B26 | Xin (`col-11`) / Eastern Han (`col-12`) | `cnh-251`–`cnh-260` | 10 | 67 | to do |
+| B26 | Xin (`col-11`) / Eastern Han (`col-12`) | `cnh-251`–`cnh-260` | 10 | 67 | **done 2026-11-12** |
 | B27 | Eastern Han (`col-12`) | `cnh-261`–`cnh-270` | 10 | 93 | to do |
 | B28 | Eastern Han (`col-12`) / Three Kingdoms (`col-16`) | `cnh-271`–`cnh-280` | 10 | 92 | to do |
 | B29 | Three Kingdoms (`col-16`) | `cnh-281`–`cnh-290` | 10 | 84 | to do |
@@ -730,6 +730,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-248` | a Han pottery farm model | not re-checked (Commons 429): weak: a farm, not the decree |
 | `cnh-249` | a scan of 22 wuzhu coins | not re-checked (Commons 429): ok |
 | `cnh-250` | a Song album leaf of a breaching river | not re-checked (Commons 429): ok |
+| `cnh-251` | a map of the risings | not re-checked (Commons 429): ok; its description should read Lülin |
+| `cnh-252` | a Han relief of a battle at a bridge | not re-checked (Commons 429): weak: a generic battle |
+| `cnh-253` | Herrmann's atlas map | not re-checked (Commons 429): weak: printed text |
+| `cnh-254` | an album portrait | not re-checked (Commons 429): ok |
+| `cnh-255` | a Chengdu tomb tile | not re-checked (Commons 429): weak: a stand-in |
+| `cnh-256` | the west wall of Han Luoyang | not re-checked (Commons 429): ok |
+| `cnh-257` | a modern statue at Kashgar | not re-checked (Commons 429): ok |
+| `cnh-258` | a Han granary on the road west | not re-checked (Commons 429): ok |
+| `cnh-259` | a woodblock portrait | not re-checked (Commons 429): ok |
+| `cnh-260` | a Song printing | not re-checked (Commons 429): ok |
 
 ## Glossary candidates
 
@@ -1811,3 +1821,36 @@ regency told as the row tells it (the 假王 precedent). **Protected lines: unch
 owner: `cnh-246`'s `Death 6 October 23 CE` is a conversion (the *Hanshu*: the third day of the tenth month), Giles gives
 his birth as 33 BCE against the line's 45, and 16 BCE is Theobald's (the *Hanshu* prints the regnal year). The plan line
 of `cnh-250` dates an event on a concept card; the owner may prefer the line empty.
+
+### B26 — `cnh-251`–`cnh-260`, Xin and Eastern Han: the Red Eyebrows to the Book of Han (2026-11-12)
+
+Run as B21. Every cited URL answered. **Pictures were not touched** (Commons 429). **The old cards put battle templates
+on Kunyang (Date, Location, a "June – July" conversion no source gives, "Lulin victory"), a place and a "from" on the
+Eastern Han and a count on Luoyang ("Population c. 1,000,000", "Peak Tang dynasty"), named Ban Chao in the protectorate's
+line and started it at its revival, said the Han never governed from Luoyang again, called Guangwu's posthumous title a
+"temple style", put Kunyang on his card on a Giles citation that does not support it, gave the Book of Han a 36 CE start
+no source prints and a chapter count as a date, and cited Giles, Cordier and Boulger for claims their pages do not make.**
+The Chinese *Hou Hanshu* and *Sanguozhi* were read from the Kanseki Repository's texts on GitHub (juan numbered by the
+Siku edition), and de Crespigny's papers from ANU Open Research — both new routes this batch.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-251` Red Eyebrows | 7 | 5 → 7 | **Rebuilt on the *Hou Hanshu* (Liu Penzi's biography): the trap was not "closed at Xin'an" (Feng Yi won at Xiaodi, the surrender came at Yiyang); the drawing of lots north of Zheng, not "at Huayin"; the cowherd emperor, the spoken rule, the weapons heaped like Mount Xiong'er; `Rose 18 CE` / `Surrendered 27 CE`**; "two Grand Preceptors destroyed" dropped; Giles kept only for his 1898 view of the dye. |
+| `cnh-252` Battle of Kunyang | 6 | 5 → 6 | **The battle template off, now `Fought 23 CE`; the 420,000 "called a million", Ju Wuba and the beasts, the thirteen riders, the falling star, the 3,000 at the centre and the Zhi River flood all the *Hou Hanshu*'s (Fan Ye, 398 – 445), with Bielenstein's reading of the portents; Boulger's "last words" (not the *Hanshu*'s) dropped**. |
+| `cnh-253` Eastern Han | 7 | 5 → 7 | **The place-and-"from" row off, now `Ruled 25 – 220 CE`; the militia given up, a Xiongnu branch settled inside, the borrowed treatises, the consort families and landlords; the "interruption", the "examination-free bureaucracy" and the Western Regions dropped; Li 2023's article number and Theobald's page date corrected**. |
+| `cnh-254` Emperor Guangwu | 7 | 5 → 7 | **"temple style" → posthumous title; "eleven years" → the final victory in 36; "fourteen professors" → fifteen chairs (de Crespigny; Cordier fourteen); Kunyang off both card and glossary (`cnh-252`'s); the name taboo, the Trung sisters, the doubters of the prophetic texts**. **Pinyin Hàn Guāngwǔ Dì → Hàn Guāngwǔdì, joined as Hàn Wǔdì and Hàn Xiàndì.** Protected: the line stays (flagged below). |
+| `cnh-255` Chengjia | 6 | 5 → 6 | **Rebuilt on the *Hou Hanshu* ch. 13 in Chinese, Farmer 2020 and de Crespigny; the "White Emperor" epithet, the head sent to Luoyang and Theobald's 28 CE campaign dropped; Dacheng from the *Huayang guozhi*; the twelve-year dream, the granary rumour, the iron-coin song; `Proclaimed 25 CE` / `Fell 36 CE`**; Giles, Cordier and Boulger out. |
+| `cnh-256` Luoyang | 7 | 5 → 7 | **The count and "Peak Tang dynasty" off, now `Han capital 25 – 190 CE`; rebuilt on Bielenstein's "Lo-yang in Later Han Times" (1976, a CC0 museum upload); the emperor's return to the ruins in 196; the university and the burning left to `cnh-239` and `cnh-270`**. |
+| `cnh-257` Ban Chao | 7 | 5 → 7 | **A native of Pingling, as the line says, not "from Anling"; Chavannes's 1906 translation and Hill's; where Gan Ying turned back disputed (the Persian Gulf or Roman Syria); Yu Taishan's view that his petitions overstated the oases' loyalty; the brush thrown down, the tiger's den, the river too clear**; Cordier, Boulger and Hirth out. Protected: the line stays. |
+| `cnh-258` Protectorate of the Western Regions | 6 | 5 → 6 | **`Founded 60 BCE` (Cordier) / `Also dated 59 BCE` (Yu; Hill) / `Revived 74 CE` / `Abandoned 107 CE`, the man-naming row off; what the office did, from the *Hanshu*; Cordier's "military commissioner abolished" (the Xiongnu's own officer) and the misread Yarkand story corrected**. |
+| `cnh-259` Ban Gu | 7 | 5 → 7 | **"Thirty years on the history" (not in Hirth) dropped; the White Tiger Hall (79 CE), the Mount Yanran inscription and his death after Dou Xian's fall, the Two Capitals rhapsody; "elder brother" of Ban Chao only (no source opened says twins)**. Protected: the line stays. |
+| `cnh-260` Book of Han | 7 | 5 → 7 | **"Begun c. 36 CE" (no source) and "Chapters 100" (a count) off, now `Compiled c. 54 – 80 CE` (Theobald); the nine-grade table, Emperor He's coup and the consorts' chapter; the library catalogue left to `cnh-918`; Yan Shigu's 641 and the 120 *juan* dropped (no page opened)**. |
+
+Read by eye. **Confusability**: Kunyang is `cnh-252`'s alone (off `cnh-254`); the university is `cnh-239`'s and the
+burning `cnh-270`'s, not `cnh-256`'s; the White Tiger Hall, Mount Yanran and the Two Capitals are `cnh-259`'s, the
+nine-grade table and Emperor He's coup `cnh-260`'s (the Ban Zhao agent was told); the Na gold seal stays `cnh-799`'s.
+**Legend**: the Kunyang portents and the Red Eyebrows' lots are the *Hou Hanshu*'s. **Chinese names corrected**:
+`cnh-254` pinyin joined. **Spellings fixed**: none needed; 0 hits. **Myth register**: no row opened. **Protected lines:
+unchanged** (diffed after the apply). For the owner: `cnh-254`'s 15 January 5 BCE is on no page read (Giles prints 4 BCE)
+and Cordier gives his age at death as 63 against the line's 61; `cnh-257`'s line is consistent with the *Hou Hanshu*'s 71
+*sui*, but Giles dates him 31 – 101.

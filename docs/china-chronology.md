@@ -431,6 +431,13 @@ stood on main on 2026-11-12 (the years only; ages, days and months left out), an
 | wangtian decreed | 9 CE | the *Hanshu* (`cnh-248`) |
 | the wuzhu struck / abolished / restored / superseded | 118 BCE / 9 CE / 40 CE / 621 CE | Thierry; Lacouperie (`cnh-249`) |
 | the Yellow River's course change / river works | 11 CE / 69 CE | Ma et al. (`cnh-250`) |
+| the Red Eyebrows rise / surrender | 18 CE / 27 CE | Theobald (`cnh-251`) |
+| Kunyang | 23 CE | `cnh-252` |
+| the Eastern Han | 25 – 220 CE | Theobald (`cnh-253`) |
+| Chengjia proclaimed / fell | 25 CE / 36 CE | the *Hou Hanshu* (`cnh-255`) |
+| Luoyang the Han capital | 25 – 190 CE | Bielenstein (`cnh-256`) |
+| the Protectorate: Cordier / Yu / revived / abandoned | 60 BCE / 59 BCE / 74 CE / 107 CE | `cnh-258` |
+| the Book of Han compiled | c. 54 – 80 CE | Theobald (`cnh-260`) |
 
 ## Later periods
 
@@ -709,4 +716,11 @@ cnh-247: 6; 8; 9
 cnh-248: 9
 cnh-249: 118; 9; 40; 621
 cnh-250: 11; 69
+cnh-251: 18; 27
+cnh-252: 23
+cnh-253: 25; 220
+cnh-255: 25; 36
+cnh-256: 25; 190
+cnh-258: 60; 59; 74; 107
+cnh-260: 54; 80
 ```
