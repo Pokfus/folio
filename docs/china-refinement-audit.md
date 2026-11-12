@@ -311,7 +311,7 @@ otherwise.
 | B13 | Western Zhou (`col-4`) | `cnh-121`–`cnh-130` | 10 | 119 | **done 2026-11-12** |
 | B14 | Western Zhou (`col-4`) | `cnh-131`–`cnh-140` | 10 | 124 | **done 2026-11-12** |
 | B15 | Eastern Zhou (`col-5`) | `cnh-141`–`cnh-150` | 10 | 116 | **done 2026-11-12** |
-| B16 | Eastern Zhou (`col-5`) | `cnh-151`–`cnh-160` | 10 | 107 | to do |
+| B16 | Eastern Zhou (`col-5`) | `cnh-151`–`cnh-160` | 10 | 107 | **done 2026-11-12** |
 | B17 | Eastern Zhou (`col-5`) | `cnh-161`–`cnh-170` | 10 | 121 | to do |
 | B18 | Eastern Zhou (`col-5`) | `cnh-171`–`cnh-180` | 10 | 110 | to do |
 | B19 | Eastern Zhou (`col-5`) | `cnh-181`–`cnh-190` | 10 | 107 | to do |
@@ -588,6 +588,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-148` | the Wu shrine rubbing of the duke and Guan Zhong | not re-checked (Commons 429): ok; no licence in the credit |
 | `cnh-149` | Li Tang's handscroll of the return | not re-checked (Commons 429): ok; no licence in the credit |
 | `cnh-150` | a museum diorama | not re-checked (Commons 429): weak: a modern diorama; no licence in the credit |
+| `cnh-151` | a woodblock of the king | not re-checked (Commons 429): ok |
+| `cnh-152` | a drainage outlet in the Linzi wall | not re-checked (Commons 429): ok as a stand-in |
+| `cnh-153` | a ding of a marquis of Jin | not re-checked (Commons 429): ok |
+| `cnh-154` | a bronze hu of Chu | not re-checked (Commons 429): ok |
+| `cnh-155` | the Qin Gong gui | not re-checked (Commons 429): ok |
+| `cnh-156` | a jade disc of Lu | not re-checked (Commons 429): ok |
+| `cnh-157` | a woodblock of Duke Xiang | not re-checked (Commons 429): wrong: one duke for a state; no licence in the credit |
+| `cnh-158` | Yuyue bronze fittings | not re-checked (Commons 429): ok; no licence in the credit |
+| `cnh-159` | the sword of Goujian | not re-checked (Commons 429): ok; no licence in the credit |
+| `cnh-160` | the Houma covenant tablets | not re-checked (Commons 429): ok; the credit is not in the house form |
 
 ## Glossary candidates
 
@@ -1242,3 +1252,36 @@ read (a reference entry titles him c. 723 – 645 BCE) and the ages rest on it; 
 Mayers's only — the *Shiji*'s two ages are a year apart and Maspero makes him 71 at about 630 – 628 BCE. Audit note:
 `cnh-152`'s `G.date` reads the wrong entry (`Da_Qi`, whose alias "Qi (Liu Yu)" loses its bracket) — `cnh-477`'s alias
 may also catch glossary links for "Qi".
+
+### B16 — `cnh-151`–`cnh-160`, Eastern Zhou: King Zhuang of Chu to the covenant meetings (2026-11-12)
+
+Run as B11. Every cited URL answered this session. **Pictures were not touched** (Commons 429). **The old cards
+carried years no source prints (Qi's fall in 220 BCE for 221, Tian He's 385 for 386, Jin's founding 1106 BCE as a
+fact, Chu "in the chronicle from 684 BCE", Qin's Feizi in 908 BCE, Duke Xiang made a lord "from 776 BCE" — his second
+year), told Goujian's gall and brushwood, the wine poured in the river and Xi Shi in their own voice, paired Qi with
+the wrong glossary entry (`Da_Qi`, a 12th-century client state), cited Giles for an unrelated Chu Huan, a Jin paper for
+Lu and a dissertation about 6th-century CE north China for Goujian and the covenants, and gave Song a founding year and
+Lu two dateless rows.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-151` King Zhuang of Chu | 6 | 5 → 6 | **"The one southern ruler" among the hegemons → "often counted among" them; the tripods told as the Zuo Zhuan's (Duke Xuan 3) and the *Shiji*'s boast of broken hook-tips; the silent bird a *Shiji* story; Bi (597 BCE) from Pines 2018**. Protected: the line stays. |
+| `cnh-152` Qi | 7 | 5 → 7 | **Two wrong years fixed (Tian He made marquis 386 BCE; Qi conquered 221 BCE); `Founded c. 1046 BCE` / `Usurped 386 BCE` / `Old line ends 379 BCE` / `Conquered 221 BCE`; the founder as the *Shiji*'s three stories; the glossary pairing moved from `Da_Qi` to `Qi_(state)`**; the Tian family's grain measures, the Linzi coin moulds. |
+| `cnh-153` Jin | 7 | 5 → 7 | **1106 BCE labelled `Traditional` (Legge's table); the *Shiji*'s note that no reign years survive for the first five rulers; Tianma-Qucun's radiocarbon dates for the first settlers; `Usurped 678 BCE` / `Split recognised 403 BCE` / `Ended 376 BCE`, 402 BCE gone (agreeing with `cnh-162`)**; the Marquis Su bells. |
+| `cnh-154` Chu | 7 | 5 → 7 | **684 BCE (on no page) dropped; `Kingship claimed c. 886 BCE` / `Kingship taken 703 BCE` / `Capital lost 278 BCE` / `Conquered 223 BCE`; Ying first made capital by King Wen, as the *Shiji* says; the Baoshan divination slips; the tripods left to `cnh-151`**. |
+| `cnh-155` Qin | 7 | 5 → 7 | **908 BCE (in no source) → `Traditional 897 BCE` (Chavannes, from a later digest); `Made a lord 770 BCE` (not "from 776"); `Capital moved 350 BCE` / `Unified China 221 BCE`; the 177 followers credited to the *Shiji***; the "horse country" and "omen of evil" claims dropped. |
+| `cnh-156` Lu | 7 | 5 → 8 | **Two dateless rows off, now `Chronicle 722 – 481 BCE` / `Ruler exiled 517 BCE` / `Destroyed 249 BCE` (no open source gives a founding year or 256 BCE); the royal rites as the *Shiji*'s account and disputed; Legge's opinions no longer fact**; a Jin paper dropped. |
+| `cnh-157` Song | 7 | 5 → 7 | **The unsourced c. 1040 BCE founding off; `Bid to lead 641 – 637 BCE` / `Peace meeting 546 BCE` / `Destroyed 286 BCE`; the founding as the *Shiji*'s; Duke Xiang at the Hong from the Zuo Zhuan, with Sima Qian's note that some praised him; Mencius's "man of Song"; King Yan's bag of blood**. |
+| `cnh-158` Yue | 6 | 5 → 7 | **`At war 510 – 473 BCE` / `Overthrown 333 BCE` (no source read prints 472 or 306 for Yue's end); the descent from Shaokang and Yu as the *Shiji*'s claim; tattooing, the boatman's song, infantry armies, Chu killing King Wujiang**; the sword of Goujian left out (its museum page would not connect). |
+| `cnh-159` Goujian | 6 | 5 → 6 | **The gall as the *Shiji* tells it; the first battle, Fuchai's daily reminder and the fall of Wu as the Zuo Zhuan's; "sleeping on brushwood and tasting gall" a later idiom; Xi Shi an Eastern Han addition; the wine poured in the river (Giles alone) dropped**. Pinyin Gōujiàn. Protected: the line stays. |
+| `cnh-160` covenant meeting | 6 | 5 → 6 | **Centuries and a count off, now `Famous covenant 650 BCE` / `Tablets written c. 442 – 424 BCE`; the blood rite credited to later commentators; the Houma and Wenxian oath texts as contemporary evidence; the 546 BCE peace told without a year (no page read prints it)**. Pinyin huìméng. |
+
+Read by eye. **Confusability**: Xiong Qu naming his sons kings was a phrasing on `cnh-145` and `cnh-154`; `cnh-154`'s
+now gives the Lu chronicle's "viscounts"; the tripods stay `cnh-151`'s; the Hong battle and the tiger skins stay off
+`cnh-161`'s phrasings. **Legend**: Goujian's gall, Xi Shi and the Jin paulownia leaf are now the texts' stories.
+**Chinese names corrected**: `cnh-159` and `cnh-160` pinyin. **Spellings fixed**: none needed; 0 hits. **Myth
+register**: the nine ding (the Zuo Zhuan, Duke Xuan 3) as the row; the Duke of Zhou: the *Shiji* has him set the
+Count of Wei over Song with a written charge. **Protected lines: unchanged** (diffed after the apply). Kuiqiu is 650
+BCE on `cnh-160`, as on `cnh-147`'s protected line (Legge); the conventional 651 BCE (the *Shiji*, Chavannes) is
+in `cnh-147`'s prose — for the owner, who may want 651 on both. `cnh-159`'s rows agree with the sources (496 is
+Mayers's, 465 the *Bamboo Annals*'). Audit note: `cnh-152`'s `G.date` stays as a false lead (it reads `Da_Qi`).

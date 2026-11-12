@@ -10817,16 +10817,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Western_Zhou_legacy": "c. 1046 – 771 BCE",
 "Zuo_Zhuan": "completed c. 300 BCE",
 "Battle_of_Chengpu": "632 BCE",
-"Chu_(state)": "c. 1042 – 223 BCE",
-"Goujian": "ruled 496 – c. 465 BCE",
+"Chu_(state)": "c. 886 – 223 BCE",
+"Goujian": "ruled 496 – 465 BCE",
 "Jin_(state)": "1106 – 376 BCE",
 "King_Zhuang_of_Chu": "ruled 613 – 591 BCE",
-"Lu_(state)": "c. 1042 – 249 BCE",
-"Qi_(state)": "c. 1046 – 220 BCE",
-"Qin_(state)": "908 – 221 BCE",
-"Song_(state)": "c. 1040 – 286 BCE",
-"Yue_(state)": "to c. 306 BCE",
-"Covenant_meeting": "722 – 481 BCE",
+"Lu_(state)": "c. 1046 – 249 BCE",
+"Qi_(state)": "c. 1046 – 221 BCE",
+"Qin_(state)": "897 – 221 BCE",
+"Song_(state)": "to 286 BCE",
+"Yue_(state)": "to 333 BCE",
+"Covenant_meeting": "650 – 424 BCE",
 "Li_Kui": "fl. c. 400 BCE",
 "Marquis_Wen_of_Wei": "r. 424 – 387 BCE",
 "Partition_of_Jin": "453 – 376 BCE",
@@ -20404,7 +20404,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Denmark_Vesey": ["Telemaque"],
 "Nat_Turner's_Rebellion": ["Nat Turner's slave rebellion","Southampton Insurrection"],
 "Virginia_slavery_debate": ["Virginia slavery debate of 1831–1832"],
-"United_States_v._The_Amistad": ["Amistad case","The Amistad"]
+"United_States_v._The_Amistad": ["Amistad case","The Amistad"],
+"Qi_(state)": ["State of Qi","Ch'i"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */

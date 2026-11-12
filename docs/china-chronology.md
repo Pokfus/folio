@@ -314,6 +314,14 @@ Filled batch by batch from `cnh-101` (B11 on). **The protected lines** of the se
 | the first hegemony: the Juan meeting / the Shiji / the royal grant | 680 BCE / 679 BCE / 667 BCE | `cnh-146` |
 | Kuiqiu: the Shiji / Legge (cnh-147's protected line) | 651 BCE / 650 BCE | `cnh-147` |
 | Chengpu | 632 BCE | `cnh-150` |
+| Qi: founded / usurped / the old line ends / conquered | c. 1046 BCE / 386 BCE / 379 BCE / 221 BCE | `cnh-152` |
+| Jin: traditional founding / usurped by Quwo / split recognised / ended | 1106 BCE / 678 BCE / 403 BCE / 376 BCE | `cnh-153` |
+| Chu: kingship claimed / taken / Ying lost / conquered | c. 886 BCE / 703 BCE / 278 BCE / 223 BCE | `cnh-154` |
+| Qin: traditional Feizi / made a lord / capital moved / unification | 897 BCE / 770 BCE / 350 BCE / 221 BCE | `cnh-155` |
+| Lu: the chronicle / the duke exiled / destroyed | 722 – 481 BCE / 517 BCE / 249 BCE | `cnh-156` |
+| Song: the bid to lead / the peace meeting / destroyed | 641 – 637 BCE / 546 BCE / 286 BCE | `cnh-157` |
+| Yue: at war with Wu / overthrown by Chu | 510 – 473 BCE / 333 BCE | `cnh-158` |
+| covenants: Kuiqiu (Legge) / the Houma and Wenxian tablets | 650 BCE / c. 442 – 424 BCE | `cnh-160` |
 
 ## Later periods
 
@@ -483,4 +491,12 @@ cnh-144: 722; 479; 300
 cnh-145: 771; 707; 706; 256
 cnh-146: 680; 679; 667
 cnh-150: 632
+cnh-152: 1046; 386; 379; 221
+cnh-153: 1106; 678; 403; 376
+cnh-154: 886; 703; 278; 223
+cnh-155: 897; 770; 350; 221
+cnh-156: 722; 481; 517; 249
+cnh-157: 641; 637; 546; 286
+cnh-158: 510; 473; 333
+cnh-160: 650; 442; 424
 ```
