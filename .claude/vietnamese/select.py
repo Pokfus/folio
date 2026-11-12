@@ -70,6 +70,33 @@ EXCLUDE = {
     'ngưng': 'its everyday "to stop" is tagged rare, so the card would lead with "to condense"; ngừng is in A2',
     'điếm': 'counted as "prostitute", a slur in the subtitles\' use',
     'đít': 'crude, "arse"',
+    # read off the B2 ranking (2026-11-12)
+    'trường đại học': 'đại học "university" is taught in A2; Wiktionary\'s entry is a pointer to it',
+    'thì là': '"thì là" ("then is") miscounted as one word; the Vietnamese word is "dill"',
+    'bắt con': 'a segmentation slip (bắt con bé "catch the girl"); the entry is "to perform a Caesarean"',
+    'vấn': 'counted inside vấn đề "problem" (B1); alone it is "to roll, to tie up"',
+    'be': 'counted as English', 'gay': 'counted as English', 'alpha': 'counted as English',
+    'team': 'English', 'fan': 'English', 'chan': 'counted as English and the name Chan',
+    'han': 'counted as the name Han', 'lê': 'counted as the surname Lê; the word is "pear"',
+    'hà': 'counted as the name Hà; the word is "to breathe out"', 'na': 'counted as names; the word is "sugar apple"',
+    'ki': 'counted as "kilo"; the entry is "a pin"', 'sô': 'counted as "show"; the entry is a mourning cloth',
+    'hong': 'counted as the colloquial spelling of không; the entry is "to dry in the sun"',
+    'quy': 'the name of a letter', 'thổ': 'its gloss is "Earth, one of the Five Phases"',
+    'thuỷ': 'its gloss is "Water, one of the Five Phases"',
+    'con này': 'a disparaging "this girl"', 'thằng này': 'a disparaging "this guy"',
+    'chuyện ấy': '"that thing", a euphemism for sex',
+    'đái': 'crude, "to piss"',
+    'nhá': 'counted as the Northern particle (nhé); the entry is "to chew"',
+    'điệp': 'counted inside điệp viên "spy"; the card would lead with "butterfly"',
+    'giáo': 'counted inside tôn giáo and giáo viên; its one entry is "lance"',
+    'kích': 'counted inside kích hoạt and kích thích; the card would lead with "halberd"',
+    'hoài': 'its everyday "constantly" is tagged dialectal, so the card would lead with "to waste"',
+    'thiết': 'counted inside cần thiết and thiết bị; alone it is a rare verb',
+    'hắc': 'counted as "black" (hắc ám), which Wiktionary\'s entry does not give',
+    'ánh': 'its everyday "light" is tagged in-compounds, so the card would lead with a tuber\'s branch',
+    'thất': 'counted inside thất bại and thất vọng; its one entry is "ventricle"',
+    'giời': 'its everyday "heaven" (giời ơi) is not in the entry, which is a centipede',
+    'lang': 'counted inside lang thang and as a name; the card would lead with "piebald"',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
@@ -77,7 +104,7 @@ EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 # insults outside close friendship (`mày` "you", `tao` "I", as one says them to a
 # child, an intimate or someone being abused): a beginner's pronouns are the kinship
 # words, and the subtitles' count of these two is mostly quarrels.
-SWEARS = {'mày', 'tao', 'chết tiệt', 'chúng mày', 'mẹ nó', 'khốn nạn', 'cứt', 'chó chết'}
+SWEARS = {'mày', 'tao', 'chết tiệt', 'chúng mày', 'mẹ nó', 'khốn nạn', 'cứt', 'chó chết', 'con mẹ', 'con hoang', 'đĩ'}
 
 
 def usable(L):

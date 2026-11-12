@@ -124,6 +124,23 @@ ETYMS = {
     'lau': ['2'],       # "to wipe" (the inventory's chores); 1 is "reed"
     'toán': ['2'],      # "mathematics" (the inventory's); 1 is "gang"
     'bầu': ['2', '1'],  # "to vote, to elect" and "gourd; pregnant"
+    # read off the B2 deck (2026-11-12)
+    'két': ['2'],       # "safe, strongbox"; 1 is "parrot"
+    'chế': ['2'],       # "to mock, to parody"; 1 is "to pour"
+    'can': ['2', '3'],  # "to concern; to be involved" and "to intervene"; 1 is "liver"
+    'nốt': ['3'],       # "finish (doing something)"; 1 is "(musical) note"
+    'ối': ['3'],        # the exclamation; 1 is "amniotic fluid"
+    'kì': ['3', '2'],   # "strange" and "period, term"; 1 is "to rub off"
+    'tất': ['2'],       # "all, the whole of"; 1 is "then surely"
+    'đăng': ['2'],      # "to publish, to post"; 1 is "fixed gillnet"
+    'còng': ['2'],      # "handcuffs"; 1 is a fiddler crab
+    'ám': ['2'],        # "to haunt; clandestine"; 1 is a fish dish
+    'tra': ['2'],       # "to investigate"; 1 is "to haft"
+    'sướng': ['2'],     # "very happy"; 1 is a rice-seedling field
+    'ráng': ['2'],      # "to try hard"; 1 is "evening glow"
+    'vạn': ['1'],       # "ten thousand"; 2 is a temple for whale worship
+    'căm': ['1'],       # "to resent"; 2 is "spoke (of a wheel)"
+    'dạo': ['2', '3'],  # "to stroll" and "lately"; 1 is a musician's prelude
 }
 
 # A PART OF SPEECH TO LEAD WITH, where Wiktionary's first entry is not the everyday word.
@@ -134,7 +151,10 @@ LEAD_POS = {
     'bài': 'noun',      # "lesson; exercise"; the verb is "to oppose"
     'máy': 'noun',      # "machine"; the verb is "to move around"
     'tấm': 'classifier',
-    'kẹo': 'noun',      # "sweets, candy"; the adjective is "thickened by boiling"    # for flat things; the noun is "broken rice"
+    'kẹo': 'noun',
+    'bấm': 'verb',      # "to press, to click"; the noun is "nail clipper"
+    'chĩa': 'verb',     # "to point (a weapon) at"; the noun is "pitchfork"
+    'mớ': 'noun',       # "a whole lot, a bundle"; the verb is "to talk in one's sleep"      # "sweets, candy"; the adjective is "thickened by boiling"    # for flat things; the noun is "broken rice"
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -142,6 +162,7 @@ LEAD = {
     'máy': 'machine',   # Wiktionary's first noun gloss is "effect; mechanism", tagged rare
     'thú': 'animal',    # its first is "non-avian beast"
     'thẻ': 'card',      # its first is a stick in the game of pitch-pot
+    'sân khấu': 'stage',    # its first is a royal court, tagged historical
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, each with its reason.
@@ -170,7 +191,13 @@ CUT = {
     'trai': ['gigolos'],                           # likewise, on a card for "boys and men"
     'chủ nhà': ['Used other than'],                # refers to Wiktionary's own layout
     'chi': ['genus'],                              # the biologist's term, ahead of "to spend"
+    'tâm hồn': ['breasts'],                        # a slang sense, on a card for "soul"
+    'hôn mê': ['retarded', 'mentally challenged'], # a slur ahead of "comatose", the word's meaning
 }
+
+# Wiktionary's note on a sum-of-parts entry ("Used other than figuratively or idiomatically: see
+# không, dám") points at its own layout rather than giving a meaning: never a gloss on a card.
+SUM_OF_PARTS = 'Used other than figuratively or idiomatically'
 
 
 def entries_for(row, lex):
@@ -229,7 +256,7 @@ def english(ents, word=''):
         for g in e['glosses']:
             if g['weak'] and gl:
                 continue
-            if any(c in g['g'] for c in CUT.get(word, ())):
+            if any(c in g['g'] for c in CUT.get(word, ())) or g['g'].startswith(SUM_OF_PARTS):
                 continue
             t = gloss_line(g)
             if t and t not in seen:

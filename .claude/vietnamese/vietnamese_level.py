@@ -84,6 +84,21 @@ SCOPE = {
                   'abstract nouns for ideas, reasons and plans, the connectors that join sentences, '
                   'and the verbs of thinking, deciding, arguing and changing',
     },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in their field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either '
+                 'party, and to produce clear, detailed text on a wide range of subjects and '
+                 'explain a viewpoint on a topical issue, giving the advantages and disadvantages '
+                 'of various options',
+        'topics': 'politics and public administration, the law and the courts, the economy and '
+                  'finance, science and research, technology, the environment and natural '
+                  'resources, health and the mind, the arts, literature and the media, history '
+                  'and society, argument and evaluation — the words for claims, evidence, causes '
+                  'and consequences — the formal connectors of written Vietnamese, and the verbs of '
+                  'reporting, analysing and persuading',
+    },
 }
 
 

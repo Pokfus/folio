@@ -124,4 +124,39 @@ B1 = [
      'cải_thiện giảm phát_triển ảnh_hưởng thích_nghi'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}
+B2 = [
+    ('politics and public administration', 'chính_quyền nhà_lãnh_đạo đảng_viên thủ_tướng chủ_tịch '
+     'đại_biểu bộ_trưởng hành_chính cơ_quan thủ_tục cải_cách dân_chủ độc_lập chủ_quyền ngoại_giao '
+     'hiệp_định liên_minh bầu tranh_cử ứng_cử_viên nhiệm_kỳ'),
+    ('the law and the courts', 'hiến_pháp quy_định vi_phạm xử_phạt bị_cáo nguyên_đơn thẩm_phán luật_sư '
+     'bản_án kháng_cáo bằng_chứng điều_tra tố_cáo khởi_tố xét_xử hình_sự dân_sự tranh_chấp '
+     'quyền_lợi nghĩa_vụ'),
+    ('the economy and finance', 'cổ_phiếu chứng_khoán lợi_nhuận doanh_thu thua_lỗ khủng_hoảng suy_thoái '
+     'cạnh_tranh độc_quyền tiêu_dùng nguồn_vốn tín_dụng tỷ_giá ngoại_tệ bất_động_sản nhà_đầu_tư '
+     'sản_lượng công_nghiệp nông_nghiệp'),
+    ('science and research', 'giả_thuyết lý_thuyết phương_pháp khảo_sát số_liệu thống_kê mẫu kết_luận '
+     'phát_minh sáng_chế vật_lý hoá_học sinh_học di_truyền tế_bào phân_tử nhà_khoa_học'),
+    ('technology', 'trí_tuệ_nhân_tạo thuật_toán lập_trình máy_chủ ứng_dụng nền_tảng an_ninh_mạng '
+     'tự_động_hoá đổi_mới cập_nhật'),
+    ('the environment and natural resources', 'biến_đổi_khí_hậu khí_thải hiệu_ứng_nhà_kính sinh_thái '
+     'đa_dạng_sinh_học khoáng_sản rừng_nhiệt_đới nước_ngầm xói_mòn bền_vững năng_lượng_tái_tạo '
+     'phá_rừng tuyệt_chủng'),
+    ('health and the mind', 'tâm_lý sức_khoẻ_tâm_thần y_tế dịch_bệnh đại_dịch miễn_dịch truyền_nhiễm '
+     'mãn_tính di_chứng phục_hồi_chức_năng lo_âu áp_lực'),
+    ('the arts, literature and the media', 'tác_phẩm tác_giả nhà_văn nhà_thơ tiểu_thuyết thơ '
+     'kịch_bản đạo_diễn điêu_khắc hội_hoạ triển_lãm biên_tập xuất_bản truyền_thông dư_luận '
+     'kiểm_duyệt'),
+    ('history and society', 'triều_đại phong_kiến thuộc_địa kháng_chiến cách_mạng di_sản di_tích '
+     'dân_tộc thiểu_số bình_đẳng phân_biệt bất_bình_đẳng đô_thị_hoá di_cư phúc_lợi an_sinh'),
+    ('argument and evaluation', 'luận_điểm lập_luận luận_cứ minh_chứng hệ_quả hậu_quả ưu_điểm nhược_điểm '
+     'thuận_lợi bất_lợi khía_cạnh xu_hướng tiêu_chí giả_định mâu_thuẫn nhận_thức quan_niệm '
+     'tầm_quan_trọng'),
+    ('formal connectors', 'hơn_thế_nữa bên_cạnh mặt_khác trái_lại nhằm nhờ_vào dẫn_đến bởi_vì '
+     'do vì_thế đồng_thời tóm_lại nhìn_chung xét_cho_cùng nhìn_chung tuỳ_theo dựa_trên '
+     'căn_cứ_vào'),
+    ('reporting, analysing and persuading', 'khẳng_định nhấn_mạnh phủ_nhận đánh_giá bình_luận lập_luận '
+     'chỉ_trích phê_phán đề_cập trình_bày tổng_hợp lý_giải đối_chiếu kiến_nghị thúc_đẩy '
+     'hạn_chế khuyến_khích ngăn_ngừa'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}

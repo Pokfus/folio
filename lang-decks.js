@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 243 MB of decks. The file itself is fetched on Add. */
+   section without fetching 244 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -88,7 +88,8 @@ window.LANG_DECKS = [
   { lang: "Vietnamese", file: "Vietnamese-Alphabet-and-Tones.folio-deck.json", id: "viabc", title: "Vietnamese Alphabet and Tones", sub: "35 tones, letters and letter pairs · both directions, as two cards each", notes: 35, cards: 70, ex: 0, bytes: 18382, rev: "332890367335" },
   { lang: "Vietnamese", file: "Vietnamese-A1.folio-deck.json", id: "vieta1", title: "Vietnamese A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 601642, rev: "1beb2a48a31e" },
   { lang: "Vietnamese", file: "Vietnamese-A2.folio-deck.json", id: "vieta2", title: "Vietnamese A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 98, bytes: 937537, rev: "a1dc36d44975" },
-  { lang: "Vietnamese", file: "Vietnamese-B1.folio-deck.json", id: "vietb1", title: "Vietnamese B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 93, bytes: 1253994, rev: "24f8a388788a" },
+  { lang: "Vietnamese", file: "Vietnamese-B1.folio-deck.json", id: "vietb1", title: "Vietnamese B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 93, bytes: 1253841, rev: "d347c1e16231" },
+  { lang: "Vietnamese", file: "Vietnamese-B2.folio-deck.json", id: "vietb2", title: "Vietnamese B2 Upper Intermediate", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 76, bytes: 1618479, rev: "447905f50fcc" },
   { lang: "Telugu", file: "Telugu-Alphabet.folio-deck.json", id: "teabc", title: "Telugu Alphabet", sub: "52 letters and signs · both directions, as two cards per letter", notes: 52, cards: 104, ex: 0, bytes: 23413, rev: "c4be61ce6314" },
   { lang: "Telugu", file: "Telugu-A1.folio-deck.json", id: "telugua1", title: "Telugu A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 19, bytes: 336893, rev: "df05a909b180" },
   { lang: "Swahili", file: "Swahili-A1.folio-deck.json", id: "swahilia1", title: "Swahili A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 96, bytes: 599461, rev: "56ff9c38660c" },
