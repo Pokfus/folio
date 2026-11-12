@@ -26,25 +26,30 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6981 | the title is the article |
-| `redirect-variant` | 424 | spelling / plural / qualifier differed; same subject |
+| `ok` | 7018 | the title is the article |
+| `redirect-variant` | 425 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 95 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 665 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 670 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 150 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 149 | only a disambiguation page; no link could be chosen |
-| `none` | 1052 | nothing matched; no link |
+| `none` | 1079 | nothing matched; no link |
 
-**8181 of 9550 cards get a link.** The three "no link" rows are the honest state: a card whose
+**8224 of 9620 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (665)
+## Redirected to a differently named article — check each (670)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
 - `art-030` **Thinker of Cernavodă** → [Thinker of Hamangia](https://en.wikipedia.org/wiki/Thinker_of_Hamangia) (from `Thinker of Cernavodă`)
+- `art-035` **Uruk Vase** → [Warka Vase](https://en.wikipedia.org/wiki/Warka_Vase) (from `Uruk Vase`)
+- `art-046` **Bull-Headed Lyre of Ur** → [Bull Headed Lyre of Ur](https://en.wikipedia.org/wiki/Bull_Headed_Lyre_of_Ur) (from `Bull-Headed Lyre of Ur`)
+- `art-057` **Snake Goddess** → [Minoan snake goddess figurines](https://en.wikipedia.org/wiki/Minoan_snake_goddess_figurines) (from `Snake Goddess`)
+- `art-062` **Vaphio Cups** → [Vaphio](https://en.wikipedia.org/wiki/Vaphio) (from `Vaphio cups`)
+- `art-065` **Bust of Nefertiti** → [Nefertiti Bust](https://en.wikipedia.org/wiki/Nefertiti_Bust) (from `Bust of Nefertiti`)
 - `astro-024` **celestial meridian** → [Meridian (astronomy)](https://en.wikipedia.org/wiki/Meridian_(astronomy)) (from `Celestial meridian`)
 - `astro-030` **angular size** → [Angular diameter](https://en.wikipedia.org/wiki/Angular_diameter) (from `Angular size`)
 - `astro-031` **angular separation** → [Angular distance](https://en.wikipedia.org/wiki/Angular_distance) (from `Angular separation`)
@@ -1144,7 +1149,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1052)
+## No article found (1079)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1164,6 +1169,33 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `art-026` **Jericho Skull** — search suggests `Plastered human skulls`, `Jericho`, `Tell es-Sultan`, `Kirk Baltz`, `Ossuary`
 - `art-027` **Praroditeljka** — search suggests `Lepenski Vir`
 - `art-029` **Great God of Sefar** — search suggests `Round Head Period`, `Sefer Yetzirah`, `Automatic writing`
+- `art-031` **Banpo human-face fish basin** — search suggests `Banpo`, `Yangshao culture`, `Prehistory of China`, `Chinese art`, `Afanasievo culture`
+- `art-032` **Varna Grave 43 sceptre** — search suggests `Carnac stones`, `Islam in Europe`
+- `art-034` **Newgrange entrance stone** — search suggests `Newgrange`, `Stonehenge`, `Triskelion`, `Knowth`, `Carnac stones`
+- `art-039` **Kneeling bull holding a spouted vessel** — search suggests `Kneeling Bull with Vessel`, `Proto-Elamite (period)`, `Mithraism`, `Naqada II`, `Early Dynastic Period (Mesopotamia)`
+- `art-040` **Umataka flame pot** — search suggests `Japanese pottery and porcelain`
+- `art-041` **Harp Player of Keros** — search suggests `28th century BC`, `Cycladic art`, `Cycladic culture`, `3rd millennium BC`, `Coachella Festival line-ups`
+- `art-042` **Tell Asmar Worshipper** — search suggests `Tell Asmar Hoard`, `Eshnunna`, `Art of Mesopotamia`, `Early Dynastic Period (Mesopotamia)`, `Tell Agrab`
+- `art-048` **Menkaure and His Queen** — search suggests `Menkaure`, `Pyramid of Menkaure`, `Menkaure triads`, `Giza pyramid complex`, `Hatshepsut`
+- `art-050` **Ti Watching a Hippopotamus Hunt** — search suggests `1865 in archaeology`, `Odd Taxi`, `The Snows of Kilimanjaro (1952 film)`, `List of common misconceptions about science, technology, and mathematics`, `List of Advanced Dungeons & Dragons 2nd edition monsters`
+- `art-052` **Mask of Sargon** — search suggests `Sargon of Akkad`, `Prince of Persia: The Lost Crown`, `Art of Mesopotamia`, `AP Art History`, `Ancient art`
+- `art-054` **Gudea, Seated Statue B** — search suggests `Statues of Gudea`, `Gudea`, `Art of Mesopotamia`, `Sculpture`, `Portrait`
+- `art-058` **Spring Fresco** — search suggests `Fresco`, `Minoan art`, `The Last Judgment (Michelangelo)`, `The Creation of Adam`, `Art`
+- `art-063` **Nebamun Hunting in the Marshes** — search suggests `Nebamun`, `Tomb of Nebamun`, `Hierarchical proportion`, `Art of ancient Egypt`, `History of art`
+- `art-064` **Akhenaten, Nefertiti and Three Daughters** — search suggests `Nefertiti`, `Akhenaten`, `Amarna art`, `Nefertiti Bust`, `Royal Tomb of Akhenaten`
+- `art-067` **Book of the Dead of Hunefer** — search suggests `Book of the Dead`, `Ancient Egyptian afterlife beliefs`, `Ammit`, `Book`, `Papyrus`
+- `art-068` **Abu Simbel colossi** — search suggests `Abu Simbel`, `Death on the Nile (1978 film)`, `Art of ancient Egypt`, `Nebettawy`, `Ramesseum`
+- `art-071` **San Lorenzo Colossal Head 1** — search suggests `Olmec colossal heads`, `San Lorenzo Tenochtitlán`, `La Venta`, `Olmecs`, `Olmec Head, Number 8`
+- `art-072` **Sanxingdui Bronze Standing Figure** — search suggests `Sanxingdui`, `Bronze Age`, `Chinese art`, `Chinese sculpture`, `Shang dynasty`
+- `art-076` **Ashurnasirpal II Winged Genius Relief** — search suggests `Ashurnasirpal II`, `Winged genie`, `Art & History Museum`, `Nimrud`, `Ninurta`
+- `art-079` **Khorsabad Lamassu** — search suggests `Lamassu`, `Dur-Sharrukin`, `Assyrian sculpture`, `Art of Mesopotamia`, `British Museum Department of the Middle East`
+- `art-080` **Lioness Devouring a Boy** — search suggests `Liō`, `Cultural depictions of lions`, `Artemis`, `List of God of War characters`, `List of characters in mythology novels by Rick Riordan`
+- `art-087` **Sophilos Dinos** — search suggests `Dinos`, `Dinos of the Gorgon Painter`, `Dionysus`, `Tethys (mythology)`, `Oceanus`
+- `art-089` **Achilles and Ajax Playing a Game** — search suggests `Ajax the Great`, `Exekias`, `Achilles`, `Five Lines`, `Trojan War`
+- `art-090` **Anavysos Kouros** — search suggests `Kouros`, `Kroisos Kouros`, `AP Art History`, `530 BC`
+- `art-091` **Siphnian Treasury frieze** — search suggests `Siphnian Treasury`, `Narrative art`, `Monument of Aemilius Paullus`, `Giants (Greek mythology)`, `Athenian Treasury`
+- `art-092` **Andokides Painter's bilingual amphora** — search suggests `Andokides (vase painter)`, `Bilingual kylix by the Andokides painter`, `Lysippides Painter`, `Belly Amphora by the Andokides Painter (Munich 2301)`, `Bilingual vase painting`
+- `art-096` **Apadana tribute-bearers relief** — search suggests `Darius the Great`, `Achaemenid Empire`, `Tachara`, `Parthenon Frieze`, `Achaemenid conquest of the Indus Valley`
 - `astro-028` **magnitude scale** — search suggests `Magnitude (astronomy)`, `Apparent magnitude`, `Order of magnitude`, `Magnitude`, `First-magnitude star`
 - `astro-097` **core accretion** — search suggests `Accretion (astrophysics)`, `Accretion disk`, `Earth's outer core`, `Black hole`, `Nebular hypothesis`
 - `astro-106` **refractory elements** — search suggests `Chemical element`, `Cosmic dust`, `Refractory (planetary science)`, `Chondrite`, `Volatile (astrogeology)`

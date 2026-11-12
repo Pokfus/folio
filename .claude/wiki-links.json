@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T04:54Z",
+ "generated": "2026-11-12T05:30Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6981,
-  "redirect-broader": 665,
-  "redirect-variant": 424,
+  "ok": 7018,
+  "redirect-broader": 670,
+  "redirect-variant": 425,
   "section-redirect": 150,
   "disambiguation": 149,
-  "none": 1052,
+  "none": 1079,
   "disambig-resolved": 95,
   "list-page": 6,
   "search-match": 9,
@@ -72348,6 +72348,683 @@
    "url": "https://en.wikipedia.org/wiki/Texas_annexation",
    "via": "glossary",
    "status": "ok"
+  },
+  "art-081": {
+   "answer": "Eleusis Amphora",
+   "title": "Eleusis Amphora",
+   "url": "https://en.wikipedia.org/wiki/Eleusis_Amphora",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-082": {
+   "answer": "Lady of Auxerre",
+   "title": "Lady of Auxerre",
+   "url": "https://en.wikipedia.org/wiki/Lady_of_Auxerre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-083": {
+   "answer": "Chigi vase",
+   "title": "Chigi vase",
+   "url": "https://en.wikipedia.org/wiki/Chigi_vase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-084": {
+   "answer": "New York Kouros",
+   "title": "New York Kouros",
+   "url": "https://en.wikipedia.org/wiki/New_York_Kouros",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-085": {
+   "answer": "Kleobis and Biton",
+   "title": "Kleobis and Biton",
+   "url": "https://en.wikipedia.org/wiki/Kleobis_and_Biton",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-086": {
+   "answer": "François Vase",
+   "title": "François Vase",
+   "url": "https://en.wikipedia.org/wiki/Fran%C3%A7ois_Vase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-087": {
+   "answer": "Sophilos Dinos",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Dinos",
+    "Dinos of the Gorgon Painter",
+    "Dionysus",
+    "Tethys (mythology)",
+    "Oceanus"
+   ]
+  },
+  "art-088": {
+   "answer": "Peplos Kore",
+   "title": "Peplos Kore",
+   "url": "https://en.wikipedia.org/wiki/Peplos_Kore",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-089": {
+   "answer": "Achilles and Ajax Playing a Game",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ajax the Great",
+    "Exekias",
+    "Achilles",
+    "Five Lines",
+    "Trojan War"
+   ]
+  },
+  "art-090": {
+   "answer": "Anavysos Kouros",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Kouros",
+    "Kroisos Kouros",
+    "AP Art History",
+    "530 BC"
+   ]
+  },
+  "art-091": {
+   "answer": "Siphnian Treasury frieze",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Siphnian Treasury",
+    "Narrative art",
+    "Monument of Aemilius Paullus",
+    "Giants (Greek mythology)",
+    "Athenian Treasury"
+   ]
+  },
+  "art-092": {
+   "answer": "Andokides Painter's bilingual amphora",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Andokides (vase painter)",
+    "Bilingual kylix by the Andokides painter",
+    "Lysippides Painter",
+    "Belly Amphora by the Andokides Painter (Munich 2301)",
+    "Bilingual vase painting"
+   ]
+  },
+  "art-093": {
+   "answer": "Sarcophagus of the Spouses",
+   "title": "Sarcophagus of the Spouses",
+   "url": "https://en.wikipedia.org/wiki/Sarcophagus_of_the_Spouses",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-094": {
+   "answer": "Euphronios Krater",
+   "title": "Euphronios Krater",
+   "url": "https://en.wikipedia.org/wiki/Euphronios_Krater",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-095": {
+   "answer": "Apollo of Veii",
+   "title": "Apollo of Veii",
+   "url": "https://en.wikipedia.org/wiki/Apollo_of_Veii",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-096": {
+   "answer": "Apadana tribute-bearers relief",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Darius the Great",
+    "Achaemenid Empire",
+    "Tachara",
+    "Parthenon Frieze",
+    "Achaemenid conquest of the Indus Valley"
+   ]
+  },
+  "art-097": {
+   "answer": "Tomb of the Diver",
+   "title": "Tomb of the Diver",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_the_Diver",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-098": {
+   "answer": "Kritios Boy",
+   "title": "Kritios Boy",
+   "url": "https://en.wikipedia.org/wiki/Kritios_Boy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-099": {
+   "answer": "Berlin Foundry Cup",
+   "title": "Berlin Foundry Cup",
+   "url": "https://en.wikipedia.org/wiki/Berlin_Foundry_Cup",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-100": {
+   "answer": "Tyrannicides",
+   "title": "Tyrannicide",
+   "url": "https://en.wikipedia.org/wiki/Tyrannicide",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Tyrannicides"
+  },
+  "art-061": {
+   "answer": "Bull-Leaping Fresco",
+   "title": "Bull-Leaping Fresco",
+   "url": "https://en.wikipedia.org/wiki/Bull-Leaping_Fresco",
+   "via": "answer",
+   "status": "ok"
+  },
+  "art-062": {
+   "answer": "Vaphio Cups",
+   "title": "Vaphio",
+   "url": "https://en.wikipedia.org/wiki/Vaphio",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Vaphio cups"
+  },
+  "art-063": {
+   "answer": "Nebamun Hunting in the Marshes",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Nebamun",
+    "Tomb of Nebamun",
+    "Hierarchical proportion",
+    "Art of ancient Egypt",
+    "History of art"
+   ]
+  },
+  "art-064": {
+   "answer": "Akhenaten, Nefertiti and Three Daughters",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Nefertiti",
+    "Akhenaten",
+    "Amarna art",
+    "Nefertiti Bust",
+    "Royal Tomb of Akhenaten"
+   ]
+  },
+  "art-065": {
+   "answer": "Bust of Nefertiti",
+   "title": "Nefertiti Bust",
+   "url": "https://en.wikipedia.org/wiki/Nefertiti_Bust",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Bust of Nefertiti"
+  },
+  "art-066": {
+   "answer": "Mask of Tutankhamun",
+   "title": "Mask of Tutankhamun",
+   "url": "https://en.wikipedia.org/wiki/Mask_of_Tutankhamun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-067": {
+   "answer": "Book of the Dead of Hunefer",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Book of the Dead",
+    "Ancient Egyptian afterlife beliefs",
+    "Ammit",
+    "Book",
+    "Papyrus"
+   ]
+  },
+  "art-068": {
+   "answer": "Abu Simbel colossi",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Abu Simbel",
+    "Death on the Nile (1978 film)",
+    "Art of ancient Egypt",
+    "Nebettawy",
+    "Ramesseum"
+   ]
+  },
+  "art-069": {
+   "answer": "Lion Gate",
+   "title": "Lion Gate",
+   "url": "https://en.wikipedia.org/wiki/Lion_Gate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-070": {
+   "answer": "Houmuwu ding",
+   "title": "Houmuwu ding",
+   "url": "https://en.wikipedia.org/wiki/Houmuwu_ding",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-031": {
+   "answer": "Banpo human-face fish basin",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Banpo",
+    "Yangshao culture",
+    "Prehistory of China",
+    "Chinese art",
+    "Afanasievo culture"
+   ]
+  },
+  "art-032": {
+   "answer": "Varna Grave 43 sceptre",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Carnac stones",
+    "Islam in Europe"
+   ]
+  },
+  "art-033": {
+   "answer": "Gebel el-Arak Knife",
+   "title": "Gebel el-Arak Knife",
+   "url": "https://en.wikipedia.org/wiki/Gebel_el-Arak_Knife",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-034": {
+   "answer": "Newgrange entrance stone",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Newgrange",
+    "Stonehenge",
+    "Triskelion",
+    "Knowth",
+    "Carnac stones"
+   ]
+  },
+  "art-035": {
+   "answer": "Uruk Vase",
+   "title": "Warka Vase",
+   "url": "https://en.wikipedia.org/wiki/Warka_Vase",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Uruk Vase"
+  },
+  "art-036": {
+   "answer": "Mask of Warka",
+   "title": "Mask of Warka",
+   "url": "https://en.wikipedia.org/wiki/Mask_of_Warka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-037": {
+   "answer": "Battlefield Palette",
+   "title": "Battlefield Palette",
+   "url": "https://en.wikipedia.org/wiki/Battlefield_Palette",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-038": {
+   "answer": "Narmer Palette",
+   "title": "Narmer Palette",
+   "url": "https://en.wikipedia.org/wiki/Narmer_Palette",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-039": {
+   "answer": "Kneeling bull holding a spouted vessel",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Kneeling Bull with Vessel",
+    "Proto-Elamite (period)",
+    "Mithraism",
+    "Naqada II",
+    "Early Dynastic Period (Mesopotamia)"
+   ]
+  },
+  "art-040": {
+   "answer": "Umataka flame pot",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Japanese pottery and porcelain"
+   ]
+  },
+  "art-071": {
+   "answer": "San Lorenzo Colossal Head 1",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Olmec colossal heads",
+    "San Lorenzo Tenochtitlán",
+    "La Venta",
+    "Olmecs",
+    "Olmec Head, Number 8"
+   ]
+  },
+  "art-072": {
+   "answer": "Sanxingdui Bronze Standing Figure",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sanxingdui",
+    "Bronze Age",
+    "Chinese art",
+    "Chinese sculpture",
+    "Shang dynasty"
+   ]
+  },
+  "art-073": {
+   "answer": "Las Limas Monument 1",
+   "title": "Las Limas Monument 1",
+   "url": "https://en.wikipedia.org/wiki/Las_Limas_Monument_1",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-074": {
+   "answer": "Lanzón",
+   "title": "Lanzón",
+   "url": "https://en.wikipedia.org/wiki/Lanz%C3%B3n",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-075": {
+   "answer": "Tello Obelisk",
+   "title": "Tello Obelisk",
+   "url": "https://en.wikipedia.org/wiki/Tello_Obelisk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-076": {
+   "answer": "Ashurnasirpal II Winged Genius Relief",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ashurnasirpal II",
+    "Winged genie",
+    "Art & History Museum",
+    "Nimrud",
+    "Ninurta"
+   ]
+  },
+  "art-077": {
+   "answer": "Black Obelisk of Shalmaneser III",
+   "title": "Black Obelisk of Shalmaneser III",
+   "url": "https://en.wikipedia.org/wiki/Black_Obelisk_of_Shalmaneser_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-078": {
+   "answer": "Dipylon Amphora",
+   "title": "Dipylon Amphora",
+   "url": "https://en.wikipedia.org/wiki/Dipylon_Amphora",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-079": {
+   "answer": "Khorsabad Lamassu",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Lamassu",
+    "Dur-Sharrukin",
+    "Assyrian sculpture",
+    "Art of Mesopotamia",
+    "British Museum Department of the Middle East"
+   ]
+  },
+  "art-041": {
+   "answer": "Harp Player of Keros",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "28th century BC",
+    "Cycladic art",
+    "Cycladic culture",
+    "3rd millennium BC",
+    "Coachella Festival line-ups"
+   ]
+  },
+  "art-042": {
+   "answer": "Tell Asmar Worshipper",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Tell Asmar Hoard",
+    "Eshnunna",
+    "Art of Mesopotamia",
+    "Early Dynastic Period (Mesopotamia)",
+    "Tell Agrab"
+   ]
+  },
+  "art-043": {
+   "answer": "Standard of Ur",
+   "title": "Standard of Ur",
+   "url": "https://en.wikipedia.org/wiki/Standard_of_Ur",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-044": {
+   "answer": "Ram in a Thicket",
+   "title": "Ram in a Thicket",
+   "url": "https://en.wikipedia.org/wiki/Ram_in_a_Thicket",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-045": {
+   "answer": "Khafre Enthroned",
+   "title": "Khafre Enthroned",
+   "url": "https://en.wikipedia.org/wiki/Khafre_Enthroned",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-046": {
+   "answer": "Bull-Headed Lyre of Ur",
+   "title": "Bull Headed Lyre of Ur",
+   "url": "https://en.wikipedia.org/wiki/Bull_Headed_Lyre_of_Ur",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Bull-Headed Lyre of Ur"
+  },
+  "art-047": {
+   "answer": "Great Sphinx of Giza",
+   "title": "Great Sphinx of Giza",
+   "url": "https://en.wikipedia.org/wiki/Great_Sphinx_of_Giza",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-048": {
+   "answer": "Menkaure and His Queen",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Menkaure",
+    "Pyramid of Menkaure",
+    "Menkaure triads",
+    "Giza pyramid complex",
+    "Hatshepsut"
+   ]
+  },
+  "art-049": {
+   "answer": "Seated Scribe",
+   "title": "The Seated Scribe",
+   "url": "https://en.wikipedia.org/wiki/The_Seated_Scribe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-050": {
+   "answer": "Ti Watching a Hippopotamus Hunt",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "1865 in archaeology",
+    "Odd Taxi",
+    "The Snows of Kilimanjaro (1952 film)",
+    "List of common misconceptions about science, technology, and mathematics",
+    "List of Advanced Dungeons & Dragons 2nd edition monsters"
+   ]
+  },
+  "art-051": {
+   "answer": "Dancing Girl",
+   "title": "Dancing Girl (prehistoric sculpture)",
+   "url": "https://en.wikipedia.org/wiki/Dancing_Girl_(prehistoric_sculpture)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-052": {
+   "answer": "Mask of Sargon",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sargon of Akkad",
+    "Prince of Persia: The Lost Crown",
+    "Art of Mesopotamia",
+    "AP Art History",
+    "Ancient art"
+   ]
+  },
+  "art-053": {
+   "answer": "Victory Stele of Naram-Sin",
+   "title": "Victory Stele of Naram-Sin",
+   "url": "https://en.wikipedia.org/wiki/Victory_Stele_of_Naram-Sin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-054": {
+   "answer": "Gudea, Seated Statue B",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Statues of Gudea",
+    "Gudea",
+    "Art of Mesopotamia",
+    "Sculpture",
+    "Portrait"
+   ]
+  },
+  "art-055": {
+   "answer": "Priest-King",
+   "title": "Priest-King (sculpture)",
+   "url": "https://en.wikipedia.org/wiki/Priest-King_(sculpture)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-056": {
+   "answer": "Code of Hammurabi",
+   "title": "Code of Hammurabi",
+   "url": "https://en.wikipedia.org/wiki/Code_of_Hammurabi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-057": {
+   "answer": "Snake Goddess",
+   "title": "Minoan snake goddess figurines",
+   "url": "https://en.wikipedia.org/wiki/Minoan_snake_goddess_figurines",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Snake Goddess"
+  },
+  "art-058": {
+   "answer": "Spring Fresco",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Fresco",
+    "Minoan art",
+    "The Last Judgment (Michelangelo)",
+    "The Creation of Adam",
+    "Art"
+   ]
+  },
+  "art-059": {
+   "answer": "Nebra Sky Disc",
+   "title": "Nebra sky disc",
+   "url": "https://en.wikipedia.org/wiki/Nebra_sky_disc",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-060": {
+   "answer": "Mask of Agamemnon",
+   "title": "Mask of Agamemnon",
+   "url": "https://en.wikipedia.org/wiki/Mask_of_Agamemnon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-080": {
+   "answer": "Lioness Devouring a Boy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Liō",
+    "Cultural depictions of lions",
+    "Artemis",
+    "List of God of War characters",
+    "List of characters in mythology novels by Rick Riordan"
+   ]
   },
   "astro-101": {
    "answer": "calcium–aluminium-rich inclusions",
