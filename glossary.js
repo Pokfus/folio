@@ -9311,7 +9311,17 @@ window.GLOSSARY = {
 "Sophilos_Dinos": "",
 "Achilles_and_Ajax_Playing_a_Game": "",
 "Sophilos": "",
-"Ergotimos": ""
+"Ergotimos": "",
+"Siphnian_Treasury_frieze": "",
+"Andokides_Painter's_bilingual_amphora": "",
+"Sarcophagus_of_the_Spouses": "",
+"Euphronios_Krater": "",
+"Apadana_tribute-bearers_relief": "",
+"Tomb_of_the_Diver": "",
+"Kritios": "",
+"Berlin_Foundry_Cup": "",
+"Foundry_Painter": "",
+"Nesiotes": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13893,7 +13903,17 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Kleobis_and_Biton": "c. 580 BCE",
 "Sophilos_Dinos": "c. 580 BCE",
 "Achilles_and_Ajax_Playing_a_Game": "c. 540–530 BCE",
-"Ergotimos": "active c. 570 BCE"
+"Ergotimos": "active c. 570 BCE",
+"Siphnian_Treasury_frieze": "c. 530 – 525 BCE",
+"Andokides_Painter's_bilingual_amphora": "c. 530 – 510 BCE",
+"Sarcophagus_of_the_Spouses": "c. 530 – 520 BCE",
+"Euphronios_Krater": "c. 515 BCE",
+"Apadana_tribute-bearers_relief": "c. 510 – 465 BCE",
+"Tomb_of_the_Diver": "c. 500 – 470 BCE",
+"Kritios": "active c. 480 – 470 BCE",
+"Berlin_Foundry_Cup": "c. 490 – 480 BCE",
+"Foundry_Painter": "active c. 490 – 470 BCE",
+"Nesiotes": "active c. 480 – 470 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19790,7 +19810,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Lady_of_Auxerre": ["Dame d'Auxerre","Auxerre kore"],
 "Kleobis_and_Biton": ["Cleobis and Biton"],
 "Sophilos_Dinos": ["Sophilos dinos"],
-"Achilles_and_Ajax_Playing_a_Game": ["Achilles and Ajax playing dice","Achilles and Ajax playing a board game","Ajax and Achilles playing a game"]
+"Achilles_and_Ajax_Playing_a_Game": ["Achilles and Ajax playing dice","Achilles and Ajax playing a board game","Ajax and Achilles playing a game"],
+"Siphnian_Treasury_frieze": ["Siphnian frieze"],
+"Andokides_Painter's_bilingual_amphora": ["Munich bilingual amphora"],
+"Sarcophagus_of_the_Spouses": ["Sarcofago degli Sposi"],
+"Euphronios_Krater": ["Sarpedon krater","Euphronios krater"],
+"Apadana_tribute-bearers_relief": ["Apadana reliefs","Apadana staircase reliefs"],
+"Tomb_of_the_Diver": ["Tomba del Tuffatore"],
+"Kritios": ["Critius","Kritios and Nesiotes"],
+"Berlin_Foundry_Cup": ["Foundry Cup"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29259,7 +29287,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Sophilos_Dinos": ["object","art","greece","archaic","pottery","mythology"],
 "Achilles_and_Ajax_Playing_a_Game": ["object","art","greece","archaic","pottery","mythology"],
 "Sophilos": ["person","art","greece","archaic","pottery"],
-"Ergotimos": ["person","art","greece","archaic","pottery"]
+"Ergotimos": ["person","art","greece","archaic","pottery"],
+"Siphnian_Treasury_frieze": ["object","art","greece","archaic","delphi"],
+"Andokides_Painter's_bilingual_amphora": ["object","art","greece","archaic","pottery"],
+"Sarcophagus_of_the_Spouses": ["object","art","etruscan","italy","archaic"],
+"Euphronios_Krater": ["object","art","greece","archaic","pottery"],
+"Apadana_tribute-bearers_relief": ["object","art","persia","iran"],
+"Tomb_of_the_Diver": ["object","art","greece","italy","classical"],
+"Kritios": ["person","art","greece","classical","athens"],
+"Berlin_Foundry_Cup": ["object","art","greece","classical","pottery"],
+"Foundry_Painter": ["person","art","greece","classical","pottery"],
+"Nesiotes": ["person","art","greece","classical","athens"]
 });
 
 /* ============================================================================

@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T04:12Z",
+ "generated": "2026-11-12T04:21Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6621,
+  "ok": 6627,
   "redirect-broader": 625,
-  "redirect-variant": 397,
+  "redirect-variant": 398,
   "section-redirect": 134,
   "disambiguation": 147,
-  "none": 1013,
+  "none": 1016,
   "disambig-resolved": 89,
   "list-page": 6,
   "search-match": 9,
@@ -72438,6 +72438,98 @@
     "AP Art History",
     "530 BC"
    ]
+  },
+  "art-091": {
+   "answer": "Siphnian Treasury frieze",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Siphnian Treasury",
+    "Narrative art",
+    "Monument of Aemilius Paullus",
+    "Giants (Greek mythology)",
+    "Athenian Treasury"
+   ]
+  },
+  "art-092": {
+   "answer": "Andokides Painter's bilingual amphora",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Andokides (vase painter)",
+    "Bilingual kylix by the Andokides painter",
+    "Lysippides Painter",
+    "Belly Amphora by the Andokides Painter (Munich 2301)",
+    "Bilingual vase painting"
+   ]
+  },
+  "art-093": {
+   "answer": "Sarcophagus of the Spouses",
+   "title": "Sarcophagus of the Spouses",
+   "url": "https://en.wikipedia.org/wiki/Sarcophagus_of_the_Spouses",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-094": {
+   "answer": "Euphronios Krater",
+   "title": "Euphronios Krater",
+   "url": "https://en.wikipedia.org/wiki/Euphronios_Krater",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-095": {
+   "answer": "Apollo of Veii",
+   "title": "Apollo of Veii",
+   "url": "https://en.wikipedia.org/wiki/Apollo_of_Veii",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-096": {
+   "answer": "Apadana tribute-bearers relief",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Darius the Great",
+    "Achaemenid Empire",
+    "Tachara",
+    "Parthenon Frieze",
+    "Achaemenid conquest of the Indus Valley"
+   ]
+  },
+  "art-097": {
+   "answer": "Tomb of the Diver",
+   "title": "Tomb of the Diver",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_the_Diver",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-098": {
+   "answer": "Kritios Boy",
+   "title": "Kritios Boy",
+   "url": "https://en.wikipedia.org/wiki/Kritios_Boy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-099": {
+   "answer": "Berlin Foundry Cup",
+   "title": "Berlin Foundry Cup",
+   "url": "https://en.wikipedia.org/wiki/Berlin_Foundry_Cup",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-100": {
+   "answer": "Tyrannicides",
+   "title": "Tyrannicide",
+   "url": "https://en.wikipedia.org/wiki/Tyrannicide",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Tyrannicides"
   }
  }
 }

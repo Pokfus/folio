@@ -26,17 +26,17 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6621 | the title is the article |
-| `redirect-variant` | 397 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6627 | the title is the article |
+| `redirect-variant` | 398 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 89 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
 | `redirect-broader` | 625 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 134 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
-| `none` | 1013 | nothing matched; no link |
+| `none` | 1016 | nothing matched; no link |
 
-**7748 of 9060 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7755 of 9070 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -1080,7 +1080,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1013)
+## No article found (1016)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1103,6 +1103,9 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `art-087` **Sophilos Dinos** — search suggests `Dinos`, `Dinos of the Gorgon Painter`, `Dionysus`, `Tethys (mythology)`, `Oceanus`
 - `art-089` **Achilles and Ajax Playing a Game** — search suggests `Ajax the Great`, `Exekias`, `Achilles`, `Five Lines`, `Trojan War`
 - `art-090` **Anavysos Kouros** — search suggests `Kouros`, `Kroisos Kouros`, `AP Art History`, `530 BC`
+- `art-091` **Siphnian Treasury frieze** — search suggests `Siphnian Treasury`, `Narrative art`, `Monument of Aemilius Paullus`, `Giants (Greek mythology)`, `Athenian Treasury`
+- `art-092` **Andokides Painter's bilingual amphora** — search suggests `Andokides (vase painter)`, `Bilingual kylix by the Andokides painter`, `Lysippides Painter`, `Belly Amphora by the Andokides Painter (Munich 2301)`, `Bilingual vase painting`
+- `art-096` **Apadana tribute-bearers relief** — search suggests `Darius the Great`, `Achaemenid Empire`, `Tachara`, `Parthenon Frieze`, `Achaemenid conquest of the Indus Valley`
 - `astro-028` **magnitude scale** — search suggests `Magnitude (astronomy)`, `Apparent magnitude`, `Order of magnitude`, `Magnitude`, `First-magnitude star`
 - `astro-097` **core accretion** — search suggests `Accretion (astrophysics)`, `Accretion disk`, `Earth's outer core`, `Black hole`, `Nebular hypothesis`
 - `bio-074` **structure-function relationship** — search suggests `Outline of biology`, `Morphology (biology)`, `Biology`, `Function`, `History of molecular biology`
