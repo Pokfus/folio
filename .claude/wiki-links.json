@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T04:06Z",
+ "generated": "2026-11-12T04:11Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6666,
-  "redirect-broader": 636,
+  "ok": 6683,
+  "redirect-broader": 638,
   "redirect-variant": 399,
   "section-redirect": 137,
   "disambiguation": 149,
-  "none": 1019,
+  "none": 1020,
   "disambig-resolved": 90,
   "list-page": 6,
   "search-match": 9,
@@ -73003,6 +73003,155 @@
    "answer": "cotton gin",
    "title": "Cotton gin",
    "url": "https://en.wikipedia.org/wiki/Cotton_gin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-411": {
+   "answer": "boomtown",
+   "title": "Boomtown",
+   "url": "https://en.wikipedia.org/wiki/Boomtown",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-412": {
+   "answer": "Chinese immigration to the United States",
+   "title": "History of Chinese Americans",
+   "url": "https://en.wikipedia.org/wiki/History_of_Chinese_Americans",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Chinese immigration to the United States"
+  },
+  "us-413": {
+   "answer": "Californios",
+   "title": "Californios",
+   "url": "https://en.wikipedia.org/wiki/Californios",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-414": {
+   "answer": "Santa Fe Trail",
+   "title": "Santa Fe Trail",
+   "url": "https://en.wikipedia.org/wiki/Santa_Fe_Trail",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-415": {
+   "answer": "Gadsden Purchase",
+   "title": "Gadsden Purchase",
+   "url": "https://en.wikipedia.org/wiki/Gadsden_Purchase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-416": {
+   "answer": "filibuster",
+   "title": "Filibuster (military)",
+   "url": "https://en.wikipedia.org/wiki/Filibuster_(military)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-417": {
+   "answer": "Perry Expedition",
+   "title": "Perry Expedition",
+   "url": "https://en.wikipedia.org/wiki/Perry_Expedition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-418": {
+   "answer": "Pacific Railroad Surveys",
+   "title": "Pacific Railroad Surveys",
+   "url": "https://en.wikipedia.org/wiki/Pacific_Railroad_Surveys",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-419": {
+   "answer": "Great American Desert",
+   "title": "Great American Desert",
+   "url": "https://en.wikipedia.org/wiki/Great_American_Desert",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-420": {
+   "answer": "Fort Laramie Treaty of 1851",
+   "title": "Treaty of Fort Laramie (1851)",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Fort_Laramie_(1851)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Fort Laramie Treaty of 1851"
+  },
+  "us-491": {
+   "answer": "Everyday resistance",
+   "title": "Everyday resistance",
+   "url": "https://en.wikipedia.org/wiki/Everyday_resistance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-492": {
+   "answer": "Fugitive slaves in the United States",
+   "title": "Fugitive slaves in the United States",
+   "url": "https://en.wikipedia.org/wiki/Fugitive_slaves_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-493": {
+   "answer": "Great Dismal Swamp maroons",
+   "title": "Great Dismal Swamp maroons",
+   "url": "https://en.wikipedia.org/wiki/Great_Dismal_Swamp_maroons",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-494": {
+   "answer": "Slave rebellion and resistance in the United States",
+   "title": "Slave rebellion and resistance in the United States",
+   "url": "https://en.wikipedia.org/wiki/Slave_rebellion_and_resistance_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-495": {
+   "answer": "Stono Rebellion",
+   "title": "Stono Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Stono_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-496": {
+   "answer": "Gabriel's Rebellion",
+   "title": "Gabriel's Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Gabriel's_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-497": {
+   "answer": "Denmark Vesey",
+   "title": "Denmark Vesey",
+   "url": "https://en.wikipedia.org/wiki/Denmark_Vesey",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-498": {
+   "answer": "Nat Turner's Rebellion",
+   "title": "Nat Turner's Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Nat_Turner's_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-499": {
+   "answer": "Virginia slavery debate",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Thirteenth Amendment to the United States Constitution",
+    "United States",
+    "Slave states and free states",
+    "Slavery in the United States",
+    "Slavery and the United States Constitution"
+   ]
+  },
+  "us-500": {
+   "answer": "United States v. The Amistad",
+   "title": "United States v. The Amistad",
+   "url": "https://en.wikipedia.org/wiki/United_States_v._The_Amistad",
    "via": "glossary",
    "status": "ok"
   }

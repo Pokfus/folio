@@ -9379,7 +9379,27 @@ window.GLOSSARY = {
 "African_Americans_in_the_Revolutionary_War": "",
 "Gradual_abolition_of_slavery": "",
 "Act_Prohibiting_Importation_of_Slaves": "",
-"Cotton_gin": ""
+"Cotton_gin": "",
+"Boomtown": "",
+"History_of_Chinese_Americans": "",
+"Californios": "",
+"Santa_Fe_Trail": "",
+"Gadsden_Purchase": "",
+"Filibuster_(military)": "",
+"Perry_Expedition": "",
+"Pacific_Railroad_Surveys": "",
+"Great_American_Desert": "",
+"Treaty_of_Fort_Laramie_(1851)": "",
+"Everyday_resistance": "",
+"Fugitive_slaves_in_the_United_States": "",
+"Great_Dismal_Swamp_maroons": "",
+"Slave_rebellion_and_resistance_in_the_United_States": "",
+"Stono_Rebellion": "",
+"Gabriel's_Rebellion": "",
+"Denmark_Vesey": "",
+"Nat_Turner's_Rebellion": "",
+"Virginia_slavery_debate": "",
+"United_States_v._The_Amistad": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13997,7 +14017,23 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "History_of_slavery_in_New_York_(state)": "1620s–1827",
 "African_Americans_in_the_Revolutionary_War": "1775–1783",
 "Act_Prohibiting_Importation_of_Slaves": "1807",
-"Cotton_gin": "1794"
+"Cotton_gin": "1794",
+"Californios": "1769–1848",
+"Santa_Fe_Trail": "1821–1880",
+"Gadsden_Purchase": "1853–1854",
+"Filibuster_(military)": "1848–1860",
+"Perry_Expedition": "1852–1854",
+"Pacific_Railroad_Surveys": "1853–1855",
+"Great_American_Desert": "1810–1870s",
+"Treaty_of_Fort_Laramie_(1851)": "1851",
+"Fugitive_slaves_in_the_United_States": "1643–1865",
+"Great_Dismal_Swamp_maroons": "c. 1680–1865",
+"Stono_Rebellion": "1739",
+"Gabriel's_Rebellion": "1800",
+"Denmark_Vesey": "c. 1767–1822",
+"Nat_Turner's_Rebellion": "1831",
+"Virginia_slavery_debate": "1831–1832",
+"United_States_v._The_Amistad": "1839–1841"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19945,7 +19981,25 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Common_school": ["common schools","common school movement"],
 "History_of_slavery_in_Virginia": ["slavery in Virginia"],
 "History_of_slavery_in_New_York_(state)": ["slavery in New York"],
-"Gradual_abolition_of_slavery": ["gradual emancipation","gradual abolition"]
+"Gradual_abolition_of_slavery": ["gradual emancipation","gradual abolition"],
+"Boomtown": ["boomtown","boom town","boom towns","boomtowns"],
+"History_of_Chinese_Americans": ["Chinese immigration to the United States","Chinese Americans","Chinese immigration"],
+"Californios": ["Californio","Californios"],
+"Gadsden_Purchase": ["Gadsden Treaty","Venta de La Mesilla"],
+"Filibuster_(military)": ["filibuster","filibustering","filibusterer","filibusters"],
+"Perry_Expedition": ["Perry expedition","Black Ships","Opening of Japan"],
+"Pacific_Railroad_Surveys": ["Pacific Railroad Survey","Pacific Railroad Reports"],
+"Treaty_of_Fort_Laramie_(1851)": ["Fort Laramie Treaty of 1851","Horse Creek Treaty","Treaty of Fort Laramie"],
+"Everyday_resistance": ["Day-to-day resistance"],
+"Fugitive_slaves_in_the_United_States": ["Fugitive slaves","Runaway slaves","Freedom seekers"],
+"Great_Dismal_Swamp_maroons": ["Dismal Swamp maroons"],
+"Slave_rebellion_and_resistance_in_the_United_States": ["Slave revolts in the United States"],
+"Stono_Rebellion": ["Stono Rebellion of 1739"],
+"Gabriel's_Rebellion": ["Gabriel's Conspiracy","Gabriel Prosser"],
+"Denmark_Vesey": ["Telemaque"],
+"Nat_Turner's_Rebellion": ["Nat Turner's slave rebellion","Southampton Insurrection"],
+"Virginia_slavery_debate": ["Virginia slavery debate of 1831–1832"],
+"United_States_v._The_Amistad": ["Amistad case","The Amistad"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29482,7 +29536,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "African_Americans_in_the_Revolutionary_War": ["event","history","warfare","slavery","united states"],
 "Gradual_abolition_of_slavery": ["concept","history","slavery","law"],
 "Act_Prohibiting_Importation_of_Slaves": ["text","history","law","slavery","united states"],
-"Cotton_gin": ["technology","history","economics","agriculture"]
+"Cotton_gin": ["technology","history","economics","agriculture"],
+"Boomtown": ["concept","history","economics","geography"],
+"History_of_Chinese_Americans": ["people","history","migration","united states","china"],
+"Californios": ["people","history","united states","california","mexico"],
+"Santa_Fe_Trail": ["place","history","trade","united states","mexico"],
+"Gadsden_Purchase": ["event","history","diplomacy","united states","mexico"],
+"Filibuster_(military)": ["practice","history","warfare","united states","latin america"],
+"Perry_Expedition": ["event","history","diplomacy","united states","japan"],
+"Pacific_Railroad_Surveys": ["event","history","exploration","science","united states"],
+"Great_American_Desert": ["concept","history","geography","united states","great plains"],
+"Treaty_of_Fort_Laramie_(1851)": ["event","history","native americans","united states","great plains"],
+"Everyday_resistance": ["concept","history","politics","resistance"],
+"Fugitive_slaves_in_the_United_States": ["practice","history","slavery","resistance","united states"],
+"Great_Dismal_Swamp_maroons": ["people","history","slavery","resistance","united states","virginia"],
+"Slave_rebellion_and_resistance_in_the_United_States": ["event","history","slavery","resistance","united states"],
+"Stono_Rebellion": ["event","history","slavery","resistance","united states","south carolina"],
+"Gabriel's_Rebellion": ["event","history","slavery","resistance","united states","virginia"],
+"Denmark_Vesey": ["person","history","slavery","resistance","united states","south carolina"],
+"Nat_Turner's_Rebellion": ["event","history","slavery","resistance","united states","virginia"],
+"Virginia_slavery_debate": ["event","history","politics","slavery","united states","virginia"],
+"United_States_v._The_Amistad": ["event","history","law","slavery","united states"]
 });
 
 /* ============================================================================

@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6666 | the title is the article |
+| `ok` | 6683 | the title is the article |
 | `redirect-variant` | 399 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 90 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 636 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 638 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 137 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 149 | only a disambiguation page; no link could be chosen |
-| `none` | 1019 | nothing matched; no link |
+| `none` | 1020 | nothing matched; no link |
 
-**7807 of 9130 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7826 of 9150 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (636)
+## Redirected to a differently named article — check each (638)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -524,6 +524,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-307` **Second Amendment** → [Second Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Second_Amendment_to_the_United_States_Constitution) (from `Second Amendment`)
 - `us-309` **Tenth Amendment** → [Tenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Tenth_Amendment_to_the_United_States_Constitution) (from `Tenth Amendment`)
 - `us-338` **Strict construction** → [Strict constructionism](https://en.wikipedia.org/wiki/Strict_constructionism) (from `Strict construction`)
+- `us-412` **Chinese immigration to the United States** → [History of Chinese Americans](https://en.wikipedia.org/wiki/History_of_Chinese_Americans) (from `Chinese immigration to the United States`)
+- `us-420` **Fort Laramie Treaty of 1851** → [Treaty of Fort Laramie (1851)](https://en.wikipedia.org/wiki/Treaty_of_Fort_Laramie_(1851)) (from `Fort Laramie Treaty of 1851`)
 - `us-421` **antebellum era** → [Antebellum South](https://en.wikipedia.org/wiki/Antebellum_South) (from `Antebellum era`)
 - `us-425` **utopian communities** → [Intentional community](https://en.wikipedia.org/wiki/Intentional_community) (from `Utopian communities`)
 - `us-431` **Cult of Domesticity** → [Culture of Domesticity](https://en.wikipedia.org/wiki/Culture_of_Domesticity) (from `Cult of Domesticity`)
@@ -1097,7 +1099,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1019)
+## No article found (1020)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2058,6 +2060,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `us-479` **Enslaved children** — search suggests `Female slavery in the United States`, `Treatment of slaves in the United States`, `List of children of presidents of the United States`, `Slave breeding in the United States`, `List of presidents of the United States who owned slaves`
 - `us-481` **sick house** — search suggests `Sick leave in the United States`, `Democratic Party (United States)`, `Economy of the United States`, `2012 United States elections`, `Sick man of Europe`
 - `us-489` **self-hire** — search suggests `Car rental`, `Supreme Court of the United States`, `United States Congress`, `Lists of wars involving the United States`, `Pro se legal representation in the United States`
+- `us-499` **Virginia slavery debate** — search suggests `Thirteenth Amendment to the United States Constitution`, `United States`, `Slave states and free states`, `Slavery in the United States`, `Slavery and the United States Constitution`
 - `wh-080` **Palaeolithic music** — search suggests `Paleolithic`, `History of music`, `Upper Paleolithic`, `Cro-Magnon`, `Music of Slovakia`
 - `wh-088` **southern dispersal route** — search suggests `Southern dispersal`, `Recent African origin of modern humans`, `Biological dispersal`, `Johor Bahru Eastern Dispersal Link Expressway`, `Genetic history of East Asians`
 - `wh-089` **archaic human admixture** — search suggests `Interbreeding between archaic and modern humans`, `Genetic history of Africa`, `Denisovan`, `Early human migrations`, `Human genetic variation`
