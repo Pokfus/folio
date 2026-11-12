@@ -6,8 +6,8 @@ Arabic language collection." It is a twelfth language set in the shape of the on
 file says otherwise).
 
 **STATUS (2026-11-12): built — the Arabic Alphabet (31 notes), Arabic A1 (500 notes / 1,000 cards), Arabic A2
-(600 notes / 1,200 cards) and Arabic B1 (800 notes / 1,600 cards).** B2 and up, and a phrases deck, are not built;
-§6 is what they need.
+(600 notes / 1,200 cards), Arabic B1 (800 notes / 1,600 cards) and Arabic B2 (900 notes / 1,800 cards).** C1 and
+up, and a phrases deck, are not built; §6 is what they need.
 
 ## 1. What the set is
 
@@ -17,6 +17,7 @@ file says otherwise).
 | Arabic A1 | `decks/Arabic-A1.folio-deck.json` | 500 |
 | Arabic A2 | `decks/Arabic-A2.folio-deck.json` | 600, of 789 inventory lines (`inventory_a2.py`) |
 | Arabic B1 | `decks/Arabic-B1.folio-deck.json` | 800, of 1,013 lines: 824 of `inventory_b1.py` and A2's 189 left out |
+| Arabic B2 | `decks/Arabic-B2.folio-deck.json` | 900, of 992 lines: 779 of `inventory_b2.py` and the 213 B1 left out |
 
 **Modern Standard Arabic only** — the written and formal language, not any dialect. Titles in English, as
 the Turkish and Russian sets settled. One note, two templates (Arabic → English, English → Arabic), the
@@ -129,8 +130,22 @@ is `rtl`, the table and the speaker; writes a screenshot).
   أَصَرَّ مصر "Egypt"; political lines — Putin, the Taliban, Israel, Islamophobia — insults and vulgarity).
   لَمَّا has no sentence on purpose (every candidate is لِمَا "for what"); 77 have none in all.
 
+- **B2 (2026-11-12) — `python3 .claude/arabic/run.py --level b2`.** `inventory_b2.py`: about 1,000 lines written and
+  150 single words added after the first join, of which 170 went MISSING (Wiktionary has few multi-word terms —
+  "foreign policy", "renewable energy" — and few derived adjectives and adverbs), 15 joined another word
+  (مُعَارِض → the plural of "exhibition", مُحَافِظ → of "wallet", رُعْب → a verb), 9 duplicated a carried line,
+  and 28 were stopped by `TAUGHT BELOW` (a new SENSE of a taught word, نِظَام "regime", بَيْت "verse", is not a new
+  headword). The deck is 900, not 1,000, so the pool stays wider than the deal. **A FIX FOUND HERE**: "dealt" is
+  the UNION of every lower deck — per level, an A2 line that B1 took up looked untaught and was carried again (B1's
+  build is unchanged by it). `ar.NOT_FORMS` grew by the B2 report (`لابد` "must", `لندن` London, `الزمن` "time",
+  `تشاد` Chad, `جين` Jane …); `REFUSE_B2`, `REFUSE_EN_B2`, `REFUSE_ANY_EN_B2` from reading every sentence
+  (Gaza, Biden, Iraq, Zionism, racist remarks; عَائِد "return" finding "coming home", مَأْسَاة لِلماسِ
+  "diamonds"), gated `rank >= 3`; A1, A2 and B1 rebuild byte-identical. B2's words are rarer in Tatoeba: 621 of
+  900 have a sentence. Two more compounds take `ROMAN` (ضَغْط الدَّم, مُحَرِّك بَحْث), and لَا سِيَّمَا.
+
 ## 6. Next levels
 
-B2 onward: a fourth inventory (`inventory_b2.py`, a `topics()` row, `SIZE`, `SCOPE`, `STAMP`), and B1 is then
-frozen as A1 and A2 are — a rule found at B2 gated `rank >= 3` so B1 rebuilds byte-identical. A phrases deck would start from
+C1 onward: a fifth inventory (`inventory_c1.py`, a `topics()` row, `SIZE`, `SCOPE`, `STAMP`), and B2 is then
+frozen — a rule found at C1 gated `rank >= 4`. Expect a higher MISSING rate than B2's and a thinner sentence
+pool: write single-word lines, and size the deck below the joined pool. A phrases deck would start from
 kaikki's `phrase` / `intj` entries and Tatoeba counts, the Turkish `phrases.py` shape.

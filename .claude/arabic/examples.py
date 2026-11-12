@@ -131,6 +131,36 @@ REFUSE_ANY_EN_B1 = ["Taliban", "Zelenskyy", "Putin", "Hitler", "Israel", "West B
                     "sentenced to death", "condemned him to death", "Yidir", "your ass", "Christianity",
                     "evangelical", "sexy", "guillotined", "communism", "Muslims should", "biblical", "Ukraine"]
 
+# ---- found reading the B2 deck (Nov 2026); applied from B2 up, so A1–B1 are not re-dealt ----
+REFUSE_B2 = {
+    "قَائِد": ["قواد"], "نَجَا": ["كنجي"], "جِين": ["جيني", "الجين"], "أَبْدَى": ["الأبد", "للأبد"],
+    "أَدَانَ": ["مدين", "تدين"], "كُلِّيّ": ["كلي"], "سَعَى": ["لسع"], "أَقَرَّ": ["نقر", "مقر"], "لَامَ": ["كلم"],
+    "شَكَّلَ": ["مشكل"], "أَيَّدَ": ["بايدن"], "وَقَى": ["تقيا"], "تَآكَلَ": ["تاكل", "تأكل"], "مَيَّزَ": ["مميز"],
+    "خَرَقَ": ["خارق"], "مَأْسَاة": ["ماس"], "وَقَّعَ": ["أوقع"], "أَفَادَ": ["نفد"], "شِعْرِيّ": ["شعري"],
+    "نَقْد": ["نقدا"], "خَلَفَ": ["الخلف", "أخلف"], "سَادَ": ["يسد", "كساد"], "صَاغَ": ["صغ"], "حِجَاب": ["حجب"],
+    "أَشَادَ": ["نشيد"], "حَرَمَ": ["الحرم"], "يَسَّرَ": ["الأيسر"], "جَوْهَر": ["الجواهر"], "مُؤْمِن": ["المؤمن"],
+    "فَرَضَ": ["المفروض"], "تَاجَرَ": ["المتاجر"], "مُلْحُوظ": ["ملحوظة"], "بِيُولُوجِيّ": ["البيولوجيا"],
+    "إِيمَان": ["الإيمان"],
+}
+REFUSE_EN_B2 = {
+    "تَضَمَّنَ": ["guarantees"], "هَاوٍ": ["YouTuber", "rock bottom"], "مُسَكِّن": ["moving", "place"],
+    "سَدّ": ["blocked", "waste"], "عُزْلَة": ["isolated himself"], "عَقِبَ": ["ran after", "Seeing"],
+    "عَمُود": ["intentionally"], "عَائِد": ["coming home", "drove back", "came"], "تَصَوُّر": ["photos"],
+    "اِسْتِعَارَة": ["borrow"], "عَارِض": ["against"], "مَدَار": ["throughout", "worked"], "عَيِّنَة": ["dipped"],
+    "حَدّ": ["upset"], "أَجْرَى": ["run"], "عَمَلِيّ": ["job", "work"], "سِرِّيّ": ["stole"],
+    "أَقْدَمَ": ["old", "present"], "بِنَاءً": ["construction", "build", "constructive"], "تَدَخَّلَ": ["enter"],
+    "مَالِيّ": ["money"], "عَار": ["picture"], "صَدَّرَ": ["comes out"], "أَوْلَى": ["Charity"],
+    "فِعْلِيّ": ["body"], "جُرْعَة": ["injected"], "تَحَدَّى": ["borders"], "مُقَدَّس": ["Ramadan"],
+    "أَحْدَثَ": ["latest", "noise"], "نَظَرِيّ": ["eyes"], "بَطَلَة": ["eyes"], "تَغْطِيَة": ["cover"],
+    "مُنَظَّم": ["pacemaker"], "حَظَرَ": ["blocked"], "تَحْرِير": ["released"], "ظَاهِرَة": ["appearances"],
+    "مَحْمِيَّة": ["protector"], "مَكَانَة": ["religio"], "بَرَّأَ": ["only ones"], "غَزَا": ["swamping"],
+    "بَيْدَ": ["Democracy"], "وَاجِهَة": ["resurfaced"], "بَاحِث": ["in search"], "فَسَاد": ["refrigerator"],
+    "أَلْزَمَ": ["stay in bed", "whatever it"], "مُسْتَقِيم": ["straight pa"],
+}
+REFUSE_ANY_EN_B2 = ["Gaza", "Palestin", "Biden", "Bush", "Iraq", "Afghanistan", "Western Sahara", "Allah", "racist",
+                    "raped", "pimp", "overdose", "no gods", "Tebboune", "meth", "abortion", "killed for", "Haya'",
+                    "believer", "Bible", "holy book", "united against", "Zionis", "Haftar"]
+
 
 def read_tsv(name):
     with bz2.open(os.path.join(ar.CACHE, name), "rt", encoding="utf-8") as fh:
@@ -150,11 +180,13 @@ def main():
     a = ap.parse_args()
     strict = a.level != "a1"
     b1 = inventory.LEVELS.index(a.level) >= 2
+    b2 = inventory.LEVELS.index(a.level) >= 3
     vowelled_only = VOWELLED_ONLY | (VOWELLED_ONLY_A2 if strict else set())
     refuse = dict(REFUSE)
     refuse_en = dict(REFUSE_EN_A2) if strict else {}
-    refuse_any_en = REFUSE_ANY_EN_A2 + (REFUSE_ANY_EN_B1 if b1 else [])
-    for on, extra, into in ((strict, REFUSE_A2, refuse), (b1, REFUSE_B1, refuse), (b1, REFUSE_EN_B1, refuse_en)):
+    refuse_any_en = REFUSE_ANY_EN_A2 + (REFUSE_ANY_EN_B1 if b1 else []) + (REFUSE_ANY_EN_B2 if b2 else [])
+    for on, extra, into in ((strict, REFUSE_A2, refuse), (b1, REFUSE_B1, refuse), (b1, REFUSE_EN_B1, refuse_en),
+                            (b2, REFUSE_B2, refuse), (b2, REFUSE_EN_B2, refuse_en)):
         if on:
             for k, v in extra.items():
                 into[k] = into.get(k, []) + v

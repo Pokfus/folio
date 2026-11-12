@@ -562,15 +562,15 @@ TOPICS = [
 ]
 
 
-LEVELS = ["a1", "a2", "b1"]
+LEVELS = ["a1", "a2", "b1", "b2"]
 
 
 def topics(level="a1"):
-    """The level's inventory: A1 is this file's, A2 `inventory_a2.py`'s, B1 `inventory_b1.py`'s."""
+    """The level's inventory: A1 is this file's, A2 `inventory_a2.py`'s, B1 `inventory_b1.py`'s, B2 `inventory_b2.py`'s."""
     if level == "a1":
         return TOPICS
-    import inventory_a2, inventory_b1
-    return {"a2": inventory_a2.TOPICS, "b1": inventory_b1.TOPICS}[level]
+    import inventory_a2, inventory_b1, inventory_b2
+    return {"a2": inventory_a2.TOPICS, "b1": inventory_b1.TOPICS, "b2": inventory_b2.TOPICS}[level]
 
 
 def entries(level="a1"):

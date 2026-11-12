@@ -35,7 +35,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ar, ar_level
 
 E = lambda s: html.escape(s, quote=True)
-STAMP = {"a1": "2026-11-09T00:00:00.000Z", "a2": "2026-11-12T00:00:00.000Z", "b1": "2026-11-12T12:00:00.000Z"}
+STAMP = {"a1": "2026-11-09T00:00:00.000Z", "a2": "2026-11-12T00:00:00.000Z", "b1": "2026-11-12T12:00:00.000Z", "b2": "2026-11-12T18:00:00.000Z"}
 CLEAN = re.compile("^[ء-ٰٟٱـ]+$")
 POS_NAME = {"noun": "noun", "name": "noun", "verb": "verb", "adj": "adjective", "adv": "adverb",
             "pron": "pronoun", "prep": "preposition", "conj": "conjunction", "num": "number",
@@ -46,8 +46,8 @@ REPORT = []
 # nouns that work as determiners — "every", "some", "other than", "someone", "like", "self": a gender and
 # a plural on their card describe a use an A1 learner does not meet
 # Wiktionary's entry carries no romanisation for these; written in its own scheme (check-arabic.js refuses
-# a card without one).  لَوْ "if": l + a + w, the sukūn writing no vowel.
-ROMAN = {"لَوْ": "law"}
+# a card without one).  لَوْ "if": l + a + w, the sukūn writing no vowel; لَا سِيَّمَا "especially", B2.
+ROMAN = {"لَوْ": "law", "لَا سِيَّمَا": "lā siyyamā", "ضَغْط الدَّم": "ḍaḡṭ ad-dam", "مُحَرِّك بَحْث": "muḥarrik baḥṯ"}
 NOFORMS = {"كُلّ", "بَعْض", "غَيْر", "أَحَد", "مِثْل"}
 
 

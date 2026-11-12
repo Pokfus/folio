@@ -44,7 +44,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ar, inventory
 
 PREFIXES = ar.PREFIXES
-SIZE = {"a1": 500, "a2": 600, "b1": 800}
+SIZE = {"a1": 500, "a2": 600, "b1": 800, "b2": 900}
 NOT_FORMS = ar.NOT_FORMS            # in ar.py since B1: examples.py reads it too
 POS_GROUPS = [{"noun", "name"}, {"particle", "adv", "intj"}, {"pron", "adv", "det"}, {"phrase", "intj", "adv"}]
 
@@ -96,11 +96,14 @@ def main():
     D = ar.load_dict()
     rank = inventory.LEVELS.index(a.level)
     below, carried = [], []
+    # DEALT BY ANY LOWER DECK: an A2 line that A2 left out but B1 took up is taught (found building B2)
+    dealt = set()
     for lv in inventory.LEVELS[:rank]:
         p_ = os.path.join(ar.CACHE, "wordlist-%s.json" % lv)
         if not os.path.exists(p_):
             raise SystemExit("build %s first: its dealt words are this level's competitors" % lv)
-        dealt = {w["head"] for w in json.load(open(p_, encoding="utf-8"))["words"]}
+        dealt |= {w["head"] for w in json.load(open(p_, encoding="utf-8"))["words"]}
+    for lv in inventory.LEVELS[:rank]:
         for ln in inventory.entries(lv):
             ln["e"] = join(D, ln)[0]
             if ln["e"]:
