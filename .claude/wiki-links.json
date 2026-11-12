@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T04:15Z",
+ "generated": "2026-11-12T04:17Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6663,
-  "redirect-broader": 632,
-  "redirect-variant": 398,
-  "section-redirect": 136,
+  "ok": 6676,
+  "redirect-broader": 634,
+  "redirect-variant": 399,
+  "section-redirect": 137,
   "disambiguation": 147,
-  "none": 1011,
+  "none": 1014,
   "disambig-resolved": 89,
   "list-page": 6,
   "search-match": 9,
@@ -72787,6 +72787,172 @@
    "url": "https://en.wikipedia.org/wiki/Open_science",
    "via": "glossary",
    "status": "ok"
+  },
+  "ps-281": {
+   "answer": "lesion method",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Visual pathway lesions",
+    "Cognitive psychology",
+    "Behavioral neuroscience",
+    "Developmental psychology",
+    "Ablative brain surgery"
+   ]
+  },
+  "ps-282": {
+   "answer": "electroencephalography",
+   "title": "Electroencephalography",
+   "url": "https://en.wikipedia.org/wiki/Electroencephalography",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-283": {
+   "answer": "event-related potential",
+   "title": "Event-related potential",
+   "url": "https://en.wikipedia.org/wiki/Event-related_potential",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-284": {
+   "answer": "single-unit recording",
+   "title": "Single-unit recording",
+   "url": "https://en.wikipedia.org/wiki/Single-unit_recording",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-285": {
+   "answer": "positron emission tomography",
+   "title": "Positron emission tomography",
+   "url": "https://en.wikipedia.org/wiki/Positron_emission_tomography",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-286": {
+   "answer": "magnetic resonance imaging",
+   "title": "Magnetic resonance imaging",
+   "url": "https://en.wikipedia.org/wiki/Magnetic_resonance_imaging",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-287": {
+   "answer": "functional magnetic resonance imaging",
+   "title": "Functional magnetic resonance imaging",
+   "url": "https://en.wikipedia.org/wiki/Functional_magnetic_resonance_imaging",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-288": {
+   "answer": "BOLD signal",
+   "title": "Blood-oxygenation-level–dependent imaging",
+   "url": "https://en.wikipedia.org/wiki/Blood-oxygenation-level%E2%80%93dependent_imaging",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "BOLD signal"
+  },
+  "ps-289": {
+   "answer": "diffusion tensor imaging",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Diffusion tensor imaging",
+   "target": "Diffusion-weighted magnetic resonance imaging#Diffusion tensor imaging"
+  },
+  "ps-290": {
+   "answer": "magnetoencephalography",
+   "title": "Magnetoencephalography",
+   "url": "https://en.wikipedia.org/wiki/Magnetoencephalography",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-291": {
+   "answer": "transcranial magnetic stimulation",
+   "title": "Transcranial magnetic stimulation",
+   "url": "https://en.wikipedia.org/wiki/Transcranial_magnetic_stimulation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-292": {
+   "answer": "optogenetics",
+   "title": "Optogenetics",
+   "url": "https://en.wikipedia.org/wiki/Optogenetics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-293": {
+   "answer": "functional near-infrared spectroscopy",
+   "title": "Functional near-infrared spectroscopy",
+   "url": "https://en.wikipedia.org/wiki/Functional_near-infrared_spectroscopy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-294": {
+   "answer": "reverse inference",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Bayesian inference",
+    "Correlation does not imply causation",
+    "Rule of inference",
+    "Fundamental attribution error",
+    "Structure-mapping theory"
+   ]
+  },
+  "ps-295": {
+   "answer": "dead salmon study",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Darwinian literary studies",
+    "Salmon conservation",
+    "Southern resident orcas",
+    "Ribot's law",
+    "Phyllis Bottome"
+   ]
+  },
+  "ps-296": {
+   "answer": "family-wise error rate",
+   "title": "Family-wise error rate",
+   "url": "https://en.wikipedia.org/wiki/Family-wise_error_rate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-297": {
+   "answer": "connectomics",
+   "title": "Connectomics",
+   "url": "https://en.wikipedia.org/wiki/Connectomics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-298": {
+   "answer": "animal model",
+   "title": "Animal disease model",
+   "url": "https://en.wikipedia.org/wiki/Animal_disease_model",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Animal model"
+  },
+  "ps-299": {
+   "answer": "neuropsychological assessment",
+   "title": "Neuropsychological assessment",
+   "url": "https://en.wikipedia.org/wiki/Neuropsychological_assessment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-300": {
+   "answer": "double dissociation",
+   "title": "Dissociation (neuropsychology)",
+   "url": "https://en.wikipedia.org/wiki/Dissociation_(neuropsychology)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Double dissociation"
   }
  }
 }

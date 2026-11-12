@@ -9359,7 +9359,25 @@ window.GLOSSARY = {
 "HARKing": "",
 "Publication_bias": "",
 "Registered_report": "",
-"Open_science": ""
+"Open_science": "",
+"Lesion": "",
+"Electroencephalography": "",
+"Event-related_potential": "",
+"Single-unit_recording": "",
+"Positron_emission_tomography": "",
+"Magnetic_resonance_imaging": "",
+"Functional_magnetic_resonance_imaging": "",
+"Blood-oxygenation-level–dependent_imaging": "",
+"Diffusion-weighted_magnetic_resonance_imaging": "",
+"Magnetoencephalography": "",
+"Transcranial_magnetic_stimulation": "",
+"Optogenetics": "",
+"Functional_near-infrared_spectroscopy": "",
+"Family-wise_error_rate": "",
+"Connectomics": "",
+"Animal_disease_model": "",
+"Neuropsychological_assessment": "",
+"Dissociation_(neuropsychology)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13945,7 +13963,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Diana_Baumrind": "1927–2018",
 "Reproducibility_Project": "2015",
 "HARKing": "1998",
-"Registered_report": "2013"
+"Registered_report": "2013",
+"Electroencephalography": "1924",
+"Positron_emission_tomography": "1975",
+"Magnetic_resonance_imaging": "1973",
+"Functional_magnetic_resonance_imaging": "1990",
+"Magnetoencephalography": "1968",
+"Transcranial_magnetic_stimulation": "1985",
+"Optogenetics": "2005",
+"Functional_near-infrared_spectroscopy": "1992"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19868,7 +19894,23 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Data_dredging": ["p-hacking"],
 "Researcher_degrees_of_freedom": ["garden of forking paths"],
 "Publication_bias": ["file drawer problem","file-drawer problem"],
-"Registered_report": ["registered reports"]
+"Registered_report": ["registered reports"],
+"Electroencephalography": ["EEG"],
+"Event-related_potential": ["event-related potentials","ERP"],
+"Single-unit_recording": ["single-cell recording"],
+"Positron_emission_tomography": ["PET scan"],
+"Magnetic_resonance_imaging": ["MRI"],
+"Functional_magnetic_resonance_imaging": ["fMRI"],
+"Blood-oxygenation-level–dependent_imaging": ["BOLD signal","BOLD contrast"],
+"Diffusion-weighted_magnetic_resonance_imaging": ["diffusion tensor imaging","diffusion MRI"],
+"Magnetoencephalography": ["MEG"],
+"Transcranial_magnetic_stimulation": ["TMS"],
+"Functional_near-infrared_spectroscopy": ["fNIRS"],
+"Family-wise_error_rate": ["familywise error rate"],
+"Connectomics": ["connectome"],
+"Animal_disease_model": ["animal model","animal models"],
+"Neuropsychological_assessment": ["neuropsychological testing"],
+"Dissociation_(neuropsychology)": ["double dissociation"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29385,7 +29427,25 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "HARKing": ["practice","research methods","science","psychology"],
 "Publication_bias": ["concept","research methods","science","statistics"],
 "Registered_report": ["practice","research methods","science","psychology"],
-"Open_science": ["practice","science","research methods","psychology"]
+"Open_science": ["practice","science","research methods","psychology"],
+"Lesion": ["concept","medicine","neuroscience","anatomy"],
+"Electroencephalography": ["technology","neuroscience","medicine","research methods"],
+"Event-related_potential": ["concept","neuroscience","psychology","research methods"],
+"Single-unit_recording": ["technology","neuroscience","research methods"],
+"Positron_emission_tomography": ["technology","medicine","neuroscience","research methods"],
+"Magnetic_resonance_imaging": ["technology","medicine","neuroscience","physics"],
+"Functional_magnetic_resonance_imaging": ["technology","neuroscience","psychology","research methods"],
+"Blood-oxygenation-level–dependent_imaging": ["concept","neuroscience","physics","research methods"],
+"Diffusion-weighted_magnetic_resonance_imaging": ["technology","neuroscience","medicine","research methods"],
+"Magnetoencephalography": ["technology","neuroscience","physics","research methods"],
+"Transcranial_magnetic_stimulation": ["technology","neuroscience","medicine","research methods"],
+"Optogenetics": ["technology","neuroscience","genetics","research methods"],
+"Functional_near-infrared_spectroscopy": ["technology","neuroscience","research methods"],
+"Family-wise_error_rate": ["concept","statistics","research methods"],
+"Connectomics": ["concept","neuroscience","anatomy","research methods"],
+"Animal_disease_model": ["concept","medicine","neuroscience","research methods"],
+"Neuropsychological_assessment": ["practice","psychology","neuroscience","medicine"],
+"Dissociation_(neuropsychology)": ["concept","psychology","neuroscience","research methods"]
 });
 
 /* ============================================================================
