@@ -5,7 +5,7 @@ twelfth language set, the Hindi set's sister: `.claude/bengali/` is `.claude/hin
 in 📖 `docs/hindi-decks-plan.md` and `docs/lang-decks.md` applies here unless this file says otherwise. Asked
 for on 2026-11-09: "Add a Bengali language collection."
 
-**STATUS (2026-11-09): the alphabet deck, A1 and A2 are built** (`.claude/bengali/`, §6–7). B1 to C1 and
+**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/bengali/`, §6–8). B2, C1 and
 the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
@@ -34,7 +34,7 @@ otherwise:
 | Bengali Alphabet (Bangla script) — built | `Bengali-Alphabet.folio-deck.json` | 56 |
 | Bengali A1 Beginner — built | `Bengali-A1.folio-deck.json` | 500 |
 | Bengali A2 Elementary — built | `Bengali-A2.folio-deck.json` | 750 |
-| Bengali B1 Intermediate | `Bengali-B1.folio-deck.json` | 1,000 |
+| Bengali B1 Intermediate — built | `Bengali-B1.folio-deck.json` | 1,000 |
 | Bengali B2 Upper Intermediate | `Bengali-B2.folio-deck.json` | 1,500 |
 | Bengali C1 Advanced | `Bengali-C1.folio-deck.json` | 1,500 |
 | Bengali Phrases and Expressions | `Bengali-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
@@ -93,7 +93,7 @@ A1's 500 words have no Tatoeba sentence. The fill carries subtitle vocabulary (`
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 (done) to C1, one level per session: write
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 and B1 (done) to C1, one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `bengali_level.py`, run, read every card.
 **Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored.
 
@@ -130,3 +130,30 @@ Wiktionary's multi-word verbs (`মনে করা`, `সাহায্য ক
 - New hand exclusions, each with its reason: `মাই`, `থাম`, `মাল` (counted from commoner words), `দক্ষ`
   (Wiktionary's entry parses to its headword line), `দিয়া` (sadhu), `জো` (a bare "synonym of"), the bare stems
   `সেখান` / `ওখান`, and the second spellings `জুতো`, `জ্বী`, `লাজ`.
+
+## 8. As built (2026-11-12): B1
+
+`python3 .claude/bengali/run.py --level b1`. 1,000 notes, 297 from the inventory and 703 by frequency;
+sentences for 370, three for 96 — Tatoeba's 8,709 Bengali pairs run out at this level (630 words have none),
+and the description says so in its counts. **The inventory was written from Wiktionary's headwords, not
+before them**: the first draft lost about a third to missing entries (বেতন, পরিবেশ, প্রযুক্তি, ভোট, নিরাপদ,
+সম্ভবত …) and another third to words A1 or A2's fill had already dealt (শিক্ষা, সরকার, সমস্যা …), so the
+level's topics were refilled from the remaining lemmas that have an entry. Nothing was given a meaning by hand.
+
+**Found on reading the ranking, and fixed:**
+- **"synonym of" pointers.** `আম্মা` ("synonym of মা"), `আপু`, `অপারেশন` were dealt as words; `select.FORMGLOSS`
+  now counts "synonym of <Bengali>" as a pointer. A1 and A2 do not change.
+- **A multi-word verb's table.** kaikki garbles the conjugation of `মনে করা`, `অনুভব করা` … to one
+  "habitual past" row (তুই করতি, তুই প্রমাণকরতিস); a multi-word lemma now has no table
+  (`build_deck.table_html`) — the verb's whole table is on its own card (করা, A1). A2's ten such cards lost
+  the broken row — the only change to A2.
+- **The subtitles' homographs** are the commonest fault at this depth: English words in Bengali letters
+  (হোম "havan" counted from "home", হিল, রুট, ব্যাক, অল, ডগ), names (রাম, জামাল, ওমর, আলী, আদম), and forms of
+  common verbs (হল "plough" ← হল "was"; পেল ← "got"; দেও ← "give!"; গুলা "flood" ← the plural -গুলা). Each
+  is a hand exclusion in `select.EXCLUDE` with its reason, as are older, dialect and sadhu spellings of words
+  already taught (ঔষধ, গোরু, ভিজা, ভালা, কাইল, লওয়া, ইহা, হইতে) and two entries with no clean romanisation
+  (ফ্ল্যাট, ওহে).
+- Counts of 1,000 and more are written with a comma ("1,000 words"), as the shelf's other B1 decks write them.
+
+**Known, left.** The fill still carries some dialect and Perso-Arabic register (পোলা, পুত, কেডা, আপনে, দুশমন)
+and some subtitle vocabulary (ধর্ষণ, ভূত, প্রেতাত্মা); each has a real entry and a real meaning, so it stays.

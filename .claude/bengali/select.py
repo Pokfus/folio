@@ -65,6 +65,42 @@ EXCLUDE = {
     'জ্বী': 'the other spelling of জী "yes (polite)", dealt on its own',
     'দিয়া': 'the sadhu (literary) form of দিয়ে and of দেওয়া',
     'মিস': '"Miss"; its count is the subtitles\' English "miss"',
+    # Read off the B1 ranking (2026-11-12).
+    'ঔষধ': 'the older, formal spelling of ওষুধ "medicine", taught in A1',
+    'গোরু': 'the other spelling of গরু "cow", taught in A1',
+    'ভিজা': 'the older spelling of ভেজা "wet", taught in A2',
+    'ওইটা': 'the longer form of ওটা "that", taught in A1',
+    'লওয়া': 'the older, literary form of নেওয়া "to take", taught in A1',
+    'ইহা': 'the sadhu (literary) pronoun "it"; colloquial Bengali says এটা',
+    'হইতে': 'the sadhu (literary) "from"; colloquial Bengali says থেকে',
+    'কাইল': 'a dialect form of কাল "yesterday; tomorrow", taught in A1',
+    'কালি': '"yesterday; tomorrow" (dialect); its count is কালি "ink", a sense the entry lacks',
+    'বে': 'a dialect form of বিয়ে "wedding", taught in A1',
+    'নগরী': 'its first sense is a bare "synonym of নগর"',
+    'গুলা': '"flood"; its count is -গুলা, the plural ending written as a word',
+    'পেল': '"scrotum"; its count is পেল "got", a past form of পাওয়া',
+    'হোল': '"scrotum"; its count is the subtitles\' English "whole" and "hole"',
+    'হোম': '"havan, a fire offering"; its count is the subtitles\' English "home"',
+    'হিল': '"grinding stone"; its count is the subtitles\' English "hill" and "heel"',
+    'রুট': '"anger"; its count is the subtitles\' English "route"',
+    'ব্যাক': '"all, whole"; its count is the subtitles\' English "back"',
+    'অল': '"sting"; its count is the subtitles\' English "all"',
+    'রাম': '"rum"; its count is the name Ram',
+    'জামাল': '"beauty"; its count is the name Jamal',
+    'ওমর': '"age, life"; its count is the name Omar',
+    'আলী': '"noble"; its count is the name Ali',
+    'সরফরাজ': '"exalted"; its count is the name Sarfaraz',
+    'হোয়া': '"cucumber"; its count is হওয়া "to be" written without its য়',
+    'দেও': '"demon"; its count is দেও "give!", an imperative of দেওয়া',
+    'পেশ': '"front; the vowel point damma"; its count is পেশ in পেশ করা "to present"',
+    'খানা': '"pit, ditch"; its count is খানা "meal" and the suffix -খানা, senses the entry lacks',
+    'ফ্ল্যাট': 'Wiktionary\'s entry has no romanisation',
+    'ওহে': 'Wiktionary\'s romanisation is queried ("ohe?")',
+    'হল': '"plough"; its count is হল "was, became", a past form of হওয়া',
+    'ডগ': '"six"; its count is the subtitles\' English "dog"',
+    'আদম': '"man"; its count is the name Adam',
+    'ভালা': 'a dialect form of ভালো "good", taught in A1',
+    'হসপিটাল': 'the English "hospital" in Bengali letters; A1 teaches হাসপাতাল',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
@@ -80,9 +116,10 @@ CASEFORM = re.compile(r'^(objective|genitive|possessive|locative|oblique)[^;]* o
 
 # A VERB FORM OR A SPELLING POINTER THAT WIKTIONARY LEFT UNTAGGED is not a lemma either:
 # `গিয়েছিল` "চলিত past perfect second/third-person polite of যাওয়া" and `পুরনো`
-# "Umlauted form of পুরানো" reached A2's fill as words of their own.
+# "Umlauted form of পুরানো" reached A2's fill as words of their own; B1's dealt `আম্মা`,
+# `আপু` and `অপারেশন`, whose one sense is "synonym of মা" / "of আপা" / "of অস্ত্রোপচার".
 FORMGLOSS = re.compile(r'(\b(person|perfect|past|present|future|imperative|participle|'
-                       r'umlauted|alternative)\b[^;]*|\bform) of [\u0980-\u09ff]', re.I)
+                       r'umlauted|alternative|synonym)\b[^;]*|\bform) of [\u0980-\u09ff]', re.I)
 
 
 def caseform(L):

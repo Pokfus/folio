@@ -66,6 +66,20 @@ SCOPE = {
                   'opinion, the months and the numbers to a crore, and the everyday verbs of '
                   'moving, dressing and doing',
     },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to produce '
+                 'simple connected text on familiar topics, and to describe experiences, events, '
+                 'dreams, hopes and ambitions and briefly give reasons and explanations for '
+                 'opinions and plans',
+        'topics': 'work and careers, education and learning, the news, the media and the arts, '
+                  'computers and the internet, nature, the weather and the environment, society, '
+                  'politics and the law, money and services, health and lifestyle, travel and '
+                  'getting about, feelings and relationships, ideas, opinions and reasons, the '
+                  'words that connect an argument, describing, and the verbs of doing, including '
+                  'the common multi-word verbs',
+    },
 }
 
 

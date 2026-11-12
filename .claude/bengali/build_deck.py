@@ -338,7 +338,10 @@ def block(head, rows):
 
 def table_html(e, word, roman):
     tb = e['table']
-    if not tb:
+    # A MULTI-WORD VERB (মনে করা, অনুভব করা) has no table: kaikki's is garbled to one
+    # "habitual past" row (তুই করতি, তুই প্রমাণকরতিস), and the verb's whole table is on its
+    # own card (করা, A1).  Found on reading B1; A2's ten such cards lost the same row.
+    if not tb or ' ' in word:
         return ''
     if e['pos'] == 'verb':
         blocks = [block('key forms', [
@@ -418,20 +421,20 @@ def desc(entries, n):
     verbs = sum(1 for e in entries if e['pos'] == 'verb')
     SC = SCOPE[LEVEL]
     EX_NOTE = ('Every word carries three real example sentences' if ex3 == n else
-               f'Real example sentences come with {n - ex0} of the {n} words, three apiece for '
+               f'Real example sentences come with {n - ex0:,} of the {n:,} words, three apiece for '
                f'{ex3} of them')
     return (
         "Both study directions in one deck: Bengali → English (see the Bengali, recall the meaning) "
         "and English → Bengali (see an English meaning, recall the Bengali). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
+        f"separately. {n:,} words for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
         f"Framework of Reference, whose global descriptor begins '{SC['quote']}' — a learner here "
         f"is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
          if LEVEL != 'a1' else "") +
         "WHERE THESE WORDS COME FROM, since it matters: no exam board publishes a graded word list "
         "for learners of Bengali, so this deck is not any examination's vocabulary and does not "
-        f"claim to be. It is assembled from two things that can be stated. {from_inv} of the {n} "
+        f"claim to be. It is assembled from two things that can be stated. {from_inv} of the {n:,} "
         f"come from a vocabulary written for the level's scope — {SC['topics']} — and the other "
         f"{n - from_inv} are the commonest remaining words of everyday Bengali, taken from a "
         "frequency list built from film and television subtitles and counted by the WHOLE word, "
@@ -470,7 +473,7 @@ def main():
     n = len(cards)
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
+        'subtitle': f'{n:,} words · both directions, as two cards per word',
         'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
         'tags': ['bengali', 'bangla', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
         'glossMode': 'site',
