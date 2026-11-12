@@ -18,7 +18,7 @@ the headword's own spelling, then sentences of four to
 ten words, then the shorter, then the lower sentence id -- so a re-run is
 byte-identical.  A Hungarian sentence with several English translations takes the
 shortest.  Each sentence is used at most once per deck, so three cards do not
-share one sentence.  A sentence with a swear word in it is never used (`SWEAR`).
+share one sentence.  A sentence with a swear word in it, or in its English, is never used (`SWEAR`, `SWEAR_EN`).
 """
 import csv, json, os, re, sys
 
@@ -33,8 +33,15 @@ SWEAR = ('kurv', 'fos', 'szar', 'basz', 'bassz', 'geci', 'picsa', 'fasz', 'segg'
          'köcsög', 'pöcs', 'pina', 'kibasz')
 
 
-def clean(text):
-    return not any(t.startswith(SWEAR) for t in (fold(x) for x in tokens(text)))
+# THE ENGLISH SIDE TOO (2026-11-12, reading B1): a Hungarian sentence with no swear word
+# can be translated with one ("Mi az ördög ez?" "What the fuck is that?"), and A1 and A2
+# had shipped four such sentences (`isten`, `művel`, `bőr`, `udvarias`).
+SWEAR_EN = re.compile(r'\b(fuck|shit|bitch|asshole|cunt|motherf)', re.I)
+
+
+def clean(text, en=''):
+    return not any(t.startswith(SWEAR) for t in (fold(x) for x in tokens(text))) \
+        and not SWEAR_EN.search(en)
 
 
 def load():
@@ -56,8 +63,9 @@ def load():
             eng[row[0]] = row[2]
     pairs = []
     for hid, es in links.items():
-        en = sorted((eng[e] for e in es if e in eng), key=lambda s: (len(s), s))
-        if en and clean(hin[hid]):
+        en = sorted((eng[e] for e in es if e in eng and not SWEAR_EN.search(eng[e])),
+                    key=lambda s: (len(s), s))
+        if en and clean(hin[hid], en[0]):
             pairs.append((int(hid), hin[hid], en[0]))
     pairs.sort()
     return pairs

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* The Hungarian decks' own check: node .claude/hungarian/check-hungarian.js
    Reads every decks/Hungarian-*.folio-deck.json and fails on the faults this pipeline has had or could have:
-   a word taught on two levels, a card defined by a pointer rather than English ("synonym of …", "see: …",
+   a word taught on two levels, a card defined by a pointer rather than English or with no meaning at all ("synonym of …", "see: …",
    "first-person … of …"), a headword that is not Hungarian, a forms label the generator does not write, a verb
    whose "I" form or past is missing while its table has them, unbalanced HTML, an id out of sequence, two notes
    sharing an English side (the reverse card would have two answers), a swear word in an example, and on the
@@ -36,11 +36,13 @@ for (const f of files) {
     if (seen.has(w)) bad(f + ": " + w + " is already taught in " + seen.get(w));
     seen.set(w, f);
     if (!F.English) bad(f + ": " + w + " has no English");
+    else if (!/class="uc-pos"/.test(F.English)) bad(f + ": " + w + " has no meaning, only " + F.English.replace(/<[^>]+>/g, " ").trim());
     for (const g of F.English.replace(/<\/(li|div)>/g, "\n").replace(/<[^>]+>/g, "").split("\n"))
       if (POINTER.test(g.trim())) bad(f + ": " + w + " is defined by a pointer: " + g.trim());
     for (const [, l] of F.Forms.matchAll(/class="uc-fl">([^<]*)</g)) if (!LABELS.has(l)) bad(f + ": " + w + " forms label " + l);
     if (/class="uc-cjh">past</.test(F.Table) && !/uc-fl">past</.test(F.Forms)) bad(f + ": " + w + " has a past table but no past form");
     if (SWEAR.test(F.Examples.replace(/<[^>]+>/g, ""))) bad(f + ": " + w + " has a swear word in an example");
+    if (/\b(fuck|shit|bitch|asshole|cunt)/i.test(F.Examples.replace(/<[^>]+>/g, ""))) bad(f + ": " + w + " has a swear word in an example's English");
     for (const k of ["Hungarian", "English", "Forms", "Table", "Examples"]) {
       const h = F[k];
       for (const t of ["div", "span", "b", "ol", "li"]) {

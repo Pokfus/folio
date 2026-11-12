@@ -111,4 +111,87 @@ A2 = [
                        'pihen sétál siet késik nevet sír vásárol'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2}
+B1 = [
+    ('work and the economy', 'állás munkanélküli munkanélküliség pályázat önéletrajz interjú tapasztalat '
+                             'képzettség szakma vállalat vállalkozás üzletember tulajdonos részleg '
+                             'értekezlet megbeszélés határidő túlóra bér adó számla költség kiadás '
+                             'bevétel nyereség veszteség hitel kölcsön kamat bankkártya készpénz '
+                             'befektet spórol keres:verb alkalmaz felmond kirúg nyugdíj gazdaság '
+                             'piac:noun termék szolgáltatás vevő ügyintézés'),
+    ('education', 'oktatás tanulmány tantárgy tanterv tanítás tanuló hallgató professzor előadó '
+                  'osztályzat bizonyítvány érettségi felvételi ösztöndíj kollégium szemeszter '
+                  'félév szünet dolgozat esszé kutatás tudomány ismeret tudás matematika történelem '
+                  'irodalom földrajz fizika kémia biológia nyelvtan tanít felkészül megbukik '
+                  'átmegy:verb jelentkezik'),
+    ('the news, media and technology', 'újság napilap folyóirat magazin cikk riport riporter '
+                                       'újságíró szerkesztő tévé televízió rádió műsor adás csatorna '
+                                       'reklám hirdetés internet honlap weboldal számítógép laptop '
+                                       'képernyő billentyűzet program alkalmazás jelszó fiók fájl '
+                                       'adat letölt feltölt nyomtat keres:verb mobil '
+                                       'okostelefon üzen kommentár közösségi'),
+    ('government, law and society', 'kormány állam ország:noun politika politikus párt választás '
+                                    'szavaz miniszter miniszterelnök parlament képviselő polgármester '
+                                    'törvény jog szabály bíróság ügyész tanú bűn bűnöző lopás tolvaj '
+                                    'büntetés bírság rendőrség tüntetés sztrájk jog:noun társadalom '
+                                    'polgár lakosság népesség kisebbség szegénység gazdag hagyomány '
+                                    'szokás kultúra vallás'),
+    ('the environment and the weather', 'környezetvédelem szennyezés éghajlat klíma felmelegedés '
+                                        'természetvédelem szemét hulladék újrahasznosítás energia '
+                                        'áram erőforrás víz:noun árvíz aszály földrengés '
+                                        'katasztrófa vihar villám mennydörgés zivatar szivárvány '
+                                        'páratartalom előrejelzés fagy olvad'),
+    ('health and medicine', 'tünet fájdalom kezelés műtét operáció vizsgálat diagnózis '
+                            'beteg:noun páciens injekció oltás vérnyomás láz:noun hasmenés '
+                            'fertőzés vírus baktérium sérülés törés égés stressz depresszió '
+                            'egészségügy biztosítás táplálkozás diéta vitamin kalória '
+                            'edz gyógyít kezel megvizsgál hány fogy hízik'),
+    ('travel and transport', 'közlekedés forgalom autópálya autóbusz kamion jogosítvány benzin '
+                             'baleset:noun sebesség gyalogos utas jegypénztár csatlakozás '
+                             'felszáll leszáll beszáll poggyász szállás:noun kemping panzió '
+                             'látnivaló műemlék kilátás külföld útvonal irány '
+                             'térkép:noun navigáció bérel'),
+    ('the household and chores', 'háztartás mosogat vasal porszívó felmos '
+                                 'kitakarít bevásárol mosogatógép mosópor vasaló rezsi '
+                                 'albérlet bérlő szerelő vízvezeték fűtés villany '
+                                 'konnektor elem javítás felújítás berendez'),
+    ('relationships and the stages of life', 'kapcsolat:noun házasság házaspár pár:noun '
+                                             'szerelmes udvarol randevú randi megnősül férjhez_megy '
+                                             'elválik terhes terhesség születés '
+                                             'gyermekkor ifjúság felnőtt öregség halál:noun '
+                                             'temetés özvegy árva örökbe_fogad barátság ismerős '
+                                             'veszekszik bízik csalódik'),
+    ('feelings and character', 'érzelem hangulat boldogság elégedett csalódott aggódás aggodalom '
+                               'szégyen szégyell bűntudat irigy magányos izgatott '
+                               'kíváncsi lelkes hálás megkönnyebbül meglepődik csodál tisztel '
+                               'utál:verb gyűlöl jellem személyiség becsületes megbízható felelős '
+                               'önző kedves:adj szerény makacs komoly:adj humor'),
+    ('religion and festivals', 'vallás hit hisz:verb isten imádkozik ima egyház pap keresztény '
+                               'katolikus református zsidó muszlim mise szilveszter újév '
+                               'névnap évforduló ünnepség hagyományos szentelt böjt'),
+    ('ideas, reasons and plans', 'ok cél:noun szándék elképzelés gondolat vélemény nézet érv '
+                                 'magyarázat megoldás eredmény következmény hatás előny hátrány '
+                                 'lehetőség:noun feltétel kockázat siker kudarc tapasztalat '
+                                 'tény adat:noun példa különbség hasonlóság változás fejlődés '
+                                 'terv:noun cél tervez:verb'),
+    ('connectors', 'ezért tehát mégis azonban viszont:adv ugyanis hiszen különben ellenben '
+                   'egyrészt másrészt például végül:adv először:adv aztán:adv majd:adv '
+                   'mindenesetre egyébként sőt főleg főként leginkább legalább:adv kivéve '
+                   'habár noha bár:conj amennyiben'),
+    ('describing', 'fontos:adj érdekes:adj unalmas izgalmas hasznos haszontalan lehetetlen '
+                   'kényelmes kényelmetlen népszerű híres ismert ismeretlen különböző hasonló '
+                   'egyforma átlagos tipikus modern hagyományos:adj gyakori ritka egyszerű:adj '
+                   'bonyolult pontos:adj megfelelő szükséges kötelező ingyenes nyilvános '
+                   'személyes hivatalos'),
+    ('verbs of thinking, deciding, arguing and changing', 'gondolkodik:verb mérlegel '
+                                                          'eldönt elhatároz választ:verb javasol '
+                                                          'ajánl tanácsol vitatkozik egyetért '
+                                                          'ellenez meggyőz bizonyít tagad elismer '
+                                                          'beismer állít:verb feltételez '
+                                                          'összehasonlít megváltozik megváltoztat '
+                                                          'fejlődik fejleszt növekszik nő:verb csökken '
+                                                          'javul romlik alkalmazkodik befolyásol '
+                                                          'támogat elér:verb elkerül megold '
+                                                          'kezel:verb szervez megszervez'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}

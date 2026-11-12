@@ -5,7 +5,7 @@ Hungarian set built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless
 this file says otherwise. Asked for on 2026-11-09: "Add a Hungarian language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1 and A2 are built** (`.claude/hungarian/`, §6, §7). B1 to C1 and a
+**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/hungarian/`, §6–§8). B2, C1 and a
 phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
@@ -33,7 +33,7 @@ these is the owner's to overrule.**
 | Hungarian Alphabet — built | `Hungarian-Alphabet.folio-deck.json` | 46 |
 | Hungarian A1 Beginner — built | `Hungarian-A1.folio-deck.json` | 500 |
 | Hungarian A2 Elementary — built | `Hungarian-A2.folio-deck.json` | 750 |
-| Hungarian B1 Intermediate | `Hungarian-B1.folio-deck.json` | 1,000 |
+| Hungarian B1 Intermediate — built | `Hungarian-B1.folio-deck.json` | 1,000 |
 | Hungarian B2 Upper Intermediate | `Hungarian-B2.folio-deck.json` | 1,500 |
 | Hungarian C1 Advanced | `Hungarian-C1.folio-deck.json` | 1,500 |
 
@@ -132,3 +132,32 @@ rebuilt on the same day's sources is byte-identical to the shipped file. What re
 
 **Known, left.** `kirándulás` lists Wiktionary's "sprain" before "excursion". The fill again carries the subtitles'
 crime-drama words (`gyilkos`, `börtön`, `nyomozó`).
+
+## 8. As built (2026-11-12): B1
+
+Asked for on 2026-11-12: "Add B1." `python3 .claude/hungarian/run.py --level b1`: 1,000 notes, 426 from the
+inventory (`inventory.B1`, fifteen topics after the Hindi B1's: work and the economy, education, media and
+technology, government and law, the environment, health, transport, the household, relationships, feelings,
+religion and festivals, ideas and plans, connectors, describing, the verbs of thinking and changing) and 574 by
+frequency; sentences for 983, three apiece for 937. A re-run is byte-identical. What the level needed:
+
+- **VERBAL NOUNS.** Wiktionary files most -ás/-és nouns as "verbal noun of lop: stealing, theft", tagged as a form,
+  so the extraction had dropped them (`lopás`, `fűtés`, `javítás` were "not in Wiktionary"). `extract.py` now keeps
+  the meaning after the pointer (`verbal_noun_gloss`, three wordings) for a noun with no other sense: 132 lemmas,
+  flagged `vn` and added AFTER the frequency count, so no other lemma's count moves. `select.py` deals them from
+  B1 up only; A1 and A2 do not change. None reached B1's frequency cutoff; four are in the inventory.
+- **POINTERS UNTAGGED AS FORMS** gave 49 cards with no English: possessives and object forms glossed by their
+  grammar ("first-person singular single-possession possessive of anya", `fia`, `lánya`, `látlak`) and "synonym of X"
+  (`bennünket`, `repülő`). `select.usable` judges a word by the etymology the card SHOWS, without such glosses
+  (`szád` is "your mouth" first, "aperture" second). `check-hungarian.js` now fails a card with no meaning at all.
+- **SUBTITLE COUNTS FOR ANOTHER WORD** (`select.EXCLUDE`): `henry`, `bob` (names), `tönk` (`tönkre`), `telt`
+  (`telik`'s past), `ment` (`megy`'s past; it had been written into the inventory for "save"), and three curses.
+- **SWEARING IN THE ENGLISH.** A clean Hungarian sentence can be translated with an obscenity ("Mi az ördög ez?",
+  "What the fuck is that?"): `examples.SWEAR_EN` refuses one, and the check reads the English. **This changed the
+  sentences of four cards already shipped** (A1 `isten`; A2 `művel`, `bőr`, `udvarias`) and nothing else in either deck.
+- Dropped from the inventory for their glosses: `edzés` ("tempering"), `hányás` ("verbal noun of hány"), `dugó`
+  (no "traffic jam"), `válás` ("becoming"; `elválik` is "to divorce").
+
+**Known, left.** The fill is heavier with the subtitles' crime and war vocabulary at this band (`gyilkosság`'s
+neighbours `nyomozás`, `holttest`, `gyanúsított`, `őrmester`, `hadnagy`). `hülyeség` is glossed "bullshit, rubbish,
+nonsense", Wiktionary's own first gloss.

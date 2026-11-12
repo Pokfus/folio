@@ -15,7 +15,7 @@ THE FILL'S EXCLUSIONS, each for a fault it produced on reading the ranking:
   · a one-letter lemma that is not a word a beginner learns as one;
   · the hand list `EXCLUDE`, each line with its reason.
 """
-import json, os, sys
+import json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from hu import fold
@@ -60,9 +60,17 @@ EXCLUDE = {
     'halló': 'the telephone "hello?", but Wiktionary glosses only "auditory, hearing"',
     'bocs': 'the colloquial "sorry", but Wiktionary glosses only "bear cub"',
     'tőlem': '"from me", but Wiktionary glosses only "for all I care"',
+    'henry': 'the subtitles\' name Henry, glossed only as the SI unit',
+    'tönk': 'the count of tönkre (tönkretesz "ruin"), glossed only "stump"',
+    'telt': 'the count of telik\'s past ("passed"), glossed only "full"',
+    'ment': 'the count of megy\'s past ("went"), glossed only "to rescue, to save"',
+    'válás': '"divorce", but Wiktionary glosses only "becoming, -ization"; elválik is dealt',
+    'bob': 'the subtitles\' name Bob, glossed only "bobsleigh"',
     'frank': 'the subtitles\' name Frank, but Wiktionary glosses only "Frankish"',
     # Swearing:
     'francba': 'a curse ("damn!, shit!")',
+    'picsába': 'a curse ("damn!, shit!")',
+    'basszus': 'a curse ("damn!"), glossed only "bass"',
     'fenébe': 'a curse ("damn!, shit!")',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
@@ -77,8 +85,19 @@ def gloss_sig(L):
     return tuple(sorted({g['g'] for e in L['entries'] for g in e['glosses'] if not g['weak']}))[:4]
 
 
+# A POINTER Wiktionary does not tag as a form, which `build_deck` drops, so the card came
+# out with no English (B1's fill had 49): a personal form glossed by its grammar ("first-person
+# singular single-possession possessive of anya", "... possessive of fiú ("boy, son"): one's
+# son", "... second-person-object form of lát") and a "synonym of X" (`bennünket`, `repülő`).
+POINTER = re.compile(r'^(?:(?:first|second|third)-person\b.*?|synonym) of \S+')
+
+
 def usable(L):
-    gl = [g for e in L['entries'] for g in e['glosses']]
+    """A non-weak, non-pointer gloss in the etymology the card SHOWS (`build_deck`: the
+    first, unless `ETYMS` names others) -- `szád` is "your mouth" first, "aperture" second."""
+    first = L['entries'][0].get('etym', '') if L['entries'] else ''
+    gl = [g for e in L['entries'] if e.get('etym', '') == first
+          for g in e['glosses'] if not POINTER.match(g['g'])]
     return any(not g['weak'] for g in gl)
 
 
@@ -121,6 +140,10 @@ def main():
         if len(rows) + len(fill) >= TARGET[LEVEL]:
             break
         if 'entries' not in L or L.get('formonly'):
+            continue
+        # a VERBAL NOUN Wiktionary files only as a form (`lopás`, `extract.py`) is dealt from
+        # B1 up: A1 and A2 were built before the extraction kept them
+        if L.get('vn') and LEVEL in ('a1', 'a2'):
             continue
         if k in seen or k in below or k in swears or k in excl:
             continue
