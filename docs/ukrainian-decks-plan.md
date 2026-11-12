@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-09: "Add a Ukrainian language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1 and A2 are built** (`.claude/ukrainian/`, §6, §7). B1 to C1 and a
+**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/ukrainian/`, §6–§8). B2, C1 and a
 phrases deck are not.
 
 Later decks under `decks/` are community content, not a change to Folio: **no changelog line and no version bump**
@@ -31,7 +31,7 @@ already use, and the owner may overrule any of it:
 | Ukrainian Alphabet — built | `Ukrainian-Alphabet.folio-deck.json` | 34 (33 letters and the apostrophe) |
 | Ukrainian A1 Beginner — built | `Ukrainian-A1.folio-deck.json` | 500 |
 | Ukrainian A2 Elementary — built | `Ukrainian-A2.folio-deck.json` | 750 |
-| Ukrainian B1 Intermediate | `Ukrainian-B1.folio-deck.json` | 1,000 |
+| Ukrainian B1 Intermediate — built | `Ukrainian-B1.folio-deck.json` | 1,000 |
 | Ukrainian B2 Upper Intermediate | `Ukrainian-B2.folio-deck.json` | 1,500 |
 | Ukrainian C1 Advanced | `Ukrainian-C1.folio-deck.json` | 1,500 |
 
@@ -113,3 +113,25 @@ words — `муж`, `мужчина`, `дальше`, `готовити`, `яв�
 a blank etymology number (`дружина` "wife", not the prince's band). **A1 rebuilds byte-identical and so does A2.**
 Known, left: the fill keeps the subtitles' `чувак`, `біс`, `коп`, `наркотик`, as A1 kept `чорт`; `дружина` is
 labelled "masculine or feminine", Wiktionary's own.
+
+## 8. As built (2026-11-12): B1
+
+`python3 .claude/ukrainian/run.py --level b1`. 1,000 notes: 391 from the B1 inventory (work and career, education,
+media and technology, the environment, society and politics, law and crime, money and banking, health and a way of
+life, relationships and feelings, culture and the arts, the problems of travel, opinions and connectives, describing
+people and things, the verbs of deciding, changing and making) and 609 by frequency, none taught in A1 or A2;
+sentences for 972, three apiece for 923. The B1 `SCOPE` quotes the CEFR B1 global descriptor; the description's
+"words for …" phrase is now the table `LEARNER` in `build_deck.py`. Inventory words Wiktionary lacks as lemmas were
+dropped (`випускник`, `вміння`, `розслідування`, `закоханий`, `хоча`, `незважаючи`, `незручний`, `заблукати` and
+others; `інтернет` is a form-only entry); `стосунки` → `стосунок`, `речі` → `річ`; `розлучення` "divorce" is
+defined only as a pointer to `розлука` "separation" and is left out. New from reading the ranking: `select.EXCLUDE`
+grew by thirty-four — names or other words taking a count (`ян`, `чан`, `люк`, `майя`, `піп`), lemmas whose own forms barely count
+(`карт`, `мара`, `миро`, `никнути`, `перти`), Russian words (`кофе`, `путь`, `письмо`, `куча`, `оп'ять`,
+`появитися`, `попробувати`, `доказати`, `скучати`, `являтися`), у-spellings of a card already shipped (`учитель`,
+`учитися`, `убивати`, `ударити`, `умирати`) and forms with cards of their own (`діти`, `заспокойся`, `поїхали`,
+`чогось`, `типу`, `знов`), plus a pointer (`цінувати`), an old spelling (`вампир`) and an insult (`сучий`).
+`build_deck.py` gained `ETYMS` for `тікати` ("to run away", not "to tick") and `уряд`, `ENTRY_WITH` for `стан`
+("condition, state", not "torso"), `NOT_WEAK` for `уряд` (Wiktionary tags every noun sense of "government" rare, so
+the untagged adverb "in succession" had won) and a `STRESS` for `стривати`. **A1, A2 and B1 rebuild byte-identical.**
+Known, left: the fill keeps the subtitles' fantasy and police vocabulary (`дракон`, `меч`, `принц`, `сержант`,
+`прокурор`), as the levels below do.

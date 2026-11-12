@@ -69,6 +69,8 @@ ETYMS = {
     'ніж': ['2'],             # "than" (the inventory's conjunction); etymology 1 is "knife"
     'треба': ['2'],           # "it is necessary"; etymology 1 is "rite"
     'пара': ['2', '1'],       # "pair, couple" AND "steam"
+    'тікати': ['2'],          # "to run away"; etymology 1 is "to tick (of a clock)"
+    'уряд': ['1'],            # "government"; etymology 2 is the adverb "in succession"
 }
 
 # A PART OF SPEECH TO LEAD WITH, where Wiktionary's first is not the everyday word.
@@ -76,7 +78,10 @@ POS_FIRST = {'так': 'intj', 'гаразд': 'intj', 'привіт': 'intj'}
 # A PART OF SPEECH LEFT OFF, where it is a different, rarer word spelt the same.
 DROP_POS = {'під': {'noun'}}         # "pit, cavity" beside the preposition "under"
 # ONE ENTRY BY ITS GLOSS, where two etymologies share Wiktionary's blank etymology number.
-ENTRY_WITH = {'дружина': 'wife'}     # not the prince's "band, troop" of Rus
+ENTRY_WITH = {'дружина': 'wife',     # not the prince's "band, troop" of Rus
+              'стан': 'condition, status, state'}   # not "torso", "camp" or "mill"
+# Wiktionary tags every sense rare or archaic, though it is the everyday word.
+NOT_WEAK = {'уряд'}                  # "government"; only the adverb "in succession" is untagged
 # Wiktionary files these impersonal predicatives as adjectives; the card says what they are.
 PREDICATIVE = {'треба', 'можна', 'потрібно', 'ніколи', 'досить', 'чудово', 'шкода', 'варто'}
 
@@ -88,7 +93,7 @@ GLOSS_DROP = {'я': {'ego'}}
 # learner's grammar does not: `зна́ти` has no perfective (`зазна́ти` is "to undergo").
 PARTNER = {'знати': []}
 # A HEADWORD'S STRESS WRITTEN HERE, where Wiktionary's head line carries none.
-STRESS = {'давайте': 'дава́йте'}
+STRESS = {'давайте': 'дава́йте', 'стривати': 'стрива́ти'}
 
 
 # ---- glosses ---------------------------------------------------------------------------
@@ -99,6 +104,8 @@ def entries_for(row, lex):
     L = lex[row['via']] if row.get('via') else lex[row['key']]
     ents = [e for e in L['entries'] if any(not g['weak'] and g['g'] for g in e['glosses'])] \
         or L['entries']
+    if L['word'] in NOT_WEAK:
+        ents = L['entries']
     if row['pos']:
         ents = [e for e in ents if e['pos'] == row['pos']] or ents
     ents = [e for e in ents if e['pos'] not in DROP_POS.get(L['word'], ())] or ents
@@ -345,6 +352,10 @@ def build(rows, lex, exs):
     return cards, entries
 
 
+LEARNER = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+           'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
+
+
 def desc(entries, n):
     from_inv = sum(1 for e in entries if e['source'] == 'inventory')
     ex3 = sum(1 for e in entries if e['examples'] == 3)
@@ -359,7 +370,7 @@ def desc(entries, n):
         "Both study directions in one deck: Ukrainian → English (see the Ukrainian, recall the "
         "meaning) and English → Ukrainian (see an English meaning, recall the Ukrainian). Each "
         "direction is a card of its own with its own schedule, so recognising a word and producing "
-        f"it are learnt separately. {n} words for {'a beginner' if LEVEL == 'a1' else 'an elementary learner' if LEVEL == 'a2' else 'a learner'}, aligned to {LEVEL.upper()} of the "
+        f"it are learnt separately. {n} words for {LEARNER[LEVEL]}, aligned to {LEVEL.upper()} of the "
         f"Common European Framework of Reference, whose global descriptor begins '{SC['quote']}' — "
         f"a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
