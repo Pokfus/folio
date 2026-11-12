@@ -10634,7 +10634,33 @@ window.GLOSSARY = {
 "Merneptah": "",
 "Merneptah_Stele": "",
 "Battle_of_Perire": "",
-"Siptah": ""
+"Siptah": "",
+"Tausret": "",
+"Setnakhte": "",
+"Ramesses_III": "",
+"Medinet_Habu": "",
+"Peleset": "",
+"Libu": "",
+"Deir_el-Medina_strikes": "",
+"Harem_conspiracy": "",
+"Ramesses_VI": "",
+"Mnevis": "",
+"Henotheism": "",
+"Aziru": "",
+"Workmen's_Village,_Amarna": "",
+"South_Tombs_Cemetery,_Amarna": "",
+"Royal_Tomb_of_Akhenaten": "",
+"Kiya": "",
+"Smenkhkare": "",
+"Neferneferuaten": "",
+"Beit_She'an": "",
+"Abbott_Papyrus": "",
+"Ramessesnakht": "",
+"Herihor": "",
+"Story_of_Wenamun": "",
+"Piankh": "",
+"Papyrus_Anastasi_I": "",
+"Tale_of_Two_Brothers": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -15681,7 +15707,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Nefertari": "died c. 1255 BCE",
 "Khaemweset": "c. 1281 – 1225 BCE",
 "Merneptah": "reigned c. 1213 – 1203 BCE",
-"Siptah": "reigned c. 1194 – 1188 BCE"
+"Siptah": "reigned c. 1194 – 1188 BCE",
+"Tausret": "c. 1188–1186 BCE",
+"Setnakhte": "c. 1186–1184 BCE",
+"Ramesses_III": "c. 1184–1153 BCE",
+"Ramesses_VI": "c. 1144–1136 BCE",
+"Abbott_Papyrus": "c. 1110 BCE",
+"Herihor": "c. 1080–1074 BCE",
+"Story_of_Wenamun": "c. 1077 BCE",
+"Tale_of_Two_Brothers": "c. 1200–1194 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -22551,7 +22585,31 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Merneptah": ["Merenptah","Menephtah","Merneptah Baenre"],
 "Merneptah_Stele": ["Israel Stela","Israel Stele","Merneptah Stela","Victory Stela of Merneptah"],
 "Battle_of_Perire": ["Perire"],
-"Siptah": ["Merneptah Siptah","Ramesses Siptah","Siphtah"]
+"Siptah": ["Merneptah Siptah","Ramesses Siptah","Siphtah"],
+"Tausret": ["Twosret","Tawosret","Tewosret","Tausert"],
+"Setnakhte": ["Sethnakht","Setnakht","Sethnakhte"],
+"Ramesses_III": ["Ramses III","Rameses III"],
+"Medinet_Habu": ["Mortuary Temple of Ramesses III"],
+"Peleset": ["Pulasati"],
+"Libu": ["Lebu","Rebu"],
+"Deir_el-Medina_strikes": ["Deir el-Medina strike"],
+"Ramesses_VI": ["Ramses VI","Rameses VI"],
+"Mnevis": ["Mnevis bull","Mneuis"],
+"Henotheism": ["henotheistic"],
+"Aziru": ["Aziri"],
+"Workmen's_Village,_Amarna": ["Amarna Workmen's Village"],
+"South_Tombs_Cemetery,_Amarna": ["South Tombs Cemetery"],
+"Royal_Tomb_of_Akhenaten": ["Amarna royal tomb"],
+"Smenkhkare": ["Smenkhkara","Ankhkheperure Smenkhkare"],
+"Neferneferuaten": ["Ankhkheperure Neferneferuaten","Nefernefruaten"],
+"Beit_She'an": ["Beth Shean","Beth-Shean","Bethshan","Beth Shan","Beth-shan","Scythopolis","Tel Beth-Shean"],
+"Abbott_Papyrus": ["Papyrus Abbott","Abbott papyrus"],
+"Ramessesnakht": ["Ramesses-nakht","Ramessenakht","Ramsesnakht","Ramesesnakht","Rameses-nakht","Ramses-nakht"],
+"Herihor": ["Hrihor","Herhor","Heri-Hor"],
+"Story_of_Wenamun": ["Report of Wenamun","Wenamun","Voyage of Unamun","Wenamon","Unamun","Journey of Wenamun"],
+"Piankh": ["Paiankh","Payankh","Payonekh"],
+"Papyrus_Anastasi_I": ["Anastasi I","Pap. Anastasi I","Papyrus BM 10247"],
+"Tale_of_Two_Brothers": ["Tale of the Two Brothers","Story of the Two Brothers","Papyrus d'Orbiney","Papyrus D'Orbiney","Anpu and Bata"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -33345,7 +33403,33 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Merneptah": ["ruler","history","egypt","new kingdom"],
 "Merneptah_Stele": ["object","text","history","egypt","new kingdom"],
 "Battle_of_Perire": ["battle","warfare","egypt","new kingdom"],
-"Siptah": ["ruler","history","egypt","new kingdom"]
+"Siptah": ["ruler","history","egypt","new kingdom"],
+"Tausret": ["ruler","history","egypt","new kingdom"],
+"Setnakhte": ["ruler","history","egypt","new kingdom"],
+"Ramesses_III": ["ruler","history","egypt","new kingdom"],
+"Medinet_Habu": ["building","religion","history","egypt","thebes"],
+"Peleset": ["people","history","warfare","egypt","bronze age"],
+"Libu": ["people","history","warfare","egypt"],
+"Deir_el-Medina_strikes": ["event","history","society","egypt","thebes"],
+"Harem_conspiracy": ["event","history","politics","egypt"],
+"Ramesses_VI": ["ruler","history","egypt","new kingdom"],
+"Mnevis": ["deity","religion","history","egypt"],
+"Henotheism": ["concept","religion","philosophy","history"],
+"Aziru": ["ruler","history","politics","syria"],
+"Workmen's_Village,_Amarna": ["place","history","society","egypt"],
+"South_Tombs_Cemetery,_Amarna": ["place","history","society","egypt"],
+"Royal_Tomb_of_Akhenaten": ["building","history","religion","egypt"],
+"Kiya": ["person","history","egypt","new kingdom"],
+"Smenkhkare": ["ruler","history","politics","egypt"],
+"Neferneferuaten": ["ruler","history","politics","egypt"],
+"Beit_She'an": ["city","history","archaeology","canaan","egypt"],
+"Abbott_Papyrus": ["text","history","law","egypt","thebes"],
+"Ramessesnakht": ["person","religion","history","egypt","thebes"],
+"Herihor": ["person","religion","politics","egypt","thebes"],
+"Story_of_Wenamun": ["text","literature","history","egypt","byblos"],
+"Piankh": ["person","warfare","politics","egypt","thebes"],
+"Papyrus_Anastasi_I": ["text","literature","egypt","education"],
+"Tale_of_Two_Brothers": ["text","literature","religion","egypt"]
 });
 
 /* ============================================================================

@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T08:21Z",
+ "generated": "2026-11-12T08:26Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7673,
-  "redirect-broader": 749,
-  "redirect-variant": 463,
+  "ok": 7698,
+  "redirect-broader": 750,
+  "redirect-variant": 464,
   "section-redirect": 175,
   "disambiguation": 153,
-  "none": 1131,
+  "none": 1132,
   "disambig-resolved": 101,
   "list-page": 6,
   "search-match": 9,
@@ -83497,6 +83497,211 @@
    "answer": "Siptah",
    "title": "Siptah",
    "url": "https://en.wikipedia.org/wiki/Siptah",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-361": {
+   "answer": "Twosret",
+   "title": "Tausret",
+   "url": "https://en.wikipedia.org/wiki/Tausret",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Twosret"
+  },
+  "eg-362": {
+   "answer": "Twentieth Dynasty of Egypt",
+   "title": "Twentieth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Twentieth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-363": {
+   "answer": "Setnakhte",
+   "title": "Setnakhte",
+   "url": "https://en.wikipedia.org/wiki/Setnakhte",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-364": {
+   "answer": "Ramesses III",
+   "title": "Ramesses III",
+   "url": "https://en.wikipedia.org/wiki/Ramesses_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-365": {
+   "answer": "Medinet Habu",
+   "title": "Medinet Habu",
+   "url": "https://en.wikipedia.org/wiki/Medinet_Habu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-366": {
+   "answer": "Peleset",
+   "title": "Peleset",
+   "url": "https://en.wikipedia.org/wiki/Peleset",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-367": {
+   "answer": "Libu",
+   "title": "Libu",
+   "url": "https://en.wikipedia.org/wiki/Libu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-368": {
+   "answer": "Deir el-Medina strikes",
+   "title": "Deir el-Medina strikes",
+   "url": "https://en.wikipedia.org/wiki/Deir_el-Medina_strikes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-369": {
+   "answer": "Harem conspiracy",
+   "title": "Harem conspiracy",
+   "url": "https://en.wikipedia.org/wiki/Harem_conspiracy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-370": {
+   "answer": "Ramesses VI",
+   "title": "Ramesses VI",
+   "url": "https://en.wikipedia.org/wiki/Ramesses_VI",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-311": {
+   "answer": "Mnevis",
+   "title": "Mnevis",
+   "url": "https://en.wikipedia.org/wiki/Mnevis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-313": {
+   "answer": "Henotheism",
+   "title": "Henotheism",
+   "url": "https://en.wikipedia.org/wiki/Henotheism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-314": {
+   "answer": "Aziru",
+   "title": "Aziru",
+   "url": "https://en.wikipedia.org/wiki/Aziru",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-315": {
+   "answer": "Amarna Workmen's Village",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Workmen's village",
+    "Amarna",
+    "Workmen's Village, Amarna",
+    "Eighteenth Dynasty of Egypt",
+    "Art of ancient Egypt"
+   ]
+  },
+  "eg-316": {
+   "answer": "South Tombs Cemetery",
+   "title": "South Tombs Cemetery, Amarna",
+   "url": "https://en.wikipedia.org/wiki/South_Tombs_Cemetery,_Amarna",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-317": {
+   "answer": "Royal Tomb of Akhenaten",
+   "title": "Royal Tomb of Akhenaten",
+   "url": "https://en.wikipedia.org/wiki/Royal_Tomb_of_Akhenaten",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-318": {
+   "answer": "Kiya",
+   "title": "Kiya",
+   "url": "https://en.wikipedia.org/wiki/Kiya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-319": {
+   "answer": "Smenkhkare",
+   "title": "Smenkhkare",
+   "url": "https://en.wikipedia.org/wiki/Smenkhkare",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-320": {
+   "answer": "Neferneferuaten",
+   "title": "Neferneferuaten",
+   "url": "https://en.wikipedia.org/wiki/Neferneferuaten",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-371": {
+   "answer": "Alashiya",
+   "title": "Alashiya",
+   "url": "https://en.wikipedia.org/wiki/Alashiya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-372": {
+   "answer": "Beth Shean",
+   "title": "Beit She'an",
+   "url": "https://en.wikipedia.org/wiki/Beit_She'an",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Beth Shean"
+  },
+  "eg-373": {
+   "answer": "Abbott Papyrus",
+   "title": "Abbott Papyrus",
+   "url": "https://en.wikipedia.org/wiki/Abbott_Papyrus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-375": {
+   "answer": "Ramessesnakht",
+   "title": "Ramessesnakht",
+   "url": "https://en.wikipedia.org/wiki/Ramessesnakht",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-376": {
+   "answer": "Herihor",
+   "title": "Herihor",
+   "url": "https://en.wikipedia.org/wiki/Herihor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-377": {
+   "answer": "Story of Wenamun",
+   "title": "Story of Wenamun",
+   "url": "https://en.wikipedia.org/wiki/Story_of_Wenamun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-378": {
+   "answer": "Piankh",
+   "title": "Piankh",
+   "url": "https://en.wikipedia.org/wiki/Piankh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-379": {
+   "answer": "Papyrus Anastasi I",
+   "title": "Papyrus Anastasi I",
+   "url": "https://en.wikipedia.org/wiki/Papyrus_Anastasi_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-380": {
+   "answer": "Tale of Two Brothers",
+   "title": "Tale of Two Brothers",
+   "url": "https://en.wikipedia.org/wiki/Tale_of_Two_Brothers",
    "via": "glossary",
    "status": "ok"
   }
