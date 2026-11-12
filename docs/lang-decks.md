@@ -3644,7 +3644,7 @@ changed was the one that had been wrong all along.
   (Ethnologue via Wikipedia); the hue is measured, `#BD4B7B` (re-swept at the merge: Romanian had taken the olive `#757839`).
 - `.claude/dutch/` — the generator behind the Dutch decks (Nov 2026, on request: "Create a Dutch language
   collection"; the Hindi and Greek answers taken, the owner not asked). **Built: A1,
-  `decks/Dutch-A1.folio-deck.json`** (500 notes / 1,000 cards). **No alphabet deck** — Dutch is in the Latin
+  `decks/Dutch-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Dutch-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-12, on request: "Add Dutch A2"). **No alphabet deck** — Dutch is in the Latin
   alphabet — and Wiktionary's IPA in place of a romanisation. `python3 .claude/dutch/run.py [--level a1]`,
   `node .claude/dutch/check-dutch.js`; a re-run is byte-identical. Greek's pipeline adapted: nouns carry de or
   het, verbs their past and participle and a by-person table. The findings (the accent-keeping fold and

@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 240 MB of decks. The file itself is fetched on Add. */
+   section without fetching 241 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -121,6 +121,7 @@ window.LANG_DECKS = [
   { lang: "Ukrainian", file: "Ukrainian-Alphabet.folio-deck.json", id: "ukabc", title: "Ukrainian Alphabet", sub: "33 letters and the apostrophe · both directions, as two cards per letter", notes: 34, cards: 68, ex: 0, bytes: 12759, rev: "ce3b2d4888a6" },
   { lang: "Ukrainian", file: "Ukrainian-A1.folio-deck.json", id: "ukrainiana1", title: "Ukrainian A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1340902, rev: "20cd89402001" },
   { lang: "Dutch", file: "Dutch-A1.folio-deck.json", id: "dutcha1", title: "Dutch A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 693368, rev: "6422f5d62d53" },
+  { lang: "Dutch", file: "Dutch-A2.folio-deck.json", id: "dutcha2", title: "Dutch A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 100, bytes: 1113607, rev: "613f68b6ec10" },
   { lang: "Zulu", file: "Zulu-Noun-Classes.folio-deck.json", id: "zuclasses", title: "Zulu Noun Classes and Sounds", sub: "16 noun classes and 23 sounds · both directions, as two cards each", notes: 39, cards: 78, ex: 0, bytes: 28170, rev: "b2f84006f718" },
   { lang: "Zulu", file: "Zulu-A1.folio-deck.json", id: "zulua1", title: "Zulu A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 11, bytes: 666445, rev: "35a3f4eb41c6" },
   { lang: "Romanian", file: "Romanian-A1.folio-deck.json", id: "romaniana1", title: "Romanian A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1154930, rev: "7299a34fc1d3" },

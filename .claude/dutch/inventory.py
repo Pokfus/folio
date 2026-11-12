@@ -60,4 +60,66 @@ A1 = [
                        'leren maken kijken wachten worden opstaan heten zoeken helpen'),
 ]
 
-INVENTORY = {'a1': A1}
+A2 = [
+    ('people and relatives', 'neef nicht kleinkind kleinzoon kleindochter schoonmoeder schoonvader '
+                             'echtgenoot echtgenote partner tweeling buurman buurvrouw collega baas '
+                             'klant gast vreemdeling tiener volwassene bejaarde'),
+    ('jobs and study', 'beroep baan ingenieur advocaat agent verkoper kok chauffeur verpleegster '
+                       'secretaresse boer kapper monteur directeur salaris bedrijf fabriek '
+                       'sollicitatie vergadering universiteit klas les huiswerk examen toets '
+                       'cijfer schrift woordenboek cursus diploma studeren slagen'),
+    ('clothes', 'kleren kleding jas jurk rok broek overhemd bloes trui shirt schoen laars sok '
+                'hoed muts handschoen sjaal pak riem zak maat aankleden uitkleden dragen '
+                'aantrekken uittrekken passen'),
+    ('food and cooking', 'kip varkensvlees rundvlees ui knoflook wortel kool komkommer paprika '
+                         'boon erwt champignon citroen druif peer aardbei kers banaan taart koek '
+                         'chocolade ijs koekje olie honing yoghurt meel peper saus soep '
+                         'toetje bord glas kopje lepel vork mes pan koken bakken snijden smaak '
+                         'honger dorst zoet zuur bitter vers'),
+    ('the home', 'verdieping trap balkon tuin muur vloer plafond dak gang woonkamer slaapkamer '
+                 'meubel kast plank lamp koelkast fornuis oven wasmachine '
+                 'douche wastafel handdoek zeep kussen deken huur verhuizen schoonmaken wassen'),
+    ('the town and its services', 'centrum wijk park museum theater bioscoop bibliotheek kerk '
+                                  'postkantoor gemeente politie brug hoek stoplicht kruispunt '
+                                  'stoep parkeerplaats tankstation bakker slager boekwinkel '
+                                  'café kaart'),
+    ('travel and holidays', 'reis vakantie uitstapje bagage koffer paspoort grens reservering '
+                            'toerist gids strand berg meer:noun rivier eiland bos veld heuvel '
+                            'metro tram boot vliegtuig haven perron halte dienstregeling '
+                            'vertraging aankomst vertrek vlucht reizen reserveren bezoeken '
+                            'kamperen'),
+    ('nature, seasons and the compass', 'lente voorjaar zomer herfst najaar winter seizoen noorden '
+                                        'zuiden oosten westen lucht wolk ster maan natuur boom '
+                                        'bloem gras blad aarde milieu temperatuur graad storm mist '
+                                        'ijs:noun zonnig bewolkt nat droog'),
+    ('animals', 'dier hond kat paard koe schaap varken vogel eend beer wolf vos konijn '
+                'muis slang insect bij vlieg'),
+    ('health and the body', 'lichaam gezicht haar:noun nek schouder vinger knie hart bloed bot huid '
+                            'gezondheid ziekte verkoudheid hoest griep wond allergie pil recept '
+                            'afspraak tandarts huisarts spoed ambulance gezond moe hoesten '
+                            'genezen'),
+    ('feelings and character', 'vreugde verdriet angst woede liefde hoop verrassing boos '
+                               'zenuwachtig rustig vrolijk verlegen dapper lui slim aardig '
+                               'beleefd eerlijk geduldig jaloers trots bang verdrietig '
+                               'tevreden bezorgd schrikken'),
+    ('free time and sport', 'vrije_tijd hobby sport voetbal tennis zwemmen wedstrijd team speler '
+                            'bal concert muziek lied film voorstelling tentoonstelling foto '
+                            'tekening spel feest uitnodiging cadeau verjaardag kerst '
+                            'bruiloft dansen zingen fietsen schilderen tekenen uitnodigen vieren '
+                            'spelen'),
+    ('time and sequence', 'verleden toekomst eeuw datum kalender klok horloge eergisteren '
+                          'overmorgen binnenkort onlangs meteen ooit intussen eindelijk '
+                          'meestal dagelijks wekelijks jaarlijks vorig volgend'),
+    ('numbers and quantity', 'zestig zeventig tachtig negentig dertien vijftien miljoen miljard '
+                             'kwart dubbel kilo gram liter meter kilometer centimeter stuk pakje '
+                             'fles doos paar groep nummer aantal'),
+    ('everyday verbs', 'aandoen uitdoen aanzetten uitzetten binnenkomen weggaan oversteken '
+                       'terugkomen beginnen stoppen rijden parkeren verliezen winnen lenen '
+                       'sturen ontvangen bellen antwoorden uitleggen herhalen vertalen kiezen '
+                       'beslissen beloven vergeten herinneren dromen hopen groeien sterven '
+                       'bedanken ontmoeten tonen delen veranderen repareren bouwen bewaren '
+                       'verstoppen gooien klaarmaken bestellen proeven rusten wandelen '
+                       'ontspannen haasten afspreken invullen gebruiken proberen'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2}

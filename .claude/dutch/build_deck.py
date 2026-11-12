@@ -78,6 +78,7 @@ ETYMS = {
     'weer': ['1', '2'],        # "again" AND "weather" -- both are A1
     'bank': ['2', '1'],        # the bank first, then the bench and sofa
     'zijn': ['1', '2'],        # "to be" AND "his, its"
+    'zeer': ['3', '1'],        # "very" first, then "sore" (A2, 2026-11-12)
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where
@@ -108,6 +109,12 @@ GLOSS = {
     'ze': {'pron': ['she, her (unstressed zij, haar)', 'they, them (unstressed zij, hen, hun)']},
     'er': {'adv': ['there', 'of it, of them (er zijn er drie, "there are three of them")',
                    'there (as a dummy subject: er is een probleem, "there is a problem")']},
+    # A2 (2026-11-12): Wiktionary's entry is "synonym of ondertussen", which prints nothing
+    'intussen': {'adv': ['meanwhile, in the meantime']},
+    # A2: Wiktionary's only sense is a cat's head-rub; the diminutive of kop is the cup
+    'kopje': {'noun': ['cup (for coffee or tea)', 'small head']},
+    # A2: Wiktionary files sommige as "inflection of sommig", the form every learner meets
+    'sommige': {'det': ['some (sommige mensen, "some people")']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -365,7 +372,7 @@ def desc(entries, n):
         "Both study directions in one deck: Dutch → English (see the Dutch, recall the meaning) "
         "and English → Dutch (see an English meaning, recall the Dutch). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words of Dutch for a beginner, aligned to {LEVEL.upper()} of the "
+        f"separately. {n} words of Dutch for {'a beginner' if LEVEL == 'a1' else 'an elementary learner' if LEVEL == 'a2' else 'a learner'}, aligned to {LEVEL.upper()} of the "
         f"Common European Framework of Reference, whose global descriptor begins '{SC['quote']}' — "
         f"a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "

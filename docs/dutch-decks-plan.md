@@ -5,7 +5,7 @@ Dutch set built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose pip
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Create a Dutch language collection."
 
-**STATUS (2026-11-09): A1 is built** (`.claude/dutch/`, §6). A2 to C1 and a phrases deck are not.
+**STATUS (2026-11-12): A1 and A2 are built** (`.claude/dutch/`, §6, §7). B1 to C1 and a phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Dutch to the day's
@@ -28,7 +28,7 @@ for any deck this plan produces. The collection's first commit carried one (addi
 | deck | file | notes |
 |---|---|---|
 | Dutch A1 Beginner — built | `Dutch-A1.folio-deck.json` | 500 |
-| Dutch A2 Elementary | `Dutch-A2.folio-deck.json` | 750 |
+| Dutch A2 Elementary — built | `Dutch-A2.folio-deck.json` | 750 |
 | Dutch B1 Intermediate | `Dutch-B1.folio-deck.json` | 1,000 |
 | Dutch B2 Upper Intermediate | `Dutch-B2.folio-deck.json` | 1,500 |
 | Dutch C1 Advanced | `Dutch-C1.folio-deck.json` | 1,500 |
@@ -99,3 +99,27 @@ phrases deck (`phrase` / `proverb` entries and idiomatic multi-word lemmas: `tot
 `node .claude/dutch/check-dutch.js` is the check. **A re-run is byte-identical** (verified). A1: 500 notes,
 380 from the inventory and 120 by frequency; three sentences for 499, one or two for the last; 493 with IPA.
 The shelf's hue is measured: `#934F5A`, 15.2 from its nearest of 65 (Visual Art); the first sweep's steel blue went to Vietnamese in a parallel session, so it was re-swept at the merge.
+
+## 7. As built (2026-11-12): A2
+
+`python3 .claude/dutch/run.py --level a2`. 750 notes, 424 from the A2 inventory (`inventory.py`: relatives,
+jobs and study, clothes, food and cooking, the home, the town, travel, nature and the compass, animals, health,
+feelings, free time, time words, the higher numbers and quantities, everyday verbs) and 326 by frequency; the
+A1 deck's words are left out (`words_below`). Three sentences for 746, none for 2; 713 with IPA. A re-run is
+byte-identical, and A1 still rebuilds byte for byte under the shared changes. One inventory word not in
+Wiktionary as a lemma: `liedje` (a diminutive), taught as `lied`; `Pasen` was dropped (Wiktionary's proper
+noun is not extracted; the lower-case `pasen` is a slang verb).
+
+**What the A2 ranking found** (the hand list is in `select.EXCLUDE`, each with its reason):
+- **A VERB WHOSE COUNT IS A NOUN'S PLURAL** — the mirror of §4's rule, and the bulk of the fill's faults one
+  level up: `kaarten`, `koppen`, `rechten`, `zinnen`, `moorden`, `verhalen`, `buurten`, `gassen`, `landen`,
+  `sporen`, `doelen`, `prijzen`, `wonden`, `stemmen`, `zakken`, `gebieden` all ranked on their nouns' plurals.
+  Excluded by hand, not by a rule: a real verb (`zakken` "to fail") can share the spelling, and a rule would
+  have to tell which forms the subtitles meant.
+- **A FORM LISTED IN ANOTHER WORD'S TABLE**: Wiktionary gives `school` as a past of `schuilen` and `lekker` as
+  the comparative of `lek`, so each took a common word's count.
+- **NAMES AND ENGLISH** fold into lower-case lemmas: `frank`, `peter`, `jack`, `joe`, `miss`.
+- **PARTICIPLES AND FORMS** of A1 words: `gemaakt`, `gegeven`, `betaald`, `zoek`, `help`, `goeie`, `slechte`.
+- Glosses written in `build_deck.py`: `intussen` (Wiktionary: "synonym of ondertussen", which printed
+  nothing), `kopje` (Wiktionary's only sense is a cat's head-rub), `sommige` (an "inflection of" pointer);
+  `zeer` leads with "very" (`ETYMS`).
