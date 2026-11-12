@@ -21,7 +21,7 @@ import csv, json, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ro import fold, nfc, tokens
-from ro_level import f
+from ro_level import LEVEL, f
 
 csv.field_size_limit(10 ** 8)
 
@@ -65,6 +65,46 @@ def forms_of(row, lex):
     return out
 
 
+# THE PHRASES DECK ONLY: an expression that IS a verb is matched with its VERB in any
+# form of that verb, and a reflexive clitic before it in any person -- Romanian puts
+# the verb first (`face față` -> `fac față`, `își ține gura` -> `îmi țin gura`), where
+# Hindi and Turkish put it last.  An expression that is not a verb is matched as
+# written.  The level decks keep their exact matching, so they rebuild byte-identical.
+REFL_ACC = {'mă', 'te', 'se', 'ne', 'vă'}
+REFL_DAT = {'îmi', 'îți', 'își', 'ne', 'vă', 'mi', 'ți', 'și', 'i', 'le', 'îi'}
+
+
+def phrase_parts(row, lex):
+    """One set of accepted tokens per position of the expression."""
+    words = [fold(t) for t in tokens(row['word'])]
+    sets = [{w} for w in words]
+    L = lex.get(row['key'], {})
+    if not any(e['pos'] == 'verb' for e in L.get('entries', [])):
+        return sets
+    i = 0
+    if words[0] in REFL_ACC:
+        sets[0], i = set(REFL_ACC), 1
+    elif words[0] in REFL_DAT:
+        sets[0], i = set(REFL_DAT), 1
+    if i < len(words):
+        V = lex.get(words[i], {})
+        for e in V.get('entries', []):
+            if e['pos'] == 'verb':
+                for t in e['table']:
+                    fm = fold(t['f'])
+                    if ' ' not in fm:
+                        sets[i].add(fm)
+    return sets
+
+
+def seq_hit(ft, sets):
+    n = len(sets)
+    for j in range(len(ft) - n + 1):
+        if all(ft[j + k] in sets[k] for k in range(n)):
+            return ft[j:j + n]
+    return None
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -78,7 +118,19 @@ def main():
     for row in rows:
         words = fold(row['word']).split()
         cands = []
-        if len(words) > 1:
+        if LEVEL == 'phr' and len(words) > 1:
+            sets = phrase_parts(row, lex)
+            first = sets[0]
+            seen = set()
+            for w0 in sorted(first):
+                for i in index.get(w0, []):
+                    if i in seen:
+                        continue
+                    seen.add(i)
+                    hit = seq_hit(toks[i][3], sets)
+                    if hit:
+                        cands.append((i, 0, hit))
+        elif len(words) > 1:
             for i in index.get(words[0], []):
                 ft = toks[i][3]
                 for j in range(len(ft) - len(words) + 1):

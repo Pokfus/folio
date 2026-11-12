@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 Turkish …); `docs/lang-decks.md` is the record of how those were built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Add a Romanian language collection."
 
-**STATUS (2026-11-12): all six CEFR levels, A1 to C2, are built** (`.claude/romanian/`, §6–§11). The phrases deck is not.
+**STATUS (2026-11-12): the collection is complete** — all six CEFR levels, A1 to C2, and the phrases deck (`.claude/romanian/`, §6–§12). Only Phase 4, a combined file, is not built.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one line and one bump, because
@@ -35,7 +35,7 @@ The request named no level, source or size, so each decision copies the shelf's 
 | Romanian B2 Upper Intermediate — built | `Romanian-B2.folio-deck.json` | 1,500 |
 | Romanian C1 Advanced — built | `Romanian-C1.folio-deck.json` | 1,500 |
 | Romanian C2 Proficiency — built (added on request, §11) | `Romanian-C2.folio-deck.json` | 1,500 |
-| Romanian Phrases and Expressions | `Romanian-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Romanian Phrases and Expressions — built | `Romanian-Phrases-and-Expressions.folio-deck.json` | 372 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule.
 
@@ -99,7 +99,7 @@ subtitle-ordered deck on the shelf does. 2 of A1's 500 words have no Tatoeba sen
 
 **Phase 1 (done)** — the pipeline, A1. **Phase 2 (done)** — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `ro_level.py`, run, read every card, extend `EXCLUDE` /
-`ETYMS` / `DROP_POS` with reasons. **Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored
+`ETYMS` / `DROP_POS` with reasons. **Phase 3 (done)** — the phrases deck. **Phase 4** — a combined file, gitignored
 (and a `PARTS` row in `.claude/combine-decks.py`).
 
 ## 6. As built (2026-11-09): A1
@@ -227,3 +227,40 @@ sentences for 617 (none for 883 — Tatoeba barely reaches this register). A re-
   forms counted as words, about 60 bare participles), five more for `SWEARS`, and `țigan` as a slur.
 - **The fill is the commonest spoken words not yet taught**, deep in the subtitle list by now, so it sits
   beside a literary inventory: the deck is two registers, as C1 is. Known.
+
+## 12. As built (2026-11-12): the phrases deck
+
+`python3 .claude/romanian/run.py --level phr` runs `phrases.py` in place of `select.py` (asked for on
+2026-11-12: "Add the phrases deck"). Ported from Hindi's (📖 `docs/hindi-decks-plan.md` §11): 372 expressions in
+three subdecks — **95 Phrases** (Wiktionary's multi-word phrases, prepositional phrases and interjections not
+tagged idiomatic: `nu știu`, `îmi pare rău`, `în regulă`, `la mulți ani`), **233 Idioms** (a multi-word entry
+with a sense tagged idiomatic, most of them verbs: `a face față`, `a da de urmă`, `a-și ține gura`) and **44
+Proverbs** (`cine râde la urmă râde mai bine`, `calul de dar nu se caută la dinți`). Nothing a level teaches is
+repeated. Order within a subdeck: Tatoeba sentences containing the expression, then frequency, then spelling;
+88 of the 372 occur in Tatoeba, 87 have sentences, 33 have three. IPA on 54 (Wiktionary gives few for an
+expression). A re-run is byte-identical, and all six levels rebuilt by the changed code are byte-identical.
+
+**What Romanian needed that Hindi did not:**
+- **The verb comes FIRST** (`face față`, `da drumul`; Hindi and Turkish put it last), often after a reflexive
+  clitic (`își ține gura`). `examples.phrase_parts` matches the verb in any form of its table and the clitic in
+  any person (`pot face față`, `a pierdut trenul`, `îmi țin gura`); the phrases deck only, so the levels keep
+  their exact matching.
+- **A verb expression that opens with a clitic joins it to the infinitive's a** (`a-și lua lumea în cap`,
+  `a-i da lumea peste cap`; `build_deck.CLITIC_A`) — no level headword opens with one.
+- **Capitals are a phrase's own** (`slavă Domnului`, `de la A la Z`), so `check-romanian.js`'s alphabet test
+  now accepts them; it still fails a cedilla or a foreign letter.
+- **The swear list missed a family of oaths**: `select.SWEARS` lists headwords (`pulă`, `pizdă`), the oaths
+  write definite and clipped forms (`du-te-n pula mea`, `dă-o-n pizda mă-sii`). `phrases.OATH` names those
+  forms; twelve oaths left. A first version listed `morții` and also took `a se da de ceasul morții` ("to make
+  desperate efforts"); the oath it was for is caught by `mă-tii`, so it was removed.
+
+**Excluded with reasons** (`phrases.EXCLUDE`): phrasebook sentences built from level words (`te iubesc`,
+`sunt gay`, `crezi în Dumnezeu`, `pot să folosesc telefonul Dumneavoastră` …) — the questions and formulas a
+phrasebook teaches whole stay (`nu știu`, `cum vă numiți`, `vorbiți engleză`); two oaths; a duplicate idiom; two
+cards whose one gloss is a pointer to an expression not in the deck; and a proverb whose subject is the ethnic
+slur the C2 deck excludes.
+
+**Known, left.** `a pierde trenul` teaches the idiom "to miss the boat" but its Tatoeba sentences are the literal
+"miss the train". A few of Wiktionary's English glosses are crude (`a o face de oaie` "to fuck up") — the
+expressions are a learner's to know and the glosses the source's. Wiktionary's labels decide the subdeck:
+some idioms are close to literal (`a termina școala` "to graduate").
