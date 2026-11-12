@@ -27,6 +27,100 @@ EXCLUDE = {
     'ngươi': 'the archaic "thou" of period dramas, which is where the subtitles count it',
     'thằng': 'a disparaging classifier for a man or a boy; met in insults more than anywhere',
     'chuyện đó': 'two words, "that matter", and Wiktionary\'s entry adds a sexual sense',
+    # read off the A2 ranking (2026-11-12)
+    'the': 'counted as the English article; the Vietnamese word is a kind of silk gauze',
+    'ok': 'English',
+    'ben': 'counted as the name Ben; the Vietnamese words are "a cabin" and "to be comparable"',
+    'kim': 'counted as the name Kim; the card would lead with "metal, one of the Five Phases"',
+    'sam': 'counted as the name Sam; the Vietnamese words are a horseshoe crab and purslane',
+    'mi': 'counted mostly as the archaic "thou" of period dramas; the card would lead with "eyelashes"',
+    'huynh': 'the "elder brother" of martial-arts dramas, where the subtitles count it',
+    'đô': 'counted as "dollar", a sense Wiktionary does not give it',
+    'y': 'counted as a letter and as the literary "he", neither a word to learn here',
+    'u': 'counted as a letter; "mother" is Northern and old-fashioned',
+    'ô': 'mostly the letter\'s name and an interjection; the card would lead with "black"',
+    'mai': 'counted as "tomorrow" (short for ngày mai, taught in A1); the card would lead with "early morning"',
+    'ban': 'its everyday senses (committee, daytime) sit under a feudal-court gloss that leads the card',
+    'thể': 'counted inside có thể (A1) and không thể; alone it is a grammar word with no gloss to learn',
+    # read off the B1 ranking (2026-11-12)
+    'muội': 'the "younger sister" of martial-arts dramas; the card would lead with "soot"',
+    'thiếp': 'the archaic "I" of a wife or concubine in period dramas',
+    'nga': 'counted as Nga, Russia; alone the word is only part of thiên nga "swan"',
+    'hi': 'counted as the English greeting',
+    'me': 'counted as the English pronoun; the Vietnamese word is "tamarind"',
+    'go': 'counted as English; the Vietnamese word is "weft"',
+    'don': 'counted as the name Don; the Vietnamese word is a porcupine',
+    'san': 'counted as the name San',
+    'vân': 'counted as the name Vân; the word is "grain, vein"',
+    'phong': 'counted as the name Phong; the card would lead with "maple"',
+    'long': 'counted as "dragon" and the name Long; Wiktionary gives only "loose"',
+    'bi': 'counted as names and English; the card would lead with "a marble"',
+    'gi': 'the name of a letter',
+    'cu': 'slang for a penis, or "a little boy"; the card would lead with "dove"',
+    'a-lô': 'a hyphenated spelling of alô, which the deck already teaches',
+    'không không': '"không" said twice, "no, no"; Wiktionary\'s entry is a rare adverb',
+    'tiêu': 'counted mostly as "to spend" (tiêu tiền), which Wiktionary\'s entry does not give',
+    'vương': 'the "king, prince" of period dramas, tagged archaic; the card would lead with "to cling to"',
+    'mụ': 'a disparaging word for an old woman',
+    'sơ': 'counted as "nun" and in sơ cứu; the card would lead with "negligent"',
+    'giáng sinh': 'counted as Christmas (Giáng Sinh), which Wiktionary files only as "to be born"',
+    'song': 'counted mostly as English; the Vietnamese senses are rare or literary',
+    'heo': 'Wiktionary tags "pig" dialectal, so the card would lead with a slang "two"; lợn is in A2',
+    'hoả': 'its one gloss is "Fire, one of the Five Phases"',
+    'ngưng': 'its everyday "to stop" is tagged rare, so the card would lead with "to condense"; ngừng is in A2',
+    'điếm': 'counted as "prostitute", a slur in the subtitles\' use',
+    'đít': 'crude, "arse"',
+    # read off the B2 ranking (2026-11-12)
+    'trường đại học': 'đại học "university" is taught in A2; Wiktionary\'s entry is a pointer to it',
+    'thì là': '"thì là" ("then is") miscounted as one word; the Vietnamese word is "dill"',
+    'bắt con': 'a segmentation slip (bắt con bé "catch the girl"); the entry is "to perform a Caesarean"',
+    'vấn': 'counted inside vấn đề "problem" (B1); alone it is "to roll, to tie up"',
+    'be': 'counted as English', 'gay': 'counted as English', 'alpha': 'counted as English',
+    'team': 'English', 'fan': 'English', 'chan': 'counted as English and the name Chan',
+    'han': 'counted as the name Han', 'lê': 'counted as the surname Lê; the word is "pear"',
+    'hà': 'counted as the name Hà; the word is "to breathe out"', 'na': 'counted as names; the word is "sugar apple"',
+    'ki': 'counted as "kilo"; the entry is "a pin"', 'sô': 'counted as "show"; the entry is a mourning cloth',
+    'hong': 'counted as the colloquial spelling of không; the entry is "to dry in the sun"',
+    'quy': 'the name of a letter', 'thổ': 'its gloss is "Earth, one of the Five Phases"',
+    'thuỷ': 'its gloss is "Water, one of the Five Phases"',
+    'con này': 'a disparaging "this girl"', 'thằng này': 'a disparaging "this guy"',
+    'chuyện ấy': '"that thing", a euphemism for sex',
+    'đái': 'crude, "to piss"',
+    'nhá': 'counted as the Northern particle (nhé); the entry is "to chew"',
+    'điệp': 'counted inside điệp viên "spy"; the card would lead with "butterfly"',
+    'giáo': 'counted inside tôn giáo and giáo viên; its one entry is "lance"',
+    'kích': 'counted inside kích hoạt and kích thích; the card would lead with "halberd"',
+    'hoài': 'its everyday "constantly" is tagged dialectal, so the card would lead with "to waste"',
+    'thiết': 'counted inside cần thiết and thiết bị; alone it is a rare verb',
+    'hắc': 'counted as "black" (hắc ám), which Wiktionary\'s entry does not give',
+    'ánh': 'its everyday "light" is tagged in-compounds, so the card would lead with a tuber\'s branch',
+    'thất': 'counted inside thất bại and thất vọng; its one entry is "ventricle"',
+    'giời': 'its everyday "heaven" (giời ơi) is not in the entry, which is a centipede',
+    'lang': 'counted inside lang thang and as a name; the card would lead with "piebald"',
+    # read off the C1 ranking (2026-11-12)
+    'game': 'English', 'sex': 'English', 'hot': 'English', 'golf': 'English (gôn is the Vietnamese spelling)',
+    'blu': 'counted as English "blue"', 'sun': 'counted as English', 'bon': 'counted as English and French',
+    'bo': 'counted as names and English; the entry is "boron"', 'ang': 'counted as names and English',
+    'le': 'counted as names and French', 'mát-xa': 'a hyphenated spelling; xoa bóp says the same',
+    'tùng': 'counted as the name Tùng', 'chu': 'counted as the name Chu', 'dung': 'counted as the name Dung',
+    'giang': 'counted as the name Giang; the entry is a bamboo genus', 'hán': 'counted as Hán, the Han Chinese',
+    'mĩ': 'counted as Mĩ, America', 'thị': 'counted as the middle name Thị and inside thị trường',
+    'giầy': 'counted as the old spelling of giày "shoe" (A2); the entry is a rice cake',
+    'cho tên': 'a segmentation slip (cho tên này "give this guy")', 'dó': 'counted as a mistyped đó',
+    'giờ tối': 'Wiktionary\'s gloss for it is muddled ("from dawn to 22 o\'clock")',
+    'đàm': 'counted inside đàm phán (B2); the entry is "phlegm"', 'hữu': 'counted inside compounds; the entry is a Buddhist term',
+    'vĩ': 'counted inside vĩ đại (A2); the entry is a violin bow', 'dã': 'counted inside dã man; alone a rare verb',
+    'bá': 'counted inside bá tước (B2) and bá đạo', 'âu': 'counted as Âu, Europe; the entry is a crock',
+    'bội': 'counted inside compounds; the entry is a chicken cage', 'nhị': 'counted inside compounds; the entry is "stamen"',
+    'nô': 'counted inside nô lệ (B1); the entry is "to play around"',
+    'cưỡng': 'its "to force" is tagged in-compounds, so the card would lead with a starling',
+    'vạn tuế': 'its "long live" is tagged rare, so the card would lead with "sago palm"',
+    'người da đỏ': 'Wiktionary glosses it with a slur', 'nhà ngươi': 'the archaic "thou" of period dramas',
+    'chú mày': 'a condescending "you, boy"', 'dâm': '"lustful; to have sex with", crude in the subtitles\' use',
+    'mu': 'crude; the card would lead with "the pubic region"', 'giỡn mặt': 'Wiktionary glosses it "to fuck with"',
+    'gái điếm': 'a slur for a prostitute', 'thủ dâm': 'sexual; not level vocabulary',
+    'dương vật': 'sexual; not level vocabulary',
+    'nhà chứa': 'Wiktionary\'s one gloss pairs "brothel" with a slur',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
@@ -34,7 +128,7 @@ EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 # insults outside close friendship (`mày` "you", `tao` "I", as one says them to a
 # child, an intimate or someone being abused): a beginner's pronouns are the kinship
 # words, and the subtitles' count of these two is mostly quarrels.
-SWEARS = {'mày', 'tao'}
+SWEARS = {'mày', 'tao', 'chết tiệt', 'chúng mày', 'mẹ nó', 'khốn nạn', 'cứt', 'chó chết', 'con mẹ', 'con hoang', 'đĩ', 'bố nó', 'bỏ mẹ', 'bố mày'}
 
 
 def usable(L):
@@ -45,6 +139,10 @@ def usable(L):
 def main():
     lex = json.load(open('lex.json', encoding='utf-8'))
     below = words_below()
+    # a word taught below under one spelling is not dealt again under its other (A1 teaches
+    # `cảm ơn`, which Wiktionary files under `cám ơn`; the A2 fill dealt `cám ơn`)
+    below |= {L['alt_of'] for k, L in lex.items() if k in below and 'alt_of' in L}
+    below |= {k for k, L in lex.items() if L.get('alt_of') in below}
     rows, seen, missing = [], set(), []
     for topic, words in INVENTORY.get(LEVEL, []):
         for item in words.split():

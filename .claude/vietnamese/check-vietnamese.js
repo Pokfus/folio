@@ -9,7 +9,7 @@
 const fs = require("fs");
 const path = require("path");
 const DIR = path.join(__dirname, "..", "..", "decks");
-const POINTER = /^(?:alternative|obsolete|variant|traditional tone placement)[^;]* (?:form|spelling) of |^synonym of |^The name of the Latin script letter/i;
+const POINTER = /^(?:alternative|obsolete|variant|traditional tone placement)[^;]* (?:form|spelling) of |^synonym of |^The name of the Latin script letter|^Used other than figuratively/i;
 const VIET = /^[a-zàáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ ]+$/i;
 const TONE = { "̀": "huyền", "́": "sắc", "̉": "hỏi", "̃": "ngã", "̣": "nặng" };
 const toneOf = (syl) => { for (const ch of syl.normalize("NFD")) if (TONE[ch]) return TONE[ch]; return "ngang"; };

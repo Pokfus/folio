@@ -70,6 +70,19 @@ ETYMS = {
     'baka': ['2', '1'],      # "maybe, might" before "cattle"
     'malaman': ['2'],        # "to come to be known"; etymology 1 is "fleshy"
     'siya': ['1'],           # the pronoun; 2 is "saddle", 3 "satisfaction"
+    # A2 (2026-11-12)
+    'sala': ['2'],           # "living room"; 1 is "fault, sin"
+    'kilo': ['2'],           # "kilogram"; 1 is "bent, crooked"
+    'basa': ['2'],           # "wet" (basâ); 1 is "reading"
+    'suka': ['2'],           # "vinegar"; 1 is "vomit"
+    'alas': ['2'],           # "o'clock" (alas-dos); 1 is "ace"
+    'tahanan': ['2'],        # "home"; 1 is "simultaneous stopping"
+    'mama': ['2'],           # "mum"; 1 is "a term for addressing an unknown man"
+    # B1 (2026-11-12)
+    'patas': ['2'],          # "even, fair"; 1 is "heap, pile"
+    'malas': ['2'],          # "bad luck, unlucky"; 1 is "intent look"
+    'bisa': ['2', '1'],      # "visa" before "efficacy"
+    'pila': ['2'],           # C1: "line, queue"; 1 is "clay for earthenware"
 }
 
 # A PART OF SPEECH LEFT OFF ONE CARD, each with its reason.
@@ -77,6 +90,13 @@ DROP_POS = {
     'siya': {'noun', 'intj'},     # "the very same" and "so! well!" beside the pronoun
     'isipin': {'noun', 'adj'},    # "something to think about" before the verb "to think about"
     'marumi': {'noun', 'verb'},   # "dirty laundry", "to soil oneself" -- madumi's, beside "dirty"
+    # A2 (2026-11-12): a rarer reading listed before the verb or adjective the word is learnt as
+    'sagutin': {'noun'},          # "liabilities" before "to answer"
+    'masabi': {'adj'},            # "chatty" before "to be able to say"
+    'pakainin': {'noun'},         # "a dependant" beside "to feed"
+    'tapusin': {'adj'},           # "obligatory to finish" beside "to finish"
+    'tanggapin': {'adj'},         # "acceptor" beside "to accept"
+    'sabihan': {'noun'},          # "rumour" beside "to tell, to notify"
 }
 
 # A GLOSS LEFT OFF A CARD: a homograph's sense merged into one entry, or a gloss
@@ -86,11 +106,20 @@ DROP_GLOSS = {
                   'isolatedness; unfrequentedness (of some distant place)'},   # from ilang "wilderness"
     'kapatid': {'an employee of the TV5 Network',      # the network's own in-house usage
                 'regular viewer or supporter of the TV5 Network'},
+    # A2 (2026-11-12): slang or a rare sense that reads as the meaning
+    'patatas': {'odor of dirty socks still being worn or just shed off'},
+    'halaman': {'a person incapable of feeling anything related to love'},
+    'kalihim': {'pan de regla'},                     # a bread, a homograph
+    'barangay': {'local polity or settlement during the Philippine precolonial period'},
+    'mani': {'clitoris'},                            # B2: beside "peanut"
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
 LEAD = {
     'piso': 'one-peso coin',  # first listed is the peso of the Spanish-speaking Americas
+    'mahusay': 'skillful',    # first listed is "methodical; orderly"
+    'tapat': 'sincere',       # first listed is "facing the front"
+    'depresyon': 'depression (severe sadness)',   # first listed is the weather's
 }
 
 
@@ -257,7 +286,7 @@ def build(rows, lex, exs):
             # `madumi`): the target's pronunciation and forms are not this spelling's
             ipa = ''
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Tagalog': E(word),
             'Marked': E(acc) if acc and acc != word else '',
             'IPA': E(ipa),
@@ -268,7 +297,8 @@ def build(rows, lex, exs):
             'Examples': examples_html(ex),
         }})
         entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],
-                        'examples': len(ex), 'ipa': bool(ipa)})
+                        'examples': len(ex), 'ipa': bool(ipa), 'sub': r.get('sub', ''),
+                        'count': r.get('count', 0)})
     return cards, entries
 
 
@@ -320,6 +350,38 @@ def desc(entries, n):
     )
 
 
+def desc_phr(entries, n):
+    by = {s: [e for e in entries if e['sub'] == s] for s in ('Phrases', 'Idioms', 'Proverbs')}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Tagalog set phrases, idioms and proverbs, in three subdecks: {len(by['Phrases'])} "
+        f"everyday phrases, {len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study "
+        "directions come as two cards of one expression — Tagalog → English (see the Tagalog, recall the "
+        "meaning) and English → Tagalog (see an English meaning, recall the Tagalog) — each with a "
+        "schedule of its own. This is a companion to the five level decks, Tagalog A1 to C1, and not one "
+        "of them: a level is a list of words, and an expression is a unit a list of words cannot see. "
+        "Nothing here is taught by any of the five, so the two can be studied together without "
+        "repeating an entry. The PHRASES are the expressions Wiktionary files as phrases and does not "
+        f"mark as idiomatic — mostly the everyday formulas a Tagalog speaker uses as one piece "
+        f"({eg('Phrases')} …). The IDIOMS are expressions whose meaning is not their words' "
+        f"({eg('Idioms')} …), and the PROVERBS the sayings Wiktionary files as proverbs "
+        f"({eg('Proverbs')} …). Within each subdeck the expressions come in the order of how many of "
+        f"Tatoeba's Tagalog sentences contain them; only {found} of the {n} are found there at all, and "
+        "the rest follow in the order of a frequency estimate from film and television subtitles and "
+        "Tatoeba. Every expression is spelt as ordinary writing spells it, with Wiktionary's marked "
+        "spelling and pronunciation beneath it where Wiktionary gives them. "
+        f"Real example sentences come with {n - ex0} of the {n} expressions, three apiece for {ex3}, "
+        "with the expression picked out in colour and a speaker beside the sentence and the headword. "
+        "Sources. Expressions, meanings, spellings and the idiom and proverb labels: English "
+        "Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Order: Tatoeba (tatoeba.org), "
+        "CC BY 2.0 FR, and a word list built from OpenSubtitles (hermitdave/FrequencyWords, CC BY-SA "
+        "4.0). Example sentences: Tatoeba, CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -330,13 +392,23 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in ('Phrases', 'Idioms', 'Proverbs')}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Idioms']} idioms, "
+                    f"{by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['tagalog', 'filipino', 'phrases', 'idioms', 'proverbs']
+    else:
+        subtitle = (f'{n} words · both directions, as two cards per word' if LEVEL == 'a1' else
+                    f'{n:,} more words, none of them in {BELOW_NAMES[LEVEL]} · both directions, '
+                    'as two cards per word')
+        description = desc(entries, n)
+        tags = ['tagalog', 'filipino', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': (f'{n} words · both directions, as two cards per word' if LEVEL == 'a1' else
-                     f'{n:,} more words, none of them in {BELOW_NAMES[LEVEL]} · both directions, '
-                     'as two cards per word'),
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['tagalog', 'filipino', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': subtitle,
+        'desc': description, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Tagalog vocabulary', 'speechLang': 'fil-PH',

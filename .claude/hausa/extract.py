@@ -6,7 +6,10 @@
 Reads `kaikki-ha.jsonl` (the kaikki.org extraction of English Wiktionary,
 CC BY-SA 4.0), `hand.py` (Folio's own glosses for the core words Wiktionary
 lacks) and `hau_sentences_detailed.tsv` (Tatoeba, CC BY 2.0 FR) and writes
-`lex.json`.  Level-independent: built once and kept.
+the level's lexicon, `lex.json` for A1 and `lex-<level>.json` above it (`hausa_level.LEX`):
+the hand glosses merged are this level's and the levels' below (`hausa_level.HAND_LEVELS`),
+so a later level's hand words never re-deal a level already shipped.  Built once per
+level and kept; re-run with `--re-extract` after editing `hand.py`.
 
 THE FREQUENCY IS COUNTED FROM TATOEBA'S HAUSA SENTENCES (about 21,850 sentences,
 190,000 words), because there is no published Hausa frequency list: the
@@ -29,9 +32,10 @@ import collections, csv, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ha import nfc, norm, loose, untone, is_hausa, tokens, stems
-from hand import HAND
+from hand import HANDS
+from hausa_level import HAND_LEVELS, LEX
 
-DUMP, SENTS, OUT = 'kaikki-ha.jsonl', 'hau_sentences_detailed.tsv', 'lex.json'
+DUMP, SENTS, OUT = 'kaikki-ha.jsonl', 'hau_sentences_detailed.tsv', LEX
 
 KEEP_POS = {'noun', 'verb', 'adj', 'adv', 'intj', 'phrase', 'num', 'prep', 'pron',
             'conj', 'particle', 'det', 'proverb', 'prep_phrase', 'name'}
@@ -160,6 +164,12 @@ def main():
             L['word'] = w
 
     # THE HAND GLOSSES: Folio's own, for core words Wiktionary does not have (`hand.py`).
+    # Only the hands of this level and the levels below (`hausa_level.HAND_LEVELS`).
+    HAND = {}
+    for lvl in HAND_LEVELS:
+        for w in HANDS[lvl]:
+            assert w not in HAND, f'{w} is hand-glossed on two levels'
+        HAND.update(HANDS[lvl])
     for w, items in HAND.items():
         k = norm(w)
         L = lemmas.setdefault(k, {'word': w, 'entries': []})
@@ -167,11 +177,15 @@ def main():
             pos, gls = it[0], it[1]
             gender = it[2] if len(it) > 2 else ''
             plural = it[3] if len(it) > 3 else ''
+            # a fifth item: spellings counted to this word but never printed (`hakan`,
+            # haka with the linker, which the noun suffix rule does not strip from an adverb)
+            also = it[4] if len(it) > 4 else ''
             L['entries'].append({
                 'pos': pos, 'etym': 'hand', 'src': 'hand', 'toned': '', 'gender': gender,
                 'grade': '', 'glosses': [{'g': g.strip(), 'weak': False, 'tags': []}
                                          for g in gls.split(';') if g.strip()],
-                'forms': [{'f': p, 't': '', 'k': 'plural'} for p in plural.split(',') if p.strip()]})
+                'forms': [{'f': p, 't': '', 'k': 'plural'} for p in plural.split(',') if p.strip()]
+                + [{'f': p, 't': '', 'k': 'spelling'} for p in also.split(',') if p.strip()]})
 
     # ---- the frequency --------------------------------------------------------------------
     raw = collections.Counter()

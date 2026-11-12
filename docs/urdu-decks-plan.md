@@ -6,8 +6,8 @@ twelfth language set, built in the shape of the Hindi one (`docs/hindi-decks-pla
 rule there and in the Hindi plan applies here unless this file says otherwise. Asked for on 2026-11-09:
 "Add an Urdu language collection."
 
-**STATUS (2026-11-09): the alphabet deck and A1 are built** (`.claude/urdu/`, §6). A2 to C1 and the
-phrases deck are not.
+**STATUS (2026-11-12): the alphabet deck, A1 to B2 and the phrases deck are built** (`.claude/urdu/`,
+§6–§10). **C1 is not, by the owner's decision**: the source ran dry (§9, §10).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one (raising the day's Hindi
@@ -33,11 +33,11 @@ If the owner wants any of these otherwise for Urdu, change them here first.
 |---|---|---|
 | Urdu Alphabet — built | `Urdu-Alphabet.folio-deck.json` | 56 |
 | Urdu A1 Beginner — built | `Urdu-A1.folio-deck.json` | 500 |
-| Urdu A2 Elementary | `Urdu-A2.folio-deck.json` | 750 |
-| Urdu B1 Intermediate | `Urdu-B1.folio-deck.json` | 1,000 |
-| Urdu B2 Upper Intermediate | `Urdu-B2.folio-deck.json` | 1,500 |
-| Urdu C1 Advanced | `Urdu-C1.folio-deck.json` | 1,500 |
-| Urdu Phrases and Expressions | `Urdu-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Urdu A2 Elementary — built | `Urdu-A2.folio-deck.json` | 750 |
+| Urdu B1 Intermediate — built | `Urdu-B1.folio-deck.json` | 1,000 |
+| Urdu B2 Upper Intermediate — built | `Urdu-B2.folio-deck.json` | 1,500 |
+| Urdu C1 Advanced — NOT BUILT (§10) | `Urdu-C1.folio-deck.json` | — |
+| Urdu Phrases and Expressions — built | `Urdu-Phrases-and-Expressions.folio-deck.json` | 49 |
 
 ## 2. Sources and licences
 
@@ -103,9 +103,9 @@ as Wiktionary files it. `گانا` "song; to sing" is dealt early: its count inc
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1, one level per session: write the
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2, B1 and B2 done 2026-11-12) — A2 to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `urdu_level.py`, run, read every card.
-**Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored.
+**Phase 3 (done 2026-11-12)** — the phrases deck. **Phase 4** — a combined file, gitignored.
 
 ## 6. As built (2026-11-09): the alphabet and A1
 
@@ -118,3 +118,115 @@ The alphabet: 56 notes — the 40 letters (each in its joined shapes), the 5 mar
 pairs; every sound side names its letter, so the three s's, four z's, two t's and two h's are told apart
 (asserted unique). The shelf's hue is measured: `#58288A`, 18.1 from its nearest of 50 (first `#7066D0`, re-swept on
 merging because Greek had measured `#6F69D2` the same day; greens refused as Pakistan's flag colour).
+
+## 7. As built (2026-11-12): A2
+
+Asked for on 2026-11-12: "Add Urdu A2." `python3 .claude/urdu/run.py --level a2`; 750 notes / 1,500 cards,
+220 from the inventory (Hindi's A2 topics in Urdu spellings) and 530 by frequency; no word of A1 repeated
+(`words_below`). **A re-run is byte-identical**, and A1 rebuilt after the A2 changes is unchanged. Tatoeba
+gives 340 of the 750 at least one sentence, 118 three. Read card by card; what that found:
+
+- **WIKTIONARY LACKS MORE OF A2 THAN OF A1.** No Urdu entry for `پھوپھی`, `ملازم`, `یونیورسٹی`, `طالبہ`,
+  `پولیس`, `تاجر`, `وکیل`, `ڈرائیور`, `نرس`, `انجینئر`, `شلوار`, `کرتا`, `کرایہ`, `پارک`, `کھانسی`, `شرمیلا`,
+  `پھر`, `پچھلا`, `جیتنا`, `ہارنا`, or the compound verbs `مدد کرنا`, `کوشش کرنا`, `پسند کرنا`. The list uses
+  what it does define: `جامعہ`, `شاگرد`, `پولس`, `سوداگر`, `دکان دار`, `رکشا`, `گندہ`, `کبھی کبھار`, `گزشتہ`,
+  `دوبارہ`, `کھانسنا`, `فوٹ بال`, the nouns `جیت`, `ہار`, `مدد`, `کوشش`. Five jobs went with no stand-in.
+- **THE MONTHS ARE NOT A TOPIC.** Wiktionary defines four of the twelve (February, April, August, October);
+  four of twelve is not a lesson, so the topic was dropped and the scope sentence no longer names it.
+- **MORE HOMOGRAPHS** (`ETYMS`, each with its reason): `ذکر` zikr "mention" (1 is a body part), `رائے`
+  "opinion" (1 is "king"), `دین` "religion", `دم` "breath; tail", `قوت` "strength", `گھٹنا` "knee",
+  `سکھانا` "to teach" (1 is "to dry"), `دھونا` "to wash", `بتی` "lamp", `شکر` "thanks; sugar", `مبنی`
+  "based on". `حد` has no romanisation in the source (`ROMAN_BY_HAND`: had).
+- **THE FILL'S NOISE IS NAMES, SUFFIXES AND FORMS** — 38 more `select.EXCLUDE` rows, each with its reason:
+  names (`سید`, `سنگھ`, `شاہد`, `رضا`, `مریم`…), suffixes (`-بندی`, `-بازی`, `-پور`, `-گاہ`), English loans
+  counted under a native homograph (`سپر`, `بیگ`, `موتر`, `ہیک`), a verb's form under a rare noun (`سنا`,
+  `سکا`, `ملی`, `پا`), plurals of a word taught (`روپے`, `انتخابات`, `حدود`), and two entries that lack
+  the common meaning (`ماہ` "month", `گزر` "passage").
+
+**Known, left.** `اسی` "eighty" is dealt first: its count includes the emphatic "this very". The written half of
+the frequency puts the news's words (`الزام`, `اجلاس`, `دھماکہ`, `قبضہ`) well inside A2, as A1's description
+already warns.
+
+## 8. As built (2026-11-12): B1
+
+Asked for on 2026-11-12: "Add B1." `python3 .claude/urdu/run.py --level b1`; 1,000 notes / 2,000 cards.
+**Only 86 come from the inventory and 914 by frequency**: the frequency fill of A2 had already taken much of
+the B1 topic list (`ترقی`, `منصوبہ`, `مذہب`, `حکومت`…), so `words_below` skipped it, and Wiktionary lacks
+much of the rest. Tatoeba gives 254 of the 1,000 a sentence, 48 three: by B1 the sentences have run out,
+and the description says so in numbers. **A re-run is byte-identical**; A1 and A2 rebuilt after it are
+unchanged. Read card by card; what that found:
+
+- **WIKTIONARY LACKS THE MODERN WORDS.** No Urdu entry for `کمپنی`, `ٹیکس`, `بجٹ`, `پالیسی`, `ویزا`,
+  `ٹریفک`, `ٹیکنالوجی`, `انٹرویو`, `ڈگری`, `منافع`, `غربت`, `مایوسی`, `ناکامی`, `تبدیلی`, `سماجی`,
+  `معاشی`, `مفید`, the connectors `چونکہ`, `تاکہ`, `جب تک`, `پھر بھی`, `جیسے`, and more (the run prints
+  them). The list uses what it defines: `بے روزگاری`, `افلاس`, `اعتماد`, `اضطراب`, `استدلال`, `تبدیل`,
+  `تاہم`, `کی طرح`, `اقتصادی`, `جستجو`, `سیاست`, `بیجا`, `ملاقات`. `بل` "bill" came out of the inventory:
+  its only entry is "power".
+- **MORE HOMOGRAPHS** (`ETYMS`): `بت` "idol", `گل` "flower", `مہر` "seal; kindness; dowry", `سرد` "cold",
+  `چھٹا` "sixth", `سکھ` "peace; Sikh", `تیر` "arrow", `مادہ` "matter; female".
+- **THE FILL'S NOISE GREW WITH ITS DEPTH** — about 70 more `select.EXCLUDE` rows, each with its reason:
+  names (`جناح`, `گاندھی`, `ناصر`, `اختر`, `ظفر`…, often under a common noun's entry), suffixes (`-ساز`,
+  `-کشی`, `-گیر`, `-پذیر`, `-آباد`, `-نوشی`), English loans under a native homograph (`پیج`, `کیش`, `گرڈ`,
+  `کلو`, `گن`, `سوری`), forms (`کرا`, `کھیلا`, `بنتی`), other spellings of a word taught (`قمیض`,
+  `سوموار`), and entries whose only gloss is not the word's meaning (`بچی` "girlfriend", `تذکرہ`
+  "substantial", `بیل`, `نیم`). `پٹھان`, an ethnic name glossed first as "militant", is left out. `گدھے` is
+  in `SWEARS`.
+
+**Known, left.** Wiktionary tags `باندھنا` and `لہرانا` as nouns, and the cards print that. Religious vocabulary
+(`نماز`, `آیت`, `حدیث`, `جہاد`, `شریعت`) runs heavier than in a phrase book, as the written half of the count is
+partly religious text.
+
+## 9. As built (2026-11-12): B2 — and the source running dry
+
+Asked for on 2026-11-12: "Add B2." `python3 .claude/urdu/run.py --level b2`; 1,500 notes / 3,000 cards,
+**22 from the inventory and 1,478 by frequency**. Tatoeba gives 100 of the 1,500 a sentence, 8 three. **A
+re-run is byte-identical**; A1, A2 and B1 rebuilt after it are unchanged.
+
+- **THE INVENTORY BARELY RESOLVES.** Wiktionary has no Urdu entry for most of B2's topic words — vote,
+  campaign, judiciary, appeal, finance, import, invention, resources, psychology, diagnosis, historian,
+  equality, prejudice, rural, refugee, aspect, whereas, limited, sensitive, transparent, compare, and
+  more (the run prints them) — and the lower levels' fill had already taken many that it has. Stand-ins
+  used: `کوئلا`, `کشیدگی`, `افسردہ`, `مورتی`, `نقاش`, `کلا کار`, `نو آبادی`, `مہاجر`, `کے باوجود`, `شماریات`,
+  `بہر حال`, `نتیجتا`, `جائزہ`, `انکشاف`.
+- **THE FILL IS DEEP IN THE TAIL.** The deck's median frequency is 2.9 per million (B1's was 22.5) and 532
+  of the 1,500 sit under 2 per million: every word is attested at 0.5 or more (`select.py`'s floor), but at
+  this depth the ranking is close to noise, and what fills the deck is less "upper-intermediate" than "the
+  rest of what Wiktionary defines" — numbers to ninety-nine, fruits and spices, animals, poetry and
+  religious terms alongside the abstract nouns B2 wants.
+- **THE NOISE** — about 190 more `select.EXCLUDE` rows, each with its reason, read off four passes of
+  the ranking: names (most of them), suffixes, loans under a native homograph, forms, plurals, other
+  spellings of a word taught, two slurs in a gloss, and entries with no romanisation.
+
+**C1 SHOULD BE DECIDED BEFORE IT IS BUILT.** The lexicon holds ~7,000 lemmas; A1–B2 have used 3,750 and
+excluded some 400. A C1 of 1,500 would be drawn from what is left, nearly all of it under 1 per million,
+with almost no inventory and no sentences. The honest options: a smaller C1, a C1 built from another
+dictionary, or no C1 and the phrases deck next.
+
+## 10. C1 not built; the phrases deck (2026-11-12)
+
+**C1.** Asked for ("Add C1") after §9's warning, and attempted: of the 130 words of a C1 inventory written
+for the scope (philosophy, scholarship, the constitution, law, literature, formal prose), **2** have an
+entry in Wiktionary's Urdu — the whole extract is 10,507 entries, and `صوفی`, `عقیدہ`, `محاورہ`, `تصنیف` are
+not among them — and the frequency fill had **123** words left above its floor (numbers to ninety-eight,
+cucumber, scissors, squirrel). That deck was built, read, and deleted unshipped; the owner, asked, chose
+the phrases deck instead. **A C1 needs a second dictionary** (Platts' 1884 Urdu–English dictionary is
+public domain and digitised at the University of Chicago — a new extractor and a licence check of the
+digitisation, a session of its own). `BELOW['phr']` is A1–B2 accordingly.
+
+**The phrases deck.** `python3 .claude/urdu/run.py --level phr`; **49 expressions — 33 phrases, 10 idioms,
+6 proverbs** — two cards each. `phrases.py` is Hindi's stage ported (the same three subdecks and ordering;
+`examples.py` gained Hindi's verb-final matching for this deck only, `build_deck.py` the deck's
+description and subtitle; the level decks rebuild byte-identical). **It is small because the source is**:
+English Wiktionary defines about sixty Urdu expressions in all, against Hindi's 288 shipped. Tatoeba holds
+6 of the 49. Read card by card:
+
+- **WHAT HINDI'S RULES EXCLUDE** (`phrases.EXCLUDE`): a personal sentence (`میں پاکستانی ہوں`), two oaths,
+  a political salute and a one-campaign slogan, a religious-political invocation, a Quranic form of
+  address, a Punjabi entry, and one of two spellings of a blessing.
+- **WHAT HINDI'S RULES DO NOT REACH**: the everyday Arabic formulas of Urdu speech (`ان شاء اللہ`, `الحمد للہ`,
+  `سبحان اللہ`, `جزاک اللہ`, `خدا نخواستہ`) and the honorifics written after a holy name (`علیہ السلام`) are
+  part of the language in Urdu, and are taught; Hindi left its few out as Arabic rather than Hindi.
+- **A ROMANISATION CUT AT ITS COMMA.** Wiktionary splits "rāt gaī, bāt gaī" into two romanisation forms and
+  `extract.py` keeps the first, so a proverb's card showed half of it. `build_deck.ROMAN_HEAD` restores the
+  headword line's text, verbatim, for the five affected (two of them had no romanisation form at all);
+  `extract.py` is untouched so the levels do not move.

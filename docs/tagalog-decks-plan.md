@@ -5,7 +5,8 @@ language set in the shape of the ones already shipped (Romanian, Hindi, Russian 
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Tagalog language collection."
 
-**STATUS (2026-11-09): A1 is built** (`.claude/tagalog/`, §6). A2 to C1 and the phrases deck are not.
+**STATUS (2026-11-12): A1 to C1 and the phrases deck are built** (`.claude/tagalog/`, §6–§11). Phase 4, a combined
+file, is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one (raising the day's existing
@@ -31,11 +32,11 @@ The request named no level, source or size, so each decision copies the shelf's 
 | deck | file | notes |
 |---|---|---|
 | Tagalog A1 Beginner — built | `Tagalog-A1.folio-deck.json` | 500 |
-| Tagalog A2 Elementary | `Tagalog-A2.folio-deck.json` | 750 |
-| Tagalog B1 Intermediate | `Tagalog-B1.folio-deck.json` | 1,000 |
-| Tagalog B2 Upper Intermediate | `Tagalog-B2.folio-deck.json` | 1,500 |
-| Tagalog C1 Advanced | `Tagalog-C1.folio-deck.json` | 1,500 |
-| Tagalog Phrases and Expressions | `Tagalog-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Tagalog A2 Elementary — built | `Tagalog-A2.folio-deck.json` | 750 |
+| Tagalog B1 Intermediate — built | `Tagalog-B1.folio-deck.json` | 1,000 |
+| Tagalog B2 Upper Intermediate — built | `Tagalog-B2.folio-deck.json` | 1,500 |
+| Tagalog C1 Advanced — built | `Tagalog-C1.folio-deck.json` | 1,500 |
+| Tagalog Phrases and Expressions — built | `Tagalog-Phrases-and-Expressions.folio-deck.json` | 386 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule.
 
@@ -123,3 +124,139 @@ file, gitignored (and a `PARTS` row in `.claude/combine-decks.py`).
 without `--re-extract`). A1: 500 notes, 360 from the inventory (twenty-one topics) and 140 by frequency; IPA on
 496, a marked spelling on 283, aspects on 91 of the 95 verbs, sentences for 492 (three for 479). The shelf's hue is
 measured: first `#756366`, a muted taupe 16.5 from its nearest of 53 — which Swahili, measured in a parallel session, all but took (1.1 from it); re-swept at the merge against 67, outside the magenta band and the greens: `#2A72DB`, an azure 15.2 from its nearest (Greek, French).
+
+## 7. As built (2026-11-12): A2
+
+Asked for on 2026-11-12: "Add Tagalog A2". `python3 .claude/tagalog/run.py --level a2`; A1 rebuilds byte-identical
+after every change below, and an A2 re-run is byte-identical. **750 notes, 465 from the inventory (nineteen topics:
+relatives, work, clothes, the kitchen, fruit, the home, the town, travel, the natural world, animals, health,
+feelings, free time, school, numbers and quantities, time words, colours, describing, everyday verbs, connectors)
+and 285 by frequency**, none taught in A1 (`words_below`, read off the shipped A1 file). IPA on 735, a marked
+spelling on 427, forms on 203 (140 verbs), sentences for 717 (three for 649).
+
+What reading every card changed, each recorded with its reason in the code:
+- **Inventory words left out** (`inventory.py`'s A2 comment): `parang` (Wiktionary files only "meadow"), `Ingles`
+  (only "English (person)"), `tita` (only a slang sense), `daungan` (only "place for making a big ship"). Words
+  Wiktionary does not file under the inventory's spelling were rewritten to a filed one (`plasa`, `paruparo`,
+  `ipadala`, `gumamit`, `palitan`, `pahiram`, `kalihim`) or dropped (`magprito`, `tumigil`, `Pasko`, `internet` …).
+- **A second etymology** (`ETYMS`): `sala` "living room", `kilo` "kilogram", `basa` "wet", `suka` "vinegar",
+  `alas` "o'clock", `tahanan` "home", `mama` "mum" — each word's first etymology is a rarer homograph.
+- **A rarer part of speech dropped** (`DROP_POS`): `sagutin`, `masabi`, `pakainin`, `tapusin`, `tanggapin`,
+  `sabihan` — the verb is what the word is learnt as. **Glosses dropped** (`DROP_GLOSS`): slang or a homograph
+  merged in (`patatas`, `halaman`, `kalihim`, and `barangay`'s precolonial sense, which hid the modern one).
+  **Lead glosses** (`LEAD`): `mahusay` "skillful", `tapat` "sincere".
+- **Fill exclusions** (`EXCLUDE`): English in the subtitles (`so`, `on`, `me`, `ya`), Tatoeba runs (`duke`,
+  `tiyera`), a second spelling of an inventory word (`ganiyan`, `retrato`), `aling` (alin + -ng), `naglalakad`
+  (maglakad's ongoing aspect filed as a noun), `nones` and `pitsa` (counts not their own), `yaon` (archaic),
+  `bayag` (vulgar).
+
+**Known, left.** The fill again carries some of the subtitles' violence (`barilin`, `lasunin`, `bangkay`), as A1's
+does; 33 words have no Tatoeba sentence.
+
+## 8. As built (2026-11-12): B1
+
+Asked for on 2026-11-12: "Add B1". `python3 .claude/tagalog/run.py --level b1`; A1 and A2 rebuild byte-identical
+and a B1 re-run is byte-identical. **1,000 notes, 294 from the inventory (seventeen topics: work, money, study,
+health, the media, society and politics, the law, the environment, belief and culture, travel, relationships,
+feelings, opinion and argument, abstract description, the verbs of change and of thought, connectors) and 706 by
+frequency**, none taught in A1 or A2. IPA on 989, a marked spelling on 545, forms on 302 (203 verbs), sentences for
+874 (three for 733).
+
+- **THE INVENTORY IS THINNER THAN A2'S BECAUSE WIKTIONARY IS.** About a hundred of the first draft's 510 words are
+  not filed under that spelling — most of them affixed verbs (`magplano`, `magpasya`, `iwasan`, `tanggihan`,
+  `magpasalamat`), plus multi-word connectors (`sa halip`, `lalo na`) and loans (`email`, `website`). Where another
+  affix of the root is filed it is written instead (`umiwas`, `itanggi`, `isali`, `magpaopera`, `maglarawan`);
+  the rest were dropped, never given a meaning. About a hundred more were already taught by A1 or A2. So the fill
+  is larger here, and reading it was most of the work.
+- **A SECOND SPELLING OF A TAUGHT WORD** (`select.py`, from B1 up so the shipped levels are unchanged): the fill
+  dealt `sombrero`, `kompiyuter`, `restoran`, `koryente`, `diyaryo`, `mantekilya`, `madumi` and `gayumpaman` —
+  each the lemma that a word already taught (or this level's inventory) is filed under. A lemma a taught word
+  points to is now treated as taught. (A2 excluded its two by hand: `ganiyan`, `retrato`.)
+- **Exclusions** (`EXCLUDE`): more linker and clipping counts dealt under a homograph (`tsaka`, `palang`, `kalang`,
+  `balang`, `satin`, `tong`, `taga`, `kamo`, `luko-luko`), English and Spanish in the subtitles (`la`, `elf`,
+  `korea`), counts not the entry's (`kana`, `aya`), insults and swears (`hangal`, `gunggong`, `letse`, `utot`),
+  `itik` and `bala` (shown by a sense that is not the word's), and `tita` / `daungan` (left out of A2 for it).
+- **Etymologies** (`ETYMS`): `patas` "fair", `malas` "unlucky", `bisa` "visa" first. **Inventory**: `kaso:noun`
+  (the lawsuit before the conjunction), and `tubo` and `murahin` dropped (no "profit"; "to slander").
+
+**Known, left.** 126 words have no Tatoeba sentence. The fill keeps the subtitles' crime and death vocabulary
+(`pagpatay`, `mamamatay-tao`, `magpakamatay`) on frequency, as the lower levels do.
+
+## 9. As built (2026-11-12): B2
+
+Asked for on 2026-11-12: "Add B2". `python3 .claude/tagalog/run.py --level b2`; A1, A2 and B1 rebuild
+byte-identical and a B2 re-run is byte-identical. **1,500 notes, 273 from the inventory (fifteen topics: the
+economy, government, the law, science, technology, the environment, medicine, education, the arts and media,
+social issues, argument, description, character, verbs, connectors) and 1,227 by frequency**, none taught below.
+IPA on 1,484, a marked spelling on 831, forms on 448 (283 verbs), sentences for 975 (three for 605).
+
+- **THE INVENTORY WAS PROBED BEFORE IT WAS WRITTEN.** A draft of 557 words was checked against `lex.json` and the
+  lower decks: 171 are not filed in Wiktionary under that spelling (most affixed verbs — `suriin`, `pigilan`,
+  `ipagbawal`, `tanggihan` —, English loans like `software`, and phrases like `kawalan ng trabaho`) and 112 were
+  already taught, so the inventory holds what is left (less `pandaigdigan`, whose entry is only a pointer). The
+  B2 inventory is therefore heavy in Spanish- and English-derived abstract nouns (`ekonomiya`, `konstitusyon`,
+  `implasyon`), which is what Wiktionary files; native affixed verbs come through the fill where it has them.
+- **THE FILL IS FOUR FIFTHS OF THE DECK, and at this depth the two corpora are thin**: 525 words have no Tatoeba
+  sentence. Reading it found the same faults as before at a higher rate (`EXCLUDE`, each with its reason):
+  English and names counted under a Tagalog homograph (`am`, `was`, `look`, `boy`, `park`, `pan`, `asap`,
+  `haha`, `sharon`, `washington`, `teksas`, `lisa`, `kristo`), verb forms filed as grammar terms or pointers
+  (`naganap`, `nagaganap`, `isinama`, `sinama`, `iniba`, `paki`, `yari`), `masa` (A1's finding), Tatoeba runs
+  (`postmaster`, `sigay`), and insults and vulgar words. `mani` loses a vulgar sense; `depresyon` leads with
+  the mood, not the weather.
+
+**Known, left.** The fill carries much food vocabulary (`tapsilog`, `longsilog`, `siyopaw`, `polboron`) from
+Tatoeba's contributors, and the subtitles' crime vocabulary, on frequency.
+
+## 10. As built (2026-11-12): C1
+
+Asked for on 2026-11-12: "Add C1". `python3 .claude/tagalog/run.py --level c1`; A1 to B2 rebuild byte-identical
+and a C1 re-run is byte-identical. **1,500 notes, 170 from the inventory (eleven topics: scholarship, history and
+heritage, law and governance, economics, science and the mind, ethics and debate, the arts and literature with
+the native forms — `salawikain`, `bugtong`, `talinghaga` —, description, character, verbs, connectors) and 1,330
+by frequency**, none taught below. IPA on 1,489, a marked spelling on 821, forms on 418 (241 verbs); **sentences for
+only 630 (three for 262) — 870 have none**, Tatoeba's Tagalog having little at this depth.
+
+- **Probed as B2's was**: of 455 words drafted, 178 are not filed in Wiktionary (affixed verbs again — `suriin`,
+  `pagnilayan`, `ipagtanggol` — and compounds), 105 were taught; `timawa` dropped on reading (its first sense is
+  "glutton").
+- **The frequency floor is low now** (the last word dealt has 1.6 per million averaged over the two corpora), so
+  the fill is less a ranking than a sample of what the two corpora hold: Spanish loans, food, everyday objects,
+  some slang (`epal`, `bagets`, `charing`). That is stated honestly by the description's wording ("the commonest
+  remaining words"); no C1 list exists to do better from.
+- **Exclusions** (`EXCLUDE`): more pointers (`tado`, `sahing`, `pinapaitan`, `nagbaon`, `nagbabaon`,
+  `pinagtalunan`), grammar terms (`magaganap`), English (`element`, `real`, `award`, `warden`, `testing`, `limit`,
+  `kamping`, `taping`), linker and verb-form counts under a homograph (`sapang`, `takdang`, `gagapang`, `mate`,
+  `lingo`), vulgar words (`aa`, `umaa`), `suliranin` (only a flax sense; "problem" is not filed) and `menudo`.
+  `pila` takes its second etymology, "line, queue".
+
+## 11. As built (2026-11-12): the phrases deck
+
+Asked for on 2026-11-12: "Add the phrases deck". `python3 .claude/tagalog/run.py --level phr` runs `phrases.py`
+(new, Hindi's stage adapted) in place of `select.py`. **386 expressions in three subdecks**, the Indonesian, Turkish
+and Hindi arrangement (`docs/lang-decks.md`, "THE PHRASES DECK"): **107 Phrases** (Wiktionary's multi-word phrases
+and interjections not tagged idiomatic — `sa tingin ko`, `hindi ko alam`, `tao po`, `bahala na`), **267 Idioms**
+(a multi-word entry with a sense tagged idiomatic — `mainit ang ulo`, `magsunog ng kilay`, `ilaw ng tahanan`) and
+**12 Proverbs** (Wiktionary's part of speech). Nothing a level teaches is repeated (the levels' inventories teach
+`sa wakas`, `una sa lahat` …). A re-run is byte-identical, and A1 to C1 rebuilt by the changed code are
+byte-identical (the card's `sub` is read from the row, empty for a level).
+
+- **THE ORDER**: within a subdeck, how many Tatoeba sentences contain the expression's words in sequence, then
+  `lex.json`'s frequency estimate, then the spelling. Only 63 of the 386 occur in any Tatoeba sentence; 62 have
+  sentences, 38 three. The description says so.
+- **Excluded** (`phrases.EXCLUDE`, each with its reason): **phrasebook sentences** — Wiktionary's Tagalog phrases
+  include a traveller's phrasebook (`wala akong pera`, `may kanser ako`, `tumawag ka ng pulis`, `naligaw ako`,
+  `barado ang inodoro` …, 27 in all), which go by the Turkish and Hindi rule: a sentence built from level words
+  is not a set phrase; the formulas stay (`magkano ito`, `ano'ng oras na`, `ilang taon ka na`). **Insults and
+  oaths** glossed with obscenities (`mukha mo`, `ka diyan`, `anak ng putsa`, `pusang gala` …) and `berdeng dugo`
+  (a derogatory idiom). **The same expression twice** (`hindi ko po alam`, `ano ga iyan`, a longer "how old are
+  you", two joined Christmas-and-New-Year greetings) and **pointers** (`huli ka balbon`, `bahala na si Batman`,
+  each "synonym of …"). `assalamu alaikum` (Arabic).
+- **The check's Marked comparison now decodes HTML entities**: `ano'ng`, `buto't` carry an apostrophe, which the
+  card escapes as `&#x27;`; the check compared the escaped text and failed eight correct cards.
+
+**Known, left.** Wiktionary's idiom labels are the source's: a few the deck files as idioms a learner would call
+plain (`noong una` "at first"). Sexist idioms (`ibong mababa ang lipad`, `lantang bulaklak`) are kept as
+expressions a reader meets, their glosses Wiktionary's. Synonymous idioms are kept side by side (`kabiyak ng
+dibdib`, `kapilas ng puso`, `karugtong ng buhay`, all "spouse"), the shelf's duplicate pass labelling them.
+`.claude/combine-decks.py` has no Tagalog row (nor any language added since Aug 2026); Phase 4 is not done.
+

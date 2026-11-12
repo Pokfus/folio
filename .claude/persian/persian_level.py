@@ -54,6 +54,62 @@ SCOPE = {
                   'weather, colours, and the pronouns, question words, prepositions and '
                   'conjunctions every sentence is built out of',
     },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'gloss': 'able to manage simple, routine exchanges of information on familiar matters '
+                 '— personal and family information, shopping, the local area, work — and to '
+                 'describe in simple terms their background, their surroundings and what they '
+                 'immediately need',
+        'topics': 'relatives and the people around you, work and study, jobs, clothes and '
+                  'shopping, more food and cooking, the furniture of a home, the town, the '
+                  'countryside and animals, the seasons and the points of the compass, the months '
+                  'of the Iranian calendar, the numbers to a million, travel, health and the body, '
+                  'feelings and character, free time and festivals, telling what happened and '
+                  'when, giving an opinion, and the everyday verbs of moving, dressing and doing',
+    },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to produce '
+                 'simple connected text on familiar topics, and to describe experiences and '
+                 'events, dreams, hopes and ambitions, and briefly give reasons and explanations '
+                 'for opinions and plans',
+        'topics': 'work, money and the economy, education, the news, media and technology, '
+                  'government, law and society, the environment and the weather, health and '
+                  'medicine, travel and transport, the household and its chores, relationships '
+                  'and the stages of life, feelings and character, religion and festivals, '
+                  'abstract nouns for ideas, reasons and plans, the connectors that join '
+                  'sentences, and the verbs of thinking, deciding, arguing and changing',
+    },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in their field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either '
+                 'party, and to produce clear, detailed text on a wide range of subjects and '
+                 'explain a viewpoint on a topical issue, giving the advantages and disadvantages '
+                 'of various options',
+        'topics': 'politics and public administration, the law and the courts, the economy and '
+                  'finance, science and research, technology, the environment and natural '
+                  'resources, health and the mind, the arts, literature, calligraphy and the media, '
+                  'history and society, argument and evaluation — the words for claims, evidence, '
+                  'causes and consequences — the formal connectors of written Persian, and the verbs '
+                  'of reporting, analysing and persuading',
+    },
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise '
+                 'implicit meaning',
+        'gloss': 'able to express ideas fluently and spontaneously without much obvious '
+                 'searching for expressions, to use language flexibly and effectively for '
+                 'social, academic and professional purposes, and to produce clear, '
+                 'well-structured, detailed text on complex subjects',
+        'topics': 'philosophy and ethics, religion, mysticism and the inner life, scholarly '
+                  'Persian, government and the constitution, the economy and development, '
+                  'medicine and the body, law and rights, language and the forms of Persian '
+                  'poetry, the shades of feeling and judgement, the abstract nouns and adjectives '
+                  'of formal prose, and the literary connectors',
+    },
 }
 
 
