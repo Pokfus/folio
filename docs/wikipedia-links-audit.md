@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6614 | the title is the article |
-| `redirect-variant` | 397 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 89 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 6689 | the title is the article |
+| `redirect-variant` | 401 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 90 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 625 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 629 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 134 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 135 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
-| `none` | 1010 | nothing matched; no link |
+| `none` | 1025 | nothing matched; no link |
 
-**7741 of 9050 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7825 of 9150 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (625)
+## Redirected to a differently named article — check each (629)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -307,6 +307,10 @@ The answer redirects to an article with another name. Most are the same subject 
 - `jp-084` **Kuratsukuri no Tori** → [Tori Busshi](https://en.wikipedia.org/wiki/Tori_Busshi) (from `Kuratsukuri no Tori`)
 - `jp-085` **kentoshi** → [Japanese missions to Tang China](https://en.wikipedia.org/wiki/Japanese_missions_to_Tang_China) (from `Kentōshi`)
 - `jp-095` **Ganjin** → [Jianzhen](https://en.wikipedia.org/wiki/Jianzhen) (from `Ganjin`)
+- `jp-119` **insei** → [Go apprentice](https://en.wikipedia.org/wiki/Go_apprentice) (from `Insei`)
+- `jp-131` **kentoshi** → [Japanese missions to Tang China](https://en.wikipedia.org/wiki/Japanese_missions_to_Tang_China) (from `Kentōshi`)
+- `jp-151` **nikki bungaku** → [Poetic diary](https://en.wikipedia.org/wiki/Poetic_diary) (from `Nikki bungaku`)
+- `jp-187` **Later Three-Year War** → [Gosannen War](https://en.wikipedia.org/wiki/Gosannen_War) (from `Later Three-Year War`)
 - `ko-002` **Korean Peninsula** → [Korea](https://en.wikipedia.org/wiki/Korea) (from `Korean Peninsula`)
 - `ko-005` **Changma** → [East Asian rainy season](https://en.wikipedia.org/wiki/East_Asian_rainy_season) (from `Changma`)
 - `ko-014` **West Liao River** → [Xiliao River](https://en.wikipedia.org/wiki/Xiliao_River) (from `West Liao River`)
@@ -670,7 +674,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (89)
+## Settled from a disambiguation page (90)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -725,6 +729,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `gw-690` **Saint George's** → [St. George's, Grenada](https://en.wikipedia.org/wiki/St._George's,_Grenada) (via the disambiguation page `Saint George (disambiguation)`)
 - `gw-710` **Philipsburg** → [Philipsburg, Sint Maarten](https://en.wikipedia.org/wiki/Philipsburg,_Sint_Maarten) (via the disambiguation page `Philipsburg`)
 - `jp-038` **Yoshinogari** → [Yoshinogari, Saga](https://en.wikipedia.org/wiki/Yoshinogari,_Saga) (via the disambiguation page `Yoshinogari`)
+- `jp-120` **Shirakawa** → [Shirakawa River](https://en.wikipedia.org/wiki/Shirakawa_River) (via the disambiguation page `Shirakawa`)
 - `pea-015` **Zhang Weiwei** → [Zhang Weiwei (professor)](https://en.wikipedia.org/wiki/Zhang_Weiwei_(professor)) (via the disambiguation page `Zhang Weiwei`)
 - `pea-032` **1947 Constitution** → [Constitution of the Republic of China](https://en.wikipedia.org/wiki/Constitution_of_the_Republic_of_China) (via the disambiguation page `Constitution of 1947`)
 - `pea-043` **Iron Triangle** → [Iron triangle (US politics)](https://en.wikipedia.org/wiki/Iron_triangle_(US_politics)) (via the disambiguation page `Iron Triangle`)
@@ -941,7 +946,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (134)
+## Section redirects — no dedicated page (135)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1004,6 +1009,7 @@ Wikipedia treats these as part of another article. No link.
 - `gru-934` **Mashuk** — `Mashuk` only redirects into `Pyatigorsk#Geography`
 - `jp-012` **shell midden** — `Shell midden` only redirects into `Midden#Shells`
 - `jp-092` **Kegon** — `Kegon` only redirects into `Huayan#Japanese Kegon`
+- `jp-106` **Thirty-Eight Years' War** — `Thirty-Eight Years' War` only redirects into `Emishi#Thirty-Eight Years' War`
 - `ko-029` **Korean Bronze Age** — `Korean Bronze Age` only redirects into `Prehistoric Korea#Bronze Age`
 - `ko-038` **Early Iron Age** — `Early Iron Age` only redirects into `Iron Age#Beginning`
 - `ko-039` **shell midden** — `Shell midden` only redirects into `Midden#Shells`
@@ -1080,7 +1086,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1010)
+## No article found (1025)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1827,6 +1833,21 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `jp-077` **kokugunri system** — search suggests `Hizen Province`, `Ritsuryō`
 - `jp-081` **Hakusukinoe** — search suggests `Battle of Baekgang`, `Kaneda Castle`, `Naval history of Japan`, `Hakata Bay`, `List of Historic Sites of Japan (Fukuoka Prefecture)`
 - `jp-097` **Shosoin medicines** — search suggests `Kampo`, `Japanese units of measurement`, `List of National Treasures of Japan (temples)`, `Kombu`, `Korean influence on Japanese culture`
+- `jp-103` **soyocho** — search suggests `Land Tax Reform`, `Zu Yong Diao`, `Fukushima (city)`, `Ministry of Popular Affairs`, `Corvée`
+- `jp-104` **Konden Einen Shizai Ho** — search suggests `Shōen`
+- `jp-118` **Fujiwara no Shoshi** — search suggests `Empress Shōshi`, `Fujiwara no Michinaga`, `Fujiwara no Teishi`, `Fujiwara no Hiroko`, `Fujiwara no Kenshi (994–1027)`
+- `jp-124` **Kiroku Shoen Kenkeijo**
+- `jp-125` **zuryo** — search suggests `Kokushi (official)`
+- `jp-126` **kebiishi** — search suggests `Emperor Saga`, `Emakimono`, `Taira no Masakado`, `In a Grove`, `Hasebe Nobutsura`
+- `jp-127` **nenju gyoji** — search suggests `Buddhism in Japan`, `Takamikura`, `Tenpō Reforms`, `International Research Center for Japanese Studies`, `Ishi (chair)`
+- `jp-129` **katatagae** — search suggests `Konjin`, `Japanese folklore`, `Onmyōdō`, `Guardians of the directions`, `The Lives of John Lennon`
+- `jp-132` **kokufu bunka** — search suggests `Shinden-zukuri`, `Japanese literature`, `Japanese clothing`, `Japanese architecture`, `Heian period`
+- `jp-141` **nyobo** — search suggests `Nyōbō kotoba`, `List of legendary creatures (U)`, `Japanese cuisine`, `Kitsune`, `Folktales from Japan`
+- `jp-167` **yosegi-zukuri** — search suggests `Japanese sculpture`, `Byōdō-in`, `Buddhist art in Japan`, `Dainichi Nyorai (Enjō-ji)`, `Statue of Jizō (Intan)`
+- `jp-176` **zaicho kanjin**
+- `jp-179` **bushidan** — search suggests `Orient (manga)`, `Hōjō Tokimasa`, `Revenge of the Soga Brothers`, `Taira no Yoshifumi`, `Kikuchi clan`
+- `jp-182` **hokumen no bushi** — search suggests `Saitō Dōsan`, `Cloistered rule`, `Minamoto clan`, `Minamoto no Yoshiie`, `Kyushin-ryū`
+- `jp-184` **Johei-Tengyo Rebellion** — search suggests `Tengyō`, `Jōhei`, `Tengyō no Ran`, `Emperor Suzaku`, `Taira no Masakado`
 - `ko-016` **Goryeo long wall** — search suggests `Ch'ŏlli changsŏng`, `Goryeo`, `Mongol invasions of Korea`, `Timeline of Korean history`, `Ganghwasanseong Fortress`
 - `ko-021` **Palaeolithic Korea** — search suggests `Prehistoric Korea`, `Korea under Japanese rule`, `List of monarchs of Korea`, `Three Kingdoms of Korea`, `National Museum of Korea`
 - `ko-022` **Jeongok-ri** — search suggests `Jeongok station`, `List of archaeological sites in Korea`, `Jeongok Prehistory Museum`, `Yeoncheon County`, `Gyeongwon Line`

@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T02:02Z",
+ "generated": "2026-11-12T04:49Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6614,
-  "redirect-broader": 625,
-  "redirect-variant": 397,
-  "section-redirect": 134,
+  "ok": 6689,
+  "redirect-broader": 629,
+  "redirect-variant": 401,
+  "section-redirect": 135,
   "disambiguation": 147,
-  "none": 1010,
-  "disambig-resolved": 89,
+  "none": 1025,
+  "disambig-resolved": 90,
   "list-page": 6,
   "search-match": 9,
   "no-article": 19
@@ -72348,6 +72348,802 @@
    "url": "https://en.wikipedia.org/wiki/Texas_annexation",
    "via": "glossary",
    "status": "ok"
+  },
+  "jp-101": {
+   "answer": "Man'yoshu",
+   "title": "Man'yōshū",
+   "url": "https://en.wikipedia.org/wiki/Man'y%C5%8Dsh%C5%AB",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-102": {
+   "answer": "Fudoki",
+   "title": "Fudoki",
+   "url": "https://en.wikipedia.org/wiki/Fudoki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-103": {
+   "answer": "soyocho",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Land Tax Reform",
+    "Zu Yong Diao",
+    "Fukushima (city)",
+    "Ministry of Popular Affairs",
+    "Corvée"
+   ]
+  },
+  "jp-104": {
+   "answer": "Konden Einen Shizai Ho",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Shōen"
+   ]
+  },
+  "jp-105": {
+   "answer": "Emishi",
+   "title": "Emishi",
+   "url": "https://en.wikipedia.org/wiki/Emishi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-106": {
+   "answer": "Thirty-Eight Years' War",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Thirty-Eight Years' War",
+   "target": "Emishi#Thirty-Eight Years' War"
+  },
+  "jp-107": {
+   "answer": "Dokyo",
+   "title": "Dōkyō",
+   "url": "https://en.wikipedia.org/wiki/D%C5%8Dky%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-108": {
+   "answer": "Prince Nagaya",
+   "title": "Prince Nagaya",
+   "url": "https://en.wikipedia.org/wiki/Prince_Nagaya",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-109": {
+   "answer": "Nagaoka-kyo",
+   "title": "Nagaoka-kyō",
+   "url": "https://en.wikipedia.org/wiki/Nagaoka-ky%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-110": {
+   "answer": "mokkan",
+   "title": "Mokkan",
+   "url": "https://en.wikipedia.org/wiki/Mokkan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-111": {
+   "answer": "Heian period",
+   "title": "Heian period",
+   "url": "https://en.wikipedia.org/wiki/Heian_period",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-112": {
+   "answer": "Heian-kyo",
+   "title": "Heian-kyō",
+   "url": "https://en.wikipedia.org/wiki/Heian-ky%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-113": {
+   "answer": "Kanmu",
+   "title": "Emperor Kanmu",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Kanmu",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Kanmu"
+  },
+  "jp-114": {
+   "answer": "Kurodo-dokoro",
+   "title": "Kurōdo-dokoro",
+   "url": "https://en.wikipedia.org/wiki/Kur%C5%8Ddo-dokoro",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-115": {
+   "answer": "Fujiwara clan",
+   "title": "Fujiwara clan",
+   "url": "https://en.wikipedia.org/wiki/Fujiwara_clan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-116": {
+   "answer": "Sessho and Kampaku",
+   "title": "Sesshō and Kampaku",
+   "url": "https://en.wikipedia.org/wiki/Sessh%C5%8D_and_Kampaku",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-117": {
+   "answer": "Fujiwara no Michinaga",
+   "title": "Fujiwara no Michinaga",
+   "url": "https://en.wikipedia.org/wiki/Fujiwara_no_Michinaga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-118": {
+   "answer": "Fujiwara no Shoshi",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Empress Shōshi",
+    "Fujiwara no Michinaga",
+    "Fujiwara no Teishi",
+    "Fujiwara no Hiroko",
+    "Fujiwara no Kenshi (994–1027)"
+   ]
+  },
+  "jp-119": {
+   "answer": "insei",
+   "title": "Go apprentice",
+   "url": "https://en.wikipedia.org/wiki/Go_apprentice",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Insei"
+  },
+  "jp-120": {
+   "answer": "Shirakawa",
+   "title": "Shirakawa River",
+   "url": "https://en.wikipedia.org/wiki/Shirakawa_River",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Shirakawa"
+  },
+  "jp-121": {
+   "answer": "Daijokan",
+   "title": "Daijō-kan",
+   "url": "https://en.wikipedia.org/wiki/Daij%C5%8D-kan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-122": {
+   "answer": "kugyo",
+   "title": "Kugyō",
+   "url": "https://en.wikipedia.org/wiki/Kugy%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-123": {
+   "answer": "shoen",
+   "title": "Shōen",
+   "url": "https://en.wikipedia.org/wiki/Sh%C5%8Den",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-124": {
+   "answer": "Kiroku Shoen Kenkeijo",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "jp-125": {
+   "answer": "zuryo",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Kokushi (official)"
+   ]
+  },
+  "jp-126": {
+   "answer": "kebiishi",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Emperor Saga",
+    "Emakimono",
+    "Taira no Masakado",
+    "In a Grove",
+    "Hasebe Nobutsura"
+   ]
+  },
+  "jp-127": {
+   "answer": "nenju gyoji",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Buddhism in Japan",
+    "Takamikura",
+    "Tenpō Reforms",
+    "International Research Center for Japanese Studies",
+    "Ishi (chair)"
+   ]
+  },
+  "jp-128": {
+   "answer": "Onmyodo",
+   "title": "Onmyōdō",
+   "url": "https://en.wikipedia.org/wiki/Onmy%C5%8Dd%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-129": {
+   "answer": "katatagae",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Konjin",
+    "Japanese folklore",
+    "Onmyōdō",
+    "Guardians of the directions",
+    "The Lives of John Lennon"
+   ]
+  },
+  "jp-130": {
+   "answer": "Sugawara no Michizane",
+   "title": "Sugawara no Michizane",
+   "url": "https://en.wikipedia.org/wiki/Sugawara_no_Michizane",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-131": {
+   "answer": "kentoshi",
+   "title": "Japanese missions to Tang China",
+   "url": "https://en.wikipedia.org/wiki/Japanese_missions_to_Tang_China",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Kentōshi"
+  },
+  "jp-132": {
+   "answer": "kokufu bunka",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Shinden-zukuri",
+    "Japanese literature",
+    "Japanese clothing",
+    "Japanese architecture",
+    "Heian period"
+   ]
+  },
+  "jp-133": {
+   "answer": "Kukai",
+   "title": "Kūkai",
+   "url": "https://en.wikipedia.org/wiki/K%C5%ABkai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-134": {
+   "answer": "Shingon",
+   "title": "Shingon Buddhism",
+   "url": "https://en.wikipedia.org/wiki/Shingon_Buddhism",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Shingon"
+  },
+  "jp-135": {
+   "answer": "Saicho",
+   "title": "Saichō",
+   "url": "https://en.wikipedia.org/wiki/Saich%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-136": {
+   "answer": "Tendai",
+   "title": "Tendai",
+   "url": "https://en.wikipedia.org/wiki/Tendai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-137": {
+   "answer": "Mount Hiei",
+   "title": "Mount Hiei",
+   "url": "https://en.wikipedia.org/wiki/Mount_Hiei",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-138": {
+   "answer": "sohei",
+   "title": "Sōhei",
+   "url": "https://en.wikipedia.org/wiki/S%C5%8Dhei",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-139": {
+   "answer": "Ojoyoshu",
+   "title": "Ōjōyōshū",
+   "url": "https://en.wikipedia.org/wiki/%C5%8Cj%C5%8Dy%C5%8Dsh%C5%AB",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-140": {
+   "answer": "Fujiwara no Yorimichi",
+   "title": "Fujiwara no Yorimichi",
+   "url": "https://en.wikipedia.org/wiki/Fujiwara_no_Yorimichi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-141": {
+   "answer": "nyobo",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Nyōbō kotoba",
+    "List of legendary creatures (U)",
+    "Japanese cuisine",
+    "Kitsune",
+    "Folktales from Japan"
+   ]
+  },
+  "jp-142": {
+   "answer": "kana",
+   "title": "Kana",
+   "url": "https://en.wikipedia.org/wiki/Kana",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-143": {
+   "answer": "hiragana",
+   "title": "Hiragana",
+   "url": "https://en.wikipedia.org/wiki/Hiragana",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-144": {
+   "answer": "Izumi Shikibu",
+   "title": "Izumi Shikibu",
+   "url": "https://en.wikipedia.org/wiki/Izumi_Shikibu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-145": {
+   "answer": "Murasaki Shikibu",
+   "title": "Murasaki Shikibu",
+   "url": "https://en.wikipedia.org/wiki/Murasaki_Shikibu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-146": {
+   "answer": "Tale of Genji",
+   "title": "The Tale of Genji",
+   "url": "https://en.wikipedia.org/wiki/The_Tale_of_Genji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-147": {
+   "answer": "Hikaru Genji",
+   "title": "Hikaru Genji",
+   "url": "https://en.wikipedia.org/wiki/Hikaru_Genji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-148": {
+   "answer": "monogatari",
+   "title": "Monogatari",
+   "url": "https://en.wikipedia.org/wiki/Monogatari",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-149": {
+   "answer": "Sei Shonagon",
+   "title": "Sei Shōnagon",
+   "url": "https://en.wikipedia.org/wiki/Sei_Sh%C5%8Dnagon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-150": {
+   "answer": "Pillow Book",
+   "title": "The Pillow Book",
+   "url": "https://en.wikipedia.org/wiki/The_Pillow_Book",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-151": {
+   "answer": "nikki bungaku",
+   "title": "Poetic diary",
+   "url": "https://en.wikipedia.org/wiki/Poetic_diary",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Nikki bungaku"
+  },
+  "jp-152": {
+   "answer": "Kagero Nikki",
+   "title": "Kagerō Nikki",
+   "url": "https://en.wikipedia.org/wiki/Kager%C5%8D_Nikki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-153": {
+   "answer": "Tosa Nikki",
+   "title": "Tosa Nikki",
+   "url": "https://en.wikipedia.org/wiki/Tosa_Nikki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-154": {
+   "answer": "waka",
+   "title": "Waka (poetry)",
+   "url": "https://en.wikipedia.org/wiki/Waka_(poetry)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-155": {
+   "answer": "Kokin Wakashu",
+   "title": "Kokin Wakashū",
+   "url": "https://en.wikipedia.org/wiki/Kokin_Wakash%C5%AB",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-156": {
+   "answer": "Ki no Tsurayuki",
+   "title": "Ki no Tsurayuki",
+   "url": "https://en.wikipedia.org/wiki/Ki_no_Tsurayuki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-157": {
+   "answer": "uta-awase",
+   "title": "Uta-awase",
+   "url": "https://en.wikipedia.org/wiki/Uta-awase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-158": {
+   "answer": "mono no aware",
+   "title": "Mono no aware",
+   "url": "https://en.wikipedia.org/wiki/Mono_no_aware",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-159": {
+   "answer": "miyabi",
+   "title": "Miyabi",
+   "url": "https://en.wikipedia.org/wiki/Miyabi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-160": {
+   "answer": "sokutai",
+   "title": "Sokutai",
+   "url": "https://en.wikipedia.org/wiki/Sokutai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-161": {
+   "answer": "junihitoe",
+   "title": "Jūnihitoe",
+   "url": "https://en.wikipedia.org/wiki/J%C5%ABnihitoe",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-162": {
+   "answer": "shinden-zukuri",
+   "title": "Shinden-zukuri",
+   "url": "https://en.wikipedia.org/wiki/Shinden-zukuri",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-163": {
+   "answer": "Byodo-in",
+   "title": "Byōdō-in",
+   "url": "https://en.wikipedia.org/wiki/By%C5%8Dd%C5%8D-in",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-164": {
+   "answer": "yamato-e",
+   "title": "Yamato-e",
+   "url": "https://en.wikipedia.org/wiki/Yamato-e",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-165": {
+   "answer": "emakimono",
+   "title": "Emakimono",
+   "url": "https://en.wikipedia.org/wiki/Emakimono",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-166": {
+   "answer": "Genji Monogatari Emaki",
+   "title": "Genji Monogatari Emaki",
+   "url": "https://en.wikipedia.org/wiki/Genji_Monogatari_Emaki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-167": {
+   "answer": "yosegi-zukuri",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Japanese sculpture",
+    "Byōdō-in",
+    "Buddhist art in Japan",
+    "Dainichi Nyorai (Enjō-ji)",
+    "Statue of Jizō (Intan)"
+   ]
+  },
+  "jp-168": {
+   "answer": "Jocho",
+   "title": "Jōchō",
+   "url": "https://en.wikipedia.org/wiki/J%C5%8Dch%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-169": {
+   "answer": "gagaku",
+   "title": "Gagaku",
+   "url": "https://en.wikipedia.org/wiki/Gagaku",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-170": {
+   "answer": "setsuwa",
+   "title": "Setsuwa",
+   "url": "https://en.wikipedia.org/wiki/Setsuwa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-171": {
+   "answer": "Konjaku Monogatarishu",
+   "title": "Konjaku Monogatarishū",
+   "url": "https://en.wikipedia.org/wiki/Konjaku_Monogatarish%C5%AB",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-172": {
+   "answer": "Sanseki",
+   "title": "Sanseki",
+   "url": "https://en.wikipedia.org/wiki/Sanseki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-173": {
+   "answer": "classical Japanese",
+   "title": "Classical Japanese",
+   "url": "https://en.wikipedia.org/wiki/Classical_Japanese",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-174": {
+   "answer": "Sakuteiki",
+   "title": "Sakuteiki",
+   "url": "https://en.wikipedia.org/wiki/Sakuteiki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-175": {
+   "answer": "Hyakunin Isshu",
+   "title": "Ogura Hyakunin Isshu",
+   "url": "https://en.wikipedia.org/wiki/Ogura_Hyakunin_Isshu",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Hyakunin Isshu"
+  },
+  "jp-176": {
+   "answer": "zaicho kanjin",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "jp-177": {
+   "answer": "kondei",
+   "title": "Kondei",
+   "url": "https://en.wikipedia.org/wiki/Kondei",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-178": {
+   "answer": "samurai",
+   "title": "Samurai",
+   "url": "https://en.wikipedia.org/wiki/Samurai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-179": {
+   "answer": "bushidan",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Orient (manga)",
+    "Hōjō Tokimasa",
+    "Revenge of the Soga Brothers",
+    "Taira no Yoshifumi",
+    "Kikuchi clan"
+   ]
+  },
+  "jp-180": {
+   "answer": "Minamoto clan",
+   "title": "Minamoto clan",
+   "url": "https://en.wikipedia.org/wiki/Minamoto_clan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-181": {
+   "answer": "Taira clan",
+   "title": "Taira clan",
+   "url": "https://en.wikipedia.org/wiki/Taira_clan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-182": {
+   "answer": "hokumen no bushi",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Saitō Dōsan",
+    "Cloistered rule",
+    "Minamoto clan",
+    "Minamoto no Yoshiie",
+    "Kyushin-ryū"
+   ]
+  },
+  "jp-183": {
+   "answer": "Taira no Masakado",
+   "title": "Taira no Masakado",
+   "url": "https://en.wikipedia.org/wiki/Taira_no_Masakado",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-184": {
+   "answer": "Johei-Tengyo Rebellion",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Tengyō",
+    "Jōhei",
+    "Tengyō no Ran",
+    "Emperor Suzaku",
+    "Taira no Masakado"
+   ]
+  },
+  "jp-185": {
+   "answer": "Fujiwara no Sumitomo",
+   "title": "Fujiwara no Sumitomo",
+   "url": "https://en.wikipedia.org/wiki/Fujiwara_no_Sumitomo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-186": {
+   "answer": "Former Nine Years' War",
+   "title": "Former Nine Years' War",
+   "url": "https://en.wikipedia.org/wiki/Former_Nine_Years'_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-187": {
+   "answer": "Later Three-Year War",
+   "title": "Gosannen War",
+   "url": "https://en.wikipedia.org/wiki/Gosannen_War",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Later Three-Year War"
+  },
+  "jp-188": {
+   "answer": "Northern Fujiwara",
+   "title": "Northern Fujiwara",
+   "url": "https://en.wikipedia.org/wiki/Northern_Fujiwara",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-189": {
+   "answer": "Hiraizumi",
+   "title": "Hiraizumi",
+   "url": "https://en.wikipedia.org/wiki/Hiraizumi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-190": {
+   "answer": "Chuson-ji",
+   "title": "Chūson-ji",
+   "url": "https://en.wikipedia.org/wiki/Ch%C5%ABson-ji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-191": {
+   "answer": "Hogen Rebellion",
+   "title": "Hōgen rebellion",
+   "url": "https://en.wikipedia.org/wiki/H%C5%8Dgen_rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-192": {
+   "answer": "Heiji Rebellion",
+   "title": "Heiji rebellion",
+   "url": "https://en.wikipedia.org/wiki/Heiji_rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-193": {
+   "answer": "Taira no Kiyomori",
+   "title": "Taira no Kiyomori",
+   "url": "https://en.wikipedia.org/wiki/Taira_no_Kiyomori",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-194": {
+   "answer": "Fukuhara-kyo",
+   "title": "Fukuhara-kyō",
+   "url": "https://en.wikipedia.org/wiki/Fukuhara-ky%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-195": {
+   "answer": "Genpei War",
+   "title": "Genpei War",
+   "url": "https://en.wikipedia.org/wiki/Genpei_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-196": {
+   "answer": "Battle of Ichi-no-Tani",
+   "title": "Battle of Ichi-no-Tani",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Ichi-no-Tani",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-197": {
+   "answer": "Battle of Yashima",
+   "title": "Battle of Yashima",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Yashima",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-198": {
+   "answer": "Battle of Dan-no-ura",
+   "title": "Battle of Dan-no-ura",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Dan-no-ura",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-199": {
+   "answer": "Tale of the Heike",
+   "title": "The Tale of the Heike",
+   "url": "https://en.wikipedia.org/wiki/The_Tale_of_the_Heike",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-200": {
+   "answer": "Go-Shirakawa",
+   "title": "Emperor Go-Shirakawa",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Go-Shirakawa",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Go-Shirakawa"
   }
  }
 }
