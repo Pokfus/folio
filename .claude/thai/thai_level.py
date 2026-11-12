@@ -97,6 +97,19 @@ SCOPE = {
                   'institutions, argument and evaluation — the words for claims, evidence, causes '
                   'and consequences — the formal connectors of written Thai, and the verbs of '
                   'reporting, analysing and persuading',
+    },    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise '
+                 'implicit meaning',
+        'gloss': 'able to express ideas fluently and spontaneously without much obvious '
+                 'searching for expressions, to use language flexibly and effectively for '
+                 'social, academic and professional purposes, and to produce clear, '
+                 'well-structured, detailed text on complex subjects',
+        'topics': 'philosophy and ethics, Buddhism and the inner life, academic and scholarly '
+                  'Thai, government, diplomacy and the constitution, the economy and '
+                  'development, medicine and the body, law and rights, language, linguistics and '
+                  'literature, the shades of feeling and judgement, the Pali- and Sanskrit-derived '
+                  'abstract nouns and adjectives of formal prose, the royal vocabulary '
+                  '(rachasap), and the literary connectors and adverbs',
     },
 }
 

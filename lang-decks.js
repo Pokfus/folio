@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 243 MB of decks. The file itself is fetched on Add. */
+   section without fetching 244 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -112,6 +112,7 @@ window.LANG_DECKS = [
   { lang: "Thai", file: "Thai-A2.folio-deck.json", id: "thaia2", title: "Thai A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 80, bytes: 757693, rev: "47a69aedf97a" },
   { lang: "Thai", file: "Thai-B1.folio-deck.json", id: "thaib1", title: "Thai B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 55, bytes: 801258, rev: "06f004ae3473" },
   { lang: "Thai", file: "Thai-B2.folio-deck.json", id: "thaib2", title: "Thai B2 Upper Intermediate", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 33, bytes: 949628, rev: "92e60591b7f1" },
+  { lang: "Thai", file: "Thai-C1.folio-deck.json", id: "thaic1", title: "Thai C1 Advanced", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 21, bytes: 826345, rev: "0f6257ff8dd3" },
   { lang: "Italian", file: "CILS-A1-Italian.folio-deck.json", id: "cilsa1", title: "CILS A1 — Italian", sub: "957 words · both directions, as two cards per word", notes: 957, cards: 1914, ex: 99, bytes: 2633295, rev: "404a875cec94" },
   { lang: "Italian", file: "CILS-A2-Italian.folio-deck.json", id: "cilsa2", title: "CILS A2 — Italian", sub: "994 words · both directions, as two cards per word", notes: 994, cards: 1988, ex: 96, bytes: 2590300, rev: "81305d355a30" },
   { lang: "Italian", file: "CILS-B1-Italian.folio-deck.json", id: "cilsb1", title: "CILS B1 — Italian", sub: "970 words · both directions, as two cards per word", notes: 970, cards: 1940, ex: 93, bytes: 2365374, rev: "f11bea5f800b" },

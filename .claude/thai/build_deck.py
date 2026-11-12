@@ -149,6 +149,11 @@ ETYMS = {
     'มูล': ['2'],               # "base, origin"; 1 is "feces"
     'ค่อน': ['2'],              # "fairly; more than half"; 1 is "to criticise"
     'มน': ['2'],                # "roundish"; 1 is "to be fixed"
+    # C1
+    'สาง': ['3', '2'],          # "to clear up; dawn" AND "to comb out"; 1 is "corpse; ghost"
+    'กำพร้า': ['2'],            # "orphaned; orphan"; 1 is "epidermis"
+    'อับ': ['2', '1'],          # "stuffy, stale" AND "small lidded box"
+    'เจียม': ['2'],             # "to be humble"; 1 is a woollen carpet
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one -- its
@@ -208,13 +213,24 @@ LEAD = {
     'นิพพาน': 'nirvana',        # tagged weak, yet the word's own sense; first shown was "death"
     'รณรงค์': 'to campaign',    # first is "theatre of war"
     'อุโบสถ': 'hall',           # the ordination hall; first is the observance day
+    # C1
+    'นัยยะ': 'meaning',         # first is "way; manner"
+    'อากร': 'duty',             # "duty (tax)"; first is "body; mass"
+    'ระเหย': 'to evaporate',    # first is "to feel cool"
+    'ทราม': 'base',             # first is "overpouring"
+    'พิภพ': 'world',            # first is "nonexistence"
+    'กฐิน': 'Kathina: annual',  # the robe-offering festival; first is an embroidery hoop
+    'แฟ้ม': 'folder',           # first is a dried-food container
+    'กระทู้': 'thread',         # (forum) thread; first is a bamboo fence post
+    'นิรโทษกรรม': 'amnesty',    # first is "justifiable act"
+    'สินบน': 'bribe',           # the first two are tagged or rarer
     'เบา': 'not heavy',         # "light (in weight)" is fourth of the adjective's senses
 }
 
 ABS = re.compile(r'^abstract noun of [^\s(]+ \([^()]*?(?:, “([^”]+)”\)$|\): (.+)$)')
 BARE = re.compile(r'^(?:abstract noun of [^\s(]+ \([^(),]*\)|Used other than figuratively or idiomatically.*)$')
 LISTITEM = re.compile(r'^[\u0e00-\u0e7f]+ \(“[^”]*”\)(?:,? and)?[.,;]?$')
-SYN = re.compile(r'^synonym of [^\s(]+ \([^,()]+, “([^”]+)”\)$')
+SYN = re.compile(r'^synonym of [^\s(]+ \((?:[^,()]+, )?“([^”]+)”\)$')
 
 # A GLOSS NEVER SHOWN: a vulgar sense Wiktionary leaves untagged (so it is not
 # weak), or an extraction artefact.  (word, substring of the gloss.)
@@ -231,7 +247,8 @@ PREFER = {'กว่า': 'prep', 'หาก': 'conj', 'จน': 'conj', 'แต
           'เพื่อน': 'noun', 'เมื่อ': 'conj', 'ใต้': 'prep', 'ข้าง': 'noun', 'มัก': 'adv',
           'ทุ่ม': 'noun', 'เก็บ': 'verb', 'ต้อง': 'verb', 'จาก': 'prep', 'แล้ว': 'adv',
           'แจ้ง': 'verb', 'สุนัข': 'noun', 'สมาคม': 'noun',
-          'ฉาย': 'verb', 'ยุติ': 'verb', 'โกหก': 'verb', 'รณรงค์': 'verb'}
+          'ฉาย': 'verb', 'ยุติ': 'verb', 'โกหก': 'verb', 'รณรงค์': 'verb',
+          'แยะ': 'adv', 'นมัสการ': 'verb', 'ดำรัส': 'verb', 'ทราม': 'adj'}
 
 
 def entries_for(row, lex):

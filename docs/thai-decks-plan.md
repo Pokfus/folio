@@ -5,8 +5,8 @@ twelfth language set in the shape of the ones already shipped, Hindi's above all
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Thai language collection."
 
-**STATUS (2026-11-12): the alphabet deck and A1 to B2 are built** (`.claude/thai/`, §6–§9). C1 and the
-phrases deck are not.
+**STATUS (2026-11-12): the alphabet deck and all five levels, A1 to C1, are built** (`.claude/thai/`,
+§6–§10). The phrases deck is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (merged into the day's Hindi line)
@@ -36,7 +36,7 @@ the owner's to overturn**:
 | Thai A2 Elementary — built | `Thai-A2.folio-deck.json` | 750 |
 | Thai B1 Intermediate — built | `Thai-B1.folio-deck.json` | 1,000 |
 | Thai B2 Upper Intermediate — built | `Thai-B2.folio-deck.json` | 1,500 |
-| Thai C1 Advanced | `Thai-C1.folio-deck.json` | 1,500 |
+| Thai C1 Advanced — built | `Thai-C1.folio-deck.json` | 1,500 |
 | Thai Phrases and Expressions | `Thai-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
 ## 2. Sources and licences
@@ -192,3 +192,31 @@ are unchanged by every rule added here.
 - **Known, left**: by B2 the frequency fill is largely literary, royal and Buddhist register (เสวย, ทอดพระเนตร,
   มหาราช, ภิกษุ, ภพ, ชาดก) — the corpora's agreement, and what a reader of Thai prose meets — and the deck's
   description says the fill is by frequency. Some glosses stay definitional.
+
+## 10. As built (2026-11-12): C1
+
+On request ("Add C1"). `python3 .claude/thai/run.py --level c1`. 1,500 notes: 340 from the C1 inventory
+(12 topics, `inventory.py` `C1`), 1,160 by frequency; sentences for 315, three for 100 — **1,185 words have no
+example sentence**. A re-run is byte-identical; A1 to B2 are unchanged.
+
+- **Wiktionary is thinnest exactly where C1 lives**: about 265 inventory words — the Pali and Sanskrit
+  vocabulary of philosophy, Buddhism, scholarship and law (อภิปรัชญา, อรหันต์, บูรณาการ, ปริทัศน์ …) — have no
+  entry. A maximal-matching pass over `lex.json` split each into known words; **the 151 kept as `COMPOSE` rows
+  are only those whose parts join with no linking vowel**, so the parts' Paiboon readings ARE the compound's
+  (ปัจเจกบุคคล bpàt-jèek-bùk-kon, ทวิภาคี tá-wí-paa-kii). Left out on purpose: compounds that insert one
+  (จิตเวช jìt-dtà-wêet, กรรมพันธุ์, วรรณศิลป์, every พระราช- word, ภูมิรัฐศาสตร์), splits that are not word
+  boundaries (โคลง as โค + ลง, สมถะ, โวหาร, ประหนึ่ง), and pairs whose English would collide (โดยนัย beside
+  โดยปริยาย). The English of each is written by hand, as every `COMPOSE` row's is.
+- **`SYN` now also reads a pointer with no romanisation** ("synonym of เทปกาว (“adhesive tape”)").
+- **Four more ETYMS, ten more LEAD, four more PREFER** (กำพร้า had opened on "epidermis" before "orphaned",
+  พิภพ on "nonexistence" before "world", อากร on "body; mass" before "duty (tax)", แฟ้ม on a dried-food
+  container before "folder", กฐิน on an embroidery hoop before the Kathina festival); บรรทม left the inventory
+  (Wiktionary has only "alternative form of ผทม").
+- **`EXCLUDE` grew by about thirty**: syllable, letter and name counts (มาน, จี, ยี่, นนท์, บ, กน, วดี …);
+  เน็ต, แป๊ะ, เชย, คอม (the everyday sense is a name-pointer, tagged weak or missing); ยวน; ปิดบัง, ขาดใจ,
+  เส้นเลือด beside a word with the same English; คงคา and มหาธาตุ (their only gloss opens on a Thai form list).
+  ฉิบหาย, used mostly as a curse, joined `SWEARS`.
+- **Known, left**: at C1 the frequency fill is mostly literary, royal and Buddhist register and the names of
+  plants and animals (เถาวัลย์, ไคล, ปิศาจ), which is what the two corpora agree on next; the topic inventory
+  carries the academic and civic words. Most cards have no sentence: Tatoeba has nothing more to give, and a
+  sentence is never invented.
