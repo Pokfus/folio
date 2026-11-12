@@ -2129,9 +2129,9 @@ on Parker 1895; the Su_Qin and Zhang_Yi entries still state 333 / 318 / 310 BCE 
 ### Locators (2026-11-12, the third hundred)
 
 Wikipedia's API answered at the end of the run (Commons still 429, so no picture pass), and `add-locators.js` wrote nine
-points, each fetched: the six first-hundred sites — `cnh-053` Sanxingdui, `cnh-063` Erlitou site, `cnh-075` the tomb of Fu
+points, each fetched: five of the six first-hundred sites — `cnh-053` Sanxingdui, `cnh-063` Erlitou site, `cnh-075` the tomb of Fu
 Hao (labelled Xiaotun), `cnh-089` Zhengzhou Shang City, `cnh-090` Panlongcheng (from its Wikidata item Q217684; the
-article carries no primary coordinate) — and three of the second hundred's: `cnh-121` Chengzhou (the article "Luoyi"
+article carries no primary coordinate) — and all four of the second hundred's: `cnh-121` Chengzhou (the article "Luoyi"
 resolves to Luoyang's own point; the Zhou city lies inside the modern one — review), `cnh-150` Chengpu, `cnh-180` Maling
 (the article's point; the site is disputed — Maspero puts it near Daming) and `cnh-181` Changping. `cnh-080` Xibeigang has
 no article and no Wikidata item with a coordinate, and is still waiting. In the third hundred, `cnh-203` (the Qin roads)
