@@ -401,6 +401,13 @@ stood on main on 2026-11-12 (the years only; ages, days and months left out), an
 | Qin's state wall / Meng Tian's campaign / the imperial wall | 306 – 251 BCE / 215 BCE / 214 BCE | Li et al. 2025; Chavannes (`cnh-207`) |
 | the mausoleum begun / the burial / works ended | 246 BCE / 210 BCE / 208 BCE | Zhao et al. 2020; Ma et al. 2016 (`cnh-208`) |
 | the Terracotta Army made / found | c. 247 – 210 BCE / 1974 | Quinn et al. (`cnh-209`) |
+| the Shaqiu plot | 210 BCE | the *Shiji* (`cnh-211`) |
+| the fall of the Qin: the revolt / the surrender / also dated | 209 BCE / 206 BCE / 207 BCE | `cnh-212`, as `cnh-191` |
+| the Han dynasty / the throne taken / the Xin interregnum | 206 BCE – 220 CE / 202 BCE / 9 – 23 CE | `cnh-213` |
+| the Chu–Han Contention / the Hong Canal treaty | 206 – 202 BCE / 203 BCE | Chavannes (`cnh-214`) |
+| the Feast at Hong Gate | 206 BCE | Chavannes (`cnh-217`) |
+| Gaixia | 202 BCE | Chavannes (`cnh-218`) |
+| the founding settlement | 202 BCE | `cnh-219` |
 
 ## Later periods
 
@@ -649,4 +656,11 @@ cnh-205: 221; 214
 cnh-207: 306; 251; 215; 214
 cnh-208: 246; 210; 208
 cnh-209: 247; 210; 1974
+cnh-211: 210
+cnh-212: 209; 206; 207
+cnh-213: 206; 220; 202; 9; 23
+cnh-214: 206; 202; 203
+cnh-217: 206
+cnh-218: 202
+cnh-219: 202
 ```

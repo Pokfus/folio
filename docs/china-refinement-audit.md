@@ -256,10 +256,10 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Jie Zitui and the cold food | the follower passed over after Chong'er's exile, withdrawing with his mother, Mianshang set aside for offerings to him (the Zuo Zhuan, Duke Xi 24, and the *Shiji*); the forest burned to bring him out and the cold-food custom, a later legend — set B15 (`cnh-149`) | — | `cnh-149` | — |
 | The burning of the books and burying of the scholars | the 213 BCE order to burn the *Shijing*, the *Shangshu* and the schools' writings outside the court academicians' copies, on Li Si's memorial, and the 212 BCE execution of 460 scholars at Xianyang (the *Shiji*, Qin annals and Li Si's biography, c. 100 BCE); "burying alive" as the traditional reading of 坑; the scholars as Confucians and the burning as a total loss, later Han readings; the *Shiji* itself has Fusu protest that the victims "all model themselves on Confucius"; modern doubters (the victims as *fangshi*, Zufferey 1997; the burying perhaps never done, Eno; Confucianism not the target, Pines; a smaller loss than the tradition says, Strähle); the melon-ditch tale a later legend — confirmed B21 (`cnh-202`) | `cnh-202` | `cnh-195`, `cnh-212` | — |
 | Xu Fu and the isles | Xu Fu (the *Shiji* also writes Xu Shi) asking leave in 219 BCE to seek Penglai, Fangzhang and Yingzhou with young men and women, and the great fish in 210 BCE (the *Shiji*, Qin annals); settling a plain and never returning (the *Shiji*, Huainan biography); his landing in Japan near Mount Fuji, first written down in Yichu's compilation of 955 from a Japanese monk's telling (Wu 2014) — agrees with the Penglai row; confirmed B21 (`cnh-210`) | `cnh-210` | `cnh-021`, `cnh-192` | `cnh-021` |
-| The Shaqiu plot and the forged edict | the First Emperor's death at Shaqiu in 210 BCE; Zhao Gao, Li Si and Huhai hiding it, the body carried back with salted fish, and the forged edicts ordering Fusu and Meng Tian to die (the *Shiji*, Qin annals and Li Si's biography); the excavated *Zhao Zheng shu* (Peking University slips) in which the emperor names Huhai himself — provisional | `cnh-211` | `cnh-195`, `cnh-206`, `cnh-212` | — |
-| The Feast at Hong Gate | Liu Bang's visit to Xiang Yu's camp in 206 BCE, Fan Zeng's signals with the jade, Xiang Zhuang's sword dance, Fan Kuai's entry and Liu Bang's flight (the *Shiji*, Xiang Yu's annals, c. 100 BCE); its speeches and staging read as literary set pieces — provisional | `cnh-217` | `cnh-214`, `cnh-215`, `cnh-216` | — |
-| Xiang Yu at Gaixia | Xiang Yu surrounded in 202 BCE, hearing Chu songs from the Han lines (四面楚歌), his song to Consort Yu and the horse Zhui, the break-out and death at the Wu River (the *Shiji*, Xiang Yu's annals); Consort Yu's suicide a later addition to the story — provisional | `cnh-218` | `cnh-214`, `cnh-215` | — |
-| Liu Bang's dragon birth | his mother dreaming of a god by a great marsh and a dragon over her, the dragon seen over him drunk, the white snake he killed (the *Shiji*, Gaozu's annals); signs of Heaven's choice for a commoner founder — provisional | — | `cnh-216` | — |
+| The Shaqiu plot and the forged edict | the First Emperor's death at Shaqiu in 210 BCE; Zhao Gao, Li Si and Huhai hiding it, the body carried back with salted fish, and the forged edicts ordering Fusu and Meng Tian to die (the *Shiji*, Qin annals and Li Si's biography; Zhao Gao's own phrase 沙丘之謀 in chap. 87) — confirmed B22 (`cnh-211`); the excavated *Zhao Zheng shu* (Peking University slips), in which the emperor is said to name Huhai himself, NOT confirmed (no open source) | `cnh-211` | `cnh-195`, `cnh-206`, `cnh-212` | — |
+| The Feast at Hong Gate | Liu Bang's visit to Xiang Yu's camp in 206 BCE, Fan Zeng's signals with the jade, Xiang Zhuang's sword dance, Fan Kuai's entry and Liu Bang's flight (the *Shiji*, Xiang Yu's annals, c. 100 BCE); the account in Gaozu's annals runs to a few lines and adds the armies' boasted sizes — confirmed B22 (`cnh-217`); no open source read calls the speeches set pieces, so the card says only that they are best read as Sima Qian's telling | `cnh-217` | `cnh-214`, `cnh-215`, `cnh-216` | — |
+| Xiang Yu at Gaixia | Xiang Yu surrounded in 202 BCE, hearing Chu songs from the Han lines (四面楚歌), his song to Consort Yu and the horse Zhui, the break-out and death at the Wu River (the *Shiji*, Xiang Yu's annals); the *Shiji*'s two accounts differ on when the songs come and name no author for them (a Ming–Qing tale credits Zhang Liang); in the annals Consort Yu only sings with him, her suicide a scene of the later opera *Bawang bie ji* — confirmed B22 (`cnh-218`) | `cnh-218` | `cnh-214`, `cnh-215` | — |
+| Liu Bang's dragon birth | his mother dreaming of a god by a great marsh and a dragon over her, the dragon seen over him drunk, the white snake he killed (the *Shiji*, Gaozu's annals); signs of Heaven's choice for a commoner founder — confirmed B22 (`cnh-216`) | — | `cnh-216` | — |
 | Wang Mang as usurper | the *Hanshu*'s verdict (Ban Gu, completed after 92 CE): a hypocrite who seized the throne and whose reforms brought chaos; modern readings of him as a reformer (Hu Shi's "socialist", Dubs) and of the Eastern Han's history as written against him (Bielenstein) — provisional | `cnh-246` | `cnh-245`, `cnh-247`, `cnh-248`, `cnh-249` | — |
 | The Peach Garden oath | Liu Bei, Guan Yu and Zhang Fei swearing brotherhood in a peach garden (the *Romance of the Three Kingdoms*, 14th-century novel, first printed 1522); the *Sanguozhi* says only that the three slept in one bed and were as close as brothers — provisional | — | `cnh-280`, `cnh-286`, `cnh-291` | — |
 | The Romance and the Records of the Three Kingdoms | Chen Shou's *Sanguozhi* (completed after 280 CE) with Pei Songzhi's notes (429 CE); the storytellers' and the Yuan *Sanguozhi pinghua* (printed 1321 – 1323); the *Romance* credited to Luo Guanzhong, first printed 1522, Mao Zonggang's edition c. 1679; its "seven parts fact, three parts fiction" (Zhang Xuecheng); Red Cliffs (the borrowed arrows, the east wind, Huarong), Guandu and Cao Cao's villainy told as the novel's; Guan Yu's deification as `cnh-039` tells it — provisional | `cnh-291`, `cnh-290` | `cnh-273`, `cnh-274`, `cnh-276`, `cnh-281`, `cnh-286` | `cnh-039` |
@@ -359,7 +359,7 @@ otherwise.
 | B19 | Eastern Zhou (`col-5`) | `cnh-181`–`cnh-190` | 10 | 107 | **done 2026-11-12** |
 | B20 | Qin (`col-7`) | `cnh-191`–`cnh-200` | 10 | 103 | **done 2026-11-12** |
 | B21 | Qin (`col-7`) | `cnh-201`–`cnh-210` | 10 | 93 | **done 2026-11-12** |
-| B22 | Qin (`col-7`) / Western Han (`col-10`) | `cnh-211`–`cnh-220` | 10 | 86 | to do |
+| B22 | Qin (`col-7`) / Western Han (`col-10`) | `cnh-211`–`cnh-220` | 10 | 86 | **done 2026-11-12** |
 | B23 | Western Han (`col-10`) | `cnh-221`–`cnh-230` | 10 | 80 | to do |
 | B24 | Western Han (`col-10`) | `cnh-231`–`cnh-240` | 10 | 78 | to do |
 | B25 | Western Han (`col-10`) / Xin (`col-11`) | `cnh-241`–`cnh-250` | 10 | 66 | to do |
@@ -690,6 +690,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-208` | the mound | not re-checked (Commons 429): ok |
 | `cnh-209` | the ranks in Pit 1 | not re-checked (Commons 429): ok |
 | `cnh-210` | the statue at Weihai | not re-checked (Commons 429): ok; the caption's departure from Weihai is unsourced — trim |
+| `cnh-211` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-212` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-213` | Han tomb figures of a dancer and musicians | not re-checked (Commons 429): ok |
+| `cnh-214` | a modern map with printed labels and arrows | not re-checked (Commons 429): weak: burned-in text — replace |
+| `cnh-215` | an album portrait | not re-checked (Commons 429): ok |
+| `cnh-216` | an album portrait | not re-checked (Commons 429): ok |
+| `cnh-217` | the Western Han painted beam from Luoyang | not re-checked (Commons 429): ok |
+| `cnh-218` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-219` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-220` | the empress's jade seal | not re-checked (Commons 429): ok |
 
 ## Glossary candidates
 
@@ -1627,3 +1637,42 @@ not in the *Shiji*, which has him die at Yangzhou; Giles dates the 300,000 men t
 **Dates that differ on purpose**: `cnh-208` starts the tomb in 246 BCE (two studies print it) where `cnh-209` starts the
 pits c. 247 BCE (Quinn et al.) and `cnh-192` makes him king in 247 BCE; each says whose. `wh-407` gives 34 prefectures
 in 214 BCE, a count the texts disagree on.
+
+### B22 — `cnh-211`–`cnh-220`, Qin and Western Han: the Shaqiu plot to Empress Lü (2026-11-12)
+
+Run as B21. Every cited URL answered except Eno's two Indiana handles (`cnh-219`, `cnh-220`), which returned the known
+intermittent 500 at the batch check; the agents had read and saved both pages, so they were kept. **Pictures were not
+touched** (Commons 429). **The old cards told the *Shiji*'s founding stories in their own voice, put places, army sizes
+and casualty counts on their lines (Hong Gate's 400,000 against 100,000; Gaixia's Location, Casualties and Result
+rows; "Ziying reigned 46 days"), named men in labels ("Er Shi reigned", "Er Shi died"), cited two French books on most
+cards, had Gaozu's labourers die on the road (the *Shiji*: they ran away), and gave the Han dynasty card three
+phrasings that belonged to its siblings.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-211` Shaqiu plot | 5 | 5 → 5 | **The plot told as the *Shiji*'s (chaps. 6 and 87): the unsent letter, the salted fish, the forged orders, Zhao Gao's later words; `Took place 210 BCE` only (the place and "Er Shi reigned" off)**; Hu Hai → Huhai. **Name corrected: 沙丘之变 → 沙丘之谋 (Shāqiū zhī móu), the *Shiji*'s own phrase (chap. 87: 夫沙丘之謀).** |
+| `cnh-212` fall of the Qin | 7 | 5 → 7 | **"Ziying reigned 46 days" and the man-naming labels off; `Revolt 209 BCE` / `Surrender 206 BCE` / `Also dated 207 BCE`, as `cnh-191`; the *Shiji*'s "several hundred thousand" attributed; Ziying's parentage left open (the sources disagree)**; the glossary's "killed when the victors quarrelled" (no source) dropped. Pinyin Qín cháo mièwáng. |
+| `cnh-213` Han dynasty | 9 | 5 → 9 | **The old card was the founding (its phrasings were `cnh-216`'s, `cnh-219`'s and `cnh-221`'s); now the whole dynasty: the 206/202 reckoning, the name from the Han River kingdom, the two halves, the frontier slips, the *Hanshu*, the fall in 220 CE, the Hanren debate; `Ruled 206 BCE – 220 CE` / `Throne taken 202 BCE` / `Interregnum 9 – 23 CE`**; "Lü Hou" gone. |
+| `cnh-214` Chu–Han Contention | 7 | 5 → 7 | **The Hong Canal off the line, now `Fought 206 – 202 BCE` / `Treaty 203 BCE`; phrasings only this war answers: the threat to boil Liu Bang's father, Ji Xin's decoy at Xingyang, the back-to-the-river battle at Jingxing**; the glossary's "broken by the side that had asked for it" (no source) dropped. |
+| `cnh-215` Xiang Yu | 7 | 5 → 7 | **Mayers (death in 201 BCE, the suicide at Gaixia) and a second French source out; Julu 207 BCE, the hegemon-king title early 206 BCE; the "Afang palace" a later name for the palaces the *Shiji* says burned three months; "brought up by his uncle" (no page) dropped**. Protected: the line stays (flagged below). |
+| `cnh-216` Emperor Gaozu of Han | 8 | 5 → 8 | **His labourers ran away on the road (徒多道亡), they did not die; the dragon birth told as the *Shiji*'s; the three articles of law, the three men he used, the Song of the Great Wind**; "first man of no family to rule China" and a "temple name" (no page) dropped. Protected: the line stays (flagged below). |
+| `cnh-217` Feast at Hong Gate | 6 | 5 → 6 | **The place and the army sizes off the line, now `Held 206 BCE`; the 400,000 and 100,000 and each side's boasts the *Shiji*'s, in prose; the seating order (Okayasu); the speeches "best read as" Sima Qian's telling**; the glossary's 206 BCE re-cited (Giles prints no year). |
+| `cnh-218` Battle of Gaixia | 6 | 5 → 6 | **Location, Casualties and Result off, now `Fought 202 BCE`; the 80,000 the annals' heads taken, "20,000 captured" (no source) dropped; the *Shiji*'s two accounts of the songs; Consort Yu's suicide the later opera's**; Cordier and Mayers out. |
+| `cnh-219` Han founding settlement | 6 | 5 → 6 | **The month (Chavannes's conversion) off, now `Made 202 BCE`; what the settlement made: the kingdoms in the east and the commanderies under the court, the kings removed until only Changsha's line outlived the founder; the timeline set to 202 BCE**. **Name corrected: the descriptive 汉初建国安排 → 郡国制 (jùnguózhì), the standard term (Tang 2025).** |
+| `cnh-220` Empress Lü | 7 | 5 → 7 | **The "human pig" and the palace child told as the *Shiji*'s; her own basic annals; van Ess on the *Hanshu*'s crueller portrait; Cordier's "came to the throne at fourteen" and "Changle palace, 1 June" dropped (Eno gives twelve), "the only legitimate female reign" dropped**. Protected: the line stays (flagged below). |
+
+Read by eye. **Confusability**: `cnh-213`'s old phrasings were three siblings'; the Chu songs, Consort Yu and the Wu
+River stay `cnh-218`'s, the jade ring, sword dance and Fan Kuai `cnh-217`'s, the boiling threat `cnh-214`'s (the Xiang Yu
+agent was told, and took Julu, the embroidered clothes and the hegemon-king's kingdoms); answer words cleared on
+`cnh-219` ("founding") and `cnh-220` ("empress"); `cnh-217`'s background trimmed to 284 words. **Legend**: Hong Gate,
+Gaixia, the dragon birth and the human pig are now the *Shiji*'s. **Chinese names corrected**: `cnh-211` (沙丘之变 →
+沙丘之谋), `cnh-219` (汉初建国安排 → 郡国制), `cnh-212` pinyin; `秦朝灭亡` is descriptive (for the owner). **Spellings
+fixed**: Hu Hai → Huhai, "Lü Hou" gone; 0 hits. **Myth register**: the Shaqiu plot confirmed from the *Shiji* (the
+*Zhao Zheng shu* not confirmed: no open source); Hong Gate confirmed (no open source calls the speeches set pieces, so
+the card says only "best read as his telling"); Gaixia confirmed and corrected (the *Shiji* names no author of the
+songs; a Ming–Qing tale credits Zhang Liang; Consort Yu only sings in the annals); Liu Bang's dragon birth confirmed.
+**Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-215`'s 233 BCE fits the *Shiji*'s "24 at
+the rising" only in full years (by *sui*, 232 BCE); `cnh-216`'s 247 BCE is Giles's (the *Shiji* gives none; the rival
+256 BCE could not be opened) and its two days are Chavannes's conversions (pp. 381, 401); `cnh-220`'s 241 BCE is in no
+source read, Shanfu is her father's home, not a recorded birthplace, and 18 August 180 BCE is Chavannes's conversion
+(p. 427). `cnh-245`'s first phrasing says the Xin was proclaimed in 8 CE against its own line's 9 CE (B25 will see it).
