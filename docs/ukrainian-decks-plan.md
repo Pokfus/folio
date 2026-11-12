@@ -5,8 +5,8 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-09: "Add a Ukrainian language collection."
 
-**STATUS (2026-11-12): the alphabet deck and all five levels, A1 to C1, are built** (`.claude/ukrainian/`, §6–§10).
-A phrases deck (Phase 3) is not.
+**STATUS (2026-11-12): COMPLETE — the alphabet deck, all five levels (A1 to C1) and the phrases deck are built**
+(`.claude/ukrainian/`, §6–§11).
 
 Later decks under `decks/` are community content, not a change to Folio: **no changelog line and no version bump**
 for them. The collection's first commit carried one line and one bump, because it also changed the APP (the
@@ -34,6 +34,7 @@ already use, and the owner may overrule any of it:
 | Ukrainian B1 Intermediate — built | `Ukrainian-B1.folio-deck.json` | 1,000 |
 | Ukrainian B2 Upper Intermediate — built | `Ukrainian-B2.folio-deck.json` | 1,500 |
 | Ukrainian C1 Advanced — built | `Ukrainian-C1.folio-deck.json` | 1,500 |
+| Ukrainian Phrases and Expressions — built | `Ukrainian-Phrases-and-Expressions.folio-deck.json` | 135 |
 
 ## 2. Sources and licences
 
@@ -176,3 +177,42 @@ barely count (`ладо`, `бона`, `верзти`, `низати`, `висо�
 old spellings (`біл`, `туалета`), dialect (`се`, `нє`) and a letter name (`хі`). **All five levels rebuild
 byte-identical.** Known, left: `учинок` and `укусити` are Wiktionary's own у-lemmas (their в-spellings are only
 alternative forms there), and the fill carries the subtitles' slang and genre words as every level does.
+
+## 11. As built (2026-11-12): the phrases deck
+
+`python3 .claude/ukrainian/run.py --level phr` runs `phrases.py` in place of `select.py`. 135 expressions in three
+subdecks, the Indonesian, Turkish and Hindi arrangement (`docs/lang-decks.md`, "THE PHRASES DECK"): **62 Phrases**
+(Wiktionary's multi-word phrases and interjections not tagged idiomatic — `чи не так`, `до речі`, `нема за що`, the
+greetings of the day and of the festivals, the national salute `слава Україні` — `героям слава`), **68 Idioms** (a
+multi-word entry with a sense tagged idiomatic — `робити з мухи слона`, `китайська грамота`, `коли рак на горі
+свисне`) and **5 Proverbs** (Wiktionary's part of speech; it files most Ukrainian sayings as idioms — `нема диму без
+вогню`, `один у полі не воїн` — and they are left where it puts them, the description saying so). Nothing a level
+teaches is repeated (`будь ласка`, `до побачення` are A1's). Ordered by Tatoeba occurrences, then frequency; 67
+occur in a Tatoeba sentence, 63 carry sentences, 30 three. **A re-run is byte-identical, and all five levels rebuild
+byte-identical with the changed code.**
+
+**Findings:**
+- **A Ukrainian verb idiom usually puts the verb FIRST** (`накласти на себе руки`, `прийти до тями`), where Hindi's
+  and Turkish's end in it, so `examples.phrase_parts` lets whichever word is a verb lemma (`-ти`, `-тися`) match in
+  any form of it (`наклав на себе руки`, `покажу, де раки зимують`). For the phrases deck ONLY; the levels keep
+  their exact matching.
+- **A LITERAL SENTENCE TEACHES THE WRONG THING**: Tatoeba's hits for `мати довгі руки` "to be light-fingered" are
+  "she has long arms and legs", for `відкрити Америку` "to state the obvious" Columbus, for `дуже приємно` "pleased
+  to meet you" a comfortable chair. `examples.LITERAL` names each skipped sentence, read off the first build (eight
+  expressions); a joke (`Христос народився` … "before Chuck Norris") is skipped the same way.
+- **Sixteen head lines carry no stress at all** (`слава Україні`, `мене звати`, `з Новим роком` …) and one a stray
+  mark (`д́ати гарбуза`); `STRESS` in `build_deck.py` supplies them.
+- **"Used other than figuratively or idiomatically: see …"** is a Wiktionary line pointing at the literal reading's
+  words; `english()` drops it (`є таке`, `під джмелем`). No level gloss carries it, so the levels are unchanged.
+- Excluded, each with its reason in `phrases.EXCLUDE` (26): sentences and templates built from level words (`я не
+  знаю`, `я з`, `я українець`, `у мене є питання`); dialect and Russianised forms of a greeting taught (`добри
+  вечур`, `доброї раніці`, `я називаюсє`, `так єс сі`, `Христос рождається`); the same expression twice (`день
+  добрий`, `слава богові`, `хай щастить`, `за зачиненими дверима`, the imperfective `висаджувати в повітря`); a
+  religious greeting and an invocation that are not festival greetings (`слава Ісусу Христу`, `з нами Бог`); a
+  political slogan (`все буде Україна`); Internet slang of one community (`шакалячий експрес`); and `як Марко в
+  пеклі`, whose gloss is a usage note.
+
+**Known, left.** Wiktionary tags as idiomatic some expressions a learner would call plain (`мене звати` "my name
+is", `в руках`); its labels are the source's. The festival greetings are kept with their replies (`Христос
+воскрес` — `воістину воскрес`, `Христос народився` — `Славимо Його`), as Hindi kept its festival greetings. The
+mild oaths `чорт забирай`, `якого біса` are kept as expressions a learner hears.

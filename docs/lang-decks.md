@@ -3584,7 +3584,9 @@ changed was the one that had been wrong all along.
   `decks/Ukrainian-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Ukrainian-A2.folio-deck.json`**
   (750 notes / 1,500 cards, 2026-11-12) **and B1, `decks/Ukrainian-B1.folio-deck.json`** (1,000 notes / 2,000 cards,
   2026-11-12) **and B2, `decks/Ukrainian-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12) **and C1,
-  `decks/Ukrainian-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12) — all five levels. `python3 .claude/ukrainian/run.py [--level a1]`,
+  `decks/Ukrainian-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12) — all five levels — **and the phrases
+  deck, `decks/Ukrainian-Phrases-and-Expressions.folio-deck.json`** (135 expressions in three subdecks, `--level phr`,
+  2026-11-12): the collection is complete. `python3 .claude/ukrainian/run.py [--level a1]`,
   `python3 .claude/ukrainian/alphabet.py`, `node .claude/ukrainian/check-ukrainian.js`; a re-run is byte-identical.
   Assembled to CEFR like Hindi; the card is Russian's (stress marked, no transliteration, the aspect partner). The
   findings — the Russian in the Ukrainian subtitle list, the apostrophe, the pronouns' shared table, a table without

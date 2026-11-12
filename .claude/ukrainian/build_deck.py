@@ -94,7 +94,17 @@ GLOSS_DROP = {'я': {'ego'}}
 # learner's grammar does not: `зна́ти` has no perfective (`зазна́ти` is "to undergo").
 PARTNER = {'знати': []}
 # A HEADWORD'S STRESS WRITTEN HERE, where Wiktionary's head line carries none.
-STRESS = {'давайте': 'дава́йте', 'стривати': 'стрива́ти'}
+STRESS = {'давайте': 'дава́йте', 'стривати': 'стрива́ти',
+          # the phrases deck: Wiktionary's head line for these carries no stress at all
+          'слава богу': 'сла́ва бо́гу', 'хай живе': 'хай живе́', 'з новим роком': 'з Нови́м ро́ком',
+          'нехай щастить': 'неха́й щасти́ть', 'слава україні': 'сла́ва Украї́ні',
+          'христос народився': 'Христо́с народи́вся', 'героям слава': 'геро́ям сла́ва',
+          'з великоднем': 'з Вели́коднем', 'бувай здоров': 'бува́й здоро́в',
+          "вічна память": "ві́чна па́м'ять", 'славимо його': 'Сла́вимо Його́',
+          'у кожному жарті є часточка правди': 'у ко́жному жа́рті є ча́сточка пра́вди',
+          'у річці йордан': 'У рі́чці Йорда́н', 'христос хрещається': 'Христо́с хре́щається',
+          'мене звати': 'мене́ зва́ти', 'дати гарбуза': 'да́ти гарбуза́',  # Wiktionary: "д́ати"
+ 'кулик кулика бачить здалека': 'кули́к кулика́ ба́чить здале́ка'}
 
 
 # ---- glosses ---------------------------------------------------------------------------
@@ -155,6 +165,10 @@ def english(ents, word=''):
                 continue
             t = TRAIL.sub('', g['g'])
             if t in GLOSS_DROP.get(word, ()):
+                continue
+            # "Used other than figuratively or idiomatically: see під" (the phrases deck) names
+            # the literal reading's words rather than giving a meaning
+            if t.startswith('Used other than figuratively or idiomatically'):
                 continue
             # "grandfather (diminutive)" and "grandfather (affectionate)": one line
             base = re.sub(r' \((diminutive|affectionate|augmentative)\)$', '', t)
@@ -340,7 +354,7 @@ def build(rows, lex, exs):
         head = lex[r['key']].get('head') if r.get('via') else main['head']
         head = show(STRESS.get(fold(r['word'])) or head or r['word'])
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Ukrainian': E(head),
             'Word': E(speak(head)),
             'English': english(ents, r['word']),
@@ -349,7 +363,7 @@ def build(rows, lex, exs):
             'Examples': examples_html(ex),
         }})
         entries.append({'word': r['word'], 'pos': main['pos'], 'source': r['source'],
-                        'examples': len(ex)})
+                        'examples': len(ex), 'sub': r.get('sub', ''), 'count': r.get('count', 0)})
     return cards, entries
 
 
@@ -400,6 +414,39 @@ def desc(entries, n):
     )
 
 
+def desc_phr(entries, n):
+    by = {s: [e for e in entries if e['sub'] == s] for s in ('Phrases', 'Idioms', 'Proverbs')}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Ukrainian set phrases, idioms and proverbs, in three subdecks: {len(by['Phrases'])} "
+        f"everyday phrases, {len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study "
+        "directions come as two cards of one expression — Ukrainian → English (see the Ukrainian, "
+        "recall the meaning) and English → Ukrainian (see an English meaning, recall the Ukrainian) — "
+        "each with a schedule of its own. This is a companion to the five level decks, Ukrainian A1 to "
+        "C1, and not one of them: a level is a list of words, and an expression is a unit a list of "
+        "words cannot see. Nothing here is taught by any of the five, so the two can be studied together "
+        "without repeating an entry. The PHRASES are the expressions Wiktionary files as phrases and does "
+        f"not mark as idiomatic — mostly the everyday formulas a Ukrainian speaker uses as one piece "
+        f"({eg('Phrases')} …), with the greetings of the festivals and the national salute. The IDIOMS "
+        f"are expressions whose meaning is not their words' ({eg('Idioms')} …), and the PROVERBS the "
+        f"sayings Wiktionary files as proverbs ({eg('Proverbs')} …); Wiktionary files many more Ukrainian "
+        "sayings as idioms than as proverbs, and they are left where it puts them. Within each subdeck "
+        "the expressions come in the order of how many of Tatoeba's Ukrainian sentences contain them, an "
+        f"expression with a verb being counted in any form of that verb; only {found} of the {n} are found "
+        "there at all, and the rest follow in the order of how common their words are in film and "
+        "television subtitles. Every expression is printed in Cyrillic with its stress marked. "
+        f"Real example sentences come with {n - ex0} of the {n} expressions, three apiece for {ex3}, "
+        "with the expression picked out in colour and a speaker beside the sentence and the headword. "
+        "Sources. Expressions, meanings, stress and the idiom and proverb labels: English Wiktionary, "
+        "via the kaikki.org extraction (CC BY-SA 4.0). Order: Tatoeba (tatoeba.org), CC BY 2.0 FR, then "
+        "a word list built from OpenSubtitles (hermitdave/FrequencyWords, CC BY-SA 4.0). Example "
+        "sentences: Tatoeba, CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -410,11 +457,21 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in ('Phrases', 'Idioms', 'Proverbs')}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Idioms']} idioms, "
+                    f"{by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['ukrainian', 'phrases', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['ukrainian', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['ukrainian', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': subtitle,
+        'desc': description, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Ukrainian vocabulary', 'speechLang': 'uk-UA',
