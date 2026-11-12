@@ -65,12 +65,121 @@ EXCLUDE = {
     'জ্বী': 'the other spelling of জী "yes (polite)", dealt on its own',
     'দিয়া': 'the sadhu (literary) form of দিয়ে and of দেওয়া',
     'মিস': '"Miss"; its count is the subtitles\' English "miss"',
+    # Read off the B1 ranking (2026-11-12).
+    'ঔষধ': 'the older, formal spelling of ওষুধ "medicine", taught in A1',
+    'গোরু': 'the other spelling of গরু "cow", taught in A1',
+    'ভিজা': 'the older spelling of ভেজা "wet", taught in A2',
+    'ওইটা': 'the longer form of ওটা "that", taught in A1',
+    'লওয়া': 'the older, literary form of নেওয়া "to take", taught in A1',
+    'ইহা': 'the sadhu (literary) pronoun "it"; colloquial Bengali says এটা',
+    'হইতে': 'the sadhu (literary) "from"; colloquial Bengali says থেকে',
+    'কাইল': 'a dialect form of কাল "yesterday; tomorrow", taught in A1',
+    'কালি': '"yesterday; tomorrow" (dialect); its count is কালি "ink", a sense the entry lacks',
+    'বে': 'a dialect form of বিয়ে "wedding", taught in A1',
+    'নগরী': 'its first sense is a bare "synonym of নগর"',
+    'গুলা': '"flood"; its count is -গুলা, the plural ending written as a word',
+    'পেল': '"scrotum"; its count is পেল "got", a past form of পাওয়া',
+    'হোল': '"scrotum"; its count is the subtitles\' English "whole" and "hole"',
+    'হোম': '"havan, a fire offering"; its count is the subtitles\' English "home"',
+    'হিল': '"grinding stone"; its count is the subtitles\' English "hill" and "heel"',
+    'রুট': '"anger"; its count is the subtitles\' English "route"',
+    'ব্যাক': '"all, whole"; its count is the subtitles\' English "back"',
+    'অল': '"sting"; its count is the subtitles\' English "all"',
+    'রাম': '"rum"; its count is the name Ram',
+    'জামাল': '"beauty"; its count is the name Jamal',
+    'ওমর': '"age, life"; its count is the name Omar',
+    'আলী': '"noble"; its count is the name Ali',
+    'সরফরাজ': '"exalted"; its count is the name Sarfaraz',
+    'হোয়া': '"cucumber"; its count is হওয়া "to be" written without its য়',
+    'দেও': '"demon"; its count is দেও "give!", an imperative of দেওয়া',
+    'পেশ': '"front; the vowel point damma"; its count is পেশ in পেশ করা "to present"',
+    'খানা': '"pit, ditch"; its count is খানা "meal" and the suffix -খানা, senses the entry lacks',
+    'ফ্ল্যাট': 'Wiktionary\'s entry has no romanisation',
+    'ওহে': 'Wiktionary\'s romanisation is queried ("ohe?")',
+    'হল': '"plough"; its count is হল "was, became", a past form of হওয়া',
+    'ডগ': '"six"; its count is the subtitles\' English "dog"',
+    'আদম': '"man"; its count is the name Adam',
+    'ভালা': 'a dialect form of ভালো "good", taught in A1',
+    # Read off the B2 ranking (2026-11-12).
+    'আপনা': '"oblique base of আপনে" leads its entry; the card would teach a pointer',
+    'রহমান': '"merciful", a name of God; its count is the name Rahman',
+    'রহিম': '"merciful", a name of God; its count is the name Rahim',
+    'বিস্তৃত': 'Wiktionary\'s entry carries বিস্তারহীন\'s romanisation and senses ("limited, narrow")',
+    'সংকীর্ণ': 'Wiktionary\'s entry carries হীন\'s romanisation ("hin") and senses',
+    'আইচ্ছা': '"Vanga form of আচ্ছা", a dialect pointer to a word taught in A1',
+    'খাই': '"act of eating"; its count is খাই "(I) eat", a form of খাওয়া',
+    'লাগ': '"angry in a cute way"; its count is the forms of লাগা "to be needed"',
+    'কিল': '"pounce"; its count is the subtitles\' English "kill"',
+    'চিল': '"hawk"; its count is the subtitles\' English "chill"',
+    'মাইনাস': '"remove"; the English "minus" in Bengali letters',
+    'বল্টু': '"penis" (slang); its count is the name Boltu and "bolt"',
+    'আইজ': 'a dialect form of আজ "today", taught in A1',
+    'এইখান': 'the bare stem of এইখানে "here"; A1 teaches এখানে',
+    'বিন': '"son of", met in Arabic names, not a word of running Bengali',
+    'যাহা': 'the sadhu (literary) "that, which"; colloquial Bengali says যা',
+    'করিয়া': 'the sadhu (literary) form of করে "by means of"',
+    'থিকা': 'a dialect form of থেকে "from", taught in A1',
+    'দো': '"two" as in compounds (দোতলা); colloquial Bengali says দুই, taught in A1',
+    'রাসেল': 'a given name',
+    'সাবরিনা': 'a given name',
+    'আকবর': '"great"; its count is the name Akbar',
+    'আজম': '"greatest"; its count is the name Azam',
+    'করিম': '"kind"; its count is the name Karim',
+    'আখতার': '"star"; its count is the name Akhtar',
+    'হরি': '"yellow"; its count is the name Hari',
+    'মিনেসোটা': 'a place name (Minnesota)',
+    'রম': '"read-only memory"; its count is "rum" and "Rome"',
+    'অক্কা': '"lord, God"; its count is অক্কা in অক্কা পাওয়া "to kick the bucket", a sense the entry lacks',
+    'উরি': '"lablab bean"; its count is the interjection উরি "oh!"',
+    'বাগ': '"garden"; its count is the subtitles\' English "bag" and "bug"',
+    'অম': '"body heat"; its count is the subtitles\' "um"',
+    'পাড়': 'Wiktionary\'s one sense, "hill", is not the word\'s common meaning, "bank (of a river)"',
+    'পৌত্তলিক': 'Wiktionary\'s one sense, "ethnic", is not the word\'s meaning, "idolatrous"',
+    'পসরা': 'Wiktionary\'s one sense, "light ray", is not the word\'s common meaning, "wares"',
+    'সেব': 'a dialect form of আপেল "apple", taught in A1',
+    'রাইত': 'a dialect form of রাত "night", taught in A1',
+    'সোলো': 'a dialect form of ষোলো "sixteen", taught in A2',
+    'হাপ': 'a dialect form of সাপ "snake", taught in B1',
+    'ক্যা': 'a dialect form of কেন "why", taught in A1',
+    'ধনবাদ': 'a misspelling of ধন্যবাদ "thank you", taught in A1',
+    # Read off the C1 ranking (2026-11-12).
+    'রুস্তম': 'the hero Rostam of Persian epic, a name',
+    'টেমস': 'a place name (the Thames)',
+    'মীর': '"prince, emir"; its count is the name Mir',
+    'আমীর': '"leader, noble"; its count is the name Amir',
+    'হাবীব': '"friend"; its count is the name Habib',
+    'এরশাদ': '"command"; its count is the name Ershad',
+    'ইয়াসমিন': '"jasmine"; its count is the name Yasmin',
+    'অরুণ': '"red; the sun"; its count is the name Arun',
+    'স্বপন': '"dream"; its count is the name Swapan',
+    'অনামিকা': '"ring finger"; its count is the name Anamika',
+    'মল্লিকা': '"Arabian jasmine"; its count is the name and surname Mallika / Mallik',
+    'আশিষ': '"blessing"; its count is the name Ashish',
+    'সিয়াম': '"fasting"; its count is the name Siam',
+    'পৃথ্বী': '"Mother Earth"; its count is the name Prithvi',
+    'প্রব্লেম': 'the English "problem" in Bengali letters; A1\'s fill teaches সমস্যা',
+    'অখন': 'a dialect form of তখন "then", taught in A1',
+    'তয়': 'a dialect form of তবে "but", taught in A1',
+    'মানষি': 'a dialect form of মানুষ "person", taught in A1',
+    'শাল': '"sal tree"; its count is শাল "shawl", a sense the entry lacks',
+    'হাড়ি': 'Wiktionary\'s sense is not the word\'s common meaning, "cooking pot"',
+    'মাস্তানি': 'Wiktionary\'s sense, "drunkardry", is not the word\'s meaning, "hooliganism"',
+    'তুমিহীন': 'a poetic coinage ("literally \'you-less\'"), not a word of the language',
+    'আফতাব': '"the sun"; its count is the name Aftab',
+    'সৈয়দ': '"sir, master"; its count is the surname Syed',
+    'নিকটবর্তী': 'Wiktionary\'s entry has no romanisation',
+    'পাইথন': '"synonym of অজগর" leads its entry; অজগর "python" is dealt on its own',
+    'হসপিটাল': 'the English "hospital" in Bengali letters; A1 teaches হাসপাতাল',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
 # Swearing and insults are never in a level deck.
 SWEARS = {'শালা', 'শালী', 'হারামি', 'হারামজাদা', 'কুত্তা', 'কুত্তার বাচ্চা', 'বাল', 'চুদা',
-          'মাগী', 'বেজন্মা', 'শুয়োর', 'গাধা'}
+          'মাগী', 'বেজন্মা', 'শুয়োর', 'গাধা',
+          # slang and smut the B2 ranking dealt (2026-11-12): not a level deck's words
+          'নুনু', 'পর্ন', 'পর্নো', 'পাদ', 'পাদা', 'হস্তমৈথুন',
+          # and C1's (2026-11-12): a vulgar intensifier, a slur, and "piss"
+          'বাঁড়া', 'পায়ুকামী', 'মুত', 'পেচ্ছাপ'}
 
 # A PRONOUN'S CASE FORM IS ON THE PRONOUN'S CARD: Wiktionary gives `আমাদের`, `তোমাকে`,
 # `তাদের` entries of their own whose one sense is "objective of আমরা", and the fill
@@ -80,9 +189,10 @@ CASEFORM = re.compile(r'^(objective|genitive|possessive|locative|oblique)[^;]* o
 
 # A VERB FORM OR A SPELLING POINTER THAT WIKTIONARY LEFT UNTAGGED is not a lemma either:
 # `গিয়েছিল` "চলিত past perfect second/third-person polite of যাওয়া" and `পুরনো`
-# "Umlauted form of পুরানো" reached A2's fill as words of their own.
+# "Umlauted form of পুরানো" reached A2's fill as words of their own; B1's dealt `আম্মা`,
+# `আপু` and `অপারেশন`, whose one sense is "synonym of মা" / "of আপা" / "of অস্ত্রোপচার".
 FORMGLOSS = re.compile(r'(\b(person|perfect|past|present|future|imperative|participle|'
-                       r'umlauted|alternative)\b[^;]*|\bform) of [\u0980-\u09ff]', re.I)
+                       r'umlauted|alternative|synonym)\b[^;]*|\bform) of [\u0980-\u09ff]', re.I)
 
 
 def caseform(L):
@@ -154,6 +264,10 @@ def main():
         # a MULTI-WORD lemma (কথা বলা, মনে করা) is the inventory's to choose; the
         # fill's ranking of one is only an estimate (`extract.py`)
         if ' ' in k:
+            continue
+        # nor a HYPHENATED one (টি-শার্ট, হাত-পা, সাদা-সিধা): a compound whose parts the
+        # levels teach, and a headword `check-bengali.js` refuses (B2, 2026-11-12)
+        if '-' in k:
             continue
         if not usable(L) or L['freq'] < 1:
             continue

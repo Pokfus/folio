@@ -35,15 +35,26 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1270", released: "2026-11-12T04:46Z" };
+window.FOLIO_VERSION = { v: "1.1283", released: "2026-11-12T06:54Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-12",
-    t: "100 new United States and 100 new Biology cards",
+    t: "Eleven collections grow; Economics, Dinosaurs, India open; Arabic decks",
     items: [
-      "100 new cards in <b>United States</b>, from the Constitution's ratification and the early republic to the Jacksonian era and Texas, with 95 new glossary terms.",
-      "100 new cards in <b>Biology</b>, from cells and organelles through membranes and respiration to photosynthesis, with 96 new glossary terms.",
+      "200 new cards in <b>Psychology</b>, from research ethics and the brain to genes, hormones and drugs, sensation, vision and hearing, with 188 new glossary terms.",
+      "300 new cards in <b>United States</b>, from the Constitution's ratification through slavery and abolition to the sectional crisis and the Civil War, with 288 new glossary terms.",
+      "100 new cards in <b>Russia</b>, from Peter the Great's reforms and the age of the empresses through Catherine the Great to Borodino, with 99 new glossary terms.",
+      "100 new cards in <b>Ancient Egypt</b>, from the late Middle Kingdom and the Hyksos to the early Eighteenth Dynasty and the first Amarna cards, with 94 new glossary terms.",
+      "100 new cards in <b>Astronomy</b>, from the Solar System's formation through the planets and moons to the asteroids, with 95 new glossary terms.",
+      "70 new cards in <b>Visual Art</b>, from the first farming villages through the Bronze Age to early Classical Greece, with 58 new glossary terms.",
+      "100 new cards in <b>Korea</b>, covering the Three Kingdoms, Goguryeo, Baekje, Silla and Gaya, with 92 new glossary terms.",
+      "The new <b>Economics</b> collection opens with 100 cards, from what economics is to scarcity, models, its limits and supply and demand, with 98 new glossary terms.",
+      "The new <b>Dinosaurs</b> collection opens with 100 cards, on what a dinosaur is, its anatomy, classification and deep time, with 95 new glossary terms.",
+      "100 new cards in <b>Japan</b>, from late Nara through the Heian court, its literature and art, to the rise of the warriors and the Genpei War, with 94 new glossary terms.",
+      "The new <b>India</b> collection opens with 100 cards, from prehistory and the Indus cities through the Vedic age to the Buddha, with 74 new glossary terms.",
+      "New <b>Arabic A2</b>, <b>B1</b>, <b>B2</b> and <b>C1</b> decks on the Languages shelf: 600, 800, 900 and 700 more words of Modern Standard Arabic, none repeated.",
+      "A new <b>Arabic Phrases and Expressions</b> deck: 164 everyday phrases, idioms and proverbs, in three subdecks.",
     ],
   },
   {

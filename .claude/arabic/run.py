@@ -2,8 +2,10 @@
 """Build the Arabic decks, end to end.
 
     python3 .claude/arabic/run.py                 # Arabic A1
+    python3 .claude/arabic/run.py --level a2      # Arabic A2, on top of A1 (builds A1's word list if missing)
     python3 .claude/arabic/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/arabic/alphabet.py            # the Arabic Alphabet deck (hand-written, no cache)
+    python3 .claude/arabic/phrases.py             # Arabic Phrases and Expressions (after every level)
 
 Caches in `.claude/arabic-cache/` (~1.4 GB, gitignored).  See
 `docs/arabic-decks-plan.md` for the plan and the findings.
@@ -18,6 +20,7 @@ THE STAGES, in order, each writing into the cache for the next:
 A re-run reproduces the shipped deck byte for byte; read the diff if it does not.
 """
 import argparse, os, subprocess, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CACHE = os.path.join(HERE, "..", "arabic-cache")
@@ -49,6 +52,10 @@ def main():
                 subprocess.run(["curl", "-sSfL", "-o", p, url], check=True)
     if not os.path.exists(os.path.join(CACHE, "dict.json")):
         run("extract_kaikki.py")
+    import inventory
+    for lv in inventory.LEVELS[:inventory.LEVELS.index(a.level)]:
+        if not os.path.exists(os.path.join(CACHE, "wordlist-%s.json" % lv)):
+            run("select.py", "--level", lv)
     run("select.py", "--level", a.level)
     run("examples.py", "--level", a.level)
     run("build_deck.py", "--level", a.level)

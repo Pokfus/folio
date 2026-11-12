@@ -21,7 +21,7 @@ import csv, json, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from hi import fold, nfc, tokens
-from hindi_level import f
+from hindi_level import LEVEL, f
 
 csv.field_size_limit(10 ** 8)
 
@@ -63,6 +63,30 @@ def forms_of(row, lex):
     return out
 
 
+# THE PHRASES DECK ONLY: an expression that IS a verb (`नाक में दम करना`) is matched
+# with its last word in any form of that verb (`नाक में दम कर दिया`), the Turkish
+# finding; an expression that only ends in a verb-shaped word is matched as written.
+# The level decks keep their exact matching, so they rebuild byte-identical.
+def phrase_parts(row, lex):
+    words = [fold(t) for t in tokens(row['word'])]
+    last = {words[-1]}
+    L = lex.get(row['key'], {})
+    if any(e['pos'] == 'verb' for e in L.get('entries', [])) and words[-1].endswith('ना'):
+        V = lex.get(words[-1], {})
+        for e in V.get('entries', []):
+            if e['pos'] == 'verb':
+                last |= {fold(t['f']) for t in e['table'] if ' ' not in t['f']}
+    return words, last
+
+
+def seq_hit(ft, words, last):
+    n = len(words)
+    for j in range(len(ft) - n + 1):
+        if ft[j:j + n - 1] == words[:-1] and ft[j + n - 1] in last:
+            return ft[j:j + n]
+    return None
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -76,7 +100,13 @@ def main():
     for row in rows:
         words = fold(row['word']).split()
         cands = []
-        if len(words) > 1:
+        if LEVEL == 'phr' and len(words) > 1:
+            pw, last = phrase_parts(row, lex)
+            for i in index.get(pw[0], []):
+                hit = seq_hit(toks[i][3], pw, last)
+                if hit:
+                    cands.append((i, 0, hit))
+        elif len(words) > 1:
             for i in index.get(words[0], []):
                 ft = toks[i][3]
                 for j in range(len(ft) - len(words) + 1):

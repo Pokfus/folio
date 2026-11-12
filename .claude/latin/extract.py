@@ -155,15 +155,9 @@ def plural_only(e):
 GOOD_FORM = re.compile(r"^[a-zà-ɏ̀-ͯ ]+$")
 
 
-def main():
-    # Tatoeba: every Latin sentence, linked or not, counted by folded word form
-    counts = collections.Counter()
-    for row in csv.reader(open(TAT, encoding='utf-8'), delimiter='\t', quoting=csv.QUOTE_NONE):
-        if len(row) >= 3:
-            for t in tokens(row[2]):
-                counts[fold(t)] += 1
-    dcc = dcc_list()
-
+def read_lemmas():
+    """Every lemma of the dump a deck could teach, by its fold.  Shared with
+    `corpus.py`, which counts the same lemmas over a classical corpus."""
     lemmas = {}
     for line in open(DUMP, encoding='utf-8'):
         i = line.find('"pos": "')
@@ -204,7 +198,14 @@ def main():
                                {(h.get('args') or {}).get('2', '') for h in e.get('head_templates') or []
                                 if h.get('name') == 'la-prep'} - {''})}
         lemmas.setdefault(k, {'word': w, 'entries': []})['entries'].append(ent)
+    return lemmas
 
+
+def lemma_counts(lemmas, counts, first=None):
+    """A lemma count from a count of folded word forms: each lemma earns what the
+    forms it alone holds earn, and a shared form is split in proportion, over two
+    rounds.  Shared with `corpus.py`, which passes `first` (the DCC lemmas): a form
+    one of them claims goes to them alone (`bellum`'s forms are all `bellus`'s too)."""
     # which lemmas claim which surface (each lemma its own spelling and its table)
     claims = collections.defaultdict(set)
     for k, L in lemmas.items():
@@ -215,6 +216,10 @@ def main():
             for row in ent['table']:
                 if ' ' not in row['f']:
                     claims[fold(row['f'])].add(k)
+    if first:
+        for surf, who in claims.items():
+            if len(who) > 1 and who & first:
+                claims[surf] = who & first
     alone = collections.Counter()
     for surf, who in claims.items():
         if len(who) == 1:
@@ -231,6 +236,19 @@ def main():
             for k in who:
                 nxt[k] += c * wts[k] / tot
         freq = nxt
+    return freq
+
+
+def main():
+    # Tatoeba: every Latin sentence, linked or not, counted by folded word form
+    counts = collections.Counter()
+    for row in csv.reader(open(TAT, encoding='utf-8'), delimiter='\t', quoting=csv.QUOTE_NONE):
+        if len(row) >= 3:
+            for t in tokens(row[2]):
+                counts[fold(t)] += 1
+    dcc = dcc_list()
+    lemmas = read_lemmas()
+    freq = lemma_counts(lemmas, counts)
 
     out = {}
     for k, L in lemmas.items():

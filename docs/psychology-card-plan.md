@@ -705,12 +705,12 @@ more work here than in any collection since Greece.
     ps-202  Ethical review boards
     ps-203  The Belmont Report
     ps-204  The APA ethics code
-    ps-205  Animal research in psychology
+    ps-205  The Three Rs of animal research
     ps-206  The Monster Study
     ps-207  The Stanford prison experiment
     ps-208  What the Stanford prison experiment is now thought to show
     ps-209  The Milgram obedience experiments
-    ps-210  The ethics of the Milgram experiments
+    ps-210  Diana Baumrind and the ethics of the Milgram experiments
     ps-211  The replication crisis
     ps-212  The Reproducibility Project: Psychology
     ps-213  Questionable research practices
@@ -736,9 +736,9 @@ more work here than in any collection since Greece.
     ps-228  Saltatory conduction
     ps-229  The synapse
     ps-230  Neurotransmitters
-    ps-231  Receptors and ligands
+    ps-231  Neurotransmitter receptors and ligands
     ps-232  Reuptake
-    ps-233  Excitatory and inhibitory postsynaptic potentials
+    ps-233  Postsynaptic potentials, excitatory and inhibitory
     ps-234  Acetylcholine
     ps-235  Dopamine
     ps-236  Serotonin
@@ -747,7 +747,7 @@ more work here than in any collection since Greece.
     ps-239  Glutamate
     ps-240  Endorphins
     ps-241  Neuromodulation
-    ps-242  Agonists and antagonists
+    ps-242  Agonist
     ps-243  The blood–brain barrier
     ps-244  Neural plasticity
     ps-245  Neurogenesis
@@ -795,7 +795,7 @@ more work here than in any collection since Greece.
     ps-281  The lesion method
     ps-282  Electroencephalography
     ps-283  Event-related potentials
-    ps-284  Single-cell recording
+    ps-284  Single-unit recording
     ps-285  Positron emission tomography
     ps-286  Magnetic resonance imaging
     ps-287  Functional magnetic resonance imaging
@@ -807,7 +807,7 @@ more work here than in any collection since Greece.
     ps-293  Functional near-infrared spectroscopy
     ps-294  The reverse inference problem
     ps-295  The dead salmon study
-    ps-296  Thresholding and false positives in neuroimaging
+    ps-296  The family-wise error rate in neuroimaging
     ps-297  Connectomics
     ps-298  Animal models in neuroscience
     ps-299  Neuropsychological assessment
@@ -817,7 +817,7 @@ more work here than in any collection since Greece.
 
     ps-301  Behavioural genetics
     ps-302  Heritability
-    ps-303  What a heritability estimate does not mean
+    ps-303  Phenylketonuria: what a heritability estimate does not mean
     ps-304  Twin studies
     ps-305  The Minnesota Study of Twins Reared Apart
     ps-306  Adoption studies
@@ -883,7 +883,7 @@ more work here than in any collection since Greece.
 
     ps-356  Light as a visual stimulus
     ps-357  The eye
-    ps-358  The cornea and the lens
+    ps-358  The cornea
     ps-359  Accommodation
     ps-360  The retina
     ps-361  Rods and cones
@@ -894,9 +894,9 @@ more work here than in any collection since Greece.
     ps-366  The lateral geniculate nucleus
     ps-367  The primary visual cortex
     ps-368  Receptive fields
-    ps-369  Cortical feature cells
-    ps-370  The ventral and dorsal visual streams
-    ps-371  Feature detection
+    ps-369  Simple and complex cells
+    ps-370  The two-streams hypothesis
+    ps-371  Feature detectors
     ps-372  Colour vision
     ps-373  Trichromatic theory
     ps-374  Opponent-process theory of colour
@@ -913,21 +913,21 @@ more work here than in any collection since Greece.
     ps-385  The fusiform face area
     ps-386  Blindsight
     ps-387  Object recognition
-    ps-388  Theories of pattern recognition
+    ps-388  Pattern recognition
     ps-389  Visual search
     ps-390  Change blindness
 
 ### Hearing and the other senses — `ps-hearing`
 
-    ps-391  Sound as an auditory stimulus
+    ps-391  Sound
     ps-392  The ear
     ps-393  The cochlea
     ps-394  The basilar membrane
     ps-395  Place theory of pitch
-    ps-396  Frequency and volley theories of pitch
+    ps-396  Volley theory
     ps-397  The auditory cortex
     ps-398  Sound localisation
-    ps-399  Deafness and hearing loss
+    ps-399  Hearing loss
     ps-400  Auditory scene analysis
     ps-401  Speech perception
     ps-402  The McGurk effect

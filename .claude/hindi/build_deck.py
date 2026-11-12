@@ -65,8 +65,36 @@ E = html.escape
 TRAIL = re.compile(r'\s*[:;,]\s*$')
 
 
+# A GLOSS THAT ONLY NAMES A SYNONYM ("synonym of जल्दी (jaldī)") is given the synonym's
+# own first meaning, the synonym named after it: a card defined by a pointer teaches
+# nothing (A2: जल्द, असल, निजी).
+SYNONYM = re.compile(r'^synonym of ([^()]+?) \(([^()]+)\)$')
+LEX = {}
+
+# A ROMANISATION Wiktionary's page carries in its Hindi headword but the extract lost.
+ROMAN = {'फ़िल्म': 'film', 'गर्भवती': 'garbhvatī', 'उपग्रह': 'upgrah',  # A2, B1
+         'कुंडली': 'kuṇḍlī', 'मैल': 'mail', 'सर्वथा': 'sarvathā',  # C1
+         'कल आना': 'kal ānā', 'वसुधैव कुटुम्बकम्': 'vasudhaiv kuṭumbakam',  # phrases
+         'सत्यमेव जयते': 'satyamev jayte', 'अतिथिदेवो भव': 'atithidevo bhav'}
+
+
+# "hyperforeign form of रिवाज" (the nukta added where it does not belong) is a note on
+# spelling, not a meaning; the entry's other sense carries the meaning (B1).
+HYPER = re.compile(r'^hyperforeign form of ', re.I)
+
+
 def gloss_text(g):
     g = TRAIL.sub('', g)
+    g = re.sub(r'^\s*[;:,]\s*', '', g)      # "; the cobbler's children go barefoot" (phrases)
+    if HYPER.match(g):
+        return ''
+    m = SYNONYM.match(g)
+    if m:
+        tgt = LEX.get(fold(m.group(1))) or {}
+        mean = next((x['g'] for e in tgt.get('entries', []) for x in e['glosses']
+                     if x['g'] and not x['weak'] and not SYNONYM.match(x['g'])), '')
+        # a synonym Wiktionary has no entry for teaches nothing: dropped (मध्यम, B2)
+        g = f'{TRAIL.sub("", mean)} (= {m.group(1)}, {m.group(2)})' if mean else ''
     return g
 
 
@@ -86,6 +114,15 @@ ETYMS = {
     'बस': ['1', '3'],         # "only, enough" AND "bus"
     'आम': ['1', '2'],         # "mango" AND "common"
     'सर': ['4', '1'],
+    'राय': ['2'],             # "opinion"; 1 is "king" (A2)
+    'पीठ': ['2'],             # "back (of the body)"; 1 is "seat, bench"
+    'सीना': ['2', '1'],       # "chest" AND "to sew"
+    'जरा': [''],              # "a little" (ज़रा); 1 is "infirmity"
+    'धरना': ['1', '2'],       # "to hold" AND "sit-in"
+    'शुक्र': ['2'],           # "gratitude" (शुक्र है); 1 is "resplendent; semen" (B1)
+    'बिल': ['2', '1'],        # "bill" AND "hole"
+    'जूस': ['2'],             # "juice"; 1 is "pea broth" (B2)
+    'गौर': ['', '1'],         # "attention" (ग़ौर करना) AND "fair, pale"
     'हिंदी': [None, ''],      # the language (a proper noun, no etymology number) leads         # "sir" (the subtitles' count) AND "head"
 }
 
@@ -93,6 +130,9 @@ ETYMS = {
 # the language is three encyclopaedia sentences on dialect zones.
 GLOSS = {
     'हिंदी': {'name': ['Hindi (the language)']},
+    # Wiktionary's third sense is vulgar slang; a level deck leaves it out (A2)
+    'हथियार': {'noun': ['weapon, arm', 'any instrument']},
+    'निकल जाना': {'verb': ['to leave, to make off', 'to remove']},  # a sexual third sense (phrases)
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -309,6 +349,7 @@ def examples_html(exs, multi):
 
 
 def build(rows, lex, exs):
+    LEX.update(lex)
     cards, entries = [], []
     for r in rows:
         ents = entries_for(r, lex)
@@ -316,9 +357,10 @@ def build(rows, lex, exs):
             continue
         main = ents[0]
         word = r['word']
-        roman = main['roman'] or next((e['roman'] for e in ents if e['roman']), '')
+        roman = main['roman'] or next((e['roman'] for e in ents if e['roman']), '') \
+            or ROMAN.get(word, '')
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Hindi': f'<div class="uc-word">{E(word)}</div>',
             'Roman': E(roman),
             'Word': word,
@@ -328,8 +370,13 @@ def build(rows, lex, exs):
             'Examples': examples_html(ex, ' ' in word),
         }})
         entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],
-                        'examples': len(ex), 'roman': bool(roman)})
+                        'examples': len(ex), 'roman': bool(roman), 'sub': r.get('sub', ''),
+                        'count': r.get('count', 0)})
     return cards, entries
+
+
+WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 
 
 def desc(entries, n):
@@ -346,7 +393,7 @@ def desc(entries, n):
         "Both study directions in one deck: Hindi → English (see the Hindi, recall the meaning) "
         "and English → Hindi (see an English meaning, recall the Hindi). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the Common European "
+        f"separately. {n} words for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
         f"Framework of Reference, whose global descriptor begins '{SC['quote']}' — a learner here "
         f"is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
@@ -375,6 +422,39 @@ def desc(entries, n):
     )
 
 
+def desc_phr(entries, n):
+    by = {s: [e for e in entries if e['sub'] == s] for s in ('Phrases', 'Idioms', 'Proverbs')}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Hindi set phrases, idioms and proverbs, in three subdecks: {len(by['Phrases'])} "
+        f"everyday phrases, {len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study "
+        "directions come as two cards of one expression — Hindi → English (see the Hindi, recall the "
+        "meaning) and English → Hindi (see an English meaning, recall the Hindi) — each with a schedule "
+        "of its own. This is a companion to the five level decks, Hindi A1 to C1, and not one of them: "
+        "a level is a list of words, and an expression is a unit a list of words cannot see. Nothing "
+        "here is taught by any of the five, so the two can be studied together without repeating an "
+        "entry. The PHRASES are the expressions Wiktionary files as phrases and does not mark as "
+        f"idiomatic — mostly the everyday formulas a Hindi speaker uses as one piece ({eg('Phrases')} …), "
+        "with greetings for the festivals, a few national mottos and some sayings Wiktionary files the "
+        f"same way. The IDIOMS are expressions whose meaning is not their words' ({eg('Idioms')} …), and "
+        f"the PROVERBS the sayings Wiktionary files as proverbs ({eg('Proverbs')} …), a few of which are "
+        "idioms by another name. Within each subdeck the expressions come in the order of how many of "
+        "Tatoeba's Hindi sentences contain them, an expression that is a verb being counted in any form "
+        f"of that verb; Tatoeba's Hindi is small, so only {found} of the {n} are found there at all, and "
+        "the rest follow in the order of how common their rarest word is in film and television "
+        "subtitles. Every expression is printed in Devanagari with Wiktionary's romanisation beneath it. "
+        f"Real example sentences come with {n - ex0} of the {n} expressions, three apiece for {ex3}, "
+        "with the expression picked out in colour and a speaker beside the sentence and the headword. "
+        "Sources. Expressions, meanings, romanisation and the idiom and proverb labels: English "
+        "Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Order: Tatoeba (tatoeba.org), "
+        "CC BY 2.0 FR, then a word list built from OpenSubtitles (hermitdave/FrequencyWords, CC BY-SA "
+        "4.0). Example sentences: Tatoeba, CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -385,11 +465,21 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in ('Phrases', 'Idioms', 'Proverbs')}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Idioms']} idioms, "
+                    f"{by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['hindi', 'phrases', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['hindi', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['hindi', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': subtitle,
+        'desc': description, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Hindi vocabulary', 'speechLang': 'hi-IN',
