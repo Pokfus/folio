@@ -12248,7 +12248,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Dong_Zhongshu": "2nd century BCE",
 "Equable_transport": "from 115 BCE",
 "Four_Commanderies_of_Han": "from 108 BCE",
-"Salt_and_iron_monopoly": "from 120 BCE",
+"Salt_and_iron_monopoly": "from 117 BCE",
 "Supremacy_of_Confucianism": "from 136 BCE",
 "Taixue": "founded 124 BCE",
 "Acting_emperor": "6 – 8 CE",

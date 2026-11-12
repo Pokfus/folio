@@ -361,7 +361,7 @@ otherwise.
 | B21 | Qin (`col-7`) | `cnh-201`–`cnh-210` | 10 | 93 | **done 2026-11-12** |
 | B22 | Qin (`col-7`) / Western Han (`col-10`) | `cnh-211`–`cnh-220` | 10 | 86 | **done 2026-11-12** |
 | B23 | Western Han (`col-10`) | `cnh-221`–`cnh-230` | 10 | 80 | **done 2026-11-12** |
-| B24 | Western Han (`col-10`) | `cnh-231`–`cnh-240` | 10 | 78 | to do |
+| B24 | Western Han (`col-10`) | `cnh-231`–`cnh-240` | 10 | 78 | **done 2026-11-12** |
 | B25 | Western Han (`col-10`) / Xin (`col-11`) | `cnh-241`–`cnh-250` | 10 | 66 | to do |
 | B26 | Xin (`col-11`) / Eastern Han (`col-12`) | `cnh-251`–`cnh-260` | 10 | 67 | to do |
 | B27 | Eastern Han (`col-12`) | `cnh-261`–`cnh-270` | 10 | 93 | to do |
@@ -710,6 +710,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-228` | the horse trampling a Xiongnu | not re-checked (Commons 429): ok |
 | `cnh-229` | the Mogao send-off painting | not re-checked (Commons 429): ok |
 | `cnh-230` | the Yumen fort | not re-checked (Commons 429): ok |
+| `cnh-231` | a Han beacon tower near Dunhuang | not re-checked (Commons 429): ok |
+| `cnh-232` | Zhao Mo's jade suit | not re-checked (Commons 429): ok; the card no longer cites the tomb |
+| `cnh-233` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-234` | Han iron tools from Guxing | not re-checked (Commons 429): ok |
+| `cnh-235` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-236` | a pottery granary model | not re-checked (Commons 429): weak: a granary, not the transport |
+| `cnh-237` | a Qing rubbing of an imagined portrait | not re-checked (Commons 429): ok |
+| `cnh-238` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-239` | a fragment of the Xiping stone classics | not re-checked (Commons 429): ok as a stand-in; better on `cnh-852` |
+| `cnh-240` | an album portrait | not re-checked (Commons 429): ok |
 
 ## Glossary candidates
 
@@ -1725,3 +1735,34 @@ campaign at eighteen in 123 BCE, and Cordier gives his age at death as 24; `cnh-
 read (the age c. 80–81 rests on 195), and Chavannes dates the Wusun mission's departure to 115 BCE, which would push his
 death later; `cnh-230`'s 115 BCE rests on Giles alone. The `Xiongnu` glossary's Huns sentence still rests on Parker 1895;
 `cnh-226`'s picture is described as robed on the card and armoured in its glossary.
+
+### B24 — `cnh-231`–`cnh-240`, Western Han: the Hexi Corridor to Sima Qian (2026-11-12)
+
+Run as B21. Every cited URL answered (the Novosibirsk DOI on a second try). **Pictures were not touched** (Commons 429).
+**The old cards misread their own sources (the Hunye king's "four thousand" where the *Hanshu* has 四萬餘人; the 45 BCE
+Lelang register read as proof that most people counted were natives, which its source argues against), dated the iron
+monopoly by its officials' appointment (120 BCE), had Sang Hongyang "build" the monopolies and Kong Jin complain where the
+*Shiji* has Bu Shi, put "Provinces 13"-style counts and a man in their lines, cited a five-part structure, a slogan
+(独尊儒术) and a university's "four grades" to texts that do not carry them, and gave Sima Qian Mayers's birth range.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-231` Hexi Corridor | 7 | 5 → 7 | **The Hunye king's following more than 40,000 (the *Hanshu* 四萬餘人), not Wylie's "four thousand"; the settlers sourced to the *Hanshu*'s line on Zhangye and Dunhuang; `Conquered 121 BCE` / `Commandery 121 BCE` / `Also dated 115 BCE`, the dispute in prose (the annals, Yu Taishan, the geography treatise); Heishuiguo graves, radiocarbon on the Gansu walls**. |
+| `cnh-232` Nanyue | 7 | 5 → 7 | **Rebuilt on the *Shiji* ch. 113: `Founded 203 BCE` / `Became vassal 196 BCE` / `Annexed 111 BCE` (the man off the line); Empress Lü's iron ban as the cause of the break; the Guangzhou palace's burnt layers**; Zhao Mo's tomb and seal left out (no page opened). |
+| `cnh-233` Four Commanderies of Han | 6 | 5 → 6 | **The register claim reversed to what its source argues (the 86% group cannot simply be read as natives); "besieged Pyongyang for a year" was the war; Cordier's placings dropped; the *Hanshu*'s war of 109 – 108 BCE, the punished generals, Lintun merged (82 BCE); `Founded 108 BCE` / `Reduced 82 BCE` / `Register 45 BCE` / `Last one lost 314 CE`** (314, as `ko-071` and `ko-072`). |
+| `cnh-234` salt and iron monopoly | 7 | 5 → 7 | **The open decision resolved: 120 BCE is the officials' appointment (in prose); `Set up 117 BCE` (Wagner; Liu and Wood) / `Also dated 119 BCE` (Chavannes) / `Liquor added 98 BCE` / `Suspended 44 – 41 BCE`; Bu Shi, not Kong Jin, complained; the "ploughing with wood" complaint the 81 BCE debate's; "the model every later government reached for" dropped**. **Name corrected: 盐铁专卖 (on no page read) → 盐铁官营 (yántiě guānyíng), Jin and Zhang 2026.** |
+| `cnh-235` Discourses on Salt and Iron | 6 | 5 → 6 | **Sang Hongyang ran the monopolies, he did not build them; "more than sixty" worthies and literati, as the text says; "one day's argument" (no source) dropped; the book's own ending (the liquor monopoly and the iron offices inside the passes closed); the man-naming sub-row off: `Debate held 81 BCE` / `Compiled 74 – 49 BCE`**. |
+| `cnh-236` equable transport | 5 | 5 → 5 | **The off-topic half (the provinces, the civil service, Wang Mang) cut; rebuilt on the *Shiji*'s account (Chavannes) and the *Yantielun*'s arguments; `First offices 115 BCE` / `Empire-wide 110 BCE`**. |
+| `cnh-237` Dong Zhongshu | 7 | 5 → 7 | **Rebuilt on his *Hanshu* biography (ch. 56): 134 BCE is the first order to recommend the filial and incorrupt, "four grades" Cordier's wording from an ordinance of 83 CE, the university left to `cnh-239`; the curtain, the Jiangdu king, the stolen draft on the Liaodong fire**. Protected: the line stays (flagged below). |
+| `cnh-238` supremacy of Confucianism | 6 | 5 → 6 | **独尊儒术 is not the *Hanshu*'s wording ("abolished the hundred schools and made the Six Classics shine"); one study credits Sima Guang with the slogan; three views of how far the change went (Fukui via van Ess; van Ess; Wang Baoxuan); `Established 136 BCE`** (the "Emperor Wu" row off). |
+| `cnh-239` Taixue | 5 | 5 → 5 | **The 83 CE ordinance and "first state school" / "the road into the civil service" dropped; Dong Zhongshu's memorial, Gongsun Hong's rules (fifty pupils, a yearly test), 3,000 under Emperor Cheng; `Founded 124 BCE` / `Refounded 29 CE` (the man off the line); the *Hou Hanshu*'s 30,000 credited to one modern account (the text could not be opened)**. |
+| `cnh-240` Sima Qian | 7 | 5 → 7 | **The old 163 – 145 BCE range was Mayers's 163, which Chavannes rejects: now 145 BCE (a 737 CE commentator's reckoning) or 135 BCE; the calendar reform (`cnh-985`) and the book's structure (`cnh-241`) moved off; the deathbed charge, Mount Tai and the goose feather, Kuaiji, Qi and Lu**. Protected: the line stays (flagged below). |
+
+Read by eye. **Confusability**: Huo Qubing's Hexi raid and the golden image are `cnh-231`'s background only (the card's
+phrasings take Hunye, the reeds and Heishuiguo); 134 BCE is shared by `cnh-237` and `cnh-264` (the latter told to agree);
+the university is `cnh-239`'s, the slogan and the 136 BCE posts `cnh-238`'s; three backgrounds trimmed to the word cap
+(`cnh-231`, `cnh-236`, `cnh-238`). **Legend**: none told. **Chinese names corrected**: `cnh-234` (盐铁专卖 → 盐铁官营).
+**Spellings fixed**: none needed; 0 hits. **Myth register**: no row opened. **Protected lines: unchanged** (diffed
+after the apply). For the owner: `cnh-237`'s 179 and 104 BCE are in no page read (the Stanford Encyclopedia puts his birth
+around 195 BCE), and its "Merit grades" label rests on Cordier; `cnh-240`'s "Grand Astrologer 110 BCE" is the year his
+father died — the *Shiji* puts his own appointment three years later, Theobald in 108 BCE.

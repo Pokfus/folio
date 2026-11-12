@@ -414,6 +414,14 @@ stood on main on 2026-11-12 (the years only; ages, days and months left out), an
 | the Xiongnu empire / the split | c. 209 BCE – 100 CE / 48 CE | Lee 2023; de Crespigny (`cnh-225`) |
 | heqin begun / abandoned | c. 200 BCE / 133 BCE | Psarras (`cnh-227`) |
 | the Silk Road: the first mission / regular contact / named | c. 138 – 126 BCE / 115 BCE / 1877 | Yang; Giles; Waugh (`cnh-230`) |
+| the Hexi Corridor conquered / the first commandery: the annals / the geography treatise | 121 BCE / 121 BCE / 115 BCE | Yu Taishan (`cnh-231`) |
+| Nanyue founded / a vassal / annexed | 203 BCE / 196 BCE / 111 BCE | the *Shiji* (`cnh-232`) |
+| the Four Commanderies / reduced / the Lelang register / the last lost | 108 BCE / 82 BCE / 45 BCE / 314 CE | `cnh-233` |
+| the salt and iron monopoly: Wagner / Chavannes / liquor / suspended | 117 BCE / 119 BCE / 98 BCE / 44 – 41 BCE | `cnh-234` |
+| the salt and iron debate / the Discourses compiled | 81 BCE / 74 – 49 BCE | `cnh-235` |
+| equable transport: first offices / empire-wide | 115 BCE / 110 BCE | Chavannes (`cnh-236`) |
+| the Five Classics posts | 136 BCE | the *Hanshu* (`cnh-238`) |
+| the Taixue founded / refounded | 124 BCE / 29 CE | `cnh-239` |
 
 ## Later periods
 
@@ -675,4 +683,12 @@ cnh-224: 133; 119
 cnh-225: 209; 100; 48
 cnh-227: 200; 133
 cnh-230: 138; 126; 115; 1877
+cnh-231: 121; 115
+cnh-232: 203; 196; 111
+cnh-233: 108; 82; 45; 314
+cnh-234: 117; 119; 98; 44; 41
+cnh-235: 81; 74; 49
+cnh-236: 115; 110
+cnh-238: 136
+cnh-239: 124; 29
 ```
