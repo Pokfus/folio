@@ -159,4 +159,37 @@ B2 = [
      'hạn_chế khuyến_khích ngăn_ngừa'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}
+C1 = [
+    ('philosophy and ethics', 'triết_học triết_lý tư_tưởng hiện_thực bản_thể duy_vật duy_tâm biện_chứng '
+     'chân_lý lương_tri nhân_đạo nhân_văn luân_lý đạo_lý giá_trị_quan thế_giới_quan nhân_sinh_quan '
+     'tự_ngã khách_quan chủ_quan'),
+    ('religion and the inner life', 'tín_ngưỡng tâm_linh giác_ngộ niết_bàn nghiệp luân_hồi '
+     'thiền chiêm_nghiệm sám_hối cứu_rỗi siêu_nhiên mê_tín tu_hành công_đức'),
+    ('academic and scholarly Vietnamese', 'học_thuật học_giả luận_án công_trình_nghiên_cứu '
+     'phản_biện thực_nghiệm định_nghĩa khái_niệm phạm_trù tiền_đề suy_luận quy_nạp diễn_dịch '
+     'trừu_tượng hệ_thống_hoá trích_dẫn tài_liệu_tham_khảo'),
+    ('government, diplomacy and the constitution', 'lập_pháp hành_pháp tư_pháp hiến_định chế_định '
+     'nguyên_thủ đại_sứ_quán lãnh_sự ngoại_trưởng hội_đàm thượng_đỉnh phê_chuẩn trừng_phạt '
+     'cấm_vận đa_phương song_phương chủ_nghĩa thể_chế'),
+    ('the economy and development', 'vĩ_mô vi_mô tư_bản xã_hội_chủ_nghĩa toàn_cầu_hoá '
+     'công_nghiệp_hoá hiện_đại_hoá cơ_sở_hạ_tầng nợ_công thâm_hụt thặng_dư tư_nhân_hoá '
+     'cổ_phần_hoá đầu_tư_trực_tiếp kinh_tế_thị_trường'),
+    ('medicine and the body', 'giải_phẫu sinh_lý bệnh_lý dịch_tễ chẩn_đoán phác_đồ kháng_sinh '
+     'nội_tiết thần_kinh_học tim_mạch hô_hấp tiêu_hoá ung_bướu di_căn'),
+    ('law and rights', 'nhân_quyền pháp_quyền pháp_nhân thẩm_quyền tố_tụng truy_tố ân_xá '
+     'cáo_trạng án_lệ bồi_thường thừa_kế quyền_sở_hữu bản_quyền'),
+    ('language and literature', 'ngữ_pháp ngữ_âm từ_vựng thành_ngữ tục_ngữ ca_dao ẩn_dụ hoán_dụ '
+     'văn_xuôi vần thể_loại cốt_truyện nhân_vật_chính bút_pháp phê_bình văn_bản ngữ_cảnh '
+     'phương_ngữ Hán_Việt chữ_Nôm'),
+    ('the shades of feeling and judgement', 'u_sầu bâng_khuâng day_dứt trăn_trở ngậm_ngùi '
+     'xót_xa phẫn_nộ khinh_bỉ ngưỡng_vọng hoài_niệm thanh_thản điềm_tĩnh kiêu_ngạo khiêm_tốn '
+     'cao_thượng ti_tiện đạo_đức_giả tinh_tế thâm_trầm'),
+    ('the abstract nouns and adjectives of formal prose', 'bản_sắc tính_chất đặc_trưng đặc_thù '
+     'phổ_biến phổ_quát cấp_thiết cấp_bách thiết_yếu tiềm_tàng trọng_yếu căn_bản then_chốt '
+     'nhất_quán triệt_để toàn_diện hệ_trọng chủ_đạo bức_xúc'),
+    ('literary connectors and adverbs', 'song_le tuy_rằng dẫu_rằng dẫu_sao giả_như hễ bởi_lẽ '
+     'nhằm_mục_đích hơn_nữa vả_lại huống_chi thậm_chí_là nhất_thiết hoàn_toàn_không '
+     'vốn_dĩ hầu_như dường_như tựa_như'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2, 'c1': C1}

@@ -141,6 +141,13 @@ ETYMS = {
     'vạn': ['1'],       # "ten thousand"; 2 is a temple for whale worship
     'căm': ['1'],       # "to resent"; 2 is "spoke (of a wheel)"
     'dạo': ['2', '3'],  # "to stroll" and "lately"; 1 is a musician's prelude
+    # read off the C1 deck (2026-11-12)
+    'mò': ['2'],        # "to grope"; 1 is a herbaceous plant
+    'cáu': ['2'],       # "to be angry"; 1 is "dirt"
+    'ưng': ['2'],       # "to like and accept"; 1 is "hawk"
+    'xui': ['1'],       # "unlucky"; 2 is "to induce"
+    'bê': ['2', '1'],   # "to carry with both hands" and "calf"
+    'phà': ['2'],       # "ferry"; 1 is "to blow air out"
 }
 
 # A PART OF SPEECH TO LEAD WITH, where Wiktionary's first entry is not the everyday word.
@@ -170,6 +177,8 @@ GLOSS = {
     # Wiktionary's own "big" gloss, which it tags Southern-colloquial (weak here) and puts after
     # "covered (with)", a sense the subtitles hardly use
     'bự': {'adj': ['big (in size or importance); great; influential']},
+    # Wiktionary's own "maize, corn" (tagged Southern) and "muscle", without "blossom, inflorescence" first
+    'bắp': {'noun': ['maize, corn', 'muscle']},
 }
 
 # Entries of these parts of speech are left off a card whose word has others, each with its reason.
@@ -193,6 +202,7 @@ CUT = {
     'chi': ['genus'],                              # the biologist's term, ahead of "to spend"
     'tâm hồn': ['breasts'],                        # a slang sense, on a card for "soul"
     'hôn mê': ['retarded', 'mentally challenged'], # a slur ahead of "comatose", the word's meaning
+    'nháy': ['sex'],                               # a slang sense, on a card for "to flash, to wink"
 }
 
 # Wiktionary's note on a sum-of-parts entry ("Used other than figuratively or idiomatically: see

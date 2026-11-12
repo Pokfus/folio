@@ -5,8 +5,8 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-09: "Add a Vietnamese language collection."
 
-**STATUS (2026-11-12): the alphabet-and-tones deck and A1 to B2 are built** (`.claude/vietnamese/`, §6–§9). C1 and
-the phrases deck are not.
+**STATUS (2026-11-12): the alphabet-and-tones deck and every level, A1 to C1, are built** (`.claude/vietnamese/`,
+§6–§10). The phrases deck is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one line and one bump, because it also
@@ -35,7 +35,7 @@ owner's most recent decisions for a language with no published list — and are 
 | Vietnamese A2 Elementary — built | `Vietnamese-A2.folio-deck.json` | 750 |
 | Vietnamese B1 Intermediate — built | `Vietnamese-B1.folio-deck.json` | 1,000 |
 | Vietnamese B2 Upper Intermediate — built | `Vietnamese-B2.folio-deck.json` | 1,500 |
-| Vietnamese C1 Advanced | `Vietnamese-C1.folio-deck.json` | 1,500 |
+| Vietnamese C1 Advanced — built | `Vietnamese-C1.folio-deck.json` | 1,500 |
 | Vietnamese Phrases and Expressions | `Vietnamese-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
@@ -200,4 +200,33 @@ What reading every card found, each fixed in the generator with its reason:
 
 **Known, left.** The fill is heavier with the subtitles' fantasy, war and crime vocabulary than the inventory
 (`ma cà rồng`, `lựu đạn`, `pháo đài`), as at every level; the inventory supplies the register a B2 learner reads.
+
+## 10. As built (2026-11-12): C1
+
+Asked for on 2026-11-12: "Add C1". `python3 .claude/vietnamese/run.py --level c1`. 1,500 notes, 156 from a
+hand-written C1 inventory (philosophy and ethics, religion and the inner life, scholarly Vietnamese, government and
+diplomacy, the economy and development, medicine, law and rights, language and literature, the shades of feeling,
+the Sino-Vietnamese abstract vocabulary of formal prose, literary connectors) and 1,344 by frequency; none taught
+below. Three sentences for 357, none for 676 — nearly half; Tatoeba's Vietnamese runs out at this level, and the
+cards say so in their count rather than borrowing sentences that do not hold the word. A1 to B2 and the
+alphabet-and-tones deck rebuild byte-identical; a C1 re-run is byte-identical.
+
+What reading every card found, each fixed in the generator with its reason:
+- **Homographs pinned**: `mò` "to grope", `cáu` "to be angry", `ưng` "to like", `xui` "unlucky", `bê` "to carry",
+  `phà` "ferry"; and a second `GLOSS`, `bắp` "maize, corn; muscle" (Wiktionary's own glosses, without "blossom" first).
+- **Excluded with reasons**: English and foreign words (`game`, `sex`, `hot`, `golf`, `blu`, `sun`, `bon`, `bo`, `ang`,
+  `le`), names (`tùng`, `chu`, `dung`, `giang`, `hán`, `mĩ`, `thị`), a hyphenated spelling (`mát-xa`), segmentation slips
+  (`cho tên`, `dó`), syllables counted inside compounds (`đàm`, `hữu`, `vĩ`, `dã`, `bá`, `âu`, `bội`, `nhị`, `nô`), words
+  whose everyday sense is tagged weak (`cưỡng`, `vạn tuế`), `giầy` (counted as the old spelling of A2's `giày`),
+  `giờ tối` (a muddled gloss), the archaic and condescending pronouns (`nhà ngươi`, `chú mày`), and sexual or crude
+  words and slurs (`dâm`, `mu`, `giỡn mặt`, `gái điếm`, `thủ dâm`, `dương vật`, `người da đỏ`, `nhà chứa`). `SWEARS`
+  gains `bố nó`, `bỏ mẹ`, `bố mày`. `CUT` takes a sexual sense off `nháy`.
+- **A cut that empties a card is a fault, not a fix**: cutting the slur from `nhà chứa` removed its one gloss line
+  ("a brothel; whorehouse; bordello"), leaving no English; the check caught it, and the word is excluded instead.
+- Inventory words with no Wiktionary headword were dropped (`bản thể`, `nợ công`, `kinh tế thị trường`, `Hán Việt`,
+  `tiềm tàng` …).
+
+**Known, left.** Nearly half of C1 has no sentence. The fill still leans to the subtitles' war, crime and fantasy
+words (`ngư lôi`, `thây ma`, `đầu đạn`); the inventory carries the formal register. `hiếp dâm` / `hãm hiếp` "to rape"
+are kept as the legal and news vocabulary they are.
 

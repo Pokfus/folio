@@ -97,6 +97,30 @@ EXCLUDE = {
     'thất': 'counted inside thất bại and thất vọng; its one entry is "ventricle"',
     'giời': 'its everyday "heaven" (giời ơi) is not in the entry, which is a centipede',
     'lang': 'counted inside lang thang and as a name; the card would lead with "piebald"',
+    # read off the C1 ranking (2026-11-12)
+    'game': 'English', 'sex': 'English', 'hot': 'English', 'golf': 'English (gôn is the Vietnamese spelling)',
+    'blu': 'counted as English "blue"', 'sun': 'counted as English', 'bon': 'counted as English and French',
+    'bo': 'counted as names and English; the entry is "boron"', 'ang': 'counted as names and English',
+    'le': 'counted as names and French', 'mát-xa': 'a hyphenated spelling; xoa bóp says the same',
+    'tùng': 'counted as the name Tùng', 'chu': 'counted as the name Chu', 'dung': 'counted as the name Dung',
+    'giang': 'counted as the name Giang; the entry is a bamboo genus', 'hán': 'counted as Hán, the Han Chinese',
+    'mĩ': 'counted as Mĩ, America', 'thị': 'counted as the middle name Thị and inside thị trường',
+    'giầy': 'counted as the old spelling of giày "shoe" (A2); the entry is a rice cake',
+    'cho tên': 'a segmentation slip (cho tên này "give this guy")', 'dó': 'counted as a mistyped đó',
+    'giờ tối': 'Wiktionary\'s gloss for it is muddled ("from dawn to 22 o\'clock")',
+    'đàm': 'counted inside đàm phán (B2); the entry is "phlegm"', 'hữu': 'counted inside compounds; the entry is a Buddhist term',
+    'vĩ': 'counted inside vĩ đại (A2); the entry is a violin bow', 'dã': 'counted inside dã man; alone a rare verb',
+    'bá': 'counted inside bá tước (B2) and bá đạo', 'âu': 'counted as Âu, Europe; the entry is a crock',
+    'bội': 'counted inside compounds; the entry is a chicken cage', 'nhị': 'counted inside compounds; the entry is "stamen"',
+    'nô': 'counted inside nô lệ (B1); the entry is "to play around"',
+    'cưỡng': 'its "to force" is tagged in-compounds, so the card would lead with a starling',
+    'vạn tuế': 'its "long live" is tagged rare, so the card would lead with "sago palm"',
+    'người da đỏ': 'Wiktionary glosses it with a slur', 'nhà ngươi': 'the archaic "thou" of period dramas',
+    'chú mày': 'a condescending "you, boy"', 'dâm': '"lustful; to have sex with", crude in the subtitles\' use',
+    'mu': 'crude; the card would lead with "the pubic region"', 'giỡn mặt': 'Wiktionary glosses it "to fuck with"',
+    'gái điếm': 'a slur for a prostitute', 'thủ dâm': 'sexual; not level vocabulary',
+    'dương vật': 'sexual; not level vocabulary',
+    'nhà chứa': 'Wiktionary\'s one gloss pairs "brothel" with a slur',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
@@ -104,7 +128,7 @@ EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 # insults outside close friendship (`mày` "you", `tao` "I", as one says them to a
 # child, an intimate or someone being abused): a beginner's pronouns are the kinship
 # words, and the subtitles' count of these two is mostly quarrels.
-SWEARS = {'mày', 'tao', 'chết tiệt', 'chúng mày', 'mẹ nó', 'khốn nạn', 'cứt', 'chó chết', 'con mẹ', 'con hoang', 'đĩ'}
+SWEARS = {'mày', 'tao', 'chết tiệt', 'chúng mày', 'mẹ nó', 'khốn nạn', 'cứt', 'chó chết', 'con mẹ', 'con hoang', 'đĩ', 'bố nó', 'bỏ mẹ', 'bố mày'}
 
 
 def usable(L):
