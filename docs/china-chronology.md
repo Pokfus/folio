@@ -293,6 +293,14 @@ Filled batch by batch from `cnh-101` (B11 on). **The protected lines** of the se
 | the Shuowen's definition of tian / presented | 100 CE / 121 CE | Legge (`cnh-118`) |
 | fengjian practised | c. 1046 – 771 BCE | `cnh-119` |
 | the eastern colonies under the kings / as rival states | c. 1046 – 771 BCE / 770 – 221 BCE | `cnh-120` |
+| Chengzhou founded (one reckoning) / the court moves east | c. 1036 BCE / 770 BCE | `cnh-121` |
+| Western Zhou royal ritual / bronze inscriptions cast / zongfa practised | c. 1046 – 771 BCE | `cnh-122`, `cnh-123`, `cnh-125` |
+| the ritual reform / its scale in force | c. 850 BCE / c. 850 – 600 BCE | `cnh-124` |
+| the Documents: oldest chapters / Fu Sheng's text at court / the stone classics cut / Mei Ze's Old Text | c. 1046 – 771 BCE / 179 – 157 BCE / 175 CE / 317 – 322 CE | Chavannes (`cnh-126`) |
+| the Shijing: Maspero / another dating / the Wu envoy hears it in Lu | c. 900 – 500 BCE / c. 1200 – 600 BCE / 543 BCE | `cnh-127` |
+| the "double dawn" (the Project's calculation) | 21 April 899 BCE | `cnh-128` |
+| the well-field attested (the Mencius) / Wang Mang's revival | c. 380 – 300 BCE / 9 CE | `cnh-129` |
+| Western Zhou warfare | c. 1046 – 771 BCE | `cnh-130` |
 
 ## Later periods
 
@@ -440,4 +448,14 @@ cnh-117: 1046; 771; 206; 8
 cnh-118: 1046; 771; 100
 cnh-119: 1046; 771
 cnh-120: 1046; 771; 770; 221
+cnh-121: 1036; 770
+cnh-122: 1046; 771
+cnh-123: 1046; 771
+cnh-124: 850; 600
+cnh-125: 1046; 771
+cnh-126: 1046; 771; 179; 157; 175; 317; 322
+cnh-127: 900; 500; 1200; 600
+cnh-128: 1046; 771; 899
+cnh-129: 380; 300; 9
+cnh-130: 1046; 771
 ```

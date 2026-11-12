@@ -307,7 +307,7 @@ otherwise.
 | B10 | Shang (`col-3`) | `cnh-091`–`cnh-100` | 10 | 131 | **done 2026-11-09** |
 | B11 | Shang (`col-3`) | `cnh-101`–`cnh-110` | 10 | 113 | **done 2026-11-12** |
 | B12 | Western Zhou (`col-4`) | `cnh-111`–`cnh-120` | 10 | 110 | **done 2026-11-12** |
-| B13 | Western Zhou (`col-4`) | `cnh-121`–`cnh-130` | 10 | 119 | to do |
+| B13 | Western Zhou (`col-4`) | `cnh-121`–`cnh-130` | 10 | 119 | **done 2026-11-12** |
 | B14 | Western Zhou (`col-4`) | `cnh-131`–`cnh-140` | 10 | 124 | to do |
 | B15 | Eastern Zhou (`col-5`) | `cnh-141`–`cnh-150` | 10 | 116 | to do |
 | B16 | Eastern Zhou (`col-5`) | `cnh-151`–`cnh-160` | 10 | 107 | to do |
@@ -557,6 +557,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-118` | a chart of eight archaic graphs | not re-checked (Commons 429): wrong: one cell is tian — a bronze or bone tian wanted |
 | `cnh-119` | a Liulihe zun | not re-checked (Commons 429): wrong for this card (a Yan vessel, `cnh-120`'s subject); an investiture bronze wanted |
 | `cnh-120` | a Liulihe ding | not re-checked (Commons 429): ok |
+| `cnh-121` | a Western Zhou gui from Luoyang | not re-checked (Commons 429): wrong: one vessel, not the city |
+| `cnh-122` | a chime-bell set | not re-checked (Commons 429): weak: undated bells for "music", not a royal rite |
+| `cnh-123` | an inscription inside a Guo Ji ding | not re-checked (Commons 429): ok |
+| `cnh-124` | matched ding and gui sets of a Guo lord | not re-checked (Commons 429): ok |
+| `cnh-125` | none | not re-checked (Commons 429): the card has no picture — the Lai pan would suit |
+| `cnh-126` | an early printed page | not re-checked (Commons 429): ok; retitle to name the term |
+| `cnh-127` | a stone-classic rubbing of the first ode | not re-checked (Commons 429): ok |
+| `cnh-128` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-129` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-130` | a halberd beside a text panel | not re-checked (Commons 429): wrong: burned-in text, one weapon — replace |
 
 ## Glossary candidates
 
@@ -1102,3 +1112,38 @@ King Cheng's. **Protected lines: unchanged** (diffed after the apply). For the o
 is in no source read (1112 – 1102 BCE is the Project's reign of the Shang king Wending), nor its ages or places (Bi,
 Cheng; the *Shiji* puts his last seat at Feng); `cnh-114`'s `Birth c. 1097 BCE` and ages likewise; `cnh-115`'s 1035 BCE
 is Shaughnessy's second start for King Cheng — the Project gives none, and one study ends the regency in 1036.
+
+### B13 — `cnh-121`–`cnh-130`, Western Zhou: Chengzhou to Zhou warfare (2026-11-12)
+
+Run as B11. Every cited URL answered. **Pictures were not touched** (Commons 429). **The old cards carried the Han
+ritual books' schemes as Western Zhou fact (the nine-seven-five-three-one ding rule, the 2,500-man *shi*, the 900-mu
+well-field, zongfa's "arithmetic"), dated the *Shijing*'s Shang hymns to the Shang (17th – 12th century BCE) and gave
+it a "606 – 586 BCE" on no page read, dated the stone classics by Emperor Ling's reign (168 – 189 CE) instead of their
+carving, counted "about 10,000" Western Zhou inscriptions where the source counts Shang and Zhou together, and gave
+`cnh-124` a 950 – 800 BCE span for a reform its sources place around 850 BCE.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-121` Chengzhou | 6 | 5 → 7 | **c. 1036 BCE credited to one modern reckoning (King Cheng's first year 1042 BCE puts the "Shao gao" in 1036); `Founded c. 1036 BCE` / `Court moved 770 BCE`; the He zun's "dwell in the central land", the oldest written *Zhongguo*; the eight armies stationed there**; Mayers and an unrelated fuel study dropped. The Wangcheng-or-Chengzhou question left out (every source on it refused). |
+| `cnh-122` Zhou royal ritual | 7 | 5 → 7 | **The ding-allowance row (a Warring States scheme, `cnh-124`'s subject) off the line; a paper stating as fact that the Duke of Zhou made the rites dropped; the cult taken over from the Shang, the appointment ceremony (king facing south), the temple hymns' feast for the stand-ins of the dead; no Western Zhou royal tomb excavated**. |
+| `cnh-123` Western Zhou bronze inscriptions | 6 | 5 → 6 | **The counts off, now `Cast c. 1046 – 771 BCE`; "more than ten thousand" is Shang and Zhou together, about 60 fully dated; the Li gui, the Da Yu ding, the Shi Qiang pan, the Mao Gong ding; the usual pattern of an inscription; the four-element dates and the Project's use of them; the texts chosen to please the court**. |
+| `cnh-124` Zhou ritual reform | 6 | 5 → 6 | **Reframed as modern scholars' reconstruction that no ancient text records; `Dated c. 850 BCE` / `In force c. 850 – 600 BCE`, the timeline moved to `{from:-0850,to:-0600}`; the ding scale "described in Warring States texts", graves not always matching it**; a burial from before the reform offered as proof dropped. |
+| `cnh-125` zongfa | 6 | 5 → 8 | **The rules told as the Han *Liji* states them (the great line's tablet kept a hundred generations, lesser lines moved after five, no marriage within a surname), the tidy scheme a later account; lineages, marriage alliances on bronzes, the Lai pan's eight generations; `Practised c. 1046 – 771 BCE`**; the odes' root-and-branch reading and Mencius's ranks dropped; pinyin lower-cased (zōngfǎ). No picture. |
+| `cnh-126` Book of Documents | 8 | 5 → 9 | **Which chapters are held genuine (about a dozen Western Zhou; the Yao and Shun chapters later on their own showing); Mei Ze's Old Text forgery (317 – 322 CE) and the Tsinghua slips; the stone classics `Cut in stone 175 CE`; `Oldest chapters c. 1046 – 771 BCE` / `Passed to court 179 – 157 BCE`**; the "palace copies burned over three months" claim (on no page read) dropped. |
+| `cnh-127` Classic of Poetry | 8 | 5 → 8 | **Counts and the Shang-era hymns off; `Dated c. 900 – 500 BCE` / `Also dated c. 1200 – 600 BCE`, each said whose; the 3,000-to-305 cut credited to the *Shiji* and set against the Wu envoy hearing the songs in Lu in 543 BCE; the Shang hymns as tradition, composed in Song on the modern view; "Sheng min" as a temple ode**. |
+| `cnh-128` Zhou reckoning of the year | 6 | 5 → 6 | **`Inscribed c. 1046 – 771 BCE` / `Double dawn 21 April 899 BCE`, the eclipse said to be the Chronology Project's calculation and its visibility at Zheng questioned; the *Shiji*'s three dynastic calendars (Han) against the bronzes' looser practice; the day-cycle count and the 256 BCE end off**. No picture. |
+| `cnh-129` well-field system | 7 | 5 → 7 | **No longer Zhou fact: Mencius's advice to Teng, his one ode for evidence, few historians think it was carried out; what the bronzes show (fields counted in named places); Shang Yang's abolition as tradition, Wang Mang's revival; `Attested c. 380 – 300 BCE` / `Revival decreed 9 CE`**; pinyin lower-cased (jǐngtián zhì). No picture. |
+| `cnh-130` Zhou warfare | 7 | 6 → 7 | **Both counts off (the 2,500-man *shi* a later commentary's), now `Practised c. 1046 – 771 BCE`; rebuilt on the bronzes: the six armies of the west and eight of Yin, the Xiao Yu ding's own count, the Yu ding's rebel Marquis of E, lineages manning units, one-campaign commands; the odes' 3,000 chariots attributed and flagged**. |
+
+Read by eye. **Confusability**: the Li gui appears in phrasings of `cnh-104` (the *jiazi* day) and `cnh-123` (the
+morning star and the scribe's reward) — two details, kept; answer words cleared on `cnh-122` ("royal"), `cnh-123`
+("Zhou"), `cnh-124` ("ritual"), `cnh-126` ("book"), `cnh-127` ("classic"), `cnh-128` ("Zhou", "year"); a 900-mu figure
+in `cnh-129`'s phrasing read as a year, reworded. **Legend**: the Duke of Zhou as maker of the rites, the well-field
+and the five ranks are now later texts' schemes. **Chinese names corrected**: `cnh-125` and `cnh-129` pinyin case;
+`周代王室礼仪`, `周代礼制改革` and `周代战争` descriptive (for the owner: 西周战争 would fit `cnh-130`'s scope); `周历` the usual
+name, though no open page printed 周曆 in that sense (周正 is the *Shiji*'s term). **Spellings fixed**: none needed; 0
+hits. **Myth register**: Houji confirmed again (Fleming 2024 calls the mother "Lady Shengmin", so `cnh-127` says "his
+mother"); Yao and Shun: the Canons "on their own showing" later compilations; the Mandate: as the row. **Protected
+lines**: none in this batch; the 23 diffed unchanged. Sourcing note for the owner: `cnh-123` and `cnh-130` cite Eno's
+open teaching translation of the inscriptions, which asks to be replaced by Cook and Goldin's source book where that is
+available; it is not open here.
