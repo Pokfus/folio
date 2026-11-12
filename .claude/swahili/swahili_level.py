@@ -34,6 +34,15 @@ TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500, 'c1': 1500}
 
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
 
+# THE PHRASES DECK (`--level phr`) is not a CEFR band: every set phrase, proverb, idiom and
+# multi-word expression the five levels do not teach (`select.phrases`).  The Russian and
+# Portuguese sets' arrangement.
+NAMES['phr'] = 'Phrases and Expressions'
+TITLES['phr'] = 'Swahili Phrases and Expressions'
+DECK_IDS['phr'] = 'swahiliphr'
+DECK_FILES['phr'] = 'Swahili-Phrases-and-Expressions.folio-deck.json'
+BELOW['phr'] = list(BANDS)
+
 SCOPE = {
     'a1': {
         'quote': 'Can understand and use familiar everyday expressions and very basic '
@@ -59,6 +68,46 @@ SCOPE = {
                   'and the kitchen, food and cooking, work and jobs, school, travel and transport, '
                   'the town, health, feelings, free time, the everyday verbs of these, describing '
                   'things and people, time words, and the words that join one clause to the next',
+    },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise whilst travelling, to produce '
+                 'simple connected text on topics which are familiar or of personal interest, and '
+                 'to describe experiences and events, dreams, hopes and ambitions and briefly give '
+                 'reasons and explanations for opinions and plans',
+        'topics': 'work and the office, study and learning, news and the media, travel and '
+                  'accommodation, nature and the environment, society and the state, relationships '
+                  'and life events, feelings and opinions, talking and arguing, the everyday verbs '
+                  'of these, the abstract nouns opinions are built from, health and emergencies, '
+                  'sport and the arts, crime and the law, housing and money, character and values, '
+                  'size and measure, describing, time and sequence, and the words that join an '
+                  'argument together',
+    },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract topics, '
+                 'including technical discussions in his/her field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either party, and '
+                 'to produce clear, detailed text on a wide range of subjects and explain a viewpoint on '
+                 'a topical issue giving the advantages and disadvantages of various options',
+        'topics': 'the economy and business, government and politics, the law, rights, conflict and '
+                  'society, science and research, technology, the environment and geography, health and '
+                  'the body, education, literature, the arts and the media, home, family and '
+                  'possessions, character and feelings, arguing and analysing, the verbs of change and '
+                  'cause, describing, and the words that qualify and place a statement in time',
+    },
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise implicit '
+                 'meaning',
+        'gloss': 'able to express ideas fluently and spontaneously without much obvious searching for '
+                 'expressions, to use language flexibly and effectively for social, academic and '
+                 'professional purposes, and to produce clear, well-structured, detailed text on complex '
+                 'subjects, showing controlled use of organisational patterns, connectors and cohesive '
+                 'devices',
+        'topics': 'scholarship and language, belief, the political economy, history and the sea, '
+                  'the land and its life, the body and medicine, crafts and rites, and the words of '
+                  'reasoning',
     },
 }
 
