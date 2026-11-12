@@ -9166,7 +9166,17 @@ window.CARD_DATA = [
 {"id":"ec-007","num":"007","category":"Economics","question":"An 18th-century complaint that moral writers slide unnoticed from what is to what ought to be lies behind the <span class=\"blank\">_____</span> that still separates positive from normative economics.","answer":"is-ought problem","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"is-ought problem","tags":["concept","economics","philosophy","methodology"],"difficulty":3,"undatable":true},
 {"id":"ec-008","num":"008","category":"Economics","question":"Whether a household, a firm or a government, each <span class=\"blank\">_____</span> in a standard model maximises some objective, such as utility or profit, subject to constraints like a budget.","answer":"economic agent","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"economic agent","tags":["concept","economics","microeconomics"],"difficulty":3,"undatable":true},
 {"id":"ec-009","num":"009","category":"Economics","question":"Made up of general government together with the corporations it owns or controls, the <span class=\"blank\">_____</span> provides services mostly without market prices and pays for them through compulsory levies.","answer":"public sector","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"public sector","tags":["institution","economics","public finance","government"],"difficulty":2,"undatable":true},
-{"id":"ec-010","num":"010","category":"Economics","question":"Firms sell goods to households and households sell labour to firms in the <span class=\"blank\">_____</span>, so every payment for output comes back as someone's wage, salary or profit.","answer":"circular flow of income","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"circular flow of income","tags":["concept","economics","macroeconomics","national accounts"],"difficulty":3,"undatable":true}
+{"id":"ec-010","num":"010","category":"Economics","question":"Firms sell goods to households and households sell labour to firms in the <span class=\"blank\">_____</span>, so every payment for output comes back as someone's wage, salary or profit.","answer":"circular flow of income","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"circular flow of income","tags":["concept","economics","macroeconomics","national accounts"],"difficulty":3,"undatable":true},
+{"id":"ec-011","num":"011","category":"Economics","question":"An institution that brings buyers and sellers together, a <span class=\"blank\">_____</span> can be a stock exchange, a village square or a website, and the bargains struck in it usually form prices.","answer":"market","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"market","tags":["concept","economics","microeconomics","markets"],"difficulty":1,"undatable":true},
+{"id":"ec-012","num":"012","category":"Economics","question":"Shell necklaces circling one way round a ring of islands and armbands the other, each repaid later by an equal counter-gift, are the classic case of a <span class=\"blank\">_____</span> in which haggling was forbidden.","answer":"gift economy","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"gift economy","tags":["concept","economics","anthropology","exchange"],"difficulty":3,"undatable":true},
+{"id":"ec-013","num":"013","category":"Economics","question":"Concluding that because one family grows richer by saving more, a whole nation must grow richer if everyone saves more at once is the <span class=\"blank\">_____</span> that macroeconomics warns against.","answer":"fallacy of composition","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"fallacy of composition","tags":["concept","economics","macroeconomics","logic"],"difficulty":3,"undatable":true},
+{"id":"ec-014","num":"014","category":"Economics","question":"Choosing between schooling and health care, between skilled and unskilled workers, and between rich and poor recipients answers the <span class=\"blank\">_____</span> questions that scarcity forces on every economy, whatever its system.","answer":"what, how and for whom","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"what, how and for whom","tags":["concept","economics","scarcity","economic systems"],"difficulty":2,"undatable":true},
+{"id":"ec-015","num":"015","category":"Economics","question":"Running public schools and a postal service while leaving most production to private firms makes the United States a <span class=\"blank\">_____</span>, though it sits toward the market end of the spectrum.","answer":"mixed economy","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"mixed economy","tags":["concept","economics","economic systems","government"],"difficulty":2,"undatable":true},
+{"id":"ec-016","num":"016","category":"Economics","question":"Factory targets set in tonnes, a manager proudly displaying one gigantic nail and a national plan like an immense order book are classic material for <span class=\"blank\">_____</span>, which sets planning beside markets.","answer":"comparative economic systems","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"comparative economic systems","tags":["concept","economics","economic systems","planning"],"difficulty":4,"undatable":true},
+{"id":"ec-017","num":"017","category":"Economics","question":"When identical statements lost support among economists once credited to a less mainstream author, the experiment was read as evidence that <span class=\"blank\">_____</span> colours even professional judgements of economic claims.","answer":"economic ideology","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"economic ideology","tags":["concept","economics","politics","economic method"],"difficulty":3,"undatable":true},
+{"id":"ec-018","num":"018","category":"Economics","question":"Agents optimising under constraints, their choices reconciled by prices into an equilibrium, form the neoclassical core of <span class=\"blank\">_____</span>, the body of theory taught in the most prestigious economics departments.","answer":"mainstream economics","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"mainstream economics","tags":["concept","economics","schools of thought"],"difficulty":3,"undatable":true},
+{"id":"ec-019","num":"019","category":"Economics","question":"Showing that market dealings are often embedded in personal ties, such as those between technical experts at rival companies, is the central claim of <span class=\"blank\">_____</span>, which studies economic life from the side of sociology.","answer":"economic sociology","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"economic sociology","tags":["concept","economics","sociology","social science"],"difficulty":4,"undatable":true},
+{"id":"ec-020","num":"020","category":"Economics","question":"An open letter of 2014 from student societies in over 30 countries demanded <span class=\"blank\">_____</span>, theoretical, methodological and interdisciplinary, so that excluded schools of thought would return to the curriculum.","answer":"pluralism in economics","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"pluralism in economics","tags":["concept","economics","education","schools of thought"],"difficulty":4,"undatable":true}
 ];
 
 window.COLLECTION_TREE = {
@@ -20515,7 +20525,7 @@ window.COLLECTION_TREE = {
     {
       "id": "econ",
       "title": "Economics",
-      "total": 10,
+      "total": 20,
       "children": [
         {
           "id": "ec-what",
@@ -20536,7 +20546,17 @@ window.COLLECTION_TREE = {
                 "ec-007",
                 "ec-008",
                 "ec-009",
-                "ec-010"
+                "ec-010",
+                "ec-011",
+                "ec-012",
+                "ec-013",
+                "ec-014",
+                "ec-015",
+                "ec-016",
+                "ec-017",
+                "ec-018",
+                "ec-019",
+                "ec-020"
               ]
             },
             {

@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T04:51Z",
+ "generated": "2026-11-12T04:57Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6690,
+  "ok": 6699,
   "redirect-broader": 640,
   "redirect-variant": 400,
   "section-redirect": 137,
   "disambiguation": 149,
-  "none": 1020,
+  "none": 1021,
   "disambig-resolved": 90,
   "list-page": 6,
   "search-match": 9,
@@ -73225,6 +73225,83 @@
    "answer": "circular flow of income",
    "title": "Circular flow of income",
    "url": "https://en.wikipedia.org/wiki/Circular_flow_of_income",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-011": {
+   "answer": "market",
+   "title": "Market (economics)",
+   "url": "https://en.wikipedia.org/wiki/Market_(economics)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-012": {
+   "answer": "gift economy",
+   "title": "Gift economy",
+   "url": "https://en.wikipedia.org/wiki/Gift_economy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-013": {
+   "answer": "fallacy of composition",
+   "title": "Fallacy of composition",
+   "url": "https://en.wikipedia.org/wiki/Fallacy_of_composition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-014": {
+   "answer": "what, how and for whom",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "The Mother (How I Met Your Mother)",
+    "Enjoining good and forbidding wrong",
+    "Reproduction (economics)",
+    "Chief executive officer",
+    "Supply-side economics"
+   ]
+  },
+  "ec-015": {
+   "answer": "mixed economy",
+   "title": "Mixed economy",
+   "url": "https://en.wikipedia.org/wiki/Mixed_economy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-016": {
+   "answer": "comparative economic systems",
+   "title": "Comparative economic systems",
+   "url": "https://en.wikipedia.org/wiki/Comparative_economic_systems",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-017": {
+   "answer": "economic ideology",
+   "title": "Economic ideology",
+   "url": "https://en.wikipedia.org/wiki/Economic_ideology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-018": {
+   "answer": "mainstream economics",
+   "title": "Mainstream economics",
+   "url": "https://en.wikipedia.org/wiki/Mainstream_economics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-019": {
+   "answer": "economic sociology",
+   "title": "Economic sociology",
+   "url": "https://en.wikipedia.org/wiki/Economic_sociology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-020": {
+   "answer": "pluralism in economics",
+   "title": "Pluralism in economics",
+   "url": "https://en.wikipedia.org/wiki/Pluralism_in_economics",
    "via": "glossary",
    "status": "ok"
   }

@@ -9409,7 +9409,17 @@ window.GLOSSARY = {
 "Is–ought_problem": "",
 "Agent_(economics)": "",
 "Public_sector": "",
-"Circular_flow_of_income": ""
+"Circular_flow_of_income": "",
+"Market_(economics)": "",
+"Gift_economy": "",
+"Fallacy_of_composition": "",
+"Economic_system": "",
+"Mixed_economy": "",
+"Comparative_economic_systems": "",
+"Economic_ideology": "",
+"Mainstream_economics": "",
+"Economic_sociology": "",
+"Pluralism_in_economics": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -20012,7 +20022,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "United_States_v._The_Amistad": ["Amistad case","The Amistad"],
 "Definitions_of_economics": ["definition of economics"],
 "Is–ought_problem": ["is-ought problem","Hume's Law"],
-"Agent_(economics)": ["economic agent"]
+"Agent_(economics)": ["economic agent"],
+"Market_(economics)": ["market exchange"],
+"Economic_system": ["what, how and for whom","economic systems"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29579,7 +29591,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Is–ought_problem": ["concept","philosophy","economics"],
 "Agent_(economics)": ["concept","economics","microeconomics"],
 "Public_sector": ["institution","economics","government"],
-"Circular_flow_of_income": ["concept","economics","macroeconomics"]
+"Circular_flow_of_income": ["concept","economics","macroeconomics"],
+"Market_(economics)": ["concept","economics","microeconomics"],
+"Gift_economy": ["concept","economics","anthropology"],
+"Fallacy_of_composition": ["concept","logic","economics"],
+"Economic_system": ["concept","economics","economic systems"],
+"Mixed_economy": ["concept","economics","economic systems"],
+"Comparative_economic_systems": ["concept","economics","economic systems"],
+"Economic_ideology": ["concept","economics","politics"],
+"Mainstream_economics": ["concept","economics","schools of thought"],
+"Economic_sociology": ["concept","economics","sociology"],
+"Pluralism_in_economics": ["concept","economics","education"]
 });
 
 /* ============================================================================
