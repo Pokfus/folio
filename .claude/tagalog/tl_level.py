@@ -83,6 +83,19 @@ SCOPE = {
                   'description, the verbs of change, thought and speech, and the connectors of '
                   'a narrative',
     },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in his/her field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible, and to produce clear, detailed '
+                 'text on a wide range of subjects, explaining a viewpoint on a topical issue and '
+                 'giving the advantages and disadvantages of various options',
+        'topics': 'the economy and business, government and politics, law and justice, science '
+                  'and research, technology, the environment, medicine and the body, education, '
+                  'culture, the arts and the media, society and social issues, thought and '
+                  'argument, advanced description, character and behaviour, and the verbs and '
+                  'connectors of a reasoned text',
+    },
 }
 
 

@@ -235,3 +235,76 @@ B1 = [
 ]
 
 INVENTORY['b1'] = B1
+
+# B2 (2026-11-12): the CEFR B2 descriptor's "main ideas of complex text on both
+# concrete and abstract topics" and "a viewpoint on a topical issue giving the
+# advantages and disadvantages of various options" -- the economy, government,
+# the law, science, the environment, medicine, education, the arts and media,
+# social issues, argument, character, and the verbs and connectors of a reasoned
+# text.  WRITTEN FROM A PROBED DRAFT: of 557 words drafted, 171 are not filed in
+# Wiktionary under that spelling (most of the affixed verbs -- `suriin`,
+# `pigilan`, `ipagbawal`, `tanggihan` --, English loans such as `software`,
+# `online`, and phrases such as `kawalan ng trabaho`) and were dropped, never
+# given a meaning; 112 were already taught by A1 to B1.  What is left is below,
+# less `pandaigdigan` (Wiktionary's entry is only "synonym of pandaigdig").
+B2 = [
+    ('the economy and business',
+        'ekonomiya merkado kalakalan kalakal negosyante korporasyon produksiyon implasyon '
+        'resesyon taripa subsidiya kumpetisyon monopolyo bangkarote transaksiyon empleyo welga '
+        'unyon'),
+    ('government and politics',
+        'konstitusyon lehislatura ehekutibo hudikatura senado kamara ministro gabinete embahador '
+        'diplomasya soberanya kasarinlan kolonya kolonyalismo imperyo diktador diktadura '
+        'batas_militar kudeta oposisyon administrasyon katiwalian korapsiyon reporma '
+        'panukalang-batas ideolohiya nasyonalismo komunismo sosyalismo kapitalismo pederalismo '
+        'awtoridad'),
+    ('law and justice',
+        'hukuman paglilitis sakdal akusado abugado testigo sentensiya hatol apela piyansa parol '
+        'kriminalidad karahasan panggagahasa suhol kidnap terorismo terorista biktima suspek '
+        'imbestigador detektib lisensiya regulasyon'),
+    ('science and research',
+        'biyolohiya kimika pisika heolohiya estadistika obserbasyon laboratoryo mikroskopyo '
+        'molekula atomo selula organismo ebolusyon henetika bakterya mikrobyo grabidad '
+        'elektrisidad radyasyon'),
+    ('technology and the internet',
+        'dokumento folder inobasyon makinarya awtomasyon'),
+    ('the environment',
+        'ekolohiya deporestasyon tsunami daluyong pagbabago_ng_klima mina pagmimina basurahan '
+        'dumi kemikal'),
+    ('health and the body (advanced)',
+        'medisina terapiya rehabilitasyon emerhensiya depresyon pagkabalisa sikolohiya sikologo '
+        'protina nutrisyon atake_sa_puso tumor epidemya pandemya atay kalamnan'),
+    ('education and learning',
+        'kurikulum pedagohiya tesis sanggunian akademiko iskolar dekano rektor kwalipikasyon '
+        'katalinuhan'),
+    ('culture, arts and media',
+        'panitikan literatura maikling_kuwento dula dulaan prodyuser iskrip banghay simbolismo '
+        'metapora retorika estilo kritiko eksibisyon eskultura arkitektura pamamahayag editoryal '
+        'kolum kolumnista sensura propaganda'),
+    ('society and social issues',
+        'demograpiya imigrante imigrasyon diskriminasyon rasismo kasarian peminismo '
+        'karapatang_pantao pensiyon seguro kapakanan boluntaryo kawanggawa donasyon kilusan '
+        'aktibista aktibismo rali globalisasyon modernisasyon industriyalisasyon'),
+    ('thought and argument',
+        'prinsipyo pilosopiya lohika implikasyon interpretasyon perspektiba paninindigan '
+        'kritisismo paghahambing pagkakaiba kaugnayan bunga kahihinatnan benepisyo oportunidad '
+        'alternatibo priyoridad estratehiya taktika'),
+    ('describing (advanced)',
+        'makabuluhan kritikal pangunahin sekundarya komprehensibo detalyado eksakto malabo '
+        'kontrobersiyal kumbensiyonal radikal konserbatibo liberal obhetibo epektibo mabisa '
+        'episyente praktikal abstrakto kongkreto pansamantala permanente pangmatagalan '
+        'panandalian pambansa pandaigdig internasyonal etniko mapagkakatiwalaan '
+        'nakakainis nakakatakot'),
+    ('character and behaviour',
+        'asal kalupitan kabutihan katapatan pagtataksil traydor kayabangan kababaang-loob tiyaga '
+        'sipag katamaran disiplina determinasyon kumpiyansa mapagmahal maalalahanin madamot '
+        'masinop pabaya makasarili mapagmataas matiyaga'),
+    ('verbs (advanced)',
+        'bigyang-diin ipahiwatig pangunahan pamunuan kalabanin magkaisa pahabain pagandahin '
+        'wasakin itatag buwagin talikuran'),
+    ('connectors (advanced)',
+        'samakatwid gayundin sa_kabilang_banda sa_katunayan sa_madaling_salita palibhasa dahil_sa '
+        'sa_kabila_ng alinsunod ayon_sa hinggil tungkol_sa'),
+]
+
+INVENTORY['b2'] = B2

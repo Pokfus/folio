@@ -110,6 +110,7 @@ DROP_GLOSS = {
     'halaman': {'a person incapable of feeling anything related to love'},
     'kalihim': {'pan de regla'},                     # a bread, a homograph
     'barangay': {'local polity or settlement during the Philippine precolonial period'},
+    'mani': {'clitoris'},                            # B2: beside "peanut"
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -117,6 +118,7 @@ LEAD = {
     'piso': 'one-peso coin',  # first listed is the peso of the Spanish-speaking Americas
     'mahusay': 'skillful',    # first listed is "methodical; orderly"
     'tapat': 'sincere',       # first listed is "facing the front"
+    'depresyon': 'depression (severe sadness)',   # first listed is the weather's
 }
 
 

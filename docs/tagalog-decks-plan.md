@@ -5,7 +5,7 @@ language set in the shape of the ones already shipped (Romanian, Hindi, Russian 
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Tagalog language collection."
 
-**STATUS (2026-11-12): A1, A2 and B1 are built** (`.claude/tagalog/`, §6–§8). B2, C1 and the phrases deck are not.
+**STATUS (2026-11-12): A1, A2, B1 and B2 are built** (`.claude/tagalog/`, §6–§9). C1 and the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one (raising the day's existing
@@ -33,7 +33,7 @@ The request named no level, source or size, so each decision copies the shelf's 
 | Tagalog A1 Beginner — built | `Tagalog-A1.folio-deck.json` | 500 |
 | Tagalog A2 Elementary — built | `Tagalog-A2.folio-deck.json` | 750 |
 | Tagalog B1 Intermediate — built | `Tagalog-B1.folio-deck.json` | 1,000 |
-| Tagalog B2 Upper Intermediate | `Tagalog-B2.folio-deck.json` | 1,500 |
+| Tagalog B2 Upper Intermediate — built | `Tagalog-B2.folio-deck.json` | 1,500 |
 | Tagalog C1 Advanced | `Tagalog-C1.folio-deck.json` | 1,500 |
 | Tagalog Phrases and Expressions | `Tagalog-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
@@ -180,4 +180,29 @@ frequency**, none taught in A1 or A2. IPA on 989, a marked spelling on 545, form
 
 **Known, left.** 126 words have no Tatoeba sentence. The fill keeps the subtitles' crime and death vocabulary
 (`pagpatay`, `mamamatay-tao`, `magpakamatay`) on frequency, as the lower levels do.
+
+## 9. As built (2026-11-12): B2
+
+Asked for on 2026-11-12: "Add B2". `python3 .claude/tagalog/run.py --level b2`; A1, A2 and B1 rebuild
+byte-identical and a B2 re-run is byte-identical. **1,500 notes, 273 from the inventory (fifteen topics: the
+economy, government, the law, science, technology, the environment, medicine, education, the arts and media,
+social issues, argument, description, character, verbs, connectors) and 1,227 by frequency**, none taught below.
+IPA on 1,484, a marked spelling on 831, forms on 448 (283 verbs), sentences for 975 (three for 605).
+
+- **THE INVENTORY WAS PROBED BEFORE IT WAS WRITTEN.** A draft of 557 words was checked against `lex.json` and the
+  lower decks: 171 are not filed in Wiktionary under that spelling (most affixed verbs — `suriin`, `pigilan`,
+  `ipagbawal`, `tanggihan` —, English loans like `software`, and phrases like `kawalan ng trabaho`) and 112 were
+  already taught, so the inventory holds what is left (less `pandaigdigan`, whose entry is only a pointer). The
+  B2 inventory is therefore heavy in Spanish- and English-derived abstract nouns (`ekonomiya`, `konstitusyon`,
+  `implasyon`), which is what Wiktionary files; native affixed verbs come through the fill where it has them.
+- **THE FILL IS FOUR FIFTHS OF THE DECK, and at this depth the two corpora are thin**: 525 words have no Tatoeba
+  sentence. Reading it found the same faults as before at a higher rate (`EXCLUDE`, each with its reason):
+  English and names counted under a Tagalog homograph (`am`, `was`, `look`, `boy`, `park`, `pan`, `asap`,
+  `haha`, `sharon`, `washington`, `teksas`, `lisa`, `kristo`), verb forms filed as grammar terms or pointers
+  (`naganap`, `nagaganap`, `isinama`, `sinama`, `iniba`, `paki`, `yari`), `masa` (A1's finding), Tatoeba runs
+  (`postmaster`, `sigay`), and insults and vulgar words. `mani` loses a vulgar sense; `depresyon` leads with
+  the mood, not the weather.
+
+**Known, left.** The fill carries much food vocabulary (`tapsilog`, `longsilog`, `siyopaw`, `polboron`) from
+Tatoeba's contributors, and the subtitles' crime vocabulary, on frequency.
 
