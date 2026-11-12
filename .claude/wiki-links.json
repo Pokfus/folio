@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T12:28Z",
+ "generated": "2026-11-12T12:33Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7834,
-  "redirect-broader": 764,
-  "redirect-variant": 477,
-  "section-redirect": 186,
+  "ok": 7918,
+  "redirect-broader": 769,
+  "redirect-variant": 479,
+  "section-redirect": 187,
   "disambiguation": 154,
-  "none": 1164,
-  "disambig-resolved": 106,
+  "none": 1171,
+  "disambig-resolved": 107,
   "list-page": 6,
   "search-match": 9,
   "no-article": 20
@@ -85494,6 +85494,765 @@
     "Baddeley's model of working memory",
     "Cognitive psychology"
    ]
+  },
+  "us-601": {
+   "answer": "Slavery during the American Civil War",
+   "title": "Slavery during the American Civil War",
+   "url": "https://en.wikipedia.org/wiki/Slavery_during_the_American_Civil_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-602": {
+   "answer": "Contraband",
+   "title": "Contraband (American Civil War)",
+   "url": "https://en.wikipedia.org/wiki/Contraband_(American_Civil_War)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-603": {
+   "answer": "Confiscation Acts",
+   "title": "Confiscation Acts",
+   "url": "https://en.wikipedia.org/wiki/Confiscation_Acts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-604": {
+   "answer": "Emancipation Proclamation",
+   "title": "Emancipation Proclamation",
+   "url": "https://en.wikipedia.org/wiki/Emancipation_Proclamation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-605": {
+   "answer": "General Order No. 3",
+   "title": "General Order No. 3",
+   "url": "https://en.wikipedia.org/wiki/General_Order_No._3",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-606": {
+   "answer": "Abraham Lincoln and slavery",
+   "title": "Abraham Lincoln and slavery",
+   "url": "https://en.wikipedia.org/wiki/Abraham_Lincoln_and_slavery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-607": {
+   "answer": "Self-emancipation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "United States",
+    "Emancipation of minors",
+    "Emancipation Proclamation",
+    "Emancipation",
+    "Slavery in the United States"
+   ]
+  },
+  "us-608": {
+   "answer": "United States Colored Troops",
+   "title": "United States Colored Troops",
+   "url": "https://en.wikipedia.org/wiki/United_States_Colored_Troops",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-609": {
+   "answer": "54th Massachusetts Infantry Regiment",
+   "title": "54th Massachusetts Infantry Regiment",
+   "url": "https://en.wikipedia.org/wiki/54th_Massachusetts_Infantry_Regiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-610": {
+   "answer": "Battle of Fort Pillow",
+   "title": "Battle of Fort Pillow",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Fort_Pillow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-621": {
+   "answer": "Reconstruction era",
+   "title": "Reconstruction era",
+   "url": "https://en.wikipedia.org/wiki/Reconstruction_era",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-622": {
+   "answer": "Presidential Reconstruction",
+   "title": "Reconstruction era",
+   "url": "https://en.wikipedia.org/wiki/Reconstruction_era",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Presidential Reconstruction"
+  },
+  "us-623": {
+   "answer": "Andrew Johnson",
+   "title": "Andrew Johnson",
+   "url": "https://en.wikipedia.org/wiki/Andrew_Johnson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-624": {
+   "answer": "Black Codes",
+   "title": "Black Codes (United States)",
+   "url": "https://en.wikipedia.org/wiki/Black_Codes_(United_States)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-625": {
+   "answer": "Freedmen's Bureau",
+   "title": "Freedmen's Bureau",
+   "url": "https://en.wikipedia.org/wiki/Freedmen's_Bureau",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-626": {
+   "answer": "Garrison Frazier",
+   "title": "Garrison Frazier",
+   "url": "https://en.wikipedia.org/wiki/Garrison_Frazier",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-627": {
+   "answer": "Forty acres and a mule",
+   "title": "Forty acres and a mule",
+   "url": "https://en.wikipedia.org/wiki/Forty_acres_and_a_mule",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-628": {
+   "answer": "Sharecropping",
+   "title": "Sharecropping",
+   "url": "https://en.wikipedia.org/wiki/Sharecropping",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-629": {
+   "answer": "Civil Rights Act of 1866",
+   "title": "Civil Rights Act of 1866",
+   "url": "https://en.wikipedia.org/wiki/Civil_Rights_Act_of_1866",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-630": {
+   "answer": "Fourteenth Amendment",
+   "title": "Fourteenth Amendment to the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Fourteenth_Amendment_to_the_United_States_Constitution",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Fourteenth Amendment"
+  },
+  "us-651": {
+   "answer": "American frontier",
+   "title": "American frontier",
+   "url": "https://en.wikipedia.org/wiki/American_frontier",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-652": {
+   "answer": "Homestead Acts",
+   "title": "Homestead Acts",
+   "url": "https://en.wikipedia.org/wiki/Homestead_Acts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-653": {
+   "answer": "First transcontinental railroad",
+   "title": "First transcontinental railroad",
+   "url": "https://en.wikipedia.org/wiki/First_transcontinental_railroad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-654": {
+   "answer": "Railroad land grants",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Railroad land grants in the United States",
+    "Land grant",
+    "History of rail transportation in the United States",
+    "Checkerboarding (land)",
+    "Pacific Railroad Acts"
+   ]
+  },
+  "us-655": {
+   "answer": "1867 Chinese Labor Strike",
+   "title": "1867 Chinese Labor Strike",
+   "url": "https://en.wikipedia.org/wiki/1867_Chinese_Labor_Strike",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-656": {
+   "answer": "Plains Wars",
+   "title": "American Indian Wars",
+   "url": "https://en.wikipedia.org/wiki/American_Indian_Wars",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Plains Wars"
+  },
+  "us-657": {
+   "answer": "Sand Creek massacre",
+   "title": "Sand Creek massacre",
+   "url": "https://en.wikipedia.org/wiki/Sand_Creek_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-658": {
+   "answer": "Battle of the Little Bighorn",
+   "title": "Battle of the Little Bighorn",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Little_Bighorn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-659": {
+   "answer": "Sitting Bull",
+   "title": "Sitting Bull",
+   "url": "https://en.wikipedia.org/wiki/Sitting_Bull",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-660": {
+   "answer": "Nez Perce War",
+   "title": "Nez Perce War",
+   "url": "https://en.wikipedia.org/wiki/Nez_Perce_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-631": {
+   "answer": "Radical Reconstruction",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Radical Reconstruction",
+   "target": "Reconstruction era#Congressional Reconstruction"
+  },
+  "us-632": {
+   "answer": "Thaddeus Stevens",
+   "title": "Thaddeus Stevens",
+   "url": "https://en.wikipedia.org/wiki/Thaddeus_Stevens",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-633": {
+   "answer": "Reconstruction Acts",
+   "title": "Reconstruction Acts",
+   "url": "https://en.wikipedia.org/wiki/Reconstruction_Acts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-634": {
+   "answer": "Impeachment of Andrew Johnson",
+   "title": "Impeachment of Andrew Johnson",
+   "url": "https://en.wikipedia.org/wiki/Impeachment_of_Andrew_Johnson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-635": {
+   "answer": "Fifteenth Amendment",
+   "title": "Fifteenth Amendment to the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Fifteenth_Amendment_to_the_United_States_Constitution",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Fifteenth Amendment"
+  },
+  "us-636": {
+   "answer": "Black officeholders during Reconstruction",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of African-American United States senators",
+    "African American officeholders from the end of the Civil War until before 1900",
+    "African-American officeholders in the United States, 1789–1866",
+    "Reconstruction era",
+    "African Americans in the United States Congress"
+   ]
+  },
+  "us-637": {
+   "answer": "Hiram R. Revels",
+   "title": "Hiram R. Revels",
+   "url": "https://en.wikipedia.org/wiki/Hiram_R._Revels",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-638": {
+   "answer": "Freedmen's schools",
+   "title": "Freedmen's schools",
+   "url": "https://en.wikipedia.org/wiki/Freedmen's_schools",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-639": {
+   "answer": "Carpetbagger",
+   "title": "Carpetbagger",
+   "url": "https://en.wikipedia.org/wiki/Carpetbagger",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-640": {
+   "answer": "Ku Klux Klan",
+   "title": "Ku Klux Klan",
+   "url": "https://en.wikipedia.org/wiki/Ku_Klux_Klan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-641": {
+   "answer": "Enforcement Acts",
+   "title": "Enforcement Acts",
+   "url": "https://en.wikipedia.org/wiki/Enforcement_Acts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-642": {
+   "answer": "Colfax massacre",
+   "title": "Colfax massacre",
+   "url": "https://en.wikipedia.org/wiki/Colfax_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-643": {
+   "answer": "White League",
+   "title": "White League",
+   "url": "https://en.wikipedia.org/wiki/White_League",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-644": {
+   "answer": "Panic of 1873",
+   "title": "Panic of 1873",
+   "url": "https://en.wikipedia.org/wiki/Panic_of_1873",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-645": {
+   "answer": "Slaughter-House Cases",
+   "title": "Slaughter-House Cases",
+   "url": "https://en.wikipedia.org/wiki/Slaughter-House_Cases",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-646": {
+   "answer": "Compromise of 1877",
+   "title": "Compromise of 1877",
+   "url": "https://en.wikipedia.org/wiki/Compromise_of_1877",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-647": {
+   "answer": "Redeemers",
+   "title": "Redeemers",
+   "url": "https://en.wikipedia.org/wiki/Redeemers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-648": {
+   "answer": "Lost Cause of the Confederacy",
+   "title": "Lost Cause of the Confederacy",
+   "url": "https://en.wikipedia.org/wiki/Lost_Cause_of_the_Confederacy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-649": {
+   "answer": "Dunning School",
+   "title": "Dunning School",
+   "url": "https://en.wikipedia.org/wiki/Dunning_School",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-650": {
+   "answer": "Reconstruction Era National Historical Park",
+   "title": "Reconstruction Era National Historical Park",
+   "url": "https://en.wikipedia.org/wiki/Reconstruction_Era_National_Historical_Park",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-681": {
+   "answer": "Gilded Age",
+   "title": "Gilded Age",
+   "url": "https://en.wikipedia.org/wiki/Gilded_Age",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-682": {
+   "answer": "Industrialisation of the United States",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Japan–United States relations",
+    "History of industrialisation",
+    "Singapore–United States relations",
+    "Industrialisation",
+    "International development"
+   ]
+  },
+  "us-683": {
+   "answer": "Andrew Carnegie",
+   "title": "Andrew Carnegie",
+   "url": "https://en.wikipedia.org/wiki/Andrew_Carnegie",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-684": {
+   "answer": "Carnegie Steel Company",
+   "title": "Carnegie Steel Company",
+   "url": "https://en.wikipedia.org/wiki/Carnegie_Steel_Company",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-685": {
+   "answer": "Standard Oil",
+   "title": "Standard Oil",
+   "url": "https://en.wikipedia.org/wiki/Standard_Oil",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-686": {
+   "answer": "Holding company",
+   "title": "Holding company",
+   "url": "https://en.wikipedia.org/wiki/Holding_company",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-687": {
+   "answer": "J. P. Morgan",
+   "title": "J. P. Morgan",
+   "url": "https://en.wikipedia.org/wiki/J._P._Morgan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-688": {
+   "answer": "Robber baron",
+   "title": "Robber baron (industrialist)",
+   "url": "https://en.wikipedia.org/wiki/Robber_baron_(industrialist)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-689": {
+   "answer": "Sherman Antitrust Act",
+   "title": "Sherman Antitrust Act",
+   "url": "https://en.wikipedia.org/wiki/Sherman_Antitrust_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-690": {
+   "answer": "Thomas Edison",
+   "title": "Thomas Edison",
+   "url": "https://en.wikipedia.org/wiki/Thomas_Edison",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-661": {
+   "answer": "destruction of the bison",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "American bison hunting",
+    "Bison",
+    "American bison",
+    "History of the United States",
+    "Great bison belt"
+   ]
+  },
+  "us-662": {
+   "answer": "cattle kingdom",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of cattle terminology",
+    "Highland cattle",
+    "United States",
+    "Aberdeen Angus",
+    "American Brahman"
+   ]
+  },
+  "us-663": {
+   "answer": "cattle drive",
+   "title": "Droving",
+   "url": "https://en.wikipedia.org/wiki/Droving",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Cattle drive"
+  },
+  "us-664": {
+   "answer": "cowboy",
+   "title": "Cowboy",
+   "url": "https://en.wikipedia.org/wiki/Cowboy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-665": {
+   "answer": "Frontier Thesis",
+   "title": "Frontier Thesis",
+   "url": "https://en.wikipedia.org/wiki/Frontier_Thesis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-666": {
+   "answer": "Frederick Jackson Turner",
+   "title": "Frederick Jackson Turner",
+   "url": "https://en.wikipedia.org/wiki/Frederick_Jackson_Turner",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-667": {
+   "answer": "Black Hills Gold Rush",
+   "title": "Black Hills gold rush",
+   "url": "https://en.wikipedia.org/wiki/Black_Hills_gold_rush",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Black Hills Gold Rush"
+  },
+  "us-668": {
+   "answer": "Comstock Lode",
+   "title": "Comstock Lode",
+   "url": "https://en.wikipedia.org/wiki/Comstock_Lode",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-669": {
+   "answer": "frontier myth",
+   "title": "Frontier myth",
+   "url": "https://en.wikipedia.org/wiki/Frontier_myth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-670": {
+   "answer": "rain follows the plow",
+   "title": "Rain follows the plow",
+   "url": "https://en.wikipedia.org/wiki/Rain_follows_the_plow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-611": {
+   "answer": "Militia Act of 1862",
+   "title": "Militia Act of 1862",
+   "url": "https://en.wikipedia.org/wiki/Militia_Act_of_1862",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-612": {
+   "answer": "Thirteenth Amendment",
+   "title": "Thirteenth Amendment to the United States Constitution",
+   "url": "https://en.wikipedia.org/wiki/Thirteenth_Amendment_to_the_United_States_Constitution",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Thirteenth Amendment"
+  },
+  "us-613": {
+   "answer": "Southern bread riots",
+   "title": "Southern bread riots",
+   "url": "https://en.wikipedia.org/wiki/Southern_bread_riots",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-614": {
+   "answer": "Greenback",
+   "title": "Greenback (1860s money)",
+   "url": "https://en.wikipedia.org/wiki/Greenback_(1860s_money)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-615": {
+   "answer": "Confederate States dollar",
+   "title": "Confederate States dollar",
+   "url": "https://en.wikipedia.org/wiki/Confederate_States_dollar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-616": {
+   "answer": "Confederate conscription",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Confederate Conscription Acts 1862–1864",
+    "Confederate States of America",
+    "Conscription in the United States",
+    "Confederate States Congress",
+    "Confederate States Army"
+   ]
+  },
+  "us-617": {
+   "answer": "New York City draft riots",
+   "title": "New York City draft riots",
+   "url": "https://en.wikipedia.org/wiki/New_York_City_draft_riots",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-618": {
+   "answer": "United States Sanitary Commission",
+   "title": "United States Sanitary Commission",
+   "url": "https://en.wikipedia.org/wiki/United_States_Sanitary_Commission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-619": {
+   "answer": "Medicine in the American Civil War",
+   "title": "Medicine in the American Civil War",
+   "url": "https://en.wikipedia.org/wiki/Medicine_in_the_American_Civil_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-620": {
+   "answer": "Andersonville Prison",
+   "title": "Andersonville Prison",
+   "url": "https://en.wikipedia.org/wiki/Andersonville_Prison",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-671": {
+   "answer": "Barbed wire",
+   "title": "Barbed wire",
+   "url": "https://en.wikipedia.org/wiki/Barbed_wire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-672": {
+   "answer": "Women's suffrage in Wyoming",
+   "title": "Women's suffrage in Wyoming",
+   "url": "https://en.wikipedia.org/wiki/Women's_suffrage_in_Wyoming",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-673": {
+   "answer": "Exodusters",
+   "title": "Exodusters",
+   "url": "https://en.wikipedia.org/wiki/Exodusters",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-674": {
+   "answer": "Buffalo Soldiers",
+   "title": "Buffalo Soldier",
+   "url": "https://en.wikipedia.org/wiki/Buffalo_Soldier",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Buffalo Soldiers"
+  },
+  "us-675": {
+   "answer": "Newlands Reclamation Act",
+   "title": "Newlands Reclamation Act",
+   "url": "https://en.wikipedia.org/wiki/Newlands_Reclamation_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-676": {
+   "answer": "Alaska Purchase",
+   "title": "Alaska Purchase",
+   "url": "https://en.wikipedia.org/wiki/Alaska_Purchase",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-677": {
+   "answer": "Overthrow of the Hawaiian Kingdom",
+   "title": "Overthrow of the Hawaiian Kingdom",
+   "url": "https://en.wikipedia.org/wiki/Overthrow_of_the_Hawaiian_Kingdom",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-678": {
+   "answer": "Land Rush of 1889",
+   "title": "Land Rush of 1889",
+   "url": "https://en.wikipedia.org/wiki/Land_Rush_of_1889",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-679": {
+   "answer": "Yellowstone National Park",
+   "title": "Yellowstone National Park",
+   "url": "https://en.wikipedia.org/wiki/Yellowstone_National_Park",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-680": {
+   "answer": "John Muir",
+   "title": "John Muir",
+   "url": "https://en.wikipedia.org/wiki/John_Muir",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-691": {
+   "answer": "Rural Electrification Act",
+   "title": "Rural Electrification Act",
+   "url": "https://en.wikipedia.org/wiki/Rural_Electrification_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-692": {
+   "answer": "Western Union",
+   "title": "Western Union",
+   "url": "https://en.wikipedia.org/wiki/Western_Union",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-693": {
+   "answer": "Assembly line",
+   "title": "Assembly line",
+   "url": "https://en.wikipedia.org/wiki/Assembly_line",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-694": {
+   "answer": "Scientific management",
+   "title": "Scientific management",
+   "url": "https://en.wikipedia.org/wiki/Scientific_management",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-695": {
+   "answer": "Sears",
+   "title": "Sears",
+   "url": "https://en.wikipedia.org/wiki/Sears",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-696": {
+   "answer": "Advertising agency",
+   "title": "Advertising agency",
+   "url": "https://en.wikipedia.org/wiki/Advertising_agency",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-697": {
+   "answer": "Eight-hour day movement",
+   "title": "Eight-hour day movement",
+   "url": "https://en.wikipedia.org/wiki/Eight-hour_day_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-698": {
+   "answer": "National Child Labor Committee",
+   "title": "National Child Labor Committee",
+   "url": "https://en.wikipedia.org/wiki/National_Child_Labor_Committee",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-699": {
+   "answer": "Triangle Shirtwaist Factory fire",
+   "title": "Triangle Shirtwaist Factory fire",
+   "url": "https://en.wikipedia.org/wiki/Triangle_Shirtwaist_Factory_fire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-700": {
+   "answer": "Knights of Labor",
+   "title": "Knights of Labor",
+   "url": "https://en.wikipedia.org/wiki/Knights_of_Labor",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }

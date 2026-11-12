@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7834 | the title is the article |
-| `redirect-variant` | 477 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 106 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 7918 | the title is the article |
+| `redirect-variant` | 479 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 107 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 764 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 769 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 186 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 187 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 154 | only a disambiguation page; no link could be chosen |
-| `none` | 1164 | nothing matched; no link |
+| `none` | 1171 | nothing matched; no link |
 
-**9197 of 10720 cards get a link.** The three "no link" rows are the honest state: a card whose
+**9289 of 10820 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (764)
+## Redirected to a differently named article — check each (769)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -663,6 +663,11 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-465` **State v. Mann** → [North Carolina v. Mann](https://en.wikipedia.org/wiki/North_Carolina_v._Mann) (from `State v. Mann`)
 - `us-478` **Weeping Time** → [Great Slave Auction](https://en.wikipedia.org/wiki/Great_Slave_Auction) (from `Weeping Time`)
 - `us-482` **whipping** → [Flagellation](https://en.wikipedia.org/wiki/Flagellation) (from `Whipping`)
+- `us-612` **Thirteenth Amendment** → [Thirteenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Thirteenth_Amendment_to_the_United_States_Constitution) (from `Thirteenth Amendment`)
+- `us-622` **Presidential Reconstruction** → [Reconstruction era](https://en.wikipedia.org/wiki/Reconstruction_era) (from `Presidential Reconstruction`)
+- `us-630` **Fourteenth Amendment** → [Fourteenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Fourteenth_Amendment_to_the_United_States_Constitution) (from `Fourteenth Amendment`)
+- `us-656` **Plains Wars** → [American Indian Wars](https://en.wikipedia.org/wiki/American_Indian_Wars) (from `Plains Wars`)
+- `us-663` **cattle drive** → [Droving](https://en.wikipedia.org/wiki/Droving) (from `Cattle drive`)
 - `wh-005` **hominin** → [Hominini](https://en.wikipedia.org/wiki/Hominini) (from `Hominin`)
 - `wh-011` **Laetoli footprints** → [Laetoli](https://en.wikipedia.org/wiki/Laetoli) (from `Laetoli footprints`)
 - `wh-022` **Out of Africa I** → [Early expansions of hominins out of Africa](https://en.wikipedia.org/wiki/Early_expansions_of_hominins_out_of_Africa) (from `Out of Africa I`)
@@ -809,7 +814,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (106)
+## Settled from a disambiguation page (107)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -906,6 +911,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `us-310` **Ninth Amendment** → [Ninth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Ninth_Amendment_to_the_United_States_Constitution) (via the disambiguation page `Ninth Amendment`)
 - `us-330` **Twelfth Amendment** → [Twelfth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Twelfth_Amendment_to_the_United_States_Constitution) (via the disambiguation page `Twelfth Amendment`)
 - `us-472` **Slave quarters** → [Slave quarters in the United States](https://en.wikipedia.org/wiki/Slave_quarters_in_the_United_States) (via the disambiguation page `Slave quarters`)
+- `us-635` **Fifteenth Amendment** → [Fifteenth Amendment to the United States Constitution](https://en.wikipedia.org/wiki/Fifteenth_Amendment_to_the_United_States_Constitution) (via the disambiguation page `Fifteenth Amendment`)
 - `wh-218` **Middle Kingdom** → [Middle Kingdom of Egypt](https://en.wikipedia.org/wiki/Middle_Kingdom_of_Egypt) (via the disambiguation page `Middle Kingdom`)
 - `wh-458` **Hijra** → [Hijra (South Asia)](https://en.wikipedia.org/wiki/Hijra_(South_Asia)) (via the disambiguation page `Hijra`)
 - `wh-522` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
@@ -1104,7 +1110,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (186)
+## Section redirects — no dedicated page (187)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1273,6 +1279,7 @@ Wikipedia treats these as part of another article. No link.
 - `us-469` **slave schedule** — `Slave schedule` only redirects into `United States census#History`
 - `us-513` **immediatism** — `Immediatism` only redirects into `Peter Lamborn Wilson#Ontological anarchy`
 - `us-536` **Seventh of March speech** — `Seventh of March speech` only redirects into `Daniel Webster#Seventh of March Speech`
+- `us-631` **Radical Reconstruction** — `Radical Reconstruction` only redirects into `Reconstruction era#Congressional Reconstruction`
 - `wh-031` **cooking hypothesis** — `Cooking hypothesis` only redirects into `Control of fire by early humans#The cooking hypothesis`
 - `wh-064` **Toba catastrophe theory** — `Toba catastrophe theory` only redirects into `Youngest Toba eruption#Toba catastrophe theory`
 - `wh-095` **peopling of Europe** — `Peopling of Europe` only redirects into `Paleolithic Europe#Upper Paleolithic`
@@ -1295,7 +1302,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1164)
+## No article found (1171)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2401,6 +2408,13 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `us-499` **Virginia slavery debate** — search suggests `Thirteenth Amendment to the United States Constitution`, `United States`, `Slave states and free states`, `Slavery in the United States`, `Slavery and the United States Constitution`
 - `us-520` **quilt code** — search suggests `Quilting`, `Quilts of the Underground Railroad`, `Houston`, `Boykin, Alabama`, `Social class in the United States`
 - `us-535` **Higher law speech** — search suggests `Freedom of speech in the United States`, `United States`, `United States labor law`, `Child pornography laws in the United States`, `Law school in the United States`
+- `us-607` **Self-emancipation** — search suggests `United States`, `Emancipation of minors`, `Emancipation Proclamation`, `Emancipation`, `Slavery in the United States`
+- `us-616` **Confederate conscription** — search suggests `Confederate Conscription Acts 1862–1864`, `Confederate States of America`, `Conscription in the United States`, `Confederate States Congress`, `Confederate States Army`
+- `us-636` **Black officeholders during Reconstruction** — search suggests `List of African-American United States senators`, `African American officeholders from the end of the Civil War until before 1900`, `African-American officeholders in the United States, 1789–1866`, `Reconstruction era`, `African Americans in the United States Congress`
+- `us-654` **Railroad land grants** — search suggests `Railroad land grants in the United States`, `Land grant`, `History of rail transportation in the United States`, `Checkerboarding (land)`, `Pacific Railroad Acts`
+- `us-661` **destruction of the bison** — search suggests `American bison hunting`, `Bison`, `American bison`, `History of the United States`, `Great bison belt`
+- `us-662` **cattle kingdom** — search suggests `List of cattle terminology`, `Highland cattle`, `United States`, `Aberdeen Angus`, `American Brahman`
+- `us-682` **Industrialisation of the United States** — search suggests `Japan–United States relations`, `History of industrialisation`, `Singapore–United States relations`, `Industrialisation`, `International development`
 - `wh-080` **Palaeolithic music** — search suggests `Paleolithic`, `History of music`, `Upper Paleolithic`, `Cro-Magnon`, `Music of Slovakia`
 - `wh-088` **southern dispersal route** — search suggests `Southern dispersal`, `Recent African origin of modern humans`, `Biological dispersal`, `Johor Bahru Eastern Dispersal Link Expressway`, `Genetic history of East Asians`
 - `wh-089` **archaic human admixture** — search suggests `Interbreeding between archaic and modern humans`, `Genetic history of Africa`, `Denisovan`, `Early human migrations`, `Human genetic variation`
