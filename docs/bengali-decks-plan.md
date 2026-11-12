@@ -5,8 +5,8 @@ twelfth language set, the Hindi set's sister: `.claude/bengali/` is `.claude/hin
 in 📖 `docs/hindi-decks-plan.md` and `docs/lang-decks.md` applies here unless this file says otherwise. Asked
 for on 2026-11-09: "Add a Bengali language collection."
 
-**STATUS (2026-11-09): the alphabet deck, A1 and A2 are built** (`.claude/bengali/`, §6–7). B1 to C1 and
-the phrases deck are not.
+**STATUS (2026-11-12): all seven decks are built** — the alphabet, A1 to C1 and the phrases deck
+(`.claude/bengali/`, §6–11); C1 is 622 words, not 1,500, by the owner's choice (§10).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one (merged into the day's Hindi
@@ -34,10 +34,10 @@ otherwise:
 | Bengali Alphabet (Bangla script) — built | `Bengali-Alphabet.folio-deck.json` | 56 |
 | Bengali A1 Beginner — built | `Bengali-A1.folio-deck.json` | 500 |
 | Bengali A2 Elementary — built | `Bengali-A2.folio-deck.json` | 750 |
-| Bengali B1 Intermediate | `Bengali-B1.folio-deck.json` | 1,000 |
-| Bengali B2 Upper Intermediate | `Bengali-B2.folio-deck.json` | 1,500 |
-| Bengali C1 Advanced | `Bengali-C1.folio-deck.json` | 1,500 |
-| Bengali Phrases and Expressions | `Bengali-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Bengali B1 Intermediate — built | `Bengali-B1.folio-deck.json` | 1,000 |
+| Bengali B2 Upper Intermediate — built | `Bengali-B2.folio-deck.json` | 1,500 |
+| Bengali C1 Advanced — built | `Bengali-C1.folio-deck.json` | 622 (planned 1,500; §10) |
+| Bengali Phrases and Expressions — built | `Bengali-Phrases-and-Expressions.folio-deck.json` | 107 (§11) |
 
 ## 2. Sources and licences
 
@@ -93,9 +93,9 @@ A1's 500 words have no Tatoeba sentence. The fill carries subtitle vocabulary (`
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 (done) to C1, one level per session: write
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1 (done), one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `bengali_level.py`, run, read every card.
-**Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored.
+**Phase 3** — the phrases deck (done, §11). **Phase 4** — a combined file, gitignored.
 
 ## 6. As built (2026-11-09): the alphabet and A1
 
@@ -130,3 +130,112 @@ Wiktionary's multi-word verbs (`মনে করা`, `সাহায্য ক
 - New hand exclusions, each with its reason: `মাই`, `থাম`, `মাল` (counted from commoner words), `দক্ষ`
   (Wiktionary's entry parses to its headword line), `দিয়া` (sadhu), `জো` (a bare "synonym of"), the bare stems
   `সেখান` / `ওখান`, and the second spellings `জুতো`, `জ্বী`, `লাজ`.
+
+## 8. As built (2026-11-12): B1
+
+`python3 .claude/bengali/run.py --level b1`. 1,000 notes, 297 from the inventory and 703 by frequency;
+sentences for 370, three for 96 — Tatoeba's 8,709 Bengali pairs run out at this level (630 words have none),
+and the description says so in its counts. **The inventory was written from Wiktionary's headwords, not
+before them**: the first draft lost about a third to missing entries (বেতন, পরিবেশ, প্রযুক্তি, ভোট, নিরাপদ,
+সম্ভবত …) and another third to words A1 or A2's fill had already dealt (শিক্ষা, সরকার, সমস্যা …), so the
+level's topics were refilled from the remaining lemmas that have an entry. Nothing was given a meaning by hand.
+
+**Found on reading the ranking, and fixed:**
+- **"synonym of" pointers.** `আম্মা` ("synonym of মা"), `আপু`, `অপারেশন` were dealt as words; `select.FORMGLOSS`
+  now counts "synonym of <Bengali>" as a pointer. A1 and A2 do not change.
+- **A multi-word verb's table.** kaikki garbles the conjugation of `মনে করা`, `অনুভব করা` … to one
+  "habitual past" row (তুই করতি, তুই প্রমাণকরতিস); a multi-word lemma now has no table
+  (`build_deck.table_html`) — the verb's whole table is on its own card (করা, A1). A2's ten such cards lost
+  the broken row — the only change to A2.
+- **The subtitles' homographs** are the commonest fault at this depth: English words in Bengali letters
+  (হোম "havan" counted from "home", হিল, রুট, ব্যাক, অল, ডগ), names (রাম, জামাল, ওমর, আলী, আদম), and forms of
+  common verbs (হল "plough" ← হল "was"; পেল ← "got"; দেও ← "give!"; গুলা "flood" ← the plural -গুলা). Each
+  is a hand exclusion in `select.EXCLUDE` with its reason, as are older, dialect and sadhu spellings of words
+  already taught (ঔষধ, গোরু, ভিজা, ভালা, কাইল, লওয়া, ইহা, হইতে) and two entries with no clean romanisation
+  (ফ্ল্যাট, ওহে).
+- Counts of 1,000 and more are written with a comma ("1,000 words"), as the shelf's other B1 decks write them.
+
+**Known, left.** The fill still carries some dialect and Perso-Arabic register (পোলা, পুত, কেডা, আপনে, দুশমন)
+and some subtitle vocabulary (ধর্ষণ, ভূত, প্রেতাত্মা); each has a real entry and a real meaning, so it stays.
+
+## 9. As built (2026-11-12): B2
+
+`python3 .claude/bengali/run.py --level b2`. 1,500 notes, 253 from the inventory and 1,247 by frequency;
+sentences for only 174, three for 38 — Tatoeba's Bengali is spent by this level, and the description gives
+the counts. The inventory (business and the economy, politics and the law, science, language and the arts,
+the mind, argument and evaluation, the land, health, precise description, adverbs of manner and time, verbs
+of action) was again written from the remaining lemmas that have an entry; a word in a spelling variant of
+one already taught (`পেশি` / B1's `পেশী`) was taken out by hand, since `vkey` guards only the fill.
+
+**Found on reading the ranking, and fixed in `select.py`:**
+- **Hyphenated lemmas** (`টি-শার্ট`, `হাত-পা`, `সাদা-সিধা`) were dealt; the fill now skips them as it skips
+  multi-word ones, and `check-bengali.js` refuses the hyphen anyway. A1 to B1 do not change.
+- **Hand exclusions, each with its reason** — the same faults as B1's, deeper: names (রহমান, রহিম, আকবর,
+  আজম, করিম, রাসেল …), English in Bengali letters (কিল, চিল, মাইনাস, বাগ, রম), forms of common verbs (খাই,
+  লাগ), sadhu and dialect forms of words already taught (যাহা, করিয়া, থিকা, আইজ, রাইত, সেব, সোলো, হাপ, ক্যা),
+  a misspelling (ধনবাদ), and **entries whose sense is wrong or another word's**: `বিস্তৃত` and `সংকীর্ণ` carry
+  বিস্তারহীন's and হীন's romanisations and senses; `পাড়` "hill", `পৌত্তলিক` "ethnic" and `পসরা` "light ray"
+  are not those words' meanings.
+- **Slang and smut** (নুনু, পর্ন, পর্নো, পাদ, পাদা, হস্তমৈথুন) joined `SWEARS`; anatomical and medical
+  terms stay.
+
+**Known, left.** Dialect words that are not a form of a taught word stay (হেতে, লাহান, কেঠা, আণ্ডা), as do
+many religious and Perso-Arabic terms of both communities (নামাজ, পূজারী, ফতোয়া, যজ্ঞ) — real entries with
+real meanings. Some senses are Wiktionary's narrower or older ones (`তৎপর` "thereafter", `মাড়ি` "paste").
+
+## 10. As built (2026-11-12): C1, and why it is 622 words
+
+`python3 .claude/bengali/run.py --level c1`. **622 notes, 287 from the inventory and 335 by frequency**;
+sentences for 33. **The sources ran out.** After B2, only about 760 unused lemmas had a subtitle count at all
+(the fill deals none below 1), and what Wiktionary's Bengali holds beyond them is mostly a dictionary sweep
+of Sanskrit অ- compounds, botanical synonyms (eleven names for the bael tree), regional dialect (Sylheti,
+Noakhali), number words and anatomy. A list of ~400 standard advanced words (economics, law, argument,
+literature, the environment, psychology) was tried against it: **four** had an entry and were not already
+taught. The owner was asked and chose a smaller, honest C1 over padding it to 1,500
+(2026-11-12); `SCOPE['c1']['note']` puts the reason in the deck's description, and `TARGET['c1']` stays
+1,500 as the plan's cap — the fill simply runs dry before it. **A future C1 needs a new source** (a larger
+Bengali dictionary under an open licence, or a frequency list from news text), not more of this one.
+
+The inventory (287) was picked by hand from the zero- and low-count entries: scholarship and the study of
+language, the state and public life, ideas and political movements, administration, character and
+judgement, argument and degree, the land and its measure, health, feeling, everyday things and the formal
+written register. Every card was read.
+
+**Found on reading, and fixed in `select.py`:** names again (রুস্তম, মীর, আমীর, হাবীব, এরশাদ, ইয়াসমিন,
+অরুণ, স্বপন, অনামিকা, মল্লিকা, আশিষ, সিয়াম, পৃথ্বী), a place (টেমস), English in Bengali letters (প্রব্লেম),
+dialect forms of taught words (অখন, তয়, মানষি), wrong senses (শাল, হাড়ি, মাস্তানি) and a coinage (তুমিহীন),
+each with its reason; a vulgar intensifier, a slur and "piss" (বাঁড়া, পায়ুকামী, মুত, পেচ্ছাপ) joined
+`SWEARS`. A1 to B2 do not change.
+
+**Known, left.** Much of the fill is religious, Perso-Arabic or regional (আযান, সেজদা, ওয়াজ, পীর, ভজন,
+মহব্বত, অওরত), and some is poetic or archaic (তব, যেথা, আঁখ, প্রাত) — real entries with real meanings, but
+the register a C1 reader meets in literature rather than in the news. Some senses are Wiktionary's narrower
+ones (`গণভোট` "mass-election" for "referendum", `প্রজাতন্ত্রী` "republic" for "republican").
+
+## 11. As built (2026-11-12): the phrases deck
+
+`python3 .claude/bengali/run.py --level phr` runs `phrases.py` in place of `select.py`. **107 expressions
+in three subdecks, as the Turkish and Indonesian decks have** (the card's `sub`): 57 Phrases (greetings
+and wishes of both communities — শুভ সকাল, ঈদ মোবারক, খোদা হাফেজ, শুভ বিজয়া; the phrasebook sentences a
+learner needs whole, with তুই / তুমি / আপনি where Wiktionary gives them; the national slogans of both
+countries; and set everyday expressions — কিছু না, বার বার, দেখতে পাওয়া), 38 Idioms (ঘোড়ার ডিম, চোখের
+বালি, মীর জাফর, অকূল পাথার …) and 12 Proverbs. Ordered within each subdeck by subtitle frequency; 22
+carry Tatoeba sentences. A re-run is byte-identical; the five levels do not change.
+
+**The list is chosen by hand** (`phrases.SUBS`) from all 361 multi-word, phrase and proverb entries no level
+teaches. Most of those are compound NOUNS (bird, fish and plant names, "laptop computer", "black hole"),
+which are vocabulary, not expressions. `phrases.LEFT_OUT` records the rest by kind with its reason: second
+spellings, personal sentences about one's faith or nationality ("I'm a Muslim", "are you religious?" —
+Turkish left out the same kind), partisan slogans and news memes (জয় শ্রী রাম, লাভ জিহাদ, তৌহিদী জনতা),
+religious formulas in Arabic (the everyday greetings stay), sadhu and dialect, and smut, curses and one
+demeaning saying.
+
+**Romanisation from the parts.** Where Wiktionary gives an expression no romanisation, `composed_roman`
+joins its words' own (বার বার → bar bar; কালো পতাকা, কাছা আলগা) — a concatenation, the rule
+`SUFFIX_ROMAN` already follows. Where a part has none the expression is dropped, never romanised by hand:
+**আসসালামু আলাইকুম**, খয়ের খাঁ and the proverb দুর্ভাগ্য অনেক স্থলে সৌভাগ্যের কারণ হয় (the greeting's loss
+is the one worth fixing upstream, on Wiktionary).
+
+**Known, left.** The deck is small because the dictionary's Bengali is; a larger one needs a new source,
+as C1 does. Some glosses are Wiktionary's wording ("A person who think very much of others" for দয়ার
+সাগর), and a few phrases are ones a learner could build (আমার ডাক্তার লাগবে) — kept, as a phrasebook keeps them.
