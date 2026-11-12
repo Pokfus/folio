@@ -3461,7 +3461,11 @@ changed was the one that had been wrong all along.
 - `.claude/hindi/` — the generator behind the Hindi decks (Nov 2026, on request: "Add a Hindi language
   collection", then the owner's answers: CEFR A1–C1 assembled, a Devanagari deck, romanisation on every card).
   **Built: the alphabet, `decks/Hindi-Alphabet.folio-deck.json`** (59 notes) **and A1,
-  `decks/Hindi-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/hindi/run.py [--level a1]`,
+  `decks/Hindi-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Hindi-A2.folio-deck.json`**
+  (750 notes) **and B1, `decks/Hindi-B1.folio-deck.json`** (1,000 notes)
+  **and B2, `decks/Hindi-B2.folio-deck.json`** (1,500 notes) **and C1, `decks/Hindi-C1.folio-deck.json`**
+  (1,500 notes) **and the phrases deck, `decks/Hindi-Phrases-and-Expressions.folio-deck.json`** (288
+  expressions in Phrases / Idioms / Proverbs, 2026-11-12). `python3 .claude/hindi/run.py [--level a1|…|c1|phr]`,
   `python3 .claude/hindi/alphabet.py`, `node .claude/hindi/check-hindi.js`; a re-run is byte-identical. The
   UKBI / TORFL shape: no exam board publishes a Hindi list, so a level is a topic inventory plus lemma
   frequency, and the description says so. The plan, the sources and every finding (the nukta / chandrabindu
@@ -3472,7 +3476,7 @@ changed was the one that had been wrong all along.
 - `.claude/bengali/` — the generator behind the Bengali decks (Nov 2026, on request: "Add a Bengali language
   collection"; the Hindi set's decisions taken for its sister). **Built: the alphabet,
   `decks/Bengali-Alphabet.folio-deck.json`** (56 notes) **and A1, `decks/Bengali-A1.folio-deck.json`** (500
-  notes / 1,000 cards) **and A2, `decks/Bengali-A2.folio-deck.json`** (750 notes). `python3 .claude/bengali/run.py [--level a1|a2]`, `python3 .claude/bengali/alphabet.py`,
+  notes / 1,000 cards) **and A2, `decks/Bengali-A2.folio-deck.json`** (750 notes) **and B1, `decks/Bengali-B1.folio-deck.json`** (1,000 notes) **and B2, `decks/Bengali-B2.folio-deck.json`** (1,500 notes) **and C1, `decks/Bengali-C1.folio-deck.json`** (622 notes — the sources ran out, the owner chose small over padded) **and the phrases deck, `decks/Bengali-Phrases-and-Expressions.folio-deck.json`** (107 expressions in three subdecks, a hand-chosen list in `phrases.py`). `python3 .claude/bengali/run.py [--level a1|a2|b1|b2|c1|phr]`, `python3 .claude/bengali/alphabet.py`,
   `node .claude/bengali/check-bengali.js`; a re-run is byte-identical. `.claude/hindi/` adapted: no gender, the
   sadhu conjugations skipped, kaikki's garbled noun-table cells cleaned and romanised by ending, the y-stem
   template's doubled য় dropped, form-of pointers of any part of speech kept for the inventory (`আছে`). Every
@@ -3530,8 +3534,11 @@ changed was the one that had been wrong all along.
   `#14659F` (re-swept at the merge: Greek had taken the first sweep's periwinkle).
 - `.claude/swahili/` — the generator behind the Swahili decks (Nov 2026, on request: "Add a Swahili language
   collection"; no levels named, so Hindi's answers were taken — CEFR A1–C1 assembled). **Built: A1,
-  `decks/Swahili-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Swahili-A2.folio-deck.json`**
-  (750 / 1,500). `python3 .claude/swahili/run.py [--level a1]`,
+  `decks/Swahili-A1.folio-deck.json`** (500 notes / 1,000 cards) **, A2, `decks/Swahili-A2.folio-deck.json`**
+  (750 / 1,500) **, B1, `decks/Swahili-B1.folio-deck.json`** (1,000 / 2,000) **, B2,
+  `decks/Swahili-B2.folio-deck.json`** (1,500 / 3,000) **and C1, `decks/Swahili-C1.folio-deck.json`** (1,500 / 3,000;
+  ranked on two written corpora, CCMatrix and WikiMatrix, counted into a file of its own), **and the phrases
+  deck, `decks/Swahili-Phrases-and-Expressions.folio-deck.json`** (284 / 568, `--level phr`). `python3 .claude/swahili/run.py [--level a1]`,
   `node .claude/swahili/check-swahili.js`; a re-run is byte-identical. No frequency list exists, so two OPUS
   corpora (OpenSubtitles 2024, Global Voices) are counted and ranked by the geometric mean of their rates, and a
   verb parser credits conjugated forms to their stems; verbs print as infinitives, adjectives as stems, nouns
