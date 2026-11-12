@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T18:17Z",
+ "generated": "2026-11-12T22:00Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8000,
-  "redirect-broader": 777,
-  "redirect-variant": 480,
+  "ok": 8094,
+  "redirect-broader": 782,
+  "redirect-variant": 485,
   "section-redirect": 188,
-  "disambiguation": 157,
-  "none": 1174,
+  "disambiguation": 156,
+  "none": 1171,
   "disambig-resolved": 109,
   "list-page": 6,
   "search-match": 9,
@@ -86969,6 +86969,720 @@
    "answer": "Roosevelt Corollary",
    "title": "Roosevelt Corollary",
    "url": "https://en.wikipedia.org/wiki/Roosevelt_Corollary",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-801": {
+   "answer": "Okies",
+   "title": "Okie",
+   "url": "https://en.wikipedia.org/wiki/Okie",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Okies"
+  },
+  "us-802": {
+   "answer": "1932 United States presidential election",
+   "title": "1932 United States presidential election",
+   "url": "https://en.wikipedia.org/wiki/1932_United_States_presidential_election",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-803": {
+   "answer": "Franklin D. Roosevelt",
+   "title": "Franklin D. Roosevelt",
+   "url": "https://en.wikipedia.org/wiki/Franklin_D._Roosevelt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-804": {
+   "answer": "Hundred Days",
+   "title": "Hundred Days",
+   "url": "https://en.wikipedia.org/wiki/Hundred_Days",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-805": {
+   "answer": "New Deal",
+   "title": "New Deal",
+   "url": "https://en.wikipedia.org/wiki/New_Deal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-806": {
+   "answer": "Emergency Banking Act",
+   "title": "Emergency Banking Act of 1933",
+   "url": "https://en.wikipedia.org/wiki/Emergency_Banking_Act_of_1933",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Emergency Banking Act"
+  },
+  "us-807": {
+   "answer": "Fireside chats",
+   "title": "Fireside chats",
+   "url": "https://en.wikipedia.org/wiki/Fireside_chats",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-808": {
+   "answer": "Civilian Conservation Corps",
+   "title": "Civilian Conservation Corps",
+   "url": "https://en.wikipedia.org/wiki/Civilian_Conservation_Corps",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-809": {
+   "answer": "Agricultural Adjustment Act",
+   "title": "Agricultural Adjustment Act",
+   "url": "https://en.wikipedia.org/wiki/Agricultural_Adjustment_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-810": {
+   "answer": "National Industrial Recovery Act",
+   "title": "National Industrial Recovery Act of 1933",
+   "url": "https://en.wikipedia.org/wiki/National_Industrial_Recovery_Act_of_1933",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "National Industrial Recovery Act"
+  },
+  "us-811": {
+   "answer": "Tennessee Valley Authority",
+   "title": "Tennessee Valley Authority",
+   "url": "https://en.wikipedia.org/wiki/Tennessee_Valley_Authority",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-812": {
+   "answer": "Works Progress Administration",
+   "title": "Works Progress Administration",
+   "url": "https://en.wikipedia.org/wiki/Works_Progress_Administration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-813": {
+   "answer": "Federal Writers' Project",
+   "title": "Federal Writers' Project",
+   "url": "https://en.wikipedia.org/wiki/Federal_Writers'_Project",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-814": {
+   "answer": "Social Security Act",
+   "title": "Social Security Act",
+   "url": "https://en.wikipedia.org/wiki/Social_Security_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-815": {
+   "answer": "National Labor Relations Act",
+   "title": "National Labor Relations Act of 1935",
+   "url": "https://en.wikipedia.org/wiki/National_Labor_Relations_Act_of_1935",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "National Labor Relations Act"
+  },
+  "us-816": {
+   "answer": "Congress of Industrial Organizations",
+   "title": "Congress of Industrial Organizations",
+   "url": "https://en.wikipedia.org/wiki/Congress_of_Industrial_Organizations",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-817": {
+   "answer": "Flint sit-down strike",
+   "title": "Flint sit-down strike",
+   "url": "https://en.wikipedia.org/wiki/Flint_sit-down_strike",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-818": {
+   "answer": "Second New Deal",
+   "title": "Second New Deal",
+   "url": "https://en.wikipedia.org/wiki/Second_New_Deal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-819": {
+   "answer": "Schechter v. United States",
+   "title": "A.L.A. Schechter Poultry Corp. v. United States",
+   "url": "https://en.wikipedia.org/wiki/A.L.A._Schechter_Poultry_Corp._v._United_States",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Schechter v. United States"
+  },
+  "us-820": {
+   "answer": "Judicial Procedures Reform Bill of 1937",
+   "title": "Judicial Procedures Reform Bill of 1937",
+   "url": "https://en.wikipedia.org/wiki/Judicial_Procedures_Reform_Bill_of_1937",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-821": {
+   "answer": "New Deal coalition",
+   "title": "New Deal coalition",
+   "url": "https://en.wikipedia.org/wiki/New_Deal_coalition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-822": {
+   "answer": "Black Cabinet",
+   "title": "Black Cabinet",
+   "url": "https://en.wikipedia.org/wiki/Black_Cabinet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-823": {
+   "answer": "Mexican Repatriation",
+   "title": "Mexican Repatriation",
+   "url": "https://en.wikipedia.org/wiki/Mexican_Repatriation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-824": {
+   "answer": "Recession of 1937–1938",
+   "title": "Recession of 1937–1938",
+   "url": "https://en.wikipedia.org/wiki/Recession_of_1937%E2%80%931938",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-825": {
+   "answer": "Fair Labor Standards Act",
+   "title": "Fair Labor Standards Act of 1938",
+   "url": "https://en.wikipedia.org/wiki/Fair_Labor_Standards_Act_of_1938",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Fair Labor Standards Act"
+  },
+  "us-826": {
+   "answer": "Neutrality Acts",
+   "title": "Neutrality Acts of the 1930s",
+   "url": "https://en.wikipedia.org/wiki/Neutrality_Acts_of_the_1930s",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-827": {
+   "answer": "Lend-Lease",
+   "title": "Lend-Lease",
+   "url": "https://en.wikipedia.org/wiki/Lend-Lease",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-828": {
+   "answer": "attack on Pearl Harbor",
+   "title": "Attack on Pearl Harbor",
+   "url": "https://en.wikipedia.org/wiki/Attack_on_Pearl_Harbor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-829": {
+   "answer": "United States declaration of war on Japan",
+   "title": "United States declaration of war on Japan",
+   "url": "https://en.wikipedia.org/wiki/United_States_declaration_of_war_on_Japan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-830": {
+   "answer": "Selective Training and Service Act of 1940",
+   "title": "Selective Training and Service Act of 1940",
+   "url": "https://en.wikipedia.org/wiki/Selective_Training_and_Service_Act_of_1940",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-831": {
+   "answer": "Arsenal of Democracy",
+   "title": "Arsenal of Democracy",
+   "url": "https://en.wikipedia.org/wiki/Arsenal_of_Democracy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-832": {
+   "answer": "Rosie the Riveter",
+   "title": "Rosie the Riveter",
+   "url": "https://en.wikipedia.org/wiki/Rosie_the_Riveter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-833": {
+   "answer": "Internment of Japanese Americans",
+   "title": "Internment of Japanese Americans",
+   "url": "https://en.wikipedia.org/wiki/Internment_of_Japanese_Americans",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-834": {
+   "answer": "Korematsu v. United States",
+   "title": "Korematsu v. United States",
+   "url": "https://en.wikipedia.org/wiki/Korematsu_v._United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-835": {
+   "answer": "Double V campaign",
+   "title": "Double V campaign",
+   "url": "https://en.wikipedia.org/wiki/Double_V_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-836": {
+   "answer": "Bracero Program",
+   "title": "Bracero Program",
+   "url": "https://en.wikipedia.org/wiki/Bracero_Program",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-837": {
+   "answer": "Zoot Suit Riots",
+   "title": "Zoot Suit Riots",
+   "url": "https://en.wikipedia.org/wiki/Zoot_Suit_Riots",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-838": {
+   "answer": "Office of War Information",
+   "title": "United States Office of War Information",
+   "url": "https://en.wikipedia.org/wiki/United_States_Office_of_War_Information",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Office of War Information"
+  },
+  "us-839": {
+   "answer": "Office of Price Administration",
+   "title": "Office of Price Administration",
+   "url": "https://en.wikipedia.org/wiki/Office_of_Price_Administration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-840": {
+   "answer": "Manhattan Project",
+   "title": "Manhattan Project",
+   "url": "https://en.wikipedia.org/wiki/Manhattan_Project",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-841": {
+   "answer": "Project Y",
+   "title": "Project Y",
+   "url": "https://en.wikipedia.org/wiki/Project_Y",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-842": {
+   "answer": "Trinity test",
+   "title": "Trinity (nuclear test)",
+   "url": "https://en.wikipedia.org/wiki/Trinity_(nuclear_test)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Trinity test"
+  },
+  "us-843": {
+   "answer": "Pacific War",
+   "title": "Pacific War",
+   "url": "https://en.wikipedia.org/wiki/Pacific_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-844": {
+   "answer": "Island hopping",
+   "title": "Leapfrogging (strategy)",
+   "url": "https://en.wikipedia.org/wiki/Leapfrogging_(strategy)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Island hopping"
+  },
+  "us-845": {
+   "answer": "Battle of Midway",
+   "title": "Battle of Midway",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Midway",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-846": {
+   "answer": "Battle of Okinawa",
+   "title": "Battle of Okinawa",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Okinawa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-847": {
+   "answer": "European theatre of World War II",
+   "title": "European theatre of World War II",
+   "url": "https://en.wikipedia.org/wiki/European_theatre_of_World_War_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-848": {
+   "answer": "Operation Torch",
+   "title": "Operation Torch",
+   "url": "https://en.wikipedia.org/wiki/Operation_Torch",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-849": {
+   "answer": "Utah Beach",
+   "title": "Utah Beach",
+   "url": "https://en.wikipedia.org/wiki/Utah_Beach",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-850": {
+   "answer": "United States Army Air Forces",
+   "title": "United States Army Air Forces",
+   "url": "https://en.wikipedia.org/wiki/United_States_Army_Air_Forces",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-851": {
+   "answer": "Interim Committee",
+   "title": "Interim Committee",
+   "url": "https://en.wikipedia.org/wiki/Interim_Committee",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-852": {
+   "answer": "Atomic bombings of Hiroshima and Nagasaki",
+   "title": "Atomic bombings of Hiroshima and Nagasaki",
+   "url": "https://en.wikipedia.org/wiki/Atomic_bombings_of_Hiroshima_and_Nagasaki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-853": {
+   "answer": "Debate over the atomic bombings of Hiroshima and Nagasaki",
+   "title": "Debate over the atomic bombings of Hiroshima and Nagasaki",
+   "url": "https://en.wikipedia.org/wiki/Debate_over_the_atomic_bombings_of_Hiroshima_and_Nagasaki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-854": {
+   "answer": "GI Bill",
+   "title": "G.I. Bill",
+   "url": "https://en.wikipedia.org/wiki/G.I._Bill",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-855": {
+   "answer": "Sun Belt",
+   "title": "Sun Belt",
+   "url": "https://en.wikipedia.org/wiki/Sun_Belt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-856": {
+   "answer": "Origins of the Cold War",
+   "title": "Origins of the Cold War",
+   "url": "https://en.wikipedia.org/wiki/Origins_of_the_Cold_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-857": {
+   "answer": "Containment",
+   "title": "Containment",
+   "url": "https://en.wikipedia.org/wiki/Containment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-858": {
+   "answer": "Long Telegram",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Long Telegram",
+   "target": "X Article#The \"long telegram\""
+  },
+  "us-859": {
+   "answer": "Truman Doctrine",
+   "title": "Truman Doctrine",
+   "url": "https://en.wikipedia.org/wiki/Truman_Doctrine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-860": {
+   "answer": "Marshall Plan",
+   "title": "Marshall Plan",
+   "url": "https://en.wikipedia.org/wiki/Marshall_Plan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-861": {
+   "answer": "Berlin Blockade",
+   "title": "Berlin Blockade",
+   "url": "https://en.wikipedia.org/wiki/Berlin_Blockade",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-862": {
+   "answer": "NATO",
+   "title": "NATO",
+   "url": "https://en.wikipedia.org/wiki/NATO",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-863": {
+   "answer": "National Security Act of 1947",
+   "title": "National Security Act of 1947",
+   "url": "https://en.wikipedia.org/wiki/National_Security_Act_of_1947",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-864": {
+   "answer": "Central Intelligence Agency",
+   "title": "Central Intelligence Agency",
+   "url": "https://en.wikipedia.org/wiki/Central_Intelligence_Agency",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-865": {
+   "answer": "NSC 68",
+   "title": "NSC 68",
+   "url": "https://en.wikipedia.org/wiki/NSC_68",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-866": {
+   "answer": "Korean War",
+   "title": "Korean War",
+   "url": "https://en.wikipedia.org/wiki/Korean_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-867": {
+   "answer": "Loss of China",
+   "title": "Loss of China",
+   "url": "https://en.wikipedia.org/wiki/Loss_of_China",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-868": {
+   "answer": "McCarthyism",
+   "title": "McCarthyism",
+   "url": "https://en.wikipedia.org/wiki/McCarthyism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-869": {
+   "answer": "Joseph McCarthy",
+   "title": "Joseph McCarthy",
+   "url": "https://en.wikipedia.org/wiki/Joseph_McCarthy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-870": {
+   "answer": "House Un-American Activities Committee",
+   "title": "House Un-American Activities Committee",
+   "url": "https://en.wikipedia.org/wiki/House_Un-American_Activities_Committee",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-871": {
+   "answer": "Hollywood blacklist",
+   "title": "Hollywood blacklist",
+   "url": "https://en.wikipedia.org/wiki/Hollywood_blacklist",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-872": {
+   "answer": "Julius and Ethel Rosenberg",
+   "title": "Julius and Ethel Rosenberg",
+   "url": "https://en.wikipedia.org/wiki/Julius_and_Ethel_Rosenberg",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-873": {
+   "answer": "Presidency of Dwight D. Eisenhower",
+   "title": "Presidency of Dwight D. Eisenhower",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_Dwight_D._Eisenhower",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-874": {
+   "answer": "Massive retaliation",
+   "title": "Massive retaliation",
+   "url": "https://en.wikipedia.org/wiki/Massive_retaliation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-875": {
+   "answer": "Covert action",
+   "title": "Covert operation",
+   "url": "https://en.wikipedia.org/wiki/Covert_operation",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "us-876": {
+   "answer": "1953 Iranian coup d'état",
+   "title": "1953 Iranian coup d'état",
+   "url": "https://en.wikipedia.org/wiki/1953_Iranian_coup_d'%C3%A9tat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-877": {
+   "answer": "Sputnik crisis",
+   "title": "Sputnik crisis",
+   "url": "https://en.wikipedia.org/wiki/Sputnik_crisis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-878": {
+   "answer": "Military–industrial complex",
+   "title": "Military–industrial complex",
+   "url": "https://en.wikipedia.org/wiki/Military%E2%80%93industrial_complex",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-879": {
+   "answer": "Post–World War II economic expansion",
+   "title": "Post–World War II economic expansion",
+   "url": "https://en.wikipedia.org/wiki/Post%E2%80%93World_War_II_economic_expansion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-880": {
+   "answer": "Levittown",
+   "title": "Levittown, New York",
+   "url": "https://en.wikipedia.org/wiki/Levittown,_New_York",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-891": {
+   "answer": "Jim Crow laws",
+   "title": "Jim Crow laws",
+   "url": "https://en.wikipedia.org/wiki/Jim_Crow_laws",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-892": {
+   "answer": "Plessy v. Ferguson",
+   "title": "Plessy v. Ferguson",
+   "url": "https://en.wikipedia.org/wiki/Plessy_v._Ferguson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-893": {
+   "answer": "Grandfather clause",
+   "title": "Grandfather clause",
+   "url": "https://en.wikipedia.org/wiki/Grandfather_clause",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-894": {
+   "answer": "Lynching in the United States",
+   "title": "Lynching in the United States",
+   "url": "https://en.wikipedia.org/wiki/Lynching_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-895": {
+   "answer": "Ida B. Wells",
+   "title": "Ida B. Wells",
+   "url": "https://en.wikipedia.org/wiki/Ida_B._Wells",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-896": {
+   "answer": "Booker T. Washington",
+   "title": "Booker T. Washington",
+   "url": "https://en.wikipedia.org/wiki/Booker_T._Washington",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-897": {
+   "answer": "W. E. B. Du Bois",
+   "title": "W. E. B. Du Bois",
+   "url": "https://en.wikipedia.org/wiki/W._E._B._Du_Bois",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-898": {
+   "answer": "NAACP",
+   "title": "NAACP",
+   "url": "https://en.wikipedia.org/wiki/NAACP",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-899": {
+   "answer": "Sundown town",
+   "title": "Sundown town",
+   "url": "https://en.wikipedia.org/wiki/Sundown_town",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-900": {
+   "answer": "Marcus Garvey",
+   "title": "Marcus Garvey",
+   "url": "https://en.wikipedia.org/wiki/Marcus_Garvey",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-881": {
+   "answer": "Baby boom",
+   "title": "Baby boom",
+   "url": "https://en.wikipedia.org/wiki/Baby_boom",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-882": {
+   "answer": "Interstate Highway System",
+   "title": "Interstate Highway System",
+   "url": "https://en.wikipedia.org/wiki/Interstate_Highway_System",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-883": {
+   "answer": "Kitchen Debate",
+   "title": "Kitchen Debate",
+   "url": "https://en.wikipedia.org/wiki/Kitchen_Debate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-884": {
+   "answer": "Kennedy–Nixon debates",
+   "title": "1960 United States presidential debates",
+   "url": "https://en.wikipedia.org/wiki/1960_United_States_presidential_debates",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Kennedy–Nixon debates"
+  },
+  "us-885": {
+   "answer": "Rock and roll",
+   "title": "Rock and roll",
+   "url": "https://en.wikipedia.org/wiki/Rock_and_roll",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-886": {
+   "answer": "Beat Generation",
+   "title": "Beat Generation",
+   "url": "https://en.wikipedia.org/wiki/Beat_Generation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-887": {
+   "answer": "Bay of Pigs Invasion",
+   "title": "Bay of Pigs Invasion",
+   "url": "https://en.wikipedia.org/wiki/Bay_of_Pigs_Invasion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-888": {
+   "answer": "Cuban Missile Crisis",
+   "title": "Cuban Missile Crisis",
+   "url": "https://en.wikipedia.org/wiki/Cuban_Missile_Crisis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-889": {
+   "answer": "Assassination of John F. Kennedy",
+   "title": "Assassination of John F. Kennedy",
+   "url": "https://en.wikipedia.org/wiki/Assassination_of_John_F._Kennedy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-890": {
+   "answer": "Duck and cover",
+   "title": "Duck and cover",
+   "url": "https://en.wikipedia.org/wiki/Duck_and_cover",
    "via": "glossary",
    "status": "ok"
   }

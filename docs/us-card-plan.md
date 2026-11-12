@@ -1536,102 +1536,102 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-798  Reconstruction Finance Corporation
     us-799  Bonus Army
     us-800  Dust Bowl
-    us-801  The Dust Bowl migration
+    us-801  Okies
     us-802  1932 United States presidential election
     us-803  Franklin D. Roosevelt
-    us-804  The Hundred Days
+    us-804  Hundred Days
     us-805  New Deal
-    us-806  Emergency Banking Act and the bank holiday
+    us-806  Emergency Banking Act
     us-807  Fireside chats
     us-808  Civilian Conservation Corps
     us-809  Agricultural Adjustment Act
     us-810  National Industrial Recovery Act
     us-811  Tennessee Valley Authority
     us-812  Works Progress Administration
-    us-813  The Federal Writers' Project and the arts projects
+    us-813  Federal Writers' Project
     us-814  Social Security Act
     us-815  National Labor Relations Act
     us-816  Congress of Industrial Organizations
     us-817  Flint sit-down strike
-    us-818  The Second New Deal
-    us-819  The Supreme Court and the New Deal
+    us-818  Second New Deal
+    us-819  Schechter v. United States
     us-820  Judicial Procedures Reform Bill of 1937
     us-821  New Deal coalition
-    us-822  African Americans and the New Deal
+    us-822  Black Cabinet
     us-823  Mexican Repatriation
     us-824  Recession of 1937–1938
-    us-825  What the New Deal did and did not do
+    us-825  Fair Labor Standards Act
 
 ### The Second World War — `us-ww2`
 
-    us-826  American isolationism in the 1930s
+    us-826  Neutrality Acts
     us-827  Lend-Lease
     us-828  Attack on Pearl Harbor
-    us-829  The American declaration of war
-    us-830  American mobilisation for the Second World War
-    us-831  The American war economy
-    us-832  Rosie the Riveter and women's war work
+    us-829  United States declaration of war on Japan
+    us-830  Selective Training and Service Act of 1940
+    us-831  Arsenal of Democracy
+    us-832  Rosie the Riveter
     us-833  Internment of Japanese Americans
     us-834  Korematsu v. United States
-    us-835  African Americans and the Double V campaign
+    us-835  Double V campaign
     us-836  Bracero Program
     us-837  Zoot Suit Riots
-    us-838  American wartime propaganda
-    us-839  Rationing and the American home front
+    us-838  Office of War Information
+    us-839  Office of Price Administration
     us-840  Manhattan Project
-    us-841  Los Alamos and J. Robert Oppenheimer
-    us-842  Trinity nuclear test
-    us-843  The American war in the Pacific
+    us-841  Project Y
+    us-842  Trinity test
+    us-843  Pacific War
     us-844  Island hopping
     us-845  Battle of Midway
-    us-846  Iwo Jima and Okinawa
-    us-847  The American war in Europe
-    us-848  Operation Torch and the Italian campaign
-    us-849  The American armies in Normandy
-    us-850  The United States Army Air Forces in Europe
-    us-851  The decision to use the atomic bomb
+    us-846  Battle of Okinawa
+    us-847  European theatre of World War II
+    us-848  Operation Torch
+    us-849  Utah Beach
+    us-850  United States Army Air Forces
+    us-851  Interim Committee
     us-852  Atomic bombings of Hiroshima and Nagasaki
-    us-853  The American argument about the bomb
-    us-854  Demobilisation and the G.I. Bill
-    us-855  What the war did to the United States
+    us-853  Debate over the atomic bombings of Hiroshima and Nagasaki
+    us-854  GI Bill
+    us-855  Sun Belt
 
 ### The Cold War — `us-cold-war`
 
-    us-856  The origins of the Cold War
+    us-856  Origins of the Cold War
     us-857  Containment
-    us-858  George F. Kennan and the Long Telegram
+    us-858  Long Telegram
     us-859  Truman Doctrine
     us-860  Marshall Plan
     us-861  Berlin Blockade
     us-862  NATO
     us-863  National Security Act of 1947
     us-864  Central Intelligence Agency
-    us-865  The nuclear arms race
+    us-865  NSC 68
     us-866  Korean War
-    us-867  The loss of China debate
+    us-867  Loss of China
     us-868  McCarthyism
     us-869  Joseph McCarthy
     us-870  House Un-American Activities Committee
     us-871  Hollywood blacklist
-    us-872  The Hiss and Rosenberg cases
-    us-873  The presidency of Dwight D. Eisenhower
-    us-874  Massive retaliation and brinkmanship
-    us-875  The CIA and covert intervention
-    us-876  Iran 1953 and Guatemala 1954
-    us-877  Sputnik and the space race
+    us-872  Julius and Ethel Rosenberg
+    us-873  Presidency of Dwight D. Eisenhower
+    us-874  Massive retaliation
+    us-875  Covert action
+    us-876  1953 Iranian coup d'état
+    us-877  Sputnik crisis
     us-878  Military–industrial complex
-    us-879  The postwar boom
-    us-880  Levittown and the new suburbs
+    us-879  Post–World War II economic expansion
+    us-880  Levittown
     us-881  Baby boom
     us-882  Interstate Highway System
-    us-883  Consumer culture in the 1950s
-    us-884  Television and American life
+    us-883  Kitchen Debate
+    us-884  Kennedy–Nixon debates
     us-885  Rock and roll
-    us-886  The Beat Generation
+    us-886  Beat Generation
     us-887  Bay of Pigs Invasion
     us-888  Cuban Missile Crisis
     us-889  Assassination of John F. Kennedy
-    us-890  The Cold War at home
+    us-890  Duck and cover
 
 ## Modern America
 
@@ -1639,13 +1639,13 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
 
     us-891  Jim Crow laws
     us-892  Plessy v. Ferguson
-    us-893  Disfranchisement after the Reconstruction era
+    us-893  Grandfather clause
     us-894  Lynching in the United States
-    us-895  Ida B. Wells and the anti-lynching campaign
+    us-895  Ida B. Wells
     us-896  Booker T. Washington
     us-897  W. E. B. Du Bois
-    us-898  The Niagara Movement and the NAACP
-    us-899  The northern colour line
+    us-898  NAACP
+    us-899  Sundown town
     us-900  Marcus Garvey
     us-901  Racially restrictive covenants
     us-902  Redlining
