@@ -9354,7 +9354,13 @@ window.GLOSSARY = {
 "Bull_Headed_Lyre_of_Ur": "",
 "Menkaure_and_His_Queen": "",
 "The_Seated_Scribe": "",
-"Ti_Watching_a_Hippopotamus_Hunt": ""
+"Ti_Watching_a_Hippopotamus_Hunt": "",
+"Dancing_Girl_(prehistoric_sculpture)": "",
+"Mask_of_Sargon": "",
+"Victory_Stele_of_Naram-Sin": "",
+"Gudea_statue_B": "",
+"Priest-King_(sculpture)": "",
+"Spring_Fresco": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -13978,7 +13984,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Bull_Headed_Lyre_of_Ur": "c. 2550–2400 BCE",
 "Menkaure_and_His_Queen": "c. 2490–2472 BCE",
 "The_Seated_Scribe": "c. 2675–2545 BCE",
-"Ti_Watching_a_Hippopotamus_Hunt": "c. 2420–2389 BCE"
+"Ti_Watching_a_Hippopotamus_Hunt": "c. 2420–2389 BCE",
+"Dancing_Girl_(prehistoric_sculpture)": "c. 2700 – 2100 BCE",
+"Mask_of_Sargon": "c. 2300 – 2159 BCE",
+"Victory_Stele_of_Naram-Sin": "c. 2254 – 2218 BCE",
+"Gudea_statue_B": "c. 2130 – 2090 BCE",
+"Priest-King_(sculpture)": "c. 2000 – 1900 BCE",
+"Spring_Fresco": "c. 1600 – 1500 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19913,7 +19925,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Bull_Headed_Lyre_of_Ur": ["Bull-Headed Lyre of Ur","Bull-headed lyre"],
 "Menkaure_and_His_Queen": ["Menkaure and His Queen","King Menkaure and a Queen"],
 "The_Seated_Scribe": ["Seated Scribe"],
-"Ti_Watching_a_Hippopotamus_Hunt": ["Ti Watching a Hippopotamus Hunt"]
+"Ti_Watching_a_Hippopotamus_Hunt": ["Ti Watching a Hippopotamus Hunt"],
+"Dancing_Girl_(prehistoric_sculpture)": ["Dancing Girl","Dancing Girl of Mohenjo-daro"],
+"Mask_of_Sargon": ["Head of an Akkadian ruler","Bronze head of an Akkadian ruler"],
+"Victory_Stele_of_Naram-Sin": ["Stele of Naram-Sin","Naram-Sin stele"],
+"Gudea_statue_B": ["Gudea, Seated Statue B","Architect with Plan","Statue B of Gudea"],
+"Priest-King_(sculpture)": ["Priest-King","Priest-King of Mohenjo-daro","Priest King"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29425,7 +29442,13 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Bull_Headed_Lyre_of_Ur": ["object","art","bronze age","mesopotamia","music"],
 "Menkaure_and_His_Queen": ["object","art","egypt","old kingdom","giza"],
 "The_Seated_Scribe": ["object","art","egypt","old kingdom","limestone"],
-"Ti_Watching_a_Hippopotamus_Hunt": ["object","art","egypt","old kingdom","relief"]
+"Ti_Watching_a_Hippopotamus_Hunt": ["object","art","egypt","old kingdom","relief"],
+"Dancing_Girl_(prehistoric_sculpture)": ["object","art","archaeology","bronze age","india","pakistan"],
+"Mask_of_Sargon": ["object","art","archaeology","bronze age","mesopotamia","iraq"],
+"Victory_Stele_of_Naram-Sin": ["object","art","history","bronze age","mesopotamia","iran"],
+"Gudea_statue_B": ["object","art","history","bronze age","mesopotamia","iraq"],
+"Priest-King_(sculpture)": ["object","art","archaeology","bronze age","pakistan","asia"],
+"Spring_Fresco": ["object","art","archaeology","bronze age","greece","europe"]
 });
 
 /* ============================================================================

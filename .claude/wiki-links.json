@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T04:38Z",
+ "generated": "2026-11-12T04:39Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6645,
-  "redirect-broader": 629,
+  "ok": 6651,
+  "redirect-broader": 630,
   "redirect-variant": 398,
   "section-redirect": 134,
   "disambiguation": 147,
-  "none": 1033,
+  "none": 1036,
   "disambig-resolved": 89,
   "list-page": 6,
   "search-match": 9,
@@ -72919,6 +72919,98 @@
     "List of common misconceptions about science, technology, and mathematics",
     "List of Advanced Dungeons & Dragons 2nd edition monsters"
    ]
+  },
+  "art-051": {
+   "answer": "Dancing Girl",
+   "title": "Dancing Girl (prehistoric sculpture)",
+   "url": "https://en.wikipedia.org/wiki/Dancing_Girl_(prehistoric_sculpture)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-052": {
+   "answer": "Mask of Sargon",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sargon of Akkad",
+    "Prince of Persia: The Lost Crown",
+    "Art of Mesopotamia",
+    "AP Art History",
+    "Ancient art"
+   ]
+  },
+  "art-053": {
+   "answer": "Victory Stele of Naram-Sin",
+   "title": "Victory Stele of Naram-Sin",
+   "url": "https://en.wikipedia.org/wiki/Victory_Stele_of_Naram-Sin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-054": {
+   "answer": "Gudea, Seated Statue B",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Statues of Gudea",
+    "Gudea",
+    "Art of Mesopotamia",
+    "Sculpture",
+    "Portrait"
+   ]
+  },
+  "art-055": {
+   "answer": "Priest-King",
+   "title": "Priest-King (sculpture)",
+   "url": "https://en.wikipedia.org/wiki/Priest-King_(sculpture)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-056": {
+   "answer": "Code of Hammurabi",
+   "title": "Code of Hammurabi",
+   "url": "https://en.wikipedia.org/wiki/Code_of_Hammurabi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-057": {
+   "answer": "Snake Goddess",
+   "title": "Minoan snake goddess figurines",
+   "url": "https://en.wikipedia.org/wiki/Minoan_snake_goddess_figurines",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Snake Goddess"
+  },
+  "art-058": {
+   "answer": "Spring Fresco",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Fresco",
+    "Minoan art",
+    "The Last Judgment (Michelangelo)",
+    "The Creation of Adam",
+    "Art"
+   ]
+  },
+  "art-059": {
+   "answer": "Nebra Sky Disc",
+   "title": "Nebra sky disc",
+   "url": "https://en.wikipedia.org/wiki/Nebra_sky_disc",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "art-060": {
+   "answer": "Mask of Agamemnon",
+   "title": "Mask of Agamemnon",
+   "url": "https://en.wikipedia.org/wiki/Mask_of_Agamemnon",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }

@@ -26,27 +26,28 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6645 | the title is the article |
+| `ok` | 6651 | the title is the article |
 | `redirect-variant` | 398 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 89 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 629 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 630 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 134 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
-| `none` | 1033 | nothing matched; no link |
+| `none` | 1036 | nothing matched; no link |
 
-**7777 of 9109 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7784 of 9119 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (629)
+## Redirected to a differently named article — check each (630)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
 - `art-030` **Thinker of Cernavodă** → [Thinker of Hamangia](https://en.wikipedia.org/wiki/Thinker_of_Hamangia) (from `Thinker of Cernavodă`)
 - `art-035` **Uruk Vase** → [Warka Vase](https://en.wikipedia.org/wiki/Warka_Vase) (from `Uruk Vase`)
 - `art-046` **Bull-Headed Lyre of Ur** → [Bull Headed Lyre of Ur](https://en.wikipedia.org/wiki/Bull_Headed_Lyre_of_Ur) (from `Bull-Headed Lyre of Ur`)
+- `art-057` **Snake Goddess** → [Minoan snake goddess figurines](https://en.wikipedia.org/wiki/Minoan_snake_goddess_figurines) (from `Snake Goddess`)
 - `art-062` **Vaphio Cups** → [Vaphio](https://en.wikipedia.org/wiki/Vaphio) (from `Vaphio cups`)
 - `art-065` **Bust of Nefertiti** → [Nefertiti Bust](https://en.wikipedia.org/wiki/Nefertiti_Bust) (from `Bust of Nefertiti`)
 - `astro-024` **celestial meridian** → [Meridian (astronomy)](https://en.wikipedia.org/wiki/Meridian_(astronomy)) (from `Celestial meridian`)
@@ -1084,7 +1085,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1033)
+## No article found (1036)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1113,6 +1114,9 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `art-042` **Tell Asmar Worshipper** — search suggests `Tell Asmar Hoard`, `Eshnunna`, `Art of Mesopotamia`, `Early Dynastic Period (Mesopotamia)`, `Tell Agrab`
 - `art-048` **Menkaure and His Queen** — search suggests `Menkaure`, `Pyramid of Menkaure`, `Menkaure triads`, `Giza pyramid complex`, `Hatshepsut`
 - `art-050` **Ti Watching a Hippopotamus Hunt** — search suggests `1865 in archaeology`, `Odd Taxi`, `The Snows of Kilimanjaro (1952 film)`, `List of common misconceptions about science, technology, and mathematics`, `List of Advanced Dungeons & Dragons 2nd edition monsters`
+- `art-052` **Mask of Sargon** — search suggests `Sargon of Akkad`, `Prince of Persia: The Lost Crown`, `Art of Mesopotamia`, `AP Art History`, `Ancient art`
+- `art-054` **Gudea, Seated Statue B** — search suggests `Statues of Gudea`, `Gudea`, `Art of Mesopotamia`, `Sculpture`, `Portrait`
+- `art-058` **Spring Fresco** — search suggests `Fresco`, `Minoan art`, `The Last Judgment (Michelangelo)`, `The Creation of Adam`, `Art`
 - `art-063` **Nebamun Hunting in the Marshes** — search suggests `Nebamun`, `Tomb of Nebamun`, `Hierarchical proportion`, `Art of ancient Egypt`, `History of art`
 - `art-064` **Akhenaten, Nefertiti and Three Daughters** — search suggests `Nefertiti`, `Akhenaten`, `Amarna art`, `Nefertiti Bust`, `Royal Tomb of Akhenaten`
 - `art-067` **Book of the Dead of Hunefer** — search suggests `Book of the Dead`, `Ancient Egyptian afterlife beliefs`, `Ammit`, `Book`, `Papyrus`
