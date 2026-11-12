@@ -10860,14 +10860,14 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Qu_Yuan": "c. 332–295 BCE",
 "Zhanguo_Ce": "compiled 1st century BCE",
 "Abolition_of_the_fengjian_order": "221 BCE",
-"Commandery-county_system": "from 221 BCE",
-"Huangdi": "coined 221 BCE",
-"Li_Si": "d. 208 or 207 BCE",
-"Qin_Shi_Huang": "259–210 BCE",
-"Qin_dynasty": "221–207 BCE",
-"Qin_law": "221–206 BCE",
+"Commandery-county_system": "221 BCE",
+"Huangdi": "221 BCE – 1912",
+"Li_Si": "d. 208 BCE",
+"Qin_Shi_Huang": "259 – 210 BCE",
+"Qin_dynasty": "221 – 206 BCE",
+"Qin_law": "246 – 206 BCE",
 "Qin_standardisation": "221 BCE",
-"Standardisation_of_the_Chinese_script": "from 221 BCE",
+"Standardisation_of_the_Chinese_script": "221 BCE",
 "Unification_of_221_BCE": "221 BCE",
 "Persepolis": "c. 520 – 330 BCE",
 "Zoroastrianism": "attested in Greek accounts from the 5th century BCE",
@@ -20411,7 +20411,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Su_Qin_and_Zhang_Yi": ["Su Ch'in and Chang I"],
 "Battle_of_Maling": ["Maling","Battle of Ma-ling","Battle of Ma Ling"],
 "Battle_of_Changping": ["Changping","Battle of Ch'ang-p'ing","Battle of Chang Ping"],
-"Bai_Qi": ["Pai Ch'i","Po Ch'i","Lord Wu'an"]
+"Bai_Qi": ["Pai Ch'i","Po Ch'i","Lord Wu'an"],
+"Li_Si": ["Li Ssu","Li Ssŭ","Li Sze"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */

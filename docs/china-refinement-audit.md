@@ -315,7 +315,7 @@ otherwise.
 | B17 | Eastern Zhou (`col-5`) | `cnh-161`–`cnh-170` | 10 | 121 | **done 2026-11-12** |
 | B18 | Eastern Zhou (`col-5`) | `cnh-171`–`cnh-180` | 10 | 110 | **done 2026-11-12** |
 | B19 | Eastern Zhou (`col-5`) | `cnh-181`–`cnh-190` | 10 | 107 | **done 2026-11-12** |
-| B20 | Qin (`col-7`) | `cnh-191`–`cnh-200` | 10 | 103 | to do |
+| B20 | Qin (`col-7`) | `cnh-191`–`cnh-200` | 10 | 103 | **done 2026-11-12** |
 | B21 | Qin (`col-7`) | `cnh-201`–`cnh-210` | 10 | 93 | to do |
 | B22 | Qin (`col-7`) / Western Han (`col-10`) | `cnh-211`–`cnh-220` | 10 | 86 | to do |
 | B23 | Western Han (`col-10`) | `cnh-221`–`cnh-230` | 10 | 80 | to do |
@@ -628,6 +628,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-188` | a labelled map | not re-checked (Commons 429): ok; burned-in labels |
 | `cnh-189` | a picture of the attempt | not re-checked (Commons 429): ok; the description misspells "Jin Ke" — fix |
 | `cnh-190` | ding in the Hunan Museum | not re-checked (Commons 429): wrong: generic ding, not the royal set |
+| `cnh-191` | a map of the Qin heartland | not re-checked (Commons 429): ok |
+| `cnh-192` | a later portrait | not re-checked (Commons 429): ok |
+| `cnh-193` | a map of the unified realm | not re-checked (Commons 429): ok |
+| `cnh-194` | a stele with the title | not re-checked (Commons 429): ok |
+| `cnh-195` | calligraphy credited to him | not re-checked (Commons 429): ok as tradition's |
+| `cnh-196` | a palace model | not re-checked (Commons 429): weak |
+| `cnh-197` | an official's conduct text | not re-checked (Commons 429): ok |
+| `cnh-198` | a standard carrying both edicts | not re-checked (Commons 429): ok |
+| `cnh-199` | the lesser seal, recut | not re-checked (Commons 429): ok |
+| `cnh-200` | the Shuihudi questions and answers | not re-checked (Commons 429): ok |
 
 ## Glossary candidates
 
@@ -1415,3 +1425,37 @@ read (the ages rest on it), the *Shiji* makes him Lord of Wu'an in 278 BCE (the 
 annals put his death in 257 BCE (Maspero and Giles 258); `cnh-186`'s 332 and 295 BCE are Giles's (1898) and c. 314
 Mayers's (1874) — the often-cited c. 340 – 278 BCE is in no source read; `cnh-189`'s death place, Xianyang, is on no
 saved page (the card says "the Qin court").
+
+### B20 — `cnh-191`–`cnh-200`, Qin: the Qin dynasty to Qin law (2026-11-12)
+
+Run as B11. Every cited URL answered this session. **Pictures were not touched** (Commons 429). **The old cards told
+the Han's hostile picture of Qin as fact (Jia Yi's "faults of Qin", the cruelty of its law), put "Emperors 2" and an
+undated capital row on the dynasty's line, told Giles's coinage, brush and silk legends of the First Emperor, put a
+regnal-year note on the unification's line, called Li Si "historiographer" and "foreign minister" (he was Commandant
+of Justice in 221 BCE), gave the abolition of fengjian "about 800 years" as a row, counted 36 commanderies as a date
+row, put a Langya verse on Mount Tai and a square-holed coin (no source) on standardisation, and told the Cheng Miao
+story from 19th-century handbooks on the script card.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-191` Qin dynasty | 9 | 5 → 9 | **"Emperors 2" and the capital row off; `Ruled 221 – 206 BCE` / `Also dated 221 – 207 BCE` / `Revolt 209 BCE`; the water, black and six doctrine the court's own claim; the Shuihudi codes and the Liye archive as contemporary evidence; the "failure" story traced to Jia Yi; the death-for-lateness the *Shiji*'s telling**. Pinyin Qín cháo. |
+| `cnh-192` Qin Shi Huang | 9 | 5 → 9 | **Giles's coinage, brush and silk legends dropped; the Lü Buwei paternity told as two different *Shiji* chapters, later used to brand the house illegitimate; the tours, peaks and seven stones; a childhood in hiding in Handan**; the Peking University *Zhao Zheng shu* left out (no open source). Protected: the line stays (flagged below). |
+| `cnh-193` unification of 221 BCE | 8 | 5 → 8 | **The regnal-year row off, now `Completed 221 BCE`; the event itself in order: Qi last, the edict's "broke the agreement" charges, the commanderies, the weapons melted into twelve giants, the 120,000 households moved (the *Shiji*'s), the stones' boast of a swift conquest against its near-decade**; the title debate left to `cnh-194`. |
+| `cnh-194` huangdi | 7 | 5 → 7 | **The title's use until 1912 sourced and in prose (the line's "1912 CE" now 1912); the court's Heavenly, Earthly and Grand Sovereign agreeing with `cnh-002`; *zhi*, *zhao* and the imperial pronoun; no phrasing uses "emperor", the answer's own translation**. |
+| `cnh-195` Li Si | 8 | 5 → 8 | **Commandant of Justice in 221 BCE, not Giles's titles; the book-burning terms as the *Shiji* gives them; the years out of the questions; the rats, the memorial against expelling foreigners, the yellow dog at Shangcai**. Protected: the line stays (flagged below). |
+| `cnh-196` abolition of the fengjian order | 7 | 5 → 7 | **The "800 years" row off, now `Decided 221 BCE`; what fengjian was and "feudalism" as a comparison; Wang Wan's proposal and Li Si's reply; the 213 BCE sequel in one line; the Han's partial restoration and the kingdoms' fall after 154 BCE**; "no later state rested on hereditary lordship" dropped. **Name corrected: 废分封 → 废封建 (fèi fēngjiàn), matching the answer.** |
+| `cnh-197` commandery-county system | 7 | 5 → 8 | **The count row off, now `Counties formed 350 BCE` / `Empire-wide 221 BCE`; Chu's county of Deng after 688 BCE; Shang Yang's 31 counties (41 in the Qin annals); the Liye archive of Qianling; the governor, commandant and supervisor; the Han's continuation**; "outlasted by two thousand years" dropped. |
+| `cnh-198` Qin standardisation | 6 | 5 → 6 | **`Decreed 221 BCE` / `Edict restated 209 BCE` (the Second Emperor in prose only); the verse put on Mount Tai is the Langya stele's, and dropped; the square-holed coin (no source) dropped; the coinage from the *Shiji*'s treatise on finance; one axle width**. 统一度量衡 kept, though it names weights and measures only (for the owner). |
+| `cnh-199` standardisation of the Chinese script | 7 | 5 → 7 | **The Cheng Miao story (19th-century handbooks) left to `cnh-906`/`cnh-907`; the *Shiji* clause and the Li Si biography's 同文書; the three Qin primers in the *Hanshu*; the Liye renaming board; clerical script on Qin slips; the debate (a Han myth on one view; finished only in the mid-Western Han on another); `Ordered 221 BCE` only**. **Name corrected: 书同文 → 书同文字 (shū tóng wénzì), the *Shiji*'s wording.** |
+| `cnh-200` Qin law | 7 | 5 → 8 | **The Han verdict attributed (the *Shiji*, Jia Yi) and set against the excavated law: Shuihudi (the tomb dated 217 BCE), the Statute on Checking, the Yuelu case records, the Liye armour fine, the death penalties; `Cases recorded 246 – 222 BCE` / `Empire-wide 221 – 206 BCE`**; the "from"- and "after"-values off. Pinyin Qín lǜ. |
+
+Read by eye. **Confusability**: the Liye well was a phrasing on `cnh-191`, `cnh-197`, `cnh-199` and `cnh-200`; it stays
+`cnh-191`'s, and the others now take the county heads, the renaming board and the armour fine without it; the title
+debate is `cnh-194`'s, the measures `cnh-198`'s and the script `cnh-199`'s; the ding's capture stays off `cnh-193`.
+**Legend**: the Han picture of Qin is now the Han's. **Chinese names corrected**: `cnh-196` (废分封 → 废封建), `cnh-199`
+(书同文 → 书同文字), `cnh-191` and `cnh-200` pinyin. **Spellings fixed**: none needed; 0 hits. **Myth register**: the Three
+Sovereigns as `cnh-002` and the row. **Protected lines: unchanged** (diffed after the apply). For the owner:
+`cnh-192`'s `Death 12 July 210 BCE` is on no page read — Chavannes puts the first day of that month on 22 July and says
+the *Shiji*'s day cannot fall in it (`wh-404` carries the same date) — and "February" 259 BCE is a conversion (the
+*Shiji* says the first month); `cnh-195`'s `Birth c. 280 BCE` is in no source read, 214 BCE is Giles's alone, and the
+*Shiji*'s annals put his death a year later (Chavannes: 207 BCE).

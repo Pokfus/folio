@@ -347,6 +347,11 @@ Filled batch by batch from `cnh-101` (B11 on). **The protected lines** of the se
 | the Li Sao written / Liu Xiang (the collection) | c. 300 BCE / c. 77 – 6 BCE | `cnh-187` |
 | the conquest of the six states (Han 230, Zhao 228, Wei 225, Chu 223, Yan 222, Qi 221) | 230 – 221 BCE | Chavannes (`cnh-188`) |
 | the last Zhou king dies / the eastern lord annexed: Hirth / Chavannes | 256 BCE / 249 BCE / 250 BCE | `cnh-190` |
+| the Qin dynasty: to the surrender / to the last ruler's year / the revolt | 221 – 206 BCE / 221 – 207 BCE / 209 BCE | `cnh-191` |
+| the unification / the title huangdi in use | 221 BCE / 221 BCE – 1912 | `cnh-193`, `cnh-194` |
+| fengjian abolished / counties formed in Qin / the edict restated | 221 BCE / 350 BCE / 209 BCE | `cnh-196`, `cnh-197`, `cnh-198` |
+| the script ordered uniform | 221 BCE | `cnh-199` |
+| Qin law: the Yuelu cases / empire-wide / the Shuihudi tomb | 246 – 222 BCE / 221 – 206 BCE / 217 BCE | `cnh-200` |
 
 ## Later periods
 
@@ -547,4 +552,12 @@ cnh-185: 100; 1146; 1147
 cnh-187: 300; 77; 6
 cnh-188: 230; 221
 cnh-190: 256; 249; 250
+cnh-191: 221; 206; 207; 209
+cnh-193: 221
+cnh-194: 221; 1912
+cnh-196: 221
+cnh-197: 350; 221
+cnh-198: 221; 209
+cnh-199: 221
+cnh-200: 246; 222; 221; 206
 ```
