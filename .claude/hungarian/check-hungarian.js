@@ -13,7 +13,10 @@ const DIR = path.join(__dirname, "..", "..", "decks");
 const LABELS = new Set(["plural", "accusative", "his/her", "comparative", "I", "past", "infinitive"]);
 const POINTER = /^(?:alternative|obsolete|dated|rare) (?:form|spelling) of |^(?:inflection|synonym) of |^\*?\s*see:|^See |^(?:first|second|third)-person .* of \S+$/i;
 const HU = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ -]+$/;
-const SWEAR = /\b(kurv|fos\b|szar|basz|geci|picsa|fasz|segg)/i;
+// by WHOLE WORD, as `examples.clean` reads it: JavaScript's \b is not Unicode-aware, so
+// /\bfos/ matched inside `csúfos` ("crushing") after the ú
+const SWEAR_W = /^(kurv|szar|basz|bassz|geci|picsa|fasz|segg|buzi|köcsög|pöcs|pina)/;
+const SWEAR = { test: (t) => t.toLowerCase().match(/\p{L}+/gu)?.some((w) => SWEAR_W.test(w) || w === "fos") ?? false };
 let fail = 0;
 const bad = (m) => { fail++; console.log("FAIL  " + m); };
 const files = fs.readdirSync(DIR).filter((f) => /^Hungarian-.*\.folio-deck\.json$/.test(f)).sort();
@@ -23,11 +26,14 @@ for (const f of files) {
   const d = JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8"));
   const id = d.meta.id;
   const alphabet = /Alphabet/.test(d.meta.title);
+  const phrases = /Phrases/.test(d.meta.title);
   const sides = new Map();
   d.cards.forEach((c, i) => {
     const F = c.fields, w = F.Word;
     if (c.id !== "u_" + id + "_" + (i + 1)) bad(f + ": card " + (i + 1) + " has id " + c.id);
-    if (!HU.test(w || "")) bad(f + ": card " + (i + 1) + " Word is not Hungarian: " + w);
+    // the phrases deck's proverbs are sentences: their punctuation is allowed there only
+    const hu = phrases ? (w || "").replace(/[,.!?;:'’"„”–-]/g, " ") : w;
+    if (!HU.test(hu || "")) bad(f + ": card " + (i + 1) + " Word is not Hungarian: " + w);
     if (alphabet) {
       if (sides.has(F.Sound)) bad(f + ": " + w + " shares its sound side with " + sides.get(F.Sound));
       sides.set(F.Sound, w);

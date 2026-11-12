@@ -5,8 +5,8 @@ Hungarian set built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless
 this file says otherwise. Asked for on 2026-11-09: "Add a Hungarian language collection."
 
-**STATUS (2026-11-12): the alphabet deck and every level, A1 to C1, are built** (`.claude/hungarian/`, §6–§10). A
-phrases deck (Phase 3) is not.
+**STATUS (2026-11-12): COMPLETE — the alphabet deck, every level (A1 to C1) and the phrases deck are built**
+(`.claude/hungarian/`, §6–§11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Hungarian to the day's
@@ -36,6 +36,7 @@ these is the owner's to overrule.**
 | Hungarian B1 Intermediate — built | `Hungarian-B1.folio-deck.json` | 1,000 |
 | Hungarian B2 Upper Intermediate — built | `Hungarian-B2.folio-deck.json` | 1,500 |
 | Hungarian C1 Advanced — built | `Hungarian-C1.folio-deck.json` | 1,500 |
+| Hungarian Phrases and Expressions — built | `Hungarian-Phrases-and-Expressions.folio-deck.json` | 542 |
 
 ## 2. Sources and licences
 
@@ -98,7 +99,7 @@ every subtitle-ordered deck does. The personal forms of `ő` that Wiktionary fil
 
 **Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `hungarian_level.py`, run, read every card.
-**Phase 3** — a phrases deck (`phrase` / `proverb` entries and multi-word lemmas).
+**Phase 3 (done, §11)** — a phrases deck (`phrase` / `proverb` entries and multi-word lemmas).
 
 ## 6. As built (2026-11-09): the alphabet and A1
 
@@ -211,3 +212,29 @@ adjectives of formal prose, the literary connectors) and 1,187 by frequency; sen
 **Known, left.** The fill at this depth is the subtitles' vocabulary more than formal prose — crime, the
 military, the body, and a few sexual words that are not slang (`pénisz`, `pornó`, `óvszer`, `prostituált`) with
 plain sentences; the formal register is carried by the inventory. 150 words have no Tatoeba sentence.
+
+## 11. As built (2026-11-12): the phrases deck
+
+Asked for on 2026-11-12: "Add the phrases deck." `python3 .claude/hungarian/run.py --level phr` (after all five
+levels): `decks/Hungarian-Phrases-and-Expressions.folio-deck.json`, 542 expressions in three subdecks — 87 everyday
+phrases, 387 idioms, 68 proverbs — ported from the Romanian deck (`phrases.py`, the shelf's "THE PHRASES DECK"
+arrangement): a proverb is Wiktionary's part of speech, an idiom a multi-word sense TAGGED idiomatic, a phrase a
+multi-word phrase or interjection that is not; a plain multi-word noun (`házi feladat`) is a word and is not here.
+Nothing the five levels teach is taught again. Within a subdeck the order is how many Tatoeba sentences contain the
+expression (271 of 542 occur), then frequency. A re-run is byte-identical; the five level decks rebuild unchanged.
+
+- **THE VERB IDIOMS' MATCHING** (`examples.phrase_hits`, the phrases deck only): the verb of a verb idiom is
+  matched in any form, and a two-word one in EITHER ORDER — Hungarian puts the verb first under negation and focus
+  (`szüksége van` / `van szüksége`, `kezet fog` / `kezet fogni`). Idioms with a possessed noun (`elveszti a fejét`)
+  are matched as written and mostly not found.
+- **`EXCLUDE`** (`phrases.py`): personal sentences built from level words (`meleg vagyok`, `zsidó vagyok`,
+  `szerelmes vagyok beléd` …, the Romanian and Hindi rule — the phrasebook's questions and formulas stay), two terms
+  (`azonosítatlan repülő tárgy`, an administrative one), a gloss that is no meaning (`most ugrik a majom a vízbe`),
+  a meme (`abszolút filmszínház`), and `az ember` (its sentences are all the literal "the man").
+- **"Used other than figuratively or idiomatically: see …"** is Wiktionary's note on the literal reading, not a
+  meaning: `build_deck.NOT_A_MEANING` drops it (`vége van`, `azért is`); no level card changes.
+- **`check-hungarian.js`**: a proverb's punctuation is allowed in the phrases deck's headwords, and the swear check
+  reads whole words — JavaScript's `\b` is not Unicode-aware, so `/\bfos/` had matched inside `csúfos`.
+
+**Known, left.** 272 expressions have no Tatoeba sentence, most of the idioms among them. A few sentences match an
+idiom's words in a literal sense or across a comma (`vége van`: "Bármi is volt, vége").

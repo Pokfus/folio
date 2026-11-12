@@ -3692,7 +3692,9 @@ changed was the one that had been wrong all along.
   `decks/Hungarian-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-12, on request), **B1,
   `decks/Hungarian-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-12, on request), **B2,
   `decks/Hungarian-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12, on request) **and C1,
-  `decks/Hungarian-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12, on request). `python3
+  `decks/Hungarian-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12, on request) **and the phrases deck,
+  `decks/Hungarian-Phrases-and-Expressions.folio-deck.json`** (542 / 1,084 in three subdecks, `run.py --level phr`,
+  2026-11-12). `python3
   .claude/hungarian/run.py [--level a1]`, `python3 .claude/hungarian/alphabet.py`, `node
   .claude/hungarian/check-hungarian.js`; a re-run is byte-identical. Greek's pipeline adapted, no romanisation,
   verbs by their third person singular. The findings (the verb tables' person tags shifted by a row and read by
