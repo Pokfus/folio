@@ -9486,7 +9486,17 @@ window.GLOSSARY = {
 "Appomattox_Court_House_National_Historical_Park": "",
 "Assassination_of_Abraham_Lincoln": "",
 "United_States_National_Cemetery_System": "",
-"Union_Army": ""
+"Union_Army": "",
+"Republican_Party_(United_States)": "",
+"Slave_Power": "",
+"Dred_Scott_v._Sandford": "",
+"Freeport_Doctrine": "",
+"Lincoln–Douglas_debates": "",
+"Cooper_Union_speech": "",
+"Lincoln's_House_Divided_Speech": "",
+"1860_Democratic_National_Convention": "",
+"1860_United_States_presidential_election": "",
+"Ordinance_of_Secession": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -14183,7 +14193,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Appomattox_Court_House_National_Historical_Park": "1940",
 "Assassination_of_Abraham_Lincoln": "1865",
 "United_States_National_Cemetery_System": "1862–",
-"Union_Army": "1861–1865"
+"Union_Army": "1861–1865",
+"Republican_Party_(United_States)": "1854–",
+"Dred_Scott_v._Sandford": "1857",
+"Freeport_Doctrine": "1858",
+"Lincoln–Douglas_debates": "1858",
+"Cooper_Union_speech": "1860",
+"Lincoln's_House_Divided_Speech": "1858",
+"1860_Democratic_National_Convention": "1860",
+"1860_United_States_presidential_election": "1860",
+"Ordinance_of_Secession": "1860–1861"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -20173,7 +20192,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Sherman's_March_to_the_Sea": ["March to the Sea"],
 "USS_Monitor": ["Monitor"],
 "Battle_of_Hampton_Roads": ["Monitor and Merrimack"],
-"United_States_National_Cemetery_System": ["national cemeteries","national cemetery system"]
+"United_States_National_Cemetery_System": ["national cemeteries","national cemetery system"],
+"Republican_Party_(United_States)": ["Republican Party"],
+"Lincoln–Douglas_debates": ["Lincoln-Douglas debates"],
+"Lincoln's_House_Divided_Speech": ["House Divided Speech"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29817,7 +29839,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Appomattox_Court_House_National_Historical_Park": ["place","history","united states","virginia","heritage"],
 "Assassination_of_Abraham_Lincoln": ["event","politics","history","united states"],
 "United_States_National_Cemetery_System": ["institution","warfare","history","united states"],
-"Union_Army": ["institution","warfare","history","united states"]
+"Union_Army": ["institution","warfare","history","united states"],
+"Republican_Party_(United_States)": ["institution","politics","history","united states"],
+"Slave_Power": ["concept","politics","history","united states","slavery"],
+"Dred_Scott_v._Sandford": ["event","law","history","united states","slavery"],
+"Freeport_Doctrine": ["concept","politics","history","united states","slavery"],
+"Lincoln–Douglas_debates": ["event","politics","history","united states","illinois"],
+"Cooper_Union_speech": ["text","politics","history","united states","new york"],
+"Lincoln's_House_Divided_Speech": ["text","politics","history","united states","illinois"],
+"1860_Democratic_National_Convention": ["event","politics","history","united states"],
+"1860_United_States_presidential_election": ["event","politics","history","united states"],
+"Ordinance_of_Secession": ["text","politics","history","united states","secession"]
 });
 
 /* ============================================================================

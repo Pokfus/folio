@@ -1,10 +1,10 @@
 {
- "generated": "2026-11-12T04:45Z",
+ "generated": "2026-11-12T04:47Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6766,
+  "ok": 6774,
   "redirect-broader": 638,
-  "redirect-variant": 402,
+  "redirect-variant": 404,
   "section-redirect": 139,
   "disambiguation": 149,
   "none": 1022,
@@ -73805,6 +73805,78 @@
    "via": "glossary",
    "status": "redirect-variant",
    "from": "Union Army"
+  },
+  "us-541": {
+   "answer": "Republican Party",
+   "title": "Republican Party (United States)",
+   "url": "https://en.wikipedia.org/wiki/Republican_Party_(United_States)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-542": {
+   "answer": "Slave Power",
+   "title": "Slave Power",
+   "url": "https://en.wikipedia.org/wiki/Slave_Power",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-543": {
+   "answer": "Dred Scott v. Sandford",
+   "title": "Dred Scott v. Sandford",
+   "url": "https://en.wikipedia.org/wiki/Dred_Scott_v._Sandford",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-544": {
+   "answer": "Freeport Doctrine",
+   "title": "Freeport Doctrine",
+   "url": "https://en.wikipedia.org/wiki/Freeport_Doctrine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-545": {
+   "answer": "Lincoln–Douglas debates",
+   "title": "Lincoln–Douglas debates",
+   "url": "https://en.wikipedia.org/wiki/Lincoln%E2%80%93Douglas_debates",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-546": {
+   "answer": "Cooper Union speech",
+   "title": "Cooper Union speech",
+   "url": "https://en.wikipedia.org/wiki/Cooper_Union_speech",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-547": {
+   "answer": "House Divided Speech",
+   "title": "Lincoln's House Divided Speech",
+   "url": "https://en.wikipedia.org/wiki/Lincoln's_House_Divided_Speech",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "House Divided Speech"
+  },
+  "us-548": {
+   "answer": "1860 Democratic National Convention",
+   "title": "1860 Democratic National Conventions",
+   "url": "https://en.wikipedia.org/wiki/1860_Democratic_National_Conventions",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "1860 Democratic National Convention"
+  },
+  "us-549": {
+   "answer": "1860 United States presidential election",
+   "title": "1860 United States presidential election",
+   "url": "https://en.wikipedia.org/wiki/1860_United_States_presidential_election",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-550": {
+   "answer": "Ordinance of Secession",
+   "title": "Ordinance of Secession",
+   "url": "https://en.wikipedia.org/wiki/Ordinance_of_Secession",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
