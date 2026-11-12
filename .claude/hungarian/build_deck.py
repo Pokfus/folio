@@ -109,6 +109,9 @@ ETYMS = {
     'mi': ['1', '2'],          # "we" AND "what?" -- two etymologies, both A1
     'jobb': ['2'],             # "right; better", not the adverb "rather" (`jobban`)
     'sír': ['2', '1'],         # "to cry" (A2's everyday verbs) before "grave"
+    'fogoly': ['2', '1'],      # "prisoner" before "partridge" (B2)
+    'szán': ['2', '1'],        # "to intend, to pity" (the subtitles' count) before "sleigh"
+    'bejárat': ['2', '1'],     # "entrance" before "to run in" (a machine)
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech: the prefixes'

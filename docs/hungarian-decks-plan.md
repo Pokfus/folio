@@ -5,8 +5,8 @@ Hungarian set built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless
 this file says otherwise. Asked for on 2026-11-09: "Add a Hungarian language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/hungarian/`, §6–§8). B2, C1 and a
-phrases deck are not.
+**STATUS (2026-11-12): the alphabet deck and A1 to B2 are built** (`.claude/hungarian/`, §6–§9). C1 and a phrases
+deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Hungarian to the day's
@@ -34,7 +34,7 @@ these is the owner's to overrule.**
 | Hungarian A1 Beginner — built | `Hungarian-A1.folio-deck.json` | 500 |
 | Hungarian A2 Elementary — built | `Hungarian-A2.folio-deck.json` | 750 |
 | Hungarian B1 Intermediate — built | `Hungarian-B1.folio-deck.json` | 1,000 |
-| Hungarian B2 Upper Intermediate | `Hungarian-B2.folio-deck.json` | 1,500 |
+| Hungarian B2 Upper Intermediate — built | `Hungarian-B2.folio-deck.json` | 1,500 |
 | Hungarian C1 Advanced | `Hungarian-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
@@ -161,3 +161,28 @@ frequency; sentences for 983, three apiece for 937. A re-run is byte-identical. 
 **Known, left.** The fill is heavier with the subtitles' crime and war vocabulary at this band (`gyilkosság`'s
 neighbours `nyomozás`, `holttest`, `gyanúsított`, `őrmester`, `hadnagy`). `hülyeség` is glossed "bullshit, rubbish,
 nonsense", Wiktionary's own first gloss.
+
+## 9. As built (2026-11-12): B2
+
+Asked for on 2026-11-12: "Add B2." `python3 .claude/hungarian/run.py --level b2`: 1,500 notes, 400 from the
+inventory (`inventory.B2`, thirteen topics after the Hindi B2's: politics and administration, the law and the
+courts, the economy and finance, science, technology, the environment, health and the mind, the arts and media,
+history and society, argument, formal connectors, describing, the verbs of reporting and persuading — many of
+its words are taught lower, so only 400 are new) and 1,100 by frequency; sentences for 1,435, three apiece for
+1,305. A re-run is byte-identical. What reading the cards changed:
+
+- **COUNTS THAT BELONG TO ANOTHER WORD** (`select.EXCLUDE`), more of them at this depth: names (`pete`, `gordon`),
+  English (`go`, `house`, `la`), possessed forms of words already taught (`korom` "my age", glossed "soot"; `karom`
+  "my arm", glossed "claw"), colloquial spellings (`föl`, `len`), stems (`esz`), and words glossed only by a
+  pointer (`teli`, `jelenik`, `juttat`, `valamiért`); `edzés` (glossed "tempering") again.
+- **`ETYMS`**: `fogoly` "prisoner" before "partridge", `szán` "to intend, to pity" before "sleigh", `bejárat`
+  "entrance" before "to run in".
+- **`SWEAR_EN` widened** to "cock", "dick" and "pussy" (`farok` had two such sentences). **This changed one card
+  already shipped**, A2's `kislány` ("Come on, don't be a pussy!"), and nothing else in A1, A2 or B1.
+- The inventory's words Wiktionary has under another headword were rewritten (`vád`, `ítél`, `perel`,
+  `megveszteget`, `privatizáció`, `kihal`, `szén-dioxid`, `megőriz`, `megfontol`); the rest were dropped.
+
+**Known, left.** `kifogás` lists "unharnessing" before "objection, excuse", `ellenállás` has only "electrical
+resistance" and `írás` "script; tails" — Wiktionary's own senses. The fill carries more crime, war and fantasy
+vocabulary (`túsz`, `boszorkány`, `sárkány`) and a few sexual words (`szexel`, `szeretkezik`) from the subtitles;
+their sentences pass both swear filters.

@@ -42,7 +42,7 @@ for (const f of files) {
     for (const [, l] of F.Forms.matchAll(/class="uc-fl">([^<]*)</g)) if (!LABELS.has(l)) bad(f + ": " + w + " forms label " + l);
     if (/class="uc-cjh">past</.test(F.Table) && !/uc-fl">past</.test(F.Forms)) bad(f + ": " + w + " has a past table but no past form");
     if (SWEAR.test(F.Examples.replace(/<[^>]+>/g, ""))) bad(f + ": " + w + " has a swear word in an example");
-    if (/\b(fuck|shit|bitch|asshole|cunt)/i.test(F.Examples.replace(/<[^>]+>/g, ""))) bad(f + ": " + w + " has a swear word in an example's English");
+    if (/\b(fuck|shit|bitch|asshole|cunt|cock\b|dick\b|pussy)/i.test(F.Examples.replace(/<[^>]+>/g, ""))) bad(f + ": " + w + " has a swear word in an example's English");
     for (const k of ["Hungarian", "English", "Forms", "Table", "Examples"]) {
       const h = F[k];
       for (const t of ["div", "span", "b", "ol", "li"]) {

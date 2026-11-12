@@ -36,7 +36,7 @@ SWEAR = ('kurv', 'fos', 'szar', 'basz', 'bassz', 'geci', 'picsa', 'fasz', 'segg'
 # THE ENGLISH SIDE TOO (2026-11-12, reading B1): a Hungarian sentence with no swear word
 # can be translated with one ("Mi az ördög ez?" "What the fuck is that?"), and A1 and A2
 # had shipped four such sentences (`isten`, `művel`, `bőr`, `udvarias`).
-SWEAR_EN = re.compile(r'\b(fuck|shit|bitch|asshole|cunt|motherf)', re.I)
+SWEAR_EN = re.compile(r'\b(fuck|shit|bitch|asshole|cunt|motherf|cock\b|dick\b|pussy)', re.I)
 
 
 def clean(text, en=''):

@@ -194,4 +194,97 @@ B1 = [
                                                           'kezel:verb szervez megszervez'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}
+B2 = [
+    ('politics and public administration', 'demokrácia diktatúra köztársaság királyság alkotmány '
+                                           'kormányzat önkormányzat hivatal hatóság intézmény '
+                                           'minisztérium államtitkár tisztviselő bürokrácia '
+                                           'választópolgár szavazat népszavazás jelölt kampány '
+                                           'ellenzék koalíció többség hatalom:noun reform '
+                                           'rendelet intézkedés javaslat vita ülés tárgyal '
+                                           'kinevez lemond megválaszt elnököl kormányoz '
+                                           'diplomácia nagykövet nagykövetség szövetség '
+                                           'szerződés:noun szuverenitás függetlenség'),
+    ('the law and the courts', 'bíró ügyvéd:noun vád tanúvallomás eskü ítélet '
+                               'felmentés ítél per pereskedik fellebbez '
+                               'fellebbezés bizonyítás bűncselekmény gyilkosság csalás '
+                               'megveszteget korrupció erőszak:noun szabadlábra '
+                               'őrizet letartóztatás nyomoz kihallgat perel kártérítés '
+                               'jogsértés törvényes törvénytelen jogi illegális legális '
+                               'büntetőjog polgári'),
+    ('the economy and finance', 'pénzügy költségvetés hiány infláció recesszió válság '
+                                'növekedés fogyasztás fogyasztó kereslet kínálat verseny:noun '
+                                'versenytárs export import kereskedelem beruházás befektetés '
+                                'befektető részvény tőzsde valuta árfolyam adósság '
+                                'tartozás jövedelem vagyon tőke bankszámla átutalás '
+                                'kölcsönöz törleszt adózik finanszíroz kizsákmányol monopólium '
+                                'privatizáció állami magán gazdasági pénzügyi'),
+    ('science and research', 'tudós kutató kísérlet:noun elmélet hipotézis módszer:noun elemzés '
+                             'mérés megfigyelés felfedezés:noun találmány feltaláló '
+                             'laboratórium minta:noun eredmény:noun következtetés '
+                             'bizonyíték:noun statisztika arány százalék átlag mennyiség '
+                             'minőség jelenség folyamat szerkezet anyag:noun molekula atom '
+                             'sejt:noun gén evolúció faj genetikai tudományos kísérletezik '
+                             'elemez mér megfigyel felfedez feltalál kiszámít'),
+    ('technology', 'technológia technika szoftver hardver adatbázis hálózat szerver felhő:noun '
+                   'algoritmus programozás programozó mesterséges intelligencia robot '
+                   'automatizálás digitális elektronikus műhold eszköz:noun '
+                   'készülék berendezés találmány felhasználó adatvédelem '
+                   'frissít telepít töröl bejelentkezik kijelentkezik titkosít'),
+    ('the environment and natural resources', 'ökológia ökoszisztéma kihal '
+                                              'üvegházhatás szén-dioxid kibocsátás '
+                                              'fosszilis szén kőolaj földgáz atomenergia '
+                                              'megújuló fenntartható fenntarthatóság '
+                                              'ivóvíz talaj nyersanyag ásvány bánya '
+                                              'esőerdő sivatag óceán gleccser '
+                                              'szennyez kimerül megőriz védett'),
+    ('health and the mind', 'lélektan pszichológia pszichológus pszichiáter terápia elme tudat '
+                            'tudatalatti szorongás pánik függőség alkoholizmus '
+                            'magány önbizalom alvászavar étvágy '
+                            'fogyatékosság krónikus fertőző járvány világjárvány immunitás '
+                            'védőoltás antibiotikum mellékhatás megelőzés '
+                            'rehabilitáció ápol megelőz felépül'),
+    ('the arts, literature and the media', 'művészet művész festmény festő szobor szobrász '
+                                           'galéria tárlat zeneszerző karmester zenekar opera '
+                                           'balett színész színésznő rendező forgatókönyv '
+                                           'jelenet főszereplő regény regényíró költő költészet '
+                                           'vers novella mese kiadó fejezet szereplő cselekmény '
+                                           'stílus kritika kritikus sajtó média tudósító '
+                                           'interjú:noun dokumentumfilm sorozat közönség '
+                                           'néző olvasó ábrázol alkot'),
+    ('history and society', 'történész korszak középkor reneszánsz forradalom felkelés '
+                            'birodalom gyarmat rabszolga háború:noun megszállás '
+                            'ostrom nemzet nemzetiség haza hazafi örökség emlékmű régész '
+                            'társadalmi osztály:noun középosztály munkásosztály '
+                            'egyenlőség egyenlőtlenség diszkrimináció rasszizmus előítélet '
+                            'bevándorló bevándorlás menekült integráció globalizáció'),
+    ('argument and evaluation', 'állítás érvelés ellenérv bizonyíték:noun forrás:noun tény:noun '
+                                'ok:noun összefüggés ellentmondás feltevés szempont '
+                                'álláspont kritérium értékelés szemlélet tévhit kétség:noun '
+                                'meggyőződés kompromisszum alternatíva megfontol '
+                                'érvényes meggyőző ellentmondásos objektív '
+                                'szubjektív valószínű kétséges vitatott elfogadható'),
+    ('formal connectors', 'továbbá ezenkívül emellett mindazonáltal '
+                          'ugyanakkor következésképpen eszerint tudniillik illetve '
+                          'valamint azaz ellenkezőleg amennyiben:conj '
+                          'feltéve egyébként:adv elsősorban '
+                          'nevezetesen'),
+    ('describing', 'jelentős lényeges alapvető átfogó részletes pontatlan világos:adj '
+                   'homályos összetett egyértelmű kétértelmű hatékony eredményes '
+                   'hatástalan fenntartható:adj megbízhatatlan elegendő elégtelen '
+                   'számottevő csekély rendkívüli kivételes általános:adj konkrét '
+                   'elvont gyakorlati elméleti tartós ideiglenes állandó fokozatos '
+                   'hirtelen:adj'),
+    ('verbs of reporting, analysing and persuading', 'kijelent bejelent közöl tájékoztat '
+                                                     'nyilatkozik hangsúlyoz kiemel '
+                                                     'megjegyez rámutat cáfol megerősít '
+                                                     'elemez:verb értelmez megvitat '
+                                                     'érvel indokol kifejt összefoglal '
+                                                     'meghatároz megállapít becsül '
+                                                     'meggyőz:verb rábeszél '
+                                                     'befolyásol:verb kritizál bírál '
+                                                     'helyesel követel '
+                                                     'tiltakozik ellenáll előidéz '
+                                                     'eredményez hozzájárul'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}
