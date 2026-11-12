@@ -5,8 +5,8 @@ twelfth language set in the shape of the ones already shipped, Hindi's above all
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Thai language collection."
 
-**STATUS (2026-11-12): the alphabet deck and all five levels, A1 to C1, are built** (`.claude/thai/`,
-§6–§10). The phrases deck is not.
+**STATUS (2026-11-12): the collection is complete** — the alphabet deck, the five levels A1 to C1 and the
+phrases deck are built (`.claude/thai/`, §6–§11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (merged into the day's Hindi line)
@@ -37,7 +37,7 @@ the owner's to overturn**:
 | Thai B1 Intermediate — built | `Thai-B1.folio-deck.json` | 1,000 |
 | Thai B2 Upper Intermediate — built | `Thai-B2.folio-deck.json` | 1,500 |
 | Thai C1 Advanced — built | `Thai-C1.folio-deck.json` | 1,500 |
-| Thai Phrases and Expressions | `Thai-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Thai Phrases and Expressions — built | `Thai-Phrases-and-Expressions.folio-deck.json` | 415 |
 
 ## 2. Sources and licences
 
@@ -100,7 +100,7 @@ romanisation.
 
 **Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `thai_level.py`, run, read every card, extend the
-three tables. **Phase 3** — the phrases deck (`phrase` / `proverb` entries). **Phase 4** — a combined file,
+three tables. **Phase 3 (done)** — the phrases deck (§11). **Phase 4** — a combined file,
 gitignored.
 
 ## 6. As built (2026-11-09): the alphabet and A1
@@ -220,3 +220,32 @@ example sentence**. A re-run is byte-identical; A1 to B2 are unchanged.
   plants and animals (เถาวัลย์, ไคล, ปิศาจ), which is what the two corpora agree on next; the topic inventory
   carries the academic and civic words. Most cards have no sentence: Tatoeba has nothing more to give, and a
   sentence is never invented.
+
+## 11. As built (2026-11-12): the phrases deck
+
+On request ("Add the phrases deck"). `python3 .claude/thai/run.py --level phr` runs `phrases.py` in place of
+`select.py`. **415 expressions in three subdecks**, the Hindi arrangement (`docs/hindi-decks-plan.md` §11):
+**48 Phrases** (filed as phrase or interjection, not tagged idiomatic — สบายดีไหม, ยินดีต้อนรับ, สุขสันต์วันเกิด,
+the greetings of the day, the signs ห้ามสูบบุหรี่ / ห้ามจอด / ห้ามเข้า), **340 Idioms** (a sense tagged idiomatic —
+หักหลัง, แพะรับบาป, วัวหายล้อมคอก, many of the four-word rhyming kind: บ้านเกิดเมืองนอน, ข้าวยากหมากแพง) and **27
+Proverbs**. Nothing a level teaches is repeated. A re-run is byte-identical; all five levels rebuild unchanged.
+18 of the 415 occur in a Tatoeba sentence; 84 have an example (mostly Wiktionary's), 33 three.
+
+- **"More than one word" without spaces.** Hindi asks for a space; Thai writes none. An expression here is a
+  headword that CUTS into two or more dictionary words (each of two letters or more, never the headword
+  itself), or holds a space (a two-clause proverb, a repetition mark: ลม ๆ แล้ง ๆ). That keeps out the
+  one-word interjections — nearly all sounds (โฮ่ง a bark, อู๊ด an oink) — and `INCLUDE` brings back the three
+  formal greetings the cut cannot see (อรุณสวัสดิ์, ราตรีสวัสดิ์, สายัณห์สวัสดิ์).
+- **An idiom leads with its idiomatic sense** (`build_deck.english`, the phrases deck only): Wiktionary often
+  lists the literal sense first (ดาวรุ่ง "morning star" before "rising star", หัวกะทิ "coconut cream" before
+  "cream of the crop", ขุดทอง "to dig for gold"). **The chosen entry leads** (a row's `pos` and `etym`, read by
+  `entries_for` only when present): เจอกัน opens on "see you", not "to meet".
+- **Left out, each with its reason in `phrases.EXCLUDE`**: entries that are only "abstract noun of X" (the
+  การ- / ความ- doubles of an idiom, `phrases.BARE`) or only a pointer (ตักบาตร, ดูก่อน); the phrasebook sentences
+  ผมรักคุณ / ฉันรักคุณ / รับบัตรเครดิตไหม (the Hindi rule); the royal slogan เรารักในหลวง; loanwords the cut splits
+  by accident (โอเค as โอ + เค, แหวะ); ห้าร้อย (slang "criminal" on "five hundred"); two sexual idioms; and the
+  same expression twice — the commonest form kept, e.g. one of five spellings of "misfortunes never come singly"
+  (เคราะห์ซ้ำกรรมซัด), กินให้อร่อย over its polite forms, สบายดีไหม over สบายดีหรือ.
+- **Known, left.** Wiktionary tags as idiomatic some compounds a learner would call plain words (ท้องร่วง
+  "diarrhoea", ครูบาอาจารย์ "teachers", กุ้งหอยปูปลา "seafood") — its labels are the source's. Two euphemisms
+  are kept (ยิงกระต่าย "to urinate"), as is หุบปาก "shut up", an expression a learner hears.

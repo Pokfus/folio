@@ -263,6 +263,8 @@ def entries_for(row, lex):
         if e.get('etym', '') not in groups:
             groups.append(e.get('etym', ''))
     keep = [k for k in ETYMS.get(row['word'], groups[:1]) if k in groups] or groups[:1]
+    if 'etym' in row and row['etym'] in groups:      # the phrases deck: the entry it chose
+        keep = [row['etym']]
     ents = sorted([e for e in ents if e.get('etym', '') in keep],
                   key=lambda e: keep.index(e.get('etym', '')))
     lead_pos = row.get('pos') or PREFER.get(row['word'])
@@ -304,6 +306,8 @@ def english(ents, word=''):
         # (“passion”)", "มัจจุมาร (“death”), and" -- is a Thai word, not a meaning (B2)
         glosses = [g for g in glosses if not LISTITEM.match(g['g'])] or glosses
         strong = [g for g in glosses if not g['weak'] or (lead and lead in g['g'])]
+        if LEVEL == 'phr':      # an idiom leads with its idiomatic sense (ดาวรุ่ง, หัวกะทิ)
+            strong.sort(key=lambda g: 'idiomatic' not in g['tags'])
         for g in strong or glosses[:1]:
             t = g['g'].rstrip(' :;,')
             if t and t not in seen:
@@ -386,7 +390,7 @@ def build(rows, lex, exs):
             continue
         roman = r.get('roman') or next((e['roman'][0] for e in ents if e['roman']), '')
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Thai': E(word),               # the template wraps it in .uc-word, beside the speaker
             'Roman': E(roman),
             'Word': word,
@@ -396,7 +400,8 @@ def build(rows, lex, exs):
         }})
         entries.append({'word': word, 'pos': ents[0]['pos'], 'source': r['source'],
                         'examples': len(ex), 'tatoeba': sum(1 for x in ex if not x[2]),
-                        'roman': bool(roman), 'clf': bool(cards[-1]['fields']['Forms'])})
+                        'roman': bool(roman), 'clf': bool(cards[-1]['fields']['Forms']),
+                        'sub': r.get('sub', ''), 'count': r.get('count', 0)})
     return cards, entries
 
 
@@ -444,6 +449,41 @@ def desc(entries, n):
     )
 
 
+def desc_phr(entries, n):
+    by = {s: [e for e in entries if e['sub'] == s] for s in ('Phrases', 'Idioms', 'Proverbs')}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Thai set phrases, idioms and proverbs, in three subdecks: {len(by['Phrases'])} "
+        f"everyday phrases, {len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study "
+        "directions come as two cards of one expression — Thai → English (see the Thai, recall the "
+        "meaning) and English → Thai (see an English meaning, recall the Thai) — each with a schedule "
+        "of its own. This is a companion to the five level decks, Thai A1 to C1, and not one of them: "
+        "a level is a list of words, and an expression is a unit a list of words cannot see. Nothing "
+        "here is taught by any of the five, so the two can be studied together without repeating an "
+        "entry. The PHRASES are the expressions Wiktionary files as phrases or interjections and does "
+        f"not mark as idiomatic — the everyday formulas a Thai speaker uses as one piece ({eg('Phrases')} "
+        "…), greetings for the day and the festivals, and the words on signs. The IDIOMS are "
+        f"expressions whose meaning is not their words' ({eg('Idioms')} …) — Thai is rich in them, many "
+        "built from four words in two rhyming pairs — and the PROVERBS the sayings Wiktionary files as "
+        f"proverbs ({eg('Proverbs')} …). Thai writes no spaces between words, so an expression here is a "
+        "headword that divides into two or more dictionary words. Within each subdeck the expressions "
+        "come in the order of how many of Tatoeba's Thai sentences contain them; Tatoeba's Thai is "
+        f"small, so only {found} of the {n} are found there at all, and the rest follow in the order of "
+        "their count in the Thai National Corpus and the Thai Textbook Corpus. Every expression is "
+        "printed in Thai script with a romanisation beneath it in the Paiboon system, which marks the "
+        f"tone of every syllable. Real example sentences come with {n - ex0} of the {n} expressions, "
+        f"three apiece for {ex3}, with the expression picked out in colour and a speaker beside the "
+        "sentence and the headword. Sources. Expressions, meanings, romanisation and the idiom and "
+        "proverb labels: English Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Order: "
+        "Tatoeba (tatoeba.org), CC BY 2.0 FR, then the word counts of the Thai National Corpus and the "
+        "Thai Textbook Corpus as distributed by PyThaiNLP (CC0). Example sentences: Tatoeba, CC BY 2.0 "
+        "FR, and Wiktionary."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -454,11 +494,21 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in ('Phrases', 'Idioms', 'Proverbs')}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Idioms']} idioms, "
+                    f"{by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['thai', 'phrases', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['thai', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['thai', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': subtitle,
+        'desc': description, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Thai vocabulary', 'speechLang': 'th-TH',

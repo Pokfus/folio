@@ -3554,8 +3554,10 @@ changed was the one that had been wrong all along.
   (92 notes), **A1, `decks/Thai-A1.folio-deck.json`** (500 notes / 1,000 cards), **A2,
   `decks/Thai-A2.folio-deck.json`** (750 notes / 1,500 cards; 2026-11-12, "Add Thai A2") **B1,
   `decks/Thai-B1.folio-deck.json`** (1,000 notes / 2,000 cards; 2026-11-12, "Add B1") **B2,
-  `decks/Thai-B2.folio-deck.json`** (1,500 notes / 3,000 cards; 2026-11-12, "Add B2") **and C1,
-  `decks/Thai-C1.folio-deck.json`** (1,500 notes / 3,000 cards; 2026-11-12, "Add C1"). `python3 .claude/thai/run.py
+  `decks/Thai-B2.folio-deck.json`** (1,500 notes / 3,000 cards; 2026-11-12, "Add B2") **C1,
+  `decks/Thai-C1.folio-deck.json`** (1,500 notes / 3,000 cards; 2026-11-12, "Add C1") **and the phrases deck,
+  `decks/Thai-Phrases-and-Expressions.folio-deck.json`** (415 notes: 48 phrases, 340 idioms, 27 proverbs;
+  `run.py --level phr` runs `phrases.py`; 2026-11-12). The collection is complete. `python3 .claude/thai/run.py
   [--level a1]`, `python3 .claude/thai/alphabet.py`, `node .claude/thai/check-thai.js`; a re-run is
   byte-identical. Hindi's shape (an assembled CEFR list, both directions, romanisation — Paiboon, which writes the
   tone), plus what Thai alone needs: a word cut for an unspaced script (`th.Segmenter`, maximal matching), a
