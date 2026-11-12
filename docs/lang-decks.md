@@ -3578,7 +3578,11 @@ changed was the one that had been wrong all along.
   `#014764` (re-swept at the merge: Arabic's green sat 5.1 from the first sweep's `#0B791D`).
 - `.claude/polish/` — the generator behind the Polish decks (Nov 2026, on request: "Add a Polish language
   collection"). **Built: A1, `decks/Polish-A1.folio-deck.json`** (600 notes / 1,200 cards: 476 from a
-  hand-written topic inventory, 124 by frequency). `python3 .claude/polish/run.py [--level a1]`,
+  hand-written topic inventory, 124 by frequency) **A2, `decks/Polish-A2.folio-deck.json`** (750 notes /
+  1,500 cards: 648 inventory, 102 frequency), **B1** (1,000 notes: 735 / 265), **B2** (1,200 notes: 1,067 /
+  133) **C1** (1,200 notes: 968 / 232) **and the phrases deck**
+  (`Polish-Phrases-and-Expressions`, 802 expressions: 15 phrases, 711 idioms, 76 proverbs; `run.py --level phr`)
+  — all 2026-11-12, on request. `python3 .claude/polish/run.py [--level a1]`,
   `node .claude/polish/check-polish.js`; a re-run is byte-identical. The UKBI / Hindi shape: the State
   Commission examines at all six levels but no word list of its own was found, so a level is a topic
   inventory plus lemma frequency, and the description says so. The plan, the sources and every finding (the
@@ -3678,7 +3682,7 @@ changed was the one that had been wrong all along.
   (Ethnologue via Wikipedia); the hue is measured, `#BD4B7B` (re-swept at the merge: Romanian had taken the olive `#757839`).
 - `.claude/dutch/` — the generator behind the Dutch decks (Nov 2026, on request: "Create a Dutch language
   collection"; the Hindi and Greek answers taken, the owner not asked). **Built: A1,
-  `decks/Dutch-A1.folio-deck.json`** (500 notes / 1,000 cards). **No alphabet deck** — Dutch is in the Latin
+  `decks/Dutch-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Dutch-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-12, on request: "Add Dutch A2") **and B1, `decks/Dutch-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-12, on request: "Add B1") **and B2, `decks/Dutch-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12, on request: "Add B2") **and C1, `decks/Dutch-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12, on request: "Add C1") **and the phrases deck, `decks/Dutch-Phrases-and-Expressions.folio-deck.json`** (918 expressions in Phrases, Idioms and Proverbs subdecks, `--level phr`, 2026-11-12, on request: "Add the phrases deck"). **No alphabet deck** — Dutch is in the Latin
   alphabet — and Wiktionary's IPA in place of a romanisation. `python3 .claude/dutch/run.py [--level a1]`,
   `node .claude/dutch/check-dutch.js`; a re-run is byte-identical. Greek's pipeline adapted: nouns carry de or
   het, verbs their past and participle and a by-person table. The findings (the accent-keeping fold and
