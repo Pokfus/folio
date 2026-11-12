@@ -36,6 +36,34 @@ EXCLUDE = {
     'őt': 'the accusative of ő, taught on its card',
     'szerinte': 'the "his, her" form of szerint, taught there',
     'oh': 'an English spelling; Hungarian writes ó',
+    # Read off the A2 ranking (2026-11-12).  Forms whose every sense is a pointer (the card
+    # came out with no English at all), each taught on its lemma's card:
+    'neve': 'the "his, her" form of név (A1)',
+    'élete': 'the "his, her" form of élet (A1)',
+    'életem': 'the "my" form of élet (A1)',
+    'keze': 'the "his, her" form of kéz (A1)',
+    'része': 'the "his, her" form of rész (A1)',
+    'feje': 'the "his, her" form of fej (A1)',
+    'apám': 'the "my" form of apa (A1)',
+    'szeretlek': 'a form of szeret (A1), "I love you"',
+    'mit': 'the accusative of mi (A1); its own entry glosses only "why"',
+    'egyet': 'the accusative of egy (A1)',
+    'annak': 'the dative of az (A1)',
+    'arról': 'the delative of az (A1)',
+    'állj': 'the imperative of áll (A1)',
+    'nézze': 'the formal imperative of néz (A1)',
+    'vigyázz': 'the imperative of vigyáz, which the level deals itself',
+    'köszönjük': 'a form of köszön ("we thank"), which the level deals itself',
+    'emlékezik': 'the same verb as emlékszik (A1), glossed only "to commemorate"',
+    'gyermek': 'the full form of gyerek (A1), the same word',
+    # A spelling whose subtitle count belongs to a sense Wiktionary does not give:
+    'halló': 'the telephone "hello?", but Wiktionary glosses only "auditory, hearing"',
+    'bocs': 'the colloquial "sorry", but Wiktionary glosses only "bear cub"',
+    'tőlem': '"from me", but Wiktionary glosses only "for all I care"',
+    'frank': 'the subtitles\' name Frank, but Wiktionary glosses only "Frankish"',
+    # Swearing:
+    'francba': 'a curse ("damn!, shit!")',
+    'fenébe': 'a curse ("damn!, shit!")',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 

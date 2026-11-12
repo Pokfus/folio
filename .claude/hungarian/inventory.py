@@ -54,4 +54,61 @@ A1 = [
                        'kérdez gondol dolgozik tanul kér kell vár'),
 ]
 
-INVENTORY = {'a1': A1}
+A2 = [
+    ('people and relatives', 'unoka unokatestvér nagybácsi nagynéni nagyszülő szülő rokon após anyós '
+                             'vő meny vőlegény menyasszony kamasz fiatal idős nyugdíjas kolléga főnök '
+                             'vendég ügyfél szomszéd idegen külföldi'),
+    ('jobs and study', 'foglalkozás mérnök ügyvéd rendőr eladó szakács sofőr ápoló pincér titkár '
+                       'munkás igazgató fizetés cég gyár munkahely alkalmazott egyetem főiskola '
+                       'gimnázium osztály óra lecke házi_feladat vizsga jegy füzet szótár tanfolyam '
+                       'diploma'),
+    ('clothes', 'ruha szoknya nadrág ing blúz póló pulóver dzseki kabát cipő csizma zokni '
+                'kalap sapka kesztyű sál öltöny öv zseb méret felvesz levesz hord visel'),
+    ('food and cooking', 'csirke disznó marha hagyma fokhagyma répa sárgarépa káposzta uborka paprika '
+                         'bab borsó gomba citrom szőlő körte eper cseresznye banán sütemény torta '
+                         'csokoládé fagylalt keksz olaj méz tejföl joghurt liszt bors szósz köret '
+                         'desszert tányér pohár csésze kanál villa kés fazék serpenyő főz süt vág '
+                         'íz éhes szomjas finom édes sós savanyú keserű friss'),
+    ('the home', 'emelet földszint lépcső erkély kert fal padló mennyezet tető előszoba nappali '
+                 'hálószoba bútor szekrény polc kanapé fotel szőnyeg függöny tükör lámpa hűtő '
+                 'tűzhely sütő mosógép zuhany mosdó törölköző szappan párna takaró bérlet '
+                 'költözik takarít mos'),
+    ('the town and its services', 'központ kerület park múzeum színház mozi könyvtár templom posta '
+                                  'városháza rendőrség híd sarok lámpa járda parkoló '
+                                  'benzinkút áruház pékség kávézó kocsma tér térkép'),
+    ('travel and holidays', 'utazás szabadság nyaralás kirándulás csomag bőrönd útlevél vízum vám '
+                            'határ szállás turista idegenvezető strand hegy tó folyó sziget '
+                            'erdő mező domb völgy táj metró villamos kerékpár motor hajó '
+                            'kikötő peron megálló menetrend késés indulás érkezés repülőgép járat utazik '
+                            'foglal meglátogat'),
+    ('nature, seasons and the compass', 'tavasz nyár ősz tél évszak észak dél:noun kelet nyugat ég felhő '
+                                        'csillag hold nap:noun természet fa virág fű levél föld '
+                                        'környezet hőmérséklet fok vihar köd jég napos felhős nedves '
+                                        'száraz'),
+    ('animals', 'állat kutya macska ló tehén birka malac madár tyúk kacsa medve farkas róka nyúl '
+                'egér kígyó rovar méh légy'),
+    ('health and the body', 'test arc haj nyak váll kar ujj térd hát szív vér csont bőr egészség '
+                            'betegség megfázás köhögés influenza seb allergia tabletta recept rendelés '
+                            'fogorvos mentő egészséges fáradt köhög megsérül'),
+    ('feelings and character', 'öröm szomorúság félelem harag szerelem szeretet remény meglepetés '
+                               'szomorú dühös ideges nyugodt vidám félénk bátor lusta szorgalmas okos '
+                               'buta udvarias őszinte türelmes féltékeny büszke unatkozik fél:verb'),
+    ('free time and sport', 'szabadidő hobbi sport foci futball tenisz kosárlabda úszás meccs csapat '
+                            'játékos labda koncert zene dal film előadás kiállítás fénykép fotó játék '
+                            'buli parti meghívás ajándék születésnap ünnep karácsony húsvét esküvő '
+                            'táncol énekel úszik fut fest rajzol meghív ünnepel szórakozik'),
+    ('time and sequence', 'múlt jövő jelen század évtized dátum naptár tegnapelőtt holnapután hamar '
+                          'nemrég azonnal egyszer közben végre általában ritkán naponta hetente '
+                          'havonta évente hétvége hét:noun'),
+    ('numbers and quantity', 'hatvan hetven nyolcvan kilencven tizenkettő tizenöt millió milliárd '
+                             'negyed dupla kiló gramm liter méter kilométer centiméter '
+                             'darab üveg doboz pár szám csoport'),
+    ('everyday verbs', 'felmegy lemegy bemegy kimegy átmegy elindul '
+                       'megáll vezet parkol elveszít nyer kölcsönad elküld kap felhív válaszol '
+                       'elmagyaráz ismétel fordít választ dönt megígér elfelejt felejt '
+                       'álmodik születik köszön üdvözöl megismer mutat megmutat oszt cserél '
+                       'megjavít épít elront megtart elrejt dob eldob készít rendel kiszolgál '
+                       'pihen sétál siet késik nevet sír vásárol'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2}

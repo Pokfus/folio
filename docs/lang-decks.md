@@ -3654,7 +3654,8 @@ changed was the one that had been wrong all along.
 - `.claude/hungarian/` — the generator behind the Hungarian decks (Nov 2026, on request: "Add a Hungarian language
   collection"; levels and the alphabet deck follow the Greek and Hindi precedent, the owner not asked). **Built: the
   alphabet, `decks/Hungarian-Alphabet.folio-deck.json`** (46 notes: the 44 letters' sounds, the stress, doubled
-  consonants) **and A1, `decks/Hungarian-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3
+  consonants), **A1, `decks/Hungarian-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2,
+  `decks/Hungarian-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-12, on request). `python3
   .claude/hungarian/run.py [--level a1]`, `python3 .claude/hungarian/alphabet.py`, `node
   .claude/hungarian/check-hungarian.js`; a re-run is byte-identical. Greek's pipeline adapted, no romanisation,
   verbs by their third person singular. The findings (the verb tables' person tags shifted by a row and read by

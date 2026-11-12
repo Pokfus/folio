@@ -5,8 +5,8 @@ Hungarian set built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless
 this file says otherwise. Asked for on 2026-11-09: "Add a Hungarian language collection."
 
-**STATUS (2026-11-09): the alphabet deck and A1 are built** (`.claude/hungarian/`, §6). A2 to C1 and a phrases
-deck are not.
+**STATUS (2026-11-12): the alphabet deck, A1 and A2 are built** (`.claude/hungarian/`, §6, §7). B1 to C1 and a
+phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Hungarian to the day's
@@ -20,7 +20,8 @@ these is the owner's to overrule.**
 1. **Word source: CEFR A1–C1, assembled.** Hungarian has examinations accredited to the CEFR (the ECL, the Origó
    and university ITK exams), but no graded word list for any of them is known to be published, so the decks do
    not claim to be any exam's vocabulary. (No new search was run for one this session; the Greek finding was
-   taken as the pattern. Worth one search before A2.) Each level is a hand-written topic inventory
+   taken as the pattern. One search was run before A2, on 2026-11-12, and found none: the A2 "szólista"
+   pages it turned up are English words for Hungarian speakers.) Each level is a hand-written topic inventory
    (`inventory.py`) scoped to the CEFR global descriptor, topped up with the commonest remaining lemmas; the
    description says so. Sizes, Hindi's: **A1 500 · A2 750 · B1 1,000 · B2 1,500 · C1 1,500 notes**.
 2. **An alphabet deck, first** in the collection — of SOUNDS rather than shapes, the script being Latin.
@@ -31,7 +32,7 @@ these is the owner's to overrule.**
 |---|---|---|
 | Hungarian Alphabet — built | `Hungarian-Alphabet.folio-deck.json` | 46 |
 | Hungarian A1 Beginner — built | `Hungarian-A1.folio-deck.json` | 500 |
-| Hungarian A2 Elementary | `Hungarian-A2.folio-deck.json` | 750 |
+| Hungarian A2 Elementary — built | `Hungarian-A2.folio-deck.json` | 750 |
 | Hungarian B1 Intermediate | `Hungarian-B1.folio-deck.json` | 1,000 |
 | Hungarian B2 Upper Intermediate | `Hungarian-B2.folio-deck.json` | 1,500 |
 | Hungarian C1 Advanced | `Hungarian-C1.folio-deck.json` | 1,500 |
@@ -110,3 +111,24 @@ The alphabet: 46 notes — the 44 letters in Hungarian order with their names (n
 three characters), then the stress and the doubled consonant; every sound side unique (asserted). The shelf's hue
 is measured: `#14659F`, a steel blue, 16.9 from its nearest neighbours (Ancient Greece and French) against all 65
 other hues on the page (re-swept at the merge with seventeen new languages on the shelf).
+
+## 7. As built (2026-11-12): A2
+
+Asked for on 2026-11-12: "Add Hungarian A2." `python3 .claude/hungarian/run.py --level a2`: 750 notes, 454 from
+the inventory (`inventory.A2`, fifteen topics after the Romanian A2's) and 296 by frequency; sentences for 748, three
+apiece for 743. The scope is the CEFR A2 global descriptor (`SCOPE['a2']`). A re-run is byte-identical, and A1
+rebuilt on the same day's sources is byte-identical to the shipped file. What reading the cards changed:
+
+- **FORMS WHOSE EVERY SENSE IS A POINTER came out with NO English** (`neve`, `élete`, `életem`, `keze`, `része`,
+  `feje`, `apám`, `szeretlek`): the A2 fill reaches the possessed forms of A1 nouns. Excluded, with the
+  accusatives, imperatives and other forms of words already taught (`mit`, `egyet`, `annak`, `arról`, `állj`, `nézze`,
+  `vigyázz`, `köszönjük`), `emlékezik` (the same verb as A1's `emlékszik`) and `gyermek` (A1's `gyerek`).
+- **A SUBTITLE COUNT FOR A SENSE WIKTIONARY DOES NOT GIVE**: `halló` (the telephone "hello?", glossed "auditory"),
+  `bocs` ("sorry", glossed "bear cub"), `tőlem` ("from me", glossed "for all I care"), `frank` (the name Frank,
+  glossed "Frankish"). Excluded; `bocsi` "sorry" is dealt instead. Two curses (`francba`, `fenébe`) were excluded.
+- **`sír`** shows "to cry" before "grave" (`ETYMS`). `repülő` (filed as a participle, no English) became
+  `repülőgép`; `foglalás` (glossed only "distraint") and the duplicates `kilogramm` and `bicikli` were dropped.
+- **The description said "for a beginner" at every level**; it now names the level's learner (`FOR`, Romanian's).
+
+**Known, left.** `kirándulás` lists Wiktionary's "sprain" before "excursion". The fill again carries the subtitles'
+crime-drama words (`gyilkos`, `börtön`, `nyomozó`).

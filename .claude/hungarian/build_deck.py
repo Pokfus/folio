@@ -108,6 +108,7 @@ ETYMS = {
     'hát': ['2', '1'],         # "well, …" (the conversational word) and "back"
     'mi': ['1', '2'],          # "we" AND "what?" -- two etymologies, both A1
     'jobb': ['2'],             # "right; better", not the adverb "rather" (`jobban`)
+    'sír': ['2', '1'],         # "to cry" (A2's everyday verbs) before "grave"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech: the prefixes'
@@ -367,6 +368,10 @@ def build(rows, lex, exs):
     return cards, entries
 
 
+FOR = {'a1': 'for a beginner', 'a2': 'for an elementary learner', 'b1': 'for an intermediate learner',
+       'b2': 'for an upper-intermediate learner', 'c1': 'for an advanced learner'}
+
+
 def desc(entries, n):
     from_inv = sum(1 for e in entries if e['source'] == 'inventory')
     ex3 = sum(1 for e in entries if e['examples'] == 3)
@@ -381,7 +386,7 @@ def desc(entries, n):
         "Both study directions in one deck: Hungarian → English (see the Hungarian, recall the "
         "meaning) and English → Hungarian (see an English meaning, recall the Hungarian). Each "
         "direction is a card of its own with its own schedule, so recognising a word and producing "
-        f"it are learnt separately. {n} words of Hungarian for a beginner, aligned to "
+        f"it are learnt separately. {n} words of Hungarian {FOR[LEVEL]}, aligned to "
         f"{LEVEL.upper()} of the Common European Framework of Reference, whose global descriptor "
         f"begins '{SC['quote']}' — a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
