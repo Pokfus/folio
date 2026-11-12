@@ -134,6 +134,36 @@ the form English-language scholarship and the reference works use; the decision 
 | Shijing | Shi jing, Shih ching, Shih Ching | Classic of Poetry, Book of Songs | English title first |
 | Yu gong | Yugong, Yü Kung | Tribute of Yu | English title first |
 | Gu Jiegang | Ku Chieh-kang | | |
+| Zhou | Chou | | the dynasty; Wade–Giles *Chou* only in a cited title (added for the second hundred, Nov 2026) |
+| King Wen, King Wu, King Cheng, King Kang, King Zhao, King Mu, King Li, King Xuan, King You, King Ping | Wen Wang, Wu Wang, King Ch'eng, King Chao, King Hsüan, King Yu of Zhou | Ji Chang, Ji Fa | the Zhou kings: "King" and the posthumous name, English order; Ji Chang and Ji Fa as their own names may follow |
+| Duke of Zhou | Duke of Chou, Chou Kung | Zhou Gong, Ji Dan | English title first |
+| Houji | Hou Ji, Hou Chi, Hou-chi | Lord Millet | joined |
+| Mandate of Heaven | T'ien-ming | Tianming | English name first |
+| Tian | | T'ien | the god or heaven; lower case "heaven" in ordinary prose; T'ien unreported, a common Wade–Giles surname (田) in cited authors |
+| fengjian | feng-chien, Feng-chien | | lower case in prose as a noun, capitalised as a card's answer |
+| zongfa | tsung-fa, Tsung-fa | | lower case in prose |
+| Haojing | Hao Jing, Hao-ching | Zongzhou, Hao | joined |
+| Chengzhou | Cheng Zhou, Ch'eng-chou | Luoyi, Wangcheng | joined |
+| Muye | Mu Ye, Mu-yeh | | |
+| Gonghe | Gong He, Kung-ho | | the regency; He, the Earl of Gong, the man |
+| Xianyun | Xian Yun, Hsien-yün | | |
+| Baosi | Bao Si, Pao Ssu, Pao-ssu | | joined: the live answer and the slug; the `pinyin` field reads Bāosì, as Hòuyì |
+| Quanrong | Quan Rong, Ch'üan Jung | Dog Rong | joined |
+| Spring and Autumn Annals | Ch'un-ch'iu, Chun Qiu | Chunqiu | English title first; Spring and Autumn period for the age |
+| Qi, Jin, Chu, Qin, Lu, Song, Wu, Yue, Wei, Han, Zhao, Yan, Zheng | Ch'i, Ch'in, Ch'u, Chin state, Chao state, Cheng state | | the states: name alone in prose ("the state of Qi" where it could be misread); *Jin* is disambiguated from the later dynasties in the card's own words (`docs/china-card-plan.md`) |
+| Wey | | | the small state 衛, written Wey to keep it apart from Wei 魏, as the collection's sources do; say so the first time |
+| Guan Zhong | Kuan Chung | Guanzi | never "Guanzhong" (the Wei valley region) |
+| Chengpu, Kuiqiu, Maling, Changping | Ch'eng-p'u, Cheng Pu, K'uei-ch'iu, Ma Ling, Chang Ping, Ch'ang-p'ing | | the battles and the covenant |
+| Goujian | Gou Jian, Kou-chien | | joined: the live answer and the slug; the `pinyin` field reads Gōujiàn |
+| Shang Yang | Shang-yang | Wei Yang, Gongsun Yang, Lord Shang | |
+| Li Kui, Wu Qi, Sun Bin, Pang Juan, Bai Qi, Su Qin, Zhang Yi, Li Si, Jing Ke, Han Fei | Li K'uei, Wu Ch'i, Sun Pin, P'ang Chüan, Pai Ch'i, Su Ch'in, Chang I, Li Ssu, Ching K'o, Han Fei-tzu | | the Warring States men, surname and name split |
+| King Wuling of Zhao | Wu Ling, Wu-ling | | |
+| Fan Ju | Fan Chü | Fan Sui | the Qin minister of "befriend the distant, attack the near"; the *Shiji* writes 範睢, read Fan Sui by some (added B17) |
+| Jixia Academy | Chi-hsia, Ji Xia | Jixia | |
+| Zhanguo Ce | Zhanguoce, Zhan Guo Ce, Zhanguo ce, Chan-kuo ts'e, Chan-kuo Ts'e | Strategies of the Warring States | the glossary slug's form |
+| Li Sao | Lisao, Li-sao, Li sao | Encountering Sorrow | |
+| Qin Shi Huang | Qin Shihuang, Ch'in Shih-huang, Shih Huang-ti | First Emperor, Shi Huangdi, Ying Zheng | the slug's form; "the First Emperor" in prose is fine |
+| Laozi, Zhuangzi, Mozi, Xunzi, Han Feizi, Sunzi | Lao Tzu, Lao-tzu, Lao Zi, Chuang Tzu, Chuang-tzu, Mo Tzu, Mo-tzu, Mo Zi, Hsün Tzu, Hsün-tzu, Xun Zi, Han Fei Zi, Sun Zi | Sun Tzu | the thinkers and their books joined; Confucius and Mencius keep their English names (Kongzi, Mengzi as aliases); *Sun Tzu* is left unreported, the English name of the book's title in many editions |
 
 ## Mythology and legend
 
@@ -240,9 +270,92 @@ Filled batch by batch, from the source each row names. A myth is dated by the te
 | Shang music attested (Feng's end date) | c. 1300 – 1050 BCE | `cnh-098` |
 | the Anyang workshops / Shang burial practice | c. 1250 – 1046 BCE | `cnh-099`, `cnh-100` |
 
+## Western Zhou, Eastern Zhou and Qin (the second hundred)
+
+Filled batch by batch from `cnh-101` (B11 on). **The protected lines** of the second hundred's individuals
+(`cnh-102`, `113`–`115`, `132`, `133`, `135`–`137`, `147`–`149`, `151`, `159`, `166`–`168`, `174`, `182`, `186`, `189`,
+`192`, `195`) are pinned below to their lines as they stood on main on 2026-11-12, and are not rows of this table.
+
+| event | the collection says | source |
+|---|---|---|
+| Shang royal women attested (Wu Ding to the conquest) | c. 1250 – 1046 BCE | Lee 2002 (`cnh-101`) |
+| the fall of the Shang: the Project / Nivison / Liu Xin | 1046 BCE / 1040 BCE / 1122 BCE | `cnh-103` |
+| Muye: the Project / one reading of the Li gui / traditional | 1046 BCE / 1044 BCE / 1122 BCE | Lee 2002 (`cnh-104`) |
+| the Zhou account composed (the Western Zhou chapters) | c. 1046 – 771 BCE | Schaberg; Lee (`cnh-105`) |
+| the Shang in later memory: the Shiji / the bones identified | c. 100 BCE / 1899 | `cnh-106` |
+| the oracle-bone archives inscribed | c. 1250 – 1046 BCE | `cnh-107` |
+| Shang chronology: conventional / Liu Xin's end / the eclipses | c. 1600 – 1046 BCE / 1122 BCE / 1201 – 1181 BCE | Pankenier (`cnh-108`) |
+| first chariots beyond the Urals / wheat in central China / the chariot in China | c. 2000 – 1800 BCE / c. 1500 BCE / c. 1200 BCE | `cnh-109` |
+| the first securely dated year | 841 BCE | `cnh-110` |
+| the Zhou dynasty / Western / Eastern | c. 1046 – 256 BCE / c. 1046 – 771 BCE / 770 – 256 BCE | `cnh-111` |
+| the Western Zhou / the first dated year / the capital lost | c. 1046 – 771 BCE / 841 BCE / 771 BCE | `cnh-112` |
+| the Three Guards rise | c. 1042 BCE (no end year in any source read) | `cnh-116` |
+| the Mandate attested / recast under the Western Han | c. 1046 – 771 BCE / 206 BCE – 8 CE | `cnh-117` |
+| the Shuowen's definition of tian / presented | 100 CE / 121 CE | Legge (`cnh-118`) |
+| fengjian practised | c. 1046 – 771 BCE | `cnh-119` |
+| the eastern colonies under the kings / as rival states | c. 1046 – 771 BCE / 770 – 221 BCE | `cnh-120` |
+| Chengzhou founded (one reckoning) / the court moves east | c. 1036 BCE / 770 BCE | `cnh-121` |
+| Western Zhou royal ritual / bronze inscriptions cast / zongfa practised | c. 1046 – 771 BCE | `cnh-122`, `cnh-123`, `cnh-125` |
+| the ritual reform / its scale in force | c. 850 BCE / c. 850 – 600 BCE | `cnh-124` |
+| the Documents: oldest chapters / Fu Sheng's text at court / the stone classics cut / Mei Ze's Old Text | c. 1046 – 771 BCE / 179 – 157 BCE / 175 CE / 317 – 322 CE | Chavannes (`cnh-126`) |
+| the Shijing: Maspero / another dating / the Wu envoy hears it in Lu | c. 900 – 500 BCE / c. 1200 – 600 BCE / 543 BCE | `cnh-127` |
+| the "double dawn" (the Project's calculation) | 21 April 899 BCE | `cnh-128` |
+| the well-field attested (the Mencius) / Wang Mang's revival | c. 380 – 300 BCE / 9 CE | `cnh-129` |
+| Western Zhou warfare | c. 1046 – 771 BCE | `cnh-130` |
+| the Xianyun: the Duo You ding battle (one dating) / the capital sacked | 816 BCE / 771 BCE | Shaughnessy; Li Feng (`cnh-131`) |
+| the Gonghe regency: the Project / Zhang 2023 | 841 – 828 BCE / 850 – 837 BCE | `cnh-134` |
+| the sack of Haojing | 771 BCE | `cnh-138` |
+| the move east: the received date / Legge's conversion / King Ping's reign | 770 BCE / 769 BCE / 770 – 720 BCE | `cnh-139` |
+| the Western Zhou / the hoards buried | c. 1046 – 771 BCE / c. 771 BCE | `cnh-140` |
+| the Eastern Zhou: the king's end / the last lord's | 770 – 256 BCE / 770 – 249 BCE | `cnh-141` |
+| the Spring and Autumn period: two ends / the chronicle | c. 770 – 475 BCE / 770 – 453 BCE / 722 – 481 BCE | `cnh-142` |
+| the Spring and Autumn Annals: the Gongyang and Guliang end / the Zuo end | 481 BCE / 479 BCE | `cnh-143` |
+| the Zuo Zhuan completed | c. 300 BCE | `cnh-144` |
+| the king wounded at Xuge: the Shiji (Chavannes) / Legge | 707 BCE / 706 BCE | `cnh-145` |
+| the first hegemony: the Juan meeting / the Shiji / the royal grant | 680 BCE / 679 BCE / 667 BCE | `cnh-146` |
+| Kuiqiu: the Shiji / Legge (cnh-147's protected line) | 651 BCE / 650 BCE | `cnh-147` |
+| Chengpu | 632 BCE | `cnh-150` |
+| Qi: founded / usurped / the old line ends / conquered | c. 1046 BCE / 386 BCE / 379 BCE / 221 BCE | `cnh-152` |
+| Jin: traditional founding / usurped by Quwo / split recognised / ended | 1106 BCE / 678 BCE / 403 BCE / 376 BCE | `cnh-153` |
+| Chu: kingship claimed / taken / Ying lost / conquered | c. 886 BCE / 703 BCE / 278 BCE / 223 BCE | `cnh-154` |
+| Qin: traditional Feizi / made a lord / capital moved / unification | 897 BCE / 770 BCE / 350 BCE / 221 BCE | `cnh-155` |
+| Lu: the chronicle / the duke exiled / destroyed | 722 – 481 BCE / 517 BCE / 249 BCE | `cnh-156` |
+| Song: the bid to lead / the peace meeting / destroyed | 641 – 637 BCE / 546 BCE / 286 BCE | `cnh-157` |
+| Yue: at war with Wu / overthrown by Chu | 510 – 473 BCE / 333 BCE | `cnh-158` |
+| covenants: Kuiqiu (Legge) / the Houma and Wenxian tablets | 650 BCE / c. 442 – 424 BCE | `cnh-160` |
+| Spring and Autumn warfare | c. 770 – 475 BCE | `cnh-161` |
+| the partition of Jin: divided / recognised / dissolved | 453 BCE / 403 BCE / 376 BCE | `cnh-162` |
+| the Warring States: three openings | c. 475 / 453 / 403 – 221 BCE | `cnh-163` |
+| the seven states formed / conquered | 403 – 386 BCE / 230 – 221 BCE | `cnh-164` |
+| Wei: ascendancy / recognised / destroyed | 424 – 340 BCE / 403 BCE / 225 BCE | `cnh-165` |
+| Shang Yang's reforms: first / second decrees | 356 BCE / 350 BCE | `cnh-169` |
+| Qin after Shang Yang / royal title / Shu taken | 338 – 221 BCE / 325 BCE / 316 BCE | `cnh-170` |
+| Warring States warfare / cavalry adopted in Zhao | c. 475 – 221 BCE / 307 BCE | `cnh-171` |
+| the crossbow: first known / common / massed at Maling | c. 500 – 400 BCE / c. 400 – 300 BCE / 341 BCE | `cnh-172` |
+| mass infantry: Wu and Yue / in use / Yique and Changping | 506 – 476 BCE / 453 – 221 BCE / 293 BCE, 260 BCE | `cnh-173` |
+| iron: oldest casting / wide use | c. 500 BCE / c. 400 – 300 BCE | `cnh-175` |
+| coinage: the Guanzhuang mint / unified | c. 640 – 550 BCE / 221 BCE | Zhao et al. 2021 (`cnh-176`) |
+| cities: the period / Zhao's capital moved / Linzi sacked | 453 – 221 BCE / 386 BCE / 284 BCE | `cnh-177` |
+| the alliances: the league / the joint attack / unification | 333 BCE / 318 BCE / 221 BCE | `cnh-178` |
+| Zhang Yi in office in Qin | 328 – 312 BCE | Maspero (`cnh-179`) |
+| Maling: the Shiji / the Bamboo Annals | 341 BCE / 343 BCE | `cnh-180` |
+| Changping | 260 BCE | `cnh-181` |
+| the Jixia: active / peak (Meyer) | c. 356 – 221 BCE / 319 – 284 BCE | `cnh-183` |
+| the Four Lords active | c. 299 – 238 BCE | `cnh-184` |
+| the Zhanguo Ce compiled / the Song editions | c. 100 – 1 BCE / 1146 – 1147 | Chavannes (`cnh-185`) |
+| Qu Yuan's rebuke / King Huai trapped / his death in Qin | 311 BCE / 299 BCE / 296 BCE | Chavannes (`cnh-186`) |
+| the Li Sao written / Liu Xiang (the collection) | c. 300 BCE / c. 77 – 6 BCE | `cnh-187` |
+| the conquest of the six states (Han 230, Zhao 228, Wei 225, Chu 223, Yan 222, Qi 221) | 230 – 221 BCE | Chavannes (`cnh-188`) |
+| the last Zhou king dies / the eastern lord annexed: Hirth / Chavannes | 256 BCE / 249 BCE / 250 BCE | `cnh-190` |
+| the Qin dynasty: to the surrender / to the last ruler's year / the revolt | 221 – 206 BCE / 221 – 207 BCE / 209 BCE | `cnh-191` |
+| the unification / the title huangdi in use | 221 BCE / 221 BCE – 1912 | `cnh-193`, `cnh-194` |
+| fengjian abolished / counties formed in Qin / the edict restated | 221 BCE / 350 BCE / 209 BCE | `cnh-196`, `cnh-197`, `cnh-198` |
+| the script ordered uniform | 221 BCE | `cnh-199` |
+| Qin law: the Yuelu cases / empire-wide / the Shuihudi tomb | 246 – 222 BCE / 221 – 206 BCE / 217 BCE | `cnh-200` |
+
 ## Later periods
 
-To be filled from `cnh-101` on.
+To be filled from `cnh-201` on.
 
 ## Chronology pins
 
@@ -347,4 +460,104 @@ cnh-097: 3300; 220; 1600; 650
 cnh-098: 1300; 1050
 cnh-099: 1250; 1046
 cnh-100: 1250; 1046
+cnh-102: 1105; 1075; 1046
+cnh-113: 1112; 1100; 1050
+cnh-114: 1097; 1046; 1043
+cnh-115: 1042; 1035
+cnh-132: 992; 976; 922
+cnh-133: 877; 841; 828
+cnh-135: 827; 782
+cnh-136: 795; 781; 780; 771
+cnh-137: 781; 779; 771
+cnh-147: 685; 643; 650
+cnh-148: 720; 685; 645; 656
+cnh-149: 696; 654; 636; 632; 628
+cnh-151: 613; 591; 606
+cnh-159: 496; 465; 473; 472
+cnh-166: 455; 407; 395
+cnh-167: 424; 387; 403
+cnh-168: 390; 340; 338
+cnh-174: 325; 299; 307; 295
+cnh-182: 332; 280; 258
+cnh-186: 332; 314; 295
+cnh-189: 227
+cnh-192: 259; 247; 221; 210
+cnh-195: 280; 214; 208
+cnh-101: 1250; 1046
+cnh-103: 1046; 1040; 1122
+cnh-104: 1046; 1044; 1122
+cnh-105: 1046; 771
+cnh-106: 1046; 100; 1899
+cnh-107: 1250; 1046
+cnh-108: 1600; 1046; 1122; 1201; 1181
+cnh-109: 1250; 1046; 2000; 1800; 1500; 1200
+cnh-110: 1250; 1046; 100; 841
+cnh-111: 1046; 256; 771; 770
+cnh-112: 1046; 771; 841
+cnh-116: 1042
+cnh-117: 1046; 771; 206; 8
+cnh-118: 1046; 771; 100
+cnh-119: 1046; 771
+cnh-120: 1046; 771; 770; 221
+cnh-121: 1036; 770
+cnh-122: 1046; 771
+cnh-123: 1046; 771
+cnh-124: 850; 600
+cnh-125: 1046; 771
+cnh-126: 1046; 771; 179; 157; 175; 317; 322
+cnh-127: 900; 500; 1200; 600
+cnh-128: 1046; 771; 899
+cnh-129: 380; 300; 9
+cnh-130: 1046; 771
+cnh-131: 816; 771
+cnh-134: 841; 828; 850; 837
+cnh-138: 771
+cnh-139: 770; 769; 720
+cnh-140: 1046; 771
+cnh-141: 770; 256; 249
+cnh-142: 770; 475; 453; 722; 481
+cnh-143: 722; 481; 479
+cnh-144: 722; 479; 300
+cnh-145: 771; 707; 706; 256
+cnh-146: 680; 679; 667
+cnh-150: 632
+cnh-152: 1046; 386; 379; 221
+cnh-153: 1106; 678; 403; 376
+cnh-154: 886; 703; 278; 223
+cnh-155: 897; 770; 350; 221
+cnh-156: 722; 481; 517; 249
+cnh-157: 641; 637; 546; 286
+cnh-158: 510; 473; 333
+cnh-160: 650; 442; 424
+cnh-161: 770; 475
+cnh-162: 453; 403; 376
+cnh-163: 475; 453; 403; 221
+cnh-164: 403; 386; 230; 221
+cnh-165: 424; 340; 403; 225
+cnh-169: 356; 350
+cnh-170: 338; 221; 325; 316
+cnh-171: 475; 221; 453; 307
+cnh-172: 500; 400; 300; 341
+cnh-173: 506; 476; 453; 221; 293; 260
+cnh-175: 500; 400; 300
+cnh-176: 640; 550; 221
+cnh-177: 453; 221; 386; 284
+cnh-178: 333; 318; 221
+cnh-179: 328; 312
+cnh-180: 341; 343
+cnh-181: 260
+cnh-183: 356; 221; 319; 284
+cnh-184: 299; 238
+cnh-185: 100; 1146; 1147
+cnh-187: 300; 77; 6
+cnh-188: 230; 221
+cnh-190: 256; 249; 250
+cnh-191: 221; 206; 207; 209
+cnh-193: 221
+cnh-194: 221; 1912
+cnh-196: 221
+cnh-197: 350; 221
+cnh-198: 221; 209
+cnh-199: 221
+cnh-200: 246; 222; 221; 206
 ```
