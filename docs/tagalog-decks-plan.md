@@ -5,7 +5,8 @@ language set in the shape of the ones already shipped (Romanian, Hindi, Russian 
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Tagalog language collection."
 
-**STATUS (2026-11-12): A1 to C1 are built** (`.claude/tagalog/`, §6–§10). The phrases deck is not.
+**STATUS (2026-11-12): A1 to C1 and the phrases deck are built** (`.claude/tagalog/`, §6–§11). Phase 4, a combined
+file, is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one (raising the day's existing
@@ -35,7 +36,7 @@ The request named no level, source or size, so each decision copies the shelf's 
 | Tagalog B1 Intermediate — built | `Tagalog-B1.folio-deck.json` | 1,000 |
 | Tagalog B2 Upper Intermediate — built | `Tagalog-B2.folio-deck.json` | 1,500 |
 | Tagalog C1 Advanced — built | `Tagalog-C1.folio-deck.json` | 1,500 |
-| Tagalog Phrases and Expressions | `Tagalog-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Tagalog Phrases and Expressions — built | `Tagalog-Phrases-and-Expressions.folio-deck.json` | 386 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule.
 
@@ -227,4 +228,35 @@ only 630 (three for 262) — 870 have none**, Tatoeba's Tagalog having little at
   `kamping`, `taping`), linker and verb-form counts under a homograph (`sapang`, `takdang`, `gagapang`, `mate`,
   `lingo`), vulgar words (`aa`, `umaa`), `suliranin` (only a flax sense; "problem" is not filed) and `menudo`.
   `pila` takes its second etymology, "line, queue".
+
+## 11. As built (2026-11-12): the phrases deck
+
+Asked for on 2026-11-12: "Add the phrases deck". `python3 .claude/tagalog/run.py --level phr` runs `phrases.py`
+(new, Hindi's stage adapted) in place of `select.py`. **386 expressions in three subdecks**, the Indonesian, Turkish
+and Hindi arrangement (`docs/lang-decks.md`, "THE PHRASES DECK"): **107 Phrases** (Wiktionary's multi-word phrases
+and interjections not tagged idiomatic — `sa tingin ko`, `hindi ko alam`, `tao po`, `bahala na`), **267 Idioms**
+(a multi-word entry with a sense tagged idiomatic — `mainit ang ulo`, `magsunog ng kilay`, `ilaw ng tahanan`) and
+**12 Proverbs** (Wiktionary's part of speech). Nothing a level teaches is repeated (the levels' inventories teach
+`sa wakas`, `una sa lahat` …). A re-run is byte-identical, and A1 to C1 rebuilt by the changed code are
+byte-identical (the card's `sub` is read from the row, empty for a level).
+
+- **THE ORDER**: within a subdeck, how many Tatoeba sentences contain the expression's words in sequence, then
+  `lex.json`'s frequency estimate, then the spelling. Only 63 of the 386 occur in any Tatoeba sentence; 62 have
+  sentences, 38 three. The description says so.
+- **Excluded** (`phrases.EXCLUDE`, each with its reason): **phrasebook sentences** — Wiktionary's Tagalog phrases
+  include a traveller's phrasebook (`wala akong pera`, `may kanser ako`, `tumawag ka ng pulis`, `naligaw ako`,
+  `barado ang inodoro` …, 27 in all), which go by the Turkish and Hindi rule: a sentence built from level words
+  is not a set phrase; the formulas stay (`magkano ito`, `ano'ng oras na`, `ilang taon ka na`). **Insults and
+  oaths** glossed with obscenities (`mukha mo`, `ka diyan`, `anak ng putsa`, `pusang gala` …) and `berdeng dugo`
+  (a derogatory idiom). **The same expression twice** (`hindi ko po alam`, `ano ga iyan`, a longer "how old are
+  you", two joined Christmas-and-New-Year greetings) and **pointers** (`huli ka balbon`, `bahala na si Batman`,
+  each "synonym of …"). `assalamu alaikum` (Arabic).
+- **The check's Marked comparison now decodes HTML entities**: `ano'ng`, `buto't` carry an apostrophe, which the
+  card escapes as `&#x27;`; the check compared the escaped text and failed eight correct cards.
+
+**Known, left.** Wiktionary's idiom labels are the source's: a few the deck files as idioms a learner would call
+plain (`noong una` "at first"). Sexist idioms (`ibong mababa ang lipad`, `lantang bulaklak`) are kept as
+expressions a reader meets, their glosses Wiktionary's. Synonymous idioms are kept side by side (`kabiyak ng
+dibdib`, `kapilas ng puso`, `karugtong ng buhay`, all "spouse"), the shelf's duplicate pass labelling them.
+`.claude/combine-decks.py` has no Tagalog row (nor any language added since Aug 2026); Phase 4 is not done.
 
