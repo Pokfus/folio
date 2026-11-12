@@ -9512,7 +9512,27 @@ window.GLOSSARY = {
 "Color_constancy": "",
 "Lightness": "",
 "Depth_perception": "",
-"Binocular_disparity": ""
+"Binocular_disparity": "",
+"Motion_perception": "",
+"Apparent_motion": "",
+"Visual_agnosia": "",
+"Prosopagnosia": "",
+"Fusiform_face_area": "",
+"Blindsight": "",
+"Object_recognition_(cognitive_science)": "",
+"Pattern_recognition_(psychology)": "",
+"Visual_search": "",
+"Change_blindness": "",
+"Sound": "",
+"Ear": "",
+"Cochlea": "",
+"Basilar_membrane": "",
+"Place_theory": "",
+"Volley_theory": "",
+"Auditory_cortex": "",
+"Sound_localization": "",
+"Hearing_loss": "",
+"Auditory_scene_analysis": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -20204,7 +20224,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Color_constancy": ["colour constancy"],
 "Lightness": ["lightness constancy"],
 "Depth_perception": ["monocular depth cues","depth cues","monocular cues"],
-"Binocular_disparity": ["retinal disparity"]
+"Binocular_disparity": ["retinal disparity"],
+"Prosopagnosia": ["face blindness"],
+"Fusiform_face_area": ["FFA"],
+"Object_recognition_(cognitive_science)": ["object recognition","visual object recognition"],
+"Pattern_recognition_(psychology)": ["pattern recognition"],
+"Sound": ["sound wave"],
+"Place_theory": ["place theory of pitch","place theory of hearing"],
+"Volley_theory": ["volley principle"],
+"Sound_localization": ["sound localisation"],
+"Hearing_loss": ["deafness"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29875,7 +29904,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Color_constancy": ["concept","neuroscience","vision","perception"],
 "Lightness": ["concept","vision","perception","psychology"],
 "Depth_perception": ["concept","vision","perception","psychology"],
-"Binocular_disparity": ["concept","vision","perception","neuroscience"]
+"Binocular_disparity": ["concept","vision","perception","neuroscience"],
+"Motion_perception": ["concept","psychology","perception","vision"],
+"Apparent_motion": ["concept","psychology","perception","vision"],
+"Visual_agnosia": ["concept","psychology","neuropsychology","vision"],
+"Prosopagnosia": ["concept","psychology","neuropsychology","vision"],
+"Fusiform_face_area": ["concept","psychology","neuroscience","vision"],
+"Blindsight": ["concept","psychology","neuroscience","vision","consciousness"],
+"Object_recognition_(cognitive_science)": ["concept","psychology","perception","vision"],
+"Pattern_recognition_(psychology)": ["concept","psychology","perception","cognition"],
+"Visual_search": ["concept","psychology","attention","vision"],
+"Change_blindness": ["concept","psychology","attention","vision"],
+"Sound": ["concept","physics","hearing","perception"],
+"Ear": ["concept","anatomy","hearing","biology"],
+"Cochlea": ["concept","anatomy","hearing","biology"],
+"Basilar_membrane": ["concept","anatomy","hearing","biology"],
+"Place_theory": ["theory","psychology","hearing","perception"],
+"Volley_theory": ["theory","psychology","hearing","neuroscience"],
+"Auditory_cortex": ["concept","neuroscience","hearing","anatomy"],
+"Sound_localization": ["concept","psychology","hearing","perception"],
+"Hearing_loss": ["concept","health","hearing","medicine"],
+"Auditory_scene_analysis": ["concept","psychology","hearing","perception"]
 });
 
 /* ============================================================================

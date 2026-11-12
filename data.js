@@ -9276,7 +9276,27 @@ window.CARD_DATA = [
 {"id":"ps-377","num":"377","category":"Psychology","question":"Hans Wallach argued in 1948 that <span class=\"blank\">_____</span> rests on the ratio between the light from a surface and from its surround, a ratio that stays the same when the illumination changes.","answer":"lightness constancy","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Ratio principle</span><span class=\"dt-v\">1948</span><span class=\"dt-k\">Anchoring theory</span><span class=\"dt-v\">1999</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"lightness constancy","tags":["concept","psychology","perception","vision"],"difficulty":4},
 {"id":"ps-378","num":"378","category":"Psychology","question":"Placed on a glass sheet over an apparent drop in 1960, most crawling infants refused to cross it, a finding long read as showing that <span class=\"blank\">_____</span> is present early in life.","answer":"depth perception","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"depth perception","tags":["concept","psychology","perception","vision","development"],"difficulty":2,"undatable":true},
 {"id":"ps-379","num":"379","category":"Psychology","question":"Hold a finger at arm’s length and close each eye in turn and it seems to jump, because <span class=\"blank\">_____</span> gives each eye a slightly different view of the same scene.","answer":"binocular disparity","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Stereoscope</span><span class=\"dt-v\">1838</span><span class=\"dt-k\">Random dots</span><span class=\"dt-v\">1960</span><span class=\"dt-k\">Disparity cells</span><span class=\"dt-v\">1967</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"binocular disparity","tags":["concept","psychology","perception","vision","neuroscience"],"difficulty":3},
-{"id":"ps-380","num":"380","category":"Psychology","question":"Railway lines that seem to meet in the distance illustrate linear perspective, one of the <span class=\"blank\">_____</span> that let a person see depth in a flat painting or photograph.","answer":"monocular depth cues","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"monocular depth cues","tags":["concept","psychology","perception","vision","art"],"difficulty":3,"undatable":true}
+{"id":"ps-380","num":"380","category":"Psychology","question":"Railway lines that seem to meet in the distance illustrate linear perspective, one of the <span class=\"blank\">_____</span> that let a person see depth in a flat painting or photograph.","answer":"monocular depth cues","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"monocular depth cues","tags":["concept","psychology","perception","vision","art"],"difficulty":3,"undatable":true},
+{"id":"ps-381","num":"381","category":"Psychology","question":"After bilateral damage to the back of her brain, a woman lost almost every sense of movement, a selective failure of <span class=\"blank\">_____</span> that was later given the name akinetopsia.","answer":"motion perception","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"motion perception","tags":["concept","psychology","perception","vision","neuroscience"],"difficulty":3,"undatable":true},
+{"id":"ps-382","num":"382","category":"Psychology","question":"Max Wertheimer’s 1912 monograph on <span class=\"blank\">_____</span>, the movement seen between still images flashed one after another, is widely recognised as the starting point of Gestalt psychology.","answer":"apparent motion","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Phi described</span><span class=\"dt-v\">1912</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"apparent motion","tags":["concept","psychology","perception","vision","gestalt"],"difficulty":3},
+{"id":"ps-383","num":"383","category":"Psychology","question":"Patient DF could not report the shape or orientation of objects, yet her fingers scaled accurately as she grasped them, a form of <span class=\"blank\">_____</span> that seemed to split perception from action.","answer":"visual agnosia","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lissauer’s case</span><span class=\"dt-v\">1890</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"visual agnosia","tags":["concept","psychology","neuropsychology","vision","perception"],"difficulty":3},
+{"id":"ps-384","num":"384","category":"Psychology","question":"Joachim Bodamer’s 1947 report on wounded soldiers who could no longer tell whose face they were looking at gave <span class=\"blank\">_____</span> the name it still carries today.","answer":"prosopagnosia","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Bodamer’s report</span><span class=\"dt-v\">1947</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"prosopagnosia","tags":["concept","psychology","neuropsychology","vision","faces"],"difficulty":3},
+{"id":"ps-385","num":"385","category":"Psychology","question":"An fMRI study in 1997 found a region in 12 of 15 people that responded far more to faces than to objects, and named it the <span class=\"blank\">_____</span> of the human brain.","answer":"fusiform face area","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"fusiform face area","tags":["concept","psychology","neuroscience","vision","faces"],"difficulty":4,"undatable":true},
+{"id":"ps-386","num":"386","category":"Psychology","question":"A man whose right occipital cortex had been removed could locate lights he insisted he never saw, the paradox that came to be known as <span class=\"blank\">_____</span> after its first report in print.","answer":"blindsight","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"blindsight","tags":["concept","psychology","neuroscience","vision","consciousness"],"difficulty":3,"undatable":true},
+{"id":"ps-387","num":"387","category":"Psychology","question":"People shown a photograph for just 20 milliseconds produced brain responses that told animal from non-animal scenes within 150 milliseconds, evidence of how rapid <span class=\"blank\">_____</span> can be.","answer":"object recognition","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"object recognition","tags":["concept","psychology","perception","vision","neuroscience"],"difficulty":3,"undatable":true},
+{"id":"ps-388","num":"388","category":"Psychology","question":"Irving Biederman’s 1987 recognition-by-components theory, built on a small set of simple three-dimensional parts called geons, is one of the classic accounts of <span class=\"blank\">_____</span> in psychology.","answer":"pattern recognition","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"pattern recognition","tags":["theory","psychology","perception","vision","cognition"],"difficulty":3,"undatable":true},
+{"id":"ps-389","num":"389","category":"Psychology","question":"Anne Treisman’s feature integration theory explained why a red item pops out among green ones in <span class=\"blank\">_____</span>, while a target defined by a combination of features must be found item by item.","answer":"visual search","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"visual search","tags":["concept","psychology","attention","vision","perception"],"difficulty":3,"undatable":true},
+{"id":"ps-390","num":"390","category":"Psychology","question":"When two people carrying a door passed between them, many pedestrians failed to notice that the stranger asking for directions had been swapped, a real-world case of <span class=\"blank\">_____</span> reported in 1998.","answer":"change blindness","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"change blindness","tags":["concept","psychology","attention","vision","perception"],"difficulty":3,"undatable":true},
+{"id":"ps-391","num":"391","category":"Psychology","question":"Each tenfold rise in the intensity of a <span class=\"blank\">_____</span> adds 10 decibels, so the scale climbs from 0 at the threshold of hearing to about 120 at the threshold of pain.","answer":"sound","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"sound","tags":["concept","psychology","hearing","perception","physics"],"difficulty":1,"undatable":true},
+{"id":"ps-392","num":"392","category":"Psychology","question":"Divided into outer, middle and inner parts, the <span class=\"blank\">_____</span> passes sound from the eardrum across three tiny bones found only in mammals to the fluid of the cochlea.","answer":"ear","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"ear","tags":["concept","psychology","hearing","anatomy","perception"],"difficulty":1,"undatable":true},
+{"id":"ps-393","num":"393","category":"Psychology","question":"Shortening and lengthening in time with electrical signals, the outer hair cells of the <span class=\"blank\">_____</span> amplify faint sounds, driven by a motor protein called prestin that was identified in 2000.","answer":"cochlea","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"cochlea","tags":["concept","psychology","hearing","anatomy","neuroscience"],"difficulty":2,"undatable":true},
+{"id":"ps-394","num":"394","category":"Psychology","question":"Narrow and stiff near the base of the cochlea but broad and floppy towards the apex, the <span class=\"blank\">_____</span> vibrates most at a different place for each frequency of sound.","answer":"basilar membrane","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"basilar membrane","tags":["concept","psychology","hearing","anatomy","neuroscience"],"difficulty":3,"undatable":true},
+{"id":"ps-395","num":"395","category":"Psychology","question":"Hair cells near the base of the basilar membrane respond best to high frequencies and those near its tip to low ones, the arrangement at the heart of the <span class=\"blank\">_____</span> of pitch.","answer":"place theory","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Békésy’s Nobel</span><span class=\"dt-v\">1961</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"place theory","tags":["theory","psychology","hearing","perception","neuroscience"],"difficulty":3},
+{"id":"ps-396","num":"396","category":"Psychology","question":"Because no single nerve fibre can fire thousands of times a second, the <span class=\"blank\">_____</span> proposed in 1930 had fibres take turns, so that together they fired on every cycle of a tone.","answer":"volley theory","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Telephone theory</span><span class=\"dt-v\">1886</span><span class=\"dt-k\">Volley theory</span><span class=\"dt-v\">1930</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"volley theory","tags":["theory","psychology","hearing","perception","neuroscience"],"difficulty":4},
+{"id":"ps-397","num":"397","category":"Psychology","question":"Two mirror-image maps of sound frequency, sharing a low-frequency border, were traced in 2003 by 7-tesla scanning of the primary <span class=\"blank\">_____</span> in the human temporal lobe.","answer":"auditory cortex","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"auditory cortex","tags":["concept","psychology","neuroscience","hearing","anatomy"],"difficulty":3,"undatable":true},
+{"id":"ps-398","num":"398","category":"Psychology","question":"A delay of only about 10 millionths of a second between the two ears can be detected, the finest of the binaural timing cues behind <span class=\"blank\">_____</span> in the horizontal plane.","answer":"sound localisation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"sound localisation","tags":["concept","psychology","hearing","perception","neuroscience"],"difficulty":3,"undatable":true},
+{"id":"ps-399","num":"399","category":"Psychology","question":"The 2020 Lancet Commission named midlife <span class=\"blank\">_____</span> the largest potentially modifiable risk factor for dementia, though a 2023 trial of hearing aids found no overall slowing of decline.","answer":"hearing loss","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"hearing loss","tags":["concept","psychology","hearing","health","medicine"],"difficulty":1,"undatable":true},
+{"id":"ps-400","num":"400","category":"Psychology","question":"Rapid tones alternating between high and low split into two separate streams, the best-studied example of <span class=\"blank\">_____</span>, the sorting of a mixture of sound into its sources.","answer":"auditory scene analysis","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Streaming paper</span><span class=\"dt-v\">1971</span><span class=\"dt-k\">Book named it</span><span class=\"dt-v\">1990</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"auditory scene analysis","tags":["concept","psychology","hearing","perception","attention"],"difficulty":4}
 ];
 
 window.COLLECTION_TREE = {
@@ -18493,7 +18513,7 @@ window.COLLECTION_TREE = {
     {
       "id": "psych",
       "title": "Psychology",
-      "total": 320,
+      "total": 340,
       "children": [
         {
           "id": "ps-found",
@@ -18940,14 +18960,35 @@ window.COLLECTION_TREE = {
                 "ps-377",
                 "ps-378",
                 "ps-379",
-                "ps-380"
+                "ps-380",
+                "ps-381",
+                "ps-382",
+                "ps-383",
+                "ps-384",
+                "ps-385",
+                "ps-386",
+                "ps-387",
+                "ps-388",
+                "ps-389",
+                "ps-390"
               ]
             },
             {
               "id": "ps-hearing",
               "title": "Hearing and the other senses",
               "total": 20,
-              "cardIds": []
+              "cardIds": [
+                "ps-391",
+                "ps-392",
+                "ps-393",
+                "ps-394",
+                "ps-395",
+                "ps-396",
+                "ps-397",
+                "ps-398",
+                "ps-399",
+                "ps-400"
+              ]
             },
             {
               "id": "ps-perc-org",

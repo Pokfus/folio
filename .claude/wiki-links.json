@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-12T04:57Z",
+ "generated": "2026-11-12T05:01Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6773,
+  "ok": 6791,
   "redirect-broader": 649,
-  "redirect-variant": 404,
+  "redirect-variant": 405,
   "section-redirect": 143,
-  "disambiguation": 151,
+  "disambiguation": 152,
   "none": 1026,
   "disambig-resolved": 90,
   "list-page": 6,
@@ -74075,6 +74075,149 @@
    "status": "section-redirect",
    "from": "Monocular depth cues",
    "target": "Depth perception#Monocular cues"
+  },
+  "ps-381": {
+   "answer": "motion perception",
+   "title": "Motion perception",
+   "url": "https://en.wikipedia.org/wiki/Motion_perception",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-382": {
+   "answer": "apparent motion",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Apparent motion",
+   "suggestions": []
+  },
+  "ps-383": {
+   "answer": "visual agnosia",
+   "title": "Visual agnosia",
+   "url": "https://en.wikipedia.org/wiki/Visual_agnosia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-384": {
+   "answer": "prosopagnosia",
+   "title": "Prosopagnosia",
+   "url": "https://en.wikipedia.org/wiki/Prosopagnosia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-385": {
+   "answer": "fusiform face area",
+   "title": "Fusiform face area",
+   "url": "https://en.wikipedia.org/wiki/Fusiform_face_area",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-386": {
+   "answer": "blindsight",
+   "title": "Blindsight",
+   "url": "https://en.wikipedia.org/wiki/Blindsight",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-387": {
+   "answer": "object recognition",
+   "title": "Object recognition (cognitive science)",
+   "url": "https://en.wikipedia.org/wiki/Object_recognition_(cognitive_science)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-388": {
+   "answer": "pattern recognition",
+   "title": "Pattern recognition (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Pattern_recognition_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-389": {
+   "answer": "visual search",
+   "title": "Visual search",
+   "url": "https://en.wikipedia.org/wiki/Visual_search",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-390": {
+   "answer": "change blindness",
+   "title": "Change blindness",
+   "url": "https://en.wikipedia.org/wiki/Change_blindness",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-391": {
+   "answer": "sound",
+   "title": "Sound",
+   "url": "https://en.wikipedia.org/wiki/Sound",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-392": {
+   "answer": "ear",
+   "title": "Ear",
+   "url": "https://en.wikipedia.org/wiki/Ear",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-393": {
+   "answer": "cochlea",
+   "title": "Cochlea",
+   "url": "https://en.wikipedia.org/wiki/Cochlea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-394": {
+   "answer": "basilar membrane",
+   "title": "Basilar membrane",
+   "url": "https://en.wikipedia.org/wiki/Basilar_membrane",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-395": {
+   "answer": "place theory",
+   "title": "Place theory",
+   "url": "https://en.wikipedia.org/wiki/Place_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-396": {
+   "answer": "volley theory",
+   "title": "Volley theory",
+   "url": "https://en.wikipedia.org/wiki/Volley_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-397": {
+   "answer": "auditory cortex",
+   "title": "Auditory cortex",
+   "url": "https://en.wikipedia.org/wiki/Auditory_cortex",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-398": {
+   "answer": "sound localisation",
+   "title": "Sound localization",
+   "url": "https://en.wikipedia.org/wiki/Sound_localization",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Sound localisation"
+  },
+  "ps-399": {
+   "answer": "hearing loss",
+   "title": "Hearing loss",
+   "url": "https://en.wikipedia.org/wiki/Hearing_loss",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-400": {
+   "answer": "auditory scene analysis",
+   "title": "Auditory scene analysis",
+   "url": "https://en.wikipedia.org/wiki/Auditory_scene_analysis",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }

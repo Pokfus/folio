@@ -26,17 +26,17 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6773 | the title is the article |
-| `redirect-variant` | 404 | spelling / plural / qualifier differed; same subject |
+| `ok` | 6791 | the title is the article |
+| `redirect-variant` | 405 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 90 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
 | `redirect-broader` | 649 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 143 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 151 | only a disambiguation page; no link could be chosen |
+| `disambiguation` | 152 | only a disambiguation page; no link could be chosen |
 | `none` | 1026 | nothing matched; no link |
 
-**7932 of 9270 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7951 of 9290 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -803,7 +803,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (151)
+## Disambiguation pages that could not be settled (152)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -907,6 +907,7 @@ Pick the right article by hand, or leave the card without a link.
 - `ps-041` **mental test** — `Mental test` is a disambiguation page
 - `ps-362` **fovea** — `Fovea` is a disambiguation page; its links: `Fovea (femur)`, `Fovea cardiaca`, `Fovea centralis`, `Fovea ethmoidalis`, `Pterygoid fovea`, `Trochlear fovea`
 - `ps-371` **feature detectors** — `Feature detection` is a disambiguation page
+- `ps-382` **apparent motion** — `Apparent motion` is a disambiguation page
 - `rm-019` **Veneti** — `Veneti` is a disambiguation page; its links: `Adriatic Veneti`, `Veneti (Gaul)`, `Vistula Veneti`
 - `rm-163` **Tarentum** — `Tarentum` is a disambiguation page; its links: `Tarentum, Pennsylvania`, `Tarentum Bridge`, `Tarentum (Campus Martius)`
 - `rm-197` **siege of Lilybaeum** — `Siege of Lilybaeum` is a disambiguation page; its links: `Siege of Lilybaeum (250–241 BC)`, `Siege of Lilybaeum (278 BC)`, `Siege of Lilybaeum (368 BC)`

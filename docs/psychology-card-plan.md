@@ -913,21 +913,21 @@ more work here than in any collection since Greece.
     ps-385  The fusiform face area
     ps-386  Blindsight
     ps-387  Object recognition
-    ps-388  Theories of pattern recognition
+    ps-388  Pattern recognition
     ps-389  Visual search
     ps-390  Change blindness
 
 ### Hearing and the other senses — `ps-hearing`
 
-    ps-391  Sound as an auditory stimulus
+    ps-391  Sound
     ps-392  The ear
     ps-393  The cochlea
     ps-394  The basilar membrane
     ps-395  Place theory of pitch
-    ps-396  Frequency and volley theories of pitch
+    ps-396  Volley theory
     ps-397  The auditory cortex
     ps-398  Sound localisation
-    ps-399  Deafness and hearing loss
+    ps-399  Hearing loss
     ps-400  Auditory scene analysis
     ps-401  Speech perception
     ps-402  The McGurk effect
