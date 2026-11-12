@@ -72,6 +72,11 @@ def gloss(s):
     if (t & NONSTANDARD and "formal" not in t) or regional(t):
         return None
     g = s["g"][-1].strip()
+    # Wiktionary's editorial notes, not meanings: "The meaning of this term is uncertain. Possibilities include:"
+    # (`jeśli`, `różny`) and "Used other than figuratively or idiomatically: see …" (`stare miasto`,
+    # `taki sam`).  Found by A2 (2026-11-12); A1's `jeśli` had carried the first.
+    if g.startswith(("The meaning of this term is uncertain", "Used other than figuratively")):
+        return None
     m = QUOTED.match(g)
     if m:
         rest = m.group(2).strip()

@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"7466f76e84433093","counts":{"terms":940,"points":703,"countries":237,"windows":1550,"faces":375,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"b02533f03afa7a65","counts":{"terms":941,"points":704,"countries":237,"windows":1553,"faces":375,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -477,6 +477,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"7466f76e84433093","counts":
 "Luoyang":"city:1159147063",
 "Luxembourg":"adm0:lux",
 "Luxembourg_(city)":"adm0:lux",
+"Lüshunkou_District":"pl:q623329",
 "Maadi":"pl:q589934",
 "Macau":"adm0:mac",
 "Machu_Picchu":"pl:q676203",
@@ -1714,6 +1715,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"7466f76e84433093","counts":
 "Luxembourg_(city)":[6.08,49.73,"country","adm0:lux",0,40],
 "Luxor_Temple":[32.639,25.7,"coord",0,0,0],
 "Lydia":[28.04,38.488,"coord",0,0,0],
+"Lüshunkou_District":[121.257,38.851,"town",0,0,0],
 "MMA_507":[32.608,25.738,"coord",0,0,0],
 "Maadi":[31.25,29.968,"town",0,0,0],
 "Macau":[113.56,22.13,"country","adm0:mac",0,40],
@@ -1786,6 +1788,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"7466f76e84433093","counts":
 "Midea":[22.841,37.65,"site",0,0,0],
 "Milan":[9.203,45.472,"city",0,0,0],
 "Miletus":[27.276,37.531,"site",0,0,0],
+"Military_Gallery_of_the_Winter_Palace":[30.314,59.94,"coord",0,0,0],
 "Milliarium_Aureum":[12.484,41.893,"coord",0,0,0],
 "Min_River_(Sichuan)":[103.605,31.002,"coord",0,0,0],
 "Ming_dynasty":[112.754,36.928,"polity","pol:ming",1422,1.63],
@@ -2342,6 +2345,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"7466f76e84433093","counts":
 "Toumba_building":[23.675,38.413,"coord",0,0,0],
 "Trajan's_Forum":[12.486,41.895,"site",0,0,0],
 "Trajan's_Market":[12.486,41.896,"site",0,0,0],
+"Trans-Siberian_Railway":[131.885,43.115,"coord",0,0,0],
 "Treasuries_at_Delphi":[22.501,38.482,"coord",0,0,0],
 "Treasury_of_Atreus":[22.754,37.727,"site",0,0,0],
 "Trinidad_and_Tobago":[-61.35,10.42,"country","adm0:tto",0,40],

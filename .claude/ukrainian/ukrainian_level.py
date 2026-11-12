@@ -36,6 +36,12 @@ TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500, 'c1': 1500}
 
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
 
+# THE PHRASES DECK (`run.py --level phr`, `phrases.py`): not a CEFR level, built on all five.
+TITLES['phr'] = 'Ukrainian Phrases and Expressions'
+DECK_IDS['phr'] = 'ukphrase'
+DECK_FILES['phr'] = 'Ukrainian-Phrases-and-Expressions.folio-deck.json'
+BELOW['phr'] = list(BANDS)
+
 SCOPE = {
     'a1': {
         'quote': 'Can understand and use familiar everyday expressions and very basic '
@@ -49,6 +55,60 @@ SCOPE = {
                   'the town and getting about, the body and feeling ill, the weather, '
                   'colours, everyday verbs, and the pronouns, question words, prepositions '
                   'and conjunctions every sentence is built out of',
+    },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'gloss': 'able to manage simple, routine exchanges of information on familiar matters '
+                 '— personal and family information, shopping, the local area, work — and to '
+                 'describe in simple terms their background, their surroundings and what they '
+                 'immediately need',
+        'topics': 'relatives and the people around you, jobs and study, clothes, more food and '
+                  'cooking, the rooms and furniture of a home, the town and its services, travel '
+                  'and holidays, nature, the seasons and the compass, animals, health and the '
+                  'body, feelings and character, free time, sport and holidays, telling what '
+                  'happened when, the higher numbers and measures, and the everyday verbs of '
+                  'moving, dressing, cooking and doing',
+    },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise whilst travelling, to '
+                 'produce simple connected text on topics which are familiar or of personal '
+                 'interest, and to describe experiences and events, dreams, hopes and ambitions '
+                 'and briefly give reasons and explanations for opinions and plans',
+        'topics': 'work and a career, education and learning, the media and technology, the '
+                  'environment, society and politics, law and crime, money and banking, health '
+                  'and a way of life, relationships and feelings, culture and the arts, the '
+                  'problems of travel, giving an opinion and arguing it, describing people and '
+                  'things, and the verbs of deciding, changing, comparing and making',
+    },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in their field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either '
+                 'party, and to produce clear, detailed text on a wide range of subjects and '
+                 'explain a viewpoint on a topical issue giving the advantages and disadvantages '
+                 'of various options',
+        'topics': 'the economy and business, the workplace, government, law and rights, science '
+                  'and technology, the environment and energy, society and its problems, the '
+                  'media, education and the mind, health and medicine, culture, history and '
+                  'identity, the arts and reviewing them, attitudes and character, the words '
+                  'that build an argument, and the verbs of change and judgement',
+    },
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise '
+                 'implicit meaning',
+        'gloss': 'able to express ideas fluently and spontaneously without much obvious '
+                 'searching for expressions, to use language flexibly and effectively for '
+                 'social, academic and professional purposes, and to produce clear, '
+                 'well-structured, detailed text on complex subjects',
+        'topics': 'politics, power and the state, law and justice, the economy and finance, '
+                  'science and research, philosophy and belief, language, literature and style, '
+                  'the arts and taste, the mind, emotion and behaviour, society and how it '
+                  'changes, the land and the planet, the small words of nuance, and the verbs '
+                  'of arguing, deciding and shading a meaning',
     },
 }
 

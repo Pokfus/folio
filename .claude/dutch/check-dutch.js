@@ -3,7 +3,7 @@
    Reads every decks/Dutch-*.folio-deck.json and fails on the faults this pipeline has had or could have:
    a word taught on two levels, a card defined by a pointer rather than English ("inflection of …",
    "plural of …", "see: …", "synonym of …"), a headword with a character Dutch does not write, a noun with
-   no article (de or het), a forms label the generator does not write, unbalanced HTML, an id out of
+   no article (de or het; not asked of a multi-word expression in the phrases deck), a forms label the generator does not write, unbalanced HTML, an id out of
    sequence, and two notes sharing an English side (the reverse card would have two answers). */
 "use strict";
 const fs = require("fs");
@@ -29,7 +29,10 @@ for (const f of files) {
     if (seen.has(w)) bad(f + ": " + w + " is already taught in " + seen.get(w));
     seen.set(w, f);
     if (!F.English) bad(f + ": " + w + " has no English");
-    if (F.English.indexOf('class="uc-pos">noun') === F.English.indexOf('class="uc-pos">') &&
+    // a noun's article: every level noun; in the phrases deck an expression filed as a noun
+    // (schering en inslag) prints one only where Wiktionary gives its gender
+    if (!(id === "dutchphrase" && / /.test(w)) &&
+        F.English.indexOf('class="uc-pos">noun') === F.English.indexOf('class="uc-pos">') &&
         F.English.indexOf('class="uc-pos">noun') >= 0 && !/<span class="uc-art">(de|het|de\/het|het\/de)<\/span>/.test(F.Dutch))
       bad(f + ": " + w + " is a noun with no article");
     for (const g of F.English.replace(/<\/(li|div)>/g, "\n").replace(/<[^>]+>/g, "").split("\n"))
