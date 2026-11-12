@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1290", released: "2026-11-12T12:32Z" };
+window.FOLIO_VERSION = { v: "1.1291", released: "2026-11-12T12:41Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-12",
-    t: "Eleven collections grow; Economics, Dinosaurs, India open; Arabic decks",
+    t: "Collections grow; Economics, India, Palaeontology open; Arabic decks",
     items: [
       "100 new cards in <b>Biology</b>, from cells and organelles through membranes and respiration to photosynthesis, with 96 new glossary terms.",
       "300 new cards in <b>Psychology</b>, from research ethics and the brain through the senses and perception to conditioning and memory, with 275 new glossary terms.",
@@ -52,6 +52,7 @@ window.CHANGELOG = [
       "100 new cards in <b>Korea</b>, covering the Three Kingdoms, Goguryeo, Baekje, Silla and Gaya, with 92 new glossary terms.",
       "The new <b>Economics</b> collection opens with 100 cards, from what economics is to scarcity, models, its limits and supply and demand, with 98 new glossary terms.",
       "The new <b>Dinosaurs</b> collection opens with 100 cards, on what a dinosaur is, its anatomy, classification and deep time, with 95 new glossary terms.",
+      "<b>Dinosaurs</b> becomes <b>Palaeontology</b>, a wider collection on the whole fossil record; its 100 cards move into it and your progress on them carries over.",
       "100 new cards in <b>Japan</b>, from late Nara through the Heian court, its literature and art, to the rise of the warriors and the Genpei War, with 94 new glossary terms.",
       "The new <b>India</b> collection opens with 100 cards, from prehistory and the Indus cities through the Vedic age to the Buddha, with 74 new glossary terms.",
       "New <b>Arabic A2</b>, <b>B1</b>, <b>B2</b> and <b>C1</b> decks on the Languages shelf: 600, 800, 900 and 700 more words of Modern Standard Arabic, none repeated.",

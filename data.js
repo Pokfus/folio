@@ -9927,106 +9927,106 @@ window.CARD_DATA = [
 {"id":"ec-098","num":"098","category":"Economics","question":"At the price where buyers want exactly as much as sellers offer, a competitive market reaches <span class=\"blank\">_____</span>, with no excess demand or supply pushing the price either way.","answer":"market equilibrium","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"market equilibrium","tags":["concept","economics","microeconomics","markets"],"difficulty":2,"undatable":true},
 {"id":"ec-099","num":"099","category":"Economics","question":"When a raw material grows scarcer, the <span class=\"blank\">_____</span> tells thousands of users to economise through a higher price alone, without any of them needing to know why.","answer":"price mechanism","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"price mechanism","tags":["concept","economics","microeconomics","markets"],"difficulty":3,"undatable":true},
 {"id":"ec-100","num":"100","category":"Economics","question":"At any price above the market-clearing level sellers offer more than buyers want, and the resulting <span class=\"blank\">_____</span> piles up as unsold stock until prices are cut.","answer":"excess supply","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"excess supply","tags":["concept","economics","microeconomics","markets"],"difficulty":3,"undatable":true},
-{"id":"dino-001","num":"1","category":"Dinosaurs","question":"Defined as every descendant of the last common ancestor of <i>Triceratops</i> and birds, a <span class=\"blank\">_____</span> is any member of the reptile group whose only living survivors are the birds.","answer":"dinosaur","answerDate":"<div class=\"dt\"><span class=\"dt-k\">First skeletons</span><span class=\"dt-v\">c. 233 Mya</span><span class=\"dt-k\">Named</span><span class=\"dt-v\">1842</span><span class=\"dt-k\">Non-avians end</span><span class=\"dt-v\">66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"dinosaur","tags":["animal","dinosaurs","science","palaeontology","taxonomy"],"difficulty":1},
-{"id":"dino-002","num":"2","category":"Dinosaurs","question":"An open hip socket, found in no other four-limbed animal, is treated as a <span class=\"blank\">_____</span> of dinosaurs because their common ancestor had it and passed it on to its descendants.","answer":"synapomorphy","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"synapomorphy","tags":["concept","dinosaurs","science","taxonomy","anatomy"],"difficulty":4},
-{"id":"dino-003","num":"3","category":"Dinosaurs","question":"Proposed in 1842 as a tribe of saurian reptiles, the name <span class=\"blank\">_____</span> first grouped <i>Megalosaurus</i>, <i>Iguanodon</i> and <i>Hylaeosaurus</i> by their large fused sacrum and massive limbs.","answer":"Dinosauria","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Named</span><span class=\"dt-v\">1842</span><span class=\"dt-k\">Divided</span><span class=\"dt-v\">1888</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Dinosauria","tags":["concept","dinosaurs","science","taxonomy","history"],"difficulty":3},
-{"id":"dino-004","num":"4","category":"Dinosaurs","question":"Holding the hind legs straight beneath the body, the <span class=\"blank\">_____</span> of dinosaurs let their bones carry their weight directly instead of splaying sideways like a lizard's limbs.","answer":"erect stance","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"erect stance","tags":["concept","dinosaurs","science","anatomy","locomotion"],"difficulty":3},
-{"id":"dino-005","num":"5","category":"Dinosaurs","question":"In dinosaurs the <span class=\"blank\">_____</span>, the hip socket that receives the head of the thigh bone, has a hole through its centre, a feature found in no other four-limbed animals.","answer":"acetabulum","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"acetabulum","tags":["concept","dinosaurs","science","anatomy"],"difficulty":4},
-{"id":"dino-006","num":"6","category":"Dinosaurs","question":"Defined in 1887 by a forward-pointing pubis like a lizard's, the group <span class=\"blank\">_____</span> unites the long-necked sauropodomorphs with the mostly meat-eating theropods.","answer":"Saurischia","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Named</span><span class=\"dt-v\">1888</span><span class=\"dt-k\">First known</span><span class=\"dt-v\">c. 233 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Saurischia","tags":["animal","dinosaurs","science","taxonomy"],"difficulty":3},
-{"id":"dino-007","num":"7","category":"Dinosaurs","question":"Named for a backward-pointing pubis like a bird's, the group <span class=\"blank\">_____</span> includes stegosaurs, horned dinosaurs and hadrosaurs, yet birds themselves descend from a different branch of dinosaurs.","answer":"Ornithischia","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Named</span><span class=\"dt-v\">1888</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ornithischia","tags":["animal","dinosaurs","science","taxonomy"],"difficulty":3},
-{"id":"dino-008","num":"8","category":"Dinosaurs","question":"In lizard-hipped dinosaurs the <span class=\"blank\">_____</span> points down and forward, while in bird-hipped dinosaurs it is turned back to lie parallel to the ischium.","answer":"pubis","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"pubis","tags":["concept","dinosaurs","science","anatomy","taxonomy"],"difficulty":4},
-{"id":"dino-009","num":"9","category":"Dinosaurs","question":"Revived in 2017, the proposed group <span class=\"blank\">_____</span> places the bird-hipped ornithischians beside the meat-eating theropods and leaves the long-necked sauropodomorphs on a separate branch.","answer":"Ornithoscelida","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Named</span><span class=\"dt-v\">1870</span><span class=\"dt-k\">Revived</span><span class=\"dt-v\">2017</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ornithoscelida","tags":["theory","dinosaurs","science","taxonomy"],"difficulty":5},
-{"id":"dino-010","num":"10","category":"Dinosaurs","question":"Although the name dinosaur joins Greek roots for 'fearfully great' and '<span class=\"blank\">_____</span>', dinosaurs were archosaurs, closer kin to crocodiles and birds than to any living squamate.","answer":"lizard","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"lizard","tags":["animal","dinosaurs","science","palaeontology","history"],"difficulty":1,"undatable":true},
-{"id":"dino-011","num":"11","category":"Dinosaurs","question":"Although it lived alongside the dinosaurs, the seagoing <span class=\"blank\">_____</span> was a squamate, a relative of today's lizards and snakes rather than of the archosaurs that include dinosaurs.","answer":"mosasaur","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lived</span><span class=\"dt-v\">c. 95 – 66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"mosasaur","tags":["animal","dinosaurs","science","palaeontology","marine reptiles","cretaceous"],"difficulty":3},
-{"id":"dino-012","num":"12","category":"Dinosaurs","question":"Often shown in dinosaur books, the sail-backed <span class=\"blank\">_____</span> was in fact a synapsid, an early relative on the line leading to mammals rather than a reptile.","answer":"Dimetrodon","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lived</span><span class=\"dt-v\">c. 299 – 267 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Dimetrodon","tags":["animal","dinosaurs","science","palaeontology","synapsids","permian"],"difficulty":2},
-{"id":"dino-013","num":"13","category":"Dinosaurs","question":"Flying on a membrane stretched mainly from a hugely lengthened fourth finger, the <span class=\"blank\">_____</span> was a reptile closely related to the dinosaurs but not one of them.","answer":"pterosaur","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lived</span><span class=\"dt-v\">c. 210 – 66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"pterosaur","tags":["animal","dinosaurs","science","palaeontology","flight","mesozoic"],"difficulty":2},
-{"id":"dino-014","num":"14","category":"Dinosaurs","question":"Swimming with four pointed flippers and often a small head on a long neck, the <span class=\"blank\">_____</span> was a marine reptile even more distant from dinosaurs than pterosaurs were.","answer":"plesiosaur","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lived</span><span class=\"dt-v\">c. 205 – 66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"plesiosaur","tags":["animal","dinosaurs","science","palaeontology","marine reptiles","mesozoic"],"difficulty":2},
-{"id":"dino-015","num":"15","category":"Dinosaurs","question":"Descended from small feathered theropods in the Jurassic, the <span class=\"blank\">_____</span> is classified by most palaeontologists as a living dinosaur, so that even a hummingbird is one.","answer":"bird","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Evolved</span><span class=\"dt-v\">c. 165 – 150 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"bird","tags":["animal","dinosaurs","science","palaeontology","birds","evolution"],"difficulty":1},
-{"id":"dino-016","num":"16","category":"Dinosaurs","question":"Because birds are themselves dinosaurs, palaeontologists call the extinct, traditional kind of dinosaur a <span class=\"blank\">_____</span> to keep it apart from the avian kind alive today.","answer":"non-avian dinosaur","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Extinct</span><span class=\"dt-v\">66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"non-avian dinosaur","tags":["animal","dinosaurs","science","palaeontology","taxonomy","extinction"],"difficulty":3},
-{"id":"dino-017","num":"17","category":"Dinosaurs","question":"Estimated from how often each fossil species turns up, the total <span class=\"blank\">_____</span> of Mesozoic dinosaurs comes to about 1,936 species, with a range of 1,543 to 2,468.","answer":"species richness","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"species richness","tags":["concept","dinosaurs","science","palaeontology","biodiversity","statistics"],"difficulty":4,"undatable":true},
-{"id":"dino-018","num":"18","category":"Dinosaurs","question":"Studies that count dinosaur species often download records from the <span class=\"blank\">_____</span>, an online public resource of fossil occurrences each tied to a place, an age and a taxon.","answer":"Paleobiology Database","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Paleobiology Database","tags":["institution","dinosaurs","science","palaeontology","databases"],"difficulty":4},
-{"id":"dino-019","num":"19","category":"Dinosaurs","question":"Reaching every part of the supercontinent, dinosaurs achieved a <span class=\"blank\">_____</span> in the Early to Middle Jurassic, a spread that brought the first of them to Antarctica and Asia.","answer":"cosmopolitan distribution","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"cosmopolitan distribution","tags":["concept","dinosaurs","science","palaeontology","biogeography","geography"],"difficulty":4,"undatable":true},
-{"id":"dino-020","num":"20","category":"Dinosaurs","question":"At under 3 grams (0.1 ounces), the Cuban <span class=\"blank\">_____</span> marks the lower end of the dinosaur size range, because birds are counted as living dinosaurs.","answer":"bee hummingbird","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"bee hummingbird","tags":["animal","dinosaurs","science","birds","anatomy","size"],"difficulty":3},
-{"id":"dino-021","num":"21","category":"Dinosaurs","question":"Lightened by air-filled vertebrae framed in thin bony plates, the sauropod <span class=\"blank\">_____</span> carried a very small head on a neck that could reach about 15 metres (49 feet).","answer":"skeleton","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"skeleton","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":1,"undatable":true},
-{"id":"dino-022","num":"22","category":"Dinosaurs","question":"Pierced by an opening in front of each eye and another in the lower jaw, the archosaur <span class=\"blank\">_____</span> was lightened and given room for muscles and other soft tissues.","answer":"skull","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"skull","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":1,"undatable":true},
-{"id":"dino-023","num":"23","category":"Dinosaurs","question":"Lizards, crocodiles, dinosaurs and birds all belong to the <span class=\"blank\">_____</span> group, defined by two openings in each side of the skull behind the eye.","answer":"diapsid","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"diapsid","tags":["concept","dinosaurs","science","anatomy","taxonomy"],"difficulty":3},
-{"id":"dino-024","num":"24","category":"Dinosaurs","question":"Set in the snout in front of each eye socket, the <span class=\"blank\">_____</span> opens into a cavity long treated as the chief diagnostic feature of archosaurs.","answer":"antorbital fenestra","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"antorbital fenestra","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":4},
-{"id":"dino-025","num":"25","category":"Dinosaurs","question":"With up to 300 teeth in each half of a jaw, the hadrosaur <span class=\"blank\">_____</span> joined dead grinding teeth and growing replacements by a network of ligaments.","answer":"dental battery","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"dental battery","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":4},
-{"id":"dino-026","num":"26","category":"Dinosaurs","question":"Like all living crocodiles, dinosaurs were <span class=\"blank\">_____</span>, shedding and replacing their teeth throughout life, as the daily growth lines in their dentine record.","answer":"polyphyodont","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"polyphyodont","tags":["concept","dinosaurs","science","anatomy","biology"],"difficulty":4},
-{"id":"dino-027","num":"27","category":"Dinosaurs","question":"Living birds use a horny <span class=\"blank\">_____</span> and a muscular gizzard in place of teeth, which their common ancestor had lost perhaps 116 million years ago.","answer":"rhamphotheca","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"rhamphotheca","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":4},
-{"id":"dino-028","num":"28","category":"Dinosaurs","question":"In sauropods the <span class=\"blank\">_____</span> was hollowed by air spaces, its vertebrae typically about 60 per cent air, which helped their necks reach about 15 metres (49 feet).","answer":"vertebral column","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"vertebral column","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":2,"undatable":true},
-{"id":"dino-029","num":"29","category":"Dinosaurs","question":"Mammals, giraffes included, almost always have seven <span class=\"blank\">_____</span>, but the sauropod <i>Mamenchisaurus</i> had 19, part of a lengthening of the neck that happened independently in several lineages.","answer":"cervical vertebrae","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"cervical vertebrae","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":3},
-{"id":"dino-030","num":"30","category":"Dinosaurs","question":"Many large dinosaurs braced their <span class=\"blank\">_____</span> with an extra peg-and-slot joint, while ornithischians stiffened the back with tendons that had turned to bone instead.","answer":"dorsal vertebrae","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"dorsal vertebrae","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":4},
-{"id":"dino-031","num":"31","category":"Dinosaurs","question":"Recruiting vertebrae from the trunk and the tail, several dinosaur lineages independently lengthened the <span class=\"blank\">_____</span> that locked the backbone to the hip bones through short, sturdy ribs.","answer":"sacrum","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"sacrum","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":3,"undatable":true},
-{"id":"dino-032","num":"32","category":"Dinosaurs","question":"Running from the front tail vertebrae to the fourth trochanter of the thigh bone, the <span class=\"blank\">_____</span> was the chief muscle pulling a dinosaur's leg backwards with each stride.","answer":"caudofemoralis","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"caudofemoralis","tags":["concept","dinosaurs","science","anatomy","locomotion","palaeontology"],"difficulty":4,"undatable":true},
-{"id":"dino-033","num":"33","category":"Dinosaurs","question":"Bundled along the spines of the back and tail of many plant-eating dinosaurs, <span class=\"blank\">_____</span> are a defining feature of the Ornithischia whose purpose stayed a puzzle for over a century.","answer":"ossified tendons","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"ossified tendons","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":4,"undatable":true},
-{"id":"dino-034","num":"34","category":"Dinosaurs","question":"Forked ribs pressing into the roof of the lung show that the <span class=\"blank\">_____</span> of even early dinosaurs held the lung's upper surface still, much as a bird's does today.","answer":"rib cage","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"rib cage","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":2,"undatable":true},
-{"id":"dino-035","num":"35","category":"Dinosaurs","question":"Set in the belly wall and not joined to the backbone, the <span class=\"blank\">_____</span> of theropods formed rows of overlapping rods that may have helped draw air into the lungs.","answer":"gastralia","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"gastralia","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":4,"undatable":true},
-{"id":"dino-036","num":"36","category":"Dinosaurs","question":"Fused in adult oviraptorosaurs along a long seam, the <span class=\"blank\">_____</span> carried the shoulder socket in which the upper arm bone of a dinosaur turned.","answer":"scapulocoracoid","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"scapulocoracoid","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":4,"undatable":true},
-{"id":"dino-037","num":"37","category":"Dinosaurs","question":"Measurements of the radius suggest no dinosaur could cross it over the ulna, so the <span class=\"blank\">_____</span> of a quadruped was held with its forearm bones parallel, unlike many mammals'.","answer":"forelimb","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"forelimb","tags":["concept","dinosaurs","science","anatomy","locomotion","palaeontology"],"difficulty":2,"undatable":true},
-{"id":"dino-038","num":"38","category":"Dinosaurs","question":"Tyrannosaurids, the Patagonian <i>Gualicho</i> and the therizinosaur <i>Duonychus</i> each reduced the <span class=\"blank\">_____</span> to two working fingers, a loss of the third finger that evolved independently.","answer":"manus","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"manus","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":4,"undatable":true},
-{"id":"dino-039","num":"39","category":"Dinosaurs","question":"Made of the ilium, ischium and pubis, the <span class=\"blank\">_____</span> of an ornithischian had its pubis pointing backwards, a 'bird-hipped' arrangement that birds themselves evolved independently.","answer":"pelvis","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"pelvis","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":2,"undatable":true},
-{"id":"dino-040","num":"40","category":"Dinosaurs","question":"With a minimum shaft circumference that scales with body mass across living mammals and reptiles, the <span class=\"blank\">_____</span> is a standard bone for estimating the weight of extinct four-legged dinosaurs.","answer":"femur","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"femur","tags":["concept","dinosaurs","science","anatomy","locomotion","palaeontology"],"difficulty":2,"undatable":true},
-{"id":"dino-041","num":"41","category":"Dinosaurs","question":"In tyrannosauroids, ornithomimosaurs and troodontids the middle bone of the <span class=\"blank\">_____</span> became pinched between its neighbours near the ankle, a specialised foot that probably helped these coelurosaurs run fast.","answer":"metatarsus","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"metatarsus","tags":["fossil","dinosaurs","science","palaeontology","anatomy","locomotion"],"difficulty":3,"undatable":true},
-{"id":"dino-042","num":"42","category":"Dinosaurs","question":"Standing on their toes with the bones of the sole raised, dinosaurs were <span class=\"blank\">_____</span> animals, and with their closest relatives the only land vertebrates of the Mesozoic that were not flat-footed.","answer":"digitigrade","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"digitigrade","tags":["concept","dinosaurs","science","palaeontology","anatomy","locomotion"],"difficulty":3,"undatable":true},
-{"id":"dino-043","num":"43","category":"Dinosaurs","question":"Counting the yearly growth lines in a thin slice of a leg bone, the method called <span class=\"blank\">_____</span> showed that dinosaurs grew to adult size far faster than living reptiles do.","answer":"bone histology","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"bone histology","tags":["practice","dinosaurs","science","palaeontology","anatomy","growth"],"difficulty":3,"undatable":true},
-{"id":"dino-044","num":"44","category":"Dinosaurs","question":"Entering through small openings called foramina, outgrowths of the lungs and air sacs hollowed the vertebrae of sauropods and theropods, the condition called <span class=\"blank\">_____</span> that survives today only in birds.","answer":"skeletal pneumaticity","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"skeletal pneumaticity","tags":["concept","dinosaurs","science","palaeontology","anatomy","respiration"],"difficulty":4,"undatable":true},
-{"id":"dino-045","num":"45","category":"Dinosaurs","question":"Living birds pump air through a rigid lung using about nine thin-walled chambers, each called an <span class=\"blank\">_____</span>, whose branches also hollowed the vertebrae of sauropods and theropods.","answer":"air sac","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"air sac","tags":["concept","dinosaurs","science","palaeontology","anatomy","respiration"],"difficulty":3,"undatable":true},
-{"id":"dino-046","num":"46","category":"Dinosaurs","question":"Housing the brain, the inner ear and the exits of the cranial nerves, the <span class=\"blank\">_____</span> at the back of a dinosaur skull often survives when much of the skeleton is lost.","answer":"braincase","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"braincase","tags":["fossil","dinosaurs","science","palaeontology","anatomy","brain"],"difficulty":4,"undatable":true},
-{"id":"dino-047","num":"47","category":"Dinosaurs","question":"Because brain tissue rarely fossilises, palaeontologists study a mould of the space inside the braincase, called an <span class=\"blank\">_____</span>, formed by sediment in nature or rebuilt digitally from scans.","answer":"endocast","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"endocast","tags":["fossil","dinosaurs","science","palaeontology","anatomy","brain"],"difficulty":4,"undatable":true},
-{"id":"dino-048","num":"48","category":"Dinosaurs","question":"Thousands of small sense organs on crocodilian jaws, supplied by the <span class=\"blank\">_____</span>, give them touch keener than primate fingertips, a comparison used to argue that tyrannosaurs had sensitive faces.","answer":"trigeminal nerve","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"trigeminal nerve","tags":["concept","dinosaurs","science","palaeontology","anatomy","senses"],"difficulty":4,"undatable":true},
-{"id":"dino-049","num":"49","category":"Dinosaurs","question":"Made of small overlapping bony plates set in the white of the eye, the <span class=\"blank\">_____</span> preserved in many dinosaur skulls lets the size of the lens and the eye's opening be estimated.","answer":"scleral ring","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"scleral ring","tags":["concept","dinosaurs","science","palaeontology","anatomy","senses"],"difficulty":4,"undatable":true},
-{"id":"dino-050","num":"50","category":"Dinosaurs","question":"Measured inside a fossil braincase, the length of the bony <span class=\"blank\">_____</span> relative to skull size gives an estimate of the range and mean pitch an extinct reptile could hear.","answer":"cochlear duct","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"cochlear duct","tags":["concept","dinosaurs","science","palaeontology","anatomy","senses"],"difficulty":4,"undatable":true},
-{"id":"dino-051","num":"51","category":"Dinosaurs","question":"Measured against body mass, the <span class=\"blank\">_____</span> of tyrannosaurids and dromaeosaurids was larger than expected, suggesting that smell mattered greatly in how these predators lived.","answer":"olfactory bulb","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"olfactory bulb","tags":["concept","dinosaurs","science","palaeontology","anatomy","senses","brain"],"difficulty":4},
-{"id":"dino-052","num":"52","category":"Dinosaurs","question":"Skin impressions from hadrosaurs show non-overlapping <span class=\"blank\">_____</span> whose shapes and patterns differ enough between two species of <i>Saurolophus</i> that soft tissue alone can tell them apart.","answer":"scales","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"scales","tags":["concept","dinosaurs","science","palaeontology","anatomy","skin"],"difficulty":2,"undatable":true},
-{"id":"dino-053","num":"53","category":"Dinosaurs","question":"Skin from <i>Tyrannosaurus</i> and its giant relatives is scaly, showing that the extensive coat of <span class=\"blank\">_____</span> seen in some early tyrannosauroids had been lost before the largest forms evolved.","answer":"feathers","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"feathers","tags":["concept","dinosaurs","science","palaeontology","anatomy","birds","evolution"],"difficulty":1,"undatable":true},
-{"id":"dino-054","num":"54","category":"Dinosaurs","question":"The spikes, plates and tail clubs of ankylosaurs are all <span class=\"blank\">_____</span>, sharing with the small ones beside them thin compact bone, thick spongy bone and abundant collagen fibres.","answer":"osteoderms","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"osteoderms","tags":["concept","dinosaurs","science","palaeontology","anatomy","armour"],"difficulty":4},
-{"id":"dino-055","num":"55","category":"Dinosaurs","question":"Injuries clustered on the frill of <i>Triceratops</i> and horns that changed shape as it matured are read as evidence of <span class=\"blank\">_____</span> acting on the ornaments of horned dinosaurs.","answer":"sexual selection","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"sexual selection","tags":["theory","dinosaurs","science","palaeontology","anatomy","evolution","behaviour"],"difficulty":3},
-{"id":"dino-056","num":"56","category":"Dinosaurs","question":"Ranking species into genera, orders, classes and kingdoms, <span class=\"blank\">_____</span> gave Ornithischia and Saurischia the status of two separate orders when dinosaurs were first divided by their hips.","answer":"Linnaean taxonomy","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Systema Naturae</span><span class=\"dt-v\">1735</span><span class=\"dt-k\">Dinosaur orders</span><span class=\"dt-v\">1887</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Linnaean taxonomy","tags":["practice","dinosaurs","science","taxonomy","classification","palaeontology"],"difficulty":3},
-{"id":"dino-057","num":"57","category":"Dinosaurs","question":"A 2017 analysis uniting theropods with ornithischians, and a reanalysis that restored the classic Saurischia, show how unsettled the base of the dinosaur <span class=\"blank\">_____</span> still remains.","answer":"phylogenetic tree","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"phylogenetic tree","tags":["concept","dinosaurs","science","taxonomy","evolution","palaeontology"],"difficulty":3},
-{"id":"dino-058","num":"58","category":"Dinosaurs","question":"Grouping animals only by shared derived characters, with outgroups fixing which states are original, <span class=\"blank\">_____</span> places birds inside the theropod dinosaurs rather than beside them.","answer":"cladistics","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"cladistics","tags":["practice","dinosaurs","science","taxonomy","evolution","palaeontology"],"difficulty":3},
-{"id":"dino-059","num":"59","category":"Dinosaurs","question":"At each node of a <span class=\"blank\">_____</span> an ancestor splits into two sister taxa, and swapping which branch is drawn on the left or right changes nothing about the relationships shown.","answer":"cladogram","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"cladogram","tags":["concept","dinosaurs","science","taxonomy","evolution"],"difficulty":4},
-{"id":"dino-060","num":"60","category":"Dinosaurs","question":"With one row per taxon and one column per character, a <span class=\"blank\">_____</span> of 700 anatomical characters scored for 501 theropods underpinned a 2019 study of the animals closest to birds.","answer":"character matrix","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"character matrix","tags":["practice","dinosaurs","science","taxonomy","palaeontology","evolution"],"difficulty":5},
-{"id":"dino-061","num":"61","category":"Dinosaurs","question":"When northern tyrannosaurids and southern abelisaurids each evolved deep skulls built to resist heavy feeding stress, the parallel was <span class=\"blank\">_____</span> at work rather than a sign of close kinship.","answer":"convergent evolution","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"convergent evolution","tags":["concept","dinosaurs","science","palaeontology","evolution","anatomy"],"difficulty":3},
-{"id":"dino-062","num":"62","category":"Dinosaurs","question":"Under the system of <span class=\"blank\">_____</span> that zoologists still follow, <i>Tyrannosaurus rex</i> pairs a capitalised genus name with a lower-case species name to identify one single species.","answer":"binomial nomenclature","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"binomial nomenclature","tags":["practice","dinosaurs","science","taxonomy","palaeontology"],"difficulty":2,"undatable":true},
-{"id":"dino-063","num":"63","category":"Dinosaurs","question":"The larger part of one skeleton from Hell Creek, Montana, became the <span class=\"blank\">_____</span> of <i>Tyrannosaurus rex</i> in 1905, the single specimen to which that species name is permanently tied.","answer":"holotype","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"holotype","tags":["concept","dinosaurs","science","taxonomy","palaeontology","fossil"],"difficulty":3},
-{"id":"dino-064","num":"64","category":"Dinosaurs","question":"Founded on a pair of horn cores that identify no particular species, <i>Ceratops montanus</i> has long been treated as a <span class=\"blank\">_____</span> despite being the first horned dinosaur ever recognised.","answer":"nomen dubium","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"nomen dubium","tags":["concept","dinosaurs","science","taxonomy","palaeontology"],"difficulty":4},
-{"id":"dino-065","num":"65","category":"Dinosaurs","question":"Named in the same 1905 paper as <i>Tyrannosaurus rex</i>, the plated carnivore <i>Dynamosaurus imperiosus</i> is now treated as a <span class=\"blank\">_____</span> of it, its name surviving chiefly as a tribute.","answer":"junior synonym","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"junior synonym","tags":["concept","dinosaurs","science","taxonomy","palaeontology"],"difficulty":3},
-{"id":"dino-066","num":"66","category":"Dinosaurs","question":"Under the <span class=\"blank\">_____</span> that governs animal names, the oldest available name normally prevails, which is why <i>Apatosaurus</i> of 1877 displaced <i>Brontosaurus</i> of 1879 once both were judged one animal.","answer":"principle of priority","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"principle of priority","tags":["concept","dinosaurs","science","taxonomy","palaeontology"],"difficulty":4},
-{"id":"dino-067","num":"67","category":"Dinosaurs","question":"Sunk in 1903 as a junior synonym of <i>Apatosaurus</i>, the 'thunder lizard' <span class=\"blank\">_____</span> was revived as a separate genus in 2015 after a specimen-by-specimen study of diplodocid sauropods.","answer":"Brontosaurus","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lived</span><span class=\"dt-v\">c. 150 Mya</span><span class=\"dt-k\">Named</span><span class=\"dt-v\">1879</span><span class=\"dt-k\">Sunk</span><span class=\"dt-v\">1903</span><span class=\"dt-k\">Revived</span><span class=\"dt-v\">2015</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Brontosaurus","tags":["animal","dinosaurs","science","sauropod","jurassic","taxonomy"],"difficulty":1},
-{"id":"dino-068","num":"68","category":"Dinosaurs","question":"Skull tissue suggests the dome-headed <i>Dracorex</i> and <i>Stygimoloch</i> are young <i>Pachycephalosaurus</i>, their distinctive features products of <span class=\"blank\">_____</span> rather than marks of separate species.","answer":"ontogeny","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"ontogeny","tags":["concept","dinosaurs","science","palaeontology","growth","taxonomy"],"difficulty":3},
-{"id":"dino-069","num":"69","category":"Dinosaurs","question":"Named in 1988 for a skull 572 millimetres long from Montana, the small tyrannosaur <span class=\"blank\">_____</span> was argued for decades to be nothing more than a juvenile <i>Tyrannosaurus rex</i>.","answer":"Nanotyrannus","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lived</span><span class=\"dt-v\">c. 67 – 66 Mya</span><span class=\"dt-k\">Named</span><span class=\"dt-v\">1988</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Nanotyrannus","tags":["animal","dinosaurs","science","theropod","tyrannosaur","cretaceous","taxonomy"],"difficulty":3},
-{"id":"dino-070","num":"70","category":"Dinosaurs","question":"<i>Triceratops horridus</i> low in the Hell Creek rocks and <i>Triceratops prorsus</i> above it can be read as a <span class=\"blank\">_____</span> sequence, one lineage changing through time rather than two coexisting species.","answer":"chronospecies","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"chronospecies","tags":["concept","dinosaurs","science","palaeontology","evolution","taxonomy"],"difficulty":4},
-{"id":"dino-071","num":"71","category":"Dinosaurs","question":"Medullary bone, a calcium store laid down only by egg-laying females, is the one secure marker of sex, which is why <span class=\"blank\">_____</span> is so hard to prove in a fossil species.","answer":"sexual dimorphism","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"sexual dimorphism","tags":["concept","dinosaurs","science","palaeontology","anatomy","biology"],"difficulty":3,"undatable":true},
-{"id":"dino-072","num":"72","category":"Dinosaurs","question":"Very high <span class=\"blank\">_____</span>, greater even than in living crocodylians, marked the earliest dinosaurs as they grew but was lost in the theropods that led towards birds.","answer":"intraspecific variation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"intraspecific variation","tags":["concept","dinosaurs","science","palaeontology","anatomy","taxonomy"],"difficulty":4,"undatable":true},
-{"id":"dino-073","num":"73","category":"Dinosaurs","question":"Because a herd of at least 61 ornithomimosaurs was preserved together, the <span class=\"blank\">_____</span> was large enough for their thigh bones to be sorted statistically into two forms.","answer":"sample size","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"sample size","tags":["concept","dinosaurs","science","palaeontology","statistics"],"difficulty":3,"undatable":true},
-{"id":"dino-074","num":"74","category":"Dinosaurs","question":"Measured by how much of each skeleton survives and how many classifying features can be scored, the <span class=\"blank\">_____</span> of marine reptiles proves more complete than that of land animals.","answer":"fossil record","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"fossil record","tags":["concept","dinosaurs","science","palaeontology","taphonomy"],"difficulty":2,"undatable":true},
-{"id":"dino-075","num":"75","category":"Dinosaurs","question":"Spectacular feathered dinosaurs described from north-eastern China since 1996 came from a <span class=\"blank\">_____</span>, a deposit where soft tissue survives far more often than usual.","answer":"Lagerstätte","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Lagerstätte","tags":["concept","dinosaurs","science","palaeontology","taphonomy","geology"],"difficulty":4,"undatable":true},
-{"id":"dino-076","num":"76","category":"Dinosaurs","question":"Flattened feathered dinosaurs in fine lake muds and three-dimensional skeletons in life-like poses both come from the <span class=\"blank\">_____</span> of Liaoning in north-eastern China.","answer":"Yixian Formation","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Fossil beds</span><span class=\"dt-v\">c. 126 – 125 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Yixian Formation","tags":["place","dinosaurs","science","geology","palaeontology","china","cretaceous"],"difficulty":4},
-{"id":"dino-077","num":"77","category":"Dinosaurs","question":"<i>Stegosaurus</i>, <i>Apatosaurus</i> and <i>Allosaurus</i> are all found in the <span class=\"blank\">_____</span>, a Late Jurassic rock unit named after a town in Colorado and spread across the western United States.","answer":"Morrison Formation","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Deposited</span><span class=\"dt-v\">c. 157 – 150 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Morrison Formation","tags":["place","dinosaurs","science","geology","palaeontology","united states","jurassic"],"difficulty":3},
-{"id":"dino-078","num":"78","category":"Dinosaurs","question":"A census found <i>Tyrannosaurus</i> nearly twice as common as <i>Edmontosaurus</i> in the lower third of the <span class=\"blank\">_____</span>, whose fauna lived just before the end-Cretaceous extinction.","answer":"Hell Creek Formation","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Deposited</span><span class=\"dt-v\">c. 67 – 66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Hell Creek Formation","tags":["place","dinosaurs","science","geology","palaeontology","united states","cretaceous"],"difficulty":3},
-{"id":"dino-079","num":"79","category":"Dinosaurs","question":"A <i>Velociraptor</i> locked with a <i>Protoceratops</i>, the famous fighting dinosaurs, was found in the dune sandstones of Mongolia's <span class=\"blank\">_____</span>, deposited late in the Cretaceous.","answer":"Djadochta Formation","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Deposited</span><span class=\"dt-v\">c. 75 – 71 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Djadochta Formation","tags":["place","dinosaurs","science","geology","palaeontology","mongolia","cretaceous"],"difficulty":4},
-{"id":"dino-080","num":"80","category":"Dinosaurs","question":"Defined by its rock rather than its age, a <span class=\"blank\">_____</span> is the primary formal unit of lithostratigraphy and must be mappable at the scale used in its region.","answer":"geological formation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"geological formation","tags":["concept","dinosaurs","science","geology","stratigraphy","palaeontology"],"difficulty":3,"undatable":true},
-{"id":"dino-081","num":"81","category":"Dinosaurs","question":"Because evolution never repeats itself, <span class=\"blank\">_____</span> can divide layers of rock into zones by the fossils they contain and match beds that lie far apart.","answer":"biostratigraphy","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"biostratigraphy","tags":["practice","dinosaurs","science","palaeontology","geology","stratigraphy"],"difficulty":4},
-{"id":"dino-082","num":"82","category":"Dinosaurs","question":"The study of where dinosaurs lived, called dinosaur <span class=\"blank\">_____</span>, asks how far the break-up of Pangaea split their faunas into separate groups on each continent.","answer":"biogeography","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"biogeography","tags":["concept","dinosaurs","science","palaeontology","geography","evolution"],"difficulty":3},
-{"id":"dino-083","num":"83","category":"Dinosaurs","question":"When new seaways split one dinosaur lineage into populations on separate continents, the process called <span class=\"blank\">_____</span> predicts family trees that branch in the order the landmasses parted.","answer":"vicariance","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"vicariance","tags":["concept","dinosaurs","science","palaeontology","evolution","geography"],"difficulty":5},
-{"id":"dino-084","num":"84","category":"Dinosaurs","question":"Two horned dinosaurs from southern Utah were presented as evidence of <span class=\"blank\">_____</span> on Laramidia, with northern and southern faunas living apart at the same time.","answer":"endemism","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"endemism","tags":["concept","dinosaurs","science","palaeontology","geography","evolution"],"difficulty":4},
-{"id":"dino-085","num":"85","category":"Dinosaurs","question":"Written in lower case even when it honours a person, the <span class=\"blank\">_____</span> follows the capitalised genus in a name such as <i>Tyrannosaurus rex</i> and never names a species alone.","answer":"specific name","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"specific name","tags":["concept","dinosaurs","science","taxonomy","palaeontology"],"difficulty":3},
-{"id":"dino-086","num":"86","category":"Dinosaurs","question":"Named 'middle life', the <span class=\"blank\">_____</span> began just after the end-Permian extinction about 251.9 million years ago and ended with the non-avian dinosaurs 66 million years ago.","answer":"Mesozoic","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lasted</span><span class=\"dt-v\">c. 251.9 – 66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Mesozoic","tags":["era","dinosaurs","science","geology","palaeontology","deep time"],"difficulty":2},
-{"id":"dino-087","num":"87","category":"Dinosaurs","question":"The Cretaceous alone lasted longer than all the time since the last non-avian dinosaurs died, a contrast that helps convey the scale of <span class=\"blank\">_____</span> to modern readers.","answer":"deep time","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"deep time","tags":["concept","dinosaurs","science","geology","deep time"],"difficulty":3},
-{"id":"dino-088","num":"88","category":"Dinosaurs","question":"The Mesozoic Era and its Triassic, Jurassic and Cretaceous periods are divisions of the <span class=\"blank\">_____</span>, whose boundaries are fixed at reference points in real rock sections.","answer":"geological timescale","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"geological timescale","tags":["concept","dinosaurs","science","geology","deep time"],"difficulty":2,"undatable":true},
-{"id":"dino-089","num":"89","category":"Dinosaurs","question":"In <span class=\"blank\">_____</span>, the rock laid down during a period is called a system and that laid down during an epoch a series, so every unit of time has its body of rock.","answer":"chronostratigraphy","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"chronostratigraphy","tags":["concept","dinosaurs","science","geology","stratigraphy","deep time"],"difficulty":4},
-{"id":"dino-090","num":"90","category":"Dinosaurs","question":"Opening just after the end-Permian mass extinction about 251.9 million years ago, the <span class=\"blank\">_____</span> was the period in which dinosaurs first appeared on the supercontinent Pangaea.","answer":"Triassic","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lasted</span><span class=\"dt-v\">c. 251.9 – 201.4 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Triassic","tags":["era","dinosaurs","science","geology","palaeontology","deep time"],"difficulty":2},
-{"id":"dino-091","num":"91","category":"Dinosaurs","question":"Named after mountains on the border between France and Switzerland, the <span class=\"blank\">_____</span> Period ran from about 201 to 143 million years ago and saw sauropods become the main large plant-eaters.","answer":"Jurassic","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lasted</span><span class=\"dt-v\">c. 201.4 – 143.1 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Jurassic","tags":["era","dinosaurs","science","geology","palaeontology","mesozoic","jurassic"],"difficulty":1},
-{"id":"dino-092","num":"92","category":"Dinosaurs","question":"Named from the Latin word for chalk, the <span class=\"blank\">_____</span> Period saw the first flowering plants appear and closed about 66 million years ago with the end of the non-avian dinosaurs.","answer":"Cretaceous","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lasted</span><span class=\"dt-v\">c. 143.1 – 66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Cretaceous","tags":["era","dinosaurs","science","geology","palaeontology","mesozoic","cretaceous"],"difficulty":2},
-{"id":"dino-093","num":"93","category":"Dinosaurs","question":"Opening with an explosion of animal life and closing with the worst mass extinction known, the <span class=\"blank\">_____</span> Era came immediately before the Mesozoic, the era of the dinosaurs.","answer":"Palaeozoic","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lasted</span><span class=\"dt-v\">c. 538.8 – 251.9 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Palaeozoic","tags":["era","dinosaurs","science","geology","palaeontology","palaeozoic"],"difficulty":3},
-{"id":"dino-094","num":"94","category":"Dinosaurs","question":"Often called the Age of Mammals, a label its fossils do not fully support, the <span class=\"blank\">_____</span> Era began about 66 million years ago and continues to the present day.","answer":"Cenozoic","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Began</span><span class=\"dt-v\">66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Cenozoic","tags":["era","dinosaurs","science","geology","palaeontology","cenozoic"],"difficulty":3},
-{"id":"dino-095","num":"95","category":"Dinosaurs","question":"Dinosaur footprints first appear in the Italian Dolomites during a wet climate episode in the <span class=\"blank\">_____</span>, the opening stage of the Late Triassic, about 234 to 232 million years ago.","answer":"Carnian","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lasted</span><span class=\"dt-v\">c. 237 – 227 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Carnian","tags":["era","dinosaurs","science","geology","palaeontology","triassic"],"difficulty":4},
-{"id":"dino-096","num":"96","category":"Dinosaurs","question":"By measuring how much of a radioactive isotope has decayed into its stable daughter, <span class=\"blank\">_____</span> gives an age in years for a rock or crystal rather than only its place in a sequence.","answer":"radiometric dating","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"radiometric dating","tags":["practice","dinosaurs","science","geology","geochronology","physics"],"difficulty":2,"undatable":true},
-{"id":"dino-097","num":"97","category":"Dinosaurs","question":"Carbon-14 cannot date a dinosaur because its <span class=\"blank\">_____</span> of 5,730 years lets that clock reach back only about 50,000 years, far short of the Mesozoic.","answer":"half-life","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"half-life","tags":["concept","dinosaurs","science","physics","geochronology"],"difficulty":2,"undatable":true},
-{"id":"dino-098","num":"98","category":"Dinosaurs","question":"Because uranium-238 and uranium-235 decay to different isotopes of lead, <span class=\"blank\">_____</span> gives every suitable zircon crystal two clocks that can be compared with each other.","answer":"uranium–lead dating","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"uranium–lead dating","tags":["practice","dinosaurs","science","geology","geochronology"],"difficulty":4},
-{"id":"dino-099","num":"99","category":"Dinosaurs","question":"After irradiation in a nuclear reactor beside a standard of known age, volcanic crystals are heated step by step to release their gas for <span class=\"blank\">_____</span> in a mass spectrometer.","answer":"argon-argon dating","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"argon-argon dating","tags":["practice","dinosaurs","science","geology","geochronology"],"difficulty":4},
-{"id":"dino-100","num":"100","category":"Dinosaurs","question":"Using the order of rock layers and the fossils they contain, <span class=\"blank\">_____</span> can show which of two dinosaur beds is older without giving either of them an age in years.","answer":"relative dating","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"relative dating","tags":["concept","dinosaurs","science","geology","stratigraphy"],"difficulty":3},
+{"id":"pal-636","num":"1","category":"Dinosaurs","question":"Defined as every descendant of the last common ancestor of <i>Triceratops</i> and birds, a <span class=\"blank\">_____</span> is any member of the reptile group whose only living survivors are the birds.","answer":"dinosaur","answerDate":"<div class=\"dt\"><span class=\"dt-k\">First skeletons</span><span class=\"dt-v\">c. 233 Mya</span><span class=\"dt-k\">Named</span><span class=\"dt-v\">1842</span><span class=\"dt-k\">Non-avians end</span><span class=\"dt-v\">66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"dinosaur","tags":["animal","dinosaurs","science","palaeontology","taxonomy"],"difficulty":1},
+{"id":"pal-034","num":"2","category":"Dinosaurs","question":"An open hip socket, found in no other four-limbed animal, is treated as a <span class=\"blank\">_____</span> of dinosaurs because their common ancestor had it and passed it on to its descendants.","answer":"synapomorphy","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"synapomorphy","tags":["concept","dinosaurs","science","taxonomy","anatomy"],"difficulty":4},
+{"id":"pal-637","num":"3","category":"Dinosaurs","question":"Proposed in 1842 as a tribe of saurian reptiles, the name <span class=\"blank\">_____</span> first grouped <i>Megalosaurus</i>, <i>Iguanodon</i> and <i>Hylaeosaurus</i> by their large fused sacrum and massive limbs.","answer":"Dinosauria","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Named</span><span class=\"dt-v\">1842</span><span class=\"dt-k\">Divided</span><span class=\"dt-v\">1888</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Dinosauria","tags":["concept","dinosaurs","science","taxonomy","history"],"difficulty":3},
+{"id":"pal-638","num":"4","category":"Dinosaurs","question":"Holding the hind legs straight beneath the body, the <span class=\"blank\">_____</span> of dinosaurs let their bones carry their weight directly instead of splaying sideways like a lizard's limbs.","answer":"erect stance","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"erect stance","tags":["concept","dinosaurs","science","anatomy","locomotion"],"difficulty":3},
+{"id":"pal-639","num":"5","category":"Dinosaurs","question":"In dinosaurs the <span class=\"blank\">_____</span>, the hip socket that receives the head of the thigh bone, has a hole through its centre, a feature found in no other four-limbed animals.","answer":"acetabulum","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"acetabulum","tags":["concept","dinosaurs","science","anatomy"],"difficulty":4},
+{"id":"pal-640","num":"6","category":"Dinosaurs","question":"Defined in 1887 by a forward-pointing pubis like a lizard's, the group <span class=\"blank\">_____</span> unites the long-necked sauropodomorphs with the mostly meat-eating theropods.","answer":"Saurischia","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Named</span><span class=\"dt-v\">1888</span><span class=\"dt-k\">First known</span><span class=\"dt-v\">c. 233 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Saurischia","tags":["animal","dinosaurs","science","taxonomy"],"difficulty":3},
+{"id":"pal-641","num":"7","category":"Dinosaurs","question":"Named for a backward-pointing pubis like a bird's, the group <span class=\"blank\">_____</span> includes stegosaurs, horned dinosaurs and hadrosaurs, yet birds themselves descend from a different branch of dinosaurs.","answer":"Ornithischia","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Named</span><span class=\"dt-v\">1888</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ornithischia","tags":["animal","dinosaurs","science","taxonomy"],"difficulty":3},
+{"id":"pal-642","num":"8","category":"Dinosaurs","question":"In lizard-hipped dinosaurs the <span class=\"blank\">_____</span> points down and forward, while in bird-hipped dinosaurs it is turned back to lie parallel to the ischium.","answer":"pubis","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"pubis","tags":["concept","dinosaurs","science","anatomy","taxonomy"],"difficulty":4},
+{"id":"pal-643","num":"9","category":"Dinosaurs","question":"Revived in 2017, the proposed group <span class=\"blank\">_____</span> places the bird-hipped ornithischians beside the meat-eating theropods and leaves the long-necked sauropodomorphs on a separate branch.","answer":"Ornithoscelida","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Named</span><span class=\"dt-v\">1870</span><span class=\"dt-k\">Revived</span><span class=\"dt-v\">2017</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ornithoscelida","tags":["theory","dinosaurs","science","taxonomy"],"difficulty":5},
+{"id":"pal-644","num":"10","category":"Dinosaurs","question":"Although the name dinosaur joins Greek roots for 'fearfully great' and '<span class=\"blank\">_____</span>', dinosaurs were archosaurs, closer kin to crocodiles and birds than to any living squamate.","answer":"lizard","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"lizard","tags":["animal","dinosaurs","science","palaeontology","history"],"difficulty":1,"undatable":true},
+{"id":"pal-625","num":"11","category":"Dinosaurs","question":"Although it lived alongside the dinosaurs, the seagoing <span class=\"blank\">_____</span> was a squamate, a relative of today's lizards and snakes rather than of the archosaurs that include dinosaurs.","answer":"mosasaur","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lived</span><span class=\"dt-v\">c. 95 – 66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"mosasaur","tags":["animal","dinosaurs","science","palaeontology","marine reptiles","cretaceous"],"difficulty":3},
+{"id":"pal-579","num":"12","category":"Dinosaurs","question":"Often shown in dinosaur books, the sail-backed <span class=\"blank\">_____</span> was in fact a synapsid, an early relative on the line leading to mammals rather than a reptile.","answer":"Dimetrodon","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lived</span><span class=\"dt-v\">c. 299 – 267 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Dimetrodon","tags":["animal","dinosaurs","science","palaeontology","synapsids","permian"],"difficulty":2},
+{"id":"pal-628","num":"13","category":"Dinosaurs","question":"Flying on a membrane stretched mainly from a hugely lengthened fourth finger, the <span class=\"blank\">_____</span> was a reptile closely related to the dinosaurs but not one of them.","answer":"pterosaur","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lived</span><span class=\"dt-v\">c. 210 – 66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"pterosaur","tags":["animal","dinosaurs","science","palaeontology","flight","mesozoic"],"difficulty":2},
+{"id":"pal-622","num":"14","category":"Dinosaurs","question":"Swimming with four pointed flippers and often a small head on a long neck, the <span class=\"blank\">_____</span> was a marine reptile even more distant from dinosaurs than pterosaurs were.","answer":"plesiosaur","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lived</span><span class=\"dt-v\">c. 205 – 66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"plesiosaur","tags":["animal","dinosaurs","science","palaeontology","marine reptiles","mesozoic"],"difficulty":2},
+{"id":"pal-731","num":"15","category":"Dinosaurs","question":"Descended from small feathered theropods in the Jurassic, the <span class=\"blank\">_____</span> is classified by most palaeontologists as a living dinosaur, so that even a hummingbird is one.","answer":"bird","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Evolved</span><span class=\"dt-v\">c. 165 – 150 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"bird","tags":["animal","dinosaurs","science","palaeontology","birds","evolution"],"difficulty":1},
+{"id":"pal-645","num":"16","category":"Dinosaurs","question":"Because birds are themselves dinosaurs, palaeontologists call the extinct, traditional kind of dinosaur a <span class=\"blank\">_____</span> to keep it apart from the avian kind alive today.","answer":"non-avian dinosaur","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Extinct</span><span class=\"dt-v\">66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"non-avian dinosaur","tags":["animal","dinosaurs","science","palaeontology","taxonomy","extinction"],"difficulty":3},
+{"id":"pal-646","num":"17","category":"Dinosaurs","question":"Estimated from how often each fossil species turns up, the total <span class=\"blank\">_____</span> of Mesozoic dinosaurs comes to about 1,936 species, with a range of 1,543 to 2,468.","answer":"species richness","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"species richness","tags":["concept","dinosaurs","science","palaeontology","biodiversity","statistics"],"difficulty":4,"undatable":true},
+{"id":"pal-019","num":"18","category":"Dinosaurs","question":"Studies that count dinosaur species often download records from the <span class=\"blank\">_____</span>, an online public resource of fossil occurrences each tied to a place, an age and a taxon.","answer":"Paleobiology Database","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Paleobiology Database","tags":["institution","dinosaurs","science","palaeontology","databases"],"difficulty":4},
+{"id":"pal-647","num":"19","category":"Dinosaurs","question":"Reaching every part of the supercontinent, dinosaurs achieved a <span class=\"blank\">_____</span> in the Early to Middle Jurassic, a spread that brought the first of them to Antarctica and Asia.","answer":"cosmopolitan distribution","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"cosmopolitan distribution","tags":["concept","dinosaurs","science","palaeontology","biogeography","geography"],"difficulty":4,"undatable":true},
+{"id":"pal-648","num":"20","category":"Dinosaurs","question":"At under 3 grams (0.1 ounces), the Cuban <span class=\"blank\">_____</span> marks the lower end of the dinosaur size range, because birds are counted as living dinosaurs.","answer":"bee hummingbird","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"bee hummingbird","tags":["animal","dinosaurs","science","birds","anatomy","size"],"difficulty":3},
+{"id":"pal-656","num":"21","category":"Dinosaurs","question":"Lightened by air-filled vertebrae framed in thin bony plates, the sauropod <span class=\"blank\">_____</span> carried a very small head on a neck that could reach about 15 metres (49 feet).","answer":"skeleton","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"skeleton","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":1,"undatable":true},
+{"id":"pal-657","num":"22","category":"Dinosaurs","question":"Pierced by an opening in front of each eye and another in the lower jaw, the archosaur <span class=\"blank\">_____</span> was lightened and given room for muscles and other soft tissues.","answer":"skull","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"skull","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":1,"undatable":true},
+{"id":"pal-599","num":"23","category":"Dinosaurs","question":"Lizards, crocodiles, dinosaurs and birds all belong to the <span class=\"blank\">_____</span> group, defined by two openings in each side of the skull behind the eye.","answer":"diapsid","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"diapsid","tags":["concept","dinosaurs","science","anatomy","taxonomy"],"difficulty":3},
+{"id":"pal-601","num":"24","category":"Dinosaurs","question":"Set in the snout in front of each eye socket, the <span class=\"blank\">_____</span> opens into a cavity long treated as the chief diagnostic feature of archosaurs.","answer":"antorbital fenestra","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"antorbital fenestra","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":4},
+{"id":"pal-658","num":"25","category":"Dinosaurs","question":"With up to 300 teeth in each half of a jaw, the hadrosaur <span class=\"blank\">_____</span> joined dead grinding teeth and growing replacements by a network of ligaments.","answer":"dental battery","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"dental battery","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":4},
+{"id":"pal-659","num":"26","category":"Dinosaurs","question":"Like all living crocodiles, dinosaurs were <span class=\"blank\">_____</span>, shedding and replacing their teeth throughout life, as the daily growth lines in their dentine record.","answer":"polyphyodont","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"polyphyodont","tags":["concept","dinosaurs","science","anatomy","biology"],"difficulty":4},
+{"id":"pal-660","num":"27","category":"Dinosaurs","question":"Living birds use a horny <span class=\"blank\">_____</span> and a muscular gizzard in place of teeth, which their common ancestor had lost perhaps 116 million years ago.","answer":"rhamphotheca","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"rhamphotheca","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":4},
+{"id":"pal-661","num":"28","category":"Dinosaurs","question":"In sauropods the <span class=\"blank\">_____</span> was hollowed by air spaces, its vertebrae typically about 60 per cent air, which helped their necks reach about 15 metres (49 feet).","answer":"vertebral column","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"vertebral column","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":2,"undatable":true},
+{"id":"pal-662","num":"29","category":"Dinosaurs","question":"Mammals, giraffes included, almost always have seven <span class=\"blank\">_____</span>, but the sauropod <i>Mamenchisaurus</i> had 19, part of a lengthening of the neck that happened independently in several lineages.","answer":"cervical vertebrae","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"cervical vertebrae","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":3},
+{"id":"pal-663","num":"30","category":"Dinosaurs","question":"Many large dinosaurs braced their <span class=\"blank\">_____</span> with an extra peg-and-slot joint, while ornithischians stiffened the back with tendons that had turned to bone instead.","answer":"dorsal vertebrae","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"dorsal vertebrae","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":4},
+{"id":"pal-664","num":"31","category":"Dinosaurs","question":"Recruiting vertebrae from the trunk and the tail, several dinosaur lineages independently lengthened the <span class=\"blank\">_____</span> that locked the backbone to the hip bones through short, sturdy ribs.","answer":"sacrum","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"sacrum","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":3,"undatable":true},
+{"id":"pal-665","num":"32","category":"Dinosaurs","question":"Running from the front tail vertebrae to the fourth trochanter of the thigh bone, the <span class=\"blank\">_____</span> was the chief muscle pulling a dinosaur's leg backwards with each stride.","answer":"caudofemoralis","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"caudofemoralis","tags":["concept","dinosaurs","science","anatomy","locomotion","palaeontology"],"difficulty":4,"undatable":true},
+{"id":"pal-666","num":"33","category":"Dinosaurs","question":"Bundled along the spines of the back and tail of many plant-eating dinosaurs, <span class=\"blank\">_____</span> are a defining feature of the Ornithischia whose purpose stayed a puzzle for over a century.","answer":"ossified tendons","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"ossified tendons","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":4,"undatable":true},
+{"id":"pal-667","num":"34","category":"Dinosaurs","question":"Forked ribs pressing into the roof of the lung show that the <span class=\"blank\">_____</span> of even early dinosaurs held the lung's upper surface still, much as a bird's does today.","answer":"rib cage","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"rib cage","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":2,"undatable":true},
+{"id":"pal-668","num":"35","category":"Dinosaurs","question":"Set in the belly wall and not joined to the backbone, the <span class=\"blank\">_____</span> of theropods formed rows of overlapping rods that may have helped draw air into the lungs.","answer":"gastralia","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"gastralia","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":4,"undatable":true},
+{"id":"pal-669","num":"36","category":"Dinosaurs","question":"Fused in adult oviraptorosaurs along a long seam, the <span class=\"blank\">_____</span> carried the shoulder socket in which the upper arm bone of a dinosaur turned.","answer":"scapulocoracoid","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"scapulocoracoid","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":4,"undatable":true},
+{"id":"pal-670","num":"37","category":"Dinosaurs","question":"Measurements of the radius suggest no dinosaur could cross it over the ulna, so the <span class=\"blank\">_____</span> of a quadruped was held with its forearm bones parallel, unlike many mammals'.","answer":"forelimb","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"forelimb","tags":["concept","dinosaurs","science","anatomy","locomotion","palaeontology"],"difficulty":2,"undatable":true},
+{"id":"pal-671","num":"38","category":"Dinosaurs","question":"Tyrannosaurids, the Patagonian <i>Gualicho</i> and the therizinosaur <i>Duonychus</i> each reduced the <span class=\"blank\">_____</span> to two working fingers, a loss of the third finger that evolved independently.","answer":"manus","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"manus","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":4,"undatable":true},
+{"id":"pal-672","num":"39","category":"Dinosaurs","question":"Made of the ilium, ischium and pubis, the <span class=\"blank\">_____</span> of an ornithischian had its pubis pointing backwards, a 'bird-hipped' arrangement that birds themselves evolved independently.","answer":"pelvis","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"pelvis","tags":["concept","dinosaurs","science","anatomy","palaeontology"],"difficulty":2,"undatable":true},
+{"id":"pal-202","num":"40","category":"Dinosaurs","question":"With a minimum shaft circumference that scales with body mass across living mammals and reptiles, the <span class=\"blank\">_____</span> is a standard bone for estimating the weight of extinct four-legged dinosaurs.","answer":"femur","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"femur","tags":["concept","dinosaurs","science","anatomy","locomotion","palaeontology"],"difficulty":2,"undatable":true},
+{"id":"pal-673","num":"41","category":"Dinosaurs","question":"In tyrannosauroids, ornithomimosaurs and troodontids the middle bone of the <span class=\"blank\">_____</span> became pinched between its neighbours near the ankle, a specialised foot that probably helped these coelurosaurs run fast.","answer":"metatarsus","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"metatarsus","tags":["fossil","dinosaurs","science","palaeontology","anatomy","locomotion"],"difficulty":3,"undatable":true},
+{"id":"pal-674","num":"42","category":"Dinosaurs","question":"Standing on their toes with the bones of the sole raised, dinosaurs were <span class=\"blank\">_____</span> animals, and with their closest relatives the only land vertebrates of the Mesozoic that were not flat-footed.","answer":"digitigrade","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"digitigrade","tags":["concept","dinosaurs","science","palaeontology","anatomy","locomotion"],"difficulty":3,"undatable":true},
+{"id":"pal-195","num":"43","category":"Dinosaurs","question":"Counting the yearly growth lines in a thin slice of a leg bone, the method called <span class=\"blank\">_____</span> showed that dinosaurs grew to adult size far faster than living reptiles do.","answer":"bone histology","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"bone histology","tags":["practice","dinosaurs","science","palaeontology","anatomy","growth"],"difficulty":3,"undatable":true},
+{"id":"pal-675","num":"44","category":"Dinosaurs","question":"Entering through small openings called foramina, outgrowths of the lungs and air sacs hollowed the vertebrae of sauropods and theropods, the condition called <span class=\"blank\">_____</span> that survives today only in birds.","answer":"skeletal pneumaticity","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"skeletal pneumaticity","tags":["concept","dinosaurs","science","palaeontology","anatomy","respiration"],"difficulty":4,"undatable":true},
+{"id":"pal-676","num":"45","category":"Dinosaurs","question":"Living birds pump air through a rigid lung using about nine thin-walled chambers, each called an <span class=\"blank\">_____</span>, whose branches also hollowed the vertebrae of sauropods and theropods.","answer":"air sac","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"air sac","tags":["concept","dinosaurs","science","palaeontology","anatomy","respiration"],"difficulty":3,"undatable":true},
+{"id":"pal-677","num":"46","category":"Dinosaurs","question":"Housing the brain, the inner ear and the exits of the cranial nerves, the <span class=\"blank\">_____</span> at the back of a dinosaur skull often survives when much of the skeleton is lost.","answer":"braincase","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"braincase","tags":["fossil","dinosaurs","science","palaeontology","anatomy","brain"],"difficulty":4,"undatable":true},
+{"id":"pal-207","num":"47","category":"Dinosaurs","question":"Because brain tissue rarely fossilises, palaeontologists study a mould of the space inside the braincase, called an <span class=\"blank\">_____</span>, formed by sediment in nature or rebuilt digitally from scans.","answer":"endocast","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"endocast","tags":["fossil","dinosaurs","science","palaeontology","anatomy","brain"],"difficulty":4,"undatable":true},
+{"id":"pal-678","num":"48","category":"Dinosaurs","question":"Thousands of small sense organs on crocodilian jaws, supplied by the <span class=\"blank\">_____</span>, give them touch keener than primate fingertips, a comparison used to argue that tyrannosaurs had sensitive faces.","answer":"trigeminal nerve","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"trigeminal nerve","tags":["concept","dinosaurs","science","palaeontology","anatomy","senses"],"difficulty":4,"undatable":true},
+{"id":"pal-679","num":"49","category":"Dinosaurs","question":"Made of small overlapping bony plates set in the white of the eye, the <span class=\"blank\">_____</span> preserved in many dinosaur skulls lets the size of the lens and the eye's opening be estimated.","answer":"scleral ring","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"scleral ring","tags":["concept","dinosaurs","science","palaeontology","anatomy","senses"],"difficulty":4,"undatable":true},
+{"id":"pal-680","num":"50","category":"Dinosaurs","question":"Measured inside a fossil braincase, the length of the bony <span class=\"blank\">_____</span> relative to skull size gives an estimate of the range and mean pitch an extinct reptile could hear.","answer":"cochlear duct","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"cochlear duct","tags":["concept","dinosaurs","science","palaeontology","anatomy","senses"],"difficulty":4,"undatable":true},
+{"id":"pal-681","num":"51","category":"Dinosaurs","question":"Measured against body mass, the <span class=\"blank\">_____</span> of tyrannosaurids and dromaeosaurids was larger than expected, suggesting that smell mattered greatly in how these predators lived.","answer":"olfactory bulb","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"olfactory bulb","tags":["concept","dinosaurs","science","palaeontology","anatomy","senses","brain"],"difficulty":4},
+{"id":"pal-682","num":"52","category":"Dinosaurs","question":"Skin impressions from hadrosaurs show non-overlapping <span class=\"blank\">_____</span> whose shapes and patterns differ enough between two species of <i>Saurolophus</i> that soft tissue alone can tell them apart.","answer":"scales","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"scales","tags":["concept","dinosaurs","science","palaeontology","anatomy","skin"],"difficulty":2,"undatable":true},
+{"id":"pal-683","num":"53","category":"Dinosaurs","question":"Skin from <i>Tyrannosaurus</i> and its giant relatives is scaly, showing that the extensive coat of <span class=\"blank\">_____</span> seen in some early tyrannosauroids had been lost before the largest forms evolved.","answer":"feathers","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"feathers","tags":["concept","dinosaurs","science","palaeontology","anatomy","birds","evolution"],"difficulty":1,"undatable":true},
+{"id":"pal-684","num":"54","category":"Dinosaurs","question":"The spikes, plates and tail clubs of ankylosaurs are all <span class=\"blank\">_____</span>, sharing with the small ones beside them thin compact bone, thick spongy bone and abundant collagen fibres.","answer":"osteoderms","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"osteoderms","tags":["concept","dinosaurs","science","palaeontology","anatomy","armour"],"difficulty":4},
+{"id":"pal-685","num":"55","category":"Dinosaurs","question":"Injuries clustered on the frill of <i>Triceratops</i> and horns that changed shape as it matured are read as evidence of <span class=\"blank\">_____</span> acting on the ornaments of horned dinosaurs.","answer":"sexual selection","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"sexual selection","tags":["theory","dinosaurs","science","palaeontology","anatomy","evolution","behaviour"],"difficulty":3},
+{"id":"pal-021","num":"56","category":"Dinosaurs","question":"Ranking species into genera, orders, classes and kingdoms, <span class=\"blank\">_____</span> gave Ornithischia and Saurischia the status of two separate orders when dinosaurs were first divided by their hips.","answer":"Linnaean taxonomy","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Systema Naturae</span><span class=\"dt-v\">1735</span><span class=\"dt-k\">Dinosaur orders</span><span class=\"dt-v\">1887</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Linnaean taxonomy","tags":["practice","dinosaurs","science","taxonomy","classification","palaeontology"],"difficulty":3},
+{"id":"pal-031","num":"57","category":"Dinosaurs","question":"A 2017 analysis uniting theropods with ornithischians, and a reanalysis that restored the classic Saurischia, show how unsettled the base of the dinosaur <span class=\"blank\">_____</span> still remains.","answer":"phylogenetic tree","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"phylogenetic tree","tags":["concept","dinosaurs","science","taxonomy","evolution","palaeontology"],"difficulty":3},
+{"id":"pal-032","num":"58","category":"Dinosaurs","question":"Grouping animals only by shared derived characters, with outgroups fixing which states are original, <span class=\"blank\">_____</span> places birds inside the theropod dinosaurs rather than beside them.","answer":"cladistics","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"cladistics","tags":["practice","dinosaurs","science","taxonomy","evolution","palaeontology"],"difficulty":3},
+{"id":"pal-033","num":"59","category":"Dinosaurs","question":"At each node of a <span class=\"blank\">_____</span> an ancestor splits into two sister taxa, and swapping which branch is drawn on the left or right changes nothing about the relationships shown.","answer":"cladogram","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"cladogram","tags":["concept","dinosaurs","science","taxonomy","evolution"],"difficulty":4},
+{"id":"pal-035","num":"60","category":"Dinosaurs","question":"With one row per taxon and one column per character, a <span class=\"blank\">_____</span> of 700 anatomical characters scored for 501 theropods underpinned a 2019 study of the animals closest to birds.","answer":"character matrix","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"character matrix","tags":["practice","dinosaurs","science","taxonomy","palaeontology","evolution"],"difficulty":5},
+{"id":"pal-043","num":"61","category":"Dinosaurs","question":"When northern tyrannosaurids and southern abelisaurids each evolved deep skulls built to resist heavy feeding stress, the parallel was <span class=\"blank\">_____</span> at work rather than a sign of close kinship.","answer":"convergent evolution","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"convergent evolution","tags":["concept","dinosaurs","science","palaeontology","evolution","anatomy"],"difficulty":3},
+{"id":"pal-022","num":"62","category":"Dinosaurs","question":"Under the system of <span class=\"blank\">_____</span> that zoologists still follow, <i>Tyrannosaurus rex</i> pairs a capitalised genus name with a lower-case species name to identify one single species.","answer":"binomial nomenclature","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"binomial nomenclature","tags":["practice","dinosaurs","science","taxonomy","palaeontology"],"difficulty":2,"undatable":true},
+{"id":"pal-025","num":"63","category":"Dinosaurs","question":"The larger part of one skeleton from Hell Creek, Montana, became the <span class=\"blank\">_____</span> of <i>Tyrannosaurus rex</i> in 1905, the single specimen to which that species name is permanently tied.","answer":"holotype","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"holotype","tags":["concept","dinosaurs","science","taxonomy","palaeontology","fossil"],"difficulty":3},
+{"id":"pal-027","num":"64","category":"Dinosaurs","question":"Founded on a pair of horn cores that identify no particular species, <i>Ceratops montanus</i> has long been treated as a <span class=\"blank\">_____</span> despite being the first horned dinosaur ever recognised.","answer":"nomen dubium","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"nomen dubium","tags":["concept","dinosaurs","science","taxonomy","palaeontology"],"difficulty":4},
+{"id":"pal-028","num":"65","category":"Dinosaurs","question":"Named in the same 1905 paper as <i>Tyrannosaurus rex</i>, the plated carnivore <i>Dynamosaurus imperiosus</i> is now treated as a <span class=\"blank\">_____</span> of it, its name surviving chiefly as a tribute.","answer":"junior synonym","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"junior synonym","tags":["concept","dinosaurs","science","taxonomy","palaeontology"],"difficulty":3},
+{"id":"pal-029","num":"66","category":"Dinosaurs","question":"Under the <span class=\"blank\">_____</span> that governs animal names, the oldest available name normally prevails, which is why <i>Apatosaurus</i> of 1877 displaced <i>Brontosaurus</i> of 1879 once both were judged one animal.","answer":"principle of priority","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"principle of priority","tags":["concept","dinosaurs","science","taxonomy","palaeontology"],"difficulty":4},
+{"id":"pal-030","num":"67","category":"Dinosaurs","question":"Sunk in 1903 as a junior synonym of <i>Apatosaurus</i>, the 'thunder lizard' <span class=\"blank\">_____</span> was revived as a separate genus in 2015 after a specimen-by-specimen study of diplodocid sauropods.","answer":"Brontosaurus","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lived</span><span class=\"dt-v\">c. 150 Mya</span><span class=\"dt-k\">Named</span><span class=\"dt-v\">1879</span><span class=\"dt-k\">Sunk</span><span class=\"dt-v\">1903</span><span class=\"dt-k\">Revived</span><span class=\"dt-v\">2015</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Brontosaurus","tags":["animal","dinosaurs","science","sauropod","jurassic","taxonomy"],"difficulty":1},
+{"id":"pal-044","num":"68","category":"Dinosaurs","question":"Skull tissue suggests the dome-headed <i>Dracorex</i> and <i>Stygimoloch</i> are young <i>Pachycephalosaurus</i>, their distinctive features products of <span class=\"blank\">_____</span> rather than marks of separate species.","answer":"ontogeny","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"ontogeny","tags":["concept","dinosaurs","science","palaeontology","growth","taxonomy"],"difficulty":3},
+{"id":"pal-045","num":"69","category":"Dinosaurs","question":"Named in 1988 for a skull 572 millimetres long from Montana, the small tyrannosaur <span class=\"blank\">_____</span> was argued for decades to be nothing more than a juvenile <i>Tyrannosaurus rex</i>.","answer":"Nanotyrannus","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lived</span><span class=\"dt-v\">c. 67 – 66 Mya</span><span class=\"dt-k\">Named</span><span class=\"dt-v\">1988</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Nanotyrannus","tags":["animal","dinosaurs","science","theropod","tyrannosaur","cretaceous","taxonomy"],"difficulty":3},
+{"id":"pal-046","num":"70","category":"Dinosaurs","question":"<i>Triceratops horridus</i> low in the Hell Creek rocks and <i>Triceratops prorsus</i> above it can be read as a <span class=\"blank\">_____</span> sequence, one lineage changing through time rather than two coexisting species.","answer":"chronospecies","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"chronospecies","tags":["concept","dinosaurs","science","palaeontology","evolution","taxonomy"],"difficulty":4},
+{"id":"pal-047","num":"71","category":"Dinosaurs","question":"Medullary bone, a calcium store laid down only by egg-laying females, is the one secure marker of sex, which is why <span class=\"blank\">_____</span> is so hard to prove in a fossil species.","answer":"sexual dimorphism","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"sexual dimorphism","tags":["concept","dinosaurs","science","palaeontology","anatomy","biology"],"difficulty":3,"undatable":true},
+{"id":"pal-048","num":"72","category":"Dinosaurs","question":"Very high <span class=\"blank\">_____</span>, greater even than in living crocodylians, marked the earliest dinosaurs as they grew but was lost in the theropods that led towards birds.","answer":"intraspecific variation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"intraspecific variation","tags":["concept","dinosaurs","science","palaeontology","anatomy","taxonomy"],"difficulty":4,"undatable":true},
+{"id":"pal-049","num":"73","category":"Dinosaurs","question":"Because a herd of at least 61 ornithomimosaurs was preserved together, the <span class=\"blank\">_____</span> was large enough for their thigh bones to be sorted statistically into two forms.","answer":"sample size","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"sample size","tags":["concept","dinosaurs","science","palaeontology","statistics"],"difficulty":3,"undatable":true},
+{"id":"pal-017","num":"74","category":"Dinosaurs","question":"Measured by how much of each skeleton survives and how many classifying features can be scored, the <span class=\"blank\">_____</span> of marine reptiles proves more complete than that of land animals.","answer":"fossil record","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"fossil record","tags":["concept","dinosaurs","science","palaeontology","taphonomy"],"difficulty":2,"undatable":true},
+{"id":"pal-126","num":"75","category":"Dinosaurs","question":"Spectacular feathered dinosaurs described from north-eastern China since 1996 came from a <span class=\"blank\">_____</span>, a deposit where soft tissue survives far more often than usual.","answer":"Lagerstätte","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Lagerstätte","tags":["concept","dinosaurs","science","palaeontology","taphonomy","geology"],"difficulty":4,"undatable":true},
+{"id":"pal-135","num":"76","category":"Dinosaurs","question":"Flattened feathered dinosaurs in fine lake muds and three-dimensional skeletons in life-like poses both come from the <span class=\"blank\">_____</span> of Liaoning in north-eastern China.","answer":"Yixian Formation","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Fossil beds</span><span class=\"dt-v\">c. 126 – 125 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Yixian Formation","tags":["place","dinosaurs","science","geology","palaeontology","china","cretaceous"],"difficulty":4},
+{"id":"pal-145","num":"77","category":"Dinosaurs","question":"<i>Stegosaurus</i>, <i>Apatosaurus</i> and <i>Allosaurus</i> are all found in the <span class=\"blank\">_____</span>, a Late Jurassic rock unit named after a town in Colorado and spread across the western United States.","answer":"Morrison Formation","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Deposited</span><span class=\"dt-v\">c. 157 – 150 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Morrison Formation","tags":["place","dinosaurs","science","geology","palaeontology","united states","jurassic"],"difficulty":3},
+{"id":"pal-146","num":"78","category":"Dinosaurs","question":"A census found <i>Tyrannosaurus</i> nearly twice as common as <i>Edmontosaurus</i> in the lower third of the <span class=\"blank\">_____</span>, whose fauna lived just before the end-Cretaceous extinction.","answer":"Hell Creek Formation","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Deposited</span><span class=\"dt-v\">c. 67 – 66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Hell Creek Formation","tags":["place","dinosaurs","science","geology","palaeontology","united states","cretaceous"],"difficulty":3},
+{"id":"pal-147","num":"79","category":"Dinosaurs","question":"A <i>Velociraptor</i> locked with a <i>Protoceratops</i>, the famous fighting dinosaurs, was found in the dune sandstones of Mongolia's <span class=\"blank\">_____</span>, deposited late in the Cretaceous.","answer":"Djadochta Formation","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Deposited</span><span class=\"dt-v\">c. 75 – 71 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Djadochta Formation","tags":["place","dinosaurs","science","geology","palaeontology","mongolia","cretaceous"],"difficulty":4},
+{"id":"pal-086","num":"80","category":"Dinosaurs","question":"Defined by its rock rather than its age, a <span class=\"blank\">_____</span> is the primary formal unit of lithostratigraphy and must be mappable at the scale used in its region.","answer":"geological formation","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"geological formation","tags":["concept","dinosaurs","science","geology","stratigraphy","palaeontology"],"difficulty":3,"undatable":true},
+{"id":"pal-082","num":"81","category":"Dinosaurs","question":"Because evolution never repeats itself, <span class=\"blank\">_____</span> can divide layers of rock into zones by the fossils they contain and match beds that lie far apart.","answer":"biostratigraphy","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"biostratigraphy","tags":["practice","dinosaurs","science","palaeontology","geology","stratigraphy"],"difficulty":4},
+{"id":"pal-649","num":"82","category":"Dinosaurs","question":"The study of where dinosaurs lived, called dinosaur <span class=\"blank\">_____</span>, asks how far the break-up of Pangaea split their faunas into separate groups on each continent.","answer":"biogeography","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"biogeography","tags":["concept","dinosaurs","science","palaeontology","geography","evolution"],"difficulty":3},
+{"id":"pal-948","num":"83","category":"Dinosaurs","question":"When new seaways split one dinosaur lineage into populations on separate continents, the process called <span class=\"blank\">_____</span> predicts family trees that branch in the order the landmasses parted.","answer":"vicariance","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"vicariance","tags":["concept","dinosaurs","science","palaeontology","evolution","geography"],"difficulty":5},
+{"id":"pal-949","num":"84","category":"Dinosaurs","question":"Two horned dinosaurs from southern Utah were presented as evidence of <span class=\"blank\">_____</span> on Laramidia, with northern and southern faunas living apart at the same time.","answer":"endemism","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"endemism","tags":["concept","dinosaurs","science","palaeontology","geography","evolution"],"difficulty":4},
+{"id":"pal-023","num":"85","category":"Dinosaurs","question":"Written in lower case even when it honours a person, the <span class=\"blank\">_____</span> follows the capitalised genus in a name such as <i>Tyrannosaurus rex</i> and never names a species alone.","answer":"specific name","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"specific name","tags":["concept","dinosaurs","science","taxonomy","palaeontology"],"difficulty":3},
+{"id":"pal-062","num":"86","category":"Dinosaurs","question":"Named 'middle life', the <span class=\"blank\">_____</span> began just after the end-Permian extinction about 251.9 million years ago and ended with the non-avian dinosaurs 66 million years ago.","answer":"Mesozoic","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lasted</span><span class=\"dt-v\">c. 251.9 – 66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Mesozoic","tags":["era","dinosaurs","science","geology","palaeontology","deep time"],"difficulty":2},
+{"id":"pal-051","num":"87","category":"Dinosaurs","question":"The Cretaceous alone lasted longer than all the time since the last non-avian dinosaurs died, a contrast that helps convey the scale of <span class=\"blank\">_____</span> to modern readers.","answer":"deep time","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"deep time","tags":["concept","dinosaurs","science","geology","deep time"],"difficulty":3},
+{"id":"pal-052","num":"88","category":"Dinosaurs","question":"The Mesozoic Era and its Triassic, Jurassic and Cretaceous periods are divisions of the <span class=\"blank\">_____</span>, whose boundaries are fixed at reference points in real rock sections.","answer":"geological timescale","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"geological timescale","tags":["concept","dinosaurs","science","geology","deep time"],"difficulty":2,"undatable":true},
+{"id":"pal-053","num":"89","category":"Dinosaurs","question":"In <span class=\"blank\">_____</span>, the rock laid down during a period is called a system and that laid down during an epoch a series, so every unit of time has its body of rock.","answer":"chronostratigraphy","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"chronostratigraphy","tags":["concept","dinosaurs","science","geology","stratigraphy","deep time"],"difficulty":4},
+{"id":"pal-070","num":"90","category":"Dinosaurs","question":"Opening just after the end-Permian mass extinction about 251.9 million years ago, the <span class=\"blank\">_____</span> was the period in which dinosaurs first appeared on the supercontinent Pangaea.","answer":"Triassic","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lasted</span><span class=\"dt-v\">c. 251.9 – 201.4 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Triassic","tags":["era","dinosaurs","science","geology","palaeontology","deep time"],"difficulty":2},
+{"id":"pal-071","num":"91","category":"Dinosaurs","question":"Named after mountains on the border between France and Switzerland, the <span class=\"blank\">_____</span> Period ran from about 201 to 143 million years ago and saw sauropods become the main large plant-eaters.","answer":"Jurassic","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lasted</span><span class=\"dt-v\">c. 201.4 – 143.1 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Jurassic","tags":["era","dinosaurs","science","geology","palaeontology","mesozoic","jurassic"],"difficulty":1},
+{"id":"pal-072","num":"92","category":"Dinosaurs","question":"Named from the Latin word for chalk, the <span class=\"blank\">_____</span> Period saw the first flowering plants appear and closed about 66 million years ago with the end of the non-avian dinosaurs.","answer":"Cretaceous","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lasted</span><span class=\"dt-v\">c. 143.1 – 66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Cretaceous","tags":["era","dinosaurs","science","geology","palaeontology","mesozoic","cretaceous"],"difficulty":2},
+{"id":"pal-061","num":"93","category":"Dinosaurs","question":"Opening with an explosion of animal life and closing with the worst mass extinction known, the <span class=\"blank\">_____</span> Era came immediately before the Mesozoic, the era of the dinosaurs.","answer":"Palaeozoic","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lasted</span><span class=\"dt-v\">c. 538.8 – 251.9 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Palaeozoic","tags":["era","dinosaurs","science","geology","palaeontology","palaeozoic"],"difficulty":3},
+{"id":"pal-063","num":"94","category":"Dinosaurs","question":"Often called the Age of Mammals, a label its fossils do not fully support, the <span class=\"blank\">_____</span> Era began about 66 million years ago and continues to the present day.","answer":"Cenozoic","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Began</span><span class=\"dt-v\">66 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Cenozoic","tags":["era","dinosaurs","science","geology","palaeontology","cenozoic"],"difficulty":3},
+{"id":"pal-598","num":"95","category":"Dinosaurs","question":"Dinosaur footprints first appear in the Italian Dolomites during a wet climate episode in the <span class=\"blank\">_____</span>, the opening stage of the Late Triassic, about 234 to 232 million years ago.","answer":"Carnian","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lasted</span><span class=\"dt-v\">c. 237 – 227 Mya</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Carnian","tags":["era","dinosaurs","science","geology","palaeontology","triassic"],"difficulty":4},
+{"id":"pal-087","num":"96","category":"Dinosaurs","question":"By measuring how much of a radioactive isotope has decayed into its stable daughter, <span class=\"blank\">_____</span> gives an age in years for a rock or crystal rather than only its place in a sequence.","answer":"radiometric dating","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"radiometric dating","tags":["practice","dinosaurs","science","geology","geochronology","physics"],"difficulty":2,"undatable":true},
+{"id":"pal-088","num":"97","category":"Dinosaurs","question":"Carbon-14 cannot date a dinosaur because its <span class=\"blank\">_____</span> of 5,730 years lets that clock reach back only about 50,000 years, far short of the Mesozoic.","answer":"half-life","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"half-life","tags":["concept","dinosaurs","science","physics","geochronology"],"difficulty":2,"undatable":true},
+{"id":"pal-089","num":"98","category":"Dinosaurs","question":"Because uranium-238 and uranium-235 decay to different isotopes of lead, <span class=\"blank\">_____</span> gives every suitable zircon crystal two clocks that can be compared with each other.","answer":"uranium–lead dating","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"uranium–lead dating","tags":["practice","dinosaurs","science","geology","geochronology"],"difficulty":4},
+{"id":"pal-091","num":"99","category":"Dinosaurs","question":"After irradiation in a nuclear reactor beside a standard of known age, volcanic crystals are heated step by step to release their gas for <span class=\"blank\">_____</span> in a mass spectrometer.","answer":"argon-argon dating","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"argon-argon dating","tags":["practice","dinosaurs","science","geology","geochronology"],"difficulty":4},
+{"id":"pal-076","num":"100","category":"Dinosaurs","question":"Using the order of rock layers and the fossils they contain, <span class=\"blank\">_____</span> can show which of two dinosaur beds is older without giving either of them an age in years.","answer":"relative dating","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"relative dating","tags":["concept","dinosaurs","science","geology","stratigraphy"],"difficulty":3},
 {"id":"jp-101","num":"101","category":"Japan · History","question":"Compiled in 20 books and finished some time in the later 8th century, the <span class=\"blank\">_____</span> keeps about 4,500 poems written wholly in Chinese characters used for sound or sense.","answer":"Man'yōshū","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Latest poem</span><span class=\"dt-v\">759 CE</span><span class=\"dt-k\">Compiled</span><span class=\"dt-v\">c. 750 – 800 CE</span></div>","traditional":"","hanzi":"万葉集","pinyin":"Man'yōshū","translations":"","citation":"","answerText":"Man'yoshu","tags":["text","literature","history","japan","nara","poetry"],"difficulty":3},
 {"id":"jp-102","num":"102","category":"Japan · History","question":"In 713 the court ordered each province to write up its products, its soil, the origins of its place names and its elders' tales, reports later known as the <span class=\"blank\">_____</span> of each province.","answer":"Fudoki","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Ordered</span><span class=\"dt-v\">713 CE</span><span class=\"dt-k\">Izumo record</span><span class=\"dt-v\">733 CE</span></div>","traditional":"","hanzi":"風土記","pinyin":"Fudoki","translations":"","citation":"","answerText":"Fudoki","tags":["text","history","japan","nara","geography","literature"],"difficulty":4},
 {"id":"jp-103","num":"103","category":"Japan · History","question":"Paid in rice on the land, in cloth instead of labour and in local goods, the three taxes of the <span class=\"blank\">_____</span> system came to Japan with the Tang-style law codes.","answer":"soyōchō","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Taihō Code</span><span class=\"dt-v\">701 CE</span><span class=\"dt-k\">Emishi ordinance</span><span class=\"dt-v\">722 CE</span></div>","traditional":"","hanzi":"租庸調","pinyin":"soyōchō","translations":"","citation":"","answerText":"soyocho","tags":["institution","history","japan","nara","economy","law"],"difficulty":5},
@@ -22744,430 +22744,464 @@ window.COLLECTION_TREE = {
       ]
     },
     {
-      "id": "dino",
-      "title": "Dinosaurs",
+      "id": "paleo",
+      "title": "Palaeontology",
       "total": 100,
       "children": [
         {
-          "id": "dino-are",
-          "title": "What Dinosaurs Are",
-          "total": 85,
-          "children": [
-            {
-              "id": "dino-def",
-              "title": "What a dinosaur is",
-              "total": 20,
-              "cardIds": [
-                "dino-001",
-                "dino-002",
-                "dino-003",
-                "dino-004",
-                "dino-005",
-                "dino-006",
-                "dino-007",
-                "dino-008",
-                "dino-009",
-                "dino-010",
-                "dino-011",
-                "dino-012",
-                "dino-013",
-                "dino-014",
-                "dino-015",
-                "dino-016",
-                "dino-017",
-                "dino-018",
-                "dino-019",
-                "dino-020"
-              ]
-            },
-            {
-              "id": "dino-anatomy",
-              "title": "Dinosaur anatomy",
-              "total": 35,
-              "cardIds": [
-                "dino-021",
-                "dino-022",
-                "dino-023",
-                "dino-024",
-                "dino-025",
-                "dino-026",
-                "dino-027",
-                "dino-028",
-                "dino-029",
-                "dino-030",
-                "dino-031",
-                "dino-032",
-                "dino-033",
-                "dino-034",
-                "dino-035",
-                "dino-036",
-                "dino-037",
-                "dino-038",
-                "dino-039",
-                "dino-040",
-                "dino-041",
-                "dino-042",
-                "dino-043",
-                "dino-044",
-                "dino-045",
-                "dino-046",
-                "dino-047",
-                "dino-048",
-                "dino-049",
-                "dino-050",
-                "dino-051",
-                "dino-052",
-                "dino-053",
-                "dino-054",
-                "dino-055"
-              ]
-            },
-            {
-              "id": "dino-classify",
-              "title": "Classifying dinosaurs",
-              "total": 30,
-              "cardIds": [
-                "dino-056",
-                "dino-057",
-                "dino-058",
-                "dino-059",
-                "dino-060",
-                "dino-061",
-                "dino-062",
-                "dino-063",
-                "dino-064",
-                "dino-065",
-                "dino-066",
-                "dino-067",
-                "dino-068",
-                "dino-069",
-                "dino-070",
-                "dino-071",
-                "dino-072",
-                "dino-073",
-                "dino-074",
-                "dino-075",
-                "dino-076",
-                "dino-077",
-                "dino-078",
-                "dino-079",
-                "dino-080",
-                "dino-081",
-                "dino-082",
-                "dino-083",
-                "dino-084",
-                "dino-085"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "dino-world",
-          "title": "The Mesozoic World",
+          "id": "pal-science",
+          "title": "The Science of Palaeontology",
           "total": 100,
           "children": [
             {
-              "id": "dino-deeptime",
-              "title": "Deep time and the Mesozoic",
+              "id": "pal-what",
+              "title": "What palaeontology is",
               "total": 20,
               "cardIds": [
-                "dino-086",
-                "dino-087",
-                "dino-088",
-                "dino-089",
-                "dino-090",
-                "dino-091",
-                "dino-092",
-                "dino-093",
-                "dino-094",
-                "dino-095",
-                "dino-096",
-                "dino-097",
-                "dino-098",
-                "dino-099",
-                "dino-100"
+                "pal-017",
+                "pal-019"
               ]
             },
             {
-              "id": "dino-continents",
-              "title": "Continents and climate",
-              "total": 20,
-              "cardIds": []
+              "id": "pal-classify",
+              "title": "Naming and classifying fossils",
+              "total": 30,
+              "cardIds": [
+                "pal-021",
+                "pal-022",
+                "pal-023",
+                "pal-025",
+                "pal-027",
+                "pal-028",
+                "pal-029",
+                "pal-030",
+                "pal-031",
+                "pal-032",
+                "pal-033",
+                "pal-034",
+                "pal-035",
+                "pal-043",
+                "pal-044",
+                "pal-045",
+                "pal-046",
+                "pal-047",
+                "pal-048",
+                "pal-049"
+              ]
             },
             {
-              "id": "dino-plants",
-              "title": "Mesozoic plants and landscapes",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "dino-seasky",
-              "title": "The other reptiles: sea and sky",
+              "id": "pal-deeptime",
+              "title": "Deep time",
               "total": 25,
-              "cardIds": []
+              "cardIds": [
+                "pal-051",
+                "pal-052",
+                "pal-053",
+                "pal-061",
+                "pal-062",
+                "pal-063",
+                "pal-070",
+                "pal-071",
+                "pal-072"
+              ]
             },
             {
-              "id": "dino-neighbours",
-              "title": "Life beside the dinosaurs",
-              "total": 15,
-              "cardIds": []
+              "id": "pal-dating",
+              "title": "Dating rocks and fossils",
+              "total": 25,
+              "cardIds": [
+                "pal-076",
+                "pal-082",
+                "pal-086",
+                "pal-087",
+                "pal-088",
+                "pal-089",
+                "pal-091"
+              ]
             }
           ]
         },
         {
-          "id": "dino-origins",
-          "title": "Origins and the Triassic",
-          "total": 90,
-          "children": [
-            {
-              "id": "dino-permian",
-              "title": "The Permian extinction and its aftermath",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "dino-archosaurs",
-              "title": "Archosaurs before dinosaurs",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "dino-first",
-              "title": "The first dinosaurs",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "dino-triassic",
-              "title": "The Triassic world and the end-Triassic extinction",
-              "total": 25,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "dino-sauropodomorpha",
-          "title": "Sauropodomorphs",
+          "id": "pal-record",
+          "title": "Fossils and the Rock Record",
           "total": 110,
           "children": [
             {
-              "id": "dino-earlysauro",
-              "title": "Early sauropodomorphs",
+              "id": "pal-taphonomy",
+              "title": "How fossils form",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "pal-sites",
+              "title": "Exceptional fossil sites",
+              "total": 25,
+              "cardIds": [
+                "pal-126",
+                "pal-135",
+                "pal-145",
+                "pal-146",
+                "pal-147"
+              ]
+            },
+            {
+              "id": "pal-traces",
+              "title": "Trace fossils",
               "total": 20,
               "cardIds": []
             },
             {
-              "id": "dino-sauropods",
-              "title": "Sauropods",
-              "total": 35,
+              "id": "pal-field",
+              "title": "Finding and preparing fossils",
+              "total": 20,
               "cardIds": []
             },
             {
-              "id": "dino-sauropodgroups",
-              "title": "The great sauropod groups",
-              "total": 35,
+              "id": "pal-lab",
+              "title": "Studying a fossil",
+              "total": 20,
+              "cardIds": [
+                "pal-195",
+                "pal-202",
+                "pal-207"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pal-early",
+          "title": "Early Life",
+          "total": 100,
+          "children": [
+            {
+              "id": "pal-origins",
+              "title": "The earliest life",
+              "total": 20,
               "cardIds": []
             },
             {
-              "id": "dino-gigantism",
-              "title": "Gigantism",
+              "id": "pal-eukaryotes",
+              "title": "Eukaryotes and the boring billion",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "pal-ediacaran",
+              "title": "The Ediacaran biota",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "pal-cambrian",
+              "title": "The Cambrian explosion",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "pal-pzseas",
+              "title": "The Palaeozoic seas",
               "total": 20,
               "cardIds": []
             }
           ]
         },
         {
-          "id": "dino-theropoda",
-          "title": "Theropods",
-          "total": 140,
+          "id": "pal-invert",
+          "title": "Invertebrates and Microfossils",
+          "total": 105,
           "children": [
             {
-              "id": "dino-earlytheropod",
-              "title": "Early theropods",
+              "id": "pal-arthropods",
+              "title": "Trilobites and other arthropods",
               "total": 20,
               "cardIds": []
             },
             {
-              "id": "dino-bigpredators",
-              "title": "Large predators",
+              "id": "pal-insects",
+              "title": "Insects",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "pal-molluscs",
+              "title": "Molluscs",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "pal-shelly",
+              "title": "Shells, spines and reefs",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "pal-micro",
+              "title": "Microfossils",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "pal-plants",
+          "title": "Plants Through Time",
+          "total": 80,
+          "children": [
+            {
+              "id": "pal-landplants",
+              "title": "Plants move onto land",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "pal-coal",
+              "title": "Coal forests and seed plants",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "pal-mesoplants",
+              "title": "Mesozoic plants",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "pal-cenoplants",
+              "title": "The Cenozoic green world",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "pal-vertebrates",
+          "title": "Fishes and the Move onto Land",
+          "total": 100,
+          "children": [
+            {
+              "id": "pal-firstverts",
+              "title": "The first vertebrates",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "pal-fishes",
+              "title": "The age of fishes",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "pal-tetrapods",
+              "title": "From fins to limbs",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "pal-amphibians",
+              "title": "Amphibians and early amniotes",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "pal-synapsids",
+              "title": "Synapsids",
+              "total": 20,
+              "cardIds": [
+                "pal-579"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pal-reptiles",
+          "title": "The Age of Reptiles",
+          "total": 150,
+          "children": [
+            {
+              "id": "pal-triassic",
+              "title": "The Triassic world",
+              "total": 20,
+              "cardIds": [
+                "pal-598",
+                "pal-599",
+                "pal-601"
+              ]
+            },
+            {
+              "id": "pal-seasky",
+              "title": "Seas and skies",
+              "total": 20,
+              "cardIds": [
+                "pal-622",
+                "pal-625",
+                "pal-628"
+              ]
+            },
+            {
+              "id": "pal-dinodef",
+              "title": "What a dinosaur is",
+              "total": 20,
+              "cardIds": [
+                "pal-636",
+                "pal-637",
+                "pal-638",
+                "pal-639",
+                "pal-640",
+                "pal-641",
+                "pal-642",
+                "pal-643",
+                "pal-644",
+                "pal-645",
+                "pal-646",
+                "pal-647",
+                "pal-648",
+                "pal-649"
+              ]
+            },
+            {
+              "id": "pal-dinoanat",
+              "title": "Dinosaur anatomy",
+              "total": 30,
+              "cardIds": [
+                "pal-656",
+                "pal-657",
+                "pal-658",
+                "pal-659",
+                "pal-660",
+                "pal-661",
+                "pal-662",
+                "pal-663",
+                "pal-664",
+                "pal-665",
+                "pal-666",
+                "pal-667",
+                "pal-668",
+                "pal-669",
+                "pal-670",
+                "pal-671",
+                "pal-672",
+                "pal-673",
+                "pal-674",
+                "pal-675",
+                "pal-676",
+                "pal-677",
+                "pal-678",
+                "pal-679",
+                "pal-680",
+                "pal-681",
+                "pal-682",
+                "pal-683",
+                "pal-684",
+                "pal-685"
+              ]
+            },
+            {
+              "id": "pal-dinogroups",
+              "title": "The dinosaur groups",
               "total": 30,
               "cardIds": []
             },
             {
-              "id": "dino-coelurosaurs",
-              "title": "Coelurosaurs",
-              "total": 25,
+              "id": "pal-dinobio",
+              "title": "Dinosaur lives",
+              "total": 15,
               "cardIds": []
             },
             {
-              "id": "dino-tyrannosaurs",
-              "title": "Tyrannosaurs",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "dino-maniraptor",
-              "title": "Maniraptorans",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "dino-birdorigin",
+              "id": "pal-birds",
               "title": "The origin of birds",
-              "total": 20,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "dino-ornithischia",
-          "title": "Ornithischians",
-          "total": 130,
-          "children": [
-            {
-              "id": "dino-earlyornith",
-              "title": "Early ornithischians",
               "total": 15,
-              "cardIds": []
-            },
-            {
-              "id": "dino-thyreophora",
-              "title": "Thyreophorans: stegosaurs and ankylosaurs",
-              "total": 30,
-              "cardIds": []
-            },
-            {
-              "id": "dino-ornithopods",
-              "title": "Ornithopods",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "dino-hadrosaurs",
-              "title": "Hadrosaurs",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "dino-ceratopsians",
-              "title": "Ceratopsians",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "dino-pachy",
-              "title": "Pachycephalosaurs",
-              "total": 10,
-              "cardIds": []
+              "cardIds": [
+                "pal-731"
+              ]
             }
           ]
         },
         {
-          "id": "dino-biology",
-          "title": "Dinosaur Biology",
-          "total": 140,
-          "children": [
-            {
-              "id": "dino-growth",
-              "title": "Growth and life history",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "dino-physiology",
-              "title": "Physiology and metabolism",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "dino-locomotion",
-              "title": "Locomotion",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "dino-feeding",
-              "title": "Feeding and diet",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "dino-repro",
-              "title": "Reproduction and nests",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "dino-behaviour",
-              "title": "Behaviour and society",
-              "total": 20,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "dino-extinction",
-          "title": "Extinction and Legacy",
-          "total": 90,
-          "children": [
-            {
-              "id": "dino-endcret",
-              "title": "The end of the Cretaceous",
-              "total": 30,
-              "cardIds": []
-            },
-            {
-              "id": "dino-recovery",
-              "title": "Recovery and the Cenozoic",
-              "total": 20,
-              "cardIds": []
-            },
-            {
-              "id": "dino-livingbirds",
-              "title": "Birds as living dinosaurs",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "dino-legacy",
-              "title": "Dinosaurs and the shape of life",
-              "total": 15,
-              "cardIds": []
-            }
-          ]
-        },
-        {
-          "id": "dino-science",
-          "title": "Finding and Knowing",
+          "id": "pal-mammals",
+          "title": "The Age of Mammals",
           "total": 115,
           "children": [
             {
-              "id": "dino-taphonomy",
-              "title": "Fossilisation and taphonomy",
-              "total": 25,
-              "cardIds": []
-            },
-            {
-              "id": "dino-excavation",
-              "title": "Finding and excavating",
+              "id": "pal-firstmammals",
+              "title": "The first mammals",
               "total": 20,
               "cardIds": []
             },
             {
-              "id": "dino-study",
-              "title": "Studying a fossil",
+              "id": "pal-cenozoic",
+              "title": "The Cenozoic world",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "pal-radiations",
+              "title": "Mammal radiations",
               "total": 25,
               "cardIds": []
             },
             {
-              "id": "dino-history",
+              "id": "pal-iceage",
+              "title": "The Ice Age",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "pal-humans",
+              "title": "Primates and human origins",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "pal-extinction",
+          "title": "Extinction and Evolution",
+          "total": 90,
+          "children": [
+            {
+              "id": "pal-patterns",
+              "title": "Patterns in the history of life",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "pal-massext",
+              "title": "Mass extinctions",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "pal-kpg",
+              "title": "The end of the Cretaceous",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "pal-palaeoclimate",
+              "title": "Ancient climates and geography",
+              "total": 20,
+              "cardIds": [
+                "pal-948",
+                "pal-949"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pal-people",
+          "title": "Palaeontology and People",
+          "total": 50,
+          "children": [
+            {
+              "id": "pal-history",
               "title": "The history of palaeontology",
-              "total": 25,
+              "total": 30,
               "cardIds": []
             },
             {
-              "id": "dino-public",
-              "title": "Dinosaurs in public",
+              "id": "pal-public",
+              "title": "Palaeontology in public",
               "total": 20,
               "cardIds": []
             }

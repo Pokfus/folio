@@ -1,5 +1,11 @@
 # Dinosaurs — a 1000-card running order
 
+> **DORMANT since 2026-11-12, on request** ("Make the collection on Dinosaurs dormant. Instead, plan a 1000
+> card collection on Paleontology"). The `dino` collection is out of the tree and its 100 written cards
+> were **renumbered into `docs/palaeontology-card-plan.md`**, whose appendix is the `dino-NNN` → `pal-NNN`
+> table. **Do not write `dino-` cards.** This file is kept because its scope rules, corrections and
+> sourcing notes still govern Palaeontology's dinosaur decks; its running order below is history.
+
 The plan for `dino`, a new collection: every card's number, topic and deck, fixed in advance so the
 collection can be grown one card at a time over many sessions without anyone having to remember what
 was intended.
