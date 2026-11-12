@@ -3563,7 +3563,9 @@ changed was the one that had been wrong all along.
   collection"). **Built: A1, `decks/Polish-A1.folio-deck.json`** (600 notes / 1,200 cards: 476 from a
   hand-written topic inventory, 124 by frequency) **A2, `decks/Polish-A2.folio-deck.json`** (750 notes /
   1,500 cards: 648 inventory, 102 frequency), **B1** (1,000 notes: 735 / 265), **B2** (1,200 notes: 1,067 /
-  133) **and C1** (1,200 notes: 968 / 232) — all four 2026-11-12, on request. `python3 .claude/polish/run.py [--level a1]`,
+  133) **C1** (1,200 notes: 968 / 232) **and the phrases deck**
+  (`Polish-Phrases-and-Expressions`, 802 expressions: 15 phrases, 711 idioms, 76 proverbs; `run.py --level phr`)
+  — all 2026-11-12, on request. `python3 .claude/polish/run.py [--level a1]`,
   `node .claude/polish/check-polish.js`; a re-run is byte-identical. The UKBI / Hindi shape: the State
   Commission examines at all six levels but no word list of its own was found, so a level is a topic
   inventory plus lemma frequency, and the description says so. The plan, the sources and every finding (the

@@ -14,6 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 BANDS = ("a1", "a2", "b1", "b2", "c1", "c2")
 SIZE = {"a1": 600, "a2": 750, "b1": 1000, "b2": 1200, "c1": 1200, "c2": 1200}
 FILE = "Polish-%s.folio-deck.json"
+PHRASE_FILE = "Polish-Phrases-and-Expressions.folio-deck.json"
 COLOR = "#6B7493"   # the Polish collection's hue, `lang-polish` in app.js COLL_THEME
 
 SCOPE = {
@@ -68,11 +69,22 @@ SCOPE = {
 }
 
 
+def deck_id(level):
+    return "polishphrase" if level == "phr" else "polish" + level
+
+
+def file_of(level):
+    return PHRASE_FILE if level == "phr" else FILE % level.upper()
+
+
 def taught_below(level):
-    """Headwords already in the shipped decks of the levels below (none for A1)."""
+    """Headwords already in the shipped decks of the levels below (none for A1).  The phrases deck is built on
+    EVERY level deck that has shipped, whichever they are: A1 to C1 when it was first built (2026-11-12)."""
     out = set()
     root = os.path.join(HERE, "..", "..", "decks")
-    for lv in BANDS[:BANDS.index(level)]:
+    below = [lv for lv in BANDS if os.path.exists(os.path.join(root, FILE % lv.upper()))] if level == "phr" \
+        else BANDS[:BANDS.index(level)]
+    for lv in below:
         p = os.path.join(root, FILE % lv.upper())
         if not os.path.exists(p):
             raise SystemExit("%s is built on %s, but %s is missing" % (level, lv, p))
@@ -158,17 +170,64 @@ def describe(level, n, inv, stats, cards):
     return " ".join(s)
 
 
-def meta(level, n, inv, stats, css, stamp, cards):
+PHR_SUBS = ("Phrases", "Idioms", "Proverbs")
+
+
+def describe_phr(n, stats, cards, candidates):
+    by = {s: [c for c in cards if c.get("sub") == s] for s in PHR_SUBS}
+    eg = lambda s, k: ", ".join(c["fields"]["Word"] for c in by[s][:k])
+    built = [lv.upper() for lv in BANDS
+             if os.path.exists(os.path.join(HERE, "..", "..", "decks", FILE % lv.upper()))]
+    have = n - stats["ex0"]
+    s = ["%s Polish set phrases, idioms and proverbs, in three subdecks: %s everyday phrases, %s idioms and %s "
+         "proverbs." % (C(n), C(len(by["Phrases"])), C(len(by["Idioms"])), C(len(by["Proverbs"]))),
+         "Both study directions come as two cards of one expression — Polish → English (see the Polish, recall "
+         "the meaning) and English → Polish (see an English meaning, recall the Polish) — each with a schedule "
+         "of its own.",
+         "This is a companion to the level decks, Polish %s to %s, and not one of them: a level is a list of words, "
+         "and an expression is a unit a list of words cannot see. Nothing here is taught by any of them, so they "
+         "can be studied together without repeating an entry." % (built[0], built[-1]),
+         "The PHRASES are the expressions Wiktionary files as phrases or interjections and does not mark as "
+         "idiomatic — the formulas a speaker uses as one piece (%s …); sentences a learner builds from the "
+         "level decks' words (\"I don't eat meat\", \"I'm from …\") are left out." % eg("Phrases", 4),
+         "The IDIOMS are the expressions with a sense Wiktionary marks as idiomatic, of any part of speech — set "
+         "phrases like %s as much as images like %s." % (eg("Idioms", 4), ", ".join(
+             c["fields"]["Word"] for c in by["Idioms"] if c["fields"]["Word"] in
+             ("robić z igły widły", "bułka z masłem", "czytać między wierszami", "trzymać kciuki"))),
+         "The PROVERBS are the sayings Wiktionary files as proverbs (%s …)." % eg("Proverbs", 3),
+         "WHICH ONES, since there are far more than a deck: Wiktionary has %s such Polish expressions that no "
+         "level teaches, and this deck takes the %s of them that occur in at least one of Tatoeba's Polish "
+         "sentences with an English translation — an expression that begins with a verb being found with that "
+         "verb in any form. That is a test of being in use, not an official list." % (C(candidates), C(n)),
+         "Within each subdeck the expressions come in the order of how many of those sentences contain them.",
+         "Real example sentences come with %s of the %s, three apiece for %s, with the expression picked out in "
+         "colour and a speaker beside the sentence and the headword." % (C(have), C(n), C(stats["ex3"])),
+         "Meanings and parts of speech: English Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Example "
+         "sentences and the count that chooses and orders the expressions: Tatoeba (tatoeba.org), CC BY 2.0 FR."]
+    return " ".join(s)
+
+
+def meta(level, n, inv, stats, css, stamp, cards, candidates=0):
     lv = level.upper()
+    if level == "phr":
+        by = {s: sum(1 for c in cards if c.get("sub") == s) for s in PHR_SUBS}
+        title, tags = "Polish Phrases and Expressions", ["polish", "polski", "phrases", "idioms", "proverbs"]
+        subtitle = "%s expressions · %s everyday, %s idioms, %s proverbs · both directions" % (
+            C(n), C(by["Phrases"]), C(by["Idioms"]), C(by["Proverbs"]))
+        desc = describe_phr(n, stats, cards, candidates)
+    else:
+        title, tags = "Polish " + lv, ["polish", "polski", level, "vocabulary"]
+        subtitle = "%s words · both directions, as two cards per word" % C(n)
+        desc = describe(level, n, inv, stats, cards)
     return {
-        "id": "polish" + level,
-        "title": "Polish " + lv,
-        "subtitle": "%s words · both directions, as two cards per word" % C(n),
-        "desc": describe(level, n, inv, stats, cards),
+        "id": deck_id(level),
+        "title": title,
+        "subtitle": subtitle,
+        "desc": desc,
         "author": "",
         "language": "en",
         "color": COLOR,
-        "tags": ["polish", "polski", level, "vocabulary"],
+        "tags": tags,
         "glossMode": "site",
         "types": {"polish": {"id": "polish", "name": "Polish vocabulary", "speechLang": "pl-PL",
                              "fields": FIELDS, "cards": CARDS, "css": css}},

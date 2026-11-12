@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Turkish, Hindi, R
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Polish language collection."
 
-**STATUS (2026-11-12): A1 to C1 are built** (`.claude/polish/`, §5). C2 and a phrases deck are not.
+**STATUS (2026-11-12): A1 to C1 and the phrases deck are built** (`.claude/polish/`, §5, §4e). C2 is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any further deck this plan produces. The collection's first commit carried one line and one bump,
@@ -38,7 +38,7 @@ line to change.
 | Polish B2 — built | `Polish-B2.folio-deck.json` | 1,200 |
 | Polish C1 — built | `Polish-C1.folio-deck.json` | 1,200 |
 | Polish C2 | `Polish-C2.folio-deck.json` | 1,200 |
-| Polish Phrases and Expressions | `Polish-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Polish Phrases and Expressions — built | `Polish-Phrases-and-Expressions.folio-deck.json` | 802 (what the levels leave) |
 
 ## 2. Where the words come from — checked before anything was built
 
@@ -198,6 +198,34 @@ Each is a rule in the code with the case that forced it; grep the file for the w
    `bywać`, `miewać`, `pisywać`, `szlachta`, `nauczanie` and `Kościół` are not in the dump at all.
 3. `stop` leads with the interjection, which is what its count is (the noun "alloy" is filed first).
 4. Example sentences thin out: 512 of C1's 1,200 words have none, Tatoeba's Polish being mostly everyday.
+
+## 4e. The phrases deck (2026-11-12)
+
+`python3 .claude/polish/run.py --level phr` runs `phrases.py` in place of `select.py`, then the same
+`examples.py` and `build_deck.py`. 802 expressions in three subdecks, the Indonesian, Turkish and Hindi
+arrangement (`docs/lang-decks.md`, "THE PHRASES DECK"): **15 Phrases** (Wiktionary's multi-word phrases and
+interjections not tagged idiomatic), **711 Idioms** (any multi-word entry with a taught sense tagged
+idiomatic, of any part of speech — Wiktionary tags as idiomatic most Polish set phrases, `nie ma`, `w ogóle`,
+`od czasu do czasu`, as well as images, `robić z igły widły`) and **76 Proverbs** (Wiktionary's part of
+speech). It is built on EVERY level deck shipped (`pl_level.taught_below("phr")`), and nothing they teach is
+repeated. **If C2 is built later, rebuild this deck after it**, and check-polish will say if C2 took one.
+
+- **WHICH ONES**: Wiktionary has 3,366 such expressions no level teaches — far more than a deck — so one is
+  taken when it occurs in at least one of Tatoeba's Polish sentences with an English translation (`MIN_HITS`),
+  the test of use a word deck gets from its frequency list. Ordered within each subdeck by that count.
+- **A verb idiom is matched with its verb in any form** (`examples.phrase_matcher`, `verbforms`):
+  `mieć nadzieję` in `mam nadzieję`. For the phrases deck ONLY, so every level deck rebuilds unchanged
+  (checked: A1–C1 byte-identical after the refactor).
+- **Left out, each in `phrases.EXCLUDE` with its reason**: phrasebook sentences built from level words
+  (`nie jem mięsa`, `jestem Kanadyjczykiem` — the Turkish and Hindi rule; the questions and formulas stay,
+  `która godzina`, `nazywam się`, `jak masz na imię`); `czy go`, a call to geese counted from the words "czy
+  go"; `tym samym`, whose senses are pointers; an oath; and **expressions whose Tatoeba sentences are their
+  literal reading, not the idiom the card teaches** — `to jest` ("this is", not "namely"), `do tego`,
+  `za to`, `w tym`, `dlaczego nie`, `nie mów`, `coś takiego`, `z Bogiem`, `tak jest`, `być w domu`, `z domu`.
+  That last class was found by reading the top hundred idioms' sentences; the long tail (one or two
+  sentences each) was read for its meanings, and a literal sentence there is possible.
+- `build_deck.py` writes a card's `sub`, and Wiktionary's `phrase` and `proverb` parts of speech are taught
+  only when the level is `phr` (`pl.TEACH_POS`), so no level card changes.
 
 ## 5. How to build, and what to run
 

@@ -33,7 +33,7 @@ import pl, pl_level
 
 POS_NAME = {"noun": "noun", "verb": "verb", "adj": "adjective", "adv": "adverb", "pron": "pronoun",
             "num": "numeral", "prep": "preposition", "conj": "conjunction", "det": "determiner",
-            "intj": "interjection", "particle": "particle"}
+            "intj": "interjection", "particle": "particle", "phrase": "phrase", "proverb": "proverb"}
 CLOSED = {"prep", "conj", "particle", "pron"}
 MAX_SENSES = 5
 STAMP = 1794182400000                  # 2026-11-09, fixed so a re-run is byte-identical
@@ -277,10 +277,12 @@ def main():
     ap.add_argument("--level", default="a1")
     a = ap.parse_args()
     lv = a.level
+    if lv == "phr":     # the phrases deck teaches Wiktionary's phrases and proverbs too; no level deck does
+        pl.TEACH_POS |= {"phrase", "proverb"}
     D = pl.load_dict()
     wl = json.load(open(os.path.join(pl.CACHE, "wordlist-%s.json" % lv), encoding="utf-8"))
     ex = json.load(open(os.path.join(pl.CACHE, "examples-%s.json" % lv), encoding="utf-8"))
-    deck_id = "polish" + lv
+    deck_id = pl_level.deck_id(lv)
     cards, refused = [], []
     stats = {"noun": 0, "verb": 0, "adj": 0, "pron": 0, "ex3": 0, "ex0": 0, "phrases": 0}
     for x in wl["words"]:
@@ -298,6 +300,7 @@ def main():
         stats["ex3"] += len(e) == 3
         stats["ex0"] += not e
         cards.append({
+            **({"sub": x["sub"]} if "sub" in x else {}),       # the phrases deck's subdeck
             "fields": {
                 "Polish": '<div class="uc-word">%s<span class="uc-tts uc-say" data-say="%s"></span></div>' % (E(w), E(w)),
                 "Word": w,
@@ -311,7 +314,7 @@ def main():
     n = len(cards)
     inv = sum(1 for x in wl["words"] if "topic" in x and x["word"] not in refused)
     css = open(os.path.join(pl.HERE, "card.css"), encoding="utf-8").read()
-    meta = pl_level.meta(lv, n, inv, stats, css, STAMP, cards)
+    meta = pl_level.meta(lv, n, inv, stats, css, STAMP, cards, wl.get("candidates", 0))
     deck = {"folioDeck": 1, "exportedAt": STAMP, "meta": meta, "cards": cards, "gloss": {}}
 
     # EVERY ENGLISH SIDE UNIQUE, as on every deck of the shelf: the shared pass, last of all.
@@ -323,7 +326,7 @@ def main():
     if st["groups"]:
         print("  labelled %d notes in %d groups that shared an English side" % (st["labelled"], st["groups"]))
 
-    out = os.path.abspath(os.path.join(pl.HERE, "..", "..", "decks", pl_level.FILE % lv.upper()))
+    out = os.path.abspath(os.path.join(pl.HERE, "..", "..", "decks", pl_level.file_of(lv)))
     with open(out, "w", encoding="utf-8") as fh:
         json.dump(deck, fh, ensure_ascii=False)
     for r in REPORT:
