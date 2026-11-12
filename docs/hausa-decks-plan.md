@@ -5,8 +5,9 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Hausa language collection."
 
-**STATUS (2026-11-09): the alphabet deck and A1 are built** (`.claude/hausa/`, §6). A2, B1 and the phrases
-deck are not.
+**STATUS (2026-11-12): the collection is complete**: the alphabet deck, A1, A2, B1 and the phrases deck
+(`.claude/hausa/`, §6–§9). Asked for a B2 on 2026-11-12, the owner chose the phrases deck instead, since a B2
+would have been nearly all hand-glossed (§9).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one line and one bump, because it
@@ -30,9 +31,9 @@ Asked after a survey of the sources (§2), which are far thinner than for any la
 |---|---|---|
 | Hausa Alphabet (Boko) — built | `Hausa-Alphabet.folio-deck.json` | 36 |
 | Hausa A1 Beginner — built | `Hausa-A1.folio-deck.json` | 500 |
-| Hausa A2 Elementary | `Hausa-A2.folio-deck.json` | 750 |
-| Hausa B1 Intermediate | `Hausa-B1.folio-deck.json` | 1,000 |
-| Hausa Phrases and Expressions | `Hausa-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
+| Hausa A2 Elementary — built | `Hausa-A2.folio-deck.json` | 750 |
+| Hausa B1 Intermediate — built | `Hausa-B1.folio-deck.json` | 1,000 |
+| Hausa Phrases and Expressions — built | `Hausa-Phrases-and-Expressions.folio-deck.json` | 108 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
 
@@ -130,3 +131,102 @@ The shelf's hue is measured: `#665487`, a dusky indigo, 15.5 from its nearest of
 deep indigo (`#5D2A8A`) — and Arabic, Greek and Urdu, built in parallel sessions the same day, took each of
 them. On the 60-hue shelf the two best points are a crimson and a teal-green (15.7), both in crowded bands;
 the indigo family is next, and the subject's own colour (the dye pits of Kano).
+
+## 7. As built (2026-11-12): A2
+
+`python3 .claude/hausa/run.py --level a2 [--re-extract]`. 750 notes / 1,500 cards: 518 from the inventory
+(`inventory.A2`, 22 topics scoped to the A2 descriptor), 232 by frequency. 330 carry a hand gloss
+(`hand.HAND_A2`), 419 a tone line; sentences for 688 (three for 519), none for 62, nearly all hand-glossed
+words the corpus never uses. **A re-run is byte-identical, and A1 still rebuilds byte-identical.**
+
+- **EACH LEVEL'S HAND GLOSSES ARE KEPT APART, AND EACH LEVEL HAS ITS OWN LEXICON** (`hand.HANDS`,
+  `hausa_level.HAND_LEVELS`, `hausa_level.LEX`). A hand entry is a lemma the frequency count can credit:
+  `fada` "palace" took the tokens the hook fallback had given `faɗa`, and `ma'aikaci` took its plural from
+  `ma'aikata` "factory". A1's order, and so its positional card ids, moved. So `extract.py` merges only
+  the hands of the level being built and the levels below it, and writes `lex.json` (A1, which
+  `alphabet.py` also reads) or `lex-<level>.json`. A word is hand-glossed on one level only (asserted).
+- **A HAND ROW MAY NAME A SPELLING THAT COUNTS TO IT** (a fifth item, never printed): `haka` "so, thus",
+  missing from Wiktionary and A1, takes `hakan`. Before that, `hakan` fell through to `haƙa` "to dig",
+  which then ranked 19th in the language.
+- **THE FILL IS THIN at A2**: Wiktionary's usable words with a count of 1 or more run out at about 230
+  after A1, so most of the level is the inventory. The fill's exclusions (`select.EXCLUDE`, "Read off the
+  A2 ranking") are the homographs whose count belongs to another word (`dina` the possessive "my", `yari` in
+  `gidan yari` "prison", `kaso` "share", `banga` = `ban ga`, `girka` Greece), loans that duplicate a
+  taught word (`bal`, `kwamfyuta`), and four sexual or crude words never put in a level deck.
+- **COMMON VERBS WIKTIONARY HAS ONLY AS A RARER NOUN** (`goge` the fiddle, `kori` "curry", `makara` "bier",
+  `taru` a fishing net, `komo`, `sara`, `dage`, `rama`, `tofa`, `ishe`, `laima` "tent", `baƙo` and
+  `ango` given names only) are hand-glossed and the card shows the hand entry alone (`build_deck.ETYMS`).
+  `WORD_AS` prints `baƙo` and `ango` in lower case. `TONE_OFF` withholds `tsintsiya`'s tone line: its
+  Wiktionary head spells the variant `tsintsinyā`.
+- **SENTENCES** (`examples.py`): from A2 on, a sentence whose English is sexual or vulgar is never shown
+  (`BLOCK_EN`). It is not applied to A1, where it would replace `ƙarami`'s first sentence ("Big breasts in
+  Japan …"). A1 is left byte-identical, so that sentence is still there. A word whose corpus spelling
+  is mostly another word's must have its meaning in the sentence's English (`EX_NEED`): `bashi` ("ba
+  shi"), `yaji` ("ya ji"), `tsani` ("na tsani"), `ɗinka` (the possessive), `sara` (a name), `kura` (ƙura),
+  `Mayu` (witches), `raƙumi` (raƙuman ruwa, waves). `tsani`, `ɗinka`, `kura` and `raƙumi` keep no sentence.
+- **Dropped from the inventory after reading the cards**: `fada` "palace" (every sentence was faɗa) and
+  `nono` (its sentences were "breast"; it returned through the fill with clean sentences).
+
+**Known, left.** As at A1, the sentences keep Tatoeba's spellings, and some translations are loose (`rani`
+is given as "autumn"). The fill carries Tatoeba's topics (military ranks, `ta'adda`). `malam` takes
+the butterfly sentences of `malam buɗe mana`, which has none of its own.
+
+## 8. As built (2026-11-12): B1
+
+`python3 .claude/hausa/run.py --level b1 [--re-extract]`. 1,000 notes / 2,000 cards, **all from the inventory**
+(`inventory.B1`). Of these, 833 are hand-glossed (`hand.HAND_B1`) and 166 have a tone line. 665 have sentences
+(three for about 530). A re-run is byte-identical, and A1 and A2 still rebuild unchanged (except the A2 fix
+below).
+
+- **THE FILL IS EMPTY AT B1.** A2 took every Wiktionary word the corpus uses (a count of 1 or more), so the
+  frequency top-up has nothing left to add. The level is the written vocabulary, and the corpus only orders
+  it. The description says so (`build_deck.desc`, the `from_inv == n` wording). About 180 of the
+  inventory's words are Wiktionary entries the corpus never uses, kept for their tone lines: Islamic
+  practice (`alwala`, `zakka`, `huɗuba`, the prayer times), traditional titles (`hakimi`, `galadima`,
+  `waziri`), crafts and food (`marini`, `masaƙi`, `ƙosai`, `kuɓewa`), animals, and grammar words (`nahawu`,
+  `fi'ili`, `wasali`, `ƙamus`). The rest are hand-glossed: government and elections, law, conflict, money,
+  health, the environment, work, character, feelings, the home, the verbs of connected speech, and many
+  multi-word terms (`zaman lafiya`, `kundin tsarin mulki`, `ko da yake`, `duk da haka`).
+- **HAND GLOSSES ARE SPLIT AT `;`**, so a semicolon inside brackets broke a card in two ("a draw (in a game"
+  / "literally, a horse's ear)"). Two A2 cards had the same fault (`ƙarfi`, `ruwan lemo`). They are reworded,
+  and that is A2's only change (their English side; no id moves).
+- **Homographs and joined spellings, read off the cards** (`examples.EX_NEED`, the B1 block): `tace` (ta ce),
+  `suma` (su ma), `ladan` (lada + -n), `kunsa` / `kunshi` (ƙunsa, to contain), `ƙuna` (kuna, you are),
+  `ɗauri` (a tie), `fulawa` (flowers), `jemage` (a baseball bat), `leshi` (lipstick), `akanta`, `gogewa`
+  (goge), `saƙa` (saka), and others. Their sentences must say the meaning in English, and most are left with none.
+- **Senses added where the sentences showed them**: `taya` "tyre", `shafi` "to affect", `tsara` "peer", `makulli`
+  "key", `kokawa` "struggling", `yadi` "yard". `banda` and `boko` show only the hand entry (`ETYMS`;
+  Wiktionary has dried meat and "fraud"). `isa`, `yalwa` and `lahira` are printed in lower case (`WORD_AS`;
+  Wiktionary has them capitalised, as names), and a tone line now takes the printed word's case.
+  `filin jirgin sama` and `ɗan Adam` use Wiktionary's own entries.
+
+**Known, left.** The tone line covers only a sixth of B1, because the hand glosses carry none. A third of
+the words have no sentence (mostly multi-word terms, and Wiktionary words the corpus never uses). Some
+sentences carry idioms that are hard to read at B1 (`gajeren wando` "a bull in shorts").
+
+## 9. As built (2026-11-12): the phrases deck, and no B2
+
+**No B2.** Asked for "Add B2", Folio pointed out that the owner had chosen A1–B1 (§1) and that after B1 no
+source word was left: B2 would have been almost entirely Folio's glosses, with no tone lines and few
+sentences. The owner chose the phrases deck instead.
+
+`python3 .claude/hausa/run.py --level phr [--re-extract]` runs `phrases.py` in place of `select.py`. 108
+expressions / 216 cards, in three subdecks (the card's `sub`): 38 greetings and wishes, 51 everyday phrases,
+19 exclamations and formulas. Only 8 have a tone line: the Arabic religious formulas that are Wiktionary's
+own entries (`salamu alaikum`, `alaikum salam`, `in sha Allahu`, `ma sha Allahu`, `alhamdulillahi`,
+`bisimillahi`, `bisimilla`, `tubarkalla`). The other 100 are hand-glossed (`hand.HAND_PHR`). 47 have sentences.
+A re-run is byte-identical, and the levels are unchanged.
+
+- **NO PROVERBS AND NO IDIOMS**, unlike the Bengali and Turkish phrases decks. English Wiktionary has no
+  Hausa `proverb` entry, and Tatoeba's 21,850 Hausa sentences hold none either (searched 2026-11-12), so a
+  proverb from memory would be a claim with no source. Wiktionary's other multi-word entries are place names,
+  given names, Islamic months and compound nouns (`jirgin ruwa`, `ruwan inabi`): vocabulary, not expressions.
+- **SHOWN WITH ITS PUNCTUATION, KEYED WITHOUT IT**: a row carries `show` (`Ina kwana?`), which the card's
+  `Hausa` field prints, while `Word` stays plain (`ina kwana`) for `check-hausa.js`'s Boko test and the
+  sentence matching. A phrase for a man and one for a woman are both given where Hausa tells them apart.
+- **A MULTI-WORD PHRASE IS FOUND INSIDE SENTENCES THAT MEAN SOMETHING ELSE** (`nawa ne` "it is mine",
+  `ina son ka` "I want you to …", `ina zuwa` "where to", `haka ne` inside a longer clause), so 13 phrases must
+  have their meaning in the sentence's English (`examples.EX_NEED`, the phrases block).
+
+**Known, left.** Most greetings have no sentence: Tatoeba's Hausa is translated from English sentences,
+which rarely hold `ina gajiya?`. The order is the list's own (an expression's corpus count is not measured).

@@ -3,8 +3,9 @@
 
     python3 .claude/hausa/run.py                 # A1
     python3 .claude/hausa/run.py --level a2      # another level (inventory first: inventory.py)
+    python3 .claude/hausa/run.py --level phr     # the phrases deck (its list: phrases.py)
     python3 .claude/hausa/run.py --no-fetch      # reuse whatever is cached
-    python3 .claude/hausa/run.py --re-extract    # rebuild lex.json (after editing hand.py!)
+    python3 .claude/hausa/run.py --re-extract    # rebuild the level's lexicon (after editing hand.py!)
     python3 .claude/hausa/alphabet.py            # the alphabet deck (reads lex.json)
 
 ONE LEVEL PER RUN (`hausa_level` reads the level once, at import).  Downloads
@@ -16,7 +17,7 @@ before changing a stage.
 THE STAGES, in order.  Each writes its output into the cache for the next:
 
     extract.py      every Hausa word in Wiktionary plus the hand glosses, with a
-                    LEMMA frequency counted from Tatoeba (built once: lex.json)
+                    LEMMA frequency counted from Tatoeba (once per level: lex.json, lex-a2.json)
     select.py       the inventory, then the commonest remaining words
     examples.py     three Tatoeba sentences each, matched on the word's forms
     build_deck.py   headword, toned form, glosses, forms, sentences, and the
@@ -71,8 +72,10 @@ def main():
         print('sources:')
         fetch()
     os.chdir(CACHE)
-    stages = ['select.py', 'examples.py', 'build_deck.py']
-    if not os.path.exists('lex.json') or '--re-extract' in sys.argv:
+    # the phrases deck deals a hand-chosen list (phrases.py) in place of the level's selection
+    stages = ['phrases.py' if level == 'phr' else 'select.py', 'examples.py', 'build_deck.py']
+    from hausa_level import LEX
+    if not os.path.exists(LEX) or '--re-extract' in sys.argv:
         stages.insert(0, 'extract.py')
     for stage in stages:
         print(stage.split('.')[0] + ':')

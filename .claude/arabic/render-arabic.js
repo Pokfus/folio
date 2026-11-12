@@ -4,7 +4,7 @@
    order, the speaker on the wrong side.  It happens if the sanitizer ever drops `dir` (it is in the "*" set of
    SANITIZE_ATTRS today), so this asserts the COMPUTED direction of the headword and of a sentence.
 
-     node .claude/arabic/render-arabic.js [a1|alphabet] [screenshot-dir]
+     node .claude/arabic/render-arabic.js [a1|a2|b1|b2|c1|phrases|alphabet] [screenshot-dir]
 
    Screenshots go to <screenshot-dir>/arabic-<deck>-back.png (default: the OS temp dir). */
 "use strict";
@@ -14,7 +14,9 @@ const ROOT = path.resolve(__dirname, "..", "..");
 const WHICH = (process.argv[2] || "a1").toLowerCase();
 const OUT = process.argv[3] || os.tmpdir();
 const ABC = WHICH === "alphabet";
-const DECK = (ABC ? "Arabic-Alphabet" : "Arabic-" + WHICH.toUpperCase()) + ".folio-deck.json";
+const PHR = WHICH === "phrases";   // the phrases deck: no verb table, its cards in three subdecks
+const DECK = (ABC ? "Arabic-Alphabet" : WHICH === "phrases" ? "Arabic-Phrases-and-Expressions"
+  : "Arabic-" + WHICH.toUpperCase()) + ".folio-deck.json";
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css",
                ".json": "application/json", ".svg": "image/svg+xml" };
 const server = http.createServer((req, res) => {
@@ -80,7 +82,7 @@ const ok = (c, m, extra) => {
                ex: b.querySelectorAll(".uc-exz").length, speaker: !!b.querySelector(".uc-tts"),
                ask: !!b.querySelector(".uc-ask"), shapes: b.querySelectorAll(".uc-shf").length };
     });
-    if (ABC ? (back.shapes >= 4 && !back.ask) : (back.table && back.ex && !back.ask)) break;
+    if (ABC ? (back.shapes >= 4 && !back.ask) : ((back.table || PHR) && back.ex && !back.ask)) break;
     await pg.evaluate(() => document.querySelector(".grade[data-g='easy']").click());
     await pg.waitForTimeout(300);
   }
@@ -92,7 +94,7 @@ const ok = (c, m, extra) => {
   if (ABC) ok(back.shapes >= 4, "the four shapes are drawn", String(back.shapes));
   else {
     ok(back.exDir === "rtl", "AN EXAMPLE SENTENCE IS LAID OUT RIGHT TO LEFT", back.exDir);
-    ok(back.table >= 16, "a verb's past and present table is on the back", String(back.table));
+    if (!PHR) ok(back.table >= 16, "a verb's past and present table is on the back", String(back.table));
   }
   await pg.evaluate(() => {
     document.querySelectorAll(".ach-pop, .toast, .modal-backdrop").forEach((e) => e.remove());

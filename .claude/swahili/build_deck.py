@@ -73,6 +73,14 @@ ETYMS = {
     'chungu': ['3', '1'],     # "bitter" AND "cooking pot"; 2 is "ant", 4 "heap"
     'panga': ['2', '1'],      # "to arrange" AND "machete"
     'mhanga': ['2'],          # "sacrifice, casualty"; 1 is "aardvark"
+    'buni': ['2'],            # "to construct; invent" (B1); 1 is "coffee berry"
+    'bodi': ['2'],            # "board (managing committee)"; 1 is "a body"
+    'hariri': ['2'],          # "to edit" (B1's media); 1 is "silk"
+    'nya': ['2'],             # "to rain, drop like rain"; 1 is "to defecate"
+    'kopa': ['2'],            # "to borrow" (B2's money); 1 is "heart" (the card suit)
+    'saruji': ['2'],          # "concrete, cement" (B2's home); 1 is "saddle"
+    'tembe': ['2'],           # "pill, tablet"; 1 is "hen"
+    'jini': ['2'],            # "genie, jinn" (C1); 1 is "gin"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, each with its reason.
@@ -91,6 +99,8 @@ LEAD = {
     'simu': 'telephone',      # first listed is "telegram"
     'mpira': 'ball',          # first listed is "a kind of creeper plant"
     'kiwanda': 'factory',     # first listed is "forge"
+    'wito': 'calling',        # first listed is "infection, contagion"
+    'kombe': 'cup (a',        # first listed is "oyster"; met as Kombe la Dunia, "the World Cup"
 }
 
 
@@ -224,7 +234,9 @@ def build(rows, lex, exs):
         cards.append({'sub': '', 'fields': {
             'Swahili': f'<div class="uc-word">{E(head)}</div>',
             'Word': r['say'],
-            'English': english(ents, r['key']),
+            'English': (english(ents, r['key']) if r['source'] != 'idiom' else    # "idiom, verb"
+                        english(ents, r['key']).replace('<div class="uc-pos">',
+                                                        '<div class="uc-pos">idiom, ', 1)),
             'Forms': forms_line(main, r['key'], head),
             'Examples': examples_html(ex),
         }})
@@ -237,7 +249,41 @@ WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 
 
+def desc_phrases(entries, n):
+    """The phrases deck's description: what the pool is, how it is ordered, the sources."""
+    kinds = {}
+    for e in entries:
+        kinds[e['source']] = kinds.get(e['source'], 0) + 1
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    return (
+        "Both study directions in one deck: Swahili → English (see the phrase, recall the "
+        "meaning) and English → Swahili (see an English meaning, recall the Swahili). Each "
+        "direction is a card of its own with its own schedule. "
+        f"{n} phrases and expressions, built on the five Swahili level decks (A1 to C1): every "
+        "phrase Wiktionary lists for Swahili that those decks do not already teach, less a few "
+        "left out as crude, sexual, an insult or rare — "
+        f"{kinds.get('phrase', 0)} set phrases and greetings, {kinds.get('proverb', 0)} proverbs "
+        f"(methali), {kinds.get('idiom', 0)} idioms, and {kinds.get('expression', 0)} other "
+        "multi-word expressions, most of them a verb with its noun (piga simu, to phone; fanya "
+        "kazi, to work) or a phrase that works as one adverb or preposition (kwa kweli, really; "
+        "kwa niaba ya, on behalf of). Compound nouns and spelled-out numbers are words, not "
+        "phrases, and are left to the level decks. The cards are dealt by how often each phrase "
+        "occurs in film and television subtitles and the Global Voices news site together — a "
+        "verb phrase counted with its verb conjugated (alipiga simu, she phoned) — so the "
+        "everyday ones come first; the phrases those never use, most of the proverbs among them, "
+        "are kept and dealt last rather than left out. "
+        f"Real example sentences come with {n - ex0} of the {n}, three apiece for {ex3} of them; "
+        "Tatoeba's Swahili is small, and a proverb is seldom in it. Sources. Phrases, meanings "
+        "and forms: English Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). "
+        "Frequency: counted from OpenSubtitles 2024 and Global Voices (CC BY 3.0), both as "
+        "distributed by OPUS. Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR."
+    )
+
+
 def desc(entries, n):
+    if LEVEL == 'phr':
+        return desc_phrases(entries, n)
     from_inv = sum(1 for e in entries if e['source'] == 'inventory')
     ex3 = sum(1 for e in entries if e['examples'] == 3)
     ex0 = sum(1 for e in entries if e['examples'] == 0)
@@ -262,8 +308,13 @@ def desc(entries, n):
         f"stated. {from_inv} of the {n} come from a vocabulary written for the level's scope — "
         f"{SC['topics']} — and the other {n - from_inv} are the commonest remaining words, "
         "counted by the WHOLE word (every form of a noun, every conjugated form of a verb added "
-        "together) in two collections of real Swahili, film and television subtitles and the "
-        "Global Voices news site, a word having to be common in both. The cards are dealt by "
+        "together) in two collections of real Swahili, " + (
+            "film and television subtitles and the Global Voices news site"
+            if LEVEL != 'c1' else
+            "written Swahili this time — CCMatrix, sentences mined from the web, and WikiMatrix, "
+            "sentences from Swahili Wikipedia — because the subtitles and news site that ranked the "
+            "lower levels are too small to rank words this rare") +
+        ", a word having to be common in both. The cards are dealt by "
         "that frequency, so the words you meet most often come first. "
         "Verbs are shown as their infinitive (kusoma, to read) with their stem (-soma), which "
         "every tense is built on, and their negative infinitive; adjectives and possessives as "
@@ -273,8 +324,12 @@ def desc(entries, n):
         "out in colour and a speaker beside the sentence and the headword. Sources. Level: the "
         "Common European Framework of Reference (Council of Europe), global scale. Meanings, "
         "noun classes and forms: English Wiktionary, via the kaikki.org extraction (CC BY-SA "
-        "4.0). Frequency: counted from OpenSubtitles 2024 and Global Voices (CC BY 3.0), both "
-        "as distributed by OPUS. Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR."
+        "4.0). Frequency: counted from " + (
+            "OpenSubtitles 2024 and Global Voices (CC BY 3.0)" if LEVEL != 'c1' else
+            "CCMatrix and WikiMatrix (CC BY-SA, from Wikipedia)") + ", both "
+        "as distributed by OPUS" + ("; only their counts are used, and no text from them is in "
+                                    "the deck" if LEVEL == 'c1' else "") + ". "
+        "Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR."
     )
 
 
@@ -290,9 +345,11 @@ def main():
     n = len(cards)
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
+        'subtitle': f'{n} {"phrases" if LEVEL == "phr" else "words"} · both directions, '
+                    f'as two cards per {"phrase" if LEVEL == "phr" else "word"}',
         'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['swahili', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'tags': (['swahili', 'phrases', 'idioms', 'proverbs'] if LEVEL == 'phr' else
+                 ['swahili', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]),
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Swahili vocabulary', 'speechLang': 'sw-KE',

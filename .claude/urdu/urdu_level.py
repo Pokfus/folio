@@ -37,7 +37,8 @@ DECK_FILES['phr'] = 'Urdu-Phrases-and-Expressions.folio-deck.json'
 TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500, 'c1': 1500}
 
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
-BELOW['phr'] = list(BANDS)
+# no C1 deck exists: Wiktionary's Urdu ran dry at B2 (docs/urdu-decks-plan.md §9-§10)
+BELOW['phr'] = ['a1', 'a2', 'b1', 'b2']
 
 SCOPE = {
     'a1': {
@@ -52,6 +53,49 @@ SCOPE = {
                   'the home, the town and getting about, the body and feeling ill, the '
                   'weather, colours, and the pronouns, question words, postpositions and '
                   'conjunctions every sentence is built out of',
+    },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'gloss': 'able to manage simple, routine exchanges of information on familiar matters '
+                 '— personal and family information, shopping, the local area, work — and to '
+                 'describe in simple terms their background, their surroundings and what they '
+                 'immediately need',
+        'topics': 'relatives and the people around you, work and study, jobs, clothes and '
+                  'shopping, more food and cooking, the furniture of a home, the town, the '
+                  'countryside and animals, the seasons and the points of the compass, '
+                  'the numbers to a crore, travel, health and the body, feelings and character, '
+                  'free time and festivals, telling what happened and when, giving an opinion, '
+                  'and the everyday verbs of moving, dressing and doing',
+    },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to produce '
+                 'simple connected text on familiar topics, and to describe experiences and '
+                 'events, dreams, hopes and ambitions, and briefly give reasons and explanations '
+                 'for opinions and plans',
+        'topics': 'work, money and the economy, education, the news, media and technology, '
+                  'government, law and society, the environment and the weather, health and '
+                  'medicine, travel and transport, the household and its chores, relationships '
+                  'and the stages of life, feelings and character, religion and festivals, '
+                  'abstract nouns for ideas, reasons and plans, the connectors that join '
+                  'sentences, and the verbs of thinking, deciding, arguing and changing',
+    },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in their field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either '
+                 'party, and to produce clear, detailed text on a wide range of subjects and '
+                 'explain a viewpoint on a topical issue, giving the advantages and disadvantages '
+                 'of various options',
+        'topics': 'politics and public administration, the law and the courts, the economy and '
+                  'finance, science and research, technology, the environment and natural '
+                  'resources, health and the mind, the arts, literature and the media, history '
+                  'and society, argument and evaluation — the words for claims, evidence, causes '
+                  'and consequences — the formal connectors of written Urdu, and the verbs of '
+                  'reporting, analysing and persuading',
     },
 }
 
