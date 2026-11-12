@@ -61,11 +61,46 @@ EXCLUDE = {
     'adaptare': "counted from the subtitle files' own credit line (Adaptare: ...)",
     'fost': "the past participle of fi, shown on its card",
     'cui': "the dative of cine, shown on its card",
+    # read off the B1 ranking (2026-11-12)
+    'henry': "a name, counted from subtitles; the entry is the unit",
+    'martin': "a name, counted from subtitles; the entry is a bird",
+    'sir': "English 'sir', counted from subtitles",
+    'team': "English 'team', counted from subtitles",
+    'masa': "its count is masa 'the table', a form of masă (A1); the entry is 'to massage'",
+    'modul': "its count is modul 'the way', a form of mod",
+    'forma': "its count is forma 'the form', taught as formă",
+    'data': "its count is data 'the date', a form of dată (A2)",
+    'lumina': "its count is lumina 'the light', a form of lumină (A2)",
+    'regula': "its count is regula 'the rule', a form of regulă",
+    'ancheta': "its count is ancheta 'the inquiry', taught as anchetă",
+    'aventura': "its count is aventura 'the adventure', a form of aventură",
+    'pasa': "its count is (nu-mi) pasă, a form of păsa",
+    'normală': "the feminine of normal; the entry is a teachers' college",
+    'căsătoriu': "a rare entry whose count is căsătorit 'married'",
+    'lis': "a rare adjective whose count is a name in the subtitles",
+    'alică': "a rare noun whose count is the name Alice",
+    'cec': "its card would be 'caecum'; the count is the cheque",
+    'locație': "its card would be 'renting'; the count is the modern 'location'",
+    'dejun': "counted from mic dejun, taught in A1",
+    'ura': "its count is ura 'the hatred' (ură) and ura 'hurray'; the entry is 'to wish'; B1 teaches urî",
+    'st': "an interjection, counted from subtitles",
+    'trăiască': "the subjunctive of trăi, in trăiască ...! 'long live'",
+    # PAST PARTICIPLES whose only card is the participle's own sense, shown on the verb's card
+    'găsit': "the past participle of găsi", 'luat': "the past participle of lua",
+    'judecat': "the past participle of judeca", 'prins': "the past participle of prinde",
+    'ales': "the past participle of alege", 'pierdut': "the past participle of pierde",
+    'unit': "the past participle of uni", 'crescut': "the past participle of crește",
+    'speriat': "the past participle of speria", 'rănit': "the past participle of răni",
+    'îndrăgostit': "the past participle of îndrăgosti", 'folosit': "the past participle of folosi",
+    'distrus': "the past participle of distruge", 'surprins': "the past participle of surprinde",
+    'implicat': "the past participle of implica", 'numit': "the past participle of numi",
+    'invitat': "the past participle of invita", 'dispărut': "the past participle of dispărea",
 }
 
 # Swearing and insults are never in a level deck.
 SWEARS = {'rahat', 'dracu', 'drac', 'târfă', 'cur', 'nenorocit', 'idiot', 'cretin', 'tâmpit',
-          'fraier', 'futu', 'pizdă', 'pulă', 'muie', 'bou', 'jigodie', 'bulangiu', 'curvă'}
+          'fraier', 'futu', 'pizdă', 'pulă', 'muie', 'bou', 'jigodie', 'bulangiu', 'curvă',
+          'porcărie', 'afurisit'}
 
 
 def usable(L):

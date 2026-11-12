@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 Turkish …); `docs/lang-decks.md` is the record of how those were built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Add a Romanian language collection."
 
-**STATUS (2026-11-09): A1 and A2 are built** (`.claude/romanian/`, §6–§7). B1 to C1 and the phrases deck are not.
+**STATUS (2026-11-12): A1, A2 and B1 are built** (`.claude/romanian/`, §6–§8). B2, C1 and the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one line and one bump, because
@@ -31,7 +31,7 @@ The request named no level, source or size, so each decision copies the shelf's 
 |---|---|---|
 | Romanian A1 Beginner — built | `Romanian-A1.folio-deck.json` | 500 |
 | Romanian A2 Elementary — built | `Romanian-A2.folio-deck.json` | 750 |
-| Romanian B1 Intermediate | `Romanian-B1.folio-deck.json` | 1,000 |
+| Romanian B1 Intermediate — built | `Romanian-B1.folio-deck.json` | 1,000 |
 | Romanian B2 Upper Intermediate | `Romanian-B2.folio-deck.json` | 1,500 |
 | Romanian C1 Advanced | `Romanian-C1.folio-deck.json` | 1,500 |
 | Romanian Phrases and Expressions | `Romanian-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
@@ -96,7 +96,7 @@ subtitle-ordered deck on the shelf does. 2 of A1's 500 words have no Tatoeba sen
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, A1. **Phase 2** — A2 (done) to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline, A1. **Phase 2** — A2 and B1 (done) to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `ro_level.py`, run, read every card, extend `EXCLUDE` /
 `ETYMS` / `DROP_POS` with reasons. **Phase 3** — the phrases deck. **Phase 4** — a combined file, gitignored
 (and a `PARTS` row in `.claude/combine-decks.py`).
@@ -131,3 +131,29 @@ under the A2 rules is byte-identical to the shipped file. What A2 added:
 
 Feminine agent nouns written in the inventory (`colegă`, `asistentă`, `vecină`) are Wiktionary form-of
 entries, so the masculine is taught and its card names no feminine — known, left.
+
+## 8. As built (2026-11-12): B1
+
+`python3 .claude/romanian/run.py --level b1` (asked for on 2026-11-12: "Add Romanian B1"). 1,000 notes, none
+taught in A1 or A2: 513 from the B1 inventory (eighteen topics — work and career, education, media and
+technology, the environment, society and public life, law and crime, health and lifestyle, relationships and
+feelings, character, opinions and argument, linking words, travel and its problems, services and money,
+housing, culture and the arts, abstract ideas, thinking and communicating, everyday verbs) and 487 by
+frequency; IPA on 522, forms on 878, sentences for 928 (none for 72). A re-run is byte-identical, and A1 and
+A2 rebuilt under the B1 rules are byte-identical to the shipped files — on a fresh download of all five
+sources, so the Wiktionary extract of 2026-11-12 changed nothing either level reads.
+
+- **Thirty multi-word or newer items are not Wiktionary headwords** and were dropped, as the pipeline does
+  (`în_general`, `după_ce`, `sală_de_sport`, `internet`, `online`, `economii` …; the run prints the list).
+  Several linking phrases a B1 learner needs are therefore missing — the phrases deck is their place.
+- **More forms counted as words** (`select.EXCLUDE`, each with its reason): definite forms whose entry is a
+  verb (`masa` "to massage" from *masa* "the table", `data`, `lumina`, `regula`, `forma`, `ancheta`), names
+  and English words from the subtitles (`henry`, `martin`, `sir`, `team`), and **bare past participles**
+  whose card is only the participle's sense (`găsit`, `luat`, `pierdut`, `speriat` … eighteen). A participle
+  that is an adjective in its own right (`obișnuit` "usual", `căsătorit` "married", `cunoscut` "well-known")
+  is kept.
+- **The inventory's own slips, caught on reading**: `ura` is "to wish" — "to hate" is `urî`; `fie` resolves
+  only to a noun "daughter" (the conjunction is filed as a form of `fi`) and `pană` only to "feather" (no
+  "breakdown"), so both left the list; `email` leads with "enamel", so the card is `e-mail`. `coș` and `post`
+  take their second etymology ("basket", "job") through `ETYMS`.
+- Two more swears for `SWEARS` (`porcărie`, `afurisit`), read off the fill.

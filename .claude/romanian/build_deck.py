@@ -70,6 +70,9 @@ ETYMS = {
     'mare': ['1', '2'],      # "big" AND "sea", both A1
     'bancă': ['2', '1'],     # "bank"; etymology 1 is "bench"
     'dura': ['2'],           # "to last"; etymology 1 is "to build", regional
+    # B1
+    'coș': ['2'],            # "basket"; etymology 1 is "pimple"
+    'post': ['2'],           # "post, job"; etymology 1 is "a fast"
 }
 
 # A PART OF SPEECH LEFT OFF ONE CARD, each with its reason.
@@ -105,6 +108,7 @@ LEAD = {
     'ceai': 'tea',            # first listed is "tea bush"
     'slujbă': 'job, employment, post, service',   # first listed is "divine service"
     'descoperi': 'to discover',                   # first listed is "to take off one's headgear"
+    'coș': 'basket, wastebasket',                 # first listed is "chimney"
 }
 
 

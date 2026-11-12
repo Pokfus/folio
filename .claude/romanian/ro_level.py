@@ -68,6 +68,20 @@ SCOPE = {
                   'telling what happened when, the higher numbers, and the everyday verbs of '
                   'moving, dressing, cooking and doing',
     },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling where the '
+                 'language is spoken, to produce simple connected text on familiar topics, and '
+                 'to describe experiences, events, dreams, hopes and ambitions and briefly give '
+                 'reasons and explanations for opinions and plans',
+        'topics': 'work and careers, education, the media and technology, the environment, '
+                  'society and public life, law and crime, health and lifestyle, relationships, '
+                  'feelings and character, giving opinions and arguing a point, the linking words '
+                  'that join sentences into a text, travel and what goes wrong on it, services, '
+                  'money and housing, culture and the arts, abstract ideas, and the verbs of '
+                  'thinking, communicating and changing things',
+    },
 }
 
 

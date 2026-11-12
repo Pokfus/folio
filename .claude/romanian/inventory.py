@@ -124,4 +124,111 @@ A2 = [
                        'grăbi întârzia'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2}
+B1 = [
+    ('work and career', 'carieră profesie post loc_de_muncă angajator angaja concedia demisie '
+                        'demisiona interviu experiență calificare abilitate competență '
+                        'responsabilitate sarcină proiect ședință termen contract salariat '
+                        'coleg_de_serviciu birocrație afacere companie întreprindere industrie '
+                        'producție profit pierdere buget investiție economie comerț marfă '
+                        'ofertă cerere concurență succes eșec promovare pensie șomaj șomer '
+                        'program_de_lucru tură negocia organiza conduce coordona'),
+    ('education and learning', 'educație învățământ elev materie disciplină matematică istorie '
+                               'geografie fizică chimie biologie literatură gramatică vocabular '
+                               'pronunție exercițiu test rezultat medie bursă licență master '
+                               'doctorat cercetare studiu teză profesoară învățător absolvent '
+                               'absolvi studia memora exersa repeta preda promova pica'),
+    ('media and technology', 'presă ziar revistă articol știre jurnalist reporter emisiune canal '
+                             'post_de_radio reclamă publicitate internet site pagină rețea '
+                             'aplicație program parolă cont mesaj e-mail fișier document '
+                             'imprimantă ecran tastatură baterie încărcător conexiune '
+                             'tehnologie digital virtual online descărca încărca salva șterge '
+                             'tipări posta distribui instala'),
+    ('the environment', 'mediu_înconjurător poluare deșeu gunoi reciclare climă încălzire '
+                        'energie electricitate combustibil petrol cărbune gaz resursă protecție '
+                        'specie faună floră inundație secetă cutremur incendiu dezastru '
+                        'catastrofă ocean continent planetă atmosferă aer poluat curat recicla '
+                        'proteja polua economisi risipi'),
+    ('society and public life', 'societate comunitate populație cetățenie guvern stat parlament '
+                                'ministru președinte primar partid politică politician alegere '
+                                'vot candidat campanie lege drept:noun libertate democrație '
+                                'putere opoziție protest grevă manifestație criză sărăcie '
+                                'bogăție impozit taxă sistem serviciu_public '
+                                'administrație autoritate instituție organizație vota alege '
+                                'protesta'),
+    ('law and crime', 'crimă infracțiune hoț furt jaf criminal victimă martor suspect '
+                      'acuzat avocată judecător tribunal proces dovadă anchetă închisoare '
+                      'pedeapsă amendă arest fura jefui ataca aresta acuza judeca condamna '
+                      'pedepsi minți'),
+    ('health and lifestyle', 'stil_de_viață dietă nutriție vitamină greutate exercițiu antrenament '
+                             'sală_de_sport stres somn obicei fumat alcool drog dependență '
+                             'tratament operație spitalizare simptom diagnostic infecție virus '
+                             'vaccin injecție asigurare medic_de_familie clinică cabinet '
+                             'însănătoși slăbi îngrășa fuma antrena trata opera'),
+    ('relationships and feelings', 'relație căsătorie divorț despărțire încredere respect '
+                                   'prietenie iubire dor gelozie rușine vină regret '
+                                   'satisfacție mulțumire dezamăgire entuziasm emoție sentiment '
+                                   'stare dispoziție singurătate căsători divorța despărți '
+                                   'certa împăca iubi urî respecta încrede îndrăgosti '
+                                   'dezamăgi impresiona emoționa singur fidel loial '
+                                   'dezamăgit entuziasmat emoționat recunoscător'),
+    ('character and behaviour', 'personalitate caracter comportament atitudine calitate defect '
+                                'onest cinstit corect responsabil serios ambițios încăpățânat '
+                                'egoist arogant modest prietenos sociabil optimist pesimist '
+                                'creativ inteligent prost atent neatent grijuliu matur '
+                                'comporta purta'),
+    ('opinions and argument', 'opinie părere idee punct_de_vedere argument motiv cauză efect '
+                              'consecință avantaj dezavantaj problemă soluție întrebare '
+                              'propunere sugestie acord dezacord discuție dezbatere '
+                              'concluzie exemplu fapt adevăr minciună zvon '
+                              'considera crede presupune sugera propune susține recomanda '
+                              'convinge accepta refuza nega admite recunoaște compara '
+                              'discuta argumenta dovedi demonstra critica lăuda'),
+    ('linking words', 'totuși însă deși ci așadar prin_urmare de_aceea astfel adică de_exemplu '
+                      'în_plus de_asemenea mai_ales cel_puțin în_schimb pe_de_altă_parte '
+                      'în_primul_rând în_general în_special în_orice_caz oricum fie '
+                      'nici atât decât ca încât ca_să deoarece întrucât până_când '
+                      'în_timp_ce după_ce înainte_să imediat_ce probabil posibil sigur '
+                      'desigur bineînțeles evident aproximativ aproape complet total '
+                      'parțial destul prea cam'),
+    ('travel and its problems', 'destinație itinerar călător pasager zbor_direct escală '
+                                'îmbarcare bagaj_de_mână cameră_dublă recepție cazare '
+                                'pensiune cort camping traseu ghid_turistic suvenir '
+                                'monument castel cetate ruină asigurare_de_călătorie '
+                                'anulare reclamație despăgubire accident defect '
+                                'rătăci anula amâna confirma reclama'),
+    ('services and shopping', 'serviciu_clienți reducere ofertă_specială chitanță factură '
+                              'garanție schimb rambursare livrare comandă coș plată numerar '
+                              'rată credit datorie economii cont_bancar dobândă bancomat '
+                              'transfer abonament contor livra returna împrumuta datora '
+                              'economisi cheltui investi'),
+    ('housing', 'locuință proprietar chiriaș contract_de_închiriere bloc vilă cartier_rezidențial '
+                'vecinătate mutare renovare reparație instalator electrician încălzire_centrală '
+                'calorifer aer_condiționat gaz_natural factură_la_curent mobilat utilat spațios '
+                'luminos închiria renova zugrăvi amenaja'),
+    ('culture and the arts', 'cultură artă artist operă pictură tablou sculptură scriitor poet '
+                             'poezie roman povestire autor personaj scenă actor actriță regizor '
+                             'premieră galerie festival tradiție obicei religie credință '
+                             'istorie_națională patrimoniu stil gen public aplauze critic '
+                             'interpreta regiza compune publica'),
+    ('abstract ideas', 'viață moarte lume realitate vis dorință scop plan șansă ocazie risc '
+                       'pericol siguranță securitate schimbare dezvoltare progres viitor '
+                       'trecut experiență amintire memorie imaginație cunoaștere inteligență '
+                       'înțelegere atenție interes valoare importanță calitate cantitate '
+                       'diferență asemănare legătură rol parte întreg nivel grad măsură '
+                       'mod metodă proces pas etapă fază situație condiție'),
+    ('thinking and communicating', 'imagina realiza observa remarca descoperi analiza '
+                                   'evalua estima calcula prevedea anticipa ezita '
+                                   'îndoi bănui recunoaște exprima descrie povesti '
+                                   'relata anunța informa avertiza sfătui convinge '
+                                   'insista cere implora reproșa scuza ierta plânge '
+                                   'zâmbi râde striga șopti'),
+    ('everyday verbs', 'atinge apuca trage împinge ridica lăsa pune așeza aduna strânge '
+                       'umple goli adăuga scădea crește spori reduce mări micșora '
+                       'înlocui transforma adapta îmbunătăți dezvolta produce crea '
+                       'distruge proteja păzi salva fugi scăpa evita risca încerca '
+                       'reuși eșua obține pierde câștiga merita depinde aparține '
+                       'conține include exclude lipsi exista apărea dispărea '
+                       'rămâne continua întrerupe opri suporta tolera'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}
