@@ -72,7 +72,8 @@ SYNONYM = re.compile(r'^synonym of (\S+(?: \S+)?) \(([^()]+)\)$')
 LEX = {}
 
 # A ROMANISATION Wiktionary's page carries in its Hindi headword but the extract lost.
-ROMAN = {'फ़िल्म': 'film', 'गर्भवती': 'garbhvatī', 'उपग्रह': 'upgrah'}  # A2, B1
+ROMAN = {'फ़िल्म': 'film', 'गर्भवती': 'garbhvatī', 'उपग्रह': 'upgrah',  # A2, B1
+         'कुंडली': 'kuṇḍlī', 'मैल': 'mail', 'सर्वथा': 'sarvathā'}  # C1
 
 
 # "hyperforeign form of रिवाज" (the nukta added where it does not belong) is a note on

@@ -5,8 +5,8 @@ eleventh language set in the shape of the ones already shipped (Russian TORFL, I
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Hindi language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1, A2, B1 and B2 are built** (`.claude/hindi/`, §6–9). C1 and
-the phrases deck are not.
+**STATUS (2026-11-12): the alphabet deck and every level, A1 to C1, are built** (`.claude/hindi/`, §6–10).
+The phrases deck is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one line and one bump, because it
@@ -30,7 +30,7 @@ also changed the APP (the shelf's hue in `app.js`) — the Turkish and Russian p
 | Hindi A2 Elementary — built | `Hindi-A2.folio-deck.json` | 750 |
 | Hindi B1 Intermediate — built | `Hindi-B1.folio-deck.json` | 1,000 |
 | Hindi B2 Upper Intermediate — built | `Hindi-B2.folio-deck.json` | 1,500 |
-| Hindi C1 Advanced | `Hindi-C1.folio-deck.json` | 1,500 |
+| Hindi C1 Advanced — built | `Hindi-C1.folio-deck.json` | 1,500 |
 | Hindi Phrases and Expressions | `Hindi-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
@@ -86,7 +86,7 @@ subtitle-ordered deck on the shelf does. 7 of A1's 500 words have no Tatoeba sen
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2, B1 and B2 (done) to C1, one level per session: write
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2 (done)** — A2 to C1, one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `hindi_level.py`, run, read every card.
 **Phase 3** — the phrases deck (`phrase` / `proverb` entries and idiomatic multi-word lemmas). **Phase 4** —
 a combined file, gitignored.
@@ -188,3 +188,34 @@ multi-word verbs (`तुलना करना`, `दावा करना`, `
 some rarer verbs (`सारना`, `सनकना`, `छड़ना`) are dealt on counts that may belong to a commoner word and were not
 proven either way. Adult vocabulary is dealt on frequency, as at B1. Some first senses are the rarer ones
 Wiktionary lists first (`त्रुटि` "a unit of time" before "error", `शनि` "slow" before "Saturn").
+
+## 10. As built (2026-11-12): C1
+
+`python3 .claude/hindi/run.py --level c1`. 1,500 notes, 133 from the inventory and 1,367 by frequency; sentences
+for 318, three for 79, none for 1,182. A re-run is byte-identical, and A1 to B2 rebuilt by the changed code are
+byte-identical to the shipped files. The inventory (`inventory.py` `C1`) is the Sanskrit-derived vocabulary of
+formal and scholarly Hindi: philosophy and ethics, religion and the inner life, scholarship, the constitution,
+development economics, medicine, law and rights, language and literature (`अलंकार`, `उपमा`, `छंद`, `गद्य`),
+the shades of feeling (`विषाद`, `ग्लानि`, `वैराग्य`), the abstract nouns and adjectives of formal prose, and the
+literary adverbs (`अतएव`, `प्रायः`, `सर्वथा`, `क्रमशः`). **Wiktionary is thin at this level: 49 of the first
+draft's items have no entry** (`अंतरात्मा`, `वैश्वीकरण`, `सहिष्णुता`, `दीर्घकालिक`, `वस्तुतः`, every multi-word
+term …) and were dropped; two more were taken out because Wiktionary's only sense is not the one the level
+wants (`रूपक` "nickel", lacking "metaphor"; `निरोध` "condom", lacking "restraint, detention"). None was given a
+meaning by hand.
+
+**THE FILL IS WEAK HERE, and the deck is honest about it only in this note.** Past B2 the subtitle list's
+lemmas are counted three or four times each, so the ranking is close to noise: the fill is everyday words a
+C1 learner may still lack (`अचार`, `गोभी`, `कुहनी`, `मूँगफली`), registers of literary Hindi, and the residue of
+names and borrowings the exclusions below catch. It is still Wiktionary's meaning on every card, and none of it
+repeats a lower level.
+
+**Found on reading every card, and fixed:**
+- Three romanisations the extract lost are read off Wiktionary's Hindi headwords (`ROMAN`): `कुंडली` kuṇḍlī,
+  `मैल` mail, `सर्वथा` sarvathā.
+- New hand exclusions in `select.EXCLUDE`: counts belonging to another word (`चंद` "moon" ← "a few", `चल`, `फेंक`
+  ← the imperatives, `कहनी`, `मूझना`), English counted under a Hindi spelling (`ओक` ← "OK", `पिक`, `सेम`, `सन`,
+  `कोला`, `लावा`, `लोन`, `पिंग`, `ज़ार`), and given names and surnames (`इला`, `मित्रा`, `शांता`, `केतकी`, `अरुण`,
+  `ललित`, `विक्रम`, `हरि`, `रजनी`, `रीता`, `जोशी`, `जुगल`).
+
+**Known, left.** The weak fill above; a few low-count verbs whose counts may belong to commoner words were not
+proven either way. The phrases deck (Phase 3) is next.
