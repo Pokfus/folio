@@ -3505,8 +3505,13 @@ changed was the one that had been wrong all along.
   Wikipedia's 13.5 million; the hue is measured, `#6F69D2` (re-swept at the merge with Arabic and Telugu on the shelf).
 - `.claude/urdu/` — the generator behind the Urdu decks (Nov 2026, on request: "Add an Urdu language
   collection"; Hindi's answers of the same day taken: CEFR A1–C1 assembled, a script deck, romanisation on
-  every card). **Built: the alphabet, `decks/Urdu-Alphabet.folio-deck.json`** (56 notes) **and A1,
-  `decks/Urdu-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/urdu/run.py [--level a1]`
+  every card). **Built: the alphabet, `decks/Urdu-Alphabet.folio-deck.json`** (56 notes), **A1,
+  `decks/Urdu-A1.folio-deck.json`** (500 notes / 1,000 cards), **A2, `decks/Urdu-A2.folio-deck.json`**
+  (750 / 1,500), **B1, `decks/Urdu-B1.folio-deck.json`** (1,000 / 2,000) **and B2,
+  `decks/Urdu-B2.folio-deck.json`** (1,500 / 3,000; all three 2026-11-12, on request — B2 reaches the end of
+  what Wiktionary's Urdu supports, the plan's §9) **and the phrases deck,
+  `decks/Urdu-Phrases-and-Expressions.folio-deck.json`** (49 expressions, `--level phr`). **No C1**: the
+  source has nothing left for one (§10), and the owner chose the phrases deck instead. `python3 .claude/urdu/run.py [--level a1]`
   (the first fetch needs `wordfreq` on `PYTHONPATH`), `python3 .claude/urdu/alphabet.py`,
   `node .claude/urdu/check-urdu.js`; a re-run is byte-identical. Adapted from `.claude/hindi/`: the shelf's
   FIRST RIGHT-TO-LEFT decks (every Urdu span carries `dir="rtl"`, the face is the device's Nastaliq), two
@@ -3534,8 +3539,11 @@ changed was the one that had been wrong all along.
   `#14659F` (re-swept at the merge: Greek had taken the first sweep's periwinkle).
 - `.claude/swahili/` — the generator behind the Swahili decks (Nov 2026, on request: "Add a Swahili language
   collection"; no levels named, so Hindi's answers were taken — CEFR A1–C1 assembled). **Built: A1,
-  `decks/Swahili-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Swahili-A2.folio-deck.json`**
-  (750 / 1,500). `python3 .claude/swahili/run.py [--level a1]`,
+  `decks/Swahili-A1.folio-deck.json`** (500 notes / 1,000 cards) **, A2, `decks/Swahili-A2.folio-deck.json`**
+  (750 / 1,500) **, B1, `decks/Swahili-B1.folio-deck.json`** (1,000 / 2,000) **, B2,
+  `decks/Swahili-B2.folio-deck.json`** (1,500 / 3,000) **and C1, `decks/Swahili-C1.folio-deck.json`** (1,500 / 3,000;
+  ranked on two written corpora, CCMatrix and WikiMatrix, counted into a file of its own), **and the phrases
+  deck, `decks/Swahili-Phrases-and-Expressions.folio-deck.json`** (284 / 568, `--level phr`). `python3 .claude/swahili/run.py [--level a1]`,
   `node .claude/swahili/check-swahili.js`; a re-run is byte-identical. No frequency list exists, so two OPUS
   corpora (OpenSubtitles 2024, Global Voices) are counted and ranked by the geometric mean of their rates, and a
   verb parser credits conjugated forms to their stems; verbs print as infinitives, adjectives as stems, nouns
@@ -3590,8 +3598,11 @@ changed was the one that had been wrong all along.
 - `.claude/hausa/` — the generator behind the Hausa decks (Nov 2026, on request: "Add a Hausa language
   collection", then the owner's answers: CEFR A1–B1 at 500 / 750 / 1,000, the toned form as a second line,
   an alphabet (Boko) deck and later a phrases deck). **Built: the alphabet, `decks/Hausa-Alphabet.folio-deck.json`**
-  (36 notes) **and A1, `decks/Hausa-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/hausa/run.py
-  [--level a1] [--re-extract]`, `python3 .claude/hausa/alphabet.py`, `node .claude/hausa/check-hausa.js`; a re-run
+  (36 notes), **A1, `decks/Hausa-A1.folio-deck.json`** (500 notes / 1,000 cards) **A2, `decks/Hausa-A2.folio-deck.json`**
+  (750 notes, 2026-11-12; each level's hand glosses and lexicon kept apart so A1 stays byte-identical) **and B1,
+  `decks/Hausa-B1.folio-deck.json`** (1,000 notes, 2026-11-12, all from the inventory: the fill is exhausted) **and the phrases deck,
+  `decks/Hausa-Phrases-and-Expressions.folio-deck.json`** (108 expressions in three subdecks, no proverbs: no source
+  holds one; the owner chose it over a B2). `python3 .claude/hausa/run.py [--level a1|a2|b1|phr] [--re-extract]`, `python3 .claude/hausa/alphabet.py`, `node .claude/hausa/check-hausa.js`; a re-run
   is byte-identical. The thinnest sources on the shelf: Wiktionary has about 2,000 Hausa words and lacks core
   ones (`yi`, `tafi`, `da`), so 137 of A1's cards carry Folio's own gloss (`hand.py`, no tone line — a tone
   typed from memory has no source); there is no published frequency list, so frequency is counted from
@@ -3611,8 +3622,11 @@ changed was the one that had been wrong all along.
   Wikipedia's infobox); the hue is measured, `#008763` (re-swept at the merge). Not in `combine-decks.py`'s `PARTS`.
 - `.claude/zulu/` — the generator behind the Zulu decks (Nov 2026, on request: "Add a Zulu language
   collection", then the owner's answers: CEFR A1–B1 assembled, a noun classes and clicks deck first, A1 this
-  session). **Built: `decks/Zulu-Noun-Classes.folio-deck.json`** (39 notes: 16 classes, 23 sounds) **and A1,
-  `decks/Zulu-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/zulu/run.py [--level a1]`,
+  session). **Built: `decks/Zulu-Noun-Classes.folio-deck.json`** (39 notes: 16 classes, 23 sounds), **A1,
+  `decks/Zulu-A1.folio-deck.json`** (500 notes / 1,000 cards) **A2, `decks/Zulu-A2.folio-deck.json`** (750 notes /
+  1,500 cards) **B1, `decks/Zulu-B1.folio-deck.json`** (778 notes, short of 1,000: the source is used up)
+  **and the phrases deck, `decks/Zulu-Phrases.folio-deck.json`** (99 notes: 33 Wiktionary phrases, 66 Tatoeba
+  sentences; all 2026-11-12; `python3 .claude/zulu/phrases.py`). `python3 .claude/zulu/run.py [--level a1|a2|b1]`,
   `python3 .claude/zulu/classes.py`, `node .claude/zulu/check-zulu.js`; a re-run is byte-identical. The
   sources are thin — about 2,700 Wiktionary lemmas, about 110 Tatoeba sentences, no subtitle list — so the
   frequency is the Zulu Wikipedia's, counted per lemma over Zulu's conjunctive forms, and there is no B2 or C1.

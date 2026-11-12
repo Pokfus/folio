@@ -35,7 +35,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ar, ar_level
 
 E = lambda s: html.escape(s, quote=True)
-STAMP = "2026-11-09T00:00:00.000Z"
+STAMP = {"a1": "2026-11-09T00:00:00.000Z", "a2": "2026-11-12T00:00:00.000Z", "b1": "2026-11-12T12:00:00.000Z", "b2": "2026-11-12T18:00:00.000Z", "c1": "2026-11-13T00:00:00.000Z"}
 CLEAN = re.compile("^[ء-ٰٟٱـ]+$")
 POS_NAME = {"noun": "noun", "name": "noun", "verb": "verb", "adj": "adjective", "adv": "adverb",
             "pron": "pronoun", "prep": "preposition", "conj": "conjunction", "num": "number",
@@ -45,6 +45,9 @@ PERSONS = [("أَنَا", "f|m|s"), ("أَنْتَ", "s|m|s"), ("أَنْتِ", 
 REPORT = []
 # nouns that work as determiners — "every", "some", "other than", "someone", "like", "self": a gender and
 # a plural on their card describe a use an A1 learner does not meet
+# Wiktionary's entry carries no romanisation for these; written in its own scheme (check-arabic.js refuses
+# a card without one).  لَوْ "if": l + a + w, the sukūn writing no vowel; لَا سِيَّمَا "especially", B2.
+ROMAN = {"لَوْ": "law", "لَا سِيَّمَا": "lā siyyamā", "ضَغْط الدَّم": "ḍaḡṭ ad-dam", "مُحَرِّك بَحْث": "muḥarrik baḥṯ"}
 NOFORMS = {"كُلّ", "بَعْض", "غَيْر", "أَحَد", "مِثْل"}
 
 
@@ -138,7 +141,7 @@ def main():
     stats = {"nouns_pl": 0, "verbs": 0, "adjs": 0, "ex3": 0, "ex0": 0, "roman": 0}
     for i, w in enumerate(wl["words"]):
         h = headword(w)
-        roman = w["e"].get("roman", "")
+        roman = w["e"].get("roman", "") or ROMAN.get(h, "")
         forms = forms_html(w)
         stats["nouns_pl"] += 'uc-fl">plural' in forms and w["e"]["pos"] in ("noun", "name")
         stats["verbs"] += w["e"]["pos"] == "verb"
@@ -162,8 +165,8 @@ def main():
             "type": "arabic",
         })
     css = open(os.path.join(ar.HERE, "card.css"), encoding="utf-8").read()
-    meta = ar_level.meta(lv, cards, wl, stats, css, STAMP)
-    deck = {"folioDeck": 1, "exportedAt": STAMP, "meta": meta, "cards": cards, "gloss": {}}
+    meta = ar_level.meta(lv, cards, wl, stats, css, STAMP[lv])
+    deck = {"folioDeck": 1, "exportedAt": STAMP[lv], "meta": meta, "cards": cards, "gloss": {}}
     out = os.path.abspath(os.path.join(ar.DECKS, ar_level.FILE % lv.upper()))
     with open(out, "w", encoding="utf-8") as fh:
         json.dump(deck, fh, ensure_ascii=False)

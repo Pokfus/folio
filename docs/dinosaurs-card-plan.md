@@ -405,9 +405,9 @@ before writing it**, since Biology and the prehistory decks may have reached a n
     dino-005  The perforate acetabulum
     dino-006  The lizard-hipped dinosaurs
     dino-007  The bird-hipped dinosaurs
-    dino-008  The two-hipped division and its challenge
+    dino-008  The pubis and the two-hipped division
     dino-009  Ornithoscelida
-    dino-010  Common misconceptions about dinosaurs
+    dino-010  Dinosaurs are not lizards
     dino-011  Animals mistaken for dinosaurs
     dino-012  Why Dimetrodon is not a dinosaur
     dino-013  Why pterosaurs are not dinosaurs
@@ -448,7 +448,7 @@ before writing it**, since Biology and the prehistory decks may have reached a n
     dino-045  Air sacs
     dino-046  The braincase
     dino-047  Endocasts and dinosaur brains
-    dino-048  Sensory anatomy
+    dino-048  The trigeminal nerve and facial touch
     dino-049  Dinosaur eyes and vision
     dino-050  Hearing in dinosaurs
     dino-051  Smell in dinosaurs
@@ -488,7 +488,7 @@ before writing it**, since Biology and the prehistory decks may have reached a n
     dino-082  Dinosaur biogeography
     dino-083  Vicariance and dispersal
     dino-084  Endemism in dinosaur faunas
-    dino-085  What a dinosaur name tells you
+    dino-085  The specific name: what a dinosaur name tells you
 
 ## The Mesozoic World
 
@@ -503,7 +503,7 @@ before writing it**, since Biology and the prehistory decks may have reached a n
     dino-092  The Cretaceous
     dino-093  The Palaeozoic before them
     dino-094  The Cenozoic after them
-    dino-095  How long the dinosaurs lasted
+    dino-095  The Carnian and how long the dinosaurs lasted
     dino-096  Radiometric dating
     dino-097  Half-life and decay
     dino-098  Uranium-lead dating

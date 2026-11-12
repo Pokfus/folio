@@ -1362,6 +1362,57 @@ reverted as before, the new cards' derived ids kept, and `card-places.js` and `g
 rebuilt with `--install`. **Make this the standing order after any batch**: run the migration, then
 `git checkout` everything it touched outside the new cards before rebuilding the two indexes.
 
+### What carried this batch — `ru-301` to `ru-400`
+
+A hundred cards in one session (2026-11-12): the rest of `ru-peter`, all of `ru-empresses`, all of
+`ru-catherine` and the first twenty of `ru-alexander-i`, written as before by ten parallel passes of ten,
+each checked against the real guards by a dry-run validator (`add-card.js --dry-run`, `add-glossary.js`
+in a throwaway copy) and imported serially. **Every line's SUBJECT stands, so the list below is
+unchanged**; where the answer term is not the line's own words it is recorded here (the `ru-096` rule):
+
+| line | answer term | line | answer term |
+|---|---|---|---|
+| ru-301 | Spiritual Regulation | ru-302 | soul tax |
+| ru-303 | recruit levy | ru-304 | Decree on Single Inheritance |
+| ru-305 | possessional peasants | ru-306 | Nikita Demidov |
+| ru-307 | Petrine assemblies | ru-311 | Tsarevich Alexei |
+| ru-313 | Russo-Persian War of 1722–1723 | ru-314 | household census of 1710 |
+| ru-315 | Bronze Horseman | ru-321 | konditsii |
+| ru-323 | War of the Polish Succession | ru-328 | moratorium on the death penalty |
+| ru-330 | Moscow University | ru-335 | Seven Years' War |
+| ru-337 | raid on Berlin | ru-342 | coronation of Catherine II |
+| ru-345 | Free Economic Society | ru-347 | Denis Diderot |
+| ru-356 | Sevastopol | ru-371 | Treaty of Georgievsk |
+| ru-377 | Second Partition of Poland | ru-380 | Mikhailovsky Castle |
+| ru-385 | War of the Third Coalition | ru-390 | Continental System |
+| ru-394 | Bessarabia Governorate | ru-399 | 1812 Battle of Smolensk |
+
+**THE CLASHES STEERED THIS TIME**: *Most Holy Synod* (`ru-300`), *Table of Ranks* (`ru-297`), *beard tax*
+(`ru-285`), *Zaporozhian Sich* (`ru-271`), *enlightened absolutism* (`wh-752`), *Voltaire* (`wh-749`) and
+*Battle of Smolensk* (`ww2-272`) are owned elsewhere. **`ru-377` answers the Second Partition of Poland
+for the theme "Catherine and the French Revolution"** (the 1793 treaty's preamble blames "the fatal
+revolution in France"), and `ru-380` answers Mikhailovsky Castle because English Wikipedia has no article
+on the assassination. `Alexander_I_of_Russia` already existed, so 99 glossary terms are new.
+
+**NON-ARTICLE GLOSSARY KEYS**: `Spiritual_Regulation`, `Soul_tax`, `Decree_on_Single_Inheritance`,
+`Possessional_peasants`, `Petrine_assemblies`, `Law_of_succession_of_1722`, `Household_census_of_1710`,
+`Era_of_palace_revolutions`, `Konditsii`, `Bironovshchina`, `Coup_of_1741`, `Coup_of_1762`,
+`Manifesto_on_the_Freedom_of_the_Nobility`, `Coronation_of_Catherine_II`, `Legislative_Commission`,
+`Secularisation_of_church_lands_in_Russia`, `Provincial_reform_of_1775` and `Charter_to_the_Towns`;
+`Civil_script` is a section redirect. **Six Wikipedia links were set by hand** (`"manual": true`:
+ru-321, 366, 382, 384, 395, 399), where the resolver found the article only as a search suggestion.
+
+**DATES**: person, war, battle and city templates were written from each pass's sidecar with
+`set-person-dates.js` and `set-template-dates.js`; Julian/Gregorian choices and every disagreement
+between sources are in each card's `notes`. **Russian names** for all hundred were added to
+`.claude/russia-names.json` by hand and are NOT yet checked against Wikidata's Russian labels.
+
+**`migrate-places.js` WAS RUN OFFLINE** (`--fetch` was rate-limited by Wikidata) and drifted unrelated
+files as before; reverted per the standing order, keeping only `ru-356`'s derived city. The other
+locators' places are not yet derived — a later `--fetch` run will add them. **`atlas/data/wars.js` was
+already stale on the base commit** (Greek and Roman date-line changes; `migrate-places.js --check` fails
+on it) and was left untouched.
+
 ---
 
 # The list
