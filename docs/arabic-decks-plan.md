@@ -5,8 +5,9 @@ Arabic language collection." It is a twelfth language set in the shape of the on
 (`docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise).
 
-**STATUS (2026-11-12): built — the Arabic Alphabet (31 notes), Arabic A1 (500 notes / 1,000 cards) and Arabic
-A2 (600 notes / 1,200 cards, 2026-11-12).** B1 and up, and a phrases deck, are not built; §6 is what they need.
+**STATUS (2026-11-12): built — the Arabic Alphabet (31 notes), Arabic A1 (500 notes / 1,000 cards), Arabic A2
+(600 notes / 1,200 cards) and Arabic B1 (800 notes / 1,600 cards).** B2 and up, and a phrases deck, are not built;
+§6 is what they need.
 
 ## 1. What the set is
 
@@ -15,6 +16,7 @@ A2 (600 notes / 1,200 cards, 2026-11-12).** B1 and up, and a phrases deck, are n
 | Arabic Alphabet | `decks/Arabic-Alphabet.folio-deck.json` | 31: the 28 letters, then hamza ء, tāʔ marbūṭa ة, alif maqṣūra ى |
 | Arabic A1 | `decks/Arabic-A1.folio-deck.json` | 500 |
 | Arabic A2 | `decks/Arabic-A2.folio-deck.json` | 600, of 789 inventory lines (`inventory_a2.py`) |
+| Arabic B1 | `decks/Arabic-B1.folio-deck.json` | 800, of 1,013 lines: 824 of `inventory_b1.py` and A2's 189 left out |
 
 **Modern Standard Arabic only** — the written and formal language, not any dialect. Titles in English, as
 the Turkish and Russian sets settled. One note, two templates (Arabic → English, English → Arabic), the
@@ -113,8 +115,22 @@ is `rtl`, the table and the speaker; writes a screenshot).
   takes `build_deck.py`'s one-entry `ROMAN`. Four lines had no entry and one joined the wrong sense (طابق, a
   tile): all dropped; غِرَام "gram" and إِنْ were dropped on reading (غَرَام "love"; إِنَّ).
 
+- **B1 (2026-11-12) — `python3 .claude/arabic/run.py --level b1`.** `inventory_b1.py`, 860 lines written, 36 dropped
+  at the join (29 with no Wiktionary page — participles and adverbs such as مُتَفَائِل, مُؤَخَّرًا —, and 7 whose only
+  entry is another word: مُؤَلِّف would print مُؤَلَّف "a work", مُقَدِّم مُقَدَّم "chief", نَفْسِيّ نَفْسِي "myself").
+  **A2 IS NOW FROZEN TOO**: every B1 rule is gated `rank >= 2`, and A1 and A2 rebuild byte-identical. **"Taught"
+  means DEALT**: `select.py` reads each lower `wordlist-<lv>.json`; a lower line its deck left out is not a
+  competitor but is CARRIED into B1's lines (A2's 189), so no word is lost between levels. The B1 rules: a
+  spelling that is a LOWER level's own headword is that word's alone (split equally, `قبل` gave قَبَّلَ "to kiss"
+  half of A1's قَبْلَ and led the deal); `NOT_FORMS` moved to `ar.py`, grew by the B1 report (`اجل` "yes", `سام`
+  "Sam", `لديك` "you have", `مطلقا` "absolutely" …), and from B1 also bars a SENTENCE through those surfaces
+  (A2's carried سَمِيك no longer shows `اسمك` "your name"); `REFUSE_B1`, `REFUSE_EN_B1` and
+  `REFUSE_ANY_EN_B1` from reading all 800 (لَبَن finding لبنان "Lebanon", وَزَنَ الزنا, لَيْلِيّ the name Layla,
+  أَصَرَّ مصر "Egypt"; political lines — Putin, the Taliban, Israel, Islamophobia — insults and vulgarity).
+  لَمَّا has no sentence on purpose (every candidate is لِمَا "for what"); 77 have none in all.
+
 ## 6. Next levels
 
-B1 onward: a third inventory (`inventory_b1.py`, a `topics()` row, `SIZE`, `SCOPE`, `STAMP`), and A2 is then
-frozen as A1 is — a rule found at B1 gated so A2 rebuilds byte-identical. A phrases deck would start from
+B2 onward: a fourth inventory (`inventory_b2.py`, a `topics()` row, `SIZE`, `SCOPE`, `STAMP`), and B1 is then
+frozen as A1 and A2 are — a rule found at B2 gated `rank >= 3` so B1 rebuilds byte-identical. A phrases deck would start from
 kaikki's `phrase` / `intj` entries and Tatoeba counts, the Turkish `phrases.py` shape.

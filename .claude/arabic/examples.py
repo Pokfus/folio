@@ -92,6 +92,45 @@ REFUSE_ANY_EN_A2 = ["drug", "suicide", "explosive", "carnage", "Palestinian", "K
                     "pills", "crap", "oldest profession", "whip", "slapped", "sexual", "opium", "unite!",
                     "pussy", "fuck", "shit", "bitch", "dick"]
 
+# ---- found reading the B1 deck (Nov 2026); applied from B1 up, so A1 and A2 are not re-dealt ----
+REFUSE_B1 = {
+    "حِينَ": ["الحين"], "أَصَابَ": ["مصيب"], "أَجَّلَ": ["لأجل"], "وَفِيّ": ["الوفيات"], "عَرَّفَ": ["التعرف"],
+    "حَذَّرَ": ["حذرا"], "مَالِك": ["ملاك"], "مَثَّلَ": ["مثلنا"], "قَبَّلَ": ["مقبل"], "شَاهِد": ["شهد", "شاهدة"],
+    "حَمَّلَ": ["حملي"], "رِيَاضِيّ": ["رياضيات"], "لَيْلِيّ": ["ليلي"], "دِيك": ["والديك", "لديك"],
+    "حَكَم": ["حكمين"], "رَبَّى": ["المربى", "رب "], "سَرَطَان": ["السلطعون"], "مَزْرَعَة": ["المزارع"],
+    "آلِيّ": ["الي"], "طَرَدَ": ["طارد"], "أَصَرَّ": ["مصر"], "سَئِمَ": ["سام"], "رَكَّبَ": ["الركبي"],
+    "ثَرْوَة": ["الثراء"], "مُطَلَّق": ["مطلق"], "ذُرَة": ["الذرات"], "خَزَّنَ": ["المخزن"], "تُرَاب": ["التربة"],
+    "لَبَن": ["كلبنا", "لبنان"], "عَدَس": ["عدسات"], "لَوْز": ["بلوز"], "وَزَنَ": ["الزنا"], "طَبْع": ["الطبعي"],
+    "جَذْر": ["جذري"],
+    "لَمَّا": ["لما"],   # every candidate is لِمَا "for what" or dialect "why": no sentence
+}
+REFUSE_EN_B1 = {
+    "أَيُّهَا": ["Which", "fool", "Dirty", "coward"], "حِينَ": ["eyes"], "فُطْر": ["natural born", "Ramadan"], "أَطْلَقَ": ["shot", "fired"], "لَمَّا": ["Why", "why", "what happened"],
+    "مَلِك": ["belongs", "owns"], "تَحَمَّلَ": ["carry", "easy"], "شَخْصِيَّة": ["diary"], "قَاعِدَة": ["baseball"],
+    "مُسَاعِد": ["helpless"], "مُهِمَّة": ["important", "necessary", "matter"], "أَثَّرَ": ["high"], "قَطُّ": ["cat"],
+    "مَحْكَمَة": ["airtight"], "نَفَّذَ": ["short of", "rock bottom", "run out", "ran out", "out of"], "تَرَاجَعَ": ["revised"],
+    "كَبُرَ": ["exaggerating"], "تُهْمَة": ["matter", "devoured"], "غَاز": ["school"], "هَدَّدَ": ["life"],
+    "شَرْعِيّ": ["forensic", "affair"], "سِيَاسِيّ": ["lie all"], "دَوْرَة": ["period", "cycle"],
+    "جَدْوَل": ["creek"], "مُنْتَج": ["producer"], "جَسَدِيّ": ["temperature"], "حَسَّاس": ["Wokeism"],
+    "سِبَاق": ["sports car", "Hatoyama"], "مَصْلَحَة": ["firefighters"], "خَيْط": ["clinging"],
+    "يَوْمِيّ": ["My day", "Yumi"], "إِقَامَة": ["meeting", "charges"], "وِعَاء": ["wisdom"], "مَعْدِن": ["bottled"],
+    "تَوَصَّلَ": ["convince", "picture"], "صِفَة": ["masculine"], "مُبَاشِر": ["masculine"],
+    "مُصَوِّر": ["comic", "vlogging"], "إِعْلَام": ["noticed", "club"], "مِنْحَة": ["granted"],
+    "تَسْلِيم": ["extradited"], "ثَبَتَ": ["froze", "pitched"], "تِنِس": ["forget"], "صِينِيَّة": ["Chinese"],
+    "عُشّ": ["Live peacefully"], "مَوْرِد": ["HR"], "مُسْتَخْدِم": ["used car"], "رَقْمِيّ": ["number"],
+    "قُطْب": ["frowned"], "تُرَاب": ["laid to rest"], "مُرَاسِل": ["writing to", "write to"],
+    "نَسَخَ": ["sold out"], "عَنِيد": ["arrogant"], "بِيئَة": ["grew up"], "عَرَق": ["licorice"],
+    "حَمْلَة": ["manhunt", "China is leading"], "جَزَر": ["islands"], "قُطْن": ["lives"],
+    "فُرْشَاة": ["fork"], "جَوْز": ["coconut"], "قِسْط": ["sleep", "break"], "خَيْمَة": ["camped"],
+    "صَارِم": ["Homer"], "رِيشَة": ["paint"], "مِطْرَقَة": ["sickle", "millstone"],
+    "إِيصَال": ["clinic", "take Skura"], "عُود": ["lit matches"], "لَهْجَة": ["Kabyle", "All languages"],
+    "سَطْر": ["Period"], "ظُلْم": ["Like father"], "لَوْز": ["sweatshirt"],
+}
+REFUSE_ANY_EN_B1 = ["Taliban", "Zelenskyy", "Putin", "Hitler", "Israel", "West Bank", "Islamophob", "Bouteflika", "terrorist",
+                    "fascist", "bastard", "shahada", "assaulted", "Uyghur", "Morocco", "Gay marriage", "Islam",
+                    "sentenced to death", "condemned him to death", "Yidir", "your ass", "Christianity",
+                    "evangelical", "sexy", "guillotined", "communism", "Muslims should", "biblical", "Ukraine"]
+
 
 def read_tsv(name):
     with bz2.open(os.path.join(ar.CACHE, name), "rt", encoding="utf-8") as fh:
@@ -110,12 +149,15 @@ def main():
     ap.add_argument("--level", default="a1")
     a = ap.parse_args()
     strict = a.level != "a1"
+    b1 = inventory.LEVELS.index(a.level) >= 2
     vowelled_only = VOWELLED_ONLY | (VOWELLED_ONLY_A2 if strict else set())
     refuse = dict(REFUSE)
-    refuse_en = REFUSE_EN_A2 if strict else {}
-    if strict:
-        for k, v in REFUSE_A2.items():
-            refuse[k] = refuse.get(k, []) + v
+    refuse_en = dict(REFUSE_EN_A2) if strict else {}
+    refuse_any_en = REFUSE_ANY_EN_A2 + (REFUSE_ANY_EN_B1 if b1 else [])
+    for on, extra, into in ((strict, REFUSE_A2, refuse), (b1, REFUSE_B1, refuse), (b1, REFUSE_EN_B1, refuse_en)):
+        if on:
+            for k, v in extra.items():
+                into[k] = into.get(k, []) + v
     words = json.load(open(os.path.join(ar.CACHE, "wordlist-%s.json" % a.level), encoding="utf-8"))["words"]
     nw = len(words)
     for lv in inventory.LEVELS[:inventory.LEVELS.index(a.level)]:
@@ -145,7 +187,7 @@ def main():
             continue
         if any(r_ in text for r_ in REFUSE_ANY):
             continue
-        if strict and any(r_ in en[0] for r_ in REFUSE_ANY_EN_A2):
+        if strict and any(r_ in en[0] for r_ in refuse_any_en):
             continue
         pool.append((len(toks), int(sid), toks, [ar.fold(t) for t in toks], text, en[0], set()))
     pool.sort(key=lambda x: (x[0], x[1]))
@@ -187,6 +229,9 @@ def main():
                 # a prefix on a form of one or two letters finds other words: ب + ضع is بضع "a few",
                 # ك + فا is كفا, ك + لنا is كلنا
                 if p and len(f) < 3:
+                    continue
+                # from B1 a surface the count refuses for the word is no sentence's either (ar.NOT_FORMS)
+                if b1 and p + f in ar.NOT_FORMS.get(w["head"], ()):
                     continue
                 s.add(p + f)
                 b.add(p + ar.bare(v))

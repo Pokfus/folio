@@ -35,6 +35,11 @@ SCOPE = {
                  "relevance (e.g. very basic personal and family information, shopping, local geography, "
                  "employment)"),
     },
+    "b1": {
+        "title": "Arabic B1",
+        "cefr": ("Can understand the main points of clear standard input on familiar matters regularly "
+                 "encountered in work, school, leisure, etc."),
+    },
 }
 
 
@@ -62,6 +67,9 @@ def describe(level, cards, wl, stats):
         s.append("It builds on the levels below it: no word an earlier Arabic deck teaches is taught again here, "
                  "so start with %s if you have not." % " and ".join(
                      SCOPE[lv]["title"] for lv in inventory.LEVELS[:inventory.LEVELS.index(level)]))
+    if inventory.LEVELS.index(level) >= 2:
+        s.append("The words the earlier decks' lists held but left out as less common compete for a place "
+                 "here, so none of them is lost between levels.")
     s += [
         "Every headword is printed WITH its short vowels, as books for learners print them, because Arabic is "
         "normally written without them and nothing in the bare spelling says how كتب is read. The example "

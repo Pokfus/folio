@@ -30,7 +30,10 @@ THE LEVELS BELOW (A2 up).  Every line of a lower level's inventory is joined too
 a line whose entry is one a lower level already teaches STOPS the build (no
 headword is taught twice), and the lower levels' words take part in the count as
 competitors — a surface they share with this level's word is split with them —
-but are not dealt.  So `علم` is not all credited to عِلْم "science" when A1's
+but are not dealt.  "Taught" means DEALT: a lower line its deck left out
+(`wordlist-<lower>.json`) is not taught, and from B1 such lines are CARRIED into
+this level's own lines, competing on the same count, so a word is never lost
+between levels (A2 dealt 600 of its 789 lines).  So `علم` is not all credited to عِلْم "science" when A1's
 عَلَّمَ "to teach" is written the same.  Any other multi-word line (a compound
 or a numeral) is counted at its rarest word's surface, an upper bound.
 """
@@ -41,17 +44,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ar, inventory
 
 PREFIXES = ar.PREFIXES
-SIZE = {"a1": 500, "a2": 600}
-# SURFACES THAT ARE ANOTHER WORD, read off the A2 report (`via`, the surfaces each count came from): a
-# cell of the word's table that is, in a film, nearly always something else.  `بان` is بِ + أَنْ, `ابني`
-# "my son"; `اسمك` "your name", not سَمِيك's elative; `ارفع` "raise!"; `الفراش` "the bed"; `كاذبة` "false".
-NOT_FORMS = {
-    "بَنَى": {"بان", "ابني"},
-    "سَمِيك": {"اسمك", "باسمك"},
-    "رَفِيع": {"ارفع"},
-    "فَرَاشَة": {"فراش", "الفراش", "للفراش", "بالفراش", "والفراش"},
-    "ذُبَابَة": {"كاذبة"},
-}
+SIZE = {"a1": 500, "a2": 600, "b1": 800}
+NOT_FORMS = ar.NOT_FORMS            # in ar.py since B1: examples.py reads it too
 POS_GROUPS = [{"noun", "name"}, {"particle", "adv", "intj"}, {"pron", "adv", "det"}, {"phrase", "intj", "adv"}]
 
 
@@ -100,13 +94,24 @@ def main():
     ap.add_argument("--level", default="a1")
     a = ap.parse_args()
     D = ar.load_dict()
-    below = [ln for lv in inventory.LEVELS[:inventory.LEVELS.index(a.level)] for ln in inventory.entries(lv)]
-    for ln in below:
-        ln["e"] = join(D, ln)[0]
-    below = [ln for ln in below if ln["e"]]
+    rank = inventory.LEVELS.index(a.level)
+    below, carried = [], []
+    for lv in inventory.LEVELS[:rank]:
+        p_ = os.path.join(ar.CACHE, "wordlist-%s.json" % lv)
+        if not os.path.exists(p_):
+            raise SystemExit("build %s first: its dealt words are this level's competitors" % lv)
+        dealt = {w["head"] for w in json.load(open(p_, encoding="utf-8"))["words"]}
+        for ln in inventory.entries(lv):
+            ln["e"] = join(D, ln)[0]
+            if ln["e"]:
+                (below if ln["head"] in dealt else carried).append(ln)
     lines = inventory.entries(a.level)
+    if rank >= 2:                  # B1 up: the lower lines their decks left out are this level's too
+        lines = [dict(ln, carried=True) for ln in carried] + lines
     missing, loose = [], []
     for ln in lines:
+        if ln.get("carried"):
+            continue
         e, s = join(D, ln)
         if e is None:
             missing.append(ln)
@@ -184,8 +189,19 @@ def main():
         if " " not in ln["head"]:
             own_head[ar.fold(ln["head"])].add(i)
             own_head[ar.fold(ln["e"]["head"])].add(i)
+    # B1 UP: A SPELLING THAT IS A LOWER LEVEL'S OWN HEADWORD IS THAT WORD'S ALONE.  Split equally, `قبل`
+    # (A1's قَبْلَ "before") gave half its count to قَبَّلَ "to kiss" and `لكن` half to لٰكِنَّ, which then
+    # led the B1 deal; the word a lower level teaches is the commoner reading of a spelling it owns.
+    lower = set(range(nl, len(lines)))
     shared_head = set()
     for s_, own in owners.items():
+        if rank >= 2:
+            low = own & own_head.get(s_, set()) & lower
+            if low:
+                owners[s_] = low
+                if len(low) > 1:
+                    shared_head.add(s_)
+                continue
         mine = own & own_head.get(s_, set())
         if mine:
             owners[s_] = mine

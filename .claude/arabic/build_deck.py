@@ -35,7 +35,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ar, ar_level
 
 E = lambda s: html.escape(s, quote=True)
-STAMP = {"a1": "2026-11-09T00:00:00.000Z", "a2": "2026-11-12T00:00:00.000Z"}
+STAMP = {"a1": "2026-11-09T00:00:00.000Z", "a2": "2026-11-12T00:00:00.000Z", "b1": "2026-11-12T12:00:00.000Z"}
 CLEAN = re.compile("^[ء-ٰٟٱـ]+$")
 POS_NAME = {"noun": "noun", "name": "noun", "verb": "verb", "adj": "adjective", "adv": "adverb",
             "pron": "pronoun", "prep": "preposition", "conj": "conjunction", "num": "number",

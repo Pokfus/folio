@@ -40,3 +40,23 @@ def tokens(text):
 
 def load_dict():
     return json.load(open(os.path.join(CACHE, "dict.json"), encoding="utf-8"))
+
+
+# SURFACES THAT ARE ANOTHER WORD, read off the A2 and B1 reports (`via`, the surfaces each count came from): a
+# cell of the word's table that is, in a film, nearly always something else.  `select.py` never counts
+# them for the word; from B1 up `examples.py` never takes a sentence through them either.  `بان` is بِ + أَنْ, `ابني`
+# "my son"; `اسمك` "your name", not سَمِيك's elative; `ارفع` "raise!"; `الفراش` "the bed"; `كاذبة` "false".
+NOT_FORMS = {
+    "بَنَى": {"بان", "ابني"},
+    "سَمِيك": {"اسمك", "باسمك"},
+    "رَفِيع": {"ارفع"},
+    "فَرَاشَة": {"فراش", "الفراش", "للفراش", "بالفراش", "والفراش"},
+    "ذُبَابَة": {"كاذبة"},
+    # read off the B1 report: `اجل` "yes"; `الي` إليّ; `بالطبع` "of course"; `حسن` "good"; `لديك` "you
+    # have"; `سام` the name Sam; `مطلقا` "absolutely"; `الغير` "others"; `البشر` A2's بَشَر; `تينا` Tina;
+    # `الفقري` "vertebral"; `الملك` the king; `لاجل` "for the sake of", the noun; `كلا` "no!"; `اد` أَدِّ
+    "أَجَّلَ": {"اجل", "واجل", "فاجل", "لاجل", "ولاجل"}, "كِلَا": {"كلا", "وكلا"}, "أَدَّى": {"اد"}, "أَجْل": {"اجل", "واجل", "فاجل"}, "آلِيّ": {"الي", "والي"},
+    "طَبْع": {"بالطبع", "وبالطبع"}, "حَسَّنَ": {"حسن", "وحسن", "فحسن"}, "دِيك": {"لديك", "الديك", "ولديك"},
+    "سَئِمَ": {"سام", "وسام"}, "مُطَلَّق": {"مطلقا"}, "غَيُور": {"الغير", "للغير"}, "بَشَرَة": {"البشر", "بشر"},
+    "تِين": {"تينا"}, "فَقْر": {"الفقري"}, "مَالِك": {"الملك", "ملك"},
+}
