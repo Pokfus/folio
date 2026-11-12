@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T04:57Z",
+ "generated": "2026-11-12T05:04Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6699,
-  "redirect-broader": 640,
-  "redirect-variant": 400,
-  "section-redirect": 137,
+  "ok": 6744,
+  "redirect-broader": 647,
+  "redirect-variant": 402,
+  "section-redirect": 139,
   "disambiguation": 149,
-  "none": 1021,
-  "disambig-resolved": 90,
+  "none": 1024,
+  "disambig-resolved": 91,
   "list-page": 6,
   "search-match": 9,
   "no-article": 19
@@ -73302,6 +73302,461 @@
    "answer": "pluralism in economics",
    "title": "Pluralism in economics",
    "url": "https://en.wikipedia.org/wiki/Pluralism_in_economics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-021": {
+   "answer": "scarcity",
+   "title": "Scarcity",
+   "url": "https://en.wikipedia.org/wiki/Scarcity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-022": {
+   "answer": "constrained optimisation",
+   "title": "Constrained optimization",
+   "url": "https://en.wikipedia.org/wiki/Constrained_optimization",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Constrained optimisation"
+  },
+  "ec-023": {
+   "answer": "opportunity cost",
+   "title": "Opportunity cost",
+   "url": "https://en.wikipedia.org/wiki/Opportunity_cost",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-024": {
+   "answer": "production possibility frontier",
+   "title": "Production-possibility frontier",
+   "url": "https://en.wikipedia.org/wiki/Production-possibility_frontier",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Production possibility frontier"
+  },
+  "ec-025": {
+   "answer": "trade-off",
+   "title": "Trade-off",
+   "url": "https://en.wikipedia.org/wiki/Trade-off",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-026": {
+   "answer": "margin",
+   "title": "Margin (economics)",
+   "url": "https://en.wikipedia.org/wiki/Margin_(economics)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-027": {
+   "answer": "marginal benefit",
+   "title": "Marginal utility",
+   "url": "https://en.wikipedia.org/wiki/Marginal_utility",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Marginal benefit"
+  },
+  "ec-028": {
+   "answer": "sunk cost",
+   "title": "Sunk cost",
+   "url": "https://en.wikipedia.org/wiki/Sunk_cost",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-029": {
+   "answer": "sunk cost fallacy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Sunk cost fallacy",
+   "target": "Sunk cost#Fallacy effect"
+  },
+  "ec-030": {
+   "answer": "incentive",
+   "title": "Incentive",
+   "url": "https://en.wikipedia.org/wiki/Incentive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-031": {
+   "answer": "perverse incentive",
+   "title": "Perverse incentive",
+   "url": "https://en.wikipedia.org/wiki/Perverse_incentive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-032": {
+   "answer": "specialisation",
+   "title": "Division of labour",
+   "url": "https://en.wikipedia.org/wiki/Division_of_labour",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Specialization"
+  },
+  "ec-033": {
+   "answer": "division of labour",
+   "title": "Division of labour",
+   "url": "https://en.wikipedia.org/wiki/Division_of_labour",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-034": {
+   "answer": "voluntary exchange",
+   "title": "Voluntary exchange",
+   "url": "https://en.wikipedia.org/wiki/Voluntary_exchange",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-035": {
+   "answer": "lower opportunity cost",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Opportunity cost",
+    "Profit (economics)",
+    "Microeconomics",
+    "Diminishing returns",
+    "Total cost"
+   ]
+  },
+  "ec-036": {
+   "answer": "absolute advantage",
+   "title": "Absolute advantage",
+   "url": "https://en.wikipedia.org/wiki/Absolute_advantage",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-037": {
+   "answer": "economic efficiency",
+   "title": "Economic efficiency",
+   "url": "https://en.wikipedia.org/wiki/Economic_efficiency",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-038": {
+   "answer": "allocative efficiency",
+   "title": "Allocative efficiency",
+   "url": "https://en.wikipedia.org/wiki/Allocative_efficiency",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-039": {
+   "answer": "equity-efficiency trade-off",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Pareto efficiency",
+    "Trade-off",
+    "Economics",
+    "Welfare economics",
+    "Tax policy"
+   ]
+  },
+  "ec-040": {
+   "answer": "willingness to pay",
+   "title": "Willingness to pay",
+   "url": "https://en.wikipedia.org/wiki/Willingness_to_pay",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-041": {
+   "answer": "economic model",
+   "title": "Economic model",
+   "url": "https://en.wikipedia.org/wiki/Economic_model",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-042": {
+   "answer": "stylised fact",
+   "title": "Stylized fact",
+   "url": "https://en.wikipedia.org/wiki/Stylized_fact",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Stylised fact"
+  },
+  "ec-043": {
+   "answer": "methodological individualism",
+   "title": "Methodological individualism",
+   "url": "https://en.wikipedia.org/wiki/Methodological_individualism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-044": {
+   "answer": "ceteris paribus",
+   "title": "Ceteris paribus",
+   "url": "https://en.wikipedia.org/wiki/Ceteris_paribus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-045": {
+   "answer": "Essays in Positive Economics",
+   "title": "Essays in Positive Economics",
+   "url": "https://en.wikipedia.org/wiki/Essays_in_Positive_Economics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-046": {
+   "answer": "homo economicus",
+   "title": "Homo economicus",
+   "url": "https://en.wikipedia.org/wiki/Homo_economicus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-047": {
+   "answer": "rational choice theory",
+   "title": "Rational choice model",
+   "url": "https://en.wikipedia.org/wiki/Rational_choice_model",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Rational choice theory"
+  },
+  "ec-048": {
+   "answer": "instrumental rationality",
+   "title": "Instrumental and value rationality",
+   "url": "https://en.wikipedia.org/wiki/Instrumental_and_value_rationality",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Instrumental rationality"
+  },
+  "ec-049": {
+   "answer": "economic equilibrium",
+   "title": "Economic equilibrium",
+   "url": "https://en.wikipedia.org/wiki/Economic_equilibrium",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-050": {
+   "answer": "general equilibrium",
+   "title": "General equilibrium theory",
+   "url": "https://en.wikipedia.org/wiki/General_equilibrium_theory",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "General equilibrium"
+  },
+  "ec-051": {
+   "answer": "comparative statics",
+   "title": "Comparative statics",
+   "url": "https://en.wikipedia.org/wiki/Comparative_statics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-052": {
+   "answer": "cobweb model",
+   "title": "Cobweb model",
+   "url": "https://en.wikipedia.org/wiki/Cobweb_model",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-053": {
+   "answer": "stock and flow",
+   "title": "Stock and flow",
+   "url": "https://en.wikipedia.org/wiki/Stock_and_flow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-054": {
+   "answer": "elasticity",
+   "title": "Elasticity (economics)",
+   "url": "https://en.wikipedia.org/wiki/Elasticity_(economics)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-055": {
+   "answer": "mathematical economics",
+   "title": "Mathematical economics",
+   "url": "https://en.wikipedia.org/wiki/Mathematical_economics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-056": {
+   "answer": "Cowles Commission",
+   "title": "Cowles Foundation",
+   "url": "https://en.wikipedia.org/wiki/Cowles_Foundation",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Cowles Commission"
+  },
+  "ec-057": {
+   "answer": "economic data",
+   "title": "Economic data",
+   "url": "https://en.wikipedia.org/wiki/Economic_data",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-058": {
+   "answer": "official statistics",
+   "title": "Official statistics",
+   "url": "https://en.wikipedia.org/wiki/Official_statistics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-059": {
+   "answer": "endogeneity",
+   "title": "Endogeneity (econometrics)",
+   "url": "https://en.wikipedia.org/wiki/Endogeneity_(econometrics)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-060": {
+   "answer": "natural experiment",
+   "title": "Natural experiment",
+   "url": "https://en.wikipedia.org/wiki/Natural_experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-061": {
+   "answer": "econometrics",
+   "title": "Econometrics",
+   "url": "https://en.wikipedia.org/wiki/Econometrics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-062": {
+   "answer": "economic forecasting",
+   "title": "Economic forecasting",
+   "url": "https://en.wikipedia.org/wiki/Economic_forecasting",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-063": {
+   "answer": "structural break",
+   "title": "Structural break",
+   "url": "https://en.wikipedia.org/wiki/Structural_break",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-064": {
+   "answer": "Tinbergen rule",
+   "title": "Tinbergen Rule",
+   "url": "https://en.wikipedia.org/wiki/Tinbergen_Rule",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-065": {
+   "answer": "base effect",
+   "title": "Base effect",
+   "url": "https://en.wikipedia.org/wiki/Base_effect",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-066": {
+   "answer": "Goodhart's law",
+   "title": "Goodhart's law",
+   "url": "https://en.wikipedia.org/wiki/Goodhart's_law",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-067": {
+   "answer": "expected value",
+   "title": "Expected value",
+   "url": "https://en.wikipedia.org/wiki/Expected_value",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-068": {
+   "answer": "Knightian uncertainty",
+   "title": "Knightian uncertainty",
+   "url": "https://en.wikipedia.org/wiki/Knightian_uncertainty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-069": {
+   "answer": "radical uncertainty",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Uncertainty",
+    "Knightian uncertainty",
+    "Heterodox economics",
+    "Trans-exclusionary radical feminism",
+    "Radical centrism"
+   ]
+  },
+  "ec-070": {
+   "answer": "value judgement",
+   "title": "Value judgment",
+   "url": "https://en.wikipedia.org/wiki/Value_judgment",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Value judgement"
+  },
+  "ec-071": {
+   "answer": "welfare economics",
+   "title": "Welfare economics",
+   "url": "https://en.wikipedia.org/wiki/Welfare_economics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-072": {
+   "answer": "Pareto efficiency",
+   "title": "Pareto efficiency",
+   "url": "https://en.wikipedia.org/wiki/Pareto_efficiency",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-073": {
+   "answer": "distribution",
+   "title": "Distribution (economics)",
+   "url": "https://en.wikipedia.org/wiki/Distribution_(economics)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-074": {
+   "answer": "compensation principle",
+   "title": "Compensation principle",
+   "url": "https://en.wikipedia.org/wiki/Compensation_principle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-075": {
+   "answer": "social welfare function",
+   "title": "Social welfare function",
+   "url": "https://en.wikipedia.org/wiki/Social_welfare_function",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-076": {
+   "answer": "Arrow's impossibility theorem",
+   "title": "Arrow's impossibility theorem",
+   "url": "https://en.wikipedia.org/wiki/Arrow's_impossibility_theorem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-077": {
+   "answer": "interpersonal comparisons of utility",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Interpersonal comparisons of utility",
+   "target": "Utility#Interpersonal comparisons of utility"
+  },
+  "ec-078": {
+   "answer": "cost-benefit analysis",
+   "title": "Cost–benefit analysis",
+   "url": "https://en.wikipedia.org/wiki/Cost%E2%80%93benefit_analysis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-079": {
+   "answer": "value of a statistical life",
+   "title": "Value of a statistical life",
+   "url": "https://en.wikipedia.org/wiki/Value_of_a_statistical_life",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ec-080": {
+   "answer": "social discount rate",
+   "title": "Social discount rate",
+   "url": "https://en.wikipedia.org/wiki/Social_discount_rate",
    "via": "glossary",
    "status": "ok"
   }

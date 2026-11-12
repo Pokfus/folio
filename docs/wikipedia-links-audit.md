@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6699 | the title is the article |
-| `redirect-variant` | 400 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 90 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 6744 | the title is the article |
+| `redirect-variant` | 402 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 91 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 640 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 647 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 137 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 139 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 149 | only a disambiguation page; no link could be chosen |
-| `none` | 1021 | nothing matched; no link |
+| `none` | 1024 | nothing matched; no link |
 
-**7845 of 9170 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7900 of 9230 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (640)
+## Redirected to a differently named article — check each (647)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -129,6 +129,13 @@ The answer redirects to an article with another name. Most are the same subject 
 - `cnh-990` **Zhaozhou Bridge** → [Anji Bridge](https://en.wikipedia.org/wiki/Anji_Bridge) (from `Zhaozhou Bridge`)
 - `ec-006` **positive economics** → [Positive and normative economics](https://en.wikipedia.org/wiki/Positive_and_normative_economics) (from `Positive economics`)
 - `ec-008` **economic agent** → [Agent (economics)](https://en.wikipedia.org/wiki/Agent_(economics)) (from `Economic agent`)
+- `ec-024` **production possibility frontier** → [Production-possibility frontier](https://en.wikipedia.org/wiki/Production-possibility_frontier) (from `Production possibility frontier`)
+- `ec-027` **marginal benefit** → [Marginal utility](https://en.wikipedia.org/wiki/Marginal_utility) (from `Marginal benefit`)
+- `ec-042` **stylised fact** → [Stylized fact](https://en.wikipedia.org/wiki/Stylized_fact) (from `Stylised fact`)
+- `ec-047` **rational choice theory** → [Rational choice model](https://en.wikipedia.org/wiki/Rational_choice_model) (from `Rational choice theory`)
+- `ec-048` **instrumental rationality** → [Instrumental and value rationality](https://en.wikipedia.org/wiki/Instrumental_and_value_rationality) (from `Instrumental rationality`)
+- `ec-056` **Cowles Commission** → [Cowles Foundation](https://en.wikipedia.org/wiki/Cowles_Foundation) (from `Cowles Commission`)
+- `ec-070` **value judgement** → [Value judgment](https://en.wikipedia.org/wiki/Value_judgment) (from `Value judgement`)
 - `eep-017` **Civilian power** → [Civil and political rights](https://en.wikipedia.org/wiki/Civil_and_political_rights) (from `Civilian power`)
 - `eep-032` **European Defence Community** → [Treaty establishing the European Defence Community](https://en.wikipedia.org/wiki/Treaty_establishing_the_European_Defence_Community) (from `European Defence Community`)
 - `eep-040` **Petersberg tasks** → [Petersberg Declaration](https://en.wikipedia.org/wiki/Petersberg_Declaration) (from `Petersberg tasks`)
@@ -685,7 +692,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (90)
+## Settled from a disambiguation page (91)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -700,6 +707,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `cnh-350` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
 - `cnh-373` **Emperor Xuanzong** → [Emperor Xuanzong of Tang](https://en.wikipedia.org/wiki/Emperor_Xuanzong_of_Tang) (via the disambiguation page `Xuanzong`)
 - `cnh-948` **Huang Quan** → [Huang Quan (painter)](https://en.wikipedia.org/wiki/Huang_Quan_(painter)) (via the disambiguation page `Huang Quan`)
+- `ec-032` **specialisation** → [Division of labour](https://en.wikipedia.org/wiki/Division_of_labour) (via the disambiguation page `Specialization`)
 - `eep-152` **Cluster** → [Open cluster](https://en.wikipedia.org/wiki/Open_cluster) (via the disambiguation page `Cluster`)
 - `eep-289` **Iron Triangle** → [Iron triangle (US politics)](https://en.wikipedia.org/wiki/Iron_triangle_(US_politics)) (via the disambiguation page `Iron Triangle`)
 - `gc-803` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
@@ -959,7 +967,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (137)
+## Section redirects — no dedicated page (139)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -980,6 +988,8 @@ Wikipedia treats these as part of another article. No link.
 - `cnh-859` **Taijitu shuo** — `Taijitu shuo` only redirects into `Wuji (philosophy)#Taijitu shuo`
 - `cnh-985` **Taichu calendar** — `Taichu calendar` only redirects into `Chinese calendar#Han-Ming dynasties and Taichu calendar`
 - `cnh-994` **Drawloom** — `Drawloom` only redirects into `Loom#Drawloom`
+- `ec-029` **sunk cost fallacy** — `Sunk cost fallacy` only redirects into `Sunk cost#Fallacy effect`
+- `ec-077` **interpersonal comparisons of utility** — `Interpersonal comparisons of utility` only redirects into `Utility#Interpersonal comparisons of utility`
 - `eep-062` **Qualified majority voting** — `Qualified majority voting` only redirects into `Voting in the Council of the European Union#Treaty of Lisbon`
 - `eep-183` **Mixed agreement** — `Mixed agreement` only redirects into `Common Commercial Policy (EU)#Mixed agreements`
 - `eep-233` **Discursive institutionalism** — `Discursive institutionalism` only redirects into `New institutionalism#Constructivist institutionalism`
@@ -1101,7 +1111,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1021)
+## No article found (1024)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1265,6 +1275,9 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `cnh-896` **Great Cloud Sutra** — search suggests `Mahāmegha Sūtra`, `Diamond Sutra`, `Mahayana sutras`, `Sukhavati`, `Prajnaparamita`
 - `cnh-898` **Tianzhu shiyi** — search suggests `Tianzhu (Chinese name of God)`, `Christianity in China`, `Alessandro Valignano`, `Catholic missions`, `Lotus Sutra`
 - `ec-014` **what, how and for whom** — search suggests `The Mother (How I Met Your Mother)`, `Enjoining good and forbidding wrong`, `Reproduction (economics)`, `Chief executive officer`, `Supply-side economics`
+- `ec-035` **lower opportunity cost** — search suggests `Opportunity cost`, `Profit (economics)`, `Microeconomics`, `Diminishing returns`, `Total cost`
+- `ec-039` **equity-efficiency trade-off** — search suggests `Pareto efficiency`, `Trade-off`, `Economics`, `Welfare economics`, `Tax policy`
+- `ec-069` **radical uncertainty** — search suggests `Uncertainty`, `Knightian uncertainty`, `Heterodox economics`, `Trans-exclusionary radical feminism`, `Radical centrism`
 - `eep-001` **Iceland referendum** — search suggests `2026 Icelandic European Union membership negotiations referendum`, `Iceland–European Union relations`, `1944 Icelandic constitutional referendum`, `Icelandic referendum`, `Referendums related to the European Union`
 - `eep-004` **External action** — search suggests `European External Action Service`, `List of ambassadors of the European Union`, `European Union Intelligence and Situation Centre`, `European Union Military Staff`, `High Representative of the Union for Foreign Affairs and Security Policy`
 - `eep-005` **Composite foreign policy** — search suggests `Franco-British Union`, `European Commissioner for External Relations`, `List of countries by exchange rate regime`, `SSE Composite Index`, `Eastern Partnership`
