@@ -45,7 +45,7 @@ window.CHANGELOG = [
       "100 new cards in <b>Psychology</b>, from research ethics and the replication crisis to neurons, the brain and the methods of neuroscience, with 94 new glossary terms.",
       "200 new cards in <b>United States</b>, from the Constitution's ratification to the Mexican War, antebellum reform and slavery, with 191 new glossary terms.",
       "100 new cards in <b>Russia</b>, from Peter the Great's reforms and the age of the empresses through Catherine the Great to Borodino, with 99 new glossary terms.",
-      "<b>80 China cards are rewritten</b>, from the Shang royal women to the Battle of Maling, with new sources and dates.",
+      "<b>90 China cards are rewritten</b>, from the Shang royal women to the end of the Zhou, with new sources and dates.",
     ],
   },
   {

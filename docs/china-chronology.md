@@ -339,6 +339,14 @@ Filled batch by batch from `cnh-101` (B11 on). **The protected lines** of the se
 | the alliances: the league / the joint attack / unification | 333 BCE / 318 BCE / 221 BCE | `cnh-178` |
 | Zhang Yi in office in Qin | 328 – 312 BCE | Maspero (`cnh-179`) |
 | Maling: the Shiji / the Bamboo Annals | 341 BCE / 343 BCE | `cnh-180` |
+| Changping | 260 BCE | `cnh-181` |
+| the Jixia: active / peak (Meyer) | c. 356 – 221 BCE / 319 – 284 BCE | `cnh-183` |
+| the Four Lords active | c. 299 – 238 BCE | `cnh-184` |
+| the Zhanguo Ce compiled / the Song editions | c. 100 – 1 BCE / 1146 – 1147 | Chavannes (`cnh-185`) |
+| Qu Yuan's rebuke / King Huai trapped / his death in Qin | 311 BCE / 299 BCE / 296 BCE | Chavannes (`cnh-186`) |
+| the Li Sao written / Liu Xiang (the collection) | c. 300 BCE / c. 77 – 6 BCE | `cnh-187` |
+| the conquest of the six states (Han 230, Zhao 228, Wei 225, Chu 223, Yan 222, Qi 221) | 230 – 221 BCE | Chavannes (`cnh-188`) |
+| the last Zhou king dies / the eastern lord annexed: Hirth / Chavannes | 256 BCE / 249 BCE / 250 BCE | `cnh-190` |
 
 ## Later periods
 
@@ -532,4 +540,11 @@ cnh-177: 453; 221; 386; 284
 cnh-178: 333; 318; 221
 cnh-179: 328; 312
 cnh-180: 341; 343
+cnh-181: 260
+cnh-183: 356; 221; 319; 284
+cnh-184: 299; 238
+cnh-185: 100; 1146; 1147
+cnh-187: 300; 77; 6
+cnh-188: 230; 221
+cnh-190: 256; 249; 250
 ```

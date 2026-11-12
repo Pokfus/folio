@@ -314,7 +314,7 @@ otherwise.
 | B16 | Eastern Zhou (`col-5`) | `cnh-151`–`cnh-160` | 10 | 107 | **done 2026-11-12** |
 | B17 | Eastern Zhou (`col-5`) | `cnh-161`–`cnh-170` | 10 | 121 | **done 2026-11-12** |
 | B18 | Eastern Zhou (`col-5`) | `cnh-171`–`cnh-180` | 10 | 110 | **done 2026-11-12** |
-| B19 | Eastern Zhou (`col-5`) | `cnh-181`–`cnh-190` | 10 | 107 | to do |
+| B19 | Eastern Zhou (`col-5`) | `cnh-181`–`cnh-190` | 10 | 107 | **done 2026-11-12** |
 | B20 | Qin (`col-7`) | `cnh-191`–`cnh-200` | 10 | 103 | to do |
 | B21 | Qin (`col-7`) | `cnh-201`–`cnh-210` | 10 | 93 | to do |
 | B22 | Qin (`col-7`) / Western Han (`col-10`) | `cnh-211`–`cnh-220` | 10 | 86 | to do |
@@ -618,6 +618,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-178` | a woodblock of Zhang Yi | not re-checked (Commons 429): wrong for this card (one man) — better on `cnh-179` |
 | `cnh-179` | a page of the Zhanguo Ce | not re-checked (Commons 429): weak; the credit names no author |
 | `cnh-180` | the Sun Bin slips | not re-checked (Commons 429): ok |
+| `cnh-181` | an arrowhead | not re-checked (Commons 429): weak: a generic arrowhead |
+| `cnh-182` | a later portrait | not re-checked (Commons 429): ok |
+| `cnh-183` | a Daoist slip manuscript | not re-checked (Commons 429): wrong: generic, not the Jixia |
+| `cnh-184` | a belt hook | not re-checked (Commons 429): wrong: generic |
+| `cnh-185` | an edition of the book | not re-checked (Commons 429): ok |
+| `cnh-186` | a later portrait | not re-checked (Commons 429): ok |
+| `cnh-187` | an illustrated Li Sao | not re-checked (Commons 429): ok |
+| `cnh-188` | a labelled map | not re-checked (Commons 429): ok; burned-in labels |
+| `cnh-189` | a picture of the attempt | not re-checked (Commons 429): ok; the description misspells "Jin Ke" — fix |
+| `cnh-190` | ding in the Hunan Museum | not re-checked (Commons 429): wrong: generic ding, not the royal set |
 
 ## Glossary candidates
 
@@ -1370,3 +1380,38 @@ Guanzhuang mint. **Legend**: Su Qin's league and the Wuling debate are now texts
 **Protected lines: unchanged** (diffed after the apply); `cnh-174`'s rows agree with the *Shiji* as Chavannes converts
 it. For the owner: the `Su_Qin` and `Zhang_Yi` glossary entries still give 333 / 318 / 310 BCE as fact; `cnh-234`'s
 line gives 120 BCE for the Han iron monopoly, where Wagner gives 117 BCE.
+
+### B19 — `cnh-181`–`cnh-190`, Eastern Zhou: Changping to the end of the Zhou (2026-11-12)
+
+Run as B11. Every cited URL answered this session. **Pictures were not touched** (Commons 429). **The old cards gave
+Changping "c. 700,000 dead, per Sima Qian" (the *Shiji*: 400,000 surrendered and killed, 450,000 in all) and a
+converted "April 262 BCE", put the men's names in the Four Lords' date values with death years no source read prints,
+dated the Jixia Academy by King Xuan's older reckoning and called it a "paid faculty", dated the *Zhanguo Ce* by Liu
+Xiang's life with a chapter count and an unsourced "edition of 1146", dated the *Li Sao* "after 314 BCE" and by Qu
+Yuan's life, gave the conquest of the six states an "Order" row, offered the "Jing Ke wounded the king" rumour (which
+the *Shiji* itself rejects) as an equal version, and called the duchy of West Zhou "the Western Zhou".**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-181` Battle of Changping | 6 | 5 → 6 | **`Fought 260 BCE` only (the month, place, result and 700,000 off); the *Shiji*'s 400,000 and 450,000 credited and hedged; one recent study on the size of the losses; the Yongluo pits (found 1995) and the reading of the killing as slaughter, not burial alive**. |
+| `cnh-182` Bai Qi | 6 | 5 → 6 | **The line's 332, 280 and 258 BCE in prose as one reckoning; Ying, Yiling and the title of Lord of Wu'an; Yique's heads as the *Shiji*'s; the sword at Duyou**. Protected: the line stays (flagged below). |
+| `cnh-183` Jixia Academy | 7 | 5 → 7 | **"Jixia Academy" a modern English label (Eno); a community of clients of the state, not of one patron (Meyer); `Active c. 356 – 221 BCE` / `Peak 319 – 284 BCE`, with Xu Gan's late claim of a Duke Huan founding and both reckonings of King Xuan's reign in prose; Xunzi three times libationer; Mencius's absence a "perhaps"**; the chapter counts left to `cnh-850`. |
+| `cnh-184` Four Lords of the Warring States | 7 | 5 → 7 | **Names out of the values, now `Active c. 299 – 238 BCE` (Mengchang's ministry to Chunshen's murder); the grouping shown in Jia Yi's essay quoted in the *Shiji*; the 3,000 retainers the *Shiji*'s; the 258 BCE relief of Handan (on no page read) out of the question**. |
+| `cnh-185` Zhanguo Ce | 7 | 5 → 7 | **`Compiled c. 100 – 1 BCE` / `Edited 1146 – 1147` (two Song editions, Chavannes; the 1147 one recut the 33 chapters into ten); read by many scholars as fiction or practice speeches; Liu Xiang 77 – 6 BCE (Goldin) or 80 – 9 BCE (Giles)**; the Mawangdui manuscript left out (every host walled). |
+| `cnh-186` Qu Yuan | 8 | 5 → 8 | **The *Shiji* story told as tradition; many Chuci poems read as shamans' songs; 311, 299 and 296 BCE from Chavannes's Chu annals; the line's 332, 314 and 295 BCE carried as Giles's and Mayers's reckoning**. Protected: the line stays (flagged below). |
+| `cnh-187` Li Sao | 8 | 5 → 8 | **`Written c. 300 BCE` / `Collected c. 77 – 6 BCE`, agreeing with `cnh-029`; Qu Yuan's 332 – 295 BCE kept in prose as Giles's (as on `cnh-186`); what the poem holds, Liu Xiang and Wang Yi, the allegorical reading against its modern rejection, the authorship question**; "grief dispelled" (no source) dropped. |
+| `cnh-188` Qin conquest of the six states | 7 | 5 → 7 | **`Fought 230 – 221 BCE` only; each fall in prose as Chavannes prints it (Han 230, Zhao 228, Wei 225, Chu 223, Yan 222, Qi 221); why Qin won (Eno; Pines); Li Si's bribery hedged; the Chu war's 200,000 and 600,000 the *Shiji*'s**. |
+| `cnh-189` Jing Ke | 7 | 5 → 7 | **The *Shiji*'s account followed, since it rejects the wounding rumour and names its eyewitness, the physician Xia Wuju; Dan's death told as one chapter's version (the Qin annals have a Qin general take his head); the Yi river song, the Dukang map, the Han carvings**. Protected: the line stays. |
+| `cnh-190` end of the Zhou | 7 | 5 → 7 | **`Last king died 256 BCE` / `Annexed 249 BCE` (Hirth) / `Also dated 250 BCE` (Chavannes's Qin annals); the two principalities explained (not the Western and Eastern Zhou periods); the nine ding as tradition, the Si River search the *Shiji*'s**. Pinyin Zhōu cháo mièwáng. |
+
+Read by eye. **Confusability**: Sima Qian's list of thwarted writers was a phrasing on both `cnh-186` and `cnh-187`;
+`cnh-186`'s now takes the fisherman, the stone and the dragon boats; Changping's royal levy left `cnh-181` (`cnh-173`
+keeps it); the nine ding's capture stays `cnh-111`'s phrasing and the Si River `cnh-083`'s; Jing Ke's attempt stays out
+of `cnh-188`. **Legend**: Qu Yuan's life, Jing Ke's dagger and the Four Lords' retinues are now the *Shiji*'s; the
+*Zhanguo Ce* a book of speeches, not a record. **Chinese names corrected**: `cnh-190` pinyin; `战国四公子` kept (四君 is the
+early term, for the owner). **Spellings fixed**: none needed; 0 hits. **Myth register**: the nine ding as the row.
+**Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-182`'s `Birth c. 332 BCE` is in no source
+read (the ages rest on it), the *Shiji* makes him Lord of Wu'an in 278 BCE (the line: `Ennobled 280 BCE`), and the Qin
+annals put his death in 257 BCE (Maspero and Giles 258); `cnh-186`'s 332 and 295 BCE are Giles's (1898) and c. 314
+Mayers's (1874) — the often-cited c. 340 – 278 BCE is in no source read; `cnh-189`'s death place, Xianyang, is on no
+saved page (the card says "the Qin court").

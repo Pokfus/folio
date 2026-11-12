@@ -10849,14 +10849,14 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Warring_States_warfare": "c. 475 – 221 BCE",
 "Zhang_Yi": "d. 310 BCE",
 "Bai_Qi": "d. 258 BCE",
-"Battle_of_Changping": "c. 260 BCE",
+"Battle_of_Changping": "260 BCE",
 "Battle_of_Maling": "341 BCE",
 "End_of_the_Zhou": "256–249 BCE",
-"Four_Lords_of_the_Warring_States": "3rd century BCE",
+"Four_Lords_of_the_Warring_States": "c. 299 – 238 BCE",
 "Jing_Ke": "d. 227 BCE",
-"Jixia_Academy": "4th century BCE",
-"Li_Sao": "late 4th century BCE",
-"Qin_conquest_of_the_six_states": "230–221 BCE",
+"Jixia_Academy": "c. 356 – 221 BCE",
+"Li_Sao": "c. 300 BCE",
+"Qin_conquest_of_the_six_states": "230 – 221 BCE",
 "Qu_Yuan": "c. 332–295 BCE",
 "Zhanguo_Ce": "compiled 1st century BCE",
 "Abolition_of_the_fengjian_order": "221 BCE",
@@ -20409,7 +20409,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "United_States_v._The_Amistad": ["Amistad case","The Amistad"],
 "Qi_(state)": ["State of Qi","Ch'i"],
 "Su_Qin_and_Zhang_Yi": ["Su Ch'in and Chang I"],
-"Battle_of_Maling": ["Maling","Battle of Ma-ling","Battle of Ma Ling"]
+"Battle_of_Maling": ["Maling","Battle of Ma-ling","Battle of Ma Ling"],
+"Battle_of_Changping": ["Changping","Battle of Ch'ang-p'ing","Battle of Chang Ping"],
+"Bai_Qi": ["Pai Ch'i","Po Ch'i","Lord Wu'an"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
