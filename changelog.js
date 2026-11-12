@@ -52,7 +52,7 @@ window.CHANGELOG = [
       "The new <b>Economics</b> collection opens with 100 cards, from what economics is to scarcity, models, its limits and supply and demand, with 98 new glossary terms.",
       "The new <b>Dinosaurs</b> collection opens with 100 cards, on what a dinosaur is, its anatomy, classification and deep time, with 95 new glossary terms.",
       "100 new cards in <b>Japan</b>, from late Nara through the Heian court, its literature and art, to the rise of the warriors and the Genpei War, with 94 new glossary terms.",
-      "The new <b>India</b> collection opens with 100 cards, from prehistory and the Indus cities through the Vedic age to the Buddha, with 75 new glossary terms.",
+      "The new <b>India</b> collection opens with 100 cards, from prehistory and the Indus cities through the Vedic age to the Buddha, with 74 new glossary terms.",
     ],
   },
   {
