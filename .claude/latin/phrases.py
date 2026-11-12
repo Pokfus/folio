@@ -12,7 +12,7 @@ curated list a reader means by "Latin phrases": 2,383 rows of Latin, translation
 and notes over twenty pages (A-V), CC BY-SA 4.0.  The pages are PINNED by
 revision (`PAGES`), so a re-run builds the same deck.
 
-WHICH ROWS (`well_known`).  The list's 2,240 multi-word rows include the mottos of
+WHICH ROWS.  The list's 2,240 multi-word rows include the mottos of
 single schools and fine points of canon law, so a row is kept only on evidence
 that the phrase is known beyond the list, any of:
   · it has a Wikipedia article of its own (the Latin cell links one);
@@ -22,6 +22,9 @@ that the phrase is known beyond the list, any of:
     Livy by chance, so two words do not count.
 A row whose Latin is not plain Latin text (quotation marks, brackets, an ellipsis,
 Greek), whose translation is empty, or which runs past `MAX_WORDS`, is left out.
+
+(An article "of its own" is one whose title holds the phrase -- `Carpe diem`,
+`Ad astra (phrase)` -- not the author's or the subject's article the cell may link.)
 
 THE ORDER the cards are dealt in: the phrases with an article of their own first,
 by how often that article was read over 60 days (`views`, cached in `views.json`) --
@@ -54,10 +57,12 @@ PAGES = {'A': 1380589466, 'B': 1382625422, 'C': 1379332072, 'D': 1374454837,
 
 MAX_WORDS = 14          # a longer quotation is a passage, not a phrase
 NOTE_MAX = 180          # a note longer than this in its first sentence is left off
-PLAIN = re.compile(r"^[A-Za-zÀ-ɏ̀-ͯ][A-Za-zÀ-ɏ̀-ͯ ,;:.!?'’-]*$")
+PLAIN = re.compile(r"^[A-Za-zÀ-ɏ̀-ͯ][A-Za-zÀ-ɏ̀-ͯ ,;:.!?'’–-]*$")
 
 # Read off the deck (2026-11-12).  Each with its reason.
 EXCLUDE = {
+    'coitus interruptus': 'a sexual term, left out as the level decks leave out sexual senses',
+    'coitus more ferarum': 'the same',
 }
 
 
@@ -86,27 +91,38 @@ def page(letter):
 
 def views(titles):
     """Each article's readers over the 60 days before it was first asked (the MediaWiki
-    API's `pageviews`, 50 titles a request -- the per-article REST endpoint allowed 100
-    titles in 20 minutes).  Cached in `views.json`, so a re-run reads the same counts;
-    a title the cache lacks is asked for and added."""
+    API's `pageviews`, 50 titles a request, following `continue` -- the API returns the
+    counts of a few pages per response; the per-article REST endpoint allowed only 100
+    titles in 20 minutes).  Cached in `views.json` as title -> [the page it resolves to
+    after redirects, views], so a re-run reads the same counts; a title the cache lacks
+    is asked for and added."""
     p = os.path.join(DIR, 'views.json')
     have = json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {}
+    have = {k: v for k, v in have.items() if k.startswith('_') or isinstance(v, list)}
     todo = sorted(t for t in titles if t not in have)
     for i in range(0, len(todo), 50):
         batch = todo[i:i + 50]
-        time.sleep(1)
-        d = json.loads(get(QUERY.format(t=urllib.parse.quote('|'.join(batch), safe=''))))['query']
-        alias = {}
-        for kind in ('normalized', 'redirects'):
-            for x in d.get(kind, []):
-                alias[x['from']] = x['to']
-        got = {pg['title']: sum(v or 0 for v in (pg.get('pageviews') or {}).values())
-               for pg in d.get('pages', [])}
+        alias, got, cont = {}, {}, {}
+        while True:
+            time.sleep(1)
+            url = QUERY.format(t=urllib.parse.quote('|'.join(batch), safe='')) + \
+                ''.join(f'&{k}={urllib.parse.quote(str(v))}' for k, v in cont.items())
+            d = json.loads(get(url))
+            q = d.get('query', {})
+            for kind in ('normalized', 'redirects'):
+                for x in q.get(kind, []):
+                    alias[x['from']] = x['to']
+            for pg in q.get('pages', []):
+                if pg.get('pageviews'):
+                    got[pg['title']] = got.get(pg['title'], 0) + sum(v or 0 for v in pg['pageviews'].values())
+            if 'continue' not in d:
+                break
+            cont = d['continue']
         for t in batch:
             u = t
             while u in alias:
                 u = alias[u]
-            have[t] = got.get(u, 0)
+            have[t] = [u, got.get(u, 0)]
     have.setdefault('_read', time.strftime('%Y-%m-%d', time.gmtime()))
     json.dump(have, open(p, 'w', encoding='utf-8'), ensure_ascii=False, sort_keys=True)
     return have
@@ -150,6 +166,38 @@ def clean(s):
     return re.sub(r'\s+', ' ', s).strip()
 
 
+def attrless(cell):
+    """A cell's content without its HTML attributes: page I writes `| id="in nuce" | in nuce`."""
+    m = re.match(r'\s*(?:[a-z-]+="[^"]*"\s*)+\|(?!\|)(.*)$', cell, re.S)
+    return m.group(1) if m else cell
+
+
+def latin_of(cell):
+    """The phrase a Latin cell spells: markup unwrapped FIRST (a template may hold a
+    bracket, `{{lankchor|ad astra|ad astra (phrase)}}`), then the abbreviation in
+    <small>, an alternative after "or" or a line break, a parenthesis, and the optional
+    words the list puts in square brackets (`gutta cavat lapidem [non vi sed saepe
+    cadendo]`) are dropped."""
+    c = re.sub(r'(?s)<small>.*?</small>', '', attrless(cell))
+    t = clean(c)
+    t = re.split(r'\s/\s|\sor\s|\s–\salso\b', ' ' + t + ' ')
+    t = next((x for x in t if x.strip(' /')), '')
+    t = re.sub(r'\([^()]*\)', ' ', t)               # `dona ei(s)`, `(oremus) pro invicem`
+    t = re.sub(r'\s*\[[^\]]*\]\s*', ' ', t)
+    t = re.sub(r'\s+([,;:.!?])', r'\1', re.sub(r'\s+', ' ', t))
+    return t.strip(' /,;:')
+
+
+def english_of(cell):
+    """The translation: an aside in <small> or {{small}} (`not omnia vincit amor`) dropped,
+    and quotation marks round the whole of it taken off."""
+    c = re.sub(r'(?s)<small>.*?</small>|\{\{small\|[^{}]*\}\}', '', attrless(cell).lstrip('|'))
+    t = clean(c).strip(' /')
+    if len(t) > 2 and t[0] in '"“' and t[-1] in '"”' and t.count('"') <= 2:
+        t = t[1:-1].strip()
+    return t
+
+
 def article(cell):
     """The Wikipedia article the Latin cell links, if any: `lankchor`'s second
     argument or the phrase itself, else the first plain wikilink."""
@@ -172,9 +220,8 @@ def rows():
             c = cells(r[1:])
             if len(c) < 2:
                 continue
-            first = re.split(r'<small>|<br|\(|\s+or\s*<', c[0])[0]
-            out.append({'latin': clean(first), 'en': clean(c[1]),
-                        'notes': clean(c[2]) if len(c) > 2 else '', 'article': article(c[0])})
+            out.append({'latin': latin_of(c[0]), 'en': english_of(c[1]),
+                        'notes': clean(attrless(c[2])) if len(c) > 2 else '', 'article': article(c[0])})
     return out
 
 
@@ -230,13 +277,34 @@ def tatoeba():
     return all_lat, pairs
 
 
+ABBREV = {'i.e', 'e.g', 'cf', 'Cf', 'St', 'viz', 'etc', 'c', 'ca', 'p', 'pp', 'vol', 'no',
+          'Mt', 'Dr', 'Mr', 'Mrs', 'lit', 'approx', 'trans', 'ed', 'cent', 'b', 'd', 'fl', 'r',
+          'esp', 'incl', 'ibid', 'sc', 'Ps', 'Gen', 'Matt', 'Lk', 'Jn'}
+
+
 def note(text):
-    """The note's first sentence, when it is short and is prose (some rows' notes are
-    nested tables or a bare author's name, which stays: "From Horace")."""
+    """The note's first sentence, when it is short, is prose, and survived the markup
+    whole: some rows' notes are nested tables, and a citation template stripped from
+    the middle of one leaves debris ("From Vulgate; John .", "(Greek: )"), so such a
+    note is left off rather than printed broken.  A sentence does not end at an
+    abbreviation ("i.e.", "St.", "Cf.")."""
     if not text or text.startswith('{|') or '|' in text:
         return ''
-    m = re.match(r'(.+?[.!?])(?:\s|$)', text)
-    first = (m.group(1) if m else text).strip()
+    end = None
+    for m in re.finditer(r'[.!?](?=\s|$)', text):
+        word = re.split(r'[\s(]', text[:m.start()])[-1]
+        if text[m.start()] == '.' and (word in ABBREV or re.fullmatch(r'[A-Za-z]|[A-Za-z]\.[A-Za-z]', word or '')):
+            continue
+        end = m.end()
+        break
+    first = (text[:end] if end else text).strip()
+    if re.search(r'\s[.,;:]|\(\s*[\w ]*:?\s*\)|\(\)|\s$', first):
+        return ''
+    # a fragment ("1.", the head of a list) or a sentence cut inside a quotation or a
+    # parenthesis ('also translated "What times!', 'Caught in the act (esp.') is left off
+    if len(first) < 12 or first.count('"') % 2 or first.count('(') != first.count(')') \
+            or first.count('“') != first.count('”'):
+        return ''
     return first if len(first) <= NOTE_MAX else ''
 
 
@@ -321,13 +389,17 @@ def main():
         words = k.split()
         if len(words) < 2:
             continue
-        if not PLAIN.match(lat) or not en or len(words) > MAX_WORDS:
+        if not PLAIN.match(lat) or '..' in lat or not en or len(words) > MAX_WORDS:
             why['not plain Latin, no translation, or too long'] += 1
             continue
         if k in seen or k in excl:
             continue
-        a = r['article'] if r['article'] and '#' not in r['article'] else ''
-        has_art = bool(r['article'])
+        # AN ARTICLE OF ITS OWN means an article about the phrase: the link's title holds
+        # the phrase (`Carpe diem`, `Ad astra (phrase)`); a link to the author's or the
+        # subject's article (`tolle lege` -> Augustine) is not one, nor a section link
+        t = r['article']
+        a = t if t and '#' not in t and (' ' + k + ' ') in (' ' + key_of(t) + ' ') else ''
+        has_art = bool(a)
         in_wk = k in wk
         n_cls = cls.count(' ' + k + ' ')
         if not (has_art or in_wk or (len(words) >= 3 and n_cls)):
@@ -342,7 +414,18 @@ def main():
     print('  pageviews for the articles ...')
     pv = views({r['title'] for r in kept if r['title']})
     for r in kept:
-        r['views'] = pv.get(r['title'], 0) if r['title'] else 0
+        # A TITLE THAT REDIRECTS AWAY from the phrase (`tolle lege` to a larger article) is
+        # not an article of the phrase's own, and its readers are the larger article's
+        target, n = pv.get(r['title'], ['', 0]) if r['title'] else ['', 0]
+        if r['title'] and (' ' + r['key'] + ' ') not in (' ' + key_of(target) + ' '):
+            r['title'], n = '', 0
+            if not (r['wk'] or (len(r['key'].split()) >= 3 and r['cls'])):
+                r['drop'] = True
+        r['art'] = bool(r['title'])
+        r['views'] = n
+    print(f"  {sum(1 for r in kept if r.get('drop'))} left out: their link redirects to an "
+          f"article about something else, and nothing else shows them known")
+    kept = [r for r in kept if not r.get('drop')]
     kept.sort(key=lambda r: (not r['art'], -r['views'], -r['tat'], -r['cls'], r['key']))
 
     used, cards, n3, n0 = set(), [], 0, 0

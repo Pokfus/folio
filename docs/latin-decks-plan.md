@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Latin language collection."
 
-**STATUS (2026-11-12): all five levels, A1 to C1, are built** (`.claude/latin/`, §6–§10). The phrases and mottos deck is not.
+**STATUS (2026-11-12): all six decks are built** — the five levels A1 to C1 and the phrases and mottos deck (`.claude/latin/`, §6–§11). Only Phase 4, a combined file, is left.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one line and one bump, because
@@ -31,7 +31,7 @@ it also changed the APP (the shelf's hue in `app.js`) — the Hindi precedent.
 | Latin B1 Intermediate — built | `Latin-B1.folio-deck.json` | 1,000 |
 | Latin B2 Upper Intermediate — built | `Latin-B2.folio-deck.json` | 1,500 |
 | Latin C1 Advanced — built | `Latin-C1.folio-deck.json` | 1,500 |
-| Latin Phrases and Mottos | `Latin-Phrases-and-Mottos.folio-deck.json` | what the levels leave |
+| Latin Phrases and Mottos — built | `Latin-Phrases-and-Mottos.folio-deck.json` | 625 |
 
 ## 2. Sources and licences
 
@@ -103,7 +103,7 @@ as long-winded as Wiktionary's (`num`).
 
 **Phase 1 (done)** — the pipeline and A1. **Phase 2** (done) — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `latin_level.py`, run, read every card; decide the corpus
-count (§2) before the DCC list runs out. **Phase 3** — the phrases and mottos deck. **Phase 4** — a combined
+count (§2) before the DCC list runs out. **Phase 3** (done) — the phrases and mottos deck. **Phase 4** — a combined
 file, gitignored.
 
 ## 6. As built (2026-11-09): A1
@@ -242,3 +242,43 @@ Dropped from the inventory as not in Wiktionary as a lemma (or capitalised): `fa
 `radiāns`) — poetic words in their own right. Many C1 words are rare enough that Tatoeba has no sentence;
 classical sentences would need translations Folio does not have under an open licence. Next: Phase 3, the
 phrases and mottos deck.
+
+## 11. As built (2026-11-12): the phrases and mottos deck
+
+`python3 .claude/latin/run.py --level phr` runs one stage of its own, `phrases.py` (the level stages do
+not apply: a phrase has no dictionary entry or table). 625 notes, 523 with a note, Tatoeba sentences for
+177. A re-run is byte-identical.
+
+**THE SOURCE, decided here.** Wiktionary's Latin section has a few hundred multi-word entries mixed with
+anatomy, chemistry and inflected forms, and nothing to rank them by. English Wikipedia's *List of Latin
+phrases* (CC BY-SA 4.0) is the curated list: 2,383 rows of Latin, translation and notes on twenty pages,
+**pinned by revision** (`PAGES`; cached in `latin-cache/phrases/`).
+
+**WHICH ROWS (the docstring of `phrases.py`).** Only phrases with evidence they are known beyond the list:
+an article of their own (the link's final title, after redirects, holds the phrase — 415), a Wiktionary
+Latin entry (101 more), or a quotation of three or more words found verbatim in the classical corpus (109
+more; two-word phrases like `ad mortem` occur in Livy by chance, so they do not count). 1,528 rows had no
+such evidence; 70 more were dropped because their only evidence was a link that redirects to an article
+about something else (`tolle lege` → Augustine, `natura naturans` → Spinoza); 21 are not plain Latin text.
+
+**THE ORDER**: the phrases with an article first, by that article's readers over the 60 days to the build
+(`prop=pageviews`, 50 titles a request, following `continue`; cached in `views.json` as title → [resolved
+page, views] with `_read`, the date asked) — `Magna Carta`, `habeas corpus`, `anno Domini`, `memento mori`
+… `carpe diem` 29th; then the rest by Tatoeba and classical counts. The per-article REST pageviews endpoint
+was tried first and rate-limited the build to 100 titles in 20 minutes.
+
+**THE CARD** (type `latinphrase`: Latin, Key, Word, English, Note, Examples): the phrase as the list spells
+it, **without macrons** (Wikipedia prints none, and a word-by-word guess would mark some words and not
+others); the translation; the note's first sentence where it is short and survived the markup whole
+(`note`: no sentence end at an abbreviation, no citation debris, no unbalanced quote or bracket); up to
+three Tatoeba sentences holding the whole phrase. `check-latin.js` accepts it: a phrase headword may carry
+capitals and punctuation, and has no entry, forms or table.
+
+Parsing, read off the cards: markup is unwrapped before the cell is cut (`{{lankchor|ad astra|ad astra
+(phrase)}}`); page I's cells carry HTML attributes (`| id="in nuce" | in nuce`); optional words in square
+brackets and parentheses are dropped (`gutta cavat lapidem [non vi sed saepe cadendo]`, `dona ei(s)`).
+`EXCLUDE` leaves out two sexual terms, as the level decks leave out sexual senses.
+
+**Known, left.** The list's translations are often literal ("to/at the man") and the note carries the
+sense; a few notes are long-winded. Phrases differing by a word are separate cards (`ad astra`, `ad astra
+per aspera`, `per aspera ad astra`). Most phrases have no Tatoeba sentence.

@@ -126,6 +126,7 @@ window.LANG_DECKS = [
   { lang: "Latin", file: "Latin-B1.folio-deck.json", id: "latinb1", title: "Latin B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 87, bytes: 3947339, rev: "ad6ee9f32980" },
   { lang: "Latin", file: "Latin-B2.folio-deck.json", id: "latinb2", title: "Latin B2 Upper Intermediate", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 68, bytes: 5628637, rev: "6e06115d4bb0" },
   { lang: "Latin", file: "Latin-C1.folio-deck.json", id: "latinc1", title: "Latin C1 Advanced", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 48, bytes: 5284644, rev: "3fb6318e89df" },
+  { lang: "Latin", file: "Latin-Phrases-and-Mottos.folio-deck.json", id: "laphrase", title: "Latin Phrases and Mottos", sub: "625 phrases · both directions, as two cards per phrase", notes: 625, cards: 1250, ex: 28, bytes: 267098, rev: "7a39fb3b5b82" },
   { lang: "Old English", file: "Old-English-Alphabet.folio-deck.json", id: "oeabc", title: "Old English Alphabet and Pronunciation", sub: "41 letters, sounds and spelling rules · both directions, as two cards per note", notes: 41, cards: 82, ex: 0, say: false, bytes: 20791, rev: "3d1c53cc27f9" },
   { lang: "Old English", file: "Old-English-Level-1.folio-deck.json", id: "oel1", title: "Old English Level 1", sub: "The 500 commonest words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 39, say: false, bytes: 994161, rev: "942d7ada836a" },
 ];
