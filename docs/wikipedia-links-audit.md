@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7776 | the title is the article |
-| `redirect-variant` | 471 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 104 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 7834 | the title is the article |
+| `redirect-variant` | 477 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 106 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 756 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 764 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 176 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 153 | only a disambiguation page; no link could be chosen |
-| `none` | 1149 | nothing matched; no link |
+| `section-redirect` | 186 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 154 | only a disambiguation page; no link could be chosen |
+| `none` | 1164 | nothing matched; no link |
 
-**9123 of 10620 cards get a link.** The three "no link" rows are the honest state: a card whose
+**9197 of 10720 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (756)
+## Redirected to a differently named article — check each (764)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -490,6 +490,14 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ps-351` **sensory coding** → [Sensory nervous system](https://en.wikipedia.org/wiki/Sensory_nervous_system) (from `Sensory coding`)
 - `ps-361` **rods and cones** → [Photoreceptor cell](https://en.wikipedia.org/wiki/Photoreceptor_cell) (from `Rods and cones`)
 - `ps-373` **trichromatic theory** → [Young–Helmholtz theory](https://en.wikipedia.org/wiki/Young%E2%80%93Helmholtz_theory) (from `Trichromatic theory`)
+- `ps-404` **olfaction** → [Sense of smell](https://en.wikipedia.org/wiki/Sense_of_smell) (from `Olfaction`)
+- `ps-407` **touch** → [Somatosensory system](https://en.wikipedia.org/wiki/Somatosensory_system) (from `Touch`)
+- `ps-414` **perceptual constancy** → [Subjective constancy](https://en.wikipedia.org/wiki/Subjective_constancy) (from `Perceptual constancy`)
+- `ps-419` **ambiguous figures** → [Ambiguous image](https://en.wikipedia.org/wiki/Ambiguous_image) (from `Ambiguous figure`)
+- `ps-420` **impossible figures** → [Impossible object](https://en.wikipedia.org/wiki/Impossible_object) (from `Impossible figure`)
+- `ps-430` **conditioned stimulus** → [Classical conditioning](https://en.wikipedia.org/wiki/Classical_conditioning) (from `Conditioned stimulus`)
+- `ps-469` **serial position effect** → [Serial-position effect](https://en.wikipedia.org/wiki/Serial-position_effect) (from `Serial position effect`)
+- `ps-476` **declarative memory** → [Explicit memory](https://en.wikipedia.org/wiki/Explicit_memory) (from `Declarative memory`)
 - `rm-015` **Umbrians** → [Umbri](https://en.wikipedia.org/wiki/Umbri) (from `Umbrians`)
 - `rm-016` **Iguvine Tables** → [Iguvine Tablets](https://en.wikipedia.org/wiki/Iguvine_Tablets) (from `Iguvine Tables`)
 - `rm-018` **Ligurians** → [Ligures](https://en.wikipedia.org/wiki/Ligures) (from `Ligurians`)
@@ -801,7 +809,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (104)
+## Settled from a disambiguation page (106)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -871,6 +879,8 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `pea-203` **Referendum Act** → [Referendums in Taiwan](https://en.wikipedia.org/wiki/Referendums_in_Taiwan) (via the disambiguation page `Referendum Act`)
 - `ps-027` **nativism** → [Psychological nativism](https://en.wikipedia.org/wiki/Psychological_nativism) (via the disambiguation page `Nativism`)
 - `ps-336` **sensation** → [Sense](https://en.wikipedia.org/wiki/Sense) (via the disambiguation page `Sensation`)
+- `ps-431` **acquisition** → [Learning](https://en.wikipedia.org/wiki/Learning) (via the disambiguation page `Acquisition`)
+- `ps-497` **schemas** → [Schema (psychology)](https://en.wikipedia.org/wiki/Schema_(psychology)) (via the disambiguation page `Schema`)
 - `rm-119` **legion** → [Roman legion](https://en.wikipedia.org/wiki/Roman_legion) (via the disambiguation page `Legion`)
 - `rm-144` **praefectura** → [Praefectura (Roman settlement)](https://en.wikipedia.org/wiki/Praefectura_(Roman_settlement)) (via the disambiguation page `Praefectura`)
 - `rm-434` **Pallas** → [Pallas (freedman)](https://en.wikipedia.org/wiki/Pallas_(freedman)) (via the disambiguation page `Pallas`)
@@ -924,7 +934,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (153)
+## Disambiguation pages that could not be settled (154)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -1030,6 +1040,7 @@ Pick the right article by hand, or leave the card without a link.
 - `ps-362` **fovea** — `Fovea` is a disambiguation page; its links: `Fovea (femur)`, `Fovea cardiaca`, `Fovea centralis`, `Fovea ethmoidalis`, `Pterygoid fovea`, `Trochlear fovea`
 - `ps-371` **feature detectors** — `Feature detection` is a disambiguation page
 - `ps-382` **apparent motion** — `Apparent motion` is a disambiguation page
+- `ps-406` **flavour** — `Flavor` is a disambiguation page; its links: `The Flavor`, `Flavor Flav`, `Flavour N'abania`, `Flavour Network`, `Flavour (particle physics)`, `Flavor (band)`
 - `rm-019` **Veneti** — `Veneti` is a disambiguation page; its links: `Adriatic Veneti`, `Veneti (Gaul)`, `Vistula Veneti`
 - `rm-163` **Tarentum** — `Tarentum` is a disambiguation page; its links: `Tarentum, Pennsylvania`, `Tarentum Bridge`, `Tarentum (Campus Martius)`
 - `rm-197` **siege of Lilybaeum** — `Siege of Lilybaeum` is a disambiguation page; its links: `Siege of Lilybaeum (250–241 BC)`, `Siege of Lilybaeum (278 BC)`, `Siege of Lilybaeum (368 BC)`
@@ -1093,7 +1104,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (176)
+## Section redirects — no dedicated page (186)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1207,6 +1218,16 @@ Wikipedia treats these as part of another article. No link.
 - `ps-363` **dark adaptation** — `Dark adaptation` only redirects into `Adaptation (eye)#Dark adaptation`
 - `ps-367` **primary visual cortex** — `Primary visual cortex` only redirects into `Visual cortex#Primary visual cortex (V1)`
 - `ps-380` **monocular depth cues** — `Monocular depth cues` only redirects into `Depth perception#Monocular cues`
+- `ps-411` **perceptual organisation** — `Perceptual organization` only redirects into `Optical illusion#Perceptual organization`
+- `ps-442` **negative reinforcement** — `Negative reinforcement` only redirects into `Reinforcement#Negative reinforcement`
+- `ps-445` **schedules of reinforcement** — `Schedules of reinforcement` only redirects into `Reinforcement#Intermittent reinforcement schedules`
+- `ps-447` **secondary reinforcer** — `Secondary reinforcer` only redirects into `Reinforcement#Primary and secondary reinforcers`
+- `ps-471` **phonological loop** — `Phonological loop` only redirects into `Baddeley's model of working memory#Phonological loop`
+- `ps-472` **visuospatial sketchpad** — `Visuospatial sketchpad` only redirects into `Baddeley's model of working memory#Visuo-spatial working memory`
+- `ps-473` **central executive** — `Central executive` only redirects into `Baddeley's model of working memory#Central executive`
+- `ps-474` **episodic buffer** — `Episodic buffer` only redirects into `Baddeley's model of working memory#Episodic buffer`
+- `ps-483` **retrieval cues** — `Retrieval cue` only redirects into `Recall (memory)#Cued recall`
+- `ps-495` **reconsolidation** — `Reconsolidation` only redirects into `Memory consolidation#Reconsolidation`
 - `rm-006` **Bronze Age Italy** — `Bronze Age Italy` only redirects into `Prehistoric Italy#Bronze Age`
 - `rm-025` **Etruscan league** — `Etruscan league` only redirects into `Etruscan civilization#Etruscan League`
 - `rm-030` **Etrusca disciplina** — `Etrusca disciplina` only redirects into `Etruscan religion#Etrusca Disciplina`
@@ -1274,7 +1295,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1149)
+## No article found (1164)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2162,6 +2183,21 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ps-353` **cross-modal perception** — search suggests `Perception`, `Bouba/kiki effect`, `Gestalt psychology`, `Time perception`, `Amodal perception`
 - `ps-369` **simple and complex cells** — search suggests `Neural network`, `Tissue (biology)`, `The Ghost in the Machine`, `Receptive field`, `Eye`
 - `ps-377` **lightness constancy** — search suggests `Subjective constancy`, `Color constancy`, `Lists of colors`, `Hans Wallach`, `Optical illusion`
+- `ps-403` **chemical senses** — search suggests `Sense`, `Monell Chemical Senses Center`, `Sport psychology`, `Special senses`, `Richard L. Doty`
+- `ps-410` **vestibular and proprioceptive senses** — search suggests `Proprioception`, `Perception`, `Somatosensory system`, `Acrophobia`, `Sensory processing disorder`
+- `ps-412` **Gestalt principles of grouping** — search suggests `Principles of grouping`, `Gestalt psychology`, `Figure–ground (perception)`, `Kurt Koffka`, `Michael Kubovy`
+- `ps-413` **figure–ground organisation** — search suggests `Gestalt psychology`, `Johan Wagemans`, `Carl Jung`, `Theory of indispensable attributes`, `Islamic State`
+- `ps-422` **holistic perception** — search suggests `Perception`, `Face perception`, `Field theory (psychology)`, `Sport psychology`, `Accent perception`
+- `ps-429` **trace conditioning** — search suggests `Classical conditioning`, `Psychology`, `Behaviorism`, `Air conditioning`, `Memory`
+- `ps-446` **partial reinforcement extinction effect** — search suggests `Reinforcement`, `Extinction (psychology)`, `Punishment (psychology)`, `Self-administration`, `Rescorla–Wagner model`
+- `ps-451` **stressor controllability** — search suggests `Psychological stress`, `Occupational stress`, `Psychology`, `Locus of control`, `Stress management`
+- `ps-462` **encoding, storage and retrieval** — search suggests `Encoding (memory)`, `Storage (memory)`, `Elaborative encoding`, `LC4MP`, `Flashback (psychology)`
+- `ps-467` **multi-store model** — search suggests `Atkinson–Shiffrin memory model`, `Baddeley's model of working memory`, `Storage (memory)`, `Information processing (psychology)`, `Chunking (psychology)`
+- `ps-482` **elaborative rehearsal** — search suggests `Rehearsal (educational psychology)`, `Memory rehearsal`, `Elaborative encoding`, `Brown–Peterson task`, `Encoding (memory)`
+- `ps-487` **recall and recognition** — search suggests `Pattern recognition (psychology)`, `Spacing effect`, `Recall (memory)`, `Recognition failure of recallable words`, `False memory`
+- `ps-489` **decay and interference** — search suggests `Forgetting`, `Interference theory`, `Decay theory`, `Cognitive psychology`, `Mental block`
+- `ps-493` **anterograde and retrograde amnesia** — search suggests `Anterograde amnesia`, `Retrograde amnesia`, `Amnesia`, `Post-traumatic amnesia`, `Dissociative amnesia`
+- `ps-500` **recovered memory controversy** — search suggests `Recovered-memory therapy`, `False memory`, `False memory syndrome`, `Baddeley's model of working memory`, `Cognitive psychology`
 - `rm-031` **Etruscan tomb painting** — search suggests `Etruscan art`, `François Tomb`, `Etruscan architecture`, `Etruscan civilization`, `Painting in ancient Rome`
 - `rm-034` **Banditaccia necropolis** — search suggests `Cerveteri`, `Necropolis`, `Monterozzi necropolis`, `Tholos (architecture)`, `Etruscan architecture`
 - `rm-037` **Etruscan bronzework** — search suggests `Etruscan art`, `Italic peoples`, `Ficoroni Cista`, `Griffin`, `Minoan civilization`

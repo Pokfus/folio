@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T12:17Z",
+ "generated": "2026-11-12T12:28Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7776,
-  "redirect-broader": 756,
-  "redirect-variant": 471,
-  "section-redirect": 176,
-  "disambiguation": 153,
-  "none": 1149,
-  "disambig-resolved": 104,
+  "ok": 7834,
+  "redirect-broader": 764,
+  "redirect-variant": 477,
+  "section-redirect": 186,
+  "disambiguation": 154,
+  "none": 1164,
+  "disambig-resolved": 106,
   "list-page": 6,
   "search-match": 9,
   "no-article": 20
@@ -84639,6 +84639,861 @@
    "url": "https://en.wikipedia.org/wiki/Bentresh_stela",
    "via": "glossary",
    "status": "ok"
+  },
+  "ps-401": {
+   "answer": "speech perception",
+   "title": "Speech perception",
+   "url": "https://en.wikipedia.org/wiki/Speech_perception",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-402": {
+   "answer": "McGurk effect",
+   "title": "McGurk effect",
+   "url": "https://en.wikipedia.org/wiki/McGurk_effect",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-403": {
+   "answer": "chemical senses",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sense",
+    "Monell Chemical Senses Center",
+    "Sport psychology",
+    "Special senses",
+    "Richard L. Doty"
+   ]
+  },
+  "ps-404": {
+   "answer": "olfaction",
+   "title": "Sense of smell",
+   "url": "https://en.wikipedia.org/wiki/Sense_of_smell",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Olfaction"
+  },
+  "ps-405": {
+   "answer": "taste",
+   "title": "Taste",
+   "url": "https://en.wikipedia.org/wiki/Taste",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-406": {
+   "answer": "flavour",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Flavor",
+   "suggestions": [
+    "The Flavor",
+    "Flavor Flav",
+    "Flavour N'abania",
+    "Flavour Network",
+    "Flavour (particle physics)",
+    "Flavor (band)"
+   ]
+  },
+  "ps-407": {
+   "answer": "touch",
+   "title": "Somatosensory system",
+   "url": "https://en.wikipedia.org/wiki/Somatosensory_system",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Touch"
+  },
+  "ps-408": {
+   "answer": "pain",
+   "title": "Pain",
+   "url": "https://en.wikipedia.org/wiki/Pain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-409": {
+   "answer": "gate control theory",
+   "title": "Gate control theory",
+   "url": "https://en.wikipedia.org/wiki/Gate_control_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-410": {
+   "answer": "vestibular and proprioceptive senses",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Proprioception",
+    "Perception",
+    "Somatosensory system",
+    "Acrophobia",
+    "Sensory processing disorder"
+   ]
+  },
+  "ps-411": {
+   "answer": "perceptual organisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Perceptual organization",
+   "target": "Optical illusion#Perceptual organization"
+  },
+  "ps-412": {
+   "answer": "Gestalt principles of grouping",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Principles of grouping",
+    "Gestalt psychology",
+    "Figure–ground (perception)",
+    "Kurt Koffka",
+    "Michael Kubovy"
+   ]
+  },
+  "ps-413": {
+   "answer": "figure–ground organisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Gestalt psychology",
+    "Johan Wagemans",
+    "Carl Jung",
+    "Theory of indispensable attributes",
+    "Islamic State"
+   ]
+  },
+  "ps-414": {
+   "answer": "perceptual constancy",
+   "title": "Subjective constancy",
+   "url": "https://en.wikipedia.org/wiki/Subjective_constancy",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Perceptual constancy"
+  },
+  "ps-415": {
+   "answer": "Ponzo illusion",
+   "title": "Ponzo illusion",
+   "url": "https://en.wikipedia.org/wiki/Ponzo_illusion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-416": {
+   "answer": "Müller-Lyer illusion",
+   "title": "Müller-Lyer illusion",
+   "url": "https://en.wikipedia.org/wiki/M%C3%BCller-Lyer_illusion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-417": {
+   "answer": "Ames room",
+   "title": "Ames room",
+   "url": "https://en.wikipedia.org/wiki/Ames_room",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-418": {
+   "answer": "moon illusion",
+   "title": "Moon illusion",
+   "url": "https://en.wikipedia.org/wiki/Moon_illusion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-419": {
+   "answer": "ambiguous figures",
+   "title": "Ambiguous image",
+   "url": "https://en.wikipedia.org/wiki/Ambiguous_image",
+   "via": "variant",
+   "status": "redirect-broader",
+   "from": "Ambiguous figure"
+  },
+  "ps-420": {
+   "answer": "impossible figures",
+   "title": "Impossible object",
+   "url": "https://en.wikipedia.org/wiki/Impossible_object",
+   "via": "variant",
+   "status": "redirect-broader",
+   "from": "Impossible figure"
+  },
+  "ps-441": {
+   "answer": "reinforcement",
+   "title": "Reinforcement",
+   "url": "https://en.wikipedia.org/wiki/Reinforcement",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Reinforcement (psychology)"
+  },
+  "ps-442": {
+   "answer": "negative reinforcement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Negative reinforcement",
+   "target": "Reinforcement#Negative reinforcement"
+  },
+  "ps-443": {
+   "answer": "punishment",
+   "title": "Punishment (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Punishment_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-444": {
+   "answer": "shaping",
+   "title": "Shaping (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Shaping_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-445": {
+   "answer": "schedules of reinforcement",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Schedules of reinforcement",
+   "target": "Reinforcement#Intermittent reinforcement schedules"
+  },
+  "ps-446": {
+   "answer": "partial reinforcement extinction effect",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Reinforcement",
+    "Extinction (psychology)",
+    "Punishment (psychology)",
+    "Self-administration",
+    "Rescorla–Wagner model"
+   ]
+  },
+  "ps-447": {
+   "answer": "secondary reinforcer",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Secondary reinforcer",
+   "target": "Reinforcement#Primary and secondary reinforcers"
+  },
+  "ps-448": {
+   "answer": "token economy",
+   "title": "Token economy",
+   "url": "https://en.wikipedia.org/wiki/Token_economy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-449": {
+   "answer": "avoidance learning",
+   "title": "Avoidance learning",
+   "url": "https://en.wikipedia.org/wiki/Avoidance_learning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-450": {
+   "answer": "learned helplessness",
+   "title": "Learned helplessness",
+   "url": "https://en.wikipedia.org/wiki/Learned_helplessness",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-451": {
+   "answer": "stressor controllability",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Psychological stress",
+    "Occupational stress",
+    "Psychology",
+    "Locus of control",
+    "Stress management"
+   ]
+  },
+  "ps-452": {
+   "answer": "instinctive drift",
+   "title": "Instinctive drift",
+   "url": "https://en.wikipedia.org/wiki/Instinctive_drift",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-453": {
+   "answer": "latent learning",
+   "title": "Latent learning",
+   "url": "https://en.wikipedia.org/wiki/Latent_learning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-454": {
+   "answer": "cognitive map",
+   "title": "Cognitive map",
+   "url": "https://en.wikipedia.org/wiki/Cognitive_map",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-455": {
+   "answer": "observational learning",
+   "title": "Observational learning",
+   "url": "https://en.wikipedia.org/wiki/Observational_learning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-456": {
+   "answer": "Albert Bandura",
+   "title": "Albert Bandura",
+   "url": "https://en.wikipedia.org/wiki/Albert_Bandura",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-457": {
+   "answer": "Bobo doll experiment",
+   "title": "Bobo doll experiment",
+   "url": "https://en.wikipedia.org/wiki/Bobo_doll_experiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-458": {
+   "answer": "insight learning",
+   "title": "Insight",
+   "url": "https://en.wikipedia.org/wiki/Insight",
+   "via": "glossary",
+   "status": "ok",
+   "from": "Insight learning",
+   "manual": true
+  },
+  "ps-459": {
+   "answer": "behaviour modification",
+   "title": "Behavior modification",
+   "url": "https://en.wikipedia.org/wiki/Behavior_modification",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Behaviour modification"
+  },
+  "ps-460": {
+   "answer": "applied behaviour analysis",
+   "title": "Applied behavior analysis",
+   "url": "https://en.wikipedia.org/wiki/Applied_behavior_analysis",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Applied behaviour analysis"
+  },
+  "ps-421": {
+   "answer": "optical illusion",
+   "title": "Optical illusion",
+   "url": "https://en.wikipedia.org/wiki/Optical_illusion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-422": {
+   "answer": "holistic perception",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Perception",
+    "Face perception",
+    "Field theory (psychology)",
+    "Sport psychology",
+    "Accent perception"
+   ]
+  },
+  "ps-423": {
+   "answer": "perceptual learning",
+   "title": "Perceptual learning",
+   "url": "https://en.wikipedia.org/wiki/Perceptual_learning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-424": {
+   "answer": "perceptual narrowing",
+   "title": "Perceptual narrowing",
+   "url": "https://en.wikipedia.org/wiki/Perceptual_narrowing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-425": {
+   "answer": "visual cliff",
+   "title": "Visual cliff",
+   "url": "https://en.wikipedia.org/wiki/Visual_cliff",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-426": {
+   "answer": "learning",
+   "title": "Learning",
+   "url": "https://en.wikipedia.org/wiki/Learning",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ps-427": {
+   "answer": "habituation",
+   "title": "Habituation",
+   "url": "https://en.wikipedia.org/wiki/Habituation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-428": {
+   "answer": "sensitisation",
+   "title": "Sensitization",
+   "url": "https://en.wikipedia.org/wiki/Sensitization",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Sensitisation"
+  },
+  "ps-429": {
+   "answer": "trace conditioning",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Classical conditioning",
+    "Psychology",
+    "Behaviorism",
+    "Air conditioning",
+    "Memory"
+   ]
+  },
+  "ps-430": {
+   "answer": "conditioned stimulus",
+   "title": "Classical conditioning",
+   "url": "https://en.wikipedia.org/wiki/Classical_conditioning",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Conditioned stimulus"
+  },
+  "ps-431": {
+   "answer": "acquisition",
+   "title": "Learning",
+   "url": "https://en.wikipedia.org/wiki/Learning",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Acquisition"
+  },
+  "ps-432": {
+   "answer": "extinction",
+   "title": "Extinction (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Extinction_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-433": {
+   "answer": "spontaneous recovery",
+   "title": "Spontaneous recovery",
+   "url": "https://en.wikipedia.org/wiki/Spontaneous_recovery",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-434": {
+   "answer": "stimulus generalisation",
+   "title": "Generalization (learning)",
+   "url": "https://en.wikipedia.org/wiki/Generalization_(learning)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ps-435": {
+   "answer": "second-order conditioning",
+   "title": "Second-order conditioning",
+   "url": "https://en.wikipedia.org/wiki/Second-order_conditioning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-436": {
+   "answer": "conditioned taste aversion",
+   "title": "Conditioned taste aversion",
+   "url": "https://en.wikipedia.org/wiki/Conditioned_taste_aversion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-437": {
+   "answer": "biological preparedness",
+   "title": "Preparedness (learning)",
+   "url": "https://en.wikipedia.org/wiki/Preparedness_(learning)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ps-438": {
+   "answer": "Rescorla–Wagner model",
+   "title": "Rescorla–Wagner model",
+   "url": "https://en.wikipedia.org/wiki/Rescorla%E2%80%93Wagner_model",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-439": {
+   "answer": "contingency",
+   "title": "Contingency (evolutionary biology)",
+   "url": "https://en.wikipedia.org/wiki/Contingency_(evolutionary_biology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-440": {
+   "answer": "operant conditioning",
+   "title": "Operant conditioning",
+   "url": "https://en.wikipedia.org/wiki/Operant_conditioning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-461": {
+   "answer": "memory",
+   "title": "Memory",
+   "url": "https://en.wikipedia.org/wiki/Memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-462": {
+   "answer": "encoding, storage and retrieval",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Encoding (memory)",
+    "Storage (memory)",
+    "Elaborative encoding",
+    "LC4MP",
+    "Flashback (psychology)"
+   ]
+  },
+  "ps-463": {
+   "answer": "sensory memory",
+   "title": "Sensory memory",
+   "url": "https://en.wikipedia.org/wiki/Sensory_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-464": {
+   "answer": "iconic memory",
+   "title": "Iconic memory",
+   "url": "https://en.wikipedia.org/wiki/Iconic_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-465": {
+   "answer": "echoic memory",
+   "title": "Echoic memory",
+   "url": "https://en.wikipedia.org/wiki/Echoic_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-466": {
+   "answer": "short-term memory",
+   "title": "Short-term memory",
+   "url": "https://en.wikipedia.org/wiki/Short-term_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-467": {
+   "answer": "multi-store model",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Atkinson–Shiffrin memory model",
+    "Baddeley's model of working memory",
+    "Storage (memory)",
+    "Information processing (psychology)",
+    "Chunking (psychology)"
+   ]
+  },
+  "ps-468": {
+   "answer": "chunking",
+   "title": "Chunking (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Chunking_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-469": {
+   "answer": "serial position effect",
+   "title": "Serial-position effect",
+   "url": "https://en.wikipedia.org/wiki/Serial-position_effect",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Serial position effect"
+  },
+  "ps-470": {
+   "answer": "working memory",
+   "title": "Working memory",
+   "url": "https://en.wikipedia.org/wiki/Working_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-471": {
+   "answer": "phonological loop",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Phonological loop",
+   "target": "Baddeley's model of working memory#Phonological loop"
+  },
+  "ps-472": {
+   "answer": "visuospatial sketchpad",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Visuospatial sketchpad",
+   "target": "Baddeley's model of working memory#Visuo-spatial working memory"
+  },
+  "ps-473": {
+   "answer": "central executive",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Central executive",
+   "target": "Baddeley's model of working memory#Central executive"
+  },
+  "ps-474": {
+   "answer": "episodic buffer",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Episodic buffer",
+   "target": "Baddeley's model of working memory#Episodic buffer"
+  },
+  "ps-475": {
+   "answer": "long-term memory",
+   "title": "Long-term memory",
+   "url": "https://en.wikipedia.org/wiki/Long-term_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-476": {
+   "answer": "declarative memory",
+   "title": "Explicit memory",
+   "url": "https://en.wikipedia.org/wiki/Explicit_memory",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Declarative memory"
+  },
+  "ps-477": {
+   "answer": "episodic memory",
+   "title": "Episodic memory",
+   "url": "https://en.wikipedia.org/wiki/Episodic_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-478": {
+   "answer": "semantic memory",
+   "title": "Semantic memory",
+   "url": "https://en.wikipedia.org/wiki/Semantic_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-479": {
+   "answer": "procedural memory",
+   "title": "Procedural memory",
+   "url": "https://en.wikipedia.org/wiki/Procedural_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-480": {
+   "answer": "priming",
+   "title": "Priming (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Priming_(psychology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-481": {
+   "answer": "levels of processing",
+   "title": "Levels of processing model",
+   "url": "https://en.wikipedia.org/wiki/Levels_of_processing_model",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Levels of processing"
+  },
+  "ps-482": {
+   "answer": "elaborative rehearsal",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Rehearsal (educational psychology)",
+    "Memory rehearsal",
+    "Elaborative encoding",
+    "Brown–Peterson task",
+    "Encoding (memory)"
+   ]
+  },
+  "ps-483": {
+   "answer": "retrieval cues",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Retrieval cue",
+   "target": "Recall (memory)#Cued recall"
+  },
+  "ps-484": {
+   "answer": "encoding specificity",
+   "title": "Encoding specificity principle",
+   "url": "https://en.wikipedia.org/wiki/Encoding_specificity_principle",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Encoding specificity"
+  },
+  "ps-485": {
+   "answer": "context-dependent memory",
+   "title": "Context-dependent memory",
+   "url": "https://en.wikipedia.org/wiki/Context-dependent_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-486": {
+   "answer": "state-dependent memory",
+   "title": "State-dependent memory",
+   "url": "https://en.wikipedia.org/wiki/State-dependent_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-487": {
+   "answer": "recall and recognition",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Pattern recognition (psychology)",
+    "Spacing effect",
+    "Recall (memory)",
+    "Recognition failure of recallable words",
+    "False memory"
+   ]
+  },
+  "ps-488": {
+   "answer": "forgetting",
+   "title": "Forgetting",
+   "url": "https://en.wikipedia.org/wiki/Forgetting",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-489": {
+   "answer": "decay and interference",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Forgetting",
+    "Interference theory",
+    "Decay theory",
+    "Cognitive psychology",
+    "Mental block"
+   ]
+  },
+  "ps-490": {
+   "answer": "proactive and retroactive interference",
+   "title": "Interference theory",
+   "url": "https://en.wikipedia.org/wiki/Interference_theory",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "ps-491": {
+   "answer": "motivated forgetting",
+   "title": "Motivated forgetting",
+   "url": "https://en.wikipedia.org/wiki/Motivated_forgetting",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-492": {
+   "answer": "amnesia",
+   "title": "Amnesia",
+   "url": "https://en.wikipedia.org/wiki/Amnesia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-493": {
+   "answer": "anterograde and retrograde amnesia",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Anterograde amnesia",
+    "Retrograde amnesia",
+    "Amnesia",
+    "Post-traumatic amnesia",
+    "Dissociative amnesia"
+   ]
+  },
+  "ps-494": {
+   "answer": "memory consolidation",
+   "title": "Memory consolidation",
+   "url": "https://en.wikipedia.org/wiki/Memory_consolidation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-495": {
+   "answer": "reconsolidation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Reconsolidation",
+   "target": "Memory consolidation#Reconsolidation"
+  },
+  "ps-496": {
+   "answer": "reconstructive memory",
+   "title": "Reconstructive memory",
+   "url": "https://en.wikipedia.org/wiki/Reconstructive_memory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-497": {
+   "answer": "schemas",
+   "title": "Schema (psychology)",
+   "url": "https://en.wikipedia.org/wiki/Schema_(psychology)",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Schema"
+  },
+  "ps-498": {
+   "answer": "eyewitness testimony",
+   "title": "Eyewitness testimony",
+   "url": "https://en.wikipedia.org/wiki/Eyewitness_testimony",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-499": {
+   "answer": "misinformation effect",
+   "title": "Misinformation effect",
+   "url": "https://en.wikipedia.org/wiki/Misinformation_effect",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-500": {
+   "answer": "recovered memory controversy",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Recovered-memory therapy",
+    "False memory",
+    "False memory syndrome",
+    "Baddeley's model of working memory",
+    "Cognitive psychology"
+   ]
   }
  }
 }
