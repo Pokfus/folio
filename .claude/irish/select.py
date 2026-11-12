@@ -79,6 +79,32 @@ EXCLUDE = {
     'clóigh': '"to tame"; its count is cló "print"', 'méad': 'met only in phrases (dá mhéad, cé mhéad)',
     'gabháil': 'the verbal noun of gabh, which this level teaches',
     'alt': 'a joint; its count is alt "an article", a sense Wiktionary does not list',
+    # Read off the B1 ranking (2026-11-12).
+    # PLACE NAMES' AND PERSONAL NAMES' PIECES
+    'macha': 'counted from Ard Mhacha "Armagh"', 'sligeach': 'counted from Sligeach "Sligo"',
+    'caiseal': 'counted from Caiseal "Cashel"', 'tuaim': 'counted from Tuaim "Tuam"',
+    'iúr': 'counted from an tIúr "Newry"', 'ísiltír': 'counted from an Ísiltír "the Netherlands"',
+    'polannach': 'its count is Polannach "Polish"', 'aodh': 'counted from the name Aodh',
+    'ceallach': 'counted from the name Ceallach', 'colm': 'counted from the name Colm',
+    'colmán': 'counted from the name Colmán', 'flann': 'counted from the name Flann',
+    'tuathal': 'counted from the name Tuathal', 'oscar': 'counted from Oscar, the name and the award',
+    'bran': 'counted from the name Bran', 'fiann': 'counted from Fianna Fáil, the party',
+    'fiach': 'counted from the name Fiach', 'láirig': 'a thigh; counted from place names',
+    'ara': 'counted from Árainn', 'lia': 'counted from Lia Fáil',
+    # A RARE WORD WHOSE COUNT IS ANOTHER'S
+    'garma': 'its count is not "a beam"', 'airí': 'its count is airí, the plural of aire "minister"',
+    'lear': 'met in thar lear "abroad"; its own noun is rare', 'druid': 'a starling; its count is the verb "close"',
+    'alla': 'its count is not "a shout"', 'tál': 'an adze; rare', 'án': 'rare and literary',
+    'neas': 'rare', 'achair': 'its count is achair, the genitive of achar', 'los': 'its count is not "a tip"',
+    'cis': 'rare', 'bob': 'its count is the English word', 'col': 'met in col ceathrar "cousin"',
+    'teir': 'rare', 'dubha': 'the plural of dubh (A1)', 'teo': 'the plural and comparative of te (A1)',
+    'tig': 'the Munster spelling of tigh',
+    'srath': 'counted from place names (Srath an Urláir ...)', 'tulach': 'counted from place names (Tulach Mhór ...)',
+    'deo': 'met only in go deo "for ever"',
+    # MET ONLY IN A PHRASE; THE COPULA'S FORMS
+    'arna': 'met only in arna mhárach', 'deara': 'met only in faoi deara', 'té': 'met only in an té',
+    'arb': 'a copula form', 'arbh': 'a copula form', 'níorbh': 'a copula form', 'nárbh': 'a copula form',
+    'murab': 'a copula form',
     'rinn': 'a point, a star; counted from place names (Rinn Mhic Gormáin ...)', 'fód': 'a sod; rare',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
@@ -87,7 +113,7 @@ EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 SWEARS = {'cac', 'striapach', 'bastard', 'damnú', 'focáil', 'raicleach'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists another first.
-FILL_POS = {'inis': 'verb'}   # A2: "to tell", not "island", which place names count
+FILL_POS = {'inis': 'verb', 'meall': 'verb'}   # A2: "to tell", not "island", which place names count
 
 SAME_AS = {}
 

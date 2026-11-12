@@ -5,7 +5,7 @@
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless
 this file says otherwise. Asked for on 2026-11-12: "Add an Irish language collection."
 
-**STATUS (2026-11-12): A1 and A2 are built** (`.claude/irish/`, §6–§7). B1 to C1 and a phrases deck are planned (§5).
+**STATUS (2026-11-12): A1, A2 and B1 are built** (`.claude/irish/`, §6–§8). B2, C1 and a phrases deck are planned (§5).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
 any deck this plan produces. The collection's first commit carried one because it also changed the APP — the
@@ -33,7 +33,7 @@ the owner's to overrule.**
 |---|---|---|
 | Irish A1 Beginner — built | `Irish-A1.folio-deck.json` | 500 |
 | Irish A2 Elementary — built | `Irish-A2.folio-deck.json` | 750 |
-| Irish B1 Intermediate | `Irish-B1.folio-deck.json` | 1,000 |
+| Irish B1 Intermediate — built | `Irish-B1.folio-deck.json` | 1,000 |
 | Irish B2 Upper Intermediate | `Irish-B2.folio-deck.json` | 1,500 |
 | Irish C1 Advanced | `Irish-C1.folio-deck.json` | 1,500 |
 | Irish Phrases and Expressions | `Irish-Phrases-and-Expressions.folio-deck.json` | — |
@@ -106,7 +106,7 @@ as the adverb "also" (its own entry), not as `le`'s "with him", which `le`'s tab
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 (done) to C1, one level per session: write the level's inventory
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 and B1 (done) to C1, one level per session: write the level's inventory
 into `inventory.py` and its `SCOPE` into `irish_level.py`, add its `STAMP` in `build_deck.py`, run, read every card.
 **Phase 3** — a phrases deck (Wiktionary's `phrase` / `proverb` entries and the idioms built on `bí` and a
 preposition: `tá ocras orm`, `is maith liom`), on Swedish's `phrases.py`.
@@ -157,3 +157,37 @@ re-runs byte-identical after every change below (each A2 table entry names no A1
 description; a larger inventory is the lever. Fourteen inventory words are not Wiktionary headwords and were dropped
 (`cuairteoir`, `idirlíon`, `sóinseáil`, `sceallóg`, `contúirteach`, `tóstaer`, `naipcín`, `folcadán`, `blaincéad`,
 `príomhoide`, `cóipleabhar`, `galf`, `dúnta`, `muince`).
+
+## 8. As built (2026-11-12): B1
+
+Asked for on 2026-11-12: "Add B1." `python3 .claude/irish/run.py --level b1`. **1,000 notes: 258 from a 16-topic
+inventory** (`inventory.py` `B1`: work and the economy, society and politics, media and technology, the environment,
+education, relationships, housing, health, travel, culture, feelings and opinions, explaining and arguing, verbs,
+judging, time and frequency, connectors — `SCOPE['b1']`) **and 742 by frequency**; three sentences for 48, **none for
+814** — Tatoeba has almost nothing for Irish at this level, and the description says how many carry sentences. Every
+card was read; A1 and A2 re-run byte-identical.
+
+**THE DICTIONARY IS THE CEILING HERE.** English Wiktionary has no entry for many everyday modern Irish words — the
+first B1 list lost 33 of them: `comhshaol` "environment", `infheistíocht`, `trádáil`, `margaíocht`, `troscán`
+"furniture", `athchúrsáil`, `mothúchán`, `inbhuanaithe`, `morgáiste`, `cliant`, `sláinte mheabhrach`, `fón póca` …
+A word with no entry is never given a meaning, so the inventory was rewritten from a candidate list tested against the
+extract first (only the words present were kept), and the level is the B1 scope as far as the dictionary reaches.
+**A CHOICE FOR THE OWNER**: an open Irish–English dictionary would close the gap — the obvious one, the Foclóir
+Nua Béarla–Gaeilge / téarma.ie, is not openly licensed, so none was used.
+
+**What the B1 ranking turned up**, each in `select.EXCLUDE` or a `build_deck.py` table with its reason:
+- More place and personal names' pieces (`macha`, `sligeach`, `caiseal`, `tuaim`, `iúr`, `srath`, `tulach`, `ísiltír`;
+  `aodh`, `ceallach`, `colm`, `flann`, `tuathal`, `oscar`, `bran`, `fiann` ← Fianna Fáil).
+- Rare words with a common word's count (`airí` ← the plural of `aire` "minister", `achair` ← `achar`, `garma`,
+  `druid`), forms of A1 words (`teo` printed an empty English side, a "synonym of" pointer dropped — excluded; `dubha`),
+  the Munster `tig`, phrase-only words (`arna`, `deara`, `té`, `deo`) and five more copula forms.
+- The wrong sense first: `ETYMS` takes `fuath` "hate" (not "phantom"), `cainéal` "channel" (not "cinnamon"), `guta`
+  "vowel" (not "filth"); `LEAD` puts `inneall` "engine", `sochaí` "society", `deis` "opportunity", `agallamh`
+  "interview", `stailc` "strike", `oiliúint` "training" first; the inventory names `tuar:verb` (its noun is
+  "excrement") and `séan:verb`; `FILL_POS` reads `meall` as "to entice". `ríomhaireacht` (glossed only "counting")
+  and `coireacht` ("wickedness") were dropped from the inventory.
+
+**Known, left.** Three quarters of the level is the encyclopaedia's frequency tail (`núicléach`, `iseatóp`,
+`barúntacht`, `ardeaspag`, `fisiceoir`), much of it B2–C1 vocabulary and some of it specialist; it is real Irish and
+stated in the description. B2 and C1 will lean on it further, and their inventories will meet the same dictionary
+ceiling.

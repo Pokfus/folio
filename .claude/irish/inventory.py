@@ -121,4 +121,49 @@ A2 = [
     ('connectors', 'mar_sin ach_oiread cé_go toisc:prep dá:conj sula go_dtí áfach ionas_go'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2}
+# B1 (2026-11-12), scoped to the CEFR B1 descriptor (`irish_level.SCOPE['b1']`).
+B1 = [
+    # English Wiktionary lacks many everyday modern Irish words (comhshaol, infheistíocht, troscán,
+    # athchúrsáil, mothúchán ...), and a word with no entry is never given a meaning here; this list
+    # is the B1 scope as far as the dictionary reaches (`docs/irish-decks-plan.md` §8).
+    ('work and the economy', 'fostaíocht dífhostaíocht gairm oiliúint cáilíocht taithí iarratas agallamh '
+                             'brabús caillteanas geilleagar iasacht airgeadra easpórtáil fógraíocht custaiméir '
+                             'monarcha tionscal fostaigh bainistíocht fostóir oibrí ceardchumann stailc '
+                             'pinsean scor dualgas freagracht spriocdháta scil cumas deis tairbhe táille '
+                             'sparán cuntas_bainc airgeadas buiséad'),
+    ('society and politics', 'páirtí dlí saoránach sochaí bochtaineacht imirce inimirce comhionannas agóid '
+                             'agóideoir cearta_daonna  dlíodóir foréigean sábháilteacht slándáil '
+                             'daonlathas reachtaíocht bunreacht éagóir easaontas vótáil'),
+    ('media and technology', 'meáin nuacht suíomh_gréasáin aip  bogearraí scáileán físeán '
+                             'ceamara méarchlár pasfhocal fógra preas irisleabhar láithreoir '
+                             'grianghrafadóir líonra ríomhaire_glúine'),
+    ('the environment', 'bruscar foraois nádúr truailligh dramhaíl plaisteach timpeallacht caomhnú '
+                        'éiceolaíocht carbón tuile triomach'),
+    ('education', 'léacht léachtóir eolas marc teastas aiste meánscoil bunscoil scoláireacht céimí '
+                  'iarchéimí foghlaimeoir léitheoireacht litriú gramadach forbairt'),
+    ('relationships', 'cairdeas pósadh colscaradh leannán muinín réiteach lánúin baintreach cleamhnas '
+                      'bainis ceiliúradh cairdiúlacht cúnamh'),
+    ('home and housing', 'cíos tiarna_talún lóistín tionónta comharsanacht bruachbhaile tithíocht úinéir '
+                         'tionóntacht baile_beag leictreachas'),
+    ('health', 'aclaíocht aiste_bia meáchan ailléirge cógas otharcharr éigeandáil strus folláine dúlagar '
+               'scíth codladh tuirse cothú vitimín víreas ionfhabhtú vacsaín obráid créacht'),
+    ('travel and experiences', 'eachtrannach turasóir áirithint custam aistear eitilt turasóireacht '
+                               'ceann_scríbe tráthchlár iarnród stáisiún_traenach bagáiste'),
+    ('culture and leisure', 'dánlann taispeántas seó aisteoireacht béaloideas seanchas sean-nós seisiún '
+                            'fidil feadóg bodhrán dealbh dealbhóir péintéireacht pictiúr ceoldráma'),
+    ('feelings and opinions', 'dóchas éadóchas faoiseamh sásamh dearcadh amhras bród éad uaigneas misneach '
+                              'sonas aoibhneas mearbhall'),
+    ('explaining and arguing', 'fáth éifeacht buntáiste míbhuntáiste cinneadh moladh argóint conclúid '
+                               'aighneas'),
+    ('verbs', 'ceartaigh áitigh cinntigh measúnaigh admhaigh dearbhaigh séan:verb fulaing seachain tréig '
+              'samhlaigh scrúdaigh fiosraigh tuar:verb treoraigh'),
+    ('judging', 'riachtanach úsáideach cinnte éiginnte dodhéanta féideartha cothrom mícheart dóchúil '
+                'dáiríre dearfach diúltach oiriúnach cruinn éifeachtach casta soiléir annamh aisteach '
+                'furasta crua réasúnta luachmhar cumasach dílis'),
+    ('time and frequency', 'de_ghnáth faoi_láthair feasta ar_dtús ar_deireadh le_déanaí roimh_ré '
+                           'todhchaí fadó'),
+    ('connectors', 'mar_sin_féin dá_bhrí_sin ar_aon_nós ar_aon_chaoi go_háirithe mar_shampla ar_nós '
+                   'murach ach_amháin mura chomh_maith cé_nach ar_eagla_go'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}

@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 342 MB of decks. The file itself is fetched on Add. */
+   section without fetching 344 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -196,6 +196,7 @@ window.LANG_DECKS = [
   { lang: "Hungarian", file: "Hungarian-A1.folio-deck.json", id: "hungariana1", title: "Hungarian A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1648009, rev: "6cafc8f436d4" },
   { lang: "Irish", file: "Irish-A1.folio-deck.json", id: "irisha1", title: "Irish A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 78, bytes: 1130122, rev: "91e7e5eddfac" },
   { lang: "Irish", file: "Irish-A2.folio-deck.json", id: "irisha2", title: "Irish A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 40, bytes: 1736532, rev: "cedde2c6b937" },
+  { lang: "Irish", file: "Irish-B1.folio-deck.json", id: "irishb1", title: "Irish B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 19, bytes: 2180214, rev: "e5721e6493f9" },
   { lang: "Latin", file: "Latin-A1.folio-deck.json", id: "latina1", title: "Latin A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1543585, rev: "045168bec457" },
   { lang: "Latin", file: "Latin-A2.folio-deck.json", id: "latina2", title: "Latin A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 99, bytes: 2770552, rev: "25d02e6b01c9" },
   { lang: "Latin", file: "Latin-B1.folio-deck.json", id: "latinb1", title: "Latin B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 87, bytes: 3947339, rev: "ad6ee9f32980" },

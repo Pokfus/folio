@@ -36,7 +36,8 @@ from ga import fold, nfc, variants, WORD as GAWORD
 from irish_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
-STAMP = {'a1': '2026-11-12T00:00:00.000Z', 'a2': '2026-11-12T00:00:00.000Z'}[LEVEL]
+STAMP = {'a1': '2026-11-12T00:00:00.000Z', 'a2': '2026-11-12T00:00:00.000Z',
+         'b1': '2026-11-12T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'irish'
@@ -112,6 +113,10 @@ ETYMS = {
     'líon': ['2', '3'],         # "number" and "to fill"; etymology 1 is "flax"
     'ré': ['2'],                # "era, period; moon"; etymology 1 is "level ground"
     'úd': ['2'],                # "yon, that over there"; etymology 1 is "readiness"
+    # B1 (2026-11-12)
+    'fuath': ['2'],             # "hate"; etymology 1 is "form; phantom"
+    'cainéal': ['2'],           # "channel"; etymology 1 is "cinnamon"
+    'guta': ['2'],              # "vowel"; etymology 1 is "filth"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where Wiktionary's
@@ -142,7 +147,13 @@ LEAD = {
     'deas': 'nice',
     'leagan': 'version, reading, form, phrase (of text)',   # A2: first listed is "laying"
     'cuairt': 'visit',                  # first listed is "circuit; round"
-    'rang': 'class',                    # first listed is "rank"                     # first listed is "right, right-hand"
+    'rang': 'class',
+    'inneall': 'machine, engine',
+    'sochaí': 'social community, society',   # first listed is "many"
+    'deis': 'opportunity (chance for advancement, progress or profit)',   # first listed is "right (side)"
+    'agallamh': 'interview',            # first listed is "argument"
+    'stailc': 'strike',                 # first listed is "stubborn trait"
+    'oiliúint': 'training, coaching',   # first listed is "nutrition"       # B1: first listed is "arrangement"                    # first listed is "rank"                     # first listed is "right, right-hand"
 }
 
 # A GENDER WRITTEN HERE, where the lemma's first entry is not the everyday word's.

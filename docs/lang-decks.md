@@ -3681,8 +3681,8 @@ changed was the one that had been wrong all along.
   the `i` missing from kaikki's extract) are 📖 `docs/swedish-decks-plan.md`. The `l1` row is 9.9 million
   (Ethnologue via Wikipedia); the hue is measured, `#BD4B7B` (re-swept at the merge: Romanian had taken the olive `#757839`).
 - `.claude/irish/` — the generator behind the Irish decks (Nov 2026, on request: "Add an Irish language
-  collection"; the Hindi and Swedish owners' decisions taken, the owner not asked). **Built: A1 and A2,
-  `decks/Irish-A1.folio-deck.json`** (500 notes / 1,000 cards) **and `Irish-A2`** (750 notes). `python3 .claude/irish/run.py [--level a1]`,
+  collection"; the Hindi and Swedish owners' decisions taken, the owner not asked). **Built: A1, A2 and B1,
+  `decks/Irish-A1.folio-deck.json`** (500 notes / 1,000 cards), **`Irish-A2`** (750) **and `Irish-B1`** (1,000). `python3 .claude/irish/run.py [--level a1]`,
   `node .claude/irish/check-irish.js`; a re-run is byte-identical. Swedish's pipeline adapted, with the frequency
   counted from the Irish Wikipedia (no subtitle list exists) and every form gathered with its INITIAL MUTATIONS
   (`ga.variants`: bean, bhean, mbean). TEG publishes syllabuses but no licensed word list, so a level is a topic
