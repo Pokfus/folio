@@ -1413,6 +1413,66 @@ locators' places are not yet derived — a later `--fetch` run will add them. **
 already stale on the base commit** (Greek and Roman date-line changes; `migrate-places.js --check` fails
 on it) and was left untouched.
 
+### What carried this batch — `ru-401` to `ru-500`
+
+A hundred cards in one session (2026-11-12): the rest of `ru-alexander-i`, all of `ru-nicholas-i` and
+`ru-reforms`, and the first twenty of `ru-late-empire`, written as before by ten parallel passes of ten,
+each checked by a dry-run validator (`add-card.js --dry-run`, `add-glossary.js` in a throwaway copy, and a
+clash check against every answer in every collection) and imported serially. **Every line's SUBJECT
+stands, so the list below is unchanged**; where the answer term is not the line's own words it is
+recorded here (the `ru-096` rule):
+
+| line | answer term | line | answer term |
+|---|---|---|---|
+| ru-401 | Council at Fili | ru-402 | Moscow fire of 1812 |
+| ru-403 | Battle of Maloyaroslavets | ru-405 | Military Gallery of the Winter Palace |
+| ru-406 | War of the Sixth Coalition | ru-408 | Battle of Paris (1814) |
+| ru-409 | Polish–Saxon crisis | ru-412 | Semyonovsky Regiment mutiny |
+| ru-415 | Fyodor Kuzmich | ru-419 | Southern Society |
+| ru-420 | Nerchinsk katorga | ru-424 | cast-iron statute |
+| ru-425 | Digest of Laws of the Russian Empire | ru-427 | Organic Statute of the Kingdom of Poland |
+| ru-430 | Circassian expulsions | ru-433 | Convention of Balta Liman |
+| ru-434 | Surrender at Világos | ru-440 | Sevastopol Sketches |
+| ru-443 | Editing Commissions | ru-446 | krugovaya poruka |
+| ru-448 | Judicial reform of Alexander II | ru-449 | jury trial |
+| ru-450 | Municipal Statute of 1870 | ru-451 | Conscription in the Russian Empire |
+| ru-452 | University Statute of 1863 | ru-453 | Temporary Rules on the Press |
+| ru-456 | Ems Ukaz | ru-458 | Emirate of Bukhara |
+| ru-462 | Convention of Peking | ru-468 | Russian nihilist movement |
+| ru-481 | 1897 Russian census | ru-482 | Russian tariff of 1891 |
+| ru-485 | Branobel | ru-486 | St Petersburg textile strike of 1896 |
+| ru-487 | Peasants' Land Bank | ru-490 | Russian invasion of Manchuria |
+| ru-499 | Statute of 14 August 1881 | | |
+
+**TWO ANSWERS ARE DELIBERATELY SHARED**, as `ru-274` shares Nerchinsk with `cnh-546`: `ru-436` *Crimean
+War* with `wh-809` and `ru-493` *Russo-Japanese War* with `wh-847` — the survey card and the Russian-side
+card. **THE CLASHES STEERED**: *Congress of Vienna* (`wh-766`), *Emancipation reform of 1861* (`wh-811`),
+*Revolutions of 1848* (`wh-773`), *Vladivostok* (`gru-527`), *Russian Empire* (`ru-296`), *Manchuria*
+(`ko-006`), *Censorship* (`rm-117`), *Obshchina* (`ru-886`) and *Pogrom* (`ru-821`). *Russification* is
+`ru-455`'s, so `ru-427` answers the Organic Statute; the May Laws are left for `ru-510`. `Imam_Shamil`,
+`Crimean_War`, `Russo-Japanese_War` and `Conscription_in_the_Russian_Empire` already existed, so 96
+glossary terms are new.
+
+**NON-ARTICLE GLOSSARY KEYS**: `Editing_Commissions`, `Redemption_payments`, `Krugovaya_poruka`,
+`Municipal_Statute_of_1870`, `University_Statute_of_1863`, `Temporary_Rules_on_the_Press`,
+`Russian_tariff_of_1891`, `Saint_Petersburg_textile_strike_of_1896`, `Russian_revolutionary_terrorism`,
+`Counter-reforms`, `Pogroms_of_1881–1884`, `Cast-iron_statute`, `Semyonovsky_Regiment_mutiny` and
+`Statute_of_14_August_1881`; `Polish–Saxon_crisis`, `Decembrists` and `Emancipation_Manifesto` are
+redirects. **Six Wikipedia links were set by hand** (`"manual": true`: ru-402, 419, 430, 431, 492, 498) —
+`ru-419`'s resolver hit was an unrelated American magazine called *Southern Society*. `ru-409` has no
+link (its title redirects to `wh-766`'s Congress of Vienna).
+
+**DATES**: 12 person and 21 war/battle/city templates from each pass's sidecar; Julian/Gregorian choices
+and every disagreement between sources are in each card's `notes`. **Russian names** for all hundred are
+in `.claude/russia-names.json`, from the Russian Wikipedia titles, except `ru-409`, `ru-480` and `ru-490`
+(no Russian article; descriptive) and `ru-430`, written «Выселение черкесов» to match the English answer
+rather than Russian Wikipedia's «мухаджирство» ("migration") framing.
+
+**`migrate-places.js` RUN OFFLINE AGAIN** and drifted `data-extra/in.js`, `wars.js` and the report:
+reverted per the standing order, keeping only the new cards' derived Port Arthur (`ru-492`, `ru-494`), and
+`card-places.js` and `glossary-places.js` rebuilt with `--install`. `check-places.js` still fails one
+check (history.bin/`wars.js` in step) exactly as on the base commit.
+
 ---
 
 # The list

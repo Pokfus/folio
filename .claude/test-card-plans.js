@@ -82,7 +82,9 @@ const PLANS = {
   psychology: ["psych", "ps-", 1000],
   philosophy: ["phil", "ph-", 1000],
   biology: ["bio", "bio-", 1000],
-  dinosaurs: ["dino", "dino-", 1000],
+  /* Dinosaurs (`dino`) went DORMANT on 2026-11-12 and its 100 cards were renumbered into Palaeontology;
+     its plan stays in docs/ but declares no collection, so it is not read here. */
+  palaeontology: ["paleo", "pal-", 1000],
   astronomy: ["astro", "astro-", 1000],
   economics: ["econ", "ec-", 1000],
   mesopotamia: ["mesopotamia", "me-", 1000],

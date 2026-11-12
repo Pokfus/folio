@@ -68,7 +68,7 @@ const OUT = path.join(ROOT, "lang-decks.js");
    the shelf treats as one: Arabic is all varieties (Ethnologue 28th ed., 411 L1 + 70 L2, Wikipedia's infobox),
    Persian is Farsi + Dari + Tajik (Ethnologue 28th ed., 127, infobox), Polish and Ukrainian are their infobox
    totals (43 and 39), and Romanian and Greek, whose infoboxes give no second-language figure, are their L1
-   (22, 13.5). Tagalog is the 2026 table's 87; Dutch, Zulu and Swedish are their infobox totals (30, 28, 13);
+   (22, 13.5). Tagalog is the 2026 table's 87; Dutch, Zulu and Swedish are their infobox totals (30, 28, 13), Irish the census figures in its row (2.1);
    Hungarian, with no second-language figure, is its L1 (12). Hebrew is its infobox total (9, Ethnologue 2018). Latin and Old English stay 0. `l1` is kept beside it, and a language
    added with no `total` falls back to its `l1` (and is reported) rather than sorting as NaN. */
 const LANGS = [
@@ -107,6 +107,10 @@ const LANGS = [
   { word: "Swedish", name: "Swedish", l1: 9.9, total: 13 },      // Ethnologue 25th ed. (2012–2021 figures), via Wikipedia's infobox, read 2026-11-09
   { word: "Hebrew", name: "Hebrew", l1: 5, total: 9 },         // Wikipedia's infobox (Ethnologue 2018: 9 million speakers of Modern Hebrew, 5 million native), read 2026-11-12
   { word: "Swahili", name: "Swahili", l1: 5, total: 95 },       // Wikipedia's infobox, 5.3 million L1 (Ethnologue 27th ed.; 92 million L2), read 2026-11-09
+  /* IRISH (Nov 2026): Wikipedia's infobox (read 2026-11-12) gives no first-language figure ("unknown"); `l1` is
+     its daily speakers outside the education system, 71,968 (Republic, census 2022) + 43,557 (Northern Ireland,
+     census 2021), and `total` those stating they can speak it, 1,873,997 (Republic, 2022) + 228,600 (NI, 2021). */
+  { word: "Irish", name: "Irish", l1: 0.12, total: 2.1 },
   /* LATIN HAS NO NATIVE SPEAKERS, so its l1 is 0 and it sorts last — the honest place for a language
      nobody grows up with, and the one a figure cannot argue with. Not a guess at a number. */
   { word: "Latin", name: "Latin", l1: 0, total: 0 },

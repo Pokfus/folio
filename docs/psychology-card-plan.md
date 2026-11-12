@@ -935,7 +935,7 @@ more work here than in any collection since Greece.
     ps-404  Olfaction
     ps-405  Taste
     ps-406  Flavour
-    ps-407  Touch and the skin senses
+    ps-407  Touch
     ps-408  Pain
     ps-409  Gate control theory of pain
     ps-410  The vestibular and proprioceptive senses
@@ -944,7 +944,7 @@ more work here than in any collection since Greece.
 
     ps-411  Perceptual organisation
     ps-412  The Gestalt principles of grouping
-    ps-413  Figure and ground
+    ps-413  Figure–ground organisation
     ps-414  Perceptual constancy
     ps-415  The Ponzo illusion
     ps-416  The Müller-Lyer illusion
@@ -955,7 +955,7 @@ more work here than in any collection since Greece.
     ps-421  What illusions reveal about perception
     ps-422  Culture and perception
     ps-423  Perceptual learning
-    ps-424  Perceptual development in infancy
+    ps-424  Perceptual narrowing
     ps-425  The visual cliff
 
 ## Learning, Memory and Cognition
@@ -965,7 +965,7 @@ more work here than in any collection since Greece.
     ps-426  Learning
     ps-427  Habituation
     ps-428  Sensitisation
-    ps-429  Classical conditioning procedures
+    ps-429  Trace conditioning
     ps-430  Unconditioned and conditioned stimuli
     ps-431  Acquisition
     ps-432  Extinction
@@ -983,9 +983,9 @@ more work here than in any collection since Greece.
     ps-444  Shaping
     ps-445  Schedules of reinforcement
     ps-446  The partial reinforcement extinction effect
-    ps-447  Primary and secondary reinforcers
+    ps-447  Secondary reinforcers
     ps-448  Token economies
-    ps-449  Avoidance and escape learning
+    ps-449  Avoidance learning
     ps-450  Learned helplessness
     ps-451  What learned helplessness turned out to be
     ps-452  Instinctive drift
@@ -1015,7 +1015,7 @@ more work here than in any collection since Greece.
     ps-473  The central executive
     ps-474  The episodic buffer
     ps-475  Long-term memory
-    ps-476  Declarative and non-declarative memory
+    ps-476  Declarative memory
     ps-477  Episodic memory
     ps-478  Semantic memory
     ps-479  Procedural memory
@@ -1035,8 +1035,8 @@ more work here than in any collection since Greece.
     ps-493  Anterograde and retrograde amnesia
     ps-494  Memory consolidation
     ps-495  Reconsolidation
-    ps-496  Memory as reconstruction
-    ps-497  Schemas and remembering
+    ps-496  Reconstructive memory
+    ps-497  Schemas
     ps-498  Eyewitness testimony
     ps-499  The misinformation effect
     ps-500  The recovered memory controversy

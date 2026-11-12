@@ -5,8 +5,8 @@ Hungarian set built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless
 this file says otherwise. Asked for on 2026-11-09: "Add a Hungarian language collection."
 
-**STATUS (2026-11-09): the alphabet deck and A1 are built** (`.claude/hungarian/`, §6). A2 to C1 and a phrases
-deck are not.
+**STATUS (2026-11-12): COMPLETE — the alphabet deck, every level (A1 to C1) and the phrases deck are built**
+(`.claude/hungarian/`, §6–§11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Hungarian to the day's
@@ -20,7 +20,8 @@ these is the owner's to overrule.**
 1. **Word source: CEFR A1–C1, assembled.** Hungarian has examinations accredited to the CEFR (the ECL, the Origó
    and university ITK exams), but no graded word list for any of them is known to be published, so the decks do
    not claim to be any exam's vocabulary. (No new search was run for one this session; the Greek finding was
-   taken as the pattern. Worth one search before A2.) Each level is a hand-written topic inventory
+   taken as the pattern. One search was run before A2, on 2026-11-12, and found none: the A2 "szólista"
+   pages it turned up are English words for Hungarian speakers.) Each level is a hand-written topic inventory
    (`inventory.py`) scoped to the CEFR global descriptor, topped up with the commonest remaining lemmas; the
    description says so. Sizes, Hindi's: **A1 500 · A2 750 · B1 1,000 · B2 1,500 · C1 1,500 notes**.
 2. **An alphabet deck, first** in the collection — of SOUNDS rather than shapes, the script being Latin.
@@ -31,10 +32,11 @@ these is the owner's to overrule.**
 |---|---|---|
 | Hungarian Alphabet — built | `Hungarian-Alphabet.folio-deck.json` | 46 |
 | Hungarian A1 Beginner — built | `Hungarian-A1.folio-deck.json` | 500 |
-| Hungarian A2 Elementary | `Hungarian-A2.folio-deck.json` | 750 |
-| Hungarian B1 Intermediate | `Hungarian-B1.folio-deck.json` | 1,000 |
-| Hungarian B2 Upper Intermediate | `Hungarian-B2.folio-deck.json` | 1,500 |
-| Hungarian C1 Advanced | `Hungarian-C1.folio-deck.json` | 1,500 |
+| Hungarian A2 Elementary — built | `Hungarian-A2.folio-deck.json` | 750 |
+| Hungarian B1 Intermediate — built | `Hungarian-B1.folio-deck.json` | 1,000 |
+| Hungarian B2 Upper Intermediate — built | `Hungarian-B2.folio-deck.json` | 1,500 |
+| Hungarian C1 Advanced — built | `Hungarian-C1.folio-deck.json` | 1,500 |
+| Hungarian Phrases and Expressions — built | `Hungarian-Phrases-and-Expressions.folio-deck.json` | 542 |
 
 ## 2. Sources and licences
 
@@ -97,7 +99,7 @@ every subtitle-ordered deck does. The personal forms of `ő` that Wiktionary fil
 
 **Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `hungarian_level.py`, run, read every card.
-**Phase 3** — a phrases deck (`phrase` / `proverb` entries and multi-word lemmas).
+**Phase 3 (done, §11)** — a phrases deck (`phrase` / `proverb` entries and multi-word lemmas).
 
 ## 6. As built (2026-11-09): the alphabet and A1
 
@@ -110,3 +112,129 @@ The alphabet: 46 notes — the 44 letters in Hungarian order with their names (n
 three characters), then the stress and the doubled consonant; every sound side unique (asserted). The shelf's hue
 is measured: `#14659F`, a steel blue, 16.9 from its nearest neighbours (Ancient Greece and French) against all 65
 other hues on the page (re-swept at the merge with seventeen new languages on the shelf).
+
+## 7. As built (2026-11-12): A2
+
+Asked for on 2026-11-12: "Add Hungarian A2." `python3 .claude/hungarian/run.py --level a2`: 750 notes, 454 from
+the inventory (`inventory.A2`, fifteen topics after the Romanian A2's) and 296 by frequency; sentences for 748, three
+apiece for 743. The scope is the CEFR A2 global descriptor (`SCOPE['a2']`). A re-run is byte-identical, and A1
+rebuilt on the same day's sources is byte-identical to the shipped file. What reading the cards changed:
+
+- **FORMS WHOSE EVERY SENSE IS A POINTER came out with NO English** (`neve`, `élete`, `életem`, `keze`, `része`,
+  `feje`, `apám`, `szeretlek`): the A2 fill reaches the possessed forms of A1 nouns. Excluded, with the
+  accusatives, imperatives and other forms of words already taught (`mit`, `egyet`, `annak`, `arról`, `állj`, `nézze`,
+  `vigyázz`, `köszönjük`), `emlékezik` (the same verb as A1's `emlékszik`) and `gyermek` (A1's `gyerek`).
+- **A SUBTITLE COUNT FOR A SENSE WIKTIONARY DOES NOT GIVE**: `halló` (the telephone "hello?", glossed "auditory"),
+  `bocs` ("sorry", glossed "bear cub"), `tőlem` ("from me", glossed "for all I care"), `frank` (the name Frank,
+  glossed "Frankish"). Excluded; `bocsi` "sorry" is dealt instead. Two curses (`francba`, `fenébe`) were excluded.
+- **`sír`** shows "to cry" before "grave" (`ETYMS`). `repülő` (filed as a participle, no English) became
+  `repülőgép`; `foglalás` (glossed only "distraint") and the duplicates `kilogramm` and `bicikli` were dropped.
+- **The description said "for a beginner" at every level**; it now names the level's learner (`FOR`, Romanian's).
+
+**Known, left.** `kirándulás` lists Wiktionary's "sprain" before "excursion". The fill again carries the subtitles'
+crime-drama words (`gyilkos`, `börtön`, `nyomozó`).
+
+## 8. As built (2026-11-12): B1
+
+Asked for on 2026-11-12: "Add B1." `python3 .claude/hungarian/run.py --level b1`: 1,000 notes, 426 from the
+inventory (`inventory.B1`, fifteen topics after the Hindi B1's: work and the economy, education, media and
+technology, government and law, the environment, health, transport, the household, relationships, feelings,
+religion and festivals, ideas and plans, connectors, describing, the verbs of thinking and changing) and 574 by
+frequency; sentences for 983, three apiece for 937. A re-run is byte-identical. What the level needed:
+
+- **VERBAL NOUNS.** Wiktionary files most -ás/-és nouns as "verbal noun of lop: stealing, theft", tagged as a form,
+  so the extraction had dropped them (`lopás`, `fűtés`, `javítás` were "not in Wiktionary"). `extract.py` now keeps
+  the meaning after the pointer (`verbal_noun_gloss`, three wordings) for a noun with no other sense: 132 lemmas,
+  flagged `vn` and added AFTER the frequency count, so no other lemma's count moves. `select.py` deals them from
+  B1 up only; A1 and A2 do not change. None reached B1's frequency cutoff; four are in the inventory.
+- **POINTERS UNTAGGED AS FORMS** gave 49 cards with no English: possessives and object forms glossed by their
+  grammar ("first-person singular single-possession possessive of anya", `fia`, `lánya`, `látlak`) and "synonym of X"
+  (`bennünket`, `repülő`). `select.usable` judges a word by the etymology the card SHOWS, without such glosses
+  (`szád` is "your mouth" first, "aperture" second). `check-hungarian.js` now fails a card with no meaning at all.
+- **SUBTITLE COUNTS FOR ANOTHER WORD** (`select.EXCLUDE`): `henry`, `bob` (names), `tönk` (`tönkre`), `telt`
+  (`telik`'s past), `ment` (`megy`'s past; it had been written into the inventory for "save"), and three curses.
+- **SWEARING IN THE ENGLISH.** A clean Hungarian sentence can be translated with an obscenity ("Mi az ördög ez?",
+  "What the fuck is that?"): `examples.SWEAR_EN` refuses one, and the check reads the English. **This changed the
+  sentences of four cards already shipped** (A1 `isten`; A2 `művel`, `bőr`, `udvarias`) and nothing else in either deck.
+- Dropped from the inventory for their glosses: `edzés` ("tempering"), `hányás` ("verbal noun of hány"), `dugó`
+  (no "traffic jam"), `válás` ("becoming"; `elválik` is "to divorce").
+
+**Known, left.** The fill is heavier with the subtitles' crime and war vocabulary at this band (`gyilkosság`'s
+neighbours `nyomozás`, `holttest`, `gyanúsított`, `őrmester`, `hadnagy`). `hülyeség` is glossed "bullshit, rubbish,
+nonsense", Wiktionary's own first gloss.
+
+## 9. As built (2026-11-12): B2
+
+Asked for on 2026-11-12: "Add B2." `python3 .claude/hungarian/run.py --level b2`: 1,500 notes, 400 from the
+inventory (`inventory.B2`, thirteen topics after the Hindi B2's: politics and administration, the law and the
+courts, the economy and finance, science, technology, the environment, health and the mind, the arts and media,
+history and society, argument, formal connectors, describing, the verbs of reporting and persuading — many of
+its words are taught lower, so only 400 are new) and 1,100 by frequency; sentences for 1,435, three apiece for
+1,305. A re-run is byte-identical. What reading the cards changed:
+
+- **COUNTS THAT BELONG TO ANOTHER WORD** (`select.EXCLUDE`), more of them at this depth: names (`pete`, `gordon`),
+  English (`go`, `house`, `la`), possessed forms of words already taught (`korom` "my age", glossed "soot"; `karom`
+  "my arm", glossed "claw"), colloquial spellings (`föl`, `len`), stems (`esz`), and words glossed only by a
+  pointer (`teli`, `jelenik`, `juttat`, `valamiért`); `edzés` (glossed "tempering") again.
+- **`ETYMS`**: `fogoly` "prisoner" before "partridge", `szán` "to intend, to pity" before "sleigh", `bejárat`
+  "entrance" before "to run in".
+- **`SWEAR_EN` widened** to "cock", "dick" and "pussy" (`farok` had two such sentences). **This changed one card
+  already shipped**, A2's `kislány` ("Come on, don't be a pussy!"), and nothing else in A1, A2 or B1.
+- The inventory's words Wiktionary has under another headword were rewritten (`vád`, `ítél`, `perel`,
+  `megveszteget`, `privatizáció`, `kihal`, `szén-dioxid`, `megőriz`, `megfontol`); the rest were dropped.
+
+**Known, left.** `kifogás` lists "unharnessing" before "objection, excuse", `ellenállás` has only "electrical
+resistance" and `írás` "script; tails" — Wiktionary's own senses. The fill carries more crime, war and fantasy
+vocabulary (`túsz`, `boszorkány`, `sárkány`) and a few sexual words (`szexel`, `szeretkezik`) from the subtitles;
+their sentences pass both swear filters.
+
+## 10. As built (2026-11-12): C1
+
+Asked for on 2026-11-12: "Add C1." `python3 .claude/hungarian/run.py --level c1`: 1,500 notes, 313 from the
+inventory (`inventory.C1`, twelve topics after the Hindi C1's, the Sanskrit-derived register read as Hungarian's
+formal and Latinate one: philosophy and ethics, religion, scholarly Hungarian, government and diplomacy, the
+economy, medicine, law and rights, language and literature, the shades of feeling, the abstract nouns and
+adjectives of formal prose, the literary connectors) and 1,187 by frequency; sentences for 1,350, three apiece for
+1,102. A re-run is byte-identical; A1 to B2 rebuild unchanged. What the level needed:
+
+- **ENGLISH WIKTIONARY RUNS OUT.** 71 of the inventory's words have no entry at all (`dilemma`, `ateista`,
+  `megvetés`, `rettegés`, `felháborodás`, `elkeseredett`, `mérvadó` …, checked against the extract's headwords, not
+  only `lex.json`); they were removed from the inventory, never given a gloss of Folio's own. `osztályozás` (only
+  "verbal noun of osztályoz") was removed too.
+- **TWO MORE POINTER SHAPES** in `select.POINTER`: "only used in X" (`elégedik`, `lábad`, `kellős`) and a bare
+  "verbal noun of X" (`forgatás`, `egyezés`). A1 to B2 do not change.
+- **COUNTS THAT BELONG TO ANOTHER WORD** (`select.EXCLUDE`): letter names (`enn`, `vé`), English (`here`, `ring`),
+  forms of words taught lower (`hetek` "weeks", `felkelt`, `tettet`, `lásd`, `üdvözöljük`, `tiszteletem`), a colloquial
+  spelling (`hun` "where") and pointer glosses (`egykor`, `legtöbben`). Three vulgar words (`szopik`, `cici`, `szuka`).
+- **THE HUNGARIAN SWEAR FILTER READ ONLY TOKENS**, and a capitalised word is not a token: `erkölcs` had been
+  dealt "A Faszbuk lesz hamarosan …". `examples.clean` now reads every word. A1 to B2 do not change.
+
+**Known, left.** The fill at this depth is the subtitles' vocabulary more than formal prose — crime, the
+military, the body, and a few sexual words that are not slang (`pénisz`, `pornó`, `óvszer`, `prostituált`) with
+plain sentences; the formal register is carried by the inventory. 150 words have no Tatoeba sentence.
+
+## 11. As built (2026-11-12): the phrases deck
+
+Asked for on 2026-11-12: "Add the phrases deck." `python3 .claude/hungarian/run.py --level phr` (after all five
+levels): `decks/Hungarian-Phrases-and-Expressions.folio-deck.json`, 542 expressions in three subdecks — 87 everyday
+phrases, 387 idioms, 68 proverbs — ported from the Romanian deck (`phrases.py`, the shelf's "THE PHRASES DECK"
+arrangement): a proverb is Wiktionary's part of speech, an idiom a multi-word sense TAGGED idiomatic, a phrase a
+multi-word phrase or interjection that is not; a plain multi-word noun (`házi feladat`) is a word and is not here.
+Nothing the five levels teach is taught again. Within a subdeck the order is how many Tatoeba sentences contain the
+expression (271 of 542 occur), then frequency. A re-run is byte-identical; the five level decks rebuild unchanged.
+
+- **THE VERB IDIOMS' MATCHING** (`examples.phrase_hits`, the phrases deck only): the verb of a verb idiom is
+  matched in any form, and a two-word one in EITHER ORDER — Hungarian puts the verb first under negation and focus
+  (`szüksége van` / `van szüksége`, `kezet fog` / `kezet fogni`). Idioms with a possessed noun (`elveszti a fejét`)
+  are matched as written and mostly not found.
+- **`EXCLUDE`** (`phrases.py`): personal sentences built from level words (`meleg vagyok`, `zsidó vagyok`,
+  `szerelmes vagyok beléd` …, the Romanian and Hindi rule — the phrasebook's questions and formulas stay), two terms
+  (`azonosítatlan repülő tárgy`, an administrative one), a gloss that is no meaning (`most ugrik a majom a vízbe`),
+  a meme (`abszolút filmszínház`), and `az ember` (its sentences are all the literal "the man").
+- **"Used other than figuratively or idiomatically: see …"** is Wiktionary's note on the literal reading, not a
+  meaning: `build_deck.NOT_A_MEANING` drops it (`vége van`, `azért is`); no level card changes.
+- **`check-hungarian.js`**: a proverb's punctuation is allowed in the phrases deck's headwords, and the swear check
+  reads whole words — JavaScript's `\b` is not Unicode-aware, so `/\bfos/` had matched inside `csúfos`.
+
+**Known, left.** 272 expressions have no Tatoeba sentence, most of the idioms among them. A few sentences match an
+idiom's words in a literal sense or across a comma (`vége van`: "Bármi is volt, vége").
