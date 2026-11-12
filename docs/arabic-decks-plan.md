@@ -5,8 +5,8 @@ Arabic language collection." It is a twelfth language set in the shape of the on
 (`docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise).
 
-**STATUS (2026-11-09): built — the Arabic Alphabet (31 notes) and Arabic A1 (500 notes / 1,000 cards).**
-A2 and up, and a phrases deck, are not built; §6 is what they need.
+**STATUS (2026-11-12): built — the Arabic Alphabet (31 notes), Arabic A1 (500 notes / 1,000 cards) and Arabic
+A2 (600 notes / 1,200 cards, 2026-11-12).** B1 and up, and a phrases deck, are not built; §6 is what they need.
 
 ## 1. What the set is
 
@@ -14,6 +14,7 @@ A2 and up, and a phrases deck, are not built; §6 is what they need.
 |---|---|---|
 | Arabic Alphabet | `decks/Arabic-Alphabet.folio-deck.json` | 31: the 28 letters, then hamza ء, tāʔ marbūṭa ة, alif maqṣūra ى |
 | Arabic A1 | `decks/Arabic-A1.folio-deck.json` | 500 |
+| Arabic A2 | `decks/Arabic-A2.folio-deck.json` | 600, of 789 inventory lines (`inventory_a2.py`) |
 
 **Modern Standard Arabic only** — the written and formal language, not any dialect. Titles in English, as
 the Turkish and Russian sets settled. One note, two templates (Arabic → English, English → Arabic), the
@@ -94,8 +95,26 @@ is `rtl`, the table and the speaker; writes a screenshot).
   white. It first came out #9F51B4 — the same violet Hindi's parallel session measured — and was re-swept at the
   merge with Hindi on the shelf: #2A8424, 19.5 from Portuguese's green. Re-sweep whenever two languages land together.
 
+- **A2 (2026-11-12) — `python3 .claude/arabic/run.py --level a2`.** Its own inventory (`inventory_a2.py`,
+  `inventory.topics(level)`), 789 lines for the A2 topics, the 600 commonest dealt. **The levels below are
+  competitors**: every lower inventory line is joined too; a line whose entry a lower level teaches stops the
+  build (`TAUGHT BELOW`), and the lower words share the count (`select.py`) and the homograph test
+  (`examples.py`) but are never dealt. **A1 IS FROZEN**: its card ids are positions, so every rule found at A2
+  is gated `strict = level != "a1"` and A1 rebuilds byte-identical. The A2 rules: no prefix on a form of one or
+  two letters in the COUNT (`لقد` was ل + قُدْ, قَادَ's imperative; `بعد` ب + عُدْ); no article on a verb's form
+  (`الامر` was a cell of مَرَّ); two headwords meeting only when folded (كَانَ / كَأَنَّ) split by their written
+  spellings' counts; `NOT_FORMS`, five cells that are another word (`اسمك` "your name" for سَمِيك, `الفراش`
+  "the bed" for فَرَاشَة …), read off the `via` report each word now carries in `wordlist-<level>.json`; in the
+  SENTENCES, a vowelled token that agrees with two owners says neither (`مرّتين` is A1's مَرَّة as much as مُرّ),
+  an adverb takes no article (`الخاصّة`), and the `*_A2` lists (homographs, refused sentences by Arabic or by
+  English, refused topics — drugs, suicide, violence, vulgarity, a political or religious claim), a refused
+  string also tested on the bare text. Four words carry no sentence on purpose (بُنِّيّ, سَلَطَة, خَاصَّةً,
+  حَيّ: every candidate is the homograph); 22 in all have none. لَوْ has no romanisation on Wiktionary and
+  takes `build_deck.py`'s one-entry `ROMAN`. Four lines had no entry and one joined the wrong sense (طابق, a
+  tile): all dropped; غِرَام "gram" and إِنْ were dropped on reading (غَرَام "love"; إِنَّ).
+
 ## 6. Next levels
 
-A2 onward needs a second inventory per level (no exam list exists at any level), built on top of the shipped
-A1 (no headword taught twice — add the `taught_below` arrangement the Turkish `select.py` has). A phrases deck
-would start from kaikki's `phrase` / `intj` entries and Tatoeba counts, the Turkish `phrases.py` shape.
+B1 onward: a third inventory (`inventory_b1.py`, a `topics()` row, `SIZE`, `SCOPE`, `STAMP`), and A2 is then
+frozen as A1 is — a rule found at B1 gated so A2 rebuilds byte-identical. A phrases deck would start from
+kaikki's `phrase` / `intj` entries and Tatoeba counts, the Turkish `phrases.py` shape.

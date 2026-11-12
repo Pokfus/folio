@@ -562,9 +562,20 @@ TOPICS = [
 ]
 
 
-def entries():
+LEVELS = ["a1", "a2"]
+
+
+def topics(level="a1"):
+    """The level's inventory: A1 is this file's, A2 `inventory_a2.py`'s."""
+    if level == "a1":
+        return TOPICS
+    import inventory_a2
+    return {"a2": inventory_a2.TOPICS}[level]
+
+
+def entries(level="a1"):
     out = []
-    for topic, block in TOPICS:
+    for topic, block in topics(level):
         for line in block.strip().splitlines():
             parts = [p.strip() for p in line.split("|")]
             if len(parts) != 3 or not all(parts):

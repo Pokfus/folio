@@ -29,6 +29,12 @@ SCOPE = {
         "cefr": ("Can understand and use familiar everyday expressions and very basic phrases aimed at the "
                  "satisfaction of needs of a concrete type"),
     },
+    "a2": {
+        "title": "Arabic A2",
+        "cefr": ("Can understand sentences and frequently used expressions related to areas of most immediate "
+                 "relevance (e.g. very basic personal and family information, shopping, local geography, "
+                 "employment)"),
+    },
 }
 
 
@@ -37,7 +43,7 @@ def describe(level, cards, wl, stats):
     import inventory
     used = {w["topic"] for w in wl["words"]}
     # the inventory's own order, which is the order a course meets them; its catch-all is not a topic
-    topics = [t for t, _ in inventory.TOPICS if t in used and t != "more words for the level"]
+    topics = [t for t, _ in inventory.topics(level) if t in used and t != "more words for the level"]
     have = n - stats["ex0"]
     s = [
         "Both study directions in one deck: Arabic → English (see the Arabic, recall the meaning) and "
@@ -51,6 +57,12 @@ def describe(level, cards, wl, stats):
         "level's topics — %s — and the cards are dealt by how often each word occurs in a frequency list built "
         "from Arabic film and television subtitles, the greetings first, so the words you meet most often come "
         "early." % "; ".join(topics),
+    ]
+    if level != "a1":
+        s.append("It builds on the levels below it: no word an earlier Arabic deck teaches is taught again here, "
+                 "so start with %s if you have not." % " and ".join(
+                     SCOPE[lv]["title"] for lv in inventory.LEVELS[:inventory.LEVELS.index(level)]))
+    s += [
         "Every headword is printed WITH its short vowels, as books for learners print them, because Arabic is "
         "normally written without them and nothing in the bare spelling says how كتب is read. The example "
         "sentences are printed as they were written, which is mostly without vowels — the way Arabic is met in "
