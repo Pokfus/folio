@@ -5,8 +5,8 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-09: "Add a Ukrainian language collection."
 
-**STATUS (2026-11-09): the alphabet deck and A1 are built** (`.claude/ukrainian/`, §6). A2 to C1 and a phrases
-deck are not.
+**STATUS (2026-11-12): COMPLETE — the alphabet deck, all five levels (A1 to C1) and the phrases deck are built**
+(`.claude/ukrainian/`, §6–§11).
 
 Later decks under `decks/` are community content, not a change to Folio: **no changelog line and no version bump**
 for them. The collection's first commit carried one line and one bump, because it also changed the APP (the
@@ -30,10 +30,11 @@ already use, and the owner may overrule any of it:
 |---|---|---|
 | Ukrainian Alphabet — built | `Ukrainian-Alphabet.folio-deck.json` | 34 (33 letters and the apostrophe) |
 | Ukrainian A1 Beginner — built | `Ukrainian-A1.folio-deck.json` | 500 |
-| Ukrainian A2 Elementary | `Ukrainian-A2.folio-deck.json` | 750 |
-| Ukrainian B1 Intermediate | `Ukrainian-B1.folio-deck.json` | 1,000 |
-| Ukrainian B2 Upper Intermediate | `Ukrainian-B2.folio-deck.json` | 1,500 |
-| Ukrainian C1 Advanced | `Ukrainian-C1.folio-deck.json` | 1,500 |
+| Ukrainian A2 Elementary — built | `Ukrainian-A2.folio-deck.json` | 750 |
+| Ukrainian B1 Intermediate — built | `Ukrainian-B1.folio-deck.json` | 1,000 |
+| Ukrainian B2 Upper Intermediate — built | `Ukrainian-B2.folio-deck.json` | 1,500 |
+| Ukrainian C1 Advanced — built | `Ukrainian-C1.folio-deck.json` | 1,500 |
+| Ukrainian Phrases and Expressions — built | `Ukrainian-Phrases-and-Expressions.folio-deck.json` | 135 |
 
 ## 2. Sources and licences
 
@@ -98,3 +99,120 @@ level's inventory into `inventory.py` and its `SCOPE` into `ukrainian_level.py`,
 letter, a missing or doubled stress mark, a stressed speaker field, unbalanced HTML, a shared English side). **A
 re-run is byte-identical** (verified). A1: 500 notes, 377 from the inventory and 123 by frequency; three sentences
 for all 500. The shelf's hue is measured: `#9F4500`, 15.8 from its nearest of 58 (re-swept at the merge: its first sweep's `#2A8424` was Arabic's too).
+
+## 7. As built (2026-11-12): A2
+
+`python3 .claude/ukrainian/run.py --level a2`. 750 notes: 442 from the A2 inventory (`inventory.py`: relatives,
+jobs and study, clothes, food and cooking, the home, the town, travel, nature and the compass, animals, health,
+feelings, free time, time words, the higher numbers and measures, everyday verbs) and 308 by frequency, none taught
+in A1; sentences for 745, three apiece for 730. The A2 `SCOPE` quotes the CEFR A2 global descriptor. Seven inventory
+words Wiktionary lacks as lemmas were dropped (`ліцей`, `студентка`, `вчителька`, `перон`, `Великдень`, `Різдво`,
+`пізніше`); `сором'язливий` is a pointer entry, so the inventory takes `соромливий`. New from reading the ranking:
+`select.EXCLUDE` grew by fourteen (a vocative or a name taking a count — `варта`/`варто`, `боб`/Bob, `папа`; Russian
+words — `муж`, `мужчина`, `дальше`, `готовити`, `явитися`, `нико`; forms with cards of their own — `зрозумів`,
+`вітаю`, `побачення`), and `ENTRY_WITH` in `build_deck.py` picks one entry by its gloss where two etymologies share
+a blank etymology number (`дружина` "wife", not the prince's band). **A1 rebuilds byte-identical and so does A2.**
+Known, left: the fill keeps the subtitles' `чувак`, `біс`, `коп`, `наркотик`, as A1 kept `чорт`; `дружина` is
+labelled "masculine or feminine", Wiktionary's own.
+
+## 8. As built (2026-11-12): B1
+
+`python3 .claude/ukrainian/run.py --level b1`. 1,000 notes: 391 from the B1 inventory (work and career, education,
+media and technology, the environment, society and politics, law and crime, money and banking, health and a way of
+life, relationships and feelings, culture and the arts, the problems of travel, opinions and connectives, describing
+people and things, the verbs of deciding, changing and making) and 609 by frequency, none taught in A1 or A2;
+sentences for 972, three apiece for 923. The B1 `SCOPE` quotes the CEFR B1 global descriptor; the description's
+"words for …" phrase is now the table `LEARNER` in `build_deck.py`. Inventory words Wiktionary lacks as lemmas were
+dropped (`випускник`, `вміння`, `розслідування`, `закоханий`, `хоча`, `незважаючи`, `незручний`, `заблукати` and
+others; `інтернет` is a form-only entry); `стосунки` → `стосунок`, `речі` → `річ`; `розлучення` "divorce" is
+defined only as a pointer to `розлука` "separation" and is left out. New from reading the ranking: `select.EXCLUDE`
+grew by thirty-four — names or other words taking a count (`ян`, `чан`, `люк`, `майя`, `піп`), lemmas whose own forms barely count
+(`карт`, `мара`, `миро`, `никнути`, `перти`), Russian words (`кофе`, `путь`, `письмо`, `куча`, `оп'ять`,
+`появитися`, `попробувати`, `доказати`, `скучати`, `являтися`), у-spellings of a card already shipped (`учитель`,
+`учитися`, `убивати`, `ударити`, `умирати`) and forms with cards of their own (`діти`, `заспокойся`, `поїхали`,
+`чогось`, `типу`, `знов`), plus a pointer (`цінувати`), an old spelling (`вампир`) and an insult (`сучий`).
+`build_deck.py` gained `ETYMS` for `тікати` ("to run away", not "to tick") and `уряд`, `ENTRY_WITH` for `стан`
+("condition, state", not "torso"), `NOT_WEAK` for `уряд` (Wiktionary tags every noun sense of "government" rare, so
+the untagged adverb "in succession" had won) and a `STRESS` for `стривати`. **A1, A2 and B1 rebuild byte-identical.**
+Known, left: the fill keeps the subtitles' fantasy and police vocabulary (`дракон`, `меч`, `принц`, `сержант`,
+`прокурор`), as the levels below do.
+
+## 9. As built (2026-11-12): B2
+
+`python3 .claude/ukrainian/run.py --level b2`. 1,500 notes: 347 from the B2 inventory (the economy and business, the
+workplace, government, law and rights, science and technology, the environment and energy, society and its problems,
+the media, education and the mind, health and medicine, culture, history and identity, the arts and reviews,
+attitudes and character, the words of an argument, the verbs of change and judgement) and 1,153 by frequency, none
+taught below; sentences for 1,377, three apiece for 1,191. The B2 `SCOPE` quotes the CEFR B2 global descriptor.
+The inventory is the smallest share yet because B2's abstract vocabulary is where Wiktionary's Ukrainian is
+thinnest: 35 inventory words have no lemma there (`спад`, `оподаткування`, `мислення`, `рецензія`, `мораль`,
+`расизм`, `депортація` …, printed by `select.py`), and `становити` and `обурюватися` are pointer entries, so they
+were taken out; `засоби масової інформації` was taken out beside `ЗМІ`, the two being one meaning. New from reading
+the ranking: `select.EXCLUDE` grew by forty-five — lemmas whose own forms barely count (`піл`, `кайло`, `айва`,
+`рея`, `забрало`, `кода`, `руда`, `літ`, `віл`, `пустий`, `заказати`, `ич`), counts that are another word (`жила`
+the past of жити, `рота` the genitive of рот, the names Bill, Martin, Bond, Sonya, `францій` from Франції, `едем`
+from Russian, the subtitles' own credits), Russian words (`старик`, `воздух`, `кусок`, `спорити`, `власть`,
+`бизнес`, `хватати`, `судьба`, `грудь`, `дурак`, `стакан`, `строїти`), у-spellings and variants of a word shipped
+(`упасти`, `украсти`, `учити`, `учора`, `установити`, `аніж`, `адрес`), forms (`силою`, `удачі`), a pointer
+(`розлучення`), an old spelling (`барбар`) and a letter name (`мю`). `ETYMS` takes `ген` "gene", not a dialectal
+"far away". **A1, A2, B1 and B2 rebuild byte-identical.** Known, left: the fill carries the subtitles' genre
+vocabulary (`ельф`, `орк`, `вампір`, `шпигун`) and some slang (`кайф`, `фігня`, `бакс`), as the levels below do.
+
+## 10. As built (2026-11-12): C1
+
+`python3 .claude/ukrainian/run.py --level c1`. 1,500 notes: 274 from the C1 inventory (politics, power and the
+state, law and justice, the economy and finance, science and research, philosophy and belief, language, literature
+and style, the arts and taste, the mind, emotion and behaviour, society and change, the land and the planet, the
+small words of nuance, the verbs of arguing and shading a meaning) and 1,226 by frequency, none taught below;
+sentences for 1,216, three apiece for 920 — the thinnest level, as Tatoeba's Ukrainian is everyday speech. The C1
+`SCOPE` quotes the CEFR C1 global descriptor. 52 inventory words have no lemma in Wiktionary (`консерватизм`,
+`монополія`, `аудит`, `строфа`, `бароко`, `консенсус`, `ерозія` …, printed by `select.py`); `обурюватися` is a
+pointer entry and was taken out. **At C1 the fill's counts are small (40–70 per lemma), so a lemma that takes its
+count from another word's forms is the commonest fault**: `select.EXCLUDE` grew by forty-two — lemmas whose own forms
+barely count (`ладо`, `бона`, `верзти`, `низати`, `висок` (the count is виски), `бердо`, `сура`, `нити`, `тета`,
+`карат`, `гуда`, `гар`, `хала`, `сич`, `вал`, `дан`, `кар`), counts that are another word (`паша` the name, `бла` from
+бла-бла, `індій` from Індії, `каліфорній` from Каліфорнії, `соль` from Russian "salt"), Russian words (`май`,
+`важний`, `ловушка`, `напиток`, `дядя`, `упоминати`, `повторяти`), у- and в-spellings of a word shipped (`уміти`,
+`убивця`, `уночі`, `ввійти`), a variant (`цукерок`), a form (`англійською`), pointers (`догадатися`, `пігулка`),
+old spellings (`біл`, `туалета`), dialect (`се`, `нє`) and a letter name (`хі`). **All five levels rebuild
+byte-identical.** Known, left: `учинок` and `укусити` are Wiktionary's own у-lemmas (their в-spellings are only
+alternative forms there), and the fill carries the subtitles' slang and genre words as every level does.
+
+## 11. As built (2026-11-12): the phrases deck
+
+`python3 .claude/ukrainian/run.py --level phr` runs `phrases.py` in place of `select.py`. 135 expressions in three
+subdecks, the Indonesian, Turkish and Hindi arrangement (`docs/lang-decks.md`, "THE PHRASES DECK"): **62 Phrases**
+(Wiktionary's multi-word phrases and interjections not tagged idiomatic — `чи не так`, `до речі`, `нема за що`, the
+greetings of the day and of the festivals, the national salute `слава Україні` — `героям слава`), **68 Idioms** (a
+multi-word entry with a sense tagged idiomatic — `робити з мухи слона`, `китайська грамота`, `коли рак на горі
+свисне`) and **5 Proverbs** (Wiktionary's part of speech; it files most Ukrainian sayings as idioms — `нема диму без
+вогню`, `один у полі не воїн` — and they are left where it puts them, the description saying so). Nothing a level
+teaches is repeated (`будь ласка`, `до побачення` are A1's). Ordered by Tatoeba occurrences, then frequency; 67
+occur in a Tatoeba sentence, 63 carry sentences, 30 three. **A re-run is byte-identical, and all five levels rebuild
+byte-identical with the changed code.**
+
+**Findings:**
+- **A Ukrainian verb idiom usually puts the verb FIRST** (`накласти на себе руки`, `прийти до тями`), where Hindi's
+  and Turkish's end in it, so `examples.phrase_parts` lets whichever word is a verb lemma (`-ти`, `-тися`) match in
+  any form of it (`наклав на себе руки`, `покажу, де раки зимують`). For the phrases deck ONLY; the levels keep
+  their exact matching.
+- **A LITERAL SENTENCE TEACHES THE WRONG THING**: Tatoeba's hits for `мати довгі руки` "to be light-fingered" are
+  "she has long arms and legs", for `відкрити Америку` "to state the obvious" Columbus, for `дуже приємно` "pleased
+  to meet you" a comfortable chair. `examples.LITERAL` names each skipped sentence, read off the first build (eight
+  expressions); a joke (`Христос народився` … "before Chuck Norris") is skipped the same way.
+- **Sixteen head lines carry no stress at all** (`слава Україні`, `мене звати`, `з Новим роком` …) and one a stray
+  mark (`д́ати гарбуза`); `STRESS` in `build_deck.py` supplies them.
+- **"Used other than figuratively or idiomatically: see …"** is a Wiktionary line pointing at the literal reading's
+  words; `english()` drops it (`є таке`, `під джмелем`). No level gloss carries it, so the levels are unchanged.
+- Excluded, each with its reason in `phrases.EXCLUDE` (26): sentences and templates built from level words (`я не
+  знаю`, `я з`, `я українець`, `у мене є питання`); dialect and Russianised forms of a greeting taught (`добри
+  вечур`, `доброї раніці`, `я називаюсє`, `так єс сі`, `Христос рождається`); the same expression twice (`день
+  добрий`, `слава богові`, `хай щастить`, `за зачиненими дверима`, the imperfective `висаджувати в повітря`); a
+  religious greeting and an invocation that are not festival greetings (`слава Ісусу Христу`, `з нами Бог`); a
+  political slogan (`все буде Україна`); Internet slang of one community (`шакалячий експрес`); and `як Марко в
+  пеклі`, whose gloss is a usage note.
+
+**Known, left.** Wiktionary tags as idiomatic some expressions a learner would call plain (`мене звати` "my name
+is", `в руках`); its labels are the source's. The festival greetings are kept with their replies (`Христос
+воскрес` — `воістину воскрес`, `Христос народився` — `Славимо Його`), as Hindi kept its festival greetings. The
+mild oaths `чорт забирай`, `якого біса` are kept as expressions a learner hears.
