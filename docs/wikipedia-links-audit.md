@@ -26,25 +26,30 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7006 | the title is the article |
-| `redirect-variant` | 417 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 95 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 7475 | the title is the article |
+| `redirect-variant` | 454 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 98 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 656 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 720 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 144 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 149 | only a disambiguation page; no link could be chosen |
-| `none` | 1049 | nothing matched; no link |
+| `section-redirect` | 165 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 150 | only a disambiguation page; no link could be chosen |
+| `none` | 1123 | nothing matched; no link |
 
-**8190 of 9550 cards get a link.** The three "no link" rows are the honest state: a card whose
+**8763 of 10220 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (656)
+## Redirected to a differently named article — check each (720)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
 - `art-030` **Thinker of Cernavodă** → [Thinker of Hamangia](https://en.wikipedia.org/wiki/Thinker_of_Hamangia) (from `Thinker of Cernavodă`)
+- `art-035` **Uruk Vase** → [Warka Vase](https://en.wikipedia.org/wiki/Warka_Vase) (from `Uruk Vase`)
+- `art-046` **Bull-Headed Lyre of Ur** → [Bull Headed Lyre of Ur](https://en.wikipedia.org/wiki/Bull_Headed_Lyre_of_Ur) (from `Bull-Headed Lyre of Ur`)
+- `art-057` **Snake Goddess** → [Minoan snake goddess figurines](https://en.wikipedia.org/wiki/Minoan_snake_goddess_figurines) (from `Snake Goddess`)
+- `art-062` **Vaphio Cups** → [Vaphio](https://en.wikipedia.org/wiki/Vaphio) (from `Vaphio cups`)
+- `art-065` **Bust of Nefertiti** → [Nefertiti Bust](https://en.wikipedia.org/wiki/Nefertiti_Bust) (from `Bust of Nefertiti`)
 - `astro-024` **celestial meridian** → [Meridian (astronomy)](https://en.wikipedia.org/wiki/Meridian_(astronomy)) (from `Celestial meridian`)
 - `astro-030` **angular size** → [Angular diameter](https://en.wikipedia.org/wiki/Angular_diameter) (from `Angular size`)
 - `astro-031` **angular separation** → [Angular distance](https://en.wikipedia.org/wiki/Angular_distance) (from `Angular separation`)
@@ -55,6 +60,15 @@ The answer redirects to an article with another name. Most are the same subject 
 - `astro-085` **solar day** → [Synodic day](https://en.wikipedia.org/wiki/Synodic_day) (from `Solar day`)
 - `astro-090` **Julian date** → [Julian day](https://en.wikipedia.org/wiki/Julian_day) (from `Julian date`)
 - `astro-100` **age of the Solar System** → [Formation and evolution of the Solar System](https://en.wikipedia.org/wiki/Formation_and_evolution_of_the_Solar_System) (from `Age of the Solar System`)
+- `astro-104` **prograde motion** → [Retrograde and prograde motion](https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion) (from `Prograde motion`)
+- `astro-119` **retrograde rotation** → [Retrograde and prograde motion](https://en.wikipedia.org/wiki/Retrograde_and_prograde_motion) (from `Retrograde rotation`)
+- `astro-121` **Earth's interior** → [Internal structure of Earth](https://en.wikipedia.org/wiki/Internal_structure_of_Earth) (from `Earth's interior`)
+- `astro-139` **comparative planetology** → [Comparative planetary science](https://en.wikipedia.org/wiki/Comparative_planetary_science) (from `Comparative planetology`)
+- `astro-150` **planetary ring** → [Ring system](https://en.wikipedia.org/wiki/Ring_system) (from `Planetary ring`)
+- `astro-174` **lakes of Titan** → [Lakes and rivers of Titan](https://en.wikipedia.org/wiki/Lakes_and_rivers_of_Titan) (from `Lakes of Titan`)
+- `astro-180` **irregular satellites** → [Irregular moon](https://en.wikipedia.org/wiki/Irregular_moon) (from `Irregular satellites`)
+- `astro-189` **cryovolcanism** → [Cryovolcano](https://en.wikipedia.org/wiki/Cryovolcano) (from `Cryovolcanism`)
+- `astro-199` **Trojan asteroids** → [Trojan (celestial body)](https://en.wikipedia.org/wiki/Trojan_(celestial_body)) (from `Trojan asteroids`)
 - `bio-009` **control group** → [Treatment and control groups](https://en.wikipedia.org/wiki/Treatment_and_control_groups) (from `Control group`)
 - `bio-010` **measurement error** → [Observational error](https://en.wikipedia.org/wiki/Observational_error) (from `Measurement error`)
 - `bio-016` **emergent property** → [Emergence](https://en.wikipedia.org/wiki/Emergence) (from `Emergent property`)
@@ -127,6 +141,30 @@ The answer redirects to an article with another name. Most are the same subject 
 - `cnh-961` **Huanghuali** → [Dalbergia odorifera](https://en.wikipedia.org/wiki/Dalbergia_odorifera) (from `Huanghuali`)
 - `cnh-966` **Wu Liang Shrine** → [Wu Family Shrines](https://en.wikipedia.org/wiki/Wu_Family_Shrines) (from `Wu Liang Shrine`)
 - `cnh-990` **Zhaozhou Bridge** → [Anji Bridge](https://en.wikipedia.org/wiki/Anji_Bridge) (from `Zhaozhou Bridge`)
+- `dino-002` **synapomorphy** → [Apomorphy and synapomorphy](https://en.wikipedia.org/wiki/Apomorphy_and_synapomorphy) (from `Synapomorphy`)
+- `dino-003` **Dinosauria** → [Dinosaur](https://en.wikipedia.org/wiki/Dinosaur) (from `Dinosauria`)
+- `dino-016` **non-avian dinosaur** → [Dinosaur](https://en.wikipedia.org/wiki/Dinosaur) (from `Non-avian dinosaur`)
+- `dino-028` **vertebral column** → [Spinal column](https://en.wikipedia.org/wiki/Spinal_column) (from `Vertebral column`)
+- `dino-030` **dorsal vertebrae** → [Thoracic vertebrae](https://en.wikipedia.org/wiki/Thoracic_vertebrae) (from `Dorsal vertebrae`)
+- `dino-041` **metatarsus** → [Metatarsal bones](https://en.wikipedia.org/wiki/Metatarsal_bones) (from `Metatarsus`)
+- `dino-046` **braincase** → [Neurocranium](https://en.wikipedia.org/wiki/Neurocranium) (from `Braincase`)
+- `dino-066` **principle of priority** → [Priority (biology)](https://en.wikipedia.org/wiki/Priority_(biology)) (from `Principle of priority`)
+- `dino-072` **intraspecific variation** → [Polymorphism (biology)](https://en.wikipedia.org/wiki/Polymorphism_(biology)) (from `Intraspecific variation`)
+- `dino-074` **fossil record** → [Fossil](https://en.wikipedia.org/wiki/Fossil) (from `Fossil record`)
+- `dino-083` **vicariance** → [Allopatric speciation](https://en.wikipedia.org/wiki/Allopatric_speciation) (from `Vicariance`)
+- `dino-088` **geological timescale** → [Geologic time scale](https://en.wikipedia.org/wiki/Geologic_time_scale) (from `Geological timescale`)
+- `ec-006` **positive economics** → [Positive and normative economics](https://en.wikipedia.org/wiki/Positive_and_normative_economics) (from `Positive economics`)
+- `ec-008` **economic agent** → [Agent (economics)](https://en.wikipedia.org/wiki/Agent_(economics)) (from `Economic agent`)
+- `ec-024` **production possibility frontier** → [Production-possibility frontier](https://en.wikipedia.org/wiki/Production-possibility_frontier) (from `Production possibility frontier`)
+- `ec-027` **marginal benefit** → [Marginal utility](https://en.wikipedia.org/wiki/Marginal_utility) (from `Marginal benefit`)
+- `ec-042` **stylised fact** → [Stylized fact](https://en.wikipedia.org/wiki/Stylized_fact) (from `Stylised fact`)
+- `ec-047` **rational choice theory** → [Rational choice model](https://en.wikipedia.org/wiki/Rational_choice_model) (from `Rational choice theory`)
+- `ec-048` **instrumental rationality** → [Instrumental and value rationality](https://en.wikipedia.org/wiki/Instrumental_and_value_rationality) (from `Instrumental rationality`)
+- `ec-056` **Cowles Commission** → [Cowles Foundation](https://en.wikipedia.org/wiki/Cowles_Foundation) (from `Cowles Commission`)
+- `ec-070` **value judgement** → [Value judgment](https://en.wikipedia.org/wiki/Value_judgment) (from `Value judgement`)
+- `ec-085` **strong sustainability** → [Weak and strong sustainability](https://en.wikipedia.org/wiki/Weak_and_strong_sustainability) (from `Strong sustainability`)
+- `ec-096` **supply curve** → [Supply (economics)](https://en.wikipedia.org/wiki/Supply_(economics)) (from `Supply curve`)
+- `ec-098` **market equilibrium** → [Economic equilibrium](https://en.wikipedia.org/wiki/Economic_equilibrium) (from `Market equilibrium`)
 - `eep-017` **Civilian power** → [Civil and political rights](https://en.wikipedia.org/wiki/Civil_and_political_rights) (from `Civilian power`)
 - `eep-032` **European Defence Community** → [Treaty establishing the European Defence Community](https://en.wikipedia.org/wiki/Treaty_establishing_the_European_Defence_Community) (from `European Defence Community`)
 - `eep-040` **Petersberg tasks** → [Petersberg Declaration](https://en.wikipedia.org/wiki/Petersberg_Declaration) (from `Petersberg tasks`)
@@ -295,6 +333,15 @@ The answer redirects to an article with another name. Most are the same subject 
 - `gw-850` **Amur River** → [Amur](https://en.wikipedia.org/wiki/Amur) (from `Amur River`)
 - `gw-938` **Son Doong Cave** → [Hang Sơn Đoòng](https://en.wikipedia.org/wiki/Hang_S%C6%A1n_%C4%90o%C3%B2ng) (from `Son Doong Cave`)
 - `gw-950` **Mammoth Cave** → [Mammoth Cave National Park](https://en.wikipedia.org/wiki/Mammoth_Cave_National_Park) (from `Mammoth Cave`)
+- `in-025` **Indus–Mesopotamia relations** → [Indo-Mesopotamia relations](https://en.wikipedia.org/wiki/Indo-Mesopotamia_relations) (from `Indus–Mesopotamia relations`)
+- `in-034` **Ancestral North Indians** → [Genetics and archaeogenetics of South Asia](https://en.wikipedia.org/wiki/Genetics_and_archaeogenetics_of_South_Asia) (from `Ancestral North Indians`)
+- `in-050` **Sapta Sindhu** → [Rigvedic rivers](https://en.wikipedia.org/wiki/Rigvedic_rivers) (from `Sapta Sindhu`)
+- `in-056` **Shrauta** → [Śrauta](https://en.wikipedia.org/wiki/%C5%9Arauta) (from `Shrauta`)
+- `in-080` **Shruti** → [Śruti](https://en.wikipedia.org/wiki/%C5%9Aruti) (from `Shruti`)
+- `in-084` **Rajagriha** → [Rajgir](https://en.wikipedia.org/wiki/Rajgir) (from `Rajagriha`)
+- `in-087` **Vajji** → [Vajjika League](https://en.wikipedia.org/wiki/Vajjika_League) (from `Vajji`)
+- `in-092` **Nanda dynasty** → [Nanda Empire](https://en.wikipedia.org/wiki/Nanda_Empire) (from `Nanda dynasty`)
+- `in-097` **Gautama Buddha** → [The Buddha](https://en.wikipedia.org/wiki/The_Buddha) (from `Gautama Buddha`)
 - `jp-009` **pit dwelling** → [Pit-house](https://en.wikipedia.org/wiki/Pit-house) (from `Pit dwelling`)
 - `jp-014` **azuki bean** → [Adzuki bean](https://en.wikipedia.org/wiki/Adzuki_bean) (from `Azuki bean`)
 - `jp-020` **Late Jōmon** → [Jōmon period](https://en.wikipedia.org/wiki/J%C5%8Dmon_period) (from `Late Jōmon`)
@@ -309,6 +356,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `jp-084` **Kuratsukuri no Tori** → [Tori Busshi](https://en.wikipedia.org/wiki/Tori_Busshi) (from `Kuratsukuri no Tori`)
 - `jp-085` **kentoshi** → [Japanese missions to Tang China](https://en.wikipedia.org/wiki/Japanese_missions_to_Tang_China) (from `Kentōshi`)
 - `jp-095` **Ganjin** → [Jianzhen](https://en.wikipedia.org/wiki/Jianzhen) (from `Ganjin`)
+- `jp-131` **kentoshi** → [Japanese missions to Tang China](https://en.wikipedia.org/wiki/Japanese_missions_to_Tang_China) (from `Kentōshi`)
+- `jp-151` **nikki bungaku** → [Poetic diary](https://en.wikipedia.org/wiki/Poetic_diary) (from `Nikki bungaku`)
+- `jp-187` **Later Three-Year War** → [Gosannen War](https://en.wikipedia.org/wiki/Gosannen_War) (from `Later Three-Year War`)
 - `ko-002` **Korean Peninsula** → [Korea](https://en.wikipedia.org/wiki/Korea) (from `Korean Peninsula`)
 - `ko-005` **Changma** → [East Asian rainy season](https://en.wikipedia.org/wiki/East_Asian_rainy_season) (from `Changma`)
 - `ko-014` **West Liao River** → [Xiliao River](https://en.wikipedia.org/wiki/Xiliao_River) (from `West Liao River`)
@@ -327,6 +377,20 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ko-088` **Iryeon** → [Il-yeon](https://en.wikipedia.org/wiki/Il-yeon) (from `Iryeon`)
 - `ko-089` **Sanguozhi** → [Records of the Three Kingdoms](https://en.wikipedia.org/wiki/Records_of_the_Three_Kingdoms) (from `Sanguozhi`)
 - `ko-096` **tributary system** → [Tribute](https://en.wikipedia.org/wiki/Tribute) (from `Tributary system`)
+- `ko-107` **Jolbon** → [Cholbon](https://en.wikipedia.org/wiki/Cholbon) (from `Jolbon`)
+- `ko-108` **Jumong** → [Dongmyeong of Goguryeo](https://en.wikipedia.org/wiki/Dongmyeong_of_Goguryeo) (from `Jumong`)
+- `ko-114` **Anhak Palace** → [Anhakkung](https://en.wikipedia.org/wiki/Anhakkung) (from `Anhak Palace`)
+- `ko-121` **Goguryeo tomb murals** → [Goguryeo tombs](https://en.wikipedia.org/wiki/Goguryeo_tombs) (from `Goguryeo tomb murals`)
+- `ko-126` **Eulji Mundeok** → [Ŭlchi Mundŏk](https://en.wikipedia.org/wiki/%C5%AClchi_Mund%C5%8Fk) (from `Eulji Mundeok`)
+- `ko-128` **Yeon Gaesomun** → [Yŏn Kaesomun](https://en.wikipedia.org/wiki/Y%C5%8Fn_Kaesomun) (from `Yeon Gaesomun`)
+- `ko-129` **Siege of Ansi** → [Battle of Ansi](https://en.wikipedia.org/wiki/Battle_of_Ansi) (from `Siege of Ansi`)
+- `ko-136` **Baekje** → [Paekche](https://en.wikipedia.org/wiki/Paekche) (from `Baekje`)
+- `ko-142` **Liang Zhigongtu** → [Portraits of Periodical Offering](https://en.wikipedia.org/wiki/Portraits_of_Periodical_Offering) (from `Liang Zhigongtu`)
+- `ko-163` **Bak Hyeokgeose** → [Hyeokgeose of Silla](https://en.wikipedia.org/wiki/Hyeokgeose_of_Silla) (from `Bak Hyeokgeose`)
+- `ko-164` **maripgan** → [Silla](https://en.wikipedia.org/wiki/Silla) (from `Maripgan`)
+- `ko-165` **Kim Al-ji** → [Kim Al-chi](https://en.wikipedia.org/wiki/Kim_Al-chi) (from `Kim Al-ji`)
+- `ko-183` **Kim Chunchu** → [Muyeol of Silla](https://en.wikipedia.org/wiki/Muyeol_of_Silla) (from `Kim Chunchu`)
+- `ko-194` **Sue ware** → [Sue pottery](https://en.wikipedia.org/wiki/Sue_pottery) (from `Sue ware`)
 - `pea-001` **Tiananmen Massacre** → [1989 Tiananmen Square protests and massacre](https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre) (from `Tiananmen Massacre`)
 - `pea-011` **Anti-corruption campaign** → [Anti-corruption](https://en.wikipedia.org/wiki/Anti-corruption) (from `Anti-corruption campaign`)
 - `pea-019` **Harmonious Socialist Society** → [Harmonious Society](https://en.wikipedia.org/wiki/Harmonious_Society) (from `Harmonious Socialist Society`)
@@ -701,7 +765,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (95)
+## Settled from a disambiguation page (98)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -716,6 +780,8 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `cnh-350` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
 - `cnh-373` **Emperor Xuanzong** → [Emperor Xuanzong of Tang](https://en.wikipedia.org/wiki/Emperor_Xuanzong_of_Tang) (via the disambiguation page `Xuanzong`)
 - `cnh-948` **Huang Quan** → [Huang Quan (painter)](https://en.wikipedia.org/wiki/Huang_Quan_(painter)) (via the disambiguation page `Huang Quan`)
+- `dino-052` **scales** → [Scale (social sciences)](https://en.wikipedia.org/wiki/Scale_(social_sciences)) (via the disambiguation page `Scale`)
+- `ec-032` **specialisation** → [Division of labour](https://en.wikipedia.org/wiki/Division_of_labour) (via the disambiguation page `Specialization`)
 - `eep-152` **Cluster** → [Open cluster](https://en.wikipedia.org/wiki/Open_cluster) (via the disambiguation page `Cluster`)
 - `eep-289` **Iron Triangle** → [Iron triangle (US politics)](https://en.wikipedia.org/wiki/Iron_triangle_(US_politics)) (via the disambiguation page `Iron Triangle`)
 - `gc-803` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
@@ -756,6 +822,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `gw-690` **Saint George's** → [St. George's, Grenada](https://en.wikipedia.org/wiki/St._George's,_Grenada) (via the disambiguation page `Saint George (disambiguation)`)
 - `gw-710` **Philipsburg** → [Philipsburg, Sint Maarten](https://en.wikipedia.org/wiki/Philipsburg,_Sint_Maarten) (via the disambiguation page `Philipsburg`)
 - `jp-038` **Yoshinogari** → [Yoshinogari, Saga](https://en.wikipedia.org/wiki/Yoshinogari,_Saga) (via the disambiguation page `Yoshinogari`)
+- `ko-116` **Mohe** → [Mohe people](https://en.wikipedia.org/wiki/Mohe_people) (via the disambiguation page `Mohe`)
 - `pea-015` **Zhang Weiwei** → [Zhang Weiwei (professor)](https://en.wikipedia.org/wiki/Zhang_Weiwei_(professor)) (via the disambiguation page `Zhang Weiwei`)
 - `pea-032` **1947 Constitution** → [Constitution of the Republic of China](https://en.wikipedia.org/wiki/Constitution_of_the_Republic_of_China) (via the disambiguation page `Constitution of 1947`)
 - `pea-043` **Iron Triangle** → [Iron triangle (US politics)](https://en.wikipedia.org/wiki/Iron_triangle_(US_politics)) (via the disambiguation page `Iron Triangle`)
@@ -815,7 +882,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (149)
+## Disambiguation pages that could not be settled (150)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -900,6 +967,7 @@ Pick the right article by hand, or leave the card without a link.
 - `gw-635` **San Juan** — `San Juan` is a disambiguation page; its links: `San Juan, Puerto Rico`, `San Juan, Puerto Rico`, `San Juan del Puerto, Florida`, `San Juan, Argentina`, `San Juan, Argentina`, `San Juan, Salta`
 - `gw-693` **Charlotte Amalie** — `Charlotte Amalie` is a disambiguation page; its links: `Charlotte Amalie of Hesse-Kassel`, `Princess Charlotte Amalie of Denmark`, `Charlotte Amalie, U.S. Virgin Islands`, `Charlotte Amalie High School`
 - `gw-697` **Saint John's** — `Saint John's` is a disambiguation page; its links: `St. John's, Antigua and Barbuda`, `Saint John, Antigua and Barbuda`, `St. Johns, Ontario`, `St. Johns, County Kildare`, `St. Johns, County Roscommon`, `St Johns Bush`
+- `in-048` **Jana** — `Jana` is a disambiguation page; its links: `Jana (Vedic period)`, `Jana of the Jungle`, `Bharatiya Jana Sangh`, `Jana Gana Mana (disambiguation)`, `Jana (brand)`, `Jana (film)`
 - `jp-072` **Tenji** — `Tenji` is a disambiguation page; its links: `Emperor Tenji`
 - `jp-093` **kokubunji** — `Kokubunji` is a disambiguation page; its links: `Kokubunji, Tokyo`, `Kokubunji, Kagawa`, `Kokubunji, Tochigi`, `87271 Kokubunji`, `Seibu Kokubunji Line`, `Kokubunji Station`
 - `jp-100` **Jinmu** — `Jinmu` is a disambiguation page; its links: `Jinmu Cape`
@@ -980,13 +1048,21 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (144)
+## Section redirects — no dedicated page (165)
 
 Wikipedia treats these as part of another article. No link.
 
 - `astro-049` **synodic month** — `Synodic month` only redirects into `Lunar month#Synodic month`
 - `astro-058` **constellation boundaries** — `Constellation boundaries` only redirects into `Constellation#Boundaries`
 - `astro-083` **spring tide** — `Spring tide` only redirects into `Tide#Spring`
+- `astro-114` **spin–orbit resonance** — `Spin–orbit resonance` only redirects into `Tidal locking#Eccentric orbits`
+- `astro-137` **dust storms on Mars** — `Dust storms on Mars` only redirects into `Climate of Mars#Dust storms`
+- `astro-155` **tilt of Uranus** — `Tilt of Uranus` only redirects into `Uranus#Axial tilt`
+- `astro-159` **superionic water** — `Superionic water` only redirects into `Phases of ice#Ice XVIII (superionic water)`
+- `astro-187` **Laplace resonance** — `Laplace resonance` only redirects into `Orbital resonance#Laplace resonance`
+- `astro-190` **moonquakes** — `Moonquakes` only redirects into `Quake (natural phenomenon)#Moonquake`
+- `astro-193` **exploded planet hypothesis** — `Exploded planet hypothesis` only redirects into `Phaeton (hypothetical planet)#Other hypotheses`
+- `astro-198` **near-Earth asteroids** — `Near-Earth asteroids` only redirects into `Near-Earth object#Near-Earth asteroids`
 - `bio-008` **null hypothesis** — `Null hypothesis` only redirects into `Statistical hypothesis test#Definition of terms`
 - `bio-021` **CHNOPS** — `CHNOPS` only redirects into `Biochemistry#CHNOPS`
 - `bio-028` **polar molecule** — `Polar molecule` only redirects into `Chemical polarity#Polar molecules`
@@ -1001,6 +1077,14 @@ Wikipedia treats these as part of another article. No link.
 - `cnh-859` **Taijitu shuo** — `Taijitu shuo` only redirects into `Wuji (philosophy)#Taijitu shuo`
 - `cnh-985` **Taichu calendar** — `Taichu calendar` only redirects into `Chinese calendar#Han-Ming dynasties and Taichu calendar`
 - `cnh-994` **Drawloom** — `Drawloom` only redirects into `Loom#Drawloom`
+- `dino-025` **dental battery** — `Dental battery` only redirects into `Dinosaur tooth#Dental batteries`
+- `dino-027` **rhamphotheca** — `Rhamphotheca` only redirects into `Beak#Rhamphotheca`
+- `dino-033` **ossified tendons** — `Ossified tendons` only redirects into `Tendon#Ossified tendons`
+- `dino-065` **junior synonym** — `Junior synonym` only redirects into `Synonym (taxonomy)#Zoology`
+- `ec-029` **sunk cost fallacy** — `Sunk cost fallacy` only redirects into `Sunk cost#Fallacy effect`
+- `ec-077` **interpersonal comparisons of utility** — `Interpersonal comparisons of utility` only redirects into `Utility#Interpersonal comparisons of utility`
+- `ec-088` **unpaid care work** — `Unpaid care work` only redirects into `Unpaid work#Unpaid care work`
+- `ec-094` **change in demand** — `Change in demand` only redirects into `Demand curve#Change in demand`
 - `eep-062` **Qualified majority voting** — `Qualified majority voting` only redirects into `Voting in the Council of the European Union#Treaty of Lisbon`
 - `eep-183` **Mixed agreement** — `Mixed agreement` only redirects into `Common Commercial Policy (EU)#Mixed agreements`
 - `eep-233` **Discursive institutionalism** — `Discursive institutionalism` only redirects into `New institutionalism#Constructivist institutionalism`
@@ -1042,11 +1126,16 @@ Wikipedia treats these as part of another article. No link.
 - `gr-864` **sack of Corinth** — `Sack of Corinth` only redirects into `Achaean War#Sack of Corinth`
 - `gr-913` **Gigantomachy** — `Gigantomachy` only redirects into `Giants (Greek mythology)#The Gigantomachy`
 - `gru-934` **Mashuk** — `Mashuk` only redirects into `Pyatigorsk#Geography`
+- `in-018` **Indus seals** — `Indus seal` only redirects into `Indus Valley Civilisation#Seals`
+- `in-031` **Late Harappan** — `Late Harappan` only redirects into `Indus Valley Civilisation#Collapse and Late Harappan`
+- `in-082` **second urbanisation** — `Second urbanisation` only redirects into `History of India#Second urbanisation (c. 600 – 200 BCE)`
 - `jp-012` **shell midden** — `Shell midden` only redirects into `Midden#Shells`
 - `jp-092` **Kegon** — `Kegon` only redirects into `Huayan#Japanese Kegon`
+- `jp-106` **Thirty-Eight Years' War** — `Thirty-Eight Years' War` only redirects into `Emishi#Thirty-Eight Years' War`
 - `ko-029` **Korean Bronze Age** — `Korean Bronze Age` only redirects into `Prehistoric Korea#Bronze Age`
 - `ko-038` **Early Iron Age** — `Early Iron Age` only redirects into `Iron Age#Beginning`
 - `ko-039` **shell midden** — `Shell midden` only redirects into `Midden#Shells`
+- `ko-102` **Five Classics** — `Five Classics` only redirects into `Four Books and Five Classics#Five Classics`
 - `pea-061` **Candlelight Revolution** — `Candlelight Revolution` only redirects into `2016–2017 South Korean protests#Protests against Park Geun-hye`
 - `pea-195` **Kimilsungism–Kimjongilism** — `Kimilsungism–Kimjongilism` only redirects into `Ideology of the Workers' Party of Korea#Kimilsungism–Kimjongilism`
 - `ph-020` **philosophical progress** — `Philosophical progress` only redirects into `Metaphilosophy#Progress`
@@ -1129,7 +1218,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1049)
+## No article found (1123)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1149,8 +1238,40 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `art-026` **Jericho Skull** — search suggests `Plastered human skulls`, `Jericho`, `Tell es-Sultan`, `Kirk Baltz`, `Ossuary`
 - `art-027` **Praroditeljka** — search suggests `Lepenski Vir`
 - `art-029` **Great God of Sefar** — search suggests `Round Head Period`, `Sefer Yetzirah`, `Automatic writing`
+- `art-031` **Banpo human-face fish basin** — search suggests `Banpo`, `Yangshao culture`, `Prehistory of China`, `Chinese art`, `Afanasievo culture`
+- `art-032` **Varna Grave 43 sceptre** — search suggests `Carnac stones`, `Islam in Europe`
+- `art-034` **Newgrange entrance stone** — search suggests `Newgrange`, `Stonehenge`, `Triskelion`, `Knowth`, `Carnac stones`
+- `art-039` **Kneeling bull holding a spouted vessel** — search suggests `Kneeling Bull with Vessel`, `Proto-Elamite (period)`, `Mithraism`, `Naqada II`, `Early Dynastic Period (Mesopotamia)`
+- `art-040` **Umataka flame pot** — search suggests `Japanese pottery and porcelain`
+- `art-041` **Harp Player of Keros** — search suggests `28th century BC`, `Cycladic art`, `Cycladic culture`, `3rd millennium BC`, `Coachella Festival line-ups`
+- `art-042` **Tell Asmar Worshipper** — search suggests `Tell Asmar Hoard`, `Eshnunna`, `Art of Mesopotamia`, `Early Dynastic Period (Mesopotamia)`, `Tell Agrab`
+- `art-048` **Menkaure and His Queen** — search suggests `Menkaure`, `Pyramid of Menkaure`, `Menkaure triads`, `Giza pyramid complex`, `Hatshepsut`
+- `art-050` **Ti Watching a Hippopotamus Hunt** — search suggests `1865 in archaeology`, `Odd Taxi`, `The Snows of Kilimanjaro (1952 film)`, `List of common misconceptions about science, technology, and mathematics`, `List of Advanced Dungeons & Dragons 2nd edition monsters`
+- `art-052` **Mask of Sargon** — search suggests `Sargon of Akkad`, `Prince of Persia: The Lost Crown`, `Art of Mesopotamia`, `AP Art History`, `Ancient art`
+- `art-054` **Gudea, Seated Statue B** — search suggests `Statues of Gudea`, `Gudea`, `Art of Mesopotamia`, `Sculpture`, `Portrait`
+- `art-058` **Spring Fresco** — search suggests `Fresco`, `Minoan art`, `The Last Judgment (Michelangelo)`, `The Creation of Adam`, `Art`
+- `art-063` **Nebamun Hunting in the Marshes** — search suggests `Nebamun`, `Tomb of Nebamun`, `Hierarchical proportion`, `Art of ancient Egypt`, `History of art`
+- `art-064` **Akhenaten, Nefertiti and Three Daughters** — search suggests `Nefertiti`, `Akhenaten`, `Amarna art`, `Nefertiti Bust`, `Royal Tomb of Akhenaten`
+- `art-067` **Book of the Dead of Hunefer** — search suggests `Book of the Dead`, `Ancient Egyptian afterlife beliefs`, `Ammit`, `Book`, `Papyrus`
+- `art-068` **Abu Simbel colossi** — search suggests `Abu Simbel`, `Death on the Nile (1978 film)`, `Art of ancient Egypt`, `Nebettawy`, `Ramesseum`
+- `art-071` **San Lorenzo Colossal Head 1** — search suggests `Olmec colossal heads`, `San Lorenzo Tenochtitlán`, `La Venta`, `Olmecs`, `Olmec Head, Number 8`
+- `art-072` **Sanxingdui Bronze Standing Figure** — search suggests `Sanxingdui`, `Bronze Age`, `Chinese art`, `Chinese sculpture`, `Shang dynasty`
+- `art-076` **Ashurnasirpal II Winged Genius Relief** — search suggests `Ashurnasirpal II`, `Winged genie`, `Art & History Museum`, `Nimrud`, `Ninurta`
+- `art-079` **Khorsabad Lamassu** — search suggests `Lamassu`, `Dur-Sharrukin`, `Assyrian sculpture`, `Art of Mesopotamia`, `British Museum Department of the Middle East`
+- `art-080` **Lioness Devouring a Boy** — search suggests `Liō`, `Cultural depictions of lions`, `Artemis`, `List of God of War characters`, `List of characters in mythology novels by Rick Riordan`
+- `art-087` **Sophilos Dinos** — search suggests `Dinos`, `Dinos of the Gorgon Painter`, `Dionysus`, `Tethys (mythology)`, `Oceanus`
+- `art-089` **Achilles and Ajax Playing a Game** — search suggests `Ajax the Great`, `Exekias`, `Achilles`, `Five Lines`, `Trojan War`
+- `art-090` **Anavysos Kouros** — search suggests `Kouros`, `Kroisos Kouros`, `AP Art History`, `530 BC`
+- `art-091` **Siphnian Treasury frieze** — search suggests `Siphnian Treasury`, `Narrative art`, `Monument of Aemilius Paullus`, `Giants (Greek mythology)`, `Athenian Treasury`
+- `art-092` **Andokides Painter's bilingual amphora** — search suggests `Andokides (vase painter)`, `Bilingual kylix by the Andokides painter`, `Lysippides Painter`, `Belly Amphora by the Andokides Painter (Munich 2301)`, `Bilingual vase painting`
+- `art-096` **Apadana tribute-bearers relief** — search suggests `Darius the Great`, `Achaemenid Empire`, `Tachara`, `Parthenon Frieze`, `Achaemenid conquest of the Indus Valley`
 - `astro-028` **magnitude scale** — search suggests `Magnitude (astronomy)`, `Apparent magnitude`, `Order of magnitude`, `Magnitude`, `First-magnitude star`
 - `astro-097` **core accretion** — search suggests `Accretion (astrophysics)`, `Accretion disk`, `Earth's outer core`, `Black hole`, `Nebular hypothesis`
+- `astro-106` **refractory elements** — search suggests `Chemical element`, `Cosmic dust`, `Refractory (planetary science)`, `Chondrite`, `Volatile (astrogeology)`
+- `astro-146` **Jupiter's interior** — search suggests `Jupiter`, `Moons of Jupiter`, `Jupiter mass`, `Saturn`, `Galilean moons`
+- `astro-157` **winds of Neptune** — search suggests `Neptune`, `Exploration of Neptune`, `Triton (moon)`, `Green star (astronomy)`, `Uranus`
+- `astro-161` **helium rain** — search suggests `History of astronomy`, `Jupiter`, `Saturn`, `Wolf–Rayet star`, `Zeta Puppis`
+- `astro-176` **plumes of Enceladus** — search suggests `Enceladus`, `Saturn`, `Enceladus Orbilander`, `Enceladus Life Finder`, `Europa (moon)`
 - `bio-074` **structure-function relationship** — search suggests `Outline of biology`, `Morphology (biology)`, `Biology`, `Function`, `History of molecular biology`
 - `bio-079` **energy coupling** — search suggests `Energy`, `Förster resonance energy transfer`, `Wireless power transfer`, `Quantum biology`, `Resonant inductive coupling`
 - `bio-085` **optimum temperature** — search suggests `Operating temperature`, `Human body temperature`, `Thermal optimum`, `Geothermobacterium ferrireducens`, `Middle Eocene Climatic Optimum`
@@ -1292,6 +1413,16 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `cnh-875` **Mingtang** — search suggests `1911 Revolution`, `Wei-ming temple`, `CCTV-10`, `Wu Zetian`, `Old City of Luoyang`
 - `cnh-896` **Great Cloud Sutra** — search suggests `Mahāmegha Sūtra`, `Diamond Sutra`, `Mahayana sutras`, `Sukhavati`, `Prajnaparamita`
 - `cnh-898` **Tianzhu shiyi** — search suggests `Tianzhu (Chinese name of God)`, `Christianity in China`, `Alessandro Valignano`, `Catholic missions`, `Lotus Sutra`
+- `dino-004` **erect stance** — search suggests `Dinosaur`, `Tripod stance`, `Dinosaur classification`, `Theropoda`, `Stegosauria`
+- `dino-043` **bone histology** — search suggests `Glossary of dinosaur anatomy`, `Dinosaur`, `Dinosaur tooth`, `2026 in archosaur paleontology`, `Sue (dinosaur)`
+- `dino-060` **character matrix** — search suggests `Laurence Fishburne`, `Matrix (typeface)`, `Dinosaur`, `Dinosaur Game`, `Sue (dinosaur)`
+- `ec-014` **what, how and for whom** — search suggests `The Mother (How I Met Your Mother)`, `Enjoining good and forbidding wrong`, `Reproduction (economics)`, `Chief executive officer`, `Supply-side economics`
+- `ec-035` **lower opportunity cost** — search suggests `Opportunity cost`, `Profit (economics)`, `Microeconomics`, `Diminishing returns`, `Total cost`
+- `ec-039` **equity-efficiency trade-off** — search suggests `Pareto efficiency`, `Trade-off`, `Economics`, `Welfare economics`, `Tax policy`
+- `ec-069` **radical uncertainty** — search suggests `Uncertainty`, `Knightian uncertainty`, `Heterodox economics`, `Trans-exclusionary radical feminism`, `Radical centrism`
+- `ec-086` **quality adjustment** — search suggests `Quality-adjusted life year`, `Structural adjustment`, `Hedonic regression`, `Happiness economics`, `Health economics`
+- `ec-087` **production boundary** — search suggests `Economics`, `Production-possibility frontier`, `Production function`, `Thermoeconomics`, `Unpaid work`
+- `ec-097` **change in supply** — search suggests `Elasticity (economics)`, `Supply (economics)`, `Supply-side economics`, `Price elasticity of supply`, `Supply`
 - `eep-001` **Iceland referendum** — search suggests `2026 Icelandic European Union membership negotiations referendum`, `Iceland–European Union relations`, `1944 Icelandic constitutional referendum`, `Icelandic referendum`, `Referendums related to the European Union`
 - `eep-004` **External action** — search suggests `European External Action Service`, `List of ambassadors of the European Union`, `European Union Intelligence and Situation Centre`, `European Union Military Staff`, `High Representative of the Union for Foreign Affairs and Security Policy`
 - `eep-005` **Composite foreign policy** — search suggests `Franco-British Union`, `European Commissioner for External Relations`, `List of countries by exchange rate regime`, `SSE Composite Index`, `Eastern Partnership`
@@ -1858,6 +1989,18 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `gr-994` **Dionysiac mysteries** — search suggests `Villa of the Mysteries`, `Dionysus`, `Cult of Dionysus`, `Arion`, `List of Greek deities`
 - `gr-999` **Greek funerary practice** — search suggests `Ancient Greek funeral and burial practices`, `Ancient Egyptian funerary practices`, `Roman funerary practices`, `Pre-Greek substrate`, `Archaic Greece`
 - `gw-730` **Kingston (Norfolk Island)** — search suggests `Kingston, Norfolk Island`, `Norfolk Island`, `Outline of Norfolk Island`, `List of places called Kingston`, `Norfolk Islanders`
+- `in-015` **Indus town planning** — search suggests `Indus Valley Civilisation`, `Sanitation of the Indus Valley Civilisation`, `India`, `Achaemenid conquest of the Indus Valley`, `Planned community`
+- `in-016` **Indus drainage system** — search suggests `Sanitation of the Indus Valley Civilisation`, `Indus Valley Civilisation`, `Indus River`, `Indus Basin`, `List of rivers of India by discharge`
+- `in-017` **Indus craft production** — search suggests `Indus Valley Civilisation`, `Crafts of India`, `India`, `Jute production in India`, `Periodisation of the Indus Valley Civilisation`
+- `in-023` **Indus weights** — search suggests `Indus Valley Civilisation`, `Indus script`, `History of measurement systems in India`, `Achaemenid conquest of the Indus Valley`, `India`
+- `in-024` **Indus agriculture** — search suggests `Indus Valley Civilisation`, `Indus River`, `Indo-Gangetic Plain`, `List of major rivers of India`, `Indus river dolphin`
+- `in-027` **Indus religion** — search suggests `Indus Valley Civilisation`, `Religion of the Indus Valley Civilisation`, `Religion in India`, `Indus River`, `Indian religions`
+- `in-028` **Indus political organisation** — search suggests `Indus Valley Civilisation`, `List of Indus Valley Civilisation sites`, `India`, `History of Pakistan`, `Indus worm`
+- `in-030` **decline of the Indus civilisation** — search suggests `Indus Valley Civilisation`, `Indus River`, `Religion of the Indus Valley Civilisation`, `Periodisation of the Indus Valley Civilisation`, `History of India`
+- `in-038` **South Indian megaliths** — search suggests `Archaeology of India`, `Megalith`, `Megaliths in Ethiopia`, `Nagpuria people`, `Hirapur dolmen`
+- `in-062` **Later Vedic period** — search suggests `Vedic period`, `Vedic Sanskrit`, `Historical Vedic religion`, `Vedas`, `Salva (India)`
+- `in-064` **shyama ayas** — search suggests `Vedic period`, `Tamils`, `Suraiya`, `Usha Uthup`, `David Abraham Cheulkar`
+- `in-070` **sabha and samiti** — search suggests `Maharashtra Ekikaran Samiti`, `2026 Rajya Sabha elections`, `Belgaum Lok Sabha constituency`, `Panchayat samiti`, `2024 Indian general election in Telangana`
 - `jp-004` **dual structure model** — search suggests `Tesla Cybertruck`, `Phoenix Wright: Ace Attorney – Dual Destinies`, `PlayStation 2 models`, `Toyota Corolla (E140)`, `Large language model`
 - `jp-007` **Odai Yamamoto I** — search suggests `Ōdai Yamamoto I Site`, `List of Japanese actors`, `Japanese Paleolithic`, `Jōmon pottery`, `Index of Japan-related articles (Y–Z)`
 - `jp-008` **Incipient Jōmon** — search suggests `Jōmon pottery`, `Jōmon period`, `Jōmon people`, `Japanese lacquerware`, `Japanese Paleolithic`
@@ -1880,6 +2023,21 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `jp-077` **kokugunri system** — search suggests `Hizen Province`, `Ritsuryō`
 - `jp-081` **Hakusukinoe** — search suggests `Battle of Baekgang`, `Kaneda Castle`, `Naval history of Japan`, `Hakata Bay`, `List of Historic Sites of Japan (Fukuoka Prefecture)`
 - `jp-097` **Shosoin medicines** — search suggests `Kampo`, `Japanese units of measurement`, `List of National Treasures of Japan (temples)`, `Kombu`, `Korean influence on Japanese culture`
+- `jp-103` **soyocho** — search suggests `Land Tax Reform`, `Zu Yong Diao`, `Fukushima (city)`, `Ministry of Popular Affairs`, `Corvée`
+- `jp-104` **Konden Einen Shizai Ho** — search suggests `Shōen`
+- `jp-118` **Fujiwara no Shoshi** — search suggests `Empress Shōshi`, `Fujiwara no Michinaga`, `Fujiwara no Teishi`, `Fujiwara no Hiroko`, `Fujiwara no Kenshi (994–1027)`
+- `jp-124` **Kiroku Shoen Kenkeijo**
+- `jp-125` **zuryo** — search suggests `Kokushi (official)`
+- `jp-126` **kebiishi** — search suggests `Emperor Saga`, `Emakimono`, `Taira no Masakado`, `In a Grove`, `Hasebe Nobutsura`
+- `jp-127` **nenju gyoji** — search suggests `Buddhism in Japan`, `Takamikura`, `Tenpō Reforms`, `International Research Center for Japanese Studies`, `Ishi (chair)`
+- `jp-129` **katatagae** — search suggests `Konjin`, `Japanese folklore`, `Onmyōdō`, `Guardians of the directions`, `The Lives of John Lennon`
+- `jp-132` **kokufu bunka** — search suggests `Shinden-zukuri`, `Japanese literature`, `Japanese clothing`, `Japanese architecture`, `Heian period`
+- `jp-141` **nyobo** — search suggests `Nyōbō kotoba`, `List of legendary creatures (U)`, `Japanese cuisine`, `Folktales from Japan`, `Kitsune`
+- `jp-167` **yosegi-zukuri** — search suggests `Japanese sculpture`, `Byōdō-in`, `Buddhist art in Japan`, `Dainichi Nyorai (Enjō-ji)`, `Statue of Jizō (Intan)`
+- `jp-176` **zaicho kanjin**
+- `jp-179` **bushidan** — search suggests `Orient (manga)`, `Hōjō Tokimasa`, `Revenge of the Soga Brothers`, `Taira no Yoshifumi`, `Kikuchi clan`
+- `jp-182` **hokumen no bushi** — search suggests `Saitō Dōsan`, `Cloistered rule`, `Minamoto clan`, `Minamoto no Yoshiie`, `Kyushin-ryū`
+- `jp-184` **Johei-Tengyo Rebellion** — search suggests `Tengyō`, `Jōhei`, `Tengyō no Ran`, `Emperor Suzaku`, `Taira no Masakado`
 - `ko-016` **Goryeo long wall** — search suggests `Ch'ŏlli changsŏng`, `Goryeo`, `Mongol invasions of Korea`, `Timeline of Korean history`, `Ganghwasanseong Fortress`
 - `ko-021` **Palaeolithic Korea** — search suggests `Prehistoric Korea`, `Korea under Japanese rule`, `List of monarchs of Korea`, `Three Kingdoms of Korea`, `National Museum of Korea`
 - `ko-022` **Jeongok-ri** — search suggests `Jeongok station`, `List of archaeological sites in Korea`, `Jeongok Prehistory Museum`, `Yeoncheon County`, `Gyeongwon Line`
@@ -1897,6 +2055,11 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ko-094` **mountain fortress** — search suggests `Korean fortress`, `List of fortresses in Korea`, `Namhansanseong`, `Hwando`, `The Fortress (2017 film)`
 - `ko-099` **sumyoje** — search suggests `Timeline of Korean history`, `Silla–Goguryeo and Paekche–Kaya–Wa War`, `Gwanggaeto Stele`
 - `ko-100` **wooden tablet** — search suggests `Baekje language`, `Korea`, `Buried Memorial Tablet from the Tomb of King Muryeong`, `Dosan Seowon`, `Bamboo and wooden slips`
+- `ko-103` **Imsin Seogiseok**
+- `ko-117` **daedaero**
+- `ko-118` **gyeongdang** — search suggests `Gyongdang`, `Chang Hŭnghyo`
+- `ko-148` **jwapyeong** — search suggests `The King of Legend`, `Paekche`, `Mireuksa`, `Mireuksaji Stone Pagoda`, `Goi of Baekje`
+- `ko-157` **Naje alliance** — search suggests `Rosa Luxemburg`
 - `pea-002` **Southern Tour** — search suggests `Deng Xiaoping's southern tour`, `Xi Jinping's southern tour`, `China Open (tennis)`, `Muni He`, `Extraterrestrial World Tour`
 - `pea-007` **Patriotic Education** — search suggests `Patriotic education in China`, `Patriotic Education Law of the People's Republic of China`, `Education in China`, `United front (China)`, `English education in China`
 - `pea-014` **Civilisational state** — search suggests `Science and Civilisation in China`, `Civilization state`, `Qin (state)`, `Taiwan`, `Indus Valley Civilisation`
