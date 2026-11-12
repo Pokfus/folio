@@ -61,4 +61,74 @@ A1 = [
                        'cōgitō putō sentiō timeō rīdeō'),
 ]
 
-INVENTORY = {'a1': A1}
+# A2 (2026-11-12): the CEFR's "areas of most immediate relevance" -- personal and family
+# information, shopping, local geography, employment -- taken, as A1's were, in the words
+# of Roman life.  A word A1 already teaches is skipped by `select.py` in silence.
+A2 = [
+    ('more numbers', 'trēdecim quattuordecim quīndecim sēdecim septendecim duodēvīgintī '
+                     'ūndēvīgintī trīgintā quadrāgintā sexāgintā septuāgintā octōgintā '
+                 'nōnāgintā ducentī quārtus quīntus sextus septimus octāvus nōnus decimus '
+                 'bis ter semel dīmidius'),
+    ('the calendar and the seasons', 'vēr aestās autumnus hiems merīdiēs aurōra hebdomas '
+                 'saeculum mātūrus sērō'),
+    ('the wider family', 'nepōs neptis avunculus patruus amita mātertera socer gener nurus '
+                 'vidua orbus gemellus mātrimōnium nuptiae'),
+    ('work and trades', 'faber pistor lanius sūtor tōnsor pāstor piscātor coquus:noun '
+                 'ancilla architectus pictor poēta ōrātor iūdex advocātus '
+                 'mīles negōtium mercēs officīna operārius'),
+    ('the market and money', 'mercātus macellum nummus dēnārius sēstertius as:noun '
+                 'aes argentum ēmptor pondus mēnsūra lībra modius pēnsō '
+                 'solvō dēbitum lucrum dīves pauper'),
+    ('clothing', 'vestis toga tunica stola palla calceus solea ānulus ōrnāmentum '
+                 'lāna līnum induō exuō gerō'),
+    ('the house and its things', 'ātrium peristȳlum trīclīnium impluvium tēctum pariēs '
+                 'pavīmentum gradus clāvis lucerna candēla lectulus '
+                 'arca pōculum calix patera ōlla culter cochlear '
+                 'speculum lūmen focus'),
+    ('meals and the kitchen', 'olīva oleum ūva pirum fīcus faba holus porrum cēpa '
+                 'pullus gallīna pōmum puls condiō coquō gustō '
+                 'ēsuriō sitiō dulcis acerbus amārus'),
+    ('the town', 'aedificium vīcus balneum theātrum amphitheātrum circus '
+                 'basilica cūria carcer aquaeductus fōns turris statua platēa angulus '
+                 'portus mōnstrō'),
+    ('travel and transport', 'carrus currus raeda plaustrum mūlus asinus gubernātor '
+                 'vēlum rēmus ancora nāvigō vehō proficīscor iter '
+                 'viātor comes sarcina hospitium caupōna dēversōrium'),
+    ('the country and the farm', 'rūs vīcīnus campus prātum vīnea seges frūmentum herba '
+                 'flōs arbor rāmus folium rādīx sēmen arō serō metō '
+                 'pāscō fōns lacus collis vallis lapis'),
+    ('animals', 'gallus anas ānser apis musca serpēns vacca taurus capra caper aper '
+                 'cervus vulpēs ursus aquila columba passer piscis catulus'),
+    ('the body and health', 'collum umerus digitus genu crūs dorsum frōns lingua labrum '
+                 'barba cor sanguis vulnerō sānus valeō medicīna '
+                 'remedium cūrō doleō'),
+    ('school and letters', 'tabula stilus cēra charta '
+                 'calamus lūdus:noun paedagōgus grammaticus versus:noun pāgina '
+                 'numerō computō exemplum'),
+    ('games and leisure', 'pila ālea tālus spectāculum gladiātor ōtium '
+                 'voluptās saltō natō spectō iocus fābula'),
+    ('feelings and character', 'gaudium laetitia trīstitia timor odium invidia '
+                 'spērō gaudeō doleō īrāscor misereor iūcundus molestus '
+                 'fessus dēfessus hilaris benignus crūdēlis '
+                 'superbus timidus audāx stultus'),
+    ('describing', 'lātus angustus altus humilis plēnus vacuus celer tardus lentus '
+                 'dūrus mollis siccus ūmidus pūrus sordidus antīquus recēns '
+                 'iuvenis senex prīvātus pūblicus vērus aequus similis '
+                 'dissimilis proximus ultimus reliquus'),
+    ('where and how', 'hīc illīc ibi hūc illūc intus forīs procul ubīque '
+                 'circā iuxtā suprā īnfrā extrā intrā ultrā prae ob '
+                 'diū paene vix fortāsse prōtinus statim subitō iterum '
+                 'interdum rārō bene male celeriter lentē facile'),
+    ('everyday verbs', 'surgō cubō iaceō lavō vestiō pectō dormiō vigilō exspectō '
+                 'salūtō occurrō conveniō accēdō discēdō abeō exeō ineō '
+                 'intrō redeō trānseō ascendō dēscendō adveniō perveniō '
+                 'portō ferō trahō iaciō tangō aperiō frangō tegō '
+                 'mōnstrō ostendō indicō narrō dēmōnstrō explicō '
+                 'iuvō adiuvō servō custōdiō dēfendō vītō fugiō '
+                 'pugnō vincō laudō culpō pūniō ignōscō '
+                 'cēnō prandeō numerō dēleō errō mālō nesciō '
+                 'meminī oblīvīscor recordor taceō sileō fleō '
+                 'licet oportet necesse placeō dēsīderō cupiō'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2}

@@ -50,7 +50,22 @@ SCOPE = {
                   'commonest describing words and verbs, and the pronouns, question '
                   'words, prepositions and conjunctions every sentence is built out of',
     },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'topics': 'the numbers to a thousand and the ordinals, the seasons and the parts of the '
+                  'day, the wider family, work and the trades, the market, money and weights, '
+                  'clothing, the rooms and things of a Roman house, meals and the kitchen, the '
+                  'buildings of a town, roads, carts and ships, the country and the farm, more '
+                  'animals, the body and health, school and writing, games and leisure, feelings '
+                  'and character, more describing words, words of place and manner, and the '
+                  'verbs of an ordinary day',
+    },
 }
+
+# Who a level is for, in the description's "N words for …".
+FOR = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 
 
 def f(name):

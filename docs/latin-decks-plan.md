@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Latin language collection."
 
-**STATUS (2026-11-09): A1 is built** (`.claude/latin/`, §6). A2 to C1 and the phrases deck are not.
+**STATUS (2026-11-12): A1 and A2 are built** (`.claude/latin/`, §6, §7). B1 to C1 and the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one line and one bump, because
@@ -27,7 +27,7 @@ it also changed the APP (the shelf's hue in `app.js`) — the Hindi precedent.
 | deck | file | notes |
 |---|---|---|
 | Latin A1 Beginner — built | `Latin-A1.folio-deck.json` | 500 |
-| Latin A2 Elementary | `Latin-A2.folio-deck.json` | 750 |
+| Latin A2 Elementary — built | `Latin-A2.folio-deck.json` | 750 |
 | Latin B1 Intermediate | `Latin-B1.folio-deck.json` | 1,000 |
 | Latin B2 Upper Intermediate | `Latin-B2.folio-deck.json` | 1,500 |
 | Latin C1 Advanced | `Latin-C1.folio-deck.json` | 1,500 |
@@ -100,7 +100,7 @@ as long-winded as Wiktionary's (`num`).
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2 done) — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `latin_level.py`, run, read every card; decide the corpus
 count (§2) before the DCC list runs out. **Phase 3** — the phrases and mottos deck. **Phase 4** — a combined
 file, gitignored.
@@ -113,3 +113,28 @@ file, gitignored.
 the inventory and 178 from the DCC list; 392 with a dictionary entry, 399 with a table, three sentences for
 499. The shelf's hue is measured: `#75543F`, 16.2 from its nearest of 55. The first sweep (46 hues) found `#6F69D2`,
 which Greek's parallel session also found and merged first, so Latin was re-swept at the merge.
+
+## 7. As built (2026-11-12): A2
+
+`python3 .claude/latin/run.py --level a2`. 750 notes: 393 from the A2 inventory (19 topics: the numbers to
+a thousand and the ordinals, seasons, the wider family, trades, the market and money, clothing, the house,
+the kitchen, the town, travel, the farm, animals, the body, school, games, feelings, describing words, place
+and manner, everyday verbs) and 357 from the DCC list; 660 with a dictionary entry, 662 with a table, three
+sentences for 704, none for 10. A re-run is byte-identical, and A1 still rebuilds byte-identical.
+
+**THE DCC LIST IS NEARLY SPENT: A2's fill reached rank 891 of 996.** B1 (1,000 notes) cannot be filled from
+it; decide the classical corpus count (§2) before building B1.
+
+What A2 added to the pipeline, each read off its cards:
+- **An indeclinable noun** (`nefās`: a gender, no genitive, no declension) gets the entry `nefās n.,
+  indeclinable` rather than none (`parts_html`).
+- **Participles that are only participles in Wiktionary** (`īrātus`, `sapiēns`, `falsus` "false" filed
+  under the participle of `fallō`) carry no dictionary entry and are labelled verbs, so they were left out
+  of the inventory; `versus` is asked for as `versus:noun` (the line of verse).
+- `LEAD` gained `recēdō`, `cohors`, `stilus`; `ONLY_POS` gained `dorsum` (noun; also an adverb "down"),
+  `ēsuriō` (verb), `quattuordecim` (number; also "the equestrian order"); `NOT_A_MEANING` now also drops a
+  gloss naming `sexual` or `penis` (`virgō`, `membrum`) — A1 is unchanged by it.
+- Dropped from the inventory: words Wiktionary does not hold as a lemma here (`lībertus`, `thermae`,
+  `epistula`, `litterae`, `tussis` …, printed by `select.py`), `sāpō` (only "an ancient hair product") and
+  `allium` (a pointer, "late form of ālium"). The months are not taught: their headwords are capitalised
+  adjectives, and `check-latin.js` wants a lower-case headword.

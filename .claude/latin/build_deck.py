@@ -32,7 +32,7 @@ import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from la import fold, macronless, kept, ALSO
-from latin_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
+from latin_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE, FOR
 
 STAMP = '2026-11-09T00:00:00.000Z'
 TYPE_ID = 'latin'
@@ -75,12 +75,19 @@ LEAD = {
     'exercitus': 'army',      # first listed: "exercise"
     'perīculum': 'danger',    # first listed: "trial, experiment"
     'mūtō': 'change',         # first listed: "to move, remove"
+    # read off A2 (2026-11-12)
+    'recēdō': 'withdraw',     # first listed: "to retire to one's bedroom"
+    'cohors': 'military unit',  # first listed: "a court", "a farmyard"
+    'stilus': 'stylus',       # first listed: "a stake, pale, spike"
 }
 
 # THE ONE PART OF SPEECH a card keeps, where Wiktionary files an unrelated sense under
 # the same spelling: `brevis` "short" is also a noun "dactyl" and "breve", `ave` "hail!"
 # also a noun "a greeting".
-ONLY_POS = {'brevis': 'adj', 'ave': 'intj'}
+ONLY_POS = {'brevis': 'adj', 'ave': 'intj',
+            # A2: `dorsum` "back" is also an adverb "down" (a form of deorsum),
+            # `ēsuriō` also a noun "a hungry man", `quattuordecim` also "the equestrian order"
+            'dorsum': 'noun', 'ēsuriō': 'verb', 'quattuordecim': 'num'}
 
 # A GLOSS WRITTEN HERE for one part of speech, where Wiktionary's is a grammarian's
 # description rather than a meaning.
@@ -93,8 +100,9 @@ GLOSS = {
 
 # A gloss that is not a meaning: a sub-heading Wiktionary leaves bare ("direct",
 # "indirect" under `an`), a usage note that begins with the word itself ("nihil or nil
-# + the enclitic ..."), and on a level deck a sexual sense (`sciō` "to have slept with").
-NOT_A_MEANING = re.compile(r'^(\?|direct|indirect|in (?:in)?direct questions|used\b.*|with (?:the )?(?:indicative|subjunctive|infinitive))$|\bsex\b|\bslept with\b', re.I)
+# + the enclitic ..."), and on a level deck a sexual sense (`sciō` "to have slept with";
+# A2's `virgō` and `membrum`).
+NOT_A_MEANING = re.compile(r'^(\?|direct|indirect|in (?:in)?direct questions|used\b.*|with (?:the )?(?:indicative|subjunctive|infinitive))$|\bsex\b|\bsexual\b|\bpenis\b|\bslept with\b', re.I)
 LONG = 100      # a gloss longer than this is cut back (`shorten`)
 
 
@@ -168,6 +176,11 @@ def parts_html(e):
         bits = [w] + ([gen] if gen else [])
         if g:
             bits[-1] += ' ' + g + (' pl.' if e['pl'] else '')
+        # AN INDECLINABLE NOUN (`nefās`): a gender, but no genitive on its head line, no
+        # declension, and
+        # no genitive in its table either -- the entry says so rather than showing nothing
+        if not gen and g and not e['cls'] and not cell(e, 'genitive'):
+            bits = [w + ' ' + g, 'indeclinable']
     elif pos in ('adj', 'det', 'pron', 'num'):
         fe, ne, gen = hd(e, 'feminine'), hd(e, 'neuter'), hd(e, 'genitive')
         if fe and fe != w:
@@ -400,7 +413,7 @@ def desc(entries, n):
         "Both study directions in one deck: Latin → English (see the Latin, recall the meaning) "
         "and English → Latin (see an English meaning, recall the Latin). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for a beginner. "
+        f"separately. {n} words for {FOR[LEVEL]}. "
         + ("The words already taught by the levels below this one are left out. " if LEVEL != 'a1' else "") +
         "WHERE THESE WORDS COME FROM, since it matters: no examination publishes a graded Latin word "
         "list, and the Common European Framework of Reference describes living languages, so this "
