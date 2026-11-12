@@ -86,6 +86,8 @@ LEAD = {
     'peragō': 'execute',      # first listed: "to pierce, transfix"
     'minor': 'threaten',      # first listed: "to jut forth"
     'adōrō': 'worship',       # first listed: "to speak to, accost, address"
+    # read off B2 (2026-11-12)
+    'mināx': 'threatening',   # first listed: "projecting; overhanging"
 }
 
 # THE ONE PART OF SPEECH a card keeps, where Wiktionary files an unrelated sense under
@@ -100,7 +102,11 @@ ONLY_POS = {'brevis': 'adj', 'ave': 'intj',
             'sānctus': 'part', 'prōmptus': 'adj',
             # `minor` "threaten": the adjective "smaller" is `parvus`'s comparative,
             # on that card already
-            'minor': 'verb'}
+            'minor': 'verb',
+            # B2: `prōrsus` "utterly" (adverb) is also an adjective "straightforward",
+            # `attonitus` "stunned" also a noun "exaltation", `luxus` "luxury" also an
+            # adjective "dislocated"
+            'prōrsus': 'adv', 'attonitus': 'part', 'luxus': 'noun'}
 
 # A GLOSS WRITTEN HERE for one part of speech, where Wiktionary's is a grammarian's
 # description rather than a meaning.

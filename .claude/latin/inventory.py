@@ -250,4 +250,116 @@ B1 = [
                        'ūtor fruor fungor potior'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}
+# B2 (2026-11-12): the CEFR's "complex text on both concrete and abstract topics,
+# including technical discussions in [one's] field" -- for a reader of Latin, the
+# vocabulary of the treatises: philosophy, rhetoric and grammar, law, medicine,
+# farming, building and engineering, the heavens, the theatre, siege and fleet.
+B2 = [
+    ('philosophy and ethics', 'philosophia sapientia virtūs vitium honestum officium '
+                              'fīnis bonum malum beātitūdō tranquillitās '
+                              'cōnstantia temperantia moderātiō continentia abstinentia '
+                              'benevolentia līberālitās '
+                              'animus anima mēns intellegentia ratiō sēnsus '
+                              'nātūra causa prīncipium elementum atomus inānis corpus '
+                              'mortālitās immortālitās fātum fortūna necessitās '
+                              'voluntās arbitrium opīniō vēritās '
+                              'dēfīnītiō dēmōnstrātiō quaestiō '
+                              'disputātiō contemplātiō'),
+    ('rhetoric, grammar and literature', 'ōrātiō ēloquentia fācundia exōrdium nārrātiō '
+                                         'cōnfirmātiō figūra trānslātiō '
+                                         'grammatica syllaba vocābulum nōmen verbum '
+                                         'cāsus tempus modus genus numerus '
+                                         'littera accentus versus pēs metrum '
+                                         'poēma poēta poēsis tragoedia cōmoedia '
+                                         'satura epigramma historia '
+                                         'commentārius fābula prōverbium '
+                                         'stilus ēlegantia ērudītiō'),
+    ('law and government', 'lēx iūs aequitās iūrisdictiō '
+                           'tribūnal subsellium praetūra cōnsulātus dictātūra '
+                           'tribūnātus cēnsūra prōcōnsul prōpraetor '
+                           'plēbiscītum prōmulgō abrogō '
+                           'rogātiō intercessiō prōvocātiō '
+                           'repetundae maiestās ambitus pecūlātus '
+                           'reus accūsātiō dēfēnsiō patrōcinium '
+                           'spōnsiō vadimōnium stipulātiō contractus '
+                           'dōs dōnātiō lēgātum hērēditās tūtēla '
+                           'mancipium cīvitās'),
+    ('medicine and the body', 'medicus medicīna chīrūrgus remedium medicāmentum '
+                              'valētūdō morbus pestilentia febris tussis vulnus '
+                              'cicātrīx ulcus tumor dolor '
+                              'cerebrum cor pulmō iecur stomachus venter '
+                              'vēna nervus os medulla cutis sanguis '
+                              'cervīx iugulum guttur pectus costa umerus '
+                              'pollex unguis talus calx '
+                              'aegrōtō convalēscō sānō medeor'),
+    ('farming and the estate', 'agricultūra agricola colōnus vīlicus fundus praedium '
+                               'arātrum vōmer sulcus seges messis falx '
+                               'frūmentum hordeum far trīticum faenum strāmentum '
+                               'horreum stabulum ovīle palea '
+                               'vīnea vītis ūva vindēmia olīvētum hortus '
+                               'pecus armentum grex pāstor iuvencus vitulus '
+                               'stercus irrigō serō metō pūtō'),
+    ('building and engineering', 'architectūra architectus aedificium fundāmentum '
+                                 'columna trabs tignum tēgula later caementum '
+                                 'mūrus porticus fornix '
+                                 'aquaeductus cloāca pōns via '
+                                 'māchina tormentum catapulta ballista ariēs '
+                                 'scāla rota axis fūnis '
+                                 'mēnsūra pēs passus iūgerum '
+                                 'lībella norma circinus'),
+    ('the heavens and nature', 'astrologia astronomia caelum aethēr sīdus '
+                               'stēlla planēta comētēs polus axis '
+                               'eclīpsis sōlstitium aequinoctium '
+                               'zōna orbis globus '
+                               'vapor nebula nimbus grandō fulgur tonitrus '
+                               'ventus aquilō auster eurus zephyrus '
+                               'metallum ferrum aes stannum plumbum '
+                               'argentum aurum gemma marmor '
+                               'arbor quercus pīnus laurus myrtus ulmus '
+                               'salix hedera rosa līlium viola'),
+    ('the theatre and music', 'theātrum scaena histriō persōna '
+                              'cantor tībīcen citharoedus chorus '
+                              'tībia cithara lyra tuba cornū '
+                              'modus numerus harmonia symphōnia '
+                              'saltātor pantomīmus mīmus plausus plaudō'),
+    ('siege and fleet', 'obsidiō oppugnātiō vīnea testūdō '
+                        'agger turris mūnītiō fossa vallum pinna '
+                        'classis trirēmis quīnquerēmis rōstrum rēmex rēmigium '
+                        'gubernātor nāvālis ancora vēlum '
+                        'praefectus signifer aquilifer '
+                        'veterānus tīrō hastātī principēs triāriī '
+                        'expedītiō hīberna aestīva commeātus '
+                        'dēditiō dēfectiō prōditiō dēsertor'),
+    ('abstract qualities', 'magnitūdō multitūdō altitūdō lātitūdō longitūdō '
+                           'celeritās tarditās gravitās levitās '
+                           'facilitās difficultās ūtilitās vānitās '
+                           'similitūdō dissimilitūdō varietās '
+                           'cōnsuētūdō cōnsōlātiō exspectātiō '
+                           'admīrātiō dēlectātiō indignātiō '
+                           'occāsiō opportūnitās condiciō '
+                           'dignitās auctōritās fidēs fīdūcia'),
+    ('emotions and attitudes', 'laetitia gaudium trīstitia maestitia '
+                               'ira īrācundia furor rabiēs '
+                               'timor metus pavor horror '
+                               'pudor verēcundia ignōminia '
+                               'invidia aemulātiō odium '
+                               'misericordia clēmentia mānsuētūdō '
+                               'superbia arrogantia īnsolentia '
+                               'ignāvia sēgnitia dēsidia '
+                               'audācia temeritās impudentia '
+                               'cūra sollicitūdō ānxietās '
+                               'fastīdium taedium satietās'),
+    ('verbs of the treatises', 'dēfīniō distinguō discernō dīvidō '
+                               'comparō cōnferō cōnsentiō dissentiō '
+                               'prōbō improbō refūtō redarguō '
+                               'colligō conclūdō efficiō '
+                               'explicō exprimō dēclārō ēnūntiō '
+                               'interpretor vertō trānsferō '
+                               'dēscrībō nārrō commemorō '
+                               'cōnsīderō contemplor intueor '
+                               'investīgō indāgō explōrō '
+                               'cēnseō exīstimō aestimō '
+                               'repudiō respuō āspernor'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}

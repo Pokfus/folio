@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Latin language collection."
 
-**STATUS (2026-11-12): A1, A2 and B1 are built** (`.claude/latin/`, §6–§8). B2, C1 and the phrases deck are not.
+**STATUS (2026-11-12): A1 to B2 are built** (`.claude/latin/`, §6–§9). C1 and the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one line and one bump, because
@@ -29,7 +29,7 @@ it also changed the APP (the shelf's hue in `app.js`) — the Hindi precedent.
 | Latin A1 Beginner — built | `Latin-A1.folio-deck.json` | 500 |
 | Latin A2 Elementary — built | `Latin-A2.folio-deck.json` | 750 |
 | Latin B1 Intermediate — built | `Latin-B1.folio-deck.json` | 1,000 |
-| Latin B2 Upper Intermediate | `Latin-B2.folio-deck.json` | 1,500 |
+| Latin B2 Upper Intermediate — built | `Latin-B2.folio-deck.json` | 1,500 |
 | Latin C1 Advanced | `Latin-C1.folio-deck.json` | 1,500 |
 | Latin Phrases and Mottos | `Latin-Phrases-and-Mottos.folio-deck.json` | what the levels leave |
 
@@ -101,7 +101,7 @@ as long-winded as Wiktionary's (`num`).
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2 and B1 done) — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2, B1 and B2 done) — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `latin_level.py`, run, read every card; decide the corpus
 count (§2) before the DCC list runs out. **Phase 3** — the phrases and mottos deck. **Phase 4** — a combined
 file, gitignored.
@@ -183,3 +183,32 @@ What B1 added to the pipeline:
 `dēfūnctus`, `intermissus`) — real words, shown as participles; B2 may teach the verbs. The count folds
 macrons, so homographs share it (`mālum`/`malum` were settled by the inventory at A1). B2 and C1 fill
 almost wholly from the count, so read their rankings for more collisions before building.
+
+## 9. As built (2026-11-12): B2
+
+`python3 .claude/latin/run.py --level b2`. 1,500 notes: 234 from the B2 inventory (12 topics, the
+vocabulary of the treatises: philosophy and ethics, rhetoric, grammar and literature, law and government,
+medicine, farming, building and engineering, the heavens and nature, the theatre and music, siege and
+fleet, abstract qualities, emotions, the verbs of argument) and 1,266 from the classical count — the DCC
+list is spent. 1,426 with a dictionary entry, 1,432 with a table; **sentences for only 1,017 (three for
+537): Tatoeba has none for 483 words at this level.** A re-run is byte-identical; A1, A2 and B1 are
+unchanged by B2's tables.
+
+Most of the inventory was already taken by the levels below or by the count, so it chiefly adds the
+technical terms the count ranks low (`exōrdium`, `aequinoctium`, `vadimōnium`, `catapulta`). Dropped as not
+in Wiktionary as a lemma: phrases (`summum bonum`, `senātūs cōnsultum`, `terrae mōtus`, `mīlle passūs`,
+`tribūnus mīlitum`, `iūris cōnsultus`) and `grātitūdō`, `falsitās`, `argūmentātiō`, `perōrātiō`, `elegīa`,
+`epistula`, `manūmissiō`, `mīliārium`, `orchēstra`, `circumvallātiō`; `astrum` and `cuprum` have only
+late senses; `auxilia` is A2's `auxilium`; `cubitus` is here only "a lying down".
+
+Read off its cards: `EXCLUDE` +24, each with its reason — doublets of a deponent taught already (`imitō`,
+`misereō`, `cohortō`, `mōliō`), fragments and compounds (`quibuscum`, `nuo`, `uo`, `inlāta`), rare words
+counted off a common one's forms (`carinus` ← `carīna`, `cora` ← `cor`, `pessimō` ← `pessimus`,
+`aquilus` ← `aquila`, `bēluus` ← `bēlua`), positives behind a comparative (`citer`), wrong lemmas for
+the common word (`ānus` for `anus` "old woman", `dēlicia` for `dēliciae`, `tenus` "a cord" for the
+preposition), and two whose only sense is dropped on a level deck (`pēnis`, `sexus`). Their places went
+to `vās`, `mōlior`, `bēlua`, `dēliciae`, `cōram`, `penes`, `citrā` and others. `ONLY_POS` +3 (`prōrsus`
+adverb, `attonitus` participle, `luxus` noun), `LEAD` +1 (`mināx` "threatening").
+
+**For C1**: it fills wholly from the count's next 1,500 (below rank ~3,000), where collisions and late or
+rare senses grow; read the ranking before building, and expect Tatoeba to cover barely half the words.

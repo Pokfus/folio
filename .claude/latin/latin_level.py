@@ -75,6 +75,14 @@ SCOPE = {
                   'character, more describing words, the words that join clauses, and the '
                   'verbs of thinking, speaking and doing',
     },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in his/her field of specialisation',
+        'topics': 'philosophy and ethics, rhetoric, grammar and literature, law and government, '
+                  'medicine and the body, farming and the estate, building and engineering, the '
+                  'heavens and nature, the theatre and music, siege and fleet, abstract qualities, '
+                  'emotions and attitudes, and the verbs of the treatises',
+    },
 }
 
 # Who a level is for, in the description's "N words for …".
