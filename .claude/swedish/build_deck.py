@@ -32,7 +32,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from sv import fold, nfc, WORD as SVWORD
 from swedish_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
-STAMP = '2026-11-09T00:00:00.000Z'
+# a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
+STAMP = {'a1': '2026-11-09T00:00:00.000Z', 'a2': '2026-11-12T00:00:00.000Z'}[LEVEL]
+WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'swedish'
 COLOR = '#BD4B7B'          # the shelf's measured hue, kept in step with "lang-swedish" in app.js
 FIELDS = ['Swedish', 'Word', 'Say', 'English', 'Forms', 'Table', 'Examples']
@@ -100,6 +103,10 @@ ETYMS = {
     'ris': ['2'],               # rice; etymology 1 is "small shrubs, brushwood"
     'sticka': ['2'],            # "to go, to leave" (sticka hem); etymology 1's verb is "to knit"
     'att': ['1', '2'],          # the infinitive marker AND "that" (the conjunction is etymology 2)
+    # A2 (2026-11-12)
+    'val': ['2'],               # ett val "a choice, an election"; etymology 1 is "a whale"
+    'mål': ['2'],               # "goal, target"; etymology 1 is "language; dialect; a case"
+    'tja': ['2'],               # "well …" (doubt); etymology 1 is the greeting
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where Wiktionary's
@@ -130,6 +137,17 @@ GLOSS = {
     'kunna': {'verb': ['can, to be able to', 'to know (a skill or a subject)', 'could, might, may']},
     'tro': {'verb': ['to believe, to think', 'to believe, to trust (someone)', 'to believe in']},
     'andra': {'adj': ['second', 'other, others (the plural of annan)']},
+    # A2 (2026-11-12): Wiktionary's runs on into a phrase's sense, or a vulgar or slang one
+    'senare': {'adj': ['later (the comparative of sen)', 'latter']},
+    'framtid': {'noun': ['future']},          # its second is skjuta på framtiden's
+    'tanke': {'noun': ['thought']},           # its second is med tanke på's
+    'stopp': {'noun': ['stop (a halt, an interruption)']},
+    'ställa': {'verb': ['to put, to place (upright, standing)', 'ställa sig: to go and stand, to stand up']},
+    'mus': {'noun': ['mouse', 'computer mouse']},
+    'katt': {'noun': ['cat']}, 'björn': {'noun': ['bear']}, 'varg': {'noun': ['wolf']},
+    'kanin': {'noun': ['rabbit']},
+    'värme': {'noun': ['heat, warmth', 'warmth (warm feelings)']},   # Wiktionary's carry "c" and "n"
+    'äga': {'verb': ['to own']},              # its second is the slang "to pwn"
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -140,19 +158,27 @@ LEAD = {
     'penna': 'pen',               # first listed is "a contour feather"
     'middag': 'dinner',           # first listed is "midday"
     'krona': 'krona',             # first listed is "crown (headwear)"
+    'skoja': 'to joke',           # first listed is "to travel around without a plan"
+    'räcka': 'to be sufficient, to suffice',   # det räcker "that's enough"; first is "to stretch out"
 }
 
 # NO ARTICLE for a language's name, which Swedish uses without one (jag talar svenska)
 NO_ART = {'svenska', 'engelska'}
 
 # A GENDER WRITTEN HERE, where the lemma's first entry is not the everyday word's.
-GENDER_FIX = {'pengar': 'p'}
+GENDER_FIX = {'pengar': 'p',
+              # A2: the everyday gender where Wiktionary lists both (blod, finger, värme) or none
+              'blod': 'n', 'finger': 'n', 'värme': 'c', 'chans': 'c', 'kläder': 'p', 'glasögon': 'p'}
 
 # A PART OF SPEECH NOT SHOWN for one word: a block that is noise beside the word a beginner meets.
 DROP_POS = {('vara', 'noun'), ('jag', 'noun'), ('det', 'noun'), ('en', 'pron'), ('en', 'adv'),
             ('en', 'noun'), ('en', 'num'), ('och', 'intj'), ('för', 'noun'), ('som', 'adv'),
             ('du', 'noun'), ('ut', 'postp'), ('ut', 'intj'), ('flicka', 'verb'), ('fisk', 'adv'),
-            ('sida', 'verb'), ('klocka', 'verb'), ('bakom', 'adj'), ('eftersom', 'adv')}
+            ('sida', 'verb'), ('klocka', 'verb'), ('bakom', 'adj'), ('eftersom', 'adv'),
+            # A2
+            ('dess', 'noun'), ('allting', 'noun'), ('röka', 'noun'), ('jaga', 'noun'),
+            ('skrika', 'noun'), ('bränna', 'noun'), ('fågel', 'adv'), ('suga', 'noun'),
+            ('gömma', 'noun'), ('blåsa', 'noun')}
 
 # A GLOSS THAT IS NOT A MEANING: a pointer to another headword or a form label.
 NOT_A_MEANING = re.compile(
@@ -411,7 +437,7 @@ def desc(entries, n):
         "Both study directions in one deck: Swedish → English (see the Swedish, recall the meaning) "
         "and English → Swedish (see an English meaning, recall the Swedish). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words of Swedish for a beginner, aligned to {LEVEL.upper()} of the "
+        f"separately. {n} words of Swedish for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the "
         f"Common European Framework of Reference, whose global descriptor begins '{SC['quote']}' — "
         f"a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "

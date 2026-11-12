@@ -43,19 +43,61 @@ EXCLUDE = {
             'spelling, which one card cannot give one article',
     'reda': 'met only in ta reda på "to find out"; its entries are "ready" and "order"',
     'va': 'the spoken "what?" and "was"; Wiktionary\'s entry is the abbreviation of vatten och avlopp',
+    # Read off the A2 ranking (2026-11-12).
+    # A FORM TAUGHT ON ANOTHER CARD (an adjective's neuter used as an adverb, where the
+    # adjective is taught; a plural; a definite), dealt by the closed-class rule's count
+    'svårt': 'the neuter of svår (A1)', 'stort': 'the neuter of stor (A1)',
+    'nytt': 'the neuter of ny (A1)', 'sent': 'the neuter of sen (A1)',
+    'dåligt': 'the neuter of dålig (A1)', 'tidigt': 'the neuter of tidig (A1)',
+    'klart': 'the neuter of klar, taught in A2', 'viktigt': 'the neuter of viktig, taught in A2',
+    'konstigt': 'the neuter of konstig, taught in A2', 'snabbt': 'the neuter of snabb, taught in A2',
+    'hårt': 'the neuter of hård, taught in A2', 'enkelt': 'the neuter of enkel, taught in A2',
+    'fullt': 'the neuter of full, taught in A2', 'farligt': 'the neuter of farlig, taught in A2',
+    'underbart': 'the neuter of underbar, taught in A2', 'trevligt': 'the neuter of trevlig, taught in A2',
+    'eget': 'the neuter of egen, taught in A2', 'egna': 'the plural of egen, taught in A2',
+    'vilka': 'the plural of vilken (A1)', 'själva': 'the plural of själv (A1)',
+    'välkomna': 'the plural of välkommen (A1)', 'vita': 'a form of vit (A1); its noun is "egg white"',
+    'gånger': 'the plural of gång (A1)', 'peng': 'the singular of pengar (A1), rare beside it',
+    'slutet': 'the definite of slut "end"; Wiktionary\'s entry is the participle "closed"',
+    'värre': '"worse", the comparative of dålig; Wiktionary\'s adverb is the slang "very"',
+    'fader': 'the formal father, far being taught (A1)',
+    # NOT A WORD THE COUNT IS FOR
+    'stiftsstad': 'its table claims stan, the spoken "the town" (stad, A1)',
+    'dan': 'the spoken dagen "the day"; Wiktionary\'s entry is a rare adjective',
+    'fint': 'the neuter of fin (A1); Wiktionary\'s entry is "a feint"',
+    'ok': 'the spelling of okej (A1); Wiktionary\'s entry is "a yoke"',
+    'jack': 'the English name; Wiktionary\'s entry is "a gash"',
+    'henry': 'the English name; Wiktionary\'s entry is the unit of inductance',
+    'max': 'a name and a clipping; no everyday meaning a card can teach',
+    'morse': 'met only in i morse "this morning"; Wiktionary\'s entry is Morse code',
+    'vis': 'met in på sätt och vis; its adjective "wise" is rare',
+    'dr': 'an abbreviation', 'ers': 'archaic, met only in Ers Majestät',
+    'ihåg': 'met only in komma ihåg, which is the phrases deck\'s',
+    'käften': 'met only in the rude håll käften "shut up"',
+    'vackert': 'the neuter of vacker, taught in A2',
+    'värsta': '"worst", the superlative of dålig; Wiktionary\'s entry is the slang intensifier',
+    'bar': 'its plural is bara "only" (A1), whose count it takes',
+    'nick': 'the English name Nick; "a nod" is rare beside it',
+    'snut': 'slang for polis (A1); Wiktionary\'s first sense is "a snout"',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
 # Swearing and insults are never in a level deck.
 SWEARS = {'fan', 'jävla', 'jävel', 'helvete', 'skit', 'fitta', 'kuk', 'hora', 'idiot', 'satan',
           'jävlas', 'skita', 'knulla', 'röv', 'arsle', 'fittig', 'bög', 'skitstövel', 'fanskap',
-          'djävul', 'djävla'}
+          'djävul', 'djävla', 'jävlar'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists
 # another first (read off the A1 build, 2026-11-09) -- `tro` is dealt for "to believe",
 # not the noun "belief", `ringa` for "to ring, to call", not the adjective "small".
 FILL_POS = {'tro': 'verb', 'ringa': 'verb', 'mot': 'prep', 'det': 'pron', 'visa': 'verb',
-            'röra': 'verb', 'sticka': 'verb', 'skada': 'verb', 'bry': 'verb'}
+            'röra': 'verb', 'sticka': 'verb', 'skada': 'verb', 'bry': 'verb',
+            # read off the A2 build (2026-11-12): the verb, not a rare noun spelt like it
+            'räcka': 'verb', 'stämma': 'verb', 'gömma': 'verb', 'kräva': 'verb', 'föda': 'verb',
+            'fylla': 'verb', 'äga': 'verb', 'suga': 'verb', 'driva': 'verb', 'råka': 'verb',
+            'bete': 'verb',
+            'gift': 'adj',      # "married", not "poison"
+            'tuff': 'adj', 'egen': 'pron', 'grund': 'noun', 'öde': 'noun'}
 
 # A WORD DEALT BY ANOTHER'S COUNT.  `ska` is the spoken form of the verb whose
 # infinitive Wiktionary heads `skola`, and that table claims `ska` and `skulle`,

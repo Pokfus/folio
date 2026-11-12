@@ -5,7 +5,7 @@ Swedish set, built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose 
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Add a Swedish language collection."
 
-**STATUS (2026-11-09): A1 is built** (`.claude/swedish/`, §6). A2 to C1 and a phrases deck are not.
+**STATUS (2026-11-12): A1 and A2 are built** (`.claude/swedish/`, §6 and §7). B1 to C1 and a phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Swedish to the day's
@@ -32,7 +32,7 @@ is the owner's to overrule.**
 | deck | file | notes |
 |---|---|---|
 | Swedish A1 Beginner — built | `Swedish-A1.folio-deck.json` | 500 |
-| Swedish A2 Elementary | `Swedish-A2.folio-deck.json` | 750 |
+| Swedish A2 Elementary — built | `Swedish-A2.folio-deck.json` | 750 |
 | Swedish B1 Intermediate | `Swedish-B1.folio-deck.json` | 1,000 |
 | Swedish B2 Upper Intermediate | `Swedish-B2.folio-deck.json` | 1,500 |
 | Swedish C1 Advanced | `Swedish-C1.folio-deck.json` | 1,500 |
@@ -99,7 +99,7 @@ mina), which is the paradigm it belongs to. One of A1's 500 words has no Tatoeba
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2 done) — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `swedish_level.py` (or, if the owner chooses, read a graded
 lexicon — §1), run, read every card. **Phase 3** — a phrases deck (`phrase` / `proverb` entries and particle
 verbs: `tycka om`, `ta hand om`).
@@ -111,3 +111,30 @@ verbs: `tycka om`, `ta hand om`).
 `node .claude/swedish/check-swedish.js` is the check. **A re-run is byte-identical** (verified, extract
 included). A1: 500 notes, 359 from the inventory and 141 by frequency; three sentences for 492, none for 1.
 The shelf's hue is measured: first `#757839`, an olive, which Romanian's parallel sweep also chose; re-swept at the merge against all 64 hues, `#BD4B7B`, a raspberry rose, 15.4 from its nearest (The EU as an External Power).
+
+## 7. As built (2026-11-12): A2
+
+Asked for on 2026-11-12: "Add Swedish A2." `python3 .claude/swedish/run.py --level a2`; the same stages, no
+new source. **750 notes: 319 from a 19-topic inventory** (`inventory.py` `A2`: seasons and dates, numbers to
+a million, the land and nature, weather, animals, clothes, the home and kitchen, food and cooking, work,
+school, travel, the town, health, feelings, free time, verbs, describing, time words, connectors — scoped to
+the CEFR A2 descriptor, `SCOPE['a2']`) **and 431 by frequency**; three sentences for 693, none for 16. Every
+card was read. A1 re-runs byte-identical after every change below (each A2 table entry names no A1 word;
+`STAMP` and the description's learner are now per level).
+
+**What the A2 ranking turned up**, each fixed with its reason beside it:
+- **An adjective's neuter dealt as an adverb** (`svårt`, `stort`, `viktigt`, `snabbt` …): Wiktionary gives
+  each an adverb entry, and the closed-class rule hands it the neuter's count. Where the adjective is
+  taught (A1, or A2 itself) it is excluded; where it is not, or the adverb's meaning is its own (`långt`
+  "far", `högt` "loudly", `gott`, `speciellt`), it stays. Plurals the same (`vilka`, `själva`, `egna`).
+- **A rare noun spelt like a common verb took the verb's count**: `räcka`, `stämma`, `gömma`, `kräva`, `föda`,
+  `fylla`, `äga`, `suga`, `driva`, `råka`, `bete` — now read as verbs (`FILL_POS`); `gift` as "married", `egen`
+  as "own", `grund` and `öde` as nouns. `ETYMS` takes `val` "choice", `mål` "goal" and `tja` "well …".
+- **Names and pieces of phrases** (`Jack`, `Henry`, `Nick`, `Max`; `ihåg`, `i morse`, `dan`, `stan` through
+  `stiftsstad`) excluded; `jävlar` added to `SWEARS`.
+- **Two genders listed** (`blod`, `finger`, `värme`) or none (`chans`, `kläder`, `glasögon`) — `GENDER_FIX`.
+- Vulgar or slang third senses cut from animal nouns (`mus`, `katt`, `björn`, `varg`, `kanin`) by `GLOSS`.
+
+**Known, left.** The fill still carries the subtitles' crime vocabulary (`vapen`, `mord`, `pistol`, `bomb`),
+as A1 does. Three inventory words are not Wiktionary headwords and were dropped or replaced (`byxor` → `byxa`,
+`utlandet` → `utland`, `tidigare` dropped).

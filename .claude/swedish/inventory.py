@@ -58,4 +58,51 @@ A1 = [
                        'hitta'),
 ]
 
-INVENTORY = {'a1': A1}
+# A2 (2026-11-12): the CEFR A2 descriptor's "areas of most immediate relevance" --
+# the Swahili A2 topic list adapted.  Words A1 teaches are skipped by `select.py`.
+A2 = [
+    ('seasons and dates', 'årstid vår:noun sommar höst vinter helg semester jul påsk födelsedag '
+                          'kalender datum sekund kvart'),
+    ('more numbers', 'fjorton femton sexton sjutton arton nitton fyrtio sextio sjuttio åttio nittio '
+                     'miljon fjärde femte dubbel'),
+    ('the land and nature', 'natur skog berg sjö flod älv strand ö fält träd blomma gräs sten '
+                            'himmel stjärna måne jord landsbygd park'),
+    ('weather', 'moln molnig blåsa:verb storm is grad temperatur kyla värme dimma åska blöt torr'),
+    ('animals', 'djur hund katt häst ko gris får:noun höna fågel:noun mus kanin björn varg älg'),
+    ('clothes', 'kläder tröja byxa kjol klänning skjorta jacka rock mössa sko strumpa '
+                'hatt väska handske glasögon storlek klä'),
+    ('the home and the kitchen', 'trädgård vägg golv tak trappa soffa lampa skåp hylla matta '
+                                 'spis kylskåp ugn tallrik kopp glas kniv gaffel sked kastrull '
+                                 'diska städa tvätta laga:verb hyra granne'),
+    ('food and cooking', 'grönsak morot lök kyckling korv skinka gurka banan jordgubbe '
+                         'soppa kaka tårta juice godis sås peppar olja mjöl smörgås '
+                         'koka steka baka smaka god:adj söt sur'),
+    ('work and jobs', 'chef kollega företag lön möte yrke sjuksköterska polis bonde kock '
+                      'säljare ingenjör tjänst anställa arbetslös ansöka'),
+    ('school and learning', 'klass lektion läxa prov kurs universitet fråga:noun svar ord mening '
+                            'övning betyg papper dator plugga'),
+    ('travel and transport', 'resa:noun flyg flygplan båt tunnelbana spårvagn hållplats '
+                             'pass resväska karta semester turist utland ankomst avgång '
+                             'försening missa landa stiga byta'),
+    ('the town', 'centrum torg kyrka museum bibliotek bio teater post polisstation '
+                 'bensinstation parkering hörn bro korsning kvarter förort'),
+    ('health', 'kropp hjärta rygg hals finger knä blod tandläkare vårdcentral recept '
+               'förkyld hosta värk skadad må vila'),
+    ('feelings', 'känsla arg orolig nervös lycklig besviken förvånad rädsla kärlek '
+                 'skratta gråta oroa sakna hata'),
+    ('free time', 'fritid sport fotboll match musik sång film bild konst spel resa '
+                  'simma springa dansa sjunga måla träna fiska promenad bok läsa vandra'),
+    ('everyday verbs', 'bära visa:verb lägga:verb ställa vända vinna förlora börja sluta '
+                       'tappa välja bestämma glömma minnas lova låna hyra skicka få:verb '
+                       'ändra jämföra förklara beskriva boka beställa vänta stiga'),
+    ('describing things and people', 'hög låg bred smal tjock tunn tung mjuk hård snabb '
+                                     'långsam ren:adj smutsig tyst högljudd vacker ful snäll elak '
+                                     'rolig tråkig intressant viktig vanlig konstig enkel '
+                                     'mörk ljus:adj full tom öppen stängd blond trevlig'),
+    ('time words', 'ofta sällan alltid ibland strax genast fortfarande senare '
+                   'förut förr nyss medan ännu dagligen'),
+    ('connectors', 'därför fast:conj trots om:conj innan när:conj medan också dessutom '
+                   'alltså ändå kanske antingen varken utom'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2}
