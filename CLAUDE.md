@@ -253,7 +253,7 @@ have not this session.
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | live |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | live: 100 cards, contiguous — next is `ph-101` |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | live |
-| Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty |
+| Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | live: `dino-001`–`100` written, next is `dino-101` |
 | Astronomy | `astro` | `astro-` | `docs/astronomy-card-plan.md` | 9 / 45 | live: `astro-001`–`200` written, next is `astro-201` |
 | Economics | `econ` | `ec-` | `docs/economics-card-plan.md` | 9 / 40 | live: `ec-001`–`100` written, next is `ec-101` |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | live |

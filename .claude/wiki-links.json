@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-12T05:37Z",
+ "generated": "2026-11-12T05:48Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7160,
-  "redirect-broader": 696,
-  "redirect-variant": 437,
-  "section-redirect": 155,
+  "ok": 7235,
+  "redirect-broader": 708,
+  "redirect-variant": 442,
+  "section-redirect": 159,
   "disambiguation": 149,
-  "none": 1091,
-  "disambig-resolved": 97,
+  "none": 1094,
+  "disambig-resolved": 98,
   "list-page": 6,
   "search-match": 9,
   "no-article": 20
@@ -78470,6 +78470,753 @@
    "answer": "excess supply",
    "title": "Excess supply",
    "url": "https://en.wikipedia.org/wiki/Excess_supply",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-001": {
+   "answer": "dinosaur",
+   "title": "Dinosaur",
+   "url": "https://en.wikipedia.org/wiki/Dinosaur",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-002": {
+   "answer": "synapomorphy",
+   "title": "Apomorphy and synapomorphy",
+   "url": "https://en.wikipedia.org/wiki/Apomorphy_and_synapomorphy",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Synapomorphy"
+  },
+  "dino-003": {
+   "answer": "Dinosauria",
+   "title": "Dinosaur",
+   "url": "https://en.wikipedia.org/wiki/Dinosaur",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Dinosauria"
+  },
+  "dino-004": {
+   "answer": "erect stance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Dinosaur",
+    "Tripod stance",
+    "Dinosaur classification",
+    "Theropoda",
+    "Stegosauria"
+   ]
+  },
+  "dino-005": {
+   "answer": "acetabulum",
+   "title": "Acetabulum",
+   "url": "https://en.wikipedia.org/wiki/Acetabulum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-006": {
+   "answer": "Saurischia",
+   "title": "Saurischia",
+   "url": "https://en.wikipedia.org/wiki/Saurischia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-007": {
+   "answer": "Ornithischia",
+   "title": "Ornithischia",
+   "url": "https://en.wikipedia.org/wiki/Ornithischia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-008": {
+   "answer": "pubis",
+   "title": "Pubis",
+   "url": "https://en.wikipedia.org/wiki/Pubis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-009": {
+   "answer": "Ornithoscelida",
+   "title": "Ornithoscelida",
+   "url": "https://en.wikipedia.org/wiki/Ornithoscelida",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-010": {
+   "answer": "lizard",
+   "title": "Lizard",
+   "url": "https://en.wikipedia.org/wiki/Lizard",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-011": {
+   "answer": "mosasaur",
+   "title": "Mosasaur",
+   "url": "https://en.wikipedia.org/wiki/Mosasaur",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-012": {
+   "answer": "Dimetrodon",
+   "title": "Dimetrodon",
+   "url": "https://en.wikipedia.org/wiki/Dimetrodon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-013": {
+   "answer": "pterosaur",
+   "title": "Pterosaur",
+   "url": "https://en.wikipedia.org/wiki/Pterosaur",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-014": {
+   "answer": "plesiosaur",
+   "title": "Plesiosaur",
+   "url": "https://en.wikipedia.org/wiki/Plesiosaur",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-015": {
+   "answer": "bird",
+   "title": "Bird",
+   "url": "https://en.wikipedia.org/wiki/Bird",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-016": {
+   "answer": "non-avian dinosaur",
+   "title": "Dinosaur",
+   "url": "https://en.wikipedia.org/wiki/Dinosaur",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Non-avian dinosaur"
+  },
+  "dino-017": {
+   "answer": "species richness",
+   "title": "Species richness",
+   "url": "https://en.wikipedia.org/wiki/Species_richness",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-018": {
+   "answer": "Paleobiology Database",
+   "title": "Paleobiology Database",
+   "url": "https://en.wikipedia.org/wiki/Paleobiology_Database",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-019": {
+   "answer": "cosmopolitan distribution",
+   "title": "Cosmopolitan distribution",
+   "url": "https://en.wikipedia.org/wiki/Cosmopolitan_distribution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-020": {
+   "answer": "bee hummingbird",
+   "title": "Bee hummingbird",
+   "url": "https://en.wikipedia.org/wiki/Bee_hummingbird",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-021": {
+   "answer": "skeleton",
+   "title": "Skeleton",
+   "url": "https://en.wikipedia.org/wiki/Skeleton",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-022": {
+   "answer": "skull",
+   "title": "Skull",
+   "url": "https://en.wikipedia.org/wiki/Skull",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-023": {
+   "answer": "diapsid",
+   "title": "Diapsid",
+   "url": "https://en.wikipedia.org/wiki/Diapsid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-024": {
+   "answer": "antorbital fenestra",
+   "title": "Antorbital fenestra",
+   "url": "https://en.wikipedia.org/wiki/Antorbital_fenestra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-025": {
+   "answer": "dental battery",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Dental battery",
+   "target": "Dinosaur tooth#Dental batteries"
+  },
+  "dino-026": {
+   "answer": "polyphyodont",
+   "title": "Polyphyodont",
+   "url": "https://en.wikipedia.org/wiki/Polyphyodont",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-027": {
+   "answer": "rhamphotheca",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Rhamphotheca",
+   "target": "Beak#Rhamphotheca"
+  },
+  "dino-028": {
+   "answer": "vertebral column",
+   "title": "Spinal column",
+   "url": "https://en.wikipedia.org/wiki/Spinal_column",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Vertebral column"
+  },
+  "dino-029": {
+   "answer": "cervical vertebrae",
+   "title": "Cervical vertebrae",
+   "url": "https://en.wikipedia.org/wiki/Cervical_vertebrae",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-030": {
+   "answer": "dorsal vertebrae",
+   "title": "Thoracic vertebrae",
+   "url": "https://en.wikipedia.org/wiki/Thoracic_vertebrae",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Dorsal vertebrae"
+  },
+  "dino-031": {
+   "answer": "sacrum",
+   "title": "Sacrum",
+   "url": "https://en.wikipedia.org/wiki/Sacrum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-032": {
+   "answer": "caudofemoralis",
+   "title": "Caudofemoralis",
+   "url": "https://en.wikipedia.org/wiki/Caudofemoralis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-033": {
+   "answer": "ossified tendons",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Ossified tendons",
+   "target": "Tendon#Ossified tendons"
+  },
+  "dino-034": {
+   "answer": "rib cage",
+   "title": "Rib cage",
+   "url": "https://en.wikipedia.org/wiki/Rib_cage",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-035": {
+   "answer": "gastralia",
+   "title": "Gastralia",
+   "url": "https://en.wikipedia.org/wiki/Gastralia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-036": {
+   "answer": "scapulocoracoid",
+   "title": "Scapulocoracoid",
+   "url": "https://en.wikipedia.org/wiki/Scapulocoracoid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-037": {
+   "answer": "forelimb",
+   "title": "Forelimb",
+   "url": "https://en.wikipedia.org/wiki/Forelimb",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-038": {
+   "answer": "manus",
+   "title": "Manus (anatomy)",
+   "url": "https://en.wikipedia.org/wiki/Manus_(anatomy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-039": {
+   "answer": "pelvis",
+   "title": "Pelvis",
+   "url": "https://en.wikipedia.org/wiki/Pelvis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-040": {
+   "answer": "femur",
+   "title": "Femur",
+   "url": "https://en.wikipedia.org/wiki/Femur",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-041": {
+   "answer": "metatarsus",
+   "title": "Metatarsal bones",
+   "url": "https://en.wikipedia.org/wiki/Metatarsal_bones",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Metatarsus"
+  },
+  "dino-042": {
+   "answer": "digitigrade",
+   "title": "Digitigrade",
+   "url": "https://en.wikipedia.org/wiki/Digitigrade",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-043": {
+   "answer": "bone histology",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Glossary of dinosaur anatomy",
+    "Dinosaur",
+    "Dinosaur tooth",
+    "2026 in archosaur paleontology",
+    "Sue (dinosaur)"
+   ]
+  },
+  "dino-044": {
+   "answer": "skeletal pneumaticity",
+   "title": "Skeletal pneumaticity",
+   "url": "https://en.wikipedia.org/wiki/Skeletal_pneumaticity",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-045": {
+   "answer": "air sac",
+   "title": "Air sac",
+   "url": "https://en.wikipedia.org/wiki/Air_sac",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-046": {
+   "answer": "braincase",
+   "title": "Neurocranium",
+   "url": "https://en.wikipedia.org/wiki/Neurocranium",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Braincase"
+  },
+  "dino-047": {
+   "answer": "endocast",
+   "title": "Endocast",
+   "url": "https://en.wikipedia.org/wiki/Endocast",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-048": {
+   "answer": "trigeminal nerve",
+   "title": "Trigeminal nerve",
+   "url": "https://en.wikipedia.org/wiki/Trigeminal_nerve",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-049": {
+   "answer": "scleral ring",
+   "title": "Scleral ring",
+   "url": "https://en.wikipedia.org/wiki/Scleral_ring",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-050": {
+   "answer": "cochlear duct",
+   "title": "Cochlear duct",
+   "url": "https://en.wikipedia.org/wiki/Cochlear_duct",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-051": {
+   "answer": "olfactory bulb",
+   "title": "Olfactory bulb",
+   "url": "https://en.wikipedia.org/wiki/Olfactory_bulb",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-052": {
+   "answer": "scales",
+   "title": "Scale (social sciences)",
+   "url": "https://en.wikipedia.org/wiki/Scale_(social_sciences)",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Scale"
+  },
+  "dino-053": {
+   "answer": "feathers",
+   "title": "Feather",
+   "url": "https://en.wikipedia.org/wiki/Feather",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Feathers"
+  },
+  "dino-054": {
+   "answer": "osteoderms",
+   "title": "Osteoderm",
+   "url": "https://en.wikipedia.org/wiki/Osteoderm",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Osteoderms"
+  },
+  "dino-055": {
+   "answer": "sexual selection",
+   "title": "Sexual selection",
+   "url": "https://en.wikipedia.org/wiki/Sexual_selection",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-056": {
+   "answer": "Linnaean taxonomy",
+   "title": "Linnaean taxonomy",
+   "url": "https://en.wikipedia.org/wiki/Linnaean_taxonomy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-057": {
+   "answer": "phylogenetic tree",
+   "title": "Phylogenetic tree",
+   "url": "https://en.wikipedia.org/wiki/Phylogenetic_tree",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-058": {
+   "answer": "cladistics",
+   "title": "Cladistics",
+   "url": "https://en.wikipedia.org/wiki/Cladistics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-059": {
+   "answer": "cladogram",
+   "title": "Cladogram",
+   "url": "https://en.wikipedia.org/wiki/Cladogram",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-060": {
+   "answer": "character matrix",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Laurence Fishburne",
+    "Matrix (typeface)",
+    "Dinosaur",
+    "Dinosaur Game",
+    "Sue (dinosaur)"
+   ]
+  },
+  "dino-061": {
+   "answer": "convergent evolution",
+   "title": "Convergent evolution",
+   "url": "https://en.wikipedia.org/wiki/Convergent_evolution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-062": {
+   "answer": "binomial nomenclature",
+   "title": "Binomial nomenclature",
+   "url": "https://en.wikipedia.org/wiki/Binomial_nomenclature",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-063": {
+   "answer": "holotype",
+   "title": "Holotype",
+   "url": "https://en.wikipedia.org/wiki/Holotype",
+   "via": "answer",
+   "status": "ok"
+  },
+  "dino-064": {
+   "answer": "nomen dubium",
+   "title": "Nomen dubium",
+   "url": "https://en.wikipedia.org/wiki/Nomen_dubium",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-065": {
+   "answer": "junior synonym",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Junior synonym",
+   "target": "Synonym (taxonomy)#Zoology"
+  },
+  "dino-066": {
+   "answer": "principle of priority",
+   "title": "Priority (biology)",
+   "url": "https://en.wikipedia.org/wiki/Priority_(biology)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Principle of priority"
+  },
+  "dino-067": {
+   "answer": "Brontosaurus",
+   "title": "Brontosaurus",
+   "url": "https://en.wikipedia.org/wiki/Brontosaurus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-068": {
+   "answer": "ontogeny",
+   "title": "Ontogeny",
+   "url": "https://en.wikipedia.org/wiki/Ontogeny",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-069": {
+   "answer": "Nanotyrannus",
+   "title": "Nanotyrannus",
+   "url": "https://en.wikipedia.org/wiki/Nanotyrannus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-070": {
+   "answer": "chronospecies",
+   "title": "Chronospecies",
+   "url": "https://en.wikipedia.org/wiki/Chronospecies",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-071": {
+   "answer": "sexual dimorphism",
+   "title": "Sexual dimorphism",
+   "url": "https://en.wikipedia.org/wiki/Sexual_dimorphism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-072": {
+   "answer": "intraspecific variation",
+   "title": "Polymorphism (biology)",
+   "url": "https://en.wikipedia.org/wiki/Polymorphism_(biology)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Intraspecific variation"
+  },
+  "dino-073": {
+   "answer": "sample size",
+   "title": "Sample size determination",
+   "url": "https://en.wikipedia.org/wiki/Sample_size_determination",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Sample size"
+  },
+  "dino-074": {
+   "answer": "fossil record",
+   "title": "Fossil",
+   "url": "https://en.wikipedia.org/wiki/Fossil",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Fossil record"
+  },
+  "dino-075": {
+   "answer": "Lagerstätte",
+   "title": "Lagerstätte",
+   "url": "https://en.wikipedia.org/wiki/Lagerst%C3%A4tte",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-076": {
+   "answer": "Yixian Formation",
+   "title": "Yixian Formation",
+   "url": "https://en.wikipedia.org/wiki/Yixian_Formation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-077": {
+   "answer": "Morrison Formation",
+   "title": "Morrison Formation",
+   "url": "https://en.wikipedia.org/wiki/Morrison_Formation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-078": {
+   "answer": "Hell Creek Formation",
+   "title": "Hell Creek Formation",
+   "url": "https://en.wikipedia.org/wiki/Hell_Creek_Formation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-079": {
+   "answer": "Djadochta Formation",
+   "title": "Djadochta Formation",
+   "url": "https://en.wikipedia.org/wiki/Djadochta_Formation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-080": {
+   "answer": "geological formation",
+   "title": "Geological formation",
+   "url": "https://en.wikipedia.org/wiki/Geological_formation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-081": {
+   "answer": "biostratigraphy",
+   "title": "Biostratigraphy",
+   "url": "https://en.wikipedia.org/wiki/Biostratigraphy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-082": {
+   "answer": "biogeography",
+   "title": "Biogeography",
+   "url": "https://en.wikipedia.org/wiki/Biogeography",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-083": {
+   "answer": "vicariance",
+   "title": "Allopatric speciation",
+   "url": "https://en.wikipedia.org/wiki/Allopatric_speciation",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Vicariance"
+  },
+  "dino-084": {
+   "answer": "endemism",
+   "title": "Endemism",
+   "url": "https://en.wikipedia.org/wiki/Endemism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-085": {
+   "answer": "specific name",
+   "title": "Specific name (zoology)",
+   "url": "https://en.wikipedia.org/wiki/Specific_name_(zoology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-086": {
+   "answer": "Mesozoic",
+   "title": "Mesozoic",
+   "url": "https://en.wikipedia.org/wiki/Mesozoic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-087": {
+   "answer": "deep time",
+   "title": "Deep time",
+   "url": "https://en.wikipedia.org/wiki/Deep_time",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-088": {
+   "answer": "geological timescale",
+   "title": "Geologic time scale",
+   "url": "https://en.wikipedia.org/wiki/Geologic_time_scale",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Geological timescale"
+  },
+  "dino-089": {
+   "answer": "chronostratigraphy",
+   "title": "Chronostratigraphy",
+   "url": "https://en.wikipedia.org/wiki/Chronostratigraphy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-090": {
+   "answer": "Triassic",
+   "title": "Triassic",
+   "url": "https://en.wikipedia.org/wiki/Triassic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-091": {
+   "answer": "Jurassic",
+   "title": "Jurassic",
+   "url": "https://en.wikipedia.org/wiki/Jurassic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-092": {
+   "answer": "Cretaceous",
+   "title": "Cretaceous",
+   "url": "https://en.wikipedia.org/wiki/Cretaceous",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-093": {
+   "answer": "Palaeozoic",
+   "title": "Paleozoic",
+   "url": "https://en.wikipedia.org/wiki/Paleozoic",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Palaeozoic"
+  },
+  "dino-094": {
+   "answer": "Cenozoic",
+   "title": "Cenozoic",
+   "url": "https://en.wikipedia.org/wiki/Cenozoic",
+   "via": "answer",
+   "status": "ok"
+  },
+  "dino-095": {
+   "answer": "Carnian",
+   "title": "Carnian",
+   "url": "https://en.wikipedia.org/wiki/Carnian",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-096": {
+   "answer": "radiometric dating",
+   "title": "Radiometric dating",
+   "url": "https://en.wikipedia.org/wiki/Radiometric_dating",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-097": {
+   "answer": "half-life",
+   "title": "Half-life",
+   "url": "https://en.wikipedia.org/wiki/Half-life",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-098": {
+   "answer": "uranium–lead dating",
+   "title": "Uranium–lead dating",
+   "url": "https://en.wikipedia.org/wiki/Uranium%E2%80%93lead_dating",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "dino-099": {
+   "answer": "argon-argon dating",
+   "title": "Argon–argon dating",
+   "url": "https://en.wikipedia.org/wiki/Argon%E2%80%93argon_dating",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Argon-argon dating"
+  },
+  "dino-100": {
+   "answer": "relative dating",
+   "title": "Relative dating",
+   "url": "https://en.wikipedia.org/wiki/Relative_dating",
    "via": "glossary",
    "status": "ok"
   }
