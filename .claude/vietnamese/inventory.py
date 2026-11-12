@@ -49,4 +49,40 @@ A1 = [
     ('about yourself', 'tên tuổi nước điện_thoại máy_tính sinh_nhật'),
 ]
 
-INVENTORY = {'a1': A1}
+A2 = [
+    ('relatives and the people around you', 'ông_bà bố_mẹ cha_mẹ anh_em chị_em họ_hàng cô_dâu chú_rể '
+     'hàng_xóm đồng_nghiệp người_yêu bạn_trai bạn_gái trẻ_em em_bé thanh_niên người_lớn khách đàn_ông '
+     'phụ_nữ cụ'),
+    ('jobs and the workplace', 'nghề công_ty văn_phòng giám_đốc nhân_viên công_nhân nông_dân kỹ_sư y_tá '
+     'luật_sư cảnh_sát lái_xe đầu_bếp ca_sĩ nhà_báo lương họp nghỉ kiếm'),
+    ('school and study', 'bài bài_tập thi điểm câu_hỏi từ chữ ngôn_ngữ lớp_học '
+     'đại_học thư_viện giấy vở bảng ôn luyện dạy'),
+    ('clothes', 'quần_áo áo quần váy giày dép mũ áo_dài kính túi đồng_hồ cởi đội đeo vừa rộng chật'),
+    ('food, cooking and the market', 'tôm cua đậu gạo nước_mắm hành tỏi ớt chua cay '
+     'mặn ngọt đắng chiên luộc nướng xào món bữa bát đũa thìa cốc dao chai hộp cân'),
+    ('the home', 'tầng cầu_thang nhà_tắm phòng_ngủ phòng_khách sân vườn tủ tủ_lạnh đèn ti_vi máy_giặt '
+     'quạt chìa_khoá cửa_sổ tường thuê dọn rửa'),
+    ('the town and its places', 'quận làng phố_cổ công_viên bưu_điện nhà_thờ chùa đền bảo_tàng rạp '
+     'bến_xe trạm cầu ngã_tư đèn_đỏ vỉa_hè quán'),
+    ('the countryside and animals', 'nông_thôn núi sông biển hồ rừng đồng ruộng cây hoa lá đất đá '
+     'động_vật chó mèo lợn bò trâu ngựa chim vịt chuột khỉ voi hổ rắn'),
+    ('seasons and directions', 'mùa mùa_xuân mùa_hè mùa_thu mùa_đông bắc nam:noun đông:noun tây:noun '
+     'miền thời_tiết nhiệt_độ độ:noun bão tuyết mây ẩm'),
+    ('travel and directions', 'du_lịch chuyến vé hộ_chiếu hành_lý đặt bản_đồ địa_chỉ hướng '
+     'qua dừng đỗ lên xuống:verb khởi_hành'),
+    ('health and the body', 'cơ_thể mặt cổ vai lưng tim ngón_tay da sốt ho cảm bệnh khám đơn_thuốc '
+     'nghỉ_ngơi'),
+    ('feelings and character', 'cảm_thấy hạnh_phúc lo sợ giận ngạc_nhiên chán thú_vị hiền thông_minh '
+     'chăm_chỉ lười vui_vẻ tức lo_lắng thất_vọng tự_hào hài_lòng'),
+    ('free time, sport and festivals', 'thời_gian rảnh bóng_đá bơi thể_thao âm_nhạc bài_hát hát nhảy '
+     'phim ảnh chụp vẽ trò_chơi ăn_tết lễ_hội quà cuối_tuần'),
+    ('telling what happened and when', 'trước_đây sau_đó lần vừa mới sắp xong cuối thỉnh_thoảng '
+     'hiếm_khi ngày_xưa tương_lai quá_khứ năm_ngoái'),
+    ('giving an opinion', 'nghĩ cho_rằng ý_kiến đồng_ý chắc chắc_chắn có_lẽ hy_vọng quan_trọng '
+     'tuyệt cần_thiết theo'),
+    ('more classifiers', 'người:classifier quả tờ bức:classifier ngôi đôi bộ'),
+    ('everyday verbs', 'đi_bộ mang gửi nhận bán thử chọn quyết_định giải_thích kể bỏ giữ tìm mất thắng '
+     'thua bật tắt dùng sửa trả lại chuẩn_bị kết_hôn sinh chết đổi'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2}

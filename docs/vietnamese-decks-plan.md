@@ -5,8 +5,8 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-09: "Add a Vietnamese language collection."
 
-**STATUS (2026-11-09): the alphabet-and-tones deck and A1 are built** (`.claude/vietnamese/`, §6). A2 to C1 and
-the phrases deck are not.
+**STATUS (2026-11-12): the alphabet-and-tones deck, A1 and A2 are built** (`.claude/vietnamese/`, §6, §7). B1 to
+C1 and the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one line and one bump, because it also
@@ -32,7 +32,7 @@ owner's most recent decisions for a language with no published list — and are 
 |---|---|---|
 | Vietnamese Alphabet and Tones — built | `Vietnamese-Alphabet-and-Tones.folio-deck.json` | 35 |
 | Vietnamese A1 Beginner — built | `Vietnamese-A1.folio-deck.json` | 500 |
-| Vietnamese A2 Elementary | `Vietnamese-A2.folio-deck.json` | 750 |
+| Vietnamese A2 Elementary — built | `Vietnamese-A2.folio-deck.json` | 750 |
 | Vietnamese B1 Intermediate | `Vietnamese-B1.folio-deck.json` | 1,000 |
 | Vietnamese B2 Upper Intermediate | `Vietnamese-B2.folio-deck.json` | 1,500 |
 | Vietnamese C1 Advanced | `Vietnamese-C1.folio-deck.json` | 1,500 |
@@ -108,3 +108,33 @@ A1: 500 notes, 344 from the inventory and 156 by frequency; three sentences for 
 tones deck: 35 notes — 6 tones, 11 vowels, 18 consonants and pairs; every sound side unique (asserted). The shelf's
 hue is measured: `#14659F`, 16.9 from its nearest of 52, greens left out (re-swept at the merge: Greek had
 taken a hue 1.0 from the first sweep's `#6D67D1`).
+
+## 7. As built (2026-11-12): A2
+
+Asked for on 2026-11-12: "Add Vietnamese A2". `python3 .claude/vietnamese/run.py --level a2`. 750 notes, 269 from a
+hand-written A2 inventory (relatives, jobs, school, clothes, cooking and the market, the home, the town, the
+countryside and animals, seasons and the compass, travel, health, feelings, free time and Tết, telling when,
+giving an opinion, more classifiers, everyday verbs) and 481 by frequency; none taught in A1. Three sentences for
+703, none for 18. **A1 and the alphabet-and-tones deck rebuild byte-identical**, and an A2 re-run is byte-identical.
+The description now names the learner by level (`WHO` in `build_deck.py`, Hindi's), unchanged for A1.
+
+What reading every card found, each fixed in the generator:
+- **A word taught below under its other spelling** was dealt again: A1 teaches `cảm ơn`, which Wiktionary files under
+  `cám ơn`, and the fill dealt `cám ơn`. `select.py` now widens the words below by Wiktionary's `alt_of` pointers in
+  both directions.
+- **Twenty-five homographs led by the wrong etymology** are pinned in `ETYMS` / `LEAD_POS` / `LEAD` / `DROP_POS`, each
+  with its reason: `thắng` "to win" not "brake", `báo` "to report" not "leopard", `bài` "lesson" not "playing card",
+  `thương` "to love" not "spear", `ghét` "to hate" not "dirt", `kiếm` "to seek" not "sword", `dừng` "to stop",
+  `dù` "although", `tí` "a little bit", `chả` "not at all", `cầu` "bridge", `đông` "east" (the inventory's `:noun`
+  matched "winter" first), `công`, `lừa`, `thú`, `sang`, `may`, `mối`, `ca`, `cú`, `động`, `đàn`, `bức`, `tấm`, `máy`.
+- **Names and English counted as Vietnamese** (`the`, `ok`, `sam`, `ben`, `kim`) and words the subtitles count in a
+  sense Wiktionary does not give or a card would mislead on (`đô` "dollar", `mai` "tomorrow", `mi`, `huynh`, `y`, `u`,
+  `ô`, `ban`, `thể`) are in `select.EXCLUDE` with reasons; `chết tiệt` joins `SWEARS`; a slang sense is cut from
+  `cô bé` and a slur from `gái` (`CUT`).
+- Inventory words with no Wiktionary headword were dropped rather than glossed by hand (`thịt bò`, `kỳ thi`,
+  `tập thể dục` …); `trường đại học`, whose entry is a pointer, gave way to `đại học`; `Tết` alone resolves to the
+  verb "to plait", so the inventory has `ăn Tết`; `va-li` fails the check's headword rule and was dropped.
+
+**Known, left.** `bến xe` is glossed "a parking lot" (Wiktionary's; it is a bus station). `tưởng` carries a Pali
+gloss third. The fill keeps the subtitles' drama vocabulary (`đạn`, `bom`, `vũ khí`) as A1 did.
+

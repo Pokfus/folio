@@ -83,6 +83,30 @@ ETYMS = {
     'súng': ['2'],      # "gun"; 1 is "water lily"
     'đồng': ['3'],      # "dong (the currency); copper"; 1 is "field"
     'ôi': ['2'],        # "oh, alas"; 1 is "tainted (meat)"
+    # read off the A2 deck (2026-11-12)
+    'thắng': ['2'],     # "to win; victory"; 1 is "brake"
+    'dù': ['2'],        # "even if, although"; 1 is "umbrella"
+    'báo': ['2'],       # "to report; newspaper"; 1 is "leopard"
+    'bài': ['2'],       # "lesson; exercise"; 1 is "playing card"
+    'thương': ['2'],    # "to love, to feel sorry for"; 1 is "spear"
+    'ghét': ['2'],      # "to hate"; 1 is "dirt"
+    'dừng': ['2'],      # "to stop"; 1 is a bamboo wall material
+    'kiếm': ['2'],      # "to seek, to find"; 1 is "sword"
+    'bức': ['2'],       # the classifier for walls, letters, pictures; 1 is "to coerce"
+    'tí': ['2'],        # "a little bit"; 1 is "breast"
+    'công': ['3', '2'], # "work, accomplishment" and "labour"; 1 is "peafowl"
+    'cầu': ['2'],       # "bridge"; 1 is "shuttlecock"
+    'đông': ['2'],      # "east" (the inventory's sense); 1 is "winter", which mùa đông teaches
+    'chả': ['2'],       # "not at all", the subtitles' word; 1 is "patty"
+    'lừa': ['3', '1'],  # "to trick" and "donkey"; 2 is "to pick out"
+    'thú': ['2'],       # "animal"; 1 is "a hobby"
+    'sang': ['2'],      # "to go over, to cross"; 1 is "luxurious"
+    'may': ['2'],       # "lucky"; 1 is "to sew"
+    'mối': ['3'],       # the classifier for relationships; 1 is "termite"
+    'ca': ['4', '3'],   # "shift" and "case"; 1 is "mug"
+    'cú': ['3', '1'],   # the classifier for a blow or a shot, and "owl"
+    'động': ['2'],      # "to touch" (đừng động vào); 1 is "cave"
+    'đàn': ['1', '2'],  # "flock, herd" and "a string instrument; to play one"
 }
 
 # A PART OF SPEECH TO LEAD WITH, where Wiktionary's first entry is not the everyday word.
@@ -90,10 +114,16 @@ LEAD_POS = {
     'bị': 'verb',       # the passive of misfortune; the noun is "sack"
     'của': 'prep',      # "of"; the noun is "property"
     'ồ': 'intj',        # "oh, wow"; the verb is "to rush"
+    'bài': 'noun',      # "lesson; exercise"; the verb is "to oppose"
+    'máy': 'noun',      # "machine"; the verb is "to move around"
+    'tấm': 'classifier',    # for flat things; the noun is "broken rice"
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
-LEAD = {}
+LEAD = {
+    'máy': 'machine',   # Wiktionary's first noun gloss is "effect; mechanism", tagged rare
+    'thú': 'animal',    # its first is "non-avian beast"
+}
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, each with its reason.
 GLOSS = {}
@@ -102,6 +132,8 @@ GLOSS = {}
 DROP_POS = {
     'có': {'noun'},     # "the left side of the balance sheet", an accountant's term
     'ba': {'adj', 'det'},   # "secondborn", "some": they crowded "father" off the card
+    'máy': {'verb'},    # "to move around; to touch", which crowded "machine" down the card
+    'tấm': {'noun'},    # "broken rice grains", a different word from the classifier
 }
 
 # Glosses left off a card, by a piece of their text, each with its reason.
@@ -109,6 +141,8 @@ CUT = {
     'của': ['given kind of food', 'such trash'],   # colloquial uses that mislead on a card for "of"
     'xe': ['chariot', 'rook'],                     # the xiangqi piece, not the vehicle
     'em': ['described by the noun em above'],      # refers to Wiktionary's own layout
+    'cô bé': ['vulva'],                            # a slang sense, on a card for "little girl"
+    'gái': ['whores'],                             # a slur, on a card for "girls and women"
 }
 
 
@@ -263,6 +297,10 @@ def build(rows, lex, exs):
     return cards, entries
 
 
+WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
+
+
 def desc(entries, n):
     from_inv = sum(1 for e in entries if e['source'] == 'inventory')
     ex3 = sum(1 for e in entries if e['examples'] == 3)
@@ -277,7 +315,7 @@ def desc(entries, n):
         "Both study directions in one deck: Vietnamese → English (see the Vietnamese, recall the "
         "meaning) and English → Vietnamese (see an English meaning, recall the Vietnamese). Each "
         "direction is a card of its own with its own schedule, so recognising a word and producing "
-        f"it are learnt separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the "
+        f"it are learnt separately. {n} words for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the "
         f"Common European Framework of Reference, whose global descriptor begins '{SC['quote']}' — "
         f"a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "

@@ -27,6 +27,21 @@ EXCLUDE = {
     'ngươi': 'the archaic "thou" of period dramas, which is where the subtitles count it',
     'thằng': 'a disparaging classifier for a man or a boy; met in insults more than anywhere',
     'chuyện đó': 'two words, "that matter", and Wiktionary\'s entry adds a sexual sense',
+    # read off the A2 ranking (2026-11-12)
+    'the': 'counted as the English article; the Vietnamese word is a kind of silk gauze',
+    'ok': 'English',
+    'ben': 'counted as the name Ben; the Vietnamese words are "a cabin" and "to be comparable"',
+    'kim': 'counted as the name Kim; the card would lead with "metal, one of the Five Phases"',
+    'sam': 'counted as the name Sam; the Vietnamese words are a horseshoe crab and purslane',
+    'mi': 'counted mostly as the archaic "thou" of period dramas; the card would lead with "eyelashes"',
+    'huynh': 'the "elder brother" of martial-arts dramas, where the subtitles count it',
+    'đô': 'counted as "dollar", a sense Wiktionary does not give it',
+    'y': 'counted as a letter and as the literary "he", neither a word to learn here',
+    'u': 'counted as a letter; "mother" is Northern and old-fashioned',
+    'ô': 'mostly the letter\'s name and an interjection; the card would lead with "black"',
+    'mai': 'counted as "tomorrow" (short for ngày mai, taught in A1); the card would lead with "early morning"',
+    'ban': 'its everyday senses (committee, daytime) sit under a feudal-court gloss that leads the card',
+    'thể': 'counted inside có thể (A1) and không thể; alone it is a grammar word with no gloss to learn',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
@@ -34,7 +49,7 @@ EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 # insults outside close friendship (`mày` "you", `tao` "I", as one says them to a
 # child, an intimate or someone being abused): a beginner's pronouns are the kinship
 # words, and the subtitles' count of these two is mostly quarrels.
-SWEARS = {'mày', 'tao'}
+SWEARS = {'mày', 'tao', 'chết tiệt'}
 
 
 def usable(L):
@@ -45,6 +60,10 @@ def usable(L):
 def main():
     lex = json.load(open('lex.json', encoding='utf-8'))
     below = words_below()
+    # a word taught below under one spelling is not dealt again under its other (A1 teaches
+    # `cảm ơn`, which Wiktionary files under `cám ơn`; the A2 fill dealt `cám ơn`)
+    below |= {L['alt_of'] for k, L in lex.items() if k in below and 'alt_of' in L}
+    below |= {k for k, L in lex.items() if L.get('alt_of') in below}
     rows, seen, missing = [], set(), []
     for topic, words in INVENTORY.get(LEVEL, []):
         for item in words.split():

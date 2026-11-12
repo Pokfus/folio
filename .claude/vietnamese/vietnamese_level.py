@@ -55,6 +55,21 @@ SCOPE = {
                   'and the question words, particles and conjunctions every sentence is built '
                   'out of',
     },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'gloss': 'able to manage simple, routine exchanges of information on familiar matters '
+                 '— personal and family information, shopping, the local area, work — and to '
+                 'describe in simple terms their background, their surroundings and what they '
+                 'immediately need',
+        'topics': 'relatives and the people around you, jobs and the workplace, school and study, '
+                  'clothes and shopping, more food, cooking and the market, the furniture of a home, '
+                  'the town and its places, the countryside and animals, the seasons and the points '
+                  'of the compass, travel and directions, health and the body, feelings and '
+                  'character, free time, sport and festivals such as Tết, telling what happened and '
+                  'when, giving an opinion, more classifiers, and the everyday verbs of moving, '
+                  'dressing and doing',
+    },
 }
 
 
