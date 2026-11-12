@@ -91,6 +91,19 @@ SCOPE = {
                   'connectives of formal writing, character and behaviour, feelings and states '
                   'of mind, the city and planning, and the verbs of getting things done',
     },
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise '
+                 'implicit meaning',
+        'gloss': 'able to express ideas fluently and spontaneously without much obvious '
+                 'searching for expressions, to use language flexibly and effectively for '
+                 'social, academic and professional purposes, and to produce clear, '
+                 'well-structured, detailed text on complex subjects',
+        'topics': 'law, governance and institutions, the economy and finance, academic and '
+                  'analytical language, argument, rhetoric and nuance, the connectives of the '
+                  'formal register, society, identity and ethics, psychology and the mind, '
+                  'literature and the arts, science and the environment, the verbs of formal '
+                  'writing, and the adjectives and adverbs of degree and stance',
+    },
 }
 
 

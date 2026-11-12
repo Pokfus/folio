@@ -121,6 +121,10 @@ GLOSS = {
     'laken': {'noun': ['sheet (on a bed)', 'woollen broadcloth']},
     # B2: Wiktionary's senses end in stray gender letters ("fortune n")
     'kapitaal': {'noun': ['capital (money)', 'fortune', 'capital letter']},
+    # C1: Wiktionary's entries are only "synonym of ...", which prints nothing
+    'inmiddels': {'adv': ['by now, by then', 'meanwhile']},
+    'esthetiek': {'noun': ['aesthetics']},
+    'luidens': {'prep': ['according to (formal: luidens het rapport, "according to the report")']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -134,7 +138,7 @@ LEAD = {
 # A PART OF SPEECH NOT SHOWN for one word.
 DROP_POS = {('de', 'prep'), ('hij', 'noun'), ('zij', 'noun'), ('van', 'noun'),
             ('een', 'num'), ('een', 'noun'), ('één', 'article'), ('één', 'noun'),
-            ('pesten', 'noun'), ('chips', 'intj')}   # B1: the card game Mau Mau led over "to bully"
+            ('pesten', 'noun'), ('chips', 'intj'), ('esthetiek', 'adj')}   # B1: the card game Mau Mau led over "to bully"
 
 # A NUMBER'S NOUN BLOCK ("a four, the digit 4") is noise beside the number: dropped
 # wherever the word is also a numeral.
@@ -147,6 +151,8 @@ GENDER_FIX = {
     # B2 (2026-11-12): Wiktionary gives no gender to the two plural-only nouns, and "nc" to
     # kapitaal, whose senses are each marked n
     'chips': 'p', 'gegevens': 'p', 'kapitaal': 'n',
+    # C1: "nc" again; the compound takes dioxide's het
+    'koolstofdioxide': 'n',
 }
 
 # AN IPA CORRECTED: `één` is printed from the entry of `een`, whose transcription is the
@@ -384,7 +390,7 @@ def desc(entries, n):
         "Both study directions in one deck: Dutch → English (see the Dutch, recall the meaning) "
         "and English → Dutch (see an English meaning, recall the Dutch). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words of Dutch for {'a beginner' if LEVEL == 'a1' else 'an elementary learner' if LEVEL == 'a2' else 'an intermediate learner' if LEVEL == 'b1' else 'an upper-intermediate learner' if LEVEL == 'b2' else 'a learner'}, aligned to {LEVEL.upper()} of the "
+        f"separately. {n} words of Dutch for {'a beginner' if LEVEL == 'a1' else 'an elementary learner' if LEVEL == 'a2' else 'an intermediate learner' if LEVEL == 'b1' else 'an upper-intermediate learner' if LEVEL == 'b2' else 'an advanced learner'}, aligned to {LEVEL.upper()} of the "
         f"Common European Framework of Reference, whose global descriptor begins '{SC['quote']}' — "
         f"a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "

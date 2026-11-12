@@ -5,7 +5,7 @@ Dutch set built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose pip
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Create a Dutch language collection."
 
-**STATUS (2026-11-12): A1, A2, B1 and B2 are built** (`.claude/dutch/`, §6–§9). C1 and a phrases deck are not.
+**STATUS (2026-11-12): all five levels, A1 to C1, are built** (`.claude/dutch/`, §6–§10). The phrases deck (Phase 3) is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Dutch to the day's
@@ -31,7 +31,7 @@ for any deck this plan produces. The collection's first commit carried one (addi
 | Dutch A2 Elementary — built | `Dutch-A2.folio-deck.json` | 750 |
 | Dutch B1 Intermediate — built | `Dutch-B1.folio-deck.json` | 1,000 |
 | Dutch B2 Upper Intermediate — built | `Dutch-B2.folio-deck.json` | 1,500 |
-| Dutch C1 Advanced | `Dutch-C1.folio-deck.json` | 1,500 |
+| Dutch C1 Advanced — built | `Dutch-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
 
@@ -165,3 +165,25 @@ is §7–§8 again — plurals (`dagen`, `wegen`, `golven`, `neuzen` …), names
   caught as nouns with no article: `GENDER_FIX`. `chips` also drops its minced-oath interjection.
 - Glosses: `laken` (the bedsheet before the broadcloth), `kapitaal` (Wiktionary's senses end in stray
   gender letters); `LEAD`: `inflatie` (not "stomach bloat"), `kijker` (not "telescope").
+
+## 10. As built (2026-11-12): C1
+
+`python3 .claude/dutch/run.py --level c1`. 1,500 notes, 327 from the C1 inventory (law and institutions,
+economy and finance, academic and analytical language, argument and rhetoric, the formal register's
+connectives, society and ethics, psychology, literature and the arts, science and the environment, formal
+verbs, adjectives and adverbs of degree and stance) and 1,173 by frequency; A1 to B2 are left out. Three
+sentences for 941, **none for 252** — the sparsest level by far, Tatoeba having few sentences for formal
+vocabulary; 1,156 with IPA. A re-run is byte-identical; A1 to B2 rebuild byte for byte.
+
+**Forty-five inventory words are not Wiktionary lemmas** — the most of any level, and the honest limit of an
+assembled C1: formal compounds (`belangengroep`, `kansengelijkheid`, `gedragspatroon`), participle adjectives
+filed only under their verbs (`gefascineerd`, `verontwaardigd`), the pronominal adverbs (`waardoor`,
+`waarbij`, `hiervan`, which the extract does not keep as lemmas), and some that are plainly missing
+(`ratificeren`, `inherent`, `validiteit`, `melancholie`). Each was dropped, never given a meaning.
+`voorbehoud` was taken out by hand: Wiktionary has only its verb-form entry, not the noun "reservation".
+
+**The fill** (185 flagged by the forms pass, the rest read by eye) found §7–§9's faults once more —
+plurals (`ramen`, `tranen`, `gebaren`, `ploegen` …), nominalised forms (`Ierse`, `zwangere`, `schuldige`),
+names, English, interjections, two insults and two crude words — and **four more pointer-only entries
+that printed an empty English side** (`inmiddels`, `esthetiek`, `luidens`, glossed in `build_deck.py`;
+`hemeltje`, excluded) plus `dergelijke` (excluded). `koolstofdioxide` had "nc" (`GENDER_FIX`: het).
