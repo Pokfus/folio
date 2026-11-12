@@ -65,7 +65,7 @@ before changing the thing it names.
 | `persian-decks-plan.md` | The plan for the Persian (Farsi) language decks (alphabet, A1–C1 assembled to CEFR, phrases): sources, the card, right-to-left, the findings. Alphabet and A1 are built. |
 | `hindi-decks-plan.md` | The plan for the Hindi language decks (Devanagari alphabet, A1–C1 assembled to CEFR, phrases): the owner's decisions, sources, the card, the findings. Alphabet and A1 are built. |
 | `polish-decks-plan.md` | The plan for the Polish language decks (CEFR A1–C2 assembled, phrases): the defaults taken, sources, the card, the findings. A1 is built. |
-| `bengali-decks-plan.md` | The plan for the Bengali language decks (Bangla-script alphabet, A1–C1 assembled to CEFR, phrases), the Hindi set's sister: decisions, sources, the card, the findings. Alphabet, A1 and A2 are built. |
+| `bengali-decks-plan.md` | The plan for the Bengali language decks (Bangla-script alphabet, A1–C1 assembled to CEFR, phrases), the Hindi set's sister: decisions, sources, the card, the findings. All seven decks are built (C1 622 words, the sources exhausted; phrases 107). |
 | `telugu-decks-plan.md` | The plan for the Telugu language decks (alphabet, A1–C1 assembled to CEFR, phrases): the decisions carried over from Hindi, sources, the card, the findings. Alphabet and A1 are built. |
 | `greek-decks-plan.md` | The plan for the Greek language decks (alphabet, A1–C1 assembled to CEFR): the decisions taken from the Hindi precedent, sources, the card, the findings. Alphabet and A1 are built. |
 | `dutch-decks-plan.md` | The plan for the Dutch language decks (A1–C1 assembled to CEFR, no alphabet deck, IPA on every card): the decisions, sources, the card, the findings. A1 is built. |
