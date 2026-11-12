@@ -141,3 +141,97 @@ A2 = [
 ]
 
 INVENTORY['a2'] = A2
+
+# B1 (2026-11-12): the CEFR B1 descriptor's "familiar matters regularly
+# encountered in work, school, leisure" plus "experiences and events, dreams,
+# hopes and ambitions" and giving "reasons and explanations for opinions and
+# plans" -- so work and money, study, health, the media, society and the law,
+# nature and the environment, belief and culture, and the verbs and connectors of
+# opinion, reason and narrative.  Words A1 and A2 teach are skipped by `select.py`.
+#
+# MANY B1 VERBS ARE NOT IN WIKTIONARY under their affixed spelling (`magplano`,
+# `magpasya`, `iwasan`, `tanggihan`, `magpasalamat` ... about sixty of the first
+# draft), so this level leans on nouns; where Wiktionary files another affix of
+# the same root it is written instead (`umiwas`, `itanggi`, `isali`,
+# `magpaopera`, `maglarawan`), and the rest were dropped, never guessed.
+B1 = [
+    ('work and career', 'karera propesyon posisyon aplikasyon panayam karanasan '
+                        'kasamahan pinuno tagapamahala direktor kawani ahensiya serbisyo produkto '
+                        'kostumer kliyente kita gastos puhunan buwis kontrata pulong '
+                        'mamuhunan'),
+    ('money and banking', 'bangko deposito interes resibo kuwenta badyet ipon presyo singil '
+                          'barya salapi tseke kard halaga mamahalin bayarin utang '
+                          'humiram magpautang magtipid'),
+    ('study and knowledge', 'edukasyon kurso asignatura propesor estudyante pag-aaral '
+                            'kaalaman karunungan aral impormasyon datos sanaysay ulat paksa pahina '
+                            'kabanata talata salita iskolarsip '
+                            'magsaliksik mag-aral bumagsak'),
+    ('health and medicine', 'kalusugan sakit sintomas impeksiyon alerdyi presyon '
+                            'diyabetes kanser operasyon pasyente siruhano dentista parmasya reseta '
+                            'gamot iniksiyon bakuna ehersisyo diyeta timbang '
+                            'mag-ehersisyo gamutin magpaopera huminga '
+                            'magpapayat tumaba'),
+    ('the media and technology', 'balita pahayagan magasin artikulo mamamahayag '
+                                 'patalastas brodkast estasyon programa teknolohiya aplikasyon '
+                                 'mensahe password selpon baterya kable '
+                                 'makina siyentipiko eksperimento'),
+    ('society and politics', 'lipunan pamahalaan gobyerno bansa mamamayan pangulo senador '
+                             'kongreso eleksiyon halalan botante bumoto partido kandidato batas '
+                             'karapatan kalayaan demokrasya rebolusyon digmaan kapayapaan hukbo '
+                             'protesta organisasyon komunidad kultura tradisyon '
+                             'kahirapan kayamanan problema solusyon isyu patakaran'),
+    ('crime and the law', 'krimen magnanakaw pulis korte hukom abogado kaso:noun ebidensiya '
+                          'saksi bilanggo kulungan multa parusa hustisya inosente '
+                          'magnakaw pumatay magsumbong'),
+    ('nature and the environment', 'kalikasan polusyon basura klima temperatura tagtuyot '
+                                   'kagubatan karagatan bukal talon kuweba lambak '
+                                   'hayop halaman puno ugat sanga binhi ani pananim enerhiya '
+                                   'kuryente gasolina usok hangin alikabok '
+                                   'magtapon protektahan sirain'),
+    ('belief and culture', 'relihiyon diyos simbahan pari madre dasal panalangin kaluluwa '
+                           'pananampalataya paniniwala anghel diyablo langit impiyerno kasalanan '
+                           'sining musika pintor iskultor tula makata nobela awit konsiyerto '
+                           'pagdiriwang selebrasyon alamat kuwento'),
+    ('travel and places', 'destinasyon reserbasyon pasahero bagahe hangganan kontinente '
+                          'rehiyon lalawigan kabisera nayon siyudad lungsod bayan '
+                          'tanawin dalampasigan embahada bisa'),
+    ('people and relationships', 'relasyon pagkakaibigan kapitbahay kakilala bisita panauhin '
+                                 'kasal diborsiyo hiwalay biyudo biyuda ulila henerasyon '
+                                 'kabataan mag-anak angkan '
+                                 'lahi tiwala respeto galang'),
+    ('feelings and the mind', 'damdamin emosyon pakiramdam alaala isip ideya opinyon pananaw '
+                              'desisyon pasya layunin pangarap ambisyon pag-asa takot kaba '
+                              'kalungkutan kasiyahan kaligayahan galit inis pagod '
+                              'lungkot pagmamahal pagkabigo pagsisisi'),
+    ('opinion, reason and speech', 'sang-ayon tutol tama mali posible imposible malamang '
+                                   'siguro talaga totoo dahilan resulta epekto sanhi paliwanag '
+                                   'katwiran argumento mungkahi payo reklamo paumanhin '
+                                   'sumang-ayon magpayo magreklamo humingi '
+                                   'ipaliwanag patunayan ipagtanggol talakayan '
+                                   'banggitin maglarawan'),
+    ('describing (abstract)', 'mahalaga importante kailangan karaniwan pambihira kakaiba '
+                              'kilala tanyag moderno tradisyonal makabago luma sinauna pribado '
+                              'pampubliko pangkalahatan personal opisyal ilegal legal '
+                              'seryoso simple kumplikado malaya ligtas mapanganib '
+                              'matagumpay bigo masuwerte malas tapat matapat responsable '
+                              'maayos magulo patas makatarungan'),
+    ('verbs of doing and change', 'maghanda magtatag bumuo lumikha '
+                                  'pumili magbago umunlad '
+                                  'bumaba lumawak '
+                                  'tulungan suportahan isali '
+                                  'makibahagi magdiwang '
+                                  'umiwas harapin mabigo magtagumpay subukan '
+                                  'abutin itanggi'),
+    ('verbs of the mind and talk', 'maniwala alalahanin isipin '
+                                   'intindihin mapagtanto magduda '
+                                   'umasa magtiwala pagkatiwalaan sabihin magsinungaling '
+                                   'mangako '
+                                   'magsisi magselos'),
+    ('connectors and sequence', 'samakatuwid gayunman gayunpaman subalit ngunit datapwat bukod '
+                                'bilang kaysa kundi sakali '
+                                'sa_wakas una_sa_lahat pagkaraan '
+                                'kalaunan habang '
+                                'tulad halimbawa kahit_na upang para'),
+]
+
+INVENTORY['b1'] = B1

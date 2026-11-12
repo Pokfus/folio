@@ -5,7 +5,7 @@ language set in the shape of the ones already shipped (Romanian, Hindi, Russian 
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Tagalog language collection."
 
-**STATUS (2026-11-12): A1 and A2 are built** (`.claude/tagalog/`, §6, §7). B1 to C1 and the phrases deck are not.
+**STATUS (2026-11-12): A1, A2 and B1 are built** (`.claude/tagalog/`, §6–§8). B2, C1 and the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one (raising the day's existing
@@ -32,7 +32,7 @@ The request named no level, source or size, so each decision copies the shelf's 
 |---|---|---|
 | Tagalog A1 Beginner — built | `Tagalog-A1.folio-deck.json` | 500 |
 | Tagalog A2 Elementary — built | `Tagalog-A2.folio-deck.json` | 750 |
-| Tagalog B1 Intermediate | `Tagalog-B1.folio-deck.json` | 1,000 |
+| Tagalog B1 Intermediate — built | `Tagalog-B1.folio-deck.json` | 1,000 |
 | Tagalog B2 Upper Intermediate | `Tagalog-B2.folio-deck.json` | 1,500 |
 | Tagalog C1 Advanced | `Tagalog-C1.folio-deck.json` | 1,500 |
 | Tagalog Phrases and Expressions | `Tagalog-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
@@ -151,4 +151,33 @@ What reading every card changed, each recorded with its reason in the code:
 
 **Known, left.** The fill again carries some of the subtitles' violence (`barilin`, `lasunin`, `bangkay`), as A1's
 does; 33 words have no Tatoeba sentence.
+
+## 8. As built (2026-11-12): B1
+
+Asked for on 2026-11-12: "Add B1". `python3 .claude/tagalog/run.py --level b1`; A1 and A2 rebuild byte-identical
+and a B1 re-run is byte-identical. **1,000 notes, 294 from the inventory (seventeen topics: work, money, study,
+health, the media, society and politics, the law, the environment, belief and culture, travel, relationships,
+feelings, opinion and argument, abstract description, the verbs of change and of thought, connectors) and 706 by
+frequency**, none taught in A1 or A2. IPA on 989, a marked spelling on 545, forms on 302 (203 verbs), sentences for
+874 (three for 733).
+
+- **THE INVENTORY IS THINNER THAN A2'S BECAUSE WIKTIONARY IS.** About a hundred of the first draft's 510 words are
+  not filed under that spelling — most of them affixed verbs (`magplano`, `magpasya`, `iwasan`, `tanggihan`,
+  `magpasalamat`), plus multi-word connectors (`sa halip`, `lalo na`) and loans (`email`, `website`). Where another
+  affix of the root is filed it is written instead (`umiwas`, `itanggi`, `isali`, `magpaopera`, `maglarawan`);
+  the rest were dropped, never given a meaning. About a hundred more were already taught by A1 or A2. So the fill
+  is larger here, and reading it was most of the work.
+- **A SECOND SPELLING OF A TAUGHT WORD** (`select.py`, from B1 up so the shipped levels are unchanged): the fill
+  dealt `sombrero`, `kompiyuter`, `restoran`, `koryente`, `diyaryo`, `mantekilya`, `madumi` and `gayumpaman` —
+  each the lemma that a word already taught (or this level's inventory) is filed under. A lemma a taught word
+  points to is now treated as taught. (A2 excluded its two by hand: `ganiyan`, `retrato`.)
+- **Exclusions** (`EXCLUDE`): more linker and clipping counts dealt under a homograph (`tsaka`, `palang`, `kalang`,
+  `balang`, `satin`, `tong`, `taga`, `kamo`, `luko-luko`), English and Spanish in the subtitles (`la`, `elf`,
+  `korea`), counts not the entry's (`kana`, `aya`), insults and swears (`hangal`, `gunggong`, `letse`, `utot`),
+  `itik` and `bala` (shown by a sense that is not the word's), and `tita` / `daungan` (left out of A2 for it).
+- **Etymologies** (`ETYMS`): `patas` "fair", `malas` "unlucky", `bisa` "visa" first. **Inventory**: `kaso:noun`
+  (the lawsuit before the conjunction), and `tubo` and `murahin` dropped (no "profit"; "to slander").
+
+**Known, left.** 126 words have no Tatoeba sentence. The fill keeps the subtitles' crime and death vocabulary
+(`pagpatay`, `mamamatay-tao`, `magpakamatay`) on frequency, as the lower levels do.
 

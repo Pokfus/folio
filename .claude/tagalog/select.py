@@ -51,6 +51,29 @@ EXCLUDE = {
     'aling': "its count is alin 'which' with its linker; the entry is 'term of address of an elder woman'",
     'naglalakad': "the ongoing aspect of maglakad, taught in A1, filed as a noun 'pedestrian'",
     'bayag': "a vulgar word for a body part",
+    # read off the B1 ranking (2026-11-12)
+    'tita': "only a slang sense in Wiktionary (left out of the A2 inventory for it)",
+    'daungan': "only 'place for making a big ship' (left out of the A2 inventory for it)",
+    'tsaka': "its count is the colloquial spelling of saka 'and then'; the entry is 'ugly'",
+    'palang': "its count is pa lang 'only, just'; the entry is a bolo knife",
+    'kalang': "its count is ka lang 'you only'; the entry is 'wedge'",
+    'balang': "its count is balang araw 'some day' and bala + -ng; the entry is 'locust'",
+    'satin': "its count is satin, the contraction of sa atin 'to us'; the entry is the cloth",
+    'tong': "its count is 'tong, the clipping of itong 'this'; the entry is 'bribe'",
+    'kana': "its count is not 'deception'",
+    'taga': "its count is the prefix taga- 'from, native of'; the entry is 'a big cut'",
+    'aya': "its count is not 'pleasantness of the weather'",
+    'kamo': "dialectal 'you (plural)'; its count is kamo 'you said'",
+    'la': "a call to stop an animal; its count is the Spanish and English 'la'",
+    'elf': "a delivery truck by brand name; its count is the English 'elf'",
+    'korea': "its count is the country's name; the entry is a machine belt",
+    'itik': "a duck, shown by a gloss 'Indian person' that is not the word's meaning",
+    'hangal': "an insult ('a fool'), dealt under a homograph 'gasp'",
+    'luko-luko': "its count is loko-loko 'crazy'; the entry is holy basil",
+    'letse': "a swear (leche)",
+    'gunggong': "an insult ('a fool')",
+    'utot': "vulgar",
+    'bala': "'bullet' is a weak sense in the extraction, so the card would read 'threat'",
 }
 
 # Swearing and insults are never in a level deck.
@@ -91,6 +114,18 @@ def main():
             rows.append({'key': k, 'via': via, 'word': L['word'], 'freq': L['freq'], 'pos': pos or '',
                          'source': 'inventory', 'topic': topic})
     n_inv = len(rows)
+    # From B1 up (so A1 and A2 rebuild unchanged): a lemma that a word already
+    # taught, or this level's inventory, is filed under (`sumbrero` -> `sombrero`,
+    # `marumi` -> `madumi`, `gayunpaman` -> `gayumpaman`) is that word again in
+    # another spelling, and is not dealt by the fill.
+    if LEVEL not in ('a1', 'a2'):
+        for k in list(below) + [r['key'] for r in rows]:
+            t = lex.get(k, {}).get('alt_of')
+            if t and t != k:
+                seen.add(t)
+        for r in rows:
+            if r['via']:
+                seen.add(r['via'])
     swears = {fold(s) for s in SWEARS}
     excl = {fold(s) for s in EXCLUDE}
     fill, linked = [], []

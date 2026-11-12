@@ -3663,7 +3663,8 @@ changed was the one that had been wrong all along.
   is measured, `#14659F`.
 - `.claude/tagalog/` — the generator behind the Tagalog decks (Nov 2026, on request: "Add a Tagalog language
   collection"; the Romanian set's decisions taken as the default). **Built: A1, `decks/Tagalog-A1.folio-deck.json`**
-  (500 notes / 1,000 cards) **and A2, `decks/Tagalog-A2.folio-deck.json`** (750 / 1,500; 2026-11-12, "Add Tagalog A2"). `python3 .claude/tagalog/run.py [--level a1]`, `node .claude/tagalog/check-tagalog.js`;
+  (500 notes / 1,000 cards) **and A2, `decks/Tagalog-A2.folio-deck.json`** (750 / 1,500; 2026-11-12, "Add Tagalog A2") **and B1,
+  `decks/Tagalog-B1.folio-deck.json`** (1,000 / 2,000; 2026-11-12). `python3 .claude/tagalog/run.py [--level a1]`, `node .claude/tagalog/check-tagalog.js`;
   a re-run is byte-identical. The Romanian shape (no published list: a topic inventory plus lemma frequency, said in
   the description), no script deck. **What is new**: the headword is the plain spelling with Wiktionary's MARKED
   spelling beneath it (stress and glottal stop, `magandá`, `batà`); a verb is the affixed verb and shows its three

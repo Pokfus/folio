@@ -78,6 +78,10 @@ ETYMS = {
     'alas': ['2'],           # "o'clock" (alas-dos); 1 is "ace"
     'tahanan': ['2'],        # "home"; 1 is "simultaneous stopping"
     'mama': ['2'],           # "mum"; 1 is "a term for addressing an unknown man"
+    # B1 (2026-11-12)
+    'patas': ['2'],          # "even, fair"; 1 is "heap, pile"
+    'malas': ['2'],          # "bad luck, unlucky"; 1 is "intent look"
+    'bisa': ['2', '1'],      # "visa" before "efficacy"
 }
 
 # A PART OF SPEECH LEFT OFF ONE CARD, each with its reason.

@@ -69,6 +69,20 @@ SCOPE = {
                   'often, more colours, describing things, the everyday verbs of doing, '
                   'and the connectors and adverbs that join two sentences',
     },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to produce '
+                 'simple connected text on familiar topics, and to describe experiences, events, '
+                 'dreams, hopes and ambitions and briefly give reasons and explanations for '
+                 'opinions and plans',
+        'topics': 'work and careers, money and banking, study and knowledge, health and medicine, '
+                  'the media and technology, society and politics, crime and the law, nature and '
+                  'the environment, belief and culture, travel and places, people and '
+                  'relationships, feelings and the mind, opinion, reason and argument, abstract '
+                  'description, the verbs of change, thought and speech, and the connectors of '
+                  'a narrative',
+    },
 }
 
 
