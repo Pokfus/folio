@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-12T22:00Z",
+ "generated": "2026-11-12T23:45Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8094,
-  "redirect-broader": 782,
-  "redirect-variant": 485,
+  "ok": 8192,
+  "redirect-broader": 785,
+  "redirect-variant": 486,
   "section-redirect": 188,
-  "disambiguation": 156,
+  "disambiguation": 154,
   "none": 1171,
   "disambig-resolved": 109,
   "list-page": 6,
@@ -87683,6 +87683,710 @@
    "answer": "Duck and cover",
    "title": "Duck and cover",
    "url": "https://en.wikipedia.org/wiki/Duck_and_cover",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-901": {
+   "answer": "Shelley v. Kraemer",
+   "title": "Shelley v. Kraemer",
+   "url": "https://en.wikipedia.org/wiki/Shelley_v._Kraemer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-902": {
+   "answer": "Redlining",
+   "title": "Redlining",
+   "url": "https://en.wikipedia.org/wiki/Redlining",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-903": {
+   "answer": "Civil rights movement",
+   "title": "Civil rights movement",
+   "url": "https://en.wikipedia.org/wiki/Civil_rights_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-904": {
+   "answer": "Thurgood Marshall",
+   "title": "Thurgood Marshall",
+   "url": "https://en.wikipedia.org/wiki/Thurgood_Marshall",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-905": {
+   "answer": "Brown v. Board of Education",
+   "title": "Brown v. Board of Education",
+   "url": "https://en.wikipedia.org/wiki/Brown_v._Board_of_Education",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-906": {
+   "answer": "Massive resistance",
+   "title": "Massive resistance",
+   "url": "https://en.wikipedia.org/wiki/Massive_resistance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-907": {
+   "answer": "Little Rock Nine",
+   "title": "Little Rock Nine",
+   "url": "https://en.wikipedia.org/wiki/Little_Rock_Nine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-908": {
+   "answer": "Emmett Till",
+   "title": "Emmett Till",
+   "url": "https://en.wikipedia.org/wiki/Emmett_Till",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-909": {
+   "answer": "Montgomery bus boycott",
+   "title": "Montgomery bus boycott",
+   "url": "https://en.wikipedia.org/wiki/Montgomery_bus_boycott",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-910": {
+   "answer": "Rosa Parks",
+   "title": "Rosa Parks",
+   "url": "https://en.wikipedia.org/wiki/Rosa_Parks",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-911": {
+   "answer": "Martin Luther King Jr.",
+   "title": "Martin Luther King Jr.",
+   "url": "https://en.wikipedia.org/wiki/Martin_Luther_King_Jr.",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-912": {
+   "answer": "Southern Christian Leadership Conference",
+   "title": "Southern Christian Leadership Conference",
+   "url": "https://en.wikipedia.org/wiki/Southern_Christian_Leadership_Conference",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-913": {
+   "answer": "Greensboro sit-ins",
+   "title": "Greensboro sit-ins",
+   "url": "https://en.wikipedia.org/wiki/Greensboro_sit-ins",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-914": {
+   "answer": "Student Nonviolent Coordinating Committee",
+   "title": "Student Nonviolent Coordinating Committee",
+   "url": "https://en.wikipedia.org/wiki/Student_Nonviolent_Coordinating_Committee",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-915": {
+   "answer": "Freedom Riders",
+   "title": "Freedom Riders",
+   "url": "https://en.wikipedia.org/wiki/Freedom_Riders",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-916": {
+   "answer": "Birmingham campaign",
+   "title": "Birmingham campaign",
+   "url": "https://en.wikipedia.org/wiki/Birmingham_campaign",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-917": {
+   "answer": "March on Washington for Jobs and Freedom",
+   "title": "March on Washington",
+   "url": "https://en.wikipedia.org/wiki/March_on_Washington",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "March on Washington for Jobs and Freedom"
+  },
+  "us-918": {
+   "answer": "I Have a Dream",
+   "title": "I Have a Dream",
+   "url": "https://en.wikipedia.org/wiki/I_Have_a_Dream",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-919": {
+   "answer": "Freedom Summer",
+   "title": "Freedom Summer",
+   "url": "https://en.wikipedia.org/wiki/Freedom_Summer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-920": {
+   "answer": "Murders of Chaney, Goodman, and Schwerner",
+   "title": "Murders of Chaney, Goodman, and Schwerner",
+   "url": "https://en.wikipedia.org/wiki/Murders_of_Chaney,_Goodman,_and_Schwerner",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-921": {
+   "answer": "Civil Rights Act of 1964",
+   "title": "Civil Rights Act of 1964",
+   "url": "https://en.wikipedia.org/wiki/Civil_Rights_Act_of_1964",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-922": {
+   "answer": "Selma to Montgomery marches",
+   "title": "Selma to Montgomery marches",
+   "url": "https://en.wikipedia.org/wiki/Selma_to_Montgomery_marches",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-923": {
+   "answer": "Voting Rights Act of 1965",
+   "title": "Voting Rights Act of 1965",
+   "url": "https://en.wikipedia.org/wiki/Voting_Rights_Act_of_1965",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-924": {
+   "answer": "Malcolm X",
+   "title": "Malcolm X",
+   "url": "https://en.wikipedia.org/wiki/Malcolm_X",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-925": {
+   "answer": "Black Power",
+   "title": "Black power",
+   "url": "https://en.wikipedia.org/wiki/Black_power",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-926": {
+   "answer": "Presidency of Lyndon B. Johnson",
+   "title": "Presidency of Lyndon B. Johnson",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_Lyndon_B._Johnson",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-927": {
+   "answer": "Great Society",
+   "title": "Great Society",
+   "url": "https://en.wikipedia.org/wiki/Great_Society",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-928": {
+   "answer": "War on Poverty",
+   "title": "War on Poverty",
+   "url": "https://en.wikipedia.org/wiki/War_on_Poverty",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "War on poverty"
+  },
+  "us-929": {
+   "answer": "Social Security Amendments of 1965",
+   "title": "Social Security Amendments of 1965",
+   "url": "https://en.wikipedia.org/wiki/Social_Security_Amendments_of_1965",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-930": {
+   "answer": "Immigration and Nationality Act of 1965",
+   "title": "Hart-Celler Act",
+   "url": "https://en.wikipedia.org/wiki/Hart-Celler_Act",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Immigration and Nationality Act of 1965"
+  },
+  "us-931": {
+   "answer": "domino theory",
+   "title": "Domino theory",
+   "url": "https://en.wikipedia.org/wiki/Domino_theory",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-932": {
+   "answer": "Gulf of Tonkin incident",
+   "title": "Gulf of Tonkin incident",
+   "url": "https://en.wikipedia.org/wiki/Gulf_of_Tonkin_incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-933": {
+   "answer": "Vietnam War",
+   "title": "Vietnam War",
+   "url": "https://en.wikipedia.org/wiki/Vietnam_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-934": {
+   "answer": "Selective Service System",
+   "title": "Selective Service System",
+   "url": "https://en.wikipedia.org/wiki/Selective_Service_System",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-935": {
+   "answer": "Tet Offensive",
+   "title": "Tet Offensive",
+   "url": "https://en.wikipedia.org/wiki/Tet_Offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-936": {
+   "answer": "Opposition to United States involvement in the Vietnam War",
+   "title": "Opposition to United States involvement in the Vietnam War",
+   "url": "https://en.wikipedia.org/wiki/Opposition_to_United_States_involvement_in_the_Vietnam_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-937": {
+   "answer": "counterculture of the 1960s",
+   "title": "Counterculture of the 1960s",
+   "url": "https://en.wikipedia.org/wiki/Counterculture_of_the_1960s",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-938": {
+   "answer": "Students for a Democratic Society",
+   "title": "Students for a Democratic Society",
+   "url": "https://en.wikipedia.org/wiki/Students_for_a_Democratic_Society",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-939": {
+   "answer": "1968 Democratic National Convention",
+   "title": "1968 Democratic National Convention",
+   "url": "https://en.wikipedia.org/wiki/1968_Democratic_National_Convention",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-940": {
+   "answer": "Assassination of Robert F. Kennedy",
+   "title": "Assassination of Robert F. Kennedy",
+   "url": "https://en.wikipedia.org/wiki/Assassination_of_Robert_F._Kennedy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-941": {
+   "answer": "Long, hot summer of 1967",
+   "title": "Long, hot summer of 1967",
+   "url": "https://en.wikipedia.org/wiki/Long,_hot_summer_of_1967",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-942": {
+   "answer": "Kerner Commission",
+   "title": "Kerner Commission",
+   "url": "https://en.wikipedia.org/wiki/Kerner_Commission",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-943": {
+   "answer": "Presidency of Richard Nixon",
+   "title": "Presidency of Richard Nixon",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_Richard_Nixon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-944": {
+   "answer": "Vietnamization",
+   "title": "Vietnamization",
+   "url": "https://en.wikipedia.org/wiki/Vietnamization",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-945": {
+   "answer": "My Lai massacre",
+   "title": "My Lai massacre",
+   "url": "https://en.wikipedia.org/wiki/My_Lai_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-946": {
+   "answer": "Kent State shootings",
+   "title": "Kent State shootings",
+   "url": "https://en.wikipedia.org/wiki/Kent_State_shootings",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-947": {
+   "answer": "Pentagon Papers",
+   "title": "Pentagon Papers",
+   "url": "https://en.wikipedia.org/wiki/Pentagon_Papers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-948": {
+   "answer": "Fall of Saigon",
+   "title": "Fall of Saigon",
+   "url": "https://en.wikipedia.org/wiki/Fall_of_Saigon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-949": {
+   "answer": "Vietnam War casualties",
+   "title": "Vietnam War casualties",
+   "url": "https://en.wikipedia.org/wiki/Vietnam_War_casualties",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-950": {
+   "answer": "Vietnam Veterans Memorial",
+   "title": "Vietnam Veterans Memorial",
+   "url": "https://en.wikipedia.org/wiki/Vietnam_Veterans_Memorial",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-951": {
+   "answer": "Second-wave feminism",
+   "title": "Second-wave feminism",
+   "url": "https://en.wikipedia.org/wiki/Second-wave_feminism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-952": {
+   "answer": "Betty Friedan",
+   "title": "Betty Friedan",
+   "url": "https://en.wikipedia.org/wiki/Betty_Friedan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-953": {
+   "answer": "National Organization for Women",
+   "title": "National Organization for Women",
+   "url": "https://en.wikipedia.org/wiki/National_Organization_for_Women",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-954": {
+   "answer": "Equal Rights Amendment",
+   "title": "Equal Rights Amendment",
+   "url": "https://en.wikipedia.org/wiki/Equal_Rights_Amendment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-955": {
+   "answer": "Roe v. Wade",
+   "title": "Roe v. Wade",
+   "url": "https://en.wikipedia.org/wiki/Roe_v._Wade",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-956": {
+   "answer": "Chicano Movement",
+   "title": "Chicano Movement",
+   "url": "https://en.wikipedia.org/wiki/Chicano_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-957": {
+   "answer": "Cesar Chavez",
+   "title": "Cesar Chavez",
+   "url": "https://en.wikipedia.org/wiki/Cesar_Chavez",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-958": {
+   "answer": "Red Power movement",
+   "title": "Red Power movement",
+   "url": "https://en.wikipedia.org/wiki/Red_Power_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-959": {
+   "answer": "Asian American movement",
+   "title": "Asian American movement",
+   "url": "https://en.wikipedia.org/wiki/Asian_American_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-960": {
+   "answer": "Stonewall riots",
+   "title": "Stonewall riots",
+   "url": "https://en.wikipedia.org/wiki/Stonewall_riots",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-961": {
+   "answer": "LGBTQ movements in the United States",
+   "title": "LGBTQ movements in the United States",
+   "url": "https://en.wikipedia.org/wiki/LGBTQ_movements_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-962": {
+   "answer": "disability rights movement",
+   "title": "Disability rights movement",
+   "url": "https://en.wikipedia.org/wiki/Disability_rights_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-963": {
+   "answer": "environmental movement in the United States",
+   "title": "Environmental movement in the United States",
+   "url": "https://en.wikipedia.org/wiki/Environmental_movement_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-964": {
+   "answer": "Silent Spring",
+   "title": "Silent Spring",
+   "url": "https://en.wikipedia.org/wiki/Silent_Spring",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-965": {
+   "answer": "Earth Day",
+   "title": "Earth Day",
+   "url": "https://en.wikipedia.org/wiki/Earth_Day",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-966": {
+   "answer": "Ralph Nader",
+   "title": "Ralph Nader",
+   "url": "https://en.wikipedia.org/wiki/Ralph_Nader",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-967": {
+   "answer": "New Right",
+   "title": "New Right",
+   "url": "https://en.wikipedia.org/wiki/New_Right",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-968": {
+   "answer": "Christian right",
+   "title": "Christian right",
+   "url": "https://en.wikipedia.org/wiki/Christian_right",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-969": {
+   "answer": "culture war",
+   "title": "Culture war",
+   "url": "https://en.wikipedia.org/wiki/Culture_war",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-970": {
+   "answer": "incorporation of the Bill of Rights",
+   "title": "Incorporation of the Bill of Rights",
+   "url": "https://en.wikipedia.org/wiki/Incorporation_of_the_Bill_of_Rights",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-971": {
+   "answer": "Watergate scandal",
+   "title": "Watergate scandal",
+   "url": "https://en.wikipedia.org/wiki/Watergate_scandal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-972": {
+   "answer": "Richard Nixon's resignation speech",
+   "title": "Richard Nixon's resignation speech",
+   "url": "https://en.wikipedia.org/wiki/Richard_Nixon's_resignation_speech",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-973": {
+   "answer": "Presidency of Gerald Ford",
+   "title": "Presidency of Gerald Ford",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_Gerald_Ford",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-974": {
+   "answer": "Stagflation",
+   "title": "Stagflation",
+   "url": "https://en.wikipedia.org/wiki/Stagflation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-975": {
+   "answer": "1970s energy crisis",
+   "title": "1970s energy crisis",
+   "url": "https://en.wikipedia.org/wiki/1970s_energy_crisis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-976": {
+   "answer": "Presidency of Jimmy Carter",
+   "title": "Presidency of Jimmy Carter",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_Jimmy_Carter",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-977": {
+   "answer": "Iran hostage crisis",
+   "title": "Iran hostage crisis",
+   "url": "https://en.wikipedia.org/wiki/Iran_hostage_crisis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-978": {
+   "answer": "Presidency of Ronald Reagan",
+   "title": "Presidency of Ronald Reagan",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_Ronald_Reagan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-979": {
+   "answer": "Reaganomics",
+   "title": "Reaganomics",
+   "url": "https://en.wikipedia.org/wiki/Reaganomics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-980": {
+   "answer": "Strategic Defense Initiative",
+   "title": "Strategic Defense Initiative",
+   "url": "https://en.wikipedia.org/wiki/Strategic_Defense_Initiative",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-991": {
+   "answer": "War on terror",
+   "title": "War on terror",
+   "url": "https://en.wikipedia.org/wiki/War_on_terror",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-992": {
+   "answer": "Iraq War",
+   "title": "Iraq War",
+   "url": "https://en.wikipedia.org/wiki/Iraq_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-993": {
+   "answer": "Great Recession",
+   "title": "Great Recession",
+   "url": "https://en.wikipedia.org/wiki/Great_Recession",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-994": {
+   "answer": "Presidency of Barack Obama",
+   "title": "Presidency of Barack Obama",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_Barack_Obama",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-995": {
+   "answer": "Affordable Care Act",
+   "title": "Affordable Care Act",
+   "url": "https://en.wikipedia.org/wiki/Affordable_Care_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-996": {
+   "answer": "Political polarization in the United States",
+   "title": "Political polarization in the United States",
+   "url": "https://en.wikipedia.org/wiki/Political_polarization_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-997": {
+   "answer": "Immigration Reform and Control Act of 1986",
+   "title": "Immigration Reform and Control Act of 1986",
+   "url": "https://en.wikipedia.org/wiki/Immigration_Reform_and_Control_Act_of_1986",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-998": {
+   "answer": "COVID-19 pandemic in the United States",
+   "title": "COVID-19 pandemic in the United States",
+   "url": "https://en.wikipedia.org/wiki/COVID-19_pandemic_in_the_United_States",
+   "via": "answer",
+   "status": "ok"
+  },
+  "us-999": {
+   "answer": "1619 Project",
+   "title": "The 1619 Project",
+   "url": "https://en.wikipedia.org/wiki/The_1619_Project",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-1000": {
+   "answer": "American exceptionalism",
+   "title": "American exceptionalism",
+   "url": "https://en.wikipedia.org/wiki/American_exceptionalism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-981": {
+   "answer": "Iran–Contra affair",
+   "title": "Iran–Contra affair",
+   "url": "https://en.wikipedia.org/wiki/Iran%E2%80%93Contra_affair",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-982": {
+   "answer": "Rust Belt",
+   "title": "Rust Belt",
+   "url": "https://en.wikipedia.org/wiki/Rust_Belt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-983": {
+   "answer": "HIV/AIDS in the United States",
+   "title": "HIV/AIDS in the United States",
+   "url": "https://en.wikipedia.org/wiki/HIV%2FAIDS_in_the_United_States",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-984": {
+   "answer": "War on drugs",
+   "title": "War on drugs",
+   "url": "https://en.wikipedia.org/wiki/War_on_drugs",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-985": {
+   "answer": "Presidency of George H. W. Bush",
+   "title": "Presidency of George H. W. Bush",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_George_H._W._Bush",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-986": {
+   "answer": "Gulf War",
+   "title": "Gulf War",
+   "url": "https://en.wikipedia.org/wiki/Gulf_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-987": {
+   "answer": "Presidency of Bill Clinton",
+   "title": "Presidency of Bill Clinton",
+   "url": "https://en.wikipedia.org/wiki/Presidency_of_Bill_Clinton",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-988": {
+   "answer": "North American Free Trade Agreement",
+   "title": "North American Free Trade Agreement",
+   "url": "https://en.wikipedia.org/wiki/North_American_Free_Trade_Agreement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-989": {
+   "answer": "Personal Responsibility and Work Opportunity Act",
+   "title": "Personal Responsibility and Work Opportunity Reconciliation Act of 1996",
+   "url": "https://en.wikipedia.org/wiki/Personal_Responsibility_and_Work_Opportunity_Reconciliation_Act_of_1996",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Personal Responsibility and Work Opportunity Act"
+  },
+  "us-990": {
+   "answer": "September 11 attacks",
+   "title": "September 11 attacks",
+   "url": "https://en.wikipedia.org/wiki/September_11_attacks",
    "via": "glossary",
    "status": "ok"
   }

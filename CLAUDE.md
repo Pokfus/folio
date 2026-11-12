@@ -234,7 +234,7 @@ have not this session.
 
 📖 `docs/rome-refinement-audit.md` — READ BEFORE TOUCHING ANY `rm-` CARD (the Oct 2026 refinement: Greece's rules plus tradition against fact, batches, ledger; `node .claude/rm-audit.js`; the harness is `.claude/wh-refine/` with `REFINE_PREFIX=rm-`). 📖 `docs/rome-chronology.md` — READ BEFORE WRITING A DATE ON AN `rm-` CARD.
 
-| United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | live |
+| United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | complete: 1000 plan lines, 1000 cards |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | live |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | live: `in-001`–`100` written, next is `in-101` |
 | China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | complete: 1000 plan lines, 1000 cards (`cnh-070` retired in Sep 2026, rewritten as *Shang bronze inscriptions* in Oct 2026 on request) |
