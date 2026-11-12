@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 244 MB of decks. The file itself is fetched on Add. */
+   section without fetching 246 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -79,6 +79,7 @@ window.LANG_DECKS = [
   { lang: "Persian (Farsi)", file: "Persian-A2.folio-deck.json", id: "persiana2", title: "Persian A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 90, bytes: 1316760, rev: "29dd1b7650e8" },
   { lang: "Persian (Farsi)", file: "Persian-B1.folio-deck.json", id: "persianb1", title: "Persian B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 73, bytes: 1372637, rev: "91cfa2adf930" },
   { lang: "Persian (Farsi)", file: "Persian-B2.folio-deck.json", id: "persianb2", title: "Persian B2 Upper Intermediate", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 49, bytes: 1571549, rev: "5a340eb4a9b3" },
+  { lang: "Persian (Farsi)", file: "Persian-C1.folio-deck.json", id: "persianc1", title: "Persian C1 Advanced", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 28, bytes: 1133832, rev: "fca59cad6f01" },
   { lang: "Japanese", file: "Japanese-Hiragana.folio-deck.json", id: "jahira", title: "Japanese — Hiragana", sub: "The 105 hiragana — start here, before any word", notes: 105, cards: 210, ex: 93, bytes: 37597, rev: "17191a659535" },
   { lang: "Japanese", file: "Japanese-Katakana.folio-deck.json", id: "jakata", title: "Japanese — Katakana", sub: "The 121 katakana, for loanwords — study after hiragana", notes: 121, cards: 242, ex: 76, bytes: 36406, rev: "faa645da95c9" },
   { lang: "Japanese", file: "JLPT-N5-Japanese.folio-deck.json", id: "jlptn5", title: "Japanese — JLPT N5", sub: "The first 667 words — start here once you can read kana", notes: 667, cards: 1334, ex: 98, bytes: 1428043, rev: "75ed2687d8fc" },

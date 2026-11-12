@@ -107,4 +107,23 @@ B2 = [
     ('verbs of reporting and analysing', 'تحلیل مقایسه_کردن نتیجه_گرفتن پذیرفتن انتقاد_کردن حمایت_کردن ارائه_دادن اشاره_کردن پیشنهاد_کردن تأکید_کردن افزودن کاستن'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}
+# C1 (2026-11-12): the topics of the CEFR C1 descriptor, Hindi's C1 list carried
+# over and rewritten for Iran.  Written AFTER checking every candidate against
+# the Wiktionary extract: only words it has are listed (the ones it lacks are in
+# docs/persian-decks-plan.md §10), and words the levels below teach are left out.
+C1 = [
+    ('philosophy and ethics', 'فیلسوف هستی سعادت شناخت معرفت خرد'),
+    ('religion and the inner life', 'عرفان صوفی تصوف توکل نیایش زهد تقوا قیامت آخرت دوزخ امام'),
+    ('scholarly Persian', 'پژوهشگر پایان‌نامه ارجاع روش‌شناسی چکیده پیشینه'),
+    ('government and the constitution', 'پارلمان استبداد دیکتاتوری نهاد'),
+    ('economy and development', 'رفاه سرمایه‌داری سوسیالیسم زیرساخت پایداری'),
+    ('medicine and the body', 'بافت دیابت'),
+    ('law and rights', 'حقوق_بشر آزادی_بیان شهروندی'),
+    ('language and literature', 'واژگان گویش نثر غزل قصیده رباعی مثنوی دیوان حماسه'),
+    ('feeling and judgement', 'دلتنگی حسرت انزجار شوق کینه'),
+    ('abstract nouns of formal prose', 'رویکرد ضرورت تعامل تقابل'),
+    ('adjectives of formal prose', 'بنیادی پیچیده آشکار ضمنی صریح ذاتی عینی'),
+    ('literary connectors and adverbs', 'گرچه'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2, 'c1': C1}

@@ -5,8 +5,8 @@ twelfth language set, built the way the Hindi set was (`docs/hindi-decks-plan.md
 record of how the others were built, and every rule there applies here unless this file says otherwise. Asked
 for on 2026-11-09: "Add a Farsi language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1, A2, B1 and B2 are built** (`.claude/persian/`). C1 and the
-phrases deck are not.
+**STATUS (2026-11-12): the alphabet deck and every level, A1 to C1, are built** (`.claude/persian/`). The
+phrases deck is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
 any deck this plan produces. The first commit carried one changelog item (folded into Hindi's line of the same
@@ -35,7 +35,7 @@ over rather than asked again:
 | Persian A2 Elementary — built | `Persian-A2.folio-deck.json` | 750 |
 | Persian B1 Intermediate — built | `Persian-B1.folio-deck.json` | 1,000 |
 | Persian B2 Upper Intermediate — built | `Persian-B2.folio-deck.json` | 1,500 |
-| Persian C1 Advanced | `Persian-C1.folio-deck.json` | 1,500 |
+| Persian C1 Advanced — built | `Persian-C1.folio-deck.json` | 1,500 |
 | Persian Phrases and Expressions | `Persian-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
 ## 2. Sources and licences
@@ -90,7 +90,7 @@ carries the subtitles' crime-drama words (`سلاح`, `شلیک`) on frequency, 
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2, B1 and B2 (done 2026-11-12) to C1, one level per session: the level's
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2 (done 2026-11-12)** — A2 to C1, one level per session: the level's
 inventory into `inventory.py`, its `SCOPE` into `persian_level.py`, run, read every card. **Phase 3** — phrases.
 
 ## 6. As built (2026-11-09)
@@ -183,3 +183,30 @@ plain limit of 8,265 pairs. A re-run is byte-identical; A1, A2 and B1 rebuilt af
 
 **Known, left.** The fill's register is the subtitles' (military ranks, crime, the supernatural). Fourteen notes
 in seven pairs share an English side and are labelled "not X".
+
+## 10. C1 as built (2026-11-12)
+
+Asked for on 2026-11-12: "Add C1." `python3 .claude/persian/run.py --level c1`. **1,500 notes / 3,000 cards:
+63 from the inventory, 1,437 by frequency**; three sentences for 69, **none for 1,077** — at this depth almost
+nothing has a Tatoeba sentence. A re-run is byte-identical; A1 to B2 rebuilt after the changes are unchanged.
+
+- **THE INVENTORY WAS CHECKED BEFORE IT WAS WRITTEN.** B2 lost 43 words to Wiktionary's gaps, so every C1
+  candidate (Hindi's C1 topics rewritten for Iran: philosophy, mysticism, scholarly Persian, the constitution,
+  the economy, medicine, law, the forms of Persian poetry — غزل, قصیده, رباعی, مثنوی, دیوان — feeling, formal
+  prose) was looked up first. 106 of the candidates the lower levels already teach; **these 33 Wiktionary does
+  not have and are not in the deck**: اخلاقیات عدالت فضیلت عقلانیت معنویت عبادت رساله پانویس فرضیه یافته
+  دانشیار مشروطه مشروطیت قوه قیمومیت مشروعیت نقدینگی بیهوشی هورمون مالکیت وراثت زبان‌شناسی تشبیه تحقیر
+  بیزاری دلسردی چشم‌انداز غیرمستقیم علاوه بر وانگهی اصولاً قطعاً نهایتاً. The 63 that are new go in.
+- **Romanisations by hand** (`ROMAN_BY_HAND`), from a scan of every card: کینه kine (the card had printed
+  "kin"), آشکار âškâr (it had taken آشکارا's reading), پایداری pâydâri (Wiktionary's "pâydanâri" does not match
+  the spelling), راکتور râktor (an empty headword line).
+- **Glosses for three pointer-only entries** (`GLOSS`): دریغ "alas" (its interjection), مومیایی, موزیکال.
+- **90 more fill exclusions**, each with its reason — the most at any level: 37 names and English words in
+  Persian letters (موس "mouse", مسی "Messi", انتر "Enter", ثور "Thor"), spoken forms (گرون, مسلمون, مالوندن,
+  خوروندن, جوشوندن), entries whose gloss is not the counted word (کتبی "bookseller", منجی the Munji language),
+  and vulgar words.
+
+**Known, left.** The fill at this depth is broad rather than formal: everyday nouns a reader meets late
+(طاووس, زرافه, خاویار) sit beside the formal words, because the subtitles rank them alike. Without a published
+Persian C1 list or a fuller dictionary, that is what an honest assembly gives. 18 notes in nine pairs share an
+English side and are labelled "not X".

@@ -135,6 +135,10 @@ GLOSS = {
     'کچل': {'noun': []},
     # Wiktionary's gloss is "synonym of قطار"; its meaning
     'ترن': {'noun': ['train (dated; the everyday word is قطار)']},
+    # C1: three glossed by a pointer only; the pointed-at word's meaning
+    'دریغ': {'intj': ['alas']},
+    'مومیایی': {'adj': ['mummified'], 'noun': ['mummy (an embalmed body)']},
+    'موزیکال': {'adj': ['musical']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -225,7 +229,11 @@ ROMAN_BY_HAND = {'حس': 'hess', 'نوع': "now'", 'دی': 'dey', 'پست': 'pos
                  # kôbidan, jârub) or the headword line's optional vowel (pir(e)-mard);
                  # the Iranian reading, as A1's cards print these words' relatives
                  'چگونه': 'čegune', 'طلایی': 'talâyi', 'خواهشا': 'xâhešan', 'کوبیدن': 'kubidan',
-                 'جارو': 'jâru', 'پیرمرد': 'pir-mard'}
+                 'جارو': 'jâru', 'پیرمرد': 'pir-mard',
+                 # C1: کینه printed "kin" (the line has kine); آشکار took آشکارا's reading;
+                 # Wiktionary's "pâydanâri" for پایداری does not match its spelling (pâydâri,
+                 # as پایدار pâydâr); راکتور has an empty headword line
+                 'کینه': 'kine', 'آشکار': 'âškâr', 'پایداری': 'pâydâri', 'راکتور': 'râktor'}
 
 
 # ---- forms -----------------------------------------------------------------------------
