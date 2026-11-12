@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7545 | the title is the article |
-| `redirect-variant` | 459 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 99 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 7621 | the title is the article |
+| `redirect-variant` | 463 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 101 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 731 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 744 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 170 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 174 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 153 | only a disambiguation page; no link could be chosen |
-| `none` | 1128 | nothing matched; no link |
+| `none` | 1129 | nothing matched; no link |
 
-**8850 of 10320 cards get a link.** The three "no link" rows are the honest state: a card whose
+**8945 of 10420 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (731)
+## Redirected to a differently named article — check each (744)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -74,6 +74,19 @@ The answer redirects to an article with another name. Most are the same subject 
 - `bio-016` **emergent property** → [Emergence](https://en.wikipedia.org/wiki/Emergence) (from `Emergent property`)
 - `bio-025` **ionic bond** → [Ionic bonding](https://en.wikipedia.org/wiki/Ionic_bonding) (from `Ionic bond`)
 - `bio-098` **light microscope** → [Optical microscope](https://en.wikipedia.org/wiki/Optical_microscope) (from `Light microscope`)
+- `bio-102` **multicellularity** → [Multicellular organism](https://en.wikipedia.org/wiki/Multicellular_organism) (from `Multicellularity`)
+- `bio-108` **endosymbiotic theory** → [Symbiogenesis](https://en.wikipedia.org/wiki/Symbiogenesis) (from `Endosymbiotic theory`)
+- `bio-121` **secretory pathway** → [Secretion](https://en.wikipedia.org/wiki/Secretion) (from `Secretory pathway`)
+- `bio-122` **mitochondrion** → [Mitochondria](https://en.wikipedia.org/wiki/Mitochondria) (from `Mitochondrion`)
+- `bio-131` **plasmodesmata** → [Plasmodesma](https://en.wikipedia.org/wiki/Plasmodesma) (from `Plasmodesmata`)
+- `bio-159` **link reaction** → [Pyruvate dehydrogenase](https://en.wikipedia.org/wiki/Pyruvate_dehydrogenase) (from `Link reaction`)
+- `bio-160` **Krebs cycle** → [Citric acid cycle](https://en.wikipedia.org/wiki/Citric_acid_cycle) (from `Krebs cycle`)
+- `bio-166` **NADH** → [Nicotinamide adenine dinucleotide](https://en.wikipedia.org/wiki/Nicotinamide_adenine_dinucleotide) (from `NADH`)
+- `bio-182` **light-dependent reactions** → [Photosystem](https://en.wikipedia.org/wiki/Photosystem) (from `Light-dependent reactions`)
+- `bio-184` **photolysis** → [Photodissociation](https://en.wikipedia.org/wiki/Photodissociation) (from `Photolysis`)
+- `bio-186` **cyclic electron flow** → [Photochemistry](https://en.wikipedia.org/wiki/Photochemistry) (from `Cyclic electron flow`)
+- `bio-191` **C4 photosynthesis** → [C4 carbon fixation](https://en.wikipedia.org/wiki/C4_carbon_fixation) (from `C4 photosynthesis`)
+- `bio-194` **infrared gas analyser** → [Infrared gas analyzer](https://en.wikipedia.org/wiki/Infrared_gas_analyzer) (from `Infrared gas analyser`)
 - `cnh-014` **Houyi** → [Hou Yi](https://en.wikipedia.org/wiki/Hou_Yi) (from `Houyi`)
 - `cnh-029` **Chuci** → [Chu Ci](https://en.wikipedia.org/wiki/Chu_Ci) (from `Chuci`)
 - `cnh-033` **Zao Jun** → [Kitchen God](https://en.wikipedia.org/wiki/Kitchen_God) (from `Zao Jun`)
@@ -776,12 +789,14 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (99)
+## Settled from a disambiguation page (101)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
 - `astro-054` **transit** → [Astronomical transit](https://en.wikipedia.org/wiki/Astronomical_transit) (via the disambiguation page `Transit`)
 - `bio-035` **buffer** → [Buffer solution](https://en.wikipedia.org/wiki/Buffer_solution) (via the disambiguation page `Buffer`)
+- `bio-112` **nucleus** → [Cell nucleus](https://en.wikipedia.org/wiki/Cell_nucleus) (via the disambiguation page `Nucleus`)
+- `bio-135` **compartmentalisation** → [Cellular compartment](https://en.wikipedia.org/wiki/Cellular_compartment) (via the disambiguation page `Compartmentalization`)
 - `cnh-011` **Shun** → [Shun dynasty](https://en.wikipedia.org/wiki/Shun_dynasty) (via the disambiguation page `Shun`)
 - `cnh-113` **King Wen** → [King Wen of Zhou](https://en.wikipedia.org/wiki/King_Wen_of_Zhou) (via the disambiguation page `King Wen`)
 - `cnh-114` **King Wu** → [King Wu of Zhou](https://en.wikipedia.org/wiki/King_Wu_of_Zhou) (via the disambiguation page `Wu Wang`)
@@ -1063,7 +1078,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (170)
+## Section redirects — no dedicated page (174)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1082,6 +1097,10 @@ Wikipedia treats these as part of another article. No link.
 - `bio-021` **CHNOPS** — `CHNOPS` only redirects into `Biochemistry#CHNOPS`
 - `bio-028` **polar molecule** — `Polar molecule` only redirects into `Chemical polarity#Polar molecules`
 - `bio-083` **induced fit** — `Induced fit` only redirects into `Enzyme catalysis#Induced fit`
+- `bio-117` **rough endoplasmic reticulum** — `Rough endoplasmic reticulum` only redirects into `Endoplasmic reticulum#Rough endoplasmic reticulum`
+- `bio-118` **smooth endoplasmic reticulum** — `Smooth endoplasmic reticulum` only redirects into `Endoplasmic reticulum#Smooth endoplasmic reticulum`
+- `bio-149` **co-transport** — `Co-transport` only redirects into `Active transport#Secondary active transport`
+- `bio-177` **mesophyll** — `Mesophyll` only redirects into `Leaf#Mesophyll`
 - `cnh-212` **fall of the Qin** — `Fall of the Qin` only redirects into `Qin dynasty#Fall from power`
 - `cnh-253` **Eastern Han** — `Eastern Han` only redirects into `Han dynasty#Eastern Han (25–220 AD)`
 - `cnh-313` **Eastern Jin** — `Eastern Jin` only redirects into `Jin dynasty (266–420)#Eastern Jin (317–420)`
@@ -1238,7 +1257,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1128)
+## No article found (1129)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1296,6 +1315,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `bio-079` **energy coupling** — search suggests `Energy`, `Förster resonance energy transfer`, `Wireless power transfer`, `Quantum biology`, `Resonant inductive coupling`
 - `bio-085` **optimum temperature** — search suggests `Operating temperature`, `Human body temperature`, `Thermal optimum`, `Geothermobacterium ferrireducens`, `Middle Eocene Climatic Optimum`
 - `bio-086` **optimum pH** — search suggests `PH`, `Soil pH`, `Pareto efficiency`, `Hanks' salts`, `PH indicator`
+- `bio-169` **respiratory substrate** — search suggests `Respiratory burst`, `Cellular respiration`, `Respiratory complex I`, `Outline of biology`, `Oxidative phosphorylation`
 - `cnh-032` **ten courts of hell** — search suggests `Diyu`, `Haw Par Villa`, `Jade Record`, `Yanluo Wang`, `Ox-Head and Horse-Face`
 - `cnh-040` **Chinese legendary period** — search suggests `Timeline of Chinese history`, `Han Chinese`, `Jin (Chinese state)`, `History of China`, `Chinese folklore`
 - `cnh-043` **millet and rice farming** — search suggests `Millet`, `Paddy field`, `Foxtail millet`, `Agriculture in China`, `Congee`
