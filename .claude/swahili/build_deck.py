@@ -80,6 +80,7 @@ ETYMS = {
     'kopa': ['2'],            # "to borrow" (B2's money); 1 is "heart" (the card suit)
     'saruji': ['2'],          # "concrete, cement" (B2's home); 1 is "saddle"
     'tembe': ['2'],           # "pill, tablet"; 1 is "hen"
+    'jini': ['2'],            # "genie, jinn" (C1); 1 is "gin"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, each with its reason.
@@ -99,6 +100,7 @@ LEAD = {
     'mpira': 'ball',          # first listed is "a kind of creeper plant"
     'kiwanda': 'factory',     # first listed is "forge"
     'wito': 'calling',        # first listed is "infection, contagion"
+    'kombe': 'cup (a',        # first listed is "oyster"; met as Kombe la Dunia, "the World Cup"
 }
 
 

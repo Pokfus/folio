@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Swahili language collection."
 
-**STATUS (2026-11-12): A1, A2, B1 and B2 are built** (`.claude/swahili/`, §6–§9). C1 and a phrases deck are not.
+**STATUS (2026-11-12): A1 to C1 are built** (`.claude/swahili/`, §6–§10). The phrases deck is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (folded into the day's Hindi line)
@@ -29,7 +29,7 @@ for a language with no exam list — **open to the owner's correction**:
 | Swahili A2 Elementary — built | `Swahili-A2.folio-deck.json` | 750 |
 | Swahili B1 Intermediate — built | `Swahili-B1.folio-deck.json` | 1,000 |
 | Swahili B2 Upper Intermediate — built | `Swahili-B2.folio-deck.json` | 1,500 |
-| Swahili C1 Advanced | `Swahili-C1.folio-deck.json` | 1,500 |
+| Swahili C1 Advanced — built | `Swahili-C1.folio-deck.json` | 1,500 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule.
 
@@ -39,6 +39,7 @@ The titles carry the CEFR band, so `levelRank` sorts them with no new rule.
 |---|---|---|
 | meanings, noun class, forms | English Wiktionary via kaikki.org (`kaikki.org-dictionary-Swahili.jsonl`, 86 MB, 21,700 entries) | CC BY-SA 4.0 |
 | frequency (counts only; no text ships) | OPUS: OpenSubtitles v2024 Swahili (112,000 lines, 540,000 words) and Global Voices v2018q4 Swahili (37,000 lines, 660,000 words) | Global Voices CC BY 3.0; OpenSubtitles as distributed by OPUS |
+| frequency for C1 only (counts only; no text ships) | OPUS: CCMatrix v1 Swahili (4.3 million lines, 61.6 million words, mined web text) and WikiMatrix v1 Swahili (206,000 lines, 3.9 million words, Wikipedia sentences) | WikiMatrix CC BY-SA (Wikipedia); CCMatrix as distributed by OPUS |
 | example sentences | Tatoeba `swh` exports (≈4,350 Swahili–English pairs) | CC BY 2.0 FR |
 | level scope | CEFR global scale (Council of Europe), quoted | — |
 | L1 speakers (`LANGS`) | 5.3 million, Wikipedia's infobox (Ethnologue 27th ed.; 92 million L2), read 2026-11-09 | — |
@@ -91,7 +92,7 @@ Wiktionary senses are odd for a beginner (`-weza` "to be unwell"), shown as the 
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2, B1 and B2 (done) to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2 (done)** — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `swahili_level.py`, run, read every card.
 **Phase 3** — the phrases deck (`phrase` / `proverb` entries — Wiktionary has 34 proverbs — and multi-word lemmas).
 
@@ -189,6 +190,43 @@ little to offer. A re-run is byte-identical, and **A1, A2 and B1 are byte-identi
   inventory so the cards lead with "literature" and speak `kukopa`.
 - The "not X" label on a sense ("verb, not kudhamiria") is the existing tie-breaker for two words that share an
   English side (`kukusudi` / `kudhamiria`, `-nene` / `-nono`), 11 pairs here, as A2's two.
-- **Known, left**: the fill's floor is noisy for a corpus of 1.2 million words, and C1 will sit wholly in it —
-  C1 needs a larger corpus, or a larger inventory, before it is built. Some Wiktionary senses at this depth are
+- **Known, left**: the fill's floor is noisy for a corpus of 1.2 million words. (C1 was therefore ranked on
+  larger written corpora, §10.) Some Wiktionary senses at this depth are
   rare or regional (`kwasi` "rich", `kukoa` "to be sharp") and are shown as the source has them.
+
+## 10. As built (2026-11-12): C1
+
+`python3 .claude/swahili/run.py --level c1` (it also fetches CCMatrix, 134 MB, and WikiMatrix and counts them into
+`lex-web.json`, about 12 minutes once). 1,500 notes, 99 from the inventory (8 topics: scholarship and language,
+belief, the political economy, history and the sea, the land and its life, the body and medicine, crafts and
+rites, reasoning) and 1,401 by frequency; sentences for 195, three apiece for 16, none for 1,305 — Tatoeba's
+Swahili has almost nothing at this level. A re-run is byte-identical, `lex.json` is byte-identical to before
+(verified by its hash), and **A1 to B2 are byte-identical after every change below**.
+
+- **THE SMALL CORPORA RAN OUT.** With C1 ranked on the subtitles and Global Voices, the fill found 42 words:
+  fewer than fifty usable lemmas attested in both are left once A1-B2's 4,000 are taken. Adding CCMatrix as a
+  third corpus did not help, because the rule "common in every corpus" still needs both small ones.
+- **SO C1 IS RANKED ON WRITTEN SWAHILI ALONE** (`extract.py --web`): CCMatrix (61.6 million words) and WikiMatrix
+  (3.9 million), counted by the same claims and verb parser and ranked by the same geometric mean of two rates,
+  into `lex-web.json` — never into `lex.json`. `select.rank` reads it for C1 only, and the fill's "has a count"
+  test is the C1 rank (for A1-B2's single words it is the same number as before). The deck's description says
+  which corpora ranked it. Ranking on writing suits the level: the C1 descriptor is about "demanding, longer
+  texts", and the fill is scholarly and technical (`utekelezaji` "implementation", `muundombinu`
+  "infrastructure", `ukuaji` "growth", the sciences' `molekuli`, `homoni`, `protini`).
+- **The inventory is small (99)** because four rounds of candidates found three in four already taught; it holds
+  what the fill would not reach — linguistics, the political economy, the coast's seafaring, the land's ecology,
+  medicine, crafts and rites — most of it with a count of 0 in the small corpora.
+- **WHAT THE WRITTEN CORPORA BROUGHT IN**, excluded with reasons in `select.EXCLUDE`: East African PLACE NAMES and
+  names that are also dictionary words (`mbeya` "gossip" is Mbeya, `-pemba` "to trick" Pemba, `tanga`, `juba`,
+  `kwale`, `-manga`; `kanu` is KANU; `mwinyi`, `bakari`, `saidi`; `bin` like B2's `abu`; `kaini` is Cain), other
+  languages' words in the web text (`dia`, `dei`, `jo`, `anti`, `liga`), forms and loans (`ndiwe`,
+  `kudownload`), word-forming elements (`mcha`, `mwenda`, `mfanyi`), and the crude, sexual and pejorative
+  (`mavi`, `punyeto`, `ushoga` and `msagaji` — both slurs in use —, `chotara`). `jini` is "genie" not "gin"
+  (`ETYMS`), and `kombe` leads with "cup" (`LEAD`: Kombe la Dunia), not "oyster".
+- **Known, left**: CCMatrix carries a great deal of church text, so the fill has more Christian vocabulary than a
+  general C1 list would (`sakramenti`, `liturjia`, `sinodi`, `dayosisi`, `katekisimu`, `shemasi`), and some
+  Islamic (`zakati`, `madrasa`, `mimbari`); every one is a real word with its Wiktionary sense, so they are
+  left in rather than hand-picked out. Many fill words are internationalisms (`atomi`, `oksijeni`, `galaksi`),
+  which is what written C1 Swahili looks like. Two spellings of one word appear as two cards where Wiktionary
+  has two entries (`teolojia` / `theolojia`, `seneti` / `senati`), each labelled "not X" as the shared-English
+  rule does.

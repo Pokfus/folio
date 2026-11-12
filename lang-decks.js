@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 229 MB of decks. The file itself is fetched on Add. */
+   section without fetching 230 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -84,6 +84,7 @@ window.LANG_DECKS = [
   { lang: "Swahili", file: "Swahili-A2.folio-deck.json", id: "swahilia2", title: "Swahili A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 84, bytes: 819775, rev: "cff4874f8497" },
   { lang: "Swahili", file: "Swahili-B1.folio-deck.json", id: "swahilib1", title: "Swahili B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 64, bytes: 840363, rev: "8a46122d3781" },
   { lang: "Swahili", file: "Swahili-B2.folio-deck.json", id: "swahilib2", title: "Swahili B2 Upper Intermediate", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 33, bytes: 864119, rev: "5bedc472fe8b" },
+  { lang: "Swahili", file: "Swahili-C1.folio-deck.json", id: "swahilic1", title: "Swahili C1 Advanced", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 13, bytes: 651095, rev: "0b513b3feee1" },
   { lang: "Hausa", file: "Hausa-Alphabet.folio-deck.json", id: "haabc", title: "Hausa Alphabet (Boko)", sub: "36 letters and sounds · both directions, as two cards per letter", notes: 36, cards: 72, ex: 0, say: false, bytes: 14898, rev: "c30a1583b7b4" },
   { lang: "Hausa", file: "Hausa-A1.folio-deck.json", id: "hausaa1", title: "Hausa A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 99, say: false, bytes: 412980, rev: "1ffbefe40bf2" },
   { lang: "Turkish", file: "Turkish-A1.folio-deck.json", id: "turkisha1", title: "Turkish A1", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, say: false, bytes: 680115, rev: "b3805cd5a9f2" },
