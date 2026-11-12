@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6614 | the title is the article |
-| `redirect-variant` | 397 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 89 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 6671 | the title is the article |
+| `redirect-variant` | 408 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 90 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 625 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 639 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 134 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 147 | only a disambiguation page; no link could be chosen |
-| `none` | 1010 | nothing matched; no link |
+| `section-redirect` | 135 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 148 | only a disambiguation page; no link could be chosen |
+| `none` | 1025 | nothing matched; no link |
 
-**7741 of 9050 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7824 of 9150 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (625)
+## Redirected to a differently named article — check each (639)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -325,6 +325,20 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ko-088` **Iryeon** → [Il-yeon](https://en.wikipedia.org/wiki/Il-yeon) (from `Iryeon`)
 - `ko-089` **Sanguozhi** → [Records of the Three Kingdoms](https://en.wikipedia.org/wiki/Records_of_the_Three_Kingdoms) (from `Sanguozhi`)
 - `ko-096` **tributary system** → [Tribute](https://en.wikipedia.org/wiki/Tribute) (from `Tributary system`)
+- `ko-107` **Jolbon** → [Cholbon](https://en.wikipedia.org/wiki/Cholbon) (from `Jolbon`)
+- `ko-108` **Jumong** → [Dongmyeong of Goguryeo](https://en.wikipedia.org/wiki/Dongmyeong_of_Goguryeo) (from `Jumong`)
+- `ko-114` **Anhak Palace** → [Anhakkung](https://en.wikipedia.org/wiki/Anhakkung) (from `Anhak Palace`)
+- `ko-121` **Goguryeo tomb murals** → [Goguryeo tombs](https://en.wikipedia.org/wiki/Goguryeo_tombs) (from `Goguryeo tomb murals`)
+- `ko-126` **Eulji Mundeok** → [Ŭlchi Mundŏk](https://en.wikipedia.org/wiki/%C5%AClchi_Mund%C5%8Fk) (from `Eulji Mundeok`)
+- `ko-128` **Yeon Gaesomun** → [Yŏn Kaesomun](https://en.wikipedia.org/wiki/Y%C5%8Fn_Kaesomun) (from `Yeon Gaesomun`)
+- `ko-129` **Siege of Ansi** → [Battle of Ansi](https://en.wikipedia.org/wiki/Battle_of_Ansi) (from `Siege of Ansi`)
+- `ko-136` **Baekje** → [Paekche](https://en.wikipedia.org/wiki/Paekche) (from `Baekje`)
+- `ko-142` **Liang Zhigongtu** → [Portraits of Periodical Offering](https://en.wikipedia.org/wiki/Portraits_of_Periodical_Offering) (from `Liang Zhigongtu`)
+- `ko-163` **Bak Hyeokgeose** → [Hyeokgeose of Silla](https://en.wikipedia.org/wiki/Hyeokgeose_of_Silla) (from `Bak Hyeokgeose`)
+- `ko-164` **maripgan** → [Silla](https://en.wikipedia.org/wiki/Silla) (from `Maripgan`)
+- `ko-165` **Kim Al-ji** → [Kim Al-chi](https://en.wikipedia.org/wiki/Kim_Al-chi) (from `Kim Al-ji`)
+- `ko-183` **Kim Chunchu** → [Muyeol of Silla](https://en.wikipedia.org/wiki/Muyeol_of_Silla) (from `Kim Chunchu`)
+- `ko-194` **Sue ware** → [Sue pottery](https://en.wikipedia.org/wiki/Sue_pottery) (from `Sue ware`)
 - `pea-001` **Tiananmen Massacre** → [1989 Tiananmen Square protests and massacre](https://en.wikipedia.org/wiki/1989_Tiananmen_Square_protests_and_massacre) (from `Tiananmen Massacre`)
 - `pea-011` **Anti-corruption campaign** → [Anti-corruption](https://en.wikipedia.org/wiki/Anti-corruption) (from `Anti-corruption campaign`)
 - `pea-019` **Harmonious Socialist Society** → [Harmonious Society](https://en.wikipedia.org/wiki/Harmonious_Society) (from `Harmonious Socialist Society`)
@@ -670,7 +684,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (89)
+## Settled from a disambiguation page (90)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -725,6 +739,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `gw-690` **Saint George's** → [St. George's, Grenada](https://en.wikipedia.org/wiki/St._George's,_Grenada) (via the disambiguation page `Saint George (disambiguation)`)
 - `gw-710` **Philipsburg** → [Philipsburg, Sint Maarten](https://en.wikipedia.org/wiki/Philipsburg,_Sint_Maarten) (via the disambiguation page `Philipsburg`)
 - `jp-038` **Yoshinogari** → [Yoshinogari, Saga](https://en.wikipedia.org/wiki/Yoshinogari,_Saga) (via the disambiguation page `Yoshinogari`)
+- `ko-116` **Mohe** → [Mohe people](https://en.wikipedia.org/wiki/Mohe_people) (via the disambiguation page `Mohe`)
 - `pea-015` **Zhang Weiwei** → [Zhang Weiwei (professor)](https://en.wikipedia.org/wiki/Zhang_Weiwei_(professor)) (via the disambiguation page `Zhang Weiwei`)
 - `pea-032` **1947 Constitution** → [Constitution of the Republic of China](https://en.wikipedia.org/wiki/Constitution_of_the_Republic_of_China) (via the disambiguation page `Constitution of 1947`)
 - `pea-043` **Iron Triangle** → [Iron triangle (US politics)](https://en.wikipedia.org/wiki/Iron_triangle_(US_politics)) (via the disambiguation page `Iron Triangle`)
@@ -778,7 +793,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (147)
+## Disambiguation pages that could not be settled (148)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -870,6 +885,7 @@ Pick the right article by hand, or leave the card without a link.
 - `ko-053` **Gija** — `Kija` is a disambiguation page; its links: `Gija Joseon`, `Gija people`
 - `ko-060` **minjok** — `Minjok` is a disambiguation page; its links: `Minjok historiography`, `Minjok jeonggi`, `Baedal Minjok`, `Korean Minjok Leadership Academy`
 - `ko-068` **Mahan** — `Mahan` is a disambiguation page; its links: `Mahan District`, `Mahan, Iran`, `Mahan Rural District`, `Mahan, Hamadan`, `Mahan Air`, `Mahan, Missouri`
+- `ko-186` **Gaya** — `Gaya` is a disambiguation page; its links: `Gaya district`, `Bodh Gaya`, `Eiji Gaya`, `Gaya, India`, `Gaya, Niger`, `Gaya, Nigeria`
 - `pea-009` **Central Military Commission** — `Central Military Commission` is a disambiguation page; its links: `Central Military Commission of the Communist Party of Vietnam`, `Central Military Commission of the Workers' Party of Korea`, `Central Military Commission (China)`
 - `pea-031` **Article 9** — `Article Nine` is a disambiguation page; its links: `Article 9 of the Japanese Constitution`, `Article 9 of the Constitution of Singapore`, `Article 9 ECHR`
 - `pea-033` **SCAP** — `SCAP` is a disambiguation page; its links: `S.C.A.P.`
@@ -941,7 +957,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (134)
+## Section redirects — no dedicated page (135)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1007,6 +1023,7 @@ Wikipedia treats these as part of another article. No link.
 - `ko-029` **Korean Bronze Age** — `Korean Bronze Age` only redirects into `Prehistoric Korea#Bronze Age`
 - `ko-038` **Early Iron Age** — `Early Iron Age` only redirects into `Iron Age#Beginning`
 - `ko-039` **shell midden** — `Shell midden` only redirects into `Midden#Shells`
+- `ko-102` **Five Classics** — `Five Classics` only redirects into `Four Books and Five Classics#Five Classics`
 - `pea-061` **Candlelight Revolution** — `Candlelight Revolution` only redirects into `2016–2017 South Korean protests#Protests against Park Geun-hye`
 - `pea-195` **Kimilsungism–Kimjongilism** — `Kimilsungism–Kimjongilism` only redirects into `Ideology of the Workers' Party of Korea#Kimilsungism–Kimjongilism`
 - `ph-020` **philosophical progress** — `Philosophical progress` only redirects into `Metaphilosophy#Progress`
@@ -1080,7 +1097,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1010)
+## No article found (1025)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1844,6 +1861,21 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ko-094` **mountain fortress** — search suggests `Korean fortress`, `List of fortresses in Korea`, `Namhansanseong`, `Hwando`, `The Fortress (2017 film)`
 - `ko-099` **sumyoje** — search suggests `Timeline of Korean history`, `Silla–Goguryeo and Paekche–Kaya–Wa War`, `Gwanggaeto Stele`
 - `ko-100` **wooden tablet** — search suggests `Baekje language`, `Korea`, `Buried Memorial Tablet from the Tomb of King Muryeong`, `Dosan Seowon`, `Bamboo and wooden slips`
+- `ko-103` **Imsin Seogiseok**
+- `ko-115` **Chungju Goguryeo Stele** — search suggests `Goguryeo Monument, Chungju`, `Goguryeo language`, `Jangsu of Goguryeo`, `Korean mythology`, `Korean imperial titles`
+- `ko-117` **daedaero**
+- `ko-118` **gyeongdang** — search suggests `Gyongdang`, `Chang Hŭnghyo`
+- `ko-123` **Sosurim** — search suggests `Sosurim of Goguryeo`, `Religion in Korea`, `History of Korea`, `Korean Buddhism`, `Timeline of Korean history`
+- `ko-141` **Geunchogo** — search suggests `Geunchogo of Baekje`, `South Korea`, `Korea`, `History of Korea`, `Three Kingdoms of Korea`
+- `ko-146` **Muryeong** — search suggests `Tomb of King Muryeong`, `Muryeong of Baekje`, `National Treasure (South Korea)`, `Buried Memorial Tablet from the Tomb of King Muryeong`, `List of archaeological sites in Korea`
+- `ko-148` **jwapyeong** — search suggests `The King of Legend`, `Paekche`, `Mireuksa`, `Mireuksaji Stone Pagoda`, `Goi of Baekje`
+- `ko-151` **Seosan Buddha Triad** — search suggests `Rock-carved triad buddha in Seosan`, `Seosan`, `National Treasure (South Korea)`, `Tourism in South Korea`, `Bhaiṣajyaguru Hall`
+- `ko-157` **Naje alliance** — search suggests `Rosa Luxemburg`
+- `ko-167` **Beopheung** — search suggests `Beopheung of Silla`, `List of monarchs of Korea`, `Jinheung of Silla`, `Religion in Korea`, `Korean Buddhism`
+- `ko-170` **Jinheung** — search suggests `Jinheung of Silla`, `Seoul`, `List of monarchs of Korea`, `Kim (Korean surname)`, `Traditional music of Korea`
+- `ko-178` **Silla gold crowns** — search suggests `Crowns of Silla`, `Gold Crown from Cheonmachong`, `Silla`, `National Museum of Korea`, `Gold crown`
+- `ko-182` **Queen Jindeok** — search suggests `Jindeok of Silla`, `Tomb of Queen Jindeok`, `Queen Seondeok of Silla`, `List of monarchs of Korea`, `Queen Seondeok (TV series)`
+- `ko-196` **Guhyeong** — search suggests `Guhyeong of Geumgwan Gaya`, `List of monarchs of Korea`, `Gyeomji of Geumgwan Gaya`, `Sancheong County`, `Historic Sites (South Korea)`
 - `pea-002` **Southern Tour** — search suggests `Deng Xiaoping's southern tour`, `Xi Jinping's southern tour`, `China Open (tennis)`, `Muni He`, `Extraterrestrial World Tour`
 - `pea-007` **Patriotic Education** — search suggests `Patriotic education in China`, `Patriotic Education Law of the People's Republic of China`, `Education in China`, `United front (China)`, `English education in China`
 - `pea-014` **Civilisational state** — search suggests `Science and Civilisation in China`, `Civilization state`, `Qin (state)`, `Taiwan`, `Indus Valley Civilisation`
