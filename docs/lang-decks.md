@@ -3520,7 +3520,7 @@ changed was the one that had been wrong all along.
   Wikipedia); the hue is measured, `#58288A` (re-swept on merging: Greek had taken `#6F69D2`).
 - `.claude/romanian/` — the generator behind the Romanian decks (Nov 2026, on request: "Add a Romanian language
   collection"; the decisions copy Hindi's). **Built: A1, `decks/Romanian-A1.folio-deck.json`** (500 notes /
-  1,000 cards) **and A2, `decks/Romanian-A2.folio-deck.json`** (750 / 1,500). `python3 .claude/romanian/run.py [--level a1]`, `node .claude/romanian/check-romanian.js`; a
+  1,000 cards) **A2, `decks/Romanian-A2.folio-deck.json`** (750 / 1,500) **B1, `decks/Romanian-B1.folio-deck.json`** (1,000 / 2,000), **B2** (1,500 / 3,000), **C1** (1,500 / 3,000), **C2** (1,500 / 3,000) **and the phrases deck, `decks/Romanian-Phrases-and-Expressions.folio-deck.json`** (372 / 744 in three subdecks, `run.py --level phr`; all five 2026-11-12). `python3 .claude/romanian/run.py [--level a1]`, `node .claude/romanian/check-romanian.js`; a
   re-run is byte-identical. Hindi's pipeline with IPA in place of romanisation and no script deck; a level is a
   topic inventory plus lemma frequency, and the description says so. The plan, the sources and every finding
   (the cedilla fold, the bare spelling that yields to its accented twin, closed-class headwords that are a
@@ -3529,7 +3529,10 @@ changed was the one that had been wrong all along.
 - `.claude/vietnamese/` — the generator behind the Vietnamese decks (Nov 2026, on request: "Add a Vietnamese
   language collection"; the Hindi set's decisions taken as the default). **Built: the alphabet and tones,
   `decks/Vietnamese-Alphabet-and-Tones.folio-deck.json`** (35 notes) **and A1, `decks/Vietnamese-A1.folio-deck.json`**
-  (500 notes / 1,000 cards). `python3 .claude/vietnamese/run.py [--level a1]`, `python3 .claude/vietnamese/tones.py`,
+  (500 notes / 1,000 cards) **and A2, `decks/Vietnamese-A2.folio-deck.json`** (750 / 1,500) **B1, `decks/Vietnamese-B1.folio-deck.json`** (1,000 / 2,000)
+  **B2, `decks/Vietnamese-B2.folio-deck.json`** (1,500 / 3,000) **C1, `decks/Vietnamese-C1.folio-deck.json`** (1,500 / 3,000)
+  **and the phrases deck, `decks/Vietnamese-Phrases-and-Expressions.folio-deck.json`** (542 / 1,084, three subdecks; `--level phr`,
+  `phrases.py`; all 2026-11-12, findings in the plan's §7–§11). `python3 .claude/vietnamese/run.py [--level a1]`, `python3 .claude/vietnamese/tones.py`,
   `node .claude/vietnamese/check-vietnamese.js`; a re-run is byte-identical. The UKBI / Hindi shape (no published
   list: a topic inventory plus frequency). **What is new: Vietnamese spaces syllables, not words**, so the frequency
   is counted by segmenting the OPUS subtitles against Wiktionary's headwords rather than read off hermitdave's list
@@ -3559,7 +3562,13 @@ changed was the one that had been wrong all along.
   is measured, `#75543F` (re-swept at the merge: Greek had taken the first sweep's `#6F69D2`).
 - `.claude/thai/` — the generator behind the Thai decks (Nov 2026, on request: "Add a Thai language
   collection"; Hindi's three answers taken as the defaults). **Built: the alphabet, `decks/Thai-Alphabet.folio-deck.json`**
-  (92 notes) **and A1, `decks/Thai-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/thai/run.py
+  (92 notes), **A1, `decks/Thai-A1.folio-deck.json`** (500 notes / 1,000 cards), **A2,
+  `decks/Thai-A2.folio-deck.json`** (750 notes / 1,500 cards; 2026-11-12, "Add Thai A2") **B1,
+  `decks/Thai-B1.folio-deck.json`** (1,000 notes / 2,000 cards; 2026-11-12, "Add B1") **B2,
+  `decks/Thai-B2.folio-deck.json`** (1,500 notes / 3,000 cards; 2026-11-12, "Add B2") **C1,
+  `decks/Thai-C1.folio-deck.json`** (1,500 notes / 3,000 cards; 2026-11-12, "Add C1") **and the phrases deck,
+  `decks/Thai-Phrases-and-Expressions.folio-deck.json`** (415 notes: 48 phrases, 340 idioms, 27 proverbs;
+  `run.py --level phr` runs `phrases.py`; 2026-11-12). The collection is complete. `python3 .claude/thai/run.py
   [--level a1]`, `python3 .claude/thai/alphabet.py`, `node .claude/thai/check-thai.js`; a re-run is
   byte-identical. Hindi's shape (an assembled CEFR list, both directions, romanisation — Paiboon, which writes the
   tone), plus what Thai alone needs: a word cut for an unspaced script (`th.Segmenter`, maximal matching), a
@@ -3569,7 +3578,11 @@ changed was the one that had been wrong all along.
   `#014764` (re-swept at the merge: Arabic's green sat 5.1 from the first sweep's `#0B791D`).
 - `.claude/polish/` — the generator behind the Polish decks (Nov 2026, on request: "Add a Polish language
   collection"). **Built: A1, `decks/Polish-A1.folio-deck.json`** (600 notes / 1,200 cards: 476 from a
-  hand-written topic inventory, 124 by frequency). `python3 .claude/polish/run.py [--level a1]`,
+  hand-written topic inventory, 124 by frequency) **A2, `decks/Polish-A2.folio-deck.json`** (750 notes /
+  1,500 cards: 648 inventory, 102 frequency), **B1** (1,000 notes: 735 / 265), **B2** (1,200 notes: 1,067 /
+  133) **C1** (1,200 notes: 968 / 232) **and the phrases deck**
+  (`Polish-Phrases-and-Expressions`, 802 expressions: 15 phrases, 711 idioms, 76 proverbs; `run.py --level phr`)
+  — all 2026-11-12, on request. `python3 .claude/polish/run.py [--level a1]`,
   `node .claude/polish/check-polish.js`; a re-run is byte-identical. The UKBI / Hindi shape: the State
   Commission examines at all six levels but no word list of its own was found, so a level is a topic
   inventory plus lemma frequency, and the description says so. The plan, the sources and every finding (the
@@ -3589,7 +3602,12 @@ changed was the one that had been wrong all along.
 - `.claude/ukrainian/` — the generator behind the Ukrainian decks (Nov 2026, on request: "Add a Ukrainian language
   collection"; the word source, sizes and card follow the Hindi and Russian sets, and the owner may overrule them).
   **Built: the alphabet, `decks/Ukrainian-Alphabet.folio-deck.json`** (33 letters and the apostrophe) **and A1,
-  `decks/Ukrainian-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/ukrainian/run.py [--level a1]`,
+  `decks/Ukrainian-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Ukrainian-A2.folio-deck.json`**
+  (750 notes / 1,500 cards, 2026-11-12) **and B1, `decks/Ukrainian-B1.folio-deck.json`** (1,000 notes / 2,000 cards,
+  2026-11-12) **and B2, `decks/Ukrainian-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12) **and C1,
+  `decks/Ukrainian-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12) — all five levels — **and the phrases
+  deck, `decks/Ukrainian-Phrases-and-Expressions.folio-deck.json`** (135 expressions in three subdecks, `--level phr`,
+  2026-11-12): the collection is complete. `python3 .claude/ukrainian/run.py [--level a1]`,
   `python3 .claude/ukrainian/alphabet.py`, `node .claude/ukrainian/check-ukrainian.js`; a re-run is byte-identical.
   Assembled to CEFR like Hindi; the card is Russian's (stress marked, no transliteration, the aspect partner). The
   findings — the Russian in the Ukrainian subtitle list, the apostrophe, the pronouns' shared table, a table without
@@ -3650,7 +3668,12 @@ changed was the one that had been wrong all along.
   is measured, `#004E30` (re-swept at the merge: Arabic had taken `#2A8424`).
 - `.claude/swedish/` — the generator behind the Swedish decks (Nov 2026, on request: "Add a Swedish language
   collection"; the Hindi and Greek owners' decisions taken, the owner not asked). **Built: A1,
-  `decks/Swedish-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/swedish/run.py [--level a1]`,
+  `decks/Swedish-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Swedish-A2.folio-deck.json`**
+  (750 / 1,500; 2026-11-12, on request: "Add Swedish A2") **and B1, `decks/Swedish-B1.folio-deck.json`**
+  (1,000 / 2,000; 2026-11-12, "Add B1") **and B2, `decks/Swedish-B2.folio-deck.json`** (1,500 / 3,000;
+  2026-11-12, "Add B2") **and C1, `decks/Swedish-C1.folio-deck.json`** (1,500 / 3,000; 2026-11-12, "Add
+  C1") — all five levels — **and the phrases deck, `decks/Swedish-Phrases-and-Expressions.folio-deck.json`**
+  (830 expressions in Phrases / Particle verbs / Idioms / Proverbs, 2026-11-12; `--level phr`, `phrases.py`). `python3 .claude/swedish/run.py [--level a1]`,
   `node .claude/swedish/check-swedish.js`; a re-run is byte-identical. Greek's pipeline adapted, with no alphabet
   deck and no romanisation (Latin script); nouns carry en/ett, verbs their present, past and supine. Swedex and
   Tisus publish no word list, so a level is a topic inventory plus lemma frequency, and the description says so.
@@ -3659,7 +3682,7 @@ changed was the one that had been wrong all along.
   (Ethnologue via Wikipedia); the hue is measured, `#BD4B7B` (re-swept at the merge: Romanian had taken the olive `#757839`).
 - `.claude/dutch/` — the generator behind the Dutch decks (Nov 2026, on request: "Create a Dutch language
   collection"; the Hindi and Greek answers taken, the owner not asked). **Built: A1,
-  `decks/Dutch-A1.folio-deck.json`** (500 notes / 1,000 cards). **No alphabet deck** — Dutch is in the Latin
+  `decks/Dutch-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Dutch-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-12, on request: "Add Dutch A2") **and B1, `decks/Dutch-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-12, on request: "Add B1") **and B2, `decks/Dutch-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12, on request: "Add B2") **and C1, `decks/Dutch-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-12, on request: "Add C1") **and the phrases deck, `decks/Dutch-Phrases-and-Expressions.folio-deck.json`** (918 expressions in Phrases, Idioms and Proverbs subdecks, `--level phr`, 2026-11-12, on request: "Add the phrases deck"). **No alphabet deck** — Dutch is in the Latin
   alphabet — and Wiktionary's IPA in place of a romanisation. `python3 .claude/dutch/run.py [--level a1]`,
   `node .claude/dutch/check-dutch.js`; a re-run is byte-identical. Greek's pipeline adapted: nouns carry de or
   het, verbs their past and participle and a by-person table. The findings (the accent-keeping fold and

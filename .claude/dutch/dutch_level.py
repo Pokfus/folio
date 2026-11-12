@@ -36,6 +36,12 @@ TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500, 'c1': 1500}
 
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
 
+# THE PHRASES DECK (`--level phr`, `phrases.py`): not a CEFR level, built on all five.
+TITLES['phr'] = 'Dutch Phrases and Expressions'
+DECK_IDS['phr'] = 'dutchphrase'
+DECK_FILES['phr'] = 'Dutch-Phrases-and-Expressions.folio-deck.json'
+BELOW['phr'] = list(BANDS)
+
 SCOPE = {
     'a1': {
         'quote': 'Can understand and use familiar everyday expressions and very basic '
@@ -49,6 +55,60 @@ SCOPE = {
                   'the home, the town and getting about, the body and feeling ill, the '
                   'weather, colours, and the articles, pronouns, question words, '
                   'prepositions and small words every sentence is built out of',
+    },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'gloss': 'able to manage simple, routine exchanges of information on familiar matters '
+                 '— personal and family information, shopping, the local area, work — and to '
+                 'describe in simple terms their background, their surroundings and what they '
+                 'immediately need',
+        'topics': 'relatives and the people around you, jobs and study, clothes, more food and '
+                  'cooking, the rooms and furniture of a home, the town and its services, travel '
+                  'and holidays, nature, the seasons and the compass, animals, health and the '
+                  'body, feelings and character, free time and sport, telling what happened '
+                  'when, the higher numbers and quantities, and the everyday verbs of moving, '
+                  'dressing, cooking and doing',
+    },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling where the '
+                 'language is spoken, to produce simple connected text on familiar topics, and '
+                 'to describe experiences, events, hopes and ambitions and briefly give reasons '
+                 'and explanations for opinions and plans',
+        'topics': 'work and careers, education, the media and communication, society and '
+                  'politics, the environment, housing, health and wellbeing, travel and '
+                  'transport, money, relationships and feelings, giving an opinion and arguing '
+                  'a point, describing things and people, culture and free time, and the verbs '
+                  'of change and process',
+    },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in his/her field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either '
+                 'party, and to produce clear, detailed text on a wide range of subjects and '
+                 'explain a viewpoint on a topical issue, giving the advantages and '
+                 'disadvantages of various options',
+        'topics': 'work, business and the economy, politics, law and society, science and '
+                  'technology, the environment and climate, health and medicine, higher '
+                  'education, the media and the arts, abstract ideas and argument, the '
+                  'connectives of formal writing, character and behaviour, feelings and states '
+                  'of mind, the city and planning, and the verbs of getting things done',
+    },
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise '
+                 'implicit meaning',
+        'gloss': 'able to express ideas fluently and spontaneously without much obvious '
+                 'searching for expressions, to use language flexibly and effectively for '
+                 'social, academic and professional purposes, and to produce clear, '
+                 'well-structured, detailed text on complex subjects',
+        'topics': 'law, governance and institutions, the economy and finance, academic and '
+                  'analytical language, argument, rhetoric and nuance, the connectives of the '
+                  'formal register, society, identity and ethics, psychology and the mind, '
+                  'literature and the arts, science and the environment, the verbs of formal '
+                  'writing, and the adjectives and adverbs of degree and stance',
     },
 }
 

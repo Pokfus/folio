@@ -32,7 +32,12 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from sv import fold, nfc, WORD as SVWORD
 from swedish_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
-STAMP = '2026-11-09T00:00:00.000Z'
+# a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
+STAMP = {'a1': '2026-11-09T00:00:00.000Z', 'a2': '2026-11-12T00:00:00.000Z',
+         'b1': '2026-11-12T00:00:00.000Z', 'b2': '2026-11-12T00:00:00.000Z',
+         'c1': '2026-11-12T00:00:00.000Z', 'phr': '2026-11-12T00:00:00.000Z'}[LEVEL]
+WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'swedish'
 COLOR = '#BD4B7B'          # the shelf's measured hue, kept in step with "lang-swedish" in app.js
 FIELDS = ['Swedish', 'Word', 'Say', 'English', 'Forms', 'Table', 'Examples']
@@ -100,6 +105,14 @@ ETYMS = {
     'ris': ['2'],               # rice; etymology 1 is "small shrubs, brushwood"
     'sticka': ['2'],            # "to go, to leave" (sticka hem); etymology 1's verb is "to knit"
     'att': ['1', '2'],          # the infinitive marker AND "that" (the conjunction is etymology 2)
+    # A2 (2026-11-12)
+    'val': ['2'],               # ett val "a choice, an election"; etymology 1 is "a whale"
+    'mål': ['2'],               # "goal, target"; etymology 1 is "language; dialect; a case"
+    'tja': ['2'],               # "well …" (doubt); etymology 1 is the greeting
+    # B1 (2026-11-12)
+    'mask': ['2'],              # "a mask"; etymology 1 is "a worm"
+    'kram': ['2'],              # en kram "a hug"; etymology 1 is "merchandise"
+    'fyr': ['2'],               # C1: "a lighthouse"; etymology 1 is "a chap"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where Wiktionary's
@@ -130,6 +143,46 @@ GLOSS = {
     'kunna': {'verb': ['can, to be able to', 'to know (a skill or a subject)', 'could, might, may']},
     'tro': {'verb': ['to believe, to think', 'to believe, to trust (someone)', 'to believe in']},
     'andra': {'adj': ['second', 'other, others (the plural of annan)']},
+    # A2 (2026-11-12): Wiktionary's runs on into a phrase's sense, or a vulgar or slang one
+    'senare': {'adj': ['later (the comparative of sen)', 'latter']},
+    'framtid': {'noun': ['future']},          # its second is skjuta på framtiden's
+    'tanke': {'noun': ['thought']},           # its second is med tanke på's
+    'stopp': {'noun': ['stop (a halt, an interruption)']},
+    'ställa': {'verb': ['to put, to place (upright, standing)', 'ställa sig: to go and stand, to stand up']},
+    'mus': {'noun': ['mouse', 'computer mouse']},
+    'katt': {'noun': ['cat']}, 'björn': {'noun': ['bear']}, 'varg': {'noun': ['wolf']},
+    'kanin': {'noun': ['rabbit']},
+    'värme': {'noun': ['heat, warmth', 'warmth (warm feelings)']},   # Wiktionary's carry "c" and "n"
+    'äga': {'verb': ['to own']},              # its second is the slang "to pwn"
+    # B1 (2026-11-12): a sexual, vulgar or place-name sense cut
+    'by': {'noun': ['village', 'hamlet']},
+    'tända': {'verb': ['to light, to ignite', 'to become enthusiastic about something']},
+    'boll': {'noun': ['ball']},
+    'satsa': {'verb': ['to go for (it)']},
+    'sabba': {'verb': ['to ruin, to mess up']},
+    'lust': {'noun': ['desire (to do something)']},
+    'villig': {'adj': ['willing']},
+    'oskuld': {'noun': ['innocence', 'virgin']},
+    # B2 (2026-11-12)
+    'bekämpa': {'verb': ['to fight, to combat']},     # Wiktionary's is cut: "to fight and thus"
+    'uppfattning': {'noun': ['opinion, a standpoint']},
+    'puss': {'noun': ['peck (a quick kiss)']},
+    'läcker': {'adj': ['delicious']},
+    'ränta': {'noun': ['interest, interest rate']},
+    # C1 (2026-11-12): a sexual, vulgar or drug sense cut, or a gloss cut short
+    'buske': {'noun': ['bush']}, 'pung': {'noun': ['pouch, a purse']},
+    'italienare': {'noun': ['Italian (a man from Italy)']}, 'volym': {'noun': ['volume']},
+    'fladdermus': {'noun': ['bat']}, 'förnamn': {'noun': ['first name, given name']},
+    'växla': {'verb': ['to change (money), to exchange', 'to switch']},
+    'räka': {'noun': ['shrimp, prawn']}, 'kön': {'noun': ['sex, gender']},
+    'doppa': {'verb': ['to dip, to dunk']},
+    'syra': {'noun': ['acid', 'sourness']},
+    # PHRASES DECK (2026-11-12)
+    'komma med': {'verb': ['to join and come along']},
+    'jo tjena': {'intj': ['yeah, right (strong scepticism)']},
+    'hoppa i säng': {'verb': ['to go to bed']},
+    'ful gubbe': {'noun': ['dirty old man']},
+    'strunt samma': {'intj': ["never mind; it doesn't matter"]},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -140,19 +193,41 @@ LEAD = {
     'penna': 'pen',               # first listed is "a contour feather"
     'middag': 'dinner',           # first listed is "midday"
     'krona': 'krona',             # first listed is "crown (headwear)"
+    'skoja': 'to joke',           # first listed is "to travel around without a plan"
+    'jätte': 'giant',             # first listed is "jotun"
+    'faktor': 'factor (an integral part)',   # first listed is "printer"
+    'räcka': 'to be sufficient, to suffice',   # det räcker "that's enough"; first is "to stretch out"
 }
 
 # NO ARTICLE for a language's name, which Swedish uses without one (jag talar svenska)
-NO_ART = {'svenska', 'engelska'}
+NO_ART = {'svenska', 'engelska', 'franska', 'ryska', 'spanska', 'japanska', 'italienska', 'kinesiska', 'latin', 'grekiska'}
 
 # A GENDER WRITTEN HERE, where the lemma's first entry is not the everyday word's.
-GENDER_FIX = {'pengar': 'p'}
+GENDER_FIX = {'pengar': 'p',
+              # A2: the everyday gender where Wiktionary lists both (blod, finger, värme) or none
+              'blod': 'n', 'finger': 'n', 'värme': 'c', 'chans': 'c', 'kläder': 'p', 'glasögon': 'p',
+              'kram': 'c', 'likhet': 'c', 'kontanter': 'p', 'stålar': 'p', 'underkläder': 'p',
+              'kick': 'c', 'vana': 'c', 'solglasögon': 'p', 'slutledning': 'c'}
 
 # A PART OF SPEECH NOT SHOWN for one word: a block that is noise beside the word a beginner meets.
 DROP_POS = {('vara', 'noun'), ('jag', 'noun'), ('det', 'noun'), ('en', 'pron'), ('en', 'adv'),
             ('en', 'noun'), ('en', 'num'), ('och', 'intj'), ('för', 'noun'), ('som', 'adv'),
             ('du', 'noun'), ('ut', 'postp'), ('ut', 'intj'), ('flicka', 'verb'), ('fisk', 'adv'),
-            ('sida', 'verb'), ('klocka', 'verb'), ('bakom', 'adj'), ('eftersom', 'adv')}
+            ('sida', 'verb'), ('klocka', 'verb'), ('bakom', 'adj'), ('eftersom', 'adv'),
+            # A2
+            ('dess', 'noun'), ('allting', 'noun'), ('röka', 'noun'), ('jaga', 'noun'),
+            ('skrika', 'noun'), ('bränna', 'noun'), ('fågel', 'adv'), ('suga', 'noun'),
+            ('gömma', 'noun'), ('blåsa', 'noun'),
+            # B1
+            ('bråka', 'noun'), ('bak', 'noun'), ('apa', 'verb'), ('japp', 'verb'), ('app', 'intj'),
+            ('kram', 'adj'), ('ström', 'adj'),
+            # B2
+            ('grotta', 'verb'), ('icke', 'noun'), ('godmorgon', 'noun'), ('upptäckt', 'adj'),
+            ('inflytande', 'adj'), ('detektiv', 'adj'), ('snurra', 'noun'),
+            # C1
+            ('omelett', 'intj'), ('jämte', 'noun'), ('kapital', 'adj'),
+            # phrases deck
+            ('schack matt', 'adj')}
 
 # A GLOSS THAT IS NOT A MEANING: a pointer to another headword or a form label.
 NOT_A_MEANING = re.compile(
@@ -207,6 +282,8 @@ def english(ents, word=''):
                 continue
             t = gloss_text(x['g'], e['pos'])
             if NOT_A_MEANING.search(t):
+                continue
+            if LEVEL == 'phr' and re.match(r'(?i)used other than figuratively|see \S+$|see \S+ (?:and|or) \S+$', t):
                 continue
             if t and t not in seen:
                 seen.add(t)
@@ -379,11 +456,12 @@ def build(rows, lex, exs):
         word = r['word']
         g = GENDER_FIX.get(word, main['gender'])
         # no article on a noun Wiktionary gives no table (the months: juli, not "en juli")
+        # no article on a multi-word expression of the phrases deck (kärlek vid första ögonkastet)
         art = ARTICLE.get(g, '') if main['pos'] == 'noun' and main['table'] \
-            and word not in NO_ART else ''
+            and word not in NO_ART and LEVEL != 'phr' else ''
         head = (f'<span class="uc-art">{E(art)}</span> ' if art else '') + E(word)
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Swedish': head,
             'Word': word,
             'Say': (art.split('/')[0] + ' ' if art else '') + word,
@@ -393,7 +471,7 @@ def build(rows, lex, exs):
             'Examples': examples_html(ex),
         }})
         entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],
-                        'examples': len(ex)})
+                        'examples': len(ex), 'sub': r.get('sub', ''), 'count': r.get('count', 0)})
     return cards, entries
 
 
@@ -411,7 +489,7 @@ def desc(entries, n):
         "Both study directions in one deck: Swedish → English (see the Swedish, recall the meaning) "
         "and English → Swedish (see an English meaning, recall the Swedish). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words of Swedish for a beginner, aligned to {LEVEL.upper()} of the "
+        f"separately. {n} words of Swedish for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the "
         f"Common European Framework of Reference, whose global descriptor begins '{SC['quote']}' — "
         f"a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
@@ -438,6 +516,44 @@ def desc(entries, n):
     )
 
 
+PHR_SUBS = ('Phrases', 'Particle verbs', 'Idioms', 'Proverbs')
+
+
+def desc_phr(entries, n):
+    by = {s: [e for e in entries if e['sub'] == s] for s in PHR_SUBS}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Swedish set phrases, particle verbs, idioms and proverbs, in four subdecks: "
+        f"{len(by['Phrases'])} everyday phrases, {len(by['Particle verbs'])} particle verbs, "
+        f"{len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study directions come as "
+        "two cards of one expression — Swedish → English (see the Swedish, recall the meaning) and "
+        "English → Swedish (see an English meaning, recall the Swedish) — each with a schedule of its "
+        "own. This is a companion to the five level decks, Swedish A1 to C1, and not one of them: a level "
+        "is a list of words, and an expression is a unit a list of words cannot see. Nothing here is "
+        "taught by any of the five, so the two can be studied together without repeating an entry. The "
+        "PHRASES are the expressions Wiktionary files as phrases and does not mark as idiomatic — mostly "
+        f"the everyday formulas a Swedish speaker uses as one piece ({eg('Phrases')} …). The PARTICLE "
+        "VERBS are a verb and a particle or a preposition that together mean something the verb alone "
+        f"does not ({eg('Particle verbs')} …) — Swedish is built on them, the particle carries the "
+        "stress, and the card shows the present, past and supine of the whole. The IDIOMS are expressions "
+        f"whose meaning is not their words' ({eg('Idioms')} …), and the PROVERBS the sayings Wiktionary "
+        f"files as proverbs ({eg('Proverbs')} …). Within each subdeck the expressions come in the order "
+        "of how many of Tatoeba's Swedish sentences contain them, a particle verb being counted with its "
+        f"verb in any form; {found} of the {n} are found there, and the rest follow in the order of how "
+        "common their words are in film and television subtitles. The particle verbs and idioms are the "
+        "commonest of the many Wiktionary lists, chosen by that same order. "
+        f"Real example sentences come with {n - ex0} of the {n} expressions, three apiece for {ex3}, "
+        "with the expression picked out in colour and a speaker beside the sentence and the headword. "
+        "Sources. Expressions, meanings, forms and the idiom and proverb labels: English Wiktionary, via "
+        "the kaikki.org extraction (CC BY-SA 4.0). Order: Tatoeba (tatoeba.org), CC BY 2.0 FR, then a "
+        "word list built from OpenSubtitles (hermitdave/FrequencyWords, CC BY-SA 4.0). Example "
+        "sentences: Tatoeba, CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -448,11 +564,21 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in PHR_SUBS}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Particle verbs']} particle "
+                    f"verbs, {by['Idioms']} idioms, {by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['swedish', 'phrases', 'particle verbs', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['swedish', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['swedish', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': subtitle,
+        'desc': description, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Swedish vocabulary', 'speechLang': 'sv-SE',
