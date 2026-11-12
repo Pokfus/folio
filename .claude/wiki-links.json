@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T05:04Z",
+ "generated": "2026-11-12T05:08Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 6810,
-  "redirect-broader": 649,
+  "ok": 6828,
+  "redirect-broader": 650,
   "redirect-variant": 405,
   "section-redirect": 143,
   "disambiguation": 152,
-  "none": 1026,
+  "none": 1027,
   "disambig-resolved": 91,
   "list-page": 6,
   "search-match": 9,
@@ -74357,6 +74357,154 @@
    "answer": "absolute threshold",
    "title": "Absolute threshold",
    "url": "https://en.wikipedia.org/wiki/Absolute_threshold",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-301": {
+   "answer": "behavioural genetics",
+   "title": "Behavioural genetics",
+   "url": "https://en.wikipedia.org/wiki/Behavioural_genetics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-302": {
+   "answer": "heritability",
+   "title": "Heritability",
+   "url": "https://en.wikipedia.org/wiki/Heritability",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-303": {
+   "answer": "phenylketonuria",
+   "title": "Phenylketonuria",
+   "url": "https://en.wikipedia.org/wiki/Phenylketonuria",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-304": {
+   "answer": "twin study",
+   "title": "Twin study",
+   "url": "https://en.wikipedia.org/wiki/Twin_study",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-305": {
+   "answer": "Minnesota Study of Twins Reared Apart",
+   "title": "Minnesota Center for Twin and Family Research",
+   "url": "https://en.wikipedia.org/wiki/Minnesota_Center_for_Twin_and_Family_Research",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Minnesota Study of Twins Reared Apart"
+  },
+  "ps-306": {
+   "answer": "adoption study",
+   "title": "Adoption study",
+   "url": "https://en.wikipedia.org/wiki/Adoption_study",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-307": {
+   "answer": "gene–environment interaction",
+   "title": "Gene–environment interaction",
+   "url": "https://en.wikipedia.org/wiki/Gene%E2%80%93environment_interaction",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-308": {
+   "answer": "gene–environment correlation",
+   "title": "Gene–environment correlation",
+   "url": "https://en.wikipedia.org/wiki/Gene%E2%80%93environment_correlation",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-309": {
+   "answer": "epigenetics",
+   "title": "Epigenetics",
+   "url": "https://en.wikipedia.org/wiki/Epigenetics",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-310": {
+   "answer": "candidate gene study",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Psychology",
+    "Avshalom Caspi",
+    "Sport psychology",
+    "Terrie E. Moffitt",
+    "Heritability of autism"
+   ]
+  },
+  "ps-311": {
+   "answer": "genome-wide association study",
+   "title": "Genome-wide association study",
+   "url": "https://en.wikipedia.org/wiki/Genome-wide_association_study",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-312": {
+   "answer": "polygenic score",
+   "title": "Polygenic score",
+   "url": "https://en.wikipedia.org/wiki/Polygenic_score",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-313": {
+   "answer": "natural selection",
+   "title": "Natural selection",
+   "url": "https://en.wikipedia.org/wiki/Natural_selection",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-314": {
+   "answer": "sexual selection",
+   "title": "Sexual selection",
+   "url": "https://en.wikipedia.org/wiki/Sexual_selection",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-315": {
+   "answer": "inclusive fitness",
+   "title": "Inclusive fitness",
+   "url": "https://en.wikipedia.org/wiki/Inclusive_fitness",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-316": {
+   "answer": "kin selection",
+   "title": "Kin selection",
+   "url": "https://en.wikipedia.org/wiki/Kin_selection",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-317": {
+   "answer": "reciprocal altruism",
+   "title": "Reciprocal altruism",
+   "url": "https://en.wikipedia.org/wiki/Reciprocal_altruism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-318": {
+   "answer": "just-so story",
+   "title": "Just-so story",
+   "url": "https://en.wikipedia.org/wiki/Just-so_story",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-319": {
+   "answer": "comparative psychology",
+   "title": "Comparative psychology",
+   "url": "https://en.wikipedia.org/wiki/Comparative_psychology",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ps-320": {
+   "answer": "ethology",
+   "title": "Ethology",
+   "url": "https://en.wikipedia.org/wiki/Ethology",
    "via": "glossary",
    "status": "ok"
   }

@@ -9552,7 +9552,25 @@ window.GLOSSARY = {
 "Perception": "",
 "Transduction_(physiology)": "",
 "Psychophysics": "",
-"Absolute_threshold": ""
+"Absolute_threshold": "",
+"Behavioural_genetics": "",
+"Heritability": "",
+"Phenylketonuria": "",
+"Twin_study": "",
+"Minnesota_Center_for_Twin_and_Family_Research": "",
+"Adoption_study": "",
+"Gene–environment_interaction": "",
+"Gene–environment_correlation": "",
+"Candidate_gene": "",
+"Genome-wide_association_study": "",
+"Polygenic_score": "",
+"Natural_selection": "",
+"Sexual_selection": "",
+"Inclusive_fitness": "",
+"Kin_selection": "",
+"Reciprocal_altruism": "",
+"Just-so_story": "",
+"Ethology": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -20273,7 +20291,18 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Perception": ["perception","perceive"],
 "Transduction_(physiology)": ["transduction","sensory transduction"],
 "Psychophysics": ["psychophysics","psychophysical"],
-"Absolute_threshold": ["absolute threshold","threshold of detection","stimulus threshold"]
+"Absolute_threshold": ["absolute threshold","threshold of detection","stimulus threshold"],
+"Behavioural_genetics": ["behaviour genetics"],
+"Phenylketonuria": ["PKU"],
+"Twin_study": ["twin studies"],
+"Minnesota_Center_for_Twin_and_Family_Research": ["Minnesota Study of Twins Reared Apart","MISTRA"],
+"Adoption_study": ["adoption studies"],
+"Gene–environment_interaction": ["gene-environment interaction"],
+"Gene–environment_correlation": ["gene-environment correlation"],
+"Candidate_gene": ["candidate gene study","candidate gene studies"],
+"Genome-wide_association_study": ["GWAS","genome-wide association studies"],
+"Polygenic_score": ["polygenic risk score","polygenic scores"],
+"Just-so_story": ["just-so stories"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -29984,7 +30013,25 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Perception": ["concept","psychology","philosophy","perception"],
 "Transduction_(physiology)": ["concept","biology","neuroscience","perception"],
 "Psychophysics": ["concept","psychology","perception","history"],
-"Absolute_threshold": ["concept","psychology","perception","research methods"]
+"Absolute_threshold": ["concept","psychology","perception","research methods"],
+"Behavioural_genetics": ["concept","psychology","genetics","science"],
+"Heritability": ["concept","genetics","statistics","psychology"],
+"Phenylketonuria": ["concept","medicine","genetics","psychology"],
+"Twin_study": ["practice","genetics","research methods","psychology"],
+"Minnesota_Center_for_Twin_and_Family_Research": ["institution","psychology","genetics","research methods"],
+"Adoption_study": ["practice","genetics","research methods","psychology"],
+"Gene–environment_interaction": ["concept","genetics","psychology","mental health"],
+"Gene–environment_correlation": ["concept","genetics","psychology","development"],
+"Candidate_gene": ["concept","genetics","research methods","psychology"],
+"Genome-wide_association_study": ["technology","genetics","research methods","statistics"],
+"Polygenic_score": ["technology","genetics","statistics","psychology"],
+"Natural_selection": ["theory","biology","evolution","science"],
+"Sexual_selection": ["theory","biology","evolution","science"],
+"Inclusive_fitness": ["theory","biology","evolution","altruism"],
+"Kin_selection": ["theory","biology","evolution","altruism"],
+"Reciprocal_altruism": ["theory","biology","evolution","cooperation"],
+"Just-so_story": ["concept","evolution","philosophy","science"],
+"Ethology": ["concept","biology","animals","psychology"]
 });
 
 /* ============================================================================

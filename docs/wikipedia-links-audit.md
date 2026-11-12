@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 6810 | the title is the article |
+| `ok` | 6828 | the title is the article |
 | `redirect-variant` | 405 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 91 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 649 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 650 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 143 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 152 | only a disambiguation page; no link could be chosen |
-| `none` | 1026 | nothing matched; no link |
+| `none` | 1027 | nothing matched; no link |
 
-**7971 of 9310 cards get a link.** The three "no link" rows are the honest state: a card whose
+**7990 of 9330 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (649)
+## Redirected to a differently named article — check each (650)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -392,6 +392,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ps-275` **split-brain research** → [Split-brain](https://en.wikipedia.org/wiki/Split-brain) (from `Split-brain research`)
 - `ps-288` **BOLD signal** → [Blood-oxygenation-level–dependent imaging](https://en.wikipedia.org/wiki/Blood-oxygenation-level%E2%80%93dependent_imaging) (from `BOLD signal`)
 - `ps-300` **double dissociation** → [Dissociation (neuropsychology)](https://en.wikipedia.org/wiki/Dissociation_(neuropsychology)) (from `Double dissociation`)
+- `ps-305` **Minnesota Study of Twins Reared Apart** → [Minnesota Center for Twin and Family Research](https://en.wikipedia.org/wiki/Minnesota_Center_for_Twin_and_Family_Research) (from `Minnesota Study of Twins Reared Apart`)
 - `ps-361` **rods and cones** → [Photoreceptor cell](https://en.wikipedia.org/wiki/Photoreceptor_cell) (from `Rods and cones`)
 - `ps-373` **trichromatic theory** → [Young–Helmholtz theory](https://en.wikipedia.org/wiki/Young%E2%80%93Helmholtz_theory) (from `Trichromatic theory`)
 - `rm-015` **Umbrians** → [Umbri](https://en.wikipedia.org/wiki/Umbri) (from `Umbrians`)
@@ -1120,7 +1121,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1026)
+## No article found (1027)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1918,6 +1919,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ps-281` **lesion method** — search suggests `Visual pathway lesions`, `Cognitive psychology`, `Behavioral neuroscience`, `Developmental psychology`, `Ablative brain surgery`
 - `ps-294` **reverse inference** — search suggests `Bayesian inference`, `Correlation does not imply causation`, `Rule of inference`, `Fundamental attribution error`, `Structure-mapping theory`
 - `ps-295` **dead salmon study** — search suggests `Darwinian literary studies`, `Salmon conservation`, `Southern resident orcas`, `Ribot's law`, `Phyllis Bottome`
+- `ps-310` **candidate gene study** — search suggests `Psychology`, `Avshalom Caspi`, `Sport psychology`, `Terrie E. Moffitt`, `Heritability of autism`
 - `ps-369` **simple and complex cells** — search suggests `Neural network`, `Tissue (biology)`, `The Ghost in the Machine`, `Receptive field`, `Eye`
 - `ps-377` **lightness constancy** — search suggests `Subjective constancy`, `Color constancy`, `Lists of colors`, `Hans Wallach`, `Anya Hurlbert`
 - `rm-031` **Etruscan tomb painting** — search suggests `Etruscan art`, `François Tomb`, `Etruscan architecture`, `Etruscan civilization`, `Painting in ancient Rome`

@@ -817,7 +817,7 @@ more work here than in any collection since Greece.
 
     ps-301  Behavioural genetics
     ps-302  Heritability
-    ps-303  What a heritability estimate does not mean
+    ps-303  Phenylketonuria: what a heritability estimate does not mean
     ps-304  Twin studies
     ps-305  The Minnesota Study of Twins Reared Apart
     ps-306  Adoption studies
