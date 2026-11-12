@@ -254,8 +254,8 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Baosi and the beacon fires | Baosi born of the dragons' foam kept since the Xia; King You lighting the beacons to make her laugh until the lords stopped coming (the *Shiji*, c. 100 BCE; a drum version in the *Lüshi Chunqiu*); the excavated *Xinian* (Warring States) tells the fall with no beacons; the "Zheng yue" ode of the *Shijing* names her first — confirmed B14 (`cnh-136`, `cnh-137`), the drum version not checked | `cnh-137` | `cnh-136`, `cnh-138` | — |
 | The end of the Western Zhou and the two kings | the Marquis of Shen and the Quanrong kill King You; King Ping raised in the east while a rival, Yuchen, King Hui of Xie, ruled for 21 years until the Marquis of Jin killed him (the *Bamboo Annals*, where the duke of Guo raises him and he is a son of King You, and the *Xinian*, where he is the dead king's younger brother; the *Shiji* gives only Ping) — confirmed B14 (`cnh-138`, `cnh-139`: Zhang 2023, Legge) | `cnh-138`, `cnh-139` | `cnh-136`, `cnh-140`, `cnh-141` | — |
 | Jie Zitui and the cold food | the follower passed over after Chong'er's exile, withdrawing with his mother, Mianshang set aside for offerings to him (the Zuo Zhuan, Duke Xi 24, and the *Shiji*); the forest burned to bring him out and the cold-food custom, a later legend — set B15 (`cnh-149`) | — | `cnh-149` | — |
-| The burning of the books and burying of the scholars | the 213 BCE order to burn the *Shijing*, the *Shangshu* and the schools' writings outside the court academicians' copies, on Li Si's memorial, and the 212 BCE execution of 460 scholars at Xianyang (the *Shiji*, Qin annals and Li Si's biography, c. 100 BCE); "burying alive" as the traditional reading of 坑; the scholars as Confucians and the burning as a total loss, later Han readings; modern doubters (the killing of *fangshi*, not *ru*; Kanaya, Neininger, and Petersen's case that the burial story is a later accretion) — provisional, set for the third hundred | `cnh-202` | `cnh-195`, `cnh-212` | — |
-| Xu Fu and the isles | Xu Fu (the *Shiji* also writes Xu Shi) asking leave in 219 BCE to seek Penglai, Fangzhang and Yingzhou with young men and women, and the great fish in 210 BCE (the *Shiji*, Qin annals); settling a plain and never returning (the *Shiji*, Huainan biography); his landing in Japan, a story first told centuries later — agrees with the Penglai row; provisional | `cnh-210` | `cnh-021`, `cnh-192` | `cnh-021` |
+| The burning of the books and burying of the scholars | the 213 BCE order to burn the *Shijing*, the *Shangshu* and the schools' writings outside the court academicians' copies, on Li Si's memorial, and the 212 BCE execution of 460 scholars at Xianyang (the *Shiji*, Qin annals and Li Si's biography, c. 100 BCE); "burying alive" as the traditional reading of 坑; the scholars as Confucians and the burning as a total loss, later Han readings; the *Shiji* itself has Fusu protest that the victims "all model themselves on Confucius"; modern doubters (the victims as *fangshi*, Zufferey 1997; the burying perhaps never done, Eno; Confucianism not the target, Pines; a smaller loss than the tradition says, Strähle); the melon-ditch tale a later legend — confirmed B21 (`cnh-202`) | `cnh-202` | `cnh-195`, `cnh-212` | — |
+| Xu Fu and the isles | Xu Fu (the *Shiji* also writes Xu Shi) asking leave in 219 BCE to seek Penglai, Fangzhang and Yingzhou with young men and women, and the great fish in 210 BCE (the *Shiji*, Qin annals); settling a plain and never returning (the *Shiji*, Huainan biography); his landing in Japan near Mount Fuji, first written down in Yichu's compilation of 955 from a Japanese monk's telling (Wu 2014) — agrees with the Penglai row; confirmed B21 (`cnh-210`) | `cnh-210` | `cnh-021`, `cnh-192` | `cnh-021` |
 | The Shaqiu plot and the forged edict | the First Emperor's death at Shaqiu in 210 BCE; Zhao Gao, Li Si and Huhai hiding it, the body carried back with salted fish, and the forged edicts ordering Fusu and Meng Tian to die (the *Shiji*, Qin annals and Li Si's biography); the excavated *Zhao Zheng shu* (Peking University slips) in which the emperor names Huhai himself — provisional | `cnh-211` | `cnh-195`, `cnh-206`, `cnh-212` | — |
 | The Feast at Hong Gate | Liu Bang's visit to Xiang Yu's camp in 206 BCE, Fan Zeng's signals with the jade, Xiang Zhuang's sword dance, Fan Kuai's entry and Liu Bang's flight (the *Shiji*, Xiang Yu's annals, c. 100 BCE); its speeches and staging read as literary set pieces — provisional | `cnh-217` | `cnh-214`, `cnh-215`, `cnh-216` | — |
 | Xiang Yu at Gaixia | Xiang Yu surrounded in 202 BCE, hearing Chu songs from the Han lines (四面楚歌), his song to Consort Yu and the horse Zhui, the break-out and death at the Wu River (the *Shiji*, Xiang Yu's annals); Consort Yu's suicide a later addition to the story — provisional | `cnh-218` | `cnh-214`, `cnh-215` | — |
@@ -358,7 +358,7 @@ otherwise.
 | B18 | Eastern Zhou (`col-5`) | `cnh-171`–`cnh-180` | 10 | 110 | **done 2026-11-12** |
 | B19 | Eastern Zhou (`col-5`) | `cnh-181`–`cnh-190` | 10 | 107 | **done 2026-11-12** |
 | B20 | Qin (`col-7`) | `cnh-191`–`cnh-200` | 10 | 103 | **done 2026-11-12** |
-| B21 | Qin (`col-7`) | `cnh-201`–`cnh-210` | 10 | 93 | to do |
+| B21 | Qin (`col-7`) | `cnh-201`–`cnh-210` | 10 | 93 | **done 2026-11-12** |
 | B22 | Qin (`col-7`) / Western Han (`col-10`) | `cnh-211`–`cnh-220` | 10 | 86 | to do |
 | B23 | Western Han (`col-10`) | `cnh-221`–`cnh-230` | 10 | 80 | to do |
 | B24 | Western Han (`col-10`) | `cnh-231`–`cnh-240` | 10 | 78 | to do |
@@ -680,6 +680,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-198` | a standard carrying both edicts | not re-checked (Commons 429): ok |
 | `cnh-199` | the lesser seal, recut | not re-checked (Commons 429): ok |
 | `cnh-200` | the Shuihudi questions and answers | not re-checked (Commons 429): ok |
+| `cnh-201` | slips of the Day Book | not re-checked (Commons 429): ok |
+| `cnh-202` | an 18th- or 19th-century album leaf of both acts | not re-checked (Commons 429): ok |
+| `cnh-203` | a map of the Straight Road and the walls | not re-checked (Commons 429): ok; the Straight Road only, not the highways |
+| `cnh-204` | the canal at Xing'an | not re-checked (Commons 429): ok |
+| `cnh-205` | the Nanyue palace site in Guangzhou | not re-checked (Commons 429): weak: Nanyue's palace, not the conquest |
+| `cnh-206` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-207` | plans and photographs of three watchtowers | not re-checked (Commons 429): weak: burned-in labels; a photograph of a Qin earthen wall wanted |
+| `cnh-208` | the mound | not re-checked (Commons 429): ok |
+| `cnh-209` | the ranks in Pit 1 | not re-checked (Commons 429): ok |
+| `cnh-210` | the statue at Weihai | not re-checked (Commons 429): ok; the caption's departure from Weihai is unsourced — trim |
 
 ## Glossary candidates
 
@@ -1578,3 +1588,42 @@ Gaoping). **The six first-hundred sites still waiting**: `cnh-053` Sanxingdui, `
 Hao, `cnh-080` Xibeigang, `cnh-089` Zhengzhou Shang City, `cnh-090` Panlongcheng (articles in the first hundred's note).
 `L.missing` is deliberate on `cnh-177` Warring States cities (a class of cities, no one point). Points to review:
 `cnh-170`'s polygon looks like the empire of 221 BCE, not Qin before it; `cnh-164`'s polygon of the seven states can stay.
+
+### B21 — `cnh-201`–`cnh-210`, Qin: the Shuihudi texts to Xu Fu (2026-11-12)
+
+The third hundred's first batch, run as the second's were (`AGENT.md`, the notes file, two cards an agent, at most ten
+at once); every draft read by eye and prechecked before `batch.sh` applied it. Every cited URL answered (the Hamburg
+PDF and a Gutenberg file on a second try). **Pictures were not touched** (Commons and the Wikipedia API answered 429 to
+the session's one test call). **The old cards put a century, places and counts on their lines ("Rules 3rd century BCE",
+"Xing'an, in modern Guangxi", "Workforce over 700,000 men", "after 206 BCE"), dated the Lingqu canal by an official's
+posting and the southern commanderies, cited two French books on most cards, read the walls' biocrust off a study of the
+Ming wall, built the Qin roads on a paper that could not be reopened, and told the Shiji's burning of the books, the
+mausoleum and Xu Fu in their own voice.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-201` Shuihudi Qin bamboo texts | 5 | 5 → 5 | **"Rules 3rd century BCE" now `Copied c. 244 – 217 BCE` (Chen Wei's view, reported by Wang Xiao) / `Buried c. 217 BCE` / `Found 1975`; the ten texts, the 1,155 slips, Xi's chronicle (306 – 217 BCE), the daybook's Chu–Qin month table, the 2019 study of Xi's skeleton**; the document-weighing story (the First Emperor's, not the slips') and a 2006 Han find dropped. |
+| `cnh-202` burning of books and burying of scholars | 7 | 5 → 7 | **The *Shiji*'s account told as its (213 BCE edict, 212 BCE killings) and the doubters added: the victims as *fangshi* (Zufferey), the burying perhaps never done (Eno), Confucianism not the target (Pines), a smaller loss (Strähle)**; the "Texts recovered" row off; Fu Sheng's wall and the melon-ditch legend; two French sources cut to one. |
+| `cnh-203` Qin road system | 6 | 5 → 6 | **Every claim built on an unreopenable modelling paper dropped; `Highways begun 220 BCE` / `Straight Road 212 BCE` from the Chinese *Shiji* (治馳道, the 1,800 li "never finished", Sima Qian's return by the road); the route disputed (Sanft); the 2025 Yulin survey**; Giles and Mayers (nothing on roads) out. |
+| `cnh-204` Lingqu Canal | 5 | 5 → 5 | **The place sub-row and the commanderies row (`cnh-205`'s) off; `Dated c. 219 BCE` (Aurousseau's inference) / `Also dated 214 BCE`; the *Huainanzi*'s passage on the supervisor Lu, Gao You's gloss, the Tang "marvellous channel", reuse by the Han**; Mayers's 220 BCE (an appointment) and Giles's 86 locks dropped. |
+| `cnh-205` Qin conquest of the south | 6 | 5 → 6 | **The card is the conquest, not Zhao Tuo's career (`cnh-232`'s): the luxuries, the five armies, Lu's canal, the night attack and Tu Sui's death from the *Huainanzi* (through Aurousseau) and the *Shiji*; `Campaign c. 221 – 214 BCE` / `Annexed 214 BCE`; the timeline set to 221 – 214 BCE**; Mayers's 215 BCE (Zhao Tuo's posting) and "after 206 BCE" off. |
+| `cnh-206` Meng Tian | 6 | 5 → 6 | **Rebuilt on the *Shiji*'s own biography (ch. 88): his family, imprisonment at Yangzhou, refusal to rebel, the veins of the earth, Sima Qian's verdict; the line's 250, 221, 215 and 209 now all in the prose; "34 prefectures" dropped (the editions read 34, 14 or 44)**. Protected: the line stays (flagged below). |
+| `cnh-207` Qin long walls | 6 | 5 → 6 | **"from 214 BCE" off; both walls: King Zhaoxiang's state wall (`306 – 251 BCE`, Li et al. 2025) and the imperial line (`Campaign 215 BCE` / `Imperial wall 214 BCE`, Chavannes); the "more than 10,000 li" the *Shiji*'s, never a length; the chapters' 300,000 and 100,000 men**; the biocrust (a Ming-wall study) dropped. |
+| `cnh-208` Mausoleum of the First Qin Emperor | 7 | 5 → 7 | **The 700,000-worker row off (the *Shiji*'s figure, in prose); `Begun 246 BCE` (Zhao et al. 2020, Ma et al. 2016) / `Burial 210 BCE` / `Works ended 208 BCE`; the soil mercury, why the chamber is unopened, the workers' DNA, Liyi (231 BCE), the *Hanshu*'s shepherd-boy fire told as a tradition**. |
+| `cnh-209` Terracotta Army | 9 | 5 → 9 | **The old card was four science papers; now what the army is: the three pits, the figures' size, the 1974 well, the counts with whose estimate (about 7,000; over 8,000), the paint; `Made c. 247 – 210 BCE` (Quinn et al.) / `Found 1974`**; the chromium no longer a clue. |
+| `cnh-210` Xu Fu | 5 | 5 → 6 | **The *Shiji*'s two versions read as alternatives, not a second sailing of "3,000 more"; the Japan landing dated to Yichu's compilation of 955 (Wu 2014); Xu Shi as the *Shiji*'s other writing; Pregadio on the *fangshi***; Mayers's "tinged with superstition" gone. Protected: the line stays. |
+
+Read by eye. **Confusability**: `cnh-204`'s "armour unloosened for three years" phrasing repeated `cnh-205`'s Tu Sui
+clue and was rewritten; the forged order and Fusu's death stay `cnh-211`'s (the Meng Tian agent was told), the
+well-diggers and paint `cnh-209`'s, the crossbow traps, mercury and shepherd boy `cnh-208`'s, the great fish `cnh-210`'s,
+Lu's canal `cnh-204`'s. **Legend**: the burning of the books, Xu Fu's sailings and the tomb's mercury rivers are now
+the *Shiji*'s; the Japan landing a tale of 955. **Chinese names corrected**: none needed; `秦平百越` is descriptive (no
+standard term found; for the owner). **Spellings fixed**: none needed; 0 hits. **Myth register**: the burning of the
+books confirmed and corrected (the *Shiji* itself has Fusu say the victims "all model themselves on Confucius", so the
+Confucian reading is not only later Han); Xu Fu and the isles confirmed (the 955 *Yichu liutie* for the Japan tale); the
+Penglai row's "c. 91 BCE" against the house c. 100 BCE noted. **Protected lines: unchanged** (diffed after the apply).
+For the owner: `cnh-206`'s `Birth c. 250 BCE` is in no source read (the ages rest on it), and its "Yulin, Shaanxi" is
+not in the *Shiji*, which has him die at Yangzhou; Giles dates the 300,000 men to 214 BCE against the annals' 215.
+**Dates that differ on purpose**: `cnh-208` starts the tomb in 246 BCE (two studies print it) where `cnh-209` starts the
+pits c. 247 BCE (Quinn et al.) and `cnh-192` makes him king in 247 BCE; each says whose. `wh-407` gives 34 prefectures
+in 214 BCE, a count the texts disagree on.

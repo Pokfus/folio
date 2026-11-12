@@ -393,6 +393,14 @@ stood on main on 2026-11-12 (the years only; ages, days and months left out), an
 
 | event | the collection says | source |
 |---|---|---|
+| the Shuihudi texts: copied (Chen Wei) / buried / found | c. 244 – 217 BCE / c. 217 BCE / 1975 | Wang Xiao; Harkness (`cnh-201`) |
+| the burning of the books / the killing of the scholars | 213 BCE / 212 BCE | the *Shiji* (`cnh-202`) |
+| the imperial highways / the Straight Road | 220 BCE / 212 BCE | the *Shiji* (`cnh-203`) |
+| the Lingqu canal: Aurousseau / completed | c. 219 BCE / 214 BCE | `cnh-204` |
+| the conquest of the south / the commanderies | c. 221 – 214 BCE / 214 BCE | `cnh-205` |
+| Qin's state wall / Meng Tian's campaign / the imperial wall | 306 – 251 BCE / 215 BCE / 214 BCE | Li et al. 2025; Chavannes (`cnh-207`) |
+| the mausoleum begun / the burial / works ended | 246 BCE / 210 BCE / 208 BCE | Zhao et al. 2020; Ma et al. 2016 (`cnh-208`) |
+| the Terracotta Army made / found | c. 247 – 210 BCE / 1974 | Quinn et al. (`cnh-209`) |
 
 ## Later periods
 
@@ -633,4 +641,12 @@ cnh-197: 350; 221
 cnh-198: 221; 209
 cnh-199: 221
 cnh-200: 246; 222; 221; 206
+cnh-201: 244; 217; 1975
+cnh-202: 213; 212
+cnh-203: 220; 212
+cnh-204: 219; 214
+cnh-205: 221; 214
+cnh-207: 306; 251; 215; 214
+cnh-208: 246; 210; 208
+cnh-209: 247; 210; 1974
 ```
