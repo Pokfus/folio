@@ -200,4 +200,30 @@ B2 = [
     ('qualifying and time', 'hususan aghalabu mara_kwa_mara'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}
+# C1: the CEFR's "wide range of demanding, longer texts" -- built on A1 to B2.  By this level the
+# fill of the four below has taught almost all of the register's commoner words (four rounds of
+# candidates: three in four already taught), so the inventory is the specialised vocabulary a C1
+# reader of Swahili meets: scholarship and language, belief, the political economy, the coast's
+# history and seafaring, the land's ecology, medicine, traditional crafts and rites.
+C1 = [
+    ('scholarship and language', 'mwanafalsafa nadharia_tete isimu mwanaisimu msamiati istilahi '
+                                 'fonolojia mofolojia sintaksia semantiki mfasiri mkalimani '
+                                 'ukalimani tamathali sitiari tashbihi nahau lakabu '
+                                 'mwanasaikolojia sosholojia mdahalo dodoso hojaji'),
+    ('belief', 'ukristo uhindu ushirikina uganga'),
+    ('the political economy', 'ubepari ujamaa ubeberu ukoloni_mamboleo utandawazi urari '
+                              'deni_la_taifa uwekezaji_wa_kigeni ubadilishaji mtikisiko ufukara '
+                              'ubunge uwaziri ugatuzi hujuma jaji_mkuu mwendesha_mashtaka '
+                              'ulanguzi mlanguzi magendo unyanyapaa dhima uhalali uharamu'),
+    ('history and the sea', 'sultani usultani jahazi mtumbwi nahodha nanga tumbawe'),
+    ('the land and its life', 'kreta bonde_la_ufa savana kinamasi mamalia amfibia ikolojia uoto '
+                              'mbuyu mnazi mwembe mkoko'),
+    ('the body and medicine', 'uti_wa_mgongo utumbo_mpana kongosho tezi homoni bakteria '
+                              'kisonono kaswende kipandauso kifafa'),
+    ('crafts and rites', 'jando unyago mfinyanzi ufinyanzi mhunzi uhunzi seremala useremala '
+                         'mfumaji ufumaji'),
+    ('reasoning', 'thibitika kokotoa tilia_mkazo fupisha kinaisha dhahania timilifu '
+                  'kwa_kuwa kwa_mujibu_wa'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2, 'c1': C1}

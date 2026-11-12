@@ -270,8 +270,13 @@ def desc(entries, n):
         f"stated. {from_inv} of the {n} come from a vocabulary written for the level's scope — "
         f"{SC['topics']} — and the other {n - from_inv} are the commonest remaining words, "
         "counted by the WHOLE word (every form of a noun, every conjugated form of a verb added "
-        "together) in two collections of real Swahili, film and television subtitles and the "
-        "Global Voices news site, a word having to be common in both. The cards are dealt by "
+        "together) in two collections of real Swahili, " + (
+            "film and television subtitles and the Global Voices news site"
+            if LEVEL != 'c1' else
+            "written Swahili this time — CCMatrix, sentences mined from the web, and WikiMatrix, "
+            "sentences from Swahili Wikipedia — because the subtitles and news site that ranked the "
+            "lower levels are too small to rank words this rare") +
+        ", a word having to be common in both. The cards are dealt by "
         "that frequency, so the words you meet most often come first. "
         "Verbs are shown as their infinitive (kusoma, to read) with their stem (-soma), which "
         "every tense is built on, and their negative infinitive; adjectives and possessives as "
@@ -281,8 +286,12 @@ def desc(entries, n):
         "out in colour and a speaker beside the sentence and the headword. Sources. Level: the "
         "Common European Framework of Reference (Council of Europe), global scale. Meanings, "
         "noun classes and forms: English Wiktionary, via the kaikki.org extraction (CC BY-SA "
-        "4.0). Frequency: counted from OpenSubtitles 2024 and Global Voices (CC BY 3.0), both "
-        "as distributed by OPUS. Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR."
+        "4.0). Frequency: counted from " + (
+            "OpenSubtitles 2024 and Global Voices (CC BY 3.0)" if LEVEL != 'c1' else
+            "CCMatrix and WikiMatrix (CC BY-SA, from Wikipedia)") + ", both "
+        "as distributed by OPUS" + ("; only their counts are used, and no text from them is in "
+                                    "the deck" if LEVEL == 'c1' else "") + ". "
+        "Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR."
     )
 
 

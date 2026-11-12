@@ -88,6 +88,18 @@ SCOPE = {
                   'possessions, character and feelings, arguing and analysing, the verbs of change and '
                   'cause, describing, and the words that qualify and place a statement in time',
     },
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise implicit '
+                 'meaning',
+        'gloss': 'able to express ideas fluently and spontaneously without much obvious searching for '
+                 'expressions, to use language flexibly and effectively for social, academic and '
+                 'professional purposes, and to produce clear, well-structured, detailed text on complex '
+                 'subjects, showing controlled use of organisational patterns, connectors and cohesive '
+                 'devices',
+        'topics': 'scholarship and language, belief, the political economy, history and the sea, '
+                  'the land and its life, the body and medicine, crafts and rites, and the words of '
+                  'reasoning',
+    },
 }
 
 

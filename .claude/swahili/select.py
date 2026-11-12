@@ -95,12 +95,20 @@ SWEARS = {'malaya', 'mjinga', 'mpumbavu', 'kuma', 'mshenzi', 'fala',
           'mwanaharamu', 'mpuuzi', 'zuzu', 'bwege', 'mbumbumbu', 'umalaya'}   # B2
 
 
+WEB = {}       # C1's written corpora (`lex-web.json`, see `extract.py --web`), loaded by main()
+
+
 def rank(L):
     """The frequency a lemma is dealt by.  From A2 up a multi-word lemma's own sequence
-    count (`seq`, see `extract.py`); A1 was shipped on `freq` and stays on it."""
+    count (`seq`, see `extract.py`); A1 was shipped on `freq` and stays on it.  C1 is
+    dealt on its two WRITTEN corpora alone (`lex-web.json`; A1-B2 never read it)."""
     if LEVEL != 'a1' and 'seq' in L:
-        return L['seq']
-    return L['freq']
+        base, key = L['seq'], 'seq'
+    else:
+        base, key = L['freq'], 'freq'
+    if LEVEL == 'c1':
+        return WEB.get(norm(L['word']), {}).get(key, 0)
+    return base
 
 
 def usable(L):
@@ -131,6 +139,8 @@ def says_all(L):
 
 def main():
     lex = json.load(open('lex.json', encoding='utf-8'))
+    if LEVEL == 'c1':
+        WEB.update(json.load(open('lex-web.json', encoding='utf-8')))
     below = words_below()
     rows, seen, said, missing = [], set(), set(), []
     for topic, words in INVENTORY.get(LEVEL, []):
@@ -156,7 +166,7 @@ def main():
             break
         if k in seen or k in swears or k in EXCLUDE or ' ' in k or '-' in k:
             continue
-        if not usable(L) or L['freq'] <= 0:
+        if not usable(L) or rank(L) <= 0:
             continue
         if all(e['pos'] in ('phrase', 'proverb') for e in L['entries']):
             continue
