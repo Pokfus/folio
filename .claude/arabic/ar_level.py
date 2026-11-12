@@ -45,6 +45,10 @@ SCOPE = {
         "cefr": ("Can understand the main ideas of complex text on both concrete and abstract topics, including "
                  "technical discussions in his/her field of specialisation"),
     },
+    "c1": {
+        "title": "Arabic C1",
+        "cefr": "Can understand a wide range of demanding, longer texts, and recognise implicit meaning",
+    },
 }
 
 

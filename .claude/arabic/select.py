@@ -44,7 +44,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ar, inventory
 
 PREFIXES = ar.PREFIXES
-SIZE = {"a1": 500, "a2": 600, "b1": 800, "b2": 900}
+SIZE = {"a1": 500, "a2": 600, "b1": 800, "b2": 900, "c1": 700}
 NOT_FORMS = ar.NOT_FORMS            # in ar.py since B1: examples.py reads it too
 POS_GROUPS = [{"noun", "name"}, {"particle", "adv", "intj"}, {"pron", "adv", "det"}, {"phrase", "intj", "adv"}]
 

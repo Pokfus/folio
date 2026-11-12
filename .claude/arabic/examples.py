@@ -161,6 +161,27 @@ REFUSE_ANY_EN_B2 = ["Gaza", "Palestin", "Biden", "Bush", "Iraq", "Afghanistan", 
                     "raped", "pimp", "overdose", "no gods", "Tebboune", "meth", "abortion", "killed for", "Haya'",
                     "believer", "Bible", "holy book", "united against", "Zionis", "Haftar"]
 
+# ---- found reading the C1 deck (Nov 2026); applied from C1 up, so A1–B2 are not re-dealt ----
+REFUSE_C1 = {
+    "وَاسِطَة": ["بواسطة"], "عَدْل": ["عدول"], "اِسْتَقَالَ": ["استقلت"], "جَسَّدَ": ["جسد"], "فَاتِن": ["فاتنا"],
+    "سِيرَة": ["سيرا", "سيرت"], "يَسِير": ["يسير"], "وُدِّيّ": ["بودي"], "بَالٍ": ["البال", "بالون"],
+    "قَبِيلَة": ["القبائل"], "دَوَّنَ": ["الدونت"], "ظَالِم": ["ظلمة"], "خَاطِر": ["خاطر "], "نَحْوِيّ": ["نحوي"],
+    "قَاضَى": ["القاض"], "دَسَّ": ["داس"], "فَنِيَ": ["الفناء"], "نَوَاة": ["نوى"], "سِمَة": ["بسمة"],
+    "شَيَّدَ": ["نشيد"], "أَبَاحَ": ["نبح"], "مُسَلَّمَة": ["مسلمة"], "اِسْتَقْرَأَ": ["مستقر"], "وَقْف": ["وقفين"],
+}
+REFUSE_EN_C1 = {
+    "قَضَاء": ["spend", "Spending"], "رَغْبَة": ["resentful"], "وَشَى": ["Is this all"], "وَحْشِيّ": ["murder"],
+    "بُغْض": ["Whether", "take part", "Aside"], "أَرْضِيّ": ["land", "governments"], "أَسِير": ["marching"],
+    "لَمَّحَ": ["spotted", "saw"], "دَمَوِيّ": ["beat"], "رُسُوم": ["anime", "cartoon"], "تَشْكِيل": ["dial"],
+    "تَرَفَّعَ": ["raise"], "خَلَّدَ": ["sleep", "bed"], "شَرْعِيَّة": ["forensic", "affair"],
+    "نُخْبَة": ["political elite"], "تَحَرُّش": ["father"], "خَاطِر": ["risked"], "شُبْهَة": ["Country"],
+    "زَعَمَ": ["killed"], "حَسَمَ": ["scratch"], "مُدَوَّنَة": ["vlogging", "time table"], "تَقَدُّمِيّ": ["fear"],
+    "إِثْم": ["turn away"], "نَدَبَ": ["scar"], "كَتُوم": ["pillow", "French"], "مَهْر": ["colt"],
+    "وَاسَى": ["confronted"], "حِمَّص": ["Homs"], "نَسَب": ["Apostles", "Who amongst"], "ذَرَّة": ["Abu Dhar"],
+    "عُمْرَان": ["Amram"], "شَبْعَان": ["angry"],
+}
+REFUSE_ANY_EN_C1 = ["Polisario", "Russia", "Muslims don't", "Observant Muslims", "Sahrawi", "smothered"]
+
 
 def read_tsv(name):
     with bz2.open(os.path.join(ar.CACHE, name), "rt", encoding="utf-8") as fh:
@@ -181,12 +202,14 @@ def main():
     strict = a.level != "a1"
     b1 = inventory.LEVELS.index(a.level) >= 2
     b2 = inventory.LEVELS.index(a.level) >= 3
+    c1 = inventory.LEVELS.index(a.level) >= 4
     vowelled_only = VOWELLED_ONLY | (VOWELLED_ONLY_A2 if strict else set())
     refuse = dict(REFUSE)
     refuse_en = dict(REFUSE_EN_A2) if strict else {}
-    refuse_any_en = REFUSE_ANY_EN_A2 + (REFUSE_ANY_EN_B1 if b1 else []) + (REFUSE_ANY_EN_B2 if b2 else [])
+    refuse_any_en = REFUSE_ANY_EN_A2 + (REFUSE_ANY_EN_B1 if b1 else []) + (REFUSE_ANY_EN_B2 if b2 else []) + (REFUSE_ANY_EN_C1 if c1 else [])
     for on, extra, into in ((strict, REFUSE_A2, refuse), (b1, REFUSE_B1, refuse), (b1, REFUSE_EN_B1, refuse_en),
-                            (b2, REFUSE_B2, refuse), (b2, REFUSE_EN_B2, refuse_en)):
+                            (b2, REFUSE_B2, refuse), (b2, REFUSE_EN_B2, refuse_en),
+                            (c1, REFUSE_C1, refuse), (c1, REFUSE_EN_C1, refuse_en)):
         if on:
             for k, v in extra.items():
                 into[k] = into.get(k, []) + v

@@ -6,8 +6,8 @@ Arabic language collection." It is a twelfth language set in the shape of the on
 file says otherwise).
 
 **STATUS (2026-11-12): built — the Arabic Alphabet (31 notes), Arabic A1 (500 notes / 1,000 cards), Arabic A2
-(600 notes / 1,200 cards), Arabic B1 (800 notes / 1,600 cards) and Arabic B2 (900 notes / 1,800 cards).** C1 and
-up, and a phrases deck, are not built; §6 is what they need.
+(600 notes / 1,200 cards), Arabic B1 (800 notes / 1,600 cards), Arabic B2 (900 notes / 1,800 cards) and Arabic C1
+(700 notes / 1,400 cards).** C2 and a phrases deck are not built; §6 is what they need.
 
 ## 1. What the set is
 
@@ -18,6 +18,7 @@ up, and a phrases deck, are not built; §6 is what they need.
 | Arabic A2 | `decks/Arabic-A2.folio-deck.json` | 600, of 789 inventory lines (`inventory_a2.py`) |
 | Arabic B1 | `decks/Arabic-B1.folio-deck.json` | 800, of 1,013 lines: 824 of `inventory_b1.py` and A2's 189 left out |
 | Arabic B2 | `decks/Arabic-B2.folio-deck.json` | 900, of 992 lines: 779 of `inventory_b2.py` and the 213 B1 left out |
+| Arabic C1 | `decks/Arabic-C1.folio-deck.json` | 700, of 793 lines: 703 of `inventory_c1.py` and 90 carried from the levels below |
 
 **Modern Standard Arabic only** — the written and formal language, not any dialect. Titles in English, as
 the Turkish and Russian sets settled. One note, two templates (Arabic → English, English → Arabic), the
@@ -143,9 +144,19 @@ is `rtl`, the table and the speaker; writes a screenshot).
   "diamonds"), gated `rank >= 3`; A1, A2 and B1 rebuild byte-identical. B2's words are rarer in Tatoeba: 621 of
   900 have a sentence. Two more compounds take `ROMAN` (ضَغْط الدَّم, مُحَرِّك بَحْث), and لَا سِيَّمَا.
 
+- **C1 (2026-11-12) — `python3 .claude/arabic/run.py --level c1`.** `inventory_c1.py`, single words only: 675 lines
+  written, 124 MISSING; 250 more added, 22 MISSING; then 21 joins dropped as another word (سَأَم → the name Sam,
+  أَبِيّ → "my father", كَمِّيّ → "brave", غَرَامَات → "grams", eight nouns → a verb), 9 duplicates, 30 taught
+  below, and بَدِيع twice (noun and adjective share a headword, which `check-arabic.js` refuses). The deck is 700.
+  `ar.NOT_FORMS` grew by the C1 report — its top word was أَشْعَرَ "to notify" on `اشعر` "I feel", A1's شَعَرَ;
+  many names (`كيفن` Kevin, `بيرس` Pierce, `دونا` Donna, `جان` Jean …). `REFUSE_C1`, `REFUSE_EN_C1`,
+  `REFUSE_ANY_EN_C1` from reading every sentence, gated `rank >= 4`; A1–B2 rebuild byte-identical. **Tatoeba
+  runs thin at C1**: 270 of 700 words have a sentence, so most C1 cards are the word, its forms and the meaning.
+
 ## 6. Next levels
 
-C1 onward: a fifth inventory (`inventory_c1.py`, a `topics()` row, `SIZE`, `SCOPE`, `STAMP`), and B2 is then
-frozen — a rule found at C1 gated `rank >= 4`. Expect a higher MISSING rate than B2's and a thinner sentence
-pool: write single-word lines, and size the deck below the joined pool. A phrases deck would start from
+C2 would be a sixth inventory on the same pattern (gate `rank >= 5`), but at C1 the pipeline's two sources
+already run dry — Wiktionary lacks a sixth of the single words written, and Tatoeba gives a sentence to under
+two words in five. A C2 deck would need another sentence source (a licensed corpus) before it is worth
+building. A phrases deck would start from kaikki's `phrase` / `intj` entries, the Turkish `phrases.py` shape. A phrases deck would start from
 kaikki's `phrase` / `intj` entries and Tatoeba counts, the Turkish `phrases.py` shape.

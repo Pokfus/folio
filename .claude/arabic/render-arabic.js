@@ -4,7 +4,7 @@
    order, the speaker on the wrong side.  It happens if the sanitizer ever drops `dir` (it is in the "*" set of
    SANITIZE_ATTRS today), so this asserts the COMPUTED direction of the headword and of a sentence.
 
-     node .claude/arabic/render-arabic.js [a1|a2|b1|b2|alphabet] [screenshot-dir]
+     node .claude/arabic/render-arabic.js [a1|a2|b1|b2|c1|alphabet] [screenshot-dir]
 
    Screenshots go to <screenshot-dir>/arabic-<deck>-back.png (default: the OS temp dir). */
 "use strict";
