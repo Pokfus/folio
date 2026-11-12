@@ -36,6 +36,21 @@ EXCLUDE = {
     'igik': "a pig's grunt, counted from one run of Tatoeba sentences",
     'ika': "its count is the ordinal prefix ika- before a figure (ika-10), not the noun 'limp'",
     'maari': "the common misspelling of maaari 'may, can', whose count it shares",
+    # read off the A2 ranking (2026-11-12)
+    'duke': "a duke, counted from one run of Tatoeba sentences",
+    'tiyera': "'earth, soil', a rare loan counted from one run of Tatoeba sentences",
+    'ganiyan': "the 2007 spelling of ganyan 'like that', which the A2 inventory teaches",
+    'retrato': "the older spelling of litrato 'photograph', which the A2 inventory teaches",
+    'yaon': "an archaic form of iyon, taught in A1",
+    'ya': "a cattle-driver's 'yah'; its count is the English and Spanish 'ya' in subtitles",
+    'me': "a goat's bleat; its count is the English 'me' in subtitles",
+    'so': "the English 'so', counted where subtitles mix English in",
+    'on': "the English 'on' ('in a relationship'), counted where subtitles mix English in",
+    'nones': "'odd (of a number)', none of whose count is its own",
+    'pitsa': "a gambling chip, whose count is mostly another word's passed to it",
+    'aling': "its count is alin 'which' with its linker; the entry is 'term of address of an elder woman'",
+    'naglalakad': "the ongoing aspect of maglakad, taught in A1, filed as a noun 'pedestrian'",
+    'bayag': "a vulgar word for a body part",
 }
 
 # Swearing and insults are never in a level deck.

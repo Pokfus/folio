@@ -55,6 +55,20 @@ SCOPE = {
                   'weather, colours, and the pronouns, markers, question words, particles '
                   'and conjunctions every sentence is built out of',
     },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'gloss': 'able to manage simple, routine exchanges of information on familiar matters '
+                 '— personal and family information, shopping, the local area, work — and to '
+                 'describe in simple terms their background, their surroundings and what they '
+                 'immediately need',
+        'topics': 'relatives, jobs, clothes, the kitchen and cooking, fruit, the rooms and things '
+                  'of a home, the town and its services, travel and transport, the natural world, '
+                  'animals, health and the body, feelings and character, free time and '
+                  'celebrations, school, the higher numbers and quantities, words for when and how '
+                  'often, more colours, describing things, the everyday verbs of doing, '
+                  'and the connectors and adverbs that join two sentences',
+    },
 }
 
 

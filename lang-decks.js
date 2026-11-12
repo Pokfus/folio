@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 240 MB of decks. The file itself is fetched on Add. */
+   section without fetching 241 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -100,6 +100,7 @@ window.LANG_DECKS = [
   { lang: "Turkish", file: "Turkish-C1.folio-deck.json", id: "turkishc1", title: "Turkish C1", sub: "997 words · both directions, as two cards per word", notes: 997, cards: 1994, ex: 98, say: false, bytes: 1370437, rev: "1777e5e08258" },
   { lang: "Turkish", file: "Turkish-Phrases-and-Expressions.folio-deck.json", id: "trphrase", title: "Turkish Phrases and Expressions", sub: "483 expressions · 118 everyday, 304 idioms, 61 proverbs · both directions", notes: 483, cards: 966, subs: 3, tree: [{"n":"Phrases","c":236,"x":66},{"n":"Idioms","c":608,"x":56},{"n":"Proverbs","c":122,"x":54}], flat: true, ex: 58, say: false, bytes: 353426, rev: "1e2fecf0b8ef" },
   { lang: "Tagalog", file: "Tagalog-A1.folio-deck.json", id: "tagaloga1", title: "Tagalog A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 98, bytes: 554866, rev: "b7227f5f3d6c" },
+  { lang: "Tagalog", file: "Tagalog-A2.folio-deck.json", id: "tagaloga2", title: "Tagalog A2 Elementary", sub: "750 more words, none of them in A1 · both directions, as two cards per word", notes: 750, cards: 1500, ex: 96, bytes: 846089, rev: "9bc0ac3e2d2d" },
   { lang: "Tamil", file: "Tamil-Alphabet.folio-deck.json", id: "taabc", title: "Tamil Alphabet", sub: "38 letters and signs · both directions, as two cards per letter", notes: 38, cards: 76, ex: 0, bytes: 19728, rev: "8f32a73faa05" },
   { lang: "Tamil", file: "Tamil-A1.folio-deck.json", id: "tamila1", title: "Tamil A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 36, bytes: 1891886, rev: "8dbaa88d6c73" },
   { lang: "Korean", file: "Korean-Alphabet-Hangul.folio-deck.json", id: "korhangul", title: "Korean Alphabet (Hangul)", sub: "The 40 letters of hangul — start here, before any word", notes: 40, cards: 80, ex: 100, bytes: 17792, rev: "d31da871f6b7" },

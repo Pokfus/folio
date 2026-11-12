@@ -70,6 +70,14 @@ ETYMS = {
     'baka': ['2', '1'],      # "maybe, might" before "cattle"
     'malaman': ['2'],        # "to come to be known"; etymology 1 is "fleshy"
     'siya': ['1'],           # the pronoun; 2 is "saddle", 3 "satisfaction"
+    # A2 (2026-11-12)
+    'sala': ['2'],           # "living room"; 1 is "fault, sin"
+    'kilo': ['2'],           # "kilogram"; 1 is "bent, crooked"
+    'basa': ['2'],           # "wet" (basâ); 1 is "reading"
+    'suka': ['2'],           # "vinegar"; 1 is "vomit"
+    'alas': ['2'],           # "o'clock" (alas-dos); 1 is "ace"
+    'tahanan': ['2'],        # "home"; 1 is "simultaneous stopping"
+    'mama': ['2'],           # "mum"; 1 is "a term for addressing an unknown man"
 }
 
 # A PART OF SPEECH LEFT OFF ONE CARD, each with its reason.
@@ -77,6 +85,13 @@ DROP_POS = {
     'siya': {'noun', 'intj'},     # "the very same" and "so! well!" beside the pronoun
     'isipin': {'noun', 'adj'},    # "something to think about" before the verb "to think about"
     'marumi': {'noun', 'verb'},   # "dirty laundry", "to soil oneself" -- madumi's, beside "dirty"
+    # A2 (2026-11-12): a rarer reading listed before the verb or adjective the word is learnt as
+    'sagutin': {'noun'},          # "liabilities" before "to answer"
+    'masabi': {'adj'},            # "chatty" before "to be able to say"
+    'pakainin': {'noun'},         # "a dependant" beside "to feed"
+    'tapusin': {'adj'},           # "obligatory to finish" beside "to finish"
+    'tanggapin': {'adj'},         # "acceptor" beside "to accept"
+    'sabihan': {'noun'},          # "rumour" beside "to tell, to notify"
 }
 
 # A GLOSS LEFT OFF A CARD: a homograph's sense merged into one entry, or a gloss
@@ -86,11 +101,18 @@ DROP_GLOSS = {
                   'isolatedness; unfrequentedness (of some distant place)'},   # from ilang "wilderness"
     'kapatid': {'an employee of the TV5 Network',      # the network's own in-house usage
                 'regular viewer or supporter of the TV5 Network'},
+    # A2 (2026-11-12): slang or a rare sense that reads as the meaning
+    'patatas': {'odor of dirty socks still being worn or just shed off'},
+    'halaman': {'a person incapable of feeling anything related to love'},
+    'kalihim': {'pan de regla'},                     # a bread, a homograph
+    'barangay': {'local polity or settlement during the Philippine precolonial period'},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
 LEAD = {
     'piso': 'one-peso coin',  # first listed is the peso of the Spanish-speaking Americas
+    'mahusay': 'skillful',    # first listed is "methodical; orderly"
+    'tapat': 'sincere',       # first listed is "facing the front"
 }
 
 

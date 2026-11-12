@@ -5,7 +5,7 @@ language set in the shape of the ones already shipped (Romanian, Hindi, Russian 
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Tagalog language collection."
 
-**STATUS (2026-11-09): A1 is built** (`.claude/tagalog/`, §6). A2 to C1 and the phrases deck are not.
+**STATUS (2026-11-12): A1 and A2 are built** (`.claude/tagalog/`, §6, §7). B1 to C1 and the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one (raising the day's existing
@@ -31,7 +31,7 @@ The request named no level, source or size, so each decision copies the shelf's 
 | deck | file | notes |
 |---|---|---|
 | Tagalog A1 Beginner — built | `Tagalog-A1.folio-deck.json` | 500 |
-| Tagalog A2 Elementary | `Tagalog-A2.folio-deck.json` | 750 |
+| Tagalog A2 Elementary — built | `Tagalog-A2.folio-deck.json` | 750 |
 | Tagalog B1 Intermediate | `Tagalog-B1.folio-deck.json` | 1,000 |
 | Tagalog B2 Upper Intermediate | `Tagalog-B2.folio-deck.json` | 1,500 |
 | Tagalog C1 Advanced | `Tagalog-C1.folio-deck.json` | 1,500 |
@@ -123,3 +123,32 @@ file, gitignored (and a `PARTS` row in `.claude/combine-decks.py`).
 without `--re-extract`). A1: 500 notes, 360 from the inventory (twenty-one topics) and 140 by frequency; IPA on
 496, a marked spelling on 283, aspects on 91 of the 95 verbs, sentences for 492 (three for 479). The shelf's hue is
 measured: first `#756366`, a muted taupe 16.5 from its nearest of 53 — which Swahili, measured in a parallel session, all but took (1.1 from it); re-swept at the merge against 67, outside the magenta band and the greens: `#2A72DB`, an azure 15.2 from its nearest (Greek, French).
+
+## 7. As built (2026-11-12): A2
+
+Asked for on 2026-11-12: "Add Tagalog A2". `python3 .claude/tagalog/run.py --level a2`; A1 rebuilds byte-identical
+after every change below, and an A2 re-run is byte-identical. **750 notes, 465 from the inventory (nineteen topics:
+relatives, work, clothes, the kitchen, fruit, the home, the town, travel, the natural world, animals, health,
+feelings, free time, school, numbers and quantities, time words, colours, describing, everyday verbs, connectors)
+and 285 by frequency**, none taught in A1 (`words_below`, read off the shipped A1 file). IPA on 735, a marked
+spelling on 427, forms on 203 (140 verbs), sentences for 717 (three for 649).
+
+What reading every card changed, each recorded with its reason in the code:
+- **Inventory words left out** (`inventory.py`'s A2 comment): `parang` (Wiktionary files only "meadow"), `Ingles`
+  (only "English (person)"), `tita` (only a slang sense), `daungan` (only "place for making a big ship"). Words
+  Wiktionary does not file under the inventory's spelling were rewritten to a filed one (`plasa`, `paruparo`,
+  `ipadala`, `gumamit`, `palitan`, `pahiram`, `kalihim`) or dropped (`magprito`, `tumigil`, `Pasko`, `internet` …).
+- **A second etymology** (`ETYMS`): `sala` "living room", `kilo` "kilogram", `basa` "wet", `suka` "vinegar",
+  `alas` "o'clock", `tahanan` "home", `mama` "mum" — each word's first etymology is a rarer homograph.
+- **A rarer part of speech dropped** (`DROP_POS`): `sagutin`, `masabi`, `pakainin`, `tapusin`, `tanggapin`,
+  `sabihan` — the verb is what the word is learnt as. **Glosses dropped** (`DROP_GLOSS`): slang or a homograph
+  merged in (`patatas`, `halaman`, `kalihim`, and `barangay`'s precolonial sense, which hid the modern one).
+  **Lead glosses** (`LEAD`): `mahusay` "skillful", `tapat` "sincere".
+- **Fill exclusions** (`EXCLUDE`): English in the subtitles (`so`, `on`, `me`, `ya`), Tatoeba runs (`duke`,
+  `tiyera`), a second spelling of an inventory word (`ganiyan`, `retrato`), `aling` (alin + -ng), `naglalakad`
+  (maglakad's ongoing aspect filed as a noun), `nones` and `pitsa` (counts not their own), `yaon` (archaic),
+  `bayag` (vulgar).
+
+**Known, left.** The fill again carries some of the subtitles' violence (`barilin`, `lasunin`, `bangkay`), as A1's
+does; 33 words have no Tatoeba sentence.
+

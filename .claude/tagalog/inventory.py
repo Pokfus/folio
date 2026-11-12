@@ -63,3 +63,81 @@ A1 = [
 ]
 
 INVENTORY = {'a1': A1}
+
+# A2 (2026-11-12): the CEFR A2 descriptor's "areas of most immediate relevance"
+# -- family and relatives, work, shopping and clothes, the home and the kitchen,
+# the town, travel, the natural world, health, feelings, free time and school --
+# plus the connectors, adverbs and quantities a learner needs to string two
+# sentences together.  A word A1 teaches is skipped by `select.py`, so this list
+# need not avoid them.
+A2 = [
+    ('relatives', 'apo biyenan manugang bayaw hipag pamangkin tiyo kamag-anak kambal '
+                  'sanggol binata dalaga matanda mag-asawa nobyo nobya kasintahan ninong '
+                  'ninang kasal'),
+    ('work', 'magsasaka mangingisda nars pulis sundalo abogado inhinyero tindero drayber '
+             'kusinero manggagawa empleyado amo sahod suweldo kompanya pabrika negosyo karpintero '
+             'kalihim manunulat artista hanapbuhay pulong'),
+    ('clothes and things you carry', 'kamiseta pantalon palda bestida sumbrero medyas tsinelas sinturon '
+                                     'salamin payong bag bulsa dyaket relo singsing kuwintas hikaw '
+                                     'pitaka sapatos'),
+    ('the kitchen and cooking', 'kaldero kawali plato baso tasa kutsara tinidor kutsilyo mangkok kalan '
+                                'mantika toyo suka paminta bawang sibuyas kamatis patatas mais niyog '
+                                'gata harina keso mantikilya lasa matamis maasim maalat mapait '
+                                'maanghang pansit adobo sinigang lumpiya litson keyk sorbetes'),
+    ('fruit', 'pinya papaya bayabas mansanas ubas dalandan kalamansi pakwan buko'),
+    ('the home', 'sala silid hagdan bubong sahig dingding pader hardin bakuran garahe ilaw kurtina '
+                 'unan kumot aparador sopa telebisyon radyo kompyuter bentilador sabon tuwalya '
+                 'sipilyo walis basura kuryente gripo'),
+    ('the town', 'munisipyo barangay plasa parke museo aklatan bangko restawran karinderya botika '
+                 'panaderya kanto tulay gusali paliparan sinehan pulisya kalsada'),
+    ('travel and transport', 'biyahe maglakbay bakasyon pasaporte maleta bagahe mapa turista traysikel '
+                             'bangka taksi motorsiklo bisikleta sumakay bumaba magmaneho trapiko '
+                             'pamasahe sakayan'),
+    ('the natural world', 'dagat ilog bundok bulkan isla pulo gubat dalampasigan baybayin lawa bukid '
+                          'palayan puno:noun bulaklak damo dahon bato buhangin langit bituin ulap kidlat '
+                          'kulog lindol baha tag-araw tag-ulan mundo lupa apoy hayop'),
+    ('animals', 'aso pusa ibon kalabaw kabayo kambing daga ahas lamok langgam ipis langaw unggoy '
+                'buwaya pagong kalapati hipon alimango pusit insekto paruparo gagamba palaka tandang '
+                'sisiw tuta'),
+    ('health and the body', 'braso binti daliri leeg balikat likod dibdib puso dugo balat mukha labi '
+                            'dila tuhod siko ubo sipon trangkaso sugat klinika pahinga magpahinga '
+                            'gumaling magkasakit hilo bitamina'),
+    ('feelings and character', 'galit takot saya lungkot inggit selos hiya gulat tuwa pag-ibig '
+                               'pag-asa masipag tamad matalino masungit mayabang mahiyain matapang '
+                               'duwag tapat totoo sinungaling nerbiyos magalit matakot mag-alala '
+                               'mainipin magulat'),
+    ('free time and celebrations', 'laro basketbol musika kanta sayaw pelikula sine palabas programa '
+                                   'laruan piyesta pista kaarawan regalo handaan binyag '
+                                   'litrato larawan kamera balita dyaryo'),
+    ('school', 'klase leksiyon aralin takdang-aralin pagsusulit papel lapis bolpen kuwaderno pisara '
+               'mag-aaral unibersidad kolehiyo marka tanong sagot aklat diksiyonaryo '
+               'matematika agham kasaysayan'),
+    ('numbers and quantities', 'labing-isa labindalawa tatlumpu apatnapu limampu sandaan milyon '
+                               'lahat bawat iba sobra kulang buo dosena metro kilo litro beses '
+                               'pares'),
+    ('time words', 'segundo madalas bihira agad kaagad noon dati susunod nakaraan '
+                   'katapusan simula tuwing araw-araw gabi-gabi hatinggabi madaling-araw siglo '
+                   'dekada kalendaryo'),
+    ('colours', 'kahel rosas lila kayumanggi abo ginto pilak luntian'),
+    ('describing', 'mataas mababa malalim mababaw malapad makitid makapal manipis mabigat magaan '
+                   'matigas malambot basa:adj tuyo malinaw madilim maliwanag tahimik maingay mayaman '
+                   'sariwa bulok malakas mahina payat mataba matangkad pandak guwapo kulot mahalaga '
+                   'sikat:adj delikado ligtas mali tama pareho handa abala libre buhay malusog '
+                   'masikip maluwag'),
+    ('everyday verbs', 'magsuot maglinis maghugas bumisita dumalaw ipadala tumanggap magbenta magtinda '
+                       'humiram pahiram magbago maghanda magdasal magsimba mag-usap magkuwento '
+                       'tumawa umiyak ngumiti maniwala mag-isip isipin makalimutan kalimutan '
+                       'matuto magturo ipaliwanag subukan pumili manalo matalo maglagay ilagay kunin '
+                       'ibigay tingnan hanapin gumamit dalhin ayusin linisin hugasan lutuin bilhin '
+                       'ipakita huminto magpatuloy sumunod mamili magtanim mangisda lumangoy '
+                       'umakyat mahulog kumita gumastos mag-ipon palitan sumama '
+                       'maglaba pasyal magpakasal mabuhay mamatay lumaki '
+                       'magtapos'),
+    ('connectors and adverbs', 'saka tapos samantala kahit bagaman sapagkat upang maliban kasama tungkol '
+                               'mula hanggang papunta galing laban ayon gaya katulad halos medyo '
+                               'masyado bigla dahan-dahan mag-isa sabay muli ulit lamang lalo '
+                               'pati marahil tiyak sigurado yata pala mismo ganito ganyan ganoon kanino '
+                               'gaano'),
+]
+
+INVENTORY['a2'] = A2
