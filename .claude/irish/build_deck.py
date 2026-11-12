@@ -37,7 +37,7 @@ from irish_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
 STAMP = {'a1': '2026-11-12T00:00:00.000Z', 'a2': '2026-11-12T00:00:00.000Z',
-         'b1': '2026-11-12T00:00:00.000Z'}[LEVEL]
+         'b1': '2026-11-12T00:00:00.000Z', 'b2': '2026-11-12T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'irish'
@@ -153,7 +153,13 @@ LEAD = {
     'deis': 'opportunity (chance for advancement, progress or profit)',   # first listed is "right (side)"
     'agallamh': 'interview',            # first listed is "argument"
     'stailc': 'strike',                 # first listed is "stubborn trait"
-    'oiliúint': 'training, coaching',   # first listed is "nutrition"       # B1: first listed is "arrangement"                    # first listed is "rank"                     # first listed is "right, right-hand"
+    'oiliúint': 'training, coaching',
+    'botún': 'blunder, mistake, error',  # B2: first listed is "farrier's knife"
+    'cailleach': 'old woman, hag',       # first listed is "nun"
+    'ráfla': 'rumour, gossip',           # first listed is "warbling"
+    'spéisiúil': 'interesting',
+    'cill': 'cell',                     # B2 teaches the biological cell; first listed is "church"
+    'daoradh': 'conviction',            # first listed is "enslavement"          # first listed is "neat and clean"   # first listed is "nutrition"       # B1: first listed is "arrangement"                    # first listed is "rank"                     # first listed is "right, right-hand"
 }
 
 # A GENDER WRITTEN HERE, where the lemma's first entry is not the everyday word's.

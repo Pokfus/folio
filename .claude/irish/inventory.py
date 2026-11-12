@@ -166,4 +166,34 @@ B1 = [
                    'murach ach_amháin mura chomh_maith cé_nach ar_eagla_go'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}
+# B2 (2026-11-12), scoped to the CEFR B2 descriptor (`irish_level.SCOPE['b2']`).  Written, as B1's was,
+# from candidates tested against the extract: English Wiktionary lacks most of the formal vocabulary
+# of modern Irish (reifreann, freasúra, athrú aeráide, caiteachas, iomaíocht ...), and many of the
+# words it has are already taught by the frequency fill of A1 to B1 (`docs/irish-decks-plan.md` §9).
+B2 = [
+    ('the economy', 'boilsciú creidmheas iasachtaí tomhaltóir táirgeadh maoiniú sochar cuntasóir cuntasaíocht '
+                    'brabúsach easnamh'),
+    ('politics and the state', 'rialú tánaiste idé-eolaíocht cumannachas caipitleachas impiriúlachas '
+                               'cogadh_cathartha teifeach dídeanaí maorlathas bainisteoireacht'),
+    ('law and justice', 'giúiré fíneáil cosaint achomharc ceartas daoradh gadaí calaois éilliú breab'),
+    ('science and technology', 'hipitéis aireagán cill ríomhchlárú intleacht_shaorga teicneoir '
+                               'ríomhchláraitheoir brabhsálaí príobháideacht triantán dronuilleog'),
+    ('the environment', 'bithéagsúlacht éiceolaí laghdú forás nuálaíocht nua-aimsearthacht'),
+    ('health and society', 'galar_tógálach paindéim vacsaíniú aosach pinsinéir litearthacht dídean '
+                           'andúil máinlia máinliacht altranas teiripe eitneachas leatrom cothromaíocht '
+                           'feimineachas aerach'),
+    ('mind, belief and identity', 'síceolaíocht síceolaí socheolaíocht socheolaí eitic aindiachaí agnóisí '
+                                  'spleách spleáchas náisiúntacht dátheangachas teanga_dhúchais'),
+    ('culture', 'léiriú réalachas meafar íoróin aoir seandálaí iarsmalann'),
+    ('the abstract nouns of discussion', 'laige láidreacht toise claonadh treocht toimhde measúnú seasamh '
+                                         'dearbhú feasacht tuiscint aineolas pobalbhreith suirbhé staitistic '
+                                         'cobhsaíocht éiginnteacht contúirt riosca'),
+    ('verbs of arguing and acting', 'anailísigh lochtaigh cuir_chun_cinn cosc teorannaigh ionadaigh '
+                                    'cuir_i_bhfeidhm imscrúdaigh'),
+    ('describing and evaluating', 'ábhartha éifeachtúil eiticiúil dleathach réasúnach réadúil teibí fiosrach '
+                                  'dúthrachtach díograis díograiseach'),
+    ('formal connectors', 'de_bharr mar_gheall_ar ar_ndóigh i_ndeireadh_na_dála maidir_le i_dtaca_le '
+                          'ar_mhaithe_le in_ainneoin'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}

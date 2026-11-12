@@ -5,7 +5,7 @@
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless
 this file says otherwise. Asked for on 2026-11-12: "Add an Irish language collection."
 
-**STATUS (2026-11-12): A1, A2 and B1 are built** (`.claude/irish/`, §6–§8). B2, C1 and a phrases deck are planned (§5).
+**STATUS (2026-11-12): A1 to B2 are built** (`.claude/irish/`, §6–§9). C1 and a phrases deck are planned (§5).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
 any deck this plan produces. The collection's first commit carried one because it also changed the APP — the
@@ -34,7 +34,7 @@ the owner's to overrule.**
 | Irish A1 Beginner — built | `Irish-A1.folio-deck.json` | 500 |
 | Irish A2 Elementary — built | `Irish-A2.folio-deck.json` | 750 |
 | Irish B1 Intermediate — built | `Irish-B1.folio-deck.json` | 1,000 |
-| Irish B2 Upper Intermediate | `Irish-B2.folio-deck.json` | 1,500 |
+| Irish B2 Upper Intermediate — built | `Irish-B2.folio-deck.json` | 1,500 |
 | Irish C1 Advanced | `Irish-C1.folio-deck.json` | 1,500 |
 | Irish Phrases and Expressions | `Irish-Phrases-and-Expressions.folio-deck.json` | — |
 
@@ -106,7 +106,7 @@ as the adverb "also" (its own entry), not as `le`'s "with him", which `le`'s tab
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 and B1 (done) to C1, one level per session: write the level's inventory
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2, B1 and B2 (done) to C1, one level per session: write the level's inventory
 into `inventory.py` and its `SCOPE` into `irish_level.py`, add its `STAMP` in `build_deck.py`, run, read every card.
 **Phase 3** — a phrases deck (Wiktionary's `phrase` / `proverb` entries and the idioms built on `bí` and a
 preposition: `tá ocras orm`, `is maith liom`), on Swedish's `phrases.py`.
@@ -191,3 +191,32 @@ Nua Béarla–Gaeilge / téarma.ie, is not openly licensed, so none was used.
 `barúntacht`, `ardeaspag`, `fisiceoir`), much of it B2–C1 vocabulary and some of it specialist; it is real Irish and
 stated in the description. B2 and C1 will lean on it further, and their inventories will meet the same dictionary
 ceiling.
+
+## 9. As built (2026-11-12): B2
+
+Asked for on 2026-11-12: "Add B2." `python3 .claude/irish/run.py --level b2`. **1,500 notes: 131 from a 12-topic
+inventory** (`inventory.py` `B2`: the economy, politics and the state, law and justice, science and technology, the
+environment, health and society, mind, belief and identity, culture, the abstract nouns of discussion, verbs of arguing
+and acting, describing and evaluating, formal connectors — `SCOPE['b2']`) **and 1,369 by frequency**; sentences for
+142, three apiece for 16, **none for 1,358**. Every card was read; A1, A2 and B1 re-run byte-identical.
+
+**The inventory is small, and why.** Of about 330 B2 candidates tested against the extract, most were either missing
+from English Wiktionary (`reifreann`, `freasúra`, `athrú aeráide`, `caiteachas`, `iomaíocht`, `cinsireacht`,
+`prionsabal`, `inbhuanaithe`, `fadtéarmach` …) or already taught, because the frequency fill of A1 to B1 had dealt them
+(`polasaí`, `toghchán`, `taighde`, `teoiric`). Only the 131 left are this level's own. The rest of the level is the
+Irish Wikipedia's frequency tail: real and mostly formal Irish (`boilsciú`-like words come by both routes), with the
+encyclopaedia's specialist nouns (`hidreacarbón`, `crómasóm`, `leictreamaighnéadach`) among them.
+
+**What the B2 ranking turned up**, each in `select.EXCLUDE` or a `build_deck.py` table with its reason:
+- **Entries with only a pointer for a gloss** (`pé`, `tapaidh`, `itear`, `stiúraigh`, `soiléire`, `sonraí`, `doimhne`):
+  `check-irish.js` caught each as an English side of labels only. A generic rule in `select.py` would also drop A1's
+  `ba`, whose meaning `GLOSS` writes, so they are listed one by one.
+- Names and place names' pieces (`gráinne`, `eithne`, `guaire`, `cadhan` ← Ó Cadhain, `leitir`, `corcair` ← Corcaigh,
+  `ráthach`), letter names (`ear`, `ex`), phrase-only words (`muin`, `aisce`, `dhea`, `éindí`, `cuimhin`, `foláir`),
+  prefixes counted as words (`mion-`, `sár-`), and rare words with another word's count.
+- The wrong sense first: `LEAD` puts `botún` "mistake" (not "farrier's knife"), `cailleach` "hag" (not "nun"), `ráfla`
+  "rumour", `spéisiúil` "interesting", `cill` "cell", `daoradh` "conviction" first; `feis` (only "spending the night",
+  never "festival") is excluded. `athrú` and `coireacht` were dropped from the inventory for A2's and B1's reasons.
+
+**Known, left.** Tatoeba has no Irish sentences at this level to speak of: nine in ten cards carry none, and the
+description says so. C1 will be almost wholly the frequency tail.

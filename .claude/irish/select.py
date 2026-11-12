@@ -105,6 +105,28 @@ EXCLUDE = {
     'arna': 'met only in arna mhárach', 'deara': 'met only in faoi deara', 'té': 'met only in an té',
     'arb': 'a copula form', 'arbh': 'a copula form', 'níorbh': 'a copula form', 'nárbh': 'a copula form',
     'murab': 'a copula form',
+    # Read off the B2 ranking (2026-11-12): Wiktionary gives these only a pointer, no meaning
+    'pé': 'glossed only as a pointer', 'tapaidh': 'glossed only as a pointer (to tapa, A2)',
+    'itear': 'a form of ith (A1)', 'stiúraigh': 'glossed only as a pointer (to stiúir)',
+    'soiléire': 'glossed only as a pointer (to soiléir, B1)', 'sonraí': 'glossed only as a pointer (to sonra)',
+    # NAMES AND PLACE NAMES' PIECES
+    'gráinne': 'counted from the name Gráinne', 'eithne': 'counted from the name Eithne',
+    'guaire': 'counted from the name Guaire', 'cadhan': 'counted from the surname Ó Cadhain',
+    'leitir': 'counted from place names (Leitir Ceanainn ...)', 'corcair': 'its count is Corcaigh "Cork"',
+    'ráthaigh': 'counted from place names (Ráth ...)', 'ráthach': 'counted from place names (Ráth ...)',
+    'fail': 'counted from Inis Fáil', 'sanas': 'its count is not "the Annunciation"',
+    # PHRASE-ONLY WORDS, LETTER NAMES, FORMS, RARE WORDS WITH ANOTHER'S COUNT
+    'muin': 'met in ar muin', 'aisc': 'met in ar aisce "free"', 'aisce': 'met in ar aisce "free"',
+    'dhea': 'met only in mar dhea', 'éindí': 'met only in in éindí', 'cuimhin': 'met only in is cuimhin le',
+    'ear': 'a letter name', 'ex': 'a letter name', 'hé': 'its count is not the interjection',
+    'thú': 'a form of tú (A1)', 'lenar': 'a preposition-and-relative form',
+    'mion': 'met mostly as the prefix mion-', 'sár': 'its count is the prefix sár-',
+    'barrach': 'its count is not "tow (of flax)"', 'arc': 'its count is not "a piglet"',
+    'car': 'its count is not "to love"', 'feis': 'its senses are not the everyday "festival"',
+    'ana': 'rare', 'éar': 'rare', 'maig': 'rare', 'aom': 'rare', 'igín': 'rare', 'gallach': 'rare',
+    'leachtach': 'rare', 'gríofa': 'rare', 'dos': 'its count is not "a tuft"', 'hap': 'rare',
+    'seanóir': 'its first sense is slang', 'doimhne': 'glossed only as a pointer (to doimhneacht)',
+    'foláir': 'met only in ní foláir "must"',
     'rinn': 'a point, a star; counted from place names (Rinn Mhic Gormáin ...)', 'fód': 'a sod; rare',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
