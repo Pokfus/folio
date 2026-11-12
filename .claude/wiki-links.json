@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T08:07Z",
+ "generated": "2026-11-12T08:10Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7672,
-  "redirect-broader": 747,
+  "ok": 7679,
+  "redirect-broader": 748,
   "redirect-variant": 463,
   "section-redirect": 175,
   "disambiguation": 153,
-  "none": 1133,
+  "none": 1135,
   "disambig-resolved": 102,
   "list-page": 6,
   "search-match": 9,
@@ -83510,6 +83510,91 @@
    "answer": "Thomas Edison",
    "title": "Thomas Edison",
    "url": "https://en.wikipedia.org/wiki/Thomas_Edison",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-661": {
+   "answer": "destruction of the bison",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "American bison hunting",
+    "Bison",
+    "American bison",
+    "History of the United States",
+    "Great bison belt"
+   ]
+  },
+  "us-662": {
+   "answer": "cattle kingdom",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of cattle terminology",
+    "Highland cattle",
+    "United States",
+    "Aberdeen Angus",
+    "American Brahman"
+   ]
+  },
+  "us-663": {
+   "answer": "cattle drive",
+   "title": "Droving",
+   "url": "https://en.wikipedia.org/wiki/Droving",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Cattle drive"
+  },
+  "us-664": {
+   "answer": "cowboy",
+   "title": "Cowboy",
+   "url": "https://en.wikipedia.org/wiki/Cowboy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-665": {
+   "answer": "Frontier Thesis",
+   "title": "Frontier Thesis",
+   "url": "https://en.wikipedia.org/wiki/Frontier_Thesis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-666": {
+   "answer": "Frederick Jackson Turner",
+   "title": "Frederick Jackson Turner",
+   "url": "https://en.wikipedia.org/wiki/Frederick_Jackson_Turner",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-667": {
+   "answer": "boomtown",
+   "title": "Boomtown",
+   "url": "https://en.wikipedia.org/wiki/Boomtown",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-668": {
+   "answer": "Comstock Lode",
+   "title": "Comstock Lode",
+   "url": "https://en.wikipedia.org/wiki/Comstock_Lode",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-669": {
+   "answer": "frontier myth",
+   "title": "Frontier myth",
+   "url": "https://en.wikipedia.org/wiki/Frontier_myth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-670": {
+   "answer": "rain follows the plow",
+   "title": "Rain follows the plow",
+   "url": "https://en.wikipedia.org/wiki/Rain_follows_the_plow",
    "via": "glossary",
    "status": "ok"
   }

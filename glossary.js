@@ -10637,7 +10637,16 @@ window.GLOSSARY = {
 "J._P._Morgan": "",
 "Robber_baron_(industrialist)": "",
 "Sherman_Antitrust_Act": "",
-"Thomas_Edison": ""
+"Thomas_Edison": "",
+"Destruction_of_the_bison": "",
+"Cattle_kingdom": "",
+"Cattle_drives_in_the_United_States": "",
+"Cowboy": "",
+"Frontier_Thesis": "",
+"Frederick_Jackson_Turner": "",
+"Comstock_Lode": "",
+"Frontier_myth": "",
+"Rain_follows_the_plow": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -15700,7 +15709,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Standard_Oil": "1870–1911",
 "J._P._Morgan": "1837–1913",
 "Sherman_Antitrust_Act": "1890",
-"Thomas_Edison": "1847–1931"
+"Thomas_Edison": "1847–1931",
+"Frederick_Jackson_Turner": "1861–1932",
+"Rain_follows_the_plow": "c. 1880–1890"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -22557,7 +22568,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Reconstruction_Era_National_Historical_Park": ["Reconstruction Era National Monument"],
 "Technological_and_industrial_history_of_the_United_States": ["Industrialisation of the United States","industrialization of the United States","American industrialisation"],
 "J._P._Morgan": ["J. P. Morgan","J. Pierpont Morgan","John Pierpont Morgan"],
-"Robber_baron_(industrialist)": ["Robber baron","robber baron","robber barons"]
+"Robber_baron_(industrialist)": ["Robber baron","robber baron","robber barons"],
+"Destruction_of_the_bison": ["bison slaughter","buffalo slaughter","destruction of the buffalo","extermination of the bison"],
+"Cattle_kingdom": ["cattle kingdom","open-range cattle industry","cattle boom"],
+"Cattle_drives_in_the_United_States": ["cattle drive","cattle drives","long drive","trail drive"],
+"Frontier_Thesis": ["frontier thesis","Turner thesis","Turner Thesis"],
+"Frontier_myth": ["frontier myth","myth of the West","myth of the frontier","Wild West myth"],
+"Rain_follows_the_plow": ["rain follows the plough"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -33356,7 +33373,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "J._P._Morgan": ["person","history","finance","business","united states"],
 "Robber_baron_(industrialist)": ["concept","history","economics","business"],
 "Sherman_Antitrust_Act": ["text","law","history","economics","united states"],
-"Thomas_Edison": ["person","history","technology","science","united states"]
+"Thomas_Edison": ["person","history","technology","science","united states"],
+"Destruction_of_the_bison": ["event","history","environment","great plains","united states"],
+"Cattle_kingdom": ["industry","history","economics","great plains","united states"],
+"Cattle_drives_in_the_United_States": ["practice","history","economics","great plains","united states"],
+"Cowboy": ["people","history","ranching","united states"],
+"Frontier_Thesis": ["theory","history","historiography","united states"],
+"Frederick_Jackson_Turner": ["person","history","historiography","united states"],
+"Comstock_Lode": ["place","history","mining","nevada","united states"],
+"Frontier_myth": ["concept","history","culture","united states"],
+"Rain_follows_the_plow": ["theory","history","environment","great plains","united states"]
 });
 
 /* ============================================================================
