@@ -3533,7 +3533,8 @@ changed was the one that had been wrong all along.
   `decks/Swahili-A1.folio-deck.json`** (500 notes / 1,000 cards) **, A2, `decks/Swahili-A2.folio-deck.json`**
   (750 / 1,500) **, B1, `decks/Swahili-B1.folio-deck.json`** (1,000 / 2,000) **, B2,
   `decks/Swahili-B2.folio-deck.json`** (1,500 / 3,000) **and C1, `decks/Swahili-C1.folio-deck.json`** (1,500 / 3,000;
-  ranked on two written corpora, CCMatrix and WikiMatrix, counted into a file of its own). `python3 .claude/swahili/run.py [--level a1]`,
+  ranked on two written corpora, CCMatrix and WikiMatrix, counted into a file of its own), **and the phrases
+  deck, `decks/Swahili-Phrases-and-Expressions.folio-deck.json`** (284 / 568, `--level phr`). `python3 .claude/swahili/run.py [--level a1]`,
   `node .claude/swahili/check-swahili.js`; a re-run is byte-identical. No frequency list exists, so two OPUS
   corpora (OpenSubtitles 2024, Global Voices) are counted and ranked by the geometric mean of their rates, and a
   verb parser credits conjugated forms to their stems; verbs print as infinitives, adjectives as stems, nouns

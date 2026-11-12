@@ -5,7 +5,7 @@ twelfth language set in the shape of the ones already shipped (Hindi, Russian TO
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Swahili language collection."
 
-**STATUS (2026-11-12): A1 to C1 are built** (`.claude/swahili/`, §6–§10). The phrases deck is not.
+**STATUS (2026-11-12): the set is complete — A1 to C1 and the phrases deck are built** (`.claude/swahili/`, §6–§11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (folded into the day's Hindi line)
@@ -30,6 +30,7 @@ for a language with no exam list — **open to the owner's correction**:
 | Swahili B1 Intermediate — built | `Swahili-B1.folio-deck.json` | 1,000 |
 | Swahili B2 Upper Intermediate — built | `Swahili-B2.folio-deck.json` | 1,500 |
 | Swahili C1 Advanced — built | `Swahili-C1.folio-deck.json` | 1,500 |
+| Swahili Phrases and Expressions — built | `Swahili-Phrases-and-Expressions.folio-deck.json` | 284 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule.
 
@@ -94,7 +95,7 @@ Wiktionary senses are odd for a beginner (`-weza` "to be unwell"), shown as the 
 
 **Phase 1 (done)** — the pipeline and A1. **Phase 2 (done)** — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `swahili_level.py`, run, read every card.
-**Phase 3** — the phrases deck (`phrase` / `proverb` entries — Wiktionary has 34 proverbs — and multi-word lemmas).
+**Phase 3 (done)** — the phrases deck (`phrase` / `proverb` entries — Wiktionary has 34 proverbs — and multi-word lemmas).
 
 ## 6. As built (2026-11-09): A1
 
@@ -230,3 +231,34 @@ Swahili has almost nothing at this level. A re-run is byte-identical, `lex.json`
   which is what written C1 Swahili looks like. Two spellings of one word appear as two cards where Wiktionary
   has two entries (`teolojia` / `theolojia`, `seneti` / `senati`), each labelled "not X" as the shared-English
   rule does.
+
+## 11. As built (2026-11-12): the phrases deck
+
+`python3 .claude/swahili/run.py --level phr` (`select.phrases`; `phr` in `swahili_level.py` is a seventh "level",
+not a CEFR band). 284 phrases: 35 set phrases and greetings, 29 proverbs, 34 idioms and 186 other multi-word
+expressions; sentences for 62, three apiece for 22. A re-run is byte-identical, and **A1 to C1 are byte-identical
+after every change below**.
+
+- **THE POOL.** Russian's two tests — a part of speech only a phrase has (`phrase`, `proverb`, `prep_phrase`), OR
+  a multi-word entry with a sense tagged `idiomatic` (`kutia chumvi` "to exaggerate"; its card says "idiom,
+  verb") — and, because Swahili builds so much from a light verb and a noun, every multi-word VERB, INTERJECTION,
+  ADVERB, PREPOSITION and DETERMINER as well (`kupiga simu` "to phone", `asante sana`, `kwa kweli`, `kwa niaba
+  ya`). Not a compound noun (`mpira wa miguu` is a word: 1,052 of them) nor a spelled-out number (93). Whatever a
+  level deck teaches is left out, as is a lemma whose every sense is weak (rare, slang).
+- **THE ORDER** is how often each phrase occurs in the subtitles and Global Voices TOGETHER, per million words
+  (`phrase_counts`): summed, not the levels' geometric mean, which would need a phrase in both and leaves almost
+  every phrase at 0. A multi-word verb is counted with its head conjugated by the verb parser (`alipiga simu`,
+  `tunafanya kazi`), or as its stem or infinitive; everything else as its words in sequence. **The 121 phrases the
+  corpora never use are kept and dealt last, alphabetically** — most of the proverbs among them (the Russian
+  finding: the corpus must not set the syllabus). `examples.py` matches a verb phrase the same way, for this deck
+  only (A1's `-wa na` keeps the exact match it shipped with).
+- **Left out, with reasons in `select.EXCLUDE` / `OATH`**: `kwa mujibu` and `mujibu wa`, fragments of C1's `kwa
+  mujibu wa`; the verbs for sex (`kufanya mapenzi`, `kulala pamoja`, `kushiriki ngono`, `kukutana kimwili`,
+  `kushiriki kitanda`, `kupiga punyeto`), as B2 left out `kujamiiana`; an insult (`umbwa hii`), a vulgar gloss
+  (`pambana na hali yako`), Wiktionary's genital euphemism `huko chini` and its queried `kula mate`; and three
+  obscenities refused on the spelling. The deck's description says a few were left out and why.
+- **Known, left**: most proverbs carry Wiktionary's explanation rather than a gloss ("This proverb emphasizes the
+  importance of keeping one's word"), shown as the source has it; several near-synonyms are separate cards where
+  Wiktionary has separate entries (`kupiga busu` / `kupiga kisi` / `kupiga kimunju` "to kiss", the three ways of
+  asking a price), each labelled "not X" by the shared-English rule; a few are Kenyan youth slang (`niko kadi`,
+  `kupiga luku`) and are labelled so in their glosses.

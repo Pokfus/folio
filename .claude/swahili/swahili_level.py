@@ -34,6 +34,15 @@ TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500, 'c1': 1500}
 
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
 
+# THE PHRASES DECK (`--level phr`) is not a CEFR band: every set phrase, proverb, idiom and
+# multi-word expression the five levels do not teach (`select.phrases`).  The Russian and
+# Portuguese sets' arrangement.
+NAMES['phr'] = 'Phrases and Expressions'
+TITLES['phr'] = 'Swahili Phrases and Expressions'
+DECK_IDS['phr'] = 'swahiliphr'
+DECK_FILES['phr'] = 'Swahili-Phrases-and-Expressions.folio-deck.json'
+BELOW['phr'] = list(BANDS)
+
 SCOPE = {
     'a1': {
         'quote': 'Can understand and use familiar everyday expressions and very basic '

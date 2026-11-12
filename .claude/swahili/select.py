@@ -115,6 +115,19 @@ EXCLUDE = {
     'mavi': '"dung, excrement": a crude word',
     'punyeto': '"masturbation": left out, as kujamiiana is',
     'mfanyi': 'a word-forming element, like mfanya',
+    # read off the phrases deck (2026-11-12)
+    'kwa mujibu': 'a fragment of kwa mujibu wa "according to", which C1 teaches',
+    'mujibu wa': 'a fragment of kwa mujibu wa "according to", which C1 teaches',
+    'fanya mapenzi': '"to have sex": left out, as kujamiiana is',
+    'lala pamoja': '"to sleep together": left out, as kujamiiana is',
+    'shiriki ngono': '"to have sex": left out, as kujamiiana is',
+    'kutana kimwili': '"to have sex": left out, as kujamiiana is',
+    'shiriki kitanda': '"to engage in sexual intercourse": left out, as kujamiiana is',
+    'piga punyeto': '"to masturbate": left out, as punyeto is',
+    'umbwa hii': 'Wiktionary\'s only sense is "an insult"',
+    'pambana na hali yako': "Wiktionary's gloss is vulgar",
+    'huko chini': "Wiktionary's only sense is a genital euphemism; huko and chini are A1",
+    'kula mate': 'Wiktionary queries its only sense ("can this sense be confirmed?")',
 }
 
 # Swearing and insults are never in a level deck.
@@ -165,8 +178,91 @@ def says_all(L):
     return {say_of(L, e['pos']) for e in L['entries']} | {L['word'].lower()}
 
 
+# THE PHRASES DECK'S POOL (`--level phr`).  Russian's two tests -- a part of speech only a
+# phrase has, OR a multi-word entry with a sense Wiktionary tags `idiomatic` -- and, because
+# Swahili builds so much from a light verb and a noun (`piga simu` "to phone", `fanya kazi`
+# "to work"), every multi-word VERB, INTERJECTION, ADVERB, PREPOSITION and DETERMINER too.
+# Not a compound NOUN (`mpira wa miguu` is a word, not a phrase) nor a spelled-out NUMBER
+# (`arobaini na mbili`).  A lemma whose every sense is weak (rare, slang ...) is left out.
+PHRASE_POS = {'phrase', 'proverb', 'prep_phrase'}
+MULTI_POS = {'verb', 'intj', 'adv', 'prep', 'det'}
+# Obscenities and insults, refused on the spelling (Russian's `OATH`).
+OATH = {'kuma ya mamako', 'mkundu wako', 'mavi ya mbuzi'}
+
+
+def phrase_kind(L):
+    pos = {e['pos'] for e in L['entries']}
+    if pos & PHRASE_POS:
+        return 'proverb' if 'proverb' in pos else 'phrase'
+    if any('idiomatic' in g['tags'] for e in L['entries'] for g in e['glosses']):
+        return 'idiom'
+    if pos & MULTI_POS:
+        return 'expression'
+    return ''
+
+
+def phrase_counts(keys, lex):
+    """How often each phrase occurs in the subtitles and Global Voices TOGETHER, per million
+    words: a phrase is too rare for the levels' geometric mean, which needs it in both.  A
+    multi-word VERB is counted with its head conjugated (`alipiga simu`, `tunafanya kazi`) by
+    the verb parser, or as its stem or infinitive; everything else as its words in sequence."""
+    import gzip
+    from sw import tokens, VerbParser
+    parser, heads, want = VerbParser(), {}, {}
+    for k in keys:
+        w = k.split()
+        if any(e['pos'] == 'verb' for e in lex[k]['entries']):
+            parser.add(w[0])
+            heads.setdefault(w[0], []).append(tuple(w[1:]))
+        want.setdefault(w[0], []).append(tuple(w[1:]))
+    count, total = {k: 0 for k in keys}, 0
+    for c in ('os-sw.txt.gz', 'gv-sw.txt.gz'):
+        for line in gzip.open(c, 'rt', encoding='utf-8'):
+            t = tokens(line)
+            total += len(t)
+            for i, tok in enumerate(t):
+                for rest in want.get(tok, ()):
+                    if tuple(t[i + 1:i + 1 + len(rest)]) == rest:
+                        count[' '.join((tok,) + rest)] += 1
+                bare = {x for x in (tok, tok[2:] if tok[:2] in ('ku', 'kw') else '') if x in heads}
+                for h in (parser.lemmas(tok) if len(tok) > 3 else set()) | bare:
+                    for rest in heads.get(h, ()):
+                        if tuple(t[i + 1:i + 1 + len(rest)]) == rest:
+                            count[' '.join((h,) + rest)] += 1
+    return {k: round(v * 1e6 / total, 2) for k, v in count.items()}
+
+
+def phrases(lex, below):
+    """Every phrase of the pool the levels do not teach, the commonest first; those the
+    corpora never use are KEPT and dealt last, alphabetically (the corpus must not set the
+    syllabus: a proverb is rarely in a subtitle)."""
+    swears = {norm(s) for s in SWEARS} | OATH
+    pool = []
+    for k, L in sorted(lex.items()):
+        if ' ' not in k or k in swears or k in EXCLUDE or not usable(L):
+            continue
+        kind = phrase_kind(L)
+        if not kind or says_all(L) & below or ('ku' + k) in below:
+            continue
+        pool.append((k, kind))
+    freq = phrase_counts([k for k, _ in pool], lex)
+    rows = [{'key': k, 'word': lex[k]['word'], 'say': say_of(lex[k]), 'freq': freq[k], 'pos': '',
+             'source': kind, 'topic': ''} for k, kind in pool]
+    rows.sort(key=lambda r: (-r['freq'], r['key']))
+    return rows
+
+
 def main():
     lex = json.load(open('lex.json', encoding='utf-8'))
+    if LEVEL == 'phr':
+        rows = phrases(lex, words_below())
+        json.dump(rows, open(f('selected.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
+        kinds = {}
+        for r in rows:
+            kinds[r['source']] = kinds.get(r['source'], 0) + 1
+        print(f'  {len(rows)} phrases:', ', '.join(f'{v} {k}' for k, v in sorted(kinds.items())),
+              f'; {sum(1 for r in rows if r["freq"] == 0)} never in the corpora (dealt last)')
+        return
     if LEVEL == 'c1':
         WEB.update(json.load(open('lex-web.json', encoding='utf-8')))
     below = words_below()
