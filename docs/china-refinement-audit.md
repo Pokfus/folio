@@ -213,14 +213,14 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Jie as the bad last king | the last Xia king's cruelty and fall as the *Shiji* and the *Shangshu* tell it; the bad-last-ruler pattern shared with Di Xin, a reading after Lewis — set B6 (`cnh-058`) | `cnh-058` | `cnh-068` | `cnh-102` (Di Xin) |
 | Tang's self-offering for rain | five years of drought, the mulberry grove, his hair cut, rain (the *Lüshi Chunqiu*, "Shun min") — set B7 (`cnh-068`) | `cnh-068` | — | — |
 | The nine ding | passed from Xia to Shang to Zhou (the *Zuo Zhuan*, Duke Xuan 3; the *Mozi*); the Qin capture and the Si River search (the *Shiji*), carved on Eastern Han shrines — set B9 (`cnh-083`) | `cnh-083` | `cnh-012`, `cnh-028` | `cnh-124` |
-| Di Xin as the bad last king | the wine pool and the forest of meat, Daji, Bigan's heart cut out, the burning on the Deer Terrace (the *Shiji*, c. 100 BCE, after Warring States tellings); doubted already in the *Analects* (Zigong: "not as bad as that"); the pattern shared with Jie — PROVISIONAL (second hundred, set at its opening) | `cnh-102` | `cnh-103`, `cnh-105`, `cnh-106` | `cnh-058` (Jie) |
-| Houji and the birth of the Zhou | Jiang Yuan treading in the god's footprint, the child thrice abandoned and saved, the founder of millet farming; the *Shijing* "Sheng min" (a Western Zhou court ode), retold in the *Shiji*'s Zhou annals — PROVISIONAL | — | `cnh-111`, `cnh-127` | — |
-| The Mandate of Heaven | Heaven taking its charge from the Shang for misrule and giving it to the Zhou; in Western Zhou bronzes (the He zun, the Da Yu ding) and the *Shangshu* "Zhou" chapters held early ("Kang gao", "Shao gao", "Duo shi"); the right to remove a bad ruler as Mencius later reads it — PROVISIONAL | `cnh-117` | `cnh-103`, `cnh-105`, `cnh-111`, `cnh-113`, `cnh-114`, `cnh-118` | — |
-| King Wen and King Wu and the conquest | King Wen held at Youli and the *Yijing*'s hexagrams credited to him (Han tradition); the gathering of lords at Mengjin (the *Shiji*'s 800); the oath before battle (the *Shangshu* "Mu shi"); Muye on a *jiazi* morning (the Li gui, a contemporary bronze, names the *jiazi* day); the "Wu cheng" pestles floating in blood, which Mencius refused to believe — PROVISIONAL | `cnh-113`, `cnh-114`, `cnh-104` | `cnh-103`, `cnh-105`, `cnh-111` | — |
-| The Duke of Zhou's regency | regent for the young King Cheng, crushing the Three Guards and the Shang prince Wugeng, building the eastern capital, and handing power back after seven years (the *Shangshu* chapters and the *Shiji*); some Warring States texts (the *Xunzi*) say he held the throne itself; the maker of the Zhou rites, a later tradition (the *Zhouli* credited to him) — PROVISIONAL | `cnh-115` | `cnh-116`, `cnh-121`, `cnh-122`, `cnh-124` | — |
-| The Gonghe regency | two readings: the dukes of Zhou and Shao ruling together (the *Shiji*) or He, the Earl of Gong, ruling (the *Bamboo Annals*, the excavated *Xinian*); 841 BCE the first year of the continuous count either way — PROVISIONAL | `cnh-134` | `cnh-133`, `cnh-135` | — |
-| Baosi and the beacon fires | Baosi born of the dragons' foam kept since the Xia; King You lighting the beacons to make her laugh until the lords stopped coming (the *Shiji*, c. 100 BCE; a drum version in the *Lüshi Chunqiu*); the excavated *Xinian* (Warring States) tells the fall with no beacons — PROVISIONAL | `cnh-137` | `cnh-136`, `cnh-138` | — |
-| The end of the Western Zhou and the two kings | the Marquis of Shen and the Quanrong kill King You; King Ping raised in the east while a rival, King Xie (Yuchen) of Hui, ruled for some years (the *Bamboo Annals* and the *Xinian*; the *Shiji* gives only Ping) — PROVISIONAL | `cnh-138`, `cnh-139` | `cnh-136`, `cnh-140`, `cnh-141` | — |
+| Di Xin as the bad last king | the wine pool and the forest of meat, Daji, Bigan's heart cut out, the burning on the Deer Terrace (the *Shiji*, c. 100 BCE, after Warring States tellings); doubted already in the *Analects* (Zigong: "not as bad as that"); the oldest charge the "Mu shi"'s (he follows his wife's words and neglects the sacrifices); the excavated *Rongchengshi* already tells of evil last rulers; the pattern shared with Jie; one study holds Daji invented — confirmed B11 (`cnh-102`, `cnh-106`) | `cnh-102` | `cnh-103`, `cnh-105`, `cnh-106` | `cnh-058` (Jie) |
+| Houji and the birth of the Zhou | Jiang Yuan treading in the god's footprint, the child thrice abandoned and saved, the founder of millet farming; the *Shijing* "Sheng min" (a temple ode to the royal ancestors; one translation names the mother Lady Shengmin), retold in the *Shiji*'s Zhou annals — confirmed B12–B13 (`cnh-111`, `cnh-127`); no open source dates the ode's composition | — | `cnh-111`, `cnh-127` | — |
+| The Mandate of Heaven | Heaven taking its charge from the Shang for misrule and giving it to the Zhou; in Western Zhou bronzes (the He zun, the Da Yu ding) and the *Shangshu* "Zhou" chapters held early ("Kang gao", "Shao gao", "Duo shi"); the right to remove a bad ruler as Mencius later reads it (the "mere fellow"); Dong Zhongshu's Han omens — confirmed B11–B12 (`cnh-105`, `cnh-117`: the formula "Yin let fall its command" in four early chapters and on the Da Yu ding); the He zun on no page read | `cnh-117` | `cnh-103`, `cnh-105`, `cnh-111`, `cnh-113`, `cnh-114`, `cnh-118` | — |
+| King Wen and King Wu and the conquest | King Wen held at Youli and the *Yijing*'s hexagrams credited to him (Han tradition); the gathering of lords at Mengjin (the *Shiji*'s 800); the oath before battle (the *Shangshu* "Mu shi"); Muye on a *jiazi* morning (the Li gui, a contemporary bronze, names the *jiazi* day); the "Wu cheng" pestles floating in blood, which Mencius refused to believe (82 words of the "Wu cheng" survive, quoted in the *Hanshu*) — confirmed B11–B12 (`cnh-103`, `cnh-104`, `cnh-113`, `cnh-114`; the 800 lords in both the *Shiji*'s Yin and Zhou annals; whether the "Mu shi" is a genuine early Zhou text, no open source said) | `cnh-113`, `cnh-114`, `cnh-104` | `cnh-103`, `cnh-105`, `cnh-111` | — |
+| The Duke of Zhou's regency | regent for the young King Cheng, crushing the Three Guards and the Shang prince Wugeng, building the eastern capital, and handing power back after seven years (the *Shangshu* chapters and the *Shiji*); some Warring States texts (the *Xunzi*, "Ru xiao") say he held the throne itself; one study reads the Tsinghua "Jinteng" manuscript the same way; the metal-bound coffer chapter dated late Eastern Zhou by most scholars; the maker of the Zhou rites, a later tradition (the *Zhouli* credited to him, not re-sourced) — confirmed B12 (`cnh-115`, `cnh-114`) | `cnh-115` | `cnh-116`, `cnh-121`, `cnh-122`, `cnh-124` | — |
+| The Gonghe regency | two readings: the dukes of Zhou and Shao ruling together (the *Shiji*) or He, the Earl of Gong, ruling (the *Bamboo Annals*, and the *Zhuangzi* as Chavannes notes); the excavated *Xinian* gives the regency fourteen years, whether it names He not confirmed; 841 BCE the first year of the continuous count (one study, Zhang 2023, moves it to 850 – 837 BCE) — confirmed B14 (`cnh-134`) | `cnh-134` | `cnh-133`, `cnh-135` | — |
+| Baosi and the beacon fires | Baosi born of the dragons' foam kept since the Xia; King You lighting the beacons to make her laugh until the lords stopped coming (the *Shiji*, c. 100 BCE; a drum version in the *Lüshi Chunqiu*); the excavated *Xinian* (Warring States) tells the fall with no beacons; the "Zheng yue" ode of the *Shijing* names her first — confirmed B14 (`cnh-136`, `cnh-137`), the drum version not checked | `cnh-137` | `cnh-136`, `cnh-138` | — |
+| The end of the Western Zhou and the two kings | the Marquis of Shen and the Quanrong kill King You; King Ping raised in the east while a rival, Yuchen, King Hui of Xie, ruled for 21 years until the Marquis of Jin killed him (the *Bamboo Annals*, where the duke of Guo raises him and he is a son of King You, and the *Xinian*, where he is the dead king's younger brother; the *Shiji* gives only Ping) — confirmed B14 (`cnh-138`, `cnh-139`: Zhang 2023, Legge) | `cnh-138`, `cnh-139` | `cnh-136`, `cnh-140`, `cnh-141` | — |
 | The Three Sovereigns and Five Emperors | the lists differ by text: the *Shiji*'s Five Emperors (Yellow Emperor, Zhuanxu, Ku, Yao, Shun); Three Sovereigns as Heavenly, Earthly and Human or Grand (the *Shiji*'s Qin annals), or as Fuxi, Nüwa and Shennong, or Fuxi, Shennong and the Yellow Emperor, or Fuxi, Suiren and Shennong, or Fuxi, Zhurong and Shennong in other texts; Sima Zhen's Tang chapter supplies Fuxi, Nüwa and Shennong — confirmed B1 (`cnh-002`, Chavannes) | `cnh-002` | `cnh-003`–`cnh-007`, `cnh-040` | `cnh-879` |
 
 ## Working a card
@@ -308,7 +308,7 @@ otherwise.
 | B11 | Shang (`col-3`) | `cnh-101`–`cnh-110` | 10 | 113 | **done 2026-11-12** |
 | B12 | Western Zhou (`col-4`) | `cnh-111`–`cnh-120` | 10 | 110 | **done 2026-11-12** |
 | B13 | Western Zhou (`col-4`) | `cnh-121`–`cnh-130` | 10 | 119 | **done 2026-11-12** |
-| B14 | Western Zhou (`col-4`) | `cnh-131`–`cnh-140` | 10 | 124 | to do |
+| B14 | Western Zhou (`col-4`) | `cnh-131`–`cnh-140` | 10 | 124 | **done 2026-11-12** |
 | B15 | Eastern Zhou (`col-5`) | `cnh-141`–`cnh-150` | 10 | 116 | to do |
 | B16 | Eastern Zhou (`col-5`) | `cnh-151`–`cnh-160` | 10 | 107 | to do |
 | B17 | Eastern Zhou (`col-5`) | `cnh-161`–`cnh-170` | 10 | 121 | to do |
@@ -567,6 +567,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-128` | none | not re-checked (Commons 429): the card has no picture — wanted |
 | `cnh-129` | none | not re-checked (Commons 429): the card has no picture — wanted |
 | `cnh-130` | a halberd beside a text panel | not re-checked (Commons 429): wrong: burned-in text, one weapon — replace |
+| `cnh-131` | the graph Xianyun in a Duo You ding rubbing | not re-checked (Commons 429): ok; the credit names no author |
+| `cnh-132` | a Joseon screen of the Queen Mother's visit | not re-checked (Commons 429): ok |
+| `cnh-133` | the Duo You ding with a printed transcription | not re-checked (Commons 429): wrong: burned-in text, a general's vessel — the king's own Hu gui wanted |
+| `cnh-134` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-135` | the Mao Gong ding inscription | not re-checked (Commons 429): weak: not the king, and its reign argued — replace |
+| `cnh-136` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-137` | a later painting of the beacon story | not re-checked (Commons 429): ok |
+| `cnh-138` | a map of the Zhou realm under King Xuan | not re-checked (Commons 429): weak: the kingdom, not the sack |
+| `cnh-139` | the Luoyang six-horse chariot pit | not re-checked (Commons 429): weak: an Eastern Zhou burial, not the move |
+| `cnh-140` | the Shi Qiang pan | not re-checked (Commons 429): ok; the credit names no licence — check |
 
 ## Glossary candidates
 
@@ -1147,3 +1157,40 @@ mother"); Yao and Shun: the Canons "on their own showing" later compilations; th
 lines**: none in this batch; the 23 diffed unchanged. Sourcing note for the owner: `cnh-123` and `cnh-130` cite Eno's
 open teaching translation of the inscriptions, which asks to be replaced by Cook and Goldin's source book where that is
 available; it is not open here.
+
+### B14 — `cnh-131`–`cnh-140`, Western Zhou: the Xianyun to the Western Zhou legacy (2026-11-12)
+
+Run as B11. Every cited URL answered (one Cambridge chapter DOI redirects to its paywalled page). **Pictures were not
+touched** (Commons 429). **The old cards put a converted regnal year naming a man ("King Xuan's 1st year, c. 827 BCE")
+and a "later called Xiongnu" row on the Xianyun's line, spelt "Quan Rong" and "Gong He", called the 776 BCE eclipse
+"beyond dispute", put Yin Jifu's campaign in King Xuan's first year (the *Bamboo Annals* give the fifth), denied that
+any ode names Baosi (the "Zheng yue" does), turned one article's point about ewers into "all the heartland bronzes come
+from hoards", and gave the move east a count ("Kings at once 2") and a label naming a man.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-131` Xianyun | 5 | 5 → 8 | **The three old rows off; `Battle dated 816 BCE` (one dating of the Duo You ding battle) / `Capital sacked 771 BCE`; rebuilt on the contemporary bronzes (the Duo You ding, the Guo Ji Zibai pan, the Xi Jia pan) and the odes; the Xiongnu link only later commentators' identification**; a Late Shang burial paragraph never tied to the Xianyun dropped. |
+| `cnh-132` King Mu | 6 | 5 → 7 | **"Quan Rong" → Quanrong; the *Mu tianzi zhuan* dated as buried early in the 3rd century BCE and robbed in 279 CE, its core argued Western Zhou; the "Lü xing" redemption code; 976 – 922 BCE the Project's, with 957 and 956 BCE as other reckonings**. Protected: the line stays (rows flagged below). |
+| `cnh-133` King Li | 6 | 5 → 7 | **The reign as the *Shiji*'s story; the speeches (the shaman's spying, the Duke of Shao's dam, Rong Yi's monopoly) sourced to the *Guoyu*, a Warring States compilation, in Chinese; the king's own tureen and bell as evidence of his time; one study's 870 BCE accession**. Protected: the line stays. |
+| `cnh-134` Gonghe regency | 6 | 5 → 6 | **The count and the row naming King Xuan off; `Dated 841 – 828 BCE` (the Project) / `Also dated 850 – 837 BCE` (Zhang 2023); 828 BCE the regency's last year (King Li's death), 827 BCE King Xuan's first; "Gong He" and "Baron" → He, the Earl of Gong; the two readings (the *Shiji*'s two dukes, the *Bamboo Annals*' He); the Hefu inscriptions**. No picture. |
+| `cnh-135` King Xuan | 6 | 5 → 7 | **Yin Jifu's Xianyun campaign no longer in the first year; the Lai pan (at least 43 years) and the Xi Jia pan as bronzes of his time; the Qianmu defeat and the census blame told as the *Guoyu*'s and the *Shiji*'s**; the remonstrance-and-suicide story (from Giles, not re-read) dropped. Protected: the line stays. |
+| `cnh-136` King You | 6 | 5 → 7 | **The 776 BCE eclipse told as a dispute (not visible at the Zhou capital; one study prefers 781 BCE); the beacons as the *Shiji*'s beside the *Xinian*'s account without them; the two kings from the *Bamboo Annals* and the *Xinian***. No picture. Protected: the line stays (795 flagged below). |
+| `cnh-137` Baosi | 6 | 5 → 6 | **The "Zheng yue" ode names her, the earliest mention (Legge dates it to the reign); the dragon foam as the *Shiji*'s retelling of the *Guoyu*; the "evil woman" pattern; the *Xinian* without beacons**. Pinyin Bāosì (the house form). Protected: the line stays. |
+| `cnh-138` sack of Haojing | 6 | 5 → 6 | **Location and Result rows off, now `Sacked 771 BCE`; "Quan Rong" → Quanrong; the *Bamboo Annals*, the *Shiji* and the *Xinian* told apart; the raid as the last phase of the Xianyun wars (Li Feng)**; a claim that Chavannes doubted an ally (on no page read) dropped. |
+| `cnh-139` Zhou move east | 6 | 5 → 7 | **The count and a label naming a man off; `Dated 770 BCE` / `Also dated 769 BCE` (Legge's conversion of the *Bamboo Annals*) / `First reign 770 – 720 BCE`; the two kings as each text tells them (the duke of Guo's candidate; the *Xinian*'s Yuchen, King Hui of Xie, 21 years)**. |
+| `cnh-140` Western Zhou legacy | 6 | 5 → 7 | **"In the flight of 771" (not a date) → `Hoards buried c. 771 BCE` after `Span c. 1046 – 771 BCE`; the ewers claim cut back to what the article says; the royal line's 515 more years at Luoyi, the regional states draining and keeping the court, which *Documents* chapters are held genuine, Confucius's inheritance**. The Zhuangbai hoard left out (no open URL served its sources). |
+
+Read by eye. **Confusability**: the *Xinian*'s siege of the heir in Shen was a phrasing on both `cnh-136` and `cnh-138`;
+`cnh-138`'s now gives the *Shiji*'s plunder at Mount Li; "king" cleared from phrasings of `cnh-132`, `cnh-133`, `cnh-135`
+and `cnh-136`; the two-kings angle stays `cnh-139`'s. **Legend**: Baosi's laugh and the beacons are the *Shiji*'s, set
+against the *Xinian*; King Mu's journey a tomb text's. **Chinese names**: none corrected but `cnh-137`'s pinyin;
+`镐京陷落` and `西周遗产` descriptive (犬戎之乱 is the usual name for the sack, for the owner). **Spellings fixed**: "Quan Rong"
+on `cnh-132` and `cnh-138`, "Gong He" on `cnh-134` — the batch's 3 card hits are now 0. **Myth register**: the Gonghe
+regency confirmed (the *Shiji*'s two dukes; He in the *Bamboo Annals* and the *Zhuangzi*; the *Xinian* gives fourteen
+years but whether it names He was not confirmed; Zhang 2023's 850 – 837 BCE); Baosi: the "Zheng yue" ode is earlier
+than the *Shiji*, the *Lüshi Chunqiu* drum version not checked; the two kings: the *Xinian* makes Yuchen the dead king's
+brother, the *Bamboo Annals* a son, and the ruler is King Hui of Xie (the row had it inverted — corrected). **Protected
+lines: unchanged** (diffed after the apply). For the owner: `cnh-132`'s `Birth 992 BCE` is in no source read and its
+age (69–70) contradicts the *Shiji* (fifty at accession, 55 years) and the "Lü xing" (a hundred); `cnh-136`'s `Birth
+795 BCE` and both ages are in no source read; `cnh-137`'s 781 – 771 BCE is the conventional reign, which Zhang 2023
+moves to 790 – 780 BCE. `cnh-133`'s and `cnh-135`'s rows agree with the sources.

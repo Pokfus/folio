@@ -43,7 +43,7 @@ window.CHANGELOG = [
     t: "100 new United States cards; China cards rewritten",
     items: [
       "100 new cards in <b>United States</b>, from the Constitution's ratification and the early republic to the Jacksonian era and Texas, with 95 new glossary terms.",
-      "<b>30 China cards are rewritten</b>, from the Shang royal women to Zhou warfare, with new sources and dates.",
+      "<b>40 China cards are rewritten</b>, from the Shang royal women to the Western Zhou legacy, with new sources and dates.",
     ],
   },
   {

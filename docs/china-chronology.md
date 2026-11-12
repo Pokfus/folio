@@ -301,6 +301,11 @@ Filled batch by batch from `cnh-101` (B11 on). **The protected lines** of the se
 | the "double dawn" (the Project's calculation) | 21 April 899 BCE | `cnh-128` |
 | the well-field attested (the Mencius) / Wang Mang's revival | c. 380 – 300 BCE / 9 CE | `cnh-129` |
 | Western Zhou warfare | c. 1046 – 771 BCE | `cnh-130` |
+| the Xianyun: the Duo You ding battle (one dating) / the capital sacked | 816 BCE / 771 BCE | Shaughnessy; Li Feng (`cnh-131`) |
+| the Gonghe regency: the Project / Zhang 2023 | 841 – 828 BCE / 850 – 837 BCE | `cnh-134` |
+| the sack of Haojing | 771 BCE | `cnh-138` |
+| the move east: the received date / Legge's conversion / King Ping's reign | 770 BCE / 769 BCE / 770 – 720 BCE | `cnh-139` |
+| the Western Zhou / the hoards buried | c. 1046 – 771 BCE / c. 771 BCE | `cnh-140` |
 
 ## Later periods
 
@@ -458,4 +463,9 @@ cnh-127: 900; 500; 1200; 600
 cnh-128: 1046; 771; 899
 cnh-129: 380; 300; 9
 cnh-130: 1046; 771
+cnh-131: 816; 771
+cnh-134: 841; 828; 850; 837
+cnh-138: 771
+cnh-139: 770; 769; 720
+cnh-140: 1046; 771
 ```
