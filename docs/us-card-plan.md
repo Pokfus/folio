@@ -1311,26 +1311,26 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
 
 ### Emancipation and Black freedom — `us-emancipation`
 
-    us-601  Emancipation in the American Civil War
-    us-602  Contraband (American Civil War)
+    us-601  Slavery during the American Civil War
+    us-602  Contraband
     us-603  Confiscation Acts
     us-604  Emancipation Proclamation
-    us-605  What the Emancipation Proclamation did and did not do
+    us-605  General Order No. 3
     us-606  Abraham Lincoln and slavery
-    us-607  Self-emancipation and the enslaved
+    us-607  Self-emancipation
     us-608  United States Colored Troops
     us-609  54th Massachusetts Infantry Regiment
     us-610  Battle of Fort Pillow
-    us-611  Black soldiers and the fight over equal pay
+    us-611  Militia Act of 1862
     us-612  Thirteenth Amendment
-    us-613  The Civil War home fronts
-    us-614  The Union war economy
-    us-615  The Confederate war economy
-    us-616  Confederate conscription and dissent
+    us-613  Southern bread riots
+    us-614  Greenback
+    us-615  Confederate States dollar
+    us-616  Confederate conscription
     us-617  New York City draft riots
-    us-618  Women in the American Civil War
-    us-619  Civil War medicine
-    us-620  Andersonville and the prison camps
+    us-618  United States Sanitary Commission
+    us-619  Medicine in the American Civil War
+    us-620  Andersonville Prison
 
 ### Reconstruction and its overthrow — `us-reconstruction`
 
@@ -1339,31 +1339,31 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-623  Andrew Johnson
     us-624  Black Codes
     us-625  Freedmen's Bureau
-    us-626  What the freedpeople wanted
+    us-626  Garrison Frazier
     us-627  Forty acres and a mule
     us-628  Sharecropping
     us-629  Civil Rights Act of 1866
     us-630  Fourteenth Amendment
     us-631  Radical Reconstruction
-    us-632  Thaddeus Stevens and the Radical Republicans
+    us-632  Thaddeus Stevens
     us-633  Reconstruction Acts
     us-634  Impeachment of Andrew Johnson
     us-635  Fifteenth Amendment
     us-636  Black officeholders during Reconstruction
-    us-637  Hiram Rhodes Revels and Blanche Bruce
-    us-638  Black schools and churches after emancipation
-    us-639  The Reconstruction state governments
+    us-637  Hiram R. Revels
+    us-638  Freedmen's schools
+    us-639  Carpetbagger
     us-640  Ku Klux Klan
     us-641  Enforcement Acts
     us-642  Colfax massacre
-    us-643  The White League and paramilitary terror
-    us-644  Panic of 1873 and the northern retreat
+    us-643  White League
+    us-644  Panic of 1873
     us-645  Slaughter-House Cases
     us-646  Compromise of 1877
-    us-647  The end of Reconstruction
+    us-647  Redeemers
     us-648  Lost Cause of the Confederacy
-    us-649  The Dunning School and its overthrow
-    us-650  Reconstruction reconsidered
+    us-649  Dunning School
+    us-650  Reconstruction Era National Historical Park
 
 ## The Industrial Nation, 1865–1917
 
@@ -1372,55 +1372,55 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-651  American frontier
     us-652  Homestead Acts
     us-653  First transcontinental railroad
-    us-654  The railroad land grants
-    us-655  Chinese labour and the transcontinental railroad
-    us-656  The Plains wars
+    us-654  Railroad land grants
+    us-655  1867 Chinese Labor Strike
+    us-656  Plains Wars
     us-657  Sand Creek massacre
     us-658  Battle of the Little Bighorn
     us-659  Sitting Bull
-    us-660  Chief Joseph and the Nez Perce flight
-    us-661  The destruction of the bison
-    us-662  The cattle kingdom
-    us-663  The long drive and the cow towns
-    us-664  The cowboy
+    us-660  Nez Perce War
+    us-661  Destruction of the bison
+    us-662  Cattle kingdom
+    us-663  Cattle drive
+    us-664  Cowboy
     us-665  Frontier Thesis
     us-666  Frederick Jackson Turner
-    us-667  Mining booms in the American West
+    us-667  Black Hills Gold Rush
     us-668  Comstock Lode
-    us-669  The myth of the West
-    us-670  Farming the Great Plains
-    us-671  Dry farming, barbed wire and the windmill
-    us-672  Women in the American West
+    us-669  Frontier myth
+    us-670  Rain follows the plow
+    us-671  Barbed wire
+    us-672  Women's suffrage in Wyoming
     us-673  Exodusters
     us-674  Buffalo Soldiers
-    us-675  Irrigation and the settlement of the arid West
+    us-675  Newlands Reclamation Act
     us-676  Alaska Purchase
-    us-677  The overthrow of the Hawaiian Kingdom
-    us-678  Oklahoma land runs
-    us-679  Conservation and the national parks
-    us-680  John Muir and the wilderness idea
+    us-677  Overthrow of the Hawaiian Kingdom
+    us-678  Land Rush of 1889
+    us-679  Yellowstone National Park
+    us-680  John Muir
 
 ### Industry, labour and the corporation — `us-industry`
 
     us-681  Gilded Age
-    us-682  Industrialisation in the United States
-    us-683  Andrew Carnegie and the steel industry
-    us-684  Vertical integration
-    us-685  John D. Rockefeller and Standard Oil
-    us-686  The trust and the holding company
-    us-687  J. P. Morgan and finance capital
+    us-682  Industrialisation of the United States
+    us-683  Andrew Carnegie
+    us-684  Carnegie Steel Company
+    us-685  Standard Oil
+    us-686  Holding company
+    us-687  J. P. Morgan
     us-688  Robber baron
     us-689  Sherman Antitrust Act
-    us-690  Thomas Edison and the electric light
-    us-691  The electrification of America
-    us-692  The telephone and the telegraph
-    us-693  Mass production and the assembly line
+    us-690  Thomas Edison
+    us-691  Rural Electrification Act
+    us-692  Western Union
+    us-693  Assembly line
     us-694  Scientific management
-    us-695  The department store and the mail-order catalogue
-    us-696  Advertising and the American consumer
-    us-697  Industrial work and the working day
-    us-698  Child labour in the United States
-    us-699  Industrial accidents and the Triangle fire
+    us-695  Sears
+    us-696  Advertising agency
+    us-697  Eight-hour day movement
+    us-698  National Child Labor Committee
+    us-699  Triangle Shirtwaist Factory fire
     us-700  Knights of Labor
     us-701  American Federation of Labor
     us-702  Samuel Gompers

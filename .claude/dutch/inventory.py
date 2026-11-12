@@ -60,4 +60,341 @@ A1 = [
                        'leren maken kijken wachten worden opstaan heten zoeken helpen'),
 ]
 
-INVENTORY = {'a1': A1}
+A2 = [
+    ('people and relatives', 'neef nicht kleinkind kleinzoon kleindochter schoonmoeder schoonvader '
+                             'echtgenoot echtgenote partner tweeling buurman buurvrouw collega baas '
+                             'klant gast vreemdeling tiener volwassene bejaarde'),
+    ('jobs and study', 'beroep baan ingenieur advocaat agent verkoper kok chauffeur verpleegster '
+                       'secretaresse boer kapper monteur directeur salaris bedrijf fabriek '
+                       'sollicitatie vergadering universiteit klas les huiswerk examen toets '
+                       'cijfer schrift woordenboek cursus diploma studeren slagen'),
+    ('clothes', 'kleren kleding jas jurk rok broek overhemd bloes trui shirt schoen laars sok '
+                'hoed muts handschoen sjaal pak riem zak maat aankleden uitkleden dragen '
+                'aantrekken uittrekken passen'),
+    ('food and cooking', 'kip varkensvlees rundvlees ui knoflook wortel kool komkommer paprika '
+                         'boon erwt champignon citroen druif peer aardbei kers banaan taart koek '
+                         'chocolade ijs koekje olie honing yoghurt meel peper saus soep '
+                         'toetje bord glas kopje lepel vork mes pan koken bakken snijden smaak '
+                         'honger dorst zoet zuur bitter vers'),
+    ('the home', 'verdieping trap balkon tuin muur vloer plafond dak gang woonkamer slaapkamer '
+                 'meubel kast plank lamp koelkast fornuis oven wasmachine '
+                 'douche wastafel handdoek zeep kussen deken huur verhuizen schoonmaken wassen'),
+    ('the town and its services', 'centrum wijk park museum theater bioscoop bibliotheek kerk '
+                                  'postkantoor gemeente politie brug hoek stoplicht kruispunt '
+                                  'stoep parkeerplaats tankstation bakker slager boekwinkel '
+                                  'café kaart'),
+    ('travel and holidays', 'reis vakantie uitstapje bagage koffer paspoort grens reservering '
+                            'toerist gids strand berg meer:noun rivier eiland bos veld heuvel '
+                            'metro tram boot vliegtuig haven perron halte dienstregeling '
+                            'vertraging aankomst vertrek vlucht reizen reserveren bezoeken '
+                            'kamperen'),
+    ('nature, seasons and the compass', 'lente voorjaar zomer herfst najaar winter seizoen noorden '
+                                        'zuiden oosten westen lucht wolk ster maan natuur boom '
+                                        'bloem gras blad aarde milieu temperatuur graad storm mist '
+                                        'ijs:noun zonnig bewolkt nat droog'),
+    ('animals', 'dier hond kat paard koe schaap varken vogel eend beer wolf vos konijn '
+                'muis slang insect bij vlieg'),
+    ('health and the body', 'lichaam gezicht haar:noun nek schouder vinger knie hart bloed bot huid '
+                            'gezondheid ziekte verkoudheid hoest griep wond allergie pil recept '
+                            'afspraak tandarts huisarts spoed ambulance gezond moe hoesten '
+                            'genezen'),
+    ('feelings and character', 'vreugde verdriet angst woede liefde hoop verrassing boos '
+                               'zenuwachtig rustig vrolijk verlegen dapper lui slim aardig '
+                               'beleefd eerlijk geduldig jaloers trots bang verdrietig '
+                               'tevreden bezorgd schrikken'),
+    ('free time and sport', 'vrije_tijd hobby sport voetbal tennis zwemmen wedstrijd team speler '
+                            'bal concert muziek lied film voorstelling tentoonstelling foto '
+                            'tekening spel feest uitnodiging cadeau verjaardag kerst '
+                            'bruiloft dansen zingen fietsen schilderen tekenen uitnodigen vieren '
+                            'spelen'),
+    ('time and sequence', 'verleden toekomst eeuw datum kalender klok horloge eergisteren '
+                          'overmorgen binnenkort onlangs meteen ooit intussen eindelijk '
+                          'meestal dagelijks wekelijks jaarlijks vorig volgend'),
+    ('numbers and quantity', 'zestig zeventig tachtig negentig dertien vijftien miljoen miljard '
+                             'kwart dubbel kilo gram liter meter kilometer centimeter stuk pakje '
+                             'fles doos paar groep nummer aantal'),
+    ('everyday verbs', 'aandoen uitdoen aanzetten uitzetten binnenkomen weggaan oversteken '
+                       'terugkomen beginnen stoppen rijden parkeren verliezen winnen lenen '
+                       'sturen ontvangen bellen antwoorden uitleggen herhalen vertalen kiezen '
+                       'beslissen beloven vergeten herinneren dromen hopen groeien sterven '
+                       'bedanken ontmoeten tonen delen veranderen repareren bouwen bewaren '
+                       'verstoppen gooien klaarmaken bestellen proeven rusten wandelen '
+                       'ontspannen haasten afspreken invullen gebruiken proberen'),
+]
+
+B1 = [
+    ('work and career', 'werkgever werknemer werkloosheid werkloos vacature ervaring opleiding '
+                        'carrière contract ontslag pensioen loon belasting kantoorbaan stage '
+                        'functie afdeling ondernemer organisatie overleg rapport verslag project '
+                        'doel resultaat succesvol solliciteren ontslaan verdienen samenwerken '
+                        'leiden regelen plannen:verb'),
+    ('education', 'onderwijs basisschool middelbare_school hogeschool opleiding vak onderwerp '
+                  'docent professor scriptie onderzoek kennis vaardigheid niveau inschrijving '
+                  'beurs aanwezig afwezig zakken:verb inschrijven oefenen'),
+    ('media and communication', 'krant tijdschrift artikel journalist nieuwsbericht programma '
+                                'omroep zender reclame advertentie internet website e-mail '
+                                'wachtwoord account bericht scherm apparaat toetsenbord '
+                                'downloaden uploaden printen opslaan versturen verbinding '
+                                'mening discussie gesprek interview'),
+    ('society and politics', 'maatschappij samenleving regering overheid minister politiek '
+                             'partij verkiezing burger wet regel recht:noun rechter rechtbank '
+                             'misdaad dief boete demonstratie vrijheid gelijkheid armoede '
+                             'rijkdom werkloosheid economie inwoner bevolking cultuur traditie '
+                             'godsdienst geloof stemmen:verb kiezen verbieden toestaan'),
+    ('environment and the natural world', 'klimaat milieu vervuiling afval energie zonne-energie '
+                                          'recyclen landschap kust woestijn oerwoud vulkaan '
+                                          'aardbeving overstroming droogte dijk polder kanaal '
+                                          'plant zaad oogst beschermen vervuilen verspillen'),
+    ('housing and living', 'woning huurder verhuurder eigenaar hypotheek buurt omgeving '
+                           'voorstad platteland nutsvoorzieningen verwarming elektriciteit '
+                           'gas:noun rekening stopcontact lekkage onderhoud inrichten '
+                           'opruimen stofzuigen strijken'),
+    ('health and wellbeing', 'arts specialist operatie behandeling onderzoek:noun bloeddruk '
+                             'verzekering zorgverzekering ziekenhuisopname ongeval letsel '
+                             'stress depressie dieet gewicht beweging conditie slaapgebrek '
+                             'herstellen verzorgen ontspannen afvallen aankomen roken '
+                             'vermoeid gewond zwanger'),
+    ('travel and transport', 'reisbureau accommodatie camping jeugdherberg excursie '
+                             'bezienswaardigheid route snelweg file verkeer ongeluk:noun '
+                             'rijbewijs benzine tank:noun spits overstappen instappen uitstappen '
+                             'ophalen wegbrengen omleiding'),
+    ('money and shopping', 'bankrekening pinpas creditcard contant korting aanbieding bon '
+                           'garantie ruilen terugbetalen besparen sparen uitgeven lenen schuld:noun '
+                           'budget kosten:noun winst verlies'),
+    ('relationships and feelings', 'relatie vriendschap verhouding ruzie scheiding '
+                                   'jaloezie medelijden schaamte schuldgevoel teleurstelling '
+                                   'opluchting nieuwsgierig teleurgesteld opgelucht eenzaam '
+                                   'verveeld geïnteresseerd onzeker zelfverzekerd gevoelig '
+                                   'vertrouwen:noun respect steun ruziemaken scheiden '
+                                   'kennismaken missen waarderen'),
+    ('opinions and argument', 'mening standpunt argument reden gevolg oorzaak voordeel nadeel '
+                              'probleem oplossing mogelijkheid voorstel kritiek conclusie '
+                              'eens oneens volgens bovendien echter daarom dus toch namelijk '
+                              'hoewel ondanks zowel noch ofwel enerzijds anderzijds '
+                              'eigenlijk blijkbaar natuurlijk zeker vermoedelijk '
+                              'beweren overtuigen vergelijken bespreken toegeven twijfelen '
+                              'aanraden adviseren'),
+    ('describing things and people', 'eigenschap karakter uiterlijk lengte breedte gewicht:noun '
+                                     'vorm materiaal hout metaal plastic papier stof:noun '
+                                     'zacht hard:adj glad ruw smal breed ondiep zwaar licht:adj '
+                                     'ouderwets modern handig nuttig nutteloos noodzakelijk '
+                                     'geschikt ideaal gewoon bijzonder typisch'),
+    ('culture and free time', 'kunst kunstenaar schilderij beeld tentoonstelling roman '
+                              'schrijver gedicht toneel acteur regisseur publiek orkest '
+                              'instrument gitaar piano vereniging lid:noun clubhuis wandeling '
+                              'fietstocht festival optreden uitgaan optreden:verb'),
+    ('verbs of change and process', 'ontwikkelen verbeteren verminderen vermeerderen toenemen '
+                                    'afnemen stijgen dalen ontstaan voorkomen vermijden '
+                                    'veroorzaken bereiken bepalen beïnvloeden ondersteunen '
+                                    'organiseren voorbereiden afronden doorgaan ophouden '
+                                    'opgeven aanpassen vervangen voorzien zorgen omgaan '
+                                    'deelnemen meedoen bijdragen'),
+]
+
+B2 = [
+    ('work, business and the economy', 'arbeidsmarkt sector branche concurrentie concurrent markt '
+                                       'handel export import investering investeerder aandeel '
+                                       'aandeelhouder omzet kapitaal inflatie rente subsidie '
+                                       'vakbond staking cao werkdruk productiviteit '
+                                       'onderhandeling onderhandelen leidinggevende personeel '
+                                       'ontslaan:verb aanstellen benoemen investeren exporteren '
+                                       'importeren financieel economisch commercieel winstgevend'),
+    ('politics, law and society', 'democratie dictatuur grondwet parlement kamerlid coalitie '
+                                  'oppositie wetgeving beleid maatregel hervorming referendum '
+                                  'kiezer campagne debat corruptie schandaal integratie '
+                                  'immigratie immigrant vluchteling asiel discriminatie '
+                                  'racisme gelijkwaardig tolerantie emancipatie privacy '
+                                  'rechtszaak advocaat:noun verdachte veroordeling vonnis '
+                                  'gevangenisstraf getuigenis bewijs veroordelen vervolgen '
+                                  'handhaven afschaffen invoeren goedkeuren protesteren '
+                                  'demonstreren politiek:adj sociaal maatschappelijk'),
+    ('science, technology and research', 'wetenschap onderzoeker experiment hypothese theorie '
+                                         'methode analyse gegevens statistiek steekproef '
+                                         'uitvinding ontdekking innovatie technologie software '
+                                         'algoritme kunstmatig digitaal automatisch apparatuur '
+                                         'laboratorium microscoop molecuul atoom cel:noun '
+                                         'evolutie genetisch analyseren meten berekenen '
+                                         'onderzoeken:verb uitvinden toepassen wetenschappelijk '
+                                         'betrouwbaar nauwkeurig'),
+    ('environment and climate', 'duurzaamheid duurzaam broeikaseffect uitstoot opwarming '
+                                'klimaatverandering zeespiegel fossiel brandstof kernenergie '
+                                'windmolen ecosysteem soort:noun biodiversiteit uitsterven '
+                                'ontbossing natuurgebied grondstof hergebruik verspilling '
+                                'milieuvriendelijk schadelijk uitputten'),
+    ('health and medicine', 'diagnose symptoom aandoening infectie ontsteking chronisch '
+                            'besmettelijk vaccin vaccinatie immuunsysteem therapie psycholoog '
+                            'verslaving bijwerking voorschrift preventie levensverwachting '
+                            'handicap gehandicapt ingreep revalidatie zorg:noun mantelzorg '
+                            'voorschrijven onderzoeken herstellen:verb verergeren verzachten'),
+    ('education and learning', 'studierichting studiepunt colleges college hoorcollege '
+                               'werkgroep tentamen promotie proefschrift beoordeling '
+                               'motivatie concentratie talent prestatie leerproces '
+                               'zelfstandig theoretisch praktisch academisch afstuderen '
+                               'beoordelen evalueren'),
+    ('media, culture and the arts', 'pers persbericht redactie redacteur nieuwsgierigheid '
+                                    'publicatie uitgever recensie criticus documentaire '
+                                    'reportage aflevering serie publiek:noun kijker lezer '
+                                    'luisteraar sociale_media influencer censuur propaganda '
+                                    'literatuur poëzie beeldhouwer architectuur erfgoed '
+                                    'voorstelling uitzending uitzenden publiceren recenseren'),
+    ('thinking, arguing and abstract ideas', 'standpunt visie opvatting overtuiging principe '
+                                             'waarde norm ethiek moraal dilemma tegenstelling '
+                                             'samenhang verband:noun aspect factor kenmerk '
+                                             'criterium uitgangspunt aanname bewering stelling '
+                                             'nuance uitzondering voorwaarde gevolg:noun '
+                                             'consequentie invloed:noun perspectief '
+                                             'beschouwen benadrukken nuanceren concluderen '
+                                             'veronderstellen weerleggen rechtvaardigen '
+                                             'onderbouwen afwegen relativeren generaliseren '
+                                             'objectief subjectief relevant overtuigend '
+                                             'aannemelijk tegenstrijdig vanzelfsprekend '
+                                             'controversieel'),
+    ('connectives and attitude words', 'desondanks daarentegen nochtans immers derhalve '
+                                       'zodoende kortom aldus althans overigens weliswaar '
+                                       'enigszins uiteraard grotendeels voornamelijk '
+                                       'uitsluitend nauwelijks hoogstwaarschijnlijk '
+                                       'vermoedelijk:adv blijkbaar kennelijk ogenschijnlijk '
+                                       'tenzij mits zolang:conj zodra naarmate doordat '
+                                       'opdat alsof ongeacht betreffende inzake omtrent '
+                                       'jegens middels gedurende'),
+    ('character and behaviour', 'persoonlijkheid temperament karaktertrek ambitie '
+                                'zelfvertrouwen verantwoordelijkheidsgevoel eerlijkheid '
+                                'betrouwbaarheid ambitieus arrogant bescheiden egoïstisch '
+                                'koppig flexibel creatief gemotiveerd zorgzaam tactvol '
+                                'impulsief kritisch optimistisch pessimistisch sceptisch '
+                                'spontaan gierig vrijgevig hypocriet'),
+    ('feelings and states of mind', 'frustratie spijt wrok heimwee ontroering voldoening '
+                                    'bewondering minachting walging onrust spanning:noun '
+                                    'ontroerd geïrriteerd gefrustreerd overweldigd '
+                                    'gedemotiveerd terneergeslagen opgetogen wanhopig '
+                                    'radeloos bewonderen verafschuwen betreuren'),
+    ('the city and planning', 'infrastructuur openbaar_vervoer woningnood nieuwbouw '
+                              'stadsdeel gemeenteraad wethouder vergunning bestemmingsplan '
+                              'renovatie bouwproject voorziening voetgangerszone '
+                              'bereikbaarheid renoveren slopen'),
+    ('process verbs', 'aanpakken aantonen bevorderen belemmeren bijstellen doorvoeren '
+                      'functioneren handhaven:verb implementeren initiëren ondernemen '
+                      'omzetten realiseren reduceren signaleren stimuleren '
+                      'tegengaan uitbreiden uitvoeren verwezenlijken vaststellen '
+                      'verduidelijken voortzetten waarborgen afleiden aanvullen '
+                      'benutten inzetten opstellen overwegen voorspellen'),
+]
+
+C1 = [
+    ('law, governance and institutions', 'jurisdictie rechtspraak rechtsstaat soevereiniteit '
+                                         'bevoegdheid wetsvoorstel amendement verdrag:noun '
+                                         'ratificeren uitvoerende_macht wetgevende_macht '
+                                         'scheiding_der_machten bureaucratie ambtenaar '
+                                         'ambtelijk decentralisatie toezichthouder '
+                                         'aansprakelijkheid aansprakelijk nalatigheid '
+                                         'schadevergoeding dagvaarding hoger_beroep cassatie '
+                                         'aanklacht:noun vrijspraak vrijspreken '
+                                         'strafbaar onrechtmatig rechtmatig grondrecht '
+                                         'legitimiteit legitiem mandaat lobby belangengroep '
+                                         'ideologie populisme polarisatie'),
+    ('economy and finance', 'conjunctuur recessie stagnatie groei:noun begroting '
+                            'begrotingstekort staatsschuld bezuiniging bezuinigen '
+                            'koopkracht vermogen:noun vermogensbelasting btw '
+                            'faillissement failliet fusie overname aandelenmarkt '
+                            'beurskoers valuta wisselkoers obligatie dividend '
+                            'speculatie monopolie privatisering liberalisering '
+                            'globalisering protectionisme marktaandeel '
+                            'kosten-batenanalyse rendement duurzaamheidsdoel'),
+    ('academic and analytical language', 'paradigma discours methodologie empirisch '
+                                         'kwalitatief kwantitatief representatief '
+                                         'validiteit betrouwbaarheid:noun variabele '
+                                         'correlatie causaliteit causaal fenomeen '
+                                         'verschijnsel tendens premisse '
+                                         'implicatie interpretatie interpreteren '
+                                         'conceptueel abstractie abstract:adj '
+                                         'theoretiseren categoriseren '
+                                         'operationaliseren extrapoleren '
+                                         'synthese hypothetisch inherent intrinsiek '
+                                         'fundamenteel marginaal substantieel '
+                                         'significant evident expliciet impliciet '
+                                         'ambigu dubbelzinnig eenduidig consistent '
+                                         'coherent incoherent'),
+    ('argument, rhetoric and nuance', 'betoog retoriek drogreden tegenargument '
+                                      'weerlegging nuancering kanttekening '
+                                      'bezwaar:noun instemming consensus compromis '
+                                      'dialoog polemiek insinuatie suggestie:noun '
+                                      'ironie sarcasme cynisme eufemisme overdrijving '
+                                      'aanduiden suggereren insinueren impliceren '
+                                      'pleiten bekritiseren verwerpen aanvechten '
+                                      'betwisten erkennen onderschrijven '
+                                      'bagatelliseren dramatiseren '
+                                      'zogenaamd:adj vermeend gegrond ongegrond '
+                                      'treffend scherpzinnig onweerlegbaar '
+                                      'twijfelachtig discutabel verwerpelijk'),
+    ('connectives and formal register', 'echter:adv voorts tevens eveneens desalniettemin '
+                                        'niettemin niettegenstaande ofschoon hetzij '
+                                        'enerzijds:adv dientengevolge bijgevolg '
+                                        'zodanig dermate zozeer temeer '
+                                        'veeleer eerder:adv integendeel '
+                                        'kortweg kortom:adv evenwel allerminst '
+                                        'geenszins ternauwernood terdege '
+                                        'gaandeweg allengs inmiddels '
+                                        'voorheen destijds alsnog '
+                                        'vooralsnog hieromtrent daaromtrent hiervan '
+                                        'daaraan hiertoe waarbij waardoor '
+                                        'teneinde ingevolge krachtens blijkens '
+                                        'luidens wegens:prep vanwege:prep'),
+    ('society, identity and ethics', 'identiteit:noun diversiteit inclusie uitsluiting '
+                                     'marginalisering segregatie solidariteit '
+                                     'individualisme collectief burgerschap '
+                                     'participatie ongelijkheid kansengelijkheid '
+                                     'privilege stigma vooroordeel stereotype '
+                                     'secularisatie levensbeschouwing integriteit '
+                                     'verantwoording rechtvaardigheid '
+                                     'menselijkheid waardigheid autonomie '
+                                     'zelfbeschikking dilemma:noun gewetensbezwaar '
+                                     'ethisch moreel:adj verwerpelijk:adj'),
+    ('psychology and the mind', 'perceptie cognitie cognitief bewustzijn:noun '
+                                'onderbewustzijn intuïtie gedragspatroon '
+                                'veerkracht weerbaarheid zelfbeeld eigenwaarde '
+                                'empathie introvert extravert ambivalent '
+                                'apathisch obsessief neurotisch rationeel '
+                                'irrationeel emotioneel:adj geremd ongeremd '
+                                'beklemd gefascineerd verontwaardigd '
+                                'verontwaardiging argwaan argwanend wantrouwen '
+                                'gelatenheid berusting melancholie nostalgie'),
+    ('literature and the arts', 'roman:noun genre stijlfiguur metafoor symboliek '
+                                'allegorie verteller perspectief:noun personage '
+                                'protagonist motief:noun thematiek ontknoping '
+                                'climax:noun proza dichtbundel essay essayist '
+                                'avant-garde esthetiek esthetisch abstract '
+                                'figuratief compositie vertolking vertolken '
+                                'canon:noun meesterwerk oeuvre'),
+    ('science, nature and the environment', 'fotosynthese erosie sediment klimaatbeleid '
+                                            'emissie koolstof koolstofdioxide '
+                                            'methaan neerslag:noun verdamping '
+                                            'ecologisch biologisch:adj organisme '
+                                            'mutatie erfelijk erfelijkheid '
+                                            'besmetting pandemie epidemie '
+                                            'resistentie antibioticum'),
+    ('formal verbs', 'aanwenden afbakenen aankaarten bekrachtigen beogen bewerkstelligen '
+                     'benaderen:verb compenseren consolideren continueren '
+                     'differentiëren faciliteren formuleren genereren '
+                     'herzien hanteren integreren intensiveren legitimeren '
+                     'marginaliseren mobiliseren onderscheiden:verb '
+                     'ontberen ontkrachten optimaliseren prevaleren '
+                     'prioriteren reguleren stroomlijnen '
+                     'terugdringen uiteenzetten uitdragen '
+                     'veronachtzamen verankeren verdisconteren verwoorden '
+                     'voortvloeien zich_beraden inperken aanscherpen '
+                     'ondermijnen opschorten tegemoetkomen'),
+    ('nuanced adjectives and adverbs', 'aanzienlijk beduidend gering marginaal:adj '
+                                       'omvangrijk ingrijpend doorslaggevend '
+                                       'veelzeggend veelbelovend onvermijdelijk '
+                                       'onomkeerbaar ontoereikend toereikend '
+                                       'onvoorwaardelijk voorwaardelijk tijdelijk:adj '
+                                       'structureel incidenteel '
+                                       'grondig:adj zorgvuldig nauwgezet '
+                                       'onbevooroordeeld eigenzinnig '
+                                       'vooruitstrevend behoudend conservatief '
+                                       'progressief radicaal gematigd extremistisch '
+                                       'pragmatisch idealistisch cynisch '
+                                       'onverschillig ontvankelijk weerbarstig'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2, 'c1': C1}

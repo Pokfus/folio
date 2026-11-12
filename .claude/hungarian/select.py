@@ -15,7 +15,7 @@ THE FILL'S EXCLUSIONS, each for a fault it produced on reading the ranking:
   · a one-letter lemma that is not a word a beginner learns as one;
   · the hand list `EXCLUDE`, each line with its reason.
 """
-import json, os, sys
+import json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from hu import fold
@@ -36,6 +36,79 @@ EXCLUDE = {
     'őt': 'the accusative of ő, taught on its card',
     'szerinte': 'the "his, her" form of szerint, taught there',
     'oh': 'an English spelling; Hungarian writes ó',
+    # Read off the A2 ranking (2026-11-12).  Forms whose every sense is a pointer (the card
+    # came out with no English at all), each taught on its lemma's card:
+    'neve': 'the "his, her" form of név (A1)',
+    'élete': 'the "his, her" form of élet (A1)',
+    'életem': 'the "my" form of élet (A1)',
+    'keze': 'the "his, her" form of kéz (A1)',
+    'része': 'the "his, her" form of rész (A1)',
+    'feje': 'the "his, her" form of fej (A1)',
+    'apám': 'the "my" form of apa (A1)',
+    'szeretlek': 'a form of szeret (A1), "I love you"',
+    'mit': 'the accusative of mi (A1); its own entry glosses only "why"',
+    'egyet': 'the accusative of egy (A1)',
+    'annak': 'the dative of az (A1)',
+    'arról': 'the delative of az (A1)',
+    'állj': 'the imperative of áll (A1)',
+    'nézze': 'the formal imperative of néz (A1)',
+    'vigyázz': 'the imperative of vigyáz, which the level deals itself',
+    'köszönjük': 'a form of köszön ("we thank"), which the level deals itself',
+    'emlékezik': 'the same verb as emlékszik (A1), glossed only "to commemorate"',
+    'gyermek': 'the full form of gyerek (A1), the same word',
+    # A spelling whose subtitle count belongs to a sense Wiktionary does not give:
+    'halló': 'the telephone "hello?", but Wiktionary glosses only "auditory, hearing"',
+    'bocs': 'the colloquial "sorry", but Wiktionary glosses only "bear cub"',
+    'tőlem': '"from me", but Wiktionary glosses only "for all I care"',
+    'henry': 'the subtitles\' name Henry, glossed only as the SI unit',
+    'tönk': 'the count of tönkre (tönkretesz "ruin"), glossed only "stump"',
+    'telt': 'the count of telik\'s past ("passed"), glossed only "full"',
+    'ment': 'the count of megy\'s past ("went"), glossed only "to rescue, to save"',
+    'válás': '"divorce", but Wiktionary glosses only "becoming, -ization"; elválik is dealt',
+    # Read off the B2 ranking (2026-11-12): a count that belongs to another word.
+    'pete': 'the name Pete, glossed only "ovum"',
+    'gordon': 'the name Gordon, glossed only "double bass"',
+    'go': 'English',
+    'house': 'English; glossed only "house music"',
+    'la': 'the sung syllable; the count is the English and Spanish article',
+    'há': 'the letter H\'s name; the count is the interjection',
+    'föl': 'the colloquial spelling of fel "up" (A1), glossed only "cream"',
+    'len': 'the colloquial spelling of lenn "down", glossed only "flax"',
+    'korom': 'kor\'s "my age" (A1), glossed only "soot"',
+    'karom': 'kar\'s "my arm" (A2), glossed only "claw"',
+    'esz': 'eszik\'s stem and forms (A1), glossed only "to corrode"',
+    'cser': 'the count of csere "exchange", glossed only "Turkey oak"',
+    'ellik': 'the count of other words\' forms, glossed only "to give birth (of animals)"',
+    'teli': 'glossed only "used in telibe"; tele is dealt',
+    'jelenik': 'glossed only "used in megjelenik", which is dealt',
+    'juttat': 'glossed only "causative of jut"',
+    'valamiért': 'glossed only "causal-final singular of valami" (A1)',
+    'edzés': 'glossed only "tempering", not "training"',
+    'tiszteletem': 'tisztelet\'s "my respect" (B1); the interjection is glossed only by a usage note',
+    # Read off the C1 ranking (2026-11-12).
+    'enn': 'the letter N\'s name', 'vé': 'the letter V\'s name',
+    'hun': 'the colloquial spelling of hol "where" (A1), glossed only "Hunnic"',
+    'kur': 'glossed only "Curonian"; the count is other words\'',
+    'here': 'the English "here" in the subtitles, glossed only "testicle"',
+    'ring': 'the English "ring" in the subtitles, glossed only "to swing, to rock"',
+    'hetek': 'hét\'s plural "weeks" (A1), glossed only "a group of seven"',
+    'felkelt': 'felkel\'s past (A1), glossed only "to arouse"',
+    'tettet': 'tett\'s accusative (B2), glossed only "to pretend"',
+    'kellet': 'a misspelling of kellett, kell\'s past (A1), glossed only "to show off"',
+    'egykor': 'glossed only "temporal-suffixed form of egy"',
+    'legtöbben': 'glossed only "superlative degree of sokan" (B1)',
+    'lásd': 'the imperative of lát (A1)',
+    'üdvözöljük': 'a form of üdvözöl (A2)',
+    'szopik': 'vulgar in the subtitles and in its sentences ("Suck me!")',
+    'cici': 'slang ("boobs")',
+    'szuka': 'an insult ("bitch") in the subtitles',
+    'bob': 'the subtitles\' name Bob, glossed only "bobsleigh"',
+    'frank': 'the subtitles\' name Frank, but Wiktionary glosses only "Frankish"',
+    # Swearing:
+    'francba': 'a curse ("damn!, shit!")',
+    'picsába': 'a curse ("damn!, shit!")',
+    'basszus': 'a curse ("damn!"), glossed only "bass"',
+    'fenébe': 'a curse ("damn!, shit!")',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
@@ -49,8 +122,21 @@ def gloss_sig(L):
     return tuple(sorted({g['g'] for e in L['entries'] for g in e['glosses'] if not g['weak']}))[:4]
 
 
+# A POINTER Wiktionary does not tag as a form, which `build_deck` drops, so the card came
+# out with no English (B1's fill had 49): a personal form glossed by its grammar ("first-person
+# singular single-possession possessive of anya", "... possessive of fiú ("boy, son"): one's
+# son", "... second-person-object form of lát") and a "synonym of X" (`bennünket`, `repülő`).
+POINTER = re.compile(r'^(?:(?:first|second|third)-person\b.*?|synonym) of \S+'
+                     # C1 (2026-11-12): "only used in megelégedik", "verbal noun of forgat" bare
+                     r'|^only used in\b|^verbal noun of \S+$')
+
+
 def usable(L):
-    gl = [g for e in L['entries'] for g in e['glosses']]
+    """A non-weak, non-pointer gloss in the etymology the card SHOWS (`build_deck`: the
+    first, unless `ETYMS` names others) -- `szád` is "your mouth" first, "aperture" second."""
+    first = L['entries'][0].get('etym', '') if L['entries'] else ''
+    gl = [g for e in L['entries'] if e.get('etym', '') == first
+          for g in e['glosses'] if not POINTER.match(g['g'])]
     return any(not g['weak'] for g in gl)
 
 
@@ -93,6 +179,10 @@ def main():
         if len(rows) + len(fill) >= TARGET[LEVEL]:
             break
         if 'entries' not in L or L.get('formonly'):
+            continue
+        # a VERBAL NOUN Wiktionary files only as a form (`lopás`, `extract.py`) is dealt from
+        # B1 up: A1 and A2 were built before the extraction kept them
+        if L.get('vn') and LEVEL in ('a1', 'a2'):
             continue
         if k in seen or k in below or k in swears or k in excl:
             continue

@@ -78,6 +78,7 @@ ETYMS = {
     'weer': ['1', '2'],        # "again" AND "weather" -- both are A1
     'bank': ['2', '1'],        # the bank first, then the bench and sofa
     'zijn': ['1', '2'],        # "to be" AND "his, its"
+    'zeer': ['3', '1'],        # "very" first, then "sore" (A2, 2026-11-12)
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where
@@ -108,17 +109,36 @@ GLOSS = {
     'ze': {'pron': ['she, her (unstressed zij, haar)', 'they, them (unstressed zij, hen, hun)']},
     'er': {'adv': ['there', 'of it, of them (er zijn er drie, "there are three of them")',
                    'there (as a dummy subject: er is een probleem, "there is a problem")']},
+    # A2 (2026-11-12): Wiktionary's entry is "synonym of ondertussen", which prints nothing
+    'intussen': {'adv': ['meanwhile, in the meantime']},
+    # A2: Wiktionary's only sense is a cat's head-rub; the diminutive of kop is the cup
+    'kopje': {'noun': ['cup (for coffee or tea)', 'small head']},
+    # A2: Wiktionary files sommige as "inflection of sommig", the form every learner meets
+    'sommige': {'det': ['some (sommige mensen, "some people")']},
+    # B1: Wiktionary files zulke as "inflection of zulk"
+    'zulke': {'det': ['such (zulke mensen, "such people")']},
+    # B2: Wiktionary leads with the cloth; the count is the bedsheet
+    'laken': {'noun': ['sheet (on a bed)', 'woollen broadcloth']},
+    # B2: Wiktionary's senses end in stray gender letters ("fortune n")
+    'kapitaal': {'noun': ['capital (money)', 'fortune', 'capital letter']},
+    # C1: Wiktionary's entries are only "synonym of ...", which prints nothing
+    'inmiddels': {'adv': ['by now, by then', 'meanwhile']},
+    'esthetiek': {'noun': ['aesthetics']},
+    'luidens': {'prep': ['according to (formal: luidens het rapport, "according to the report")']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
 LEAD = {
     'pen': 'pen (writing utensil)',      # first listed is "a long feather of a bird"
     'net': 'just, nearly, barely',       # first listed is "clean, tidy"
+    'inflatie': 'inflation, increase',   # B2: first listed is "stomach bloat"
+    'kijker': 'viewer',                  # B2: first listed is "telescope"
 }
 
 # A PART OF SPEECH NOT SHOWN for one word.
 DROP_POS = {('de', 'prep'), ('hij', 'noun'), ('zij', 'noun'), ('van', 'noun'),
-            ('een', 'num'), ('een', 'noun'), ('één', 'article'), ('één', 'noun')}
+            ('een', 'num'), ('een', 'noun'), ('één', 'article'), ('één', 'noun'),
+            ('pesten', 'noun'), ('chips', 'intj'), ('esthetiek', 'adj')}   # B1: the card game Mau Mau led over "to bully"
 
 # A NUMBER'S NOUN BLOCK ("a four, the digit 4") is noise beside the number: dropped
 # wherever the word is also a numeral.
@@ -128,6 +148,11 @@ GENDER_FIX = {
     # Wiktionary's head line gives "n, f" for the whole entry; the feminine belongs to the
     # "frame" sense, and the window is het raam
     'raam': 'n',
+    # B2 (2026-11-12): Wiktionary gives no gender to the two plural-only nouns, and "nc" to
+    # kapitaal, whose senses are each marked n
+    'chips': 'p', 'gegevens': 'p', 'kapitaal': 'n',
+    # C1: "nc" again; the compound takes dioxide's het
+    'koolstofdioxide': 'n',
 }
 
 # AN IPA CORRECTED: `één` is printed from the entry of `een`, whose transcription is the
@@ -141,7 +166,10 @@ MONTHS = set('januari februari maart april mei juni juli augustus september okto
 NO_FORMS = MONTHS | {'alleen', 'oké', 'oranje', 'Nederlands', 'Engels'}
 
 # A GLOSS THAT IS NOT A MEANING: a pointer to another headword or a form label.
-NOT_A_MEANING = re.compile(r'^\*?\s*see:|^synonym of |^(?:inflection|plural|diminutive) of \S+$', re.I)
+# (the phrases deck) Wiktionary's note on an expression's literal sense, "Used other than
+# figuratively or idiomatically: see op, die, fiets.", is a pointer too.
+NOT_A_MEANING = re.compile(r'^\*?\s*see:|^synonym of |^(?:inflection|plural|diminutive) of \S+$'
+                           r'|^used other than figuratively', re.I)
 
 
 def entries_for(row, lex):
@@ -336,7 +364,7 @@ def build(rows, lex, exs):
         art = ARTICLE.get(main['gender'], '') if main['pos'] == 'noun' else ''
         head = (f'<span class="uc-art">{E(art)}</span> ' if art else '') + E(word)
         ex = exs.get(r['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': r.get('sub', ''), 'fields': {
             'Dutch': head,
             'IPA': E(ipa),
             'Word': word,
@@ -347,7 +375,8 @@ def build(rows, lex, exs):
             'Examples': examples_html(ex),
         }})
         entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],
-                        'examples': len(ex), 'ipa': bool(ipa)})
+                        'examples': len(ex), 'ipa': bool(ipa), 'sub': r.get('sub', ''),
+                        'count': r.get('count', 0)})
     return cards, entries
 
 
@@ -365,7 +394,7 @@ def desc(entries, n):
         "Both study directions in one deck: Dutch → English (see the Dutch, recall the meaning) "
         "and English → Dutch (see an English meaning, recall the Dutch). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words of Dutch for a beginner, aligned to {LEVEL.upper()} of the "
+        f"separately. {n} words of Dutch for {'a beginner' if LEVEL == 'a1' else 'an elementary learner' if LEVEL == 'a2' else 'an intermediate learner' if LEVEL == 'b1' else 'an upper-intermediate learner' if LEVEL == 'b2' else 'an advanced learner'}, aligned to {LEVEL.upper()} of the "
         f"Common European Framework of Reference, whose global descriptor begins '{SC['quote']}' — "
         f"a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
@@ -393,6 +422,41 @@ def desc(entries, n):
     )
 
 
+def desc_phr(entries, n):
+    by = {s: [e for e in entries if e['sub'] == s] for s in ('Phrases', 'Idioms', 'Proverbs')}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Dutch set phrases, idioms and proverbs, in three subdecks: {len(by['Phrases'])} "
+        f"everyday phrases, {len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study "
+        "directions come as two cards of one expression — Dutch → English (see the Dutch, recall the "
+        "meaning) and English → Dutch (see an English meaning, recall the Dutch) — each with a schedule "
+        "of its own. This is a companion to the five level decks, Dutch A1 to C1, and not one of them: "
+        "a level is a list of words, and an expression is a unit a list of words cannot see. Nothing "
+        "here is taught by any of the five, so the two can be studied together without repeating an "
+        "entry. The PHRASES are the expressions Wiktionary files as phrases and does not mark as "
+        f"idiomatic — mostly the everyday formulas a Dutch speaker uses as one piece ({eg('Phrases')} …), "
+        "with the greetings for the holidays and some sayings Wiktionary files the same way. The IDIOMS "
+        f"are expressions whose meaning is not their words' ({eg('Idioms')} …), and the PROVERBS the "
+        f"sayings Wiktionary files as proverbs ({eg('Proverbs')} …). Only expressions made of Dutch words "
+        "are here: the Latin and French tags Dutch writing borrows (in vitro, mea culpa) are left out. "
+        "Within each subdeck the expressions come in the order of how many of Tatoeba's Dutch sentences "
+        "contain them — an expression that is a verb being counted with its verb in any form and in "
+        "either place, since a Dutch main clause moves the verb away from the rest (in de war zijn: "
+        f"ik ben helemaal in de war) — and only {found} of the {n} are found there at all; the rest "
+        "follow in the order of how common their words are in film and television subtitles. Every "
+        "expression has Wiktionary's pronunciation beneath it where Wiktionary gives one. "
+        f"Real example sentences come with {n - ex0} of the {n} expressions, three apiece for {ex3}, "
+        "with the expression picked out in colour and a speaker beside the sentence and the headword. "
+        "Sources. Expressions, meanings, pronunciation and the idiom and proverb labels: English "
+        "Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Order: Tatoeba (tatoeba.org), "
+        "CC BY 2.0 FR, then a word list built from OpenSubtitles (hermitdave/FrequencyWords, CC BY-SA "
+        "4.0). Example sentences: Tatoeba, CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -403,11 +467,21 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in ('Phrases', 'Idioms', 'Proverbs')}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Idioms']} idioms, "
+                    f"{by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['dutch', 'phrases', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['dutch', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['dutch', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': subtitle,
+        'desc': description, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Dutch vocabulary', 'speechLang': 'nl-NL',

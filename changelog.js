@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1286", released: "2026-11-12T08:08Z" };
+window.FOLIO_VERSION = { v: "1.1291", released: "2026-11-12T12:41Z" };
 
 window.CHANGELOG = [
   {
@@ -43,10 +43,10 @@ window.CHANGELOG = [
     t: "Collections grow; Economics, India, Palaeontology open; Arabic decks",
     items: [
       "100 new cards in <b>Biology</b>, from cells and organelles through membranes and respiration to photosynthesis, with 96 new glossary terms.",
-      "200 new cards in <b>Psychology</b>, from research ethics and the brain to genes, hormones and drugs, sensation, vision and hearing, with 188 new glossary terms.",
-      "300 new cards in <b>United States</b>, from the Constitution's ratification through slavery and abolition to the sectional crisis and the Civil War, with 288 new glossary terms.",
-      "100 new cards in <b>Russia</b>, from Peter the Great's reforms and the age of the empresses through Catherine the Great to Borodino, with 99 new glossary terms.",
-      "100 new cards in <b>Ancient Egypt</b>, from the late Middle Kingdom and the Hyksos to the early Eighteenth Dynasty and the first Amarna cards, with 94 new glossary terms.",
+      "300 new cards in <b>Psychology</b>, from research ethics and the brain through the senses and perception to conditioning and memory, with 275 new glossary terms.",
+      "400 new cards in <b>United States</b>, from the Constitution's ratification through slavery, the Civil War and Reconstruction to the West and the Gilded Age, with 384 new glossary terms.",
+      "200 new cards in <b>Ancient Egypt</b>, from the late Middle Kingdom and the Hyksos through Amarna and the Ramesside kings to Thebes and Karnak, with 186 new glossary terms.",
+      "200 new cards in <b>Russia</b>, from Peter the Great through Catherine the Great and 1812 to the Great Reforms and the Russo-Japanese War, with 195 new glossary terms.",
       "100 new cards in <b>Astronomy</b>, from the Solar System's formation through the planets and moons to the asteroids, with 95 new glossary terms.",
       "70 new cards in <b>Visual Art</b>, from the first farming villages through the Bronze Age to early Classical Greece, with 58 new glossary terms.",
       "100 new cards in <b>Korea</b>, covering the Three Kingdoms, Goguryeo, Baekje, Silla and Gaya, with 92 new glossary terms.",
@@ -58,6 +58,7 @@ window.CHANGELOG = [
       "New <b>Arabic A2</b>, <b>B1</b>, <b>B2</b> and <b>C1</b> decks on the Languages shelf: 600, 800, 900 and 700 more words of Modern Standard Arabic, none repeated.",
       "A new <b>Arabic Phrases and Expressions</b> deck: 164 everyday phrases, idioms and proverbs, in three subdecks.",
       "<b>100 China cards are rewritten</b>, from the Shang royal women to Qin law, with new sources and dates.",
+      "<b>100 more China cards are rewritten</b>, from the Shuihudi slips to the Seven Sages of the Bamboo Grove, with new sources and dates.",
     ],
   },
   {
