@@ -260,7 +260,7 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | The Feast at Hong Gate | Liu Bang's visit to Xiang Yu's camp in 206 BCE, Fan Zeng's signals with the jade, Xiang Zhuang's sword dance, Fan Kuai's entry and Liu Bang's flight (the *Shiji*, Xiang Yu's annals, c. 100 BCE); the account in Gaozu's annals runs to a few lines and adds the armies' boasted sizes — confirmed B22 (`cnh-217`); no open source read calls the speeches set pieces, so the card says only that they are best read as Sima Qian's telling | `cnh-217` | `cnh-214`, `cnh-215`, `cnh-216` | — |
 | Xiang Yu at Gaixia | Xiang Yu surrounded in 202 BCE, hearing Chu songs from the Han lines (四面楚歌), his song to Consort Yu and the horse Zhui, the break-out and death at the Wu River (the *Shiji*, Xiang Yu's annals); the *Shiji*'s two accounts differ on when the songs come and name no author for them (a Ming–Qing tale credits Zhang Liang); in the annals Consort Yu only sings with him, her suicide a scene of the later opera *Bawang bie ji* — confirmed B22 (`cnh-218`) | `cnh-218` | `cnh-214`, `cnh-215` | — |
 | Liu Bang's dragon birth | his mother dreaming of a god by a great marsh and a dragon over her, the dragon seen over him drunk, the white snake he killed (the *Shiji*, Gaozu's annals); signs of Heaven's choice for a commoner founder — confirmed B22 (`cnh-216`) | — | `cnh-216` | — |
-| Wang Mang as usurper | the *Hanshu*'s verdict (Ban Gu, completed after 92 CE): a hypocrite who seized the throne and whose reforms brought chaos; modern readings of him as a reformer (Hu Shi's "socialist", Dubs) and of the Eastern Han's history as written against him (Bielenstein) — provisional | `cnh-246` | `cnh-245`, `cnh-247`, `cnh-248`, `cnh-249` | — |
+| Wang Mang as usurper | the *Hanshu*'s verdict (Ban Gu, completed after 92 CE): a hypocrite who seized the throne and whose reforms brought chaos; modern readings of him as a reformer (Hu Shi's "socialist emperor", 1928) and as a capable statesman whose record the Eastern Han's historians wrote against (Bielenstein) — confirmed B25 (`cnh-245`–`cnh-248`: the zan's 篡盜之禍 and its Qin comparison, 紫色蛙聲) | `cnh-246` | `cnh-245`, `cnh-247`, `cnh-248`, `cnh-249` | — |
 | The Peach Garden oath | Liu Bei, Guan Yu and Zhang Fei swearing brotherhood in a peach garden (the *Romance of the Three Kingdoms*, 14th-century novel, first printed 1522); the *Sanguozhi* says only that the three slept in one bed and were as close as brothers — provisional | — | `cnh-280`, `cnh-286`, `cnh-291` | — |
 | The Romance and the Records of the Three Kingdoms | Chen Shou's *Sanguozhi* (completed after 280 CE) with Pei Songzhi's notes (429 CE); the storytellers' and the Yuan *Sanguozhi pinghua* (printed 1321 – 1323); the *Romance* credited to Luo Guanzhong, first printed 1522, Mao Zonggang's edition c. 1679; its "seven parts fact, three parts fiction" (Zhang Xuecheng); Red Cliffs (the borrowed arrows, the east wind, Huarong), Guandu and Cao Cao's villainy told as the novel's; Guan Yu's deification as `cnh-039` tells it — provisional | `cnh-291`, `cnh-290` | `cnh-273`, `cnh-274`, `cnh-276`, `cnh-281`, `cnh-286` | `cnh-039` |
 | The Seven Sages of the Bamboo Grove | seven men gathering in a bamboo grove at Shanyang to drink and talk (as a group in the 4th century CE — Sun Sheng's *Wei shi chunqiu*, quoted by Pei Songzhi — and the *Shishuo xinyu*, 5th century CE); the grouping and the grove read by modern scholars as a later construction (Chen Yinke took the grove for a Buddhist name); the Nanjing brick reliefs of the sages, dated by their tombs — provisional | `cnh-300` | `cnh-299` | — |
@@ -362,7 +362,7 @@ otherwise.
 | B22 | Qin (`col-7`) / Western Han (`col-10`) | `cnh-211`–`cnh-220` | 10 | 86 | **done 2026-11-12** |
 | B23 | Western Han (`col-10`) | `cnh-221`–`cnh-230` | 10 | 80 | **done 2026-11-12** |
 | B24 | Western Han (`col-10`) | `cnh-231`–`cnh-240` | 10 | 78 | **done 2026-11-12** |
-| B25 | Western Han (`col-10`) / Xin (`col-11`) | `cnh-241`–`cnh-250` | 10 | 66 | to do |
+| B25 | Western Han (`col-10`) / Xin (`col-11`) | `cnh-241`–`cnh-250` | 10 | 66 | **done 2026-11-12** |
 | B26 | Xin (`col-11`) / Eastern Han (`col-12`) | `cnh-251`–`cnh-260` | 10 | 67 | to do |
 | B27 | Eastern Han (`col-12`) | `cnh-261`–`cnh-270` | 10 | 93 | to do |
 | B28 | Eastern Han (`col-12`) / Three Kingdoms (`col-16`) | `cnh-271`–`cnh-280` | 10 | 92 | to do |
@@ -720,6 +720,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-238` | none | not re-checked (Commons 429): the card has no picture — wanted |
 | `cnh-239` | a fragment of the Xiping stone classics | not re-checked (Commons 429): ok as a stand-in; better on `cnh-852` |
 | `cnh-240` | an album portrait | not re-checked (Commons 429): ok |
+| `cnh-241` | a page recording the comet of 240 BCE | not re-checked (Commons 429): ok |
+| `cnh-242` | the front hall platform | not re-checked (Commons 429): ok |
+| `cnh-243` | Han wooden strips | not re-checked (Commons 429): weak: generic documents |
+| `cnh-244` | Lady Ban refusing the litter | not re-checked (Commons 429): ok |
+| `cnh-245` | the inscription on the Xin standard measure | not re-checked (Commons 429): ok |
+| `cnh-246` | a woodblock from a later romance | not re-checked (Commons 429): ok |
+| `cnh-247` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-248` | a Han pottery farm model | not re-checked (Commons 429): weak: a farm, not the decree |
+| `cnh-249` | a scan of 22 wuzhu coins | not re-checked (Commons 429): ok |
+| `cnh-250` | a Song album leaf of a breaching river | not re-checked (Commons 429): ok |
 
 ## Glossary candidates
 
@@ -1766,3 +1776,38 @@ the university is `cnh-239`'s, the slogan and the 136 BCE posts `cnh-238`'s; thr
 after the apply). For the owner: `cnh-237`'s 179 and 104 BCE are in no page read (the Stanford Encyclopedia puts his birth
 around 195 BCE), and its "Merit grades" label rests on Cordier; `cnh-240`'s "Grand Astrologer 110 BCE" is the year his
 father died — the *Shiji* puts his own appointment three years later, Theobald in 108 BCE.
+
+### B25 — `cnh-241`–`cnh-250`, Western Han and Xin: the Records of the Grand Historian to the avulsion of 11 CE (2026-11-12)
+
+Run as B21. Every cited URL answered except the *Science Advances* DOI (`cnh-250`), which refuses scripted requests;
+the paper is open access (PMC9946347) and its page was saved, so it was kept. **Pictures were not touched** (Commons
+429). **The old cards dated texts and buildings by other events ("Covers to c. 122 BCE", "Founder died 195 BCE",
+"Capital moved 200 BCE"), put counts and people on their lines ("Provinces 13", "Wang Zhengjun 71 BCE – 13 CE"), had Wang
+Mang "move on" from one regent's title to another, dated the wuzhu's abolition to 7 CE and its restoration to 26 CE
+(the *Hanshu*: 9 CE; the *Hou Hanshu*: 40 CE), tied the Red Eyebrows to the flood of 11 CE on a source that does not,
+and leaned on 1890s popular books and Parker 1895.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-241` Records of the Grand Historian | 7 | 5 → 7 | **"Covers to c. 122 BCE" (not a date of the text) off; `Written c. 100 BCE` / `Gaps filled 48 – 7 BCE` (Chavannes); the *Taishigong shu* title, Sima Tan's share, Yang Yun; phrasings only this card answers (the copy refused to the king of Dongping, Chu Shaosun's ten chapters, the "famous mountain" copy)**; the five-part arrangement left as `cnh-738`'s clue. |
+| `cnh-242` Weiyang Palace | 7 | 5 → 7 | **The two rows of other events off; `Built 199 – 198 BCE` (the *Shiji*, Chavannes) / `Stormed 23 CE` / `World Heritage 2014` (Gao et al., not UNESCO); Xiao He's answer, the jade-cup toast, the 60,000 ox-bone tallies; the city-wall figures left to `cnh-367`**; the glossary's "Built by 193 BCE" redrafted. |
+| `cnh-243` regional inspector | 6 | 5 → 6 | **Rebuilt on the inspector (de Crespigny, the *Hanshu*): "Provinces 13" off; `Created 106 BCE` / `Became governors 7 BCE` / `Inspectors again 42 CE` / `Governors again 188 CE`; the six articles (in Liu Zhao's commentary on the *Hou Hanshu*); kept junior on purpose; Liu Yan's 188 CE proposal**. |
+| `cnh-244` consort clan | 6 | 5 → 6 | **People off the line, now `Earliest case 188 – 180 BCE` / `Last Han case 189 CE`; the Lü, Huo and Wang families, then the Dou, Deng and Liang and He Jin; the law against in-laws' lavish gifts, the fifteen-year-old dowager of 74 BCE, the Wang family's ten marquises**; a climate paper and three 1890s books dropped; the glossary's Parker-based claim gone. |
+| `cnh-245` Xin dynasty | 7 | 6 → 7 | **The 8 CE phrasing gone; 8 CE (Theobald) and 9 CE (Petersen, Giles) in prose with the *Hanshu*'s own wording, the line `Founded 9 CE` / `Ended 23 CE` as `cnh-213`; Ai Zhang's casket, the yellow court colour, Ruzi Ying as "guest"; the "purple colour and croak of frogs" verdict and Bielenstein**; Psarras and Boulger claims their pages do not make dropped; Lulin → Lülin. |
+| `cnh-246` Wang Mang | 7 | 5 → 7 | **Shun's dagger and the Dipper at the end, the months nursing Wang Feng, the ban on two-character names; the register's verdicts (Ban Gu; Hu Shi's 1928 "socialist emperor"; Bielenstein)**; the glossary's "four changes of currency" (no source) gone. Protected: the line stays (flagged below). |
+| `cnh-247` acting emperor | 6 | 5 → 6 | **He did not "move on" between titles: the *Hanshu* memorial gives 假皇帝 (at the rites) and 攝皇帝 (in common use) at once; the lost Documents chapter hailing the Duke of Zhou as 假王; Liu Chong and Zhai Yi; the proclamation on the "Great Announcement"; `Held 6 – 8 CE` / `Throne taken 9 CE`**; Cordier's and Boulger's counts dropped. |
+| `cnh-248` wangtian | 5 | 5 → 5 | **"abandoned within a few years" off the line (no source prints the repeal's Western year), now `Decreed 9 CE`, the treatise's "three years later" in prose; the decree itself (the eight-male rule, the *jing*, banishment for critics, Ou Bo's memorial)**; off-subject passages, a misread of Thierry and two French sources dropped. |
+| `cnh-249` wuzhu | 6 | 5 → 6 | **`First struck 118 BCE` / `Abolished 9 CE` (not 7: the regent's coins of 7 CE circulated beside it) / `Restored 40 CE` (not 26) / `Superseded 621 CE` (Lacouperie; Thierry's 618 in prose); the raised rim, the Liu surname dooming the knife coins, the 28 "precious goods", banishment for holding wuzhu**. |
+| `cnh-250` avulsion | 6 | 5 → 6 | **Defined from two geomorphology papers, then the *Hanshu*'s 11 CE breach left open because it spared the Yuancheng tombs and Zhang Rong's warning; the Red Eyebrows and Lülin (not in its source) dropped; "embankments on both sides" in 69 CE now "river works"; `Course change 11 CE` / `River works 69 CE`**. |
+
+Read by eye. **Confusability**: the Ruzi Ying deposition is told on `cnh-245` (the "guest" of the new house) and on
+`cnh-247` (Wang Mang weeping as he takes the child's hand) — different clues, kept; Wang Mang's death in the palace stays
+`cnh-246`'s, not `cnh-242`'s; the five-part arrangement stays `cnh-738`'s; `cnh-241`'s background trimmed to 284 words.
+**Legend**: the casket and the portents are the *Hanshu*'s. **Chinese names corrected**: none; `新朝` itself is printed on
+no saved page (the *Hanshu* names the dynasty 新) and `河流改道` is a descriptive modern term (both for the owner).
+**Spellings fixed**: Lulin → Lülin; 0 hits. **Myth register**: Wang Mang as usurper confirmed (the *Hanshu*'s zan,
+篡盜之禍, and the Qin comparison; Hu Shi's "socialist emperor", 1928; Bielenstein's capable statesman); the Duke of Zhou's
+regency told as the row tells it (the 假王 precedent). **Protected lines: unchanged** (diffed after the apply). For the
+owner: `cnh-246`'s `Death 6 October 23 CE` is a conversion (the *Hanshu*: the third day of the tenth month), Giles gives
+his birth as 33 BCE against the line's 45, and 16 BCE is Theobald's (the *Hanshu* prints the regnal year). The plan line
+of `cnh-250` dates an event on a concept card; the owner may prefer the line empty.

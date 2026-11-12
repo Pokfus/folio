@@ -422,6 +422,15 @@ stood on main on 2026-11-12 (the years only; ages, days and months left out), an
 | equable transport: first offices / empire-wide | 115 BCE / 110 BCE | Chavannes (`cnh-236`) |
 | the Five Classics posts | 136 BCE | the *Hanshu* (`cnh-238`) |
 | the Taixue founded / refounded | 124 BCE / 29 CE | `cnh-239` |
+| the Shiji written / Chu Shaosun's additions | c. 100 BCE / 48 – 7 BCE | Chavannes (`cnh-241`) |
+| Weiyang Palace built / stormed / World Heritage | 199 – 198 BCE / 23 CE / 2014 | the *Shiji*; Gao et al. (`cnh-242`) |
+| regional inspectors / governors / inspectors again / governors again | 106 BCE / 7 BCE / 42 CE / 188 CE | de Crespigny (`cnh-243`) |
+| the consort clans: the earliest case / the last Han case | 188 – 180 BCE / 189 CE | Theobald (`cnh-244`) |
+| the Xin dynasty (Theobald: 8 CE) | 9 – 23 CE | Petersen; Giles (`cnh-245`) |
+| Wang Mang as acting emperor / the throne taken | 6 – 8 CE / 9 CE | the *Hanshu* (`cnh-247`) |
+| wangtian decreed | 9 CE | the *Hanshu* (`cnh-248`) |
+| the wuzhu struck / abolished / restored / superseded | 118 BCE / 9 CE / 40 CE / 621 CE | Thierry; Lacouperie (`cnh-249`) |
+| the Yellow River's course change / river works | 11 CE / 69 CE | Ma et al. (`cnh-250`) |
 
 ## Later periods
 
@@ -691,4 +700,13 @@ cnh-235: 81; 74; 49
 cnh-236: 115; 110
 cnh-238: 136
 cnh-239: 124; 29
+cnh-241: 100; 48; 7
+cnh-242: 199; 198; 23; 2014
+cnh-243: 106; 7; 42; 188
+cnh-244: 188; 180; 189
+cnh-245: 9; 23
+cnh-247: 6; 8; 9
+cnh-248: 9
+cnh-249: 118; 9; 40; 621
+cnh-250: 11; 69
 ```
