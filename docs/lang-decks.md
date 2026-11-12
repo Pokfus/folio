@@ -3603,7 +3603,7 @@ changed was the one that had been wrong all along.
   collection"). Hindi's pipeline and decisions carried over: CEFR A1–C1 assembled, an alphabet deck first,
   romanisation on every card. **Built: `decks/Persian-Alphabet.folio-deck.json`** (39 notes), **A1,
   `decks/Persian-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Persian-A2.folio-deck.json`**
-  (750 notes / 1,500 cards, 2026-11-12: the months let through as nouns) **and B1, `decks/Persian-B1.folio-deck.json`** (1,000 notes / 2,000 cards, the same day: romanisation read off the headword line). `python3 .claude/persian/run.py [--level a1]`,
+  (750 notes / 1,500 cards, 2026-11-12: the months let through as nouns) **and B1, `decks/Persian-B1.folio-deck.json`** (1,000 notes / 2,000 cards, the same day: romanisation read off the headword line) **and B2, `decks/Persian-B2.folio-deck.json`** (1,500 notes / 3,000 cards, the same day: Wiktionary lacks much of the level's formal vocabulary, so the fill carries it). `python3 .claude/persian/run.py [--level a1]`,
   `python3 .claude/persian/alphabet.py`, `node .claude/persian/check-persian.js`; a re-run is byte-identical. What
   Persian needed that Hindi did not — the fold (Arabic ي ك, marks and the joiner ignored, the madda kept), the
   joiner put back into Wiktionary's tables, the SPOKEN forms counted for the written word, right to left, the

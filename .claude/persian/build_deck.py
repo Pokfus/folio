@@ -105,6 +105,10 @@ ETYMS = {
     'عام': ['2'],             # âmm "general, common"; etymology 1 is 'âm "year"
     'ساک': ['2'],             # "bag, holdall"; etymology 1 is a soup
     'تور': ['3'],             # "tour"; etymology 1 is "net"
+    # B2 (2026-11-12)
+    'ذکر': ['2'],             # zekr "mention"; etymology 1 is zakar, an anatomical word
+    'فر': ['2'],              # fer "oven; curly"; etymology 1 is the literary farr "splendour"
+    'جلد': ['2'],             # jeld "binding, volume"; etymology 1 is jald "nimble"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where its
@@ -127,6 +131,10 @@ GLOSS = {
     'مرا': {'pron': ['me (as the object: من + را)']},
     # Wiktionary's only gloss is "broken plural of انتخاب"; the plural's everyday meaning
     'انتخابات': {'noun': ['elections (the plural of انتخاب, “choice”)']},
+    # B2: Wiktionary's other noun is kečol, a different (anatomical) word spelt alike: not shown
+    'کچل': {'noun': []},
+    # Wiktionary's gloss is "synonym of قطار"; its meaning
+    'ترن': {'noun': ['train (dated; the everyday word is قطار)']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -141,6 +149,7 @@ LEAD = {
     'مهر': 'Mehr',            # the month, then "kindness"
     'خسته': 'tired',          # Wiktionary's first is the literary "wounded"
     'مزخرف': 'silly',         # "nonsense"; Wiktionary's first is the etymological "golden"
+    'خامه': 'cream',          # the everyday word; Wiktionary's first is the literary "reed pen"
 }
 
 

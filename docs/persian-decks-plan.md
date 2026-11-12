@@ -5,7 +5,7 @@ twelfth language set, built the way the Hindi set was (`docs/hindi-decks-plan.md
 record of how the others were built, and every rule there applies here unless this file says otherwise. Asked
 for on 2026-11-09: "Add a Farsi language collection."
 
-**STATUS (2026-11-12): the alphabet deck, A1, A2 and B1 are built** (`.claude/persian/`). B2, C1 and the
+**STATUS (2026-11-12): the alphabet deck, A1, A2, B1 and B2 are built** (`.claude/persian/`). C1 and the
 phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
@@ -34,7 +34,7 @@ over rather than asked again:
 | Persian A1 Beginner — built | `Persian-A1.folio-deck.json` | 500 |
 | Persian A2 Elementary — built | `Persian-A2.folio-deck.json` | 750 |
 | Persian B1 Intermediate — built | `Persian-B1.folio-deck.json` | 1,000 |
-| Persian B2 Upper Intermediate | `Persian-B2.folio-deck.json` | 1,500 |
+| Persian B2 Upper Intermediate — built | `Persian-B2.folio-deck.json` | 1,500 |
 | Persian C1 Advanced | `Persian-C1.folio-deck.json` | 1,500 |
 | Persian Phrases and Expressions | `Persian-Phrases-and-Expressions.folio-deck.json` | what the levels leave |
 
@@ -90,7 +90,7 @@ carries the subtitles' crime-drama words (`سلاح`, `شلیک`) on frequency, 
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 and B1 (done 2026-11-12) to C1, one level per session: the level's
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2, B1 and B2 (done 2026-11-12) to C1, one level per session: the level's
 inventory into `inventory.py`, its `SCOPE` into `persian_level.py`, run, read every card. **Phase 3** — phrases.
 
 ## 6. As built (2026-11-09)
@@ -160,3 +160,26 @@ this depth). A re-run is byte-identical; A1 and A2 rebuilt after the changes bel
 **Known, left.** Eight cards that share an English side with another are labelled "not X" on their part of
 speech (`کامپیوتر` / `رایانه`, `سبب` / `علت`) — the generator's disambiguation, as on every set. The fill keeps
 the subtitles' crime-drama register (`بازجویی`, `گروگان`, `جاسوس`), as A1's and A2's do.
+
+## 9. B2 as built (2026-11-12)
+
+Asked for on 2026-11-12: "Add B2." `python3 .claude/persian/run.py --level b2`. **1,500 notes / 3,000 cards:
+106 from the inventory (`inventory.B2`, Hindi's B2 topics rewritten for Iran, with calligraphy and sanctions
+added), 1,394 by frequency**; three sentences for 201, none for 758 — half the deck has no Tatoeba sentence, the
+plain limit of 8,265 pairs. A re-run is byte-identical; A1, A2 and B1 rebuilt after the changes are unchanged.
+
+- **WIKTIONARY RUNS OUT at this level's formal vocabulary.** 60 of the inventory's words were not there as
+  written; 17 were replaced by a form it has (مصرف‌کننده → مصرف, نتیجه‌گیری → نتیجه گرفتن, تغییرات اقلیمی →
+  تغییر اقلیم, گرمایش جهانی → گرمایش زمین, …) and 43 dropped rather than glossed by hand — among them words a
+  B2 learner needs (ادعا, دادستان, تغذیه, علی‌رغم, به‌ویژه, درحالی‌که). That is why only 106 come from the
+  inventory: the frequency fill carries the level. Adding them would need a gloss source beyond Wiktionary.
+- **Homographs** (`ETYMS`): ذکر zekr "mention", فر fer "oven", جلد jeld "volume". `خامه` leads with "cream".
+  `کچل` shows only "bald" (Wiktionary's other noun is a different, anatomical word spelt alike — a `GLOSS` of
+  `[]` hides a part of speech). `ترن` is glossed from its pointer.
+- **74 more fill exclusions**, each with its reason: 32 names and English words in Persian letters (بوش, دبی,
+  رضا, پوتین), suffixes the subtitles write apart (-بان, -خور, -خوار), spoken forms (چسبوندن, فهموندن, چل),
+  entries whose only gloss is not the counted word (خنگ "horse", گوجه "plum", آواره), and the vulgar words the
+  ranking reaches at this depth.
+
+**Known, left.** The fill's register is the subtitles' (military ranks, crime, the supernatural). Fourteen notes
+in seven pairs share an English side and are labelled "not X".
