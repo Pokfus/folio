@@ -33,7 +33,8 @@ from sv import fold, nfc, WORD as SVWORD
 from swedish_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
-STAMP = {'a1': '2026-11-09T00:00:00.000Z', 'a2': '2026-11-12T00:00:00.000Z'}[LEVEL]
+STAMP = {'a1': '2026-11-09T00:00:00.000Z', 'a2': '2026-11-12T00:00:00.000Z',
+         'b1': '2026-11-12T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'swedish'
@@ -107,6 +108,9 @@ ETYMS = {
     'val': ['2'],               # ett val "a choice, an election"; etymology 1 is "a whale"
     'mål': ['2'],               # "goal, target"; etymology 1 is "language; dialect; a case"
     'tja': ['2'],               # "well …" (doubt); etymology 1 is the greeting
+    # B1 (2026-11-12)
+    'mask': ['2'],              # "a mask"; etymology 1 is "a worm"
+    'kram': ['2'],              # en kram "a hug"; etymology 1 is "merchandise"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where Wiktionary's
@@ -148,6 +152,15 @@ GLOSS = {
     'kanin': {'noun': ['rabbit']},
     'värme': {'noun': ['heat, warmth', 'warmth (warm feelings)']},   # Wiktionary's carry "c" and "n"
     'äga': {'verb': ['to own']},              # its second is the slang "to pwn"
+    # B1 (2026-11-12): a sexual, vulgar or place-name sense cut
+    'by': {'noun': ['village', 'hamlet']},
+    'tända': {'verb': ['to light, to ignite', 'to become enthusiastic about something']},
+    'boll': {'noun': ['ball']},
+    'satsa': {'verb': ['to go for (it)']},
+    'sabba': {'verb': ['to ruin, to mess up']},
+    'lust': {'noun': ['desire (to do something)']},
+    'villig': {'adj': ['willing']},
+    'oskuld': {'noun': ['innocence', 'virgin']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -163,12 +176,13 @@ LEAD = {
 }
 
 # NO ARTICLE for a language's name, which Swedish uses without one (jag talar svenska)
-NO_ART = {'svenska', 'engelska'}
+NO_ART = {'svenska', 'engelska', 'franska'}
 
 # A GENDER WRITTEN HERE, where the lemma's first entry is not the everyday word's.
 GENDER_FIX = {'pengar': 'p',
               # A2: the everyday gender where Wiktionary lists both (blod, finger, värme) or none
-              'blod': 'n', 'finger': 'n', 'värme': 'c', 'chans': 'c', 'kläder': 'p', 'glasögon': 'p'}
+              'blod': 'n', 'finger': 'n', 'värme': 'c', 'chans': 'c', 'kläder': 'p', 'glasögon': 'p',
+              'kram': 'c', 'likhet': 'c'}
 
 # A PART OF SPEECH NOT SHOWN for one word: a block that is noise beside the word a beginner meets.
 DROP_POS = {('vara', 'noun'), ('jag', 'noun'), ('det', 'noun'), ('en', 'pron'), ('en', 'adv'),
@@ -178,7 +192,10 @@ DROP_POS = {('vara', 'noun'), ('jag', 'noun'), ('det', 'noun'), ('en', 'pron'), 
             # A2
             ('dess', 'noun'), ('allting', 'noun'), ('röka', 'noun'), ('jaga', 'noun'),
             ('skrika', 'noun'), ('bränna', 'noun'), ('fågel', 'adv'), ('suga', 'noun'),
-            ('gömma', 'noun'), ('blåsa', 'noun')}
+            ('gömma', 'noun'), ('blåsa', 'noun'),
+            # B1
+            ('bråka', 'noun'), ('bak', 'noun'), ('apa', 'verb'), ('japp', 'verb'), ('app', 'intj'),
+            ('kram', 'adj'), ('ström', 'adj')}
 
 # A GLOSS THAT IS NOT A MEANING: a pointer to another headword or a form label.
 NOT_A_MEANING = re.compile(

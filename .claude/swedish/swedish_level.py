@@ -62,6 +62,19 @@ SCOPE = {
                   'of these, describing things and people, time words, and the words that join '
                   'one clause to the next',
     },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise whilst travelling, to produce '
+                 'simple connected text on topics which are familiar or of personal interest, and '
+                 'to describe experiences and events, dreams, hopes and ambitions and briefly give '
+                 'reasons and explanations for opinions and plans',
+        'topics': 'work and the economy, society and politics, media and technology, the '
+                  'environment, education, relationships and family life, home and housing, '
+                  'health, travel and experiences, culture and leisure, feelings and opinions, the '
+                  'words of explaining and arguing, the verbs and adjectives of judging, time and '
+                  'frequency, and the connectors that build an argument',
+    },
 }
 
 

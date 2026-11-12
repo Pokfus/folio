@@ -105,4 +105,63 @@ A2 = [
                    'alltså ändå kanske antingen varken utom'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2}
+# B1 (2026-11-12): the CEFR B1 descriptor's "familiar matters regularly encountered in
+# work, school, leisure", plus experiences, events, hopes and opinions.
+B1 = [
+    ('work and the economy', 'ekonomi arbetsgivare arbetstagare anställd lärling praktik utbildning '
+                             'erfarenhet ansökan intervju avtal kontrakt skatt kostnad inkomst '
+                             'pension fack strejk vinst förlust marknad kund tjänsteman '
+                             'heltid deltid övertid uppsägning befordran'),
+    ('society and politics', 'samhälle politik politiker val:noun parti riksdag kommun land:noun '
+                             'medborgare invandrare flykting demokrati rättighet skyldighet '
+                             'lag:noun myndighet domstol brott:noun straff polisanmälan '
+                             'rösta demonstration kung:noun'),
+    ('media and technology', 'tidning:noun nyhet artikel program kanal internet hemsida '
+                             'mejl lösenord app skärm tangentbord ladda skriva_ut spara:verb '
+                             'radera surfa annons reklam'),
+    ('the environment', 'miljö klimat natur:noun luft:noun förorening avfall återvinning '
+                        'energi el bensin utsläpp skydda:verb jordbruk landskap '
+                        'översvämning torka:noun'),
+    ('education', 'skola:noun gymnasium högskola ämne examen uppsats föreläsning lärobok '
+                  'studera elev:noun rektor termin kunskap'),
+    ('relationships and family life', 'förhållande relation äktenskap skilsmässa sambo pojkvän '
+                                      'flickvän vänskap släkt släkting kusin moster faster morbror '
+                                      'svärmor barnbarn tonåring uppväxt bröllop:noun begravning '
+                                      'träffas umgås'),
+    ('home and housing', 'bostad hyresgäst hyresvärd villa radhus flytta:verb renovera möbel '
+                         'uppvärmning el:noun grannskap tvättmaskin diskmaskin dammsugare '
+                         'balkong källare vind:noun'),
+    ('health and the body', 'hälsa sjukdom skada:noun smärta behandling operation vaccin '
+                            'allergi stress sömn motion kost vikt:noun lunga mage:noun '
+                            'skelett muskel hud blodtryck akut ambulans undersökning'),
+    ('travel and experiences', 'resebyrå bokning utflykt sevärdhet upplevelse äventyr '
+                               'utsikt boende vandrarhem tält gräns:noun tull valuta '
+                               'kust fjäll vattenfall'),
+    ('culture and leisure', 'kultur konsert utställning roman författare dikt målning '
+                            'konstnär föreställning publik scen tradition fest:noun '
+                            'midsommar högtid hobby intresse'),
+    ('feelings and opinions', 'åsikt mening:noun tro:noun hopp:noun oro besvikelse glädje '
+                              'sorg skam avund stolthet förtroende tvivel '
+                              'hålla_med tycka_om föredra anse påstå tvivla övertyga'),
+    ('thinking and talking', 'förklaring exempel fråga:noun problem:noun lösning förslag diskussion '
+                             'argument fördel nackdel orsak följd resultat syfte '
+                             'jämförelse skillnad likhet beskrivning'),
+    ('verbs of B1', 'påverka utveckla förbättra minska öka ersätta undvika upprepa '
+                    'kritisera klaga uppmuntra stödja organisera delta:verb genomföra '
+                    'besluta föreslå rekommendera erbjuda:verb kräva:verb tillåta förbjuda '
+                    'lyckas misslyckas uppleva överraska imponera'),
+    ('describing and judging', 'nöjd missnöjd orättvis rättvis självständig ansvarsfull '
+                               'pålitlig nyfiken envis blyg modig lat flitig ärlig:adj '
+                               'allvarlig positiv negativ nödvändig möjlig:adj omöjlig '
+                               'tillräcklig lagom bekväm obekväm offentlig privat '
+                               'modern traditionell ekonomisk politisk social'),
+    ('time and frequency', 'förr_i_tiden numera hittills framöver samtidigt '
+                           'så_småningom slutligen ständigt plötsligt emellanåt '
+                           'vardag århundrade decennium'),
+    ('connectors and argument', 'däremot dessutom därför_att eftersom '
+                                'såvida medan fastän alltså nämligen '
+                                'å_andra_sidan till_exempel till_slut i_alla_fall '
+                                'slutligen hursomhelst'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}

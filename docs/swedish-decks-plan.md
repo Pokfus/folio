@@ -5,7 +5,7 @@ Swedish set, built in the Greek decks' shape (`docs/greek-decks-plan.md`, whose 
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-09: "Add a Swedish language collection."
 
-**STATUS (2026-11-12): A1 and A2 are built** (`.claude/swedish/`, §6 and §7). B1 to C1 and a phrases deck are not.
+**STATUS (2026-11-12): A1, A2 and B1 are built** (`.claude/swedish/`, §6–§8). B2, C1 and a phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one (adding Swedish to the day's
@@ -33,7 +33,7 @@ is the owner's to overrule.**
 |---|---|---|
 | Swedish A1 Beginner — built | `Swedish-A1.folio-deck.json` | 500 |
 | Swedish A2 Elementary — built | `Swedish-A2.folio-deck.json` | 750 |
-| Swedish B1 Intermediate | `Swedish-B1.folio-deck.json` | 1,000 |
+| Swedish B1 Intermediate — built | `Swedish-B1.folio-deck.json` | 1,000 |
 | Swedish B2 Upper Intermediate | `Swedish-B2.folio-deck.json` | 1,500 |
 | Swedish C1 Advanced | `Swedish-C1.folio-deck.json` | 1,500 |
 
@@ -99,7 +99,7 @@ mina), which is the paradigm it belongs to. One of A1's 500 words has no Tatoeba
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2 done) — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2 and B1 done) — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` and its `SCOPE` into `swedish_level.py` (or, if the owner chooses, read a graded
 lexicon — §1), run, read every card. **Phase 3** — a phrases deck (`phrase` / `proverb` entries and particle
 verbs: `tycka om`, `ta hand om`).
@@ -138,3 +138,29 @@ card was read. A1 re-runs byte-identical after every change below (each A2 table
 **Known, left.** The fill still carries the subtitles' crime vocabulary (`vapen`, `mord`, `pistol`, `bomb`),
 as A1 does. Three inventory words are not Wiktionary headwords and were dropped or replaced (`byxor` → `byxa`,
 `utlandet` → `utland`, `tidigare` dropped).
+
+## 8. As built (2026-11-12): B1
+
+Asked for on 2026-11-12: "Add B1." `python3 .claude/swedish/run.py --level b1`. **1,000 notes: 273 from a
+16-topic inventory** (`inventory.py` `B1`: work and the economy, society and politics, media and technology,
+the environment, education, relationships, housing, health, travel, culture, feelings and opinions, explaining
+and arguing, B1 verbs, judging adjectives, time words, connectors — `SCOPE['b1']`) **and 727 by frequency**;
+three sentences for 719, none for 89 (Tatoeba is thinner at this level: `avfall`, `uppsägning`, `polisanmälan`).
+The inventory now admits multi-word lemmas (`hålla med`, `till exempel`, `å andra sidan`, `så småningom`).
+Every card was read; A1 and A2 re-run byte-identical.
+
+**What the B1 ranking turned up** — the A2 kinds again, at greater number, each in `select.EXCLUDE` or a
+`build_deck.py` table with its reason: more adjective neuters and plurals (`rent`, `lågt`, `glada`, `långa`);
+**names** (`Bill`, `Don`, `Lisa`, `Linda`, `Grace`, `Al`, `Matt`) and **foreign words** (`and`, `wow`, `king`)
+whose spellings carry a rare Swedish entry; words met only in a phrase (`sistone`, `strunta i`, `råda bot`);
+colloquial forms Wiktionary gives no meaning (`våran`, `toa` — they printed an empty English side, which the
+check catches); rare-noun-over-verb again (`sörja`, `rulla`) and verb-over-noun (`ro` "peace", `knapp`
+"button", `ström`, `strid`); `mask` "mask" and `kram` "hug" by etymology; sexual or vulgar senses cut by
+`GLOSS` (`tända`, `satsa`, `boll`, `lust`, `sabba`, `villig`); `jävligt` and `skitsnack` to `SWEARS`. `franska`
+joins `NO_ART` (and the check's list). One judgement beyond a fault: `våldta` is excluded from a level deck
+although the subtitles rank it.
+
+**Known, left.** The subtitles' crime and fantasy vocabulary is heavier here than at A2 (`mördare` was A2;
+B1 adds `gisslan`, `vampyr`, `häxa`, `demon`, `åklagare`) — it is frequency, and labelled as such in the
+description. Two pairs share an English side and are told apart by the dedupe pass's label (`ansvarig` /
+`ansvarsfull`, `slutligen` / `så småningom`).

@@ -3636,7 +3636,8 @@ changed was the one that had been wrong all along.
 - `.claude/swedish/` — the generator behind the Swedish decks (Nov 2026, on request: "Add a Swedish language
   collection"; the Hindi and Greek owners' decisions taken, the owner not asked). **Built: A1,
   `decks/Swedish-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Swedish-A2.folio-deck.json`**
-  (750 / 1,500; 2026-11-12, on request: "Add Swedish A2"). `python3 .claude/swedish/run.py [--level a1]`,
+  (750 / 1,500; 2026-11-12, on request: "Add Swedish A2") **and B1, `decks/Swedish-B1.folio-deck.json`**
+  (1,000 / 2,000; 2026-11-12, "Add B1"). `python3 .claude/swedish/run.py [--level a1]`,
   `node .claude/swedish/check-swedish.js`; a re-run is byte-identical. Greek's pipeline adapted, with no alphabet
   deck and no romanisation (Latin script); nouns carry en/ett, verbs their present, past and supine. Swedex and
   Tisus publish no word list, so a level is a topic inventory plus lemma frequency, and the description says so.

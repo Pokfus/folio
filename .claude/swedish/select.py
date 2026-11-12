@@ -79,13 +79,55 @@ EXCLUDE = {
     'bar': 'its plural is bara "only" (A1), whose count it takes',
     'nick': 'the English name Nick; "a nod" is rare beside it',
     'snut': 'slang for polis (A1); Wiktionary\'s first sense is "a snout"',
+    # Read off the B1 ranking (2026-11-12).
+    # A FORM TAUGHT ON ANOTHER CARD
+    'rent': 'the neuter of ren (A2)', 'öppet': 'the neuter of öppen (A2)',
+    'lågt': 'the neuter of låg (A2)', 'starkt': 'the neuter of stark (A2)',
+    'försiktigt': 'the neuter of försiktig (A2)', 'snällt': 'the neuter of snäll (A2)',
+    'vitt': 'the neuter of vit (A1)', 'brunt': 'the neuter of brun (A1)',
+    'sjukt': 'the neuter of sjuk (A1), here the slang "incredibly"',
+    'djupt': 'the neuter of djup, taught in B1', 'normalt': 'the neuter of normal, taught in B1',
+    'still': 'the adverb of stilla, taught in B1',
+    'ena': 'the definite of en (A1)', 'ende': 'the masculine of enda (A1)',
+    'långa': 'the plural of lång (A1); its noun is a fish', 'glada': 'the plural of glad (A1); its noun is a bird',
+    'sjuka': 'the plural of sjuk (A1)', 'hela': 'the definite of hel (A1); its verb "to heal" is rare',
+    'kläde': 'the singular of kläder (A2), rare beside it', 'stycken': 'the plural of stycke, glossed "instances"',
+    'broder': 'the formal brother, bror being taught (A1)', 'fars': 'the genitive of far (A1); its noun is "a farce"',
+    'led': 'the past of lida and leda (A2); its adjective "tired" is rare',
+    'raka': 'the plural of rak "straight"; its noun is a road\'s straight',
+    'käft': 'met in the rude håll käften (excluded in A2)',
+    # NAMES, AND WORDS THE SUBTITLES' COUNT IS NOT FOR
+    'bill': 'the English name', 'don': 'the name and title', 'lisa': 'the name', 'linda': 'the name',
+    'grace': 'the name', 'donna': 'the name', 'lady': 'the English title, in names',
+    'al': 'the name; Wiktionary\'s entry is "alder"', 'and': 'the English word; its noun is "a wild duck"',
+    'rom': 'Rome; its noun is "roe"', 'oliv': 'the name Oliver\'s count; its noun is "olive"',
+    'japan': 'the country; Wiktionary\'s lower-case entry is "a Japanese person"',
+    'matt': 'the name Matt; its adjective is rare', 'pari': 'Paris\'s count; its noun is a finance term',
+    'labb': 'the clipped "lab" is not its entry, "a skua"', 'kar': 'the spoken karl; its noun is "a tub"',
+    'å': 'the spoken att and the interjection; its noun "a stream" is rare',
+    'ar': 'a unit of area, its count a misspelling of är', 'lo': 'a lynx, its count the intensifier',
+    'rya': 'a rug; no everyday use', 'rådslå': 'formal and rare; its count is råd\'s',
+    'gode': 'the definite of god "good"; its noun is a pagan priest',
+    'korka': 'its count is korkad "stupid"; the verb "to cork" is rare',
+    'fix': 'met in fix idé; its noun is a drug dose', 'bot': 'met in råda bot på',
+    'grann': 'met in lite grann "a little"; its "pretty" is dated',
+    'hacka': 'a pickaxe or a stammer, neither the count\'s',
+    'strunta': 'met only in strunta i, the phrases deck\'s', 'go': 'dialect; its noun is the game',
+    'wow': 'English', 'ah': 'an interjection with no meaning to teach',
+    'våran': 'the spoken vår (A1), which Wiktionary gives no meaning of its own',
+    'rött': 'the neuter of röd (A1)', 'grymt': 'the neuter of grym, taught in B1',
+    'sena': 'the plural of sen (A1); its noun is "a tendon"', 'as': 'its count is not "carrion"',
+    'sistone': 'met only in på sistone',
+    'verkligt': 'the neuter of verklig, taught in B1',
+    'toa': 'the clipped toalett (A1); Wiktionary gives it no meaning of its own', 'king': 'English slang',
+    'våldta': 'not taught in a level deck, though common in the subtitles\' crime drama',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
 # Swearing and insults are never in a level deck.
 SWEARS = {'fan', 'jävla', 'jävel', 'helvete', 'skit', 'fitta', 'kuk', 'hora', 'idiot', 'satan',
           'jävlas', 'skita', 'knulla', 'röv', 'arsle', 'fittig', 'bög', 'skitstövel', 'fanskap',
-          'djävul', 'djävla', 'jävlar'}
+          'djävul', 'djävla', 'jävlar', 'jävligt', 'skitsnack'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists
 # another first (read off the A1 build, 2026-11-09) -- `tro` is dealt for "to believe",
@@ -97,7 +139,10 @@ FILL_POS = {'tro': 'verb', 'ringa': 'verb', 'mot': 'prep', 'det': 'pron', 'visa'
             'fylla': 'verb', 'äga': 'verb', 'suga': 'verb', 'driva': 'verb', 'råka': 'verb',
             'bete': 'verb',
             'gift': 'adj',      # "married", not "poison"
-            'tuff': 'adj', 'egen': 'pron', 'grund': 'noun', 'öde': 'noun'}
+            'tuff': 'adj', 'egen': 'pron', 'grund': 'noun', 'öde': 'noun',
+            # B1 (2026-11-12)
+            'strid': 'noun', 'knapp': 'noun', 'ström': 'noun', 'rulla': 'verb', 'vars': 'pron',
+            'ro': 'noun', 'kram': 'noun', 'sörja': 'verb'}
 
 # A WORD DEALT BY ANOTHER'S COUNT.  `ska` is the spoken form of the verb whose
 # infinitive Wiktionary heads `skola`, and that table claims `ska` and `skulle`,
