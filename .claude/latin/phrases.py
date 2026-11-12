@@ -24,7 +24,7 @@ A row whose Latin is not plain Latin text (quotation marks, brackets, an ellipsi
 Greek), whose translation is empty, or which runs past `MAX_WORDS`, is left out.
 
 THE ORDER the cards are dealt in: the phrases with an article of their own first,
-by how often that article was read in 2025 (Wikimedia pageviews, `views.json`) --
+by how often that article was read over 60 days (`views`, cached in `views.json`) --
 `carpe diem` before `ad quod damnum`; then the others by how often they occur in
 Tatoeba's sentences and in the classical corpus, then alphabetically.
 
@@ -42,8 +42,8 @@ from la import fold, nfc, tokens, macronless
 DIR = 'phrases'
 UA = {'User-Agent': 'folio-latin-deck-builder/1.0 (offline deck generator)'}
 API = 'https://en.wikipedia.org/w/api.php?action=parse&oldid={rev}&prop=wikitext|revid&format=json&formatversion=2'
-VIEWS = ('https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/'
-         'all-access/user/{t}/monthly/2025010100/2025123100')
+QUERY = ('https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2'
+         '&prop=pageviews&pvipdays=60&redirects=1&titles={t}')
 
 # The revisions read on 2026-11-12, one per page of the list.
 PAGES = {'A': 1380589466, 'B': 1382625422, 'C': 1379332072, 'D': 1374454837,
@@ -85,15 +85,29 @@ def page(letter):
 
 
 def views(titles):
+    """Each article's readers over the 60 days before it was first asked (the MediaWiki
+    API's `pageviews`, 50 titles a request -- the per-article REST endpoint allowed 100
+    titles in 20 minutes).  Cached in `views.json`, so a re-run reads the same counts;
+    a title the cache lacks is asked for and added."""
     p = os.path.join(DIR, 'views.json')
     have = json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {}
     todo = sorted(t for t in titles if t not in have)
-    for i, t in enumerate(todo):
-        data = get(VIEWS.format(t=urllib.parse.quote(t.replace(' ', '_'), safe='')))
-        have[t] = sum(x['views'] for x in json.loads(data)['items']) if data else 0
-        time.sleep(0.3)
-        if i % 50 == 49:
-            json.dump(have, open(p, 'w', encoding='utf-8'), ensure_ascii=False, sort_keys=True)
+    for i in range(0, len(todo), 50):
+        batch = todo[i:i + 50]
+        time.sleep(1)
+        d = json.loads(get(QUERY.format(t=urllib.parse.quote('|'.join(batch), safe=''))))['query']
+        alias = {}
+        for kind in ('normalized', 'redirects'):
+            for x in d.get(kind, []):
+                alias[x['from']] = x['to']
+        got = {pg['title']: sum(v or 0 for v in (pg.get('pageviews') or {}).values())
+               for pg in d.get('pages', [])}
+        for t in batch:
+            u = t
+            while u in alias:
+                u = alias[u]
+            have[t] = got.get(u, 0)
+    have.setdefault('_read', time.strftime('%Y-%m-%d', time.gmtime()))
     json.dump(have, open(p, 'w', encoding='utf-8'), ensure_ascii=False, sort_keys=True)
     return have
 
@@ -274,8 +288,8 @@ def desc(n, n_art, n_ex3, n_ex0):
         f"beyond the list: {n_art} have a Wikipedia article of their own, and the others are entries "
         "in Wiktionary's Latin dictionary or quotations of three words or more found word for word in "
         "the classical authors (Caesar, Cicero, Livy, Virgil, Horace, Ovid and others). The phrases "
-        "with an article come first, ordered by how often that article was read in 2025, so carpe "
-        "diem comes long before a phrase of canon law; the rest follow by how often they appear in "
+        "with an article come first, ordered by how often that article was read over two months "
+        "of 2026, so carpe diem comes long before a phrase of canon law; the rest follow by how often they appear in "
         "the Tatoeba corpus and in the classical authors. "
         "Each card gives the phrase as the list spells it — without macrons, as Wikipedia prints "
         "Latin — with its translation and, where the list's note opens with a short sentence, that "
@@ -285,7 +299,7 @@ def desc(n, n_art, n_ex3, n_ex0):
         "The speaker reads Latin with an Italian voice, which gives the Italianate church "
         "pronunciation, because almost no device has a Latin voice. Sources. Phrases, translations "
         "and notes: Wikipedia, List of Latin phrases (pages A to V, revisions of November 2026), "
-        "CC BY-SA 4.0. Order: Wikimedia pageviews, 2025. Selection: English Wiktionary via the "
+        "CC BY-SA 4.0. Order: Wikipedia pageviews, September to November 2026. Selection: English Wiktionary via the "
         "kaikki.org extraction (CC BY-SA 4.0) and The Latin Library's texts of the classical "
         "authors. Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR."
     )
