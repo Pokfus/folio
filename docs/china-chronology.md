@@ -286,6 +286,13 @@ Filled batch by batch from `cnh-101` (B11 on). **The protected lines** of the se
 | Shang chronology: conventional / Liu Xin's end / the eclipses | c. 1600 – 1046 BCE / 1122 BCE / 1201 – 1181 BCE | Pankenier (`cnh-108`) |
 | first chariots beyond the Urals / wheat in central China / the chariot in China | c. 2000 – 1800 BCE / c. 1500 BCE / c. 1200 BCE | `cnh-109` |
 | the first securely dated year | 841 BCE | `cnh-110` |
+| the Zhou dynasty / Western / Eastern | c. 1046 – 256 BCE / c. 1046 – 771 BCE / 770 – 256 BCE | `cnh-111` |
+| the Western Zhou / the first dated year / the capital lost | c. 1046 – 771 BCE / 841 BCE / 771 BCE | `cnh-112` |
+| the Three Guards rise | c. 1042 BCE (no end year in any source read) | `cnh-116` |
+| the Mandate attested / recast under the Western Han | c. 1046 – 771 BCE / 206 BCE – 8 CE | `cnh-117` |
+| the Shuowen's definition of tian / presented | 100 CE / 121 CE | Legge (`cnh-118`) |
+| fengjian practised | c. 1046 – 771 BCE | `cnh-119` |
+| the eastern colonies under the kings / as rival states | c. 1046 – 771 BCE / 770 – 221 BCE | `cnh-120` |
 
 ## Later periods
 
@@ -426,4 +433,11 @@ cnh-107: 1250; 1046
 cnh-108: 1600; 1046; 1122; 1201; 1181
 cnh-109: 1250; 1046; 2000; 1800; 1500; 1200
 cnh-110: 1250; 1046; 100; 841
+cnh-111: 1046; 256; 771; 770
+cnh-112: 1046; 771; 841
+cnh-116: 1042
+cnh-117: 1046; 771; 206; 8
+cnh-118: 1046; 771; 100
+cnh-119: 1046; 771
+cnh-120: 1046; 771; 770; 221
 ```

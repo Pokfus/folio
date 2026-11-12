@@ -306,7 +306,7 @@ otherwise.
 | B9 | Shang (`col-3`) | `cnh-081`–`cnh-090` | 10 | 122 | **done 2026-11-09** |
 | B10 | Shang (`col-3`) | `cnh-091`–`cnh-100` | 10 | 131 | **done 2026-11-09** |
 | B11 | Shang (`col-3`) | `cnh-101`–`cnh-110` | 10 | 113 | **done 2026-11-12** |
-| B12 | Western Zhou (`col-4`) | `cnh-111`–`cnh-120` | 10 | 110 | to do |
+| B12 | Western Zhou (`col-4`) | `cnh-111`–`cnh-120` | 10 | 110 | **done 2026-11-12** |
 | B13 | Western Zhou (`col-4`) | `cnh-121`–`cnh-130` | 10 | 119 | to do |
 | B14 | Western Zhou (`col-4`) | `cnh-131`–`cnh-140` | 10 | 124 | to do |
 | B15 | Eastern Zhou (`col-5`) | `cnh-141`–`cnh-150` | 10 | 116 | to do |
@@ -547,6 +547,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-108` | an eclipse-recording bone | not re-checked (Commons 429): ok; alt identical to the description |
 | `cnh-109` | an ibex-headed knife | not re-checked (Commons 429): retitle (the title is the old card's angle) or replace |
 | `cnh-110` | a bone beside its transcription | not re-checked (Commons 429): wrong: burned-in transcription and English — replace |
+| `cnh-111` | none | not re-checked (Commons 429): the card has no picture — wanted |
+| `cnh-112` | the Lai pan inscription | not re-checked (Commons 429): weak: one object for a period, and the credit names no author |
+| `cnh-113` | an album portrait | not re-checked (Commons 429): ok |
+| `cnh-114` | an album portrait | not re-checked (Commons 429): ok |
+| `cnh-115` | an album leaf of the duke | not re-checked (Commons 429): ok |
+| `cnh-116` | the Kang Hou gui | not re-checked (Commons 429): ok; its description should say Wey, not Wei |
+| `cnh-117` | a woodblock page of the Documents | not re-checked (Commons 429): wrong: a generic page; a Da Yu ding picture wanted |
+| `cnh-118` | a chart of eight archaic graphs | not re-checked (Commons 429): wrong: one cell is tian — a bronze or bone tian wanted |
+| `cnh-119` | a Liulihe zun | not re-checked (Commons 429): wrong for this card (a Yan vessel, `cnh-120`'s subject); an investiture bronze wanted |
+| `cnh-120` | a Liulihe ding | not re-checked (Commons 429): ok |
 
 ## Glossary candidates
 
@@ -1057,3 +1067,38 @@ evil last rulers, Lewis 2016); King Wen and King Wu: the 800 lords in both the *
 the formula in the oldest *Shangshu* chapters and on the Da Yu ding. **Protected lines: unchanged** (diffed after the
 apply). For the owner: `cnh-102`'s `Birth 1105 BCE` is in no scholarly source read — in Nivison 1999 1105 is the first
 year of Di Yi's oracle-bone calendar, likely where it came from; the background says so, and the age rests on it.
+
+### B12 — `cnh-111`–`cnh-120`, Western Zhou: the Zhou dynasty to the eastern colonies (2026-11-12)
+
+Run as B11. Every cited URL answered. **Pictures were not touched** (Commons 429). **The old cards told the founding
+legends in their own voice (King Wen's prison and the hexagrams, the Duke of Zhou's coffer prayer, his seven-year
+regency as fact), gave the Three Guards a 1039 BCE end and a three-year length no source read prints, misread Mencius's
+five ranks, took a "threefold scale" from a forged *Shangshu* chapter as fact, and misread an article twice on the
+eastern colonies (the gold earrings are pre-Zhou; the graded bronze sets were dropped at Liulihe).**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-111` Zhou dynasty | 8 | 5 → 9 | **1046 BCE labelled the Chronology Project's, with 1027 BCE beside it; Houji's birth told as the "Sheng min" ode's and the *Shiji*'s; the end as the *Shiji* tells it (256 BCE, the nine ding to Qin)**; "35 years before the empire" and "outlasted every royal house" dropped or restated (the longest-lasting dynasty of ancient Chinese history). No picture (`I.none`). |
+| `cnh-112` Western Zhou | 7 | 5 → 7 | **All three phrasings rewritten off siblings' angles (the move east, the bronzes, fengjian); 1046 and 1027 BCE labelled; the fall told as the *Shiji*'s; a stalagmite drought argument as one study's**; the unsourced "clan sign" contrast and the glossary's "1045 or 1047" dropped. |
+| `cnh-113` King Wen | 7 | 5 → 7 | **The title told both ways (the *Shiji*: taken by himself in the year Heaven's charge came; later: given by his son); Youli and the hexagrams as the *Shiji*'s, with its own "perhaps"; the *Yijing* authorship a later tradition; the Da Yu ding crediting the mandate to him**. Protected: the line stays (rows flagged below). |
+| `cnh-114` King Wu | 7 | 5 → 7 | **"One old reckoning allows him seven years" (against the line's 1043 BCE) dropped; Mengjin's 800 lords as the *Shiji*'s, the "Mu shi" oath and the coffer prayer as the *Shangshu*'s; the Li gui and the Tsinghua "Jinteng" added**; a kiln study cited for Hao removed. Protected: the line stays. |
+| `cnh-115` Duke of Zhou | 7 | 5 → 7 | **The legend in the texts' voices: the metal-bound coffer chapter dated late Eastern Zhou by most scholars; the seven years and the handback the *Shiji*'s; the *Xunzi*'s claim that he held the throne itself; the "boy of 13" and a "three-year revolt" dropped**. Protected: the line stays (1035 flagged below). |
+| `cnh-116` Rebellion of the Three Guards | 6 | 5 → 7 | **The count, the Result row and the unsourced 1039 BCE end off; now `Began c. 1042 BCE` and the timeline moved to `{at:-1042}` (set-timeline.js); the *Shiji* names two rebel brothers (a later chronicle adds Huoshu) and contradicts itself on the war's length; early bronzes record the eastern campaign**. |
+| `cnh-117` Mandate of Heaven | 8 | 5 → 8 | **Centuries on the line made spans: `Attested c. 1046 – 771 BCE` / `Recast 206 BCE – 8 CE`; the Da Yu ding, three *Shangshu* chapters, the "Wen Wang" ode, Mencius's "mere fellow", Xunzi and Dong Zhongshu's omens**; "every later dynasty used it" (cited to a paper that does not say it) dropped. The He zun is on no page read, so the card does not name it. |
+| `cnh-118` Tian | 7 | 5 → 7 | **`Attested c. 1046 – 771 BCE` / `Graph defined 100 CE` (the *Shuowen*, presented 121 CE, both in prose); Shang Di and its identification with Tian, Confucius at Yan Hui's death, the Mohists, Xunzi; the "man with a big head" reading of the graph (on no open page) dropped**; the mandate phrasing left to `cnh-117`. |
+| `cnh-119` fengjian | 6 | 5 → 7 | **Mencius's five degrees corrected (the Son of Heaven, gong, hou, bo, and zi with nan as one, on four sizes of domain); the "threefold scale" from the *Shangshu* "Wu cheng" dropped; `Practised c. 1046 – 771 BCE`; "feudalism" given as a comparison, the word rendered "enfeoffment"; the Zuo Zhuan's "fences and screens" as the text's**; pinyin lower-cased (fēngjiàn). |
+| `cnh-120` Zhou colonies in the east | 6 | 5 → 7 | **Two misreadings of Jaffe fixed (the earrings pre-Zhou; Liulihe's graded sets dropped later); `Under the kings c. 1046 – 771 BCE` / `As rival states 770 – 221 BCE`, the "from c. 1039" and the "over 20 states" count gone; the *Shiji* (King Wu) and the Zuo Zhuan (King Cheng, the Yin clans to Lu and Wey) side by side; the Ke lei and the Yihou Ze gui**. |
+
+Read by eye. **Confusability**: the Song sacrifices stayed `cnh-116`'s and `cnh-106`'s angles (different details);
+answer words cleared on `cnh-112` ("western"), `cnh-113` ("king"), `cnh-117` ("Heaven"), `cnh-120` ("Zhou"); `cnh-111`
+tells the nine ding passing to Qin, so `cnh-190` was told to take another angle. **Legend**: the founding stories are
+now the *Shiji*'s, the odes' and the *Shangshu*'s, each dated. **Chinese names corrected**: `cnh-119` pinyin case;
+`东方封国` descriptive (for the owner: 诸侯国 names the states, not the colonisation). **Spellings fixed**: none needed;
+0 hits. **Myth register**: Houji confirmed (the "Sheng min" ode, then the *Shiji*); the nine ding confirmed (the *Mozi*,
+the *Shiji*'s Qin seizure); the Duke of Zhou's regency confirmed (the *Shiji*'s seven years; the *Xunzi*'s "trod the
+register of the Son of Heaven"), the Tsinghua "Jinteng" read by one study as his accession — for the row; the Mandate:
+the formula in four *Shangshu* chapters and on the Da Yu ding; the first fiefs the *Shiji*'s King Wu's, the Zuo Zhuan's
+King Cheng's. **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-113`'s `Birth c. 1112 BCE`
+is in no source read (1112 – 1102 BCE is the Project's reign of the Shang king Wending), nor its ages or places (Bi,
+Cheng; the *Shiji* puts his last seat at Feng); `cnh-114`'s `Birth c. 1097 BCE` and ages likewise; `cnh-115`'s 1035 BCE
+is Shaughnessy's second start for King Cheng — the Project gives none, and one study ends the regency in 1036.
