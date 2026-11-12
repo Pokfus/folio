@@ -115,7 +115,8 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `psychology-card-plan.md` | Psychology (`psych`) — the first that is not history | `ps-` |
 | `philosophy-card-plan.md` | Philosophy (`phil`) | `ph-` |
 | `biology-card-plan.md` | Biology (`bio`) | `bio-` |
-| `dinosaurs-card-plan.md` | Dinosaurs (`dino`) | `dino-` |
+| `dinosaurs-card-plan.md` | Dinosaurs (`dino`) — **DORMANT** since 2026-11-12, its cards renumbered into Palaeontology | `dino-` |
+| `palaeontology-card-plan.md` | Palaeontology (`paleo`) — replaced Dinosaurs; its appendix is the `dino-` → `pal-` table | `pal-` |
 | `astronomy-card-plan.md` | Astronomy (`astro`) | `astro-` |
 | `economics-card-plan.md` | Economics (`econ`) | `ec-` |
 | `korea-card-plan.md` | Korea (`korea`) | `ko-` |

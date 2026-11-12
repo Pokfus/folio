@@ -36,6 +36,12 @@ TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500, 'c1': 1500}
 
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
 
+# THE PHRASES DECK (`--level phr`, `phrases.py`): not a CEFR band, built on all five.
+TITLES['phr'] = 'Hungarian Phrases and Expressions'
+DECK_IDS['phr'] = 'huphrase'
+DECK_FILES['phr'] = 'Hungarian-Phrases-and-Expressions.folio-deck.json'
+BELOW['phr'] = list(BANDS)
+
 SCOPE = {
     'a1': {
         'quote': 'Can understand and use familiar everyday expressions and very basic '
@@ -49,6 +55,62 @@ SCOPE = {
                   'the home, the town and getting about, the body and feeling ill, the '
                   'weather, colours, and the articles, pronouns, question words, '
                   'postpositions and particles every sentence is built out of',
+    },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'gloss': 'able to manage simple, routine exchanges of information on familiar matters '
+                 '— personal and family information, shopping, the local area, work — and to '
+                 'describe in simple terms their background, their surroundings and what they '
+                 'immediately need',
+        'topics': 'relatives and the people around you, jobs and study, clothes, more food and '
+                  'cooking, the rooms and furniture of a home, the town and its services, travel '
+                  'and holidays, nature, the seasons and the compass, animals, health and the '
+                  'body, feelings and character, free time and sport, telling what happened '
+                  'when, the higher numbers and measures, and the everyday verbs of moving, '
+                  'dressing, cooking and doing',
+    },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to produce '
+                 'simple connected text on familiar topics, and to describe experiences and '
+                 'events, dreams, hopes and ambitions, and briefly give reasons and explanations '
+                 'for opinions and plans',
+        'topics': 'work, money and the economy, education, the news, media and technology, '
+                  'government, law and society, the environment and the weather, health and '
+                  'medicine, travel and transport, the household and its chores, relationships '
+                  'and the stages of life, feelings and character, religion and festivals, '
+                  'ideas, reasons and plans, the connectors that join sentences, words for '
+                  'describing, and the verbs of thinking, deciding, arguing and changing',
+    },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in their field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either '
+                 'party, and to produce clear, detailed text on a wide range of subjects and '
+                 'explain a viewpoint on a topical issue, giving the advantages and disadvantages '
+                 'of various options',
+        'topics': 'politics and public administration, the law and the courts, the economy and '
+                  'finance, science and research, technology, the environment and natural '
+                  'resources, health and the mind, the arts, literature and the media, history '
+                  'and society, argument and evaluation — the words for claims, evidence, causes '
+                  'and consequences — the formal connectors of written Hungarian, words for '
+                  'describing, and the verbs of reporting, analysing and persuading',
+    },
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise '
+                 'implicit meaning',
+        'gloss': 'able to express ideas fluently and spontaneously without much obvious '
+                 'searching for expressions, to use language flexibly and effectively for '
+                 'social, academic and professional purposes, and to produce clear, '
+                 'well-structured, detailed text on complex subjects',
+        'topics': 'philosophy and ethics, religion and the inner life, scholarly Hungarian, '
+                  'government, diplomacy and the constitution, the economy and development, '
+                  'medicine and the body, law and rights, language and literature, the shades '
+                  'of feeling and judgement, the abstract nouns and adjectives of formal prose, '
+                  'and the literary connectors and adverbs',
     },
 }
 

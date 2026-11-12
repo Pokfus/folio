@@ -40,7 +40,7 @@ for (const c of T.collections) name[c.id] = c.title || c.id;
 console.log("\ncards carrying a `card.why`\n");
 for (const k of [...rows.keys()].sort()) {
   const [n, w] = rows.get(k);
-  if (!w && !/^(col-|china|bio|psych|ww2|korea|japan|egypt|dino|phil)/.test(k)) continue;
+  if (!w && !/^(col-|china|bio|psych|ww2|korea|japan|egypt|paleo|phil)/.test(k)) continue;
   console.log("  " + (name[k] || k).padEnd(24) + String(w).padStart(5) + " / " + String(n).padEnd(6) +
               (w === n ? "  complete" : ""));
 }
