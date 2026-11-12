@@ -35,12 +35,33 @@ EXCLUDE = {
     'भाड़': 'counted from भाड़ में जाओ, an oath',
     'की': 'taught on the card of का, whose feminine it is',
     'बारा': 'its count is बारे, the oblique, which is the बारे of के बारे में "about"',
+    # Read off the A2 ranking (2026-11-12).
+    'सिकंदर': '"king, ruler"; its count is the name Sikandar (Alexander)',
+    'कराहना': 'its count is the subtitles\' sound captions ("[groans]"), not speech',
+    'हाँफना': 'its count is the subtitles\' sound captions ("[pants]"), not speech',
+    'हाँकना': 'its count is the captions\' हांक- / हांफ- ("[panting]"), not "to drive (an animal)"',
+    'गलना': '"to melt"; its count is गले / गला "neck, throat" and गली "lane", whose forms it shares',
+    'सो': '"used with जो" in Wiktionary\'s one sense; its count is सो "sleep!", of सोना',
+    'करनी': '"deed"; its count is करनी, the feminine infinitive of करना',
+    'कोड़ी': '"a score (twenty)"; its count is कोडी, the subtitles\' "code"',
+    'ज़ाती': '"innate"; its count is जाती, a form of जाना (the nukta folded)',
+    'डी': 'the letter D, counted from spelt-out English',
+    'हा': 'laughter, counted from subtitles',
+    'हाउस': '"house" in English names (White House), not a Hindi word',
+    'गुड़': '"jaggery"; its count is गुड, the subtitles\' English "good"',
+    'मिस': '"pretext"; its count is the subtitles\' English "miss"',
+    'इंदु': '"the moon"; its count is the given name Indu',
+    'जगदीश': '"god"; its count is the given name Jagdish',
+    'समीर': '"breeze"; its count is the given name Sameer',
+    'प्रिया': '"darling"; its count is the given name Priya',
+    'दिव्या': '"divine"; its count is the given name Divya',
+    'ख़ान': '"khan"; its count is the surname Khan',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
 # Swearing and insults are never in a level deck.
 SWEARS = {'साला', 'कमीना', 'हरामी', 'कुत्ती', 'चूतिया', 'भड़वा', 'गांडू', 'बकवास', 'हरामज़ादा',
-          'कमबख़्त', 'साली', 'बेवकूफ़', 'उल्लू'}
+          'कमबख़्त', 'साली', 'बेवकूफ़', 'उल्लू', 'कुतिया'}
 
 
 def usable(L):
@@ -86,6 +107,9 @@ def main():
         if k in seen or k in below or k in swears or k in excl:
             continue
         if len(k) < 2 and k not in ('न',):
+            continue
+        # a SUFFIX (-वाला) is not a word a learner meets bare (A2)
+        if k.startswith('-') or k.endswith('-'):
             continue
         # a MULTI-WORD lemma (बात करना, के बारे में) is the inventory's to choose; the
         # fill's ranking of one is only an estimate (`extract.py`)

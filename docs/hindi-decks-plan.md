@@ -5,8 +5,8 @@ eleventh language set in the shape of the ones already shipped (Russian TORFL, I
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-09: "Add a Hindi language collection."
 
-**STATUS (2026-11-09): the alphabet deck and A1 are built** (`.claude/hindi/`, §6). A2 to C1 and the
-phrases deck are not.
+**STATUS (2026-11-12): the alphabet deck, A1 and A2 are built** (`.claude/hindi/`, §6–7). B1 to C1 and
+the phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one line and one bump, because it
@@ -27,7 +27,7 @@ also changed the APP (the shelf's hue in `app.js`) — the Turkish and Russian p
 |---|---|---|
 | Hindi Alphabet (Devanagari) — built | `Hindi-Alphabet.folio-deck.json` | 59 |
 | Hindi A1 Beginner — built | `Hindi-A1.folio-deck.json` | 500 |
-| Hindi A2 Elementary | `Hindi-A2.folio-deck.json` | 750 |
+| Hindi A2 Elementary — built | `Hindi-A2.folio-deck.json` | 750 |
 | Hindi B1 Intermediate | `Hindi-B1.folio-deck.json` | 1,000 |
 | Hindi B2 Upper Intermediate | `Hindi-B2.folio-deck.json` | 1,500 |
 | Hindi C1 Advanced | `Hindi-C1.folio-deck.json` | 1,500 |
@@ -86,7 +86,7 @@ subtitle-ordered deck on the shelf does. 7 of A1's 500 words have no Tatoeba sen
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1, one level per session: write
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 (done) to C1, one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `hindi_level.py`, run, read every card.
 **Phase 3** — the phrases deck (`phrase` / `proverb` entries and idiomatic multi-word lemmas). **Phase 4** —
 a combined file, gitignored.
@@ -101,3 +101,33 @@ is byte-identical** (verified for both decks). A1: 500 notes, 281 from the inven
 three sentences for 471, none for 7. The alphabet: 59 notes — 11 vowels (each shown alone and as its sign
 on क), 4 signs, 33 consonants, the 2 flaps, 4 conjuncts, 5 nukta letters; every sound side unique (asserted).
 The shelf's hue is measured: `#9F51B4`, 21.2 from its nearest of 45.
+
+## 7. As built (2026-11-12): A2
+
+`python3 .claude/hindi/run.py --level a2`. 750 notes, 241 from the inventory and 509 by frequency; sentences
+for 614, three for 426, none for 136 (Tatoeba's Hindi is small). A re-run is byte-identical, and A1 rebuilt
+by the changed code is byte-identical to the shipped file. The inventory (`inventory.py` `A2`) covers
+relatives, work, jobs, clothes, cooking, the home, the town, the countryside and animals, seasons and
+directions, the months, the numbers to a crore, travel, health, feelings, free time and festivals, time words,
+opinion words, describing words and everyday verbs, with Wiktionary's multi-word verbs (`मदद करना`,
+`कोशिश करना`, `इंतज़ार करना` …), which the fill never deals. 14 first-draft words had no Wiktionary entry
+(`पोती`, `सूरज`, `सूर्य`, `ड्राइवर`, `बालकनी`, `होली`, `दिवाली` — `दीवाली` points at it, and it is missing too —
+…) and were dropped or swapped for a spelling that has one (`कालेज`, `कापी`, `कुरता`, `चालक`, `मुहल्ला`), never
+given a meaning by hand. The deck's description now names the learner by level (`WHO`), not "a beginner".
+
+**Found on reading every card, and fixed:**
+- **Homographs whose first etymology is the wrong word** (`ETYMS`): `राय` "opinion" (not "king"), `पीठ`
+  "back" (not "seat"), `सीना` "chest" and "to sew", `जरा` "a little" (not "infirmity"), `धरना` "to hold" and
+  "sit-in".
+- **A gloss that only names a synonym** ("synonym of जल्दी (jaldī)") is given the synonym's own first
+  meaning with the synonym named (`build_deck.SYNONYM`): `जल्द`, `असल`, `निजी`.
+- **A suffix** (`-वाला`) is no longer dealt by the fill (`select.py`, Bengali's rule).
+- `हथियार`'s vulgar third sense is left out (`GLOSS`); `फ़िल्म`'s romanisation, lost by the extract, is
+  Wiktionary's `film` (`ROMAN`); `check-hindi.js` accepts a hyphenated headword (`माता-पिता` "parents").
+- New hand exclusions, each with its reason in `select.EXCLUDE`: given names counted as words (`इंदु`,
+  `जगदीश`, `समीर`, `प्रिया`, `दिव्या`, `ख़ान`, `सिकंदर`), the subtitles' sound captions (`कराहना`, `हाँफना`,
+  `हाँकना`), English counted under a Hindi spelling (`गुड़` ← "good", `मिस`, `हाउस`, `डी`, `कोड़ी` ← "code"), and
+  counts belonging to another word (`गलना`, `सो`, `करनी`, `ज़ाती`, `हा`); `कुतिया` joins `SWEARS`.
+
+**Known, left.** The fill carries the subtitles' register (`हत्या`, `बम`, `आतंकवादी`, `लेफ्टिनेंट`, `परमाणु`)
+on frequency, as A1 does; `तुलना` leads with Wiktionary's verb "to be weighed" before the noun "comparison".

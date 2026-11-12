@@ -3461,7 +3461,8 @@ changed was the one that had been wrong all along.
 - `.claude/hindi/` — the generator behind the Hindi decks (Nov 2026, on request: "Add a Hindi language
   collection", then the owner's answers: CEFR A1–C1 assembled, a Devanagari deck, romanisation on every card).
   **Built: the alphabet, `decks/Hindi-Alphabet.folio-deck.json`** (59 notes) **and A1,
-  `decks/Hindi-A1.folio-deck.json`** (500 notes / 1,000 cards). `python3 .claude/hindi/run.py [--level a1]`,
+  `decks/Hindi-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Hindi-A2.folio-deck.json`**
+  (750 notes, 2026-11-12). `python3 .claude/hindi/run.py [--level a1|a2]`,
   `python3 .claude/hindi/alphabet.py`, `node .claude/hindi/check-hindi.js`; a re-run is byte-identical. The
   UKBI / TORFL shape: no exam board publishes a Hindi list, so a level is a topic inventory plus lemma
   frequency, and the description says so. The plan, the sources and every finding (the nukta / chandrabindu

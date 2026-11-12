@@ -65,8 +65,25 @@ E = html.escape
 TRAIL = re.compile(r'\s*[:;,]\s*$')
 
 
+# A GLOSS THAT ONLY NAMES A SYNONYM ("synonym of जल्दी (jaldī)") is given the synonym's
+# own first meaning, the synonym named after it: a card defined by a pointer teaches
+# nothing (A2: जल्द, असल, निजी).
+SYNONYM = re.compile(r'^synonym of (\S+) \(([^()]+)\)$')
+LEX = {}
+
+# A ROMANISATION Wiktionary's entry carries on its page but the extract lost (A2).
+ROMAN = {'फ़िल्म': 'film'}
+
+
 def gloss_text(g):
     g = TRAIL.sub('', g)
+    m = SYNONYM.match(g)
+    if m:
+        tgt = LEX.get(fold(m.group(1))) or {}
+        mean = next((x['g'] for e in tgt.get('entries', []) for x in e['glosses']
+                     if x['g'] and not x['weak'] and not SYNONYM.match(x['g'])), '')
+        if mean:
+            g = f'{TRAIL.sub("", mean)} (= {m.group(1)}, {m.group(2)})'
     return g
 
 
@@ -86,6 +103,11 @@ ETYMS = {
     'बस': ['1', '3'],         # "only, enough" AND "bus"
     'आम': ['1', '2'],         # "mango" AND "common"
     'सर': ['4', '1'],
+    'राय': ['2'],             # "opinion"; 1 is "king" (A2)
+    'पीठ': ['2'],             # "back (of the body)"; 1 is "seat, bench"
+    'सीना': ['2', '1'],       # "chest" AND "to sew"
+    'जरा': [''],              # "a little" (ज़रा); 1 is "infirmity"
+    'धरना': ['1', '2'],       # "to hold" AND "sit-in"
     'हिंदी': [None, ''],      # the language (a proper noun, no etymology number) leads         # "sir" (the subtitles' count) AND "head"
 }
 
@@ -93,6 +115,8 @@ ETYMS = {
 # the language is three encyclopaedia sentences on dialect zones.
 GLOSS = {
     'हिंदी': {'name': ['Hindi (the language)']},
+    # Wiktionary's third sense is vulgar slang; a level deck leaves it out (A2)
+    'हथियार': {'noun': ['weapon, arm', 'any instrument']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -309,6 +333,7 @@ def examples_html(exs, multi):
 
 
 def build(rows, lex, exs):
+    LEX.update(lex)
     cards, entries = [], []
     for r in rows:
         ents = entries_for(r, lex)
@@ -316,7 +341,8 @@ def build(rows, lex, exs):
             continue
         main = ents[0]
         word = r['word']
-        roman = main['roman'] or next((e['roman'] for e in ents if e['roman']), '')
+        roman = main['roman'] or next((e['roman'] for e in ents if e['roman']), '') \
+            or ROMAN.get(word, '')
         ex = exs.get(r['key'], [])
         cards.append({'sub': '', 'fields': {
             'Hindi': f'<div class="uc-word">{E(word)}</div>',
@@ -330,6 +356,10 @@ def build(rows, lex, exs):
         entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],
                         'examples': len(ex), 'roman': bool(roman)})
     return cards, entries
+
+
+WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 
 
 def desc(entries, n):
@@ -346,7 +376,7 @@ def desc(entries, n):
         "Both study directions in one deck: Hindi → English (see the Hindi, recall the meaning) "
         "and English → Hindi (see an English meaning, recall the Hindi). Each direction is a card "
         "of its own with its own schedule, so recognising a word and producing it are learnt "
-        f"separately. {n} words for a beginner, aligned to {LEVEL.upper()} of the Common European "
+        f"separately. {n} words for {WHO[LEVEL]}, aligned to {LEVEL.upper()} of the Common European "
         f"Framework of Reference, whose global descriptor begins '{SC['quote']}' — a learner here "
         f"is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "

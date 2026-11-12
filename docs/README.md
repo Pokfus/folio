@@ -63,7 +63,7 @@ before changing the thing it names.
 | `arabic-decks-plan.md` | The Arabic language decks (Modern Standard Arabic): the alphabet and A1 are built; word source, the vowelled card, right-to-left markup, the fold, the count and sentence rules, next levels. |
 | `hausa-decks-plan.md` | The plan for the Hausa language decks (Boko alphabet, A1–B1 assembled to CEFR from thin sources, phrases): the owner's decisions, what Wiktionary lacks and the hand glosses, the card, the findings. Alphabet and A1 are built. |
 | `persian-decks-plan.md` | The plan for the Persian (Farsi) language decks (alphabet, A1–C1 assembled to CEFR, phrases): sources, the card, right-to-left, the findings. Alphabet and A1 are built. |
-| `hindi-decks-plan.md` | The plan for the Hindi language decks (Devanagari alphabet, A1–C1 assembled to CEFR, phrases): the owner's decisions, sources, the card, the findings. Alphabet and A1 are built. |
+| `hindi-decks-plan.md` | The plan for the Hindi language decks (Devanagari alphabet, A1–C1 assembled to CEFR, phrases): the owner's decisions, sources, the card, the findings. Alphabet, A1 and A2 are built. |
 | `polish-decks-plan.md` | The plan for the Polish language decks (CEFR A1–C2 assembled, phrases): the defaults taken, sources, the card, the findings. A1 is built. |
 | `bengali-decks-plan.md` | The plan for the Bengali language decks (Bangla-script alphabet, A1–C1 assembled to CEFR, phrases), the Hindi set's sister: decisions, sources, the card, the findings. Alphabet, A1 and A2 are built. |
 | `telugu-decks-plan.md` | The plan for the Telugu language decks (alphabet, A1–C1 assembled to CEFR, phrases): the decisions carried over from Hindi, sources, the card, the findings. Alphabet and A1 are built. |
