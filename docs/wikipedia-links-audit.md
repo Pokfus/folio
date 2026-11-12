@@ -26,7 +26,7 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 7653 | the title is the article |
+| `ok` | 7672 | the title is the article |
 | `redirect-variant` | 463 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 102 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
@@ -34,9 +34,9 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 175 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 153 | only a disambiguation page; no link could be chosen |
-| `none` | 1132 | nothing matched; no link |
+| `none` | 1133 | nothing matched; no link |
 
-**8981 of 10460 cards get a link.** The three "no link" rows are the honest state: a card whose
+**9000 of 10480 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -1262,7 +1262,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1132)
+## No article found (1133)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2336,6 +2336,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `us-607` **Self-emancipation** — search suggests `United States`, `Emancipation of minors`, `Emancipation Proclamation`, `Emancipation`, `Slavery in the United States`
 - `us-636` **Black officeholders during Reconstruction** — search suggests `List of African-American United States senators`, `African American officeholders from the end of the Civil War until before 1900`, `African-American officeholders in the United States, 1789–1866`, `Reconstruction era`, `African Americans in the United States Congress`
 - `us-654` **Railroad land grants** — search suggests `Railroad land grants in the United States`, `Land grant`, `History of rail transportation in the United States`, `Checkerboarding (land)`, `Pacific Railroad Acts`
+- `us-682` **Industrialisation of the United States** — search suggests `Japan–United States relations`, `History of industrialisation`, `Singapore–United States relations`, `Industrialisation`, `International development`
 - `wh-080` **Palaeolithic music** — search suggests `Paleolithic`, `History of music`, `Upper Paleolithic`, `Cro-Magnon`, `Music of Slovakia`
 - `wh-088` **southern dispersal route** — search suggests `Southern dispersal`, `Recent African origin of modern humans`, `Biological dispersal`, `Johor Bahru Eastern Dispersal Link Expressway`, `Genetic history of East Asians`
 - `wh-089` **archaic human admixture** — search suggests `Interbreeding between archaic and modern humans`, `Genetic history of Africa`, `Denisovan`, `Early human migrations`, `Human genetic variation`

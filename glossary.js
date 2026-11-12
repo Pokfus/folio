@@ -10617,7 +10617,27 @@ window.GLOSSARY = {
 "Hiram_R._Revels": "",
 "Freedmen's_schools": "",
 "Carpetbagger": "",
-"Ku_Klux_Klan": ""
+"Ku_Klux_Klan": "",
+"Enforcement_Acts": "",
+"Colfax_massacre": "",
+"White_League": "",
+"Panic_of_1873": "",
+"Slaughter-House_Cases": "",
+"Compromise_of_1877": "",
+"Redeemers": "",
+"Lost_Cause_of_the_Confederacy": "",
+"Dunning_School": "",
+"Reconstruction_Era_National_Historical_Park": "",
+"Gilded_Age": "",
+"Technological_and_industrial_history_of_the_United_States": "",
+"Andrew_Carnegie": "",
+"Carnegie_Steel_Company": "",
+"Standard_Oil": "",
+"Holding_company": "",
+"J._P._Morgan": "",
+"Robber_baron_(industrialist)": "",
+"Sherman_Antitrust_Act": "",
+"Thomas_Edison": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -15668,7 +15688,19 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hiram_R._Revels": "1827–1901",
 "Freedmen's_schools": "1861–1870s",
 "Carpetbagger": "1865–1877",
-"Ku_Klux_Klan": "1866–present"
+"Ku_Klux_Klan": "1866–present",
+"Enforcement_Acts": "1870–1871",
+"Colfax_massacre": "1873",
+"Panic_of_1873": "1873–1879",
+"Slaughter-House_Cases": "1873",
+"Compromise_of_1877": "1877",
+"Reconstruction_Era_National_Historical_Park": "2017",
+"Gilded_Age": "c. 1870–1900",
+"Andrew_Carnegie": "1835–1919",
+"Standard_Oil": "1870–1911",
+"J._P._Morgan": "1837–1913",
+"Sherman_Antitrust_Act": "1890",
+"Thomas_Edison": "1847–1931"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -22517,11 +22549,20 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Hiram_R._Revels": ["Hiram Revels","Hiram Rhodes Revels"],
 "Freedmen's_schools": ["Freedmen's schools","freedmen's school"],
 "Carpetbagger": ["carpetbaggers"],
-"Ku_Klux_Klan": ["KKK","Klan"]
+"Ku_Klux_Klan": ["KKK","Klan"],
+"Enforcement_Acts": ["Force Acts"],
+"Slaughter-House_Cases": ["Slaughterhouse Cases"],
+"Redeemers": ["Redeemer Democrats","Redemption"],
+"Lost_Cause_of_the_Confederacy": ["Lost Cause"],
+"Reconstruction_Era_National_Historical_Park": ["Reconstruction Era National Monument"],
+"Technological_and_industrial_history_of_the_United_States": ["Industrialisation of the United States","industrialization of the United States","American industrialisation"],
+"J._P._Morgan": ["J. P. Morgan","J. Pierpont Morgan","John Pierpont Morgan"],
+"Robber_baron_(industrialist)": ["Robber baron","robber baron","robber barons"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
+"Redeemers": true,
 "Contraband_(American_Civil_War)": true,
 "The_Few": true,
 "Do_no_harm": true,
@@ -33295,7 +33336,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hiram_R._Revels": ["person","history","politics","united states"],
 "Freedmen's_schools": ["institution","history","education","united states"],
 "Carpetbagger": ["people","history","politics","united states"],
-"Ku_Klux_Klan": ["institution","history","politics","united states"]
+"Ku_Klux_Klan": ["institution","history","politics","united states"],
+"Enforcement_Acts": ["text","law","politics","reconstruction","united states"],
+"Colfax_massacre": ["event","history","violence","reconstruction","louisiana","united states"],
+"White_League": ["institution","history","violence","reconstruction","louisiana","united states"],
+"Panic_of_1873": ["event","economics","history","united states"],
+"Slaughter-House_Cases": ["event","law","history","united states"],
+"Compromise_of_1877": ["event","politics","history","united states"],
+"Redeemers": ["institution","politics","history","united states"],
+"Lost_Cause_of_the_Confederacy": ["concept","history","memory","civil war","united states"],
+"Dunning_School": ["concept","history","historiography","united states"],
+"Reconstruction_Era_National_Historical_Park": ["place","history","memory","south carolina","united states"],
+"Gilded_Age": ["era","history","economics","united states"],
+"Technological_and_industrial_history_of_the_United_States": ["era","history","economics","technology","united states"],
+"Andrew_Carnegie": ["person","history","business","philanthropy","united states"],
+"Carnegie_Steel_Company": ["institution","history","business","united states","pennsylvania"],
+"Standard_Oil": ["institution","history","business","united states","ohio"],
+"Holding_company": ["concept","economics","law","business"],
+"J._P._Morgan": ["person","history","finance","business","united states"],
+"Robber_baron_(industrialist)": ["concept","history","economics","business"],
+"Sherman_Antitrust_Act": ["text","law","history","economics","united states"],
+"Thomas_Edison": ["person","history","technology","science","united states"]
 });
 
 /* ============================================================================

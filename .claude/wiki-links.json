@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-12T08:04Z",
+ "generated": "2026-11-12T08:07Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 7653,
+  "ok": 7672,
   "redirect-broader": 747,
   "redirect-variant": 463,
   "section-redirect": 175,
   "disambiguation": 153,
-  "none": 1132,
+  "none": 1133,
   "disambig-resolved": 102,
   "list-page": 6,
   "search-match": 9,
@@ -83363,6 +83363,153 @@
    "answer": "Ku Klux Klan",
    "title": "Ku Klux Klan",
    "url": "https://en.wikipedia.org/wiki/Ku_Klux_Klan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-641": {
+   "answer": "Enforcement Acts",
+   "title": "Enforcement Acts",
+   "url": "https://en.wikipedia.org/wiki/Enforcement_Acts",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-642": {
+   "answer": "Colfax massacre",
+   "title": "Colfax massacre",
+   "url": "https://en.wikipedia.org/wiki/Colfax_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-643": {
+   "answer": "White League",
+   "title": "White League",
+   "url": "https://en.wikipedia.org/wiki/White_League",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-644": {
+   "answer": "Panic of 1873",
+   "title": "Panic of 1873",
+   "url": "https://en.wikipedia.org/wiki/Panic_of_1873",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-645": {
+   "answer": "Slaughter-House Cases",
+   "title": "Slaughter-House Cases",
+   "url": "https://en.wikipedia.org/wiki/Slaughter-House_Cases",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-646": {
+   "answer": "Compromise of 1877",
+   "title": "Compromise of 1877",
+   "url": "https://en.wikipedia.org/wiki/Compromise_of_1877",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-647": {
+   "answer": "Redeemers",
+   "title": "Redeemers",
+   "url": "https://en.wikipedia.org/wiki/Redeemers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-648": {
+   "answer": "Lost Cause of the Confederacy",
+   "title": "Lost Cause of the Confederacy",
+   "url": "https://en.wikipedia.org/wiki/Lost_Cause_of_the_Confederacy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-649": {
+   "answer": "Dunning School",
+   "title": "Dunning School",
+   "url": "https://en.wikipedia.org/wiki/Dunning_School",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-650": {
+   "answer": "Reconstruction Era National Historical Park",
+   "title": "Reconstruction Era National Historical Park",
+   "url": "https://en.wikipedia.org/wiki/Reconstruction_Era_National_Historical_Park",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-681": {
+   "answer": "Gilded Age",
+   "title": "Gilded Age",
+   "url": "https://en.wikipedia.org/wiki/Gilded_Age",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-682": {
+   "answer": "Industrialisation of the United States",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Japan–United States relations",
+    "History of industrialisation",
+    "Singapore–United States relations",
+    "Industrialisation",
+    "International development"
+   ]
+  },
+  "us-683": {
+   "answer": "Andrew Carnegie",
+   "title": "Andrew Carnegie",
+   "url": "https://en.wikipedia.org/wiki/Andrew_Carnegie",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-684": {
+   "answer": "Carnegie Steel Company",
+   "title": "Carnegie Steel Company",
+   "url": "https://en.wikipedia.org/wiki/Carnegie_Steel_Company",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-685": {
+   "answer": "Standard Oil",
+   "title": "Standard Oil",
+   "url": "https://en.wikipedia.org/wiki/Standard_Oil",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-686": {
+   "answer": "Holding company",
+   "title": "Holding company",
+   "url": "https://en.wikipedia.org/wiki/Holding_company",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-687": {
+   "answer": "J. P. Morgan",
+   "title": "J. P. Morgan",
+   "url": "https://en.wikipedia.org/wiki/J._P._Morgan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-688": {
+   "answer": "Robber baron",
+   "title": "Robber baron (industrialist)",
+   "url": "https://en.wikipedia.org/wiki/Robber_baron_(industrialist)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-689": {
+   "answer": "Sherman Antitrust Act",
+   "title": "Sherman Antitrust Act",
+   "url": "https://en.wikipedia.org/wiki/Sherman_Antitrust_Act",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "us-690": {
+   "answer": "Thomas Edison",
+   "title": "Thomas Edison",
+   "url": "https://en.wikipedia.org/wiki/Thomas_Edison",
    "via": "glossary",
    "status": "ok"
   }
