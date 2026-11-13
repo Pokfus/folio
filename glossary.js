@@ -11599,7 +11599,29 @@ window.GLOSSARY = {
 "Turov,_Belarus": "",
 "Vyshhorod": "",
 "Yaropolk_I_of_Kiev": "",
-"Yukon_(territory)": ""
+"Yukon_(territory)": "",
+"Bible": "",
+"Bohemia": "",
+"Dmitrov": "",
+"Dutch_Republic": "",
+"Emperor_of_Russia": "",
+"Gavriil_Golovkin": "",
+"Grand_prince": "",
+"Ivan_V_of_Russia": "",
+"Natalya_Naryshkina": "",
+"Nikolay_Karamzin": "",
+"Nogai_Horde": "",
+"Novhorod-Siverskyi": "",
+"Pereslavl-Zalessky": "",
+"Preobrazhenskoye_District": "",
+"Prussia": "",
+"Qasim_Khanate": "",
+"Sigismund_von_Herberstein": "",
+"Stepan_Kuchka": "",
+"Sviatoslav_Olgovich": "",
+"Trinity_Cathedral_on_Trinity_Square": "",
+"Vladimir_Yuryevich_(prince_of_Moscow)": "",
+"Yauza_(river)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17157,7 +17179,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Iziaslav_of_Polotsk": "d. 1001",
 "Sviatopolk_I_of_Kiev": "978–1019",
 "Thietmar_of_Merseburg": "975–1018",
-"Yaropolk_I_of_Kiev": "c. 958–980"
+"Yaropolk_I_of_Kiev": "c. 958–980",
+"Emperor_of_Russia": "1721–1917",
+"Natalya_Naryshkina": "c. 1651–1694",
+"Sigismund_von_Herberstein": "1486–1566"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -21440,7 +21465,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Stasimon": ["stasima"],
 "Exodos_(drama)": ["exodos"],
 "Panhellenism": ["Panhellenistic","Panhellenic"],
-"Yuri_Dolgorukiy": ["Yuri Dolgoruki","Yuri Dolgorukiy","Yury Dolgoruky"],
+"Yuri_Dolgorukiy": ["Yuri Dolgoruki","Yuri Dolgorukiy","Yury Dolgoruky","Yuri Dolgoruky"],
 "Ivan_I_of_Moscow": ["Ivan I","Ivan Kalita","Ivan the Purse"],
 "Khan_(title)": ["khan","khans"],
 "Continental_climate": ["continental climate"],
@@ -21867,7 +21892,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Zythos": ["zythum","zythus"],
 "Nubia": ["Nubian"],
 "Oka_(river)": ["Oka River"],
-"Moskva_(river)": ["Moskva River"],
+"Moskva_(river)": ["Moskva River","Moskva river"],
 "Kama_(river)": ["Kama River"],
 "Angara": ["Angara River"],
 "Pechora_(river)": ["Pechora River"],
@@ -22967,7 +22992,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cossacks": ["Cossack","kozak"],
 "German_Quarter": ["Nemetskaya sloboda","German suburb"],
 "Azov_campaigns_(1695–1696)": ["Azov campaigns"],
-"Grand_Embassy_of_Peter_the_Great": ["Grand Embassy"],
+"Grand_Embassy_of_Peter_the_Great": ["Grand Embassy","Great Embassy"],
 "Streltsy_uprising": ["Streltsy uprising of 1698","streltsy revolt of 1698"],
 "Charles_XII_of_Sweden": ["Charles XII"],
 "Battle_of_Narva_(1700)": ["Battle of Narva"],
@@ -24623,7 +24648,25 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Turov,_Belarus": ["Turov","Turaŭ","Turiv"],
 "Vyshhorod": ["Vyshgorod","Vyshegorod"],
 "Yaropolk_I_of_Kiev": ["Yaropolk I"],
-"Yukon_(territory)": ["Yukon Territory"]
+"Yukon_(territory)": ["Yukon Territory"],
+"Bible": ["Holy Bible"],
+"Dutch_Republic": ["Republic of the Seven United Netherlands"],
+"Emperor_of_Russia": ["Emperor of All Russia","Emperors of Russia"],
+"Gavriil_Golovkin": ["Gavriil Ivanovich Golovkin"],
+"Ivan_V_of_Russia": ["Ivan V"],
+"Natalya_Naryshkina": ["Natalia Naryshkina","Natalya Kirillovna Naryshkina"],
+"Nikolay_Karamzin": ["Nikolai Karamzin","Karamzin"],
+"Nogai_Horde": ["Nogay Horde"],
+"Novhorod-Siverskyi": ["Novgorod-Seversky","Novgorod-Seversk","Novgorod-Severskiy"],
+"Pereslavl-Zalessky": ["Pereslavl-Zalesskiy","Pereslavl-Zalesskii"],
+"Preobrazhenskoye_District": ["Preobrazhenskoe","Preobrazhenskoye"],
+"Qasim_Khanate": ["Kasimov Khanate","Khanate of Kasimov","Tsardom of Kasimov"],
+"Sigismund_von_Herberstein": ["Herberstein","Sigmund von Herberstein"],
+"Stepan_Kuchka": ["Kuchkovo"],
+"Sviatoslav_Olgovich": ["Svyatoslav Olgovich"],
+"Trinity_Cathedral_on_Trinity_Square": ["Trinity Cathedral on Trinity Square"],
+"Vladimir_Yuryevich_(prince_of_Moscow)": ["Vladimir Yurievich"],
+"Yauza_(river)": ["Yauza","Yauza River"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -36429,7 +36472,29 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Turov,_Belarus": ["city","place","history","kievan rus","belarus"],
 "Vyshhorod": ["city","place","history","kievan rus","ukraine"],
 "Yaropolk_I_of_Kiev": ["ruler","person","history","kievan rus","europe"],
-"Yukon_(territory)": ["place","geography","canada","north america"]
+"Yukon_(territory)": ["place","geography","canada","north america"],
+"Bible": ["text","religion","christianity","literature","history"],
+"Bohemia": ["place","state","history","geography","czech republic","europe"],
+"Dmitrov": ["city","place","history","russia"],
+"Dutch_Republic": ["state","history","politics","netherlands","europe"],
+"Emperor_of_Russia": ["title","politics","history","monarchy","russia"],
+"Gavriil_Golovkin": ["person","history","politics","diplomacy","russia"],
+"Grand_prince": ["title","history","politics","kievan rus","russia"],
+"Ivan_V_of_Russia": ["ruler","person","history","romanov","russia"],
+"Natalya_Naryshkina": ["person","history","politics","romanov","russia"],
+"Nikolay_Karamzin": ["person","history","literature","historiography","russia"],
+"Nogai_Horde": ["state","people","history","tatars","russia","golden horde"],
+"Novhorod-Siverskyi": ["city","place","history","kievan rus","ukraine"],
+"Pereslavl-Zalessky": ["city","place","history","russia"],
+"Preobrazhenskoye_District": ["place","history","moscow","russia","romanov"],
+"Prussia": ["state","history","politics","germany","europe"],
+"Qasim_Khanate": ["state","history","tatars","russia","golden horde"],
+"Sigismund_von_Herberstein": ["person","history","diplomacy","travel","russia","austria"],
+"Stepan_Kuchka": ["person","history","legend","moscow","russia"],
+"Sviatoslav_Olgovich": ["ruler","person","history","kievan rus","ukraine","russia"],
+"Trinity_Cathedral_on_Trinity_Square": ["building","religion","architecture","history","saint petersburg","russia"],
+"Vladimir_Yuryevich_(prince_of_Moscow)": ["person","history","moscow","kievan rus","russia"],
+"Yauza_(river)": ["place","geography","river","moscow","russia"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
