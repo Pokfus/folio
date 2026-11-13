@@ -273,3 +273,6 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~220 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/hebrew-cache/
+
+# verify-claims.js working state: fetched source text, verdicts, the money ledger, the report
+.claude/.claimcheck/

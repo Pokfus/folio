@@ -206,6 +206,8 @@ have not this session.
   `add-card-wars.js`, `add-card-difficulty.js`, `add-card-tags.js`, `mark-undatable.js`,
   `set-facts.js`, `add-images.js`, `add-places.js` (the Atlas v2 `places` ids on one card; `migrate-places.js` derives
   them from `locator` / `war` / `map`, `atlas-build/add-place.js` adds a place to the registry) — each documents itself in its header.
+- **Does the source say it?** `node .claude/verify-claims.js` (Claude API, costs money, `--budget` caps it) checks each footnoted
+  sentence against the fetched source. 📖 `docs/claim-check.md` — READ BEFORE RUNNING IT.
 - After a batch: `check-style.js`, `check-questions.js`, `node .claude/check-cards.js --prefix=<p>`
   (report only), `test-card-plans.js`.
 - **Wikipedia links** (the "Learn more" tile at the foot of a card, `learnMoreHTML`): `.claude/wiki-links.json` maps

@@ -40,6 +40,7 @@ before changing the thing it names.
 | `scheduler.md` | The day boundary, the SM-2 port, FSRS and its optimiser, load balancing, burying. |
 | `minigames.md` | The nine daily games, their pools, and the faults a one-day test cannot see. |
 | `source-footnotes.md` | The citation apparatus on all four surfaces — markers, numbering, the fold. |
+| `claim-check.md` | `verify-claims.js`: whether each footnoted sentence is supported by its source, checked by a model against the fetched text; costs per model, the budget ceiling, how to read the report. |
 | `study-records.md` | Flags, Set due date, Forget, the card browser, the per-review log and the statistics. |
 | `media.md` | Pictures and clips on cards and terms — the frame, the viewer, the source gate. |
 | `reader-settings.md` | Themes, text size, motion, contrast, units, spelling, i18n, sound, the dormant TTS. |
