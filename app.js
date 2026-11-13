@@ -37476,6 +37476,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      WRITTEN (`b.written`, the prose the book page's byline already prints: "c. 430 BCE"), because a quotation whose
      attribution is a button the reader has not pressed is an unattributed quotation — and the button says
      where it goes rather than what it is ("Read it in the Library"), the title being right above it. */
+  /* THE CHAPTER LINE NAMES NEITHER THE TRANSLATOR NOR THE TITLE AGAIN (2026-11-13, on request: "book quotations on cards need not
+     mention their modern translator. Some feature the book title twice (like cnh-280)"). The authored `cite` often reads
+     "Romance of the Three Kingdoms, ch. 1, trans. C. H. Brewitt-Taylor" and the caption already prints the title: so the
+     translator clause is dropped and a leading copy of the title (with or without its "The") is cut, leaving "ch. 1". */
+  function cardQuoteCite(cite, title) {
+    let t = String(cite || "").replace(/[,;]?\s*(?:trans\.|tr\.|translated by)\s.*$/i, "").trim();
+    const ti = String(title || "").trim(), bare = ti.replace(/^the\s+/i, "");
+    for (const v of [ti, bare]) {
+      if (v && t.toLowerCase().indexOf(v.toLowerCase()) === 0 && (t.length === v.length || /^[\s,:;.]/.test(t.charAt(v.length)))) { t = t.slice(v.length).replace(/^[\s,:;.]+/, ""); break; }
+    }
+    // a short form of the title before the section number ("History 2.3" under The History of the Peloponnesian War)
+    const m = /^([A-Z][A-Za-z’' ]*?)\s+(?=\d)/.exec(t);
+    if (m) { const tw = ti.toLowerCase().split(/\s+/); if (m[1].toLowerCase().split(/\s+/).every((w) => tw.indexOf(w) >= 0)) t = t.slice(m[0].length); }
+    return t;
+  }
   function cardQuoteHTML(c) {
     const q = cardQuote(c);
     if (!q) return "";
@@ -37490,7 +37505,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<blockquote class="verbatim">' + q.text + "</blockquote>" +   // a published translation, transcribed rather than edited: the spelling and units passes skip `.verbatim` (2026-10-19)
       // three lines (2026-11-13, on request): "TITLE, CHAPTER" / "AUTHOR (DATE)" / the link
       '<figcaption><span class="cq-line"><cite>' + esc(b.title) + "</cite>" +
-      (q.cite ? ', <span class="cq-where">' + esc(q.cite) + "</span>" : "") + "</span>" +
+      (cardQuoteCite(q.cite, b.title) ? ', <span class="cq-where">' + esc(cardQuoteCite(q.cite, b.title)) + "</span>" : "") + "</span>" +
       (who || when ? '<span class="cq-line">' + (who ? '<span class="cq-who">' + who + "</span>" : "") +
         (when ? (who ? " (" : "") + '<span class="cq-when">' + when + "</span>" + (who ? ")" : "") : "") + "</span>" : "") +
       '<button type="button" class="cq-go" data-cqbook="' + esc(b.id) + '"' +
