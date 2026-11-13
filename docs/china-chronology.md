@@ -593,6 +593,13 @@ are not rows of this table.
 | the Southern Tang | 937 – 975 CE | Theobald; Cordier (`cnh-406`) |
 | Yue ware made (the museum records read) | c. 265 – 1127 CE | the Art Institute; the Met (`cnh-408`) |
 | the Northern Han | 951 – 979 CE | Cordier; Theobald (`cnh-410`) |
+| the Liao (the *Liaoshi*'s founding / the *Zizhi Tongjian*'s) | 907 CE – 1125 / 916 CE – 1125 | Miao (`cnh-411`) |
+| the Liao Bureau of Military Affairs adopted | 947 CE | the *Liaoshi*; Theobald (`cnh-414`) |
+| the Khitan large script / suppressed by the Jurchen Jin | 920 CE / 1191 | the *Liaoshi*; Theobald (`cnh-415`) |
+| the Battle of Gaoliang River | 979 CE | Cordier; Parker (`cnh-416`) |
+| the Chanyuan Treaty sworn / revised | 1004 – 1005 / 1042 | `cnh-417` |
+| the Fogong pagoda built | 1056 | the Ming gazetteer (`cnh-418`) |
+| the Alliance Conducted at Sea: envoys / terms | 1118 / 1120 | Cordier; Theobald (`cnh-419`) |
 
 ## Later periods
 
@@ -1038,4 +1045,11 @@ cnh-405: 907; 978; 902
 cnh-406: 937; 975
 cnh-408: 265; 1127
 cnh-410: 951; 979
+cnh-411: 907; 916; 1125
+cnh-414: 947
+cnh-415: 920; 1191
+cnh-416: 979
+cnh-417: 1004; 1005; 1042
+cnh-418: 1056
+cnh-419: 1118; 1120
 ```

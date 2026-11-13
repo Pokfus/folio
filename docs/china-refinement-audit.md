@@ -468,7 +468,7 @@ otherwise.
 | B39 | Tang (`col-23`) | `cnh-381`–`cnh-390` | 10 | 112 | **done 2026-11-13** |
 | B40 | Tang (`col-23`) / Five Dynasties and Ten Kingdoms (`col-24`) | `cnh-391`–`cnh-400` | 10 | 111 | **done 2026-11-13** |
 | B41 | Five Dynasties and Ten Kingdoms (`col-24`) | `cnh-401`–`cnh-410` | 10 | 102 | **done 2026-11-13** |
-| B42 | Liao (`col-25`) | `cnh-411`–`cnh-420` | 10 | 100 | to do |
+| B42 | Liao (`col-25`) | `cnh-411`–`cnh-420` | 10 | 100 | **done 2026-11-13** |
 | B43 | Northern Song (`col-27`) | `cnh-421`–`cnh-430` | 10 | 102 | to do |
 | B44 | Northern Song (`col-27`) | `cnh-431`–`cnh-440` | 10 | 104 | to do |
 | B45 | Northern Song (`col-27`) / Southern Song (`col-28`) | `cnh-441`–`cnh-450` | 10 | 100 | to do |
@@ -979,6 +979,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-408` | none | not re-checked (Commons rate-limited): wanted — a Five Dynasties Yue ware bowl or box |
 | `cnh-409` | none | not re-checked (Commons rate-limited): wanted; the glossary's 1694 woodblock has burned-in text — replace |
 | `cnh-410` | none | not re-checked (Commons rate-limited): wanted — a Jinyang relic or a map of the Ten Kingdoms |
+| `cnh-411` | none | not re-checked (Commons rate-limited): wanted — a Liao map or the Upper Capital's ruins |
+| `cnh-412` | none | not re-checked (Commons rate-limited): wanted — a Khitan tomb mural |
+| `cnh-413` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-414` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-415` | none | not re-checked (Commons rate-limited): wanted — a rubbing of a small-script epitaph or the 1134 Langjun xingji |
+| `cnh-416` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-417` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-418` | none | not re-checked (Commons rate-limited): wanted — a photograph of the whole tower |
+| `cnh-419` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-420` | none | not re-checked (Commons rate-limited): wanted |
 
 ## Glossary candidates
 
@@ -2839,3 +2849,42 @@ day and Taiyuan on no page read; `cnh-403`'s three days on no page read; `cnh-40
 *Songshi*: the seventh month of Taiping Xingguo 3); `cnh-409`'s 882 on no page read (Giles 881; carried as "the usual
 reckoning") and its 21 May. The timelines of `cnh-402`, `405`, `406` and `410` (states) were not set (set-timeline.js
 takes event, era, battle and war cards only).
+
+### B42 — `cnh-411`–`cnh-420`, Liao: the Liao dynasty to Emperor Tianzuo (2026-11-13)
+
+Run as B41. Every cited URL answered. **Pictures were not touched**; none of the ten cards
+has a picture. **The old cards cited the *Liaoshi*, the *Songshi*, Li Tao's *Changbian*, the *Qidan guozhi*
+and the *Sanchao beimeng huibian* on Chinese Wikisource (up to four Chinese texts a card), put a battle template on
+Gaoliang River ("Near Youzhou, modern Beijing"; "Decisive Liao victory"), dated the Alliance Conducted at Sea by a
+regnal-year conversion ("First contact 1117"), the Liao southern bureau by a year no page prints (948) and the Later
+Jin's restoration of the office by a conversion (944), and read the Liao dual offices as "Khitan north, Chinese south" —
+the reading the *Liaoshi* itself warns against.** The *Liaoshi* (juan 2, 9, 27, 37, 47) was read on the Kanseki
+Repository and zggdwx.com, Ouyang Xiu's *New History* juan 72 on zggdwx.com, the *Songshi* juan 281 and 472 on Kanseki.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-411` Liao dynasty | 7 | 7 → 7 | **`Dated 907 CE – 1125` / `Also dated 916 CE – 1125` (the *Liaoshi*'s 907 against the *Zizhi Tongjian*'s 916; Miao 2023 reads the 907 as a later rewriting); the name Liao given three ways with whose (916, 937, 947) and the Khitan name 983 – 1066; the five capitals (the *Liaoshi* juan 37), the population transfers and the steppe towns (Wright et al. 2025); the Qara Khitai**; the years and the Chanyuan payments (`cnh-417`'s) out of the questions. |
+| `cnh-412` Khitan people | 7 | 7 → 7 | **The drum-and-banner chief and the feast (`cnh-413`'s clues) gone; the white-horse rider and the grey-ox cart told as the *Liaoshi*'s (juan 37); Para-Mongolic (Rizzi 2025); Cathay and Kitai (Yule and Cordier); first named in Northern Wei sources**; the Xiongnu ancestry and the consort clans (on no page read) dropped; no date line (no page prints a first attestation's year). |
+| `cnh-413` Abaoji | 7 | 7 → 6 | **Three Wikisource texts cut to the *New History* juan 72; Liu Pujiang's 2023 study of the founding year: the *Liaoshi*'s 916 beside khan in 907 and Ouyang Xiu's 922; the feast at the salt lake, the drum and banner and Shulü's advice told as Ouyang Xiu's; Fuyu taken from Bohai and renamed Dongdan**; the birth omens and "war leader from 901" (a conversion) dropped. Protected: the line stays (flagged below). |
+| `cnh-414` Bureau of Military Affairs | 6 | 6 → 6 | **"Northern bureau 947 / Southern bureau 948" now `Adopted 947 CE` (the *Liaoshi* juan 47 prints Datong 1 and "the next year"); the Tang eunuchs' office and the Later Jin's restoration; the "Khitan north, Chinese south" reading dropped (the *Liaoshi* juan 45 warns against it)**; 944 (a conversion) dropped. |
+| `cnh-415` Khitan scripts | 7 | 7 → 6 | **`Large script 920 CE` / `Suppressed 1191`; the *Liaoshi* juan 2 (begun in the first month, decreed in the ninth of Shence 5); two Unicode proposals (West, Zaytsev and Everson; China's national body) and Róna-Tas; Diela's c. 924 – 925 as one proposal's figure only**; "twenty days" with the Uyghur envoys and the 1983 inscription's length (sources disagree) dropped. |
+| `cnh-416` Battle of Gaoliang River | 5 | 5 → 5 | **The battle template off: `Fought 979 CE`; the *Liaoshi* juan 9: Yelü Xiuge and Yelü Xiezhen's flank charge, Han Derang on the walls, the Song ruler's escape in a donkey cart told as the *Liaoshi*'s; the river's place (Bretschneider)**; army sizes and the arrow wound (on no page read) dropped. |
+| `cnh-417` Chanyuan Treaty | 6 | 8 → 6 | **Four Wikisource texts cut to the *Songshi* juan 281: Xiao Talin's death by a crossbow bolt, Kou Zhun's 300,000 limit told as the *Songshi*'s, Wang Qinruo's "oath beneath the walls"; Fu Bi and the 1042 increase**; Li Tao's three fingers, the "aunt" title, the January 1005 conversion and the "hundred years" of peace dropped. |
+| `cnh-418` Pagoda of Fogong Temple | 7 | 7 → 7 | **Three MDPI papers and two Wikisource texts replaced: the Ming gazetteer of Yingzhou as the source of the 1056 date (Architectura Sinica), the two heights and whose (67.31 m, Shi et al. 2024; 65.84 m, the Chinese Academy of Cultural Heritage [in Chinese]), five storeys outside and nine floors within, the 1974 finds of the Khitan Canon and the tooth relic**; the 26 statues and the module (MDPI only) dropped. |
+| `cnh-419` Alliance Conducted at Sea | 6 | 6 → 6 | **"First contact 1117" (a conversion) now `Envoys sent 1118` (Cordier) / `Terms agreed 1120`; four Wikisource texts cut to the *Songshi* juan 472: Ma Zhi renamed Zhao Liangsi, the Deng–Lai sea route, Aguda fixing the line at Gubeikou; the timeline moved to 1118 – 1120**; the horse-buying pretext, the wind-blown refugees and the 500,000 (on no page read) dropped. |
+| `cnh-420` Emperor Tianzuo of Liao | 6 | 6 → 6 | **The *Liaoshi* juan 27 (Kanseki) with Gabelentz's 1877 German translation of the Manchu *Liaoshi* for the end: Yelü Yixin's corpse, the Huntong River feast where Aguda would not dance (1112), the capture by Wanyan Loushi, the Prince of Haibin; pinyin Liáo Tiānzuò Dì → Liáo Tiānzuòdì (joined as Liáng Wǔdì)**. Protected: the line stays (flagged below). |
+
+Read by eye. **Confusability**: the drum and banner and the salt-lake feast are `cnh-413`'s (dropped from `cnh-412`); the
+Huntong River dance is `cnh-420`'s (the Aguda agent will be told); the Chanyuan payments `cnh-417`'s and Cathay `cnh-412`'s
+(both out of `cnh-411`); Yanjing and the six districts stay `cnh-400`'s (out of `cnh-419`). Two phrasings tripped
+check-cards' scholar rule ("Han Derang", "Autumn Annals") and were reworded after the apply. **Legend**: the Khitan origin
+legend (the *Liaoshi* juan 37), Abaoji's feast (Ouyang Xiu), the donkey cart (the *Liaoshi*), Kou Zhun's limit (the
+*Songshi*) are each a text's, all compiled under the Yuan. **Chinese names corrected**: `cnh-420` pinyin (joined).
+Kept unconfirmed for want of a page printing the compound: 辽朝 (the house form), 高梁河之战 (the *Liaoshi* writes 高梁之戰;
+joined Gāoliánghé may be the house form), 海上之盟 (Theobald prints 海上盟約) — for the owner. **Spellings fixed**: none
+needed; 0 hits. **Myth register**: no row touched; a candidate row, the Khitan origin legend (the *Liaoshi* juan 37).
+**check-citations**: `cnh-413` and `cnh-414` report Liu Pujiang in Chinese order — fine. **Protected lines: unchanged**
+(diffed after the apply). For the owner: `cnh-413`'s 872 on no page read (the *Liaoshi* gives Xiantong 13, not converted
+here) and its 6 September on none; `cnh-420`'s 1128 and 1156 on no page read (the *Liaoshi*: died aged 54; Giles 1125;
+Cordier 1126), and its days on none. The timelines of `cnh-411` (a dynasty) and `cnh-414`, `415`, `418` (not events) were
+not set; `cnh-419`'s was moved to 1118 – 1120.
