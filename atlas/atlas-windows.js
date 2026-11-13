@@ -337,6 +337,7 @@
       const centred = (x, y, w, half) => ({ x, y, align: "center", box: [x - w / 2 - 2, y - half, x + w / 2 + 2, y + half] });
       // a name: its candidate places in preference order; `must` = never dropped (the first candidate stands when none is clear)
       const placeName = (text, font2, cands, o) => {
+        text = String(text).replace(/(^|[\s(])St\.? (?=[A-ZÀ-Þ])/g, "$1Saint ");   // Saint in full (2026-11-13), as the Atlas page's worker writes it
         const w = wOf(font2, text); const list = typeof cands === "function" ? cands(w) : cands; if (!list.length) return null;
         const at = list.find((c) => clear(c.box)) || (o.must ? list[0] : null);
         if (!at) { droppedNames.push(text); return null; }

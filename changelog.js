@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1304", released: "2026-11-13T21:54Z" };
+window.FOLIO_VERSION = { v: "1.1305", released: "2026-11-13T23:15Z" };
 
 window.CHANGELOG = [
   {
@@ -68,6 +68,12 @@ window.CHANGELOG = [
       "A region's name, such as the Nile Delta, now shows without a dot on its collection's other atlas windows.",
       "Backgrounds no longer name websites as their authority.",
       "The Battle of Stalingrad card now gives one casualty figure, the official Soviet count, in its date line and background.",
+      "Names beginning with Saint are written in full everywhere, Saint Petersburg and Saint Louis included, on the Atlas's labels too.",
+      "<i>Genghis Khan</i> is now spelled one way across every card and glossary entry.",
+      "11 cards in the United States and Russia gain glossary links, with 102 new glossary terms.",
+      "George Washington's card says more about his war and his presidency, and its atlas window shows the United States of 1796.",
+      "New atlas windows for Saint Petersburg, Kyiv, Jamestown and Ivan the Terrible's realm; Moscow's label is now plain Moscow.",
+      "Lowercase <i>overlords</i> no longer links to Operation Overlord.",
       "The League of Nations card shows the League's emblem beside its answer, as a geography card shows a flag.",
     ]
   },
