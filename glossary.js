@@ -22605,7 +22605,6 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Władysław_IV_Vasa": ["Władysław Vasa"],
 "Patriarch_Hermogenes_of_Moscow": ["Patriarch Hermogenes","Patriarch Germogen"],
 "Prokopy_Petrovich_Lyapunov": ["Prokopy Lyapunov"],
-"Richard_Chancellor": ["Chancellor"],
 "Muscovy_Company": ["Russia Company","Moscovy Company"],
 "Yermak_Timofeyevich": ["Yermak","Ermak","Ermak Timofeevich"],
 "Khanate_of_Sibir": ["Sibir Khanate","Siberian Khanate"],
@@ -23168,7 +23167,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "State_of_Missouri_v._Celia,_a_Slave": ["State of Missouri v. Celia, a Slave","Missouri v. Celia","Celia, a Slave"],
 "Invisible_churches": ["invisible church","invisible institution","hush harbor"],
 "Black_church": ["Black church","African American church"],
-"Spiritual_(music)": ["spirituals","spiritual","African American spirituals"],
+"Spiritual_(music)": ["spirituals","African American spirituals"],
 "Ring_shout": ["ring shout","shout"],
 "Gullah": ["Geechee","Gullah Geechee","Gullah people"],
 "Self-hire": ["self-hire","self-hiring","hiring one's own time"],
@@ -24198,6 +24197,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
+"Earth": true,
+"Reconstruction_era": true,
 "Moirai": true,
 "Redeemers": true,
 "Contraband_(American_Civil_War)": true,

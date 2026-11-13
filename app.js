@@ -3999,6 +3999,13 @@
   function escHtml(s) {
     return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
+  // GLOSS_ONLY_IN in a popup: a collection-bound term links only from a term tagged with one of its subjects
+  function glossScopedOk(key, hostKey) {
+    const r = GLOSS_ONLY_IN[key];
+    if (!r) return true;
+    const t = ((window.GLOSSARY_TAGS || {})[hostKey]) || [];
+    return t.some((x) => r.tags.includes(x));
+  }
   // wrap any glossary terms found in a description in clickable .ttip spans (skipping self)
   function linkifyGloss(text, selfKey, scope) {
     const idx = glossIndexFor(scope);
@@ -4009,7 +4016,7 @@
     while ((m = re.exec(text))) {
       const key = resolveGlossKey(idx, m[0]);
       out += escHtml(text.slice(last, m.index));
-      if (key && key !== selfKey && !seen.has(key)) {   // link only the first occurrence of each term in the popup (case routing handled by resolveGlossKey)
+      if (key && key !== selfKey && !seen.has(key) && glossScopedOk(key, selfKey)) {   // link only the first occurrence of each term in the popup (case routing handled by resolveGlossKey)
         seen.add(key);
         out += '<span class="ttip" data-k="' + key + '">' + escHtml(m[0]) + "</span>";
       } else {
@@ -4027,7 +4034,20 @@
   // inside a link or inside the bold answer term is skipped.
   // `scope` selects which term table to link against — omitted means the curated site glossary,
   // which is every existing caller.
-  function autoLinkGlossary(rootEl, answerText, offKeys, scope) {
+  /* TERMS THAT AUTO-LINK ONLY INSIDE NAMED COLLECTIONS (2026-11-13, on request: "ensure that the glosses 'sense'
+     and 'pain' are only applied in the Psychology and Biology collection"). An everyday word in a history card —
+     "a sense of loyalty", "on pain of death" — is not the perception term. A key here links only in a card whose
+     collection root is listed (pass the card's id as `cardId`), and in a glossary popup only when the term being
+     read is itself tagged with one of `tags`; everywhere else it stays plain text. A hand-written data-k still links. */
+  const GLOSS_ONLY_IN = {
+    Sense: { roots: ["psych", "bio"], tags: ["psychology", "biology", "neuroscience"] },
+    Pain: { roots: ["psych", "bio"], tags: ["psychology", "biology", "neuroscience", "medicine"] },
+  };
+  function glossScopedOff(cardId) {
+    const root = cardId ? cardCollectionRoot(cardId) : null, rid = root && root.id;
+    return Object.keys(GLOSS_ONLY_IN).filter((k) => !(rid && GLOSS_ONLY_IN[k].roots.includes(rid)));
+  }
+  function autoLinkGlossary(rootEl, answerText, offKeys, scope, cardId) {
     if (!rootEl) return;
     const idx = glossIndexFor(scope);
     if (!idx || !idx.re) return;
@@ -4038,6 +4058,7 @@
     const answerKey = answer ? ((idx.byAnySurface || idx.byName)[answer] || idx.byName[answer]) : null;
     if (answerKey) linked.add(answerKey);
     if (offKeys && offKeys.length) offKeys.forEach((k) => linked.add(k));   // terms the editor removed in this card's background — keep them un-linked
+    if (!scope || scope === GLOSS_SCOPE_SITE) glossScopedOff(cardId).forEach((k) => linked.add(k));   // GLOSS_ONLY_IN: a collection-bound term stays plain outside its collections
     // respect hand-added links already in the source: don't auto-link a term the editor linked manually
     rootEl.querySelectorAll(".ttip[data-k]").forEach((sp) => linked.add(sp.getAttribute("data-k")));
     // gather eligible text nodes in document order (skip links + the answer term)
@@ -4482,9 +4503,8 @@
       '</div>' +
       // the image slot comes FIRST: it floats to the top-right and the prose wraps down its left
       '<div class="gloss-body"><div class="gloss-imgslot"></div><span class="gloss-dates"></span><p class="gloss-desc"></p><div class="gloss-bookslot"></div><div class="gloss-atlas" hidden></div><div class="gloss-srcslot"></div>' +
-        /* THE TERM'S KEY, FOR AN ADMIN (Nov 2026, on request): the gloss popup's counterpart of a card's
-           `card-admin-id` — the key at the foot, so a term met while reading can be named in a request. */
-        (isAdmin() && !isDeckGlossKey(key) ? '<div class="card-admin-id gloss-admin-id" translate="no">' + esc(key) + "</div>" : "") +
+        /* No key at the foot (2026-11-13, on request): the admin's key line of Nov 2026 is gone — a
+           gloss popup shows no id, unlike a card. */
       '</div>';
     win.querySelector(".gloss-title").textContent = glossTitle(key);
     const dEl = win.querySelector(".gloss-dates");
@@ -24958,6 +24978,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      log. TODAY IS A SECTION OF THIS BOX (Oct 2026, on request), where it replaces the "studied 13m today"
      line that stood under the deck list: the same three figures over the same day the streak counts
      (`dayKey`, so the reader's own day cut-off applies), read off the one log in one pass. */
+  /* ONE DAY'S STUDY TIME, IN SECONDS, AS THE TODAY / THIS WEEK BOX COUNTS IT (2026-11-13, on a report: the
+     three-hour badge fired while the box said 2 h 40 min). The box sums each answer's own seconds off the
+     synced daily record (`reviewLog[day][3]`, tenths), falling back to the local per-answer window for a day
+     written before the row carried time; the hour badges read the study page's wall clock (`studyTime`),
+     which also runs while a card sits unanswered, so the two disagreed. The badges read this now, and so the
+     two can never disagree again. `prog` is the reader's own S or a friend's progress blob (no local window). */
+  function dayStudySecs(prog, k) {
+    const e = ((prog && prog.reviewLog) || {})[k];
+    if (e && e.length >= 6) return (e[3] | 0) / 10;
+    if (prog !== S) return 0;
+    const log = S.revlog || [];
+    let secs = 0;
+    for (let i = log.length - 1; i >= 0; i--) {
+      const r = revRead(log[i]); if (!r) continue;
+      const rk = dayKey(r.t);
+      if (rk === k) secs += r.secs || 0;
+      else if (rk < k) break;
+    }
+    return secs;
+  }
   function homeWeekHTML() {
     const now = Date.now(), today = dayKey(now);
     const day = { cards: 0, secs: 0, right: 0, total: 0 }, week = { cards: 0, secs: 0, right: 0, total: 0 };
@@ -34932,7 +34972,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (el.hasAttribute("data-auto") || !k || !(k in G)) el.replaceWith(document.createTextNode(el.textContent));
       });
       abs.normalize();
-      autoLinkGlossary(abs, card && card.answer, absTaken, scope);
+      autoLinkGlossary(abs, card && card.answer, absTaken, scope, card && card.id);
       abs.querySelectorAll(".ttip[data-k]").forEach((sp) => absTaken.push(sp.getAttribute("data-k")));
     });
     /* THE "THINK IT THROUGH" ANSWERS LINK THEIR TERMS TOO (Sep 2026, on request: "add gloss links in the
@@ -34949,7 +34989,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        calling this and `setupTooltips` runs over the whole card afterwards — so nothing here has to be
        wired and no caller has to know which cards carry a `why`. */
     container.querySelectorAll(".elab .elab-a").forEach((p) => {
-      autoLinkGlossary(p, card && card.answer, off, scope);
+      autoLinkGlossary(p, card && card.answer, off, scope, card && card.id);
     });
   }
 
@@ -43148,7 +43188,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { id: "book1", icon: "📕", name: "Opened a Book", desc: "Start reading a book in the Library", test: (s) => s.books >= 1 },
     { id: "book5", icon: "📗", name: "Wide Reader", desc: "Start reading 5 books", test: (s) => s.books >= 5, prog: (s) => [s.books, 5] },
     { id: "book10", icon: "📘", name: "Well Read", desc: "Start reading 10 books", test: (s) => s.books >= 10, prog: (s) => [s.books, 10] },
-    /* Hours in ONE day, off `S.studyTime`, which keeps today and nothing else. That is enough: a badge is
+    /* Hours in ONE day, off the Today box's own count (dayStudySecs, since 2026-11-13; was `S.studyTime`). That is enough: a badge is
        tested on every grade and is never revoked, so it unlocks the moment the day's total crosses the
        line and keeps. A best-ever field would be a second thing to keep in step for no gain. */
     { id: "hour1", icon: "⏳", name: "An Hour's Work", desc: "Study for an hour in one day", test: (s) => s.studyMs >= 3600e3, prog: (s) => [Math.round(s.studyMs / 60000), 60] },
@@ -43225,13 +43265,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        progress it reads their today, and reads 0 on a day they have not studied, which is honest. */
     const arts = (prog.artefacts && typeof prog.artefacts === "object") ? Object.keys(prog.artefacts) : [];
     const legendaries = arts.filter((id) => ARTEFACT_BY_ID[id] && rarityId(ARTEFACT_BY_ID[id]) === "legendary").length;
-    const st = prog.studyTime;
     return { seen, mature, streak: (prog.streak && prog.streak.count) || 0, wins: (prog.daily && prog.daily.wins) || 0, dailySweep: allGamesWonToday(prog), decksStarted, decksDone, friends: (friendsCount != null ? friendsCount : (prog.friendCount | 0)),
       terms: glossSeenCount(prog), countries: countrySeenCount(prog), countryTotal: (window.ATLAS_COUNTRIES && window.ATLAS_COUNTRIES.countries.length) || 0,
       chestsOpened: (prog.chestsOpened | 0), artefacts: arts.length, legendaries,
       published: (prog.published | 0),
       books: (prog.reading && typeof prog.reading === "object") ? Object.keys(prog.reading).length : 0,
-      studyMs: (st && st.d === dayKey() ? (st.ms | 0) : 0),
+      studyMs: Math.round(dayStudySecs(prog, dayKey()) * 1000),   // the Today box's own figure (dayStudySecs), not the wall clock
       /* THE LIFETIME FIGURES (Aug 2026, on request). `studyTotalMs` is a running total the day-stamped
          record above cannot be summed into after the fact; `readMs` is the sum of the per-book clocks and
          `readBookMs` the longest single book, so "an evening in one book" and "a hundred hours across the
@@ -45828,7 +45867,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function richSelfKey(el) { return el && el.dataset.field === "glossdesc" ? adminState.glossKey : null; }   // a glossary description must not link to its own term
   function richAutoLink(el) {   // show the auto gloss links inside a gloss-aware field (skipping the field's own term + removed ones)
     const f = el.dataset.field;
-    if (f === "abstract") autoLinkGlossary(el, (CARD_BY_ID[adminState.card] || {}).answer, glossOffList(adminState.card));
+    if (f === "abstract") autoLinkGlossary(el, (CARD_BY_ID[adminState.card] || {}).answer, glossOffList(adminState.card), undefined, adminState.card);
     else if (f === "glossdesc") autoLinkGlossary(el, "", [adminState.glossKey].concat(glossOffList(adminState.glossKey)));
   }
   // render a glossary description into el: its HTML (styling + hand-added links) + auto-linked other terms (never itself / removed ones). Caller wires tooltips.
@@ -46817,7 +46856,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const el = host.querySelector('[data-field="' + f + '"]');
       if (!el) return;
       el.innerHTML = o.getField(f);
-      if (o.isEn && f === "abstract") autoLinkGlossary(el, c.answer, o.glossOff || [], o.glossScope);
+      if (o.isEn && f === "abstract") autoLinkGlossary(el, c.answer, o.glossOff || [], o.glossScope, c.id);
       syncEmpty(el);
     });
     // double-click enters editing; blur leaves it (each keystroke saves either way)
@@ -47147,7 +47186,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           const el = host.querySelector('[data-field="' + f + '"]');
           if (el && fieldVal(el) !== val) {
             el.innerHTML = val;
-            if (o.isEn && f === "abstract") autoLinkGlossary(el, c.answer, o.glossOff || [], o.glossScope);
+            if (o.isEn && f === "abstract") autoLinkGlossary(el, c.answer, o.glossOff || [], o.glossScope, c.id);
             el.dispatchEvent(new Event("input", { bubbles: true }));
             syncEmpty(el);
           }
