@@ -195,6 +195,33 @@ the form English-language scholarship and the reference works use; the decision 
 | Jin (the dynasty of 266 – 420) | Chin dynasty | Western Jin, Eastern Jin | disambiguated from the state of Jin and the Jurchen Jin in the card's own words (`docs/china-card-plan.md`) |
 | qingtan, menfa | ch'ing-t'an, men-fa | | lower case in prose |
 | Seven Sages of the Bamboo Grove, Ji Kang, Ruan Ji, Shan Tao, Xiang Xiu, Liu Ling, Ruan Xian, Wang Rong | Chi K'ang, Juan Chi, Xi Kang | Xi Kang | *Xi Kang* is a common reading of 嵇康 and is an alias |
+| Disaster of Yongjia, Emperor Huai, Emperor Min | Yung-chia, Huai-ti, Min-ti | Yongjia disaster, Jin Huaidi, Jin Mindi | the fall of the Western Jin (added for the fourth hundred, Nov 2026) |
+| Sixteen Kingdoms, Five Barbarians | Shih-liu kuo, Wu Hu (in English prose) | Shiliu guo, Wu Hu, Five Hu | English names first; both are later labels, said so where it matters |
+| Jie, Xianbei, Di, Qiang | Chieh, Hsien-pei, Xian-bei, Xian Bei, Ch'iang | | the peoples of the Five Barbarians with the Xiongnu (row above); never "Ti" for the Di |
+| Han-Zhao, Later Zhao, Former Yan, Later Yan, Former Qin, Later Qin, Former Liang, Cheng-Han | Hou Zhao, Hou Chao, Ch'ien Yen, Ch'ien Ch'in, Former Ch'in, Later Ch'in, Ch'eng-Han | Northern Han, Han Zhao, Hanzhao | the Sixteen Kingdoms states, English order (Later, Former) |
+| Liu Yuan, Liu Cong, Liu Yao, Shi Le, Shi Hu, Fu Jian, Fu Hong, Wang Meng, Murong Huang, Murong Jun, Murong Ke, Murong Chui, Yao Chang | Liu Ts'ung, Shih Le, Shih Hu, Fu Chien, Mu-jung, Mu Rong | Shi Jilong | the Sixteen Kingdoms rulers and ministers, surname and name split; Murong is one surname |
+| Fei River, Fotudeng, Kumarajiva | Fei Shui, Fei-shui, Fo-t'u-teng, Fo Tu Deng, Fotu Deng | Feishui, Fotucheng | |
+| Jiankang | Chien-k'ang, Jian Kang | Jianye, Nanjing | the southern capital (Jianye under Wu) |
+| lodged commanderies | ch'iao-chün | qiaojun | English name first |
+| Eastern Jin, Wang Dao, Zu Ti, Huan Wen, Xie An, Xie Xuan, Wang Xizhi, Tao Yuanming, Gu Kaizhi, Liu Yu | Tung Chin, Tsu T'i, Hsieh An, Hsieh Hsüan, Wang Hsi-chih, T'ao Yüan-ming, Ku K'ai-chih, Liu Yü | Tao Qian, Emperor Wu of Song | the Eastern Jin men, surname and name split; *Tao Qian* is the poet's other name, an alias |
+| Liu Song, Southern Qi, Liang, Chen, Hou Jing, Emperor Wu of Liang | Liu Sung, Southern Ch'i, Nan Qi, Hou Ching, Liang Wu-ti | Xiao Yan, Liang Wudi | the Southern dynasties; Liu Song and Southern Qi as named to keep them from the later Song and the state of Qi |
+| Northern Wei, Tuoba, Pingcheng, Emperor Xiaowen, Eastern Wei, Western Wei, Northern Qi, Northern Zhou, Yuwen Tai, Gao Huan | Bei Wei, T'o-pa, Toba, P'ing-ch'eng, Hsiao-wen, Northern Ch'i, Northern Chou, Yü-wen T'ai, Kao Huan | Tabgach, Yuan Wei, Xiaowendi | the Northern dynasties |
+| Six Garrisons, equal-field system, fubing | Liu Chen, chün-t'ien, fu-ping, Fu Bing, fu bing | juntian, juntianzhi | lower case in prose for the institutions |
+| Yungang Grottoes, Longmen Grottoes | Yun-kang, Yun Gang, Lung-men, Long Men | | |
+| Shen Yue, Wen Xuan, Xiao Tong | Shen Yüeh, Wen hsüan, Hsiao T'ung | Wenxuan, Selections of Refined Literature | *Wen Xuan* split, as the live answer |
+| Sui, Tang | T'ang | | the dynasties; in the `pinyin` field split from cháo, lower case: Suí cháo, Táng cháo |
+| Emperor Wen of Sui, Emperor Yang of Sui, Emperor Gaozu of Tang, Emperor Taizong, Emperor Gaozong, Emperor Xuanzong | Yang-ti, T'ai-tsung, Kao-tsung, Hsüan-tsung | Sui Wendi, Sui Yangdi, Tang Gaozu, Tang Taizong, Yang Jian, Yang Guang, Li Yuan, Li Shimin, Li Longji | the Sui and Tang emperors: "Emperor" and the posthumous or temple name, English order; the joined Chinese forms (Tang Taizong) where the `pinyin` field or a cited title uses them |
+| Wu Zetian, Wu Zhou | Wu Tse-t'ien, Wu Chao | Wu Zhao, Empress Wu | *Wu Zhao* is her own name, an alias |
+| Kaihuang Code, Tang Code, Zhenguan, Kaiyuan | K'ai-huang, Chen-kuan, K'ai-yüan | | the reign periods named as eras |
+| jinshi, mingjing, jiedushi, fanzhen, sabao, koufentian, zuyongdiao, Zhengshitang | chin-shih, ming-ching, chieh-tu-shih, Jie Du Shi, fan-chen, sa-pao, k'ou-fen-t'ien, zu yong diao, zu-yong-diao, tsu-yung-tiao, Cheng-shih-t'ang | | lower case in prose for the degrees, offices and taxes, joined |
+| Grand Canal, Goguryeo, Wagang, Li Mi, Yuwen Huaji, Dou Jiande, Wang Shichong | Koguryo, Koguryŏ, Kao-kou-li, Wa-kang, Yü-wen Hua-chi, Tou Chien-te | Gaogouli | *Goguryeo* the Korean collection's form |
+| Xuanwu Gate, Anxi Protectorate, West Market | Hsüan-wu, Xuanwumen (in English prose), An-hsi | Xuanwumen, Xishi, Protectorate General to Pacify the West | English names first |
+| Yang Guifei, Yang Guozhong, Li Linfu, Gao Xianzhi, An Lushan, Shi Siming | Yang Kuei-fei, Li Lin-fu, Kao Hsien-chih, An Lu-shan, An Lu Shan, Shih Ssu-ming | Yang Yuhuan | |
+| Jieli (Illig Qaghan) | Hsieh-li, Chieh-li | Xieli, Illig Qaghan | the Eastern Turkic khagan captured in 630; *Xieli* is the dictionary reading of 頡利 and an alias (added B36) |
+| Talas, Tibetan Empire, Uyghur Khaganate, Nanzhao | Uighur, Uigur, Nan-chao, Nan Zhao | Tubo, Tufan, Huihe, Huihu | *Uyghur* the house form, *Tubo* the Chinese name an alias |
+| Famen Temple, Xuanzang, Huichang | Fa-men, Hsüan-tsang, Hsuan-tsang, Hiuen Tsiang, Xuan Zang, Hui-ch'ang | Famensi, Tripitaka, Tang Sanzang | the *Journey to the West*'s Tang Sanzang said to be the novel's |
+| regulated verse, Li Bai, Du Fu, Bai Juyi, Han Yu, Wang Wei, Yuan Zhen | lü-shih, Li Pai, Tu Fu, Po Chü-i, Bo Juyi, Han Yü, Yüan Chen | lüshi, Li Taibai, Li Po | the Tang poets, surname and name split; *Li Po*, the older English name, is an alias legitimate in an "also known as" sentence |
+| Huang Chao, Zhu Wen, Li Keyong, Five Dynasties and Ten Kingdoms, Later Liang, Later Tang, Sixteen Prefectures | Huang Ch'ao, Chu Wen, Li K'o-yung, Hou Liang, Hou T'ang | Zhu Quanzhong, Sixteen Prefectures of Yan and Yun | |
 
 ## Mythology and legend
 
@@ -462,9 +489,87 @@ stood on main on 2026-11-12 (the years only; ages, days and months left out), an
 | qingtan flourished | c. 240 – 420 CE | Spiro (`cnh-299`) |
 | the Seven Sages lived / Ji Kang executed / also dated | 205 – 305 CE / 262 CE / 263 CE | `cnh-300` |
 
+## Sixteen Kingdoms to the Tang (the fourth hundred)
+
+Filled batch by batch from `cnh-301` (B31 on). **The protected lines** of the fourth hundred's individuals
+(`cnh-302`, `309`, `312`, `316`–`322`, `327`, `333`, `341`, `344`, `349`, `354`, `356`, `357`, `371`, `373`, `375`, `377`,
+`382`, `383`, `388`, `391`–`394`, `396`) are pinned below to their lines as they stood on main on 2026-11-13 (the years
+only; ages, days and months left out), and are not rows of this table.
+
+| event | the collection says | source |
+|---|---|---|
+| the Disaster of Yongjia: Luoyang fell / Emperor Huai killed | 13 July 311 CE / 313 CE | de Crespigny; Theobald (`cnh-301`) |
+| the Sixteen Kingdoms | 304 – 439 CE | Theobald; Holcombe (`cnh-303`) |
+| the states of the Five Barbarians founded | 304 – 439 CE | Theobald (`cnh-304`) |
+| Han-Zhao: founded / imperial title / renamed Zhao / ended | 304 CE / 308 CE / 319 CE / 329 CE | `cnh-305` |
+| the Later Zhao (Theobald's table / his heading) / imperial title | 319 – 351 CE / 319 – 350 CE / 330 CE | `cnh-306` |
+| the Former Yan: founded / imperial title / conquered | 337 CE / 352 CE / 370 CE | `cnh-307` |
+| the Former Qin: founded / Fei River / ended | 351 CE / 383 CE / 394 CE | `cnh-308` |
+| the Battle of Fei River | 383 CE | the *Jinshu* (`cnh-310`) |
+| the lodged commanderies: in use / the tuduan act / the registers merged | c. 317 – 589 CE / 364 CE / 413 CE | Theobald (`cnh-311`) |
+| the Eastern Jin / Sima Rui takes the throne | 317 – 420 CE / 318 CE | `cnh-313` |
+| Jiankang: Jianye founded / renamed / capital | 212 CE / 313 CE / 317 – 589 CE | the *Jinshu*; Chittick (`cnh-314`) |
+| the Xie: Xie An / Fei River / Xie Lingyun | 320 – 385 CE / 383 CE / 385 – 433 CE | `cnh-315` |
+| the Northern and Southern dynasties (the convention) | 420 – 589 CE | Theobald (`cnh-323`) |
+| the Liu Song / the Yuanjia era | 420 – 479 CE / 424 – 453 CE | Theobald (`cnh-324`) |
+| the Southern Qi / the Yongming era | 479 – 502 CE / 483 – 493 CE | `cnh-325` |
+| the Liang / the Hou Jing rebellion | 502 – 557 CE / 548 – 552 CE | `cnh-326`, `cnh-328` |
+| the Hou Jing rebellion: Jiankang fell / the Han title | 549 CE / 551 CE | Giles; Theobald (`cnh-328`) |
+| the Chen / its founder's death | 557 – 589 CE / 559 CE | `cnh-329` |
+| the Northern Wei / the north united | 386 – 534 CE / 439 CE | `cnh-330` |
+| the Tuoba: the new seat at Shengle (the *Wei shu*'s count) / the Northern Wei house / the Gaxian inscription / renamed Yuan | 258 CE / 386 – 534 CE / 443 CE / 496 CE | Holmgren; Theobald (`cnh-331`) |
+| the equal-field system decreed / abandoned | 485 CE / 780 CE | `cnh-332` |
+| Pingcheng the capital | 398 – 494 CE | the *Wei shu* (`cnh-334`) |
+| the Yungang caves carved | c. 460 – 524 CE | `cnh-335` |
+| Longmen: begun / the imperial caves | c. 494 CE / 500 – 523 CE | Chavannes; the Nelson-Atkins (`cnh-336`) |
+| the Six Garrisons revolt | 523 – 529 CE | `cnh-337` |
+| the Eastern Wei | 534 – 550 CE | `cnh-338` |
+| the Northern Zhou / the conquest of the Qi | 557 – 581 CE / 577 CE | `cnh-339` |
+| the fubing: the six armies / hired guards | 542 CE / 722 CE | `cnh-340` |
+| the Wen Xuan compiled / Li Shan's commentary | c. 520 – 531 CE / 658 CE | `cnh-342` |
+| the Sui / reunification | 581 – 618 CE / 589 CE | `cnh-343` |
+| the Sui conquest of Chen / Jiankang taken | 588 – 589 CE / 589 CE | `cnh-345` |
+| the Kaihuang Code issued | 581 CE | `cnh-346` |
+| the Three Departments set up / recast | 581 CE / 607 CE | `cnh-347` |
+| the jinshi founded (Giles) / the examinations ended | 606 CE / 1905 | `cnh-348` |
+| the Grand Canal: the first cut / the main works / the northern rebuild (Theobald) / World Heritage | 587 CE / 605 – 610 CE / 1283 – 1291 / 2014 | `cnh-350` |
+| the Goguryeo–Sui War / the great invasion | 598 – 614 CE / 612 CE | `cnh-351` |
+| the Sui walls: the Lingwu wall / the great levy / the further levy | 585 CE / 607 CE / 608 CE | Mailla; the *Sui shu* (`cnh-352`) |
+| the Wagang army | 617 – 618 CE | `cnh-353` |
+| the Tang / the Wu Zhou interruption | 618 – 907 CE / 690 – 705 CE | `cnh-355` |
+| the Xuanwu Gate ambush / the abdication | 2 July 626 CE / 4 September 626 CE | Cordier (`cnh-358`) |
+| the Zhenguan era | 627 – 649 CE | `cnh-359` |
+| the Tang Code: revision ordered / revised / commentary | 627 CE / 651 CE / 653 CE | `cnh-360` |
+| koufentian: fixed / restated / abandoned | 624 CE / 737 CE / 780 CE | Chen; Ikeda (`cnh-361`) |
+| zuyongdiao fixed / replaced | 624 CE / 780 CE | `cnh-362` |
+| the mingjing: tiejing added / law added / abolished | 680 CE / 786 CE / 1071 | Wong; Theobald (`cnh-364`) |
+| the Battle of Yinshan | 630 CE | `cnh-365` |
+| the Anxi Protectorate: founded / seat moved / retaken / lost | 640 CE / 658 CE / 692 CE / c. 787 – 791 CE | Stein; Chavannes (`cnh-366`) |
+| Chang'an (Daxing): founded / capital / renamed Xi'an | 582 CE / 583 – 904 CE / 1369 | `cnh-367` |
+| the West Market: planned / abandoned / the dig report | 582 CE / 904 CE / 1961 | `cnh-368` |
+| the sabao tombs of An Jia and Shi Jun | 579 – 580 CE | `cnh-369` |
+| the Sogdian Whirl dancers sent as tribute (Mair) | 718 – 729 CE | `cnh-370` |
+| the Wu Zhou proclaimed / ended | 690 CE / 705 CE | `cnh-372` |
+| the Kaiyuan era | 713 – 741 CE | `cnh-374` |
+| the Battle of Talas | 751 CE | `cnh-376` |
+| the An Lushan Rebellion | 755 – 763 CE | `cnh-378` |
+| the Hebei provinces: settled / the war over succession / submitted | 763 CE / 781 – 785 CE / 819 CE | O'Byrne; Theobald (`cnh-379`) |
+| the jiedushi: first appointed / also dated (Sima Guang) / curbed by the Song | 711 CE / 710 CE / 965 CE | `cnh-380` |
+| the two-tax system introduced / superseded by the single whip | 780 CE / 1581 | `cnh-381` |
+| the Tibetan Empire / Wencheng sent / Chang'an taken / the sworn treaty | c. 618 – 842 CE / 641 CE / 763 CE / 821 – 822 CE | `cnh-384` |
+| the Uyghur Khaganate: founded / the capitals retaken / fell | 744 CE / 757 CE / 840 CE | `cnh-385` |
+| Nanzhao: traditional founding / recognised / beat the Tang / fell | 649 CE / 738 CE / 751 CE / 902 CE | `cnh-386` |
+| the Famen relic in the capital / the last procession / the crypt sealed | 819 CE / 873 CE / 874 CE | `cnh-387` |
+| the Huichang persecution: the decree / eased | 845 CE / 846 CE | `cnh-389` |
+| the Huang Chao rebellion / Chang'an held | 875 – 884 CE / 881 – 883 CE | `cnh-395` |
+| the Five Dynasties / the Ten Kingdoms | 907 – 960 CE / 902 – 979 CE | `cnh-397` |
+| the Later Liang / its founder killed | 907 – 923 CE / 912 CE | `cnh-398` |
+| the Later Tang / its founder killed | 923 – 936 CE / 926 CE | `cnh-399` |
+| the Sixteen Prefectures promised / handed over | 936 CE / 938 CE | the *Liao shi*; Theobald (`cnh-400`) |
+
 ## Later periods
 
-To be filled from `cnh-301` on.
+To be filled from `cnh-401` on.
 
 ## Chronology pins
 
@@ -624,6 +729,36 @@ cnh-286: 200; 219
 cnh-289: 179; 239; 251; 249
 cnh-292: 242; 264; 280; 283
 cnh-294: 236; 266; 290; 280
+cnh-302: 300; 313; 316; 317
+cnh-309: 337; 357; 385; 383
+cnh-312: 232; 310; 349
+cnh-316: 276; 317; 339
+cnh-317: 266; 313; 321
+cnh-318: 312; 347; 373
+cnh-319: 303; 353; 361
+cnh-320: 365; 405; 427
+cnh-321: 344; 364; 406
+cnh-322: 363; 417; 420; 422
+cnh-327: 464; 502; 549; 527
+cnh-333: 467; 471; 499; 496
+cnh-341: 441; 488; 513
+cnh-344: 541; 581; 604; 589
+cnh-349: 569; 589; 604; 618
+cnh-354: 618; 619
+cnh-356: 566; 617; 618; 626; 635
+cnh-357: 598; 626; 649
+cnh-371: 624; 690; 705
+cnh-373: 685; 712; 756; 713; 762
+cnh-375: 719; 745; 756
+cnh-377: 703; 755; 756; 757
+cnh-382: 727; 779; 781
+cnh-383: 715; 716; 763; 780
+cnh-388: 602; 629; 645; 664
+cnh-391: 701; 742; 762
+cnh-392: 712; 758; 770
+cnh-393: 772; 815; 846
+cnh-394: 768; 819; 824
+cnh-396: 852; 904; 907; 912
 cnh-101: 1250; 1046
 cnh-103: 1046; 1040; 1122
 cnh-104: 1046; 1044; 1122
@@ -769,4 +904,72 @@ cnh-297: 291; 306; 300
 cnh-298: 220; 589
 cnh-299: 240; 420
 cnh-300: 205; 305; 262; 263
+cnh-301: 311; 313
+cnh-303: 304; 439
+cnh-304: 304; 439
+cnh-305: 304; 308; 319; 329
+cnh-306: 319; 351; 350; 330
+cnh-307: 337; 352; 370
+cnh-308: 351; 383; 394
+cnh-310: 383
+cnh-311: 317; 589; 364; 413
+cnh-313: 317; 420; 318
+cnh-314: 212; 313; 317; 589
+cnh-315: 320; 385; 383; 433
+cnh-323: 420; 589
+cnh-324: 420; 479; 424; 453
+cnh-325: 479; 502; 483; 493
+cnh-326: 502; 557; 548; 552
+cnh-328: 548; 552; 549; 551
+cnh-329: 557; 589; 559
+cnh-330: 386; 534; 439
+cnh-331: 258; 386; 534; 443; 496
+cnh-332: 485; 780
+cnh-334: 398; 494
+cnh-335: 460; 524
+cnh-336: 494; 500; 523
+cnh-337: 523; 529
+cnh-338: 534; 550
+cnh-339: 557; 581; 577
+cnh-340: 542; 722
+cnh-342: 520; 531; 658
+cnh-343: 581; 618; 589
+cnh-345: 588; 589
+cnh-346: 581
+cnh-347: 581; 607
+cnh-348: 606; 1905
+cnh-350: 587; 605; 610; 1283; 1291; 2014
+cnh-351: 598; 614; 612
+cnh-352: 585; 607; 608
+cnh-353: 617; 618
+cnh-355: 618; 907; 690; 705
+cnh-358: 626
+cnh-359: 627; 649
+cnh-360: 627; 651; 653
+cnh-361: 624; 737; 780
+cnh-362: 624; 780
+cnh-364: 680; 786; 1071
+cnh-365: 630
+cnh-366: 640; 658; 692; 787; 791
+cnh-367: 582; 583; 904; 1369
+cnh-368: 582; 904; 1961
+cnh-369: 579; 580
+cnh-370: 718; 729
+cnh-372: 690; 705
+cnh-374: 713; 741
+cnh-376: 751
+cnh-378: 755; 763
+cnh-379: 763; 781; 785; 819
+cnh-380: 711; 710; 965
+cnh-381: 780; 1581
+cnh-384: 618; 842; 641; 763; 821; 822
+cnh-385: 744; 757; 840
+cnh-386: 649; 738; 751; 902
+cnh-387: 819; 873; 874
+cnh-389: 845; 846
+cnh-395: 875; 884; 881; 883
+cnh-397: 907; 960; 902; 979
+cnh-398: 907; 923; 912
+cnh-399: 923; 936; 926
+cnh-400: 936; 938
 ```
