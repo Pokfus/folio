@@ -509,6 +509,13 @@ only; ages, days and months left out), and are not rows of this table.
 | the Eastern Jin / Sima Rui takes the throne | 317 – 420 CE / 318 CE | `cnh-313` |
 | Jiankang: Jianye founded / renamed / capital | 212 CE / 313 CE / 317 – 589 CE | the *Jinshu*; Chittick (`cnh-314`) |
 | the Xie: Xie An / Fei River / Xie Lingyun | 320 – 385 CE / 383 CE / 385 – 433 CE | `cnh-315` |
+| the Northern and Southern dynasties (the convention) | 420 – 589 CE | Theobald (`cnh-323`) |
+| the Liu Song / the Yuanjia era | 420 – 479 CE / 424 – 453 CE | Theobald (`cnh-324`) |
+| the Southern Qi / the Yongming era | 479 – 502 CE / 483 – 493 CE | `cnh-325` |
+| the Liang / the Hou Jing rebellion | 502 – 557 CE / 548 – 552 CE | `cnh-326`, `cnh-328` |
+| the Hou Jing rebellion: Jiankang fell / the Han title | 549 CE / 551 CE | Giles; Theobald (`cnh-328`) |
+| the Chen / its founder's death | 557 – 589 CE / 559 CE | `cnh-329` |
+| the Northern Wei / the north united | 386 – 534 CE / 439 CE | `cnh-330` |
 
 ## Later periods
 
@@ -859,4 +866,11 @@ cnh-311: 317; 589; 364; 413
 cnh-313: 317; 420; 318
 cnh-314: 212; 313; 317; 589
 cnh-315: 320; 385; 383; 433
+cnh-323: 420; 589
+cnh-324: 420; 479; 424; 453
+cnh-325: 479; 502; 483; 493
+cnh-326: 502; 557; 548; 552
+cnh-328: 548; 552; 549; 551
+cnh-329: 557; 589; 559
+cnh-330: 386; 534; 439
 ```

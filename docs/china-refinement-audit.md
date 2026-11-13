@@ -411,7 +411,7 @@ otherwise.
 | B30 | Three Kingdoms (`col-16`) / Western Jin (`col-18`) | `cnh-291`–`cnh-300` | 10 | 86 | **done 2026-11-12** |
 | B31 | Western Jin (`col-18`) / Sixteen Kingdoms (`col-19`) | `cnh-301`–`cnh-310` | 10 | 83 | **done 2026-11-13** |
 | B32 | Sixteen Kingdoms (`col-19`) / Eastern Jin (`col-20`) | `cnh-311`–`cnh-320` | 10 | 79 | **done 2026-11-13** |
-| B33 | Eastern Jin (`col-20`) / Northern and Southern dynasties (`col-21`) | `cnh-321`–`cnh-330` | 10 | 105 | to do |
+| B33 | Eastern Jin (`col-20`) / Northern and Southern dynasties (`col-21`) | `cnh-321`–`cnh-330` | 10 | 105 | **done 2026-11-13** |
 | B34 | Northern and Southern dynasties (`col-21`) | `cnh-331`–`cnh-340` | 10 | 104 | to do |
 | B35 | Northern and Southern dynasties (`col-21`) / Sui (`col-22`) | `cnh-341`–`cnh-350` | 10 | 104 | to do |
 | B36 | Sui (`col-22`) / Tang (`col-23`) | `cnh-351`–`cnh-360` | 10 | 113 | to do |
@@ -841,6 +841,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-318` | China in 369 | not re-checked (Commons rate-limited): ok |
 | `cnh-319` | the Orchid Pavilion Preface, Tang copy | not re-checked (Commons rate-limited): ok |
 | `cnh-320` | Tao Yuanming with chrysanthemums | not re-checked (Commons rate-limited): ok |
+| `cnh-321` | none | not re-checked (Commons rate-limited): wanted — a free detail of the *Admonitions* scroll, called a later copy |
+| `cnh-322` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-323` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-324` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-325` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-326` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-327` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-328` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-329` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-330` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 
 ## Glossary candidates
 
@@ -2285,3 +2295,36 @@ the owner: `cnh-312`'s 232, Kucha, 13 January and the ages are on no page read (
 `cnh-316`'s 7 September and `cnh-318`'s 18 August are on no page read; `cnh-317`'s 313 is on no page read and its death
 sub-row "Zhengzhou, Henan" looks wrong (Yongqiu is Qi County, under Kaifeng); `cnh-319`'s Linyi and Shan County are on no
 page read; `cnh-319` and `cnh-320`'s ages agree with the histories' 59 and 63 in *sui*.
+
+### B33 — `cnh-321`–`cnh-330`, Eastern Jin and the Northern and Southern dynasties: Gu Kaizhi to the Northern Wei (2026-11-13)
+
+Run as B31. Every cited URL answered. **Pictures were not touched**; none of the ten cards has a picture. **The old cards
+cited the *Song shu*, *Liang shu*, *Chen shu* and *Wei shu* on Chinese Wikisource, put a battle template on the Hou Jing
+rebellion ("4 years", "Result Rebellion crushed by Wang Sengbian"), named a man in the Liang's label ("Hou Jing revolt"),
+used "Nan Qi" in the Southern Qi's own voice, gave the Admonitions scroll to Gu Kaizhi's hand, and carried years in most
+phrasings.** The histories were read in the Siku text on the Kanseki Repository and on zggdwx.com.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-321` Gu Kaizhi | 7 | 5 → 7 | **No painting proved his: the *Admonitions* scroll perhaps a Tang copy and neither scroll tied to him before the Song (Hu 2009); the unpainted pupils, the Vimalakirti pledge and Pei Kai's three hairs; Kerlan-Stephens's review (c. 345 – 406) the one French source**. Protected: the line stays (flagged below). |
+| `cnh-322` Liu Yu | 6 | 5 → 6 | **The *Song shu* juan 1 (zggdwx) for the Wikisource juan 3; the straw-sandal seller of the Jingkou army, the unguarded Dabian pass, Chang'an taken and lost to the Xia; the altar and "eased the later successions" (unsourced) dropped**. Protected: the line stays (flagged below). |
+| `cnh-323` Northern and Southern dynasties | 7 | 5 → 7 | **420 told as a convention, 386 or 439 the other northern starts (Theobald after Huang Huixian); the Six Dynasties label (220 – 589) and Chittick's "Jiankang Empire"; the *Beishi*'s "braided caitiffs" and "island barbarians"; Li Yanshou's two histories**; "the *Song shu* written under the Liang" (it was presented under the Southern Qi) dropped. |
+| `cnh-324` Liu Song | 6 | 5 → 6 | **The answer word "Liu" and the years out of the questions; Taiwu on Guabu hill with his camels (the *Song shu* juan 95), the document clerks, the Yuanjia era; Giles's 451 beside Theobald's 450 for the raid**; the Han-founder descent and "fourteen princes" dropped. |
+| `cnh-325` Southern Qi | 6 | 5 → 7 | **"Nan Qi" made Southern Qi; the register review "begun in 480", Tang Yuzhi's revolt; Hu Xiezhi's family taught court speech (the *Nan shi*, through Chittick); Xiao Luan the founder's nephew (Cordier), not Emperor Wu's cousin**; "early 4th century" (on no page) dropped. |
+| `cnh-326` Liang dynasty | 7 | 5 → 8 | **"Hou Jing revolt" relabelled `Rebellion` (548 – 552 kept); the Wen Xuan (`cnh-342`'s) and Hou Jing (`cnh-328`'s) off the questions: the burst Huai dam (its year left off: Theobald 516, Giles 515), the Jiangling library burned, the sixteen classes; the Chu-speaking generals (Chittick)**. **Name 梁 → 梁朝, Liáng cháo** (as 晋朝, 新朝). |
+| `cnh-327` Emperor Wu of Liang | 7 | 5 → 7 | **The *Liang shu* juan 3 (Kanseki): the three self-givings to the Tongtai Monastery and the ransoms, the dough victims; Sotomura 1999 (J-STAGE, in Japanese) for 527 and the doubt on the Jiming Temple site; Bodhidharma's "no merit" told as a Buddhist story (Edkins)**. Protected: the line stays (flagged below). |
+| `cnh-328` Hou Jing rebellion | 6 | 5 → 6 | **The battle template off: `Rebellion 548 – 552 CE` / `Capital fell 549 CE` / `Usurped throne 551 CE` (Cordier's 552 for the Han title not used); the *Liang shu* juan 56: Xuanwu Lake turned on Taicheng, "Great General of the Universe", the corpse eaten in the market**. |
+| `cnh-329` Chen dynasty | 6 | 5 → 7 | **The *Chen shu* juan 7 for Wikisource; the name from the founder's title, his Buddhist vows, "Jade Trees in the Rear Court"; the well left to `cnh-345`; the far-southern fighters (Chittick)**; the glossary's Cordier claim (not on his page) dropped. **Name 陈 → 陈朝, Chén cháo.** |
+| `cnh-330` Northern Wei | 7 | 5 → 7 | **The Xiaowen and grotto clues out: the farmers moved to the capital region with land and oxen, Cui Hao's history on roadside stones, the heir's mother killed and the metal image cast (Parker's, hedged); Hershock (Stanford Encyclopedia) and the *Wei shu* juan 35**; the 446 persecution kept off the questions (`cnh-895`'s). |
+
+Read by eye. **Confusability**: Sun En and Huan Xuan stay `cnh-313`'s; the well `cnh-345`'s and Chen Bozhi's clerk
+`cnh-326`'s (the Chen agent was told); Xiao Hong's hoard appears in Think it through on both `cnh-326` and `cnh-327`, never
+a question; the Luoyang move `cnh-333`'s. **Legend**: Bodhidharma's meeting is a Buddhist story; no source read dates its
+first telling (the register row stays provisional). **Chinese names corrected**: `cnh-326` 梁朝 and `cnh-329` 陈朝, the
+house form of 晋朝 (`cnh-293`) and 新朝 (`cnh-245`); `cnh-323`'s Nánběicháo left joined (for the owner, as the open pinyin
+decision). **Spellings fixed**: `cnh-325`'s "Nan Qi"; "Yangzi" made "Yangtze". **Myth register**: Emperor Wu and
+Bodhidharma — the story told as a Buddhist one; its first telling not dated by any page read. **Protected lines:
+unchanged** (diffed after the apply). For the owner: `cnh-321`'s 344 is on no page read (the background calls it a modern
+reckoning; Kerlan-Stephens gives c. 345); `cnh-322`'s birth is 356 in Giles against Theobald's 363, the *Song shu* gives
+his age as 60 by the Chinese count against the line's 59, and Chittick puts the Guanzhong campaign in 417 – 418;
+`cnh-327`'s "12 June 549" is on no page read.

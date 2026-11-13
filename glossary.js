@@ -19299,12 +19299,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Lodged_commanderies": ["lodged commandery","qiaojun","qiaozhou"],
 "Tao_Yuanming": ["Tao Qian","T'ao Ch'ien","T'ao Yüan-ming"],
 "Xie_clan_of_Chen_Commandery": ["Xie clan","Xie family","Xie of Chen commandery","Hsieh clan"],
-"Emperor_Wu_of_Liang": ["Xiao Yan"],
+"Emperor_Wu_of_Liang": ["Xiao Yan","Liang Wudi"],
 "Emperor_Wu_of_Song": ["Liu Yu"],
 "Gu_Kaizhi": ["Ku K'ai-chih"],
-"Hou_Jing_rebellion": ["rebellion of Hou Jing"],
+"Hou_Jing_rebellion": ["rebellion of Hou Jing","Hou Ching"],
 "Liu_Song_dynasty": ["Liu Song"],
-"Northern_Wei": ["Tuoba Wei"],
+"Northern_Wei": ["Tuoba Wei","Later Wei","Bei Wei"],
 "Northern_and_Southern_dynasties": ["Southern and Northern Dynasties","Nanbeichao"],
 "Southern_Qi": ["Southern Qi dynasty"],
 "Trajan's_Parthian_campaign": ["Trajan's Parthian War","Parthian war of Trajan"],
@@ -23876,7 +23876,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Personal_Responsibility_and_Work_Opportunity_Act": ["Personal Responsibility and Work Opportunity Reconciliation Act","PRWORA"],
 "Eastern_Jin": ["Tung Chin","Dong Jin"],
 "Zu_Ti": ["Tsu T'i"],
-"Wang_Xizhi": ["Wang Hsi-chih"]
+"Wang_Xizhi": ["Wang Hsi-chih"],
+"Chen_dynasty": ["Ch'en dynasty","Chen chao"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
