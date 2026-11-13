@@ -415,7 +415,7 @@ otherwise.
 | B34 | Northern and Southern dynasties (`col-21`) | `cnh-331`–`cnh-340` | 10 | 104 | **done 2026-11-13** |
 | B35 | Northern and Southern dynasties (`col-21`) / Sui (`col-22`) | `cnh-341`–`cnh-350` | 10 | 104 | **done 2026-11-13** |
 | B36 | Sui (`col-22`) / Tang (`col-23`) | `cnh-351`–`cnh-360` | 10 | 113 | **done 2026-11-13** |
-| B37 | Tang (`col-23`) | `cnh-361`–`cnh-370` | 10 | 102 | to do |
+| B37 | Tang (`col-23`) | `cnh-361`–`cnh-370` | 10 | 102 | **done 2026-11-13** |
 | B38 | Tang (`col-23`) | `cnh-371`–`cnh-380` | 10 | 104 | to do |
 | B39 | Tang (`col-23`) | `cnh-381`–`cnh-390` | 10 | 112 | to do |
 | B40 | Tang (`col-23`) / Five Dynasties and Ten Kingdoms (`col-24`) | `cnh-391`–`cnh-400` | 10 | 111 | to do |
@@ -881,6 +881,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-358` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 | `cnh-359` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 | `cnh-360` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-361` | none | not re-checked (Commons rate-limited): wanted — a Turfan or Dunhuang register |
+| `cnh-362` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-363` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-364` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-365` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-366` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-367` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-368` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-369` | none | not re-checked (Commons rate-limited): wanted — An Jia's or Shi Jun's couch |
+| `cnh-370` | none | not re-checked (Commons rate-limited): wanted — a dancer on a Sogdian tomb couch |
 
 ## Glossary candidates
 
@@ -2464,3 +2474,39 @@ Giles puts the death in 618; `cnh-356`'s 566 is on no page read (the *Old Book*:
 against Cordier's 71 and the *Old Book*'s 70; `cnh-357`'s 28 January 598 is on no page read (the *Old Book*: Kaihuang 18,
 twelfth month, *wuwu* day; Giles 597, Wechsler 600), and its 10 July 649 and Cuiwei Palace are read only in the *Old Book*
 juan 3 (uncited). The *Zizhi tongjian*'s Siku text reads 39 death sentences for Zhenguan 4 where the *Old Book* has 29.
+
+### B37 — `cnh-361`–`cnh-370`, Tang: koufentian to the Sogdian Whirl (2026-11-13)
+
+Run as B31. Every cited URL answered. **Pictures were not touched**; none of the ten cards has a picture. **The old cards
+cited Chinese Wikisource for nearly every source (three to seven Chinese texts a card), dated the Zhengshitang (683, 723)
+and the mingjing's pass mark (681) by conversions no page prints, put a battle template on Yinshan ("27 March 630", a
+converted lunar date; "Over 10,000 Turkic dead, 100,000 captured"), gave Chang'an a prose founding, an unsourced peak and
+an unowned population, dated the West Market by a year no page gives (607) and another card's edict (707), dated the
+sabao by unconverted reign years, and counted the Sogdian Whirl's tribute as a span.** The histories, the *Tongdian* and
+the *Chang'an zhi* were read in the Siku text on the Kanseki Repository.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-361` koufentian | 5 | 6 → 6 | **Three Wikisource texts cut to the *Tongdian* juan 2 (the statute's figures, the narrow-district half share, the sale rules); the 737 row resting on Ikeda On 1964 (in Japanese: no basic change across the statutes of 624, 719 and 737; the Turfan documents use its terms for holdings far from its rules); Asakawa on Japan's kubunden**; "far below the norm" said only for Turfan, as the abstract says. |
+| `cnh-362` zuyongdiao | 6 | 6 → 6 | **The *Old Book of Tang* juan 48: 2 shi of millet, 2 zhang of silk, 20 days' labour or 3 feet of silk a day, the remissions at four, six and seven tenths lost, the Lingnan rice tax; Hansen and Rong on Turfan (after 640, to 755)**; the Tianbao revenue figures dropped; the 780 replacement left to `cnh-381`. |
+| `cnh-363` Zhengshitang | 5 | 5 → 5 | **The line emptied: no page read prints 683 or 723; the *Tongdian* juan 21 gives the move as Yongchun 3 (an era with two years) and the renaming as Kaiyuan 11, printed in that form; Pei Yan's brush, Zhang Yue's seal, the ministers' turns with the brush, Yao Shu's record; Hartman and Akagi (Liu Houbin's view)**; Li Hua's essay and the "five offices" dropped. |
+| `cnh-364` mingjing | 5 | 5 → 5 | **"Pass mark set 681" (a conversion) off: `Tiejing added 680 CE` (Wong; Biot) / `Law added 786 CE` / `Abolished 1071`; the covered page, six of ten passages and ten oral questions, the set texts; Wong's figures for 845 for the old quota**; the "old at thirty, young at fifty" saying (the *Tang zhiyan*, uncited) dropped; trimmed to 285. |
+| `cnh-365` Battle of Yinshan | 6 | 6 → 6 | **The battle template off: `Fought 630 CE`; the *Zizhi tongjian* juan 193 for four Wikisource sources: the frost and drought (Parker's snows his), the fog tied to Su Dingfang's vanguard (the *Old Book*'s Li Jing has none), Princess Yicheng killed, Jieli's stone likeness at Zhaoling (Zhou, SPP 187)**; the Heavenly Khan and the Bian bridge left to `cnh-357`. |
+| `cnh-366` Anxi Protectorate | 6 | 7 → 6 | **`Seat moved 658 CE` for the place label, `Lost c. 787 – 791 CE` added; the Four Garrisons named (Karashahr later for Suiye); the move to Kucha in 648 and the return; the Turfan lawsuit (Wu Zhen, SPP 119); Empress Wu's 30,000 at Kucha; Wukong finding Guo Xin in 788**; the claim that the two Western protectorates answered to Anxi dropped. |
+| `cnh-367` Chang'an | 7 | 7 → 7 | **`Founded 582 CE` / `Capital 583 – 904 CE` / `Renamed 1369`; the *Chang'an zhi* juan 7 for seven Wikisource sources; Xiong's thesis; about a million a modern estimate with whose; 108 wards one count beside the code's 110; Yuwen Kai's plan, the monasteries and Persian temples, Nara and Kyoto**; the "end of the Silk Road" (unsourced) dropped from the glossary. |
+| `cnh-368` West Market | 6 | 6 → 6 | **`Planned 582 CE` / `Abandoned 904 CE` / `Dig report 1961` for "Named Liren 607" (on no page) and "Market edict 707" (`cnh-768`'s); the excavated office and finds, the lone-willow execution ground, the Sogdian taverns (de la Vaissière), the reward money of 815; 300 drumbeats from the code (Xiong notes 200 elsewhere)**; the Princess Guangping story (the *Old Book* only) dropped. |
+| `cnh-369` sabao | 5 | 6 → 6 | **`Tombs dated 579 – 580 CE` for "Sui ranks" and "Shrine founded 621" (the source prints only Wude 4); the *Tongdian* juan 40: the sabao equal to the upper fifth grade, the fire priest the lower seventh; An Jia, Shi Jun and Yu Hong (Lerner, SPP 168; de la Vaissière; Sims-Williams; Tan et al.)**; the Sui grades (a second Chinese text) and Yoshida's etymology (no open page) dropped. |
+| `cnh-370` Sogdian Whirl | 6 | 6 → 6 | **`Sent as tribute 718 – 729 CE` (Mair's years, quoted by Beauchamp); Kang, Mi and Jumi's tribute (Chavannes); Bai Juyi's "Huxuan nü" (Kanseki) without its adoption line or the lychees; the male dancer on the Sogdian tomb couches; the English name a modern rendering (Lerner)**; the *Old Book*'s Kang ensemble (a second Chinese text) dropped. |
+
+Read by eye. **Confusability**: the jinshi's clues went to the mingjing agent; Wei Zheng's mirrors and the Heavenly Khan
+stay `cnh-357`'s; Empress Wu's 30,000 men `cnh-366`'s (the Wu Zetian agent was told); the Persian temples `cnh-367`'s and
+the taverns `cnh-368`'s, Shi Jun's epitaph `cnh-339`'s (the sabao agent was told); Bai's "Huxuan nü" `cnh-370`'s (the
+Yang Guifei agent was told). **Legend**: Jieli's stone likeness is the tomb's; Yinshan's fog the *Zizhi tongjian*'s.
+**Chinese names corrected**: none needed (zūyōngdiào's 調 is diào, the dictionary's tiáo a false lead). **Spellings
+fixed**: Jieli throughout. **Myth register**: no row touched. **check-citations**: `cnh-361`'s Ikeda 1964 reported
+because its title is cited in romanised Japanese (the same paper). `cnh-365` keeps its `L.missing` (a battle with no point
+yet); `cnh-362` shares 44% of a phrasing's words with `cnh-717` (corvée), a different subject. For the owner: `cnh-367`'s
+locator looks like the Han city, not the Tang; `cnh-368`'s point is labelled Xi'an; `cnh-370`'s Samarkand point suits no
+dance; `cnh-366`'s retaking is the second Changshou year in the *Old Book* against Stein's and Chavannes's 692; Bai Juyi's
+own note puts the dancing girls at the end of Tianbao, against the history's Kaiyuan tribute; `jp-088` carries the old
+Chang'an line's faults.

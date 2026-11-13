@@ -540,6 +540,15 @@ only; ages, days and months left out), and are not rows of this table.
 | the Xuanwu Gate ambush / the abdication | 2 July 626 CE / 4 September 626 CE | Cordier (`cnh-358`) |
 | the Zhenguan era | 627 – 649 CE | `cnh-359` |
 | the Tang Code: revision ordered / revised / commentary | 627 CE / 651 CE / 653 CE | `cnh-360` |
+| koufentian: fixed / restated / abandoned | 624 CE / 737 CE / 780 CE | Chen; Ikeda (`cnh-361`) |
+| zuyongdiao fixed / replaced | 624 CE / 780 CE | `cnh-362` |
+| the mingjing: tiejing added / law added / abolished | 680 CE / 786 CE / 1071 | Wong; Theobald (`cnh-364`) |
+| the Battle of Yinshan | 630 CE | `cnh-365` |
+| the Anxi Protectorate: founded / seat moved / retaken / lost | 640 CE / 658 CE / 692 CE / c. 787 – 791 CE | Stein; Chavannes (`cnh-366`) |
+| Chang'an (Daxing): founded / capital / renamed Xi'an | 582 CE / 583 – 904 CE / 1369 | `cnh-367` |
+| the West Market: planned / abandoned / the dig report | 582 CE / 904 CE / 1961 | `cnh-368` |
+| the sabao tombs of An Jia and Shi Jun | 579 – 580 CE | `cnh-369` |
+| the Sogdian Whirl dancers sent as tribute (Mair) | 718 – 729 CE | `cnh-370` |
 
 ## Later periods
 
@@ -920,4 +929,13 @@ cnh-355: 618; 907; 690; 705
 cnh-358: 626
 cnh-359: 627; 649
 cnh-360: 627; 651; 653
+cnh-361: 624; 737; 780
+cnh-362: 624; 780
+cnh-364: 680; 786; 1071
+cnh-365: 630
+cnh-366: 640; 658; 692; 787; 791
+cnh-367: 582; 583; 904; 1369
+cnh-368: 582; 904; 1961
+cnh-369: 579; 580
+cnh-370: 718; 729
 ```
