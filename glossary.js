@@ -11551,7 +11551,21 @@ window.GLOSSARY = {
 "UNESCO": "",
 "United_States_Army": "",
 "Vers_l'armée_de_métier": "",
-"École_spéciale_militaire_de_Saint-Cyr": ""
+"École_spéciale_militaire_de_Saint-Cyr": "",
+"A_Map_of_Virginia": "",
+"Colony_of_Virginia": "",
+"Hoosic_River": "",
+"Inner_Niger_Delta": "",
+"Lincolnshire": "",
+"Low_Countries": "",
+"Mutiny": "",
+"Oryza_glaberrima": "",
+"Oryza_sativa": "",
+"Rice_Coast": "",
+"Rice_cultivation_in_South_Carolina": "",
+"Senegambia": "",
+"West_Africa": "",
+"Winnowing": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17101,7 +17115,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Storm_group": "1942–1945",
 "Swing_music": "1930s–1940s",
 "UNESCO": "1945–",
-"Vers_l'armée_de_métier": "1934"
+"Vers_l'armée_de_métier": "1934",
+"A_Map_of_Virginia": "1612"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -24535,7 +24550,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Royal_Air_Force": ["RAF"],
 "UNESCO": ["United Nations Educational, Scientific and Cultural Organization"],
 "United_States_Army": ["US Army","U.S. Army"],
-"École_spéciale_militaire_de_Saint-Cyr": ["Saint-Cyr","Saint-Cyr military academy"]
+"École_spéciale_militaire_de_Saint-Cyr": ["Saint-Cyr","Saint-Cyr military academy"],
+"Colony_of_Virginia": ["Virginia Colony"],
+"Hoosic_River": ["Hoosac River","Hoosick River"],
+"Inner_Niger_Delta": ["Inland Niger Delta","inland delta of the Niger"],
+"Mutiny": ["mutinies"],
+"Oryza_glaberrima": ["African rice"],
+"Oryza_sativa": ["Asian rice"],
+"Rice_cultivation_in_South_Carolina": ["South Carolina rice complex","South Carolina rice industry"],
+"Senegambia": ["Senegambian"],
+"Winnowing": ["winnow","winnowed"],
+"Botany": ["botanical"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -36293,7 +36318,21 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "UNESCO": ["institution","international relations","culture","education","united nations"],
 "United_States_Army": ["institution","warfare","military","united states"],
 "Vers_l'armée_de_métier": ["text","military","warfare","france"],
-"École_spéciale_militaire_de_Saint-Cyr": ["institution","military","education","france"]
+"École_spéciale_militaire_de_Saint-Cyr": ["institution","military","education","france"],
+"A_Map_of_Virginia": ["text","history","exploration","colonial america","virginia"],
+"Colony_of_Virginia": ["state","history","colonial america","england","virginia"],
+"Hoosic_River": ["place","river","geography","united states","new york"],
+"Inner_Niger_Delta": ["place","geography","africa","mali","agriculture"],
+"Lincolnshire": ["place","geography","england","history"],
+"Low_Countries": ["place","geography","europe","history","netherlands"],
+"Mutiny": ["concept","military","law","history"],
+"Oryza_glaberrima": ["plant","agriculture","botany","africa","history"],
+"Oryza_sativa": ["plant","agriculture","botany","asia","history"],
+"Rice_Coast": ["place","region","africa","history","slavery"],
+"Rice_cultivation_in_South_Carolina": ["practice","agriculture","history","slavery","united states","colonial america"],
+"Senegambia": ["place","region","africa","history","slavery"],
+"West_Africa": ["place","geography","africa","history"],
+"Winnowing": ["practice","agriculture","technology"]
 });
 
 /* ============================================================================
