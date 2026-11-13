@@ -11469,7 +11469,23 @@ window.GLOSSARY = {
 "Temple_C_(Selinus)": "",
 "Thebes,_Greece": "",
 "Tiresias": "",
-"Troezen": ""
+"Troezen": "",
+"Asclepieion": "",
+"Cercasorus": "",
+"Conifer": "",
+"Corded_Ware_culture": "",
+"Elephantine": "",
+"Epitome_(literature)": "",
+"Hetephernebti": "",
+"Inetkaes": "",
+"Khnum": "",
+"Late_Period_of_Egypt": "",
+"Metropolitan_Museum_of_Art": "",
+"Mostagedda": "",
+"Oxyrhynchus": "",
+"Resin": "",
+"Sinai_Peninsula": "",
+"Wadi_Digla": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -20010,7 +20026,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cosmetic_palette": ["ceremonial palette","slate palette","decorated palette"],
 "Menes": ["Menas","Meni"],
 "Dynasty_0": ["Dynasty Zero"],
-"Turin_King_List": ["Turin Royal Canon","Turin Canon","Royal Canon of Turin"],
+"Turin_King_List": ["Turin Royal Canon","Turin Canon","Royal Canon of Turin","Turin king list"],
 "Early_Dynastic_Period_of_Egypt": ["Thinite period"],
 "Hor-Aha": ["Aha","Horus Aha"],
 "Djer": ["Zer"],
@@ -20224,7 +20240,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Itjtawy": ["Itj-tawy","Ithtowe","Itjtawi"],
 "Instructions_of_Amenemhat": ["Instruction of Amenemhat","Teaching of Amenemhat","Instruction of King Amenemhet","Teaching of Amenemhet"],
 "The_Satire_of_the_Trades": ["Satire of the Trades","Instruction of Duauf","Teaching of Khety","Instruction of Khety"],
-"Senusret_I": ["Senwosret I","Sesostris I","Senusert I","Kheperkare"],
+"Senusret_I": ["Senwosret I","Sesostris I","Senusert I","Kheperkare","Sesonchosis"],
 "Story_of_Sinuhe": ["Tale of Sinuhe"],
 "White_Chapel": ["White Chapel of Senusret I","Chapelle Blanche"],
 "Amenemhat_II": ["Amenemhet II","Ammenemes II","Nubkaure"],
@@ -21267,7 +21283,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Hecatomb": ["hecatombs","hekatomb"],
 "Greek_priesthood": ["priesthood","priesthoods","priestess","priestesses"],
 "Temenos": ["temene"],
-"Asclepius": ["Asklepios","Aesculapius"],
+"Asclepius": ["Asklepios","Aesculapius","Asclepios"],
 "Battle_of_Aegospotami": ["Aegospotami"],
 "Thrace": ["Thracian"],
 "Hippocratic_Corpus": ["Hippocratic"],
@@ -24395,7 +24411,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Polynices": ["Polyneices"],
 "Stheno_and_Euryale": ["Stheno","Sthenno"],
 "Tiresias": ["Teiresias"],
-"Troezen": ["Troizen"]
+"Troezen": ["Troizen"],
+"Asclepieion": ["Asclepeion","Asklepieion","Asclepieium","Asklepieia","Asclepieia"],
+"Cercasorus": ["Kerkasoros"],
+"Corded_Ware_culture": ["Corded Ware","Corded Ware people","Corded Ware groups"],
+"Elephantine": ["Elephantine Island"],
+"Inetkaes": ["Intkaes","Inetkaus","Inetkawes"],
+"Khnum": ["Khnemu"],
+"Late_Period_of_Egypt": ["Late Period","Late Period of ancient Egypt","Egyptian Late Period"],
+"Metropolitan_Museum_of_Art": ["Metropolitan Museum"],
+"Oxyrhynchus": ["Oxyrhynchos"],
+"Sinai_Peninsula": ["Sinai","Sinai peninsula","peninsula of Sinai"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -36064,7 +36090,23 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Temple_C_(Selinus)": ["building","architecture","art","greece","sicily"],
 "Thebes,_Greece": ["city","history","greece","boeotia"],
 "Tiresias": ["person","mythology","greece","literature","thebes"],
-"Troezen": ["city","history","greece","geography"]
+"Troezen": ["city","history","greece","geography"],
+"Asclepieion": ["building","religion","medicine","greece","history"],
+"Cercasorus": ["city","place","history","egypt","geography"],
+"Conifer": ["plant","science","botany","nature"],
+"Corded_Ware_culture": ["culture","archaeology","prehistory","europe"],
+"Elephantine": ["place","history","archaeology","egypt","nubia"],
+"Epitome_(literature)": ["concept","literature","history","historiography"],
+"Hetephernebti": ["person","history","egypt","old kingdom"],
+"Inetkaes": ["person","history","egypt","old kingdom"],
+"Khnum": ["deity","religion","egypt","mythology","history"],
+"Late_Period_of_Egypt": ["era","history","egypt"],
+"Metropolitan_Museum_of_Art": ["institution","art","museum","united states","new york"],
+"Mostagedda": ["place","archaeology","egypt","prehistory"],
+"Oxyrhynchus": ["city","place","archaeology","egypt","history"],
+"Resin": ["object","science","botany","archaeology"],
+"Sinai_Peninsula": ["place","geography","history","egypt","archaeology"],
+"Wadi_Digla": ["place","archaeology","egypt","prehistory"]
 });
 
 /* ============================================================================
