@@ -587,6 +587,12 @@ are not rows of this table.
 
 | event | the collection says | source |
 |---|---|---|
+| the Later Zhou / its founder's death | 951 – 960 CE / 954 CE | Cordier (`cnh-402`); Theobald and Giles 953 |
+| the Former Shu | 907 – 925 CE | Theobald (`cnh-404`) |
+| Wuyue (the title of 907 / of 902) | 907 – 978 CE / 902 – 978 CE | Chavannes; Clark (`cnh-405`) |
+| the Southern Tang | 937 – 975 CE | Theobald; Cordier (`cnh-406`) |
+| Yue ware made (the museum records read) | c. 265 – 1127 CE | the Art Institute; the Met (`cnh-408`) |
+| the Northern Han | 951 – 979 CE | Cordier; Theobald (`cnh-410`) |
 
 ## Later periods
 
@@ -1026,4 +1032,10 @@ cnh-397: 907; 960; 902; 979
 cnh-398: 907; 923; 912
 cnh-399: 923; 936; 926
 cnh-400: 936; 938
+cnh-402: 951; 960; 954
+cnh-404: 907; 925
+cnh-405: 907; 978; 902
+cnh-406: 937; 975
+cnh-408: 265; 1127
+cnh-410: 951; 979
 ```

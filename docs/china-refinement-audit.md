@@ -341,8 +341,8 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Han Yu's memorial on the Buddha's bone | Han Yu's memorial of 819 CE against bringing the finger-bone relic from the Famen Temple into the palace, and his banishment to Chaozhou — confirmed B39–B40 (`cnh-387`, `cnh-394`: the *Old Book of Tang* juan 160) | — | `cnh-394`, `cnh-387` | — |
 | Zhao Kuangyin and the yellow robe at Chenqiao | the troops of the Palace Command mutinying at Chenqiao post station in 960 CE and wrapping their sleeping commander in a yellow robe, so that he "had to" accept the throne from the Later Zhou's child emperor; the Song's own account of its founding, in the Song histories and the *Songshi* (compiled under the Yuan, 1343 – 1345) — provisional | — | `cnh-422`, `cnh-423`, `cnh-402` | — |
 | "A cup of wine" and the generals' commands | Emperor Taizu persuading Shi Shouxin and the other palace generals at a banquet in 961 CE to give up their commands for wealth and retirement; first told in Northern Song anecdote collections, not the earliest records, and doubted by modern scholars as a later shaping — provisional | — | `cnh-423`, `cnh-422`, `cnh-421` | `cnh-380` |
-| Li Yu's last lyrics and his poisoning | the captive Southern Tang ruler's lyrics of longing ("Yu meiren" among them) and his death by poison sent by Emperor Taizong of Song after they were sung; told in later Song anecdote; his death in 978 CE is recorded, the poisoning a tradition — provisional | — | `cnh-407`, `cnh-406` | — |
-| Feng Dao, the servant of many houses | Feng Dao serving ten rulers of five houses as minister and writing his own contented "Changle lao zizhuan"; Ouyang Xiu's verdict in his *New History of the Five Dynasties* that he knew no shame, and Sima Guang's after him; modern readings of him as a man who kept the government running — provisional | — | `cnh-409` | — |
+| Li Yu's last lyrics and his poisoning | the captive Southern Tang ruler's lyrics of longing ("Yu meiren" among them) and his death by poison after they were sung; told in Wang Zhi's *Moji* (Northern Song), which names the Prince of Qin as the sender after Xu Xuan's report and closes "so it is said"; his death in 978 CE is recorded, the poisoning a tradition — confirmed and corrected B41 (`cnh-407`) | — | `cnh-407`, `cnh-406` | — |
+| Feng Dao, the servant of many houses | Feng Dao serving "four surnames, ten rulers" (Ouyang Xiu's count; his own memoir, the "Changle lao xu", lists four surnames and the Khitan) as minister; Ouyang Xiu's verdict in his *New History of the Five Dynasties* that he knew no shame (Sima Guang's not read); the modern reading of him as a man who kept the government running (Carter 1925) — confirmed and corrected B41 (`cnh-409`: the *New History* juan 54) | — | `cnh-409` | — |
 | Bao Zheng as Judge Bao | the historical Bao Zheng, an incorruptible official at Kaifeng under Renzong (his biography in the *Songshi*); Judge Bao the all-seeing judge of Yuan *zaju* and Ming–Qing fiction — provisional | — | `cnh-424`, `cnh-425` | — |
 | Yue Fei: the tattoo, the gold plaques and "no grounds" | the four characters "serve the country with utmost loyalty" on his back (the *Songshi* biography, 1345; his mother tattooing them a later tale); the twelve gold-lettered plaques recalling him in one day; Qin Hui's answer to Han Shizhong that the charge "need not have grounds" (莫須有); the kneeling iron figures of Qin Hui and his wife at the Hangzhou tomb (Ming) — provisional | `cnh-450` | `cnh-451`, `cnh-452` | — |
 | The Jingkang captivity | the Jurchen taking Kaifeng in 1127 and carrying Huizong, Qinzong, the court and its women north; the Southern Song and Jin accounts and the *Songshi* and *Jinshi* (both 1343 – 1345) — provisional | `cnh-446` | `cnh-445`, `cnh-448`, `cnh-473` | — |
@@ -467,7 +467,7 @@ otherwise.
 | B38 | Tang (`col-23`) | `cnh-371`–`cnh-380` | 10 | 104 | **done 2026-11-13** |
 | B39 | Tang (`col-23`) | `cnh-381`–`cnh-390` | 10 | 112 | **done 2026-11-13** |
 | B40 | Tang (`col-23`) / Five Dynasties and Ten Kingdoms (`col-24`) | `cnh-391`–`cnh-400` | 10 | 111 | **done 2026-11-13** |
-| B41 | Five Dynasties and Ten Kingdoms (`col-24`) | `cnh-401`–`cnh-410` | 10 | 102 | to do |
+| B41 | Five Dynasties and Ten Kingdoms (`col-24`) | `cnh-401`–`cnh-410` | 10 | 102 | **done 2026-11-13** |
 | B42 | Liao (`col-25`) | `cnh-411`–`cnh-420` | 10 | 100 | to do |
 | B43 | Northern Song (`col-27`) | `cnh-421`–`cnh-430` | 10 | 102 | to do |
 | B44 | Northern Song (`col-27`) | `cnh-431`–`cnh-440` | 10 | 104 | to do |
@@ -969,6 +969,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-398` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 | `cnh-399` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 | `cnh-400` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-401` | an imagined later portrait | not re-checked (Commons rate-limited): ok, said so in its description |
+| `cnh-402` | none | not re-checked (Commons rate-limited): wanted — a Later Zhou object or Guo Wei's portrait |
+| `cnh-403` | a painted portrait | not re-checked (Commons rate-limited): ok |
+| `cnh-404` | none | not re-checked (Commons rate-limited): wanted — Wang Jian's seated statue or the Yongling musician reliefs |
+| `cnh-405` | none | not re-checked (Commons rate-limited): wanted — one of Qian Chu's dated bronze stupas of 955 |
+| `cnh-406` | none | not re-checked (Commons rate-limited): wanted — a Dong Yuan or Juran landscape |
+| `cnh-407` | a Sancai tuhui portrait | not re-checked (Commons rate-limited): ok, an imagined portrait |
+| `cnh-408` | none | not re-checked (Commons rate-limited): wanted — a Five Dynasties Yue ware bowl or box |
+| `cnh-409` | none | not re-checked (Commons rate-limited): wanted; the glossary's 1694 woodblock has burned-in text — replace |
+| `cnh-410` | none | not re-checked (Commons rate-limited): wanted — a Jinyang relic or a map of the Ten Kingdoms |
 
 ## Glossary candidates
 
@@ -2789,3 +2799,43 @@ point looks like the Han city, not the Tang; `cnh-368`'s point is labelled Xi'an
 `338`, `339` carry polity polygons; `cnh-340` (an institution), `cnh-346` (a code), `cnh-347` (an office), `cnh-370` (a dance,
 at Samarkand) and `cnh-397` (a period, at Kaifeng) carry points they need not. `migrate-places.js --check` and
 `build-wars.js --check` were not re-run here; on main they already report the third hundred's known failures.
+
+### B41 — `cnh-401`–`cnh-410`, Five Dynasties and Ten Kingdoms: Shi Jingtang to the Northern Han (2026-11-13)
+
+The fifth hundred's first batch, run as the fourth's were (`AGENT.md`, the notes file, two cards an agent, at most ten at
+once); every draft read by eye and prechecked before `batch.sh` applied it. Every cited URL answered. **Pictures were not
+touched** (Commons answered 429 to the session's one test call). **The old cards cited both histories of the Five
+Dynasties and the *Songshi* on Chinese Wikisource (two to four Chinese texts a card), named places in labels ("Jinling
+taken", "Taiyuan fell"), dated the Yue ware by one tribute list, gave the Song tribute figures and the Five Dynasties
+rulers' ages from texts not read, and carried regnal-year conversions (Chai Rong's 953, Qian Chu's 956).** Each card now
+reads one Chinese text: Ouyang Xiu's *New History of the Five Dynasties* (juan 8, 11, 12, 54, 62, 63, 67, 70) on the
+Kanseki Repository, Wang Zhi's *Moji* (`cnh-407`) or the *Songshi* juan 480 (`cnh-408`).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-401` Shi Jingtang | 6 | 7 → 6 | **The *New History* juan 8 for two Wikisource histories; the cession of the prefectures (`cnh-400`'s clue) out of the phrasings — the north-gate meeting with Yelü Deguang as father and son, the fleeing Emperor Min, Ouyang Xiu's verdict that he would have taken the throne without the Khitan; the 300,000 bolts "by later accounts" (Giles, Cordier, Parker); Iwami for the Shatuo-or-Sogdian debate**. Protected: the line stays (flagged below). |
+| `cnh-402` Later Zhou | 6 | 7 → 6 | **The *New History* juan 11; `Ruled 951 – 960 CE` / `Founder died 954 CE` kept (Cordier; Theobald and Giles print 953, the Chinese year straddles); Guo Wei acclaimed on the march against the Khitan, the Confucius grave as Macgowan's retelling; Chenqiao mentioned and hedged (Giles)**; "the end of 950" and "the first month of 951" (conversions) dropped. |
+| `cnh-403` Chai Rong | 6 | 7 → 6 | **The *New History* juan 12; Gaoping, the bronze images melted for coin with Ouyang Xiu's 3,336 temples against the 30,000 Cordier copied from Mailla, the three passes taken in 959; "aged 39" said as the Chinese count**; Chai ware (a collectors' legend) and the converted 953 dropped. Protected: the line stays (flagged below). |
+| `cnh-404` Former Shu | 5 | 5 → 5 | **The *New History* juan 63; "Wang the Eighth, the thief", Wang Yan's mother and aunt selling offices, Ouyang Xiu's mockery of the omens, Wei Zhuang; the Ten Kingdoms a reference-work grouping**; Carter (Tang Chengdu printing, wrong reign years), "903" and "the 880s" dropped. |
+| `cnh-405` Wuyue | 6 | 6 → 6 | **`Dated 907 – 978 CE` / `Also dated 902 – 978 CE` (the titles of 907 and 902, Chavannes, Clark); the arrows against the tidal bore told as Qian Weiyan's memoir of about 1000 (Chavannes), the 84,000 stupas, Ouyang Xiu's tax charge against the older accounts; Yamazaki [in Japanese] for the 910 seawall**; the *Songshi*'s tribute figures (`cnh-408`'s), "13 prefectures", "King of Huaihai" and the converted 956 dropped. |
+| `cnh-406` Southern Tang | 6 | 6 → 6 | **"Jinling taken" off: `Ruled 937 – 975 CE`; the *New History* juan 62: Li Bian's adoptions, the claimed descent from Xianzong's son, Xu Xuan's plea and the "two households" answer; Dong Yuan and Juran (the Cleveland Museum); the Huainan war from the Tang side only**; Cao Bin and Caishi (the *Songshi* only) dropped. |
+| `cnh-407` Li Yu | 6 | 6 → 6 | **The poisoning told as Wang Zhi's *Moji* (the Prince of Qin's drug, "so it is said"); the Jiangnan renaming, the Fate-resisting Marquis (Giles), the river flowing east (Ya Li); the fall given as 975 (Cordier) and 976 (Theobald); Xu Xuan out of the phrasings (`cnh-406`'s)**; the double pupil, the dukedom and "aged 42" (the cut texts only) dropped. Protected: the line stays (flagged below). |
+| `cnh-408` Yue ware | 6 | 6 → 8 | **"Tribute list 978" (one event dating a ware) now `Made c. 265 – 1127 CE`, the span of the museum records read (the Art Institute's Western Jin piece, the Met's Northern Song container — said so); the *Songshi* juan 480's 50,000 pieces and 150 gold-rimmed confirmed (prose only); Lu Yu's three comparisons (Bushell), Samarra and Java**; "the most admired celadon" and Famen's mise ware (on no page read) dropped. |
+| `cnh-409` Feng Dao | 6 | 7 → 6 | **Four Wikisource texts cut to the *New History* juan 54; "four surnames, ten rulers" and the Khitan (Ouyang Xiu's count), the Happy Old Man of Changle, the Buddha jest to Yelü Deguang, the classics cut on wood (Carter's translation of the 932 memorial and Tian Min's 953 presentation); "aged 73" dropped against the line**. Protected: the line stays (flagged below). |
+| `cnh-410` Northern Han | 5 | 5 → 5 | **"Taiyuan fell" off: `Ruled 951 – 979 CE`; the *New History* juan 70 (it calls the state the Eastern Han): the nephew and uncle forms of the Liao tie, the kept reign title, the Wutai monk's silver mine, Taizu's pledge to Liu Chengjun, Yang Ye; Liu Min's death left undated (954 or 955)**; Gaoliang (`cnh-416`'s) kept out. |
+
+Read by eye. **Confusability**: the prefectures' cession stays `cnh-400`'s and Gaoping `cnh-403`'s (told only in prose on
+`cnh-409` and `cnh-410`); Xu Xuan's plea and the "two households" answer `cnh-406`'s (the Li Yu agent was told); the
+yellow robe at Chenqiao `cnh-422`'s (mentioned on `cnh-402`, Guo Wei's own yellow flag left out); the Wuyue tribute of Yue
+ware `cnh-408`'s. **Legend**: the arrows against the bore (Qian Weiyan's memoir), Li Yu's poisoning (the *Moji*), Feng
+Dao's shamelessness (Ouyang Xiu) and Guo Wei at Confucius's grave (Macgowan) are each a text's. **Chinese names
+corrected**: none needed; `越窑` kept though no page read prints the compound (the *Songshi* writes 越器); the word division
+of 窑 compounds is open (`cnh-457` Jiànyáo against `cnh-955` Dìng yáo) — for the owner. **Spellings fixed**: none needed;
+0 hits. **Myth register**: Feng Dao confirmed and corrected (Ouyang Xiu counts four surnames and ten rulers, the memoir
+four surnames and the Khitan); Li Yu's poisoning confirmed and corrected (the *Moji* names the Prince of Qin as the
+sender, not Taizong); the Chenqiao row unconfirmed (Giles only). **check-citations**: no mismatch. **Protected lines:
+unchanged** (diffed after the apply). For the owner: `cnh-401`'s "age 50" (the *New History*: 52 sui; Cordier 56), its
+day and Taiyuan on no page read; `cnh-403`'s three days on no page read; `cnh-407`'s 13 August on no page read (the
+*Songshi*: the seventh month of Taiping Xingguo 3); `cnh-409`'s 882 on no page read (Giles 881; carried as "the usual
+reckoning") and its 21 May. The timelines of `cnh-402`, `405`, `406` and `410` (states) were not set (set-timeline.js
+takes event, era, battle and war cards only).
