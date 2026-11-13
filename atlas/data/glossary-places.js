@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"516f4d671ade9913","counts":{"terms":942,"points":705,"countries":237,"windows":1570,"faces":372,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"61d77c8203bf51ff","counts":{"terms":942,"points":705,"countries":237,"windows":1572,"faces":372,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1145,6 +1145,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"516f4d671ade9913","counts":
 "Burundi":[29.92,-3.33,"country","adm0:bdi",0,31.72],
 "Buto":[30.745,31.196,"site",0,0,0],
 "Byblos":[35.652,34.124,"coord",0,0,0],
+"Byrsa":[10.324,36.852,"coord",0,0,0],
 "Byzantine_Empire":[35.553,36.656,"polity","pol:byzantium",561,1.63],
 "Byzantium":[28.976,41.012,"city",0,0,0],
 "Byōdō-in":[135.808,34.889,"coord",0,0,0],
@@ -1179,6 +1180,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"516f4d671ade9913","counts":
 "Cayman_Islands":[-81.24,19.32,"country","adm0:cym",0,40],
 "Cemetery_U":[31.908,26.175,"coord",0,0,0],
 "Central_African_Republic":[20.91,6.99,"country","adm0:caf",0,5.28],
+"Central_Europe":[10,51,"coord",0,0,0],
 "Central_Russian_Upland":[36.8,52.6,"coord",0,0,0],
 "Central_Siberian_Plateau":[103,64,"coord",0,0,0],
 "Chaco_Canyon":[-107.967,36.06,"region",0,0,0],
