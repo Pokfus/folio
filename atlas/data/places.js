@@ -8,7 +8,7 @@
    FOLDS ON WIKIDATA'S OWN WORD (Phase 2c, Task 0a, owner's decision of 2026-10-12): a period settlement folds into a modern one on
    P1366 replaced by, P1365 replaces, a shared Wikipedia article, or P460 "said to be the same as" — and P460 counts only when the
    two items are under 25 km apart and in the same kind family (both settlements). Never on distance alone. */
-window.ATLAS_PLACES = {"format":1,"generated":"2026-11-12","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":89,"town":124,"strait":3,"gulf":2,"lake":10,"river":11,"island":25,"island-group":3,"range":14,"region":79,"site":420,"mountain":41,"cape":4,"hill":8},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
+window.ATLAS_PLACES = {"format":1,"generated":"2026-11-12","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":88,"town":124,"strait":3,"gulf":2,"lake":10,"river":11,"island":25,"island-group":3,"range":14,"region":77,"site":418,"mountain":41,"cape":4,"hill":8},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
 ["pl:q380096","Adwa","city",0,380096,0,[38.9,14.1667],0,1],
 ["pl:q324293","Anyang","city",0,324293,0,[114.3461,36.0956],0,1],
 ["pl:q2749","Augsburg","city",0,2749,0,[10.8978,48.3689],0,1],
@@ -112,7 +112,6 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-11-12","generator":"folio at
 ["pl:q404529","Xuchang","city",0,404529,0,[113.8201,34.0244],0,1],
 ["pl:q515388","Yan'an","city",0,515388,0,[109.4863,36.5952],0,1],
 ["pl:q57906","Yangzhou","city",0,57906,0,[119.4363,32.3912],0,1],
-["pl:q42462","York","city",0,42462,0,[-1.0833,53.95],0,1],
 ["pl:q515712","Yulin, Shaanxi","city",0,515712,0,[109.7388,38.2655],
 ["Yulin"],1],
 ["pl:q59164","Zhaoqing","city",0,59164,0,[112.4667,23.05],0,1],
@@ -419,7 +418,6 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-11-12","generator":"folio at
 ["pl:q192017","Monument Valley","region",0,192017,0,[-110.1,36.9833],0,1],
 ["pl:q48214","Near East","region",0,48214,0,[35.6,32.8],0,1],
 ["pl:q23079","Northumberland","region",0,23079,0,[-2,55.1667],0,1],
-["pl:q1453235","Orkhon Valley","region",0,1453235,0,[102.8314,47.5567],0,1],
 ["pl:q2625955","Pallene (Chalcidice)","region",0,2625955,0,[23.45,40.02],
 ["Pallene"],1],
 ["pl:q498979","Panama Canal Zone","region",0,498979,0,[-79.7202,9.1177],0,1],
@@ -428,7 +426,6 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-11-12","generator":"folio at
 ["Qi County"],1],
 ["pl:q2277","Roman Empire","region",0,2277,0,[12.5,41.9],0,1],
 ["pl:q1483542","Runnymede","region",0,1483542,0,[-0.5654,51.4445],0,1],
-["pl:q2418927","Sahiwal District","region",0,2418927,0,[72.9137,30.5482],0,1],
 ["pl:q19658174","Sambia","region",0,19658174,0,[20.2693,54.8327]],
 ["pl:q463459","Samnium","region",0,463459,0,[14.6228,41.4322],0,1],
 ["pl:q1197997","She County, Anhui","region",0,1197997,0,[118.422,29.8697],
@@ -824,7 +821,6 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-11-12","generator":"folio at
 ["pl:q1669492","Prince Edward station","site",0,1669492,0,[114.1683,22.3245],0,1],
 ["pl:q337875","Pyongyang Assembly Hall","site","building",337875,0,[125.7494,39.0285],
 ["Mansudae Assembly Hall"],1],
-["pl:q192418","Pyramid of Djoser","site","site",192418,0,[31.2167,29.8711],0,1],
 ["pl:q1609149","Pyramid of Neferirkare","site","site",1609149,0,[31.2024,29.895],0,1],
 ["pl:q1751693","Pyramid of Nyuserre","site","site",1751693,0,[31.2036,29.8957],0,1],
 ["pl:q1536118","Pyramid of Pepi I","site","site",1536118,0,[31.2189,29.8544],0,1],
@@ -887,7 +883,6 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-11-12","generator":"folio at
 ["pl:q1819712","Telesterion","site","building",1819712,0,[23.5386,38.0408],0,1],
 ["pl:q135678492","Tell el-Farkha","site","site",135678492,0,[31.6016,30.875],0,1],
 ["pl:q7697545","Tell es-Sakan","site","site",7697545,0,[34.4047,31.4758],0,1],
-["pl:q2402267","Tell es-Sultan","site","site",2402267,0,[35.4446,31.8717],0,1],
 ["pl:q1236860","Temple of Apollo Palatinus","site","site",1236860,0,[12.4858,41.8889],0,1],
 ["pl:q384813","Temple of Athena Nike","site","site",384813,0,[23.7249,37.9715],0,1],
 ["pl:q380530","Temple of Castor and Pollux","site","site",380530,0,[12.4856,41.8917],0,1],

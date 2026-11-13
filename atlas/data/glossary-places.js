@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"61d77c8203bf51ff","counts":{"terms":942,"points":705,"countries":237,"windows":1572,"faces":372,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"4d96c9f6c1c6c128","counts":{"terms":941,"points":704,"countries":237,"windows":1573,"faces":372,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -682,7 +682,6 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"61d77c8203bf51ff","counts":
 "Pskov":"city:1159149529",
 "Puerto_Rico":"adm0:pri",
 "Pyongyang":"city:1159151303",
-"Pyramid_of_Djoser":"pl:q192418",
 "Pyrenees":"reg:1159103941",
 "Qafzeh_Cave":"pl:q2121357",
 "Qatar":"adm0:qat",
@@ -1538,6 +1537,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"61d77c8203bf51ff","counts":
 "Isthmian_wall":[22.988,37.941,"coord",0,0,0],
 "Italian_city-states":[12,43,"coord",0,0,0],
 "Italy":[11.08,44.73,"country","adm0:ita",0,5.91],
+"Itjtawy":[31.231,29.57,"coord",0,0,0],
 "Ivanovo":[41.624,57.121,"admin1","adm1:rus:ru-iva",0,28.14],
 "Ivory_Coast":[-5.57,7.49,"country","adm0:civ",0,10.72],
 "Izborsk":[27.861,57.709,"town",0,0,0],
@@ -2068,7 +2068,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"61d77c8203bf51ff","counts":
 "Putorana_Plateau":[94.158,69.047,"coord",0,0,0],
 "Pyongyang":[125.753,39.021,"capital",0,0,0],
 "Pyramid_of_Ahmose":[31.938,26.175,"coord",0,0,0],
-"Pyramid_of_Djoser":[31.217,29.871,"site",0,0,0],
+"Pyramid_of_Djoser":[31.217,29.871,"coord",0,0,0],
 "Pyramid_of_Khafre":[31.131,29.976,"coord",0,0,0],
 "Pyramid_of_Menkaure":[31.128,29.973,"coord",0,0,0],
 "Pyrenees":[1.441,42.59,"range",0,0,0],

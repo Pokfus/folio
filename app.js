@@ -37480,7 +37480,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Doggerland the floor of the North Sea, and a `region` clips its wash to the present-day coast — so
      each of those cards drew the coasts either side of its subject and left the subject itself blank. A
      shelf is drawn in the region's own gold, because it WAS land, and with no clip at all. */
-  const LOC_KINDS = ["point", "battle", "river", "range", "region", "sea", "shelf"];
+  const LOC_KINDS = ["point", "battle", "river", "range", "region", "sea", "shelf", "wall"];   // "wall" (2026-11-13): a thick line along a `spine`, Hadrian's Wall
   // a list of [lon, lat] pairs, validated rather than trusted: `locator` is hand-authored in data.js and a
   // transposed pair draws a region in the wrong ocean without anything throwing
   function locPts(v) {
@@ -37539,7 +37539,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        poisoning the rest, and an area left with no valid ring at all is null, which falls the card back
        to its dot exactly as a missing area always has. */
     const area = kind === "region" || kind === "sea" || kind === "shelf" ? locRings(l.area) : null;
-    const spine = kind === "range" ? locPts(l.spine) : null;
+    const spine = kind === "range" || kind === "wall" ? locPts(l.spine) : null;
     /* `within` names the CITY a place stands inside — "Rome" on the Forum, the hills and the Cloaca — and
        is what lets a map fold the collection's places in one city into one mark (see the sibling pass in
        startCardGlobe). `label` is where a REGION's name is written when its bbox centre is out at sea. */
@@ -37775,7 +37775,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          the collection — every river is, as one of the Atlas's thin blue threads — so a red dot beside it
          would be a second mark for a thing already drawn, pinning a 400 km river to one arbitrary point
          on its course. */
-      if (l && l.kind !== "region" && l.kind !== "range" && l.kind !== "river") dots.push({ id: cid, n: l.name, c: l.at, kind: l.kind, within: l.within });
+      /* …BUT A REGION'S NAME COMES BACK, WITHOUT A DOT (2026-11-13, on request: "the text label of the Nile Delta should still appear in other atlas
+         windows within this collection. Same goes for the Faiyum (which shouldn't have a dot)"). The objection of Aug 2026 was the dot, which made an
+         area a point; a name alone, written at the region's label point, says where the Delta is and claims no point. A `face` sibling is drawn
+         exactly so (atlas-windows.js: centred on its point, no mark). */
+      if (l && l.kind === "region" && l.name) dots.push({ id: cid, n: l.name, c: l.label || l.at, kind: "regionname", within: "" });
+      else if (l && l.kind !== "region" && l.kind !== "range" && l.kind !== "river" && l.kind !== "wall") dots.push({ id: cid, n: l.name, c: l.at, kind: l.kind, within: l.within });
       /* A GEOGRAPHY MAP CARD IS A SIBLING TOO (2026-11-07, on request: "once a card has been studied once, its location should be displayed within all other
          cards within that collection", as the history collections' places are). A capital card (`map.dot`) is a red dot with its name; a shaded state or country
          is its NAME alone at its label point — a shape is drawn with its extent or not at all, so it gets no dot. The coordinates are in the lazy card-faces

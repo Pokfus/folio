@@ -362,6 +362,7 @@
             const P = (FACES.dots[d.map.layer] || {})[d.map.dot]; if (!P) continue;
             d = { id: d.id, n: d.n, c: [P[0], P[1]], kind: "point" };
           }
+          if (d.kind === "regionname") { if (String(d.n).trim().toLowerCase() !== String(nm0 || "").trim().toLowerCase()) { const p = api.project(d.c[0], d.c[1]); if (inView(api, p)) faceAt.push([p[0], p[1], d.n]); } continue; }   // a region of the collection: its name alone (app.js locatorSiblings)
           const k = String(d.within || d.n || "").trim().toLowerCase(); if (!k || (locWithin && k === locWithin)) continue; if (anchor && k === anchor.n.toLowerCase()) continue;
           // the card's OWN place, studied on another card (2026-10-29, the owner: "the atlas window seems to display the text label for Alexandria twice, possibly because i already discovered
           // the city in another card"): the sibling is the same city as the card's dot — by name, or within a few kilometres — so it is the dot already drawn, not a second mark and name
@@ -376,9 +377,11 @@
         for (const sa of sibAt) addMark(sa[3] === "battle" ? "swords" : "dot", sa[0], sa[1], sa[3] === "battle" ? 8 : 4.6, sa[3] === "battle" ? 8 : 4.6);
         if (anchorAt) addMark("home", anchorAt[0], anchorAt[1], 5.6, 5.6);
       }
-      if (locSpine) { const mh = Math.max(3, Math.min(9, 3.4 * Math.sqrt(st.zoom / CMAP_ZLOC))), mw = mh * 0.85; for (const q of locSpine) { const p = api.project(q[0], q[1]); if (inView(api, p)) addMark("peak", p[0], p[1] - mh * 0.1, mw + 1, mh * 0.65 + 1); } }
+      const isWall = locKind === "wall";   // a wall (2026-11-13, on request: Hadrian's Wall drawn as the line it is): a thick line along its spine, no peaks, no dot
+      if (locSpine && isWall) { for (const q of locSpine) { const p = api.project(q[0], q[1]); if (inView(api, p)) addMark("wall", p[0], p[1], 3, 3); } }
+      else if (locSpine) { const mh = Math.max(3, Math.min(9, 3.4 * Math.sqrt(st.zoom / CMAP_ZLOC))), mw = mh * 0.85; for (const q of locSpine) { const p = api.project(q[0], q[1]); if (inView(api, p)) addMark("peak", p[0], p[1] - mh * 0.1, mw + 1, mh * 0.65 + 1); } }
       let ownDotAt = null;
-      if (dot && !(locKind === "river" && !!ownLines) && locKind !== "range" && locKind !== "region" && locKind !== "sea" && locKind !== "shelf") { const p = api.project(dot.c[0], dot.c[1]); if (p[2] >= 0) { ownDotAt = p; addMark(locKind === "battle" ? "swords" : "dot", p[0], p[1], locKind === "battle" ? 9 : 7, locKind === "battle" ? 9 : 7); } }
+      if (dot && !(locKind === "river" && !!ownLines) && locKind !== "range" && !isWall && locKind !== "region" && locKind !== "sea" && locKind !== "shelf") { const p = api.project(dot.c[0], dot.c[1]); if (p[2] >= 0) { ownDotAt = p; addMark(locKind === "battle" ? "swords" : "dot", p[0], p[1], locKind === "battle" ? 9 : 7, locKind === "battle" ? 9 : 7); } }
       // ---- the names, in priority order ----
       if (ownLines && revealed) {   // the card's own river: its name on the line, at the first of several stretches that is clear
         const lines = ownLines.filter((l) => l && l.length > 1).sort((p1, p2) => p2.length - p1.length);   // the river's stretches, the longest first
@@ -389,12 +392,12 @@
           placeName(lbl, "600 13px " + font, pts, { must: true, own: true });
         }
       }
-      const ownLabelAt = locLabelPt && locLabelPt.length ? locLabelPt[0] : locArea && locArea.length ? (() => { const b = ringsBBox(locArea); return [wrapLon((b[0] + b[2]) / 2), (b[1] + b[3]) / 2]; })() : dot ? dot.c : targets.length ? targets[0].c : null;
+      const ownLabelAt = locLabelPt && locLabelPt.length ? locLabelPt[0] : isWall && locSpine ? locSpine[Math.floor(locSpine.length / 2)] : locArea && locArea.length ? (() => { const b = ringsBBox(locArea); return [wrapLon((b[0] + b[2]) / 2), (b[1] + b[3]) / 2]; })() : dot ? dot.c : targets.length ? targets[0].c : null;
       // a members window drawn on a past year with no seat names nothing of its own: its present-day keys are only the fallback and the frame (the Three Kingdoms' "China", 2026-10-29)
       if (revealed && ownLabelAt && nm0 && !(locKind === "river" && !!ownLines) && !(memHist && !dot)) {
         const p = api.project(ownLabelAt[0], ownLabelAt[1]);
         if (p[2] >= 0) {
-          const beside = !!dot && locKind !== "region" && locKind !== "range" && locKind !== "sea" && locKind !== "shelf";
+          const beside = !!dot && locKind !== "region" && locKind !== "range" && !isWall && locKind !== "sea" && locKind !== "shelf";
           // beside a dot: to its right as always (10 px from its centre), then the other places round it; on an area or a range: centred on its label point, then above and below it
           placeName(nm0, "600 13px " + font, (w) => beside ? around(p[0], p[1], 7, w, 8).map((c, n) => (n === 0 ? Object.assign(c, { x: p[0] + 10, box: [p[0] + 8, c.y - 8, p[0] + 12 + w, c.y + 8] }) : c)) : [centred(p[0], p[1], w, 8), centred(p[0], p[1] - 18, w, 8), centred(p[0], p[1] + 18, w, 8), centred(p[0] - w / 2 - 14, p[1], w, 8), centred(p[0] + w / 2 + 14, p[1], w, 8)], { must: true, own: true, color: locKind === "sea" ? water : ink });
         }
@@ -415,7 +418,11 @@
         if (anchorAt) { const q = 4.4; ctx.fillStyle = "rgba(200,69,60,.92)"; ctx.fillRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2); ctx.lineWidth = 1.2; ctx.strokeStyle = "rgba(255,255,255,0.8)"; ctx.strokeRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2); }
       }
       if (ownLines) { ctx.save(); ctx.strokeStyle = TINT_SEL.line; ctx.lineWidth = 2.6; ctx.shadowColor = TINT_SEL.glow; ctx.shadowBlur = 9; ctx.beginPath(); for (const ln of ownLines) addPath(ctx, api, ln, false); ctx.stroke(); ctx.restore(); }
-      if (locSpine) {   // a range: a row of small peaks along its spine
+      if (locSpine && isWall) {   // a wall: one thick line, gold on a dark casing, so it reads over land and relief at any zoom
+        ctx.save(); ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.beginPath(); addPath(ctx, api, locSpine, false);
+        ctx.strokeStyle = "rgba(60,40,0,.8)"; ctx.lineWidth = 6.5; ctx.stroke();
+        ctx.strokeStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.lineWidth = 3.6; ctx.shadowColor = TINT_SEL.glow; ctx.shadowBlur = 6; ctx.stroke(); ctx.restore();
+      } else if (locSpine) {   // a range: a row of small peaks along its spine
         const mh = Math.max(3, Math.min(9, 3.4 * Math.sqrt(st.zoom / CMAP_ZLOC))), mw = mh * 0.85;
         ctx.save(); ctx.fillStyle = "rgba(0,0,0,0.62)"; ctx.strokeStyle = halo; ctx.lineWidth = 1;
         for (const q of locSpine) { const p = api.project(q[0], q[1]); if (!inView(api, p)) continue; ctx.beginPath(); ctx.moveTo(p[0] - mw, p[1] + mh * 0.55); ctx.lineTo(p[0], p[1] - mh * 0.75); ctx.lineTo(p[0] + mw, p[1] + mh * 0.55); ctx.closePath(); ctx.fill(); ctx.stroke(); }
@@ -645,7 +652,7 @@
       return;
     }
     if (loc.kind === "river" || loc.kind === "sea") { out.marks.push({ id: cid, title: loc.name || title, kind: "water", at: loc.at, area: loc.area || null, y0: y0 }); return; }
-    if (loc.kind === "range") return;
+    if (loc.kind === "range" || loc.kind === "wall") return;
     out.marks.push({ id: cid, title: loc.name || title, kind: "dot", at: loc.at, battle: loc.kind === "battle", y0: y0 });
   }
   let regCache = null;
