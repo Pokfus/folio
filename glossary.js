@@ -18838,7 +18838,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Aktion_T4": ["Action T4"],
 "Four_Year_Plan": ["Four Year Plan"],
 "Hjalmar_Schacht": ["Schacht"],
-"MS_St._Louis": ["MS St. Louis","SS St. Louis","MS Saint Louis","SS Saint Louis"],
+"MS_St._Louis": ["MS St. Louis","SS St. Louis"],
 "Swingjugend": ["Swing Kids"],
 "Romani_people": ["Roma"],
 "Empire_of_Japan": ["Imperial Japan","Dai Nippon Teikoku"],
@@ -36503,7 +36503,6 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 window.GLOSSARY_TITLES = Object.assign(window.GLOSSARY_TITLES || {}, {
 "Yukon_(territory)": "Yukon",
 "St._Paul": "Saint Paul",
-"MS_St._Louis": "MS Saint Louis",
 "St._Bartholomew's_Day_massacre": "Saint Bartholomew's Day massacre",
 "Old_St._Peter's_Basilica": "Old Saint Peter's Basilica",
 "Mount_St._Helens": "Mount Saint Helens",

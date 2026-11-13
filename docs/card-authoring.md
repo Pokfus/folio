@@ -139,7 +139,7 @@ exists).
   never "five o'clock", "6.00", "11 am" or a 24-hour "13:32". Quotations keep their own wording.
 - **Saint is written in full in a name** (2026-11-13, on request): Saint Petersburg, Saint Louis, Saint Paul's
   Cathedral — never St or St.; French names take the hyphen (Saint-Malo, Saint-Mihiel), and a person's surname keeps its own
-  form (Barry St Leger). **Genghis Khan** is spelled so everywhere; Chinggis only inside a source's own title.
+  form (Barry St Leger), and so does a ship's name (MS St. Louis). **Genghis Khan** is spelled so everywhere; Chinggis only inside a source's own title.
 - **Never name a website in a background** (2026-11-13, on request): not Livius.org, not "a history website"
   as an authority. Say what the source is ("a modern chronology", "the museum") and let the footnote name it.
 - **Measurements metric first, imperial in brackets**, rounded to the source's precision:
