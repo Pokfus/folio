@@ -615,6 +615,14 @@ are not rows of this table.
 | the Jingkang sieges / the captives taken north | 1126 / 1127 | the *Songshi* (`cnh-446`) |
 | the Battle of Huangtiandang | 1130 | `cnh-447` |
 | the Southern Song court settled at Hangzhou / West Lake on the World Heritage list | 1138 / 2011 | Giles (`cnh-449`) |
+| the Treaty of Shaoxing agreed / sealed / broken | 1141 / 1142 / 1161 | the *Jinshi* (`cnh-452`) |
+| the Battle of Caishi | 1161 | `cnh-453` |
+| the huizi first issued / small notes | 1160 / 1163 | the *Songshi*; Theobald (`cnh-454`) |
+| Quanzhou a prefecture seat / named / World Heritage | 700 CE / 711 CE / 2021 | `cnh-455` |
+| Guan ware: the first kiln / the southern kilns | 1111 – 1117 / c. 1127 – 1279 | `cnh-456` |
+| Jian ware made | c. 960 CE – 1279 | Dejoie et al. (`cnh-457`) |
+| the Mengliang lu dated / also dated | 1274 / c. 1300 | Cordier; Strassberg (`cnh-458`) |
+| Neo-Confucianism: the masters / the ban / the enshrinement | 1017 – 1200 / 1196 – 1202 / 1241 | De Weerdt (`cnh-460`) |
 
 ## Later periods
 
@@ -1082,4 +1090,12 @@ cnh-443: 1100; 1200; 1186; 1736
 cnh-446: 1126; 1127
 cnh-447: 1130
 cnh-449: 1138; 2011
+cnh-452: 1141; 1142; 1161
+cnh-453: 1161
+cnh-454: 1160; 1163
+cnh-455: 700; 711; 2021
+cnh-456: 1111; 1117; 1127; 1279
+cnh-457: 960; 1279
+cnh-458: 1274; 1300
+cnh-460: 1017; 1200; 1196; 1202; 1241
 ```

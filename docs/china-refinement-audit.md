@@ -472,7 +472,7 @@ otherwise.
 | B43 | Northern Song (`col-27`) | `cnh-421`–`cnh-430` | 10 | 102 | **done 2026-11-13** |
 | B44 | Northern Song (`col-27`) | `cnh-431`–`cnh-440` | 10 | 104 | **done 2026-11-13** |
 | B45 | Northern Song (`col-27`) / Southern Song (`col-28`) | `cnh-441`–`cnh-450` | 10 | 100 | **done 2026-11-13** |
-| B46 | Southern Song (`col-28`) | `cnh-451`–`cnh-460` | 10 | 101 | to do |
+| B46 | Southern Song (`col-28`) | `cnh-451`–`cnh-460` | 10 | 101 | **done 2026-11-13** |
 | B47 | Southern Song (`col-28`) / Western Xia (`col-29`) | `cnh-461`–`cnh-470` | 10 | 94 | to do |
 | B48 | Western Xia (`col-29`) / Jurchen Jin (`col-30`) | `cnh-471`–`cnh-480` | 10 | 97 | to do |
 | B49 | Jurchen Jin (`col-30`) / Yuan (`col-31`) | `cnh-481`–`cnh-490` | 10 | 110 | to do |
@@ -1019,6 +1019,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-448` | none | not re-checked (Commons rate-limited): wanted |
 | `cnh-449` | none | not re-checked (Commons rate-limited): wanted — the Su causeway |
 | `cnh-450` | none | not re-checked (Commons rate-limited): wanted — the Hangzhou temple or the portrait |
+| `cnh-451` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-452` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-453` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-454` | none | not re-checked (Commons rate-limited): wanted — a huizi printing plate |
+| `cnh-455` | none | not re-checked (Commons rate-limited): wanted — the Qingjing Mosque or the Kaiyuan pagodas |
+| `cnh-456` | none | not re-checked (Commons rate-limited): wanted — a crackled Guan vase |
+| `cnh-457` | none | not re-checked (Commons rate-limited): wanted — a hare's fur bowl |
+| `cnh-458` | none | not re-checked (Commons rate-limited): wanted — an early printed page |
+| `cnh-459` | as before | not re-checked (Commons rate-limited): ok |
+| `cnh-460` | none | not re-checked (Commons rate-limited): the glossary's picture shows only an academy — replace |
 
 ## Glossary candidates
 
@@ -3029,3 +3039,38 @@ from the earliest editions, Moser); Su Shi's rhapsodies confirmed for 1082, his 
 66 sui); `cnh-444`'s death c. 1090 is one of three figures (Taipei: after 1087; Theobald c. 1087); `cnh-445`'s days and "age
 52" (the *Songshi*: 54); `cnh-448`'s days and "age 80" (the *Songshi*: 81); `cnh-450`'s "age 38" (the *Songshi*: 39) and Giles's
 1103 – 1141.
+
+### B46 — `cnh-451`–`cnh-460`, Southern Song: Qin Hui to Neo-Confucianism (2026-11-13)
+
+Run as B41. Every cited URL answered. **Pictures were not touched.** **The old cards cited the *Songshi*, the *Jinshi*, the
+*Chalu*, the *Daguan chalun* and Song notes on Chinese Wikisource, put a battle template on Caishi ("26 – 27 November 1161", a
+day no page read prints), dated the huizi "made permanent 1247" and Quanzhou "founded 718" (both on no page read), put a
+count and a century on Quanzhou's line, named two men in Jian ware's labels ("Cai Xiang", "Huizong"), gave Neo-Confucianism
+the Chinese name 道学 and its glossary a date no row shared, and misread the huizi issue (229 million for 329).** The *Songshi*
+(juan 181, 383, 429, 473), the *Jinshi* juan 77, the *Chalu* and Tao Zongyi's *Chuogeng lu* were read on the Kanseki
+Repository.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-451` Qin Hui | 6 | 7 → 6 | **The *Songshi* juan 473; carried north after protesting the puppet ruler and back with his household; "southerners south, northerners north" placed in his first, brief ministry; the titles lost and the spittoon (Giles); 1138 carried as Theobald's "a year later" than 1137**; Macgowan (the return in 1131, the payment in gold) and 1206 dropped; the kneeling statues on no page read (flagged). Protected: the line stays (flagged below). |
+| `cnh-452` Treaty of Shaoxing | 6 | 6 → 6 | **The *Jinshi* juan 77 (the oath in full) for the Wikisource texts; "your subject Gou", the line in the middle of the Huai, Tang and Deng handed over, the coffin and Lady Wei (not "Empress Wei") returned; the 250,000 taels and 250,000 bolts given as the oath's own figures**; a month conversion and the Dasan Pass (on no page read) dropped; no tribute figure in the questions (clear of `cnh-417`). |
+| `cnh-453` Battle of Caishi | 6 | 6 → 6 | **The battle template and its days off: `Fought 1161`; the *Songshi* juan 383: Yu Yunwen sent to reward the troops, Hailing's two horses and his platform, his murder by his officers; the 600,000 Macgowan's figure; the paddle-wheel boats placed at Jinshan**; the thunderclap bombs (on no page read) dropped. |
+| `cnh-454` huizi | 5 | 6 → 5 | **"Made permanent 1247" (on no page read) off: `First issued 1160` / `Small notes 1163`; Qian Duanli and the cash stores; terms stretched from three years to nine; the paper from Huizhou and Chizhou; "229 million" corrected to 329 million (the *Songshi*, Theobald)**. |
+| `cnh-455` Quanzhou | 6 | 6 → 6 | **"Founding 718", the peak and the population count off: `Prefecture seat 700 CE` / `Named 711 CE` / `World Heritage 2021`; Zaitun and the olive tree, Marco Polo's pepper, Ibn Battuta's junks and the Muslims' own town**; 1087 and Pu Shougeng (no open source) dropped; the 2021 listing rests on one book (UNESCO refuses). |
+| `cnh-456` Guan ware | 6 | 6 → 6 | **The labels no longer name places (`First kiln 1111 – 1117` / `Southern kilns c. 1127 – 1279`); the Kaifeng dating told as Ye Zhi's report through the *Chuogeng lu*; Zhu Yan's ranking as printed; the Laohudong and Jiaotanxia kilns (npj Heritage Science 2026)**; "the Kaifeng kiln undiscovered" (no source) dropped. |
+| `cnh-457` Jian ware | 7 | 6 → 7 | **"Cai Xiang c. 1049 – 1054" / "Huizong c. 1107 – 1110" (men in labels) now `Made c. 960 CE – 1279` (Dejoie et al.); the *Chalu* on Kanseki; Huizong's two points from a Cleveland record; the three yohen tenmoku as Japan's national treasures (Degawa [in Japanese])**; the glossary's markers renumbered into its own list. |
+| `cnh-458` Mengliang lu | 5 | 5 → 5 | **"Preface dated 1274, conventionally" now `Dated 1274` (Cordier's 1903 note) / `Also dated c. 1300` (Strassberg); the Qing editors' puzzle over the cyclical year; built on the Kaifeng memoir's plan**; "a million households" and "17 entertainment quarters" (on no page read) and 1334 dropped. |
+| `cnh-459` Zhu Xi | 7 | 7 → 7 | **Two Wikisource histories cut to the *Songshi* juan 429: the trigrams in the sand, the White Deer Grotto rules, nine years in the provinces and forty days at court; the 1313 decree left to `cnh-491` and the ban to `cnh-460`; the floating coffin as Giles's tale**. Protected: the line stays (flagged below). |
+| `cnh-460` Neo-Confucianism | 7 | 7 → 7 | **The name 道学 dàoxué → 理学 lǐxué (Theobald prints it); a first row `Masters lived 1017 – 1200` so the card sorts by the school's start and the glossary's date agrees (`G.date` cleared); "Neo-Confucianism" a modern label, the *Songshi*'s "Learning of the Way" admitted unknown in antiquity; De Weerdt 2020 for 1196, the fifty-nine names and 1202; the 1241 tablets**; four Wikisource texts cut to one. |
+
+Read by eye. **Confusability**: the oath's tribute stays in `cnh-452`'s prose, not its questions (clear of `cnh-417`'s figures);
+the 1161 sea battle `cnh-461`'s and the river battle `cnh-453`'s; the Kaifeng memoir `cnh-435`'s and the Hangzhou one `cnh-458`'s;
+Zhu Xi's academy `cnh-459`'s, the ban and the enshrinement `cnh-460`'s, the 1313 decree `cnh-491`'s. `cnh-451`'s `Q.sibling`
+against `cnh-280` and its `Z.reading?` (Qín Huì, a polyphone the house reads Huì) are false alarms. One phrasing on `cnh-453`
+was reworded by hand (it read "led the Battle of Caishi"); one on `cnh-455` ("Ibn Battuta counted") was reworded for the
+scholar rule. **Legend**: the spittoon (Giles), the oath (the *Jinshi*'s text), Yu Yunwen (the *Songshi*), the floating coffin
+(Giles) are each a text's. **Chinese names corrected**: `cnh-460` 道学 → 理学 (lǐxué); 采石之战 kept, no page read printing the
+compound. **Spellings fixed**: none needed; 0 hits. **Myth register**: the kneeling statue of Qin Hui unattested on `cnh-451`'s
+pages (Henning attests it on `cnh-450`'s). **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the
+apply). For the owner: `cnh-451`'s 1091 (Giles and Tao: 1090), its days and "age 64" (the *Songshi*: 66 sui); `cnh-459`'s days
+on no page read and "age 69" (the *Songshi*: 71 sui).
