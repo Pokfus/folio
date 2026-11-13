@@ -2267,6 +2267,8 @@ body.wb-down .study-card.draw-card .scratch{display:none;}
 .gloss-atlas{margin:10px 0 4px; clear:both;}
 .gloss-atlas[hidden]{display:none;}
 .gloss-atlas .map-card{margin:0;}
+.map-borders{margin:6px 0 0; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-quiet);}
+.war-key .wk-borders{flex-basis:100%;}
 .gloss-atlas .mc-canvas{height:clamp(150px, 26vh, 200px); touch-action:none;}
 .gloss-atlas .map-card.mc-failed::after{content:"";}
 .card-loc{margin-top:20px;}

@@ -1379,7 +1379,9 @@
     const kind = w.face ? "region" : GLOSS_POINT_KINDS.indexOf(w.kind) >= 0 ? "point" : "region";   // "region": no dot, the name centred on the point — a face carries its own shading
     return '<div class="map-card map-gloss" data-map-layer="world" data-map-named data-map-at="' + w.lon + "," + w.lat + '" data-map-atname="' + esc(name) + '" data-map-kind="' + kind + '"' +
       (w.face ? ' data-map-face="' + esc(w.face) + '" data-map-facekind="' + esc(w.kind) + '"' : "") + (w.year ? ' data-map-year="' + w.year + '"' : "") + (w.zoom ? ' data-map-zoom="' + w.zoom + '"' : "") + ">" +
-      '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' + GLOSS_ZOOM_HTML + "</div>";
+      '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' + GLOSS_ZOOM_HTML + "</div>" +
+      // the year whose borders are drawn, under every window that shades a state (2026-11-13, on request)
+      (w.face && w.year ? '<p class="map-borders">Borders of ' + esc(yearLabel(w.year)) + (w.kind === "people" || w.kind === "culture" ? "" : ", at its greatest extent") + "</p>" : "");
   }
   /* THE WINDOW'S BUTTONS (2026-10-24, on request: "they do not have any buttons like we have in the atlas windows of the cards to zoom in or turn on and off the relief"): the card windows' own column —
      zoom in, zoom out, recentre, relief — and nothing more (no globe button: the bar's Atlas pin is that). atlas-windows.js wires `.mc-btn` for every host, and shows the relief button only where relief can draw. */
@@ -37721,12 +37723,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const layer = m.layer && CARD_MAP_LAYERS[m.layer] ? String(m.layer) : "world";
     return { name: name, note: String(m.note || "").trim(), keys: keys, at: at, atName: at ? String(m.atName || "").trim() : "", label: String(m.label || "").trim(), year: groups.length ? year : null, groups: groups, span: span, zoom: Number(m.zoom) || 0, layer: layer };
   }
+  /* WHAT YEAR'S BORDERS (2026-11-13, on request: "ensure that atlas windows displaying states or polities always mention below the
+     window what year's borders are depicted"): a members window on a past year says that year; one on today's countries says so; a
+     window with a timeline names its year on the rail instead, which moves with the pin. */
+  function cardBordersLine(m) {
+    if (!m || m.span) return "";
+    return '<span class="wk-side wk-note wk-borders"><span class="wk-role">' + (m.year != null ? "Borders of " + esc(yearLabel(m.year)) : "Present-day borders") + "</span></span>";
+  }
   function cardMembersKeyHTML(m) {
     if (!m) return "";
     if (m.groups.length) return '<div class="war-key members-key">' + m.groups.map((g, i) => '<span class="wk-side ' + (i === 2 ? "wk-third" : i ? "wk-late" : "wk-sel") + '">' + cardWarSwatch(i === 2 ? TINT_THIRD : i ? TINT_LATE : TINT_SEL) +
-      '<b class="wk-name">' + esc(g.name) + "</b>" + (g.note ? ' <span class="wk-role">' + esc(g.note) + "</span>" : "") + "</span>").join("") + (m.note ? '<span class="wk-side wk-note"><span class="wk-role">' + esc(m.note) + "</span></span>" : "") + "</div>";
+      '<b class="wk-name">' + esc(g.name) + "</b>" + (g.note ? ' <span class="wk-role">' + esc(g.note) + "</span>" : "") + "</span>").join("") + (m.note ? '<span class="wk-side wk-note"><span class="wk-role">' + esc(m.note) + "</span></span>" : "") + cardBordersLine(m) + "</div>";
     return '<div class="war-key members-key"><span class="wk-side wk-sel">' + cardWarSwatch(TINT_SEL) +
-      '<b class="wk-name">' + esc(m.name) + "</b>" + (m.note ? ' <span class="wk-role">' + esc(m.note) + "</span>" : "") + "</span></div>";
+      '<b class="wk-name">' + esc(m.name) + "</b>" + (m.note ? ' <span class="wk-role">' + esc(m.note) + "</span>" : "") + "</span>" + cardBordersLine(m) + "</div>";
   }
   // the years the war ran, for the personal atlas: the block's own override, else the card's date line
   function cardWarYears(c) {
