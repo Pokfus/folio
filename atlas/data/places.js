@@ -8,7 +8,7 @@
    FOLDS ON WIKIDATA'S OWN WORD (Phase 2c, Task 0a, owner's decision of 2026-10-12): a period settlement folds into a modern one on
    P1366 replaced by, P1365 replaces, a shared Wikipedia article, or P460 "said to be the same as" — and P460 counts only when the
    two items are under 25 km apart and in the same kind family (both settlements). Never on distance alone. */
-window.ATLAS_PLACES = {"format":1,"generated":"2026-11-12","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":88,"town":124,"strait":3,"gulf":2,"lake":10,"river":11,"island":25,"island-group":3,"range":14,"region":77,"site":418,"mountain":41,"cape":4,"hill":8},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
+window.ATLAS_PLACES = {"format":1,"generated":"2026-11-12","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":88,"town":124,"strait":3,"gulf":2,"lake":10,"river":11,"island":25,"island-group":3,"range":14,"region":77,"site":417,"mountain":41,"cape":4,"hill":8},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
 ["pl:q380096","Adwa","city",0,380096,0,[38.9,14.1667],0,1],
 ["pl:q324293","Anyang","city",0,324293,0,[114.3461,36.0956],0,1],
 ["pl:q2749","Augsburg","city",0,2749,0,[10.8978,48.3689],0,1],
@@ -890,7 +890,6 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-11-12","generator":"folio at
 ["pl:q1123019","Temple of Olympian Zeus, Athens","site","site",1123019,0,[23.7331,37.9694],
 ["Olympieion"],1],
 ["pl:q746721","Temple of Saturn","site","site",746721,"city:1159151593",[12.4841,41.8924],0,1],
-["pl:q47672","Terracotta Army","site","site",47672,0,[109.2731,34.385],0,1],
 ["pl:q11225429","Thebes","site","site",11225429,0,[23.3174,38.3192],
 ["Thebes, Greece"]],
 ["pl:q101583","Thebes, Egypt","site","site",101583,0,[32.6103,25.7206],

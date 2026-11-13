@@ -13159,30 +13159,6 @@
    },
    "cards": 2
   },
-  "pl:q47672": {
-   "name": "Terracotta Army",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q47672",
-   "at": [
-    109.2731,
-    34.385
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Terracotta Army",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q2772772",
-     "Q839954",
-     "Q162875"
-    ],
-    "via": "title",
-    "km": 0
-   },
-   "cards": 1
-  },
   "pl:q477137": {
    "name": "Humen",
    "kind": "strait",

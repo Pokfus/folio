@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"72bb9f0c70c239ec","counts":{"terms":954,"points":717,"countries":237,"windows":1589,"faces":372,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"2d4fb1fbb20273f5","counts":{"terms":956,"points":719,"countries":237,"windows":1591,"faces":372,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -627,6 +627,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"72bb9f0c70c239ec","counts":
 "Northern_Dvina":"river:1159112289",
 "Northern_Mariana_Islands":"adm0:mnp",
 "Norway":"adm0:nor",
+"Novhorod-Siverskyi":"pl:q147758",
 "Novosibirsk":"adm1:rus:ru-nvs",
 "Odeon_of_Pericles":"pl:q2704249",
 "Ohio":"adm1:usa:us-oh",
@@ -719,6 +720,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"72bb9f0c70c239ec","counts":
 "Saint-Acheul":"pl:q670003",
 "Saint_Barthélemy":"adm0:blm",
 "Saint_Helena":"adm0:shn",
+"Saint_John's":"city:1159151071",
 "Saint_Kitts_and_Nevis":"adm0:kna",
 "Saint_Lucia":"adm0:lca",
 "Saint_Martin":"adm0:maf",
@@ -1975,6 +1977,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"72bb9f0c70c239ec","counts":
 "Northern_Zhou":[109.749,35.963,"polity","pol:northern_zhou",577,2.83],
 "Norway":[9.68,61.36,"country","adm0:nor",0,3.01],
 "Novgorod_Republic":[45.583,63.936,"polity","pol:novgorod",1468,3.8],
+"Novhorod-Siverskyi":[33.267,51.997,"city",0,0,0],
 "Novosibirsk":[80.083,55.314,"admin1","adm1:rus:ru-nvs",0,12.04],
 "Nubia":[30.41,19.601,"coord",0,0,0],
 "Ob":[71.395,66.534,"coord",0,0,0],
@@ -2155,6 +2158,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"72bb9f0c70c239ec","counts":
 "Saint_Barthélemy":[-62.83,17.9,"country","adm0:blm",0,40],
 "Saint_Basil's_Cathedral":[37.623,55.753,"coord",0,0,0],
 "Saint_Helena":[-5.71,-15.95,"country","adm0:shn",0,2.11],
+"Saint_John's":[-52.681,47.585,"town",0,0,0],
 "Saint_Kitts_and_Nevis":[-62.76,17.34,"country","adm0:kna",0,40],
 "Saint_Lucia":[-60.98,13.89,"country","adm0:lca",0,40],
 "Saint_Martin":[-63.05,18.08,"country","adm0:maf",0,40],
