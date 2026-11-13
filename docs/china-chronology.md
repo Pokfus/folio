@@ -222,6 +222,16 @@ the form English-language scholarship and the reference works use; the decision 
 | Famen Temple, Xuanzang, Huichang | Fa-men, Hsüan-tsang, Hsuan-tsang, Hiuen Tsiang, Xuan Zang, Hui-ch'ang | Famensi, Tripitaka, Tang Sanzang | the *Journey to the West*'s Tang Sanzang said to be the novel's |
 | regulated verse, Li Bai, Du Fu, Bai Juyi, Han Yu, Wang Wei, Yuan Zhen | lü-shih, Li Pai, Tu Fu, Po Chü-i, Bo Juyi, Han Yü, Yüan Chen | lüshi, Li Taibai, Li Po | the Tang poets, surname and name split; *Li Po*, the older English name, is an alias legitimate in an "also known as" sentence |
 | Huang Chao, Zhu Wen, Li Keyong, Five Dynasties and Ten Kingdoms, Later Liang, Later Tang, Sixteen Prefectures | Huang Ch'ao, Chu Wen, Li K'o-yung, Hou Liang, Hou T'ang | Zhu Quanzhong, Sixteen Prefectures of Yan and Yun | |
+| Later Zhou, Later Jin, Later Han (of the Five Dynasties), Former Shu, Later Shu, Wuyue, Southern Tang, Northern Han, Guo Wei, Chai Rong, Shi Jingtang, Li Yu (of the Southern Tang), Feng Dao, Qian Liu, Wang Jian | Hou Chou, Hou Chin, Ch'ien Shu, Hou Shu, Wu-yüeh, Wu-yue, Nan T'ang, Pei Han, Kuo Wei, Ch'ai Jung, Shih Ching-t'ang, Li Yü, Feng Tao, Ch'ien Liu | Hou Zhou, Hou Jin, Nan Tang, Bei Han, Wu Yue, Shizong of Later Zhou, Li Houzhu, Last Ruler of Southern Tang | the Five Dynasties and Ten Kingdoms states and men (added for the fifth hundred, Nov 2026), English order; *Wuyue* joined as the slug; the Ten Kingdoms a later label, said so where it matters |
+| Khitan, Liao, Abaoji, Yelü, Shangjing, Nanjing (the Liao southern capital), Yanjing, Chanyuan, Gaoliang River, Bureau of Military Affairs | Ch'i-tan, Kitan, A-pao-chi, Apaoji, Yeh-lü, Yelu, Shang-ching, Yen-ching, Ch'an-yüan, Shanyuan, Kao-liang | Qidan, Kitai, Cathay, Yelü Abaoji, Taizu of Liao, Supreme Capital, Shumiyuan | the Liao written "the Khitan Liao" the first time in prose; *Yanjing* the Liao southern capital, later Beijing; *Kitai* and *Cathay* the names the Khitan gave China abroad, said so where it matters |
+| Emperor Taizu of Song, Emperor Taizong of Song, Emperor Zhenzong, Emperor Renzong, Emperor Shenzong, Emperor Zhezong, Emperor Huizong, Emperor Qinzong, Emperor Gaozong of Song, Emperor Xiaozong | T'ai-tsu, Chen-tsung, Jen-tsung, Shen-tsung, Che-tsung, Hui-tsung, Ch'in-tsung, Hsiao-tsung | Song Taizu, Song Taizong, Song Renzong, Song Shenzong, Song Huizong, Song Gaozong, Song Xiaozong, Zhao Kuangyin, Zhao Kuangyi, Zhao Ji, Zhao Gou | the Song emperors in English order, "Emperor" and the temple name; the joined Chinese forms (Song Taizu) where the `pinyin` field or a cited title uses them; *Zhao Kuangyin* and the others their own names |
+| Kaifeng, Hangzhou, Lin'an | K'ai-feng, Kai-feng, Pien-ching, Pien-liang, Hang-chou, Hangchow, Lin-an | Bianjing, Dongjing, Bianliang, Eastern Capital, Kinsay, Quinsai | Kaifeng the Northern Song capital (*Bianjing*, *Dongjing* and *Bianliang* its period names, aliases); *Lin'an* the Southern Song name of Hangzhou, used where the sentence is about the court's seat; *Quinsai* Marco Polo's form |
+| Fan Zhongyan, Han Qi, Fu Bi, Ouyang Xiu, Wang Anshi, Sima Guang, Su Shi, Su Xun, Su Zhe, Li Qingzhao, Zhao Mingcheng, Zhu Xi, Cai Jing, Qin Hui, Yue Fei, Bao Zheng, Di Qing, Guo Xi, Bi Sheng, Zhang Zeduan, Shen Kuo, Meng Yuanlao, Wu Zimu | Fan Chung-yen, Ou-yang Hsiu, Ouyang Hsiu, Wang An-shih, Wang Anshih, Su Shih, Su Tung-p'o, Li Ch'ing-chao, Ts'ai Ching, Ch'in Kuei, Qin Gui, Yüeh Fei, Pao Cheng, Kuo Hsi, Pi Sheng, Chang Tse-tuan, Shen Kua | Su Dongpo, Dongpo, Yi'an, Zhuzi, Zhu Zi, Judge Bao, Bao Gong, Ssu-ma Kuang, Chu Hsi | the Song men and women, surname and name split; Ouyang and Sima one surname each; *Su Dongpo* the poet's sobriquet, an alias; *Qin Gui* a misreading of 秦檜 (house Qin Hui); *Ssu-ma Kuang* and *Chu Hsi* stand as authors of cited translations and are not reported |
+| Zizhi Tongjian, New Policies, Qingli Reforms, palace examination, jiaozi, huizi, jiaochao, Dongjing Meng Hua Lu, Mengliang lu, Kaibao Canon | Tzu-chih t'ung-chien, Zizhi Tong Jian, Ch'ing-li, Chiao-tzu, Hui-tzu, Chiao-ch'ao, Tung-ching meng-hua lu, Meng-liang lu, K'ai-pao | Zizhi tongjian, Comprehensive Mirror, Comprehensive Mirror for Aid in Government, Xinfa, Qingli xinzheng, dianshi, Kaibao zang | the Song books, reforms and notes; the slugs' forms (*Zizhi Tongjian*, *Dongjing Meng Hua Lu*, *Mengliang lu*); *Zizhi tongjian*, as the fourth hundred wrote it, not reported; the currencies lower case in prose |
+| Western Xia, Tangut, Li Yuanhao, Khara-Khoto, Haoshuichuan, Xingqing | Hsi Hsia, Hsi-hsia, Tangout, Li Yüan-hao, Kara-Khoto, Khara Khoto, Kharakhoto, Hao-shui-ch'uan, Hsing-ch'ing | Xixia, Xi Xia, Da Xia, Great Xia, Dangxiang, Minyak, Heishui, Heishuicheng, Emperor Jingzong of Western Xia, Weiming Yuanhao, Zhao Yuanhao | English name first (Western Xia; the `pinyin` field Xī Xià, split as Běi Wèi); *Khara-Khoto* hyphenated as the slug |
+| Jurchen, Jurchen Jin, Wanyan Aguda, Wuqimai, meng'an mouke, Da Qi, Caizhou, Yehuling, Hubudagang, Huining, Zhongdu, Emperor Shizong of Jin | Ju-chen, Juchen, Djurchen, Jurched, Wan-yen A-ku-ta, A-ku-ta, Akuta, meng-an mou-k'o, mengan mouke, Ta Ch'i, Ts'ai-chou, Yeh-hu-ling, Hu-pu-ta-kang, Chung-tu | Nüzhen, Great Jin, Da Jin, Emperor Taizu of Jin, Jin Taizu, Jin Shizong, Wanyan Yong, Wuzhu, Wanyan Zongbi | always "the Jurchen Jin" the first time in prose (`docs/china-card-plan.md`), never "the Jin" alone where the Jin of 266 – 420 could be meant; *meng'an mouke* lower case in prose |
+| Genghis Khan, Ögedei, Möngke, Kublai Khan, Khanbaliq, Dadu, Shangdu, Karakorum, semu, Phagpa, Bayan of the Baarin, Yelü Chucai, Ayurbarwada, Guo Shoujing, zaju, xingsheng, Marco Polo, John of Montecorvino | Jenghiz, Ogodei, Ogedei, Ögödei, Mongke, Mangu, Khubilai, Qubilai, Kubilai, Khan-baliq, Khanbalik, Ta-tu, Shang-tu, Qaraqorum, se-mu, Pagpa, Phags-pa, Yeh-lü Ch'u-ts'ai, Kuo Shou-ching, tsa-chü, hsing-sheng | Chinggis Khan, Chinggis, Temüjin, Cambaluc, Xanadu, Hubilie, Basiba, Buyantu Khan, Emperor Renzong of Yuan, Yuan Renzong | the Mongols and the Yuan: *Genghis Khan* as the slug (*Chinggis Khan* the scholarly form, an alias for an "also known as" sentence); *Khubilai* and *Qubilai*, the scholarly spellings, cited as printed in titles but *Kublai* in the card's voice; *Khanbaliq* and *Dadu* both house forms, the Turkic-Mongol and the Chinese names of one city; *Xanadu* Coleridge's form, an alias |
+| Water Margin, Song Jiang, Romance of the Western Chamber, Wang Shifu, Guan Hanqing, Yingying | Shui-hu chuan, Sung Chiang, Hsi-hsiang chi, Wang Shih-fu, Kuan Han-ch'ing, Ying-ying | Shuihu zhuan, Outlaws of the Marsh, Xixiang ji, The Story of the Western Wing | English titles first |
 
 ## Mythology and legend
 
@@ -567,9 +577,83 @@ only; ages, days and months left out), and are not rows of this table.
 | the Later Tang / its founder killed | 923 – 936 CE / 926 CE | `cnh-399` |
 | the Sixteen Prefectures promised / handed over | 936 CE / 938 CE | the *Liao shi*; Theobald (`cnh-400`) |
 
+## Five Dynasties to the Yuan (the fifth hundred)
+
+Filled batch by batch from `cnh-401` (B41 on). **The protected lines** of the fifth hundred's individuals
+(`cnh-401`, `403`, `407`, `409`, `413`, `420`, `422`–`424`, `428`–`430`, `432`, `434`, `439`, `441`, `442`, `444`, `445`,
+`448`, `450`, `451`, `459`, `467`, `475`, `480`, `484`–`486`, `491`, `493`, `496`, `497`) are pinned below to their lines as
+they stood on main on 2026-11-13 (the years only, both years of an "X, or Y" death; ages, days and months left out), and
+are not rows of this table.
+
+| event | the collection says | source |
+|---|---|---|
+| the Later Zhou / its founder's death | 951 – 960 CE / 954 CE | Cordier (`cnh-402`); Theobald and Giles 953 |
+| the Former Shu | 907 – 925 CE | Theobald (`cnh-404`) |
+| Wuyue (the title of 907 / of 902) | 907 – 978 CE / 902 – 978 CE | Chavannes; Clark (`cnh-405`) |
+| the Southern Tang | 937 – 975 CE | Theobald; Cordier (`cnh-406`) |
+| Yue ware made (the museum records read) | c. 265 – 1127 CE | the Art Institute; the Met (`cnh-408`) |
+| the Northern Han | 951 – 979 CE | Cordier; Theobald (`cnh-410`) |
+| the Liao (the *Liaoshi*'s founding / the *Zizhi Tongjian*'s) | 907 CE – 1125 / 916 CE – 1125 | Miao (`cnh-411`) |
+| the Liao Bureau of Military Affairs adopted | 947 CE | the *Liaoshi*; Theobald (`cnh-414`) |
+| the Khitan large script / suppressed by the Jurchen Jin | 920 CE / 1191 | the *Liaoshi*; Theobald (`cnh-415`) |
+| the Battle of Gaoliang River | 979 CE | Cordier; Parker (`cnh-416`) |
+| the Chanyuan Treaty sworn / revised | 1004 – 1005 / 1042 | `cnh-417` |
+| the Fogong pagoda built | 1056 | the Ming gazetteer (`cnh-418`) |
+| the Alliance Conducted at Sea: envoys / terms | 1118 / 1120 | Cordier; Theobald (`cnh-419`) |
+| the Song / the north lost | 960 – 1279 CE / 1127 | `cnh-421` |
+| Kaifeng the Song capital / the great flood | 960 CE – 1127 / 1642 | Tsui; Storozum et al. (`cnh-425`) |
+| the Qingli Reforms proposed / abandoned | 1043 / 1045 | Zhang; Cordier (`cnh-426`) |
+| the palace examination made regular / abolished | 973 CE / 1905 | the *Songshi*; Theobald (`cnh-427`) |
+| the New Policies introduced / repealed | 1069 / 1085 – 1086 | Kojima; Theobald (`cnh-431`) |
+| the Zizhi Tongjian commissioned / named / completed / first printed | 1066 / 1067 / 1084 / 1086 | the Siku front matter; Strange (`cnh-433`) |
+| the Dongjing Meng Hua Lu's preface | 1147 | `cnh-435` |
+| the jiaozi: the state issue / renamed qianyin | 1023 / 1105 – 1107 | the *Songshi*; Theobald (`cnh-436`) |
+| Xuzhou: Xiang Yu's capital / Su Shi's iron memorial / coal found | 206 BCE / 1078 / 1079 | Chavannes; Wagner (`cnh-437`) |
+| the Quanzhou ship wrecked / Polo's book dictated | c. 1277 / 1298 | `cnh-438` |
+| the Kaibao Canon ordered / completed | 971 CE / 983 CE | the *Fozu tongji*; Jiang Wu (`cnh-440`) |
+| the Qingming scroll painted / Zhang Zhu's colophon / the Qing version | c. 1100 – 1200 / 1186 / 1736 | Hansen; the Palace Museum (`cnh-443`) |
+| the Jingkang sieges / the captives taken north | 1126 / 1127 | the *Songshi* (`cnh-446`) |
+| the Battle of Huangtiandang | 1130 | `cnh-447` |
+| the Southern Song court settled at Hangzhou / West Lake on the World Heritage list | 1138 / 2011 | Giles (`cnh-449`) |
+| the Treaty of Shaoxing agreed / sealed / broken | 1141 / 1142 / 1161 | the *Jinshi* (`cnh-452`) |
+| the Battle of Caishi | 1161 | `cnh-453` |
+| the huizi first issued / small notes | 1160 / 1163 | the *Songshi*; Theobald (`cnh-454`) |
+| Quanzhou a prefecture seat / named / World Heritage | 700 CE / 711 CE / 2021 | `cnh-455` |
+| Guan ware: the first kiln / the southern kilns | 1111 – 1117 / c. 1127 – 1279 | `cnh-456` |
+| Jian ware made | c. 960 CE – 1279 | Dejoie et al. (`cnh-457`) |
+| the Mengliang lu dated / also dated | 1274 / c. 1300 | Cordier; Strassberg (`cnh-458`) |
+| Neo-Confucianism: the masters / the ban / the enshrinement | 1017 – 1200 / 1196 – 1202 / 1241 | De Weerdt (`cnh-460`) |
+| the Battle of Tangdao | 1161 | `cnh-461` |
+| the fire lance first recorded / used by the Jurchen Jin | 1132 / 1232 – 1233 | Andrade; the *Jinshi* (`cnh-462`) |
+| the siege of Xiangyang | 1268 – 1273 | the *Yuanshi*; Yule (`cnh-463`) |
+| the Battle of Yamen | 1279 | `cnh-464` |
+| the Western Xia founded / conquered | 1038 / 1227 | `cnh-465` |
+| the Tangut script (dated / also dated) / the Juyong inscription | 1036 / 1037 / 1345 | `cnh-468` |
+| the Tangut canon translated / printed | 1038 – 1090 / 1293 – 1302 | Theobald (`cnh-469`) |
+| the Battle of Haoshuichuan | 1041 | `cnh-470` |
+| Khara-Khoto taken / the last dated text / excavated | 1226 / 1366 / 1908 – 1914 | `cnh-471` |
+| the Mongol conquest of the Western Xia / the capital besieged / the last campaign | 1205 – 1227 / 1209 / 1226 – 1227 | `cnh-472` |
+| the Jurchen Jin (the *Jinshi* / Qiu Jingjia) | 1115 – 1234 / 1117 – 1234 | `cnh-473` |
+| the Battle of Hubudagang | 1115 | `cnh-476` |
+| Da Qi founded / abolished | 1130 / 1137 | `cnh-477` |
+| the meng'an mouke introduced / ended | 1114 / 1234 | Cordier (`cnh-478`) |
+| the Jurchen large script / the small script | 1119 / 1138 | the *Jinshi* (`cnh-479`) |
+| the Battle of Yehuling | 1211 | the *Jinshi* (`cnh-481`) |
+| the siege of Caizhou / its fall | 1233 – 1234 / 1234 | `cnh-482` |
+| the Yuan proclaimed / the conquest ended / driven north | 1271 / 1279 / 1368 | `cnh-483` |
+| Khanbaliq founded / named Dadu / taken | 1267 / 1271 / 1368 | the *Yuanshi* (`cnh-487`) |
+| the examinations restored (the four groups' quotas) | 1315 | the *Yuanshi* (`cnh-488`) |
+| the xingsheng set up | 1260 | `cnh-489` |
+| the jiaochao: the first issue / the Zhiyuan notes / the Zhizheng notes | 1260 / 1287 / 1350 | Theobald (`cnh-492`) |
+| the Java expedition ordered / fought | 1292 / 1293 | the *Yuanshi* (`cnh-494`) |
+| Polo's book dictated | 1298 | `cnh-495` |
+| Zhong Sicheng's catalogue / Zang Maoxun's anthology | 1330 / 1615 | `cnh-498` |
+| the Western Chamber written / its earliest edition / Julien's translation | c. 1300 / 1498 / 1872 – 1880 | `cnh-499` |
+| the David Vases dated / first published | 1351 / 1929 | Pope (`cnh-500`) |
+
 ## Later periods
 
-To be filled from `cnh-401` on.
+To be filled from `cnh-501` on.
 
 ## Chronology pins
 
@@ -759,6 +843,39 @@ cnh-392: 712; 758; 770
 cnh-393: 772; 815; 846
 cnh-394: 768; 819; 824
 cnh-396: 852; 904; 907; 912
+cnh-401: 892; 936; 942
+cnh-403: 921; 954; 959
+cnh-407: 937; 961; 976; 978
+cnh-409: 882; 932; 953; 954
+cnh-413: 872; 907; 926; 916
+cnh-420: 1075; 1101; 1125; 1128; 1156
+cnh-422: 927; 960; 976; 961
+cnh-423: 928; 961; 984
+cnh-424: 1010; 1022; 1063; 1033
+cnh-428: 1007; 1045; 1072
+cnh-429: 1008; 1053; 1057
+cnh-430: 1021; 1058; 1069; 1076; 1086
+cnh-432: 1019; 1085; 1086
+cnh-434: 1047; 1102; 1126
+cnh-439: 1041; 1048; 1051
+cnh-441: 1037; 1057; 1080; 1086; 1101
+cnh-442: 1084; 1101; 1132; 1155
+cnh-444: 1023; 1072; 1090
+cnh-445: 1082; 1100; 1126; 1120; 1135
+cnh-448: 1107; 1127; 1162; 1187
+cnh-450: 1103; 1140; 1142
+cnh-451: 1091; 1130; 1138; 1155
+cnh-459: 1130; 1200
+cnh-467: 1003; 1032; 1048; 1038
+cnh-475: 1068; 1114; 1115; 1123
+cnh-480: 1123; 1161; 1189; 1173
+cnh-484: 1190; 1244
+cnh-485: 1215; 1260; 1294; 1271
+cnh-486: 1236; 1276; 1295
+cnh-491: 1285; 1311; 1320; 1313
+cnh-493: 1231; 1292; 1293; 1316; 1314
+cnh-496: 1247; 1305; 1307; 1328
+cnh-497: 1235; 1253; 1269; 1280
 cnh-101: 1250; 1046
 cnh-103: 1046; 1040; 1122
 cnh-104: 1046; 1044; 1122
@@ -972,4 +1089,68 @@ cnh-397: 907; 960; 902; 979
 cnh-398: 907; 923; 912
 cnh-399: 923; 936; 926
 cnh-400: 936; 938
+cnh-402: 951; 960; 954
+cnh-404: 907; 925
+cnh-405: 907; 978; 902
+cnh-406: 937; 975
+cnh-408: 265; 1127
+cnh-410: 951; 979
+cnh-411: 907; 916; 1125
+cnh-414: 947
+cnh-415: 920; 1191
+cnh-416: 979
+cnh-417: 1004; 1005; 1042
+cnh-418: 1056
+cnh-419: 1118; 1120
+cnh-421: 960; 1279; 1127
+cnh-425: 960; 1127; 1642
+cnh-426: 1043; 1045
+cnh-427: 973; 1905
+cnh-431: 1069; 1085; 1086
+cnh-433: 1066; 1067; 1084; 1086
+cnh-435: 1147
+cnh-436: 1023; 1105; 1107
+cnh-437: 206; 1078; 1079
+cnh-438: 1277; 1298
+cnh-440: 971; 983
+cnh-443: 1100; 1200; 1186; 1736
+cnh-446: 1126; 1127
+cnh-447: 1130
+cnh-449: 1138; 2011
+cnh-452: 1141; 1142; 1161
+cnh-453: 1161
+cnh-454: 1160; 1163
+cnh-455: 700; 711; 2021
+cnh-456: 1111; 1117; 1127; 1279
+cnh-457: 960; 1279
+cnh-458: 1274; 1300
+cnh-460: 1017; 1200; 1196; 1202; 1241
+cnh-461: 1161
+cnh-462: 1132; 1232; 1233
+cnh-463: 1268; 1273
+cnh-464: 1279
+cnh-465: 1038; 1227
+cnh-468: 1036; 1037; 1345
+cnh-469: 1038; 1090; 1293; 1302
+cnh-470: 1041
+cnh-471: 1226; 1366; 1908; 1914
+cnh-472: 1205; 1227; 1209; 1226
+cnh-473: 1115; 1117; 1234
+cnh-476: 1115
+cnh-477: 1130; 1137
+cnh-478: 1114; 1234
+cnh-479: 1119; 1138
+cnh-481: 1211
+cnh-482: 1233; 1234
+cnh-483: 1271; 1279; 1368
+cnh-487: 1267; 1271; 1368
+cnh-488: 1315; 1368
+cnh-489: 1260; 1368
+cnh-490: 1279; 1368
+cnh-492: 1260; 1287; 1350
+cnh-494: 1292; 1293
+cnh-495: 1298
+cnh-498: 1330; 1615
+cnh-499: 1300; 1498; 1872; 1880
+cnh-500: 1351; 1929
 ```
