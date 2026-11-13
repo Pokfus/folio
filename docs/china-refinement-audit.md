@@ -303,7 +303,7 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Wu Zetian as the only empress regnant and the hostile tradition | the only woman to rule China as emperor in her own name (the Wu Zhou, 690 – 705 CE); the stories of the strangled daughter and the mutilated rivals from later hostile historians — B38 (`cnh-371`): told as hostile reports; the strangled daughter in Giles but not in the *Old Book* juan 51, its earliest text still unconfirmed | `cnh-371`, `cnh-372` | `cnh-364` | — |
 | Yang Guifei: the lychees, Mawei and the Song of Everlasting Sorrow | lychees rushed by relay to the court; her death at Mawei Station when the escort mutinied (756 CE); Bai Juyi's "Song of Everlasting Sorrow" (806 or 807 CE; Beauchamp prints 807) and later legend — confirmed B38 (`cnh-375`: the lychees told as Mayers's account and Du Fu's poem; the An Lushan love story later lore, Owen) | `cnh-375` | `cnh-373`, `cnh-377`, `cnh-393` | — |
 | An Lushan's adoption by Yang Guifei | An Lushan made Yang Guifei's adopted son, the washing ceremony; told in later histories and anecdote collections — confirmed B38 (`cnh-377`: the *Old Book of Tang* juan 200A has him ask for it himself; the three-day washing is the *Zizhi tongjian*'s, juan 216) | — | `cnh-377`, `cnh-375` | — |
-| Li Bai drowning while embracing the moon | the poet drowning as he leaned from a boat to embrace the moon's reflection; a later legend, against the earlier accounts of illness — provisional | — | `cnh-391` | — |
+| Li Bai drowning while embracing the moon | the poet drowning as he leaned from a boat to embrace the moon's reflection; a later legend, against the earlier accounts of illness — confirmed B40 (`cnh-391`: a legend Hong Mai already doubted in the 12th century) | — | `cnh-391` | — |
 | Xuanzang and the Journey to the West | Xuanzang's own *Record of the Western Regions* (646 CE) and his disciples' biography; the 16th-century novel *Journey to the West* with Tripitaka and the Monkey King, fiction — agreeing with `in-199` — provisional | — | `cnh-388` | `in-199` |
 | Han Yu's memorial on the Buddha's bone | Han Yu's memorial of 819 CE against bringing the finger-bone relic from the Famen Temple into the palace, and his banishment to Chaozhou — confirmed B39–B40 (`cnh-387`, `cnh-394`: the *Old Book of Tang* juan 160) | — | `cnh-394`, `cnh-387` | — |
 
@@ -418,7 +418,7 @@ otherwise.
 | B37 | Tang (`col-23`) | `cnh-361`–`cnh-370` | 10 | 102 | **done 2026-11-13** |
 | B38 | Tang (`col-23`) | `cnh-371`–`cnh-380` | 10 | 104 | **done 2026-11-13** |
 | B39 | Tang (`col-23`) | `cnh-381`–`cnh-390` | 10 | 112 | **done 2026-11-13** |
-| B40 | Tang (`col-23`) / Five Dynasties and Ten Kingdoms (`col-24`) | `cnh-391`–`cnh-400` | 10 | 111 | to do |
+| B40 | Tang (`col-23`) / Five Dynasties and Ten Kingdoms (`col-24`) | `cnh-391`–`cnh-400` | 10 | 111 | **done 2026-11-13** |
 | B41 | Five Dynasties and Ten Kingdoms (`col-24`) | `cnh-401`–`cnh-410` | 10 | 102 | to do |
 | B42 | Liao (`col-25`) | `cnh-411`–`cnh-420` | 10 | 100 | to do |
 | B43 | Northern Song (`col-27`) | `cnh-421`–`cnh-430` | 10 | 102 | to do |
@@ -911,6 +911,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-388` | none | not re-checked (Commons rate-limited): wanted — the glossary's painting would serve |
 | `cnh-389` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 | `cnh-390` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-391` | none | not re-checked (Commons rate-limited): wanted — the glossary's portrait would serve |
+| `cnh-392` | none | not re-checked (Commons rate-limited): wanted — the glossary's portrait would serve |
+| `cnh-393` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-394` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-395` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-396` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-397` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-398` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-399` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-400` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 
 ## Glossary candidates
 
@@ -2605,3 +2615,129 @@ the *New*'s 65 gives 716) and its 12 August 780 is on no page read (the history:
 and the birth as c. 600 or 596, and Beal prints the death as the 10th month, 13th day of 664. `in-199`, the plan's India
 pair for Xuanzang, is not yet written (India stands at `in-100`). `cnh-386`'s point is modern Dali; the Taihe city site
 would be closer.
+
+### B40 — `cnh-391`–`cnh-400`, Tang and Five Dynasties: Li Bai to the Sixteen Prefectures (2026-11-13)
+
+Run as B31. Every cited URL answered. **Pictures were not touched**; none of the ten cards has a picture. **The old cards
+cited both Tang histories and both histories of the Five Dynasties on Chinese Wikisource, put a battle template on the
+Huang Chao rebellion ("9 years", "Result Tang victory"), named a place in the Later Tang's labels ("Shu conquered"), ended
+the Sixteen Prefectures with another card's alliance ("Song alliance 1120", `cnh-419`'s), dated the Weizhou mutiny and Han
+Yu's recall by conversions, told Li Bai's drowning, Gao Lishi's boots and Han Yu's crocodile in their own voice, and called
+Han Yu's cousin his brother.** The *New Book of Tang* (juan 201, 202, 225), the *Old Book of Tang* (juan 160, 166) and
+the *New History of the Five Dynasties* (juan 2, 37, 43, 71) were read on zggdwx.com and the Kanseki Repository.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-391` Li Bai | 7 | 7 → 7 | **Two Wikisource histories and Mayers cut to the *New Book of Tang* juan 202; Suyab a modern view (Jao Tsung-i, open access); the boots and Yang Guifei the *New Book*'s; the drowning a legend Hong Mai already doubted in the 12th century; "banished immortal", the Prince of Yong and Guo Ziyi's plea; trimmed to 283**; "around 742" and "12th century" out of the questions. Protected: the line stays (Giles's 705 – 762 not used). |
+| `cnh-392` Du Fu | 7 | 7 → 7 | **The *New Book of Tang* juan 201; Ayscough's 1929 volume (a year-by-year record), Owen and Waley; Fang Guan's defence and the Huazhou post, Yan Wu's staff and the Chengdu cottage, the "poet-historian"; "Recalling the Past" left to `cnh-374`**; "754" for the rhapsodies, the Huanhua stream and "both Tang histories" on the beef and wine (unsourced) dropped. Protected: the line stays. |
+| `cnh-393` Bai Juyi | 6 | 6 → 6 | **The *Old Book of Tang* juan 166 for two Wikisource histories; Waley's 1919 translations (not his 1949 book, a copyrighted scan); the flower-and-well poems used against him in 815, the singing girl who could recite his ballad, burial beside Ruman at Xiangshan; his fame in Japan (Beauchamp)**; "more poems than any earlier writer" and the "Silla" merchants dropped. Protected: the line stays (flagged below). |
+| `cnh-394` Han Yu | 6 | 7 → 6 | **The *Old Book of Tang* juan 160 for Wikisource and an MDPI article; the bone memorial in his own words, the crocodile the court history's story and a legend, the Way passed to Mencius; "elder brother" made "older kinsman" (従父兄); Mayers's first name corrected**; "recalled in 820" (a conversion) and Giles's History (the memorial misdated 803) dropped. Protected: the line stays (flagged below). |
+| `cnh-395` Huang Chao rebellion | 7 | 7 → 7 | **The battle template off: `Fought 875 – 884 CE` / `Capital held 881 – 883 CE`; Wang Xianzhi's manifesto (the *New Book of Tang* juan 225); the failed examinations a later history's claim; Canfu in 879 (Gaubil via Cordier; Renaudot 877) and the Siraf account's 120,000 as its figure; Yu Cong's sea-trade argument; "washing the city"; Somers on the Shatuo**; the salt price and "bands from the 850s" dropped. |
+| `cnh-396` Zhu Wen | 6 | 7 → 6 | **The *New History of the Five Dynasties* juan 43: Li Zhen's "pure stream" after Baima, the killers of Zhaozong executed; Huazhou handed to the Tang and the name Quanzhong; Standen's chapter**; the claims only juan 1 carries dropped. Protected: the line stays (flagged below). |
+| `cnh-397` Five Dynasties and Ten Kingdoms | 7 | 7 → 7 | **Told through the two later histories: Xue Juzheng's five books, Ouyang Xiu's single line and his note that none of the ten belonged to the Central Realm; Clark's point that "Ten Kingdoms" misleads; Cordier's "anarchy" against the modern reading of transition; Standen, Clark, Lorge and the *New History* juan 71**; Parker 1924, Macgowan and the Shatuo and Khitan claims dropped; the histories' dates (on no page read) left out. |
+| `cnh-398` Later Liang | 6 | 7 → 6 | **The *New History* juan 2: Kaifeng the Eastern Capital and Luoyang the Western, Ouyang Xiu's refusal to call the Liang false; the last emperor's death given two ways (Cordier; Giles)**; 915 for the Weizhou mutiny (a conversion) dropped. |
+| `cnh-399` Later Tang | 6 | 7 → 7 | **"Shu conquered" off (925 in prose): `Ruled 923 – 936 CE` / `Founder killed 926 CE`; the *New History* juan 37: the body burned on a heap of instruments by a man of the Five Workshops (not "by actors"), Jing Xinmo's slap, the three arrows (Ouyang Xiu's hearsay), Li Siyuan**; Giles's 925 for the death not used. |
+| `cnh-400` Sixteen Prefectures | 6 | 7 → 6 | **"Song alliance 1120" off (`cnh-419`'s): `Promised 936 CE` / `Handed over 938 CE` (the *Liao shi*'s Huitong 1, which Theobald's table makes 938); "held until the 1120s" made the Jurchen's return of Yanjing and six districts, looted (Cordier), held by the Song 1122 – 1125 (Bretschneider)**. **Pinyin Yān Yún shíliù zhōu → Yānyún Shíliùzhōu**, joined as Shíliùguó. |
+
+Read by eye. **Confusability**: Du Fu's "Recalling the Past" stays `cnh-374`'s; the Song of Everlasting Sorrow is mentioned
+on `cnh-393` (its singing-girl clue) and `cnh-375`; Han Yu's memorial `cnh-394`'s, mentioned on `cnh-387`; the three
+arrows `cnh-399`'s; Shi Jingtang's person left light for `cnh-401`. **Legend**: Li Bai's drowning, Gao Lishi's boots, the
+crocodile and Huang Chao's failed examinations are each a text's or a legend. **Chinese names corrected**: `cnh-400`
+pinyin; `黄巢起义` kept unconfirmed (no open page with the compound loaded — for the owner). **Spellings fixed**: none
+needed; 0 hits. **Myth register**: Li Bai's drowning confirmed (a legend Hong Mai doubted); Han Yu's memorial confirmed.
+**check-citations**: `cnh-391`'s Jao Tsung-i essay reported because Crossref lists the translator-editor (Nicholas Morrow
+Williams). **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-393`'s Xinzheng is on no page read
+(Waley: Taiyuan) and the *Old Book* gives his death as Dazhong 1, aged 76, against the line's 846; `cnh-394`'s 25 December
+and Heyang are on no page read; `cnh-396`'s 852 is on no page read (Giles 854) and its death place "Kaifeng" looks wrong
+(Giles and the *New History* put the murder at Luoyang).
+
+### The fourth hundred, in sum
+
+`cnh-301`–`cnh-400` (the end of the Western Jin, the Sixteen Kingdoms, Eastern Jin, Northern and Southern dynasties, Sui
+and Tang decks, and the first four of the Five Dynasties) are done: 607 sources became 655 and 87 glossary entries were
+rewritten. `cnh-audit.js --range=cnh-301:cnh-400` reads 14 of 100 cards clean, against none at the baseline; what remains is
+85 cards with no picture (Commons answered with its rate-limit page all session, so no picture pass ran), 10 advisory
+`W.not-why`, 8 `Z.reading?` that are polyphones or place names read as the house reads them (前燕 Yān, 佛图澄 dèng,
+高句丽 gōu, 瓦岗 gǎng, 租庸调 diào, 汗国 hán, 法难 nàn, 燕云 Yān), one `L.missing` (`cnh-365` Yinshan, a battle with no
+point yet) and one `Q.sibling` (`cnh-362` against `cnh-717`, a different subject). `check-cnh-spellings.js` reads 0 card hits
+over the hundred (the baseline's two — "Nan Qi" on `cnh-325`, "Li Po" on `cnh-391`, now an alias — are settled).
+Fifty agents worked two cards each, never more than ten at once; as each draft came back its clues went into `AGENT.md` and
+running agents were told of any shared clue (Emperor Huai's robe, Fu Jian's seal and Murong Chui, Xie An and Huan Wen, Sun
+En and Huan Xuan, the Chen well, Chen Bozhi's clerk, the Jiangdu plot and the scarf, the Yongji branch, the jinshi's clues,
+Jieli at Yinshan, Empress Wu at Kucha, the Persian temples and the taverns, Bai's "Huxuan nü"). Each batch was applied
+alone, verified field by field against its drafts, diffed for the protected lines and committed with its docs; `origin/main`
+was merged after B33 (nothing new) and again before the PR.
+
+What the hundred found, again and again:
+- **The *Jinshu* and the Tang court histories cited on Chinese Wikisource.** Nearly every card cited two to seven Chinese
+  texts there — over the one-per-language rule and unreachable here. Each card now reads one Chinese text in the Siku
+  edition on the Kanseki Repository or on zggdwx.com (the *Old Book of Tang* past juan 188, the *New Book of Tang* past
+  juan 75), and claims that rested only on the second or third text were dropped.
+- **The histories' stories told as records.** Fu Jian's whips and the wind and cranes, Murong Ping's firewood, Fotudeng's
+  lotus, the oar oath and the cockcrow, the geese and the Lanting burial, Emperor Wen's horns and scales, the Xuanwu Gate
+  plotters, the Zhenguan peace, the lychees and the adoption, Li Bai's boots and his drowning, Han Yu's crocodile: each is
+  now its text's, dated and named (the *Jinshu* a Tang compilation; the *Old Book* compiled under the Later Jin).
+- **Conversions on the lines.** "Revised 583", "Reorganised 583", "Ten categories 607", the mingjing's 681, the
+  Zhengshitang's 683 and 723, the Kaiyuan locusts' 716, the Weizhou mutiny's 915, Han Yu's recall in 820: each a regnal
+  year someone converted; each is now dropped, printed in the source's own form, or replaced by a year a page prints.
+- **Battle templates, places and men on the lines.** Fei River, Hou Jing, the Goguryeo war ("Casualties 302,300+"), Yinshan,
+  Talas, the An Lushan Rebellion and Huang Chao carried Location, Casualties and Result rows; labels named men ("Huai
+  executed", "Shi Le emperor", "Xie An") and places ("Fei River", "Jiankang taken", four canal names); values carried prose
+  ("made the Northern Wei capital") and counts ("possibly over 1,000,000"). All are now dates only.
+- **A date belonging to another event.** The Tang dated by a census of 764, the Hebei provinces ended by the Tang's fall,
+  the Sixteen Prefectures by the alliance of 1120 (`cnh-419`'s), the West Market by another card's edict (707).
+- **Figures read the wrong way.** The census drop of 52.9 to 16.9 million read as deaths (now the Board of Revenue's tax
+  registers, kept less carefully after the war), Fei River's 870,000 and "a million" (the *Jinshu*'s figures and Zhu Xu's
+  rhetoric), the Goguryeo war's casualties (a Korean-chronicle history's), the paper prisoners of Talas (al-Tha'alibi's tale).
+
+**The Chinese name.** Corrected: `cnh-326` 梁 → 梁朝, `cnh-329` 陈 → 陈朝, `cnh-343` 隋 → 隋朝 (the house form of 晋朝 and
+新朝), `cnh-333` 孝文帝 → 北魏孝文帝, `cnh-385` 回纥 → 回鹘汗国, `cnh-389` 会昌灭佛 → 会昌法难; pinyin on `cnh-303`
+(Shíliùguó), `cnh-347` (sānshěng liùbù), `cnh-358` (Xuánwǔmén zhī biàn), `cnh-359` (Zhēnguān, not Zhēnguàn) and `cnh-400`
+(Yānyún Shíliùzhōu). No swapped scripts were found in this hundred. Kept unconfirmed for want of a page printing the
+compound, for the owner: 隋灭陈之战, 隋征高句丽, 黄巢起义, and 汉赵 (the *Jinshu* writes the state 漢, later 趙); `cnh-323`'s
+Nánběicháo left joined (the open pinyin decision). **Spellings**: rows added for the fall of the Western Jin, the Sixteen
+Kingdoms states and rulers, the Five Barbarians, Jiankang, the Eastern Jin men, the Southern and Northern dynasties, the
+grottoes, the Sui and Tang emperors (English order), Wu Zetian and the Wu Zhou, the reign periods, the institutions lower
+case, Goguryeo, Uyghur, the poets, Xuanzang, Huang Chao and the Five Dynasties, and Jieli (B36); "Yangzi" in the drafts'
+own voice was made "Yangtze".
+
+**The myth register** gained eleven rows at the start (Fei River, the Lanting preface, the Peach Blossom Spring, Emperor Wu
+and Bodhidharma, the Xuanwu Gate, Wu Zetian's hostile tradition, Yang Guifei, An Lushan's adoption, Li Bai's drowning,
+Xuanzang and the *Journey*, Han Yu's memorial). Confirmed: Fei River (the *Jinshu* juan 114 and 79; Zhu Xu's shout in
+neither), the Xuanwu Gate (the record Taizong ordered; Sima Guang's doubt), Yang Guifei (the *Song* dated 806 or 807),
+An Lushan's adoption (he asked for it himself; the washing the *Zizhi tongjian*'s), Li Bai's drowning (Hong Mai's doubt),
+Han Yu's memorial. Still provisional: Bodhidharma (no page read dates its first telling), the strangled daughter (in Giles,
+not the *Old Book* juan 51), the Lanting burial (He Yanzhi's account on no page read). The scarf at Emperor Yang's death is
+the *Zizhi tongjian*'s, not the *Sui shu*'s (`cnh-354`).
+
+**The protected cards** (`cnh-302`, `309`, `312`, `316`–`322`, `327`, `333`, `341`, `344`, `349`, `354`, `356`, `357`, `371`,
+`373`, `375`, `377`, `382`, `383`, `388`, `391`–`394`, `396`) kept their `answerDate`, `undatable` and `timeline` byte for byte
+through every apply and the merge of main. Every background now carries the years on its card's line. Rows flagged for the
+owner, left as they stand (details in each batch): years on no page read — `cnh-312`'s 232, `cnh-317`'s 313, `cnh-319`'s
+303 (c.), `cnh-321`'s 344, `cnh-356`'s 566, `cnh-371`'s 624, `cnh-375`'s 719, `cnh-383`'s 715, `cnh-396`'s 852; a year given
+otherwise elsewhere — `cnh-302`'s death (perhaps early 318), `cnh-309` (Giles 384), `cnh-322` (Giles 356), `cnh-341`'s 488
+(Theobald's own page 487), `cnh-354`'s death (Giles 618), `cnh-357`'s 598 (Giles 597, Wechsler 600), `cnh-388`'s return
+(Watters 646); places — `cnh-312`'s Kucha, `cnh-317`'s Zhengzhou (Yongqiu is Qi County), `cnh-319`'s Linyi and Shan County,
+`cnh-341`'s Huzhou (Wukang in Wuxing), `cnh-344`'s Chang'an (the *Sui shu*: the Boruo temple at Fengyi), `cnh-371`'s Lizhou,
+`cnh-393`'s Xinzheng (Waley: Taiyuan), `cnh-394`'s Heyang, `cnh-396`'s Kaifeng (the murder was at Luoyang); ages against the
+histories' Chinese count (`cnh-322`, `333`, `344`, `356`, `373`, `382`); and the days on the person template, nearly all on no
+page read (`cnh-302`, `309`, `312`, `316`, `318`, `322`, `327`, `333`, `341`, `344`, `349`, `354`, `356`, `357`, `371`, `373`,
+`375`, `377`, `383`, `388`, `394`, `396`).
+
+**For the owner, outside the hundred**: `in-199` (the plan's India pair for Xuanzang) is not written yet; `wh-522` dates the
+Mongol rebuild of the Grand Canal 1276 – 1291 against Theobald's 1283 – 1291; `cnh-768` gives the markets 200 drumbeats where
+`cnh-368` gives the code's 300; `cnh-547`'s pinyin "Hànguó" looks wrong (汗国 is hánguó); `jp-088` carries the old Chang'an
+line's faults.
+
+### Locators (2026-11-13, the fourth hundred)
+
+**No locator was added.** The Wikipedia API answered with its rate-limit page at the end of the run (as Commons did all
+session), so `add-locators.js` could not fetch a point, `migrate-places.js` was not run, and `cnh-080` Xibeigang and
+`cnh-203` the Qin Straight Road are still waiting. In the hundred, `cnh-365` Yinshan is the one site card with no point
+(`L.missing`). Points to review, as the drafts read them: `cnh-314` Jiankang and `cnh-334` Pingcheng are labelled with the
+modern cities over the sites (Nanjing, Datong); `cnh-337`'s Wuyuan is one of the six garrisons only; `cnh-367` Chang'an's
+point looks like the Han city, not the Tang; `cnh-368`'s point is labelled Xi'an; `cnh-379`'s Daming is Weibo's seat only;
+`cnh-386`'s is modern Dali (the Taihe city site would be closer); `cnh-305`, `307`, `308`, `313`, `324`–`326`, `329`, `330`,
+`338`, `339` carry polity polygons; `cnh-340` (an institution), `cnh-346` (a code), `cnh-347` (an office), `cnh-370` (a dance,
+at Samarkand) and `cnh-397` (a period, at Kaifeng) carry points they need not. `migrate-places.js --check` and
+`build-wars.js --check` were not re-run here; on main they already report the third hundred's known failures.

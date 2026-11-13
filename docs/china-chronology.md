@@ -561,6 +561,11 @@ only; ages, days and months left out), and are not rows of this table.
 | Nanzhao: traditional founding / recognised / beat the Tang / fell | 649 CE / 738 CE / 751 CE / 902 CE | `cnh-386` |
 | the Famen relic in the capital / the last procession / the crypt sealed | 819 CE / 873 CE / 874 CE | `cnh-387` |
 | the Huichang persecution: the decree / eased | 845 CE / 846 CE | `cnh-389` |
+| the Huang Chao rebellion / Chang'an held | 875 – 884 CE / 881 – 883 CE | `cnh-395` |
+| the Five Dynasties / the Ten Kingdoms | 907 – 960 CE / 902 – 979 CE | `cnh-397` |
+| the Later Liang / its founder killed | 907 – 923 CE / 912 CE | `cnh-398` |
+| the Later Tang / its founder killed | 923 – 936 CE / 926 CE | `cnh-399` |
+| the Sixteen Prefectures promised / handed over | 936 CE / 938 CE | the *Liao shi*; Theobald (`cnh-400`) |
 
 ## Later periods
 
@@ -962,4 +967,9 @@ cnh-385: 744; 757; 840
 cnh-386: 649; 738; 751; 902
 cnh-387: 819; 873; 874
 cnh-389: 845; 846
+cnh-395: 875; 884; 881; 883
+cnh-397: 907; 960; 902; 979
+cnh-398: 907; 923; 912
+cnh-399: 923; 936; 926
+cnh-400: 936; 938
 ```

@@ -42,7 +42,7 @@ window.CHANGELOG = [
     d: "2026-11-13",
     t: "China cards rewritten",
     items: [
-      "<b>90 more China cards are rewritten</b>, from the Disaster of Yongjia to regulated verse, with new sources and dates.",
+      "<b>100 more China cards are rewritten</b>, from the Disaster of Yongjia to the Sixteen Prefectures, with new sources and dates.",
     ],
   },
   {
