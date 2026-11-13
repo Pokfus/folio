@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"9faee6091f53d021","counts":{"terms":953,"points":716,"countries":237,"windows":1588,"faces":372,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"72bb9f0c70c239ec","counts":{"terms":954,"points":717,"countries":237,"windows":1589,"faces":372,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -910,6 +910,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"9faee6091f53d021","counts":
 "Vologda":"adm1:rus:ru-vlg",
 "Voronezh":"adm1:rus:ru-vor",
 "Vulci":"pl:q931172",
+"Vyshhorod":"pl:q1004257",
 "Wadi_Hammamat":"pl:q1479250",
 "Wadi_Kubbaniya":"pl:q109535880",
 "Wadi_Maghareh":"pl:q1548813",
@@ -2461,6 +2462,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"9faee6091f53d021","counts":
 "Vologda":[40.933,59.64,"admin1","adm1:rus:ru-vlg",0,11.06],
 "Voronezh":[40.522,50.777,"admin1","adm1:rus:ru-vor",0,22.76],
 "Vulci":[11.628,42.419,"site",0,0,0],
+"Vyshhorod":[30.485,50.583,"city",0,0,0],
 "Wadi_Hammamat":[33.564,25.982,"site",0,0,0],
 "Wadi_Kubbaniya":[32.785,24.093,"site",0,0,0],
 "Wadi_Maghareh":[33.45,29.033,"site",0,0,0],

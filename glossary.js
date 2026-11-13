@@ -11565,7 +11565,41 @@ window.GLOSSARY = {
 "Rice_cultivation_in_South_Carolina": "",
 "Senegambia": "",
 "West_Africa": "",
-"Winnowing": ""
+"Winnowing": "",
+"Ancient_Beringian": "",
+"Beringian_standstill_hypothesis": "",
+"Bluefish_Caves": "",
+"Brattle_Street": "",
+"Broken_Mammoth": "",
+"Cambridge,_Massachusetts": "",
+"Longfellow_House–Washington's_Headquarters_National_Historic_Site": "",
+"Mead_site": "",
+"Mount_Vernon": "",
+"Reindeer": "",
+"Swan_Point_Archaeological_Site": "",
+"Tanana_Valley": "",
+"United_Colonies": "",
+"Upward_Sun_River_site": "",
+"Berestove": "",
+"Bolesław_I_the_Brave": "",
+"Desna_(river)": "",
+"Duchy_of_Saxony": "",
+"Hilarion_of_Kiev": "",
+"Iziaslav_of_Polotsk": "",
+"Khors": "",
+"Mokosh": "",
+"Oster_(river)": "",
+"Simargl": "",
+"Stribog": "",
+"Stuhna": "",
+"Sula_(Dnieper)": "",
+"Sviatopolk_I_of_Kiev": "",
+"Thietmar_of_Merseburg": "",
+"Trubizh": "",
+"Turov,_Belarus": "",
+"Vyshhorod": "",
+"Yaropolk_I_of_Kiev": "",
+"Yukon_(territory)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17116,7 +17150,14 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Swing_music": "1930s–1940s",
 "UNESCO": "1945–",
 "Vers_l'armée_de_métier": "1934",
-"A_Map_of_Virginia": "1612"
+"A_Map_of_Virginia": "1612",
+"United_Colonies": "1775–1776",
+"Bolesław_I_the_Brave": "967–1025",
+"Hilarion_of_Kiev": "d. before 1054",
+"Iziaslav_of_Polotsk": "d. 1001",
+"Sviatopolk_I_of_Kiev": "978–1019",
+"Thietmar_of_Merseburg": "975–1018",
+"Yaropolk_I_of_Kiev": "c. 958–980"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -22941,7 +22982,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Daugava": ["Western Dvina","Daugava River"],
 "Dnieper": ["Dnipro","Dnieper River","Dniepr"],
 "Dregovichs": ["Dregovichi","Dregovichians"],
-"Drevlians": ["Drevlyane","Derevlianians","Drevlianians"],
+"Drevlians": ["Drevlyane","Derevlianians","Drevlianians","Drevlian"],
 "Ilmen_Slavs": ["Ilmen Slovenes","Novgorod Slovenes"],
 "Krivichs": ["Krivichi","Krivichians"],
 "Mari_people": ["Cheremis","Mari"],
@@ -24560,7 +24601,29 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Rice_cultivation_in_South_Carolina": ["South Carolina rice complex","South Carolina rice industry"],
 "Senegambia": ["Senegambian"],
 "Winnowing": ["winnow","winnowed"],
-"Botany": ["botanical"]
+"Botany": ["botanical"],
+"Ancient_Beringian": ["Ancient Beringians"],
+"Beringian_standstill_hypothesis": ["standstill hypothesis","Beringian standstill","Beringian standstill model"],
+"Longfellow_House–Washington's_Headquarters_National_Historic_Site": ["Longfellow House","Vassall-Craigie-Longfellow House"],
+"Reindeer": ["caribou","reindeer"],
+"Upward_Sun_River_site": ["Upward Sun River"],
+"Berestove": ["Berestovo","Berestovoye"],
+"Bolesław_I_the_Brave": ["Bolesław the Brave","Boleslaw I the Brave","Bolesław Chrobry","Boleslaw Chrobry"],
+"Desna_(river)": ["Desna","Desna River","river Desna"],
+"Hilarion_of_Kiev": ["Ilarion","Ilarion of Kiev","Ilarion of Kyiv","Hilarion of Kyiv"],
+"Iziaslav_of_Polotsk": ["Izyaslav of Polotsk","Iziaslav Vladimirovich","Izyaslav Vladimirovich"],
+"Mokosh": ["Makosh"],
+"Oster_(river)": ["Oster River","river Oster"],
+"Simargl": ["Semargl"],
+"Stuhna": ["Stugna","Stuhna River","river Stugna"],
+"Sula_(Dnieper)": ["river Sula","Sula River"],
+"Sviatopolk_I_of_Kiev": ["Sviatopolk I","Svyatopolk I","Sviatopolk the Accursed","Svyatopolk the Accursed"],
+"Thietmar_of_Merseburg": ["Thietmar"],
+"Trubizh": ["Trubezh","Trubizh River","river Trubezh"],
+"Turov,_Belarus": ["Turov","Turaŭ","Turiv"],
+"Vyshhorod": ["Vyshgorod","Vyshegorod"],
+"Yaropolk_I_of_Kiev": ["Yaropolk I"],
+"Yukon_(territory)": ["Yukon Territory"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -36332,7 +36395,46 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Rice_cultivation_in_South_Carolina": ["practice","agriculture","history","slavery","united states","colonial america"],
 "Senegambia": ["place","region","africa","history","slavery"],
 "West_Africa": ["place","geography","africa","history"],
-"Winnowing": ["practice","agriculture","technology"]
+"Winnowing": ["practice","agriculture","technology"],
+"Ancient_Beringian": ["people","prehistory","genetics","north america","alaska"],
+"Beringian_standstill_hypothesis": ["concept","prehistory","genetics","north america"],
+"Bluefish_Caves": ["place","archaeology","prehistory","canada","north america"],
+"Brattle_Street": ["place","history","american revolution","united states","massachusetts"],
+"Broken_Mammoth": ["place","archaeology","prehistory","alaska","north america"],
+"Cambridge,_Massachusetts": ["city","history","geography","united states","massachusetts"],
+"Longfellow_House–Washington's_Headquarters_National_Historic_Site": ["building","history","american revolution","united states","massachusetts"],
+"Mead_site": ["place","archaeology","prehistory","alaska","north america"],
+"Mount_Vernon": ["place","building","history","united states","virginia"],
+"Reindeer": ["animal","nature","zoology","north america"],
+"Swan_Point_Archaeological_Site": ["place","archaeology","prehistory","alaska","north america"],
+"Tanana_Valley": ["place","geography","archaeology","alaska","united states"],
+"United_Colonies": ["state","history","american revolution","united states"],
+"Upward_Sun_River_site": ["place","archaeology","prehistory","alaska","north america"],
+"Berestove": ["place","history","kievan rus","ukraine","europe"],
+"Bolesław_I_the_Brave": ["ruler","person","history","poland","europe"],
+"Desna_(river)": ["place","geography","river","ukraine","russia"],
+"Duchy_of_Saxony": ["state","history","germany","holy roman empire","europe"],
+"Hilarion_of_Kiev": ["person","religion","literature","kievan rus","ukraine"],
+"Iziaslav_of_Polotsk": ["ruler","person","history","kievan rus","belarus"],
+"Khors": ["deity","religion","mythology","kievan rus","slavs"],
+"Mokosh": ["deity","religion","mythology","kievan rus","slavs"],
+"Oster_(river)": ["place","geography","river","ukraine","kievan rus"],
+"Simargl": ["deity","religion","mythology","kievan rus","slavs"],
+"Stribog": ["deity","religion","mythology","kievan rus","slavs"],
+"Stuhna": ["place","geography","river","ukraine","kievan rus"],
+"Sula_(Dnieper)": ["place","geography","river","ukraine","kievan rus"],
+"Sviatopolk_I_of_Kiev": ["ruler","person","history","kievan rus","europe"],
+"Thietmar_of_Merseburg": ["person","history","historiography","germany","holy roman empire"],
+"Trubizh": ["place","geography","river","ukraine","kievan rus"],
+"Turov,_Belarus": ["city","place","history","kievan rus","belarus"],
+"Vyshhorod": ["city","place","history","kievan rus","ukraine"],
+"Yaropolk_I_of_Kiev": ["ruler","person","history","kievan rus","europe"],
+"Yukon_(territory)": ["place","geography","canada","north america"]
+});
+
+/* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
+window.GLOSSARY_TITLES = Object.assign(window.GLOSSARY_TITLES || {}, {
+"Yukon_(territory)": "Yukon"
 });
 
 /* ============================================================================
