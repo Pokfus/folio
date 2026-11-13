@@ -351,7 +351,7 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Su Shi's Red Cliff rhapsodies | the two "Chibi fu" written in exile at Huangzhou (1082 CE), set at a cliff near Huangzhou that Su Shi himself doubted was the battle's; read as literature, not as a record of the battle — provisional | — | `cnh-441` | `cnh-276` (Red Cliffs) |
 | The Water Margin and the historical Song Jiang | the bandit leader Song Jiang, whose band and surrender the *Songshi* gives in a few lines under Huizong; the outlaws of the Yuan plays and the 14th–16th-century novel *Water Margin* — provisional | — | `cnh-445` | `cnh-928`, `cnh-929` |
 | The Mongol conquests' figures | the death tolls and army sizes of the conquest of the Western Xia, the Jin and the Song as the Persian and Chinese histories give them (Juvaini, Rashid al-Din, the *Yuanshi*, compiled under the Ming 1369 – 1370), not counts; modern estimates differ widely — provisional | `cnh-472` | `cnh-481`, `cnh-482`, `cnh-463`, `cnh-483` | — |
-| Marco Polo's travels and the doubt | the book dictated in a Genoese prison to Rustichello of Pisa (1298 – 1299), surviving in many differing manuscripts; the doubt that he reached China (the Great Wall, tea and footbinding unmentioned, his name absent from the Chinese record) and the replies (the salt, paper money and the Yangzhou post) — provisional | `cnh-495` | `cnh-485`, `cnh-487`, `cnh-492` | — |
+| Marco Polo's travels and the doubt | the book dictated in a Genoese prison to Rustichello of Pisa (1298 – 1299), surviving in many differing manuscripts; the doubt that he reached China (the Great Wall, tea and footbinding unmentioned, his name absent from the Chinese record) and the replies (the salt, paper money and the Yangzhou post); some passages survive in one printed edition only (Ramusio's, as Yule notes for the ships' compartments, `cnh-438`) — provisional | `cnh-495` | `cnh-485`, `cnh-487`, `cnh-492` | — |
 | Kublai and Phagpa | the Tibetan tellings of Phagpa initiating Kublai and of the priest and patron, and the *Yuanshi*'s Imperial Preceptor who made the script decreed in 1269 — provisional | `cnh-497` | `cnh-485` | — |
 | The Romance of the Western Chamber | Zhang and Yingying's story from Yuan Zhen's Tang tale "Yingying zhuan" (where he leaves her), through the Jin *zhugongdiao* of Master Dong, to Wang Shifu's Yuan *zaju* (where they marry) — provisional | `cnh-499` | `cnh-498` | `cnh-393` (Yuan Zhen) |
 
@@ -470,7 +470,7 @@ otherwise.
 | B41 | Five Dynasties and Ten Kingdoms (`col-24`) | `cnh-401`–`cnh-410` | 10 | 102 | **done 2026-11-13** |
 | B42 | Liao (`col-25`) | `cnh-411`–`cnh-420` | 10 | 100 | **done 2026-11-13** |
 | B43 | Northern Song (`col-27`) | `cnh-421`–`cnh-430` | 10 | 102 | **done 2026-11-13** |
-| B44 | Northern Song (`col-27`) | `cnh-431`–`cnh-440` | 10 | 104 | to do |
+| B44 | Northern Song (`col-27`) | `cnh-431`–`cnh-440` | 10 | 104 | **done 2026-11-13** |
 | B45 | Northern Song (`col-27`) / Southern Song (`col-28`) | `cnh-441`–`cnh-450` | 10 | 100 | to do |
 | B46 | Southern Song (`col-28`) | `cnh-451`–`cnh-460` | 10 | 101 | to do |
 | B47 | Southern Song (`col-28`) / Western Xia (`col-29`) | `cnh-461`–`cnh-470` | 10 | 94 | to do |
@@ -999,6 +999,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-428` | as before | not re-checked (Commons rate-limited): the glossary's picture has burned-in text — replace |
 | `cnh-429` | as before | not re-checked (Commons rate-limited): ok |
 | `cnh-430` | as before | not re-checked (Commons rate-limited): ok |
+| `cnh-431` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-432` | none | not re-checked (Commons rate-limited): wanted — a portrait, or the jar scene |
+| `cnh-433` | none | not re-checked (Commons rate-limited): wanted — the surviving draft fragment |
+| `cnh-434` | none | not re-checked (Commons rate-limited): wanted — his calligraphy |
+| `cnh-435` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-436` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-437` | none | not re-checked (Commons rate-limited): wanted — an old view of Xuzhou |
+| `cnh-438` | none | not re-checked (Commons rate-limited): wanted — the Quanzhou ship's hull |
+| `cnh-439` | none | not re-checked (Commons rate-limited): wanted — a model of the clay type |
+| `cnh-440` | none | not re-checked (Commons rate-limited): wanted — a surviving juan |
 
 ## Glossary candidates
 
@@ -2935,3 +2945,39 @@ Guang confirmed for the *Songshi*'s verdict. **check-citations**: `cnh-428` repo
 `cnh-428`'s 1045 dates no page's demotion (Theobald's 1045 is the Jigu lu's start), its days and Mian Prefecture on none
 (Giles: Luling); `cnh-429`'s 1008 and 1053 on no page read (Giles puts the rising's end in 1052); `cnh-430`'s 1058 (Jia:
 1059), its days on none and "age 64" (the *Songshi*: 68 sui, itself at odds with 1021 – 1086).
+
+### B44 — `cnh-431`–`cnh-440`, Northern Song: the New Policies to the Kaibao Canon (2026-11-13)
+
+Run as B41. Every cited URL answered. **Pictures were not touched.** **The old cards cited the *Songshi* (two juan a card),
+Sima Guang's memorial, Shenzong's preface, the *Mengxi bitan*, Wang Zhen's *Nongshu*, the *Goryeosa* and the *Gujin tushu
+jicheng* on Chinese Wikisource, rested the New Policies on two dead Columbia PDFs, dated the New Policies' introduction by
+Wang Anshi's fall (1076), the Zizhi Tongjian by the span it covers, Xuzhou by a year on no page (573 BCE), and the
+watertight compartment by Xu Jing's voyage, whose book describes no such compartments; Bi Sheng was dated "in the 1040s".**
+The *Songshi* (juan 85, 181, 327, 336, 472), the Siku front matter of the *Zizhi Tongjian* and of the *Dongjing Meng Hua Lu*,
+the *Mengxi bitan* juan 18 and the *Fozu tongji* juan 43 were read on the Kanseki Repository.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-431` New Policies | 6 | 7 → 6 | **"Introduced 1069 – 1076" now `Introduced 1069` (Kojima 2016; 1076 was Wang Anshi's fall) / `Repealed 1085 – 1086` (Theobald's two pages differ, said so); the *Songshi* juan 327 for the Finance Planning Commission, the crop loans, the militia and the Annam proclamation; Shang and Huang 2018**; the dead Columbia PDFs and Cheng Hao's memorial (a third ancient text) dropped. |
+| `cnh-432` Sima Guang | 6 | 6 → 6 | **The *Songshi* juan 336; the jar told as the *Songshi*'s (Giles); "a mother changing her son's laws"; the Liao and Xia envoys; "Zuo zhuan" → *Zuo Zhuan***; the Chang'an stonemason (`cnh-434`'s ground) dropped. Protected: the line stays (flagged below). |
+| `cnh-433` Zizhi Tongjian | 7 | 7 → 6 | **"Covers 403 BCE – 959 CE" (not the work's own date) off: `Commissioned 1066` / `Named 1067` / `Completed 1084` / `First printed 1086`; the Siku front matter (the presenting memorial, the editors' summary) for three Wikisource texts; Strange and de Crespigny; the Kaoyi, the two rooms of draft, Luoyang**; Shenzong's "mirror" preface (on no page reached) dropped. |
+| `cnh-434` Cai Jing | 6 | 6 → 6 | **The *Songshi* juan 472; the five days to restore conscripted labour (Strange), the Yuanyou stele he wrote out himself, the fourth term half-blind, the six villains; the four masters told as Zhang Chou's claim (Theobald)**; the Chang'an stonemason (juan 336) dropped. Protected: the line stays (flagged below). |
+| `cnh-435` Dongjing Meng Hua Lu | 5 | 6 → 5 | **The line now `Preface 1147` only ("Describes 1103 – 1127" on no page read; the preface says Chongning guiwei); the Siku text of the preface for the Wikisource copies; Strassberg 1994 (open); the dream of Huaxu in the title, the Qing editors' praise**; the juan 2 details (the wine houses, the theatres) dropped with the second Chinese source. |
+| `cnh-436` jiaozi | 6 | 6 → 6 | **The *Songshi* juan 181 on Kanseki; von Glahn's chapter (the OUP host refuses) replaced by Horesh 2012 (open, CC BY); the sixteen houses, the capped issues, the qianyin; the line backed by Theobald and Vissering**; "from 1068" and "the 1070s" (conversions) dropped. |
+| `cnh-437` Xuzhou | 6 | 7 → 6 | **"Founding 573 BCE, first recorded as Pengcheng" off: `Royal capital 206 BCE` (Chavannes's *Shiji* [in French]) / `Iron memorial 1078` / `Coal found 1079` (Wagner's translations of Su Shi's memorial and poem); the 36 Liguo ironworks of "several hundred" men each (not "more than a hundred"); the First Emperor's tripod divers**; Wu Juhou's 1083 report (a second Chinese text and a conversion) and the 114,000 tonnes dropped. |
+| `cnh-438` watertight compartment | 7 | 7 → 8 | **All three phrasings new (Polo's thirteen compartments and the Quanzhou bulkheads are `cnh-819`'s clues): Franklin's 1785 letter, the bulkheads doing the work of ribs and keel, the Ramusio-only passage; `Wrecked c. 1277` / `Described 1298`; Nanhai I; Zhu Yu**; Xu Jing dropped (his book describes three holds, not watertight compartments). |
+| `cnh-439` Bi Sheng | 7 | 7 → 7 | **The *Mengxi bitan* juan 18 (the Sibu congkan text on Kanseki); Wang Zhen's 1314 review through Carter; the Qingli reign 1041 – 1048 (Theobald) carries the line's years; "in the 1040s" and "250 years later" (computed) dropped**; the Yingshan gravestone claim (no open page) left out. Protected: the line stays (flagged below). |
+| `cnh-440` Kaibao Canon | 5 | 5 → 5 | **Three Wikisource texts cut to Zhipan's *Fozu tongji* juan 43: Zhang Congxin sent to Yizhou, the blocks presented, Chōnen's request; Jiang Wu's 2019 abstract for 971 and the Jingzhong hypothesis; `Completed 983 CE` given its era**; 991 and 984 (no reachable source) dropped. |
+
+Read by eye. **Confusability**: the jar `cnh-432`'s; the Yuanyou stele `cnh-434`'s (the stonemason dropped from both); the
+Kaifeng memoir's details (the wine houses, the theatres) are out of `cnh-435` and the streets out of `cnh-425`; the
+crop loans and militia `cnh-431`'s, Wang Anshi's memorial `cnh-430`'s; the woodblock classics `cnh-409`'s and clay type
+`cnh-439`'s; `cnh-438` gave up two clues to `cnh-819` (a later deck, read and not edited). `cnh-437`'s `Q.sibling` against
+`cnh-083` is the word "tripod" only — a different subject. **Legend**: the jar (the *Songshi*), the four masters (Zhang
+Chou), the dream of Huaxu (the title's allusion) are each a text's. **Chinese names corrected**: none needed. **Spellings
+fixed**: `cnh-432`'s "Zuo zhuan". **Myth register**: Wang Anshi and Sima Guang confirmed again (the *Songshi* juan 327 quotes
+Zhu Xi); Marco Polo: the compartment passage is Ramusio's alone (Yule 1871) — added to the row. **check-citations**: no
+mismatch. **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-432`'s 17 November 1019, Guangshan and
+"11 October 1086 (age 66)" (the *Songshi* and Cordier: the ninth month, 68 sui), and "Chief minister 1086" (Yuanyou 1 on the
+page); `cnh-434`'s 1047 (Theobald 1047, Giles 1046); `cnh-439`'s 1051 rests on modern summaries only. `cnh-440`'s timeline (a
+text) was not set.

@@ -14176,7 +14176,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Dongjing_Meng_Hua_Lu": "1147",
 "Jiaozi_(currency)": "1023–1107",
 "Bi_Sheng": "11th century",
-"Kaibao_Canon": "971–983",
+"Kaibao_Canon": "971–983 CE",
 "Su_Shi": "1037–1101",
 "Zhu_Xi": "1130–1200",
 "Battle_of_Tangdao": "1161",

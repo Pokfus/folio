@@ -604,6 +604,13 @@ are not rows of this table.
 | Kaifeng the Song capital / the great flood | 960 CE – 1127 / 1642 | Tsui; Storozum et al. (`cnh-425`) |
 | the Qingli Reforms proposed / abandoned | 1043 / 1045 | Zhang; Cordier (`cnh-426`) |
 | the palace examination made regular / abolished | 973 CE / 1905 | the *Songshi*; Theobald (`cnh-427`) |
+| the New Policies introduced / repealed | 1069 / 1085 – 1086 | Kojima; Theobald (`cnh-431`) |
+| the Zizhi Tongjian commissioned / named / completed / first printed | 1066 / 1067 / 1084 / 1086 | the Siku front matter; Strange (`cnh-433`) |
+| the Dongjing Meng Hua Lu's preface | 1147 | `cnh-435` |
+| the jiaozi: the state issue / renamed qianyin | 1023 / 1105 – 1107 | the *Songshi*; Theobald (`cnh-436`) |
+| Xuzhou: Xiang Yu's capital / Su Shi's iron memorial / coal found | 206 BCE / 1078 / 1079 | Chavannes; Wagner (`cnh-437`) |
+| the Quanzhou ship wrecked / Polo's book dictated | c. 1277 / 1298 | `cnh-438` |
+| the Kaibao Canon ordered / completed | 971 CE / 983 CE | the *Fozu tongji*; Jiang Wu (`cnh-440`) |
 
 ## Later periods
 
@@ -1060,4 +1067,11 @@ cnh-421: 960; 1279; 1127
 cnh-425: 960; 1127; 1642
 cnh-426: 1043; 1045
 cnh-427: 973; 1905
+cnh-431: 1069; 1085; 1086
+cnh-433: 1066; 1067; 1084; 1086
+cnh-435: 1147
+cnh-436: 1023; 1105; 1107
+cnh-437: 206; 1078; 1079
+cnh-438: 1277; 1298
+cnh-440: 971; 983
 ```
