@@ -412,7 +412,7 @@ otherwise.
 | B31 | Western Jin (`col-18`) / Sixteen Kingdoms (`col-19`) | `cnh-301`–`cnh-310` | 10 | 83 | **done 2026-11-13** |
 | B32 | Sixteen Kingdoms (`col-19`) / Eastern Jin (`col-20`) | `cnh-311`–`cnh-320` | 10 | 79 | **done 2026-11-13** |
 | B33 | Eastern Jin (`col-20`) / Northern and Southern dynasties (`col-21`) | `cnh-321`–`cnh-330` | 10 | 105 | **done 2026-11-13** |
-| B34 | Northern and Southern dynasties (`col-21`) | `cnh-331`–`cnh-340` | 10 | 104 | to do |
+| B34 | Northern and Southern dynasties (`col-21`) | `cnh-331`–`cnh-340` | 10 | 104 | **done 2026-11-13** |
 | B35 | Northern and Southern dynasties (`col-21`) / Sui (`col-22`) | `cnh-341`–`cnh-350` | 10 | 104 | to do |
 | B36 | Sui (`col-22`) / Tang (`col-23`) | `cnh-351`–`cnh-360` | 10 | 113 | to do |
 | B37 | Tang (`col-23`) | `cnh-361`–`cnh-370` | 10 | 102 | to do |
@@ -851,6 +851,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-328` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 | `cnh-329` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 | `cnh-330` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-331` | none | not re-checked (Commons rate-limited): wanted — the Gaxian cave or Yungang |
+| `cnh-332` | none | not re-checked (Commons rate-limited): wanted — a Turfan or Dunhuang household register |
+| `cnh-333` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-334` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-335` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-336` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-337` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-338` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-339` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-340` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 
 ## Glossary candidates
 
@@ -2328,3 +2338,34 @@ unchanged** (diffed after the apply). For the owner: `cnh-321`'s 344 is on no pa
 reckoning; Kerlan-Stephens gives c. 345); `cnh-322`'s birth is 356 in Giles against Theobald's 363, the *Song shu* gives
 his age as 60 by the Chinese count against the line's 59, and Chittick puts the Guanzhong campaign in 417 – 418;
 `cnh-327`'s "12 June 549" is on no page read.
+
+### B34 — `cnh-331`–`cnh-340`, Northern and Southern dynasties: the Tuoba to the fubing (2026-11-13)
+
+Run as B31. Every cited URL answered. **Pictures were not touched**; none of the ten cards has a picture. **The old cards
+cited the *Wei shu*, *Zhou shu* and *New Book of Tang* on Chinese Wikisource and two Yungang and Longmen papers on
+mdpi.com (a barred host), named places in the Tuoba's labels ("At Shengle", "Northern Wei"), put prose in Pingcheng's line
+("made the Northern Wei capital"), read the equal-field system as equal land, told the Pingcheng card as the move to
+Luoyang (`cnh-333`'s), and carried figures no page gives ("254 caves", Ge Rong's "million", "2,000 officials", "about 630"
+garrisons).** The histories were read in the Siku text on the Kanseki Repository.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-331` Tuoba | 6 | 5 → 6 | **The place labels off: `New seat 258 CE` (the *Wei shu*'s own count, converted by Holmgren and Theobald) / `Ruling house 386 – 534 CE` / `Inscription 443 CE` / `Renamed 496 CE`; the Yellow Emperor descent Wei Shou's arrangement (Holmgren); the 443 Gaxian cave sacrifice (the *Wei shu* juan 108; the cave found 1980); Theophylact's Taugast (Yule, Cordier)**. |
+| `cnh-332` equal-field system | 7 | 5 → 7 | **Not equal land: "equal" the aim in theory; shares to persons, slaves and oxen; the grain land for life against the heritable mulberry plot; the village heads Li Chong's proposal of 486, kept apart from the 485 edict; the Turfan grave papers (Hansen and Rong) for the Tang system there in 640; Asakawa on Japan's copy**; the old "two shi" dropped (the Siku *Wei shu* prints one). |
+| `cnh-333` Emperor Xiaowen | 7 | 5 → 7 | **The *Wei shu* juan 7 (Kanseki): the armoured ride halted by kowtowing ministers, Empress Dowager Feng's cold room, the northern-speech edict and the Henan burials; Giles's "died after a crushing defeat" refused (the *Wei shu*: his army won)**. **Name 孝文帝 → 北魏孝文帝, Běi Wèi Xiàowéndì** (the bare title is also Emperor Wen of Han's). Protected: the line stays (flagged below). |
+| `cnh-334` Pingcheng | 6 | 5 → 7 | **`Capital 398 – 494 CE` for the prose value; the card made Pingcheng's own: Yilu's southern capital of 313 and "Lesser Pingcheng", the 398 founding (the *Wei shu* juan 2), the resettled farmers and craftsmen as the *Wei shu* counts them, the western-suburb sacrifice; "nearly one million" one study's figure**; the move to Luoyang left to `cnh-333`; the Mingtang (report unopened) not told. |
+| `cnh-335` Yungang Grottoes | 7 | 5 → 7 | **The *Wei shu* juan 114: the horse taking Tanyao's robe and his five caves; 460 – 524 as Heping 1 and Zhengguang 5 (two Europe PMC papers); the emperor-as-Buddha idea "one modern account holds"; Chavannes the one French source; Sirén and the Nelson-Atkins record**; "254 caves", the paint traces and the 1990s digs dropped. |
+| `cnh-336` Longmen Grottoes | 7 | 6 → 7 | **The caves moved lower down the cliff, the empress relief sold in fragments (the Nelson-Atkins record: Binyang finished 523), the prince of Anding's inscription; the colossal Buddha "late 7th century" (Sirén 673 – 676 against `cnh-371`'s 675); the glossary's three caves begun in 500 corrected to two**; the Guyang cave (its source on mdpi.com) dropped. |
+| `cnh-337` Six Garrisons | 6 | 5 → 6 | **The *Wei shu* annals of Emperor Xiaoming: the Woye rising of 524 and the edict admitting the rewards unpaid; Holmgren 1979 (the law of 519, the Rouran raid of 523, Heyin and no proof of the empress dowager's guilt); Dien on the Yuwen at Wuchuan**; Ge Rong's "million" and the "2,000" officials dropped; the line kept (no page gives a founding year). |
+| `cnh-338` Eastern Wei | 6 | 5 → 6 | **The *Wei shu* annals of Emperor Xiaojing: the eleven-year-old, the move to Ye, the stone classics, Gao Cheng's three punches, the poisoning of 551, the Qing editors' note that the juan was restored; Giles's "Kai-feng" and Theobald's misprinted 543 not used**; Cordier's "52 tablets" dropped. |
+| `cnh-339` Northern Zhou | 7 | 5 → 7 | **The *Zhou shu* juan 6 (Kanseki): Ye stormed, 3,302,528 households and 55 provinces, the enslaved freed; Yuwen Hu (no relation named: Cordier calls him Yuwen Tai's brother), the 574 ban; Shi Jun's Chinese–Sogdian epitaph (Tan et al.; Sims-Williams); Cordier for 568, 576, 578, 579**; the equal-field allotments left to `cnh-332`. |
+| `cnh-340` fubing | 6 | 5 → 6 | **The *New Book of Tang* juan 50: service from 20 to 60 with one's own weapons and grain, the tally, the decline ("attendant officials" become an insult), 120,000 long-serving guards against Chen's 130,000 in ten days; the Sui's move of the soldiers to the farmers' registers (590) corrected in the glossary**; Chen's "first time soldiers were separated from farmers" and the unsourced "about 630" dropped; the end (Tianbao 8) left unconverted. |
+
+Read by eye. **Confusability**: Gao Huan appears on `cnh-337` (risen from the garrisons) and `cnh-338` (ruling from
+Jinyang), each from its own side; the Luoyang move stays `cnh-333`'s; the 446 persecution `cnh-895`'s. **Legend**: the
+Tuoba's Yellow Emperor descent is now Wei Shou's arrangement; Tanyao's robe the *Wei shu*'s. **Chinese names corrected**:
+`cnh-333` 北魏孝文帝 (pinyin Běi Wèi Xiàowéndì, the Han pattern of 汉光武帝). **Spellings fixed**: none needed; 0 hits.
+**Myth register**: no row touched. **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-333`'s
+days and months are on no page read; the line's "(age 31)" is the *Wei shu*'s 33 by the Chinese count (the background
+says so). `cnh-334`'s locator is labelled Datong (the site lies beneath it; the label should say Pingcheng); `cnh-337`'s
+point is Wuyuan, one of the six garrisons only; `cnh-340` (an institution) carries a Xi'an point it need not.

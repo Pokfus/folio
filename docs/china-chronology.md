@@ -516,6 +516,15 @@ only; ages, days and months left out), and are not rows of this table.
 | the Hou Jing rebellion: Jiankang fell / the Han title | 549 CE / 551 CE | Giles; Theobald (`cnh-328`) |
 | the Chen / its founder's death | 557 – 589 CE / 559 CE | `cnh-329` |
 | the Northern Wei / the north united | 386 – 534 CE / 439 CE | `cnh-330` |
+| the Tuoba: the new seat at Shengle (the *Wei shu*'s count) / the Northern Wei house / the Gaxian inscription / renamed Yuan | 258 CE / 386 – 534 CE / 443 CE / 496 CE | Holmgren; Theobald (`cnh-331`) |
+| the equal-field system decreed / abandoned | 485 CE / 780 CE | `cnh-332` |
+| Pingcheng the capital | 398 – 494 CE | the *Wei shu* (`cnh-334`) |
+| the Yungang caves carved | c. 460 – 524 CE | `cnh-335` |
+| Longmen: begun / the imperial caves | c. 494 CE / 500 – 523 CE | Chavannes; the Nelson-Atkins (`cnh-336`) |
+| the Six Garrisons revolt | 523 – 529 CE | `cnh-337` |
+| the Eastern Wei | 534 – 550 CE | `cnh-338` |
+| the Northern Zhou / the conquest of the Qi | 557 – 581 CE / 577 CE | `cnh-339` |
+| the fubing: the six armies / hired guards | 542 CE / 722 CE | `cnh-340` |
 
 ## Later periods
 
@@ -873,4 +882,13 @@ cnh-326: 502; 557; 548; 552
 cnh-328: 548; 552; 549; 551
 cnh-329: 557; 589; 559
 cnh-330: 386; 534; 439
+cnh-331: 258; 386; 534; 443; 496
+cnh-332: 485; 780
+cnh-334: 398; 494
+cnh-335: 460; 524
+cnh-336: 494; 500; 523
+cnh-337: 523; 529
+cnh-338: 534; 550
+cnh-339: 557; 581; 577
+cnh-340: 542; 722
 ```

@@ -19379,10 +19379,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Wilmington_(Delaware)": ["Wilmington","Wilmington, Delaware"],
 "Anchorage_(Alaska)": ["Anchorage, Alaska"],
 "Burlington_(Vermont)": ["Burlington, Vermont","Burlington, VT"],
-"Emperor_Xiaowen_of_Northern_Wei": ["Emperor Xiaowen","Yuan Hong"],
+"Emperor_Xiaowen_of_Northern_Wei": ["Emperor Xiaowen","Yuan Hong","Tuoba Hong","Xiaowendi","Hsiao-wen"],
 "Equal-field_system": ["juntian system"],
-"Fubing_system": ["fubing","garrison militia"],
-"Six_Garrisons": ["Six Frontier Towns"],
+"Fubing_system": ["fubing","garrison militia","fu-ping","fubing system"],
+"Six_Garrisons": ["Six Frontier Towns","Liu Chen","Liuzhen"],
 "Tuoba": ["Taghbach","Tabgach"],
 "Julian_(emperor)": ["Julian the Apostate"],
 "Julian's_School_Edict": ["School Edict"],
@@ -23877,7 +23877,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Eastern_Jin": ["Tung Chin","Dong Jin"],
 "Zu_Ti": ["Tsu T'i"],
 "Wang_Xizhi": ["Wang Hsi-chih"],
-"Chen_dynasty": ["Ch'en dynasty","Chen chao"]
+"Chen_dynasty": ["Ch'en dynasty","Chen chao"],
+"Pingcheng": ["P'ing-ch'eng"],
+"Yungang_Grottoes": ["Yun-kang","Yun Gang","Yungang Caves"],
+"Longmen_Grottoes": ["Lung-men","Long Men","Longmen Caves"],
+"Eastern_Wei": ["Dongwei","Tung Wei"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
