@@ -70,7 +70,7 @@ window.CHANGELOG = [
       "The Battle of Stalingrad card now gives one casualty figure, the official Soviet count, in its date line and background.",
       "Names beginning with Saint are written in full everywhere, Saint Petersburg and Saint Louis included, on the Atlas's labels too.",
       "<i>Genghis Khan</i> is now spelled one way across every card and glossary entry.",
-      "11 cards in the United States and Russia gain glossary links, with 102 new glossary terms.",
+      "11 cards in the United States and Russia gain glossary links, with 70 new glossary terms.",
       "George Washington's card says more about his war and his presidency, and its atlas window shows the United States of 1796.",
       "New atlas windows for Saint Petersburg, Kyiv, Jamestown and Ivan the Terrible's realm; Moscow's label is now plain Moscow.",
       "Lowercase <i>overlords</i> no longer links to Operation Overlord.",
