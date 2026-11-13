@@ -11449,7 +11449,27 @@ window.GLOSSARY = {
 "Titus_Pomponius_Atticus": "",
 "Vallum": "",
 "Wallsend": "",
-"War_of_Actium": ""
+"War_of_Actium": "",
+"Arrian": "",
+"Chrysaor": "",
+"Creon": "",
+"Epithet": "",
+"Eteocles": "",
+"Eurydice_(wife_of_Creon)": "",
+"Feminism": "",
+"Gorgons": "",
+"Gymnasium_(ancient_Greece)": "",
+"Haemon": "",
+"Ion_of_Chios": "",
+"Lapiths": "",
+"Louvre": "",
+"Pantheon_(religion)": "",
+"Polynices": "",
+"Stheno_and_Euryale": "",
+"Temple_C_(Selinus)": "",
+"Thebes,_Greece": "",
+"Tiresias": "",
+"Troezen": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -16978,7 +16998,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Amyntas_of_Galatia": "d. 25 BCE",
 "Aulus_Platorius_Nepos": "fl. 119–c. 126 CE",
 "Titus_Pomponius_Atticus": "110–32 BCE",
-"War_of_Actium": "32–30 BCE"
+"War_of_Actium": "32–30 BCE",
+"Arrian": "c. 87 – after 145 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -17599,7 +17620,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Spartan_burial_custom": ["Spartan burial"],
 "Spartan_divination": ["diabateria","Pythioi"],
 "Synoecism_of_Attica": ["Attic synoecism"],
-"Archon": ["eponymous archon","nine archons"],
+"Archon": ["eponymous archon","nine archons","archonship"],
 "Areopagus": ["Council of the Areopagus","Areopagite","Hill of Ares"],
 "Eupatridae": ["Eupatridai","Eupatrid"],
 "Cylon": ["Kylon"],
@@ -17642,7 +17663,6 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Chania": ["Kydonia","Khania"],
 "Cyclades": ["Cycladic"],
 "Anatolia": ["Anatolian","Asia Minor"],
-"Mycenaean_Thebes": ["Thebes"],
 "Rome": [],
 "Boeotia": ["Boeotian","Boiotia"],
 "Peloponnese": ["Peloponnesus","Peloponnesian"],
@@ -24364,11 +24384,23 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Autocracy": ["autocrat","autocratic"],
 "Bacoli": ["Bauli"],
 "Titus_Pomponius_Atticus": ["Pomponius Atticus"],
-"War_of_Actium": ["Actian War","Final war of the Roman Republic"]
+"War_of_Actium": ["Actian War","Final war of the Roman Republic"],
+"Epithet": ["epithets"],
+"Feminism": ["feminists"],
+"Gorgons": ["Gorgon"],
+"Gymnasium_(ancient_Greece)": ["gymnasia"],
+"Lapiths": ["Lapith","Lapithae"],
+"Louvre": ["Louvre Museum","Musée du Louvre"],
+"Pantheon_(religion)": ["pantheon"],
+"Polynices": ["Polyneices"],
+"Stheno_and_Euryale": ["Stheno","Sthenno"],
+"Tiresias": ["Teiresias"],
+"Troezen": ["Troizen"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
+"Amazon_River": true,
 "Christianity": true,
 "Earth": true,
 "Reconstruction_era": true,
@@ -24558,7 +24590,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "War_communism": true,
 "Red_Terror": true,
 "Paganism": true,
-"Vallum": true
+"Vallum": true,
+"Pantheon_(religion)": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -36011,7 +36044,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Titus_Pomponius_Atticus": ["person","literature","politics","rome"],
 "Vallum": ["building","military","archaeology","britain","rome"],
 "Wallsend": ["place","town","england","britain","rome"],
-"War_of_Actium": ["war","event","politics","rome","egypt"]
+"War_of_Actium": ["war","event","politics","rome","egypt"],
+"Arrian": ["person","history","literature","rome","greece"],
+"Chrysaor": ["creature","mythology","greece","art"],
+"Creon": ["ruler","mythology","greece","literature","thebes"],
+"Epithet": ["concept","language","literature","religion"],
+"Eteocles": ["person","mythology","greece","literature","thebes"],
+"Eurydice_(wife_of_Creon)": ["person","mythology","greece","literature","thebes"],
+"Feminism": ["concept","politics","philosophy","women","gender"],
+"Gorgons": ["creature","mythology","greece","art"],
+"Gymnasium_(ancient_Greece)": ["building","sport","education","greece"],
+"Haemon": ["person","mythology","greece","literature","thebes"],
+"Ion_of_Chios": ["person","literature","greece","classical"],
+"Lapiths": ["people","mythology","greece","art"],
+"Louvre": ["building","art","museum","france","paris"],
+"Pantheon_(religion)": ["concept","religion","mythology","greece"],
+"Polynices": ["person","mythology","greece","literature","thebes"],
+"Stheno_and_Euryale": ["creature","mythology","greece","literature"],
+"Temple_C_(Selinus)": ["building","architecture","art","greece","sicily"],
+"Thebes,_Greece": ["city","history","greece","boeotia"],
+"Tiresias": ["person","mythology","greece","literature","thebes"],
+"Troezen": ["city","history","greece","geography"]
 });
 
 /* ============================================================================
