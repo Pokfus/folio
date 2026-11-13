@@ -1473,6 +1473,67 @@ reverted per the standing order, keeping only the new cards' derived Port Arthur
 `card-places.js` and `glossary-places.js` rebuilt with `--install`. `check-places.js` still fails one
 check (history.bin/`wars.js` in step) exactly as on the base commit.
 
+### What carried this batch — `ru-501` to `ru-600`
+
+A hundred cards in one session (2026-11-13): the rest of `ru-late-empire`, all of `ru-last-years` and
+`ru-revolution`, and the first fifteen of `ru-civil-war`, written as before by ten parallel passes of ten,
+each checked by a dry-run validator (`add-card.js --dry-run`, `add-glossary.js` in a sandbox copy, and a
+clash check against every answer, glossary key and alias in every collection and against the other passes)
+and imported serially. **Every line's SUBJECT stands, so the list below is unchanged**; where the answer
+term is not the line's own words it is recorded here (the `ru-096` rule):
+
+| line | answer term | line | answer term |
+|---|---|---|---|
+| ru-501 | Emancipation of Labour | ru-504 | Mensheviks |
+| ru-508 | Kadets | ru-510 | May Laws |
+| ru-516 | Saint Petersburg Soviet | ru-520 | Vyborg Manifesto |
+| ru-526 | Dmitry Bogrov | ru-528 | Beilis affair |
+| ru-530 | Alexei Nikolaevich | ru-531 | Period Preparatory to War |
+| ru-532 | Russian general mobilisation | ru-535 | Battle of Galicia |
+| ru-537 | Mogilev | ru-539 | War Industries Committees |
+| ru-540 | Russian prisoners of war | ru-542 | Zemgor |
+| ru-543 | Felix Yusupov | ru-545 | Volynsky Regiment |
+| ru-547 | Grand Duke Michael Alexandrovich | ru-548 | ministerial leapfrog |
+| ru-554 | sealed train | ru-559 | Kerensky offensive |
+| ru-561 | State and Revolution | ru-564 | Moscow Soviet |
+| ru-565 | Petrograd Red Guard | ru-569 | cruiser Aurora |
+| ru-576 | Russian Constituent Assembly election | ru-577 | Russian Constituent Assembly |
+| ru-578 | Supreme Council of the National Economy | ru-579 | Decree on Separation of Church and State |
+| ru-582 | Kremlin Senate | ru-583 | Ipatiev House |
+| ru-584 | Communist International | ru-585 | uneven and combined development |
+| ru-588 | military specialists | ru-595 | Green armies |
+| ru-600 | Atamanshchina | | |
+
+**THREE ANSWERS ARE DELIBERATELY SHARED**, as `ru-436` shares the Crimean War with `wh-809`: `ru-505`
+*Vladimir Lenin* with `wh-897`, `ru-586` *Russian Civil War* with `wh-899` and `ru-587` *Red Army* with
+`ww2-267` — the Russian-side card beside the survey or the war card; their glossary terms already existed,
+so 97 terms are new. **THE CLASHES STEERED**: *Bolsheviks* (`wh-898`), *July Crisis* (`wh-874`), *Red Guards*
+(`cnh-671`, whose glossary key is the Chinese term), *White Terror* (`cnh-694`, `pea-137`), *Winter Palace*
+(`ru-333`), *Stavka* (`ww2-285`), *Pskov* (`gru-566`), *Great Retreat* (`cnh-627`), *Nicholas II* (`ru-498`)
+and *Grigori Rasputin* (`ru-529`, kept for its own line). `ru-542` answers Zemgor because the Central Asian
+revolt of 1916 is `ru-815`'s; `ru-600` answers *Atamanshchina* and says the word was also used of Red and
+Green warlords.
+
+**NON-ARTICLE GLOSSARY KEYS**: `October_general_strike`, `Period_Preparatory_to_War`,
+`Russian_general_mobilisation_of_1914`, `Russian_prisoners_of_war_in_World_War_I`, `Ministerial_leapfrog`,
+`First_coalition_government`, `First_All-Russian_Congress_of_Soviets`, `Petrograd_Red_Guard` and
+`Military_specialists`; `Potemkin_mutiny`, `Third_Duma`, `Stolypin's_necktie` and `Moscow_Soviet` are
+redirects. Nine Wikipedia links were marked CHECK by the resolver and all point at the right article
+(`ru-525`'s is the Stolypin article its redirect lands on); none was set by hand.
+
+**DATES**: 17 person and 6 battle/war templates from the passes' sidecars; every 1917 date gives both
+calendars, everything after February 1918 is New Style, and each card's `notes` record the choice and
+every disagreement between sources (Bloody Sunday's toll, the Cheka's 6,300 against Melgunov's 50,000,
+Makhno's birth year). `ru-586` carries no casualty row because the open range spans 1914–1922. **Russian
+names** for all hundred are in `.claude/russia-names.json`; ru-531, 532, 540, 548, 557, 565 and 585 are
+renderings, the rest Russian Wikipedia titles. Nine questions were reworded after import (five opened on a
+pronoun only the answer resolves, three named an eyewitness the scholar rule reads as a scholar, one opened
+on a number word).
+
+**`migrate-places.js` RUN OFFLINE AGAIN**: it changed only the new cards' places (Omsk, Chelyabinsk,
+Arkhangelsk) and drifted the report and indexes, reverted per the standing order before
+`card-places.js` and `glossary-places.js` were rebuilt with `--install`; `check-places.js` passes 31 of 31.
+
 ---
 
 # The list
