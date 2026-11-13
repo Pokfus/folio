@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"128718d2f898a5aa","counts":{"terms":941,"points":704,"countries":237,"windows":1569,"faces":372,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"516f4d671ade9913","counts":{"terms":942,"points":705,"countries":237,"windows":1570,"faces":372,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -152,6 +152,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"128718d2f898a5aa","counts":
 "Central_African_Republic":"adm0:caf",
 "Chaco_Canyon":"pl:q49786970",
 "Chad":"adm0:tcd",
+"Chalcedon":"pl:q337381",
 "Chalcis":"pl:q200133",
 "Chang'an":"pl:q6501000",
 "Chauvet_Cave":"pl:q374096",
@@ -185,6 +186,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"128718d2f898a5aa","counts":
 "Cuba":"adm0:cub",
 "Cumae":"pl:q243456",
 "Curaçao":"adm0:cuw",
+"Curia_Julia":"pl:q1144514",
 "Cusco":"city:1159150611",
 "Cyclades":"reg:1159102965",
 "Cyprus":"adm0:cyp",
@@ -817,7 +819,6 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"128718d2f898a5aa","counts":
 "Telesterion":"pl:q1819712",
 "Tell_el-Farkha":"pl:q135678492",
 "Tell_es-Sakan":"pl:q7697545",
-"Tell_es-Sultan":"pl:q2402267",
 "Temple_of_Apollo_Palatinus":"pl:q1236860",
 "Temple_of_Athena_Nike":"pl:q384813",
 "Temple_of_Castor_and_Pollux":"pl:q380530",
@@ -1182,6 +1183,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"128718d2f898a5aa","counts":
 "Central_Siberian_Plateau":[103,64,"coord",0,0,0],
 "Chaco_Canyon":[-107.967,36.06,"region",0,0,0],
 "Chad":[18.65,15.14,"country","adm0:tcd",0,4.29],
+"Chalcedon":[29.033,40.983,"site",0,0,0],
 "Chalcis":[23.595,38.463,"city",0,0,0],
 "Chang'an":[108.858,34.308,"site",0,0,0],
 "Changi_Prison":[103.974,1.357,"coord",0,0,0],
@@ -1242,6 +1244,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"128718d2f898a5aa","counts":
 "Cuba":[-77.98,21.33,"country","adm0:cub",0,6.81],
 "Cumae":[14.054,40.849,"site",0,0,0],
 "Curaçao":[-68.92,12.15,"country","adm0:cuw",0,40],
+"Curia_Julia":[12.485,41.893,"site",0,0,0],
 "Curonian_Spit":[20.971,55.274,"coord",0,0,0],
 "Curzon_Line":[23.657,52.135,"coord",0,0,0],
 "Cusae":[30.817,27.444,"coord",0,0,0],
@@ -2292,7 +2295,6 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"128718d2f898a5aa","counts":
 "Tell_el-Farkha":[31.602,30.875,"site",0,0,0],
 "Tell_el-Maskhuta":[32.099,30.552,"coord",0,0,0],
 "Tell_es-Sakan":[34.405,31.476,"site",0,0,0],
-"Tell_es-Sultan":[35.445,31.872,"site",0,0,0],
 "Temple_of_Agriculture":[116.386,39.877,"coord",0,0,0],
 "Temple_of_Amada":[32.263,22.731,"coord",0,0,0],
 "Temple_of_Amenhotep_IV":[32.658,25.718,"coord",0,0,0],
