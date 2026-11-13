@@ -1,16 +1,16 @@
 {
- "generated": "2026-11-12T23:45Z",
+ "generated": "2026-11-13T01:39Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8192,
-  "redirect-broader": 785,
-  "redirect-variant": 486,
-  "section-redirect": 188,
+  "ok": 8264,
+  "redirect-broader": 793,
+  "redirect-variant": 491,
+  "section-redirect": 190,
   "disambiguation": 154,
-  "none": 1171,
+  "none": 1183,
   "disambig-resolved": 109,
   "list-page": 6,
-  "search-match": 9,
+  "search-match": 10,
   "no-article": 20
  },
  "cards": {
@@ -88387,6 +88387,807 @@
    "answer": "September 11 attacks",
    "title": "September 11 attacks",
    "url": "https://en.wikipedia.org/wiki/September_11_attacks",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-501": {
+   "answer": "Emancipation of Labour",
+   "title": "Emancipation of Labour",
+   "url": "https://en.wikipedia.org/wiki/Emancipation_of_Labour",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-502": {
+   "answer": "Georgi Plekhanov",
+   "title": "Georgi Plekhanov",
+   "url": "https://en.wikipedia.org/wiki/Georgi_Plekhanov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-503": {
+   "answer": "Russian Social Democratic Labour Party",
+   "title": "Russian Social Democratic Labour Party",
+   "url": "https://en.wikipedia.org/wiki/Russian_Social_Democratic_Labour_Party",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-504": {
+   "answer": "Mensheviks",
+   "title": "Mensheviks",
+   "url": "https://en.wikipedia.org/wiki/Mensheviks",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-505": {
+   "answer": "Vladimir Lenin",
+   "title": "Vladimir Lenin",
+   "url": "https://en.wikipedia.org/wiki/Vladimir_Lenin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-506": {
+   "answer": "What Is to Be Done?",
+   "title": "What Is to Be Done?",
+   "url": "https://en.wikipedia.org/wiki/What_Is_to_Be_Done%3F",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-507": {
+   "answer": "Socialist Revolutionary Party",
+   "title": "Socialist Revolutionary Party",
+   "url": "https://en.wikipedia.org/wiki/Socialist_Revolutionary_Party",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-508": {
+   "answer": "Kadets",
+   "title": "Constitutional Democratic Party",
+   "url": "https://en.wikipedia.org/wiki/Constitutional_Democratic_Party",
+   "via": "variant",
+   "status": "redirect-broader",
+   "from": "Kadet"
+  },
+  "ru-509": {
+   "answer": "Union of the Russian People",
+   "title": "Union of the Russian People",
+   "url": "https://en.wikipedia.org/wiki/Union_of_the_Russian_People",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-510": {
+   "answer": "May Laws",
+   "title": "May Laws",
+   "url": "https://en.wikipedia.org/wiki/May_Laws",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-511": {
+   "answer": "Russian Revolution of 1905",
+   "title": "Russian Revolution of 1905",
+   "url": "https://en.wikipedia.org/wiki/Russian_Revolution_of_1905",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-512": {
+   "answer": "Bloody Sunday",
+   "title": "Bloody Sunday (1905)",
+   "url": "https://en.wikipedia.org/wiki/Bloody_Sunday_(1905)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-513": {
+   "answer": "Georgy Gapon",
+   "title": "Georgy Gapon",
+   "url": "https://en.wikipedia.org/wiki/Georgy_Gapon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-514": {
+   "answer": "Potemkin mutiny",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Potemkin mutiny",
+   "target": "Russian battleship Potemkin#Mutiny"
+  },
+  "ru-515": {
+   "answer": "October general strike",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russian strikes against Ukrainian infrastructure",
+    "Deep strike campaign",
+    "Russian attacks on civilians in the Russo-Ukrainian war (2022–present)",
+    "Seattle General Strike",
+    "Winnipeg general strike"
+   ]
+  },
+  "ru-516": {
+   "answer": "Saint Petersburg Soviet",
+   "title": "Saint Petersburg Soviet",
+   "url": "https://en.wikipedia.org/wiki/Saint_Petersburg_Soviet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-517": {
+   "answer": "October Manifesto",
+   "title": "October Manifesto",
+   "url": "https://en.wikipedia.org/wiki/October_Manifesto",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-518": {
+   "answer": "Fundamental Laws of 1906",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russian Constitution of 1906",
+    "Fundamental law",
+    "Persian Constitution of 1906",
+    "Russia",
+    "Emperor of Russia"
+   ]
+  },
+  "ru-519": {
+   "answer": "State Duma",
+   "title": "State Duma (Russian Empire)",
+   "url": "https://en.wikipedia.org/wiki/State_Duma_(Russian_Empire)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-520": {
+   "answer": "Vyborg Manifesto",
+   "title": "Vyborg Manifesto",
+   "url": "https://en.wikipedia.org/wiki/Vyborg_Manifesto",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-521": {
+   "answer": "coup of June 1907",
+   "title": "Coup of June 1907",
+   "url": "https://en.wikipedia.org/wiki/Coup_of_June_1907",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-522": {
+   "answer": "Third Duma",
+   "title": "October 1907 Russian legislative election",
+   "url": "https://en.wikipedia.org/wiki/October_1907_Russian_legislative_election",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Third Duma"
+  },
+  "ru-523": {
+   "answer": "Pyotr Stolypin",
+   "title": "Pyotr Stolypin",
+   "url": "https://en.wikipedia.org/wiki/Pyotr_Stolypin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-524": {
+   "answer": "Stolypin agrarian reform",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Stolypin reform",
+    "Pyotr Stolypin",
+    "Nicholas II",
+    "Land reform",
+    "Agrarian socialism"
+   ]
+  },
+  "ru-525": {
+   "answer": "Stolypin's necktie",
+   "title": "Pyotr Stolypin",
+   "url": "https://en.wikipedia.org/wiki/Pyotr_Stolypin",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Stolypin's necktie"
+  },
+  "ru-526": {
+   "answer": "Dmitry Bogrov",
+   "title": "Dmitrii Bogrov",
+   "url": "https://en.wikipedia.org/wiki/Dmitrii_Bogrov",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Dmitry Bogrov"
+  },
+  "ru-527": {
+   "answer": "Lena massacre",
+   "title": "Lena massacre",
+   "url": "https://en.wikipedia.org/wiki/Lena_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-528": {
+   "answer": "Beilis affair",
+   "title": "Beilis affair",
+   "url": "https://en.wikipedia.org/wiki/Beilis_affair",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-529": {
+   "answer": "Grigori Rasputin",
+   "title": "Grigori Rasputin",
+   "url": "https://en.wikipedia.org/wiki/Grigori_Rasputin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-530": {
+   "answer": "Alexei Nikolaevich",
+   "title": "Alexei Nikolaevich, Tsarevich of Russia",
+   "url": "https://en.wikipedia.org/wiki/Alexei_Nikolaevich,_Tsarevich_of_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-531": {
+   "answer": "Period Preparatory to War",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Tokyo Shinbu Gakko",
+    "Franco-Russian Alliance",
+    "Emperor-system fascism",
+    "Iran–Russia relations",
+    "International reaction to the Russo-Georgian War"
+   ]
+  },
+  "ru-532": {
+   "answer": "Russian general mobilisation",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "2022 Russian mobilization",
+    "Russian Armed Forces",
+    "Russo-Ukrainian war",
+    "2022 Russian invasion of Ukraine",
+    "2026 Penza Oblast mobilisation"
+   ]
+  },
+  "ru-533": {
+   "answer": "Battle of Tannenberg",
+   "title": "Battle of Tannenberg",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Tannenberg",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-534": {
+   "answer": "First Battle of the Masurian Lakes",
+   "title": "First Battle of the Masurian Lakes",
+   "url": "https://en.wikipedia.org/wiki/First_Battle_of_the_Masurian_Lakes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-535": {
+   "answer": "Battle of Galicia",
+   "title": "Battle of Galicia",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Galicia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-536": {
+   "answer": "Great Retreat of 1915",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Great Retreat (Russia)",
+    "Great Retreat (disambiguation)",
+    "Great Retreat (Serbia)",
+    "Great Retreat",
+    "Aleksei Brusilov"
+   ]
+  },
+  "ru-537": {
+   "answer": "Mogilev",
+   "title": "Mogilev",
+   "url": "https://en.wikipedia.org/wiki/Mogilev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-538": {
+   "answer": "Brusilov offensive",
+   "title": "Brusilov offensive",
+   "url": "https://en.wikipedia.org/wiki/Brusilov_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-539": {
+   "answer": "War Industries Committees",
+   "title": "War Industry Committee",
+   "url": "https://en.wikipedia.org/wiki/War_Industry_Committee",
+   "via": "search",
+   "status": "search-match"
+  },
+  "ru-540": {
+   "answer": "Russian prisoners of war",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Russo-Ukrainian war",
+    "Russian Civil War",
+    "Russian war crimes",
+    "2024 Ankara prisoner exchange",
+    "Russo-Ukrainian war (2022–present)"
+   ]
+  },
+  "ru-541": {
+   "answer": "Progressive Bloc",
+   "title": "Progressive Bloc (Russia)",
+   "url": "https://en.wikipedia.org/wiki/Progressive_Bloc_(Russia)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-542": {
+   "answer": "Zemgor",
+   "title": "Zemgor",
+   "url": "https://en.wikipedia.org/wiki/Zemgor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-543": {
+   "answer": "Felix Yusupov",
+   "title": "Felix Yusupov",
+   "url": "https://en.wikipedia.org/wiki/Felix_Yusupov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-544": {
+   "answer": "February Revolution",
+   "title": "February Revolution",
+   "url": "https://en.wikipedia.org/wiki/February_Revolution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-545": {
+   "answer": "Volynsky Regiment",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Artemy Volynsky",
+    "Bobrok",
+    "Russia in World War I",
+    "Zviahel",
+    "Finnish Dragoon Regiment"
+   ]
+  },
+  "ru-546": {
+   "answer": "abdication of Nicholas II",
+   "title": "Abdication of Nicholas II",
+   "url": "https://en.wikipedia.org/wiki/Abdication_of_Nicholas_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-547": {
+   "answer": "Grand Duke Michael Alexandrovich",
+   "title": "Grand Duke Michael Alexandrovich of Russia",
+   "url": "https://en.wikipedia.org/wiki/Grand_Duke_Michael_Alexandrovich_of_Russia",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Grand Duke Michael Alexandrovich"
+  },
+  "ru-548": {
+   "answer": "ministerial leapfrog",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "State Duma (Russian Empire)",
+    "February Revolution",
+    "Alexander Trepov",
+    "Oleg Deripaska",
+    "Electric car use by country"
+   ]
+  },
+  "ru-549": {
+   "answer": "Russian Provisional Government",
+   "title": "Russian Provisional Government",
+   "url": "https://en.wikipedia.org/wiki/Russian_Provisional_Government",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-550": {
+   "answer": "Dual power",
+   "title": "Dual power",
+   "url": "https://en.wikipedia.org/wiki/Dual_power",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-551": {
+   "answer": "Order No. 1",
+   "title": "Petrograd Soviet Order No. 1",
+   "url": "https://en.wikipedia.org/wiki/Petrograd_Soviet_Order_No._1",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Order No. 1"
+  },
+  "ru-552": {
+   "answer": "Petrograd Soviet",
+   "title": "Petrograd Soviet",
+   "url": "https://en.wikipedia.org/wiki/Petrograd_Soviet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-553": {
+   "answer": "Alexander Kerensky",
+   "title": "Alexander Kerensky",
+   "url": "https://en.wikipedia.org/wiki/Alexander_Kerensky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-554": {
+   "answer": "sealed train",
+   "title": "Sealed train",
+   "url": "https://en.wikipedia.org/wiki/Sealed_train",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-555": {
+   "answer": "April Theses",
+   "title": "April Theses",
+   "url": "https://en.wikipedia.org/wiki/April_Theses",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-556": {
+   "answer": "April Crisis",
+   "title": "April Crisis",
+   "url": "https://en.wikipedia.org/wiki/April_Crisis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-557": {
+   "answer": "first coalition government",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sixth National Government of New Zealand",
+    "List of countries with coalition governments",
+    "War of the First Coalition",
+    "15 October Coalition",
+    "Russia–Syria–Iran–Iraq coalition"
+   ]
+  },
+  "ru-558": {
+   "answer": "First All-Russian Congress of Soviets",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "All-Russian Congress of Soviets",
+    "Second All-Russian Congress of Soviets of Workers' and Soldiers' Deputies",
+    "First All-Russian Congress of Soviets of Workers' and Soldiers' Deputies",
+    "All-Russian Central Executive Committee",
+    "Supreme Soviet of Russia"
+   ]
+  },
+  "ru-559": {
+   "answer": "Kerensky offensive",
+   "title": "Kerensky offensive",
+   "url": "https://en.wikipedia.org/wiki/Kerensky_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-560": {
+   "answer": "July Days",
+   "title": "July Days",
+   "url": "https://en.wikipedia.org/wiki/July_Days",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-561": {
+   "answer": "State and Revolution",
+   "title": "The State and Revolution",
+   "url": "https://en.wikipedia.org/wiki/The_State_and_Revolution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-562": {
+   "answer": "Kornilov affair",
+   "title": "Kornilov affair",
+   "url": "https://en.wikipedia.org/wiki/Kornilov_affair",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-563": {
+   "answer": "Lavr Kornilov",
+   "title": "Lavr Kornilov",
+   "url": "https://en.wikipedia.org/wiki/Lavr_Kornilov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-564": {
+   "answer": "Moscow Soviet",
+   "title": "Mossoviet",
+   "url": "https://en.wikipedia.org/wiki/Mossoviet",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Moscow Soviet"
+  },
+  "ru-565": {
+   "answer": "Petrograd Red Guard",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Red Guards (Russia)",
+    "Russian Civil War",
+    "Red Terror",
+    "Semyonovsky Life Guards Regiment",
+    "Russian Revolution"
+   ]
+  },
+  "ru-566": {
+   "answer": "Military Revolutionary Committee",
+   "title": "Military Revolutionary Committee",
+   "url": "https://en.wikipedia.org/wiki/Military_Revolutionary_Committee",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-567": {
+   "answer": "Leon Trotsky",
+   "title": "Leon Trotsky",
+   "url": "https://en.wikipedia.org/wiki/Leon_Trotsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-568": {
+   "answer": "October Revolution",
+   "title": "October Revolution",
+   "url": "https://en.wikipedia.org/wiki/October_Revolution",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-569": {
+   "answer": "cruiser Aurora",
+   "title": "Russian cruiser Aurora",
+   "url": "https://en.wikipedia.org/wiki/Russian_cruiser_Aurora",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Cruiser Aurora"
+  },
+  "ru-570": {
+   "answer": "Second All-Russian Congress of Soviets",
+   "title": "Second All-Russian Congress of Soviets of Workers' and Soldiers' Deputies",
+   "url": "https://en.wikipedia.org/wiki/Second_All-Russian_Congress_of_Soviets_of_Workers'_and_Soldiers'_Deputies",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Second All-Russian Congress of Soviets"
+  },
+  "ru-571": {
+   "answer": "Decree on Peace",
+   "title": "Decree on Peace",
+   "url": "https://en.wikipedia.org/wiki/Decree_on_Peace",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-572": {
+   "answer": "Decree on Land",
+   "title": "Decree on Land",
+   "url": "https://en.wikipedia.org/wiki/Decree_on_Land",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-573": {
+   "answer": "Sovnarkom",
+   "title": "Council of People's Commissars",
+   "url": "https://en.wikipedia.org/wiki/Council_of_People's_Commissars",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Sovnarkom"
+  },
+  "ru-574": {
+   "answer": "Cheka",
+   "title": "Cheka",
+   "url": "https://en.wikipedia.org/wiki/Cheka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-575": {
+   "answer": "Felix Dzerzhinsky",
+   "title": "Felix Dzerzhinsky",
+   "url": "https://en.wikipedia.org/wiki/Felix_Dzerzhinsky",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-576": {
+   "answer": "Russian Constituent Assembly election",
+   "title": "1917 Russian Constituent Assembly election",
+   "url": "https://en.wikipedia.org/wiki/1917_Russian_Constituent_Assembly_election",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Russian Constituent Assembly election"
+  },
+  "ru-577": {
+   "answer": "Russian Constituent Assembly",
+   "title": "Russian Constituent Assembly",
+   "url": "https://en.wikipedia.org/wiki/Russian_Constituent_Assembly",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-578": {
+   "answer": "Supreme Council of the National Economy",
+   "title": "Supreme Soviet of the National Economy",
+   "url": "https://en.wikipedia.org/wiki/Supreme_Soviet_of_the_National_Economy",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Supreme Council of the National Economy"
+  },
+  "ru-579": {
+   "answer": "Decree on Separation of Church and State",
+   "title": "Decree on Separation of Church and State",
+   "url": "https://en.wikipedia.org/wiki/Decree_on_Separation_of_Church_and_State",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-580": {
+   "answer": "Treaty of Brest-Litovsk",
+   "title": "Treaty of Brest-Litovsk",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Brest-Litovsk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-581": {
+   "answer": "Left SR uprising",
+   "title": "Left SR uprising",
+   "url": "https://en.wikipedia.org/wiki/Left_SR_uprising",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-582": {
+   "answer": "Kremlin Senate",
+   "title": "Kremlin Senate",
+   "url": "https://en.wikipedia.org/wiki/Kremlin_Senate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-583": {
+   "answer": "Ipatiev House",
+   "title": "Ipatiev House",
+   "url": "https://en.wikipedia.org/wiki/Ipatiev_House",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-584": {
+   "answer": "Communist International",
+   "title": "Communist International",
+   "url": "https://en.wikipedia.org/wiki/Communist_International",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-585": {
+   "answer": "uneven and combined development",
+   "title": "Uneven and combined development",
+   "url": "https://en.wikipedia.org/wiki/Uneven_and_combined_development",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-586": {
+   "answer": "Russian Civil War",
+   "title": "Russian Civil War",
+   "url": "https://en.wikipedia.org/wiki/Russian_Civil_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-587": {
+   "answer": "Red Army",
+   "title": "Red Army",
+   "url": "https://en.wikipedia.org/wiki/Red_Army",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-588": {
+   "answer": "military specialists",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Military specialist",
+   "target": "Military history of the Soviet Union#Tsarist and revolutionary background"
+  },
+  "ru-589": {
+   "answer": "White movement",
+   "title": "White movement",
+   "url": "https://en.wikipedia.org/wiki/White_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-590": {
+   "answer": "Anton Denikin",
+   "title": "Anton Denikin",
+   "url": "https://en.wikipedia.org/wiki/Anton_Denikin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-591": {
+   "answer": "Alexander Kolchak",
+   "title": "Alexander Kolchak",
+   "url": "https://en.wikipedia.org/wiki/Alexander_Kolchak",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-592": {
+   "answer": "Pyotr Wrangel",
+   "title": "Pyotr Wrangel",
+   "url": "https://en.wikipedia.org/wiki/Pyotr_Wrangel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-593": {
+   "answer": "Czechoslovak Legion",
+   "title": "Czechoslovak Legion",
+   "url": "https://en.wikipedia.org/wiki/Czechoslovak_Legion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-594": {
+   "answer": "Allied intervention in the Russian Civil War",
+   "title": "Allied intervention in the Russian Civil War",
+   "url": "https://en.wikipedia.org/wiki/Allied_intervention_in_the_Russian_Civil_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-595": {
+   "answer": "Green armies",
+   "title": "Green armies",
+   "url": "https://en.wikipedia.org/wiki/Green_armies",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-596": {
+   "answer": "Nestor Makhno",
+   "title": "Nestor Makhno",
+   "url": "https://en.wikipedia.org/wiki/Nestor_Makhno",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-597": {
+   "answer": "War communism",
+   "title": "War communism",
+   "url": "https://en.wikipedia.org/wiki/War_communism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-598": {
+   "answer": "Prodrazvyorstka",
+   "title": "Prodrazverstka",
+   "url": "https://en.wikipedia.org/wiki/Prodrazverstka",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Prodrazvyorstka"
+  },
+  "ru-599": {
+   "answer": "Red Terror",
+   "title": "Red Terror",
+   "url": "https://en.wikipedia.org/wiki/Red_Terror",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-600": {
+   "answer": "Atamanshchina",
+   "title": "Atamanshchina",
+   "url": "https://en.wikipedia.org/wiki/Atamanshchina",
    "via": "glossary",
    "status": "ok"
   }
