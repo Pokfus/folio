@@ -16805,6 +16805,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
 window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
+"Megara": ["Megarian","Megarians"],
+"Aristocracy": ["aristocratic"],
+"Papyrus": ["papyri"],
+"Monarchy": ["monarch"],
 "The_New_Freedom": ["New Freedom"],
 "Spanish_flu": ["1918 influenza pandemic"],
 "Athena": ["Pallas Athene","Pallas Athena"],
@@ -18038,7 +18042,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Amun": ["Amun-Ra","Amun-Re"],
 "Demotic": ["demotic script"],
 "Florence": ["Firenze"],
-"Venice": ["Venezia"],
+"Venice": ["Venezia","Venetians","Venetian"],
 "Naples": ["Napoli"],
 "Milan": ["Milano"],
 "Genoa": ["Genova"],
@@ -21642,7 +21646,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Halah": ["Halah"],
 "Imaging_radar": ["radar imaging","imaging radar","synthetic aperture radar"],
 "Indian_Department": ["British Indian Department"],
-"Israelites": ["Israelite"],
+"Israelites": ["Israelite","Hebrews"],
 "Kana": ["hiragana","katakana"],
 "Khabur_(Euphrates)": ["Habor","Khabur","Khabur River"],
 "Kingdom_of_Judah": ["Judah"],
@@ -21833,7 +21837,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cleopatra_Selene_II": ["Cleopatra Selene"],
 "Dumuzid_the_Fisherman": ["Dumuzid, the Fisherman"],
 "Enlil": ["Ellil"],
-"Inanna": ["Inana"],
+"Inanna": ["Inana","Ishtar"],
 "Jordan_Valley": ["al-Ghawr"],
 "Josephus": ["Flavius Josephus"],
 "Kullaba": ["Kullab","Kulaba"],
@@ -21985,7 +21989,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Province_of_Georgia": ["Georgia Colony","Colony of Georgia"],
 "James_Oglethorpe": ["James Edward Oglethorpe","Oglethorpe"],
 "Province_of_Pennsylvania": ["Pennsylvania Colony","Colony of Pennsylvania"],
-"Quakers": ["Religious Society of Friends","Society of Friends","Quaker","Friends"],
+"Quakers": ["Religious Society of Friends","Society of Friends","Quaker"],
 "Province_of_New_Jersey": ["East Jersey","West Jersey","East and West Jersey"],
 "1689_Boston_revolt": ["Boston revolt","Boston revolt of 1689","Revolt against Andros"],
 "Royal_governor": ["Royal governors","Colonial governor"],
@@ -24130,6 +24134,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
+"Moirai": true,
 "Redeemers": true,
 "Contraband_(American_Civil_War)": true,
 "The_Few": true,
