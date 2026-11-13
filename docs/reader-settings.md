@@ -214,6 +214,14 @@ Ten bullets, in the order they appeared in CLAUDE.md:
     Hultzsch…) and 38 of the 40 were being respelled and unit-converted for American readers ("labor lost" for Legge's "labour lost"), altering a translator's published words. Who said it?'s pool has no `o` at all and was
     already verbatim throughout. Whether a quotation has an `o` decides nothing. The admin's daily-quote form says the quote is shown exactly as typed, in the translator's spelling.
     To mark a new kind of quotation: put `verbatim` on its element and add it to the list in `test-quotes-verbatim.js`.
+  · **QUOTATION MARKS FOLLOW THE READER'S ENGLISH (`usQuotesTree` / `usQuotePairs`, 2026-11-13, on request: "single
+    apostrophes for British and quotation marks for American English").** Content is authored British, so a translation or a
+    word-as-word sits in curly single quotes, and for an en-US reader each ‘…’ pair becomes “…” (a “…” nested inside becomes
+    ‘…’). Only CURLY pairs: a straight ' cannot be told from an apostrophe, and the content sweep of the same day put every
+    translation in cards and glossary (2,057 places) in ‘…’. A pair opens on a ‘ not after a letter and closes on the first
+    ’ not followed by one, so "Egypt’s" and "Emperor’s" inside a pair are passed over; the pair is found across one block's
+    text nodes (a glossary link splits them) with one-for-one swaps, and every `spellSkip` region is skipped. Guarded by
+    `test-spelling.js` §1 (the pure pairs) and §3 (wh-209's ‘great house’ in en-US).
   · **PLACE NAMES THAT DEPEND ON THE READER'S ENGLISH (`SPELL_NAMES` / `spellNames` / `FolioPlaceNames`, Oct
     2026, on request: "if the user uses American English spelling for the website, they are shown as Gulf of
     America, etc. If they use the British spelling, use the old names").** Executive Order 14172 (January 2025)

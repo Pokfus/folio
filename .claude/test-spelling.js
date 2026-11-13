@@ -31,11 +31,21 @@ check("the spelling block is still where the slice expects it", !!block);
 let spellText = null, SPELL_PAIRS = null, win = {};
 if (block) {
   const body = block.replace(/function spellSystem\(\)[^}]*}/, "function spellSystem(){return S.settings.spelling;}") +
-    "\nreturn { spellText, spellCase, SPELL_PAIRS, SPELLINGS };";
+    "\nreturn { spellText, spellCase, SPELL_PAIRS, SPELLINGS, usQuotePairs };";
   win = {};   // the block publishes FolioPlaceNames for the Atlas (SPELL_NAMES, Oct 2026)
   const api = new Function("S", "window", body)({ settings: { spelling: "en-US" } }, win);
   check("the Atlas is handed the place-name table", typeof win.FolioPlaceNames === "function" && (win.FolioPlaceNames() || {})["Gulf of Mexico"] === "Gulf of America");
   spellText = api.spellText; SPELL_PAIRS = api.SPELL_PAIRS;
+  /* QUOTATION MARKS FOLLOW THE READER'S ENGLISH (2026-11-13): British ‘…’ becomes American “…”, an
+     apostrophe inside or after a word is left alone, and a “…” nested inside the pair becomes ‘…’. */
+  const uq = api.usQuotePairs;
+  check("usQuotePairs exists", typeof uq === "function");
+  if (uq) {
+    check("a translation in ‘…’ becomes “…”", uq("senex, Latin for \u2018old man\u2019, and") === "senex, Latin for \u201Cold man\u201D, and", uq("senex, Latin for \u2018old man\u2019, and"));
+    check("…an apostrophe inside the pair is passed over", uq("\u2018the king\u2019s house\u2019.") === "\u201Cthe king\u2019s house\u201D.", uq("\u2018the king\u2019s house\u2019."));
+    check("…a lone apostrophe is untouched", uq("Egypt\u2019s pharaoh") === "Egypt\u2019s pharaoh");
+    check("…and nested double quotes swap", uq("\u2018he said \u201Cno\u201D\u2019") === "\u201Che said \u2018no\u2019\u201D", uq("\u2018he said \u201Cno\u201D\u2019"));
+  }
   check("en-GB and en-US are the two systems", JSON.stringify(api.SPELLINGS) === '["en-GB","en-US"]', JSON.stringify(api.SPELLINGS));
 }
 
@@ -253,6 +263,14 @@ const srv = http.createServer((rq, rs) => {
   });
   check("the page carries American spellings", prose.us > 0, JSON.stringify(prose));
   check("…and no British ones outside the protected parts", prose.gb === 0, JSON.stringify(prose));
+
+  /* …and the quotation marks around a translation turn American: wh-209's question carries per-o,
+     ‘great house’ (British, as authored) and must read “great house” in en-US (2026-11-13). */
+  await page.goto("http://127.0.0.1:8797/#card/wh-209");
+  await page.reload();
+  await page.waitForTimeout(2200);
+  const qm = await page.evaluate(() => { const t = document.body.innerText; return { us: /\u201Cgreat house\u201D/.test(t), gb: /\u2018great house\u2019/.test(t) }; });
+  check("a translation's single quotes become double quotes for an American reader", qm.us && !qm.gb, JSON.stringify(qm));
 
   /* THE CITATIONS ARE NOT TRANSFORMED, and this is the assertion the whole `.notranslate` skip exists
      for: a citation names a published work, and rewriting `The Colour of Prehistory` into `Color`

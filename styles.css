@@ -2436,14 +2436,14 @@ body.night .gloss-book{background:linear-gradient(105deg, color-mix(in srgb, var
 }
 .card-quote blockquote p{margin:0 0 .5em;}
 .card-quote blockquote p:last-child{margin-bottom:0;}
-/* one line each — title, author, year, section, the link (2026-10-31, on request), set flush right (the same day); a column, so the link stays as wide as its words */
+/* three lines — "Title, Chapter", "Author (Date)", the link (2026-11-13, on request; one line each before), set flush right; a column, so the link stays as wide as its words */
 .card-quote figcaption{
   display:flex; flex-direction:column; align-items:flex-end; text-align:right; gap:4px; margin-top:9px;
   font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase;
   color:var(--ink-faint);
 }
 .card-quote cite{font-style:normal; color:var(--ink-soft);}
-.cq-who, .cq-when, .cq-where{overflow-wrap:anywhere;}
+.cq-line{overflow-wrap:anywhere;}
 /* the way through to the passage. A quiet link rather than a filled button: it sits under a quotation
    inside a card's prose, and a primary control there would out-shout the words it is attached to. */
 .cq-go{
@@ -5548,14 +5548,14 @@ sup.fn.src-flash{padding:0 3px;}
   background:color-mix(in srgb, var(--ochre) 13%, transparent);
   border-color:color-mix(in srgb, var(--ochre) 34%, transparent);
 }
-/* The language chip (Sep 2026). It takes --geo rather than a colour of its own: green already means
-   "free to read" and amber "paywalled" on the very same line, so a third chip in either would be read as
-   a third verdict about access. --geo is one of the quiet tokens `body.hc` already re-tones, so the
-   high-contrast mode covers this with no rule of its own. */
+/* The language chip (Sep 2026). It is BLUE (--indigo) since 2026-11-13, on request: it took --geo, a
+   teal that sat beside --good's green and read as a second "open access" chip. Green already means
+   "free to read" and amber "paywalled" on the very same line, so the third chip takes the quarter of the
+   wheel neither holds; --indigo is a theme token, so every theme and mode carries it. */
 .src-lang{
-  color:var(--geo);
-  background:color-mix(in srgb, var(--geo) 12%, transparent);
-  border-color:color-mix(in srgb, var(--geo) 32%, transparent);
+  color:var(--indigo);
+  background:color-mix(in srgb, var(--indigo) 10%, transparent);
+  border-color:color-mix(in srgb, var(--indigo) 34%, transparent);
 }
 .src-compact .src-access {font-size:calc(8.5px * var(--fs)); padding:0 5px;}
 /* the in-prose marker: a real superscript, clickable, in the SAME VERMILION as the answer term

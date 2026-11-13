@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1301", released: "2026-11-13T10:25Z" };
+window.FOLIO_VERSION = { v: "1.1303", released: "2026-11-13T13:45Z" };
 
 window.CHANGELOG = [
   {
@@ -44,6 +44,16 @@ window.CHANGELOG = [
     items: [
       "100 new cards in <b>Russia</b>, from Russian Marxism through 1905, the First World War and 1917 to the first years of the Civil War, with 97 new glossary terms.",
       "<b>200 more China cards are rewritten</b>, from the Disaster of Yongjia to the David Vases, with new sources and dates.",
+      "<b>646 more cards get a timeline</b>, across World History, Greece, Rome, China, Russia, the Second World War, the United States and others.",
+      "Translations of foreign words are now set in quotation marks: single for British spelling, double for American.",
+      "Distances, measurements and time spans in cards and the glossary are now written as numerals, as in 3 years or 14 miles.",
+      "A book quotation on a card now names its source on three lines: title and chapter, author and date, then the Library link.",
+      "Language chips in a card's sources are now blue, so they no longer look like the green open-access chips.",
+      "The <b>Nearby in this collection</b> list is gone from every card.",
+      "A glossary term is now bold at its first mention in its own popup, and only there.",
+      "Lowercase <i>friends</i> no longer links to the Quakers, nor <i>fates</i> to the Greek Moirai.",
+      "13 World History cards gain glossary links and 44 new glossary terms, 3 atlas windows, 4 fuller date lines and a fuller background.",
+      "28 atlas windows that were labelled with a description now show the place's own name, and one misplaced dot is moved.",
     ]
   },
   {

@@ -17373,7 +17373,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       (root.nodeType === 1 && root.matches && (root.matches(SPELL_FOREIGN_SEL) || root.querySelector(SPELL_FOREIGN_SEL))));
     if (root.nodeType === 3) {
       if (spellSkip(root.parentNode, foreign)) return;
-      const v = spellText(root.nodeValue, us); if (v !== root.nodeValue) root.nodeValue = v; return;
+      const v = spellText(root.nodeValue, us); if (v !== root.nodeValue) root.nodeValue = v;
+      if (us) usQuotesTree(root, foreign);
+      return;
     }
     if (!root.querySelectorAll) return;
     const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
@@ -17385,6 +17387,60 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (spellSkip(node.parentNode, foreign)) return;
       const v = spellText(src, us);
       if (v !== src) node.nodeValue = v;
+    });
+    if (us) usQuotesTree(root, foreign);
+  }
+  /* QUOTATION MARKS FOLLOW THE READER'S ENGLISH (2026-11-13, on request: "Properly it should be single
+     apostrophes for British and quotation marks for American English. Ensure this works with our US/British
+     spelling setting"). Content is authored British, so a translation or a word-as-word sits in curly SINGLE
+     quotes — `<i>senex</i>, Latin for ‘old man’` — and an American reader is shown “old man”. Only CURLY
+     pairs are touched: a straight ' cannot be told from an apostrophe, and the content sweep of the same day
+     put every translation in ‘…’. A pair opens on a ‘ that does not follow a letter and closes on the first
+     ’ that is not followed by one (so the apostrophe in "Egypt’s" is passed over); any “…” inside a pair
+     becomes ‘…’, the American nesting. The pair is found across the text nodes of ONE block, because a
+     glossary link inside the quotes splits them; every character swap is one for one, so the offsets map
+     straight back to the nodes. Skipped wherever the spelling pass is (`.verbatim`, citations, a foreign
+     card). Guarded by `test-spelling.js`. */
+  const US_Q_BLOCK = "p, li, div, td, th, dd, dt, figcaption, blockquote, h1, h2, h3, h4, h5, h6, button, label, summary, section, article";
+  function usQuotePairs(s) {
+    const out = s.split("");
+    const isL = (ch) => !!ch && /[\p{L}\p{N}]/u.test(ch);
+    let changed = false;
+    for (let i = 0; i < s.length; i++) {
+      if (s[i] !== "\u2018" || isL(s[i - 1])) continue;
+      let j = -1;
+      for (let k = i + 1; k < s.length && k - i < 400; k++) {
+        if (s[k] === "\u2018") break;
+        if (s[k] === "\u2019" && !isL(s[k + 1])) { j = k; break; }
+      }
+      if (j < 0) continue;
+      out[i] = "\u201C"; out[j] = "\u201D";
+      for (let k = i + 1; k < j; k++) { if (s[k] === "\u201C") out[k] = "\u2018"; else if (s[k] === "\u201D") out[k] = "\u2019"; }
+      changed = true; i = j;
+    }
+    return changed ? out.join("") : s;
+  }
+  function usQuotesTree(root, foreign) {
+    if (!root) return;
+    const blocks = new Set();
+    const note = (tn) => {
+      if (!tn.nodeValue || tn.nodeValue.indexOf("\u2018") < 0) return;
+      const p = tn.parentNode; if (!p || !p.closest) return;
+      blocks.add(p.closest(US_Q_BLOCK) || p);
+    };
+    if (root.nodeType === 3) note(root);
+    else if (root.querySelectorAll) {
+      const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null); let n;
+      while ((n = w.nextNode())) note(n);
+    }
+    blocks.forEach((b) => {
+      const w = document.createTreeWalker(b, NodeFilter.SHOW_TEXT, null); const nodes = []; let n;
+      while ((n = w.nextNode())) if (!spellSkip(n.parentNode, foreign)) nodes.push(n);
+      const s = nodes.map((x) => x.nodeValue).join("");
+      const t = usQuotePairs(s);
+      if (t === s) return;
+      let at = 0;
+      nodes.forEach((x) => { const len = x.nodeValue.length; const v = t.slice(at, at + len); if (v !== x.nodeValue) x.nodeValue = v; at += len; });
     });
   }
   // Later DOM — gloss popups, the Atlas panel, a revealed answer, a toast — arrives after render(), so
@@ -37336,9 +37392,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const who = esc(b.author || ""), when = esc(b.written || "");
     return '<figure class="card-quote">' +
       '<blockquote class="verbatim">' + q.text + "</blockquote>" +   // a published translation, transcribed rather than edited: the spelling and units passes skip `.verbatim` (2026-10-19)
-      '<figcaption><cite>' + esc(b.title) + "</cite>" + (who ? '<span class="cq-who">' + who + "</span>" : "") +
-      (when ? '<span class="cq-when">' + when + "</span>" : "") +
-      (q.cite ? '<span class="cq-where">' + esc(q.cite) + "</span>" : "") +
+      // three lines (2026-11-13, on request): "TITLE, CHAPTER" / "AUTHOR (DATE)" / the link
+      '<figcaption><span class="cq-line"><cite>' + esc(b.title) + "</cite>" +
+      (q.cite ? ', <span class="cq-where">' + esc(q.cite) + "</span>" : "") + "</span>" +
+      (who || when ? '<span class="cq-line">' + (who ? '<span class="cq-who">' + who + "</span>" : "") +
+        (when ? (who ? " (" : "") + '<span class="cq-when">' + when + "</span>" + (who ? ")" : "") : "") + "</span>" : "") +
       '<button type="button" class="cq-go" data-cqbook="' + esc(b.id) + '"' +
         (q.n ? ' data-cqn="' + esc(q.n) + '"' : "") + '>Read it in the Library</button>' +
       "</figcaption></figure>";
@@ -37976,7 +38034,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Only for a CURATED card: a community deck has no tags to rank on and no collection to stay
        inside. Suppressed inside a game round, where a rail of other cards is a distraction from the
        answer the reader is being shown. */
-    if (c && c.id && !isCommunityCard(c.id)) html += relatedCardsHTML(c.id);
+    /* The "Nearby in this collection" rail was REMOVED from every card on 2026-11-13, on request;
+       relatedCardsHTML stays for its `data-kin` click handler, which the timeline's neighbours use. */
     // the citations behind the background, at the very foot of the card — outside the Background fold, so
     // they can be checked without re-opening prose the reader has already read
     html += sourcesHTML(cardSources(c));
@@ -45792,18 +45851,30 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     el.innerHTML = im ? cardImageHTML(im) : vid ? cardVideoHTML(vid) : "";
     el.hidden = !im && !vid;
   }
-  // bold the term's first mention in its own gloss description (like the answer term opening a card background)
+  /* Bold the term's FIRST mention in its own gloss description, and ONLY that one (like the answer term
+     opening a card background). Fixed 2026-11-13, on a report (Granodiorite): about 1,500 descriptions
+     carry an authored `<b>` already, and the old walk SKIPPED bold text — so it passed the authored
+     "<b>granodiorite</b>" and bolded "Half Dome Granodiorite" as well, and where the authored bold sat on a
+     later mention the first one stayed plain. Now one walk in document order: the authored bold is kept
+     when it comes first; a plain mention that comes earlier is bolded instead and the authored bold is
+     unwrapped. A title's trailing "(qualifier)" is matched without it ("Mencius (book)" → "Mencius"). */
   function boldFirstTerm(el, title) {
     if (!el || !title) return;
-    const rx = new RegExp("(?:^|\\W)(" + title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")(?:\\W|$)", "i");
+    const q = (x) => x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const bare = String(title).replace(/\s*\([^)]*\)\s*$/, "").trim();
+    const alts = [q(title)].concat(bare && bare !== title ? [q(bare)] : []);
+    const rx = new RegExp("(?:^|\\W)(" + alts.join("|") + ")(?:\\W|$)", "i");
+    const authored = el.querySelector("b, strong");
     const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
     let node;
     while ((node = walk.nextNode())) {
-      if (node.parentElement && node.parentElement.closest("a, b, strong, .ttip")) continue;   // skip linked / already-bold text
+      if (authored && authored.contains(node)) return;                      // the authored bold comes first: keep it alone
+      if (node.parentElement && node.parentElement.closest("a, .ttip")) continue;   // skip linked text
       const m = rx.exec(node.nodeValue); if (!m) continue;
       const start = m.index + m[0].indexOf(m[1]);
       const range = document.createRange(); range.setStart(node, start); range.setEnd(node, start + m[1].length);
-      const b = document.createElement("b"); try { range.surroundContents(b); } catch (e) {}
+      const b = document.createElement("b"); try { range.surroundContents(b); } catch (e) { return; }
+      if (authored) authored.replaceWith(...authored.childNodes);           // an earlier plain mention wins: unbold the later one
       return;
     }
   }

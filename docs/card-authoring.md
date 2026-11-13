@@ -127,12 +127,20 @@ exists).
 - **Centuries are numerals**: "11th century", "2nd millennium BCE".
 - **Non-round numbers above 20 are numerals** ("27 chapters"); round ones may be words ("thirty
   kings"). Write "32,000", never "32 thousand".
+- **Distances, measurements and time spans are always numerals** (2026-11-13, on request): "14 miles",
+  "8 metres", "3 years", "a 5-day battle", "100 years", never "fourteen miles" or "three years". The one
+  exception is a span of ONE, which stays a word ("one day", "one year"). Proper names keep their words
+  (the Seven Years' War, the Hundred Days), and so do quotations and translations.
 - **Measurements metric first, imperial in brackets**, rounded to the source's precision:
   "about 2,400 kilometres (1,500 miles)". Temperatures as `−4 °C (25 °F)` (use the − sign, not
   "minus"). A temperature DIFFERENCE converts ×1.8 with no +32. This is the ONLY allowed use of
   parentheses — **no other parenthetical asides**.
-- Titles of works in `<i>…</i>`. A word mentioned as a word, or a translation of a name, goes in
-  single quotes: "its name means 'hollow rock'".
+- Titles of works in `<i>…</i>`. A word mentioned as a word, or the English translation of a foreign
+  word, name or phrase, goes in CURLY single quotes ‘…’ (U+2018 / U+2019), never straight `'` and never
+  “…”: "its name means ‘hollow rock’", "<i>senex</i>, Latin for ‘old man’". Drop an article the gloss
+  does not need ("Latin for ‘old man’", not "for an old man"); a sentence's comma or full stop stays
+  outside the closing ’. The site shows these as “…” to a reader who chose American spelling
+  (`usQuotesTree` in `app.js`), which works only on the curly pair.
 - No glossary links, no other HTML than `<b>` (once), `<i>`, `<br><br>`, `<sup class="fn">`, and the
   blank span.
 
