@@ -11522,7 +11522,36 @@ window.GLOSSARY = {
 "United_States_Department_of_Agriculture": "",
 "United_States_Department_of_War": "",
 "United_States_Military_Academy": "",
-"University_of_Oxford": ""
+"University_of_Oxford": "",
+"1969_French_constitutional_referendum": "",
+"4th_Armored_Division_(France,_1940)": "",
+"BBC": "",
+"Catholic_Church": "",
+"Clubfoot": "",
+"Colonel": "",
+"Dunkirk": "",
+"French_Fifth_Republic": "",
+"French_colonial_empire": "",
+"German_Historical_Museum": "",
+"Greater_Berlin_Act": "",
+"Heidelberg_University": "",
+"Incident_at_Petrich": "",
+"League_of_German_Girls": "",
+"Lille": "",
+"Memory_of_the_World_Programme": "",
+"Paramilitary": "",
+"Paul_Reynaud": "",
+"President_of_France": "",
+"Propaganda": "",
+"Reichstag_(Weimar_Republic)": "",
+"Rhineland": "",
+"Royal_Air_Force": "",
+"Storm_group": "",
+"Swing_music": "",
+"UNESCO": "",
+"United_States_Army": "",
+"Vers_l'armée_de_métier": "",
+"École_spéciale_militaire_de_Saint-Cyr": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17059,7 +17088,20 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Ernst_Chain": "1906–1979",
 "George_C._Marshall": "1880–1959",
 "George_VI": "1895–1952",
-"Howard_Florey": "1898–1968"
+"Howard_Florey": "1898–1968",
+"1969_French_constitutional_referendum": "27 April 1969",
+"4th_Armored_Division_(France,_1940)": "May–June 1940",
+"French_Fifth_Republic": "1958–",
+"Greater_Berlin_Act": "1920",
+"Incident_at_Petrich": "October 1925",
+"League_of_German_Girls": "1930–1945",
+"Memory_of_the_World_Programme": "1992–",
+"Paul_Reynaud": "1878–1966",
+"Reichstag_(Weimar_Republic)": "1919–1933",
+"Storm_group": "1942–1945",
+"Swing_music": "1930s–1940s",
+"UNESCO": "1945–",
+"Vers_l'armée_de_métier": "1934"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -18695,7 +18737,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Nazism": ["National Socialism","Nazi","Nazis"],
 "Adolf_Hitler": ["Hitler"],
 "Nazi_Party": ["NSDAP","National Socialist Party","Nazi party","National Socialist party"],
-"Antisemitism": ["racial antisemitism","antisemitic"],
+"Antisemitism": ["racial antisemitism","antisemitic","antisemite","antisemites"],
 "1930_German_federal_election": ["Reichstag election of 1930"],
 "Enabling_Act_of_1933": ["Enabling Act"],
 "Führerprinzip": ["leader principle"],
@@ -24477,7 +24519,24 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "United_States_Department_of_Agriculture": ["US Department of Agriculture","USDA"],
 "United_States_Department_of_War": ["US War Department"],
 "United_States_Military_Academy": ["US Military Academy"],
-"University_of_Oxford": ["Oxford University"]
+"University_of_Oxford": ["Oxford University"],
+"1969_French_constitutional_referendum": ["1969 French referendum"],
+"4th_Armored_Division_(France,_1940)": ["4e division cuirassée","4th DCR"],
+"BBC": ["British Broadcasting Corporation"],
+"Catholic_Church": ["Roman Catholic Church","Catholic"],
+"Clubfoot": ["club foot","talipes"],
+"French_Fifth_Republic": ["Fifth Republic"],
+"German_Historical_Museum": ["Deutsches Historisches Museum"],
+"Greater_Berlin_Act": ["Greater Berlin"],
+"Incident_at_Petrich": ["War of the Stray Dog"],
+"League_of_German_Girls": ["Bund Deutscher Mädel","BDM"],
+"Memory_of_the_World_Programme": ["Memory of the World"],
+"President_of_France": ["President of the French Republic"],
+"Propaganda": ["propaganda"],
+"Royal_Air_Force": ["RAF"],
+"UNESCO": ["United Nations Educational, Scientific and Cultural Organization"],
+"United_States_Army": ["US Army","U.S. Army"],
+"École_spéciale_militaire_de_Saint-Cyr": ["Saint-Cyr","Saint-Cyr military academy"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -24676,7 +24735,9 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Vallum": true,
 "Pantheon_(religion)": true,
 "Cabinet_of_the_United_Kingdom": true,
-"Parliament_of_the_United_Kingdom": true
+"Parliament_of_the_United_Kingdom": true,
+"Catholic_Church": true,
+"Propaganda": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -36202,7 +36263,36 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "United_States_Department_of_Agriculture": ["institution","government","agriculture","united states"],
 "United_States_Department_of_War": ["institution","government","military","united states"],
 "United_States_Military_Academy": ["institution","education","military","united states"],
-"University_of_Oxford": ["institution","education","oxford","britain"]
+"University_of_Oxford": ["institution","education","oxford","britain"],
+"1969_French_constitutional_referendum": ["event","politics","referendum","france"],
+"4th_Armored_Division_(France,_1940)": ["institution","military","warfare","france","world war ii"],
+"BBC": ["institution","media","broadcasting","united kingdom"],
+"Catholic_Church": ["religion","christianity","institution","history"],
+"Clubfoot": ["concept","medicine","health","disability"],
+"Colonel": ["title","military","warfare","rank"],
+"Dunkirk": ["city","place","geography","port","france"],
+"French_Fifth_Republic": ["state","politics","constitution","france"],
+"French_colonial_empire": ["empire","history","colonialism","france"],
+"German_Historical_Museum": ["institution","history","museum","germany","berlin"],
+"Greater_Berlin_Act": ["law","history","city","berlin","germany","weimar republic"],
+"Heidelberg_University": ["institution","education","university","germany"],
+"Incident_at_Petrich": ["war","history","diplomacy","greece","bulgaria","league of nations"],
+"League_of_German_Girls": ["institution","history","youth","nazi germany","germany"],
+"Lille": ["city","place","geography","france"],
+"Memory_of_the_World_Programme": ["institution","heritage","culture","archives","united nations"],
+"Paramilitary": ["concept","warfare","politics","military"],
+"Paul_Reynaud": ["person","politics","history","france","world war ii"],
+"President_of_France": ["title","politics","head of state","france"],
+"Propaganda": ["concept","politics","media","communication"],
+"Reichstag_(Weimar_Republic)": ["institution","politics","parliament","weimar republic","germany"],
+"Rhineland": ["region","place","geography","germany"],
+"Royal_Air_Force": ["institution","warfare","military","air force","united kingdom"],
+"Storm_group": ["practice","warfare","military","soviet union","world war ii"],
+"Swing_music": ["concept","music","jazz","culture","united states"],
+"UNESCO": ["institution","international relations","culture","education","united nations"],
+"United_States_Army": ["institution","warfare","military","united states"],
+"Vers_l'armée_de_métier": ["text","military","warfare","france"],
+"École_spéciale_militaire_de_Saint-Cyr": ["institution","military","education","france"]
 });
 
 /* ============================================================================
