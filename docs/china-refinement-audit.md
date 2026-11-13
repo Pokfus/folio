@@ -305,7 +305,7 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | An Lushan's adoption by Yang Guifei | An Lushan made Yang Guifei's adopted son, the washing ceremony; told in later histories and anecdote collections — confirmed B38 (`cnh-377`: the *Old Book of Tang* juan 200A has him ask for it himself; the three-day washing is the *Zizhi tongjian*'s, juan 216) | — | `cnh-377`, `cnh-375` | — |
 | Li Bai drowning while embracing the moon | the poet drowning as he leaned from a boat to embrace the moon's reflection; a later legend, against the earlier accounts of illness — provisional | — | `cnh-391` | — |
 | Xuanzang and the Journey to the West | Xuanzang's own *Record of the Western Regions* (646 CE) and his disciples' biography; the 16th-century novel *Journey to the West* with Tripitaka and the Monkey King, fiction — agreeing with `in-199` — provisional | — | `cnh-388` | `in-199` |
-| Han Yu's memorial on the Buddha's bone | Han Yu's memorial of 819 CE against bringing the finger-bone relic from the Famen Temple into the palace, and his banishment to Chaozhou — provisional | — | `cnh-394`, `cnh-387` | — |
+| Han Yu's memorial on the Buddha's bone | Han Yu's memorial of 819 CE against bringing the finger-bone relic from the Famen Temple into the palace, and his banishment to Chaozhou — confirmed B39–B40 (`cnh-387`, `cnh-394`: the *Old Book of Tang* juan 160) | — | `cnh-394`, `cnh-387` | — |
 
 ## Working a card
 
@@ -417,7 +417,7 @@ otherwise.
 | B36 | Sui (`col-22`) / Tang (`col-23`) | `cnh-351`–`cnh-360` | 10 | 113 | **done 2026-11-13** |
 | B37 | Tang (`col-23`) | `cnh-361`–`cnh-370` | 10 | 102 | **done 2026-11-13** |
 | B38 | Tang (`col-23`) | `cnh-371`–`cnh-380` | 10 | 104 | **done 2026-11-13** |
-| B39 | Tang (`col-23`) | `cnh-381`–`cnh-390` | 10 | 112 | to do |
+| B39 | Tang (`col-23`) | `cnh-381`–`cnh-390` | 10 | 112 | **done 2026-11-13** |
 | B40 | Tang (`col-23`) / Five Dynasties and Ten Kingdoms (`col-24`) | `cnh-391`–`cnh-400` | 10 | 111 | to do |
 | B41 | Five Dynasties and Ten Kingdoms (`col-24`) | `cnh-401`–`cnh-410` | 10 | 102 | to do |
 | B42 | Liao (`col-25`) | `cnh-411`–`cnh-420` | 10 | 100 | to do |
@@ -901,6 +901,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-378` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 | `cnh-379` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 | `cnh-380` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-381` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-382` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-383` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-384` | none | not re-checked (Commons rate-limited): wanted — the Lhasa treaty pillar |
+| `cnh-385` | none | not re-checked (Commons rate-limited): wanted — the Karabalgasun ruins or inscription |
+| `cnh-386` | none | not re-checked (Commons rate-limited): wanted — the Dehua stele |
+| `cnh-387` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-388` | none | not re-checked (Commons rate-limited): wanted — the glossary's painting would serve |
+| `cnh-389` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-390` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 
 ## Glossary candidates
 
@@ -2558,3 +2568,40 @@ Lizhou are on no page read (the age at death is 83 in the *Old Book*, 82 in the 
 no page read, Cordier's 12 August 756 is the son's assumption of the title, not the abdication, and Cordier gives the age
 at death as 78 by the Chinese count; `cnh-375`'s 719 and her death day are on no page read; `cnh-377`'s 5 February 756 is
 on no page read and its 25 January 757 meets Cordier's 30 January and Theobald's February.
+
+### B39 — `cnh-381`–`cnh-390`, Tang: the two-tax system to regulated verse (2026-11-13)
+
+Run as B31. Every cited URL answered. **Pictures were not touched**; none of the ten cards has a picture. **The old cards
+cited Chinese Wikisource (two to four Chinese texts a card) and MDPI and Springer articles, named places in labels ("Retook
+Chang'an", "Beat the Tang"), gave the Nanzhao a firm 649 – 902 and the Tibetan Empire no span, told the Famen Temple's
+self-burnings and the emperor's tears, Li Bai's drowning and Liu Yan's boyhood in their own voice, counted Xuanzang's
+translations from an abridgement, and named the Huichang persecution and the Uyghur state by forms no page read prints.**
+The histories were read in the Siku text on the Kanseki Repository and on zggdwx.com (the *New Book of Tang* juan 149 and
+216, which the Kanseki copy does not reach).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-381` two-tax system | 6 | 6 → 6 | **Three Wikisource texts cut to the *Old Book of Tang* juan 118 (Yang Yan's memorial); `Superseded 1581` added (as `cnh-522`); the spending-first rule and the merchants' thirtieth, Lu Zhi's "pocket or box", the Song, the Yuan renaming and the single whip; the debate on the peasants' burden; Yang Yan's career left to `cnh-382`**; Giles's "without success" not used against the history. |
+| `cnh-382` Yang Yan | 6 | 6 → 6 | **The tax mechanics (`cnh-381`'s) off the questions: Chang Gun and Yuan Zai, Liu Yan's killing on a false charge, Lu Qi's case over the house sale and the "royal aura" temple site; the years out**. Protected: the line stays (flagged below). |
+| `cnh-383` Liu Yan | 6 | 6 → 6 | **The *New Book of Tang* juan 149: the ode at Mount Tai at eight and Zhang Yue's "good omen" (said whose), the salt revenue whose (the history's 600,000 strings rising tenfold; Theobald's 400,000 to over 6 million), the grain relay run by officials; the glossary's "born 716" made "715 or 716"**. Protected: the line stays (flagged below). |
+| `cnh-384` Tibetan Empire | 7 | 7 → 7 | **`Flourished c. 618 – 842 CE` added (the glossary's span; the old `G.date`); the *New Book of Tang* juan 216 and the Old Tibetan Annals (OTDO Pt 1288); btsanpo glossed from the history's "strong man"; the puppet prince of 763, Wencheng's city and the ochre ban, the old Tang subjects weeping in 822; Lang Darma's death and the break-up**; Theobald's 640 and 823 not used. 吐蕃 kept as Tǔbō. |
+| `cnh-385` Uyghur Khaganate | 7 | 7 → 7 | **`Retook capitals 757 CE` for the place label; the 2026 Karabalgasun excavation report (the city, the citadel walls, Tang decrees inlaid in gold), Kalikov on the trilingual inscription, the 762 conversion, the 788 "swooping hawk" name, the 839 revolt before the Kyrgyz; Fu Ma in *The Paper* the one Chinese source**; the Chang'an riots and "useless horses" (unsourced) dropped. **Name 回纥 Huíhé → 回鹘汗国 Huíhú Hánguó** (the state, not the people's pre-788 name). |
+| `cnh-386` Nanzhao | 6 | 6 → 6 | **`Traditional 649 CE` / `Recognised 738 CE` / `Beat the Tang 751 CE` / `Fell 902 CE`; the *Zizhi tongjian* juan 216 for three Wikisource juan: the 80,000 men, the refused peace, the 60,000 dead, the Tibetan "younger brother" title, the stele at the gate; Evans from the journal's own site (not an archive.org user upload); Bryson 2015 (first page); the Dehua stele (Brinckmann); the Tai theory superseded**; "32 prefectures" and "took Hanoi 863" dropped. |
+| `cnh-387` Famen Temple | 6 | 6 → 6 | **The *Old Book of Tang* juan 19A for the 873 procession (Yizong's last year; Tan's 833 – 873) and the historians' verdict; Wang Yarong 1989 (in French): the Ming pagoda's collapse in 1981, the crypt found 1987, four relics, the tablets of more than 2,700 characters; Tan et al. 2021 (336 objects, sealed 874); Han Yu's memorial mentioned only**; the thirty-year rule, the self-burnings told as fact, Yizong's tears and the 871 statue (Wikisource and MDPI only) dropped. |
+| `cnh-388` Xuanzang | 7 | 7 → 7 | **The translations made the card's own (the plan's pair: here the monk's journey and its translations): the nightmares and the whole *Great Perfection of Wisdom Sutra*, Bianji and the *Record*, the Yogacarabhumi and Dharmapala's reading; 74 works (the biography; the old 1,335 chapters from Beal's abridgement); Huili and Yancong's biography in Chinese and Beal, Watters, the Stanford Encyclopedia**; "75 works" and the "hundred countries" (MDPI) dropped. Protected: the line stays (flagged below). |
+| `cnh-389` Great Anti-Buddhist Persecution | 6 | 6 → 6 | **The *Old Book of Tang* juan 18A: what the seventh- and eighth-month orders each did, the bronze images melted for coin, the 3,000 Nestorian and Zoroastrian clergy laicised, the Manichaeans struck in 843; Xiong, Hershock, Cordier; Zhao Guizhen's role kept, his "beaten to death" (on no page) dropped; Ennin's figures dropped (no open text of the translation)**. **Name 会昌灭佛 → 会昌法难, Huìchāng fǎnàn** (the Encyclopedia of China's head; 灭佛 a common alternative — for the owner). |
+| `cnh-390` regulated verse | 6 | 6 → 6 | **The *New Book of Tang* juan 201 (Song Zhiwen and Shen Quanqi's "regulated" poems); the Yongming roots (Theobald); Owen on Song standards imposed backwards on Tang collections; Martin (in French)**; "couplets 3–4 and 5–6" (on no page read) and a date for the form's fixing (none printed) left out; the line stays empty. |
+
+Read by eye. **Confusability**: the tax mechanics are `cnh-381`'s and the man `cnh-382`'s; Liu Yan's killing is a phrasing on
+`cnh-382` and a fact on `cnh-383`; Han Yu's memorial stays `cnh-394`'s, mentioned on `cnh-387`. **Legend**: Liu Yan's
+boyhood ode the *New Book*'s; the Famen self-burnings dropped for want of a source. **Chinese names corrected**: `cnh-385`
+回鹘汗国 (Hánguó kept against the dictionary's hàn; `cnh-547`'s live "Hànguó" looks wrong — for the owner); `cnh-389`
+会昌法难. **Spellings fixed**: none needed; 0 hits. **Myth register**: Han Yu's memorial confirmed (`cnh-387` mentions it as
+his warning). **check-citations**: `cnh-385`'s Kalikov 2022 reported for name order (Crossref swaps the names).
+**Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-382`'s 727 is printed only by Theobald (the
+*Old Book* gives his age as 55 by the Chinese count); `cnh-383`'s 715 is on no page read (the *Old Book*'s age 66 gives it,
+the *New*'s 65 gives 716) and its 12 August 780 is on no page read (the history: the seventh month of Jianzhong 1);
+`cnh-388`'s 6 April and 5 February are on no page read, Watters puts the return in 646, Theobald gives the departure as 627
+and the birth as c. 600 or 596, and Beal prints the death as the 10th month, 13th day of 664. `in-199`, the plan's India
+pair for Xuanzang, is not yet written (India stands at `in-100`). `cnh-386`'s point is modern Dali; the Taihe city site
+would be closer.

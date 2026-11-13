@@ -555,6 +555,12 @@ only; ages, days and months left out), and are not rows of this table.
 | the An Lushan Rebellion | 755 – 763 CE | `cnh-378` |
 | the Hebei provinces: settled / the war over succession / submitted | 763 CE / 781 – 785 CE / 819 CE | O'Byrne; Theobald (`cnh-379`) |
 | the jiedushi: first appointed / also dated (Sima Guang) / curbed by the Song | 711 CE / 710 CE / 965 CE | `cnh-380` |
+| the two-tax system introduced / superseded by the single whip | 780 CE / 1581 | `cnh-381` |
+| the Tibetan Empire / Wencheng sent / Chang'an taken / the sworn treaty | c. 618 – 842 CE / 641 CE / 763 CE / 821 – 822 CE | `cnh-384` |
+| the Uyghur Khaganate: founded / the capitals retaken / fell | 744 CE / 757 CE / 840 CE | `cnh-385` |
+| Nanzhao: traditional founding / recognised / beat the Tang / fell | 649 CE / 738 CE / 751 CE / 902 CE | `cnh-386` |
+| the Famen relic in the capital / the last procession / the crypt sealed | 819 CE / 873 CE / 874 CE | `cnh-387` |
+| the Huichang persecution: the decree / eased | 845 CE / 846 CE | `cnh-389` |
 
 ## Later periods
 
@@ -950,4 +956,10 @@ cnh-376: 751
 cnh-378: 755; 763
 cnh-379: 763; 781; 785; 819
 cnh-380: 711; 710; 965
+cnh-381: 780; 1581
+cnh-384: 618; 842; 641; 763; 821; 822
+cnh-385: 744; 757; 840
+cnh-386: 649; 738; 751; 902
+cnh-387: 819; 873; 874
+cnh-389: 845; 846
 ```
