@@ -87,7 +87,7 @@ an English review of the same work, and say in the ledger where a card had to ch
 **The date lines of the cards about ONE human being, historical or legendary, are refined in another thread
 and are left alone here.** The list is `node .claude/person-cards.js --list` (`individual` and `legendary`)
 plus every card tagged `ruler` or `person` it does not catch, confirmed against main on 2026-11-08 for the first
-hundred, on 2026-11-12 for the second and on 2026-11-12 for the third (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
+hundred, on 2026-11-12 for the second, on 2026-11-12 for the third and on 2026-11-13 for the fourth (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
 and Zhang Yi) and `cnh-184` (the Four Lords) are tagged `person` but name groups: they are audited as ordinary cards. `cnh-audit.js` reads the block below: on these cards it
 sets the date line's own findings aside (one `P.protected` note counts them) but still checks that the
 background carries every year on the line (`D.not-in-prose`) and the pins; `precheck.js` fails a draft whose
@@ -163,6 +163,36 @@ cnh-286 Guan Yu               (individual; the person template)
 cnh-289 Sima Yi               (individual; the person template)
 cnh-292 Sun Hao               (ruler; the person template)
 cnh-294 Emperor Wu of Jin     (ruler; the person template)
+cnh-302 Emperor Min of Jin    (ruler; the person template)
+cnh-309 Fu Jian               (ruler; the person template)
+cnh-312 Fotudeng              (individual; the person template)
+cnh-316 Wang Dao              (individual; the person template)
+cnh-317 Zu Ti                 (individual; the person template)
+cnh-318 Huan Wen              (individual; the person template)
+cnh-319 Wang Xizhi            (individual; the person template)
+cnh-320 Tao Yuanming          (individual; the person template)
+cnh-321 Gu Kaizhi             (individual; the person template)
+cnh-322 Liu Yu                (ruler; the person template)
+cnh-327 Emperor Wu of Liang   (ruler; the person template)
+cnh-333 Emperor Xiaowen       (ruler; the person template)
+cnh-341 Shen Yue              (individual; the person template)
+cnh-344 Emperor Wen of Sui    (ruler; the person template)
+cnh-349 Emperor Yang of Sui   (ruler; the person template)
+cnh-354 Yuwen Huaji           (individual; the person template)
+cnh-356 Emperor Gaozu of Tang (ruler; the person template)
+cnh-357 Emperor Taizong of Tang (ruler; the person template)
+cnh-371 Wu Zetian             (ruler; the person template)
+cnh-373 Emperor Xuanzong      (ruler; the person template)
+cnh-375 Yang Guifei           (individual; the person template)
+cnh-377 An Lushan             (individual; the person template)
+cnh-382 Yang Yan              (individual; the person template)
+cnh-383 Liu Yan               (individual; the person template)
+cnh-388 Xuanzang              (individual; the person template)
+cnh-391 Li Bai                (individual; the person template)
+cnh-392 Du Fu                 (individual; the person template)
+cnh-393 Bai Juyi              (individual; the person template)
+cnh-394 Han Yu                (individual; the person template)
+cnh-396 Zhu Wen               (ruler; the person template)
 ```
 
 - The draft's patch omits `answerDate`, `undatable` and `timeline`; its `pins` and `chronology` are read from
@@ -265,6 +295,17 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | The Romance and the Records of the Three Kingdoms | Chen Shou's *Sanguozhi* (completed after 280 CE) with Pei Songzhi's notes (429 CE); the storytellers' and the Yuan *Sanguozhi pinghua* (printed 1321 – 1323); the *Romance* credited to Luo Guanzhong (doubted), its oldest preface dated 1494, first printed 1522, revised by Mao Lun with his son Mao Zonggang c. 1679; its "seven parts fact, three parts fiction" (Zhang Xuecheng); the empty-city ruse first told of a Wei commander (the *Weilüe* in Pei's notes); Red Cliffs (the borrowed arrows, the east wind, Huarong), Guandu and Cao Cao's villainy told as the novel's; Guan Yu's deification as `cnh-039` tells it; Diaochan the novel's (the chronicle names only an unnamed maidservant, B27 `cnh-270`) — confirmed B28 – B30 (`cnh-273`, `276`, `281`, `286`, `290`, `291`) | `cnh-291`, `cnh-290` | `cnh-273`, `cnh-274`, `cnh-276`, `cnh-281`, `cnh-286` | `cnh-039` |
 | The Seven Sages of the Bamboo Grove | seven men gathering in a bamboo grove at Shanyang to drink and talk (as a group in the 4th century CE — Sun Sheng's *Wei shi chunqiu*, quoted by Pei Songzhi — and the *Shishuo xinyu*, 5th century CE); the grouping and the grove read by modern scholars as a later construction (Spiro: no evidence all seven knew one another; Chen Yinke's Buddhist name for the grove on no page read); the Nanjing brick reliefs, from a tomb of the late 4th or early 5th century, their trees not bamboo (Spiro) — confirmed and corrected B30 (`cnh-300`) | `cnh-300` | `cnh-299` | — |
 | The Three Sovereigns and Five Emperors | the lists differ by text: the *Shiji*'s Five Emperors (Yellow Emperor, Zhuanxu, Ku, Yao, Shun); Three Sovereigns as Heavenly, Earthly and Human or Grand (the *Shiji*'s Qin annals), or as Fuxi, Nüwa and Shennong, or Fuxi, Shennong and the Yellow Emperor, or Fuxi, Suiren and Shennong, or Fuxi, Zhurong and Shennong in other texts; Sima Zhen's Tang chapter supplies Fuxi, Nüwa and Shennong — confirmed B1 (`cnh-002`, Chavannes) | `cnh-002` | `cnh-003`–`cnh-007`, `cnh-040` | `cnh-879` |
+| Fu Jian's whips and the wind and cranes at Fei River | Fu Jian boasting that his host could dam the Yangtze by throwing in their whips, and his routed army hearing the wind and the cranes' cries as the pursuing Jin (the *Jinshu*, compiled under the Tang, 646 – 648 CE); Xie An playing *weiqi* as the news came — provisional, set for the fourth hundred | `cnh-310` | `cnh-308`, `cnh-309`, `cnh-315` | — |
+| Wang Xizhi's Orchid Pavilion preface | the gathering at the Orchid Pavilion in 353 CE and Wang Xizhi's preface to its poems; Taizong's love of the original and its burial with him (Tang tellings, He Yanzhi's account); the surviving versions copies — provisional | `cnh-319` | `cnh-357` | — |
+| The Peach Blossom Spring | Tao Yuanming's own prose tale of a fisherman finding a hidden valley whose people fled the Qin, told as fiction by its author — provisional | `cnh-320` | — | — |
+| Emperor Wu of Liang and Bodhidharma | the emperor's question about his merit and Bodhidharma's "no merit"; a Chan legend first told centuries later (the 8th-century Chan histories), not in the earliest notice of Bodhidharma — provisional | — | `cnh-327` | — |
+| The Xuanwu Gate incident as told | Li Shimin killing his brothers Li Jiancheng and Li Yuanji at the palace gate and his father's abdication, in the court histories written under Taizong's own eye (the *Old* and *New Book of Tang*, the *Zizhi tongjian*), which make the brothers the plotters — provisional | `cnh-358` | `cnh-356`, `cnh-357` | — |
+| Wu Zetian as the only empress regnant and the hostile tradition | the only woman to rule China as emperor in her own name (the Wu Zhou, 690 – 705 CE); the stories of the strangled daughter and the mutilated rivals from later hostile historians — provisional | `cnh-371`, `cnh-372` | `cnh-364` | — |
+| Yang Guifei: the lychees, Mawei and the Song of Everlasting Sorrow | lychees rushed by relay to the court; her death at Mawei Station when the escort mutinied (756 CE); Bai Juyi's "Song of Everlasting Sorrow" (806 CE) and later legend — provisional | `cnh-375` | `cnh-373`, `cnh-377`, `cnh-393` | — |
+| An Lushan's adoption by Yang Guifei | An Lushan made Yang Guifei's adopted son, the washing ceremony; told in later histories and anecdote collections — provisional | — | `cnh-377`, `cnh-375` | — |
+| Li Bai drowning while embracing the moon | the poet drowning as he leaned from a boat to embrace the moon's reflection; a later legend, against the earlier accounts of illness — provisional | — | `cnh-391` | — |
+| Xuanzang and the Journey to the West | Xuanzang's own *Record of the Western Regions* (646 CE) and his disciples' biography; the 16th-century novel *Journey to the West* with Tripitaka and the Monkey King, fiction — agreeing with `in-199` — provisional | — | `cnh-388` | `in-199` |
+| Han Yu's memorial on the Buddha's bone | Han Yu's memorial of 819 CE against bringing the finger-bone relic from the Famen Temple into the palace, and his banishment to Chaozhou — provisional | — | `cnh-394`, `cnh-387` | — |
 
 ## Working a card
 

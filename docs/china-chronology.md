@@ -195,6 +195,32 @@ the form English-language scholarship and the reference works use; the decision 
 | Jin (the dynasty of 266 – 420) | Chin dynasty | Western Jin, Eastern Jin | disambiguated from the state of Jin and the Jurchen Jin in the card's own words (`docs/china-card-plan.md`) |
 | qingtan, menfa | ch'ing-t'an, men-fa | | lower case in prose |
 | Seven Sages of the Bamboo Grove, Ji Kang, Ruan Ji, Shan Tao, Xiang Xiu, Liu Ling, Ruan Xian, Wang Rong | Chi K'ang, Juan Chi, Xi Kang | Xi Kang | *Xi Kang* is a common reading of 嵇康 and is an alias |
+| Disaster of Yongjia, Emperor Huai, Emperor Min | Yung-chia, Huai-ti, Min-ti | Yongjia disaster, Jin Huaidi, Jin Mindi | the fall of the Western Jin (added for the fourth hundred, Nov 2026) |
+| Sixteen Kingdoms, Five Barbarians | Shih-liu kuo, Wu Hu (in English prose) | Shiliu guo, Wu Hu, Five Hu | English names first; both are later labels, said so where it matters |
+| Jie, Xianbei, Di, Qiang | Chieh, Hsien-pei, Xian-bei, Xian Bei, Ch'iang | | the peoples of the Five Barbarians with the Xiongnu (row above); never "Ti" for the Di |
+| Han-Zhao, Later Zhao, Former Yan, Later Yan, Former Qin, Later Qin, Former Liang, Cheng-Han | Hou Zhao, Hou Chao, Ch'ien Yen, Ch'ien Ch'in, Former Ch'in, Later Ch'in, Ch'eng-Han | Northern Han, Han Zhao, Hanzhao | the Sixteen Kingdoms states, English order (Later, Former) |
+| Liu Yuan, Liu Cong, Liu Yao, Shi Le, Shi Hu, Fu Jian, Fu Hong, Wang Meng, Murong Huang, Murong Jun, Murong Ke, Murong Chui, Yao Chang | Liu Ts'ung, Shih Le, Shih Hu, Fu Chien, Mu-jung, Mu Rong | Shi Jilong | the Sixteen Kingdoms rulers and ministers, surname and name split; Murong is one surname |
+| Fei River, Fotudeng, Kumarajiva | Fei Shui, Fei-shui, Fo-t'u-teng, Fo Tu Deng, Fotu Deng | Feishui, Fotucheng | |
+| Jiankang | Chien-k'ang, Jian Kang | Jianye, Nanjing | the southern capital (Jianye under Wu) |
+| lodged commanderies | ch'iao-chün | qiaojun | English name first |
+| Eastern Jin, Wang Dao, Zu Ti, Huan Wen, Xie An, Xie Xuan, Wang Xizhi, Tao Yuanming, Gu Kaizhi, Liu Yu | Tung Chin, Tsu T'i, Hsieh An, Hsieh Hsüan, Wang Hsi-chih, T'ao Yüan-ming, Ku K'ai-chih, Liu Yü | Tao Qian, Emperor Wu of Song | the Eastern Jin men, surname and name split; *Tao Qian* is the poet's other name, an alias |
+| Liu Song, Southern Qi, Liang, Chen, Hou Jing, Emperor Wu of Liang | Liu Sung, Southern Ch'i, Nan Qi, Hou Ching, Liang Wu-ti | Xiao Yan, Liang Wudi | the Southern dynasties; Liu Song and Southern Qi as named to keep them from the later Song and the state of Qi |
+| Northern Wei, Tuoba, Pingcheng, Emperor Xiaowen, Eastern Wei, Western Wei, Northern Qi, Northern Zhou, Yuwen Tai, Gao Huan | Bei Wei, T'o-pa, Toba, P'ing-ch'eng, Hsiao-wen, Northern Ch'i, Northern Chou, Yü-wen T'ai, Kao Huan | Tabgach, Yuan Wei, Xiaowendi | the Northern dynasties |
+| Six Garrisons, equal-field system, fubing | Liu Chen, chün-t'ien, fu-ping, Fu Bing, fu bing | juntian, juntianzhi | lower case in prose for the institutions |
+| Yungang Grottoes, Longmen Grottoes | Yun-kang, Yun Gang, Lung-men, Long Men | | |
+| Shen Yue, Wen Xuan, Xiao Tong | Shen Yüeh, Wen hsüan, Hsiao T'ung | Wenxuan, Selections of Refined Literature | *Wen Xuan* split, as the live answer |
+| Sui, Tang | T'ang | | the dynasties; in the `pinyin` field split from cháo, lower case: Suí cháo, Táng cháo |
+| Emperor Wen of Sui, Emperor Yang of Sui, Emperor Gaozu of Tang, Emperor Taizong, Emperor Gaozong, Emperor Xuanzong | Yang-ti, T'ai-tsung, Kao-tsung, Hsüan-tsung | Sui Wendi, Sui Yangdi, Tang Gaozu, Tang Taizong, Yang Jian, Yang Guang, Li Yuan, Li Shimin, Li Longji | the Sui and Tang emperors: "Emperor" and the posthumous or temple name, English order; the joined Chinese forms (Tang Taizong) where the `pinyin` field or a cited title uses them |
+| Wu Zetian, Wu Zhou | Wu Tse-t'ien, Wu Chao | Wu Zhao, Empress Wu | *Wu Zhao* is her own name, an alias |
+| Kaihuang Code, Tang Code, Zhenguan, Kaiyuan | K'ai-huang, Chen-kuan, K'ai-yüan | | the reign periods named as eras |
+| jinshi, mingjing, jiedushi, fanzhen, sabao, koufentian, zuyongdiao, Zhengshitang | chin-shih, ming-ching, chieh-tu-shih, Jie Du Shi, fan-chen, sa-pao, k'ou-fen-t'ien, zu yong diao, zu-yong-diao, tsu-yung-tiao, Cheng-shih-t'ang | | lower case in prose for the degrees, offices and taxes, joined |
+| Grand Canal, Goguryeo, Wagang, Li Mi, Yuwen Huaji, Dou Jiande, Wang Shichong | Koguryo, Koguryŏ, Kao-kou-li, Wa-kang, Yü-wen Hua-chi, Tou Chien-te | Gaogouli | *Goguryeo* the Korean collection's form |
+| Xuanwu Gate, Anxi Protectorate, West Market | Hsüan-wu, Xuanwumen (in English prose), An-hsi | Xuanwumen, Xishi, Protectorate General to Pacify the West | English names first |
+| Yang Guifei, Yang Guozhong, Li Linfu, Gao Xianzhi, An Lushan, Shi Siming | Yang Kuei-fei, Li Lin-fu, Kao Hsien-chih, An Lu-shan, An Lu Shan, Shih Ssu-ming | Yang Yuhuan | |
+| Talas, Tibetan Empire, Uyghur Khaganate, Nanzhao | Uighur, Uigur, Nan-chao, Nan Zhao | Tubo, Tufan, Huihe, Huihu | *Uyghur* the house form, *Tubo* the Chinese name an alias |
+| Famen Temple, Xuanzang, Huichang | Fa-men, Hsüan-tsang, Hsuan-tsang, Hiuen Tsiang, Xuan Zang, Hui-ch'ang | Famensi, Tripitaka, Tang Sanzang | the *Journey to the West*'s Tang Sanzang said to be the novel's |
+| regulated verse, Li Bai, Du Fu, Bai Juyi, Han Yu, Wang Wei, Yuan Zhen | lü-shih, Li Pai, Tu Fu, Po Chü-i, Bo Juyi, Han Yü, Yüan Chen | lüshi, Li Taibai, Li Po | the Tang poets, surname and name split; *Li Po*, the older English name, is an alias legitimate in an "also known as" sentence |
+| Huang Chao, Zhu Wen, Li Keyong, Five Dynasties and Ten Kingdoms, Later Liang, Later Tang, Sixteen Prefectures | Huang Ch'ao, Chu Wen, Li K'o-yung, Hou Liang, Hou T'ang | Zhu Quanzhong, Sixteen Prefectures of Yan and Yun | |
 
 ## Mythology and legend
 
@@ -462,9 +488,19 @@ stood on main on 2026-11-12 (the years only; ages, days and months left out), an
 | qingtan flourished | c. 240 – 420 CE | Spiro (`cnh-299`) |
 | the Seven Sages lived / Ji Kang executed / also dated | 205 – 305 CE / 262 CE / 263 CE | `cnh-300` |
 
+## Sixteen Kingdoms to the Tang (the fourth hundred)
+
+Filled batch by batch from `cnh-301` (B31 on). **The protected lines** of the fourth hundred's individuals
+(`cnh-302`, `309`, `312`, `316`–`322`, `327`, `333`, `341`, `344`, `349`, `354`, `356`, `357`, `371`, `373`, `375`, `377`,
+`382`, `383`, `388`, `391`–`394`, `396`) are pinned below to their lines as they stood on main on 2026-11-13 (the years
+only; ages, days and months left out), and are not rows of this table.
+
+| event | the collection says | source |
+|---|---|---|
+
 ## Later periods
 
-To be filled from `cnh-301` on.
+To be filled from `cnh-401` on.
 
 ## Chronology pins
 
@@ -624,6 +660,36 @@ cnh-286: 200; 219
 cnh-289: 179; 239; 251; 249
 cnh-292: 242; 264; 280; 283
 cnh-294: 236; 266; 290; 280
+cnh-302: 300; 313; 316; 317
+cnh-309: 337; 357; 385; 383
+cnh-312: 232; 310; 349
+cnh-316: 276; 317; 339
+cnh-317: 266; 313; 321
+cnh-318: 312; 347; 373
+cnh-319: 303; 353; 361
+cnh-320: 365; 405; 427
+cnh-321: 344; 364; 406
+cnh-322: 363; 417; 420; 422
+cnh-327: 464; 502; 549; 527
+cnh-333: 467; 471; 499; 496
+cnh-341: 441; 488; 513
+cnh-344: 541; 581; 604; 589
+cnh-349: 569; 589; 604; 618
+cnh-354: 618; 619
+cnh-356: 566; 617; 618; 626; 635
+cnh-357: 598; 626; 649
+cnh-371: 624; 690; 705
+cnh-373: 685; 712; 756; 713; 762
+cnh-375: 719; 745; 756
+cnh-377: 703; 755; 756; 757
+cnh-382: 727; 779; 781
+cnh-383: 715; 716; 763; 780
+cnh-388: 602; 629; 645; 664
+cnh-391: 701; 742; 762
+cnh-392: 712; 758; 770
+cnh-393: 772; 815; 846
+cnh-394: 768; 819; 824
+cnh-396: 852; 904; 907; 912
 cnh-101: 1250; 1046
 cnh-103: 1046; 1040; 1122
 cnh-104: 1046; 1044; 1122
