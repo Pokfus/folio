@@ -11485,7 +11485,44 @@ window.GLOSSARY = {
 "Oxyrhynchus": "",
 "Resin": "",
 "Sinai_Peninsula": "",
-"Wadi_Digla": ""
+"Wadi_Digla": "",
+"Alexander_Fleming": "",
+"Alfred_Jodl": "",
+"Antibiotic": "",
+"Blenheim_Palace": "",
+"Bushnell_General_Hospital": "",
+"Cabinet_of_the_United_Kingdom": "",
+"Cantaloupe": "",
+"Chancellor_of_the_Exchequer": "",
+"Chemotherapy": "",
+"Chief_of_Staff_of_the_United_States_Army": "",
+"Chiefs_of_Staff_Committee": "",
+"Christmas_Eve": "",
+"Conservative_Party_(UK)": "",
+"David_Lloyd_George": "",
+"Ernst_Chain": "",
+"First_Lord_of_the_Admiralty": "",
+"George_C._Marshall": "",
+"George_VI": "",
+"HMS_Royal_Oak_(08)": "",
+"Howard_Florey": "",
+"Liberal_Party_(UK)": "",
+"Military_Co-ordination_Committee": "",
+"Nobel_Prize": "",
+"Norman_Heatley": "",
+"Operation_Wilfred": "",
+"Parliament_of_the_United_Kingdom": "",
+"Penicillium": "",
+"Peoria,_Illinois": "",
+"Prime_Minister_of_the_United_Kingdom": "",
+"Reims": "",
+"Scapa_Flow": "",
+"St_Mary's_Hospital,_London": "",
+"Supreme_Headquarters_Allied_Expeditionary_Force": "",
+"United_States_Department_of_Agriculture": "",
+"United_States_Department_of_War": "",
+"United_States_Military_Academy": "",
+"University_of_Oxford": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17015,7 +17052,14 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Aulus_Platorius_Nepos": "fl. 119–c. 126 CE",
 "Titus_Pomponius_Atticus": "110–32 BCE",
 "War_of_Actium": "32–30 BCE",
-"Arrian": "c. 87 – after 145 CE"
+"Arrian": "c. 87 – after 145 CE",
+"Alexander_Fleming": "1881–1955",
+"Alfred_Jodl": "1890–1946",
+"David_Lloyd_George": "1863–1945",
+"Ernst_Chain": "1906–1979",
+"George_C._Marshall": "1880–1959",
+"George_VI": "1895–1952",
+"Howard_Florey": "1898–1968"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -22021,7 +22065,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "United_States_Secretary_of_State": ["US Secretary of State","U.S. Secretary of State"],
 "National_Archives_and_Records_Administration": ["NARA","US National Archives"],
 "Allies_of_World_War_II": ["Allies of the Second World War"],
-"House_of_Commons_of_the_United_Kingdom": ["British House of Commons"],
+"House_of_Commons_of_the_United_Kingdom": ["British House of Commons","Commons"],
 "Admiralty_(United_Kingdom)": ["British Admiralty"],
 "Winston_Churchill": ["Churchill"],
 "RAF_Fighter_Command": ["Fighter Command"],
@@ -24421,11 +24465,24 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Late_Period_of_Egypt": ["Late Period","Late Period of ancient Egypt","Egyptian Late Period"],
 "Metropolitan_Museum_of_Art": ["Metropolitan Museum"],
 "Oxyrhynchus": ["Oxyrhynchos"],
-"Sinai_Peninsula": ["Sinai","Sinai peninsula","peninsula of Sinai"]
+"Sinai_Peninsula": ["Sinai","Sinai peninsula","peninsula of Sinai"],
+"Alfred_Jodl": ["Jodl"],
+"David_Lloyd_George": ["Lloyd George"],
+"George_C._Marshall": ["George Marshall"],
+"HMS_Royal_Oak_(08)": ["HMS Royal Oak"],
+"Military_Co-ordination_Committee": ["Military Co-ordinating Committee"],
+"Nobel_Prize": ["Nobel Prizes"],
+"Reims": ["Rheims"],
+"Supreme_Headquarters_Allied_Expeditionary_Force": ["SHAEF","Supreme Commander of the Allied Expeditionary Force","Allied Expeditionary Force"],
+"United_States_Department_of_Agriculture": ["US Department of Agriculture","USDA"],
+"United_States_Department_of_War": ["US War Department"],
+"United_States_Military_Academy": ["US Military Academy"],
+"University_of_Oxford": ["Oxford University"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
+"House_of_Commons_of_the_United_Kingdom": true,
 "Amazon_River": true,
 "Christianity": true,
 "Earth": true,
@@ -24617,7 +24674,9 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Red_Terror": true,
 "Paganism": true,
 "Vallum": true,
-"Pantheon_(religion)": true
+"Pantheon_(religion)": true,
+"Cabinet_of_the_United_Kingdom": true,
+"Parliament_of_the_United_Kingdom": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -36106,7 +36165,44 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Oxyrhynchus": ["city","place","archaeology","egypt","history"],
 "Resin": ["object","science","botany","archaeology"],
 "Sinai_Peninsula": ["place","geography","history","egypt","archaeology"],
-"Wadi_Digla": ["place","archaeology","egypt","prehistory"]
+"Wadi_Digla": ["place","archaeology","egypt","prehistory"],
+"Alexander_Fleming": ["person","science","medicine","britain","20th century"],
+"Alfred_Jodl": ["person","military","germany","world war ii","20th century"],
+"Antibiotic": ["concept","medicine","science","biology"],
+"Blenheim_Palace": ["building","architecture","oxfordshire","britain"],
+"Bushnell_General_Hospital": ["building","medicine","world war ii","united states"],
+"Cabinet_of_the_United_Kingdom": ["institution","politics","government","britain"],
+"Cantaloupe": ["plant","agriculture","food","botany"],
+"Chancellor_of_the_Exchequer": ["title","politics","finance","britain"],
+"Chemotherapy": ["concept","medicine","science","pharmacology"],
+"Chief_of_Staff_of_the_United_States_Army": ["title","military","united states","world war ii"],
+"Chiefs_of_Staff_Committee": ["institution","war","world war ii","britain"],
+"Christmas_Eve": ["event","religion","christianity","calendar"],
+"Conservative_Party_(UK)": ["institution","politics","party","britain"],
+"David_Lloyd_George": ["person","politics","britain","20th century"],
+"Ernst_Chain": ["person","science","medicine","britain","20th century"],
+"First_Lord_of_the_Admiralty": ["title","politics","navy","britain"],
+"George_C._Marshall": ["person","military","politics","united states","20th century"],
+"George_VI": ["ruler","monarchy","britain","20th century"],
+"HMS_Royal_Oak_(08)": ["object","navy","world war ii","britain"],
+"Howard_Florey": ["person","science","medicine","australia","20th century"],
+"Liberal_Party_(UK)": ["institution","politics","party","britain"],
+"Military_Co-ordination_Committee": ["institution","war","world war ii","britain"],
+"Nobel_Prize": ["institution","science","literature","sweden"],
+"Norman_Heatley": ["person","science","medicine","britain","20th century"],
+"Operation_Wilfred": ["event","war","world war ii","norway"],
+"Parliament_of_the_United_Kingdom": ["institution","politics","government","britain"],
+"Penicillium": ["plant","biology","science","medicine"],
+"Peoria,_Illinois": ["city","geography","illinois","united states"],
+"Prime_Minister_of_the_United_Kingdom": ["title","politics","government","britain"],
+"Reims": ["city","geography","france","world war ii"],
+"Scapa_Flow": ["place","geography","scotland","navy"],
+"St_Mary's_Hospital,_London": ["building","medicine","london","britain"],
+"Supreme_Headquarters_Allied_Expeditionary_Force": ["institution","war","world war ii","europe"],
+"United_States_Department_of_Agriculture": ["institution","government","agriculture","united states"],
+"United_States_Department_of_War": ["institution","government","military","united states"],
+"United_States_Military_Academy": ["institution","education","military","united states"],
+"University_of_Oxford": ["institution","education","oxford","britain"]
 });
 
 /* ============================================================================
