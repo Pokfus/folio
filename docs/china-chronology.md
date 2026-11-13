@@ -631,6 +631,13 @@ are not rows of this table.
 | the Tangut script (dated / also dated) / the Juyong inscription | 1036 / 1037 / 1345 | `cnh-468` |
 | the Tangut canon translated / printed | 1038 – 1090 / 1293 – 1302 | Theobald (`cnh-469`) |
 | the Battle of Haoshuichuan | 1041 | `cnh-470` |
+| Khara-Khoto taken / the last dated text / excavated | 1226 / 1366 / 1908 – 1914 | `cnh-471` |
+| the Mongol conquest of the Western Xia / the capital besieged / the last campaign | 1205 – 1227 / 1209 / 1226 – 1227 | `cnh-472` |
+| the Jurchen Jin (the *Jinshi* / Qiu Jingjia) | 1115 – 1234 / 1117 – 1234 | `cnh-473` |
+| the Battle of Hubudagang | 1115 | `cnh-476` |
+| Da Qi founded / abolished | 1130 / 1137 | `cnh-477` |
+| the meng'an mouke introduced / ended | 1114 / 1234 | Cordier (`cnh-478`) |
+| the Jurchen large script / the small script | 1119 / 1138 | the *Jinshi* (`cnh-479`) |
 
 ## Later periods
 
@@ -1114,4 +1121,11 @@ cnh-465: 1038; 1227
 cnh-468: 1036; 1037; 1345
 cnh-469: 1038; 1090; 1293; 1302
 cnh-470: 1041
+cnh-471: 1226; 1366; 1908; 1914
+cnh-472: 1205; 1227; 1209; 1226
+cnh-473: 1115; 1117; 1234
+cnh-476: 1115
+cnh-477: 1130; 1137
+cnh-478: 1114; 1234
+cnh-479: 1119; 1138
 ```

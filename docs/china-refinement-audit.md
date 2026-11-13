@@ -474,7 +474,7 @@ otherwise.
 | B45 | Northern Song (`col-27`) / Southern Song (`col-28`) | `cnh-441`–`cnh-450` | 10 | 100 | **done 2026-11-13** |
 | B46 | Southern Song (`col-28`) | `cnh-451`–`cnh-460` | 10 | 101 | **done 2026-11-13** |
 | B47 | Southern Song (`col-28`) / Western Xia (`col-29`) | `cnh-461`–`cnh-470` | 10 | 94 | **done 2026-11-13** |
-| B48 | Western Xia (`col-29`) / Jurchen Jin (`col-30`) | `cnh-471`–`cnh-480` | 10 | 97 | to do |
+| B48 | Western Xia (`col-29`) / Jurchen Jin (`col-30`) | `cnh-471`–`cnh-480` | 10 | 97 | **done 2026-11-13** |
 | B49 | Jurchen Jin (`col-30`) / Yuan (`col-31`) | `cnh-481`–`cnh-490` | 10 | 110 | to do |
 | B50 | Yuan (`col-31`) | `cnh-491`–`cnh-500` | 10 | 100 | to do |
 | B51 | Yuan (`col-31`) / Ming (`col-32`) | `cnh-501`–`cnh-510` | 10 | 107 | to do |
@@ -1039,6 +1039,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-468` | none | not re-checked (Commons rate-limited): wanted — a printed Tangut page |
 | `cnh-469` | none | not re-checked (Commons rate-limited): wanted — a page of the canon |
 | `cnh-470` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-471` | none | not re-checked (Commons rate-limited): wanted — the walls and stupas |
+| `cnh-472` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-473` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-474` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-475` | as before | not re-checked (Commons rate-limited): ok |
+| `cnh-476` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-477` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-478` | none | not re-checked (Commons rate-limited): wanted — a Jurchen paizi or seal |
+| `cnh-479` | none | not re-checked (Commons rate-limited): wanted — a rubbing of the 1185 Fuyu stele |
+| `cnh-480` | as before | not re-checked (Commons rate-limited): ok |
 
 ## Glossary candidates
 
@@ -3120,3 +3130,37 @@ claim (Yule); the Mongol conquests' figures confirmed as the histories' and Macg
 **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-467`'s 1003 on no page read, "10 November 1038
 (age 35)" (the *Songshi*: age 30; the memorial: the 11th day of the 10th month) and "19 January 1048 (age 44)" (the *Songshi*
 and Cordier: 46).
+
+### B48 — `cnh-471`–`cnh-480`, Western Xia and Jurchen Jin: Khara-Khoto to Emperor Shizong (2026-11-13)
+
+Run as B41. Every cited URL answered. **Pictures were not touched.** **The old cards dated Khara-Khoto by the Western Xia's
+founding (1032) and a "peak under Kublai Khan" (not a date), gave the Jurchen people the Jin's and Aguda's dates, named a place
+in the Jin's line ("Took Kaifeng"), put a battle template on Hubudagang ("1115, 12th lunar month") and Yehuling ("August –
+October 1211", a conversion), dated Caizhou's fall to a day on no page read, dated the meng'an mouke's reform by a conversion
+(1175, and Shizong's clue), and cited the *Jinshi*, the *Songshi* and the *Sanchao beimeng huibian* on Chinese Wikisource.**
+The *Jinshi* (juan 1, 2, 73, 77) and the *Yuanshi*'s and *Songshi*'s Xia chapters were read on the Kanseki Repository and
+zggdwx.com.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-471` Khara-Khoto | 6 | 6 → 6 | **"Founding 1032" (the Xia's year, in Stein) and "Peak: Yuan era" off: `Taken 1226` / `Last dated text 1366` / `Excavated 1908 – 1914`; Kozlov's library at the Institute of Oriental Manuscripts (Zorin); Nishida; the Wikisource and IDP pages replaced**; "1286" (a conversion) dropped. **Pinyin Hēishuǐ chéng → Hēishuǐchéng.** |
+| `cnh-472` Mongol conquest of Western Xia | 6 | 6 → 6 | **The *Songshi*/*Jinshi* Wikisource claims dropped; `Fought 1205 – 1227` / `Capital besieged 1209` / `Last campaign 1226 – 1227`; Rashid al-Din's 300,000 given as his figure and called an exaggeration (Howorth); Li Xian's killing as "other accounts"**. **Pinyin Ménggǔ → Měnggǔ** (蒙古 is third tone; corrected after the apply). |
+| `cnh-473` Jurchen Jin | 7 | 7 → 7 | **"Took Kaifeng" off: `Dated 1115 – 1234` / `Also dated 1117 – 1234` (the *Jinshi*'s year against Qiu Jingjia 2023, from a 1117 letter to Goryeo); the gold-not-iron naming as the *Jinshi*'s story against the Song version; the capitals Huining, Yanjing and Kaifeng; Hsu 2024 on the Jin tombs, Artemieva 2019**; Parker, Macgowan and Giles and a phrasing reusing `cnh-453`'s Hailing crossing dropped. |
+| `cnh-474` Jurchen people | 7 | 7 → 7 | **The line (another card's dates on a people) off: no line, as `cnh-412` (the draft's derived "c. 907 – 960 CE" removed by hand); "cooked" and "raw" on the Khitan registers, the Black Water Mohe, Hanpu's blood price in horses, cattle and gold (the *Jinshi*; Cordier's Mailla: silver), the falcon road, the Jianzhou branch and the Manchus**; everything resting on the unreadable *Sanchao beimeng huibian* dropped. |
+| `cnh-475` Wanyan Aguda | 6 | 7 → 6 | **The *Jinshi* juan 2 for two Wikisource texts; Ningjiang with 2,500 men and the freed slaves, the three birds with three arrows and the tablet, the three burials ending at Dafangshan (Sobolev and Soboleva [in Russian]); the fishing-feast dance kept out (`cnh-420`'s)**; Macgowan dropped. Protected: the line stays (flagged below). |
+| `cnh-476` Battle of Hubudagang | 5 | 5 → 6 | **The template off: `Fought 1115`; the *Jinshi* (zggdwx) and Gabelentz's German translation of the *Liaoshi*: the captured supply officer, Yelü Zhangnu's plot, the strike at the centre; each army size given to its own text**. |
+| `cnh-477` Da Qi | 6 | 5 → 6 | **The *Jinshi* juan 77 for two Wikisource histories; Huang Chunyan 2020; Liu Yu's surrender of Jinan, his ancestors' tablets at Kaifeng, Liu Lin seized; the 300,000 Cordier's figure; Liu Yu's death 1143 (Giles) against 1146 (Cordier, Huang)**; "1136" and the *Songshi*-only claims dropped; the glossary alias "Qi (Liu Yu)" dropped (it caught plain "Qi"). |
+| `cnh-478` Meng'an mouke | 5 | 5 → 5 | **"Reformed 1175" (a conversion, and Shizong's clue) off: `Introduced 1114` / `Ended 1234`; every able man serving with his own weapons and food; the Shaiga silver tablet (Usuki [in Japanese]); the shrunken companies of twenty-five**; the intermarriage claim (a misreading of the *Jinshi*) dropped. |
+| `cnh-479` Jurchen script | 6 | 6 → 6 | **The *Jinshi* juan 73; three Unicode proposals (West 2023, Zaytsev and West 2025, China's national body 2020); "a Ming dictionary of 1407" corrected (1407 is the Bureau of Translators' founding; its glossaries carry no date); "encoded in Unicode" (only proposed) dropped**. |
+| `cnh-480` Emperor Shizong of Jin | 5 | 5 → 5 | **The Jurchen songs in a palace hall; proclaimed while Hailing attacked the south, the Song as nephew; Huining restored as the Upper Capital; the Jurchen examination 1173 (1164 began the translations and schools)**; "Little Yao and Shun" (no citable source) dropped. Protected: the line stays (flagged below). |
+
+Read by eye. **Confusability**: the Huntong River dance is `cnh-420`'s (out of `cnh-475`); Hubudagang's clues `cnh-476`'s; the
+script's maker `cnh-479`'s, the Jurchen songs `cnh-480`'s and the shrunken companies `cnh-478`'s; Kozlov's library `cnh-471`'s
+(out of `cnh-468`). **Legend**: the gold-not-iron naming (the *Jinshi*), Hanpu's blood price (the *Jinshi*), Rashid al-Din's
+300,000 (his figure) are each a text's. **Chinese names corrected**: `cnh-471` (joined), `cnh-472` (Měnggǔ). Kept unconfirmed:
+蒙古灭西夏 and 护步答冈之战 — for the owner. **For the owner**: the glossary alias "Liu Yu" belongs to `Emperor_Wu_of_Song`, so
+"Liu Yu" on `cnh-477` (劉豫, another man) links to the Liu Song founder. **Spellings fixed**: none needed; 0 hits. **Myth
+register**: the Mongol conquests' figures confirmed (Rashid al-Din's 300,000, Howorth's doubt). **check-citations**: `cnh-473`,
+`474` and `477` report Qiu Jingjia and Huang Chunyan in Chinese order — fine. **Protected lines: unchanged** (diffed after the
+apply). For the owner: `cnh-475`'s 1068 and days on no page read (the *Jinshi*: Xianyong 4, 7th month, 1st day); `cnh-480`'s
+1123 and days on no page read (Cordier: aged 67 sui in 1189, which fits).
