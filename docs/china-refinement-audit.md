@@ -300,9 +300,9 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | The Peach Blossom Spring | Tao Yuanming's own prose tale of a fisherman finding a hidden valley whose people fled the Qin, told as fiction by its author — provisional | `cnh-320` | — | — |
 | Emperor Wu of Liang and Bodhidharma | the emperor's question about his merit and Bodhidharma's "no merit"; a Chan legend first told centuries later (the 8th-century Chan histories), not in the earliest notice of Bodhidharma — provisional | — | `cnh-327` | — |
 | The Xuanwu Gate incident as told | Li Shimin killing his brothers Li Jiancheng and Li Yuanji at the palace gate and his father's abdication, in the court histories written under Taizong's own eye (the *Old* and *New Book of Tang*, the *Zizhi tongjian*), which make the brothers the plotters — confirmed B36 (`cnh-356`, `cnh-358`: the record descends from the official account Taizong ordered after seeing his historians' work; Sima Guang doubted the banquet plot) | `cnh-358` | `cnh-356`, `cnh-357` | — |
-| Wu Zetian as the only empress regnant and the hostile tradition | the only woman to rule China as emperor in her own name (the Wu Zhou, 690 – 705 CE); the stories of the strangled daughter and the mutilated rivals from later hostile historians — provisional | `cnh-371`, `cnh-372` | `cnh-364` | — |
-| Yang Guifei: the lychees, Mawei and the Song of Everlasting Sorrow | lychees rushed by relay to the court; her death at Mawei Station when the escort mutinied (756 CE); Bai Juyi's "Song of Everlasting Sorrow" (806 CE) and later legend — provisional | `cnh-375` | `cnh-373`, `cnh-377`, `cnh-393` | — |
-| An Lushan's adoption by Yang Guifei | An Lushan made Yang Guifei's adopted son, the washing ceremony; told in later histories and anecdote collections — provisional | — | `cnh-377`, `cnh-375` | — |
+| Wu Zetian as the only empress regnant and the hostile tradition | the only woman to rule China as emperor in her own name (the Wu Zhou, 690 – 705 CE); the stories of the strangled daughter and the mutilated rivals from later hostile historians — B38 (`cnh-371`): told as hostile reports; the strangled daughter in Giles but not in the *Old Book* juan 51, its earliest text still unconfirmed | `cnh-371`, `cnh-372` | `cnh-364` | — |
+| Yang Guifei: the lychees, Mawei and the Song of Everlasting Sorrow | lychees rushed by relay to the court; her death at Mawei Station when the escort mutinied (756 CE); Bai Juyi's "Song of Everlasting Sorrow" (806 or 807 CE; Beauchamp prints 807) and later legend — confirmed B38 (`cnh-375`: the lychees told as Mayers's account and Du Fu's poem; the An Lushan love story later lore, Owen) | `cnh-375` | `cnh-373`, `cnh-377`, `cnh-393` | — |
+| An Lushan's adoption by Yang Guifei | An Lushan made Yang Guifei's adopted son, the washing ceremony; told in later histories and anecdote collections — confirmed B38 (`cnh-377`: the *Old Book of Tang* juan 200A has him ask for it himself; the three-day washing is the *Zizhi tongjian*'s, juan 216) | — | `cnh-377`, `cnh-375` | — |
 | Li Bai drowning while embracing the moon | the poet drowning as he leaned from a boat to embrace the moon's reflection; a later legend, against the earlier accounts of illness — provisional | — | `cnh-391` | — |
 | Xuanzang and the Journey to the West | Xuanzang's own *Record of the Western Regions* (646 CE) and his disciples' biography; the 16th-century novel *Journey to the West* with Tripitaka and the Monkey King, fiction — agreeing with `in-199` — provisional | — | `cnh-388` | `in-199` |
 | Han Yu's memorial on the Buddha's bone | Han Yu's memorial of 819 CE against bringing the finger-bone relic from the Famen Temple into the palace, and his banishment to Chaozhou — provisional | — | `cnh-394`, `cnh-387` | — |
@@ -416,7 +416,7 @@ otherwise.
 | B35 | Northern and Southern dynasties (`col-21`) / Sui (`col-22`) | `cnh-341`–`cnh-350` | 10 | 104 | **done 2026-11-13** |
 | B36 | Sui (`col-22`) / Tang (`col-23`) | `cnh-351`–`cnh-360` | 10 | 113 | **done 2026-11-13** |
 | B37 | Tang (`col-23`) | `cnh-361`–`cnh-370` | 10 | 102 | **done 2026-11-13** |
-| B38 | Tang (`col-23`) | `cnh-371`–`cnh-380` | 10 | 104 | to do |
+| B38 | Tang (`col-23`) | `cnh-371`–`cnh-380` | 10 | 104 | **done 2026-11-13** |
 | B39 | Tang (`col-23`) | `cnh-381`–`cnh-390` | 10 | 112 | to do |
 | B40 | Tang (`col-23`) / Five Dynasties and Ten Kingdoms (`col-24`) | `cnh-391`–`cnh-400` | 10 | 111 | to do |
 | B41 | Five Dynasties and Ten Kingdoms (`col-24`) | `cnh-401`–`cnh-410` | 10 | 102 | to do |
@@ -891,6 +891,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-368` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 | `cnh-369` | none | not re-checked (Commons rate-limited): wanted — An Jia's or Shi Jun's couch |
 | `cnh-370` | none | not re-checked (Commons rate-limited): wanted — a dancer on a Sogdian tomb couch |
+| `cnh-371` | none | not re-checked (Commons rate-limited): wanted — the glossary's portrait would serve |
+| `cnh-372` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-373` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-374` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-375` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-376` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-377` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-378` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-379` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-380` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 
 ## Glossary candidates
 
@@ -2510,3 +2520,41 @@ locator looks like the Han city, not the Tang; `cnh-368`'s point is labelled Xi'
 dance; `cnh-366`'s retaking is the second Changshou year in the *Old Book* against Stein's and Chavannes's 692; Bai Juyi's
 own note puts the dancing girls at the end of Tianbao, against the history's Kaiyuan tribute; `jp-088` carries the old
 Chang'an line's faults.
+
+### B38 — `cnh-371`–`cnh-380`, Tang: Wu Zetian to the jiedushi (2026-11-13)
+
+Run as B31. Every cited URL answered. **Pictures were not touched**; none of the ten cards has a picture. **The old cards
+cited Chinese Wikisource for two or three Chinese texts apiece, put battle templates on Talas ("Casualties 20,000 –
+30,000 Tang killed, by Chinese sources") and the An Lushan Rebellion ("7 years, 2 months", "Result Tang victory"), dated
+the Kaiyuan era by a "Locust campaign 716" no source converts, counted the jiedushi's "Ten commands 742" on no page, ended
+the Hebei provinces with the Tang's fall, read the census drop of 52.9 to 16.9 million as deaths, told the lychees, the
+adoption and the strangled daughter in the card's own voice, and gave the Longmen Buddha a firm 675.** The histories were
+read in the Siku text on the Kanseki Repository and on zggdwx.com (the *Old Book of Tang* past juan 188).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-371` Wu Zetian | 8 | 8 → 8 | **Wikisource, an expired Russian site and Mayers replaced: the *Old Book of Tang* juan 6, the two Cambridge chapters, Bottéro; her father Wu Shihuo (not Shiyue); the strangled daughter and the maimings told as hostile historians' reports; the convent, the "two sages", the character zhao, the last decree before Qianling**; "enlarged the empire" and the Longmen 675 dropped. Protected: the line stays (flagged below). |
+| `cnh-372` Wu Zhou | 6 | 6 → 6 | **The *Zizhi tongjian* juan 204 with Hu Sanxing: Fu Youyi's nine hundred petitioners, the phoenix, the King Ping descent and Hu's scorn, the Great Cloud temples, the Divine Palace of Myriad Images, the twelve new characters, Wang Qiuli's objection**; the Divine Capital gloss and four Bright Hall dates (on no page cited) dropped. |
+| `cnh-373` Emperor Xuanzong | 7 | 7 → 7 | **Two Wikisource texts and Mayers cut to the *New Book of Tang* juan 5; Princess Taiping's fall, the Daodejing commentary and Laozi as ancestor, the Pear Garden; Owen's open-access Du Fu**; the Hanlin claim dropped. Protected: the line stays (flagged below). |
+| `cnh-374` Kaiyuan era | 6 | 6 → 7 | **"Locust campaign 716" off (the annal puts Yao Chong's petition in Kaiyuan 3, his biography in 4): `Era 713 – 741 CE`; Du Fu's "Recalling the Past" (Owen), the palace luxuries burned, the locusts driven into fires; the household count of 726 with whose registers; the Kaiyuan tongbao coins older than the era**; the converted 714 and the 140,000 shi dropped. |
+| `cnh-375` Yang Guifei | 7 | 7 → 7 | **The *Old Book of Tang* juan 51 for Wikisource; her age at death 38 by the Chinese count (the line's 37 in full years); 719 a modern figure; the lock of hair, Prince Shou and the Taizhen habit; the lychees Mayers's account and Du Fu's poem, not the card's voice; Owen judging the An Lushan lover story later lore**. Protected: the line stays (flagged below). |
+| `cnh-376` Battle of Talas | 7 | 7 → 7 | **The battle template off: `Fought 751 CE`; the *Zizhi tongjian* juan 216 (30,000 against 60,000 in its note), the Qarluq defection, the king of Chach beheaded; the paper story al-Tha'alibi's 11th-century tale against paper documents some three decades earlier (Bloom); Du Huan from Hirth and Rockhill**; the old casualty row (no source) dropped. |
+| `cnh-377` An Lushan | 7 | 7 → 7 | **Three Wikisource texts cut to the *Old Book of Tang* juan 200A (zggdwx); Rokhshan "one modern view" (de la Vaissière); the sheep theft, Shi Siming his fellow townsman, the adoption he asked for himself ("barbarians put the mother first") all the history's; the whirl left to `cnh-370`, the rebellion's course to `cnh-378`**. Protected: the line stays (flagged below). |
+| `cnh-378` An Lushan Rebellion | 7 | 7 → 7 | **The battle template off: `Fought 755 – 763 CE`; the census whose and what: the Board of Revenue's 52,880,488 registered people for 754 (the *Zizhi tongjian* juan 217) and just over 16.9 million for 764 (Cordier), tax registers kept less carefully after the war (Theobald), not a death toll (Cordier's own reading not followed); Shi Siming's jades hedged; the chain of murders**; the 490,000 frontier troops (`cnh-380`'s) and "hanged himself in a wood" (Wikisource only) dropped. |
+| `cnh-379` Three Fanzhen of Hebei | 6 | 6 → 6 | **"Tang falls 907" off: `Settled 763 CE` / `Revolt 781 – 785 CE` / `Submitted 819 CE`; the *Old Book of Tang* juan 141: Pugu Huai'en's motive as that history tells it, Tian Chengsi's army and guard, the court's indulgence, the refused succession of 781; O'Byrne 1982 (open) for the war and a modern doubt of Pugu's plan**; Heshuo san zhen added as an alias. |
+| `cnh-380` jiedushi | 6 | 6 → 6 | **"Ten commands 742" (on no page) off: `First appointed 711 CE` / `Also dated 710 CE` (Sima Guang's Youzhou, via O'Byrne) / `Curbed 965 CE`; the *Old Book of Tang* juan 38's ten commanders with 490,000 men and 80,000 horses; An Lushan's army 120,000 by one count, 200,000 by another**. |
+
+Read by eye. **Confusability**: Empress Wu's 30,000 at Kucha stay `cnh-366`'s; Bai's "Huxuan nü" and Mawei in it `cnh-370`'s
+(the Yang Guifei agent was told); Du Fu's "Recalling the Past" `cnh-374`'s (noted for `cnh-392`); the adoption request is
+a phrasing on `cnh-377` (the history's, so told) and a mention on `cnh-375`; the census `cnh-378`'s and the frontier
+armies `cnh-380`'s. **Legend**: the lychees, the adoption, the strangled daughter and the paper prisoners are now each a
+text's or a tale's; the An Lushan–Yang Guifei love story later lore (Owen). **Chinese names corrected**: none needed.
+**Spellings fixed**: none needed; 0 hits. **Myth register**: Wu Zetian's hostile tradition — the strangled daughter is in
+Giles but not in the *Old Book* juan 51 (its earliest text still unconfirmed; row stays provisional); Yang Guifei — the
+lychees Mayers's and Du Fu's, the *Song of Everlasting Sorrow* dated 807 by Beauchamp against the row's 806 (corrected to
+"806 or 807"); An Lushan's adoption — the *Old Book* has him ask for it himself, the three-day washing is the *Zizhi
+tongjian*'s (juan 216). **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-371`'s 624 and
+Lizhou are on no page read (the age at death is 83 in the *Old Book*, 82 in the *New*); `cnh-373`'s 8 September 712 is on
+no page read, Cordier's 12 August 756 is the son's assumption of the title, not the abdication, and Cordier gives the age
+at death as 78 by the Chinese count; `cnh-375`'s 719 and her death day are on no page read; `cnh-377`'s 5 February 756 is
+on no page read and its 25 January 757 meets Cordier's 30 January and Theobald's February.

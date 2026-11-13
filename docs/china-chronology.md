@@ -549,6 +549,12 @@ only; ages, days and months left out), and are not rows of this table.
 | the West Market: planned / abandoned / the dig report | 582 CE / 904 CE / 1961 | `cnh-368` |
 | the sabao tombs of An Jia and Shi Jun | 579 – 580 CE | `cnh-369` |
 | the Sogdian Whirl dancers sent as tribute (Mair) | 718 – 729 CE | `cnh-370` |
+| the Wu Zhou proclaimed / ended | 690 CE / 705 CE | `cnh-372` |
+| the Kaiyuan era | 713 – 741 CE | `cnh-374` |
+| the Battle of Talas | 751 CE | `cnh-376` |
+| the An Lushan Rebellion | 755 – 763 CE | `cnh-378` |
+| the Hebei provinces: settled / the war over succession / submitted | 763 CE / 781 – 785 CE / 819 CE | O'Byrne; Theobald (`cnh-379`) |
+| the jiedushi: first appointed / also dated (Sima Guang) / curbed by the Song | 711 CE / 710 CE / 965 CE | `cnh-380` |
 
 ## Later periods
 
@@ -938,4 +944,10 @@ cnh-367: 582; 583; 904; 1369
 cnh-368: 582; 904; 1961
 cnh-369: 579; 580
 cnh-370: 718; 729
+cnh-372: 690; 705
+cnh-374: 713; 741
+cnh-376: 751
+cnh-378: 755; 763
+cnh-379: 763; 781; 785; 819
+cnh-380: 711; 710; 965
 ```
