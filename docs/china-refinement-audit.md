@@ -344,11 +344,11 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Li Yu's last lyrics and his poisoning | the captive Southern Tang ruler's lyrics of longing ("Yu meiren" among them) and his death by poison after they were sung; told in Wang Zhi's *Moji* (Northern Song), which names the Prince of Qin as the sender after Xu Xuan's report and closes "so it is said"; his death in 978 CE is recorded, the poisoning a tradition — confirmed and corrected B41 (`cnh-407`) | — | `cnh-407`, `cnh-406` | — |
 | Feng Dao, the servant of many houses | Feng Dao serving "four surnames, ten rulers" (Ouyang Xiu's count; his own memoir, the "Changle lao xu", lists four surnames and the Khitan) as minister; Ouyang Xiu's verdict in his *New History of the Five Dynasties* that he knew no shame (Sima Guang's not read); the modern reading of him as a man who kept the government running (Carter 1925) — confirmed and corrected B41 (`cnh-409`: the *New History* juan 54) | — | `cnh-409` | — |
 | Bao Zheng as Judge Bao | the historical Bao Zheng, an incorruptible official at Kaifeng under Renzong (his biography in the *Songshi*); Judge Bao the all-seeing judge of Yuan *zaju*, the ballad stories and Ming–Qing fiction (Idema 2011) — confirmed B43 (`cnh-424`) | — | `cnh-424`, `cnh-425` | — |
-| Yue Fei: the tattoo, the gold plaques and "no grounds" | the four characters "serve the country with utmost loyalty" on his back (the *Songshi* biography, 1345; his mother tattooing them a later tale); the twelve gold-lettered plaques recalling him in one day; Qin Hui's answer to Han Shizhong that the charge "need not have grounds" (莫須有); the kneeling iron figures of Qin Hui and his wife at the Hangzhou tomb (Ming) — provisional | `cnh-450` | `cnh-451`, `cnh-452` | — |
-| The Jingkang captivity | the Jurchen taking Kaifeng in 1127 and carrying Huizong, Qinzong, the court and its women north; the Southern Song and Jin accounts and the *Songshi* and *Jinshi* (both 1343 – 1345) — provisional | `cnh-446` | `cnh-445`, `cnh-448`, `cnh-473` | — |
-| Li Qingzhao's life in her own postface | her marriage to Zhao Mingcheng, their collecting, and the loss of the collection in the flight south, as her postface to his *Jinshi lu* tells it (dated in the text, read as 1132 or 1134) — provisional | — | `cnh-442` | — |
+| Yue Fei: the tattoo, the gold plaques and "no grounds" | the four characters "serve the country with utmost loyalty" on his back (the *Songshi* biography, 1345; his mother tattooing them a later tale); the twelve gold-lettered plaques recalling him in one day; Qin Hui's answer to Han Shizhong that the charge "need not have grounds" (莫須有); the kneeling iron figures of Qin Hui and his wife at the Hangzhou tomb (Henning 2007; their Ming date unconfirmed) — confirmed B45 (`cnh-450`: the tattoo shown to his judge He Zhu, the plaques and 莫須有 all in the *Songshi* juan 365) | `cnh-450` | `cnh-451`, `cnh-452` | — |
+| The Jingkang captivity | the Jurchen taking Kaifeng in 1127 and carrying Huizong, Qinzong, the court and its women north; the Southern Song and Jin accounts and the *Songshi* and *Jinshi* (both 1343 – 1345) — confirmed B45 (`cnh-446`: the *Songshi* juan 23 lists the regalia, books, maps and craftsmen taken north) | `cnh-446` | `cnh-445`, `cnh-448`, `cnh-473` | — |
+| Li Qingzhao's life in her own postface | her marriage to Zhao Mingcheng, their collecting, and the loss of the collection in the flight south, as her postface to his *Jinshi lu* tells it (the received text closes with 1132; Hong Mai, the earliest account, and some copies give 1134; the postface is absent from the earliest Southern Song editions, Moser) — confirmed and corrected B45 (`cnh-442`) | — | `cnh-442` | — |
 | Wang Anshi and Sima Guang as villain and hero | the reformer blamed for the Northern Song's fall and the historian praised as the upright conservative, the Southern Song and later Confucian verdict (the *Songshi* juan 327's closing judgement, citing Zhu Xi); the partisan record (Fuller 2023); Wang's modern rehabilitation (Liang Qichao, on no page cited) — confirmed B43 (`cnh-430`) | — | `cnh-430`, `cnh-431`, `cnh-432` | — |
-| Su Shi's Red Cliff rhapsodies | the two "Chibi fu" written in exile at Huangzhou (1082 CE), set at a cliff near Huangzhou that Su Shi himself doubted was the battle's; read as literature, not as a record of the battle — provisional | — | `cnh-441` | `cnh-276` (Red Cliffs) |
+| Su Shi's Red Cliff rhapsodies | the two "Chibi fu" written in exile at Huangzhou (1082), set at a cliff near Huangzhou where a guest asks whether this is where Cao Cao was beaten (Su Shi's own doubt of the site on no page read); read as literature, not as a record of the battle — confirmed for 1082 B45 (`cnh-441`) | — | `cnh-441` | `cnh-276` (Red Cliffs) |
 | The Water Margin and the historical Song Jiang | the bandit leader Song Jiang, whose band and surrender the *Songshi* gives in a few lines under Huizong; the outlaws of the Yuan plays and the 14th–16th-century novel *Water Margin* — provisional | — | `cnh-445` | `cnh-928`, `cnh-929` |
 | The Mongol conquests' figures | the death tolls and army sizes of the conquest of the Western Xia, the Jin and the Song as the Persian and Chinese histories give them (Juvaini, Rashid al-Din, the *Yuanshi*, compiled under the Ming 1369 – 1370), not counts; modern estimates differ widely — provisional | `cnh-472` | `cnh-481`, `cnh-482`, `cnh-463`, `cnh-483` | — |
 | Marco Polo's travels and the doubt | the book dictated in a Genoese prison to Rustichello of Pisa (1298 – 1299), surviving in many differing manuscripts; the doubt that he reached China (the Great Wall, tea and footbinding unmentioned, his name absent from the Chinese record) and the replies (the salt, paper money and the Yangzhou post); some passages survive in one printed edition only (Ramusio's, as Yule notes for the ships' compartments, `cnh-438`) — provisional | `cnh-495` | `cnh-485`, `cnh-487`, `cnh-492` | — |
@@ -471,7 +471,7 @@ otherwise.
 | B42 | Liao (`col-25`) | `cnh-411`–`cnh-420` | 10 | 100 | **done 2026-11-13** |
 | B43 | Northern Song (`col-27`) | `cnh-421`–`cnh-430` | 10 | 102 | **done 2026-11-13** |
 | B44 | Northern Song (`col-27`) | `cnh-431`–`cnh-440` | 10 | 104 | **done 2026-11-13** |
-| B45 | Northern Song (`col-27`) / Southern Song (`col-28`) | `cnh-441`–`cnh-450` | 10 | 100 | to do |
+| B45 | Northern Song (`col-27`) / Southern Song (`col-28`) | `cnh-441`–`cnh-450` | 10 | 100 | **done 2026-11-13** |
 | B46 | Southern Song (`col-28`) | `cnh-451`–`cnh-460` | 10 | 101 | to do |
 | B47 | Southern Song (`col-28`) / Western Xia (`col-29`) | `cnh-461`–`cnh-470` | 10 | 94 | to do |
 | B48 | Western Xia (`col-29`) / Jurchen Jin (`col-30`) | `cnh-471`–`cnh-480` | 10 | 97 | to do |
@@ -1009,6 +1009,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-438` | none | not re-checked (Commons rate-limited): wanted — the Quanzhou ship's hull |
 | `cnh-439` | none | not re-checked (Commons rate-limited): wanted — a model of the clay type |
 | `cnh-440` | none | not re-checked (Commons rate-limited): wanted — a surviving juan |
+| `cnh-441` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-442` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-443` | none | not re-checked (Commons rate-limited): wanted — the bridge section of the scroll |
+| `cnh-444` | none | not re-checked (Commons rate-limited): wanted — Early Spring |
+| `cnh-445` | none | not re-checked (Commons rate-limited): wanted — a painting or his thin-gold script |
+| `cnh-446` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-447` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-448` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-449` | none | not re-checked (Commons rate-limited): wanted — the Su causeway |
+| `cnh-450` | none | not re-checked (Commons rate-limited): wanted — the Hangzhou temple or the portrait |
 
 ## Glossary candidates
 
@@ -2981,3 +2991,41 @@ mismatch. **Protected lines: unchanged** (diffed after the apply). For the owner
 "11 October 1086 (age 66)" (the *Songshi* and Cordier: the ninth month, 68 sui), and "Chief minister 1086" (Yuanyou 1 on the
 page); `cnh-434`'s 1047 (Theobald 1047, Giles 1046); `cnh-439`'s 1051 rests on modern summaries only. `cnh-440`'s timeline (a
 text) was not set.
+
+### B45 — `cnh-441`–`cnh-450`, Northern and Southern Song: Su Shi to Yue Fei (2026-11-13)
+
+Run as B41. Every cited URL answered. **Pictures were not touched.** **The old cards cited the *Songshi* (two juan a card),
+the *Xuanhe huapu*, the *Jinshi* and Su Shi's and Li Qingzhao's own texts on Chinese Wikisource, named a place in the
+Jingkang line ("Kaifeng fell"), put a battle template on Huangtiandang, dated the Su causeway 1089 (on no page read), and converted Chinese months into Western ones; Yue Fei's
+background stopped at "the end of 1141" against his line's 1142.** The *Songshi* (juan 22, 23, 24, 338, 364, 365) and Deng
+Chun's *Huaji* juan 10 were read on the Kanseki Repository.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-441` Su Shi | 7 | 7 → 8 | **The *Songshi* juan 338 for the Wikisource texts and Giles's *History*; Yang's open-access Brill book; the poetry case and the Huangzhou farmland, the two Red Cliff rhapsodies dated 1082 and told as literature, Huizhou, Hainan and Changzhou; 1037, 1080 and 1086 now in the background**; Su's own doubt about the site (on no page read) left out. Protected: the line stays (flagged below). |
+| `cnh-442` Li Qingzhao | 7 | 7 → 7 | **The afterword's closing date 1132 with Egan's note that other copies and Hong Mai give 1134; the tea contests over book, page and line; the 1132 remarriage and lawsuit; "man" in the tune's name a long song, not a slow one (Egan)**; the Qingzhou burning and Zhao Mingcheng's age (on no page read) dropped. Protected: the line stays. |
+| `cnh-443` Along the River During the Qingming Festival | 7 | 7 → 7 | **The size and medium from the Palace Museum's record (24.8 × 528 cm, ink and light colour on silk); Zhang Zhu's colophon of 1186 (Hansen, read from an OCR of her PDF); the arched bridge and the snapped tow-line; the Qing court version of 1736**; "1186" and "1954" out of the questions, "the winter of 1126 to 1127" made 1126 (Hansen). |
+| `cnh-444` Guo Xi | 6 | 6 → 7 | **The wiping-cloth story told as Deng Chun's (*Huaji* juan 10); the three distances and the moonlit bamboo (the Linquan gaozhi through its translators); Early Spring and Painter-in-Attendance; "1072" out of the questions**; "wander and live in" (no reachable source) dropped. Protected: the line stays (flagged below). |
+| `cnh-445` Emperor Huizong of Song | 7 | 7 → 7 | **The *Songshi* juan 22 and McNair's open catalogue of the Xuanhe huapu (dated 1120; 231 painters, 6,396 paintings); the thin-gold script, the "too frivolous" verdict of his brother's chief councillor, the Daoist hospitals and paupers' cemeteries, Wuguocheng; the *Songshi*'s verdict told as its own**; the converted months dropped. Protected: the line stays (flagged below). |
+| `cnh-446` Jingkang incident | 6 | 6 → 6 | **"Kaifeng fell" off: `Sieges 1126` / `Captives taken 1127`; the *Songshi* juan 23's list of what was carted north (vessels, the armillary sphere, the libraries, the maps); the sorcerer's sortie and the Chu puppet; Wyatt on the omen stories written after the fall**; the month conversions dropped. |
+| `cnh-447` Battle of Huangtiandang | 5 | 5 → 5 | **The battle template off: `Fought 1130`; the *Songshi* juan 364: Lady Liang's drum, the 48 days and the nominal 100,000 told as its own; Han Shizhong's demand for the two emperors; the channel cut overnight and the fire arrows into becalmed sails**; claims resting only on the *Jinshi* dropped; "Wuzhu" kept out of the prose (it would link to `cnh-249`'s coin). |
+| `cnh-448` Emperor Gaozong of Song | 6 | 6 → 6 | **The *Songshi* juan 24; the edict hidden in a messenger's hair, the ten days as a hostage, the adoption of Taizu's descendant and the abdication; Tao's Cambridge History abstract and a Cleveland Museum record**; the year-carrying phrasings and the calligrapher claim (no source found) dropped. Protected: the line stays (flagged below). |
+| `cnh-449` West Lake | 7 | 7 → 8 | **"Causeway built 1089" (on no page read) off: `Court settled 1138` (Giles) / `World Heritage 2011`; the Su causeway, Marco Polo's islands and barges, Li Mi's six wells; Bai et al. 2026 and two Cleveland Museum records**; Zhou Mi's "pot that melts gold" and the "eyebrows and eyes" line (unsourced) dropped. |
+| `cnh-450` Yue Fei | 7 | 7 → 8 | **The register's way: the four characters shown to his judge He Zhu, the twelve gold plaques, Qin Hui's "need not have grounds", all from the *Songshi* juan 365; his mother's tattooing a later tale and the kneeling figures (Henning 2007); Zong Ze's judgement; 1103, 1140 and 1142 now in the background; "Zuo zhuan" → *Zuo Zhuan***. Protected: the line stays (flagged below). |
+
+Read by eye. **Confusability**: the Su causeway is `cnh-449`'s (out of `cnh-441`); Huizong's catalogue `cnh-445`'s and the
+captivity's list `cnh-446`'s; Gaozong's hostage days `cnh-448`'s; the gold plaques and the tattoo `cnh-450`'s, Qin Hui's
+spittoon and the "south for southerners" slogan `cnh-451`'s; Di Qing's face mark (`cnh-429`) and Yue Fei's back are kept apart.
+One phrasing on `cnh-447` was reworded before the apply to clear check-cards' scholar rule ("Han Shizhong held"); a
+helper, `attrib.js`, now runs that pattern over every draft. **Legend**: the rhapsodies (literature), the cloth story (Deng
+Chun), Lady Liang's drum (the *Songshi*), the tattoo and the plaques (the *Songshi*), the mother's tattooing (later) are each a
+text's. **Chinese names corrected**: none needed; 靖康之变 and 黄天荡之战 kept, no page read printing the compound — for the
+owner. **Spellings fixed**: `cnh-450`'s "Zuo zhuan". **Myth register**: Yue Fei confirmed (the *Songshi* juan 365; the
+mother's tattooing later; the kneeling figures in Henning, their Ming date unconfirmed); the Jingkang captivity confirmed
+(the *Songshi* juan 23); Li Qingzhao's postface confirmed and corrected (1132 in the received text, 1134 in Hong Mai; absent
+from the earliest editions, Moser); Su Shi's rhapsodies confirmed for 1082, his doubt of the site unconfirmed.
+**check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-441`'s
+"Huangzhou exile 1080 – 1086" (Yang: 1080 – 1084; 1086 is the recall) and its 24 August (the *Songshi*: Jianzhong Jingguo 1,
+66 sui); `cnh-444`'s death c. 1090 is one of three figures (Taipei: after 1087; Theobald c. 1087); `cnh-445`'s days and "age
+52" (the *Songshi*: 54); `cnh-448`'s days and "age 80" (the *Songshi*: 81); `cnh-450`'s "age 38" (the *Songshi*: 39) and Giles's
+1103 – 1141.

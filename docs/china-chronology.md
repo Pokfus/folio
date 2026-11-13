@@ -611,6 +611,10 @@ are not rows of this table.
 | Xuzhou: Xiang Yu's capital / Su Shi's iron memorial / coal found | 206 BCE / 1078 / 1079 | Chavannes; Wagner (`cnh-437`) |
 | the Quanzhou ship wrecked / Polo's book dictated | c. 1277 / 1298 | `cnh-438` |
 | the Kaibao Canon ordered / completed | 971 CE / 983 CE | the *Fozu tongji*; Jiang Wu (`cnh-440`) |
+| the Qingming scroll painted / Zhang Zhu's colophon / the Qing version | c. 1100 – 1200 / 1186 / 1736 | Hansen; the Palace Museum (`cnh-443`) |
+| the Jingkang sieges / the captives taken north | 1126 / 1127 | the *Songshi* (`cnh-446`) |
+| the Battle of Huangtiandang | 1130 | `cnh-447` |
+| the Southern Song court settled at Hangzhou / West Lake on the World Heritage list | 1138 / 2011 | Giles (`cnh-449`) |
 
 ## Later periods
 
@@ -1074,4 +1078,8 @@ cnh-436: 1023; 1105; 1107
 cnh-437: 206; 1078; 1079
 cnh-438: 1277; 1298
 cnh-440: 971; 983
+cnh-443: 1100; 1200; 1186; 1736
+cnh-446: 1126; 1127
+cnh-447: 1130
+cnh-449: 1138; 2011
 ```
