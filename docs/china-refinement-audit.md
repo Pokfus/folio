@@ -410,7 +410,7 @@ otherwise.
 | B29 | Three Kingdoms (`col-16`) | `cnh-281`–`cnh-290` | 10 | 84 | **done 2026-11-12** |
 | B30 | Three Kingdoms (`col-16`) / Western Jin (`col-18`) | `cnh-291`–`cnh-300` | 10 | 86 | **done 2026-11-12** |
 | B31 | Western Jin (`col-18`) / Sixteen Kingdoms (`col-19`) | `cnh-301`–`cnh-310` | 10 | 83 | **done 2026-11-13** |
-| B32 | Sixteen Kingdoms (`col-19`) / Eastern Jin (`col-20`) | `cnh-311`–`cnh-320` | 10 | 79 | to do |
+| B32 | Sixteen Kingdoms (`col-19`) / Eastern Jin (`col-20`) | `cnh-311`–`cnh-320` | 10 | 79 | **done 2026-11-13** |
 | B33 | Eastern Jin (`col-20`) / Northern and Southern dynasties (`col-21`) | `cnh-321`–`cnh-330` | 10 | 105 | to do |
 | B34 | Northern and Southern dynasties (`col-21`) | `cnh-331`–`cnh-340` | 10 | 104 | to do |
 | B35 | Northern and Southern dynasties (`col-21`) / Sui (`col-22`) | `cnh-341`–`cnh-350` | 10 | 104 | to do |
@@ -831,6 +831,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-308` | Herrmann's map of the Sixteen States, 352 – 384 | not re-checked (Commons rate-limited): ok |
 | `cnh-309` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 | `cnh-310` | Reporting Victory at the Huai and Fei | not re-checked (Commons rate-limited): ok |
+| `cnh-311` | the Eastern Jin provinces in 382 | not re-checked (Commons rate-limited): ok |
+| `cnh-312` | Shi Hu and Fotudeng | not re-checked (Commons rate-limited): ok |
+| `cnh-313` | an Eastern Jin chicken-head ewer | not re-checked (Commons rate-limited): an object of the period — acceptable |
+| `cnh-314` | a guardian beast near Nanjing | not re-checked (Commons rate-limited): a Liang tomb beast, not the city — the excavated city wall would be closer |
+| `cnh-315` | Xie An, as imagined in the Ming | not re-checked (Commons rate-limited): one man, not the clan |
+| `cnh-316` | Wang Dao, from a Qing album of worthies | not re-checked (Commons rate-limited): ok |
+| `cnh-317` | Zu Ti in a novel of 1893 | not re-checked (Commons rate-limited): an imagined print, labelled so — ok |
+| `cnh-318` | China in 369 | not re-checked (Commons rate-limited): ok |
+| `cnh-319` | the Orchid Pavilion Preface, Tang copy | not re-checked (Commons rate-limited): ok |
+| `cnh-320` | Tao Yuanming with chrysanthemums | not re-checked (Commons rate-limited): ok |
 
 ## Glossary candidates
 
@@ -2238,3 +2248,40 @@ wind and cranes confirmed in the *Jinshu* juan 114, Xie An's *weiqi* in juan 79;
 *Jinshu*: the fourth month, *renshen* day) and its death may fall early in 318 (the twelfth month of Jianxing 5);
 `cnh-309`'s "16 October 385" is on no page read (Giles prints 337 – 384, a slip; Theobald gives the reign as 357 – 384 in
 one place and 356 – 384 in another).
+
+### B32 — `cnh-311`–`cnh-320`, Sixteen Kingdoms and Eastern Jin: the lodged commanderies to Tao Yuanming (2026-11-13)
+
+Run as B31. Every cited URL answered but one: Tsyrenov's 2022 article on Wang Dao (`cnh-316`), whose host reset the
+connection on the re-curl; the agent had saved its page. **Pictures were not touched.** **The old cards again cited the
+*Jinshu* on Chinese Wikisource, used the Wang–Ma saying (`cnh-298`'s) and the Wang–Xie pairing as clues, gave Jiankang a
+century, a prose founding and an unowned "over 1,000,000" on its line, named men in the Xie clan's labels, dated the
+lodged commanderies with a "from" value and a 341 no page prints, and treated the *Admonitions* scroll as Gu Kaizhi's own
+hand.** The *Jinshu* was read on zggdwx.com (juan 62, 65, 79, 80, 98), the *Song shu* and Huijiao's *Gaoseng zhuan* on
+the Kanseki Repository.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-311` lodged commanderies | 5 | 5 → 5 | **`In use c. 317 – 589 CE` / `Tuduan act 364 CE` / `Registers merged 413 CE` (Theobald); the old 341 (on no page) dropped; Tan Qixiang's 900,000 given as his 1934 estimate, "one in eight" northerners moved; Jianye as a refuge after Shi Le's attack of 312**; Parker and Cordier out. |
+| `cnh-312` Fotudeng | 5 | 5 → 5 | **Rebuilt on Huijiao's *Gaoseng zhuan* (juan 9): a man of the Western Regions surnamed Bo; the lotus, the bells and Liu Yao's capture told as his biographer's; death 349 (Bingenheimer) beside Giles's 348; "a man of India" off the glossary**. Protected: the line stays (flagged below). |
+| `cnh-313` Eastern Jin | 7 | 6 → 7 | **"Emperor Yuan 318 CE" relabelled `Throne taken`; Su Jun's rising dated 328; the court's Luoyang speech among Wu and Chu speakers (Chittick); Sun En and Huan Xuan's Chu; the Wang–Ma saying (`cnh-298`'s) off**; Parker out. |
+| `cnh-314` Jiankang | 6 | 5 → 7 | **The line made dates: `Founded 212 CE` / `Renamed 313 CE` / `Capital 317 – 589 CE`; the rename for Emperor Min's name taboo (the *Jinshu*'s geography; Cordier, Gaillard and Theobald credit Sima Rui); Chittick's "well over a million" against Gaillard's 90 hectares; the Sui razing 589 (Gaillard misprints 598)**; the glossary made to agree. |
+| `cnh-315` Xie clan | 5 | 6 → 6 | **The man-naming labels off: `Statesman lived 320 – 385 CE` / `Victory 383 CE` / `Poet lived 385 – 433 CE`; the Eastern Mountain, the Tang poet's line on the Wang and Xie, Xie Xuan on Lingyun; the *weiqi* the *Jinshu*'s (juan 79)**; "most eminent" softened in the glossary. |
+| `cnh-316` Wang Dao | 6 | 6 → 6 | **The Wang–Ma saying out of the questions: the Xinting tears, the coarse cloth, the fan against Yu Liang's dust; the throne-sharing offer in Think it through; Lycas (HAL, barred) replaced by the *Jinshu* juan 65 and Holcombe**. Protected: the line stays (flagged below). |
+| `cnh-317` Zu Ti | 6 | 5 → 6 | **The oar oath and the midnight cockcrow told as the *Jinshu*'s (juan 62); the bags of earth as rice; Liu Kun's letter; Theobald's "Wang Dun prompted Dai Yuan's appointment" dropped against the *Jinshu* and Tsyrenov**. Protected: the line stays (flagged below). |
+| `cnh-318` Huan Wen | 6 | 5 → 6 | **The years out of the questions: the willows, the fragrant name and the stench, the cut grain at Chang'an; Fangtou 369 (Giles's 368 a slip); the nine bestowals' "before a change of dynasty" dropped; Kleeman on Cheng-Han**. Protected: the line stays. |
+| `cnh-319` Wang Xizhi | 7 | 6 → 7 | **The Lanting story (`cnh-357`'s and `cnh-944`'s) off the questions: the geese for the *Daodejing*, the eastern couch, the oath at his parents' tomb (the *Jinshu* juan 80); the burial with Taizong "is said to"; the unconverted 355 dropped**. Protected: the line stays (flagged below). |
+| `cnh-320` Tao Yuanming | 7 | 6 → 7 | **The fisherman (`cnh-925`'s) off: the inspector and the five pecks, the ninth-day chrysanthemums, the reign titles against cyclical signs (the *Song shu* juan 93); his own preface to "Back Home" (405); the traditional 365 against a later scholar's 352; the Peach Blossom Spring his own fiction**; the unsourced 376 dropped. Protected: the line stays. |
+
+Read by eye. **Confusability**: Xie An's blocking of Huan Wen stays `cnh-315`'s (the Huan Wen agent was told); Sun En
+and Huan Xuan `cnh-313`'s (the Liu Yu agent was told); the 364 *tuduan* `cnh-311`'s; Wang Dao's own clues kept off the
+Wang–Ma saying. **Legend**: the *weiqi*, the oar oath, the cockcrow, the geese and the Taizong burial are now each the
+*Jinshu*'s or "said to be"; Fotudeng's wonders Huijiao's. **Chinese names corrected**: none needed; 佛图澄 kept as
+Fótúdèng against the dictionary's chéng (Wright's "Fo-t'u-teng"; no source read prints the dèng reading — for the
+owner). **Spellings fixed**: none needed; 0 hits. **Myth register**: Wang Xizhi's preface confirmed as the card's
+mention only (He Yanzhi's account on no page read); the Peach Blossom Spring confirmed as his fiction.
+**check-citations**: `cnh-318`'s Tsyrenov 2020 is reported mismatched because its title is cited in transliterated
+Russian where Crossref gives the English (the same paper). **Protected lines: unchanged** (diffed after the apply). For
+the owner: `cnh-312`'s 232, Kucha, 13 January and the ages are on no page read (Huijiao: the 8th day of the 12th month);
+`cnh-316`'s 7 September and `cnh-318`'s 18 August are on no page read; `cnh-317`'s 313 is on no page read and its death
+sub-row "Zhengzhou, Henan" looks wrong (Yongqiu is Qi County, under Kaifeng); `cnh-319`'s Linyi and Shan County are on no
+page read; `cnh-319` and `cnh-320`'s ages agree with the histories' 59 and 63 in *sui*.

@@ -13669,7 +13669,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Later_Zhao": "319 – 351 CE",
 "Sixteen_Kingdoms": "304 – 439 CE",
 "Eastern_Jin": "317 – 420 CE",
-"Fotudeng": "d. 348 or 349 CE",
+"Fotudeng": "d. 349 CE",
 "Huan_Wen": "312 – 373 CE",
 "Jiankang": "317 – 589 CE",
 "Lodged_commanderies": "4th – 6th century CE",
@@ -19294,11 +19294,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Han-Zhao": ["Former Zhao","Han Zhao","Hanzhao"],
 "Later_Zhao": ["Later Zhao","Hou Zhao"],
 "Sixteen_Kingdoms": ["Sixteen States","Sixteen Kingdoms","Shiliu guo"],
-"Fotudeng": ["Fotu Cheng","Fotucheng"],
-"Jiankang": ["Jianye"],
+"Fotudeng": ["Fotu Cheng","Fotucheng","Fotu Deng","Fo-t'u-teng"],
+"Jiankang": ["Jianye","Chien-k'ang","Jian Kang"],
 "Lodged_commanderies": ["lodged commandery","qiaojun","qiaozhou"],
-"Tao_Yuanming": ["Tao Qian"],
-"Xie_clan_of_Chen_Commandery": ["Xie clan","Xie family"],
+"Tao_Yuanming": ["Tao Qian","T'ao Ch'ien","T'ao Yüan-ming"],
+"Xie_clan_of_Chen_Commandery": ["Xie clan","Xie family","Xie of Chen commandery","Hsieh clan"],
 "Emperor_Wu_of_Liang": ["Xiao Yan"],
 "Emperor_Wu_of_Song": ["Liu Yu"],
 "Gu_Kaizhi": ["Ku K'ai-chih"],
@@ -23873,7 +23873,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Gulf_War": ["Persian Gulf War","First Gulf War"],
 "Presidency_of_Bill_Clinton": ["Clinton administration"],
 "North_American_Free_Trade_Agreement": ["NAFTA"],
-"Personal_Responsibility_and_Work_Opportunity_Act": ["Personal Responsibility and Work Opportunity Reconciliation Act","PRWORA"]
+"Personal_Responsibility_and_Work_Opportunity_Act": ["Personal Responsibility and Work Opportunity Reconciliation Act","PRWORA"],
+"Eastern_Jin": ["Tung Chin","Dong Jin"],
+"Zu_Ti": ["Tsu T'i"],
+"Wang_Xizhi": ["Wang Hsi-chih"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */

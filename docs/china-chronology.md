@@ -505,6 +505,10 @@ only; ages, days and months left out), and are not rows of this table.
 | the Former Yan: founded / imperial title / conquered | 337 CE / 352 CE / 370 CE | `cnh-307` |
 | the Former Qin: founded / Fei River / ended | 351 CE / 383 CE / 394 CE | `cnh-308` |
 | the Battle of Fei River | 383 CE | the *Jinshu* (`cnh-310`) |
+| the lodged commanderies: in use / the tuduan act / the registers merged | c. 317 – 589 CE / 364 CE / 413 CE | Theobald (`cnh-311`) |
+| the Eastern Jin / Sima Rui takes the throne | 317 – 420 CE / 318 CE | `cnh-313` |
+| Jiankang: Jianye founded / renamed / capital | 212 CE / 313 CE / 317 – 589 CE | the *Jinshu*; Chittick (`cnh-314`) |
+| the Xie: Xie An / Fei River / Xie Lingyun | 320 – 385 CE / 383 CE / 385 – 433 CE | `cnh-315` |
 
 ## Later periods
 
@@ -851,4 +855,8 @@ cnh-306: 319; 351; 350; 330
 cnh-307: 337; 352; 370
 cnh-308: 351; 383; 394
 cnh-310: 383
+cnh-311: 317; 589; 364; 413
+cnh-313: 317; 420; 318
+cnh-314: 212; 313; 317; 589
+cnh-315: 320; 385; 383; 433
 ```

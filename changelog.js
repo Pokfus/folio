@@ -42,7 +42,7 @@ window.CHANGELOG = [
     d: "2026-11-13",
     t: "China cards rewritten",
     items: [
-      "<b>10 more China cards are rewritten</b>, from the Disaster of Yongjia to the Battle of Fei River, with new sources and dates.",
+      "<b>20 more China cards are rewritten</b>, from the Disaster of Yongjia to Tao Yuanming, with new sources and dates.",
     ],
   },
   {
