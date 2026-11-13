@@ -350,10 +350,10 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Wang Anshi and Sima Guang as villain and hero | the reformer blamed for the Northern Song's fall and the historian praised as the upright conservative, the Southern Song and later Confucian verdict (the *Songshi* juan 327's closing judgement, citing Zhu Xi); the partisan record (Fuller 2023); Wang's modern rehabilitation (Liang Qichao, on no page cited) — confirmed B43 (`cnh-430`) | — | `cnh-430`, `cnh-431`, `cnh-432` | — |
 | Su Shi's Red Cliff rhapsodies | the two "Chibi fu" written in exile at Huangzhou (1082), set at a cliff near Huangzhou where a guest asks whether this is where Cao Cao was beaten (Su Shi's own doubt of the site on no page read); read as literature, not as a record of the battle — confirmed for 1082 B45 (`cnh-441`) | — | `cnh-441` | `cnh-276` (Red Cliffs) |
 | The Water Margin and the historical Song Jiang | the bandit leader Song Jiang, whose band and surrender the *Songshi* gives in a few lines under Huizong; the outlaws of the Yuan plays and the 14th–16th-century novel *Water Margin* — provisional | — | `cnh-445` | `cnh-928`, `cnh-929` |
-| The Mongol conquests' figures | the death tolls and army sizes of the conquest of the Western Xia, the Jin and the Song as the Persian and Chinese histories give them (Juvaini, Rashid al-Din, the *Yuanshi*, compiled under the Ming 1369 – 1370), not counts; modern estimates differ widely — provisional | `cnh-472` | `cnh-481`, `cnh-482`, `cnh-463`, `cnh-483` | — |
-| Marco Polo's travels and the doubt | the book dictated in a Genoese prison to Rustichello of Pisa (1298 – 1299), surviving in many differing manuscripts; the doubt that he reached China (the Great Wall, tea and footbinding unmentioned, his name absent from the Chinese record) and the replies (the salt, paper money and the Yangzhou post); some passages survive in one printed edition only (Ramusio's, as Yule notes for the ships' compartments, `cnh-438`) — provisional | `cnh-495` | `cnh-485`, `cnh-487`, `cnh-492` | — |
-| Kublai and Phagpa | the Tibetan tellings of Phagpa initiating Kublai and of the priest and patron, and the *Yuanshi*'s Imperial Preceptor who made the script decreed in 1269 — provisional | `cnh-497` | `cnh-485` | — |
-| The Romance of the Western Chamber | Zhang and Yingying's story from Yuan Zhen's Tang tale "Yingying zhuan" (where he leaves her), through the Jin *zhugongdiao* of Master Dong, to Wang Shifu's Yuan *zaju* (where they marry) — provisional | `cnh-499` | `cnh-498` | `cnh-393` (Yuan Zhen) |
+| The Mongol conquests' figures | the death tolls and army sizes of the conquest of the Western Xia, the Jin and the Song as the Persian and Chinese histories give them (Rashid al-Din's 300,000 at Lingzhou, "a tremendous exaggeration" to Howorth; the *Yuanshi*'s styled 400,000 at Yehuling; the 100,000 drowned at Yamen the *Songshi*'s count a week later; Java's ships and men differing by juan), not counts — confirmed B47 – B50 (`cnh-472`, `481`, `464`, `494`) | `cnh-472` | `cnh-481`, `cnh-482`, `cnh-463`, `cnh-483` | — |
+| Marco Polo's travels and the doubt | the book dictated in a Genoese prison to Rustichello of Pisa (1298 – 1299), surviving in many differing manuscripts; the doubt that he reached China (the Great Wall, tea and footbinding unmentioned, his name absent from the Chinese record) and the replies (the salt, paper money and the Yangzhou post); some passages survive in one printed edition only (Ramusio's, as Yule notes for the ships' compartments, `cnh-438`, and the city's chessboard plots, `cnh-487`); the dictation placed between late 1298 and mid-1299 (Mascherpa 2025), about 143 manuscripts (the BnF), the Yangzhou governorship mainly Ramusio's (Yule); the doubt Wood's (1995) and the replies de Rachewiltz's and Vogel's — confirmed B44 – B50 (`cnh-495`, `cnh-463`) | `cnh-495` | `cnh-485`, `cnh-487`, `cnh-492` | — |
+| Kublai and Phagpa | the Tibetan tellings of Phagpa initiating Kublai and of the priest and patron; the Mongol chronicle of Sanang Setsen (through Howorth) in which Chabui settles who sits higher; the *Yuanshi* juan 202's Imperial Preceptor, "a man of Sakya", who made the script decreed in 1269 — confirmed in part B50 (`cnh-497`; the Tibetan tellings on no page read) | `cnh-497` | `cnh-485` | — |
+| The Romance of the Western Chamber | Zhang and Yingying's story from Yuan Zhen's Tang tale "Yingying zhuan" (the *Taiping guangji* juan 488; he leaves her and each marries another), through Zhao Lingzhi's Northern Song guzi ci (Fujita) and the Jin *zhugongdiao* of Master Dong, to Wang Shifu's Yuan *zaju* ("a happy issue", Giles) — confirmed and extended B50 (`cnh-499`) | `cnh-499` | `cnh-498` | `cnh-393` (Yuan Zhen) |
 
 ## Working a card
 
@@ -476,7 +476,7 @@ otherwise.
 | B47 | Southern Song (`col-28`) / Western Xia (`col-29`) | `cnh-461`–`cnh-470` | 10 | 94 | **done 2026-11-13** |
 | B48 | Western Xia (`col-29`) / Jurchen Jin (`col-30`) | `cnh-471`–`cnh-480` | 10 | 97 | **done 2026-11-13** |
 | B49 | Jurchen Jin (`col-30`) / Yuan (`col-31`) | `cnh-481`–`cnh-490` | 10 | 110 | **done 2026-11-13** |
-| B50 | Yuan (`col-31`) | `cnh-491`–`cnh-500` | 10 | 100 | to do |
+| B50 | Yuan (`col-31`) | `cnh-491`–`cnh-500` | 10 | 100 | **done 2026-11-13** |
 | B51 | Yuan (`col-31`) / Ming (`col-32`) | `cnh-501`–`cnh-510` | 10 | 107 | to do |
 | B52 | Ming (`col-32`) | `cnh-511`–`cnh-520` | 10 | 108 | to do |
 | B53 | Ming (`col-32`) | `cnh-521`–`cnh-530` | 10 | 105 | to do |
@@ -1059,6 +1059,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-488` | none | not re-checked (Commons rate-limited): wanted |
 | `cnh-489` | none | not re-checked (Commons rate-limited): wanted — a map of the provinces |
 | `cnh-490` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-491` | as before | not re-checked (Commons rate-limited): ok |
+| `cnh-492` | none | not re-checked (Commons rate-limited): wanted — a Zhiyuan note |
+| `cnh-493` | as before | not re-checked (Commons rate-limited): ok |
+| `cnh-494` | as before | not re-checked (Commons rate-limited): ok |
+| `cnh-495` | none | not re-checked (Commons rate-limited): wanted — an illuminated manuscript page |
+| `cnh-496` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-497` | as before | not re-checked (Commons rate-limited): ok |
+| `cnh-498` | none | not re-checked (Commons rate-limited): wanted — the Guangsheng temple mural of actors |
+| `cnh-499` | none | not re-checked (Commons rate-limited): wanted — an illustrated Ming edition |
+| `cnh-500` | none | not re-checked (Commons rate-limited): wanted — the pair (the British Museum refuses; Commons later) |
 
 ## Glossary candidates
 
@@ -3208,3 +3218,126 @@ title is cited in transliteration — Crossref's own record is the same article.
 apply). For the owner: `cnh-484`'s 1190 and 1244 (de Rachewiltz argues 1189 and 1243; the *Yuanshi*: aged 55); `cnh-485`'s 1215
 and days on no page read (Giles 1214, Cordier 1216) and "age 78" (the histories: 80); `cnh-486`'s 1236 on no page read (Giles
 1237; the *Yuanshi*: 59 sui at death).
+
+### B50 — `cnh-491`–`cnh-500`, Yuan: Ayurbarwada to the David Vases (2026-11-13)
+
+Run as B41. Every cited URL answered when its agent fetched it; at the batch's own curl, ANU Open Research gave empty replies
+for de Rachewiltz's thesis (`cnh-494`, `495`, `496` — the agents' saved pages stand, as on `cnh-316` in B32). **Pictures were not
+touched.** **The old cards cited the *Yuanshi* (up to five juan a card) on Chinese Wikisource, dated the Zhizheng paper-money
+reform by a conversion (1351), the Western Chamber by its story's setting ("Tang tale set 785 – 805 CE"), labelled a row "Register
+of Ghosts" (18 characters), carried years in nearly every phrasing, told the Phagpa script's 1280 note as the editors' (it is
+about the successor's death), and dated the Fuliang porcelain bureau by a conversion (1278).** The *Yuanshi* (juan 24, 97, 164,
+202, 210), Tao Zongyi's *Chuogeng lu* juan 25 and the *Taiping guangji* juan 488 were read on the Kanseki Repository.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-491` Ayurbarwada | 5 | 5 → 5 | **Three Wikisource texts cut to the *Yuanshi* juan 24; Mailla 1779 [in French] for 1313; the abridged handbook "enough to rule the realm", the palace guards against the regency and Khaishan sent for, the exam decree; 1285 carried as "usually given"**; Li Meng's speech and "aged 36" dropped. Protected: the line stays (flagged below). |
+| `cnh-492` Jiaochao | 6 | 6 → 6 | **"Zhizheng reform 1351" (a conversion) now `Zhizheng notes 1350` (Theobald); the *Yuanshi* juan 97: notes printed daily for the soldiers, ten ingots for a peck of grain, "old paper the father, copper an adopted son"; Polo's mulberry-bark notes told as his book's; von Glahn 2026's fiat reading**. |
+| `cnh-493` Guo Shoujing | 7 | 6 → 7 | **The *Yuanshi* juan 164 for every Wikisource citation; the Shoushi calendar (1280, 1281), the simplified armillary and the gnomon's pinhole (Mercier 2003, MacTutor), the instrument taken to Potsdam, the Tonghui Canal with its locks, the Dengfeng tower; Wylie, Bretschneider**; the bricks story and the Huitong Canal dropped. Protected: the line stays (flagged below). |
+| `cnh-494` Mongol invasion of Java | 6 | 6 → 6 | **The *Yuanshi* juan 210 with Groeneveldt's translation; the fleet and army given as each history's own (1,000 ships and 20,000 men; 500 ships; the Serutu boulder's 500 boats, Hung et al. 2022); "late in 1292" made "the last month of the Chinese year"; Majapahit and Raden Wijaya**; Odoric dropped. **Pinyin → Yuán cháo zhēng Zhǎowā**; 征 kept against OpenCC's 徵 (wrong in this sense; `Z.trad` a false alarm). |
+| `cnh-495` Travels of Marco Polo | 8 | 8 → 8 | **The card now the book: dictated to Rustichello in 1298 (Mascherpa 2025: late 1298 to mid-1299), first written in French, *Il Milione*, about 143 manuscripts (the BnF), the Z version; the Yangzhou governorship partly a translator's addition (Yule); the doubt as Wood's 1995 claim and the replies (de Rachewiltz; Vogel 2025); the escort of the Mongol bride matched by a Chinese order**; all three phrasings new and clear of the Polo clues on `cnh-438`, `449`, `455`, `463`, `485`, `487`, `492`. |
+| `cnh-496` John of Montecorvino | 7 | 6 → 7 | **All three phrasings new (the old ones carried years): King George at mass, the five years' slander, the boys' choir; Moule's translation with its 1289 date for the Wikisource *Yuanshi*; the birthplace "probably" (Yule calls it doubtful)**. Protected: the line stays (flagged below). |
+| `cnh-497` Drogön Chögyal Phagpa | 6 | 6 → 7 | **Five Wikisource citations cut to the *Yuanshi* juan 202; the 41 letters (West's BabelStone overview), Liangzhou with Sakya Pandita, the Mahākāla image, Chabui and the seats told as Sanang Setsen's saga (Howorth); the Met's Phagpa-script paiza; Choi 2021**; the editors' "1280" note (about the successor) and 1274 (a conversion) dropped. Protected: the line stays (flagged below). |
+| `cnh-498` Zaju | 6 | 6 → 6 | **"Register of Ghosts 1330" (18 characters) now `Catalogue 1330` / `Anthology 1615`; three Chinese texts cut to Tao Zongyi's *Chuogeng lu* juan 25; four acts and a wedge, one singer, the clerk's "undying ghosts"; Ng and Teoh 2026**; Voltaire and Prémare (on no page read) and the Yuan law (it writes 雜戲) dropped. |
+| `cnh-499` Romance of the Western Chamber | 6 | 6 → 8 | **"Tang tale set 785 – 805 CE" (a setting) off: `Written c. 1300` / `Earliest edition 1498` / `Translated 1872 – 1880`; the *Yingying zhuan* in the *Taiping guangji* juan 488; the Pujiu monastery, the maid, Baoyu and Daiyu reading it; "a happy issue" (Giles)**; the "five parts" and "sixteen acts" (on no page read) dropped. |
+| `cnh-500` David Vases | 5 | 5 → 5 | **1351 and 1929 checked against Pope 1952; Zhang Wenjin's offering at Yushan, the dragon and phoenixes, the elephant-head handles; the Elphinstone and Russell collections and the foundation's name**; "1278" for the Fuliang bureau (a conversion) and "earliest securely dated" (on no page read) dropped. |
+
+Read by eye. **Confusability**: the exam decree `cnh-491`'s (out of `cnh-459`); the paper money's clues `cnh-492`'s and Polo's book
+`cnh-495`'s — the Polo agent was told every other card's Polo clue; the Tonghui Canal `cnh-493`'s; the Phagpa script `cnh-497`'s;
+zaju's form `cnh-498`'s, the Western Chamber's story `cnh-499`'s. **Legend**: Chabui and the seats (Sanang Setsen), Polo's
+paper money (his book), the Western Chamber's sources (each text named) are each a text's. **Chinese names corrected**:
+`cnh-494` pinyin. Kept unconfirmed: 元朝征爪哇, 大维德花瓶 — for the owner. **Spellings fixed**: none needed; 0 hits. **Myth
+register**: Marco Polo confirmed (dictated 1298, placed 1298 – 1299 by Mascherpa; 143 manuscripts; the Yangzhou post mainly
+Ramusio's); the Western Chamber confirmed, with Zhao Lingzhi's Northern Song guzi ci between Yuan Zhen and Master Dong
+(Fujita); Kublai and Phagpa: the Mongol telling (Sanang Setsen, through Howorth) beside the *Yuanshi*'s; the Mongol conquests'
+figures: Java's ships and men each history's. **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the
+apply). For the owner: `cnh-491`'s 1285 and days on no page read (the *Yuanshi*: Zhiyuan 22, 3rd month) and Yanqing on none;
+`cnh-493`'s 1314 on no page read (every source fits 1316); `cnh-496`'s birthplace doubtful (Yule) and its death "about 1328";
+`cnh-497`'s Ngari looks wrong (the *Yuanshi*: a man of Sakya) and its days on no page read.
+
+### The fifth hundred, in sum
+
+`cnh-401`–`cnh-500` (the end of the Five Dynasties and Ten Kingdoms, the Liao, Northern Song, Southern Song, Western Xia,
+Jurchen Jin and Yuan decks) are done: 631 sources became 635 and 92 glossary entries were rewritten. `cnh-audit.js
+--range=cnh-401:cnh-500` reads 87 of 100 cards with nothing but a missing picture, against none at the baseline; what remains is
+100 cards with no picture (Commons answered 429 all session, so no picture pass ran), 5 `L.missing` (`cnh-455` Quanzhou and the
+battles `cnh-461`, `470`, `476`, `482`), 4 advisory `W.not-why`, 3 `Z.reading?` that are polyphones the house reads as it does
+(秦桧 Huì, 大都 dū, 马可·波罗 as a name), one `Z.trad` that is OpenCC's error (`cnh-494`: 征 "to campaign" is never 徵) and two
+`Q.sibling` that share words only (`cnh-437` "tripod" against `cnh-083`; `cnh-451` against `cnh-280`). `check-cnh-spellings.js`
+reads 0 card hits over the hundred (the baseline's three — "Zuo zhuan" on `cnh-432` and `cnh-450`, "Uighur" on `cnh-469` — and the
+"Khubilai" and "Ögödei" the new rows caught on `cnh-463` and `cnh-491` are settled). Fifty agents worked two cards each, never more
+than ten at once but for one launch that briefly made eleven; as each draft came back its clues went into `AGENT.md` and running
+agents were told of any shared clue (Xu Xuan's "two households", Aguda's refused dance, the Xiangyang engines and Lu Xiufu, every
+other card's Marco Polo passage). Each batch was applied alone, verified field by field against its drafts, diffed for the
+protected lines and committed with its docs; `origin/main` was merged after B45 (nothing new) and again before the PR.
+
+What the hundred found, again and again:
+- **The court histories cited on Chinese Wikisource.** Nearly every card cited two to five Chinese texts there — the *Old* and
+  *New Histories of the Five Dynasties*, the *Songshi*, *Liaoshi*, *Jinshi*, *Yuanshi*, Li Tao's *Changbian*, the *Sanchao beimeng
+  huibian* — over the one-per-language rule and unreachable. Each card now reads one Chinese text in the Siku edition on the
+  Kanseki Repository (KR2a0029–0036, KR2b0007) or on zggdwx.com, and claims that rested only on the second or third text were
+  dropped.
+- **Conversions on the lines and in the prose.** "First contact 1117", "Southern bureau 948", "Reformed 1175", "Lingbei added
+  1307", "Office rule 1265", "Zhizheng reform 1351", "Policy essay 1070", the Caishi, Tangdao, Xiangyang, Yamen, Yehuling and
+  Caizhou days, Chai Rong's 953, Qian Chu's 956, Xuzhou's 1083: each a regnal year or a Chinese month someone converted; each is
+  now dropped or replaced by a year a page prints.
+- **Battle templates and places on the lines.** Gaoliang River, Huangtiandang, Caishi, Tangdao, Xiangyang, Yamen, Haoshuichuan,
+  Hubudagang, Yehuling and Caizhou carried Location, Casualties and Result rows ("At least 100,000 Song dead"); labels named
+  places ("Jinling taken", "Taiyuan fell", "Kaifeng fell", "Juyong arch", "At De'an") and men ("Cai Xiang", "Huizong"). All are
+  now dates only.
+- **A date belonging to another thing.** The Tangut and Jurchen peoples carried their states' dates (now no line, as `cnh-412`),
+  Khara-Khoto the Xia's founding, the Yue ware one tribute list, the Zizhi Tongjian the span it covers, the watertight
+  compartment a voyage whose book describes none, the Western Chamber its story's setting, the semu another card's exam year.
+- **Figures read the wrong way.** The 100,000 at Yamen (the *Songshi*'s count of the drowned a week later), Rashid al-Din's
+  300,000 (his figure, an exaggeration to Howorth), the *Yuanshi*'s styled 400,000 at Yehuling, the huizi's 229 million (329), the
+  Java fleet (each juan its own), the Chanyuan and Shaoxing payments (the oath texts' own figures).
+
+**The Chinese name.** Corrected: `cnh-421` Sòng cháo, `cnh-483` Yuán cháo, `cnh-494` Yuán cháo zhēng Zhǎowā (the house X cháo
+split); `cnh-465` Xī Xià, `cnh-468` Xī Xià wén, `cnh-469` Xī Xià wén Dàzàngjīng (split as Běi Wèi); `cnh-420` Liáo Tiānzuòdì and
+`cnh-471` Hēishuǐchéng (joined); `cnh-426` xīnzhèng and `cnh-488` sìděngrén zhì; `cnh-472` Měnggǔ (third tone, corrected after
+the apply); `cnh-460` 道学 dàoxué → 理学 lǐxué. Kept unconfirmed for want of a page printing the compound, for the owner: 辽朝,
+越窑, 高梁河之战, 海上之盟, 靖康之变, 黄天荡之战, 采石之战, 唐岛之战, 襄阳之战, 崖山之战, 好水川之战, 蒙古灭西夏, 护步答冈之战, 元朝征爪哇,
+大维德花瓶; the word division of 窑 compounds is open (`cnh-457` Jiànyáo against `cnh-955` Dìng yáo). **Spellings**: rows added for
+the Ten Kingdoms, the Khitan and Liao, the Song emperors (English order), Kaifeng and Hangzhou, the Song men and women, the Song
+books and currencies, the Tangut and Western Xia, the Jurchen and Jin, the Mongols and Yuan (Genghis Khan as the slug; Kublai in
+the card's voice; Khanbaliq and Dadu both house forms) and the Water Margin and the Western Chamber; "Yangzi" never appeared in a
+draft's own voice.
+
+**The myth register** gained fifteen rows at the start. Confirmed: the yellow robe (the *Songshi* juan 1), the cup of wine
+(Northern Song notebooks, as Li Tao names them), Li Yu's poisoning (the *Moji*, which names the Prince of Qin), Feng Dao (four
+surnames and ten rulers, Ouyang Xiu), Bao Zheng (the ballads), Yue Fei (the *Songshi* juan 365; the mother's tattooing later), the
+Jingkang captivity (the *Songshi* juan 23), Li Qingzhao's postface (1132, or 1134 in Hong Mai), Wang Anshi and Sima Guang (the
+*Songshi*'s verdict citing Zhu Xi), Su Shi's rhapsodies (1082), the Mongol conquests' figures, Marco Polo (1298 – 1299, the
+Ramusio-only passages), the Western Chamber (with Zhao Lingzhi's guzi ci between Yuan Zhen and Master Dong). Still provisional:
+the Water Margin's Song Jiang (no card told it), Kublai and Phagpa's Tibetan tellings (only the Mongol and Chinese read), the
+kneeling statues' Ming date, Su Shi's own doubt of the Red Cliff site.
+
+**The protected cards** (`cnh-401`, `403`, `407`, `409`, `413`, `420`, `422`–`424`, `428`–`430`, `432`, `434`, `439`, `441`, `442`,
+`444`, `445`, `448`, `450`, `451`, `459`, `467`, `475`, `480`, `484`–`486`, `491`, `493`, `496`, `497`) kept their `answerDate`,
+`undatable` and `timeline` byte for byte through every apply and the merges of main. Every background now carries the years on its
+card's line. Rows flagged for the owner, left as they stand (details in each batch): years on no page read — `cnh-409`'s 882,
+`cnh-413`'s 872, `cnh-420`'s 1128 and 1156, `cnh-423`'s 961, `cnh-428`'s 1045 (as the demotion's), `cnh-429`'s 1008 and 1053,
+`cnh-439`'s 1051 (modern summaries only), `cnh-475`'s 1068, `cnh-480`'s 1123, `cnh-485`'s 1215, `cnh-486`'s 1236, `cnh-491`'s 1285,
+`cnh-493`'s 1314, `cnh-467`'s 1003; a year given otherwise elsewhere — `cnh-430`'s 1058 (Jia: 1059), `cnh-434`'s 1047 (Giles 1046),
+`cnh-441`'s Huangzhou 1080 – 1086 (Yang: to 1084), `cnh-444`'s c. 1090 (after 1087), `cnh-450` (Giles 1141), `cnh-451`'s 1091
+(1090), `cnh-484`'s 1190 and 1244 (de Rachewiltz: 1189 and 1243); places — `cnh-401`'s Taiyuan, `cnh-428`'s Mian Prefecture
+(Luling), `cnh-432`'s Guangshan, `cnh-491`'s Yanqing, `cnh-496`'s birthplace (doubtful), `cnh-497`'s Ngari (the *Yuanshi*: Sakya);
+ages against the histories' Chinese count (`cnh-401`, `422`, `430`, `432`, `445`, `448`, `450`, `451`, `459`, `467`, `485`); and the
+days on the person template, nearly all on no page read.
+
+**For the owner, outside the hundred**: the glossary alias "Liu Yu" belongs to `Emperor_Wu_of_Song`, so "Liu Yu" on `cnh-477` (劉豫,
+the Da Qi puppet) links to the Liu Song founder; `cnh-819` (Junk) holds the Polo and Quanzhou bulkhead clues `cnh-438` gave up.
+
+### Locators (2026-11-13, the fifth hundred)
+
+**No locator was added.** The Wikipedia API answered the session's one test call at the end of the run, but the next calls and
+`add-locators.js` itself (Quanzhou; Caizhou at Runan County) were rate-limited and wrote nothing, so `migrate-places.js` was not
+run and `cnh-080` Xibeigang, `cnh-203` the Qin Straight Road and `cnh-365` Yinshan are still waiting. In the hundred, `cnh-455`
+Quanzhou (the article "Quanzhou" has a point) and the battles `cnh-461` Tangdao (its article's point is a whole degree, 37° N
+121° E — too coarse), `cnh-470` Haoshuichuan and `cnh-476` Hubudagang (no article; a Wikidata item wanted) and `cnh-482` Caizhou
+(Runan County) have no point. Points to review, as the drafts read them: `cnh-416` Gaoliang River is central Beijing (the river
+near Xizhimen would be the site); `cnh-418` the pagoda's point is 1.4 km off and labelled with the county; `cnh-453` Caishi is
+Ma'anshan's centre, not the crossing; `cnh-464` Yamen should be Yashan, south at the strait; `cnh-471` Khara-Khoto is labelled
+"Ejina Banner"; `cnh-481` Yehuling is Zhangjiakou city (the pass is some thirty li west); `cnh-408` Yue ware's is Shaoxing (the
+Shanglin Lake kilns would be closer); `cnh-449` West Lake's points at the city. `migrate-places.js --check` and `build-wars.js
+--check` were not re-run; on main they already report known failures.

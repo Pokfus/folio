@@ -644,6 +644,12 @@ are not rows of this table.
 | Khanbaliq founded / named Dadu / taken | 1267 / 1271 / 1368 | the *Yuanshi* (`cnh-487`) |
 | the examinations restored (the four groups' quotas) | 1315 | the *Yuanshi* (`cnh-488`) |
 | the xingsheng set up | 1260 | `cnh-489` |
+| the jiaochao: the first issue / the Zhiyuan notes / the Zhizheng notes | 1260 / 1287 / 1350 | Theobald (`cnh-492`) |
+| the Java expedition ordered / fought | 1292 / 1293 | the *Yuanshi* (`cnh-494`) |
+| Polo's book dictated | 1298 | `cnh-495` |
+| Zhong Sicheng's catalogue / Zang Maoxun's anthology | 1330 / 1615 | `cnh-498` |
+| the Western Chamber written / its earliest edition / Julien's translation | c. 1300 / 1498 / 1872 – 1880 | `cnh-499` |
+| the David Vases dated / first published | 1351 / 1929 | Pope (`cnh-500`) |
 
 ## Later periods
 
@@ -1141,4 +1147,10 @@ cnh-487: 1267; 1271; 1368
 cnh-488: 1315; 1368
 cnh-489: 1260; 1368
 cnh-490: 1279; 1368
+cnh-492: 1260; 1287; 1350
+cnh-494: 1292; 1293
+cnh-495: 1298
+cnh-498: 1330; 1615
+cnh-499: 1300; 1498; 1872; 1880
+cnh-500: 1351; 1929
 ```
