@@ -87,7 +87,7 @@ an English review of the same work, and say in the ledger where a card had to ch
 **The date lines of the cards about ONE human being, historical or legendary, are refined in another thread
 and are left alone here.** The list is `node .claude/person-cards.js --list` (`individual` and `legendary`)
 plus every card tagged `ruler` or `person` it does not catch, confirmed against main on 2026-11-08 for the first
-hundred, on 2026-11-12 for the second, on 2026-11-12 for the third and on 2026-11-13 for the fourth (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
+hundred, on 2026-11-12 for the second, on 2026-11-12 for the third and on 2026-11-13 for the fourth and on 2026-11-13 for the fifth (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
 and Zhang Yi) and `cnh-184` (the Four Lords) are tagged `person` but name groups: they are audited as ordinary cards. `cnh-audit.js` reads the block below: on these cards it
 sets the date line's own findings aside (one `P.protected` note counts them) but still checks that the
 background carries every year on the line (`D.not-in-prose`) and the pins; `precheck.js` fails a draft whose
@@ -193,6 +193,39 @@ cnh-392 Du Fu                 (individual; the person template)
 cnh-393 Bai Juyi              (individual; the person template)
 cnh-394 Han Yu                (individual; the person template)
 cnh-396 Zhu Wen               (ruler; the person template)
+cnh-401 Shi Jingtang          (ruler; the person template)
+cnh-403 Chai Rong             (ruler; the person template)
+cnh-407 Li Yu                 (ruler; the person template)
+cnh-409 Feng Dao              (individual; the person template)
+cnh-413 Abaoji                (ruler; the person template)
+cnh-420 Emperor Tianzuo of Liao (ruler; the person template)
+cnh-422 Emperor Taizu of Song (ruler; the person template)
+cnh-423 Shi Shouxin           (individual; the person template)
+cnh-424 Emperor Renzong of Song (ruler; the person template)
+cnh-428 Ouyang Xiu            (individual; the person template)
+cnh-429 Di Qing               (individual; the person template)
+cnh-430 Wang Anshi            (individual; the person template)
+cnh-432 Sima Guang            (individual; the person template)
+cnh-434 Cai Jing              (individual; the person template)
+cnh-439 Bi Sheng              (individual; the person template)
+cnh-441 Su Shi                (individual; the person template)
+cnh-442 Li Qingzhao           (individual; the person template)
+cnh-444 Guo Xi                (individual; the person template)
+cnh-445 Emperor Huizong of Song (ruler; the person template)
+cnh-448 Emperor Gaozong of Song (ruler; the person template)
+cnh-450 Yue Fei               (individual; the person template)
+cnh-451 Qin Hui               (individual; the person template)
+cnh-459 Zhu Xi                (individual; the person template)
+cnh-467 Li Yuanhao            (ruler; the person template)
+cnh-475 Wanyan Aguda          (ruler; the person template)
+cnh-480 Emperor Shizong of Jin (ruler; the person template)
+cnh-484 Yelü Chucai           (individual; the person template)
+cnh-485 Kublai Khan           (ruler; the person template)
+cnh-486 Bayan of the Baarin   (individual; the person template)
+cnh-491 Ayurbarwada           (ruler; the person template)
+cnh-493 Guo Shoujing          (individual; the person template)
+cnh-496 John of Montecorvino  (individual; the person template)
+cnh-497 Drogön Chögyal Phagpa (individual; the person template)
 ```
 
 - The draft's patch omits `answerDate`, `undatable` and `timeline`; its `pins` and `chronology` are read from
@@ -306,6 +339,21 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Li Bai drowning while embracing the moon | the poet drowning as he leaned from a boat to embrace the moon's reflection; a later legend, against the earlier accounts of illness — confirmed B40 (`cnh-391`: a legend Hong Mai already doubted in the 12th century) | — | `cnh-391` | — |
 | Xuanzang and the Journey to the West | Xuanzang's own *Record of the Western Regions* (646 CE) and his disciples' biography; the 16th-century novel *Journey to the West* with Tripitaka and the Monkey King, fiction — agreeing with `in-199` — provisional | — | `cnh-388` | `in-199` |
 | Han Yu's memorial on the Buddha's bone | Han Yu's memorial of 819 CE against bringing the finger-bone relic from the Famen Temple into the palace, and his banishment to Chaozhou — confirmed B39–B40 (`cnh-387`, `cnh-394`: the *Old Book of Tang* juan 160) | — | `cnh-394`, `cnh-387` | — |
+| Zhao Kuangyin and the yellow robe at Chenqiao | the troops of the Palace Command mutinying at Chenqiao post station in 960 CE and wrapping their sleeping commander in a yellow robe, so that he "had to" accept the throne from the Later Zhou's child emperor; the Song's own account of its founding, in the Song histories and the *Songshi* (compiled under the Yuan, 1343 – 1345) — provisional | — | `cnh-422`, `cnh-423`, `cnh-402` | — |
+| "A cup of wine" and the generals' commands | Emperor Taizu persuading Shi Shouxin and the other palace generals at a banquet in 961 CE to give up their commands for wealth and retirement; first told in Northern Song anecdote collections, not the earliest records, and doubted by modern scholars as a later shaping — provisional | — | `cnh-423`, `cnh-422`, `cnh-421` | `cnh-380` |
+| Li Yu's last lyrics and his poisoning | the captive Southern Tang ruler's lyrics of longing ("Yu meiren" among them) and his death by poison sent by Emperor Taizong of Song after they were sung; told in later Song anecdote; his death in 978 CE is recorded, the poisoning a tradition — provisional | — | `cnh-407`, `cnh-406` | — |
+| Feng Dao, the servant of many houses | Feng Dao serving ten rulers of five houses as minister and writing his own contented "Changle lao zizhuan"; Ouyang Xiu's verdict in his *New History of the Five Dynasties* that he knew no shame, and Sima Guang's after him; modern readings of him as a man who kept the government running — provisional | — | `cnh-409` | — |
+| Bao Zheng as Judge Bao | the historical Bao Zheng, an incorruptible official at Kaifeng under Renzong (his biography in the *Songshi*); Judge Bao the all-seeing judge of Yuan *zaju* and Ming–Qing fiction — provisional | — | `cnh-424`, `cnh-425` | — |
+| Yue Fei: the tattoo, the gold plaques and "no grounds" | the four characters "serve the country with utmost loyalty" on his back (the *Songshi* biography, 1345; his mother tattooing them a later tale); the twelve gold-lettered plaques recalling him in one day; Qin Hui's answer to Han Shizhong that the charge "need not have grounds" (莫須有); the kneeling iron figures of Qin Hui and his wife at the Hangzhou tomb (Ming) — provisional | `cnh-450` | `cnh-451`, `cnh-452` | — |
+| The Jingkang captivity | the Jurchen taking Kaifeng in 1127 and carrying Huizong, Qinzong, the court and its women north; the Southern Song and Jin accounts and the *Songshi* and *Jinshi* (both 1343 – 1345) — provisional | `cnh-446` | `cnh-445`, `cnh-448`, `cnh-473` | — |
+| Li Qingzhao's life in her own postface | her marriage to Zhao Mingcheng, their collecting, and the loss of the collection in the flight south, as her postface to his *Jinshi lu* tells it (dated in the text, read as 1132 or 1134) — provisional | — | `cnh-442` | — |
+| Wang Anshi and Sima Guang as villain and hero | the reformer blamed for the Northern Song's fall and the historian praised as the upright conservative, the Southern Song and later Confucian verdict (the *Songshi*'s); Wang's modern rehabilitation (Liang Qichao) — provisional | — | `cnh-430`, `cnh-431`, `cnh-432` | — |
+| Su Shi's Red Cliff rhapsodies | the two "Chibi fu" written in exile at Huangzhou (1082 CE), set at a cliff near Huangzhou that Su Shi himself doubted was the battle's; read as literature, not as a record of the battle — provisional | — | `cnh-441` | `cnh-276` (Red Cliffs) |
+| The Water Margin and the historical Song Jiang | the bandit leader Song Jiang, whose band and surrender the *Songshi* gives in a few lines under Huizong; the outlaws of the Yuan plays and the 14th–16th-century novel *Water Margin* — provisional | — | `cnh-445` | `cnh-928`, `cnh-929` |
+| The Mongol conquests' figures | the death tolls and army sizes of the conquest of the Western Xia, the Jin and the Song as the Persian and Chinese histories give them (Juvaini, Rashid al-Din, the *Yuanshi*, compiled under the Ming 1369 – 1370), not counts; modern estimates differ widely — provisional | `cnh-472` | `cnh-481`, `cnh-482`, `cnh-463`, `cnh-483` | — |
+| Marco Polo's travels and the doubt | the book dictated in a Genoese prison to Rustichello of Pisa (1298 – 1299), surviving in many differing manuscripts; the doubt that he reached China (the Great Wall, tea and footbinding unmentioned, his name absent from the Chinese record) and the replies (the salt, paper money and the Yangzhou post) — provisional | `cnh-495` | `cnh-485`, `cnh-487`, `cnh-492` | — |
+| Kublai and Phagpa | the Tibetan tellings of Phagpa initiating Kublai and of the priest and patron, and the *Yuanshi*'s Imperial Preceptor who made the script decreed in 1269 — provisional | `cnh-497` | `cnh-485` | — |
+| The Romance of the Western Chamber | Zhang and Yingying's story from Yuan Zhen's Tang tale "Yingying zhuan" (where he leaves her), through the Jin *zhugongdiao* of Master Dong, to Wang Shifu's Yuan *zaju* (where they marry) — provisional | `cnh-499` | `cnh-498` | `cnh-393` (Yuan Zhen) |
 
 ## Working a card
 
