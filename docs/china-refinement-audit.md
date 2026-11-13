@@ -299,7 +299,7 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Wang Xizhi's Orchid Pavilion preface | the gathering at the Orchid Pavilion in 353 CE and Wang Xizhi's preface to its poems; Taizong's love of the original and its burial with him (Tang tellings, He Yanzhi's account); the surviving versions copies — provisional | `cnh-319` | `cnh-357` | — |
 | The Peach Blossom Spring | Tao Yuanming's own prose tale of a fisherman finding a hidden valley whose people fled the Qin, told as fiction by its author — provisional | `cnh-320` | — | — |
 | Emperor Wu of Liang and Bodhidharma | the emperor's question about his merit and Bodhidharma's "no merit"; a Chan legend first told centuries later (the 8th-century Chan histories), not in the earliest notice of Bodhidharma — provisional | — | `cnh-327` | — |
-| The Xuanwu Gate incident as told | Li Shimin killing his brothers Li Jiancheng and Li Yuanji at the palace gate and his father's abdication, in the court histories written under Taizong's own eye (the *Old* and *New Book of Tang*, the *Zizhi tongjian*), which make the brothers the plotters — provisional | `cnh-358` | `cnh-356`, `cnh-357` | — |
+| The Xuanwu Gate incident as told | Li Shimin killing his brothers Li Jiancheng and Li Yuanji at the palace gate and his father's abdication, in the court histories written under Taizong's own eye (the *Old* and *New Book of Tang*, the *Zizhi tongjian*), which make the brothers the plotters — confirmed B36 (`cnh-356`, `cnh-358`: the record descends from the official account Taizong ordered after seeing his historians' work; Sima Guang doubted the banquet plot) | `cnh-358` | `cnh-356`, `cnh-357` | — |
 | Wu Zetian as the only empress regnant and the hostile tradition | the only woman to rule China as emperor in her own name (the Wu Zhou, 690 – 705 CE); the stories of the strangled daughter and the mutilated rivals from later hostile historians — provisional | `cnh-371`, `cnh-372` | `cnh-364` | — |
 | Yang Guifei: the lychees, Mawei and the Song of Everlasting Sorrow | lychees rushed by relay to the court; her death at Mawei Station when the escort mutinied (756 CE); Bai Juyi's "Song of Everlasting Sorrow" (806 CE) and later legend — provisional | `cnh-375` | `cnh-373`, `cnh-377`, `cnh-393` | — |
 | An Lushan's adoption by Yang Guifei | An Lushan made Yang Guifei's adopted son, the washing ceremony; told in later histories and anecdote collections — provisional | — | `cnh-377`, `cnh-375` | — |
@@ -414,7 +414,7 @@ otherwise.
 | B33 | Eastern Jin (`col-20`) / Northern and Southern dynasties (`col-21`) | `cnh-321`–`cnh-330` | 10 | 105 | **done 2026-11-13** |
 | B34 | Northern and Southern dynasties (`col-21`) | `cnh-331`–`cnh-340` | 10 | 104 | **done 2026-11-13** |
 | B35 | Northern and Southern dynasties (`col-21`) / Sui (`col-22`) | `cnh-341`–`cnh-350` | 10 | 104 | **done 2026-11-13** |
-| B36 | Sui (`col-22`) / Tang (`col-23`) | `cnh-351`–`cnh-360` | 10 | 113 | to do |
+| B36 | Sui (`col-22`) / Tang (`col-23`) | `cnh-351`–`cnh-360` | 10 | 113 | **done 2026-11-13** |
 | B37 | Tang (`col-23`) | `cnh-361`–`cnh-370` | 10 | 102 | to do |
 | B38 | Tang (`col-23`) | `cnh-371`–`cnh-380` | 10 | 104 | to do |
 | B39 | Tang (`col-23`) | `cnh-381`–`cnh-390` | 10 | 112 | to do |
@@ -871,6 +871,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-348` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 | `cnh-349` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 | `cnh-350` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-351` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-352` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-353` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-354` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-355` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-356` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-357` | none | not re-checked (Commons rate-limited): wanted — the glossary's public-domain court portrait would serve |
+| `cnh-358` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-359` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-360` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 
 ## Glossary candidates
 
@@ -2418,3 +2428,39 @@ Wuxing; `cnh-344`'s birthplace is the Boruo temple at Fengyi in the *Sui shu*, i
 Palace on no page read, its age 64 by the Chinese count (Cordier) against the line's 63; `cnh-349`'s 21 August 604 and 11
 April 618 on no page read. **Outside the hundred**: `wh-522` dates the Mongol rebuild of the canal 1276 – 1291 against
 Theobald's 1283 – 1291.
+
+### B36 — `cnh-351`–`cnh-360`, Sui and Tang: the Goguryeo–Sui War to the Tang Code (2026-11-13)
+
+Run as B31. Every cited URL answered. **Pictures were not touched**; none of the ten cards has a picture. **The old cards
+cited Chinese Wikisource (all seven sources of the Goguryeo war; three or four on most others), put battle templates on
+the Goguryeo war ("Casualties 302,300+", a figure no source gives), named places in the walls' labels ("Yulin wall",
+"Yugu wall"), dated the Tang by a census ("Census 764 CE", another event), gave the Zhenguan era a "Good harvest 630"
+row, dated the Tang Code to 637 (no page fetched prints it), told the scarf at Emperor Yang's death as the *Sui shu*'s,
+and misread 贞观 as Zhēnguàn.** The histories were read in the Siku text on the Kanseki Repository and on zggdwx.com.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-351` Goguryeo–Sui War | 6 | 7 → 6 | **The battle template off: `Fought 598 – 614 CE` / `Great invasion 612 CE`; the *Sui shu* juan 4 (the commanders fled with "2,000-odd horsemen") for seven Wikisource sources; the 305,000 and the 2,700 survivors credited to a history drawn from Korean chronicles (Hulbert); the feigned retreats before the Salsu rout; the 614 edict**; "eight or nine in ten", the drums and horns, the 631 mound dropped. |
+| `cnh-352` Sui long walls | 5 | 7 → 6 | **The place labels off: `Earlier wall 585 CE` (Mailla's Lingwu wall, said not to be the first) / `Great levy 607 CE` / `Further levy 608 CE`; the million-man levy, the ten days and "five or six in ten died" the Sui annals'; "Yugu" made the Yulin valley**; the *Zizhi tongjian*'s "twenty days" and Yuwen Bi's remark dropped. |
+| `cnh-353` Wagang Army | 5 | 5 → 5 | **Two Wikisource texts cut to the *Old Book of Tang*'s Li Mi (juan 53); Wechsler's chapter; the Xingluo granary, Zu Junyan's manifesto, the rout by Wang Shichong; the glossary's c. 611 – 618 made 617 – 618 (611 the first risings, not Wagang's)**; the *Sui shu*'s "7,000 picked men" and Zhai Rang's jailbreak (the *Zizhi tongjian*'s) dropped. |
+| `cnh-354` Yuwen Huaji | 5 | 6 → 5 | **"Strangled with his own scarf" corrected: the scarf is the *Zizhi tongjian*'s (juan 185, 自解練巾), not the *Sui shu*'s, so the card says only "strangled" (Cordier); the homesick guards, the Yulin trade, the Xu throne; the answer's word "Yuwen" out of the questions**. Protected: the line stays (flagged below). |
+| `cnh-355` Tang dynasty | 8 | 8 → 8 | **"Census 764 CE" off: `Ruled 618 – 907 CE` / `Interrupted 690 – 705 CE`; the census drop left to `cnh-378` (the 764 report of 16.9 million registered, said to count taxpayers, not the living, in Think it through); Olopen's arrival 635 (Parker) for Giles's 636; the *Zizhi tongjian* juan 223 the one Chinese source**; "Men of Tang" (a 1901 source) dropped. |
+| `cnh-356` Emperor Gaozu of Tang | 6 | 6 → 6 | **Whose account is whose: the *Old Book of Tang* (juan 1) credits Li Shimin and Liu Wenjing and calls Gaozu irresolute, Wen Daya's diary shows Li Yuan deciding (Theobald); the Turkish horses and his daughter's army, the drink-and-bribes story, Jieli made to dance**; the Kaiyuan tongbao of 621 (a conversion) and the Turkish raid story dropped. Protected: the line stays (flagged below). |
+| `cnh-357` Emperor Taizong of Tang | 7 | 8 → 7 | **Three Wikisource texts cut to the *Old Book of Tang* juan 2; the six horsemen and the white horse at the Bian bridge, the brass-mirror saying, the Heavenly Khan; Twitchett on the Veritable Records**; the Yanmen ruse year, the Sui bones and "greatest of rulers" dropped. Protected: the line stays (flagged below). |
+| `cnh-358` Xuanwu Gate Incident | 6 | 7 → 7 | **The line kept (Cordier prints 2 July and 4 September 626); the story traced to the record Taizong ordered after seeing his historians' work, Sima Guang's doubt of the banquet plot, Kim 2021 (in Korean): a killing Li Shimin wished to conceal; the two heads, the emperor on the lake, the Prince of Qi's bow**. **Pinyin Xuánwǔ Mén → Xuánwǔmén zhī biàn**, joined as Hóngmén and Lóngmén. |
+| `cnh-359` Zhenguan era | 6 | 7 → 7 | **"Good harvest 630" off: `Reign period 627 – 649 CE`; the 29 death sentences and the unbarred gates the *Old Book of Tang*'s claims; the hard first years and the palace women sent home; Wu Jing's manual and its translations (Kornicki); Wei Zheng's mirrors left to `cnh-357`'s question**. **Pinyin Zhēnguàn → Zhēnguān.** |
+| `cnh-360` Tang Code | 7 | 7 → 7 | **"Issued 637" off (no page fetched prints it; the *Old Book* has the first month of Zhenguan 11, Theobald 639): `Revision ordered 627 CE` / `Revised 651 CE` / `Commentary 653 CE`; the 92 capital offences cut to exile, Gaozong's commentary; Ho 2015 and Ōtaka 2013 (in Japanese)**; "500 articles" (`cnh-346`'s figure), the 20 grades and the eight privileged groups (unsourced) dropped. |
+
+Read by eye. **Confusability**: Wei Zheng's mirrors were a phrasing on both `cnh-357` and `cnh-359`; they stay `cnh-357`'s
+and `cnh-359`'s was rewritten (the palace women sent home); the Yongji branch stays `cnh-350`'s; Emperor Yang's death
+`cnh-354`'s; the census `cnh-378`'s. **Legend**: the Xuanwu Gate as Taizong's historians told it; Gaozu's irresolution the
+*Old Book*'s; the Zhenguan peace the *Old Book*'s and Wu Jing's portrait. **Chinese names corrected**: `cnh-358` and
+`cnh-359` pinyin; `隋征高句丽` kept unconfirmed (no standard term found — for the owner). **Spellings fixed**: the khagan
+Illig written Jieli on every card (a row added; `cnh-357`'s and `cnh-359`'s "Xieli" made Jieli). **Myth register**: the
+Xuanwu Gate row confirmed (the *Old Book* makes the brothers the plotters; Theobald and Kim read the record as rewritten
+in Li Shimin's favour). **check-citations**: `cnh-358`'s Kim 2021 reported for name order (Korean order cited; fine).
+**Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-354`'s 22 March 619 is on no page read and
+Giles puts the death in 618; `cnh-356`'s 566 is on no page read (the *Old Book*: Tianhe 1; Giles 565) and its age 69 sits
+against Cordier's 71 and the *Old Book*'s 70; `cnh-357`'s 28 January 598 is on no page read (the *Old Book*: Kaihuang 18,
+twelfth month, *wuwu* day; Giles 597, Wechsler 600), and its 10 July 649 and Cuiwei Palace are read only in the *Old Book*
+juan 3 (uncited). The *Zizhi tongjian*'s Siku text reads 39 death sentences for Zhenguan 4 where the *Old Book* has 29.

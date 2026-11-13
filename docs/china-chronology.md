@@ -533,6 +533,13 @@ only; ages, days and months left out), and are not rows of this table.
 | the Three Departments set up / recast | 581 CE / 607 CE | `cnh-347` |
 | the jinshi founded (Giles) / the examinations ended | 606 CE / 1905 | `cnh-348` |
 | the Grand Canal: the first cut / the main works / the northern rebuild (Theobald) / World Heritage | 587 CE / 605 – 610 CE / 1283 – 1291 / 2014 | `cnh-350` |
+| the Goguryeo–Sui War / the great invasion | 598 – 614 CE / 612 CE | `cnh-351` |
+| the Sui walls: the Lingwu wall / the great levy / the further levy | 585 CE / 607 CE / 608 CE | Mailla; the *Sui shu* (`cnh-352`) |
+| the Wagang army | 617 – 618 CE | `cnh-353` |
+| the Tang / the Wu Zhou interruption | 618 – 907 CE / 690 – 705 CE | `cnh-355` |
+| the Xuanwu Gate ambush / the abdication | 2 July 626 CE / 4 September 626 CE | Cordier (`cnh-358`) |
+| the Zhenguan era | 627 – 649 CE | `cnh-359` |
+| the Tang Code: revision ordered / revised / commentary | 627 CE / 651 CE / 653 CE | `cnh-360` |
 
 ## Later periods
 
@@ -906,4 +913,11 @@ cnh-346: 581
 cnh-347: 581; 607
 cnh-348: 606; 1905
 cnh-350: 587; 605; 610; 1283; 1291; 2014
+cnh-351: 598; 614; 612
+cnh-352: 585; 607; 608
+cnh-353: 617; 618
+cnh-355: 618; 907; 690; 705
+cnh-358: 626
+cnh-359: 627; 649
+cnh-360: 627; 651; 653
 ```

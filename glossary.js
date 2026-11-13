@@ -13975,13 +13975,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Emperor_Yang_of_Sui": "569 – 618 CE",
 "Goguryeo–Sui_War": "598 – 614 CE",
 "Sui_long_walls": "581 – 608 CE",
-"Wagang_Army": "c. 611 – 618 CE",
+"Wagang_Army": "617 – 618 CE",
 "Yuwen_Huaji": "died 619 CE",
 "Emperor_Gaozu_of_Tang": "566 – 635 CE",
 "Emperor_Taizong_of_Tang": "626 – 649 CE",
 "Xuanwu_Gate_Incident": "626 CE",
 "Zhenguan": "627 – 649 CE",
-"Tang_Code": "637 – 653 CE",
+"Tang_Code": "627 – 653 CE",
 "Koufentian": "624 – 780 CE",
 "Zuyongdiao": "624 – 780 CE",
 "Battle_of_Yinshan": "630 CE",
@@ -19563,7 +19563,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Wagang_Army": ["Wagang army","Wagang rebels","Wa-kang army"],
 "Yuwen_Huaji": ["Yü-wên Hua-chi","Yu-wen Hua-chi","Yuwen Hua-chi"],
 "Emperor_Gaozu_of_Tang": ["Li Yuan","Li Yüan","Tang Gaozu","T'ang Kao-tsu","Kao Tsu of T'ang"],
-"Emperor_Taizong_of_Tang": ["Li Shimin","Li Shih-min","Tang Taizong","T'ang T'ai-tsung","T'ai Tsung of T'ang"],
+"Emperor_Taizong_of_Tang": ["Li Shimin","Li Shih-min","Tang Taizong","T'ang T'ai-tsung","T'ai Tsung of T'ang","Emperor Taizong"],
 "Xuanwu_Gate_Incident": ["Incident at Xuanwu Gate","Xuanwu Gate incident","Hsüan-wu Gate incident","Xuanwumen Incident"],
 "Zhenguan": ["Zhenguan era","Zhenguan reign","Chen-kuan","Chen-kuan era"],
 "Tang_Code": ["Tanglü","Tang lü","Tanglü shuyi","Tang lü shuyi","T'ang Code"],
@@ -23882,7 +23882,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Yungang_Grottoes": ["Yun-kang","Yun Gang","Yungang Caves"],
 "Longmen_Grottoes": ["Lung-men","Long Men","Longmen Caves"],
 "Eastern_Wei": ["Dongwei","Tung Wei"],
-"Sui_dynasty": ["Sui","Sui chao"]
+"Sui_dynasty": ["Sui","Sui chao"],
+"Tang_dynasty": ["T'ang dynasty"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
