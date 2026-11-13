@@ -162,6 +162,13 @@ if (Object.keys(TAGS).length) {
     "\n/* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */\n" +
     "window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, " + obj(TAGS) + ");\n";
 }
+/* GLOSSARY_TITLES (2026-11-13): a display title where the slug's own words are not the name to show — "Saint Paul" for
+   `St._Paul`, since the site writes Saint in full. app.js `glossTitle` reads it; the key stays the slug. */
+{ const TITLES = win.GLOSSARY_TITLES || {};
+  if (e.title) TITLES[e.slug] = String(e.title); if (e.delete) delete TITLES[e.slug];
+  if (Object.keys(TITLES).length) out +=
+    "\n/* Optional display title per term (slug -> title) where the slug's words are not the name to show. */\n" +
+    "window.GLOSSARY_TITLES = Object.assign(window.GLOSSARY_TITLES || {}, " + obj(TITLES) + ");\n"; }
 if (Object.keys(VIDEOS).length) {
   out +=
     "\n/* Optional video per term (slug -> { src, title, desc, credit }) — a YouTube/Vimeo or direct file link, shown in the term's popup. */\n" +
