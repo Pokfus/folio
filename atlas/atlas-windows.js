@@ -341,6 +341,16 @@
         const w = wOf(font2, text); const list = typeof cands === "function" ? cands(w) : cands; if (!list.length) return null;
         const at = list.find((c) => clear(c.box)) || (o.must ? list[0] : null);
         if (!at) { droppedNames.push(text); return null; }
+        /* THE CARD'S OWN NAME OUTRANKS A SIBLING'S DOT (2026-11-13; test-card-windows-fixes §3, the Tiber): a name that must stand and found
+           no clear place takes its first one, and a sibling dot under it is left off this window — never drawn under the name. */
+        if (o.must && o.own && !clear(at.box)) {
+          for (let i = markBoxes.length - 1; i >= 0; i--) {
+            const mb = markBoxes[i]; if (mb.kind !== "dot" || !hit(at.box, mb.box)) continue;
+            const cx = (mb.box[0] + mb.box[2]) / 2, cy = (mb.box[1] + mb.box[3]) / 2;
+            const k = sibAt.findIndex((sa) => Math.abs(sa[0] - cx) < 0.5 && Math.abs(sa[1] - cy) < 0.5);
+            if (k >= 0) { sibAt.splice(k, 1); markBoxes.splice(i, 1); }
+          }
+        }
         nameBoxes.push({ text, box: at.box, own: !!o.own }); plan.push({ text, font: font2, x: at.x, y: at.y, align: at.align, color: o.color || ink, lw: o.lw || 3 });
         return at;
       };

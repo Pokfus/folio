@@ -127,6 +127,8 @@ exists).
 - **Centuries are numerals**: "11th century", "2nd millennium BCE".
 - **Non-round numbers above 20 are numerals** ("27 chapters"); round ones may be words ("thirty
   kings"). Write "32,000", never "32 thousand".
+- **Troop numbers and army sizes are always numerals** (2026-11-13, on request): "10,000 men", "300 hoplites",
+  "1 million soldiers", never "ten thousand men".
 - **Distances, measurements and time spans are always numerals** (2026-11-13, on request): "14 miles",
   "8 metres", "3 years", "a 5-day battle", "100 years", never "fourteen miles" or "three years". The one
   exception is a span of ONE, which stays a word ("one day", "one year"). Proper names keep their words
