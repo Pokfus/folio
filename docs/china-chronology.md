@@ -497,6 +497,14 @@ only; ages, days and months left out), and are not rows of this table.
 
 | event | the collection says | source |
 |---|---|---|
+| the Disaster of Yongjia: Luoyang fell / Emperor Huai killed | 13 July 311 CE / 313 CE | de Crespigny; Theobald (`cnh-301`) |
+| the Sixteen Kingdoms | 304 – 439 CE | Theobald; Holcombe (`cnh-303`) |
+| the states of the Five Barbarians founded | 304 – 439 CE | Theobald (`cnh-304`) |
+| Han-Zhao: founded / imperial title / renamed Zhao / ended | 304 CE / 308 CE / 319 CE / 329 CE | `cnh-305` |
+| the Later Zhao (Theobald's table / his heading) / imperial title | 319 – 351 CE / 319 – 350 CE / 330 CE | `cnh-306` |
+| the Former Yan: founded / imperial title / conquered | 337 CE / 352 CE / 370 CE | `cnh-307` |
+| the Former Qin: founded / Fei River / ended | 351 CE / 383 CE / 394 CE | `cnh-308` |
+| the Battle of Fei River | 383 CE | the *Jinshu* (`cnh-310`) |
 
 ## Later periods
 
@@ -835,4 +843,12 @@ cnh-297: 291; 306; 300
 cnh-298: 220; 589
 cnh-299: 240; 420
 cnh-300: 205; 305; 262; 263
+cnh-301: 311; 313
+cnh-303: 304; 439
+cnh-304: 304; 439
+cnh-305: 304; 308; 319; 329
+cnh-306: 319; 351; 350; 330
+cnh-307: 337; 352; 370
+cnh-308: 351; 383; 394
+cnh-310: 383
 ```

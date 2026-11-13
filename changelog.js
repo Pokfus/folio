@@ -39,6 +39,13 @@ window.FOLIO_VERSION = { v: "1.1298", released: "2026-11-12T23:55Z" };
 
 window.CHANGELOG = [
   {
+    d: "2026-11-13",
+    t: "China cards rewritten",
+    items: [
+      "<b>10 more China cards are rewritten</b>, from the Disaster of Yongjia to the Battle of Fei River, with new sources and dates.",
+    ],
+  },
+  {
     d: "2026-11-12",
     t: "Collections grow; Economics, India, Palaeontology open; Irish, Arabic",
     items: [

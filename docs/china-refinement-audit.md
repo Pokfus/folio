@@ -295,7 +295,7 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | The Romance and the Records of the Three Kingdoms | Chen Shou's *Sanguozhi* (completed after 280 CE) with Pei Songzhi's notes (429 CE); the storytellers' and the Yuan *Sanguozhi pinghua* (printed 1321 – 1323); the *Romance* credited to Luo Guanzhong (doubted), its oldest preface dated 1494, first printed 1522, revised by Mao Lun with his son Mao Zonggang c. 1679; its "seven parts fact, three parts fiction" (Zhang Xuecheng); the empty-city ruse first told of a Wei commander (the *Weilüe* in Pei's notes); Red Cliffs (the borrowed arrows, the east wind, Huarong), Guandu and Cao Cao's villainy told as the novel's; Guan Yu's deification as `cnh-039` tells it; Diaochan the novel's (the chronicle names only an unnamed maidservant, B27 `cnh-270`) — confirmed B28 – B30 (`cnh-273`, `276`, `281`, `286`, `290`, `291`) | `cnh-291`, `cnh-290` | `cnh-273`, `cnh-274`, `cnh-276`, `cnh-281`, `cnh-286` | `cnh-039` |
 | The Seven Sages of the Bamboo Grove | seven men gathering in a bamboo grove at Shanyang to drink and talk (as a group in the 4th century CE — Sun Sheng's *Wei shi chunqiu*, quoted by Pei Songzhi — and the *Shishuo xinyu*, 5th century CE); the grouping and the grove read by modern scholars as a later construction (Spiro: no evidence all seven knew one another; Chen Yinke's Buddhist name for the grove on no page read); the Nanjing brick reliefs, from a tomb of the late 4th or early 5th century, their trees not bamboo (Spiro) — confirmed and corrected B30 (`cnh-300`) | `cnh-300` | `cnh-299` | — |
 | The Three Sovereigns and Five Emperors | the lists differ by text: the *Shiji*'s Five Emperors (Yellow Emperor, Zhuanxu, Ku, Yao, Shun); Three Sovereigns as Heavenly, Earthly and Human or Grand (the *Shiji*'s Qin annals), or as Fuxi, Nüwa and Shennong, or Fuxi, Shennong and the Yellow Emperor, or Fuxi, Suiren and Shennong, or Fuxi, Zhurong and Shennong in other texts; Sima Zhen's Tang chapter supplies Fuxi, Nüwa and Shennong — confirmed B1 (`cnh-002`, Chavannes) | `cnh-002` | `cnh-003`–`cnh-007`, `cnh-040` | `cnh-879` |
-| Fu Jian's whips and the wind and cranes at Fei River | Fu Jian boasting that his host could dam the Yangtze by throwing in their whips, and his routed army hearing the wind and the cranes' cries as the pursuing Jin (the *Jinshu*, compiled under the Tang, 646 – 648 CE); Xie An playing *weiqi* as the news came — provisional, set for the fourth hundred | `cnh-310` | `cnh-308`, `cnh-309`, `cnh-315` | — |
+| Fu Jian's whips and the wind and cranes at Fei River | Fu Jian boasting that his host could dam the Yangtze by throwing in their whips, and his routed army hearing the wind and the cranes' cries as the pursuing Jin (the *Jinshu*, compiled under the Tang, 646 – 648 CE); Xie An playing *weiqi* as the news came (juan 79) — confirmed B31 (`cnh-310`: the whips and the cranes in juan 114; Zhu Xu's shout in neither juan read; the "million" Zhu Xu's rhetoric, not a count) | `cnh-310` | `cnh-308`, `cnh-309`, `cnh-315` | — |
 | Wang Xizhi's Orchid Pavilion preface | the gathering at the Orchid Pavilion in 353 CE and Wang Xizhi's preface to its poems; Taizong's love of the original and its burial with him (Tang tellings, He Yanzhi's account); the surviving versions copies — provisional | `cnh-319` | `cnh-357` | — |
 | The Peach Blossom Spring | Tao Yuanming's own prose tale of a fisherman finding a hidden valley whose people fled the Qin, told as fiction by its author — provisional | `cnh-320` | — | — |
 | Emperor Wu of Liang and Bodhidharma | the emperor's question about his merit and Bodhidharma's "no merit"; a Chan legend first told centuries later (the 8th-century Chan histories), not in the earliest notice of Bodhidharma — provisional | — | `cnh-327` | — |
@@ -409,7 +409,7 @@ otherwise.
 | B28 | Eastern Han (`col-12`) / Three Kingdoms (`col-16`) | `cnh-271`–`cnh-280` | 10 | 92 | **done 2026-11-12** |
 | B29 | Three Kingdoms (`col-16`) | `cnh-281`–`cnh-290` | 10 | 84 | **done 2026-11-12** |
 | B30 | Three Kingdoms (`col-16`) / Western Jin (`col-18`) | `cnh-291`–`cnh-300` | 10 | 86 | **done 2026-11-12** |
-| B31 | Western Jin (`col-18`) / Sixteen Kingdoms (`col-19`) | `cnh-301`–`cnh-310` | 10 | 83 | to do |
+| B31 | Western Jin (`col-18`) / Sixteen Kingdoms (`col-19`) | `cnh-301`–`cnh-310` | 10 | 83 | **done 2026-11-13** |
 | B32 | Sixteen Kingdoms (`col-19`) / Eastern Jin (`col-20`) | `cnh-311`–`cnh-320` | 10 | 79 | to do |
 | B33 | Eastern Jin (`col-20`) / Northern and Southern dynasties (`col-21`) | `cnh-321`–`cnh-330` | 10 | 105 | to do |
 | B34 | Northern and Southern dynasties (`col-21`) | `cnh-331`–`cnh-340` | 10 | 104 | to do |
@@ -821,6 +821,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-298` | none | not re-checked (Commons 429): the card has no picture — wanted |
 | `cnh-299` | none | not re-checked (Commons 429): the card has no picture — wanted |
 | `cnh-300` | the Seven Sages in a tomb relief | not re-checked (Commons 429): ok; the caption's 5th-century date — Spiro: late 4th or early 5th |
+| `cnh-301` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-302` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-303` | the northern states in 338 | not re-checked (Commons rate-limited): ok |
+| `cnh-304` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-305` | Herrmann's map of the Sixteen States, 304 – 352 | not re-checked (Commons rate-limited): ok |
+| `cnh-306` | a seated Buddha dated 338 | not re-checked (Commons rate-limited): an object of the reign, not the state — acceptable |
+| `cnh-307` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-308` | Herrmann's map of the Sixteen States, 352 – 384 | not re-checked (Commons rate-limited): ok |
+| `cnh-309` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-310` | Reporting Victory at the Huai and Fei | not re-checked (Commons rate-limited): ok |
 
 ## Glossary candidates
 
@@ -2189,3 +2199,42 @@ its diff. `migrate-places.js --check` reports the same six failures on this bran
 whose derived places they do not carry, and `atlas/data/wars.js` out of step) — none from this audit. Points to review in
 the hundred: `cnh-228` Huo Qubing's point is Jiuquan, a Hexi town, not his tomb; `cnh-256` Luoyang's is the modern city,
 not the Han–Wei walled site; `cnh-260` (a text) and `cnh-287` (an institution) carry points they need not.
+
+### B31 — `cnh-301`–`cnh-310`, Western Jin and Sixteen Kingdoms: the Disaster of Yongjia to the Battle of Fei River (2026-11-13)
+
+The fourth hundred's first batch, run as the third's were (`AGENT.md`, the notes file, two cards an agent, at most ten
+at once); every draft read by eye and prechecked before `batch.sh` applied it. Every cited URL answered. **Pictures were
+not touched** (Commons answered with its rate-limit page to the session's one test call). **The old cards cited the
+*Jinshu* on Chinese Wikisource (a Wikimedia host, now unreachable) on nearly every card, put a battle template on Fei
+River ("Date 30 November 383 CE", a day no page read prints; "Location"; "Result"), named places and men in labels
+("Luoyang falls", "Huai executed", "Shi Le emperor", "King of Yan", "Fei River"), carried years in most phrasings, and
+told the Fei River numbers, the whips and the cranes in their own voice.** The *Jinshu* was read in Chinese on zggdwx.com
+(juan 101–114) and the Kanseki Repository (juan 1–33).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-301` Disaster of Yongjia | 6 | 5 → 6 | **The labels off: `Capital fell 13 July 311 CE` (de Crespigny's printed day; the *Jinshu* has only the sixth month) / `Emperor killed 313 CE`; who broke in given as the sources differ (the *Jinshu*: Liu Yao and Wang Mi; de Crespigny: Shi Le); the *Jinshu*'s 30,000 dead as its figure; Sogdian Ancient Letter II from Sims-Williams's own note (the old Silk Road Seattle page 403)**; the letter's "Luoyang and Ye were no more" dropped (on no page read). |
+| `cnh-302` Emperor Min of Jin | 5 | 5 → 5 | **The coffin surrender (`cnh-292`'s clue) out of the questions: the yeast-cake gruel, the bean-field rhyme, the halberd and the cup-rinsing at Pingyang, all the *Jinshu*'s; his death the *Jinshu*'s version (Cordier blames a Jin raid)**; Theobald's and Giles's birth year 270 (impossible) not used. Protected: the line stays (flagged below). |
+| `cnh-303` Sixteen Kingdoms | 7 | 5 → 7 | **Told as Cui Hong's label, from his memorial in the *Weishu* (in Chinese): sixteen houses counted, the book withheld, presented by his son; Holcombe's "as many as twenty-two significant states"; the five peoples left to `cnh-304`; the years out of the questions**; Parker's 1895 Goths-and-Vandals sentence dropped. **Pinyin Shíliù guó → Shíliùguó**, joined as the live Sānguó and Wǔdài Shíguó. |
+| `cnh-304` Five Barbarians | 6 | 5 → 6 | **"First states 304 CE" (one event's date for a label) now `Founded states 304 – 439 CE` (Theobald's span, said so); the label in use from the *Jinshu*: the captive Fu Jian refusing his seal to Yao Chang because the Qiang had "no name in the order of the Five Hu"; Guo Qin's 280 plan and Jiang Tong's 299 essay from de Crespigny**; the Wikisource essay and its unsaved quotation dropped. |
+| `cnh-305` Han-Zhao | 6 | 5 → 6 | **`Founded 304 CE` / `Imperial title 308 CE` / `Renamed 319 CE` / `Ended 329 CE`; the Han claim told as the *Jinshu*'s (the princess given to Modu), with Holmgren's view of such pedigrees; the chanyu's office beside the school-trained officials**; "a page at the Wei court" and "killing an elder brother" (unsourced) dropped. |
+| `cnh-306` Later Zhao | 6 | 5 → 6 | **"Shi Le emperor" off and the end given: `Dated 319 – 351 CE` (Theobald's table; Shi Zhi killed 351, Cordier) / `Also dated 319 – 350 CE` (Ran Min's seizure) / `Imperial title 330 CE`; Shi Le's slavery and his surname from Ji Sang, the guoren and the National University, Ran Min's massacre with the *Jinshu*'s 200,000 as its figure**; the eighteen horsemen dropped; Fotudeng left to `cnh-312`. |
+| `cnh-307` Former Yan | 6 | 5 → 7 | **"King of Yan" relabelled `Founded` (337 / 352 / 370 kept); the *Jinshu* juan 111: Kezuhun and Murong Ping's plot against Murong Chui, Murong Ping selling firewood and water to his own troops, the Lu River rout, the 40,000 households moved; Holmgren's caution on the histories' praise**; Cordier's 1,500,000-man army not used. |
+| `cnh-308` Former Qin | 7 | 5 → 7 | **"Fei River" relabelled `Defeated` (351 / 383 / 394 kept); Fu Hong's Linwei Di origin, the surname Pu, the wheat-sowing ruse at Fangtou (the *Jinshu*'s), the resettlement that made the collapse quick; the founder Fu Jian (351 – 355) left unnamed so the glossary's Fu Jian link reaches only the nephew**. |
+| `cnh-309` Fu Jian | 7 | 5 → 8 | **The years and the whips out of the questions: the Imperial Academy boast, the refusal to kill Murong Chui, Wang Meng's dying plea (the *Jinshu* juan 113); the *Jinshu* named as a Tang compilation; the Laozi and prophecy ban the *Jinshu*'s own; the Heavenly King title the *Jinshu*'s (Theobald gives it to the founder)**. Protected: the line stays (flagged below). |
+| `cnh-310` Battle of Fei River | 7 | 5 → 7 | **The battle template off, now `Fought 383 CE`; the *Jinshu*'s 600,000 foot and 270,000 horse against 70,000 (80,000 in juan 79) as its figures, Zhu Xu's "million" its rhetoric; Liu Laozhi's night attack, Mount Bagong, Zhu Xu's secret advice, Fu Rong's fall; Rogers's "Myth of the Battle of the Fei River" cited for its title's doubt**; "present-day Anhui" dropped. |
+
+Read by eye. **Confusability**: the coffin surrender stays `cnh-292`'s; Emperor Huai's servant's robe `cnh-301`'s and the
+Pingyang humiliations `cnh-302`'s (the Han-Zhao agent was told); the five peoples `cnh-304`'s and Cui Hong's count
+`cnh-303`'s; Fu Jian's seal refused to Yao Chang `cnh-304`'s (the Fu Jian agent was told); the whips and the cranes
+`cnh-310`'s, Murong Chui's welcome and Wang Meng's plea `cnh-309`'s (the Former Yan and Qin agent was told); `cnh-307`
+tells Murong Chui's flight from the Yan side, `cnh-309` his welcome from the Qin side. "Yangzi" in the drafts' own voice
+was made "Yangtze". **Legend**: the whips, the wind and cranes, Murong Ping's firewood, the wheat ruse and the Han
+pedigree are now the *Jinshu*'s, a Tang compilation of 646 – 648 CE. **Chinese names corrected**: `cnh-303` pinyin
+(joined); `汉赵` kept though no page read prints the two characters together (the *Jinshu* writes the state 漢, later
+趙). **Spellings fixed**: none needed; 0 hits (rows added for the hundred). **Myth register**: Fu Jian's whips and the
+wind and cranes confirmed in the *Jinshu* juan 114, Xie An's *weiqi* in juan 79; Zhu Xu's shout in neither juan read.
+**Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-302`'s "7 June 313" is on no page read (the
+*Jinshu*: the fourth month, *renshen* day) and its death may fall early in 318 (the twelfth month of Jianxing 5);
+`cnh-309`'s "16 October 385" is on no page read (Giles prints 337 – 384, a slip; Theobald gives the reign as 357 – 384 in
+one place and 356 – 384 in another).
