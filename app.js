@@ -24998,7 +24998,46 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     return secs;
   }
-  function homeWeekHTML() {
+  /* ---------- THE TERM OF THE DAY (2026-11-13, on request) ----------
+     "Since the Suggested Reading box now sits in the bottom left on those formats with nothing to the right of it, add a box
+     there with a randomly selected daily highlighted gloss term, preferably one with an image." A tablet's and a desktop's
+     alone (styles.css hides it on a phone, where the reading box stands by itself as before). The draw is `dayPick` over the
+     curated glossary — never a deck's own terms — so everyone sharing a day shares a term and it does not change on a reload;
+     the pool is the terms WITH a picture and a text (the pictures and texts ride the lazy glossExtra bundle, so the box is drawn
+     empty and filled when that lands), falling back to every term with a text. A press opens the term's own popup. */
+  function homeTermPick() {
+    const G = window.GLOSSARY || {}, I = window.GLOSSARY_IMAGES || {};
+    const keys = Object.keys(G).filter((k) => !uGlossParse(k) && G[k]);
+    const withImg = keys.filter((k) => I[k] && I[k].src);
+    const pool = withImg.length ? withImg : keys;
+    return pool.length ? dayPick("home-term", pool.sort(), 1)[0] : null;
+  }
+  function homeTermInner(k) {
+    if (!k) return '<span class="hb-k">Term of the day</span><span class="hb-empty">Loading the glossary\u2026</span>';
+    const img = glossImage(k), title = glossTitle(k), dates = glossDates(k);
+    const d = document.createElement("div"); d.innerHTML = String(glossText(k) || "");
+    d.querySelectorAll("sup").forEach((x) => x.remove());
+    const txt = (d.textContent || "").replace(/\s+/g, " ").trim();
+    return '<span class="hb-k">Term of the day</span>' +
+      '<span class="ht-term">' + (img ? '<img class="ht-img" src="' + esc(img.src) + '" alt="' + esc(img.alt || img.title || title) + '" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : "") +
+      '<span class="ht-body"><b>' + (GLOSS_WORK_KEYS.has(k) ? "<i>" + esc(title) + "</i>" : esc(title)) + "</b>" +
+      (dates ? "<span>" + esc(glossDatesFlat(dates)) + "</span>" : "") + "</span></span>" +
+      '<span class="ht-text">' + esc(txt) + "</span>";
+  }
+  function homeTermHTML() {
+    const k = dataReady("glossExtra") ? homeTermPick() : null;
+    return '<button class="home-box home-term" id="b-term" type="button"' + (k ? ' data-k="' + esc(k) + '"' : "") + ">" + homeTermInner(k) + "</button>";
+  }
+  function homeTermWire(root) {
+    const b = root.querySelector("#b-term");
+    if (!b) return;
+    if (!b.dataset.k) ensureData("glossExtra").then(() => {
+      const k = homeTermPick(); if (!k || !b.isConnected) return;
+      b.dataset.k = k; b.innerHTML = homeTermInner(k);
+    }).catch(() => {});
+    b.addEventListener("click", () => { if (b.dataset.k) openGlossWin(b.dataset.k, b); });
+  }
+  function homeWeekHTML(trio) {
     const now = Date.now(), today = dayKey(now);
     const day = { cards: 0, secs: 0, right: 0, total: 0 }, week = { cards: 0, secs: 0, right: 0, total: 0 };
     for (let d = 0; d < 7; d++) { const e = (S.reviewLog || {})[dayKey(now - d * DAY)]; if (e) { week.cards += e[0] | 0; if (d === 0) day.cards += e[0] | 0; } }
@@ -25070,6 +25109,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ' role="button" tabindex="0" data-info="day" data-dl="' + esc(x.full) + '" data-n="' + x.n + '" data-time="' + esc(x.time) + '" data-recall="' + esc(x.recall) + '"' +
         ' aria-label="' + esc(x.full + ": " + x.n + (x.n === 1 ? " card" : " cards") + " studied, " + x.time + ", " + (x.recall === "\u2014" ? "no answers" : x.recall + " recalled")) + '"></i>').join("") + "</div>" +
       '<div class="hw-days" aria-hidden="true">' + days.map((x) => '<span class="' + (x.cur ? "cur" : "") + '">' + esc(x.l) + "</span>").join("") + "</div>";
+    /* DESIGN D3 ON A TABLET AND A DESKTOP (2026-11-13, on request; docs/mockups/home-week-placement): the box becomes a row of
+       THREE cells — Today, the last seven days as bars, the week's totals — standing between the collections and the minigames,
+       as the phone's box already does. Same figures, same pressable bars; the phone keeps the single box (styles.css hides one
+       or the other at 640px). */
+    if (trio) {
+      const gd = figs(day), gw = figs(week);
+      return '<div class="home-trio" role="group" aria-label="Today and this week">' +
+        '<div class="home-box ht-cell ht-today"><span class="hb-k">Today</span><div class="ht-big">' + day.cards + '</div><div class="ht-lab">cards studied</div>' +
+          '<div class="ht-pair"><div><b>' + esc(gd.time) + '</b><div class="ht-lab">time studied</div></div><div><b class="g">' + gd.recall + '</b><div class="ht-lab">recalled</div></div></div></div>' +
+        '<div class="home-box ht-cell ht-days"><span class="hb-k">The last seven days</span>' + bars + "</div>" +
+        '<div class="home-box ht-cell ht-week"><span class="hb-k">This week</span><div class="ht-rows">' +
+          '<div><span>cards</span><b>' + week.cards + '</b></div><div><span>time</span><b>' + esc(gw.time) + '</b></div><div><span>recalled</span><b class="g">' + gw.recall + "</b></div></div></div></div>";
+    }
     return '<div class="home-box home-week">' +
       '<div class="hw-today"><span class="hb-k">Today</span>' + stats(day) + "</div>" +
       '<div class="hw-week"><span class="hb-k">This week</span>' + bars + line(week) + "</div></div>";
@@ -27067,11 +27119,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ${/* The heading over the games ships at every width now (Aug 2026, on request), like the lip above
               it: with the discovery row gone the grid is the last thing on the page, and a block of six
               coloured squares under nothing at all does not say what it is. */""}
+        ${homeWeekHTML(true)}
         <section class="games-sec">
           <div class="games-top"><h2 class="games-head">Minigames</h2>${sweepRowHTML()}</div>
           ${gameGrid}
         </section>
-        <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}</div>
+        <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}${homeTermHTML()}</div>
         <footer class="home-foot">${aboutLink}<button class="home-about" id="b-changelog" type="button">Changelog</button><button class="home-about" id="b-credits" type="button">Credits</button>${versionLineHTML()}</footer>
         ${/* ADMIN ONLY (Oct 2026, on request): a small refresh at the bottom left of the home page that brings the page to the latest deploy — it empties Folio's caches and the service worker, then reloads. */""}
         ${isAdmin() ? '<div class="home-admin-row"><button class="home-refresh" id="b-refresh" type="button" title="Refresh to the latest version" aria-label="Refresh to the latest version"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><polyline points="20 4 20 11 13 11"/></svg></button></div>' : ""}
@@ -27083,6 +27136,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        `wireHoldMenu` is the deck rows' own gesture: a tap opens the game, a hold flips the tile, and the
        document-level guard that swallows the click after a hold is the same one, so a hold cannot also
        start a game. */
+    homeTermWire(root);   // the term of the day (homeTermHTML)
     const cfRow = root.querySelector("#confuseRow");
     if (cfRow) cfRow.addEventListener("click", () => {
       const ids = confusionDrillIds();
