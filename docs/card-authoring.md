@@ -131,6 +131,12 @@ exists).
   "8 metres", "3 years", "a 5-day battle", "100 years", never "fourteen miles" or "three years". The one
   exception is a span of ONE, which stays a word ("one day", "one year"). Proper names keep their words
   (the Seven Years' War, the Hundred Days), and so do quotations and translations.
+- **A span counted back from today runs from old to new** (2026-11-13, on request): "16,000 to 11,000 years
+  ago", "between 50 and 40 million years ago", never the larger number second.
+- **Times of day are numerals with a colon and AM / PM** (2026-11-13, on request): "11:15 AM", "5:00 PM",
+  never "five o'clock", "6.00", "11 am" or a 24-hour "13:32". Quotations keep their own wording.
+- **Never name a website in a background** (2026-11-13, on request): not Livius.org, not "a history website"
+  as an authority. Say what the source is ("a modern chronology", "the museum") and let the footnote name it.
 - **Measurements metric first, imperial in brackets**, rounded to the source's precision:
   "about 2,400 kilometres (1,500 miles)". Temperatures as `−4 °C (25 °F)` (use the − sign, not
   "minus"). A temperature DIFFERENCE converts ×1.8 with no +32. This is the ONLY allowed use of
