@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"11e50992c929c367","counts":{"terms":952,"points":715,"countries":237,"windows":1586,"faces":372,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"9faee6091f53d021","counts":{"terms":953,"points":716,"countries":237,"windows":1588,"faces":372,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -462,6 +462,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"11e50992c929c367","counts":
 "Liberia":"adm0:lbr",
 "Libya":"adm0:lby",
 "Liechtenstein":"adm0:lie",
+"Lille":"city:1159147227",
 "Lima":"city:1159151511",
 "Lingqu":"pl:q966140",
 "Lion_Gate":"pl:q1450403",
@@ -1314,6 +1315,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"11e50992c929c367","counts":
 "Dra'_Abu_el-Naga":[32.621,25.735,"coord",0,0,0],
 "Drakensberg":[28.76,-30.106,"range",0,0,0],
 "Dreros":[25.628,35.257,"site",0,0,0],
+"Dunkirk":[2.378,51.038,"coord",0,0,0],
 "Dura-Europos_church":[40.73,34.747,"coord",0,0,0],
 "Dykh-Tau":[43.133,43.05,"coord",0,0,0],
 "East_China_Sea":[126.025,29.836,"sea",0,0,0],
@@ -1715,6 +1717,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"11e50992c929c367","counts":
 "Libya":[18.01,26.64,"country","adm0:lby",0,4.82],
 "Liechtenstein":[9.56,47.11,"country","adm0:lie",0,40],
 "Lighthouse_of_Alexandria":[29.886,31.215,"coord",0,0,0],
+"Lille":[3.078,50.652,"city",0,0,0],
 "Lima":[-77.052,-12.046,"capital",0,0,0],
 "Lingqu":[110.663,25.622,"river",0,0,0],
 "Lion_Gate":[22.756,37.731,"site",0,0,0],
