@@ -21367,7 +21367,6 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Stimulus_(physiology)": ["stimuli"],
 "Greek_altar": ["altar"],
 "Hecatomb": ["hecatombs","hekatomb"],
-"Greek_priesthood": ["priesthood","priesthoods","priestess","priestesses"],
 "Temenos": ["temene"],
 "Asclepius": ["Asklepios","Aesculapius","Asclepios"],
 "Battle_of_Aegospotami": ["Aegospotami"],
@@ -24541,6 +24540,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
+"Diadochi": true,
 "House_of_Commons_of_the_United_Kingdom": true,
 "Amazon_River": true,
 "Christianity": true,
