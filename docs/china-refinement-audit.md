@@ -475,7 +475,7 @@ otherwise.
 | B46 | Southern Song (`col-28`) | `cnh-451`–`cnh-460` | 10 | 101 | **done 2026-11-13** |
 | B47 | Southern Song (`col-28`) / Western Xia (`col-29`) | `cnh-461`–`cnh-470` | 10 | 94 | **done 2026-11-13** |
 | B48 | Western Xia (`col-29`) / Jurchen Jin (`col-30`) | `cnh-471`–`cnh-480` | 10 | 97 | **done 2026-11-13** |
-| B49 | Jurchen Jin (`col-30`) / Yuan (`col-31`) | `cnh-481`–`cnh-490` | 10 | 110 | to do |
+| B49 | Jurchen Jin (`col-30`) / Yuan (`col-31`) | `cnh-481`–`cnh-490` | 10 | 110 | **done 2026-11-13** |
 | B50 | Yuan (`col-31`) | `cnh-491`–`cnh-500` | 10 | 100 | to do |
 | B51 | Yuan (`col-31`) / Ming (`col-32`) | `cnh-501`–`cnh-510` | 10 | 107 | to do |
 | B52 | Ming (`col-32`) | `cnh-511`–`cnh-520` | 10 | 108 | to do |
@@ -1049,6 +1049,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-478` | none | not re-checked (Commons rate-limited): wanted — a Jurchen paizi or seal |
 | `cnh-479` | none | not re-checked (Commons rate-limited): wanted — a rubbing of the 1185 Fuyu stele |
 | `cnh-480` | as before | not re-checked (Commons rate-limited): ok |
+| `cnh-481` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-482` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-483` | as before | not re-checked (Commons rate-limited): the glossary picture's description gives a decade — trim |
+| `cnh-484` | as before | not re-checked (Commons rate-limited): a modern bust — weak, replace |
+| `cnh-485` | none | not re-checked (Commons rate-limited): wanted — the court portrait |
+| `cnh-486` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-487` | none | not re-checked (Commons rate-limited): wanted — the Yuan wall ruins |
+| `cnh-488` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-489` | none | not re-checked (Commons rate-limited): wanted — a map of the provinces |
+| `cnh-490` | none | not re-checked (Commons rate-limited): wanted |
 
 ## Glossary candidates
 
@@ -3164,3 +3174,37 @@ register**: the Mongol conquests' figures confirmed (Rashid al-Din's 300,000, Ho
 `474` and `477` report Qiu Jingjia and Huang Chunyan in Chinese order — fine. **Protected lines: unchanged** (diffed after the
 apply). For the owner: `cnh-475`'s 1068 and days on no page read (the *Jinshi*: Xianyong 4, 7th month, 1st day); `cnh-480`'s
 1123 and days on no page read (Cordier: aged 67 sui in 1189, which fits).
+
+### B49 — `cnh-481`–`cnh-490`, Jurchen Jin and Yuan: the Battle of Yehuling to the semu (2026-11-13)
+
+Run as B41. Every cited URL answered. **Pictures were not touched.** **The old cards put battle templates on Yehuling and Caizhou
+("August – October 1211" and "9 February 1234", conversions of the histories' Chinese months), dated the Lingbei province (1307)
+and the semu office rule (1265) by conversions, gave the semu another card's exam year (1313, `cnh-491`'s), carried "CE" on years
+after 1000 on the Yuan's and the four classes' lines, cited up to four Chinese histories a card on Chinese Wikisource, and told
+the "four-class system" as a law the Yuan wrote down.** The *Jinshi* (juan 18, 93), the *Yuanshi* (juan 4, 6, 58, 81, 91, 157) and
+de Rachewiltz's thesis on Yelü Chucai were read on the Kanseki Repository and ANU Open Research.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-481` Battle of Yehuling | 6 | 6 → 6 | **The template off: `Fought 1211`; four Wikisource histories cut to the *Jinshi* juan 93: the back road to Xuande, the army breaking at Huihebao, Zhongdu under martial law; the Daoist master's bleached bones**; Muqali, the *Yuanshi*'s styled 400,000 and the 1212 dating dropped. |
+| `cnh-482` Siege of Caizhou | 6 | 6 → 6 | **`Besieged 1233 – 1234` / `Fell 1234` (no page prints "9 February"); the *Jinshi* juan 18: the plea for Song grain, the throne handed to a kinsman, the Youlan pavilion; Meng Gong's Song troops; the Song force given as each text's figure**; the mare's-milk oath and the divided remains (the *Songshi* only) dropped. |
+| `cnh-483` Yuan dynasty | 8 | 8 → 9 | **`Proclaimed 1271` / `Conquest ended 1279` / `Driven north 1368` (no "CE" after 1000); the name from the Book of Changes (Frank 2025) through Liu Bingzhong; the *Yuanshi* juan 58's boast of a realm wider than the Han's or the Tang's; the 1290 census from Howorth; the *Yuanshi* compiled 1369 – 1370 in haste (Strassberg, Wylie); the succession murders**. **Pinyin Yuáncháo → Yuán cháo.** |
+| `cnh-484` Yelü Chucai | 6 | 6 → 6 | **De Rachewiltz's open 1960 thesis; the refusal to call his Jin sovereign an enemy, the jiaoduan at the Iron Gate told as the *Yuanshi*'s, taxes rather than pasture before Ögedei; the years out of the questions**. Protected: the line stays (flagged below). |
+| `cnh-485` Kublai Khan | 8 | 8 → 8 | **One Chinese text, the *Yuanshi* juan 4; Kaiping against Ariq Böke, the Ezhou truce with Jia Sidao on Möngke's death, Polo's "most potent man since Adam"; the birth "usually reckoned as 1215" (Giles 1214, Cordier 1216)**; the histories' age at death (80, against the line's 78) left out. Protected: the line stays (flagged below). |
+| `cnh-486` Bayan of the Baarin | 6 | 6 → 6 | **The *Songshi* dropped; "be my Cao Bin", the walled town bypassed on the Han, the clothes and bedding; Xiangyang's and Yamen's clues (`cnh-463`, `464`) kept out; 1236 carried as "usually given"**; regnal-year conversions dropped. Protected: the line stays (flagged below). |
+| `cnh-487` Khanbaliq | 6 | 6 → 7 | **"Founding 1267, walls begun" now `Founding 1267` / `Named Dadu 1271` / `Taken 1368`; the *Yuanshi* juan 157: Liu Bingzhong building it north-east of Zhongdu; Polo's whitewashed battlements and twelve gates (the chessboard plots Ramusio's alone); the Ming cutting five li and renaming it Beiping; Cho 2015**; the 1270 register and "10 km a side" (a conversion) dropped. |
+| `cnh-488` Four-class system | 6 | 6 → 7 | **Told as historians' label: Funada 1999 [in Japanese] against Koh 2023; `Exams restored 1315` / `Yuan ended 1368`; the quotas from the *Yuanshi* juan 81; darughachi often Chinese**; the penal rule (a second Chinese text) dropped. **Pinyin sì děng rén zhì → sìděngrén zhì (Theobald).** |
+| `cnh-489` Xingsheng | 6 | 6 → 6 | **"Lingbei added 1307" (Dade 11 converted) off: `Set up from 1260` / `Dynasty ended 1368`; the *Yuanshi* juan 91's ten provinces plus Zhengdong for Korea; the Franciscan's twelve "Singo" (Yule); the Jiangzhe province; Cordier [in French], Cho Won [in Korean]**; 1284, 1274 and the juan 58 counts dropped. |
+| `cnh-490` Semu | 6 | 6 → 6 | **"Office rule 1265 / Exam quotas 1313" (a conversion; `cnh-491`'s year) now `Yuan period 1279 – 1368`; the edict "early in Kublai's reign"; the notebook's 31 kinds, Ahmad of Fenaket and the copper mace, the name near "Muslim"; Funada 1999 [in Japanese], the *Yuanshi* juan 6**; the exam material left to `cnh-488`. |
+
+Read by eye. **Confusability**: Liu Bingzhong names the dynasty on `cnh-483` and builds the city on `cnh-487` (two different
+clues); Polo's praise of Kublai `cnh-485`'s, his city `cnh-487`'s; the exam quotas `cnh-488`'s, the 1313 decree `cnh-491`'s; Bayan's
+clues clear of `cnh-463` and `cnh-464`. **Legend**: the jiaoduan (the *Yuanshi*), the bleached bones (the Daoist's journey), Polo's
+praise (his book) are each a text's. **Chinese names corrected**: `cnh-483` and `cnh-488` pinyin; 大都 Dàdū kept (`Z.reading?` a
+polyphone). **Spellings fixed**: none needed; 0 hits. **Myth register**: Marco Polo: the chessboard plots are Ramusio's alone
+(Yule 1903) — confirms the row's clause; the Mongol conquests' figures: the *Yuanshi*'s 400,000 at Yehuling a styled figure, the
+Song force at Caizhou each text's. **check-citations**: `cnh-489` reports Cho Won's article as "a different paper" because its
+title is cited in transliteration — Crossref's own record is the same article. **Protected lines: unchanged** (diffed after the
+apply). For the owner: `cnh-484`'s 1190 and 1244 (de Rachewiltz argues 1189 and 1243; the *Yuanshi*: aged 55); `cnh-485`'s 1215
+and days on no page read (Giles 1214, Cordier 1216) and "age 78" (the histories: 80); `cnh-486`'s 1236 on no page read (Giles
+1237; the *Yuanshi*: 59 sui at death).

@@ -13145,7 +13145,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Vijayanagara_Empire": "c. 1336 – c. 1614 CE",
 "Vinland": "c. 1000 CE",
 "Woodblock_printing": "earliest dated book 868 CE",
-"Yuan_dynasty": "1271 – 1368 CE",
+"Yuan_dynasty": "1271 – 1368",
 "Đại_Việt": "968 – 1804",
 "Battles_of_Khalkhin_Gol": "May – September 1939",
 "Anti-Comintern_Pact": "1936 – 1941",

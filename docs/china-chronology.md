@@ -638,6 +638,12 @@ are not rows of this table.
 | Da Qi founded / abolished | 1130 / 1137 | `cnh-477` |
 | the meng'an mouke introduced / ended | 1114 / 1234 | Cordier (`cnh-478`) |
 | the Jurchen large script / the small script | 1119 / 1138 | the *Jinshi* (`cnh-479`) |
+| the Battle of Yehuling | 1211 | the *Jinshi* (`cnh-481`) |
+| the siege of Caizhou / its fall | 1233 – 1234 / 1234 | `cnh-482` |
+| the Yuan proclaimed / the conquest ended / driven north | 1271 / 1279 / 1368 | `cnh-483` |
+| Khanbaliq founded / named Dadu / taken | 1267 / 1271 / 1368 | the *Yuanshi* (`cnh-487`) |
+| the examinations restored (the four groups' quotas) | 1315 | the *Yuanshi* (`cnh-488`) |
+| the xingsheng set up | 1260 | `cnh-489` |
 
 ## Later periods
 
@@ -1128,4 +1134,11 @@ cnh-476: 1115
 cnh-477: 1130; 1137
 cnh-478: 1114; 1234
 cnh-479: 1119; 1138
+cnh-481: 1211
+cnh-482: 1233; 1234
+cnh-483: 1271; 1279; 1368
+cnh-487: 1267; 1271; 1368
+cnh-488: 1315; 1368
+cnh-489: 1260; 1368
+cnh-490: 1279; 1368
 ```

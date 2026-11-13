@@ -43,7 +43,7 @@ window.CHANGELOG = [
     t: "Russia reaches the Revolution; China cards rewritten",
     items: [
       "100 new cards in <b>Russia</b>, from Russian Marxism through 1905, the First World War and 1917 to the first years of the Civil War, with 97 new glossary terms.",
-      "<b>180 more China cards are rewritten</b>, from the Disaster of Yongjia to Emperor Shizong of the Jurchen Jin, with new sources and dates.",
+      "<b>190 more China cards are rewritten</b>, from the Disaster of Yongjia to the semu of the Yuan, with new sources and dates.",
     ]
   },
   {
