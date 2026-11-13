@@ -67,6 +67,7 @@ window.CHANGELOG = [
       "Several of those cards get fuller date lines, rewritten backgrounds, new pictures and new atlas locations, including Hadrian's Wall drawn as a line.",
       "A region's name, such as the Nile Delta, now shows without a dot on its collection's other atlas windows.",
       "Backgrounds no longer name websites as their authority.",
+      "The Battle of Stalingrad card now gives one casualty figure, the official Soviet count, in its date line and background.",
       "The League of Nations card shows the League's emblem beside its answer, as a geography card shows a flag.",
     ]
   },
