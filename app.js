@@ -37336,9 +37336,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const who = esc(b.author || ""), when = esc(b.written || "");
     return '<figure class="card-quote">' +
       '<blockquote class="verbatim">' + q.text + "</blockquote>" +   // a published translation, transcribed rather than edited: the spelling and units passes skip `.verbatim` (2026-10-19)
-      '<figcaption><cite>' + esc(b.title) + "</cite>" + (who ? '<span class="cq-who">' + who + "</span>" : "") +
-      (when ? '<span class="cq-when">' + when + "</span>" : "") +
-      (q.cite ? '<span class="cq-where">' + esc(q.cite) + "</span>" : "") +
+      // three lines (2026-11-13, on request): "TITLE, CHAPTER" / "AUTHOR (DATE)" / the link
+      '<figcaption><span class="cq-line"><cite>' + esc(b.title) + "</cite>" +
+      (q.cite ? ', <span class="cq-where">' + esc(q.cite) + "</span>" : "") + "</span>" +
+      (who || when ? '<span class="cq-line">' + (who ? '<span class="cq-who">' + who + "</span>" : "") +
+        (when ? (who ? " (" : "") + '<span class="cq-when">' + when + "</span>" + (who ? ")" : "") : "") + "</span>" : "") +
       '<button type="button" class="cq-go" data-cqbook="' + esc(b.id) + '"' +
         (q.n ? ' data-cqn="' + esc(q.n) + '"' : "") + '>Read it in the Library</button>' +
       "</figcaption></figure>";
@@ -37976,7 +37978,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Only for a CURATED card: a community deck has no tags to rank on and no collection to stay
        inside. Suppressed inside a game round, where a rail of other cards is a distraction from the
        answer the reader is being shown. */
-    if (c && c.id && !isCommunityCard(c.id)) html += relatedCardsHTML(c.id);
+    /* The "Nearby in this collection" rail was REMOVED from every card on 2026-11-13, on request;
+       relatedCardsHTML stays for its `data-kin` click handler, which the timeline's neighbours use. */
     // the citations behind the background, at the very foot of the card — outside the Background fold, so
     // they can be checked without re-opening prose the reader has already read
     html += sourcesHTML(cardSources(c));
@@ -45792,18 +45795,30 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     el.innerHTML = im ? cardImageHTML(im) : vid ? cardVideoHTML(vid) : "";
     el.hidden = !im && !vid;
   }
-  // bold the term's first mention in its own gloss description (like the answer term opening a card background)
+  /* Bold the term's FIRST mention in its own gloss description, and ONLY that one (like the answer term
+     opening a card background). Fixed 2026-11-13, on a report (Granodiorite): about 1,500 descriptions
+     carry an authored `<b>` already, and the old walk SKIPPED bold text — so it passed the authored
+     "<b>granodiorite</b>" and bolded "Half Dome Granodiorite" as well, and where the authored bold sat on a
+     later mention the first one stayed plain. Now one walk in document order: the authored bold is kept
+     when it comes first; a plain mention that comes earlier is bolded instead and the authored bold is
+     unwrapped. A title's trailing "(qualifier)" is matched without it ("Mencius (book)" → "Mencius"). */
   function boldFirstTerm(el, title) {
     if (!el || !title) return;
-    const rx = new RegExp("(?:^|\\W)(" + title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")(?:\\W|$)", "i");
+    const q = (x) => x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const bare = String(title).replace(/\s*\([^)]*\)\s*$/, "").trim();
+    const alts = [q(title)].concat(bare && bare !== title ? [q(bare)] : []);
+    const rx = new RegExp("(?:^|\\W)(" + alts.join("|") + ")(?:\\W|$)", "i");
+    const authored = el.querySelector("b, strong");
     const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
     let node;
     while ((node = walk.nextNode())) {
-      if (node.parentElement && node.parentElement.closest("a, b, strong, .ttip")) continue;   // skip linked / already-bold text
+      if (authored && authored.contains(node)) return;                      // the authored bold comes first: keep it alone
+      if (node.parentElement && node.parentElement.closest("a, .ttip")) continue;   // skip linked text
       const m = rx.exec(node.nodeValue); if (!m) continue;
       const start = m.index + m[0].indexOf(m[1]);
       const range = document.createRange(); range.setStart(node, start); range.setEnd(node, start + m[1].length);
-      const b = document.createElement("b"); try { range.surroundContents(b); } catch (e) {}
+      const b = document.createElement("b"); try { range.surroundContents(b); } catch (e) { return; }
+      if (authored) authored.replaceWith(...authored.childNodes);           // an earlier plain mention wins: unbold the later one
       return;
     }
   }
