@@ -413,7 +413,7 @@ otherwise.
 | B32 | Sixteen Kingdoms (`col-19`) / Eastern Jin (`col-20`) | `cnh-311`–`cnh-320` | 10 | 79 | **done 2026-11-13** |
 | B33 | Eastern Jin (`col-20`) / Northern and Southern dynasties (`col-21`) | `cnh-321`–`cnh-330` | 10 | 105 | **done 2026-11-13** |
 | B34 | Northern and Southern dynasties (`col-21`) | `cnh-331`–`cnh-340` | 10 | 104 | **done 2026-11-13** |
-| B35 | Northern and Southern dynasties (`col-21`) / Sui (`col-22`) | `cnh-341`–`cnh-350` | 10 | 104 | to do |
+| B35 | Northern and Southern dynasties (`col-21`) / Sui (`col-22`) | `cnh-341`–`cnh-350` | 10 | 104 | **done 2026-11-13** |
 | B36 | Sui (`col-22`) / Tang (`col-23`) | `cnh-351`–`cnh-360` | 10 | 113 | to do |
 | B37 | Tang (`col-23`) | `cnh-361`–`cnh-370` | 10 | 102 | to do |
 | B38 | Tang (`col-23`) | `cnh-371`–`cnh-380` | 10 | 104 | to do |
@@ -861,6 +861,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-338` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 | `cnh-339` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 | `cnh-340` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-341` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-342` | none | not re-checked (Commons rate-limited): wanted — a page of an early printing |
+| `cnh-343` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-344` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-345` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-346` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-347` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-348` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-349` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
+| `cnh-350` | none | not re-checked (Commons rate-limited): the card has no picture — wanted |
 
 ## Glossary candidates
 
@@ -2369,3 +2379,42 @@ Tuoba's Yellow Emperor descent is now Wei Shou's arrangement; Tanyao's robe the 
 days and months are on no page read; the line's "(age 31)" is the *Wei shu*'s 33 by the Chinese count (the background
 says so). `cnh-334`'s locator is labelled Datong (the site lies beneath it; the label should say Pingcheng); `cnh-337`'s
 point is Wuyuan, one of the six garrisons only; `cnh-340` (an institution) carries a Xi'an point it need not.
+
+### B35 — `cnh-341`–`cnh-350`, Northern and Southern dynasties and Sui: Shen Yue to the Grand Canal (2026-11-13)
+
+Run as B31. Every cited URL answered. **Pictures were not touched**; none of the ten cards has a picture. **The old cards
+cited two to five Chinese texts on Chinese Wikisource apiece (over the one-per-language rule and unreachable here), put
+hand-converted years on their lines ("Revised 583 CE", "Reorganised 583", "Ten categories 607", the jinshi's 587 and 598)
+that no page prints, put `c.` before single years (Wen Xuan, the jinshi), named men and places in labels ("Li Shan's
+notes", "Chen conquered", "Jiankang taken", four canal names), read the examination system back onto the Sui, and credited
+the *Sui shu*'s treatises to Wei Zheng.** The histories were read in the Siku text on the Kanseki Repository and on
+zggdwx.com.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-341` Shen Yue | 6 | 7 → 6 | **Four Wikisource texts cut to the *Book of Liang* juan 13; the "Son of Heaven is sage and wise" reply given to Zhou She, as the *Book of Liang* has it (Giles gives it to Shen Yue); the chestnut banquet, the dream of Emperor He of Qi; Martin 1988 the one French source; "died at 73" out of the prose against the line's age**. Protected: the line stays (flagged below). |
+| `cnh-342` Wen Xuan | 7 | 8 → 7 | **`Compiled c. 520 – 531 CE` / `Commentary 658 CE` for "c. 530" and "Li Shan's notes"; the *Book of Liang* juan 8; the Library of Congress record of the 1161 printing; 514 pieces, 130 authors and 38 genres "by one count"; Li Shan the "book basket"**; the Song saying (on no page read) dropped. |
+| `cnh-343` Sui dynasty | 8 | 8 → 8 | **`Reunified 589 CE` for "Chen conquered"; the "to run" radical dropped as an omen, the comparison with the Qin, the prefectures and the resettled southern families; the *Book of Sui* (636) named; the 617 end one history gives; Goguryeo left to `cnh-351`**; "Chinese historians date it from 589" (Macgowan, unreread) dropped. **Name 隋 → 隋朝, Suí cháo.** |
+| `cnh-344` Emperor Wen of Sui | 7 | 8 → 8 | **The years out of the questions: the horns and scales (the *Sui shu*'s, so told), Daxing below Longshou Hill, his temper and the change of heir; the death sudden and perhaps murder (Cordier); Li Ung Bing (death 605) dropped**. Protected: the line stays (flagged below). |
+| `cnh-345` Sui conquest of Chen | 6 | 7 → 8 | **`Capital taken 589 CE` for "Jiankang taken"; the 518,000 men under 90 commanders "from the sea to Ba and Shu" the *Sui shu*'s, with Theobald's "allegedly 500,000"; Chen Shubao died at Chang'an in 604 (buried at Luoyang); the well, the quarrel of He Ruobi and Han Qinhu**; the harvest feints, the Zhuque Gate, the levelled city and the revolts of 590 (unread) dropped. |
+| `cnh-346` Kaihuang Code | 6 | 7 → 8 | **"Revised 583 CE" off (the *Sui shu* prints only 開皇三年; told as "the era's third year"); the *Sui shu* juan 25 headed by Zhangsun Wuji, not Wei Zheng; the abolished punishments, the ten abominations, the pruning to five hundred articles; Shiga 2003 the one Japanese source (read from a broken vertical-text extraction, so only "one Japanese legal historian argues")**; Pei Zheng's role dropped. |
+| `cnh-347` Three Departments and Six Ministries | 7 | 7 → 7 | **"Reorganised 583" (a hand conversion) off: `Set up 581 CE` / `Recast 607 CE`; Emperor Wen's court in fact five departments; five Wikisource texts cut to the *Sui shu* juan 28; Gao Jiong's and Li Delin's appointments dropped**. **Pinyin sān shěng liù bù → sānshěng liùbù.** |
+| `cnh-348` jinshi | 7 | 7 → 7 | **`Founded 606 CE` (Giles) / `System ended 1905` for "c. 606" and "Ten categories 607"; the 587 order told as "the seventh year of the Kaihuang era"; the system itself dated to the Tang (Theobald), not read back onto the Sui; the *Tongdian* juan 14 and Biot 1845**; no page read prints 605 or 607, so no Dated / Also dated pair. |
+| `cnh-349` Emperor Yang of Sui | 7 | 7 → 8 | **Three Wikisource texts cut to the *Sui shu* juan 4; the southern wife and the Wu dialect, the concubines' children not raised (the hostile annals'), the posthumous name and the dragon-boat quota; the Jiangdu plot and the strangling left to `cnh-354`**; Giles's birth 580 not used. Protected: the line stays (flagged below). |
+| `cnh-350` Grand Canal | 8 | 8 → 8 | **The canal-name labels off: `First cut 587 CE` / `Main works 605 – 610 CE` / `Northern rebuild 1283 – 1291` / `World Heritage 2014`; the length whose (Theobald 1,794 km; Li et al. about 3,200 km for all three sections); the annals' "over a million men and women"; Gandar (a second French book) dropped**; the women-drafted line (the *Zizhi tongjian*'s) dropped. |
+
+Read by eye. **Confusability**: the well stays `cnh-345`'s; the Jiangdu plot, Yang Hao and the strangling `cnh-354`'s (the
+Emperor Yang agent was told); the Yongji branch to Zhuo `cnh-350`'s (the Goguryeo agent was told); Daxing below Longshou
+Hill `cnh-344`'s (noted for `cnh-367`); the jinshi's clues sent to the mingjing agent. One phrasing on `cnh-343` carried the
+answer's word "dynasty" and was reworded; `cnh-345`'s missing comma mended; `cnh-344`'s background trimmed to 285.
+**Legend**: Emperor Wen's horns and scales the *Sui shu*'s; Emperor Yang's hostile portrait the annals'. **Chinese names
+corrected**: `cnh-343` 隋朝; `cnh-347` pinyin; `隋灭陈之战` kept unconfirmed (no page read prints the compound; the *Sui
+shu* writes 伐陳 / 平陳 — for the owner). **Spellings fixed**: none needed; 0 hits. **Myth register**: the scarf at
+Emperor Yang's death is the *Zizhi tongjian*'s (juan 185), not the *Sui shu*'s (`cnh-354`, next batch). **check-citations**:
+`cnh-346`'s Shiga 2003 reported mismatched because its title is cited in romanised Japanese where Crossref gives the
+English (the same paper). **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-341`'s 488 is
+Theobald's table (his *Song shu* page says 487), its 1 May on no page read, its Huzhou against the sources' Wukang in
+Wuxing; `cnh-344`'s birthplace is the Boruo temple at Fengyi in the *Sui shu*, its 21 July, 4 March, 13 August and Renshou
+Palace on no page read, its age 64 by the Chinese count (Cordier) against the line's 63; `cnh-349`'s 21 August 604 and 11
+April 618 on no page read. **Outside the hundred**: `wh-522` dates the Mongol rebuild of the canal 1276 – 1291 against
+Theobald's 1283 – 1291.

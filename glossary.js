@@ -13968,10 +13968,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Roman_Dacia": "106–c. 271 CE",
 "Tacfarinas": "17–24 CE",
 "Shen_Yue": "441 – 513 CE",
-"Wen_Xuan": "c. 530 CE",
+"Wen_Xuan": "c. 520 – 531 CE",
 "Emperor_Wen_of_Sui": "541 – 604 CE",
 "Sui_conquest_of_Chen": "588 – 589 CE",
-"Kaihuang_Code": "581 – 583 CE",
+"Kaihuang_Code": "581 CE",
 "Emperor_Yang_of_Sui": "569 – 618 CE",
 "Goguryeo–Sui_War": "598 – 614 CE",
 "Sui_long_walls": "581 – 608 CE",
@@ -19550,14 +19550,14 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Adrogatio": ["adrogation","arrogatio"],
 "Ludi_magister": ["ludi magistri"],
 "Grammaticus": ["grammatici"],
-"Shen_Yue": ["Shen Yüeh","Shen Yo","Shên Yo"],
-"Wen_Xuan": ["Wenxuan","Wen hsüan","Zhaoming Wenxuan","Selected Literature"],
+"Shen_Yue": ["Shen Yüeh","Shen Yo","Shên Yo","Shen Xiuwen"],
+"Wen_Xuan": ["Wenxuan","Wen hsüan","Zhaoming Wenxuan","Selected Literature","Selections of Refined Literature"],
 "Emperor_Wen_of_Sui": ["Yang Jian","Yang Chien","Yang Kien","Sui Wendi","Sui Wen-ti"],
 "Sui_conquest_of_Chen": ["conquest of Chen by Sui","Sui conquest of the Chen"],
 "Kaihuang_Code": ["Kaihuang lü","K‘ai-huang lü","Kaihuang Codex"],
 "Three_Departments_and_Six_Ministries": ["Three Departments","Six Ministries","sansheng liubu","Six Boards"],
-"Jinshi": ["chin-shih","chin shih","presented scholar"],
-"Emperor_Yang_of_Sui": ["Yang Guang","Yang Kuang","Sui Yangdi","Sui Yang-ti"],
+"Jinshi": ["chin-shih","chin shih","presented scholar","Tsin-sse"],
+"Emperor_Yang_of_Sui": ["Yang Guang","Yang Kuang","Sui Yangdi","Sui Yang-ti","Yangdi","Yang-ti"],
 "Goguryeo–Sui_War": ["Goguryeo-Sui War","Goguryeo–Sui Wars","Koguryŏ–Sui war","Sui–Goguryeo War","Sui campaigns against Goguryeo"],
 "Sui_long_walls": ["Sui long wall","Sui Great Wall","Sui walls","Sui wall"],
 "Wagang_Army": ["Wagang army","Wagang rebels","Wa-kang army"],
@@ -23881,7 +23881,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Pingcheng": ["P'ing-ch'eng"],
 "Yungang_Grottoes": ["Yun-kang","Yun Gang","Yungang Caves"],
 "Longmen_Grottoes": ["Lung-men","Long Men","Longmen Caves"],
-"Eastern_Wei": ["Dongwei","Tung Wei"]
+"Eastern_Wei": ["Dongwei","Tung Wei"],
+"Sui_dynasty": ["Sui","Sui chao"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */

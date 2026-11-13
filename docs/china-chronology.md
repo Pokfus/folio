@@ -217,6 +217,7 @@ the form English-language scholarship and the reference works use; the decision 
 | Grand Canal, Goguryeo, Wagang, Li Mi, Yuwen Huaji, Dou Jiande, Wang Shichong | Koguryo, Koguryŏ, Kao-kou-li, Wa-kang, Yü-wen Hua-chi, Tou Chien-te | Gaogouli | *Goguryeo* the Korean collection's form |
 | Xuanwu Gate, Anxi Protectorate, West Market | Hsüan-wu, Xuanwumen (in English prose), An-hsi | Xuanwumen, Xishi, Protectorate General to Pacify the West | English names first |
 | Yang Guifei, Yang Guozhong, Li Linfu, Gao Xianzhi, An Lushan, Shi Siming | Yang Kuei-fei, Li Lin-fu, Kao Hsien-chih, An Lu-shan, An Lu Shan, Shih Ssu-ming | Yang Yuhuan | |
+| Jieli (Illig Qaghan) | Hsieh-li, Chieh-li | Xieli, Illig Qaghan | the Eastern Turkic khagan captured in 630; *Xieli* is the dictionary reading of 頡利 and an alias (added B36) |
 | Talas, Tibetan Empire, Uyghur Khaganate, Nanzhao | Uighur, Uigur, Nan-chao, Nan Zhao | Tubo, Tufan, Huihe, Huihu | *Uyghur* the house form, *Tubo* the Chinese name an alias |
 | Famen Temple, Xuanzang, Huichang | Fa-men, Hsüan-tsang, Hsuan-tsang, Hiuen Tsiang, Xuan Zang, Hui-ch'ang | Famensi, Tripitaka, Tang Sanzang | the *Journey to the West*'s Tang Sanzang said to be the novel's |
 | regulated verse, Li Bai, Du Fu, Bai Juyi, Han Yu, Wang Wei, Yuan Zhen | lü-shih, Li Pai, Tu Fu, Po Chü-i, Bo Juyi, Han Yü, Yüan Chen | lüshi, Li Taibai, Li Po | the Tang poets, surname and name split; *Li Po*, the older English name, is an alias legitimate in an "also known as" sentence |
@@ -525,6 +526,13 @@ only; ages, days and months left out), and are not rows of this table.
 | the Eastern Wei | 534 – 550 CE | `cnh-338` |
 | the Northern Zhou / the conquest of the Qi | 557 – 581 CE / 577 CE | `cnh-339` |
 | the fubing: the six armies / hired guards | 542 CE / 722 CE | `cnh-340` |
+| the Wen Xuan compiled / Li Shan's commentary | c. 520 – 531 CE / 658 CE | `cnh-342` |
+| the Sui / reunification | 581 – 618 CE / 589 CE | `cnh-343` |
+| the Sui conquest of Chen / Jiankang taken | 588 – 589 CE / 589 CE | `cnh-345` |
+| the Kaihuang Code issued | 581 CE | `cnh-346` |
+| the Three Departments set up / recast | 581 CE / 607 CE | `cnh-347` |
+| the jinshi founded (Giles) / the examinations ended | 606 CE / 1905 | `cnh-348` |
+| the Grand Canal: the first cut / the main works / the northern rebuild (Theobald) / World Heritage | 587 CE / 605 – 610 CE / 1283 – 1291 / 2014 | `cnh-350` |
 
 ## Later periods
 
@@ -891,4 +899,11 @@ cnh-337: 523; 529
 cnh-338: 534; 550
 cnh-339: 557; 581; 577
 cnh-340: 542; 722
+cnh-342: 520; 531; 658
+cnh-343: 581; 618; 589
+cnh-345: 588; 589
+cnh-346: 581
+cnh-347: 581; 607
+cnh-348: 606; 1905
+cnh-350: 587; 605; 610; 1283; 1291; 2014
 ```
