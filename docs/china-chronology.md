@@ -600,6 +600,10 @@ are not rows of this table.
 | the Chanyuan Treaty sworn / revised | 1004 – 1005 / 1042 | `cnh-417` |
 | the Fogong pagoda built | 1056 | the Ming gazetteer (`cnh-418`) |
 | the Alliance Conducted at Sea: envoys / terms | 1118 / 1120 | Cordier; Theobald (`cnh-419`) |
+| the Song / the north lost | 960 – 1279 CE / 1127 | `cnh-421` |
+| Kaifeng the Song capital / the great flood | 960 CE – 1127 / 1642 | Tsui; Storozum et al. (`cnh-425`) |
+| the Qingli Reforms proposed / abandoned | 1043 / 1045 | Zhang; Cordier (`cnh-426`) |
+| the palace examination made regular / abolished | 973 CE / 1905 | the *Songshi*; Theobald (`cnh-427`) |
 
 ## Later periods
 
@@ -1052,4 +1056,8 @@ cnh-416: 979
 cnh-417: 1004; 1005; 1042
 cnh-418: 1056
 cnh-419: 1118; 1120
+cnh-421: 960; 1279; 1127
+cnh-425: 960; 1127; 1642
+cnh-426: 1043; 1045
+cnh-427: 973; 1905
 ```

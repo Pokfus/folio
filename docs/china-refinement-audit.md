@@ -339,15 +339,15 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Li Bai drowning while embracing the moon | the poet drowning as he leaned from a boat to embrace the moon's reflection; a later legend, against the earlier accounts of illness — confirmed B40 (`cnh-391`: a legend Hong Mai already doubted in the 12th century) | — | `cnh-391` | — |
 | Xuanzang and the Journey to the West | Xuanzang's own *Record of the Western Regions* (646 CE) and his disciples' biography; the 16th-century novel *Journey to the West* with Tripitaka and the Monkey King, fiction — agreeing with `in-199` — provisional | — | `cnh-388` | `in-199` |
 | Han Yu's memorial on the Buddha's bone | Han Yu's memorial of 819 CE against bringing the finger-bone relic from the Famen Temple into the palace, and his banishment to Chaozhou — confirmed B39–B40 (`cnh-387`, `cnh-394`: the *Old Book of Tang* juan 160) | — | `cnh-394`, `cnh-387` | — |
-| Zhao Kuangyin and the yellow robe at Chenqiao | the troops of the Palace Command mutinying at Chenqiao post station in 960 CE and wrapping their sleeping commander in a yellow robe, so that he "had to" accept the throne from the Later Zhou's child emperor; the Song's own account of its founding, in the Song histories and the *Songshi* (compiled under the Yuan, 1343 – 1345) — provisional | — | `cnh-422`, `cnh-423`, `cnh-402` | — |
-| "A cup of wine" and the generals' commands | Emperor Taizu persuading Shi Shouxin and the other palace generals at a banquet in 961 CE to give up their commands for wealth and retirement; first told in Northern Song anecdote collections, not the earliest records, and doubted by modern scholars as a later shaping — provisional | — | `cnh-423`, `cnh-422`, `cnh-421` | `cnh-380` |
+| Zhao Kuangyin and the yellow robe at Chenqiao | the troops of the Palace Command mutinying at Chenqiao post station in 960 CE and wrapping their sleeping commander in a yellow robe, so that he "had to" accept the throne from the Later Zhou's child emperor; the Song's own account of its founding, in the *Songshi* juan 1 (compiled under the Yuan, 1343 – 1345); Giles and Theobald doubt his surprise — confirmed B43 (`cnh-422`) | — | `cnh-422`, `cnh-423`, `cnh-402` | — |
+| "A cup of wine" and the generals' commands | Emperor Taizu persuading Shi Shouxin and the other palace generals at a banquet in 961 CE to give up their commands for wealth and retirement; first told in Northern Song private notebooks (Sima Guang's, Wang Zeng's and Ding Wei's, as Li Tao's own note in the *Changbian* names them), not the official histories or Veritable Records; the modern doubt on no page read — confirmed and corrected B43 (`cnh-423`) | — | `cnh-423`, `cnh-422`, `cnh-421` | `cnh-380` |
 | Li Yu's last lyrics and his poisoning | the captive Southern Tang ruler's lyrics of longing ("Yu meiren" among them) and his death by poison after they were sung; told in Wang Zhi's *Moji* (Northern Song), which names the Prince of Qin as the sender after Xu Xuan's report and closes "so it is said"; his death in 978 CE is recorded, the poisoning a tradition — confirmed and corrected B41 (`cnh-407`) | — | `cnh-407`, `cnh-406` | — |
 | Feng Dao, the servant of many houses | Feng Dao serving "four surnames, ten rulers" (Ouyang Xiu's count; his own memoir, the "Changle lao xu", lists four surnames and the Khitan) as minister; Ouyang Xiu's verdict in his *New History of the Five Dynasties* that he knew no shame (Sima Guang's not read); the modern reading of him as a man who kept the government running (Carter 1925) — confirmed and corrected B41 (`cnh-409`: the *New History* juan 54) | — | `cnh-409` | — |
-| Bao Zheng as Judge Bao | the historical Bao Zheng, an incorruptible official at Kaifeng under Renzong (his biography in the *Songshi*); Judge Bao the all-seeing judge of Yuan *zaju* and Ming–Qing fiction — provisional | — | `cnh-424`, `cnh-425` | — |
+| Bao Zheng as Judge Bao | the historical Bao Zheng, an incorruptible official at Kaifeng under Renzong (his biography in the *Songshi*); Judge Bao the all-seeing judge of Yuan *zaju*, the ballad stories and Ming–Qing fiction (Idema 2011) — confirmed B43 (`cnh-424`) | — | `cnh-424`, `cnh-425` | — |
 | Yue Fei: the tattoo, the gold plaques and "no grounds" | the four characters "serve the country with utmost loyalty" on his back (the *Songshi* biography, 1345; his mother tattooing them a later tale); the twelve gold-lettered plaques recalling him in one day; Qin Hui's answer to Han Shizhong that the charge "need not have grounds" (莫須有); the kneeling iron figures of Qin Hui and his wife at the Hangzhou tomb (Ming) — provisional | `cnh-450` | `cnh-451`, `cnh-452` | — |
 | The Jingkang captivity | the Jurchen taking Kaifeng in 1127 and carrying Huizong, Qinzong, the court and its women north; the Southern Song and Jin accounts and the *Songshi* and *Jinshi* (both 1343 – 1345) — provisional | `cnh-446` | `cnh-445`, `cnh-448`, `cnh-473` | — |
 | Li Qingzhao's life in her own postface | her marriage to Zhao Mingcheng, their collecting, and the loss of the collection in the flight south, as her postface to his *Jinshi lu* tells it (dated in the text, read as 1132 or 1134) — provisional | — | `cnh-442` | — |
-| Wang Anshi and Sima Guang as villain and hero | the reformer blamed for the Northern Song's fall and the historian praised as the upright conservative, the Southern Song and later Confucian verdict (the *Songshi*'s); Wang's modern rehabilitation (Liang Qichao) — provisional | — | `cnh-430`, `cnh-431`, `cnh-432` | — |
+| Wang Anshi and Sima Guang as villain and hero | the reformer blamed for the Northern Song's fall and the historian praised as the upright conservative, the Southern Song and later Confucian verdict (the *Songshi* juan 327's closing judgement, citing Zhu Xi); the partisan record (Fuller 2023); Wang's modern rehabilitation (Liang Qichao, on no page cited) — confirmed B43 (`cnh-430`) | — | `cnh-430`, `cnh-431`, `cnh-432` | — |
 | Su Shi's Red Cliff rhapsodies | the two "Chibi fu" written in exile at Huangzhou (1082 CE), set at a cliff near Huangzhou that Su Shi himself doubted was the battle's; read as literature, not as a record of the battle — provisional | — | `cnh-441` | `cnh-276` (Red Cliffs) |
 | The Water Margin and the historical Song Jiang | the bandit leader Song Jiang, whose band and surrender the *Songshi* gives in a few lines under Huizong; the outlaws of the Yuan plays and the 14th–16th-century novel *Water Margin* — provisional | — | `cnh-445` | `cnh-928`, `cnh-929` |
 | The Mongol conquests' figures | the death tolls and army sizes of the conquest of the Western Xia, the Jin and the Song as the Persian and Chinese histories give them (Juvaini, Rashid al-Din, the *Yuanshi*, compiled under the Ming 1369 – 1370), not counts; modern estimates differ widely — provisional | `cnh-472` | `cnh-481`, `cnh-482`, `cnh-463`, `cnh-483` | — |
@@ -469,7 +469,7 @@ otherwise.
 | B40 | Tang (`col-23`) / Five Dynasties and Ten Kingdoms (`col-24`) | `cnh-391`–`cnh-400` | 10 | 111 | **done 2026-11-13** |
 | B41 | Five Dynasties and Ten Kingdoms (`col-24`) | `cnh-401`–`cnh-410` | 10 | 102 | **done 2026-11-13** |
 | B42 | Liao (`col-25`) | `cnh-411`–`cnh-420` | 10 | 100 | **done 2026-11-13** |
-| B43 | Northern Song (`col-27`) | `cnh-421`–`cnh-430` | 10 | 102 | to do |
+| B43 | Northern Song (`col-27`) | `cnh-421`–`cnh-430` | 10 | 102 | **done 2026-11-13** |
 | B44 | Northern Song (`col-27`) | `cnh-431`–`cnh-440` | 10 | 104 | to do |
 | B45 | Northern Song (`col-27`) / Southern Song (`col-28`) | `cnh-441`–`cnh-450` | 10 | 100 | to do |
 | B46 | Southern Song (`col-28`) | `cnh-451`–`cnh-460` | 10 | 101 | to do |
@@ -989,6 +989,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-418` | none | not re-checked (Commons rate-limited): wanted — a photograph of the whole tower |
 | `cnh-419` | none | not re-checked (Commons rate-limited): wanted |
 | `cnh-420` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-421` | as before | not re-checked (Commons rate-limited): ok |
+| `cnh-422` | none | not re-checked (Commons rate-limited): wanted — the palace portrait |
+| `cnh-423` | as before | not re-checked (Commons rate-limited): ok |
+| `cnh-424` | as before | not re-checked (Commons rate-limited): ok |
+| `cnh-425` | none | not re-checked (Commons rate-limited): wanted — the Iron Pagoda or the excavated Song city |
+| `cnh-426` | none | not re-checked (Commons rate-limited): wanted — a portrait of Fan Zhongyan |
+| `cnh-427` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-428` | as before | not re-checked (Commons rate-limited): the glossary's picture has burned-in text — replace |
+| `cnh-429` | as before | not re-checked (Commons rate-limited): ok |
+| `cnh-430` | as before | not re-checked (Commons rate-limited): ok |
 
 ## Glossary candidates
 
@@ -2888,3 +2898,40 @@ needed; 0 hits. **Myth register**: no row touched; a candidate row, the Khitan o
 here) and its 6 September on none; `cnh-420`'s 1128 and 1156 on no page read (the *Liaoshi*: died aged 54; Giles 1125;
 Cordier 1126), and its days on none. The timelines of `cnh-411` (a dynasty) and `cnh-414`, `415`, `418` (not events) were
 not set; `cnh-419`'s was moved to 1118 – 1120.
+
+### B43 — `cnh-421`–`cnh-430`, Northern Song: the Song dynasty to Wang Anshi (2026-11-13)
+
+Run as B41. Every cited URL answered. **Pictures were not touched.** **The old cards cited the *Songshi* (two or three juan a
+card), Li Tao's *Changbian* and Ouyang Xiu's essays on Chinese Wikisource, dated Kaifeng by a year no page prints (361 BCE)
+and an invented "Peak 1013", put a population count on its line, called 973 the first palace examination (Empress Wu held
+one), dated the policy essay by a conversion (1070), and had the *Songshi*'s sources backwards (it neglected the richer
+Southern Song record, Theobald after Wang Cengyu).** The *Songshi* (juan 1, 12, 85, 155, 290, 319, 327) and the *Changbian*
+juan 2 were read on the Kanseki Repository.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-421` Song dynasty | 8 | 8 → 8 | **The *Songshi* juan 1 for two Wikisource texts; its compilation told the right way round (begun on a Yuan order, finished in about two years, 496 juan, neglecting the southern records); the dynasty named after the Guide command; "commercial revolution" a phrase writers use today**; the years out of the questions. **Pinyin Sòngcháo → Sòng cháo.** |
+| `cnh-422` Emperor Taizu of Song | 7 | 7 → 7 | **Three Wikisource texts cut to the *Songshi* juan 1; the yellow robe at Chenqiao told as the *Songshi*'s (Giles and Theobald doubt his surprise); the golden casket and the "candle shadow and axe" as later stories; the colleges and Confucius's portraits (Cordier after Mailla)**; 961 and 976 out of the phrasings, the jinshi re-examination (`cnh-427`'s ground) out. Protected: the line stays (flagged below). |
+| `cnh-423` Shi Shouxin | 5 | 5 → 5 | **The banquet told as Li Tao's *Changbian* juan 2, with Li Tao's own note that it came from private notebooks (Sima Guang's, Wang Zeng's, Ding Wei's) and not the official record; the CBDB record for 928 and 984; Mailla for the Chenqiao message and the demotion after Gaoliang**; the monastery and his wealth (the *Songshi* only) dropped. Protected: the line stays (flagged below). |
+| `cnh-424` Emperor Renzong of Song | 6 | 6 → 6 | **The *Songshi* juan 12's verdict and the roast mutton; Giles and the CBDB for the dates; Theobald for the regency and the wars; Judge Bao told as the ballad stories' against the historical Bao Zheng (Idema 2011)**; "childless Empress Liu", "consort Li" and "behind a curtain" (unsourced) dropped. |
+| `cnh-425` Kaifeng | 7 | 7 → 8 | **"Founding 361 BCE" (on no page read), "Peak 1013 – 1127" (invented) and the population count off: `Song capital 960 CE – 1127` / `Great flood 1642` (Storozum et al. 2020); the *Songshi* juan 85's household figure in prose with whose; the Jewish stele; the walls without wards; the Jurchen Jin's moves (Cordier)**; the *Dongjing Meng Hua Lu* and the scroll (`cnh-435`, `443`) and the converted wall years 956, 1016, 1078 dropped. |
+| `cnh-426` Qingli Reforms | 6 | 6 → 6 | **Three Wikisource texts cut to Zhang Xiqing's study [in Chinese] (the examination changes 1044, abolished within a year); Fan Zhongyan's ten proposals, the schools in every prefecture (Cordier), "On Factions" through its published translation, in prose only (`cnh-428`'s clue)**; "war with the Xia began in 1038" (the Xia's founding) dropped. **Pinyin Xīnzhèng → xīnzhèng.** |
+| `cnh-427` palace examination | 6 | 6 → 6 | **"First held 973" (wrong: Empress Wu) now `Made regular 973 CE` (the *Songshi*'s 殿試遂爲常制) / `Abolished 1905`; the townsman scandal and the retest, the brief abolition, no one failed and the single essay; the 1070 policy essay (a conversion of Xining 3) given as "early in the Xining reign"**. |
+| `cnh-428` Ouyang Xiu | 7 | 7 → 7 | **Four Wikisource texts cut to the *Songshi* juan 319 with Giles's 1884 translations of "Clubs" and "The Old Drunkard's Arbour"; the Jigu lu (Theobald); the 1057 examination (Rong Hengying [in French]); 1045 now in the background**. Protected: the line stays (flagged below). |
+| `cnh-429` Di Qing | 6 | 6 → 7 | **Three Wikisource texts cut to the *Songshi* juan 290; the face mark kept, the bronze mask, Kunlun Pass against Nong Zhigao; the horned dog and the strange lights told as the *Songshi*'s**; Ouyang Xiu's memorial (unreachable) and "dismissed 1056" (a conversion) dropped. Protected: the line stays (flagged below). |
+| `cnh-430` Wang Anshi | 7 | 7 → 7 | **Three Wikisource texts cut to the *Songshi* juan 327; the memorial "on the spirit, not the letter", the Obstinate Minister, the last years at Jiangning; the villain verdict as the *Songshi*'s (citing Zhu Xi), Fuller 2023 on the partisan record; Jia Bingwei [in French] dates the memorial 1059**; "from 1070 the emperor's own test was an essay" (unsourced) dropped. Protected: the line stays (flagged below). |
+
+Read by eye. **Confusability**: the yellow robe `cnh-422`'s and the banquet `cnh-423`'s (both mentioned on `cnh-421`); the
+palace re-examination `cnh-427`'s (out of `cnh-422`); "On Factions" `cnh-428`'s in a phrasing-free form (prose only on
+`cnh-426`, at its agent's word); the New Policies themselves left to `cnh-431`; the memoir and the scroll out of `cnh-425`.
+**Legend**: the yellow robe (the *Songshi*), the cup of wine (Northern Song notebooks, Li Tao's note), Judge Bao (the
+ballads), the horned dog (the *Songshi*), Wang Anshi's villainy (the *Songshi*'s verdict) are each a text's. **Chinese
+names corrected**: `cnh-421` and `cnh-426` pinyin; `cnh-428`'s 歐陽脩 kept (the *Songshi* writes both 修 and 脩). **Spellings
+fixed**: none needed; 0 hits. **Myth register**: the yellow robe confirmed (the *Songshi* juan 1); the cup of wine confirmed
+and corrected (Li Tao names the notebooks; the modern doubt on no page read); Bao Zheng confirmed; Wang Anshi and Sima
+Guang confirmed for the *Songshi*'s verdict. **check-citations**: `cnh-428` reports Rong Hengying in Chinese order — fine.
+**Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-422`'s days on no page read and its "age 49"
+(the *Songshi* juan 3: 50 sui); `cnh-423`'s 961 on no page read ("usually given"); `cnh-424`'s days on no page read;
+`cnh-428`'s 1045 dates no page's demotion (Theobald's 1045 is the Jigu lu's start), its days and Mian Prefecture on none
+(Giles: Luling); `cnh-429`'s 1008 and 1053 on no page read (Giles puts the rising's end in 1052); `cnh-430`'s 1058 (Jia:
+1059), its days on none and "age 64" (the *Songshi*: 68 sui, itself at odds with 1021 – 1086).
