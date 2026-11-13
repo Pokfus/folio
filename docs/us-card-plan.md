@@ -1647,14 +1647,14 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-898  NAACP
     us-899  Sundown town
     us-900  Marcus Garvey
-    us-901  Racially restrictive covenants
+    us-901  Shelley v. Kraemer
     us-902  Redlining
     us-903  Civil rights movement
-    us-904  Thurgood Marshall and the NAACP legal campaign
+    us-904  Thurgood Marshall
     us-905  Brown v. Board of Education
     us-906  Massive resistance
     us-907  Little Rock Nine
-    us-908  The murder of Emmett Till
+    us-908  Emmett Till
     us-909  Montgomery bus boycott
     us-910  Rosa Parks
     us-911  Martin Luther King Jr.
@@ -1666,7 +1666,7 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
     us-917  March on Washington for Jobs and Freedom
     us-918  I Have a Dream
     us-919  Freedom Summer
-    us-920  Murders of Chaney, Goodman and Schwerner
+    us-920  Murders of Chaney, Goodman, and Schwerner
     us-921  Civil Rights Act of 1964
     us-922  Selma to Montgomery marches
     us-923  Voting Rights Act of 1965
@@ -1675,84 +1675,84 @@ found by fetching a range and reading the headings; the relevant ones are 374, 3
 
 ### The sixties and Vietnam — `us-sixties`
 
-    us-926  The presidency of Lyndon B. Johnson
+    us-926  Presidency of Lyndon B. Johnson
     us-927  Great Society
     us-928  War on Poverty
-    us-929  Medicare and Medicaid
+    us-929  Social Security Amendments of 1965
     us-930  Immigration and Nationality Act of 1965
-    us-931  The origins of American involvement in Vietnam
+    us-931  Domino theory
     us-932  Gulf of Tonkin incident
     us-933  Vietnam War
-    us-934  Escalation and the draft
+    us-934  Selective Service System
     us-935  Tet Offensive
-    us-936  The antiwar movement in the United States
-    us-937  The counterculture of the 1960s
+    us-936  Opposition to United States involvement in the Vietnam War
+    us-937  Counterculture of the 1960s
     us-938  Students for a Democratic Society
-    us-939  1968 in the United States
-    us-940  The assassinations of 1968
-    us-941  The urban uprisings of the 1960s
+    us-939  1968 Democratic National Convention
+    us-940  Assassination of Robert F. Kennedy
+    us-941  Long, hot summer of 1967
     us-942  Kerner Commission
-    us-943  The presidency of Richard Nixon
+    us-943  Presidency of Richard Nixon
     us-944  Vietnamization
     us-945  My Lai massacre
     us-946  Kent State shootings
     us-947  Pentagon Papers
     us-948  Fall of Saigon
-    us-949  The cost of the Vietnam War
-    us-950  Vietnam in American memory
+    us-949  Vietnam War casualties
+    us-950  Vietnam Veterans Memorial
 
 ### Rights movements and the new politics — `us-rights`
 
     us-951  Second-wave feminism
-    us-952  Betty Friedan and The Feminine Mystique
+    us-952  Betty Friedan
     us-953  National Organization for Women
     us-954  Equal Rights Amendment
     us-955  Roe v. Wade
     us-956  Chicano Movement
-    us-957  Cesar Chavez and the United Farm Workers
+    us-957  Cesar Chavez
     us-958  Red Power movement
-    us-959  The Asian American movement
+    us-959  Asian American movement
     us-960  Stonewall riots
-    us-961  The gay rights movement in the United States
-    us-962  The disability rights movement
-    us-963  The American environmental movement
+    us-961  LGBTQ movements in the United States
+    us-962  Disability rights movement
+    us-963  Environmental movement in the United States
     us-964  Silent Spring
-    us-965  Earth Day and the Environmental Protection Agency
-    us-966  The consumer movement and Ralph Nader
+    us-965  Earth Day
+    us-966  Ralph Nader
     us-967  New Right
-    us-968  The religious right
-    us-969  The rise of the culture wars
-    us-970  Rights and the Supreme Court since 1960
+    us-968  Christian right
+    us-969  Culture war
+    us-970  Incorporation of the Bill of Rights
 
 ### America since 1974 — `us-since-1974`
 
     us-971  Watergate scandal
-    us-972  The resignation of Richard Nixon
-    us-973  The presidency of Gerald Ford
+    us-972  Richard Nixon's resignation speech
+    us-973  Presidency of Gerald Ford
     us-974  Stagflation
-    us-975  The oil shocks of the 1970s
-    us-976  The presidency of Jimmy Carter
+    us-975  1970s energy crisis
+    us-976  Presidency of Jimmy Carter
     us-977  Iran hostage crisis
-    us-978  The presidency of Ronald Reagan
+    us-978  Presidency of Ronald Reagan
     us-979  Reaganomics
-    us-980  The Reagan buildup and the end of the Cold War
+    us-980  Strategic Defense Initiative
     us-981  Iran–Contra affair
-    us-982  Deindustrialisation and the Rust Belt
-    us-983  The AIDS epidemic in the United States
-    us-984  The war on drugs and mass incarceration
-    us-985  The presidency of George H. W. Bush
+    us-982  Rust Belt
+    us-983  HIV/AIDS in the United States
+    us-984  War on drugs
+    us-985  Presidency of George H. W. Bush
     us-986  Gulf War
-    us-987  The presidency of Bill Clinton
-    us-988  NAFTA and globalisation
-    us-989  The 1996 welfare and crime legislation
+    us-987  Presidency of Bill Clinton
+    us-988  North American Free Trade Agreement
+    us-989  Personal Responsibility and Work Opportunity Act
     us-990  September 11 attacks
-    us-991  The war on terror
+    us-991  War on terror
     us-992  Iraq War
     us-993  Great Recession
-    us-994  The presidency of Barack Obama
+    us-994  Presidency of Barack Obama
     us-995  Affordable Care Act
-    us-996  Political polarisation in the United States
-    us-997  Immigration and the border since 1986
-    us-998  The United States in the twenty-first century
-    us-999  How American history is argued about
-    us-1000 What the American story has been made to carry
+    us-996  Political polarization in the United States
+    us-997  Immigration Reform and Control Act of 1986
+    us-998  COVID-19 pandemic in the United States
+    us-999  1619 Project
+    us-1000 American exceptionalism

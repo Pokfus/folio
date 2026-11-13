@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 8094 | the title is the article |
-| `redirect-variant` | 485 | spelling / plural / qualifier differed; same subject |
+| `ok` | 8192 | the title is the article |
+| `redirect-variant` | 486 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 109 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 9 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 782 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 785 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 188 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 156 | only a disambiguation page; no link could be chosen |
+| `disambiguation` | 154 | only a disambiguation page; no link could be chosen |
 | `none` | 1171 | nothing matched; no link |
 
-**9486 of 11020 cards get a link.** The three "no link" rows are the honest state: a card whose
+**9588 of 11120 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (782)
+## Redirected to a differently named article — check each (785)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -681,6 +681,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `us-842` **Trinity test** → [Trinity (nuclear test)](https://en.wikipedia.org/wiki/Trinity_(nuclear_test)) (from `Trinity test`)
 - `us-844` **Island hopping** → [Leapfrogging (strategy)](https://en.wikipedia.org/wiki/Leapfrogging_(strategy)) (from `Island hopping`)
 - `us-884` **Kennedy–Nixon debates** → [1960 United States presidential debates](https://en.wikipedia.org/wiki/1960_United_States_presidential_debates) (from `Kennedy–Nixon debates`)
+- `us-917` **March on Washington for Jobs and Freedom** → [March on Washington](https://en.wikipedia.org/wiki/March_on_Washington) (from `March on Washington for Jobs and Freedom`)
+- `us-930` **Immigration and Nationality Act of 1965** → [Hart-Celler Act](https://en.wikipedia.org/wiki/Hart-Celler_Act) (from `Immigration and Nationality Act of 1965`)
+- `us-989` **Personal Responsibility and Work Opportunity Act** → [Personal Responsibility and Work Opportunity Reconciliation Act of 1996](https://en.wikipedia.org/wiki/Personal_Responsibility_and_Work_Opportunity_Reconciliation_Act_of_1996) (from `Personal Responsibility and Work Opportunity Act`)
 - `wh-005` **hominin** → [Hominini](https://en.wikipedia.org/wiki/Hominini) (from `Hominin`)
 - `wh-011` **Laetoli footprints** → [Laetoli](https://en.wikipedia.org/wiki/Laetoli) (from `Laetoli footprints`)
 - `wh-022` **Out of Africa I** → [Early expansions of hominins out of Africa](https://en.wikipedia.org/wiki/Early_expansions_of_hominins_out_of_Africa) (from `Out of Africa I`)
@@ -955,7 +958,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (156)
+## Disambiguation pages that could not be settled (154)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -1102,8 +1105,6 @@ Pick the right article by hand, or leave the card without a link.
 - `us-169` **Royal governor** — `Royal governor` is a disambiguation page; its links: `Royal Governor of Hawaii`, `Royal Governor of Kauai`, `Royal Governor of Maui`, `Royal Governor of Oahu`
 - `us-410` **forty-niners** — `49er` is a disambiguation page; its links: `Forty-Niner (passenger train)`, `The Forty-Niners (1932 film)`, `The Forty-Niners (1954 film)`, `Top 10: The Forty-Niners`
 - `us-462` **overseer** — `Overseer` is a disambiguation page; its links: `Overseer (rank)`, `Overseer of the poor`, `Rob Overseer`, `Aerojet SD-2 Overseer`
-- `us-826` **Neutrality Acts** — `Neutrality Act` is a disambiguation page; its links: `Neutrality Act of 1794`, `Neutrality Act of 1818`, `Neutrality Acts of the 1930s`
-- `us-875` **Covert action** — `Covert action` is a disambiguation page; its links: `Clandestine HUMINT and covert action`, `Sid Meier's Covert Action`, `Covert Action (album)`, `Covert Action (film)`
 - `wh-069` **Lion-man** — `Lion man` is a disambiguation page; its links: `Lion-man of Hohlenstein-Stadel`
 - `wh-126` **'Ain Ghazal** — `Ayn Ghazal` is a disambiguation page
 - `wh-298` **coinage** — `Coinage` is a disambiguation page; its links: `COINage`, `Tin coinage`
