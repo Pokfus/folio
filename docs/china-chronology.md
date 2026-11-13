@@ -623,6 +623,14 @@ are not rows of this table.
 | Jian ware made | c. 960 CE – 1279 | Dejoie et al. (`cnh-457`) |
 | the Mengliang lu dated / also dated | 1274 / c. 1300 | Cordier; Strassberg (`cnh-458`) |
 | Neo-Confucianism: the masters / the ban / the enshrinement | 1017 – 1200 / 1196 – 1202 / 1241 | De Weerdt (`cnh-460`) |
+| the Battle of Tangdao | 1161 | `cnh-461` |
+| the fire lance first recorded / used by the Jurchen Jin | 1132 / 1232 – 1233 | Andrade; the *Jinshi* (`cnh-462`) |
+| the siege of Xiangyang | 1268 – 1273 | the *Yuanshi*; Yule (`cnh-463`) |
+| the Battle of Yamen | 1279 | `cnh-464` |
+| the Western Xia founded / conquered | 1038 / 1227 | `cnh-465` |
+| the Tangut script (dated / also dated) / the Juyong inscription | 1036 / 1037 / 1345 | `cnh-468` |
+| the Tangut canon translated / printed | 1038 – 1090 / 1293 – 1302 | Theobald (`cnh-469`) |
+| the Battle of Haoshuichuan | 1041 | `cnh-470` |
 
 ## Later periods
 
@@ -1098,4 +1106,12 @@ cnh-456: 1111; 1117; 1127; 1279
 cnh-457: 960; 1279
 cnh-458: 1274; 1300
 cnh-460: 1017; 1200; 1196; 1202; 1241
+cnh-461: 1161
+cnh-462: 1132; 1232; 1233
+cnh-463: 1268; 1273
+cnh-464: 1279
+cnh-465: 1038; 1227
+cnh-468: 1036; 1037; 1345
+cnh-469: 1038; 1090; 1293; 1302
+cnh-470: 1041
 ```

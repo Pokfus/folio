@@ -19911,7 +19911,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battle_of_Xiangyang": ["Siege of Xiangyang","Hsiang-yang","Siang-yang"],
 "Battle_of_Yamen": ["Battle of Yashan","Battle of Mount Ya","Yai-shan"],
 "Western_Xia": ["Xixia","Hsi Hsia","Si-hia","Great Xia"],
-"Tangut_people": ["Tanguts","Dangxiang","Tang-hsiang"],
+"Tangut_people": ["Tanguts","Dangxiang","Tang-hsiang","Minyak"],
 "Emperor_Jingzong_of_Western_Xia": ["Li Yuanhao","Weiming Yuanhao","Jingzong of Western Xia","Li Yüan-hao"],
 "Tangut_script": ["Xixia script","Hsi-hsia script","Si-hia script","Tangut characters"],
 "Tangut_Tripitaka": ["Tangut Buddhist canon"],

@@ -473,7 +473,7 @@ otherwise.
 | B44 | Northern Song (`col-27`) | `cnh-431`–`cnh-440` | 10 | 104 | **done 2026-11-13** |
 | B45 | Northern Song (`col-27`) / Southern Song (`col-28`) | `cnh-441`–`cnh-450` | 10 | 100 | **done 2026-11-13** |
 | B46 | Southern Song (`col-28`) | `cnh-451`–`cnh-460` | 10 | 101 | **done 2026-11-13** |
-| B47 | Southern Song (`col-28`) / Western Xia (`col-29`) | `cnh-461`–`cnh-470` | 10 | 94 | to do |
+| B47 | Southern Song (`col-28`) / Western Xia (`col-29`) | `cnh-461`–`cnh-470` | 10 | 94 | **done 2026-11-13** |
 | B48 | Western Xia (`col-29`) / Jurchen Jin (`col-30`) | `cnh-471`–`cnh-480` | 10 | 97 | to do |
 | B49 | Jurchen Jin (`col-30`) / Yuan (`col-31`) | `cnh-481`–`cnh-490` | 10 | 110 | to do |
 | B50 | Yuan (`col-31`) | `cnh-491`–`cnh-500` | 10 | 100 | to do |
@@ -1029,6 +1029,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-458` | none | not re-checked (Commons rate-limited): wanted — an early printed page |
 | `cnh-459` | as before | not re-checked (Commons rate-limited): ok |
 | `cnh-460` | none | not re-checked (Commons rate-limited): the glossary's picture shows only an academy — replace |
+| `cnh-461` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-462` | none | not re-checked (Commons rate-limited): wanted — a drawing from a military manual |
+| `cnh-463` | none | not re-checked (Commons rate-limited): wanted — a counterweight trebuchet drawing |
+| `cnh-464` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-465` | none | not re-checked (Commons rate-limited): wanted — the Western Xia tombs |
+| `cnh-466` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-467` | none | not re-checked (Commons rate-limited): wanted |
+| `cnh-468` | none | not re-checked (Commons rate-limited): wanted — a printed Tangut page |
+| `cnh-469` | none | not re-checked (Commons rate-limited): wanted — a page of the canon |
+| `cnh-470` | none | not re-checked (Commons rate-limited): wanted |
 
 ## Glossary candidates
 
@@ -3074,3 +3084,39 @@ compound. **Spellings fixed**: none needed; 0 hits. **Myth register**: the kneel
 pages (Henning attests it on `cnh-450`'s). **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the
 apply). For the owner: `cnh-451`'s 1091 (Giles and Tao: 1090), its days and "age 64" (the *Songshi*: 66 sui); `cnh-459`'s days
 on no page read and "age 69" (the *Songshi*: 71 sui).
+
+### B47 — `cnh-461`–`cnh-470`, Southern Song and Western Xia: the Battle of Tangdao to Haoshuichuan (2026-11-13)
+
+Run as B41. Every cited URL answered. **Pictures were not touched.** **The old cards put battle templates on Tangdao,
+Xiangyang, Yamen and Haoshuichuan (days on no page read; "Casualties: 10,000 Jin losses, 300 warships"; "At least 100,000 Song
+dead"), named places in the fire lance's labels ("At De'an", "At Kaifeng", "At Guide") and the Tangut script's ("Juyong arch"),
+gave the Tangut people the Western Xia's dates, cited three Chinese histories a card on Chinese Wikisource, wrote "Khubilai" and
+"Uighur" in their own voice, and told Marco Polo's claim to have built the Xiangyang engines without the reply.** The *Songshi*
+(juan 370, 485, 486), the *Jinshi* juan 116, the *Yuanshi* juan 203, the *Old Book of Tang* juan 198 and the Tangut canon's
+Chinese records were read on the Kanseki Repository and zggdwx.com.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-461` Battle of Tangdao | 5 | 5 → 5 | **The battle template off: `Fought 1161`; the *Songshi* juan 370: Li Bao behind Shijiu island, the Jin boatmen sending the soldiers below deck, the oiled-silk sails ablaze, Haizhou relieved first; Lo's book (its contents page)**; three Wikisource texts dropped. |
+| `cnh-462` Fire lance | 6 | 6 → 6 | **"At De'an 1132 / At Kaifeng 1232 / At Guide 1233" (places in labels) now `First recorded 1132` / `Used by the Jin 1232 – 1233`; De'an given two ways (the *Songshi*: the lances burned the towers; the siege account as Andrade reads it: they drove off the men); the *Jinshi* juan 116: the night raid by boat at Guide, the flying lance and the heaven-shaking thunder at Kaifeng**; the Dunhuang banner (the Guimet record names no fire lance) dropped. |
+| `cnh-463` Battle of Xiangyang | 6 | 7 → 6 | **The battle template and its converted days off: `Besieged 1268 – 1273`; the *Yuanshi* juan 203: the Il-khan's two engineers, Lü Wenhuan's surrender; the supply boats through the blockade; Marco Polo's claim answered by Yule (the Polos could not have arrived before late 1274); the 70,000 Macgowan's; "Khubilai" → Kublai**; the 5,000 boats, the chains and the fire lances (other texts only) dropped. |
+| `cnh-464` Battle of Yamen | 6 | 6 → 6 | **The template, 19 March and the casualties row off: `Fought 1279`; the 100,000 bodies the *Songshi*'s count of the drowned seven days after, not a casualty figure; Lu Xiufu and the boy emperor; the chained fleet and the seawater; Wen Tianxiang's poem**; the music signal (the *Yuanshi* only) dropped. |
+| `cnh-465` Western Xia | 7 | 7 → 7 | **The *Songshi* juan 486 for the Wikisource texts; the Great State White and High and the Chinese name from its place west of the Song; the *Songshi*'s verdict that it never truly submitted; Renxiao's university and examinations; Li Yuanhao's and the conquest's detail left to `cnh-467` and `cnh-472`**. **Pinyin Xīxià → Xī Xià.** |
+| `cnh-466` Tangut people | 7 | 7 → 6 | **"Western Xia 1038 – 1227" (another card's dates on a people) off: no line, as `cnh-412`; the *Old Book of Tang* juan 198: Dangxiang herders of yaks, no grain, burning their dead, the Tuoba chiefs moved inland; Minyak in their own contracts; the language near Lolo and Moso**. |
+| `cnh-467` Li Yuanhao | 6 | 7 → 6 | **Three Wikisource texts cut to the *Songshi* juan 485; Shi Jinbo (Brill, open access): Ganzhou 1028, the Weiming surname, the head-shaving edict, the three battles, the 255,000 a year of 1044, the scorched-earth defeat of the Liao; his death by his heir (Cordier) against his brother-in-law (Theobald)**; the nose story dropped. Protected: the line stays (flagged below). |
+| `cnh-468` Tangut script | 7 | 7 → 8 | **"Created 1036 / Juyong arch 1345" now `Dated 1036` / `Also dated 1037` / `Late inscription 1345`; Yeli Renrong's twelve books (the *Songshi*); the Juyong carvings once read as Jurchen; Gule's Pearl in the Palm; the 6,000 signs as Nevsky's working dictionary (the Institute of Oriental Manuscripts)**. **Pinyin Xīxiàwén → Xī Xià wén.** |
+| `cnh-469` Tangut Tripitaka | 7 | 6 → 7 | **"Song gift 1034 / Yuan printing 1294" now `Translated 1038 – 1090` / `Printed 1293 – 1302` (Theobald's canon page); the Song gift (1034) in prose as Theobald's; the Uyghur monks at the temple, the Hangzhou carving and the thirty sets, the gold Lotus Sutra; "Uighur" → Uyghur**; Laufer's 1294 dropped. **Pinyin → Xī Xià wén Dàzàngjīng.** |
+| `cnh-470` Battle of Haoshuichuan | 6 | 6 → 6 | **The battle template off: `Fought 1041`; the pigeons from the sealed boxes and the 10,300 dead told as the *Songshi*'s (Shi Jinbo: "tens of thousands"); Renzong's late meals, Han Qi's haste**; the figures from a second juan dropped. |
+
+Read by eye. **Confusability**: the Il-khan's engines and Lü Wenhuan's surrender are `cnh-463`'s, Lu Xiufu `cnh-464`'s (the
+Kublai and Bayan agent was told); Polo's engines `cnh-463`'s, his West Lake `cnh-449`'s, his Zaitun `cnh-455`'s, the Ramusio
+passage `cnh-438`'s (the Polo agent was told); the 1161 river and sea battles apart (`cnh-453`, `cnh-461`); the Tangut script's
+books `cnh-468`'s and the translations `cnh-469`'s; Li Yuanhao's script order only in prose. **Legend**: the pigeons (the
+*Songshi*), Polo's engines (his book, answered by Yule), the 100,000 drowned (the *Songshi*'s count) are each a text's.
+**Chinese names corrected**: `cnh-465`, `468`, `469` pinyin (Xī Xià split, as Běi Wèi). Kept unconfirmed for want of a page
+printing the compound: 唐岛之战 (Cordier's Chenjia Island: 陈家岛海战 is also used), 襄阳之战, 崖山之战, 好水川之战 — for the owner.
+**Spellings fixed**: "Khubilai" (`cnh-463`), "Uighur" (`cnh-469`). **Myth register**: Marco Polo confirmed for the Xiangyang
+claim (Yule); the Mongol conquests' figures confirmed as the histories' and Macgowan's. **check-citations**: no mismatch.
+**Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-467`'s 1003 on no page read, "10 November 1038
+(age 35)" (the *Songshi*: age 30; the memorial: the 11th day of the 10th month) and "19 January 1048 (age 44)" (the *Songshi*
+and Cordier: 46).
