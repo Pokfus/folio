@@ -43607,6 +43607,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             </div>`).join("")}</div>
           ${sourcesHTML(whatLangSources(rounds[0].it).slice(0, 1).concat(["UDHR in XML project. The Universal Declaration of Human Rights in more than 500 languages. https://github.com/eric-muller/udhr"]), { compact: true })}
           <p class="tf-tomorrow">Five fresh passages arrive tomorrow.</p>
+          ${gameShareHTML("whatlang", score, ROUNDS, results.slice(0, ROUNDS).map((x) => (x ? "1" : "0")).join(""))}
           <div class="tf-actions"><button class="btn ghost" id="wl-home" type="button">Home</button></div>
         </div>`;
       tfWireWhy(root.querySelector(".tf-summary"));
