@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1307", released: "2026-11-14T03:02Z" };
+window.FOLIO_VERSION = { v: "1.1308", released: "2026-11-14T08:19Z" };
 
 window.CHANGELOG = [
   {
@@ -60,6 +60,8 @@ window.CHANGELOG = [
       "India's states and union territories can now be shaded on the map in a card's window.",
       "The keyboard shortcuts list (press <b>?</b>) now shows only keys that work, and opens from Settings too.",
       "Four daily games now load their questions when opened, so Folio starts a little faster.",
+      "The daily study banner now ends with <b>the week ahead</b>: cards due each day for seven days, with the heaviest day named.",
+      "Pressing <b>/</b> on the Atlas now opens only the map's own search, and a card's Report button no longer nudges the card sideways.",
     ],
   },
   {
