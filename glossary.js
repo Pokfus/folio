@@ -14616,7 +14616,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Imjin_War": "1592–1598",
 "Donglin_movement": "1604–1627",
 "Wei_Zhongxian": "1568–1627",
-"Li_Zicheng": "c. 1605–1645",
+"Li_Zicheng": "1606–1645",
 "Chongzhen_Emperor": "1611–1644",
 "Nurhaci": "1559–1626",
 "Hong_Taiji": "1592–1643",

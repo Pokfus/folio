@@ -529,7 +529,7 @@ otherwise.
 | B51 | Yuan (`col-31`) / Ming (`col-32`) | `cnh-501`–`cnh-510` | 10 | 107 | **done 2026-11-14** |
 | B52 | Ming (`col-32`) | `cnh-511`–`cnh-520` | 10 | 108 | **done 2026-11-14** |
 | B53 | Ming (`col-32`) | `cnh-521`–`cnh-530` | 10 | 105 | **done 2026-11-14** |
-| B54 | Ming (`col-32`) / Qing (`col-33`) | `cnh-531`–`cnh-540` | 10 | 108 | to do |
+| B54 | Ming (`col-32`) / Qing (`col-33`) | `cnh-531`–`cnh-540` | 10 | 108 | **done 2026-11-14** |
 | B55 | Qing (`col-33`) | `cnh-541`–`cnh-550` | 10 | 109 | to do |
 | B56 | Qing (`col-33`) | `cnh-551`–`cnh-560` | 10 | 108 | to do |
 | B57 | Qing (`col-33`) | `cnh-561`–`cnh-570` | 10 | 119 | to do |
@@ -1148,6 +1148,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-528` | none | not re-checked (pictures paused): the glossary's portrait looks right |
 | `cnh-529` | none | not re-checked (pictures paused): wanted — a page of a Ming edition |
 | `cnh-530` | none | not re-checked (pictures paused): wanted |
+| `cnh-531` | none | not re-checked (pictures paused): wanted |
+| `cnh-532` | none | not re-checked (pictures paused): wanted |
+| `cnh-533` | none | not re-checked (pictures paused): the glossary's statue is fine |
+| `cnh-534` | none | not re-checked (pictures paused): the glossary's picture is a novel's woodblock, an imagined likeness — replace |
+| `cnh-535` | none | not re-checked (pictures paused): wanted — the glossary's Hong Taiji portrait shows a founder, not the dynasty |
+| `cnh-536` | none | not re-checked (pictures paused): the glossary's portrait looks right |
+| `cnh-537` | none | not re-checked (pictures paused): wanted |
+| `cnh-538` | none | not re-checked (pictures paused): the glossary's portrait is fine |
+| `cnh-539` | none | not re-checked (pictures paused): wanted |
+| `cnh-540` | none | not re-checked (pictures paused): the glossary's portrait looks right |
 
 ## Glossary candidates
 
@@ -3533,3 +3543,40 @@ page that would open) — for the owner. **Spellings fixed**: none needed; one c
 `cnh-521`'s "John E. Wills, Jr." (the comma). **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-527`'s
 days (6 October 1552, 11 May 1610) and Macerata not checked against a page beyond Brucker; `cnh-528`'s 26 October 1472 and 9 January
 1529 on no page read. `cnh-530` keeps its timeline 1592 – 1598.
+
+### B54 — `cnh-531`–`cnh-540`, Ming and Qing: the Donglin movement to Dorgon (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl. **Pictures were not touched.** **The old cards cited the *Mingshi*
+(up to three juan a card), Gu Yingtai's *Mingshi jishi benmo*, Huang Zongxi's *Mingru xuean* and the *Qingshi gao* (up to three juan,
+and the abdication edict) on Chinese Wikisource; named places and men in labels ("Took Beijing", "Nanjing court", "Yongli reign");
+carried "Lectures began 1604" where the sources date the academy's statutes, a regnal-year reading ("late in 1623"), and details on
+no page read (Wei Zhongxian hanging himself "at an inn", Gao Panlong "drowned").** The Ming cards now read one Chinese text, the
+*Mingshi* (juan 24, 120, 231, 305, 309) on the Kanseki Repository; the Qing cards read the *Qingshi gao* (juan 1, 2, 25, 130, 218) on
+zggdwx.com — the Draft History of Qing, compiled 1914 – 1927 and published in 1928, unfinished and contested, said so where it speaks.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-531` Donglin movement | 6 | 6 → 7 | **"Lectures began 1604" → `Statutes issued 1604` (Theobald) / `Impeachment 1624` / `Purged 1625 – 1626`; the *Mingshi* juan 231: the Song academy at Wuxi where Yang Shi taught, anyone crossing the favourites branded Donglin; the *Water Margin* blacklist of 108; the "new Zhu Xi learning" (Nakao [in Japanese]); Yang Lian's charges in prose only (`cnh-532`'s)**; Huang Zongxi's "label" claim (Wikisource only) and Gao Panlong's drowning dropped. |
+| `cnh-532` Wei Zhongxian | 6 | 6 → 7 | **The *Mingshi* juan 305 for three Wikisource texts; the twenty-four charges and the weeping eunuch, the illiterate favourite at the carpenter's bench, the living shrines and the Shandong unicorn (Kennedy in Hummel; Schneewind 2018)**; "at an inn" and "late in 1623" dropped. Protected: the line stays (flagged below). |
+| `cnh-533` Li Zicheng | 7 | 7 → 7 | **The *Mingshi* juan 309 only (Gu Yingtai dropped); the post-station courier from Mizhi, the Dashing King's title from his uncle, Li Yan's no-tax slogan, Dashun at Xi'an and the palace set alight; Chen Yuanyuan told as the *Mingshi*'s; 1606 now in the background (Giles)**; the Coal Hill suicide (`cnh-534`'s) and "eighteen years of drought" (on no page) dropped. Protected: the line stays (flagged below). |
+| `cnh-534` Chongzhen Emperor | 6 | 6 → 7 | **The *Mingshi* juan 24 for three Wikisource texts; the dawn bell and Coal Hill, Yuan Chonghuan cut to pieces, "a ruler dies with his altars"; the Chongzhen drought (possibly the worst in 1,500 years); Wei Zhongxian out of the phrasings**; the factional-feud speech and the sons sent away (Gu Yingtai only) dropped. Protected: the line stays. |
+| `cnh-535` Qing dynasty | 8 | 8 → 8 | **"Took Beijing" (a place) → `Took the capital 6 June 1644` (Fang in Hummel; Theobald); `Named Qing 1636`; `Abdication 12 February 1912` (Couling); the *Qingshi gao* juan 25 for the edict; the Aisin Gioro, the largest empire told as Theobald's, the population passing three hundred million**; the banners and the abdication out of the phrasings. **Pinyin → Qīng cháo.** |
+| `cnh-536` Nurhaci | 7 | 7 → 7 | **The *Qingshi gao* juan 1 for two Wikisource texts: the thirteen suits of armour, the state named Jin, the seven grievances, the Western cannon at Ningyuan; the 1599 script as Erdeni and Gagai's (Kennedy in Hummel)**; the 1591 banners (on no page) dropped. Protected: the line stays (flagged below). **Pinyin apostrophe → Nǔ'ěrhāchì.** |
+| `cnh-537` Eight Banners | 7 | 8 → 7 | **`Four banners 1601` / `Doubled to eight 1615` / `Mongol eight 1635` / `Chinese eight 1642` (Porter 2018; Theobald's 1591 for the first four in prose); the *Qingshi gao* juan 130: every son a soldier, companies of three hundred; the Hanjun "heavy troops" with the cannon; the banner families on Republican stipends (Elliott, Campbell and Lee 2016)**; Dorgon's clue and two more sources dropped. |
+| `cnh-538` Hong Taiji | 6 | 7 → 6 | **The *Qingshi gao* juan 2 for three Wikisource citations; the Yuan seal from Ligdan Khan brought back by Dorgon, Korea made a vassal within a month, the princes' monthly turns ended and Amin jailed; Porter for the 1635 name; the renaming to Manchu left to `cnh-782`**; the glossary's self-contradiction ("died before entering China proper") fixed. Protected: the line stays (flagged below). |
+| `cnh-539` Southern Ming | 6 | 7 → 8 | **Places and men off the labels: `First court 1644 – 1645` / `Last court 1646 – 1662` (Kennedy and Yang in Hummel); the *Mingshi* juan 120, which files these rulers as princes with "false" reign titles; Ma Shiying and the Prince of Fu, the rival courts at Guangzhou and Zhaoqing, the dowager Helena's letter to Innocent X; Koxinga mentioned without Taiwan**. **Pinyin → Nán Míng.** |
+| `cnh-540` Dorgon | 6 | 6 → 6 | **The *Qingshi gao* juan 218 on zggdwx.com; the refused throne and the co-regency with Jirgalang, the "two suns" letter and Li Wen as its reputed drafter, the robes and pearls charge and the restoration as Prince Rui in 1778 (Hummel); the queue order in prose only**. Protected: the line stays (flagged below). |
+
+Read by eye. **Confusability**: Yang Lian's memorial is in `cnh-531`'s background and `cnh-532`'s phrasing; the Coal Hill suicide
+`cnh-534`'s alone (Li Zicheng's card gives the fall of Beijing from the rebels' side); the seven grievances and Ningyuan `cnh-536`'s,
+Yuan Chonghuan's death `cnh-534`'s; the banners' organisation `cnh-537`'s, the princes' rotation and Amin `cnh-538`'s; the Southern
+Ming's courts `cnh-539`'s, the Yangzhou massacre left to `cnh-542`. **Legend**: Chen Yuanyuan (the *Mingshi* tells it as fact; Wu
+Weiye's poem on no page read), the Yuan seal (the *Qingshi gao*), the "two suns" letter's drafter (one Qing writer's report) are each a
+text's. **Chinese names corrected**: `cnh-535` Qīng cháo, `cnh-539` Nán Míng, `cnh-536` the apostrophe. Kept: 东林党 (the *Mingshi*'s
+東林黨人; 东林运动 on no page), 崇祯帝 (the compound on no page) — for the owner. **Spellings fixed**: none needed; 0 hits. **Myth
+register**: Coal Hill confirmed (the *Mingshi* juan 24: Wansui shan, Wang Chengen dying with him); Chen Yuanyuan confirmed in part (the
+*Mingshi* juan 309); Koxinga confirmed as far as told (Cordier). **check-citations**: no mismatch. **Protected lines: unchanged**
+(diffed after the apply). For the owner: `cnh-532`'s 12 December 1627 looks early (Kennedy: sent away 8 December, the arrest proclaimed
+five days later); `cnh-533`'s 22 September 1606 on no page read (Tu in Hummel: "Oct. 3, 1605?"); `cnh-536`'s 14 May 1559 on no page read;
+`cnh-538`'s birth and Qing days a day earlier than Cordier's; `cnh-540`'s 8 October 1643 and Yenden on no page read. The timeline of
+`cnh-535` (a dynasty) was not set.

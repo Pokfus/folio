@@ -696,6 +696,10 @@ single whip 1581 (`cnh-381`), the examinations ended 1905 (`cnh-348`, `cnh-427`)
 | the Jesuits' first residence / tolerated / suppressed | 1583 / 1692 / 1773 | Brucker; Cordier; Parr (`cnh-526`) |
 | the Sanyan's three books | 1620 / 1624 / 1627 | Yang; Leggieri (`cnh-529`) |
 | the Imjin War / renewed / ended | 1592 / 1597 / 1598 | Batts and Noordam (`cnh-530`) |
+| the Donglin statutes / Yang Lian's impeachment / the purge | 1604 / 1624 / 1625 – 1626 | Theobald; Hucker (`cnh-531`) |
+| the Qing named / Beijing taken / the abdication | 1636 / 6 June 1644 / 12 February 1912 | Fang; Theobald; Couling (`cnh-535`) |
+| the banners: four / eight / the Mongol eight / the Chinese eight | 1601 / 1615 / 1635 / 1642 | Porter (`cnh-537`; Theobald 1591 for the first four) |
+| the Southern Ming's first court / last court | 1644 – 1645 / 1646 – 1662 | Kennedy and Yang in Hummel (`cnh-539`) |
 
 ## Later periods
 
@@ -1248,4 +1252,8 @@ cnh-525: 1580; 1644
 cnh-526: 1583; 1692; 1773
 cnh-529: 1620; 1624; 1627
 cnh-530: 1592; 1597; 1598
+cnh-531: 1604; 1624; 1625; 1626
+cnh-535: 1636; 1644; 1912
+cnh-537: 1601; 1615; 1635; 1642
+cnh-539: 1644; 1645; 1646; 1662
 ```
