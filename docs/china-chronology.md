@@ -722,6 +722,13 @@ single whip 1581 (`cnh-381`), the examinations ended 1905 (`cnh-348`, `cnh-427`)
 | the Second Opium War | 8 October 1856 – 24 October 1860 | Morse (`cnh-567`) |
 | the foreign office / the Fuzhou yard / the study mission / the fleet sunk | 1861 / 1866 / 1872 – 1881 / 1884 | Theobald (`cnh-568`) |
 | the First Sino-Japanese War: began / declared / ended | 25 July 1894 / 1 August 1894 / 17 April 1895 | MacMurray; Hail (`cnh-570`) |
+| the Hundred Days: the first decree / the coup / the executions | 11 June 1898 / 21 September 1898 / 28 September 1898 | Morse; Hummel (`cnh-571`) |
+| the Boxers: began / the legations' siege / the protocol | 1899 / 20 June – 14 August 1900 / 7 September 1901 | Klein; the Office of the Historian (`cnh-572`) |
+| the late Qing reforms: the edict / the examinations ended / the programme / the cabinet | 29 January 1901 / 1905 / 27 August 1908 / 8 May 1911 | de Bary–Lufrano; Theobald (`cnh-573`) |
+| the Xinhai Revolution: began / the Republic founded / the abdication | 10 October 1911 / 1 January 1912 / 12 February 1912 | Theobald; the *Qingshi gao* (`cnh-574`; Morse 11 October) |
+| the Republic proclaimed / its constitution / the government moved | 1 January 1912 / 1 January 1947 / December 1949 | Hummel; the Ministry of Justice (`cnh-577`) |
+| the Empire of China: the votes / the throne accepted / the revolt / cancelled | 11 December 1915 / 12 December 1915 / December 1915 / 22 March 1916 | the *China Year Book*; Putnam Weale (`cnh-579`) |
+| the Warlord Era / the clique wars | 1916 – 1928 / 1920 – 1924 | McCord; Theobald (`cnh-580`) |
 
 ## Later periods
 
@@ -1300,4 +1307,11 @@ cnh-566: 1853; 1868; 1851
 cnh-567: 1856; 1860
 cnh-568: 1861; 1866; 1872; 1881; 1884
 cnh-570: 1894; 1895
+cnh-571: 1898
+cnh-572: 1899; 1900; 1901
+cnh-573: 1901; 1905; 1908; 1911
+cnh-574: 1911; 1912
+cnh-577: 1912; 1947; 1949
+cnh-579: 1915; 1916
+cnh-580: 1916; 1920; 1924; 1928
 ```

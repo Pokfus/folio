@@ -533,7 +533,7 @@ otherwise.
 | B55 | Qing (`col-33`) | `cnh-541`–`cnh-550` | 10 | 109 | **done 2026-11-14** |
 | B56 | Qing (`col-33`) | `cnh-551`–`cnh-560` | 10 | 108 | **done 2026-11-14** |
 | B57 | Qing (`col-33`) | `cnh-561`–`cnh-570` | 10 | 119 | **done 2026-11-14** |
-| B58 | Qing (`col-33`) / Early Republic (`col-35`) | `cnh-571`–`cnh-580` | 10 | 117 | to do |
+| B58 | Qing (`col-33`) / Early Republic (`col-35`) | `cnh-571`–`cnh-580` | 10 | 117 | **done 2026-11-14** |
 | B59 | Early Republic (`col-35`) | `cnh-581`–`cnh-590` | 10 | 110 | to do |
 | B60 | Early Republic (`col-35`) | `cnh-591`–`cnh-600` | 10 | 118 | to do |
 | B61 | Early Republic (`col-35`) / Civil War (`col-36`) | `cnh-601`–`cnh-610` | 10 | 116 | to do |
@@ -1188,6 +1188,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-568` | none | not re-checked (pictures paused): wanted |
 | `cnh-569` | none | not re-checked (pictures paused): the current picture is fine |
 | `cnh-570` | none | not re-checked (pictures paused): wanted |
+| `cnh-571` | none | not re-checked (pictures paused): wanted |
+| `cnh-572` | none | not re-checked (pictures paused): wanted |
+| `cnh-573` | none | not re-checked (pictures paused): wanted |
+| `cnh-574` | none | not re-checked (pictures paused): wanted |
+| `cnh-575` | none | not re-checked (pictures paused): the glossary's portrait is fine |
+| `cnh-576` | none | not re-checked (pictures paused): the glossary's portrait is fine |
+| `cnh-577` | none | not re-checked (pictures paused): wanted |
+| `cnh-578` | none | not re-checked (pictures paused): the glossary's photograph is fine |
+| `cnh-579` | none | not re-checked (pictures paused): wanted |
+| `cnh-580` | none | not re-checked (pictures paused): wanted |
 
 ## Glossary candidates
 
@@ -3718,3 +3728,40 @@ read prints "twenty to thirty million"); the navy money confirmed as a disputed 
 lines: unchanged** (diffed after the apply). For the owner: `cnh-565`'s 1 January 1814 and 11 January 1851; `cnh-569`'s 21 September 1898
 (Hummel: 22 September) and its birth and death places on no page read; `cnh-562`'s "Ratified 26 June 1843" is the exchange of
 ratifications (the Queen ratified 28 December 1842).
+
+### B58 — `cnh-571`–`cnh-580`, Qing and the early Republic: the Hundred Days' Reform to the Warlord Era (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl but two known bot walls (the Library of Congress item page on
+`cnh-576`, a JSTOR DOI on `cnh-579`); the agents' saved pages stand. **Pictures were not touched.** **The old cards cited the
+edicts, the Articles of Favourable Treatment, the Provisional Constitution, the 1947 constitution, Sun Yat-sen's manifesto and will,
+Yuan Shikai's oath, the Empire's mandates and the *Qingshi gao* on Chinese Wikisource (up to five texts a card); carried the Boxer
+template with a start day and a death figure on no page ("c. 100,000 dead"), a count in a label ("9-year plan", "Six executed"),
+places and men in labels ("Wuchang rising", "Sun inaugurated", "Nanjing capital", "Moved to Taipei", "Yunnan revolt"), and told
+Yuan Shikai's betrayal of the reformers as fact.** The Qing and Republican cards read the *Qingshi gao* (juan 25, 464) on zggdwx.com,
+or one Chinese article (Wei 2024, Suo Liangzhu), beside the treaty and state-paper series (FRUS, the *China Year Book*).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-571` Hundred Days' Reform | 7 | 7 → 8 | **"Six executed" (a count) → `Executions 28 September 1898`, with `First decree 11 June 1898` / `Coup 21 September 1898`; the *Qingshi gao* juan 464; Tan Sitong's refusal to flee and the Six Gentlemen; Yuan Shikai's betrayal told as the reformers' and most foreign historians' account against his own (Morse: "with some reserve"); Kwong 1984 and 2000**; 戊戌变法 noted as the commoner name. |
+| `cnh-572` Boxer Rebellion | 8 | 8 → 10 | **The template off: `Began 1899` / `Siege 20 June – 14 August 1900` / `Protocol 7 September 1901`; the deaths each Klein's or the State Department historians'; the invulnerability as a missionary's account (Smith 1901); the south kept out by Liu Kunyi and Zhang Zhidong; the 450 million taels the envoys' demand (Root's 1907 letter) and the remission and the students (FRUS)**. No `us-` card covers the indemnity. Timeline set to 1899 – 1901. |
+| `cnh-573` Late Qing reforms | 6 | 8 → 8 | **"9-year plan" (a count) off: `Reform edict 29 January 1901` (the de Bary–Lufrano translation) / `Exams abolished 1905` (agrees with `cnh-348`, `cnh-427`) / `Programme 27 August 1908` / `Cabinet named 8 May 1911`; the edict's charge against habit and mediocrity, the bomb at the commissioners' departure, the gentry's petitions rebuffed**; "two months" and "three bonds" (on no page) dropped. Timeline set to 1901 – 1911. |
+| `cnh-574` Xinhai Revolution | 7 | 8 → 7 | **Labels naming places and men off: `Began 10 October 1911` / `Republic founded 1 January 1912` / `Abdication 12 February 1912` (Morse's 11 October in prose); the *Qingshi gao* juan 25 quoting the edict; the Wuchang mutiny, the Railway Protection Movement, Li Yuanhong, the Tongmenghui; the cyclical-year name**; the "60-year cycle" sentence and Mongolia dropped. |
+| `cnh-575` Sun Yat-sen | 7 | 8 → 9 | **Two Wikisource texts replaced; the London kidnapping "by his own account" (*Kidnapped in London*, 1897: 11 – 23 October 1896) and Cantlie; the sixteen lectures with the sword cane; the Revive China Society founded in Hawaii**; Morse (1867, "ten days") dropped. **Name: 孙中山 kept** (the modern Sun Yat-sen University and the Taipei memorial hall; 孙逸仙 is "Yat-sen" in Chinese). Protected: the line stays (flagged below). |
+| `cnh-576` Puyi | 8 | 8 → 10 | **Four Wikisource texts replaced; the *Qingshi gao* juan 25; the twelve days' restoration under Zhang Xun, regent designate at Changchun, Reginald Johnston; the abdication in one sentence, the 1924 escort out (`cnh-512`'s clue) in prose only; Kuzmin and Dmitriev on the restoration**. Protected: the line stays (flagged below). |
+| `cnh-577` Republic of China | 8 | 8 → 8 | **"Nanjing capital" and "Moved to Taipei" (places) off: `Proclaimed 1 January 1912` / `Constitution 1 January 1947` / `Government moved December 1949`; five Wikisource texts replaced by the *Qingshi gao* juan 25, the 1912 Provisional Constitution's English text (*AJIL*) and the 1947 constitution (the Ministry of Justice); the year count from the founding, the twenty-two provinces, the move to Taipei**; the Beiyang and Nationalist governments and the later ROC kept to prose. |
+| `cnh-578` Yuan Shikai | 7 | 8 → 8 | **Three Wikisource texts replaced by the *Qingshi gao*, Hummel 1944 and McCord 1993; eight years in Seoul, the "ailing foot" and the recall, Song Jiaoren's murder (20 March 1913, McCord); the 1898 part told as Hummel tells it ("generally believed")**; Couling (1860) and Reinsch dropped; the Empire of China out of the phrasings. Protected: the line stays (flagged below). |
+| `cnh-579` Empire of China | 6 | 8 → 7 | **"Yunnan revolt" (a place) → `Revolt began December 1915`, with `Votes counted 11 December 1915` / `Throne accepted 12 December 1915` / `Cancelled 22 March 1916` (the *China Year Book* 1916, Putnam Weale); the Yunnan telegrams, the order to burn the vote telegrams, the Hongxian calendar; Wei 2024 [in Chinese]; Goodnow in prose only (FRUS)**; a FRUS document that never carried its claim and Cai E's house watch dropped. |
+| `cnh-580` Warlord Era | 7 | 7 → 7 | **Told as a later label (junfa a 1910s word modelled on the Japanese gunbatsu, Yu Shen); `Began 1916` / `Clique wars 1920 – 1924` / `Ended 1928` kept, McCord's textbook end of 1926 in prose; the "caged birds" governor, the nine million dollars, the cliques and Zhang Zuolin the bandit**. **Name → 北洋军阀统治时期 Běiyáng jūnfá tǒngzhì shíqī** (军阀 alone means "warlord"). |
+
+Read by eye. **Confusability**: the 1898 coup is `cnh-571`'s, told on `cnh-578` only in prose and hedged alike on both; the
+abdication is `cnh-535`'s and `cnh-574`'s line row but in no phrasing of `cnh-576`; the Republic's founding `cnh-577`'s, its
+Beiyang phase `cnh-581`'s; the Empire's votes and telegrams `cnh-579`'s, Yuan's life `cnh-578`'s. **Legend**: the London kidnapping
+(Sun's own account), the Boxers' invulnerability (a missionary's), Yuan's betrayal (the reformers' against his own) are each a text's.
+**Chinese names corrected**: `cnh-580` 北洋军阀统治时期. Kept: 义和团 (义和团运动 on no page that would open), 百日维新 (戊戌变法 the
+commoner name), 孙中山 — for the owner. **Spellings**: two checker hits are names as printed in cited titles ("Sun Yat Sen" on the 1897
+title page; "Hsieh Chieh-shih" in FRUS). **Myth register**: Sun's London kidnapping confirmed (his own book); the Boxers' invulnerability
+confirmed as a set of tellings; Yuan and the Hundred Days refined (the reformers' and foreign historians' version against Yuan's own
+account; his diary on no page read). **check-citations**: one false alarm — `cnh-576`'s "Sergei Kuzmin" (Crossref: "Sergius").
+**Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-575`'s 12 November 1866 on no page read and its presidency's
+10 March 1912 (Yuan Shikai's inauguration day); `cnh-576`'s days and places on no page read; `cnh-578`'s 2 January 1909 (Tenney: 1 January)
+and Beijing as the death place on no page read.

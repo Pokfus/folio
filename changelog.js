@@ -62,7 +62,7 @@ window.CHANGELOG = [
       "Four daily games now load their questions when opened, so Folio starts a little faster.",
       "The daily study banner now ends with <b>the week ahead</b>: cards due each day for seven days, with the heaviest day named.",
       "Pressing <b>/</b> on the Atlas now opens only the map's own search, and a card's Report button no longer nudges the card sideways.",
-      "<b>70 more China cards are rewritten</b>, from the Red Turban Rebellions to the First Sino-Japanese War.",
+      "<b>80 more China cards are rewritten</b>, from the Red Turban Rebellions to the Warlord Era.",
     ],
   },
   {
