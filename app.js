@@ -4069,6 +4069,8 @@
   const GLOSS_ONLY_IN = {
     Sense: { roots: ["psych", "bio"], tags: ["psychology", "biology", "neuroscience"] },
     Pain: { roots: ["psych", "bio"], tags: ["psychology", "biology", "neuroscience", "medicine"] },
+    /* "behaviour" in a history card ("his behaviour at court") is not the science term (2026-11-14, on request: "'behaviour' should only ever be a gloss link within the biology and psychology collections") */
+    Behaviour: { roots: ["psych", "bio"], tags: ["psychology", "biology", "neuroscience"] },
     /* the Roman magistrate: "an American consul" in a Second World War card is a diplomat (2026-11-13, found by check-gloss-links on ww2-197) */
     Consul: { roots: ["col-40", "col-8", "col-13"], tags: ["rome", "roman", "italy", "republic"] },
   };
