@@ -1,0 +1,49 @@
+{
+  "_about": [
+    "admin1-capitals.json — the seat of each unit of admin1-spec.json, with the seat's coordinate AS FETCHED from Wikidata (P625 of the city item named by the unit's P36 statement), for the capitals' dot table of the map cards (build-card-faces.js, the `india-states` layer) and the seats check of check-admin1.js.",
+    "Retrieved 2026-11-14 from query.wikidata.org: SELECT ?unit ?iso ?cap ?coord WHERE { ?unit wdt:P300 ?iso . FILTER(STRSTARTS(?iso, \"IN-\")) ?unit p:P36 ?st . ?st ps:P36 ?cap . OPTIONAL { ?cap wdt:P625 ?coord } }. Never typed from memory.",
+    "Where a unit has two P36 statements the card plan's choice is taken and the other named in `also` (docs/india-geography-card-plan.md \"The capitals\"): Jammu and Kashmir — Srinagar (summer) over Jammu (winter); Ladakh — Leh over Kargil; Karnataka — Bengaluru over Belagavi (the second legislature seat); Maharashtra — Mumbai over Nagpur (the winter session); Uttarakhand — Dehradun over Gairsain (named the summer capital in 2020); Madhya Pradesh — Bhopal (Nagpur's statement ended in 1956).",
+    "`name` is the card plan's name for the seat (Sri Vijaya Puram for Wikidata's 'Srivijayapuram'; Puducherry for the city Wikidata labels 'Pondicherry'); `qid` the city item. `inUnit`: the seat lies in ANOTHER unit by fact — Chandigarh is the capital of Punjab and of Haryana and a union territory of its own (the plan's gin-516 and gin-518)."
+  ],
+  "retrieved": "2026-11-14",
+  "countries": {
+    "IND": {
+      "IN-UP": { "name": "Lucknow", "qid": "Q47916", "lon": 80.947, "lat": 26.847 },
+      "IN-MH": { "name": "Mumbai", "qid": "Q1156", "lon": 72.8775, "lat": 19.075833333, "also": "Nagpur (Q1513)" },
+      "IN-BR": { "name": "Patna", "qid": "Q80484", "lon": 85.141388888, "lat": 25.61 },
+      "IN-WB": { "name": "Kolkata", "qid": "Q1348", "lon": 88.37, "lat": 22.5675 },
+      "IN-MP": { "name": "Bhopal", "qid": "Q80989", "lon": 77.4125, "lat": 23.258888888 },
+      "IN-TN": { "name": "Chennai", "qid": "Q1352", "lon": 80.275, "lat": 13.0825 },
+      "IN-RJ": { "name": "Jaipur", "qid": "Q66485", "lon": 75.82, "lat": 26.915 },
+      "IN-KA": { "name": "Bengaluru", "qid": "Q1355", "lon": 77.5912997, "lat": 12.9791198, "also": "Belgaum (Q270176)" },
+      "IN-GJ": { "name": "Gandhinagar", "qid": "Q11910", "lon": 72.65, "lat": 23.223 },
+      "IN-AP": { "name": "Amaravati", "qid": "Q19881964", "lon": 80.5165, "lat": 16.5131 },
+      "IN-OD": { "name": "Bhubaneswar", "qid": "Q171771", "lon": 85.825, "lat": 20.295 },
+      "IN-TS": { "name": "Hyderabad", "qid": "Q1361", "lon": 78.474722222, "lat": 17.361666666 },
+      "IN-KL": { "name": "Thiruvananthapuram", "qid": "Q167715", "lon": 76.9525, "lat": 8.4875 },
+      "IN-JH": { "name": "Ranchi", "qid": "Q174461", "lon": 85.334722222, "lat": 23.355555555 },
+      "IN-AS": { "name": "Dispur", "qid": "Q271911", "lon": 91.77, "lat": 26.15 },
+      "IN-PB": { "name": "Chandigarh", "qid": "Q43433", "lon": 76.779722222, "lat": 30.733333333, "inUnit": "IN-CH" },
+      "IN-CG": { "name": "Raipur", "qid": "Q372773", "lon": 81.6336833, "lat": 21.2379468 },
+      "IN-HR": { "name": "Chandigarh", "qid": "Q43433", "lon": 76.779722222, "lat": 30.733333333, "inUnit": "IN-CH" },
+      "IN-DL": { "name": "New Delhi", "qid": "Q987", "lon": 77.208888888, "lat": 28.613888888 },
+      "IN-JK": { "name": "Srinagar", "qid": "Q170115", "lon": 74.806111111, "lat": 34.091111111, "also": "Jammu (Q255455)" },
+      "IN-UK": { "name": "Dehradun", "qid": "Q199528", "lon": 78.029, "lat": 30.318, "also": "Gairsain (Q2080796)" },
+      "IN-HP": { "name": "Shimla", "qid": "Q83786", "lon": 77.172222222, "lat": 31.103333333 },
+      "IN-TR": { "name": "Agartala", "qid": "Q170454", "lon": 91.266666666, "lat": 23.833333333 },
+      "IN-ML": { "name": "Shillong", "qid": "Q207752", "lon": 91.878888888, "lat": 25.574444444 },
+      "IN-MN": { "name": "Imphal", "qid": "Q208097", "lon": 93.95, "lat": 24.82 },
+      "IN-NL": { "name": "Kohima", "qid": "Q234056", "lon": 94.119444444, "lat": 25.666666666 },
+      "IN-GA": { "name": "Panaji", "qid": "Q214681", "lon": 73.83, "lat": 15.48 },
+      "IN-AR": { "name": "Itanagar", "qid": "Q41128", "lon": 93.62, "lat": 27.1 },
+      "IN-PY": { "name": "Puducherry", "qid": "Q639421", "lon": 79.83, "lat": 11.93 },
+      "IN-MZ": { "name": "Aizawl", "qid": "Q192379", "lon": 92.716666666, "lat": 23.733333333 },
+      "IN-CH": { "name": "Chandigarh", "qid": "Q43433", "lon": 76.779722222, "lat": 30.733333333 },
+      "IN-SK": { "name": "Gangtok", "qid": "Q186141", "lon": 88.62, "lat": 27.33 },
+      "IN-DH": { "name": "Daman", "qid": "Q463252", "lon": 72.834022222, "lat": 20.416938888 },
+      "IN-AN": { "name": "Sri Vijaya Puram", "qid": "Q203476", "lon": 92.75, "lat": 11.666666666 },
+      "IN-LA": { "name": "Leh", "qid": "Q230818", "lon": 77.584722222, "lat": 34.164166666, "also": "Kargil (Q2088176)" },
+      "IN-LD": { "name": "Kavaratti", "qid": "Q271287", "lon": 72.638888888, "lat": 10.566666666 }
+    }
+  }
+}

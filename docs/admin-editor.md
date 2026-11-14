@@ -161,6 +161,13 @@ for the `<small>(optional)</small>` labels); the **queue itself stays English**,
 editor.
 · `adminState.tab === "accounts"` is a **retired value**: `restoreAdminUI` drops it so a session saved
 before this change opens on the editor's default tab rather than one that no longer exists.
+· **Report a problem, from a card (Nov 2026).** Every curated card's answer side ends with a small
+"Report" button in its bottom right corner (`cardReportHTML`, last in `buildBack`; never on a community
+card). It opens a sheet (`openCardReport`) whose four reasons map onto the existing kinds —
+fact / typo → `correction`, broken image or link → `bug`, something else → `other`, because the `kind`
+CHECK admits no new value — and sends through `feedbackSend` with `card` + `issue`: the row's `page` is
+`card:<id>`, `meta.card` the id, `meta.issue` the reader's reason. No new table or column. The queue shows
+the id as a link to `#card/<id>` (`.fbq-card`) and the reason as a chip (`.fbq-issue`).
 
 ## The card editor — one live card, and how it saves
 

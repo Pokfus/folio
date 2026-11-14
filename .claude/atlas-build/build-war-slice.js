@@ -153,9 +153,9 @@ function writeAll(bytes) {
     else if (sha(fs.readFileSync(SLICE)) !== sha(bytes)) problems.push("atlas/data/history-wars.bin lags history.bin or wars.js — run: node .claude/atlas-build/build-war-slice.js --install");
     const t = Tw.checkTwin(SLICE); if (!t.ok) problems.push("the twin of the slice: " + t.reason);
     else say(`  twin: ${t.twinBytes} bytes, identical to the slice`);
-    const full = ["topology.bin.js", "water.bin.js", "history-wars.bin.js", "history-ww2.bin.js"].map((f) => { try { return fs.statSync(path.join(DATA, f)).size; } catch (e) { return 0; } }).reduce((a, b) => a + b, 0);
+    const full = ["topology.bin.js", "water.bin.js", "history-wars.bin.js", "history-ww2.bin.js", "admin1.bin.js"].map((f) => { try { return fs.statSync(path.join(DATA, f)).size; } catch (e) { return 0; } }).reduce((a, b) => a + b, 0);
     say(`  the file:// twins together: ${(full / 1e6).toFixed(2)} MB (the owner's rule: at most ${TWINS_MAX / 1e6} MB)`);
-    if (full > TWINS_MAX) problems.push(`the four twins together are ${(full / 1e6).toFixed(2)} MB, over ${TWINS_MAX / 1e6} MB`);
+    if (full > TWINS_MAX) problems.push(`the file:// twins together are ${(full / 1e6).toFixed(2)} MB, over ${TWINS_MAX / 1e6} MB`);
     if (problems.length) { for (const m of problems) console.error("FAIL " + m); process.exit(1); }
     say("ok"); return;
   }

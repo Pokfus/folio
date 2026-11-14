@@ -84,6 +84,12 @@
         faceAnchors: (faces, near) => new Promise((res) => E.faceAnchors(faces, (rows, q) => res(q ? rows.map((r) => ({ face: r.face, vis: r.vis, km2: r.km2, clear: r.clear, v: r.anchor ? unitAt(q, r.anchor[0], r.anchor[1]) : null, pts: (r.pts || []).map((p) => ({ v: unitAt(q, p[0], p[1]), clear: p[2] })).filter((p) => p.v), piece: !!r.piece })) : []), near)),
         warColours: () => E.warColours(),
         facesOf: (id) => { let f = h.faces.get(id); if (!f) h.faces.set(id, f = E.facesOfId(id)); return f; },
+        /* THE ADMIN-1 SLOT (2026-11-14; docs/atlas-v2-admin1-layer.md §3.2): an `adm1:` id the core does not carry (India's states) is a face of atlas/data/admin1.bin, which the hub loads
+           the first time a window's highlight names one (`needsAdmin1`), beside whatever history it holds — a war window and an India window share one hub. */
+        admin1FacesOf: (id) => (E.admin1FacesOf ? E.admin1FacesOf(id) : []),
+        needsAdmin1: (id) => /^adm1:/.test(String(id)) && !E.facesOfId(id).length && !!E.startAdmin1,
+        admin1Failed: () => !!(E.admin1Failed && E.admin1Failed()),
+        startAdmin1: () => { if (E.startAdmin1) E.startAdmin1(); },
         fillFacesOf: (id) => { const k = "+" + id; let f = h.faces.get(k); if (!f) h.faces.set(k, f = E.facesOfId(id, true)); return f; },   // the face and its admin-1 children: what a highlight must tint, the children being drawn over the parent
         dispose: () => dispose(h),
       };
@@ -199,14 +205,18 @@
       }
       E.setTints(tm);
     } else if (!h.canvas2d) E.setTints(null);
+    let wantAdm1 = false; const a1Tints = new Map();
     for (const hl of histYear ? [] : spec.highlights || []) {
-      const faces = [], fillFaces = []; for (const id of hl.ids || []) { for (const f of h.facesOf(id)) faces.push(f); for (const f of h.fillFacesOf(id)) fillFaces.push(f); }
-      if (!faces.length) continue;
+      const faces = [], fillFaces = [], a1 = []; for (const id of hl.ids || []) { for (const f of h.facesOf(id)) faces.push(f); for (const f of h.fillFacesOf(id)) fillFaces.push(f); if (!h.canvas2d && h.needsAdmin1(id)) { wantAdm1 = true; for (const f of h.admin1FacesOf(id)) a1.push(f); } }
       const a = hl.a == null ? 0.24 : hl.a, c = rgb01(hl.rgb || [255, 200, 40]);
+      if (a1.length) { for (const f of a1) a1Tints.set(f, [c[0], c[1], c[2], a]); groups.push({ hl, faces: [], adm1: a1 }); }   // an admin1.bin face: tinted by the slot's style table (its alpha over the land), outlined by the same mask pass
+      if (!faces.length) continue;
       const col = [land[0] + (c[0] - land[0]) * a, land[1] + (c[1] - land[1]) * a, land[2] + (c[2] - land[2]) * a];
       for (const f of fillFaces) fills.set(f, col);
       groups.push({ hl, faces: fillFaces });   // the children too: the outline's mask pass paints the faces white and a drawn-after child would blacken them
     }
+    if (wantAdm1) h.startAdmin1();
+    if (!h.canvas2d && E.setAdmin1Tints) E.setAdmin1Tints(a1Tints);
     R.highlight(fills);
     R.render(v);
     const dpr = o.dpr || Math.min(2, window.devicePixelRatio || 1), W = ctx.canvas.width, H = ctx.canvas.height;
@@ -219,7 +229,7 @@
     else if (o.rims) for (const g of groups) if (g.hl.line) drawRim(h, g, ctx, spec, dpr, o.rims, rot);
     const pr = project(rot, v.radius, v.cx, v.cy);
     h.last = { rot, radius: v.radius, cx: v.cx, cy: v.cy, kmpp: v.kmpp, level: v.level };
-    const settled = E.landSettled() && ctl.tilesSettled() && ctl.waterSettled() && (spec.year == null || (E.historyOK() && h.year === spec.year && (!spec.war || (h.frontDate == null ? null : h.frontDate) === (spec.front && spec.frontDate != null ? spec.frontDate : null))));
+    const settled = E.landSettled() && ctl.tilesSettled() && ctl.waterSettled() && (!wantAdm1 || E.admin1Settled()) && (spec.year == null || (E.historyOK() && h.year === spec.year && (!spec.war || (h.frontDate == null ? null : h.frontDate) === (spec.front && spec.frontDate != null ? spec.frontDate : null))));
     const projectV = (X, Y, Z) => [v.cx + v.radius * (rot[0] * X + rot[1] * Y + rot[2] * Z), v.cy - v.radius * (rot[3] * X + rot[4] * Y + rot[5] * Z), rot[6] * X + rot[7] * Y + rot[8] * Z];   // a point on the sphere (a unit vector) → the window's CSS px and its depth
     return { settled, landMask: (water) => landMask(h, spec, water), project: pr, projectV, radius: v.radius, cx: v.cx, cy: v.cy, kmpp: v.kmpp, level: v.level };
   }
@@ -233,13 +243,14 @@
     R.setPalette(Object.assign({}, pal, { ocean: black, land: black, coast: black, border: black, admin1: black, river: black, lake: black, lakeShore: black, rim: black, halo: black, grat: black, selected: white }));
     v.borders = false; v.admin1 = false; v.rivers = false; v.lakes = false; v.graticule = false; if (v.relief) v.relief.on = false;   // 2026-10-18: with relief in the window the hillshade lit the black land and the mask read the mountains as the shape — the mask pass draws no relief
     if (g.hist) { const tm = new Map(); for (const id of g.ids) tm.set(id, [1, 1, 1, 1]); E.setMask(tm); R.highlight(null); }   // a past year: the group's states white at full alpha, every other state black (atlas.js setMask)
-    else { const m = new Map(); for (const f of g.faces) m.set(f, white); R.highlight(m); }
+    else if (g.adm1) { R.highlight(null); E.setAdmin1Mask(new Set(g.adm1)); }   // an admin1.bin face: white through the slot's style table, every other face of the file bare (the land black under it)
+    else { const m = new Map(); for (const f of g.faces) m.set(f, white); R.highlight(m); if (E.setAdmin1Mask) E.setAdmin1Mask(new Set()); }
     R.render(v);
     let w, hh, px;   // the still renderer (no WebGL2) draws on a 2D canvas: read it back top-down; the engine's GL read-back is bottom-up
     if (gl) { w = gl.drawingBufferWidth; hh = gl.drawingBufferHeight; px = new Uint8Array(w * hh * 4); gl.readPixels(0, 0, w, hh, gl.RGBA, gl.UNSIGNED_BYTE, px); }
     else { w = h.glCanvas.width; hh = h.glCanvas.height; px = h.glCanvas.getContext("2d").getImageData(0, 0, w, hh).data; }
     // restore the hub's state for the next window
-    R.setPalette(pal); Object.assign(v, keep); if (v.relief) v.relief.on = keepRelief; if (g.hist) E.setMask(null);
+    R.setPalette(pal); Object.assign(v, keep); if (v.relief) v.relief.on = keepRelief; if (g.hist) E.setMask(null); if (E.setAdmin1Mask) E.setAdmin1Mask(null);
     // mask[y][x] = 1 where the pixel is white
     const mask = new Uint8Array(w * hh);
     for (let y = 0; y < hh; y++) { const src = (gl ? hh - 1 - y : y) * w * 4, dst = y * w; for (let x = 0; x < w; x++) mask[dst + x] = px[src + 4 * x] > 127 && px[src + 4 * x + 3] > 127 ? 1 : 0; }
@@ -269,7 +280,7 @@
      no render, no read-back, the outline exactly on the shape at any pan, pinch or turn (the points were found on the shape; at the next full frame they are found again, at the level the view then has). It has
      no glow — that follows with the full frame, within 140 ms of the last move (view(): `fastTimer`). A window that has not had a full frame yet has no rim and, as before, no outline. */
   const RIM_MAX = 5000;
-  const rimKey = (g) => (g.hl.line || "") + "|" + (g.hist ? "h:" + g.ids.join(",") : g.faces.length + ":" + g.faces[0] + ":" + g.faces[g.faces.length - 1]);
+  const rimKey = (g) => (g.hl.line || "") + "|" + (g.hist ? "h:" + g.ids.join(",") : g.adm1 ? "a:" + g.adm1.join(",") : g.faces.length + ":" + g.faces[0] + ":" + g.faces[g.faces.length - 1]);
   function rimOf(mask, w, hh, spec, v, rot) {
     let n = 0; const edge = (i) => mask[i] && !(mask[i - 1] && mask[i + 1] && mask[i - w] && mask[i + w]);
     for (let y = 1; y < hh - 1; y++) for (let x = 1, i = y * w + 1; x < w - 1; x++, i++) if (edge(i)) n++;

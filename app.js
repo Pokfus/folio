@@ -2167,12 +2167,29 @@
      stay, so reviving it is putting "challenge" back here, in `valid`, and its tile back on the home grid. */
   const DAILY_GAMES = ["chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "whatlang"];   // What language? (2026-11-09) is the tenth in play again
   const DORMANT_GAMES = ["picture", "challenge"];
+  /* ---------- THE GAMES ARCHIVE (Nov 2026, on request: admins may play any past day's draw) ----------
+     Every daily draw is a pure function of a "YYYY-MM-DD" key, so replaying a past day is a matter of
+     handing the draws a different key. `GAME_DAY` is that key while an archived day is being played
+     (`PAGES.gamearchive`, an ADMIN_ROUTE) and null otherwise; `gameDayStr()` is what every draw seeds on.
+     THE ARCHIVE IS A SANDBOX: while `GAME_DAY` is set, `markGamePlayed`, `setGameProgress`, Timeline's
+     `S.chrono`, the crossword's letters and Find it's discoveries write nothing, `gameProgress` resumes
+     nothing and `gameLockedToday` locks nothing — so no daily record, streak, chest, badge, `gameLog` or
+     pooled counter can move. `route` clears it on the way to any other page. The draw replays TODAY'S
+     pools on the past seed, so a day whose pool has since changed deals what that day would deal now. */
+  let GAME_DAY = null;
+  function gameDayStr() { return GAME_DAY || todayStr(); }
+  function gameArchiveOn() { return !!GAME_DAY; }
+  // is the page on screen this game, played today or from the archive (a lazy load re-enters only if so)
+  function gameRouteIs(key) { return current.name === key || (current.name === "gamearchive" && current.params.game === key); }
+  // the results screen's "fresh set tomorrow" line, which is not true of an archived day
+  function gameNextLine(s) { return GAME_DAY ? "Archive — not recorded." : s; }
   /* `opts.progress` marks a game played IN INSTALMENTS rather than in one sitting — the crossword, which
      stays open all day until it is solved and writes its score up as each entry falls. Such a game calls
      this many times a day, so the lifetime tally has to count ONE play for the day and ONE win however
      often the score rises; without that a nine-entry grid would read as nine plays on the account page.
      Every other game calls this once and is untouched by the flag. */
   function markGamePlayed(key, won, score, total, opts) {
+    if (GAME_DAY) return;   // an archived day is a sandbox: nothing is recorded (see THE GAMES ARCHIVE)
     if (!S.games) S.games = {};
     const t = todayStr();
     let g = S.games[key];
@@ -7930,6 +7947,106 @@
     return activeCardIds().filter((id) => isDueNow(id) && !isSuspended(id) && !isBuried(id)).length;
   }
 
+  /* ---------- STUDY REMINDERS (Nov 2026, on request: "Remind me when reviews are due") ----------
+     THERE IS NO PUSH SERVER, and the whole design follows from that. Nothing is sent anywhere: the page
+     writes a small snapshot of its own schedule into the Cache API (`folio-reminder`, one JSON entry that
+     sw.js can read with the page closed), and sw.js decides on a `periodicsync` event — Chromium's Periodic
+     Background Sync, which fires only for an INSTALLED app and only as often as the browser's engagement
+     score allows — whether to show "N cards are due in Folio". At most once a day, only after the chosen
+     time, only if the snapshot says something is due; sw.js stamps `lastNotifiedDay` on the entry itself,
+     and remindWrite carries that stamp over rather than clobbering it.
+     The snapshot holds the due times of the next few hundred cards as well as today's count, because the
+     check runs hours after the page last wrote it and a card that falls due in between must still count.
+     Where the browser has no periodic sync (Firefox, Safari, an uninstalled tab) the page asks the worker
+     to run the same check while it is open in the background — on iOS that is the only time it can — and
+     Settings says so in a plain sentence (remindPlatform). The choice is DEVICE-LOCAL (localStorage), never
+     a PROGRESS_FIELD: a reminder belongs to the phone that shows it. */
+  const REMIND_KEY = "folio.reminder.v1";        // { on, time: "HH:MM" } on this device
+  const REMIND_CACHE = "folio-reminder";         // keep in step with REMIND in sw.js, which spares it on activate
+  const REMIND_ENTRY = "__folio/reminder.json";  // a cache key only — never a file on the server
+  const REMIND_TAG = "folio-reminder";           // the periodic-sync tag sw.js listens for
+  function remindCfg() {
+    try {
+      const o = JSON.parse(localStorage.getItem(REMIND_KEY) || "null");
+      if (o && typeof o === "object") return { on: !!o.on, time: /^\d{2}:\d{2}$/.test(o.time || "") ? o.time : "18:00" };
+    } catch (e) { /* storage blocked: reminders read as off */ }
+    return { on: false, time: "18:00" };
+  }
+  function remindCfgSet(c) { try { localStorage.setItem(REMIND_KEY, JSON.stringify({ on: !!c.on, time: c.time })); } catch (e) {} }
+  const remindHasPeriodic = () => typeof ServiceWorkerRegistration !== "undefined" && "periodicSync" in ServiceWorkerRegistration.prototype;
+  // what this browser can honestly do, as a sentence for Settings; `ok` false means no switch at all
+  function remindPlatform() {
+    if (!("Notification" in window) || !("serviceWorker" in navigator) || !("caches" in window))
+      return { ok: false, note: "This browser cannot show notifications, so Folio cannot remind you here." };
+    if (isDevOrigin())
+      return { ok: false, note: "Reminders are shown by Folio's offline worker, which does not run on a development copy of the site." };
+    const blocked = Notification.permission === "denied" ? " Notifications for this site are blocked in the browser's settings at the moment; allow them there first." : "";
+    let installed = false;
+    try { installed = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true; } catch (e) {}
+    if (remindHasPeriodic()) return { ok: true, periodic: true, note: (installed
+      ? "The browser decides when Folio may check in the background, so a reminder can come later than the time you pick, or not at all if Folio is seldom opened."
+      : "Reminders fire only once Folio is installed from this browser's menu (Install app), and the browser decides when it may check, so one can come later than the time you pick.") +
+      " The check runs on this device; nothing is sent anywhere." + blocked };
+    return { ok: true, periodic: false, note: "This browser cannot wake Folio in the background, so reminders fire only when Folio is installed in a Chromium browser such as Chrome or Edge. On an iPhone or iPad, after Add to Home Screen, Folio can remind you only while it is open. Nothing is sent anywhere." + blocked };
+  }
+  const remindEntryUrl = () => new URL(REMIND_ENTRY, location.href).href;
+  function remindSnapshot() {
+    const t = now(), times = [];
+    activeCardIds().forEach((id) => {
+      const c = S.cards[id];
+      if (!c || !c.due || !(c.status === "review" || schedIsLearning(c.status)) || isSuspended(id) || isBuried(id)) return;
+      times.push(c.due);
+    });
+    times.sort((a, b) => a - b);
+    const later = times.filter((x) => x > t);
+    return { dueCount: times.length - later.length, nextDueAt: later[0] || null, dueTimes: later.slice(0, 500) };
+  }
+  // write (or, with reminders off, delete) the snapshot sw.js reads; never rejects
+  async function remindWrite() {
+    if (!("caches" in window) || isDevOrigin()) return;
+    const cfg = remindCfg();
+    try {
+      if (!cfg.on) { await caches.delete(REMIND_CACHE); return; }
+      const cache = await caches.open(REMIND_CACHE);
+      let last = null;
+      const old = await cache.match(remindEntryUrl());
+      if (old) { try { last = (await old.json()).lastNotifiedDay || null; } catch (e) {} }
+      const snap = Object.assign(remindSnapshot(), { on: true, reminderTime: cfg.time, lastNotifiedDay: last, at: Date.now() });
+      await cache.put(remindEntryUrl(), new Response(JSON.stringify(snap), { headers: { "Content-Type": "application/json" } }));
+    } catch (e) { /* a full or blocked store: the reminder simply does not fire */ }
+  }
+  // register or drop the periodic sync; resolves true only when the browser accepted a registration
+  async function remindRegister(on) {
+    try {
+      const reg = navigator.serviceWorker && await navigator.serviceWorker.getRegistration();
+      if (!reg || !reg.periodicSync) return false;
+      if (!on) { await reg.periodicSync.unregister(REMIND_TAG); return false; }
+      try {
+        const p = await navigator.permissions.query({ name: "periodic-background-sync" });
+        if (p.state !== "granted") return false;    // an uninstalled tab: Chromium grants it to installed apps only
+      } catch (e) { /* no such permission name: let register() decide */ }
+      await reg.periodicSync.register(REMIND_TAG, { minInterval: 60 * 60 * 1000 });
+      return true;
+    } catch (e) { return false; }
+  }
+  // ask the worker to run its once-a-day check now (the path for browsers with no periodic sync)
+  function remindAskWorker() {
+    try {
+      const sw = navigator.serviceWorker && navigator.serviceWorker.controller;
+      if (sw) sw.postMessage({ type: "folio-reminder-check" });
+    } catch (e) {}
+  }
+  if (!isDevOrigin() && "serviceWorker" in navigator) {
+    // a notification's click lands here when Folio is already open: route home rather than reload the tab
+    try { navigator.serviceWorker.addEventListener("message", (e) => { if (e.data && e.data.type === "folio-route" && e.data.to) route(e.data.to); }); } catch (e) {}
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && remindCfg().on) remindWrite().then(remindAskWorker);
+    });
+    window.addEventListener("load", () => { if (remindCfg().on) setTimeout(() => remindWrite().then(() => remindRegister(true)), 4000); });
+    // backgrounded but alive (a phone's tab switcher, a minimised window): look again every ten minutes
+    setInterval(() => { if (document.hidden && remindCfg().on) remindWrite().then(remindAskWorker); }, 10 * 60 * 1000);
+  }
+
   /* ============================================================
      COMMUNITY DECKS — decks the user writes themselves
 
@@ -10922,6 +11039,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       page: (location.hash || "#home").slice(0, 200),
       meta: { lang: (S.settings && S.settings.lang) || "en", ua: String(navigator.userAgent || "").slice(0, 300) },
     };
+    /* A REPORT FROM A CARD'S FOOT (Nov 2026, see openCardReport) names the card, so an editor can open
+       it from the queue: `page` reads "card:<id>" and `meta.card` carries the id itself, with `meta.issue`
+       the reader's finer reason (the `kind` column's CHECK allows only the five kinds above). */
+    const card = sanitizePlain(f && f.card).slice(0, 80);
+    if (card) {
+      body.page = ("card:" + card).slice(0, 200);
+      body.meta.card = card;
+      const issue = sanitizePlain(f && f.issue).slice(0, 20);
+      if (issue) body.meta.issue = issue;
+    }
     if (supaLoggedIn()) {   // signed in → the row carries the account, and the reply address is already known
       body.author = SUPA.user.id;
       if (!body.name) body.name = (SUPA_PROFILE && (SUPA_PROFILE.name || SUPA_PROFILE.username)) || "";
@@ -11082,6 +11209,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* TIMELINE'S CLUES (Nov 2026, on request: "every answer term should have a 1 to 5 word description below it"):
        one short line per datable card saying what the term IS, read by the Timeline game alone, so never eager. */
     chronoClues: { files: ["timeline-clues.js"] },
+    /* THE DAILY GAMES' OWN POOLS (Nov 2026; docs/eager-path.md "The game pools leave the eager path"). Each is read by its own game
+       page alone (and the admin's dashboard and pool tabs, for the first two), never at boot, so none is eager any more. No `after`
+       hook: their admin overlays (`ADMIN_EDITS.truefalse`, `.whosaid`, `.whosaidOff`) are applied at READ time by the pool
+       functions, never written into the globals, so a late file has nothing to clobber. Every reader goes through `gamePoolPending`
+       or awaits the bundle; warmed at idle after boot (skipped in light mode). */
+    truefalse: { files: ["truefalse.js"] },
+    quotegame: { files: ["quotes.js"] },
+    crossword: { files: ["crossword.js"] },
+    whatyear: { files: ["whatyear.js"] },
     pie: { files: ["pie.js"] },
     whatlang: { files: ["whatlang.js"] },   // What language?'s 200 passages (2026-11-09): read by that game alone, never on the eager path   // What share?'s questions, explanations and sources (2026-10-31): read by that game alone, so never on the eager path   // How far?'s places: the gazetteer's capitals and largest cities (the Atlas page loads the same file itself)
     atlas2cards: { files: ["atlas/data/card-faces.js"] },
@@ -16141,7 +16277,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* The routes only an editor may reach. It is a LIST rather than a test on the page, because three
      things read it — the route guard, the nav's own colouring and `applyMode` — and a fourth will be
      added by somebody who has never read this. */
-  const ADMIN_ROUTES = ["admin", "warofages"];
+  const ADMIN_ROUTES = ["admin", "warofages", "gamearchive"];
   const PAGE_META = {
     home:      ["Folio — a study companion", "Spaced-repetition flashcards for history, science, art and languages, daily games and an interactive atlas."],
     search:    ["Search — Folio", "Find a card, a glossary term or a book by name, across everything Folio holds."],
@@ -16176,6 +16312,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     pie:       ["What share? — Folio", "Drag out a slice of the pie: what share of the whole is it?"],
     whatlang:  ["What language? — Folio", "Read a short passage and name the language it is written in."],
     admin:     ["Admin — Folio", "Folio's content editor."],
+    gamearchive: ["Games archive — Folio", "Play any past day of the daily games (admins only)."],
     studio:    ["Studio — Folio", "Write your own decks of flashcards and share them as a file."],
     deck:      ["Shared deck — Folio", "A deck of flashcards shared by a Folio user."],
   };
@@ -16214,11 +16351,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        else (applyMode), but a hidden tab is not a guard — the address is typeable. */
     if (ADMIN_ROUTES.indexOf(name) >= 0 && !isAdmin()) name = "home";
     if (DORMANT_GAMES.indexOf(name) >= 0) name = "home";   // a dormant game's address is typeable too (see DAILY_GAMES)
+    if (name !== "gamearchive") GAME_DAY = null;   // leaving the games archive leaves its sandbox (PAGES.gamearchive sets it again)
     /* THE FIRST SESSION ON A DECK ASKS HOW IT SHOULD BE DEALT (see PAGES.order). One choke point rather
        than a guard in `PAGES.study`, so the home page's rows, the review banner, the Collections page and
        a pasted `#study` link are all covered by the same line — and RESUME is exempt, since a reader
        coming back to a session already in progress is not starting one. */
-    if (name === "study" && params && params.scope && !params.resume) {
+    if (name === "study" && params && params.scope && !params.resume && !params.cram) {   // a cram deals its own cards (startCram)
       const ask = orderAskEntry(params.scope);
       if (ask) { name = "order"; params = { entry: ask, scope: params.scope }; }
     }
@@ -16243,6 +16381,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       : name === "card" && current.params.id ? "card/" + encodeURIComponent(current.params.id)
       : name === "u" && current.params.name ? "u/" + encodeURIComponent(current.params.name)
       : name === "sample" && current.params.id ? "sample/" + encodeURIComponent(current.params.id)
+      // #gamearchive/<YYYY-MM-DD>/<game> — an archived day being played (admins only; see PAGES.gamearchive)
+      : name === "gamearchive" && current.params.game ? "gamearchive/" + encodeURIComponent(current.params.date || "") + "/" + encodeURIComponent(current.params.game)
       /* #map/<lon>/<lat>/<zoom>/<place> — the Atlas's own address (Phase 3b): Back from a card it listed lands here, and the page reads
          the place back off the hash when it mounts, so the hash the reader came from is kept rather than cut to the bare name */
       : name === "map" && current.params.hash ? String(current.params.hash).replace(/^#/, "")
@@ -16311,7 +16451,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Ctrl+Z undoes a grade they cannot see. Written twice they would drift, and the drift is invisible. */
   /* A LIVE walkthrough step is using the page (see TOUR_STEPS), so it does not own the keyboard, and a
      hidden one is waiting behind a chest; the badge overlay does own it. */
-  const OVERLAY_SEL = ".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu, .folio-tour:not(.tour-live):not([hidden]), .artefact-pop, .chest-pop, .ach-pop";
+  const OVERLAY_SEL = ".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu, .folio-tour:not(.tour-live):not([hidden]), .artefact-pop, .chest-pop, .ach-pop, .key-sheet";
   function overlayOpen() { return !!document.querySelector(OVERLAY_SEL); }
   function swipeEnabled() {
     if (!window.matchMedia || !matchMedia("(max-width:640px)").matches) return false;
@@ -16444,6 +16584,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const old = view.firstElementChild;
     if (!old || !old.classList.contains("page")) return null;
     if (current.name === "admin" || current.name === "map" || current.name === "findit" || current.name === "howfar") return null;
+    if (current.name === "gamearchive" && (current.params.game === "findit" || current.params.game === "howfar")) return null;   // an archived Find it / How far? holds the same live canvases
     if (old.querySelector(".atlas, .atlas2")) return null;   // the Atlas (since Phase 5 the v2 page, `.atlas2`) is full-bleed and holds live canvases: no copy of it
     if (!dir && old.offsetHeight > 2600) return null;   // a very long page fading over a short one is a smear, not a transition
     if (old.querySelectorAll("*").length > 2000) return null;   // not worth cloning; that page is a list, and lists don't need a ghost
@@ -17942,6 +18083,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          decorative is that a container CAPS rather than cascades — see langCtxLimits and reviewQueue. */
       (isGroup ? "" :
         item("custom", "Custom study", "Study more or fewer new cards today — " + left + " left of " + (L.newPerDay + (deckDay(id).extra || 0))) +
+        /* CRAM (Nov 2026, on request) — a run through the deck before an exam that touches no schedule. See
+           startCram. Off the pooled review's sheet, which is every deck at once and has no exam to cram for. */
+        (isReview ? "" : item("cram", "Cram", "Run through this " + thing + " before an exam — nothing is scheduled")) +
         item("limits", "Daily limits", L.newPerDay + " new/day · " + L.maxReviews + " reviews/day") +
         /* READY BY A DATE (see openDeadline). It sits directly under Daily limits because it is the same
            figure asked for from the other end — a reader who knows the date does not know the number, and
@@ -18074,6 +18218,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           return;
         }
         if (act === "custom") { close(); openCustomStudy(id); return; }
+        if (act === "cram") { close(); startCram(id); return; }
         if (act === "limits") { close(); openDeckLimits(id); return; }
         if (act === "deadline") { close(); openDeadline(id); return; }
         if (act === "rename") {
@@ -18165,6 +18310,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      deck's new-card allowance for the day, up or down, by a number the reader types. The same amount moves
      the DAILY REVIEW's own allowance, or asking for five more cards would raise a number the banner the
      reader pressed can never reach (see bumpDeckExtra). */
+  /* ---------- CRAM (Nov 2026, on request) ----------
+     A pre-exam run through one entry's cards that leaves the schedule exactly as it found it. The cards are
+     the ones the reader has already studied in this entry, shuffled — or, where none has been studied yet,
+     every card it has — dealt through the ordinary study page with `params.cram` set. There a grade writes
+     NOTHING: not `grade()` (S.cards, the review log, the per-review row, the streak, the new-card allowance,
+     and the level-ups, chests and badges it announces), not the day's study time (the ticker's
+     `studyTimeAdd`), not the reload record or the synced handoff (`persistStudy`), not the Card of the day.
+     Suspend and Undo are not offered, there being nothing to suspend from and no grade to take back.
+     Again sends the card to the back of the cram queue; any other grade takes it out of the session. */
+  function cramIds(id) {
+    const avail = availableCardIdSet();
+    const all = entryCardIds(id).filter((x) => avail.has(x) && !isSuspended(x));
+    const seen = all.filter(isSeen);
+    return shuffle((seen.length ? seen : all).slice());
+  }
+  function startCram(id) {
+    const ids = cramIds(id);
+    if (!ids.length) { toast("There are no cards to cram in this " + entryNoun(id) + "."); return; }
+    route("study", { scope: entryScope(id), cram: { entry: id, queue: ids } });
+  }
   function openCustomStudy(id) {
     const info = entryInfo(id);
     const html =
@@ -25557,6 +25722,54 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function previewable(c) {
     return !!(c && c.question) && c.artwork !== true && c.flagCard !== true && c.drawCard !== true && !cardMapSpec(c) && !cardLocatorFront(c);
   }
+  /* THE WEEK AHEAD, AT THE FOOT OF THE DAILY-REVIEW BANNER (Nov 2026, on request: design B of the forecast
+     mock-ups). Seven chips — today, then the next six days — so the week's load is seen on every visit
+     without opening the statistics. TODAY is the banner's own count (what is waiting now, new cards
+     included), so the strip never disagrees with the title above it; every later day is `dueForecast`'s
+     bucket, the reviews falling due that day (new cards are not dealt in advance, so they are not counted).
+     One sentence names the heaviest day only when it clearly stands out — the single largest of the six
+     later days, at least 20 cards and at least half again the week's median — so a flat week says nothing.
+     The whole strip is one button to the full forecast under Account → Review statistics (signed in; signed
+     out there are no statistics to open, so it is plain information). Nothing is stored. Hidden with no decks in the review, or when the whole week is empty. */
+  function rvWeekHTML(todayN, hasDecks) {
+    if (!hasDecks) return "";
+    const fc = dueForecast(S, 7);
+    const n = fc.buckets.slice(); n[0] = todayN;
+    if (!n.some((x) => x > 0)) return "";
+    const base = new Date(dayEndTs() - 1);
+    const dayOf = (i) => new Date(base.getTime() + i * DAY);
+    const later = n.slice(1), peak = Math.max(...later);
+    const sorted = n.slice().sort((a, b) => a - b), median = sorted[3];
+    const heavy = peak >= 20 && peak >= median * 1.5 && later.filter((x) => x === peak).length === 1 ? later.indexOf(peak) + 1 : -1;
+    const chips = n.map((v, i) => {
+      const d = dayOf(i);
+      const lbl = i === 0 ? "Today" : d.toLocaleDateString(undefined, { weekday: "short" });
+      const full = i === 0 ? "Today" : d.toLocaleDateString(undefined, { weekday: "long", month: "short", day: "numeric" });
+      return '<span class="rvw-day' + (i === heavy ? " rvw-heavy" : "") + (v ? "" : " rvw-zero") + '" title="' + esc(full + ": " + v + (v === 1 ? " card" : " cards")) + '">' +
+        "<em>" + esc(lbl) + "</em><b>" + v + "</b></span>";
+    }).join("");
+    const note = heavy > 0
+      ? '<span class="rvw-note">' + esc(dayOf(heavy).toLocaleDateString(undefined, { weekday: "long" })) + " is your heavy day: " + peak + " cards.</span>"
+      : "";
+    const label = "The week ahead: " + n.join(", ") + " cards";
+    // signed out, the account page has no statistics to open, so the strip is information and not a link
+    if (!supaLoggedIn()) return '<div class="rv-week rvw-static" role="group" aria-label="' + esc(label) + '"><span class="rvw-days">' + chips + "</span>" + note + "</div>";
+    return '<button type="button" class="rv-week" data-rvweek aria-label="' + esc(label + ". Open the full forecast") + '">' +
+      '<span class="rvw-days">' + chips + "</span>" + note + "</button>";
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target && e.target.closest && e.target.closest("[data-rvweek]");
+    if (!b) return;
+    e.stopPropagation();
+    route("account");
+    let tries = 0;   // the account page paints after the route's transition; find the section once it is there
+    (function seek() {
+      const el = document.querySelector("#reviewStats .rs-fc, #reviewStats");
+      if (el && el.offsetParent) { el.scrollIntoView({ block: "start", behavior: prefersReducedMotion() ? "auto" : "smooth" }); return; }
+      if (++tries < 40) setTimeout(seek, 50);
+    })();
+  });
+
   function reviewPreviewHTML(ids) {
     const pick = [];
     for (const id of ids) { const c = CARD_BY_ID[id]; if (previewable(c)) pick.push(c); if (pick.length === 3) break; }
@@ -27388,6 +27601,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                     screen's "Continue with" carries the reader on to the next. */""}
             </div>
             </div>
+            ${rvWeekHTML(pileN, activeIds.length)}
             ${/* "+ New group" stood here, inside the banner, until Aug 2026 and is now under the LAST deck
                   row instead (see `newGroupTools` below) — beside the list it acts on rather than inside the
                   block above it. Being out of the banner it is also an ordinary <button> again, where a
@@ -27544,6 +27758,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <section class="games-sec">
           <div class="games-top"><h2 class="games-head">Minigames</h2>${sweepRowHTML()}</div>
           ${gameGrid}
+          ${/* ADMIN ONLY (Nov 2026): the way into the games archive, which plays past days and records nothing (PAGES.gamearchive) */""}
+          ${isAdmin() ? '<a class="games-archive-link" href="#gamearchive">Games archive <span>— play a past day, not recorded</span></a>' : ""}
         </section>
         <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}${homeTermHTML()}</div>
         <footer class="home-foot">${aboutLink}<button class="home-about" id="b-changelog" type="button">Changelog</button><button class="home-about" id="b-credits" type="button">Credits</button>${versionLineHTML()}</footer>
@@ -27636,7 +27852,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { const ab = root.querySelector("#b-about"); if (ab) ab.addEventListener("click", () => route("mission")); }
     { const rf = root.querySelector("#b-refresh"); if (rf) rf.addEventListener("click", async () => {
       rf.disabled = true; rf.classList.add("spin");
-      try { if (window.caches && caches.keys) { const ks = await caches.keys(); await Promise.all(ks.filter((k) => /^folio-/.test(k)).map((k) => caches.delete(k))); } } catch (e) { /* no Cache API: the reload below still asks the network */ }
+      try { if (window.caches && caches.keys) { const ks = await caches.keys(); await Promise.all(ks.filter((k) => /^folio-/.test(k) && k !== OFFLINE_CACHE && k !== REMIND_CACHE).map((k) => caches.delete(k))); } } /* a saved collection and the reminder snapshot are the reader's choices, not stale copies: kept */ catch (e) { /* no Cache API: the reload below still asks the network */ }
       try { if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) { const rs = await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map((r) => r.unregister())); } } catch (e) { /* none registered (a dev origin) */ }
       location.reload();
     }); }
@@ -30074,6 +30290,171 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     });
     if (changed) save();
   }
+  /* ---------- AVAILABLE OFFLINE, PER COLLECTION (Nov 2026, on request) ----------
+     sw.js keeps what a reader has already opened, and that is not the same as being able to STUDY a
+     collection on a train: a card back needs the collection's heavy half (data-extra/<prefix>.js — one per
+     prefix, so Flags is two files), a glossary link on that back opens a definition from glossary-extra.js,
+     and the app itself must be there. The switch on a collection's info sheet saves all of it, plus any
+     card picture the heavy half names on this site's own origin (today none: every picture is on
+     Wikimedia or another host, and an opaque cross-origin copy would be a guess at a licence and a size).
+     The card windows' maps are NOT saved — the Atlas data is tens of megabytes; one visit to the Atlas
+     already caches what it drew.
+     ITS OWN CACHE, `folio-offline`: sw.js deletes every cache but its current generation on activate, and
+     spares this one by name (OFFLINE there), so a VERSION bump does not quietly take a reader's saved
+     collections away; the stale-while-revalidate path refreshes an entry here whenever the network answers.
+     The register below is DEVICE-LOCAL (localStorage) and never a PROGRESS_FIELD: what one phone has room
+     for says nothing about another. Files shared by two saved collections (the shell, the glossary) are
+     deleted only when the last collection that needs them is switched off. The shell is read off
+     index.html itself, so a script added to the eager path is saved without anyone remembering this list. */
+  const OFFLINE_CACHE = "folio-offline";      // keep in step with OFFLINE in sw.js
+  const OFFLINE_KEY = "folio.offline.v1";     // { [collectionId]: { at, bytes, files: [url…] } }
+  let _offlineReg = null;
+  function offlineReg() {
+    if (_offlineReg) return _offlineReg;
+    try { const o = JSON.parse(localStorage.getItem(OFFLINE_KEY) || "{}"); _offlineReg = o && typeof o === "object" && !Array.isArray(o) ? o : {}; }
+    catch (e) { _offlineReg = {}; }
+    return _offlineReg;
+  }
+  function offlineRegWrite() { try { localStorage.setItem(OFFLINE_KEY, JSON.stringify(offlineReg())); } catch (e) {} }
+  const offlineChosen = (id) => !!offlineReg()[id];
+  const _offlineBusy = new Map();   // collection id → { done, total, bytes } while its files download
+  function offlineBlocker() {
+    if (!("caches" in window) || !("serviceWorker" in navigator)) return "This browser cannot keep a copy of Folio to use without a connection.";
+    if (isDevOrigin()) return "Offline copies are served by Folio's offline worker, which does not run on a development copy of the site.";
+    return "";
+  }
+  const offlineUrl = (p) => new URL(p, location.href).href;
+  async function offlineShellFiles() {
+    const out = ["./", "./index.html", "wikipedia-logo.png"];
+    try {
+      const html = await (await fetch("./index.html", { cache: "no-cache" })).text();
+      const re = /<(?:script|link)\b[^>]*?\b(?:src|href)="([^"#?]+)"/gi;
+      let m;
+      while ((m = re.exec(html))) if (!/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(m[1])) out.push(m[1]);
+    } catch (e) { out.push("styles.css", "data.js", "glossary.js", "app.js", "manifest.json", "icon.svg"); }
+    return [...new Set(out.map(offlineUrl))];
+  }
+  function offlineImages(ids) {
+    const out = new Set();
+    ids.forEach((id) => {
+      const c = CARD_BY_ID[id], im = c && c.image;
+      const u = typeof im === "string" ? im : im && (im.src || im.url);
+      if (!u) return;
+      try { const x = new URL(u, location.href); if (x.origin === location.origin) out.add(x.href); } catch (e) {}
+    });
+    return [...out];
+  }
+  // download and cache everything collection `c` needs; resolves true when its card backs are all saved
+  async function offlineSave(c, onStep) {
+    const ids = subtreeCardIds(c).filter((id) => !isCommunityCard(id));
+    const extras = [...new Set(ids.map(cardExtraPrefix).filter(Boolean))].map((p) => offlineUrl("data-extra/" + p + ".js"));
+    const st = { done: 0, total: 0, bytes: 0 };
+    _offlineBusy.set(c.id, st);
+    onStep();
+    try {
+      const shell = await offlineShellFiles();
+      await ensureCardExtra(ids);                    // the pictures are named in the heavy half
+      const list = [...new Set([...extras, offlineUrl("glossary-extra.js"), ...shell, ...offlineImages(ids)])];
+      st.total = list.length;
+      onStep();
+      const cache = await caches.open(OFFLINE_CACHE);
+      const kept = [];
+      let i = 0;
+      const lane = async () => {
+        while (i < list.length) {
+          const u = list[i++];
+          try {
+            const res = await fetch(u, { cache: "no-cache" });
+            if (res.ok) {
+              const size = (await res.clone().blob()).size;
+              await cache.put(u, res);
+              st.bytes += size;
+              kept.push(u);
+            }
+          } catch (e) { /* offline or refused: counted as done, judged below */ }
+          st.done++;
+          onStep();
+        }
+      };
+      await Promise.all([lane(), lane(), lane()]);
+      const ok = extras.every((u) => kept.includes(u)) && kept.includes(offlineUrl("./index.html"));
+      if (ok) { offlineReg()[c.id] = { at: Date.now(), bytes: st.bytes, files: kept }; offlineRegWrite(); }
+      else await offlineDrop(kept);
+      return ok;
+    } catch (e) { return false; }
+    finally { _offlineBusy.delete(c.id); onStep(); }
+  }
+  // delete these entries unless another saved collection still needs them
+  async function offlineDrop(urls) {
+    const still = new Set();
+    Object.values(offlineReg()).forEach((r) => ((r && r.files) || []).forEach((u) => still.add(u)));
+    try {
+      if (!Object.keys(offlineReg()).length) { await caches.delete(OFFLINE_CACHE); return; }
+      const cache = await caches.open(OFFLINE_CACHE);
+      await Promise.all(urls.filter((u) => !still.has(u)).map((u) => cache.delete(u)));
+    } catch (e) {}
+  }
+  async function offlineRemove(id) {
+    const files = (offlineReg()[id] && offlineReg()[id].files) || [];
+    delete offlineReg()[id];
+    offlineRegWrite();
+    await offlineDrop(files);
+  }
+  function offlineNoteHTML(id) {
+    const busy = _offlineBusy.get(id);
+    if (busy) {
+      const pct = busy.total ? Math.round((busy.done / busy.total) * 100) : 0;
+      return (busy.total ? "Saving… " + busy.done + " of " + busy.total + " files" + (busy.bytes ? ", " + fmtDeckSize(busy.bytes) : "") : "Getting ready…") +
+        '<span class="off-bar" aria-hidden="true"><i style="width:' + pct + '%"></i></span>';
+    }
+    const r = offlineReg()[id];
+    if (r) return '<span class="off-ok">✓ Saved on this device</span> · ' + fmtDeckSize(r.bytes || 0) + ", with the glossary and the app. Map windows still need a connection.";
+    return "Keep its cards, their backgrounds, the glossary and the app on this device, so it can be studied with no connection.";
+  }
+  function offlineRowHTML(c) {
+    const why = offlineBlocker();
+    if (why) return '<div class="dm-item ci-offline"><b>Available offline</b><small>' + esc(why) + "</small></div>";
+    const on = offlineChosen(c.id) || _offlineBusy.has(c.id);
+    return '<div class="dm-item dm-switch ci-offline" data-off-row>' +
+      '<div class="dm-switchmain"><b>Available offline</b><small data-off-note aria-live="polite">' + offlineNoteHTML(c.id) + "</small></div>" +
+      '<div class="switch' + (on ? " on" : "") + '" role="switch" tabindex="0" aria-label="Available offline" aria-checked="' + on + '"></div></div>';
+  }
+  // the small ✓ beside a saved collection's title on the Collections page
+  const offlinePillHTML = (id) => offlineChosen(id) ? '<span class="pill pill-offline" title="Saved on this device for offline study">✓ Offline</span>' : "";
+  function offlineMarkRow(id) {
+    document.querySelectorAll('.collection-row[data-libitem="' + CSS.escape(id) + '"] .collection-title-row').forEach((row) => {
+      const old = row.querySelector(".pill-offline");
+      if (old) old.remove();
+      if (offlineChosen(id)) row.querySelector(".collection-title").insertAdjacentHTML("afterend", offlinePillHTML(id));
+    });
+  }
+  function offlineWire(ov, c) {
+    const row = ov.querySelector("[data-off-row]");
+    if (!row) return;
+    const sw = row.querySelector(".switch"), note = row.querySelector("[data-off-note]");
+    const paint = () => {
+      if (!row.isConnected) return;
+      const on = offlineChosen(c.id) || _offlineBusy.has(c.id);
+      sw.classList.toggle("on", on);
+      sw.setAttribute("aria-checked", String(on));
+      row.classList.toggle("off-busy", _offlineBusy.has(c.id));
+      note.innerHTML = offlineNoteHTML(c.id);
+    };
+    const flip = async () => {
+      if (_offlineBusy.has(c.id)) return;            // one download at a time; it reports its own end
+      if (offlineChosen(c.id)) {
+        await offlineRemove(c.id);
+        paint(); offlineMarkRow(c.id);
+        toast(nodeTitle(c) + " is no longer kept offline");
+        return;
+      }
+      const ok = await offlineSave(c, paint);
+      paint(); offlineMarkRow(c.id);
+      toast(ok ? nodeTitle(c) + " can now be studied offline" : "Could not save " + nodeTitle(c) + " — check the connection and try again");
+    };
+    row.addEventListener("click", flip);
+    sw.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
+  }
   function openCollectionInfo(c) {
     const ids = subtreeCardIds(c);
     const total = ids.length, studied = ids.filter(isSeen).length, learned = ids.filter(atCriterion).length;
@@ -30101,9 +30482,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const html =
       '<div class="dm-head"><span class="dm-title">' + esc(nodeTitle(c)) + '</span><span class="dm-where">Collection</span></div>' +
       '<div class="ci-grid">' + rows.join("") + "</div>" +
-      '<p class="dm-note">Finished means every card learned. Reader counts are kept from Oct 2026, and count each reader once.</p>';
+      '<p class="dm-note">Finished means every card learned. Reader counts are kept from Oct 2026, and count each reader once.</p>' +
+      offlineRowHTML(c);   // the per-collection offline switch, see OFFLINE_CACHE
     collStatsSync(c.id);
     deckSheet("About " + nodeTitle(c), html, (ov) => {
+      offlineWire(ov, c);
       if (off) return;
       collStatsLoad(c.id).then((st) => {
         ov.querySelectorAll("[data-cs]").forEach((el) => {
@@ -30129,6 +30512,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <div class="collection-main">
             <div class="collection-title-row">
               <span class="collection-title">${esc(nodeTitle(d))}</span>
+              ${soon ? "" : offlinePillHTML(d.id)}
               ${deadlineTagHTML(d.id, "collection-span")}
               ${spanHTML}
               ${/* …AND HOW FAR THROUGH ITS PLAN IT IS (Sep 2026). The card COUNT alone cannot say whether
@@ -34289,6 +34673,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const sess = buildSession(params.scope);
     // a session picked back up after a reload — see the STUDY_KEY block for what the record holds and why
     const resume = params.resume && Array.isArray(params.resume.queue) ? params.resume : null;
+    /* A CRAM (see startCram): its own queue, carried on the params so a repaint through render() picks the
+       run up where it was rather than dealing it again. Nothing about it is scheduled or stored. */
+    const cram = !resume && params.cram && Array.isArray(params.cram.queue) ? params.cram : null;
+    /* THE SESSION SUMMARY'S TALLIES (Nov 2026, on request) — what renderComplete reports: answers given, how
+       many were Again, the active time spent on the cards answered, and the Agains per card. In memory only,
+       never in `S` or the synced blob; carried on the params for the cram queue's reason, so a repaint
+       mid-session does not zero them. A reload starts a fresh tally (its params are new). */
+    const tally = params._tally || (params._tally = { n: 0, again: 0, ms: 0, cards: {}, misses: {} });
     /* EVERY SESSION GOES BACK TO THE HOME PAGE (Aug 2026, on request: "once completing daily studies for a
        deck, the button should lead back to the home page, not the collections page"). It used to depend on
        the scope — the review, the Card of the day and a group returned home while a DECK returned to the
@@ -34311,7 +34703,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        use. The home page warms the day's review at idle, so in ordinary use this is already true and the
        placard is never seen; it is what a deep link, a cold start or a deck tapped straight from its row
        falls back on. */
-    const sessIds = (resume ? resume.queue : []).concat(sess.queue);
+    const sessIds = (resume ? resume.queue : []).concat(cram ? cram.queue : sess.queue);
     if (!uWarmed(sessIds)) {
       root.innerHTML = '<div class="page-head"><span class="eyebrow">' + t("Study") + '</span><h1>' + esc(sess.where || "") + "</h1></div>" +
         '<div class="data-loading">' + t("Loading these cards…") + "</div>";
@@ -34342,7 +34734,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return;
     }
 
-    let queue = sess.queue.slice();
+    let queue = cram ? cram.queue.slice() : sess.queue.slice();
     let studiedThisSession = 0;
     let revealed = false;
     /* When the card on screen had its question painted, which is what makes the per-review log's duration a
@@ -34430,7 +34822,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        clock. */
     if (!resume && params && params.box > 0 && BOX_CHOICES.includes(params.box)) { boxMs = params.box * 60000; boxFrom = Date.now(); }
     function persistStudy() {
-      const rec = { scope: params.scope, queue: queue.slice(), id: queue[0] || null, qi: qIdx, rev: revealed, studied: studiedThisSession, box: boxMs, boxFrom: boxFrom };
+      // a cram keeps its place on the params only: no reload record, and above all no synced handoff
+      if (cram) { cram.queue = queue.slice(); return; }
+      const rec ={ scope: params.scope, queue: queue.slice(), id: queue[0] || null, qi: qIdx, rev: revealed, studied: studiedThisSession, box: boxMs, boxFrom: boxFrom };
       writeStudySession(rec);
       /* …and the SYNCED half (see S.handoff). Written here rather than on a timer so the two records can
          never say different things, and NOT saved from here: persistStudy runs on every render, and a
@@ -34456,7 +34850,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // every rule it keeps. "Alive" here is a card actually painted: the completion screen and the
     // caught-up placard are not studying.
     startTimeTicker(root, () => !!root.querySelector(".study-card"), (ms) => {
-      studyTimeAdd(ms);
+      if (!cram) studyTimeAdd(ms);   // a cram is not the day's study (see startCram); the card's own share below still feeds the summary
       // the share of this tick that belongs to the card on screen (a tick can straddle the moment it was painted)
       const now = Date.now(); if (shownAt) cardActiveMs += Math.max(0, Math.min(ms, now - Math.max(cardTickAt, shownAt))); cardTickAt = now;
     });
@@ -34506,6 +34900,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         intro: S.intro ? Object.assign({}, S.intro) : null,
         streak: S.streak ? Object.assign({}, S.streak) : null,
         studied: studiedThisSession,
+        // …and the summary's tallies, so an undone answer is not counted in it either
+        tally: JSON.parse(JSON.stringify(tally)),
         /* WHICH PHRASING WAS ON SCREEN. A card carries up to three ways of asking the same thing and
            `renderCard` picks one at random when `qIdx` is null, so an undo that did not record it would
            bring the card back asking something else — which reads as the undo having fetched a different
@@ -34559,6 +34955,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (s.streak) S.streak = s.streak;
       queue = s.queue;
       studiedThisSession = s.studied;
+      if (s.tally) Object.assign(tally, s.tally);
       save();
       /* IT COMES BACK AT ITS QUESTION, NOT AT ITS ANSWER (Aug 2026, on request). It used to be restored
          REVEALED, on the grade row it was mis-answered on, which is the fastest way to re-grade and the
@@ -34572,7 +34969,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       toast("Grade undone — here is the question again.");
     }
 
-    if (queue.length === 0) {
+    if (queue.length === 0 && !cram) {   // a cram run to its end repaints as its summary (renderCard → renderComplete)
       /* Nothing due and no new allowance left — offer to study ahead, or report all caught up.
 
          THE AHEAD PILE IS THE ENTRY'S, NOT THE WHOLE DECK'S, AND IT IS ORDERED (Aug 2026, on a bug
@@ -34769,7 +35166,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       root.innerHTML = `
         <div class="study-shell">
           <div class="study-bar">
-            <button class="backbtn" id="exit"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Home</button>
+            <button class="backbtn" id="exit"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> ${cram ? "End cram" : "Home"}</button>
+            ${cram ? '<span class="cram-badge" title="Grades here change no schedule, streak or study time">Cram — not scheduled</span>' : ""}
             ${canUndo() ? '<button class="backbtn undobtn" id="undoGrade" title="${esc(undoLabel())} (Ctrl+Z)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg> Undo</button>' : ""}
             ${/* Card info — Anki's `I`, and deliberately in the study BAR rather than in the grade bar. The
                   grade bar's phone layout is a fixed three-cell row under the grades ("help undo suspend"),
@@ -35171,23 +35569,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           ttsSay(seq);
         }
 
-        const p = preview(id);
+        /* In a cram the intervals would be a promise the grade does not keep — nothing is scheduled — so each
+           button says what it does to THIS run instead (see startCram). */
+        const p = cram ? { again: 0, hard: 0, good: 0, easy: 0 } : preview(id);
+        const gi = (k) => cram ? (k === "again" ? "Again soon" : "Done") : fmtInterval(p[k]);
         actions.innerHTML = "";
         showGradeBar(
           `<div class="grade-wrap">
-            <button class="grade-help" type="button" aria-label="What do these buttons do?">?<span class="grade-help-bubble"><span class="ghb-title">How well did you recall it?</span>${gradeExplainHTML(id, p)}<span class="ghb-row"><b>Again</b>Forgot it — the card returns within minutes.</span><span class="ghb-row"><b>Hard</b>Recalled with effort — scheduled sooner than usual.</span><span class="ghb-row"><b>Good</b>Recalled correctly — the interval grows normally.</span><span class="ghb-row"><b>Easy</b>Knew it instantly — the interval grows the most.</span><span class="ghb-row"><b>Suspend</b>Not interested — the card won’t be shown again.</span><span class="ghb-keys">On a keyboard: <kbd>Space</kbd> reveals, <kbd>1</kbd>–<kbd>4</kbd> grade, <kbd>Enter</kbd> is Good, <kbd>I</kbd> shows this card's history, and <kbd>Ctrl</kbd>+<kbd>Z</kbd> takes the last grade back.</span></span></button>
+            <button class="grade-help" type="button" aria-label="What do these buttons do?">?<span class="grade-help-bubble"><span class="ghb-title">How well did you recall it?</span>${cram ? '<span class="ghb-row"><b>Cram</b>Nothing is scheduled: Again brings the card back later in this run, and any other grade takes it out.</span>' : gradeExplainHTML(id, p)}<span class="ghb-row"><b>Again</b>Forgot it — the card returns within minutes.</span><span class="ghb-row"><b>Hard</b>Recalled with effort — scheduled sooner than usual.</span><span class="ghb-row"><b>Good</b>Recalled correctly — the interval grows normally.</span><span class="ghb-row"><b>Easy</b>Knew it instantly — the interval grows the most.</span><span class="ghb-row"><b>Suspend</b>Not interested — the card won’t be shown again.</span><span class="ghb-keys">On a keyboard: <kbd>Space</kbd> reveals, <kbd>1</kbd>–<kbd>4</kbd> grade, <kbd>Enter</kbd> is Good, <kbd>I</kbd> shows this card's history, and <kbd>Ctrl</kbd>+<kbd>Z</kbd> takes the last grade back.</span></span></button>
             <div class="grades">
-              <button class="grade again" data-g="again"><span class="gl">Again</span><span class="gi">${fmtInterval(p.again)}</span><span class="gk">1</span></button>
-              <button class="grade hard" data-g="hard"><span class="gl">Hard</span><span class="gi">${fmtInterval(p.hard)}</span><span class="gk">2</span></button>
-              <button class="grade good" data-g="good"><span class="gl">Good</span><span class="gi">${fmtInterval(p.good)}</span><span class="gk">3</span></button>
-              <button class="grade easy" data-g="easy"><span class="gl">Easy</span><span class="gi">${fmtInterval(p.easy)}</span><span class="gk">4</span></button>
+              <button class="grade again" data-g="again"><span class="gl">Again</span><span class="gi">${gi("again")}</span><span class="gk">1</span></button>
+              <button class="grade hard" data-g="hard"><span class="gl">Hard</span><span class="gi">${gi("hard")}</span><span class="gk">2</span></button>
+              <button class="grade good" data-g="good"><span class="gl">Good</span><span class="gi">${gi("good")}</span><span class="gk">3</span></button>
+              <button class="grade easy" data-g="easy"><span class="gl">Easy</span><span class="gi">${gi("easy")}</span><span class="gk">4</span></button>
             </div>
             ${/* the phone's copy of Undo: the study bar is a scroll above a card that runs several screens,
                   so on a phone the one way back from a misclicked grade was off screen at the moment it was
                   wanted. CSS shows this only below 640px and hides the study bar's copy while the grade bar
                   is up, so no card ever carries two. */""}
             ${canUndo() ? '<button class="gb-undo" id="undoGradeBar" type="button" title="' + esc(undoLabel()) + ' (Ctrl+Z)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg>Undo</button>' : ""}
-            <button class="suspendbtn gradebar-suspend" id="suspendBtn" type="button" aria-label="Suspend this card so it won't appear again"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="5" width="4" height="14" rx="1.5"/><rect x="14" y="5" width="4" height="14" rx="1.5"/></svg>Suspend card</button>
+            ${cram ? "" : '<button class="suspendbtn gradebar-suspend" id="suspendBtn" type="button" aria-label="Suspend this card so it won\'t appear again"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="5" width="4" height="14" rx="1.5"/><rect x="14" y="5" width="4" height="14" rx="1.5"/></svg>Suspend card</button>'}
           </div>`,
           (g) => doGrade(g)
         );
@@ -35205,12 +35606,35 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         tourNotify("reveal");   // the walkthrough's "Your first card" step waits for exactly this
       }
 
+      // the summary's tallies for one answer (see `tally`) — the active time is the card's, as logReview counts it
+      function tallyGrade(g) {
+        tally.n++;
+        tally.ms += cardActiveNow();
+        tally.cards[id] = 1;
+        if (g === "again") { tally.again++; tally.misses[id] = (tally.misses[id] || 0) + 1; }
+      }
       function doGrade(g) {
+        /* A CRAM GRADE WRITES NOTHING (see startCram). It returns before the undo snapshot, before grade()
+           and before the Card of the day, so the only things that move are this closure's queue and the
+           summary's in-memory tallies. Again goes to the back of the run; anything else takes the card out. */
+        if (cram) {
+          tallyGrade(g);
+          studiedThisSession++;
+          queue.shift();
+          if (g === "again") queue.push(id);
+          studyRevealId = null;
+          qIdx = null;
+          if (boxSpent()) { tourNotify("graded"); return renderComplete({ timeUp: true }); }
+          renderCard();
+          tourNotify("graded");
+          return;
+        }
         // snapshot BEFORE anything is written, and before the queue is shifted — the queue is half of what
         // an undo has to restore, since a learning step is requeued and a graduated card is not
         const snap = undoSnapshot(id);
         undoStack.push(snap);
         if (undoStack.length > UNDO_CAP) undoStack.shift();
+        tallyGrade(g);   // after the snapshot, so an undo takes this answer out of the summary too
         const wasSeen = isSeen(id);
         /* How long this card took, measured from the moment its question was painted (`shownAt`). It is the
            reader's own thinking time, so a card revealed and left for lunch is CAPPED rather than counted —
@@ -35333,13 +35757,39 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (studyRevealId === id) showAnswer();
     }
 
+    /* THE SESSION SUMMARY (Nov 2026, on request), on the completion screen of every session and every cram:
+       the cards answered, the share NOT answered Again, the active time on them, and up to three cards with
+       the most Agains, each a link to its own read-only page. Drawn from `tally` alone, so nothing is
+       stored; a session that answered nothing (every card suspended, say) gets no summary. */
+    function sessionSummaryHTML() {
+      if (!tally.n) return "";
+      const cards = Object.keys(tally.cards).length;
+      const acc = Math.round(100 * (tally.n - tally.again) / tally.n);
+      const hard = Object.keys(tally.misses)
+        .sort((a, b) => tally.misses[b] - tally.misses[a])
+        .slice(0, 3);
+      const stat = (v, k) => '<div class="ss-stat"><b>' + esc(String(v)) + "</b><span>" + esc(k) + "</span></div>";
+      return '<div class="session-summary" aria-label="Session summary">' +
+        '<div class="ss-stats">' +
+          stat(cards, cards === 1 ? "card reviewed" : "cards reviewed") +
+          stat(acc + "%", "accuracy") +
+          stat(fmtStudyTime(tally.ms), "time spent") +
+        "</div>" +
+        (hard.length
+          ? '<div class="ss-hard"><span class="ss-hard-label">Hardest this session</span><ol>' +
+              hard.map((cid) => '<li><a href="#card/' + encodeURIComponent(cid) + '" data-card="' + esc(cid) + '">' +
+                esc(cardTitle(cid, 60) || cid) + '</a><span class="ss-miss">' + tally.misses[cid] + " × Again</span></li>").join("") +
+            "</ol></div>"
+          : '<p class="ss-clean">No card needed an Again.</p>') +
+        "</div>";
+    }
+
     function renderComplete(how) {
       detachKeys();
       // the session is over — a reload from here starts a fresh one rather than resurrecting an empty queue,
       // and no other device should be offered one either
-      clearStudySession();
-      clearHandoff();
-      save();
+      // …except a cram, which wrote neither record and must not clear another device's handoff (see startCram)
+      if (!cram) { clearStudySession(); clearHandoff(); save(); }
       hideGradeBar();
       hideWBTools();
       root.innerHTML = "";
@@ -35347,14 +35797,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       card.className = "placard";
       card.innerHTML = `
         <div class="big">${how && how.timeUp ? "⏱" : "✓"}</div>
-        <h2>${how && how.timeUp ? "Time's up" : "Session complete"}</h2>
-        <p>You worked through ${studiedThisSession} card${studiedThisSession === 1 ? "" : "s"}${how && how.timeUp ? " in " + Math.round(boxMs / 60000) + " minutes" : ""}. Your progress is saved.</p>
+        <h2>${how && how.timeUp ? "Time's up" : cram ? "Cram complete" : "Session complete"}</h2>
+        <p>You worked through ${studiedThisSession} card${studiedThisSession === 1 ? "" : "s"}${how && how.timeUp ? " in " + Math.round(boxMs / 60000) + " minutes" : ""}.${cram ? " Nothing was scheduled — your reviews are where they were." : " Your progress is saved."}</p>
+        ${sessionSummaryHTML()}
         ${/* THREE EQUAL BUTTONS ON ONE LINE (Oct 2026, on request: "these three should be formatted more
               neatly"). They were a wrapping flex row, which on most widths put two on one line and the
               third alone under them. `.sc-actions` is a grid of equal columns, however many of the three
               are drawn, stacking to one column on a phone. */""}
         <div class="row sc-actions">
-          <button class="btn" id="more">Keep studying</button>
+          <button class="btn" id="more">${cram ? "Cram again" : "Keep studying"}</button>
           ${canUndo() ? '<button class="btn ghost" id="undoLast" title="${esc(undoLabel())}">Undo the last card</button>' : ""}
           <button class="btn ghost" id="home">Back home</button>
         </div>`;
@@ -35368,7 +35819,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          which walks the rows the home page is showing and skips anything folded away, finished for the
          day, or with no work left in it. EVERY SUCH ROW IS DRAWN, not the next alone (Oct 2026, on
          request), stacked in the list's order from the row after this one. */
-      const nextRows = nextStudyRows(scopeEntryId(params.scope));
+      const nextRows = cram ? [] : nextStudyRows(scopeEntryId(params.scope));   // a cram is a detour, not a step down the list
       if (nextRows.length) {
         const nx = document.createElement("div");
         nx.className = "sc-next";
@@ -35389,7 +35840,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       /* Keep studying after a spent box would otherwise end on the very first card, the clock having run
          out before the button was pressed: the box is dropped rather than restarted, since a reader who
          asked for ten minutes and then asked for more has plainly stopped counting. */
-      card.querySelector("#more").addEventListener("click", () => { boxMs = 0; boxFrom = 0; route("study", Object.assign({}, params, { box: 0 })); });
+      // (a fresh object without `_tally`, so the next session is summarised on its own; a cram deals again)
+      card.querySelector("#more").addEventListener("click", () => {
+        boxMs = 0; boxFrom = 0;
+        if (cram) { startCram(cram.entry); return; }
+        const next = Object.assign({}, params, { box: 0 });
+        delete next._tally;
+        route("study", next);
+      });
+      // the summary's hardest cards open at their own address, which is read-only (see PAGES.card)
+      card.querySelectorAll(".ss-hard a[data-card]").forEach((a) => a.addEventListener("click", (e) => {
+        e.preventDefault();
+        route("card", { id: a.dataset.card });
+      }));
       // the scope a row is tapped with on the home page, which is the one place that decides what a row
       // means: a community deck, a subdeck and a direction all ride in on the same entry id
       card.querySelectorAll(".sc-next [data-review]").forEach((nb) => {
@@ -36465,6 +36928,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     world: { what: "country", plural: "countries", points: "WORLD_CAPITALS", dotWhat: "capital city" },
     "china-provinces": { what: "province", plural: "provinces", points: "CHINA_CAPITALS", dotWhat: "city" },
     "russia-subjects": { what: "federal subject", plural: "federal subjects", points: "RUSSIA_CENTRES", dotWhat: "city" },
+    /* "india-states" (2026-11-14): India's 28 states and 8 union territories, which the core does not carry — their faces are the lazy atlas/data/admin1.bin (docs/atlas-v2-admin1-layer.md),
+       loaded by the hub the first time a window names one; `what` is the deck's whole question shape ("the state or union territory shaded on the map", docs/india-geography-card-plan.md). */
+    "india-states": { what: "state or union territory", plural: "states and union territories", points: "INDIA_CAPITALS", dotWhat: "city" },
   };
   /* THE CEILING IS WHAT THE POLYGONS SUPPORT, and it is worth stating because the temptation is to set it
      by what a state needs. us-states.js is stored at 3dp, so every vertex sits on a 0.001° grid; at zoom Z
@@ -36745,6 +37211,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         return { title: plain(c.answerText) || plain(c.answer) || plain(c.question) || id, collId: root0 ? root0.id : "", coll: root0 ? nodeTitle(root0) : "", deck: leaf ? nodeTitle(leaf) : "", due: !!isDueNow(id) };
       },
       cardHref: (id) => "#card/" + id,
+      // the Atlas's "Play your cards in order" (2026-11): the year a card stands at — its timeline's {at} or {from} where it has one, else the sort year
+      // of its date line (chronoYear, which honours the editor's chronology override); null for an undatable or timeless card, which the playback leaves out
+      cardYear: (id) => {
+        const c = CARD_BY_ID[id]; if (!c || cardUndatable(c)) return null;
+        const tl = cardTimelineField(c), p = tl ? tlParse(tl.at != null ? tl.at : tl.from) : null;
+        return p ? p.y : chronoYear(c);
+      },
       // "New discovery" on a place card (Phase 3c): the existing `placesSeen` register v1's Atlas panels write — read, and written on first sight
       // exactly as `showCountryPopupName` does (markSeen), without v1's sound or achievements check. No new field; the blob's shape is unchanged.
       seenPlace: (name) => !!(S.placesSeen && (S.placesSeen[name] || S.placesSeen[atlasCountryV1(name)] || S.placesSeen[atlasCountryV2(name)])),
@@ -36757,7 +37230,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function atlas2Ctx() {
     return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARDS, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, TINT_LATE, TINT_THIRD, GAME_MAX_DIFFICULTY,
       cardCollectionRoot, cardLocator, cardMapSpec, cardSpanYears, cardWar, cardWarYears, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon,
-      availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, esc, hashStr, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, todayStr, unitSystem, gameProgress, setGameProgress };
+      availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, esc, hashStr, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, unitSystem, gameProgress, setGameProgress,
+      todayStr: gameDayStr, gameArchiveOn, gameShareHTML, gameNextLine };   // the games' draws seed on the archive's day while one is played (THE GAMES ARCHIVE); nothing else in the lazy file reads the date
   }
   PAGES.findit2 = function (root) {
     root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s five places</strong></div>';
@@ -38486,7 +38960,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        citations and the fold is not the template's to reinvent. The successive-relearning row used to be
        appended here too; it now lives in the study card's HEADER (see critPipsHTML), which serves a typed
        card and a curated one alike and needs no branch of its own. */
-    if (typed != null) return typed + sourcesHTML(cardSources(c));
+    if (typed != null) return typed + sourcesHTML(cardSources(c)) + cardReportHTML(c);
     let html = "";
     if (c.answer) {
       html += '<div class="answer"><div class="answer-main"><span class="label">Answer' + ttsPlayHTML("answer", true, c) + "</span>";
@@ -38585,8 +39059,72 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     html += learnMoreHTML(c);
     // …and under even that, for an admin only, the card's id (cardAdminIdHTML)
     html += cardAdminIdHTML(c);
+    // …and the very last thing, in the bottom right corner: "Report a problem" (cardReportHTML)
+    html += cardReportHTML(c);
     return html;
   }
+  /* REPORT A PROBLEM (Nov 2026, on request: a button at the VERY BOTTOM RIGHT of every card). A small
+     flag-and-word link under everything else on the answer side, which opens a sheet that sends the
+     report through the reader-feedback system the About page already uses (feedbackSend → the `feedback`
+     table → Admin → Feedback) — no table of its own. The row names the card (`page` "card:<id>",
+     `meta.card`), and the queue turns that into a link to #card/<id>. The four reasons a reader is offered
+     map onto the table's existing kinds, since its CHECK constraint admits no new one; the reader's own
+     choice rides in `meta.issue`. Never on a community card: those are the reader's or another reader's
+     own content, not Folio's, and the editors cannot correct them. */
+  const CARD_REPORT_KINDS = [
+    ["fact", "A fact looks wrong", "correction"],
+    ["typo", "A typo", "correction"],
+    ["broken", "Broken image or link", "bug"],
+    ["other", "Something else", "other"],
+  ];
+  function cardReportHTML(c) {
+    if (!c || !c.id || isCommunityCard(c.id)) return "";
+    return '<div class="card-report-row"><button type="button" class="card-report" data-report="' + esc(c.id) + '" aria-label="Report a problem with this card" title="Report a problem with this card">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/></svg><span>Report</span></button></div>';
+  }
+  function openCardReport(id) {
+    const title = cardTitle(id, 60) || id;
+    const html =
+      '<div class="dm-head"><span class="dm-title">Report a problem</span><span class="dm-where">' + esc(title) + "</span></div>" +
+      '<label class="dm-field dm-fieldcol"><span>What is wrong?</span>' +
+      '<select class="af-input" id="crKind">' + CARD_REPORT_KINDS.map(([v, l]) => '<option value="' + v + '">' + esc(l) + "</option>").join("") + "</select></label>" +
+      '<label class="dm-field dm-fieldcol"><span>Details</span>' +
+      '<textarea class="af-input cr-msg" id="crMsg" data-dmfocus rows="4" maxlength="' + FEEDBACK_MAX + '" placeholder="What does the card say, and what should it say? A source helps if you have one."></textarea></label>' +
+      (supaLoggedIn() ? "" : '<label class="dm-field dm-fieldcol"><span>Email <small>optional — only if you would like a reply</small></span>' +
+        '<input class="af-input" id="crEmail" type="email" maxlength="160" autocomplete="email"></label>') +
+      '<p class="dm-note">Sent to the editors with the card’s id, your site language and your browser version.</p>' +
+      '<div class="cr-status" id="crStatus" role="status"></div>' +
+      '<div class="dm-actions"><button type="button" class="btn" data-act="ok">Send</button>' +
+      '<button type="button" class="btn ghost" data-act="close">Cancel</button></div>';
+    deckSheet("Report a problem", html, (ov, close) => {
+      ov.classList.add("cr-sheet");
+      // keys typed in the sheet are the reader's, never the study session's shortcuts underneath
+      ov.addEventListener("keydown", (e) => { if (e.key !== "Escape") e.stopPropagation(); });
+      const msg = ov.querySelector("#crMsg"), out = ov.querySelector("#crStatus"), btn = ov.querySelector('[data-act="ok"]');
+      const say = (t, ok) => { out.textContent = t; out.classList.toggle("ok", !!ok); out.classList.toggle("bad", !ok); };
+      btn.addEventListener("click", async () => {
+        if (!msg.value.trim()) { say("Write a few words about the problem first.", false); msg.focus(); return; }
+        const k = CARD_REPORT_KINDS.find((x) => x[0] === ov.querySelector("#crKind").value) || CARD_REPORT_KINDS[3];
+        const mail = ov.querySelector("#crEmail");
+        btn.disabled = true; say("Sending…", true);
+        const r = await feedbackSend({ kind: k[2], issue: k[0], card: id, message: msg.value, email: mail ? mail.value : "" });
+        btn.disabled = false;
+        if (r.error) { say(r.error, false); return; }
+        close();
+        toast("Thank you — that’s with the editors now.");
+      });
+      ov.querySelector('[data-act="close"]').addEventListener("click", close);
+    });
+  }
+  // capture, like the read-aloud control: pressing it must not also turn the card over or reach a game's handler
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest && e.target.closest(".card-report");
+    if (!b) return;
+    e.preventDefault();
+    e.stopPropagation();
+    openCardReport(b.dataset.report);
+  }, true);
   /* LEARN MORE — the link to the answer term's own Wikipedia article (Oct 2026, on request: "for cards
      whose answer term has a dedicated wikipedia page, at the bottom of the card (below the sources)
      should be a tile … that the user can click to be redirected straight to that dedicated wikipedia
@@ -39699,11 +40237,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        off the row like every other, and a `prog` left behind would be a resume point inside a run that
        is over. */
   function gameProgress(key) {
+    if (GAME_DAY) return null;   // an archived run always starts afresh and is never resumed
     const g = (S.games && S.games[key]) || null;
     if (!g || g.date !== todayStr() || !Array.isArray(g.prog)) return null;
     return g.prog.map((x) => !!x);
   }
   function setGameProgress(key, results) {
+    if (GAME_DAY) return;   // the archive writes nothing
     if (!S.games) S.games = {};
     const t = todayStr();
     let g = S.games[key];
@@ -39713,6 +40253,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     save();
   }
   function gameLockedToday(root, key, opts) {
+    if (GAME_DAY) return false;   // an archived day is never locked: it is not today's set
     if (!gamePlayedToday(key)) return false;
     if (opts && opts.untilSolved && !gameWonToday(key)) return false;
     const g = (S.games && S.games[key]) || {};
@@ -39724,9 +40265,163 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       "Played today", meta[1],
       how + " in " + meta[0] + " today. A fresh " + fresh + " arrives tomorrow.",
       () => route("home"), "Back home"
-    );
+    ) + (scored ? gameShareHTML(key, g.s, g.n) : "");   // the score only: the rounds' order is not kept once the run is over
     return true;
   }
+  /* A DAILY GAME WHOSE POOL IS A LAZY BUNDLE (Nov 2026): truefalse.js, quotes.js, crossword.js and whatyear.js left the eager path.
+     Paints a loading line and re-enters the page when the file lands (true), or returns false when the pool is already here —
+     What share?'s own gate, shared. It runs AFTER `gameLockedToday`, whose placard reads no pool. */
+  function gamePoolPending(root, bundle, page, title) {
+    if (dataReady(bundle)) return false;
+    root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s game</strong></div>';
+    ensureData(bundle).then((ok) => {
+      if (!root.isConnected || current.name !== page) return;
+      if (ok) { PAGES[page](root, current.params); return; }
+      root.innerHTML = '<div class="data-loading dl-fail" role="alert"><strong>' + esc(title) + ' could not be set up</strong><span class="dl-note">Its questions did not load. Check your connection and try again.</span><button class="btn" type="button" data-pool-reload>Try again</button></div>';
+      const b = root.querySelector("[data-pool-reload]"); if (b) b.addEventListener("click", () => location.reload());
+    });
+    return true;
+  }
+  /* ---------- SHARING A RESULT (Nov 2026, on request) ----------
+     Every daily game's results screen offers "Share result": a spoiler-free summary — the game, the day,
+     the score and a row of squares, one per round (green right, yellow right at the second try, red wrong,
+     white not reached) — and the address. Nothing in it names a question or an answer, so it can be posted
+     the morning the set is live. ONE sheet serves all nine (`openGameShare`, on `deckSheet`, so Escape, the
+     backdrop, the × and the arming window are the options sheet's own), opened by ONE delegated listener
+     from any `.gshare-open` button — which is how the lazy Find it and How far? reach it (`gameShareHTML`
+     travels in `atlas2Ctx`). The button carries its summary in `data-gshare`, so a results screen that is
+     repainted keeps a working button with nothing else to keep in step.
+     THE PLATFORMS ARE PLAIN LINKS to each one's public web share address, opened in a new tab with
+     `rel="noopener"` — no SDK, no remote script, nothing fetched, so the CSP in `_headers` is untouched
+     (a navigation is not a fetch). The platform's own share sheet (`navigator.share`, as `shareBook` uses)
+     is offered first where there is one, and Copy everywhere (`copySelText`). Facebook and LinkedIn take a
+     URL and nothing else — their share pages ignore any text — so on those two only the address goes. */
+  const SHARE_URL = "https://folio.study";
+  const SHARE_SQ = { "1": "\u{1F7E9}", "2": "\u{1F7E8}", "0": "\u{1F7E5}", "-": "⬜" };
+  const SHARE_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function gameDayLabel(d) {
+    const p = String(d || "").split("-").map(Number);
+    return p.length === 3 && p[0] && p[1] >= 1 && p[1] <= 12 ? p[2] + " " + SHARE_MONTHS[p[1] - 1] + " " + p[0] : String(d || "");
+  }
+  function gameShareText(o) {
+    const name = (GAME_NAMES[o.k] || [o.k])[0];
+    const grid = String(o.g || "").split("").map((c) => SHARE_SQ[c] || "").join("");
+    const score = typeof o.s === "number" && typeof o.n === "number" ? o.s + "/" + o.n : "";
+    return ["Folio · " + name + " · " + gameDayLabel(o.d) + (o.a ? " (archive)" : ""), (score + " " + grid).trim(), o.x || "", SHARE_URL]
+      .filter(Boolean).join("\n");
+  }
+  const SHARE_ICON = '<svg class="gshare-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><line x1="8.3" y1="10.8" x2="15.7" y2="6.2"/><line x1="8.3" y1="13.2" x2="15.7" y2="17.8"/></svg>';
+  /* The button for a results screen. `grid` is one character a round: "1" right, "2" right at the second
+     try, "0" wrong, "-" not reached; `note` is one more spoiler-free line (Common Thread's mistakes). */
+  function gameShareHTML(key, s, n, grid, note) {
+    const o = { k: key, d: gameDayStr(), s: s, n: n, g: grid || "", x: note || "" };
+    if (GAME_DAY) o.a = 1;
+    return '<div class="gshare-row"><button type="button" class="btn ghost gshare-open" data-gshare="' + esc(JSON.stringify(o)) + '">' +
+      SHARE_ICON + "Share result</button></div>";
+  }
+  // each platform's public web share address; t = the whole text, u = the address, b = the text without the address
+  const SHARE_TARGETS = [
+    ["x", "X", "X", (t) => "https://x.com/intent/tweet?text=" + encodeURIComponent(t)],
+    ["bsky", "Bluesky", "B", (t) => "https://bsky.app/intent/compose?text=" + encodeURIComponent(t)],
+    ["fb", "Facebook", "f", (t, u) => "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(u)],
+    ["reddit", "Reddit", "r", (t, u, b) => "https://www.reddit.com/submit?url=" + encodeURIComponent(u) + "&title=" + encodeURIComponent(b.replace(/\n/g, " — "))],
+    ["wa", "WhatsApp", "W", (t) => "https://wa.me/?text=" + encodeURIComponent(t)],
+    ["tg", "Telegram", "T", (t, u, b) => "https://t.me/share/url?url=" + encodeURIComponent(u) + "&text=" + encodeURIComponent(b)],
+    ["li", "LinkedIn", "in", (t, u) => "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(u)],
+    ["threads", "Threads", "@", (t) => "https://www.threads.net/intent/post?text=" + encodeURIComponent(t)],
+  ];
+  function openGameShare(o) {
+    const text = gameShareText(o);
+    const body = text.slice(-SHARE_URL.length) === SHARE_URL ? text.slice(0, -SHARE_URL.length).replace(/\n$/, "") : text;
+    const title = text.split("\n")[0];
+    const native = typeof navigator.share === "function";
+    const html = '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">Share your result</span>' +
+        '<span class="dm-where">No answers given away</span></div></div>' +
+      '<pre class="gshare-text notranslate" translate="no">' + esc(text) + "</pre>" +
+      '<div class="gshare-acts">' +
+        (native ? '<button type="button" class="btn" data-gs="native">' + SHARE_ICON + "Share…</button>" : "") +
+        '<button type="button" class="btn' + (native ? " ghost" : "") + '" data-gs="copy">Copy</button></div>' +
+      '<div class="gshare-links" role="list">' + SHARE_TARGETS.map((t) =>
+        '<a role="listitem" class="gshare-link" href="' + esc(t[3](text, SHARE_URL, body)) + '" target="_blank" rel="noopener noreferrer">' +
+          '<span class="gshare-mark gs-' + t[0] + '" aria-hidden="true">' + esc(t[2]) + "</span><span>" + esc(t[1]) + "</span></a>").join("") +
+      "</div>";
+    deckSheet("Share your result", html, (ov, close) => {
+      ov.querySelector('[data-gs="copy"]').addEventListener("click", () => copySelText(text, "Result copied"));
+      const nb = ov.querySelector('[data-gs="native"]');
+      if (nb) nb.addEventListener("click", () => {
+        // an abort is the reader dismissing the platform's sheet, not a failure (see shareBook)
+        navigator.share({ title: title, text: body, url: SHARE_URL }).catch((e) => { if (e && e.name !== "AbortError") copySelText(text, "Result copied"); });
+      });
+      ov.querySelectorAll(".gshare-link").forEach((a) => a.addEventListener("click", () => setTimeout(close, 0)));
+    });
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target && e.target.closest ? e.target.closest(".gshare-open") : null;
+    if (!b) return;
+    let o = null;
+    try { o = JSON.parse(b.getAttribute("data-gshare") || "null"); } catch (err) { o = null; }
+    if (o && o.k) openGameShare(o);
+  });
+  /* ---------- THE GAMES ARCHIVE'S PAGE (Nov 2026; admins only — `gamearchive` is an ADMIN_ROUTE) ----------
+     A day and a game. The day is limited to the past: yesterday back ARCHIVE_DAYS, since the code keeps
+     no record of the day the games began (they arrived over Aug–Oct 2026, one at a time). Playing sets
+     `GAME_DAY` (THE GAMES ARCHIVE, beside DAILY_GAMES) and mounts the game's own page under a banner that
+     says the run is not recorded; the game is the real one, with every write switched off. */
+  const ARCHIVE_DAYS = 365;
+  let _garchDay = null;   // the day last picked, so "All days" comes back to it
+  function gameArchiveBounds() {
+    const t = new Date(todayStr() + "T12:00:00");
+    const y = new Date(t); y.setDate(y.getDate() - 1);
+    const m = new Date(t); m.setDate(m.getDate() - ARCHIVE_DAYS);
+    return { min: dayKeyOfDate(m), max: dayKeyOfDate(y) };
+  }
+  PAGES.gamearchive = function (root, params) {
+    params = params || {};
+    const lim = gameArchiveBounds();
+    const okDate = (d) => /^\d{4}-\d{2}-\d{2}$/.test(d || "") && d >= lim.min && d <= lim.max;
+    if (params.game && DAILY_GAMES.indexOf(params.game) >= 0 && okDate(params.date) && PAGES[params.game]) {
+      GAME_DAY = params.date;
+      _garchDay = params.date;
+      const meta = GAME_NAMES[params.game] || [params.game, ""];
+      root.innerHTML = '<div class="garch-banner" role="note"><span class="garch-tag">Archive — not recorded</span>' +
+        '<span class="garch-what">' + esc(meta[0]) + " · " + esc(gameDayLabel(params.date)) + "</span>" +
+        '<a class="garch-back" href="#gamearchive">All days</a></div><div class="garch-play"></div>';
+      PAGES[params.game](root.querySelector(".garch-play"), {});
+      return;
+    }
+    GAME_DAY = null;
+    let day = okDate(params.date) ? params.date : okDate(_garchDay) ? _garchDay : lim.max;
+    root.innerHTML = `
+      <div class="dc-shell garch">
+        <div class="page-head"><span class="eyebrow">Admin</span><h1>Games archive</h1></div>
+        <p class="garch-lede">Play any past day’s draw of the daily games. Nothing played here is recorded: no score, streak, chest, badge or tally moves.</p>
+        <div class="garch-pick">
+          <button type="button" class="btn ghost garch-step" data-step="-1" aria-label="Previous day">‹</button>
+          <label class="garch-date"><span>Day</span><input type="date" id="garchDate" min="${lim.min}" max="${lim.max}" value="${day}" required></label>
+          <button type="button" class="btn ghost garch-step" data-step="1" aria-label="Next day">›</button>
+        </div>
+        <p class="garch-range">Any day from ${esc(gameDayLabel(lim.min))} to yesterday.</p>
+        <div class="garch-games">${DAILY_GAMES.map((k) => {
+          const m = GAME_NAMES[k] || [k, ""];
+          return `<button type="button" class="garch-game" data-game="${k}"><span class="garch-ico" aria-hidden="true">${m[1]}</span><span class="garch-name">${esc(m[0])}</span></button>`;
+        }).join("")}</div>
+      </div>`;
+    const inp = root.querySelector("#garchDate");
+    function paintSteps() {
+      root.querySelector('.garch-step[data-step="-1"]').disabled = day <= lim.min;
+      root.querySelector('.garch-step[data-step="1"]').disabled = day >= lim.max;
+    }
+    const setDay = (d) => { if (okDate(d)) { day = d; _garchDay = d; inp.value = d; } paintSteps(); };
+    inp.addEventListener("change", () => { if (okDate(inp.value)) setDay(inp.value); else inp.value = day; });
+    root.querySelectorAll(".garch-step").forEach((b) => b.addEventListener("click", () => {
+      const t = new Date(day + "T12:00:00");
+      t.setDate(t.getDate() + Number(b.dataset.step));
+      setDay(dayKeyOfDate(t));
+    }));
+    root.querySelectorAll(".garch-game").forEach((b) => b.addEventListener("click", () => route("gamearchive", { date: day, game: b.dataset.game })));
+    paintSteps();
+  };
   /* ---------- THE DAY'S DRAW IS THE SAME DRAW FOR EVERYONE (Aug 2026, on a bug report: two readers
      comparing True or False scores found they had been answering different statements) ----------
      A daily game is played once, its score is written to the tile as TODAY'S and read off a friend's
@@ -39749,7 +40444,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      apart, as they are on every other daily thing on the site — the fix is that everyone sharing a date
      shares a quiz, not that the planet turns over at once. */
   function dayPick(key, arr, n) {
-    const a = seededShuffle(arr, mulberry32(hashStr(key + "-" + todayStr())));
+    const a = seededShuffle(arr, mulberry32(hashStr(key + "-" + gameDayStr())));
     return n == null ? a : a.slice(0, n);
   }
   /* ---------- A ROUND ENDS ON SOMETHING LEARNED (Aug 2026, on request) ----------
@@ -40049,6 +40744,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     detachKeys();
     // the gate goes first: a reader who has played does not have to wait on a translation table to be told so
     if (gameLockedToday(root, "truefalse")) return;
+    if (gamePoolPending(root, "truefalse", "truefalse", "True or False")) return;
     if (gamesI18nPending(root)) return;
     const KEYED = truefalseKeyed();
     const POOL = KEYED.map((e) => tfLocalized(e.it));
@@ -40158,7 +40854,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
               <div class="tf-edit-host"><p class="tf-sum-q">${esc(it.q)}</p><p class="tf-sum-a"><b>${it.a ? "True" : "False"}.</b> ${tfWhyHTML(it)}</p>${sourcesHTML(it.src, { compact: true })}${tfAdminBar(pickKeys[k])}</div>
             </div>`).join("")}</div>
-          <p class="tf-tomorrow">Five fresh statements arrive tomorrow.</p>
+          ${gameShareHTML("truefalse", score, ROUNDS, results.map((x) => (x ? "1" : "0")).join(""))}
+          <p class="tf-tomorrow">${gameNextLine("Five fresh statements arrive tomorrow.")}</p>
           <div class="tf-actions"><button class="btn ghost" id="tf-home">Home</button></div>
         </div>`;
       tfWireWhy(root.querySelector(".tf-summary"));
@@ -40243,6 +40940,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   PAGES.whosaid = function (root) {
     detachKeys();
     if (gameLockedToday(root, "whosaid")) return;
+    if (gamePoolPending(root, "quotegame", "whosaid", "Who said it?")) return;
     if (gamesI18nPending(root)) return;
     const POOL = whoSaidPool().map((x) => quoteLocalized(x));
     if (POOL.length < 4) { root.innerHTML = emptyPlacard("Coming soon", "言", "Not enough quotes to play yet.", () => route("home"), "Back home"); return; }
@@ -40321,7 +41019,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
               <div><p class="tf-sum-q verbatim">“${esc(rd.it.q)}”</p><p class="tf-sum-a"><b>${esc(rd.it.who)}</b> — ${sanitizeHTML(String(rd.it.context || ""))}</p>${sourcesHTML(rd.it.src, { compact: true })}</div>
             </div>`).join("")}</div>
-          <p class="tf-tomorrow">${["No", "One", "Two", "Three", "Four", "Five"][ROUNDS] || ROUNDS} fresh voices arrive tomorrow.</p>
+          ${gameShareHTML("whosaid", score, ROUNDS, results.map((x) => (x ? "1" : "0")).join(""))}
+          <p class="tf-tomorrow">${gameNextLine((["No", "One", "Two", "Three", "Four", "Five"][ROUNDS] || ROUNDS) + " fresh voices arrive tomorrow.")}</p>
           <div class="tf-actions"><button class="btn ghost" id="ws-home">Home</button></div>
         </div>`;
       tfWireWhy(root.querySelector(".tf-summary"));
@@ -40477,7 +41176,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return a;
   }
   function dailyChronoSet(n) {
-    const rng = mulberry32(hashStr("chrono-" + todayStr()));
+    const rng = mulberry32(hashStr("chrono-" + gameDayStr()));
     const shuffled = seededShuffle(chronoPool(), rng);
     const chosen = [], years = new Set();
     for (const x of shuffled) {
@@ -40589,7 +41288,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s Timeline</strong></div>';
       ensureData("chronoClues").then(() => {
         PAGES.chrono._cluesTried = true;
-        if (root.isConnected && current.name === "chrono") PAGES.chrono(root);
+        if (root.isConnected && gameRouteIs("chrono")) PAGES.chrono(root);
       });
       return;
     }
@@ -40603,7 +41302,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const correctIndex = {};
     set.slice().sort((a, b) => a.year - b.year).forEach((x, i) => (correctIndex[x.id] = i));
 
-    const orderRng = mulberry32(hashStr("chrono-order-" + todayStr()));
+    const orderRng = mulberry32(hashStr("chrono-order-" + gameDayStr()));
     let order = seededShuffle(set, orderRng).map((x) => x.id);
     if (order.every((id, i) => correctIndex[id] === i)) order.reverse();
 
@@ -40707,9 +41406,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     function check() {
       const ord = [...root.querySelectorAll(".chrono-item")].map((el) => el.dataset.id);
       let score = 0;
+      const marks = [];   // one per row, top to bottom, for the shared result
       ord.forEach((id, i) => {
         const el = root.querySelector(`.chrono-item[data-id="${id}"]`);
         const ok = correctIndex[id] === i;
+        marks.push(ok ? "1" : "0");
         if (ok) score++;
         el.classList.toggle("correct", ok);
         el.classList.toggle("wrong", !ok);
@@ -40730,15 +41431,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          gameLockedToday) that exception is the last way back into a puzzle already answered, so it goes.
          The rows keep their marks and their dates, which is what the learning half of it was for; what
          they no longer do is move. */
-      S.chrono = { date: todayStr(), best: score, plays: 1, solved: solved };
+      if (!GAME_DAY) S.chrono = { date: todayStr(), best: score, plays: 1, solved: solved };
       markGamePlayed("chrono", solved, score, N);
       save();
       checkAchievements();
       const res = root.querySelector("#chrono-result");
       res.className = "chrono-result show" + (solved ? " win" : "");
-      res.innerHTML = solved
-        ? `<div class="cr-title">Solved — perfect order!</div><div class="cr-sub">All ${N} events placed correctly. A fresh puzzle arrives tomorrow.</div>`
-        : `<div class="cr-title">${score} / ${N} in the right place</div><div class="cr-sub">Green rows sat correctly, and every date is now shown. A fresh puzzle arrives tomorrow.</div>`;
+      const nextLine = GAME_DAY ? " Archive — not recorded." : " A fresh puzzle arrives tomorrow.";
+      res.innerHTML = (solved
+        ? `<div class="cr-title">Solved — perfect order!</div><div class="cr-sub">All ${N} events placed correctly.${nextLine}</div>`
+        : `<div class="cr-title">${score} / ${N} in the right place</div><div class="cr-sub">Green rows sat correctly, and every date is now shown.${nextLine}</div>`) +
+        gameShareHTML("chrono", score, N, marks.join(""));
       // the puzzle is over: the rows stop being draggable and the button stops offering another go
       root.querySelector("#chrono-list").classList.add("chrono-done");
       const btn = root.querySelector("#chrono-check");
@@ -41113,7 +41816,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        candidate order is reshuffled and the seating run again, up to THREAD_TRIES times, and the first
        complete grid wins. Every attempt draws from the SAME day-seeded stream, so the day still decides the
        puzzle entirely — a reload cannot deal a different one. Measured after: 0 blank days in 730. */
-    const rng = mulberry32(hashStr("thread-" + todayStr()));
+    const rng = mulberry32(hashStr("thread-" + gameDayStr()));
     for (let attempt = 0; attempt < THREAD_TRIES; attempt++) {
       const groups = [], fams = new Set(), stems = new Set();
       for (const tag of seededShuffle(cand, rng)) {
@@ -41166,7 +41869,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const puzzle = dailyThreadPuzzle();
     if (!puzzle) { root.innerHTML = emptyPlacard("Coming soon", "紐", "Not enough glossary terms to make today's puzzle yet.", () => route("home"), "Back home"); return; }
     const N = THREAD_ROWS * THREAD_ROWS;
-    const rng = mulberry32(hashStr("thread-grid-" + todayStr()));
+    const rng = mulberry32(hashStr("thread-grid-" + gameDayStr()));
     // The grid order is seeded too, so a reload cannot reshuffle a puzzle the reader is half way through
     // reasoning about — the same guarantee the other five daily games make about their rounds.
     let tiles = seededShuffle(puzzle.flatMap((g, gi) => g.terms.map((it) => ({ ...it, gi: gi }))), rng);
@@ -41282,6 +41985,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // tile. `score` is groups found, which is what the tile's tagline reads back.
       const found = solved.length;
       markGamePlayed("thread", win && mistakes === 0, found, THREAD_ROWS); save(); checkAchievements();
+      const shareHTML = gameShareHTML("thread", found, THREAD_ROWS, "1".repeat(found) + "-".repeat(Math.max(0, THREAD_ROWS - found)),
+        mistakes === 0 ? "No mistakes" : mistakes + (mistakes === 1 ? " mistake" : " mistakes"));
       if (!win) puzzle.forEach((_, gi) => { if (!solved.includes(gi)) solved.push(gi); });   // show the answer
       const msg = win && mistakes === 0
         ? "Flawless — every thread found first time."
@@ -41297,6 +42002,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // the marks on the bands are what say which is which, so the line points at them rather than repeating them
       p.textContent = msg + (win ? "" : " The ones you missed are greyed out.") + " Tap a term to read it.";
       shell.insertBefore(p, root.querySelector("#thBoard"));
+      p.insertAdjacentHTML("afterend", shareHTML);
     }
   };
 
@@ -41360,7 +42066,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      half-finished sheet of paper, which belongs to the screen it was started on. The day stamp is what
      retires it, so yesterday's letters can never be restored into today's grid. */
   const XW_KEY = "folio_xw_v1";
+  // an archived grid keeps its letters in memory only, keyed by its own day, and never touches the store
+  let _xwArchive = null;
   function xwRecord() {
+    if (GAME_DAY) return _xwArchive && _xwArchive.d === GAME_DAY ? _xwArchive : null;
     try {
       const r = JSON.parse(localStorage.getItem(XW_KEY) || "null");
       return r && r.d === todayStr() ? r : null;
@@ -41372,6 +42081,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   function xwSaveCells(c) {
     const r = xwRecord() || {};
+    if (GAME_DAY) { _xwArchive = { d: GAME_DAY, c: c, up: !!r.up }; return; }
     try { localStorage.setItem(XW_KEY, JSON.stringify({ d: todayStr(), c: c, up: !!r.up })); } catch (e) {}
   }
   /* GIVING UP IS RECORDED, and it has to be — the revealed answers go into the same store the reader's own
@@ -41381,6 +42091,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      expires the way the letters do: at the day boundary, by being read. */
   function xwGaveUpToday() { const r = xwRecord(); return !!(r && r.up); }
   function xwMarkGaveUp(cells) {
+    if (GAME_DAY) { _xwArchive = { d: GAME_DAY, c: cells || {}, up: true }; return; }
     try { localStorage.setItem(XW_KEY, JSON.stringify({ d: todayStr(), c: cells || {}, up: true })); } catch (e) {}
   }
 
@@ -41477,7 +42188,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function dailyCrossword() {
     const pool = xwPool();
     if (pool.length < XW_ENTRIES) return null;
-    const rng = mulberry32(hashStr("crossword-" + todayStr()));
+    const rng = mulberry32(hashStr("crossword-" + gameDayStr()));
     let best = null;
     for (let t = 0; t < XW_TRIES; t++) {
       /* Long words first inside a shuffled draw: the opening word is the spine every later one hangs off,
@@ -41528,6 +42239,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return;
     }
     if (gameLockedToday(root, "crossword", { untilSolved: true })) return;
+    if (gamePoolPending(root, "crossword", "crossword", "The crossword")) return;
     const puz = dailyCrossword();
     if (!puz) { root.innerHTML = emptyPlacard("Coming soon", ICON.crossword, "There aren't enough one-word answer terms to build today's grid yet.", () => route("home"), "Back home"); return; }
 
@@ -41661,7 +42373,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const res = root.querySelector("#xwResult");
       res.className = "chrono-result show win";
       res.innerHTML = '<div class="cr-title">Solved — every answer right!</div>' +
-        '<div class="cr-sub">All ' + N + " entries filled correctly. A fresh grid arrives tomorrow.</div>";
+        '<div class="cr-sub">All ' + N + " entries filled correctly." + (GAME_DAY ? " Archive — not recorded." : " A fresh grid arrives tomorrow.") + "</div>" +
+        gameShareHTML("crossword", N, N, "1".repeat(N));
     }
     // the clue for the entry being typed, pinned above the grid — on a phone the clue lists are below the
     // fold while the grid is in front of the reader, so without this they are typing at a clue they cannot see
@@ -41855,7 +42568,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           const res = root.querySelector("#xwResult");
           res.className = "chrono-result show";
           res.innerHTML = '<div class="cr-title">' + earned + " of " + N + " found</div>" +
-            '<div class="cr-sub">The rest are filled in above, in red. A fresh grid arrives tomorrow.</div>';
+            '<div class="cr-sub">The rest are filled in above, in red.' + (GAME_DAY ? " Archive — not recorded." : " A fresh grid arrives tomorrow.") + "</div>" +
+            gameShareHTML("crossword", earned, N, "1".repeat(earned) + "-".repeat(Math.max(0, N - earned)));
         }, "Show the answers");
       });
       root.querySelector("#xw-home").addEventListener("click", () => route("home"));
@@ -41971,7 +42685,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function dailyPictureRounds() {
     const pool = picturePool();
     if (pool.length < PIC_MIN_POOL) return null;
-    const rng = mulberry32(hashStr("picture-" + todayStr()));
+    const rng = mulberry32(hashStr("picture-" + gameDayStr()));
     const shuffled = seededShuffle(pool, rng);
     /* THE THREE WRONG ANSWERS ARE THE SUBJECTS MOST AKIN TO THE RIGHT ONE (Aug 2026, on request — the same
        change Multiple Choice made, for the same reason). Drawn at random they were a photograph of a
@@ -42298,7 +43012,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const years = [...byYear.keys()].filter((y) => byYear.get(y).length >= WY_EVENTS).sort((a, b) => a - b);
     const n = years.length;
     if (n < WY_ROUNDS) return null;
-    const day = todayStr().split("-").map(Number);
+    const day = gameDayStr().split("-").map(Number);
     const dayNo = Math.floor(Date.UTC(day[0], (day[1] || 1) - 1, day[2] || 1) / 86400000);
     const ring = seededShuffle(years, mulberry32(hashStr("whatyear-ring")));   // one base order, turned per cycle
     const maxR = Math.max(1, n - Math.ceil(n / 2));
@@ -42311,13 +43025,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const year = ring[(((k % n) + rot) % n + n) % n];
       if (seen.has(year)) continue;   // the half-cycle floor makes this unreachable at 15 years; a guard for a smaller pool
       seen.add(year);
-      out.push(wyRound(year, byYear.get(year), "whatyear-" + todayStr() + "-" + out.length));
+      out.push(wyRound(year, byYear.get(year), "whatyear-" + gameDayStr() + "-" + out.length));
     }
     return out.length === WY_ROUNDS ? out : null;
   }
   PAGES.whatyear = function (root) {
     detachKeys();
     if (gameLockedToday(root, "whatyear")) return;
+    if (gamePoolPending(root, "whatyear", "whatyear", "What year?")) return;
     const puzzles = dailyWhatYear();
     if (!puzzles) { root.innerHTML = emptyPlacard("Coming soon", ICON.whatyear, "Folio doesn't yet have enough years of five events to build today's puzzle from.", () => route("home"), "Back home"); return; }
 
@@ -42466,7 +43181,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
               <div><p class="tf-sum-q"><b>${esc(yearLabel(p.year))}</b></p><p class="tf-sum-a">${p.events.map((e) => esc(e.name)).join(" · ")}</p></div>
             </div>`).join("")}</div>
-          <p class="tf-tomorrow">Five fresh years arrive tomorrow.</p>
+          ${gameShareHTML("whatyear", score, WY_ROUNDS, results.slice(0, WY_ROUNDS).map((x) => (x ? "1" : "0")).join(""))}
+          <p class="tf-tomorrow">${gameNextLine("Five fresh years arrive tomorrow.")}</p>
           <div class="tf-actions"><button class="btn ghost" id="wy-home" type="button">Home</button></div>
         </div>`;
       root.querySelector("#wy-home").addEventListener("click", () => route("home"));
@@ -42664,7 +43380,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!dataReady("pie")) {
       root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s five questions</strong></div>';
       ensureData("pie").then((ok) => {
-        if (!root.isConnected || current.name !== "pie") return;
+        if (!root.isConnected || !gameRouteIs("pie")) return;
         if (ok) { PAGES.pie(root); return; }
         root.innerHTML = '<div class="data-loading dl-fail" role="alert"><strong>What share? could not be set up</strong><span class="dl-note">Its questions did not load. Check your connection and try again.</span><button class="btn" type="button" id="pieReload">Reload</button></div>';
         const b = root.querySelector("#pieReload"); if (b) b.addEventListener("click", () => location.reload());
@@ -42815,7 +43531,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
               <div><p class="tf-sum-q">${esc(it.q)}</p><p class="tf-sum-a"><b>${it.a}%</b>${typeof guesses[k] === "number" ? ` (you said <span class="pie-guess ${results[k] ? "ok" : "no"}">${guesses[k]}%</span>)` : ""}. ${tfWhyHTML(it)}</p>${sourcesHTML(it.src, { compact: true })}</div>
             </div>`).join("")}</div>
-          <p class="tf-tomorrow">Five fresh questions arrive tomorrow.</p>
+          ${gameShareHTML("pie", score, PIE_ROUNDS, results.slice(0, PIE_ROUNDS).map((x) => (x ? "1" : "0")).join(""))}
+          <p class="tf-tomorrow">${gameNextLine("Five fresh questions arrive tomorrow.")}</p>
           <div class="tf-actions"><button class="btn ghost" id="pie-home" type="button">Home</button></div>
         </div>`;
       tfWireWhy(root.querySelector(".tf-summary"));
@@ -42949,6 +43666,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             </div>`).join("")}</div>
           ${sourcesHTML(whatLangSources(rounds[0].it).slice(0, 1).concat(["UDHR in XML project. The Universal Declaration of Human Rights in more than 500 languages. https://github.com/eric-muller/udhr"]), { compact: true })}
           <p class="tf-tomorrow">Five fresh passages arrive tomorrow.</p>
+          ${gameShareHTML("whatlang", score, ROUNDS, results.slice(0, ROUNDS).map((x) => (x ? "1" : "0")).join(""))}
           <div class="tf-actions"><button class="btn ghost" id="wl-home" type="button">Home</button></div>
         </div>`;
       tfWireWhy(root.querySelector(".tf-summary"));
@@ -45583,6 +46301,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             <div class="info"><h3>Day ends at</h3><p>When one study day becomes the next: the review's new cards reset, the daily quote and the card of the day change, and your streak counts. Useful if you study after midnight. Follows this device's clock.</p></div>
             <div class="ctl"><input class="set-time" id="dayEnd" type="time" step="900" value="${dayEndHHMM()}" aria-label="The time a study day ends"></div>
           </div>
+          <div class="set-row set-row-remind">
+            ${/* STUDY REMINDERS (Nov 2026, on request) — see remindCfg. Device-local, opt-in, and honest about the
+                  platform: the sentence under the title is remindPlatform's, which says when this browser can
+                  actually show one. Where it cannot at all there is no switch, only the sentence. */""}
+            <div class="info"><h3>Remind me when reviews are due</h3><p>Once a day, after the time you pick, a notification says how many cards are waiting. <span id="remindNote">${esc(remindPlatform().note)}</span></p></div>
+            <div class="ctl">${remindPlatform().ok ? `<div class="switch ${remindCfg().on ? "on" : ""}" id="sw-remind" role="switch" aria-label="Remind me when reviews are due" tabindex="0" aria-checked="${remindCfg().on}"></div>` : ""}</div>
+          </div>
+          ${remindPlatform().ok ? `<div class="set-row${remindCfg().on ? "" : " row-locked"}" id="remindTimeRow">
+            <div class="info"><h3>Reminder time</h3><p>The earliest a reminder may come. Follows this device's clock.</p></div>
+            <div class="ctl"><input class="set-time" id="remindTime" type="time" step="900" value="${remindCfg().time}" aria-label="The earliest time a reminder may come"></div>
+          </div>` : ""}
           <div class="set-row">
             ${/* LOAD BALANCING (Aug 2026, on request) — Anki's, and it is DEFAULT OFF for the house rule's
                   sake: it changes what the scheduler does, and an existing reader's intervals must not move
@@ -45758,6 +46487,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   to switch one of these settings OFF, which is the moment the explanation is worth most. */""}
             <div class="info"><h3>How Folio studies you</h3><p>Several of the settings on this page make studying feel harder on purpose. This says which, and what the evidence behind each of them actually is.</p></div>
             <div class="ctl"><button class="btn ghost" id="howLink">Read it</button></div>
+          </div>
+          <div class="set-row">
+            ${/* THE KEYBOARD SHEET'S OTHER DOOR (Nov 2026): `?` opens it on a keyboard; this opens it with every
+                  page's keys, for a reader on a touch screen or one who never thought to press `?`. Wired by
+                  the document-level [data-keysheet] listener beside openKeySheet. */""}
+            <div class="info"><h3>Keyboard shortcuts</h3><p>The keys each page answers to. On a keyboard, press <kbd>?</kbd> on any page for that page’s list.</p></div>
+            <div class="ctl"><button class="btn ghost" type="button" data-keysheet="all">Show</button></div>
           </div>
         </div>
         </div>
@@ -45950,6 +46686,45 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       dayEndEl.value = dayEndHHMM();       // a time past the cap is snapped back, visibly
       scheduleDayRoll();                    // the next roll-over is at a different hour now
       toast(mins ? "The day now ends at " + dayEndHHMM() : "The day now ends at midnight");
+    });
+    /* Study reminders — see remindCfg. Turning it on asks for notification permission first and stays off
+       if it is refused; turning it off deletes the snapshot and the periodic sync. */
+    const remSw = root.querySelector("#sw-remind"), remTime = root.querySelector("#remindTime");
+    const remPaint = () => {
+      const on = remindCfg().on;
+      if (remSw) { remSw.classList.toggle("on", on); remSw.setAttribute("aria-checked", String(on)); }
+      const tr = root.querySelector("#remindTimeRow");
+      if (tr) tr.classList.toggle("row-locked", !on);
+      const nt = root.querySelector("#remindNote");
+      if (nt) nt.textContent = remindPlatform().note;
+    };
+    const remFlip = async () => {
+      const cfg = remindCfg();
+      if (!cfg.on) {
+        let perm = "denied";
+        try { perm = Notification.permission === "granted" ? "granted" : await Notification.requestPermission(); } catch (e) {}
+        if (perm !== "granted") { remPaint(); toast("Folio was not allowed to show notifications, so reminders stay off"); return; }
+        remindCfgSet({ on: true, time: cfg.time });
+        remPaint();
+        await remindWrite();
+        const bg = await remindRegister(true);
+        toast(bg ? "Folio will remind you after " + cfg.time + " when cards are due" : "Reminders are on — the note above says when this browser can show them");
+      } else {
+        remindCfgSet({ on: false, time: cfg.time });
+        remPaint();
+        await remindWrite();
+        await remindRegister(false);
+        toast("Reminders are off");
+      }
+    };
+    if (remSw) { remSw.addEventListener("click", remFlip); remSw.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); remFlip(); } }); }
+    if (remTime) remTime.addEventListener("change", () => {
+      const m = /^(\d{1,2}):(\d{2})/.exec(remTime.value || "");
+      const t = m ? String(+m[1]).padStart(2, "0") + ":" + m[2] : "18:00";
+      remTime.value = t;
+      remindCfgSet({ on: remindCfg().on, time: t });
+      remindWrite();
+      if (remindCfg().on) toast("Reminders now come after " + t);
     });
     // the walkthrough's step 1 is taught on the home page, so it routes there itself — see tourGo
     { const rt = root.querySelector("#replayTour"); if (rt) rt.addEventListener("click", () => tourStart(0)); }
@@ -48626,13 +49401,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const who = (m.name || "").trim() || "Anonymous";
         const meta = m.meta || {};
         const bits = [];
-        if (m.page) bits.push(esc(m.page));
+        // a report sent from a card's foot (openCardReport) names its card — a link that opens it
+        const cardId = String(meta.card || (/^card:/.test(m.page || "") ? m.page.slice(5) : "")).trim();
+        if (cardId) bits.push('<a class="fbq-card" href="#card/' + esc(encodeURIComponent(cardId)) + '" translate="no" title="Open this card">' + esc(cardId) + "</a>");
+        else if (m.page) bits.push(esc(m.page));
         if (meta.lang && meta.lang !== "en") bits.push(esc(String(meta.lang)));
         bits.push(esc(fbWhen(m.created_at)));
         return '<div class="fbq-row st-' + esc(m.status) + '" data-fb="' + esc(m.id) + '" style="--fb-col:' + st.hex + '">' +
           '<div class="fbq-main">' +
             '<div class="fbq-head">' +
               '<span class="fbq-kind">' + esc(kindLabel(m.kind)) + "</span>" +
+              (cardId && meta.issue ? '<span class="fbq-issue">' + esc((CARD_REPORT_KINDS.find((x) => x[0] === meta.issue) || [0, String(meta.issue)])[1]) + "</span>" : "") +
               '<b class="fbq-who">' + esc(who) + (m.author ? "" : ' <span class="fbq-anon">signed out</span>') + "</b>" +
               (m.email ? '<a class="fbq-mail" href="mailto:' + esc(m.email) + '">' + esc(m.email) + "</a>" : "") +
               '<span class="fbq-meta">' + bits.join(" · ") + "</span>" +
@@ -49321,6 +50100,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // the feedback branch returns before adminRenderList(), which owns this class — clear it here or the
       // glossary tab's column divider lingers as a stray vertical line over those pages
       { const al = root.querySelector(".admin-list"); if (al) al.classList.toggle("gloss-cols", adminState.tab === "glossary"); }
+      /* the dashboard counts, and the two pool tabs list, truefalse.js and quotes.js — lazy bundles since Nov 2026. A pool tab waits
+         for them; the dashboard draws now and again when they land. Re-entered only on success, so an offline admin is not looped. */
+      if ((dash || tfTab || wsTab) && !(dataReady("truefalse") && dataReady("quotegame"))) {
+        Promise.all([ensureData("truefalse"), ensureData("quotegame")]).then((r) => {
+          if (r.every(Boolean) && root.isConnected && current.name === "admin" && ["dashboard", "truefalse", "whosaid"].includes(adminState.tab)) adminRefresh();
+        });
+        if (tfTab || wsTab) {
+          adminState.selected.clear();
+          const li = root.querySelector("#adminListItems"), ce = root.querySelector("#adminListCount");
+          if (ce) ce.textContent = "";
+          if (li) li.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Loading the pool</strong></div>';
+          return;
+        }
+      }
       if (dash) { adminState.selected.clear(); adminRenderDashboard(); return; }
       if (tfTab) { adminState.selected.clear(); adminRenderTrueFalse(); return; }
       if (wsTab) { adminState.selected.clear(); adminRenderWhoSaid(); return; }
@@ -49573,10 +50366,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* `/` OPENS SEARCH FROM ANYWHERE — the shortcut every site with a search field has, and the phone's
      tab bar has no cell to spare for one. Refused while the reader is typing (an input, a textarea or
      a contenteditable), while an overlay owns the keyboard (OVERLAY_SEL — a reader pressing / over
-     Card info means the character, not a navigation), and with a modifier held, which is a browser
-     shortcut. */
+     Card info means the character, not a navigation), with a modifier held, which is a browser
+     shortcut, and when a page's own handler already used the key (`defaultPrevented`: the Atlas map's
+     place search, Nov 2026). */
   document.addEventListener("keydown", (e) => {
     if (e.key !== "/" || e.ctrlKey || e.metaKey || e.altKey) return;
+    // a page that used the key itself — the Atlas's map opens its own place search on `/` — has said so
+    if (e.defaultPrevented) return;
     const t = e.target;
     if (t && (t.matches("input, textarea, select") || t.isContentEditable)) return;
     if (typeof overlayOpen === "function" && overlayOpen()) return;
@@ -49603,57 +50399,121 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     route("search");
   });
-  /* ---------- ? — THE KEYS, WHEREVER YOU ARE (Sep 2026) ----------
+  /* ---------- ? — THE KEYS, WHEREVER YOU ARE (Sep 2026; re-inventoried Nov 2026) ----------
      The study page has documented its own keys in the grade bar's `?` bubble since it shipped and the
-     Atlas its click drill-down in its coach marks; the card browser, the Library, the reader and the
-     games have shortcuts documented NOWHERE. One overlay, page-aware: the global keys always, and the
-     current page's underneath them when it has any.
+     Atlas its keys in its About sheet; the Library, the home page and the games have shortcuts documented
+     NOWHERE. One overlay, page-aware: the global keys always, and the current page's underneath them when
+     it has any.
      IT IS `?` AND IT IS THE CHARACTER, NOT THE KEY POSITION — `e.key === "?"` is what a reader who has
      just typed a question mark pressed, on any layout, where `Shift` plus the key beside the full stop
-     is only true of some. The guards are `/`'s exactly, one line down, and for the same reasons.
-     ON A PHONE IT IS UNREACHABLE AND THAT IS FINE: there is no keyboard to describe. */
+     is only true of some. The guards are `/`'s exactly, one line up, and for the same reasons.
+     EVERY ROW IS A HANDLER THAT EXISTS (Nov 2026). The table was re-read against the code — the Sep table
+     promised keys on the card browser, the Timeline game and the reader's Esc that nothing listened for, and
+     a list of shortcuts that do not work is worse than none. Add a row only beside the handler it describes.
+     A PAGE THAT ALREADY OWNS `?` KEEPS IT: the Atlas's map canvas opens its own About sheet on `?` (it calls
+     preventDefault, so `e.defaultPrevented` below lets it be), and that sheet carries a link to this one.
+     `[data-keysheet]` anywhere opens it — Settings' "Keyboard shortcuts" row with `="all"`, which lists every
+     page, so a reader on a touch screen can find what a keyboard would do.
+     It is a real modal: `.key-sheet` is in OVERLAY_SEL so a page's keys (a study grade, a chapter turn) do
+     not fire under it, a window CAPTURE listener swallows every key but its own while it is open, Tab is held
+     inside it, and focus goes back where it came from.
+     ON A PHONE THE KEY IS UNREACHABLE AND THAT IS FINE: Settings is the door there. */
+  const KS_MAPWIN = [["← ↑ → ↓", "Move the map"], ["+  −", "Zoom in and out"], ["Home", "Back to the whole view"]];
   const KEY_SHEET = {
-    "": [["/", "Search everything"], ["Ctrl + K", "Search everything, from anywhere"], ["?", "This list"], ["Esc", "Close whatever is open"]],
-    study: [["Space", "Reveal the answer"], ["1 – 4", "Again, Hard, Good, Easy"], ["Enter", "Good"],
-            ["I", "This card's history and actions"], ["Ctrl + Z", "Take the last grade back"],
-            ["Ctrl + 1 – 7", "Flag this card"]],
-    browse: [["Enter", "Open the card under the caret"], ["Ctrl + 1 – 7", "Flag what is selected"]],
-    book: [["\u2190 \u2192", "Previous and next chapter"], ["Esc", "Back to the shelf"]],
-    map: [["[  ]", "Step back and forward through the years"], ["Enter", "Open what is selected"],
-          ["Esc", "Clear the selection"], ["+ \u2212", "Zoom"]],
-    chrono: [["1 – 5", "Pick a card"], ["\u2190 \u2192", "Move it in the order"], ["Enter", "Lock the order in"]],
+    "": [{ rows: [["/", "Search everything"], ["Ctrl + K", "Search everything, even from a text box"], ["?", "This list"],
+                  ["Esc", "Close a glossary term, a picture, a pop-up or this list"]] }],
+    home: [{ rows: [["← →", "On the reading box: switch between your book and a suggestion"],
+                    ["↑ ↓", "On a deck’s grip: move the deck up or down your list"],
+                    ["Shift + F10", "On a deck row: its options (the Menu key too)"]] }],
+    study: [{ rows: [["Space", "Reveal the answer"], ["Enter", "Reveal the answer, then grade it Good"],
+                     ["1 – 4", "Again, Hard, Good, Easy"], ["I", "This card’s history and actions"],
+                     ["Ctrl + Z", "Take the last grade back"], ["Ctrl + 1 – 7", "Flag this card (again to remove)"],
+                     ["Ctrl + 0", "Remove the flag"]] },
+            { h: "A map on a card, once selected", rows: KS_MAPWIN }],
+    book: [{ rows: [["← →", "Previous and next chapter"]] }],
+    map: [{ h: "The globe, once selected", rows: [["← ↑ → ↓", "Turn the globe"], ["+  −", "Zoom in and out"],
+                     ["Home or 0", "The whole earth"], ["[  ]", "The previous or next change year"], ["/", "Find a place"],
+                     ["R", "Relief on or off"], ["?", "About this map"], ["Esc", "Close the place, the legend or the sheet"],
+                     ["Tab, Enter", "Walk the names on the map; open one"]] },
+          { h: "The year rail, once selected", rows: [["← →", "A year back or forward (Shift: ten)"], ["Page Up / Down", "A hundred years"],
+                     ["Home / End", "The first year / today"], ["[  ]", "The previous or next change year"], ["Space, Enter", "Play or pause"]] }],
+    findit: [{ h: "The globe, once selected", rows: [["Enter", "Drop a pin at the centre, then confirm it"]].concat(KS_MAPWIN) }],
+    crossword: [{ rows: [["← ↑ → ↓", "Move between squares"], ["Backspace", "On an empty square: step back"],
+                         ["Enter", "The next clue"]] }],
+    pie: [{ h: "The pie, once selected", rows: [["← →", "One per cent less or more"], ["Page Up / Down", "Ten per cent"],
+                   ["Home / End", "0 or 100 per cent"], ["Enter", "Lock in your answer"]] }],
+    admin: [{ rows: [["↑ ↓", "The previous or next entry in the list"], ["Ctrl + Z", "Undo the last edit"],
+                     ["Ctrl + B / I", "Bold or italic, in a text field (U: underline, in the rich editor)"]] }],
   };
-  function openKeySheet() {
+  const ksPageName = (page) => page === "home" ? "Home" : esc((PAGE_META[page] || [page])[0].split(" — ")[0]);   // the home page's title is the site's
+  let _ksReturn = null;
+  function openKeySheet(all) {
     if (document.getElementById("keySheet")) return closeKeySheet();
     const page = (current && current.name) || "";
     const rows = (list) => list.map((r) => '<div class="ks-row"><kbd>' + esc(r[0]) + "</kbd><span>" + esc(r[1]) + "</span></div>").join("");
-    const own = KEY_SHEET[page];
+    const groups = (page, title) => KEY_SHEET[page].map((g) =>
+      '<div class="ks-group"><h3>' + title + (g.h ? " · " + esc(g.h) : "") + "</h3>" + rows(g.rows) + "</div>").join("");
+    const pages = Object.keys(KEY_SHEET).filter((k) => (k && k !== "admin") || (k === "admin" && isAdmin()));
+    let body;
+    if (all) body = pages.map((k) => groups(k, ksPageName(k))).join("");
+    else body = KEY_SHEET[page] && page !== "" ? groups(page, ksPageName(page))
+      : '<p class="ks-none">This page has no shortcuts of its own. <button type="button" class="ks-all" data-keysheet="all">Show every page’s</button></p>';
+    const ae = document.activeElement;
+    if (ae && ae !== document.body && ae.isConnected) _ksReturn = ae;   // after closeKeySheet(true) it is the body, and the old opener stands
     const el = document.createElement("div");
     el.id = "keySheet";
     el.className = "key-sheet";
     el.innerHTML =
-      '<div class="ks-card" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">' +
-      '<button type="button" class="ks-x" aria-label="Close">\u00d7</button>' +
-      "<h2>Keyboard</h2>" +
-      '<div class="ks-group"><h3>Anywhere</h3>' + rows(KEY_SHEET[""]) + "</div>" +
-      (own ? '<div class="ks-group"><h3>' + esc((PAGE_META[page] || [page])[0].split(" \u2014 ")[0]) + "</h3>" + rows(own) + "</div>"
-           : '<p class="ks-none">This page has no shortcuts of its own.</p>') +
+      '<div class="ks-card" role="dialog" aria-modal="true" aria-labelledby="ksTitle">' +
+      '<button type="button" class="ks-x" aria-label="Close">×</button>' +
+      '<h2 id="ksTitle">Keyboard shortcuts</h2>' +
+      '<div class="ks-group"><h3>Anywhere</h3>' + rows(KEY_SHEET[""][0].rows) + "</div>" + body +
       "</div>";
     document.body.appendChild(el);
-    el.addEventListener("click", (ev) => { if (ev.target === el || ev.target.closest(".ks-x")) closeKeySheet(); });
+    el.addEventListener("click", (ev) => {
+      if (ev.target === el || ev.target.closest(".ks-x")) { closeKeySheet(); return; }
+      if (ev.target.closest(".ks-all")) { ev.stopPropagation(); closeKeySheet(true); openKeySheet(true); }
+    });
     const x = el.querySelector(".ks-x"); if (x) x.focus();
   }
-  function closeKeySheet() { const el = document.getElementById("keySheet"); if (el) el.remove(); }
+  function closeKeySheet(keepReturn) {
+    const el = document.getElementById("keySheet"); if (!el) return;
+    el.remove();
+    if (keepReturn) return;
+    const back = _ksReturn; _ksReturn = null;
+    if (back && back.isConnected && back.focus) { try { back.focus({ preventScroll: true }); } catch (err) {} }
+  }
+  // the doors that are not a key: Settings' row, the Atlas's About sheet, the sheet's own "every page"
+  document.addEventListener("click", (e) => {
+    const b = e.target && e.target.closest ? e.target.closest("[data-keysheet]") : null;
+    if (!b || b.closest("#keySheet")) return;
+    e.preventDefault();
+    closeKeySheet(true);
+    openKeySheet(b.getAttribute("data-keysheet") === "all");
+  });
+  // while it is open it owns the keyboard: Esc and `?` close it, Tab stays inside it, and nothing reaches the page
+  window.addEventListener("keydown", (e) => {
+    const el = document.getElementById("keySheet");
+    if (!el) return;
+    if (e.key === "Escape" || (e.key === "?" && !e.ctrlKey && !e.metaKey && !e.altKey)) {
+      e.preventDefault(); e.stopPropagation(); closeKeySheet(); return;
+    }
+    if (e.key === "Tab") {
+      const f = [...el.querySelectorAll("button")].filter((b) => !b.disabled && b.offsetParent !== null);
+      const i = f.indexOf(document.activeElement);
+      if (f.length && (i < 0 || (e.shiftKey ? i === 0 : i === f.length - 1))) { e.preventDefault(); (e.shiftKey ? f[f.length - 1] : f[0]).focus(); }
+    }
+    e.stopPropagation();   // the default still happens — Enter on the close button, arrows scrolling the list
+  }, true);
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && document.getElementById("keySheet")) { e.preventDefault(); return closeKeySheet(); }
-    if (e.key !== "?" || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.key !== "?" || e.ctrlKey || e.metaKey || e.altKey || e.defaultPrevented) return;
     const t = e.target;
     if (t && (t.matches("input, textarea, select") || t.isContentEditable)) return;
     if (typeof overlayOpen === "function" && overlayOpen()) return;
     e.preventDefault();
     openKeySheet();
   });
-  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "whatlang", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
+  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "whatlang", "admin", "warofages", "gamearchive", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
   /* #map2 is the address the engine was previewed at; since Phase 5 the Atlas is #map. A link or a bookmark to the old address is corrected in the address bar (replaceState: assigning would fire a hashchange and leave the dead address in the
      history for Back), with the view, the year and the place after it left as they were. */
   if (/^#map2(?=[\/?]|$)/.test(location.hash || "")) { try { history.replaceState(null, "", location.pathname + location.search + location.hash.replace(/^#map2/, "#map")); } catch (e) {} }
@@ -49675,6 +50535,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   if (initName === "deck") { try { initParams.slug = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.slug = hParts[1] || ""; } }   // a mangled %-escape must not kill boot
   // #card/<id> — one card at a stable address, the same shape as #book/<id>
   if (initName === "card") { try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; } }
+  // #gamearchive/<date>/<game> — an archived day of a daily game (admins only; refused below until the role is known)
+  if (initName === "gamearchive" && hParts[2]) initParams = { date: hParts[1] || "", game: hParts[2] };
   // #sample/<collection id> — ten cards of a collection, scheduling nothing (see PAGES.sample)
   if (initName === "sample") { try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; } }
   // #u/<username> — a person at a stable address (see PAGES_u)
@@ -49771,6 +50633,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      either. The four surfaces that render an artefact's prose or picture await the bundle for the
      reader who beats the warm. Skipped under Save-Data. */
   whenIdleAfterGlobe(() => { if (!lightMode()) ensureData("artefactExtra"); });
+  // the daily games' pools (Nov 2026): off the eager path, warmed here so a tile opens on a ready game; the game pages wait on them otherwise
+  whenIdleAfterGlobe(() => { if (!lightMode()) ["truefalse", "quotegame", "crossword", "whatyear"].forEach((n) => ensureData(n)); });
 
   /* THE OLD ADDRESS SENDS READERS TO THE NEW ONE (Oct 2026, on request — Folio moved to folio.study).
      A strip, not an automatic redirect, because browser storage belongs to one hostname: a reader who
@@ -49969,6 +50833,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       let slug = "";
       try { slug = decodeURIComponent(parts[1] || ""); } catch (e) { slug = parts[1] || ""; }
       if (!(current.name === "deck" && current.params.slug === slug)) route("deck", { slug: slug });
+      return;
+    }
+    if (parts[0] === "gamearchive") {   // #gamearchive[/<date>/<game>] followed mid-session (route() refuses it to a non-admin)
+      const gd = parts[1] || "", gk = parts[2] || "";
+      if (!(current.name === "gamearchive" && (current.params.date || "") === (gk ? gd : "") && (current.params.game || "") === gk)) route("gamearchive", gk ? { date: gd, game: gk } : {});
       return;
     }
     if (parts[0] === "sample") {   // #sample/<collection id> pasted or followed mid-session

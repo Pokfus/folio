@@ -527,6 +527,8 @@
        coast edges are also stroked in the fill colour, as wide as the resident level's tolerance, so the fill never stops short
        of the finer coast. A contested face is hatched in its two claimants' colours. */
     const hist = { segs: {}, meshes: new Map(), styleTex: null, styleN: 0, arcTex: null, arcN: 0 };
+    // the lazy admin-1 slot (2026-11-14; docs/atlas-v2-admin1-layer.md §3.2): admin1.bin's faces, in history.bin's mesh form, with their own style and arc tables — drawn by the history's own passes
+    const adm1 = { segs: {}, meshes: new Map(), styleTex: null, styleN: 0, arcTex: null, arcN: 0 };
     const lines = { fbo: null, tex: null, rb: null, w: 0, h: 0, key: "", on: true, reused: 0, rendered: 0 }; let dataGen = 0;   // the cached line layer; dataGen bumps on every upload that could change it
     const still = { fbo: null, tex: null, rb: null, scratch: null, scratchTex: null, scratchRb: null, w: 0, h: 0, key: "", lastKey: "", on: true, reused: 0, rendered: 0 };   // the still cache: the base while the view does not move
     const cover = { fbo: null, tex: null, none: null, w: 0, h: 0, on: true };   // the presences' cover for the empty-land darkening (FS_DIM): an R8 target at the canvas's size, made on first use; `none` a 1 × 1 zero texture bound when no presence is on screen
@@ -928,17 +930,20 @@
       return { range: range.subarray(2 * b * count, 2 * n * count), cap: cap.subarray(4 * b * count, 4 * n * count) };
     }
     /* ---- Phase 2a: the historical fills, their coast stroke at the tile zooms, the hatch, the borders ---- */
-    function histMeshFor(face, level) {
-      for (let l = Math.min(level, 2); l >= 0; l--) { const m = hist.meshes.get(face + ":" + l); if (m && m.gpu) return m; }
-      for (let l = level + 1; l <= 2; l++) { const m = hist.meshes.get(face + ":" + l); if (m && m.gpu) return m; }
+    function histMeshFor(face, level, slot) {
+      const meshes = (slot || hist).meshes;
+      for (let l = Math.min(level, 2); l >= 0; l--) { const m = meshes.get(face + ":" + l); if (m && m.gpu) return m; }
+      for (let l = level + 1; l <= 2; l++) { const m = meshes.get(face + ":" + l); if (m && m.gpu) return m; }
       return null;
     }
-    function drawHistoryFills(view, idPass, R, useStencil) {
-      const hv = view.history; if (!hv || !hv.faces || !hv.faces.length || !hist.styleTex) { stats.historyTriangles = 0; stats.historyFaces = 0; return; }
+    function drawHistoryFills(view, idPass, R, useStencil, slot, hvIn) {   // slot/hvIn: the admin-1 slot and its draw list (view.admin1Layer); the history's by default
+      const S = slot || hist, A1 = S === adm1;
+      const hv = A1 ? hvIn : view.history; if (!hv || !hv.faces || !hv.faces.length || !S.styleTex) { if (!A1) { stats.historyTriangles = 0; stats.historyFaces = 0; } return; }
+      if (A1 && idPass) return;   // the admin-1 slot is never picked (a window has no taps on it; the page's Provinces layer is step 3)
       if (idPass && pickOpts && pickOpts.layer === "presence") return;   // 2c: a presence-only ID pass
       const P = prog.face; common(P, view, R);
       gl.uniform1f(P.u.uIdPass, idPass ? 1 : 0); gl.uniform1f(P.u.uIdOffset, idPass ? HIST_FACE_BASE : 0); gl.uniform1f(P.u.uUseFlat, 0);
-      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, hist.styleTex); gl.uniform1i(P.u.uStyle, 0);
+      gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, S.styleTex); gl.uniform1i(P.u.uStyle, 0);
       // only where the land fills wrote the LAND bit: the fill is masked by the land, whatever level drew it. With the darkening on (hv.dim, a past year on the Atlas
       // page), a fill that is not fading out also marks the HIST bit — the cover the darkening pass leaves alone (a fading fill is last year's: its land darkens at once)
       const mark = useStencil && !idPass && hv.dim > 0;
@@ -946,7 +951,7 @@
       let tris = 0, drawn = 0, marking = false;
       const strokes = [];
       for (const f of hv.faces) {
-        const m = histMeshFor(f.face, view.historyLevel != null ? view.historyLevel : view.level); if (!m) continue;   // one level coarser during a gesture at stage ≥ 1 (atlas.js)
+        const m = histMeshFor(f.face, A1 ? view.level : view.historyLevel != null ? view.historyLevel : view.level, S); if (!m) continue;   // one level coarser during a gesture at stage ≥ 1 (atlas.js)
         if (mark && marking !== !f.fading) { marking = !f.fading; gl.stencilMask(marking ? ST_HIST : 0); }
         gl.uniform1f(P.u.uHatch, f.hatch ? 1 : 0); if (f.hatch) gl.uniform3f(P.u.uHatchB, f.hatch[0], f.hatch[1], f.hatch[2]);
         gl.bindVertexArray(m.gpu.vao); gl.drawElements(gl.TRIANGLES, m.gpu.count, m.gpu.u16 ? gl.UNSIGNED_SHORT : gl.UNSIGNED_INT, 0); stats.draws++;
@@ -971,7 +976,7 @@
         if (colorOff) { gl.colorMask(true, true, true, true); if (mark) { gl.stencilMask(0); gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); } }
       }
       if (useStencil) { gl.stencilFunc(gl.ALWAYS, 0, 0xff); gl.stencilMask(0xff); }
-      stats.historyTriangles = tris; stats.historyFaces = drawn;
+      if (A1) { stats.admin1Triangles = tris; stats.admin1Faces = drawn; } else { stats.historyTriangles = tris; stats.historyFaces = drawn; }
     }
     /* the empty-land darkening of a past year (2026-10-18; FS_DIM above): after the states' fills, before the presences' stipple and the lines. `target` is the framebuffer the
        frame draws into (null, or the still cache's scratch), to come back to after the cover target. Only on the Atlas page (atlas.js sets hv.dim; a hub never does). */
@@ -1062,16 +1067,18 @@
     }
     // the borders of the faces on screen (2b): each face's mesh carries its border segments at its level, tagged with the arc index
     // so the arc table still fades them; a border shared by two faces on screen is drawn twice, in one place
-    function drawHistoryBorders(view, R) {
-      const hv = view.history; stats.historySegments = 0;
-      if (!hv || !hv.faces || !hv.faces.length || !hist.arcTex) return;
+    function drawHistoryBorders(view, R, slot, hvIn) {   // slot/hvIn as drawHistoryFills; the admin-1 slot's inner lines take the core's admin-1 line (palette.admin1, its width)
+      const S = slot || hist, A1 = S === adm1;
+      const hv = A1 ? hvIn : view.history; if (A1) stats.admin1Segments = 0; else stats.historySegments = 0;
+      if (!hv || !hv.faces || !hv.faces.length || !S.arcTex) return;
       const P = prog.arc; arcUniforms(P, view, R, false, 0);
-      gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, hist.arcTex); gl.uniform1i(P.u.uArcTab, 3); gl.uniform1f(P.u.uArcTabOn, 1);
+      if (A1) { widths[HIST_KIND] = widths[5]; gl.uniform1fv(P.u.uWidth, widths); colors[3 * HIST_KIND] = palette.admin1[0]; colors[3 * HIST_KIND + 1] = palette.admin1[1]; colors[3 * HIST_KIND + 2] = palette.admin1[2]; gl.uniform3fv(P.u.uColor, colors); }
+      gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, S.arcTex); gl.uniform1i(P.u.uArcTab, 3); gl.uniform1f(P.u.uArcTabOn, 1);
       gl.bindVertexArray(emptyVao);
       for (const f of hv.faces) {
-        const m = histMeshFor(f.face, view.historyLevel != null ? view.historyLevel : view.level); if (!m || !m.gpu.border) continue;
+        const m = histMeshFor(f.face, A1 ? view.level : view.historyLevel != null ? view.historyLevel : view.level, S); if (!m || !m.gpu.border) continue;
         gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, m.gpu.border.tex); gl.uniform1i(P.u.uSeg, 1);
-        gl.drawArrays(gl.TRIANGLES, 0, m.gpu.border.count * 3); stats.draws++; stats.historySegments += m.gpu.border.count;
+        gl.drawArrays(gl.TRIANGLES, 0, m.gpu.border.count * 3); stats.draws++; if (A1) stats.admin1Segments += m.gpu.border.count; else stats.historySegments += m.gpu.border.count;
       }
       gl.uniform1f(P.u.uArcTabOn, 0);
     }
@@ -1298,9 +1305,10 @@
         gl.blitFramebuffer(0, 0, W, H, 0, 0, W, H, gl.COLOR_BUFFER_BIT | gl.STENCIL_BUFFER_BIT, gl.NEAREST);
         gl.bindFramebuffer(gl.FRAMEBUFFER, still.scratch); gl.viewport(0, 0, W, H);
         gl.enable(gl.STENCIL_TEST); gl.stencilFunc(gl.ALWAYS, 0, 0xff); gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0xff);
-        if (debug.faces) { drawHistoryFills(view, idPass, R, useStencil); drawHistoryDim(view, R, still.scratch); drawHistoryPresence(view, idPass, R, useStencil); }
+        if (debug.faces) { drawHistoryFills(view, idPass, R, useStencil); drawHistoryDim(view, R, still.scratch); drawHistoryPresence(view, idPass, R, useStencil); if (view.admin1Layer) drawHistoryFills(view, idPass, R, useStencil, adm1, view.admin1Layer); }
         drawLinesLayer(still.scratch);
         if (debug.arcs) drawHistoryBorders(view, R);
+        if (debug.arcs && view.admin1Layer && view.admin1Layer.lines && view.admin1) drawHistoryBorders(view, R, adm1, view.admin1Layer);
         gl.disable(gl.STENCIL_TEST);
         gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, W, H);
         const P = prog.blit; gl.useProgram(P.p); gl.bindVertexArray(emptyVao);
@@ -1308,9 +1316,10 @@
         gl.drawArrays(gl.TRIANGLES, 0, 3); stats.draws++;
       } else {
         drawBase();
-        if (debug.faces) { drawHistoryFills(view, idPass, R, useStencil); if (!idPass) drawHistoryDim(view, R, null); drawHistoryPresence(view, idPass, R, useStencil); }
+        if (debug.faces) { drawHistoryFills(view, idPass, R, useStencil); if (!idPass) drawHistoryDim(view, R, null); drawHistoryPresence(view, idPass, R, useStencil); if (view.admin1Layer) drawHistoryFills(view, idPass, R, useStencil, adm1, view.admin1Layer); }
         drawLinesLayer(null);
         if (debug.arcs && !idPass) drawHistoryBorders(view, R);
+        if (debug.arcs && !idPass && view.admin1Layer && view.admin1Layer.lines && view.admin1) drawHistoryBorders(view, R, adm1, view.admin1Layer);
         if (useStencil) gl.disable(gl.STENCIL_TEST);
       }
       if (stillKey) still.lastKey = stillKey;
@@ -1401,6 +1410,17 @@
       historyMeshLoaded(key) { const m = hist.meshes.get(key); return !!(m && m.gpu); },
       historyMeshInfo(key) { const m = hist.meshes.get(key); return m && m.gpu ? { triangles: m.gpu.count / 3, coast: m.gpu.coast ? m.gpu.coast.count : 0, border: m.gpu.border ? m.gpu.border.count : 0 } : null; },   // for the suites (2b)
       historyMeshCount() { return hist.meshes.size; },
+      // the admin-1 slot (docs/atlas-v2-admin1-layer.md §3.2): the same mesh form, its own tables
+      setAdmin1Mesh(key, m) {
+        if (adm1.meshes.has(key)) this.dropAdmin1Mesh(key);
+        const f = uploadFill(m.pos, m.idx);
+        const coast = m.coast && m.coast.length ? uploadSegs(m.coast) : null, border = m.border && m.border.length ? uploadSegs(m.border) : null;
+        adm1.meshes.set(key, { face: m.face, level: m.level, gpu: { vao: f.vao, pos: f.pos, idx: f.idx, count: f.count, u16: f.u16, bytes: f.bytes, coast, border } });
+      },
+      dropAdmin1Mesh(key) { const m = adm1.meshes.get(key); if (!m) return; releaseFill(m.gpu); if (m.gpu.coast) releaseSegs(m.gpu.coast); if (m.gpu.border) releaseSegs(m.gpu.border); adm1.meshes.delete(key); },
+      admin1MeshCount() { return adm1.meshes.size; },
+      setAdmin1Style(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); adm1.styleTex = uploadTable(adm1.styleTex, 256, h, bytes.length === 256 * h * 4 ? bytes : (() => { const b = new Uint8Array(256 * h * 4); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })()); adm1.styleN = n; },
+      setAdmin1ArcTable(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); adm1.arcTex = uploadTable(adm1.arcTex, 256, h, bytes.length === 256 * h ? bytes : (() => { const b = new Uint8Array(256 * h); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })(), true); adm1.arcN = n; },
       // the face style table: RGBA bytes per history face (alpha 0 = not alive); the arc table: alpha per history arc
       setHistoryStyle(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); const px = bytes.length === 256 * h * 4 ? bytes : (() => { const b = new Uint8Array(256 * h * 4); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })(); hist.sIdx = (hist.sIdx | 0) ^ 1; hist.sTex = hist.sTex || [null, null]; hist.sTex[hist.sIdx] = uploadTable(hist.sTex[hist.sIdx], 256, h, px); hist.styleTex = hist.sTex[hist.sIdx]; hist.styleN = n; },   // two textures in turn: an upload never touches the one the last frame still reads (a scrub re-uploads every frame)
       setHistoryArcTable(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); const px = bytes.length === 256 * h ? bytes : (() => { const b = new Uint8Array(256 * h); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })(); hist.aIdx = (hist.aIdx | 0) ^ 1; hist.aTex = hist.aTex || [null, null]; hist.aTex[hist.aIdx] = uploadTable(hist.aTex[hist.aIdx], 256, h, px, true); hist.arcTex = hist.aTex[hist.aIdx]; hist.arcN = n; },
