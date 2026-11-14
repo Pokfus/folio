@@ -531,7 +531,7 @@ otherwise.
 | B53 | Ming (`col-32`) | `cnh-521`–`cnh-530` | 10 | 105 | **done 2026-11-14** |
 | B54 | Ming (`col-32`) / Qing (`col-33`) | `cnh-531`–`cnh-540` | 10 | 108 | **done 2026-11-14** |
 | B55 | Qing (`col-33`) | `cnh-541`–`cnh-550` | 10 | 109 | **done 2026-11-14** |
-| B56 | Qing (`col-33`) | `cnh-551`–`cnh-560` | 10 | 108 | to do |
+| B56 | Qing (`col-33`) | `cnh-551`–`cnh-560` | 10 | 108 | **done 2026-11-14** |
 | B57 | Qing (`col-33`) | `cnh-561`–`cnh-570` | 10 | 119 | to do |
 | B58 | Qing (`col-33`) / Early Republic (`col-35`) | `cnh-571`–`cnh-580` | 10 | 117 | to do |
 | B59 | Early Republic (`col-35`) | `cnh-581`–`cnh-590` | 10 | 110 | to do |
@@ -1168,6 +1168,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-548` | none | not re-checked (pictures paused): wanted |
 | `cnh-549` | none | not re-checked (pictures paused): the glossary's court portrait is fine |
 | `cnh-550` | none | not re-checked (pictures paused): wanted |
+| `cnh-551` | none | not re-checked (pictures paused): the glossary's portrait looks fine |
+| `cnh-552` | none | not re-checked (pictures paused): wanted — a bound set |
+| `cnh-553` | none | not re-checked (pictures paused): wanted |
+| `cnh-554` | none | not re-checked (pictures paused): the glossary's portrait looks fine |
+| `cnh-555` | none | not re-checked (pictures paused): the glossary's portrait is fine |
+| `cnh-556` | none | not re-checked (pictures paused): the glossary's picture is fine |
+| `cnh-557` | none | not re-checked (pictures paused): the glossary's factories panorama fits |
+| `cnh-558` | none | not re-checked (pictures paused): wanted |
+| `cnh-559` | none | not re-checked (pictures paused): wanted |
+| `cnh-560` | none | not re-checked (pictures paused): the glossary's portrait looks fine |
 
 ## Glossary candidates
 
@@ -3626,3 +3636,39 @@ confirmed as far as told (Theobald, Cordier); Chen Yuanyuan not told. **check-ci
 (diffed after the apply). For the owner: `cnh-545`'s "Reigned 5 February 1661" is the Shunzhi Emperor's death day (Hummel: proclaimed
 17 February) and its "Old Summer Palace" looks wrong (he died at the Changchun yuan); `cnh-549`'s birthplace and 27 December 1722 on
 no page read. The glossary alias "Liu Song" (on `Liu_Song_dynasty`) may catch a sect leader's name on `cnh-558` — noted ahead.
+
+### B56 — `cnh-551`–`cnh-560`, Qing: the Qianlong Emperor to Lin Zexu (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl but the Library of Congress item page for the Siku Quanshu (`cnh-552`),
+which walls curl as in B53; the agent's saved page stands. **Pictures were not touched.** **The old cards cited the *Qingshi gao* (up
+to two juan a card), the *Lama shuo*, the *Siku* catalogue's edicts, the *Dayi juemi lu*, Wang Xihou's preface, Hong Liangji's
+*Yiyan* and chronological biography and the *Qingchao rouyuan ji* on Chinese Wikisource; cited Goodrich's *Literary Inquisition of
+Ch'ien-lung* from an archive.org user upload of an in-copyright reprint (twice on two cards); carried men in labels ("Zhuang case",
+"Dai executed"), a place ("At Lintin"), the White Lotus's "c. 100,000 rebels killed" (whose was never said), unattributed opium-chest
+figures, and "Treaty of Nanjing" in the card's voice.** The Qing cards read the *Qingshi gao* (juan 14, 154, 319, 344, 369) on
+zggdwx.com, the Qianlong Emperor's own seal essay and a *Siku* page itself on the Kanseki Repository, or the *Yiyan* on Shidian guji.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-551` Qianlong Emperor | 7 | 7 → 7 | **The emperor's own essay on the "Old Man of the Ten Completes" seal (Kanseki) for two Wikisource texts; the vow not to outreign his grandfather, the 42,000 poems attributed to him, the Khotan jade seal; the Cleveland portrait record, the Met's poem vase, the Paris-made enamel pot (Liu et al. 2022)**; Giles (its OCR prints 1710) and the *Lama shuo* (`cnh-783`'s ground) dropped. Protected: the line stays; every row matches Hummel. |
+| `cnh-552` Siku Quanshu | 7 | 7 → 7 | **`Last sets done 1787` added after `Ordered 1772` / `Named 1773` / `First set done 1782`; a *Siku* page itself (an editors' summary signed by Ji Yun) on the Kanseki Repository; the seasons' colours and the seven sets, the editors' summaries, Wylie's praise of the catalogue; Gandolfo 2020, Shao et al. 2024, the Library of Congress record**; Goodrich's upload and the figures only he gave dropped; the suppression cut to one clause (`cnh-553`'s). |
+| `cnh-553` literary inquisition | 6 | 7 → 7 | **Labels naming men off: `Recorded cases 1647 – 1788` (Wang, Yu and Niu 2024, *PLOS ONE*); the Zhuang case's seventy dead and the corpse burned, Dai Mingshi's Southern Ming reign titles, Wang Xihou's dictionary and the taboo names; four Hummel entries; the *Qingshi gao* juan 14**; Goodrich's upload, the 2,320 works and "476 survived" (on no citable page) and Zeng Jing (`cnh-549`'s) dropped. |
+| `cnh-554` Hong Liangji | 5 | 8 → 6 | **The *Yiyan*'s "Zhiping pian" on Shidian guji for four Wikisource texts; households multiplying faster than fields, the letter to Prince Cheng and Ili, the Scholar of the New Life; 1793 printed by the Cambridge chapter "Hong Liangji (1793)"; "China's Malthus" hedged as a modern comparison; Columbia's population estimate as theirs**; the register figures dropped; "extreme indecorum" (Hummel). Protected: the line stays. |
+| `cnh-555` Heshen | 6 | 7 → 6 | **The *Qingshi gao* juan 319 on zggdwx.com; Cao Xibao's charge and the house rebuilt, the ruyi given to the heir before his naming, the guard at the Qianqing Gate whose son married the Tenth Princess; the hoard as the edict lists it, Backhouse and Bland's 60 million ounces as their figure**; "800 million" not repeated; Macartney out of the phrasings. Protected: the line stays (flagged below). |
+| `cnh-556` Macartney Embassy | 7 | 7 → 8 | **"Left Beijing" (a place) → `Departed 7 October 1793`, with `Sailed 26 September 1792` / `Landed 5 August 1793` / `Audience 14 September 1793` (Morse); Macartney's journal: one knee, the kiss of the hand dropped; the edict read in context (Harrison 2017: drafted after the demands were translated, "we possess all things" in the preamble, famous only from 1914); the gifts (Harrison 2018); Ouyang 2020 [in Chinese]**; the Qing kowtow account (on no page) not told. Timeline set to 1792 – 1793. |
+| `cnh-557` Canton System | 7 | 7 → 8 | **"Canton System" told as a later name; `One port only 1757` / `Regulations 1760` / `Ended 1842` (Morse and Hummel's 1757 edict against Liu Yong's 1760 order, a dispute); the Flint case told through Hong Renhui (the glossary's "Flint" is the stone), the Flower Gardens three days a month, the Imperial Household's revenue; the *Qingshi gao* juan 154**; the treaty's terms and the dollars (`cnh-562`'s) and "Treaty of Nanjing" dropped. |
+| `cnh-558` White Lotus Rebellion | 7 | 7 → 7 | **The template off: `Began 1796` / `Ended 1804`; the casualty figure (on no page) dropped; the manhunt that drove villagers to rise, Gong Jinghan's walled villages (Hummel; the *Qingshi gao* credits Delengtai — both told), Wang Fasheng as a Ming descendant; ter Haar's reading of "White Lotus" as a hostile label, one study's**. |
+| `cnh-559` opium trade | 8 | 8 → 8 | **"At Lintin" (a place) → `Offshore depot 1821 – 1839`, with `First edict 1729` / `Company monopoly 1773` / `Import banned 1800` (Morse); the chests each whose: Morse's yearly averages (9,708 for 1821 – 1828, at least 30,000 for 1835 – 1839), Perdue's 40,000 for 1839; Xu Naiji's legalisation memorial; Permanyer Ugartemendia 2015 [in Spanish]**; Columbia's school reading dropped. Glossary: the 1729 edict punished selling for smoking, not smoking. |
+| `cnh-560` Lin Zexu | 7 | 7 → 7 | **The *Qingshi gao* juan 369 on zggdwx.com; the letter to Victoria written with two colleagues, the chests mixed with salt and lime at Humen, Ili and Wei Yuan's geography; "died at Chaozhou" taken out of the background (the line's Puning row stands)**; the years and the 20,283 chests out of the phrasings. Protected: the line stays (flagged below). |
+
+Read by eye. **Confusability**: the abdication vow and the seal `cnh-551`'s, the catalogue `cnh-552`'s and the cases `cnh-553`'s; the
+edict and the kneeling `cnh-556`'s, the factories' rules `cnh-557`'s; the offshore depot and the chests `cnh-559`'s, Humen and the
+letter `cnh-560`'s, the war left to `cnh-561`. **Legend**: Qianlong's edict ("we possess all things", read in context), Heshen's hoard
+(the edict's list; Backhouse and Bland's figure theirs), the 42,000 poems ("attributed") are each a text's. **Chinese names**: none
+corrected; kept unconfirmed 一口通商 (Theobald only) and 鸦片贸易 (on no page as one word; pinyin lower-cased to yāpiàn màoyì) — for the
+owner. **Spellings fixed**: "Treaty of Nanjing" (`cnh-557`); 0 hits after. **Myth register**: the Macartney embassy corrected (one knee,
+Macartney's own journal; the edict drafted after the requests were translated, famous only from 1914); Lin Zexu's letter corrected in
+part (August 1839, written with Deng Tingzhen and Yiliang, printed in the *Chinese Repository* in February 1840 from the *Canton Press*;
+*The Times* on no page read). **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the apply). For the owner:
+`cnh-555`'s 1 July 1750, 22 April 1776 and 12 February 1799 on no page read; `cnh-560`'s 3 October 1840 (Hummel: dismissed 28 September)
+and Puning (Hummel and the *Qingshi gao*: Chaozhou). The alias "Liu Song" on `Liu_Song_dynasty` may link the sect leader on `cnh-558`.

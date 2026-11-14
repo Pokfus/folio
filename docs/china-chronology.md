@@ -708,6 +708,12 @@ single whip 1581 (`cnh-381`), the examinations ended 1905 (`cnh-348`, `cnh-427`)
 | the Dzungars invaded / destroyed | 1755 / 1757 – 1758 | Theobald; Hummel (`cnh-547`) |
 | the amban in Lhasa set (two datings) / reorganised / the reforms | 1727, or 1725 / 1751 / 1793 | Mayers; Theobald (`cnh-548`) |
 | the Grand Council founded / renamed / abolished | 1729 / 1732 / 8 May 1911 | Brunnert and Hagelstrom (`cnh-550`) |
+| the Siku Quanshu ordered / named / the first set / the last sets | 1772 / 1773 / 1782 / 1787 | the *Siku* page; the Library of Congress (`cnh-552`) |
+| the literary inquisition's recorded cases | 1647 – 1788 | Wang, Yu and Niu (`cnh-553`) |
+| the Macartney embassy sailed / landed / the audience / departed | 26 September 1792 / 5 August 1793 / 14 September 1793 / 7 October 1793 | Morse; Macartney (`cnh-556`) |
+| the one-port rule / the regulations / ended | 1757 / 1760 / 1842 | Morse and Hummel; Liu Yong (`cnh-557`) |
+| the White Lotus Rebellion | 1796 – 1804 | Hummel; Theobald (`cnh-558`) |
+| opium: the first edict / the Company's monopoly / imports banned / the offshore depot | 1729 / 1773 / 1800 / 1821 – 1839 | Morse (`cnh-559`) |
 
 ## Later periods
 
@@ -1272,4 +1278,10 @@ cnh-546: 1689
 cnh-547: 1755; 1757; 1758
 cnh-548: 1727; 1725; 1751; 1793
 cnh-550: 1729; 1732; 1911
+cnh-552: 1772; 1773; 1782; 1787
+cnh-553: 1647; 1788
+cnh-556: 1792; 1793
+cnh-557: 1757; 1760; 1842
+cnh-558: 1796; 1804
+cnh-559: 1729; 1773; 1800; 1821; 1839
 ```
