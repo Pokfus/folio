@@ -4077,6 +4077,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     REFERENCE AGAINST THE ACTUAL SHELF** — the book against app.js's own `BOOKS` registry and the section
     against the generated `books/<id>.js` — because the renderer's own guard renders NOTHING, and a silent
     blank is exactly what an author cannot see. Guarded by `.claude/test-card-quote.js`.
+    **SINCE 2026-11-14 THE BUTTON IS A BOOK ICON BESIDE THE TWO ATTRIBUTION LINES** (aria-label and title "Read it in the
+    Library") **AND IT OPENS THE PARAGRAPH**: the reader finds the paragraph the quotation stands in (`bookSeek` →
+    `bookParaFind` over `bookParaTexts`, words folded by `bookParaNorm`), writes it into the address as `#book/<id>/<n>/<p>`
+    and marks it (`.bk-target`; with the original beside it, every row piece of that paragraph); 1330 of 1330 quotations
+    resolved when it was written. **AND A WAY BACK**: `bookHold` (the study record captured before routing) draws the
+    "Back to card" pill (`.bk-tocard`, on <body>, removed by every route()), which resumes the session on the same card.
   · **A BOOK SAYS HOW MANY PEOPLE HAVE READ IT** (`book_stats` + `bump_book_read`, **schema section 16**;
     `bookStatsLoad` / `bookReads` / `bookReadMaybeCount` / `BOOK_READ_MIN` / `.bk-tile-reads`; Sep 2026,
     on request). The third pooled counter after the card difficulties and the daily games, and it exists
@@ -9312,7 +9318,7 @@ division-capital city tier are inert dead code.
     fails SILENTLY. **Its §7 asserts that the difficulty order opens on the deck's easiest card with no pretest first** (the pretest was removed Oct 2026). Sections
     1–5 need no browser. **Re-run after touching anything in the "HOW A READER MEETS A CARD" bullet's own
     list.**
-  · `node .claude/test-card-quote.js` — **a card quoting the book it cites** (13 assertions, Aug 2026),
+  · `node .claude/test-card-quote.js` — **a card quoting the book it cites** (19 assertions, Aug 2026; the paragraph and Back to card 2026-11-14),
     and every part of it fails silently: a quotation appended after the prose instead of standing between
     the two blocks looks deliberate, one that wraps around the floated illustration looks deliberate, and
     a book address that has stopped honouring its section fragment simply opens the book. **Re-run after

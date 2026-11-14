@@ -4212,6 +4212,14 @@
      captured when the button is pressed and written back when the reader presses Back.
      (Phase 5: the window's globe button carries the window's own view and year in the address, so the old `atlasFocus` — a card id the page resolved through v1's register — is no more.) */
   let atlasHold = null;
+  /* …AND THE SAME TRIP INTO A BOOK AND BACK (2026-11-14, on request: "when opening a book through that quotation button,
+     there should be a button to return back to the card the user was just studying"). The `.cq-go` listener fills it —
+     `{ book, card, rec }`, `rec` the study record captured BEFORE routing (route() clears it) or null where the card was
+     not being studied (the card of the day's page, a `#card` address, Card info) — and the reader shows "Back to card"
+     while it holds a hold for the book on screen. route() drops it on any move off that book, so it can never wait on a
+     book the reader reached some other way. `bookSeek` is the quotation the reader is to find the paragraph of
+     (`bookParaFind`), consumed by the book's first full paint. */
+  let bookHold = null, bookSeek = null;
 
   // remember which gloss popups are open (owning route + term + position) so a page reload can re-open them.
   // Uses sessionStorage: it survives an F5 / dev-server live-reload in the SAME tab, but a tab/browser CLOSE clears it,
@@ -16347,6 +16355,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (name !== "admin" && name !== "study") studyHold = null;
     // …and the atlas hold to the trip between the study page and the Atlas
     if (name !== "map" && name !== "study") { atlasHold = null; }   // map2 (Phase 4b): a card window's tap or go button leaves the study page for the engine's Atlas and Back returns to the card
+    // …and the book hold to the book a card's quotation opened: any other page, or another book, ends it
+    if (!(name === "book" && bookHold && params && params.id === bookHold.book)) bookHold = null;
+    if (name !== "book") bookSeek = null;
+    document.querySelectorAll(".bk-tocard").forEach((el) => el.remove());   // the reader's pill lives on <body>; PAGES.book draws it again
     // the Atlas opens on the reader's own atlas every time — see the note beside `atlasTab`
     /* An admin-only route is refused HERE and not in the page, so a deep link, a Back and a stray
        `route()` are all covered by one line. `warofages` joins `admin`: the tab is hidden for everybody
@@ -31897,7 +31909,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        <p> among the chapter's own, scrolled to and briefly marked on the first paint only. A chapter numbered 0
        (Beowulf's Prelude) shares its number with the front matter, so a paragraph address skips the front matter. */
     let wantP = params && params.p != null && /^\d+$/.test(String(params.p)) ? +params.p : -1;
-    const addressed = wantN ? (wantP >= 0 && chapters.find((c) => String(c.n) === wantN && !c.intro)) || chapters.find((c) => String(c.n) === wantN) : null;
+    /* …and a card's QUOTATION (2026-11-14): the `.cq-go` button hands over the passage, and the paragraph it stands in is
+       found here (`bookParaFind`) and written into the address in place, so the entry Back returns to and a link copied
+       from the bar both say `#book/<id>/<n>/<p>`. Consumed on this, the first full paint; no match leaves the chapter top. */
+    if (bookSeek && bookSeek.id === b.id) {
+      if (wantP < 0 && wantN && String(bookSeek.n) === wantN) {
+        const sc = chapters.find((c) => String(c.n) === wantN && !c.intro);
+        const at = sc ? bookParaFind(bookParaTexts(sc.html), bookSeek.text) : -1;
+        if (at >= 0) {
+          wantP = at; current.params.p = String(at);
+          try { history.replaceState(history.state, "", "#book/" + encodeURIComponent(b.id) + "/" + encodeURIComponent(wantN) + "/" + at); } catch (e) {}
+        }
+      }
+      bookSeek = null;
+    }
+    const addressed =wantN ? (wantP >= 0 && chapters.find((c) => String(c.n) === wantN && !c.intro)) || chapters.find((c) => String(c.n) === wantN) : null;
     // resume on the chapter the reader left, falling back to the first if that chapter is not shipped yet
     let cur = addressed || chapters.find((c) => pos && c.n === pos.ch) || chapters[0];
     const partOf = (n) => (b.parts || []).find((p) => p.n === n);
@@ -32055,14 +32081,31 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const targetP = wantP >= 0 && c === addressed ? wantP : -1;
       wantP = -1;   // the paragraph is asked for once; a later move to another chapter starts at its top
       requestAnimationFrame(() => {
-        const tp = targetP >= 0 ? Array.from(proseEn).flatMap((el) => Array.from(el.querySelectorAll("p")))[targetP] : null;
+        const allP = targetP >= 0 ? Array.from(proseEn).flatMap((el) => Array.from(el.querySelectorAll("p"))) : [];
+        let tps = allP[targetP] && !rows ? [allP[targetP]] : [];
+        /* `p` counts the chapter's OWN paragraphs, but a book shown beside its original is cut into rows at every section
+           marker, and a paragraph holding two markers is drawn as two (bookSections clones it) — so with the rows up, the
+           pieces are walked against the source paragraphs in order and every piece of paragraph `p` is marked (2026-11-14). */
+        if (targetP >= 0 && rows) {
+          const src = bookParaTexts(c.html).map(bookParaNorm), pcs = bookParaTexts(rows.map((r) => r.en).join("")).map(bookParaNorm);
+          let i = 0, at = 0;
+          pcs.forEach((t, j) => {
+            if (!t || i >= src.length) return;
+            let k = src[i].indexOf(t, at);
+            if (k < 0 && i + 1 < src.length && src[i + 1].indexOf(t) >= 0) { i++; at = 0; k = src[i].indexOf(t); }
+            if (k < 0) return;                                  // a stray run the row builder wrapped: no paragraph of the source
+            at = k + t.length;
+            if (i === targetP && allP[j]) tps.push(allP[j]);
+          });
+        }
+        const tp = tps[0];
         if (tp) {
-          const row = tp.closest(".bk-row") || tp;
+          // the paragraph itself, not its row: a section's row can run to several paragraphs (2026-11-14, found with the quotations)
           // measured by offsets, not getBoundingClientRect: the page's entry transition is still translating it
-          let top = 0; for (let el = row; el; el = el.offsetParent) top += el.offsetTop;
+          let top = 0; for (let el = tp; el; el = el.offsetParent) top += el.offsetTop;
           window.scrollTo({ top: Math.max(0, top - 120), behavior: "auto" });
-          tp.classList.add("bk-target");
-          setTimeout(() => tp.classList.remove("bk-target"), 2600);
+          tps.forEach((el) => el.classList.add("bk-target"));
+          setTimeout(() => tps.forEach((el) => el.classList.remove("bk-target")), 2600);
         } else if (restoreFrac > 0) {
           const top = pageEl.offsetTop + pageEl.offsetHeight * restoreFrac;
           window.scrollTo({ top: Math.max(0, top - 80), behavior: "auto" });
@@ -32396,6 +32439,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     root.querySelector("#bkPrev2").addEventListener("click", () => step(-1));
     root.querySelector("#bkNext2").addEventListener("click", () => step(1));
     root.querySelector("#bkBack").addEventListener("click", () => route("library"));
+    /* "BACK TO CARD" (2026-11-14, on request), only when a card's quotation button opened this book (`bookHold`): a pill
+       pinned above the tab bar, since the reader arrives deep in a chapter, out of sight of the page head. It lives on
+       <body>, not in the page — `.page` keeps a transform, which would make it the pill's containing block — so route()
+       removes it on every navigation. It returns to the study session as it was (the queue, the card, the answer
+       showing — `rec.rev`), else to the card's own address where it was not being studied. One use: the hold is spent. */
+    document.querySelectorAll(".bk-tocard").forEach((el) => el.remove());
+    const toCard = bookHold && bookHold.book === b.id && (bookHold.rec || bookHold.card) ? document.createElement("button") : null;
+    if (toCard) {
+      toCard.type = "button"; toCard.className = "bk-tocard"; toCard.id = "bkToCard";
+      toCard.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg><span>Back to card</span>';
+      document.body.appendChild(toCard);
+    }
+    if (toCard) toCard.addEventListener("click", () => {
+      const h = bookHold; bookHold = null;
+      if (h && h.rec) { writeStudySession(h.rec); route("study", { scope: h.rec.scope, resume: h.rec }); }
+      else if (h && h.card) route("card", { id: h.card });
+      else route("library");
+    });
 
     /* first-open coach marks + the "?" that brings them back. The card is built on document.body rather
        than written into this page — the reason is worth reading at pageHelp. Three of the Library's five
@@ -38420,14 +38482,76 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const who = esc(b.author || ""), when = esc(b.written || "");
     return '<figure class="card-quote">' +
       '<blockquote class="verbatim">' + q.text + "</blockquote>" +   // a published translation, transcribed rather than edited: the spelling and units passes skip `.verbatim` (2026-10-19)
-      // three lines (2026-11-13, on request): "TITLE, CHAPTER" / "AUTHOR (DATE)" / the link
-      '<figcaption><span class="cq-line"><cite>' + esc(b.title) + "</cite>" +
+      /* two lines, "TITLE, CHAPTER" / "AUTHOR (DATE)", and BESIDE them a book button (2026-11-14, on request: the third line,
+         "Read it in the Library", is gone). The button opens the book at the PARAGRAPH the quotation stands in (see
+         `bookParaFind` and the `.cq-go` listener), and the reader then offers a way back to this card (`bookHold`).
+         Its old words are its accessible name and its tooltip. */
+      '<figcaption><span class="cq-attr"><span class="cq-line"><cite>' + esc(b.title) + "</cite>" +
       (cardQuoteCite(q.cite, b.title) ? ', <span class="cq-where">' + esc(cardQuoteCite(q.cite, b.title)) + "</span>" : "") + "</span>" +
       (who || when ? '<span class="cq-line">' + (who ? '<span class="cq-who">' + who + "</span>" : "") +
-        (when ? (who ? " (" : "") + '<span class="cq-when">' + when + "</span>" + (who ? ")" : "") : "") + "</span>" : "") +
+        (when ? (who ? " (" : "") + '<span class="cq-when">' + when + "</span>" + (who ? ")" : "") : "") + "</span>" : "") + "</span>" +
       '<button type="button" class="cq-go" data-cqbook="' + esc(b.id) + '"' +
-        (q.n ? ' data-cqn="' + esc(q.n) + '"' : "") + '>Read it in the Library</button>' +
+        (q.n ? ' data-cqn="' + esc(q.n) + '"' : "") + (c.id ? ' data-cqcard="' + esc(c.id) + '"' : "") +
+        ' aria-label="Read it in the Library" title="Read it in the Library">' + CQ_BOOK_ICON + "</button>" +
       "</figcaption></figure>";
+  }
+  // the Library tab's own open book (index.html), so the button reads as "the Library" wherever it is seen
+  const CQ_BOOK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="M3 5.5h5.5a2.5 2.5 0 0 1 2.5 2.5v11a2 2 0 0 0-2-2H3z"/><path d="M21 5.5h-5.5A2.5 2.5 0 0 0 13 8v11a2 2 0 0 1 2-2h6z"/></svg>';
+  /* ---------- WHICH PARAGRAPH A QUOTATION STANDS IN (2026-11-14, on request) ----------
+     "Ensure that clicking this button does not just take people to the right book chapter, but to the exact paragraph."
+     A card's quotation names its book and section and nothing finer, and the passage is AUTHORED (see `cardQuote`) —
+     so the paragraph is FOUND, by matching the quotation's own words against the chapter's paragraphs, rather than
+     written onto every card by hand. Both sides are folded the same way first (case, accents, every quote mark and
+     apostrophe dropped, every other run of punctuation or dash a single space), and a quotation is split at its
+     ellipses and editorial brackets, which mark where the author left words out or put words in.
+       1. A run of eight of the quotation's words, tried from its first words on, that ONE paragraph holds: that
+          paragraph. The first fragment is tried first, so a quotation running over two paragraphs lands on the first.
+       2. Else the first paragraph holding a run that several do.
+       3. Else the paragraph sharing the most of the quotation's word pairs, if it shares at least half of them.
+       4. Else -1: the chapter's top, which is where the button went before.
+     The index is the reader's own `p` (the chapter's <p> elements in order, as `#book/<id>/<n>/<p>` already carries
+     for the home page's passage), so the address the button writes is stable and can be shared.
+     The three functions are PURE (no closure), so a measuring script can lift them out of this file whole. */
+  function bookParaNorm(s) {
+    return String(s || "").normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase()
+      .replace(/[‘’‚‛′ʼ'`´]/g, "")
+      .replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  }
+  // the text of every <p> of a chapter's markup, in document order, without its section numbers or note markers
+  function bookParaTexts(html) {
+    const t = document.createElement("template");
+    t.innerHTML = html || "";
+    t.content.querySelectorAll(".bk-n, sup").forEach((el) => el.remove());
+    t.content.querySelectorAll("br").forEach((el) => el.replaceWith(" "));   // a verse line ends in <br>, and its last word is not the next line's first
+    return Array.from(t.content.querySelectorAll("p"), (p) => p.textContent || "");
+  }
+  function bookParaFind(paras, quote) {
+    const P = paras.map((t) => " " + bookParaNorm(t) + " ");
+    const frags = String(quote || "").replace(/<[^>]*>/g, " ").split(/…|\.\s?\.\s?\.|\[[^\]]*\]/)
+      .map(bookParaNorm).filter((f) => f.split(" ").length >= 4);
+    let first = -1;
+    for (const f of frags) {
+      const w = f.split(" "), L = Math.min(8, w.length);
+      for (let s = 0; s + L <= w.length; s += 2) {
+        const needle = " " + w.slice(s, s + L).join(" ") + " ";
+        let hit = -1, n = 0;
+        for (let i = 0; i < P.length && n < 2; i++) if (P[i].indexOf(needle) >= 0) { if (hit < 0) hit = i; n++; }
+        if (n === 1) return hit;
+        if (n > 1 && first < 0) first = hit;
+      }
+    }
+    if (first >= 0) return first;
+    const pairs = new Set();
+    frags.forEach((f) => { const w = f.split(" "); for (let i = 0; i + 1 < w.length; i++) pairs.add(w[i] + " " + w[i + 1]); });
+    if (pairs.size < 3) return -1;
+    let best = -1, bestN = 0;
+    P.forEach((p, i) => {
+      let n = 0;
+      pairs.forEach((pr) => { if (p.indexOf(" " + pr + " ") >= 0) n++; });
+      if (n > bestN) { bestN = n; best = i; }
+    });
+    return bestN * 2 >= pairs.size ? best : -1;
   }
   /* ---------- WHAT SORT OF PLACE IT IS (Aug 2026, on request) ----------
      "For river cards like 'Tiber' ensure it is displayed on the map as an actual river and not just a dot.
@@ -50800,6 +50924,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     e.preventDefault();
     const p2 = { id: b.dataset.cqbook };
     if (b.dataset.cqn) p2.n = b.dataset.cqn;
+    /* …AT ITS PARAGRAPH, AND WITH A WAY BACK (2026-11-14, on request). The quotation is handed to the reader (`bookSeek`)
+       rather than matched here: the book is lazy and can be megabytes, and the reader already shows "Opening…" while it
+       loads, where a button that waited on the download would simply look dead. The reader finds the paragraph
+       (`bookParaFind`) on its first full paint and writes it into the address. The study record is captured BEFORE
+       routing, which clears it — exactly as the Atlas's go button does (`atlasHold`). */
+    const bq = b.closest(".card-quote") && b.closest(".card-quote").querySelector("blockquote");
+    if (p2.n && bq) bookSeek = { id: p2.id, n: p2.n, text: bq.innerHTML };
+    bookHold = { book: p2.id, card: b.dataset.cqcard || "", rec: current.name === "study" ? readStudySession() : null };
     route("book", p2);
   });
   // badges: one delegated listener flips a badge over to its "how to earn it" back, and back again on a
@@ -50897,8 +51029,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return;
     }
     if (hh === "study" && current.name !== "study") {   // back/forward onto a study address — resume, or go home if the session is gone
-      const rec = readStudySession() || atlasHold;   // …or the session a card window's globe button left behind (Phase 4b)
-      atlasHold = null;
+      const rec = readStudySession() || atlasHold || (bookHold && bookHold.rec);   // …or the session a card window's globe button (Phase 4b) or a quotation's book button left behind
+      atlasHold = null; bookHold = null;
       if (rec) { writeStudySession(rec); route("study", { scope: rec.scope, resume: rec }); } else route("home");
       return;
     }
