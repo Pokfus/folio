@@ -303,6 +303,27 @@ here verbatim rather than being dropped in the move.
     it — measured as the SLACK between the scroller and the pane inside it, which is exactly the "empty
     space at the bottom" the request names.
 
+## Memory: the card's undo history is patches (2026-11-14)
+
+On a report that the app "lags so much that it crashes" on a tablet, worst with the marker. Measured in
+headless Chromium at an iPad Pro 11 viewport (dpr 2): a revealed card's canvas is 1668×6240 backing pixels
+(42 MB), and every stroke pushed a FULL copy of it onto the undo stack (20 kept) — 875 MB of canvases after
+twenty strokes, past what iOS Safari allows a tab; an unused card already held two (the canvas and an empty
+base snapshot). Now (`wbRecord`, `wbCommitted`, `wbApplyStep`, `wbFreeCanvas` in `app.js`):
+- a step keeps only the rectangle its stroke touched (the points' box, padded by half the line), before and
+  after, cut against ONE committed copy of the canvas made at the first stroke — a card never drawn on has
+  none; a clear is one full-size step; undo/redo paste the rectangle back on the canvas and the copy alike;
+- the highlighter's per-move redraw clears and refills only the stroke's box, over the committed copy, where
+  it repainted the whole canvas on every pointermove and copied the whole canvas per stroke;
+- the patches are capped at `WB_HIST_BYTES` (48 MB) as well as `WB_HIST_MAX` steps; the card canvas has a
+  pixel budget `WB_MAX_PX` (8.4M; iOS refuses a canvas over 16.7M pixels without an error), so a very long
+  card is inked at a little under devicePixelRatio (`WB.scale`, which the live stroke and the box use);
+- every canvas let go (the card's on the next card or page, a resize's copy, a dropped step) is shrunk to
+  0×0 at once — Safari counts a detached canvas against its limit until it is collected.
+Behaviour is unchanged: undo/redo/clear give pixel-identical canvases to the old full-snapshot stack, and a
+real resize still starts the history again. After: twenty strokes hold the canvas, the copy and ~11 MB of
+patches. Re-run `test-whiteboard.js` and `test-draw-cards.js` after touching any of it.
+
 
 ---
 
