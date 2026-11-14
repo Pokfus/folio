@@ -43,12 +43,15 @@ function grab(name) {
 const everyM = /const STREAK_CHEST_EVERY = (\d+)/.exec(src);
 if (!everyM) throw new Error("cannot find STREAK_CHEST_EVERY in app.js");
 const EVERY = +everyM[1];
+const maxM = /const STREAK_CHEST_MAX = (\d+)/.exec(src);
+if (!maxM) throw new Error("cannot find STREAK_CHEST_MAX in app.js");
+const MAX = +maxM[1];
 
 /* `Date` is passed in as well as the clock helpers: bumpStreak asks `Date.now()` for what yesterday was,
    so without stubbing it every simulated day reads as a break and the streak never passes 1 — which is
    what the first run of this reported, and is a fault in the harness rather than in the code. */
 const make = new Function(
-  "S", "dayKey", "DAY", "todayStr", "grantChest", "toast", "STREAK_CHEST_EVERY", "Date",
+  "S", "dayKey", "DAY", "todayStr", "grantChest", "toast", "STREAK_CHEST_EVERY", "Date", "STREAK_CHEST_MAX",
   grab("streakChestWeeks") + "\n" + grab("bumpStreak") + "\n" + grab("owedStreakChests") + "\n" + grab("claimStreakChest") + "\n" +
   grab("maybeStreakChest") + "\n" + grab("streakChestProgress") +
   "\nreturn { bumpStreak: bumpStreak, owedStreakChests: owedStreakChests, claimStreakChest: claimStreakChest, streakChestProgress: streakChestProgress };"
@@ -69,7 +72,7 @@ function run(pattern, opts) {
   /* THE STUB COUNTS WHAT IT IS HANDED, not how often it is called (Aug 2026): since the weeks are worth
      one chest, then two, then three, a stub written `() => chests++` reports every week as one and the
      whole scaling passes on a rule that has stopped applying. */
-  const api = make(S, dayKey, DAY, () => dayKey(now), (n) => { chests += (n || 1); }, () => {}, EVERY, FakeDate);
+  const api = make(S, dayKey, DAY, () => dayKey(now), (n) => { chests += (n || 1); }, () => {}, EVERY, FakeDate, MAX);
   for (const studied of pattern) {
     if (studied) api.bumpStreak();
     if (press) api.claimStreakChest();
@@ -97,7 +100,9 @@ console.log("\n--- and every week is worth one more than the last ---");
    deliberate: it is what a reader can actually count, and it fails whichever half of the rule breaks. */
 check("two weeks earns two more, three in all", run(days(EVERY * 2)).chests, 3);
 check("three weeks earns three more, six in all", run(days(EVERY * 3)).chests, 6);
-check("four weeks, ten in all", run(days(EVERY * 4)).chests, 10);
+/* …CAPPED AT STREAK_CHEST_MAX (Nov 2026): the fourth week pays three, not four, and so does every week after. */
+check("four weeks, nine in all — the fourth week is capped at three", run(days(EVERY * 4)).chests, 1 + 2 + MAX * 2);
+check("ten weeks, the cap paid every week from the third", run(days(EVERY * 10)).chests, 1 + 2 + MAX * 8);
 check("a fortnight and a day pays nothing extra", run(days(EVERY * 2 + 1)).chests, 3);
 
 console.log("\n--- a broken streak (the regression) ---");
@@ -130,7 +135,7 @@ check("a length already paid at is never paid twice", (() => {
   let chests = 0, now = Date.UTC(2026, 5, 1);
   const dayKey = (ts) => new Date(ts).toISOString().slice(0, 10);
   const FakeDate = Object.create(Date); FakeDate.now = () => now;
-  const api = make(S2, dayKey, DAY, () => dayKey(now), (n) => { chests += (n || 1); }, () => {}, EVERY, FakeDate);
+  const api = make(S2, dayKey, DAY, () => dayKey(now), (n) => { chests += (n || 1); }, () => {}, EVERY, FakeDate, MAX);
   api.bumpStreak(); api.bumpStreak();
   return chests;
 })(), 0);
@@ -151,6 +156,7 @@ check("...and on day seven the promise moves on to the second", run(days(EVERY))
 check("mid-second-week promises two", run(days(EVERY + 2)).progress.worth, 2);
 check("...and on day fourteen, three", run(days(EVERY * 2)).progress.worth, 3);
 check("no streak at all promises one", run([]).progress.worth, 1);
+check("a long run promises no more than the cap", run(days(EVERY * 6 + 2)).progress.worth, MAX);
 
 console.log(fails ? "\nFAILED — " + fails + " failed" : "\nPASSED — " + "all checks passed");
 process.exit(fails ? 1 : 0);

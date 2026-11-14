@@ -11,6 +11,55 @@ the timing the reveal is sized by, the two-tier plate and where its actions sit,
 grandfathers an existing reader, the showcase's empty-slot control, and the z-index and Escape
 interactions that a plate's own glossary links forced.
 
+## The second pass (Nov 2026, on request: fourteen of twenty suggested changes)
+
+What changed, and the one decision behind each. Where a bullet further down contradicts this section,
+this section is the current rule.
+
+- **A chest knows what earned it** (`S.chestSrc`, `CHEST_SRC_ORDER`, `chestSrcTrim`, `nextChestSrc`,
+  `chestSrcLine`). `S.chests` is still the one count; `chestSrc` is a register of SHARES of it
+  (`level`, `badge`, `streak`, `play`, `gilded`, `deck:<node id>`), never a queue, so a chest from before it
+  existed simply has no share and opens with no line, and a sync can only make the shares too large, which
+  the trim cuts back least special first. The banner draws the most special share; a level's share is held
+  back while the level bar still shows it lit, so the bar and the banner never both claim one level. The
+  overlay shows `chestSrcLine` under the closed chest.
+- **The perfect sweep pays ONE gilded chest** (`GILDED_WEIGHTS` 0 / 50 / 35 / 15) instead of
+  `SWEEP_CHESTS = 3`: one chest that is different says "a different order of work" and drains the pool a
+  third as fast. No common at all; the ordinary odds come back only when nothing rarer is left.
+- **A finished deck pays a chest** (`maybeDeckChest`, `deckChestNode`, `DECK_CHEST_MIN` 10, `S.deckChests`),
+  called beside `announceLevelUps` on a newly studied card. "A deck" is a collection's direct child; it is
+  paid on the card that FINISHES it and never back-filled. Its chest rolls from the deck's sets first
+  (`COLLECTION_SETS` → `deckSets`), the whole pool when the collection has none or the set is exhausted.
+- **Themes are on their own track** (`THEME_EVERY` 10, replacing `THEME_DROP`): every tenth chest opened holds
+  a theme while one is locked, no other does. The first chest is therefore always an artefact.
+- **The exhausted pool opens on a curator's mark** (`claimMark`, `S.curatorMarks`, `MARK_SVG`):
+  `rollChestItem` never returns null now — `{ kind: "mark" }` when there is nothing left. The hint still
+  says "every artefact and every theme", the lid is live, and the Reliquary page counts the marks.
+- **The streak's weekly worth stops at three** (`STREAK_CHEST_MAX`): uncapped, a year paid over 1,300 chests.
+- **Open all** (`openAll` inside `openChestPop`): every banner chest, each from its own share, claimed one
+  after another BEFORE anything is shown (each roll must see the last one's find), the badges tested once
+  after the last (`spendChest(src, defer)`), one animation sized by the best find, a grid of finds. A picture
+  that will not load shows its placeholder rather than being swapped, the find being already claimed. Not
+  offered on the level-up path.
+- **The reveal teaches**: `artefactLede` (the first sentence, never cut at "c." or an initial) and
+  `chestSetLine` (how far through its set, or "Set complete").
+- **Sets** (`ARTEFACT_SETS`, `artefactSet`, `setProgress`): fourteen, DERIVED from origin, name and date by
+  ordered rules — first match wins, then a date fallback (medieval from 400, modern from 1450, prehistory
+  before) — so an artefact added from Admin falls into one with nothing to fill in. All 198 shipped
+  artefacts land in exactly one.
+- **The Reliquary page** gains per-rarity figures that are also rarity filters (`rarityProgress`,
+  `reliqRar`), a set picker and a Sets list that filter (`reliqSet`), and "New" on what arrived since this
+  device last showed the page (`S.reliqSeen`, device-local, written without `save()` so it never queues a
+  push; a device that has never shown the page marks nothing). A chest opened over the page rebuilds its meta
+  block and sets (`_reliqRepaint`).
+- **The empty states name every channel** from one string, `chestWaysText`.
+- **A friend's collection is compared with yours** (`reliquaryHTML` for `!own`): both / only they / only you,
+  and "Not in yours" on their tiles. There is no friends feed to post a legendary find to, so that half of
+  the suggestion was not built.
+- `chestSrc`, `deckChests` and `curatorMarks` are in `PROGRESS_FIELDS` (and pinned in
+  `test-progress-registers.js`). Re-run `test-chest-sources.js`, `test-streak-chest.js` and
+  `test-artefacts.js` after touching any of this.
+
 - **THE RELIQUARY — artefact chests** (the `THE RELIQUARY` block in app.js, just below the levels block;
   `artefacts.js`; Aug 2026, on request). A level buys a **chest**, and a chest holds one real historical
   object. It is the first thing a Folio level has ever GIVEN the reader rather than taken away — the level

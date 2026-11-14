@@ -101,6 +101,9 @@ jobs:
       - name: test-streak-chest
         if: ${{ !cancelled() }}
         run: node .claude/test-streak-chest.js
+      - name: test-chest-sources
+        if: ${{ !cancelled() }}
+        run: node .claude/test-chest-sources.js
       - name: test-tense-notes
         if: ${{ !cancelled() }}
         run: node .claude/test-tense-notes.js

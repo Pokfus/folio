@@ -1704,6 +1704,14 @@
          READER, where the deck they published lives in this DEVICE's IndexedDB and would not follow them
          to a second machine. */
       chestsOpened: 0,   // chests actually opened, whatever came out of them
+      /* Nov 2026, on request. `chestSrc` is what earned the unopened chests (see WHERE A CHEST CAME FROM),
+         `deckChests` the decks whose finishing has been paid, `curatorMarks` what chests have held since the
+         collection was complete — all three progress, so they sync. `reliqSeen` is NOT: it is when THIS
+         device last showed the Reliquary page, which only decides the "New" marks there. */
+      chestSrc: {},      // source -> how many of the unopened chests it earned (level, badge, streak, play, gilded, deck:<id>)
+      deckChests: {},    // deck node id -> when finishing it paid a chest
+      curatorMarks: 0,   // chests opened after every artefact and theme was owned
+      reliqSeen: 0,      // when this device last opened the Reliquary page (not synced)
       themes: {},        // theme id -> when it was unlocked. `folio` is everyone's and is never in here.
       published: 0,      // how many of the reader's own decks have been published to the shared decks
       publishedIds: {},  // remote deck id -> when it first went up, so an UPDATE is not counted a second time
@@ -2314,7 +2322,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "notes", "handoff", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "collAdded", "artefacts", "chests", "levelChests", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "notes", "handoff", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "confused", "orderPicked", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "collAdded", "artefacts", "chests", "levelChests", "chestSrc", "deckChests", "curatorMarks", "showcase", "sweepChest", "playChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -5637,6 +5645,7 @@
       if (S.intro.date !== todayStr()) S.intro = { date: todayStr(), count: 0, extra: 0 };
       S.intro.count += 1;
       announceLevelUps();   // a newly-studied card may complete the Folio XP bar → level up, and a level buys a chest
+      maybeDeckChest(id);   // …and may be the last unstudied card of a deck, which buys one too
     }
     /* …and put this note's OTHER cards off until tomorrow, if its deck asks for it. AFTER the grade, so the
        card just answered is already recorded as answered today and cannot bury itself. */
@@ -6178,7 +6187,7 @@
        then missed a day would otherwise lose the week's reward with the run. So the owed count is paid into
        the account here, before the length it was owed for is forgotten — read BEFORE the count resets, since
        `owedStreakChests` counts off the run that just ended. */
-    if (!kept) { const owed = owedStreakChests(); if (owed) grantChest(owed); S.streakChest = 0; }
+    if (!kept) { const owed = owedStreakChests(); if (owed) grantChest(owed, "streak"); S.streakChest = 0; }
     S.streak.count = kept ? S.streak.count + 1 : 1;
     S.streak.last = t;
     S.streak.best = Math.max(S.streak.best | 0, S.streak.count);   // the longest run, for the home page's ribbon
@@ -6201,7 +6210,12 @@
      number of complete weeks — so it needs no field of its own, cannot drift from the streak it is paid
      for, and comes out right for a reader whose streak was already long when this shipped: they are paid
      the full amount at their next multiple of seven rather than everything they have missed at once. */
-  function streakChestWeeks(n) { return Math.max(1, Math.floor(n / STREAK_CHEST_EVERY)); }
+  /* …UP TO THREE (Nov 2026, on request: "cap or flatten the streak chest's growth"). Uncapped, a year's
+     streak paid over thirteen hundred chests — six times the whole pool — so the growth that made the second
+     and third weeks matter had stopped meaning anything by the second month the other way round. The third
+     week and every week after pay STREAK_CHEST_MAX. */
+  const STREAK_CHEST_MAX = 3;
+  function streakChestWeeks(n) { return Math.min(STREAK_CHEST_MAX, Math.max(1, Math.floor(n / STREAK_CHEST_EVERY))); }
   /* THE STREAK CHEST IS CLAIMED, NOT GRANTED (Oct 2026, on request: "when the weekly streak chest has been
      unlocked and clicked, the chest icon should turn green in the same manner as the minigame chest").
      It used to be paid the moment the seventh day was studied — silently, into the account, with a toast —
@@ -6225,7 +6239,7 @@
     if (!owed) return false;
     const n = (S.streak && S.streak.count) | 0;
     S.streakChest = Math.floor(n / STREAK_CHEST_EVERY) * STREAK_CHEST_EVERY;   // stamped BEFORE the grant, as claimPlayChest does
-    grantChest(owed);   // grantChest saves
+    grantChest(owed, "streak");   // grantChest saves
     return true;
   }
   /* The day's word on it: a toast pointing at the ribbon on the day a week completes. It no longer pays
@@ -19366,7 +19380,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          chest, and the ribbon under the banner is where that is said — it took over the Account page's
          "Next streak chest" box, so this step is where a reader first meets the chest. */
       body: "A day with any study at all keeps your <b>streak</b>. Every seventh day in a row earns a " +
-        "<b>chest</b>, and each week after that is worth one more; the ribbon under the banner shows the " +
+        "<b>chest</b>, and each week after that is worth one more, up to three; the ribbon under the banner shows the " +
         "week filling up, and on the seventh day its chest unlocks. Press it to open it.",
       target: [".streak-ribbon", "#b-review"],
     },
@@ -22343,7 +22357,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function announceLevelUps() {
     const g = Object.keys(S.cards).length;
     if (levelFromXP(g).level <= levelFromXP(g - 1).level) return;
-    grantChest();   // one chest per level, no congratsPopup behind it
+    grantChest(1, "level");   // one chest per level, no congratsPopup behind it
     S.levelChests = levelChestCount() + 1; save();   // …and remembered as a LEVEL chest, which is what lights the chest on the level bar
     /* THE CHEST WAITS ON THE HOME PAGE RATHER THAN OPENING HERE (Oct 2026, on request: "a chest shouldn't just
        appear mid-study session, it should remain there at the front page until it is clicked"). From Aug 2026
@@ -22994,6 +23008,95 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return ARTEFACTS.filter((a) => o[a.id]).sort((x, y) => (o[y.id] || 0) - (o[x.id] || 0));   // newest first
   }
   function ownsArtefact(id) { return !!(S.artefacts && S.artefacts[id]); }
+
+  /* ---------- SETS (Nov 2026, on request: "group artefacts by origin or era") ----------
+     Every artefact belongs to exactly ONE set, DERIVED from its origin line, its name and its date rather
+     than stored: an artefact an admin adds from a phone falls into a set with nothing to fill in, and the
+     editor never has a field that can disagree with the origin written beside it. The rules run in order and
+     the first that matches wins, which is what settles the overlaps ("Egypt, Greece and the Near East" is
+     Egypt's; a Mamluk lamp is the Islamic world's before it is Egypt's). Whatever no civilisation claims
+     falls to a date: medieval from 400, the modern world from 1450, prehistory before. A deck's chest rolls
+     from the sets of its collection (`COLLECTION_SETS`); a collection with no set of its own rolls from all. */
+  const ARTEFACT_SETS = [
+    { id: "islamic",   label: "The Islamic world", re: /Islamic|Mamluk|Mosque|Kashan|Lustre/i },
+    { id: "americas",  label: "The Americas",      re: /Mexic|Maya|Inca\b|Peru|Andean|Sipán|Tenochtitlan|America|Mississipp|Caddo|Clovis/i },
+    { id: "egypt",     label: "Ancient Egypt",     re: /Egypt|Valley of the Kings|Amarna|\bNile\b/i },
+    { id: "rome",      label: "Ancient Rome",      re: /\bRom(e|an)\b|Etrur|Etruscan|Vindolanda|Baetica|\bGaul\b|Mediterranean world/i },
+    { id: "greece",    label: "The Greek world",   re: /Greek|Greece|Athens|Mycen|Cyclad|Macedon|Antikythera|Derveni/i },
+    { id: "neareast",  label: "The ancient Near East", re: /Mesopotam|Sumer|Babylon|\bUr\b|Assyri|Persia|Near East|Levant|Qumran|Judaea|Iraq|Southwest Asia|Anatolia/i, before: 400 },
+    { id: "china",     label: "China",             re: /China|Chinese|\bShang\b|\bQin\b|\bHan\b|\bTang\b|\bQing\b|Sanxingdui|Jingdezhen|Longquan|Anyang/i },
+    { id: "eastasia",  label: "Japan and Korea",   re: /Japan|Korea|Silla|Goryeo/i },
+    { id: "india",     label: "South Asia",        re: /India|Indus|Mohenjo|Harappa|Gandhara|Tamil|Mughal|Ganges/i },
+    { id: "africa",    label: "Africa",            re: /Africa|Benin|Nigeria|Maldives|Zimbabwe|Ile-Ife/i },
+    { id: "asiapac",   label: "Asia and the Pacific", re: /Southeast Asia|Vietnam|Thailand|Sumatra|Pacific|Tonga|Archipelago|Siberia|Altai|steppe/i, from: -3000 },
+    { id: "medieval",  label: "Medieval Europe",   re: /Medieval|Viking|Norse|Scandinav|Frankish|Byzantine|Sutton Hoo|Oseberg|\bIona\b|Normandy|Lewis|Rus'|Novgorod/i },
+    { id: "modern",    label: "The modern world" },
+    { id: "prehistory", label: "Prehistory" },
+  ];
+  const ARTEFACT_SET_BY_ID = {};
+  ARTEFACT_SETS.forEach((t) => { ARTEFACT_SET_BY_ID[t.id] = t; });
+  const COLLECTION_SETS = {
+    "col-40": ["rome"], "col-13": ["greece"], egypt: ["egypt"], mesopotamia: ["neareast"], china: ["china"],
+    japan: ["eastasia"], korea: ["eastasia"], "col-43": ["india"], vikingage: ["medieval"], france: ["medieval", "modern"],
+    "col-41": ["americas", "modern"], "col-42": ["medieval", "modern"], ww1: ["modern"], ww2: ["modern"], coldwar: ["modern"],
+  };
+  const _artefactSetMemo = new WeakMap();   // keyed by the pool's own objects, which refreshArtefacts replaces
+  function artefactSet(a) {
+    if (!a) return "prehistory";
+    if (_artefactSetMemo.has(a)) return _artefactSetMemo.get(a);
+    const text = (a.origin || "") + " | " + (a.name || "");
+    const y = artefactYear(a);
+    let id = "";
+    for (const t of ARTEFACT_SETS) {
+      if (!t.re || !t.re.test(text)) continue;
+      if (t.before != null && y != null && y >= t.before) continue;
+      if (t.from != null && y != null && y < t.from) continue;
+      id = t.id; break;
+    }
+    if (!id) id = y != null && y >= 1450 ? "modern" : y != null && y >= 400 ? "medieval" : "prehistory";
+    _artefactSetMemo.set(a, id);
+    return id;
+  }
+  function deckSets(node) {
+    let n = node;
+    while (n && n.parentId) n = NODE_BY_ID[n.parentId];
+    return (n && COLLECTION_SETS[n.id]) || [];
+  }
+  // every set with what this progress holds of it: [{ set, total, owned }], in ARTEFACT_SETS order, empty sets dropped
+  function setProgress(prog) {
+    const o = (prog && prog.artefacts) || {};
+    const by = {};
+    ARTEFACTS.forEach((a) => {
+      const k = artefactSet(a);
+      const r = by[k] || (by[k] = { set: ARTEFACT_SET_BY_ID[k], total: 0, owned: 0 });
+      r.total++; if (o[a.id]) r.owned++;
+    });
+    return ARTEFACT_SETS.filter((t) => by[t.id]).map((t) => by[t.id]);
+  }
+  // per rarity: [{ id, label, total, owned }]
+  function rarityProgress(prog) {
+    const o = (prog && prog.artefacts) || {};
+    return RARITIES.map((r) => {
+      const list = ARTEFACTS.filter((a) => rarityId(a) === r.id);
+      return { id: r.id, label: r.label, total: list.length, owned: list.filter((a) => o[a.id]).length };
+    });
+  }
+  /* AN ARTEFACT'S FIRST SENTENCE, as plain text, for the chest's reveal (Nov 2026, on request: the reward
+     should teach as well as collect). A sentence ends at . ! or ? followed by a space and a capital — and
+     not after "c." or a single initial, the two abbreviations the descriptions use mid-sentence. */
+  function artefactLede(a) {
+    const t = String((a && a.desc) || "").replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&")
+      .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/\s+/g, " ").trim();
+    if (!t) return "";
+    const re = /[.!?](?=\s+["“‘(]?[A-Z0-9])/g;
+    let m;
+    while ((m = re.exec(t))) {
+      const before = t.slice(0, m.index);
+      if (/(?:^|[\s(])(?:c|ca|cf|St|Mt|Dr|No|[A-Z])$/.test(before)) continue;
+      return t.slice(0, m.index + 1);
+    }
+    return t.length > 260 ? t.slice(0, 257).replace(/\s+\S*$/, "") + "…" : t;
+  }
   function chestCount() { return Math.max(0, (S.chests | 0)); }
   // the unopened chests a LEVEL-UP earned (Oct 2026, on request: the level bar's chest lights for these alone); a badge, sweep or streak chest queues in `chests` but never counts here
   function levelChestCount() { return Math.min(Math.max(0, (S.levelChests | 0)), chestCount()); }
@@ -23018,8 +23121,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      · **A READER ALREADY WEARING ONE KEEPS IT**, grandfathered at boot by `themeGrandfather`. A feature
        that takes away a theme somebody chose is a punishment rather than a reward, and there is no
        honest way to tell "chose it last year" from "should not have it".
-     · **THE ROLL PREFERS AN ARTEFACT.** `THEME_DROP` is the chance a chest hands back a theme WHEN there
-       is a locked one left, and it is deliberately low: there are five of them against a hundred
+     · **THE ROLL PREFERS AN ARTEFACT.** `THEME_EVERY` (Nov 2026; until then `THEME_DROP`, a 14% chance per
+       chest) puts a theme in every tenth chest opened while one is locked, and in no other — the rate is
+       deliberately low: there are five of them against a hundred
        artefacts, so at any higher rate a reader would have the set inside a fortnight and the Reliquary —
        which is what a chest is mostly for — would go quiet while they did.
      · **A THEME IS NEVER A DUPLICATE**, exactly as an artefact is not: the pool is what is still locked,
@@ -23028,7 +23132,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the phone and the laptop agree about what they own — and `S.theme` beside it is what a FRIEND's
        banner is drawn in, which is the other half of what was asked for. */
   const COLLECTIBLE_THEMES = THEMES.filter((t) => t !== "folio");
-  const THEME_DROP = 0.14;
+  const THEME_EVERY = 10;   // every tenth chest opened holds a theme while one is locked (Nov 2026; was a 14% chance a chest)
   function ownedThemes() { const o = S.themes; return (o && typeof o === "object") ? o : (S.themes = {}); }
   /* OWNERSHIP IS THE KEY BEING PRESENT, NEVER THE VALUE BEING TRUTHY (Aug 2026, found the day the picker
      started hiding what a reader has not won). `S.themes` is a register whose value is WHEN a theme was
@@ -23082,7 +23186,89 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* THREE THINGS GRANT A CHEST, and they are deliberately in three different places: a LEVEL
      (announceLevelUps, which also opens it — there the chest is the celebration), a BADGE
      (checkAchievements, which queues it — there the toast is), and the daily sweep below. */
-  function grantChest(n) { S.chests = chestCount() + (n || 1); save(); }
+  /* ---------- WHERE A CHEST CAME FROM (Nov 2026, on request: "a 'why this chest' line") ----------
+     `S.chests` stays the one COUNT every surface reads; `S.chestSrc` beside it says what earned how many of
+     them — { level, badge, streak, play, gilded, "deck:<node id>" : n }. It is a register of shares rather
+     than a queue of records, so a chest earned before it existed is simply untracked (its sum falls short of
+     the count) and opens with no line, and a sync that brings an older blob can only make the shares too
+     large — which `chestSrcTrim` cuts back, least special first. Two of the sources also change what is
+     INSIDE: a gilded chest rolls better odds, and a deck's chest rolls from that deck's own set first. */
+  const CHEST_SRC_ORDER = ["gilded", "deck:", "streak", "play", "badge", "level"];
+  function chestSrcMap() { const m = S.chestSrc; return (m && typeof m === "object" && !Array.isArray(m)) ? m : (S.chestSrc = {}); }
+  function chestSrcCount(src) { return Math.max(0, chestSrcMap()[src] | 0); }
+  function chestSrcRank(k) { const i = CHEST_SRC_ORDER.findIndex((p) => p.endsWith(":") ? String(k).indexOf(p) === 0 : k === p); return i < 0 ? 99 : i; }
+  function chestSrcTrim() {
+    const m = chestSrcMap();
+    Object.keys(m).forEach((k) => { if (!((m[k] | 0) > 0)) delete m[k]; });
+    let over = Object.keys(m).reduce((s, k) => s + (m[k] | 0), 0) - chestCount();
+    Object.keys(m).sort((a, b) => chestSrcRank(b) - chestSrcRank(a)).forEach((k) => {
+      if (over <= 0) return;
+      const d = Math.min(over, m[k] | 0);
+      m[k] = (m[k] | 0) - d; over -= d;
+      if (!m[k]) delete m[k];
+    });
+  }
+  /* Which share the NEXT chest is drawn from: the one asked for when there is one (the level bar's chest is a
+     level's), else the most special held. A level's share is only taken from the banner once the bar has let
+     it go (`collectLevelChest`), so the bar's lit chest and the banner never both claim one level. */
+  function nextChestSrc(prefer) {
+    chestSrcTrim();
+    if (prefer && chestSrcCount(prefer) > 0) return prefer;
+    const m = chestSrcMap();
+    for (const p of CHEST_SRC_ORDER) {
+      const k = Object.keys(m).find((key) => (p.endsWith(":") ? key.indexOf(p) === 0 : key === p) && (m[key] | 0) > 0 &&
+        (key !== "level" || (m[key] | 0) > levelChestCount()));
+      if (k) return k;
+    }
+    return "";
+  }
+  function chestSrcDeck(src) { return src && String(src).indexOf("deck:") === 0 ? (NODE_BY_ID[String(src).slice(5)] || null) : null; }
+  // the sentence the overlay sets under the chest — "" for a chest earned before sources were recorded
+  function chestSrcLine(src) {
+    if (src === "level") return "Earned by reaching a new level.";
+    if (src === "badge") return "Earned with a new badge.";
+    if (src === "streak") return "Earned by your study streak.";
+    if (src === "play") return "Earned by playing all nine games today.";
+    if (src === "gilded") return "A gilded chest, for a perfect score in every game. Rare finds are likelier.";
+    const d = chestSrcDeck(src);
+    if (d) {
+      const sets = deckSets(d).map((id) => ARTEFACT_SET_BY_ID[id].label);
+      return "Earned by finishing " + nodeTitle(d) + "." + (sets.length ? " It holds something from " + sets.join(" or ") + " while that set has anything left." : "");
+    }
+    return "";
+  }
+  function grantChest(n, src) {
+    n = n || 1;
+    S.chests = chestCount() + n;
+    if (src) { const m = chestSrcMap(); m[src] = chestSrcCount(src) + n; }
+    save();
+  }
+  /* ---------- A FINISHED DECK IS A CHEST (Nov 2026, on request) ----------
+     The card that completes a deck — every card under it studied at least once — pays one chest, rolled from
+     that deck's region first (`deckSets`). "A deck" is a collection's direct child, the level a reader picks
+     from: a leaf of twenty cards would pay too often and drain the pool, and a whole collection too rarely
+     to feel. It is paid on the card that FINISHES it, never back-filled: a reader who finished decks before
+     this shipped is not handed a heap of chests at once. `S.deckChests` is the register of decks paid. */
+  const DECK_CHEST_MIN = 10;   // a deck smaller than this pays nothing — finishing it is not an achievement
+  function deckChestNode(leaf) {
+    let n = leaf;
+    while (n && n.parentId && NODE_BY_ID[n.parentId] && NODE_BY_ID[n.parentId].parentId) n = NODE_BY_ID[n.parentId];
+    return n;
+  }
+  function maybeDeckChest(cardId) {
+    if (!S.deckChests || typeof S.deckChests !== "object") S.deckChests = {};
+    const done = new Set();
+    cardLeaves(cardId).forEach((leaf) => {
+      const d = deckChestNode(leaf);
+      if (!d || done.has(d.id) || S.deckChests[d.id]) return;
+      done.add(d.id);
+      const ids = subtreeCardIds(d);
+      if (ids.length < DECK_CHEST_MIN || !ids.every((id) => S.cards[id])) return;
+      S.deckChests[d.id] = Date.now();
+      grantChest(1, "deck:" + d.id);
+      toast("You finished " + nodeTitle(d) + " — a chest is waiting on the home page.");
+    });
+  }
   /* A second channel, so a reader who plays the daily games has something to open without waiting thirty
      cards for the next level (Aug 2026, on request). Once a day, on the same condition the Clean Sweep
      badge already measures. `S.sweepChest` records the day rather than a boolean: a flag would need
@@ -23093,14 +23279,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      IT PAYS THREE (Sep 2026, on request). Finishing all nine whatever the score pays one; a PERFECT run
      in all nine is a different order of work, and paying the two the same said so nowhere. The figure is
      a named constant read by both the grant and the sentence beside it, so the chest count and the words
-     announcing it cannot come apart — which is `maybeStreakChest`'s own arrangement one channel over. */
-  const SWEEP_CHESTS = 3;
+     announcing it cannot come apart — which is `maybeStreakChest`'s own arrangement one channel over.
+     …AND SINCE NOV 2026 IT PAYS ONE GILDED CHEST INSTEAD (on request: "tiered chests"). Three ordinary chests
+     said "more of the same" and emptied the pool three times as fast; one chest with better odds says "a
+     different order of work" in the chest itself. `GILDED_WEIGHTS` holds no common at all, falling back to the
+     ordinary odds only when nothing rare or better is left. */
+  const GILDED_WEIGHTS = { common: 0, rare: 50, epic: 35, legendary: 15 };
   function maybeSweepChest() {
     if (S.sweepChest === todayStr() || !allGamesWonToday(S)) return;
     S.sweepChest = todayStr();
-    grantChest(SWEEP_CHESTS);
-    toast("🎯 A perfect score in every game today — " +
-      (SWEEP_CHESTS === 1 ? "a chest is" : SWEEP_CHESTS + " chests are") + " waiting in your account.");
+    grantChest(1, "gilded");
+    toast("🎯 A perfect score in every game today — a gilded chest is waiting on the home page.");
   }
   /* A FOURTH CHANNEL, AND THE ONLY ONE THE READER HAS TO CLAIM (Sep 2026, on request: "completing (not
      perfecting) all the minigames each day should give the user a free chest… a locked chest which
@@ -23114,62 +23303,85 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function claimPlayChest() {
     if (!playChestReady()) return false;
     S.playChest = todayStr();
-    grantChest();   // grantChest saves
+    grantChest(1, "play");   // grantChest saves
     return true;
   }
 
   /* Draw one artefact. Returns null when there is nothing left to find, which the overlay says out loud
      rather than opening an empty chest. */
-  function rollArtefact(skip, onlyRarity) {
+  /* `o.weights` replaces the rarity odds (a gilded chest's) and `o.sets` narrows the pool to those sets (a
+     deck's chest); when either leaves nothing, the roll falls back to the ordinary pool rather than to null,
+     so a special chest is never an empty one while the ordinary roll still has something. */
+  function rollArtefact(skip, onlyRarity, o) {
     const owned = (S.artefacts) || {};
     const byRarity = {};
+    const sets = o && o.sets && o.sets.length ? o.sets : null;
+    const wt = (r) => (o && o.weights && o.weights[r.id] != null) ? o.weights[r.id] : r.weight;
     RARITIES.forEach((r) => { byRarity[r.id] = []; });
-    ARTEFACTS.forEach((a) => { if (!owned[a.id] && !(skip && skip[a.id]) && (!onlyRarity || rarityId(a) === onlyRarity)) byRarity[rarityId(a)].push(a); });
-    const live = RARITIES.filter((r) => byRarity[r.id].length);
-    if (!live.length) return null;
-    const total = live.reduce((s, r) => s + r.weight, 0);
+    ARTEFACTS.forEach((a) => { if (!owned[a.id] && !(skip && skip[a.id]) && (!onlyRarity || rarityId(a) === onlyRarity) && (!sets || sets.indexOf(artefactSet(a)) >= 0)) byRarity[rarityId(a)].push(a); });
+    const live = RARITIES.filter((r) => byRarity[r.id].length && wt(r) > 0);
+    if (!live.length) return (o && (o.weights || sets)) ? rollArtefact(skip, onlyRarity, sets && o.weights ? { weights: o.weights } : null) : null;
+    const total = live.reduce((s, r) => s + wt(r), 0);
     let x = Math.random() * total, pick = live[live.length - 1];
-    for (let i = 0; i < live.length; i++) { if (x < live[i].weight) { pick = live[i]; break; } x -= live[i].weight; }
+    for (let i = 0; i < live.length; i++) { if (x < wt(live[i])) { pick = live[i]; break; } x -= wt(live[i]); }
     const list = byRarity[pick.id];
     return list[Math.floor(Math.random() * list.length)];
   }
-  function claimArtefact(a) {
+  function claimArtefact(a, src, defer) {
     if (!a) return;
     if (!S.artefacts || typeof S.artefacts !== "object") S.artefacts = {};
     S.artefacts[a.id] = Date.now();
-    spendChest();
+    spendChest(src, defer);
+  }
+  /* A CURATOR'S MARK — WHAT A CHEST HOLDS ONCE THERE IS NOTHING LEFT (Nov 2026, on request: "a plan for the
+     exhausted pool"). Until now a reader who held every artefact and theme was told so and the chest stayed
+     shut for ever, which with a streak paying every week was a pile of chests nobody could open. The chest now
+     opens on a mark: a tally on the Reliquary page, honest about being a tally — the collection is complete,
+     and this counts what the reader has earned since. A new artefact added to the pool rolls again first. */
+  function claimMark(src, defer) {
+    S.curatorMarks = (S.curatorMarks | 0) + 1;
+    spendChest(src, defer);
   }
   /* One place spends a chest, so the counter the badges read cannot drift from the one the banner reads.
      `chestsOpened` only ever goes up — it is a lifetime tally, not a balance. */
-  function spendChest() {
+  function spendChest(src, defer) {
     S.chests = Math.max(0, chestCount() - 1);
+    if (src && chestSrcCount(src) > 0) { const m = chestSrcMap(); m[src] = chestSrcCount(src) - 1; }
+    chestSrcTrim();
     S.levelChests = levelChestCount();   // a chest collected from the level bar has already left the count (collectLevelChest); this only clamps it to what is left
     S.chestsOpened = (S.chestsOpened | 0) + 1;
     save();
     /* The collector's badges are tested HERE rather than waiting for the next card, which is where
        `checkAchievements` is otherwise reached from: opening a chest is exactly the moment one of them is
        earned, and being told about it three cards later reads as the site having lost count. It grants a
-       chest of its own, which cannot recurse — that path adds to `S.chests` and never spends one. */
-    checkAchievements();
+       chest of its own, which cannot recurse — that path adds to `S.chests` and never spends one.
+       `defer` holds it back for "Open all", which tests once after the last chest rather than raising a
+       badge between two of them. */
+    if (!defer) checkAchievements();
   }
-  function claimTheme(id) {
+  function claimTheme(id, src, defer) {
     unlockTheme(id);
-    spendChest();
+    spendChest(src, defer);
   }
   /* WHAT IS IN THIS CHEST, decided once and read twice — the overlay asks before the lid is tapped (to
      know whether there is anything left at all) and again on the tap. Both go through here, so the two
-     cannot disagree about whether a chest is empty. Returns null only when the reader has everything. */
-  function rollChestItem() {
+     cannot disagree about whether a chest is empty. `src` is the chest's source (nextChestSrc), which sets
+     the odds and the pool. Returns { kind: "mark" } when the reader has everything — never null.
+     THEMES ARE ON THEIR OWN TRACK (Nov 2026, on request): every THEME_EVERY-th chest opened holds a theme while
+     one is locked, and no other does — a theme used to take a random 14% of openings, displacing an artefact
+     at random. The FIRST chest is therefore always an artefact, which the walkthrough relies on (Sep 2026). */
+  function chestRollOpts(src) {
+    const d = chestSrcDeck(src);
+    return { weights: src === "gilded" ? GILDED_WEIGHTS : null, sets: d ? deckSets(d) : null };
+  }
+  function rollChestItem(src) {
     const locked = lockedThemes();
-    const art = rollArtefact();
-    /* THE FIRST CHEST A READER EVER OPENS HOLDS AN ARTEFACT (Sep 2026, on request). It is the one the
-       walkthrough has them open and then explains, and a theme there would be explaining the exception
-       first. `chestsOpened` is incremented by spendChest, so this is exact rather than a guess. */
-    const first = !(Number(S.chestsOpened) > 0);
-    if (locked.length && !(first && art) && (!art || Math.random() < THEME_DROP)) {
+    const o = chestRollOpts(src);
+    const art = rollArtefact(null, null, (o.weights || o.sets) ? o : null);
+    if (locked.length && (!art || ((S.chestsOpened | 0) + 1) % THEME_EVERY === 0)) {
       return { kind: "theme", theme: locked[Math.floor(Math.random() * locked.length)] };
     }
-    return art ? { kind: "artefact", artefact: art } : null;
+    return art ? { kind: "artefact", artefact: art } : { kind: "mark" };
   }
 
   /* ---------- the showcase: up to four pinned to the profile ---------- */
@@ -23237,6 +23449,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<span class="ar-tname">' + esc(a.name) + '</span>' +
       '<span class="ar-trar">' + esc(rarityLabel(r)) + '</span>' +
       (pinned ? '<span class="ar-pin" aria-hidden="true">★</span>' : "") +
+      /* "New" since the Reliquary page was last shown on this device, and "not in yours" on a friend's
+         collection (Nov 2026, on request). Both are words rather than marks, so they need no legend. */
+      (opts && opts.isNew ? '<span class="ar-new">New</span>' : "") +
+      (opts && opts.missing ? '<span class="ar-miss">Not in yours</span>' : "") +
       '</button>';
   }
   // the profile strip: four slots, filled or empty, on your own account and on a friend's
@@ -23357,13 +23573,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const list = ownedArtefacts(prog);
     const total = ARTEFACTS.length;
     const chests = own ? chestCount() : 0;
+    /* A FRIEND'S COLLECTION IS COMPARED WITH YOURS (Nov 2026, on request): what you both hold, what only they
+       do and what only you do, and each of their tiles you lack says so. Only in the full list — the
+       showcase's entry button is a way in, not a comparison. */
+    const mine = (S.artefacts) || {};
+    const compare = !own && !(opts && opts.entry) && list.length;
+    const both = compare ? list.filter((a) => mine[a.id]).length : 0;
+    const onlyYou = compare ? ownedArtefacts(S).filter((a) => !((prog && prog.artefacts) || {})[a.id]).length : 0;
     const head = '<div class="ar-head">' +
       '<span class="ar-count">' + list.length + ' of ' + total + ' artefact' + (total === 1 ? "" : "s") + ' recovered</span>' +
       (own && chests ? '<button type="button" class="btn ar-open" id="arOpen">Open ' + (chests === 1 ? "your chest" : chests + " chests") + '</button>' : "") +
-      '</div>';
+      '</div>' +
+      (compare ? '<div class="ar-compare">You both have <b>' + both + '</b> · only they have <b>' + (list.length - both) +
+        '</b> · only you have <b>' + onlyYou + '</b></div>' : "");
     if (!list.length) {
       return head + '<div class="ar-empty">' + (own
-        ? "No artefacts yet. Every Folio level opens a chest, and so does winning every daily game in one day."
+        ? "No artefacts yet. " + esc(chestWaysText())
         : "This scholar has not opened a chest yet.") + '</div>';
     }
     if (opts && opts.entry) {
@@ -23371,7 +23596,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         esc("Everything you have collected — " + list.length + " artefact" + (list.length === 1 ? "" : "s")) +
         '">See Reliquary</button></div>';
     }
-    return head + '<div class="ar-grid">' + list.map((a) => artefactTileHTML(a, { pinned: own && inShowcase(a.id) })).join("") + '</div>' +
+    return head + '<div class="ar-grid">' + list.map((a) => artefactTileHTML(a, { pinned: own && inShowcase(a.id), missing: compare && !mine[a.id] })).join("") + '</div>' +
       (own && list.length < total ? '<p class="ar-note">' + (total - list.length) + ' still to find.</p>' : "");
   }
   /* ---------- THE PLATE ----------
@@ -23648,6 +23873,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   const RARITY_RANK = {};
   RARITIES.forEach((r, i) => { RARITY_RANK[r.id] = i; });   // common 0 … legendary 3
+  /* The rarity and set the page is narrowed to (Nov 2026, on request: "filter by rarity, origin or name"),
+     module-level like the sort for the sort's reason: a way of looking, kept across a visit, gone on reload. */
+  let reliqRar = "", reliqSet = "";
+  /* THE WAYS A CHEST IS EARNED, in one sentence read by every empty state (Nov 2026, on request: the copy
+     named two of the six channels and was wrong as soon as the third shipped). One string so the next
+     channel is added in one place. */
+  function chestWaysText() {
+    return "Chests come from reaching a level, earning a badge, finishing a deck, playing all nine daily games, " +
+      "a perfect score in every game (a gilded chest) and every week of a study streak.";
+  }
   PAGES.reliquary = function (root) {
     /* Every tile here carries the artefact's own picture, which lives in the lazy half — so a page drawn
        before the bundle lands is a grid of rarity-coloured placeholders, which is not wrong so much as
@@ -23659,11 +23894,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ensureData("artefactExtra").then(() => { if (current && current.name === "reliquary") render(); });
       return;
     }
-    const owned = ownedArtefacts(S);            // already newest-found first
+    let owned = ownedArtefacts(S);            // already newest-found first; re-read by every repaint, so a chest opened over the page shows
     const at = S.artefacts || {};
     const total = ARTEFACTS.length;
-    const chests = chestCount();
-    const pct = total ? Math.min(100, Math.round((owned.length / total) * 100)) : 0;
+    /* "NEW" IS WHAT ARRIVED SINCE THIS DEVICE LAST SHOWED THE PAGE (Nov 2026, on request). Read once at
+       mount and moved on at once, so a mark lasts for exactly the visit it is news on — and an artefact a
+       chest gives while the page is open is marked too, its time being after the mount. A device that has
+       never shown the page marks nothing: its first visit would otherwise call the whole shelf new.
+       `reliqSeen` is written straight to this device's store rather than through save(), which would
+       queue an account push for a field that never syncs. */
+    const seenBefore = Number(S.reliqSeen) > 0 ? Number(S.reliqSeen) : Infinity;
+    S.reliqSeen = Date.now();
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {}
+    const isNew = (a) => (at[a.id] || 0) > seenBefore;
     const byName = (x, y) => String(x.name || "").localeCompare(String(y.name || ""), undefined, { sensitivity: "base" });
     /* An artefact with no readable date is pushed to the end of the list in BOTH directions rather than
        being given a year: reversing the order must not promote "we don't know" to the front. */
@@ -23684,46 +23927,87 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     };
     const empty =
       '<div class="gl-empty"><h3>Nothing recovered yet</h3>' +
-      "<p>Every Folio level opens a chest, and so does winning every daily game in one day, or keeping a streak for a week.</p>" +
+      "<p>" + esc(chestWaysText()) + "</p>" +
       '<button class="btn" type="button" id="rqStudy">Start studying</button></div>';
+    /* THE METER, THE RARITIES AND THE CHEST BUTTON are one block (`#rqMeta`), rebuilt whole when a chest is
+       opened over the page; the filters' own repaint only flips their pressed state, so a chip the reader has
+       just pressed is never destroyed under their finger. */
+    const metaHTML = () => {
+      const n = owned.length, chests = chestCount();
+      const pct = total ? Math.min(100, Math.round((n / total) * 100)) : 0;
+      const fresh = owned.filter(isNew).length;
+      const marks = S.curatorMarks | 0;
+      /* PER-RARITY PROGRESS (Nov 2026, on request), and each figure is also the rarity's filter — the one
+         control a reader reaches for after reading "1 of 7 legendary" is "show me that one". */
+      const rars = rarityProgress(S).map((r) =>
+        '<button type="button" class="rq-rar" data-rar="' + r.id + '" data-rqrar="' + r.id + '" aria-pressed="' + (reliqRar === r.id) + '"' +
+          ' title="' + esc("Show only " + r.label.toLowerCase() + " artefacts") + '">' + esc(r.label) +
+          ' <b>' + r.owned + '</b>/' + r.total + "</button>").join("");
+      return '<div class="gl-meter"><div class="gl-meter-head"><b>' + n + "</b> of " + total +
+        " artefact" + (total === 1 ? "" : "s") + " recovered · " + pct + "%" +
+        (fresh ? ' · <span class="rq-newcount">' + fresh + " new</span>" : "") + "</div>" +
+        '<div class="ds-bar"><i style="width:' + pct + '%"></i></div>' +
+        '<div class="rq-rars" role="group" aria-label="Filter by rarity">' + rars + "</div>" +
+        (marks ? '<div class="rq-marks">' + MARK_SVG + "<span>Collection complete · <b>" + marks + "</b> curator’s mark" + (marks === 1 ? "" : "s") + "</span></div>" : "") +
+        "</div>" +
+        (chests ? '<div class="rq-chest"><button type="button" class="btn" id="arOpen">Open ' +
+          (chests === 1 ? "your chest" : chests + " chests") + "</button></div>" : "");
+    };
+    /* SETS (Nov 2026, on request): every set with how much of it is held, the complete ones sealed. A row
+       is the set's filter, like a rarity's figure. Listed below the grid: the shelf is what the page is for,
+       and the sets are a way through it. */
+    const setsHTML = () => '<h2 class="rq-sub">Sets</h2><div class="rq-setlist">' + setProgress(S).map((r) => {
+      const pct = r.total ? Math.round((r.owned / r.total) * 100) : 0, done = r.owned >= r.total;
+      return '<button type="button" class="rq-set' + (done ? " done" : "") + '" data-rqset="' + r.set.id + '" aria-pressed="' + (reliqSet === r.set.id) + '"' +
+        ' title="' + esc("Show the " + r.set.label + " set") + '">' +
+        '<span class="rq-setname">' + (done ? '<span class="rq-seal" aria-hidden="true">✓</span>' : "") + esc(r.set.label) + "</span>" +
+        '<span class="rq-setn">' + r.owned + " / " + r.total + (done ? " · complete" : "") + "</span>" +
+        '<span class="ds-bar"><i style="width:' + pct + '%"></i></span></button>';
+    }).join("") + "</div>";
+    const setOpts = [["", "All sets"]].concat(setProgress(S).map((r) => [r.set.id, r.set.label]));
     root.innerHTML =
       '<div class="page-head"><span class="eyebrow">Your record</span><h1>Reliquary</h1>' +
       "<p>The objects your chests have held. Open one to read what it is and where it came from.</p></div>" +
-      '<div class="gl-meter"><div class="gl-meter-head"><b>' + owned.length + "</b> of " + total +
-      " artefact" + (total === 1 ? "" : "s") + " recovered \u00b7 " + pct + "%</div>" +
-      '<div class="ds-bar"><i style="width:' + pct + '%"></i></div></div>' +
-      (chests ? '<div class="rq-chest"><button type="button" class="btn" id="arOpen">Open ' +
-        (chests === 1 ? "your chest" : chests + " chests") + "</button></div>" : "") +
+      '<div id="rqMeta">' + metaHTML() + "</div>" +
       '<div class="gl-tools"' + (owned.length ? "" : " hidden") + ">" +
-        '<div class="gl-search"><input type="search" id="rqFilter" placeholder="Filter these artefacts\u2026" autocomplete="off" aria-label="Filter your artefacts"></div>' +
+        '<div class="gl-search"><input type="search" id="rqFilter" placeholder="Filter these artefacts…" autocomplete="off" aria-label="Filter your artefacts"></div>' +
+        sortPickerHTML("rqSetPick", setOpts, reliqSet, "Set") +
         sortPickerHTML("rqSort", RELIQ_SORTS.map((o) => [o[0], o[1]]), reliqSort) +
         sortDirHTML("rqDir", RELIQ_SORTS, reliqSort, reliqRev) +
       "</div>" +
       /* the grid drops its `ar-grid` class whenever what it holds is a MESSAGE rather than tiles — a
          sentence laid into a 132px auto-fill column is a sentence one word wide */
       '<div class="' + (owned.length ? "ar-grid" : "rq-msg") + '" id="rqGrid">' + (owned.length ? "" : empty) + "</div>" +
-      (owned.length && owned.length < total ? '<p class="ar-note">' + (total - owned.length) + " still to find.</p>" : "");
+      '<p class="ar-note" id="rqNote"></p>' +
+      '<section class="rq-sets" id="rqSets"' + (owned.length ? "" : " hidden") + ">" + setsHTML() + "</section>";
 
     const grid = root.querySelector("#rqGrid");
     const f = root.querySelector("#rqFilter");
+    const meta = root.querySelector("#rqMeta"), setsBox = root.querySelector("#rqSets"), setPick = root.querySelector("#rqSetPick");
     /* The direction button's FACE names the order it is currently in, so it has to be rebuilt when the
        field or the direction changes — and only then. Rebuilding it on every repaint would destroy and
        recreate a focusable control on every keystroke in the filter box, which a screen reader hears. */
     let dirKey = reliqSort + "|" + reliqRev;
-    /* ONE painter for all three controls, for the reason the glossary record has one: the filter
-       narrows, the picker orders and the button reverses, and three handlers each rebuilding from
-       `owned` would quietly throw away whatever the reader had typed. */
+    /* ONE painter for every control, for the reason the glossary record has one: the filter narrows, the
+       rarity and the set narrow further, the picker orders and the button reverses, and a handler each
+       rebuilding from `owned` would quietly throw away whatever the reader had typed. */
     const repaint = () => {
+      owned = ownedArtefacts(S);
       const q = f ? f.value.trim().toLowerCase() : "";
-      const shown = sortList(q
-        ? owned.filter((a) => (a.name || "").toLowerCase().includes(q) ||
-            (a.origin || "").toLowerCase().includes(q) || (a.date || "").toLowerCase().includes(q) ||
-            rarityLabel(rarityId(a)).toLowerCase().includes(q))
-        : owned);
+      root.querySelectorAll("[data-rqrar]").forEach((b) => b.setAttribute("aria-pressed", String(reliqRar === b.dataset.rqrar)));
+      root.querySelectorAll("[data-rqset]").forEach((b) => b.setAttribute("aria-pressed", String(reliqSet === b.dataset.rqset)));
+      if (setPick && setPick.value !== reliqSet) setPick.value = reliqSet;
+      const shown = sortList(owned.filter((a) =>
+        (!reliqRar || rarityId(a) === reliqRar) && (!reliqSet || artefactSet(a) === reliqSet) &&
+        (!q || (a.name || "").toLowerCase().includes(q) || (a.origin || "").toLowerCase().includes(q) ||
+          (a.date || "").toLowerCase().includes(q) || rarityLabel(rarityId(a)).toLowerCase().includes(q) ||
+          (ARTEFACT_SET_BY_ID[artefactSet(a)].label.toLowerCase().includes(q)))));
+      const note = root.querySelector("#rqNote");
+      if (note) note.textContent = owned.length && owned.length < total ? (total - owned.length) + " still to find." : "";
       if (!owned.length) return;
       grid.className = shown.length ? "ar-grid" : "rq-msg";
       grid.innerHTML = shown.length
-        ? shown.map((a) => artefactTileHTML(a, { pinned: inShowcase(a.id) })).join("")
+        ? shown.map((a) => artefactTileHTML(a, { pinned: inShowcase(a.id), isNew: isNew(a) })).join("")
         : '<div class="gl-empty"><p>No artefact here matches that.</p></div>';
       const k = reliqSort + "|" + reliqRev;
       if (k !== dirKey) {
@@ -23743,14 +24027,32 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     });
     const st = root.querySelector("#rqStudy");
     if (st) st.addEventListener("click", () => route("home"));
-    const op = root.querySelector("#arOpen");
-    if (op) op.addEventListener("click", () => openChestPop());
+    // delegated too: the meta block is rebuilt when a chest opens over the page, and its chest button with it
+    meta.addEventListener("click", (e) => {
+      if (e.target.closest("#arOpen")) { openChestPop(); return; }
+      const r = e.target.closest("[data-rqrar]");
+      if (r) { reliqRar = reliqRar === r.dataset.rqrar ? "" : r.dataset.rqrar; repaint(); }
+    });
+    setsBox.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-rqset]");
+      if (!b) return;
+      reliqSet = reliqSet === b.dataset.rqset ? "" : b.dataset.rqset;
+      repaint();
+      if (reliqSet) { const tools = root.querySelector(".gl-tools"); if (tools && tools.scrollIntoView) tools.scrollIntoView({ block: "start", behavior: prefersReducedMotion() ? "auto" : "smooth" }); }
+    });
+    if (setPick) setPick.addEventListener("change", () => { reliqSet = setPick.value; repaint(); });
     if (f) f.addEventListener("input", repaint);
     const so = root.querySelector("#rqSort");
     if (so) so.addEventListener("change", () => { reliqSort = so.value; repaint(); });
     wireDir();
     repaint();
-    _reliqRepaint = repaint;
+    /* From outside (a chest opened over the page): the meta block and the sets are rebuilt as well as the
+       grid, since both count what was just found. A first artefact also has to bring the tools and the sets
+       out of hiding, which only a full render does. */
+    _reliqRepaint = () => {
+      if (!owned.length && ownedArtefacts(S).length) { render(); return; }
+      meta.innerHTML = metaHTML(); setsBox.innerHTML = setsHTML(); repaint();
+    };
   };
 
   /* ---------- the chest ----------
@@ -23811,8 +24113,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   let _chestClose = null;
   function closeChestPop() { if (_chestClose) _chestClose(); }
+  // the line under a reveal that says how far through its set the find has taken the reader
+  function chestSetLine(a) {
+    const k = artefactSet(a), t = ARTEFACT_SET_BY_ID[k];
+    const row = setProgress(S).find((r) => r.set.id === k);
+    if (!t || !row) return "";
+    return row.owned >= row.total
+      ? '<div class="chest-set done">Set complete: ' + esc(t.label) + ", all " + row.total + "</div>"
+      : '<div class="chest-set">' + esc(t.label) + ": " + row.owned + " of " + row.total + " found</div>";
+  }
+  const MARK_SVG =
+    '<svg class="mark-svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<circle cx="32" cy="28" r="17" fill="currentColor" fill-opacity=".14"/><path d="M32 18l3 6.4 7 .9-5.1 4.8 1.3 6.9L32 33.6 25.8 37l1.3-6.9-5.1-4.8 7-.9z" fill="currentColor" fill-opacity=".35"/>' +
+      '<path d="M22 42l-5 14 8-3 4 7 3-12M42 42l5 14-8-3-4 7-3-12"/></svg>';
   /* opts.level — announce a level above the chest (the level-up path). The chest overlay IS the level-up
-     celebration; there is deliberately no separate confetti popup behind it. */
+     celebration; there is deliberately no separate confetti popup behind it.
+     opts.src — the source the chest is drawn from (the level bar passes "level"); otherwise the most special
+     share held (nextChestSrc), which also decides a gilded chest's look and a deck chest's pool. */
   function openChestPop(opts) {
     opts = opts || {};
     closeChestPop();
@@ -23821,9 +24138,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        chest, which is the whole of the head start this needs. The tap then awaits — a plate revealed
        with an empty description is the one outcome worth a spinner. */
     ensureData("artefactExtra");
+    const src = nextChestSrc(opts.src);
+    const why = chestSrcLine(src);
     const ov = document.createElement("div");
-    ov.className = "chest-pop";
-    const nothingLeft = !rollChestItem();
+    ov.className = "chest-pop" + (src === "gilded" ? " gilded" : "");
+    const nothingLeft = rollChestItem(src).kind === "mark";
+    const many = bannerChestCount();
     ov.innerHTML =
       '<div class="chest-stage" role="dialog" aria-live="polite">' +
         (opts.level ? '<div class="chest-lvl">Level ' + esc(String(opts.level)) + ' reached</div>' : "") +
@@ -23832,9 +24152,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           '<div class="chest-rays" aria-hidden="true"></div>' +
         '</div>' +
         '<div class="chest-hint" id="chestHint">' + (nothingLeft
-          ? "You have found everything Folio holds — every artefact and every theme. This chest will keep until there is more."
+          ? "You have found every artefact and every theme Folio holds"
           : "Tap the chest") + '</div>' +
-        (bannerChestCount() > 1 ? '<div class="chest-more" id="chestMore">' + bannerChestCount() + ' chests waiting</div>' : "") +
+        /* WHY THIS CHEST (Nov 2026, on request): one sentence on what earned it, so a chest that has waited a
+           week on the home page still says what it is for. Nothing for a chest earned before sources were kept. */
+        (why ? '<div class="chest-why" id="chestWhy">' + esc(why) + '</div>' : "") +
+        (nothingLeft ? '<div class="chest-why">This chest holds a curator’s mark instead, and new artefacts will come first as they are added.</div>' : "") +
+        (many > 1 ? '<div class="chest-more" id="chestMore">' + many + ' chests waiting</div>' : "") +
         '<div class="chest-reveal" id="chestReveal" hidden></div>' +
         '<div class="chest-acts" id="chestActs" hidden></div>' +
       '</div>';
@@ -23853,7 +24177,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     requestAnimationFrame(() => ov.classList.add("show"));
 
     const btn = ov.querySelector("#chestBtn");
-    if (nothingLeft) { btn.disabled = true; addAct("Close", close); return; }
     /* SAVE FOR LATER (Aug 2026, on request). A chest arrives unasked — on the grade that happens to finish
        an XP bar, in the middle of a study session — and the only ways out of the overlay were Escape and
        the ×, neither of which says what happens to the chest. `S.chests` has always kept it, so this makes
@@ -23861,8 +24184,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        as the lid opens: once an artefact has been drawn there is nothing left to defer. */
     const later = addAct("Save for later", () => {
       close();
-      toast(chestCount() === 1 ? "Saved — it's waiting in your account." : chestCount() + " chests waiting in your account.");
+      toast(chestCount() === 1 ? "Saved — it's waiting on the home page." : chestCount() + " chests waiting on the home page.");
     }, true);
+    /* OPEN ALL (Nov 2026, on request): a reader holding a fortnight's streak or a week of badges sat through
+       one reveal per chest. Every chest in the banner opens at once, each from its own source, under one
+       animation sized by the best find, and the finds are laid out together. Not offered on the level-up
+       path, whose chest is the celebration of one event. */
+    const all = (!opts.level && !nothingLeft && many > 1) ? addAct("Open all " + many, () => openAll(), true) : null;
     let opening = false;
     /* `pre` carries an ALREADY-ROLLED item back in after the wait below. Re-rolling there would be
        harmless — nothing has been claimed yet — but it would hand the reader a different artefact from
@@ -23870,8 +24198,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     function openLid(pre) {
       if (opening && !pre) return;
       opening = true;
-      const item = pre || rollChestItem();
-      if (!item) { close(); return; }
+      const item = pre || rollChestItem(src);
       /* The reveal draws a description, a citation list and a picture, all of which are in the lazy
          half — so on the rare tap that beats the idle warm, wait for it. A plate revealed with an empty
          description is the one outcome here worth a moment's delay: this is the site congratulating the
@@ -23881,24 +24208,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ensureData("artefactExtra").then(() => { if (_chestClose === close) openLid(item); });
         return;
       }
-      const isTheme = item.kind === "theme";
-      const a = item.artefact;
       /* A THEME OPENS AS AN EPIC, and that is a decision rather than a placeholder: the whole chest
          animation — the shake, the burst, the confetti, the sound — is sized by rarity, and a theme has
          none. Epic is what a thing five-of-a-kind deep should feel like, and it means a theme never
-         steals the legendary flourish that three artefacts in a hundred earn. */
-      const r = isTheme ? "epic" : rarityId(a);
-      const dur = prefersReducedMotion() ? 120 : (CHEST_MS[r] || 900);
-      ov.dataset.rar = r;
-      ov.classList.add("opening");
-      ov.querySelector("#chestHint").textContent = "";
-      const more = ov.querySelector("#chestMore"); if (more) more.hidden = true;
-      later.remove();   // the lid is open: there is nothing left to save
-      ov.querySelector("#chestActs").hidden = true;
-      sfx("chest");
-      if (!prefersReducedMotion()) chestConfetti(ov, r);
+         steals the legendary flourish that three artefacts in a hundred earn. A curator's mark opens as a rare. */
+      const r = item.kind === "theme" ? "epic" : item.kind === "mark" ? "rare" : rarityId(item.artefact);
+      startOpening(r);
       /* The animation is on a clock and the picture is on the network: reveal when BOTH are done. A chest
          whose picture is still on its way keeps working (`.waiting`) rather than showing an empty frame. */
+      const dur = prefersReducedMotion() ? 120 : (CHEST_MS[r] || 900);
       const clock = new Promise((res) => setTimeout(res, dur));
       const settled = settleChestItem(item);
       clock.then(() => { if (_chestClose === close) { ov.classList.add("waiting"); ov.querySelector("#chestHint").textContent = "Opening…"; } });
@@ -23906,11 +24224,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (_chestClose !== close) return;   // closed while waiting: nothing was shown, so nothing is claimed — the chest keeps
         ov.classList.remove("waiting");
         ov.querySelector("#chestHint").textContent = "";
-        const isTheme = fin.kind === "theme";
+        const isTheme = fin.kind === "theme", isMark = fin.kind === "mark";
         const a = fin.artefact;
-        const r = isTheme ? "epic" : rarityId(a);   // a replacement may differ in rarity only when its own rarity ran out
+        const r = isTheme ? "epic" : isMark ? "rare" : rarityId(a);   // a replacement may differ in rarity only when its own rarity ran out
         ov.dataset.rar = r;
-        if (isTheme) claimTheme(fin.theme); else claimArtefact(a);
+        if (isTheme) claimTheme(fin.theme, src); else if (isMark) claimMark(src); else claimArtefact(a, src);
         sfx("loot-" + r);
         ov.classList.add("opened");
         const rev = ov.querySelector("#chestReveal");
@@ -23929,19 +24247,118 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
              a certificate. Keeping it is still the default — the button is offered, not applied. */
           addAct("Wear it now", () => { setTheme(fin.theme); close(); toast("Now wearing " + t[1] + "."); });
           addAct("Keep it for later", close, true);
+        } else if (isMark) {
+          const n = S.curatorMarks | 0;
+          rev.innerHTML =
+            '<span class="ar-chip" data-rar="' + r + '">Curator’s mark</span>' +
+            '<div class="chest-art chest-mark">' + MARK_SVG + '</div>' +
+            '<h3 class="chest-name">Curator’s mark' + (n > 1 ? " · " + n : "") + '</h3>' +
+            '<p class="chest-lede">Your collection is complete. Every chest you open from now on adds a mark to your Reliquary, until Folio adds new artefacts.</p>';
+          addAct("See your Reliquary", () => { close(); route("reliquary"); });
         } else {
+          const lede = artefactLede(a);
           rev.innerHTML =
             '<span class="ar-chip" data-rar="' + r + '">' + esc(rarityLabel(r)) + '</span>' +
             '<div class="chest-art">' + artefactArtHTML(fin.noPic ? Object.assign({}, a, { image: null }) : a, "ar-big") + '</div>' +
             '<h3 class="chest-name">' + esc(a.name) + '</h3>' +
             (a.date ? '<div class="chest-meta">' + esc(a.date) + '</div>' : "") +
-            (a.origin ? '<div class="chest-meta">' + esc(a.origin) + '</div>' : "");
+            (a.origin ? '<div class="chest-meta">' + esc(a.origin) + '</div>' : "") +
+            (lede ? '<p class="chest-lede">' + esc(lede) + '</p>' : "") +
+            chestSetLine(a);
           addAct("Read about it", () => { close(); openArtefactWin(a.id); });
         }
         if (bannerChestCount() > 0) addAct("Open another", () => { close(); openChestPop(); }, true);
         addAct("Close", close, true);
         unitizeTree(rev);
       });
+    }
+    // the shared start of a single opening and of "Open all": the lid goes, the confetti and the hinge sound fire
+    function startOpening(r) {
+      const dur = prefersReducedMotion() ? 120 : (CHEST_MS[r] || 900);
+      ov.dataset.rar = r;
+      ov.classList.add("opening");
+      ov.querySelector("#chestHint").textContent = "";
+      const more = ov.querySelector("#chestMore"); if (more) more.hidden = true;
+      later.remove();   // the lid is open: there is nothing left to save
+      if (all) all.remove();
+      ov.querySelector("#chestActs").hidden = true;
+      sfx("chest");
+      if (!prefersReducedMotion()) chestConfetti(ov, r);
+      return dur;
+    }
+    /* Every chest in the banner, claimed one after another BEFORE anything is shown — each roll has to see
+       the artefact the one before it took, or two chests could hand back the same object. The badges the
+       openings earn are tested once, after the last (`defer`), and their chests are not opened here: they
+       arrive after the reader asked for "all", and wait in the banner like any other. A picture that will
+       not load is shown as its placeholder rather than swapped, since the find is already claimed. */
+    async function openAll() {
+      if (opening) return;
+      opening = true;
+      if (!dataReady("artefactExtra")) {
+        ov.querySelector("#chestHint").textContent = "Opening…";
+        await ensureData("artefactExtra");
+        if (_chestClose !== close) return;
+      }
+      const n = bannerChestCount();
+      const finds = [];
+      for (let i = 0; i < n && chestCount() > 0; i++) {
+        const cs = i === 0 ? src : nextChestSrc();
+        const it = rollChestItem(cs);
+        if (it.kind === "theme") claimTheme(it.theme, cs, true);
+        else if (it.kind === "mark") claimMark(cs, true);
+        else claimArtefact(it.artefact, cs, true);
+        finds.push(Object.assign({ src: cs }, it));
+      }
+      checkAchievements();
+      const rk = (f) => f.kind === "artefact" ? RARITY_RANK[rarityId(f.artefact)] : f.kind === "theme" ? 2 : 1;
+      const best = finds.reduce((b, f) => rk(f) > rk(b) ? f : b, finds[0]);
+      const r = best.kind === "artefact" ? rarityId(best.artefact) : best.kind === "theme" ? "epic" : "rare";
+      const dur = startOpening(r);
+      await Promise.all([
+        new Promise((res) => setTimeout(res, dur)),
+        Promise.all(finds.map((f) => f.kind === "artefact" ? preloadArtefactImage(f.artefact).then((ok) => { if (!ok) f.noPic = true; }) : null)),
+      ]);
+      if (_chestClose !== close) return;
+      sfx("loot-" + r);
+      ov.classList.add("opened", "batch");
+      const rev = ov.querySelector("#chestReveal");
+      rev.hidden = false;
+      rev.dataset.rar = r;
+      const done = new Set();
+      const setLines = [];
+      finds.forEach((f) => {
+        if (f.kind !== "artefact") return;
+        const k = artefactSet(f.artefact);
+        if (done.has(k)) return;
+        done.add(k);
+        const row = setProgress(S).find((x) => x.set.id === k);
+        if (row && row.owned >= row.total) setLines.push('<div class="chest-set done">Set complete: ' + esc(row.set.label) + ", all " + row.total + "</div>");
+      });
+      rev.innerHTML =
+        '<h3 class="chest-name">' + finds.length + " chests opened</h3>" +
+        '<div class="chest-batch">' + finds.map((f) => {
+          const sw = chestSrcLine(f.src).replace(/\..*$/, "");
+          if (f.kind === "theme") {
+            const t = THEME_BY_ID[f.theme] || [f.theme, f.theme];
+            return '<div class="cb-find" data-rar="epic"><div class="cb-art chest-theme">' + themeMockHTML(t) + '</div>' +
+              '<span class="cb-name">' + esc(t[1]) + '</span><span class="ar-trar">Theme</span>' + (sw ? '<span class="cb-src">' + esc(sw) + '</span>' : "") + "</div>";
+          }
+          if (f.kind === "mark") {
+            return '<div class="cb-find" data-rar="rare"><div class="cb-art chest-mark">' + MARK_SVG + '</div>' +
+              '<span class="cb-name">Curator’s mark</span><span class="ar-trar">Mark</span>' + (sw ? '<span class="cb-src">' + esc(sw) + '</span>' : "") + "</div>";
+          }
+          const a = f.artefact, ar = rarityId(a);
+          return '<button type="button" class="cb-find" data-rar="' + ar + '" data-find="' + esc(a.id) + '" title="' + esc("Read about " + a.name) + '">' +
+            '<div class="cb-art">' + artefactArtHTML(f.noPic ? Object.assign({}, a, { image: null }) : a) + '</div>' +
+            '<span class="cb-name">' + esc(a.name) + '</span><span class="ar-trar">' + esc(rarityLabel(ar)) + '</span>' +
+            (sw ? '<span class="cb-src">' + esc(sw) + '</span>' : "") + "</button>";
+        }).join("") + "</div>" + setLines.join("");
+      rev.querySelectorAll("[data-find]").forEach((b) => b.addEventListener("click", () => { close(); openArtefactWin(b.dataset.find); }));
+      if (finds.some((f) => f.kind === "theme")) addAct("Choose a theme", () => { close(); route("settings"); }, true);
+      addAct("See your Reliquary", () => { close(); route("reliquary"); });
+      if (bannerChestCount() > 0) addAct("Open another", () => { close(); openChestPop(); }, true);
+      addAct("Close", close, true);
+      unitizeTree(rev);
     }
     btn.addEventListener("click", () => openLid());
     function addAct(label, fn, ghost) {
@@ -27060,14 +27477,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (swc) swc.addEventListener("click", () => {
       if (!claimPlayChest()) return;
       renderInPlace();
-      openChestPop();
+      openChestPop({ src: "play" });
     });
     // the level chest at the end of the bar (levelChestHTML); the overlay's close repaints the banner
     // …pressed, it is COLLECTED: the bar's chest goes grey and the chest moves to the banner above (collectLevelChest), then the overlay opens — repaint first, as for the two chests above
-    { const lc = root.querySelector("#lvlChest"); if (lc) lc.addEventListener("click", () => { if (!collectLevelChest()) return; renderInPlace(); openChestPop(); }); }
+    { const lc = root.querySelector("#lvlChest"); if (lc) lc.addEventListener("click", () => { if (!collectLevelChest()) return; renderInPlace(); openChestPop({ src: "level" }); }); }
     // the streak ribbon's chest (streakRibbonHTML): claimed on the press like the sweep chest above, in the same
     // load-bearing order — claim, repaint (ready → claimed), THEN the overlay
-    { const sc = root.querySelector("#streakChest"); if (sc) sc.addEventListener("click", () => { if (!claimStreakChest()) return; renderInPlace(); openChestPop(); }); }
+    { const sc = root.querySelector("#streakChest"); if (sc) sc.addEventListener("click", () => { if (!claimStreakChest()) return; renderInPlace(); openChestPop({ src: "streak" }); }); }
     root.querySelectorAll(".game-tile[data-game]").forEach((el) => {
       const key = el.dataset.game;
       if (!key) return;
@@ -43286,7 +43703,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const newly = [];
     ACHIEVEMENTS.forEach((a) => { if (!S.achievements[a.id] && a.test(s)) { S.achievements[a.id] = Date.now(); newly.push(a); } });
     if (newly.length) {
-      grantChest(newly.length);
+      grantChest(newly.length, "badge");
       /* A BADGE IS ANNOUNCED IN THE MIDDLE OF THE SCREEN (Sep 2026, on request), as the tile the account
          page draws, which turns over to open its chest — see openAchPop. It was a toast at the foot of the
          screen that said a chest was waiting somewhere else. While the walkthrough runs it is HELD
@@ -43317,7 +43734,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        was, which since Aug 2026 it is not. */
     const prize = p.worth === 1 ? "a chest" : p.worth + " chests";
     const note = p.count <= 0
-      ? "Study on any day to start a streak — seven days in a row earns a chest, and every week after that is worth one more."
+      ? "Study on any day to start a streak — seven days in a row earns a chest, and every week after that is worth one more, up to three."
       : p.left === 0
         ? "Seven days in a row — paid. Seven more earns " + prize + "."
         : p.left + (p.left === 1 ? " more day" : " more days") + " in a row for " + prize + ".";
@@ -44926,8 +45343,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ? stillLocked + (stillLocked === 1 ? " theme is" : " themes are") + " not yet unlocked on this account — they are greyed above, and an editor may wear one anyway."
       : !stillLocked ? ""
       : shownThemes.length > 1
-        ? stillLocked + (stillLocked === 1 ? " more theme is" : " more themes are") + " still to find in artefact chests."
-        : "The other " + stillLocked + " are found in artefact chests, which a level, a clean sweep of the daily games or a week's streak will earn you.";
+        ? stillLocked + (stillLocked === 1 ? " more theme is" : " more themes are") + " still to find — every tenth chest you open holds one."
+        : "The other " + stillLocked + " are found in artefact chests — every tenth chest you open holds one. " + chestWaysText();
     const setHead = (accent, svg, title) => `<div class="set-head" style="--msn-accent:${accent}"><span class="msn-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${svg}</svg></span><h2>${title}</h2></div>`;
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Preferences</span><h1>Settings</h1>
@@ -48573,7 +48990,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       };
       items.innerHTML =
         '<div class="q-page">' +
-          '<div class="tl-intro">Every Folio level opens a chest, and so does winning every daily game in one day. A chest draws one artefact the reader does not already own, at <b>60 / 25 / 12 / 3</b> for common / rare / epic / legendary — a rarity that is fully collected drops out of the roll rather than handing back a duplicate. Edits take effect at once and travel to every reader; <b>Copy as JS</b> gives the whole pool back as a literal to paste into <code>artefacts.js</code>.</div>' +
+          '<div class="tl-intro">' + esc(chestWaysText()) + ' A chest draws one artefact the reader does not already own, at <b>60 / 25 / 12 / 3</b> for common / rare / epic / legendary (a gilded chest at <b>0 / 50 / 35 / 15</b>, a finished deck\'s from its own set first) — a rarity that is fully collected drops out of the roll rather than handing back a duplicate. Every tenth chest holds a theme while one is locked, and once everything is owned a chest holds a curator\'s mark. Edits take effect at once and travel to every reader; <b>Copy as JS</b> gives the whole pool back as a literal to paste into <code>artefacts.js</code>.</div>' +
           '<div class="q-tools">' +
             '<button class="admin-new" type="button" id="aNew">+ New artefact</button>' +
             '<button class="mini-btn" type="button" id="aCopy">Copy as JS</button>' +
@@ -48746,8 +49163,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       else note = "Counted over " + total + " account" + (total === 1 ? "" : "s") + ". This is what each account WEARS \u2014 how many readers have unlocked a theme without wearing it is in their own progress, which row-level security keeps private, and no figure for it is guessed at here.";
       items.innerHTML =
         '<div class="dsh-wrap">' +
-          '<div class="dsh-lede">Six themes. One is everyone\'s and the other five come out of chests, at about ' +
-            Math.round(THEME_DROP * 100) + "% of an opening while any are still locked \u2014 so a reader collects them at roughly the rate they collect artefacts. A theme is also how an account looks to its friends, which is why the usage figures below are worth having.</div>" +
+          '<div class="dsh-lede">Six themes. One is everyone\'s and the other five come out of chests, one in every ' +
+            THEME_EVERY + " chests opened while any are still locked \u2014 so a reader collects them at roughly the rate they collect artefacts. A theme is also how an account looks to its friends, which is why the usage figures below are worth having.</div>" +
           '<div class="dsh-grid">' +
             '<section class="dsh-card"><div class="dsh-head"><h3>Worn by</h3><span class="dsh-sub">From the account database</span></div>' +
               '<div class="thr-list">' + rows + "</div>" +
