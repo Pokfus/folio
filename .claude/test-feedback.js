@@ -121,6 +121,35 @@ function check(name, ok, extra) {
   check("the cooldown holds the next message", store.posted.length === 2);
   check("…and says why", /moment/i.test(await page.$eval("#fbStatus", (e) => e.textContent)));
 
+  // ============================ Report a problem, from a card's foot ============================
+  // (cardReportHTML / openCardReport: the same table and the same feedbackSend, the card named in the row)
+  await page.evaluate(() => localStorage.removeItem("folio_feedback_sent_v1"));
+  const cardId = await page.evaluate(() => window.CARD_DATA.find((c) => c.id && c.id.slice(0, 2) !== "u_" && c.answer).id);
+  await page.goto(base + "/#card/" + cardId);
+  await page.reload();
+  await page.waitForTimeout(1500);
+  check("a card carries a Report button", (await page.locator(".card-report").count()) === 1, cardId);
+  check("…as the last thing on the card", await page.$eval(".card-report-row", (e) => !e.nextElementSibling));
+  await page.click(".card-report");
+  await page.waitForTimeout(400);
+  check("pressing it opens the report sheet", (await page.locator(".cr-sheet #crMsg").count()) === 1);
+  check("signed out, an optional email is offered", (await page.locator(".cr-sheet #crEmail").count()) === 1);
+  const before = store.posted.length;
+  await page.click('.cr-sheet [data-act="ok"]');
+  await page.waitForTimeout(250);
+  check("an empty report costs no request", store.posted.length === before);
+  await page.selectOption("#crKind", "typo");
+  await page.fill("#crMsg", "Spelt 'Pelopponesian' in the second paragraph.");
+  await page.fill("#crEmail", "bo@example.com");
+  await page.click('.cr-sheet [data-act="ok"]');
+  await page.waitForTimeout(600);
+  const rep = store.posted[before] || {};
+  check("the report is sent", store.posted.length === before + 1);
+  check("a typo maps onto an existing kind", rep.kind === "correction" && rep.meta && rep.meta.issue === "typo");
+  check("the row names the card", rep.page === "card:" + cardId && rep.meta && rep.meta.card === cardId, rep.page);
+  check("the email travels", rep.email === "bo@example.com");
+  check("the sheet closes once it is sent", (await page.locator(".cr-sheet").count()) === 0);
+
   // ============================ the Edit page queue ============================
   store.rows = [
     { id: "a", author: null, name: "", email: "", kind: "bug", message: "The globe froze when I zoomed.", page: "#map", meta: { lang: "en", ua: "Mozilla/5.0 Test" }, status: "new", admin_note: "", created_at: "2026-07-28T10:00:00Z" },
@@ -172,6 +201,13 @@ function check(name, ok, extra) {
   await page.waitForTimeout(350);
   check("a second click deletes", store.deleted.length === 1);
   check("the row leaves the list", (await page.locator(".fbq-row").count()) === 2);
+
+  // a card report's row links to its card
+  store.rows = [{ id: "d", author: null, name: "", email: "", kind: "correction", message: "A typo.", page: "card:" + cardId, meta: { card: cardId, issue: "typo" }, status: "new", admin_note: "", created_at: "2026-11-14T10:00:00Z" }];
+  await page.click("#fbRefresh");
+  await page.waitForTimeout(600);
+  check("a card report links to its card", (await page.getAttribute('.fbq-row[data-fb="d"] .fbq-card', "href")) === "#card/" + cardId);
+  check("…and shows the reader's reason", /typo/i.test(await page.$eval('.fbq-row[data-fb="d"] .fbq-issue', (e) => e.textContent)));
 
   // A session saved while the retired tab was open must not strand the editor on a tab that no longer
   // exists — it falls through to the editor's default, which is the Dashboard (Aug 2026; it was Cards).

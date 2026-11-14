@@ -11,8 +11,8 @@ It is **190 numbers in five decks**:
 
 | deck | id | numbers | format | can be written today? |
 |---|---|---|---|---|
-| The states and union territories | `geo-india-states` | `gin-001`–`gin-036` | map card (a shaded shape) | **no — waits for India's admin-1 in the Atlas** |
-| The capitals | `geo-india-capitals` | `gin-501`–`gin-536`, less 519 and 531 | map card with a dot | **no — same wait** |
+| The states and union territories | `geo-india-states` | `gin-001`–`gin-036` | map card (a shaded shape) | **yes, since 2026-11-14** (the `india-states` layer; see below) |
+| The capitals | `geo-india-capitals` | `gin-501`–`gin-536`, less 519 and 531 | map card with a dot | **yes, since 2026-11-14** |
 | Other great cities | `geo-india-cities` | `gin-701`–`gin-740` | map question on a locator | yes |
 | Rivers, lakes and seas | `geo-india-water` | `gin-801`–`gin-840` | map question on a locator | yes |
 | Mountains, deserts and caves | `geo-india-mountains` | `gin-901`–`gin-940` | map question on a locator | yes |
@@ -23,8 +23,8 @@ say, `gw-audit.js`'s four rules, the date line), and 📖 **`docs/russia-geograp
 recent collection built on both and the closest model — **read the sections each deck below points at before
 writing a card**. This file records only the running orders and the decisions particular to India.
 
-The next card to write is the lowest `gin-NNN` not in `data.js` **that is in a deck which can be written** —
-`next-cards.js` does not know about the wait below, so **start at `gin-701`, not `gin-001`**:
+The next card to write is the lowest `gin-NNN` not in `data.js` — since 2026-11-14 every deck can be written (the wait
+below is over), so that is `gin-001`:
 
     node .claude/next-cards.js gin- 5
 
@@ -54,6 +54,20 @@ the 36 current units with their codes (Ladakh, the merged Dadra and Nagar Haveli
 its `type_en` is wrong on some (Himachal Pradesh "Union Territory", Gujarat blank), so names and kinds are declared; and
 none of its 32,884 vertices lies more than 1 km outside Natural Earth's admin-0 India, so the units tile the country the
 engine draws, Jammu and Kashmir and Ladakh as the area India administers.
+
+**Built 2026-11-14 (steps 1 and 2 of that plan; its §8 is the as-built note).** A state card is
+`"map": { "layer": "india-states", "key": "<the unit's name as in the running order below>" }`, a capital card adds
+`"dot": "<the seat>"` (the seats and their FETCHED coordinates are `.claude/atlas-build/admin1-capitals.json`; `add-card.js`
+checks both). What a writer must know about the shapes:
+- **The entity ids use the current ISO codes** (`adm1:ind:in-ts` for Telangana, `in-od`, `in-cg`, `in-uk`): ISO 3166-2:IN changed four
+  codes in 2023, after Natural Earth 5.1.1.
+- **Telangana is drawn with its line of before 2014** (Natural Earth's fault, recorded, not corrected): about 1,100 km² too large, and
+  touching Odisha, which it does not. Never write that Telangana borders Odisha; take every area figure from a cited source, not the map.
+- **Mahe is not drawn**: Natural Earth's ring for it lies 35–50 km north at 14 times its size, so it was dropped; Puducherry is shaded as its
+  other three enclaves. A Puducherry card names Mahe in its prose.
+- **Lakshadweep framed whole is a scatter of pixels**: its card sets its own `map.zoom` (at 150 the window opens on Minicoy, shaded).
+- **Chandigarh** (the dot of `gin-516` and `gin-518`) is filed under the union territory; `add-card.js` accepts it for Punjab and Haryana with a
+  warning, because the dot is outside the shape by fact.
 
 The other three decks are locator questions (a point or a river line on the existing engine) and **can be
 written now**.

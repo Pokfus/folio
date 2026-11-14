@@ -566,9 +566,9 @@
     if (msg.type === "water-tile") return handleWaterTile(msg, post);
     if (msg.type === "land-changes") return guard(handleLandChanges(msg, post), "land changes: ");
     if (msg.type === "relief") { handleRelief(msg, post); return null; }
-    if (msg.type === "history") return guard(handleHistory(msg, post), "history: ");
-    if (msg.type === "history-faces") return guard(handleHistoryFaces(msg, post), "history faces: ");
-    if (msg.type === "history-evict") { if (HIST) for (const k of msg.keys || []) HIST.resident.delete(k); return null; }
+    if (msg.type === "history") return guard(handleHistory(msg, post), msg.slot === "adm1" ? "admin1: " : "history: ");
+    if (msg.type === "history-faces") return guard(handleHistoryFaces(msg, post), msg.slot === "adm1" ? "admin1 faces: " : "history faces: ");
+    if (msg.type === "history-evict") { const S = slotOf(msg); if (S) for (const k of msg.keys || []) S.resident.delete(k); return null; }
     if (msg.type === "gazetteer") { loadGazetteer(msg.table); post({ type: "gazetteer", rows: GZ.rows.length }); return null; }
     if (msg.type === "study-rows") { setStudyRows(msg.rows, msg.names); post({ type: "study-rows", n: STUDY ? STUDY.rows.size : 0, cities: STUDY && STUDY.cityHow ? STUDY.cityHow : null }); return null; }
     if (msg.type === "study-flags") { setStudyFlags(msg); return null; }
@@ -579,7 +579,7 @@
     if (msg.type === "face-rings") { handleFaceRings(msg, post); return null; }
     /* a lost GL context (Phase 1c): the main thread keeps nothing after upload, so the resident levels are
        rebuilt here from the raw files this worker kept — the same code path as the first load */
-    if (msg.type === "rebuild") { return (async () => { if (RAW.topology) await handleLoad({ type: "load", buffer: RAW.topology, rebuild: true }, post); if (RAW.water) await handleWater({ type: "water", buffer: RAW.water }, post); if (RAW.landChanges) await handleLandChanges(RAW.landChanges, post); if (RAW.history) { HIST = null; await handleHistory({ type: "history", buffer: RAW.history }, post); } })(); }
+    if (msg.type === "rebuild") { return (async () => { if (RAW.topology) await handleLoad({ type: "load", buffer: RAW.topology, rebuild: true }, post); if (RAW.water) await handleWater({ type: "water", buffer: RAW.water }, post); if (RAW.landChanges) await handleLandChanges(RAW.landChanges, post); if (RAW.history) { HIST = null; await handleHistory({ type: "history", buffer: RAW.history }, post); } if (RAW.adm1) { ADM1 = null; await handleHistory({ type: "history", slot: "adm1", buffer: RAW.adm1 }, post); } })(); }
     if (msg.type === "load") return guard(handleLoad(msg, post), "topology: ");
     return null;
   }
@@ -598,6 +598,7 @@
     const pos = await unitVectors(T);
     CORE = { T, pos };
     if (HIST_PENDING) { const m = HIST_PENDING; HIST_PENDING = null; handle(m, post); }
+    if (ADM1_PENDING) { const m = ADM1_PENDING; ADM1_PENDING = null; handle(m, post); }
     const faceEntity = new Uint32Array(T.faces.length);
     T.faces.forEach((f, i) => { faceEntity[i] = f.entity; });
     post({ type: "meta", header: T.header, faceEntity, parseMs: now() - t0 }, [faceEntity.buffer]);
@@ -649,8 +650,13 @@
      path is too short or too bent; a river repeats every ~400 px along its polyline; a city sits beside its
      marker on the first free side of four. Labels behind the horizon are not candidates; those near the limb
      carry an alpha for the fade. */
-  const RAW = { topology: null, water: null, history: null, landChanges: null };
+  const RAW = { topology: null, water: null, history: null, landChanges: null, adm1: null };
   let CORE = null, HIST = null, HIST_PENDING = null;
+  /* THE SECOND SLOT (2026-11-14; docs/atlas-v2-admin1-layer.md §3.2): atlas/data/admin1.bin, the present-day admin-1 units of the countries the core does not carry, in history.bin's format.
+     It is held BESIDE `HIST` (the page's history or a war slice), never instead of it, through the same code: the reader, the buildId check, the per-level geometry, the lazy
+     triangulation and its LRU. A message names it with `slot: "adm1"`; every reply about it carries the same tag. */
+  let ADM1 = null, ADM1_PENDING = null;
+  const slotOf = (msg) => (msg && msg.slot === "adm1" ? ADM1 : HIST);
   let GZ = null, RIVER_LINES = null, RIVER_CAPS = null, METRICS = null;
   /* Phase 4 / 0c: display names that change with the year (atlas/data/polity-names.js, sent by the page): entity id → [[from, to, name, qid]…] */
   let POLITY_NAMES = null;
@@ -1402,36 +1408,39 @@
      7), and the main thread's per-arc style table decides which are drawn in a year — a year change costs a table. */
   const HIST_KIND = 7, HIST_LRU_BYTES = 96 * 1024 * 1024;   // the triangulated meshes kept here, by their bytes (2b), not by count
   // the arc's geometry at a level (atlas-format.js historyArcGeometry: a coast junction moves onto the level's line)
-  function histGeom(a, level) { return { own: false, pts: root.AtlasFormat.historyArcGeometry(HIST.T, CORE.T, a, level, HIST.junctions, HIST.empty) }; }
+  function histGeom(a, level, S) { S = S || HIST; return { own: false, pts: root.AtlasFormat.historyArcGeometry(S.T, CORE.T, a, level, S.junctions, S.empty) }; }
   // the geometry of every arc at a level as one local topology (lon, lat, rank 0, arcOffset), cached per level
-  function histLevel(level) {
-    let L = HIST.levels[level]; if (L) return L;
-    const T = HIST.T, nA = T.arcOffset.length - 1;
+  function histLevel(level, S) {
+    S = S || HIST;
+    let L = S.levels[level]; if (L) return L;
+    const T = S.T, nA = T.arcOffset.length - 1;
     const lon = [], lat = [], arcOffset = new Uint32Array(nA + 1);
     for (let a = 0; a < nA; a++) {
       arcOffset[a] = lon.length;
-      for (const p of histGeom(a, level).pts) { lon.push(p[0]); lat.push(p[1]); }
+      for (const p of histGeom(a, level, S).pts) { lon.push(p[0]); lat.push(p[1]); }
     }
     arcOffset[nA] = lon.length;
     const LT = { lon: Int32Array.from(lon), lat: Int32Array.from(lat), rank: new Uint8Array(lon.length), arcOffset, arcKind: T.arcKind, arcFlags: T.arcFlags, arcMinLod: new Uint8Array(nA), quantum: T.quantum };
     const D2R = Math.PI / 180, q = T.quantum, n = lon.length, pos = new Float32Array(n * 3);
     for (let i = 0; i < n; i++) { const la = lat[i] * q * D2R, lo = lon[i] * q * D2R, c = Math.cos(la); pos[3 * i] = c * Math.cos(lo); pos[3 * i + 1] = c * Math.sin(lo); pos[3 * i + 2] = Math.sin(la); }
-    L = { T: LT, pos }; HIST.levels[level] = L; return L;
+    L = { T: LT, pos }; S.levels[level] = L; return L;
   }
   async function handleHistory(msg, post) {
-    if (!CORE) { HIST_PENDING = msg; return; }   // the core is still loading: parsed once it is in
+    const A1 = msg.slot === "adm1", tag = A1 ? "admin1: " : "history: ";
+    if (!CORE) { if (A1) ADM1_PENDING = msg; else HIST_PENDING = msg; return; }   // the core is still loading: parsed once it is in
     const t0 = now();
     let T;
-    try { T = await readTopology(msg.buffer); } catch (e) { post({ type: "error", message: "history: " + e.message }); return; }
+    try { T = await readTopology(msg.buffer); } catch (e) { post({ type: "error", message: tag + e.message }); return; }
     const H = T.header;
-    if (!H.core || H.core.buildId !== CORE.T.header.buildId) { post({ type: "error", message: "history: built on core " + (H.core && H.core.buildId) + ", this is " + CORE.T.header.buildId }); return; }
-    if (!T.coreArc) { post({ type: "error", message: "history: no coreRef section" }); return; }
-    RAW.history = msg.buffer;
-    HIST = { T, H, empty: H.arcEmpty || null, levels: [], meshes: new Map(), resident: new Set(), order: [], junctions: root.AtlasFormat.historyJunctions(T, CORE.T) };
+    if (!H.core || H.core.buildId !== CORE.T.header.buildId) { post({ type: "error", message: tag + "built on core " + (H.core && H.core.buildId) + ", this is " + CORE.T.header.buildId }); return; }
+    if (!T.coreArc) { post({ type: "error", message: tag + "no coreRef section" }); return; }
+    if (A1 && H.kindOf !== "admin1") { post({ type: "error", message: tag + "not an admin-1 file" }); return; }
+    const S = { T, H, empty: H.arcEmpty || null, levels: [], meshes: new Map(), resident: new Set(), order: [], junctions: root.AtlasFormat.historyJunctions(T, CORE.T) };
+    if (A1) { RAW.adm1 = msg.buffer; ADM1 = S; } else { RAW.history = msg.buffer; HIST = S; }
     await tick();
     // per face: the bounding cap (centre, angular radius) and the area at LOD 0, for the rail's "what is on screen" and the label rank
     const nF = T.faces.length, faceCap = new Float32Array(nF * 4), faceEntity = new Uint32Array(nF);
-    const L0 = histLevel(0);
+    const L0 = histLevel(0, S);
     for (let fi = 0; fi < nF; fi++) {
       faceEntity[fi] = T.faces[fi].entity;
       let cx = 0, cy = 0, cz = 0, n = 0;
@@ -1446,39 +1455,39 @@
     const faceArcOff = new Uint32Array(nF + 1), fa = [];
     for (let fi = 0; fi < nF; fi++) { faceArcOff[fi] = fa.length; const seen = new Set(); for (const ring of T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; if (T.arcKind[a] === 0 || seen.has(a)) continue; seen.add(a); fa.push(a); } }
     faceArcOff[nF] = fa.length; const faceArcs = Uint32Array.from(fa);
-    post({ type: "history-meta", header: H, faceEntity, faceCap, faceArcOff, faceArcs, parseMs: Math.round(now() - t0) }, [faceEntity.buffer, faceCap.buffer, faceArcOff.buffer, faceArcs.buffer]);
+    post({ type: "history-meta", slot: msg.slot, header: H, faceEntity, faceCap, faceArcOff, faceArcs, arcKind: A1 ? T.arcKind.slice() : undefined, parseMs: Math.round(now() - t0) }, [faceEntity.buffer, faceCap.buffer, faceArcOff.buffer, faceArcs.buffer]);
     // the borders travel with each face's mesh since 2b (handleHistoryFaces); the three per-level lists of every border are gone
-    post({ type: "history-done", ms: Math.round(now() - t0), arcs: T.arcOffset.length - 1, faces: nF });
+    post({ type: "history-done", slot: msg.slot, ms: Math.round(now() - t0), arcs: T.arcOffset.length - 1, faces: nF });
   }
   async function handleHistoryFaces(msg, post) {
-    if (!HIST) return;
-    const level = Math.min(2, msg.level | 0), L = histLevel(level), meshes = [];
+    const S = slotOf(msg); if (!S) return;
+    const level = Math.min(2, msg.level | 0), L = histLevel(level, S), meshes = [];
     const t0 = now();
     for (const fi of msg.faces || []) {
       const key = fi + ":" + level;
-      if (HIST.resident.has(key)) continue;
-      let m = HIST.meshes.get(key);
+      if (S.resident.has(key)) continue;
+      let m = S.meshes.get(key);
       if (!m) {
         const sink = Sink();
-        const ent = HIST.H.entities[HIST.T.faces[fi].entity], presence = !!ent && (ent.kind === "people" || ent.kind === "culture" || ent.kind === "extent" || ent.kind === "front");
-        if (presence) await presenceMesh(L.T, L.pos, HIST.T.faces[fi], level, sink, ent.kind === "front"); else await triangulateFace(L.T, L.pos, HIST.T.faces[fi], fi, level, sink);   // 2c: a presence's mesh carries an edge alpha, not a face id
+        const ent = S.H.entities[S.T.faces[fi].entity], presence = !!ent && (ent.kind === "people" || ent.kind === "culture" || ent.kind === "extent" || ent.kind === "front");
+        if (presence) await presenceMesh(L.T, L.pos, S.T.faces[fi], level, sink, ent.kind === "front"); else await triangulateFace(L.T, L.pos, S.T.faces[fi], fi, level, sink);   // 2c: a presence's mesh carries an edge alpha, not a face id
         const F = sink.result();
         // the face's coast edges at this level, for the fill-against-stroke stroke at the tile zooms (§2.3, Phase 2a), and — since 2b —
         // its BORDER edges (every non-coast arc, tagged with the arc index so the main thread's arc table still fades them), so the
         // renderer draws the borders of the faces on screen and no others: one list per level held every border of the file (51,025
         // arcs at full scale, 70,000 segments in a Mediterranean view with most at alpha 0), and a software rasteriser pays per segment
         const coast = [], border = [];
-        if (!presence) for (const ring of HIST.T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; const list = HIST.T.arcKind[a] === 0 ? coast : border, tag = HIST.T.arcKind[a] === 0 ? fi * 64 + HIST_KIND : a * 64 + (HIST.T.arcFlags[a] & 7) * 8 + HIST_KIND; for (let i = L.T.arcOffset[a] + 1; i < L.T.arcOffset[a + 1]; i++) list.push(L.pos[3 * (i - 1)], L.pos[3 * (i - 1) + 1], L.pos[3 * (i - 1) + 2], tag, L.pos[3 * i], L.pos[3 * i + 1], L.pos[3 * i + 2], 0); }   // EIGHT floats a segment — (a.xyz, tag) (b.xyz, 0), the two texels uploadSegs reads — never the seven-float form bucketSegments takes: seven floats read as eight drew every segment after the first between unrelated points (the 2a review's chord across Latium and the fan over Sicily, fixed in 2b)
+        if (!presence) for (const ring of S.T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; const list = S.T.arcKind[a] === 0 ? coast : border, tag = S.T.arcKind[a] === 0 ? fi * 64 + HIST_KIND : a * 64 + (S.T.arcFlags[a] & 7) * 8 + HIST_KIND; for (let i = L.T.arcOffset[a] + 1; i < L.T.arcOffset[a + 1]; i++) list.push(L.pos[3 * (i - 1)], L.pos[3 * (i - 1) + 1], L.pos[3 * (i - 1) + 2], tag, L.pos[3 * i], L.pos[3 * i + 1], L.pos[3 * i + 2], 0); }   // EIGHT floats a segment — (a.xyz, tag) (b.xyz, 0), the two texels uploadSegs reads — never the seven-float form bucketSegments takes: seven floats read as eight drew every segment after the first between unrelated points (the 2a review's chord across Latium and the fan over Sicily, fixed in 2b)
         m = { face: fi, level, pos: F.pos, idx: F.triangles * 3 <= 65535 && F.vertices <= 65535 ? Uint16Array.from(F.idx) : F.idx, coast: Float32Array.from(coast), border: Float32Array.from(border), triangles: F.triangles };
         m.bytes = m.pos.byteLength + m.idx.byteLength + m.coast.byteLength + m.border.byteLength;
-        HIST.meshes.set(key, m); HIST.order.push(key); HIST.bytes = (HIST.bytes || 0) + m.bytes;
-        let spins = 0; while (HIST.bytes > HIST_LRU_BYTES && HIST.order.length && spins++ < HIST.order.length * 2) { const old = HIST.order.shift(); if (!HIST.resident.has(old)) { const om = HIST.meshes.get(old); if (om) HIST.bytes -= om.bytes; HIST.meshes.delete(old); } else HIST.order.push(old); }
+        S.meshes.set(key, m); S.order.push(key); S.bytes = (S.bytes || 0) + m.bytes;
+        let spins = 0; while (S.bytes > HIST_LRU_BYTES && S.order.length && spins++ < S.order.length * 2) { const old = S.order.shift(); if (!S.resident.has(old)) { const om = S.meshes.get(old); if (om) S.bytes -= om.bytes; S.meshes.delete(old); } else S.order.push(old); }
       }
-      HIST.resident.add(key);
+      S.resident.add(key);
       meshes.push({ face: fi, level, pos: m.pos.slice(), idx: m.idx.slice(), coast: m.coast.slice(), border: m.border.slice(), triangles: m.triangles });
     }
     const transfer = []; for (const m of meshes) transfer.push(m.pos.buffer, m.idx.buffer, m.coast.buffer, m.border.buffer);
-    post({ type: "history-faces", level, meshes, seq: msg.seq, ms: Math.round(now() - t0) }, transfer);
+    post({ type: "history-faces", slot: msg.slot, level, meshes, seq: msg.seq, ms: Math.round(now() - t0) }, transfer);
   }
   /* THE SELECTED STATE'S OUTLINE (2026-10-18, whole-state selection): the rings of the given history faces at a level, as unit vectors on the sphere (one Float32Array
      of xyz per ring, the walk `faceRings` makes — coast arcs included, which the face's border list leaves out), for the page to stroke on its label canvas every frame

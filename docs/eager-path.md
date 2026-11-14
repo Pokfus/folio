@@ -266,6 +266,48 @@ are loaded only on `file://`. The one v1 file the place card borrows, the prose 
 the `atlas2prose` bundle, loaded on the first country card. `node .claude/check-sizes.js` should therefore show no
 `atlas/` file in the eager total — if one appears there, a `<script>` for it has been added to `index.html` by mistake.
 
+## The game pools leave the eager path (2026-11-14)
+
+**What moved.** `truefalse.js`, `quotes.js`, `crossword.js` and `whatyear.js` — the four daily games' own pools — are the
+`DATA_BUNDLES` `truefalse`, `quotegame`, `crossword` and `whatyear`. The saving is about 0.64 MB raw / 0.21 MB gzipped off
+the eager path (11 files → 7); `node .claude/check-sizes.js` has today's total.
+· **WHO READS THEM — ALL OF THEM, GREPPED.** `window.TRUEFALSE`: `truefalseKeyed` / `truefalsePool` / `tfShipped` (the game
+page and its in-game admin controls), `tfAdminHTML` and the dashboard's count. `window.QUOTEGAME`: `whoSaidPool` /
+`buildWhoSaidRounds` (the game page), `whoSaidAdminHTML`, the admin form's save and the dashboard's count. `window.CROSSWORD`:
+`xwPool` → `dailyCrossword` → `PAGES.crossword` alone. `window.WHATYEAR`: `wyPool` → `dailyWhatYear` → `PAGES.whatyear`
+alone. Nothing at boot: the Home daily quote is `SHIPPED_QUOTES` **inside app.js**, not `quotes.js`, and the home tiles'
+`gameSub` reads no pool. The four game pages call `gamePoolPending(root, bundle, page, title)` right after `gameLockedToday`
+(whose placard reads no pool) — What share?'s gate, shared: a loading line, the page re-entered when the file lands, a
+"could not be set up" placard when it does not. `adminRefresh` holds the two pool tabs on a loading line until both bundles
+land and re-draws the dashboard when they do, re-entering only on success so an offline admin is not looped.
+· **NO `after` HOOK, AND WHY THAT IS SAFE HERE.** The trap above is a lazy file overwriting what `applyAdminEdits()` wrote
+into a global at boot. These four globals are never written by the app: their overlays (`ADMIN_EDITS.truefalse`,
+`.whosaid`, `.whosaidOff`) are applied at READ time by the pool functions, so a late file has nothing to clobber. A future
+change that bakes an overlay INTO one of these globals must add the hook.
+· **Warmed at idle** after boot (`whenIdleAfterGlobe`, skipped in light mode), so a tile normally opens on a ready game.
+`sw.js` still precaches all four (they are small), so the games open offline as before.
+· **What stayed eager, and why.** `changelog.js` carries `window.FOLIO_VERSION`, read by `versionLineHTML` on every home
+render; moving it means moving the version record (`docs/changelog-and-version.md`) — 0.07 MB gzipped is not worth that.
+`mission.js` is under 1 KB and admin-edited in place; `artefacts.js` and `lang-decks.js` keep the reasons written beside
+them in `index.html`.
+
+### A measured proposal for `data.js` (not done)
+
+Measured 2026-11-14 on the light half (7,750 cards, evaluated without the rejoin tail): `CARD_DATA` is 6.17 MB raw /
+1.22 MB gzipped. By field: `answerDate` 1.48 MB raw (only 0.35 MB of it is text — the rest is the repeated
+`<div class="dt"><span class="dt-k">…` wrapper), `question` 1.42 MB (the largest gzipped cost, ~0.46 MB, and the front
+needs it), `tags` 0.52, `locator` 0.32, `answerFlag` 0.27, `answerText` 0.23, `facts` 0.22, `notes` 0.20,
+`translations` 0.17, `traditional` 0.13. Dropping a field from the light half would save, gzipped: `answerDate` ~0.20 MB,
+`answerText` + `notes` + `facts` + `translations` + `traditional` ~0.18 MB, `locator` ~0.10 MB.
+**Proposal, in order of safety:** (1) audit `notes`, `facts`, `translations`, `traditional` and `answerText` for any reader
+outside the card BACK (search, sort, the games' pools, the Atlas join, the meters); those with none join `CARD_EXTRA_FIELDS`
+/ `EXTRA_FIELDS` and move to `data-extra/` through `split-cards.js` and `card-io.js` exactly as `questions` did — ~0.18 MB
+gzipped at most. (2) Store the date line as data (`{k, v}`) and build the markup at render: ~1.1 MB raw but only a little
+gzipped, and it touches every reader of `answerDate` (26 lines of app.js, `set-date-line.js`, `check-style.js` and the
+other helpers), so it is a format change, not a mechanical one. `locator` is one of the old map fields CLAUDE.md says STAY
+until a later Atlas phase removes them, and a locator question's FRONT reads it (`cardLocatorFront`). No split of
+`data.js` was made in this change: none of these is a clearly safe, mechanical win.
+
 ## Phase 4 (Atlas v2): the card windows and Find it are off the eager path
 
 `atlas/atlas-embed.js`, `atlas/atlas-windows.js` (bundle `atlas2embed`), `atlas/data/card-faces.js` (`atlas2cards`), `atlas/data/wars.js` (`atlas2wars`) and the engine (`atlas2`) are lazy, loaded when the first window or Find it is

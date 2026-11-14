@@ -4204,6 +4204,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `content_overrides` overlay at runtime, not through these files). The multi-MB lazy bundles are **not**
   precached — that would undo the split; they enter the cache when a page actually asks for them, so one
   Atlas visit makes it available offline. Bump `VERSION` in sw.js to invalidate everything.
+  **Two caches outlive a VERSION bump (Nov 2026)**: `folio-offline` (a collection's "Available offline" switch on
+  its info sheet — `offlineSave` / `offlineRemove` / `OFFLINE_CACHE`; its data-extra files, `glossary-extra.js`
+  and the shell read off `index.html`; the register `folio.offline.v1` is device-local localStorage) and
+  `folio-reminder` (the study-reminder snapshot `remindWrite` leaves for sw.js's `periodicsync` /
+  `remindCheck`; Settings → Study, `remindCfg`, `remindPlatform`; no push server, nothing sent). sw.js's
+  `KEEP` and the home page's refresh button both spare them by name. To test the worker off a dev origin,
+  route a fake `https://` origin to the files with Playwright's `context.route` (needs
+  `PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS=1`) and launch `channel: "chromium"` for notifications.
 - **State:** `localStorage["folio_v1"]` holds settings and spaced-repetition scheduling.
 - **RESET PROGRESS CLEARS PROGRESS, AND NOTHING ELSE** (`resetProgress` / `RESET_KEEPS`, beside
   `applyProgress`/`emptyProgress`; Settings → Danger zone. Aug 2026, on a bug report). It was
@@ -5125,7 +5133,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `render()`'s close list beside `closePageHelp()`, and its `?` handler carries the `/` search
     handler's guards exactly. **Its scrim is `#000`, never `var(--ink)`**: that token is the LIGHTEST
     thing a dark theme has, so an ink-mixed scrim is a white veil at night — `test-layout.js`'s
-    `scrimCheck` catches it statically.
+    `scrimCheck` catches it statically. **Every row is a handler that exists** (Nov 2026 re-inventory: the
+    Sep table promised card-browser, Timeline and reader-Esc keys nothing listened for) — add a row only beside
+    the handler it describes. **It is a real modal**: `.key-sheet` is in `OVERLAY_SEL` (a study grade cannot
+    fire under it), a window CAPTURE listener swallows every other key while it is open and holds Tab inside
+    it, and focus returns to the opener. **A page that owns `?` keeps it**: the `?` handler yields on
+    `e.defaultPrevented`, so the Atlas canvas's `?` still opens About, whose "Every keyboard shortcut" link
+    opens the sheet; any `[data-keysheet]` opens it, and Settings' Guides row (`data-keysheet="all"`) lists
+    every page's keys for a touch reader.
   · **AND THE HOME PAGE SAYS HOW FAR THE NEXT ARTEFACT IS** (the `nextChest` block in `PAGES.home`,
     `.rv-chestnext`). **It names the NEAREST channel and only that**: four lines would be a scoreboard
     for something meant to be a small pleasure. **It is silent while a chest is already WAITING**,
@@ -9192,7 +9207,7 @@ division-capital city tier are inert dead code.
     and flagged, that leaving the URL field asks for the source, that an answer commits the whole object
     at once, and that clearing the source takes the picture back out — on all four surfaces. **Re-run
     after touching `wireMediaSource` / `askMediaSource` or any media panel's wiring.**
-  · `node .claude/test-feedback.js` — 39 assertions on reader feedback: the About-page form (a message
+  · `node .claude/test-feedback.js` — 51 assertions on reader feedback: the About-page form (a message
     that reaches the row with its line breaks intact and its markup gone, the device-local cooldown, and
     that **the sender never supplies a triage status** — the client half of what the column guard
     enforces) and the Edit-page queue (the filters, that **no two statuses paint the same row edge**, the

@@ -109,11 +109,31 @@ function staticChecks() {
   /* the card words the engine's window prints come from the same table: a state is a "state", a country a "country" */
   ok(FZ["us-states"].what === "state" && FZ.world.what === "country" && FZ["china-provinces"].what === "province" && FZ["russia-subjects"].what === "federal subject", "each layer carries the singular its card prints");
 
+  /* the fifth layer (2026-11-14): India's 28 states and 8 union territories — NOT in layers.json (v1's snapshot) but in the lazy atlas/data/admin1.bin (docs/atlas-v2-admin1-layer.md), so its keys and dots are
+     read from the generated atlas/data/card-faces.js. Its seats are FETCHED (admin1-capitals.json, Wikidata); two units have no card of their own capital (Delhi and Chandigarh, gin-519 and gin-531), and one seat stands
+     OUTSIDE the units it serves by fact — Chandigarh, the capital of Punjab and of Haryana, is a union territory of its own — which is asserted here, never left to read as a misfiled dot. */
+  const cfWin = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas", "data", "card-faces.js"), "utf8"))(cfWin);
+  const CFI = cfWin.ATLAS_CARD_FACES.layers["india-states"] || {}, INCAP = cfWin.ATLAS_CARD_FACES.dots["india-states"] || {}, inNames = new Set(Object.keys(CFI));
+  ok(inNames.size === 36, "the india-states layer carries the 36 units with an ISO 3166-2:IN code (28 states, 8 union territories)", inNames.size);
+  ok(Object.values(CFI).every((r) => /^adm1:ind:in-[a-z]{2}$/.test(r[0])), "…each joined to an admin1.bin entity (adm1:ind:in-xx), never a core one");
+  ok(Object.values(CFI).every((r) => r[1] >= r[3] && r[1] <= r[5] && r[2] >= r[4] && r[2] <= r[6]), "…and each label point lies inside its unit's box");
+  ok(Object.keys(INCAP).length === 34, "…and 34 seats (35 units with a capital, Chandigarh serving three)", Object.keys(INCAP).length);
+  const inOrphan = Object.keys(INCAP).filter((n) => !inNames.has(INCAP[n][2]));
+  ok(!inOrphan.length, "every Indian seat names a unit the layer actually has", inOrphan.join(", "));
+  const capsIN = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "atlas-build", "admin1-capitals.json"), "utf8")).countries.IND;
+  const specIN = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "atlas-build", "admin1-spec.json"), "utf8")).countries.find((c) => c.a3 === "IND");
+  const seatsOut = specIN.units.filter((u) => capsIN[u.iso] && capsIN[u.iso].inUnit).map((u) => u.name + " → " + capsIN[u.iso].name);
+  ok(seatsOut.join(", ") === "Punjab → Chandigarh, Haryana → Chandigarh" && INCAP.Chandigarh[2] === "Chandigarh", "the one seat outside its units is Chandigarh, filed under the union territory it stands in", seatsOut.join(", "));
+  const inOut = Object.keys(INCAP).filter((n) => { const b = CFI[INCAP[n][2]], c = INCAP[n]; return c[0] < b[3] - 0.05 || c[0] > b[5] + 0.05 || c[1] < b[4] - 0.05 || c[1] > b[6] + 0.05; });
+  ok(inOut.length === 0, "every Indian seat sits inside its own unit's box (check-admin1.js proves it inside the face)", inOut.join(", "));
+  const seatOfIN = new Map(); for (const u of specIN.units) if (capsIN[u.iso] && capsIN[u.iso].inUnit) { const l = seatOfIN.get(capsIN[u.iso].name) || []; l.push(u.name); seatOfIN.set(capsIN[u.iso].name, l); }
+
   const LAYERS = {
     "us-states": { shapes: new Set(names("us-states")), points: US, what: "state" },
     world: { shapes: wgNames, points: WCAP, what: "country" },
     "china-provinces": { shapes: cpNames, points: CPCAP, what: "province" },
     "russia-subjects": { shapes: rsNames, points: RCEN, what: "federal subject" },
+    "india-states": { shapes: inNames, points: INCAP, what: "state or union territory", seatOf: seatOfIN },
   };
 
   const dwin = {};
@@ -141,7 +161,7 @@ function staticChecks() {
     if (c.map.dot) {
       const P = L.points[c.map.dot];
       ok(!!P, c.id + ": its dot is a capital the layer actually has", c.map.dot);
-      ok(P && mkeys.indexOf(P[2]) >= 0, c.id + ": …in the " + L.what + " the card shades", P && P[2]);
+      ok(P && (mkeys.indexOf(P[2]) >= 0 || (L.seatOf && (L.seatOf.get(c.map.dot) || []).some((u) => mkeys.indexOf(u) >= 0))), c.id + ": …in the " + L.what + " the card shades (or its seat by fact, outside it)", P && P[2]);
       /* THE DOT'S LABEL MAY CARRY A DISAMBIGUATOR THE ANSWER DOES NOT, and three cards on the shelf are
          exactly that: a city-state whose capital shares the country's name. Natural Earth files them as
          "Djibouti City", "Luxembourg City" and "City of San Marino" — the label a MAP needs, so that the

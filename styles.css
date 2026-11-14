@@ -1126,6 +1126,35 @@ body.night .game-tile{ --gt-gold:#D8B355; }
    naming this heading `.mg-head` silently gave it that card's `display:flex` — which beats `text-align`
    outright, so the heading rendered left — while pushing this font and colour onto the game's score row. */
 .games-sec{display:flex; flex-direction:column; gap:10px;}
+/* THE GAMES ARCHIVE (Nov 2026; admins only — PAGES.gamearchive): the link under the grid, the day picker
+   and the banner over an archived game, which says in so many words that the run is not recorded. */
+.games-archive-link{align-self:center; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase;
+  color:var(--indigo); text-decoration:none; padding:4px 8px; border-radius:6px;}
+.games-archive-link span{color:var(--ink-faint); text-transform:none; letter-spacing:.02em;}
+.games-archive-link:hover{background:var(--paper-2);}
+.garch-lede{font-family:var(--serif); color:var(--ink-soft); margin:-4px 0 18px; line-height:1.55;}
+.garch-pick{display:flex; align-items:flex-end; gap:10px; margin-bottom:6px;}
+.garch-step{flex:none; width:44px; padding-left:0; padding-right:0; font-size:calc(18px * var(--fs));}
+.garch-date{flex:1; display:flex; flex-direction:column; gap:4px; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);}
+.garch-date input{font:inherit; font-family:var(--sans); font-size:calc(15px * var(--fs)); letter-spacing:0; text-transform:none; color:var(--ink);
+  background:var(--card); border:1px solid var(--rule); border-radius:10px; padding:9px 12px; min-height:44px; box-sizing:border-box; width:100%;}
+.garch-range{font-size:calc(12px * var(--fs)); color:var(--ink-faint); margin:0 0 18px;}
+.garch-games{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:10px;}
+.garch-game{appearance:none; cursor:pointer; display:flex; align-items:center; gap:10px; padding:12px; text-align:left;
+  background:var(--card); border:1px solid var(--rule); border-radius:12px; color:var(--ink); font-family:var(--sans); font-size:calc(14px * var(--fs)); font-weight:600;
+  transition:background .14s var(--ease), border-color .14s;}
+.garch-game:hover{background:var(--paper-2); border-color:var(--ink-faint);}
+.garch-game:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+.garch-ico{flex:none; width:26px; height:26px; display:grid; place-items:center; color:var(--indigo);}
+.garch-ico svg{width:22px; height:22px;}
+@media (max-width:640px){ .garch-games{grid-template-columns:repeat(2, minmax(0, 1fr));} }
+.garch-banner{display:flex; align-items:center; flex-wrap:wrap; gap:6px 12px; max-width:680px; margin:0 auto 14px; padding:9px 14px; box-sizing:border-box;
+  background:#c9822a1f; border:1px solid #c9822a66; border-radius:10px; font-size:calc(13px * var(--fs)); color:var(--ink);}
+.garch-tag{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; font-weight:700; color:#9a5b12;}
+body.night .garch-tag{color:#f0b46a;}
+.garch-what{flex:1 0 auto; white-space:nowrap; color:var(--ink-soft);}
+.garch-back{color:var(--indigo); font-weight:600; text-decoration:none;}
+.garch-back:hover{text-decoration:underline;}
 /* CENTRED (Aug 2026, on request — it was centred, then moved left for a fortnight, and is centred again).
    It names the block of six tiles beneath it rather than starting a column of prose, and the tiles are a
    centred grid; the left edge it used to share is the edge of the review's text above, which is a different
@@ -1450,6 +1479,9 @@ body[data-theme="folio"].night .collection-deco{
 .collection-span{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}
 .pill{font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); border:1px solid var(--rule); border-radius:99px; padding:3px 9px; font-weight:500;}
 .pill.soon{color:var(--ochre); border-color:color-mix(in srgb,var(--ochre) 35%, var(--rule));}
+/* a collection saved for offline study (offlinePillHTML in app.js); never shrinks the title away */
+.pill.pill-offline{flex:none; color:#2f7d4f; border-color:color-mix(in srgb,#2f7d4f 35%, var(--rule)); white-space:nowrap;}
+body.night .pill.pill-offline{color:#7fcf9c; border-color:color-mix(in srgb,#7fcf9c 35%, var(--rule));}
 .chev{
   flex:none; width:40px; height:40px; border-radius:50%; border:1px solid var(--rule);
   background:var(--paper); color:var(--ink-soft); display:grid; place-items:center; cursor:pointer;
@@ -1580,6 +1612,10 @@ body[data-theme="folio"].night .collection-deco{
 .study-where{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);
   min-width:0; flex:0 1 auto; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 .counts{margin-left:auto; display:flex; gap:14px; align-items:center;}
+/* CRAM (Nov 2026): the study bar says, for the whole run, that these grades schedule nothing (startCram).
+   Ochre rather than indigo, so it reads as a state of the session and not as one more button. */
+.cram-badge{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; font-weight:600;
+  color:var(--ochre); border:1px dashed var(--ochre); border-radius:999px; padding:5px 11px; white-space:nowrap; flex:none;}
 .suspendbtn{
   display:inline-flex; align-items:center; gap:6px; appearance:none;
   border:1px solid var(--rule); background:var(--card); border-radius:8px; padding:5px 11px; cursor:pointer;
@@ -2656,6 +2692,21 @@ body.grading .stage{padding-bottom:150px;}
    the default text size; a larger text size may still wrap it, which the line-height allows for */
 .placard .sc-actions .btn{width:100%; padding-left:10px; padding-right:10px; font-size:calc(11.5px * var(--fs)); letter-spacing:.04em; white-space:normal; line-height:1.3;}
 @media (max-width:480px){ .placard .row.sc-actions{grid-auto-flow:row; grid-auto-columns:auto; grid-template-columns:1fr;} }
+/* THE SESSION SUMMARY (Nov 2026, on request) — three figures in a row and the session's hardest cards, between
+   the completion line and the buttons (sessionSummaryHTML). */
+.session-summary{max-width:500px; margin:0 auto 22px; text-align:left;}
+.session-summary .ss-stats{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:10px;}
+.session-summary .ss-stat{border:1px solid var(--rule); border-radius:10px; padding:10px 8px; text-align:center; background:var(--paper);}
+.session-summary .ss-stat b{display:block; font-family:var(--display); font-weight:600; font-size:calc(22px * var(--fs)); color:var(--ink); line-height:1.15;}
+.session-summary .ss-stat span{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);}
+.session-summary .ss-hard{margin-top:14px;}
+.session-summary .ss-hard-label{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
+.session-summary .ss-hard ol{margin:6px 0 0; padding:0; list-style:none;}
+.session-summary .ss-hard li{display:flex; justify-content:space-between; align-items:baseline; gap:12px; padding:7px 0; border-top:1px solid var(--rule);}
+.session-summary .ss-hard a{color:var(--indigo); text-decoration:none; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.session-summary .ss-hard a:hover{text-decoration:underline;}
+.session-summary .ss-miss{flex:none; font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint);}
+.placard .session-summary .ss-clean{margin:12px 0 0; text-align:center; font-size:calc(14px * var(--fs));}
 /* "Continue with" on the completion screen (Aug 2026, on request) sits BELOW the three above it and is
    separated by a hairline rather than by a gap alone: the row above answers "what do I do with THIS session"
    and this one answers "what next". It was a button naming the deck; since Oct 2026 (on request) it is THE
@@ -2791,6 +2842,31 @@ body.grading .stage{padding-bottom:150px;}
   color:var(--ink-faint); text-align:center; margin:0 0 16px;}
 .tf-actions{display:flex; gap:10px;}
 .tf-actions .btn{flex:1;}
+/* SHARE RESULT (Nov 2026, on request): the button on every daily game's results screen, and the sheet it
+   opens (`openGameShare`, on the options sheet's `.dm-box`). The platform marks are plain letters on each
+   brand's own colour — no logo is copied — with the name beside them, so the row reads without the marks. */
+.gshare-row{display:flex; justify-content:center; margin:0 0 14px;}
+.chrono-result .gshare-row, .mg-feedback .gshare-row{margin:12px 0 0;}
+.th-msg + .gshare-row{margin:-4px 0 14px;}
+.placard + .gshare-row{margin-top:-6px;}
+.gshare-open, .gshare-acts .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px;}
+.gshare-ico{width:16px; height:16px; flex:none;}
+.gshare-text{margin:4px 14px 12px; padding:12px 14px; background:#00000008; border:1px solid var(--rule); border-radius:10px;
+  font-family:var(--mono); font-size:calc(13px * var(--fs)); line-height:1.6; color:var(--ink); white-space:pre-wrap; word-break:break-word;}
+body.night .gshare-text{background:#ffffff0d;}
+.gshare-acts{display:flex; gap:10px; margin:0 14px 12px;}
+.gshare-acts .btn{flex:1;}
+.gshare-links{display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:6px; margin:0 10px 12px;}
+.gshare-link{display:flex; flex-direction:column; align-items:center; gap:5px; padding:9px 4px; border:1px solid transparent; border-radius:10px;
+  text-decoration:none; color:var(--ink-soft); font-family:var(--sans); font-size:calc(11.5px * var(--fs)); text-align:center;
+  transition:background .14s var(--ease), border-color .14s;}
+.gshare-link:hover{background:var(--paper-2); border-color:var(--rule); color:var(--ink);}
+.gshare-link:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+.gshare-mark{width:34px; height:34px; border-radius:50%; display:grid; place-items:center; color:#ffffff;
+  font-family:var(--sans); font-weight:700; font-size:calc(15px * var(--fs)); line-height:1; box-shadow:inset 0 0 0 1px #ffffff26;}
+.gs-x{background:#000000;} .gs-bsky{background:#1185fe;} .gs-fb{background:#1877f2;} .gs-reddit{background:#ff4500;}
+.gs-wa{background:#1fa855;} .gs-tg{background:#229ed9;} .gs-li{background:#0a66c2; font-size:calc(13px * var(--fs));} .gs-threads{background:#000000;}
+@media (max-width:380px){ .gshare-links{grid-template-columns:repeat(2, minmax(0, 1fr));} .gshare-link{flex-direction:row; justify-content:flex-start; padding:7px 8px;} .gshare-mark{width:28px; height:28px;} }
 
 /* Common Thread — the daily grouping puzzle (PAGES.thread).
    The board is ONE grid holding both states: a solved row spans all four columns (grid-column:1/-1) and
@@ -3162,12 +3238,16 @@ body.grading .stage{padding-bottom:150px;}
 .ks-card h2{font-family:var(--display); font-weight:600; font-size:calc(19px * var(--fs)); color:var(--ink); margin:0 0 14px;}
 .ks-group{margin:0 0 16px;}
 .ks-group h3{font-family:var(--sans); font-size:calc(10.5px * var(--fs)); letter-spacing:.09em; text-transform:uppercase; color:var(--ink-quiet); margin:0 0 7px;}
-.ks-row{display:flex; align-items:baseline; gap:12px; padding:3px 0;}
-.ks-row kbd{flex:none; min-width:5.6em; font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink); background:var(--paper-2); border:1px solid var(--rule); border-bottom-width:2px; border-radius:5px; padding:2px 6px; text-align:center;}
+.ks-row{display:grid; grid-template-columns:8em 1fr; align-items:baseline; gap:12px; padding:3px 0;}   /* a fixed key column, so a long key ("Page Up / Down") does not push its own line out of step */
+.ks-row kbd{justify-self:start; min-width:5.6em; font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink); background:var(--paper-2); border:1px solid var(--rule); border-bottom-width:2px; border-radius:5px; padding:2px 6px; text-align:center;}
 .ks-row span{font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink-soft);}
 .ks-none{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink-quiet); margin:0;}
 .ks-x{position:absolute; top:10px; right:12px; width:28px; height:28px; border:0; background:none; color:var(--ink-quiet); font-size:calc(20px * var(--fs)); line-height:1; cursor:pointer; border-radius:6px;}
 .ks-x:hover{color:var(--ink); background:var(--paper-2);}
+.ks-all{appearance:none; border:0; background:none; padding:0; font:inherit; color:var(--indigo-bright, var(--indigo)); text-decoration:underline; cursor:pointer;}
+/* high contrast: the key caps and the card's edge take the ink, as every other border does under body.hc */
+body.hc .ks-card, body.hc .ks-row kbd{border-color:var(--ink);}
+body.hc .ks-row span{color:var(--ink);}
 .handoff-row{display:block; width:100%; text-align:left; margin:0 0 12px; padding:12px 15px; border:1px solid color-mix(in srgb, var(--indigo) 34%, var(--rule)); border-radius:12px; background:var(--card); box-shadow:var(--shadow-sm); cursor:pointer;}
 .handoff-row:hover{border-color:var(--indigo);}
 .ho-lead{display:block; font-family:var(--display); font-weight:600; font-size:calc(14.5px * var(--fs)); color:var(--indigo);}
@@ -3351,6 +3431,16 @@ body.grading .stage{padding-bottom:150px;}
 .ci-id{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--ink-soft);}
 .ci-of{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; color:var(--ink-faint); margin-left:6px;}
 .ci-of.ci-solo{margin-left:0;}   /* a note standing in for a figure (the collection info sheet) has nothing to sit beside */
+/* The collection info sheet's "Available offline" switch (offlineRowHTML in app.js): a ruled-off row at the
+   foot, its note carrying the download's progress bar while the files arrive, then the ✓ state. */
+.ci-offline{margin:6px 0 2px; border-top:1px solid var(--rule); border-radius:0 0 10px 10px; padding-top:12px;}
+.ci-offline small{line-height:1.45;}
+.ci-offline .dm-switchmain{flex:1;}   /* so the progress bar runs the row's width, not the note's */
+.ci-offline .off-ok{color:#2f7d4f; font-weight:600;}
+body.night .ci-offline .off-ok{color:#7fcf9c;}
+.off-bar{display:block; height:4px; margin-top:6px; border-radius:99px; background:var(--rule); overflow:hidden;}
+.off-bar i{display:block; height:100%; background:var(--indigo); border-radius:inherit; transition:width .2s var(--ease);}
+.ci-offline.off-busy{cursor:progress;}
 .ci-h{font-family:var(--display); font-weight:600; font-size:calc(14px * var(--fs)); color:var(--ink); margin:6px 0 0; padding:11px 14px 0; border-top:1px solid var(--rule);}
 
 /* The actions row inside Card info — flag, set due date, forget, suspend. It wraps rather than scrolling,
@@ -3773,6 +3863,9 @@ body.night .profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){backg
 .fbq-anon{font-family:var(--mono); font-size:calc(8px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); font-weight:400;}
 .fbq-mail{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--indigo);}
 .fbq-meta{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.04em; color:var(--ink-faint);}
+/* a card report's reason, and the card's id as a link that opens it (cardReportHTML / openCardReport) */
+.fbq-issue{font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--fb-col,var(--ink-faint)); border:1px solid var(--fb-col,var(--rule)); border-radius:5px; padding:1px 6px;}
+.fbq-card{color:var(--indigo); font-weight:600; text-decoration:underline; text-underline-offset:2px;}
 .fbq-state{margin-left:auto; font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--fb-col,var(--ink-faint));}
 .fbq-msg{font-family:var(--serif); font-size:calc(14.5px * var(--fs)); line-height:1.6; color:var(--ink); white-space:normal; overflow-wrap:anywhere;}
 .fbq-ua{margin-top:7px; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); color:var(--ink-faint); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
@@ -5524,6 +5617,21 @@ body.grading .wb-tools{bottom:108px;}
 .learn-more-sub{font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.4; color:var(--ink-soft);}
 .learn-more-logo{flex:none; width:44px; height:44px; border-radius:50%; background:var(--card); border:1px solid var(--rule); padding:3px; box-sizing:border-box; object-fit:contain;}
 @media (prefers-reduced-motion: reduce){ .learn-more{transition:none;} .learn-more:hover{transform:none;} }
+/* REPORT A PROBLEM — the last thing on a card, in its bottom right corner (see cardReportHTML in app.js):
+   a faint flag and a word, so it is there to be found without competing with the card. */
+.card-report-row{display:flex; justify-content:flex-end; margin:14px 0 0;}
+.card-report{display:inline-flex; align-items:center; gap:5px; appearance:none; background:none; border:0; border-radius:6px;
+  padding:4px 6px; margin:0 0 -4px 0; min-height:28px; cursor:pointer; font-family:var(--mono); font-size:calc(11px * var(--fs));
+  letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);}
+.card-report svg{width:13px; height:13px; flex:none;}
+.card-report:hover{color:var(--ink-soft); background:var(--indigo-wash);}
+.card-report:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;}
+.cr-sheet textarea.cr-msg{resize:vertical; min-height:96px;}
+.cr-sheet .dm-field select.af-input{max-width:none; width:100%; appearance:auto;}   /* keep the native arrow, as the About page's picker does */
+.cr-status{margin:0 14px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.04em;}
+.cr-status:empty{display:none;}
+.cr-status.ok{color:var(--indigo);}
+.cr-status.bad{color:var(--danger,#c8453c);}
 /* the Atlas panel's own copy sits inside a .cp-sec, which already draws the rule and the space above it */
 .src-head{
   display:inline-flex; align-items:center; gap:7px; width:auto; appearance:none; background:none;
@@ -9684,6 +9792,19 @@ body[data-theme="carnelian"].night .page .rv-banner, body[data-theme="carnelian"
 /* …and the title and the caught-up line above it carry no bottom margin of their own, so the air above the
    bar is the bar's own 20px, the same as below it (Oct 2026, on request) */
 .page .rv-banner .rv-stack{margin-top:0;}
+/* THE WEEK AHEAD (Nov 2026, design B; rvWeekHTML): seven chips at the foot of the banner, one button to the
+   full forecast. Light on the banner's dark gradient in every theme; the heavy day is the one white chip. */
+.page .rv-banner .rv-week{display:flex; flex-direction:column; gap:10px; width:100%; margin:18px 0 0; padding:14px 0 0; border:0; border-top:1px solid rgba(255,255,255,.18); background:none; color:inherit; font:inherit; text-align:left; cursor:pointer;}
+.page .rv-banner .rvw-days{display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap:6px; max-width:460px;}
+.page .rv-banner .rvw-day{display:flex; flex-direction:column; align-items:center; gap:4px; min-width:0;}
+.page .rv-banner .rvw-day em{font-family:var(--mono); font-style:normal; font-size:calc(9.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:rgba(242,243,255,.7); white-space:nowrap;}
+.page .rv-banner .rvw-day b{display:block; width:100%; max-width:44px; padding:5px 0; border-radius:7px; text-align:center; font-family:var(--serif); font-weight:600; font-size:calc(15px * var(--fs)); font-variant-numeric:tabular-nums; color:#fff; background:rgba(255,255,255,.14); transition:background .15s var(--ease);}
+.page .rv-banner .rvw-day.rvw-zero b{color:rgba(242,243,255,.45); background:rgba(255,255,255,.07);}
+.page .rv-banner .rvw-day.rvw-heavy b{background:#fff; color:var(--sky);}
+.page .rv-banner .rv-week.rvw-static{cursor:default;}
+.page .rv-banner button.rv-week:hover .rvw-day:not(.rvw-heavy) b{background:rgba(255,255,255,.22);}
+.page .rv-banner .rv-week:focus-visible{outline:2px solid #fff; outline-offset:4px; border-radius:4px;}
+.page .rv-banner .rvw-note{font-size:calc(13px * var(--fs)); color:rgba(242,243,255,.85);}
 .page .rv-banner h2.review-title, .rv-banner .desc{margin-bottom:0;}
 /* The caught-up sentence sat flush under its title; a little air between them (Oct 2026, on request). Only the
    normal banner: the first-visit hero spaces its own title. */
@@ -10563,6 +10684,28 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-study-coll.on{background:var(--indigo-wash); border-color:var(--indigo); color:var(--ink);}
 .atlas2-study-coll-n{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 .atlas2-study-coll i{font:normal calc(11px * var(--fs, 1))/1.3 var(--mono); color:var(--ink-quiet);}
+/* the Personal Atlas's progress meter (2026-11): "X of Y places discovered" per collection, under the chips */
+.atlas2-study-meter{margin:0; padding:0 4px; list-style:none; display:flex; flex-direction:column; gap:6px; max-height:9.5em; overflow:auto;}
+.atlas2-study-meter[hidden]{display:none;}
+.atlas2-study-meter li{display:grid; grid-template-columns:minmax(0, 1fr) auto; align-items:baseline; column-gap:8px; row-gap:3px;}
+.atlas2-meter-name{min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--ink); font:600 calc(12px * var(--fs, 1))/1.3 var(--sans);}
+.atlas2-meter-n{color:var(--ink-quiet); font:calc(11.5px * var(--fs, 1))/1.3 var(--sans); white-space:nowrap;}
+.atlas2-meter-bar{grid-column:1 / -1; display:block; height:4px; border-radius:2px; background:var(--paper-2); overflow:hidden;}
+.atlas2-meter-bar i{display:block; height:100%; min-width:2px; border-radius:2px; background:var(--indigo);}
+/* "Play your cards in order" (2026-11): an icon beside the disclosure on a desktop (the panel keeps its height: a taller panel hides marks under it);
+   on a phone it stands in the menu under the panel, with its words */
+.atlas2-study-play{flex:none; align-self:center; appearance:none; display:inline-flex; align-items:center; justify-content:center; gap:6px; min-width:34px; min-height:34px; padding:0; border-radius:9px; border:0; background:none; color:var(--indigo-bright); font:600 calc(12.5px * var(--fs, 1))/1.2 var(--sans); cursor:pointer;}
+.atlas2-study-play[hidden]{display:none;}
+.atlas2-study-play i{font-style:normal; font-size:.9em;}
+.atlas2-study-play-t{display:none;}
+.atlas2-menu-progress .atlas2-study-play{align-self:flex-start; padding:4px 12px; border:1px solid var(--rule); border-radius:999px;}
+.atlas2-menu-progress .atlas2-study-play-t{display:inline;}
+.atlas2-study-play:hover{background:var(--indigo-wash);}
+.atlas2-study-play:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;}
+.atlas2-phone .atlas2-study-play{min-height:44px;}
+.atlas2-menu-progress{display:flex; flex-direction:column; gap:8px;}
+.atlas2-menu-progress:empty{display:none;}
+.atlas2-menu-progress .atlas2-study-meter{max-height:none; padding:6px 10px; border:1px solid var(--rule); border-radius:12px; background:var(--card);}
 .atlas2-study-cards{margin:0;}
 .atlas2-study-list{margin:0; padding:0; list-style:none; display:flex; flex-direction:column;}
 .atlas2-study-card{display:flex; flex-direction:row; align-items:center; justify-content:space-between; gap:12px; min-height:56px; box-sizing:border-box; padding:8px 6px; color:var(--ink); text-decoration:none; border-radius:8px; font:calc(15px * var(--fs, 1))/1.35 var(--sans);}   /* a full-width row, 56 px at least; the whole row is the tap target (2026-10-19) */
@@ -10648,6 +10791,20 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .atlas2-rail-speed{flex:none; appearance:auto; padding:4px 4px; border-radius:8px; border:1px solid var(--rule); background:var(--paper); color:var(--ink); font:calc(12.5px * var(--fs, 1))/1.3 var(--sans);}
 .atlas2-status, .atlas2-mode{bottom:calc(12px + var(--atlas2-rail-h) + 8px);}
 .atlas2-caption{bottom:calc(12px + var(--atlas2-rail-h) + 8px);}
+/* the playback's bar (2026-11): above the rail, centred; the hover caption and the rail's note step aside while it plays */
+.atlas2-tour{position:absolute; left:50%; transform:translateX(-50%); bottom:calc(12px + var(--atlas2-rail-h) + 8px); z-index:5; box-sizing:border-box; width:min(440px, calc(100% - 24px)); display:flex; align-items:center; gap:10px; padding:6px 6px 6px 12px; border-radius:12px; border:1px solid var(--rule); background:var(--card); color:var(--ink); box-shadow:var(--shadow-sm);}
+.atlas2-tour[hidden]{display:none;}
+.atlas2-tour-text{flex:1 1 auto; min-width:0; margin:0; display:flex; flex-direction:column; gap:1px;}
+.atlas2-tour-year{color:var(--indigo-bright); font:600 calc(11.5px * var(--fs, 1))/1.3 var(--mono);}
+.atlas2-tour-year:empty, .atlas2-tour-n:empty{display:none;}
+.atlas2-tour-title{font:600 calc(14px * var(--fs, 1))/1.3 var(--sans); overflow:hidden; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; line-clamp:2; overflow-wrap:anywhere;}
+.atlas2-tour-n{color:var(--ink-quiet); font:calc(11px * var(--fs, 1))/1.3 var(--sans);}
+.atlas2-tour-btns{flex:none; display:flex; gap:4px;}
+.atlas2-tour-btns .atlas2-btn{width:36px; height:36px; padding:0; font-size:calc(15px * var(--fs, 1));}
+.atlas2-tour-btns .atlas2-btn:disabled{opacity:.5; cursor:default;}
+.atlas2-phone .atlas2-tour{left:var(--atlas2-sl); right:var(--atlas2-sr); transform:none; width:auto;}
+.atlas2-phone .atlas2-tour-btns .atlas2-btn{width:44px; height:44px;}
+.atlas2-touring .atlas2-caption, .atlas2-touring .atlas2-rail-note{display:none;}
 .atlas2-perf{bottom:calc(12px + var(--atlas2-rail-h) + 8px); max-height:calc(100% - 24px - var(--atlas2-rail-h) - 8px);}
 .atlas2-has-card .atlas2-rail{right:calc(min(380px, calc(100% - 24px)) + 24px);}
 /* two lines under 600 px (atlas.js sets .atlas2-narrow from the container's width, phone flag or not — Phase 2b, the 2a review): ‹ track ›

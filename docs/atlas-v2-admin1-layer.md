@@ -1,4 +1,4 @@
-# Atlas v2 — a lazy admin-1 layer (design, 2026-10-30, not built)
+# Atlas v2 — a lazy admin-1 layer (design, 2026-10-30; steps 1 and 2 built 2026-11-14 — §8)
 
 > **📖 READ BEFORE ADDING A COUNTRY'S STATES OR PROVINCES TO THE ATLAS, OR BUILDING ANY PART OF THIS.** The design for
 > giving more countries their states and provinces — shaded in a map card's window and drawn on the Personal Atlas —
@@ -154,3 +154,55 @@ core as it stands. `topology.bin`, the tiles, water, relief, history, the slices
   (or a Personal Atlas holds one of its ids, or a card window needs one). Whether the switch's label should become
   "States and provinces" now that it covers India's states and union territories is a wording call for step 3.
 - **D2 — the first build is India alone.** `admin1-spec.json` starts with India's 36 units; step 4 adds the next country.
+
+## 8. As built (2026-11-14): steps 1 and 2
+
+**Step 1 — the file.** `node .claude/atlas-build/build-admin1.js [--extract] [--dry] [--install] [--check]` (§3.1's smaller builder; nothing of
+`conflate()` is copied). Inputs: `admin1-spec.json` (India's 36 units in the card plan's order: declared name, kind, CURRENT ISO code and the
+Wikidata item that carries it, the English Wikipedia title, the recorded corrections), `admin1-source.json` (the committed extract of the units'
+quantised rings from the pinned `ne-10m-admin1` zip, written by `--extract`, so `--check` runs offline in CI) and the committed `topology.bin`.
+Output `atlas/data/admin1.bin`: **55,296 bytes** (budget 400 KB), 36 entities, 36 faces, 298 rings, 479 core references and 73 own inner lines;
+its gzip twin `admin1.bin.js` is 54 KB and the five `file://` twins together are 10.89 MB of 12. Build time ~7 s. Header: `kindOf: "admin1"`,
+`core.buildId`, `sources` = the core's own blocks for `ne-10m-admin1` (PD), `osm-land-polygons` (ODbL — the file references the OSM coast, so it
+is listed under the credits page's ODbL statement, as `history.bin` is) and `ne-10m-admin0` (PD); `generated: null` (deterministic). No `jpos`
+section: the reader's `junctionAt` fallback is exact for a junction on one core segment.
+- **What the conflation did** (printed by every build): 12,519 inner edges of Natural Earth chained into 72 lines; 73 pieces kept on the core's
+  land and 16 off it; 23 loose ends carried to the core's boundary, the median 16 m and the largest **4.25 km** (the Tamil Nadu–Andhra Pradesh line
+  at Pulicat Lake, whose lagoon shore OSM draws inland of Natural Earth's; the next is 1.24 km), so `EXTEND_M` is 5 km and a loose end farther
+  than that stops the build; one self-crossing untwisted (a one-quantum bow-tie in Yanam's ring); 90 faces — islands OSM draws and Natural Earth
+  does not — labelled by the nearest unit (the farthest 33 km, an Andaman islet); two zero-width core rings kept with their unit.
+- **Corrections recorded in the spec**: the four ISO codes ISO 3166-2:IN changed in 2023 (`IN-CG`, `IN-OD`, `IN-TS`, `IN-UK`; `ne` names Natural
+  Earth's old code), the Wikidata items of Delhi and Chandigarh (Natural Earth names the cities), the kinds; and **Natural Earth's "Mahe" ring is
+  dropped** — it lies 35–50 km north of Mahe at 14 times its area — so Puducherry is drawn as three enclaves and Mahe's land is Kerala's until an
+  open outline is pinned.
+- **A known source fault NOT corrected** (`knownFaults`): Natural Earth still draws the Telangana–Andhra Pradesh line of before 2014, so Telangana
+  is about 1,100 km² too large and touches Odisha along 47 km; the neighbour sentence leaves the pair out, and a card must not say they border.
+- **`check-admin1.js`** (CI's fast job, beside `build-admin1.js --check`): the header, the spec row for row, every core reference well formed (every
+  junction within 0.0 m of its core segment), every ring closing at all three levels through `historyArcGeometry`, India tiled exactly by its units
+  (every core arc of `adm0:ind`'s face covered once in the face's direction, every inner line used twice, areas equal to 0.04 ppm), every inner
+  vertex inside India, every label point in its face, every seat of `admin1-capitals.json` in its unit (Chandigarh, the seat of Punjab and Haryana,
+  in the union territory it is), no crossing at LOD 2, coarse crossings under 40 (1 at level 0), the twin and the twin budget.
+
+**Step 2 — the engine slot and the card windows.**
+- **The worker's second slot**: `ADM1` beside `HIST` in `atlas-worker.js` (`slotOf`); `handleHistory`, `handleHistoryFaces`, `histLevel` and
+  `histGeom` take the slot; every message about it carries `slot: "adm1"` and an error is prefixed `admin1:`, which the page turns into the slot's
+  failure, never the Atlas's. `CORE_CACHE_REV` was re-installed.
+- **The main thread** (`atlas.js`, "THE ADMIN-1 SLOT"): `ensureAdmin1()` fetches the file (its twin on `file://`) once; the 36 faces are asked for at
+  all three levels as soon as the header is in (they are small); `view.admin1Layer` is the draw list. **The GL renderer** keeps a second mesh table
+  and second style and arc tables (`setAdmin1Mesh`, `setAdmin1Style`, `setAdmin1ArcTable`) and draws them with the history's own passes
+  (`drawHistoryFills` / `drawHistoryBorders` take the slot): each face's fill at its tint's alpha (none: bare), its coast stroke at the tile zooms
+  in the tint's colour (so a small island — Minicoy — is shaded at a card's zoom), and, while the Provinces layer is on, the file's own inner lines
+  in the core's admin-1 line style. The page never calls `ensureAdmin1()` yet (step 3).
+- **The windows** (`atlas-embed.js`, `atlas-windows.js`): a highlight id `adm1:…` the core does not carry starts the slot, tints its face through the
+  slot's style table and outlines it with the same mask pass (the slot's face white, everything else black); the hub's history is untouched, so a
+  war window and an India window share one hub. The still renderer (no WebGL2) has no slot: such a window is the plain sentence, as is a window
+  whose file could not be read.
+- **The India layer**: `india-states` in `build-card-faces.js` (keys = the spec's names, rows from admin1.bin's entities with Natural Earth's own box
+  and label point; 34 seats from `admin1-capitals.json`, **coordinates fetched from Wikidata on 2026-11-14**, the source block
+  `wikidata-admin1-seats` CC0; the neighbour lists exact, from shared inner lines), `CARD_MAP_LAYERS["india-states"]` in `app.js` ("state or union
+  territory"), `MAP_LAYERS["india-states"]` in `add-card.js` (read from `card-faces.js`, and a seat outside its unit by fact accepted with a
+  warning), `test-map-cards.js` §1 (the layer's 36 keys, 34 seats, Chandigarh) and `test-atlas-windows.js` §10 (all 36 units shaded and settled,
+  one fetch of admin1.bin and no history file, **Lakshadweep framed whole is pixels**: a card on it sets its own `map.zoom`, and at 150 its island is
+  shaded; the Punjab capital window draws Chandigarh outside the shape).
+- **From here the India states and capitals decks can be written** (gin-001–036, gin-501–536). Not built: the registry ids (`places-registry.js`),
+  the page's Provinces switch over India, the Personal Atlas and its frame-gate case — step 3.

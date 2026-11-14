@@ -270,7 +270,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "8c487b41ea:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "3ac31d1ce5:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -293,6 +293,7 @@
               <button type="button" role="radio" aria-checked="false" data-mode="personal" title="Your Atlas: the places in the cards you have studied" disabled>Personal</button>
               <button type="button" role="radio" aria-checked="false" data-mode="full" title="The Full Atlas: every place any card is about" disabled>Full</button>
             </div>
+            <button type="button" class="atlas2-study-play" hidden aria-label="Play your cards in order" title="Play your cards in order: the cards you have studied, oldest first, a few seconds each"><i aria-hidden="true">▶</i><span class="atlas2-study-play-t">Play your cards in order</span></button>
             <button type="button" class="atlas2-study-toggle" aria-expanded="false" aria-controls="atlas2-study-details" aria-label="Show the collections" title="Show the collections" hidden><i aria-hidden="true"></i></button>
           </div>
           <p class="atlas2-study-sum" aria-live="polite"></p>
@@ -300,6 +301,7 @@
           <div class="atlas2-study-details" id="atlas2-study-details" hidden>
             <p class="atlas2-study-note" hidden></p>
             <div class="atlas2-study-colls" role="group" aria-label="Collections" hidden></div>
+            <ul class="atlas2-study-meter" aria-label="Places discovered, by collection" hidden></ul>
           </div>
         </div>` : "";
     host.innerHTML = `
@@ -322,6 +324,7 @@
           <div class="atlas2-menu-head"><strong>Map</strong><button type="button" class="atlas2-menu-close" aria-label="Close the menu">×</button></div>
           <div class="atlas2-menu-body">
             <div class="atlas2-menu-study"></div>
+            <div class="atlas2-menu-progress"></div>
             <section class="atlas2-menu-sec" data-sec="layers"><button type="button" class="atlas2-menu-row" aria-expanded="false" aria-controls="atlas2-sheet"><span>Layers and legend</span><i aria-hidden="true"></i></button><div class="atlas2-menu-sec-body"></div></section>
             <section class="atlas2-menu-sec" data-sec="help"><button type="button" class="atlas2-menu-row" aria-expanded="false" aria-controls="atlas2-about"><span>Help</span><i aria-hidden="true"></i></button><div class="atlas2-menu-sec-body"></div></section>
           </div>
@@ -386,12 +389,22 @@
               <div><dt>/</dt><dd>find a place</dd></div>
               <div><dt>[ ]</dt><dd>the previous or next change year of what is on screen</dd></div>
             </dl>
+            <p class="atlas2-about-p atlas2-about-keys"><button type="button" class="atlas2-link" data-keysheet>Every keyboard shortcut</button></p>
             <label class="atlas2-about-perf"><input type="checkbox" class="atlas2-perf-switch"> Show frame statistics</label>
           </div>
         </div>
         <button type="button" class="atlas2-stack" hidden aria-live="polite"></button>
         <div class="atlas2-status" role="status" aria-live="polite"><span class="atlas2-bar"><i></i></span><span class="atlas2-note">Fetching the earth…</span></div>
         <div class="atlas2-caption" aria-live="polite"></div>
+        <div class="atlas2-tour" role="group" aria-label="Playing your cards in order" hidden>
+          <p class="atlas2-tour-text" aria-live="polite"><span class="atlas2-tour-year"></span><span class="atlas2-tour-title"></span><span class="atlas2-tour-n"></span></p>
+          <div class="atlas2-tour-btns">
+            <button type="button" class="atlas2-btn atlas2-tour-prev" aria-label="Previous card" title="Previous card">‹</button>
+            <button type="button" class="atlas2-btn atlas2-tour-pause" aria-label="Pause" title="Pause">❚❚</button>
+            <button type="button" class="atlas2-btn atlas2-tour-next" aria-label="Next card" title="Next card">›</button>
+            <button type="button" class="atlas2-btn atlas2-tour-stop" aria-label="Stop playing" title="Stop">■</button>
+          </div>
+        </div>
         <div class="atlas2-announce vh" aria-live="polite" aria-atomic="true"></div>
         <p class="atlas2-mode" hidden></p>
         <aside class="atlas2-card" hidden aria-label="Place">
@@ -799,6 +812,7 @@
       // and the wanted level's layout comes with the release frame, when the bias lifts
       if (level !== view.level) { view.level = level; if (!bias) requestLayout("level"); }
       view.admin1 = layers.provinces && k < (EMBED && layers.admin1Max ? layers.admin1Max : ADMIN1_KM_PER_PX) && time.present;   // a card window shows a state's neighbours at its opening zoom (atlas-embed.js sets admin1Max)
+      view.admin1Layer = adm1Draw(k);   // the lazy admin-1 slot (docs/atlas-v2-admin1-layer.md §3.2): null until a window asks for it
       view.history = time.view; view.historyLevel = histLevelNow(); if (view.history) { view.history.strokePx = view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0; view.history.dim = !EMBED && !STATIC2D && !time.present && time.hist && time.hist.ready && personalOnly() ? HIST_DIM : 0; }   // 2026-10-25: Personal only — on Map and Full the empty land was mostly the source's gaps (Tibet and Indochina in 1943, notches in Italy), read as missing patches
       view.landDim = !EMBED && time.present && ppKey ? HIST_DIM : 0;   // the Personal Atlas's present day: the countries the reader has not met, darker (refreshPersonalPresent)   // the coast stroke at the tile zooms: the resident level's tolerance, both sides; the empty-land darkening in a past year, the Atlas page only (atlas-gl.js drawHistoryDim)
       view.borders = layers.borders;
@@ -917,6 +931,8 @@
     let menuOpen = false, searchOpen = false, fadeTimer = 0;
     if (PHONE) {
       const sp = el.querySelector(".atlas2-study"); if (sp) menuEl.querySelector(".atlas2-menu-study").appendChild(sp);
+      // the playback's button and the progress meter (2026-11) stand in the menu under the study panel, not inside it: the panel stays the size it was (a landscape phone's sheet is 180 px)
+      if (sp) { const mp = menuEl.querySelector(".atlas2-menu-progress"); for (const s of [".atlas2-study-play", ".atlas2-study-meter"]) { const n = sp.querySelector(s); if (n) mp.appendChild(n); } }
       menuEl.querySelector('[data-sec="layers"] .atlas2-menu-sec-body').appendChild(sheet);
       menuEl.querySelector('[data-sec="help"] .atlas2-menu-sec-body').appendChild(aboutEl);
     }
@@ -1087,6 +1103,7 @@
         if (/^tile /.test(m.message)) { stats.tileErrors++; landTiles.failed(m.message.split(" ")[1].replace(/:$/, "")); return; }
         if (/^water-tile /.test(m.message)) { waterTiles.failed(m.message.split(" ")[1].replace(/:$/, "")); return; }
         if (/^water/.test(m.message)) { layersNote.hidden = false; layersNote.textContent = "The rivers and lakes could not be read: " + m.message; return; }
+        if (/^admin1/.test(m.message)) { adm1.failed = true; adm1.why = m.message; adm1Changed(); return; }   // the admin-1 slot is an extra: its failure is a window's plain sentence, never the Atlas's
         fail("The Atlas data could not be read: " + m.message); return;
       }
       if (m.type === "meta") {
@@ -1152,6 +1169,7 @@
       }
       if (m.type === "face-anchors") { const r = faceAnchorWait.get(m.seq); faceAnchorWait.delete(m.seq); if (r) r.cb(m.rows, r.q); return; }
       if (m.type === "face-rings") { if (selRingsPending === m.seq) { selRingsPending = null; selRings = { key: m.seq, faces: m.faces, rings: m.rings, level: Number(String(m.seq).split("@")[1]) }; invalidateLabels(); } return; }
+      if (m.slot === "adm1") { onAdmin1Message(m); return; }
       if (m.type === "history-meta") { onHistoryMeta(m); return; }
       if (m.type === "history-segs") { bracket(() => R.setHistorySegs(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap }), "histSegs"); if (time.hist) time.hist.segLevels++; invalidate(); return; }
       if (m.type === "history-faces") { onHistoryFaces(m); return; }
@@ -1365,6 +1383,69 @@
         time.loadMs = Math.round(performance.now() - t); time.bytes = buffer.byteLength;
         postToWorker({ type: "history", buffer });
       }).catch((e) => { time.failed = true; time.failWhy = String(e && e.message || e); railNote.hidden = false; railNote.textContent = FILE && !SLICE ? "The borders of the past are not in the file copy of the site; open Folio from its web address to see them." : "The borders of the past didn’t arrive (" + time.failWhy + ")."; });
+    }
+    /* THE ADMIN-1 SLOT (2026-11-14; docs/atlas-v2-admin1-layer.md §3.2, step 2). atlas/data/admin1.bin — the present-day states and provinces of the countries the core does not carry
+       (India first), in history.bin's format — is held BESIDE the history (`time.hist`, which may be the page's file or a war slice), never instead of it: the worker keeps it in its
+       own slot (ADM1) and every message about it carries `slot: "adm1"`. Never at boot: `ensureAdmin1()` is called by a card window whose highlight names an `adm1:` id the core does
+       not carry (atlas-embed.js); the page and the Personal Atlas (step 3) do not call it yet. Its 36 faces are small (54 KB in all), so every face is asked for at all three levels
+       as soon as the header is in, and the GL renderer keeps them in its own table (`setAdmin1Mesh`). DRAWN: every face's fill at the alpha its tint gives (none: bare, the land shows
+       through) and, while the Provinces layer draws the core's admin-1 lines (`view.admin1`), the inner lines of the file in the core's admin-1 line style; a face's coast and its
+       international border are the core's own lines, never drawn twice. */
+    const adm1 = { started: false, failed: false, why: "", header: null, ready: false, faceEntity: null, facesOf: new Map(), resident: new Set(), tints: null, mask: null, key: "" };
+    function ensureAdmin1() {
+      if (adm1.started || STATIC2D) return;
+      adm1.started = true;
+      const file = "admin1.bin", url = "atlas/data/" + file;
+      (FILE ? loadTwin(file, "the states and provinces") : fetch(url).then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); })).then((buffer) => {
+        if (disposed) return;
+        adm1.bytes = buffer.byteLength;
+        postToWorker({ type: "history", slot: "adm1", buffer });
+      }).catch((e) => { adm1.failed = true; adm1.why = String(e && e.message || e); adm1Changed(); });
+    }
+    function onAdmin1Message(m) {
+      if (m.type === "history-meta") {
+        adm1.header = m.header; adm1.faceEntity = m.faceEntity; adm1.facesOf = new Map();
+        { const nA = m.header.counts.arcs, t = new Uint8Array(Math.max(1, Math.ceil(nA / 256)) * 256); for (let a = 0; a < nA; a++) if (m.arcKind && m.arcKind[a] === 5) t[a] = 255; adm1.arcTable = t; }   // 5: KIND.ADMIN1, the file's own inner lines
+        for (let f = 0; f < m.faceEntity.length; f++) { const id = m.header.entities[m.faceEntity[f]].id; let l = adm1.facesOf.get(id); if (!l) adm1.facesOf.set(id, l = []); l.push(f); }
+        const all = []; for (let f = 0; f < m.faceEntity.length; f++) all.push(f);
+        for (let L = 0; L <= 2; L++) postToWorker({ type: "history-faces", slot: "adm1", level: L, faces: all, seq: 0 });
+        adm1Style(); return;
+      }
+      if (m.type === "history-faces") { for (const mesh of m.meshes) { const key = mesh.face + ":" + mesh.level; R.setAdmin1Mesh(key, mesh); adm1.resident.add(key); } adm1Changed(); return; }
+      if (m.type === "history-done") { adm1.ready = true; adm1Changed(); return; }
+    }
+    function adm1Changed() { invalidate(); }   // in a hub, invalidate() tells the windows (embedHook)
+    // the style tables: a face's tint (RGBA; alpha 0 = bare) and, per arc, 255 for the file's own inner lines (kind admin1) and 0 for its references to the core's coast and border
+    function adm1Style() {
+      if (!adm1.header || !adm1.faceEntity || !R.setAdmin1Style) return;
+      const nF = adm1.faceEntity.length, nA = adm1.header.counts.arcs;
+      const style = new Uint8Array(Math.max(1, Math.ceil(nF / 256)) * 256 * 4), arcs = new Uint8Array(Math.max(1, Math.ceil(nA / 256)) * 256);
+      for (let f = 0; f < nF; f++) {
+        const t = adm1.mask ? (adm1.mask.has(f) ? [1, 1, 1, 1] : null) : adm1.tints && adm1.tints.get(f);
+        if (!t) continue;
+        style[4 * f] = Math.round(t[0] * 255); style[4 * f + 1] = Math.round(t[1] * 255); style[4 * f + 2] = Math.round(t[2] * 255); style[4 * f + 3] = Math.round((t.length > 3 ? t[3] : 1) * 255);
+      }
+      R.setAdmin1Style(nF, style);
+      R.setAdmin1ArcTable(nA, adm1.arcTable || arcs);
+    }
+    // the draw list: every face with a mesh, once the file is in; the inner lines only in the mask pass's absence
+    function adm1Draw(k) {
+      if (!adm1.header || !adm1.faceEntity || adm1.failed) return null;
+      // rgb: the colour of the face's coast stroke at the tile zooms (the fill never stops short of the finer coast — a small island would otherwise vanish), the tint's or the mask pass's white
+      const faces = []; for (let f = 0; f < adm1.faceEntity.length; f++) { const t = adm1.mask ? (adm1.mask.has(f) ? [1, 1, 1] : null) : adm1.tints && adm1.tints.get(f); faces.push({ face: f, rgb: t ? [t[0], t[1], t[2]] : null }); }
+      return { faces, strokePx: view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0, lines: !adm1.mask };
+    }
+    // a window's tints (face index → [r, g, b, a] in 0–1) or the mask pass's white set (face indices), and what the windows ask of the slot
+    // both are set by a hub's draw (atlas-embed.js) just before it renders, so neither asks for a frame: a tint that has not changed uploads nothing
+    function setAdmin1Tints(map) { const t = map && map.size ? map : null, key = t ? [...t].map(([f, c]) => f + ":" + c.join(",")).join(";") : ""; if (key === adm1.key) return; adm1.key = key; adm1.tints = t; adm1Style(); }
+    function setAdmin1Mask(set) { if (!set && !adm1.mask) return; adm1.mask = set || null; adm1Style(); }
+    const admin1FacesOf = (id) => (adm1.facesOf.get(id) || []).slice();
+    function admin1Settled(level) {
+      if (adm1.failed) return true;
+      if (!adm1.ready || !adm1.faceEntity) return false;
+      const L = Math.min(2, level == null ? view.level : level);
+      for (let f = 0; f < adm1.faceEntity.length; f++) if (!adm1.resident.has(f + ":" + L)) return false;
+      return true;
     }
     function onHistoryMeta(m) {
       const H = m.header;
@@ -1641,7 +1722,7 @@
         if (changed) reflectPeoplesNote();
       } else { time.view = { faces: [], pfaces: [], present: time.present, strokePx: 0 }; if (!histStarted || time.failed) railNote.hidden = true; }
       if (wasPresent !== time.present) { if (sel.id && !G.byId.get(sel.id)?.hist && !time.present) clearSelection(); }
-      if (!o.drag && !EMBED) { try { localStorage.setItem(YEAR_KEY, String(y)); } catch (e) {} }
+      if (!o.drag && !o.noStore && !time.touring && !EMBED) { try { localStorage.setItem(YEAR_KEY, String(y)); } catch (e) {} }
       plan(); invalidate();
       if (o.why === "play") { const now = performance.now(); if (now - (time.lastPlayLayout || 0) > 500) { time.lastPlayLayout = now; requestLayout("year", true); } else requestLayout("year"); writeHash(false); }   // playing: a layout twice a second at most (one per frame starved the frame on a software rasteriser)
       else if (!o.drag) { yearFlushLater(); if (o.why !== "peoples") announce(fmtYear(y)); }   // the Peoples switch re-applies the year: it is not a year change to a screen reader
@@ -1768,7 +1849,7 @@
     railYear.addEventListener("blur", () => { if (!commitYearInput()) railYear.value = fmtYear(time.year); });
     /* playback: every year, at the chosen speed; the counter ticks every year, the map changes only at steps */
     function togglePlay() { if (time.playing) stopPlay(); else startPlay(); }
-    function startPlay() { if (time.year >= TODAY) applyYear(RAIL_FROM, { why: "play" }); time.playing = true; time.playY = time.year; time.playT = 0; railPlay.setAttribute("aria-pressed", "true"); railPlay.textContent = "❚❚"; railPlay.setAttribute("aria-label", "Pause"); invalidate(); }
+    function startPlay() { tourStop(); if (time.year >= TODAY) applyYear(RAIL_FROM, { why: "play" }); time.playing = true; time.playY = time.year; time.playT = 0; railPlay.setAttribute("aria-pressed", "true"); railPlay.textContent = "❚❚"; railPlay.setAttribute("aria-label", "Pause"); invalidate(); }
     function stopPlay() { if (!time.playing) return; time.playing = false; railPlay.setAttribute("aria-pressed", "false"); railPlay.textContent = "▶"; railPlay.setAttribute("aria-label", "Play"); applyYear(time.year, { force: true }); }
     function playStep(t) {
       if (!time.playT) { time.playT = t; return; }
@@ -1864,7 +1945,7 @@
        layout as occupied ground — the search box and its list, the zoom stack, the Legend and ? chips, an open sheet, the
        card (or its phone strip), the stack chip, the status line, the mode note, the year rail. A sheet opening or closing
        asks for a layout, so the names step out from under it. */
-    const CHROME = [".atlas2-search-btn", ".atlas2-search-in", ".atlas2-results", ".atlas2-menu-btn", ".atlas2-menu", ".atlas2-search-note", ".atlas2-study", ".atlas2-intro", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-sheet", ".atlas2-about-btn", ".atlas2-card", ".atlas2-stack", ".atlas2-status", ".atlas2-mode", ".atlas2-rail"];
+    const CHROME = [".atlas2-search-btn", ".atlas2-search-in", ".atlas2-results", ".atlas2-menu-btn", ".atlas2-menu", ".atlas2-search-note", ".atlas2-study", ".atlas2-intro", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-sheet", ".atlas2-about-btn", ".atlas2-card", ".atlas2-stack", ".atlas2-status", ".atlas2-mode", ".atlas2-rail", ".atlas2-tour"];
     function chromeRects() {
       const base = el.getBoundingClientRect(), out = [], seen = new Set();
       for (const sel of CHROME) for (const node of el.querySelectorAll(sel)) {
@@ -3112,7 +3193,10 @@
       const sumEl = studyEl.querySelector(".atlas2-study-sum"), noteEl = studyEl.querySelector(".atlas2-study-note"), emptyEl = studyEl.querySelector(".atlas2-study-empty"), collsEl = studyEl.querySelector(".atlas2-study-colls");
       studyEl.setAttribute("data-mode", ST.mode); studyEl.setAttribute("data-ready", ST.ready ? "1" : "0");
       for (const b of studyEl.querySelectorAll("button[data-mode]")) { const on = b.getAttribute("data-mode") === ST.mode; b.setAttribute("aria-checked", String(on)); b.classList.toggle("on", on); b.disabled = !ST.ready; }
-      if (!ST.ready) { sumEl.textContent = "Reading your cards…"; noteEl.hidden = true; emptyEl.hidden = true; collsEl.hidden = true; moreEl.hidden = true; toggleEl.hidden = true; return; }
+      const playEl = el.querySelector(".atlas2-study-play"), meterEl = el.querySelector(".atlas2-study-meter");   // on a phone both stand in the menu, beside the panel
+      if (!ST.ready) { sumEl.textContent = "Reading your cards…"; noteEl.hidden = true; emptyEl.hidden = true; collsEl.hidden = true; moreEl.hidden = true; toggleEl.hidden = true; playEl.hidden = true; meterEl.hidden = true; return; }
+      // the playback (2026-11): offered once a studied card has a place and the host can date a card
+      playEl.hidden = !(SU.cardYear && ST.st && ST.st.cards.length);
       const sm = AS.summary(ST.st, ST.mode, ST.flags);
       sumEl.textContent = sm.text; sumEl.hidden = !sm.text;
       noteEl.textContent = sm.note; noteEl.hidden = !sm.note;
@@ -3121,9 +3205,15 @@
       const list = ST.mode === "map" ? [] : ST.colls.filter((c) => (ST.mode === "personal" ? c.mine : c.places) > 0);
       collsEl.hidden = !list.length;
       collsEl.innerHTML = list.map((c) => `<button type="button" role="checkbox" class="atlas2-study-coll${ST.hidden.has(c.id) ? "" : " on"}" aria-checked="${ST.hidden.has(c.id) ? "false" : "true"}" data-coll="${escText(c.id)}" title="${escText(c.name)}: ${ST.mode === "personal" ? c.mine + " of " + c.places + " places yours" : c.places + " places"}"><span class="atlas2-study-coll-n">${escText(c.name)}</span><i>${ST.mode === "personal" ? c.mine : c.places}</i></button>`).join("");
+      /* THE PROGRESS METER (2026-11): in the Personal Atlas, "X of Y places discovered" per collection — Y the places (and polities) any of the collection's
+         cards is about in card-places.js, X those the reader has discovered, which is what the Personal Atlas draws: a place of a studied card
+         (AtlasStudy.collections' `mine`, the figure the chips' titles already gave). Computed, never stored; a switched-off collection keeps its row. */
+      const meter = ST.mode === "personal" ? ST.colls.filter((c) => c.mine > 0) : [];
+      meterEl.hidden = !meter.length;
+      meterEl.innerHTML = meter.map((c) => { const pc = c.places ? Math.round(100 * c.mine / c.places) : 0; return `<li data-coll="${escText(c.id)}"><span class="atlas2-meter-name">${escText(c.name)}</span><span class="atlas2-meter-n">${c.mine.toLocaleString("en-GB")} of ${c.places.toLocaleString("en-GB")} places discovered</span><span class="atlas2-meter-bar" aria-hidden="true"><i style="width:${pc}%"></i></span></li>`; }).join("");
       // the collection chips and the note sit under a disclosure (collapsed by default on a phone, where the panel is 120 px of a 700 px frame):
       // the switch and the count line stay, the empty-state sentence is a count line too
-      const hasMore = !!list.length || !noteEl.hidden;
+      const hasMore = !!list.length || !noteEl.hidden || (!!meter.length && studyEl.contains(meterEl));
       toggleEl.hidden = !hasMore; moreEl.hidden = !(hasMore && ST.open);
       toggleEl.setAttribute("aria-expanded", String(hasMore && ST.open)); { const t = (hasMore && ST.open ? "Hide" : "Show") + (list.length ? " the collections" : " the details"); toggleEl.setAttribute("aria-label", t); toggleEl.title = t; }
       studyEl.setAttribute("data-open", hasMore && ST.open ? "1" : "0");
@@ -3143,6 +3233,75 @@
         e.preventDefault(); const n = bs[(i + (e.key === "ArrowRight" ? 1 : bs.length - 1)) % bs.length]; n.focus(); setStudyMode(n.getAttribute("data-mode"));
       });
     }
+    /* PLAYING YOUR CARDS IN ORDER (2026-11, on request): the "Play your cards in order" button under the count line (in the menu on a phone) steps
+       through the reader's STUDIED cards that have a place (ST.st.cards — the host's studiedCards() joined with card-places.js), oldest first, one card
+       every TOUR_MS: the year is set to the card's year, the view flies to its first place that has a point (an instant jump under reduced motion —
+       `flyTo` already asks `reduced()`, which is the host's motionOff), and the bar above the rail shows the year and the card's title with previous,
+       pause, next and stop. The year is the host's `cardYear` (the card's timeline {at} or {from}, else the sort year of its date line; null for an
+       undatable or timeless card, which is left out). A collection switched off in the study panel leaves its cards out. NOTHING IS WRITTEN: no popup
+       opens (so `markDiscovery` never runs and `placesSeen` is untouched), no year is remembered while it runs (`time.touring`, and `noStore` on its own steps: a re-application of the year by the history or the Peoples switch would store it too), and
+       the selection is made with push: false. A drag or a pinch on the map pauses it. */
+    const TOUR_MS = 3000;
+    const tourEl = el.querySelector(".atlas2-tour"), tourYear = tourEl.querySelector(".atlas2-tour-year"), tourTitle = tourEl.querySelector(".atlas2-tour-title"), tourN = tourEl.querySelector(".atlas2-tour-n"), tourPause = tourEl.querySelector(".atlas2-tour-pause");
+    const TOUR = { list: null, i: 0, playing: false, timer: 0 };
+    function tourList() {
+      const out = [];
+      if (!ST.ready || !ST.st || !SU || !SU.cardYear) return out;
+      for (const cid of ST.st.cards) {
+        const i = info(cid); if (i && i.collId && ST.hidden.has(i.collId)) continue;
+        let y = null; try { y = SU.cardYear(cid); } catch (e) { y = null; }
+        if (y == null || !isFinite(y)) continue;
+        let row = null; for (const id of ST.idx.placesOfCard.get(cid) || []) { const r = G.byId.get(id); if (r && r.at) { row = r; break; } }
+        out.push({ id: cid, year: y, row, title: (i && i.title) || cid });
+      }
+      return out.sort((a, b) => a.year - b.year || (a.title < b.title ? -1 : a.title > b.title ? 1 : 0));
+    }
+    function tourShow(i) {
+      const L0 = TOUR.list; if (!L0 || !L0.length) return;
+      TOUR.i = Math.max(0, Math.min(L0.length - 1, i));
+      const c = L0[TOUR.i];
+      tourYear.textContent = c.year < 0 ? (-c.year).toLocaleString("en-GB") + " BCE" : c.year + " CE"; tourTitle.textContent = c.title; tourN.textContent = (TOUR.i + 1) + " of " + L0.length;
+      applyYear(clampYear(c.year), { why: "tour", noStore: true });
+      if (c.row) { const row = c.row; flyTo(row.at[0], row.at[1], Math.max(2.5, kmppFor(row)), () => { if (TOUR.list && TOUR.list[TOUR.i] === c) selectRow(row, { push: false }); }); }
+      tourArm();
+    }
+    function tourArm() {
+      clearTimeout(TOUR.timer); TOUR.timer = 0;
+      if (!TOUR.playing || !TOUR.list) return;
+      TOUR.timer = setTimeout(() => { TOUR.timer = 0; if (disposed || !TOUR.list) return; if (TOUR.i >= TOUR.list.length - 1) tourSetPlaying(false); else tourShow(TOUR.i + 1); }, TOUR_MS);
+    }
+    function tourSetPlaying(on) {
+      TOUR.playing = !!on;
+      tourPause.textContent = on ? "❚❚" : "▶"; tourPause.setAttribute("aria-label", on ? "Pause" : "Play"); tourPause.title = on ? "Pause" : "Play";
+      tourArm();
+    }
+    function tourStart() {
+      const list = tourList();
+      if (time.playing) stopPlay();
+      if (PHONE) showMenu(false);
+      closeCard();
+      TOUR.list = list; time.touring = true; tourEl.hidden = false; el.classList.add("atlas2-touring");
+      if (!list.length) { tourYear.textContent = ""; tourN.textContent = ""; tourTitle.textContent = "None of the studied cards with a place has a date to play in order."; TOUR.playing = false; tourPause.disabled = true; requestLayout("chrome", true); return; }
+      tourPause.disabled = false;
+      tourSetPlaying(true); tourShow(0);
+      requestLayout("chrome", true);
+      tourPause.focus({ preventScroll: true });
+    }
+    function tourStop() {
+      if (!TOUR.list) return;
+      clearTimeout(TOUR.timer); TOUR.timer = 0; TOUR.list = null; TOUR.playing = false; time.touring = false;
+      const back = tourEl.contains(document.activeElement);
+      tourEl.hidden = true; el.classList.remove("atlas2-touring");
+      requestLayout("chrome", true);
+      if (back) canvas.focus({ preventScroll: true });
+    }
+    tourEl.querySelector(".atlas2-tour-prev").addEventListener("click", () => { if (TOUR.list && TOUR.list.length) tourShow(TOUR.i - 1); });
+    tourEl.querySelector(".atlas2-tour-next").addEventListener("click", () => { if (TOUR.list && TOUR.list.length) tourShow(TOUR.i + 1); });
+    tourPause.addEventListener("click", () => { if (!TOUR.list || !TOUR.list.length) return; if (TOUR.playing) tourSetPlaying(false); else if (TOUR.i >= TOUR.list.length - 1) { tourSetPlaying(true); tourShow(0); } else { tourSetPlaying(true); tourShow(TOUR.i + 1); } });
+    tourEl.querySelector(".atlas2-tour-stop").addEventListener("click", tourStop);
+    { const pb = el.querySelector(".atlas2-study-play"); if (pb) pb.addEventListener("click", tourStart); }   // in the panel on a desktop, in the menu on a phone
+    tourEl.addEventListener("keydown", (e) => { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); tourStop(); } });
+    canvas.addEventListener("pointerdown", () => { if (TOUR.list && TOUR.playing) tourSetPlaying(false); });
     /* THE CARDS SET HERE — the whole of the popup's body (2026-10-19, the owner's phone: "only its name and the cards set in that location, formatted nicely for a phone").
        One row per card, the row itself the tap target (a link to the card): the card's title on one or two lines, the deck's name beneath it in a small muted line, the DUE badge
        at the right (the host's `cardInfo`: `deck` the leaf it is filed in, `due` isDueNow). The Personal Atlas lists the reader's own cards, the Full Atlas every card of a collection
@@ -3172,6 +3331,7 @@
       if (raf) cancelAnimationFrame(raf);
       if (layoutTimer) clearTimeout(layoutTimer);
       if (tapTimer) clearTimeout(tapTimer);
+      clearTimeout(TOUR.timer);
       if (longObs) { try { longObs.disconnect(); } catch (e) {} }
       landTiles.abortAll(); waterTiles.abortAll(); reliefTiles.abortAll();
       if (worker) { try { worker.terminate(); } catch (e) {} worker = null; }
@@ -3213,7 +3373,7 @@
       && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0
         && view.relief.detail.every((k) => R.reliefDetailLoaded(k)) && detailTiles.pending.size === 0));
     const waterSettled = () => (!waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2))) && landChangesSettled();
-    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), statesAt: (y) => statesAt(y), faceAnchors: (faces, cb, near) => faceAnchors(faces, cb, near), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } }, kindOfId: (id) => { const i = time.hist ? entityIndexOfId(id) : -1; const e = i >= 0 && time.ents[i]; return e ? e.kind : null; }, setFlat: (on) => { on = !!on; if (!!layers.flat !== on || flatBorderOn !== on) { layers.flat = on; flatBorderOn = on; histBorderStyle(); if (time.hist) { restyleHist(); invalidate(); } } }, setMask: (map) => { if (map) { if (!time.gameMask) time.gameStash = time.gameTints; time.gameTints = map; time.gameMask = true; } else if (time.gameMask) { time.gameTints = time.gameStash; time.gameStash = null; time.gameMask = false; } histBorderStyle(); restyleHist(); },
+    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, startAdmin1: () => ensureAdmin1(), admin1FacesOf: (id) => admin1FacesOf(id), setAdmin1Tints: (map) => setAdmin1Tints(map), setAdmin1Mask: (set) => setAdmin1Mask(set), admin1Settled: (level) => admin1Settled(level), admin1Failed: () => adm1.failed, admin1Ready: () => !!(adm1.ready && adm1.faceEntity), webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), statesAt: (y) => statesAt(y), faceAnchors: (faces, cb, near) => faceAnchors(faces, cb, near), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } }, kindOfId: (id) => { const i = time.hist ? entityIndexOfId(id) : -1; const e = i >= 0 && time.ents[i]; return e ? e.kind : null; }, setFlat: (on) => { on = !!on; if (!!layers.flat !== on || flatBorderOn !== on) { layers.flat = on; flatBorderOn = on; histBorderStyle(); if (time.hist) { restyleHist(); invalidate(); } } }, setMask: (map) => { if (map) { if (!time.gameMask) time.gameStash = time.gameTints; time.gameTints = map; time.gameMask = true; } else if (time.gameMask) { time.gameTints = time.gameStash; time.gameStash = null; time.gameMask = false; } histBorderStyle(); restyleHist(); },
         lonLatAt: (x, y) => { const p = unproject(x, y); return p ? [p.lon, p.lat] : null; },
         /* the entity ids under a point in the year the controller is at — Find-it's ID-pass scoring: the states (a contested face's two claimants too) in a past year, the country or admin-1 unit in a present one */
         idsAt: (x, y) => {
