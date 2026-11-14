@@ -16431,6 +16431,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      module level) and the drag order (`S.deckOrder`, persisted) already survive a repaint, so the scroll
      position and the animations were the whole of what a reader could see. */
   let _renderQuiet = false;
+  /* the page render() drew last, and the one before it: PAGES.home reads `_renderFrom` to tell a navigation INTO
+     the home page from a repaint of it (see the loading placard at the top of PAGES.home) */
+  let _renderLast = null, _renderFrom = null;
   function renderInPlace() {
     _renderQuiet = true;
     try { render(); } finally { _renderQuiet = false; }
@@ -16532,6 +16535,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     view.innerHTML = '<div class="page' + (quiet ? " page-quiet" : "") + (dir ? " page-" + dir : "") + '"></div>';
     if (ghost) { if (dir) ghost.classList.add("ghost-" + dir); view.appendChild(ghost); }
     const root = view.firstElementChild;
+    _renderFrom = _renderLast; _renderLast = current.name;
     (PAGES[current.name] || PAGES.home)(root, current.params);
     // one system of measurement, the reader's — see the units block above
     unitizeTree(root);
@@ -25486,7 +25490,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        was 300, and the box shows six and a half lines where it showed three (.hb-next-p). A paragraph shorter
        than that is followed by the next ones of the chapter, so a short paragraph does not leave the box
        half the length it was asked to be. */
-    const HB_NEXT_MAX = 600;
+    const HB_NEXT_MAX = 900;   // …and half as long again, 900 (Nov 2026, on request: "make the text preview 50% longer")
     const ptext = (p) => {
       p.querySelectorAll(".bk-n, sup").forEach((el) => el.remove());
       p.querySelectorAll("br").forEach((br) => br.replaceWith(" "));
@@ -25724,7 +25728,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function previewable(c) {
     return !!(c && c.question) && c.artwork !== true && c.flagCard !== true && c.drawCard !== true && !cardMapSpec(c) && !cardLocatorFront(c);
   }
-  /* THE WEEK AHEAD, AT THE FOOT OF THE DAILY-REVIEW BANNER (Nov 2026, on request: design B of the forecast
+  /* THE WEEK AHEAD, ABOVE THE MINIGAMES (Nov 2026, on request; until the same month the foot of the daily-study banner, design B of the forecast
      mock-ups). Seven chips — today, then the next six days — so the week's load is seen on every visit
      without opening the statistics. TODAY is the banner's own count (what is waiting now, new cards
      included), so the strip never disagrees with the title above it; every later day is `dueForecast`'s
@@ -26602,6 +26606,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // boot has not settled yet: a placard, not a page that will be repainted under the reader (see homeBootSettle)
     if (!_homeBootSettled) {
       root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Loading your decks…</strong></div>';
+      return;
+    }
+    /* …AND SO DOES A NAVIGATION INTO IT FROM ANOTHER PAGE (Nov 2026, on request: "when clicking the home page while in
+       another page … the load screen is not shown, and the current page simply freezes until the home page loads").
+       The page is built in one synchronous pass that takes a noticeable moment on a tablet, and nothing painted
+       until it was done, so the tap looked ignored. Now the same placard is put up first, one frame is given to
+       paint it, and the page is then built as a quiet repaint (renderInPlace) over it. The placard fades in only
+       after a short delay (`.home-nav-loading`), so a build that is quick never flashes it; it cannot be left
+       standing, since the repaint replaces the whole page, and a reader who has moved on meanwhile is not pulled back. */
+    if (!_renderQuiet && _renderFrom && _renderFrom !== "home") {
+      root.innerHTML = '<div class="data-loading home-nav-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Loading your decks…</strong></div>';
+      const nav = current;
+      requestAnimationFrame(() => setTimeout(() => { if (current === nav && root.isConnected) renderInPlace(); }, 0));
       return;
     }
     /* THE PHONE AND THE DESKTOP NOW BUILD THE SAME PAGE, and that is the end of a long retreat: the two
@@ -27546,6 +27563,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (!rb || rb.classList.contains("hero")) return;
       const p = listPiles(), st = rvState(p);
       rb.innerHTML = rvBannerInner(p);
+      // the week ahead's Today is the banner's own count, so a fold that changes one redraws the other (rvWeekHTML)
+      const wk = root.querySelector(".rv-week");
+      if (wk) { const t = document.createElement("div"); t.innerHTML = rvWeekHTML(p.nw + p.lr + p.rv, activeIds.length); if (t.firstElementChild) wk.replaceWith(t.firstElementChild); }
       rb.querySelectorAll(".xp[data-pct]").forEach((x) => { const f = x.querySelector(".xp-fill"); if (f) f.style.width = x.dataset.pct + "%"; });
       rb.classList.toggle("done", st.done); rb.classList.toggle("won", st.won);
       if (rg) { rg.classList.toggle("rv-done", st.done); rg.classList.toggle("rv-won", st.won); }
@@ -27603,7 +27623,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                     screen's "Continue with" carries the reader on to the next. */""}
             </div>
             </div>
-            ${rvWeekHTML(pileN, activeIds.length)}
             ${/* "+ New group" stood here, inside the banner, until Aug 2026 and is now under the LAST deck
                   row instead (see `newGroupTools` below) — beside the list it acts on rather than inside the
                   block above it. Being out of the banner it is also an ordinary <button> again, where a
@@ -27757,6 +27776,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               it: with the discovery row gone the grid is the last thing on the page, and a block of six
               coloured squares under nothing at all does not say what it is. */""}
         ${homeWeekHTML(true)}
+        ${/* THE WEEK AHEAD stands here, between the Today / This week figures and the minigames, the full width of
+              the column (Nov 2026, on request) — it was at the foot of the daily-study banner (rvWeekHTML) */""}
+        ${fresh ? "" : rvWeekHTML(pileN, activeIds.length)}
         <section class="games-sec">
           <div class="games-top"><h2 class="games-head">Minigames</h2>${sweepRowHTML()}</div>
           ${gameGrid}
