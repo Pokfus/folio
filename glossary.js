@@ -11621,7 +11621,27 @@ window.GLOSSARY = {
 "Sviatoslav_Olgovich": "",
 "Trinity_Cathedral_on_Trinity_Square": "",
 "Vladimir_Yuryevich_(prince_of_Moscow)": "",
-"Yauza_(river)": ""
+"Yauza_(river)": "",
+"Beiping": "",
+"Chen_Gui_(Ming_dynasty)": "",
+"Chen_Sheng": "",
+"Han_River_(Hubei)": "",
+"Huang_Gai": "",
+"Huarong_Road": "",
+"Jia_Yi": "",
+"Jiangling": "",
+"Jiayu_County": "",
+"Jing_Province": "",
+"Liye_Qin_slips": "",
+"Mount_Li": "",
+"Puqi": "",
+"Qin_Er_Shi": "",
+"Red_Cliffs_(place)": "",
+"Shuntian_Prefecture": "",
+"Wu_Guang": "",
+"Zhao_Gao": "",
+"Zhou_Yu": "",
+"Ziying": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17182,7 +17202,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Yaropolk_I_of_Kiev": "c. 958–980",
 "Emperor_of_Russia": "1721–1917",
 "Natalya_Naryshkina": "c. 1651–1694",
-"Sigismund_von_Herberstein": "1486–1566"
+"Sigismund_von_Herberstein": "1486–1566",
+"Chen_Gui_(Ming_dynasty)": "c. 1335 – 1419",
+"Qin_Er_Shi": "d. 207 BCE",
+"Zhao_Gao": "d. 207 BCE",
+"Zhou_Yu": "d. 210 CE",
+"Ziying": "d. 206 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19026,7 +19051,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "The_Art_of_War": ["Art of War","Sunzi bingfa"],
 "Terracotta_Army": ["terracotta warriors","Bingmayong"],
 "Great_Wall_of_China": ["Great Wall","Changcheng"],
-"Han_dynasty": ["Han empire","Eastern Han","Former Han","Later Han"],
+"Han_dynasty": ["Han empire"],
 "Silk_Road": ["Silk Routes","Silk Roads"],
 "Scholar-official": ["shi dafu","scholar official"],
 "Papermaking": ["paper making","papermaker"],
@@ -19390,7 +19415,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Sovietization": ["Sovietisation","sovietisation","sovietization","Sovietization"],
 "Battle_of_Kunyang": ["Kunyang"],
 "Book_of_Han": ["Hanshu"],
-"Eastern_Han": ["Later Han","Eastern Han dynasty"],
+"Eastern_Han": ["Later Han","Eastern Han dynasty","Eastern Han"],
+"Western_Han": ["Former Han","Western Han dynasty"],
 "Emperor_Guangwu_of_Han": ["Emperor Guangwu","Guangwu","Liu Xiu"],
 "Protectorate_of_the_Western_Regions": ["Protector General","protector general of the Western Regions"],
 "Red_Eyebrows": ["Chimei"],
@@ -24668,7 +24694,21 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Vladimir_Yuryevich_(prince_of_Moscow)": ["Vladimir Yurievich"],
 "Yauza_(river)": ["Yauza","Yauza River"],
 "Mount_St._Helens": ["Mount Saint Helens"],
-"St_Mary's_Hospital,_London": ["Saint Mary's Hospital, London"]
+"St_Mary's_Hospital,_London": ["Saint Mary's Hospital, London"],
+"Beiping": ["Peiping","Pei-p‘ing"],
+"Chen_Sheng": ["Chen She"],
+"Han_River_(Hubei)": ["Hanshui","Han Shui"],
+"Huang_Gai": ["Huang Kai"],
+"Huarong_Road": ["Huarong road","Huarong Trail"],
+"Jia_Yi": ["Chia I"],
+"Jing_Province": ["Jing province","Jingzhou province"],
+"Liye_Qin_slips": ["Liye slips","Liye Qin bamboo slips","Liye archive"],
+"Mount_Li": ["Lishan","Li Mountain"],
+"Qin_Er_Shi": ["Huhai","Hu Hai","Second Emperor of Qin"],
+"Shuntian_Prefecture": ["Shuntian prefecture","Shuntian fu","Shun-t‘ien fu"],
+"Zhao_Gao": ["Chao Kao"],
+"Zhou_Yu": ["Chou Yü"],
+"Ziying": ["Zi Ying","Tzu-ying"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -36496,7 +36536,27 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Sviatoslav_Olgovich": ["ruler","person","history","kievan rus","ukraine","russia"],
 "Trinity_Cathedral_on_Trinity_Square": ["building","religion","architecture","history","saint petersburg","russia"],
 "Vladimir_Yuryevich_(prince_of_Moscow)": ["person","history","moscow","kievan rus","russia"],
-"Yauza_(river)": ["place","geography","river","moscow","russia"]
+"Yauza_(river)": ["place","geography","river","moscow","russia"],
+"Beiping": ["city","place","history","china","ming dynasty"],
+"Chen_Gui_(Ming_dynasty)": ["person","architecture","history","china","ming dynasty"],
+"Chen_Sheng": ["person","rebel","history","china","qin dynasty"],
+"Han_River_(Hubei)": ["place","river","geography","history","china"],
+"Huang_Gai": ["person","warfare","history","china","three kingdoms"],
+"Huarong_Road": ["place","history","literature","china","three kingdoms"],
+"Jia_Yi": ["person","philosophy","history","china","han dynasty"],
+"Jiangling": ["city","place","history","china","three kingdoms"],
+"Jiayu_County": ["place","geography","history","china","three kingdoms"],
+"Jing_Province": ["state","place","history","china","three kingdoms"],
+"Liye_Qin_slips": ["text","archaeology","history","china","qin dynasty"],
+"Mount_Li": ["place","mountain","history","china","qin dynasty"],
+"Puqi": ["place","geography","history","china","three kingdoms"],
+"Qin_Er_Shi": ["ruler","person","history","china","qin dynasty"],
+"Red_Cliffs_(place)": ["place","battle","history","china","three kingdoms"],
+"Shuntian_Prefecture": ["place","government","history","china","ming dynasty"],
+"Wu_Guang": ["person","rebel","history","china","qin dynasty"],
+"Zhao_Gao": ["person","politics","history","china","qin dynasty"],
+"Zhou_Yu": ["person","warfare","history","china","three kingdoms"],
+"Ziying": ["ruler","person","history","china","qin dynasty"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
