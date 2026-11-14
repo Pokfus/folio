@@ -736,6 +736,15 @@ single whip 1581 (`cnh-381`), the examinations ended 1905 (`cnh-348`, `cnh-427`)
 | May Fourth: began / the dismissals / the treaty unsigned | 4 May 1919 / 10 June 1919 / 28 June 1919 | Ouyang (`cnh-585`) |
 | *New Youth*'s first issue / the literary reform / the label coined | 15 September 1915 / January 1917 / 1919 | Li Yilu; Ciaudo (`cnh-586`) |
 | the CCP's First Congress opened / closed / its anniversary set | 23 July 1921 / c. 31 July 1921 / 1941 | Saich (`cnh-590`) |
+| the First United Front: the joint statement / the party congress / the break | 26 January 1923 / January 1924 / April – July 1927 | Isaacs (`cnh-591`) |
+| Whampoa: founding voted / opened / first action / first campaign | January 1924 / 16 June 1924 / October 1924 / 1925 | the Memorial Hall; Isaacs (`cnh-592`) |
+| the Northern Expedition | 9 July 1926 – 29 December 1928 | Jordan (`cnh-594`) |
+| the Shanghai coup | 12 April 1927 | Eastman (`cnh-595`) |
+| the Nanjing decade (two countings) | 1927 – 1937, or 1928 – 1937 | Eastman; Lary (`cnh-596`) |
+| the Nationalist government founded / reorganised / tutelage ended | 1 July 1925 / 10 October 1928 / 25 December 1947 | FRUS; Tyau (`cnh-597`) |
+| the Kuomintang founded / renamed / reorganised / tutelage began | 25 August 1912 / 10 October 1919 / 20 January 1924 / 3 October 1928 | the party's chronology (`cnh-598`) |
+| the treaty ports: the first treaty / the factory right / given up | 1842 / 1895 / 1943 | the Office of the Historian; Ma (`cnh-599`) |
+| the International Settlement formed / given up | 1863 / 11 January 1943 | Pott; Ma (`cnh-600`) |
 
 ## Later periods
 
@@ -1328,4 +1337,13 @@ cnh-584: 1914; 1919; 1922
 cnh-585: 1919
 cnh-586: 1915; 1917; 1919
 cnh-590: 1921; 1941
+cnh-591: 1923; 1924; 1927
+cnh-592: 1924; 1925
+cnh-594: 1926; 1928
+cnh-595: 1927
+cnh-596: 1927; 1937; 1928
+cnh-597: 1925; 1928; 1947
+cnh-598: 1912; 1919; 1924; 1928
+cnh-599: 1842; 1895; 1943
+cnh-600: 1863; 1943
 ```
