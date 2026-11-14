@@ -50366,10 +50366,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* `/` OPENS SEARCH FROM ANYWHERE — the shortcut every site with a search field has, and the phone's
      tab bar has no cell to spare for one. Refused while the reader is typing (an input, a textarea or
      a contenteditable), while an overlay owns the keyboard (OVERLAY_SEL — a reader pressing / over
-     Card info means the character, not a navigation), and with a modifier held, which is a browser
-     shortcut. */
+     Card info means the character, not a navigation), with a modifier held, which is a browser
+     shortcut, and when a page's own handler already used the key (`defaultPrevented`: the Atlas map's
+     place search, Nov 2026). */
   document.addEventListener("keydown", (e) => {
     if (e.key !== "/" || e.ctrlKey || e.metaKey || e.altKey) return;
+    // a page that used the key itself — the Atlas's map opens its own place search on `/` — has said so
+    if (e.defaultPrevented) return;
     const t = e.target;
     if (t && (t.matches("input, textarea, select") || t.isContentEditable)) return;
     if (typeof overlayOpen === "function" && overlayOpen()) return;
