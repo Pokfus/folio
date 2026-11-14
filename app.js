@@ -16256,7 +16256,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        than a guard in `PAGES.study`, so the home page's rows, the review banner, the Collections page and
        a pasted `#study` link are all covered by the same line — and RESUME is exempt, since a reader
        coming back to a session already in progress is not starting one. */
-    if (name === "study" && params && params.scope && !params.resume) {
+    if (name === "study" && params && params.scope && !params.resume && !params.cram) {   // a cram deals its own cards (startCram)
       const ask = orderAskEntry(params.scope);
       if (ask) { name = "order"; params = { entry: ask, scope: params.scope }; }
     }
@@ -17983,6 +17983,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          decorative is that a container CAPS rather than cascades — see langCtxLimits and reviewQueue. */
       (isGroup ? "" :
         item("custom", "Custom study", "Study more or fewer new cards today — " + left + " left of " + (L.newPerDay + (deckDay(id).extra || 0))) +
+        /* CRAM (Nov 2026, on request) — a run through the deck before an exam that touches no schedule. See
+           startCram. Off the pooled review's sheet, which is every deck at once and has no exam to cram for. */
+        (isReview ? "" : item("cram", "Cram", "Run through this " + thing + " before an exam — nothing is scheduled")) +
         item("limits", "Daily limits", L.newPerDay + " new/day · " + L.maxReviews + " reviews/day") +
         /* READY BY A DATE (see openDeadline). It sits directly under Daily limits because it is the same
            figure asked for from the other end — a reader who knows the date does not know the number, and
@@ -18115,6 +18118,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           return;
         }
         if (act === "custom") { close(); openCustomStudy(id); return; }
+        if (act === "cram") { close(); startCram(id); return; }
         if (act === "limits") { close(); openDeckLimits(id); return; }
         if (act === "deadline") { close(); openDeadline(id); return; }
         if (act === "rename") {
@@ -18206,6 +18210,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      deck's new-card allowance for the day, up or down, by a number the reader types. The same amount moves
      the DAILY REVIEW's own allowance, or asking for five more cards would raise a number the banner the
      reader pressed can never reach (see bumpDeckExtra). */
+  /* ---------- CRAM (Nov 2026, on request) ----------
+     A pre-exam run through one entry's cards that leaves the schedule exactly as it found it. The cards are
+     the ones the reader has already studied in this entry, shuffled — or, where none has been studied yet,
+     every card it has — dealt through the ordinary study page with `params.cram` set. There a grade writes
+     NOTHING: not `grade()` (S.cards, the review log, the per-review row, the streak, the new-card allowance,
+     and the level-ups, chests and badges it announces), not the day's study time (the ticker's
+     `studyTimeAdd`), not the reload record or the synced handoff (`persistStudy`), not the Card of the day.
+     Suspend and Undo are not offered, there being nothing to suspend from and no grade to take back.
+     Again sends the card to the back of the cram queue; any other grade takes it out of the session. */
+  function cramIds(id) {
+    const avail = availableCardIdSet();
+    const all = entryCardIds(id).filter((x) => avail.has(x) && !isSuspended(x));
+    const seen = all.filter(isSeen);
+    return shuffle((seen.length ? seen : all).slice());
+  }
+  function startCram(id) {
+    const ids = cramIds(id);
+    if (!ids.length) { toast("There are no cards to cram in this " + entryNoun(id) + "."); return; }
+    route("study", { scope: entryScope(id), cram: { entry: id, queue: ids } });
+  }
   function openCustomStudy(id) {
     const info = entryInfo(id);
     const html =
@@ -34332,6 +34356,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const sess = buildSession(params.scope);
     // a session picked back up after a reload — see the STUDY_KEY block for what the record holds and why
     const resume = params.resume && Array.isArray(params.resume.queue) ? params.resume : null;
+    /* A CRAM (see startCram): its own queue, carried on the params so a repaint through render() picks the
+       run up where it was rather than dealing it again. Nothing about it is scheduled or stored. */
+    const cram = !resume && params.cram && Array.isArray(params.cram.queue) ? params.cram : null;
+    /* THE SESSION SUMMARY'S TALLIES (Nov 2026, on request) — what renderComplete reports: answers given, how
+       many were Again, the active time spent on the cards answered, and the Agains per card. In memory only,
+       never in `S` or the synced blob; carried on the params for the cram queue's reason, so a repaint
+       mid-session does not zero them. A reload starts a fresh tally (its params are new). */
+    const tally = params._tally || (params._tally = { n: 0, again: 0, ms: 0, cards: {}, misses: {} });
     /* EVERY SESSION GOES BACK TO THE HOME PAGE (Aug 2026, on request: "once completing daily studies for a
        deck, the button should lead back to the home page, not the collections page"). It used to depend on
        the scope — the review, the Card of the day and a group returned home while a DECK returned to the
@@ -34354,7 +34386,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        use. The home page warms the day's review at idle, so in ordinary use this is already true and the
        placard is never seen; it is what a deep link, a cold start or a deck tapped straight from its row
        falls back on. */
-    const sessIds = (resume ? resume.queue : []).concat(sess.queue);
+    const sessIds = (resume ? resume.queue : []).concat(cram ? cram.queue : sess.queue);
     if (!uWarmed(sessIds)) {
       root.innerHTML = '<div class="page-head"><span class="eyebrow">' + t("Study") + '</span><h1>' + esc(sess.where || "") + "</h1></div>" +
         '<div class="data-loading">' + t("Loading these cards…") + "</div>";
@@ -34385,7 +34417,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return;
     }
 
-    let queue = sess.queue.slice();
+    let queue = cram ? cram.queue.slice() : sess.queue.slice();
     let studiedThisSession = 0;
     let revealed = false;
     /* When the card on screen had its question painted, which is what makes the per-review log's duration a
@@ -34473,7 +34505,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        clock. */
     if (!resume && params && params.box > 0 && BOX_CHOICES.includes(params.box)) { boxMs = params.box * 60000; boxFrom = Date.now(); }
     function persistStudy() {
-      const rec = { scope: params.scope, queue: queue.slice(), id: queue[0] || null, qi: qIdx, rev: revealed, studied: studiedThisSession, box: boxMs, boxFrom: boxFrom };
+      // a cram keeps its place on the params only: no reload record, and above all no synced handoff
+      if (cram) { cram.queue = queue.slice(); return; }
+      const rec ={ scope: params.scope, queue: queue.slice(), id: queue[0] || null, qi: qIdx, rev: revealed, studied: studiedThisSession, box: boxMs, boxFrom: boxFrom };
       writeStudySession(rec);
       /* …and the SYNCED half (see S.handoff). Written here rather than on a timer so the two records can
          never say different things, and NOT saved from here: persistStudy runs on every render, and a
@@ -34499,7 +34533,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // every rule it keeps. "Alive" here is a card actually painted: the completion screen and the
     // caught-up placard are not studying.
     startTimeTicker(root, () => !!root.querySelector(".study-card"), (ms) => {
-      studyTimeAdd(ms);
+      if (!cram) studyTimeAdd(ms);   // a cram is not the day's study (see startCram); the card's own share below still feeds the summary
       // the share of this tick that belongs to the card on screen (a tick can straddle the moment it was painted)
       const now = Date.now(); if (shownAt) cardActiveMs += Math.max(0, Math.min(ms, now - Math.max(cardTickAt, shownAt))); cardTickAt = now;
     });
@@ -34549,6 +34583,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         intro: S.intro ? Object.assign({}, S.intro) : null,
         streak: S.streak ? Object.assign({}, S.streak) : null,
         studied: studiedThisSession,
+        // …and the summary's tallies, so an undone answer is not counted in it either
+        tally: JSON.parse(JSON.stringify(tally)),
         /* WHICH PHRASING WAS ON SCREEN. A card carries up to three ways of asking the same thing and
            `renderCard` picks one at random when `qIdx` is null, so an undo that did not record it would
            bring the card back asking something else — which reads as the undo having fetched a different
@@ -34602,6 +34638,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (s.streak) S.streak = s.streak;
       queue = s.queue;
       studiedThisSession = s.studied;
+      if (s.tally) Object.assign(tally, s.tally);
       save();
       /* IT COMES BACK AT ITS QUESTION, NOT AT ITS ANSWER (Aug 2026, on request). It used to be restored
          REVEALED, on the grade row it was mis-answered on, which is the fastest way to re-grade and the
@@ -34615,7 +34652,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       toast("Grade undone — here is the question again.");
     }
 
-    if (queue.length === 0) {
+    if (queue.length === 0 && !cram) {   // a cram run to its end repaints as its summary (renderCard → renderComplete)
       /* Nothing due and no new allowance left — offer to study ahead, or report all caught up.
 
          THE AHEAD PILE IS THE ENTRY'S, NOT THE WHOLE DECK'S, AND IT IS ORDERED (Aug 2026, on a bug
@@ -34812,7 +34849,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       root.innerHTML = `
         <div class="study-shell">
           <div class="study-bar">
-            <button class="backbtn" id="exit"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Home</button>
+            <button class="backbtn" id="exit"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> ${cram ? "End cram" : "Home"}</button>
+            ${cram ? '<span class="cram-badge" title="Grades here change no schedule, streak or study time">Cram — not scheduled</span>' : ""}
             ${canUndo() ? '<button class="backbtn undobtn" id="undoGrade" title="${esc(undoLabel())} (Ctrl+Z)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg> Undo</button>' : ""}
             ${/* Card info — Anki's `I`, and deliberately in the study BAR rather than in the grade bar. The
                   grade bar's phone layout is a fixed three-cell row under the grades ("help undo suspend"),
@@ -35214,23 +35252,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           ttsSay(seq);
         }
 
-        const p = preview(id);
+        /* In a cram the intervals would be a promise the grade does not keep — nothing is scheduled — so each
+           button says what it does to THIS run instead (see startCram). */
+        const p = cram ? { again: 0, hard: 0, good: 0, easy: 0 } : preview(id);
+        const gi = (k) => cram ? (k === "again" ? "Again soon" : "Done") : fmtInterval(p[k]);
         actions.innerHTML = "";
         showGradeBar(
           `<div class="grade-wrap">
-            <button class="grade-help" type="button" aria-label="What do these buttons do?">?<span class="grade-help-bubble"><span class="ghb-title">How well did you recall it?</span>${gradeExplainHTML(id, p)}<span class="ghb-row"><b>Again</b>Forgot it — the card returns within minutes.</span><span class="ghb-row"><b>Hard</b>Recalled with effort — scheduled sooner than usual.</span><span class="ghb-row"><b>Good</b>Recalled correctly — the interval grows normally.</span><span class="ghb-row"><b>Easy</b>Knew it instantly — the interval grows the most.</span><span class="ghb-row"><b>Suspend</b>Not interested — the card won’t be shown again.</span><span class="ghb-keys">On a keyboard: <kbd>Space</kbd> reveals, <kbd>1</kbd>–<kbd>4</kbd> grade, <kbd>Enter</kbd> is Good, <kbd>I</kbd> shows this card's history, and <kbd>Ctrl</kbd>+<kbd>Z</kbd> takes the last grade back.</span></span></button>
+            <button class="grade-help" type="button" aria-label="What do these buttons do?">?<span class="grade-help-bubble"><span class="ghb-title">How well did you recall it?</span>${cram ? '<span class="ghb-row"><b>Cram</b>Nothing is scheduled: Again brings the card back later in this run, and any other grade takes it out.</span>' : gradeExplainHTML(id, p)}<span class="ghb-row"><b>Again</b>Forgot it — the card returns within minutes.</span><span class="ghb-row"><b>Hard</b>Recalled with effort — scheduled sooner than usual.</span><span class="ghb-row"><b>Good</b>Recalled correctly — the interval grows normally.</span><span class="ghb-row"><b>Easy</b>Knew it instantly — the interval grows the most.</span><span class="ghb-row"><b>Suspend</b>Not interested — the card won’t be shown again.</span><span class="ghb-keys">On a keyboard: <kbd>Space</kbd> reveals, <kbd>1</kbd>–<kbd>4</kbd> grade, <kbd>Enter</kbd> is Good, <kbd>I</kbd> shows this card's history, and <kbd>Ctrl</kbd>+<kbd>Z</kbd> takes the last grade back.</span></span></button>
             <div class="grades">
-              <button class="grade again" data-g="again"><span class="gl">Again</span><span class="gi">${fmtInterval(p.again)}</span><span class="gk">1</span></button>
-              <button class="grade hard" data-g="hard"><span class="gl">Hard</span><span class="gi">${fmtInterval(p.hard)}</span><span class="gk">2</span></button>
-              <button class="grade good" data-g="good"><span class="gl">Good</span><span class="gi">${fmtInterval(p.good)}</span><span class="gk">3</span></button>
-              <button class="grade easy" data-g="easy"><span class="gl">Easy</span><span class="gi">${fmtInterval(p.easy)}</span><span class="gk">4</span></button>
+              <button class="grade again" data-g="again"><span class="gl">Again</span><span class="gi">${gi("again")}</span><span class="gk">1</span></button>
+              <button class="grade hard" data-g="hard"><span class="gl">Hard</span><span class="gi">${gi("hard")}</span><span class="gk">2</span></button>
+              <button class="grade good" data-g="good"><span class="gl">Good</span><span class="gi">${gi("good")}</span><span class="gk">3</span></button>
+              <button class="grade easy" data-g="easy"><span class="gl">Easy</span><span class="gi">${gi("easy")}</span><span class="gk">4</span></button>
             </div>
             ${/* the phone's copy of Undo: the study bar is a scroll above a card that runs several screens,
                   so on a phone the one way back from a misclicked grade was off screen at the moment it was
                   wanted. CSS shows this only below 640px and hides the study bar's copy while the grade bar
                   is up, so no card ever carries two. */""}
             ${canUndo() ? '<button class="gb-undo" id="undoGradeBar" type="button" title="' + esc(undoLabel()) + ' (Ctrl+Z)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg>Undo</button>' : ""}
-            <button class="suspendbtn gradebar-suspend" id="suspendBtn" type="button" aria-label="Suspend this card so it won't appear again"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="5" width="4" height="14" rx="1.5"/><rect x="14" y="5" width="4" height="14" rx="1.5"/></svg>Suspend card</button>
+            ${cram ? "" : '<button class="suspendbtn gradebar-suspend" id="suspendBtn" type="button" aria-label="Suspend this card so it won\'t appear again"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="5" width="4" height="14" rx="1.5"/><rect x="14" y="5" width="4" height="14" rx="1.5"/></svg>Suspend card</button>'}
           </div>`,
           (g) => doGrade(g)
         );
@@ -35248,12 +35289,35 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         tourNotify("reveal");   // the walkthrough's "Your first card" step waits for exactly this
       }
 
+      // the summary's tallies for one answer (see `tally`) — the active time is the card's, as logReview counts it
+      function tallyGrade(g) {
+        tally.n++;
+        tally.ms += cardActiveNow();
+        tally.cards[id] = 1;
+        if (g === "again") { tally.again++; tally.misses[id] = (tally.misses[id] || 0) + 1; }
+      }
       function doGrade(g) {
+        /* A CRAM GRADE WRITES NOTHING (see startCram). It returns before the undo snapshot, before grade()
+           and before the Card of the day, so the only things that move are this closure's queue and the
+           summary's in-memory tallies. Again goes to the back of the run; anything else takes the card out. */
+        if (cram) {
+          tallyGrade(g);
+          studiedThisSession++;
+          queue.shift();
+          if (g === "again") queue.push(id);
+          studyRevealId = null;
+          qIdx = null;
+          if (boxSpent()) { tourNotify("graded"); return renderComplete({ timeUp: true }); }
+          renderCard();
+          tourNotify("graded");
+          return;
+        }
         // snapshot BEFORE anything is written, and before the queue is shifted — the queue is half of what
         // an undo has to restore, since a learning step is requeued and a graduated card is not
         const snap = undoSnapshot(id);
         undoStack.push(snap);
         if (undoStack.length > UNDO_CAP) undoStack.shift();
+        tallyGrade(g);   // after the snapshot, so an undo takes this answer out of the summary too
         const wasSeen = isSeen(id);
         /* How long this card took, measured from the moment its question was painted (`shownAt`). It is the
            reader's own thinking time, so a card revealed and left for lunch is CAPPED rather than counted —
@@ -35376,13 +35440,39 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (studyRevealId === id) showAnswer();
     }
 
+    /* THE SESSION SUMMARY (Nov 2026, on request), on the completion screen of every session and every cram:
+       the cards answered, the share NOT answered Again, the active time on them, and up to three cards with
+       the most Agains, each a link to its own read-only page. Drawn from `tally` alone, so nothing is
+       stored; a session that answered nothing (every card suspended, say) gets no summary. */
+    function sessionSummaryHTML() {
+      if (!tally.n) return "";
+      const cards = Object.keys(tally.cards).length;
+      const acc = Math.round(100 * (tally.n - tally.again) / tally.n);
+      const hard = Object.keys(tally.misses)
+        .sort((a, b) => tally.misses[b] - tally.misses[a])
+        .slice(0, 3);
+      const stat = (v, k) => '<div class="ss-stat"><b>' + esc(String(v)) + "</b><span>" + esc(k) + "</span></div>";
+      return '<div class="session-summary" aria-label="Session summary">' +
+        '<div class="ss-stats">' +
+          stat(cards, cards === 1 ? "card reviewed" : "cards reviewed") +
+          stat(acc + "%", "accuracy") +
+          stat(fmtStudyTime(tally.ms), "time spent") +
+        "</div>" +
+        (hard.length
+          ? '<div class="ss-hard"><span class="ss-hard-label">Hardest this session</span><ol>' +
+              hard.map((cid) => '<li><a href="#card/' + encodeURIComponent(cid) + '" data-card="' + esc(cid) + '">' +
+                esc(cardTitle(cid, 60) || cid) + '</a><span class="ss-miss">' + tally.misses[cid] + " × Again</span></li>").join("") +
+            "</ol></div>"
+          : '<p class="ss-clean">No card needed an Again.</p>') +
+        "</div>";
+    }
+
     function renderComplete(how) {
       detachKeys();
       // the session is over — a reload from here starts a fresh one rather than resurrecting an empty queue,
       // and no other device should be offered one either
-      clearStudySession();
-      clearHandoff();
-      save();
+      // …except a cram, which wrote neither record and must not clear another device's handoff (see startCram)
+      if (!cram) { clearStudySession(); clearHandoff(); save(); }
       hideGradeBar();
       hideWBTools();
       root.innerHTML = "";
@@ -35390,14 +35480,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       card.className = "placard";
       card.innerHTML = `
         <div class="big">${how && how.timeUp ? "⏱" : "✓"}</div>
-        <h2>${how && how.timeUp ? "Time's up" : "Session complete"}</h2>
-        <p>You worked through ${studiedThisSession} card${studiedThisSession === 1 ? "" : "s"}${how && how.timeUp ? " in " + Math.round(boxMs / 60000) + " minutes" : ""}. Your progress is saved.</p>
+        <h2>${how && how.timeUp ? "Time's up" : cram ? "Cram complete" : "Session complete"}</h2>
+        <p>You worked through ${studiedThisSession} card${studiedThisSession === 1 ? "" : "s"}${how && how.timeUp ? " in " + Math.round(boxMs / 60000) + " minutes" : ""}.${cram ? " Nothing was scheduled — your reviews are where they were." : " Your progress is saved."}</p>
+        ${sessionSummaryHTML()}
         ${/* THREE EQUAL BUTTONS ON ONE LINE (Oct 2026, on request: "these three should be formatted more
               neatly"). They were a wrapping flex row, which on most widths put two on one line and the
               third alone under them. `.sc-actions` is a grid of equal columns, however many of the three
               are drawn, stacking to one column on a phone. */""}
         <div class="row sc-actions">
-          <button class="btn" id="more">Keep studying</button>
+          <button class="btn" id="more">${cram ? "Cram again" : "Keep studying"}</button>
           ${canUndo() ? '<button class="btn ghost" id="undoLast" title="${esc(undoLabel())}">Undo the last card</button>' : ""}
           <button class="btn ghost" id="home">Back home</button>
         </div>`;
@@ -35411,7 +35502,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          which walks the rows the home page is showing and skips anything folded away, finished for the
          day, or with no work left in it. EVERY SUCH ROW IS DRAWN, not the next alone (Oct 2026, on
          request), stacked in the list's order from the row after this one. */
-      const nextRows = nextStudyRows(scopeEntryId(params.scope));
+      const nextRows = cram ? [] : nextStudyRows(scopeEntryId(params.scope));   // a cram is a detour, not a step down the list
       if (nextRows.length) {
         const nx = document.createElement("div");
         nx.className = "sc-next";
@@ -35432,7 +35523,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       /* Keep studying after a spent box would otherwise end on the very first card, the clock having run
          out before the button was pressed: the box is dropped rather than restarted, since a reader who
          asked for ten minutes and then asked for more has plainly stopped counting. */
-      card.querySelector("#more").addEventListener("click", () => { boxMs = 0; boxFrom = 0; route("study", Object.assign({}, params, { box: 0 })); });
+      // (a fresh object without `_tally`, so the next session is summarised on its own; a cram deals again)
+      card.querySelector("#more").addEventListener("click", () => {
+        boxMs = 0; boxFrom = 0;
+        if (cram) { startCram(cram.entry); return; }
+        const next = Object.assign({}, params, { box: 0 });
+        delete next._tally;
+        route("study", next);
+      });
+      // the summary's hardest cards open at their own address, which is read-only (see PAGES.card)
+      card.querySelectorAll(".ss-hard a[data-card]").forEach((a) => a.addEventListener("click", (e) => {
+        e.preventDefault();
+        route("card", { id: a.dataset.card });
+      }));
       // the scope a row is tapped with on the home page, which is the one place that decides what a row
       // means: a community deck, a subdeck and a direction all ride in on the same entry id
       card.querySelectorAll(".sc-next [data-review]").forEach((nb) => {

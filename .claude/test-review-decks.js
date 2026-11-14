@@ -304,7 +304,7 @@ const SETTINGS = {
        ANSWER BEFORE REVEALING, RECALL IN FULL and SCHEDULING went to the Settings page as one choice for every
        deck (same request) — so the list is the session rows, the browser, the allowance rows and Remove. */
     check("holding a deck's row opens its options",
-      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Review order", "Question variety", "Browse your cards", "Custom study", "Daily limits", "Ready by a date", "Skip today", "Remove"]),
+      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Review order", "Question variety", "Browse your cards", "Custom study", "Cram", "Daily limits", "Ready by a date", "Skip today", "Remove"]),
       JSON.stringify(menu.items));
 
     /* THE ORDER IS PER DECK, AND THE REVIEW'S IS THE GLOBAL. Asserted on both entries because they are
@@ -1652,6 +1652,126 @@ const SETTINGS = {
       check("tapping the deck row deals the card rather than a completion screen", false, "no deck row to press");
     }
     await page.close();
+  }
+
+  /* ================= 22. the session summary, and CRAM (Nov 2026, on request) =================
+     A finished session shows what it was: cards reviewed, the share not answered Again, the time, and the
+     cards with the most Agains as links — from in-memory tallies, nothing stored. A CRAM (the deck sheet's
+     "Cram") deals the cards already studied in the deck, says "Cram — not scheduled" for the whole run,
+     brings an Again back later in the run, takes any other grade out, and WRITES NOTHING: the stored
+     record's cards, review log, per-review rows, streak, study time, new-card tally and handoff are
+     byte-identical before and after, and no reload record is left in sessionStorage. */
+  {
+    const SHOT = process.env.FOLIO_SHOTS || "";
+    // the summary of an ordinary session: five new cards, the first failed once, everything else Easy
+    const page = await newPage({ active: [deckA], settings: SETTINGS, cards: {} });
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    await page.evaluate(() => { const b = document.querySelector(".active-deck[data-review]"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    await page.evaluate(() => { const b = document.querySelector("#opSkip"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    let graded = 0;
+    for (let i = 0; i < 30; i++) {
+      if (!(await page.evaluate(() => !!document.querySelector("#reveal-btn")))) break;
+      await page.evaluate(() => document.querySelector("#reveal-btn").click());
+      await page.waitForTimeout(200);
+      const g = graded === 0 ? "again" : "easy";
+      await page.evaluate((g) => { const b = document.querySelector(".grade." + g); if (b) b.click(); }, g);
+      graded++;
+      await page.waitForTimeout(260);
+    }
+    const sum = await page.evaluate(() => {
+      const s = document.querySelector(".session-summary");
+      return s ? {
+        stats: [...s.querySelectorAll(".ss-stat b")].map((b) => b.textContent),
+        hard: [...s.querySelectorAll(".ss-hard a[data-card]")].map((a) => a.getAttribute("href")),
+      } : null;
+    });
+    const wantAcc = Math.round(100 * (graded - 1) / graded) + "%";
+    check("a finished session shows its summary: cards, accuracy, time and the hardest card as a link",
+      !!sum && sum.stats.length === 3 && +sum.stats[0] >= 1 && sum.stats[1] === wantAcc && sum.hard.length === 1 && /^#card\//.test(sum.hard[0]),
+      JSON.stringify({ graded, wantAcc, sum }));
+    if (SHOT) {
+      // the first-card badges are celebrated over the screen; put them away before the picture
+      await page.evaluate(() => { const b = [...document.querySelectorAll("button")].find((x) => /keep the chests/i.test(x.textContent)); if (b) b.click(); });
+      await page.waitForTimeout(600);
+      await page.screenshot({ path: path.join(SHOT, "session-summary.png") });
+    }
+    await page.close();
+
+    // CRAM: three of deckA's cards studied, the rest not
+    const probe2 = await newPage({ active: [deckA], settings: SETTINGS, cards: {} });
+    await probe2.goto(base + "#home", { waitUntil: "load" });
+    await probe2.waitForTimeout(800);
+    const ids = await probe2.evaluate((d) => {
+      let out = [];
+      (window.COLLECTION_TREE.collections || []).forEach((c) => (function walk(n) {
+        if (n.id === d && !out.length) out = (n.cardIds || []).slice(0, 3);
+        (n.children || []).forEach(walk);
+      })(c));
+      return out;
+    }, deckA);
+    await probe2.close();
+    const cards = {}; ids.forEach((id) => { cards[id] = done(); });
+    const cp = await newPage({ active: [deckA], settings: SETTINGS, cards, streak: { count: 4, last: "2026-01-01" } });
+    await cp.goto(base + "#home", { waitUntil: "load" });
+    await cp.reload({ waitUntil: "load" });
+    await cp.waitForTimeout(1400);
+    const KEYS = ["cards", "reviewLog", "revlog", "streak", "studyTime", "studyTotal", "intro", "reviewDay", "handoff", "suspended"];
+    const stored = () => cp.evaluate((keys) => {
+      const S = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+      return JSON.stringify(keys.map((k) => S[k] === undefined ? null : S[k]));
+    }, KEYS);
+    const before = await stored();
+    await cp.evaluate(() => document.querySelector(".active-deck[data-review]").dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })));
+    await cp.waitForTimeout(300);
+    await cp.evaluate(() => document.querySelector('.dm-item[data-act="cram"]').click());
+    await cp.waitForTimeout(1000);
+    const startC = await cp.evaluate(() => ({
+      badge: ((document.querySelector(".cram-badge") || {}).textContent || "").trim(),
+      left: [...document.querySelectorAll(".study-bar .counts .cnt")].reduce((a, e) => a + (+e.textContent || 0), 0),
+      exit: ((document.querySelector("#exit") || {}).textContent || "").trim(),
+    }));
+    check("Cram deals the deck's studied cards under a visible “not scheduled” badge, with a way out",
+      /not scheduled/i.test(startC.badge) && startC.left === ids.length && /end cram/i.test(startC.exit), JSON.stringify(startC));
+    await cp.evaluate(() => document.querySelector("#reveal-btn").click());
+    await cp.waitForTimeout(250);
+    const gi = await cp.evaluate(() => ({
+      again: ((document.querySelector(".grade.again .gi") || {}).textContent || "").trim(),
+      suspend: !!document.querySelector("#suspendBtn"),
+    }));
+    check("...its grade bar promises no interval and offers no Suspend", gi.again === "Again soon" && !gi.suspend, JSON.stringify(gi));
+    if (SHOT) await cp.screenshot({ path: path.join(SHOT, "cram-session.png") });
+    await cp.evaluate(() => document.querySelector(".grade.again").click());
+    await cp.waitForTimeout(300);
+    const leftAfterAgain = await cp.evaluate(() => [...document.querySelectorAll(".study-bar .counts .cnt")].reduce((a, e) => a + (+e.textContent || 0), 0));
+    check("...Again keeps the card in the run", leftAfterAgain === ids.length, String(leftAfterAgain));
+    let cramGrades = 1;
+    for (let i = 0; i < 20; i++) {
+      if (!(await cp.evaluate(() => !!document.querySelector("#reveal-btn")))) break;
+      await cp.evaluate(() => document.querySelector("#reveal-btn").click());
+      await cp.waitForTimeout(200);
+      await cp.evaluate(() => document.querySelector(".grade.good").click());
+      cramGrades++;
+      await cp.waitForTimeout(260);
+    }
+    check("...and any other grade takes it out: three cards and one Again end in four answers", cramGrades === ids.length + 1, String(cramGrades));
+    const endC = await cp.evaluate(() => ({
+      h2: ((document.querySelector(".placard h2") || {}).textContent || "").trim(),
+      summary: !!document.querySelector(".session-summary"),
+      hard: document.querySelectorAll(".session-summary .ss-hard a").length,
+      rec: sessionStorage.getItem("folio_study_v1"),
+    }));
+    check("...the cram ends on its own summary, leaving no reload record",
+      endC.h2 === "Cram complete" && endC.summary && endC.hard === 1 && !endC.rec, JSON.stringify(endC));
+    if (SHOT) await cp.screenshot({ path: path.join(SHOT, "cram-summary.png") });
+    await cp.waitForTimeout(400);
+    const after = await stored();
+    check("...and NOTHING was written: cards, logs, streak, study time, allowance and handoff are unchanged",
+      before === after, before === after ? "" : JSON.stringify({ before: before.slice(0, 300), after: after.slice(0, 300) }));
+    await cp.close();
   }
 
   console.log("");

@@ -136,3 +136,18 @@ fraction of a second the instant its slide finished. A per-frame probe read `opa
 made for the transform animation and repainting a frame or two later. Declaring the promotion up front
 means the layer is never created and never thrown away. **Keep it on this one element** — a permanent
 layer is cheap once and expensive by the dozen, and the desktop popups fade rather than move.
+
+## Cram and the session summary (Nov 2026, on request)
+
+- **Cram** — the deck sheet's "Cram" row (`startCram`, `cramIds`; not on the pooled review's sheet) deals the
+cards the reader has studied in the entry, shuffled (every card when none is studied), through `PAGES.study`
+with `params.cram`. **A cram grade writes nothing**: `doGrade` returns before the undo snapshot, `grade()`
+(S.cards, review log, per-review row, streak, new-card tally, level-ups/chests/badges) and the Card of the
+day; the ticker skips `studyTimeAdd`; `persistStudy` keeps the queue on the params only (no reload record,
+no synced handoff); `renderComplete` clears neither record. Again goes to the back of the run, any other grade
+takes the card out. Suspend and Undo are not offered; the bar shows `.cram-badge` and "End cram".
+- **The summary** (`sessionSummaryHTML`) — every completion screen, cram included: cards reviewed, accuracy
+(the share not Again), active time, and up to three cards with the most Agains linking to `#card/<id>`. From
+the in-memory `tally` on the params (survives a repaint, not a reload; an undo restores it from its
+snapshot); never in `S` or `PROGRESS_FIELDS`.
+- `test-review-decks.js` §22 guards both, including a byte-for-byte check that a cram leaves the stored record unchanged.

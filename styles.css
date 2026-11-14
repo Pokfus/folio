@@ -1609,6 +1609,10 @@ body[data-theme="folio"].night .collection-deco{
 .study-where{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);
   min-width:0; flex:0 1 auto; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 .counts{margin-left:auto; display:flex; gap:14px; align-items:center;}
+/* CRAM (Nov 2026): the study bar says, for the whole run, that these grades schedule nothing (startCram).
+   Ochre rather than indigo, so it reads as a state of the session and not as one more button. */
+.cram-badge{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; font-weight:600;
+  color:var(--ochre); border:1px dashed var(--ochre); border-radius:999px; padding:5px 11px; white-space:nowrap; flex:none;}
 .suspendbtn{
   display:inline-flex; align-items:center; gap:6px; appearance:none;
   border:1px solid var(--rule); background:var(--card); border-radius:8px; padding:5px 11px; cursor:pointer;
@@ -2685,6 +2689,21 @@ body.grading .stage{padding-bottom:150px;}
    the default text size; a larger text size may still wrap it, which the line-height allows for */
 .placard .sc-actions .btn{width:100%; padding-left:10px; padding-right:10px; font-size:calc(11.5px * var(--fs)); letter-spacing:.04em; white-space:normal; line-height:1.3;}
 @media (max-width:480px){ .placard .row.sc-actions{grid-auto-flow:row; grid-auto-columns:auto; grid-template-columns:1fr;} }
+/* THE SESSION SUMMARY (Nov 2026, on request) — three figures in a row and the session's hardest cards, between
+   the completion line and the buttons (sessionSummaryHTML). */
+.session-summary{max-width:500px; margin:0 auto 22px; text-align:left;}
+.session-summary .ss-stats{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:10px;}
+.session-summary .ss-stat{border:1px solid var(--rule); border-radius:10px; padding:10px 8px; text-align:center; background:var(--paper);}
+.session-summary .ss-stat b{display:block; font-family:var(--display); font-weight:600; font-size:calc(22px * var(--fs)); color:var(--ink); line-height:1.15;}
+.session-summary .ss-stat span{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);}
+.session-summary .ss-hard{margin-top:14px;}
+.session-summary .ss-hard-label{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
+.session-summary .ss-hard ol{margin:6px 0 0; padding:0; list-style:none;}
+.session-summary .ss-hard li{display:flex; justify-content:space-between; align-items:baseline; gap:12px; padding:7px 0; border-top:1px solid var(--rule);}
+.session-summary .ss-hard a{color:var(--indigo); text-decoration:none; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.session-summary .ss-hard a:hover{text-decoration:underline;}
+.session-summary .ss-miss{flex:none; font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint);}
+.placard .session-summary .ss-clean{margin:12px 0 0; text-align:center; font-size:calc(14px * var(--fs));}
 /* "Continue with" on the completion screen (Aug 2026, on request) sits BELOW the three above it and is
    separated by a hairline rather than by a gap alone: the row above answers "what do I do with THIS session"
    and this one answers "what next". It was a button naming the deck; since Oct 2026 (on request) it is THE
