@@ -341,7 +341,7 @@ reading from "Tabular", the This week box and the active-deck rows from "Keys". 
   grid at every width (a flex row wrapped at desktop and looked broken), drawing **the current week
   only, at every width** (Oct 2026, on request), with its **chest cell at the end**
   (`streakChestProgress`, `STREAK_CHEST_EVERY`): one row of count, week, then Longest over the note at
-  the right from 768px up; a phone, and a phone on its side (641–767px), keeps its two-row layout (on request). The Account page's streak box went with it (on request).
+  the right from 641px up — every tablet has the desktop's ribbon since Nov 2026, on request (641–767px kept the phone's two rows until then); a phone (≤640px) keeps its two-row layout (on request). The Account page's streak box went with it (on request).
   **The note is capped at 32ch so it wraps** (Oct 2026, on request, with a tablet screenshot): an `auto` grid
   column is sized to its content's one-line width before the flexible week column gets anything, so the
   sentence took ~315px off the top at every width and the chest spilt across it on a tablet. **Today's cell is
@@ -350,6 +350,13 @@ reading from "Tabular", the This week box and the active-deck rows from "Keys". 
   the week is a rail** (Oct 2026, on request): the "X days for a chest" note is hidden, `.sr-of` ("X of 7",
   counted from the same cells) leads the second row, and the seven squares are the minigame rail's dashes
   stretched to the chest at the right; today's slot to keep is a half-lit dash. Markup is one at every width.
+- **The week ahead** (`rvWeekHTML`, Nov 2026): seven tiles, today's banner count then `dueForecast`'s next six days. It
+  stood at the foot of the daily-study banner and was moved (Nov 2026, on request) to a full-width card of its own
+  between the Today / This week figures and the minigames (`.rv-week`, `repeat(7, 1fr)`; on a phone `order:2` puts it
+  after the week box). `refreshReviewBanner` redraws it with the banner, so its Today never disagrees with the title.
+- **A navigation into Home shows the boot placard** (Nov 2026, on request): `PAGES.home` puts up "Loading your decks…"
+  when `_renderFrom` (the page `render()` drew before) is another page, yields a frame, then builds the page with
+  `renderInPlace()`; `.home-nav-loading` fades in after 90 ms so a quick build never flashes it.
 - **"Your collections"** is a header row (`.rv-sec-h`) with the legend and the **"+ Add decks" link**;
   it never counts cards (on request). Each row is tinted by its own progress: the `.dk-prog .track` is
   absolutely positioned under the row and is `pointer-events:none` — it sat over the drag grip and
