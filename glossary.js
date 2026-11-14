@@ -11641,7 +11641,24 @@ window.GLOSSARY = {
 "Wu_Guang": "",
 "Zhao_Gao": "",
 "Zhou_Yu": "",
-"Ziying": ""
+"Ziying": "",
+"Baidicheng": "",
+"Chen_Xuan_(Ming_dynasty)": "",
+"Chromium": "",
+"Emperor_Jing_of_Han": "",
+"Fengjie_County": "",
+"Hall_of_Supreme_Harmony": "",
+"Huguang_(province)": "",
+"Lintong,_Xi'an": "",
+"Liu_Biao": "",
+"Liu_Shan": "",
+"Liu_Zhang": "",
+"Lu_Xun_(Eastern_Wu)": "",
+"Shah_Rukh": "",
+"Timurid_Empire": "",
+"Xiahou_Yuan": "",
+"Zhang_Fei": "",
+"Zhuo_Commandery": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17207,7 +17224,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Qin_Er_Shi": "d. 207 BCE",
 "Zhao_Gao": "d. 207 BCE",
 "Zhou_Yu": "d. 210 CE",
-"Ziying": "d. 206 BCE"
+"Ziying": "d. 206 BCE",
+"Chen_Xuan_(Ming_dynasty)": "1365 – 1433",
+"Emperor_Jing_of_Han": "188 – 141 BCE",
+"Liu_Biao": "142 – 208 CE",
+"Liu_Shan": "207 – 271 CE",
+"Liu_Zhang": "d. 219 CE",
+"Shah_Rukh": "1377 – 1447",
+"Timurid_Empire": "1370 – 1507",
+"Xiahou_Yuan": "d. 219 CE",
+"Zhang_Fei": "d. 221 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -24708,7 +24734,18 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Shuntian_Prefecture": ["Shuntian prefecture","Shuntian fu","Shun-t‘ien fu"],
 "Zhao_Gao": ["Chao Kao"],
 "Zhou_Yu": ["Chou Yü"],
-"Ziying": ["Zi Ying","Tzu-ying"]
+"Ziying": ["Zi Ying","Tzu-ying"],
+"Baidicheng": ["Baidi","Baidi City","White Emperor City"],
+"Chen_Xuan_(Ming_dynasty)": ["Chen Xuan"],
+"Fengjie_County": ["Fengjie"],
+"Hall_of_Supreme_Harmony": ["Taihedian","Taihe Dian"],
+"Huguang_(province)": ["Huguang"],
+"Lintong,_Xi'an": ["Lintong","Lintong District"],
+"Shah_Rukh": ["Shahrukh"],
+"Timurid_Empire": ["Timurid","Timurids","Timurid dynasty"],
+"Zhuo_Commandery": ["Zhuo commandery","Zhuojun"],
+"Qin_Shi_Huang": ["First Emperor of Qin","First Emperor","First Emperor of China"],
+"Polaris": ["Pole Star"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -36556,7 +36593,24 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Wu_Guang": ["person","rebel","history","china","qin dynasty"],
 "Zhao_Gao": ["person","politics","history","china","qin dynasty"],
 "Zhou_Yu": ["person","warfare","history","china","three kingdoms"],
-"Ziying": ["ruler","person","history","china","qin dynasty"]
+"Ziying": ["ruler","person","history","china","qin dynasty"],
+"Baidicheng": ["place","city","history","china","three kingdoms"],
+"Chen_Xuan_(Ming_dynasty)": ["person","warfare","history","china","ming dynasty"],
+"Chromium": ["object","science","chemistry","geology","technology"],
+"Emperor_Jing_of_Han": ["ruler","person","history","china","han dynasty"],
+"Fengjie_County": ["place","history","geography","china"],
+"Hall_of_Supreme_Harmony": ["building","architecture","history","china","ming dynasty","qing dynasty"],
+"Huguang_(province)": ["place","state","history","china","yuan dynasty","ming dynasty"],
+"Lintong,_Xi'an": ["place","history","geography","china"],
+"Liu_Biao": ["person","ruler","history","china","han dynasty"],
+"Liu_Shan": ["ruler","person","history","china","three kingdoms"],
+"Liu_Zhang": ["person","ruler","history","china","han dynasty"],
+"Lu_Xun_(Eastern_Wu)": ["person","warfare","politics","history","china","three kingdoms"],
+"Shah_Rukh": ["ruler","person","history","central asia","persia"],
+"Timurid_Empire": ["empire","state","dynasty","history","central asia","persia"],
+"Xiahou_Yuan": ["person","warfare","history","china","three kingdoms"],
+"Zhang_Fei": ["person","warfare","history","china","three kingdoms"],
+"Zhuo_Commandery": ["place","history","china","han dynasty","three kingdoms"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

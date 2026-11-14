@@ -35,9 +35,22 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1305", released: "2026-11-13T23:15Z" };
+window.FOLIO_VERSION = { v: "1.1306", released: "2026-11-14T00:21Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-11-14",
+    t: "China cards linked; troop numbers as numerals; borders dated",
+    items: [
+      "10 China cards gain glossary links, with 37 new glossary terms, new pictures for Mao Zedong and the Forbidden City, and fuller backgrounds.",
+      "Atlas windows show Cao Wei, Shu Han and the Qin empire with their capitals, Xi'an and the Battle of Red Cliffs.",
+      "Every atlas window that shades a state now says below it which year's borders it shows.",
+      "Troop numbers and army sizes are now written as numerals, as in 10,000 men.",
+      "A card's book quotation no longer names its translator or repeats the book's title.",
+      "Qin Shi Huang's card now asks about his becoming the first emperor.",
+      "The ship <i>MS St. Louis</i> keeps its own abbreviated name.",
+    ]
+  },
   {
     d: "2026-11-13",
     t: "Russia reaches the Revolution; China cards rewritten",

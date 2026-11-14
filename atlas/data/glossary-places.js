@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"a43aa23ee7fd5495","counts":{"terms":957,"points":720,"countries":237,"windows":1592,"faces":372,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"be296a312f9ba454","counts":{"terms":957,"points":720,"countries":237,"windows":1593,"faces":372,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1725,6 +1725,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"a43aa23ee7fd5495","counts":
 "Lille":[3.078,50.652,"city",0,0,0],
 "Lima":[-77.052,-12.046,"capital",0,0,0],
 "Lingqu":[110.663,25.622,"river",0,0,0],
+"Lintong,_Xi'an":[109.254,34.382,"coord",0,0,0],
 "Lion_Gate":[22.756,37.731,"site",0,0,0],
 "Lipetsk":[39.207,52.746,"admin1","adm1:rus:ru-lip",0,37.83],
 "Lisbon":[-9.147,38.725,"capital",0,0,0],

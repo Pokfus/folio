@@ -4046,6 +4046,9 @@
     Pain: { roots: ["psych", "bio"], tags: ["psychology", "biology", "neuroscience", "medicine"] },
     /* the Roman magistrate: "an American consul" in a Second World War card is a diplomat (2026-11-13, found by check-gloss-links on ww2-197) */
     Consul: { roots: ["col-40", "col-8", "col-13"], tags: ["rome", "roman", "italy", "republic"] },
+    /* the memory model's "central executive" in a Chinese Soviet's committee (cnh-608) and the weight's "talent" in "men of talent" (cnh-274), 2026-11-14 */
+    "Baddeley's_model_of_working_memory": { roots: ["psych", "bio"], tags: ["psychology", "memory", "neuroscience"] },
+    "Talent_(measurement)": { roots: ["col-13", "col-40", "col-8", "egypt", "mesopotamia"], tags: ["greece", "rome", "ancient", "measurement", "weight", "money", "coinage"] },
   };
   function glossScopedOff(cardId) {
     const root = cardId ? cardCollectionRoot(cardId) : null, rid = root && root.id;
