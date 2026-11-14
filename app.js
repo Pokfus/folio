@@ -37162,6 +37162,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         return { title: plain(c.answerText) || plain(c.answer) || plain(c.question) || id, collId: root0 ? root0.id : "", coll: root0 ? nodeTitle(root0) : "", deck: leaf ? nodeTitle(leaf) : "", due: !!isDueNow(id) };
       },
       cardHref: (id) => "#card/" + id,
+      // the Atlas's "Play your cards in order" (2026-11): the year a card stands at — its timeline's {at} or {from} where it has one, else the sort year
+      // of its date line (chronoYear, which honours the editor's chronology override); null for an undatable or timeless card, which the playback leaves out
+      cardYear: (id) => {
+        const c = CARD_BY_ID[id]; if (!c || cardUndatable(c)) return null;
+        const tl = cardTimelineField(c), p = tl ? tlParse(tl.at != null ? tl.at : tl.from) : null;
+        return p ? p.y : chronoYear(c);
+      },
       // "New discovery" on a place card (Phase 3c): the existing `placesSeen` register v1's Atlas panels write — read, and written on first sight
       // exactly as `showCountryPopupName` does (markSeen), without v1's sound or achievements check. No new field; the blob's shape is unchanged.
       seenPlace: (name) => !!(S.placesSeen && (S.placesSeen[name] || S.placesSeen[atlasCountryV1(name)] || S.placesSeen[atlasCountryV2(name)])),

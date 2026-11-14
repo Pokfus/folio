@@ -293,6 +293,7 @@
               <button type="button" role="radio" aria-checked="false" data-mode="personal" title="Your Atlas: the places in the cards you have studied" disabled>Personal</button>
               <button type="button" role="radio" aria-checked="false" data-mode="full" title="The Full Atlas: every place any card is about" disabled>Full</button>
             </div>
+            <button type="button" class="atlas2-study-play" hidden aria-label="Play your cards in order" title="Play your cards in order: the cards you have studied, oldest first, a few seconds each"><i aria-hidden="true">▶</i><span class="atlas2-study-play-t">Play your cards in order</span></button>
             <button type="button" class="atlas2-study-toggle" aria-expanded="false" aria-controls="atlas2-study-details" aria-label="Show the collections" title="Show the collections" hidden><i aria-hidden="true"></i></button>
           </div>
           <p class="atlas2-study-sum" aria-live="polite"></p>
@@ -300,6 +301,7 @@
           <div class="atlas2-study-details" id="atlas2-study-details" hidden>
             <p class="atlas2-study-note" hidden></p>
             <div class="atlas2-study-colls" role="group" aria-label="Collections" hidden></div>
+            <ul class="atlas2-study-meter" aria-label="Places discovered, by collection" hidden></ul>
           </div>
         </div>` : "";
     host.innerHTML = `
@@ -322,6 +324,7 @@
           <div class="atlas2-menu-head"><strong>Map</strong><button type="button" class="atlas2-menu-close" aria-label="Close the menu">×</button></div>
           <div class="atlas2-menu-body">
             <div class="atlas2-menu-study"></div>
+            <div class="atlas2-menu-progress"></div>
             <section class="atlas2-menu-sec" data-sec="layers"><button type="button" class="atlas2-menu-row" aria-expanded="false" aria-controls="atlas2-sheet"><span>Layers and legend</span><i aria-hidden="true"></i></button><div class="atlas2-menu-sec-body"></div></section>
             <section class="atlas2-menu-sec" data-sec="help"><button type="button" class="atlas2-menu-row" aria-expanded="false" aria-controls="atlas2-about"><span>Help</span><i aria-hidden="true"></i></button><div class="atlas2-menu-sec-body"></div></section>
           </div>
@@ -393,6 +396,15 @@
         <button type="button" class="atlas2-stack" hidden aria-live="polite"></button>
         <div class="atlas2-status" role="status" aria-live="polite"><span class="atlas2-bar"><i></i></span><span class="atlas2-note">Fetching the earth…</span></div>
         <div class="atlas2-caption" aria-live="polite"></div>
+        <div class="atlas2-tour" role="group" aria-label="Playing your cards in order" hidden>
+          <p class="atlas2-tour-text" aria-live="polite"><span class="atlas2-tour-year"></span><span class="atlas2-tour-title"></span><span class="atlas2-tour-n"></span></p>
+          <div class="atlas2-tour-btns">
+            <button type="button" class="atlas2-btn atlas2-tour-prev" aria-label="Previous card" title="Previous card">‹</button>
+            <button type="button" class="atlas2-btn atlas2-tour-pause" aria-label="Pause" title="Pause">❚❚</button>
+            <button type="button" class="atlas2-btn atlas2-tour-next" aria-label="Next card" title="Next card">›</button>
+            <button type="button" class="atlas2-btn atlas2-tour-stop" aria-label="Stop playing" title="Stop">■</button>
+          </div>
+        </div>
         <div class="atlas2-announce vh" aria-live="polite" aria-atomic="true"></div>
         <p class="atlas2-mode" hidden></p>
         <aside class="atlas2-card" hidden aria-label="Place">
@@ -919,6 +931,8 @@
     let menuOpen = false, searchOpen = false, fadeTimer = 0;
     if (PHONE) {
       const sp = el.querySelector(".atlas2-study"); if (sp) menuEl.querySelector(".atlas2-menu-study").appendChild(sp);
+      // the playback's button and the progress meter (2026-11) stand in the menu under the study panel, not inside it: the panel stays the size it was (a landscape phone's sheet is 180 px)
+      if (sp) { const mp = menuEl.querySelector(".atlas2-menu-progress"); for (const s of [".atlas2-study-play", ".atlas2-study-meter"]) { const n = sp.querySelector(s); if (n) mp.appendChild(n); } }
       menuEl.querySelector('[data-sec="layers"] .atlas2-menu-sec-body').appendChild(sheet);
       menuEl.querySelector('[data-sec="help"] .atlas2-menu-sec-body').appendChild(aboutEl);
     }
@@ -1708,7 +1722,7 @@
         if (changed) reflectPeoplesNote();
       } else { time.view = { faces: [], pfaces: [], present: time.present, strokePx: 0 }; if (!histStarted || time.failed) railNote.hidden = true; }
       if (wasPresent !== time.present) { if (sel.id && !G.byId.get(sel.id)?.hist && !time.present) clearSelection(); }
-      if (!o.drag && !EMBED) { try { localStorage.setItem(YEAR_KEY, String(y)); } catch (e) {} }
+      if (!o.drag && !o.noStore && !time.touring && !EMBED) { try { localStorage.setItem(YEAR_KEY, String(y)); } catch (e) {} }
       plan(); invalidate();
       if (o.why === "play") { const now = performance.now(); if (now - (time.lastPlayLayout || 0) > 500) { time.lastPlayLayout = now; requestLayout("year", true); } else requestLayout("year"); writeHash(false); }   // playing: a layout twice a second at most (one per frame starved the frame on a software rasteriser)
       else if (!o.drag) { yearFlushLater(); if (o.why !== "peoples") announce(fmtYear(y)); }   // the Peoples switch re-applies the year: it is not a year change to a screen reader
@@ -1835,7 +1849,7 @@
     railYear.addEventListener("blur", () => { if (!commitYearInput()) railYear.value = fmtYear(time.year); });
     /* playback: every year, at the chosen speed; the counter ticks every year, the map changes only at steps */
     function togglePlay() { if (time.playing) stopPlay(); else startPlay(); }
-    function startPlay() { if (time.year >= TODAY) applyYear(RAIL_FROM, { why: "play" }); time.playing = true; time.playY = time.year; time.playT = 0; railPlay.setAttribute("aria-pressed", "true"); railPlay.textContent = "❚❚"; railPlay.setAttribute("aria-label", "Pause"); invalidate(); }
+    function startPlay() { tourStop(); if (time.year >= TODAY) applyYear(RAIL_FROM, { why: "play" }); time.playing = true; time.playY = time.year; time.playT = 0; railPlay.setAttribute("aria-pressed", "true"); railPlay.textContent = "❚❚"; railPlay.setAttribute("aria-label", "Pause"); invalidate(); }
     function stopPlay() { if (!time.playing) return; time.playing = false; railPlay.setAttribute("aria-pressed", "false"); railPlay.textContent = "▶"; railPlay.setAttribute("aria-label", "Play"); applyYear(time.year, { force: true }); }
     function playStep(t) {
       if (!time.playT) { time.playT = t; return; }
@@ -1931,7 +1945,7 @@
        layout as occupied ground — the search box and its list, the zoom stack, the Legend and ? chips, an open sheet, the
        card (or its phone strip), the stack chip, the status line, the mode note, the year rail. A sheet opening or closing
        asks for a layout, so the names step out from under it. */
-    const CHROME = [".atlas2-search-btn", ".atlas2-search-in", ".atlas2-results", ".atlas2-menu-btn", ".atlas2-menu", ".atlas2-search-note", ".atlas2-study", ".atlas2-intro", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-sheet", ".atlas2-about-btn", ".atlas2-card", ".atlas2-stack", ".atlas2-status", ".atlas2-mode", ".atlas2-rail"];
+    const CHROME = [".atlas2-search-btn", ".atlas2-search-in", ".atlas2-results", ".atlas2-menu-btn", ".atlas2-menu", ".atlas2-search-note", ".atlas2-study", ".atlas2-intro", ".atlas2-zoom", ".atlas2-layers-btn", ".atlas2-sheet", ".atlas2-about-btn", ".atlas2-card", ".atlas2-stack", ".atlas2-status", ".atlas2-mode", ".atlas2-rail", ".atlas2-tour"];
     function chromeRects() {
       const base = el.getBoundingClientRect(), out = [], seen = new Set();
       for (const sel of CHROME) for (const node of el.querySelectorAll(sel)) {
@@ -3179,7 +3193,10 @@
       const sumEl = studyEl.querySelector(".atlas2-study-sum"), noteEl = studyEl.querySelector(".atlas2-study-note"), emptyEl = studyEl.querySelector(".atlas2-study-empty"), collsEl = studyEl.querySelector(".atlas2-study-colls");
       studyEl.setAttribute("data-mode", ST.mode); studyEl.setAttribute("data-ready", ST.ready ? "1" : "0");
       for (const b of studyEl.querySelectorAll("button[data-mode]")) { const on = b.getAttribute("data-mode") === ST.mode; b.setAttribute("aria-checked", String(on)); b.classList.toggle("on", on); b.disabled = !ST.ready; }
-      if (!ST.ready) { sumEl.textContent = "Reading your cards…"; noteEl.hidden = true; emptyEl.hidden = true; collsEl.hidden = true; moreEl.hidden = true; toggleEl.hidden = true; return; }
+      const playEl = el.querySelector(".atlas2-study-play"), meterEl = el.querySelector(".atlas2-study-meter");   // on a phone both stand in the menu, beside the panel
+      if (!ST.ready) { sumEl.textContent = "Reading your cards…"; noteEl.hidden = true; emptyEl.hidden = true; collsEl.hidden = true; moreEl.hidden = true; toggleEl.hidden = true; playEl.hidden = true; meterEl.hidden = true; return; }
+      // the playback (2026-11): offered once a studied card has a place and the host can date a card
+      playEl.hidden = !(SU.cardYear && ST.st && ST.st.cards.length);
       const sm = AS.summary(ST.st, ST.mode, ST.flags);
       sumEl.textContent = sm.text; sumEl.hidden = !sm.text;
       noteEl.textContent = sm.note; noteEl.hidden = !sm.note;
@@ -3188,9 +3205,15 @@
       const list = ST.mode === "map" ? [] : ST.colls.filter((c) => (ST.mode === "personal" ? c.mine : c.places) > 0);
       collsEl.hidden = !list.length;
       collsEl.innerHTML = list.map((c) => `<button type="button" role="checkbox" class="atlas2-study-coll${ST.hidden.has(c.id) ? "" : " on"}" aria-checked="${ST.hidden.has(c.id) ? "false" : "true"}" data-coll="${escText(c.id)}" title="${escText(c.name)}: ${ST.mode === "personal" ? c.mine + " of " + c.places + " places yours" : c.places + " places"}"><span class="atlas2-study-coll-n">${escText(c.name)}</span><i>${ST.mode === "personal" ? c.mine : c.places}</i></button>`).join("");
+      /* THE PROGRESS METER (2026-11): in the Personal Atlas, "X of Y places discovered" per collection — Y the places (and polities) any of the collection's
+         cards is about in card-places.js, X those the reader has discovered, which is what the Personal Atlas draws: a place of a studied card
+         (AtlasStudy.collections' `mine`, the figure the chips' titles already gave). Computed, never stored; a switched-off collection keeps its row. */
+      const meter = ST.mode === "personal" ? ST.colls.filter((c) => c.mine > 0) : [];
+      meterEl.hidden = !meter.length;
+      meterEl.innerHTML = meter.map((c) => { const pc = c.places ? Math.round(100 * c.mine / c.places) : 0; return `<li data-coll="${escText(c.id)}"><span class="atlas2-meter-name">${escText(c.name)}</span><span class="atlas2-meter-n">${c.mine.toLocaleString("en-GB")} of ${c.places.toLocaleString("en-GB")} places discovered</span><span class="atlas2-meter-bar" aria-hidden="true"><i style="width:${pc}%"></i></span></li>`; }).join("");
       // the collection chips and the note sit under a disclosure (collapsed by default on a phone, where the panel is 120 px of a 700 px frame):
       // the switch and the count line stay, the empty-state sentence is a count line too
-      const hasMore = !!list.length || !noteEl.hidden;
+      const hasMore = !!list.length || !noteEl.hidden || (!!meter.length && studyEl.contains(meterEl));
       toggleEl.hidden = !hasMore; moreEl.hidden = !(hasMore && ST.open);
       toggleEl.setAttribute("aria-expanded", String(hasMore && ST.open)); { const t = (hasMore && ST.open ? "Hide" : "Show") + (list.length ? " the collections" : " the details"); toggleEl.setAttribute("aria-label", t); toggleEl.title = t; }
       studyEl.setAttribute("data-open", hasMore && ST.open ? "1" : "0");
@@ -3210,6 +3233,75 @@
         e.preventDefault(); const n = bs[(i + (e.key === "ArrowRight" ? 1 : bs.length - 1)) % bs.length]; n.focus(); setStudyMode(n.getAttribute("data-mode"));
       });
     }
+    /* PLAYING YOUR CARDS IN ORDER (2026-11, on request): the "Play your cards in order" button under the count line (in the menu on a phone) steps
+       through the reader's STUDIED cards that have a place (ST.st.cards — the host's studiedCards() joined with card-places.js), oldest first, one card
+       every TOUR_MS: the year is set to the card's year, the view flies to its first place that has a point (an instant jump under reduced motion —
+       `flyTo` already asks `reduced()`, which is the host's motionOff), and the bar above the rail shows the year and the card's title with previous,
+       pause, next and stop. The year is the host's `cardYear` (the card's timeline {at} or {from}, else the sort year of its date line; null for an
+       undatable or timeless card, which is left out). A collection switched off in the study panel leaves its cards out. NOTHING IS WRITTEN: no popup
+       opens (so `markDiscovery` never runs and `placesSeen` is untouched), no year is remembered while it runs (`time.touring`, and `noStore` on its own steps: a re-application of the year by the history or the Peoples switch would store it too), and
+       the selection is made with push: false. A drag or a pinch on the map pauses it. */
+    const TOUR_MS = 3000;
+    const tourEl = el.querySelector(".atlas2-tour"), tourYear = tourEl.querySelector(".atlas2-tour-year"), tourTitle = tourEl.querySelector(".atlas2-tour-title"), tourN = tourEl.querySelector(".atlas2-tour-n"), tourPause = tourEl.querySelector(".atlas2-tour-pause");
+    const TOUR = { list: null, i: 0, playing: false, timer: 0 };
+    function tourList() {
+      const out = [];
+      if (!ST.ready || !ST.st || !SU || !SU.cardYear) return out;
+      for (const cid of ST.st.cards) {
+        const i = info(cid); if (i && i.collId && ST.hidden.has(i.collId)) continue;
+        let y = null; try { y = SU.cardYear(cid); } catch (e) { y = null; }
+        if (y == null || !isFinite(y)) continue;
+        let row = null; for (const id of ST.idx.placesOfCard.get(cid) || []) { const r = G.byId.get(id); if (r && r.at) { row = r; break; } }
+        out.push({ id: cid, year: y, row, title: (i && i.title) || cid });
+      }
+      return out.sort((a, b) => a.year - b.year || (a.title < b.title ? -1 : a.title > b.title ? 1 : 0));
+    }
+    function tourShow(i) {
+      const L0 = TOUR.list; if (!L0 || !L0.length) return;
+      TOUR.i = Math.max(0, Math.min(L0.length - 1, i));
+      const c = L0[TOUR.i];
+      tourYear.textContent = c.year < 0 ? (-c.year).toLocaleString("en-GB") + " BCE" : c.year + " CE"; tourTitle.textContent = c.title; tourN.textContent = (TOUR.i + 1) + " of " + L0.length;
+      applyYear(clampYear(c.year), { why: "tour", noStore: true });
+      if (c.row) { const row = c.row; flyTo(row.at[0], row.at[1], Math.max(2.5, kmppFor(row)), () => { if (TOUR.list && TOUR.list[TOUR.i] === c) selectRow(row, { push: false }); }); }
+      tourArm();
+    }
+    function tourArm() {
+      clearTimeout(TOUR.timer); TOUR.timer = 0;
+      if (!TOUR.playing || !TOUR.list) return;
+      TOUR.timer = setTimeout(() => { TOUR.timer = 0; if (disposed || !TOUR.list) return; if (TOUR.i >= TOUR.list.length - 1) tourSetPlaying(false); else tourShow(TOUR.i + 1); }, TOUR_MS);
+    }
+    function tourSetPlaying(on) {
+      TOUR.playing = !!on;
+      tourPause.textContent = on ? "❚❚" : "▶"; tourPause.setAttribute("aria-label", on ? "Pause" : "Play"); tourPause.title = on ? "Pause" : "Play";
+      tourArm();
+    }
+    function tourStart() {
+      const list = tourList();
+      if (time.playing) stopPlay();
+      if (PHONE) showMenu(false);
+      closeCard();
+      TOUR.list = list; time.touring = true; tourEl.hidden = false; el.classList.add("atlas2-touring");
+      if (!list.length) { tourYear.textContent = ""; tourN.textContent = ""; tourTitle.textContent = "None of the studied cards with a place has a date to play in order."; TOUR.playing = false; tourPause.disabled = true; requestLayout("chrome", true); return; }
+      tourPause.disabled = false;
+      tourSetPlaying(true); tourShow(0);
+      requestLayout("chrome", true);
+      tourPause.focus({ preventScroll: true });
+    }
+    function tourStop() {
+      if (!TOUR.list) return;
+      clearTimeout(TOUR.timer); TOUR.timer = 0; TOUR.list = null; TOUR.playing = false; time.touring = false;
+      const back = tourEl.contains(document.activeElement);
+      tourEl.hidden = true; el.classList.remove("atlas2-touring");
+      requestLayout("chrome", true);
+      if (back) canvas.focus({ preventScroll: true });
+    }
+    tourEl.querySelector(".atlas2-tour-prev").addEventListener("click", () => { if (TOUR.list && TOUR.list.length) tourShow(TOUR.i - 1); });
+    tourEl.querySelector(".atlas2-tour-next").addEventListener("click", () => { if (TOUR.list && TOUR.list.length) tourShow(TOUR.i + 1); });
+    tourPause.addEventListener("click", () => { if (!TOUR.list || !TOUR.list.length) return; if (TOUR.playing) tourSetPlaying(false); else if (TOUR.i >= TOUR.list.length - 1) { tourSetPlaying(true); tourShow(0); } else { tourSetPlaying(true); tourShow(TOUR.i + 1); } });
+    tourEl.querySelector(".atlas2-tour-stop").addEventListener("click", tourStop);
+    { const pb = el.querySelector(".atlas2-study-play"); if (pb) pb.addEventListener("click", tourStart); }   // in the panel on a desktop, in the menu on a phone
+    tourEl.addEventListener("keydown", (e) => { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); tourStop(); } });
+    canvas.addEventListener("pointerdown", () => { if (TOUR.list && TOUR.playing) tourSetPlaying(false); });
     /* THE CARDS SET HERE — the whole of the popup's body (2026-10-19, the owner's phone: "only its name and the cards set in that location, formatted nicely for a phone").
        One row per card, the row itself the tap target (a link to the card): the card's title on one or two lines, the deck's name beneath it in a small muted line, the DUE badge
        at the right (the host's `cardInfo`: `deck` the leaf it is filed in, `due` isDueNow). The Personal Atlas lists the reader's own cards, the Full Atlas every card of a collection
@@ -3239,6 +3331,7 @@
       if (raf) cancelAnimationFrame(raf);
       if (layoutTimer) clearTimeout(layoutTimer);
       if (tapTimer) clearTimeout(tapTimer);
+      clearTimeout(TOUR.timer);
       if (longObs) { try { longObs.disconnect(); } catch (e) {} }
       landTiles.abortAll(); waterTiles.abortAll(); reliefTiles.abortAll();
       if (worker) { try { worker.terminate(); } catch (e) {} worker = null; }
