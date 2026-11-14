@@ -50,7 +50,7 @@ window.CHANGELOG = [
       "A chest's reveal now shows the artefact's first sentence and how far through its set you are.",
       "The Reliquary shows progress per rarity and per <b>set</b>, filters by either, and marks what is new since your last visit.",
       "A friend's collection now shows what you both have, and which of their artefacts you are missing.",
-      "<b>10 more China cards are rewritten</b>, from the Red Turban Rebellions to the Yongle Emperor.",
+      "<b>20 more China cards are rewritten</b>, from the Red Turban Rebellions to the wokou.",
     ],
   },
   {

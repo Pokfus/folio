@@ -527,7 +527,7 @@ otherwise.
 | B49 | Jurchen Jin (`col-30`) / Yuan (`col-31`) | `cnh-481`–`cnh-490` | 10 | 110 | **done 2026-11-13** |
 | B50 | Yuan (`col-31`) | `cnh-491`–`cnh-500` | 10 | 100 | **done 2026-11-13** |
 | B51 | Yuan (`col-31`) / Ming (`col-32`) | `cnh-501`–`cnh-510` | 10 | 107 | **done 2026-11-14** |
-| B52 | Ming (`col-32`) | `cnh-511`–`cnh-520` | 10 | 108 | to do |
+| B52 | Ming (`col-32`) | `cnh-511`–`cnh-520` | 10 | 108 | **done 2026-11-14** |
 | B53 | Ming (`col-32`) | `cnh-521`–`cnh-530` | 10 | 105 | to do |
 | B54 | Ming (`col-32`) / Qing (`col-33`) | `cnh-531`–`cnh-540` | 10 | 108 | to do |
 | B55 | Qing (`col-33`) | `cnh-541`–`cnh-550` | 10 | 109 | to do |
@@ -1128,6 +1128,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-508` | none | not re-checked (pictures paused): wanted |
 | `cnh-509` | none | not re-checked (pictures paused): wanted |
 | `cnh-510` | none | not re-checked (pictures paused): the glossary's seated portrait looks right |
+| `cnh-511` | none | not re-checked (pictures paused): wanted |
+| `cnh-512` | none | not re-checked (pictures paused): wanted — the glossary's printed plan carries burned-in English labels |
+| `cnh-513` | none | not re-checked (pictures paused): wanted — a surviving volume (a library record) |
+| `cnh-514` | none | not re-checked (pictures paused): the glossary's statue looks fine |
+| `cnh-515` | none | not re-checked (pictures paused): wanted |
+| `cnh-516` | none | not re-checked (pictures paused): the glossary's court portrait looks right |
+| `cnh-517` | none | not re-checked (pictures paused): wanted |
+| `cnh-518` | none | not re-checked (pictures paused): wanted |
+| `cnh-519` | none | not re-checked (pictures paused): wanted |
+| `cnh-520` | none | not re-checked (pictures paused): wanted — the *Wokou tujuan* scroll |
 
 ## Glossary candidates
 
@@ -3440,3 +3450,38 @@ confirmed (the *Mingshi* juan 4). **check-citations**: two false alarms — `cnh
 the owner: `cnh-504`'s days (21 October 1328, 23 January 1368, 24 June 1398) on no page read as Western dates (the Palace Museum
 gives Chinese dates); `cnh-510`'s 2 May 1360 and the reign days on no page read, and its "Nanjing, Jiangsu" birthplace disputed.
 The timelines of `cnh-501` (1351 – 1368) and `cnh-506` (1380 – 1393) were set with `set-timeline.js`.
+
+### B52 — `cnh-511`–`cnh-520`, Ming: Beijing to the wokou (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl. **Pictures were not touched.** **The old cards cited the *Mingshi*
+(two to five juan a card), Gu Yingtai's *Mingshi jishi benmo*, the 1431 steles, Ma Huan and the *Dongxi yang kao* on Chinese
+Wikisource, dated Beijing by the traditional Zhou enfeoffment of Yan ("Founding 1045 BCE") and by a "Peak 15th – 18th centuries",
+gave the Tumu Crisis a battle template, named Jizhou and the Hanlin in labels, and carried regnal-year conversions (Zheng He's 1425
+Nanjing post, the wokou's 1369 envoy and 1384 walls, "Fujian cleared 1564").** Each card now reads one Chinese text, the *Mingshi*
+(juan 7, 8, 40, 98, 212, 304, 320, 322, 328) in the Siku edition on the Kanseki Repository.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-511` Beijing | 9 | 9 → 9 | **"Founding 1045 BCE" (another event, on no page) and "Peak 15th – 18th centuries" (not a date) off: `Renamed 1403` / `Made capital 1421` / `Confirmed 1441` / `Outer wall 1553` (Sirén, Campbell, Theobald, Cho); the *Mingshi* juan 40; the outer wall cut back to the south, the Tartar and Chinese Cities, the travelling residence and the Nanjing rivalry**; Yule, Cordier and Khanbaliq's clues (`cnh-487`'s) dropped. |
+| `cnh-512` Forbidden City | 9 | 9 → 9 | **`Ordered 1406` / `Finished 1420` / `Court moved in 1421` / `Museum founded 1925`; the *Mingshi* juan 7; Campbell 2020 on 1406 against 1417, the eunuch measuring the Nanjing halls, the three halls burned and the critic put to death, Puyi escorted out and the museum the next year (the Palace Museum)**; Sirén's walls and the Columbia page dropped. |
+| `cnh-513` Yongle Encyclopedia | 7 | 7 → 7 | **"Completed 1407" now `Completed 1408` (the Library of Congress; the Qing catalogue's December 1407 kept in prose); "Hanlin fire" → `Burned 1900`; the *Mingshi* juan 98: filed by rhyme, titles in red, the *Wenxian dacheng* enlarged under Yao Guangxiao, too costly to print, the copy of 1562 – 1567 by 109 scribes**; the second juan (Xie Jin's death in snow) dropped. |
+| `cnh-514` Zheng He | 8 | 9 → 8 | **The *Mingshi* juan 304 for three Wikisource texts; the Ma family of Yunnan, the eunuch Sanbao, first defender of Nanjing under the Hongxi Emperor, the late Qing reformers' navigator and the Belt and Road (Gaffric [in French]); the steles left to `cnh-515`**; the converted 1425 dropped. Protected: the line stays (flagged below). |
+| `cnh-515` Ming treasure voyages | 7 | 7 → 8 | **"Changle stele 1431" (no open copy read) off: `First ordered 11 July 1405` / `Voyages 1405 – 1433` / `Last ordered 29 June 1430` (Wade's *Ming Shi-lu*); the *Mingshi*'s 62 ships of 44 zhang and 27,800 men told as its figures, Groeneveldt calling them improbable; Chen Zuyi at Palembang; Ma Huan at Calicut (Rockhill)**; Ma Huan's 63 ships and 180 physicians (on no page read) dropped. |
+| `cnh-516` Hongxi Emperor | 6 | 8 → 7 | **The *Mingshi* juan 8 only: Beiping held with ten thousand men against Li Jinglong, the accession amnesty calling the ships home, Zhu Gaoxu and Zhu Gaosui's slanders and the end of slander prosecutions; the halt of 1424 in the background**; juan 149 (Xia Yuanji's advice and jailing) dropped. Protected: the line stays (flagged below). |
+| `cnh-517` Tumu Crisis | 6 | 6 → 6 | **The template off: `Army set out 4 August 1449` / `Fought 1 September 1449` / `Captive returned 29 September 1450` (İzbasar [in Turkish] prints each day); the *Mingshi* juan 328: the waterless hill and Wang Zhen's carts, Esen and the red glow, the Prince of Cheng enthroned, Yu Qian against flight; the army's 500,000 first written from hearsay**; two more Chinese texts dropped. |
+| `cnh-518` Ming Great Wall | 7 | 7 → 7 | **"Jizhou towers" (a place) → `Hollow towers 1569 – 1571`, `Early walls 1436 – 1464` added before `Main building 1465 – 1620` (Yang, Zhang and Li 2024; agrees with `wh-407`); the *Mingshi* juan 212 (Qi Jiguang); ten provinces from Hushan to Jiayu Pass, the "herding horses" raids (Temule), the drone survey of 602 towers, Geil's building tablet**; four Chinese texts dropped. |
+| `cnh-519` tributary system | 7 | 7 → 7 | **Told as a modern scholars' label (Fairbank's) for the Ming's own tribute; the line stays empty (no year a page prints for the term); the *Mingshi* juan 320: Chosŏn named by the Hongwu Emperor, Korea excused gold and silver, the weasel-hair brushes; the Ashikaga "King of Japan" selling the tallies**; the *Huang Ming zuxun*'s fifteen countries and Altan Khan (`cnh-781`'s) dropped. **Name → 朝贡体系 cháogòng tǐxì** (Chen 2020). |
+| `cnh-520` Wokou | 6 | 6 → 6 | **"Fujian cleared 1564" (a conversion) off: `Worst raids 1552 – 1557` (Liu 2024); the *Mingshi* juan 322: three in ten true Japanese, Wang Zhi on the Gotō Islands, the twenty raiders steamed to death at Ningbo**; Zhu Wan and Shuangyu (`cnh-521`'s) and the converted 1369 and 1384 dropped. |
+
+Read by eye. **Confusability**: Khanbaliq stays `cnh-487`'s; the move to Beijing in 1421 is `cnh-511`'s clue as the capital and
+`cnh-512`'s as the palace (each its own angle); the voyages' ships and figures `cnh-515`'s, Zheng He's life `cnh-514`'s; the halt of
+1424 `cnh-516`'s; the Altan Khan investiture left to `cnh-781`. **Legend**: Zheng He's ships (the *Mingshi*'s, doubted since
+Groeneveldt), Esen and the red glow (the *Mingshi*), the Tumu army's size (hearsay first written down) are each a text's.
+**Chinese names corrected**: `cnh-519` 朝贡 → 朝贡体系 cháogòng tǐxì. Kept unconfirmed: 郑和下西洋 (the *Mingshi* prints
+遣太監鄭和帥舟師下西洋, not the bare compound), 洪熙帝 — for the owner. **Spellings fixed**: none needed; 0 hits. **Myth register**:
+Zheng He's ships confirmed (the *Mingshi* juan 304: 62 ships, 44 zhang by 18, 27,800 men); the Tumu Crisis confirmed (the *Mingshi*
+blames Wang Zhen; its dead "several hundred thousand"); the Yongle Encyclopedia corrected (finished 1408, the Library of Congress;
+the Qing catalogue's December 1407). The "1421" claim was not met. **check-citations**: no mismatch. **Protected lines: unchanged**
+(diffed after the apply). For the owner: `cnh-514`'s Kunming on no page read (the *Mingshi* and Gaffric: Yunnan); `cnh-516`'s 16
+August 1378 on no page read (Theobald: the year only), and its "age 46" against the annals' 48 (Chinese count). The timelines of
+`cnh-513` (a text) and `cnh-519` (a concept) were not set; `cnh-515` and `cnh-517` keep theirs.

@@ -682,6 +682,13 @@ single whip 1581 (`cnh-381`), the examinations ended 1905 (`cnh-348`, `cnh-427`)
 | the Central Secretariat created / adopted by the Yuan / abolished | 220 – 226 CE / 1260 / 1380 | Theobald (`cnh-507`) |
 | the Grand Secretariat formed / abolished | 1402 / 8 May 1911 | Dardess; Brunnert and Hagelstrom (`cnh-508`) |
 | the Jingnan campaign | 1399 – 1402 | Chan (`cnh-509`) |
+| Beijing renamed / made capital / confirmed / its outer wall | 1403 / 1421 / 1441 / 1553 | Sirén; Campbell; Theobald; Cho (`cnh-511`) |
+| the Forbidden City ordered / finished / the court moved in / the museum | 1406 / 1420 / 1421 / 1925 | Campbell; the Palace Museum (`cnh-512`) |
+| the Yongle Encyclopedia ordered / finished / recopied / burned | 1403 / 1408 / 1562 – 1567 / 1900 | the Library of Congress (`cnh-513`) |
+| the treasure voyages: the first order / the span / the last order | 11 July 1405 / 1405 – 1433 / 29 June 1430 | Wade's *Ming Shi-lu* (`cnh-515`) |
+| the Tumu Crisis: the army out / the battle / the captive returned | 4 August 1449 / 1 September 1449 / 29 September 1450 | İzbasar (`cnh-517`) |
+| the Ming Great Wall: early walls / main building / the hollow towers | 1436 – 1464 / 1465 – 1620 / 1569 – 1571 | Yang, Zhang and Li (`cnh-518`) |
+| the wokou's worst raids | 1552 – 1557 | Liu (`cnh-520`) |
 
 ## Later periods
 
@@ -1220,4 +1227,11 @@ cnh-506: 1380; 1390; 1393
 cnh-507: 220; 226; 1260; 1380
 cnh-508: 1402; 1911
 cnh-509: 1399; 1402
+cnh-511: 1403; 1421; 1441; 1553
+cnh-512: 1406; 1420; 1421; 1925
+cnh-513: 1403; 1408; 1562; 1567; 1900
+cnh-515: 1405; 1433; 1430
+cnh-517: 1449; 1450
+cnh-518: 1436; 1464; 1465; 1620; 1569; 1571
+cnh-520: 1552; 1557
 ```
