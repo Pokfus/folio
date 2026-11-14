@@ -386,6 +386,7 @@
               <div><dt>/</dt><dd>find a place</dd></div>
               <div><dt>[ ]</dt><dd>the previous or next change year of what is on screen</dd></div>
             </dl>
+            <p class="atlas2-about-p atlas2-about-keys"><button type="button" class="atlas2-link" data-keysheet>Every keyboard shortcut</button></p>
             <label class="atlas2-about-perf"><input type="checkbox" class="atlas2-perf-switch"> Show frame statistics</label>
           </div>
         </div>

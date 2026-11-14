@@ -3216,12 +3216,16 @@ body.night .gshare-text{background:#ffffff0d;}
 .ks-card h2{font-family:var(--display); font-weight:600; font-size:calc(19px * var(--fs)); color:var(--ink); margin:0 0 14px;}
 .ks-group{margin:0 0 16px;}
 .ks-group h3{font-family:var(--sans); font-size:calc(10.5px * var(--fs)); letter-spacing:.09em; text-transform:uppercase; color:var(--ink-quiet); margin:0 0 7px;}
-.ks-row{display:flex; align-items:baseline; gap:12px; padding:3px 0;}
-.ks-row kbd{flex:none; min-width:5.6em; font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink); background:var(--paper-2); border:1px solid var(--rule); border-bottom-width:2px; border-radius:5px; padding:2px 6px; text-align:center;}
+.ks-row{display:grid; grid-template-columns:8em 1fr; align-items:baseline; gap:12px; padding:3px 0;}   /* a fixed key column, so a long key ("Page Up / Down") does not push its own line out of step */
+.ks-row kbd{justify-self:start; min-width:5.6em; font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink); background:var(--paper-2); border:1px solid var(--rule); border-bottom-width:2px; border-radius:5px; padding:2px 6px; text-align:center;}
 .ks-row span{font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink-soft);}
 .ks-none{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink-quiet); margin:0;}
 .ks-x{position:absolute; top:10px; right:12px; width:28px; height:28px; border:0; background:none; color:var(--ink-quiet); font-size:calc(20px * var(--fs)); line-height:1; cursor:pointer; border-radius:6px;}
 .ks-x:hover{color:var(--ink); background:var(--paper-2);}
+.ks-all{appearance:none; border:0; background:none; padding:0; font:inherit; color:var(--indigo-bright, var(--indigo)); text-decoration:underline; cursor:pointer;}
+/* high contrast: the key caps and the card's edge take the ink, as every other border does under body.hc */
+body.hc .ks-card, body.hc .ks-row kbd{border-color:var(--ink);}
+body.hc .ks-row span{color:var(--ink);}
 .handoff-row{display:block; width:100%; text-align:left; margin:0 0 12px; padding:12px 15px; border:1px solid color-mix(in srgb, var(--indigo) 34%, var(--rule)); border-radius:12px; background:var(--card); box-shadow:var(--shadow-sm); cursor:pointer;}
 .handoff-row:hover{border-color:var(--indigo);}
 .ho-lead{display:block; font-family:var(--display); font-weight:600; font-size:calc(14.5px * var(--fs)); color:var(--indigo);}

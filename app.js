@@ -16351,7 +16351,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Ctrl+Z undoes a grade they cannot see. Written twice they would drift, and the drift is invisible. */
   /* A LIVE walkthrough step is using the page (see TOUR_STEPS), so it does not own the keyboard, and a
      hidden one is waiting behind a chest; the badge overlay does own it. */
-  const OVERLAY_SEL = ".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu, .folio-tour:not(.tour-live):not([hidden]), .artefact-pop, .chest-pop, .ach-pop";
+  const OVERLAY_SEL = ".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu, .folio-tour:not(.tour-live):not([hidden]), .artefact-pop, .chest-pop, .ach-pop, .key-sheet";
   function overlayOpen() { return !!document.querySelector(OVERLAY_SEL); }
   function swipeEnabled() {
     if (!window.matchMedia || !matchMedia("(max-width:640px)").matches) return false;
@@ -46046,6 +46046,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             <div class="info"><h3>How Folio studies you</h3><p>Several of the settings on this page make studying feel harder on purpose. This says which, and what the evidence behind each of them actually is.</p></div>
             <div class="ctl"><button class="btn ghost" id="howLink">Read it</button></div>
           </div>
+          <div class="set-row">
+            ${/* THE KEYBOARD SHEET'S OTHER DOOR (Nov 2026): `?` opens it on a keyboard; this opens it with every
+                  page's keys, for a reader on a touch screen or one who never thought to press `?`. Wired by
+                  the document-level [data-keysheet] listener beside openKeySheet. */""}
+            <div class="info"><h3>Keyboard shortcuts</h3><p>The keys each page answers to. On a keyboard, press <kbd>?</kbd> on any page for that page’s list.</p></div>
+            <div class="ctl"><button class="btn ghost" type="button" data-keysheet="all">Show</button></div>
+          </div>
         </div>
         </div>
         <div class="set-card danger">
@@ -49908,50 +49915,114 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     route("search");
   });
-  /* ---------- ? — THE KEYS, WHEREVER YOU ARE (Sep 2026) ----------
+  /* ---------- ? — THE KEYS, WHEREVER YOU ARE (Sep 2026; re-inventoried Nov 2026) ----------
      The study page has documented its own keys in the grade bar's `?` bubble since it shipped and the
-     Atlas its click drill-down in its coach marks; the card browser, the Library, the reader and the
-     games have shortcuts documented NOWHERE. One overlay, page-aware: the global keys always, and the
-     current page's underneath them when it has any.
+     Atlas its keys in its About sheet; the Library, the home page and the games have shortcuts documented
+     NOWHERE. One overlay, page-aware: the global keys always, and the current page's underneath them when
+     it has any.
      IT IS `?` AND IT IS THE CHARACTER, NOT THE KEY POSITION — `e.key === "?"` is what a reader who has
      just typed a question mark pressed, on any layout, where `Shift` plus the key beside the full stop
-     is only true of some. The guards are `/`'s exactly, one line down, and for the same reasons.
-     ON A PHONE IT IS UNREACHABLE AND THAT IS FINE: there is no keyboard to describe. */
+     is only true of some. The guards are `/`'s exactly, one line up, and for the same reasons.
+     EVERY ROW IS A HANDLER THAT EXISTS (Nov 2026). The table was re-read against the code — the Sep table
+     promised keys on the card browser, the Timeline game and the reader's Esc that nothing listened for, and
+     a list of shortcuts that do not work is worse than none. Add a row only beside the handler it describes.
+     A PAGE THAT ALREADY OWNS `?` KEEPS IT: the Atlas's map canvas opens its own About sheet on `?` (it calls
+     preventDefault, so `e.defaultPrevented` below lets it be), and that sheet carries a link to this one.
+     `[data-keysheet]` anywhere opens it — Settings' "Keyboard shortcuts" row with `="all"`, which lists every
+     page, so a reader on a touch screen can find what a keyboard would do.
+     It is a real modal: `.key-sheet` is in OVERLAY_SEL so a page's keys (a study grade, a chapter turn) do
+     not fire under it, a window CAPTURE listener swallows every key but its own while it is open, Tab is held
+     inside it, and focus goes back where it came from.
+     ON A PHONE THE KEY IS UNREACHABLE AND THAT IS FINE: Settings is the door there. */
+  const KS_MAPWIN = [["← ↑ → ↓", "Move the map"], ["+  −", "Zoom in and out"], ["Home", "Back to the whole view"]];
   const KEY_SHEET = {
-    "": [["/", "Search everything"], ["Ctrl + K", "Search everything, from anywhere"], ["?", "This list"], ["Esc", "Close whatever is open"]],
-    study: [["Space", "Reveal the answer"], ["1 – 4", "Again, Hard, Good, Easy"], ["Enter", "Good"],
-            ["I", "This card's history and actions"], ["Ctrl + Z", "Take the last grade back"],
-            ["Ctrl + 1 – 7", "Flag this card"]],
-    browse: [["Enter", "Open the card under the caret"], ["Ctrl + 1 – 7", "Flag what is selected"]],
-    book: [["\u2190 \u2192", "Previous and next chapter"], ["Esc", "Back to the shelf"]],
-    map: [["[  ]", "Step back and forward through the years"], ["Enter", "Open what is selected"],
-          ["Esc", "Clear the selection"], ["+ \u2212", "Zoom"]],
-    chrono: [["1 – 5", "Pick a card"], ["\u2190 \u2192", "Move it in the order"], ["Enter", "Lock the order in"]],
+    "": [{ rows: [["/", "Search everything"], ["Ctrl + K", "Search everything, even from a text box"], ["?", "This list"],
+                  ["Esc", "Close a glossary term, a picture, a pop-up or this list"]] }],
+    home: [{ rows: [["← →", "On the reading box: switch between your book and a suggestion"],
+                    ["↑ ↓", "On a deck’s grip: move the deck up or down your list"],
+                    ["Shift + F10", "On a deck row: its options (the Menu key too)"]] }],
+    study: [{ rows: [["Space", "Reveal the answer"], ["Enter", "Reveal the answer, then grade it Good"],
+                     ["1 – 4", "Again, Hard, Good, Easy"], ["I", "This card’s history and actions"],
+                     ["Ctrl + Z", "Take the last grade back"], ["Ctrl + 1 – 7", "Flag this card (again to remove)"],
+                     ["Ctrl + 0", "Remove the flag"]] },
+            { h: "A map on a card, once selected", rows: KS_MAPWIN }],
+    book: [{ rows: [["← →", "Previous and next chapter"]] }],
+    map: [{ h: "The globe, once selected", rows: [["← ↑ → ↓", "Turn the globe"], ["+  −", "Zoom in and out"],
+                     ["Home or 0", "The whole earth"], ["[  ]", "The previous or next change year"], ["/", "Find a place"],
+                     ["R", "Relief on or off"], ["?", "About this map"], ["Esc", "Close the place, the legend or the sheet"],
+                     ["Tab, Enter", "Walk the names on the map; open one"]] },
+          { h: "The year rail, once selected", rows: [["← →", "A year back or forward (Shift: ten)"], ["Page Up / Down", "A hundred years"],
+                     ["Home / End", "The first year / today"], ["[  ]", "The previous or next change year"], ["Space, Enter", "Play or pause"]] }],
+    findit: [{ h: "The globe, once selected", rows: [["Enter", "Drop a pin at the centre, then confirm it"]].concat(KS_MAPWIN) }],
+    crossword: [{ rows: [["← ↑ → ↓", "Move between squares"], ["Backspace", "On an empty square: step back"],
+                         ["Enter", "The next clue"]] }],
+    pie: [{ h: "The pie, once selected", rows: [["← →", "One per cent less or more"], ["Page Up / Down", "Ten per cent"],
+                   ["Home / End", "0 or 100 per cent"], ["Enter", "Lock in your answer"]] }],
+    admin: [{ rows: [["↑ ↓", "The previous or next entry in the list"], ["Ctrl + Z", "Undo the last edit"],
+                     ["Ctrl + B / I", "Bold or italic, in a text field (U: underline, in the rich editor)"]] }],
   };
-  function openKeySheet() {
+  const ksPageName = (page) => page === "home" ? "Home" : esc((PAGE_META[page] || [page])[0].split(" — ")[0]);   // the home page's title is the site's
+  let _ksReturn = null;
+  function openKeySheet(all) {
     if (document.getElementById("keySheet")) return closeKeySheet();
     const page = (current && current.name) || "";
     const rows = (list) => list.map((r) => '<div class="ks-row"><kbd>' + esc(r[0]) + "</kbd><span>" + esc(r[1]) + "</span></div>").join("");
-    const own = KEY_SHEET[page];
+    const groups = (page, title) => KEY_SHEET[page].map((g) =>
+      '<div class="ks-group"><h3>' + title + (g.h ? " · " + esc(g.h) : "") + "</h3>" + rows(g.rows) + "</div>").join("");
+    const pages = Object.keys(KEY_SHEET).filter((k) => (k && k !== "admin") || (k === "admin" && isAdmin()));
+    let body;
+    if (all) body = pages.map((k) => groups(k, ksPageName(k))).join("");
+    else body = KEY_SHEET[page] && page !== "" ? groups(page, ksPageName(page))
+      : '<p class="ks-none">This page has no shortcuts of its own. <button type="button" class="ks-all" data-keysheet="all">Show every page’s</button></p>';
+    const ae = document.activeElement;
+    if (ae && ae !== document.body && ae.isConnected) _ksReturn = ae;   // after closeKeySheet(true) it is the body, and the old opener stands
     const el = document.createElement("div");
     el.id = "keySheet";
     el.className = "key-sheet";
     el.innerHTML =
-      '<div class="ks-card" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">' +
-      '<button type="button" class="ks-x" aria-label="Close">\u00d7</button>' +
-      "<h2>Keyboard</h2>" +
-      '<div class="ks-group"><h3>Anywhere</h3>' + rows(KEY_SHEET[""]) + "</div>" +
-      (own ? '<div class="ks-group"><h3>' + esc((PAGE_META[page] || [page])[0].split(" \u2014 ")[0]) + "</h3>" + rows(own) + "</div>"
-           : '<p class="ks-none">This page has no shortcuts of its own.</p>') +
+      '<div class="ks-card" role="dialog" aria-modal="true" aria-labelledby="ksTitle">' +
+      '<button type="button" class="ks-x" aria-label="Close">×</button>' +
+      '<h2 id="ksTitle">Keyboard shortcuts</h2>' +
+      '<div class="ks-group"><h3>Anywhere</h3>' + rows(KEY_SHEET[""][0].rows) + "</div>" + body +
       "</div>";
     document.body.appendChild(el);
-    el.addEventListener("click", (ev) => { if (ev.target === el || ev.target.closest(".ks-x")) closeKeySheet(); });
+    el.addEventListener("click", (ev) => {
+      if (ev.target === el || ev.target.closest(".ks-x")) { closeKeySheet(); return; }
+      if (ev.target.closest(".ks-all")) { ev.stopPropagation(); closeKeySheet(true); openKeySheet(true); }
+    });
     const x = el.querySelector(".ks-x"); if (x) x.focus();
   }
-  function closeKeySheet() { const el = document.getElementById("keySheet"); if (el) el.remove(); }
+  function closeKeySheet(keepReturn) {
+    const el = document.getElementById("keySheet"); if (!el) return;
+    el.remove();
+    if (keepReturn) return;
+    const back = _ksReturn; _ksReturn = null;
+    if (back && back.isConnected && back.focus) { try { back.focus({ preventScroll: true }); } catch (err) {} }
+  }
+  // the doors that are not a key: Settings' row, the Atlas's About sheet, the sheet's own "every page"
+  document.addEventListener("click", (e) => {
+    const b = e.target && e.target.closest ? e.target.closest("[data-keysheet]") : null;
+    if (!b || b.closest("#keySheet")) return;
+    e.preventDefault();
+    closeKeySheet(true);
+    openKeySheet(b.getAttribute("data-keysheet") === "all");
+  });
+  // while it is open it owns the keyboard: Esc and `?` close it, Tab stays inside it, and nothing reaches the page
+  window.addEventListener("keydown", (e) => {
+    const el = document.getElementById("keySheet");
+    if (!el) return;
+    if (e.key === "Escape" || (e.key === "?" && !e.ctrlKey && !e.metaKey && !e.altKey)) {
+      e.preventDefault(); e.stopPropagation(); closeKeySheet(); return;
+    }
+    if (e.key === "Tab") {
+      const f = [...el.querySelectorAll("button")].filter((b) => !b.disabled && b.offsetParent !== null);
+      const i = f.indexOf(document.activeElement);
+      if (f.length && (i < 0 || (e.shiftKey ? i === 0 : i === f.length - 1))) { e.preventDefault(); (e.shiftKey ? f[f.length - 1] : f[0]).focus(); }
+    }
+    e.stopPropagation();   // the default still happens — Enter on the close button, arrows scrolling the list
+  }, true);
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && document.getElementById("keySheet")) { e.preventDefault(); return closeKeySheet(); }
-    if (e.key !== "?" || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.key !== "?" || e.ctrlKey || e.metaKey || e.altKey || e.defaultPrevented) return;
     const t = e.target;
     if (t && (t.matches("input, textarea, select") || t.isContentEditable)) return;
     if (typeof overlayOpen === "function" && overlayOpen()) return;

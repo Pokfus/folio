@@ -5125,7 +5125,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `render()`'s close list beside `closePageHelp()`, and its `?` handler carries the `/` search
     handler's guards exactly. **Its scrim is `#000`, never `var(--ink)`**: that token is the LIGHTEST
     thing a dark theme has, so an ink-mixed scrim is a white veil at night — `test-layout.js`'s
-    `scrimCheck` catches it statically.
+    `scrimCheck` catches it statically. **Every row is a handler that exists** (Nov 2026 re-inventory: the
+    Sep table promised card-browser, Timeline and reader-Esc keys nothing listened for) — add a row only beside
+    the handler it describes. **It is a real modal**: `.key-sheet` is in `OVERLAY_SEL` (a study grade cannot
+    fire under it), a window CAPTURE listener swallows every other key while it is open and holds Tab inside
+    it, and focus returns to the opener. **A page that owns `?` keeps it**: the `?` handler yields on
+    `e.defaultPrevented`, so the Atlas canvas's `?` still opens About, whose "Every keyboard shortcut" link
+    opens the sheet; any `[data-keysheet]` opens it, and Settings' Guides row (`data-keysheet="all"`) lists
+    every page's keys for a touch reader.
   · **AND THE HOME PAGE SAYS HOW FAR THE NEXT ARTEFACT IS** (the `nextChest` block in `PAGES.home`,
     `.rv-chestnext`). **It names the NEAREST channel and only that**: four lines would be a scoreboard
     for something meant to be a small pleasure. **It is silent while a chest is already WAITING**,
