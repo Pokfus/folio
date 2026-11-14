@@ -5626,6 +5626,13 @@ body.grading .wb-tools{bottom:108px;}
 .learn-more-sub{font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.4; color:var(--ink-soft);}
 .learn-more-logo{flex:none; width:44px; height:44px; border-radius:50%; background:var(--card); border:1px solid var(--rule); padding:3px; box-sizing:border-box; object-fit:contain;}
 @media (prefers-reduced-motion: reduce){ .learn-more{transition:none;} .learn-more:hover{transform:none;} }
+/* …the compact one at the foot of a gloss popup (glossWikiHTML): the popup is a third of a card's width, so
+   the tile is too. `clear` because the term's picture floats at the top right of the same body. */
+.learn-more.learn-more-gloss{clear:both; gap:12px; margin:14px 0 2px; padding:10px 14px;}
+.learn-more-gloss .learn-more-eyebrow{font-size:calc(10px * var(--fs));}
+.learn-more-gloss .learn-more-title{font-size:calc(16px * var(--fs));}
+.learn-more-gloss .learn-more-sub{font-size:calc(12px * var(--fs));}
+.learn-more-gloss .learn-more-logo{width:34px; height:34px; padding:2px;}
 /* REPORT A PROBLEM — the last thing on a card, in its bottom right corner (see cardReportHTML in app.js):
    a faint flag and a word, so it is there to be found without competing with the card. */
 .card-report-row{display:flex; justify-content:flex-end; margin:14px 0 0;}
