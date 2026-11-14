@@ -1,0 +1,69 @@
+{
+  "_about": [
+    "admin1-spec.json — the rows of the LAZY ADMIN-1 LAYER, atlas/data/admin1.bin (docs/atlas-v2-admin1-layer.md §3.1). One row per country whose states or provinces",
+    "the core (topology.bin) does NOT carry; a country the core already carries (the US, China, Russia, the UK) never appears here — two sources for one state would be two",
+    "entities with one id (§5). build-admin1.js reads ONLY the geometry of Natural Earth 10m admin-1 (ne-10m-admin1, public domain) for a row's units, through the committed",
+    "extract admin1-source.json; every name, kind, ISO code and Wikidata item is DECLARED here, never taken from Natural Earth's attributes (its `type_en` is wrong on several",
+    "Indian units — Himachal Pradesh \"Union Territory\", Gujarat blank — and four of its ISO codes and two of its Wikidata items are stale; the Russia plan's rule).",
+    "A unit's `ne` is Natural Earth's `iso_3166_2` for the row whose geometry it takes (absent = the same as `iso`). `name` is the name the card plan uses",
+    "(docs/india-geography-card-plan.md, the English Wikipedia article's name without its disambiguator); `kind` is the unit's constitutional kind; `iso` is its CURRENT",
+    "ISO 3166-2 code and `qid` the Wikidata item that carries that code (P300), both as Wikidata's query service answered on 2026-11-14 for every item with an `IN-` code;",
+    "`wiki` the item's English Wikipedia sitelink. The entity id is `adm1:<a3>:<iso, lower case>`, the core's own scheme. A correction to Natural Earth is listed under",
+    "the country's `corrections` with its reason. Rows are in the card plan's running order (gin-001 … gin-036); the order decides nothing else."
+  ],
+  "countries": [
+    {
+      "a3": "IND",
+      "parent": "adm0:ind",
+      "present": 2022,
+      "plan": "docs/india-geography-card-plan.md",
+      "corrections": [
+        { "what": "ISO codes", "reason": "ISO 3166-2:IN changed four codes in 2023 (Chhattisgarh IN-CT to IN-CG, Odisha IN-OR to IN-OD, Telangana IN-TG to IN-TS, Uttarakhand IN-UT to IN-UK); Natural Earth 5.1.1 (2022) has the old ones and Wikidata the new. The ids use the current codes; `ne` names the row whose geometry is taken." },
+        { "what": "Wikidata items", "reason": "Natural Earth names the CITY items for two union territories (Delhi Q1353, Chandigarh Q43433); the items that carry the territories' ISO codes are the National Capital Territory of Delhi (Q9357528) and the Union Territory of Chandigarh (Q120971341)." },
+        { "what": "Mahe", "reason": "Natural Earth's fourth ring of Puducherry is not Mahe: it lies 35–50 km north of the enclave (11.97–12.15° N, 75.22–75.40° E, round Taliparamba in Kerala's Kannur district) and covers 125 km² against Mahe's 9 km² (Mahe is at 11.70° N, 75.54° E). That ring is dropped (`dropRings`), so its land is Kerala's; Puducherry is drawn as its other three enclaves (Puducherry, Karaikal, Yanam) and Mahe is not drawn until an open source for its outline is pinned." },
+        { "what": "kinds", "reason": "Natural Earth's type_en calls Himachal Pradesh a union territory and leaves Gujarat blank; both are states. Every kind here is declared: 28 states and 8 union territories, the Government of India's count since 26 January 2020." }
+      ],
+      "dropRings": [
+        { "iso": "IN-PY", "within": [75.2, 11.9, 75.45, 12.2], "why": "the misplaced 'Mahe' ring (see corrections)" }
+      ],
+      "units": [
+        { "iso": "IN-UP", "name": "Uttar Pradesh", "kind": "State", "qid": "Q1498", "wiki": "Uttar Pradesh" },
+        { "iso": "IN-MH", "name": "Maharashtra", "kind": "State", "qid": "Q1191", "wiki": "Maharashtra" },
+        { "iso": "IN-BR", "name": "Bihar", "kind": "State", "qid": "Q1165", "wiki": "Bihar" },
+        { "iso": "IN-WB", "name": "West Bengal", "kind": "State", "qid": "Q1356", "wiki": "West Bengal" },
+        { "iso": "IN-MP", "name": "Madhya Pradesh", "kind": "State", "qid": "Q1188", "wiki": "Madhya Pradesh" },
+        { "iso": "IN-TN", "name": "Tamil Nadu", "kind": "State", "qid": "Q1445", "wiki": "Tamil Nadu" },
+        { "iso": "IN-RJ", "name": "Rajasthan", "kind": "State", "qid": "Q1437", "wiki": "Rajasthan" },
+        { "iso": "IN-KA", "name": "Karnataka", "kind": "State", "qid": "Q1185", "wiki": "Karnataka" },
+        { "iso": "IN-GJ", "name": "Gujarat", "kind": "State", "qid": "Q1061", "wiki": "Gujarat" },
+        { "iso": "IN-AP", "name": "Andhra Pradesh", "kind": "State", "qid": "Q1159", "wiki": "Andhra Pradesh" },
+        { "iso": "IN-OD", "ne": "IN-OR", "name": "Odisha", "kind": "State", "qid": "Q22048", "wiki": "Odisha" },
+        { "iso": "IN-TS", "ne": "IN-TG", "name": "Telangana", "kind": "State", "qid": "Q677037", "wiki": "Telangana" },
+        { "iso": "IN-KL", "name": "Kerala", "kind": "State", "qid": "Q1186", "wiki": "Kerala" },
+        { "iso": "IN-JH", "name": "Jharkhand", "kind": "State", "qid": "Q1184", "wiki": "Jharkhand" },
+        { "iso": "IN-AS", "name": "Assam", "kind": "State", "qid": "Q1164", "wiki": "Assam" },
+        { "iso": "IN-PB", "name": "Punjab", "kind": "State", "qid": "Q22424", "wiki": "Punjab, India" },
+        { "iso": "IN-CG", "ne": "IN-CT", "name": "Chhattisgarh", "kind": "State", "qid": "Q1168", "wiki": "Chhattisgarh" },
+        { "iso": "IN-HR", "name": "Haryana", "kind": "State", "qid": "Q1174", "wiki": "Haryana" },
+        { "iso": "IN-DL", "name": "Delhi", "kind": "Union territory", "qid": "Q9357528", "wiki": "National Capital Territory of Delhi" },
+        { "iso": "IN-JK", "name": "Jammu and Kashmir", "kind": "Union territory", "qid": "Q66278313", "wiki": "Jammu and Kashmir (union territory)" },
+        { "iso": "IN-UK", "ne": "IN-UT", "name": "Uttarakhand", "kind": "State", "qid": "Q1499", "wiki": "Uttarakhand" },
+        { "iso": "IN-HP", "name": "Himachal Pradesh", "kind": "State", "qid": "Q1177", "wiki": "Himachal Pradesh" },
+        { "iso": "IN-TR", "name": "Tripura", "kind": "State", "qid": "Q1363", "wiki": "Tripura" },
+        { "iso": "IN-ML", "name": "Meghalaya", "kind": "State", "qid": "Q1195", "wiki": "Meghalaya" },
+        { "iso": "IN-MN", "name": "Manipur", "kind": "State", "qid": "Q1193", "wiki": "Manipur" },
+        { "iso": "IN-NL", "name": "Nagaland", "kind": "State", "qid": "Q1599", "wiki": "Nagaland" },
+        { "iso": "IN-GA", "name": "Goa", "kind": "State", "qid": "Q1171", "wiki": "Goa" },
+        { "iso": "IN-AR", "name": "Arunachal Pradesh", "kind": "State", "qid": "Q1162", "wiki": "Arunachal Pradesh" },
+        { "iso": "IN-PY", "name": "Puducherry", "kind": "Union territory", "qid": "Q66743", "wiki": "Puducherry (union territory)" },
+        { "iso": "IN-MZ", "name": "Mizoram", "kind": "State", "qid": "Q1502", "wiki": "Mizoram" },
+        { "iso": "IN-CH", "name": "Chandigarh", "kind": "Union territory", "qid": "Q120971341", "wiki": "Union Territory of Chandigarh" },
+        { "iso": "IN-SK", "name": "Sikkim", "kind": "State", "qid": "Q1505", "wiki": "Sikkim" },
+        { "iso": "IN-DH", "name": "Dadra and Nagar Haveli and Daman and Diu", "kind": "Union territory", "qid": "Q77997266", "wiki": "Dadra and Nagar Haveli and Daman and Diu" },
+        { "iso": "IN-AN", "name": "Andaman and Nicobar Islands", "kind": "Union territory", "qid": "Q40888", "wiki": "Andaman and Nicobar Islands" },
+        { "iso": "IN-LA", "name": "Ladakh", "kind": "Union territory", "qid": "Q200667", "wiki": "Ladakh" },
+        { "iso": "IN-LD", "name": "Lakshadweep", "kind": "Union territory", "qid": "Q26927", "wiki": "Lakshadweep" }
+      ]
+    }
+  ]
+}
