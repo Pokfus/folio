@@ -87,7 +87,7 @@ an English review of the same work, and say in the ledger where a card had to ch
 **The date lines of the cards about ONE human being, historical or legendary, are refined in another thread
 and are left alone here.** The list is `node .claude/person-cards.js --list` (`individual` and `legendary`)
 plus every card tagged `ruler` or `person` it does not catch, confirmed against main on 2026-11-08 for the first
-hundred, on 2026-11-12 for the second, on 2026-11-12 for the third and on 2026-11-13 for the fourth and on 2026-11-13 for the fifth (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
+hundred, on 2026-11-12 for the second, on 2026-11-12 for the third and on 2026-11-13 for the fourth, on 2026-11-13 for the fifth and on 2026-11-14 for the sixth (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
 and Zhang Yi) and `cnh-184` (the Four Lords) are tagged `person` but name groups: they are audited as ordinary cards. `cnh-audit.js` reads the block below: on these cards it
 sets the date line's own findings aside (one `P.protected` note counts them) but still checks that the
 background carries every year on the line (`D.not-in-prose`) and the pins; `precheck.js` fails a draft whose
@@ -226,6 +226,33 @@ cnh-491 Ayurbarwada           (ruler; the person template)
 cnh-493 Guo Shoujing          (individual; the person template)
 cnh-496 John of Montecorvino  (individual; the person template)
 cnh-497 Drogön Chögyal Phagpa (individual; the person template)
+cnh-504 Hongwu Emperor        (ruler; the person template)
+cnh-510 Yongle Emperor        (ruler; the person template)
+cnh-514 Zheng He              (individual; the person template)
+cnh-516 Hongxi Emperor        (ruler; the person template)
+cnh-527 Matteo Ricci          (individual; the person template)
+cnh-528 Wang Yangming         (individual; the person template)
+cnh-532 Wei Zhongxian         (individual; the person template)
+cnh-533 Li Zicheng            (individual; the person template)
+cnh-534 Chongzhen Emperor     (ruler; person-cards misses it)
+cnh-536 Nurhaci               (ruler; the person template)
+cnh-538 Hong Taiji            (ruler; the person template)
+cnh-540 Dorgon                (individual; the person template)
+cnh-545 Kangxi Emperor        (ruler; the person template)
+cnh-549 Yongzheng Emperor     (ruler; the person template)
+cnh-551 Qianlong Emperor      (ruler; the person template)
+cnh-554 Hong Liangji          (individual; the person template)
+cnh-555 Heshen                (individual; the person template)
+cnh-560 Lin Zexu              (individual; the person template)
+cnh-565 Hong Xiuquan          (individual; the person template)
+cnh-569 Empress Dowager Cixi  (ruler; the person template)
+cnh-575 Sun Yat-sen           (individual; the person template)
+cnh-576 Puyi                  (ruler; the person template)
+cnh-578 Yuan Shikai           (individual; the person template)
+cnh-587 Chen Duxiu            (individual; the person template)
+cnh-588 Hu Shi                (individual; the person template)
+cnh-589 Lu Xun                (individual; the person template)
+cnh-593 Chiang Kai-shek       (individual; the person template)
 ```
 
 - The draft's patch omits `answerDate`, `undatable` and `timeline`; its `pins` and `chronology` are read from
@@ -354,6 +381,28 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Marco Polo's travels and the doubt | the book dictated in a Genoese prison to Rustichello of Pisa (1298 – 1299), surviving in many differing manuscripts; the doubt that he reached China (the Great Wall, tea and footbinding unmentioned, his name absent from the Chinese record) and the replies (the salt, paper money and the Yangzhou post); some passages survive in one printed edition only (Ramusio's, as Yule notes for the ships' compartments, `cnh-438`, and the city's chessboard plots, `cnh-487`); the dictation placed between late 1298 and mid-1299 (Mascherpa 2025), about 143 manuscripts (the BnF), the Yangzhou governorship mainly Ramusio's (Yule); the doubt Wood's (1995) and the replies de Rachewiltz's and Vogel's — confirmed B44 – B50 (`cnh-495`, `cnh-463`) | `cnh-495` | `cnh-485`, `cnh-487`, `cnh-492` | — |
 | Kublai and Phagpa | the Tibetan tellings of Phagpa initiating Kublai and of the priest and patron; the Mongol chronicle of Sanang Setsen (through Howorth) in which Chabui settles who sits higher; the *Yuanshi* juan 202's Imperial Preceptor, "a man of Sakya", who made the script decreed in 1269 — confirmed in part B50 (`cnh-497`; the Tibetan tellings on no page read) | `cnh-497` | `cnh-485` | — |
 | The Romance of the Western Chamber | Zhang and Yingying's story from Yuan Zhen's Tang tale "Yingying zhuan" (the *Taiping guangji* juan 488; he leaves her and each marries another), through Zhao Lingzhi's Northern Song guzi ci (Fujita) and the Jin *zhugongdiao* of Master Dong, to Wang Shifu's Yuan *zaju* ("a happy issue", Giles) — confirmed and extended B50 (`cnh-499`) | `cnh-499` | `cnh-498` | `cnh-393` (Yuan Zhen) |
+| Zhu Yuanzhang the beggar monk and the mooncake rising | the orphan who begged as a novice of the Huangjue monastery before joining the Red Turbans (his own "Huangling bei" inscription and the *Mingshi*, 1739); the uprising signalled by messages hidden in mooncakes a later folk tale with no Yuan or Ming source — provisional | — | `cnh-504`, `cnh-501` | — |
+| The Hu Weiyong case and its dead | the chancellor executed in 1380 for plotting, the Central Secretariat abolished with him; the purge's tens of thousands of dead (the *Mingshi*'s count, with the later Lan Yu case) a later history's figure, not a count — provisional | `cnh-506` | `cnh-504`, `cnh-507` | — |
+| The Jianwen Emperor's escape as a monk | the emperor who vanished when Nanjing fell in 1402, said in later legend to have fled as a monk; the *Mingshi* gives both the fire and the rumour — provisional | — | `cnh-509`, `cnh-510` | — |
+| Zheng He's ships | the treasure ships of 44 *zhang* by 18 in the *Mingshi* (1739), against modern doubt of a wooden ship that size; the "1421" claim that the fleets reached America a fringe book, said so if met — provisional | `cnh-515` | `cnh-514` | `cnh-819` |
+| The Tumu Crisis | the Zhengtong Emperor captured by Esen's Oirats in 1449, the eunuch Wang Zhen blamed for leading the army out (the *Mingshi*); the dead and the army's size the histories' figures — provisional | `cnh-517` | `cnh-518` | — |
+| The Yongle Encyclopedia's surviving volumes | the compilation finished in 1408, the copy of 1562 – 1567, the original lost; the volumes destroyed in 1900 and the some four hundred volumes that survive scattered (the library records) — provisional | `cnh-513` | `cnh-510` | — |
+| Ricci's map and the memory palace | Ricci's world map printed in Beijing in 1602 (the surviving copies, a library record); the "memory palace" his own treatise on memory, read through Spence's book — provisional | `cnh-527` | `cnh-526` | — |
+| Wang Yangming's bamboo and Longchang | the young Wang staring at bamboo for seven days to "investigate things" and his enlightenment in exile at Longchang (1508), both as his disciples' *Chuanxi lu* and chronological biography tell them — provisional | `cnh-528` | — | the `cn-thought` cards on his school |
+| The Chongzhen Emperor on Coal Hill | the last Ming emperor hanging himself on Coal Hill (Meishan, Jingshan) as Li Zicheng's army entered Beijing in 1644, the last words the *Mingshi* gives — provisional | `cnh-534` | `cnh-533`, `cnh-535` | — |
+| Chen Yuanyuan and Wu Sangui | Wu Sangui opening Shanhai Pass to the Manchus "for a woman", his concubine Chen Yuanyuan taken by Li Zicheng's men; Wu Weiye's poem "Yuanyuan qu" (17th century) and later telling, against the military situation — provisional | — | `cnh-533`, `cnh-540`, `cnh-543` | — |
+| The Yangzhou massacre's dead | the ten days of killing after Yangzhou fell to Dodo in 1645; the 800,000 dead Wang Xiuchu's eyewitness account's figure (the *Yangzhou shiri ji*), banned under the Qing and reprinted in the late Qing — provisional | `cnh-542` | `cnh-539`, `cnh-540` | — |
+| Koxinga | Zheng Chenggong, the Ming loyalist given the imperial surname (whence "Koxinga"), driving the Dutch from Taiwan in 1662; later a hero to the Qing, the Republic, the People's Republic and Japan alike — provisional | — | `cnh-539`, `cnh-544` | — |
+| The Macartney embassy, the kowtow and the edict | the embassy of 1793 and whether Macartney knelt (the British and Qing accounts differ); Qianlong's edict to George III, "we possess all things", read in full and in context (the Backhouse and Bland translation and later readings) — provisional | `cnh-556` | `cnh-551`, `cnh-557` | — |
+| Lin Zexu's letter to Queen Victoria | the letter of 1839 asking the queen to stop the opium trade, printed in *The Times* and the *Chinese Repository*; never received by her as a state letter — provisional | — | `cnh-560`, `cnh-559` | — |
+| Hong Xiuquan's vision | the dream of 1837 after a failed examination, read later through Liang Fa's tract as a call from God and Jesus as his elder brother; told in Hamberg's *Visions of Hung-Siu-Tshuen* (1854) from Hong Rengan's account — provisional | `cnh-565` | `cnh-564` | — |
+| The Taiping death toll | twenty to thirty million and higher figures, scholars' estimates over a range (the plan's "Sourcing"), never a count — provisional | `cnh-564` | `cnh-565`, `cnh-566` | — |
+| Cixi and the navy money | the funds of the Beiyang fleet diverted to rebuild the Summer Palace and the marble boat, a charge made later and disputed in scope — provisional | — | `cnh-569`, `cnh-570` | — |
+| The Boxers' invulnerability | the rites and spirit possession said to make the Boxers proof against bullets, as missionary, Qing and Boxer accounts each tell it — provisional | `cnh-572` | — | — |
+| Sun Yat-sen's London kidnapping | his detention in the Chinese Legation in London in 1896 and release after press and Foreign Office pressure; his own *Kidnapped in London* (1897) — provisional | `cnh-575` | — | — |
+| Yuan Shikai and the Hundred Days | Yuan said to have betrayed the reformers' plot to Ronglu in 1898; his own diary and later scholarship dispute it — provisional | `cnh-571` | `cnh-578`, `cnh-569` | — |
+| Lu Xun's slide show at Sendai | the lantern slide of a Chinese man about to be executed as a spy in the Russo-Japanese War, which he says turned him from medicine to letters; his own preface to *Call to Arms* (1922), the slide never found — provisional | `cnh-589` | — | — |
+| The May Fourth slogans | "Mr Democracy and Mr Science" (Chen Duxiu in *New Youth*, 1919) and the students' slogans of 4 May 1919, as the period's own texts give them — provisional | `cnh-585` | `cnh-586`, `cnh-587` | — |
 
 ## Working a card
 

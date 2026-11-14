@@ -232,6 +232,17 @@ the form English-language scholarship and the reference works use; the decision 
 | Jurchen, Jurchen Jin, Wanyan Aguda, Wuqimai, meng'an mouke, Da Qi, Caizhou, Yehuling, Hubudagang, Huining, Zhongdu, Emperor Shizong of Jin | Ju-chen, Juchen, Djurchen, Jurched, Wan-yen A-ku-ta, A-ku-ta, Akuta, meng-an mou-k'o, mengan mouke, Ta Ch'i, Ts'ai-chou, Yeh-hu-ling, Hu-pu-ta-kang, Chung-tu | Nüzhen, Great Jin, Da Jin, Emperor Taizu of Jin, Jin Taizu, Jin Shizong, Wanyan Yong, Wuzhu, Wanyan Zongbi | always "the Jurchen Jin" the first time in prose (`docs/china-card-plan.md`), never "the Jin" alone where the Jin of 266 – 420 could be meant; *meng'an mouke* lower case in prose |
 | Genghis Khan, Ögedei, Möngke, Kublai Khan, Khanbaliq, Dadu, Shangdu, Karakorum, semu, Phagpa, Bayan of the Baarin, Yelü Chucai, Ayurbarwada, Guo Shoujing, zaju, xingsheng, Marco Polo, John of Montecorvino | Jenghiz, Ogodei, Ogedei, Ögödei, Mongke, Mangu, Khubilai, Qubilai, Kubilai, Khan-baliq, Khanbalik, Ta-tu, Shang-tu, Qaraqorum, se-mu, Pagpa, Phags-pa, Yeh-lü Ch'u-ts'ai, Kuo Shou-ching, tsa-chü, hsing-sheng | Chinggis Khan, Chinggis, Temüjin, Cambaluc, Xanadu, Hubilie, Basiba, Buyantu Khan, Emperor Renzong of Yuan, Yuan Renzong | the Mongols and the Yuan: *Genghis Khan* as the slug (*Chinggis Khan* the scholarly form, an alias for an "also known as" sentence); *Khubilai* and *Qubilai*, the scholarly spellings, cited as printed in titles but *Kublai* in the card's voice; *Khanbaliq* and *Dadu* both house forms, the Turkic-Mongol and the Chinese names of one city; *Xanadu* Coleridge's form, an alias |
 | Water Margin, Song Jiang, Romance of the Western Chamber, Wang Shifu, Guan Hanqing, Yingying | Shui-hu chuan, Sung Chiang, Hsi-hsiang chi, Wang Shih-fu, Kuan Han-ch'ing, Ying-ying | Shuihu zhuan, Outlaws of the Marsh, Xixiang ji, The Story of the Western Wing | English titles first |
+| Ming, Hongwu Emperor, Jianwen Emperor, Yongle Emperor, Hongxi Emperor, Xuande Emperor, Zhengtong Emperor, Wanli Emperor, Chongzhen Emperor, Zhu Yuanzhang, Zhu Di | Hung-wu, Chien-wen, Yung-lo, Hung-hsi, Hsüan-te, Cheng-t'ung, Wan-li, Ch'ung-chen, Chu Yüan-chang, Emperor Hongwu, Emperor Yongle, Emperor Wanli, Emperor Chongzhen | Hongwu, Yongle, Wanli, Ming Taizu, Ming Chengzu, Zhu Yunwen, Zhu Qizhen, Zhu Youjian, Chu Ti | the Ming emperors (added for the sixth hundred, Nov 2026) by reign title + Emperor, never "Emperor Hongwu"; the reign title alone where a sentence names the era; *Zhu Yuanzhang* and *Zhu Di* their own names; the `pinyin` field Míng cháo for the dynasty |
+| Grand Secretariat, Central Secretariat, lijia, haijin, single whip, Embroidered Uniform Guard, Donglin, Hu Weiyong | li-chia, hai-chin, Hai Jin, i-t'iao-pien, Tung-lin, Hu Wei-yung | Neige, Zhongshu sheng, Jinyiwei, yitiaobianfa, Donglin Academy, Donglin faction | the Ming institutions, lower case in prose for *lijia*, *haijin* and the single whip |
+| Zheng He, treasure voyages, treasure ships, Tumu Crisis, Esen, wokou | Cheng Ho, Zheng Ho, T'u-mu, Yesen, wakō, Wako, wo-k'ou, Wo-k'ou | Ma He, Sanbao, Tumu incident, Esen Taishi, Japanese pirates | the early Ming; *wokou* lower case in prose |
+| Imjin War, Matteo Ricci, Jesuits, Wang Yangming, Li Zicheng, Wei Zhongxian | Li Ma-tou, Wang Yang-ming, Wang Shou-jen, Li Tzu-ch'eng, Wei Chung-hsien | Japanese invasions of Korea, Imjin waeran, Bunroku–Keichō, Wanli Korean campaign, Li Madou, Xitai, Wang Shouren | the late Ming; the Korean and Japanese names of the war are aliases, as in the `ko-` and `jp-` collections |
+| Qing, Manchu, Nurhaci, Hong Taiji, Dorgon, Eight Banners, queue, Wu Sangui, Three Feudatories, Koxinga | Nurhachi, Hung Taiji, Dorgun, Wu San-kuei, Wu San-gui, Cheng Ch'eng-kung, Coxinga | Ch'ing, Nurgaci, Huang Taiji, Abahai, Aisin Gioro, Later Jin, Sanfan, Zheng Chenggong, Guoxingye | the Qing conquest; *Koxinga* the English name (as *Confucius*), *Zheng Chenggong* his own name, an alias legitimate in an "also known as" sentence; *Ch'ing* stands in cited titles (Hummel) and is not reported; *Later Jin* Nurhaci's state of 1616, never the Five Dynasties' Later Jin without saying so |
+| Kangxi Emperor, Yongzheng Emperor, Qianlong Emperor, Dzungar, amban, Grand Council, Siku Quanshu, Heshen, Hong Liangji | K'ang-hsi, Yung-cheng, Ch'ien-lung, Emperor Kangxi, Emperor Yongzheng, Emperor Qianlong, Kang Xi, Qian Long, Zunghar, Jungar, Djungar, Chün-chi ch'u, Ssu-k'u ch'üan-shu, Ho-shen, Hung Liang-chi | Kangxi, Yongzheng, Qianlong, Xuanye, Yinzhen, Hongli, Oirat, Zungharia, Junjichu, Siku quanshu, Complete Library of the Four Treasuries | the high Qing: reign title + Emperor, never "Emperor Kangxi"; *Siku Quanshu* the slug's form (*Siku quanshu*, as the Kanseki Repository citations name the edition, not reported); *amban* lower case in prose; *Zunghar* stands in cited titles (Perdue) and is not reported there |
+| Macartney, Canton System, Canton, Guangzhou, Cohong, Lin Zexu, Opium Wars, Treaty of Nanking, Nanjing | Kwangchow, Kuang-chou, Co-hong, Lin Tse-hsü, Lin Tse-hsu, Treaty of Nanjing, Nan-ching | Lord Macartney, Commissioner Lin, Nanking, Hong merchants, Thirteen Factories | *Canton* the period name of the port in the trade (the Canton System a modern label, said so), *Guangzhou* the city otherwise; the *Treaty of Nanking* by its English title, *Nanjing* the city |
+| Hong Xiuquan, Taiping, Nian, Cixi, Li Hongzhang, Zeng Guofan, Zuo Zongtang, Self-Strengthening | Hung Hsiu-ch'üan, Hung Hsiu-chuan, T'ai-p'ing, Nien, Tz'u-hsi, Tzu Hsi, Tsu Hsi, Tzu-hsi, Li Hung-chang, Tseng Kuo-fan, Tso Tsung-t'ang | Taiping Heavenly Kingdom, Taiping Tianguo, Empress Dowager Ci Xi, Yehenara, General Tso, Ziqiang, Yangwu | the nineteenth century; *Nien* stands in cited titles (Teng Ssu-yü) and is not reported there |
+| Boxers, Yihetuan, Kang Youwei, Liang Qichao, Hundred Days' Reform | I-ho-ch'üan, I-ho-t'uan, K'ang Yu-wei, Kang Yu-wei, Liang Ch'i-ch'ao, Liang Chi-chao, Hundred Days Reform | Yihequan, Boxer Uprising, Righteous and Harmonious Fists, Wuxu Reform | |
+| Sun Yat-sen, Puyi, Yuan Shikai, Chiang Kai-shek, Kuomintang, Whampoa, Beiyang government | Sun Yatsen, Sun Yat Sen, P'u-i, Pu-yi, Yuan Shih-k'ai, Yuan Shih-kai, Chiang Kai-Shek, Kuo-min-tang, Pei-yang | Sun Zhongshan, Sun Wen, Sun Yixian, Pu Yi, Xuantong Emperor, Hongxian Emperor, Jiang Jieshi, Jiang Zhongzheng, Guomindang, KMT, Huangpu | the Republic: *Sun Yat-sen* and *Chiang Kai-shek* the English names (house forms, never reported); *Kuomintang* the slug's form, *Guomindang* the pinyin an alias; *Whampoa* the period name of the academy, *Huangpu* an alias |
+| Chen Duxiu, Hu Shi, Lu Xun, New Culture Movement, May Fourth Movement | Ch'en Tu-hsiu, Chen Tu-hsiu, Lu Hsün, Lu Hsun | Hu Shih, Zhou Shuren, New Youth, Xin Qingnian | *Hu Shi* in the card's voice; *Hu Shih*, his own English spelling and the slug, cited as printed (an author's name) and not reported |
 
 ## Mythology and legend
 
@@ -651,9 +662,22 @@ are not rows of this table.
 | the Western Chamber written / its earliest edition / Julien's translation | c. 1300 / 1498 / 1872 – 1880 | `cnh-499` |
 | the David Vases dated / first published | 1351 / 1929 | Pope (`cnh-500`) |
 
+## Ming to the early Republic (the sixth hundred)
+
+Filled batch by batch from `cnh-501` (B51 on). **The protected lines** of the sixth hundred's individuals
+(`cnh-504`, `510`, `514`, `516`, `527`, `528`, `532`–`534`, `536`, `538`, `540`, `545`, `549`, `551`, `554`, `555`, `560`,
+`565`, `569`, `575`, `576`, `578`, `587`–`589`, `593`) are pinned below to their lines as they stood on main on 2026-11-14
+(the years only, both years of an "X, or Y" death; ages, days and months left out), and are not rows of this table.
+Dates already set elsewhere that this hundred must agree with: the Yuan driven north 1368 (`cnh-483`), Khanbaliq taken
+1368 (`cnh-487`), the Grand Canal's northern rebuild 1283 – 1291 (`cnh-350`), the two-tax system superseded by the
+single whip 1581 (`cnh-381`), the examinations ended 1905 (`cnh-348`, `cnh-427`).
+
+| event | the collection says | source |
+|---|---|---|
+
 ## Later periods
 
-To be filled from `cnh-501` on.
+To be filled from `cnh-601` on.
 
 ## Chronology pins
 
@@ -876,6 +900,33 @@ cnh-491: 1285; 1311; 1320; 1313
 cnh-493: 1231; 1292; 1293; 1316; 1314
 cnh-496: 1247; 1305; 1307; 1328
 cnh-497: 1235; 1253; 1269; 1280
+cnh-504: 1328; 1344; 1368; 1398
+cnh-510: 1360; 1402; 1424
+cnh-514: 1371; 1405; 1433; 1435
+cnh-516: 1378; 1424; 1425
+cnh-527: 1552; 1582; 1610; 1601
+cnh-528: 1472; 1506; 1529
+cnh-532: 1568; 1620; 1627; 1624
+cnh-533: 1606; 1644; 1645
+cnh-534: 1627; 1644; 1630
+cnh-536: 1559; 1616; 1626
+cnh-538: 1592; 1626; 1643; 1636
+cnh-540: 1612; 1643; 1650; 1644
+cnh-545: 1654; 1661; 1722
+cnh-549: 1678; 1722; 1735; 1730
+cnh-551: 1711; 1735; 1796; 1799
+cnh-554: 1746; 1793; 1799; 1809
+cnh-555: 1750; 1776; 1799
+cnh-560: 1785; 1838; 1840; 1839; 1850
+cnh-565: 1814; 1837; 1851; 1864
+cnh-569: 1835; 1861; 1908; 1898
+cnh-575: 1866; 1896; 1912; 1925
+cnh-576: 1906; 1908; 1912; 1924; 1967
+cnh-578: 1859; 1909; 1912; 1916
+cnh-587: 1879; 1915; 1921; 1927; 1942
+cnh-588: 1891; 1917; 1938; 1942; 1962
+cnh-589: 1881; 1904; 1906; 1918; 1936
+cnh-593: 1887; 1924; 1926; 1928; 1975
 cnh-101: 1250; 1046
 cnh-103: 1046; 1040; 1122
 cnh-104: 1046; 1044; 1122
