@@ -300,11 +300,12 @@ const multi = EVENTS.filter((x) => /[.!?]\s+[A-Z]/.test(x.e.replace(/\b([A-Z])\.
 ok(!multi.length, "every entry is a single sentence", multi.length ? multi[0].e : "");
 const noStop = EVENTS.filter((x) => !/[.!?]$/.test(x.e.trim()));
 ok(!noStop.length, "…and ends on a full stop", noStop.length ? noStop[0].e : "");
-// whatyear.js is eagerly loaded, so it has to stay small
+// whatyear.js is a lazy bundle since Nov 2026 (docs/eager-path.md): small, off the eager path, registered in DATA_BUNDLES
 const wySize = fs.statSync(path.join(ROOT, "whatyear.js")).size;
-ok(wySize < 120 * 1024, "whatyear.js is small enough for the eager path", Math.round(wySize / 1024) + " KB");
-ok(/<script src="whatyear\.js"><\/script>/.test(fs.readFileSync(path.join(ROOT, "index.html"), "utf8")),
-  "index.html loads whatyear.js");
+ok(wySize < 120 * 1024, "whatyear.js stays small", Math.round(wySize / 1024) + " KB");
+ok(!/<script src="whatyear\.js"><\/script>/.test(fs.readFileSync(path.join(ROOT, "index.html"), "utf8")) &&
+  /whatyear: \{ files: \["whatyear\.js"\] \}/.test(fs.readFileSync(path.join(ROOT, "app.js"), "utf8")),
+  "whatyear.js is the lazy `whatyear` bundle, not an eager script");
 
 // ---- 8. terms that do not happen at a time ----
 console.log("\n-- terms with no single date --");

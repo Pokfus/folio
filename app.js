@@ -11092,6 +11092,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* TIMELINE'S CLUES (Nov 2026, on request: "every answer term should have a 1 to 5 word description below it"):
        one short line per datable card saying what the term IS, read by the Timeline game alone, so never eager. */
     chronoClues: { files: ["timeline-clues.js"] },
+    /* THE DAILY GAMES' OWN POOLS (Nov 2026; docs/eager-path.md "The game pools leave the eager path"). Each is read by its own game
+       page alone (and the admin's dashboard and pool tabs, for the first two), never at boot, so none is eager any more. No `after`
+       hook: their admin overlays (`ADMIN_EDITS.truefalse`, `.whosaid`, `.whosaidOff`) are applied at READ time by the pool
+       functions, never written into the globals, so a late file has nothing to clobber. Every reader goes through `gamePoolPending`
+       or awaits the bundle; warmed at idle after boot (skipped in light mode). */
+    truefalse: { files: ["truefalse.js"] },
+    quotegame: { files: ["quotes.js"] },
+    crossword: { files: ["crossword.js"] },
+    whatyear: { files: ["whatyear.js"] },
     pie: { files: ["pie.js"] },
     whatlang: { files: ["whatlang.js"] },   // What language?'s 200 passages (2026-11-09): read by that game alone, never on the eager path   // What share?'s questions, explanations and sources (2026-10-31): read by that game alone, so never on the eager path   // How far?'s places: the gazetteer's capitals and largest cities (the Atlas page loads the same file itself)
     atlas2cards: { files: ["atlas/data/card-faces.js"] },
@@ -39801,6 +39810,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     );
     return true;
   }
+  /* A DAILY GAME WHOSE POOL IS A LAZY BUNDLE (Nov 2026): truefalse.js, quotes.js, crossword.js and whatyear.js left the eager path.
+     Paints a loading line and re-enters the page when the file lands (true), or returns false when the pool is already here —
+     What share?'s own gate, shared. It runs AFTER `gameLockedToday`, whose placard reads no pool. */
+  function gamePoolPending(root, bundle, page, title) {
+    if (dataReady(bundle)) return false;
+    root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s game</strong></div>';
+    ensureData(bundle).then((ok) => {
+      if (!root.isConnected || current.name !== page) return;
+      if (ok) { PAGES[page](root, current.params); return; }
+      root.innerHTML = '<div class="data-loading dl-fail" role="alert"><strong>' + esc(title) + ' could not be set up</strong><span class="dl-note">Its questions did not load. Check your connection and try again.</span><button class="btn" type="button" data-pool-reload>Try again</button></div>';
+      const b = root.querySelector("[data-pool-reload]"); if (b) b.addEventListener("click", () => location.reload());
+    });
+    return true;
+  }
   /* ---------- THE DAY'S DRAW IS THE SAME DRAW FOR EVERYONE (Aug 2026, on a bug report: two readers
      comparing True or False scores found they had been answering different statements) ----------
      A daily game is played once, its score is written to the tile as TODAY'S and read off a friend's
@@ -40123,6 +40146,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     detachKeys();
     // the gate goes first: a reader who has played does not have to wait on a translation table to be told so
     if (gameLockedToday(root, "truefalse")) return;
+    if (gamePoolPending(root, "truefalse", "truefalse", "True or False")) return;
     if (gamesI18nPending(root)) return;
     const KEYED = truefalseKeyed();
     const POOL = KEYED.map((e) => tfLocalized(e.it));
@@ -40317,6 +40341,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   PAGES.whosaid = function (root) {
     detachKeys();
     if (gameLockedToday(root, "whosaid")) return;
+    if (gamePoolPending(root, "quotegame", "whosaid", "Who said it?")) return;
     if (gamesI18nPending(root)) return;
     const POOL = whoSaidPool().map((x) => quoteLocalized(x));
     if (POOL.length < 4) { root.innerHTML = emptyPlacard("Coming soon", "言", "Not enough quotes to play yet.", () => route("home"), "Back home"); return; }
@@ -41602,6 +41627,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return;
     }
     if (gameLockedToday(root, "crossword", { untilSolved: true })) return;
+    if (gamePoolPending(root, "crossword", "crossword", "The crossword")) return;
     const puz = dailyCrossword();
     if (!puz) { root.innerHTML = emptyPlacard("Coming soon", ICON.crossword, "There aren't enough one-word answer terms to build today's grid yet.", () => route("home"), "Back home"); return; }
 
@@ -42392,6 +42418,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   PAGES.whatyear = function (root) {
     detachKeys();
     if (gameLockedToday(root, "whatyear")) return;
+    if (gamePoolPending(root, "whatyear", "whatyear", "What year?")) return;
     const puzzles = dailyWhatYear();
     if (!puzzles) { root.innerHTML = emptyPlacard("Coming soon", ICON.whatyear, "Folio doesn't yet have enough years of five events to build today's puzzle from.", () => route("home"), "Back home"); return; }
 
@@ -49399,6 +49426,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // the feedback branch returns before adminRenderList(), which owns this class — clear it here or the
       // glossary tab's column divider lingers as a stray vertical line over those pages
       { const al = root.querySelector(".admin-list"); if (al) al.classList.toggle("gloss-cols", adminState.tab === "glossary"); }
+      /* the dashboard counts, and the two pool tabs list, truefalse.js and quotes.js — lazy bundles since Nov 2026. A pool tab waits
+         for them; the dashboard draws now and again when they land. Re-entered only on success, so an offline admin is not looped. */
+      if ((dash || tfTab || wsTab) && !(dataReady("truefalse") && dataReady("quotegame"))) {
+        Promise.all([ensureData("truefalse"), ensureData("quotegame")]).then((r) => {
+          if (r.every(Boolean) && root.isConnected && current.name === "admin" && ["dashboard", "truefalse", "whosaid"].includes(adminState.tab)) adminRefresh();
+        });
+        if (tfTab || wsTab) {
+          adminState.selected.clear();
+          const li = root.querySelector("#adminListItems"), ce = root.querySelector("#adminListCount");
+          if (ce) ce.textContent = "";
+          if (li) li.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Loading the pool</strong></div>';
+          return;
+        }
+      }
       if (dash) { adminState.selected.clear(); adminRenderDashboard(); return; }
       if (tfTab) { adminState.selected.clear(); adminRenderTrueFalse(); return; }
       if (wsTab) { adminState.selected.clear(); adminRenderWhoSaid(); return; }
@@ -49849,6 +49890,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      either. The four surfaces that render an artefact's prose or picture await the bundle for the
      reader who beats the warm. Skipped under Save-Data. */
   whenIdleAfterGlobe(() => { if (!lightMode()) ensureData("artefactExtra"); });
+  // the daily games' pools (Nov 2026): off the eager path, warmed here so a tile opens on a ready game; the game pages wait on them otherwise
+  whenIdleAfterGlobe(() => { if (!lightMode()) ["truefalse", "quotegame", "crossword", "whatyear"].forEach((n) => ensureData(n)); });
 
   /* THE OLD ADDRESS SENDS READERS TO THE NEW ONE (Oct 2026, on request — Folio moved to folio.study).
      A strip, not an automatic redirect, because browser storage belongs to one hostname: a reader who

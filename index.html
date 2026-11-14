@@ -213,9 +213,11 @@
   <!-- ============================================================
        SCRIPTS
 
-       Only the study-critical data ships here: the cards' LIGHT half, the glossary, the
-       minigame pools and the app itself. Everything else is LAZY — app.js's DATA_BUNDLES
-       injects it on demand.
+       Only the study-critical data ships here: the cards' LIGHT half, the glossary and the
+       app itself. Everything else is LAZY — app.js's DATA_BUNDLES injects it on demand,
+       the daily games' own pools included since Nov 2026 (truefalse.js, quotes.js,
+       crossword.js, whatyear.js: bundles "truefalse", "quotegame", "crossword", "whatyear";
+       docs/eager-path.md).
 
        WHAT THIS LIST WEIGHS IS A COMMAND, NOT A FIGURE: `node .claude/check-sizes.js`,
        which reads the path OUT OF THIS FILE rather than from a list of its own. A number
@@ -243,10 +245,6 @@
 
        ============================================================ -->
   <script src="data.js"></script>
-  <script src="truefalse.js"></script>
-  <script src="quotes.js"></script>
-  <script src="whatyear.js"></script>
-  <script src="crossword.js"></script>
   <script src="changelog.js"></script>
   <script src="mission.js"></script>
   <script src="glossary.js"></script>

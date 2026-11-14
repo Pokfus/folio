@@ -37,8 +37,11 @@ const SHELL = [
   "./app.js",
   "./data.js",
   "./glossary.js",
+  // the daily games' pools are lazy bundles since Nov 2026 (off the eager path), but small: precached so the games still open offline
   "./truefalse.js",
   "./quotes.js",
+  "./crossword.js",
+  "./whatyear.js",
   "./changelog.js",
   "./mission.js",
   "./manifest.json",

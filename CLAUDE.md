@@ -75,9 +75,10 @@ every relevant suite. Playwright and Chromium are preinstalled in cloud sessions
 
 ## File map (the essentials)
 
-- `index.html` — shell. **Eager scripts, in order:** `data.js → truefalse.js → quotes.js → whatyear.js →
-  crossword.js → changelog.js → mission.js → glossary.js → artefacts.js →
-  lang-decks.js → app.js` (read the real list from `index.html`). Sizes: `node .claude/check-sizes.js`
+- `index.html` — shell. **Eager scripts, in order:** `data.js → changelog.js → mission.js → glossary.js →
+  artefacts.js → lang-decks.js → app.js` (read the real list from `index.html`; the four game pools
+  `truefalse.js`, `quotes.js`, `crossword.js`, `whatyear.js` are lazy bundles — a reader goes through
+  `gamePoolPending` / `ensureData`, 📖 `docs/eager-path.md`). Sizes: `node .claude/check-sizes.js`
   — never quote a size.
 - `app.js` — all logic, one IIFE, hash routing via `PAGES`. Navigate it with `.claude/app-map.js`.
 - `styles.css` — design system; themes are CSS custom properties, **hex only** (the canvas globe parses
