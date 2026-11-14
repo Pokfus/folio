@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"2d4fb1fbb20273f5","counts":{"terms":956,"points":719,"countries":237,"windows":1591,"faces":372,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"a43aa23ee7fd5495","counts":{"terms":957,"points":720,"countries":237,"windows":1592,"faces":372,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -91,6 +91,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"2d4fb1fbb20273f5","counts":
 "Bashkortostan":"adm1:rus:ru-ba",
 "Baths_of_Diocletian":"pl:q836108",
 "Beijing":"city:1159151595",
+"Beiping":"city:1159151595",
 "Belarus":"adm0:blr",
 "Belgium":"adm0:bel",
 "Belgorod":"adm1:rus:ru-bel",
@@ -1112,6 +1113,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"2d4fb1fbb20273f5","counts":
 "Baths_of_Diocletian":[12.498,41.903,"site",0,0,0],
 "Beijing":[116.386,39.931,"capital",0,0,0],
 "Beijing_Ancient_Observatory":[116.428,39.906,"coord",0,0,0],
+"Beiping":[116.386,39.931,"capital",0,0,0],
 "Beit_She'an":[35.5,32.5,"coord",0,0,0],
 "Belarus":[28.42,53.82,"country","adm0:blr",0,12.12],
 "Belgium":[4.8,50.79,"country","adm0:bel",0,27.97],
