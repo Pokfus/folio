@@ -7947,6 +7947,106 @@
     return activeCardIds().filter((id) => isDueNow(id) && !isSuspended(id) && !isBuried(id)).length;
   }
 
+  /* ---------- STUDY REMINDERS (Nov 2026, on request: "Remind me when reviews are due") ----------
+     THERE IS NO PUSH SERVER, and the whole design follows from that. Nothing is sent anywhere: the page
+     writes a small snapshot of its own schedule into the Cache API (`folio-reminder`, one JSON entry that
+     sw.js can read with the page closed), and sw.js decides on a `periodicsync` event — Chromium's Periodic
+     Background Sync, which fires only for an INSTALLED app and only as often as the browser's engagement
+     score allows — whether to show "N cards are due in Folio". At most once a day, only after the chosen
+     time, only if the snapshot says something is due; sw.js stamps `lastNotifiedDay` on the entry itself,
+     and remindWrite carries that stamp over rather than clobbering it.
+     The snapshot holds the due times of the next few hundred cards as well as today's count, because the
+     check runs hours after the page last wrote it and a card that falls due in between must still count.
+     Where the browser has no periodic sync (Firefox, Safari, an uninstalled tab) the page asks the worker
+     to run the same check while it is open in the background — on iOS that is the only time it can — and
+     Settings says so in a plain sentence (remindPlatform). The choice is DEVICE-LOCAL (localStorage), never
+     a PROGRESS_FIELD: a reminder belongs to the phone that shows it. */
+  const REMIND_KEY = "folio.reminder.v1";        // { on, time: "HH:MM" } on this device
+  const REMIND_CACHE = "folio-reminder";         // keep in step with REMIND in sw.js, which spares it on activate
+  const REMIND_ENTRY = "__folio/reminder.json";  // a cache key only — never a file on the server
+  const REMIND_TAG = "folio-reminder";           // the periodic-sync tag sw.js listens for
+  function remindCfg() {
+    try {
+      const o = JSON.parse(localStorage.getItem(REMIND_KEY) || "null");
+      if (o && typeof o === "object") return { on: !!o.on, time: /^\d{2}:\d{2}$/.test(o.time || "") ? o.time : "18:00" };
+    } catch (e) { /* storage blocked: reminders read as off */ }
+    return { on: false, time: "18:00" };
+  }
+  function remindCfgSet(c) { try { localStorage.setItem(REMIND_KEY, JSON.stringify({ on: !!c.on, time: c.time })); } catch (e) {} }
+  const remindHasPeriodic = () => typeof ServiceWorkerRegistration !== "undefined" && "periodicSync" in ServiceWorkerRegistration.prototype;
+  // what this browser can honestly do, as a sentence for Settings; `ok` false means no switch at all
+  function remindPlatform() {
+    if (!("Notification" in window) || !("serviceWorker" in navigator) || !("caches" in window))
+      return { ok: false, note: "This browser cannot show notifications, so Folio cannot remind you here." };
+    if (isDevOrigin())
+      return { ok: false, note: "Reminders are shown by Folio's offline worker, which does not run on a development copy of the site." };
+    const blocked = Notification.permission === "denied" ? " Notifications for this site are blocked in the browser's settings at the moment; allow them there first." : "";
+    let installed = false;
+    try { installed = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true; } catch (e) {}
+    if (remindHasPeriodic()) return { ok: true, periodic: true, note: (installed
+      ? "The browser decides when Folio may check in the background, so a reminder can come later than the time you pick, or not at all if Folio is seldom opened."
+      : "Reminders fire only once Folio is installed from this browser's menu (Install app), and the browser decides when it may check, so one can come later than the time you pick.") +
+      " The check runs on this device; nothing is sent anywhere." + blocked };
+    return { ok: true, periodic: false, note: "This browser cannot wake Folio in the background, so reminders fire only when Folio is installed in a Chromium browser such as Chrome or Edge. On an iPhone or iPad, after Add to Home Screen, Folio can remind you only while it is open. Nothing is sent anywhere." + blocked };
+  }
+  const remindEntryUrl = () => new URL(REMIND_ENTRY, location.href).href;
+  function remindSnapshot() {
+    const t = now(), times = [];
+    activeCardIds().forEach((id) => {
+      const c = S.cards[id];
+      if (!c || !c.due || !(c.status === "review" || schedIsLearning(c.status)) || isSuspended(id) || isBuried(id)) return;
+      times.push(c.due);
+    });
+    times.sort((a, b) => a - b);
+    const later = times.filter((x) => x > t);
+    return { dueCount: times.length - later.length, nextDueAt: later[0] || null, dueTimes: later.slice(0, 500) };
+  }
+  // write (or, with reminders off, delete) the snapshot sw.js reads; never rejects
+  async function remindWrite() {
+    if (!("caches" in window) || isDevOrigin()) return;
+    const cfg = remindCfg();
+    try {
+      if (!cfg.on) { await caches.delete(REMIND_CACHE); return; }
+      const cache = await caches.open(REMIND_CACHE);
+      let last = null;
+      const old = await cache.match(remindEntryUrl());
+      if (old) { try { last = (await old.json()).lastNotifiedDay || null; } catch (e) {} }
+      const snap = Object.assign(remindSnapshot(), { on: true, reminderTime: cfg.time, lastNotifiedDay: last, at: Date.now() });
+      await cache.put(remindEntryUrl(), new Response(JSON.stringify(snap), { headers: { "Content-Type": "application/json" } }));
+    } catch (e) { /* a full or blocked store: the reminder simply does not fire */ }
+  }
+  // register or drop the periodic sync; resolves true only when the browser accepted a registration
+  async function remindRegister(on) {
+    try {
+      const reg = navigator.serviceWorker && await navigator.serviceWorker.getRegistration();
+      if (!reg || !reg.periodicSync) return false;
+      if (!on) { await reg.periodicSync.unregister(REMIND_TAG); return false; }
+      try {
+        const p = await navigator.permissions.query({ name: "periodic-background-sync" });
+        if (p.state !== "granted") return false;    // an uninstalled tab: Chromium grants it to installed apps only
+      } catch (e) { /* no such permission name: let register() decide */ }
+      await reg.periodicSync.register(REMIND_TAG, { minInterval: 60 * 60 * 1000 });
+      return true;
+    } catch (e) { return false; }
+  }
+  // ask the worker to run its once-a-day check now (the path for browsers with no periodic sync)
+  function remindAskWorker() {
+    try {
+      const sw = navigator.serviceWorker && navigator.serviceWorker.controller;
+      if (sw) sw.postMessage({ type: "folio-reminder-check" });
+    } catch (e) {}
+  }
+  if (!isDevOrigin() && "serviceWorker" in navigator) {
+    // a notification's click lands here when Folio is already open: route home rather than reload the tab
+    try { navigator.serviceWorker.addEventListener("message", (e) => { if (e.data && e.data.type === "folio-route" && e.data.to) route(e.data.to); }); } catch (e) {}
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && remindCfg().on) remindWrite().then(remindAskWorker);
+    });
+    window.addEventListener("load", () => { if (remindCfg().on) setTimeout(() => remindWrite().then(() => remindRegister(true)), 4000); });
+    // backgrounded but alive (a phone's tab switcher, a minimised window): look again every ten minutes
+    setInterval(() => { if (document.hidden && remindCfg().on) remindWrite().then(remindAskWorker); }, 10 * 60 * 1000);
+  }
+
   /* ============================================================
      COMMUNITY DECKS — decks the user writes themselves
 
@@ -27703,7 +27803,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { const ab = root.querySelector("#b-about"); if (ab) ab.addEventListener("click", () => route("mission")); }
     { const rf = root.querySelector("#b-refresh"); if (rf) rf.addEventListener("click", async () => {
       rf.disabled = true; rf.classList.add("spin");
-      try { if (window.caches && caches.keys) { const ks = await caches.keys(); await Promise.all(ks.filter((k) => /^folio-/.test(k)).map((k) => caches.delete(k))); } } catch (e) { /* no Cache API: the reload below still asks the network */ }
+      try { if (window.caches && caches.keys) { const ks = await caches.keys(); await Promise.all(ks.filter((k) => /^folio-/.test(k) && k !== OFFLINE_CACHE && k !== REMIND_CACHE).map((k) => caches.delete(k))); } } /* a saved collection and the reminder snapshot are the reader's choices, not stale copies: kept */ catch (e) { /* no Cache API: the reload below still asks the network */ }
       try { if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) { const rs = await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map((r) => r.unregister())); } } catch (e) { /* none registered (a dev origin) */ }
       location.reload();
     }); }
@@ -30141,6 +30241,171 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     });
     if (changed) save();
   }
+  /* ---------- AVAILABLE OFFLINE, PER COLLECTION (Nov 2026, on request) ----------
+     sw.js keeps what a reader has already opened, and that is not the same as being able to STUDY a
+     collection on a train: a card back needs the collection's heavy half (data-extra/<prefix>.js — one per
+     prefix, so Flags is two files), a glossary link on that back opens a definition from glossary-extra.js,
+     and the app itself must be there. The switch on a collection's info sheet saves all of it, plus any
+     card picture the heavy half names on this site's own origin (today none: every picture is on
+     Wikimedia or another host, and an opaque cross-origin copy would be a guess at a licence and a size).
+     The card windows' maps are NOT saved — the Atlas data is tens of megabytes; one visit to the Atlas
+     already caches what it drew.
+     ITS OWN CACHE, `folio-offline`: sw.js deletes every cache but its current generation on activate, and
+     spares this one by name (OFFLINE there), so a VERSION bump does not quietly take a reader's saved
+     collections away; the stale-while-revalidate path refreshes an entry here whenever the network answers.
+     The register below is DEVICE-LOCAL (localStorage) and never a PROGRESS_FIELD: what one phone has room
+     for says nothing about another. Files shared by two saved collections (the shell, the glossary) are
+     deleted only when the last collection that needs them is switched off. The shell is read off
+     index.html itself, so a script added to the eager path is saved without anyone remembering this list. */
+  const OFFLINE_CACHE = "folio-offline";      // keep in step with OFFLINE in sw.js
+  const OFFLINE_KEY = "folio.offline.v1";     // { [collectionId]: { at, bytes, files: [url…] } }
+  let _offlineReg = null;
+  function offlineReg() {
+    if (_offlineReg) return _offlineReg;
+    try { const o = JSON.parse(localStorage.getItem(OFFLINE_KEY) || "{}"); _offlineReg = o && typeof o === "object" && !Array.isArray(o) ? o : {}; }
+    catch (e) { _offlineReg = {}; }
+    return _offlineReg;
+  }
+  function offlineRegWrite() { try { localStorage.setItem(OFFLINE_KEY, JSON.stringify(offlineReg())); } catch (e) {} }
+  const offlineChosen = (id) => !!offlineReg()[id];
+  const _offlineBusy = new Map();   // collection id → { done, total, bytes } while its files download
+  function offlineBlocker() {
+    if (!("caches" in window) || !("serviceWorker" in navigator)) return "This browser cannot keep a copy of Folio to use without a connection.";
+    if (isDevOrigin()) return "Offline copies are served by Folio's offline worker, which does not run on a development copy of the site.";
+    return "";
+  }
+  const offlineUrl = (p) => new URL(p, location.href).href;
+  async function offlineShellFiles() {
+    const out = ["./", "./index.html", "wikipedia-logo.png"];
+    try {
+      const html = await (await fetch("./index.html", { cache: "no-cache" })).text();
+      const re = /<(?:script|link)\b[^>]*?\b(?:src|href)="([^"#?]+)"/gi;
+      let m;
+      while ((m = re.exec(html))) if (!/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(m[1])) out.push(m[1]);
+    } catch (e) { out.push("styles.css", "data.js", "glossary.js", "app.js", "manifest.json", "icon.svg"); }
+    return [...new Set(out.map(offlineUrl))];
+  }
+  function offlineImages(ids) {
+    const out = new Set();
+    ids.forEach((id) => {
+      const c = CARD_BY_ID[id], im = c && c.image;
+      const u = typeof im === "string" ? im : im && (im.src || im.url);
+      if (!u) return;
+      try { const x = new URL(u, location.href); if (x.origin === location.origin) out.add(x.href); } catch (e) {}
+    });
+    return [...out];
+  }
+  // download and cache everything collection `c` needs; resolves true when its card backs are all saved
+  async function offlineSave(c, onStep) {
+    const ids = subtreeCardIds(c).filter((id) => !isCommunityCard(id));
+    const extras = [...new Set(ids.map(cardExtraPrefix).filter(Boolean))].map((p) => offlineUrl("data-extra/" + p + ".js"));
+    const st = { done: 0, total: 0, bytes: 0 };
+    _offlineBusy.set(c.id, st);
+    onStep();
+    try {
+      const shell = await offlineShellFiles();
+      await ensureCardExtra(ids);                    // the pictures are named in the heavy half
+      const list = [...new Set([...extras, offlineUrl("glossary-extra.js"), ...shell, ...offlineImages(ids)])];
+      st.total = list.length;
+      onStep();
+      const cache = await caches.open(OFFLINE_CACHE);
+      const kept = [];
+      let i = 0;
+      const lane = async () => {
+        while (i < list.length) {
+          const u = list[i++];
+          try {
+            const res = await fetch(u, { cache: "no-cache" });
+            if (res.ok) {
+              const size = (await res.clone().blob()).size;
+              await cache.put(u, res);
+              st.bytes += size;
+              kept.push(u);
+            }
+          } catch (e) { /* offline or refused: counted as done, judged below */ }
+          st.done++;
+          onStep();
+        }
+      };
+      await Promise.all([lane(), lane(), lane()]);
+      const ok = extras.every((u) => kept.includes(u)) && kept.includes(offlineUrl("./index.html"));
+      if (ok) { offlineReg()[c.id] = { at: Date.now(), bytes: st.bytes, files: kept }; offlineRegWrite(); }
+      else await offlineDrop(kept);
+      return ok;
+    } catch (e) { return false; }
+    finally { _offlineBusy.delete(c.id); onStep(); }
+  }
+  // delete these entries unless another saved collection still needs them
+  async function offlineDrop(urls) {
+    const still = new Set();
+    Object.values(offlineReg()).forEach((r) => ((r && r.files) || []).forEach((u) => still.add(u)));
+    try {
+      if (!Object.keys(offlineReg()).length) { await caches.delete(OFFLINE_CACHE); return; }
+      const cache = await caches.open(OFFLINE_CACHE);
+      await Promise.all(urls.filter((u) => !still.has(u)).map((u) => cache.delete(u)));
+    } catch (e) {}
+  }
+  async function offlineRemove(id) {
+    const files = (offlineReg()[id] && offlineReg()[id].files) || [];
+    delete offlineReg()[id];
+    offlineRegWrite();
+    await offlineDrop(files);
+  }
+  function offlineNoteHTML(id) {
+    const busy = _offlineBusy.get(id);
+    if (busy) {
+      const pct = busy.total ? Math.round((busy.done / busy.total) * 100) : 0;
+      return (busy.total ? "Saving… " + busy.done + " of " + busy.total + " files" + (busy.bytes ? ", " + fmtDeckSize(busy.bytes) : "") : "Getting ready…") +
+        '<span class="off-bar" aria-hidden="true"><i style="width:' + pct + '%"></i></span>';
+    }
+    const r = offlineReg()[id];
+    if (r) return '<span class="off-ok">✓ Saved on this device</span> · ' + fmtDeckSize(r.bytes || 0) + ", with the glossary and the app. Map windows still need a connection.";
+    return "Keep its cards, their backgrounds, the glossary and the app on this device, so it can be studied with no connection.";
+  }
+  function offlineRowHTML(c) {
+    const why = offlineBlocker();
+    if (why) return '<div class="dm-item ci-offline"><b>Available offline</b><small>' + esc(why) + "</small></div>";
+    const on = offlineChosen(c.id) || _offlineBusy.has(c.id);
+    return '<div class="dm-item dm-switch ci-offline" data-off-row>' +
+      '<div class="dm-switchmain"><b>Available offline</b><small data-off-note aria-live="polite">' + offlineNoteHTML(c.id) + "</small></div>" +
+      '<div class="switch' + (on ? " on" : "") + '" role="switch" tabindex="0" aria-label="Available offline" aria-checked="' + on + '"></div></div>';
+  }
+  // the small ✓ beside a saved collection's title on the Collections page
+  const offlinePillHTML = (id) => offlineChosen(id) ? '<span class="pill pill-offline" title="Saved on this device for offline study">✓ Offline</span>' : "";
+  function offlineMarkRow(id) {
+    document.querySelectorAll('.collection-row[data-libitem="' + CSS.escape(id) + '"] .collection-title-row').forEach((row) => {
+      const old = row.querySelector(".pill-offline");
+      if (old) old.remove();
+      if (offlineChosen(id)) row.querySelector(".collection-title").insertAdjacentHTML("afterend", offlinePillHTML(id));
+    });
+  }
+  function offlineWire(ov, c) {
+    const row = ov.querySelector("[data-off-row]");
+    if (!row) return;
+    const sw = row.querySelector(".switch"), note = row.querySelector("[data-off-note]");
+    const paint = () => {
+      if (!row.isConnected) return;
+      const on = offlineChosen(c.id) || _offlineBusy.has(c.id);
+      sw.classList.toggle("on", on);
+      sw.setAttribute("aria-checked", String(on));
+      row.classList.toggle("off-busy", _offlineBusy.has(c.id));
+      note.innerHTML = offlineNoteHTML(c.id);
+    };
+    const flip = async () => {
+      if (_offlineBusy.has(c.id)) return;            // one download at a time; it reports its own end
+      if (offlineChosen(c.id)) {
+        await offlineRemove(c.id);
+        paint(); offlineMarkRow(c.id);
+        toast(nodeTitle(c) + " is no longer kept offline");
+        return;
+      }
+      const ok = await offlineSave(c, paint);
+      paint(); offlineMarkRow(c.id);
+      toast(ok ? nodeTitle(c) + " can now be studied offline" : "Could not save " + nodeTitle(c) + " — check the connection and try again");
+    };
+    row.addEventListener("click", flip);
+    sw.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
+  }
   function openCollectionInfo(c) {
     const ids = subtreeCardIds(c);
     const total = ids.length, studied = ids.filter(isSeen).length, learned = ids.filter(atCriterion).length;
@@ -30168,9 +30433,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const html =
       '<div class="dm-head"><span class="dm-title">' + esc(nodeTitle(c)) + '</span><span class="dm-where">Collection</span></div>' +
       '<div class="ci-grid">' + rows.join("") + "</div>" +
-      '<p class="dm-note">Finished means every card learned. Reader counts are kept from Oct 2026, and count each reader once.</p>';
+      '<p class="dm-note">Finished means every card learned. Reader counts are kept from Oct 2026, and count each reader once.</p>' +
+      offlineRowHTML(c);   // the per-collection offline switch, see OFFLINE_CACHE
     collStatsSync(c.id);
     deckSheet("About " + nodeTitle(c), html, (ov) => {
+      offlineWire(ov, c);
       if (off) return;
       collStatsLoad(c.id).then((st) => {
         ov.querySelectorAll("[data-cs]").forEach((el) => {
@@ -30196,6 +30463,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <div class="collection-main">
             <div class="collection-title-row">
               <span class="collection-title">${esc(nodeTitle(d))}</span>
+              ${soon ? "" : offlinePillHTML(d.id)}
               ${deadlineTagHTML(d.id, "collection-span")}
               ${spanHTML}
               ${/* …AND HOW FAR THROUGH ITS PLAN IT IS (Sep 2026). The card COUNT alone cannot say whether
@@ -45973,6 +46241,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             <div class="info"><h3>Day ends at</h3><p>When one study day becomes the next: the review's new cards reset, the daily quote and the card of the day change, and your streak counts. Useful if you study after midnight. Follows this device's clock.</p></div>
             <div class="ctl"><input class="set-time" id="dayEnd" type="time" step="900" value="${dayEndHHMM()}" aria-label="The time a study day ends"></div>
           </div>
+          <div class="set-row set-row-remind">
+            ${/* STUDY REMINDERS (Nov 2026, on request) — see remindCfg. Device-local, opt-in, and honest about the
+                  platform: the sentence under the title is remindPlatform's, which says when this browser can
+                  actually show one. Where it cannot at all there is no switch, only the sentence. */""}
+            <div class="info"><h3>Remind me when reviews are due</h3><p>Once a day, after the time you pick, a notification says how many cards are waiting. <span id="remindNote">${esc(remindPlatform().note)}</span></p></div>
+            <div class="ctl">${remindPlatform().ok ? `<div class="switch ${remindCfg().on ? "on" : ""}" id="sw-remind" role="switch" aria-label="Remind me when reviews are due" tabindex="0" aria-checked="${remindCfg().on}"></div>` : ""}</div>
+          </div>
+          ${remindPlatform().ok ? `<div class="set-row${remindCfg().on ? "" : " row-locked"}" id="remindTimeRow">
+            <div class="info"><h3>Reminder time</h3><p>The earliest a reminder may come. Follows this device's clock.</p></div>
+            <div class="ctl"><input class="set-time" id="remindTime" type="time" step="900" value="${remindCfg().time}" aria-label="The earliest time a reminder may come"></div>
+          </div>` : ""}
           <div class="set-row">
             ${/* LOAD BALANCING (Aug 2026, on request) — Anki's, and it is DEFAULT OFF for the house rule's
                   sake: it changes what the scheduler does, and an existing reader's intervals must not move
@@ -46347,6 +46626,45 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       dayEndEl.value = dayEndHHMM();       // a time past the cap is snapped back, visibly
       scheduleDayRoll();                    // the next roll-over is at a different hour now
       toast(mins ? "The day now ends at " + dayEndHHMM() : "The day now ends at midnight");
+    });
+    /* Study reminders — see remindCfg. Turning it on asks for notification permission first and stays off
+       if it is refused; turning it off deletes the snapshot and the periodic sync. */
+    const remSw = root.querySelector("#sw-remind"), remTime = root.querySelector("#remindTime");
+    const remPaint = () => {
+      const on = remindCfg().on;
+      if (remSw) { remSw.classList.toggle("on", on); remSw.setAttribute("aria-checked", String(on)); }
+      const tr = root.querySelector("#remindTimeRow");
+      if (tr) tr.classList.toggle("row-locked", !on);
+      const nt = root.querySelector("#remindNote");
+      if (nt) nt.textContent = remindPlatform().note;
+    };
+    const remFlip = async () => {
+      const cfg = remindCfg();
+      if (!cfg.on) {
+        let perm = "denied";
+        try { perm = Notification.permission === "granted" ? "granted" : await Notification.requestPermission(); } catch (e) {}
+        if (perm !== "granted") { remPaint(); toast("Folio was not allowed to show notifications, so reminders stay off"); return; }
+        remindCfgSet({ on: true, time: cfg.time });
+        remPaint();
+        await remindWrite();
+        const bg = await remindRegister(true);
+        toast(bg ? "Folio will remind you after " + cfg.time + " when cards are due" : "Reminders are on — the note above says when this browser can show them");
+      } else {
+        remindCfgSet({ on: false, time: cfg.time });
+        remPaint();
+        await remindWrite();
+        await remindRegister(false);
+        toast("Reminders are off");
+      }
+    };
+    if (remSw) { remSw.addEventListener("click", remFlip); remSw.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); remFlip(); } }); }
+    if (remTime) remTime.addEventListener("change", () => {
+      const m = /^(\d{1,2}):(\d{2})/.exec(remTime.value || "");
+      const t = m ? String(+m[1]).padStart(2, "0") + ":" + m[2] : "18:00";
+      remTime.value = t;
+      remindCfgSet({ on: remindCfg().on, time: t });
+      remindWrite();
+      if (remindCfg().on) toast("Reminders now come after " + t);
     });
     // the walkthrough's step 1 is taught on the home page, so it routes there itself — see tourGo
     { const rt = root.querySelector("#replayTour"); if (rt) rt.addEventListener("click", () => tourStart(0)); }

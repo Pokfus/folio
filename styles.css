@@ -1479,6 +1479,9 @@ body[data-theme="folio"].night .collection-deco{
 .collection-span{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}
 .pill{font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); border:1px solid var(--rule); border-radius:99px; padding:3px 9px; font-weight:500;}
 .pill.soon{color:var(--ochre); border-color:color-mix(in srgb,var(--ochre) 35%, var(--rule));}
+/* a collection saved for offline study (offlinePillHTML in app.js); never shrinks the title away */
+.pill.pill-offline{flex:none; color:#2f7d4f; border-color:color-mix(in srgb,#2f7d4f 35%, var(--rule)); white-space:nowrap;}
+body.night .pill.pill-offline{color:#7fcf9c; border-color:color-mix(in srgb,#7fcf9c 35%, var(--rule));}
 .chev{
   flex:none; width:40px; height:40px; border-radius:50%; border:1px solid var(--rule);
   background:var(--paper); color:var(--ink-soft); display:grid; place-items:center; cursor:pointer;
@@ -3428,6 +3431,16 @@ body.hc .ks-row span{color:var(--ink);}
 .ci-id{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--ink-soft);}
 .ci-of{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; color:var(--ink-faint); margin-left:6px;}
 .ci-of.ci-solo{margin-left:0;}   /* a note standing in for a figure (the collection info sheet) has nothing to sit beside */
+/* The collection info sheet's "Available offline" switch (offlineRowHTML in app.js): a ruled-off row at the
+   foot, its note carrying the download's progress bar while the files arrive, then the ✓ state. */
+.ci-offline{margin:6px 0 2px; border-top:1px solid var(--rule); border-radius:0 0 10px 10px; padding-top:12px;}
+.ci-offline small{line-height:1.45;}
+.ci-offline .dm-switchmain{flex:1;}   /* so the progress bar runs the row's width, not the note's */
+.ci-offline .off-ok{color:#2f7d4f; font-weight:600;}
+body.night .ci-offline .off-ok{color:#7fcf9c;}
+.off-bar{display:block; height:4px; margin-top:6px; border-radius:99px; background:var(--rule); overflow:hidden;}
+.off-bar i{display:block; height:100%; background:var(--indigo); border-radius:inherit; transition:width .2s var(--ease);}
+.ci-offline.off-busy{cursor:progress;}
 .ci-h{font-family:var(--display); font-weight:600; font-size:calc(14px * var(--fs)); color:var(--ink); margin:6px 0 0; padding:11px 14px 0; border-top:1px solid var(--rule);}
 
 /* The actions row inside Card info — flag, set due date, forget, suspend. It wraps rather than scrolling,

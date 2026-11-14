@@ -4204,6 +4204,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `content_overrides` overlay at runtime, not through these files). The multi-MB lazy bundles are **not**
   precached — that would undo the split; they enter the cache when a page actually asks for them, so one
   Atlas visit makes it available offline. Bump `VERSION` in sw.js to invalidate everything.
+  **Two caches outlive a VERSION bump (Nov 2026)**: `folio-offline` (a collection's "Available offline" switch on
+  its info sheet — `offlineSave` / `offlineRemove` / `OFFLINE_CACHE`; its data-extra files, `glossary-extra.js`
+  and the shell read off `index.html`; the register `folio.offline.v1` is device-local localStorage) and
+  `folio-reminder` (the study-reminder snapshot `remindWrite` leaves for sw.js's `periodicsync` /
+  `remindCheck`; Settings → Study, `remindCfg`, `remindPlatform`; no push server, nothing sent). sw.js's
+  `KEEP` and the home page's refresh button both spare them by name. To test the worker off a dev origin,
+  route a fake `https://` origin to the files with Playwright's `context.route` (needs
+  `PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS=1`) and launch `channel: "chromium"` for notifications.
 - **State:** `localStorage["folio_v1"]` holds settings and spaced-repetition scheduling.
 - **RESET PROGRESS CLEARS PROGRESS, AND NOTHING ELSE** (`resetProgress` / `RESET_KEEPS`, beside
   `applyProgress`/`emptyProgress`; Settings → Danger zone. Aug 2026, on a bug report). It was
