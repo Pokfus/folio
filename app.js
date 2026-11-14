@@ -79,8 +79,11 @@
   // original order of appearance (the baseline "date added" for shipped cards)
   const ORIG_INDEX = {};
   CARDS.forEach((c, i) => { ORIG_INDEX[c.id] = i; });
+  // card id -> its leaves, built by cardLeaves on demand; dropped here, by rebuildNodeRegistry and at the end of the task
+  let _leavesOf = null;
   // recompute the tree-derived structures after cards are created / deleted / moved
   function rebuildDerived() {
+    _leavesOf = null;
     ALL_CARD_IDS.length = 0;
     TREE.collections.flatMap(subtreeCardIds).forEach((id) => ALL_CARD_IDS.push(id));
     Object.keys(CARD_TO_NODE).forEach((k) => delete CARD_TO_NODE[k]);
@@ -88,6 +91,7 @@
   }
   // rebuild the node registry (NODE_BY_ID / COLLECTION_BY_ID / LEAF_NODES) after the tree shape changes
   function rebuildNodeRegistry() {
+    _leavesOf = null;
     Object.keys(NODE_BY_ID).forEach((k) => delete NODE_BY_ID[k]);
     Object.keys(COLLECTION_BY_ID).forEach((k) => delete COLLECTION_BY_ID[k]);
     TREE.collections.forEach((d) => { COLLECTION_BY_ID[d.id] = d; registerNode(d, null); });
@@ -814,7 +818,20 @@
     rebuildDerived();
   }
 
-  function cardLeaves(id) { return LEAF_NODES.filter((l) => (l.cardIds || []).includes(id)); }
+  /* A card's leaves, in LEAF_NODES order. It was a scan of every leaf's whole list per call, and the home page
+     and the study deal call it once per card (studyGroupOf): measured at ~370 ms of a 1.5 s study → home switch
+     on a desktop with four collections added — several times that on a tablet. So the first call in a task
+     builds an index of every leaf at once, and it lives until the end of that task (or until a membership
+     change runs rebuildDerived), so it can never be read stale across an edit. */
+  function cardLeaves(id) {
+    if (!_leavesOf) {
+      const m = _leavesOf = new Map();
+      LEAF_NODES.forEach((l) => (l.cardIds || []).forEach((cid) => { const a = m.get(cid); if (!a) m.set(cid, [l]); else if (a[a.length - 1] !== l) a.push(l); }));
+      queueMicrotask(() => { if (_leavesOf === m) _leavesOf = null; });
+    }
+    const a = _leavesOf.get(id);
+    return a ? a.slice() : [];
+  }
   function touchModified(id) {
     if (!ADMIN_EDITS.meta[id]) ADMIN_EDITS.meta[id] = { created: isCreatedCard(id) ? Date.now() : ORIG_INDEX[id] };
     ADMIN_EDITS.meta[id].modified = Date.now();
