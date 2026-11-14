@@ -11641,7 +11641,23 @@ window.GLOSSARY = {
 "Wu_Guang": "",
 "Zhao_Gao": "",
 "Zhou_Yu": "",
-"Ziying": ""
+"Ziying": "",
+"Istanbul": "",
+"Giovanni_Giustiniani": "",
+"Forum_of_Constantine": "",
+"Church_of_the_Holy_Apostles": "",
+"Agyrrhius": "",
+"Achaemenid_destruction_of_Athens": "",
+"Pontus_(region)": "",
+"Upper_Egypt": "",
+"Lower_Egypt": "",
+"Senusret": "",
+"Tantamani": "",
+"Labyrinth": "",
+"Pseudo-Apollodorus": "",
+"Pasiphaë": "",
+"Androgeus_(son_of_Minos)": "",
+"Frieze": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17206,7 +17222,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Qin_Er_Shi": "d. 207 BCE",
 "Zhao_Gao": "d. 207 BCE",
 "Zhou_Yu": "d. 210 CE",
-"Ziying": "d. 206 BCE"
+"Ziying": "d. 206 BCE",
+"Forum_of_Constantine": "330 CE",
+"Agyrrhius": "fl. c. 395 – 389 BCE",
+"Achaemenid_destruction_of_Athens": "480 – 479 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19662,7 +19681,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Trajan's_Forum": ["Forum of Trajan"],
 "Kemet": ["Black Land"],
 "Flooding_of_the_Nile": ["Nile flood","Nile inundation","annual inundation"],
-"Upper_and_Lower_Egypt": ["Two Lands","Upper Egypt","Lower Egypt"],
+"Upper_and_Lower_Egypt": ["Two Lands"],
 "Faiyum_Oasis": ["Faiyum","Fayum","Fayoum","Faiyum Depression"],
 "Western_Desert": ["Libyan Desert"],
 "Kharga_Oasis": ["Kharga","El-Kharga","Great Oasis"],
@@ -24707,7 +24726,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Shuntian_Prefecture": ["Shuntian prefecture","Shuntian fu","Shun-t‘ien fu"],
 "Zhao_Gao": ["Chao Kao"],
 "Zhou_Yu": ["Chou Yü"],
-"Ziying": ["Zi Ying","Tzu-ying"]
+"Ziying": ["Zi Ying","Tzu-ying"],
+"Pasiphaë": ["Pasiphae"],
+"Androgeus_(son_of_Minos)": ["Androgeus","Androgeos"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -24910,7 +24931,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Cabinet_of_the_United_Kingdom": true,
 "Parliament_of_the_United_Kingdom": true,
 "Catholic_Church": true,
-"Propaganda": true
+"Propaganda": true,
+"Labyrinth": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -36555,7 +36577,23 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Wu_Guang": ["person","rebel","history","china","qin dynasty"],
 "Zhao_Gao": ["person","politics","history","china","qin dynasty"],
 "Zhou_Yu": ["person","warfare","history","china","three kingdoms"],
-"Ziying": ["ruler","person","history","china","qin dynasty"]
+"Ziying": ["ruler","person","history","china","qin dynasty"],
+"Istanbul": ["place","city","turkey","europe","asia","history"],
+"Giovanni_Giustiniani": ["person","military","warfare","history","byzantium","italy"],
+"Forum_of_Constantine": ["building","architecture","history","byzantium","late antiquity"],
+"Church_of_the_Holy_Apostles": ["building","religion","christianity","history","byzantium"],
+"Agyrrhius": ["person","politics","history","greece","athens","classical"],
+"Achaemenid_destruction_of_Athens": ["event","warfare","history","greece","athens","iran"],
+"Pontus_(region)": ["place","region","geography","history","anatolia"],
+"Upper_Egypt": ["place","region","geography","history","egypt","africa"],
+"Lower_Egypt": ["place","region","geography","history","egypt","africa"],
+"Senusret": ["ruler","history","egypt","middle kingdom"],
+"Tantamani": ["person","ruler","history","egypt","nubia"],
+"Labyrinth": ["mythology","building","greece","crete"],
+"Pseudo-Apollodorus": ["person","literature","mythology","greece"],
+"Pasiphaë": ["person","mythology","greece","crete"],
+"Androgeus_(son_of_Minos)": ["person","mythology","greece","crete","athens"],
+"Frieze": ["object","architecture","building","art"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
