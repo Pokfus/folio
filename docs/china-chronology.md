@@ -729,6 +729,13 @@ single whip 1581 (`cnh-381`), the examinations ended 1905 (`cnh-348`, `cnh-427`)
 | the Republic proclaimed / its constitution / the government moved | 1 January 1912 / 1 January 1947 / December 1949 | Hummel; the Ministry of Justice (`cnh-577`) |
 | the Empire of China: the votes / the throne accepted / the revolt / cancelled | 11 December 1915 / 12 December 1915 / December 1915 / 22 March 1916 | the *China Year Book*; Putnam Weale (`cnh-579`) |
 | the Warlord Era / the clique wars | 1916 – 1928 / 1920 – 1924 | McCord; Theobald (`cnh-580`) |
+| the Beiyang government / recognised by the United States / its constitution | 1912 – 1928 / 2 May 1913 / 10 October 1923 | the Office of the Historian; the *China Year Book* (`cnh-581`) |
+| the Labour Corps recruited / repatriated | 1916 – 1918 / 1919 – 1920 | Bailey (`cnh-582`) |
+| the Twenty-One Demands presented / the ultimatum / the treaties | 18 January 1915 / 7 May 1915 / 25 May 1915 | FRUS; Zang (`cnh-583`) |
+| the Shandong leasehold taken / the Paris ruling / the treaty / in force | November 1914 / 30 April 1919 / 4 February 1922 / 2 June 1922 | the National Diet Library; FRUS (`cnh-584`) |
+| May Fourth: began / the dismissals / the treaty unsigned | 4 May 1919 / 10 June 1919 / 28 June 1919 | Ouyang (`cnh-585`) |
+| *New Youth*'s first issue / the literary reform / the label coined | 15 September 1915 / January 1917 / 1919 | Li Yilu; Ciaudo (`cnh-586`) |
+| the CCP's First Congress opened / closed / its anniversary set | 23 July 1921 / c. 31 July 1921 / 1941 | Saich (`cnh-590`) |
 
 ## Later periods
 
@@ -1314,4 +1321,11 @@ cnh-574: 1911; 1912
 cnh-577: 1912; 1947; 1949
 cnh-579: 1915; 1916
 cnh-580: 1916; 1920; 1924; 1928
+cnh-581: 1912; 1928; 1913; 1923
+cnh-582: 1916; 1918; 1919; 1920
+cnh-583: 1915
+cnh-584: 1914; 1919; 1922
+cnh-585: 1919
+cnh-586: 1915; 1917; 1919
+cnh-590: 1921; 1941
 ```

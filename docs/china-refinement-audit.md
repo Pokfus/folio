@@ -534,7 +534,7 @@ otherwise.
 | B56 | Qing (`col-33`) | `cnh-551`–`cnh-560` | 10 | 108 | **done 2026-11-14** |
 | B57 | Qing (`col-33`) | `cnh-561`–`cnh-570` | 10 | 119 | **done 2026-11-14** |
 | B58 | Qing (`col-33`) / Early Republic (`col-35`) | `cnh-571`–`cnh-580` | 10 | 117 | **done 2026-11-14** |
-| B59 | Early Republic (`col-35`) | `cnh-581`–`cnh-590` | 10 | 110 | to do |
+| B59 | Early Republic (`col-35`) | `cnh-581`–`cnh-590` | 10 | 110 | **done 2026-11-14** |
 | B60 | Early Republic (`col-35`) | `cnh-591`–`cnh-600` | 10 | 118 | to do |
 | B61 | Early Republic (`col-35`) / Civil War (`col-36`) | `cnh-601`–`cnh-610` | 10 | 116 | to do |
 | B62 | Civil War (`col-36`) | `cnh-611`–`cnh-620` | 10 | 105 | to do |
@@ -1198,6 +1198,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-578` | none | not re-checked (pictures paused): the glossary's photograph is fine |
 | `cnh-579` | none | not re-checked (pictures paused): wanted |
 | `cnh-580` | none | not re-checked (pictures paused): wanted |
+| `cnh-581` | none | not re-checked (pictures paused): wanted |
+| `cnh-582` | none | not re-checked (pictures paused): wanted |
+| `cnh-583` | none | not re-checked (pictures paused): wanted |
+| `cnh-584` | none | not re-checked (pictures paused): the glossary's 1912 German map fits |
+| `cnh-585` | none | not re-checked (pictures paused): wanted |
+| `cnh-586` | none | not re-checked (pictures paused): wanted — a *New Youth* cover |
+| `cnh-587` | none | not re-checked (pictures paused): the glossary's photograph is fine |
+| `cnh-588` | none | not re-checked (pictures paused): the glossary's photograph is fine |
+| `cnh-589` | none | not re-checked (pictures paused): the glossary's photograph is fine |
+| `cnh-590` | none | not re-checked (pictures paused): wanted |
 
 ## Glossary candidates
 
@@ -3765,3 +3775,40 @@ account; his diary on no page read). **check-citations**: one false alarm — `c
 **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-575`'s 12 November 1866 on no page read and its presidency's
 10 March 1912 (Yuan Shikai's inauguration day); `cnh-576`'s days and places on no page read; `cnh-578`'s 2 January 1909 (Tenney: 1 January)
 and Beijing as the death place on no page read.
+
+### B59 — `cnh-581`–`cnh-590`, the early Republic: the Beiyang government to the First National Congress (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl but four Library of Congress pages (`cnh-582`, `cnh-588`), which
+wall curl and were read through the same URLs' JSON and text service. **Pictures were not touched.** **The old cards cited the
+constitutions, the Twenty-One Demands' text, the Washington treaty, Chen Duxiu's "Call to Youth", Hu Shi's 1917 essay and *A
+Madman's Diary* on Chinese Wikisource; leaned on 1914-1918-online and OpenEdition pages now behind a bot wall (every claim on them
+re-sourced or dropped); carried a man, a country and places in labels ("Cao Kun elected", "US recognition", "In Beijing", "Qingdao
+taken"); and told Chen as elected the party's secretary in his absence and Hu Shi as Dewey's student (on no page read).** Each card
+now reads at most one Chinese text (Ouyang Zhesheng 2020, Li Yilu 2025, Wang on the Washington treaty, Suo Liangzhu, the 12371.cn
+congress page, the China News Service), beside FRUS, the Office of the Historian, the *China Year Book*, Tsi C. Wang's 1927 *Youth
+Movement* and the National Diet Library.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-581` Beiyang government | 6 | 8 → 8 | **Labels naming a man, a country and a place off: `Governed 1912 – 1928` / `Recognised 2 May 1913` (the Office of the Historian) / `Constitution 10 October 1923`; the army Yuan Shikai trained, Wilson's message to the National Assembly, the five thousand dollars a vote for Cao Kun (the *China Year Book*); the 1917 war decision and the restoration (Wheeler)**; the two constitutions (Wikisource) re-sourced through Tenney's 1915 memorandum. |
+| `cnh-582` Chinese Labour Corps | 6 | 7 → 7 | **Every claim re-sourced (the old seven sources behind a bot wall); the recruits each source's count (Bailey's "nearly 140,000"; Ta Chen's 1923 study; the French War Ministry's 36,941; a 1918 report's 175,000), the dead each source's (the Canadian War Museum's 2,000; a 2024 state report's "tens of thousands"); the tea-house recruiters and the brass bracelets, the move to the army areas after China declared war; the *Athos* (the *Evening Star*, 1917)**; Noyelles dropped (its open page shows a title only). A phrasing's "four hundred and seventy-six" made "just under five hundred" after the apply. |
+| `cnh-583` Twenty-One Demands | 7 | 9 → 8 | **Every claim re-sourced; the night meeting and the dreadnought watermark, the jeweller's-shop simile (Reinsch's telling), the ultimatum setting the fifth group aside; FRUS 1915, the National Diet Library, Naraoka [in Japanese], Zang [in Chinese]; the humiliation day "the day of acceptance" (not "7 or 9 May")**; Wellington Koo's leak (its one source unreachable) dropped. |
+| `cnh-584` Shandong Problem | 6 | 7 → 8 | **"Qingdao taken 7 November 1914" (a place; the day only in an uncited telegram) → `Leasehold taken November 1914`, with `Peace ruling 30 April 1919` / `Treaty signed 4 February 1922` / `In force 2 June 1922`; the Washington treaty from FRUS 1922; the promise to Wilson of full sovereignty, the Jinan railway paid in treasury notes; "the Council of Four" made the three present on 30 April; the 1897 occupation made the 1898 lease**. Timeline set to 1914 – 1922. |
+| `cnh-585` May Fourth Movement | 7 | 7 → 7 | **`Began 4 May 1919` / `Dismissals 10 June 1919` / `Treaty unsigned 28 June 1919`; the slogans as a student's account gives them (Wang 1927) with 还我青岛 from the police files (Ouyang 2020 [in Chinese]); the 3,000 as the police chief's report; the jailed students' four demands, the Shanghai shutdown and the "single spark" telegram (FRUS); Ciaudo 2021**. Timeline set to 4 May – 28 June 1919. |
+| `cnh-586` New Culture Movement | 6 | 7 → 6 | **Told as a later label (coined in the summer of 1919, one study's finding); `First issue 15 September 1915` / `Literary reform January 1917` / `Term coined 1919`; *La Jeunesse* and the six editors, the vernacular textbooks order; Li Yilu 2025 [in Chinese], Forster 2017, the SEP**; "Madman's Diary April 1918" (a title, `cnh-589`'s) off the line; the phrasings name no person (`cnh-587`–`589`'s ground). |
+| `cnh-587` Chen Duxiu | 6 | 8 → 7 | **Wikisource and Bisson gone; the "dynamo" of the youth movement (Wang), the 1929 appeal to party comrades admitting Stalin's and the Comintern's line, the three conditions refused (The Militant, the MIA glossary, Elstein in the SEP)**; "elected secretary in his absence" (on no page) and the expulsion year dropped; the "Call to Youth" (`cnh-586`'s clue) and "too busy to attend" (`cnh-590`'s) out of the phrasings. Protected: the line stays. |
+| `cnh-588` Hu Shi | 6 | 7 → 9 | **The 1917 essay told through Wang 1927; Cornell and the Columbia dissertation, the recall from Washington (FRUS 1942 — 1942 now in the background), the mainland campaign over the *Dream of the Red Chamber*; Hirata and Shino, the 1938 credentials photograph (the Library of Congress), the 1962 obituary**; "studied under Dewey" and the 1946 and 1948 claims (on no page) dropped. Protected: the line stays (flagged below). |
+| `cnh-589` Lu Xun | 7 | 7 → 7 | **The Sendai slide "by the account in his own preface" (1922), with the doubts (Takeuchi; the Fujino memoir's shooting; Suo's report that the slides were found but not that one); the iron house, the League of Left-Wing Writers and the arrest order; *A Madman's Diary* from the Marxists Internet Archive; Robins 2007, Cheng and Akiyoshi 2025**; Barral (walled) dropped. Protected: the line stays (flagged below). |
+| `cnh-590` First National Congress of the CCP | 6 | 6 → 6 | **`Opened 23 July 1921` / `Closed c. 31 July 1921` / `Anniversary set 1941` kept (no page prints 1 or 2 August); Saich 1985 re-read in full: the intruder and the police search, the boat on South Lake, Maring and Nikolsky; the delegates as twelve or thirteen, each count whose; the July anniversary chosen because no one recalled the day; Jaivin 2021**; Jin Chongji dropped (one Chinese source). Two phrasings reworded before the apply (the answer's own words). |
+
+Read by eye. **Confusability**: the Beiyang presidency `cnh-581`'s, the cliques `cnh-580`'s; the demands' delivery and the ultimatum
+`cnh-583`'s, the Paris ruling and the Washington treaty `cnh-584`'s, the students `cnh-585`'s; the label and *New Youth* as a
+magazine `cnh-586`'s, Chen's appeal `cnh-587`'s, Hu's dissertation `cnh-588`'s, the Sendai slide `cnh-589`'s; Chen's absence from the
+congress left to `cnh-590`. **Legend**: the Sendai slide (his own preface; doubted), Reinsch's watermark and simile, the May Fourth
+slogans (a student's account) are each a text's. **Chinese names**: none corrected; kept unconfirmed 中国劳工旅 (a 2024 report uses
+it), 山东问题's traditional form (OpenCC's, no traditional page read). **Spellings fixed**: none needed. **Myth register**: the May Fourth slogans confirmed in
+part ("Mr Democracy and Mr Science" Chen's, *New Youth* January 1919; 外争国权，内惩国贼 on no page read); the Sendai slide confirmed
+(the preface dated 3 December 1922; the slide never found). **check-citations**: one false alarm — `cnh-582`'s "Live Yu-Sion" (Crossref
+in the other order). **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-588`'s 29 October 1938 (the Library of
+Congress caption: 28 October); `cnh-589`'s days and Shanghai on no page read; `cnh-590`'s Russian report returned in 1957 (Saich) or 1959
+(Jin). The glossary alias "yuan" (on `Yuan_dynasty`) may link the currency and the five yuan on `cnh-597`.
