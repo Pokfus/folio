@@ -674,6 +674,14 @@ single whip 1581 (`cnh-381`), the examinations ended 1905 (`cnh-348`, `cnh-427`)
 
 | event | the collection says | source |
 |---|---|---|
+| the Red Turban Rebellions | 1351 – 1368 | Karaseva (`cnh-501`) |
+| the Northern Yuan (Theobald's ruler list / his Yuan history) | 1368 – 1388 / 1368 – 1402 | Theobald (`cnh-502`) |
+| the Ming | 1368 – 1644 | the *Mingshi* (`cnh-503`) |
+| the lijia tried / ordered everywhere | 1370 / 1381 | Theobald; Hucker (`cnh-505`) |
+| the Hu Weiyong case: Hu executed / Li Shanchang reached / closed with a pardon | 1380 / 1390 / 1393 | Hucker (`cnh-506`) |
+| the Central Secretariat created / adopted by the Yuan / abolished | 220 – 226 CE / 1260 / 1380 | Theobald (`cnh-507`) |
+| the Grand Secretariat formed / abolished | 1402 / 8 May 1911 | Dardess; Brunnert and Hagelstrom (`cnh-508`) |
+| the Jingnan campaign | 1399 – 1402 | Chan (`cnh-509`) |
 
 ## Later periods
 
@@ -1204,4 +1212,12 @@ cnh-495: 1298
 cnh-498: 1330; 1615
 cnh-499: 1300; 1498; 1872; 1880
 cnh-500: 1351; 1929
+cnh-501: 1351; 1368
+cnh-502: 1368; 1388; 1402
+cnh-503: 1368; 1644
+cnh-505: 1370; 1381
+cnh-506: 1380; 1390; 1393
+cnh-507: 220; 226; 1260; 1380
+cnh-508: 1402; 1911
+cnh-509: 1399; 1402
 ```

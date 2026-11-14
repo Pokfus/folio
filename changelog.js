@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1306", released: "2026-11-14T01:02Z" };
+window.FOLIO_VERSION = { v: "1.1307", released: "2026-11-14T09:06Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-14",
-    t: "Chests say where they came from, and the Reliquary gains sets",
+    t: "Chests say where they came from, and more China cards are rewritten",
     items: [
       "A chest now says what earned it, and <b>Open all</b> opens every waiting chest at once and lays the finds out together.",
       "A perfect score in every game now pays one <b>gilded chest</b> with better odds, instead of three ordinary ones.",
@@ -50,6 +50,7 @@ window.CHANGELOG = [
       "A chest's reveal now shows the artefact's first sentence and how far through its set you are.",
       "The Reliquary shows progress per rarity and per <b>set</b>, filters by either, and marks what is new since your last visit.",
       "A friend's collection now shows what you both have, and which of their artefacts you are missing.",
+      "<b>10 more China cards are rewritten</b>, from the Red Turban Rebellions to the Yongle Emperor.",
     ],
   },
   {

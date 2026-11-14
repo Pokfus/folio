@@ -526,7 +526,7 @@ otherwise.
 | B48 | Western Xia (`col-29`) / Jurchen Jin (`col-30`) | `cnh-471`–`cnh-480` | 10 | 97 | **done 2026-11-13** |
 | B49 | Jurchen Jin (`col-30`) / Yuan (`col-31`) | `cnh-481`–`cnh-490` | 10 | 110 | **done 2026-11-13** |
 | B50 | Yuan (`col-31`) | `cnh-491`–`cnh-500` | 10 | 100 | **done 2026-11-13** |
-| B51 | Yuan (`col-31`) / Ming (`col-32`) | `cnh-501`–`cnh-510` | 10 | 107 | to do |
+| B51 | Yuan (`col-31`) / Ming (`col-32`) | `cnh-501`–`cnh-510` | 10 | 107 | **done 2026-11-14** |
 | B52 | Ming (`col-32`) | `cnh-511`–`cnh-520` | 10 | 108 | to do |
 | B53 | Ming (`col-32`) | `cnh-521`–`cnh-530` | 10 | 105 | to do |
 | B54 | Ming (`col-32`) / Qing (`col-33`) | `cnh-531`–`cnh-540` | 10 | 108 | to do |
@@ -1118,6 +1118,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-498` | none | not re-checked (Commons rate-limited): wanted — the Guangsheng temple mural of actors |
 | `cnh-499` | none | not re-checked (Commons rate-limited): wanted — an illustrated Ming edition |
 | `cnh-500` | none | not re-checked (Commons rate-limited): wanted — the pair (the British Museum refuses; Commons later) |
+| `cnh-501` | none | not re-checked (pictures paused): wanted |
+| `cnh-502` | none | not re-checked (pictures paused): wanted |
+| `cnh-503` | none | not re-checked (pictures paused): wanted — not the founder's portrait (that is `cnh-504`'s) |
+| `cnh-504` | none | not re-checked (pictures paused): the glossary's seated portrait looks right |
+| `cnh-505` | none | not re-checked (pictures paused): wanted — a surviving Ming household register |
+| `cnh-506` | none | not re-checked (pictures paused): wanted |
+| `cnh-507` | none | not re-checked (pictures paused): wanted |
+| `cnh-508` | none | not re-checked (pictures paused): wanted |
+| `cnh-509` | none | not re-checked (pictures paused): wanted |
+| `cnh-510` | none | not re-checked (pictures paused): the glossary's seated portrait looks right |
 
 ## Glossary candidates
 
@@ -3390,3 +3400,43 @@ Ma'anshan's centre, not the crossing; `cnh-464` Yamen should be Yashan, south at
 "Ejina Banner"; `cnh-481` Yehuling is Zhangjiakou city (the pass is some thirty li west); `cnh-408` Yue ware's is Shaoxing (the
 Shanglin Lake kilns would be closer); `cnh-449` West Lake's points at the city. `migrate-places.js --check` and `build-wars.js
 --check` were not re-run; on main they already report known failures.
+
+### B51 — `cnh-501`–`cnh-510`, Yuan and Ming: the Red Turban Rebellions to the Yongle Emperor (2026-11-14)
+
+The sixth hundred's first batch, run as the fifth's were (`AGENT.md`, the notes file, two cards an agent, at most ten at once);
+every draft read by eye and prechecked before `batch.sh` applied it. Every cited URL answered (two DOIs to bot-walled publishers,
+`cnh-501`'s eco-vector article and `cnh-503`'s Wiley one, resolve; the agents' saved pages stand). **Pictures were not touched**
+(Commons answered the session's one test call; the owner has not yet chosen a picture pass, so pictures stay paused). **The old
+cards cited the *Mingshi*, the *Yuanshi*, the *Huang Ming zuxun*, Gu Yingtai's *Mingshi jishi benmo* and Huang Zongxi on Chinese
+Wikisource (two to five Chinese texts a card), carried war templates with converted days (Jingnan's 8 August 1399 and 13 July
+1402), named men and places in labels ("Hu executed", "Lan Yu case", "Buir Lake 1388"), and dated a dynasty card by another
+card's state ("Southern Ming 1644 – 1661").** Each card now reads one Chinese text, the *Mingshi* (juan 4, 7, 72, 77, 122, 308,
+327) in the Siku edition on the Kanseki Repository.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-501` Red Turban Rebellions | 7 | 7 → 7 | **The war template off: `Began 1351` / `Ended 1368` (Karaseva [in Russian]); 14 September 1368 is Xu Da's entry into Dadu (`cnh-487`'s); the *Mingshi* juan 122: the Song descent from Huizong and the white horse and black ox, Han Lin'er's revived Song, Shangdu sacked, the "Red Army" and "Incense Army"; Xu Shouhui's Tianwan**; Jia Lu's labour figures and the one-eyed stone man (the *Yuanshi* only) dropped; the mooncake rising told nowhere (no page). |
+| `cnh-502` Northern Yuan | 6 | 7 → 6 | **"Buir Lake 1388" (a place) off: `Began 1368` / `Ended 1388` / `Also dated 1402` (Theobald's two reckonings); the *Mingshi* juan 327: Lan Yu's fireless march, Tögüs Temür strangled, five khans murdered until Guilichi dropped the name; Sagang Sechen's telling through Howorth; Pokotilov [in Russian]**; the fall of Dadu (`cnh-487`'s) out of the background; "Khubilai" → Kublai. |
+| `cnh-503` Ming dynasty | 9 | 9 → 9 | **"Southern Ming 1644 – 1661" (`cnh-539`'s) dropped: `Founded 1368` / `Fell 1644`; the *Mingshi* juan 77: the failing notes, 60,545,812 registered under the founder and Zhou Chen on the hidden households; Chen et al. 2024 (sixteen emperors), Xin et al. 2025 (the drought of 1585 – 1590); silver from the Americas**; the census years 1393 and 1578 (conversions) and the name's meaning (on no page) dropped. **Pinyin → Míng cháo.** |
+| `cnh-504` Hongwu Emperor | 7 | 7 → 8 | **The *Mingshi* juan 1 for three Wikisource texts: the famine of 1344, the Huangjue novice begging round Hefei, Guo Zixing and Ma; Giles's "Beggar King", Cordier's "empereur mendiant"; the Embroidered Uniform Guard; the Cleveland copper-red bowl from the palace site; Xiaoling's World Heritage listing (Wang et al. 2026)**; the *Huang Ming zuxun* and the juan 3 verdict dropped. Protected: the line stays (flagged below). |
+| `cnh-505` lijia system | 6 | 6 → 6 | **"Land registers 1387" (the fish-scale registers, on no page read) off: `First trials 1370` / `Empire-wide 1381`; Hucker 1978 for the 110 households and the ten rotating heads, the remnant households and the elders; Heijdra for the drift**; the Back Lake islands and yellow covers (`cnh-715`'s), the Code's 100 blows and two more Chinese texts dropped. |
+| `cnh-506` Hu Weiyong case | 6 | 8 → 6 | **Labels naming men off: `Began 1380` / `Widened 1390` / `Ended 1393` (the year the Hu prosecutions closed with a pardon, Hucker); the *Mingshi* juan 308: the son under the cart, more than 30,000 executed, Li Shanchang reached; the Lan Yu list (15,000) kept apart**; four of five Chinese texts and the converted 1379 Champa envoys dropped. |
+| `cnh-507` Central Secretariat | 6 | 7 → 6 | **"Revival banned 1395" (no page ties the ban to that year) off: `Created 220 – 226 CE` / `Yuan adoption 1260` / `Abolished 1380`; the *Mingshi* juan 72: only the drafters kept and the Six Ministries under the throne; Kublai's Secretariat and its branch offices become the sheng; Kim 2016 [in Korean]**; the converted 1368 and 1382 dropped. **Pinyin → Zhōngshūshěng** (joined, as Shūmìyuàn). |
+| `cnh-508` Grand Secretariat | 6 | 6 → 6 | **"Academicians 1382" (a conversion) and "Eclipsed c. 1730" (`cnh-550`'s date) off: `Formed 1402` / `Abolished 8 May 1911` (Brunnert and Hagelstrom); the *Mingshi* juan 72; the inner circle of seven after Nanjing fell (Dardess), the draft slips and the eunuchs' vermilion endorsement, Yang Tinghe choosing the Jiajing Emperor**; Xie Jin and Huang Huai (juan 5, not read) dropped. |
+| `cnh-509` Jingnan campaign | 6 | 7 → 7 | **The template's converted days off: `Began 1399` / `Ended 1402` (Chan); the *Mingshi* juan 4: "clear the ruler's side", the Jinchuan Gate opened by the Prince of Gu and Li Jinglong, the palace fire, the ruler's fate never settled, 1402 counted as Hongwu 35; Wade's *Ming Shi-lu***; the feigned madness and the *Huang Ming zuxun* clause dropped. **Name → 靖难之役 Jìngnàn zhī yì** (the Palace Museum's lemma). |
+| `cnh-510` Yongle Emperor | 7 | 7 → 7 | **The *Mingshi* juan 7; Prince of Yan in 1370, the 1390 campaign against Nayir Bukha, the melted-tin coffin, Annam made the province of Jiaozhi (Wade's *Ming Shi-lu* orders); the histories' verdict on the usurpation's shame; Beijing, the encyclopedia and the voyages left to their own cards**; the voyages-to-find-the-nephew claim and the converted 1380 dropped. Protected: the line stays (flagged below). |
+
+Read by eye. **Confusability**: Khanbaliq's fall stays `cnh-487`'s (14 September 1368 off `cnh-501`); the Hu case's dead `cnh-506`'s,
+the abolition itself `cnh-507`'s; the seven advisers `cnh-508`'s and the usurpation `cnh-510`'s; the Jinchuan Gate and the palace
+fire `cnh-509`'s; the Embroidered Uniform Guard `cnh-504`'s. **Legend**: the Jianwen Emperor's escape (the *Mingshi* gives the
+fire and the rumour), the beggar-monk youth (the *Mingshi* juan 1), the Hu case's dead (the *Mingshi*'s count) are each a text's.
+**Chinese names corrected**: `cnh-503` Míng cháo, `cnh-507` Zhōngshūshěng, `cnh-509` 靖难之役 Jìngnàn zhī yì. Kept unconfirmed for
+want of a page printing the compound: 红巾 (the badge; 红巾起义 on no page read), 胡惟庸案, 洪武帝 (the Palace Museum prints
+洪武皇帝), 永乐帝 — for the owner. **Spellings fixed**: "Khubilai" (`cnh-502`); 0 hits after. **Myth register**: the beggar monk
+confirmed (the *Mingshi* juan 1; the Huangling stele not read; the mooncake tale on no page, so not told); the Hu case's dead
+confirmed and corrected (the *Mingshi* juan 308's 30,000 is the Hu case alone; Hucker's 15,000 the Lan Yu list); the Jianwen escape
+confirmed (the *Mingshi* juan 4). **check-citations**: two false alarms — `cnh-506`'s "Langlois Jr" (Crossref writes "Jr.,") and
+`cnh-507`'s Korean title cited in transliteration (the same article). **Protected lines: unchanged** (diffed after the apply). For
+the owner: `cnh-504`'s days (21 October 1328, 23 January 1368, 24 June 1398) on no page read as Western dates (the Palace Museum
+gives Chinese dates); `cnh-510`'s 2 May 1360 and the reign days on no page read, and its "Nanjing, Jiangsu" birthplace disputed.
+The timelines of `cnh-501` (1351 – 1368) and `cnh-506` (1380 – 1393) were set with `set-timeline.js`.
