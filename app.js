@@ -1371,13 +1371,13 @@
      popup over the map; the precedent is the Atlas's card popup, which strips the locator block), none for a community deck's term; and when the engine cannot draw it (the bundle refused, no WebGL2 for a state of the
      past, a face the engine cannot find) the block GOES rather than the card window's sentence — a popup without a map is the popup of before. WHERE IT SITS (the owner, 2026-10-23): below the
      description and the Library banner, above the Sources fold — the definition is read first, the map is where it happened, the works come last. */
-  const GLOSS_POINT_KINDS = ["capital", "city", "town", "site", "mountain", "cape", "hill", "lake", "island", "coord"];   // drawn as the gold square; every other kind as the name alone (a region, a sea, a range, a river)
+  const GLOSS_POINT_KINDS = ["capital", "city", "town", "site", "mountain", "cape", "hill", "island", "coord"];   // drawn as the gold square (a mountain or a hill as the peak triangle, 2026-11-14); every other kind as the name alone (a region, a sea, a lake, a range, a river — water in blue italic, atlas-windows.js)
   function glossWindowSpec(key) { const t = window.ATLAS_GLOSSARY_PLACES; const w = key && !isDeckGlossKey(key) && t && t.windows && t.windows[key]; return Array.isArray(w) && w.length >= 6 && isFinite(w[0]) && isFinite(w[1]) ? { lon: w[0], lat: w[1], kind: String(w[2] || ""), face: w[3] ? String(w[3]) : "", year: w[4] ? Number(w[4]) : 0, zoom: w[5] ? Number(w[5]) : 0 } : null; }
   function glossWindowHTML(key, w) {
     const name = glossTitle(key);
     const said = (w.face ? name + " shaded on an interactive globe" + (w.year ? ", at its greatest extent in " + yearLabel(w.year) : "") : name + " marked on an interactive globe") + ". Drag to turn it; pinch, scroll or use the zoom buttons to zoom; the arrow keys turn it and + and − zoom.";
     const kind = w.face ? "region" : GLOSS_POINT_KINDS.indexOf(w.kind) >= 0 ? "point" : "region";   // "region": no dot, the name centred on the point — a face carries its own shading
-    return '<div class="map-card map-gloss" data-map-layer="world" data-map-named data-map-at="' + w.lon + "," + w.lat + '" data-map-atname="' + esc(name) + '" data-map-kind="' + kind + '"' +
+    return '<div class="map-card map-gloss" data-map-layer="world" data-map-named data-map-at="' + w.lon + "," + w.lat + '" data-map-atname="' + esc(name) + '" data-map-kind="' + kind + '"' + (w.kind ? ' data-map-placekind="' + esc(w.kind) + '"' : "") +
       (w.face ? ' data-map-face="' + esc(w.face) + '" data-map-facekind="' + esc(w.kind) + '"' : "") + (w.year ? ' data-map-year="' + w.year + '"' : "") + (w.zoom ? ' data-map-zoom="' + w.zoom + '"' : "") + ">" +
       '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' + GLOSS_ZOOM_HTML + "</div>" +
       // the year whose borders are drawn, under every window that shades a state (2026-11-13, on request)
@@ -11223,6 +11223,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     atlas2cards: { files: ["atlas/data/card-faces.js"] },
     atlas2wars: { files: ["atlas/data/wars.js"] },
     atlas2nbr: { files: ["atlas/data/card-neighbours.js"] },   // Settings → Describe geography maps: the neighbours sentence of a map card (Phase 5)
+    atlas2waters: { files: ["atlas/data/findit-waters.js"] },   // a card or glossary window whose place is a sea, a gulf or a strait shades its outline (atlas-windows.js waterRings, 2026-11-14)
     atlas2findit: { files: ["atlas/data/findit-areas.js", "atlas/data/findit-waters.js"] },   // Find it's area rounds that have a Cliopatria series behind them, frozen from the retired polities.js (Phase 5)
     atlas2places: { files: ["atlas/data/card-places.js"] },   // card → registry places (62 KB): the "Discovered!" chip on a card's window asks it
     /* THE PRESENT-DAY COUNTRIES (Phase 5; atlas/data/country-names.js, generated): the account page's countries meter, the Cartographer and Circumnavigator badges and the Settings Atlas-home picker read it where they read world.js. `after`
