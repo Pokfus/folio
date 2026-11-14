@@ -530,7 +530,7 @@ otherwise.
 | B52 | Ming (`col-32`) | `cnh-511`–`cnh-520` | 10 | 108 | **done 2026-11-14** |
 | B53 | Ming (`col-32`) | `cnh-521`–`cnh-530` | 10 | 105 | **done 2026-11-14** |
 | B54 | Ming (`col-32`) / Qing (`col-33`) | `cnh-531`–`cnh-540` | 10 | 108 | **done 2026-11-14** |
-| B55 | Qing (`col-33`) | `cnh-541`–`cnh-550` | 10 | 109 | to do |
+| B55 | Qing (`col-33`) | `cnh-541`–`cnh-550` | 10 | 109 | **done 2026-11-14** |
 | B56 | Qing (`col-33`) | `cnh-551`–`cnh-560` | 10 | 108 | to do |
 | B57 | Qing (`col-33`) | `cnh-561`–`cnh-570` | 10 | 119 | to do |
 | B58 | Qing (`col-33`) / Early Republic (`col-35`) | `cnh-571`–`cnh-580` | 10 | 117 | to do |
@@ -1158,6 +1158,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-538` | none | not re-checked (pictures paused): the glossary's portrait is fine |
 | `cnh-539` | none | not re-checked (pictures paused): wanted |
 | `cnh-540` | none | not re-checked (pictures paused): the glossary's portrait looks right |
+| `cnh-541` | none | not re-checked (pictures paused): wanted |
+| `cnh-542` | none | not re-checked (pictures paused): wanted |
+| `cnh-543` | none | not re-checked (pictures paused): wanted |
+| `cnh-544` | none | not re-checked (pictures paused): wanted |
+| `cnh-545` | none | not re-checked (pictures paused): wanted — a court portrait |
+| `cnh-546` | none | not re-checked (pictures paused): wanted — the Latin text |
+| `cnh-547` | none | not re-checked (pictures paused): wanted |
+| `cnh-548` | none | not re-checked (pictures paused): wanted |
+| `cnh-549` | none | not re-checked (pictures paused): the glossary's court portrait is fine |
+| `cnh-550` | none | not re-checked (pictures paused): wanted |
 
 ## Glossary candidates
 
@@ -3580,3 +3590,39 @@ register**: Coal Hill confirmed (the *Mingshi* juan 24: Wansui shan, Wang Chenge
 five days later); `cnh-533`'s 22 September 1606 on no page read (Tu in Hummel: "Oct. 3, 1605?"); `cnh-536`'s 14 May 1559 on no page read;
 `cnh-538`'s birth and Qing days a day earlier than Cordier's; `cnh-540`'s 8 October 1643 and Yenden on no page read. The timeline of
 `cnh-535` (a dynasty) was not set.
+
+### B55 — `cnh-541`–`cnh-550`, Qing: the queue to the Grand Council (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl. **Pictures were not touched.** **The old cards cited the *Qingshi
+gao* (up to three juan a card), Wang Xiuchu's diary, Zou Rong, Shi Lang's memorial, the Sacred Edict, Huang Hongshou, the *Lama
+shuo* and the *Dayi juemi lu* on Chinese Wikisource; carried templates with figures no page prints (Penghu's "12,329 killed or
+drowned" — two of Shi Lang's own claims added together), places in labels ("Albazin taken", "Lhasa taken", "Lhasa riot"), "Revived
+1903" for the Yangzhou diary's reprint, the Grand Council's "1729 or 1732" (the second year a converted regnal year), and Goodrich's
+in-copyright book from a user upload.** The Qing cards read the *Qingshi gao* (juan 4, 6, 9, 153, 176, 313, 474, 525) on zggdwx.com;
+the Yangzhou card reads the *Mingshi* juan 274 on the Kanseki Repository and the diary in Backhouse and Bland's and Aucourt's
+translations; Penghu reads the county's knowledge platform.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-541` queue | 7 | 8 → 7 | **`First ordered 5 June 1644` (Unno-Yamazaki, after Wakeman) / `Enforced 1645` / `Widely cut off 1911`; the *Qingshi gao* juan 4: shave within ten days under military law; the Tarim peoples spared, no rule for women; the Tianjin writers urging imams to cut it; the slogan attributed through Unno-Yamazaki**; "Reimposed" and Martini's line (`cnh-539`'s) dropped. |
+| `cnh-542` Yangzhou massacre | 6 | 7 → 7 | **"City fell May 1645 / Revived 1903" now `Besieged 13 May 1645` / `Killing began 20 May 1645` / `Killing ended 29 May 1645` (Hummel); Wang Xiuchu's diary through Backhouse and Bland and Aucourt [in French]: the placards, the 800,000 as his count of bodies found; a revolutionary pamphlet reprinting it by 1907**; Zou Rong (Wikisource only) and "banned under the Qing" (on no page) dropped. Timeline set to 20 – 29 May 1645. |
+| `cnh-543` Revolt of the Three Feudatories | 6 | 6 → 6 | **The template off: `Began 1673` / `Ended 1681` (Fang: 28 December 1673 to 7 December 1681 in prose); the *Qingshi gao* juan 474: the governor killed, hair grown, white banners, the King of Zhou crowned at Hengzhou; the emperor's "he will rebel either way"; Nowakowski 2023 [in Polish]**; the claim that three princes all surrendered in 1676 corrected (Shang Zhixin joined in 1676 and submitted in 1677). |
+| `cnh-544` Battle of Penghu | 5 | 7 → 6 | **The template off: `Fought July 1683`; "12,329 killed" split into Shi Lang's own claims (over 12,000 Zheng dead, 329 Qing); Shi Lang hit in the eye and back a week later with 56 ships; Liu Guoxuan's flight and Zheng Keshuang's seal; the summer south wind; the Penghu platform [in Chinese], Swisher in Hummel, Po 2019**; 1684 for the prefecture (on no page) dropped. |
+| `cnh-545` Kangxi Emperor | 7 | 7 → 7 | **The *Qingshi gao* juan 6; named heir as a smallpox survivor (variolation, *Emerging Infectious Diseases* 2026), the Sacred Edict's sixteen maxims (Milne's translation), the Jesuits on his sofa and the six southern tours; Oboi's fall told as the *Qingshi gao*'s; the "61 years" phrasing replaced**. Protected: the line stays (flagged below). |
+| `cnh-546` Treaty of Nerchinsk | 7 | 7 → 7 | **"Albazin taken" (a place) off: `Signed 1689` (7 September, or 27 August by the Russian calendar, in prose from Hummel); sworn in the name of the Christian God, the Latin drafted by Gerbillon and Pereira, Albazin razed and the Argun made a frontier, Songgotu and Tong Guogang sent for fear of Galdan; the *Qingshi gao* juan 153's claim that Nerchinsk was handed over called an error**. Overlap: `ru-274`'s "August 1689" is the Russian calendar's; its "CE" after 1000 is not the cnh- house. |
+| `cnh-547` Dzungar Khanate | 6 | 7 → 7 | **`Qing invasion 1755` / `Destroyed 1757 – 1758` (a drafted "c. 1620 – 1758" from Theobald's "after 1620" dropped by the reviewer: no derived span); the *Qingshi gao* juan 313; the Swedish officer's cannon for Tsewang Araptan, the blinded heir of Galdan Tseren, Wei Yuan's four-tenths dead of smallpox; Hummel, Mayers**; Huang Hongshou's 600,000 dropped. **Pinyin → Zhǔngá'ěr Hánguó** (汗 khan, as `cnh-385`; no page prints the compound — for the owner). |
+| `cnh-548` Amban | 6 | 7 → 6 | **Places off the labels: `Dated 1727` / `Also dated 1725` (Mayers) / `Reorganised 1751` / `Reforms 1793`; the *Qingshi gao* juan 525; the amban at Urga over Kiakhta, Fuqing and Gyurme Namgyal, the "mediocre puppets" raised to the lamas' rank after the Nepal wars; the reforms told as three tellings (the *Qingshi gao*'s sovereignty, the Tibetan exiles', one historian's); Bespozvannykh 2008 [in Russian]**; the Golden Urn (`cnh-783`'s) and the *Lama shuo* (`cnh-551`'s) dropped. **Name → 办事大臣 bànshì dàchén** (Theobald; 驻藏大臣 names only the Lhasa post). |
+| `cnh-549` Yongzheng Emperor | 6 | 7 → 8 | **The *Qingshi gao* juan 9; Zeng Jing's confession printed with the rebuttals (the 1730 book), the altered-will rumour told as unofficial chroniclers', the meltage surcharge made public money (Zelin, open); Lee 2019 [in Korean]**; the plaque (`cnh-732`), the vermilion comments (`cnh-708`) and the converted 1723 for the heir box dropped. Protected: the line stays (flagged below). |
+| `cnh-550` Grand Council | 6 | 6 → 6 | **"Founded 1729 or 1732" now `Founded 1729` / `Renamed 1732` / `Abolished 8 May 1911` (Brunnert and Hagelstrom); the *Qingshi gao* juan 176: the duty room behind the Longzong Gate, set up for the Dzungar war, Prince Yi, Zhang Tingyu and Jiang Tingxi, "a hundred and eighty years" of real authority**; the Grand Secretariat's clues (`cnh-508`'s) kept apart. |
+
+Read by eye. **Confusability**: the queue order is `cnh-541`'s (Dorgon's card tells it in prose only); the Yangzhou diary `cnh-542`'s;
+Wu Sangui's revolt `cnh-543`'s and Koxinga's heirs at Penghu `cnh-544`'s; Kangxi's phrasings clear of the Feudatories, Taiwan,
+Nerchinsk and the Kangxi Dictionary (`cnh-913`); the Golden Urn left to `cnh-783`; the Grand Council's founding `cnh-550`'s, Zeng Jing
+`cnh-549`'s. **Legend**: the Yangzhou dead (Wang Xiuchu's count of bodies found), the altered will (unofficial chroniclers), the queue
+slogan (attributed) are each a text's. **Chinese names corrected**: `cnh-547` Hánguó, `cnh-548` 办事大臣. Kept unconfirmed: 扬州十日 (the
+diary's title 揚州十日記 is printed), 澎湖海战 (the platform's head term is 清鄭澎湖之戰), 准噶尔汗国 — for the owner. **Spellings fixed**:
+none needed; 0 hits. **Myth register**: the Yangzhou dead confirmed as the diarist's figure, "banned under the Qing" unconfirmed; Koxinga
+confirmed as far as told (Theobald, Cordier); Chen Yuanyuan not told. **check-citations**: no mismatch. **Protected lines: unchanged**
+(diffed after the apply). For the owner: `cnh-545`'s "Reigned 5 February 1661" is the Shunzhi Emperor's death day (Hummel: proclaimed
+17 February) and its "Old Summer Palace" looks wrong (he died at the Changchun yuan); `cnh-549`'s birthplace and 27 December 1722 on
+no page read. The glossary alias "Liu Song" (on `Liu_Song_dynasty`) may catch a sect leader's name on `cnh-558` — noted ahead.

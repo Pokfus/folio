@@ -700,6 +700,14 @@ single whip 1581 (`cnh-381`), the examinations ended 1905 (`cnh-348`, `cnh-427`)
 | the Qing named / Beijing taken / the abdication | 1636 / 6 June 1644 / 12 February 1912 | Fang; Theobald; Couling (`cnh-535`) |
 | the banners: four / eight / the Mongol eight / the Chinese eight | 1601 / 1615 / 1635 / 1642 | Porter (`cnh-537`; Theobald 1591 for the first four) |
 | the Southern Ming's first court / last court | 1644 – 1645 / 1646 – 1662 | Kennedy and Yang in Hummel (`cnh-539`) |
+| the queue first ordered / enforced / widely cut off | 5 June 1644 / 1645 / 1911 | Unno-Yamazaki (`cnh-541`) |
+| the Yangzhou siege / the killing | 13 May 1645 / 20 – 29 May 1645 | Hummel (`cnh-542`) |
+| the Revolt of the Three Feudatories | 1673 – 1681 | Fang (`cnh-543`) |
+| the Battle of Penghu | July 1683 | the Penghu platform; Swisher (`cnh-544`) |
+| the Treaty of Nerchinsk signed | 1689 (7 September; 27 August Old Style) | Hummel (`cnh-546`) |
+| the Dzungars invaded / destroyed | 1755 / 1757 – 1758 | Theobald; Hummel (`cnh-547`) |
+| the amban in Lhasa set (two datings) / reorganised / the reforms | 1727, or 1725 / 1751 / 1793 | Mayers; Theobald (`cnh-548`) |
+| the Grand Council founded / renamed / abolished | 1729 / 1732 / 8 May 1911 | Brunnert and Hagelstrom (`cnh-550`) |
 
 ## Later periods
 
@@ -1256,4 +1264,12 @@ cnh-531: 1604; 1624; 1625; 1626
 cnh-535: 1636; 1644; 1912
 cnh-537: 1601; 1615; 1635; 1642
 cnh-539: 1644; 1645; 1646; 1662
+cnh-541: 1644; 1645; 1911
+cnh-542: 1645
+cnh-543: 1673; 1681
+cnh-544: 1683
+cnh-546: 1689
+cnh-547: 1755; 1757; 1758
+cnh-548: 1727; 1725; 1751; 1793
+cnh-550: 1729; 1732; 1911
 ```

@@ -20644,7 +20644,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battle_of_Penghu": ["Battle of the Pescadores","Battle of P'eng-hu"],
 "Treaty_of_Nerchinsk": ["Treaty of Nipchu","Treaty of Nertchinsk"],
 "Dzungar_Khanate": ["Dzungars","Zunghar Khanate","Junghar Khanate","Zungar Khanate","Chun-ko-erh"],
-"Amban": ["ambans","zhu Zang dachen","chu Tsang ta-ch'en","Imperial Resident in Tibet"],
+"Amban": ["ambans","zhu Zang dachen","chu Tsang ta-ch'en","Imperial Resident in Tibet","banshi dachen"],
 "Yongzheng_Emperor": ["Yongzheng","Yung-cheng","Yung Cheng","Yinzhen","Yin-chen"],
 "Grand_Council_(Qing_dynasty)": ["Junjichu","Chün-chi ch'u","Qing Grand Council"],
 "Siku_Quanshu": ["Ssu-k'u ch'üan-shu","Ssu-k'u Ch'üan Shu","Siku quanshu","Complete Library of the Four Treasuries","Four Treasuries"],
