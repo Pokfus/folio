@@ -270,7 +270,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "8c487b41ea:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "3ac31d1ce5:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -800,6 +800,7 @@
       // and the wanted level's layout comes with the release frame, when the bias lifts
       if (level !== view.level) { view.level = level; if (!bias) requestLayout("level"); }
       view.admin1 = layers.provinces && k < (EMBED && layers.admin1Max ? layers.admin1Max : ADMIN1_KM_PER_PX) && time.present;   // a card window shows a state's neighbours at its opening zoom (atlas-embed.js sets admin1Max)
+      view.admin1Layer = adm1Draw(k);   // the lazy admin-1 slot (docs/atlas-v2-admin1-layer.md §3.2): null until a window asks for it
       view.history = time.view; view.historyLevel = histLevelNow(); if (view.history) { view.history.strokePx = view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0; view.history.dim = !EMBED && !STATIC2D && !time.present && time.hist && time.hist.ready && personalOnly() ? HIST_DIM : 0; }   // 2026-10-25: Personal only — on Map and Full the empty land was mostly the source's gaps (Tibet and Indochina in 1943, notches in Italy), read as missing patches
       view.landDim = !EMBED && time.present && ppKey ? HIST_DIM : 0;   // the Personal Atlas's present day: the countries the reader has not met, darker (refreshPersonalPresent)   // the coast stroke at the tile zooms: the resident level's tolerance, both sides; the empty-land darkening in a past year, the Atlas page only (atlas-gl.js drawHistoryDim)
       view.borders = layers.borders;
@@ -1088,6 +1089,7 @@
         if (/^tile /.test(m.message)) { stats.tileErrors++; landTiles.failed(m.message.split(" ")[1].replace(/:$/, "")); return; }
         if (/^water-tile /.test(m.message)) { waterTiles.failed(m.message.split(" ")[1].replace(/:$/, "")); return; }
         if (/^water/.test(m.message)) { layersNote.hidden = false; layersNote.textContent = "The rivers and lakes could not be read: " + m.message; return; }
+        if (/^admin1/.test(m.message)) { adm1.failed = true; adm1.why = m.message; adm1Changed(); return; }   // the admin-1 slot is an extra: its failure is a window's plain sentence, never the Atlas's
         fail("The Atlas data could not be read: " + m.message); return;
       }
       if (m.type === "meta") {
@@ -1153,6 +1155,7 @@
       }
       if (m.type === "face-anchors") { const r = faceAnchorWait.get(m.seq); faceAnchorWait.delete(m.seq); if (r) r.cb(m.rows, r.q); return; }
       if (m.type === "face-rings") { if (selRingsPending === m.seq) { selRingsPending = null; selRings = { key: m.seq, faces: m.faces, rings: m.rings, level: Number(String(m.seq).split("@")[1]) }; invalidateLabels(); } return; }
+      if (m.slot === "adm1") { onAdmin1Message(m); return; }
       if (m.type === "history-meta") { onHistoryMeta(m); return; }
       if (m.type === "history-segs") { bracket(() => R.setHistorySegs(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap }), "histSegs"); if (time.hist) time.hist.segLevels++; invalidate(); return; }
       if (m.type === "history-faces") { onHistoryFaces(m); return; }
@@ -1366,6 +1369,69 @@
         time.loadMs = Math.round(performance.now() - t); time.bytes = buffer.byteLength;
         postToWorker({ type: "history", buffer });
       }).catch((e) => { time.failed = true; time.failWhy = String(e && e.message || e); railNote.hidden = false; railNote.textContent = FILE && !SLICE ? "The borders of the past are not in the file copy of the site; open Folio from its web address to see them." : "The borders of the past didn’t arrive (" + time.failWhy + ")."; });
+    }
+    /* THE ADMIN-1 SLOT (2026-11-14; docs/atlas-v2-admin1-layer.md §3.2, step 2). atlas/data/admin1.bin — the present-day states and provinces of the countries the core does not carry
+       (India first), in history.bin's format — is held BESIDE the history (`time.hist`, which may be the page's file or a war slice), never instead of it: the worker keeps it in its
+       own slot (ADM1) and every message about it carries `slot: "adm1"`. Never at boot: `ensureAdmin1()` is called by a card window whose highlight names an `adm1:` id the core does
+       not carry (atlas-embed.js); the page and the Personal Atlas (step 3) do not call it yet. Its 36 faces are small (54 KB in all), so every face is asked for at all three levels
+       as soon as the header is in, and the GL renderer keeps them in its own table (`setAdmin1Mesh`). DRAWN: every face's fill at the alpha its tint gives (none: bare, the land shows
+       through) and, while the Provinces layer draws the core's admin-1 lines (`view.admin1`), the inner lines of the file in the core's admin-1 line style; a face's coast and its
+       international border are the core's own lines, never drawn twice. */
+    const adm1 = { started: false, failed: false, why: "", header: null, ready: false, faceEntity: null, facesOf: new Map(), resident: new Set(), tints: null, mask: null, key: "" };
+    function ensureAdmin1() {
+      if (adm1.started || STATIC2D) return;
+      adm1.started = true;
+      const file = "admin1.bin", url = "atlas/data/" + file;
+      (FILE ? loadTwin(file, "the states and provinces") : fetch(url).then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); })).then((buffer) => {
+        if (disposed) return;
+        adm1.bytes = buffer.byteLength;
+        postToWorker({ type: "history", slot: "adm1", buffer });
+      }).catch((e) => { adm1.failed = true; adm1.why = String(e && e.message || e); adm1Changed(); });
+    }
+    function onAdmin1Message(m) {
+      if (m.type === "history-meta") {
+        adm1.header = m.header; adm1.faceEntity = m.faceEntity; adm1.facesOf = new Map();
+        { const nA = m.header.counts.arcs, t = new Uint8Array(Math.max(1, Math.ceil(nA / 256)) * 256); for (let a = 0; a < nA; a++) if (m.arcKind && m.arcKind[a] === 5) t[a] = 255; adm1.arcTable = t; }   // 5: KIND.ADMIN1, the file's own inner lines
+        for (let f = 0; f < m.faceEntity.length; f++) { const id = m.header.entities[m.faceEntity[f]].id; let l = adm1.facesOf.get(id); if (!l) adm1.facesOf.set(id, l = []); l.push(f); }
+        const all = []; for (let f = 0; f < m.faceEntity.length; f++) all.push(f);
+        for (let L = 0; L <= 2; L++) postToWorker({ type: "history-faces", slot: "adm1", level: L, faces: all, seq: 0 });
+        adm1Style(); return;
+      }
+      if (m.type === "history-faces") { for (const mesh of m.meshes) { const key = mesh.face + ":" + mesh.level; R.setAdmin1Mesh(key, mesh); adm1.resident.add(key); } adm1Changed(); return; }
+      if (m.type === "history-done") { adm1.ready = true; adm1Changed(); return; }
+    }
+    function adm1Changed() { invalidate(); }   // in a hub, invalidate() tells the windows (embedHook)
+    // the style tables: a face's tint (RGBA; alpha 0 = bare) and, per arc, 255 for the file's own inner lines (kind admin1) and 0 for its references to the core's coast and border
+    function adm1Style() {
+      if (!adm1.header || !adm1.faceEntity || !R.setAdmin1Style) return;
+      const nF = adm1.faceEntity.length, nA = adm1.header.counts.arcs;
+      const style = new Uint8Array(Math.max(1, Math.ceil(nF / 256)) * 256 * 4), arcs = new Uint8Array(Math.max(1, Math.ceil(nA / 256)) * 256);
+      for (let f = 0; f < nF; f++) {
+        const t = adm1.mask ? (adm1.mask.has(f) ? [1, 1, 1, 1] : null) : adm1.tints && adm1.tints.get(f);
+        if (!t) continue;
+        style[4 * f] = Math.round(t[0] * 255); style[4 * f + 1] = Math.round(t[1] * 255); style[4 * f + 2] = Math.round(t[2] * 255); style[4 * f + 3] = Math.round((t.length > 3 ? t[3] : 1) * 255);
+      }
+      R.setAdmin1Style(nF, style);
+      R.setAdmin1ArcTable(nA, adm1.arcTable || arcs);
+    }
+    // the draw list: every face with a mesh, once the file is in; the inner lines only in the mask pass's absence
+    function adm1Draw(k) {
+      if (!adm1.header || !adm1.faceEntity || adm1.failed) return null;
+      // rgb: the colour of the face's coast stroke at the tile zooms (the fill never stops short of the finer coast — a small island would otherwise vanish), the tint's or the mask pass's white
+      const faces = []; for (let f = 0; f < adm1.faceEntity.length; f++) { const t = adm1.mask ? (adm1.mask.has(f) ? [1, 1, 1] : null) : adm1.tints && adm1.tints.get(f); faces.push({ face: f, rgb: t ? [t[0], t[1], t[2]] : null }); }
+      return { faces, strokePx: view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0, lines: !adm1.mask };
+    }
+    // a window's tints (face index → [r, g, b, a] in 0–1) or the mask pass's white set (face indices), and what the windows ask of the slot
+    // both are set by a hub's draw (atlas-embed.js) just before it renders, so neither asks for a frame: a tint that has not changed uploads nothing
+    function setAdmin1Tints(map) { const t = map && map.size ? map : null, key = t ? [...t].map(([f, c]) => f + ":" + c.join(",")).join(";") : ""; if (key === adm1.key) return; adm1.key = key; adm1.tints = t; adm1Style(); }
+    function setAdmin1Mask(set) { if (!set && !adm1.mask) return; adm1.mask = set || null; adm1Style(); }
+    const admin1FacesOf = (id) => (adm1.facesOf.get(id) || []).slice();
+    function admin1Settled(level) {
+      if (adm1.failed) return true;
+      if (!adm1.ready || !adm1.faceEntity) return false;
+      const L = Math.min(2, level == null ? view.level : level);
+      for (let f = 0; f < adm1.faceEntity.length; f++) if (!adm1.resident.has(f + ":" + L)) return false;
+      return true;
     }
     function onHistoryMeta(m) {
       const H = m.header;
@@ -3214,7 +3280,7 @@
       && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0
         && view.relief.detail.every((k) => R.reliefDetailLoaded(k)) && detailTiles.pending.size === 0));
     const waterSettled = () => (!waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2))) && landChangesSettled();
-    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), statesAt: (y) => statesAt(y), faceAnchors: (faces, cb, near) => faceAnchors(faces, cb, near), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } }, kindOfId: (id) => { const i = time.hist ? entityIndexOfId(id) : -1; const e = i >= 0 && time.ents[i]; return e ? e.kind : null; }, setFlat: (on) => { on = !!on; if (!!layers.flat !== on || flatBorderOn !== on) { layers.flat = on; flatBorderOn = on; histBorderStyle(); if (time.hist) { restyleHist(); invalidate(); } } }, setMask: (map) => { if (map) { if (!time.gameMask) time.gameStash = time.gameTints; time.gameTints = map; time.gameMask = true; } else if (time.gameMask) { time.gameTints = time.gameStash; time.gameStash = null; time.gameMask = false; } histBorderStyle(); restyleHist(); },
+    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, startAdmin1: () => ensureAdmin1(), admin1FacesOf: (id) => admin1FacesOf(id), setAdmin1Tints: (map) => setAdmin1Tints(map), setAdmin1Mask: (set) => setAdmin1Mask(set), admin1Settled: (level) => admin1Settled(level), admin1Failed: () => adm1.failed, admin1Ready: () => !!(adm1.ready && adm1.faceEntity), webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), statesAt: (y) => statesAt(y), faceAnchors: (faces, cb, near) => faceAnchors(faces, cb, near), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } }, kindOfId: (id) => { const i = time.hist ? entityIndexOfId(id) : -1; const e = i >= 0 && time.ents[i]; return e ? e.kind : null; }, setFlat: (on) => { on = !!on; if (!!layers.flat !== on || flatBorderOn !== on) { layers.flat = on; flatBorderOn = on; histBorderStyle(); if (time.hist) { restyleHist(); invalidate(); } } }, setMask: (map) => { if (map) { if (!time.gameMask) time.gameStash = time.gameTints; time.gameTints = map; time.gameMask = true; } else if (time.gameMask) { time.gameTints = time.gameStash; time.gameStash = null; time.gameMask = false; } histBorderStyle(); restyleHist(); },
         lonLatAt: (x, y) => { const p = unproject(x, y); return p ? [p.lon, p.lat] : null; },
         /* the entity ids under a point in the year the controller is at — Find-it's ID-pass scoring: the states (a contested face's two claimants too) in a past year, the country or admin-1 unit in a present one */
         idsAt: (x, y) => {

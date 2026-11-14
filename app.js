@@ -36879,6 +36879,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     world: { what: "country", plural: "countries", points: "WORLD_CAPITALS", dotWhat: "capital city" },
     "china-provinces": { what: "province", plural: "provinces", points: "CHINA_CAPITALS", dotWhat: "city" },
     "russia-subjects": { what: "federal subject", plural: "federal subjects", points: "RUSSIA_CENTRES", dotWhat: "city" },
+    /* "india-states" (2026-11-14): India's 28 states and 8 union territories, which the core does not carry — their faces are the lazy atlas/data/admin1.bin (docs/atlas-v2-admin1-layer.md),
+       loaded by the hub the first time a window names one; `what` is the deck's whole question shape ("the state or union territory shaded on the map", docs/india-geography-card-plan.md). */
+    "india-states": { what: "state or union territory", plural: "states and union territories", points: "INDIA_CAPITALS", dotWhat: "city" },
   };
   /* THE CEILING IS WHAT THE POLYGONS SUPPORT, and it is worth stating because the temptation is to set it
      by what a state needs. us-states.js is stored at 3dp, so every vertex sits on a 0.001° grid; at zoom Z

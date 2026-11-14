@@ -55,6 +55,12 @@ const LAYERS = [
   { layer: "world", kind: "admin0" },
 ];
 const r3 = (v) => Math.round(v * 1000) / 1000;
+// the layers whose units are in atlas/data/admin1.bin (docs/atlas-v2-admin1-layer.md), one per country of admin1-spec.json
+const ADMIN1_LAYERS = [{ layer: "india-states", a3: "IND", parent: "adm0:ind" }];
+const Lbl = require("./lib/label.js");
+const EXTRACT = JSON.parse(fs.readFileSync(path.join(HERE, "admin1-source.json"), "utf8")), SPEC = JSON.parse(fs.readFileSync(path.join(HERE, "admin1-spec.json"), "utf8"));
+/* the seats' coordinates are Wikidata's (admin1-capitals.json, fetched 2026-11-14): a source block of its own, as build-places.js writes for its Wikidata items */
+const WD_SEATS = (() => { const c = JSON.parse(fs.readFileSync(path.join(HERE, "admin1-capitals.json"), "utf8")); return { id: "wikidata-admin1-seats", name: "Wikidata — the seats of the admin-1 units in atlas/data/admin1.bin: each seat's coordinate (P625 of the item its unit's P36 names)", version: "fetched " + c.retrieved + " through query.wikidata.org", url: "https://query.wikidata.org/", licence: "CC0", licenceUrl: "https://creativecommons.org/publicdomain/zero/1.0/", attribution: "Wikidata, CC0 1.0", retrieved: c.retrieved, sha256: null }; })();
 
 function build() {
   const problems = [], layers = {}, dots = {};
@@ -80,6 +86,46 @@ function build() {
     }
     dots[L.layer] = Object.assign({}, FZ.dots);
     nbrs[L.layer] = FZ.neighbours;
+  }
+  /* THE LAYERS OF THE LAZY ADMIN-1 FILE (2026-11-14; docs/atlas-v2-admin1-layer.md §3.2, step 2). A country the core does not carry has its units in atlas/data/admin1.bin, and its layer is read
+     from that file, not from frozen/layers.json (which is v1's snapshot): key = the unit's declared name, the row its entity id, its label point (faceAnchor) and the bounding box of its
+     rings at LOD 2; the dot table is admin1-capitals.json (the seats, coordinates fetched from Wikidata), each dot filed under the unit it stands in; the neighbours are EXACT —
+     two units that share an inner line of the file. */
+  for (const AL of ADMIN1_LAYERS) {
+    const A = F.read(new Uint8Array(fs.readFileSync(path.join(ROOT, "atlas", "data", "admin1.bin"))));
+    const out = layers[AL.layer] = {}, nb = {}, ids = new Set();
+    const ents = A.header.entities;
+    const faceOf = new Map(); A.faces.forEach((f, fi) => faceOf.set(ents[f.entity].id, fi));
+    const arcUnits = new Map();
+    A.faces.forEach((f, fi) => { for (const ring of f.rings) for (const ref of ring) { const a = Math.abs(ref) - 1; if (A.coreArc[a] >= 0) continue; let s = arcUnits.get(a); if (!s) arcUnits.set(a, s = new Set()); s.add(fi); } });
+    for (let ei = 0; ei < ents.length; ei++) {
+      const e = ents[ei]; if (e.parent !== AL.parent) continue;
+      const fi = faceOf.get(e.id); if (fi == null) { problems.push(`${AL.layer}: ${e.name} has no face in admin1.bin`); continue; }
+      if (usedIds.has(e.id) || ids.has(e.id)) problems.push(`${AL.layer}: ${e.id} twice`); ids.add(e.id);
+      // the box and the label point from Natural Earth's own rings (public domain, as every other row of this file), not from admin1.bin's, which reference the OSM coast
+      const rings = (EXTRACT.countries[AL.a3] || {})[e.iso]; if (!rings) { problems.push(`${AL.layer}: admin1-source.json has no rings for ${e.iso}`); continue; }
+      const drops = (SPEC.countries.find((c) => c.a3 === AL.a3).dropRings || []).filter((d) => d.iso === e.iso);
+      const pts = rings.map((flat) => { const out = [[flat[0], flat[1]]]; for (let j = 2; j < flat.length; j += 2) out.push([out[out.length - 1][0] + flat[j], out[out.length - 1][1] + flat[j + 1]]); return out.map((p) => [p[0] * EXTRACT.quantum, p[1] * EXTRACT.quantum]); })
+        .filter((r) => !drops.some((d) => r.every((p) => p[0] >= d.within[0] && p[0] <= d.within[2] && p[1] >= d.within[1] && p[1] <= d.within[3])));
+      let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
+      for (const r of pts) for (const [x, y] of r) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+      const big = pts.slice().sort((a, b) => Math.abs(Lbl.labelGeometry([b]).areaKm2) - Math.abs(Lbl.labelGeometry([a]).areaKm2))[0];
+      const at = Lbl.labelGeometry([big]).at;
+      out[e.name] = [e.id, r3(at[0]), r3(at[1]), r3(x0), r3(y0), r3(x1), r3(y1)];
+      const notNb = [].concat(...(SPEC.countries.find((c) => c.a3 === AL.a3).knownFaults || []).map((k) => k.notNeighbours || []));   // a pair the source makes neighbours wrongly (admin1-spec.json knownFaults)
+      const n = new Set(); for (const [, s] of arcUnits) if (s.has(fi)) for (const o of s) if (o !== fi) { const oe = ents[A.faces[o].entity]; if (!notNb.some((p) => (p[0] === e.iso && p[1] === oe.iso) || (p[1] === e.iso && p[0] === oe.iso))) n.add(oe.name); }
+      nb[e.name] = [...n].sort((a, b) => a.localeCompare(b));
+    }
+    const caps = JSON.parse(fs.readFileSync(path.join(HERE, "admin1-capitals.json"), "utf8")).countries[AL.a3] || {};
+    const byIso = new Map(ents.map((e) => [e.iso, e]));
+    const D = dots[AL.layer] = {};
+    for (const [iso, c] of Object.entries(caps)) {
+      const inUnit = byIso.get(c.inUnit || iso); if (!inUnit) { problems.push(`${AL.layer}: the seat ${c.name} names no unit ${c.inUnit || iso}`); continue; }
+      const row = [c.lon, c.lat, inUnit.name];
+      if (D[c.name] && JSON.stringify(D[c.name]) !== JSON.stringify(row)) problems.push(`${AL.layer}: two seats named ${c.name} at different points`);
+      D[c.name] = row;
+    }
+    nbrs[AL.layer] = nb;
   }
   // every map card's layer, keys and dot are in the file
   const cards = loadCards().cards || loadCards();
@@ -119,7 +165,7 @@ if (r.problems.length) { console.error("build-card-faces: " + r.problems.length 
 const payload = { format: 1, layers: r.layers, dots: r.dots, water: { cards: W.cards, declared: W.declared, byName: W.byName } };
 const json = JSON.stringify(payload).replace(/\{"/g, '{\n"').replace(/\],"/g, '],\n"');
 const digest = crypto.createHash("sha256").update(JSON.stringify(payload)).digest("hex").slice(0, 16);
-const body = "/* sources: " + JSON.stringify(headerSources(["ne-10m-admin0", "ne-10m-admin1", "ne-10m-populated-places"])) + " */\n" +
+const body = "/* sources: " + JSON.stringify(headerSources(["ne-10m-admin0", "ne-10m-admin1", "ne-10m-populated-places"]).concat([WD_SEATS])) + " */\n" +
   "/* atlas/data/card-faces.js — GENERATED by .claude/atlas-build/build-card-faces.js (docs/atlas-v2-card-windows.md). Do not edit. For the map cards on the Atlas engine: layer → key → [entity id,\n   label lon, lat, west, south, east, north] and the dot tables (capitals and cities: name → [lon, lat, state]), and `water` — the locator cards whose subject is water (a registry kind of river / lake / sea / ocean / strait / gulf for the locator's place; `declared` and `byName` are the fallbacks for a locator with no resolved place). From Natural Earth (public domain) through the v1 shape files. */\n" +
   "window.ATLAS_CARD_FACES = " + json.replace(/^\{"format":1,/, '{"format":1,"digest":"' + digest + '",') + ";\n";
 /* the "describe the map" sentence's data (Settings → Describe geography maps): layer → the card's key (a shape's name, or a key-list joined by "|") → the names of the shapes it borders, among that layer's own shapes.

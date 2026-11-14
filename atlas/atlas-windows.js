@@ -550,6 +550,13 @@
             mountWindow(hub, warYear); });   // Phase 4b: a war whose sides the loaded history has no faces for keeps V1's window too — on file:// the history twin is the 2a pilot slice (11 entities), and a window that tints nothing and frames the planet is worse than V1's
         }
         if (glossYear != null && hub.canvas2d) { plain("This browser cannot draw a state of the past (it needs WebGL2)."); return; }   // the still renderer draws no history; the popup drops the block
+        /* A UNIT OF THE LAZY ADMIN-1 FILE (2026-11-14; docs/atlas-v2-admin1-layer.md §3.2): India's states are faces of atlas/data/admin1.bin, which the hub loads into its own slot the first time a highlight
+           names one (atlas-embed.js). The still renderer (no WebGL2) has no such slot, and a file that could not be read leaves nothing to shade: either way the window is the plain sentence, never India unshaded. */
+        if (targets.some((t) => hub.needsAdmin1 && hub.needsAdmin1(t.id))) {
+          if (hub.canvas2d) { plain("This browser cannot draw this state (it needs WebGL2). The rest of the card is all there."); return; }
+          const offA1 = hub.onChange(() => { if (hub.admin1Failed && hub.admin1Failed() && !stopped) { offA1(); plain(SORRY); } });
+          const stopA1 = tlStop; tlStop = () => { offA1(); stopA1(); };
+        }
         memHist = memYear != null && memGroups.length > 0 && !hub.canvas2d;
         if (memHist) host.classList.add("map-members-hist");
         mountWindow(hub, null);

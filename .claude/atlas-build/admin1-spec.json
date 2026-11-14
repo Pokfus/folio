@@ -23,6 +23,9 @@
         { "what": "Mahe", "reason": "Natural Earth's fourth ring of Puducherry is not Mahe: it lies 35–50 km north of the enclave (11.97–12.15° N, 75.22–75.40° E, round Taliparamba in Kerala's Kannur district) and covers 125 km² against Mahe's 9 km² (Mahe is at 11.70° N, 75.54° E). That ring is dropped (`dropRings`), so its land is Kerala's; Puducherry is drawn as its other three enclaves (Puducherry, Karaikal, Yanam) and Mahe is not drawn until an open source for its outline is pinned." },
         { "what": "kinds", "reason": "Natural Earth's type_en calls Himachal Pradesh a union territory and leaves Gujarat blank; both are states. Every kind here is declared: 28 states and 8 union territories, the Government of India's count since 26 January 2020." }
       ],
+      "knownFaults": [
+        { "units": ["IN-TS", "IN-AP", "IN-OD"], "fixed": false, "notNeighbours": [["IN-TS", "IN-OD"]], "fault": "Natural Earth 5.1.1 still draws the Telangana–Andhra Pradesh line of before 2014: the mandals of Khammam district that the Andhra Pradesh Reorganisation (Amendment) Act, 2014 moved to Andhra Pradesh are inside Telangana, so Telangana is about 1,100 km² too large (115,200 km² drawn), Andhra Pradesh as much too small, and Telangana touches Odisha along 47 km it does not touch. NOT corrected: no pinned open source draws the 2014 line yet. The map's neighbour sentence leaves the pair out (build-card-faces.js reads `notNeighbours`); a card on either state must not say they border each other." }
+      ],
       "dropRings": [
         { "iso": "IN-PY", "within": [75.2, 11.9, 75.45, 12.2], "why": "the misplaced 'Mahe' ring (see corrections)" }
       ],

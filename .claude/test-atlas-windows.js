@@ -510,6 +510,71 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
     }
   }
 
+  /* ---------------- 10) the lazy admin-1 slot: India's states (2026-11-14; docs/atlas-v2-admin1-layer.md §3.2, step 2) ---------------- */
+  if (want(10)) {
+    sect("10) India's states: a window shades a unit of the lazy admin1.bin, beside the history, and fits it");
+    const reqs0 = requests.length;
+    const { ctx, page } = await newPage(browser, { session: sessionFor("geo-001"), viewport: { width: 1100, height: 900 } });
+    await page.goto(url("#study"), { waitUntil: "load" });
+    await windowReady(page);
+    check("a US state window does not fetch admin1.bin (the slot loads only when a window names one of its units)", !requests.slice(reqs0).some((u) => /admin1\.bin/.test(u)));
+    const res = await page.evaluate(async (shotKey) => {
+      const X = AtlasWindows.lastCtx, L = ATLAS_CARD_FACES.layers["india-states"], keys = Object.keys(L), out = [];
+      const line = (X.TINT_SEL.line.match(/[\d.]+/g) || []).slice(0, 3).map(Number);
+      const mount = (key, dot) => { const host = document.createElement("div"); host.className = "map-card"; host.setAttribute("data-map-layer", "india-states"); host.setAttribute("data-map-key", key); if (dot) host.setAttribute("data-map-dot", dot);
+        host.style.cssText = "position:absolute;left:0;top:0;width:735px;height:343px"; host.innerHTML = '<canvas class="mc-canvas" style="display:block;width:735px;height:343px"></canvas><div class="mc-zoom"></div>';
+        document.body.appendChild(host); AtlasWindows.startCardWindow(host, X); return host; };
+      const settle = async (host) => { const t0 = performance.now(); while (performance.now() - t0 < 90000 && !(host._folioMap && host._folioMap.ready() && host._folioMap.settled && host._folioMap.settled())) await new Promise((r) => setTimeout(r, 50)); await new Promise((r) => setTimeout(r, 150)); return Math.round(performance.now() - t0); };
+      for (const key of keys) {
+        const host = mount(key); const ms = await settle(host);
+        const cv = host.querySelector(".mc-canvas"), d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
+        let x0 = 1e9, y0 = 1e9, x1 = -1, y1 = -1, n = 0;
+        for (let i = 0; i < d.length; i += 4) if (Math.abs(d[i] - line[0]) < 36 && Math.abs(d[i + 1] - line[1]) < 36 && Math.abs(d[i + 2] - line[2]) < 40 && d[i + 3] > 200) { const p = i / 4, x = p % cv.width, y = (p / cv.width) | 0; n++; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+        out.push({ key, n, ms, settled: host._folioMap.settled(), engine: host.getAttribute("data-map-engine"), box: [x0, y0, x1, y1], cw: cv.width, ch: cv.height });
+        if (key !== shotKey) { host._folioMap.stop(); host.remove(); } else host.id = "india-shot";
+      }
+      const hub = AtlasEmbed.hub();
+      return { out, kind: hub.E.historyKind(), adm1: hub.E.admin1Ready(), failed: hub.E.admin1Failed() };
+    }, "Uttar Pradesh");
+    check("the hub loaded admin1.bin into its own slot (the history untouched: not started)", res.adm1 && !res.failed && res.kind === null, JSON.stringify({ adm1: res.adm1, failed: res.failed, kind: res.kind }));
+    const got = requests.slice(reqs0);
+    check("…fetching atlas/data/admin1.bin once and no history file", got.filter((u) => /atlas\/data\/admin1\.bin$/.test(u)).length === 1 && !got.some((u) => /history[^/]*\.bin/.test(u)), got.filter((u) => /\.bin/.test(u)).join(" "));
+    check("all 36 units were drawn on the engine and settled", res.out.length === 36 && res.out.every((r) => r.engine === "v2" && r.settled), res.out.filter((r) => r.engine !== "v2" || !r.settled).map((r) => r.key).join(", "));
+    /* LAKSHADWEEP IS THE ONE EXCEPTION, stated: 27 km² of islands spread over 3.4° of latitude. Framed whole, every island is a pixel or less at the window's 2 km/px and no outline survives the mask
+       pass (the islands exist only at the finest resident level, LOD 2). A card on it must set its own `map.zoom`; the window then shades the island it opens on — asserted below. */
+    const dim = res.out.filter((r) => r.n <= 30 && r.key !== "Lakshadweep");
+    check("every unit's gold outline is on its window (Lakshadweep apart: below)", !dim.length, dim.map((r) => r.key + ":" + r.n).join(", "));
+    const ld = await page.evaluate(async () => {
+      const X = AtlasWindows.lastCtx, line = (X.TINT_SEL.line.match(/[\d.]+/g) || []).slice(0, 3).map(Number);
+      const host = document.createElement("div"); host.className = "map-card"; host.setAttribute("data-map-layer", "india-states"); host.setAttribute("data-map-key", "Lakshadweep"); host.setAttribute("data-map-zoom", "150");
+      host.style.cssText = "position:absolute;left:0;top:0;width:735px;height:343px"; host.innerHTML = '<canvas class="mc-canvas" style="display:block;width:735px;height:343px"></canvas><div class="mc-zoom"></div>';
+      document.body.appendChild(host); AtlasWindows.startCardWindow(host, X);
+      const t0 = performance.now(); while (performance.now() - t0 < 60000 && !(host._folioMap && host._folioMap.ready() && host._folioMap.settled())) await new Promise((r) => setTimeout(r, 50));
+      await new Promise((r) => setTimeout(r, 150));
+      const cv = host.querySelector(".mc-canvas"), d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data; let n = 0;
+      for (let i = 0; i < d.length; i += 4) if (Math.abs(d[i] - line[0]) < 36 && Math.abs(d[i + 1] - line[1]) < 36 && Math.abs(d[i + 2] - line[2]) < 40 && d[i + 3] > 200) n++;
+      host._folioMap.stop(); host.remove(); return n;
+    });
+    check("…and Lakshadweep, given a card's own zoom (150), is shaded and outlined on the island it opens on", ld > 30, String(ld));
+    const cut = res.out.filter((r) => r.n > 30 && (r.box[0] <= 0 || r.box[1] <= 0 || r.box[2] >= r.cw - 1 || r.box[3] >= r.ch - 1));
+    check("…and none runs off its window's edge", !cut.length, cut.map((r) => r.key).join(", "));
+    // the shaded state's gold fill sits inside the outline, and the inner lines of its neighbours are drawn
+    const shot = process.env.FOLIO_SHOTS ? path.join(process.env.FOLIO_SHOTS, "india-uttar-pradesh.png") : null;
+    if (shot) { await page.locator("#india-shot .mc-canvas").screenshot({ path: shot }); console.log("  (screenshot: " + shot + ")"); }
+    // a capital card: the dot is drawn, and Chandigarh — the seat of Punjab, outside it by fact — is drawn where it stands
+    const dotted = await page.evaluate(async () => {
+      const X = AtlasWindows.lastCtx; const host = document.createElement("div"); host.className = "map-card"; host.setAttribute("data-map-layer", "india-states"); host.setAttribute("data-map-key", "Punjab"); host.setAttribute("data-map-dot", "Chandigarh");
+      host.style.cssText = "position:absolute;left:0;top:0;width:735px;height:343px"; host.innerHTML = '<canvas class="mc-canvas" style="display:block;width:735px;height:343px"></canvas><div class="mc-zoom"></div>';
+      document.body.appendChild(host); AtlasWindows.startCardWindow(host, X);
+      const t0 = performance.now(); while (performance.now() - t0 < 60000 && !(host._folioMap && host._folioMap.ready() && host._folioMap.settled())) await new Promise((r) => setTimeout(r, 50));
+      await new Promise((r) => setTimeout(r, 150));
+      const b = host._folioMap.boxes(); host._folioMap.stop(); host.remove();
+      return { marks: b.marks.length, failed: host.classList.contains("mc-failed") };
+    });
+    check("a capital window (Punjab, its seat Chandigarh) mounts and draws its dot", !dotted.failed && dotted.marks >= 1, JSON.stringify(dotted));
+    await ctx.close();
+  }
+
   sect("errors");
   check("no console or page errors anywhere in this suite", errors.length === 0, errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();

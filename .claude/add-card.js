@@ -183,6 +183,11 @@ const MAP_LAYERS = {
      the builder's DEFERRED table). The refusal a missing point produces is the intended one in all
      three. */
   "russia-subjects": { what: "federal subject", points: "RUSSIA_CENTRES", dotWhat: "administrative centre" },
+  /* India's 28 states and 8 union territories (2026-11-14): NOT in frozen/layers.json (v1's snapshot) — their shapes are the lazy atlas/data/admin1.bin
+     (docs/atlas-v2-admin1-layer.md) and the layer is read from the generated atlas/data/card-faces.js (`fromCardFaces`). Its dot table is the seats of
+     .claude/atlas-build/admin1-capitals.json; a seat that lies in ANOTHER unit by fact (Chandigarh, the capital of Punjab and of Haryana and a union
+     territory of its own — gin-516 and gin-518) is accepted for the units it is the seat of, with a warning that the dot is outside the shape. */
+  "india-states": { what: "state or union territory", points: "INDIA_CAPITALS", dotWhat: "capital", fromCardFaces: true, seats: "IND" },
 };
 const MAPQ_MIN = 5, MAPQ_MAX = 20;
 const MAP_FACTS_MIN = 3, MAP_FACTS_MAX = 8;
@@ -243,8 +248,14 @@ if (isMap) {
   if ("zoom" in m && !(Number.isFinite(m.zoom) && m.zoom > 0)) { console.error("ERROR: card.map.zoom must be a positive number, or absent (the window fits the place automatically)."); process.exit(1); }
   /* Phase 5: the layers' shapes (us-states.js, china-provinces.js, russia-subjects.js, world.js) are gone; their names, short codes and dot tables were frozen into .claude/atlas-build/frozen/layers.json (freeze-v1.js).
      A NEW shape for a layer is a new entity in the Atlas's own data first (topology.bin), and then a row in that file by hand. */
-  const frozen = ((JSON.parse(fs.readFileSync(path.join(__dirname, "atlas-build", "frozen", "layers.json"), "utf8")).layers) || {})[m.layer];
-  if (!frozen) { console.error("ERROR: .claude/atlas-build/frozen/layers.json has no layer " + m.layer + "."); process.exit(1); }
+  let frozen = ((JSON.parse(fs.readFileSync(path.join(__dirname, "atlas-build", "frozen", "layers.json"), "utf8")).layers) || {})[m.layer];
+  if (!frozen && layer.fromCardFaces) {   // a layer of the lazy admin-1 file: its keys and dots as build-card-faces.js generated them
+    const w0 = global.window; global.window = {};
+    try { require(path.join(__dirname, "..", "atlas", "data", "card-faces.js")); } finally { var CF = global.window.ATLAS_CARD_FACES; global.window = w0; }
+    const L = CF && CF.layers && CF.layers[m.layer];
+    if (L) frozen = { keys: Object.keys(L).map((n) => ({ n })), dots: (CF.dots && CF.dots[m.layer]) || {} };
+  }
+  if (!frozen) { console.error("ERROR: .claude/atlas-build/frozen/layers.json has no layer " + m.layer + (layer.fromCardFaces ? ", and atlas/data/card-faces.js has none either (run .claude/atlas-build/build-card-faces.js --install)" : "") + "."); process.exit(1); }
   const shapes = frozen.keys;
   for (const k of mapKeys) {
     if (shapes.some((s) => s.n === k || s.a === k)) continue;
@@ -271,7 +282,11 @@ if (isMap) {
       console.error("ERROR: " + JSON.stringify(d) + " is not a " + layer.dotWhat + " in the " + m.layer + " layer's dots (.claude/atlas-build/frozen/layers.json)." + (near.length ? " Did you mean: " + near.join(", ") + "?" : ""));
       process.exit(1);
     }
-    if (mapKeys.indexOf(hit.s) < 0) {
+    // a seat that stands outside its unit by fact (admin1-capitals.json `inUnit`): the units it is the seat of accept it, with a warning the writer must act on
+    const seatOf = (() => { if (!layer.seats) return []; const spec = JSON.parse(fs.readFileSync(path.join(__dirname, "atlas-build", "admin1-spec.json"), "utf8")).countries.find((c) => c.a3 === layer.seats); const caps = JSON.parse(fs.readFileSync(path.join(__dirname, "atlas-build", "admin1-capitals.json"), "utf8")).countries[layer.seats] || {}; return spec.units.filter((u) => caps[u.iso] && caps[u.iso].name === d && caps[u.iso].inUnit).map((u) => u.name); })();
+    if (mapKeys.indexOf(hit.s) < 0 && mapKeys.some((k) => seatOf.indexOf(k) >= 0)) {
+      console.warn("WARNING: " + JSON.stringify(d) + " is the seat of " + JSON.stringify(mapKeys.join(", ")) + " but stands in " + JSON.stringify(hit.s) + ": the dot is OUTSIDE the shaded shape, truly. The question and the background must say that the capital lies in the union territory beside the state (docs/india-geography-card-plan.md \"The capitals\").");
+    } else if (mapKeys.indexOf(hit.s) < 0) {
       console.error("ERROR: " + JSON.stringify(d) + " is in " + JSON.stringify(hit.s) + ", but the card shades " + JSON.stringify(mapKeys.join(", ")) + " — the dot would fall outside the shape.");
       process.exit(1);
     }
