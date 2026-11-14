@@ -14635,7 +14635,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Lin_Zexu": "1785–1850",
 "First_Opium_War": "1839–1842",
 "Treaty_of_Nanking": "1842",
-"Hong_Xiuquan": "1813–1864",
+"Hong_Xiuquan": "1814–1864",
 "Nian_Rebellion": "1853–1868",
 "Second_Opium_War": "1856–1860",
 "Self-Strengthening_Movement": "1860s–1890s",

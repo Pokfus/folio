@@ -532,7 +532,7 @@ otherwise.
 | B54 | Ming (`col-32`) / Qing (`col-33`) | `cnh-531`–`cnh-540` | 10 | 108 | **done 2026-11-14** |
 | B55 | Qing (`col-33`) | `cnh-541`–`cnh-550` | 10 | 109 | **done 2026-11-14** |
 | B56 | Qing (`col-33`) | `cnh-551`–`cnh-560` | 10 | 108 | **done 2026-11-14** |
-| B57 | Qing (`col-33`) | `cnh-561`–`cnh-570` | 10 | 119 | to do |
+| B57 | Qing (`col-33`) | `cnh-561`–`cnh-570` | 10 | 119 | **done 2026-11-14** |
 | B58 | Qing (`col-33`) / Early Republic (`col-35`) | `cnh-571`–`cnh-580` | 10 | 117 | to do |
 | B59 | Early Republic (`col-35`) | `cnh-581`–`cnh-590` | 10 | 110 | to do |
 | B60 | Early Republic (`col-35`) | `cnh-591`–`cnh-600` | 10 | 118 | to do |
@@ -1178,6 +1178,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-558` | none | not re-checked (pictures paused): wanted |
 | `cnh-559` | none | not re-checked (pictures paused): wanted |
 | `cnh-560` | none | not re-checked (pictures paused): the glossary's portrait looks fine |
+| `cnh-561` | none | not re-checked (pictures paused): wanted |
+| `cnh-562` | none | not re-checked (pictures paused): wanted — the signing aboard the *Cornwallis* |
+| `cnh-563` | none | not re-checked (pictures paused): wanted |
+| `cnh-564` | none | not re-checked (pictures paused): wanted |
+| `cnh-565` | none | not re-checked (pictures paused): the glossary's labelled "alleged likeness" is fine |
+| `cnh-566` | none | not re-checked (pictures paused): wanted |
+| `cnh-567` | none | not re-checked (pictures paused): wanted |
+| `cnh-568` | none | not re-checked (pictures paused): wanted |
+| `cnh-569` | none | not re-checked (pictures paused): the current picture is fine |
+| `cnh-570` | none | not re-checked (pictures paused): wanted |
 
 ## Glossary candidates
 
@@ -3672,3 +3682,39 @@ part (August 1839, written with Deng Tingzhen and Yiliang, printed in the *Chine
 *The Times* on no page read). **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the apply). For the owner:
 `cnh-555`'s 1 July 1750, 22 April 1776 and 12 February 1799 on no page read; `cnh-560`'s 3 October 1840 (Hummel: dismissed 28 September)
 and Puning (Hummel and the *Qingshi gao*: Chaozhou). The alias "Liu Song" on `Liu_Song_dynasty` may link the sect leader on `cnh-558`.
+
+### B57 — `cnh-561`–`cnh-570`, Qing: the First Opium War to the First Sino-Japanese War (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl but one *Science Advances* DOI (`cnh-564`), which resolves to a
+bot-walled science.org page; the agent's saved page stands. **Pictures were not touched.** **The old cards cited the treaty texts
+(English and Chinese Wikisource), the *Qingshi gao* (up to two juan a card), the Taiping land system, Hong Xiuquan's tracts, the
+1924 Kuomintang manifesto, Sun Yat-sen's will and the 1949 Common Programme on Wikisource; carried the war template on every war
+with casualty figures no page prints ("c. 3,187 killed, 4,991 wounded", "c. 20,000,000 – 100,000,000 dead", "Over 100,000 killed",
+"c. 3,081 – 3,782", "c. 52,069 casualties"), Result rows, sub-notes naming battles and places, and labels naming institutions and
+places ("Zongli Yamen", "Fuzhou attacked", "US, UK end").** Each card now reads one Chinese text — the *Qingshi gao* (juan 136, 154,
+214, 462, 475) on zggdwx.com, Fan Hongjie's 1924 survey, or Han Yu 2018 — and the treaties in Mayers's and MacMurray's collections.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-561` First Opium War | 8 | 8 → 8 | **The template off: `Began 4 September 1839` / `Ended 29 August 1842` (Perdue, Theobald); the frigates at Chuanbi and Lin's silent report, Zhenjiang's garrison and its commander's death, the *Nemesis*'s debut; the treaty's terms and Lin's destruction of the opium left to their cards**; "Treaty of Nanjing" → Treaty of Nanking. **Pinyin → Dì-yī cì Yāpiàn Zhànzhēng** (agreeing with `cnh-567`). Timeline set to the two days. |
+| `cnh-562` Treaty of Nanking | 7 | 8 → 8 | **`Signed 29 August 1842` / `Ratified 26 June 1843` kept; the text and the Bogue précis from Mayers 1902; Hong Kong ceded for careening, the *Cornwallis*, Article XI's "perfect equality", the *Qingshi gao*'s Jinghai Temple and "Baimen treaty"; the indemnity 21 million dollars, not taels**; four Chinese texts dropped; the five ports, the hong debts and "unequal treaty" left to `cnh-599`, `cnh-557`, `cnh-563`. |
+| `cnh-563` unequal treaty | 7 | 8 → 9 | **Told as a later label, never a Qing term (who coined it on no page read; Fung and Kaufman place it after the First World War; Fan Hongjie's 1924 survey [in Chinese] shows it in use); `First signed 29 August 1842` / `Abrogation vowed 7 July 1928` (the Nationalist declaration, FRUS) / `Rights given up 11 January 1943` (Ma 2015); the most-favoured-nation clause (Mayers)**; the 1924 congress, Sun's will and the 1949 programme (Wikisource only) dropped. |
+| `cnh-564` Taiping Rebellion | 8 | 8 → 8 | **The template off: `Began 1850` / `Also dated 11 January 1851` / `Capital fell 19 July 1864`; the toll given as each source's estimate (S. W. Williams's twenty million through Morse, Theobald's 20 – 50 million, Orlandi's over 20 million, Zhao 2026's 100 million); Suzhou's surrendered kings and Gordon's break with Li Hongzhang (Danko), the Eastern King's fall; Kuhn; Han Yu 2018 [in Chinese]**. **Name → 太平天国运动 Tàipíng Tiānguó yùndòng.** |
+| `cnh-565` Hong Xiuquan | 7 | 7 → 7 | **Three Wikisource texts cut to the *Qingshi gao* juan 475; the vision told as Hong Rengan's account in Hamberg 1854, the golden-bearded old man, the sword and seal; Issachar Roberts's refusal to baptise him; the draft history's hostile portrait; Edkins 1861; the background's 1813 made "1814, or 1813 in some accounts"** (it contradicted the line). Protected: the line stays (flagged below). |
+| `cnh-566` Nian Rebellion | 6 | 7 → 6 | **The template off: `Dated 1853 – 1868` / `Also dated 1851 – 1868` (Orlandi et al.); Zhang Lexing at Zhiheji and the five banners, Sengge Rinchen killed when his horse stumbled (the *Qingshi gao*), "nian" as a Huaibei word for bands**; Li Hongzhang's fortified villages (Wikisource only) dropped. **Name → 捻军起义 Niǎnjūn qǐyì.** Timeline set to 1853 – 1868. |
+| `cnh-567` Second Opium War | 7 | 7 → 8 | **The template off: `Began 8 October 1856` / `Ended 24 October 1860` (Morse); Ye Mingchen and the Guangdong saying, Elgin's burning of the Yuanmingyuan aimed at the emperor, the *Qingshi gao*'s chapter on Britain that leaves out the *Arrow*; Wong 1974 ("not fought over opium"); Hummel**. **Pinyin → Dì-èr cì Yāpiàn Zhànzhēng.** Timeline set to the two days. |
+| `cnh-568` Self-Strengthening Movement | 7 | 7 → 9 | **Labels naming institutions and places off: `Foreign office 1861` / `Navy yard 1866` / `Study mission 1872 – 1881` / `Fleet sunk 1884`; "Self-Strengthening" told as a later name (Yangwu yundong the usual Chinese term); Feng Guifen's principle, Yung Wing and the Hartford boys, the Fuzhou yard lost within the hour; the *Qingshi gao* juan 136**; "Beiyang lost 1895" (`cnh-570`'s) and the converted 1891 halt dropped. |
+| `cnh-569` Empress Dowager Cixi | 8 | 8 → 8 | **The *Qingshi gao* juan 214; the regents arrested with Prince Gong, the nephew chosen against the adoption rule, Katharine Carl's portrait; the navy money told as a charge (Hummel states it; the *Qingshi gao*'s verdict sets her building below a tenth of earlier emperors'); the Art Institute's surcoat**; Kang Youwei's blame (on no page) and Musillo (walled) dropped. Protected: the line stays (flagged below). |
+| `cnh-570` First Sino-Japanese War | 7 | 7 → 7 | **The template off: `Began 25 July 1894` / `War declared 1 August 1894` / `Ended 17 April 1895`; the *Qingshi gao* juan 462 (Ding Ruchang at Weihaiwei), the *Kowshing*, Li Hongzhang shot and the treaty ending Korea's tribute (MacMurray); Hail in Hummel, Fukui 2005 [in Japanese], the Office of the Historian**; the casualty figure dropped. Timeline set to the two days. |
+
+Read by eye. **Confusability**: the treaty's terms are `cnh-562`'s alone (out of `cnh-561` and `cnh-557`); the label `cnh-563`'s;
+Hong's vision `cnh-565`'s and the war's kings and toll `cnh-564`'s; the Fuzhou yard `cnh-568`'s, the Beiyang fleet's end `cnh-570`'s;
+Cixi's phrasings clear of the 1898 coup, the Boxers and the arsenals. No `jp-` card covers the war. **Legend**: Hong Xiuquan's vision
+(Hamberg, from Hong Rengan), the navy money (a charge, disputed), the Taiping toll (estimates) are each a text's. **Chinese names
+corrected**: `cnh-561` and `cnh-567` pinyin, `cnh-564` 太平天国运动, `cnh-566` 捻军起义. Kept: 自强运动 (Theobald; 洋务运动 the
+commoner term — for the owner), 甲午战争 Jiǎwǔ Zhànzhēng (capitalised as the Opium Wars' Zhànzhēng). **Spellings fixed**: "Treaty of
+Nanjing" (`cnh-561`, and the glossary); 0 hits after. **Myth register**: Hong's vision confirmed; the Taiping toll corrected (no page
+read prints "twenty to thirty million"); the navy money confirmed as a disputed charge. **check-citations**: no mismatch. **Protected
+lines: unchanged** (diffed after the apply). For the owner: `cnh-565`'s 1 January 1814 and 11 January 1851; `cnh-569`'s 21 September 1898
+(Hummel: 22 September) and its birth and death places on no page read; `cnh-562`'s "Ratified 26 June 1843" is the exchange of
+ratifications (the Queen ratified 28 December 1842).

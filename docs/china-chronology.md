@@ -714,6 +714,14 @@ single whip 1581 (`cnh-381`), the examinations ended 1905 (`cnh-348`, `cnh-427`)
 | the one-port rule / the regulations / ended | 1757 / 1760 / 1842 | Morse and Hummel; Liu Yong (`cnh-557`) |
 | the White Lotus Rebellion | 1796 – 1804 | Hummel; Theobald (`cnh-558`) |
 | opium: the first edict / the Company's monopoly / imports banned / the offshore depot | 1729 / 1773 / 1800 / 1821 – 1839 | Morse (`cnh-559`) |
+| the First Opium War | 4 September 1839 – 29 August 1842 | Perdue; Theobald (`cnh-561`) |
+| the Treaty of Nanking signed / ratifications exchanged | 29 August 1842 / 26 June 1843 | Mayers (`cnh-562`) |
+| "unequal treaties": abrogation vowed / extraterritoriality given up | 7 July 1928 / 11 January 1943 | FRUS; Ma (`cnh-563`) |
+| the Taiping: began (two datings) / the capital fell | 1850, or 11 January 1851 / 19 July 1864 | Theobald; Morse (`cnh-564`) |
+| the Nian (two datings) | 1853 – 1868, or 1851 – 1868 | Orlandi et al. (`cnh-566`) |
+| the Second Opium War | 8 October 1856 – 24 October 1860 | Morse (`cnh-567`) |
+| the foreign office / the Fuzhou yard / the study mission / the fleet sunk | 1861 / 1866 / 1872 – 1881 / 1884 | Theobald (`cnh-568`) |
+| the First Sino-Japanese War: began / declared / ended | 25 July 1894 / 1 August 1894 / 17 April 1895 | MacMurray; Hail (`cnh-570`) |
 
 ## Later periods
 
@@ -1284,4 +1292,12 @@ cnh-556: 1792; 1793
 cnh-557: 1757; 1760; 1842
 cnh-558: 1796; 1804
 cnh-559: 1729; 1773; 1800; 1821; 1839
+cnh-561: 1839; 1842
+cnh-562: 1842; 1843
+cnh-563: 1842; 1928; 1943
+cnh-564: 1850; 1851; 1864
+cnh-566: 1853; 1868; 1851
+cnh-567: 1856; 1860
+cnh-568: 1861; 1866; 1872; 1881; 1884
+cnh-570: 1894; 1895
 ```
