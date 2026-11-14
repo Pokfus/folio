@@ -2167,12 +2167,29 @@
      stay, so reviving it is putting "challenge" back here, in `valid`, and its tile back on the home grid. */
   const DAILY_GAMES = ["chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "whatlang"];   // What language? (2026-11-09) is the tenth in play again
   const DORMANT_GAMES = ["picture", "challenge"];
+  /* ---------- THE GAMES ARCHIVE (Nov 2026, on request: admins may play any past day's draw) ----------
+     Every daily draw is a pure function of a "YYYY-MM-DD" key, so replaying a past day is a matter of
+     handing the draws a different key. `GAME_DAY` is that key while an archived day is being played
+     (`PAGES.gamearchive`, an ADMIN_ROUTE) and null otherwise; `gameDayStr()` is what every draw seeds on.
+     THE ARCHIVE IS A SANDBOX: while `GAME_DAY` is set, `markGamePlayed`, `setGameProgress`, Timeline's
+     `S.chrono`, the crossword's letters and Find it's discoveries write nothing, `gameProgress` resumes
+     nothing and `gameLockedToday` locks nothing — so no daily record, streak, chest, badge, `gameLog` or
+     pooled counter can move. `route` clears it on the way to any other page. The draw replays TODAY'S
+     pools on the past seed, so a day whose pool has since changed deals what that day would deal now. */
+  let GAME_DAY = null;
+  function gameDayStr() { return GAME_DAY || todayStr(); }
+  function gameArchiveOn() { return !!GAME_DAY; }
+  // is the page on screen this game, played today or from the archive (a lazy load re-enters only if so)
+  function gameRouteIs(key) { return current.name === key || (current.name === "gamearchive" && current.params.game === key); }
+  // the results screen's "fresh set tomorrow" line, which is not true of an archived day
+  function gameNextLine(s) { return GAME_DAY ? "Archive — not recorded." : s; }
   /* `opts.progress` marks a game played IN INSTALMENTS rather than in one sitting — the crossword, which
      stays open all day until it is solved and writes its score up as each entry falls. Such a game calls
      this many times a day, so the lifetime tally has to count ONE play for the day and ONE win however
      often the score rises; without that a nine-entry grid would read as nine plays on the account page.
      Every other game calls this once and is untouched by the flag. */
   function markGamePlayed(key, won, score, total, opts) {
+    if (GAME_DAY) return;   // an archived day is a sandbox: nothing is recorded (see THE GAMES ARCHIVE)
     if (!S.games) S.games = {};
     const t = todayStr();
     let g = S.games[key];
@@ -16160,7 +16177,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* The routes only an editor may reach. It is a LIST rather than a test on the page, because three
      things read it — the route guard, the nav's own colouring and `applyMode` — and a fourth will be
      added by somebody who has never read this. */
-  const ADMIN_ROUTES = ["admin", "warofages"];
+  const ADMIN_ROUTES = ["admin", "warofages", "gamearchive"];
   const PAGE_META = {
     home:      ["Folio — a study companion", "Spaced-repetition flashcards for history, science, art and languages, daily games and an interactive atlas."],
     search:    ["Search — Folio", "Find a card, a glossary term or a book by name, across everything Folio holds."],
@@ -16195,6 +16212,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     pie:       ["What share? — Folio", "Drag out a slice of the pie: what share of the whole is it?"],
     whatlang:  ["What language? — Folio", "Read a short passage and name the language it is written in."],
     admin:     ["Admin — Folio", "Folio's content editor."],
+    gamearchive: ["Games archive — Folio", "Play any past day of the daily games (admins only)."],
     studio:    ["Studio — Folio", "Write your own decks of flashcards and share them as a file."],
     deck:      ["Shared deck — Folio", "A deck of flashcards shared by a Folio user."],
   };
@@ -16233,6 +16251,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        else (applyMode), but a hidden tab is not a guard — the address is typeable. */
     if (ADMIN_ROUTES.indexOf(name) >= 0 && !isAdmin()) name = "home";
     if (DORMANT_GAMES.indexOf(name) >= 0) name = "home";   // a dormant game's address is typeable too (see DAILY_GAMES)
+    if (name !== "gamearchive") GAME_DAY = null;   // leaving the games archive leaves its sandbox (PAGES.gamearchive sets it again)
     /* THE FIRST SESSION ON A DECK ASKS HOW IT SHOULD BE DEALT (see PAGES.order). One choke point rather
        than a guard in `PAGES.study`, so the home page's rows, the review banner, the Collections page and
        a pasted `#study` link are all covered by the same line — and RESUME is exempt, since a reader
@@ -16262,6 +16281,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       : name === "card" && current.params.id ? "card/" + encodeURIComponent(current.params.id)
       : name === "u" && current.params.name ? "u/" + encodeURIComponent(current.params.name)
       : name === "sample" && current.params.id ? "sample/" + encodeURIComponent(current.params.id)
+      // #gamearchive/<YYYY-MM-DD>/<game> — an archived day being played (admins only; see PAGES.gamearchive)
+      : name === "gamearchive" && current.params.game ? "gamearchive/" + encodeURIComponent(current.params.date || "") + "/" + encodeURIComponent(current.params.game)
       /* #map/<lon>/<lat>/<zoom>/<place> — the Atlas's own address (Phase 3b): Back from a card it listed lands here, and the page reads
          the place back off the hash when it mounts, so the hash the reader came from is kept rather than cut to the bare name */
       : name === "map" && current.params.hash ? String(current.params.hash).replace(/^#/, "")
@@ -16463,6 +16484,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const old = view.firstElementChild;
     if (!old || !old.classList.contains("page")) return null;
     if (current.name === "admin" || current.name === "map" || current.name === "findit" || current.name === "howfar") return null;
+    if (current.name === "gamearchive" && (current.params.game === "findit" || current.params.game === "howfar")) return null;   // an archived Find it / How far? holds the same live canvases
     if (old.querySelector(".atlas, .atlas2")) return null;   // the Atlas (since Phase 5 the v2 page, `.atlas2`) is full-bleed and holds live canvases: no copy of it
     if (!dir && old.offsetHeight > 2600) return null;   // a very long page fading over a short one is a smear, not a transition
     if (old.querySelectorAll("*").length > 2000) return null;   // not worth cloning; that page is a list, and lists don't need a ghost
@@ -27563,6 +27585,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <section class="games-sec">
           <div class="games-top"><h2 class="games-head">Minigames</h2>${sweepRowHTML()}</div>
           ${gameGrid}
+          ${/* ADMIN ONLY (Nov 2026): the way into the games archive, which plays past days and records nothing (PAGES.gamearchive) */""}
+          ${isAdmin() ? '<a class="games-archive-link" href="#gamearchive">Games archive <span>— play a past day, not recorded</span></a>' : ""}
         </section>
         <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}${homeTermHTML()}</div>
         <footer class="home-foot">${aboutLink}<button class="home-about" id="b-changelog" type="button">Changelog</button><button class="home-about" id="b-credits" type="button">Credits</button>${versionLineHTML()}</footer>
@@ -36776,7 +36800,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function atlas2Ctx() {
     return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARDS, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, TINT_LATE, TINT_THIRD, GAME_MAX_DIFFICULTY,
       cardCollectionRoot, cardLocator, cardMapSpec, cardSpanYears, cardWar, cardWarYears, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon,
-      availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, esc, hashStr, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, todayStr, unitSystem, gameProgress, setGameProgress };
+      availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, esc, hashStr, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, unitSystem, gameProgress, setGameProgress,
+      todayStr: gameDayStr, gameArchiveOn, gameShareHTML, gameNextLine };   // the games' draws seed on the archive's day while one is played (THE GAMES ARCHIVE); nothing else in the lazy file reads the date
   }
   PAGES.findit2 = function (root) {
     root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s five places</strong></div>';
@@ -39782,11 +39807,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        off the row like every other, and a `prog` left behind would be a resume point inside a run that
        is over. */
   function gameProgress(key) {
+    if (GAME_DAY) return null;   // an archived run always starts afresh and is never resumed
     const g = (S.games && S.games[key]) || null;
     if (!g || g.date !== todayStr() || !Array.isArray(g.prog)) return null;
     return g.prog.map((x) => !!x);
   }
   function setGameProgress(key, results) {
+    if (GAME_DAY) return;   // the archive writes nothing
     if (!S.games) S.games = {};
     const t = todayStr();
     let g = S.games[key];
@@ -39796,6 +39823,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     save();
   }
   function gameLockedToday(root, key, opts) {
+    if (GAME_DAY) return false;   // an archived day is never locked: it is not today's set
     if (!gamePlayedToday(key)) return false;
     if (opts && opts.untilSolved && !gameWonToday(key)) return false;
     const g = (S.games && S.games[key]) || {};
@@ -39807,7 +39835,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       "Played today", meta[1],
       how + " in " + meta[0] + " today. A fresh " + fresh + " arrives tomorrow.",
       () => route("home"), "Back home"
-    );
+    ) + (scored ? gameShareHTML(key, g.s, g.n) : "");   // the score only: the rounds' order is not kept once the run is over
     return true;
   }
   /* A DAILY GAME WHOSE POOL IS A LAZY BUNDLE (Nov 2026): truefalse.js, quotes.js, crossword.js and whatyear.js left the eager path.
@@ -39824,6 +39852,146 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     });
     return true;
   }
+  /* ---------- SHARING A RESULT (Nov 2026, on request) ----------
+     Every daily game's results screen offers "Share result": a spoiler-free summary — the game, the day,
+     the score and a row of squares, one per round (green right, yellow right at the second try, red wrong,
+     white not reached) — and the address. Nothing in it names a question or an answer, so it can be posted
+     the morning the set is live. ONE sheet serves all nine (`openGameShare`, on `deckSheet`, so Escape, the
+     backdrop, the × and the arming window are the options sheet's own), opened by ONE delegated listener
+     from any `.gshare-open` button — which is how the lazy Find it and How far? reach it (`gameShareHTML`
+     travels in `atlas2Ctx`). The button carries its summary in `data-gshare`, so a results screen that is
+     repainted keeps a working button with nothing else to keep in step.
+     THE PLATFORMS ARE PLAIN LINKS to each one's public web share address, opened in a new tab with
+     `rel="noopener"` — no SDK, no remote script, nothing fetched, so the CSP in `_headers` is untouched
+     (a navigation is not a fetch). The platform's own share sheet (`navigator.share`, as `shareBook` uses)
+     is offered first where there is one, and Copy everywhere (`copySelText`). Facebook and LinkedIn take a
+     URL and nothing else — their share pages ignore any text — so on those two only the address goes. */
+  const SHARE_URL = "https://folio.study";
+  const SHARE_SQ = { "1": "\u{1F7E9}", "2": "\u{1F7E8}", "0": "\u{1F7E5}", "-": "⬜" };
+  const SHARE_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function gameDayLabel(d) {
+    const p = String(d || "").split("-").map(Number);
+    return p.length === 3 && p[0] && p[1] >= 1 && p[1] <= 12 ? p[2] + " " + SHARE_MONTHS[p[1] - 1] + " " + p[0] : String(d || "");
+  }
+  function gameShareText(o) {
+    const name = (GAME_NAMES[o.k] || [o.k])[0];
+    const grid = String(o.g || "").split("").map((c) => SHARE_SQ[c] || "").join("");
+    const score = typeof o.s === "number" && typeof o.n === "number" ? o.s + "/" + o.n : "";
+    return ["Folio · " + name + " · " + gameDayLabel(o.d) + (o.a ? " (archive)" : ""), (score + " " + grid).trim(), o.x || "", SHARE_URL]
+      .filter(Boolean).join("\n");
+  }
+  const SHARE_ICON = '<svg class="gshare-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><line x1="8.3" y1="10.8" x2="15.7" y2="6.2"/><line x1="8.3" y1="13.2" x2="15.7" y2="17.8"/></svg>';
+  /* The button for a results screen. `grid` is one character a round: "1" right, "2" right at the second
+     try, "0" wrong, "-" not reached; `note` is one more spoiler-free line (Common Thread's mistakes). */
+  function gameShareHTML(key, s, n, grid, note) {
+    const o = { k: key, d: gameDayStr(), s: s, n: n, g: grid || "", x: note || "" };
+    if (GAME_DAY) o.a = 1;
+    return '<div class="gshare-row"><button type="button" class="btn ghost gshare-open" data-gshare="' + esc(JSON.stringify(o)) + '">' +
+      SHARE_ICON + "Share result</button></div>";
+  }
+  // each platform's public web share address; t = the whole text, u = the address, b = the text without the address
+  const SHARE_TARGETS = [
+    ["x", "X", "X", (t) => "https://x.com/intent/tweet?text=" + encodeURIComponent(t)],
+    ["bsky", "Bluesky", "B", (t) => "https://bsky.app/intent/compose?text=" + encodeURIComponent(t)],
+    ["fb", "Facebook", "f", (t, u) => "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(u)],
+    ["reddit", "Reddit", "r", (t, u, b) => "https://www.reddit.com/submit?url=" + encodeURIComponent(u) + "&title=" + encodeURIComponent(b.replace(/\n/g, " — "))],
+    ["wa", "WhatsApp", "W", (t) => "https://wa.me/?text=" + encodeURIComponent(t)],
+    ["tg", "Telegram", "T", (t, u, b) => "https://t.me/share/url?url=" + encodeURIComponent(u) + "&text=" + encodeURIComponent(b)],
+    ["li", "LinkedIn", "in", (t, u) => "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(u)],
+    ["threads", "Threads", "@", (t) => "https://www.threads.net/intent/post?text=" + encodeURIComponent(t)],
+  ];
+  function openGameShare(o) {
+    const text = gameShareText(o);
+    const body = text.slice(-SHARE_URL.length) === SHARE_URL ? text.slice(0, -SHARE_URL.length).replace(/\n$/, "") : text;
+    const title = text.split("\n")[0];
+    const native = typeof navigator.share === "function";
+    const html = '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">Share your result</span>' +
+        '<span class="dm-where">No answers given away</span></div></div>' +
+      '<pre class="gshare-text notranslate" translate="no">' + esc(text) + "</pre>" +
+      '<div class="gshare-acts">' +
+        (native ? '<button type="button" class="btn" data-gs="native">' + SHARE_ICON + "Share…</button>" : "") +
+        '<button type="button" class="btn' + (native ? " ghost" : "") + '" data-gs="copy">Copy</button></div>' +
+      '<div class="gshare-links" role="list">' + SHARE_TARGETS.map((t) =>
+        '<a role="listitem" class="gshare-link" href="' + esc(t[3](text, SHARE_URL, body)) + '" target="_blank" rel="noopener noreferrer">' +
+          '<span class="gshare-mark gs-' + t[0] + '" aria-hidden="true">' + esc(t[2]) + "</span><span>" + esc(t[1]) + "</span></a>").join("") +
+      "</div>";
+    deckSheet("Share your result", html, (ov, close) => {
+      ov.querySelector('[data-gs="copy"]').addEventListener("click", () => copySelText(text, "Result copied"));
+      const nb = ov.querySelector('[data-gs="native"]');
+      if (nb) nb.addEventListener("click", () => {
+        // an abort is the reader dismissing the platform's sheet, not a failure (see shareBook)
+        navigator.share({ title: title, text: body, url: SHARE_URL }).catch((e) => { if (e && e.name !== "AbortError") copySelText(text, "Result copied"); });
+      });
+      ov.querySelectorAll(".gshare-link").forEach((a) => a.addEventListener("click", () => setTimeout(close, 0)));
+    });
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target && e.target.closest ? e.target.closest(".gshare-open") : null;
+    if (!b) return;
+    let o = null;
+    try { o = JSON.parse(b.getAttribute("data-gshare") || "null"); } catch (err) { o = null; }
+    if (o && o.k) openGameShare(o);
+  });
+  /* ---------- THE GAMES ARCHIVE'S PAGE (Nov 2026; admins only — `gamearchive` is an ADMIN_ROUTE) ----------
+     A day and a game. The day is limited to the past: yesterday back ARCHIVE_DAYS, since the code keeps
+     no record of the day the games began (they arrived over Aug–Oct 2026, one at a time). Playing sets
+     `GAME_DAY` (THE GAMES ARCHIVE, beside DAILY_GAMES) and mounts the game's own page under a banner that
+     says the run is not recorded; the game is the real one, with every write switched off. */
+  const ARCHIVE_DAYS = 365;
+  let _garchDay = null;   // the day last picked, so "All days" comes back to it
+  function gameArchiveBounds() {
+    const t = new Date(todayStr() + "T12:00:00");
+    const y = new Date(t); y.setDate(y.getDate() - 1);
+    const m = new Date(t); m.setDate(m.getDate() - ARCHIVE_DAYS);
+    return { min: dayKeyOfDate(m), max: dayKeyOfDate(y) };
+  }
+  PAGES.gamearchive = function (root, params) {
+    params = params || {};
+    const lim = gameArchiveBounds();
+    const okDate = (d) => /^\d{4}-\d{2}-\d{2}$/.test(d || "") && d >= lim.min && d <= lim.max;
+    if (params.game && DAILY_GAMES.indexOf(params.game) >= 0 && okDate(params.date) && PAGES[params.game]) {
+      GAME_DAY = params.date;
+      _garchDay = params.date;
+      const meta = GAME_NAMES[params.game] || [params.game, ""];
+      root.innerHTML = '<div class="garch-banner" role="note"><span class="garch-tag">Archive — not recorded</span>' +
+        '<span class="garch-what">' + esc(meta[0]) + " · " + esc(gameDayLabel(params.date)) + "</span>" +
+        '<a class="garch-back" href="#gamearchive">All days</a></div><div class="garch-play"></div>';
+      PAGES[params.game](root.querySelector(".garch-play"), {});
+      return;
+    }
+    GAME_DAY = null;
+    let day = okDate(params.date) ? params.date : okDate(_garchDay) ? _garchDay : lim.max;
+    root.innerHTML = `
+      <div class="dc-shell garch">
+        <div class="page-head"><span class="eyebrow">Admin</span><h1>Games archive</h1></div>
+        <p class="garch-lede">Play any past day’s draw of the daily games. Nothing played here is recorded: no score, streak, chest, badge or tally moves.</p>
+        <div class="garch-pick">
+          <button type="button" class="btn ghost garch-step" data-step="-1" aria-label="Previous day">‹</button>
+          <label class="garch-date"><span>Day</span><input type="date" id="garchDate" min="${lim.min}" max="${lim.max}" value="${day}" required></label>
+          <button type="button" class="btn ghost garch-step" data-step="1" aria-label="Next day">›</button>
+        </div>
+        <p class="garch-range">Any day from ${esc(gameDayLabel(lim.min))} to yesterday.</p>
+        <div class="garch-games">${DAILY_GAMES.map((k) => {
+          const m = GAME_NAMES[k] || [k, ""];
+          return `<button type="button" class="garch-game" data-game="${k}"><span class="garch-ico" aria-hidden="true">${m[1]}</span><span class="garch-name">${esc(m[0])}</span></button>`;
+        }).join("")}</div>
+      </div>`;
+    const inp = root.querySelector("#garchDate");
+    function paintSteps() {
+      root.querySelector('.garch-step[data-step="-1"]').disabled = day <= lim.min;
+      root.querySelector('.garch-step[data-step="1"]').disabled = day >= lim.max;
+    }
+    const setDay = (d) => { if (okDate(d)) { day = d; _garchDay = d; inp.value = d; } paintSteps(); };
+    inp.addEventListener("change", () => { if (okDate(inp.value)) setDay(inp.value); else inp.value = day; });
+    root.querySelectorAll(".garch-step").forEach((b) => b.addEventListener("click", () => {
+      const t = new Date(day + "T12:00:00");
+      t.setDate(t.getDate() + Number(b.dataset.step));
+      setDay(dayKeyOfDate(t));
+    }));
+    root.querySelectorAll(".garch-game").forEach((b) => b.addEventListener("click", () => route("gamearchive", { date: day, game: b.dataset.game })));
+    paintSteps();
+  };
   /* ---------- THE DAY'S DRAW IS THE SAME DRAW FOR EVERYONE (Aug 2026, on a bug report: two readers
      comparing True or False scores found they had been answering different statements) ----------
      A daily game is played once, its score is written to the tile as TODAY'S and read off a friend's
@@ -39846,7 +40014,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      apart, as they are on every other daily thing on the site — the fix is that everyone sharing a date
      shares a quiz, not that the planet turns over at once. */
   function dayPick(key, arr, n) {
-    const a = seededShuffle(arr, mulberry32(hashStr(key + "-" + todayStr())));
+    const a = seededShuffle(arr, mulberry32(hashStr(key + "-" + gameDayStr())));
     return n == null ? a : a.slice(0, n);
   }
   /* ---------- A ROUND ENDS ON SOMETHING LEARNED (Aug 2026, on request) ----------
@@ -40256,7 +40424,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
               <div class="tf-edit-host"><p class="tf-sum-q">${esc(it.q)}</p><p class="tf-sum-a"><b>${it.a ? "True" : "False"}.</b> ${tfWhyHTML(it)}</p>${sourcesHTML(it.src, { compact: true })}${tfAdminBar(pickKeys[k])}</div>
             </div>`).join("")}</div>
-          <p class="tf-tomorrow">Five fresh statements arrive tomorrow.</p>
+          ${gameShareHTML("truefalse", score, ROUNDS, results.map((x) => (x ? "1" : "0")).join(""))}
+          <p class="tf-tomorrow">${gameNextLine("Five fresh statements arrive tomorrow.")}</p>
           <div class="tf-actions"><button class="btn ghost" id="tf-home">Home</button></div>
         </div>`;
       tfWireWhy(root.querySelector(".tf-summary"));
@@ -40420,7 +40589,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
               <div><p class="tf-sum-q verbatim">“${esc(rd.it.q)}”</p><p class="tf-sum-a"><b>${esc(rd.it.who)}</b> — ${sanitizeHTML(String(rd.it.context || ""))}</p>${sourcesHTML(rd.it.src, { compact: true })}</div>
             </div>`).join("")}</div>
-          <p class="tf-tomorrow">${["No", "One", "Two", "Three", "Four", "Five"][ROUNDS] || ROUNDS} fresh voices arrive tomorrow.</p>
+          ${gameShareHTML("whosaid", score, ROUNDS, results.map((x) => (x ? "1" : "0")).join(""))}
+          <p class="tf-tomorrow">${gameNextLine((["No", "One", "Two", "Three", "Four", "Five"][ROUNDS] || ROUNDS) + " fresh voices arrive tomorrow.")}</p>
           <div class="tf-actions"><button class="btn ghost" id="ws-home">Home</button></div>
         </div>`;
       tfWireWhy(root.querySelector(".tf-summary"));
@@ -40576,7 +40746,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return a;
   }
   function dailyChronoSet(n) {
-    const rng = mulberry32(hashStr("chrono-" + todayStr()));
+    const rng = mulberry32(hashStr("chrono-" + gameDayStr()));
     const shuffled = seededShuffle(chronoPool(), rng);
     const chosen = [], years = new Set();
     for (const x of shuffled) {
@@ -40688,7 +40858,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s Timeline</strong></div>';
       ensureData("chronoClues").then(() => {
         PAGES.chrono._cluesTried = true;
-        if (root.isConnected && current.name === "chrono") PAGES.chrono(root);
+        if (root.isConnected && gameRouteIs("chrono")) PAGES.chrono(root);
       });
       return;
     }
@@ -40702,7 +40872,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const correctIndex = {};
     set.slice().sort((a, b) => a.year - b.year).forEach((x, i) => (correctIndex[x.id] = i));
 
-    const orderRng = mulberry32(hashStr("chrono-order-" + todayStr()));
+    const orderRng = mulberry32(hashStr("chrono-order-" + gameDayStr()));
     let order = seededShuffle(set, orderRng).map((x) => x.id);
     if (order.every((id, i) => correctIndex[id] === i)) order.reverse();
 
@@ -40806,9 +40976,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     function check() {
       const ord = [...root.querySelectorAll(".chrono-item")].map((el) => el.dataset.id);
       let score = 0;
+      const marks = [];   // one per row, top to bottom, for the shared result
       ord.forEach((id, i) => {
         const el = root.querySelector(`.chrono-item[data-id="${id}"]`);
         const ok = correctIndex[id] === i;
+        marks.push(ok ? "1" : "0");
         if (ok) score++;
         el.classList.toggle("correct", ok);
         el.classList.toggle("wrong", !ok);
@@ -40829,15 +41001,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          gameLockedToday) that exception is the last way back into a puzzle already answered, so it goes.
          The rows keep their marks and their dates, which is what the learning half of it was for; what
          they no longer do is move. */
-      S.chrono = { date: todayStr(), best: score, plays: 1, solved: solved };
+      if (!GAME_DAY) S.chrono = { date: todayStr(), best: score, plays: 1, solved: solved };
       markGamePlayed("chrono", solved, score, N);
       save();
       checkAchievements();
       const res = root.querySelector("#chrono-result");
       res.className = "chrono-result show" + (solved ? " win" : "");
-      res.innerHTML = solved
-        ? `<div class="cr-title">Solved — perfect order!</div><div class="cr-sub">All ${N} events placed correctly. A fresh puzzle arrives tomorrow.</div>`
-        : `<div class="cr-title">${score} / ${N} in the right place</div><div class="cr-sub">Green rows sat correctly, and every date is now shown. A fresh puzzle arrives tomorrow.</div>`;
+      const nextLine = GAME_DAY ? " Archive — not recorded." : " A fresh puzzle arrives tomorrow.";
+      res.innerHTML = (solved
+        ? `<div class="cr-title">Solved — perfect order!</div><div class="cr-sub">All ${N} events placed correctly.${nextLine}</div>`
+        : `<div class="cr-title">${score} / ${N} in the right place</div><div class="cr-sub">Green rows sat correctly, and every date is now shown.${nextLine}</div>`) +
+        gameShareHTML("chrono", score, N, marks.join(""));
       // the puzzle is over: the rows stop being draggable and the button stops offering another go
       root.querySelector("#chrono-list").classList.add("chrono-done");
       const btn = root.querySelector("#chrono-check");
@@ -41212,7 +41386,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        candidate order is reshuffled and the seating run again, up to THREAD_TRIES times, and the first
        complete grid wins. Every attempt draws from the SAME day-seeded stream, so the day still decides the
        puzzle entirely — a reload cannot deal a different one. Measured after: 0 blank days in 730. */
-    const rng = mulberry32(hashStr("thread-" + todayStr()));
+    const rng = mulberry32(hashStr("thread-" + gameDayStr()));
     for (let attempt = 0; attempt < THREAD_TRIES; attempt++) {
       const groups = [], fams = new Set(), stems = new Set();
       for (const tag of seededShuffle(cand, rng)) {
@@ -41265,7 +41439,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const puzzle = dailyThreadPuzzle();
     if (!puzzle) { root.innerHTML = emptyPlacard("Coming soon", "紐", "Not enough glossary terms to make today's puzzle yet.", () => route("home"), "Back home"); return; }
     const N = THREAD_ROWS * THREAD_ROWS;
-    const rng = mulberry32(hashStr("thread-grid-" + todayStr()));
+    const rng = mulberry32(hashStr("thread-grid-" + gameDayStr()));
     // The grid order is seeded too, so a reload cannot reshuffle a puzzle the reader is half way through
     // reasoning about — the same guarantee the other five daily games make about their rounds.
     let tiles = seededShuffle(puzzle.flatMap((g, gi) => g.terms.map((it) => ({ ...it, gi: gi }))), rng);
@@ -41381,6 +41555,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // tile. `score` is groups found, which is what the tile's tagline reads back.
       const found = solved.length;
       markGamePlayed("thread", win && mistakes === 0, found, THREAD_ROWS); save(); checkAchievements();
+      const shareHTML = gameShareHTML("thread", found, THREAD_ROWS, "1".repeat(found) + "-".repeat(Math.max(0, THREAD_ROWS - found)),
+        mistakes === 0 ? "No mistakes" : mistakes + (mistakes === 1 ? " mistake" : " mistakes"));
       if (!win) puzzle.forEach((_, gi) => { if (!solved.includes(gi)) solved.push(gi); });   // show the answer
       const msg = win && mistakes === 0
         ? "Flawless — every thread found first time."
@@ -41396,6 +41572,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // the marks on the bands are what say which is which, so the line points at them rather than repeating them
       p.textContent = msg + (win ? "" : " The ones you missed are greyed out.") + " Tap a term to read it.";
       shell.insertBefore(p, root.querySelector("#thBoard"));
+      p.insertAdjacentHTML("afterend", shareHTML);
     }
   };
 
@@ -41459,7 +41636,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      half-finished sheet of paper, which belongs to the screen it was started on. The day stamp is what
      retires it, so yesterday's letters can never be restored into today's grid. */
   const XW_KEY = "folio_xw_v1";
+  // an archived grid keeps its letters in memory only, keyed by its own day, and never touches the store
+  let _xwArchive = null;
   function xwRecord() {
+    if (GAME_DAY) return _xwArchive && _xwArchive.d === GAME_DAY ? _xwArchive : null;
     try {
       const r = JSON.parse(localStorage.getItem(XW_KEY) || "null");
       return r && r.d === todayStr() ? r : null;
@@ -41471,6 +41651,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   function xwSaveCells(c) {
     const r = xwRecord() || {};
+    if (GAME_DAY) { _xwArchive = { d: GAME_DAY, c: c, up: !!r.up }; return; }
     try { localStorage.setItem(XW_KEY, JSON.stringify({ d: todayStr(), c: c, up: !!r.up })); } catch (e) {}
   }
   /* GIVING UP IS RECORDED, and it has to be — the revealed answers go into the same store the reader's own
@@ -41480,6 +41661,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      expires the way the letters do: at the day boundary, by being read. */
   function xwGaveUpToday() { const r = xwRecord(); return !!(r && r.up); }
   function xwMarkGaveUp(cells) {
+    if (GAME_DAY) { _xwArchive = { d: GAME_DAY, c: cells || {}, up: true }; return; }
     try { localStorage.setItem(XW_KEY, JSON.stringify({ d: todayStr(), c: cells || {}, up: true })); } catch (e) {}
   }
 
@@ -41576,7 +41758,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function dailyCrossword() {
     const pool = xwPool();
     if (pool.length < XW_ENTRIES) return null;
-    const rng = mulberry32(hashStr("crossword-" + todayStr()));
+    const rng = mulberry32(hashStr("crossword-" + gameDayStr()));
     let best = null;
     for (let t = 0; t < XW_TRIES; t++) {
       /* Long words first inside a shuffled draw: the opening word is the spine every later one hangs off,
@@ -41761,7 +41943,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const res = root.querySelector("#xwResult");
       res.className = "chrono-result show win";
       res.innerHTML = '<div class="cr-title">Solved — every answer right!</div>' +
-        '<div class="cr-sub">All ' + N + " entries filled correctly. A fresh grid arrives tomorrow.</div>";
+        '<div class="cr-sub">All ' + N + " entries filled correctly." + (GAME_DAY ? " Archive — not recorded." : " A fresh grid arrives tomorrow.") + "</div>" +
+        gameShareHTML("crossword", N, N, "1".repeat(N));
     }
     // the clue for the entry being typed, pinned above the grid — on a phone the clue lists are below the
     // fold while the grid is in front of the reader, so without this they are typing at a clue they cannot see
@@ -41955,7 +42138,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           const res = root.querySelector("#xwResult");
           res.className = "chrono-result show";
           res.innerHTML = '<div class="cr-title">' + earned + " of " + N + " found</div>" +
-            '<div class="cr-sub">The rest are filled in above, in red. A fresh grid arrives tomorrow.</div>';
+            '<div class="cr-sub">The rest are filled in above, in red.' + (GAME_DAY ? " Archive — not recorded." : " A fresh grid arrives tomorrow.") + "</div>" +
+            gameShareHTML("crossword", earned, N, "1".repeat(earned) + "-".repeat(Math.max(0, N - earned)));
         }, "Show the answers");
       });
       root.querySelector("#xw-home").addEventListener("click", () => route("home"));
@@ -42071,7 +42255,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function dailyPictureRounds() {
     const pool = picturePool();
     if (pool.length < PIC_MIN_POOL) return null;
-    const rng = mulberry32(hashStr("picture-" + todayStr()));
+    const rng = mulberry32(hashStr("picture-" + gameDayStr()));
     const shuffled = seededShuffle(pool, rng);
     /* THE THREE WRONG ANSWERS ARE THE SUBJECTS MOST AKIN TO THE RIGHT ONE (Aug 2026, on request — the same
        change Multiple Choice made, for the same reason). Drawn at random they were a photograph of a
@@ -42398,7 +42582,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const years = [...byYear.keys()].filter((y) => byYear.get(y).length >= WY_EVENTS).sort((a, b) => a - b);
     const n = years.length;
     if (n < WY_ROUNDS) return null;
-    const day = todayStr().split("-").map(Number);
+    const day = gameDayStr().split("-").map(Number);
     const dayNo = Math.floor(Date.UTC(day[0], (day[1] || 1) - 1, day[2] || 1) / 86400000);
     const ring = seededShuffle(years, mulberry32(hashStr("whatyear-ring")));   // one base order, turned per cycle
     const maxR = Math.max(1, n - Math.ceil(n / 2));
@@ -42411,7 +42595,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const year = ring[(((k % n) + rot) % n + n) % n];
       if (seen.has(year)) continue;   // the half-cycle floor makes this unreachable at 15 years; a guard for a smaller pool
       seen.add(year);
-      out.push(wyRound(year, byYear.get(year), "whatyear-" + todayStr() + "-" + out.length));
+      out.push(wyRound(year, byYear.get(year), "whatyear-" + gameDayStr() + "-" + out.length));
     }
     return out.length === WY_ROUNDS ? out : null;
   }
@@ -42567,7 +42751,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
               <div><p class="tf-sum-q"><b>${esc(yearLabel(p.year))}</b></p><p class="tf-sum-a">${p.events.map((e) => esc(e.name)).join(" · ")}</p></div>
             </div>`).join("")}</div>
-          <p class="tf-tomorrow">Five fresh years arrive tomorrow.</p>
+          ${gameShareHTML("whatyear", score, WY_ROUNDS, results.slice(0, WY_ROUNDS).map((x) => (x ? "1" : "0")).join(""))}
+          <p class="tf-tomorrow">${gameNextLine("Five fresh years arrive tomorrow.")}</p>
           <div class="tf-actions"><button class="btn ghost" id="wy-home" type="button">Home</button></div>
         </div>`;
       root.querySelector("#wy-home").addEventListener("click", () => route("home"));
@@ -42765,7 +42950,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!dataReady("pie")) {
       root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s five questions</strong></div>';
       ensureData("pie").then((ok) => {
-        if (!root.isConnected || current.name !== "pie") return;
+        if (!root.isConnected || !gameRouteIs("pie")) return;
         if (ok) { PAGES.pie(root); return; }
         root.innerHTML = '<div class="data-loading dl-fail" role="alert"><strong>What share? could not be set up</strong><span class="dl-note">Its questions did not load. Check your connection and try again.</span><button class="btn" type="button" id="pieReload">Reload</button></div>';
         const b = root.querySelector("#pieReload"); if (b) b.addEventListener("click", () => location.reload());
@@ -42916,7 +43101,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
               <div><p class="tf-sum-q">${esc(it.q)}</p><p class="tf-sum-a"><b>${it.a}%</b>${typeof guesses[k] === "number" ? ` (you said <span class="pie-guess ${results[k] ? "ok" : "no"}">${guesses[k]}%</span>)` : ""}. ${tfWhyHTML(it)}</p>${sourcesHTML(it.src, { compact: true })}</div>
             </div>`).join("")}</div>
-          <p class="tf-tomorrow">Five fresh questions arrive tomorrow.</p>
+          ${gameShareHTML("pie", score, PIE_ROUNDS, results.slice(0, PIE_ROUNDS).map((x) => (x ? "1" : "0")).join(""))}
+          <p class="tf-tomorrow">${gameNextLine("Five fresh questions arrive tomorrow.")}</p>
           <div class="tf-actions"><button class="btn ghost" id="pie-home" type="button">Home</button></div>
         </div>`;
       tfWireWhy(root.querySelector(".tf-summary"));
@@ -49772,7 +49958,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     e.preventDefault();
     openKeySheet();
   });
-  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "whatlang", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
+  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "whatlang", "admin", "warofages", "gamearchive", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
   /* #map2 is the address the engine was previewed at; since Phase 5 the Atlas is #map. A link or a bookmark to the old address is corrected in the address bar (replaceState: assigning would fire a hashchange and leave the dead address in the
      history for Back), with the view, the year and the place after it left as they were. */
   if (/^#map2(?=[\/?]|$)/.test(location.hash || "")) { try { history.replaceState(null, "", location.pathname + location.search + location.hash.replace(/^#map2/, "#map")); } catch (e) {} }
@@ -49794,6 +49980,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   if (initName === "deck") { try { initParams.slug = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.slug = hParts[1] || ""; } }   // a mangled %-escape must not kill boot
   // #card/<id> — one card at a stable address, the same shape as #book/<id>
   if (initName === "card") { try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; } }
+  // #gamearchive/<date>/<game> — an archived day of a daily game (admins only; refused below until the role is known)
+  if (initName === "gamearchive" && hParts[2]) initParams = { date: hParts[1] || "", game: hParts[2] };
   // #sample/<collection id> — ten cards of a collection, scheduling nothing (see PAGES.sample)
   if (initName === "sample") { try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; } }
   // #u/<username> — a person at a stable address (see PAGES_u)
@@ -50090,6 +50278,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       let slug = "";
       try { slug = decodeURIComponent(parts[1] || ""); } catch (e) { slug = parts[1] || ""; }
       if (!(current.name === "deck" && current.params.slug === slug)) route("deck", { slug: slug });
+      return;
+    }
+    if (parts[0] === "gamearchive") {   // #gamearchive[/<date>/<game>] followed mid-session (route() refuses it to a non-admin)
+      const gd = parts[1] || "", gk = parts[2] || "";
+      if (!(current.name === "gamearchive" && (current.params.date || "") === (gk ? gd : "") && (current.params.game || "") === gk)) route("gamearchive", gk ? { date: gd, game: gk } : {});
       return;
     }
     if (parts[0] === "sample") {   // #sample/<collection id> pasted or followed mid-session

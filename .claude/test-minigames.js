@@ -154,6 +154,9 @@ function builder() {
     const quoteLocalized = (x) => x, tfLocalized = (x) => x;
     const S = { settings: {} };
     const localStorage = { getItem: () => null, setItem: () => {} };
+    // the draws seed on gameDayStr() — the games archive's day while one is played, else today (THE GAMES ARCHIVE)
+    const GAME_DAY = null;
+    const gameDayStr = () => todayStr();
     const chronoYear = (c) => { const y = cardStartYear(c); return y ? y : null; };
     const chronoPool = () => CARDS.filter(difficultyOK).map((c) => ({ id: c.id, name: c.answerText, year: chronoYear(c) })).filter((x) => x.year != null && x.name);
   `;

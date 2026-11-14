@@ -1031,3 +1031,22 @@ The request: "Create a new minigame titled What Language? In this minigame, user
 - **The reveal**: Correct / Not quite with the name, the family › branch and script, the English of Article 1, and two sources (the UN resolution and the project's file for that language). The draw is `dayPick("whatlang", …, 5)`; a round answered stays answered (`setGameProgress`), cleared at the end; the lock is `gameLockedToday`; a perfect run is 5 / 5.
 
 Re-run after touching `PAGES.whatlang`, `whatLangDecoys`, `whatlang-languages.json` or `build-whatlang.js`: `node .claude/test-whatlang.js` (it checks every one of the 200 languages' decoys through the page's own dealer) and `test-minigames.js` for the wiring.
+
+## Share result, and the admins' games archive (2026-11-14, on request)
+
+**Share result**: every daily game's results screen (and the "Played today" placard, score only) carries a
+`.gshare-open` button built by `gameShareHTML(key, score, total, grid, note)`; one delegated listener opens
+`openGameShare`, a `deckSheet` with the spoiler-free text (game, day, score, one square a round), the
+platform's own share sheet where `navigator.share` exists, Copy (`copySelText`) and plain links to the
+public web share addresses of X, Bluesky, Facebook, Reddit, WhatsApp, Telegram, LinkedIn and Threads
+(`SHARE_TARGETS`, new tab, `rel="noopener"`; no SDK, nothing fetched, CSP untouched). Find it and How far?
+reach the helper through `atlas2Ctx`.
+
+**The games archive** (`#gamearchive[/<date>/<game>]`, an `ADMIN_ROUTES` entry, linked under the home grid
+for admins only): every draw seeds on `gameDayStr()`, which is the archive's `GAME_DAY` while an archived day
+is played and `todayStr()` otherwise. **The archive is a sandbox**: with `GAME_DAY` set, `markGamePlayed`,
+`setGameProgress`, Timeline's `S.chrono`, the crossword's letters (kept in memory) and Find it's discoveries
+write nothing, `gameProgress` resumes nothing and `gameLockedToday` locks nothing; `route` clears it on the
+way to any other page, and the banner says "Archive — not recorded". The day runs from yesterday back 365
+days (the code keeps no start date). An archived day replays TODAY'S pools on the past seed, so a day whose
+pool has changed since deals what it would deal now. `test-minigames.js` shims `gameDayStr` for its Node sweep.

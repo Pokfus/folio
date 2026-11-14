@@ -774,6 +774,7 @@
         <div class="data-loading fi2-loading" id="fi2Loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Setting up today’s five places</strong></div>
       </div>`;
     const board = root.querySelector("#fi2Board"), cart = root.querySelector("#mapCartouche"), mgEl = root.querySelector("#mapGame"), roundEl = root.querySelector("#mgRound"), scoreEl = root.querySelector("#mgScore"), qEl = root.querySelector("#mgQ"), fbEl = root.querySelector("#mgFeedback"), nextEl = root.querySelector("#mgNext"), confirmEl = root.querySelector("#mgConfirm"), clearEl = root.querySelector("#mgClear"), loadEl = root.querySelector("#fi2Loading");
+    let shareGrid = [];   // one mark a round for the shared result: "1" first try, "2" second, "0" missed
     let rounds = [], ri = 0, tries = 0, found = 0, firstTry = 0, lock = false, over = false, pick = null, win = null, hubRef = null, marks = [], pin = null, pickPin = null, pulse = null, disposed = false, shown = null, named = null;   // named: an area round's other states, named after the reveal (stateNames); shown: an area round's rings, drawn by the window on the still renderer
     const reduced = () => prefersReducedMotion();
     const MAXY2 = new Date().getFullYear();
@@ -927,6 +928,7 @@
     function fi2Target(r) { if (r.kind !== "entity") return [r.lon, r.lat]; const L = window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.layers.world, g = L && L[r.n]; return g ? [g[1], g[2]] : null; }
     function reveal(r, ok) {
       lock = true; clearPick();
+      shareGrid[ri] = ok ? (tries === 0 ? "1" : "2") : "0";
       const tgt = fi2Target(r), tint = ok ? TINT.found : TINT.answer, col = ok ? GREEN : GOLD;
       if (r.kind === "entity") { const t = targetIds(r); if (t.length) marks.push({ ids: t, tint }); }
       else if (r.kind === "area") { const t = targetIds(r); if (t.length) marks.push({ ids: t, tint }); else if (hubRef && hubRef.canvas2d && r.rings) shown = { rings: r.rings, tint }; named = { year: r.shown, skip: new Set(t), states: null, rows: null, asked: "" }; }
@@ -942,6 +944,7 @@
        did on the way: finding a country for the first time still records it as discovered on the reader's Atlas (`study.discover`, the same `placesSeen` register), silently. */
     const SU = X.study || null;
     function revealPanel(r) {
+      if (X.gameArchiveOn && X.gameArchiveOn()) return;   // an archived day records nothing, a discovery included
       if (r.kind === "entity" && SU && SU.discover) { try { SU.discover(r.n); } catch (e) { /* a failed record must not stop the round */ } }
     }
     function end() {
@@ -949,7 +952,9 @@
       markGamePlayed("findit", perfect, found, n); save(); checkAchievements();
       roundEl.textContent = "Done!"; scoreEl.textContent = "";
       qEl.innerHTML = "<b>" + found + " / " + n + "</b> found" + (perfect ? " — perfect!" : ".");
-      fbEl.textContent = (firstTry < found ? firstTry + " of them on the first try. " : "") + "Come back tomorrow for five new places."; fbEl.hidden = false;
+      const fiNext = X.gameNextLine ? X.gameNextLine("Come back tomorrow for five new places.") : "Come back tomorrow for five new places.";
+      fbEl.innerHTML = esc((firstTry < found ? firstTry + " of them on the first try. " : "") + fiNext) +
+        (X.gameShareHTML ? X.gameShareHTML("findit", found, n, rounds.map((_, i) => shareGrid[i] || "0").join("")) : ""); fbEl.hidden = false;
       nextEl.textContent = "Back to Home"; nextEl.hidden = false;
     }
     void MAXY2;
@@ -1127,7 +1132,9 @@
       markGamePlayed("howfar", perfect, s, n); if (X.setGameProgress) X.setGameProgress("howfar", null); save(); checkAchievements();
       roundEl.textContent = "Done!"; scoreEl.textContent = "";
       qEl.innerHTML = "<b>" + s + " / " + n + "</b> within 10%" + (perfect ? " — perfect!" : ".");
-      formEl.hidden = true; fbEl.textContent = "Come back tomorrow for five new distances."; fbEl.hidden = false;
+      const hfNext = X.gameNextLine ? X.gameNextLine("Come back tomorrow for five new distances.") : "Come back tomorrow for five new distances.";
+      formEl.hidden = true; fbEl.innerHTML = esc(hfNext) +
+        (X.gameShareHTML ? X.gameShareHTML("howfar", s, n, rounds.map((_, i) => (results[i] ? "1" : "0")).join("")) : ""); fbEl.hidden = false;
       nextEl.textContent = "Back to Home"; nextEl.hidden = false;
       if (win) { win.setView(15, 20, 1); win.schedule(); }
     }
