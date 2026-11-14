@@ -87,7 +87,7 @@ an English review of the same work, and say in the ledger where a card had to ch
 **The date lines of the cards about ONE human being, historical or legendary, are refined in another thread
 and are left alone here.** The list is `node .claude/person-cards.js --list` (`individual` and `legendary`)
 plus every card tagged `ruler` or `person` it does not catch, confirmed against main on 2026-11-08 for the first
-hundred, on 2026-11-12 for the second, on 2026-11-12 for the third and on 2026-11-13 for the fourth and on 2026-11-13 for the fifth (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
+hundred, on 2026-11-12 for the second, on 2026-11-12 for the third and on 2026-11-13 for the fourth, on 2026-11-13 for the fifth and on 2026-11-14 for the sixth (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
 and Zhang Yi) and `cnh-184` (the Four Lords) are tagged `person` but name groups: they are audited as ordinary cards. `cnh-audit.js` reads the block below: on these cards it
 sets the date line's own findings aside (one `P.protected` note counts them) but still checks that the
 background carries every year on the line (`D.not-in-prose`) and the pins; `precheck.js` fails a draft whose
@@ -226,6 +226,33 @@ cnh-491 Ayurbarwada           (ruler; the person template)
 cnh-493 Guo Shoujing          (individual; the person template)
 cnh-496 John of Montecorvino  (individual; the person template)
 cnh-497 Drogön Chögyal Phagpa (individual; the person template)
+cnh-504 Hongwu Emperor        (ruler; the person template)
+cnh-510 Yongle Emperor        (ruler; the person template)
+cnh-514 Zheng He              (individual; the person template)
+cnh-516 Hongxi Emperor        (ruler; the person template)
+cnh-527 Matteo Ricci          (individual; the person template)
+cnh-528 Wang Yangming         (individual; the person template)
+cnh-532 Wei Zhongxian         (individual; the person template)
+cnh-533 Li Zicheng            (individual; the person template)
+cnh-534 Chongzhen Emperor     (ruler; person-cards misses it)
+cnh-536 Nurhaci               (ruler; the person template)
+cnh-538 Hong Taiji            (ruler; the person template)
+cnh-540 Dorgon                (individual; the person template)
+cnh-545 Kangxi Emperor        (ruler; the person template)
+cnh-549 Yongzheng Emperor     (ruler; the person template)
+cnh-551 Qianlong Emperor      (ruler; the person template)
+cnh-554 Hong Liangji          (individual; the person template)
+cnh-555 Heshen                (individual; the person template)
+cnh-560 Lin Zexu              (individual; the person template)
+cnh-565 Hong Xiuquan          (individual; the person template)
+cnh-569 Empress Dowager Cixi  (ruler; the person template)
+cnh-575 Sun Yat-sen           (individual; the person template)
+cnh-576 Puyi                  (ruler; the person template)
+cnh-578 Yuan Shikai           (individual; the person template)
+cnh-587 Chen Duxiu            (individual; the person template)
+cnh-588 Hu Shi                (individual; the person template)
+cnh-589 Lu Xun                (individual; the person template)
+cnh-593 Chiang Kai-shek       (individual; the person template)
 ```
 
 - The draft's patch omits `answerDate`, `undatable` and `timeline`; its `pins` and `chronology` are read from
@@ -354,6 +381,28 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Marco Polo's travels and the doubt | the book dictated in a Genoese prison to Rustichello of Pisa (1298 – 1299), surviving in many differing manuscripts; the doubt that he reached China (the Great Wall, tea and footbinding unmentioned, his name absent from the Chinese record) and the replies (the salt, paper money and the Yangzhou post); some passages survive in one printed edition only (Ramusio's, as Yule notes for the ships' compartments, `cnh-438`, and the city's chessboard plots, `cnh-487`); the dictation placed between late 1298 and mid-1299 (Mascherpa 2025), about 143 manuscripts (the BnF), the Yangzhou governorship mainly Ramusio's (Yule); the doubt Wood's (1995) and the replies de Rachewiltz's and Vogel's — confirmed B44 – B50 (`cnh-495`, `cnh-463`) | `cnh-495` | `cnh-485`, `cnh-487`, `cnh-492` | — |
 | Kublai and Phagpa | the Tibetan tellings of Phagpa initiating Kublai and of the priest and patron; the Mongol chronicle of Sanang Setsen (through Howorth) in which Chabui settles who sits higher; the *Yuanshi* juan 202's Imperial Preceptor, "a man of Sakya", who made the script decreed in 1269 — confirmed in part B50 (`cnh-497`; the Tibetan tellings on no page read) | `cnh-497` | `cnh-485` | — |
 | The Romance of the Western Chamber | Zhang and Yingying's story from Yuan Zhen's Tang tale "Yingying zhuan" (the *Taiping guangji* juan 488; he leaves her and each marries another), through Zhao Lingzhi's Northern Song guzi ci (Fujita) and the Jin *zhugongdiao* of Master Dong, to Wang Shifu's Yuan *zaju* ("a happy issue", Giles) — confirmed and extended B50 (`cnh-499`) | `cnh-499` | `cnh-498` | `cnh-393` (Yuan Zhen) |
+| Zhu Yuanzhang the beggar monk and the mooncake rising | the orphan who begged as a novice of the Huangjue monastery before joining the Red Turbans (his own "Huangling bei" inscription and the *Mingshi*, 1739); the uprising signalled by messages hidden in mooncakes a later folk tale with no Yuan or Ming source — confirmed B51 (`cnh-504`: the *Mingshi* juan 1 — the Huangjue novice, a month later begging round Hefei, three years away; Giles's "Beggar King"); the Huangling stele not read; the mooncake tale on no page read, so told nowhere | — | `cnh-504`, `cnh-501` | — |
+| The Hu Weiyong case and its dead | the chancellor executed in 1380 for plotting, the Central Secretariat abolished with him; the purge's tens of thousands of dead (the *Mingshi*'s count, with the later Lan Yu case) a later history's figure, not a count — corrected B51 (`cnh-506`: the *Mingshi* juan 308's "more than 30,000" is the Hu case alone; Hucker gives it as reported, and 15,000 for the Lan Yu list) | `cnh-506` | `cnh-504`, `cnh-507` | — |
+| The Jianwen Emperor's escape as a monk | the emperor who vanished when Nanjing fell in 1402, said in later legend to have fled as a monk; the *Mingshi* gives both the fire and the rumour — confirmed B51 (`cnh-509`: the *Mingshi* juan 4 gives the fire, the body passed off as his, and the rumour of a tunnel escape) | — | `cnh-509`, `cnh-510` | — |
+| Zheng He's ships | the treasure ships of 44 *zhang* by 18 in the *Mingshi* (1739), against modern doubt of a wooden ship that size; the "1421" claim that the fleets reached America a fringe book, said so if met — confirmed B52 (`cnh-515`: the *Mingshi* juan 304 — 62 ships of 44 zhang by 18, 27,800 men; Groeneveldt 1876 called the dimensions improbable); the "1421" claim not met | `cnh-515` | `cnh-514` | `cnh-819` |
+| The Tumu Crisis | the Zhengtong Emperor captured by Esen's Oirats in 1449, the eunuch Wang Zhen blamed for leading the army out (the *Mingshi*); the dead and the army's size the histories' figures — confirmed B52 (`cnh-517`: the *Mingshi* juan 328 blames Wang Zhen and gives the dead and wounded as "several hundred thousand"; the army's 500,000 first written down from hearsay) | `cnh-517` | `cnh-518` | — |
+| The Yongle Encyclopedia's surviving volumes | the compilation finished in 1408, the copy of 1562 – 1567, the original lost; the volumes destroyed in 1900 and the some four hundred volumes that survive scattered (the library records) — corrected B52 (`cnh-513`: finished 1408, the Library of Congress; the Qing catalogue's December 1407; the copy of 1562 – 1567) | `cnh-513` | `cnh-510` | — |
+| Ricci's map and the memory palace | Ricci's world map printed in Beijing in 1602 (the surviving copies, a library record); the "memory palace" his own treatise on memory, read through Spence's book — map confirmed B53 (`cnh-527`: the Library of Congress record of the 1602 Beijing printing); the memory palace not told (Spence not read) | `cnh-527` | `cnh-526` | — |
+| Wang Yangming's bamboo and Longchang | the young Wang staring at bamboo for seven days to "investigate things" and his enlightenment in exile at Longchang (1508), both as his disciples' *Chuanxi lu* and chronological biography tell them — confirmed B53 (`cnh-528`: the bamboo from the *Chuanxi lu* and Longchang, his disciples' telling) | `cnh-528` | — | the `cn-thought` cards on his school |
+| The Chongzhen Emperor on Coal Hill | the last Ming emperor hanging himself on Coal Hill (Meishan, Jingshan) as Li Zicheng's army entered Beijing in 1644, the last words the *Mingshi* gives — confirmed B54 (`cnh-534`: the *Mingshi* juan 24 — Wansui shan, Wang Chengen dying with him) | `cnh-534` | `cnh-533`, `cnh-535` | — |
+| Chen Yuanyuan and Wu Sangui | Wu Sangui opening Shanhai Pass to the Manchus "for a woman", his concubine Chen Yuanyuan taken by Li Zicheng's men; Wu Weiye's poem "Yuanyuan qu" (17th century) and later telling, against the military situation — confirmed in part B54 (`cnh-533`: the *Mingshi* juan 309 tells it as fact); Wu Weiye's poem on no page read | — | `cnh-533`, `cnh-540`, `cnh-543` | — |
+| The Yangzhou massacre's dead | the ten days of killing after Yangzhou fell to Dodo in 1645; the 800,000 dead Wang Xiuchu's eyewitness account's figure (the *Yangzhou shiri ji*), banned under the Qing and reprinted in the late Qing — confirmed B55 (`cnh-542`: the 800,000 the diarist's count of bodies found, through Backhouse and Bland and Aucourt); "banned under the Qing" on no page read; a revolutionary pamphlet reprinting it by 1907 | `cnh-542` | `cnh-539`, `cnh-540` | — |
+| Koxinga | Zheng Chenggong, the Ming loyalist given the imperial surname (whence "Koxinga"), driving the Dutch from Taiwan in 1662; later a hero to the Qing, the Republic, the People's Republic and Japan alike — confirmed as far as told B54 – B55 (`cnh-539`, `cnh-544`: Cordier, Theobald) | — | `cnh-539`, `cnh-544` | — |
+| The Macartney embassy, the kowtow and the edict | the embassy of 1793 and whether Macartney knelt (the British and Qing accounts differ); Qianlong's edict to George III, "we possess all things", read in full and in context (the Backhouse and Bland translation and later readings) — corrected B56 (`cnh-556`: Macartney's own journal — one knee, the kiss of the hand dropped; Harrison 2017 — the edict drafted after the requests were translated, "we possess all things" in its preamble, famous only from 1914); the Qing kowtow account on no page read | `cnh-556` | `cnh-551`, `cnh-557` | — |
+| Lin Zexu's letter to Queen Victoria | the letter of 1839 asking the queen to stop the opium trade, printed in *The Times* and the *Chinese Repository*; never received by her as a state letter — corrected in part B56 (`cnh-560`: written in August 1839 with Deng Tingzhen and Yiliang, printed in the *Chinese Repository* in February 1840 from the *Canton Press*, never received by her); *The Times* on no page read | — | `cnh-560`, `cnh-559` | — |
+| Hong Xiuquan's vision | the dream of 1837 after a failed examination, read later through Liang Fa's tract as a call from God and Jesus as his elder brother; told in Hamberg's *Visions of Hung-Siu-Tshuen* (1854) from Hong Rengan's account — confirmed B57 (`cnh-565`: the 1837 illness, the golden-bearded old man, the sword and seal, in Hamberg 1854 from Hong Rengan) | `cnh-565` | `cnh-564` | — |
+| The Taiping death toll | twenty to thirty million and higher figures, scholars' estimates over a range (the plan's "Sourcing"), never a count — corrected B57 (`cnh-564`: no page read prints "twenty to thirty million"; S. W. Williams's twenty million through Morse, Theobald's 20 – 50 million, Orlandi's over 20 million, Zhao 2026's 100 million — each an estimate) | `cnh-564` | `cnh-565`, `cnh-566` | — |
+| Cixi and the navy money | the funds of the Beiyang fleet diverted to rebuild the Summer Palace and the marble boat, a charge made later and disputed in scope — confirmed as a disputed charge B57 (`cnh-569`: Hummel states it; the *Qingshi gao*'s verdict puts her building below a tenth of earlier emperors') | — | `cnh-569`, `cnh-570` | — |
+| The Boxers' invulnerability | the rites and spirit possession said to make the Boxers proof against bullets, as missionary, Qing and Boxer accounts each tell it — confirmed as a set of tellings B58 (`cnh-572`: the missionary Arthur H. Smith's account, 1901) | `cnh-572` | — | — |
+| Sun Yat-sen's London kidnapping | his detention in the Chinese Legation in London in 1896 and release after press and Foreign Office pressure; his own *Kidnapped in London* (1897) — confirmed B58 (`cnh-575`: his own *Kidnapped in London*, 1897 — 11 – 23 October 1896) | `cnh-575` | — | — |
+| Yuan Shikai and the Hundred Days | Yuan said to have betrayed the reformers' plot to Ronglu in 1898; his own diary and later scholarship dispute it — refined B58 (`cnh-571`, `cnh-578`: the reformers' and most foreign historians' version against Yuan's own account; Hummel's "generally believed"; his diary on no page read) | `cnh-571` | `cnh-578`, `cnh-569` | — |
+| Lu Xun's slide show at Sendai | the lantern slide of a Chinese man about to be executed as a spy in the Russo-Japanese War, which he says turned him from medicine to letters; his own preface to *Call to Arms* (1922), the slide never found — confirmed B59 (`cnh-589`: his preface dated 3 December 1922; Takeuchi's doubt, the Fujino memoir's shooting, the slides found but not that one) | `cnh-589` | — | — |
+| The May Fourth slogans | "Mr Democracy and Mr Science" (Chen Duxiu in *New Youth*, 1919) and the students' slogans of 4 May 1919, as the period's own texts give them — confirmed in part B59 (`cnh-585`: the students' slogans as Tsi C. Wang's 1927 account gives them, 还我青岛 from the police files; "Mr Democracy and Mr Science" Chen's, *New Youth* January 1919; 外争国权，内惩国贼 on no page read) | `cnh-585` | `cnh-586`, `cnh-587` | — |
 
 ## Working a card
 
@@ -477,16 +526,16 @@ otherwise.
 | B48 | Western Xia (`col-29`) / Jurchen Jin (`col-30`) | `cnh-471`–`cnh-480` | 10 | 97 | **done 2026-11-13** |
 | B49 | Jurchen Jin (`col-30`) / Yuan (`col-31`) | `cnh-481`–`cnh-490` | 10 | 110 | **done 2026-11-13** |
 | B50 | Yuan (`col-31`) | `cnh-491`–`cnh-500` | 10 | 100 | **done 2026-11-13** |
-| B51 | Yuan (`col-31`) / Ming (`col-32`) | `cnh-501`–`cnh-510` | 10 | 107 | to do |
-| B52 | Ming (`col-32`) | `cnh-511`–`cnh-520` | 10 | 108 | to do |
-| B53 | Ming (`col-32`) | `cnh-521`–`cnh-530` | 10 | 105 | to do |
-| B54 | Ming (`col-32`) / Qing (`col-33`) | `cnh-531`–`cnh-540` | 10 | 108 | to do |
-| B55 | Qing (`col-33`) | `cnh-541`–`cnh-550` | 10 | 109 | to do |
-| B56 | Qing (`col-33`) | `cnh-551`–`cnh-560` | 10 | 108 | to do |
-| B57 | Qing (`col-33`) | `cnh-561`–`cnh-570` | 10 | 119 | to do |
-| B58 | Qing (`col-33`) / Early Republic (`col-35`) | `cnh-571`–`cnh-580` | 10 | 117 | to do |
-| B59 | Early Republic (`col-35`) | `cnh-581`–`cnh-590` | 10 | 110 | to do |
-| B60 | Early Republic (`col-35`) | `cnh-591`–`cnh-600` | 10 | 118 | to do |
+| B51 | Yuan (`col-31`) / Ming (`col-32`) | `cnh-501`–`cnh-510` | 10 | 107 | **done 2026-11-14** |
+| B52 | Ming (`col-32`) | `cnh-511`–`cnh-520` | 10 | 108 | **done 2026-11-14** |
+| B53 | Ming (`col-32`) | `cnh-521`–`cnh-530` | 10 | 105 | **done 2026-11-14** |
+| B54 | Ming (`col-32`) / Qing (`col-33`) | `cnh-531`–`cnh-540` | 10 | 108 | **done 2026-11-14** |
+| B55 | Qing (`col-33`) | `cnh-541`–`cnh-550` | 10 | 109 | **done 2026-11-14** |
+| B56 | Qing (`col-33`) | `cnh-551`–`cnh-560` | 10 | 108 | **done 2026-11-14** |
+| B57 | Qing (`col-33`) | `cnh-561`–`cnh-570` | 10 | 119 | **done 2026-11-14** |
+| B58 | Qing (`col-33`) / Early Republic (`col-35`) | `cnh-571`–`cnh-580` | 10 | 117 | **done 2026-11-14** |
+| B59 | Early Republic (`col-35`) | `cnh-581`–`cnh-590` | 10 | 110 | **done 2026-11-14** |
+| B60 | Early Republic (`col-35`) | `cnh-591`–`cnh-600` | 10 | 118 | **done 2026-11-14** |
 | B61 | Early Republic (`col-35`) / Civil War (`col-36`) | `cnh-601`–`cnh-610` | 10 | 116 | to do |
 | B62 | Civil War (`col-36`) | `cnh-611`–`cnh-620` | 10 | 105 | to do |
 | B63 | Civil War (`col-36`) | `cnh-621`–`cnh-630` | 10 | 103 | to do |
@@ -1069,6 +1118,106 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-498` | none | not re-checked (Commons rate-limited): wanted — the Guangsheng temple mural of actors |
 | `cnh-499` | none | not re-checked (Commons rate-limited): wanted — an illustrated Ming edition |
 | `cnh-500` | none | not re-checked (Commons rate-limited): wanted — the pair (the British Museum refuses; Commons later) |
+| `cnh-501` | none | not re-checked (pictures paused): wanted |
+| `cnh-502` | none | not re-checked (pictures paused): wanted |
+| `cnh-503` | none | not re-checked (pictures paused): wanted — not the founder's portrait (that is `cnh-504`'s) |
+| `cnh-504` | none | not re-checked (pictures paused): the glossary's seated portrait looks right |
+| `cnh-505` | none | not re-checked (pictures paused): wanted — a surviving Ming household register |
+| `cnh-506` | none | not re-checked (pictures paused): wanted |
+| `cnh-507` | none | not re-checked (pictures paused): wanted |
+| `cnh-508` | none | not re-checked (pictures paused): wanted |
+| `cnh-509` | none | not re-checked (pictures paused): wanted |
+| `cnh-510` | none | not re-checked (pictures paused): the glossary's seated portrait looks right |
+| `cnh-511` | none | not re-checked (pictures paused): wanted |
+| `cnh-512` | none | not re-checked (pictures paused): wanted — the glossary's printed plan carries burned-in English labels |
+| `cnh-513` | none | not re-checked (pictures paused): wanted — a surviving volume (a library record) |
+| `cnh-514` | none | not re-checked (pictures paused): the glossary's statue looks fine |
+| `cnh-515` | none | not re-checked (pictures paused): wanted |
+| `cnh-516` | none | not re-checked (pictures paused): the glossary's court portrait looks right |
+| `cnh-517` | none | not re-checked (pictures paused): wanted |
+| `cnh-518` | none | not re-checked (pictures paused): wanted |
+| `cnh-519` | none | not re-checked (pictures paused): wanted |
+| `cnh-520` | none | not re-checked (pictures paused): wanted — the *Wokou tujuan* scroll |
+| `cnh-521` | none | not re-checked (pictures paused): wanted |
+| `cnh-522` | none | not re-checked (pictures paused): wanted |
+| `cnh-523` | none | not re-checked (pictures paused): wanted — a sycee ingot |
+| `cnh-524` | none | not re-checked (pictures paused): wanted |
+| `cnh-525` | none | not re-checked (pictures paused): wanted — a museum's Kraak dish |
+| `cnh-526` | none | not re-checked (pictures paused): wanted |
+| `cnh-527` | none | not re-checked (pictures paused): the glossary's portrait looks right |
+| `cnh-528` | none | not re-checked (pictures paused): the glossary's portrait looks right |
+| `cnh-529` | none | not re-checked (pictures paused): wanted — a page of a Ming edition |
+| `cnh-530` | none | not re-checked (pictures paused): wanted |
+| `cnh-531` | none | not re-checked (pictures paused): wanted |
+| `cnh-532` | none | not re-checked (pictures paused): wanted |
+| `cnh-533` | none | not re-checked (pictures paused): the glossary's statue is fine |
+| `cnh-534` | none | not re-checked (pictures paused): the glossary's picture is a novel's woodblock, an imagined likeness — replace |
+| `cnh-535` | none | not re-checked (pictures paused): wanted — the glossary's Hong Taiji portrait shows a founder, not the dynasty |
+| `cnh-536` | none | not re-checked (pictures paused): the glossary's portrait looks right |
+| `cnh-537` | none | not re-checked (pictures paused): wanted |
+| `cnh-538` | none | not re-checked (pictures paused): the glossary's portrait is fine |
+| `cnh-539` | none | not re-checked (pictures paused): wanted |
+| `cnh-540` | none | not re-checked (pictures paused): the glossary's portrait looks right |
+| `cnh-541` | none | not re-checked (pictures paused): wanted |
+| `cnh-542` | none | not re-checked (pictures paused): wanted |
+| `cnh-543` | none | not re-checked (pictures paused): wanted |
+| `cnh-544` | none | not re-checked (pictures paused): wanted |
+| `cnh-545` | none | not re-checked (pictures paused): wanted — a court portrait |
+| `cnh-546` | none | not re-checked (pictures paused): wanted — the Latin text |
+| `cnh-547` | none | not re-checked (pictures paused): wanted |
+| `cnh-548` | none | not re-checked (pictures paused): wanted |
+| `cnh-549` | none | not re-checked (pictures paused): the glossary's court portrait is fine |
+| `cnh-550` | none | not re-checked (pictures paused): wanted |
+| `cnh-551` | none | not re-checked (pictures paused): the glossary's portrait looks fine |
+| `cnh-552` | none | not re-checked (pictures paused): wanted — a bound set |
+| `cnh-553` | none | not re-checked (pictures paused): wanted |
+| `cnh-554` | none | not re-checked (pictures paused): the glossary's portrait looks fine |
+| `cnh-555` | none | not re-checked (pictures paused): the glossary's portrait is fine |
+| `cnh-556` | none | not re-checked (pictures paused): the glossary's picture is fine |
+| `cnh-557` | none | not re-checked (pictures paused): the glossary's factories panorama fits |
+| `cnh-558` | none | not re-checked (pictures paused): wanted |
+| `cnh-559` | none | not re-checked (pictures paused): wanted |
+| `cnh-560` | none | not re-checked (pictures paused): the glossary's portrait looks fine |
+| `cnh-561` | none | not re-checked (pictures paused): wanted |
+| `cnh-562` | none | not re-checked (pictures paused): wanted — the signing aboard the *Cornwallis* |
+| `cnh-563` | none | not re-checked (pictures paused): wanted |
+| `cnh-564` | none | not re-checked (pictures paused): wanted |
+| `cnh-565` | none | not re-checked (pictures paused): the glossary's labelled "alleged likeness" is fine |
+| `cnh-566` | none | not re-checked (pictures paused): wanted |
+| `cnh-567` | none | not re-checked (pictures paused): wanted |
+| `cnh-568` | none | not re-checked (pictures paused): wanted |
+| `cnh-569` | none | not re-checked (pictures paused): the current picture is fine |
+| `cnh-570` | none | not re-checked (pictures paused): wanted |
+| `cnh-571` | none | not re-checked (pictures paused): wanted |
+| `cnh-572` | none | not re-checked (pictures paused): wanted |
+| `cnh-573` | none | not re-checked (pictures paused): wanted |
+| `cnh-574` | none | not re-checked (pictures paused): wanted |
+| `cnh-575` | none | not re-checked (pictures paused): the glossary's portrait is fine |
+| `cnh-576` | none | not re-checked (pictures paused): the glossary's portrait is fine |
+| `cnh-577` | none | not re-checked (pictures paused): wanted |
+| `cnh-578` | none | not re-checked (pictures paused): the glossary's photograph is fine |
+| `cnh-579` | none | not re-checked (pictures paused): wanted |
+| `cnh-580` | none | not re-checked (pictures paused): wanted |
+| `cnh-581` | none | not re-checked (pictures paused): wanted |
+| `cnh-582` | none | not re-checked (pictures paused): wanted |
+| `cnh-583` | none | not re-checked (pictures paused): wanted |
+| `cnh-584` | none | not re-checked (pictures paused): the glossary's 1912 German map fits |
+| `cnh-585` | none | not re-checked (pictures paused): wanted |
+| `cnh-586` | none | not re-checked (pictures paused): wanted — a *New Youth* cover |
+| `cnh-587` | none | not re-checked (pictures paused): the glossary's photograph is fine |
+| `cnh-588` | none | not re-checked (pictures paused): the glossary's photograph is fine |
+| `cnh-589` | none | not re-checked (pictures paused): the glossary's photograph is fine |
+| `cnh-590` | none | not re-checked (pictures paused): wanted |
+| `cnh-591` | none | not re-checked (pictures paused): wanted |
+| `cnh-592` | none | not re-checked (pictures paused): wanted; its locator points at central Guangzhou, not Changzhou Island |
+| `cnh-593` | none | not re-checked (pictures paused): the glossary portrait's licence ("Attribution") wants a check |
+| `cnh-594` | none | not re-checked (pictures paused): wanted |
+| `cnh-595` | none | not re-checked (pictures paused): wanted |
+| `cnh-596` | none | not re-checked (pictures paused): wanted |
+| `cnh-597` | none | not re-checked (pictures paused): wanted |
+| `cnh-598` | none | not re-checked (pictures paused): wanted — the party flag |
+| `cnh-599` | none | not re-checked (pictures paused): wanted |
+| `cnh-600` | none | not re-checked (pictures paused): wanted — the Bund |
 
 ## Glossary candidates
 
@@ -3341,3 +3490,451 @@ Ma'anshan's centre, not the crossing; `cnh-464` Yamen should be Yashan, south at
 "Ejina Banner"; `cnh-481` Yehuling is Zhangjiakou city (the pass is some thirty li west); `cnh-408` Yue ware's is Shaoxing (the
 Shanglin Lake kilns would be closer); `cnh-449` West Lake's points at the city. `migrate-places.js --check` and `build-wars.js
 --check` were not re-run; on main they already report known failures.
+
+### B51 — `cnh-501`–`cnh-510`, Yuan and Ming: the Red Turban Rebellions to the Yongle Emperor (2026-11-14)
+
+The sixth hundred's first batch, run as the fifth's were (`AGENT.md`, the notes file, two cards an agent, at most ten at once);
+every draft read by eye and prechecked before `batch.sh` applied it. Every cited URL answered (two DOIs to bot-walled publishers,
+`cnh-501`'s eco-vector article and `cnh-503`'s Wiley one, resolve; the agents' saved pages stand). **Pictures were not touched**
+(Commons answered the session's one test call; the owner has not yet chosen a picture pass, so pictures stay paused). **The old
+cards cited the *Mingshi*, the *Yuanshi*, the *Huang Ming zuxun*, Gu Yingtai's *Mingshi jishi benmo* and Huang Zongxi on Chinese
+Wikisource (two to five Chinese texts a card), carried war templates with converted days (Jingnan's 8 August 1399 and 13 July
+1402), named men and places in labels ("Hu executed", "Lan Yu case", "Buir Lake 1388"), and dated a dynasty card by another
+card's state ("Southern Ming 1644 – 1661").** Each card now reads one Chinese text, the *Mingshi* (juan 4, 7, 72, 77, 122, 308,
+327) in the Siku edition on the Kanseki Repository.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-501` Red Turban Rebellions | 7 | 7 → 7 | **The war template off: `Began 1351` / `Ended 1368` (Karaseva [in Russian]); 14 September 1368 is Xu Da's entry into Dadu (`cnh-487`'s); the *Mingshi* juan 122: the Song descent from Huizong and the white horse and black ox, Han Lin'er's revived Song, Shangdu sacked, the "Red Army" and "Incense Army"; Xu Shouhui's Tianwan**; Jia Lu's labour figures and the one-eyed stone man (the *Yuanshi* only) dropped; the mooncake rising told nowhere (no page). |
+| `cnh-502` Northern Yuan | 6 | 7 → 6 | **"Buir Lake 1388" (a place) off: `Began 1368` / `Ended 1388` / `Also dated 1402` (Theobald's two reckonings); the *Mingshi* juan 327: Lan Yu's fireless march, Tögüs Temür strangled, five khans murdered until Guilichi dropped the name; Sagang Sechen's telling through Howorth; Pokotilov [in Russian]**; the fall of Dadu (`cnh-487`'s) out of the background; "Khubilai" → Kublai. |
+| `cnh-503` Ming dynasty | 9 | 9 → 9 | **"Southern Ming 1644 – 1661" (`cnh-539`'s) dropped: `Founded 1368` / `Fell 1644`; the *Mingshi* juan 77: the failing notes, 60,545,812 registered under the founder and Zhou Chen on the hidden households; Chen et al. 2024 (sixteen emperors), Xin et al. 2025 (the drought of 1585 – 1590); silver from the Americas**; the census years 1393 and 1578 (conversions) and the name's meaning (on no page) dropped. **Pinyin → Míng cháo.** |
+| `cnh-504` Hongwu Emperor | 7 | 7 → 8 | **The *Mingshi* juan 1 for three Wikisource texts: the famine of 1344, the Huangjue novice begging round Hefei, Guo Zixing and Ma; Giles's "Beggar King", Cordier's "empereur mendiant"; the Embroidered Uniform Guard; the Cleveland copper-red bowl from the palace site; Xiaoling's World Heritage listing (Wang et al. 2026)**; the *Huang Ming zuxun* and the juan 3 verdict dropped. Protected: the line stays (flagged below). |
+| `cnh-505` lijia system | 6 | 6 → 6 | **"Land registers 1387" (the fish-scale registers, on no page read) off: `First trials 1370` / `Empire-wide 1381`; Hucker 1978 for the 110 households and the ten rotating heads, the remnant households and the elders; Heijdra for the drift**; the Back Lake islands and yellow covers (`cnh-715`'s), the Code's 100 blows and two more Chinese texts dropped. |
+| `cnh-506` Hu Weiyong case | 6 | 8 → 6 | **Labels naming men off: `Began 1380` / `Widened 1390` / `Ended 1393` (the year the Hu prosecutions closed with a pardon, Hucker); the *Mingshi* juan 308: the son under the cart, more than 30,000 executed, Li Shanchang reached; the Lan Yu list (15,000) kept apart**; four of five Chinese texts and the converted 1379 Champa envoys dropped. |
+| `cnh-507` Central Secretariat | 6 | 7 → 6 | **"Revival banned 1395" (no page ties the ban to that year) off: `Created 220 – 226 CE` / `Yuan adoption 1260` / `Abolished 1380`; the *Mingshi* juan 72: only the drafters kept and the Six Ministries under the throne; Kublai's Secretariat and its branch offices become the sheng; Kim 2016 [in Korean]**; the converted 1368 and 1382 dropped. **Pinyin → Zhōngshūshěng** (joined, as Shūmìyuàn). |
+| `cnh-508` Grand Secretariat | 6 | 6 → 6 | **"Academicians 1382" (a conversion) and "Eclipsed c. 1730" (`cnh-550`'s date) off: `Formed 1402` / `Abolished 8 May 1911` (Brunnert and Hagelstrom); the *Mingshi* juan 72; the inner circle of seven after Nanjing fell (Dardess), the draft slips and the eunuchs' vermilion endorsement, Yang Tinghe choosing the Jiajing Emperor**; Xie Jin and Huang Huai (juan 5, not read) dropped. |
+| `cnh-509` Jingnan campaign | 6 | 7 → 7 | **The template's converted days off: `Began 1399` / `Ended 1402` (Chan); the *Mingshi* juan 4: "clear the ruler's side", the Jinchuan Gate opened by the Prince of Gu and Li Jinglong, the palace fire, the ruler's fate never settled, 1402 counted as Hongwu 35; Wade's *Ming Shi-lu***; the feigned madness and the *Huang Ming zuxun* clause dropped. **Name → 靖难之役 Jìngnàn zhī yì** (the Palace Museum's lemma). |
+| `cnh-510` Yongle Emperor | 7 | 7 → 7 | **The *Mingshi* juan 7; Prince of Yan in 1370, the 1390 campaign against Nayir Bukha, the melted-tin coffin, Annam made the province of Jiaozhi (Wade's *Ming Shi-lu* orders); the histories' verdict on the usurpation's shame; Beijing, the encyclopedia and the voyages left to their own cards**; the voyages-to-find-the-nephew claim and the converted 1380 dropped. Protected: the line stays (flagged below). |
+
+Read by eye. **Confusability**: Khanbaliq's fall stays `cnh-487`'s (14 September 1368 off `cnh-501`); the Hu case's dead `cnh-506`'s,
+the abolition itself `cnh-507`'s; the seven advisers `cnh-508`'s and the usurpation `cnh-510`'s; the Jinchuan Gate and the palace
+fire `cnh-509`'s; the Embroidered Uniform Guard `cnh-504`'s. **Legend**: the Jianwen Emperor's escape (the *Mingshi* gives the
+fire and the rumour), the beggar-monk youth (the *Mingshi* juan 1), the Hu case's dead (the *Mingshi*'s count) are each a text's.
+**Chinese names corrected**: `cnh-503` Míng cháo, `cnh-507` Zhōngshūshěng, `cnh-509` 靖难之役 Jìngnàn zhī yì. Kept unconfirmed for
+want of a page printing the compound: 红巾 (the badge; 红巾起义 on no page read), 胡惟庸案, 洪武帝 (the Palace Museum prints
+洪武皇帝), 永乐帝 — for the owner. **Spellings fixed**: "Khubilai" (`cnh-502`); 0 hits after. **Myth register**: the beggar monk
+confirmed (the *Mingshi* juan 1; the Huangling stele not read; the mooncake tale on no page, so not told); the Hu case's dead
+confirmed and corrected (the *Mingshi* juan 308's 30,000 is the Hu case alone; Hucker's 15,000 the Lan Yu list); the Jianwen escape
+confirmed (the *Mingshi* juan 4). **check-citations**: two false alarms — `cnh-506`'s "Langlois Jr" (Crossref writes "Jr.,") and
+`cnh-507`'s Korean title cited in transliteration (the same article). **Protected lines: unchanged** (diffed after the apply). For
+the owner: `cnh-504`'s days (21 October 1328, 23 January 1368, 24 June 1398) on no page read as Western dates (the Palace Museum
+gives Chinese dates); `cnh-510`'s 2 May 1360 and the reign days on no page read, and its "Nanjing, Jiangsu" birthplace disputed.
+The timelines of `cnh-501` (1351 – 1368) and `cnh-506` (1380 – 1393) were set with `set-timeline.js`.
+
+### B52 — `cnh-511`–`cnh-520`, Ming: Beijing to the wokou (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl. **Pictures were not touched.** **The old cards cited the *Mingshi*
+(two to five juan a card), Gu Yingtai's *Mingshi jishi benmo*, the 1431 steles, Ma Huan and the *Dongxi yang kao* on Chinese
+Wikisource, dated Beijing by the traditional Zhou enfeoffment of Yan ("Founding 1045 BCE") and by a "Peak 15th – 18th centuries",
+gave the Tumu Crisis a battle template, named Jizhou and the Hanlin in labels, and carried regnal-year conversions (Zheng He's 1425
+Nanjing post, the wokou's 1369 envoy and 1384 walls, "Fujian cleared 1564").** Each card now reads one Chinese text, the *Mingshi*
+(juan 7, 8, 40, 98, 212, 304, 320, 322, 328) in the Siku edition on the Kanseki Repository.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-511` Beijing | 9 | 9 → 9 | **"Founding 1045 BCE" (another event, on no page) and "Peak 15th – 18th centuries" (not a date) off: `Renamed 1403` / `Made capital 1421` / `Confirmed 1441` / `Outer wall 1553` (Sirén, Campbell, Theobald, Cho); the *Mingshi* juan 40; the outer wall cut back to the south, the Tartar and Chinese Cities, the travelling residence and the Nanjing rivalry**; Yule, Cordier and Khanbaliq's clues (`cnh-487`'s) dropped. |
+| `cnh-512` Forbidden City | 9 | 9 → 9 | **`Ordered 1406` / `Finished 1420` / `Court moved in 1421` / `Museum founded 1925`; the *Mingshi* juan 7; Campbell 2020 on 1406 against 1417, the eunuch measuring the Nanjing halls, the three halls burned and the critic put to death, Puyi escorted out and the museum the next year (the Palace Museum)**; Sirén's walls and the Columbia page dropped. |
+| `cnh-513` Yongle Encyclopedia | 7 | 7 → 7 | **"Completed 1407" now `Completed 1408` (the Library of Congress; the Qing catalogue's December 1407 kept in prose); "Hanlin fire" → `Burned 1900`; the *Mingshi* juan 98: filed by rhyme, titles in red, the *Wenxian dacheng* enlarged under Yao Guangxiao, too costly to print, the copy of 1562 – 1567 by 109 scribes**; the second juan (Xie Jin's death in snow) dropped. |
+| `cnh-514` Zheng He | 8 | 9 → 8 | **The *Mingshi* juan 304 for three Wikisource texts; the Ma family of Yunnan, the eunuch Sanbao, first defender of Nanjing under the Hongxi Emperor, the late Qing reformers' navigator and the Belt and Road (Gaffric [in French]); the steles left to `cnh-515`**; the converted 1425 dropped. Protected: the line stays (flagged below). |
+| `cnh-515` Ming treasure voyages | 7 | 7 → 8 | **"Changle stele 1431" (no open copy read) off: `First ordered 11 July 1405` / `Voyages 1405 – 1433` / `Last ordered 29 June 1430` (Wade's *Ming Shi-lu*); the *Mingshi*'s 62 ships of 44 zhang and 27,800 men told as its figures, Groeneveldt calling them improbable; Chen Zuyi at Palembang; Ma Huan at Calicut (Rockhill)**; Ma Huan's 63 ships and 180 physicians (on no page read) dropped. |
+| `cnh-516` Hongxi Emperor | 6 | 8 → 7 | **The *Mingshi* juan 8 only: Beiping held with ten thousand men against Li Jinglong, the accession amnesty calling the ships home, Zhu Gaoxu and Zhu Gaosui's slanders and the end of slander prosecutions; the halt of 1424 in the background**; juan 149 (Xia Yuanji's advice and jailing) dropped. Protected: the line stays (flagged below). |
+| `cnh-517` Tumu Crisis | 6 | 6 → 6 | **The template off: `Army set out 4 August 1449` / `Fought 1 September 1449` / `Captive returned 29 September 1450` (İzbasar [in Turkish] prints each day); the *Mingshi* juan 328: the waterless hill and Wang Zhen's carts, Esen and the red glow, the Prince of Cheng enthroned, Yu Qian against flight; the army's 500,000 first written from hearsay**; two more Chinese texts dropped. |
+| `cnh-518` Ming Great Wall | 7 | 7 → 7 | **"Jizhou towers" (a place) → `Hollow towers 1569 – 1571`, `Early walls 1436 – 1464` added before `Main building 1465 – 1620` (Yang, Zhang and Li 2024; agrees with `wh-407`); the *Mingshi* juan 212 (Qi Jiguang); ten provinces from Hushan to Jiayu Pass, the "herding horses" raids (Temule), the drone survey of 602 towers, Geil's building tablet**; four Chinese texts dropped. |
+| `cnh-519` tributary system | 7 | 7 → 7 | **Told as a modern scholars' label (Fairbank's) for the Ming's own tribute; the line stays empty (no year a page prints for the term); the *Mingshi* juan 320: Chosŏn named by the Hongwu Emperor, Korea excused gold and silver, the weasel-hair brushes; the Ashikaga "King of Japan" selling the tallies**; the *Huang Ming zuxun*'s fifteen countries and Altan Khan (`cnh-781`'s) dropped. **Name → 朝贡体系 cháogòng tǐxì** (Chen 2020). |
+| `cnh-520` Wokou | 6 | 6 → 6 | **"Fujian cleared 1564" (a conversion) off: `Worst raids 1552 – 1557` (Liu 2024); the *Mingshi* juan 322: three in ten true Japanese, Wang Zhi on the Gotō Islands, the twenty raiders steamed to death at Ningbo**; Zhu Wan and Shuangyu (`cnh-521`'s) and the converted 1369 and 1384 dropped. |
+
+Read by eye. **Confusability**: Khanbaliq stays `cnh-487`'s; the move to Beijing in 1421 is `cnh-511`'s clue as the capital and
+`cnh-512`'s as the palace (each its own angle); the voyages' ships and figures `cnh-515`'s, Zheng He's life `cnh-514`'s; the halt of
+1424 `cnh-516`'s; the Altan Khan investiture left to `cnh-781`. **Legend**: Zheng He's ships (the *Mingshi*'s, doubted since
+Groeneveldt), Esen and the red glow (the *Mingshi*), the Tumu army's size (hearsay first written down) are each a text's.
+**Chinese names corrected**: `cnh-519` 朝贡 → 朝贡体系 cháogòng tǐxì. Kept unconfirmed: 郑和下西洋 (the *Mingshi* prints
+遣太監鄭和帥舟師下西洋, not the bare compound), 洪熙帝 — for the owner. **Spellings fixed**: none needed; 0 hits. **Myth register**:
+Zheng He's ships confirmed (the *Mingshi* juan 304: 62 ships, 44 zhang by 18, 27,800 men); the Tumu Crisis confirmed (the *Mingshi*
+blames Wang Zhen; its dead "several hundred thousand"); the Yongle Encyclopedia corrected (finished 1408, the Library of Congress;
+the Qing catalogue's December 1407). The "1421" claim was not met. **check-citations**: no mismatch. **Protected lines: unchanged**
+(diffed after the apply). For the owner: `cnh-514`'s Kunming on no page read (the *Mingshi* and Gaffric: Yunnan); `cnh-516`'s 16
+August 1378 on no page read (Theobald: the year only), and its "age 46" against the annals' 48 (Chinese count). The timelines of
+`cnh-513` (a text) and `cnh-519` (a concept) were not set; `cnh-515` and `cnh-517` keep theirs.
+
+### B53 — `cnh-521`–`cnh-530`, Ming: the haijin to the Imjin War (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl but one: the Library of Congress item page for the 1602 Ricci map
+(`cnh-527`) walls curl while its JSON record answers; the agent's saved page stands. **Pictures were not touched.** **The old
+cards cited the *Mingshi* (up to three juan a card), the *Mingshi jishi benmo*, the *Da Ming lü*, the *Dongxi yang kao*, the
+*Qingshi gao*, the *Chuanxi lu*, Ricci's memorial and prefaces, Feng Menglong's prefaces, Lu Xun's history and four Ming notebooks
+on Chinese Wikisource; carried converted regnal years ("the twelfth month of 1371", the imperial porcelain orders of 1591 and 1610),
+a date no page prints (Kraak ware to 1650, the Sanyan's "c. 1621"), a man in a label ("Xavier died 1552"), and the Imjin War's
+template with "Over 1,130,000 dead, captured or missing", a figure no page read gives.** Each card now reads one Chinese text: the
+*Mingshi* (juan 78, 81, 195, 205, 320, 326) on the Kanseki Repository, Gui Youguang's preface (the *Sibu congkan* text there), or the
+1627 *Xingshi hengyan* preface on zggdwx.com.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-521` haijin | 6 | 6 → 6 | **`First ordered 1371` (Zurndorfer; Kung and Ma's 1368 beside it in prose) / `Partly lifted 1567`; the *Mingshi* juan 205: Zhu Wan's "bandits in officials' caps and gowns", his poison; "not a single plank onto the water"; Yuegang, Shuangyu, the 1,200 boats scuttled; the Qing ban of 1661 – 1684**; five Chinese texts and the converted "twelfth month of 1371" (early 1372) dropped. |
+| `cnh-522` Single whip law | 6 | 6 → 6 | **"Zhejiang trial 1561" (Pang Shangpeng, on no page read) off: `First named 1531` (Theobald) / `Empire-wide 1581` (agrees with `cnh-381`); the *Mingshi* juan 78: labour hired from silver on land, Zhang Juzheng's survey, "abolished in name, alive in fact"; Chen Huan-chang 1911, Zurndorfer 2023**; Liang Fang-chung's book (an in-copyright upload) and Hai Rui dropped. **Pinyin → yītiáobiānfǎ** (joined, as `cnh-381`'s liǎngshuìfǎ; Theobald splits it — for the owner). |
+| `cnh-523` tael | 7 | 7 → 7 | **"Notes pegged 1375" (the note's date, `cnh-810`'s) off: `Tax commuted 1436` / `Abolished 1933`; the *Mingshi* juan 81 on silver banned and then freed; the name from Malay and the Indian tola; the bookkeeping taels swept away in 1933 (Ma and Zhao 2020); silver under escort (Liu 2023)**; the 37.6-gram conversion and two figures on no page dropped. |
+| `cnh-524` Huizhou merchants | 6 | 6 → 6 | **The line stays empty (a group); Gui Youguang's "a scholar who dealt in goods"; some forty Ming story titles (Zhu 2016; Xu and Zhang 2023); the salt families of Hangzhou and Yangzhou; Wang Qishu (Hummel); Chia 2008 on the Huizhou printers**; four notebooks on Wikisource and the claims resting on them dropped. Glossary: its unsourced "c. 1500–1800" removed. |
+| `cnh-525` Kraak ware | 6 | 7 → 7 | **"Exported c. 1580 – 1650" (1650 on no page) now `Developed c. 1580` / `Output collapsed 1644` (two V&A records); the *Santa Catarina* taken in 1603 and auctioned in Amsterdam (van Kessel 2025), the panelled rims, the Arita substitutes; the *Witte Leeuw* [in Dutch]; the City University of Macau survey [in Chinese]**; the *Mingshi* juan 82's imperial orders (converted 1591 and 1610, and not export ware) dropped. |
+| `cnh-526` Jesuit China missions | 7 | 7 → 7 | **"Xavier died 1552" (a man) off: `First residence 1583` (Brucker) / `Tolerated 1692` / `Suppressed 1773`; the *Mingshi* juan 326: the Nanjing complaint likening the converts to the White Lotus, Wang Fengsu sent away; Xavier at Shangchuan and Ruggieri at Zhaoqing; Yang Guangxian against Schall von Bell; Rule, Parr 2024, Hsia 2022**; Ricci's own clues kept for `cnh-527`. **Name → 耶稣会中国传教团 Yēsūhuì Zhōngguó chuánjiàotuán** (the *People's Daily*). |
+| `cnh-527` Matteo Ricci | 7 | 7 → 7 | **Four Wikisource texts cut to the *Mingshi* juan 326; Ma Tang holding him at Linqing, Euclid dictated to Xu Guangqi, Li Zhizao, the condemned eunuch's burial ground; the 1602 map confirmed by the Library of Congress record; Brucker 1912, Hummel, Zhang 2022 [in Spanish]**; the gift list and "fifteen years at Zhaoqing" (the memorial only) dropped. Protected: the line stays. |
+| `cnh-528` Wang Yangming | 6 | 7 → 6 | **The *Mingshi* juan 195 for three Wikisource texts; the forty strokes for defending the officials Liu Jin jailed, Longchang, the Prince of Ning taken in thirty-five days, the grotto and the unity of knowing and acting (Henke's 1916 translation, Kim's IEP entry)**; the bamboo out of the phrasings (`cnh-862`'s and `cnh-863`'s clue). Protected: the line stays (flagged below). |
+| `cnh-529` Sanyan | 6 | 6 → 6 | **"c. 1621" now `First book 1620` (Yang 1998, Leggieri 2024) / `Second book 1624` / `Third book 1627`; the 1627 preface on zggdwx.com (the only Chinese text): to instruct, caution and awaken; the stories in pairs, Ling Mengchu's debt, the prints found in Japan; the *Yushi mingyan* retitling left undated (1624, or 1626 – 1627)**; Lu Xun's history and the Guan Yu anecdote dropped. |
+| `cnh-530` Imjin War | 7 | 7 → 7 | **The template off: `Began 1592` / `Renewed 1597` / `Ended 1598` (Batts and Noordam 2026); the casualty figure and the two days on no page dropped; the *Mingshi* juan 320: Li Rusong at Byeokjegwan, Shen Weijing the "marketplace ruffian" and the Taedong border offer, Yi Sun-sin at Noryang; Seong 2026, the Korean encyclopedia [in Korean]**; the *Jingbirok* and Wang Dewan dropped. |
+
+Read by eye. **Confusability**: Zhu Wan and the Shuangyu raid are `cnh-521`'s (kept off `cnh-520`); the commutation to silver is
+`cnh-522`'s and the tael's own 1436 decree `cnh-523`'s, from different angles (the labour levy; the silver ban lifted); Ricci's map,
+Euclid and burial `cnh-527`'s, the mission's founding and crises `cnh-526`'s; the bamboo stays with the thought cards. No `ko-` or
+`jp-` card covers the Imjin War. **Legend**: Wang Yangming's enlightenment (his disciples' *Chuanxi lu*), the *Mingshi*'s
+"marketplace ruffian" (Shen Weijing) are each a text's. **Chinese names corrected**: `cnh-522` yītiáobiānfǎ, `cnh-526`
+耶稣会中国传教团. Kept: 壬辰倭乱 (the Korean term in characters, printed by Batts and Noordam as the Chinese name; 万历朝鲜战争 on no
+page that would open) — for the owner. **Spellings fixed**: none needed; one checker hit is "Hsia", a cited author's name.
+**Myth register**: Ricci's map confirmed (the 1602 Beijing printing, the Library of Congress record), the memory palace not told
+(Spence not read); Wang Yangming's bamboo and Longchang confirmed as his disciples' telling. **check-citations**: one false alarm —
+`cnh-521`'s "John E. Wills, Jr." (the comma). **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-527`'s
+days (6 October 1552, 11 May 1610) and Macerata not checked against a page beyond Brucker; `cnh-528`'s 26 October 1472 and 9 January
+1529 on no page read. `cnh-530` keeps its timeline 1592 – 1598.
+
+### B54 — `cnh-531`–`cnh-540`, Ming and Qing: the Donglin movement to Dorgon (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl. **Pictures were not touched.** **The old cards cited the *Mingshi*
+(up to three juan a card), Gu Yingtai's *Mingshi jishi benmo*, Huang Zongxi's *Mingru xuean* and the *Qingshi gao* (up to three juan,
+and the abdication edict) on Chinese Wikisource; named places and men in labels ("Took Beijing", "Nanjing court", "Yongli reign");
+carried "Lectures began 1604" where the sources date the academy's statutes, a regnal-year reading ("late in 1623"), and details on
+no page read (Wei Zhongxian hanging himself "at an inn", Gao Panlong "drowned").** The Ming cards now read one Chinese text, the
+*Mingshi* (juan 24, 120, 231, 305, 309) on the Kanseki Repository; the Qing cards read the *Qingshi gao* (juan 1, 2, 25, 130, 218) on
+zggdwx.com — the Draft History of Qing, compiled 1914 – 1927 and published in 1928, unfinished and contested, said so where it speaks.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-531` Donglin movement | 6 | 6 → 7 | **"Lectures began 1604" → `Statutes issued 1604` (Theobald) / `Impeachment 1624` / `Purged 1625 – 1626`; the *Mingshi* juan 231: the Song academy at Wuxi where Yang Shi taught, anyone crossing the favourites branded Donglin; the *Water Margin* blacklist of 108; the "new Zhu Xi learning" (Nakao [in Japanese]); Yang Lian's charges in prose only (`cnh-532`'s)**; Huang Zongxi's "label" claim (Wikisource only) and Gao Panlong's drowning dropped. |
+| `cnh-532` Wei Zhongxian | 6 | 6 → 7 | **The *Mingshi* juan 305 for three Wikisource texts; the twenty-four charges and the weeping eunuch, the illiterate favourite at the carpenter's bench, the living shrines and the Shandong unicorn (Kennedy in Hummel; Schneewind 2018)**; "at an inn" and "late in 1623" dropped. Protected: the line stays (flagged below). |
+| `cnh-533` Li Zicheng | 7 | 7 → 7 | **The *Mingshi* juan 309 only (Gu Yingtai dropped); the post-station courier from Mizhi, the Dashing King's title from his uncle, Li Yan's no-tax slogan, Dashun at Xi'an and the palace set alight; Chen Yuanyuan told as the *Mingshi*'s; 1606 now in the background (Giles)**; the Coal Hill suicide (`cnh-534`'s) and "eighteen years of drought" (on no page) dropped. Protected: the line stays (flagged below). |
+| `cnh-534` Chongzhen Emperor | 6 | 6 → 7 | **The *Mingshi* juan 24 for three Wikisource texts; the dawn bell and Coal Hill, Yuan Chonghuan cut to pieces, "a ruler dies with his altars"; the Chongzhen drought (possibly the worst in 1,500 years); Wei Zhongxian out of the phrasings**; the factional-feud speech and the sons sent away (Gu Yingtai only) dropped. Protected: the line stays. |
+| `cnh-535` Qing dynasty | 8 | 8 → 8 | **"Took Beijing" (a place) → `Took the capital 6 June 1644` (Fang in Hummel; Theobald); `Named Qing 1636`; `Abdication 12 February 1912` (Couling); the *Qingshi gao* juan 25 for the edict; the Aisin Gioro, the largest empire told as Theobald's, the population passing three hundred million**; the banners and the abdication out of the phrasings. **Pinyin → Qīng cháo.** |
+| `cnh-536` Nurhaci | 7 | 7 → 7 | **The *Qingshi gao* juan 1 for two Wikisource texts: the thirteen suits of armour, the state named Jin, the seven grievances, the Western cannon at Ningyuan; the 1599 script as Erdeni and Gagai's (Kennedy in Hummel)**; the 1591 banners (on no page) dropped. Protected: the line stays (flagged below). **Pinyin apostrophe → Nǔ'ěrhāchì.** |
+| `cnh-537` Eight Banners | 7 | 8 → 7 | **`Four banners 1601` / `Doubled to eight 1615` / `Mongol eight 1635` / `Chinese eight 1642` (Porter 2018; Theobald's 1591 for the first four in prose); the *Qingshi gao* juan 130: every son a soldier, companies of three hundred; the Hanjun "heavy troops" with the cannon; the banner families on Republican stipends (Elliott, Campbell and Lee 2016)**; Dorgon's clue and two more sources dropped. |
+| `cnh-538` Hong Taiji | 6 | 7 → 6 | **The *Qingshi gao* juan 2 for three Wikisource citations; the Yuan seal from Ligdan Khan brought back by Dorgon, Korea made a vassal within a month, the princes' monthly turns ended and Amin jailed; Porter for the 1635 name; the renaming to Manchu left to `cnh-782`**; the glossary's self-contradiction ("died before entering China proper") fixed. Protected: the line stays (flagged below). |
+| `cnh-539` Southern Ming | 6 | 7 → 8 | **Places and men off the labels: `First court 1644 – 1645` / `Last court 1646 – 1662` (Kennedy and Yang in Hummel); the *Mingshi* juan 120, which files these rulers as princes with "false" reign titles; Ma Shiying and the Prince of Fu, the rival courts at Guangzhou and Zhaoqing, the dowager Helena's letter to Innocent X; Koxinga mentioned without Taiwan**. **Pinyin → Nán Míng.** |
+| `cnh-540` Dorgon | 6 | 6 → 6 | **The *Qingshi gao* juan 218 on zggdwx.com; the refused throne and the co-regency with Jirgalang, the "two suns" letter and Li Wen as its reputed drafter, the robes and pearls charge and the restoration as Prince Rui in 1778 (Hummel); the queue order in prose only**. Protected: the line stays (flagged below). |
+
+Read by eye. **Confusability**: Yang Lian's memorial is in `cnh-531`'s background and `cnh-532`'s phrasing; the Coal Hill suicide
+`cnh-534`'s alone (Li Zicheng's card gives the fall of Beijing from the rebels' side); the seven grievances and Ningyuan `cnh-536`'s,
+Yuan Chonghuan's death `cnh-534`'s; the banners' organisation `cnh-537`'s, the princes' rotation and Amin `cnh-538`'s; the Southern
+Ming's courts `cnh-539`'s, the Yangzhou massacre left to `cnh-542`. **Legend**: Chen Yuanyuan (the *Mingshi* tells it as fact; Wu
+Weiye's poem on no page read), the Yuan seal (the *Qingshi gao*), the "two suns" letter's drafter (one Qing writer's report) are each a
+text's. **Chinese names corrected**: `cnh-535` Qīng cháo, `cnh-539` Nán Míng, `cnh-536` the apostrophe. Kept: 东林党 (the *Mingshi*'s
+東林黨人; 东林运动 on no page), 崇祯帝 (the compound on no page) — for the owner. **Spellings fixed**: none needed; 0 hits. **Myth
+register**: Coal Hill confirmed (the *Mingshi* juan 24: Wansui shan, Wang Chengen dying with him); Chen Yuanyuan confirmed in part (the
+*Mingshi* juan 309); Koxinga confirmed as far as told (Cordier). **check-citations**: no mismatch. **Protected lines: unchanged**
+(diffed after the apply). For the owner: `cnh-532`'s 12 December 1627 looks early (Kennedy: sent away 8 December, the arrest proclaimed
+five days later); `cnh-533`'s 22 September 1606 on no page read (Tu in Hummel: "Oct. 3, 1605?"); `cnh-536`'s 14 May 1559 on no page read;
+`cnh-538`'s birth and Qing days a day earlier than Cordier's; `cnh-540`'s 8 October 1643 and Yenden on no page read. The timeline of
+`cnh-535` (a dynasty) was not set.
+
+### B55 — `cnh-541`–`cnh-550`, Qing: the queue to the Grand Council (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl. **Pictures were not touched.** **The old cards cited the *Qingshi
+gao* (up to three juan a card), Wang Xiuchu's diary, Zou Rong, Shi Lang's memorial, the Sacred Edict, Huang Hongshou, the *Lama
+shuo* and the *Dayi juemi lu* on Chinese Wikisource; carried templates with figures no page prints (Penghu's "12,329 killed or
+drowned" — two of Shi Lang's own claims added together), places in labels ("Albazin taken", "Lhasa taken", "Lhasa riot"), "Revived
+1903" for the Yangzhou diary's reprint, the Grand Council's "1729 or 1732" (the second year a converted regnal year), and Goodrich's
+in-copyright book from a user upload.** The Qing cards read the *Qingshi gao* (juan 4, 6, 9, 153, 176, 313, 474, 525) on zggdwx.com;
+the Yangzhou card reads the *Mingshi* juan 274 on the Kanseki Repository and the diary in Backhouse and Bland's and Aucourt's
+translations; Penghu reads the county's knowledge platform.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-541` queue | 7 | 8 → 7 | **`First ordered 5 June 1644` (Unno-Yamazaki, after Wakeman) / `Enforced 1645` / `Widely cut off 1911`; the *Qingshi gao* juan 4: shave within ten days under military law; the Tarim peoples spared, no rule for women; the Tianjin writers urging imams to cut it; the slogan attributed through Unno-Yamazaki**; "Reimposed" and Martini's line (`cnh-539`'s) dropped. |
+| `cnh-542` Yangzhou massacre | 6 | 7 → 7 | **"City fell May 1645 / Revived 1903" now `Besieged 13 May 1645` / `Killing began 20 May 1645` / `Killing ended 29 May 1645` (Hummel); Wang Xiuchu's diary through Backhouse and Bland and Aucourt [in French]: the placards, the 800,000 as his count of bodies found; a revolutionary pamphlet reprinting it by 1907**; Zou Rong (Wikisource only) and "banned under the Qing" (on no page) dropped. Timeline set to 20 – 29 May 1645. |
+| `cnh-543` Revolt of the Three Feudatories | 6 | 6 → 6 | **The template off: `Began 1673` / `Ended 1681` (Fang: 28 December 1673 to 7 December 1681 in prose); the *Qingshi gao* juan 474: the governor killed, hair grown, white banners, the King of Zhou crowned at Hengzhou; the emperor's "he will rebel either way"; Nowakowski 2023 [in Polish]**; the claim that three princes all surrendered in 1676 corrected (Shang Zhixin joined in 1676 and submitted in 1677). |
+| `cnh-544` Battle of Penghu | 5 | 7 → 6 | **The template off: `Fought July 1683`; "12,329 killed" split into Shi Lang's own claims (over 12,000 Zheng dead, 329 Qing); Shi Lang hit in the eye and back a week later with 56 ships; Liu Guoxuan's flight and Zheng Keshuang's seal; the summer south wind; the Penghu platform [in Chinese], Swisher in Hummel, Po 2019**; 1684 for the prefecture (on no page) dropped. |
+| `cnh-545` Kangxi Emperor | 7 | 7 → 7 | **The *Qingshi gao* juan 6; named heir as a smallpox survivor (variolation, *Emerging Infectious Diseases* 2026), the Sacred Edict's sixteen maxims (Milne's translation), the Jesuits on his sofa and the six southern tours; Oboi's fall told as the *Qingshi gao*'s; the "61 years" phrasing replaced**. Protected: the line stays (flagged below). |
+| `cnh-546` Treaty of Nerchinsk | 7 | 7 → 7 | **"Albazin taken" (a place) off: `Signed 1689` (7 September, or 27 August by the Russian calendar, in prose from Hummel); sworn in the name of the Christian God, the Latin drafted by Gerbillon and Pereira, Albazin razed and the Argun made a frontier, Songgotu and Tong Guogang sent for fear of Galdan; the *Qingshi gao* juan 153's claim that Nerchinsk was handed over called an error**. Overlap: `ru-274`'s "August 1689" is the Russian calendar's; its "CE" after 1000 is not the cnh- house. |
+| `cnh-547` Dzungar Khanate | 6 | 7 → 7 | **`Qing invasion 1755` / `Destroyed 1757 – 1758` (a drafted "c. 1620 – 1758" from Theobald's "after 1620" dropped by the reviewer: no derived span); the *Qingshi gao* juan 313; the Swedish officer's cannon for Tsewang Araptan, the blinded heir of Galdan Tseren, Wei Yuan's four-tenths dead of smallpox; Hummel, Mayers**; Huang Hongshou's 600,000 dropped. **Pinyin → Zhǔngá'ěr Hánguó** (汗 khan, as `cnh-385`; no page prints the compound — for the owner). |
+| `cnh-548` Amban | 6 | 7 → 6 | **Places off the labels: `Dated 1727` / `Also dated 1725` (Mayers) / `Reorganised 1751` / `Reforms 1793`; the *Qingshi gao* juan 525; the amban at Urga over Kiakhta, Fuqing and Gyurme Namgyal, the "mediocre puppets" raised to the lamas' rank after the Nepal wars; the reforms told as three tellings (the *Qingshi gao*'s sovereignty, the Tibetan exiles', one historian's); Bespozvannykh 2008 [in Russian]**; the Golden Urn (`cnh-783`'s) and the *Lama shuo* (`cnh-551`'s) dropped. **Name → 办事大臣 bànshì dàchén** (Theobald; 驻藏大臣 names only the Lhasa post). |
+| `cnh-549` Yongzheng Emperor | 6 | 7 → 8 | **The *Qingshi gao* juan 9; Zeng Jing's confession printed with the rebuttals (the 1730 book), the altered-will rumour told as unofficial chroniclers', the meltage surcharge made public money (Zelin, open); Lee 2019 [in Korean]**; the plaque (`cnh-732`), the vermilion comments (`cnh-708`) and the converted 1723 for the heir box dropped. Protected: the line stays (flagged below). |
+| `cnh-550` Grand Council | 6 | 6 → 6 | **"Founded 1729 or 1732" now `Founded 1729` / `Renamed 1732` / `Abolished 8 May 1911` (Brunnert and Hagelstrom); the *Qingshi gao* juan 176: the duty room behind the Longzong Gate, set up for the Dzungar war, Prince Yi, Zhang Tingyu and Jiang Tingxi, "a hundred and eighty years" of real authority**; the Grand Secretariat's clues (`cnh-508`'s) kept apart. |
+
+Read by eye. **Confusability**: the queue order is `cnh-541`'s (Dorgon's card tells it in prose only); the Yangzhou diary `cnh-542`'s;
+Wu Sangui's revolt `cnh-543`'s and Koxinga's heirs at Penghu `cnh-544`'s; Kangxi's phrasings clear of the Feudatories, Taiwan,
+Nerchinsk and the Kangxi Dictionary (`cnh-913`); the Golden Urn left to `cnh-783`; the Grand Council's founding `cnh-550`'s, Zeng Jing
+`cnh-549`'s. **Legend**: the Yangzhou dead (Wang Xiuchu's count of bodies found), the altered will (unofficial chroniclers), the queue
+slogan (attributed) are each a text's. **Chinese names corrected**: `cnh-547` Hánguó, `cnh-548` 办事大臣. Kept unconfirmed: 扬州十日 (the
+diary's title 揚州十日記 is printed), 澎湖海战 (the platform's head term is 清鄭澎湖之戰), 准噶尔汗国 — for the owner. **Spellings fixed**:
+none needed; 0 hits. **Myth register**: the Yangzhou dead confirmed as the diarist's figure, "banned under the Qing" unconfirmed; Koxinga
+confirmed as far as told (Theobald, Cordier); Chen Yuanyuan not told. **check-citations**: no mismatch. **Protected lines: unchanged**
+(diffed after the apply). For the owner: `cnh-545`'s "Reigned 5 February 1661" is the Shunzhi Emperor's death day (Hummel: proclaimed
+17 February) and its "Old Summer Palace" looks wrong (he died at the Changchun yuan); `cnh-549`'s birthplace and 27 December 1722 on
+no page read. The glossary alias "Liu Song" (on `Liu_Song_dynasty`) may catch a sect leader's name on `cnh-558` — noted ahead.
+
+### B56 — `cnh-551`–`cnh-560`, Qing: the Qianlong Emperor to Lin Zexu (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl but the Library of Congress item page for the Siku Quanshu (`cnh-552`),
+which walls curl as in B53; the agent's saved page stands. **Pictures were not touched.** **The old cards cited the *Qingshi gao* (up
+to two juan a card), the *Lama shuo*, the *Siku* catalogue's edicts, the *Dayi juemi lu*, Wang Xihou's preface, Hong Liangji's
+*Yiyan* and chronological biography and the *Qingchao rouyuan ji* on Chinese Wikisource; cited Goodrich's *Literary Inquisition of
+Ch'ien-lung* from an archive.org user upload of an in-copyright reprint (twice on two cards); carried men in labels ("Zhuang case",
+"Dai executed"), a place ("At Lintin"), the White Lotus's "c. 100,000 rebels killed" (whose was never said), unattributed opium-chest
+figures, and "Treaty of Nanjing" in the card's voice.** The Qing cards read the *Qingshi gao* (juan 14, 154, 319, 344, 369) on
+zggdwx.com, the Qianlong Emperor's own seal essay and a *Siku* page itself on the Kanseki Repository, or the *Yiyan* on Shidian guji.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-551` Qianlong Emperor | 7 | 7 → 7 | **The emperor's own essay on the "Old Man of the Ten Completes" seal (Kanseki) for two Wikisource texts; the vow not to outreign his grandfather, the 42,000 poems attributed to him, the Khotan jade seal; the Cleveland portrait record, the Met's poem vase, the Paris-made enamel pot (Liu et al. 2022)**; Giles (its OCR prints 1710) and the *Lama shuo* (`cnh-783`'s ground) dropped. Protected: the line stays; every row matches Hummel. |
+| `cnh-552` Siku Quanshu | 7 | 7 → 7 | **`Last sets done 1787` added after `Ordered 1772` / `Named 1773` / `First set done 1782`; a *Siku* page itself (an editors' summary signed by Ji Yun) on the Kanseki Repository; the seasons' colours and the seven sets, the editors' summaries, Wylie's praise of the catalogue; Gandolfo 2020, Shao et al. 2024, the Library of Congress record**; Goodrich's upload and the figures only he gave dropped; the suppression cut to one clause (`cnh-553`'s). |
+| `cnh-553` literary inquisition | 6 | 7 → 7 | **Labels naming men off: `Recorded cases 1647 – 1788` (Wang, Yu and Niu 2024, *PLOS ONE*); the Zhuang case's seventy dead and the corpse burned, Dai Mingshi's Southern Ming reign titles, Wang Xihou's dictionary and the taboo names; four Hummel entries; the *Qingshi gao* juan 14**; Goodrich's upload, the 2,320 works and "476 survived" (on no citable page) and Zeng Jing (`cnh-549`'s) dropped. |
+| `cnh-554` Hong Liangji | 5 | 8 → 6 | **The *Yiyan*'s "Zhiping pian" on Shidian guji for four Wikisource texts; households multiplying faster than fields, the letter to Prince Cheng and Ili, the Scholar of the New Life; 1793 printed by the Cambridge chapter "Hong Liangji (1793)"; "China's Malthus" hedged as a modern comparison; Columbia's population estimate as theirs**; the register figures dropped; "extreme indecorum" (Hummel). Protected: the line stays. |
+| `cnh-555` Heshen | 6 | 7 → 6 | **The *Qingshi gao* juan 319 on zggdwx.com; Cao Xibao's charge and the house rebuilt, the ruyi given to the heir before his naming, the guard at the Qianqing Gate whose son married the Tenth Princess; the hoard as the edict lists it, Backhouse and Bland's 60 million ounces as their figure**; "800 million" not repeated; Macartney out of the phrasings. Protected: the line stays (flagged below). |
+| `cnh-556` Macartney Embassy | 7 | 7 → 8 | **"Left Beijing" (a place) → `Departed 7 October 1793`, with `Sailed 26 September 1792` / `Landed 5 August 1793` / `Audience 14 September 1793` (Morse); Macartney's journal: one knee, the kiss of the hand dropped; the edict read in context (Harrison 2017: drafted after the demands were translated, "we possess all things" in the preamble, famous only from 1914); the gifts (Harrison 2018); Ouyang 2020 [in Chinese]**; the Qing kowtow account (on no page) not told. Timeline set to 1792 – 1793. |
+| `cnh-557` Canton System | 7 | 7 → 8 | **"Canton System" told as a later name; `One port only 1757` / `Regulations 1760` / `Ended 1842` (Morse and Hummel's 1757 edict against Liu Yong's 1760 order, a dispute); the Flint case told through Hong Renhui (the glossary's "Flint" is the stone), the Flower Gardens three days a month, the Imperial Household's revenue; the *Qingshi gao* juan 154**; the treaty's terms and the dollars (`cnh-562`'s) and "Treaty of Nanjing" dropped. |
+| `cnh-558` White Lotus Rebellion | 7 | 7 → 7 | **The template off: `Began 1796` / `Ended 1804`; the casualty figure (on no page) dropped; the manhunt that drove villagers to rise, Gong Jinghan's walled villages (Hummel; the *Qingshi gao* credits Delengtai — both told), Wang Fasheng as a Ming descendant; ter Haar's reading of "White Lotus" as a hostile label, one study's**. |
+| `cnh-559` opium trade | 8 | 8 → 8 | **"At Lintin" (a place) → `Offshore depot 1821 – 1839`, with `First edict 1729` / `Company monopoly 1773` / `Import banned 1800` (Morse); the chests each whose: Morse's yearly averages (9,708 for 1821 – 1828, at least 30,000 for 1835 – 1839), Perdue's 40,000 for 1839; Xu Naiji's legalisation memorial; Permanyer Ugartemendia 2015 [in Spanish]**; Columbia's school reading dropped. Glossary: the 1729 edict punished selling for smoking, not smoking. |
+| `cnh-560` Lin Zexu | 7 | 7 → 7 | **The *Qingshi gao* juan 369 on zggdwx.com; the letter to Victoria written with two colleagues, the chests mixed with salt and lime at Humen, Ili and Wei Yuan's geography; "died at Chaozhou" taken out of the background (the line's Puning row stands)**; the years and the 20,283 chests out of the phrasings. Protected: the line stays (flagged below). |
+
+Read by eye. **Confusability**: the abdication vow and the seal `cnh-551`'s, the catalogue `cnh-552`'s and the cases `cnh-553`'s; the
+edict and the kneeling `cnh-556`'s, the factories' rules `cnh-557`'s; the offshore depot and the chests `cnh-559`'s, Humen and the
+letter `cnh-560`'s, the war left to `cnh-561`. **Legend**: Qianlong's edict ("we possess all things", read in context), Heshen's hoard
+(the edict's list; Backhouse and Bland's figure theirs), the 42,000 poems ("attributed") are each a text's. **Chinese names**: none
+corrected; kept unconfirmed 一口通商 (Theobald only) and 鸦片贸易 (on no page as one word; pinyin lower-cased to yāpiàn màoyì) — for the
+owner. **Spellings fixed**: "Treaty of Nanjing" (`cnh-557`); 0 hits after. **Myth register**: the Macartney embassy corrected (one knee,
+Macartney's own journal; the edict drafted after the requests were translated, famous only from 1914); Lin Zexu's letter corrected in
+part (August 1839, written with Deng Tingzhen and Yiliang, printed in the *Chinese Repository* in February 1840 from the *Canton Press*;
+*The Times* on no page read). **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the apply). For the owner:
+`cnh-555`'s 1 July 1750, 22 April 1776 and 12 February 1799 on no page read; `cnh-560`'s 3 October 1840 (Hummel: dismissed 28 September)
+and Puning (Hummel and the *Qingshi gao*: Chaozhou). The alias "Liu Song" on `Liu_Song_dynasty` may link the sect leader on `cnh-558`.
+
+### B57 — `cnh-561`–`cnh-570`, Qing: the First Opium War to the First Sino-Japanese War (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl but one *Science Advances* DOI (`cnh-564`), which resolves to a
+bot-walled science.org page; the agent's saved page stands. **Pictures were not touched.** **The old cards cited the treaty texts
+(English and Chinese Wikisource), the *Qingshi gao* (up to two juan a card), the Taiping land system, Hong Xiuquan's tracts, the
+1924 Kuomintang manifesto, Sun Yat-sen's will and the 1949 Common Programme on Wikisource; carried the war template on every war
+with casualty figures no page prints ("c. 3,187 killed, 4,991 wounded", "c. 20,000,000 – 100,000,000 dead", "Over 100,000 killed",
+"c. 3,081 – 3,782", "c. 52,069 casualties"), Result rows, sub-notes naming battles and places, and labels naming institutions and
+places ("Zongli Yamen", "Fuzhou attacked", "US, UK end").** Each card now reads one Chinese text — the *Qingshi gao* (juan 136, 154,
+214, 462, 475) on zggdwx.com, Fan Hongjie's 1924 survey, or Han Yu 2018 — and the treaties in Mayers's and MacMurray's collections.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-561` First Opium War | 8 | 8 → 8 | **The template off: `Began 4 September 1839` / `Ended 29 August 1842` (Perdue, Theobald); the frigates at Chuanbi and Lin's silent report, Zhenjiang's garrison and its commander's death, the *Nemesis*'s debut; the treaty's terms and Lin's destruction of the opium left to their cards**; "Treaty of Nanjing" → Treaty of Nanking. **Pinyin → Dì-yī cì Yāpiàn Zhànzhēng** (agreeing with `cnh-567`). Timeline set to the two days. |
+| `cnh-562` Treaty of Nanking | 7 | 8 → 8 | **`Signed 29 August 1842` / `Ratified 26 June 1843` kept; the text and the Bogue précis from Mayers 1902; Hong Kong ceded for careening, the *Cornwallis*, Article XI's "perfect equality", the *Qingshi gao*'s Jinghai Temple and "Baimen treaty"; the indemnity 21 million dollars, not taels**; four Chinese texts dropped; the five ports, the hong debts and "unequal treaty" left to `cnh-599`, `cnh-557`, `cnh-563`. |
+| `cnh-563` unequal treaty | 7 | 8 → 9 | **Told as a later label, never a Qing term (who coined it on no page read; Fung and Kaufman place it after the First World War; Fan Hongjie's 1924 survey [in Chinese] shows it in use); `First signed 29 August 1842` / `Abrogation vowed 7 July 1928` (the Nationalist declaration, FRUS) / `Rights given up 11 January 1943` (Ma 2015); the most-favoured-nation clause (Mayers)**; the 1924 congress, Sun's will and the 1949 programme (Wikisource only) dropped. |
+| `cnh-564` Taiping Rebellion | 8 | 8 → 8 | **The template off: `Began 1850` / `Also dated 11 January 1851` / `Capital fell 19 July 1864`; the toll given as each source's estimate (S. W. Williams's twenty million through Morse, Theobald's 20 – 50 million, Orlandi's over 20 million, Zhao 2026's 100 million); Suzhou's surrendered kings and Gordon's break with Li Hongzhang (Danko), the Eastern King's fall; Kuhn; Han Yu 2018 [in Chinese]**. **Name → 太平天国运动 Tàipíng Tiānguó yùndòng.** |
+| `cnh-565` Hong Xiuquan | 7 | 7 → 7 | **Three Wikisource texts cut to the *Qingshi gao* juan 475; the vision told as Hong Rengan's account in Hamberg 1854, the golden-bearded old man, the sword and seal; Issachar Roberts's refusal to baptise him; the draft history's hostile portrait; Edkins 1861; the background's 1813 made "1814, or 1813 in some accounts"** (it contradicted the line). Protected: the line stays (flagged below). |
+| `cnh-566` Nian Rebellion | 6 | 7 → 6 | **The template off: `Dated 1853 – 1868` / `Also dated 1851 – 1868` (Orlandi et al.); Zhang Lexing at Zhiheji and the five banners, Sengge Rinchen killed when his horse stumbled (the *Qingshi gao*), "nian" as a Huaibei word for bands**; Li Hongzhang's fortified villages (Wikisource only) dropped. **Name → 捻军起义 Niǎnjūn qǐyì.** Timeline set to 1853 – 1868. |
+| `cnh-567` Second Opium War | 7 | 7 → 8 | **The template off: `Began 8 October 1856` / `Ended 24 October 1860` (Morse); Ye Mingchen and the Guangdong saying, Elgin's burning of the Yuanmingyuan aimed at the emperor, the *Qingshi gao*'s chapter on Britain that leaves out the *Arrow*; Wong 1974 ("not fought over opium"); Hummel**. **Pinyin → Dì-èr cì Yāpiàn Zhànzhēng.** Timeline set to the two days. |
+| `cnh-568` Self-Strengthening Movement | 7 | 7 → 9 | **Labels naming institutions and places off: `Foreign office 1861` / `Navy yard 1866` / `Study mission 1872 – 1881` / `Fleet sunk 1884`; "Self-Strengthening" told as a later name (Yangwu yundong the usual Chinese term); Feng Guifen's principle, Yung Wing and the Hartford boys, the Fuzhou yard lost within the hour; the *Qingshi gao* juan 136**; "Beiyang lost 1895" (`cnh-570`'s) and the converted 1891 halt dropped. |
+| `cnh-569` Empress Dowager Cixi | 8 | 8 → 8 | **The *Qingshi gao* juan 214; the regents arrested with Prince Gong, the nephew chosen against the adoption rule, Katharine Carl's portrait; the navy money told as a charge (Hummel states it; the *Qingshi gao*'s verdict sets her building below a tenth of earlier emperors'); the Art Institute's surcoat**; Kang Youwei's blame (on no page) and Musillo (walled) dropped. Protected: the line stays (flagged below). |
+| `cnh-570` First Sino-Japanese War | 7 | 7 → 7 | **The template off: `Began 25 July 1894` / `War declared 1 August 1894` / `Ended 17 April 1895`; the *Qingshi gao* juan 462 (Ding Ruchang at Weihaiwei), the *Kowshing*, Li Hongzhang shot and the treaty ending Korea's tribute (MacMurray); Hail in Hummel, Fukui 2005 [in Japanese], the Office of the Historian**; the casualty figure dropped. Timeline set to the two days. |
+
+Read by eye. **Confusability**: the treaty's terms are `cnh-562`'s alone (out of `cnh-561` and `cnh-557`); the label `cnh-563`'s;
+Hong's vision `cnh-565`'s and the war's kings and toll `cnh-564`'s; the Fuzhou yard `cnh-568`'s, the Beiyang fleet's end `cnh-570`'s;
+Cixi's phrasings clear of the 1898 coup, the Boxers and the arsenals. No `jp-` card covers the war. **Legend**: Hong Xiuquan's vision
+(Hamberg, from Hong Rengan), the navy money (a charge, disputed), the Taiping toll (estimates) are each a text's. **Chinese names
+corrected**: `cnh-561` and `cnh-567` pinyin, `cnh-564` 太平天国运动, `cnh-566` 捻军起义. Kept: 自强运动 (Theobald; 洋务运动 the
+commoner term — for the owner), 甲午战争 Jiǎwǔ Zhànzhēng (capitalised as the Opium Wars' Zhànzhēng). **Spellings fixed**: "Treaty of
+Nanjing" (`cnh-561`, and the glossary); 0 hits after. **Myth register**: Hong's vision confirmed; the Taiping toll corrected (no page
+read prints "twenty to thirty million"); the navy money confirmed as a disputed charge. **check-citations**: no mismatch. **Protected
+lines: unchanged** (diffed after the apply). For the owner: `cnh-565`'s 1 January 1814 and 11 January 1851; `cnh-569`'s 21 September 1898
+(Hummel: 22 September) and its birth and death places on no page read; `cnh-562`'s "Ratified 26 June 1843" is the exchange of
+ratifications (the Queen ratified 28 December 1842).
+
+### B58 — `cnh-571`–`cnh-580`, Qing and the early Republic: the Hundred Days' Reform to the Warlord Era (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl but two known bot walls (the Library of Congress item page on
+`cnh-576`, a JSTOR DOI on `cnh-579`); the agents' saved pages stand. **Pictures were not touched.** **The old cards cited the
+edicts, the Articles of Favourable Treatment, the Provisional Constitution, the 1947 constitution, Sun Yat-sen's manifesto and will,
+Yuan Shikai's oath, the Empire's mandates and the *Qingshi gao* on Chinese Wikisource (up to five texts a card); carried the Boxer
+template with a start day and a death figure on no page ("c. 100,000 dead"), a count in a label ("9-year plan", "Six executed"),
+places and men in labels ("Wuchang rising", "Sun inaugurated", "Nanjing capital", "Moved to Taipei", "Yunnan revolt"), and told
+Yuan Shikai's betrayal of the reformers as fact.** The Qing and Republican cards read the *Qingshi gao* (juan 25, 464) on zggdwx.com,
+or one Chinese article (Wei 2024, Suo Liangzhu), beside the treaty and state-paper series (FRUS, the *China Year Book*).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-571` Hundred Days' Reform | 7 | 7 → 8 | **"Six executed" (a count) → `Executions 28 September 1898`, with `First decree 11 June 1898` / `Coup 21 September 1898`; the *Qingshi gao* juan 464; Tan Sitong's refusal to flee and the Six Gentlemen; Yuan Shikai's betrayal told as the reformers' and most foreign historians' account against his own (Morse: "with some reserve"); Kwong 1984 and 2000**; 戊戌变法 noted as the commoner name. |
+| `cnh-572` Boxer Rebellion | 8 | 8 → 10 | **The template off: `Began 1899` / `Siege 20 June – 14 August 1900` / `Protocol 7 September 1901`; the deaths each Klein's or the State Department historians'; the invulnerability as a missionary's account (Smith 1901); the south kept out by Liu Kunyi and Zhang Zhidong; the 450 million taels the envoys' demand (Root's 1907 letter) and the remission and the students (FRUS)**. No `us-` card covers the indemnity. Timeline set to 1899 – 1901. |
+| `cnh-573` Late Qing reforms | 6 | 8 → 8 | **"9-year plan" (a count) off: `Reform edict 29 January 1901` (the de Bary–Lufrano translation) / `Exams abolished 1905` (agrees with `cnh-348`, `cnh-427`) / `Programme 27 August 1908` / `Cabinet named 8 May 1911`; the edict's charge against habit and mediocrity, the bomb at the commissioners' departure, the gentry's petitions rebuffed**; "two months" and "three bonds" (on no page) dropped. Timeline set to 1901 – 1911. |
+| `cnh-574` Xinhai Revolution | 7 | 8 → 7 | **Labels naming places and men off: `Began 10 October 1911` / `Republic founded 1 January 1912` / `Abdication 12 February 1912` (Morse's 11 October in prose); the *Qingshi gao* juan 25 quoting the edict; the Wuchang mutiny, the Railway Protection Movement, Li Yuanhong, the Tongmenghui; the cyclical-year name**; the "60-year cycle" sentence and Mongolia dropped. |
+| `cnh-575` Sun Yat-sen | 7 | 8 → 9 | **Two Wikisource texts replaced; the London kidnapping "by his own account" (*Kidnapped in London*, 1897: 11 – 23 October 1896) and Cantlie; the sixteen lectures with the sword cane; the Revive China Society founded in Hawaii**; Morse (1867, "ten days") dropped. **Name: 孙中山 kept** (the modern Sun Yat-sen University and the Taipei memorial hall; 孙逸仙 is "Yat-sen" in Chinese). Protected: the line stays (flagged below). |
+| `cnh-576` Puyi | 8 | 8 → 10 | **Four Wikisource texts replaced; the *Qingshi gao* juan 25; the twelve days' restoration under Zhang Xun, regent designate at Changchun, Reginald Johnston; the abdication in one sentence, the 1924 escort out (`cnh-512`'s clue) in prose only; Kuzmin and Dmitriev on the restoration**. Protected: the line stays (flagged below). |
+| `cnh-577` Republic of China | 8 | 8 → 8 | **"Nanjing capital" and "Moved to Taipei" (places) off: `Proclaimed 1 January 1912` / `Constitution 1 January 1947` / `Government moved December 1949`; five Wikisource texts replaced by the *Qingshi gao* juan 25, the 1912 Provisional Constitution's English text (*AJIL*) and the 1947 constitution (the Ministry of Justice); the year count from the founding, the twenty-two provinces, the move to Taipei**; the Beiyang and Nationalist governments and the later ROC kept to prose. |
+| `cnh-578` Yuan Shikai | 7 | 8 → 8 | **Three Wikisource texts replaced by the *Qingshi gao*, Hummel 1944 and McCord 1993; eight years in Seoul, the "ailing foot" and the recall, Song Jiaoren's murder (20 March 1913, McCord); the 1898 part told as Hummel tells it ("generally believed")**; Couling (1860) and Reinsch dropped; the Empire of China out of the phrasings. Protected: the line stays (flagged below). |
+| `cnh-579` Empire of China | 6 | 8 → 7 | **"Yunnan revolt" (a place) → `Revolt began December 1915`, with `Votes counted 11 December 1915` / `Throne accepted 12 December 1915` / `Cancelled 22 March 1916` (the *China Year Book* 1916, Putnam Weale); the Yunnan telegrams, the order to burn the vote telegrams, the Hongxian calendar; Wei 2024 [in Chinese]; Goodnow in prose only (FRUS)**; a FRUS document that never carried its claim and Cai E's house watch dropped. |
+| `cnh-580` Warlord Era | 7 | 7 → 7 | **Told as a later label (junfa a 1910s word modelled on the Japanese gunbatsu, Yu Shen); `Began 1916` / `Clique wars 1920 – 1924` / `Ended 1928` kept, McCord's textbook end of 1926 in prose; the "caged birds" governor, the nine million dollars, the cliques and Zhang Zuolin the bandit**. **Name → 北洋军阀统治时期 Běiyáng jūnfá tǒngzhì shíqī** (军阀 alone means "warlord"). |
+
+Read by eye. **Confusability**: the 1898 coup is `cnh-571`'s, told on `cnh-578` only in prose and hedged alike on both; the
+abdication is `cnh-535`'s and `cnh-574`'s line row but in no phrasing of `cnh-576`; the Republic's founding `cnh-577`'s, its
+Beiyang phase `cnh-581`'s; the Empire's votes and telegrams `cnh-579`'s, Yuan's life `cnh-578`'s. **Legend**: the London kidnapping
+(Sun's own account), the Boxers' invulnerability (a missionary's), Yuan's betrayal (the reformers' against his own) are each a text's.
+**Chinese names corrected**: `cnh-580` 北洋军阀统治时期. Kept: 义和团 (义和团运动 on no page that would open), 百日维新 (戊戌变法 the
+commoner name), 孙中山 — for the owner. **Spellings**: two checker hits are names as printed in cited titles ("Sun Yat Sen" on the 1897
+title page; "Hsieh Chieh-shih" in FRUS). **Myth register**: Sun's London kidnapping confirmed (his own book); the Boxers' invulnerability
+confirmed as a set of tellings; Yuan and the Hundred Days refined (the reformers' and foreign historians' version against Yuan's own
+account; his diary on no page read). **check-citations**: one false alarm — `cnh-576`'s "Sergei Kuzmin" (Crossref: "Sergius").
+**Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-575`'s 12 November 1866 on no page read and its presidency's
+10 March 1912 (Yuan Shikai's inauguration day); `cnh-576`'s days and places on no page read; `cnh-578`'s 2 January 1909 (Tenney: 1 January)
+and Beijing as the death place on no page read.
+
+### B59 — `cnh-581`–`cnh-590`, the early Republic: the Beiyang government to the First National Congress (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl but four Library of Congress pages (`cnh-582`, `cnh-588`), which
+wall curl and were read through the same URLs' JSON and text service. **Pictures were not touched.** **The old cards cited the
+constitutions, the Twenty-One Demands' text, the Washington treaty, Chen Duxiu's "Call to Youth", Hu Shi's 1917 essay and *A
+Madman's Diary* on Chinese Wikisource; leaned on 1914-1918-online and OpenEdition pages now behind a bot wall (every claim on them
+re-sourced or dropped); carried a man, a country and places in labels ("Cao Kun elected", "US recognition", "In Beijing", "Qingdao
+taken"); and told Chen as elected the party's secretary in his absence and Hu Shi as Dewey's student (on no page read).** Each card
+now reads at most one Chinese text (Ouyang Zhesheng 2020, Li Yilu 2025, Wang on the Washington treaty, Suo Liangzhu, the 12371.cn
+congress page, the China News Service), beside FRUS, the Office of the Historian, the *China Year Book*, Tsi C. Wang's 1927 *Youth
+Movement* and the National Diet Library.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-581` Beiyang government | 6 | 8 → 8 | **Labels naming a man, a country and a place off: `Governed 1912 – 1928` / `Recognised 2 May 1913` (the Office of the Historian) / `Constitution 10 October 1923`; the army Yuan Shikai trained, Wilson's message to the National Assembly, the five thousand dollars a vote for Cao Kun (the *China Year Book*); the 1917 war decision and the restoration (Wheeler)**; the two constitutions (Wikisource) re-sourced through Tenney's 1915 memorandum. |
+| `cnh-582` Chinese Labour Corps | 6 | 7 → 7 | **Every claim re-sourced (the old seven sources behind a bot wall); the recruits each source's count (Bailey's "nearly 140,000"; Ta Chen's 1923 study; the French War Ministry's 36,941; a 1918 report's 175,000), the dead each source's (the Canadian War Museum's 2,000; a 2024 state report's "tens of thousands"); the tea-house recruiters and the brass bracelets, the move to the army areas after China declared war; the *Athos* (the *Evening Star*, 1917)**; Noyelles dropped (its open page shows a title only). A phrasing's "four hundred and seventy-six" made "just under five hundred" after the apply. |
+| `cnh-583` Twenty-One Demands | 7 | 9 → 8 | **Every claim re-sourced; the night meeting and the dreadnought watermark, the jeweller's-shop simile (Reinsch's telling), the ultimatum setting the fifth group aside; FRUS 1915, the National Diet Library, Naraoka [in Japanese], Zang [in Chinese]; the humiliation day "the day of acceptance" (not "7 or 9 May")**; Wellington Koo's leak (its one source unreachable) dropped. |
+| `cnh-584` Shandong Problem | 6 | 7 → 8 | **"Qingdao taken 7 November 1914" (a place; the day only in an uncited telegram) → `Leasehold taken November 1914`, with `Peace ruling 30 April 1919` / `Treaty signed 4 February 1922` / `In force 2 June 1922`; the Washington treaty from FRUS 1922; the promise to Wilson of full sovereignty, the Jinan railway paid in treasury notes; "the Council of Four" made the three present on 30 April; the 1897 occupation made the 1898 lease**. Timeline set to 1914 – 1922. |
+| `cnh-585` May Fourth Movement | 7 | 7 → 7 | **`Began 4 May 1919` / `Dismissals 10 June 1919` / `Treaty unsigned 28 June 1919`; the slogans as a student's account gives them (Wang 1927) with 还我青岛 from the police files (Ouyang 2020 [in Chinese]); the 3,000 as the police chief's report; the jailed students' four demands, the Shanghai shutdown and the "single spark" telegram (FRUS); Ciaudo 2021**. Timeline set to 4 May – 28 June 1919. |
+| `cnh-586` New Culture Movement | 6 | 7 → 6 | **Told as a later label (coined in the summer of 1919, one study's finding); `First issue 15 September 1915` / `Literary reform January 1917` / `Term coined 1919`; *La Jeunesse* and the six editors, the vernacular textbooks order; Li Yilu 2025 [in Chinese], Forster 2017, the SEP**; "Madman's Diary April 1918" (a title, `cnh-589`'s) off the line; the phrasings name no person (`cnh-587`–`589`'s ground). |
+| `cnh-587` Chen Duxiu | 6 | 8 → 7 | **Wikisource and Bisson gone; the "dynamo" of the youth movement (Wang), the 1929 appeal to party comrades admitting Stalin's and the Comintern's line, the three conditions refused (The Militant, the MIA glossary, Elstein in the SEP)**; "elected secretary in his absence" (on no page) and the expulsion year dropped; the "Call to Youth" (`cnh-586`'s clue) and "too busy to attend" (`cnh-590`'s) out of the phrasings. Protected: the line stays. |
+| `cnh-588` Hu Shi | 6 | 7 → 9 | **The 1917 essay told through Wang 1927; Cornell and the Columbia dissertation, the recall from Washington (FRUS 1942 — 1942 now in the background), the mainland campaign over the *Dream of the Red Chamber*; Hirata and Shino, the 1938 credentials photograph (the Library of Congress), the 1962 obituary**; "studied under Dewey" and the 1946 and 1948 claims (on no page) dropped. Protected: the line stays (flagged below). |
+| `cnh-589` Lu Xun | 7 | 7 → 7 | **The Sendai slide "by the account in his own preface" (1922), with the doubts (Takeuchi; the Fujino memoir's shooting; Suo's report that the slides were found but not that one); the iron house, the League of Left-Wing Writers and the arrest order; *A Madman's Diary* from the Marxists Internet Archive; Robins 2007, Cheng and Akiyoshi 2025**; Barral (walled) dropped. Protected: the line stays (flagged below). |
+| `cnh-590` First National Congress of the CCP | 6 | 6 → 6 | **`Opened 23 July 1921` / `Closed c. 31 July 1921` / `Anniversary set 1941` kept (no page prints 1 or 2 August); Saich 1985 re-read in full: the intruder and the police search, the boat on South Lake, Maring and Nikolsky; the delegates as twelve or thirteen, each count whose; the July anniversary chosen because no one recalled the day; Jaivin 2021**; Jin Chongji dropped (one Chinese source). Two phrasings reworded before the apply (the answer's own words). |
+
+Read by eye. **Confusability**: the Beiyang presidency `cnh-581`'s, the cliques `cnh-580`'s; the demands' delivery and the ultimatum
+`cnh-583`'s, the Paris ruling and the Washington treaty `cnh-584`'s, the students `cnh-585`'s; the label and *New Youth* as a
+magazine `cnh-586`'s, Chen's appeal `cnh-587`'s, Hu's dissertation `cnh-588`'s, the Sendai slide `cnh-589`'s; Chen's absence from the
+congress left to `cnh-590`. **Legend**: the Sendai slide (his own preface; doubted), Reinsch's watermark and simile, the May Fourth
+slogans (a student's account) are each a text's. **Chinese names**: none corrected; kept unconfirmed 中国劳工旅 (a 2024 report uses
+it), 山东问题's traditional form (OpenCC's, no traditional page read). **Spellings fixed**: none needed. **Myth register**: the May Fourth slogans confirmed in
+part ("Mr Democracy and Mr Science" Chen's, *New Youth* January 1919; 外争国权，内惩国贼 on no page read); the Sendai slide confirmed
+(the preface dated 3 December 1922; the slide never found). **check-citations**: one false alarm — `cnh-582`'s "Live Yu-Sion" (Crossref
+in the other order). **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-588`'s 29 October 1938 (the Library of
+Congress caption: 28 October); `cnh-589`'s days and Shanghai on no page read; `cnh-590`'s Russian report returned in 1957 (Saich) or 1959
+(Jin). The glossary alias "yuan" (on `Yuan_dynasty`) may link the currency and the five yuan on `cnh-597`.
+
+### B60 — `cnh-591`–`cnh-600`, the early Republic: the First United Front to the Shanghai International Settlement (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl. **Pictures were not touched.** **The old cards cited the Sun–Joffe
+statement, the Kuomintang manifestos, Sun's Whampoa address, Chiang Kai-shek's speeches, the organic laws and the 1931 provisional
+constitution on Chinese Wikisource, and three archive.org uploads of books possibly in copyright (Tong, Linebarger, Bisson); carried
+names, places and counts in labels and values ("Sun–Joffe", "KMT congress", "Baoshan Road", "Founded 1 July 1925, Guangzhou",
+"Five yuan", "One-party rule from 1928", "1842, Treaty of Nanjing", "Peak 1932", "Population 1,040,780 Chinese residents"); and gave
+the Northern Expedition the war template and the Shanghai massacre a "300+ killed" from an account no allowed host opens.** Each card
+reads at most one Chinese text (the Sun Yat-sen Memorial Hall's *Guofu quanji*, the Kuomintang's own chronology, Chen Ganlin 2024,
+Wang and Gao 2025, a mainland name page), beside Isaacs, Jordan, Eastman, Lary, FRUS and the Office of the Historian.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-591` First United Front | 7 | 8 → 7 | **"Sun–Joffe" and "KMT congress" → `Joint statement 26 January 1923` / `Party congress January 1924` / `Broke April – July 1927`; the statement through Isaacs's quotation; the West Lake meeting and Maring's question as Chen Duxiu told it, membership from about two thousand to nearly fifty-eight thousand, the Wuhan order; Theobald**; Mao's "first" co-operation, Guangzhou as the congress's seat and "a 1938 history blamed Stalin" (that history is Isaacs) dropped. |
+| `cnh-592` Whampoa Military Academy | 7 | 7 → 7 | **`Founding voted January 1924` / `Opened 16 June 1924` (the Memorial Hall's text of Sun's address) / `First action October 1924` / `First campaign 1925`; the army the revolution never had, the cadets' rival leagues, the Merchants' Volunteers disarmed; Isaacs; the formal name in prose**; Chiang's 1925 roster preface and its casualty claim dropped; "Galen" kept out (the glossary's Galen is the physician). |
+| `cnh-593` Chiang Kai-shek | 8 | 9 → 8 | **All three phrasings new (the old ones Whampoa's, the Xi'an Incident's and `cnh-609`'s): the secret Methodist baptism, the New Life Movement putting tobacco before opium (an American envoy's remark), the 1945 broadcast read as repaying injury with kindness; the Memorial Hall, FRUS 1930 and 1934, Jordan 1976**; Tong and Linebarger (uploads) and "Baoding" (on no page) dropped. **Name: 蒋介石 kept** (the mainland form; 蔣中正 an alias). Protected: the line stays (flagged below). |
+| `cnh-594` Northern Expedition | 7 | 7 → 7 | **The template off: `Began 9 July 1926` / `Ended 29 December 1928` (Jordan); the Socony Hill rescue at Nanjing, Chiang's cease-fire at Jinan, the fifteen Soviet planners and the political workers ahead of the armies**; "General Galen" (a glossary trap) and Zhang Zuolin's flight (`cnh-581`'s) dropped. Timeline set to the two days. |
+| `cnh-595` Shanghai massacre | 7 | 8 → 7 | **"Baoshan Road 13 April 1927" (a place) and its "300+ killed" (the account on no allowed host) off: `Coup 12 April 1927`; the gunmen in blue denim with "labour" armbands, Bai Chongxi's soldiers; the toll each source's (foreign reports about fifteen, a Chinese reporter's five soldiers and a score of pickets, Eastman's "several thousand"); the PRC chronicle's "counter-revolutionary coup" (the state's account) beside the Nationalists' "purifying the party"**. Timeline set to 12 April 1927. |
+| `cnh-596` Nanjing decade | 6 | 8 → 8 | **Told as a later label counted both ways: `Dated 1927 – 1937` (Eastman) / `Also dated 1928 – 1937` (Lary); tariff autonomy from twelve powers, the wars on the Guangxi generals, Yan Xishan, Feng Yuxiang and the Jiangxi soviets, the "despair" of one history; the New Life Movement undated**; the old dated rows (Wikisource speeches) and 10 October 1928 (`cnh-597`'s) dropped; fabi dropped. Timeline set to 1927 – 1937. |
+| `cnh-597` Nationalist government | 7 | 8 → 8 | **"Founded 1 July 1925, Guangzhou" and "Five yuan" off: `Founded 1 July 1925` / `Reorganised 10 October 1928` / `Tutelage ended 25 December 1947`; Wang Jingwei's Guangzhou council, the English title changed at Nanjing, recognition through the tariff treaty (the Office of the Historian, FRUS); Tyau 1930, Nedostup and Liang 2001; Keim [in French]**; "8 October 1928" (FRUS: 3 or 4 October) out of the line. |
+| `cnh-598` Kuomintang | 8 | 8 → 8 | **"One-party rule from 1928" off: `Founded 25 August 1912` / `Renamed 10 October 1919` (the party's date, not 1920) / `Reorganised 20 January 1924` / `Tutelage began 3 October 1928`; the alliance made an open party with Song Jiaoren as acting chairman, the Chinese Revolutionary Party renamed, the Leninist political departments; the party's own chronology [in Chinese], Iwao [in French]**; "merged with five groups" and the unequal-treaty claims dropped; a phrasing that gave the name's meaning reworded before the apply. |
+| `cnh-599` treaty port | 7 | 8 → 8 | **"1842, Treaty of Nanjing" → `First treaty 1842` / `Factory right 1895` / `Rights given up 1943`; Hart's Maritime Customs, the concessions, extraterritoriality "won by two wars and treaties with seventeen powers"; the China Year Book's 49 customs stations in prose; Chen Ganlin 2024 [in Chinese]**; the five Nanking ports (`cnh-562`'s) out of the phrasings; "Treaty of Nanking" throughout. |
+| `cnh-600` Shanghai International Settlement | 7 | 8 → 7 | **Words, a non-date and a count off: `Formed 1863` / `Rights given up 11 January 1943`; the Municipal Council and its ratepayers, the Mixed Court, the park sign told as alleged with its wording disputed; the council's 1925 census in prose (Pott); Wang and Gao 2025 [in Chinese], Xiao-Planes [in French], Bickers and Wasserstrom 1995**; the end in 1945 left out (on no page read). |
+
+Read by eye. **Confusability**: the united front's making and breaking `cnh-591`'s, the academy's cadets `cnh-592`'s, Chiang's own life
+`cnh-593`'s, the march north `cnh-594`'s, the coup `cnh-595`'s, the decade `cnh-596`'s, the government's founding and title `cnh-597`'s,
+the party's renamings `cnh-598`'s; the five ports and the "unequal treaty" label stay `cnh-562`'s and `cnh-563`'s. **Legend**: the
+Shanghai toll (each witness's), the park sign (alleged), the "golden decade" (on no page read) are each said so. **Chinese names**: none
+corrected; kept unconfirmed 南京十年 (黄金十年 on no page that would open), 四一二政变 (the PRC's fuller name its "counter-revolutionary
+coup") — for the owner. **Spellings fixed**: "Treaty of Nanjing" (`cnh-599`); 0 hits after. **Myth register**: no row touched.
+**check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-593`'s 31 October 1887,
+Xikou and its death day and Taipei on no page read. The glossary keys "Galen" (the physician) and "yuan" (the dynasty) would mislink on
+these cards and were kept out where they could be.
+
+### The sixth hundred, in sum
+
+`cnh-501`–`cnh-600` (the end of the Yuan, the Ming, the Qing and the early Republic to 1928) are done: 726 sources became 723 and 83
+glossary entries were rewritten. `cnh-audit.js --range=cnh-501:cnh-600` reads 87 of 100 cards with nothing but a missing picture;
+what remains is 100 cards with no picture (no picture pass was run — Commons answered the session's one test call, the question went
+to the owner and pictures stayed paused), 10 advisory `W.not-why`, 4 `L.missing` (`cnh-517` the Tumu Crisis, `cnh-518` the Ming Great
+Wall, the states `cnh-547` and `cnh-597`) and 3 `Z.reading?` that are polyphones (靖难 jìngnàn, 汗国 hánguó, 戛 gā). No `Q.sibling`.
+`check-cnh-spellings.js` reads 4 hits over the hundred, each a name as a cited source prints it ("Hsia" an author, "Sun Yat Sen" an
+1897 title page, "Chieh" in a FRUS name). Fifty agents worked two cards each, never more than ten at once; as each draft came back its
+clues went into `AGENT.md`, and the drafts after it were told whose clue was whose. Each batch was applied alone, verified field by
+field against its drafts, diffed for the protected lines and committed with its docs; `origin/main` was merged after B54 and again
+before the PR.
+
+What the hundred found, again and again:
+- **The histories and the state papers cited on Chinese Wikisource.** Nearly every card cited two to five texts there — the *Mingshi*,
+  the *Qingshi gao*, the *Mingshi jishi benmo*, the *Huang Ming zuxun*, edicts, treaties, constitutions, manifestos, Sun Yat-sen's will.
+  The Ming cards now read the *Mingshi* in the Siku edition on the Kanseki Repository (KR2a0038); the Qing cards the *Qingshi gao* on
+  zggdwx.com, said to be the Draft History of Qing (1928), unfinished and contested; the treaties come from Mayers, MacMurray and FRUS;
+  the Republic's papers from FRUS, the Office of the Historian and the *China Year Book*.
+- **The war template with casualty figures no page prints.** "Over 1,130,000 dead" (Imjin), "12,329 killed or drowned" (two of Shi
+  Lang's claims added together), "c. 100,000 rebels killed" (White Lotus), "c. 3,187 killed, 4,991 wounded", "c. 20,000,000 –
+  100,000,000 dead" (Taiping), "c. 52,069 casualties", "c. 100,000 dead" (Boxers): every one is off the line, and the figures a source
+  does give are told in prose as that source's.
+- **Conversions and dates on no page.** The Jingnan days, "the twelfth month of 1371", the imperial porcelain orders of 1591 and 1610,
+  "late in 1623", the Grand Council's "1729 or 1732", the White Lotus and Boxer start days, Kraak ware to 1650: each dropped or replaced
+  by a year a page prints. One drafted span derived from "after 1620" (`cnh-547`) was dropped by the reviewer.
+- **Labels naming men, places, institutions and counts.** "Hu executed", "Lan Yu case", "Xavier died", "Took Beijing", "Albazin taken",
+  "Lhasa riot", "At Lintin", "Zongli Yamen", "Sun–Joffe", "9-year plan", "Six executed", "Five yuan", "Population 1,040,780": all now
+  dates only.
+- **Modern labels told as period fact.** The tributary system, the Canton System, the unequal treaty, Self-Strengthening, the Warlord Era,
+  the New Culture Movement, the Nanjing decade and the Southern Ming are now each said to be a later name, with who used it where a page
+  says so.
+- **Uploads of books in copyright.** Goodrich's *Literary Inquisition*, Liang Fang-chung's single-whip study, Tong and Linebarger on
+  Chiang, Bisson: every citation of an archive.org user upload of an in-copyright book is gone.
+
+**The Chinese name.** Corrected: `cnh-503` Míng cháo, `cnh-535` Qīng cháo, `cnh-539` Nán Míng (the house split); `cnh-507`
+Zhōngshūshěng and `cnh-522` yītiáobiānfǎ (joined, as `cnh-381`; Theobald splits the second — for the owner); `cnh-509` 靖难之役,
+`cnh-519` 朝贡体系, `cnh-526` 耶稣会中国传教团, `cnh-548` 办事大臣, `cnh-564` 太平天国运动, `cnh-566` 捻军起义, `cnh-580`
+北洋军阀统治时期; `cnh-547` Hánguó; `cnh-561` and `cnh-567` Dì-yī cì / Dì-èr cì; `cnh-536`'s apostrophe. Kept unconfirmed for want of a
+page printing the compound, for the owner: 红巾, 胡惟庸案, 洪武帝, 永乐帝, 洪熙帝, 郑和下西洋, 东林党, 崇祯帝, 扬州十日, 澎湖海战, 准噶尔汗国,
+一口通商, 鸦片贸易, 壬辰倭乱 (万历朝鲜战争 on no page that would open), 自强运动 (洋务运动 the commoner term), 义和团, 百日维新 (戊戌变法 the
+commoner term), 中国劳工旅, 南京十年 (黄金十年 on no page), 四一二政变. 孙中山 and 蒋介石 kept as the modern mainland forms. **Spellings**:
+rows added for the Ming emperors and institutions, Zheng He and the wokou, the late Ming, the Qing conquest and the high Qing, the Canton
+trade and the Opium Wars (the Treaty of Nanking by its English title), the Taiping and the Self-Strengthening men, the Boxers and the
+reformers, the Republic (Sun Yat-sen and Chiang Kai-shek the English names; Kuomintang the slug's form) and the May Fourth writers (Hu
+Shi in the card's voice); "Treaty of Nanjing", "Khubilai" and "Co-hong" were caught and fixed; "Yangzi" never appeared.
+
+**The myth register** gained twenty-two rows at the start, each confirmed or corrected by the batch that drafted its card (the rows
+say which): the Hu Weiyong dead, the Yongle Encyclopedia's date, the Macartney kneeling and the edict's context, Lin Zexu's letter and
+the Taiping toll corrected; the beggar monk, the Jianwen escape, Zheng He's ships, Tumu, Coal Hill, Hong Xiuquan's vision, the London
+kidnapping and the Sendai slide confirmed; Chen Yuanyuan, the Yangzhou dead, the navy money, the Boxers' invulnerability, Yuan Shikai and
+the Hundred Days, and the May Fourth slogans confirmed in part or as tellings. The mooncake rising and Ricci's memory palace were told
+nowhere.
+
+**The protected cards** (`cnh-504`, `510`, `514`, `516`, `527`, `528`, `532`–`534`, `536`, `538`, `540`, `545`, `549`, `551`, `554`,
+`555`, `560`, `565`, `569`, `575`, `576`, `578`, `587`–`589`, `593`) kept their `answerDate`, `undatable` and `timeline` byte for byte
+through every apply and the merges of main. Every background now carries the years on its card's line. Rows flagged for the owner, left
+as they stand (details in each batch): rows that look wrong — `cnh-532`'s 12 December 1627 (Kennedy: sent away 8 December, the arrest
+five days later), `cnh-545`'s 5 February 1661 (his father's death day; proclaimed 17 February) and "Old Summer Palace" (the Changchun
+yuan), `cnh-560`'s 3 October 1840 (dismissed 28 September) and Puning (Chaozhou), `cnh-569`'s 21 September 1898 (Hummel: 22 September),
+`cnh-575`'s 10 March 1912 (Yuan Shikai's inauguration day), `cnh-578`'s 2 January 1909 (Tenney: 1 January), `cnh-588`'s 29 October 1938
+(the Library of Congress caption: 28 October), `cnh-538`'s two days (Cordier a day later); years and places on no page read —
+`cnh-533`'s 1606 day (Tu: "Oct. 3, 1605?"), `cnh-510`'s Nanjing birthplace (disputed), `cnh-514`'s Kunming, `cnh-540`'s Yenden; and the
+days on the person template, nearly all on no page read.
+
+**For the owner, outside the hundred**: the glossary keys and aliases "Liu Song" (`Liu_Song_dynasty`), "yuan" and "Yuan"
+(`Yuan_dynasty`), "Galen" (the physician), "Flint" (the stone), "New Policies" (the Song reforms) and "Shun" (the sage king) would mislink
+on these cards; each card kept clear of them where it could. The house capitalisation of an event's pinyin (Xīnhài Gémìng, Jiǎwǔ
+Zhànzhēng against lower-case yùndòng) is not settled.
+
+### Locators (2026-11-14, the sixth hundred)
+
+**No locator was added.** The Wikipedia API answered the session's one test call with a rate-limit page, so `add-locators.js` was not
+run and `migrate-places.js` was not touched. Still waiting from earlier hundreds: `cnh-080` Xibeigang, `cnh-203` the Qin Straight Road,
+`cnh-365` Yinshan, `cnh-455` Quanzhou, `cnh-461` Tangdao, `cnh-470` Haoshuichuan, `cnh-476` Hubudagang, `cnh-482` Caizhou (Runan
+County). In this hundred `cnh-517` the Tumu Crisis has no point (the Tumu fortress near Huailai would be the site); `cnh-518` the Ming
+Great Wall, and the states `cnh-547` and `cnh-597`, have no single place to stand. Points to review, as the drafts read them: `cnh-592`
+Whampoa points at central Guangzhou, not the academy on Changzhou Island; `cnh-525` Kraak ware is Jingdezhen (a ware, not a site);
+`cnh-526` the Jesuit missions is Zhaoqing (the first residence); `cnh-582` the Labour Corps is the Chinese cemetery at Nolette;
+`cnh-515` the treasure voyages is Changle. `migrate-places.js --check` and `build-wars.js --check` were not re-run; on main they already
+report known failures.

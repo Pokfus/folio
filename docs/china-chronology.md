@@ -232,6 +232,17 @@ the form English-language scholarship and the reference works use; the decision 
 | Jurchen, Jurchen Jin, Wanyan Aguda, Wuqimai, meng'an mouke, Da Qi, Caizhou, Yehuling, Hubudagang, Huining, Zhongdu, Emperor Shizong of Jin | Ju-chen, Juchen, Djurchen, Jurched, Wan-yen A-ku-ta, A-ku-ta, Akuta, meng-an mou-k'o, mengan mouke, Ta Ch'i, Ts'ai-chou, Yeh-hu-ling, Hu-pu-ta-kang, Chung-tu | Nüzhen, Great Jin, Da Jin, Emperor Taizu of Jin, Jin Taizu, Jin Shizong, Wanyan Yong, Wuzhu, Wanyan Zongbi | always "the Jurchen Jin" the first time in prose (`docs/china-card-plan.md`), never "the Jin" alone where the Jin of 266 – 420 could be meant; *meng'an mouke* lower case in prose |
 | Genghis Khan, Ögedei, Möngke, Kublai Khan, Khanbaliq, Dadu, Shangdu, Karakorum, semu, Phagpa, Bayan of the Baarin, Yelü Chucai, Ayurbarwada, Guo Shoujing, zaju, xingsheng, Marco Polo, John of Montecorvino | Jenghiz, Ogodei, Ogedei, Ögödei, Mongke, Mangu, Khubilai, Qubilai, Kubilai, Khan-baliq, Khanbalik, Ta-tu, Shang-tu, Qaraqorum, se-mu, Pagpa, Phags-pa, Yeh-lü Ch'u-ts'ai, Kuo Shou-ching, tsa-chü, hsing-sheng | Chinggis Khan, Chinggis, Temüjin, Cambaluc, Xanadu, Hubilie, Basiba, Buyantu Khan, Emperor Renzong of Yuan, Yuan Renzong | the Mongols and the Yuan: *Genghis Khan* as the slug (*Chinggis Khan* the scholarly form, an alias for an "also known as" sentence); *Khubilai* and *Qubilai*, the scholarly spellings, cited as printed in titles but *Kublai* in the card's voice; *Khanbaliq* and *Dadu* both house forms, the Turkic-Mongol and the Chinese names of one city; *Xanadu* Coleridge's form, an alias |
 | Water Margin, Song Jiang, Romance of the Western Chamber, Wang Shifu, Guan Hanqing, Yingying | Shui-hu chuan, Sung Chiang, Hsi-hsiang chi, Wang Shih-fu, Kuan Han-ch'ing, Ying-ying | Shuihu zhuan, Outlaws of the Marsh, Xixiang ji, The Story of the Western Wing | English titles first |
+| Ming, Hongwu Emperor, Jianwen Emperor, Yongle Emperor, Hongxi Emperor, Xuande Emperor, Zhengtong Emperor, Wanli Emperor, Chongzhen Emperor, Zhu Yuanzhang, Zhu Di | Hung-wu, Chien-wen, Yung-lo, Hung-hsi, Hsüan-te, Cheng-t'ung, Wan-li, Ch'ung-chen, Chu Yüan-chang, Emperor Hongwu, Emperor Yongle, Emperor Wanli, Emperor Chongzhen | Hongwu, Yongle, Wanli, Ming Taizu, Ming Chengzu, Zhu Yunwen, Zhu Qizhen, Zhu Youjian, Chu Ti | the Ming emperors (added for the sixth hundred, Nov 2026) by reign title + Emperor, never "Emperor Hongwu"; the reign title alone where a sentence names the era; *Zhu Yuanzhang* and *Zhu Di* their own names; the `pinyin` field Míng cháo for the dynasty |
+| Grand Secretariat, Central Secretariat, lijia, haijin, single whip, Embroidered Uniform Guard, Donglin, Hu Weiyong | li-chia, hai-chin, Hai Jin, i-t'iao-pien, Tung-lin, Hu Wei-yung | Neige, Zhongshu sheng, Jinyiwei, yitiaobianfa, Donglin Academy, Donglin faction | the Ming institutions, lower case in prose for *lijia*, *haijin* and the single whip |
+| Zheng He, treasure voyages, treasure ships, Tumu Crisis, Esen, wokou | Cheng Ho, Zheng Ho, T'u-mu, Yesen, wakō, Wako, wo-k'ou, Wo-k'ou | Ma He, Sanbao, Tumu incident, Esen Taishi, Japanese pirates | the early Ming; *wokou* lower case in prose |
+| Imjin War, Matteo Ricci, Jesuits, Wang Yangming, Li Zicheng, Wei Zhongxian | Li Ma-tou, Wang Yang-ming, Wang Shou-jen, Li Tzu-ch'eng, Wei Chung-hsien | Japanese invasions of Korea, Imjin waeran, Bunroku–Keichō, Wanli Korean campaign, Li Madou, Xitai, Wang Shouren | the late Ming; the Korean and Japanese names of the war are aliases, as in the `ko-` and `jp-` collections |
+| Qing, Manchu, Nurhaci, Hong Taiji, Dorgon, Eight Banners, queue, Wu Sangui, Three Feudatories, Koxinga | Nurhachi, Hung Taiji, Dorgun, Wu San-kuei, Wu San-gui, Cheng Ch'eng-kung, Coxinga | Ch'ing, Nurgaci, Huang Taiji, Abahai, Aisin Gioro, Later Jin, Sanfan, Zheng Chenggong, Guoxingye | the Qing conquest; *Koxinga* the English name (as *Confucius*), *Zheng Chenggong* his own name, an alias legitimate in an "also known as" sentence; *Ch'ing* stands in cited titles (Hummel) and is not reported; *Later Jin* Nurhaci's state of 1616, never the Five Dynasties' Later Jin without saying so |
+| Kangxi Emperor, Yongzheng Emperor, Qianlong Emperor, Dzungar, amban, Grand Council, Siku Quanshu, Heshen, Hong Liangji | K'ang-hsi, Yung-cheng, Ch'ien-lung, Emperor Kangxi, Emperor Yongzheng, Emperor Qianlong, Kang Xi, Qian Long, Zunghar, Jungar, Djungar, Chün-chi ch'u, Ssu-k'u ch'üan-shu, Ho-shen, Hung Liang-chi | Kangxi, Yongzheng, Qianlong, Xuanye, Yinzhen, Hongli, Oirat, Zungharia, Junjichu, Siku quanshu, Complete Library of the Four Treasuries | the high Qing: reign title + Emperor, never "Emperor Kangxi"; *Siku Quanshu* the slug's form (*Siku quanshu*, as the Kanseki Repository citations name the edition, not reported); *amban* lower case in prose; *Zunghar* stands in cited titles (Perdue) and is not reported there |
+| Macartney, Canton System, Canton, Guangzhou, Cohong, Lin Zexu, Opium Wars, Treaty of Nanking, Nanjing | Kwangchow, Kuang-chou, Co-hong, Lin Tse-hsü, Lin Tse-hsu, Treaty of Nanjing, Nan-ching | Lord Macartney, Commissioner Lin, Nanking, Hong merchants, Thirteen Factories | *Canton* the period name of the port in the trade (the Canton System a modern label, said so), *Guangzhou* the city otherwise; the *Treaty of Nanking* by its English title, *Nanjing* the city |
+| Hong Xiuquan, Taiping, Nian, Cixi, Li Hongzhang, Zeng Guofan, Zuo Zongtang, Self-Strengthening | Hung Hsiu-ch'üan, Hung Hsiu-chuan, T'ai-p'ing, Nien, Tz'u-hsi, Tzu Hsi, Tsu Hsi, Tzu-hsi, Li Hung-chang, Tseng Kuo-fan, Tso Tsung-t'ang | Taiping Heavenly Kingdom, Taiping Tianguo, Empress Dowager Ci Xi, Yehenara, General Tso, Ziqiang, Yangwu | the nineteenth century; *Nien* stands in cited titles (Teng Ssu-yü) and is not reported there |
+| Boxers, Yihetuan, Kang Youwei, Liang Qichao, Hundred Days' Reform | I-ho-ch'üan, I-ho-t'uan, K'ang Yu-wei, Kang Yu-wei, Liang Ch'i-ch'ao, Liang Chi-chao, Hundred Days Reform | Yihequan, Boxer Uprising, Righteous and Harmonious Fists, Wuxu Reform | |
+| Sun Yat-sen, Puyi, Yuan Shikai, Chiang Kai-shek, Kuomintang, Whampoa, Beiyang government | Sun Yatsen, Sun Yat Sen, P'u-i, Pu-yi, Yuan Shih-k'ai, Yuan Shih-kai, Chiang Kai-Shek, Kuo-min-tang, Pei-yang | Sun Zhongshan, Sun Wen, Sun Yixian, Pu Yi, Xuantong Emperor, Hongxian Emperor, Jiang Jieshi, Jiang Zhongzheng, Guomindang, KMT, Huangpu | the Republic: *Sun Yat-sen* and *Chiang Kai-shek* the English names (house forms, never reported); *Kuomintang* the slug's form, *Guomindang* the pinyin an alias; *Whampoa* the period name of the academy, *Huangpu* an alias |
+| Chen Duxiu, Hu Shi, Lu Xun, New Culture Movement, May Fourth Movement | Ch'en Tu-hsiu, Chen Tu-hsiu, Lu Hsün, Lu Hsun | Hu Shih, Zhou Shuren, New Youth, Xin Qingnian | *Hu Shi* in the card's voice; *Hu Shih*, his own English spelling and the slug, cited as printed (an author's name) and not reported |
 
 ## Mythology and legend
 
@@ -651,9 +662,93 @@ are not rows of this table.
 | the Western Chamber written / its earliest edition / Julien's translation | c. 1300 / 1498 / 1872 – 1880 | `cnh-499` |
 | the David Vases dated / first published | 1351 / 1929 | Pope (`cnh-500`) |
 
+## Ming to the early Republic (the sixth hundred)
+
+Filled batch by batch from `cnh-501` (B51 on). **The protected lines** of the sixth hundred's individuals
+(`cnh-504`, `510`, `514`, `516`, `527`, `528`, `532`–`534`, `536`, `538`, `540`, `545`, `549`, `551`, `554`, `555`, `560`,
+`565`, `569`, `575`, `576`, `578`, `587`–`589`, `593`) are pinned below to their lines as they stood on main on 2026-11-14
+(the years only, both years of an "X, or Y" death; ages, days and months left out), and are not rows of this table.
+Dates already set elsewhere that this hundred must agree with: the Yuan driven north 1368 (`cnh-483`), Khanbaliq taken
+1368 (`cnh-487`), the Grand Canal's northern rebuild 1283 – 1291 (`cnh-350`), the two-tax system superseded by the
+single whip 1581 (`cnh-381`), the examinations ended 1905 (`cnh-348`, `cnh-427`).
+
+| event | the collection says | source |
+|---|---|---|
+| the Red Turban Rebellions | 1351 – 1368 | Karaseva (`cnh-501`) |
+| the Northern Yuan (Theobald's ruler list / his Yuan history) | 1368 – 1388 / 1368 – 1402 | Theobald (`cnh-502`) |
+| the Ming | 1368 – 1644 | the *Mingshi* (`cnh-503`) |
+| the lijia tried / ordered everywhere | 1370 / 1381 | Theobald; Hucker (`cnh-505`) |
+| the Hu Weiyong case: Hu executed / Li Shanchang reached / closed with a pardon | 1380 / 1390 / 1393 | Hucker (`cnh-506`) |
+| the Central Secretariat created / adopted by the Yuan / abolished | 220 – 226 CE / 1260 / 1380 | Theobald (`cnh-507`) |
+| the Grand Secretariat formed / abolished | 1402 / 8 May 1911 | Dardess; Brunnert and Hagelstrom (`cnh-508`) |
+| the Jingnan campaign | 1399 – 1402 | Chan (`cnh-509`) |
+| Beijing renamed / made capital / confirmed / its outer wall | 1403 / 1421 / 1441 / 1553 | Sirén; Campbell; Theobald; Cho (`cnh-511`) |
+| the Forbidden City ordered / finished / the court moved in / the museum | 1406 / 1420 / 1421 / 1925 | Campbell; the Palace Museum (`cnh-512`) |
+| the Yongle Encyclopedia ordered / finished / recopied / burned | 1403 / 1408 / 1562 – 1567 / 1900 | the Library of Congress (`cnh-513`) |
+| the treasure voyages: the first order / the span / the last order | 11 July 1405 / 1405 – 1433 / 29 June 1430 | Wade's *Ming Shi-lu* (`cnh-515`) |
+| the Tumu Crisis: the army out / the battle / the captive returned | 4 August 1449 / 1 September 1449 / 29 September 1450 | İzbasar (`cnh-517`) |
+| the Ming Great Wall: early walls / main building / the hollow towers | 1436 – 1464 / 1465 – 1620 / 1569 – 1571 | Yang, Zhang and Li (`cnh-518`) |
+| the wokou's worst raids | 1552 – 1557 | Liu (`cnh-520`) |
+| the haijin first ordered / partly lifted | 1371 / 1567 | Zurndorfer (`cnh-521`; Kung and Ma 1368) |
+| the single whip first named / empire-wide | 1531 / 1581 | Theobald (`cnh-522`; agrees with `cnh-381`) |
+| the silver tax commutation / the tael abolished | 1436 / 1933 | Theobald; Ma and Zhao (`cnh-523`) |
+| Kraak ware developed / output collapsed | c. 1580 / 1644 | the V&A (`cnh-525`) |
+| the Jesuits' first residence / tolerated / suppressed | 1583 / 1692 / 1773 | Brucker; Cordier; Parr (`cnh-526`) |
+| the Sanyan's three books | 1620 / 1624 / 1627 | Yang; Leggieri (`cnh-529`) |
+| the Imjin War / renewed / ended | 1592 / 1597 / 1598 | Batts and Noordam (`cnh-530`) |
+| the Donglin statutes / Yang Lian's impeachment / the purge | 1604 / 1624 / 1625 – 1626 | Theobald; Hucker (`cnh-531`) |
+| the Qing named / Beijing taken / the abdication | 1636 / 6 June 1644 / 12 February 1912 | Fang; Theobald; Couling (`cnh-535`) |
+| the banners: four / eight / the Mongol eight / the Chinese eight | 1601 / 1615 / 1635 / 1642 | Porter (`cnh-537`; Theobald 1591 for the first four) |
+| the Southern Ming's first court / last court | 1644 – 1645 / 1646 – 1662 | Kennedy and Yang in Hummel (`cnh-539`) |
+| the queue first ordered / enforced / widely cut off | 5 June 1644 / 1645 / 1911 | Unno-Yamazaki (`cnh-541`) |
+| the Yangzhou siege / the killing | 13 May 1645 / 20 – 29 May 1645 | Hummel (`cnh-542`) |
+| the Revolt of the Three Feudatories | 1673 – 1681 | Fang (`cnh-543`) |
+| the Battle of Penghu | July 1683 | the Penghu platform; Swisher (`cnh-544`) |
+| the Treaty of Nerchinsk signed | 1689 (7 September; 27 August Old Style) | Hummel (`cnh-546`) |
+| the Dzungars invaded / destroyed | 1755 / 1757 – 1758 | Theobald; Hummel (`cnh-547`) |
+| the amban in Lhasa set (two datings) / reorganised / the reforms | 1727, or 1725 / 1751 / 1793 | Mayers; Theobald (`cnh-548`) |
+| the Grand Council founded / renamed / abolished | 1729 / 1732 / 8 May 1911 | Brunnert and Hagelstrom (`cnh-550`) |
+| the Siku Quanshu ordered / named / the first set / the last sets | 1772 / 1773 / 1782 / 1787 | the *Siku* page; the Library of Congress (`cnh-552`) |
+| the literary inquisition's recorded cases | 1647 – 1788 | Wang, Yu and Niu (`cnh-553`) |
+| the Macartney embassy sailed / landed / the audience / departed | 26 September 1792 / 5 August 1793 / 14 September 1793 / 7 October 1793 | Morse; Macartney (`cnh-556`) |
+| the one-port rule / the regulations / ended | 1757 / 1760 / 1842 | Morse and Hummel; Liu Yong (`cnh-557`) |
+| the White Lotus Rebellion | 1796 – 1804 | Hummel; Theobald (`cnh-558`) |
+| opium: the first edict / the Company's monopoly / imports banned / the offshore depot | 1729 / 1773 / 1800 / 1821 – 1839 | Morse (`cnh-559`) |
+| the First Opium War | 4 September 1839 – 29 August 1842 | Perdue; Theobald (`cnh-561`) |
+| the Treaty of Nanking signed / ratifications exchanged | 29 August 1842 / 26 June 1843 | Mayers (`cnh-562`) |
+| "unequal treaties": abrogation vowed / extraterritoriality given up | 7 July 1928 / 11 January 1943 | FRUS; Ma (`cnh-563`) |
+| the Taiping: began (two datings) / the capital fell | 1850, or 11 January 1851 / 19 July 1864 | Theobald; Morse (`cnh-564`) |
+| the Nian (two datings) | 1853 – 1868, or 1851 – 1868 | Orlandi et al. (`cnh-566`) |
+| the Second Opium War | 8 October 1856 – 24 October 1860 | Morse (`cnh-567`) |
+| the foreign office / the Fuzhou yard / the study mission / the fleet sunk | 1861 / 1866 / 1872 – 1881 / 1884 | Theobald (`cnh-568`) |
+| the First Sino-Japanese War: began / declared / ended | 25 July 1894 / 1 August 1894 / 17 April 1895 | MacMurray; Hail (`cnh-570`) |
+| the Hundred Days: the first decree / the coup / the executions | 11 June 1898 / 21 September 1898 / 28 September 1898 | Morse; Hummel (`cnh-571`) |
+| the Boxers: began / the legations' siege / the protocol | 1899 / 20 June – 14 August 1900 / 7 September 1901 | Klein; the Office of the Historian (`cnh-572`) |
+| the late Qing reforms: the edict / the examinations ended / the programme / the cabinet | 29 January 1901 / 1905 / 27 August 1908 / 8 May 1911 | de Bary–Lufrano; Theobald (`cnh-573`) |
+| the Xinhai Revolution: began / the Republic founded / the abdication | 10 October 1911 / 1 January 1912 / 12 February 1912 | Theobald; the *Qingshi gao* (`cnh-574`; Morse 11 October) |
+| the Republic proclaimed / its constitution / the government moved | 1 January 1912 / 1 January 1947 / December 1949 | Hummel; the Ministry of Justice (`cnh-577`) |
+| the Empire of China: the votes / the throne accepted / the revolt / cancelled | 11 December 1915 / 12 December 1915 / December 1915 / 22 March 1916 | the *China Year Book*; Putnam Weale (`cnh-579`) |
+| the Warlord Era / the clique wars | 1916 – 1928 / 1920 – 1924 | McCord; Theobald (`cnh-580`) |
+| the Beiyang government / recognised by the United States / its constitution | 1912 – 1928 / 2 May 1913 / 10 October 1923 | the Office of the Historian; the *China Year Book* (`cnh-581`) |
+| the Labour Corps recruited / repatriated | 1916 – 1918 / 1919 – 1920 | Bailey (`cnh-582`) |
+| the Twenty-One Demands presented / the ultimatum / the treaties | 18 January 1915 / 7 May 1915 / 25 May 1915 | FRUS; Zang (`cnh-583`) |
+| the Shandong leasehold taken / the Paris ruling / the treaty / in force | November 1914 / 30 April 1919 / 4 February 1922 / 2 June 1922 | the National Diet Library; FRUS (`cnh-584`) |
+| May Fourth: began / the dismissals / the treaty unsigned | 4 May 1919 / 10 June 1919 / 28 June 1919 | Ouyang (`cnh-585`) |
+| *New Youth*'s first issue / the literary reform / the label coined | 15 September 1915 / January 1917 / 1919 | Li Yilu; Ciaudo (`cnh-586`) |
+| the CCP's First Congress opened / closed / its anniversary set | 23 July 1921 / c. 31 July 1921 / 1941 | Saich (`cnh-590`) |
+| the First United Front: the joint statement / the party congress / the break | 26 January 1923 / January 1924 / April – July 1927 | Isaacs (`cnh-591`) |
+| Whampoa: founding voted / opened / first action / first campaign | January 1924 / 16 June 1924 / October 1924 / 1925 | the Memorial Hall; Isaacs (`cnh-592`) |
+| the Northern Expedition | 9 July 1926 – 29 December 1928 | Jordan (`cnh-594`) |
+| the Shanghai coup | 12 April 1927 | Eastman (`cnh-595`) |
+| the Nanjing decade (two countings) | 1927 – 1937, or 1928 – 1937 | Eastman; Lary (`cnh-596`) |
+| the Nationalist government founded / reorganised / tutelage ended | 1 July 1925 / 10 October 1928 / 25 December 1947 | FRUS; Tyau (`cnh-597`) |
+| the Kuomintang founded / renamed / reorganised / tutelage began | 25 August 1912 / 10 October 1919 / 20 January 1924 / 3 October 1928 | the party's chronology (`cnh-598`) |
+| the treaty ports: the first treaty / the factory right / given up | 1842 / 1895 / 1943 | the Office of the Historian; Ma (`cnh-599`) |
+| the International Settlement formed / given up | 1863 / 11 January 1943 | Pott; Ma (`cnh-600`) |
+
 ## Later periods
 
-To be filled from `cnh-501` on.
+To be filled from `cnh-601` on.
 
 ## Chronology pins
 
@@ -876,6 +971,33 @@ cnh-491: 1285; 1311; 1320; 1313
 cnh-493: 1231; 1292; 1293; 1316; 1314
 cnh-496: 1247; 1305; 1307; 1328
 cnh-497: 1235; 1253; 1269; 1280
+cnh-504: 1328; 1344; 1368; 1398
+cnh-510: 1360; 1402; 1424
+cnh-514: 1371; 1405; 1433; 1435
+cnh-516: 1378; 1424; 1425
+cnh-527: 1552; 1582; 1610; 1601
+cnh-528: 1472; 1506; 1529
+cnh-532: 1568; 1620; 1627; 1624
+cnh-533: 1606; 1644; 1645
+cnh-534: 1627; 1644; 1630
+cnh-536: 1559; 1616; 1626
+cnh-538: 1592; 1626; 1643; 1636
+cnh-540: 1612; 1643; 1650; 1644
+cnh-545: 1654; 1661; 1722
+cnh-549: 1678; 1722; 1735; 1730
+cnh-551: 1711; 1735; 1796; 1799
+cnh-554: 1746; 1793; 1799; 1809
+cnh-555: 1750; 1776; 1799
+cnh-560: 1785; 1838; 1840; 1839; 1850
+cnh-565: 1814; 1837; 1851; 1864
+cnh-569: 1835; 1861; 1908; 1898
+cnh-575: 1866; 1896; 1912; 1925
+cnh-576: 1906; 1908; 1912; 1924; 1967
+cnh-578: 1859; 1909; 1912; 1916
+cnh-587: 1879; 1915; 1921; 1927; 1942
+cnh-588: 1891; 1917; 1938; 1942; 1962
+cnh-589: 1881; 1904; 1906; 1918; 1936
+cnh-593: 1887; 1924; 1926; 1928; 1975
 cnh-101: 1250; 1046
 cnh-103: 1046; 1040; 1122
 cnh-104: 1046; 1044; 1122
@@ -1153,4 +1275,75 @@ cnh-495: 1298
 cnh-498: 1330; 1615
 cnh-499: 1300; 1498; 1872; 1880
 cnh-500: 1351; 1929
+cnh-501: 1351; 1368
+cnh-502: 1368; 1388; 1402
+cnh-503: 1368; 1644
+cnh-505: 1370; 1381
+cnh-506: 1380; 1390; 1393
+cnh-507: 220; 226; 1260; 1380
+cnh-508: 1402; 1911
+cnh-509: 1399; 1402
+cnh-511: 1403; 1421; 1441; 1553
+cnh-512: 1406; 1420; 1421; 1925
+cnh-513: 1403; 1408; 1562; 1567; 1900
+cnh-515: 1405; 1433; 1430
+cnh-517: 1449; 1450
+cnh-518: 1436; 1464; 1465; 1620; 1569; 1571
+cnh-520: 1552; 1557
+cnh-521: 1371; 1567
+cnh-522: 1531; 1581
+cnh-523: 1436; 1933
+cnh-525: 1580; 1644
+cnh-526: 1583; 1692; 1773
+cnh-529: 1620; 1624; 1627
+cnh-530: 1592; 1597; 1598
+cnh-531: 1604; 1624; 1625; 1626
+cnh-535: 1636; 1644; 1912
+cnh-537: 1601; 1615; 1635; 1642
+cnh-539: 1644; 1645; 1646; 1662
+cnh-541: 1644; 1645; 1911
+cnh-542: 1645
+cnh-543: 1673; 1681
+cnh-544: 1683
+cnh-546: 1689
+cnh-547: 1755; 1757; 1758
+cnh-548: 1727; 1725; 1751; 1793
+cnh-550: 1729; 1732; 1911
+cnh-552: 1772; 1773; 1782; 1787
+cnh-553: 1647; 1788
+cnh-556: 1792; 1793
+cnh-557: 1757; 1760; 1842
+cnh-558: 1796; 1804
+cnh-559: 1729; 1773; 1800; 1821; 1839
+cnh-561: 1839; 1842
+cnh-562: 1842; 1843
+cnh-563: 1842; 1928; 1943
+cnh-564: 1850; 1851; 1864
+cnh-566: 1853; 1868; 1851
+cnh-567: 1856; 1860
+cnh-568: 1861; 1866; 1872; 1881; 1884
+cnh-570: 1894; 1895
+cnh-571: 1898
+cnh-572: 1899; 1900; 1901
+cnh-573: 1901; 1905; 1908; 1911
+cnh-574: 1911; 1912
+cnh-577: 1912; 1947; 1949
+cnh-579: 1915; 1916
+cnh-580: 1916; 1920; 1924; 1928
+cnh-581: 1912; 1928; 1913; 1923
+cnh-582: 1916; 1918; 1919; 1920
+cnh-583: 1915
+cnh-584: 1914; 1919; 1922
+cnh-585: 1919
+cnh-586: 1915; 1917; 1919
+cnh-590: 1921; 1941
+cnh-591: 1923; 1924; 1927
+cnh-592: 1924; 1925
+cnh-594: 1926; 1928
+cnh-595: 1927
+cnh-596: 1927; 1937; 1928
+cnh-597: 1925; 1928; 1947
+cnh-598: 1912; 1919; 1924; 1928
+cnh-599: 1842; 1895; 1943
+cnh-600: 1863; 1943
 ```
