@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"a43aa23ee7fd5495","counts":{"terms":957,"points":720,"countries":237,"windows":1592,"faces":372,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"07bec2fa9bf0f74d","counts":{"terms":958,"points":721,"countries":237,"windows":1593,"faces":372,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -375,6 +375,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"a43aa23ee7fd5495","counts":
 "Isfahan":"city:1159150971",
 "Isle_of_Man":"adm0:imn",
 "Israel":"adm0:isr",
+"Istanbul":"city:1159151579",
 "Italy":"adm0:ita",
 "Ivanovo":"adm1:rus:ru-iva",
 "Ivory_Coast":"adm0:civ",
@@ -1559,6 +1560,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"a43aa23ee7fd5495","counts":
 "Isfahan":[51.698,32.702,"city",0,0,0],
 "Isle_of_Man":[-4.53,54.22,"country","adm0:imn",0,40],
 "Israel":[34.85,30.91,"country","adm0:isr",0,17.48],
+"Istanbul":[29.008,41.107,"city",0,0,0],
 "Isthmian_wall":[22.988,37.941,"coord",0,0,0],
 "Italian_city-states":[12,43,"coord",0,0,0],
 "Italy":[11.08,44.73,"country","adm0:ita",0,5.91],
