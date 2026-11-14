@@ -3773,6 +3773,9 @@ body.night .profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){backg
 .fbq-anon{font-family:var(--mono); font-size:calc(8px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); font-weight:400;}
 .fbq-mail{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--indigo);}
 .fbq-meta{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.04em; color:var(--ink-faint);}
+/* a card report's reason, and the card's id as a link that opens it (cardReportHTML / openCardReport) */
+.fbq-issue{font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--fb-col,var(--ink-faint)); border:1px solid var(--fb-col,var(--rule)); border-radius:5px; padding:1px 6px;}
+.fbq-card{color:var(--indigo); font-weight:600; text-decoration:underline; text-underline-offset:2px;}
 .fbq-state{margin-left:auto; font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--fb-col,var(--ink-faint));}
 .fbq-msg{font-family:var(--serif); font-size:calc(14.5px * var(--fs)); line-height:1.6; color:var(--ink); white-space:normal; overflow-wrap:anywhere;}
 .fbq-ua{margin-top:7px; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); color:var(--ink-faint); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
@@ -5524,6 +5527,21 @@ body.grading .wb-tools{bottom:108px;}
 .learn-more-sub{font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.4; color:var(--ink-soft);}
 .learn-more-logo{flex:none; width:44px; height:44px; border-radius:50%; background:var(--card); border:1px solid var(--rule); padding:3px; box-sizing:border-box; object-fit:contain;}
 @media (prefers-reduced-motion: reduce){ .learn-more{transition:none;} .learn-more:hover{transform:none;} }
+/* REPORT A PROBLEM — the last thing on a card, in its bottom right corner (see cardReportHTML in app.js):
+   a faint flag and a word, so it is there to be found without competing with the card. */
+.card-report-row{display:flex; justify-content:flex-end; margin:14px 0 0;}
+.card-report{display:inline-flex; align-items:center; gap:5px; appearance:none; background:none; border:0; border-radius:6px;
+  padding:4px 6px; margin:0 -6px -4px 0; min-height:28px; cursor:pointer; font-family:var(--mono); font-size:calc(11px * var(--fs));
+  letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);}
+.card-report svg{width:13px; height:13px; flex:none;}
+.card-report:hover{color:var(--ink-soft); background:var(--indigo-wash);}
+.card-report:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;}
+.cr-sheet textarea.cr-msg{resize:vertical; min-height:96px;}
+.cr-sheet .dm-field select.af-input{max-width:none; width:100%; appearance:auto;}   /* keep the native arrow, as the About page's picker does */
+.cr-status{margin:0 14px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.04em;}
+.cr-status:empty{display:none;}
+.cr-status.ok{color:var(--indigo);}
+.cr-status.bad{color:var(--danger,#c8453c);}
 /* the Atlas panel's own copy sits inside a .cp-sec, which already draws the rule and the space above it */
 .src-head{
   display:inline-flex; align-items:center; gap:7px; width:auto; appearance:none; background:none;

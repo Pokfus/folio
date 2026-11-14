@@ -9192,7 +9192,7 @@ division-capital city tier are inert dead code.
     and flagged, that leaving the URL field asks for the source, that an answer commits the whole object
     at once, and that clearing the source takes the picture back out — on all four surfaces. **Re-run
     after touching `wireMediaSource` / `askMediaSource` or any media panel's wiring.**
-  · `node .claude/test-feedback.js` — 39 assertions on reader feedback: the About-page form (a message
+  · `node .claude/test-feedback.js` — 51 assertions on reader feedback: the About-page form (a message
     that reaches the row with its line breaks intact and its markup gone, the device-local cooldown, and
     that **the sender never supplies a triage status** — the client half of what the column guard
     enforces) and the Edit-page queue (the filters, that **no two statuses paint the same row edge**, the

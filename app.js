@@ -10922,6 +10922,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       page: (location.hash || "#home").slice(0, 200),
       meta: { lang: (S.settings && S.settings.lang) || "en", ua: String(navigator.userAgent || "").slice(0, 300) },
     };
+    /* A REPORT FROM A CARD'S FOOT (Nov 2026, see openCardReport) names the card, so an editor can open
+       it from the queue: `page` reads "card:<id>" and `meta.card` carries the id itself, with `meta.issue`
+       the reader's finer reason (the `kind` column's CHECK allows only the five kinds above). */
+    const card = sanitizePlain(f && f.card).slice(0, 80);
+    if (card) {
+      body.page = ("card:" + card).slice(0, 200);
+      body.meta.card = card;
+      const issue = sanitizePlain(f && f.issue).slice(0, 20);
+      if (issue) body.meta.issue = issue;
+    }
     if (supaLoggedIn()) {   // signed in → the row carries the account, and the reply address is already known
       body.author = SUPA.user.id;
       if (!body.name) body.name = (SUPA_PROFILE && (SUPA_PROFILE.name || SUPA_PROFILE.username)) || "";
@@ -38486,7 +38496,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        citations and the fold is not the template's to reinvent. The successive-relearning row used to be
        appended here too; it now lives in the study card's HEADER (see critPipsHTML), which serves a typed
        card and a curated one alike and needs no branch of its own. */
-    if (typed != null) return typed + sourcesHTML(cardSources(c));
+    if (typed != null) return typed + sourcesHTML(cardSources(c)) + cardReportHTML(c);
     let html = "";
     if (c.answer) {
       html += '<div class="answer"><div class="answer-main"><span class="label">Answer' + ttsPlayHTML("answer", true, c) + "</span>";
@@ -38585,8 +38595,72 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     html += learnMoreHTML(c);
     // …and under even that, for an admin only, the card's id (cardAdminIdHTML)
     html += cardAdminIdHTML(c);
+    // …and the very last thing, in the bottom right corner: "Report a problem" (cardReportHTML)
+    html += cardReportHTML(c);
     return html;
   }
+  /* REPORT A PROBLEM (Nov 2026, on request: a button at the VERY BOTTOM RIGHT of every card). A small
+     flag-and-word link under everything else on the answer side, which opens a sheet that sends the
+     report through the reader-feedback system the About page already uses (feedbackSend → the `feedback`
+     table → Admin → Feedback) — no table of its own. The row names the card (`page` "card:<id>",
+     `meta.card`), and the queue turns that into a link to #card/<id>. The four reasons a reader is offered
+     map onto the table's existing kinds, since its CHECK constraint admits no new one; the reader's own
+     choice rides in `meta.issue`. Never on a community card: those are the reader's or another reader's
+     own content, not Folio's, and the editors cannot correct them. */
+  const CARD_REPORT_KINDS = [
+    ["fact", "A fact looks wrong", "correction"],
+    ["typo", "A typo", "correction"],
+    ["broken", "Broken image or link", "bug"],
+    ["other", "Something else", "other"],
+  ];
+  function cardReportHTML(c) {
+    if (!c || !c.id || isCommunityCard(c.id)) return "";
+    return '<div class="card-report-row"><button type="button" class="card-report" data-report="' + esc(c.id) + '" aria-label="Report a problem with this card" title="Report a problem with this card">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/></svg><span>Report</span></button></div>';
+  }
+  function openCardReport(id) {
+    const title = cardTitle(id, 60) || id;
+    const html =
+      '<div class="dm-head"><span class="dm-title">Report a problem</span><span class="dm-where">' + esc(title) + "</span></div>" +
+      '<label class="dm-field dm-fieldcol"><span>What is wrong?</span>' +
+      '<select class="af-input" id="crKind">' + CARD_REPORT_KINDS.map(([v, l]) => '<option value="' + v + '">' + esc(l) + "</option>").join("") + "</select></label>" +
+      '<label class="dm-field dm-fieldcol"><span>Details</span>' +
+      '<textarea class="af-input cr-msg" id="crMsg" data-dmfocus rows="4" maxlength="' + FEEDBACK_MAX + '" placeholder="What does the card say, and what should it say? A source helps if you have one."></textarea></label>' +
+      (supaLoggedIn() ? "" : '<label class="dm-field dm-fieldcol"><span>Email <small>optional — only if you would like a reply</small></span>' +
+        '<input class="af-input" id="crEmail" type="email" maxlength="160" autocomplete="email"></label>') +
+      '<p class="dm-note">Sent to the editors with the card’s id, your site language and your browser version.</p>' +
+      '<div class="cr-status" id="crStatus" role="status"></div>' +
+      '<div class="dm-actions"><button type="button" class="btn" data-act="ok">Send</button>' +
+      '<button type="button" class="btn ghost" data-act="close">Cancel</button></div>';
+    deckSheet("Report a problem", html, (ov, close) => {
+      ov.classList.add("cr-sheet");
+      // keys typed in the sheet are the reader's, never the study session's shortcuts underneath
+      ov.addEventListener("keydown", (e) => { if (e.key !== "Escape") e.stopPropagation(); });
+      const msg = ov.querySelector("#crMsg"), out = ov.querySelector("#crStatus"), btn = ov.querySelector('[data-act="ok"]');
+      const say = (t, ok) => { out.textContent = t; out.classList.toggle("ok", !!ok); out.classList.toggle("bad", !ok); };
+      btn.addEventListener("click", async () => {
+        if (!msg.value.trim()) { say("Write a few words about the problem first.", false); msg.focus(); return; }
+        const k = CARD_REPORT_KINDS.find((x) => x[0] === ov.querySelector("#crKind").value) || CARD_REPORT_KINDS[3];
+        const mail = ov.querySelector("#crEmail");
+        btn.disabled = true; say("Sending…", true);
+        const r = await feedbackSend({ kind: k[2], issue: k[0], card: id, message: msg.value, email: mail ? mail.value : "" });
+        btn.disabled = false;
+        if (r.error) { say(r.error, false); return; }
+        close();
+        toast("Thank you — that’s with the editors now.");
+      });
+      ov.querySelector('[data-act="close"]').addEventListener("click", close);
+    });
+  }
+  // capture, like the read-aloud control: pressing it must not also turn the card over or reach a game's handler
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest && e.target.closest(".card-report");
+    if (!b) return;
+    e.preventDefault();
+    e.stopPropagation();
+    openCardReport(b.dataset.report);
+  }, true);
   /* LEARN MORE — the link to the answer term's own Wikipedia article (Oct 2026, on request: "for cards
      whose answer term has a dedicated wikipedia page, at the bottom of the card (below the sources)
      should be a tile … that the user can click to be redirected straight to that dedicated wikipedia
@@ -48626,13 +48700,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const who = (m.name || "").trim() || "Anonymous";
         const meta = m.meta || {};
         const bits = [];
-        if (m.page) bits.push(esc(m.page));
+        // a report sent from a card's foot (openCardReport) names its card — a link that opens it
+        const cardId = String(meta.card || (/^card:/.test(m.page || "") ? m.page.slice(5) : "")).trim();
+        if (cardId) bits.push('<a class="fbq-card" href="#card/' + esc(encodeURIComponent(cardId)) + '" translate="no" title="Open this card">' + esc(cardId) + "</a>");
+        else if (m.page) bits.push(esc(m.page));
         if (meta.lang && meta.lang !== "en") bits.push(esc(String(meta.lang)));
         bits.push(esc(fbWhen(m.created_at)));
         return '<div class="fbq-row st-' + esc(m.status) + '" data-fb="' + esc(m.id) + '" style="--fb-col:' + st.hex + '">' +
           '<div class="fbq-main">' +
             '<div class="fbq-head">' +
               '<span class="fbq-kind">' + esc(kindLabel(m.kind)) + "</span>" +
+              (cardId && meta.issue ? '<span class="fbq-issue">' + esc((CARD_REPORT_KINDS.find((x) => x[0] === meta.issue) || [0, String(meta.issue)])[1]) + "</span>" : "") +
               '<b class="fbq-who">' + esc(who) + (m.author ? "" : ' <span class="fbq-anon">signed out</span>') + "</b>" +
               (m.email ? '<a class="fbq-mail" href="mailto:' + esc(m.email) + '">' + esc(m.email) + "</a>" : "") +
               '<span class="fbq-meta">' + bits.join(" · ") + "</span>" +

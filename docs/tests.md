@@ -242,7 +242,7 @@ the whole reason the suites exist and the reason their narratives are worth keep
     Its `typeInto` sets a field's value and dispatches `input` by hand: `page.fill()` can land on a box the
     URL keystroke has only just revealed and the value never arrives — and a programmatic value fires no
     `change`, so the blur-asks-for-a-source case dispatches that itself.
-  · `node .claude/test-feedback.js` — 39 assertions on reader feedback: the About-page form (a message
+  · `node .claude/test-feedback.js` — 51 assertions on reader feedback: the About-page form (a message
     that reaches the row with its line breaks intact and its markup gone, the device-local cooldown, and
     that **the sender never supplies a triage status** — the client half of what the column guard enforces)
     and the Edit-page queue (the filters, that **no two statuses paint the same row edge**, the toggling
