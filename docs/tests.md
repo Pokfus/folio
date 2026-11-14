@@ -429,6 +429,9 @@ the whole reason the suites exist and the reason their narratives are worth keep
     browser and no dependencies** — the pieces are sliced out of `app.js` and run in a `new Function`.
     The rule is a property of the ARRANGEMENT, so it breaks silently: **re-run after adding or removing
     quotes** (a fifth Confucius line tightens the pool) as well as after touching `quoteRunningOrder`.
+  · `node .claude/test-chest-sources.js` — the chest source register (`chestSrc*`, `nextChestSrc`, `grantChest`,
+    `spendChest`), the finished-deck chest (`maybeDeckChest`) and the reveal's first sentence (`artefactLede`)
+    (Nov 2026). **No browser**: the functions are lifted out of app.js by name, as the streak test's are.
   · `node .claude/test-streak-chest.js` — 18 assertions on the weekly streak chest (Aug 2026). **No browser
     and no dependencies**: `bumpStreak`, `maybeStreakChest` and `streakChestProgress` are sliced out of
     app.js and walked over patterns of days, because a chest is earned on the SEVENTH day of a run and no

@@ -316,7 +316,19 @@ function syntheticPool() {
     await page.waitForTimeout(150);
     const hint2 = await page.locator("#chestHint").textContent();
     check("with both pools exhausted the chest says so", /every artefact/i.test(hint2), hint2.slice(0, 60));
-    await page.evaluate(() => { const b = document.querySelector("#chestActs button"); if (b) b.click(); });
+    /* …AND STILL OPENS, ON A CURATOR'S MARK (Nov 2026): an exhausted pool used to leave the chest shut for
+       ever. The lid is live, the reveal names the mark, the tally rises and the chest is spent. */
+    const marksBefore = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")).curatorMarks | 0);
+    const chestsBeforeMark = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")).chests | 0);
+    await page.locator("#chestBtn").click();
+    await page.waitForSelector("#chestReveal .chest-name", { timeout: 20000 });
+    const markChip = await page.locator("#chestReveal .ar-chip").textContent();
+    check("…and opens on a curator's mark", /curator/i.test(markChip), markChip);
+    const afterMark = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")));
+    check("…counted on the reader's tally", (afterMark.curatorMarks | 0) === marksBefore + 1, String(afterMark.curatorMarks));
+    // a badge the opening earns may pay a chest back, so the balance is at most what it was — never more
+    check("…and the chest was spent", (afterMark.chests | 0) <= chestsBeforeMark, chestsBeforeMark + " → " + afterMark.chests);
+    await page.evaluate(() => { const b = document.querySelectorAll("#chestActs button"); if (b.length) b[b.length - 1].click(); });
     await page.waitForTimeout(150);
 
     // put the sweep's state back for section 4, which counts the 32 tiles and pins four showcase slots
@@ -634,7 +646,18 @@ function syntheticPool() {
      waits, and must swap in another artefact (nothing claimed yet) when the file is broken. */
   {
     const open = async () => {
-      await page.evaluate((owned) => { const s = JSON.parse(localStorage.getItem("folio_v1")) || {}; s.chests = 3; s.artefacts = {}; s.themes = owned; localStorage.setItem("folio_v1", JSON.stringify(s)); }, ALL_THEMES_OWNED);
+      /* THE ROLL IS PINNED TO THE ARTEFACTS WITH AN EXTERNAL PICTURE (Nov 2026): the pool here is section 5's
+         synthetic one, where only the artefact given an https picture there goes through the held route — so
+         a roll that landed on any other revealed at once and failed (a) most of the time, on main as well.
+         Every other artefact is owned before the chest opens, so the chest can only draw a held picture. */
+      await page.evaluate((owned) => {
+        const s = JSON.parse(localStorage.getItem("folio_v1")) || {}; s.chests = 3; s.artefacts = {}; s.themes = owned;
+        const ov = (JSON.parse(localStorage.getItem("folio_admin_v1") || "{}").artefacts) || {};
+        const pool = Object.values(ov).filter(Boolean);
+        const ext = pool.filter((a) => a.image && /^https?:/.test(a.image.src || ""));
+        if (ext.length) pool.forEach((a) => { if (ext.indexOf(a) < 0) s.artefacts[a.id] = 1; });
+        localStorage.setItem("folio_v1", JSON.stringify(s));
+      }, ALL_THEMES_OWNED);
       await page.reload({ waitUntil: "domcontentloaded" });
       await page.waitForTimeout(700);
       await page.evaluate(() => { location.hash = "account"; });
@@ -664,9 +687,9 @@ function syntheticPool() {
     await page.route((u) => !/^http:\/\/127\.0\.0\.1/.test(u.href), broken);
     await open();
     await page.waitForSelector("#chestReveal .chest-name", { timeout: 20000 });
-    const fin = await page.evaluate(() => { const im = document.querySelector("#chestReveal img"); return { loaded: !im || (im.complete && im.naturalWidth > 0), chests: JSON.parse(localStorage.getItem("folio_v1")).chests | 0, owned: Object.keys(JSON.parse(localStorage.getItem("folio_v1")).artefacts || {}).length }; });
+    const fin = await page.evaluate(() => { const im = document.querySelector("#chestReveal img"); const ov = (JSON.parse(localStorage.getItem("folio_admin_v1") || "{}").artefacts) || {}; const pool = Object.values(ov).filter(Boolean); const ext = pool.filter((a) => a.image && /^https?:/.test(a.image.src || "")); return { loaded: !im || (im.complete && im.naturalWidth > 0), chests: JSON.parse(localStorage.getItem("folio_v1")).chests | 0, owned: Object.keys(JSON.parse(localStorage.getItem("folio_v1")).artefacts || {}).length, pinned: ext.length ? pool.length - ext.length : 0 }; });
     check("a broken picture: the chest replaced it, so the reveal's picture loaded", fin.loaded, JSON.stringify(fin));
-    check("…and exactly one artefact was claimed", fin.owned === 1, JSON.stringify(fin));
+    check("…and exactly one artefact was claimed", fin.owned === fin.pinned + 1, JSON.stringify(fin));
   }
 
   check("no uncaught page errors", errs.length === 0, errs.slice(0, 4).join(" | "));

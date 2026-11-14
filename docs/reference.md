@@ -4455,7 +4455,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     chest's claim → `renderInPlace()` → `openChestPop()` order) and the chest turns green for the day; and a
     chest never pressed is paid into the account by `bumpStreak` when the run breaks, so no week is lost); and the **daily PLAY** — all nine minigames *finished*, whatever the score (`S.playChest`,
     the same day-string shape for the same reason).
-  · **THE SWEEP PAYS THREE AND THE PLAY PAYS ONE** (`SWEEP_CHESTS = 3`, Sep 2026, on request). Finishing
+  · **THE SWEEP PAYS THREE AND THE PLAY PAYS ONE** (`SWEEP_CHESTS = 3`, Sep 2026, on request; **superseded Nov 2026**: the sweep pays ONE gilded chest, `GILDED_WEIGHTS` — see docs/reliquary.md "The second pass"). Finishing
     all nine whatever the score is the habit the daily games exist to build; a PERFECT run in all nine is
     a different order of work, and paying the two alike said so nowhere. **The figure is a named constant
     read by both the grant and the sentence beside it** — `maybeStreakChest`'s own arrangement one channel
@@ -4474,7 +4474,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     so the meter and the tiles could disagree about which of nine had been played, which is exactly the
     arithmetic a meter exists to make checkable.
   · **A CHEST MAY ALSO HOLD A THEME**: the five non-`folio` themes are locked until one drops, at
-    `THEME_DROP` (14%) while any are still locked. **`themeGrandfather` is the part not to remove** — a
+    `THEME_DROP` (14%; since Nov 2026 `THEME_EVERY`, every tenth chest) while any are still locked. **`themeGrandfather` is the part not to remove** — a
     theme already worn is written into the register, once, or the change would silently strip five of the
     six from every existing reader. `setTheme` is the gate and stays one as a backstop. **BUT THE THEME
     ROW ITSELF IS ALWAYS DRAWN**, listing only what the reader owns: hiding the whole section took the
