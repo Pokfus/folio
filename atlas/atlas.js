@@ -2902,7 +2902,10 @@
       else if (e.key === "Enter") { if (!results.length) runSearch(searchIn.value); if (results.length) { e.preventDefault(); chooseResult(Math.max(0, active)); } }
     });
     resultsUl.addEventListener("pointerdown", (e) => { const li = e.target.closest("li[data-i]"); if (li) { e.preventDefault(); chooseResult(Number(li.getAttribute("data-i"))); } });
-    document.addEventListener("pointerdown", (e) => { if (e.target.closest && !e.target.closest(".atlas2-search")) { if (!resultsUl.hidden) closeResults(); if (searchOpen && !searchIn.value.trim()) collapseSearch(); } }, true);
+    // named so dispose() takes it off again: left on the document it held this whole controller (both canvases, every closure)
+    // alive after the page was left, one more set per visit to the Atlas (the tablet crash, 2026-11-14)
+    const onDocDown = (e) => { if (e.target.closest && !e.target.closest(".atlas2-search")) { if (!resultsUl.hidden) closeResults(); if (searchOpen && !searchIn.value.trim()) collapseSearch(); } };
+    document.addEventListener("pointerdown", onDocDown, true);
 
     /* ---- flying to a place: an eased move, instant under reduced motion ---- */
     const PLACES_KMPP = { region: 8, range: 6, island: 3, "island-group": 8, sea: 10, gulf: 4, strait: 3, lake: 3, river: 6, ocean: 24, city: 1.5, town: 0.8, site: 0.8, mountain: 3, hill: 1.5, cape: 2 };   // a places.js row has a point and no extent: its zoom is by kind (Phase 3b)
@@ -3323,7 +3326,8 @@
     function dispose() {
       if (disposed) return;
       disposed = true;
-      try { mo.disconnect(); themeObs.disconnect(); if (sizeObs) sizeObs.disconnect(); } catch (e) {}
+      try { mo.disconnect(); themeObs.disconnect(); if (sizeObs) sizeObs.disconnect(); if (chromeObs) chromeObs.disconnect(); } catch (e) {}
+      document.removeEventListener("pointerdown", onDocDown, true);
       window.removeEventListener("resize", onResize);
       if (vv) { vv.removeEventListener("resize", onVisual); vv.removeEventListener("scroll", onVisual); }
       window.removeEventListener("resize", onVisual);
