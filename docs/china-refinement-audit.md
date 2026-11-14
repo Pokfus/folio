@@ -528,7 +528,7 @@ otherwise.
 | B50 | Yuan (`col-31`) | `cnh-491`–`cnh-500` | 10 | 100 | **done 2026-11-13** |
 | B51 | Yuan (`col-31`) / Ming (`col-32`) | `cnh-501`–`cnh-510` | 10 | 107 | **done 2026-11-14** |
 | B52 | Ming (`col-32`) | `cnh-511`–`cnh-520` | 10 | 108 | **done 2026-11-14** |
-| B53 | Ming (`col-32`) | `cnh-521`–`cnh-530` | 10 | 105 | to do |
+| B53 | Ming (`col-32`) | `cnh-521`–`cnh-530` | 10 | 105 | **done 2026-11-14** |
 | B54 | Ming (`col-32`) / Qing (`col-33`) | `cnh-531`–`cnh-540` | 10 | 108 | to do |
 | B55 | Qing (`col-33`) | `cnh-541`–`cnh-550` | 10 | 109 | to do |
 | B56 | Qing (`col-33`) | `cnh-551`–`cnh-560` | 10 | 108 | to do |
@@ -1138,6 +1138,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-518` | none | not re-checked (pictures paused): wanted |
 | `cnh-519` | none | not re-checked (pictures paused): wanted |
 | `cnh-520` | none | not re-checked (pictures paused): wanted — the *Wokou tujuan* scroll |
+| `cnh-521` | none | not re-checked (pictures paused): wanted |
+| `cnh-522` | none | not re-checked (pictures paused): wanted |
+| `cnh-523` | none | not re-checked (pictures paused): wanted — a sycee ingot |
+| `cnh-524` | none | not re-checked (pictures paused): wanted |
+| `cnh-525` | none | not re-checked (pictures paused): wanted — a museum's Kraak dish |
+| `cnh-526` | none | not re-checked (pictures paused): wanted |
+| `cnh-527` | none | not re-checked (pictures paused): the glossary's portrait looks right |
+| `cnh-528` | none | not re-checked (pictures paused): the glossary's portrait looks right |
+| `cnh-529` | none | not re-checked (pictures paused): wanted — a page of a Ming edition |
+| `cnh-530` | none | not re-checked (pictures paused): wanted |
 
 ## Glossary candidates
 
@@ -3485,3 +3495,41 @@ the Qing catalogue's December 1407). The "1421" claim was not met. **check-citat
 (diffed after the apply). For the owner: `cnh-514`'s Kunming on no page read (the *Mingshi* and Gaffric: Yunnan); `cnh-516`'s 16
 August 1378 on no page read (Theobald: the year only), and its "age 46" against the annals' 48 (Chinese count). The timelines of
 `cnh-513` (a text) and `cnh-519` (a concept) were not set; `cnh-515` and `cnh-517` keep theirs.
+
+### B53 — `cnh-521`–`cnh-530`, Ming: the haijin to the Imjin War (2026-11-14)
+
+Run as B51. Every cited URL answered at the batch's own curl but one: the Library of Congress item page for the 1602 Ricci map
+(`cnh-527`) walls curl while its JSON record answers; the agent's saved page stands. **Pictures were not touched.** **The old
+cards cited the *Mingshi* (up to three juan a card), the *Mingshi jishi benmo*, the *Da Ming lü*, the *Dongxi yang kao*, the
+*Qingshi gao*, the *Chuanxi lu*, Ricci's memorial and prefaces, Feng Menglong's prefaces, Lu Xun's history and four Ming notebooks
+on Chinese Wikisource; carried converted regnal years ("the twelfth month of 1371", the imperial porcelain orders of 1591 and 1610),
+a date no page prints (Kraak ware to 1650, the Sanyan's "c. 1621"), a man in a label ("Xavier died 1552"), and the Imjin War's
+template with "Over 1,130,000 dead, captured or missing", a figure no page read gives.** Each card now reads one Chinese text: the
+*Mingshi* (juan 78, 81, 195, 205, 320, 326) on the Kanseki Repository, Gui Youguang's preface (the *Sibu congkan* text there), or the
+1627 *Xingshi hengyan* preface on zggdwx.com.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-521` haijin | 6 | 6 → 6 | **`First ordered 1371` (Zurndorfer; Kung and Ma's 1368 beside it in prose) / `Partly lifted 1567`; the *Mingshi* juan 205: Zhu Wan's "bandits in officials' caps and gowns", his poison; "not a single plank onto the water"; Yuegang, Shuangyu, the 1,200 boats scuttled; the Qing ban of 1661 – 1684**; five Chinese texts and the converted "twelfth month of 1371" (early 1372) dropped. |
+| `cnh-522` Single whip law | 6 | 6 → 6 | **"Zhejiang trial 1561" (Pang Shangpeng, on no page read) off: `First named 1531` (Theobald) / `Empire-wide 1581` (agrees with `cnh-381`); the *Mingshi* juan 78: labour hired from silver on land, Zhang Juzheng's survey, "abolished in name, alive in fact"; Chen Huan-chang 1911, Zurndorfer 2023**; Liang Fang-chung's book (an in-copyright upload) and Hai Rui dropped. **Pinyin → yītiáobiānfǎ** (joined, as `cnh-381`'s liǎngshuìfǎ; Theobald splits it — for the owner). |
+| `cnh-523` tael | 7 | 7 → 7 | **"Notes pegged 1375" (the note's date, `cnh-810`'s) off: `Tax commuted 1436` / `Abolished 1933`; the *Mingshi* juan 81 on silver banned and then freed; the name from Malay and the Indian tola; the bookkeeping taels swept away in 1933 (Ma and Zhao 2020); silver under escort (Liu 2023)**; the 37.6-gram conversion and two figures on no page dropped. |
+| `cnh-524` Huizhou merchants | 6 | 6 → 6 | **The line stays empty (a group); Gui Youguang's "a scholar who dealt in goods"; some forty Ming story titles (Zhu 2016; Xu and Zhang 2023); the salt families of Hangzhou and Yangzhou; Wang Qishu (Hummel); Chia 2008 on the Huizhou printers**; four notebooks on Wikisource and the claims resting on them dropped. Glossary: its unsourced "c. 1500–1800" removed. |
+| `cnh-525` Kraak ware | 6 | 7 → 7 | **"Exported c. 1580 – 1650" (1650 on no page) now `Developed c. 1580` / `Output collapsed 1644` (two V&A records); the *Santa Catarina* taken in 1603 and auctioned in Amsterdam (van Kessel 2025), the panelled rims, the Arita substitutes; the *Witte Leeuw* [in Dutch]; the City University of Macau survey [in Chinese]**; the *Mingshi* juan 82's imperial orders (converted 1591 and 1610, and not export ware) dropped. |
+| `cnh-526` Jesuit China missions | 7 | 7 → 7 | **"Xavier died 1552" (a man) off: `First residence 1583` (Brucker) / `Tolerated 1692` / `Suppressed 1773`; the *Mingshi* juan 326: the Nanjing complaint likening the converts to the White Lotus, Wang Fengsu sent away; Xavier at Shangchuan and Ruggieri at Zhaoqing; Yang Guangxian against Schall von Bell; Rule, Parr 2024, Hsia 2022**; Ricci's own clues kept for `cnh-527`. **Name → 耶稣会中国传教团 Yēsūhuì Zhōngguó chuánjiàotuán** (the *People's Daily*). |
+| `cnh-527` Matteo Ricci | 7 | 7 → 7 | **Four Wikisource texts cut to the *Mingshi* juan 326; Ma Tang holding him at Linqing, Euclid dictated to Xu Guangqi, Li Zhizao, the condemned eunuch's burial ground; the 1602 map confirmed by the Library of Congress record; Brucker 1912, Hummel, Zhang 2022 [in Spanish]**; the gift list and "fifteen years at Zhaoqing" (the memorial only) dropped. Protected: the line stays. |
+| `cnh-528` Wang Yangming | 6 | 7 → 6 | **The *Mingshi* juan 195 for three Wikisource texts; the forty strokes for defending the officials Liu Jin jailed, Longchang, the Prince of Ning taken in thirty-five days, the grotto and the unity of knowing and acting (Henke's 1916 translation, Kim's IEP entry)**; the bamboo out of the phrasings (`cnh-862`'s and `cnh-863`'s clue). Protected: the line stays (flagged below). |
+| `cnh-529` Sanyan | 6 | 6 → 6 | **"c. 1621" now `First book 1620` (Yang 1998, Leggieri 2024) / `Second book 1624` / `Third book 1627`; the 1627 preface on zggdwx.com (the only Chinese text): to instruct, caution and awaken; the stories in pairs, Ling Mengchu's debt, the prints found in Japan; the *Yushi mingyan* retitling left undated (1624, or 1626 – 1627)**; Lu Xun's history and the Guan Yu anecdote dropped. |
+| `cnh-530` Imjin War | 7 | 7 → 7 | **The template off: `Began 1592` / `Renewed 1597` / `Ended 1598` (Batts and Noordam 2026); the casualty figure and the two days on no page dropped; the *Mingshi* juan 320: Li Rusong at Byeokjegwan, Shen Weijing the "marketplace ruffian" and the Taedong border offer, Yi Sun-sin at Noryang; Seong 2026, the Korean encyclopedia [in Korean]**; the *Jingbirok* and Wang Dewan dropped. |
+
+Read by eye. **Confusability**: Zhu Wan and the Shuangyu raid are `cnh-521`'s (kept off `cnh-520`); the commutation to silver is
+`cnh-522`'s and the tael's own 1436 decree `cnh-523`'s, from different angles (the labour levy; the silver ban lifted); Ricci's map,
+Euclid and burial `cnh-527`'s, the mission's founding and crises `cnh-526`'s; the bamboo stays with the thought cards. No `ko-` or
+`jp-` card covers the Imjin War. **Legend**: Wang Yangming's enlightenment (his disciples' *Chuanxi lu*), the *Mingshi*'s
+"marketplace ruffian" (Shen Weijing) are each a text's. **Chinese names corrected**: `cnh-522` yītiáobiānfǎ, `cnh-526`
+耶稣会中国传教团. Kept: 壬辰倭乱 (the Korean term in characters, printed by Batts and Noordam as the Chinese name; 万历朝鲜战争 on no
+page that would open) — for the owner. **Spellings fixed**: none needed; one checker hit is "Hsia", a cited author's name.
+**Myth register**: Ricci's map confirmed (the 1602 Beijing printing, the Library of Congress record), the memory palace not told
+(Spence not read); Wang Yangming's bamboo and Longchang confirmed as his disciples' telling. **check-citations**: one false alarm —
+`cnh-521`'s "John E. Wills, Jr." (the comma). **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-527`'s
+days (6 October 1552, 11 May 1610) and Macerata not checked against a page beyond Brucker; `cnh-528`'s 26 October 1472 and 9 January
+1529 on no page read. `cnh-530` keeps its timeline 1592 – 1598.

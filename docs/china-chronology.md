@@ -689,6 +689,13 @@ single whip 1581 (`cnh-381`), the examinations ended 1905 (`cnh-348`, `cnh-427`)
 | the Tumu Crisis: the army out / the battle / the captive returned | 4 August 1449 / 1 September 1449 / 29 September 1450 | İzbasar (`cnh-517`) |
 | the Ming Great Wall: early walls / main building / the hollow towers | 1436 – 1464 / 1465 – 1620 / 1569 – 1571 | Yang, Zhang and Li (`cnh-518`) |
 | the wokou's worst raids | 1552 – 1557 | Liu (`cnh-520`) |
+| the haijin first ordered / partly lifted | 1371 / 1567 | Zurndorfer (`cnh-521`; Kung and Ma 1368) |
+| the single whip first named / empire-wide | 1531 / 1581 | Theobald (`cnh-522`; agrees with `cnh-381`) |
+| the silver tax commutation / the tael abolished | 1436 / 1933 | Theobald; Ma and Zhao (`cnh-523`) |
+| Kraak ware developed / output collapsed | c. 1580 / 1644 | the V&A (`cnh-525`) |
+| the Jesuits' first residence / tolerated / suppressed | 1583 / 1692 / 1773 | Brucker; Cordier; Parr (`cnh-526`) |
+| the Sanyan's three books | 1620 / 1624 / 1627 | Yang; Leggieri (`cnh-529`) |
+| the Imjin War / renewed / ended | 1592 / 1597 / 1598 | Batts and Noordam (`cnh-530`) |
 
 ## Later periods
 
@@ -1234,4 +1241,11 @@ cnh-515: 1405; 1433; 1430
 cnh-517: 1449; 1450
 cnh-518: 1436; 1464; 1465; 1620; 1569; 1571
 cnh-520: 1552; 1557
+cnh-521: 1371; 1567
+cnh-522: 1531; 1581
+cnh-523: 1436; 1933
+cnh-525: 1580; 1644
+cnh-526: 1583; 1692; 1773
+cnh-529: 1620; 1624; 1627
+cnh-530: 1592; 1597; 1598
 ```
