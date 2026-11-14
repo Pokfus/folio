@@ -850,13 +850,13 @@ if (card.locator) {
   /* sea and shelf were missing here for as long as app.js and add-locators.js have drawn them (LOC_KINDS),
      so this tool refused a card add-locators.js had just written — found re-validating gr-001's Aegean Sea
      locator through --replace (Sep 2026). A list of kinds lives in three files; keep the three in step. */
-  const KINDS = ["point", "battle", "river", "range", "region", "sea", "shelf"];
+  const KINDS = ["point", "battle", "river", "range", "region", "sea", "shelf", "wall"];
   const kind = card.locator.kind == null ? "point" : String(card.locator.kind);
   if (KINDS.indexOf(kind) < 0) {
     console.error("ERROR: card.locator.kind must be one of " + KINDS.join(", ") + " — got " + JSON.stringify(card.locator.kind) + ".");
     process.exit(1);
   }
-  const shape = kind === "region" || kind === "sea" || kind === "shelf" ? "area" : kind === "range" ? "spine" : null;
+  const shape = kind === "region" || kind === "sea" || kind === "shelf" ? "area" : kind === "range" || kind === "wall" ? "spine" : null;
   if (shape) {
     /* An `area` may be a list of rings (add-locators.js writes one for a place in separate blocks, e.g.
        wh-185's Akkadian Empire with Magan); each ring is validated on its own (Oct 2026). */

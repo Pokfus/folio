@@ -1,0 +1,299 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week Box Placement</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: a control bar (device · design · theme · marker), then three options. Each option is drawn on a tablet
+   (834px) and a desktop (1280px, an 800px content column) frame, scaled to fit. Page chrome follows the viewer's
+   theme; the frames carry Folio's own palette (copied from the top of styles.css). */
+:root{
+  --bg:#F2F0F7; --fg:#1D1B29; --fg-2:#69657E; --line:#D8D4E6; --panel:#FBFAFE; --acc:#45549C; --acc-wash:#E9ECFA;
+  --display:"Lora", Georgia, serif; --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace; --sans:"Nunito Sans", ui-sans-serif, system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#15131F; --fg:#EFEDFA; --fg-2:#9A95B4; --line:#2E2A42; --panel:#1E1B2E; --acc:#A6B4F0; --acc-wash:#23223A; color-scheme:dark; } }
+:root[data-theme="dark"]{ --bg:#15131F; --fg:#EFEDFA; --fg-2:#9A95B4; --line:#2E2A42; --panel:#1E1B2E; --acc:#A6B4F0; --acc-wash:#23223A; color-scheme:dark; }
+*{box-sizing:border-box;}
+html,body{overflow-x:hidden;}
+body{margin:0; background:var(--bg); color:var(--fg); font-family:var(--sans); font-size:15px; line-height:1.45; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1240px; margin:0 auto; padding-block:22px 60px; padding-inline:16px;}
+h1{font-family:var(--display); font-weight:600; font-size:clamp(22px,3vw,30px); letter-spacing:-.01em; margin:0 0 4px; text-wrap:balance;}
+.lede{margin:0 0 18px; color:var(--fg-2); max-width:72ch;}
+.lede b{color:var(--fg); font-weight:600;}
+.bar{z-index:5; display:flex; flex-wrap:wrap; gap:12px 22px; align-items:center; padding:12px 14px; margin:0 0 22px; background:var(--panel); border:1px solid var(--line); border-radius:14px; box-shadow:0 6px 24px rgba(29,27,41,.08);}
+@media (min-width:700px){ .bar{position:sticky; top:env(safe-area-inset-top, 0px);} }
+.grp{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+.grp > span{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--fg-2); font-weight:600;}
+.seg{display:inline-flex; border:1px solid var(--line); border-radius:999px; padding:2px; background:var(--bg);}
+.seg button{appearance:none; border:0; background:none; color:var(--fg-2); font:600 13px var(--sans); padding:5px 12px; border-radius:999px; cursor:pointer;}
+.seg button[aria-pressed="true"]{background:var(--acc); color:var(--panel);}
+.seg button:focus-visible{outline:2px solid var(--acc); outline-offset:2px;}
+.hint{font-size:12.5px; color:var(--fg-2); flex-basis:100%;}
+.option{margin:0 0 34px; padding-top:22px; border-top:1px dashed var(--line);}
+.option:first-of-type{border-top:0; padding-top:0;}
+.oh{margin:0 0 12px; font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--fg-2); font-weight:600;}
+.frames{display:grid; gap:18px; grid-template-columns:834fr 1280fr; align-items:start;}
+.cell{min-width:0;}
+.dh{display:grid; grid-template-columns:auto 1fr; gap:2px 10px; align-items:baseline; margin:0 0 10px;}
+.dh b{font-family:var(--mono); font-size:12px; letter-spacing:.12em; color:var(--acc); font-weight:600; background:var(--acc-wash); border-radius:6px; padding:1px 6px;}
+.dh h2{margin:0; font-family:var(--display); font-weight:600; font-size:17px;}
+.dh p{grid-column:1 / -1; margin:2px 0 0; font-size:13.5px; color:var(--fg-2);}
+.dh p i{font-style:normal; color:var(--fg); font-weight:600;}
+.fit{position:relative; overflow:hidden; border-radius:14px; border:1px solid var(--line);}
+.fit[data-label="tablet"]{max-width:836px;} .fit[data-label="desktop"]{max-width:1282px;}
+@media (max-width:760px){ .frames{grid-template-columns:1fr;} }
+body[data-dev="tablet"] .cell[data-dev="desktop"], body[data-dev="desktop"] .cell[data-dev="tablet"]{display:none;}
+body:not([data-dev="both"]) .frames{grid-template-columns:1fr;}
+body[data-dev="tablet"] .frames{max-width:860px;}
+body[data-des="1"] .option:not([data-n="1"]), body[data-des="2"] .option:not([data-n="2"]), body[data-des="3"] .option:not([data-n="3"]){display:none;}
+
+/* ===== Folio tokens, forced per frame (copied from styles.css) ===== */
+.frame{transform-origin:0 0; --paper:#F7F6FB; --paper-2:#EBE9F5; --card:#FDFDFF; --ink:#1D1B29; --ink-soft:#514D68; --ink-faint:#918CA8; --ink-quiet:#69657E; --rule:#DEDAEE;
+  --indigo:#45549C; --indigo-bright:#5263B0; --indigo-wash:#E9ECFA; --ochre:#9A7C55; --zh:#AE3350; --geo:#5FA5A8; --good:#4E9B7E; --gold:#C08A2E;
+  --serif:"Lora", Georgia, serif; --shadow-sm:0 1px 2px rgba(29,27,41,.05); --shadow-md:0 1px 2px rgba(29,27,41,.05), 0 8px 28px rgba(29,27,41,.06);
+  --mark:#C0552E;
+  background:var(--paper); color:var(--ink); font-family:var(--sans); color-scheme:light; padding-bottom:28px;}
+.frame.night{--paper:#131220; --paper-2:#0C0B16; --card:#1C1A2C; --ink:#EFEDFA; --ink-soft:#B6B1D0; --ink-faint:#827CA0; --ink-quiet:#8C87A8; --rule:#302C48;
+  --indigo:#A6B4F0; --indigo-bright:#C2CCFF; --indigo-wash:#20203A; --ochre:#C3A47A; --zh:#EFA8B8; --geo:#7FCACD; --good:#75C6A4; --gold:#E6C765;
+  --shadow-sm:none; --shadow-md:0 10px 30px rgba(0,0,0,.35); --mark:#F0A27E; color-scheme:dark;}
+.frame.tablet{width:834px;} .frame.desktop{width:1280px;}
+.pg{display:flex; flex-direction:column; gap:16px;}
+.tablet .pg{padding:0 20px;} .desktop .pg{width:800px; margin:0 auto;}
+/* nav */
+.nav{display:flex; align-items:center; gap:22px; height:56px; padding:0 22px; border-bottom:1px solid var(--rule); font:500 11px var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:26px;}
+.nav .logo{font:800 20px var(--sans); letter-spacing:-.02em; text-transform:none; color:var(--ink); margin-right:16px;}
+.nav .logo i{color:var(--zh); font-style:normal;}
+.nav .on{color:var(--indigo); box-shadow:inset 0 -2px var(--indigo); padding:6px 0;}
+.nav .sp{flex:1;}
+.kick{font:600 11px var(--mono); letter-spacing:.2em; text-transform:uppercase; color:var(--indigo); margin:6px 0 4px;}
+.h1{font:800 38px var(--sans); letter-spacing:-.02em; margin:0;}
+.quote{font:italic 17px/1.5 var(--serif); color:var(--ink); text-align:center; margin:8px 30px 4px;}
+.quote small{display:block; font:500 10.5px var(--mono); letter-spacing:.14em; color:var(--indigo); font-style:normal; margin-top:6px;}
+/* banner */
+.banner{border-radius:18px; padding:22px 26px; background:linear-gradient(135deg,#2B3577,#1C1F4E); color:#EEF0FF; display:flex; align-items:center; gap:20px; box-shadow:var(--shadow-md);}
+.banner .bk{font:600 10.5px var(--mono); letter-spacing:.18em; text-transform:uppercase; color:#AEB6E6;}
+.banner h3{margin:4px 0 2px; font:600 24px var(--serif);}
+.banner p{margin:0; font-size:13.5px; color:#C9CEF0;}
+.banner .btn{margin-left:auto; flex:none; background:#fff; color:#1C1F4E; font:600 11px var(--mono); letter-spacing:.16em; text-transform:uppercase; padding:12px 20px; border-radius:10px;}
+/* section heads */
+.sh{display:flex; align-items:center; justify-content:space-between; gap:12px; font:600 11px var(--mono); letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); margin:4px 0 -6px;}
+.legend{display:flex; gap:12px; font-size:10px; letter-spacing:.12em;}
+.legend i{display:inline-block; width:6px; height:6px; border-radius:50%; margin-right:4px; vertical-align:1px;}
+/* collection rows (the ledger) */
+.ledger{background:var(--card); border:1px solid var(--rule); border-radius:14px; overflow:hidden; box-shadow:var(--shadow-sm);}
+.crow{display:flex; align-items:center; gap:14px; padding:13px 18px; background:linear-gradient(90deg, var(--indigo-wash) var(--w), transparent var(--w));}
+.crow + .crow{border-top:1px solid var(--rule);}
+.crow .sw{width:10px; height:34px; border-radius:3px; flex:none;}
+.crow b{display:block; font:600 16px var(--serif);}
+.crow small{display:block; font-size:12px; color:var(--ink-quiet);}
+.crow .ct{margin-left:auto; display:flex; gap:12px; font:600 13px var(--mono); font-variant-numeric:tabular-nums;}
+.c-new{color:var(--indigo);} .c-lrn{color:var(--zh);} .c-rev{color:var(--good);}
+/* games */
+.rail{display:flex; align-items:center; gap:10px; font:600 11px var(--mono); color:var(--ink-quiet); letter-spacing:.06em;}
+.rail .segs{display:flex; gap:3px;} .rail .segs i{width:16px; height:6px; border-radius:99px; background:var(--rule);}
+.tablet .rail{width:100%;} .tablet .rail .segs{flex:1;} .tablet .rail .segs i{flex:1;}
+.chest{width:30px; height:24px; border:1.5px solid var(--ink-faint); border-radius:6px 6px 3px 3px; position:relative; opacity:.7;}
+.chest::before{content:""; position:absolute; left:-1px; right:-1px; top:7px; border-top:1.5px solid var(--ink-faint);}
+.tablet .gsh{flex-wrap:wrap;}
+.games{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+.tablet .games{grid-template-columns:1fr 1fr;}
+.tile{display:flex; align-items:center; gap:12px; padding:13px 14px; background:var(--card); border:1px solid var(--rule); border-left:3px solid var(--c); border-radius:10px; font:600 16px var(--sans); box-shadow:var(--shadow-sm);}
+.tile .ic{width:34px; height:34px; border-radius:50%; background:color-mix(in srgb, var(--c) 18%, var(--card)); display:grid; place-items:center; flex:none;}
+.tile .ic::after{content:""; width:12px; height:12px; border:2px solid var(--c); border-radius:4px;}
+/* the boxes */
+.home-box{position:relative; background:var(--card); border:1px solid var(--rule); border-radius:16px; padding:18px 20px; box-shadow:var(--shadow-sm); min-width:0;}
+.hb-k{display:block; font:600 10.5px var(--mono); letter-spacing:.16em; text-transform:uppercase; color:var(--ink-quiet); margin-bottom:10px;}
+.hb-book{display:flex; gap:14px; align-items:center;}
+.hb-spine{width:44px; height:62px; flex:none; border-radius:4px 7px 7px 4px; background:linear-gradient(90deg, #6E2D63 0 6px, #8A3F7E 6px); box-shadow:var(--shadow-md);}
+.hb-body b{display:block; font:600 17px/1.3 var(--serif);}
+.hb-body span{display:block; font:13px var(--serif); color:var(--ink-quiet);}
+.hb-body em{display:block; font:normal 10px var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--ochre); margin-top:6px;}
+.hb-next{display:block; margin-top:14px; padding-top:12px; border-top:1px solid var(--rule);}
+.hb-next-k{display:block; font:10px var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet); margin-bottom:6px;}
+.hb-next-p{display:block; font:14.5px/1.6 var(--serif); color:var(--ink-soft); max-height:calc(14.5px * 1.6 * 4.4); overflow:hidden; -webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent); mask-image:linear-gradient(to bottom,#000 30%,transparent);}
+.home-reading.wide{display:grid; grid-template-columns:minmax(0,300px) 1fr; gap:0 26px;}
+.home-reading.wide .hb-k{grid-column:1 / -1;}
+.home-reading.wide .hb-next{margin-top:0; padding-top:0; border-top:0; padding-left:24px; border-left:1px solid var(--rule);}
+.home-two{display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:stretch;}
+/* the week box, as shipped (.home-week / .hw-*) */
+.home-week{display:flex; flex-direction:column; gap:14px;}
+.hw-stats{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; justify-items:center; text-align:center;}
+.hw-stats b{display:block; font-size:24px; font-weight:800; letter-spacing:-.03em; line-height:1; font-variant-numeric:tabular-nums;}
+.hw-stats span{display:block; font:10px var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet); margin-top:4px;}
+.g b, b.g, .g{color:var(--good);}
+.hw-week{padding-top:12px; border-top:1px solid var(--rule); min-width:0;}
+.hw-bars{display:grid; grid-template-columns:repeat(7,1fr); gap:6px; align-items:end; height:64px;}
+.hw-bars i{display:block; background:var(--paper-2); border-radius:3px 3px 1px 1px; min-height:3px; border-top:2px solid var(--rule);}
+.hw-bars i.on{background:color-mix(in srgb, var(--indigo) 22%, var(--card)); border-top-color:var(--indigo);}
+.hw-bars i.cur{background:var(--indigo); border-top-color:var(--indigo);}
+.hw-days{display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-top:5px; text-align:center;}
+.hw-days span{font:9.5px var(--mono); letter-spacing:.08em; color:var(--ink-faint);}
+.hw-days span.cur{color:var(--indigo); font-weight:600;}
+.hw-tot{display:flex; flex-wrap:wrap; justify-content:space-between; gap:4px 8px; margin-top:12px; padding-top:10px; border-top:1px solid var(--rule); font-size:12.5px; color:var(--ink-quiet);}
+.hw-tot b{color:var(--ink); font-weight:700; font-size:13.5px; font-variant-numeric:tabular-nums;}
+.hw-tot b.g{color:var(--good);}
+.home-week.split{display:grid; grid-template-columns:auto 1fr; gap:0 22px;}
+.split .hw-today{display:flex; flex-direction:column; justify-content:center; padding-right:22px; border-right:1px solid var(--rule);}
+.split .hw-today .hw-stats{grid-template-columns:1fr; gap:10px; justify-items:start; text-align:left;}
+.split .hw-today .hw-stats b{font-size:22px;}
+.split .hw-week{padding-top:0; border-top:0; display:flex; flex-direction:column; justify-content:flex-end;}
+/* the band (T2 / D2) */
+.band{padding:12px 18px; display:flex; align-items:center; gap:10px 18px; flex-wrap:wrap;}
+.band .hb-k{margin:0;}
+.band .fig{display:flex; align-items:baseline; gap:14px; font-size:12.5px; color:var(--ink-quiet); white-space:nowrap;}
+.band .fig b{color:var(--ink); font-size:17px; font-weight:800; letter-spacing:-.02em; font-variant-numeric:tabular-nums; margin-right:3px;}
+.band .fig b.g{color:var(--good);}
+.band .vr{width:1px; align-self:stretch; background:var(--rule);}
+.spark{display:grid; grid-template-columns:repeat(7,9px); gap:3px; align-items:end; height:26px;}
+.spark i{display:block; background:var(--paper-2); border-top:2px solid var(--rule); border-radius:2px 2px 1px 1px; min-height:3px;}
+.spark i.on{background:color-mix(in srgb, var(--indigo) 22%, var(--card)); border-top-color:var(--indigo);}
+.spark i.cur{background:var(--indigo); border-top-color:var(--indigo);}
+.band .more{margin-left:auto; font:600 10.5px var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--indigo);}
+.band.two{display:grid; grid-template-columns:96px auto 1fr auto; gap:10px 14px; align-items:center;}
+.band.two .row-rule{grid-column:1 / -1; height:1px; background:var(--rule);}
+.band.two .spark{justify-self:start;}
+/* the three-cell row (D3) */
+.trio{display:grid; grid-template-columns:1fr 1.35fr 1fr; gap:16px;}
+.trio .home-box{padding:16px 18px; display:flex; flex-direction:column;}
+.trio .big{font-size:34px; font-weight:800; letter-spacing:-.03em; line-height:1; font-variant-numeric:tabular-nums;}
+.trio .lab{font:10px var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-quiet); margin-top:4px;}
+.trio .pair{display:flex; gap:18px; margin-top:auto; padding-top:12px; border-top:1px solid var(--rule);}
+.trio .pair b{display:block; font-size:17px; font-weight:800; letter-spacing:-.02em; font-variant-numeric:tabular-nums;}
+.trio .hw-bars{height:58px; margin-top:auto;}
+.trio .rows{display:flex; flex-direction:column; gap:7px; margin-top:auto;}
+.trio .rows div{display:flex; justify-content:space-between; align-items:baseline; font-size:12.5px; color:var(--ink-quiet);}
+.trio .rows b{color:var(--ink); font-size:16px; font-weight:800; font-variant-numeric:tabular-nums;}
+.trio .rows b.g{color:var(--good);}
+/* the moved marker */
+.moved{position:relative; outline:2px dashed var(--mark); outline-offset:5px; border-radius:16px;}
+.moved::before{content:"moved"; position:absolute; z-index:3; top:-16px; right:14px; font:600 10px var(--mono); letter-spacing:.14em; text-transform:uppercase; color:#fff; background:var(--mark); border-radius:999px; padding:2px 9px;}
+.frame.night .moved::before{color:#1C1A2C;}
+body[data-mark="off"] .moved{outline:0;} body[data-mark="off"] .moved::before{display:none;}
+/* foot */
+.foot{display:flex; gap:18px; padding-top:12px; font:500 10.5px var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
+.foot span:last-child{margin-left:auto;}
+</style>
+<div class="wrap">
+  <h1>Where the Today / This week box goes on a tablet and a desktop</h1>
+  <p class="lede">On a phone the figures box already sits <b>below Your collections and above Minigames</b>. Here are three ways to do the same on a tablet (<b>T1–T3</b>, an 834px frame) and on a desktop (<b>D1–D3</b>, a 1280px window with Folio's 800px column). The moved box carries a dashed “moved” marker you can turn off. Figures are <b>samples</b>: 40 cards, 16 min, 80% recalled today; 211 cards, 1 h 52 min, 84% this week. Answer with one of each, e.g. “T2 and D1”.</p>
+  <div class="bar">
+    <div class="grp"><span>Device</span><div class="seg" id="dev"><button type="button" data-v="both" aria-pressed="true">Both</button><button type="button" data-v="tablet" aria-pressed="false">Tablet</button><button type="button" data-v="desktop" aria-pressed="false">Desktop</button></div></div>
+    <div class="grp"><span>Design</span><div class="seg" id="des"><button type="button" data-v="all" aria-pressed="true">All</button><button type="button" data-v="1" aria-pressed="false">1</button><button type="button" data-v="2" aria-pressed="false">2</button><button type="button" data-v="3" aria-pressed="false">3</button></div></div>
+    <div class="grp"><span>Theme</span><div class="seg" id="thm"><button type="button" data-v="light" aria-pressed="true">Light</button><button type="button" data-v="night" aria-pressed="false">Night</button></div></div>
+    <div class="grp"><span>Marker</span><div class="seg" id="mrk"><button type="button" data-v="on" aria-pressed="true">On</button><button type="button" data-v="off" aria-pressed="false">Off</button></div></div>
+    <div class="hint">Frames are scaled to fit this page. Today, on both sizes, the box stands at the foot beside Suggested reading, under the games.</div>
+  </div>
+  <div id="options"></div>
+</div>
+<script>
+(function () {
+  "use strict";
+  var DAY = { cards: 40, time: "16 min", recall: "80%" }, WEEK = { cards: 211, time: "1 h 52 min", recall: "84%" };
+  var DAYS = [["Sa", 22], ["Su", 35], ["Mo", 0], ["Tu", 41], ["We", 30], ["Th", 43], ["Fr", 40]];   // sample week, Friday today; sums to 211
+  var MAX = 43;
+  function bars(cls) {
+    return '<div class="' + cls + '">' + DAYS.map(function (d, i) {
+      return '<i class="' + (i === 6 ? "cur" : d[1] ? "on" : "") + '" style="height:' + Math.max(4, Math.round(d[1] / MAX * 100)) + '%"></i>';
+    }).join("") + "</div>";
+  }
+  var DAYROW = '<div class="hw-days">' + DAYS.map(function (d, i) { return '<span class="' + (i === 6 ? "cur" : "") + '">' + d[0] + "</span>"; }).join("") + "</div>";
+  var STATS = '<div class="hw-stats"><div><b>' + DAY.cards + '</b><span>cards studied</span></div><div><b>' + DAY.time + '</b><span>time studied</span></div><div class="g"><b>' + DAY.recall + '</b><span>recalled</span></div></div>';
+  var TOT = '<div class="hw-tot"><span><b>' + WEEK.cards + '</b> cards</span><span><b>' + WEEK.time + '</b></span><span><b class="g">' + WEEK.recall + '</b> recalled</span></div>';
+  var WEEKPART = '<div class="hw-week"><span class="hb-k">This week</span>' + bars("hw-bars") + DAYROW + TOT + "</div>";
+  var M = function (h) { return '<div class="moved">' + h + "</div>"; };
+
+  /* the week box variants */
+  var BOX_STACK = '<div class="home-box home-week"><div class="hw-today"><span class="hb-k">Today</span>' + STATS + "</div>" + WEEKPART + "</div>";
+  var BOX_SPLIT = '<div class="home-box home-week split"><div class="hw-today"><span class="hb-k">Today</span>' + STATS + "</div>" + WEEKPART + "</div>";
+  function figs(f) { return '<span class="fig"><span><b>' + f.cards + '</b>cards</span><span><b>' + f.time + '</b></span><span><b class="g">' + f.recall + '</b>recalled</span></span>'; }
+  var BAND_ONE = '<div class="home-box band"><span class="hb-k">Today</span>' + figs(DAY) + '<span class="vr"></span>' + bars("spark") + '<span class="hb-k">This week</span>' + figs(WEEK) + "</div>";
+  var BAND_TWO = '<div class="home-box band two"><span class="hb-k">Today</span>' + figs(DAY) + '<span></span><span class="more">Stats ›</span><span class="row-rule"></span>' +
+    '<span class="hb-k">This week</span>' + figs(WEEK) + bars("spark") + '<span></span></div>';
+  var TRIO = '<div class="trio">' +
+    '<div class="home-box"><span class="hb-k">Today</span><div class="big">' + DAY.cards + '</div><div class="lab">cards studied</div><div class="pair"><div><b>' + DAY.time + '</b><div class="lab">time studied</div></div><div><b class="g">' + DAY.recall + '</b><div class="lab">recalled</div></div></div></div>' +
+    '<div class="home-box"><span class="hb-k">The last seven days</span>' + bars("hw-bars") + DAYROW + "</div>" +
+    '<div class="home-box"><span class="hb-k">This week</span><div class="rows"><div><span>cards</span><b>' + WEEK.cards + '</b></div><div><span>time</span><b>' + WEEK.time + '</b></div><div><span>recalled</span><b class="g">' + WEEK.recall + "</b></div></div></div></div>";
+
+  /* the rest of the home page */
+  function nav(dev) {
+    return dev === "desktop"
+      ? '<div class="nav"><span class="logo">Folio<i>.</i></span><span class="on">Home</span><span>Collections</span><span>Atlas</span><span>Library</span><span class="sp"></span><span>Search</span><span>Account</span><span>Settings</span></div>'
+      : '<div class="nav"><span class="on">Home</span><span>Collections</span><span>Atlas</span><span>Library</span><span class="sp"></span><span>Account</span><span>Settings</span></div>';
+  }
+  var HEAD = '<div><div class="kick">Good evening, scholar</div><h2 class="h1">Today</h2></div>' +
+    '<p class="quote">To learn, and at due times to repeat what one has learnt — is that not after all a pleasure?<small>— CONFUCIUS · Analects 1.1</small></p>';
+  var BANNER = '<div class="banner"><div><div class="bk">Daily study</div><h3>38 cards are due</h3><p>Across three collections, about 14 minutes.</p></div><span class="btn">Study now</span></div>';
+  var COLLS = '<div class="sh"><span>Your collections</span><span class="legend"><span><i style="background:var(--indigo)"></i>New</span><span><i style="background:var(--zh)"></i>Learning</span><span><i style="background:var(--good)"></i>Review</span></span></div>' +
+    '<div class="ledger">' + [["Ancient Rome", "1,000 cards · 18% studied", "#8E3B2E", 18, 10, 4, 12], ["Ancient Greece", "1,000 cards · 9% studied", "#3A6FB0", 9, 10, 2, 6], ["Japan", "420 cards · 4% studied", "#B03A4E", 4, 5, 1, 0]].map(function (c) {
+      return '<div class="crow" style="--w:' + c[3] + '%"><span class="sw" style="background:' + c[2] + '"></span><div><b>' + c[0] + '</b><small>' + c[1] + '</small></div><span class="ct"><span class="c-new">' + c[4] + '</span><span class="c-lrn">' + c[5] + '</span><span class="c-rev">' + c[6] + "</span></span></div>";
+    }).join("") + "</div>";
+  var TILES = [["Timeline", "#45549C"], ["True or False", "#4E9B7E"], ["Who said it?", "#7B4BA8"], ["Find it", "#3A9C9F"], ["Common Thread", "#D08A3A"], ["Crossword", "#2E9BC8"], ["What year?", "#6E8B1E"], ["How far?", "#A86A4E"], ["What share?", "#A3306F"], ["What language?", "#3E6270"]];
+  function games() {
+    return '<div class="sh gsh"><span>Minigames</span><span class="rail"><span>0/10</span><span class="segs">' + "<i></i>".repeat(10) + '</span><span class="chest"></span></span></div>' +
+      '<div class="games">' + TILES.map(function (t) { return '<div class="tile" style="--c:' + t[1] + '"><span class="ic"></span>' + t[0] + "</div>"; }).join("") + "</div>";
+  }
+  function reading(wide) {
+    return '<div class="home-box home-reading' + (wide ? " wide" : "") + '"><span class="hb-k">Suggested reading</span>' +
+      '<span class="hb-book"><span class="hb-spine"></span><span class="hb-body"><b>The Histories</b><span>Polybius · 2nd century BCE</span><em>Free to read · Greek and English</em></span></span>' +
+      '<span class="hb-next"><span class="hb-next-k">A passage · Book 1</span><span class="hb-next-p">Can any one be so indifferent or idle as not to care to know by what means, and under what kind of polity, almost the whole inhabited world was conquered and brought under the dominion of the single city of Rome, and that too within a period of not quite fifty-three years?</span></span></div>';
+  }
+  var FOOT = '<div class="foot"><span>About Folio</span><span>Changelog</span><span>Credits</span><span>v1.1303 · sample</span></div>';
+  function page(dev, middle, after) {
+    return nav(dev) + '<div class="pg">' + HEAD + BANNER + COLLS + M(middle) + games() + (after || "") + FOOT + "</div>";
+  }
+
+  var OPTIONS = [
+    { n: "1", title: "Full-width box",
+      t: { name: "The shipped box, full width", blurb: "Today's three figures above the week's seven bars, as the tablet draws it now, stretched across the column. Suggested reading drops below the games at full width. <i>Trade-off:</i> the tallest choice (about 260px), so the games start lower.",
+           html: page("tablet", BOX_STACK, reading(true)) },
+      d: { name: "The shipped box, full width", blurb: "The desktop's two-column inside (Today in a column at the left, the week's bars and totals at the right) widened to the 800px column; reading follows the games at full width. <i>Trade-off:</i> least change to the box itself, but the bars stretch wide and the box is still ~200px tall.",
+           html: page("desktop", BOX_SPLIT, reading(true)) } },
+    { n: "2", title: "A slim band",
+      t: { name: "Two-line band", blurb: "Today's figures on one line, the week's figures and a small seven-day sparkline on the next, with a link to the full stats. Reading below the games, full width. <i>Trade-off:</i> the games stay near the top, but the day bars are too small to press for each day's figures.",
+           html: page("tablet", BAND_TWO, reading(true)) },
+      d: { name: "One-line band", blurb: "Today's three figures, a seven-day sparkline and the week's three figures in a single 60px strip. Reading below the games, full width. <i>Trade-off:</i> the lowest box (the games barely move), but the figures shrink to small type and the bars lose their day labels.",
+           html: page("desktop", BAND_ONE, reading(true)) } },
+    { n: "3", title: "Move the pair / three cells",
+      t: { name: "The pair moves together", blurb: "The current row (Suggested reading beside the figures box) lifted whole above the games, so nothing changes but its place. <i>Trade-off:</i> reading also moves up, pushing the games furthest down of the three.",
+           html: page("tablet", '<div class="home-two">' + reading(false) + BOX_STACK + "</div>") },
+      d: { name: "Three cells", blurb: "The box split into a row of three: Today, the last seven days as bars, and the week's totals. Reading below the games, full width. <i>Trade-off:</i> balanced and easy to scan, but three boxes read as three things, and the day and the week sit two cells apart.",
+           html: page("desktop", TRIO, reading(true)) } }
+  ];
+  var host = document.getElementById("options"), out = "";
+  OPTIONS.forEach(function (o) {
+    out += '<section class="option" data-n="' + o.n + '"><div class="oh">Option ' + o.n + " · " + o.title + '</div><div class="frames">';
+    [["tablet", "T", o.t, 834], ["desktop", "D", o.d, 1280]].forEach(function (v) {
+      out += '<div class="cell" data-dev="' + v[0] + '"><div class="dh"><b>' + v[1] + o.n + '</b><h2>' + v[2].name + '</h2><p>' + v[2].blurb + '</p></div>' +
+        '<div class="fit" data-label="' + v[0] + '"><div class="frame ' + v[0] + '" data-w="' + v[3] + '">' + v[2].html + "</div></div></div>";
+    });
+    out += "</div></section>";
+  });
+  host.innerHTML = out;
+  function fit() {
+    document.querySelectorAll(".fit").forEach(function (f) {
+      if (!f.offsetParent) return;
+      var fr = f.firstElementChild, w = +fr.dataset.w, s = Math.min(1, f.clientWidth / w);
+      fr.style.transform = "scale(" + s + ")";
+      f.style.height = Math.ceil(fr.offsetHeight * s) + "px";
+    });
+  }
+  function seg(id, apply) {
+    var el = document.getElementById(id);
+    el.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      el.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      apply(b.dataset.v); fit();
+    });
+  }
+  var ds = document.body.dataset;
+  ds.dev = "both"; ds.des = "all"; ds.mark = "on";
+  seg("dev", function (v) { ds.dev = v; });
+  seg("des", function (v) { ds.des = v; });
+  seg("mrk", function (v) { ds.mark = v; });
+  seg("thm", function (v) { document.querySelectorAll(".frame").forEach(function (f) { f.classList.toggle("night", v === "night"); }); });
+  fit();
+  window.addEventListener("resize", fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  window.addEventListener("load", fit);
+})();
+</script>

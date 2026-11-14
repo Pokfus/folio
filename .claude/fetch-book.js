@@ -4635,6 +4635,17 @@ const BOOKS = {
 
   "livy-history-of-rome": {
     title: "The History of Rome",
+    fixes: [
+      ["while lie was holding an assembly", "while he was holding an assembly", "the Perseus transcription's OCR misreads 'he' as 'lie' (h + e read as li + e); the sense needs the pronoun (2026-11-13, on a reader's report from rm-053)"],
+      ["Syria or Asia, lie was confident", "Syria or Asia, he was confident", "the Perseus transcription's OCR misreads 'he' as 'lie' (h + e read as li + e); the sense needs the pronoun (2026-11-13, on a reader's report from rm-053)"],
+      ["at the ships where lie had staid", "at the ships where he had staid", "the Perseus transcription's OCR misreads 'he' as 'lie' (h + e read as li + e); the sense needs the pronoun (2026-11-13, on a reader's report from rm-053)"],
+      ["conclusion that lie could obtain", "conclusion that he could obtain", "the Perseus transcription's OCR misreads 'he' as 'lie' (h + e read as li + e); the sense needs the pronoun (2026-11-13, on a reader's report from rm-053)"],
+      ["yet lie did not so effectually", "yet he did not so effectually", "the Perseus transcription's OCR misreads 'he' as 'lie' (h + e read as li + e); the sense needs the pronoun (2026-11-13, on a reader's report from rm-053)"],
+      ["if lie is determined to proceed", "if he is determined to proceed", "the Perseus transcription's OCR misreads 'he' as 'lie' (h + e read as li + e); the sense needs the pronoun (2026-11-13, on a reader's report from rm-053)"],
+      ["Philip after lie was conquered", "Philip after he was conquered", "the Perseus transcription's OCR misreads 'he' as 'lie' (h + e read as li + e); the sense needs the pronoun (2026-11-13, on a reader's report from rm-053)"],
+      ["struck his mind that lie had now drawn", "struck his mind that he had now drawn", "the Perseus transcription's OCR misreads 'he' as 'lie' (h + e read as li + e); the sense needs the pronoun (2026-11-13, on a reader's report from rm-053)"],
+      ["when lie should have united to it", "when he should have united to it", "the Perseus transcription's OCR misreads 'he' as 'lie' (h + e read as li + e); the sense needs the pronoun (2026-11-13, on a reader's report from rm-053)"],
+    ],
     // the work's own Latin title, as the Gallic War, Lucretius and Herodotus give theirs
     subtitle: "Ab Urbe Condita",
     author: "Livy",

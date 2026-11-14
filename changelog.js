@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1304", released: "2026-11-14T00:49Z" };
+window.FOLIO_VERSION = { v: "1.1306", released: "2026-11-14T01:02Z" };
 
 window.CHANGELOG = [
   {
@@ -68,6 +68,27 @@ window.CHANGELOG = [
       "Lowercase <i>friends</i> no longer links to the Quakers, nor <i>fates</i> to the Greek Moirai.",
       "13 World History cards gain glossary links and 44 new glossary terms, 3 atlas windows, 4 fuller date lines and a fuller background.",
       "28 atlas windows that were labelled with a description now show the place's own name, and one misplaced dot is moved.",
+      "<b>Titles of literary works</b> are now set in italics everywhere: in cards, glossary entries, popup headings and answers.",
+      "On a tablet and a desktop the <b>Today / This week</b> figures now sit between your collections and the minigames, as three boxes.",
+      "A new <b>Term of the day</b> box, with a picture, sits beside Suggested reading on a tablet and a desktop.",
+      "Times of day are now written one way, as in 11:15 AM, and spans counted back from today run from old to new.",
+      "Glossary popups no longer show an id at their foot.",
+      "Every bold term in a card's background is now full white at night and full black by day, not only the first.",
+      "Card atlas windows are a fifth taller on a tablet and a desktop.",
+      "The study-time achievements now count time exactly as the Today box does.",
+      "<i>Sense</i> and <i>pain</i> link to the glossary only in Psychology and Biology, and <i>Earth</i> only with a capital.",
+      "45 cards in Greece, Rome, Egypt and the Second World War gain glossary links, with 197 new glossary terms.",
+      "Several of those cards get fuller date lines, rewritten backgrounds, new pictures and new atlas locations, including Hadrian's Wall drawn as a line.",
+      "A region's name, such as the Nile Delta, now shows without a dot on its collection's other atlas windows.",
+      "Backgrounds no longer name websites as their authority.",
+      "The Battle of Stalingrad card now gives one casualty figure, the official Soviet count, in its date line and background.",
+      "Names beginning with Saint are written in full everywhere, Saint Petersburg and Saint Louis included, on the Atlas's labels too.",
+      "<i>Genghis Khan</i> is now spelled one way across every card and glossary entry.",
+      "11 cards in the United States and Russia gain glossary links, with 70 new glossary terms.",
+      "George Washington's card says more about his war and his presidency, and its atlas window shows the United States of 1796.",
+      "New atlas windows for Saint Petersburg, Kyiv, Jamestown and Ivan the Terrible's realm; Moscow's label is now plain Moscow.",
+      "Lowercase <i>overlords</i> no longer links to Operation Overlord.",
+      "The League of Nations card shows the League's emblem beside its answer, as a geography card shows a flag.",
     ]
   },
   {

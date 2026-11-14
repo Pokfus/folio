@@ -276,10 +276,11 @@ const touchEnd = (cdp) => cdp.send("Input.dispatchTouchEvent", { type: "touchEnd
         if (/map card/.test(label)) check(label + ": has no globe button (the Atlas would name its answer)", !has);
         else if (!touch) {
           check(label + ": has the globe button", has);
+          const stepYear = await page.evaluate((sl) => { const t = document.querySelector(sl + " .war-tl") || document.querySelector(".war-tl"); return t ? Number(String(t.getAttribute("data-date") || "").split("-").length > 2 ? String(t.getAttribute("data-date")).slice(0, -6) : t.getAttribute("data-date")) : null; }, sel);
           await page.focus(sel + ' [data-mc="go"]'); await page.keyboard.press("Enter");   // the keyboard route to the button
           await page.waitForFunction((was) => location.hash !== was, h0, { timeout: 20000 }).catch(() => {});
           const hh = await page.evaluate(() => location.hash);
-          check(label + ": the globe button (Enter on it) opens the Atlas, with the window's view" + (/war/.test(label) ? " and the war's year" : ""), /^#map\/-?\d+(\.\d+)?\/-?\d+(\.\d+)?\/\d+(\.\d+)?/.test(hh) && (!/war/.test(label) || (/\?y=-202/.test(hh) && !/war=/.test(hh)) /* CHANGED 2026-10-19: the window's year is its timeline's step (the last, 202 BCE), not the middle (-209), and no war rides on the link: the Atlas draws none (test-atlas-embed.js §5 follows it) */), hh);
+          check(label + ": the globe button (Enter on it) opens the Atlas, with the window's view" + (/war/.test(label) ? " and the year its timeline shows (" + stepYear + ")" : ""), /^#map\/-?\d+(\.\d+)?\/-?\d+(\.\d+)?\/\d+(\.\d+)?/.test(hh) && (!/war/.test(label) || (new RegExp("\\?y=" + stepYear + "(?!\\d)").test(hh) && !/war=/.test(hh)) /* CHANGED 2026-10-19: the window's year is its timeline's step, and no war rides on the link: the Atlas draws none (test-atlas-embed.js §5 follows it). CHANGED 2026-11-13: the step is the one the window shows (it opens at the rail's halfway point since Oct 2026, startStep), read off the rail rather than fixed at 202 BCE */), hh);
           {
             await page.waitForSelector(".atlas2", { timeout: 60000 }).catch(() => {});
             await page.goBack(); await page.waitForSelector(".map-card", { timeout: 30000 });

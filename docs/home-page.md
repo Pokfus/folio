@@ -364,6 +364,12 @@ reading from "Tabular", the This week box and the active-deck rows from "Keys". 
   chapter `n` and paragraph index `p`, drawn whole with the title (no fetch) and opening `#book/<id>/<n>/<p>`, which
   scrolls to and briefly marks that paragraph; a re-imported book needs its row's `p` re-checked) and **This week** (`homeWeekHTML`, from `S.reviewLog`; its contents centred, its
   title not, on request).
+- **Tablet and desktop, design D3 (2026-11-13, on request; `docs/mockups/home-week-placement/`)**: from 641px the Today /
+  This week figures are `homeWeekHTML(true)` — `.home-trio`, three cells (Today, the last seven days' bars, the week's totals)
+  between the collections and the minigames, as the phone's single box already stands; the single box under the games is the
+  phone's alone. Its slot beside Suggested reading is the **Term of the day** (`homeTermHTML`, `homeTermPick`): `dayPick`
+  over the curated glossary terms with a picture (all terms with a text if none), filled when `glossExtra` lands, opening the
+  term's popup; hidden on a phone.
 - **Nothing dated at the top left** (on request): the version line lives in the page's foot with the
   About and Changelog links, centred on a phone. The tagline under the logo is hidden on a phone.
 

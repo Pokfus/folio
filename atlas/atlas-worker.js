@@ -799,7 +799,8 @@
     const shift = (q.density === "sparse" ? -1 : q.density === "dense" ? 1.5 : 0) + (q.phone ? -0.75 : 0);
     const t = Math.max(0, Math.min(1, (Math.log(24) - Math.log(kmpp)) / Math.log(24)));
     const cap = Math.round((40 + 80 * t) * (q.density === "sparse" ? 0.6 : q.density === "dense" ? 1.5 : 1) * (q.phone ? 0.6 : 1));
-    const rn = (nm, kind) => (q.rename && (q.rename[kind + "|" + nm] || q.rename[nm])) || nm;   // the reader's place names (app.js SPELL_NAMES): "Gulf of America" for an American reader
+    const saintful = (t) => String(t).replace(/(^|[\s(])St\.? (?=[A-ZÀ-Þ])/g, "$1Saint ");   // Saint written in full on every label (2026-11-13, on request: "never St. Petersburg or St Petersburg")
+    const rn = (nm, kind) => saintful((q.rename && (q.rename[kind + "|" + nm] || q.rename[nm])) || nm);   // the reader's place names (app.js SPELL_NAMES): "Gulf of America" for an American reader
     const FS = q.fs > 0 ? q.fs : 1;   // the reader's Text size as a factor of the names (atlas.js labelScaleNow): the METRICS already carry it in sizes, tracking and advances; these are the literals that must grow with the names
     const pad = (q.density === "sparse" ? 8 : q.density === "dense" ? 2 : 4) * FS;
     const show = q.show || {};

@@ -1379,7 +1379,9 @@
     const kind = w.face ? "region" : GLOSS_POINT_KINDS.indexOf(w.kind) >= 0 ? "point" : "region";   // "region": no dot, the name centred on the point — a face carries its own shading
     return '<div class="map-card map-gloss" data-map-layer="world" data-map-named data-map-at="' + w.lon + "," + w.lat + '" data-map-atname="' + esc(name) + '" data-map-kind="' + kind + '"' +
       (w.face ? ' data-map-face="' + esc(w.face) + '" data-map-facekind="' + esc(w.kind) + '"' : "") + (w.year ? ' data-map-year="' + w.year + '"' : "") + (w.zoom ? ' data-map-zoom="' + w.zoom + '"' : "") + ">" +
-      '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' + GLOSS_ZOOM_HTML + "</div>";
+      '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' + GLOSS_ZOOM_HTML + "</div>" +
+      // the year whose borders are drawn, under every window that shades a state (2026-11-13, on request)
+      (w.face && w.year ? '<p class="map-borders">Borders of ' + esc(yearLabel(w.year)) + (w.kind === "people" || w.kind === "culture" ? "" : ", at its greatest extent") + "</p>" : "");
   }
   /* THE WINDOW'S BUTTONS (2026-10-24, on request: "they do not have any buttons like we have in the atlas windows of the cards to zoom in or turn on and off the relief"): the card windows' own column —
      zoom in, zoom out, recentre, relief — and nothing more (no globe button: the bar's Atlas pin is that). atlas-windows.js wires `.mc-btn` for every host, and shows the relief button only where relief can draw. */
@@ -4007,6 +4009,13 @@
   function escHtml(s) {
     return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
+  // GLOSS_ONLY_IN in a popup: a collection-bound term links only from a term tagged with one of its subjects
+  function glossScopedOk(key, hostKey) {
+    const r = GLOSS_ONLY_IN[key];
+    if (!r) return true;
+    const t = ((window.GLOSSARY_TAGS || {})[hostKey]) || [];
+    return t.some((x) => r.tags.includes(x));
+  }
   // wrap any glossary terms found in a description in clickable .ttip spans (skipping self)
   function linkifyGloss(text, selfKey, scope) {
     const idx = glossIndexFor(scope);
@@ -4017,7 +4026,7 @@
     while ((m = re.exec(text))) {
       const key = resolveGlossKey(idx, m[0]);
       out += escHtml(text.slice(last, m.index));
-      if (key && key !== selfKey && !seen.has(key)) {   // link only the first occurrence of each term in the popup (case routing handled by resolveGlossKey)
+      if (key && key !== selfKey && !seen.has(key) && glossScopedOk(key, selfKey)) {   // link only the first occurrence of each term in the popup (case routing handled by resolveGlossKey)
         seen.add(key);
         out += '<span class="ttip" data-k="' + key + '">' + escHtml(m[0]) + "</span>";
       } else {
@@ -4035,7 +4044,22 @@
   // inside a link or inside the bold answer term is skipped.
   // `scope` selects which term table to link against — omitted means the curated site glossary,
   // which is every existing caller.
-  function autoLinkGlossary(rootEl, answerText, offKeys, scope) {
+  /* TERMS THAT AUTO-LINK ONLY INSIDE NAMED COLLECTIONS (2026-11-13, on request: "ensure that the glosses 'sense'
+     and 'pain' are only applied in the Psychology and Biology collection"). An everyday word in a history card —
+     "a sense of loyalty", "on pain of death" — is not the perception term. A key here links only in a card whose
+     collection root is listed (pass the card's id as `cardId`), and in a glossary popup only when the term being
+     read is itself tagged with one of `tags`; everywhere else it stays plain text. A hand-written data-k still links. */
+  const GLOSS_ONLY_IN = {
+    Sense: { roots: ["psych", "bio"], tags: ["psychology", "biology", "neuroscience"] },
+    Pain: { roots: ["psych", "bio"], tags: ["psychology", "biology", "neuroscience", "medicine"] },
+    /* the Roman magistrate: "an American consul" in a Second World War card is a diplomat (2026-11-13, found by check-gloss-links on ww2-197) */
+    Consul: { roots: ["col-40", "col-8", "col-13"], tags: ["rome", "roman", "italy", "republic"] },
+  };
+  function glossScopedOff(cardId) {
+    const root = cardId ? cardCollectionRoot(cardId) : null, rid = root && root.id;
+    return Object.keys(GLOSS_ONLY_IN).filter((k) => !(rid && GLOSS_ONLY_IN[k].roots.includes(rid)));
+  }
+  function autoLinkGlossary(rootEl, answerText, offKeys, scope, cardId) {
     if (!rootEl) return;
     const idx = glossIndexFor(scope);
     if (!idx || !idx.re) return;
@@ -4046,6 +4070,7 @@
     const answerKey = answer ? ((idx.byAnySurface || idx.byName)[answer] || idx.byName[answer]) : null;
     if (answerKey) linked.add(answerKey);
     if (offKeys && offKeys.length) offKeys.forEach((k) => linked.add(k));   // terms the editor removed in this card's background — keep them un-linked
+    if (!scope || scope === GLOSS_SCOPE_SITE) glossScopedOff(cardId).forEach((k) => linked.add(k));   // GLOSS_ONLY_IN: a collection-bound term stays plain outside its collections
     // respect hand-added links already in the source: don't auto-link a term the editor linked manually
     rootEl.querySelectorAll(".ttip[data-k]").forEach((sp) => linked.add(sp.getAttribute("data-k")));
     // gather eligible text nodes in document order (skip links + the answer term)
@@ -4490,11 +4515,10 @@
       '</div>' +
       // the image slot comes FIRST: it floats to the top-right and the prose wraps down its left
       '<div class="gloss-body"><div class="gloss-imgslot"></div><span class="gloss-dates"></span><p class="gloss-desc"></p><div class="gloss-bookslot"></div><div class="gloss-atlas" hidden></div><div class="gloss-srcslot"></div>' +
-        /* THE TERM'S KEY, FOR AN ADMIN (Nov 2026, on request): the gloss popup's counterpart of a card's
-           `card-admin-id` — the key at the foot, so a term met while reading can be named in a request. */
-        (isAdmin() && !isDeckGlossKey(key) ? '<div class="card-admin-id gloss-admin-id" translate="no">' + esc(key) + "</div>" : "") +
+        /* No key at the foot (2026-11-13, on request): the admin's key line of Nov 2026 is gone — a
+           gloss popup shows no id, unlike a card. */
       '</div>';
-    win.querySelector(".gloss-title").textContent = glossTitle(key);
+    { const gt = win.querySelector(".gloss-title"); if (GLOSS_WORK_KEYS.has(key)) gt.innerHTML = "<i>" + esc(glossTitle(key)) + "</i>"; else gt.textContent = glossTitle(key); }   // a literary work's title in italic (GLOSS_WORK_KEYS)
     const dEl = win.querySelector(".gloss-dates");
     const dates = glossDates(key);
     if (dates) dEl.innerHTML = glossDatesHTML(dates); else dEl.remove();
@@ -25375,7 +25399,66 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      log. TODAY IS A SECTION OF THIS BOX (Oct 2026, on request), where it replaces the "studied 13m today"
      line that stood under the deck list: the same three figures over the same day the streak counts
      (`dayKey`, so the reader's own day cut-off applies), read off the one log in one pass. */
-  function homeWeekHTML() {
+  /* ONE DAY'S STUDY TIME, IN SECONDS, AS THE TODAY / THIS WEEK BOX COUNTS IT (2026-11-13, on a report: the
+     three-hour badge fired while the box said 2 h 40 min). The box sums each answer's own seconds off the
+     synced daily record (`reviewLog[day][3]`, tenths), falling back to the local per-answer window for a day
+     written before the row carried time; the hour badges read the study page's wall clock (`studyTime`),
+     which also runs while a card sits unanswered, so the two disagreed. The badges read this now, and so the
+     two can never disagree again. `prog` is the reader's own S or a friend's progress blob (no local window). */
+  function dayStudySecs(prog, k) {
+    const e = ((prog && prog.reviewLog) || {})[k];
+    if (e && e.length >= 6) return (e[3] | 0) / 10;
+    if (prog !== S) return 0;
+    const log = S.revlog || [];
+    let secs = 0;
+    for (let i = log.length - 1; i >= 0; i--) {
+      const r = revRead(log[i]); if (!r) continue;
+      const rk = dayKey(r.t);
+      if (rk === k) secs += r.secs || 0;
+      else if (rk < k) break;
+    }
+    return secs;
+  }
+  /* ---------- THE TERM OF THE DAY (2026-11-13, on request) ----------
+     "Since the Suggested Reading box now sits in the bottom left on those formats with nothing to the right of it, add a box
+     there with a randomly selected daily highlighted gloss term, preferably one with an image." A tablet's and a desktop's
+     alone (styles.css hides it on a phone, where the reading box stands by itself as before). The draw is `dayPick` over the
+     curated glossary — never a deck's own terms — so everyone sharing a day shares a term and it does not change on a reload;
+     the pool is the terms WITH a picture and a text (the pictures and texts ride the lazy glossExtra bundle, so the box is drawn
+     empty and filled when that lands), falling back to every term with a text. A press opens the term's own popup. */
+  function homeTermPick() {
+    const G = window.GLOSSARY || {}, I = window.GLOSSARY_IMAGES || {};
+    const keys = Object.keys(G).filter((k) => !uGlossParse(k) && G[k]);
+    const withImg = keys.filter((k) => I[k] && I[k].src);
+    const pool = withImg.length ? withImg : keys;
+    return pool.length ? dayPick("home-term", pool.sort(), 1)[0] : null;
+  }
+  function homeTermInner(k) {
+    if (!k) return '<span class="hb-k">Term of the day</span><span class="hb-empty">Loading the glossary\u2026</span>';
+    const img = glossImage(k), title = glossTitle(k), dates = glossDates(k);
+    const d = document.createElement("div"); d.innerHTML = String(glossText(k) || "");
+    d.querySelectorAll("sup").forEach((x) => x.remove());
+    const txt = (d.textContent || "").replace(/\s+/g, " ").trim();
+    return '<span class="hb-k">Term of the day</span>' +
+      '<span class="ht-term">' + (img ? '<img class="ht-img" src="' + esc(img.src) + '" alt="' + esc(img.alt || img.title || title) + '" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : "") +
+      '<span class="ht-body"><b>' + (GLOSS_WORK_KEYS.has(k) ? "<i>" + esc(title) + "</i>" : esc(title)) + "</b>" +
+      (dates ? "<span>" + esc(glossDatesFlat(dates)) + "</span>" : "") + "</span></span>" +
+      '<span class="ht-text">' + esc(txt) + "</span>";
+  }
+  function homeTermHTML() {
+    const k = dataReady("glossExtra") ? homeTermPick() : null;
+    return '<button class="home-box home-term" id="b-term" type="button"' + (k ? ' data-k="' + esc(k) + '"' : "") + ">" + homeTermInner(k) + "</button>";
+  }
+  function homeTermWire(root) {
+    const b = root.querySelector("#b-term");
+    if (!b) return;
+    if (!b.dataset.k) ensureData("glossExtra").then(() => {
+      const k = homeTermPick(); if (!k || !b.isConnected) return;
+      b.dataset.k = k; b.innerHTML = homeTermInner(k);
+    }).catch(() => {});
+    b.addEventListener("click", () => { if (b.dataset.k) openGlossWin(b.dataset.k, b); });
+  }
+  function homeWeekHTML(trio) {
     const now = Date.now(), today = dayKey(now);
     const day = { cards: 0, secs: 0, right: 0, total: 0 }, week = { cards: 0, secs: 0, right: 0, total: 0 };
     for (let d = 0; d < 7; d++) { const e = (S.reviewLog || {})[dayKey(now - d * DAY)]; if (e) { week.cards += e[0] | 0; if (d === 0) day.cards += e[0] | 0; } }
@@ -25447,6 +25530,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ' role="button" tabindex="0" data-info="day" data-dl="' + esc(x.full) + '" data-n="' + x.n + '" data-time="' + esc(x.time) + '" data-recall="' + esc(x.recall) + '"' +
         ' aria-label="' + esc(x.full + ": " + x.n + (x.n === 1 ? " card" : " cards") + " studied, " + x.time + ", " + (x.recall === "\u2014" ? "no answers" : x.recall + " recalled")) + '"></i>').join("") + "</div>" +
       '<div class="hw-days" aria-hidden="true">' + days.map((x) => '<span class="' + (x.cur ? "cur" : "") + '">' + esc(x.l) + "</span>").join("") + "</div>";
+    /* DESIGN D3 ON A TABLET AND A DESKTOP (2026-11-13, on request; docs/mockups/home-week-placement): the box becomes a row of
+       THREE cells — Today, the last seven days as bars, the week's totals — standing between the collections and the minigames,
+       as the phone's box already does. Same figures, same pressable bars; the phone keeps the single box (styles.css hides one
+       or the other at 640px). */
+    if (trio) {
+      const gd = figs(day), gw = figs(week);
+      return '<div class="home-trio" role="group" aria-label="Today and this week">' +
+        '<div class="home-box ht-cell ht-today"><span class="hb-k">Today</span><div class="ht-big">' + day.cards + '</div><div class="ht-lab">cards studied</div>' +
+          '<div class="ht-pair"><div><b>' + esc(gd.time) + '</b><div class="ht-lab">time studied</div></div><div><b class="g">' + gd.recall + '</b><div class="ht-lab">recalled</div></div></div></div>' +
+        '<div class="home-box ht-cell ht-days"><span class="hb-k">The last seven days</span>' + bars + "</div>" +
+        '<div class="home-box ht-cell ht-week"><span class="hb-k">This week</span><div class="ht-rows">' +
+          '<div><span>cards</span><b>' + week.cards + '</b></div><div><span>time</span><b>' + esc(gw.time) + '</b></div><div><span>recalled</span><b class="g">' + gw.recall + "</b></div></div></div></div>";
+    }
     return '<div class="home-box home-week">' +
       '<div class="hw-today"><span class="hb-k">Today</span>' + stats(day) + "</div>" +
       '<div class="hw-week"><span class="hb-k">This week</span>' + bars + line(week) + "</div></div>";
@@ -27444,11 +27540,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ${/* The heading over the games ships at every width now (Aug 2026, on request), like the lip above
               it: with the discovery row gone the grid is the last thing on the page, and a block of six
               coloured squares under nothing at all does not say what it is. */""}
+        ${homeWeekHTML(true)}
         <section class="games-sec">
           <div class="games-top"><h2 class="games-head">Minigames</h2>${sweepRowHTML()}</div>
           ${gameGrid}
         </section>
-        <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}</div>
+        <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}${homeTermHTML()}</div>
         <footer class="home-foot">${aboutLink}<button class="home-about" id="b-changelog" type="button">Changelog</button><button class="home-about" id="b-credits" type="button">Credits</button>${versionLineHTML()}</footer>
         ${/* ADMIN ONLY (Oct 2026, on request): a small refresh at the bottom left of the home page that brings the page to the latest deploy — it empties Folio's caches and the service worker, then reloads. */""}
         ${isAdmin() ? '<div class="home-admin-row"><button class="home-refresh" id="b-refresh" type="button" title="Refresh to the latest version" aria-label="Refresh to the latest version"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><polyline points="20 4 20 11 13 11"/></svg></button></div>' : ""}
@@ -27460,6 +27557,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        `wireHoldMenu` is the deck rows' own gesture: a tap opens the game, a hold flips the tile, and the
        document-level guard that swallows the click after a hold is the same one, so a hold cannot also
        start a game. */
+    homeTermWire(root);   // the term of the day (homeTermHTML)
     const cfRow = root.querySelector("#confuseRow");
     if (cfRow) cfRow.addEventListener("click", () => {
       const ids = confusionDrillIds();
@@ -35349,7 +35447,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (el.hasAttribute("data-auto") || !k || !(k in G)) el.replaceWith(document.createTextNode(el.textContent));
       });
       abs.normalize();
-      autoLinkGlossary(abs, card && card.answer, absTaken, scope);
+      autoLinkGlossary(abs, card && card.answer, absTaken, scope, card && card.id);
       abs.querySelectorAll(".ttip[data-k]").forEach((sp) => absTaken.push(sp.getAttribute("data-k")));
     });
     /* THE "THINK IT THROUGH" ANSWERS LINK THEIR TERMS TOO (Sep 2026, on request: "add gloss links in the
@@ -35366,7 +35464,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        calling this and `setupTooltips` runs over the whole card afterwards — so nothing here has to be
        wired and no caller has to know which cards carry a `why`. */
     container.querySelectorAll(".elab .elab-a").forEach((p) => {
-      autoLinkGlossary(p, card && card.answer, off, scope);
+      autoLinkGlossary(p, card && card.answer, off, scope, card && card.id);
     });
   }
 
@@ -37797,6 +37895,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      WRITTEN (`b.written`, the prose the book page's byline already prints: "c. 430 BCE"), because a quotation whose
      attribution is a button the reader has not pressed is an unattributed quotation — and the button says
      where it goes rather than what it is ("Read it in the Library"), the title being right above it. */
+  /* THE CHAPTER LINE NAMES NEITHER THE TRANSLATOR NOR THE TITLE AGAIN (2026-11-13, on request: "book quotations on cards need not
+     mention their modern translator. Some feature the book title twice (like cnh-280)"). The authored `cite` often reads
+     "Romance of the Three Kingdoms, ch. 1, trans. C. H. Brewitt-Taylor" and the caption already prints the title: so the
+     translator clause is dropped and a leading copy of the title (with or without its "The") is cut, leaving "ch. 1". */
+  function cardQuoteCite(cite, title) {
+    let t = String(cite || "").replace(/[,;]?\s*(?:trans\.|tr\.|translated by)\s.*$/i, "").trim();
+    const ti = String(title || "").trim(), bare = ti.replace(/^the\s+/i, "");
+    for (const v of [ti, bare]) {
+      if (v && t.toLowerCase().indexOf(v.toLowerCase()) === 0 && (t.length === v.length || /^[\s,:;.]/.test(t.charAt(v.length)))) { t = t.slice(v.length).replace(/^[\s,:;.]+/, ""); break; }
+    }
+    // a short form of the title before the section number ("History 2.3" under The History of the Peloponnesian War)
+    const m = /^([A-Z][A-Za-z’' ]*?)\s+(?=\d)/.exec(t);
+    if (m) { const tw = ti.toLowerCase().split(/\s+/); if (m[1].toLowerCase().split(/\s+/).every((w) => tw.indexOf(w) >= 0)) t = t.slice(m[0].length); }
+    return t;
+  }
   function cardQuoteHTML(c) {
     const q = cardQuote(c);
     if (!q) return "";
@@ -37811,7 +37924,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<blockquote class="verbatim">' + q.text + "</blockquote>" +   // a published translation, transcribed rather than edited: the spelling and units passes skip `.verbatim` (2026-10-19)
       // three lines (2026-11-13, on request): "TITLE, CHAPTER" / "AUTHOR (DATE)" / the link
       '<figcaption><span class="cq-line"><cite>' + esc(b.title) + "</cite>" +
-      (q.cite ? ', <span class="cq-where">' + esc(q.cite) + "</span>" : "") + "</span>" +
+      (cardQuoteCite(q.cite, b.title) ? ', <span class="cq-where">' + esc(cardQuoteCite(q.cite, b.title)) + "</span>" : "") + "</span>" +
       (who || when ? '<span class="cq-line">' + (who ? '<span class="cq-who">' + who + "</span>" : "") +
         (when ? (who ? " (" : "") + '<span class="cq-when">' + when + "</span>" + (who ? ")" : "") : "") + "</span>" : "") +
       '<button type="button" class="cq-go" data-cqbook="' + esc(b.id) + '"' +
@@ -37857,7 +37970,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Doggerland the floor of the North Sea, and a `region` clips its wash to the present-day coast — so
      each of those cards drew the coasts either side of its subject and left the subject itself blank. A
      shelf is drawn in the region's own gold, because it WAS land, and with no clip at all. */
-  const LOC_KINDS = ["point", "battle", "river", "range", "region", "sea", "shelf"];
+  const LOC_KINDS = ["point", "battle", "river", "range", "region", "sea", "shelf", "wall"];   // "wall" (2026-11-13): a thick line along a `spine`, Hadrian's Wall
   // a list of [lon, lat] pairs, validated rather than trusted: `locator` is hand-authored in data.js and a
   // transposed pair draws a region in the wrong ocean without anything throwing
   function locPts(v) {
@@ -37916,7 +38029,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        poisoning the rest, and an area left with no valid ring at all is null, which falls the card back
        to its dot exactly as a missing area always has. */
     const area = kind === "region" || kind === "sea" || kind === "shelf" ? locRings(l.area) : null;
-    const spine = kind === "range" ? locPts(l.spine) : null;
+    const spine = kind === "range" || kind === "wall" ? locPts(l.spine) : null;
     /* `within` names the CITY a place stands inside — "Rome" on the Forum, the hills and the Cloaca — and
        is what lets a map fold the collection's places in one city into one mark (see the sibling pass in
        startCardGlobe). `label` is where a REGION's name is written when its bbox centre is out at sea. */
@@ -38027,12 +38140,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const layer = m.layer && CARD_MAP_LAYERS[m.layer] ? String(m.layer) : "world";
     return { name: name, note: String(m.note || "").trim(), keys: keys, at: at, atName: at ? String(m.atName || "").trim() : "", label: String(m.label || "").trim(), year: groups.length ? year : null, groups: groups, span: span, zoom: Number(m.zoom) || 0, layer: layer };
   }
+  /* WHAT YEAR'S BORDERS (2026-11-13, on request: "ensure that atlas windows displaying states or polities always mention below the
+     window what year's borders are depicted"): a members window on a past year says that year; one on today's countries says so; a
+     window with a timeline names its year on the rail instead, which moves with the pin. */
+  function cardBordersLine(m) {
+    if (!m || m.span) return "";
+    return '<span class="wk-side wk-note wk-borders"><span class="wk-role">' + (m.year != null ? "Borders of " + esc(yearLabel(m.year)) : "Present-day borders") + "</span></span>";
+  }
   function cardMembersKeyHTML(m) {
     if (!m) return "";
     if (m.groups.length) return '<div class="war-key members-key">' + m.groups.map((g, i) => '<span class="wk-side ' + (i === 2 ? "wk-third" : i ? "wk-late" : "wk-sel") + '">' + cardWarSwatch(i === 2 ? TINT_THIRD : i ? TINT_LATE : TINT_SEL) +
-      '<b class="wk-name">' + esc(g.name) + "</b>" + (g.note ? ' <span class="wk-role">' + esc(g.note) + "</span>" : "") + "</span>").join("") + (m.note ? '<span class="wk-side wk-note"><span class="wk-role">' + esc(m.note) + "</span></span>" : "") + "</div>";
+      '<b class="wk-name">' + esc(g.name) + "</b>" + (g.note ? ' <span class="wk-role">' + esc(g.note) + "</span>" : "") + "</span>").join("") + (m.note ? '<span class="wk-side wk-note"><span class="wk-role">' + esc(m.note) + "</span></span>" : "") + cardBordersLine(m) + "</div>";
     return '<div class="war-key members-key"><span class="wk-side wk-sel">' + cardWarSwatch(TINT_SEL) +
-      '<b class="wk-name">' + esc(m.name) + "</b>" + (m.note ? ' <span class="wk-role">' + esc(m.note) + "</span>" : "") + "</span></div>";
+      '<b class="wk-name">' + esc(m.name) + "</b>" + (m.note ? ' <span class="wk-role">' + esc(m.note) + "</span>" : "") + "</span>" + cardBordersLine(m) + "</div>";
   }
   // the years the war ran, for the personal atlas: the block's own override, else the card's date line
   function cardWarYears(c) {
@@ -38152,7 +38272,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          the collection — every river is, as one of the Atlas's thin blue threads — so a red dot beside it
          would be a second mark for a thing already drawn, pinning a 400 km river to one arbitrary point
          on its course. */
-      if (l && l.kind !== "region" && l.kind !== "range" && l.kind !== "river") dots.push({ id: cid, n: l.name, c: l.at, kind: l.kind, within: l.within });
+      /* …BUT A REGION'S NAME COMES BACK, WITHOUT A DOT (2026-11-13, on request: "the text label of the Nile Delta should still appear in other atlas
+         windows within this collection. Same goes for the Faiyum (which shouldn't have a dot)"). The objection of Aug 2026 was the dot, which made an
+         area a point; a name alone, written at the region's label point, says where the Delta is and claims no point. A `face` sibling is drawn
+         exactly so (atlas-windows.js: centred on its point, no mark). */
+      if (l && l.kind === "region" && l.name) dots.push({ id: cid, n: l.name, c: l.label || l.at, kind: "regionname", within: "" });
+      else if (l && l.kind !== "region" && l.kind !== "range" && l.kind !== "river" && l.kind !== "wall") dots.push({ id: cid, n: l.name, c: l.at, kind: l.kind, within: l.within });
       /* A GEOGRAPHY MAP CARD IS A SIBLING TOO (2026-11-07, on request: "once a card has been studied once, its location should be displayed within all other
          cards within that collection", as the history collections' places are). A capital card (`map.dot`) is a red dot with its name; a shaded state or country
          is its NAME alone at its label point — a shape is drawn with its extent or not at all, so it gets no dot. The coordinates are in the lazy card-faces
@@ -38378,8 +38503,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          gets the `.av-term` row too, flag or not. A card with neither keeps its byte-identical markup. */
       const cnHTML = answerNameHTML(c);
       html += '<div class="answer-av">' +
-        (flagHTML || cnHTML ? '<div class="av-term' + (cnHTML ? " av-cn" : "") + '"><span class="val' + noCap + '">' + c.answer + "</span>" + cnHTML + flagHTML + "</div>"
-                            : '<span class="val' + noCap + '">' + c.answer + "</span>");
+        (flagHTML || cnHTML ? '<div class="av-term' + (cnHTML ? " av-cn" : "") + '"><span class="val' + noCap + '">' + workAnswerHTML(c) + "</span>" + cnHTML + flagHTML + "</div>"
+                            : '<span class="val' + noCap + '">' + workAnswerHTML(c) + "</span>");
       html += '<div class="av-row">' + (c.answerDate || "") + "</div></div>";
       // (how many separate days this card has been recalled on used to close `.answer-main` here; it is in
       // the study card's header row now — see critPipsHTML)
@@ -40240,6 +40365,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
 
      THE KEY IS THE CARD ID, never the answer term, so a retitled card keeps its entry and a second work
      of the same name cannot inherit one. */
+  /* LITERARY TITLES IN ITALIC EVERYWHERE (2026-11-13, on request: "ensure literary titles are always italicised everywhere on
+     the website"). The prose carries its own <i>; these two declared tables italicise what prose cannot: a glossary popup's
+     heading for a term that IS a work, and a card's answer where the answer IS a work. Built by the same rules as the prose
+     sweep (books, poems, plays, dialogues, treatises, histories; never a scripture's whole canon, a law, a treaty, an
+     inscription or a king list) — declared, never a tag test, for the reason CHRONO_WORKS gives below. */
+  const GLOSS_WORK_KEYS = new Set(["Aegyptiaca", "Aeneid", "Aetia_(Callimachus)", "Against_Apion", "Ajax_(play)", "An_Essay_Concerning_Human_Understanding", "Anabasis", "Analects", "Andromache_(play)", "Antigone", "Apology_(Plato)", "Argonautica", "Arthashastra", "Atharvaveda", "Bacchae", "Bamboo_Annals", "Baopuzi", "Bencao_Gangmu", "Birds_(play)", "Book_of_Documents", "Book_of_Han", "Book_of_Rites", "Book_of_the_Dead", "Caesars_Commentaries", "Chuci", "Classic_of_Mountains_and_Seas", "Classic_of_Poetry", "Clouds_(play)", "Commentariolum_Petitionis", "Common_Sense_(pamphlet)", "Complaints_of_Khakheperraseneb", "Constitution_of_the_Athenians", "Cypria", "De_Ceremoniis", "De_Officiis", "De_agri_cultura", "De_rerum_natura", "Diamond_Sutra", "Diary_of_a_Madman_(Lu_Xun)", "Discourses_on_Salt_and_Iron", "Dispute_Between_a_Man_and_His_Ba", "Doctrine_of_the_Mean", "Dongjing_Meng_Hua_Lu", "Dream_Pool_Essays", "Dream_of_the_Red_Chamber", "Encyclopédie", "Enuma_Elish", "Epic_Cycle", "Epic_of_Gilgamesh", "Epistulae_Morales_ad_Lucilium", "Epistulae_ad_Atticum", "Essays_in_Positive_Economics", "Euclid's_Elements", "Fan_Shengzhi_shu", "Frogs_(play)", "Garakguk-gi", "Georgics", "Gongyang_Zhuan", "Great_Cloud_Sutra", "Great_Hymn_to_the_Aten", "Great_Learning", "Guilty_Men", "Guliang_Zhuan", "Hellenica", "Hippocratic_Corpus", "Hippolytus", "Historia_Augusta", "Histories_(Herodotus)", "History_of_Animals", "Homeric_Hymn_to_Demeter", "Hou_Han_shu", "How_the_Other_Half_Lives", "Huainanzi", "Huangdi_Neijing", "I_quattro_libri_dell'architettura", "Iliad", "Illustrated_Chronicle_of_Ivan_the_Terrible", "Incidents_in_the_Life_of_a_Slave_Girl", "Institutio_Oratoria", "Instruction_of_Vladimir_Monomakh", "Instructions_of_Amenemhat", "Jewang_ungi", "Jin_Ping_Mei", "Journey_to_the_West", "Kagerō_Nikki", "Kangxi_Dictionary", "Kaogongji", "Kojiki", "Kokin_Wakashū", "Konjaku_Monogatarishū", "Lantingji_Xu", "Letter_of_Aristeas", "Letters_on_the_Equality_of_the_Sexes", "Li_Sao", "Liber_Spectaculorum", "Lienü_zhuan", "Liezi", "Life_of_Constantine", "Loyalist_Teaching", "Lysistrata", "Lüshi_Chunqiu", "Man'yōshū", "Medea_(play)", "Meditations", "Mein_Kampf", "Melian_Dialogue", "Memorabilia", "Mencius_(book)", "Mengliang_lu", "Metamorphoses", "Micrographia", "Milinda_Panha", "Mustard_Seed_Garden_Manual_of_Painting", "Narrative_of_the_Life_of_Frederick_Douglass", "Nicomachean_Ethics", "Nihon_Shoki", "Nineteen_Old_Poems", "Nostoi", "Notes_on_Muscovite_Affairs", "Odyssey", "Oedipus_Tyrannus", "Oedipus_at_Colonus", "Ogura_Hyakunin_Isshu", "On_the_Origin_of_Species", "Oresteia", "Persians_(play)", "Pharsalia", "Philippicae", "Philippics", "Philoctetes", "Pinakes", "Platform_Sutra", "Politics_(Aristotle)", "Primary_Chronicle", "Prometheus_Bound", "Prophecy_of_Neferti", "Qieyun", "Qimin_Yaoshu", "Quanxue_pian", "Quotations_from_Chairman_Mao_Tse-tung", "Recipes_from_the_Garden_of_Contentment", "Republic_(Plato)", "Res_Gestae_Divi_Augusti", "Rhetorica_ad_Herennium", "Rigveda", "Romance_of_the_Three_Kingdoms", "Romance_of_the_Western_Chamber", "Sakuteiki", "Samguk_sagi", "Samguk_yusa", "Sanguozhi", "Satyricon", "Sermon_on_Law_and_Grace", "Sevastopol_Sketches", "Seven_Against_Thebes", "Shiji", "Shitong", "Shuowen_Jiezi", "Siku_Quanshu", "Silent_Spring", "Songs_of_the_Five_Sons", "Soushen_ji", "Spring_and_Autumn_Annals", "Story_of_Sinuhe", "Story_of_Wenamun", "Strange_Defeat", "Strange_Tales_from_a_Chinese_Studio", "Strategemata", "Suda", "Taijitu_shuo", "Tale_of_Two_Brothers", "Tale_of_the_Shipwrecked_Sailor", "Teaching_for_King_Merykara", "Ten_Wings", "The_1619_Project", "The_American_Crisis", "The_Anarchical_Society", "The_Art_of_War", "The_City_of_God", "The_Classic_of_Tea", "The_Communist_Manifesto", "The_Eloquent_Peasant", "The_Federalist_Papers", "The_Golden_Ass", "The_Impending_Crisis_of_the_South", "The_Nine_Chapters_on_the_Mathematical_Art", "The_Peach_Blossom_Spring", "The_Peony_Pavilion", "The_Pillow_Book", "The_Principles_of_Psychology", "The_Quarrel_of_Apophis_and_Seqenenre", "The_Satire_of_the_Trades", "The_State_and_Revolution", "The_Tale_of_Genji", "The_Tale_of_Igor's_Campaign", "The_Tale_of_the_Heike", "The_Travels_of_Marco_Polo", "The_Twelve_Caesars", "The_World_at_War", "Theogony", "Three_Character_Classic", "Three_Hundred_Tang_Poems", "Tianzhu_shiyi", "Tosa_Nikki", "Tribute_of_Yu", "Tristia", "Trojan_Women", "Uncle_Tom's_Cabin", "Verbal_Behavior", "Water_Margin", "Wen_Xuan", "Wenxin_Diaolong", "What_Is_to_Be_Done?", "Women_of_Aetna", "Works_and_Days", "Wujing_Zongyao", "Yajurveda", "Yiwenzhi", "Yongle_Encyclopedia", "Yuanye", "Zhanguo_Ce", "Zhongyuan_Yinyun", "Zhoubi_Suanjing", "Zizhi_Tongjian", "Zuo_Zhuan", "Ōjōyōshū"]);
+  const WORK_CARD_IDS = new Set(["gr-130", "gr-131", "gr-141", "gr-142", "wh-183", "wh-193", "cnh-028", "cnh-029", "wh-215", "wh-241", "cnh-056", "cnh-059", "cnh-060", "cnh-067", "wh-385", "wh-403", "gr-439", "gr-441", "bio-093", "ww2-047", "ko-049", "ko-087", "ko-089", "jp-042", "jp-098", "jp-099", "cnh-126", "cnh-127", "cnh-143", "cnh-144", "cnh-185", "cnh-187", "gr-550", "gr-592", "gr-593", "gr-594", "gr-596", "gr-597", "gr-598", "gr-599", "gr-601", "gr-602", "gr-603", "gr-604", "gr-608", "gr-609", "gr-610", "gr-611", "gr-620", "gr-621", "gr-630", "gr-631", "gr-633", "gr-679", "gr-684", "gr-685", "gr-686", "gr-693", "cnh-235", "cnh-241", "rm-351", "wh-543", "ww2-120", "cnh-260", "gr-786", "rm-396", "wh-751", "wh-794", "rm-476", "ru-038", "ru-047", "ru-062", "ru-073", "ru-086", "gr-808", "gr-810", "gr-814", "gr-818", "gr-907", "gr-953", "gr-954", "cnh-290", "cnh-291", "rm-520", "rm-616", "rm-693", "wh-823", "rm-703", "cnh-342", "eg-055", "cnh-433", "cnh-435", "cnh-458", "cnh-495", "cnh-499", "eg-159", "eg-160", "eg-161", "eg-162", "eg-171", "eg-178", "eg-179", "eg-181", "rm-860", "rm-890", "rm-941", "rm-942", "rm-944", "rm-945", "rm-950", "rm-951", "rm-954", "rm-955", "rm-961", "rm-962", "rm-965", "rm-967", "rm-968", "cnh-513", "cnh-552", "cnh-672", "cnh-736", "cnh-754", "cnh-763", "gga-134", "cnh-802", "cnh-827", "cnh-831", "cnh-841", "cnh-851", "cnh-853", "cnh-859", "cnh-866", "cnh-878", "cnh-890", "cnh-896", "cnh-898", "cnh-911", "cnh-912", "cnh-913", "cnh-914", "cnh-918", "cnh-919", "cnh-920", "cnh-925", "cnh-926", "cnh-927", "cnh-929", "cnh-930", "cnh-931", "cnh-932", "cnh-933", "cnh-934", "cnh-935", "cnh-939", "cnh-944", "cnh-947", "cnh-965", "cnh-976", "cnh-978", "cnh-980", "cnh-986", "cnh-987", "cnh-995", "cnh-998", "cnh-999", "ko-047", "ww2-200", "us-171", "ps-054", "ps-085", "us-229", "us-248", "us-300", "ru-225", "ko-197", "eg-227", "eg-201", "eg-202", "eg-237", "eg-300", "us-475", "us-432", "us-516", "us-523", "ec-045", "jp-101", "jp-139", "jp-146", "jp-150", "jp-152", "jp-153", "jp-155", "jp-171", "jp-174", "jp-175", "jp-199", "in-043", "in-071", "in-072", "eg-377", "eg-380", "ru-440", "us-725", "us-964", "ru-506"]);
+  function workAnswerHTML(c) { const a = String((c && c.answer) || ""); return c && WORK_CARD_IDS.has(c.id) && !/<i[ >]/.test(a) ? "<i>" + a + "</i>" : a; }
   const CHRONO_WORKS = {
     // Greece
     "gr-130": "Homer",        "gr-131": "Homer",
@@ -43565,7 +43698,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { id: "book1", icon: "📕", name: "Opened a Book", desc: "Start reading a book in the Library", test: (s) => s.books >= 1 },
     { id: "book5", icon: "📗", name: "Wide Reader", desc: "Start reading 5 books", test: (s) => s.books >= 5, prog: (s) => [s.books, 5] },
     { id: "book10", icon: "📘", name: "Well Read", desc: "Start reading 10 books", test: (s) => s.books >= 10, prog: (s) => [s.books, 10] },
-    /* Hours in ONE day, off `S.studyTime`, which keeps today and nothing else. That is enough: a badge is
+    /* Hours in ONE day, off the Today box's own count (dayStudySecs, since 2026-11-13; was `S.studyTime`). That is enough: a badge is
        tested on every grade and is never revoked, so it unlocks the moment the day's total crosses the
        line and keeps. A best-ever field would be a second thing to keep in step for no gain. */
     { id: "hour1", icon: "⏳", name: "An Hour's Work", desc: "Study for an hour in one day", test: (s) => s.studyMs >= 3600e3, prog: (s) => [Math.round(s.studyMs / 60000), 60] },
@@ -43642,13 +43775,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        progress it reads their today, and reads 0 on a day they have not studied, which is honest. */
     const arts = (prog.artefacts && typeof prog.artefacts === "object") ? Object.keys(prog.artefacts) : [];
     const legendaries = arts.filter((id) => ARTEFACT_BY_ID[id] && rarityId(ARTEFACT_BY_ID[id]) === "legendary").length;
-    const st = prog.studyTime;
     return { seen, mature, streak: (prog.streak && prog.streak.count) || 0, wins: (prog.daily && prog.daily.wins) || 0, dailySweep: allGamesWonToday(prog), decksStarted, decksDone, friends: (friendsCount != null ? friendsCount : (prog.friendCount | 0)),
       terms: glossSeenCount(prog), countries: countrySeenCount(prog), countryTotal: (window.ATLAS_COUNTRIES && window.ATLAS_COUNTRIES.countries.length) || 0,
       chestsOpened: (prog.chestsOpened | 0), artefacts: arts.length, legendaries,
       published: (prog.published | 0),
       books: (prog.reading && typeof prog.reading === "object") ? Object.keys(prog.reading).length : 0,
-      studyMs: (st && st.d === dayKey() ? (st.ms | 0) : 0),
+      studyMs: Math.round(dayStudySecs(prog, dayKey()) * 1000),   // the Today box's own figure (dayStudySecs), not the wall clock
       /* THE LIFETIME FIGURES (Aug 2026, on request). `studyTotalMs` is a running total the day-stamped
          record above cannot be summed into after the fact; `readMs` is the sum of the per-book clocks and
          `readBookMs` the longest single book, so "an evening in one book" and "a hundred hours across the
@@ -46245,7 +46377,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function richSelfKey(el) { return el && el.dataset.field === "glossdesc" ? adminState.glossKey : null; }   // a glossary description must not link to its own term
   function richAutoLink(el) {   // show the auto gloss links inside a gloss-aware field (skipping the field's own term + removed ones)
     const f = el.dataset.field;
-    if (f === "abstract") autoLinkGlossary(el, (CARD_BY_ID[adminState.card] || {}).answer, glossOffList(adminState.card));
+    if (f === "abstract") autoLinkGlossary(el, (CARD_BY_ID[adminState.card] || {}).answer, glossOffList(adminState.card), undefined, adminState.card);
     else if (f === "glossdesc") autoLinkGlossary(el, "", [adminState.glossKey].concat(glossOffList(adminState.glossKey)));
   }
   // render a glossary description into el: its HTML (styling + hand-added links) + auto-linked other terms (never itself / removed ones). Caller wires tooltips.
@@ -47234,7 +47366,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const el = host.querySelector('[data-field="' + f + '"]');
       if (!el) return;
       el.innerHTML = o.getField(f);
-      if (o.isEn && f === "abstract") autoLinkGlossary(el, c.answer, o.glossOff || [], o.glossScope);
+      if (o.isEn && f === "abstract") autoLinkGlossary(el, c.answer, o.glossOff || [], o.glossScope, c.id);
       syncEmpty(el);
     });
     // double-click enters editing; blur leaves it (each keystroke saves either way)
@@ -47564,7 +47696,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           const el = host.querySelector('[data-field="' + f + '"]');
           if (el && fieldVal(el) !== val) {
             el.innerHTML = val;
-            if (o.isEn && f === "abstract") autoLinkGlossary(el, c.answer, o.glossOff || [], o.glossScope);
+            if (o.isEn && f === "abstract") autoLinkGlossary(el, c.answer, o.glossOff || [], o.glossScope, c.id);
             el.dispatchEvent(new Event("input", { bubbles: true }));
             syncEmpty(el);
           }
