@@ -79,8 +79,11 @@
   // original order of appearance (the baseline "date added" for shipped cards)
   const ORIG_INDEX = {};
   CARDS.forEach((c, i) => { ORIG_INDEX[c.id] = i; });
+  // card id -> its leaves, built by cardLeaves on demand; dropped here, by rebuildNodeRegistry and at the end of the task
+  let _leavesOf = null;
   // recompute the tree-derived structures after cards are created / deleted / moved
   function rebuildDerived() {
+    _leavesOf = null;
     ALL_CARD_IDS.length = 0;
     TREE.collections.flatMap(subtreeCardIds).forEach((id) => ALL_CARD_IDS.push(id));
     Object.keys(CARD_TO_NODE).forEach((k) => delete CARD_TO_NODE[k]);
@@ -88,6 +91,7 @@
   }
   // rebuild the node registry (NODE_BY_ID / COLLECTION_BY_ID / LEAF_NODES) after the tree shape changes
   function rebuildNodeRegistry() {
+    _leavesOf = null;
     Object.keys(NODE_BY_ID).forEach((k) => delete NODE_BY_ID[k]);
     Object.keys(COLLECTION_BY_ID).forEach((k) => delete COLLECTION_BY_ID[k]);
     TREE.collections.forEach((d) => { COLLECTION_BY_ID[d.id] = d; registerNode(d, null); });
@@ -814,7 +818,20 @@
     rebuildDerived();
   }
 
-  function cardLeaves(id) { return LEAF_NODES.filter((l) => (l.cardIds || []).includes(id)); }
+  /* A card's leaves, in LEAF_NODES order. It was a scan of every leaf's whole list per call, and the home page
+     and the study deal call it once per card (studyGroupOf): measured at ~370 ms of a 1.5 s study → home switch
+     on a desktop with four collections added — several times that on a tablet. So the first call in a task
+     builds an index of every leaf at once, and it lives until the end of that task (or until a membership
+     change runs rebuildDerived), so it can never be read stale across an edit. */
+  function cardLeaves(id) {
+    if (!_leavesOf) {
+      const m = _leavesOf = new Map();
+      LEAF_NODES.forEach((l) => (l.cardIds || []).forEach((cid) => { const a = m.get(cid); if (!a) m.set(cid, [l]); else if (a[a.length - 1] !== l) a.push(l); }));
+      queueMicrotask(() => { if (_leavesOf === m) _leavesOf = null; });
+    }
+    const a = _leavesOf.get(id);
+    return a ? a.slice() : [];
+  }
   function touchModified(id) {
     if (!ADMIN_EDITS.meta[id]) ADMIN_EDITS.meta[id] = { created: isCreatedCard(id) ? Date.now() : ORIG_INDEX[id] };
     ADMIN_EDITS.meta[id].modified = Date.now();
@@ -1371,13 +1388,13 @@
      popup over the map; the precedent is the Atlas's card popup, which strips the locator block), none for a community deck's term; and when the engine cannot draw it (the bundle refused, no WebGL2 for a state of the
      past, a face the engine cannot find) the block GOES rather than the card window's sentence — a popup without a map is the popup of before. WHERE IT SITS (the owner, 2026-10-23): below the
      description and the Library banner, above the Sources fold — the definition is read first, the map is where it happened, the works come last. */
-  const GLOSS_POINT_KINDS = ["capital", "city", "town", "site", "mountain", "cape", "hill", "lake", "island", "coord"];   // drawn as the gold square; every other kind as the name alone (a region, a sea, a range, a river)
+  const GLOSS_POINT_KINDS = ["capital", "city", "town", "site", "mountain", "cape", "hill", "island", "coord"];   // drawn as the gold square (a mountain or a hill as the peak triangle, 2026-11-14); every other kind as the name alone (a region, a sea, a lake, a range, a river — water in blue italic, atlas-windows.js)
   function glossWindowSpec(key) { const t = window.ATLAS_GLOSSARY_PLACES; const w = key && !isDeckGlossKey(key) && t && t.windows && t.windows[key]; return Array.isArray(w) && w.length >= 6 && isFinite(w[0]) && isFinite(w[1]) ? { lon: w[0], lat: w[1], kind: String(w[2] || ""), face: w[3] ? String(w[3]) : "", year: w[4] ? Number(w[4]) : 0, zoom: w[5] ? Number(w[5]) : 0 } : null; }
   function glossWindowHTML(key, w) {
     const name = glossTitle(key);
     const said = (w.face ? name + " shaded on an interactive globe" + (w.year ? ", at its greatest extent in " + yearLabel(w.year) : "") : name + " marked on an interactive globe") + ". Drag to turn it; pinch, scroll or use the zoom buttons to zoom; the arrow keys turn it and + and − zoom.";
     const kind = w.face ? "region" : GLOSS_POINT_KINDS.indexOf(w.kind) >= 0 ? "point" : "region";   // "region": no dot, the name centred on the point — a face carries its own shading
-    return '<div class="map-card map-gloss" data-map-layer="world" data-map-named data-map-at="' + w.lon + "," + w.lat + '" data-map-atname="' + esc(name) + '" data-map-kind="' + kind + '"' +
+    return '<div class="map-card map-gloss" data-map-layer="world" data-map-named data-map-at="' + w.lon + "," + w.lat + '" data-map-atname="' + esc(name) + '" data-map-kind="' + kind + '"' + (w.kind ? ' data-map-placekind="' + esc(w.kind) + '"' : "") +
       (w.face ? ' data-map-face="' + esc(w.face) + '" data-map-facekind="' + esc(w.kind) + '"' : "") + (w.year ? ' data-map-year="' + w.year + '"' : "") + (w.zoom ? ' data-map-zoom="' + w.zoom + '"' : "") + ">" +
       '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' + GLOSS_ZOOM_HTML + "</div>" +
       // the year whose borders are drawn, under every window that shades a state (2026-11-13, on request)
@@ -4069,6 +4086,8 @@
   const GLOSS_ONLY_IN = {
     Sense: { roots: ["psych", "bio"], tags: ["psychology", "biology", "neuroscience"] },
     Pain: { roots: ["psych", "bio"], tags: ["psychology", "biology", "neuroscience", "medicine"] },
+    /* "behaviour" in a history card ("his behaviour at court") is not the science term (2026-11-14, on request: "'behaviour' should only ever be a gloss link within the biology and psychology collections") */
+    Behaviour: { roots: ["psych", "bio"], tags: ["psychology", "biology", "neuroscience"] },
     /* the Roman magistrate: "an American consul" in a Second World War card is a diplomat (2026-11-13, found by check-gloss-links on ww2-197) */
     Consul: { roots: ["col-40", "col-8", "col-13"], tags: ["rome", "roman", "italy", "republic"] },
   };
@@ -4210,6 +4229,14 @@
      captured when the button is pressed and written back when the reader presses Back.
      (Phase 5: the window's globe button carries the window's own view and year in the address, so the old `atlasFocus` — a card id the page resolved through v1's register — is no more.) */
   let atlasHold = null;
+  /* …AND THE SAME TRIP INTO A BOOK AND BACK (2026-11-14, on request: "when opening a book through that quotation button,
+     there should be a button to return back to the card the user was just studying"). The `.cq-go` listener fills it —
+     `{ book, card, rec }`, `rec` the study record captured BEFORE routing (route() clears it) or null where the card was
+     not being studied (the card of the day's page, a `#card` address, Card info) — and the reader shows "Back to card"
+     while it holds a hold for the book on screen. route() drops it on any move off that book, so it can never wait on a
+     book the reader reached some other way. `bookSeek` is the quotation the reader is to find the paragraph of
+     (`bookParaFind`), consumed by the book's first full paint. */
+  let bookHold = null, bookSeek = null;
 
   // remember which gloss popups are open (owning route + term + position) so a page reload can re-open them.
   // Uses sessionStorage: it survives an F5 / dev-server live-reload in the SAME tab, but a tab/browser CLOSE clears it,
@@ -4531,7 +4558,7 @@
         '<button class="gloss-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
       '</div>' +
       // the image slot comes FIRST: it floats to the top-right and the prose wraps down its left
-      '<div class="gloss-body"><div class="gloss-imgslot"></div><span class="gloss-dates"></span><p class="gloss-desc"></p><div class="gloss-bookslot"></div><div class="gloss-atlas" hidden></div><div class="gloss-srcslot"></div>' +
+      '<div class="gloss-body"><div class="gloss-imgslot"></div><span class="gloss-dates"></span><p class="gloss-desc"></p><div class="gloss-bookslot"></div><div class="gloss-atlas" hidden></div><div class="gloss-srcslot"></div><div class="gloss-wikislot"></div>' +
         /* No key at the foot (2026-11-13, on request): the admin's key line of Nov 2026 is gone — a
            gloss popup shows no id, unlike a card. */
       '</div>';
@@ -4550,6 +4577,12 @@
        the definition. It sits after the floated image slot in the flow, so it clears the picture. */
     win.querySelector(".gloss-bookslot").innerHTML = glossBookHTML(glossBook(key));
     win.querySelector(".gloss-srcslot").innerHTML = sourcesHTML(glossSources(key), { compact: true });
+    /* …and last of all, the term's Wikipedia article (Nov 2026, on request), as the card's "Learn more" tile is
+       the last thing on a card. Its table (glossary-wiki.js, the lazy `glossWiki` bundle) is warmed at idle with
+       the definitions; a reader who beats it gets the tile when it lands. See glossWikiHTML. */
+    { const ws = win.querySelector(".gloss-wikislot");
+      ws.innerHTML = glossWikiHTML(key);
+      if (!dataReady("glossWiki") && !isDeckGlossKey(key)) ensureData("glossWiki").then(() => { if (win.isConnected) ws.innerHTML = glossWikiHTML(key); }); }
     /* The description, the picture and the Sources fold are fed by the lazy `glossExtra` bundle
        (glossary-extra.js: the texts since Oct 2026, GLOSSARY_IMAGES + GLOSSARY_SOURCES since Sep).
        It is warmed at idle after boot, so in practice it is already here — but a reader who opens
@@ -11188,6 +11221,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        file lands, for the reader who beats the warm; glossary.js keeps every KEY, so nothing that asks
        `k in window.GLOSSARY` waits at all. */
     glossExtra: { files: ["glossary-extra.js"], after: glossExtraIngest },
+    /* Which terms have a dedicated Wikipedia article (Nov 2026): exceptions only, generated by .claude/gloss-wiki.js.
+       Read by glossWikiHTML alone, at a popup's foot; warmed at idle beside glossExtra. ~40 KB. */
+    glossWiki: { files: ["glossary-wiki.js"] },
     /* An artefact's description, citations and picture — 94% of artefacts.js, which is EAGER, and not
        one of the three read until a chest opens or the Reliquary is visited. Warmed at idle after boot
        and awaited by the four surfaces that render prose or a picture. See artefactExtraIngest. */
@@ -11223,6 +11259,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     atlas2cards: { files: ["atlas/data/card-faces.js"] },
     atlas2wars: { files: ["atlas/data/wars.js"] },
     atlas2nbr: { files: ["atlas/data/card-neighbours.js"] },   // Settings → Describe geography maps: the neighbours sentence of a map card (Phase 5)
+    atlas2waters: { files: ["atlas/data/findit-waters.js"] },   // a card or glossary window whose place is a sea, a gulf or a strait shades its outline (atlas-windows.js waterRings, 2026-11-14)
     atlas2findit: { files: ["atlas/data/findit-areas.js", "atlas/data/findit-waters.js"] },   // Find it's area rounds that have a Cliopatria series behind them, frozen from the retired polities.js (Phase 5)
     atlas2places: { files: ["atlas/data/card-places.js"] },   // card → registry places (62 KB): the "Discovered!" chip on a card's window asks it
     /* THE PRESENT-DAY COUNTRIES (Phase 5; atlas/data/country-names.js, generated): the account page's countries meter, the Cartographer and Circumnavigator badges and the Settings Atlas-home picker read it where they read world.js. `after`
@@ -16345,6 +16382,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (name !== "admin" && name !== "study") studyHold = null;
     // …and the atlas hold to the trip between the study page and the Atlas
     if (name !== "map" && name !== "study") { atlasHold = null; }   // map2 (Phase 4b): a card window's tap or go button leaves the study page for the engine's Atlas and Back returns to the card
+    // …and the book hold to the book a card's quotation opened: any other page, or another book, ends it
+    if (!(name === "book" && bookHold && params && params.id === bookHold.book)) bookHold = null;
+    if (name !== "book") bookSeek = null;
+    document.querySelectorAll(".bk-tocard").forEach((el) => el.remove());   // the reader's pill lives on <body>; PAGES.book draws it again
     // the Atlas opens on the reader's own atlas every time — see the note beside `atlasTab`
     /* An admin-only route is refused HERE and not in the page, so a deep link, a Back and a stray
        `route()` are all covered by one line. `warofages` joins `admin`: the tab is hidden for everybody
@@ -16429,6 +16470,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      module level) and the drag order (`S.deckOrder`, persisted) already survive a repaint, so the scroll
      position and the animations were the whole of what a reader could see. */
   let _renderQuiet = false;
+  /* the page render() drew last, and the one before it: PAGES.home reads `_renderFrom` to tell a navigation INTO
+     the home page from a repaint of it (see the loading placard at the top of PAGES.home) */
+  let _renderLast = null, _renderFrom = null;
   function renderInPlace() {
     _renderQuiet = true;
     try { render(); } finally { _renderQuiet = false; }
@@ -16530,6 +16574,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     view.innerHTML = '<div class="page' + (quiet ? " page-quiet" : "") + (dir ? " page-" + dir : "") + '"></div>';
     if (ghost) { if (dir) ghost.classList.add("ghost-" + dir); view.appendChild(ghost); }
     const root = view.firstElementChild;
+    _renderFrom = _renderLast; _renderLast = current.name;
     (PAGES[current.name] || PAGES.home)(root, current.params);
     // one system of measurement, the reader's — see the units block above
     unitizeTree(root);
@@ -20240,8 +20285,67 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      strokes as a VECTOR list of its own, which is what makes them saveable: the book's notes are kept
      across sessions, and a bitmap the size of a chapter is neither storable nor re-drawable at another
      text size. The Atlas is the third case, a vector list anchored to lon/lat rather than to the page. */
-  const WB = { enabled: false, panelOpen: false, mode: "pen", penColor: WB_COLORS[0], hlColor: WB_HL_COLORS[0], color: WB_COLORS[0], size: WB_SIZES[1], canvas: null, ctx: null, drawing: false, last: null, ro: null, backup: null, hlPts: null, dirtied: false, undoStack: [], redoStack: [], stylusSeen: false, penOnly: true, onInk: null, onRedraw: null };
-  const WB_HIST_MAX = 20;   // cap on undo history (raster card snapshots are full-canvas bitmaps)
+  const WB = { enabled: false, panelOpen: false, mode: "pen", penColor: WB_COLORS[0], hlColor: WB_HL_COLORS[0], color: WB_COLORS[0], size: WB_SIZES[1], canvas: null, ctx: null, drawing: false, last: null, ro: null, backup: null, committed: null, scale: 1, hlPts: null, dirtied: false, undoStack: [], redoStack: [], stylusSeen: false, penOnly: true, onInk: null, onRedraw: null };
+  const WB_HIST_MAX = 20;   // cap on undo history
+  /* THE CARD'S UNDO HISTORY IS A LIST OF PATCHES, NOT OF WHOLE CANVASES (Nov 2026, on a report that the app
+     "lags so much that it crashes" on a tablet, worst with the marker). Each step used to be a full copy of
+     the canvas — which covers the whole card at devicePixelRatio — and twenty of them were kept: measured on
+     an iPad Pro 11 (1668×6240 backing pixels for a revealed card), twenty strokes held 875 MB of canvases,
+     past what iOS Safari allows a tab before it kills it. A step now keeps only the rectangle the stroke
+     touched, before and after (`wbRecord`), against ONE committed copy of the canvas made at the first
+     stroke (`wbCommitted`), which the highlighter's redraw also reads instead of copying the whole canvas
+     on every stroke. The patches are capped by bytes as well as by count, and a canvas let go is shrunk to
+     0×0 at once (`wbFreeCanvas`): Safari counts a detached canvas against its limit until it is collected. */
+  const WB_HIST_BYTES = 48e6;
+  /* …and the card's canvas has a pixel budget (8.4M backing pixels, 32 MB): past it the ink is drawn at a
+     little under devicePixelRatio rather than at it. iOS refuses a canvas over 16.7M pixels outright — it
+     stops drawing without an error — and a long card at 2× or 3× reaches that. The book's canvas is the
+     viewport's size and is not affected. */
+  const WB_MAX_PX = 8388608;
+  function wbFreeCanvas(c) { if (c) { c.width = 0; c.height = 0; } }
+  function wbFreeHist(list) { list.forEach((e) => { wbFreeCanvas(e.before); wbFreeCanvas(e.after); }); list.length = 0; }
+  function wbCrop(src, x, y, w, h) {
+    const c = document.createElement("canvas"); c.width = w; c.height = h;
+    c.getContext("2d").drawImage(src, x, y, w, h, 0, 0, w, h);
+    return c;
+  }
+  function wbPutPatch(ctx, e, patch) {
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = "source-over";
+    ctx.clearRect(e.x, e.y, e.w, e.h);
+    if (patch) ctx.drawImage(patch, e.x, e.y);
+    ctx.restore();
+  }
+  /* The canvas as of the last committed step, made when it is first needed — BEFORE the canvas is changed,
+     which is why beginStroke and wbClear ask for it and wbRecord never creates it. A card the reader never
+     draws on has none. */
+  function wbCommitted() {
+    const c = WB.canvas; if (!c) return null;
+    let k = WB.committed;
+    if (!k || k.width !== c.width || k.height !== c.height) {
+      wbFreeCanvas(k);
+      k = WB.committed = document.createElement("canvas"); k.width = c.width; k.height = c.height;
+      if (c.width && c.height) k.getContext("2d").drawImage(c, 0, 0);
+    }
+    return k;
+  }
+  // one undoable step: the rectangle (backing pixels) the step changed, as it was and as it is now
+  function wbRecord(x, y, w, h, afterBlank) {
+    const c = WB.canvas, k = WB.committed; if (!c || !k) return;
+    x = Math.max(0, Math.floor(x)); y = Math.max(0, Math.floor(y));
+    w = Math.min(c.width, Math.ceil(x + w)) - x; h = Math.min(c.height, Math.ceil(y + h)) - y;
+    if (w <= 0 || h <= 0) return;
+    const e = { x, y, w, h, before: wbCrop(k, x, y, w, h), after: afterBlank ? null : wbCrop(c, x, y, w, h) };
+    wbPutPatch(k.getContext("2d"), e, e.after);   // the committed copy follows the canvas
+    WB.undoStack.push(e);
+    wbFreeHist(WB.redoStack);
+    let bytes = 0; WB.undoStack.forEach((s) => { bytes += s.w * s.h * 4 * ((s.before ? 1 : 0) + (s.after ? 1 : 0)); });
+    while (WB.undoStack.length > 1 && (WB.undoStack.length > WB_HIST_MAX || bytes > WB_HIST_BYTES)) {
+      const o = WB.undoStack.shift();
+      bytes -= o.w * o.h * 4 * ((o.before ? 1 : 0) + (o.after ? 1 : 0));
+      wbFreeCanvas(o.before); wbFreeCanvas(o.after);
+    }
+    wbUpdateHistBtns();
+  }
   /* ---------- A STYLUS TAKES THE PEN, AND FINGERS GO BACK TO SCROLLING (Aug 2026, on request) ----------
      Anki's behaviour, and the reason it exists: with the marker down the canvas covers the whole visible
      page, so on a tablet a reader annotating with a stylus could not scroll the card they were annotating
@@ -21008,13 +21112,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (wbToolsRef) { wbToolsRef.classList.remove("show"); wbToolsRef.classList.remove("on-atlas"); }
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
     if (WB.ro) { WB.ro.disconnect(); WB.ro = null; }
-    if (WB.canvas && WB.canvas.parentNode) WB.canvas.parentNode.removeChild(WB.canvas);
+    wbDropCanvas();
     WB.canvas = null; WB.ctx = null; WB.drawing = false; WB.backup = null; WB.hlPts = null;
     // per-page hooks, set up on the way in and dropped on the way out: the globe's draw-mode, and the
     // book's vector ink store (onInk / onRedraw)
     WB.onToggle = null; WB.onClear = null; WB.onUndo = null; WB.onRedo = null; WB.onCanUndo = null; WB.onCanRedo = null;
     WB.onInk = null; WB.onRedraw = null; WB.onScroll = null;
-    WB.undoStack.length = 0; WB.redoStack.length = 0; WB.dirtied = false;   // don't leak draw-history across pages
+    wbFreeHist(WB.undoStack); wbFreeHist(WB.redoStack); WB.dirtied = false;   // don't leak draw-history across pages
     WB.fixed = false;
     WB.enabled = false; WB.panelOpen = false; // every page entry starts with draw-mode off and the tools shut (don't leak across pages)
   }
@@ -21022,36 +21126,34 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (WB.onClear) { WB.onClear(); wbUpdateHistBtns(); return; }  // atlas globe owns a geo-anchored stroke list
     const c = WB.canvas, ctx = WB.ctx;
     if (!c || !ctx) return;
+    wbCommitted();   // the canvas as it was, before the clear (see wbCommitted)
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, c.width, c.height); ctx.restore();
-    wbSnapCard();   // clearing is an undoable step
+    wbRecord(0, 0, c.width, c.height, true);   // clearing is an undoable step
+  }
+  /* The card's canvas leaves the page: off the stage, its backing store and the committed copy shrunk to 0×0 now
+     rather than whenever the collector gets to them (see WB_HIST_BYTES). */
+  function wbDropCanvas() {
+    const c = WB.canvas;
+    if (c && c.parentNode) c.parentNode.removeChild(c);
+    wbFreeCanvas(c);
+    wbFreeCanvas(WB.committed); WB.committed = null;
   }
   // ---- undo / redo (shared button, two backends) ----
-  // Card whiteboard is a RASTER canvas → history is a stack of full-canvas bitmap snapshots. The Atlas globe owns a VECTOR stroke
+  // Card whiteboard is a RASTER canvas → history is a stack of patches (wbRecord). The Atlas globe owns a VECTOR stroke
   // list and supplies its own onUndo/onRedo/onCanUndo/onCanRedo hooks (a stack of stroke-array snapshots), so undo there is geo-exact.
   function wbUpdateHistBtns() {
     if (!wbToolsRef) return;
     const u = wbToolsRef.querySelector(".wb-undo"), r = wbToolsRef.querySelector(".wb-redo");
-    const canU = WB.onCanUndo ? WB.onCanUndo() : WB.undoStack.length > 1;
+    const canU = WB.onCanUndo ? WB.onCanUndo() : WB.undoStack.length > 0;
     const canR = WB.onCanRedo ? WB.onCanRedo() : WB.redoStack.length > 0;
     if (u) u.disabled = !canU;
     if (r) r.disabled = !canR;
   }
-  function wbSnapCard() {   // push a bitmap snapshot of the card canvas onto the undo stack (invalidates redo)
-    const c = WB.canvas; if (!c) return;
-    const s = document.createElement("canvas"); s.width = c.width; s.height = c.height;
-    if (c.width && c.height) s.getContext("2d").drawImage(c, 0, 0);
-    WB.undoStack.push(s);
-    while (WB.undoStack.length > WB_HIST_MAX + 1) WB.undoStack.shift();   // +1 keeps the empty base state at the bottom
-    WB.redoStack.length = 0;
-    wbUpdateHistBtns();
+  // put one step's rectangle back (undo: its `before`, redo: its `after`) on the canvas and the committed copy alike
+  function wbApplyStep(e, patch) {
+    if (WB.ctx) wbPutPatch(WB.ctx, e, patch);
+    if (WB.committed) wbPutPatch(WB.committed.getContext("2d"), e, patch);
   }
-  function wbRestoreCard(snap) {
-    const c = WB.canvas, ctx = WB.ctx; if (!c || !ctx) return;
-    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, c.width, c.height);
-    if (snap && snap.width && snap.height) ctx.drawImage(snap, 0, 0);
-    ctx.restore();
-  }
-  function wbResetHist() { WB.undoStack.length = 0; WB.redoStack.length = 0; wbUpdateHistBtns(); }
   /* The width a stroke is drawn at, in ONE place, because two things draw it: the live pointermove in
      setupWhiteboard and the replay in the book's ink store, which repaints saved strokes from scratch on
      every resize. Written twice they would drift, and the symptom would be a reader's own notes coming
@@ -21061,16 +21163,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   function wbUndo() {
     if (WB.onUndo) { WB.onUndo(); wbUpdateHistBtns(); return; }   // globe: geo-anchored strokes
-    if (WB.undoStack.length <= 1) return;                         // keep the empty base state
-    WB.redoStack.push(WB.undoStack.pop());
-    wbRestoreCard(WB.undoStack[WB.undoStack.length - 1]);
+    if (!WB.undoStack.length) return;
+    const e = WB.undoStack.pop(); WB.redoStack.push(e);
+    wbApplyStep(e, e.before);
     wbUpdateHistBtns();
   }
   function wbRedo() {
     if (WB.onRedo) { WB.onRedo(); wbUpdateHistBtns(); return; }   // globe
     if (!WB.redoStack.length) return;
-    const s = WB.redoStack.pop(); WB.undoStack.push(s);
-    wbRestoreCard(s);
+    const e = WB.redoStack.pop(); WB.undoStack.push(e);
+    wbApplyStep(e, e.after);
     wbUpdateHistBtns();
   }
   function wbResize(preserve) {
@@ -21092,6 +21194,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       c.style.left = "0px"; c.style.top = "0px";
       c.style.width = vw + "px"; c.style.height = vh + "px";
       const FW = Math.round(vw * dpr), FH = Math.round(vh * dpr);
+      WB.scale = dpr;
       if (c.width !== FW || c.height !== FH) {
         c.width = FW; c.height = FH;
         const fx = c.getContext("2d"); WB.ctx = fx;
@@ -21114,24 +21217,41 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const h = Math.max(1, Math.round(stage.clientHeight), Math.round(vpH - Math.max(0, sr.top)));
     c.style.left = Math.round(-sr.left) + "px";
     c.style.width = w + "px"; c.style.height = h + "px";
-    const W = Math.round(w * dpr), H = Math.round(h * dpr);
+    // the pixel budget (WB_MAX_PX): a card too long for it is inked at a little under devicePixelRatio
+    const s = w * h * dpr * dpr > WB_MAX_PX ? Math.sqrt(WB_MAX_PX / (w * h)) : dpr;
+    const W = Math.round(w * s), H = Math.round(h * s);
     if (c.width === W && c.height === H) return;
+    const s0 = WB.scale || s;
+    WB.scale = s;
     let prev = null;
     if (preserve && c.width && c.height) {
       prev = document.createElement("canvas"); prev.width = c.width; prev.height = c.height;
       prev.getContext("2d").drawImage(c, 0, 0);
     }
+    /* the committed copy (wbCommitted) is the canvas's shadow: mid-stroke it is still the highlighter's ground and
+       the stroke's "before", so it is carried across at the new size; otherwise it is let go and made again at the
+       next stroke */
+    const k0 = WB.committed;
+    if (k0) {
+      WB.committed = null;
+      if (WB.drawing && k0.width && k0.height) {
+        const k = WB.committed = document.createElement("canvas"); k.width = W; k.height = H;
+        k.getContext("2d").drawImage(k0, 0, 0, k0.width * s / s0, k0.height * s / s0);
+        if (WB.backup === k0) WB.backup = k;
+      }
+      wbFreeCanvas(k0);
+    }
     c.width = W; c.height = H;
     const ctx = c.getContext("2d"); WB.ctx = ctx;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.lineCap = "round"; ctx.lineJoin = "round";
+    ctx.setTransform(s, 0, 0, s, 0, 0); ctx.lineCap = "round"; ctx.lineJoin = "round";
     /* A VECTOR backend repaints instead (the book's ink store — see BOOK INK). Its strokes are held as
        fractions of the canvas, so a resize is not something to preserve a bitmap through: the marks are
        simply drawn again at the new size, which is also why its history survives a resize where the
        card's cannot. A bitmap snapshot is dimension-specific, so the card still resets its stack to the
        preserved frame. */
-    if (WB.onRedraw) { WB.onRedraw(); return; }
-    if (prev) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(prev, 0, 0); ctx.restore(); }
-    if (preserve) { WB.undoStack.length = 0; WB.redoStack.length = 0; wbSnapCard(); }   // bitmap snapshots are dim-specific → on a real resize, reset history to the (preserved) current frame
+    if (WB.onRedraw) { wbFreeCanvas(prev); WB.onRedraw(); return; }
+    if (prev) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(prev, 0, 0, prev.width * s / s0, prev.height * s / s0); ctx.restore(); wbFreeCanvas(prev); }
+    if (preserve) { wbFreeHist(WB.undoStack); wbFreeHist(WB.redoStack); wbUpdateHistBtns(); }   // as before the patches: a real resize starts the history again from the (preserved) current frame
   }
   /* `host` overrides where the ink layer is mounted, and the book is what needs it. The canvas paints
      above everything in its own stacking context, and `.page` animates with a fill mode — which makes it
@@ -21143,8 +21263,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      and an ordinary z-index settles it (.bk-barwrap sits above .draw-canvas). */
   function setupWhiteboard(opts) {
     const o = opts || {};
-    // remove any prior overlay (e.g. from the previous card) and start fresh
-    if (WB.canvas && WB.canvas.parentNode) WB.canvas.parentNode.removeChild(WB.canvas);
+    // remove any prior overlay (e.g. from the previous card) and start fresh — its backing store released now
+    wbDropCanvas();
+    wbFreeHist(WB.undoStack); wbFreeHist(WB.redoStack);
     if (WB._panStop) { WB._panStop(); WB._panStop = null; }   // a fling from the previous card would keep scrolling this one
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
     if (WB.ro) { WB.ro.disconnect(); WB.ro = null; }
@@ -21164,8 +21285,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     wbResize(false);
     // A vector backend owns its own history (the book's ink store), so the bitmap stack is neither built
     // nor needed there — see wbResize and the BOOK INK block.
-    WB.undoStack.length = 0; WB.redoStack.length = 0; WB.dirtied = false;
-    if (!WB.onInk) wbSnapCard();   // base (empty) snapshot so undo can return to a blank card
+    WB.dirtied = false;   // (the history was emptied above; a blank card needs no base step — undo puts patches back)
+    wbUpdateHistBtns();
     const posOf = (e) => { const r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
     /* ---- controls under the ink stay usable ----
        The canvas covers the whole visible page, so with the pen down it also covered Show answer, the study
@@ -21338,13 +21459,32 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        got to by the time we decided. `at` is that original point. */
     const beginStroke = (at) => {
       WB.drawing = true; WB.last = at;
-      strokePts = [WB.last];   // the stroke as a list of points — only read by a vector backend (WB.onInk)
+      strokePts = [WB.last];   // the stroke as a list of points — read by a vector backend (WB.onInk) and for the undo patch's box
+      // the raster card's "before" (wbCommitted), made now, before the stroke touches the canvas
+      const k = WB.onInk ? null : wbCommitted();
       if (WB.mode === "hl") {
-        WB.hlPts = [WB.last];
-        WB.backup = document.createElement("canvas");
-        WB.backup.width = canvas.width; WB.backup.height = canvas.height;
-        if (canvas.width && canvas.height) WB.backup.getContext("2d").drawImage(canvas, 0, 0);
+        WB.hlPts = [WB.last]; hlBox = null;
+        /* the ground the highlighter's stroke is redrawn over on every move: the committed copy, rather than a
+           fresh full-canvas copy per stroke (a 40 MB allocation at a tablet's devicePixelRatio) */
+        if (k) WB.backup = k;
+        else {
+          WB.backup = document.createElement("canvas");
+          WB.backup.width = canvas.width; WB.backup.height = canvas.height;
+          if (canvas.width && canvas.height) WB.backup.getContext("2d").drawImage(canvas, 0, 0);
+        }
       }
+    };
+    /* The rectangle (backing pixels) the points cover, padded by half the line and a little: everything a stroke can
+       have changed. The undo patch is cut to it, and the highlighter redraws only it on each move. */
+    let hlBox = null;
+    const boxOf = (pts, mode, box) => {
+      const sc = WB.scale || window.devicePixelRatio || 1, pad = wbLineWidth(mode, WB.size) / 2 + 2;
+      let x0 = box ? box.x0 : Infinity, y0 = box ? box.y0 : Infinity, x1 = box ? box.x1 : -Infinity, y1 = box ? box.y1 : -Infinity;
+      for (const p of pts) { if (p.x < x0) x0 = p.x; if (p.y < y0) y0 = p.y; if (p.x > x1) x1 = p.x; if (p.y > y1) y1 = p.y; }
+      const b = { x0, y0, x1, y1 };
+      b.x = Math.max(0, Math.floor((x0 - pad) * sc)); b.y = Math.max(0, Math.floor((y0 - pad) * sc));
+      b.w = Math.min(canvas.width, Math.ceil((x1 + pad) * sc)) - b.x; b.h = Math.min(canvas.height, Math.ceil((y1 + pad) * sc)) - b.y;
+      return b;
     };
     canvas.addEventListener("pointerdown", (e) => {
       if (!WB.enabled) return;
@@ -21416,14 +21556,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       }
       if (!WB.enabled || !WB.drawing) return;
       WB.dirtied = true;   // an actual stroke happened → snapshot it on pointerup (for undo)
-      const p = posOf(e), ctx = WB.ctx, dpr = window.devicePixelRatio || 1;
+      const p = posOf(e), ctx = WB.ctx, dpr = WB.scale || window.devicePixelRatio || 1;
       if (strokePts) strokePts.push(p);
       if (WB.mode === "hl") {
-        // redraw the whole stroke fresh over the pre-stroke snapshot -> even translucency, no overlap buildup
+        // redraw the whole stroke fresh over the pre-stroke snapshot -> even translucency, no overlap buildup.
+        // Only the box the stroke covers is cleared and refilled — outside it the canvas IS the snapshot — where
+        // this used to repaint the whole canvas (10M pixels on a tablet) on every pointermove.
         WB.hlPts.push(p);
+        hlBox = boxOf(hlBox ? [p] : WB.hlPts, "hl", hlBox);
         ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        if (WB.backup) ctx.drawImage(WB.backup, 0, 0);
+        if (hlBox.w > 0 && hlBox.h > 0) {
+          ctx.clearRect(hlBox.x, hlBox.y, hlBox.w, hlBox.h);
+          if (WB.backup && WB.backup.width) ctx.drawImage(WB.backup, hlBox.x, hlBox.y, hlBox.w, hlBox.h, hlBox.x, hlBox.y, hlBox.w, hlBox.h);
+        }
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         ctx.globalCompositeOperation = "source-over";
         ctx.globalAlpha = 0.34;
@@ -21446,7 +21591,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const end = () => {
       const drew = WB.drawing && WB.dirtied;
       const pts = strokePts;
-      WB.drawing = false; WB.backup = null; WB.hlPts = null; strokePts = null;
+      WB.drawing = false; WB.backup = null; WB.hlPts = null; strokePts = null; hlBox = null;
       if (!drew) return;
       WB.dirtied = false;
       /* A vector backend takes the stroke and owns the history from here (the book's ink store); the
@@ -21454,7 +21599,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          points are in CSS pixels and the store keeps them as fractions of it. */
       if (WB.onInk) WB.onInk({ mode: WB.mode, color: WB.color, size: WB.size, pts: pts || [],
                                w: canvas.offsetWidth || 1, h: canvas.offsetHeight || 1 });
-      else wbSnapCard();
+      else if (pts && pts.length) { const b = boxOf(pts, WB.mode, null); wbRecord(b.x, b.y, b.w, b.h, false); }
     };
     canvas.addEventListener("pointerup", (e) => {
       /* …and this is the half that stopped the pen dead: without the test, ANY pointer lifting ran the
@@ -25484,7 +25629,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        was 300, and the box shows six and a half lines where it showed three (.hb-next-p). A paragraph shorter
        than that is followed by the next ones of the chapter, so a short paragraph does not leave the box
        half the length it was asked to be. */
-    const HB_NEXT_MAX = 600;
+    const HB_NEXT_MAX = 900;   // …and half as long again, 900 (Nov 2026, on request: "make the text preview 50% longer")
     const ptext = (p) => {
       p.querySelectorAll(".bk-n, sup").forEach((el) => el.remove());
       p.querySelectorAll("br").forEach((br) => br.replaceWith(" "));
@@ -25722,7 +25867,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function previewable(c) {
     return !!(c && c.question) && c.artwork !== true && c.flagCard !== true && c.drawCard !== true && !cardMapSpec(c) && !cardLocatorFront(c);
   }
-  /* THE WEEK AHEAD, AT THE FOOT OF THE DAILY-REVIEW BANNER (Nov 2026, on request: design B of the forecast
+  /* THE WEEK AHEAD, ABOVE THE MINIGAMES (Nov 2026, on request; until the same month the foot of the daily-study banner, design B of the forecast
      mock-ups). Seven chips — today, then the next six days — so the week's load is seen on every visit
      without opening the statistics. TODAY is the banner's own count (what is waiting now, new cards
      included), so the strip never disagrees with the title above it; every later day is `dueForecast`'s
@@ -26600,6 +26745,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // boot has not settled yet: a placard, not a page that will be repainted under the reader (see homeBootSettle)
     if (!_homeBootSettled) {
       root.innerHTML = '<div class="data-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Loading your decks…</strong></div>';
+      return;
+    }
+    /* …AND SO DOES A NAVIGATION INTO IT FROM ANOTHER PAGE (Nov 2026, on request: "when clicking the home page while in
+       another page … the load screen is not shown, and the current page simply freezes until the home page loads").
+       The page is built in one synchronous pass that takes a noticeable moment on a tablet, and nothing painted
+       until it was done, so the tap looked ignored. Now the same placard is put up first, one frame is given to
+       paint it, and the page is then built as a quiet repaint (renderInPlace) over it. The placard fades in only
+       after a short delay (`.home-nav-loading`), so a build that is quick never flashes it; it cannot be left
+       standing, since the repaint replaces the whole page, and a reader who has moved on meanwhile is not pulled back. */
+    if (!_renderQuiet && _renderFrom && _renderFrom !== "home") {
+      root.innerHTML = '<div class="data-loading home-nav-loading" role="status" aria-live="polite"><span class="dl-globe" aria-hidden="true"></span><strong>Loading your decks…</strong></div>';
+      const nav = current;
+      requestAnimationFrame(() => setTimeout(() => { if (current === nav && root.isConnected) renderInPlace(); }, 0));
       return;
     }
     /* THE PHONE AND THE DESKTOP NOW BUILD THE SAME PAGE, and that is the end of a long retreat: the two
@@ -27544,6 +27702,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (!rb || rb.classList.contains("hero")) return;
       const p = listPiles(), st = rvState(p);
       rb.innerHTML = rvBannerInner(p);
+      // the week ahead's Today is the banner's own count, so a fold that changes one redraws the other (rvWeekHTML)
+      const wk = root.querySelector(".rv-week");
+      if (wk) { const t = document.createElement("div"); t.innerHTML = rvWeekHTML(p.nw + p.lr + p.rv, activeIds.length); if (t.firstElementChild) wk.replaceWith(t.firstElementChild); }
       rb.querySelectorAll(".xp[data-pct]").forEach((x) => { const f = x.querySelector(".xp-fill"); if (f) f.style.width = x.dataset.pct + "%"; });
       rb.classList.toggle("done", st.done); rb.classList.toggle("won", st.won);
       if (rg) { rg.classList.toggle("rv-done", st.done); rg.classList.toggle("rv-won", st.won); }
@@ -27601,7 +27762,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                     screen's "Continue with" carries the reader on to the next. */""}
             </div>
             </div>
-            ${rvWeekHTML(pileN, activeIds.length)}
             ${/* "+ New group" stood here, inside the banner, until Aug 2026 and is now under the LAST deck
                   row instead (see `newGroupTools` below) — beside the list it acts on rather than inside the
                   block above it. Being out of the banner it is also an ordinary <button> again, where a
@@ -27755,6 +27915,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               it: with the discovery row gone the grid is the last thing on the page, and a block of six
               coloured squares under nothing at all does not say what it is. */""}
         ${homeWeekHTML(true)}
+        ${/* THE WEEK AHEAD stands here, between the Today / This week figures and the minigames, the full width of
+              the column (Nov 2026, on request) — it was at the foot of the daily-study banner (rvWeekHTML) */""}
+        ${fresh ? "" : rvWeekHTML(pileN, activeIds.length)}
         <section class="games-sec">
           <div class="games-top"><h2 class="games-head">Minigames</h2>${sweepRowHTML()}</div>
           ${gameGrid}
@@ -31873,7 +32036,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        <p> among the chapter's own, scrolled to and briefly marked on the first paint only. A chapter numbered 0
        (Beowulf's Prelude) shares its number with the front matter, so a paragraph address skips the front matter. */
     let wantP = params && params.p != null && /^\d+$/.test(String(params.p)) ? +params.p : -1;
-    const addressed = wantN ? (wantP >= 0 && chapters.find((c) => String(c.n) === wantN && !c.intro)) || chapters.find((c) => String(c.n) === wantN) : null;
+    /* …and a card's QUOTATION (2026-11-14): the `.cq-go` button hands over the passage, and the paragraph it stands in is
+       found here (`bookParaFind`) and written into the address in place, so the entry Back returns to and a link copied
+       from the bar both say `#book/<id>/<n>/<p>`. Consumed on this, the first full paint; no match leaves the chapter top. */
+    if (bookSeek && bookSeek.id === b.id) {
+      if (wantP < 0 && wantN && String(bookSeek.n) === wantN) {
+        const sc = chapters.find((c) => String(c.n) === wantN && !c.intro);
+        const at = sc ? bookParaFind(bookParaTexts(sc.html), bookSeek.text) : -1;
+        if (at >= 0) {
+          wantP = at; current.params.p = String(at);
+          try { history.replaceState(history.state, "", "#book/" + encodeURIComponent(b.id) + "/" + encodeURIComponent(wantN) + "/" + at); } catch (e) {}
+        }
+      }
+      bookSeek = null;
+    }
+    const addressed =wantN ? (wantP >= 0 && chapters.find((c) => String(c.n) === wantN && !c.intro)) || chapters.find((c) => String(c.n) === wantN) : null;
     // resume on the chapter the reader left, falling back to the first if that chapter is not shipped yet
     let cur = addressed || chapters.find((c) => pos && c.n === pos.ch) || chapters[0];
     const partOf = (n) => (b.parts || []).find((p) => p.n === n);
@@ -32031,14 +32208,31 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const targetP = wantP >= 0 && c === addressed ? wantP : -1;
       wantP = -1;   // the paragraph is asked for once; a later move to another chapter starts at its top
       requestAnimationFrame(() => {
-        const tp = targetP >= 0 ? Array.from(proseEn).flatMap((el) => Array.from(el.querySelectorAll("p")))[targetP] : null;
+        const allP = targetP >= 0 ? Array.from(proseEn).flatMap((el) => Array.from(el.querySelectorAll("p"))) : [];
+        let tps = allP[targetP] && !rows ? [allP[targetP]] : [];
+        /* `p` counts the chapter's OWN paragraphs, but a book shown beside its original is cut into rows at every section
+           marker, and a paragraph holding two markers is drawn as two (bookSections clones it) — so with the rows up, the
+           pieces are walked against the source paragraphs in order and every piece of paragraph `p` is marked (2026-11-14). */
+        if (targetP >= 0 && rows) {
+          const src = bookParaTexts(c.html).map(bookParaNorm), pcs = bookParaTexts(rows.map((r) => r.en).join("")).map(bookParaNorm);
+          let i = 0, at = 0;
+          pcs.forEach((t, j) => {
+            if (!t || i >= src.length) return;
+            let k = src[i].indexOf(t, at);
+            if (k < 0 && i + 1 < src.length && src[i + 1].indexOf(t) >= 0) { i++; at = 0; k = src[i].indexOf(t); }
+            if (k < 0) return;                                  // a stray run the row builder wrapped: no paragraph of the source
+            at = k + t.length;
+            if (i === targetP && allP[j]) tps.push(allP[j]);
+          });
+        }
+        const tp = tps[0];
         if (tp) {
-          const row = tp.closest(".bk-row") || tp;
+          // the paragraph itself, not its row: a section's row can run to several paragraphs (2026-11-14, found with the quotations)
           // measured by offsets, not getBoundingClientRect: the page's entry transition is still translating it
-          let top = 0; for (let el = row; el; el = el.offsetParent) top += el.offsetTop;
+          let top = 0; for (let el = tp; el; el = el.offsetParent) top += el.offsetTop;
           window.scrollTo({ top: Math.max(0, top - 120), behavior: "auto" });
-          tp.classList.add("bk-target");
-          setTimeout(() => tp.classList.remove("bk-target"), 2600);
+          tps.forEach((el) => el.classList.add("bk-target"));
+          setTimeout(() => tps.forEach((el) => el.classList.remove("bk-target")), 2600);
         } else if (restoreFrac > 0) {
           const top = pageEl.offsetTop + pageEl.offsetHeight * restoreFrac;
           window.scrollTo({ top: Math.max(0, top - 80), behavior: "auto" });
@@ -32372,6 +32566,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     root.querySelector("#bkPrev2").addEventListener("click", () => step(-1));
     root.querySelector("#bkNext2").addEventListener("click", () => step(1));
     root.querySelector("#bkBack").addEventListener("click", () => route("library"));
+    /* "BACK TO CARD" (2026-11-14, on request), only when a card's quotation button opened this book (`bookHold`): a pill
+       pinned above the tab bar, since the reader arrives deep in a chapter, out of sight of the page head. It lives on
+       <body>, not in the page — `.page` keeps a transform, which would make it the pill's containing block — so route()
+       removes it on every navigation. It returns to the study session as it was (the queue, the card, the answer
+       showing — `rec.rev`), else to the card's own address where it was not being studied. One use: the hold is spent. */
+    document.querySelectorAll(".bk-tocard").forEach((el) => el.remove());
+    const toCard = bookHold && bookHold.book === b.id && (bookHold.rec || bookHold.card) ? document.createElement("button") : null;
+    if (toCard) {
+      toCard.type = "button"; toCard.className = "bk-tocard"; toCard.id = "bkToCard";
+      toCard.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg><span>Back to card</span>';
+      document.body.appendChild(toCard);
+    }
+    if (toCard) toCard.addEventListener("click", () => {
+      const h = bookHold; bookHold = null;
+      if (h && h.rec) { writeStudySession(h.rec); route("study", { scope: h.rec.scope, resume: h.rec }); }
+      else if (h && h.card) route("card", { id: h.card });
+      else route("library");
+    });
 
     /* first-open coach marks + the "?" that brings them back. The card is built on document.body rather
        than written into this page — the reason is worth reading at pageHelp. Three of the Library's five
@@ -38396,14 +38609,76 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const who = esc(b.author || ""), when = esc(b.written || "");
     return '<figure class="card-quote">' +
       '<blockquote class="verbatim">' + q.text + "</blockquote>" +   // a published translation, transcribed rather than edited: the spelling and units passes skip `.verbatim` (2026-10-19)
-      // three lines (2026-11-13, on request): "TITLE, CHAPTER" / "AUTHOR (DATE)" / the link
-      '<figcaption><span class="cq-line"><cite>' + esc(b.title) + "</cite>" +
+      /* two lines, "TITLE, CHAPTER" / "AUTHOR (DATE)", and BESIDE them a book button (2026-11-14, on request: the third line,
+         "Read it in the Library", is gone). The button opens the book at the PARAGRAPH the quotation stands in (see
+         `bookParaFind` and the `.cq-go` listener), and the reader then offers a way back to this card (`bookHold`).
+         Its old words are its accessible name and its tooltip. */
+      '<figcaption><span class="cq-attr"><span class="cq-line"><cite>' + esc(b.title) + "</cite>" +
       (cardQuoteCite(q.cite, b.title) ? ', <span class="cq-where">' + esc(cardQuoteCite(q.cite, b.title)) + "</span>" : "") + "</span>" +
       (who || when ? '<span class="cq-line">' + (who ? '<span class="cq-who">' + who + "</span>" : "") +
-        (when ? (who ? " (" : "") + '<span class="cq-when">' + when + "</span>" + (who ? ")" : "") : "") + "</span>" : "") +
+        (when ? (who ? " (" : "") + '<span class="cq-when">' + when + "</span>" + (who ? ")" : "") : "") + "</span>" : "") + "</span>" +
       '<button type="button" class="cq-go" data-cqbook="' + esc(b.id) + '"' +
-        (q.n ? ' data-cqn="' + esc(q.n) + '"' : "") + '>Read it in the Library</button>' +
+        (q.n ? ' data-cqn="' + esc(q.n) + '"' : "") + (c.id ? ' data-cqcard="' + esc(c.id) + '"' : "") +
+        ' aria-label="Read it in the Library" title="Read it in the Library">' + CQ_BOOK_ICON + "</button>" +
       "</figcaption></figure>";
+  }
+  // the Library tab's own open book (index.html), so the button reads as "the Library" wherever it is seen
+  const CQ_BOOK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="M3 5.5h5.5a2.5 2.5 0 0 1 2.5 2.5v11a2 2 0 0 0-2-2H3z"/><path d="M21 5.5h-5.5A2.5 2.5 0 0 0 13 8v11a2 2 0 0 1 2-2h6z"/></svg>';
+  /* ---------- WHICH PARAGRAPH A QUOTATION STANDS IN (2026-11-14, on request) ----------
+     "Ensure that clicking this button does not just take people to the right book chapter, but to the exact paragraph."
+     A card's quotation names its book and section and nothing finer, and the passage is AUTHORED (see `cardQuote`) —
+     so the paragraph is FOUND, by matching the quotation's own words against the chapter's paragraphs, rather than
+     written onto every card by hand. Both sides are folded the same way first (case, accents, every quote mark and
+     apostrophe dropped, every other run of punctuation or dash a single space), and a quotation is split at its
+     ellipses and editorial brackets, which mark where the author left words out or put words in.
+       1. A run of eight of the quotation's words, tried from its first words on, that ONE paragraph holds: that
+          paragraph. The first fragment is tried first, so a quotation running over two paragraphs lands on the first.
+       2. Else the first paragraph holding a run that several do.
+       3. Else the paragraph sharing the most of the quotation's word pairs, if it shares at least half of them.
+       4. Else -1: the chapter's top, which is where the button went before.
+     The index is the reader's own `p` (the chapter's <p> elements in order, as `#book/<id>/<n>/<p>` already carries
+     for the home page's passage), so the address the button writes is stable and can be shared.
+     The three functions are PURE (no closure), so a measuring script can lift them out of this file whole. */
+  function bookParaNorm(s) {
+    return String(s || "").normalize("NFKD").replace(/[̀-ͯ]/g, "").toLowerCase()
+      .replace(/[‘’‚‛′ʼ'`´]/g, "")
+      .replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  }
+  // the text of every <p> of a chapter's markup, in document order, without its section numbers or note markers
+  function bookParaTexts(html) {
+    const t = document.createElement("template");
+    t.innerHTML = html || "";
+    t.content.querySelectorAll(".bk-n, sup").forEach((el) => el.remove());
+    t.content.querySelectorAll("br").forEach((el) => el.replaceWith(" "));   // a verse line ends in <br>, and its last word is not the next line's first
+    return Array.from(t.content.querySelectorAll("p"), (p) => p.textContent || "");
+  }
+  function bookParaFind(paras, quote) {
+    const P = paras.map((t) => " " + bookParaNorm(t) + " ");
+    const frags = String(quote || "").replace(/<[^>]*>/g, " ").split(/…|\.\s?\.\s?\.|\[[^\]]*\]/)
+      .map(bookParaNorm).filter((f) => f.split(" ").length >= 4);
+    let first = -1;
+    for (const f of frags) {
+      const w = f.split(" "), L = Math.min(8, w.length);
+      for (let s = 0; s + L <= w.length; s += 2) {
+        const needle = " " + w.slice(s, s + L).join(" ") + " ";
+        let hit = -1, n = 0;
+        for (let i = 0; i < P.length && n < 2; i++) if (P[i].indexOf(needle) >= 0) { if (hit < 0) hit = i; n++; }
+        if (n === 1) return hit;
+        if (n > 1 && first < 0) first = hit;
+      }
+    }
+    if (first >= 0) return first;
+    const pairs = new Set();
+    frags.forEach((f) => { const w = f.split(" "); for (let i = 0; i + 1 < w.length; i++) pairs.add(w[i] + " " + w[i + 1]); });
+    if (pairs.size < 3) return -1;
+    let best = -1, bestN = 0;
+    P.forEach((p, i) => {
+      let n = 0;
+      pairs.forEach((pr) => { if (p.indexOf(" " + pr + " ") >= 0) n++; });
+      if (n > bestN) { bestN = n; best = i; }
+    });
+    return bestN * 2 >= pairs.size ? best : -1;
   }
   /* ---------- WHAT SORT OF PLACE IT IS (Aug 2026, on request) ----------
      "For river cards like 'Tiber' ensure it is displayed on the map as an actual river and not just a dot.
@@ -39147,6 +39422,33 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<span class="learn-more-text"><span class="learn-more-eyebrow">Learn more</span><span class="learn-more-title notranslate">' + esc(t) + "</span>" +
       '<span class="learn-more-sub">The full article on Wikipedia</span></span>' +
       '<img class="learn-more-logo" src="wikipedia-logo.png" alt="" width="44" height="44" loading="lazy" decoding="async">' +
+      "</a>";
+  }
+  /* THE SAME TILE AT THE FOOT OF A GLOSS POPUP (Nov 2026, on request: "to all gloss that have a dedicated
+     Wikipedia page, add a link to the bottom of the gloss popup, similar to the Wikipedia links we use at the
+     bottom of cards"). A glossary key IS a Wikipedia slug by rule, so window.GLOSSARY_WIKI (glossary-wiki.js,
+     generated and verified against Wikipedia by .claude/gloss-wiki.js) lists only the EXCEPTIONS: `no`, the
+     keys with no dedicated article (a section redirect, a disambiguation page, a broader article, no page at
+     all), and `alt`, the keys whose article has another title ("Homo sapiens" -> "Human"). Only a shipped term
+     gets one -- never a community deck's or a term the admin has added since -- and nothing shows until the
+     table has landed, so a term is never linked on a guess. A compact variant of the card's tile, to suit the
+     popup's width; a destination, never a source, like the card's. */
+  let _glossWikiNo = null;
+  function glossWikiTitle(k) {
+    const W = window.GLOSSARY_WIKI;
+    if (!W || typeof k !== "string" || isDeckGlossKey(k) || !(k in PRISTINE_GLOSS)) return "";
+    if (!_glossWikiNo) _glossWikiNo = new Set(String(W.no || "").split("|"));
+    if (_glossWikiNo.has(k)) return "";
+    return String((W.alt && W.alt[k]) || k.replace(/_/g, " ")).trim();
+  }
+  function glossWikiHTML(k) {
+    const t = glossWikiTitle(k);
+    if (!t) return "";
+    const href = "https://en.wikipedia.org/wiki/" + encodeURIComponent(t.replace(/ /g, "_")).replace(/%2C/g, ",").replace(/%3A/g, ":");
+    return '<a class="learn-more learn-more-gloss" href="' + href + '" target="_blank" rel="noopener noreferrer" aria-label="Learn more: ' + esc(t) + ' on Wikipedia">' +
+      '<span class="learn-more-text"><span class="learn-more-eyebrow">Learn more</span><span class="learn-more-title notranslate">' + esc(t) + "</span>" +
+      '<span class="learn-more-sub">The full article on Wikipedia</span></span>' +
+      '<img class="learn-more-logo" src="wikipedia-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async">' +
       "</a>";
   }
   /* ==========================================================================================
@@ -50600,7 +50902,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      stop it blocking first paint, not to make a reader wait for a definition. A reader who beats the
      warm still gets both: openGlossWin re-fills its picture and Sources slots when the file lands.
      Skipped under Save-Data, like the mini globe was. */
-  whenIdleAfterGlobe(() => { if (!lightMode()) ensureData("glossExtra"); });
+  whenIdleAfterGlobe(() => { if (!lightMode()) { ensureData("glossExtra"); ensureData("glossWiki"); } });
   /* The card windows and Find-it run on the engine, so the engine is warmed at idle — its code bundle, the card-faces join, and topology.bin (3 MB, into the HTTP
      cache, so the first window does not wait on the network) — and never awaited. Light mode (the reader's "use less data" or the browser's save-data hint) skips the warm, exactly as it skips the other
      warms: the first window then pays for the engine when it is shown. */
@@ -50776,6 +51078,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     e.preventDefault();
     const p2 = { id: b.dataset.cqbook };
     if (b.dataset.cqn) p2.n = b.dataset.cqn;
+    /* …AT ITS PARAGRAPH, AND WITH A WAY BACK (2026-11-14, on request). The quotation is handed to the reader (`bookSeek`)
+       rather than matched here: the book is lazy and can be megabytes, and the reader already shows "Opening…" while it
+       loads, where a button that waited on the download would simply look dead. The reader finds the paragraph
+       (`bookParaFind`) on its first full paint and writes it into the address. The study record is captured BEFORE
+       routing, which clears it — exactly as the Atlas's go button does (`atlasHold`). */
+    const bq = b.closest(".card-quote") && b.closest(".card-quote").querySelector("blockquote");
+    if (p2.n && bq) bookSeek = { id: p2.id, n: p2.n, text: bq.innerHTML };
+    bookHold = { book: p2.id, card: b.dataset.cqcard || "", rec: current.name === "study" ? readStudySession() : null };
     route("book", p2);
   });
   // badges: one delegated listener flips a badge over to its "how to earn it" back, and back again on a
@@ -50873,8 +51183,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return;
     }
     if (hh === "study" && current.name !== "study") {   // back/forward onto a study address — resume, or go home if the session is gone
-      const rec = readStudySession() || atlasHold;   // …or the session a card window's globe button left behind (Phase 4b)
-      atlasHold = null;
+      const rec = readStudySession() || atlasHold || (bookHold && bookHold.rec);   // …or the session a card window's globe button (Phase 4b) or a quotation's book button left behind
+      atlasHold = null; bookHold = null;
       if (rec) { writeStudySession(rec); route("study", { scope: rec.scope, resume: rec }); } else route("home");
       return;
     }

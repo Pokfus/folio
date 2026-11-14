@@ -2475,23 +2475,28 @@ body.night .gloss-book{background:linear-gradient(105deg, color-mix(in srgb, var
 }
 .card-quote blockquote p{margin:0 0 .5em;}
 .card-quote blockquote p:last-child{margin-bottom:0;}
-/* three lines — "Title, Chapter", "Author (Date)", the link (2026-11-13, on request; one line each before), set flush right; a column, so the link stays as wide as its words */
+/* two lines — "Title, Chapter", "Author (Date)" — set flush right, and the book button BESIDE them, centred on the pair
+   (2026-11-14, on request: the third line, "Read it in the Library", became the button) */
 .card-quote figcaption{
-  display:flex; flex-direction:column; align-items:flex-end; text-align:right; gap:4px; margin-top:9px;
+  display:flex; align-items:center; justify-content:flex-end; gap:10px; margin-top:9px;
   font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase;
   color:var(--ink-faint);
 }
+.cq-attr{display:flex; flex-direction:column; align-items:flex-end; text-align:right; gap:4px; min-width:0;}
 .card-quote cite{font-style:normal; color:var(--ink-soft);}
 .cq-line{overflow-wrap:anywhere;}
-/* the way through to the passage. A quiet link rather than a filled button: it sits under a quotation
+/* the way through to the passage. A quiet outlined square rather than a filled button: it sits under a quotation
    inside a card's prose, and a primary control there would out-shout the words it is attached to. */
 .cq-go{
-  appearance:none; padding:0; border:0; background:none; cursor:pointer;
-  font:inherit; letter-spacing:inherit; text-transform:inherit;
-  color:var(--indigo); border-bottom:1px solid color-mix(in srgb, var(--indigo) 45%, transparent);
+  appearance:none; flex:none; display:inline-flex; align-items:center; justify-content:center;
+  width:34px; height:34px; padding:0; cursor:pointer; border-radius:8px;
+  color:var(--indigo); background:color-mix(in srgb, var(--indigo) 6%, transparent);
+  border:1px solid color-mix(in srgb, var(--indigo) 38%, transparent);
+  transition:background .15s, border-color .15s, color .15s;
 }
-.cq-go:hover{color:var(--indigo-bright); border-bottom-color:currentColor;}
-.cq-go:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px; border-radius:2px;}
+.cq-go svg{width:18px; height:18px; display:block;}
+.cq-go:hover{color:var(--indigo-bright); border-color:currentColor; background:color-mix(in srgb, var(--indigo) 12%, transparent);}
+.cq-go:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 @media (max-width:430px){
   .card-quote{margin:14px 0; padding-left:13px;}
   .card-quote blockquote{font-size:calc(14px * var(--fs));}
@@ -2761,6 +2766,10 @@ body.grading .stage{padding-bottom:150px;}
 }
 .data-loading.dl-fail .dl-bar{display:none;}
 @keyframes dl-spin{to{transform:rotate(360deg);}}
+/* the home page's placard on a navigation into it (PAGES.home): it fades in after a beat, so a quick build never
+   flashes it — an opacity animation runs off the main thread, so it still shows while a slow build holds it */
+.data-loading.home-nav-loading{animation:hnl-in .2s var(--ease) 90ms both;}
+@keyframes hnl-in{from{opacity:0;}to{opacity:1;}}
 @media (prefers-reduced-motion:reduce){
   .data-loading .dl-globe, .data-loading .dl-globe::before{animation:none; border-color:var(--rule); border-top-color:var(--indigo);}
 }
@@ -5617,6 +5626,13 @@ body.grading .wb-tools{bottom:108px;}
 .learn-more-sub{font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.4; color:var(--ink-soft);}
 .learn-more-logo{flex:none; width:44px; height:44px; border-radius:50%; background:var(--card); border:1px solid var(--rule); padding:3px; box-sizing:border-box; object-fit:contain;}
 @media (prefers-reduced-motion: reduce){ .learn-more{transition:none;} .learn-more:hover{transform:none;} }
+/* …the compact one at the foot of a gloss popup (glossWikiHTML): the popup is a third of a card's width, so
+   the tile is too. `clear` because the term's picture floats at the top right of the same body. */
+.learn-more.learn-more-gloss{clear:both; gap:12px; margin:14px 0 2px; padding:10px 14px;}
+.learn-more-gloss .learn-more-eyebrow{font-size:calc(10px * var(--fs));}
+.learn-more-gloss .learn-more-title{font-size:calc(16px * var(--fs));}
+.learn-more-gloss .learn-more-sub{font-size:calc(12px * var(--fs));}
+.learn-more-gloss .learn-more-logo{width:34px; height:34px; padding:2px;}
 /* REPORT A PROBLEM — the last thing on a card, in its bottom right corner (see cardReportHTML in app.js):
    a faint flag and a word, so it is there to be found without competing with the card. */
 .card-report-row{display:flex; justify-content:flex-end; margin:14px 0 0;}
@@ -8495,6 +8511,21 @@ body.night .book-tile, body.night .gloss-book{
 .bk-target{animation:bk-target 2.6s var(--ease) both; border-radius:4px;}
 @keyframes bk-target{0%,45%{background:var(--indigo-wash); box-shadow:0 0 0 6px var(--indigo-wash);} 100%{background:transparent; box-shadow:0 0 0 6px transparent;}}
 @media (prefers-reduced-motion:reduce){.bk-target{animation:none; background:var(--indigo-wash);}}
+/* "Back to card" (2026-11-14, on request): shown only when a card's quotation opened the book; pinned bottom-left, above the
+   phone's tab bar, because the reader lands deep in a chapter where the page head is out of sight */
+.bk-tocard{
+  position:fixed; z-index:50; left:max(16px, env(safe-area-inset-left));
+  bottom:calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 16px);
+  display:inline-flex; align-items:center; gap:7px; padding:9px 15px 9px 12px; border-radius:999px; cursor:pointer;
+  border:1px solid var(--indigo); background:var(--indigo); color:#fff; box-shadow:var(--shadow-lg);
+  font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; font-weight:600;
+  transition:filter .15s, transform .12s var(--ease);
+}
+body.night .bk-tocard{color:var(--paper);}   /* a night theme's indigo is light: dark ink on it, as `.btn` does */
+.bk-tocard svg{width:15px; height:15px; flex:none;}
+.bk-tocard:hover{filter:brightness(1.12);}
+.bk-tocard:active{transform:scale(.97);}
+.bk-tocard:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px;}
 .bk-bar{
   display:flex; align-items:center; gap:6px; padding:7px 8px;
   background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm);
@@ -9792,19 +9823,22 @@ body[data-theme="carnelian"].night .page .rv-banner, body[data-theme="carnelian"
 /* …and the title and the caught-up line above it carry no bottom margin of their own, so the air above the
    bar is the bar's own 20px, the same as below it (Oct 2026, on request) */
 .page .rv-banner .rv-stack{margin-top:0;}
-/* THE WEEK AHEAD (Nov 2026, design B; rvWeekHTML): seven chips at the foot of the banner, one button to the
-   full forecast. Light on the banner's dark gradient in every theme; the heavy day is the one white chip. */
-.page .rv-banner .rv-week{display:flex; flex-direction:column; gap:10px; width:100%; margin:18px 0 0; padding:14px 0 0; border:0; border-top:1px solid rgba(255,255,255,.18); background:none; color:inherit; font:inherit; text-align:left; cursor:pointer;}
-.page .rv-banner .rvw-days{display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap:6px; max-width:460px;}
-.page .rv-banner .rvw-day{display:flex; flex-direction:column; align-items:center; gap:4px; min-width:0;}
-.page .rv-banner .rvw-day em{font-family:var(--mono); font-style:normal; font-size:calc(9.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:rgba(242,243,255,.7); white-space:nowrap;}
-.page .rv-banner .rvw-day b{display:block; width:100%; max-width:44px; padding:5px 0; border-radius:7px; text-align:center; font-family:var(--serif); font-weight:600; font-size:calc(15px * var(--fs)); font-variant-numeric:tabular-nums; color:#fff; background:rgba(255,255,255,.14); transition:background .15s var(--ease);}
-.page .rv-banner .rvw-day.rvw-zero b{color:rgba(242,243,255,.45); background:rgba(255,255,255,.07);}
-.page .rv-banner .rvw-day.rvw-heavy b{background:#fff; color:var(--sky);}
-.page .rv-banner .rv-week.rvw-static{cursor:default;}
-.page .rv-banner button.rv-week:hover .rvw-day:not(.rvw-heavy) b{background:rgba(255,255,255,.22);}
-.page .rv-banner .rv-week:focus-visible{outline:2px solid #fff; outline-offset:4px; border-radius:4px;}
-.page .rv-banner .rvw-note{font-size:calc(13px * var(--fs)); color:rgba(242,243,255,.85);}
+/* THE WEEK AHEAD (Nov 2026, design B; rvWeekHTML): seven tiles, one button to the full forecast. It stood at the foot of
+   the daily-study banner and was moved (Nov 2026, on request) under the Today / This week figures, just above the
+   minigames: a card the full width of the home column, the seven tiles spread evenly across it; the heavy day is
+   the one filled tile. */
+.rv-week{display:flex; flex-direction:column; gap:10px; box-sizing:border-box; width:100%; margin:0; padding:14px 18px; border:1px solid var(--rule); border-radius:14px; background:var(--card); box-shadow:var(--shadow-sm); color:var(--ink); font:inherit; text-align:left; cursor:pointer;}
+.rvw-days{display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap:8px; width:100%;}
+.rvw-day{display:flex; flex-direction:column; align-items:center; gap:5px; min-width:0;}
+.rvw-day em{font-family:var(--mono); font-style:normal; font-size:calc(9.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-quiet); white-space:nowrap;}
+.rvw-day b{display:block; box-sizing:border-box; width:100%; padding:6px 0; border-radius:8px; text-align:center; font-family:var(--serif); font-weight:600; font-size:calc(16px * var(--fs)); font-variant-numeric:tabular-nums; color:var(--ink); background:color-mix(in srgb, var(--indigo) 12%, var(--card)); transition:background .15s var(--ease);}
+.rvw-day.rvw-zero b{color:var(--ink-faint); background:var(--paper-2);}
+.rvw-day.rvw-heavy b{background:var(--indigo); color:var(--card);}
+.rv-week.rvw-static{cursor:default;}
+button.rv-week:hover .rvw-day:not(.rvw-heavy):not(.rvw-zero) b{background:color-mix(in srgb, var(--indigo) 20%, var(--card));}
+.rv-week:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+.rvw-note{font-size:calc(13px * var(--fs)); color:var(--ink-soft);}
+@media (max-width:640px){ .rv-week{padding:12px 12px;} .rvw-days{gap:5px;} }
 .page .rv-banner h2.review-title, .rv-banner .desc{margin-bottom:0;}
 /* The caught-up sentence sat flush under its title; a little air between them (Oct 2026, on request). Only the
    normal banner: the first-visit hero spaces its own title. */
@@ -10082,7 +10116,7 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
 .hb-next:hover .hb-next-k{color:var(--indigo);}
 .hb-next-p{
   display:block; font-family:var(--serif); font-size:calc(13.5px * var(--fs)); line-height:1.55; color:var(--ink-soft);
-  max-height:calc(13.5px * var(--fs) * 1.55 * 6.6); overflow:hidden;   /* twice the three lines it was (Oct 2026, on request) */
+  max-height:calc(13.5px * var(--fs) * 1.55 * 9.9); overflow:hidden;   /* twice the three lines it was (Oct 2026, on request), then half as long again (Nov 2026, on request) */
   -webkit-mask-image:linear-gradient(to bottom, #000 25%, transparent 100%); mask-image:linear-gradient(to bottom, #000 25%, transparent 100%);
 }
 /* THE WEEK BOX IS DESIGN D3 (Oct 2026, on request — docs/mockups/week-box-redesigns): Today's three figures, then
@@ -10170,9 +10204,10 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
    out of its column across the note on a tablet, and even at the page's 800px cap the days stood at their 14px
    floor with nothing to grow into. Capped at 32ch the note takes two lines, under Longest, and the week is
    given the rest. The days' margins and gaps are a little tighter for the same reason, so the week's minimum
-   fits beside a two-line note at 768px (the narrowest tablet). From 641 to 767px — a phone on its side — the
-   phone's two-row layout is kept (below), since one row cannot hold a week and a sentence at that width. */
-@media (min-width:768px){
+   fits beside a two-line note at 768px. EVERY TABLET HAS THE DESKTOP'S RIBBON (Nov 2026, on request: "change the
+   weekly streak banner on tablet mode to look like the one on desktop"): 641 to 767px kept the phone's two-row
+   layout until then, and now takes this one-row layout too; only a phone (640px and under) has two rows. */
+@media (min-width:641px){
   .streak-ribbon{grid-template-columns:auto auto minmax(0, 1fr) auto;}
   .streak-ribbon > .sr-days{min-width:0;}
   .streak-ribbon > .sr-note{max-width:32ch;}
@@ -10188,9 +10223,9 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
      its box ends near the foot), so a centred box is a chest sitting low — nudged up by that difference */
   .sr-chest .chest-svg{transform:translateY(-5%);}
 }
-/* the two-row layout, for a phone and for a phone on its side (641–767px): the count, label and Longest on top,
+/* the two-row layout, for a phone (640px and under; 641–767px had it too until Nov 2026): the count, label and Longest on top,
    the week under them and the note at its right — the phone's own block below adds its smaller days and padding */
-@media (max-width:767px){
+@media (max-width:640px){
   .streak-ribbon{grid-template-columns:auto 1fr fit-content(40%); gap:8px 8px;}
   .streak-ribbon > .sr-n{grid-column:1; grid-row:1;} .streak-ribbon > .sr-t{grid-column:2; grid-row:1;}
   .streak-ribbon > .sr-best{grid-column:3; grid-row:1; align-self:center;}
@@ -10325,6 +10360,7 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .home-two > .home-week{display:flex;}
   .home-two > .home-week{order:1;}
   .games-sec{order:2;}
+  .banners > .rv-week{order:2;}   /* the week ahead: after the week box, before the games (it precedes them in the markup) */
   .home-two > :not(.home-week){order:3;}
   .home-foot{order:4;}
   .home-foot{justify-content:center; text-align:center;}

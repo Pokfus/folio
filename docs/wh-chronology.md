@@ -429,6 +429,7 @@ Filled batch by batch, from the source each row names.
 | Norte Chico (Late Archaic) / earliest Caral | c. 3000 – 1800 BCE / 2627 BCE | Haas, Creamer and Ruiz; Mesoweb (`wh-435`) |
 | Byzantine Empire: often dated / capital lost | 330 – 1453 CE (395 and the 280s also given) / 1204 – 1261 CE | Kaldellis via Neville; Pohlsander; Woods (`wh-436`) |
 | Constantinople: inaugurated / land walls / Latin rule / Ottoman assault | 11 May 330 CE / 413 CE / 1204 – 1261 CE / 29 May 1453 CE | Berger; Van Millingen (`wh-437`) |
+| Byzantion founded (traditional) | later 7th century BCE — Eusebius 660/59, Jerome 659/58 or 657/56, John Lydus 628/25 BCE; written as a CENTURY on purpose, so the row does not become `wh-437`'s sort year (the card sorts by 330, the city's founding) | Lozanova-Stantcheva (`wh-437`) |
 | Justinian I: born / reigned / Vandal War / Gothic War | c. 482 CE / 527 – 565 CE / 533 – 534 CE / 535 – 552 CE | Evans (`wh-438`) |
 | Corpus Juris Civilis: compiled / Code (revised) / Digest | 528 – 534 CE / 529 CE (534) / 533 CE | Wallinga; Weber (`wh-439`) |
 | Hagia Sophia: built / dome fell / reconsecrated / mosque | 532 – 537 CE / 558 CE / 562 CE / 1453 CE | Diker et al.; Garnczarska (`wh-440`) |

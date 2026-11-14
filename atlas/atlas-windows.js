@@ -117,6 +117,29 @@
     const lightReader = !!(S.settings && S.settings.saveData) || !!(typeof navigator !== "undefined" && navigator.connection && navigator.connection.saveData === true);
     const isWaterSubject = () => { const w = window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.water; return !!sibCard && !!w && w.cards.indexOf(sibCard) >= 0; };   // the registry kind of the locator's place (build-card-faces.js); a name only for a locator with no resolved place, decided there
     const wantWater = (!!sibCard || !!hiRegion || isGloss) && !lightReader;   // a glossary window draws its rivers and lakes as a locator does
+    /* THE OWN PLACE'S MARK BY ITS KIND (2026-11-14, the owner: "'Aegean Sea' should not be a dot, but also a region, with a blue italicised label … apply this to other seas, lakes,
+       rivers"; "make the symbol for Mount Olympus … a mountain (triangle) instead of a dot. Apply this to other cards about individual mountains"). Decided by the place REGISTRY's kind,
+       never by the name in the window: for a card, `ATLAS_CARD_FACES.marks` (build-card-faces.js: `water` and `peak` lists of locator cards); for a glossary window, the registry kind its
+       table carries (`data-map-placekind`, app.js glossWindowHTML). A water place draws NO DOT — its name is a water name, blue (`waterInk`) and italic, standing on its point — and where
+       its outline is known (the locator's own `area`, or Find it's Natural Earth marine outline of the same name, `findit-waters.js`, listed per card as `marks.rings`) the water is
+       shaded as a sea area is. A water card asked as a QUESTION (the name not yet shown) whose outline is not known keeps its dot: without it the window would mark nothing. A mountain
+       or a hill draws the Atlas page's peak triangle (study.js markClass "peak") in the own mark's gold. */
+    const WATER_KINDS = /^(river|lake|sea|ocean|strait|gulf)$/, placeKind = isGloss ? String(host.getAttribute("data-map-placekind") || "") : "";
+    const markList = (k) => { const m = window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.marks; return !!sibCard && !!m && Array.isArray(m[k]) && m[k].indexOf(sibCard) >= 0; };
+    const waterName = () => locKind === "sea" || locKind === "river" || (isGloss ? WATER_KINDS.test(placeKind) : markList("water"));
+    const peakMark = () => (isGloss ? placeKind === "mountain" || placeKind === "hill" : markList("peak"));
+    let wRings = null, wRingsAsked = false;   // the water's own outline out of findit-waters.js: null not yet known, false none
+    function waterRings() {
+      if (locArea || !dot || !waterName()) return null;
+      if (wRings !== null) return wRings || null;
+      const look = () => { const T = window.ATLAS_FINDIT_WATERS && window.ATLAS_FINDIT_WATERS.waters, r = T && T[String(dot.n || "").trim().toLowerCase()]; return r && r.length ? r : false; };
+      if (window.ATLAS_FINDIT_WATERS) { wRings = look(); return wRings || null; }
+      // fetched only where it will answer: a card listed in `marks.rings`, or a glossary sea, ocean, gulf or strait (the table holds no lake but one and no river)
+      const worth = isGloss ? /^(sea|ocean|strait|gulf)$/.test(placeKind) : markList("rings");
+      if (!worth || !DATA_BUNDLES.atlas2waters) { wRings = false; return null; }
+      if (!wRingsAsked) { wRingsAsked = true; ensureData("atlas2waters").then(() => { wRings = look(); if (wRings && win && !stopped) win.schedule(); }, () => { wRings = false; }); }
+      return null;
+    }
     /* RELIEF FOLLOWS THE ATLAS (2026-10-18, the owner's decision c): a map card, a locator and a war window draw relief when the reader has it on in the Atlas's Legend, at the
        strength set there (AtlasEmbed.reliefSetting: the Atlas's saved layers, re-read on change), and never under light mode or on a cellular connection — the idle warm-up's own
        two rules (app.js lightMode / onCellular), since the L0 sheet alone is 9 MB. Find it never asks for it. */
@@ -189,13 +212,17 @@
       home = { lon, lat, zoom: Math.max(CMAP_ZMIN, Math.min(CMAP_ZMAX, zoomAttr || z)) };
     }
     // colours of the marks' labels, from the theme as V1 read them
-    let ink = "#221808", halo = "rgba(255,255,255,0.94)", font = "system-ui, sans-serif", water = "rgba(31,122,170,0.72)";
+    let ink = "#221808", halo = "rgba(255,255,255,0.94)", font = "system-ui, sans-serif", water = "rgba(31,122,170,0.72)", waterInk = "#204d6f";
     function cols() {
       const cs = getComputedStyle(document.body), g = (n) => (cs.getPropertyValue(n) || "").trim();
       const rgb = (h) => { h = String(h).replace("#", ""); if (h.length === 3) h = h.split("").map((c) => c + c).join(""); const n = parseInt(h, 16) || 0; return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
       const p = rgb(g("--paper") || "#fff"), dark = (p[0] * 0.299 + p[1] * 0.587 + p[2] * 0.114) < 128;
       ink = dark ? "#ffffff" : "#221808"; halo = dark ? "rgba(0,0,0,0.9)" : "rgba(255,255,255,0.94)"; font = g("--sans") || "system-ui, sans-serif";
       water = dark ? "rgba(120,170,220,0.8)" : "rgba(31,122,170,0.72)";
+      /* a water NAME's ink (2026-11-14, the owner: "a blue italicised label to indicate it's a body of water"): the Atlas page's own `waterInk` (atlas.js readPalette, the one
+         definition) — a deep blue-ink by day (the ink mixed half toward rgb(31,122,170)), a pale blue at night (rgb(140,204,255) a little toward the paper) */
+      const k = rgb(g("--ink") || "#1d1b29"), mixC = (a, b, t) => a.map((v, i) => Math.round(v + (b[i] - v) * t));
+      waterInk = "rgb(" + (dark ? mixC([140, 204, 255], p, 0.12) : mixC(k, [31, 122, 170], 0.5)).join(",") + ")";
     }
     const tintFill = "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")";
     const SEG = CMAP_SEG;
@@ -274,7 +301,8 @@
         return { k, sd, text, w, bw: w / 2 + 3, bh: 9, pts, principal: !!own.length };
       }).filter(Boolean);
       const boxAt = (o, x, y) => [x - o.bw, y - o.bh, x + o.bw, y + o.bh];
-      const roomy = (o, x, y) => { const b = boxAt(o, x, y); return b[0] >= 3 && b[2] <= W - 3 && b[1] >= 3 && b[3] <= H - 3 && !(ctl && hit(b, ctl)); };
+      const sbW = scaleBar(api, st), sbB = sbW ? sbW.box : null;
+      const roomy = (o, x, y) => { const b = boxAt(o, x, y); return b[0] >= 3 && b[2] <= W - 3 && b[1] >= 3 && b[3] <= H - 3 && !(ctl && hit(b, ctl)) && !(sbB && hit(b, sbB)); };
       /* where the name's text goes for a point inside a face: centred on it; and, when the faces are small and the names crowd, beside it with the point at the box's edge (right, left, above, below) — the point is still on the
          side's ground, the text is next to it, as a name stands beside a dot. Ranked: every point with the name ON it first (best point first), and only then the names beside a point (a name over somebody else's ground is the thing to avoid). */
       for (const o of info) { o.opts = []; o.pts.forEach((p, n) => { [[0, 0], [o.bw, 0], [-o.bw, 0], [0, -o.bh], [0, o.bh]].forEach((d, v) => { const tx = p[0] + d[0], ty = p[1] + d[1]; if (roomy(o, tx, ty)) o.opts.push({ p, t: [tx, ty], rank: (v ? 1000 : 0) + n, beside: v > 0 }); }); }); }
@@ -300,16 +328,57 @@
       lastNames = named; lastLabels = labelsNow;
       ctx.restore();
     }
+    /* THE SCALE BAR (2026-11-14, the owner: "add a thin bar in the bottom left indicating the distances/length of that bar on the map"): a thin line with an end tick at each end
+       in the window's bottom-left corner (the zoom column is top-right), its length a round 1, 2 or 5 × 10ⁿ in the reader's units (Settings → Units: km, else mi; m or ft below
+       one), measured at the window's centre — the globe is drawn in perspective from straight above that point, so its scale there is the same in every direction, and it is
+       measured anew at every frame (a zoom, a pan, a latitude). Not drawn while the globe's rim is in the window: a scale on a whole hemisphere would be true only at its
+       centre. The bar is ground no name may cover (`clear`, the war names' `roomy`); `boxes().scale` is what the suites read. */
+    function scaleBar(api, st) {
+      if (!api || !api.project || !isFinite(st.lat)) return null;
+      const W = api.cw, H = api.ch, far = Math.max(Math.hypot(api.cx, api.cy), Math.hypot(W - api.cx, api.cy), Math.hypot(api.cx, H - api.cy), Math.hypot(W - api.cx, H - api.cy));
+      if (!(api.radius > far)) return null;   // the rim is in the window
+      const d = 0.05, la = st.lat > 89 ? st.lat - d : st.lat, p0 = api.project(st.lon, la), p1 = api.project(st.lon, la + d);
+      if (p0[2] < 0 || p1[2] < 0) return null;
+      const px = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]); if (!(px > 0)) return null;
+      const kmPerPx = (d * Math.PI / 180 * 6371.0088) / px;
+      const imperial = !!(S.settings && S.settings.units === "imperial");
+      const maxPx = Math.max(40, Math.min(110, W * 0.3));
+      // the units: km (m below 1 km), or mi (ft below 1 mi)
+      let unitKm = imperial ? 1.609344 : 1, big = imperial ? "mi" : "km";
+      if (maxPx * kmPerPx < unitKm) { unitKm = imperial ? 0.0003048 : 0.001; big = imperial ? "ft" : "m"; }
+      const perPx = kmPerPx / unitKm, maxV = maxPx * perPx;
+      const mag = Math.pow(10, Math.floor(Math.log10(maxV)));
+      const v = [5, 2, 1].map((m) => m * mag).find((x) => x <= maxV) || mag;
+      const len = v / perPx;
+      const text = (v >= 1000 ? Math.round(v).toLocaleString("en-GB") : String(+v.toPrecision(3))) + " " + big;
+      const x0 = 10, y0 = H - 9, tw = wOfScale(text);
+      return { len, text, x0, y0, box: [x0 - 4, y0 - 21, x0 + Math.max(len, tw) + 4, y0 + 5] };
+    }
+    const SCALE_FONT = () => "500 10.5px " + font;
+    const scaleW = new Map();
+    function wOfScale(text) { const k = font + "|" + text; let w = scaleW.get(k); if (w == null) { const c = (wOfScale.c || (wOfScale.c = document.createElement("canvas").getContext("2d"))); c.font = SCALE_FONT(); w = c.measureText(text).width; scaleW.set(k, w); } return w; }
+    function paintScaleBar(ctx, sb) {
+      const x0 = sb.x0, x1 = sb.x0 + sb.len, y = sb.y0;
+      ctx.save(); ctx.lineCap = "round"; ctx.lineJoin = "round";
+      const path = () => { ctx.beginPath(); ctx.moveTo(x0, y - 5); ctx.lineTo(x0, y); ctx.lineTo(x1, y); ctx.lineTo(x1, y - 5); };
+      path(); ctx.strokeStyle = halo; ctx.lineWidth = 3.4; ctx.stroke();
+      path(); ctx.strokeStyle = ink; ctx.lineWidth = 1.3; ctx.stroke();
+      ctx.font = SCALE_FONT(); ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+      ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(sb.text, x0, y - 8); ctx.fillStyle = ink; ctx.fillText(sb.text, x0, y - 8);
+      ctx.restore();
+    }
     function marks(st, api, ctx) {
       cols();
       ctx.save(); ctx.setTransform(api.dpr, 0, 0, api.dpr, 0, 0);
       const W = api.cw, H = api.ch, shelf = locKind === "shelf", sea = locKind === "sea";
-      // the authored area
-      if (locArea) {
+      // the authored area (or a water place's known outline, shaded as a sea)
+      const wr = waterRings(), areaRings = locArea || wr, seaLike = sea || (!!wr && !locArea);
+      if (areaRings) {
+        const sea = seaLike;
         const paintArea = (m) => {
-          m.beginPath(); for (const ring of locArea) addPath(m, api, ring, true);
+          m.beginPath(); for (const ring of areaRings) addPath(m, api, ring, true);
           m.globalAlpha = sea ? 0.38 : 1; m.fillStyle = sea ? water : tintFill; m.fill(); m.globalAlpha = 1;
-          m.setLineDash([7, 5]); m.strokeStyle = sea ? water : TINT_SEL.line; m.lineWidth = 2; m.stroke(); m.setLineDash([]);
+          if (locArea) { m.setLineDash([7, 5]); m.strokeStyle = sea ? water : TINT_SEL.line; m.lineWidth = 2; m.stroke(); m.setLineDash([]); }   // Find it's marine outline is filled only: Natural Earth splits a sea into several polygons, whose shared edges would show as seams
         };
         if (shelf) paintArea(ctx); else paintMasked(ctx, api, paintArea, sea);
       }
@@ -326,7 +395,8 @@
       const addMark = (kind, x, y, hw, hh) => markBoxes.push({ kind, box: [x - hw, y - hh, x + hw, y + hh] });
       const widths = marks.widths || (marks.widths = new Map());
       const wOf = (font2, text) => { const k = font2 + "|" + text; let w = widths.get(k); if (w == null) { ctx.font = font2; w = ctx.measureText(text).width; widths.set(k, w); } return w; };
-      const clear = (b) => b[0] >= 2 && b[1] >= 2 && b[2] <= W - 2 && b[3] <= H - 2 && !(ctlR && hit(b, ctlR)) && !markBoxes.some((m) => hit(b, m.box)) && !nameBoxes.some((q) => hit(b, q.box));
+      const sb = scaleBar(api, st), sbR = sb ? sb.box : null;   // the scale bar's corner is ground too
+      const clear = (b) => b[0] >= 2 && b[1] >= 2 && b[2] <= W - 2 && b[3] <= H - 2 && !(ctlR && hit(b, ctlR)) && !(sbR && hit(b, sbR)) && !markBoxes.some((m) => hit(b, m.box)) && !nameBoxes.some((q) => hit(b, q.box));
       /* the places a name may take round a point mark of half-size r: right, left, above, below, then the four corners (the text's box is its width plus 2 px each side, `half` high) */
       const around = (x, y, r, w, half) => [0, 9].reduce((all, ring) => all.concat(ring1(x, y, r + ring, w, half)), []);   // the near ring, then one 9 px further out (a name beside a crowd of dots rather than none)
       const ring1 = (x, y, r, w, half) => {
@@ -373,7 +443,7 @@
             const P = (FACES.dots[d.map.layer] || {})[d.map.dot]; if (!P) continue;
             d = { id: d.id, n: d.n, c: [P[0], P[1]], kind: "point" };
           }
-          if (d.kind === "regionname") { if (String(d.n).trim().toLowerCase() !== String(nm0 || "").trim().toLowerCase()) { const p = api.project(d.c[0], d.c[1]); if (inView(api, p)) faceAt.push([p[0], p[1], d.n]); } continue; }   // a region of the collection: its name alone (app.js locatorSiblings)
+          if (d.kind === "regionname") { if (String(d.n).trim().toLowerCase() !== String(nm0 || "").trim().toLowerCase()) { const p = api.project(d.c[0], d.c[1]); if (inView(api, p)) faceAt.push([p[0], p[1], d.n, true]); } continue; }   // a region of the collection (an area: its name italic): its name alone (app.js locatorSiblings)
           const k = String(d.within || d.n || "").trim().toLowerCase(); if (!k || (locWithin && k === locWithin)) continue; if (anchor && k === anchor.n.toLowerCase()) continue;
           // the card's OWN place, studied on another card (2026-10-29, the owner: "the atlas window seems to display the text label for Alexandria twice, possibly because i already discovered
           // the city in another card"): the sibling is the same city as the card's dot — by name, or within a few kilometres — so it is the dot already drawn, not a second mark and name
@@ -392,15 +462,16 @@
       if (locSpine && isWall) { for (const q of locSpine) { const p = api.project(q[0], q[1]); if (inView(api, p)) addMark("wall", p[0], p[1], 3, 3); } }
       else if (locSpine) { const mh = Math.max(3, Math.min(9, 3.4 * Math.sqrt(st.zoom / CMAP_ZLOC))), mw = mh * 0.85; for (const q of locSpine) { const p = api.project(q[0], q[1]); if (inView(api, p)) addMark("peak", p[0], p[1] - mh * 0.1, mw + 1, mh * 0.65 + 1); } }
       let ownDotAt = null;
-      if (dot && !(locKind === "river" && !!ownLines) && locKind !== "range" && !isWall && locKind !== "region" && locKind !== "sea" && locKind !== "shelf") { const p = api.project(dot.c[0], dot.c[1]); if (p[2] >= 0) { ownDotAt = p; addMark(locKind === "battle" ? "swords" : "dot", p[0], p[1], locKind === "battle" ? 9 : 7, locKind === "battle" ? 9 : 7); } }
+      const isWater = waterName(), noDotWater = isWater && (revealed || !!locArea || !!wr), isPeak = !isWater && peakMark();
+      if (dot && !noDotWater && !(locKind === "river" && !!ownLines) && locKind !== "range" && !isWall && locKind !== "region" && locKind !== "sea" && locKind !== "shelf") { const p = api.project(dot.c[0], dot.c[1]); if (p[2] >= 0) { ownDotAt = p; addMark(locKind === "battle" ? "swords" : isPeak ? "peak" : "dot", p[0], p[1], locKind === "battle" ? 9 : 7, locKind === "battle" ? 9 : 7); } }
       // ---- the names, in priority order ----
       if (ownLines && revealed) {   // the card's own river: its name on the line, at the first of several stretches that is clear
         const lines = ownLines.filter((l) => l && l.length > 1).sort((p1, p2) => p2.length - p1.length);   // the river's stretches, the longest first
         if (lines.length) {
-          const lbl = gameCapFirst(ownName), w = wOf("600 13px " + font, lbl), pts = [];
+          const rf = "italic 600 13px " + font, lbl = gameCapFirst(ownName), w = wOf(rf, lbl), pts = [];
           for (const dy of [0, -11, 11]) for (const line of lines) for (const f of [0.5, 0.45, 0.55, 0.4, 0.6, 0.35, 0.65, 0.3, 0.7, 0.25, 0.75, 0.2, 0.8, 0.15, 0.85, 0.1, 0.9, 0.05, 0.95]) { const q = line[Math.min(line.length - 1, Math.floor(line.length * f))], p = api.project(q[0], q[1]); if (p[2] >= 0 && p[0] > 0 && p[0] < W && p[1] > 0 && p[1] < H) pts.push(centred(p[0], p[1] + dy, w, 8)); }   // on the line at the middle first, then along it, then just above and below it
           for (const line of lines) for (const f of [0.5, 0.4, 0.6, 0.3, 0.7, 0.2, 0.8, 0.1, 0.9]) { const q = line[Math.min(line.length - 1, Math.floor(line.length * f))], p = api.project(q[0], q[1]); if (p[2] >= 0 && p[0] > 0 && p[0] < W && p[1] > 0 && p[1] < H) for (const c of ring1(p[0], p[1], 2, w, 8).slice(0, 4)) pts.push(c); }   // then beside the line, to its right and left, above and below
-          placeName(lbl, "600 13px " + font, pts, { must: true, own: true });
+          placeName(lbl, rf, pts, { must: true, own: true, color: waterInk });   // a river's name is a water name: blue, italic
         }
       }
       const ownLabelAt = locLabelPt && locLabelPt.length ? locLabelPt[0] : isWall && locSpine ? locSpine[Math.floor(locSpine.length / 2)] : locArea && locArea.length ? (() => { const b = ringsBBox(locArea); return [wrapLon((b[0] + b[2]) / 2), (b[1] + b[3]) / 2]; })() : dot ? dot.c : targets.length ? targets[0].c : null;
@@ -408,9 +479,12 @@
       if (revealed && ownLabelAt && nm0 && !(locKind === "river" && !!ownLines) && !(memHist && !dot)) {
         const p = api.project(ownLabelAt[0], ownLabelAt[1]);
         if (p[2] >= 0) {
-          const beside = !!dot && locKind !== "region" && locKind !== "range" && !isWall && locKind !== "sea" && locKind !== "shelf";
+          const beside = !!dot && !noDotWater && locKind !== "region" && locKind !== "range" && !isWall && locKind !== "sea" && locKind !== "shelf";
+          /* AN AREA'S NAME IS ITALIC (2026-11-14, the owner: "region labels (e.g. Faiyum, Cyclades, Eastern Desert etc.) should be italicised"): every own name that stands ON its ground rather than
+             beside a mark — a region, a range, a sea, a shelf, a water place, a glossary area or state — as the Atlas page sets its areas; a point's name beside its dot, and a wall's, stay upright */
+          const ownFont = (!beside && !isWall ? "italic " : "") + "600 13px " + font;
           // beside a dot: to its right as always (10 px from its centre), then the other places round it; on an area or a range: centred on its label point, then above and below it
-          placeName(nm0, "600 13px " + font, (w) => beside ? around(p[0], p[1], 7, w, 8).map((c, n) => (n === 0 ? Object.assign(c, { x: p[0] + 10, box: [p[0] + 8, c.y - 8, p[0] + 12 + w, c.y + 8] }) : c)) : [centred(p[0], p[1], w, 8), centred(p[0], p[1] - 18, w, 8), centred(p[0], p[1] + 18, w, 8), centred(p[0] - w / 2 - 14, p[1], w, 8), centred(p[0] + w / 2 + 14, p[1], w, 8)], { must: true, own: true, color: locKind === "sea" ? water : ink });
+          placeName(nm0, ownFont, (w) => beside ? around(p[0], p[1], 7, w, 8).map((c, n) => (n === 0 ? Object.assign(c, { x: p[0] + 10, box: [p[0] + 8, c.y - 8, p[0] + 12 + w, c.y + 8] }) : c)) : [centred(p[0], p[1], w, 8), centred(p[0], p[1] - 18, w, 8), centred(p[0], p[1] + 18, w, 8), centred(p[0] - w / 2 - 14, p[1], w, 8), centred(p[0] + w / 2 + 14, p[1], w, 8)], { must: true, own: true, color: isWater ? waterInk : ink });
         }
       }
       if (anchorAt) placeName(anchor.n, "600 11.5px " + font, (w) => around(anchorAt[0], anchorAt[1], 5.6, w, 8), {});
@@ -418,8 +492,8 @@
       for (const sa of sibAt) { const nm = gameCapFirst(sa[2]); if (nm) placeName(nm, "500 11px " + font, (w) => around(sa[0], sa[1], 4.6, w, 7), {}); }
       // a studied state's or country's name (a geography map card): centred on its label point, else just above or below it — never far from its own ground
       faceAt.sort((a, b) => Math.hypot(a[0] - api.cw / 2, a[1] - api.ch / 2) - Math.hypot(b[0] - api.cw / 2, b[1] - api.ch / 2));
-      for (const fa of faceAt) { const nm = gameCapFirst(fa[2]); if (nm) placeName(nm, "500 11px " + font, (w) => [centred(fa[0], fa[1], w, 7), centred(fa[0], fa[1] - 14, w, 7), centred(fa[0], fa[1] + 14, w, 7)], {}); }
-      lastBoxes = { names: nameBoxes.map((q) => ({ text: q.text, own: q.own, box: q.box.slice() })), marks: markBoxes.map((m) => ({ kind: m.kind, box: m.box.slice() })), dropped: droppedNames.slice(), ctl: ctlR ? ctlR.slice() : null };
+      for (const fa of faceAt) { const nm = gameCapFirst(fa[2]); if (nm) placeName(nm, (fa[3] ? "italic " : "") + "500 11px " + font, (w) => [centred(fa[0], fa[1], w, 7), centred(fa[0], fa[1] - 14, w, 7), centred(fa[0], fa[1] + 14, w, 7)], {}); }
+      lastBoxes = { names: nameBoxes.map((q) => ({ text: q.text, own: q.own, box: q.box.slice() })), marks: markBoxes.map((m) => ({ kind: m.kind, box: m.box.slice() })), dropped: droppedNames.slice(), ctl: ctlR ? ctlR.slice() : null, scale: sb ? { text: sb.text, px: sb.len, box: sb.box.slice() } : null };
       // ---- drawing: the marks, then the names ----
       if (sibOf && !isWar) {
         for (const sa of sibAt) {
@@ -442,10 +516,14 @@
       if (ownDotAt) {
         const p = ownDotAt;
         if (locKind === "battle") paintSwords(ctx, p[0], p[1], 7.5);
-        else if (!sibCard) { ctx.save(); ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.fillRect(p[0] - 5, p[1] - 5, 10, 10); ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.strokeRect(p[0] - 5, p[1] - 5, 10, 10); ctx.restore(); }
+        else if (isPeak) {   // a mountain: the peak triangle, in the own mark's gold
+          ctx.save(); ctx.beginPath(); ctx.moveTo(p[0], p[1] - 7); ctx.lineTo(p[0] + 7, p[1] + 5); ctx.lineTo(p[0] - 7, p[1] + 5); ctx.closePath(); ctx.lineJoin = "round";
+          ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.fill(); ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.stroke(); ctx.restore();
+        } else if (!sibCard) { ctx.save(); ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.fillRect(p[0] - 5, p[1] - 5, 10, 10); ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.strokeRect(p[0] - 5, p[1] - 5, 10, 10); ctx.restore(); }
         else { ctx.save(); ctx.beginPath(); ctx.arc(p[0], p[1], 5.5, 0, Math.PI * 2); ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.fill(); ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.stroke(); ctx.restore(); }
       }
       ctx.beginPath(); ctx.arc(api.cx, api.cy, api.radius, 0, Math.PI * 2); ctx.strokeStyle = "rgba(0,0,0,0.28)"; ctx.lineWidth = 1; ctx.stroke();
+      if (sb) paintScaleBar(ctx, sb);
       if (isWar) warMarks(st, ctx, api);
       ctx.textBaseline = "middle"; ctx.lineJoin = "round";
       for (const n of plan) { ctx.font = n.font; ctx.textAlign = n.align; ctx.lineWidth = n.lw; ctx.strokeStyle = halo; ctx.strokeText(n.text, n.x, n.y); ctx.fillStyle = n.color; ctx.fillText(n.text, n.x, n.y); }

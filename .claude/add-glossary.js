@@ -190,6 +190,17 @@ require("./gloss-io.js").loadGlossary();   // re-parse BOTH to confirm valid JS
 const extra = e.delete ? "" : ((e.date ? " (" + e.date + ")" : "") + (Array.isArray(e.aliases) && e.aliases.length ? " [aliases: " + e.aliases.join(", ") + "]" : ""));
 console.log(action + " glossary term " + e.slug + extra + " | total terms: " + Object.keys(GLOSS).length);
 
+/* …AND ITS WIKIPEDIA ARTICLE (Nov 2026): the gloss popup's "Learn more" tile, decided by gloss-wiki.js
+   for this one key and written into glossary-wiki.js. Best-effort, like a card's: Wikipedia being rate
+   limited never fails the term — the output says so and names the command that finishes it. */
+if (!process.argv.includes("--no-wiki")) {
+  const r = require("child_process").spawnSync(process.execPath, [path.join(__dirname, "gloss-wiki.js"), e.delete ? "--write" : "--keys=" + e.slug, "--max-wait=30"],
+    { encoding: "utf8", env: Object.assign({ NODE_USE_ENV_PROXY: "1" }, process.env) });
+  const said = String(r.stdout || "").trim().split("\n").filter((l) => /^ {2}\S/.test(l)).join("\n");
+  if (r.status === 0) { if (said) console.log(said); }
+  else console.log("  Wikipedia link not resolved yet -- run: NODE_USE_ENV_PROXY=1 node .claude/gloss-wiki.js");
+}
+
 /* A new term looks for its picture here — see the same block in add-card.js for why this is not
    left to a later sweep, and why it suggests rather than installs. */
 if (!e.delete && !(IMAGES[e.slug] && IMAGES[e.slug].src) && !(VIDEOS[e.slug] && VIDEOS[e.slug].src) &&

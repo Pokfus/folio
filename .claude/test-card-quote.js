@@ -15,9 +15,13 @@
      unattributed quotation, so the book's title and its translator have to be ON the card.
    · **THE ADDRESS.** `#book/<id>/<n>` is new; `#book/<id>` is not, and every link ever shared points at
      the second. Both are asserted, in both directions.
-   · **AND THE TOP OF THE SECTION.** A reader arriving from a quotation has asked for that passage, not
-     for wherever they were in this book last week — so an addressed section starts at the top, which is
-     the "a deliberate move starts at the top; only a resume restores a depth" rule.
+   · **AND THE PARAGRAPH (2026-11-14, on request).** A reader arriving from a quotation has asked for that
+     passage, not for wherever they were in this book last week, nor for the top of a 140,000-character
+     book — so the button lands on the PARAGRAPH the quotation stands in (`bookParaFind`), marked, and
+     writes it into the address as `#book/<id>/<n>/<p>`. The attribution is two lines with a book button
+     BESIDE them (the third line, "Read it in the Library", is now the button's name and tooltip).
+   · **AND THE WAY BACK.** The reader then shows "Back to card" (`bookHold`), which returns to the same
+     study session on the same card, answer showing; a book opened any other way shows no such button.
 
    The card it drives is `gr-254` (Spartan austerity), which quotes Thucydides 1.10 out of the Library's
    own Crawley translation — the same edition its citation names. It is reached through the
@@ -79,7 +83,16 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
       who: (fig.querySelector(".cq-who") || {}).textContent || "",
       when: (fig.querySelector(".cq-when") || {}).textContent || "",
       where: (fig.querySelector(".cq-where") || {}).textContent || "",
-      btn: (fig.querySelector(".cq-go") || {}).textContent || "",
+      btn: ((fig.querySelector(".cq-go") || { getAttribute: () => "" }).getAttribute("aria-label")) || "",
+      btnText: ((fig.querySelector(".cq-go") || {}).textContent || "").trim(),
+      btnIcon: !!fig.querySelector(".cq-go svg"),
+      captionText: (fig.querySelector("figcaption") || {}).textContent || "",
+      beside: (() => {
+        const a = fig.querySelector(".cq-attr"), g = fig.querySelector(".cq-go");
+        if (!a || !g) return null;
+        const ra = a.getBoundingClientRect(), rg = g.getBoundingClientRect();
+        return { right: rg.left >= ra.right - 0.5, centred: Math.abs((ra.top + ra.bottom) / 2 - (rg.top + rg.bottom) / 2) <= 3 };
+      })(),
       paras: paras.length,
       // between the two blocks: the figure's previous and next siblings are the two abstract paragraphs
       between: !!(fig.previousElementSibling && fig.previousElementSibling.classList.contains("abstract") &&
@@ -96,24 +109,46 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
     check("...and to the passage", /1\.10/.test(q.where), q.where);
     check("...sitting BETWEEN the two blocks of the background", q.between && q.paras === 2, JSON.stringify({ between: q.between, paras: q.paras, order: q.order }));
     check("...clear of the floated illustration", q.clears === "both", q.clears);
-    check("...with a way through to it", /Library/i.test(q.btn), q.btn);
+    check("...with a way through to it: a book button named for the Library", /Read it in the Library/i.test(q.btn) && q.btnIcon && q.btnText === "", JSON.stringify({ label: q.btn, icon: q.btnIcon, text: q.btnText }));
+    check("...and no third line of words", !/Read it in the Library/i.test(q.captionText), q.captionText);
+    check("...standing to the right of the two lines, centred on them", !!q.beside && q.beside.right && q.beside.centred, JSON.stringify(q.beside));
   }
 
-  // the button opens the book AT that section
+  // the button opens the book AT the paragraph the quotation stands in
   const went = await page.evaluate(async () => {
     const b = document.querySelector(".cq-go");
     if (!b) return null;
     b.click();
-    await new Promise((r) => setTimeout(r, 2500));
+    let t = null;
+    for (let i = 0; i < 60 && !t; i++) { await new Promise((r) => setTimeout(r, 100)); t = document.querySelector(".bk-target"); }
+    const r = t ? t.getBoundingClientRect() : null;
     return {
       hash: location.hash,
       head: (document.querySelector(".bk-head h1") || {}).textContent || "",
-      chapter: (document.querySelector(".bk-chaphead, .bk-chap-title, .bk-page h2, .bk-now") || {}).textContent || "",
+      marked: t ? t.textContent.slice(0, 2000) : "",
+      inView: !!r && r.top >= 0 && r.top < innerHeight - 40,
       scrolled: Math.round(window.scrollY),
+      back: !!document.querySelector("#bkToCard"),
     };
   });
-  check("pressing it opens the book at that section", !!went && /^#book\/thucydides-peloponnesian-war\/1$/.test(went.hash), JSON.stringify(went));
-  check("...and at the top of it, not at a remembered depth", !!went && went.scrolled < 40, went && String(went.scrolled));
+  check("pressing it opens the book at that section and paragraph", !!went && /^#book\/thucydides-peloponnesian-war\/1\/\d+$/.test(went.hash), JSON.stringify(went && { hash: went.hash, scrolled: went.scrolled }));
+  check("...the paragraph holding the quotation, marked and in view", !!went && /Lacedaemon were to become desolate/.test(went.marked) && went.inView && went.scrolled > 200, JSON.stringify(went && { marked: went.marked.slice(0, 80), inView: went.inView, scrolled: went.scrolled }));
+  check("...with a Back to card button", !!went && went.back);
+
+  // Back returns to the same card in the same session, its answer showing
+  const back = await page.evaluate(async () => {
+    const b = document.querySelector("#bkToCard");
+    if (!b) return null;
+    b.click();
+    await new Promise((r) => setTimeout(r, 1200));
+    return { hash: location.hash, answer: (document.querySelector(".answer .val") || {}).textContent || "", quote: !!document.querySelector(".card-quote") };
+  });
+  check("Back to card returns to the study session on the same card, answer showing", !!back && back.hash === "#study" && back.answer === q.answer && back.quote, JSON.stringify(back));
+
+  // a book opened from the Library has no Back to card button
+  await page.evaluate(() => { location.hash = "book/thucydides-peloponnesian-war/2"; });
+  await page.waitForTimeout(1800);
+  check("a book opened any other way shows no Back to card", await page.evaluate(() => !!document.querySelector(".bk-page") && !document.querySelector("#bkToCard")));
 
   // a pasted address with a section resolves
   await page.evaluate(() => { location.hash = "book/thucydides-peloponnesian-war/3"; });

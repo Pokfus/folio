@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1309", released: "2026-11-14T10:33Z" };
+window.FOLIO_VERSION = { v: "1.1310", released: "2026-11-14T18:29Z" };
 
 window.CHANGELOG = [
   {
@@ -63,6 +63,17 @@ window.CHANGELOG = [
       "The daily study banner now ends with <b>the week ahead</b>: cards due each day for seven days, with the heaviest day named.",
       "Pressing <b>/</b> on the Atlas now opens only the map's own search, and a card's Report button no longer nudges the card sideways.",
       "<b>100 more China cards are rewritten</b>, from the Red Turban Rebellions to the Shanghai International Settlement.",
+      "Card maps set region names in italic, give seas, lakes and rivers a blue italic name instead of a dot, and mark mountains with a triangle.",
+      "Card and glossary maps now show a small <b>scale bar</b> in the bottom-left corner, in kilometres or miles.",
+      "A card's book quotation has a <b>book button</b> that opens the exact paragraph quoted, with a <b>Back to card</b> button in the reader.",
+      "Glossary popups now end with a <b>Learn more</b> link to the term's Wikipedia article, where one exists.",
+      "Going back to the home page from another page now shows the loading screen instead of freezing the page you left.",
+      "The week ahead now has its own full-width bar above the minigames, its seven days evenly spaced.",
+      "On tablets the weekly streak banner now uses the same one-row layout as on a computer, and reading previews are half as long again.",
+      "Fixed tablet slowdowns and crashes: the Atlas, the whiteboard marker and page switches no longer pile up memory.",
+      "Birth and death or start and end dates were added to 308 more glossary terms, checked against Wikipedia.",
+      "16 new glossary terms and new links on 9 cards in World History, Ancient Egypt and Ancient Greece; Upper and Lower Egypt are now separate terms.",
+      "Three World History cards gain an Atlas window, a new picture and a new date row, and <i>behaviour</i> now links only in Biology and Psychology.",
     ],
   },
   {
