@@ -25722,6 +25722,54 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function previewable(c) {
     return !!(c && c.question) && c.artwork !== true && c.flagCard !== true && c.drawCard !== true && !cardMapSpec(c) && !cardLocatorFront(c);
   }
+  /* THE WEEK AHEAD, AT THE FOOT OF THE DAILY-REVIEW BANNER (Nov 2026, on request: design B of the forecast
+     mock-ups). Seven chips — today, then the next six days — so the week's load is seen on every visit
+     without opening the statistics. TODAY is the banner's own count (what is waiting now, new cards
+     included), so the strip never disagrees with the title above it; every later day is `dueForecast`'s
+     bucket, the reviews falling due that day (new cards are not dealt in advance, so they are not counted).
+     One sentence names the heaviest day only when it clearly stands out — the single largest of the six
+     later days, at least 20 cards and at least half again the week's median — so a flat week says nothing.
+     The whole strip is one button to the full forecast under Account → Review statistics (signed in; signed
+     out there are no statistics to open, so it is plain information). Nothing is stored. Hidden with no decks in the review, or when the whole week is empty. */
+  function rvWeekHTML(todayN, hasDecks) {
+    if (!hasDecks) return "";
+    const fc = dueForecast(S, 7);
+    const n = fc.buckets.slice(); n[0] = todayN;
+    if (!n.some((x) => x > 0)) return "";
+    const base = new Date(dayEndTs() - 1);
+    const dayOf = (i) => new Date(base.getTime() + i * DAY);
+    const later = n.slice(1), peak = Math.max(...later);
+    const sorted = n.slice().sort((a, b) => a - b), median = sorted[3];
+    const heavy = peak >= 20 && peak >= median * 1.5 && later.filter((x) => x === peak).length === 1 ? later.indexOf(peak) + 1 : -1;
+    const chips = n.map((v, i) => {
+      const d = dayOf(i);
+      const lbl = i === 0 ? "Today" : d.toLocaleDateString(undefined, { weekday: "short" });
+      const full = i === 0 ? "Today" : d.toLocaleDateString(undefined, { weekday: "long", month: "short", day: "numeric" });
+      return '<span class="rvw-day' + (i === heavy ? " rvw-heavy" : "") + (v ? "" : " rvw-zero") + '" title="' + esc(full + ": " + v + (v === 1 ? " card" : " cards")) + '">' +
+        "<em>" + esc(lbl) + "</em><b>" + v + "</b></span>";
+    }).join("");
+    const note = heavy > 0
+      ? '<span class="rvw-note">' + esc(dayOf(heavy).toLocaleDateString(undefined, { weekday: "long" })) + " is your heavy day: " + peak + " cards.</span>"
+      : "";
+    const label = "The week ahead: " + n.join(", ") + " cards";
+    // signed out, the account page has no statistics to open, so the strip is information and not a link
+    if (!supaLoggedIn()) return '<div class="rv-week rvw-static" role="group" aria-label="' + esc(label) + '"><span class="rvw-days">' + chips + "</span>" + note + "</div>";
+    return '<button type="button" class="rv-week" data-rvweek aria-label="' + esc(label + ". Open the full forecast") + '">' +
+      '<span class="rvw-days">' + chips + "</span>" + note + "</button>";
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target && e.target.closest && e.target.closest("[data-rvweek]");
+    if (!b) return;
+    e.stopPropagation();
+    route("account");
+    let tries = 0;   // the account page paints after the route's transition; find the section once it is there
+    (function seek() {
+      const el = document.querySelector("#reviewStats .rs-fc, #reviewStats");
+      if (el && el.offsetParent) { el.scrollIntoView({ block: "start", behavior: prefersReducedMotion() ? "auto" : "smooth" }); return; }
+      if (++tries < 40) setTimeout(seek, 50);
+    })();
+  });
+
   function reviewPreviewHTML(ids) {
     const pick = [];
     for (const id of ids) { const c = CARD_BY_ID[id]; if (previewable(c)) pick.push(c); if (pick.length === 3) break; }
@@ -27553,6 +27601,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                     screen's "Continue with" carries the reader on to the next. */""}
             </div>
             </div>
+            ${rvWeekHTML(pileN, activeIds.length)}
             ${/* "+ New group" stood here, inside the banner, until Aug 2026 and is now under the LAST deck
                   row instead (see `newGroupTools` below) — beside the list it acts on rather than inside the
                   block above it. Being out of the banner it is also an ordinary <button> again, where a

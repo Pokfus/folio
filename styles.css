@@ -9792,6 +9792,19 @@ body[data-theme="carnelian"].night .page .rv-banner, body[data-theme="carnelian"
 /* …and the title and the caught-up line above it carry no bottom margin of their own, so the air above the
    bar is the bar's own 20px, the same as below it (Oct 2026, on request) */
 .page .rv-banner .rv-stack{margin-top:0;}
+/* THE WEEK AHEAD (Nov 2026, design B; rvWeekHTML): seven chips at the foot of the banner, one button to the
+   full forecast. Light on the banner's dark gradient in every theme; the heavy day is the one white chip. */
+.page .rv-banner .rv-week{display:flex; flex-direction:column; gap:10px; width:100%; margin:18px 0 0; padding:14px 0 0; border:0; border-top:1px solid rgba(255,255,255,.18); background:none; color:inherit; font:inherit; text-align:left; cursor:pointer;}
+.page .rv-banner .rvw-days{display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap:6px; max-width:460px;}
+.page .rv-banner .rvw-day{display:flex; flex-direction:column; align-items:center; gap:4px; min-width:0;}
+.page .rv-banner .rvw-day em{font-family:var(--mono); font-style:normal; font-size:calc(9.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:rgba(242,243,255,.7); white-space:nowrap;}
+.page .rv-banner .rvw-day b{display:block; width:100%; max-width:44px; padding:5px 0; border-radius:7px; text-align:center; font-family:var(--serif); font-weight:600; font-size:calc(15px * var(--fs)); font-variant-numeric:tabular-nums; color:#fff; background:rgba(255,255,255,.14); transition:background .15s var(--ease);}
+.page .rv-banner .rvw-day.rvw-zero b{color:rgba(242,243,255,.45); background:rgba(255,255,255,.07);}
+.page .rv-banner .rvw-day.rvw-heavy b{background:#fff; color:var(--sky);}
+.page .rv-banner .rv-week.rvw-static{cursor:default;}
+.page .rv-banner button.rv-week:hover .rvw-day:not(.rvw-heavy) b{background:rgba(255,255,255,.22);}
+.page .rv-banner .rv-week:focus-visible{outline:2px solid #fff; outline-offset:4px; border-radius:4px;}
+.page .rv-banner .rvw-note{font-size:calc(13px * var(--fs)); color:rgba(242,243,255,.85);}
 .page .rv-banner h2.review-title, .rv-banner .desc{margin-bottom:0;}
 /* The caught-up sentence sat flush under its title; a little air between them (Oct 2026, on request). Only the
    normal banner: the first-visit hero spaces its own title. */
