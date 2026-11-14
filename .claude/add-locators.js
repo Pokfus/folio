@@ -132,12 +132,12 @@ for (const id of Object.keys(want)) {
   /* The authored half, validated before a single request is made — the same rule this file already
      follows for everything else: a half-applied batch is worse than a refused one, and here a refusal
      after the fetches would also have wasted them. */
-  const KINDS = ["point", "battle", "river", "range", "region", "sea", "shelf"];
+  const KINDS = ["point", "battle", "river", "range", "region", "sea", "shelf", "wall"];
   const kind = spec.kind == null ? "point" : String(spec.kind);
   if (KINDS.indexOf(kind) < 0) die(id + ": `kind` must be one of " + KINDS.join(", ") + " — got " + JSON.stringify(spec.kind));
   // a SEA and a SHELF each carry an `area` exactly as a region does; what differs is how app.js draws
   // it and what it is clipped to (see LOC_KINDS)
-  const shapeKey = kind === "region" || kind === "sea" || kind === "shelf" ? "area" : kind === "range" ? "spine" : null;
+  const shapeKey = kind === "region" || kind === "sea" || kind === "shelf" ? "area" : kind === "range" || kind === "wall" ? "spine" : null;
   const pts = (v) => {
     if (!Array.isArray(v) || v.length < 3) return null;
     const out = [];

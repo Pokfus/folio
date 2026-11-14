@@ -4059,28 +4059,6 @@
    },
    "cards": 1
   },
-  "pl:q1453235": {
-   "name": "Orkhon Valley",
-   "kind": "region",
-   "sub": "",
-   "qid": "Q1453235",
-   "at": [
-    102.8314,
-    47.5567
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Orkhon Valley",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q39816"
-    ],
-    "via": "around",
-    "km": 0
-   },
-   "cards": 1
-  },
   "pl:q145694": {
    "name": "Italian Peninsula",
    "kind": "region",
@@ -6887,30 +6865,6 @@
    },
    "cards": 2
   },
-  "pl:q192418": {
-   "name": "Pyramid of Djoser",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q192418",
-   "at": [
-    31.2167,
-    29.8711
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Pyramid of Djoser",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q1456099",
-     "Q839954",
-     "Q175582"
-    ],
-    "via": "title",
-    "km": 0
-   },
-   "cards": 1
-  },
   "pl:q192483": {
    "name": "Lemnos",
    "kind": "island",
@@ -9092,52 +9046,6 @@
     ],
     "via": "title",
     "km": 2.7
-   },
-   "cards": 1
-  },
-  "pl:q2402267": {
-   "name": "Tell es-Sultan",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q2402267",
-   "at": [
-    35.4446,
-    31.8717
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Tell es-Sultan",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q106491339",
-     "Q65064889",
-     "Q7251867"
-    ],
-    "via": "title",
-    "km": 0.1
-   },
-   "cards": 1
-  },
-  "pl:q2418927": {
-   "name": "Sahiwal District",
-   "kind": "region",
-   "sub": "",
-   "qid": "Q2418927",
-   "at": [
-    72.9137,
-    30.5482
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Sahiwal District",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q2379075"
-    ],
-    "via": "around",
-    "km": 10.2
    },
    "cards": 1
   },
@@ -12616,31 +12524,6 @@
    },
    "cards": 1
   },
-  "pl:q42462": {
-   "name": "York",
-   "kind": "city",
-   "sub": "",
-   "qid": "Q42462",
-   "at": [
-    -1.0833,
-    53.95
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "York",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q7897276",
-     "Q1549591",
-     "Q1357964",
-     "Q515"
-    ],
-    "via": "title",
-    "km": 1.3
-   },
-   "cards": 1
-  },
   "pl:q42666": {
    "name": "Shaoxing",
    "kind": "city",
@@ -13275,30 +13158,6 @@
     "km": 0.2
    },
    "cards": 2
-  },
-  "pl:q47672": {
-   "name": "Terracotta Army",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q47672",
-   "at": [
-    109.2731,
-    34.385
-   ],
-   "within": "",
-   "aliases": [],
-   "wiki": "Terracotta Army",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q2772772",
-     "Q839954",
-     "Q162875"
-    ],
-    "via": "title",
-    "km": 0
-   },
-   "cards": 1
   },
   "pl:q477137": {
    "name": "Humen",
