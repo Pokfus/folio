@@ -166,11 +166,11 @@ const tints = (page) => page.evaluate(() => { const c = document.querySelector("
   {
     const { ctx, page } = await newPage(browser, { viewport: { width: 360, height: 740 } });
     await openCard(page, "rm-209");
-    const m0 = await page.evaluate(() => { const b = document.querySelector(".wtl-btn").getBoundingClientRect(), r = document.querySelector(".wtl-track").getBoundingClientRect(); return { btn: b.height, track: r.width }; });
+    const m0 = await page.evaluate(() => { const b = document.querySelector(".wtl-btn").getBoundingClientRect(), r = document.querySelector(".wtl-track").getBoundingClientRect(); return { btn: b.height, track: r.width, fs: parseFloat(getComputedStyle(document.body).getPropertyValue("--fs")) || 1 }; });
     await page.evaluate(() => document.body.setAttribute("data-fs", "huge")); await sleep(500);
-    const m = await page.evaluate(() => { const t = document.querySelector(".war-tl"), b = document.querySelector(".wtl-btn").getBoundingClientRect(), r = document.querySelector(".wtl-track").getBoundingClientRect(), now = document.querySelector(".wtl-now").getBoundingClientRect(), pr = t.getBoundingClientRect(); return { doc: document.documentElement.scrollWidth, vw: innerWidth, btn: b.height, track: r.width, tlRight: pr.right, tlOver: t.scrollWidth - t.clientWidth, nowIn: now.left >= r.left - 1 && now.right <= r.right + 1 }; });
+    const m = await page.evaluate(() => { const t = document.querySelector(".war-tl"), b = document.querySelector(".wtl-btn").getBoundingClientRect(), r = document.querySelector(".wtl-track").getBoundingClientRect(), now = document.querySelector(".wtl-now").getBoundingClientRect(), pr = t.getBoundingClientRect(); return { fs: parseFloat(getComputedStyle(document.body).getPropertyValue("--fs")) || 1,  doc: document.documentElement.scrollWidth, vw: innerWidth, btn: b.height, track: r.width, tlRight: pr.right, tlOver: t.scrollWidth - t.clientWidth, nowIn: now.left >= r.left - 1 && now.right <= r.right + 1 }; });
     check(`the timeline fits 360 px: no horizontal scroll (${m.doc} of ${m.vw}), nothing wider than its block (${m.tlOver})`, m.doc <= m.vw && m.tlOver <= 1 && m.tlRight <= m.vw + 1, JSON.stringify(m));
-    check(`it follows Text size: the buttons grow with it (${m0.btn.toFixed(0)} → ${m.btn.toFixed(0)} px), the rail keeps room (${m.track.toFixed(0)} px) and the label stays inside it`, m.btn > m0.btn * 1.25 && m.track > 90 && m.nowIn, JSON.stringify([m0, m]));
+    check(`it follows Text size: the buttons grow in step with it (${m0.btn.toFixed(0)} → ${m.btn.toFixed(0)} px, --fs ${m0.fs} → ${m.fs}), the rail keeps room (${m.track.toFixed(0)} px) and the label stays inside it`, m.fs > m0.fs && Math.abs(m.btn / m0.btn - m.fs / m0.fs) < 0.03 && m.track > 90 && m.nowIn, JSON.stringify([m0, m]));
     await ctx.close();
   }
 
@@ -180,8 +180,8 @@ const tints = (page) => page.evaluate(() => { const c = document.querySelector("
     await openCard(page, "ww2-001");
     let t = await tl(page);
     const ww = by.get("ww2-001");
-    check(`the window reads the Second World War slice (not the whole history) and the rail has the front's ${ww.steps} plate dates, opening at the halfway point of the rail (1937 to 1945: mid-1941)`, !!t && t.n === ww.steps && t.idx > 0 && t.idx < ww.steps - 1 && /1941/.test(t.label) && (await page.evaluate(() => AtlasEmbed.hub().historyKind())) === "ww2", JSON.stringify(t && [t.n, t.idx]));
-    check("the label under the pin is a month and a year (\"Jun 1941\", the middle of the rail); the rail's ends are 1937 and 1945", t && /^[A-Z][a-z]{2} \d{4}$/.test(t.label) && /1941$/.test(t.label) && t.start === "1937" && t.end === "1945", JSON.stringify(t && [t.label, t.start, t.end]));
+    check(`the window reads the Second World War slice (not the whole history) and the rail has the front's ${ww.steps} plate dates, opening at the halfway point of the rail (1939 to 1945: mid-1942)`, !!t && t.n === ww.steps && t.idx > 0 && t.idx < ww.steps - 1 && /1942/.test(t.label) && (await page.evaluate(() => AtlasEmbed.hub().historyKind())) === "ww2", JSON.stringify(t && [t.n, t.idx]));
+    check("the label under the pin is a month and a year (\"Jun 1942\", the middle of the rail); the rail's ends are 1939 and 1945", t && /^[A-Z][a-z]{2} \d{4}$/.test(t.label) && /1942$/.test(t.label) && t.start === "1939" && t.end === "1945", JSON.stringify(t && [t.label, t.start, t.end]));
     const at = (date) => ww.list.indexOf(date);
     const goTo = async (i) => { const d0 = await draws(page); await page.evaluate((k) => document.querySelector(".map-card")._folioTimeline.go(k), i); await afterMove(page, d0); };
     await goTo(at(19440615)); await sleep(1500);
