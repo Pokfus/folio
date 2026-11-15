@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+"""The hand-written inventory of each level's topics -- Folio's own list.
+
+Khmer has no published graded word list (see `khmer_level.py`), so a level's
+CORE is written here, a topic at a time, for the scope its CEFR descriptor sets;
+`select.py` resolves every word against Wiktionary (a word not found there is
+reported and dropped, never given an invented meaning) and tops the level up with
+the commonest remaining words.
+
+A word may carry a part of speech after a colon (`ស:adj`) where the spelling is
+shared and the level wants one reading first; without one, every entry is kept
+and the commonest reading leads the card.  Spellings are Wiktionary's headwords.
+
+THE POLITE YES IS TWO WORDS: a man says បាទ, a woman ចាស, and a beginner needs
+both on the first day; so are the everyday and the polite "eat" (ញ៉ាំ, ហូប, and
+the formal បរិភោគ).  Khmer counts a noun with a CLASSIFIER, as Thai does (ឆ្កែ
+ពីរក្បាល "dog two HEAD", two dogs): the commonest are a topic of their own.
+"""
+
+A1 = [
+    ('pronouns', 'ខ្ញុំ:pron អ្នក:pron គាត់ គេ យើង ពួកយើង ពួកគេ វា នាង លោក:pron ឯង ខ្លួនឯង'),
+    ('questions', 'អ្វី ណា នរណា ឯណា ពេលណា ហេតុអ្វី ម៉េច យ៉ាងណា ប៉ុន្មាន ឬទេ មែនទេ'),
+    ('greetings and politeness', 'បាទ ចាស សួស្តី ជម្រាបសួរ អរគុណ សុំទោស មិនអីទេ លាហើយ សូម សុខសប្បាយជាទេ '
+     'ជម្រាបលា'),
+    ('yes, no and time words', 'ទេ មិន អត់ បាន ហើយ នៅ ធ្លាប់ កំពុង:particle នឹង កុំ'),
+    ('prepositions and conjunctions', 'និង ជាមួយ ឬ តែ ប៉ុន្តែ ព្រោះ:conj ពីព្រោះ បើ ថា ក៏ ក្នុង លើ ក្រោម '
+     'ក្បែរ មុខ ក្រោយ ខាងមុខ ខាងក្រោយ រវាង របស់ ពី ដល់ សម្រាប់ ជិត ឆ្ងាយ ឲ្យ'),
+    ('numbers', 'សូន្យ មួយ ពីរ បី បួន ប្រាំ ប្រាំមួយ ប្រាំពីរ ប្រាំបី ប្រាំបួន ដប់ ម្ភៃ សាមសិប រយ ពាន់ '
+     'ម៉ឺន សែន លាន ទីមួយ'),
+    ('classifiers', 'នាក់ ក្បាល គ្រឿង ដើម ផ្លែ សន្លឹក ខ្នង អង្គ'),
+    ('time', 'ពេល ម៉ោង នាទី ថ្ងៃ យប់ ព្រឹក ល្ងាច រសៀល ថ្ងៃត្រង់ ថ្ងៃនេះ ស្អែក ម្សិលមិញ ឥឡូវ '
+     'សប្តាហ៍ អាទិត្យ ខែ ឆ្នាំ ឆាប់ យឺត យូរ ជានិច្ច ពេលខ្លះ មុន'),
+    ('days', 'ថ្ងៃច័ន្ទ ថ្ងៃអង្គារ ថ្ងៃពុធ ថ្ងៃព្រហស្បតិ៍ ថ្ងៃសុក្រ ថ្ងៃសៅរ៍ ថ្ងៃអាទិត្យ'),
+    ('months', 'មករា កុម្ភៈ មីនា មេសា ឧសភា មិថុនា កក្កដា សីហា កញ្ញា តុលា វិច្ឆិកា ធ្នូ'),
+    ('family', 'គ្រួសារ ឪពុក ម្តាយ ពុក ម៉ែ បង ប្អូន:noun បងប្រុស បងស្រី ប្អូនប្រុស ប្អូនស្រី កូន កូនប្រុស '
+     'កូនស្រី ប្តី ប្រពន្ធ សង្សារ តា យាយ ជីដូន ក្មេង ប្រុស ស្រី មនុស្ស មិត្ត មិត្តភក្តិ'),
+    ('people and yourself', 'ឈ្មោះ អាយុ ប្រទេស ទីក្រុង ភាសា ភាសាខ្មែរ ភាសាអង់គ្លេស ខ្មែរ:name កម្ពុជា:name ការងារ '
+     'សិស្ស គ្រូ គ្រូពេទ្យ ពេទ្យ ធ្វើការ'),
+    ('food and drink', 'អាហារ ម្ហូប បាយ អង្ករ ទឹក តែ កាហ្វេ ទឹកដោះគោ ផ្លែឈើ បន្លែ សាច់ សាច់ជ្រូក '
+     'សាច់គោ មាន់ ត្រី បង្គា ពង ស៊ុត អំបិល ស្ករ ហឹរ ផ្អែម ប្រៃ ជូរ ឆ្ងាញ់ ឃ្លាន ឆ្អែត ស្រេក '
+     'គុយទាវ ស្វាយ ចេក ញ៉ាំ ហូប បរិភោគ ផឹក'),
+    ('shopping and money', 'លុយ ប្រាក់ រៀល ដុល្លារ តម្លៃ ថ្លៃ:adj ថោក ហាង ផ្សារ ទិញ លក់ បង់'),
+    ('the home', 'ផ្ទះ បន្ទប់ ទ្វារ បង្អួច តុ កៅអី គ្រែ បន្ទប់ទឹក ផ្ទះបាយ ទូរទស្សន៍ ទូរស័ព្ទ កុំព្យូទ័រ '
+     'សៀវភៅ ប៊ិច ក្រដាស'),
+    ('the town and getting about', 'ផ្លូវ សាលារៀន សាលា មន្ទីរពេទ្យ ធនាគារ ភោជនីយដ្ឋាន សណ្ឋាគារ វត្ត '
+     'ឡាន រថយន្ត ម៉ូតូ កង់ ឡានក្រុង យន្តហោះ ទូក ស្ថានីយ ស្តាំ ឆ្វេង ត្រង់ ទៅ មក ដើរ ជិះ បើក ឈប់ '
+     'ត្រឡប់ ចេញ ចូល'),
+    ('the body and feeling ill', 'ខ្លួន ក្បាល ភ្នែក ត្រចៀក ច្រមុះ មាត់ ធ្មេញ ដៃ ជើង ពោះ សក់ ឈឺ '
+     'គ្រុន ថ្នាំ'),
+    ('the weather', 'អាកាសធាតុ ក្តៅ ត្រជាក់ រងា ភ្លៀង ខ្យល់ ពពក មេឃ រដូវ ព្រះអាទិត្យ'),
+    ('colours', 'ពណ៌ ស:adj ខ្មៅ ក្រហម ខៀវ បៃតង លឿង ផ្កាឈូក ប្រផេះ'),
+    ('describing', 'ធំ តូច ល្អ អាក្រក់ ស្អាត ថ្មី ចាស់ វែង ខ្លី ខ្ពស់ ទាប ច្រើន តិច ងាយ ពិបាក សប្បាយ '
+     'ព្រួយ នឿយ ហត់ រវល់ ទំនេរ លឿន ស្ងាត់ ខ្លាំង'),
+    ('everyday verbs', 'ជា មាន ធ្វើ និយាយ ស្តាប់ មើល ឃើញ អាន សរសេរ រៀន បង្រៀន ដឹង ស្គាល់ គិត ចង់ '
+     'ចូលចិត្ត ស្រលាញ់ ដេក គេង ក្រោក ងូតទឹក លេង រស់ ជួយ សួរ ឆ្លើយ ហៅ យក បិទ ដាក់ ចាំ រង់ចាំ ភ្លេច '
+     'យល់ ជួប ចាប់ផ្តើម រត់ អង្គុយ ឈរ ច្រៀង រាំ ប្រើ រក លាង ត្រូវ អាច'),
+    ('little words', 'នេះ នោះ ទីនេះ ទីនោះ ទាំងអស់ ខ្លះ រាល់ គ្រប់ ណាស់ ពេក ដែរ ផង ទៀត មែន ពិត ប្រហែល'),
+]
+
+INVENTORY = {'a1': A1}

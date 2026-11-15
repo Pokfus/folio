@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 434 MB of decks. The file itself is fetched on Add. */
+   section without fetching 435 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -191,6 +191,8 @@ window.LANG_DECKS = [
   { lang: "Romanian", file: "Romanian-C1.folio-deck.json", id: "romanianc1", title: "Romanian C1 Advanced", sub: "1,500 more words, none of them in A1 to B2 · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 51, bytes: 3298912, rev: "e1368d2b2fe8" },
   { lang: "Romanian", file: "Romanian-C2.folio-deck.json", id: "romanianc2", title: "Romanian C2 Proficiency", sub: "1,500 more words, none of them in A1 to C1 · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 41, bytes: 3113181, rev: "87b9e8841351" },
   { lang: "Romanian", file: "Romanian-Phrases-and-Expressions.folio-deck.json", id: "rophrase", title: "Romanian Phrases and Expressions", sub: "372 expressions · 95 everyday, 233 idioms, 44 proverbs · both directions", notes: 372, cards: 744, subs: 3, tree: [{"n":"Phrases","c":190,"x":53},{"n":"Idioms","c":466,"x":13},{"n":"Proverbs","c":88,"x":14}], flat: true, ex: 23, bytes: 192006, rev: "5641ebd4668c" },
+  { lang: "Khmer (Cambodian)", file: "Khmer-Alphabet.folio-deck.json", id: "kmabc", title: "Khmer Alphabet", sub: "87 letters, vowels, signs and digits · both directions, as two cards each", notes: 87, cards: 174, ex: 0, say: false, bytes: 36655, rev: "05e78d0824e2" },
+  { lang: "Khmer (Cambodian)", file: "Khmer-A1.folio-deck.json", id: "khmera1", title: "Khmer A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 70, say: false, bytes: 340132, rev: "08b16688f56d" },
   { lang: "Greek", file: "Greek-Alphabet.folio-deck.json", id: "elabc", title: "Greek Alphabet", sub: "39 letters, letter pairs and signs · both directions, as two cards each", notes: 39, cards: 78, ex: 0, bytes: 20633, rev: "bd6c036d16e7" },
   { lang: "Greek", file: "Greek-A1.folio-deck.json", id: "greeka1", title: "Greek A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1495976, rev: "b4aa63c726e2" },
   { lang: "Swedish", file: "Swedish-A1.folio-deck.json", id: "swedisha1", title: "Swedish A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 838220, rev: "9163b06a486f" },

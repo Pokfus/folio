@@ -102,6 +102,7 @@ const LANGS = [
   { word: "Dutch", name: "Dutch", l1: 25, total: 30 },              // Wikipedia's infobox (2021 figure), read 2026-11-09
   { word: "Thai", name: "Thai", l1: 27, total: 71 },              // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
   { word: "Romanian", name: "Romanian", l1: 22, total: 22 },    // Wikipedia's infobox (22.2 million, Ethnologue 27th ed., 2020), read 2026-11-09
+  { word: "Khmer", name: "Khmer (Cambodian)", l1: 19, total: 21 }, // Ethnologue 28th ed. (19.5 L1, 2019; 20.5 total, 2019–2024), via Wikipedia's infobox, read 2026-11-15
   { word: "Greek", name: "Greek", l1: 13.5, total: 13.5 },          // Wikipedia's infobox (2015 figure), read 2026-11-09
   { word: "Zulu", name: "Zulu", l1: 12, total: 28 },            // Wikipedia's infobox (Ethnologue), 12.1 million, read 2026-11-09
   { word: "Hungarian", name: "Hungarian", l1: 12, total: 12 },    // Wikipedia's infobox (12 million, 2021–2023), read 2026-11-09

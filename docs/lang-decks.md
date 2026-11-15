@@ -3725,6 +3725,18 @@ changed was the one that had been wrong all along.
   fallback; the findings (the fold's true homographs, the infinitive twins, the declension tables' faults,
   the normalised romanisation) are 📖 `docs/amharic-decks-plan.md`. The `LANGS` row is 35 million L1, 60
   in all (Ethnologue via Wikipedia); the hue is measured, `#85063D`.
+- `.claude/khmer/` — the generator behind the Khmer (Cambodian) decks (Nov 2026, on request: "Add a Cambodian
+  language collection"; Thai's arrangement taken, the owner not asked). **Built: the alphabet deck,
+  `decks/Khmer-Alphabet.folio-deck.json`** (87 notes: 33 consonants with their series and subscripts, 16 dependent
+  vowels with both series' readings, independent vowels, diacritics, punctuation, digits — every sound read from a
+  pinned revision of Wikipedia's "Khmer script") **and A1, `decks/Khmer-A1.folio-deck.json`** (500 notes / 1,000
+  cards). `python3 .claude/khmer/run.py [--level a1]`, `python3 .claude/khmer/alphabet.py`,
+  `node .claude/khmer/check-khmer.js`; a re-run is byte-identical. Khmer writes no spaces, so the word cut is Thai's
+  maximal matching (`km.Segmenter`, on clusters, never after the coeng); the frequency is the Khmer Wikipedia's
+  (14,475 articles), as Amharic's; **the romanisation is read off each word's Wiktionary page** (`romanise.py`),
+  because the kaikki extraction's differs from the page on words with a minor first syllable. No speaker (the
+  Hausa rule). The findings are 📖 `docs/khmer-decks-plan.md`. The `LANGS` row is "Khmer (Cambodian)", 19 million
+  L1, 21 in all (Ethnologue via Wikipedia); the hue is measured, `#76281C`.
 - `.claude/oldenglish/` — the generator behind the Old English decks (Nov 2026, on request: "Add an Old
   English language collection"). **Built: the alphabet and pronunciation deck,
   `decks/Old-English-Alphabet.folio-deck.json`** (41 notes) **and Level 1,
