@@ -39,7 +39,7 @@ STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-15T00:00:00.000Z',
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'norwegian'
-COLOR = '#85063D'          # the shelf's measured hue, kept in step with "lang-norwegian" in app.js
+COLOR = '#896F23'          # the shelf's measured hue, kept in step with "lang-norwegian" in app.js
 FIELDS = ['Norwegian', 'Word', 'Say', 'English', 'Forms', 'Table', 'Examples']
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',

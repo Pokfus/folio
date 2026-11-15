@@ -108,8 +108,9 @@ particle verbs: `ta vare på`, `finne ut`).
 `examples.py` → `build_deck.py`, caching in `.claude/norwegian-cache/` (gitignored, ~220 MB).
 `node .claude/norwegian/check-norwegian.js` is the check. **A re-run is byte-identical** (verified, extract
 included). A1: 500 notes, 356 from the inventory and 144 by frequency; three sentences for 482, none for 7.
-Every card was read. The shelf's hue is measured: `#85063D`, a deep wine, 14.7 from its nearest of the 70 hues
-(Japan), with the magenta band's standing rejection kept and the greens left out (`lang-norwegian` in `app.js`).
+Every card was read. The shelf's hue is measured: first `#85063D`, a deep wine, which Amharic's parallel sweep also chose; re-swept at
+the merge against all 72 other hues, `#896F23`, a dark ochre, 14.6 from its nearest (World History's sepia), with the
+magenta band's standing rejection kept and the greens left out (`lang-norwegian` in `app.js`).
 
 ## 7. As built (2026-11-15): A2
 
