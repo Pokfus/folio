@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T21:35Z",
+ "generated": "2026-11-15T21:37Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8280,
+  "ok": 8281,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89300,6 +89300,13 @@
    "answer": "Karnataka",
    "title": "Karnataka",
    "url": "https://en.wikipedia.org/wiki/Karnataka",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-009": {
+   "answer": "Gujarat",
+   "title": "Gujarat",
+   "url": "https://en.wikipedia.org/wiki/Gujarat",
    "via": "answer",
    "status": "ok"
   }
