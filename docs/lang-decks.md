@@ -3748,6 +3748,19 @@ changed was the one that had been wrong all along.
   fallback; the findings (the fold's true homographs, the infinitive twins, the declension tables' faults,
   the normalised romanisation) are 📖 `docs/amharic-decks-plan.md`. The `LANGS` row is 35 million L1, 60
   in all (Ethnologue via Wikipedia); the hue is measured, `#85063D`.
+- `.claude/burmese/` — the generator behind the Burmese decks (Nov 2026, on request: "Add a Burmese language
+  collection"; the Thai and Amharic owners' answers taken, the owner not asked). **Built: the alphabet deck,
+  `decks/Burmese-Alphabet.folio-deck.json`** (79 notes: the 33 consonants, the four tones, the vowels, medials,
+  rhymes, signs, digits and punctuation) **and A1, `decks/Burmese-A1.folio-deck.json`** (500 notes / 1,000 cards).
+  `python3 .claude/burmese/run.py [--level a1]`, `python3 .claude/burmese/alphabet.py`,
+  `node .claude/burmese/check-burmese.js`; a re-run is byte-identical. About 7,600 Wiktionary lemmas and 590
+  Tatoeba sentences, no subtitle list, so the frequency is the Burmese Wikipedia's (115,477 articles), cut into
+  words by syllable and dictionary maximal matching (Burmese writes no spaces between words); the fill takes only
+  words of two syllables or more. Wiktionary's IPA is the reading (it writes the four tones), no hand glosses, no
+  speaker. A1 teaches the SPOKEN register; the Wikipedia's literary particles and its bot-written village stubs'
+  formulae are excluded by name. The findings (the homographs narrowed by part of speech, the alternative forms
+  that are another register's, the spoken words filed as pointers) are 📖 `docs/burmese-decks-plan.md`. The
+  `LANGS` row is 33 million L1, 43 in all (Ethnologue via Wikipedia); the hue is measured, `#363B7F`.
 - `.claude/oldenglish/` — the generator behind the Old English decks (Nov 2026, on request: "Add an Old
   English language collection"). **Built: the alphabet and pronunciation deck,
   `decks/Old-English-Alphabet.folio-deck.json`** (41 notes) **and Level 1,

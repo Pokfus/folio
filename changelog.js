@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1319", released: "2026-11-15T22:31Z" };
+window.FOLIO_VERSION = { v: "1.1320", released: "2026-11-15T23:01Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-15",
-    t: "Tidier atlas windows, two language collections and more daily quotes",
+    t: "Tidier atlas windows, new language collections and more daily quotes",
     items: [
       "56 new glossary terms for World History, Ancient Greece, Ancient Egypt and Ancient Rome cards, and a Byzantine sense of <b>themes</b> that links only where it fits.",
       "Egyptian dynasties are now written with numbers (<b>18th Dynasty</b>) everywhere, glossary included, and the Council of Five Hundred always in words.",
@@ -58,6 +58,7 @@ window.CHANGELOG = [
       "New <b>Danish</b>, <b>Norwegian</b> and <b>Finnish</b> language collections: levels A1 to C1, plus phrases, idioms and proverbs, all in both directions.",
       "New in the Library: the <b>King James Bible</b>, with the Apocrypha and its marginal notes, and Luther's <b>Ninety-five Theses</b> (1517).",
       "A <b>Cantonese</b> collection joins the Languages section: a Jyutping and tones deck, A1 to C1 (3,787 words) and 347 phrases, slang and idioms.",
+      "A new <b>Burmese</b> language collection: an alphabet and tones deck and an A1 deck of 500 words in both directions, each with its pronunciation.",
     ],
   },
   {

@@ -30697,6 +30697,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        its nearest neighbour (Ancient Mesopotamia), then 14.3 from World History and 14.5 from Spanish, against a
        tightest existing pair of 4.0; 5.9:1 against white. */
     "lang-finnish":    { bg: "#8D572D" }, // measured sienna
+    /* BURMESE (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) against all 74 hues on the page, the magenta band's
+       standing rejection kept and the greens left out (the raw winner, a green at 15.1, as for Amharic): a deep
+       indigo, 14.2 from its nearest neighbour (Ancient Rome's purple) and 14.7 from the United States' navy, against
+       a tightest existing pair of 4.0; 10.1:1 against white. The indigo Finnish refused for Finland's flag; Myanmar's
+       flag is yellow, green and red, so it is not a flag colour here. */
+    "lang-burmese":    { bg: "#363B7F" }, // measured indigo
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were

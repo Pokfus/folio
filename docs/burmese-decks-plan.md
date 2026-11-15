@@ -1,0 +1,127 @@
+# The Burmese language decks — the plan (Nov 2026)
+
+**Read this before building, or changing the plan for, any Burmese deck in `decks/`.** It is the plan for a
+language set in the shape of the ones already shipped (Thai, Amharic, Hindi …); `docs/lang-decks.md` is the
+record of how those were built, and every rule there applies here unless this file says otherwise. Asked for
+on 2026-11-15: "Add a Burmese language collection." The owner was not asked: the Thai and Amharic owners'
+answers to the same questions were taken — **they are the owner's to overturn**.
+
+**STATUS (2026-11-15): the alphabet deck and A1 are built** (`.claude/burmese/`, §6). A2 and B1 are next, one
+per session.
+
+A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
+for a later deck this plan produces. The collection's first commit carried a line and a bump because it also
+changed the APP (the shelf's hue in `app.js`) — the Hebrew, Zulu and Amharic precedent.
+
+## 1. The decisions (2026-11-15, taken from the Thai and Amharic owners)
+
+1. **Levels: CEFR A1–B1, assembled, at 500 / 750 / 1,000 notes** — the Thai sizes. No exam board publishes a
+   graded Burmese word list, so each level is a hand-written topic inventory (`inventory.py`) scoped to the
+   CEFR global descriptor, topped up by frequency. English Wiktionary has 7,629 Burmese lemmas (§4), so a B2
+   is possible and is the owner's to ask for.
+2. **An alphabet deck first** (Thai, Amharic): Burmese is written in the Myanmar script.
+3. **A reading on every card: Wiktionary's IPA**, which marks the four tones. Wiktionary's other romanisation,
+   MLCTS, spells the letters (စား "ca:" for /sá/) and is not printed (§3).
+4. **The spoken register** (§4): A1 teaches တယ်, ရဲ့, နဲ့, ဒီ, not the literary သည်, ၏, နှင့်, ဤ.
+5. **No hand glosses** (Zulu, Amharic): a word Wiktionary lacks is listed in `inventory.py` and not taught.
+6. **No speaker button** (Hausa, Amharic): few devices carry a Burmese voice.
+7. **This session: plan + generator + the alphabet deck + A1 + the shelf entry**; A2 and B1 one per session.
+
+| deck | file | notes |
+|---|---|---|
+| Burmese Alphabet — built | `Burmese-Alphabet.folio-deck.json` | 79 |
+| Burmese A1 Beginner — built | `Burmese-A1.folio-deck.json` | 500 |
+| Burmese A2 Elementary — planned | `Burmese-A2.folio-deck.json` | 750 |
+| Burmese B1 Intermediate — planned | `Burmese-B1.folio-deck.json` | 1,000 |
+
+The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
+
+## 2. Sources and licences
+
+| what | source | licence |
+|---|---|---|
+| meanings, IPA, classifiers, alternative forms, usage examples | English Wiktionary via kaikki.org (`kaikki.org-dictionary-Burmese.jsonl`, 19 MB, 10,505 entries) | CC BY-SA 4.0 |
+| frequency | the Burmese Wikipedia, `mywiki-20261101-pages-articles.xml.bz2` (115,477 articles, 25.5 M words once cut), pinned | CC BY-SA 4.0 |
+| example sentences | Tatoeba `mya` exports (592 sentences) | CC BY 2.0 FR |
+| the alphabet deck's letters, names, sounds, spellings, rhymes | Wikipedia, "Burmese alphabet", and "Burmese language" § Tones, read 2026-11-15 | CC BY-SA 4.0 |
+| level scope | CEFR global scale (Council of Europe), quoted | — |
+| speakers (`LANGS`) | 33 million L1 (32.9, 2019), 10 million L2, Ethnologue 27th ed., via Wikipedia's infobox, read 2026-11-15 | — |
+
+Checked and unusable: hermitdave/FrequencyWords has no Burmese list (404); Tatoeba is too small to count.
+
+## 3. The card
+
+One note, two templates (Burmese → English, English → Burmese), `speechLang: 'my-MM'`. Fields: `Burmese`
+(the headword), `Roman` (the reading: Wiktionary's IPA without its slashes), `Word` (the plain headword; the
+check and the next level's de-duplication read it), `English` (meanings by part of speech, with the register
+where Wiktionary gives one — spoken, literary, formal, polite, a man's or a woman's word), `Forms` (a noun's
+CLASSIFIER, "counted with", where Wiktionary names one; the induced creaky "possessive" form, မြန်မာ → မြန်မာ့;
+"other forms", Wiktionary's alternative forms), `Examples` (up to three, no reading: Tatoeba gives none). The
+CSS is Amharic's with taller lines (Burmese stacks marks above and below a letter, as Thai does).
+
+- **THE READING IS IPA, NOT A ROMANISATION.** Burmese spelling is conservative: the finals -k -t -p -c are all
+  said as a glottal stop, -n -m -ng as a nasalised vowel, and a consonant is voiced inside a word without the
+  spelling changing (ချိတ် is tɕʰeɪʔ "to link" and dʑeɪʔ "hook"). MLCTS follows the letters; the IPA follows
+  the sound and writes the four tones (à low, á high, a̰ creaky, aʔ checked), which the alphabet deck teaches.
+- **NO SPEAKER BUTTON.** `check-burmese.js` fails on one.
+
+## 4. What Burmese needs that no earlier set did — the findings
+
+- **NO SPACES BETWEEN WORDS** (`my.syllables`, `my.Cutter`). Burmese spaces phrases, not words. A run is cut
+  into syllables (a syllable starts at a consonant or an independent vowel unless that letter is a final, with
+  the asat ် or ္ after it, or the lower half of a stack), then into words by forward maximal matching against
+  every Burmese headword of English Wiktionary, names included. No library. A sentence matches a word only
+  where the cut found it, so နေ "sun" is not found in နေကောင်းလား "how are you?".
+- **A ONE-SYLLABLE COUNT CANNOT BE TRUSTED.** Every syllable the cut could not place — a piece of a name, of a
+  compound Wiktionary lacks, the noun prefix အ-, the title ဦး "U" — counts as a one-syllable word, so အ "to be
+  mute", တ "to yearn" and ပ "to shine" ranked among the commonest. **The fill takes words of two syllables or
+  more**; the everyday one-syllable words (most verbs) come through the inventory, which names them.
+- **THE CORPUS IS BOT-WRITTEN VILLAGE STUBS AND LITERARY.** Most of the Burmese Wikipedia's articles are
+  stubs on villages and townships: ကိုးကား ("References"), the census lines (သန်းခေါင်စာရင်း, ကျား "male"),
+  ကျေးရွာအုပ်စု "village tract", မြို့နယ် "township" top the counts. And it is written in the LITERARY register,
+  so သည်, ၏, ၌, နှင့် lead. `select.EXCLUDE` names each with its reason; the Western months, counted from the
+  dates, are left for A2 as a set. 439 of 1,075,566 paragraphs were in the Zawgyi encoding and are skipped
+  (`my.zawgyi`).
+- **A SHORT WORD IS SEVERAL WORDS** and Wiktionary lists them historically: ကို is a form of address, the object
+  particle and "to"; က "to dance" before the subject particle; တစ် "to cut" before "one"; ငါး "fish" and
+  "five". The inventory names the part of speech it teaches (`ကို:particle+postp`) and the card shows only
+  those entries; `build_deck.ONLY` narrows further where one part of speech holds several words (ကား, the
+  noun: a cloth, a plank, a car; အင်္ဂါ: a body part and Tuesday). `LEAD` puts the everyday gloss first.
+- **WIKTIONARY'S "ALTERNATIVE FORMS" ARE NOT ALL SPELLINGS.** A form tagged literary, formal, obsolete … is
+  another register's word (သည် "literary" under the spoken တယ်) and is not shown; an untagged one is shown as
+  "other forms", since for a particle it is an alternant (သ for တယ်) rather than a spelling.
+- **A SPOKEN WORD FILED AS A POINTER** (မနက် "morning", an alternative of the formal နံနက်; မနက်ဖြန်
+  "tomorrow" of နက်ဖြန်): the card the inventory asks for heads with the spoken spelling and its own reading
+  (`ptr_ipa`), takes the lemma's meanings without its register label, and names the lemma under "other forms".
+
+**Known, left.** Words A1 would have and English Wiktionary does not (ဖေဖေ "dad", ယောက်ျားလေး "boy", ကုတင်
+"bed", ရေချိုးခန်း "bathroom", ဆိုင်ကယ် "motorcycle", ဘာကြောင့် "why", ဒါကြောင့် "so"; the full list is in
+`inventory.py`). Maximal matching takes the longest dictionary word, so a word inside a longer compound
+Wiktionary has is not counted there. 236 of A1's 500 words have an example sentence. Some fill words carry
+literary or formal labels (အလွန် "very", အချို့ "some"), and the fill reads encyclopaedic in places. A few
+first glosses keep Wiktionary's wording (မျက်လုံး "eyeball").
+
+## 5. Phases
+
+**Phase 1 (done)** — the pipeline, the alphabet deck, A1. **Phase 2** — A2, then B1, one per session: write the
+level's inventory into `inventory.py` and its topics into `burmese_level.SCOPE`, run, read every card, extend
+`EXCLUDE`, `ONLY` and `LEAD`. A level from A2 on may teach the literary particles A1 leaves out.
+
+## 6. As built (2026-11-15)
+
+`python3 .claude/burmese/run.py [--level a1] [--no-fetch] [--re-extract]`; stages `wikitext.py` → `extract.py`
+→ `select.py` → `examples.py` → `build_deck.py`, caching in `.claude/burmese-cache/` (gitignored, ~230 MB);
+`python3 .claude/burmese/alphabet.py` writes the alphabet deck (reads `lex.json` and the A1 deck).
+`node .claude/burmese/check-burmese.js` is the check. **A re-run is byte-identical** (verified for both decks,
+from a clean `--re-extract`).
+
+- **A1**: 500 notes, 416 from the inventory (19 topics) and 84 by frequency; 61 with forms, 236 with sentences.
+  Every inventory word was found in Wiktionary.
+- **The alphabet deck**: 79 notes — the 33 consonants in the traditional order (sound, name, group, an example
+  word that begins with the letter and is SAID with its sound: ဘုရား is pʰəjá, so not ဘ's), the four tones on
+  ခါ ခါး ခ ခတ် (the front shows the set with the tone's word in bold, since ခ alone is the consonant), the seven
+  vowels in their three tones on က, the four medials, the eight checked and seven nasal rhymes, the asat, the
+  anusvara, the stacking sign, the independent vowels, the ten digits (each with A1's number word), the
+  punctuation and the literary signs ၏ ၍ ၌ ၎င်း. Every letter side and every sound side unique (asserted).
+- **The shelf's hue** is measured: `#363B7F`, a deep indigo, 14.2 from its nearest of 74 (the comment at
+  `lang-burmese` in `app.js`).

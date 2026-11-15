@@ -101,7 +101,8 @@ const LANGS = [
   { word: "Hausa", name: "Hausa", l1: 58, total: 94 },            // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
   { word: "Amharic", name: "Amharic", l1: 35, total: 60 },       // Ethnologue 28th ed. (34.9 L1, 2020; 60.0 total, 2019–2020), via Wikipedia's infobox, read 2026-11-15
   { word: "Indonesian", name: "Indonesian", l1: 43, total: 255 },
-  { word: "Polish", name: "Polish", l1: 40, total: 43 },          // Ethnologue (27th ed., 2021), via Wikipedia's infobox, read 2026-11-09
+  { word: "Polish", name: "Polish", l1: 40, total: 43 },
+  { word: "Burmese", name: "Burmese", l1: 33, total: 43 },       // Ethnologue 27th ed. (32.9 million L1, 2019; 10.0 million L2), via Wikipedia's infobox, read 2026-11-15          // Ethnologue (27th ed., 2021), via Wikipedia's infobox, read 2026-11-09
   { word: "Tagalog", name: "Tagalog", l1: 33, total: 87 },      // Wikipedia's infobox (32.8 million, Ethnologue 28th ed.), read 2026-11-09
   { word: "Ukrainian", name: "Ukrainian", l1: 32, total: 39 },    // Ethnologue 28th ed. (2023 figure), via Wikipedia's infobox, read 2026-11-09
   { word: "Dutch", name: "Dutch", l1: 25, total: 30 },              // Wikipedia's infobox (2021 figure), read 2026-11-09
