@@ -2,14 +2,58 @@
 
 > **PHASE 5 (Oct 2026) — READ THIS FIRST; the body below is the history of v1's window.** The shape files this page names (`us-states.js`, `china-provinces.js`, `russia-subjects.js`, `world.js`, `world-capitals.js`,
 > `us-cities.js`) and their builders (`build-us-states.js` …) are **deleted**, and so is `startCardGlobeV1`. A map card is drawn by the Atlas engine through the headless hub (`atlas/atlas-windows.js`,
-> `docs/atlas-v2-card-windows.md`): `cardMapSpec` still reads the card's `map` field (`{ layer, key, dot }` — **unchanged, and it stays**: `migrate-places.js --finish` is not run), and
-> `atlas/data/card-faces.js` joins the key to an engine entity. What the remaining code needed from the deleted shapes — each shape's name, short code, label point, the box of its rings, the layer's dots and the
+> `docs/atlas-v2-card-windows.md`): `cardMapSpec` reads the card's `map` field (`{ layer, dot, zoom }`, and `key` only where the card's places cannot say it — **since 2026-11-15
+> the key is the card's places**, the section below), and `atlas/data/card-faces.js` joins a key to an engine entity. What the remaining code needed from the deleted shapes — each shape's name, short code, label point, the box of its rings, the layer's dots and the
 > neighbours of every key a card uses — is frozen in `.claude/atlas-build/frozen/layers.json` (`.claude/atlas-build/frozen/README.md`). `build-card-faces.js` reads it and writes `card-faces.js` and `card-neighbours.js`
 > (`--check` in CI also fails when a card's layer, key or dot resolves to nothing), and `add-card.js` validates a new map card against it; **a card on a shape the table does not have needs the row added to `layers.json` first.**
 > `CARD_MAP_LAYERS` in `app.js` shrank to `{ what, plural, points, pointsAlt, dotWhat }` (the words the card and the "describe the map" sentence use). Without WebGL2 (or with the bundle refused) the window draws on the engine's Canvas 2D
 > path with the tint but without the outline glow, and when even that cannot start it prints one plain sentence (`.mc-plain-note`). The accessibility sentence under a map (Settings → Describe geography maps) comes from
 > `card-neighbours.js`, the same grid-proximity rule frozen at build time. Re-run `test-map-cards.js`, `test-atlas-windows.js` and `test-window-fallbacks.js` after touching any of it.
 
+
+## The key is the card's places (2026-11-15 — the old fields' later phase)
+
+**A map card no longer names its shape twice.** It used to carry `map.key` ("California", a name in the layer's own
+list) AND the heavy `places` ("adm1:usa:us-ca", the registry id `migrate-places.js` derived from the key). The two
+are one fact: `atlas/data/card-faces.js` joins layer → key → entity id, that entity id IS the registry id, and the
+join is one to one within a layer (every one of the 793 map cards that then had places carried exactly its keys'
+entity ids — measured). So the key is retired and the windows read the places through the join.
+
+- **The rule** (`cardMapKeys` in `app.js`; `.claude/map-places.js` `mapKeys` in Node, `build-card-faces.js` the
+  same inline): a card's keys are its authored `map.key` where it has one, else every id of its `places` that is an
+  entity of the layer, by its key there, in the places' sorted order. The browser reads the places from the heavy
+  field when its bundle is in, else from the light index `card-places.js` (`atlas2places`); with neither (or no
+  `card-faces.js`) the answer is `[]`, the markup's `data-map-key` is empty, and the WINDOW resolves the keys once
+  it has loaded both (`keyCard` in `atlas-windows.js`) and writes them back into `data-map-key`, so the host
+  contract holds once the window has its model. A sibling map card on another window is resolved the same way, and
+  Find it loads `atlas2places` too (a world map card's country is its places).
+- **What stays on `map`, and why.** `layer` — the question's words ("which state", "which federal subject") and
+  which join; `dot` — the city the question asks about, a row of the layer's dot table, which no card's `places`
+  carries; `zoom` — the frame. These are the question's format, not a place reference.
+- **Where `key` stays.** Only where the places cannot say it: a layer whose entities are not registry rows (India's
+  `india-states`, whose units live in `admin1.bin` — `docs/atlas-v2-admin1-layer.md` step 3 is unbuilt), and an
+  ordered key LIST whose order the sorted places would lose (Cyprus, `gw-158` and `gw-658`: three polygons as one).
+  `finishCard` drops a key only when the card without it gives back the same keys in the same order.
+- **The places are derived through the same join.** `migrate-places.js` used to resolve a map key by NAME against
+  the gazetteer, which left 28 keys ambiguous (Washington, Shanxi, Moscow and the Russian republics whose short
+  names differ); it now takes the join's entity id (the layer's ISO code) when that id is a registry row, so all 821
+  map cards resolve and those 28 gained their place (on the Personal Atlas and in the glossary's joins too).
+- **Writing.** `add-card.js` still takes `map.key` as the AUTHORING input (an author knows "California", not
+  `adm1:usa:us-ca`), validates it as before, then writes the card in the new shape (`finishCard`) and rebuilds
+  `card-places.js` and `glossary-places.js`. Anything that writes map cards otherwise is followed by
+  **`node .claude/migrate-places.js --finish`** — idempotent (a second run changes no byte); `migrate-places.js
+  --check` (CI) fails on a key its places already say, and on a key-less card whose places name no shape of its
+  layer. To CHANGE a key-less card's shape, change its places (`add-places.js`), not its `map`: an id of the layer
+  added to its places is shaded too.
+- **Why `locator` and `war` were NOT retired** (the same decision, recorded here because the question will come
+  back). A locator's `name` and `at` are the card's own label and point — the registry's point is Wikidata's and
+  differs on most cards (452 of 1,899 resolved locators within a metre, median 0.56 km, 90th percentile 8.8 km; the
+  name differs on 334) — and 1,412 cards with an old field have no place at all; its `kind`, `area`, `spine`,
+  `within`, `label`, `hide`, `also`, `rivers`, `ask` and `zoom` are the drawing and the question. The sibling dots
+  read every locator of a collection on the eager path, where `places` and the registry are lazy and the windows'
+  hub deliberately loads no gazetteer. A war block's sides, outcome, names (the legend), authored extents, years and
+  `group` are the question; its places are derived from it (`wars.js`, `test-war-sides.js`'s pinned hash) and say
+  nothing about which side won. Retiring either would move dots, rename labels and lose data.
 
 **Read this before touching the `MAP CARDS` block in app.js, `startCardGlobe` / `cardMapSpec` /
 `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `TINT_SEL`, `.claude/build-us-states.js`,

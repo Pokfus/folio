@@ -413,6 +413,26 @@ async function fullGestures(page, cdp, cx, cy) {
   await sleep(300);
   return r;
 }
+/* THE ADMIN-1 LAYER ON THE PAGE (step 3, 2026-11-15; docs/atlas-v2-admin1-layer.md §8): India at 2 km/px with the States and provinces switch on (the default),
+   the present — the view where atlas/data/admin1.bin's inner lines are drawn beside the core's — in the plain Map (every line of the file) and, in a page of its
+   own, the Personal Atlas of a reader whose studied card discovers Uttar Pradesh (its face's stencil mark before the empty-land darkening, its lines, the core's
+   arc mask carrying its share of the border). The same drag and pinch; the owner's worst-frame rule and the drag's release rule are asserted on each. */
+const INDIA_VIEW = [80, 25, 2], INDIA_UP = "adm1:ind:in-up", INDIA_CARD = "gr-001";
+async function indiaGestures(page, cdp, cx, cy, mode) {
+  await page.evaluate((m) => { const c = document.querySelector(".atlas2").__atlas2; c.clearSelection(); c.setYear(new Date().getUTCFullYear()); c.study.setMode(m); }, mode);
+  await page.evaluate((v) => document.querySelector(".atlas2").__atlas2.setView(v[0], v[1], v[2]), INDIA_VIEW);
+  await page.waitForFunction(() => { const i = document.querySelector(".atlas2").__atlas2.admin1Info(); return i.failed || (i.ready && i.faces > 0); }, null, { timeout: 60000 }).catch(() => {});
+  await settle(page); await sleep(600);
+  await page.evaluate(() => new Promise((res) => { document.querySelector(".atlas2").__atlas2.invalidate(); requestAnimationFrame(() => requestAnimationFrame(res)); }));
+  const r = { mode };
+  r.still = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2, s = c.statsNow(), i = c.admin1Info(); return { segs: s.admin1Segments, faces: s.admin1Faces, triangles: s.triangles, segments: s.segments, keep: i.keep, ready: i.ready, failed: i.failed, study: c.study.mode() }; });
+  r.drag = await repeated(page, () => drag(page, cx, cy), () => warmV2(page, () => drag(page, cx, cy)));
+  await page.evaluate((v) => document.querySelector(".atlas2").__atlas2.setView(v[0], v[1], v[2]), INDIA_VIEW); await settle(page); await sleep(300);
+  r.pinch = await repeated(page, () => pinch(page, cdp, cx, cy, null), () => warmV2(page, () => pinch(page, cdp, cx, cy)));
+  await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; c.study.setMode("map"); c.setView(10, 20, 24); });
+  await settle(page);
+  return r;
+}
 // the marks drawn in a still frame of the Full Atlas on each fixed view (the budgets in VIEWS)
 async function fixedMarks(page) {
   const out = [];
@@ -486,6 +506,7 @@ async function fixedMarks(page) {
     r.pick = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; const card = c.card ? c.card() : null; return (card && card.title) || (c.selectedId ? c.selectedId() : "") || document.querySelector(".atlas2-caption").textContent; });
     results.v2 = r;
     results.v2full = await fullGestures(page, cdp, cx, cy);   // the Full Atlas on, the widest view (stacks removed)
+    results.indiaMap = await indiaGestures(page, cdp, cx, cy, "map");   // the admin-1 layer's lines over India (step 3)
     views = await fixedViews(page, cx, cy);
     viewMarks = await fixedMarks(page);
     /* relief on: L0 and the view's L1 patches, then the same gestures and views */
@@ -499,6 +520,28 @@ async function fixedMarks(page) {
     results.v2relief = rr;
     viewsRelief = await fixedViews(page, cx, cy);
     await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setLayers({ relief: false }));
+  }
+
+  /* ---------- the Personal Atlas over India, Uttar Pradesh discovered (admin-1 layer step 3): a context of its own, seeded with one studied card whose index entry
+     also names Uttar Pradesh (no card names an Indian unit yet), so the Map measurements above stay a reader with no cards ---------- */
+  {
+    const ctxP = await browser.newContext({ viewport: { width: 1280, height: 800 }, hasTouch: true });
+    await ctxP.addInitScript((card) => { try { localStorage.setItem("folio.atlas2.study", "personal"); if (!localStorage.getItem("folio_v1_seeded")) { localStorage.setItem("folio_v1", JSON.stringify({ cards: { [card]: { due: Date.now() + 9e8, ivl: 9, ease: 2.5, status: "review", reps: 2, first: "2026-08-01" } }, settings: { newPerDay: 5 } })); localStorage.setItem("folio_v1_seeded", "1"); } localStorage.setItem("folio.atlas2.intro", "1"); } catch (e) {} }, INDIA_CARD);
+    const body = (() => { const w = {}; new Function("window", fs.readFileSync(path.join(ROOT, "atlas/data/card-places.js"), "utf8"))(w); const T = w.ATLAS_CARD_PLACES; let i = T.ids.indexOf(INDIA_UP); if (i < 0) { T.ids.push(INDIA_UP); i = T.ids.length - 1; } T.cards[INDIA_CARD] = (T.cards[INDIA_CARD] || []).concat([i]); return "/* sources: [] */\nwindow.ATLAS_CARD_PLACES = " + JSON.stringify(T) + ";\n"; })();
+    await ctxP.route(/atlas\/data\/card-places\.js/, (rt) => rt.fulfill({ status: 200, contentType: "text/javascript", body }));
+    const page = await ctxP.newPage();
+    page.on("pageerror", (e) => errors.push("pageerror (Personal India): " + String(e).slice(0, 200)));
+    page.on("console", (m) => { if (m.type() === "error" && !isNoise(m.text())) errors.push("console (Personal India): " + m.text().slice(0, 200)); });
+    const cdp = await ctxP.newCDPSession(page);
+    await page.goto(base + "#map?perf", { waitUntil: "load" });
+    await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 90000 });
+    await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.study.ready(), null, { timeout: 90000 });
+    await page.evaluate(() => document.querySelector(".atlas2").__atlas2.setLayers({ relief: false, rivers: true, lakes: true, graticule: false }));
+    await settle(page);
+    const box = await (await page.$(".atlas2-canvas")).boundingBox();
+    await sampler(page);
+    results.indiaPersonal = await indiaGestures(page, cdp, box.x + box.width / 2, box.y + box.height / 2, "personal");
+    await ctxP.close();
   }
 
   await browser.close();
@@ -578,6 +621,15 @@ async function fixedMarks(page) {
     check(`Full Atlas: the drag's first full frame after release ≤ ${RELEASE_MS} ms and no release frame over ${RELEASE_MS} ms`, !!dr && dr.releaseOK, dr ? `first ${d.release.map((x) => x.first.toFixed(1)).join(" / ")} ms, worst ${dr.relMax.toFixed(1)} ms` : "no release recorded");
     check("Full Atlas: the marks' own pass costs under 4 ms at p95 on this runner (software canvas; reported per view above)", f.cost.n > 50 && f.cost.marksP95 < 4, `p95 ${f.cost.marksP95.toFixed(2)} ms, mean ${f.cost.marksMean.toFixed(2)} ms`); }
   for (const { V, s } of viewMarks) if (V.marks != null) check(`${V.name}: marks drawn in the Full Atlas ≤ ${V.marks}`, s.drawn <= V.marks, `${s.drawn} drawn of ${s.laid} laid out`);
+  // the admin-1 layer on the page (step 3): India at 2 km/px, the Map and the Personal Atlas with Uttar Pradesh discovered — the same worst-frame and release rules as the Full Atlas's
+  for (const [name, f] of [["India, Map (every state line of admin1.bin)", results.indiaMap], ["India, Personal (Uttar Pradesh discovered)", results.indiaPersonal]]) {
+    if (!f) { check(`${name}: measured`, false, "not run"); continue; }
+    const d = f.drag, p = f.pinch, dd = d.during || { raw: [], n: 0, max: NaN }, pool = dd.raw.concat(p.during ? p.during.raw : []), dr = d.during ? dragRule(d.during.raw, d.release.map((x) => x.frames)) : null;
+    const drawn = f.mode === "map" ? f.still.segs > 0 && f.still.faces === 0 : f.still.segs > 0 && f.still.faces === 1 && f.still.keep.length === 1 && f.still.keep[0] === INDIA_UP;
+    check(`${name}: the file's layer is drawn at the still (${f.still.segs} admin-1 segments, ${f.still.faces} faces marked; ${f.still.triangles} land triangles, ${f.still.segments} segments; view ${f.still.study})`, f.still.ready && !f.still.failed && f.still.study === f.mode && drawn, JSON.stringify(f.still));
+    check(`${name}: the gesture frames of the drag and the pinch together (${pool.length}) — at most ${pctS(WORST_SHARE)} over ${WORST_MS} ms, none over ${WORST_CAP_MS} ms`, !!p.during && !!d.during && overShare(pool) <= WORST_SHARE && dd.max <= WORST_CAP_MS + 1 && p.during.max <= WORST_CAP_MS + 1, `${overCount(pool)} over ${WORST_MS} (${pctS(overShare(pool))}); drag p90 ${fmt(d.p90).trim()} worst ${dd.max.toFixed(1)}, pinch p90 ${fmt(p.p90).trim()} worst ${p.during ? p.during.max.toFixed(1) : "—"}`);
+    check(`${name}: the drag's first full frame after release ≤ ${RELEASE_MS} ms and no release frame over ${RELEASE_MS} ms`, !!dr && dr.releaseOK, dr ? `first ${d.release.map((x) => x.first.toFixed(1)).join(" / ")} ms, worst ${dr.relMax.toFixed(1)} ms` : "no release recorded");
+  }
   for (const g of ["drag", "wheel", "pinch"]) {
     const b = results.v2relief[g], off = results.v2[g];
     check(`${g}, relief on: v2 pooled p90 ≤ ${RELIEF_FACTOR} × its relief-off pooled p90`, b.p90 <= Math.max(off.p90, 16.7) * RELIEF_FACTOR, `v2 ${b.p90.toFixed(1)} ms on vs ${off.p90.toFixed(1)} ms off (per-repeat p95s on ${b.p95s.map((v) => v.toFixed(1)).join(" / ")}, off ${off.p95s.map((v) => v.toFixed(1)).join(" / ")}); v2 worst ${b.max.toFixed(1)} ms (reported, not gated)`);

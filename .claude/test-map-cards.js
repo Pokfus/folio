@@ -140,6 +140,8 @@ function staticChecks() {
   new Function("window", fs.readFileSync(path.join(ROOT, "data.js"), "utf8"))(dwin);
   const cards = dwin.CARD_DATA || [];
   const maps = cards.filter((c) => c.map);
+  const MPL = require("./map-places.js"), MPJ = MPL.loadJoin(), PLACES_OF = {};
+  for (const c of require("./card-io.js").loadCards().cards) if (c.places) PLACES_OF[c.id] = c.places;
   ok(maps.length > 0, "data.js carries map cards", maps.length);
   maps.forEach((c) => {
     const L = LAYERS[c.map.layer];
@@ -148,7 +150,8 @@ function staticChecks() {
     /* `key` may be a LIST where the layer files one place as several polygons (Cyprus is three). Every
        name has to resolve: a card shading two of three draws perfectly and asks about a shape that is not
        the country. */
-    const mkeys = Array.isArray(c.map.key) ? c.map.key : [c.map.key];
+    // the keys the card shades: its authored `map.key`, else its places through card-faces.js (map-places.js, 2026-11-15; the places are heavy, so through card-io)
+    const mkeys = MPL.mapKeys(Object.assign({}, c, { places: PLACES_OF[c.id] }), MPJ);
     ok(mkeys.length > 0 && mkeys.every((k) => L.shapes.has(k)), c.id + ": every key is a " + L.what + " the layer actually has", mkeys.join(", "));
     ok(mkeys.every((k) => String(k).indexOf("|") < 0), c.id + ": no key contains the pipe the renderer joins them with");
     /* A map card carries NO extra phrasings. The other two would have to describe the same shape in two
