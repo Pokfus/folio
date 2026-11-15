@@ -2673,6 +2673,23 @@ interrupted by them; each of its three shapes fails quietly on the ordinary path
 Re-run after touching: `node .claude/fetch-book.js treaty-of-versailles --force` (no raw cache on this path —
 it refetches 17 pages), then `node .claude/book-audit.js` and `node .claude/check-cutoff.js`.
 
+## `between` — one wiki page cut into parts at its anchors (Nov 2026, the Ninety-five Theses)
+
+`between: (n) => [openingAnchor, nextAnchor]` → `betweenAnchors`, applied to the fetched page before anything else
+reads it. The 1915 *Works of Luther* page transcludes an introduction and four documents, each a `prp-pages-output`
+block behind its own `{{anchor}}`; the part is the stretch from its anchor to the next, cut back to the `<p>` that
+holds the second anchor (cut at the span, the part ends on an unclosed `<p>`), with the page's reference list
+appended because the markers are resolved against it by id. A missing or out-of-order anchor THROWS — a fall-back to
+the whole page would ship the introduction as text. The page numbers its notes straight through, so after
+`cleanBody` each part keeps only the notes its markers open, renumbered by `pruneNotes`.
+
+`wrapBareRuns: true` runs `wrapBareRuns` over the single-column body just before `sections: "leading"`: a scan page
+that opens on a new paragraph may arrive as bare text between two `<p>`s (Thesis 13), invisible to a `<p>`-anchored
+number pass. Gated per book.
+
+Re-run after touching: `node .claude/fetch-book.js luther-ninety-five-theses --force` (two fetches of one page), then
+count the theses (95, in order) and `node .claude/book-audit.js`.
+
 ## The `usfm` layout — scripture in Bible-society markup, one zip (Nov 2026, the King James Bible)
 
 `layout: "usfm"` → `unzipEntries` (a 30-line zip reader on Node's `zlib`, so the importer keeps zero deps),

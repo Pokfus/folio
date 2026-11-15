@@ -19091,6 +19091,103 @@ const BOOKS = {
     titleOf: (n) => TREATY_PARTS[n - 1],
     chapters: Array.from({ length: 15 }, (_, i) => i + 1),
   },
+
+  "luther-ninety-five-theses": {
+    title: "The Ninety-five Theses",
+    subtitle: "A Disputation on the Power and Efficacy of Indulgences",
+    author: "Martin Luther",
+    /* THE TRANSLATOR IS NAMED BY THE VOLUME'S OWN CONTENTS PAGE: under "Disputation on Indulgences
+       (1517)" it lists "Introduction (C. M. Jacobs)" and "Translation (C. M. Jacobs)". The wiki's
+       header names the series editors, Henry Eyster Jacobs and Adolph Spaeth, for the whole volume,
+       which is the volume's credit and not this piece's. Charles Michael Jacobs, 1875–1938, by his
+       Wikisource author page. */
+    translator: "Charles M. Jacobs",
+    edition: "Works of Martin Luther, with Introductions and Notes, Volume I, A. J. Holman Company, Philadelphia, 1915",
+    written: "1517",
+    year: 1517,
+
+    /* ---------- THE LICENCE — A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION ----------
+       Luther's Latin is of 1517. Jacobs's English was published in Philadelphia in 1915 ("Copyright,
+       1915, by A. J. Holman Company", the title page's verso), so it is public domain in the United
+       States on the pre-1929 rule. He died in 1938, so the English cleared life plus seventy on
+       1 January 2009 and life plus eighty in 2019, and has NOT cleared life plus a hundred, which runs
+       to 1 January 2039.
+
+       ---------- WHAT IS TAKEN ----------
+       The wiki page transcludes the volume's whole section: Jacobs's introduction, the letter Luther
+       sent with the Theses to Albrecht of Mainz on 31 October 1517, the Theses, and the two letters of
+       1518 to Staupitz and to Leo X that went with the "Resolutions". The introduction is the editor's
+       essay, not Luther, and the two later letters belong to the Resolutions rather than to the
+       Theses, so the book is the two documents of 31 October 1517 in the volume's order — the letter
+       (its I) and the Disputation (its II) — cut out of the one page at the wiki's own anchors
+       (`between`, `betweenAnchors`). Jacobs's footnotes to those two documents come with them.
+
+       NO ORIGINAL. The Latin is on the Latin Wikisource ("Disputatio pro declaratione virtutis
+       indulgentiarum"), but no facing text is set here. */
+    rights:
+      "Public domain, with one limit. Luther wrote the Theses in Latin in 1517, so the work itself has " +
+      "never been in copyright. Charles M. Jacobs's English translation was published in Philadelphia " +
+      "in 1915, in the first volume of the Works of Martin Luther, and is in the public domain in the " +
+      "United States as a work published before 1929. Jacobs died in 1938, so it is also free in " +
+      "countries that protect a work for seventy or eighty years after its author's death, but not yet " +
+      "where the term is a hundred years. The text is the proofread Wikisource transcription of the " +
+      "1915 volume.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Works_of_Martin_Luther,_with_introductions_and_notes/Volume_1/Disputation_on_Indulgences",
+
+    about: [
+      "<b>The Ninety-five Theses</b> are the propositions on indulgences that Martin Luther, an " +
+        "Augustinian friar and professor of theology at the University of Wittenberg in Saxony, drew up " +
+        "in Latin in 1517. Their full title is <i>A Disputation on the Power and Efficacy of " +
+        "Indulgences</i>. They are dated 31 October 1517, the eve of All Saints, and they are usually " +
+        "taken as the beginning of the Protestant Reformation.",
+      "An indulgence was a grant by the Church that remitted the penalty still owed for sins already " +
+        "forgiven, and it could be had for the living or, it was preached, for souls in purgatory. In " +
+        "1517 an indulgence was being preached in the lands near Wittenberg, by the Dominican Johann " +
+        "Tetzel among others, under the name of Albrecht, Archbishop of Mainz and Magdeburg: half of " +
+        "the money went to the rebuilding of St Peter's in Rome, and half to repay what Albrecht had " +
+        "borrowed from the Fugger bank to secure his offices. Luther objected less to indulgences as " +
+        "such than to what people were being told about them — that a letter of indulgence made a " +
+        "buyer sure of salvation, or that a soul flew out of purgatory as soon as the coin fell into " +
+        "the box.",
+      "The Theses are written as an academic disputation: numbered statements put up for debate, in " +
+        "the form the universities of the time used. They begin with repentance, which Christ meant to " +
+        "be the whole life of a believer, and argue that the pope can remit only the penalties he " +
+        "himself has imposed. Then come the questions a layman might ask (<i>why does not the pope " +
+        "empty purgatory, for the sake of holy love …?</i>), and they close on following Christ " +
+        "through penalties, deaths and hell. Luther still writes as a loyal son of the Church, " +
+        "defending the pope against the preachers who use his name.",
+      "On the day he dated them, Luther sent the Theses to Archbishop Albrecht with a covering letter, " +
+        "and that letter is the first part of this book. The famous story that he nailed them to the " +
+        "door of the Castle Church at Wittenberg was first told by his colleague Philip Melanchthon " +
+        "after Luther's death, and historians still argue over whether it happened. What is certain " +
+        "is that the Theses were soon printed and read all over Germany, far beyond the university " +
+        "audience they were written for, and that within four years Luther had been excommunicated by " +
+        "Pope Leo X and outlawed by the Emperor.",
+      "The translation is by <b>Charles M. Jacobs</b>, from the first volume of the <i>Works of " +
+        "Martin Luther</i>, published in Philadelphia in 1915. The book has two parts, in the " +
+        "volume's order: the letter to Albrecht, and the Disputation itself, its ninety-five theses " +
+        "numbered as Luther numbered them. The footnotes are Jacobs's. Where a note says <i>see " +
+        "Introduction</i>, it points to his introductory essay in the 1915 volume, which is not " +
+        "included here, and neither are the two letters of 1518 that the volume prints after the " +
+        "Theses. Words in square brackets are Jacobs's, added to make the sense clear.",
+    ],
+
+    page: () => "Works of Martin Luther, with introductions and notes/Volume 1/Disputation on Indulgences",
+    between: (n) => (n === 1 ? ["Albrecht", "Translation"] : ["Translation", "Staupitz"]),
+    // each document's printed head — its numeral, its title and its date — which the tab already names
+    dropHeads: [/^(?:I|II) (?:LETTER TO THE ARCHBISHOP ALBRECHT OF MAINZ|DISPUTATION OF DOCTOR MARTIN LUTHER ON THE POWER AND EFFICACY OF INDULGENCES) OCTOBER 31, 1517$/],
+    // the Theses are numbered at the head of their paragraphs, "1. Our Lord and Master …"
+    sections: "leading",
+    // Thesis 13 opens scan page 46 as bare text between two paragraphs; see cleanBody
+    wrapBareRuns: true,
+    chapterWord: "Part",
+    // the volume's own heads for the two documents, in its order
+    titleOf: (n) => ["Letter to the Archbishop Albrecht of Mainz",
+      "Disputation on the Power and Efficacy of Indulgences"][n - 1],
+    chapters: [1, 2],
+  },
+
   "king-james-bible": {
     title: "The King James Bible",
     subtitle: "The Holy Bible, Authorized Version, 1611",
@@ -21255,6 +21352,12 @@ function cleanBody(h, noteIds, book, warn) {
      it at all. */
   if (book && book.dropBlankParas) b = b.replace(/<p>\s*(?:<br>\s*)+<\/p>\s*/g, "");
   if (book && book.sections === "chapterhead") b = markChapterHead(b, book, warn);
+  /* A NUMBERED PARAGRAPH THAT IS A BARE RUN (Nov 2026, the Ninety-five Theses). MediaWiki wraps a
+     paragraph in <p> only where the wikitext had a blank line before it, and a scan page that opens
+     on a new paragraph does not always give it one: Thesis 13 opens page 46 and arrives as bare text
+     between two paragraphs, which the leading-number pass, anchored on <p>, cannot see — the Art of
+     War's lesson (see wrapBareRuns) met on the single-column path. Gated per book. */
+  if (book && book.wrapBareRuns) b = wrapBareRuns(b);
   if (book && book.sections === "leading") b = markLeadingSections(b, warn);
   if (book && book.sections === "shu") b = markShuSections(b, warn);
   if (book && book.sections === "liki") b = markLikiSections(b, warn);
@@ -22057,6 +22160,27 @@ function correctGot(got) {
   return one(got);
 }
 
+
+/* ONE WIKI PAGE CUT INTO PARTS AT ITS OWN ANCHORS (Nov 2026, adding the Ninety-five Theses). The
+   1915 Philadelphia Works of Luther transcludes the editor's introduction and four documents — the
+   letter to Albrecht of Mainz, the Theses, and the letters to Staupitz and Leo X — onto ONE page, each
+   as its own `prp-pages-output` block behind a `{{anchor}}`. A book that declares `between(n)` names
+   the anchor its part opens on and the anchor of the block after it; the page is cut there, and the
+   page's reference list is carried along, since it sits at the foot after the last block and the note
+   markers are resolved against it by id. An anchor that is missing, or that comes in the wrong order,
+   THROWS: a silent fall-back to the whole page would ship the introduction as part of the text. */
+function betweenAnchors(h, span) {
+  const at = (id) => h.search(new RegExp('<span class="anchor" id="' + id.replace(/_/g, "&#95;") + '"'));
+  const i = at(span[0]), j = at(span[1]);
+  if (i < 0 || j < 0) throw new Error("anchor not found: " + (i < 0 ? span[0] : span[1]));
+  if (j <= i) throw new Error("anchors out of order: " + span.join(" before "));
+  /* The anchors stand inside a <p> of their own, so the cut is moved back to that paragraph's
+     opening tag — cut at the span itself, the part would end on an unclosed <p>. (The opening cut
+     leaves a stray </p>, which stripTags discards as a closer it never saw opened.) */
+  const k = h.lastIndexOf("<p>", j);
+  const refs = h.match(/<ol class="references">[\s\S]*?<\/ol>/);
+  return h.slice(i, k > i ? k : j) + (refs ? "\n" + refs[0] : "");
+}
 
 function notesOf(h) {
   const m = h.match(/<ol class="references">([\s\S]*?)<\/ol>/);
@@ -32222,6 +32346,8 @@ async function fetchEnglish() {
     const pageNames = [].concat(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
     let h = await api(pageNames[0]);
+    /* ONE PAGE, SEVERAL PARTS (Nov 2026, the Ninety-five Theses): see `betweenAnchors`. */
+    if (BOOK.between) h = betweenAnchors(h, BOOK.between(n));
     let html, notes, orig = "", tFromText = "";
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
@@ -32281,6 +32407,15 @@ async function fetchEnglish() {
       const multi = pageNames.length > 1;
       html = cleanBody(h, got.ids, BOOK, multi ? (m) => { if (!/^no section numbers found/.test(m)) warn(m); } : warn);
       if (keep) html = pruneNotes(html, keep);
+      /* A PART CUT OUT OF A LONGER PAGE carries the page's WHOLE note list — the Theses' page numbers
+         its notes 1–84 straight through the introduction and four documents — so only the notes this
+         part's own markers open are kept, renumbered from 1 by pruneNotes. */
+      if (BOOK.between) {
+        const used = [...new Set([...html.matchAll(/<sup class="fn" data-fn="(\d+)"><\/sup>/g)].map((m) => +m[1]))]
+          .sort((x, y) => x - y);
+        notes = used.map((u) => notes[u - 1]);
+        html = pruneNotes(html, used);
+      }
       /* THE REST OF A MULTI-PAGE CHAPTER. Each page is cleaned against its OWN note list, so the
          second page's markers count from 1 again and would open the first page's notes. `data-fn` is
          a one-based index into the chapter's notes, so every marker after the first page is shifted
