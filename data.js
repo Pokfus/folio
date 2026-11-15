@@ -11258,7 +11258,9 @@ window.CARD_DATA = [
 {"id":"gin-016","num":"016","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Punjab","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Reorganised</span><span class=\"dt-v\">1 November 1966</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Punjab","tags":["place","geography","india","state","punjab"],"difficulty":3,"map":{"layer":"india-states","key":"Punjab"},"facts":[["Kind","State"],["Capital","Chandigarh"],["Population","27.7M (2011)"],["Area","50.4k km² (19.4k sq mi)"]]},
 {"id":"gin-516","num":"516","category":"Geography","question":"The dot marks <span class=\"blank\">_____</span>, capital of the shaded state though it lies in a union territory beside it.","answer":"Chandigarh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Union territory</span><span class=\"dt-v\">1 November 1966</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Chandigarh","tags":["place","city","geography","capital","india"],"difficulty":3,"map":{"layer":"india-states","key":"Punjab","dot":"Chandigarh"},"facts":[["Capital of","Punjab and Haryana"],["Lies in","Chandigarh (union territory)"],["Population","962k (2011)"],["Area","103 km² (39.8 sq mi)"]]},
 {"id":"gin-018","num":"018","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Haryana","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">1 November 1966</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Haryana","tags":["place","geography","india","state","north india"],"difficulty":3,"map":{"layer":"india-states","key":"Haryana"},"facts":[["Kind","State"],["Capital","Chandigarh"],["Population","25.4M (2011)"],["Area","44.2k km² (17.1k sq mi)"]]},
-{"id":"gin-518","num":"518","category":"Geography","question":"The dot marks <span class=\"blank\">_____</span>, capital of the shaded state though it lies in a union territory beside it.","answer":"Chandigarh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">First census</span><span class=\"dt-v\">1961</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Chandigarh","tags":["place","city","geography","capital","india"],"difficulty":3,"map":{"layer":"india-states","key":"Haryana","dot":"Chandigarh"},"facts":[["Capital of","Haryana and Punjab"],["Lies in","Chandigarh (union territory)"],["Population","962k (2011)"],["Area","103 km² (39.8 sq mi)"]]}
+{"id":"gin-518","num":"518","category":"Geography","question":"The dot marks <span class=\"blank\">_____</span>, capital of the shaded state though it lies in a union territory beside it.","answer":"Chandigarh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">First census</span><span class=\"dt-v\">1961</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Chandigarh","tags":["place","city","geography","capital","india"],"difficulty":3,"map":{"layer":"india-states","key":"Haryana","dot":"Chandigarh"},"facts":[["Capital of","Haryana and Punjab"],["Lies in","Chandigarh (union territory)"],["Population","962k (2011)"],["Area","103 km² (39.8 sq mi)"]]},
+{"id":"gin-017","num":"017","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Chhattisgarh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">1 November 2000</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Chhattisgarh","tags":["place","geography","india","state","central india"],"difficulty":3,"map":{"layer":"india-states","key":"Chhattisgarh"},"facts":[["Kind","State"],["Capital","Raipur"],["Population","25.5M (2011)"],["Area","135k km² (52.2k sq mi)"]]},
+{"id":"gin-517","num":"517","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Raipur","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Seat of division</span><span class=\"dt-v\">1818</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Raipur","tags":["place","city","geography","capital","india"],"difficulty":4,"map":{"layer":"india-states","key":"Chhattisgarh","dot":"Raipur"},"facts":[["State","Chhattisgarh"],["Population","1.01M (2011)"],["Area","148 km² (57.0 sq mi)"],["Rank in state","Largest city"]]}
 ];
 
 window.COLLECTION_TREE = {
@@ -29257,7 +29259,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-india",
       "title": "India",
-      "total": 32,
+      "total": 34,
       "placeholder": false,
       "children": [
         {
@@ -29281,7 +29283,8 @@ window.COLLECTION_TREE = {
             "gin-014",
             "gin-015",
             "gin-016",
-            "gin-018"
+            "gin-018",
+            "gin-017"
           ]
         },
         {
@@ -29303,7 +29306,8 @@ window.COLLECTION_TREE = {
             "gin-514",
             "gin-515",
             "gin-516",
-            "gin-518"
+            "gin-518",
+            "gin-517"
           ]
         },
         {

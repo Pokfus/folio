@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T22:11Z",
+ "generated": "2026-11-15T22:15Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8296,
+  "ok": 8298,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89413,6 +89413,20 @@
    "title": "Chandigarh",
    "url": "https://en.wikipedia.org/wiki/Chandigarh",
    "via": "glossary",
+   "status": "ok"
+  },
+  "gin-017": {
+   "answer": "Chhattisgarh",
+   "title": "Chhattisgarh",
+   "url": "https://en.wikipedia.org/wiki/Chhattisgarh",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-517": {
+   "answer": "Raipur",
+   "title": "Raipur",
+   "url": "https://en.wikipedia.org/wiki/Raipur",
+   "via": "answer",
    "status": "ok"
   }
  }
