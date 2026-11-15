@@ -316,8 +316,15 @@ base snapshot). Now (`wbRecord`, `wbCommitted`, `wbApplyStep`, `wbFreeCanvas` in
 - the highlighter's per-move redraw clears and refills only the stroke's box, over the committed copy, where
   it repainted the whole canvas on every pointermove and copied the whole canvas per stroke;
 - the patches are capped at `WB_HIST_BYTES` (48 MB) as well as `WB_HIST_MAX` steps; the card canvas has a
-  pixel budget `WB_MAX_PX` (8.4M; iOS refuses a canvas over 16.7M pixels without an error), so a very long
-  card is inked at a little under devicePixelRatio (`WB.scale`, which the live stroke and the box use);
+  pixel budget `WB_MAX_PX` (16M since 2026-11-15, first 8.4M; iOS refuses a canvas over 16.7M pixels without
+  an error), so a very long card is inked at a little under devicePixelRatio (`WB.scale`, which the live
+  stroke and the box use). **The budget is the platform's limit, not a saving** (2026-11-15, on a report that
+  "as soon as I reveal the answer, all drawn lines become blurry"): at 8.4M a revealed card on a tablet
+  (10.3M) fell under devicePixelRatio and the ink already there was resampled to the smaller scale and
+  stretched back by CSS. Now the budget sits just under iOS's limit, and where it does bite the ink is
+  DRAWN AGAIN from the strokes — `WB.vec` (one entry per undoable step, moved to `WB.vecRedo` by undo),
+  `wbReplay` — never scaled as a picture; at an unchanged scale the picture is still copied pixel for pixel.
+  `test-whiteboard.js` §5 cuts a column of pixels across a line before and after the reveal;
 - every canvas let go (the card's on the next card or page, a resize's copy, a dropped step) is shrunk to
   0×0 at once — Safari counts a detached canvas against its limit until it is collected.
 Behaviour is unchanged: undo/redo/clear give pixel-identical canvases to the old full-snapshot stack, and a

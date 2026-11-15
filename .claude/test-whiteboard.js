@@ -269,6 +269,66 @@ async function installInk(page) {
   check("two thumbs draw one line, not a zigzag between them", oneLine > 0 && zigzag === 0,
     JSON.stringify({ onTheLine: oneLine, upWhereTheOtherThumbIs: zigzag }));
 
+  /* ---------- 5. THE INK STAYS SHARP WHEN THE ANSWER IS REVEALED (Nov 2026, on a report) ----------
+     "As soon as I reveal the answer, all drawn lines become blurry." The card's canvas has a pixel budget
+     (WB_MAX_PX), and it was first set under the size of a revealed card on a tablet: the answer's taller
+     canvas dropped below devicePixelRatio and the ink already on it was resampled to the smaller scale,
+     then stretched back by CSS. Nothing throws and every stroke is still there, so it is measured the only
+     way it shows — a column of pixels cut ACROSS a drawn line. A line the canvas drew has solid rows and
+     at most one soft row at each edge; a resampled one is mostly soft rows.
+       · on a tablet a revealed card keeps devicePixelRatio and the ink is the same pixels as before;
+       · on a card too long for the budget (forced here by a spacer) the ink is DRAWN AGAIN from its
+         strokes at the lower scale (WB.vec, wbReplay), so it is still a line and not a smear;
+       · and undo still takes the last stroke back after that. */
+  console.log("\n5. The ink stays sharp when the answer is revealed");
+  const tab = await browser.newPage({ viewport: { width: 834, height: 1194 }, deviceScaleFactor: 2, hasTouch: true });
+  watch(tab);
+  await penDownOnACard(tab, base);
+  const tsend = (t, x, y) => tab.evaluate(([t, x, y]) => document.querySelector(".draw-canvas").dispatchEvent(new PointerEvent(t, {
+    pointerId: 1, pointerType: "mouse", isPrimary: true, bubbles: true, cancelable: true, clientX: x, clientY: y, buttons: t === "pointerup" ? 0 : 1 })), [t, x, y]);
+  const tline = async (y) => { await tsend("pointerdown", 60, y); for (let x = 70; x <= 300; x += 10) await tsend("pointermove", x, y); await tsend("pointerup", 300, y); };
+  const tr = await tab.evaluate(() => document.querySelector(".draw-canvas").getBoundingClientRect().toJSON());
+  const lineY = Math.round(tr.top + 300);
+  await tline(lineY);
+  // a column of backing pixels across the line at x = 180: how many rows are solid ink, how many are soft
+  const cut = (cssY) => tab.evaluate(([cy]) => {
+    const c = document.querySelector(".draw-canvas"), x = c.getContext("2d");
+    const sc = c.width / c.getBoundingClientRect().width;
+    const d = x.getImageData(Math.round(180 * sc), Math.round(cy * sc) - 40, 1, 80).data;
+    let soft = 0, solid = 0;
+    for (let i = 0; i < 80; i++) { const al = d[i * 4 + 3]; if (al > 245) solid++; else if (al > 10) soft++; }
+    return { scale: +sc.toFixed(3), cssH: Math.round(c.getBoundingClientRect().height), px: c.width * c.height, solid, soft };
+  }, [cssY]);
+  const q = await cut(lineY - tr.top);
+  check("a line drawn on the question is solid ink at devicePixelRatio", q.scale === 2 && q.solid >= 3 && q.soft <= 2, JSON.stringify(q));
+  await tab.evaluate(() => document.querySelector("#reveal-btn").click());
+  await tab.waitForTimeout(1200);
+  const rv = await cut(lineY - tr.top);
+  check("revealing the answer makes the canvas taller", rv.cssH > q.cssH * 1.5, JSON.stringify({ question: q.cssH, revealed: rv.cssH }));
+  check("...and on a tablet it is still inked at devicePixelRatio", rv.scale === 2, JSON.stringify(rv));
+  check("...with the line exactly as it was drawn, not blurred", rv.solid === q.solid && rv.soft === q.soft, JSON.stringify({ question: q, revealed: rv }));
+  // a card too long for the budget: the scale has to drop, and the ink is redrawn at it rather than resampled
+  await tab.evaluate(() => { const d = document.createElement("div"); d.id = "wbSpacer"; d.style.height = "9000px"; document.querySelector(".stage").appendChild(d); });
+  await tab.waitForTimeout(600);
+  const big = await cut(lineY - tr.top);
+  check("a card past the pixel budget is inked under devicePixelRatio, within the budget", big.scale < 2 && big.scale > 1 && big.px <= 16000000, JSON.stringify(big));
+  check("...and the line is redrawn at that scale, not resampled into a smear", big.solid >= 2 && big.soft <= 2, JSON.stringify(big));
+  // a second line after the resize, then undo: the first stays, the second goes
+  await tline(lineY + 60);
+  const two = await cut(lineY + 60 - tr.top);
+  await tab.evaluate(() => document.querySelector(".wb-undo").click());
+  await tab.waitForTimeout(150);
+  const undone = await cut(lineY + 60 - tr.top), kept = await cut(lineY - tr.top);
+  check("undo after the resize takes back the new line and keeps the old one", two.solid + two.soft >= 2 && undone.solid === 0 && undone.soft === 0 && kept.solid === big.solid,
+    JSON.stringify({ drawn: two.solid + two.soft, undone: undone.solid + undone.soft, kept: kept.solid }));
+  // the card grows again (the scale changes again): the undone line must not come back, the kept one must stay
+  await tab.evaluate(() => { document.getElementById("wbSpacer").style.height = "12000px"; });
+  await tab.waitForTimeout(600);
+  const again = await cut(lineY - tr.top), gone = await cut(lineY + 60 - tr.top);
+  check("...and a further resize redraws what is on the card, not what was undone", again.solid >= 2 && again.soft <= 2 && gone.solid === 0 && gone.soft === 0,
+    JSON.stringify({ kept: again, undone: gone }));
+  await tab.close();
+
   check("no console errors anywhere", errs.length === 0, errs.slice(0, 4).join(" | "));
 
   await page.close();

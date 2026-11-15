@@ -20300,7 +20300,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      strokes as a VECTOR list of its own, which is what makes them saveable: the book's notes are kept
      across sessions, and a bitmap the size of a chapter is neither storable nor re-drawable at another
      text size. The Atlas is the third case, a vector list anchored to lon/lat rather than to the page. */
-  const WB = { enabled: false, panelOpen: false, mode: "pen", penColor: WB_COLORS[0], hlColor: WB_HL_COLORS[0], color: WB_COLORS[0], size: WB_SIZES[1], canvas: null, ctx: null, drawing: false, last: null, ro: null, backup: null, committed: null, scale: 1, hlPts: null, dirtied: false, undoStack: [], redoStack: [], stylusSeen: false, penOnly: true, onInk: null, onRedraw: null };
+  const WB = { enabled: false, panelOpen: false, mode: "pen", penColor: WB_COLORS[0], hlColor: WB_HL_COLORS[0], color: WB_COLORS[0], size: WB_SIZES[1], canvas: null, ctx: null, drawing: false, last: null, ro: null, backup: null, committed: null, scale: 1, hlPts: null, dirtied: false, undoStack: [], redoStack: [], vec: [], vecRedo: [], stylusSeen: false, penOnly: true, onInk: null, onRedraw: null };
   const WB_HIST_MAX = 20;   // cap on undo history
   /* THE CARD'S UNDO HISTORY IS A LIST OF PATCHES, NOT OF WHOLE CANVASES (Nov 2026, on a report that the app
      "lags so much that it crashes" on a tablet, worst with the marker). Each step used to be a full copy of
@@ -20312,11 +20312,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      on every stroke. The patches are capped by bytes as well as by count, and a canvas let go is shrunk to
      0×0 at once (`wbFreeCanvas`): Safari counts a detached canvas against its limit until it is collected. */
   const WB_HIST_BYTES = 48e6;
-  /* …and the card's canvas has a pixel budget (8.4M backing pixels, 32 MB): past it the ink is drawn at a
+  /* …and the card's canvas has a pixel budget (16M backing pixels, 64 MB): past it the ink is drawn at a
      little under devicePixelRatio rather than at it. iOS refuses a canvas over 16.7M pixels outright — it
      stops drawing without an error — and a long card at 2× or 3× reaches that. The book's canvas is the
-     viewport's size and is not affected. */
-  const WB_MAX_PX = 8388608;
+     viewport's size and is not affected.
+     THE BUDGET IS THE PLATFORM'S LIMIT, NOT A MEMORY SAVING (Nov 2026, on a report that "as soon as I reveal
+     the answer, all drawn lines become blurry"). It was first set at half of it, 8.4M, and a revealed card
+     on a tablet is 10M: the question was inked at devicePixelRatio, the answer's taller canvas fell under
+     it, and the ink already there was RESAMPLED to the smaller scale and stretched back by CSS — blurred
+     twice. So the budget sits just under what iOS allows (the memory was the undo history's, and the
+     patches settled that), and where it does bite the ink is DRAWN AGAIN from the strokes rather than
+     scaled as a picture (WB.vec, wbReplay): a line redrawn at a slightly lower resolution is still a line. */
+  const WB_MAX_PX = 16000000;
   function wbFreeCanvas(c) { if (c) { c.width = 0; c.height = 0; } }
   function wbFreeHist(list) { list.forEach((e) => { wbFreeCanvas(e.before); wbFreeCanvas(e.after); }); list.length = 0; }
   function wbCrop(src, x, y, w, h) {
@@ -20345,10 +20352,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   // one undoable step: the rectangle (backing pixels) the step changed, as it was and as it is now
   function wbRecord(x, y, w, h, afterBlank) {
-    const c = WB.canvas, k = WB.committed; if (!c || !k) return;
+    const c = WB.canvas, k = WB.committed; if (!c || !k) return false;
     x = Math.max(0, Math.floor(x)); y = Math.max(0, Math.floor(y));
     w = Math.min(c.width, Math.ceil(x + w)) - x; h = Math.min(c.height, Math.ceil(y + h)) - y;
-    if (w <= 0 || h <= 0) return;
+    if (w <= 0 || h <= 0) return false;
     const e = { x, y, w, h, before: wbCrop(k, x, y, w, h), after: afterBlank ? null : wbCrop(c, x, y, w, h) };
     wbPutPatch(k.getContext("2d"), e, e.after);   // the committed copy follows the canvas
     WB.undoStack.push(e);
@@ -20360,6 +20367,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       wbFreeCanvas(o.before); wbFreeCanvas(o.after);
     }
     wbUpdateHistBtns();
+    return true;   // a step was recorded — WB.vec takes its entry only then, so the two never fall out of step
+  }
+  /* THE CARD'S STROKES, AS POINTS (WB.vec) — kept beside the bitmap for one purpose: a resize that changes the
+     canvas's SCALE (WB_MAX_PX) draws the ink again from them instead of resampling the picture. One entry per
+     undoable step, in order: a stroke `{ mode, color, size, pts }` (CSS pixels from the canvas's corner, which
+     is the stage's top and the viewport's left edge and does not move when the card grows) or `{ clear: true }`.
+     Undo and redo move the last entry between WB.vec and WB.vecRedo exactly as they move a patch; the patches
+     are capped and forget, this list is not and does not — it is a few numbers a stroke. */
+  function wbVecPush(op) { WB.vec.push(op); WB.vecRedo.length = 0; }
+  function wbVecReset() { WB.vec = []; WB.vecRedo = []; }
+  // every stroke of WB.vec, drawn on the (already sized, already transformed) canvas from nothing
+  function wbReplay() {
+    const c = WB.canvas, ctx = WB.ctx; if (!c || !ctx) return;
+    const sc = WB.scale || window.devicePixelRatio || 1;
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = "source-over";
+    ctx.clearRect(0, 0, c.width, c.height);
+    ctx.lineCap = "round"; ctx.lineJoin = "round";
+    for (const op of WB.vec) {
+      if (op.clear) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = "source-over"; ctx.clearRect(0, 0, c.width, c.height); continue; }
+      const pts = op.pts; if (!pts || pts.length < 2) continue;
+      ctx.setTransform(sc, 0, 0, sc, 0, 0);
+      ctx.globalAlpha = op.mode === "hl" ? 0.34 : 1;
+      ctx.globalCompositeOperation = op.mode === "erase" ? "destination-out" : "source-over";
+      ctx.strokeStyle = op.color;
+      ctx.lineWidth = wbLineWidth(op.mode, op.size);
+      ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y);
+      for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+      ctx.stroke();
+    }
+    ctx.restore();
   }
   /* ---------- A STYLUS TAKES THE PEN, AND FINGERS GO BACK TO SCROLLING (Aug 2026, on request) ----------
      Anki's behaviour, and the reason it exists: with the marker down the canvas covers the whole visible
@@ -21143,7 +21181,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!c || !ctx) return;
     wbCommitted();   // the canvas as it was, before the clear (see wbCommitted)
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, c.width, c.height); ctx.restore();
-    wbRecord(0, 0, c.width, c.height, true);   // clearing is an undoable step
+    if (wbRecord(0, 0, c.width, c.height, true)) wbVecPush({ clear: true });   // clearing is an undoable step
   }
   /* The card's canvas leaves the page: off the stage, its backing store and the committed copy shrunk to 0×0 now
      rather than whenever the collector gets to them (see WB_HIST_BYTES). */
@@ -21180,6 +21218,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (WB.onUndo) { WB.onUndo(); wbUpdateHistBtns(); return; }   // globe: geo-anchored strokes
     if (!WB.undoStack.length) return;
     const e = WB.undoStack.pop(); WB.redoStack.push(e);
+    if (WB.vec.length) WB.vecRedo.push(WB.vec.pop());   // the stroke list follows the patches (see WB.vec)
     wbApplyStep(e, e.before);
     wbUpdateHistBtns();
   }
@@ -21187,6 +21226,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (WB.onRedo) { WB.onRedo(); wbUpdateHistBtns(); return; }   // globe
     if (!WB.redoStack.length) return;
     const e = WB.redoStack.pop(); WB.undoStack.push(e);
+    if (WB.vecRedo.length) WB.vec.push(WB.vecRedo.pop());
     wbApplyStep(e, e.after);
     wbUpdateHistBtns();
   }
@@ -21238,8 +21278,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (c.width === W && c.height === H) return;
     const s0 = WB.scale || s;
     WB.scale = s;
+    /* The scale changed (the pixel budget) and no stroke is in the air: the ink is drawn again from WB.vec at
+       the new scale, never resampled — see WB_MAX_PX. At an unchanged scale the picture is copied across, pixel
+       for pixel, as it always was. */
+    const redraw = preserve && !WB.onRedraw && !WB.drawing && s !== s0;
     let prev = null;
-    if (preserve && c.width && c.height) {
+    if (preserve && !redraw && c.width && c.height) {
       prev = document.createElement("canvas"); prev.width = c.width; prev.height = c.height;
       prev.getContext("2d").drawImage(c, 0, 0);
     }
@@ -21265,8 +21309,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        card's cannot. A bitmap snapshot is dimension-specific, so the card still resets its stack to the
        preserved frame. */
     if (WB.onRedraw) { wbFreeCanvas(prev); WB.onRedraw(); return; }
-    if (prev) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(prev, 0, 0, prev.width * s / s0, prev.height * s / s0); ctx.restore(); wbFreeCanvas(prev); }
-    if (preserve) { wbFreeHist(WB.undoStack); wbFreeHist(WB.redoStack); wbUpdateHistBtns(); }   // as before the patches: a real resize starts the history again from the (preserved) current frame
+    if (redraw) wbReplay();
+    else if (prev) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(prev, 0, 0, prev.width * s / s0, prev.height * s / s0); ctx.restore(); wbFreeCanvas(prev); }
+    if (preserve) { wbFreeHist(WB.undoStack); wbFreeHist(WB.redoStack); WB.vecRedo.length = 0; wbUpdateHistBtns(); }   // as before the patches: a real resize starts the history again from the (preserved) current frame
   }
   /* `host` overrides where the ink layer is mounted, and the book is what needs it. The canvas paints
      above everything in its own stacking context, and `.page` animates with a fill mode — which makes it
@@ -21280,7 +21325,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const o = opts || {};
     // remove any prior overlay (e.g. from the previous card) and start fresh — its backing store released now
     wbDropCanvas();
-    wbFreeHist(WB.undoStack); wbFreeHist(WB.redoStack);
+    wbFreeHist(WB.undoStack); wbFreeHist(WB.redoStack); wbVecReset();
     if (WB._panStop) { WB._panStop(); WB._panStop = null; }   // a fling from the previous card would keep scrolling this one
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
     if (WB.ro) { WB.ro.disconnect(); WB.ro = null; }
@@ -21614,7 +21659,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          points are in CSS pixels and the store keeps them as fractions of it. */
       if (WB.onInk) WB.onInk({ mode: WB.mode, color: WB.color, size: WB.size, pts: pts || [],
                                w: canvas.offsetWidth || 1, h: canvas.offsetHeight || 1 });
-      else if (pts && pts.length) { const b = boxOf(pts, WB.mode, null); wbRecord(b.x, b.y, b.w, b.h, false); }
+      else if (pts && pts.length) {
+        const b = boxOf(pts, WB.mode, null);
+        // …and as points, for a resize that changes the scale (WB.vec)
+        if (wbRecord(b.x, b.y, b.w, b.h, false)) wbVecPush({ mode: WB.mode, color: WB.color, size: WB.size, pts });
+      }
     };
     canvas.addEventListener("pointerup", (e) => {
       /* …and this is the half that stopped the pen dead: without the test, ANY pointer lifting ran the
