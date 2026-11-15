@@ -5,8 +5,8 @@ Finnish set built in the Hungarian decks' shape (`docs/hungarian-decks-plan.md`,
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless
 this file says otherwise. Asked for on 2026-11-15: "Add a Finnish language collection."
 
-**STATUS (2026-11-15): the alphabet deck and A1 to B2 are built** (`.claude/finnish/`, §6–§9). C1 and a phrases
-deck are not.
+**STATUS (2026-11-15): the alphabet deck and every level, A1 to C1, are built** (`.claude/finnish/`, §6–§10). A
+phrases deck is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP — the
@@ -34,7 +34,7 @@ the closest language and pipeline). **Any of these is the owner's to overrule.**
 | Finnish A2 Elementary — built | `Finnish-A2.folio-deck.json` | 750 |
 | Finnish B1 Intermediate — built | `Finnish-B1.folio-deck.json` | 1,000 |
 | Finnish B2 Upper Intermediate — built | `Finnish-B2.folio-deck.json` | 1,500 |
-| Finnish C1 Advanced | `Finnish-C1.folio-deck.json` | 1,500 |
+| Finnish C1 Advanced — built | `Finnish-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
 
@@ -97,7 +97,7 @@ headword line and are missing where Wiktionary gives none.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2, B1 and B2 done, §7–§9) — A2 to C1, one level per session: write the
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2 (done, §7–§10)** — A2 to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `finnish_level.py`, run, read every card.
 **Phase 3** — a phrases deck (Hungarian's `phrases.py` is the model).
 
@@ -181,5 +181,30 @@ a B2 re-run is byte-identical.
 - **Three pairs sharing one English side**, now told apart in `GLOSS`: `pieleen` / `pielessä` (going wrong,
   being wrong), `materiaali` / `aineisto`, `henkilöllisyys` / `identiteetti`; and `saastuminen`, glossed only as
   a verbal noun.
-- **The check's own false alarm**: `check-finnish.js` reads an example's English as well as its Finnish, so
-  its `perse` prefix matched "perseverance" (`kestävyys`); it is `perse(?!ver)` now.
+- **The check's own false alarm**: `check-finnish.js` read an example's English as well as its Finnish, so
+  its `perse` prefix matched "perseverance" (`kestävyys`); fixed properly at C1 (§10).
+
+## 10. As built (2026-11-15): C1
+
+Asked for on 2026-11-15: "Add C1." `python3 .claude/finnish/run.py --level c1`: 1,500 notes, 186 from the inventory
+(`inventory.C1`, twelve topics after the CEFR C1 descriptor's scope, `SCOPE['c1']`) and 1,314 by frequency;
+sentences for 1,246, three apiece for 928. The inventory's scholarly and constitutional vocabulary is almost absent
+from Tatoeba, so about one card in six has no sentence — said in the deck's description. Eleven inventory items
+were not Wiktionary headwords as written (plurals such as `olosuhteet`, compounds such as `elintaso`, phrases such
+as `mitä ilmeisimmin`) and were dropped, and `ylipäänsä`, Wiktionary's alternative spelling of `ylipäätään`, was
+taken out as the same word. A1 to B2 rebuild byte-identical; a C1 re-run is byte-identical.
+
+**What reading the 1,500 found** (each `select.EXCLUDE`d or written into `build_deck`, with its reason): forms
+(`jollet`, `ellette`, `iltapäivää`, `eläköön`, `kuules`, `paikoillanne`, `vietävä`, `ottava`, `merkitty`, `voipa`,
+`montaa`), borrowed counts (`nytkiä` is nytkin's, `korea`, `norja`, `havaiji` and `saksi` are country names'),
+letters' names and abbreviations (`ii`, `dee`, `koo`, `pe`, `to`, `nti`, `dj`), English and names (`cowboy`,
+`baby`, `river`, `home`, `baseball`, `bridge`, `melissa`, `rita`, `sharon`, `matti`, `juan`, `lori`, `newton`,
+`georgia`, `gray`), spoken forms, curses and insults (`niinku`, `häh`, `akka`, `pervo`, `pimu`, `äpärä`,
+`helkkari`, `hittolainen`, `herranen`, `saakeli`, `herranjumala`) and **one racial slur, `nekru`, which the
+frequency fill had dealt** — the reason every level's fill is read word by word. `LEAD` puts `viittaus`
+"reference" and `lainaus` "quotation" first; `GLOSS` writes `yksityistäminen` and `tieto-oppi` (a verbal noun and
+a synonym pointer only) and tells `uskonnollinen` from `uskova`.
+
+**The check read the English as Finnish.** `check-finnish.js` tested an example's English with the Finnish swear
+prefixes, so `perse` matched "perseverance" at B2 and "persecuted" at C1. It now reads the Finnish sentences only,
+as `examples.clean` does, and keeps its separate English test.

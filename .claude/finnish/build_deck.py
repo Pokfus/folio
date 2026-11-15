@@ -153,6 +153,12 @@ GLOSS = {
     'aineisto': {'noun': ['material, data (collected for a study or a case)']},
     'henkilöllisyys': {'noun': ['identity (who a person is, as on an identity card)']},
     'identiteetti': {'noun': ['identity (a sense of self or of belonging)']},
+    # C1: Wiktionary's only senses are a verbal noun and a synonym
+    'yksityistäminen': {'noun': ['privatisation']},
+    'tieto-oppi': {'noun': ['epistemology, the theory of knowledge']},
+    # C1: one English side for two adjectives; uskova is said of a person
+    'uskonnollinen': {'adj': ['religious (to do with religion)']},
+    'uskova': {'adj': ['religious, believing (of a person)']},
     'saastuminen': {'noun': ['pollution, contamination']},    # only "verbal noun of saastua"
     'asti': {'postp': ['until, up to, as far as (with the illative or the elative)']},
 }
@@ -166,7 +172,9 @@ LEAD = {
     'lista': 'list',           # "thin, narrow strip of material" first
     'lasku': 'bill',           # "descent" first, "bill, invoice" fifth
     'korko': 'interest',       # "heel (of a shoe)" first
-    'kierrättää': 'recycle',   # "to take (someone) all over" first; the B1 inventory's sense
+    'kierrättää': 'recycle',
+    'viittaus': 'reference',   # "raise of hand" first (C1's scholarly sense)
+    'lainaus': 'quotation',    # "lending, borrowing" first   # "to take (someone) all over" first; the B1 inventory's sense
 }
 
 # A PART OF SPEECH NOT SHOWN for one word: a block that is noise beside the word a

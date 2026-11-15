@@ -255,4 +255,67 @@ B2 = [
                                                      'edustaa määritellä soveltaa toteuttaa'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}
+C1 = [
+    ('philosophy and ethics', 'filosofia filosofi etiikka eettinen moraali moraalinen arvo:noun '
+                              'hyve pahe velvollisuus:noun omatunto:noun oikeudenmukaisuus '
+                              'vapaa_tahto tietoisuus olemassaolo:noun todellisuus:noun '
+                              'totuus:noun järki:noun tieto-oppi käsite periaate:noun '
+                              'ihanne aate ideologia maailmankuva ihmiskuva'),
+    ('religion and the inner life', 'hengellinen uskonnollinen pyhyys jumalanpalvelus '
+                                    'seurakunta pappi:noun usko:noun epäusko ateisti '
+                                    'mietiskely sisäinen:adj sielunelämä armo:noun '
+                                    'pelastus:noun kuolemanjälkeinen'),
+    ('scholarly Finnish', 'tutkielma väitöskirja opinnäyte lähde:noun lähdeluettelo viittaus '
+                          'lainaus tiivistelmä johdanto käsitteistö teoreettinen empiirinen '
+                          'metodologia otos muuttuja tulkinta näkökanta oletus premissi '
+                          'päätelmä yleistys luokittelu vertailu:noun'),
+    ('government, diplomacy and the constitution', 'perustuslaillinen täysivaltainen suvereniteetti '
+                                                   'kansanäänestys parlamentaarinen '
+                                                   'tasavalta monarkia valtionpäämies '
+                                                   'kansainvälinen_oikeus sopimuspuoli '
+                                                   'liittolaisuus puolueettomuus pakote '
+                                                   'valtuuskunta '
+                                                   'ulkoministeriö yhteisymmärrys '
+                                                   'lainsäätäjä toimeenpanovalta'),
+    ('the economy and development', 'kehitysmaa kehitysyhteistyö globalisaatio talouspolitiikka '
+                                    'valtionvelka alijäämä ylijäämä '
+                                    'tuottavuus kilpailukyky bruttokansantuote '
+                                    'yksityistäminen sääntely markkinatalous rakennemuutos '
+                                    'kestävä_kehitys'),
+    ('medicine and the body', 'lääketiede elimistö aineenvaihdunta verenkierto '
+                              'sairauskertomus oireyhtymä perinnöllinen geeni perimä '
+                              'synnynnäinen kuntoutus haittavaikutus annostus '
+                              'leikkaushoito ennaltaehkäisy'),
+    ('law and rights', 'oikeusvaltio oikeusturva kansalaisoikeus sananvapaus:noun '
+                       'yksityisyys yhdenvertaisuus oikeuskäytäntö ennakkotapaus '
+                       'syyttömyysolettama todistustaakka valitusoikeus lainvoimainen '
+                       'sopimusehto vastuuvelvollisuus'),
+    ('language and literature', 'kielitiede murre sanasto merkitysoppi kielioppi:noun '
+                                'lauseoppi sananlasku vertauskuva metafora ironia '
+                                'kertoja juoni:noun henkilöhahmo lyriikka proosa '
+                                'kirjallisuudentutkimus käännöskirjallisuus klassikko '
+                                'tyylikeino'),
+    ('the shades of feeling and judgement', 'kaipaus haikeus katkeruus mielipaha nöyryys '
+                                            'kunnioitus:noun ihailu halveksunta myötätunto '
+                                            'epäluulo vastenmielisyys innoittaa '
+                                            'kyyninen naiivi hienotunteinen ylimielinen '
+                                            'tunnollinen pidättyväinen herkkätunteinen '
+                                            'suvaitsevainen ennakkoluuloinen'),
+    ('abstract nouns of formal prose', 'ilmentymä näkökohta lähtökohta painopiste '
+                                       'taustatekijä suuntaus kehityskulku '
+                                       'mittakaava ulottuvuus kokonaisuus '
+                                       'monimuotoisuus:noun epävarmuus '
+                                       'vastakkainasettelu ristiriitaisuus '),
+    ('abstract adjectives', 'perustavanlaatuinen olennainen:adj ilmeinen:adj kiistaton '
+                            'moniulotteinen yksiselitteinen monitahoinen johdonmukainen '
+                            'epäjohdonmukainen asiallinen asiaton puolueeton puolueellinen '
+                            'pätevä merkityksellinen vertailukelpoinen ennennäkemätön '
+                            'vallitseva'),
+    ('literary connectors and adverbs', 'täten siten:adv niin_ollen ylipäätään kaiken_kaikkiaan '
+                                        'tosin:adv sinänsä ilmeisesti:adv '
+                                        'nähtävästi oletettavasti kenties:adv '
+                                        'päinvastoin:adv vastedes '
+                                        'kuitenkin:adv silti:adv tuolloin'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2, 'c1': C1}

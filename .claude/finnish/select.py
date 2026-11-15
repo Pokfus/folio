@@ -113,6 +113,31 @@ EXCLUDE = {
     'tissi': 'slang ("boob")', 'perhana': 'a mild curse', 'pirun': 'a curse ("damn")',
     'pahus': 'a mild curse', 'kusettaa': 'vulgar ("to con", from kusi)', 'lesbo': 'slang',
     'beibi': 'slang ("baby")', 'viis': 'the spoken "never mind" (viis siitä)',
+    # Read off the C1 ranking (2026-11-15).  Forms:
+    'jollet': 'jollei\'s "if you not"', 'ellette': 'ellei\'s "unless you (pl.)"',
+    'iltapäivää': 'the partitive of iltapäivä (A1), glossed only as a greeting',
+    'eläköön': 'the third-person imperative of elää (A1)', 'kuules': 'kuulla\'s imperative with -s',
+    'paikoillanne': 'a possessive form ("on your marks")', 'vietävä': 'a passive participle used as a curse',
+    'ottava': 'the present participle of ottaa (A1)', 'merkitty': 'the past passive participle of merkitä (B1)',
+    'voipa': 'voi (A1) with -pa', 'nytkiä': 'glossed "to jerk"; the count is nytkin ("even now")',
+    'tekonen': 'glossed only as an obsolete word; the count is not that',
+    # Letters' names, abbreviations, English and names:
+    'ii': 'the letter I\'s name', 'dee': 'the letter D\'s name', 'koo': 'the letter K\'s name',
+    'pe': 'the abbreviation of perjantai', 'to': 'the abbreviation of torstai', 'nti': 'an abbreviation of neiti',
+    'dj': 'an abbreviation', 'bi': 'slang', 'cowboy': 'English', 'baby': 'English', 'river': 'English',
+    'home': 'the English "home", glossed only "mould"', 'baseball': 'English', 'bridge': 'English',
+    'melissa': 'the name Melissa', 'rita': 'the name Rita', 'sharon': 'the name Sharon',
+    'matti': 'the name Matti, glossed only "checkmate"', 'juan': 'the name Juan, glossed only "yuan"',
+    'lori': 'the name Lori', 'newton': 'the name Newton', 'georgia': 'the name Georgia',
+    'havaiji': 'the count is Hawaii\'s', 'korea': 'the count is Korea\'s, glossed only "beautiful"',
+    'norja': 'the count is Norway\'s, glossed only "lithe"', 'saksi': 'the count is saksi(t) or Saksa',
+    'saaminen': 'glossed only "receivable"',
+    'montaa': 'monta\'s double partitive (A2)', 'gray': 'the name Gray, glossed only as the unit',
+    # Spoken forms, curses, slang, insults and slurs:
+    'niinku': 'the spoken "like"', 'häh': 'the spoken "huh?"', 'akka': 'derogatory ("hag")',
+    'pervo': 'an insult', 'pimu': 'slang ("chick")', 'äpärä': 'an insult ("bastard")',
+    'nekru': 'a racial slur', 'helkkari': 'a mild curse', 'hittolainen': 'a mild curse',
+    'herranen': 'an exclamation', 'saakeli': 'a mild curse', 'herranjumala': 'an exclamation',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 

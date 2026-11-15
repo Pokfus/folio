@@ -14,9 +14,10 @@ const LABELS = new Set(["plural", "genitive", "partitive", "plural partitive", "
 // "See …" only with its capital: "see you later" is näkemiin's meaning, not a pointer
 const POINTER = { test: (g) => /^(?:alternative|obsolete|dated|rare) (?:form|spelling) of |^(?:inflection|synonym) of |^\*?\s*see:|^(?:first|second|third)-person .* of \S+$|^(?:comparative|superlative) degree of /i.test(g) || /^See /.test(g) };
 const FI = /^[a-zA-ZåäöÅÄÖšžŠŽéÉüÜ '-]+$/;
-// by WHOLE WORD, as `examples.clean` reads it (JavaScript's \b is not Unicode-aware); the test reads
-// the English too, so `perse` must not match "perseverance" (B2's kestävyys)
-const SWEAR_W = /^(vittu|vitun|vitu|perkele|saatana|helvet|paska|huora|kyrp|perse(?!ver)|pillu|mulkku|runkk|runkat|kusipää|jumalaut|narttu)/;
+// by WHOLE WORD, as `examples.clean` reads it (JavaScript's \b is not Unicode-aware), and on the
+// FINNISH sentences only: read over the English too, `perse` matched "perseverance" (B2's kestävyys) and
+// "persecuted" (C1's vainota); the English has its own test below
+const SWEAR_W = /^(vittu|vitun|vitu|perkele|saatana|helvet|paska|huora|kyrp|perse|pillu|mulkku|runkk|runkat|kusipää|jumalaut|narttu)/;
 const SWEAR = { test: (t) => t.toLowerCase().match(/\p{L}+/gu)?.some((w) => SWEAR_W.test(w)) ?? false };
 let fail = 0;
 const bad = (m) => { fail++; console.log("FAIL  " + m); };
@@ -45,7 +46,8 @@ for (const f of files) {
       if (POINTER.test(g.trim())) bad(f + ": " + w + " is defined by a pointer: " + g.trim());
     for (const [, l] of F.Forms.matchAll(/class="uc-fl">([^<]*)</g)) if (!LABELS.has(l)) bad(f + ": " + w + " forms label " + l);
     if (/class="uc-cjh">past</.test(F.Table) && !/uc-fl">past</.test(F.Forms)) bad(f + ": " + w + " has a past table but no past form");
-    if (SWEAR.test(F.Examples.replace(/<[^>]+>/g, ""))) bad(f + ": " + w + " has a swear word in an example");
+    const fiSide = [...F.Examples.matchAll(/<div class="uc-exz">([\s\S]*?)<\/div>/g)].map((m) => m[1].replace(/<[^>]+>/g, "")).join(" ");
+    if (SWEAR.test(fiSide)) bad(f + ": " + w + " has a swear word in an example");
     if (/\b(fuck|shit|bitch|asshole|cunt|cock\b|dick\b|pussy)/i.test(F.Examples.replace(/<[^>]+>/g, ""))) bad(f + ": " + w + " has a swear word in an example's English");
     for (const k of ["Finnish", "English", "Forms", "Table", "Examples"]) {
       const h = F[k];
