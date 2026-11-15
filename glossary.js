@@ -11657,7 +11657,29 @@ window.GLOSSARY = {
 "Pseudo-Apollodorus": "",
 "Pasiphaë": "",
 "Androgeus_(son_of_Minos)": "",
-"Frieze": ""
+"Frieze": "",
+"Lucius_Tarquinius_Collatinus": "",
+"Basil_II": "",
+"Bruniquel_Cave": "",
+"Cithaeron": "",
+"Düsseldorf": "",
+"Daedala": "",
+"Eileithyia": "",
+"Founding_Fathers_of_the_United_States": "",
+"Hebe_(mythology)": "",
+"Heraclius": "",
+"Heraion_of_Argos": "",
+"Joachim_Neander": "",
+"La_Chapelle-aux-Saints": "",
+"Michael_VIII_Palaiologos": "",
+"Middle_Byzantine_period": "",
+"Neandertal_(valley)": "",
+"Plataea": "",
+"Red_deer": "",
+"Stalagmite": "",
+"Tanegashima": "",
+"Theme_(Byzantine_district)": "",
+"William_King_(geologist)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17533,7 +17555,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Qasim_Khanate": "1452–1681",
 "Forum_of_Constantine": "330 CE",
 "Agyrrhius": "fl. c. 395 – 389 BCE",
-"Achaemenid_destruction_of_Athens": "480 – 479 BCE"
+"Achaemenid_destruction_of_Athens": "480 – 479 BCE",
+"Basil_II": "c. 958–1025",
+"Heraclius": "reigned 610–641",
+"Michael_VIII_Palaiologos": "d. 1282"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -18723,7 +18748,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Vestal_Virgin": ["Vestal Virgins","Vestal","Vestals"],
 "Lictor": ["lictors"],
 "Auspices": ["auspicium","auspicia"],
-"Roman_dictator": ["Roman dictator"],
+"Roman_dictator": ["Roman dictator","dictator"],
 "Aventine_Hill": ["Aventine"],
 "Caelian_Hill": ["Caelian"],
 "Esquiline_Hill": ["Esquiline","Esquiliae"],
@@ -21931,7 +21956,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Assyria": ["Assyrians"],
 "Avanti!_(newspaper)": ["Avanti!"],
 "Benito_Juárez": ["Juárez"],
-"Central_Asia": ["Central Asian"],
+"Central_Asia": ["Central Asian","central Asia"],
 "Covenant_of_the_League_of_Nations": ["League Covenant"],
 "Euphrates": ["Euphrates River","River Euphrates"],
 "Georges_Clemenceau": ["Clemenceau"],
@@ -25036,7 +25061,27 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Zhou_Yu": ["Chou Yü"],
 "Ziying": ["Zi Ying","Tzu-ying"],
 "Pasiphaë": ["Pasiphae"],
-"Androgeus_(son_of_Minos)": ["Androgeus","Androgeos"]
+"Androgeus_(son_of_Minos)": ["Androgeus","Androgeos"],
+"Lucius_Tarquinius_Collatinus": ["Tarquinius Collatinus","Collatinus"],
+"Basil_II": ["Basil the Bulgar-Slayer","Basil II Bulgaroktonos"],
+"Bruniquel_Cave": ["Bruniquel"],
+"Cithaeron": ["Mount Cithaeron","Kithairon","Mount Kithairon"],
+"Düsseldorf": ["Dusseldorf"],
+"Daedala": ["Daidala","Great Daedala","Little Daedala"],
+"Eileithyia": ["Eilithyia","Ilithyia"],
+"Founding_Fathers_of_the_United_States": ["Founding Fathers"],
+"Hebe_(mythology)": ["Hebe"],
+"Heraclius": ["Herakleios"],
+"Heraion_of_Argos": ["Argive Heraion","Heraeum of Argos","Argive Heraeum"],
+"La_Chapelle-aux-Saints": ["La Chapelle-aux-Saints 1","Old Man of La Chapelle","old man of La Chapelle"],
+"Michael_VIII_Palaiologos": ["Michael VIII Palaeologus","Michael VIII","Michael Palaeologus","Michael Palaiologos"],
+"Middle_Byzantine_period": ["Middle Byzantine Empire","middle Byzantine period","Middle Byzantine"],
+"Neandertal_(valley)": ["Neander valley","Neander Valley","Neanderthal valley"],
+"Plataea": ["Plataia","Plataeans"],
+"Red_deer": ["Cervus elaphus"],
+"Tanegashima": ["Tanegashima Island"],
+"Theme_(Byzantine_district)": ["theme","thema","themata"],
+"William_King_(geologist)": ["William King"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -25240,7 +25285,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Parliament_of_the_United_Kingdom": true,
 "Catholic_Church": true,
 "Propaganda": true,
-"Labyrinth": true
+"Labyrinth": true,
+"William_King_(geologist)": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -36901,7 +36947,29 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Pseudo-Apollodorus": ["person","literature","mythology","greece"],
 "Pasiphaë": ["person","mythology","greece","crete"],
 "Androgeus_(son_of_Minos)": ["person","mythology","greece","crete","athens"],
-"Frieze": ["object","architecture","building","art"]
+"Frieze": ["object","architecture","building","art"],
+"Lucius_Tarquinius_Collatinus": ["person","politics","history","rome","republic"],
+"Basil_II": ["person","ruler","history","byzantium","byzantine empire"],
+"Bruniquel_Cave": ["place","archaeology","prehistory","france","cave"],
+"Cithaeron": ["place","geography","mythology","greece","mountain"],
+"Düsseldorf": ["city","place","history","germany","europe"],
+"Daedala": ["festival","religion","mythology","greece","boeotia"],
+"Eileithyia": ["deity","mythology","religion","greece"],
+"Founding_Fathers_of_the_United_States": ["people","politics","history","united states","revolution"],
+"Hebe_(mythology)": ["deity","mythology","religion","greece"],
+"Heraclius": ["person","ruler","history","byzantium","byzantine empire"],
+"Heraion_of_Argos": ["place","religion","archaeology","greece","building"],
+"Joachim_Neander": ["person","religion","music","germany","literature"],
+"La_Chapelle-aux-Saints": ["place","archaeology","prehistory","france","palaeontology"],
+"Michael_VIII_Palaiologos": ["person","ruler","history","byzantium","byzantine empire"],
+"Middle_Byzantine_period": ["era","history","byzantium","byzantine empire","middle ages"],
+"Neandertal_(valley)": ["place","geography","archaeology","germany","prehistory"],
+"Plataea": ["city","place","history","greece","boeotia"],
+"Red_deer": ["animal","nature","zoology","europe"],
+"Stalagmite": ["concept","geology","geography","cave","nature"],
+"Tanegashima": ["place","geography","island","japan","archaeology"],
+"Theme_(Byzantine_district)": ["institution","military","history","byzantium","byzantine empire"],
+"William_King_(geologist)": ["person","science","geology","palaeontology","ireland"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
