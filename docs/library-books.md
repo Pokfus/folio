@@ -12,7 +12,20 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently sixty-three:
+  matter (chapter 0 — see the Library bullet). Currently sixty-four:
+  `luther-ninety-five-theses` (~33 KB, **2 chapters** — the covering letter to Albrecht of Mainz and the Disputation
+  itself, in the 1915 volume's order — **48 notes**, no original; Charles M. Jacobs's translation in *Works of Martin
+  Luther* I, A. J. Holman, Philadelphia, 1915, proofread on Wikisource). **The first book cut out of ONE wiki page at
+  its anchors** (`between` → `betweenAnchors`): the page transcludes Jacobs's introduction and four documents, and
+  only the two of 31 October 1517 are taken — the introduction is the editor's essay and the letters to Staupitz and
+  Leo X belong to the Resolutions of 1518. The page numbers its notes 1–84 straight through, so each part keeps only
+  the notes its own markers open, renumbered from 1. The translator is the volume's contents page's ("Translation
+  (C. M. Jacobs)"), not the wiki header's series editors. `sections: "leading"` numbers the Theses; **checked: 95,
+  once each, in order** — Thesis 13 opens scan page 46 as bare text between paragraphs and was missed until
+  `wrapBareRuns` (gated) wrapped it. The printed heads (numeral, title, date) go by `dropHeads`. Licence: a 1915 US
+  publication; Jacobs died 1938, so life plus a hundred runs to 2039 and the rights box says so. Colour `#9A0084`
+  (15.6, level with the shelf's tightest pair; the first pick went to the King James Bible the same day). `glossOff`: `Corinth`, on Thesis 78's "I. Corinthians". The Latin
+  (la.wikisource, "Disputatio pro declaratione virtutis indulgentiarum") is not set beside it.
   `russian-primary-chronicle` (~485 KB, **153 chapters** — the undated opening, 148 annal entries and Cross's
   four appendix texts — **7 notes**, no original; Samuel H. Cross's translation of the Laurentian text,
   *Harvard Studies and Notes in Philology and Literature* 12, 1930, pp. 136–320; `layout: "chronicle"` →

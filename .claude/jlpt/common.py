@@ -109,3 +109,32 @@ def romaji(kana):
             i += 1; continue
         return None
     return ''.join(out)
+
+
+# ------------------------------------------------------------------------------------- stable ids
+# A NOTE'S ID IS PINNED TO WHAT THE NOTE IS, NOT TO WHERE IT STANDS.  A reader's schedule is keyed by the card id
+# and the Update press merges a re-fetched deck by id (docs/lang-decks.md, "IT MERGES INTO THE EXISTING DECK ID"),
+# so a note that changed its number would hand its reader's progress to another word -- silently.  Until Nov 2026
+# the number WAS the position, which made every re-ordering, and every newer Tatoeba export that moved two
+# frequency counts past each other, exactly that.  ids.json maps deck id -> note key -> number: the key is the
+# JMdict entry for a word, the kana for a kana note, the kanji for a kanji note.  A key it has never seen gets the
+# next free number and the file is rewritten; a key that leaves a deck keeps its number for ever, so a note that
+# comes back comes back as itself.  `seed_ids.py` rebuilt the file from the decks shipped on 2026-10-30.
+IDS = os.path.join(HERE, 'ids.json')
+
+
+def note_ids(deck_id, keys):
+    """The pinned number of each key, in the order given; new keys are numbered after the highest ever used."""
+    table = json.load(open(IDS, encoding='utf-8')) if os.path.exists(IDS) else {}
+    m = table.setdefault(deck_id, {})
+    nxt = max(m.values(), default=0) + 1
+    grew = False
+    for k in keys:
+        if k not in m:
+            m[k] = nxt; nxt += 1; grew = True
+    if len(set(keys)) != len(keys):
+        raise SystemExit('note_ids: %s lists a note twice' % deck_id)
+    if grew:
+        with open(IDS, 'w', encoding='utf-8') as fh:
+            json.dump(table, fh, ensure_ascii=False, indent=0, sort_keys=True)
+    return [m[k] for k in keys]

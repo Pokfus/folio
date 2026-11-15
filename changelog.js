@@ -35,22 +35,29 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1312", released: "2026-11-15T21:11Z" };
+window.FOLIO_VERSION = { v: "1.1320", released: "2026-11-15T22:40Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-15",
-    t: "Tidier atlas windows, new glossary terms and more daily quotes",
+    t: "Tidier atlas windows, two language collections and more daily quotes",
     items: [
-      "22 new glossary terms for World History and Ancient Greece cards, and a Byzantine sense of <b>themes</b> that links only where it fits.",
-      "Egyptian dynasties are now written with numbers (<b>18th Dynasty</b>), and the Council of Five Hundred always in words.",
+      "56 new glossary terms for World History, Ancient Greece, Ancient Egypt and Ancient Rome cards, and a Byzantine sense of <b>themes</b> that links only where it fits.",
+      "Egyptian dynasties are now written with numbers (<b>18th Dynasty</b>) everywhere, glossary included, and the Council of Five Hundred always in words.",
+      "Roman provinces go by their Latin names (<b>Hispania Ulterior</b>, <b>Gallia Cisalpina</b>), the emperor Gaius is always <b>Caligula</b> and the <b>Kalends</b> take a K.",
       "A card's atlas window names a state only on that state's own card; regions and natural features still show everywhere.",
-      "Ancient Egypt's map now reaches up the Nile to the New Kingdom's southern frontier, and three history cards got new map places.",
+      "Ancient Egypt's map now reaches up the Nile to the New Kingdom's southern frontier, and eight history cards got new map places.",
       "<b>Find it</b> no longer asks for areas that have nothing drawn on the board.",
       "<b>What language?</b> is resting for now and has left the home page.",
       "The <b>Report</b> button now sits on the same line as the card's id.",
       "31 new quotations in the <b>daily quote</b>, some of them from favourite novels, films, shows and games.",
-      "One card has more exact dates and another a fuller picture.",
+      "One card has more exact dates, one a fuller picture and one a new picture; two quote new book passages and one asks a new question.",
+      "The Wikipedia button at the foot of a glossary popup is half as tall.",
+      "<b>Feather</b> now links to its glossary entry only in Biology.",
+      "A new <b>Amharic</b> language collection: a fidäl alphabet deck, three graded vocabulary decks and phrases, all in both directions with romanisation.",
+      "New <b>Danish</b>, <b>Norwegian</b> and <b>Finnish</b> language collections: levels A1 to C1, plus phrases, idioms and proverbs, all in both directions.",
+      "New in the Library: the <b>King James Bible</b>, with the Apocrypha and its marginal notes, and Luther's <b>Ninety-five Theses</b> (1517).",
+      "A <b>Cantonese</b> collection joins the Languages section: a Jyutping and tones deck, A1 to C1 (3,787 words) and 347 phrases, slang and idioms.",
       "<b>On this day</b> on the home page: what happened on today's date, from the cards you can study.",
       "A new <b>Timeline</b> page shows every dated card on one scrolling line, for one collection or all of them.",
       "<b>Weak spots</b> on your account page shows where you forget most, with your weakest 20 cards to study in one tap.",
@@ -59,7 +66,7 @@ window.CHANGELOG = [
       "Import a deck from an <b>Anki</b> or <b>Quizlet</b> text export, and download any deck as a file Anki imports.",
       "The Atlas now shows India's states and union territories when you zoom in; the switch is renamed <b>States and provinces</b>.",
       "28 more map cards now light up their region on your Personal Atlas once studied.",
-      "A new <b>India</b> geography collection begins: 18 state and union territory cards, 16 capital cards and 33 glossary terms.",
+      "A new <b>India</b> geography collection begins: 19 state and union territory cards, 16 capitals, 1 city and 35 glossary terms.",
     ],
   },
   {
