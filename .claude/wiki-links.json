@@ -2,7 +2,7 @@
  "generated": "2026-11-15T22:34Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8299,
+  "ok": 8300,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89433,6 +89433,13 @@
    "answer": "Delhi",
    "title": "Delhi",
    "url": "https://en.wikipedia.org/wiki/Delhi",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-701": {
+   "answer": "Ahmedabad",
+   "title": "Ahmedabad",
+   "url": "https://en.wikipedia.org/wiki/Ahmedabad",
    "via": "answer",
    "status": "ok"
   }
