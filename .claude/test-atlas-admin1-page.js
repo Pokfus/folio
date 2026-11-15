@@ -17,12 +17,12 @@
      5  Personal, a reader whose studied card names Uttar Pradesh (adm1:ind:in-up; the index is extended for the test, as no card names an Indian unit
         yet): the file is fetched without zooming in; the keep set is Uttar Pradesh alone; at the view over it, the canvas is PLAIN land inside Uttar
         Pradesh and the darker EMPTY land in Madhya Pradesh (India itself undiscovered); the only Indian name placed is Uttar Pradesh's; the only
-        admin-1 line segments drawn are Uttar Pradesh's own (fewer than Map's); a past year draws none of it
+        admin-1 line segments drawn are Uttar Pradesh's own (fewer than Map's); its border with Nepal is drawn and no border pixel lies away from its plain land; a past year draws none of it
      6  Personal, a reader with no Indian card: the file's lines are not drawn at all, though the view is over India and zoomed in
      7  no console error
    Re-run after touching the page's admin-1 slot in atlas.js (`overAdmin1File`, `adm1Draw`, `adm1Style`, `adm1GRows`, the slot's part of
    `refreshPersonalPresent`), atlas-gl.js's `drawHistoryFills` / `drawHistoryBorders` slot path or the draw order, the worker's `adm1Rows` or the
-   history-meta's `coreBorders`. Then `test-atlas-undiscovered.js`, `test-atlas-personal.js` and `test-atlas-perf.js`. */
+   slot's reference table (`refTable`, `setAdmin1RefTable`). Then `test-atlas-undiscovered.js`, `test-atlas-personal.js` and `test-atlas-perf.js`. */
 "use strict";
 const http = require("http"), fs = require("fs"), path = require("path");
 const { chromium } = require("playwright");
@@ -172,6 +172,18 @@ const groundAt = (page, pts) => A(page, (c, pts) => {
     const p = await frame(page);
     await mode(page, "map"); const m = await frame(page); await mode(page, "personal");
     check(`the admin-1 segments drawn are Uttar Pradesh's own: some (${p.segs}), fewer than Map's (${m.segs})`, p.segs > 0 && p.segs < m.segs);
+    // the international border: Uttar Pradesh's share with Nepal is drawn, and no border pixel lies away from its plain land (the India–Nepal arc runs on past it)
+    const red = await A(page, (c) => {
+      const g = c.renderer.gl, [W, H] = c.frame(), land = c.palette().land.map((v) => v * 255);
+      c.renderer.setPalette({ border: "#ff0000", admin1: "#00ff00" }); c.renderer.setHistoryBorderColor("#ff0000"); c.renderer.render(c.view);
+      const w = g.drawingBufferWidth, h = g.drawingBufferHeight, d = w / W, buf = new Uint8Array(w * h * 4); g.readPixels(0, 0, w, h, g.RGBA, g.UNSIGNED_BYTE, buf);
+      const px = (x, y) => { const i = ((h - 1 - Math.round(y * d)) * w + Math.round(x * d)) * 4; return [buf[i], buf[i + 1], buf[i + 2]]; };
+      const isRed = (p) => p[0] - p[1] > 80 && p[0] - p[2] > 80, isPlain = (p) => Math.abs(p[0] - land[0]) <= 10 && Math.abs(p[1] - land[1]) <= 10 && Math.abs(p[2] - land[2]) <= 10;
+      let n = 0, away = 0;
+      for (let y = 8; y < H - 8; y += 2) for (let x = 8; x < W - 8; x += 2) { if (!isRed(px(x, y))) continue; n++; let near = false; for (let dy = -8; dy <= 8 && !near; dy += 2) for (let dx = -8; dx <= 8; dx += 2) if (isPlain(px(x + dx, y + dy))) { near = true; break; } if (!near) away++; }
+      return { n, away };
+    });
+    check(`Uttar Pradesh's border with Nepal is drawn (${red.n} border pixels) and none lies away from its plain land (${red.away})`, red.n > 40 && red.away === 0);
     await shot(page, "admin1-personal-up");
     await go(page, 1900, INDIA[0], INDIA[1], INDIA[2]);
     const past = await A(page, (c) => c.admin1Info());

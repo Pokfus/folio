@@ -528,7 +528,7 @@
        of the finer coast. A contested face is hatched in its two claimants' colours. */
     const hist = { segs: {}, meshes: new Map(), styleTex: null, styleN: 0, arcTex: null, arcN: 0 };
     // the lazy admin-1 slot (2026-11-14; docs/atlas-v2-admin1-layer.md §3.2): admin1.bin's faces, in history.bin's mesh form, with their own style and arc tables — drawn by the history's own passes
-    const adm1 = { segs: {}, meshes: new Map(), styleTex: null, styleN: 0, arcTex: null, arcN: 0 };
+    const adm1 = { segs: {}, meshes: new Map(), styleTex: null, styleN: 0, arcTex: null, arcN: 0, refTex: null };   // refTex (step 3): 255 for the slot's references to the core's international border, drawn for the page's Personal Atlas
     const lines = { fbo: null, tex: null, rb: null, w: 0, h: 0, key: "", on: true, reused: 0, rendered: 0 }; let dataGen = 0;   // the cached line layer; dataGen bumps on every upload that could change it
     const still = { fbo: null, tex: null, rb: null, scratch: null, scratchTex: null, scratchRb: null, w: 0, h: 0, key: "", lastKey: "", on: true, reused: 0, rendered: 0 };   // the still cache: the base while the view does not move
     const cover = { fbo: null, tex: null, none: null, w: 0, h: 0, on: true };   // the presences' cover for the empty-land darkening (FS_DIM): an R8 target at the canvas's size, made on first use; `none` a 1 × 1 zero texture bound when no presence is on screen
@@ -1073,13 +1073,18 @@
       const hv = A1 ? hvIn : view.history; if (A1) stats.admin1Segments = 0; else stats.historySegments = 0;
       if (!hv || !hv.faces || !hv.faces.length || !S.arcTex) return;
       const P = prog.arc; arcUniforms(P, view, R, false, 0);
-      if (A1) { widths[HIST_KIND] = widths[5]; gl.uniform1fv(P.u.uWidth, widths); colors[3 * HIST_KIND] = palette.admin1[0]; colors[3 * HIST_KIND + 1] = palette.admin1[1]; colors[3 * HIST_KIND + 2] = palette.admin1[2]; gl.uniform3fv(P.u.uColor, colors); }
-      gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, S.arcTex); gl.uniform1i(P.u.uArcTab, 3); gl.uniform1f(P.u.uArcTabOn, 1);
+      // the slot's passes: its own inner lines in the core's admin-1 line (while the Provinces lines are on), then — the page's Personal Atlas (step 3) — its references to
+      // the international border in the border ink, so a discovered state's edge is drawn exactly as far as the state reaches
+      const passes = A1 ? [view.admin1 ? [S.arcTex, palette.admin1, widths[5]] : null, hv.refs && S.refTex ? [S.refTex, palette.border, widths[1]] : null].filter(Boolean) : [[S.arcTex, null, 0]];
       gl.bindVertexArray(emptyVao);
-      for (const f of hv.faces) {
-        const m = histMeshFor(f.face, A1 ? view.level : view.historyLevel != null ? view.historyLevel : view.level, S); if (!m || !m.gpu.border) continue;
-        gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, m.gpu.border.tex); gl.uniform1i(P.u.uSeg, 1);
-        gl.drawArrays(gl.TRIANGLES, 0, m.gpu.border.count * 3); stats.draws++; if (A1) stats.admin1Segments += m.gpu.border.count; else stats.historySegments += m.gpu.border.count;
+      for (const [tab, col, wd] of passes) {
+        if (col) { widths[HIST_KIND] = wd; gl.uniform1fv(P.u.uWidth, widths); colors[3 * HIST_KIND] = col[0]; colors[3 * HIST_KIND + 1] = col[1]; colors[3 * HIST_KIND + 2] = col[2]; gl.uniform3fv(P.u.uColor, colors); }
+        gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, tab); gl.uniform1i(P.u.uArcTab, 3); gl.uniform1f(P.u.uArcTabOn, 1);
+        for (const f of hv.faces) {
+          const m = histMeshFor(f.face, A1 ? view.level : view.historyLevel != null ? view.historyLevel : view.level, S); if (!m || !m.gpu.border) continue;
+          gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, m.gpu.border.tex); gl.uniform1i(P.u.uSeg, 1);
+          gl.drawArrays(gl.TRIANGLES, 0, m.gpu.border.count * 3); stats.draws++; if (A1) stats.admin1Segments += m.gpu.border.count; else stats.historySegments += m.gpu.border.count;
+        }
       }
       gl.uniform1f(P.u.uArcTabOn, 0);
     }
@@ -1309,7 +1314,7 @@
         if (debug.faces) { const a1 = view.admin1Layer, early = a1 && a1.beforeDim; drawHistoryFills(view, idPass, R, useStencil); if (early) drawHistoryFills(view, idPass, R, useStencil, adm1, a1); drawHistoryDim(view, R, still.scratch); drawHistoryPresence(view, idPass, R, useStencil); if (a1 && !early) drawHistoryFills(view, idPass, R, useStencil, adm1, a1); }   // the page's admin-1 layer (step 3) marks its discovered units before the empty-land darkening
         drawLinesLayer(still.scratch);
         if (debug.arcs) drawHistoryBorders(view, R);
-        if (debug.arcs && view.admin1Layer && view.admin1Layer.lines && view.admin1) drawHistoryBorders(view, R, adm1, view.admin1Layer);
+        if (debug.arcs && view.admin1Layer && view.admin1Layer.lines && (view.admin1 || view.admin1Layer.refs)) drawHistoryBorders(view, R, adm1, view.admin1Layer);
         gl.disable(gl.STENCIL_TEST);
         gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, W, H);
         const P = prog.blit; gl.useProgram(P.p); gl.bindVertexArray(emptyVao);
@@ -1320,7 +1325,7 @@
         if (debug.faces) { const a1 = view.admin1Layer, early = a1 && a1.beforeDim; drawHistoryFills(view, idPass, R, useStencil); if (early) drawHistoryFills(view, idPass, R, useStencil, adm1, a1); if (!idPass) drawHistoryDim(view, R, null); drawHistoryPresence(view, idPass, R, useStencil); if (a1 && !early) drawHistoryFills(view, idPass, R, useStencil, adm1, a1); }
         drawLinesLayer(null);
         if (debug.arcs && !idPass) drawHistoryBorders(view, R);
-        if (debug.arcs && !idPass && view.admin1Layer && view.admin1Layer.lines && view.admin1) drawHistoryBorders(view, R, adm1, view.admin1Layer);
+        if (debug.arcs && !idPass && view.admin1Layer && view.admin1Layer.lines && (view.admin1 || view.admin1Layer.refs)) drawHistoryBorders(view, R, adm1, view.admin1Layer);
         if (useStencil) gl.disable(gl.STENCIL_TEST);
       }
       if (stillKey) still.lastKey = stillKey;
@@ -1421,6 +1426,7 @@
       dropAdmin1Mesh(key) { const m = adm1.meshes.get(key); if (!m) return; releaseFill(m.gpu); if (m.gpu.coast) releaseSegs(m.gpu.coast); if (m.gpu.border) releaseSegs(m.gpu.border); adm1.meshes.delete(key); },
       admin1MeshCount() { return adm1.meshes.size; },
       setAdmin1Style(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); adm1.styleTex = uploadTable(adm1.styleTex, 256, h, bytes.length === 256 * h * 4 ? bytes : (() => { const b = new Uint8Array(256 * h * 4); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })()); adm1.styleN = n; },
+      setAdmin1RefTable(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); adm1.refTex = uploadTable(adm1.refTex, 256, h, bytes.length === 256 * h ? bytes : (() => { const b = new Uint8Array(256 * h); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })(), true); },
       setAdmin1ArcTable(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); adm1.arcTex = uploadTable(adm1.arcTex, 256, h, bytes.length === 256 * h ? bytes : (() => { const b = new Uint8Array(256 * h); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })(), true); adm1.arcN = n; },
       // the face style table: RGBA bytes per history face (alpha 0 = not alive); the arc table: alpha per history arc
       setHistoryStyle(n, bytes) { if (lost) return; const h = Math.max(1, Math.ceil(n / 256)); const px = bytes.length === 256 * h * 4 ? bytes : (() => { const b = new Uint8Array(256 * h * 4); b.set(bytes.subarray(0, Math.min(bytes.length, b.length))); return b; })(); hist.sIdx = (hist.sIdx | 0) ^ 1; hist.sTex = hist.sTex || [null, null]; hist.sTex[hist.sIdx] = uploadTable(hist.sTex[hist.sIdx], 256, h, px); hist.styleTex = hist.sTex[hist.sIdx]; hist.styleN = n; },   // two textures in turn: an upload never touches the one the last frame still reads (a scrub re-uploads every frame)

@@ -1471,11 +1471,7 @@
     const faceArcOff = new Uint32Array(nF + 1), fa = [];
     for (let fi = 0; fi < nF; fi++) { faceArcOff[fi] = fa.length; const seen = new Set(); for (const ring of T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; if (T.arcKind[a] === 0 || seen.has(a)) continue; seen.add(a); fa.push(a); } }
     faceArcOff[nF] = fa.length; const faceArcs = Uint32Array.from(fa);
-    // the admin-1 slot (step 3): per face, the CORE arcs its international border references (kind 1), so the Personal Atlas's present day draws a discovered state's edge
-    // where its country is undiscovered (atlas.js refreshPersonalPresent adds them to the core's arc mask)
-    let coreBorderOff, coreBorders;
-    if (A1) { coreBorderOff = new Uint32Array(nF + 1); const cb = []; for (let fi = 0; fi < nF; fi++) { coreBorderOff[fi] = cb.length; for (let k = faceArcOff[fi]; k < faceArcOff[fi + 1]; k++) { const a = faceArcs[k]; if (T.arcKind[a] === 1 && T.coreArc[a] >= 0) cb.push(T.coreArc[a]); } } coreBorderOff[nF] = cb.length; coreBorders = Uint32Array.from(cb); }
-    post({ type: "history-meta", slot: msg.slot, header: H, faceEntity, faceCap, faceArcOff, faceArcs, arcKind: A1 ? T.arcKind.slice() : undefined, coreBorderOff, coreBorders, parseMs: Math.round(now() - t0) }, [faceEntity.buffer, faceCap.buffer, faceArcOff.buffer, faceArcs.buffer]);
+    post({ type: "history-meta", slot: msg.slot, header: H, faceEntity, faceCap, faceArcOff, faceArcs, arcKind: A1 ? T.arcKind.slice() : undefined, parseMs: Math.round(now() - t0) }, [faceEntity.buffer, faceCap.buffer, faceArcOff.buffer, faceArcs.buffer]);
     // the borders travel with each face's mesh since 2b (handleHistoryFaces); the three per-level lists of every border are gone
     post({ type: "history-done", slot: msg.slot, ms: Math.round(now() - t0), arcs: T.arcOffset.length - 1, faces: nF });
   }

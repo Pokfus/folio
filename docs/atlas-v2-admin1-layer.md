@@ -223,9 +223,10 @@ section: the reader's `junctionAt` fallback is exact for a junction on one core 
   with the BARE alpha (stencil only, no colour) BEFORE the empty-land darkening (`beforeDim`: in `atlas-gl.js` the page's slot fill moved ahead of
   `drawHistoryDim`; a window's tinted slot fill keeps its old place after the presences), so it is plain land while the rest of an undiscovered India
   is the darker empty land; at the tile zooms its coast stroke marks the stencil too. Its inner lines (while `view.admin1`) are only the kept faces'
-  border lists — a line is drawn when a kept unit lies on a side. Its share of India's international border joins the core's arc mask: the worker's
-  `history-meta` for the slot now carries `coreBorderOff` / `coreBorders` (per face, the core arcs of its kind-1 references; `CORE_CACHE_REV`
-  re-installed). A past year draws none of the file. With no kept unit the Personal Atlas draws nothing of it, though the file may be in.
+  border lists — a line is drawn when a kept unit lies on a side. Its share of India's international border is drawn from the slot's OWN reference
+  segments (the kind-1 pieces of its border list), in the border ink, by a second pass of `drawHistoryBorders` with a second arc table
+  (`refTable`, `R.setAdmin1RefTable`), at every zoom. Adding the referenced core arcs to the core's arc mask was tried and dropped: the mask is by
+  whole arc, and the India–Nepal arc ran 800 km past Uttar Pradesh through the empty land. A past year draws none of the file. With no kept unit the Personal Atlas draws nothing of it, though the file may be in.
 - **Names**: the worker turns each unit into an ordinary `admin1` gazetteer row once both files are in (`adm1Rows`: the file's `faceAnchor`, rank by
   `build-gazetteer.js`'s area bins + 3, room = √area km), so the same rules apply as for a Russian subject: the switch, `view.admin1` and
   `MIN_CHORD_PX` in Map and Full, flag 2 only in Personal, never in a past year. The main thread adds the same units to `G` (`adm1GRows`, `src:
@@ -243,3 +244,8 @@ section: the reader's `junctionAt` fallback is exact for a junction on one core 
   Uttar Pradesh discovered — plain land inside it, empty land in Madhya Pradesh, its name alone, fewer segments than Map — and a reader with none;
   the Personal reader's index entry is extended in the test, as no card names an Indian unit yet); `test-atlas-perf.js` gains two gesture cases at
   India 2 km/px, Map and Personal (Uttar Pradesh discovered, a context of its own), each held to the worst-frame and drag-release rules.
+- **The frame gate in the session that built it** was NOT a clean reading: four cores at load average 5–8 from other sessions' browser suites, and
+  the suite's unchanged cases failed too (the globe drag 1.71 % of frames over 100 ms, the Full Atlas 2.39 %). India Map read 0.66 % (12 of
+  1,822; p90 49.9 ms), India Personal 0.12 % (2 of 1,640; p90 33–50 ms), both release rules green. An A/B under the same load (India 2 km/px, the
+  switch on against off, four alternations of the drag) read p90 33.4 against 33.3 ms and 6 against 4 frames over 100 ms of ~1,800: the slot's
+  lines cost nothing measurable. CI's frame-gate job is the reading that counts.
