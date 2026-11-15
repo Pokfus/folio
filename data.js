@@ -11228,7 +11228,9 @@ window.CARD_DATA = [
 {"id":"ru-599","num":"599","category":"The Civil War and the making of the USSR","question":"Proclaimed after the killing of Moisei Uritsky and the shooting of Lenin on 30 August 1918, the <span class=\"blank\">_____</span> was carried out above all by the Cheka against class enemies.","answer":"Red Terror","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Trigger</span><span class=\"dt-v\">30 August 1918</span><span class=\"dt-k\">Decree</span><span class=\"dt-v\">5 September 1918</span><span class=\"dt-k\">Amnesty</span><span class=\"dt-v\">November 1918</span></div>","traditional":"","hanzi":"Красный террор","pinyin":"Krasny terror","translations":"","citation":"","answerText":"Red Terror","tags":["event","history","politics","russia","20th century"],"difficulty":2,"timeline":{"from":"1918-09-05","to":"1918-11"}},
 {"id":"ru-600","num":"600","category":"The Civil War and the making of the USSR","question":"The Russian word <span class=\"blank\">_____</span>, from the title of a Cossack leader, names the rule of warlords such as Grigory Semenov in the Trans-Baikal during the Civil War.","answer":"Atamanshchina","answerDate":"<div class=\"dt\"><span class=\"dt-k\">At its height</span><span class=\"dt-v\">1918 – 1920</span></div>","traditional":"","hanzi":"Атаманщина","pinyin":"Atamanshchina","translations":"","citation":"","answerText":"Atamanshchina","tags":["practice","history","warfare","russia","siberia","20th century"],"difficulty":5},
 {"id":"gin-001","num":"001","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Uttar Pradesh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">United Provinces</span><span class=\"dt-v\">1902</span><span class=\"dt-k\">State divided</span><span class=\"dt-v\">2000</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Uttar Pradesh","tags":["place","geography","india","state","ganges"],"difficulty":3,"map":{"layer":"india-states","key":"Uttar Pradesh"},"facts":[["Kind","State"],["Capital","Lucknow"],["Population","200M (2011)"],["Area","241k km² (93.0k sq mi)"]]},
-{"id":"gin-501","num":"501","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Lucknow","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Capital of Oudh</span><span class=\"dt-v\">1775</span><span class=\"dt-k\">Residency siege</span><span class=\"dt-v\">1857</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Lucknow","tags":["place","city","geography","capital","india"],"difficulty":3,"map":{"layer":"india-states","key":"Uttar Pradesh","dot":"Lucknow"},"facts":[["State","Uttar Pradesh"],["Population","2.82M (2011)"],["Area","349 km² (135 sq mi)"],["Rank in state","Largest city"]]}
+{"id":"gin-501","num":"501","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Lucknow","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Capital of Oudh</span><span class=\"dt-v\">1775</span><span class=\"dt-k\">Residency siege</span><span class=\"dt-v\">1857</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Lucknow","tags":["place","city","geography","capital","india"],"difficulty":3,"map":{"layer":"india-states","key":"Uttar Pradesh","dot":"Lucknow"},"facts":[["State","Uttar Pradesh"],["Population","2.82M (2011)"],["Area","349 km² (135 sq mi)"],["Rank in state","Largest city"]]},
+{"id":"gin-502","num":"502","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Mumbai","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Ceded to England</span><span class=\"dt-v\">1661</span><span class=\"dt-k\">Given to Company</span><span class=\"dt-v\">1668</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Mumbai","tags":["place","city","geography","capital","india"],"difficulty":2,"map":{"layer":"india-states","key":"Maharashtra","dot":"Mumbai"},"facts":[["State","Maharashtra"],["Population","12.4M (2011)"],["Area","603 km² (233 sq mi)"],["Rank in India","Largest city"]]},
+{"id":"gin-002","num":"002","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Maharashtra","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">1 May 1960</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Maharashtra","tags":["place","geography","india","state","deccan"],"difficulty":3,"map":{"layer":"india-states","key":"Maharashtra"},"facts":[["Kind","State"],["Capital","Mumbai"],["Population","112M (2011)"],["Area","308k km² (119k sq mi)"]]}
 ];
 
 window.COLLECTION_TREE = {
@@ -29227,7 +29229,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-india",
       "title": "India",
-      "total": 2,
+      "total": 4,
       "placeholder": false,
       "children": [
         {
@@ -29235,7 +29237,8 @@ window.COLLECTION_TREE = {
           "title": "The states and union territories",
           "placeholder": false,
           "cardIds": [
-            "gin-001"
+            "gin-001",
+            "gin-002"
           ]
         },
         {
@@ -29243,7 +29246,8 @@ window.COLLECTION_TREE = {
           "title": "The capitals",
           "placeholder": false,
           "cardIds": [
-            "gin-501"
+            "gin-501",
+            "gin-502"
           ]
         },
         {

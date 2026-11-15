@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T21:01Z",
+ "generated": "2026-11-15T21:08Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8266,
+  "ok": 8268,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89202,6 +89202,20 @@
    "answer": "Lucknow",
    "title": "Lucknow",
    "url": "https://en.wikipedia.org/wiki/Lucknow",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-502": {
+   "answer": "Mumbai",
+   "title": "Mumbai",
+   "url": "https://en.wikipedia.org/wiki/Mumbai",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-002": {
+   "answer": "Maharashtra",
+   "title": "Maharashtra",
+   "url": "https://en.wikipedia.org/wiki/Maharashtra",
    "via": "answer",
    "status": "ok"
   }
