@@ -11663,7 +11663,9 @@ window.GLOSSARY = {
 "Bhubaneswar": "",
 "Odisha": "",
 "Hyderabad": "",
-"Telangana": ""
+"Telangana": "",
+"Thiruvananthapuram": "",
+"Kerala": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -24730,7 +24732,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Zhao_Gao": ["Chao Kao"],
 "Zhou_Yu": ["Chou Yü"],
 "Ziying": ["Zi Ying","Tzu-ying"],
-"Bengaluru": ["Bangalore"]
+"Bengaluru": ["Bangalore"],
+"Thiruvananthapuram": ["Trivandrum"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -36600,7 +36603,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Bhubaneswar": ["place","city","geography","india"],
 "Odisha": ["place","geography","india","state"],
 "Hyderabad": ["place","city","geography","india"],
-"Telangana": ["place","geography","india","state"]
+"Telangana": ["place","geography","india","state"],
+"Thiruvananthapuram": ["place","city","geography","india"],
+"Kerala": ["place","geography","india","state"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

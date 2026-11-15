@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T21:49Z",
+ "generated": "2026-11-15T21:54Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8286,
+  "ok": 8288,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89342,6 +89342,20 @@
    "answer": "Telangana",
    "title": "Telangana",
    "url": "https://en.wikipedia.org/wiki/Telangana",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-513": {
+   "answer": "Thiruvananthapuram",
+   "title": "Thiruvananthapuram",
+   "url": "https://en.wikipedia.org/wiki/Thiruvananthapuram",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-013": {
+   "answer": "Kerala",
+   "title": "Kerala",
+   "url": "https://en.wikipedia.org/wiki/Kerala",
    "via": "answer",
    "status": "ok"
   }
