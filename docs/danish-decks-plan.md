@@ -5,7 +5,7 @@ Danish set, built in the Swedish decks' shape (`docs/swedish-decks-plan.md`, who
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-15: "Add a Danish language collection."
 
-**STATUS (2026-11-15): all five levels, A1 to C1, are built** (§6–§10). A phrases deck is the one phase left.
+**STATUS (2026-11-15): the plan is complete** — all five levels, A1 to C1, and the phrases deck (§6–§11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck of this plan. The collection's first commit carried one because it also changed the APP — the
@@ -34,6 +34,7 @@ owner's to overrule.**
 | Danish B1 Intermediate — built | `Danish-B1.folio-deck.json` | 1,000 |
 | Danish B2 Upper Intermediate — built | `Danish-B2.folio-deck.json` | 1,500 |
 | Danish C1 Advanced — built | `Danish-C1.folio-deck.json` | 1,500 |
+| Danish Phrases and Expressions — built | `Danish-Phrases-and-Expressions.folio-deck.json` | 530 |
 
 ## 2. Sources and licences
 
@@ -101,7 +102,7 @@ One of A1's 500 words (`apotek`) has no Tatoeba sentence.
 
 **Phase 1 (done)** — the pipeline and A1. **Phase 2 (done)** — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` (and its `SCOPE` is already in `danish_level.py`; add its `STAMP` in `build_deck.py`),
-run, read every card. **Phase 3** — a phrases deck, from Swedish's `phrases.py`.
+run, read every card. **Phase 3 (done)** — a phrases deck, from Swedish's `phrases.py`.
 
 ## 6. As built (2026-11-15): A1
 
@@ -237,3 +238,34 @@ list, or a second corpus) applies here most of all.
 
 **Known, left.** As at B2, the fill's crime, fantasy and slang vocabulary stays on frequency (`snigmorder`,
 `haglgevær`, `enhjørning`, `smølf`).
+
+## 11. As built (2026-11-15): the phrases deck
+
+Asked for on 2026-11-15: "Add the phrases deck." `python3 .claude/danish/run.py --level phr` (after all five
+levels); the selection stage is `phrases.py`, Swedish's (`.claude/swedish/phrases.py`) with its four subdecks.
+**530 expressions**: 111 Phrases, 234 Particle verbs, 94 Idioms, 91 Proverbs — **every candidate Danish Wiktionary
+has**, so the caps (200 / 300 / 250 / 100) cut nothing. Nothing a level teaches is taught again. 206 of the 530 occur
+in a Tatoeba sentence and 203 carry one (111 three apiece); 327 have none.
+
+- **The machinery the session first trimmed is back**: `danish_level`'s phr titles, `run.py`'s phrases stage,
+  `examples.phrase_parts` / `seq_hit` (a particle verb matched in any form of its verb), the phr branch of
+  `build_deck.py` (`desc_phr`, no article on an expression). Each runs for `--level phr` only; the five levels
+  re-run byte-identical, extract included.
+- **Classification and order** as Swedish's (§11 of `docs/swedish-decks-plan.md`): a proverb outranks an idiom
+  outranks a particle verb outranks a phrase; within a subdeck, Tatoeba occurrences, then the frequency estimate.
+- **A particle verb's forms** are the head forms of the whole (`holder op`, `holdt op`, `er holdt op`); two slips
+  in Wiktionary's are corrected in `HEAD_FIX` (`er ked af ked af`; `mistet sig selv` given as a past).
+- **"see you" IS A MEANING**: the phr pointer filter ("see X") dropped `vi ses` and `på gensyn`'s only gloss, so
+  both are written in `GLOSS`; as are a paragraph (`om det`), a garble (`vejre morgenluft`), crude glosses
+  (`gå i ged`, `løgn og latin`, `et råddent æg …`) and the common/neuter pairs `den her` / `det her`, `den der` /
+  `det der`, which the dedupe pass would otherwise only label.
+- **`EXCLUDE`** (each with its reason): personal phrasebook sentences (`jeg er sulten`, `jeg elsker dig` — the
+  formulas asked and answered whole stay); pointers (`blæse på`, `tro om`, `jokke i spinaten`); the second
+  spelling of seven expressions; English, Latin and German (`never mind`, `no offense`, `in vino veritas`, `oder
+  was`); technical terms; and rude, sexual or crude expressions (`hold kæft`, `kors i røven`, `spille den af` …,
+  twenty-one in all).
+
+**Known, left.** Wiktionary's Danish proverbs are glossed by an English equivalent or a paraphrase, not always the
+literal meaning (`plejer er død` "variety is the spice of life"); some idioms are rare or dated (`aber dabei`,
+`øretævernes holdeplads`); four pairs of proverbs share an English equivalent and carry the dedupe pass's labels
+(`krage søger mage` / `lige børn leger bedst`).

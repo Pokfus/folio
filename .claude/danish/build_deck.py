@@ -40,7 +40,7 @@ from danish_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
 STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-15T00:00:00.000Z',
          'b1': '2026-11-15T00:00:00.000Z', 'b2': '2026-11-15T00:00:00.000Z',
-         'c1': '2026-11-15T00:00:00.000Z'}[LEVEL]
+         'c1': '2026-11-15T00:00:00.000Z', 'phr': '2026-11-15T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'danish'
@@ -167,7 +167,23 @@ GLOSS = {
     'mis': {'noun': ['kitty, puss (a cat)']}, 'skede': {'noun': ['sheath, scabbard']},
     'kæp': {'noun': ['stick, cane']}, 'hed': {'adj': ['hot, scorching']},
     'afføring': {'noun': ['defecation, bowel movement', 'faeces, stool']},
+    # PHRASES DECK (2026-11-15): "see you" is a meaning, not a pointer; a paragraph, a garble or a crude gloss
+    'den her': {'phrase': ['this, this one (with a common-gender noun)']},
+    'det her': {'phrase': ['this, this one (with a neuter noun)']},
+    'den der': {'phrase': ['that, that one (with a common-gender noun)']},
+    'det der': {'phrase': ['that, that one (with a neuter noun)']},
+    'vi ses': {'intj': ['see you, see you later']},
+    'på gensyn': {'intj': ['see you again, goodbye (until we meet again)']},
+    'om det': {'phrase': ["that's their business; to each their own"]},
+    'vejre morgenluft': {'verb': ['to sense new possibilities']},
+    'gå i ged': {'adv': ['to go wrong, to fail']},
+    'løgn og latin': {'noun': ['lies and nonsense']},
+    'et råddent æg fordærver hele kagen': {'proverb': ['one bad part spoils the whole']},
 }
+
+# A HEADWORD-LINE FORM WRITTEN HERE, where Wiktionary's is a slip (`er ked af ked af`, `mistet sig selv`
+# as a past tense).
+HEAD_FIX = {'være ked af': {'present': 'er ked af'}, 'miste sig selv': {'past': 'mistede sig selv'}}
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
 LEAD = {'gang': 'time (an occurrence, an incidence)', 'fej': 'cowardly'}
@@ -268,6 +284,9 @@ def english(ents, word=''):
                 continue
             t = gloss_text(x['g'], e['pos'])
             if NOT_A_MEANING.search(t):
+                continue
+            # the phrases deck: Wiktionary's pointer senses ("used other than figuratively", "see X")
+            if LEVEL == 'phr' and re.match(r'(?i)used other than figuratively|see \S+$|see \S+ (?:and|or) \S+$', t):
                 continue
             if t and t not in seen:
                 seen.add(t)
@@ -452,10 +471,13 @@ def build(rows, lex, exs):
             continue
         main = ents[0]
         word = r['word']
+        if word in HEAD_FIX:
+            main = dict(main, head=dict(main['head'], **HEAD_FIX[word]))
         g = GENDER_FIX.get(word, main['gender'])
-        # no article on a month (Danish says i april, never "en april") or a language
+        # no article on a month (Danish says i april, never "en april") or a language,
+        # nor on an expression of the phrases deck (ulv i fåreklæder, not "en ulv i fåreklæder")
         art = ARTICLE.get(g, '') if main['pos'] == 'noun' and word not in MONTHS \
-            and word not in NO_ART else ''
+            and word not in NO_ART and LEVEL != 'phr' else ''
         head = (f'<span class="uc-art">{E(art)}</span> ' if art else '') + E(word)
         ex = exs.get(r['key'], [])
         cards.append({'sub': r.get('sub', ''), 'fields': {
@@ -513,6 +535,44 @@ def desc(entries, n):
     )
 
 
+PHR_SUBS = ('Phrases', 'Particle verbs', 'Idioms', 'Proverbs')
+
+
+def desc_phr(entries, n):
+    by = {s: [e for e in entries if e['sub'] == s] for s in PHR_SUBS}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Danish set phrases, particle verbs, idioms and proverbs, in four subdecks: "
+        f"{len(by['Phrases'])} everyday phrases, {len(by['Particle verbs'])} particle verbs, "
+        f"{len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study directions come as "
+        "two cards of one expression — Danish → English (see the Danish, recall the meaning) and "
+        "English → Danish (see an English meaning, recall the Danish) — each with a schedule of its "
+        "own. This is a companion to the five level decks, Danish A1 to C1, and not one of them: a level "
+        "is a list of words, and an expression is a unit a list of words cannot see. Nothing here is "
+        "taught by any of the five, so the two can be studied together without repeating an entry. The "
+        "PHRASES are the expressions Wiktionary files as phrases and does not mark as idiomatic — mostly "
+        f"the everyday formulas a Danish speaker uses as one piece ({eg('Phrases')} …). The PARTICLE "
+        "VERBS are a verb and a particle or a preposition that together mean something the verb alone "
+        f"does not ({eg('Particle verbs')} …) — Danish is built on them, the particle carries the "
+        "stress, and the card shows the present, past and perfect of the whole where Wiktionary gives them. The IDIOMS are expressions "
+        f"whose meaning is not their words' ({eg('Idioms')} …), and the PROVERBS the sayings Wiktionary "
+        f"files as proverbs ({eg('Proverbs')} …). Within each subdeck the expressions come in the order "
+        "of how many of Tatoeba's Danish sentences contain them, a particle verb being counted with its "
+        f"verb in any form; {found} of the {n} are found there, and the rest follow in the order of how "
+        "common their words are in film and television subtitles. The particle verbs and idioms are the "
+        "commonest of the many Wiktionary lists, chosen by that same order. "
+        f"Real example sentences come with {n - ex0} of the {n} expressions, three apiece for {ex3}, "
+        "with the expression picked out in colour and a speaker beside the sentence and the headword. "
+        "Sources. Expressions, meanings, forms and the idiom and proverb labels: English Wiktionary, via "
+        "the kaikki.org extraction (CC BY-SA 4.0). Order: Tatoeba (tatoeba.org), CC BY 2.0 FR, then a "
+        "word list built from OpenSubtitles (hermitdave/FrequencyWords, CC BY-SA 4.0). Example "
+        "sentences: Tatoeba, CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -523,9 +583,16 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
-    subtitle = f'{n} words · both directions, as two cards per word'
-    description = desc(entries, n)
-    tags = ['danish', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in PHR_SUBS}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Particle verbs']} particle "
+                    f"verbs, {by['Idioms']} idioms, {by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['danish', 'phrases', 'particle verbs', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['danish', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
         'subtitle': subtitle,
