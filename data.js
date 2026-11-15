@@ -11226,7 +11226,9 @@ window.CARD_DATA = [
 {"id":"ru-597","num":"597","category":"The Civil War and the making of the USSR","question":"Under the system known as <span class=\"blank\">_____</span>, Soviet Russia between 1918 and 1921 requisitioned peasant grain, nationalised industry and paid many wages in kind as money lost its value.","answer":"War communism","answerDate":"<div class=\"dt\"><span class=\"dt-k\">In force</span><span class=\"dt-v\">1918 – 1921</span><span class=\"dt-k\">Food decree</span><span class=\"dt-v\">13 May 1918</span><span class=\"dt-k\">Replaced</span><span class=\"dt-v\">March 1921</span></div>","traditional":"","hanzi":"Военный коммунизм","pinyin":"Voyenny kommunizm","translations":"","citation":"","answerText":"War communism","tags":["era","history","economics","politics","russia","20th century"],"difficulty":2,"timeline":{"from":"1918","to":"1921-03"}},
 {"id":"ru-598","num":"598","category":"The Civil War and the making of the USSR","question":"Introduced by a Soviet decree of 11 January 1919, <span class=\"blank\">_____</span> fixed a grain quota for each province that was divided down to districts, villages and finally households.","answer":"Prodrazvyorstka","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Decreed</span><span class=\"dt-v\">11 January 1919</span><span class=\"dt-k\">Abolished</span><span class=\"dt-v\">March 1921</span></div>","traditional":"","hanzi":"Продразвёрстка","pinyin":"Prodrazvyorstka","translations":"","citation":"","answerText":"Prodrazvyorstka","tags":["practice","history","economics","agriculture","russia","20th century"],"difficulty":4},
 {"id":"ru-599","num":"599","category":"The Civil War and the making of the USSR","question":"Proclaimed after the killing of Moisei Uritsky and the shooting of Lenin on 30 August 1918, the <span class=\"blank\">_____</span> was carried out above all by the Cheka against class enemies.","answer":"Red Terror","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Trigger</span><span class=\"dt-v\">30 August 1918</span><span class=\"dt-k\">Decree</span><span class=\"dt-v\">5 September 1918</span><span class=\"dt-k\">Amnesty</span><span class=\"dt-v\">November 1918</span></div>","traditional":"","hanzi":"Красный террор","pinyin":"Krasny terror","translations":"","citation":"","answerText":"Red Terror","tags":["event","history","politics","russia","20th century"],"difficulty":2,"timeline":{"from":"1918-09-05","to":"1918-11"}},
-{"id":"ru-600","num":"600","category":"The Civil War and the making of the USSR","question":"The Russian word <span class=\"blank\">_____</span>, from the title of a Cossack leader, names the rule of warlords such as Grigory Semenov in the Trans-Baikal during the Civil War.","answer":"Atamanshchina","answerDate":"<div class=\"dt\"><span class=\"dt-k\">At its height</span><span class=\"dt-v\">1918 – 1920</span></div>","traditional":"","hanzi":"Атаманщина","pinyin":"Atamanshchina","translations":"","citation":"","answerText":"Atamanshchina","tags":["practice","history","warfare","russia","siberia","20th century"],"difficulty":5}
+{"id":"ru-600","num":"600","category":"The Civil War and the making of the USSR","question":"The Russian word <span class=\"blank\">_____</span>, from the title of a Cossack leader, names the rule of warlords such as Grigory Semenov in the Trans-Baikal during the Civil War.","answer":"Atamanshchina","answerDate":"<div class=\"dt\"><span class=\"dt-k\">At its height</span><span class=\"dt-v\">1918 – 1920</span></div>","traditional":"","hanzi":"Атаманщина","pinyin":"Atamanshchina","translations":"","citation":"","answerText":"Atamanshchina","tags":["practice","history","warfare","russia","siberia","20th century"],"difficulty":5},
+{"id":"gin-001","num":"001","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Uttar Pradesh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">United Provinces</span><span class=\"dt-v\">1902</span><span class=\"dt-k\">State divided</span><span class=\"dt-v\">2000</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Uttar Pradesh","tags":["place","geography","india","state","ganges"],"difficulty":3,"map":{"layer":"india-states","key":"Uttar Pradesh"},"facts":[["Kind","State"],["Capital","Lucknow"],["Population","200M (2011)"],["Area","241k km² (93.0k sq mi)"]]},
+{"id":"gin-501","num":"501","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Lucknow","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Capital of Oudh</span><span class=\"dt-v\">1775</span><span class=\"dt-k\">Residency siege</span><span class=\"dt-v\">1857</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Lucknow","tags":["place","city","geography","capital","india"],"difficulty":3,"map":{"layer":"india-states","key":"Uttar Pradesh","dot":"Lucknow"},"facts":[["State","Uttar Pradesh"],["Population","2.82M (2011)"],["Area","349 km² (135 sq mi)"],["Rank in state","Largest city"]]}
 ];
 
 window.COLLECTION_TREE = {
@@ -29225,20 +29227,24 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-india",
       "title": "India",
-      "total": 0,
+      "total": 2,
       "placeholder": false,
       "children": [
         {
           "id": "geo-india-states",
           "title": "The states and union territories",
           "placeholder": false,
-          "cardIds": []
+          "cardIds": [
+            "gin-001"
+          ]
         },
         {
           "id": "geo-india-capitals",
           "title": "The capitals",
           "placeholder": false,
-          "cardIds": []
+          "cardIds": [
+            "gin-501"
+          ]
         },
         {
           "id": "geo-india-cities",

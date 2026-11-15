@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-13T01:39Z",
+ "generated": "2026-11-15T21:01Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8264,
+  "ok": 8266,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89189,6 +89189,20 @@
    "title": "Atamanshchina",
    "url": "https://en.wikipedia.org/wiki/Atamanshchina",
    "via": "glossary",
+   "status": "ok"
+  },
+  "gin-001": {
+   "answer": "Uttar Pradesh",
+   "title": "Uttar Pradesh",
+   "url": "https://en.wikipedia.org/wiki/Uttar_Pradesh",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-501": {
+   "answer": "Lucknow",
+   "title": "Lucknow",
+   "url": "https://en.wikipedia.org/wiki/Lucknow",
+   "via": "answer",
    "status": "ok"
   }
  }

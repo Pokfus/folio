@@ -11641,7 +11641,9 @@ window.GLOSSARY = {
 "Wu_Guang": "",
 "Zhao_Gao": "",
 "Zhou_Yu": "",
-"Ziying": ""
+"Ziying": "",
+"Uttar_Pradesh": "",
+"Lucknow": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -36555,7 +36557,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Wu_Guang": ["person","rebel","history","china","qin dynasty"],
 "Zhao_Gao": ["person","politics","history","china","qin dynasty"],
 "Zhou_Yu": ["person","warfare","history","china","three kingdoms"],
-"Ziying": ["ruler","person","history","china","qin dynasty"]
+"Ziying": ["ruler","person","history","china","qin dynasty"],
+"Uttar_Pradesh": ["place","geography","india","state"],
+"Lucknow": ["place","city","geography","india"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
