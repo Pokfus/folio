@@ -80,14 +80,19 @@ KEEP_CAP = re.compile(r"^(I|God|Monday|Tuesday|Wednesday|Thursday|Friday|Saturda
                       r"Christian|Christianity|Catholic|Amharic|Arabic|Arab|Amhara|English|"
                       r"Ethiopia|Ethiopian|Greek|Jesus|Muslim|Islam|Orthodox|Ge'ez|Old|New|"
                       r"January|February|March|April|May|June|July|August|September|October|"
-                      r"November|December|Easter|Christmas|Bible)\b")
+                      r"November|December|Easter|Christmas|Bible|African|Englishman|Jannat)\b")
+MONTH = re.compile(r"\b(january|february|march|april|may|june|july|august|september|october|"
+                   r"november|december)\b")
 
 
 def lower_first(g):
     g = re.sub(r', (He|She|To|A|An|The)\b', lambda m: ', ' + m.group(1).lower(), g or '')
     if not g or KEEP_CAP.match(g) or (len(g) > 1 and g[1].isupper()):
         return g
-    return g[0].lower() + g[1:]
+    g = g[0].lower() + g[1:]
+    if MONTH.fullmatch(g):                       # Wiktionary's "september" for መስከረም
+        g = g[0].upper() + g[1:]
+    return g
 
 
 def entries_for(row, lex):
@@ -194,6 +199,11 @@ def forms_line(e, L, word):
     bits = []
     if e['pos'] == 'noun':
         for p, r in e['pl'][:2]:
+            # A PLURAL THAT SHARES NO CONSONANT WITH ITS NOUN is another word's, pasted onto
+            # the page (አይጥ "mouse" was given ሰጎኖች, "ostriches"); a broken plural keeps
+            # its root's consonants (ወፍ -> አዕዋፍ).
+            if not set(re.sub('[aeiouE ]', '', key(p))) & set(re.sub('[aeiouE ]', '', key(word))):
+                continue
             if key(p) != key(word):
                 bits.append(fi('plural', p, romanise(p, r)))
         d, r = definite(e)

@@ -6,7 +6,8 @@ record of how those were built, and every rule there applies here unless this fi
 on 2026-11-15: "Add an Amharic language collection." The owner was not asked: the Zulu and Hausa owners'
 answers to the same questions, for sources as thin as these, were taken.
 
-**STATUS (2026-11-15): the fidäl deck and A1 are built** (`.claude/amharic/`, §6). A2 and B1 are next.
+**STATUS (2026-11-15): the fidäl deck, A1 and A2 are built** (`.claude/amharic/`, §6). B1 is next, and will be
+about 500 notes, not 1,000: after A2 only about 490 lemmas pass the fill's rules and appear in the corpus (§6).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck this plan produces. The collection's first commit carried a line and a bump because it also
@@ -28,8 +29,8 @@ changed the APP (the shelf's hue in `app.js`) — the Hebrew and Zulu precedent.
 |---|---|---|
 | Amharic Alphabet (Fidäl) — built | `Amharic-Alphabet.folio-deck.json` | 44 |
 | Amharic A1 Beginner — built | `Amharic-A1.folio-deck.json` | 500 |
-| Amharic A2 Elementary | `Amharic-A2.folio-deck.json` | 750 |
-| Amharic B1 Intermediate | `Amharic-B1.folio-deck.json` | 1,000 |
+| Amharic A2 Elementary — built | `Amharic-A2.folio-deck.json` | 750 |
+| Amharic B1 Intermediate | `Amharic-B1.folio-deck.json` | 1,000 planned; about 500 left |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
 
@@ -115,9 +116,8 @@ and all.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the fidäl deck, A1. **Phase 2** — A2, then B1, one per session: write the
-level's inventory into `inventory.py` and its `topics` into `amharic_level.SCOPE`, run, read every card;
-the months of the Ethiopian calendar are A2's set. **Phase 3** — a phrases deck only if asked (Wiktionary
+**Phase 1 (done)** — the pipeline, the fidäl deck, A1. **Phase 2** — A2 (done), then B1: write the level's
+inventory into `inventory.py` and its `topics` into `amharic_level.SCOPE`, run, read every card. **Phase 3** — a phrases deck only if asked (Wiktionary
 has 7 Amharic phrase entries and one proverb).
 
 ## 6. As built (2026-11-15)
@@ -134,3 +134,23 @@ both decks, from a clean `--re-extract`).
   punctuation. A consonant's example word is the first A1 word beginning with its row, as A1 prints it.
 - **The shelf's hue** is measured: `#85063D`, a deep wine, 14.7 from its nearest of 70 (§ the comment at
   `lang-amharic` in `app.js`).
+
+**A2 (2026-11-15).** `python3 .claude/amharic/run.py --level a2`: 750 notes, 118 from the inventory and 632 by
+frequency; 104 with forms, 24 with sentences; a re-run and a clean `--re-extract` are byte-identical, A1 and the
+fidäl deck rebuilt byte-identical alongside. The inventory carries eleven of the thirteen Ethiopian months
+(English Wiktionary has no ጥቅምት and no ጳጉሜ) and is short because A2's topics are thin there (the missing words
+are listed in `inventory.py`: no coat, driver, hotel, ticket, plate, lunch, radio, "to send", "rich" …). The fill
+reaches down to a frequency of 18. What reading the A2 ranking added, each a rule FROM A2 ON so A1's cards stand:
+- **the infinitive twins are matched on their first sense** ("to kill, to murder" and "to kill") and an infinitive
+  is skipped whenever its verb has an entry at all, at whatever level (`select.first_sense`): the whole-gloss rule
+  let ማሰብ, መግደል, መፍራት, መግፋት and others through beside their verbs;
+- **an "of" adjective is not taught** (`select.of_adjective`): የባህል "cultural", የፀሐይ "solar", የልብ … are a noun
+  with የ- "of" where the noun has its own entry; the possessive pronouns (የኔ "my", የኛ "our") stay;
+- **a plural that shares no consonant with its noun is not shown** (`build_deck.forms_line`): Wiktionary gave
+  አይጥ "mouse" the plural ሰጎኖች, "ostriches"; a broken plural keeps its root (ወፍ → አዕዋፍ);
+- **a month's name keeps its capital** (Wiktionary writes "september" for መስከረም), and so do African,
+  Englishman and Jannat;
+- **`EXCLUDE` grew by 38**, each with its reason: the twelve Western months' borrowed names (ጁላይ, ሰፕቴምበር …;
+  the decks teach the Ethiopian ones), second spellings of words taught (ደሞዝ, ደሀ, እባት, ሌት, ንፋስ, ኡነት, ጦም,
+  መስታዎት), glosses that are not the word the corpus counts (ጠራ "to be clear" for "to call", ጭራ "flyswatter"
+  for "tail", ከልብ "dog" for "sincerely"), and the encyclopaedia's titles and names (ፊታውራሪ, አቡነ, ኢጣልያ).

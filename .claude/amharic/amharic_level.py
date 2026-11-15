@@ -55,7 +55,10 @@ SCOPE = {
                  '— personal and family information, shopping, the local area, work — and to '
                  'describe in simple terms their background, their surroundings and what they '
                  'immediately need',
-        'topics': '',
+        'topics': 'the months of the Ethiopian calendar, clothes, work and jobs, relatives and the '
+                  'stages of life, feelings, travel, the countryside and the weather, the body and '
+                  'health, food and the kitchen, the things of a home, talking and deciding, the '
+                  'everyday verbs of doing, describing things, and the feasts and the faith',
     },
     'b1': {
         'quote': 'Can understand the main points of clear standard input on familiar matters '

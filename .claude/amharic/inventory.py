@@ -23,6 +23,22 @@ written onto a word (በ- "in", ከ- "from", ለ- "for", ወደ "to"), ሄደ / 
 not", ተቀመጠ "to sit down", ተመለሰ "to return", አገኘ "to find", አመጣ "to bring",
 መድኃኒት "medicine" (filed only as "saviour, healer"), ጠራ "to call" (filed only as
 "to be clear"), ተኛ "to sleep", ሰጠ "to give", መጣ "to come" (taught by their infinitives).
+
+A2 IS SCOPED TO THE CEFR A2 DESCRIPTOR, looked up the same way (2026-11-15).
+The months of the Ethiopian calendar, held back from A1's fill as a set, are
+here -- eleven of the thirteen: English Wiktionary has no ጥቅምት (the second)
+and no ጳጉሜ (the short thirteenth).  Nor these, which A2 would have: በጋ "the
+dry season", ምሥራቅ "east", ኮት "coat", ካልሲ "sock", ሹፌር "driver", ነርስ "nurse",
+ሽማግሌ "old man", አሮጊት "old woman", ሰርግ "wedding", ተስፋ "hope", ሀዘን
+"sorrow", ጥማት "thirst", ሳቅ "laughter", ሆቴል "hotel", ትኬት "ticket", አድራሻ
+"address", ጣቢያ "station", ብስክሌት "bicycle", ሜዳ "field", ትኩሳት "fever",
+ቁስል "wound", ሳህን "plate", ብርጭቆ "glass", ማንኪያ "spoon", ምሳ "lunch", እራት
+"dinner", ሳጥን "box", መብራት "lamp", ሬዲዮ "radio", ቴሌቪዥን "television",
+ዩኒቨርሲቲ "university", ቢሮ "office", በዓል "holiday", ላከ "to send", ተቀበለ "to
+receive", ለበሰ "to dress", ነቃ "to wake", ተራመደ "to walk", ሀብታም "rich", ጠንካራ
+"strong", ንጹሕ "clean".  Left out for their glosses: ኬላ (filed as "station", a
+checkpoint), ዝቅተኛ (filed only as "inferior"), ቡን (a second word for coffee,
+which A1 teaches as ቡና); of the three words for forest, ደን is taught.
 """
 
 INVENTORY = {
@@ -71,5 +87,36 @@ INVENTORY = {
          'ወሰደ ማድረግ ሠራ ነበረ መቆም ሮጠ ከፈተ ዘጋ አነበበ ጻፈ ገዛ መሸጥ ከፈለ ተማረ አስተማረ '
          'ኖረ ሞተ ወደደ ጠየቀ ደረሰ ገባ ወጣ ወረደ አሰበ ረዳ ጀመረ ጨረሰ ጠበቀ '
          'መጫወት ሳቀ ማልቀስ ዘፈነ ማጠብ አበሰለ ተረዳ'),
+    ],
+    'a2': [
+        ('the months of the Ethiopian calendar and the seasons',
+         'መስከረም ኅዳር ታህሳስ ጥር የካቲት መጋቢት ሚያዝያ ግንቦት ሰኔ ሐምሌ ነሐሴ ክረምት'),
+        ('clothes',
+         'ልብስ ሸሚዝ ቀሚስ ሱሪ ጫማ ቆብ ቀበቶ ጨርቅ'),
+        ('work and jobs',
+         'ሠራተኛ ነጋዴ ቄስ ካህን ዳኛ ጠበቃ ዶክተር ደመወዝ ክፍያ ፈተና'),
+        ('relatives and the stages of life',
+         'አጎት አክስት የልጅ_ልጅ ጋብቻ ሙሽራ ጎልማሳ'),
+        ('feelings',
+         'ደስታ ፍርሃት ፈራ ቁጣ አዘነ ራብ'),
+        ('travel and getting about',
+         'ተጓዘ ጉዞ ድልድይ ካርታ ጀልባ በረረ'),
+        ('the countryside and the weather',
+         'ገጠር ደን በረሃ ኮረብታ ሸለቆ አፈር ሣር በረዶ መብረቅ ድንጋይ'),
+        ('the body and health',
+         'ጤና ታመመ ወባ ጡት ከንፈር'),
+        ('food and the kitchen',
+         'ቍርስ መጠጥ ቅቤ ዘይት ዱቄት እህል ገብስ ስንዴ ጤፍ በቆሎ ሩዝ ጎመን ቲማቲም ሎሚ አይብ ጠጅ '
+         'ድስት ቢላዋ ጽዋ ሸክላ ፈላ'),
+        ('the things of a home and of the post',
+         'ቦርሳ ጎጆ ስልክ ጋዜጣ ፖስታ ኮምፒውተር'),
+        ('talking and deciding',
+         'መናገር ተነጋገረ ማዳመጥ ወሰነ መረጠ ጣረ'),
+        ('the everyday verbs of doing',
+         'ተጠቀመ አነሣ ገነባ ወረወረ ሰበረ ቆረጠ ዘራ ጎዳ ዘገየ ገበየ'),
+        ('describing things',
+         'ፈጣን ድሀ ደካማ ቆሻሻ ርጥብ ደረቅ ባዶ መራራ አስቀያሚ ወፍራም ቀጭን ጠባብ ጥልቅ ወጣት'),
+        ('feasts and faith',
+         'ፋሲካ መስቀል ጾም ጸሎት መስጊድ ቅዳሴ'),
     ],
 }

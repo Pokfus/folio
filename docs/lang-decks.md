@@ -3657,8 +3657,10 @@ changed was the one that had been wrong all along.
 - `.claude/amharic/` — the generator behind the Amharic decks (Nov 2026, on request: "Add an Amharic language
   collection"; the Zulu and Hausa owners' answers taken, the owner not asked). **Built: the fidäl deck,
   `decks/Amharic-Alphabet.folio-deck.json`** (44 notes: the seven orders, 34 consonants with their rows, the
-  labialised forms, the punctuation) **and A1, `decks/Amharic-A1.folio-deck.json`** (500 notes / 1,000 cards).
-  `python3 .claude/amharic/run.py [--level a1]`, `python3 .claude/amharic/alphabet.py`,
+  labialised forms, the punctuation), **A1, `decks/Amharic-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2,
+  `decks/Amharic-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-15: the Ethiopian months, the twin and "of"
+  adjective rules from A2 on). B1 will be about 500 notes: what the source has left.
+  `python3 .claude/amharic/run.py [--level a1|a2]`, `python3 .claude/amharic/alphabet.py`,
   `node .claude/amharic/check-amharic.js`; a re-run is byte-identical. Zulu's arrangement: about 2,300
   Wiktionary words, about 250 Tatoeba pairs, no subtitle list, so the frequency is the Amharic Wikipedia's
   (14,255 articles), A1–B1 only, no hand glosses; Wiktionary's romanisation under every word and no speaker

@@ -17,7 +17,10 @@ THE FILL'S EXCLUSIONS, each for a fault it produced on reading the ranking:
   · a numeral the inventory does not teach (ሃያ አንድ "twenty-one" ...);
   · AN INFINITIVE WHOSE VERB HAS ITS OWN ENTRY (`infinitive_twin`): Wiktionary
     sometimes glosses an infinitive page ("መግዛት: to buy") as well as its verb
-    ("ገዛ: to buy"); the verb is taught and the infinitive goes on its card;
+    ("ገዛ: to buy"); the verb is taught and the infinitive goes on its card.  From
+    A2 on the two are matched on their first sense, whichever level the verb is on;
+  · from A2 on, an "of" adjective (`of_adjective`): የባህል "cultural" is ባህል with
+    የ- "of", where the noun has its own entry;
   · the hand list `EXCLUDE`, each line with its reason.
 """
 import json, os, sys
@@ -68,6 +71,42 @@ EXCLUDE = {
     'ሐምሌ': 'a month; the months are a set, left for A2',
     'ነሐሴ': 'a month; the months are a set, left for A2',
     'ጳጉሜ': 'a month; the months are a set, left for A2',
+    # Read off the A2 ranking (2026-11-15).
+    'ጁላይ': 'a Western month\'s borrowed name; the decks teach the Ethiopian months',
+    'ሰፕቴምበር': 'a Western month\'s borrowed name; the decks teach the Ethiopian months',
+    'ኤፕሪል': 'a Western month\'s borrowed name; the decks teach the Ethiopian months',
+    'ጁን': 'a Western month\'s borrowed name; the decks teach the Ethiopian months',
+    'ማርች': 'a Western month\'s borrowed name; the decks teach the Ethiopian months',
+    'መይ': 'a Western month\'s borrowed name; the decks teach the Ethiopian months',
+    'ኖቬምበር': 'a Western month\'s borrowed name; the decks teach the Ethiopian months',
+    'ኦገስት': 'a Western month\'s borrowed name; the decks teach the Ethiopian months',
+    'ፌብሩዋሪ': 'a Western month\'s borrowed name; the decks teach the Ethiopian months',
+    'ኦክቶበር': 'a Western month\'s borrowed name; the decks teach the Ethiopian months',
+    'ዲሴምበር': 'a Western month\'s borrowed name; the decks teach the Ethiopian months',
+    'ጃንዩዌሪ': 'a Western month\'s borrowed name; the decks teach the Ethiopian months',
+    'ኢጣልያ': 'a country name',
+    'ፊታውራሪ': 'an old title, from the history articles',
+    'አቡነ': 'the title "Abune" before a bishop\'s name; ጳጳስ "bishop" is the word',
+    'ጠይት': 'the name of a Ge\'ez letter, from the articles on the script',
+    'ጥቅሶች': 'the plural of ጥቅስ "quotation", which is taught',
+    'ደሞዝ': 'a spelling of ደመወዝ "wage", which A2 teaches',
+    'ደሀ': 'a spelling of ድሀ "poor", which A2 teaches',
+    'እባት': 'a spelling of አባት "father", taught at A1',
+    'ሌት': 'a short form of ሌሊት "night", taught at A1',
+    'ንፋስ': 'a spelling of ነፋስ "wind", taught at A1',
+    'ኡነት': 'a spelling of እውነት "truth", taught at A1',
+    'ጦም': 'a spelling of ጾም "fast", which A2 teaches',
+    'መጠበቅ': 'the infinitive of ጠበቀ "to wait for", taught at A1',
+    'መጀመር': 'the infinitive of ጀመረ "to start", taught at A1',
+    'መቁረጥ': 'the infinitive of ቆረጠ "to cut", which A2 teaches',
+    'መታገል': 'the infinitive of ታገለ "to struggle", which is taught',
+    'ጠራ': 'Wiktionary glosses only "to be clear"; its count is ጠራ "to call"',
+    'ዝቅተኛ': 'Wiktionary glosses only "inferior"; its count is ዝቅተኛ "low, lowest"',
+    'ላለ': 'Wiktionary glosses only a rare verb; its count is ላለ "for one who is" (ለ- + ያለ)',
+    'ላት': 'its count is the plural ending -at of other words (ቃላት), not "fat tail"',
+    'ከልብ': 'its count is ከልብ "sincerely" (ከ- + ልብ "heart"), not the rare "dog"',
+    'ጭራ': 'Wiktionary glosses only "flyswatter"; its count is ጭራ "tail"',
+    'መስታዎት': 'a spelling of መስታወት "mirror, glass", which is taught',
 }
 
 
@@ -94,6 +133,24 @@ def verb_index(lex):
     return out
 
 
+def first_sense(L, pos='verb'):
+    """The first gloss up to its first comma or semicolon: "to kill, to murder" -> "to kill"."""
+    import re
+    return re.split(r'[,;]', first_gloss(L, pos))[0].strip()
+
+
+def of_adjective(k, L, lex):
+    """የባህል "cultural" is ባህል "culture" with የ- "of": an adjective entry that is only a
+    noun with the genitive prefix, where the noun has its own entry (from A2 on; the
+    possessive pronouns የኔ, የኛ ... are not, their remainder being no noun)."""
+    if not k.startswith('yE') or len(k) < 5:
+        return False
+    if not all(e['pos'] == 'adj' for e in L['entries']):
+        return False
+    R = lex.get(k[2:])
+    return bool(R) and any(e['pos'] == 'noun' for e in R['entries'])
+
+
 def infinitive_twin(k, L, vidx):
     """The verb an infinitive lemma (መግዛት "to buy") doubles, where that verb has its own entry."""
     if not k.startswith(('mE', 'ma')):
@@ -107,6 +164,13 @@ def main():
     D = json.load(open('lex.json', encoding='utf-8'))
     lex, ptr = D['lemmas'], D['pointers']
     vidx = verb_index(lex)
+    # from A2 on the twins are matched on their first sense ("to kill, to murder" and "to
+    # kill"), and an infinitive is skipped whenever its verb has an entry at all, taught at
+    # this level, another, or neither: A1 shipped on the whole-gloss rule, kept so it stands.
+    sidx = {}
+    for k_, L_ in lex.items():
+        if not k_.startswith(('mE', 'ma')) and first_sense(L_):
+            sidx.setdefault(first_sense(L_), k_)
     below = words_below()
     rows, seen, missing = [], set(), []
     for topic, words in INVENTORY.get(LEVEL, []):
@@ -141,6 +205,12 @@ def main():
         twin = infinitive_twin(k, L, vidx)
         if twin and (twin in seen or twin in below):
             continue
+        if LEVEL != 'a1':
+            if k.startswith(('mE', 'ma')) and all(e['pos'] == 'verb' for e in L['entries']) \
+                    and sidx.get(first_sense(L)):
+                continue
+            if of_adjective(k, L, lex):
+                continue
         seen.add(k)
         fill.append({'key': k, 'word': L['word'], 'freq': L['freq'], 'pos': '',
                      'source': 'frequency', 'topic': ''})

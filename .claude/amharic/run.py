@@ -2,7 +2,7 @@
 """Build an Amharic deck, end to end.
 
     python3 .claude/amharic/run.py                 # A1
-    python3 .claude/amharic/run.py --level a2      # another level (inventory first: inventory.py)
+    python3 .claude/amharic/run.py --level a2      # another level: a2, b1 (inventory first: inventory.py)
     python3 .claude/amharic/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/amharic/run.py --re-extract    # rebuild the counts and the lexicon
     python3 .claude/amharic/alphabet.py            # the fidäl deck (reads lex.json)
