@@ -37721,19 +37721,41 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const CMAP_DEG = Math.PI / 180;
   /* The card's map, or null. Validated rather than trusted: `map` is a hand-authored field in data.js and a
      layer name with a typo in it would otherwise reach the renderer and paint an empty window. */
+  /* A MAP CARD'S KEYS (2026-11-15, the old fields' later phase; docs/map-cards.md "The key is the card's places"). A map card no longer names its shape twice: the authored `map.key` is
+     dropped wherever the card's `places` say the same (`.claude/migrate-places.js --finish`), and the shape is read off the places through the card windows' own join — card-faces.js maps
+     layer → key → entity id, and that id IS the registry id, one to one within a layer. So: the authored key where the card still has one (India's layer, whose entities are not registry
+     rows yet; Cyprus's ordered list of three), else every id of the card's places that is an entity of the layer, by its key there, in the places' sorted order (.claude/map-places.js is
+     the same rule in Node). The places are the heavy field when its bundle is in, else the light index card-places.js (`atlas2places`); with neither, or no card-faces.js (`atlas2cards`),
+     the answer is [] and the WINDOW resolves the keys itself once it has loaded both. */
+  let _mapKeyInv = null;
+  function cardMapKeys(c) {
+    const m = c && c.map;
+    if (!m || typeof m !== "object") return [];
+    if (m.key != null) return (Array.isArray(m.key) ? m.key : [m.key]).map((k) => String(k)).filter(Boolean);
+    const F = window.ATLAS_CARD_FACES, L = F && F.layers && F.layers[m.layer];
+    if (!L) return [];
+    let ids = Array.isArray(c.places) ? c.places : null;
+    if (!ids) { const P = window.ATLAS_CARD_PLACES, ix = P && P.cards && P.cards[c.id]; if (!Array.isArray(ix)) return []; ids = ix.map((i) => P.ids[i]); }
+    if (!_mapKeyInv || _mapKeyInv.F !== F) _mapKeyInv = { F: F, by: {} };
+    let inv = _mapKeyInv.by[m.layer];
+    if (!inv) { inv = _mapKeyInv.by[m.layer] = new Map(); Object.keys(L).forEach((k) => inv.set(L[k][0], k)); }
+    return ids.slice().sort().filter((id) => inv.has(id)).map((id) => inv.get(id));
+  }
   function cardMapSpec(c) {
     const m = c && c.map;
     if (!m || typeof m !== "object") return null;
     const layer = CARD_MAP_LAYERS[m.layer];
-    if (!layer || !m.key) return null;
+    if (!layer) return null;
+    /* a card with no authored key is a map card all the same (its front IS the map): its keys may simply not be readable yet (cardMapKeys), and its window then reads them */
+    if (m.key != null && !m.key) return null;
     /* `key` MAY BE A LIST, and Cyprus is why (Aug 2026, on request: "ensure the country Cyprus encompasses
        the whole island"). `world.js` files a partitioned island as separate polygons — Cyprus, N. Cyprus
        and the buffer zone are three — so a card naming one shades two-thirds of what the reader can see
        and asks them to name it. A list shades them as one place. The markup carries a single attribute, so
        the names are joined with a PIPE, which no place name in either layer contains; `add-card.js`
        refuses one that does, so the join can never become lossy. */
-    const keys = (Array.isArray(m.key) ? m.key : [m.key]).map((k) => String(k)).filter(Boolean);
-    if (!keys.length) return null;
+    const keys = cardMapKeys(c);
+    if (!keys.length && m.key != null) return null;
     // `dot` names a point in the layer's own table — a city, on a card whose answer is one
     const dot = m.dot && layer.points ? String(m.dot) : "";
     return { id: String(c.id || ""), layer: m.layer, key: keys.join("|"), keys: keys, dot: dot, zoom: Number(m.zoom) || 0, def: layer };
@@ -37920,7 +37942,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* the one object the lazy file reaches app.js through */
   function atlas2Ctx() {
     return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARDS, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, TINT_LATE, TINT_THIRD, GAME_MAX_DIFFICULTY,
-      cardCollectionRoot, cardLocator, cardMapSpec, cardSpanYears, cardWar, cardWarYears, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon,
+      cardCollectionRoot, cardLocator, cardMapSpec, cardMapKeys, cardSpanYears, cardWar, cardWarYears, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon,
       availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, esc, hashStr, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, unitSystem, gameProgress, setGameProgress,
       todayStr: gameDayStr, gameArchiveOn, gameShareHTML, gameNextLine };   // the games' draws seed on the archive's day while one is played (THE GAMES ARCHIVE); nothing else in the lazy file reads the date
   }
@@ -39512,7 +39534,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          is its NAME alone at its label point — a shape is drawn with its extent or not at all, so it gets no dot. The coordinates are in the lazy card-faces
          table, so the window resolves them (atlas-windows.js); the name is the card's answer, what the collection teaches ("United States", not NE's
          "United States of America"). */
-      else if (!l) { const ms = cardMapSpec(c); if (ms) dots.push({ id: cid, n: t || (ms.dot || ms.keys[0]), kind: ms.dot ? "point" : "face", map: { layer: ms.layer, keys: ms.keys, dot: ms.dot } }); }
+      else if (!l) { const ms = cardMapSpec(c); if (ms) dots.push({ id: cid, n: t || (ms.dot || ms.keys[0] || ""), kind: ms.dot ? "point" : "face", map: { layer: ms.layer, keys: ms.keys, dot: ms.dot } }); }
     });
     /* A STATE'S NAME STAYS ON ITS OWN CARD (2026-11-15, on request: "state labels (e.g. 'Ancient Egypt', 'Byzantine Empire') should only
        appear on their own card, and not on other cards' atlas windows. Labels for regions or geographical features (e.g. Faiyum, Aegean Sea)

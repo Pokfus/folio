@@ -114,7 +114,7 @@ show their key and a sentence; Find it plays (country and point rounds are score
 | the Personal-Atlas register (`atlasRegister*`) | deleted, except Find it's pool builder (moved into `atlas-windows.js`, same deal) |
 | `startCardGlobeV1`, v1's Find it | the Canvas 2D path (§5) |
 
-`.claude/atlas-build/freeze-*.js` were run once and deleted with the files they read; `frozen/README.md` names the commit that last held the sources. The cards' old `locator`, `war` and `map` fields **stay**: they are the card windows' drawing spec (`CARD_MAP_LAYERS`, the `card-faces.js` join), not leftovers of v1. **No migration removes them** — `migrate-places.js --finish` is not run, and nothing is to run it without a new decision; removing them is a later phase that has to teach the windows to read `places` first.
+`.claude/atlas-build/freeze-*.js` were run once and deleted with the files they read; `frozen/README.md` names the commit that last held the sources. The cards' old `locator` and `war` fields **stay**: they are the card windows' drawing and question spec, not leftovers of v1. **A map card's `map.key` is retired** (2026-11-15, the later phase): the windows read the card's `places` through the `card-faces.js` join (`cardMapKeys`), `migrate-places.js --finish` drops every key the places say, and `layer`, `dot` and `zoom` stay (India's layer and Cyprus's list keep a key) — `docs/map-cards.md` "The key is the card's places".
 
 ## 8. Reader data
 
