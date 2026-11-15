@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T21:37Z",
+ "generated": "2026-11-15T21:41Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8281,
+  "ok": 8282,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89307,6 +89307,13 @@
    "answer": "Gujarat",
    "title": "Gujarat",
    "url": "https://en.wikipedia.org/wiki/Gujarat",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-010": {
+   "answer": "Andhra Pradesh",
+   "title": "Andhra Pradesh",
+   "url": "https://en.wikipedia.org/wiki/Andhra_Pradesh",
    "via": "answer",
    "status": "ok"
   }
