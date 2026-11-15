@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T21:08Z",
+ "generated": "2026-11-15T21:15Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8268,
+  "ok": 8270,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89216,6 +89216,20 @@
    "answer": "Maharashtra",
    "title": "Maharashtra",
    "url": "https://en.wikipedia.org/wiki/Maharashtra",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-503": {
+   "answer": "Patna",
+   "title": "Patna",
+   "url": "https://en.wikipedia.org/wiki/Patna",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-003": {
+   "answer": "Bihar",
+   "title": "Bihar",
+   "url": "https://en.wikipedia.org/wiki/Bihar",
    "via": "answer",
    "status": "ok"
   }
