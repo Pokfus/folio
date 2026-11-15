@@ -235,7 +235,7 @@ countries-info.json
 .claude/persian-cache/
 
 # the corpora .claude/zulu/run.py builds the Zulu decks from — the Wiktionary extract,
-# the Zulu Wikipedia dump and the Tatoeba exports (~180 MB) — plus the intermediate
+# the Zulu Wikipedia dump and the Tatoeba exports (~160 MB) — plus the intermediate
 # files between its stages. The decks it writes ARE committed.
 .claude/zulu-cache/
 
@@ -273,3 +273,8 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~220 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/hebrew-cache/
+
+# the corpora .claude/cantonese/run.py builds the Cantonese decks from — CC-CEDICT,
+# CC-Canto, HKCanCor (out of the PyCantonese wheel) and the Tatoeba exports (~160 MB) —
+# plus the intermediate files between its stages. The decks it writes ARE committed.
+.claude/cantonese-cache/

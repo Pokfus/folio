@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+"""The hand-written inventory of each level's topics -- Folio's own list.
+
+Cantonese has no published graded word list (see `cantonese_level.py`), so a level's CORE is written
+here, a topic at a time, for the scope its CEFR descriptor sets; `select.py` resolves every word
+against the dictionaries (a word found in neither is reported and dropped unless `hand.py` carries
+it) and tops the level up with the commonest remaining words of spoken Cantonese.
+
+SPOKEN HONG KONG CANTONESE, IN TRADITIONAL CHARACTERS.  The words are the ones people SAY -- 佢 not
+他, 喺 not 在, 嘢 not 東西, 睇 not 看, 嚟 not 來 -- because written Chinese in Hong Kong is close to
+Mandarin and a learner of Cantonese is learning to speak.  Where the spoken word has two common
+spellings the dictionaries' headword is used (畀, 㗎, 喇).
+
+A word may carry its Jyutping after a colon (`行:haang4`) where the characters have several readings
+and the level wants one; syllables are joined by `_` (`銀行:ngan4_hong4`).  Without one, the
+reading HKCanCor's speakers use most leads the card.
+
+THE CLASSIFIERS ARE A TOPIC OF THEIR OWN at A1: a Cantonese noun cannot be counted or pointed at
+without one (兩隻狗 "two CL dog", 呢本書 "this CL book"), and a classifier alone does the work of
+"the" (隻狗 "the dog").
+"""
+
+A1 = [
+    ('greetings and politeness',
+     '你好 早晨 唔該 多謝 對唔住 唔緊要 拜拜 早唞 再見 請 歡迎 恭喜 冇問題 好耐冇見 唔使'),
+    ('particles',
+     '呀 啊 喇:laa3 啦 㗎 嘅:ge3 咩 嗎 呢:ne1 吖 囉 喎 啫 咋:zaa3 嘛 添'),
+    ('pronouns',
+     '我 你 佢 我哋 你哋 佢哋 自己 大家 人哋'),
+    ('questions',
+     '乜嘢 咩嘢 邊個 邊度 邊 幾時 點解 點樣 點 幾多 幾 未 定係'),
+    ('yes, no and the verbs of being',
+     '係 唔係 唔 冇 有 喺 唔好 好:hou2 都 仲 就 先 又 再 已經 一齊 淨係 真係 好似 可能 一定'),
+    ('aspect and modals',
+     '咗 緊 過:gwo3 晒 想 要 可以 會 識 應該 鍾意 得'),
+    ('demonstratives and classifiers',
+     '呢:ni1 嗰 呢度 嗰度 呢個 嗰個 呢啲 嗰啲 啲 個 隻 本 架 張 件 杯 碗 條 間 對 次 樣 枝 包 粒 位'),
+    ('numbers',
+     '零:ling4 一 二 三 四 五 六 七 八 九 十 百 千 萬 兩 第一 半 廿 卅'),
+    ('money',
+     '錢 蚊 毫 銀紙 貴 平 找錢 買 賣 用'),
+    ('time',
+     '時間 鐘 點鐘 分鐘 鐘頭 今日 聽日 尋日 而家 頭先 等陣 以前 之後 朝早 晏晝 下晝 夜晚 今晚 日頭 '
+     '星期 禮拜 星期日 年 月 日 今年 舊年 出年 每日 成日 有時'),
+    ('people and family',
+     '人 男人 女人 細路 朋友 爸爸 媽媽 老豆 哥哥 家姐 細佬 妹妹 仔 女 老公 老婆 爺爺 嫲嫲 '
+     '屋企人 同學 老師 學生 醫生 先生 小姐 太太'),
+    ('introducing yourself',
+     '名 叫 姓 歲 住 香港 中國 英國 美國 廣東話 普通話 英文 中文 國家 工作 返工 放工 讀書'),
+    ('everyday verbs',
+     '去 嚟:lai4 返 行 走 跑 坐 企 瞓覺 起身 做 睇 聽 講 話 知 知道 明白 記得 唔記得 覺得 諗 食 飲 '
+     '畀 攞 搵 等 幫 叫 開 閂 洗 著 除 玩 傾偈 打電話 學 教 寫 讀 問 答 搭 揸 落 上 落車 '
+     '上車 入 出 帶 鍾意 愛 驚 笑 喊 歇 開始 完 識'),
+    ('food and drink',
+     '嘢食 嘢飲 飯 麵 粥 茶 水 咖啡 奶茶 啤酒 酒 汽水 肉 雞 豬肉 牛肉 魚 蝦 蛋 菜 生果 蘋果 橙 '
+     '香蕉 麵包 點心 早餐 午餐 晚飯 食飯 飲茶 好食 甜 鹹 辣 酸 苦 埋單 餐牌 筷子 匙羹 刀 叉'),
+    ('places and the town',
+     '屋企 學校 公司 醫院 銀行 餐廳 茶樓 舖頭 超級市場 街市 酒店 機場 車站 地鐵站 廁所 公園 '
+     '戲院 街 路 地方 樓 大廈 香港島 九龍'),
+    ('getting about',
+     '車 巴士 小巴 地鐵 的士 電車 火車 飛機 船 單車 搭車 左 右 前面 後面 上面 下面 入面 '
+     '出面 隔離 對面 中間 附近 遠 近 東 南 西 北'),
+    ('the home',
+     '屋 房 廳 廚房 門 窗 枱 櫈 床 電話 手機 電視 電腦 燈 冷氣 鎖匙 衫 褲 鞋 襪 帽 袋'),
+    ('describing',
+     '大 細 多 少 好 壞 新 舊 高 矮 長 短 肥 瘦 快 慢 熱 凍 暖 涼 靚 醜 乾淨 污糟 平 貴 容易 難 '
+     '啱 錯 忙 得閒 開心 唔開心 攰 肚餓 頸渴 舒服 早 遲 一樣 唔同 好多 少少 太 幾 非常 最'),
+    ('the body and feeling ill',
+     '頭 手 腳 眼 耳仔 鼻 口 牙 肚 身體 病 痛 頭痛 肚痛 發燒 咳 感冒 藥 睇醫生'),
+    ('the weather and colours',
+     '天氣 落雨 太陽 風 雨 雲 天 熱 凍 顏色 紅色 黃色 藍色 綠色 白色 黑色 啡色'),
+    ('connecting words',
+     '同 和 但係 不過 所以 因為 如果 或者 然後 跟住 之前 為咗 由 到 向 喺度 比 連 啱啱'),
+]
+
+INVENTORY = {'a1': A1}

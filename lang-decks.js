@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 393 MB of decks. The file itself is fetched on Add. */
+   section without fetching 394 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words — start here if you are new to Chinese", notes: 300, cards: 600, ex: 100, bytes: 724303, rev: "b1a3b598d86a" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 more words, taking you to about 500 — study after Level 1", notes: 197, cards: 394, ex: 100, bytes: 483579, rev: "5e8a7a5d3028" },
@@ -131,6 +131,8 @@ window.LANG_DECKS = [
   { lang: "Tagalog", file: "Tagalog-B2.folio-deck.json", id: "tagalogb2", title: "Tagalog B2 Upper Intermediate", sub: "1,500 more words, none of them in A1, A2 or B1 · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 65, bytes: 1358967, rev: "9d9cbb4435c8" },
   { lang: "Tagalog", file: "Tagalog-C1.folio-deck.json", id: "tagalogc1", title: "Tagalog C1 Advanced", sub: "1,500 more words, none of them in A1 to B2 · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 42, bytes: 1088033, rev: "21fc76f3d43b" },
   { lang: "Tagalog", file: "Tagalog-Phrases-and-Expressions.folio-deck.json", id: "tlphrase", title: "Tagalog Phrases and Expressions", sub: "386 expressions · 107 everyday, 267 idioms, 12 proverbs · both directions", notes: 386, cards: 772, subs: 3, tree: [{"n":"Phrases","c":214,"x":47},{"n":"Idioms","c":534,"x":4},{"n":"Proverbs","c":24,"x":8}], flat: true, ex: 16, bytes: 208412, rev: "56ba5948ee6c" },
+  { lang: "Cantonese", file: "Cantonese-Jyutping-and-Tones.folio-deck.json", id: "yuesounds", title: "Cantonese Jyutping and Tones", sub: "39 tones, letters and endings · both directions, as two cards each", notes: 39, cards: 78, ex: 0, bytes: 20250, rev: "a3e5e20b4981" },
+  { lang: "Cantonese", file: "Cantonese-A1.folio-deck.json", id: "yuea1", title: "Cantonese A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 82, bytes: 499140, rev: "f42dac94642e" },
   { lang: "Tamil", file: "Tamil-Alphabet.folio-deck.json", id: "taabc", title: "Tamil Alphabet", sub: "38 letters and signs · both directions, as two cards per letter", notes: 38, cards: 76, ex: 0, bytes: 19728, rev: "8f32a73faa05" },
   { lang: "Tamil", file: "Tamil-A1.folio-deck.json", id: "tamila1", title: "Tamil A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 36, bytes: 1891886, rev: "8dbaa88d6c73" },
   { lang: "Korean", file: "Korean-Alphabet-Hangul.folio-deck.json", id: "korhangul", title: "Korean Alphabet (Hangul)", sub: "The 40 letters of hangul — start here, before any word", notes: 40, cards: 80, ex: 100, bytes: 17792, rev: "d31da871f6b7" },

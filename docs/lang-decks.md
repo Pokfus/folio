@@ -3654,6 +3654,20 @@ changed was the one that had been wrong all along.
   carried onto its second noun, the stub formulae, glosses that are not the counted word) are
   📖 `docs/zulu-decks-plan.md`. The `l1` row is 12 million (Ethnologue via Wikipedia); the hue is measured,
   `#9A012F` (re-swept at the merge: Greek had taken `#6D67D1`'s neighbour). `levelRank` sorts "Noun Classes" before A1.
+- `.claude/cantonese/` — the generator behind the Cantonese decks (Nov 2026, on request: "Add a Cantonese language
+  collection"; the Hindi and Thai owners' decisions taken, the owner not asked). **Built: the Jyutping and Tones deck,
+  `decks/Cantonese-Jyutping-and-Tones.folio-deck.json`** (39 notes: the six tones, the checked syllables, the
+  initials and vowels Jyutping spells unlike English) **and A1, `decks/Cantonese-A1.folio-deck.json`** (500 notes /
+  1,000 cards: 490 inventory, 10 frequency). `python3 .claude/cantonese/run.py [--level a1]`,
+  `python3 .claude/cantonese/sounds.py`, `node .claude/cantonese/check-cantonese.js`; a re-run is byte-identical.
+  SPOKEN Hong Kong Cantonese in traditional characters, the simplified form beneath, Jyutping with tone digits.
+  The first set built without Wiktionary: meanings from CC-CEDICT and CC-Canto, Jyutping from CC-Canto and its
+  readings of CC-CEDICT, frequency, parts of speech and the spoken reading from HKCanCor (read out of the
+  PyCantonese wheel, never installed), sentences from Tatoeba — cut into words by Tatoeba's own word-by-word
+  Jyutping. A card is a word in ONE reading (呢 ne1 / ni1). The findings (the 2015 readings file, Yale's y in a
+  Jyutping field, the Mandarin-first sense order and `SHOW`, untagged slang, HKCanCor's particle spellings,
+  Tatoeba's untrustworthy mou2) are 📖 `docs/cantonese-decks-plan.md`. The `LANGS` row is Yue Chinese's (85 million
+  L1, 86 total); the hue is measured, `#8C7126`. `levelRank` sorts "Jyutping" before A1.
 - `.claude/oldenglish/` — the generator behind the Old English decks (Nov 2026, on request: "Add an Old
   English language collection"). **Built: the alphabet and pronunciation deck,
   `decks/Old-English-Alphabet.folio-deck.json`** (41 notes) **and Level 1,
