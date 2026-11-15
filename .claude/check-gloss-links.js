@@ -2,7 +2,7 @@
 /*
   Folio — glossary auto-links that point at the WRONG SENSE of a word.
 
-    node .claude/check-gloss-links.js [--all] [--card=<id>]
+    node .claude/check-gloss-links.js [--all] [--card=<id>] [--list]
 
   Exit 1 on a finding, so it guards a batch the way check-questions.js and check-style.js do.
 
@@ -69,6 +69,7 @@ const TAGS = window.GLOSSARY_TAGS || {};
 const args = process.argv.slice(2);
 const showAll = args.includes("--all");
 const onlyCard = (args.find((a) => a.startsWith("--card=")) || "").slice(7);
+const listLinks = args.includes("--list");   // print every auto-link resolved (best with --card=)
 
 /* ---- which tags name a place, derived from the glossary itself -------------------------------------
    A tag is a place tag when the glossary holds a term of that name whose FIRST tag — the kind, by the
@@ -148,6 +149,7 @@ for (const c of CARDS) {
       if (surface.toLowerCase() === answer) continue;
       linked.add(key);
       linksSeen++;
+      if (listLinks) console.log("  " + c.id + "  " + JSON.stringify(surface) + " -> " + key);
       if (!cardPlaces.size) continue;
       /* Only the HOMOGRAPH-PRONE kinds. A place, a person, an animal or a fossil named in a background is
          almost always the very thing the term is about — a card on Olduvai Gorge says "Africa" and means

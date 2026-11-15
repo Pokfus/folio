@@ -202,8 +202,9 @@ const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = 
     const tints = (page2) => page2.evaluate(() => { const c = document.querySelector(".map-card .mc-canvas"), d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data; let g = 0, r = 0; for (let i = 0; i < d.length; i += 4) { if (d[i + 3] === 0) continue; if (d[i + 1] - d[i] > 25 && d[i + 1] - d[i + 2] > 15 && d[i + 1] < 190) g++; if (d[i] - d[i + 1] > 45 && d[i] - d[i + 2] > 35 && d[i] > 140) r++; } return { g, r }; });
     const inYears = await tints(page);
     const yr = await page.evaluate(() => document.querySelector(".map-card").getAttribute("data-map-year"));
-    check("in the war's years (its last step, 202 BCE, of 218–201 BCE) Rome is green and Carthage red on the window (CHANGED 2026-10-19: red > 200; Carthage has little ground left at the last step)", inYears.g > 400 && inYears.r > 200, JSON.stringify(inYears) + " year " + yr);
-    check("the window records the year it draws (the last step of 218–201 BCE, -202; the timeline moves it) for the Atlas link", Number(yr) === -202, String(yr));
+    check("in the war's years (the window opens at the halfway step, 210 BCE, of 218–201 BCE) Rome is green and Carthage red on the window (CHANGED 2026-10-19: red > 200)", inYears.g > 400 && inYears.r > 200, JSON.stringify(inYears) + " year " + yr);
+    /* CHANGED 2026-11-15: the window opens at the HALFWAY step of its rail since Oct 2026 (`startStep` in atlas-windows.js: the step nearest the midpoint of 218 and 200 BCE), no longer at the last step (-202) */
+    check("the window records the year it draws (the halfway step of 218–201 BCE, -210; the timeline moves it) for the Atlas link", Number(yr) === -210, String(yr));
     // the same engine asked for a year after the war, with the war still in focus: nothing is tinted
     const out = await page.evaluate(async () => {
       const c = document.createElement("canvas"); c.width = 600; c.height = 400; const hub = AtlasEmbed.hub();
@@ -211,18 +212,18 @@ const pixelAt = (page, sel, fx, fy) => page.evaluate(([s, a, b]) => { const c = 
       const read = (cv) => { const d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data; let g = 0, r = 0; for (let i = 0; i < d.length; i += 4) { if (d[i + 3] === 0) continue; if (d[i + 1] - d[i] > 25 && d[i + 1] - d[i + 2] > 15 && d[i + 1] < 190) g++; if (d[i] - d[i + 1] > 45 && d[i] - d[i + 2] > 35 && d[i] > 140) r++; } return { g, r }; };
       const drawYear = async (y) => { for (let i = 0; i < 60; i++) { const res = hub.draw(spec(y), c.getContext("2d"), { dpr: 2 }); if (res.settled) break; await new Promise((s) => setTimeout(s, 250)); } return read(c); };
       /* CHANGED 2026-10-19: the live window stands at its timeline's last step (-202), so the first draw here asks for THAT year (a first draw that changes the hub's year AND its view at once leaves a hub unsettled: pre-existing, found here — the meshes of the new year are wanted for the old view); it was -209, the window's old middle year */
-      const before = await drawYear(-202), after = await drawYear(-100), during = await drawYear(-205);
+      const before = await drawYear(-210), after = await drawYear(-100), during = await drawYear(-205);   // CHANGED 2026-11-15: the window now stands at -210, its halfway step
       return { before, after, during };
     });
     check("asked for the war's own years the engine tints both sides", out.before.g > 300 && out.before.r > 300 && out.during.g > 300, JSON.stringify([out.before, out.during]));
     check("asked for a year after the war (100 BCE), with the war still chosen, it tints nothing", out.after.g < 60 && out.after.r < 60, JSON.stringify(out.after));
     await page.click(".map-card [data-mc='go']"); await sleep(1500);
     const h = await page.evaluate(() => location.hash);
-    check("the go button opens #map at the war's year, with no war in the address (the Atlas then writes its own hash)", /^#map\/.+\?y=-202/.test(h) && !/war=/.test(h), h);
+    check("the go button opens #map at the war's year, with no war in the address (the Atlas then writes its own hash)", /^#map\/.+\?y=-210/.test(h) && !/war=/.test(h), h);
     await page.waitForSelector(".atlas2[data-ready='1']", { timeout: 120000 });
-    await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.timeInfo().year === -202, null, { timeout: 120000 }).catch(() => {});
+    await page.waitForFunction(() => document.querySelector(".atlas2").__atlas2.timeInfo().year === -210, null, { timeout: 120000 }).catch(() => {});
     const w = await page.evaluate(() => { const c = document.querySelector(".atlas2").__atlas2; return { focus: c.wars().focus, shown: c.wars().shown.length, year: c.timeInfo().year }; });
-    check("the Atlas, opened there, is at that year and draws no war (CHANGED 2026-10-19: it used to have the war in focus)", w.focus === null && w.shown === 0 && w.year === -202, JSON.stringify(w));
+    check("the Atlas, opened there, is at that year and draws no war (CHANGED 2026-10-19: it used to have the war in focus)", w.focus === null && w.shown === 0 && w.year === -210, JSON.stringify(w));
     await ctx.close();
   }
 
