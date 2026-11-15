@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1311", released: "2026-11-15T01:44Z" };
+window.FOLIO_VERSION = { v: "1.1312", released: "2026-11-15T21:11Z" };
 
 window.CHANGELOG = [
   {
@@ -51,6 +51,12 @@ window.CHANGELOG = [
       "The <b>Report</b> button now sits on the same line as the card's id.",
       "31 new quotations in the <b>daily quote</b>, some of them from favourite novels, films, shows and games.",
       "One card has more exact dates and another a fuller picture.",
+      "<b>On this day</b> on the home page: what happened on today's date, from the cards you can study.",
+      "A new <b>Timeline</b> page shows every dated card on one scrolling line, for one collection or all of them.",
+      "<b>Weak spots</b> on your account page shows where you forget most, with your weakest 20 cards to study in one tap.",
+      "<b>Year in review</b> on your account page sums up your year: answers, days, time, discoveries and favourite collections.",
+      "Each minigame's results now show <b>how your friends did today</b>.",
+      "Import a deck from an <b>Anki</b> or <b>Quizlet</b> text export, and download any deck as a file Anki imports.",
     ],
   },
   {
