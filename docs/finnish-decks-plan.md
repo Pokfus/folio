@@ -111,8 +111,10 @@ against `lex.json`). `node .claude/finnish/check-finnish.js` is the check. **A r
 for both decks, with `--re-extract`). A1: 500 notes, 345 from the inventory and 155 by frequency; three sentences
 for 498, at least one for all 500. The alphabet: 34 notes — the 29 letters in Finnish order with their Finnish
 names, then ng/nk, the stress, the long vowel, the long consonant and the diphthong; every sound side unique
-(asserted). The shelf's hue is measured: `#907227`, a dark mustard, 14.5 from its nearest neighbour (World
-History) against all 69 other hues on the page.
+(asserted). The shelf's hue is measured: first `#907227`, a dark mustard; re-swept at the merge, when Norwegian's
+parallel sweep had landed 2.4 from it, against all 72 other hues: `#8D572D`, a sienna, 14.1 from its nearest
+neighbour (Ancient Mesopotamia). The raw winner, a deep indigo, was refused for standing 7.7 from the blue of
+Finland's flag.
 
 ## 7. As built (2026-11-15): A2
 

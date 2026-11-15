@@ -32,7 +32,7 @@ from fi import fold
 E = lambda s: html.escape(s, quote=True)
 STAMP = '2026-11-15T00:00:00.000Z'
 TYPE_ID = 'fi-abc'
-COLOR = '#907227'          # the shelf's measured hue (app.js, `lang-finnish`)
+COLOR = '#8D572D'          # the shelf's measured hue (app.js, `lang-finnish`)
 
 # (shown, its name -- what the speaker says, sound, example word, its meaning)
 LETTERS = [

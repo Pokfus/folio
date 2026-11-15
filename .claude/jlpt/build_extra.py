@@ -2,7 +2,7 @@
 """The two decks beside the levels:  python3 build_extra.py phrases|idioms   (after the five JLPT decks)
 
 PHRASES are JMdict's expressions (part of speech `exp`) that the dictionary marks common (a priority tag) --
-greetings, set phrases and the grammatical chunks a sentence is built from (お願いします, かもしれない,
+set phrases and the grammatical chunks a sentence is built from (お久しぶり, わけではない,
 ことができる) -- minus any already carded in a JLPT deck, and minus the ones made of nothing but particles and
 auxiliaries (には, ですか, だった, のです): those are grammar points, not phrases, and ranked by how often the
 corpus contains them they would fill the top of the deck.  IDIOMS are JMdict's four-character idioms (`yoji`,
@@ -16,7 +16,7 @@ says is not one a learner meets first, and it would also be a card with no examp
 Every field is the vocabulary decks' own (`words.py`), so a phrase card reads as a word card does.
 """
 import json, os, sys
-from common import DECKS, STAMP, romaji, is_kana
+from common import DECKS, STAMP, romaji, is_kana, note_ids
 from deck_type import TYPE_ID, type_def
 import words as W
 
@@ -29,9 +29,11 @@ TITLES = {'phrases': 'Japanese — Phrases and Expressions', 'idioms': 'Japanese
 
 
 def carded():
+    """Every entry a deck below already cards: the five levels and the first-words deck (which took the
+    greetings -- ありがとうございます, お願いします, おやすみなさい were phrases here until Nov 2026)."""
     seen = set()
-    for lv in LEVELS:
-        for c in json.load(open(os.path.join(DECKS, 'JLPT-%s-Japanese.folio-deck.json' % lv.upper()), encoding='utf-8'))['cards']:
+    for f in ['Japanese-First-Words.folio-deck.json'] + ['JLPT-%s-Japanese.folio-deck.json' % lv.upper() for lv in LEVELS]:
+        for c in json.load(open(os.path.join(DECKS, f), encoding='utf-8'))['cards']:
             seen.add(c['jmdict'])
     return seen
 
@@ -117,17 +119,23 @@ def build(kind):
             'Romaji': W.esc(W.romaji_phrase(shown, reading) or ''),
             'Also': ('usually written in kana · kanji: ' + W.esc(form)) if uk else '',
             'English': eng,
+            'Prompt': W.prompt_parts(ss)[0],
+            'More': W.prompt_parts(ss)[1],
+            'Conj': '',
             'Kanji': W.kanji_html(form) if (kind == 'idioms' and not uk) else '',
             'Compounds': '',
             'Examples': ex_html,
+            'Say': W.esc(reading),
         }))
     notes.sort(key=lambda x: (-x[0], int(x[1])))
+    W.label_prompts([{'fields': f} for _n, _seq, f in notes])
     return notes
 
 
 DESC = {
- 'phrases': ("The set phrases a learner needs beside the vocabulary: greetings and courtesies (お願いします, "
-             "お邪魔します), and the fixed chunks Japanese grammar is built from (かもしれない, ことができる). {n} "
+ 'phrases': ("The set phrases a learner needs beside the vocabulary: courtesies (おめでとうございます, "
+             "お久しぶり) and the fixed chunks Japanese grammar is built from (ことができる, わけではない); the "
+             "everyday greetings are in the First Words deck and are not repeated here. {n} "
              "phrases, each ONE note with TWO cards (Japanese → English, English → Japanese), each scheduled on its "
              "own. THE SELECTION: every expression JMdict marks as common that is not already carded in the five "
              "JLPT decks and that the Tatoeba corpus uses in at least {bar} sentences, commonest first — less the "
@@ -150,15 +158,23 @@ SRCS = ("Phrases, readings and meanings: JMdict (Electronic Dictionary Research 
         "Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR; the readings over them come from segmenting the "
         "corpus with MeCab and UniDic, so a reading over an example sentence is a machine's and can occasionally be "
         "wrong — the headword's own reading is the dictionary's.")
-SUBS = {'phrases': '{n} set phrases and grammatical chunks — alongside any level',
+# THE PHRASES A DESCRIPTION NAMES MUST BE IN THE DECK.  The one it replaced named お邪魔します and かもしれない,
+# which the deck never held: each is asserted below.
+NAMED = {'phrases': ['おめでとうございます', 'お久しぶり', 'ことができる', 'わけではない'], 'idioms': []}
+SUBS = {'phrases': '{n} set phrases and grammatical chunks — beside the levels, after the first words',
         'idioms': '{n} four-character idioms and proverbs — after the levels'}
 
 if __name__ == '__main__':
     kind = (sys.argv[1:] or ['phrases'])[0]
     notes = build(kind)
     did = IDS[kind]
-    cards = [{'id': 'u_%s_%d' % (did, i), 'num': str(i), 'jmdict': seq, 'type': TYPE_ID, 'fields': f}
-             for i, (_n, seq, f) in enumerate(notes, 1)]
+    have = {W.plain(f['Word']) for _n, _seq, f in notes}
+    for x in NAMED[kind]:
+        if x not in have:
+            raise SystemExit('build_extra: the description names %s, which is not in the deck' % x)
+    nums = note_ids(did, [seq for _n, seq, _f in notes])
+    cards = [{'id': 'u_%s_%d' % (did, num), 'num': str(i), 'jmdict': seq, 'type': TYPE_ID, 'fields': f}
+             for i, ((_n, seq, f), num) in enumerate(zip(notes, nums), 1)]
     n = len(cards)
     meta = {'id': did, 'title': TITLES[kind], 'subtitle': SUBS[kind].format(n=n),
             'desc': DESC[kind].format(n=n, bar=BAR[kind], total=TOTAL[kind]) + SRCS, 'author': '', 'language': 'en', 'color': '#BC002D',

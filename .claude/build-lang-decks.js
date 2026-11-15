@@ -69,7 +69,7 @@ const OUT = path.join(ROOT, "lang-decks.js");
    Persian is Farsi + Dari + Tajik (Ethnologue 28th ed., 127, infobox), Polish and Ukrainian are their infobox
    totals (43 and 39), and Romanian and Greek, whose infoboxes give no second-language figure, are their L1
    (22, 13.5). Tagalog is the 2026 table's 87; Dutch, Zulu and Swedish are their infobox totals (30, 28, 13), Irish the census figures in its row (2.1);
-   Hungarian and Finnish, with no second-language figure, are their L1 (12, 5). Hebrew is its infobox total (9, Ethnologue 2018). Latin and Old English stay 0. `l1` is kept beside it, and a language
+   Hungarian, Danish, Finnish and Norwegian, with no second-language figure, are their L1 (12, 5.5, 5, 4.3). Hebrew is its infobox total (9, Ethnologue 2018). Latin and Old English stay 0. `l1` is kept beside it, and a language
    added with no `total` falls back to its `l1` (and is reported) rather than sorting as NaN. */
 const LANGS = [
   { word: "Mandarin", name: "Mandarin Chinese", l1: 941, total: 1183 },
@@ -94,6 +94,7 @@ const LANGS = [
   { word: "French", name: "French", l1: 74, total: 334 },
   { word: "Italian", name: "Italian", l1: 65, total: 66 },
   { word: "Hausa", name: "Hausa", l1: 58, total: 94 },            // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
+  { word: "Amharic", name: "Amharic", l1: 35, total: 60 },       // Ethnologue 28th ed. (34.9 L1, 2020; 60.0 total, 2019–2020), via Wikipedia's infobox, read 2026-11-15
   { word: "Indonesian", name: "Indonesian", l1: 43, total: 255 },
   { word: "Polish", name: "Polish", l1: 40, total: 43 },          // Ethnologue (27th ed., 2021), via Wikipedia's infobox, read 2026-11-09
   { word: "Tagalog", name: "Tagalog", l1: 33, total: 87 },      // Wikipedia's infobox (32.8 million, Ethnologue 28th ed.), read 2026-11-09
@@ -105,9 +106,13 @@ const LANGS = [
   { word: "Zulu", name: "Zulu", l1: 12, total: 28 },            // Wikipedia's infobox (Ethnologue), 12.1 million, read 2026-11-09
   { word: "Hungarian", name: "Hungarian", l1: 12, total: 12 },    // Wikipedia's infobox (12 million, 2021–2023), read 2026-11-09
   { word: "Swedish", name: "Swedish", l1: 9.9, total: 13 },      // Ethnologue 25th ed. (2012–2021 figures), via Wikipedia's infobox, read 2026-11-09
+  { word: "Danish", name: "Danish", l1: 5.5, total: 5.5 },        // Wikipedia's infobox (5.52 million, Ethnologue 18th ed., 2012), read 2026-11-15; no second-language figure
   { word: "Hebrew", name: "Hebrew", l1: 5, total: 9 },         // Wikipedia's infobox (Ethnologue 2018: 9 million speakers of Modern Hebrew, 5 million native), read 2026-11-12
   { word: "Swahili", name: "Swahili", l1: 5, total: 95 },       // Wikipedia's infobox, 5.3 million L1 (Ethnologue 27th ed.; 92 million L2), read 2026-11-09
   { word: "Finnish", name: "Finnish", l1: 5, total: 5 },        // Wikipedia's infobox ("5.0 million", Finland 4.75 million in 2023), read 2026-11-15
+  /* NORWEGIAN (Nov 2026): Wikipedia's infobox (read 2026-11-15) gives 4.32 million native speakers (2012, De Smedt et
+     al., The Norwegian Language in the Digital Age) and no second-language figure, so `total` is its L1, as Hungarian's. */
+  { word: "Norwegian", name: "Norwegian", l1: 4.3, total: 4.3 },
   /* IRISH (Nov 2026): Wikipedia's infobox (read 2026-11-12) gives no first-language figure ("unknown"); `l1` is
      its daily speakers outside the education system, 71,968 (Republic, census 2022) + 43,557 (Northern Ireland,
      census 2021), and `total` those stating they can speak it, 1,873,997 (Republic, 2022) + 228,600 (NI, 2021). */
@@ -142,6 +147,12 @@ function levelRank(title) {
      those two decks are the rung below N5, not a phrase book after the ladder. Hiragana first, as it is taught. */
   if (/\bHiragana\b/.test(title)) return -2;
   if (/\bKatakana\b/.test(title)) return -1;
+  /* THEN THE FIRST WORDS AND THE FIRST LEVEL'S KANJI (Nov 2026), both below N5: the greetings and particles the
+     JLPT lists file at N3 and above, and the kanji N5's fronts are written with. A kanji deck sits just below
+     the level it is for; the ranks are fractions because only their order is read. */
+  if (/\bFirst Words\b/.test(title)) return -0.5;
+  const kj = /\bKanji for JLPT N([1-5])\b/.exec(title);
+  if (kj) return 5 - Number(kj[1]) - 0.5;
   /* THE JLPT COUNTS DOWNWARD — N5 is the first level and N1 the last — so its number is inverted, as UKBI's
      peringkat would be. Left to the rules below, "JLPT N5" matches none, ranks 90 and the shelf sorts the five
      alphabetically: N1 first, upside down, with nothing to say so. */
