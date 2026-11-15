@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T22:06Z",
+ "generated": "2026-11-15T22:08Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8293,
+  "ok": 8294,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89392,6 +89392,13 @@
    "title": "Punjab",
    "url": "https://en.wikipedia.org/wiki/Punjab",
    "via": "glossary",
+   "status": "ok"
+  },
+  "gin-516": {
+   "answer": "Chandigarh",
+   "title": "Chandigarh",
+   "url": "https://en.wikipedia.org/wiki/Chandigarh",
+   "via": "answer",
    "status": "ok"
   }
  }

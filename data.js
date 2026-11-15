@@ -11255,7 +11255,8 @@ window.CARD_DATA = [
 {"id":"gin-014","num":"014","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Jharkhand","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">15 November 2000</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Jharkhand","tags":["place","geography","india","state","east india"],"difficulty":3,"map":{"layer":"india-states","key":"Jharkhand"},"facts":[["Kind","State"],["Capital","Ranchi"],["Population","33.0M (2011)"],["Area","79.7k km² (30.8k sq mi)"]]},
 {"id":"gin-515","num":"515","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Dispur","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Dispur","tags":["place","city","geography","capital","india"],"difficulty":4,"map":{"layer":"india-states","key":"Assam","dot":"Dispur"},"facts":[["State","Assam"],["Part of","Guwahati"],["Guwahati population","957k (2011)"],["Guwahati area","219 km² (84.6 sq mi)"]],"notes":["Dispur is a ward of Guwahati, not a census town, so the grid gives the city's figures and labels them so; the ward's own area and population are from the ward table in Basumatary and Anand (2018)."]},
 {"id":"gin-015","num":"015","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Assam","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Ceded to British</span><span class=\"dt-v\">1826</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Assam","tags":["place","geography","india","state","northeast india"],"difficulty":3,"map":{"layer":"india-states","key":"Assam"},"facts":[["Kind","State"],["Capital","Dispur"],["Population","31.2M (2011)"],["Area","78.4k km² (30.3k sq mi)"]]},
-{"id":"gin-016","num":"016","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Punjab","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Reorganised</span><span class=\"dt-v\">1 November 1966</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Punjab","tags":["place","geography","india","state","punjab"],"difficulty":3,"map":{"layer":"india-states","key":"Punjab"},"facts":[["Kind","State"],["Capital","Chandigarh"],["Population","27.7M (2011)"],["Area","50.4k km² (19.4k sq mi)"]]}
+{"id":"gin-016","num":"016","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Punjab","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Reorganised</span><span class=\"dt-v\">1 November 1966</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Punjab","tags":["place","geography","india","state","punjab"],"difficulty":3,"map":{"layer":"india-states","key":"Punjab"},"facts":[["Kind","State"],["Capital","Chandigarh"],["Population","27.7M (2011)"],["Area","50.4k km² (19.4k sq mi)"]]},
+{"id":"gin-516","num":"516","category":"Geography","question":"The dot marks <span class=\"blank\">_____</span>, capital of the shaded state though it lies in a union territory beside it.","answer":"Chandigarh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Union territory</span><span class=\"dt-v\">1 November 1966</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Chandigarh","tags":["place","city","geography","capital","india"],"difficulty":3,"map":{"layer":"india-states","key":"Punjab","dot":"Chandigarh"},"facts":[["Capital of","Punjab and Haryana"],["Lies in","Chandigarh (union territory)"],["Population","962k (2011)"],["Area","103 km² (39.8 sq mi)"]]}
 ];
 
 window.COLLECTION_TREE = {
@@ -29254,7 +29255,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-india",
       "title": "India",
-      "total": 29,
+      "total": 30,
       "placeholder": false,
       "children": [
         {
@@ -29297,7 +29298,8 @@ window.COLLECTION_TREE = {
             "gin-512",
             "gin-513",
             "gin-514",
-            "gin-515"
+            "gin-515",
+            "gin-516"
           ]
         },
         {
