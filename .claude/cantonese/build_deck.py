@@ -41,7 +41,7 @@ from hand import HAND
 
 STAMP = '2026-11-15T00:00:00.000Z'
 TYPE_ID = 'cantonese'
-COLOR = '#86522A'
+COLOR = '#6E2E2B'
 FIELDS = ['Cantonese', 'Jyutping', 'Simplified', 'Word', 'English', 'Examples']
 
 SAY = '<span class="uc-tts uc-say" data-say="{{Word}}"></span>'

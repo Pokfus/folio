@@ -167,10 +167,11 @@ word's Jyutping and meaning are asserted against the dictionaries; the IPA is de
 standard correspondence (`sounds.ipa`); every sound side and every spelling unique (asserted). `levelRank`
 sorts it before A1 (`/\bJyutping\b/`).
 
-The shelf's hue is measured, `#86522A` (a russet). The first sweep chose an ochre, `#8C7126`, 14.3 from World
-History's sepia; Norwegian's parallel session then took `#896F23`, 1.0 from it, and the re-sweep at the B1 merge
-against all 97 other hues (greens and the magenta band left out, as for Hebrew) found the russet, 14.1 from its
-nearest neighbours (Mesopotamia's umber and India's geography red).
+The shelf's hue is measured, `#6E2E2B` (a maroon), at the third sweep. The first chose an ochre, `#8C7126`, and
+Norwegian's parallel session took `#896F23`, 1.0 from it; the second, at the B1 merge, chose a russet, `#86522A`,
+and Finnish's took `#8D572D`, 2.5 from it; the third, at the phrases merge, against all 101 other hues (greens and
+the magenta band left out, as for Hebrew), passed over a plum on the band's edge (13.8) for the maroon, 13.6 from
+its nearest neighbour (Visual Art's wine).
 
 ## 7. As built (2026-11-15): A2
 

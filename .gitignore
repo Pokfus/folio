@@ -288,3 +288,8 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~220 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/norwegian-cache/
+
+# the corpora .claude/finnish/run.py builds the Finnish decks from — the Wiktionary
+# extract (4.7 GB), the OpenSubtitles frequency list and the Tatoeba exports — plus
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/finnish-cache/

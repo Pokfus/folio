@@ -30672,10 +30672,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "lang-hebrew":     { bg: "#5E6EC0" }, // measured cornflower
     /* CANTONESE (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white), the magenta band's standing rejection kept and the
-       greens left out. Its first sweep chose an ochre (#8C7126), and Norwegian's parallel sweep chose one 1.0 from it;
-       re-swept at the merge against all 97 other hues on the page: a russet, 14.1 from its nearest neighbours
-       (Mesopotamia's umber and India's geography red); 6.5:1 against white. Not a flag colour. */
-    "lang-cantonese":  { bg: "#86522A" }, // measured russet
+       greens left out. Parallel sessions twice landed beside it — Norwegian's ochre 1.0 from the first sweep's
+       #8C7126, then Finnish's sienna 2.5 from the second's #86522A — so it was re-swept at the phrases merge against
+       all 101 other hues: a maroon, 13.6 from its nearest neighbour (Visual Art's wine), with German's brown at 13.7; the raw
+       winner, 13.8, was a plum on the magenta band's edge (hue 345) and was passed over; 10.0:1 against white. Not a flag colour. */
+    "lang-cantonese":  { bg: "#6E2E2B" }, // measured maroon
     /* AMHARIC (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 70 hues on the
        page, the magenta band's standing rejection kept (the raw runner-up, 15.0, was a plum there) and the
@@ -30688,6 +30689,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        at the merge against all 72 other hues: a dark ochre, 14.6 from its nearest neighbour (World History's sepia),
        14.6 from Gateway to Global Affairs and Palaeontology; 4.8:1 against white. Not a flag colour. */
     "lang-norwegian":  { bg: "#896F23" }, // measured ochre
+    /* FINNISH (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white), the magenta band's standing rejection kept and the
+       greens left out. Its first sweep chose a dark mustard (#907227); Norwegian's parallel sweep landed 2.4 from it
+       (#896F23), so it was re-swept at the merge against all 72 other hues. The raw winner, a deep indigo (#333C81,
+       14.3), was REFUSED for standing 7.7 from the blue of Finland's flag; this sienna is the runner-up, 14.1 from
+       its nearest neighbour (Ancient Mesopotamia), then 14.3 from World History and 14.5 from Spanish, against a
+       tightest existing pair of 4.0; 5.9:1 against white. */
+    "lang-finnish":    { bg: "#8D572D" }, // measured sienna
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were

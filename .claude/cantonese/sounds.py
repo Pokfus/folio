@@ -34,7 +34,7 @@ OUT = os.path.abspath(os.path.join(HERE, '..', '..', 'decks', 'Cantonese-Jyutpin
 STAMP = '2026-11-15T00:00:00.000Z'
 DECK = 'yuesounds'
 TYPE_ID = 'cantonese-sounds'
-COLOR = '#86522A'
+COLOR = '#6E2E2B'
 E = html.escape
 
 # (spelling, kind, how it sounds, example word, its Jyutping, its meaning)
