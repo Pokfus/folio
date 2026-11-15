@@ -16228,6 +16228,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 79, label: "Jude", note: "New Testament · 1 chapter" },
         { n: 80, label: "Revelation", note: "New Testament · 22 chapters" },
       ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered text of all 1,362 chapters (a headless run
+         listing every `.ttip`, 156 keys), as the Russian Primary Chronicle's was. Three kinds. MODERN STATES and
+         modern places the Bible's names are not: Israel, Egypt, Jordan (the river, every time), Lebanon, Syria,
+         Ethiopia, Greece, Italy, Spain, India, Libya, Armenia, Cyprus, Palestine, Asia (Acts' Roman province, not
+         the continent), Salem, Philadelphia and Tripoli. NAMESAKES: Lysias, Gorgias, Archelaus, Antipater,
+         Lysimachus, Callisthenes, Patroclus, Crispus, Josephus, Onesimus, Titus and Niger are other men who share a
+         name; Cleopatra is not the seventh; Arbela and the Hydaspes are a town and a river, not battles; the
+         Hittites of Canaan are not the Anatolian kingdom; Ammon is a people, not an oracle; Apollos is a man, not
+         Apollo; the Legion is a demon, the Caesar of the Gospels Tiberius, and Paul is not Paul I of Russia. And
+         ORDINARY WORDS that met an entry at a sentence's start or in a name — Aha, Sarai, Salmon, Touch, Eye,
+         Iron, Earth, Moon, Water, Sound, Gold, Silver, Truth, Prologue, Perceive, Dominion, Shout, Sanctuary,
+         Pentecost (the Jewish feast here, against an entry on the Christian one), and a run of Korean, Egyptian
+         and Greek names (Silla, Imna, Sabi, Buzi, Zer, Kore, Keros, Phoros, Harsha, Hadar, Theras, Emmer) that
+         are Hebrew names in this book. What stays is right in place: Jerusalem, Babylon, Assyria, Persia, the
+         Medes, Damascus, Tyre, Nineveh, the Pharaohs, Cyrus, the Roman cities and emperors of Acts, and Noah. */
+      glossOff: ["Israel", "Egypt", "Jordan", "Lebanon", "Syria", "Ethiopia", "Greece", "Italy", "Spain", "India",
+        "Libya", "Armenia", "Cyprus", "State_of_Palestine", "Asia", "Salem", "Philadelphia", "Tripoli",
+        "Lysias", "Gorgias", "Archelaus_(general)", "Antipater", "Lysimachus", "Callisthenes", "Patroclus",
+        "Crispus", "Josephus", "Onesimus_(Bostonian)", "Titus", "Niger", "Cleopatra_VII", "Battle_of_Gaugamela",
+        "Battle_of_the_Hydaspes", "Hittites", "Oracle_of_Ammon", "Apollo", "Roman_legion", "Julius_Caesar",
+        "Paul_I_of_Russia", "Hor-Aha", "Sarai_(city)", "Salmon", "Somatosensory_system", "Human_eye", "Iron",
+        "Earth", "Moon", "Water", "Sound", "Gold", "Silver", "Truth", "Prologue", "Perception", "Dominion",
+        "Ring_shout", "Sanctuary", "Pentecost", "Silla", "Mimana", "Sabi_(Korea)", "Mandarin_square", "Djer",
+        "Kore", "Keros", "Phoros", "Harsha", "Hadar,_Ethiopia", "Thera", "Emmer"],
+      /* …and in named chapters only: Judah is Jacob's son and then his tribe through Genesis–Ruth (tabs 1–236),
+         long before there was a kingdom; Noah is also Zelophehad's daughter (Numbers 26, 27 and 36, Joshua 17);
+         and the Claudius of Acts 23 is Claudius Lysias, the tribune, not the emperor of Acts 11 and 18. */
+      glossOffIn: {
+        "Kingdom_of_Judah": [[1, 236]],
+        "Noah": [143, 144, 153, 204],
+        "Claudius": [1214],
+      },
     },
   ];
   const BOOK_BY_ID = {};

@@ -31923,7 +31923,8 @@ async function fetchEnglish() {
     for (const meta of KJV_BOOKS) {
       const name = Object.keys(files).find((f) => new RegExp("^\\d+-" + meta.code + ".*\\.usfm$").test(f));
       if (!name) { warn(meta.name + ": no file for " + meta.code + " in the zip"); continue; }
-      const got = extractUsfm(correctRaw(files[name].toString("utf8").replace(/^﻿/, "")), meta, warn);
+      const raw = correctRaw(files[name].toString("utf8").replace(/^\uFEFF/, ""));
+      const got = extractUsfm(raw, meta, warn);
       if (got.chapters.length !== meta.count)
         warn(meta.name + ": " + got.chapters.length + " chapters in the file; the table expects " + meta.count);
       got.chapters.forEach((c, i) => {
