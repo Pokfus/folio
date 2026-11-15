@@ -11241,7 +11241,8 @@ window.CARD_DATA = [
 {"id":"gin-006","num":"006","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Tamil Nadu","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Renamed</span><span class=\"dt-v\">14 January 1969</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Tamil Nadu","tags":["place","geography","india","state","south india"],"difficulty":3,"map":{"layer":"india-states","key":"Tamil Nadu"},"facts":[["Kind","State"],["Capital","Chennai"],["Population","72.1M (2011)"],["Area","130k km² (50.2k sq mi)"]]},
 {"id":"gin-007","num":"007","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Rajasthan","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Reorganised</span><span class=\"dt-v\">1 November 1956</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Rajasthan","tags":["place","geography","india","state","desert"],"difficulty":3,"map":{"layer":"india-states","key":"Rajasthan"},"facts":[["Kind","State"],["Capital","Jaipur"],["Population","68.5M (2011)"],["Area","342k km² (132k sq mi)"]]},
 {"id":"gin-507","num":"507","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Jaipur","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Founded</span><span class=\"dt-v\">1728</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Jaipur","tags":["place","city","geography","capital","india"],"difficulty":3,"map":{"layer":"india-states","key":"Rajasthan","dot":"Jaipur"},"facts":[["State","Rajasthan"],["Population","3.05M (2011)"],["Area","485 km² (187 sq mi)"],["Rank in state","Largest city"]]},
-{"id":"gin-508","num":"508","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Bengaluru","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Founded</span><span class=\"dt-v\">1537</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Bengaluru","tags":["place","city","geography","capital","india"],"difficulty":2,"map":{"layer":"india-states","key":"Karnataka","dot":"Bengaluru"},"facts":[["State","Karnataka"],["Population","8.50M (2011)"],["Area","741 km² (286 sq mi)"],["Rank in state","Largest city"]]}
+{"id":"gin-508","num":"508","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Bengaluru","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Founded</span><span class=\"dt-v\">1537</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Bengaluru","tags":["place","city","geography","capital","india"],"difficulty":2,"map":{"layer":"india-states","key":"Karnataka","dot":"Bengaluru"},"facts":[["State","Karnataka"],["Population","8.50M (2011)"],["Area","741 km² (286 sq mi)"],["Rank in state","Largest city"]]},
+{"id":"gin-008","num":"008","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Karnataka","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Renamed</span><span class=\"dt-v\">1 November 1973</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Karnataka","tags":["place","geography","india","state","south india"],"difficulty":3,"map":{"layer":"india-states","key":"Karnataka"},"facts":[["Kind","State"],["Capital","Bengaluru"],["Population","61.1M (2011)"],["Area","192k km² (74.1k sq mi)"]]}
 ];
 
 window.COLLECTION_TREE = {
@@ -29240,7 +29241,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-india",
       "title": "India",
-      "total": 15,
+      "total": 16,
       "placeholder": false,
       "children": [
         {
@@ -29254,7 +29255,8 @@ window.COLLECTION_TREE = {
             "gin-004",
             "gin-005",
             "gin-006",
-            "gin-007"
+            "gin-007",
+            "gin-008"
           ]
         },
         {

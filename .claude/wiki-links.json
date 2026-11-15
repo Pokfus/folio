@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T21:33Z",
+ "generated": "2026-11-15T21:35Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8279,
+  "ok": 8280,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89293,6 +89293,13 @@
    "answer": "Bengaluru",
    "title": "Bengaluru",
    "url": "https://en.wikipedia.org/wiki/Bengaluru",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-008": {
+   "answer": "Karnataka",
+   "title": "Karnataka",
+   "url": "https://en.wikipedia.org/wiki/Karnataka",
    "via": "answer",
    "status": "ok"
   }
