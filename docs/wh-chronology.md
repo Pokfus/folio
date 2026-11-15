@@ -427,7 +427,7 @@ Filled batch by batch, from the source each row names.
 | Nasca period / two Palpa sites / Paracas lines | c. 100 BCE – 650 CE / c. 400 – 650 CE / from c. 750 BCE | Sakai et al.; Rink and Bartoll; García Soto (`wh-433`) |
 | Moche: usual / radiocarbon / later estimate | c. 100 – 800 CE / c. 200 – 900 CE / c. 300 – 950 CE | Dumbarton Oaks; Koons and Alex; Quilter et al. (`wh-434`) |
 | Norte Chico (Late Archaic) / earliest Caral | c. 3000 – 1800 BCE / 2627 BCE | Haas, Creamer and Ruiz; Mesoweb (`wh-435`) |
-| Byzantine Empire: often dated / capital lost | 330 – 1453 CE (395 and the 280s also given) / 1204 – 1261 CE | Kaldellis via Neville; Pohlsander; Woods (`wh-436`) |
+| Byzantine Empire: often dated / capital lost | 11 May 330 – 29 May 1453 CE (395 and the 280s also given) / 12 April 1204 – 25 July 1261 CE (the days as on `wh-437` and `wh-451`; the recapture by Alexios Strategopoulos's force, 2026-11-15 on request) | Kaldellis via Neville; Pohlsander; Woods (`wh-436`) |
 | Constantinople: inaugurated / land walls / Latin rule / Ottoman assault | 11 May 330 CE / 413 CE / 1204 – 1261 CE / 29 May 1453 CE | Berger; Van Millingen (`wh-437`) |
 | Byzantion founded (traditional) | later 7th century BCE — Eusebius 660/59, Jerome 659/58 or 657/56, John Lydus 628/25 BCE; written as a CENTURY on purpose, so the row does not become `wh-437`'s sort year (the card sorts by 330, the city's founding) | Lozanova-Stantcheva (`wh-437`) |
 | Justinian I: born / reigned / Vandal War / Gothic War | c. 482 CE / 527 – 565 CE / 533 – 534 CE / 535 – 552 CE | Evans (`wh-438`) |

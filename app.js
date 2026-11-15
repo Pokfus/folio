@@ -2182,8 +2182,11 @@
   /* MULTIPLE CHOICE IS DORMANT (2026-10-31, on request: "Make the multiple choice minigame dormant"), exactly as the Picture round is:
      out of DAILY_GAMES (the sweep needs nine again), off the home grid and refused by `route`; PAGES.challenge, its name, icon and meta
      stay, so reviving it is putting "challenge" back here, in `valid`, and its tile back on the home grid. */
-  const DAILY_GAMES = ["chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "whatlang"];   // What language? (2026-11-09) is the tenth in play again
-  const DORMANT_GAMES = ["picture", "challenge"];
+  /* WHAT LANGUAGE? IS DORMANT (2026-11-15, on request: "Make the following minigames completely dormant: What language?"), exactly as
+     Multiple Choice is: out of DAILY_GAMES (the sweep needs nine again), off the home grid and refused by `route`; PAGES.whatlang, its
+     pool (whatlang.js, still lazy), name, icon and meta stay, so reviving it is putting "whatlang" back here, in `valid`, and its tile back. */
+  const DAILY_GAMES = ["chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie"];
+  const DORMANT_GAMES = ["picture", "challenge", "whatlang"];
   /* ---------- THE GAMES ARCHIVE (Nov 2026, on request: admins may play any past day's draw) ----------
      Every daily draw is a pure function of a "YYYY-MM-DD" key, so replaying a past day is a matter of
      handing the draws a different key. `GAME_DAY` is that key while an archived day is being played
@@ -27574,10 +27577,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ${/* WHAT SHARE? (2026-10-31) is the eleventh tile, the tenth in play. Its berry is the sweep's farthest colour from all ten hues (Lab 37 from its nearest, against the
             palette's tightest pair at 27.8) inside the palette's own lightness and chroma, and white reads above 7:1 on it. */""}
       ${tile({ id: "g-pie", key: "pie", cls: "g-pie", color: GAME_HUE.pie, glyph: ICON.pie, title: "What share?", sub: gameSub("pie"), done: playedPieToday, won: wonToday.pie })}
-      ${/* WHAT LANGUAGE? (2026-11-09) is the twelfth tile, the tenth in play, alone on the desktop's fourth row. Its deep petrol came out of the sweep
-            with the yellows and the cerise left out (both rejected on the page, see What year? above): 28.7 from Find it, its nearest, against the palette's tightest pair
-            at 27.8, and far darker than Find it's teal (L 41 against 61), which sits two rows up; white reads 6.3:1 on the fill. */""}
-      ${tile({ id: "g-whatlang", key: "whatlang", cls: "g-whatlang", color: GAME_HUE.whatlang, glyph: ICON.whatlang, title: "What language?", sub: gameSub("whatlang"), done: playedWhatLangToday, won: wonToday.whatlang })}
+      ${/* WHAT LANGUAGE? IS DORMANT (2026-11-15): its tile is gone; see DORMANT_GAMES. */""}
     </div>`;
 
     /* A FIRST-TIME VISITOR IS ONE WITH NO HISTORY *AND* NOTHING TO STUDY (Aug 2026, on a bug report: a
@@ -38980,17 +38980,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      that replays every time the page repaints is a fault rather than a flourish. Module-level, like the
      held session below: it is a fact about this sitting. */
   const _atlasHeard = new Set();
+  const LOC_SIB_POLITY = new Set(["state", "empire", "dynasty", "civilisation", "culture", "people", "ruler"]);
   function locatorSiblings(id) {
     const root = cardCollectionRoot(id);
     if (!root) return { dots: [], termName: new Map(), own: new Set() };
     if (!_locSibCache) _locSibCache = new Map();
     const hit = _locSibCache.get(root.id);
     if (hit) return { dots: hit.dots.filter((d) => d.id !== id), termName: hit.termName, own: locOwnTerms(id) };
-    const dots = [], termName = new Map();
+    const dots = [], termName = new Map(), polNames = new Set();
     subtreeCardIds(root).forEach((cid) => {
       const c = CARD_BY_ID[cid];
       if (!c) return;
       const t = String(c.answerText || "").trim();
+      if (t && LOC_SIB_POLITY.has(String((c.tags || [])[0] || "").toLowerCase())) polNames.add(t.toLowerCase());
       if (t) {
         /* …AND WHAT FOLIO CALLS IT (Aug 2026). Natural Earth names a river in the language of the country
            it runs through, so the Tiber is in `rivers.js` as `Tevere` — which is how the card finds it and
@@ -39034,8 +39036,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          "United States of America"). */
       else if (!l) { const ms = cardMapSpec(c); if (ms) dots.push({ id: cid, n: t || (ms.dot || ms.keys[0]), kind: ms.dot ? "point" : "face", map: { layer: ms.layer, keys: ms.keys, dot: ms.dot } }); }
     });
-    _locSibCache.set(root.id, { dots: dots, termName: termName });
-    return { dots: dots.filter((d) => d.id !== id), termName: termName, own: locOwnTerms(id) };
+    /* A STATE'S NAME STAYS ON ITS OWN CARD (2026-11-15, on request: "state labels (e.g. 'Ancient Egypt', 'Byzantine Empire') should only
+       appear on their own card, and not on other cards' atlas windows. Labels for regions or geographical features (e.g. Faiyum, Aegean Sea)
+       should still be shown"). A region sibling whose name is the answer of a card about a polity — a state, a dynasty, an empire, a people,
+       a culture (LOC_SIB_POLITY, by the card's first tag) — is left off every other card's window; its own card names it as before. */
+    const kept = dots.filter((d) => !(d.kind === "regionname" && polNames.has(String(d.n || "").trim().toLowerCase())));
+    _locSibCache.set(root.id, { dots: kept, termName: termName });
+    return { dots: kept.filter((d) => d.id !== id), termName: termName, own: locOwnTerms(id) };
   }
   /* THE LEGEND UNDER A WAR'S MAP, AND WHY IT IS HTML RATHER THAN CANVAS (Sep 2026, with `card.war`).
      Green and red is the one pair a red-green colour-blind reader cannot separate, so the map alone can
@@ -39332,9 +39339,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     html += sourcesHTML(cardSources(c));
     // …and, last of all, the way on: the answer's own Wikipedia article (see learnMoreHTML)
     html += learnMoreHTML(c);
-    // …and under even that, for an admin only, the card's id (cardAdminIdHTML)
-    html += cardAdminIdHTML(c);
-    // …and the very last thing, in the bottom right corner: "Report a problem" (cardReportHTML)
+    // …and the very last thing: one foot row — for an admin the card's id at the left (cardAdminIdHTML),
+    // and "Report a problem" at the right, on the same line (cardReportHTML; Nov 2026, on request)
     html += cardReportHTML(c);
     return html;
   }
@@ -39353,8 +39359,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ["other", "Something else", "other"],
   ];
   function cardReportHTML(c) {
-    if (!c || !c.id || isCommunityCard(c.id)) return "";
-    return '<div class="card-report-row"><button type="button" class="card-report" data-report="' + esc(c.id) + '" aria-label="Report a problem with this card" title="Report a problem with this card">' +
+    if (!c || !c.id) return "";
+    if (isCommunityCard(c.id)) return cardAdminIdHTML(c);
+    return '<div class="card-report-row">' + cardAdminIdHTML(c) + '<button type="button" class="card-report" data-report="' + esc(c.id) + '" aria-label="Report a problem with this card" title="Report a problem with this card">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
       '<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/></svg><span>Report</span></button></div>';
   }
@@ -50815,7 +50822,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     e.preventDefault();
     openKeySheet();
   });
-  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "whatlang", "admin", "warofages", "gamearchive", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
+  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "admin", "warofages", "gamearchive", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
   /* #map2 is the address the engine was previewed at; since Phase 5 the Atlas is #map. A link or a bookmark to the old address is corrected in the address bar (replaceState: assigning would fire a hashchange and leave the dead address in the
      history for Back), with the view, the year and the place after it left as they were. */
   if (/^#map2(?=[\/?]|$)/.test(location.hash || "")) { try { history.replaceState(null, "", location.pathname + location.search + location.hash.replace(/^#map2/, "#map")); } catch (e) {} }

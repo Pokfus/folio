@@ -807,6 +807,10 @@
       if (!y0s.length) return;
       const y0 = Math.min.apply(null, y0s), y1 = y1s.length === ms.length ? Math.max.apply(null, y1s) : y0, yr = Math.round((y0 + y1) / 2);
       const dated = datedAreas(first.title, yr), slugs = dated ? dated.slugs : null, rings = dated ? dated.rings : first.area;
+      /* NOTHING TO TAP, NO ROUND (Nov 2026, on request: "it asked me to find East Slavs and Clovis Culture … that one has no borders or
+         area displayed on the map"): the board draws an area round only as its polity's face in that year, so an area with no polity behind
+         it (an authored extent: a people's or a culture's country) was a hunt over blank land. It is not dealt; every dated area resolves. */
+      if (!slugs || !slugs.length) return;
       if (!rings || !rings.length || bbA(rings) <= 20) return;
       let x0 = 180, yy0 = 90, x1 = -180, yy1 = -90; rings.forEach((ring) => ring.forEach((q) => { if (q[0] < x0) x0 = q[0]; if (q[0] > x1) x1 = q[0]; if (q[1] < yy0) yy0 = q[1]; if (q[1] > yy1) yy1 = q[1]; }));
       const ctr = Array.isArray(first.at) && isFinite(first.at[0]) ? first.at : [(x0 + x1) / 2, (yy0 + yy1) / 2];

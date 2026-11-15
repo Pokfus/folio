@@ -285,6 +285,11 @@ The five bullets below are as they stood in CLAUDE.md, verbatim.
     over 13 squares a side, 730 distinct grids, and no unclued run or unnumbered entry anywhere.** A
     generator can be flawless on the day it is written and degenerate on a date nobody tried, which is what
     a one-day browser test cannot see.
+- **WHAT LANGUAGE? IS DORMANT (2026-11-15, on request: "Make the following minigames completely dormant: What language?").** Multiple
+  Choice's recipe: out of `DAILY_GAMES` (the sweep needs nine again), no home tile, not in `valid`, in `DORMANT_GAMES` (so `#whatlang`
+  lands on home). `PAGES.whatlang`, its dealer, the lazy pool `whatlang.js` (and CI's `build-whatlang.js --verify`), name, icon and
+  meta stay; `test-whatlang.js` asserts the dormancy and keeps the game's own checks behind `WL_DORMANT`. To revive: the same four
+  steps as the Picture round below, plus flipping that flag.
 - **MULTIPLE CHOICE IS DORMANT (2026-10-31, on request: "Make the multiple choice minigame dormant").** The Picture round's
   recipe: out of `DAILY_GAMES` (the sweep needs nine), no home tile, not in `valid`, in `DORMANT_GAMES` (so `#challenge` lands on
   home). `PAGES.challenge`, its dealer, name, icon and meta stay, and `test-minigames.js`'s Node sweep still deals it; §3b asserts
@@ -976,6 +981,16 @@ reports the distance to the nearest edge (`fi2WaterRings`, `fi2EdgeKm` in `atlas
 ocean's marginal seas are not (the Caribbean is its own round). A lake keeps the point rule. Re-run the builder after
 adding a water locator card, then `build-credits.js --install`. On a phone Find it's board is full-bleed, as How far?'s
 is, with its zoom stack at the foot.
+
+## Find it: an area round needs a face on the board (2026-11-15, on a report)
+
+The report: "it asked me to find East Slavs and Clovis Culture. But that one has no borders or area displayed on the map … places without
+borders, areas, dots, icons etc. on the map should not be in the Find It minigame." *Cause:* the board draws an area round only as its
+polity's face in the round's year (`targetIds` → `pol:<slug>`); the 14 area stacks with no entry in `findit-areas.js` (a people's or a
+culture's authored extent — East Slavs, Clovis culture) had no face, so the reader hunted over blank land and was scored on an invisible
+ring. *Fix:* `fi2Pools` deals an area only when `datedAreas` gives it slugs; every one of the 103 dated areas resolves to a polity of
+`polity-index.js` mapped in its year (checked when the rule was written). This changes the deal on dates that drew one of the 14.
+Point rounds (a city on today's map) are unchanged: the countries' borders are the board there.
 
 ## True or False: an admin edits or removes a statement from inside the game (2026-10-29, on request)
 
