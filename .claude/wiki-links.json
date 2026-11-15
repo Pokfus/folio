@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T21:15Z",
+ "generated": "2026-11-15T21:19Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8270,
+  "ok": 8272,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89230,6 +89230,20 @@
    "answer": "Bihar",
    "title": "Bihar",
    "url": "https://en.wikipedia.org/wiki/Bihar",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-504": {
+   "answer": "Kolkata",
+   "title": "Kolkata",
+   "url": "https://en.wikipedia.org/wiki/Kolkata",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-004": {
+   "answer": "West Bengal",
+   "title": "West Bengal",
+   "url": "https://en.wikipedia.org/wiki/West_Bengal",
    "via": "answer",
    "status": "ok"
   }

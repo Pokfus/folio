@@ -11232,7 +11232,9 @@ window.CARD_DATA = [
 {"id":"gin-502","num":"502","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Mumbai","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Ceded to England</span><span class=\"dt-v\">1661</span><span class=\"dt-k\">Given to Company</span><span class=\"dt-v\">1668</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Mumbai","tags":["place","city","geography","capital","india"],"difficulty":2,"map":{"layer":"india-states","key":"Maharashtra","dot":"Mumbai"},"facts":[["State","Maharashtra"],["Population","12.4M (2011)"],["Area","603 km² (233 sq mi)"],["Rank in India","Largest city"]]},
 {"id":"gin-002","num":"002","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Maharashtra","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">1 May 1960</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Maharashtra","tags":["place","geography","india","state","deccan"],"difficulty":3,"map":{"layer":"india-states","key":"Maharashtra"},"facts":[["Kind","State"],["Capital","Mumbai"],["Population","112M (2011)"],["Area","308k km² (119k sq mi)"]]},
 {"id":"gin-503","num":"503","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Patna","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Maurya capital</span><span class=\"dt-v\">321 BCE</span><span class=\"dt-k\">Massacre</span><span class=\"dt-v\">1763</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Patna","tags":["place","city","geography","capital","india"],"difficulty":3,"map":{"layer":"india-states","key":"Bihar","dot":"Patna"},"facts":[["State","Bihar"],["Population","1.68M (2011)"],["Area","108 km² (41.6 sq mi)"],["Rank in state","Largest city"]]},
-{"id":"gin-003","num":"003","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Bihar","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Jharkhand split</span><span class=\"dt-v\">15 November 2000</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Bihar","tags":["place","geography","india","state","ganges"],"difficulty":3,"map":{"layer":"india-states","key":"Bihar"},"facts":[["Kind","State"],["Capital","Patna"],["Population","104M (2011)"],["Area","94.2k km² (36.4k sq mi)"]]}
+{"id":"gin-003","num":"003","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Bihar","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Jharkhand split</span><span class=\"dt-v\">15 November 2000</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Bihar","tags":["place","geography","india","state","ganges"],"difficulty":3,"map":{"layer":"india-states","key":"Bihar"},"facts":[["Kind","State"],["Capital","Patna"],["Population","104M (2011)"],["Area","94.2k km² (36.4k sq mi)"]]},
+{"id":"gin-504","num":"504","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Kolkata","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Founded</span><span class=\"dt-v\">24 August 1690</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Kolkata","tags":["place","city","geography","capital","india"],"difficulty":2,"map":{"layer":"india-states","key":"West Bengal","dot":"Kolkata"},"facts":[["State","West Bengal"],["Population","4.50M (2011)"],["Area","185 km² (71.4 sq mi)"],["Rank in state","Largest city"]]},
+{"id":"gin-004","num":"004","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"West Bengal","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"West Bengal","tags":["place","geography","india","state","bengal"],"difficulty":3,"map":{"layer":"india-states","key":"West Bengal"},"facts":[["Kind","State"],["Capital","Kolkata"],["Population","91.3M (2011)"],["Area","88.8k km² (34.3k sq mi)"]]}
 ];
 
 window.COLLECTION_TREE = {
@@ -29231,7 +29233,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-india",
       "title": "India",
-      "total": 6,
+      "total": 8,
       "placeholder": false,
       "children": [
         {
@@ -29241,7 +29243,8 @@ window.COLLECTION_TREE = {
           "cardIds": [
             "gin-001",
             "gin-002",
-            "gin-003"
+            "gin-003",
+            "gin-004"
           ]
         },
         {
@@ -29251,7 +29254,8 @@ window.COLLECTION_TREE = {
           "cardIds": [
             "gin-501",
             "gin-502",
-            "gin-503"
+            "gin-503",
+            "gin-504"
           ]
         },
         {
