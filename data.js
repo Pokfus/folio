@@ -11234,7 +11234,8 @@ window.CARD_DATA = [
 {"id":"gin-503","num":"503","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Patna","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Maurya capital</span><span class=\"dt-v\">321 BCE</span><span class=\"dt-k\">Massacre</span><span class=\"dt-v\">1763</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Patna","tags":["place","city","geography","capital","india"],"difficulty":3,"map":{"layer":"india-states","key":"Bihar","dot":"Patna"},"facts":[["State","Bihar"],["Population","1.68M (2011)"],["Area","108 km² (41.6 sq mi)"],["Rank in state","Largest city"]]},
 {"id":"gin-003","num":"003","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Bihar","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Jharkhand split</span><span class=\"dt-v\">15 November 2000</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Bihar","tags":["place","geography","india","state","ganges"],"difficulty":3,"map":{"layer":"india-states","key":"Bihar"},"facts":[["Kind","State"],["Capital","Patna"],["Population","104M (2011)"],["Area","94.2k km² (36.4k sq mi)"]]},
 {"id":"gin-504","num":"504","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Kolkata","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Founded</span><span class=\"dt-v\">24 August 1690</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Kolkata","tags":["place","city","geography","capital","india"],"difficulty":2,"map":{"layer":"india-states","key":"West Bengal","dot":"Kolkata"},"facts":[["State","West Bengal"],["Population","4.50M (2011)"],["Area","185 km² (71.4 sq mi)"],["Rank in state","Largest city"]]},
-{"id":"gin-004","num":"004","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"West Bengal","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"West Bengal","tags":["place","geography","india","state","bengal"],"difficulty":3,"map":{"layer":"india-states","key":"West Bengal"},"facts":[["Kind","State"],["Capital","Kolkata"],["Population","91.3M (2011)"],["Area","88.8k km² (34.3k sq mi)"]]}
+{"id":"gin-004","num":"004","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"West Bengal","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"West Bengal","tags":["place","geography","india","state","bengal"],"difficulty":3,"map":{"layer":"india-states","key":"West Bengal"},"facts":[["Kind","State"],["Capital","Kolkata"],["Population","91.3M (2011)"],["Area","88.8k km² (34.3k sq mi)"]]},
+{"id":"gin-505","num":"505","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Bhopal","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Gas disaster</span><span class=\"dt-v\">1984</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Bhopal","tags":["place","city","geography","capital","india"],"difficulty":3,"map":{"layer":"india-states","key":"Madhya Pradesh","dot":"Bhopal"},"facts":[["State","Madhya Pradesh"],["Population","1.80M (2011)"],["Area","286 km² (110 sq mi)"],["Rank in state","2nd largest city"]]}
 ];
 
 window.COLLECTION_TREE = {
@@ -29233,7 +29234,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-india",
       "title": "India",
-      "total": 8,
+      "total": 9,
       "placeholder": false,
       "children": [
         {
@@ -29255,7 +29256,8 @@ window.COLLECTION_TREE = {
             "gin-501",
             "gin-502",
             "gin-503",
-            "gin-504"
+            "gin-504",
+            "gin-505"
           ]
         },
         {

@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T21:19Z",
+ "generated": "2026-11-15T21:21Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8272,
+  "ok": 8273,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89244,6 +89244,13 @@
    "answer": "West Bengal",
    "title": "West Bengal",
    "url": "https://en.wikipedia.org/wiki/West_Bengal",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-505": {
+   "answer": "Bhopal",
+   "title": "Bhopal",
+   "url": "https://en.wikipedia.org/wiki/Bhopal",
    "via": "answer",
    "status": "ok"
   }
