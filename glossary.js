@@ -12051,7 +12051,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Veneti": "c. 900 BCE – 50 CE",
 "Messapians": "c. 700 – 100 BCE",
 "Cisalpine_Gauls": "c. 400 – 49 BCE",
-"Etruscan_civilisation": "c. 1000 – 1st century BCE",
+"Etruscan_civilisation": "c. 900 – 1st century BCE",
 "Etruscan_cities": "c. 1020 – 480 BCE",
 "Etruscan_league": "c. 550 BCE – 400 CE",
 "Etruscan_language": "c. 800 – 1 BCE",

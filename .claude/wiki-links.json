@@ -10749,11 +10749,11 @@
   },
   "wh-285": {
    "answer": "mass deportation",
-   "title": "Deportation",
-   "url": "https://en.wikipedia.org/wiki/Deportation",
-   "via": "glossary",
-   "status": "redirect-broader",
-   "from": "Mass deportation"
+   "title": "Resettlement policy of the Neo-Assyrian Empire",
+   "url": "https://en.wikipedia.org/wiki/Resettlement_policy_of_the_Neo-Assyrian_Empire",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "wh-286": {
    "answer": "Neo-Babylonian Empire",
@@ -27308,11 +27308,11 @@
   },
   "wh-584": {
    "answer": "Ajami",
-   "title": "Ajam",
-   "url": "https://en.wikipedia.org/wiki/Ajam",
-   "via": "answer",
-   "status": "redirect-broader",
-   "from": "Ajami"
+   "title": "Ajami script",
+   "url": "https://en.wikipedia.org/wiki/Ajami_script",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "wh-581": {
    "answer": "Zagwe dynasty",
@@ -28611,11 +28611,11 @@
   },
   "wh-644": {
    "answer": "wars of religion",
-   "title": "Religious war",
-   "url": "https://en.wikipedia.org/wiki/Religious_war",
-   "via": "answer",
-   "status": "redirect-broader",
-   "from": "Wars of religion"
+   "title": "European wars of religion",
+   "url": "https://en.wikipedia.org/wiki/European_wars_of_religion",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "wh-645": {
    "answer": "St Bartholomew's Day massacre",
@@ -28640,11 +28640,11 @@
   },
   "wh-648": {
    "answer": "witch trials",
-   "title": "Witch hunt",
-   "url": "https://en.wikipedia.org/wiki/Witch_hunt",
-   "via": "answer",
-   "status": "redirect-broader",
-   "from": "Witch trials"
+   "title": "Witch trials in the early modern period",
+   "url": "https://en.wikipedia.org/wiki/Witch_trials_in_the_early_modern_period",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "wh-649": {
    "answer": "Scientific Revolution",
@@ -40738,11 +40738,11 @@
   },
   "wh-902": {
    "answer": "five-year plans",
-   "title": "Five-year plan",
-   "url": "https://en.wikipedia.org/wiki/Five-year_plan",
-   "via": "answer",
-   "status": "redirect-variant",
-   "from": "Five-year plans"
+   "title": "Five-year plans of the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Five-year_plans_of_the_Soviet_Union",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "wh-903": {
    "answer": "Holodomor",
@@ -40781,11 +40781,11 @@
   },
   "wh-943": {
    "answer": "displaced persons",
-   "title": "Forced displacement",
-   "url": "https://en.wikipedia.org/wiki/Forced_displacement",
-   "via": "answer",
-   "status": "redirect-broader",
-   "from": "Displaced persons"
+   "title": "Displaced persons camps in post–World War II Europe",
+   "url": "https://en.wikipedia.org/wiki/Displaced_persons_camps_in_post%E2%80%93World_War_II_Europe",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "wh-944": {
    "answer": "United Nations",
@@ -40944,11 +40944,11 @@
   },
   "wh-936": {
    "answer": "Resistance movements",
-   "title": "Resistance movement",
-   "url": "https://en.wikipedia.org/wiki/Resistance_movement",
-   "via": "answer",
-   "status": "redirect-variant",
-   "from": "Resistance movements"
+   "title": "Resistance during World War II",
+   "url": "https://en.wikipedia.org/wiki/Resistance_during_World_War_II",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "wh-937": {
    "answer": "Normandy landings",

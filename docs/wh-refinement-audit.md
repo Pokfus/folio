@@ -3514,3 +3514,72 @@ pass once it answers. Filled batch by batch.
 | `wh-981`–`wh-990` | no picture on the old cards (audit `I.none`); a picture pass would add one each |
 | `wh-986` | **locator** is named "Tiananmen Square protests", the term and not a place |
 | `wh-991`–`wh-1000` | no picture on the old cards (audit `I.none`); a picture pass would add one each |
+
+## The link and consistency audit (2026-11-15)
+
+A pass over the finished collection, asked for as "inconsistencies, incorrect gloss links, and any other
+possible improvements". It read no card from top to bottom; it listed things across all 1,000 and read the
+suspects in context.
+
+**The link audit.** Every glossary link the cards make was listed (18,176: the background's auto-links, each
+Think-it-through answer's, and the 92 hand links), grouped by surface → term, and three lists were read whole:
+the 1,092 links made through an ALIAS or a plural, the 903 lower-case surfaces, and the 1,003 single-word
+proper names. About 150 surface → term pairs were then read in every context they occur. **Roughly 400 links
+on 305 cards opened the wrong term**, in four families:
+
+| family | examples | fix |
+|---|---|---|
+| an everyday word that is a science term's alias | "tolerance" of other faiths → *Drug tolerance*; "kept in touch" → *Somatosensory system*; "in Byzantine eyes" → *Human eye*; "by memory", "sound government", "truth or myth", territorial "consolidation", a "cosmopolitan" society, an "accommodation" with the Ottomans | `GLOSS_ONLY_IN`, `offIn: WH`, no `text` |
+| an alias written for another collection | "pilgrims" (Mecca, Jerusalem) → the Plymouth *Pilgrims*; "altar" → *Greek altar*; "censorship" → *Roman censor*; "troubles" → *Time of Troubles*; "rebus" → *Libu* (plural of the alias "Rebu"); "reservations" → *Indian reservation*; "plantations" in the Caribbean → *Plantations in the American South*; "bison" at Altamira → *American bison*; "Palestine" of the Bronze Age → *State of Palestine* | `GLOSS_ONLY_IN`, `offIn: WH`, with a `text` that the right contexts match |
+| a name that is somebody or somewhere else | Pope Nicholas I → the tsar; Alexander II of Macedon → of Russia; the Toltec Tula → Tula, Russia; Mari on the Euphrates → the Mari people; Sergei Kirov → the city; Afonso de Albuquerque → Albuquerque, New Mexico; Wang Jingwei → the bird of myth; the Trinity → the nuclear test; "Midway Plaisance" and "midway between" → the battle; Helen Macfarlane → Helen of Troy; Hansa Mehta → the Hanseatic League; Harun al-Rashid and Rashid al-Din → Rosetta | the same, or `GLOSS_OFF_CARDS` where the term is right on other cards (Claudius II, Cyrus Field, an Italian Legion, the Abydos lion weight, modern consuls) |
+| the wrong one of two terms that both exist | the tetrarchs' Caesars → *Julius Caesar*; Clovis the Frank → the *Clovis culture*; Ephialtes of Trachis, Pausanias the regent, Tiberius Gracchus, Appius Claudius; "the Niger" → the country; Mali and Ghana the empires → the modern states; the Congo Free State → the river; the nine tripods → a Greek cauldron; James Madison → Madison, Wisconsin; "Omaha" beach → the city; "Egyptian" soldiers of 1898 → *Ancient Egypt* | a hand link to the right term (44), with the wrong one in `GLOSS_OFF_CARDS` |
+
+The mechanisms are in `docs/reference.md`, "THREE MORE WAYS A WRONG-SENSE LINK". The 92 older hand links were
+read and are right. **The same aliases link in the other collections too** — the scan that chose the entries
+counted, for each, the collections whose cards link it: *Human eye* in 24 collections, *Memory* in 20,
+*Pilgrims* in 10 (China's and Russia's pilgrims are not Plymouth's), *Greek altar* in 14, *Time of Troubles* in
+11. Nothing outside World History was changed, because nothing outside it was read.
+
+**Spellings.** Capitalised words that are equal once diacritics, apostrophes and hyphens are folded were
+listed (58 pairs), with a list of known alternates. Normalised to the collection's own dominant form, which is
+also the glossary title, on 35 cards (59 places): Khubilai → Kublai, Cuzco → Cusco, Koran / Qur’an → Quran,
+Shiite → Shia, Seljuq → Seljuk, Songhay → Songhai, Yangzi → Yangtze, Sapa Inka → Sapa Inca, Huascar → Huáscar,
+Meroe → Meroë, Issyk-kul → Issyk-Kul, South-East Asia → Southeast Asia, Paleoindian → Paleo-Indian, Chichén
+Itzá → Chichen Itza, Cordoba → Córdoba, Senwosret / Snefru / Sety / Merenptah → Senusret / Sneferu / Seti /
+Merneptah, Chang’an → Chang'an, Xi’an → Xi'an. Sixteen of them had been failing to link at all. Left alone,
+because the name sits in a title or a quotation: "Asoka the Wicked", *Pre-historic Times*, Kievan Rus’.
+
+**Dates.** A near-miss scan (a year on one card within three of the year another card's date line gives for
+the same term; a date-line year within two of a year in the card's own prose) turned up 197 candidates and ONE
+contradiction: `wh-653`'s date line ended Newton's Lucasian chair in 1702 where its prose and both sources it
+cites (the Newton Project, MacTutor) say he resigned in December 1701; the date line now reads 1669 – 1701. Of
+the audit's eight `G.date` findings one was a disagreement: the glossary dated the Etruscan civilisation from
+c. 1000 BCE and the card from c. 900; the glossary line now reads c. 900. The `wh-892` chronology pins were
+still in the old "5 a.m." style and now match the card's "5:00 AM". All 244 `timeline` fields agree with their
+date lines (the twelve that differ on paper are BP and years-ago conversions).
+
+**Other.** Seven cards whose Learn-more tile opened a broader or a wrong article now open the dedicated one
+(`wh-584` Ajami had the article on the word *Ajam*; `wh-285`, `wh-644`, `wh-648`, `wh-902`, `wh-936`, `wh-943`).
+Two locators named after the event are named after the place (`wh-955` Korean Peninsula, `wh-986` Tiananmen
+Square). `atlas/data/glossary-places.js` had lagged the glossary since the day's earlier merge and was rebuilt.
+
+**Not done, and worth doing** (in rough order of what a reader would notice):
+
+1. **Pictures**: 208 cards have none (`I.none`, chiefly `wh-789`, `wh-811`–`wh-1000`), and the ledger above
+   lists the ones that show only part of their term.
+2. **Read the other collections' links** with the same listing and widen the `offIn` entries, starting with
+   the everyday words (*Human eye*, *Memory*, *Sound*, *Somatosensory system*, *Drug tolerance*, *Truth*).
+3. **Missing glossary terms** the audit could only switch a wrong link off for: Palestine (the region), Mari
+   (the city), Tula (the Toltec capital), the Triple Alliance of 1882, Cyrus the Younger, Benin City, the Jordan river, the Apollo programme, Sergei Kirov, Pope Nicholas I, Alexander II of Macedon,
+   Harun al-Rashid, Rashid al-Din, Cartagena de Indias, Afonso de Albuquerque, the Duke of Wellington,
+   Antonio José de Sucre, Wang Jingwei, Vilhelm Thomsen, John Evans, the English Commonwealth.
+4. **Country names in ancient settings** still open the modern state's term — Israel, Syria, Iraq, Turkey,
+   Jordan, and "Britain / British" → *Great Britain* (281 links) — which is right for geography and thin for
+   history; a period term or an alias per case would serve better.
+5. **Transliteration in the Islamic deck** (`wh-456`–`wh-485`) is mixed: 41 cards carry scholarly diacritics
+   (ʿAlī, al-Maʾmūn, Muʿāwiya) and their neighbours the plain forms (Ali, Muawiya, Ibn Khaldun), sometimes the
+   same name both ways. One register should be chosen; the plain one is what the glossary keys use.
+6. **Hōjō / Hojo, Chōshū / Choshu** and *Taoism* beside *Daoist*: the same choice, smaller.
+7. **Think it through**: 121 cards have a question that does not open "Why" and 51 an answer over 60 words
+   (`W.not-why`, `W.length`), mostly `wh-001`–`wh-050`, the first batches written before the rule settled.
+8. **`wh-311`**'s date line has no Hellenistic row although the chronology pins one (`D.pin`).

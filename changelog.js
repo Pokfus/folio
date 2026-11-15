@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1312", released: "2026-11-15T20:26Z" };
+window.FOLIO_VERSION = { v: "1.1313", released: "2026-11-15T21:05Z" };
 
 window.CHANGELOG = [
   {
@@ -43,6 +43,8 @@ window.CHANGELOG = [
     t: "Tidier atlas windows, new glossary terms and more daily quotes",
     items: [
       "Marker lines drawn on a question stay sharp when the answer is revealed, instead of turning blurry.",
+      "About 400 glossary links in <b>World History</b> that opened the wrong term now open the right one or stay plain text.",
+      "Name spellings made consistent on 35 World History cards, and seven cards link to a more exact Wikipedia article.",
       "22 new glossary terms for World History and Ancient Greece cards, and a Byzantine sense of <b>themes</b> that links only where it fits.",
       "Egyptian dynasties are now written with numbers (<b>18th Dynasty</b>), and the Council of Five Hundred always in words.",
       "A card's atlas window names a state only on that state's own card; regions and natural features still show everywhere.",
@@ -51,7 +53,7 @@ window.CHANGELOG = [
       "<b>What language?</b> is resting for now and has left the home page.",
       "The <b>Report</b> button now sits on the same line as the card's id.",
       "31 new quotations in the <b>daily quote</b>, some of them from favourite novels, films, shows and games.",
-      "One card has more exact dates and another a fuller picture.",
+      "Two cards have more exact dates and another a fuller picture.",
     ],
   },
   {

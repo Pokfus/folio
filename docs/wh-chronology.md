@@ -793,7 +793,7 @@ Filled batch by batch, from the source each row names.
 | Sykes–Picot Agreement: concluded / made public | 16 May 1916 / November 1917 CE | Loevy (`wh-889`) |
 | Balfour Declaration: issued | 2 November 1917 CE | the text; the Peel Commission (`wh-890`) |
 | American entry into the First World War: war message / war declared / draft law | 2 April 1917 / 6 April 1917 / 18 May 1917 CE | the National Archives; Wilson's address (`wh-891`) |
-| Armistice of 11 November 1918: talks began / signed (text) / signed (UK blog) / ceasefire | 8 November 1918 / 11 November 1918, 5 a.m. / 11 November 1918, 5:10 a.m. / 11 November 1918, 11 a.m. CE | FRUS; House of Commons; Finn (`wh-892`) |
+| Armistice of 11 November 1918: talks began / signed (text) / signed (UK blog) / ceasefire | 8 November 1918 / 11 November 1918, 5:00 AM / 11 November 1918, 5:10 AM / 11 November 1918, 11:00 AM CE | FRUS; House of Commons; Finn (`wh-892`) |
 | Treaty of Versailles: signed / in force | 28 June 1919 / 10 January 1920 CE | the German Historical Museum (`wh-893`) |
 | League of Nations: came into being / dissolved | 10 January 1920 / 19 April 1946 CE | the UN Office at Geneva; the National WWII Museum (`wh-894`) |
 | Spanish flu: pandemic / deadliest wave | 1918 – 1919 / September – November 1918 CE | Taubenberger and Morens (`wh-895`) |
@@ -1649,7 +1649,7 @@ wh-888: 10 June 1916
 wh-889: 16 May 1916; November 1917
 wh-890: 2 November 1917
 wh-891: 2 April 1917; 6 April 1917; 18 May 1917
-wh-892: 8 November 1918; 11 November 1918, 5 a.m.; 11 November 1918, 5:10 a.m.; 11 November 1918, 11 a.m.
+wh-892: 8 November 1918; 11 November 1918, 5:00 AM; 11 November 1918, 5:10 AM; 11 November 1918, 11:00 AM
 wh-893: 28 June 1919; 10 January 1920
 wh-894: 10 January 1920; 19 April 1946
 wh-895: 1918 – 1919; September – November 1918

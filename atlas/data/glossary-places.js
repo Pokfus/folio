@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"07bec2fa9bf0f74d","counts":{"terms":958,"points":721,"countries":237,"windows":1593,"faces":372,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"6ab4ac872c8a3cb6","counts":{"terms":959,"points":722,"countries":237,"windows":1594,"faces":372,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -677,6 +677,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"07bec2fa9bf0f74d","counts":
 "Pikes_Peak":"pl:q665321",
 "Piraeus":"pl:q58976",
 "Pitcairn_Islands":"adm0:pcn",
+"Plataea":"pl:q742538",
 "Poland":"adm0:pol",
 "Pompeii":"pl:q43332",
 "Pontic-Caspian_steppe":"reg:1730073981",
@@ -2060,6 +2061,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"07bec2fa9bf0f74d","counts":
 "Piraeus_wall":[23.656,37.941,"coord",0,0,0],
 "Pitcairn_Islands":[-128.32,-24.36,"country","adm0:pcn",0,40],
 "Pithekoussai":[13.883,40.75,"coord",0,0,0],
+"Plataea":[23.274,38.221,"site",0,0,0],
 "Platte_River":[-95.881,41.054,"coord",0,0,0],
 "Poland":[19.49,51.99,"country","adm0:pol",0,11.08],
 "Pomerium":[12.487,41.888,"coord",0,0,0],
