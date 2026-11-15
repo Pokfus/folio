@@ -3680,6 +3680,16 @@ changed was the one that had been wrong all along.
   The findings (a personal pronoun's shared table, the -s verbs, the closed-class rule against a common verb,
   the `i` missing from kaikki's extract) are 📖 `docs/swedish-decks-plan.md`. The `l1` row is 9.9 million
   (Ethnologue via Wikipedia); the hue is measured, `#BD4B7B` (re-swept at the merge: Romanian had taken the olive `#757839`).
+- `.claude/norwegian/` — the generator behind the Norwegian decks (Nov 2026, on request: "Add a Norwegian language
+  collection"; the Swedish owner's decisions taken, the owner not asked). **Built: A1,
+  `decks/Norwegian-A1.folio-deck.json`** (500 notes / 1,000 cards), in Bokmål. `python3 .claude/norwegian/run.py
+  [--level a1]`, `node .claude/norwegian/check-norwegian.js`; a re-run is byte-identical. Swedish's pipeline adapted,
+  with the forms read off Wiktionary's HEAD LINE (Bokmål entries carry almost no tables), three genders printed
+  en / ei / et and `en/ei` where Bokmål allows both, and a verb's present, past and past participle. Norskprøven
+  publishes no word list, so a level is a topic inventory plus lemma frequency, and the description says so. The
+  findings (`i` missing from kaikki's extract again, `når` against `nå`, `hel` met as `hele`, the -e infinitives
+  spelt like nouns) are 📖 `docs/norwegian-decks-plan.md`. The `LANGS` row is 4.32 million (Wikipedia's infobox,
+  2012); the hue is measured, `#85063D`.
 - `.claude/irish/` — the generator behind the Irish decks (Nov 2026, on request: "Add an Irish language
   collection"; the Hindi and Swedish owners' decisions taken, the owner not asked). **Built: all five levels,
   `decks/Irish-A1.folio-deck.json`** (500 notes / 1,000 cards), **`Irish-A2`** (750), **`Irish-B1`** (1,000), **`Irish-B2`** (1,500), **`Irish-C1`** (1,500) **and `Irish-Phrases-and-Expressions`** (613 in five subdecks). `python3 .claude/irish/run.py [--level a1]`,
