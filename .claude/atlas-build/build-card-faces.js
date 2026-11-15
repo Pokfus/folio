@@ -133,7 +133,10 @@ function build() {
   for (const c of cards) {
     if (!c.map) continue; nMap++;
     const lay = layers[c.map.layer]; if (!lay) { problems.push(`${c.id}: layer ${c.map.layer} is not built`); continue; }
-    for (const k of [].concat(c.map.key)) if (!lay[k]) problems.push(`${c.id}: key "${k}" is not in ${c.map.layer}`);
+    /* a map card's keys: its authored `map.key`, else (2026-11-15, .claude/map-places.js) every id of its `places` that is an entity of this layer, by its key here — the rule app.js `cardMapKeys` reads */
+    let keys = c.map.key != null ? [].concat(c.map.key) : null;
+    if (!keys) { const inv = new Map(Object.entries(lay).map(([k, row]) => [row[0], k])); keys = (c.places || []).slice().sort().filter((id) => inv.has(id)).map((id) => inv.get(id)); if (!keys.length) problems.push(`${c.id}: no map.key, and no id of its places is a shape of ${c.map.layer}`); }
+    for (const k of keys) if (!lay[k]) problems.push(`${c.id}: key "${k}" is not in ${c.map.layer}`);
     if (c.map.dot && !dots[c.map.layer][c.map.dot]) problems.push(`${c.id}: dot "${c.map.dot}" is not in ${c.map.layer}'s dots`);
   }
   return { layers, dots, problems, nMap, nbrs };
