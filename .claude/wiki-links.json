@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T21:30Z",
+ "generated": "2026-11-15T21:33Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8278,
+  "ok": 8279,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89286,6 +89286,13 @@
    "answer": "Jaipur",
    "title": "Jaipur",
    "url": "https://en.wikipedia.org/wiki/Jaipur",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-508": {
+   "answer": "Bengaluru",
+   "title": "Bengaluru",
+   "url": "https://en.wikipedia.org/wiki/Bengaluru",
    "via": "answer",
    "status": "ok"
   }
