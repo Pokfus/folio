@@ -14,9 +14,10 @@ const LABELS = new Set(["definite", "plural", "neuter", "present", "past", "perf
 // a gloss that IS a pointer, anchored at its start
 const POINTER = /^(?:alternative|obsolete|dated|rare|pronunciation) (?:form|spelling) of |^(?:inflection|synonym) of |^\*?\s*see:|^(?:indefinite|definite|genitive|neuter|plural|present|past|preterite|participle|imperative|comparative|superlative)[^;]* of \S+(?: \([^)]*\))?$/i;
 const DANISH = /^[a-zA-ZæøåÆØÅéÉüÜäÄöÖ][a-zA-ZæøåÆØÅéÉüÜäÄöÖ \-]*$/;
-// a month and a language's name take no article (i april, jeg taler dansk)
+// a month, a language's name, a title and a noun met only in one phrase take no article
+// (i april, jeg taler dansk, fru Hansen, i aftes) -- `NO_ART` in build_deck.py
 const NO_ART = new Set(("januar februar marts april maj juni juli august september oktober november december " +
-  "dansk engelsk tysk fransk svensk norsk spansk").split(" "));
+  "dansk engelsk tysk fransk svensk norsk spansk fru aftes").split(" "));
 let fail = 0;
 const bad = (m) => { fail++; console.log("FAIL  " + m); };
 const files = fs.readdirSync(DIR).filter((f) => /^Danish-.*\.folio-deck\.json$/.test(f)).sort();

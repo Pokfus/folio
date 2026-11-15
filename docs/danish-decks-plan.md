@@ -5,7 +5,7 @@ Danish set, built in the Swedish decks' shape (`docs/swedish-decks-plan.md`, who
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-15: "Add a Danish language collection."
 
-**STATUS (2026-11-15): A1 is built** (§6). A2 to C1 are later phases, one level per request, as Swedish's were.
+**STATUS (2026-11-15): A1 and A2 are built** (§6, §7). B1 to C1 are later phases, one level per request, as Swedish's were.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck of this plan. The collection's first commit carried one because it also changed the APP — the
@@ -30,7 +30,7 @@ owner's to overrule.**
 | deck | file | notes |
 |---|---|---|
 | Danish A1 Beginner — built | `Danish-A1.folio-deck.json` | 500 |
-| Danish A2 Elementary | `Danish-A2.folio-deck.json` | 750 |
+| Danish A2 Elementary — built | `Danish-A2.folio-deck.json` | 750 |
 | Danish B1 Intermediate | `Danish-B1.folio-deck.json` | 1,000 |
 | Danish B2 Upper Intermediate | `Danish-B2.folio-deck.json` | 1,500 |
 | Danish C1 Advanced | `Danish-C1.folio-deck.json` | 1,500 |
@@ -99,7 +99,7 @@ One of A1's 500 words (`apotek`) has no Tatoeba sentence.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2 done) — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` (and its `SCOPE` is already in `danish_level.py`; add its `STAMP` in `build_deck.py`),
 run, read every card. **Phase 3** — a phrases deck, from Swedish's `phrases.py`.
 
@@ -112,3 +112,33 @@ run, read every card. **Phase 3** — a phrases deck, from Swedish's `phrases.py
 once in the session and the faults above fixed. The shelf's hue is measured: the raw winner was a moss green,
 refused as one more green; outside the greens and the bright-magenta band, `#752466`, a deep plum, 15.0 from its
 nearest of 69.
+
+## 7. As built (2026-11-15): A2
+
+Asked for on 2026-11-15: "Add A2". `python3 .claude/danish/run.py --level a2`; the same stages, no new source.
+**750 notes: 287 from a 19-topic inventory** (`inventory.py` `A2`, Swedish A2's topics: seasons and dates, numbers
+to a million, the land and nature, weather, animals, clothes, the home and kitchen, food and cooking, work, school,
+travel, the town, health, feelings, free time, verbs, describing, time words, connectors — scoped to `SCOPE['a2']`)
+**and 463 by frequency**; three sentences for 700, none for 13. Every card was read once. A1 re-runs byte-identical
+after every change below, extract included.
+
+**What the A2 ranking turned up**, each fixed with its reason beside it:
+- **A rare noun spelt like a common verb or adjective took its count** (`le` "scythe" for "to laugh", `kaste`
+  "caste", `tvinge` "clamp", `tjekke` "a Czech", `banke`, `rive`, `hoppe` "mare", `sej` "pollock" for "tough, cool",
+  `kær` "pond" for "dear", `fri` "to propose" for "free" …) — now read by `FILL_POS`; `ETYMS` takes `skab`
+  "cupboard" and `mål` "goal".
+- **More of the imperative's and the definite's counts** reaching another headword: `live` (from `livet`), `læg`,
+  `spore` (from `sporet`), `hov`, `luk`, `forsvind`; and forms taught on another card (`hurtigt`, `dårligt`,
+  `klokken`, `holdt`, `hørt`, `fader`) — `select.EXCLUDE`. `aflede`'s Wiktionary table lists `lede`'s forms.
+- **A bare auxiliary as the perfect**: `svømme`'s headword line splits `er svømmet` into `er` and `har svømmet`, so
+  the card printed "perfect: er"; a bare `er` or `har` is no longer taken (`extract.py`).
+- **Swearing**: `fandens`, `forbandet`, `pokker`, and `kæft` (from `hold kæft`).
+- No gender given (`maskine`, `kursus`, `oberst`, `forskel`, `busstoppested`) — `GENDER_FIX`; `fru` (a title) and
+  `aftes` (only in `i aftes`) take no article (`NO_ART`, and the check knows them).
+- Inventory words not in Wiktionary were dropped or replaced: `briller` → `brille`, `stoppested` → `busstoppested`,
+  `skadet` → `skade`, `overrasket` → `overraske`, `overskyet` → `skyet`, `for nylig` → `nylig`; `metro`, `forstad`,
+  `tidligere` and `altså` dropped (`altså` has no extract entry); `misse` (Wiktionary has only "to blink") and `tag`
+  "roof" (its count is the imperative "take!", which would deal it first of the deck) left out.
+
+**Known, left.** The fill carries the subtitles' crime vocabulary (`våben`, `pistol`, `mord`, `fængsel`), as A1 does.
+`le` "to laugh" shares its English side with `grine` and is labelled by the shelf's dedupe pass ("not grine").

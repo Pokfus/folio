@@ -38,7 +38,7 @@ from da import fold, nfc, WORD as DAWORD
 from danish_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
-STAMP = {'a1': '2026-11-15T00:00:00.000Z'}[LEVEL]
+STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-15T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'danish'
@@ -104,7 +104,11 @@ def gloss_text(g, pos):
 
 # ONE ETYMOLOGY PER CARD, the first Wiktionary lists (or, where the inventory names a part
 # of speech, the first that has it), unless named here.  Read off the A1 build (2026-11-15).
-ETYMS = {}
+ETYMS = {
+    # A2 (2026-11-15)
+    'skab': ['2'],              # "a cupboard"; etymology 1 is "mange"
+    'mål': ['2'],               # "a goal, a measure"; etymology 1 is "language"
+}
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where Wiktionary's
 # is a grammar note, a paragraph or a pointer rather than a meaning.
@@ -140,6 +144,13 @@ GLOSS = {
     'tak': {'intj': ['thank you, thanks']},
     'nu': {'adv': ['now']},
     'fatte': {'verb': ['to understand, to grasp']},
+    # A2 (2026-11-15)
+    'forbi': {'adv': ['over, finished', 'past, by'], 'prep': ['past, by']},
+    'stole': {'verb': ['stole på: to trust, to rely on']},
+    'tøj': {'noun': ['clothes, clothing', 'fabric, material']},
+    'skidt': {'adj': ['bad, poor'], 'intj': ["never mind, it doesn't matter"]},
+    'aftes': {'noun': ['i aftes: last night, yesterday evening']},
+    'hær': {'noun': ['army']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -149,15 +160,22 @@ MONTHS = set('januar februar marts april maj juni juli august september oktober 
              'december'.split())
 
 # NO ARTICLE for a language's name, which Danish uses without one (jeg taler dansk)
-NO_ART = {'dansk', 'engelsk', 'tysk', 'fransk', 'svensk', 'norsk', 'spansk'}
+NO_ART = {'dansk', 'engelsk', 'tysk', 'fransk', 'svensk', 'norsk', 'spansk',
+          'fru', 'aftes'}   # a title (fru Hansen) and a noun met only in i aftes
 
 # A GENDER WRITTEN HERE, where the lemma's first entry is not the everyday word's.
-GENDER_FIX = {'penge': 'p', 'forældre': 'p', 'farfar': 'c', 'kuglepen': 'c'}
+GENDER_FIX = {'penge': 'p', 'forældre': 'p', 'farfar': 'c', 'kuglepen': 'c',
+              # A2: Wiktionary gives these no gender
+              'maskine': 'c', 'kursus': 'n', 'busstoppested': 'n', 'oberst': 'c', 'forskel': 'c'}
 
 # A PART OF SPEECH NOT SHOWN for one word: a block that is noise beside the word a beginner meets.
 DROP_POS = {('kende', 'adv'), ('lukke', 'noun'), ('færdig', 'intj'), ('nu', 'noun'), ('om', 'adv'),
             ('han', 'noun'), ('hun', 'noun'), ('hvad', 'intj'), ('spise', 'noun'), ('øje', 'verb'),
-            ('skole', 'verb'), ('få', 'noun'), ('stå', 'noun'), ('tak', 'noun')}
+            ('skole', 'verb'), ('få', 'noun'), ('stå', 'noun'), ('tak', 'noun'),
+            # A2
+            ('herre', 'adv'), ('kæreste', 'verb'), ('gemme', 'noun'), ('pleje', 'noun'), ('brænde', 'noun'),
+            ('skidt', 'noun'), ('tosse', 'verb'), ('tæppe', 'verb'), ('tåge', 'verb'), ('ægte', 'verb'),
+            ('dække', 'noun'), ('skifte', 'noun')}
 
 # A GLOSS THAT IS NOT A MEANING: a pointer to another headword or a form label.
 NOT_A_MEANING = re.compile(

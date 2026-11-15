@@ -16,7 +16,7 @@ Wiktionary heads a word under a form a learner does not meet first, the
 learner's word is written and `select.ALIAS` names the headword (`mange`,
 filed under `mangen`).
 
-Only A1 is written so far (2026-11-15); A2 to C1 are the plan's later phases.
+A1 and A2 are written (2026-11-15); B1 to C1 are the plan's later phases.
 """
 
 A1 = [
@@ -62,4 +62,45 @@ A1 = [
                        'lytte tage give køre rejse:verb hjælpe:verb finde'),
 ]
 
-INVENTORY = {'a1': A1}
+A2 = [
+    ('seasons and dates', 'årstid forår sommer efterår vinter weekend ferie jul påske fødselsdag kalender '
+                          'dato sekund kvarter'),
+    ('more numbers', 'tretten fjorten femten seksten sytten atten nitten halvtreds tres halvfjerds firs '
+                     'halvfems million fjerde femte dobbelt'),
+    ('the land and nature', 'natur skov bjerg sø flod å strand ø mark træ blomst græs sten himmel stjerne '
+                            'måne jord land:noun park bakke'),
+    ('weather', 'sky:noun skyet blæse storm grad temperatur kulde varme tåge torden våd tør'),
+    ('animals', 'dyr hund kat hest ko gris får:noun høne fugl mus kanin bjørn ulv'),
+    ('clothes', 'tøj trøje bukser nederdel kjole skjorte jakke frakke hue sko strømpe hat taske handske '
+                'brille størrelse'),
+    ('the home and the kitchen', 'have:noun væg gulv trappe sofa lampe skab hylde tæppe komfur køleskab '
+                                 'ovn tallerken kop glas kniv gaffel ske gryde vaske gøre_rent husleje leje:verb '
+                                 'nabo'),
+    ('food and cooking', 'grøntsag gulerod løg kylling pølse skinke agurk banan jordbær suppe kage juice slik '
+                         'sovs peber olie mel sandwich koge stege bage smage sød sur:adj'),
+    ('work and jobs', 'chef kollega firma løn møde fag sygeplejerske politibetjent landmand kok sælger '
+                      'ingeniør ansætte arbejdsløs ansøge'),
+    ('school and learning', 'klasse lektion lektie eksamen kursus universitet spørgsmål svar ord sætning '
+                            'øvelse karakter papir computer studere'),
+    ('travel and transport', 'rejse:noun fly båd sporvogn busstoppested pas kuffert kort:noun turist '
+                             'udland ankomst afgang forsinkelse lande:verb stige skifte'),
+    ('the town', 'centrum torv kirke museum bibliotek biograf teater posthus politistation tankstation '
+                 'parkering hjørne bro kryds kvarter'),
+    ('health', 'krop hjerte ryg hals finger knæ blod tandlæge recept forkølet hoste smerte skade:verb '
+               'hvile'),
+    ('feelings', 'følelse vred bekymret nervøs lykkelig skuffet overraske frygt kærlighed grine græde '
+                 'savne hade'),
+    ('free time', 'fritid sport fodbold kamp musik sang film billede kunst spil svømme danse synge male '
+                  'træne fiske tur'),
+    ('everyday verbs', 'bære vise:verb lægge stille:verb vende vinde:verb tabe begynde slutte vælge beslutte '
+                       'glemme huske love låne sende ændre sammenligne forklare beskrive bestille vente '
+                       'invitere besøge'),
+    ('describing things and people', 'høj lav bred smal tyk tynd tung blød hård hurtig langsom ren:adj '
+                                     'beskidt stille:adj højlydt smuk grim sød:adj flink sjov kedelig '
+                                     'interessant vigtig almindelig mærkelig nem mørk lys:adj fuld tom '
+                                     'åben lukket'),
+    ('time words', 'sjældent straks stadig senere nylig mens endnu dagligt'),
+    ('connectors', 'derfor selvom hvis inden når også desuden alligevel enten hverken undtagen'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2}

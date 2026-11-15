@@ -279,7 +279,8 @@ def main():
             for t in f.get('tags') or []:
                 if t in ('present', 'past', 'perfect', 'participle', 'imperative', 'comparative',
                          'superlative', 'neuter', 'plural', 'definite') \
-                        and (is_danish(f.get('form', '')) or t == 'perfect') and t not in head_forms:
+                        and (is_danish(f.get('form', '')) or t == 'perfect') and t not in head_forms \
+                        and f.get('form') not in ('er', 'har'):   # svømme: a bare auxiliary, split off its participle
                     head_forms[t] = nfc(f['form'])
         ent = {'pos': pos, 'etym': e.get('etymology_number', '') or '',
                'gender': gender_of(e) if pos == 'noun' else '', 'glosses': gl,

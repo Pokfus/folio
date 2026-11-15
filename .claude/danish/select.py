@@ -51,13 +51,32 @@ EXCLUDE = {
     'gode': 'its count is the plural of god; the noun "a blessing" is rare beside it',
     'bedste': 'the superlative of god, whose table shows it',
     'vis': 'its count is vist "probably" and på en måde; the noun "manner" is rare',
+    # Read off the A2 ranking (2026-11-15).
+    # A FORM TAUGHT ON ANOTHER CARD
+    'hurtigt': 'the neuter of hurtig (A2)', 'dårligt': 'the neuter of dårlig (A1)',
+    'sjovt': 'the neuter of sjov', 'dejligt': 'the neuter of dejlig', 'rent': 'the neuter of ren (A2)',
+    'klokken': 'the definite of klokke (A1), "o\'clock"', 'holdt': 'the past of holde (A1)',
+    'hørt': 'the participle of høre (A1)', 'luk': 'the imperative of lukke (A1)',
+    'fader': 'the formal father, far being taught (A1)',
+    # ITS COUNT IS ANOTHER WORD'S
+    'live': 'its count is livet, the definite of liv (A1); the verb "to enliven" is rare',
+    'læg': 'its count is læg! "put!" (lægge); the noun "calf" is rare beside it',
+    'spore': 'its count is sporet, the definite of spor; the noun "spore" is rare',
+    'hov': 'its count is the interjection hov! "oops"; the noun "hoof" is rare',
+    'oppe': 'its count is the adverb oppe "up", which Wiktionary does not give; its verb is rare',
+    'an': 'met only in fixed expressions', 'øh': 'a hesitation sound with no meaning to teach',
+    'kæft': 'met in the rude hold kæft "shut up"',
+    'forsvind': 'the imperative of forsvinde (A2), filed as an interjection',
+    'dér': 'the stressed spelling of der (A1)',
+    'aflede': 'its table gives lede\'s forms (leder, ledte), which claim lede\'s and leder\'s count',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
 # Swearing and insults are never in a level deck.
 SWEARS = {'fanden', 'fandme', 'fuck', 'fucking', 'lort', 'pis', 'pisse', 'røv', 'satan', 'helvede',
           'kraftedeme', 'kælling', 'luder', 'idiot', 'fjols', 'nar', 'bøsse', 'kneppe', 'pik',
-          'fisse', 'skide', 'shit', 'svin', 'røvhul', 'dælme', 'sgu', 'fandeme'}
+          'fisse', 'skide', 'shit', 'svin', 'røvhul', 'dælme', 'sgu', 'fandeme',
+          'fandens', 'forbandet', 'pokker', 'pokkers', 'kraftedme', 'fanden'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists
 # another first.
@@ -65,7 +84,12 @@ FILL_POS = {'tro': 'verb', 'nok': 'adv', 'lige': 'adv', 'slå': 'verb', 'prøve'
             'helt': 'adv', 'lade': 'verb', 'bede': 'verb', 'vise': 'verb', 'vinde': 'verb',
             'næste': 'adj', 'grund': 'noun', 'gift': 'adj', 'stå': 'verb', 'kende': 'verb',
             'lukke': 'verb', 'ringe': 'verb', 'rejse': 'verb', 'følge': 'verb', 'ende': 'verb',
-            'fejl': 'noun'}
+            'fejl': 'noun',
+            # A2 (2026-11-15): the verb or adjective, not a rare noun spelt like it
+            'fri': 'adj', 'bringe': 'verb', 'ane': 'verb', 'normal': 'adj', 'kær': 'adj', 'føde': 'verb',
+            'føre': 'verb', 'le': 'verb', 'kaste': 'verb', 'fylde': 'verb', 'tvinge': 'verb', 'sej': 'adj',
+            'tjekke': 'verb', 'rende': 'verb', 'tælle': 'verb', 'banke': 'verb', 'rive': 'verb',
+            'hoppe': 'verb', 'styre': 'verb', 'spænde': 'verb', 'bytte': 'verb'}
 
 # A WORD DEALT BY ANOTHER'S COUNT.  The pronoun `I` "you (plural)" is counted in the
 # subtitles under its lower case, the preposition `i`, so it is dealt by its object form's.
