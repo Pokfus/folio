@@ -6,6 +6,7 @@
     python3 .claude/amharic/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/amharic/run.py --re-extract    # rebuild the counts and the lexicon
     python3 .claude/amharic/alphabet.py            # the fidäl deck (reads lex.json)
+    python3 .claude/amharic/phrases.py             # the phrases deck (reads the cache; after B1)
 
 ONE LEVEL PER RUN (`amharic_level` reads the level once, at import).  Downloads
 its sources into `.claude/amharic-cache/` (gitignored, about 130 MB, Tatoeba's

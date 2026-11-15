@@ -3660,7 +3660,9 @@ changed was the one that had been wrong all along.
   labialised forms, the punctuation), **A1, `decks/Amharic-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2,
   `decks/Amharic-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-15: the Ethiopian months, the twin and "of"
   adjective rules from A2 on) **and B1, `decks/Amharic-B1.folio-deck.json`** (494 notes, 2026-11-15: short of
-  1,000, the source used up; no B2).
+  1,000, the source used up; no B2) **and the phrases deck, `decks/Amharic-Phrases-and-Expressions.folio-deck.json`**
+  (200 notes: 13 Wiktionary phrases, 187 Tatoeba sentences labelled by who is spoken to; `python3
+  .claude/amharic/phrases.py`). The collection is complete.
   `python3 .claude/amharic/run.py [--level a1|a2|b1]`, `python3 .claude/amharic/alphabet.py`,
   `node .claude/amharic/check-amharic.js`; a re-run is byte-identical. Zulu's arrangement: about 2,300
   Wiktionary words, about 250 Tatoeba pairs, no subtitle list, so the frequency is the Amharic Wikipedia's

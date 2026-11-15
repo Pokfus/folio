@@ -6,8 +6,8 @@ record of how those were built, and every rule there applies here unless this fi
 on 2026-11-15: "Add an Amharic language collection." The owner was not asked: the Zulu and Hausa owners'
 answers to the same questions, for sources as thin as these, were taken.
 
-**STATUS (2026-11-15): all four planned decks are built** — the fidäl deck, A1, A2 and B1 (`.claude/amharic/`, §6).
-B1 holds 494 notes, not 1,000: what the source has left after A2 (§6).
+**STATUS (2026-11-15): the collection is complete** — the fidäl deck, A1, A2 and B1 (`.claude/amharic/`, §6) —
+**and a phrases deck asked for afterwards** (200 notes, §6). B1 holds 494 notes, not 1,000: what the source has left.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck this plan produces. The collection's first commit carried a line and a bump because it also
@@ -31,6 +31,7 @@ changed the APP (the shelf's hue in `app.js`) — the Hebrew and Zulu precedent.
 | Amharic A1 Beginner — built | `Amharic-A1.folio-deck.json` | 500 |
 | Amharic A2 Elementary — built | `Amharic-A2.folio-deck.json` | 750 |
 | Amharic B1 Intermediate — built | `Amharic-B1.folio-deck.json` | 494 (planned 1,000) |
+| Amharic Phrases and Expressions — built, asked for 2026-11-15 | `Amharic-Phrases-and-Expressions.folio-deck.json` | 200 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
 
@@ -116,8 +117,7 @@ and all.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the fidäl deck, A1. **Phase 2 (done)** — A2, then B1. **Phase 3** — a phrases deck only if asked (Wiktionary
-has 7 Amharic phrase entries and one proverb).
+**Phase 1 (done)** — the pipeline, the fidäl deck, A1. **Phase 2 (done)** — A2, then B1. **Phase 3 (done)** — a phrases deck, asked for on 2026-11-15 (below).
 
 ## 6. As built (2026-11-15)
 
@@ -166,3 +166,25 @@ B1 ranking added: twenty more `EXCLUDE` lines (second spellings — ማዎቅ, �
 languages from the encyclopaedia, a dialect word, and four words of sexual or anatomical vocabulary the level
 does not need), and Egypt keeps its capital. ጥቅምቲ ("October", the second month) was not taken for A2's
 missing ጥቅምት: it is the Tigrinya spelling. **There is no source here for a B2.**
+
+**The phrases deck (2026-11-15, on request: "Add phrases").** `python3 .claude/amharic/phrases.py`: 200 notes in
+two subdecks, the Zulu arrangement. **Phrases** (13): every phrase, interjection and proverb English Wiktionary
+has for Amharic that the levels do not teach (ይቅርታ is A1's), in a hand order, each with Wiktionary's gloss and
+romanisation — ጤና ይስጥልኝ, ሀሎ, እሺ, ስምህ / ስምሽ ማን ነው, the three forms of እንግሊዝኛ ትችላለህ, መልካም ልደት,
+መልካም አዲስ አመት, ሃሌሉያ, ወዮ and the one proverb. An entry Wiktionary defines only as another's variant
+("feminine singular of …") takes that entry's gloss with who it is said to, and the entry it varies is
+labelled "to a man". **Sentences** (187): Tatoeba's Amharic sentences of nine words at most, as written, each
+with its Tatoeba number; no romanisation (Tatoeba gives none). A re-run is byte-identical. The findings:
+- **AMHARIC MARKS WHO IS SPOKEN TO**, so Tatoeba often has two to four sentences for one English one; `ADDRESS`
+  labels them from the pronoun or ending each uses (አንተ / -ህ a man, አንቺ / -ሽ a woman, እርስዎ / -ዎ formal,
+  -ችሁ several people), and a sentence whose English is still another's after that is left out, the shorter
+  kept — the reverse card needs one answer.
+- **"ALREADY TAUGHT" IS COMPARED AS SPELT, NOT BY KEY**: the fold joins እሺ "okay" with A1's ሺ "thousand" (the
+  opening እ folds away), so a key comparison called the phrase taught.
+- **`DROP` names 27 sentences** with their reasons: seven mistyped (ተፈልጋለህ, ይህዱና, ክዚህ …), three
+  mistranslated (እግዚአብሔር ይመስገን "God be praised" paired with "Thank you"; ምንም ሰው አየ, which has no
+  negative, with "He saw nobody"; ሩሲያው "the Russian" with "Russia"), a Latin transliteration, an
+  encyclopaedic fact, four not everyday (killing, a gun), and variants of one formula (four more "My name is
+  …", a second wording of a sentence kept).
+`check-amharic.js` checks the deck's subdecks, Ethiopic fronts, romanised phrases, a Tatoeba number on every
+sentence and unique English sides.
