@@ -3,6 +3,7 @@
 
     python3 .claude/cantonese/run.py                 # A1
     python3 .claude/cantonese/run.py --level a2      # another level (inventory first: inventory.py)
+    python3 .claude/cantonese/run.py --level phr     # the phrases deck (phrases.py in place of select.py)
     python3 .claude/cantonese/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/cantonese/run.py --re-extract    # rebuild lex.json / freq.json / tat.json
     python3 .claude/cantonese/sounds.py              # the Jyutping and Tones deck (reads lex.json)
@@ -99,7 +100,7 @@ def main():
         print('sources:')
         fetch()
     os.chdir(CACHE)
-    stages = ['select.py', 'examples.py', 'build_deck.py']
+    stages = ['phrases.py' if level == 'phr' else 'select.py', 'examples.py', 'build_deck.py']
     if not os.path.exists('lex.json') or '--re-extract' in sys.argv:
         stages.insert(0, 'extract.py')
     for stage in stages:

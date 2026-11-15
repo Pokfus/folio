@@ -5,9 +5,9 @@ language set in the shape of the ones already shipped, Thai's above all (`docs/t
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-15: "Add a Cantonese language collection."
 
-**STATUS (2026-11-15): the Jyutping and Tones deck and all five levels are built** (`.claude/cantonese/`,
-§6–§10; B2 at 939 and C1 at 598 notes, short of 1,500 each: the spoken corpus is used up). A phrases deck is
-planned.
+**STATUS (2026-11-15): the collection is complete** — the Jyutping and Tones deck, all five levels (B2 at 939
+and C1 at 598 notes, short of 1,500 each: the spoken corpus is used up) and the phrases deck (`.claude/cantonese/`,
+§6–§11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP —
@@ -44,7 +44,7 @@ other languages (Hindi, Thai) were taken rather than asked again — **they are 
 | Cantonese B1 Intermediate — built | `Cantonese-B1.folio-deck.json` | 1,000 |
 | Cantonese B2 Upper Intermediate — built | `Cantonese-B2.folio-deck.json` | 939 (of 1,500 planned) |
 | Cantonese C1 Advanced — built | `Cantonese-C1.folio-deck.json` | 598 (of 1,500 planned) |
-| Cantonese Phrases and Expressions | `Cantonese-Phrases-and-Expressions.folio-deck.json` | — |
+| Cantonese Phrases and Expressions — built | `Cantonese-Phrases-and-Expressions.folio-deck.json` | 347 |
 
 ## 2. Sources and licences
 
@@ -147,8 +147,7 @@ sentence (Tatoeba's Cantonese–English pairs are 2,852). Some glosses keep CC-C
 
 **Phase 1 (done)** — the pipeline, the Jyutping and Tones deck, A1. **Phase 2 (done)** — A2 (§7), B1 (§8), B2 (§9) and C1 (§10), one level per
 session: write the level's inventory into `inventory.py` and its `SCOPE` into `cantonese_level.py`, run, read
-every card, extend `SHOW`, `JUNK`, `hand.py`. **Phase 3** — a phrases deck (CC-Canto's idioms and set phrases,
-Tatoeba's short sentences).
+every card, extend `SHOW`, `JUNK`, `hand.py`. **Phase 3 (done)** — the phrases deck (§11).
 
 ## 6. As built (2026-11-15): the Jyutping and Tones deck and A1
 
@@ -277,3 +276,29 @@ fill's rules. Sentences for 25. 389 show a simplified form. A1–B2 re-run uncha
   States, 方言 on Yang Xiong's first-century dictionary, 頭條 on the Toutiao app); 地獄 was taken out of the
   inventory (its "hell" sense is tagged Buddhist, so weak, and the card would have shown only a slang sense about
   dark humour).
+
+## 11. As built (2026-11-15): the phrases deck
+
+On request ("Add phrases"). `python3 .claude/cantonese/run.py --level phr` (`phrases.py` in place of
+`select.py`). **347 expressions in four subdecks: 47 phrases, 164 slang, 108 idioms, 28 proverbs.** Nothing a
+level teaches is repeated. Only 5 have an example sentence (Tatoeba is used up by the levels). A re-run is
+byte-identical; the five levels are unchanged.
+
+- **CC-Canto's own labels are the backbone.** Its entries carry a part of speech of their own, and some of
+  them say what they are: `slang` (277), `idiom` (41), `proverb` (28), `phrase` (21), `saying` (8),
+  `metaphor` (6), `interjection` (5). Those become the Slang (slang, metaphor), Idioms (idiom, saying),
+  Proverbs and Phrases (phrase, interjection) subdecks. The slang is the deck's heart — 拗頸, 縮沙, 穿煲, 走雞,
+  食死貓, 扮豬食老虎, 雞手鴨腳, 煲電話粥, 拉埋天窗 — and the proverbs are Cantonese ones (口水多過茶, 山水有相逢,
+  冷手執個熱煎堆), not Mandarin's.
+- **Two more sources**: the four-character idioms CC-CEDICT marks "(idiom)" that were HEARD — 65 of its 4,670 are
+  in HKCanCor or Tatoeba, and only those are dealt (the rest are written Chinese a Cantonese learner may never
+  hear) — and the expressions HKCanCor's annotators tagged as set expressions (`l`, `i`: 係噉先, 借問聲, 吹水唔抹嘴).
+  `INCLUDE` adds five greetings no label catches (生日快樂, 新年快樂, 聖誕快樂, 唔該晒, 多謝晒); three more it named
+  (食咗飯未, 慢慢行, 小心啲) are in neither dictionary and were dropped.
+- **`EXCLUDE` (in `phrases.py`) is long, and that is the finding**: CC-Canto files sexual, crude and derogatory
+  slang beside the rest with nothing to tell them apart — 34 entries are left out for that (sexual senses,
+  crude words, slurs about women, skin colour and Westerners, curses). Another 35 are ordinary words CC-Canto
+  also labels slang for one sense (牛皮 "cowhide", 熊貓 "panda", 碼頭 "pier"), whose card would lead with the ordinary
+  meaning. Two glosses that are not the expression's meaning, and a rarer spelling (神推鬼㧬 beside 神推鬼拱).
+- **The English is often an explanation** ("to describe someone who…"), CC-Canto's own: slang and proverbs have
+  no English equivalent, and none is invented. One `SHOW` row: 臥虎藏龍 opened on Ang Lee's film.

@@ -3664,7 +3664,10 @@ changed was the one that had been wrong all along.
   395 inventory, 605 frequency, single characters, names and numerals kept out of the corpus's tail; sentences for
   only 248, Tatoeba used up) **and B2, `decks/Cantonese-B2.folio-deck.json`** (939 notes, short of 1,500: 804 inventory, 135
   frequency, the spoken corpus used up; a Tatoeba-ranked second tier was tried and refused as written register) **and C1, `decks/Cantonese-C1.folio-deck.json`** (598 notes, all from the inventory, short of 1,500;
-  88 four-character expressions among them). `python3 .claude/cantonese/run.py [--level a1|a2|b1|b2|c1]`,
+  88 four-character expressions among them) **and the phrases deck,
+  `decks/Cantonese-Phrases-and-Expressions.folio-deck.json`** (347 expressions: 47 phrases, 164 slang, 108 idioms,
+  28 proverbs; `run.py --level phr`, `phrases.py`, from CC-Canto's own slang / idiom / proverb labels, with the
+  sexual, crude and derogatory slang it files untagged left out). The collection is complete. `python3 .claude/cantonese/run.py [--level a1|a2|b1|b2|c1|phr]`,
   `python3 .claude/cantonese/sounds.py`, `node .claude/cantonese/check-cantonese.js`; a re-run is byte-identical.
   SPOKEN Hong Kong Cantonese in traditional characters, the simplified form beneath, Jyutping with tone digits.
   The first set built without Wiktionary: meanings from CC-CEDICT and CC-Canto, Jyutping from CC-Canto and its

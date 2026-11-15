@@ -196,6 +196,8 @@ SHOW = {
     '小說家|siu2 syut3 gaa1': ['novelist'],
     '方言|fong1 jin4': ['dialect', 'topolect'],
     '頭條|tau4 tiu4': ['lead story (on the news)'],
+    # the phrases deck
+    '臥虎藏龍|ngo6 fu2 cong4 lung4': ['lit. hidden dragon, crouching tiger (idiom)', 'fig. talented individuals in hiding', 'concealed talent'],
     # the everyday Cantonese sense, which the dictionaries list late
     '你|nei5': ['you (informal, as opposed to courteous 您)'],
     '好|hou2': ['good', '(before an adjective for exclamatory effect) so', 'all right!', '(after a form of address) hello'],
@@ -375,7 +377,7 @@ def build(rows, lex, freq, exs):
         if simp == row['word']:
             simp = ''
         ex = exs.get(row['key'], [])
-        cards.append({'sub': '', 'fields': {
+        cards.append({'sub': row.get('sub', ''), 'fields': {
             'Cantonese': E(row['word']),
             'Jyutping': E(row['jp']),
             'Simplified': E(simp),
@@ -385,7 +387,8 @@ def build(rows, lex, freq, exs):
         }})
         entries.append({'key': row['key'], 'word': row['word'], 'jp': row['jp'], 'source': row['source'],
                         'topic': row.get('topic', ''), 'examples': len(ex), 'hand': bool(row.get('hand')),
-                        'simp': bool(simp), 'rom': sum(1 for x in ex if x[2])})
+                        'simp': bool(simp), 'rom': sum(1 for x in ex if x[2]), 'sub': row.get('sub', ''),
+                        'hk': row.get('hk', 0)})
     return cards, entries
 
 
@@ -453,6 +456,43 @@ def desc(entries, n):
     )
 
 
+PHR_ORDER = ['Phrases', 'Slang', 'Idioms', 'Proverbs']
+
+
+def desc_phr(entries, n):
+    by = {s: [e for e in entries if e['sub'] == s] for s in PHR_ORDER}
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    heard = sum(1 for e in entries if e['hk'])
+    return (
+        f"{n} Cantonese expressions in four subdecks: {len(by['Phrases'])} everyday phrases, "
+        f"{len(by['Slang'])} pieces of Hong Kong slang, {len(by['Idioms'])} idioms and "
+        f"{len(by['Proverbs'])} proverbs and sayings. Both study directions come as two cards of one "
+        "expression — Cantonese → English and English → Cantonese — each with a schedule of its own. "
+        "This is a companion to the five level decks, Cantonese A1 to C1, and not one of them: a level "
+        "is a list of words, and an expression is a unit a list of words cannot see. Nothing here is "
+        "taught by any of the five. The PHRASES are the formulas a speaker uses as one piece "
+        f"({eg('Phrases')} …): greetings for birthdays and the festivals, and the set expressions the "
+        "Hong Kong Cantonese Corpus's annotators marked as such. The SLANG is the colourful, colloquial "
+        f"heart of Hong Kong speech ({eg('Slang')} …), from the entries CC-Canto, a Cantonese "
+        "dictionary, labels as slang or metaphor — leaving out what is sexual, crude or a slur, and "
+        "the ordinary words it labels slang for one sense. The IDIOMS are four-character expressions "
+        f"({eg('Idioms')} …): those CC-Canto labels as idioms or sayings, and those CC-CEDICT marks as "
+        "idioms that people were actually heard saying, in the corpus or in Tatoeba's Cantonese "
+        f"sentences. The PROVERBS and sayings ({eg('Proverbs')} …) are CC-Canto's. The English is the "
+        "dictionaries' own, often an explanation rather than an equivalent, because slang and "
+        "proverbs have none. Within each subdeck the expressions come in the order of how often the "
+        f"corpus's speakers said them ({heard} of the {n} are in it) and then of Tatoeba's count. Every "
+        "expression is printed in traditional characters, with the simplified form beneath where it "
+        "differs, and in Jyutping with its tone digits. Real example sentences come with "
+        f"{n - ex0} of the {n} expressions, with the expression picked out in colour. Sources. "
+        "Expressions, meanings and Jyutping: CC-Canto (Pleco, CC BY-SA 3.0) and CC-CEDICT (MDBG, CC "
+        "BY-SA 4.0) with Pleco's Cantonese readings. Set expressions and order: the Hong Kong "
+        "Cantonese Corpus, HKCanCor (Luke Kang Kwong; CC BY 4.0), and Tatoeba. Example sentences: "
+        "Tatoeba (tatoeba.org), CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -468,9 +508,13 @@ def main():
     n = len(cards)
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['cantonese', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': (f'{n} expressions · ' + ', '.join(f"{sum(1 for e in entries if e['sub'] == s)} {s.lower()}"
+                                                      for s in PHR_ORDER) + ' · both directions'
+                     if LEVEL == 'phr' else f'{n} words · both directions, as two cards per word'),
+        'desc': desc_phr(entries, n) if LEVEL == 'phr' else desc(entries, n),
+        'author': '', 'language': 'en', 'color': COLOR,
+        'tags': (['cantonese', 'phrases', 'slang', 'idioms', 'proverbs'] if LEVEL == 'phr'
+                 else ['cantonese', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]),
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Cantonese vocabulary', 'speechLang': 'zh-HK',
