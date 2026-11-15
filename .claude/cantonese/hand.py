@@ -49,6 +49,7 @@ EXCLUDE = {
     '變態': "its everyday sense is 'pervert'", '低能': 'an insult', '鬼佬': 'a derogatory word for Westerners',
     '西隧': 'a name (the Western Harbour Crossing)', '城巴': 'a name (Citybus)',
     '阿爸': "CC-CEDICT's only sense is the Aramaic 'Abba'; the Cantonese 'dad' is in neither dictionary",
+    '心諗': "CC-Canto's gloss is the literal 'the heart thinks'",
     '可': 'a bound form ("-able"), never a word on its own in speech',
     '哋': "the plural suffix of 我哋 / 你哋 / 佢哋, all three taught; alone, HKCanCor has only a rare dei2",
     '喀': "HKCanCor's hesitation haak6 (696 tokens, tagged e); the dictionaries' 喀 is another word, 'to vomit'",

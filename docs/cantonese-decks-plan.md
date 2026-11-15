@@ -5,8 +5,8 @@ language set in the shape of the ones already shipped, Thai's above all (`docs/t
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-15: "Add a Cantonese language collection."
 
-**STATUS (2026-11-15): the Jyutping and Tones deck, A1, A2 and B1 are built** (`.claude/cantonese/`, §6–§8).
-B2, C1 and a phrases deck are planned, one per session.
+**STATUS (2026-11-15): the Jyutping and Tones deck, A1, A2, B1 and B2 are built** (`.claude/cantonese/`,
+§6–§9; B2 at 939 notes, short of 1,500: the spoken corpus is used up). C1 and a phrases deck are planned.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP —
@@ -41,7 +41,7 @@ other languages (Hindi, Thai) were taken rather than asked again — **they are 
 | Cantonese A1 Beginner — built | `Cantonese-A1.folio-deck.json` | 500 |
 | Cantonese A2 Elementary — built | `Cantonese-A2.folio-deck.json` | 750 |
 | Cantonese B1 Intermediate — built | `Cantonese-B1.folio-deck.json` | 1,000 |
-| Cantonese B2 Upper Intermediate | `Cantonese-B2.folio-deck.json` | 1,500 |
+| Cantonese B2 Upper Intermediate — built | `Cantonese-B2.folio-deck.json` | 939 (of 1,500 planned) |
 | Cantonese C1 Advanced | `Cantonese-C1.folio-deck.json` | 1,500 |
 | Cantonese Phrases and Expressions | `Cantonese-Phrases-and-Expressions.folio-deck.json` | — |
 
@@ -144,7 +144,7 @@ sentence (Tatoeba's Cantonese–English pairs are 2,852). Some glosses keep CC-C
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the Jyutping and Tones deck, A1. **Phase 2** — A2 (done, §7), B1 (done, §8), B2 and C1, one level per
+**Phase 1 (done)** — the pipeline, the Jyutping and Tones deck, A1. **Phase 2** — A2 (done, §7), B1 (done, §8), B2 (done, §9) and C1, one level per
 session: write the level's inventory into `inventory.py` and its `SCOPE` into `cantonese_level.py`, run, read
 every card, extend `SHOW`, `JUNK`, `hand.py`. **Phase 3** — a phrases deck (CC-Canto's idioms and set phrases,
 Tatoeba's short sentences).
@@ -227,3 +227,31 @@ none. 602 show a simplified form; no hand glosses. A re-run is byte-identical (v
 - **Not in either dictionary and dropped by `select.py`**: 請人 計劃書 傾生意 放大假 返夜班 銀行戶口 還錢 交稅 樓價 圖書證 電台
   Wi-Fi 社交媒體 睇新聞 新移民 診症 扭親 抹枱 朋友仔 識朋友 年廿八 — and many inventory words were already taught at A1 or A2,
   which is why the inventory share is smaller than at the lower levels.
+
+## 9. As built (2026-11-15): B2
+
+On request ("Add B2"). `python3 .claude/cantonese/run.py --level b2`. **939 notes, short of the 1,500 planned**:
+804 from the B2 inventory (32 topics, `inventory.py` `B2`), 135 by frequency — every word HKCanCor still had
+that passes the fill's rules. Sentences for 96, three for 7. 591 show a simplified form. The deck's description
+says it is short and why (`desc`, a sentence written only when a level falls under its `TARGET`). A1–B1 re-run
+unchanged; B2 re-runs byte-identical (verified).
+
+- **THE SPOKEN CORPUS IS USED UP.** HKCanCor holds about 2,500 words three or more times; A1 to B1 deal 2,250
+  cards, so B2's fill found 135. **A second tier was tried and thrown away**: multi-character words ranked by
+  Tatoeba's counts once HKCanCor ran out (Tatoeba's machine cut is trustworthy for multi-character words, not
+  single characters). It would have reached 1,040 notes, but its 464 words were Tatoeba's translated, written
+  register — 了解 and 晚上 (Mandarin's words, not Hong Kong speech), 形而上學, 吸血鬼, 處女, 函數 — and fragments (拉夫,
+  好清, 加里, 頭上, 三日). A learner of spoken Cantonese is better served by a shorter deck than by those, so the
+  level stops where its sources do, as Zulu's B1 and Amharic's B1 do. More inventory is the way to lengthen it.
+- **The inventory carries the level**, written in 32 topics: politics (立法會, 特首, 一國兩制, 建制派), the law, the
+  economy, science, technology, the environment, health (公立醫院, 醫管局), the arts (粵劇, 粵語片), society (綜援, 強積金,
+  居屋, 劏房), argument, the formal connectors, reporting and persuading, the workplace, housing, transport (回鄉證,
+  輕鐵), the education system, consumers and lifestyle, sport, the shades of feeling, character, geography, food
+  (涼茶, 煲仔飯), the body, abstract nouns, public services, measuring and time — and two topics of everyday Hong Kong
+  speech (無厘頭, 放飛機, 執生, 搏懵, 激氣, 好聲好氣). 79 inventory words are in neither dictionary and were dropped (many
+  of them Hong Kong compounds: 業主立案法團, 怪獸家長, 中學文憑試, 米芝蓮).
+- **Fixes, read off the cards**: three more `SHOW` rows (郊區 had opened on four Jiao Districts of mainland cities,
+  海灣 on the Persian Gulf, 煙花 kept "prostitute"); `JUNK` now drops Hyundai (under 現代), and its `Witness` rule is
+  case-sensitive, so 證人 "witness" is no longer emptied; 心諗 is excluded (CC-Canto's gloss is the literal "the
+  heart thinks"); 收皮 (its only gloss is the obscenity it means) and 紀錄 (its only gloss is a usage note) were taken
+  out of the inventory.

@@ -36,7 +36,7 @@ import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from yue import fold
-from cantonese_level import LEVEL, TITLES, DECK_IDS, DECK_FILES, SCOPE, NAMES, f
+from cantonese_level import LEVEL, TITLES, DECK_IDS, DECK_FILES, SCOPE, NAMES, TARGET, f
 from hand import HAND
 
 STAMP = '2026-11-15T00:00:00.000Z'
@@ -83,7 +83,7 @@ LABEL_RX = re.compile(r'^\((?:noun|verb|adverb|adjective|phrase|pronoun|prep\.|a
 JUNK = re.compile(
     r'surname|short name for|abbreviation for \S+ Province|ethnic group|KangXi radical|'
     r'^the five Liang|^Belgi|Beijing dialect|euphemis|屄|penis|prick|shithead|\(crude\)|lewd|'
-    r'pornographic|a term of gang|triad|^Witness$|^Up stair$|^\(loanword\) fan$|reactionary|'
+    r'pornographic|a term of gang|triad|(?-i:^Witness$)|Hyundai|^Up stair$|^\(loanword\) fan$|reactionary|'
     r'Apple \(American tech company\)|nickname of|^used in |^see |phonetic|derogatory|heroin|a disco|'
     r'-azine|^Canada \(abbr|colloquial pr\.|\(brand\)|Idesia|piss off|^\(figurative - old\)$|^\(bound form\) Japan|'
     r'anti-communist|^revolutionary$|^vulgar$|^a reptile$|^a broker$|^Spanish$|noun \(part of speech\)', re.I)
@@ -188,6 +188,10 @@ SHOW = {
     '樹林|syu6 lam4': ['woods', 'grove', 'forest'],
     '相機|soeng3 gei1': ['camera (abbr. for 照相機)'],
     '兩點|loeng5 dim2': ["two o'clock", 'Two points'],
+    # B2
+    '郊區|gaau1 keoi1': ['suburbs', 'outskirts', 'suburban district'],
+    '海灣|hoi2 waan1': ['bay', 'gulf'],
+    '煙花|jin1 faa1': ['fireworks'],
     # the everyday Cantonese sense, which the dictionaries list late
     '你|nei5': ['you (informal, as opposed to courteous 您)'],
     '好|hou2': ['good', '(before an adjective for exclamatory effect) so', 'all right!', '(after a form of address) hello'],
@@ -415,6 +419,10 @@ def desc(entries, n):
         "Kong Cantonese Corpus (recorded conversations and radio, 1997–98). The cards are dealt by "
         "how often the words are heard there and in Tatoeba's Cantonese sentences, so the commonest "
         "come first" + (", after a first handful of greetings. " if LEVEL == 'a1' else ". ") +
+        (f"THIS LEVEL IS SHORT of the {TARGET[LEVEL]:,} words planned for it: the spoken corpus has no "
+         "more words that the levels below have not taught, and the rest of the level is the vocabulary "
+         "written for its topics, so the deck stops where the sources do rather than take words from "
+         "written Chinese or from a machine's word count. " if n < TARGET[LEVEL] else "") +
         "Every headword is printed in the traditional characters Hong Kong uses, with the "
         "simplified form beneath where it differs, and in Jyutping, the Linguistic Society of Hong "
         "Kong's romanisation, which ends every syllable with its TONE as a digit: 1 high, 2 high "

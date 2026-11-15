@@ -83,7 +83,23 @@ SCOPE = {
                   'and beliefs, the nouns for ideas, reasons and plans, the words that join '
                   'sentences, and the verbs of thinking, deciding, arguing and changing',
     },
-    # B2 and C1 are written when each level is built (docs/cantonese-decks-plan.md §5).
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract '
+                 'topics, including technical discussions in their field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either '
+                 'party, and to produce clear, detailed text on a wide range of subjects and '
+                 'explain a viewpoint on a topical issue, giving the advantages and disadvantages '
+                 'of various options',
+        'topics': 'politics and public administration (the Legislative Council, the Basic Law), '
+                  'the law and the courts, the economy, business and finance, science and research, '
+                  'technology and the internet, the environment and natural resources, health, '
+                  'medicine and the mind, the arts, literature, Cantonese opera and the media, '
+                  'history and society (public housing, the MPF, subdivided flats), argument and '
+                  'evaluation, the formal connectors, the verbs of reporting, analysing and '
+                  'persuading, and the colloquial expressions of everyday Hong Kong speech',
+    },
+    # C1 is written when it is built (docs/cantonese-decks-plan.md §5).
 }
 
 
