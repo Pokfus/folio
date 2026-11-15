@@ -253,6 +253,42 @@ before keying the state (`Punjab,_India` is Wikipedia's title for it). Grep befo
 which overwrites in silence. *Bengal*, *Kashmir* and *Hyderabad* (the city against the princely state) want
 the same care.
 
+## As written (Nov 2026): the batch log
+
+**Sourcing, measured 2026-11-15** (`check-reach.js` plus probes). Most `*.gov.in` / `*.nic.in` hosts time out from the
+sandbox (knowindia, up.gov.in, ap.gov.in, surveyofindia, data.gov.in); **these answer and carry the decks**:
+- **The Census Digital Library** (`censusindia.gov.in/nada`): A-01 (population, area, rural/urban by state, catalog
+  42526), A-02 (1901–2011 by state on present boundaries, 43333), A-04 Class I (towns and UAs with their 1901–2011 series
+  and areas, 42876), C-16 (mother tongue by state, the corpus's existing citation). Each is an `.xlsx`/`.pdf` opened and
+  read; the catalog page is the cited URL.
+- **The Constitution of India as on 1 May 2024** (the Legislative Department's diglot PDF): the First Schedule, pp. 253–62,
+  with the w.e.f. date of every act that created, renamed or redrew a state — the date lines of the states deck.
+- **The Imperial Gazetteer of India (1907–09)** at the Digital South Asia Library: its search returns volume, page and
+  object number, and the archive.org full text of each volume gives the passage. **Every page cited was confirmed by an
+  exact-phrase DSAL search** (one card shipped with a wrong page and was corrected before commit; read the object number
+  off the search, never by offset).
+- **The 1911 Britannica on Wikisource** (its rendered page carries the printed page numbers; the API is rate-limited,
+  `index.php?action=render` is not), **the WMO World Weather Information Service** (IMD normals for 80 Indian stations),
+  **DOAJ and Europe PMC** for open articles (every DOI resolved; several publishers answer curl with 403 behind a
+  resolving DOI), **Ramsar RSIS** (site name, area, date only), and **the Government of Telangana's state profile**.
+
+**Decisions taken while writing:**
+- **The facts grid** of a state is `Kind | Capital | Population | Area`, of a capital `State | Population | Area | Rank in
+  state`, figures to three digits on Russia's rule. A capital's population and area are its census city line (the
+  municipal corporation, or for Hyderabad the census entry ‘(a) Hyderabad’), never the urban agglomeration, which the
+  prose may give as a separate figure.
+- **Andhra Pradesh's figures are derived** (undivided AP in A-01 less Telangana's own published figures) and the card's
+  `notes` says so; **Telangana's are the state government's** (35,003,674; 112,077 km²), never the map's.
+- **Map cards carry no `why`** (`checkWhy` exempts them); the glossary term of each answer is new and written from the
+  card's own sources.
+
+**Deferred (written later or never, never renumbered):**
+- **`gin-509` Gandhinagar** — no opened source gives the planned capital's founding and history (the only open study,
+  Purswani et al. 2022, gives one line); five sentences of history cannot be written honestly from it.
+- **`gin-510` Amaravati** — no opened source covers the capital's founding or the 2019–2024 dispute over its status that
+  this plan requires the card to state with dates (the open literature found is stormwater and finance studies). The
+  ancient Buddhist site of the name is told on `gin-010`.
+
 ---
 
 # The list
