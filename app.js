@@ -643,7 +643,60 @@
     toast("Undid last edit");
   }
   // per-card "don't auto-gloss these terms" list — set when the editor removes a gloss link in the background, so it stays removed
-  function glossOffList(id) { return (id && ADMIN_EDITS.glossOff && ADMIN_EDITS.glossOff[id]) || []; }
+  /* TERMS SWITCHED OFF ON ONE CARD, SHIPPED (2026-11-15, the World History link audit). The editor's own list
+     (ADMIN_EDITS.glossOff) is a delta published through the database and is never baked into a data file, so a wrong
+     link found by an audit had nowhere to be corrected in the repository. This is the same list, in the code: on the
+     card named, the term is not auto-linked in the background or in a Think-it-through answer. It is for a name that
+     is SOMEBODY ELSE on that card — "Claudius II" is not Claudius, "Cyrus Field" not Cyrus the Great, an "Italian
+     Legion" not a Roman one, "the Niger" on a card about the river not the country — where the term is right on other
+     cards of the same collection, so GLOSS_ONLY_IN cannot say it. Where the right term exists the card links it by hand
+     as well (a hand-written data-k is untouched by this list). The editor cannot switch one of these back on. */
+  const GLOSS_OFF_CARDS = {
+    "wh-054": ["Central_African_Republic"],
+    "wh-309": ["Abydos,_Egypt"],
+    "wh-321": ["Ephialtes"],
+    "wh-323": ["Pausanias"],
+    "wh-330": ["Cyrus_the_Great"],
+    "wh-347": ["Claudius", "Marcus_Terentius_Varro"],
+    "wh-350": ["Tiberius"],
+    "wh-360": ["Claudius"],
+    "wh-370": ["Claudius"],
+    "wh-371": ["Julius_Caesar"],
+    "wh-396": ["Bronze_tripod_cauldron"],
+    "wh-423": ["Niger"],
+    "wh-489": ["Clovis_culture"],
+    "wh-500": ["Pastoralism"],
+    "wh-566": ["Ghana"],
+    "wh-568": ["Mali", "Niger"],
+    "wh-570": ["Mali", "Niger"],
+    "wh-571": ["Niger"],
+    "wh-572": ["Niger"],
+    "wh-574": ["Mali"],
+    "wh-575": ["Consul"],
+    "wh-583": ["Niger"],
+    "wh-679": ["United_Nations_General_Assembly"],
+    "wh-718": ["Yuan_dynasty"],
+    "wh-740": ["Consul"],
+    "wh-748": ["Madison"],
+    "wh-756": ["Madison"],
+    "wh-800": ["Ancient_Egypt"],
+    "wh-803": ["Roman_legion"],
+    "wh-826": ["Ancient_Egypt"],
+    "wh-828": ["Niger"],
+    "wh-829": ["Consul"],
+    "wh-830": ["Rhodes"],
+    "wh-833": ["Consul"],
+    "wh-851": ["Congo_River"],
+    "wh-868": ["Cyrus_the_Great"],
+    "wh-946": ["Congo_River"],
+    "wh-975": ["Consul"],
+    "wh-977": ["Ancient_Egypt"],
+    "wh-979": ["Congo_River"],
+  };
+  function glossOffList(id) {
+    const a = (id && ADMIN_EDITS.glossOff && ADMIN_EDITS.glossOff[id]) || [], s = (id && GLOSS_OFF_CARDS[id]) || [];
+    return s.length ? a.concat(s) : a;
+  }
   function setGlossOff(id, key, off) {
     if (!id || !key) return;
     if (!ADMIN_EDITS.glossOff) ADMIN_EDITS.glossOff = {};
@@ -4049,7 +4102,7 @@
   // GLOSS_ONLY_IN in a popup: a collection-bound term links only from a term tagged with one of its subjects
   function glossScopedOk(key, hostKey) {
     const r = GLOSS_ONLY_IN[key];
-    if (!r) return true;
+    if (!r || r.offIn) return true;   // an `offIn` entry is about one collection's cards and never about a popup
     const t = ((window.GLOSSARY_TAGS || {})[hostKey]) || [];
     if (t.some((x) => r.tags.includes(x))) return true;
     return !!(r.text && r.text.test(String((window.GLOSSARY || {})[hostKey] || "")));   // `text`: the host term's own description names the subject
@@ -4087,6 +4140,7 @@
      "a sense of loyalty", "on pain of death" — is not the perception term. A key here links only in a card whose
      collection root is listed (pass the card's id as `cardId`), and in a glossary popup only when the term being
      read is itself tagged with one of `tags`; everywhere else it stays plain text. A hand-written data-k still links. */
+  const WH = ["col-8"];   // World History's root — see the `offIn` entries at the foot of GLOSS_ONLY_IN
   const GLOSS_ONLY_IN = {
     Sense: { roots: ["psych", "bio"], tags: ["psychology", "biology", "neuroscience"] },
     Pain: { roots: ["psych", "bio"], tags: ["psychology", "biology", "neuroscience", "medicine"] },
@@ -4101,12 +4155,129 @@
        the empire (and in a popup whose own term's description does), and the "themes" of a book or a painting stay plain everywhere else.
        Not a bare /Byzanti/: gr-357, a poet's card, cites "the Suda, a Byzantine reference work" beside "his great theme". */
     "Theme_(Byzantine_district)": { roots: [], text: /Byzantine (?:Empire|empire|emperors?|state|army|provinces?)|Byzantium|Eastern Roman Empire/, tags: ["byzantium", "byzantine", "byzantine empire"] },
+    /* WORLD HISTORY'S WRONG-SENSE LINKS (2026-11-15, an audit of every link the collection's 1,000 cards make). The glossary is
+       shared by every collection and a surface is matched by text alone, so an alias written for one collection links in all
+       of them: "tolerance" of other faiths opened the DRUG tolerance term, Toltec "Tula" opened Tula in Russia, "rebus" writing
+       opened the Libu (a plural of the alias "Rebu"), Pope "Nicholas I" opened the tsar. These entries have a different shape
+       from the ones above — `offIn` rather than `roots` — because the audit read World History's links and no other
+       collection's: in a card of a root listed in `offIn` the term links only where the paragraph being linked matches
+       `text` (never, with no `text`), and every other collection, and every glossary popup, links exactly as before.
+       To widen one to another collection after reading that collection's links, give that key its own `offIn` list.
+       A hand-written data-k still links, and GLOSS_OFF_CARDS (below) switches one term off on one card. */
+    Drug_tolerance: { offIn: WH },
+    Somatosensory_system: { offIn: WH },
+    Human_eye: { offIn: WH, text: /eye sockets?|retina|pupil/ },
+    "Accommodation_(vertebrate_eye)": { offIn: WH },
+    Memory_consolidation: { offIn: WH },
+    Cosmopolitan_distribution: { offIn: WH },
+    Memory: { offIn: WH },
+    Sound: { offIn: WH },
+    Taste: { offIn: WH },
+    Truth: { offIn: WH },
+    Ear: { offIn: WH, text: /ear bone|inner ear|middle ear|hearing|eardrum|cochlea/ },
+    "Cell_(biology)": { offIn: WH, text: /DNA|mitochondri|nucleus|genome|protein|organism/ },
+    Spinal_column: { offIn: WH, text: /spine|skull|vertebra|skeleton|pelvis/ },
+    Geological_epoch: { offIn: WH, text: /Holocene|Pleistocene|Pliocene|Miocene|[Gg]eolog|Anthropocene/ },
+    Crystal: { offIn: WH, text: /crystals\b|mineral|lattice|quartz|crystal analysis/ },
+    Botany: { offIn: WH, text: /\bplants?\b|botanist/ },
+    Greek_altar: { offIn: WH, text: /Greek|Greece|Hellen|Zeus|Alexander/ },
+    Roman_censor: { offIn: WH, text: /\bcensors?\b/ },
+    Time_of_Troubles: { offIn: WH, text: /Godunov|False Dmitr|Muscov|Romanov|Russia/ },
+    White_movement: { offIn: WH, text: /Bolshevik|Red Army|Russian Civil War|Kolchak|Denikin|Wrangel/ },
+    Mari_people: { offIn: WH, text: /Volga|Cheremis|Finno-Ugric|Mari El/ },
+    "Tula,_Russia": { offIn: WH, text: /Russia|Moscow|Soviet/ },
+    "Kirov,_Kirov_Oblast": { offIn: WH, text: /Kirov Oblast|Vyatka|Khlynov/ },
+    "Stanley,_Falkland_Islands": { offIn: WH, text: /Falkland/ },
+    Battle_of_Midway: { offIn: WH, text: /June 1942|Nimitz|Yamamoto|carriers?\b/ },
+    USS_Monitor: { offIn: WH, text: /ironclad|Merrimack|Hampton Roads|CSS Virginia/ },
+    Helen_of_Troy: { offIn: WH, text: /Troy|Trojan|Menelaus|Homer|Iliad/ },
+    Metacom: { offIn: WH, text: /Wampanoag|Metacom|New England/ },
+    Bernard_Montgomery: { offIn: WH, text: /Alamein|Eighth Army|[Ff]ield [Mm]arshal|Rommel|Normandy|Arnhem/ },
+    Anderson_shelter: { offIn: WH, text: /shelter|air raid|Blitz/ },
+    Alexander_II_of_Russia: { offIn: WH, text: /Russia|tsar|serf|[Ee]mancipat/ },
+    Nicholas_I_of_Russia: { offIn: WH, text: /Russia|tsar|Decembrist|Crimean/ },
+    Ivan_Pavlov: { offIn: WH, text: /condition|reflex|physiolog|salivat/ },
+    Arthur_Evans: { offIn: WH, text: /Knossos|Minoan|Crete/ },
+    "Christian_Jürgensen_Thomsen": { offIn: WH, text: /Christian Thomsen|Christian Jürgensen|Danish|Copenhagen|[Tt]hree-age|Stone, Bronze/ },
+    Lucius_Aemilius_Paullus_Macedonicus: { offIn: WH, text: /Pydna|Perseus|Macedonicus/ },
+    Fujiwara_no_Sumitomo: { offIn: WH, text: /Fujiwara|pirate|Masakado/ },
+    Xuanzang: { offIn: WH, text: /Xuanzang|Journey to the West/ },
+    Hanseatic_League: { offIn: WH, text: /Hanseatic|Hanse\b|Lübeck|Baltic/ },
+    Muryeong_of_Baekje: { offIn: WH, text: /Baekje|Muryeong/ },
+    "Rus'_people": { offIn: WH, text: /Rus[’']|Varangian|Kiev|Kyiv|Novgorod/ },
+    Taejo_of_Goguryeo: { offIn: WH, text: /Goguryeo/ },
+    Aztec_Empire: { offIn: WH, text: /Aztec|Mexica|Tenochtitlan|Nahua/ },
+    Tributary_system: { offIn: WH, text: /China|Chinese|Ming|Qing|Tang|Song|Joseon|Ryukyu/ },
+    War_of_the_Sixth_Coalition: { offIn: WH, text: /Napoleon|Leipzig|Prussia|1813/ },
+    Christian_right: { offIn: WH, text: /evangelical|Moral Majority|conservative Christian|Reagan/ },
+    Indian_reservation: { offIn: WH, text: /Indian|Native|tribes?\b|tribal/ },
+    Fugitive_slaves_in_the_United_States: { offIn: WH, text: /United States|American|Fugitive Slave|Underground Railroad/ },
+    Libu: { offIn: WH, text: /Libya|Merneptah|Meshwesh/ },
+    Mali: { offIn: WH, text: /\bMali\b|West Africa|Sahel|Sahara|griots?\b|Bamako|Timbuktu/ },
+    Benin: { offIn: WH, text: /Republic of Benin|Dahomey|Porto-Novo|Cotonou/ },
+    Guinea: { offIn: WH, text: /Africa/ },
+    State_of_Palestine: { offIn: WH, text: /State of Palestine|Palestine and Israel|Israel and Palestine|Palestinian Authority|Palestinian territories|West Bank|Gaza|Palestine Liberation/ },
+    Southern_dispersal_route: { offIn: WH, text: /Arabia|India|Australia|Sahul|Red Sea|[Oo]ut of Africa/ },
+    Prehistoric_trade: { offIn: WH, text: /[Pp]rehistor|Neolithic|Palaeolithic|Stone Age|Bronze Age|obsidian/ },
+    Judicial_review_in_the_United_States: { offIn: WH, text: /Marbury|Supreme Court|unconstitutional/ },
+    Legislative_Council_of_Hong_Kong: { offIn: WH, text: /Hong Kong/ },
+    Hong_Kong_Basic_Law: { offIn: WH, text: /Hong Kong/ },
+    Article_5_of_the_North_Atlantic_Treaty: { offIn: WH, text: /NATO|North Atlantic|armed attack|armed force/ },
+    Ostarbeiter: { offIn: WH, text: /Nazi|forced labou?r|Third Reich|deport/ },
+    Christian_monasticism: { offIn: WH, text: /Christian|Benedict|abbey|Athos|[Dd]esert [Ff]athers|Rule of/ },
+    "Talent_(measurement)": { offIn: WH, text: /talents\b|silver|gold|drachma|mina\b|tribute/ },
+    "Pilgrims_(Plymouth_Colony)": { offIn: WH, text: /Plymouth|Mayflower/ },
+    Prologue: { offIn: WH, text: /play|tragedy|comedy|drama|chorus|Euripides/ },
+    Allotment: { offIn: WH, text: /reservation|Dawes|tribal|Indian/ },
+    Auspices: { offIn: WH, text: /augur|birds|plebeian|patrician|omens?\b|magistrate/ },
+    Dominion: { offIn: WH, text: /\bDominions?\b/ },
+    Commonwealth_of_Nations: { offIn: WH, text: /British Empire|Dominion|decoloni|Empire and Commonwealth|Commonwealth of Nations/ },
+    Bombard: { offIn: WH, text: /cannon|\bguns?\b|siege|artillery/ },
+    Memorabilia: { offIn: WH, text: /Xenophon|Socrates/ },
+    Symposium: { offIn: WH, text: /wine|drinking|Plato|couch|Greek/ },
+    Kea: { offIn: WH, text: /island|Cyclad|Aegean/ },
+    American_bison: { offIn: WH, text: /America|Plains|Folsom|Clovis|buffalo|Montana|New Mexico/ },
+    Academy: { offIn: WH, text: /Plato|Athens|Academus/ },
+    Albuquerque: { offIn: WH, text: /New Mexico/ },
+    Augusta: { offIn: WH, text: /Georgia|Maine/ },
+    Austin: { offIn: WH, text: /Texas/ },
+    Dallas: { offIn: WH, text: /Texas/ },
+    Salem: { offIn: WH, text: /Oregon|Massachusetts|witch/ },
+    Providence: { offIn: WH, text: /Rhode Island/ },
+    "St._Paul": { offIn: WH, text: /Minnesota/ },
+    Omaha: { offIn: WH, text: /Nebraska/ },
+    Wellington: { offIn: WH, text: /New Zealand/ },
+    Sucre: { offIn: WH, text: /Bolivia/ },
+    Santiago: { offIn: WH, text: /Chile/ },
+    Martial: { offIn: WH, text: /epigram|poet/ },
+    "Trinity_(nuclear_test)": { offIn: WH, text: /nuclear|atomic|Alamogordo|plutonium|Manhattan Project/ },
+    Jingwei: { offIn: WH, text: /bird|myth/ },
+    Rashid: { offIn: WH, text: /Rosetta/ },
+    Apollo: { offIn: WH, text: /\bgods?\b|Delphi|Delos|hymn|oracle|temple|Greek/ },
+    "The_Liberator_(newspaper)": { offIn: WH, text: /Garrison|abolitionist|newspaper/ },
+    New_Carthage: { offIn: WH, text: /Carthag|Hannibal|Scipio|Hasdrubal|Roman/ },
+    "New_Policies_(Song_dynasty)": { offIn: WH, text: /Song|Wang Anshi/ },
+    "Lanzón": { offIn: WH, text: /Chav[ií]n/ },
+    Retreat_of_the_government_of_the_Republic_of_China_to_Taiwan: { offIn: WH, text: /Taiwan/ },
+    Great_Purge: { offIn: WH, text: /Stalin|Soviet|NKVD/ },
+    Julian_day: { offIn: WH, text: /astronom/ },
+    Federalism_in_the_United_States: { offIn: WH, text: /United States|American/ },
+    Ancient_Greek_calendars: { offIn: WH, text: /Greek|Athenian|Attic|Olympiad/ },
+    First_settlement_of_27_BCE: { offIn: WH, text: /Augustus|Octavian/ },
+    Ming_Great_Wall: { offIn: WH, text: /Ming/ },
+    Geometric_period: { offIn: WH, text: /Greek|Greece|Attic|Athens/ },
+    Marriage_bar: { offIn: WH, text: /married women|employment|teachers|civil service/ },
+    Council_of_the_European_Union: { offIn: WH, text: /European Union|European Communit|European Economic|EEC|\bEU\b|Brussels/ },
+    Spartan_dual_kingship: { offIn: WH, text: /Sparta/ },
+    "Sulla's_march_on_Rome": { offIn: WH, text: /Sulla/ },
+    Plantations_in_the_American_South: { offIn: WH, text: /American South|United States|cotton|Confedera|antebellum|Virginia|Carolina|Louisiana/ },
   };
   function glossScopedOff(cardId, text) {
     const root = cardId ? cardCollectionRoot(cardId) : null, rid = root && root.id;
     return Object.keys(GLOSS_ONLY_IN).filter((k) => {
       const r = GLOSS_ONLY_IN[k];
-      if (rid && r.roots.includes(rid)) return false;
+      // `offIn`: gated only inside the listed collections; `roots`: gated everywhere but the listed collections
+      if (r.offIn ? !(rid && r.offIn.includes(rid)) : (rid && r.roots.includes(rid))) return false;
       return !(r.text && text && r.text.test(text));
     });
   }

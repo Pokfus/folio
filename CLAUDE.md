@@ -168,6 +168,7 @@ every relevant suite. Playwright and Chromium are preinstalled in cloud sessions
 - **Footnotes**: markers are written EMPTY (`<sup class="fn" data-fn="N"></sup>`); `wireFootnotes`
   numbers them. 📖 `docs/source-footnotes.md` — READ BEFORE TOUCHING THE APPARATUS.
 - **Glossary Atlas windows (2026-10-23)**: a popup's map is for a term that IS a location only (the town, never the treaty — `locationClass` in `build-glossary-places.js` decides by tags), a state or a people shaded at the year of its greatest extent, the card windows' zoom / recentre / relief buttons (2026-10-24; no globe button), never a `placesSeen` write; `atlas/data/glossary-places.js` format 2 is generated (`--install`; `check-places.js` fails when it lags); `test-gloss-atlas-window.js` guards it. 📖 `docs/glossary-atlas-windows.md` — READ BEFORE TOUCHING THE GLOSSARY POPUP'S MAP, ITS TABLE OR `mountGlossAtlas`.
+- **A wrong-sense glossary link** (the shared glossary matches by text: "tolerance" → drug tolerance) is fixed in `app.js`, never by rewording: `GLOSS_ONLY_IN` (`offIn` = off in that collection unless the paragraph matches `text`; `roots` = only in those collections), `GLOSS_OFF_CARDS` (one term off on one card), or a hand link `<span class="ttip" data-k="…">`. 📖 `docs/reference.md` "THREE MORE WAYS A WRONG-SENSE LINK".
 - **Community decks** never enter `CARDS` / the tree / `window.GLOSSARY`; `uDeckNormalize` is the one
   ingest choke point; bump `SANITIZE_REV` when a sanitizer changes.
   📖 `docs/community-decks.md` — READ BEFORE TOUCHING ANY OF IT.

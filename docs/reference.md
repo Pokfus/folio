@@ -8783,6 +8783,26 @@ that WANTS the bare name says so with an ALIAS, which is how all five parentheti
 were already written (`Georgia_(country)` carries "Georgia"). **`node .claude/check-gloss-links.js` reports
 what is left**: an auto-link whose term is bound to a different part of the world (a proxy, report-only, 34
 findings) and — exactly — two keys competing for one surface.
+**THREE MORE WAYS A WRONG-SENSE LINK IS SWITCHED OFF, AND WHICH TO USE (2026-11-15, the World History link
+audit — every one of the 18,176 links the collection's 1,000 cards made was listed and the suspect surfaces
+read in context; about 440 were the wrong sense).** The glossary is shared by every collection, a surface is
+matched by text alone, and an alias written for one collection links in all of them: religious "tolerance"
+opened DRUG tolerance, the Toltec "Tula" opened Tula in Russia, "rebus" writing opened the Libu (the plural of
+the alias "Rebu"), Pope "Nicholas I" the tsar, "pilgrims" to Mecca the Plymouth Pilgrims. In order of reach:
+(1) **`GLOSS_ONLY_IN` with `offIn`** (`app.js`) — in a card of a collection root listed in `offIn` the term
+links only where the paragraph being linked matches `text` (never, with no `text`); every other collection
+and every glossary popup is unchanged. The audit read World History's links only, so its 107 entries are
+`offIn: WH`; the older `roots` entries (Sense, Pain, Behaviour …) are the other shape, "only in these
+collections". (2) **`GLOSS_OFF_CARDS`** (`app.js`, read by `glossOffList` beside the editor's own
+`ADMIN_EDITS.glossOff`) — one term off on one card, for a name that is somebody else there ("Claudius II",
+"Cyrus Field", an "Italian Legion") while the term is right on other cards of the collection. The editor's
+list is a database delta and is never baked into a data file, which is why a shipped twin exists. (3) **A
+hand link** (`<span class="ttip" data-k="Right_Key">…</span>`) wherever the right term exists — and with it
+an entry in (2) when the wrong term would otherwise link at the name's NEXT occurrence, since a hand link
+protects only its own text. `check-gloss-links.js` slices both tables out of `app.js`, so it reports only
+links the site makes. **The same aliases are wrong in other collections too** (the roots scan in
+`docs/wh-refinement-audit.md`, "The link audit"); widen an entry's `offIn` only after reading that
+collection's links.
 **RUN IT PER CARD WHEN CHECKING A BATCH — `--card=<id>`** (Sep 2026, writing `ww2-101`–`ww2-110`): over the
 whole corpus it did not finish inside five minutes and was still going at twenty, the glossary having grown
 to 3,400-odd terms and 11,700 surfaces since the figure above was measured, where one card answers in a

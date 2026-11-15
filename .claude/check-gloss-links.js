@@ -60,7 +60,31 @@ global.window = {};
 require(path.join(ROOT, "glossary.js"));
 /* Card abstracts live in data-extra/<prefix>.js — load through card-io.js, or there is no
    prose to look for links in.  See card-io.js's header. */
-const CARDS = require(path.join(__dirname, "card-io.js")).loadCards().cards;
+const LOADED = require(path.join(__dirname, "card-io.js")).loadCards();
+const CARDS = LOADED.cards;
+/* THE LINKS THE SITE DOES NOT MAKE (Nov 2026): `GLOSS_ONLY_IN` scopes a term to some collections (or, with
+   `offIn`, switches it off inside one unless the paragraph matches `text`), and `GLOSS_OFF_CARDS` switches a
+   term off on one card. Both tables are sliced out of app.js like the surface rules above, so a link the
+   linker would refuse is not reported here as a link. */
+const { GLOSS_ONLY_IN, GLOSS_OFF_CARDS } = new Function([
+  slice(/^  const WH = /m, "\n", "WH"),
+  slice(/^  const GLOSS_ONLY_IN = \{/m, "\n  };", "GLOSS_ONLY_IN"),
+  slice(/^  const GLOSS_OFF_CARDS = \{/m, "\n  };", "GLOSS_OFF_CARDS"),
+  "  return { GLOSS_ONLY_IN, GLOSS_OFF_CARDS };",
+].join("\n"))();
+const rootOf = Object.create(null);
+(function walk(nodes, root) {
+  (nodes || []).forEach((n) => { const r = root || n.id; (n.cardIds || []).forEach((id) => { if (!rootOf[id]) rootOf[id] = r; }); walk(n.children, r); });
+})((LOADED.tree && LOADED.tree.collections) || [], null);
+function scopedOff(cardId, text) {
+  const rid = rootOf[cardId], off = new Set(GLOSS_OFF_CARDS[cardId] || []);
+  Object.keys(GLOSS_ONLY_IN).forEach((k) => {
+    const r = GLOSS_ONLY_IN[k];
+    if (r.offIn ? !(rid && r.offIn.includes(rid)) : (rid && r.roots.includes(rid))) return;
+    if (!(r.text && r.text.test(text))) off.add(k);
+  });
+  return off;
+}
 const G = window.GLOSSARY || {};
 const A = window.GLOSSARY_ALIASES || {};
 const CS = window.GLOSSARY_CASESENSITIVE || {};
@@ -139,7 +163,7 @@ for (const c of CARDS) {
   const cardPlaces = new Set(placeTags(c.tags));
   const answer = String(c.answerText || "").trim().toLowerCase();
   const text = plainForLinking(c.abstract);
-  const linked = new Set();
+  const linked = new Set(scopedOff(c.id, text));
   if (RE) {
     RE.lastIndex = 0;
     let m;
