@@ -30670,6 +30670,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        out: a cornflower blue, 15.0 from its nearest neighbours (French's blue and Tagalog's azure), against a
        tightest existing pair of 4.0; 4.7:1 against white. Not a flag colour (Israel's blue is far deeper). */
     "lang-hebrew":     { bg: "#5E6EC0" }, // measured cornflower
+    /* CANTONESE (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white), the magenta band's standing rejection kept and the
+       greens left out. Parallel sessions twice landed beside it — Norwegian's ochre 1.0 from the first sweep's
+       #8C7126, then Finnish's sienna 2.5 from the second's #86522A — so it was re-swept at the phrases merge against
+       all 101 other hues: a maroon, 13.6 from its nearest neighbour (Visual Art's wine), with German's brown at 13.7; the raw
+       winner, 13.8, was a plum on the magenta band's edge (hue 345) and was passed over; 10.0:1 against white. Not a flag colour. */
+    "lang-cantonese":  { bg: "#6E2E2B" }, // measured maroon
     /* AMHARIC (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 70 hues on the
        page, the magenta band's standing rejection kept (the raw runner-up, 15.0, was a plum there) and the
