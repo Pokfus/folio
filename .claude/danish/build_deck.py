@@ -39,7 +39,7 @@ from danish_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
 STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-15T00:00:00.000Z',
-         'b1': '2026-11-15T00:00:00.000Z'}[LEVEL]
+         'b1': '2026-11-15T00:00:00.000Z', 'b2': '2026-11-15T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'danish'
@@ -159,16 +159,18 @@ GLOSS = {
     'tøs': {'noun': ['girl, lass']},
     'ride': {'verb': ['to ride (a horse, a bicycle)']},           # its second sense is sexual
     'sæson': {'noun': ['season (the time of year when something is done)']},
+    'lem': {'noun': ['limb']},                                     # B2: its second sense is sexual
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
-LEAD = {'gang': 'time (an occurrence, an incidence)'}
+LEAD = {'gang': 'time (an occurrence, an incidence)', 'fej': 'cowardly'}
 
 MONTHS = set('januar februar marts april maj juni juli august september oktober november '
              'december'.split())
 
 # NO ARTICLE for a language's name, which Danish uses without one (jeg taler dansk)
-NO_ART = {'dansk', 'engelsk', 'tysk', 'fransk', 'svensk', 'norsk', 'spansk',
+NO_ART = {'dansk', 'engelsk', 'tysk', 'fransk', 'svensk', 'norsk', 'spansk', 'kinesisk', 'japansk',
+          'italiensk', 'russisk', 'græsk', 'irsk', 'arabisk',
           'fru', 'aftes', 'vegne'}   # a title (fru Hansen), nouns met only in i aftes, på … vegne
 
 # A GENDER WRITTEN HERE, where the lemma's first entry is not the everyday word's.
@@ -178,7 +180,12 @@ GENDER_FIX = {'penge': 'p', 'forældre': 'p', 'farfar': 'c', 'kuglepen': 'c',
               # B1
               'seddel': 'c', 'jakkesæt': 'n', 'jæger': 'c', 'mail': 'c', 'farbror': 'c', 'morbror': 'c',
               'underskud': 'n', 'seværdighed': 'c', 'stilling': 'c', 'kontanter': 'p', 'smitte': 'c',
-              'point': 'n', 'gidsel': 'n', 'skub': 'n', 'sæson': 'c'}
+              'point': 'n', 'gidsel': 'n', 'skub': 'n', 'sæson': 'c',
+              # B2
+              'plet': 'c', 'eks': 'c', 'kranium': 'n', 'rumvæsen': 'n', 'skænderi': 'n', 'sønnike': 'c',
+              'matematik': 'c', 'vodka': 'c', 'cirkus': 'n', 'opskrift': 'c', 'drikkepenge': 'p', 'bums': 'c',
+              'kirurg': 'c', 'brormand': 'c', 'obduktion': 'c', 'chips': 'p', 'underbukser': 'p', 'tremme': 'c',
+              'rand': 'c', 'søskende': 'p', 'påvirkning': 'c', 'vindkraft': 'c', 'mil': 'c'}
 
 # A PART OF SPEECH NOT SHOWN for one word: a block that is noise beside the word a beginner meets.
 DROP_POS = {('kende', 'adv'), ('lukke', 'noun'), ('færdig', 'intj'), ('nu', 'noun'), ('om', 'adv'),

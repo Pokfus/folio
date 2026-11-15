@@ -17,7 +17,7 @@ const DANISH = /^[a-zA-ZæøåÆØÅéÉüÜäÄöÖ][a-zA-ZæøåÆØÅéÉüÜ
 // a month, a language's name, a title and a noun met only in one phrase take no article
 // (i april, jeg taler dansk, fru Hansen, i aftes, på mine vegne) -- `NO_ART` in build_deck.py
 const NO_ART = new Set(("januar februar marts april maj juni juli august september oktober november december " +
-  "dansk engelsk tysk fransk svensk norsk spansk fru aftes vegne").split(" "));
+  "dansk engelsk tysk fransk svensk norsk spansk kinesisk japansk italiensk russisk græsk irsk arabisk fru aftes vegne").split(" "));
 let fail = 0;
 const bad = (m) => { fail++; console.log("FAIL  " + m); };
 const files = fs.readdirSync(DIR).filter((f) => /^Danish-.*\.folio-deck\.json$/.test(f)).sort();

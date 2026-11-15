@@ -16,7 +16,7 @@ Wiktionary heads a word under a form a learner does not meet first, the
 learner's word is written and `select.ALIAS` names the headword (`mange`,
 filed under `mangen`).
 
-A1, A2 and B1 are written (2026-11-15); B2 and C1 are the plan's later phases.
+A1 to B2 are written (2026-11-15); C1 is the plan's later phase.
 """
 
 A1 = [
@@ -147,4 +147,43 @@ B1 = [
                                 'for_eksempel til_sidst i_hvert_fald alligevel dels'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}
+B2 = [
+    ('the economy and work', 'konjunktur inflation rente lån investering aktie budget vækst arbejdsløshed '
+                             'erhvervsliv branche konkurrence eksport import handel iværksætter ledelse '
+                             'bestyrelse ansættelse arbejdsmarked forhandling rentabel'),
+    ('politics and the state', 'regering opposition minister statsminister lovgivning reform '
+                               'bekendtgørelse beslutning valgkamp flertal mindretal ideologi propaganda '
+                               'korruption ytringsfrihed integration diskrimination ligestilling velfærd '
+                               'bistand'),
+    ('law and justice', 'retssystem advokat dom anklage:noun retssag vidneudsagn bevis skyldig uskyldig '
+                        'fængselsstraf bøde kriminalitet efterforskning'),
+    ('science and technology', 'videnskab forskning forsker teori hypotese metode analyse undersøgelse '
+                               'opdagelse opfindelse teknologi udvikling digital software algoritme data '
+                               'kunstig intelligens'),
+    ('the environment and resources', 'klimaforandring drivhuseffekt kuldioxid fossil vedvarende '
+                                      'bæredygtig bæredygtighed ressource naturressource udryddelse '
+                                      'mangfoldighed økosystem atomkraft vindkraft solenergi'),
+    ('health and society', 'folkesundhed forældremyndighed sundhedsvæsen psykisk depression angst '
+                           'afhængighed misbrug genoptræning livsstil forebygge'),
+    ('media and communication', 'journalistik kilde censur debat kommunikation budskab fortolkning '
+                                'offentliggøre kommentere undersøge'),
+    ('culture and society', 'identitet generation værdi norm fordom religion sekulær globalisering '
+                            'migration befolkning klasse lighed'),
+    ('abstract nouns', 'aspekt faktor vilkår forudsætning konsekvens betydning sammenhæng perspektiv '
+                       'tendens udfordring hindring mulighed begrænsning påvirkning indflydelse ansvar '
+                       'hensigt strategi prioritet kvalitet kvantitet proces struktur funktion'),
+    ('arguing and reasoning', 'hævde understrege betone sætte_spørgsmålstegn begrunde antage '
+                              'forudsætte konstatere bedømme evaluere analysere fortolke sammenfatte '
+                              'argumentere modsige indvende indrømme tydeliggøre belyse'),
+    ('verbs of B2', 'opnå gennemføre anvende etablere opretholde bidrage fremme modvirke forhindre '
+                    'begrænse tilpasse omfatte medføre fremhæve fortaler afstå lette:verb vanskeliggøre '
+                    'forårsage udnytte forstærke svække'),
+    ('describing and evaluating', 'omfattende betydelig afgørende væsentlig grundlæggende kompleks '
+                                  'indviklet tvetydig entydig effektiv kontroversiel objektiv subjektiv '
+                                  'rimelig urimelig troværdig relevant aktuel eksisterende primært '
+                                  'åbenlys sandsynlig usandsynlig'),
+    ('connectors and discourse', 'imidlertid således følgelig dog uanset angående vedrørende især '
+                                 'trods trods_alt ifølge hvorvidt derved'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}

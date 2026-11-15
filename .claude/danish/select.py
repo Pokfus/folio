@@ -95,6 +95,37 @@ EXCLUDE = {
     'sprut': 'its count is the slang "booze"; its noun is "a squirt"',
     'patte': 'a crude word for a breast', 'fis': 'a fart', 'tisse': 'to pee; childish',
     'åndssvag': 'an insult', 'voldtage': 'not taught in a level deck, though common in the subtitles\' crime drama',
+    # Read off the B2 ranking (2026-11-15).
+    # A FORM TAUGHT ON ANOTHER CARD, or another spelling of one
+    'rimeligt': 'the neuter of rimelig (B2)', 'billigt': 'the neuter of billig (A1)', 'løst': 'the neuter of løs (A2)',
+    'sygt': 'the neuter of syg (A1)', 'sindssygt': 'the neuter of sindssyg (B1)',
+    'offentligt': 'the neuter of offentlig (B1)', 'pludseligt': 'the neuter of pludselig (B1)',
+    'små': 'the plural of lille (A1)', 'dumme': 'the plural of dum (A2); its verb is rare',
+    'trætte': 'the plural of træt (A1); its verb "to bicker" is rare', 'kristne': 'the plural of kristen; its verb is rare',
+    'benet': 'the definite of ben (A1); its adjective "bony" is rare', 'vesten': 'the definite of vest (B1)',
+    'tusinde': 'the longer spelling of tusind (A1)', 'århundred': 'the shorter spelling of århundrede (B1)',
+    'hall': 'the English spelling of hal (B1)', 'syne': 'its count is synes (B1); its verb "to inspect" is rare',
+    # ITS COUNT IS ANOTHER WORD'S: a present, a past, a participle, an imperative
+    'rykker': 'the present of rykke; its noun is "a dunning letter"', 'ryk': 'the imperative of rykke',
+    'hang': 'the past of hænge (A2)', 'spar': 'the imperative of spare (B1); its noun is the card suit',
+    'pak': 'the imperative of pakke; its noun is found only in compounds', 'fang': 'the imperative of fange (A2)',
+    'hiv': 'the imperative of hive (B1)', 'skru': 'the imperative of skrue (B1)', 'øg': 'the imperative of øge (B1)',
+    'flyv': 'the imperative of flyve (A2)', 'ødelæg': 'the imperative of ødelægge (A2)',
+    'overført': 'the participle of overføre; its adjective "figurative" is rare',
+    'stjålen': 'the participle of stjæle (A2); its adjective "stealthy" is rare',
+    'sveder': 'the present of svede; its noun is a school detention',
+    # ITS COUNT IS NOT FOR ITS ENTRY: English, names, letters
+    'green': 'English', 'in': 'English', 'hot': 'English', 'yo': 'English', 'kid': 'English', 'bridge': 'English',
+    'die': 'its count is the English word; its noun is "breast milk"', 'my': 'a Greek letter; its count is English "my"',
+    'misse': 'its count is the English "miss"; Wiktionary has only "to blink"', 'gus': 'its count is a name',
+    'em': 'its count is EM, the championship', 'pentagon': 'its count is the Pentagon',
+    'gram': 'its count is the unit; its adjective "irate" is rare', 'bølle': 'its count is "a bully"; its noun is a bilberry bush',
+    'hu': 'met only in fixed phrases', 've': 'met only in fixed phrases', 'ho': 'a laugh with no meaning to teach',
+    'søren': 'a mild oath', 'tæsk': 'Wiktionary gives it no gender, and its plural use (en gang tæsk) is the count',
+    'bilde': 'its count is bilde sig ind "to imagine", which Wiktionary does not give',
+    'nødder': 'Wiktionary\'s entry is the slang "breasts"; nød "nut" is its plural\'s word',
+    'rap': 'its count is rap music; its entry is a duck\'s quack',
+    'neger': 'a slur', 'liderlig': 'crude', 'porno': 'not taught in a level deck', 'voldtægt': 'as voldtage (B1)',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
@@ -103,7 +134,7 @@ SWEARS = {'fanden', 'fandme', 'fuck', 'fucking', 'lort', 'pis', 'pisse', 'røv',
           'kraftedeme', 'kælling', 'luder', 'idiot', 'fjols', 'nar', 'bøsse', 'kneppe', 'pik',
           'fisse', 'skide', 'shit', 'svin', 'røvhul', 'dælme', 'sgu', 'fandeme',
           'fandens', 'forbandet', 'pokker', 'pokkers', 'kraftedme', 'fanden',
-          'skiderik', 'nosse', 'forpulet', 'tæve'}
+          'skiderik', 'nosse', 'forpulet', 'tæve', 'stodder', 'helvedes', 'hore', 'mær', 'kusse'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists
 # another first.
@@ -119,7 +150,9 @@ FILL_POS = {'tro': 'verb', 'nok': 'adv', 'lige': 'adv', 'slå': 'verb', 'prøve'
             'hoppe': 'verb', 'styre': 'verb', 'spænde': 'verb', 'bytte': 'verb',
             # B1 (2026-11-15)
             'ride': 'verb', 'klippe': 'verb', 'putte': 'verb', 'lette': 'verb', 'spare': 'verb',
-            'tømme': 'verb', 'skinne': 'verb', 'rode': 'verb'}
+            'tømme': 'verb', 'skinne': 'verb', 'rode': 'verb',
+            # B2 (2026-11-15)
+            'arve': 'verb', 'våge': 'verb', 'gylden': 'adj'}
 
 # A WORD DEALT BY ANOTHER'S COUNT.  The pronoun `I` "you (plural)" is counted in the
 # subtitles under its lower case, the preposition `i`, so it is dealt by its object form's.

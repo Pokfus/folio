@@ -5,7 +5,7 @@ Danish set, built in the Swedish decks' shape (`docs/swedish-decks-plan.md`, who
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-15: "Add a Danish language collection."
 
-**STATUS (2026-11-15): A1, A2 and B1 are built** (§6–§8). B2 and C1 are later phases, one level per request, as Swedish's were.
+**STATUS (2026-11-15): A1 to B2 are built** (§6–§9). C1 is a later phase, one level per request, as Swedish's were.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck of this plan. The collection's first commit carried one because it also changed the APP — the
@@ -32,7 +32,7 @@ owner's to overrule.**
 | Danish A1 Beginner — built | `Danish-A1.folio-deck.json` | 500 |
 | Danish A2 Elementary — built | `Danish-A2.folio-deck.json` | 750 |
 | Danish B1 Intermediate — built | `Danish-B1.folio-deck.json` | 1,000 |
-| Danish B2 Upper Intermediate | `Danish-B2.folio-deck.json` | 1,500 |
+| Danish B2 Upper Intermediate — built | `Danish-B2.folio-deck.json` | 1,500 |
 | Danish C1 Advanced | `Danish-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
@@ -99,7 +99,7 @@ One of A1's 500 words (`apotek`) has no Tatoeba sentence.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2 and B1 done) — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2, B1 and B2 done) — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` (and its `SCOPE` is already in `danish_level.py`; add its `STAMP` in `build_deck.py`),
 run, read every card. **Phase 3** — a phrases deck, from Swedish's `phrases.py`.
 
@@ -172,3 +172,35 @@ Swedish's did.
 
 **Known, left.** The fill carries the subtitles' crime and fantasy vocabulary (`forbrydelse`, `vampyr`, `dæmon`,
 `spøgelse`, `heks`), as A1 and A2 do. `tisse` "to pee" was left out as childish rather than taught.
+
+## 9. As built (2026-11-15): B2
+
+Asked for on 2026-11-15: "Add B2". `python3 .claude/danish/run.py --level b2`; no new source. **1,500 notes: only 147
+from a 13-topic inventory** (`inventory.py` `B2`, Swedish B2's topics: the economy, politics, law, science and
+technology, the environment, health and society, media, culture and society, abstract nouns, arguing, the level's
+verbs, evaluating, connectors — scoped to `SCOPE['b2']`) **and 1,353 by frequency**; three sentences for 709, **none
+for 327**. Every card was read once. A1, A2 and B1 re-run byte-identical.
+
+**THE LEVEL IS MOSTLY THE FILL, AND SAYS SO.** 29 inventory words have no Danish Wiktionary entry (`konjunktur`,
+`arbejdsmarked`, `opposition`, `lovgivning`, `korruption`, `integration`, `teknologi`, `software`, `økosystem`,
+`sundhedsvæsen`, `faktor`, `struktur`, `forudsætte` …, listed by the run) and many others were already taught, so 90 %
+of B2 is the subtitles' commonest remaining lemmas. The description's counts say how many came from each source, so
+this is visible to a reader; and a fifth of the deck has no Tatoeba sentence. **A choice for the owner**: a graded
+Danish list under a usable licence (§1), or a second frequency source with less crime drama, would serve B2 and C1
+better than more hand inventory against a thin dictionary.
+
+**What the B2 ranking turned up**, each fixed with its reason beside it:
+- **Forms and spellings of taught words** (`rimeligt`, `billigt`, `løst`, `sygt`, `pludseligt`; `små`, `dumme`,
+  `trætte`, `kristne`; `benet`, `vesten`; `tusinde`, `århundred`, `hall`).
+- **Counts belonging to another word**: imperatives (`ryk`, `spar`, `pak`, `fang`, `hiv`, `skru`, `øg`, `flyv`,
+  `ødelæg`), presents (`rykker`, `sveder`), a past (`hang`), participles (`overført`, `stjålen`), `syne` (from `synes`).
+- **English words and names in the subtitles** (`green`, `in`, `hot`, `kid`, `bridge`, `die`, `my`, `misse`, `gus`,
+  `em`, `pentagon`, `gram`, `rap`), and entries met only in fixed phrases (`hu`, `ve`, `bilde`).
+- **Swearing, slurs and crude words**: `stodder`, `helvedes`, `hore`, `mær`, `kusse`, `neger`, `liderlig`, `porno`,
+  `voldtægt`; a sexual sense cut from `lem`.
+- **Rare nouns over verbs and adjectives**: `arve` "pimpernel", `våge` "a hole in the ice", `gylden` "a guilder" —
+  `FILL_POS`; `fej` leads with "cowardly". Genders Wiktionary omits (24, `GENDER_FIX`); the languages' names
+  (`kinesisk`, `japansk` …) take no article.
+
+**Known, left.** The fill's crime, fantasy and slang vocabulary (`narko`, `strømer`, `lejemorder`, `varulv`, `ork`,
+`hash`) stays on frequency, as at every level; so do a few anatomical words (`penis`, `kondom`).
