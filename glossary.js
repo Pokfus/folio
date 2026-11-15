@@ -22570,7 +22570,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "RAF_Fighter_Command": ["Fighter Command"],
 "Imperial_Japanese_Navy_General_Staff": ["Gunreibu","Japanese Naval General Staff"],
 "Proboulos": ["proboulos","probouloi"],
-"Calends": ["Kalends","Kalendae","calends"],
+"Calends": ["Kalends","Kalendae","calends","kalends"],
 "Tiberius_Gemellus": ["Gemellus"],
 "Cassius_Dio": ["Dio Cassius"],
 "Magister_equitum": ["Master of Horse"],
@@ -36974,6 +36974,7 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
 window.GLOSSARY_TITLES = Object.assign(window.GLOSSARY_TITLES || {}, {
+"Calends": "Kalends",
 "First_Dynasty_of_Egypt": "1st Dynasty of Egypt",
 "Second_Dynasty_of_Egypt": "2nd Dynasty of Egypt",
 "Third_Dynasty_of_Egypt": "3rd Dynasty of Egypt",
