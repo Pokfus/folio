@@ -939,7 +939,8 @@
     function drawHistoryFills(view, idPass, R, useStencil, slot, hvIn) {   // slot/hvIn: the admin-1 slot and its draw list (view.admin1Layer); the history's by default
       const S = slot || hist, A1 = S === adm1;
       const hv = A1 ? hvIn : view.history; if (!hv || !hv.faces || !hv.faces.length || !S.styleTex) { if (!A1) { stats.historyTriangles = 0; stats.historyFaces = 0; } return; }
-      if (A1 && idPass) return;   // the admin-1 slot is never picked (a window has no taps on it; the page's Provinces layer is step 3)
+      if (A1 && idPass) return;   // the admin-1 slot is never picked (a window has no taps on it; on the page a tap on a state's name opens it, the land under it is the core's)
+      if (A1 && hv.fillFaces && !hv.fillFaces.length) { stats.admin1Triangles = 0; stats.admin1Faces = 0; return; }   // the page's Map and Full (step 3): lines only, no fill pass at all
       if (idPass && pickOpts && pickOpts.layer === "presence") return;   // 2c: a presence-only ID pass
       const P = prog.face; common(P, view, R);
       gl.uniform1f(P.u.uIdPass, idPass ? 1 : 0); gl.uniform1f(P.u.uIdOffset, idPass ? HIST_FACE_BASE : 0); gl.uniform1f(P.u.uUseFlat, 0);
@@ -950,7 +951,7 @@
       if (useStencil) { gl.stencilFunc(gl.EQUAL, ST_LAND | (mark ? ST_HIST : 0), ST_LAND); gl.stencilOp(gl.KEEP, gl.KEEP, mark ? gl.REPLACE : gl.KEEP); gl.stencilMask(0); }
       let tris = 0, drawn = 0, marking = false;
       const strokes = [];
-      for (const f of hv.faces) {
+      for (const f of (A1 && hv.fillFaces) || hv.faces) {
         const m = histMeshFor(f.face, A1 ? view.level : view.historyLevel != null ? view.historyLevel : view.level, S); if (!m) continue;   // one level coarser during a gesture at stage ≥ 1 (atlas.js)
         if (mark && marking !== !f.fading) { marking = !f.fading; gl.stencilMask(marking ? ST_HIST : 0); }
         gl.uniform1f(P.u.uHatch, f.hatch ? 1 : 0); if (f.hatch) gl.uniform3f(P.u.uHatchB, f.hatch[0], f.hatch[1], f.hatch[2]);
@@ -1305,7 +1306,7 @@
         gl.blitFramebuffer(0, 0, W, H, 0, 0, W, H, gl.COLOR_BUFFER_BIT | gl.STENCIL_BUFFER_BIT, gl.NEAREST);
         gl.bindFramebuffer(gl.FRAMEBUFFER, still.scratch); gl.viewport(0, 0, W, H);
         gl.enable(gl.STENCIL_TEST); gl.stencilFunc(gl.ALWAYS, 0, 0xff); gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP); gl.stencilMask(0xff);
-        if (debug.faces) { drawHistoryFills(view, idPass, R, useStencil); drawHistoryDim(view, R, still.scratch); drawHistoryPresence(view, idPass, R, useStencil); if (view.admin1Layer) drawHistoryFills(view, idPass, R, useStencil, adm1, view.admin1Layer); }
+        if (debug.faces) { const a1 = view.admin1Layer, early = a1 && a1.beforeDim; drawHistoryFills(view, idPass, R, useStencil); if (early) drawHistoryFills(view, idPass, R, useStencil, adm1, a1); drawHistoryDim(view, R, still.scratch); drawHistoryPresence(view, idPass, R, useStencil); if (a1 && !early) drawHistoryFills(view, idPass, R, useStencil, adm1, a1); }   // the page's admin-1 layer (step 3) marks its discovered units before the empty-land darkening
         drawLinesLayer(still.scratch);
         if (debug.arcs) drawHistoryBorders(view, R);
         if (debug.arcs && view.admin1Layer && view.admin1Layer.lines && view.admin1) drawHistoryBorders(view, R, adm1, view.admin1Layer);
@@ -1316,7 +1317,7 @@
         gl.drawArrays(gl.TRIANGLES, 0, 3); stats.draws++;
       } else {
         drawBase();
-        if (debug.faces) { drawHistoryFills(view, idPass, R, useStencil); if (!idPass) drawHistoryDim(view, R, null); drawHistoryPresence(view, idPass, R, useStencil); if (view.admin1Layer) drawHistoryFills(view, idPass, R, useStencil, adm1, view.admin1Layer); }
+        if (debug.faces) { const a1 = view.admin1Layer, early = a1 && a1.beforeDim; drawHistoryFills(view, idPass, R, useStencil); if (early) drawHistoryFills(view, idPass, R, useStencil, adm1, a1); if (!idPass) drawHistoryDim(view, R, null); drawHistoryPresence(view, idPass, R, useStencil); if (a1 && !early) drawHistoryFills(view, idPass, R, useStencil, adm1, a1); }
         drawLinesLayer(null);
         if (debug.arcs && !idPass) drawHistoryBorders(view, R);
         if (debug.arcs && !idPass && view.admin1Layer && view.admin1Layer.lines && view.admin1) drawHistoryBorders(view, R, adm1, view.admin1Layer);
@@ -1445,7 +1446,7 @@
       render(view) {
         if (lost) return;
         const t0 = performance.now();
-        stats.draws = 0; stats.trianglesDrawn = 0; stats.segmentsDrawn = 0; stats.riverSegments = 0; stats.lakeSegments = 0; stats.lakeTriangles = 0; stats.lakeCulled = 0; stats.lakeSegCulled = 0; stats.level = view.level;
+        stats.draws = 0; stats.admin1Segments = 0; stats.admin1Faces = 0; stats.admin1Triangles = 0; stats.trianglesDrawn = 0; stats.segmentsDrawn = 0; stats.riverSegments = 0; stats.lakeSegments = 0; stats.lakeTriangles = 0; stats.lakeCulled = 0; stats.lakeSegCulled = 0; stats.level = view.level;
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         gl.viewport(0, 0, W, H);
         gl.disable(gl.SCISSOR_TEST); gl.disable(gl.STENCIL_TEST);
@@ -1498,7 +1499,7 @@
       },
       linesCache(on) { lines.on = on !== false; lines.key = ""; },
       stillCache(on) { still.on = on !== false; still.key = ""; still.lastKey = ""; },
-      stats() { return { linesReused: lines.reused, linesRendered: lines.rendered, linesOn: lines.on, baseReused: still.reused, baseRendered: still.rendered, baseOn: still.on, triangles: stats.trianglesDrawn, segments: stats.segmentsDrawn, historyTriangles: stats.historyTriangles, presenceTriangles: stats.presenceTriangles || 0, presenceFaces: stats.presenceFaces || 0, historySegments: stats.historySegments, historyFaces: stats.historyFaces, historyMeshes: hist.meshes.size, riverSegments: stats.riverSegments, lakeSegments: stats.lakeSegments, lakeTriangles: stats.lakeTriangles, lakeCulled: Math.round(stats.lakeCulled), lakeSegCulled: stats.lakeSegCulled, reliefPatches: stats.reliefPatches, reliefDetail: stats.reliefDetail || 0, reliefDetailResident: detail.size, draws: stats.draws, level: stats.level, coreLevel: stats.coreLevel, waterLevel: stats.waterLevel, tilesDrawn: stats.tilesDrawn, parentsDrawn: stats.parentsDrawn, waterTilesDrawn: stats.waterTilesDrawn, landChangesDrawn: stats.landChangesDrawn || 0, complete: !!stats.complete, tilesResident: tiles.size, waterTilesResident: waterTiles.size, reliefResident: relief.size, reliefL0: stats.reliefL0, lastMs: stats.lastMs, frames: stats.frames, visibleAngle: stats.visibleAngle, restores: stats.restores, gpuBytes: stats.gpuBytes, gpuTextureBytes: stats.gpuTextureBytes }; },
+      stats() { return { linesReused: lines.reused, linesRendered: lines.rendered, linesOn: lines.on, baseReused: still.reused, baseRendered: still.rendered, baseOn: still.on, triangles: stats.trianglesDrawn, segments: stats.segmentsDrawn, historyTriangles: stats.historyTriangles, presenceTriangles: stats.presenceTriangles || 0, presenceFaces: stats.presenceFaces || 0, historySegments: stats.historySegments, historyFaces: stats.historyFaces, historyMeshes: hist.meshes.size, admin1Segments: stats.admin1Segments || 0, admin1Faces: stats.admin1Faces || 0, admin1Triangles: stats.admin1Triangles || 0, riverSegments: stats.riverSegments, lakeSegments: stats.lakeSegments, lakeTriangles: stats.lakeTriangles, lakeCulled: Math.round(stats.lakeCulled), lakeSegCulled: stats.lakeSegCulled, reliefPatches: stats.reliefPatches, reliefDetail: stats.reliefDetail || 0, reliefDetailResident: detail.size, draws: stats.draws, level: stats.level, coreLevel: stats.coreLevel, waterLevel: stats.waterLevel, tilesDrawn: stats.tilesDrawn, parentsDrawn: stats.parentsDrawn, waterTilesDrawn: stats.waterTilesDrawn, landChangesDrawn: stats.landChangesDrawn || 0, complete: !!stats.complete, tilesResident: tiles.size, waterTilesResident: waterTiles.size, reliefResident: relief.size, reliefL0: stats.reliefL0, lastMs: stats.lastMs, frames: stats.frames, visibleAngle: stats.visibleAngle, restores: stats.restores, gpuBytes: stats.gpuBytes, gpuTextureBytes: stats.gpuTextureBytes }; },
       rawStats: stats,
       dispose() {
         try { const ext = gl.getExtension("WEBGL_lose_context"); if (ext) ext.loseContext(); } catch (e) {}

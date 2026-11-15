@@ -89,6 +89,9 @@
   const ZMIN = 0.8;
   const KM_PER_PX_FLOOR = 0.15;              // the zoom cap (Q-A6 a): 150 m per pixel, where the LOD 4 tolerance is half a pixel
   const ADMIN1_KM_PER_PX = 4;                // admin-1 borders are drawn below this
+  // the countries atlas/data/admin1.bin carries (its header's `admin1.countries`), each with a lon/lat box holding all of it — the page fetches the file the first time the
+  // Provinces lines are on over one of them (docs/atlas-v2-admin1-layer.md §8, step 3). check-admin1.js fails when a country of the file has no box here or reaches outside it
+  const ADMIN1_FILE_BOXES = { IND: [68, 6.5, 97.5, 35.5] };
   const TILE_CACHE = 96, TILE_PARALLEL = 6;
   const WATER_TILE_CACHE = 64;
   const RELIEF_L1_KM_PER_PX = 6;             // L1 patches are wanted below this (L0's texel is 9.8 km: under two pixels here)
@@ -270,7 +273,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "3ac31d1ce5:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "20a24ba971:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -812,7 +815,8 @@
       // and the wanted level's layout comes with the release frame, when the bias lifts
       if (level !== view.level) { view.level = level; if (!bias) requestLayout("level"); }
       view.admin1 = layers.provinces && k < (EMBED && layers.admin1Max ? layers.admin1Max : ADMIN1_KM_PER_PX) && time.present;   // a card window shows a state's neighbours at its opening zoom (atlas-embed.js sets admin1Max)
-      view.admin1Layer = adm1Draw(k);   // the lazy admin-1 slot (docs/atlas-v2-admin1-layer.md §3.2): null until a window asks for it
+      if (!EMBED && view.admin1 && !adm1.started && overAdmin1File()) ensureAdmin1();   // step 3: the page's Provinces lines over a country of admin1.bin fetch it (once)
+      view.admin1Layer = adm1Draw(k);   // the lazy admin-1 slot (docs/atlas-v2-admin1-layer.md §3.2): null until a window, the Provinces lines or the Personal Atlas ask for it
       view.history = time.view; view.historyLevel = histLevelNow(); if (view.history) { view.history.strokePx = view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0; view.history.dim = !EMBED && !STATIC2D && !time.present && time.hist && time.hist.ready && personalOnly() ? HIST_DIM : 0; }   // 2026-10-25: Personal only — on Map and Full the empty land was mostly the source's gaps (Tibet and Indochina in 1943, notches in Italy), read as missing patches
       view.landDim = !EMBED && time.present && ppKey ? HIST_DIM : 0;   // the Personal Atlas's present day: the countries the reader has not met, darker (refreshPersonalPresent)   // the coast stroke at the tile zooms: the resident level's tolerance, both sides; the empty-land darkening in a past year, the Atlas page only (atlas-gl.js drawHistoryDim)
       view.borders = layers.borders;
@@ -1387,11 +1391,36 @@
     /* THE ADMIN-1 SLOT (2026-11-14; docs/atlas-v2-admin1-layer.md §3.2, step 2). atlas/data/admin1.bin — the present-day states and provinces of the countries the core does not carry
        (India first), in history.bin's format — is held BESIDE the history (`time.hist`, which may be the page's file or a war slice), never instead of it: the worker keeps it in its
        own slot (ADM1) and every message about it carries `slot: "adm1"`. Never at boot: `ensureAdmin1()` is called by a card window whose highlight names an `adm1:` id the core does
-       not carry (atlas-embed.js); the page and the Personal Atlas (step 3) do not call it yet. Its 36 faces are small (54 KB in all), so every face is asked for at all three levels
+       not carry (atlas-embed.js), and — step 3, 2026-11-15 — by the Atlas page itself: the first time the Provinces lines are on (`view.admin1`: the switch, the present, under
+       ADMIN1_KM_PER_PX) over a country of the file (`overAdmin1File`, ADMIN1_FILE_BOXES), or the Personal Atlas holds a studied `adm1:` id of one of its countries
+       (`refreshPersonalPresent`). Its 36 faces are small (54 KB in all), so every face is asked for at all three levels
        as soon as the header is in, and the GL renderer keeps them in its own table (`setAdmin1Mesh`). DRAWN: every face's fill at the alpha its tint gives (none: bare, the land shows
        through) and, while the Provinces layer draws the core's admin-1 lines (`view.admin1`), the inner lines of the file in the core's admin-1 line style; a face's coast and its
-       international border are the core's own lines, never drawn twice. */
-    const adm1 = { started: false, failed: false, why: "", header: null, ready: false, faceEntity: null, facesOf: new Map(), resident: new Set(), tints: null, mask: null, key: "" };
+       international border are the core's own lines, never drawn twice.
+       ON THE PAGE (step 3): Map and Full draw every inner line of the file while `view.admin1` holds, and no fill; the Personal Atlas draws a DISCOVERED unit only (flag 2,
+       or its country's — the core's own rule for an admin-1 face): its face marks the HIST stencil bit with no colour (BARE_ALPHA), before the empty-land darkening, so it is
+       plain land while the rest of an undiscovered India is the darker empty land; its inner lines (while `view.admin1`) are only those with a discovered unit on a side; its
+       share of India's international border joins the core's arc mask (`coreBorders`); its name is the worker's ordinary admin-1 row (`adm1Rows` in atlas-worker.js).
+       Nothing of the slot is drawn on the page until one of those holds, so the frame gate's views pay nothing for it. */
+    const adm1 = { started: false, failed: false, why: "", header: null, ready: false, faceEntity: null, facesOf: new Map(), resident: new Set(), tints: null, mask: null, key: "", keep: null, coreBorderOff: null, coreBorders: null };
+    // is the view over a country admin1.bin carries? (its box meets the view's lon/lat box; the box is the whole country, so a zoomed-in view anywhere in it qualifies)
+    function overAdmin1File() {
+      const b = viewBox(); if (!b) return false;
+      for (const box of Object.values(ADMIN1_FILE_BOXES)) {
+        let d0 = box[0] - b.c.lon, d1 = box[2] - b.c.lon; while (d0 > 180) { d0 -= 360; d1 -= 360; } while (d1 < -180) { d0 += 360; d1 += 360; }
+        if (d0 <= b.lon1 && d1 >= b.lon0 && box[1] <= b.lat1 && box[3] >= b.lat0) return true;
+      }
+      return false;
+    }
+    // the file's units as rows of G — what a placed name, a tap, the popup and the search look up — added when the header is in (and again if the gazetteer lands later)
+    function adm1GRows() {
+      const H = adm1.header; if (!H || !G.ready) return;
+      for (let f = 0; f < adm1.faceEntity.length; f++) {
+        const e = H.entities[adm1.faceEntity[f]], at = (H.faceAnchor || [])[f]; if (!e || !at || G.byId.has(e.id)) continue;
+        const o = { i: G.rows.length, id: e.id, name: e.name, kind: "admin1", rank: 9, len: 0, at: [at[0], at[1]], within: e.parent || 0, qid: e.qid || "", wiki: e.wiki || "", aliases: [], src: "admin1", key: fold(e.name), akeys: [] };
+        G.rows.push(o); G.byId.set(o.id, o);
+      }
+    }
     function ensureAdmin1() {
       if (adm1.started || STATIC2D) return;
       adm1.started = true;
@@ -1404,11 +1433,12 @@
     }
     function onAdmin1Message(m) {
       if (m.type === "history-meta") {
-        adm1.header = m.header; adm1.faceEntity = m.faceEntity; adm1.facesOf = new Map();
+        adm1.header = m.header; adm1.faceEntity = m.faceEntity; adm1.facesOf = new Map(); adm1.coreBorderOff = m.coreBorderOff || null; adm1.coreBorders = m.coreBorders || null;
         { const nA = m.header.counts.arcs, t = new Uint8Array(Math.max(1, Math.ceil(nA / 256)) * 256); for (let a = 0; a < nA; a++) if (m.arcKind && m.arcKind[a] === 5) t[a] = 255; adm1.arcTable = t; }   // 5: KIND.ADMIN1, the file's own inner lines
         for (let f = 0; f < m.faceEntity.length; f++) { const id = m.header.entities[m.faceEntity[f]].id; let l = adm1.facesOf.get(id); if (!l) adm1.facesOf.set(id, l = []); l.push(f); }
         const all = []; for (let f = 0; f < m.faceEntity.length; f++) all.push(f);
         for (let L = 0; L <= 2; L++) postToWorker({ type: "history-faces", slot: "adm1", level: L, faces: all, seq: 0 });
+        if (!EMBED) { adm1GRows(); refreshPersonalPresent(); requestLayout("admin1", true); }   // step 3: the page's rows, the Personal Atlas's keep set, the names
         adm1Style(); return;
       }
       if (m.type === "history-faces") { for (const mesh of m.meshes) { const key = mesh.face + ":" + mesh.level; R.setAdmin1Mesh(key, mesh); adm1.resident.add(key); } adm1Changed(); return; }
@@ -1421,6 +1451,7 @@
       const nF = adm1.faceEntity.length, nA = adm1.header.counts.arcs;
       const style = new Uint8Array(Math.max(1, Math.ceil(nF / 256)) * 256 * 4), arcs = new Uint8Array(Math.max(1, Math.ceil(nA / 256)) * 256);
       for (let f = 0; f < nF; f++) {
+        if (!EMBED) { if (adm1.keep && adm1.keep[f]) style[4 * f + 3] = Math.round(BARE_ALPHA * 255); continue; }   // the page: a discovered unit marks the stencil, no colour (step 3)
         const t = adm1.mask ? (adm1.mask.has(f) ? [1, 1, 1, 1] : null) : adm1.tints && adm1.tints.get(f);
         if (!t) continue;
         style[4 * f] = Math.round(t[0] * 255); style[4 * f + 1] = Math.round(t[1] * 255); style[4 * f + 2] = Math.round(t[2] * 255); style[4 * f + 3] = Math.round((t.length > 3 ? t[3] : 1) * 255);
@@ -1431,6 +1462,14 @@
     // the draw list: every face with a mesh, once the file is in; the inner lines only in the mask pass's absence
     function adm1Draw(k) {
       if (!adm1.header || !adm1.faceEntity || adm1.failed) return null;
+      if (!EMBED) {   // the page (step 3): nothing at all unless the Provinces lines are on or the Personal Atlas has a discovered unit
+        if (!time.present) return null;   // the file is the present day's: a past year draws none of it
+        const keep = ppKey ? adm1.keep : null, faces = [];
+        if (keep) { for (let f = 0; f < keep.length; f++) if (keep[f]) faces.push({ face: f, rgb: null, bare: true }); return faces.length ? { faces, strokePx: view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0, lines: true, dim: HIST_DIM, beforeDim: true } : null; }
+        if (ppKey || !view.admin1) return null;   // a Personal Atlas with no discovered unit draws none of the file
+        for (let f = 0; f < adm1.faceEntity.length; f++) faces.push({ face: f, rgb: null });
+        return { faces, fillFaces: [], strokePx: 0, lines: true, beforeDim: true };
+      }
       // rgb: the colour of the face's coast stroke at the tile zooms (the fill never stops short of the finer coast — a small island would otherwise vanish), the tint's or the mask pass's white
       const faces = []; for (let f = 0; f < adm1.faceEntity.length; f++) { const t = adm1.mask ? (adm1.mask.has(f) ? [1, 1, 1] : null) : adm1.tints && adm1.tints.get(f); faces.push({ face: f, rgb: t ? [t[0], t[1], t[2]] : null }); }
       return { faces, strokePx: view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0, lines: !adm1.mask };
@@ -1544,10 +1583,19 @@
     function refreshPersonalPresent() {
       if (EMBED || !R.setPersonalPresent) return;
       const on = !!(personalOnly() && header && faceEntity && arcFaceCSR);
-      if (!on) { if (ppKey) { ppKey = ""; R.setPersonalPresent(null); invalidate(); } return; }
+      if (!on) { if (adm1.keep) { adm1.keep = null; adm1Style(); } if (ppKey) { ppKey = ""; R.setPersonalPresent(null); invalidate(); } return; }
       const nF = faceEntity.length, keep = new Uint8Array(nF), nA = arcFaceCSR.off.length - 1, arcMask = new Uint8Array(nA);
       for (let f = 0; f < nF; f++) { const e = header.entities[faceEntity[f]]; if (e && (ST.flags.get(e.id) === 2 || (e.parent && ST.flags.get(e.parent) === 2))) keep[f] = 1; }
       for (let a = 0; a < nA; a++) for (let k = arcFaceCSR.off[a]; k < arcFaceCSR.off[a + 1]; k++) if (keep[arcFaceCSR.faces[k]]) { arcMask[a] = 1; break; }
+      /* the admin-1 slot (step 3): a studied unit of a country admin1.bin carries starts the file; once it is in, its discovered units (flag 2, or their country's) are its keep
+         set and their share of the international border joins the core's arc mask, so a discovered Indian state is outlined whole where India itself is undiscovered */
+      let any = false; for (const [id, fl] of ST.flags) if (fl === 2 && /^adm1:/.test(id) && ADMIN1_FILE_BOXES[String(id.split(":")[1]).toUpperCase()]) { any = true; break; }
+      if (any) ensureAdmin1();
+      if (adm1.header && adm1.faceEntity) {
+        const n1 = adm1.faceEntity.length, k1 = new Uint8Array(n1); let kept = 0;
+        for (let f = 0; f < n1; f++) { const e = adm1.header.entities[adm1.faceEntity[f]]; if (e && (ST.flags.get(e.id) === 2 || (e.parent && ST.flags.get(e.parent) === 2))) { k1[f] = 1; kept++; if (adm1.coreBorders) for (let k = adm1.coreBorderOff[f]; k < adm1.coreBorderOff[f + 1]; k++) if (adm1.coreBorders[k] < nA) arcMask[adm1.coreBorders[k]] = 1; } }
+        adm1.keep = kept ? k1 : null; adm1Style();
+      }
       ppKey = "on"; R.setPersonalPresent({ keep, arcMask }); invalidate();
     }
     /* ---- Phase 2c: the PEOPLES AND CULTURES (design §2.5; study.js decides what a presence IS and what the switch lets through) ---- */
@@ -1883,7 +1931,7 @@
         G.rows = T.rows.map((r, i) => { const o = { i }; T.cols.forEach((c, j) => { o[c] = r[j] == null ? 0 : r[j]; }); o.key = fold(o.name); o.akeys = (o.aliases || []).map(fold); if (o.qid) o.qid = "Q" + o.qid; return o; });
         for (const o of G.rows) if (typeof o.within === "number") o.within = o.within > 0 && G.rows[o.within - 1] ? G.rows[o.within - 1].id : 0;   // the table stores the container's row index + 1
         for (const r of G.rows) { G.byId.set(r.id, r); if (typeof r.geom === "string" && r.geom[0] === "r") { G.byRiver.set(Number(r.geom.slice(1)), r); for (const ei of (Array.isArray(r.alt) ? r.alt : [])) G.byRiver.set(ei, r); } }   // a merged river answers for every stretch (Phase 1d)
-        G.ready = true; maybeFrame();
+        G.ready = true; adm1GRows(); maybeFrame();
         stats.gazetteer = { rows: G.rows.length, ms: Math.round(performance.now() - t) };
         if (pendingPlace && stats.ready && selectById(pendingPlace, { open: true, fly: pendingFly, push: false })) pendingPlace = null;
         postToWorker({ type: "gazetteer", table: T });
@@ -3424,6 +3472,8 @@
       // Phase 2d, for the suites: the wars table, the wars drawn, the entities tinted in the year with their roles, the washes handed to the renderer, the key's colours
       wars: () => ({ ready: !!time.wars, count: time.wars ? Object.keys(time.wars).length : 0, focus: time.warFocus, shown: [...time.warShown].sort(), roles: [...time.warRoles].map(([id, r]) => [id, r.role, r.wars.slice()]).sort((a, b) => (a[0] < b[0] ? -1 : 1)), washes: ((time.view && time.view.pfaces) || []).filter((f) => f.ext).map((f) => ({ face: f.face, rgb: f.rgb.map((v) => Math.round(v * 255)), wash: f.wash })), colours: { victor: warRGB.victor.map((v) => Math.round(v * 255)), loser: warRGB.loser.map((v) => Math.round(v * 255)) }, tinted: (time.view && time.view.faces || []).filter((f) => time.warRoles.size && f.tint).length }),
       rowName: (id) => { const r = G.byId.get(id); return r ? r.name : null; },
+      // step 3 of the admin-1 layer, for the suites: the slot's state on the page, the discovered units it keeps, what the last plan handed the renderer
+      admin1Info: () => { const ids = (set) => { const o = []; if (set && adm1.header) for (let f = 0; f < set.length; f++) if (set[f]) o.push(adm1.header.entities[adm1.faceEntity[f]].id); return o; }; const L1 = view.admin1Layer; return { started: adm1.started, ready: adm1.ready, failed: adm1.failed, why: adm1.why, bytes: adm1.bytes || 0, faces: adm1.faceEntity ? adm1.faceEntity.length : 0, keep: ids(adm1.keep), lines: !!view.admin1, layer: L1 ? { faces: L1.faces.length, fill: (L1.fillFaces || L1.faces).length, beforeDim: !!L1.beforeDim } : null }; },
       // Phase 2d, for the suites: the front line — the chosen date, the plates standing on it, the faces drawn and their tints (a war window's only: the page draws none)
       fronts: () => ({ on: time.frontOn, ents: time.frontEnts.map((i) => time.ents[i].id), plates: time.frontPlates.length, date: curFrontDate(), stepped: time.frontDate, standing: (AS2() && curFrontDate() != null ? AS2().platesAt(time.frontPlates, curFrontDate()).map((p) => p.theatre + ":" + p.date) : []), drawn: ((time.view && time.view.pfaces) || []).filter((f) => f.front).map((f) => ({ face: f.face, rgb: f.rgb.map((v) => Math.round(v * 255)), wash: f.wash })), shown: time.frontEnts.filter(frontShown).map((i) => time.ents[i].id) }), onScreenAlive: () => (time.onScreenAlive || []).map((a) => a.face), residentKeys: () => [...time.resident], meshInfo: (key) => (R.historyMeshInfo ? R.historyMeshInfo(key) : null), changeYears: () => time.changeYears.slice(), historySettled, historyReady: () => !histStarted || !!(time.hist && time.hist.ready), ensureHistory, historyStarted: () => histStarted,
       historyOK: () => !!(time.hist && time.hist.ready) && (!EMBED || !!time.wars) && historySettled(),   // every on-screen face has its mesh at the view's level (the frame gate waits on it before it counts the history's triangles)

@@ -757,6 +757,22 @@
       return { i, id: g("id"), name: g("name"), kind: g("kind"), rank: g("rank"), within: g("within"), len: g("len"), z: g("z"), a: at ? unitOf(at[0], at[1]) : null, p: path && path.length > 1 ? path.map((q) => unitOf(q[0], q[1])) : null, river, rivers: river >= 0 ? [river].concat(Array.isArray(alt) ? alt : []) : null };
     });
     GZ = { rows, byId: new Map(rows.map((r) => [r.id, r])) };
+    adm1Rows();
+  }
+  /* THE ADMIN-1 SLOT'S NAMES (2026-11-15, step 3; docs/atlas-v2-admin1-layer.md §8): once both the gazetteer and admin1.bin are in, each unit of the file is one
+     more `admin1` row of the ordinary pass, named at the file's own label point (`faceAnchor`, a point inside its face) under the same rules as the core's
+     states — the Provinces switch and its zoom, or flag 2 in the Personal Atlas. Rank and room follow build-gazetteer.js's admin-1 rows (the area bins
+     5e5 / 1e5 / 2e4 km², + 3; the room is the square root of the area, which the core's own rows come close to: Texas 856 km against 834) */
+  function adm1Rows() {
+    if (!GZ || !ADM1 || GZ.adm1) return;
+    const H = ADM1.H, ents = H.entities || [], anchors = H.faceAnchor || [], km2 = H.faceKm2 || [];
+    for (let f = 0; f < ADM1.T.faces.length; f++) {
+      const e = ents[ADM1.T.faces[f].entity], at = anchors[f]; if (!e || !at || GZ.byId.has(e.id)) continue;
+      const a2 = km2[f] || 0, rank = (a2 >= 5e5 ? 0 : a2 >= 1e5 ? 1 : a2 >= 2e4 ? 2 : 3) + 3;
+      const row = { i: GZ.rows.length, id: e.id, name: e.name, kind: "admin1", rank, within: 0, len: Math.round(Math.sqrt(a2)), z: 0, a: unitOf(at[0], at[1]), p: null, river: -1, rivers: null, adm1: true };
+      GZ.rows.push(row); GZ.byId.set(row.id, row);
+    }
+    GZ.adm1 = true;
   }
   // the style a row is drawn in, by kind and by how much room it has (CSS px of chord)
   function styleFor(row, chordPx) {
@@ -1436,7 +1452,7 @@
     if (!T.coreArc) { post({ type: "error", message: tag + "no coreRef section" }); return; }
     if (A1 && H.kindOf !== "admin1") { post({ type: "error", message: tag + "not an admin-1 file" }); return; }
     const S = { T, H, empty: H.arcEmpty || null, levels: [], meshes: new Map(), resident: new Set(), order: [], junctions: root.AtlasFormat.historyJunctions(T, CORE.T) };
-    if (A1) { RAW.adm1 = msg.buffer; ADM1 = S; } else { RAW.history = msg.buffer; HIST = S; }
+    if (A1) { RAW.adm1 = msg.buffer; ADM1 = S; adm1Rows(); } else { RAW.history = msg.buffer; HIST = S; }
     await tick();
     // per face: the bounding cap (centre, angular radius) and the area at LOD 0, for the rail's "what is on screen" and the label rank
     const nF = T.faces.length, faceCap = new Float32Array(nF * 4), faceEntity = new Uint32Array(nF);
@@ -1455,7 +1471,11 @@
     const faceArcOff = new Uint32Array(nF + 1), fa = [];
     for (let fi = 0; fi < nF; fi++) { faceArcOff[fi] = fa.length; const seen = new Set(); for (const ring of T.faces[fi].rings) for (const ref of ring) { const a = Math.abs(ref) - 1; if (T.arcKind[a] === 0 || seen.has(a)) continue; seen.add(a); fa.push(a); } }
     faceArcOff[nF] = fa.length; const faceArcs = Uint32Array.from(fa);
-    post({ type: "history-meta", slot: msg.slot, header: H, faceEntity, faceCap, faceArcOff, faceArcs, arcKind: A1 ? T.arcKind.slice() : undefined, parseMs: Math.round(now() - t0) }, [faceEntity.buffer, faceCap.buffer, faceArcOff.buffer, faceArcs.buffer]);
+    // the admin-1 slot (step 3): per face, the CORE arcs its international border references (kind 1), so the Personal Atlas's present day draws a discovered state's edge
+    // where its country is undiscovered (atlas.js refreshPersonalPresent adds them to the core's arc mask)
+    let coreBorderOff, coreBorders;
+    if (A1) { coreBorderOff = new Uint32Array(nF + 1); const cb = []; for (let fi = 0; fi < nF; fi++) { coreBorderOff[fi] = cb.length; for (let k = faceArcOff[fi]; k < faceArcOff[fi + 1]; k++) { const a = faceArcs[k]; if (T.arcKind[a] === 1 && T.coreArc[a] >= 0) cb.push(T.coreArc[a]); } } coreBorderOff[nF] = cb.length; coreBorders = Uint32Array.from(cb); }
+    post({ type: "history-meta", slot: msg.slot, header: H, faceEntity, faceCap, faceArcOff, faceArcs, arcKind: A1 ? T.arcKind.slice() : undefined, coreBorderOff, coreBorders, parseMs: Math.round(now() - t0) }, [faceEntity.buffer, faceCap.buffer, faceArcOff.buffer, faceArcs.buffer]);
     // the borders travel with each face's mesh since 2b (handleHistoryFaces); the three per-level lists of every border are gone
     post({ type: "history-done", slot: msg.slot, ms: Math.round(now() - t0), arcs: T.arcOffset.length - 1, faces: nF });
   }
