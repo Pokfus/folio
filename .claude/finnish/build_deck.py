@@ -146,6 +146,14 @@ GLOSS = {
     'kiertää': {'verb': ['to go round, to circle', 'to turn, to twist, to wind', 'to avoid, to get round']},
     # Wiktionary has only "verbal noun of ääntää"
     'ääntäminen': {'noun': ['pronunciation']},
+    # B2: three pairs with one English side; each says which is asked for
+    'pieleen': {'adv': ['wrong, awry (going wrong: mennä pieleen)']},
+    'pielessä': {'adv': ['wrong, awry (being wrong: olla pielessä)']},
+    'materiaali': {'noun': ['material (stuff, matter)']},
+    'aineisto': {'noun': ['material, data (collected for a study or a case)']},
+    'henkilöllisyys': {'noun': ['identity (who a person is, as on an identity card)']},
+    'identiteetti': {'noun': ['identity (a sense of self or of belonging)']},
+    'saastuminen': {'noun': ['pollution, contamination']},    # only "verbal noun of saastua"
     'asti': {'postp': ['until, up to, as far as (with the illative or the elative)']},
 }
 POS_LABEL = {}

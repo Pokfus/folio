@@ -14,8 +14,9 @@ const LABELS = new Set(["plural", "genitive", "partitive", "plural partitive", "
 // "See …" only with its capital: "see you later" is näkemiin's meaning, not a pointer
 const POINTER = { test: (g) => /^(?:alternative|obsolete|dated|rare) (?:form|spelling) of |^(?:inflection|synonym) of |^\*?\s*see:|^(?:first|second|third)-person .* of \S+$|^(?:comparative|superlative) degree of /i.test(g) || /^See /.test(g) };
 const FI = /^[a-zA-ZåäöÅÄÖšžŠŽéÉüÜ '-]+$/;
-// by WHOLE WORD, as `examples.clean` reads it (JavaScript's \b is not Unicode-aware)
-const SWEAR_W = /^(vittu|vitun|vitu|perkele|saatana|helvet|paska|huora|kyrp|perse|pillu|mulkku|runkk|runkat|kusipää|jumalaut|narttu)/;
+// by WHOLE WORD, as `examples.clean` reads it (JavaScript's \b is not Unicode-aware); the test reads
+// the English too, so `perse` must not match "perseverance" (B2's kestävyys)
+const SWEAR_W = /^(vittu|vitun|vitu|perkele|saatana|helvet|paska|huora|kyrp|perse(?!ver)|pillu|mulkku|runkk|runkat|kusipää|jumalaut|narttu)/;
 const SWEAR = { test: (t) => t.toLowerCase().match(/\p{L}+/gu)?.some((w) => SWEAR_W.test(w)) ?? false };
 let fail = 0;
 const bad = (m) => { fail++; console.log("FAIL  " + m); };

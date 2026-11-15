@@ -85,6 +85,34 @@ EXCLUDE = {
     'varokaa': 'the plural imperative of varoa', 'kuoleva': 'the present participle of kuolla (A1)',
     'tää': 'the spoken form of tämä (A1)', 'eka': 'the spoken form of ensimmäinen (A1)',
     'hyvänen': 'used only in hyvänen aika ("good heavens")',
+    # Read off the B2 ranking (2026-11-15).  Forms of words the levels below teach:
+    'menevä': 'the present participle of mennä (A1)', 'näkevä': 'the present participle of nähdä (A1)',
+    'pitävä': 'the present participle of pitää (A1)', 'kerrottava': 'kertoa\'s passive participle (A1), glossed only "multiplicand"',
+    'kultaseni': 'kultanen\'s "my" form (B1)', 'sinunlaisesi': 'a possessive form ("like you")',
+    'kuuntelen': 'the "I" form of kuunnella (A1), glossed only as the radio\'s "over"',
+    'tuliko': 'tulla\'s question form (A1)', 'poistu': 'the imperative of poistua (B1)',
+    'liikkumatta': 'liikkua\'s abessive infinitive, glossed only "freeze!"',
+    'roskaa': 'the partitive of roska (B1), glossed only "rubbish!"',
+    'öitä': 'the partitive plural of yö (A1), glossed only "night!"',
+    'huomiseen': 'the illative of huominen (B1), glossed only "see you tomorrow"',
+    'menoksi': 'the translative of meno (B1), glossed only "let\'s go!"',
+    'korkein': 'the superlative of korkea (B1), with no English of its own',
+    'ellemme': 'ellei\'s "unless we", taught on ellei (B1)', 'tuhatta': 'the partitive of tuhat (A1)',
+    'voihan': 'voi (A1) with -han', 'kotia': 'the spoken form of kotiin ("home")',
+    'näkemä': 'glossed only "sight distance"; the count is näkemiin\'s (A1)',
+    'versionumero': 'the subtitles\' credit line ("version number")',
+    # Letters' names, abbreviations, names and English:
+    'ää': 'the letter Ä\'s name', 'aa': 'the letter A\'s name', 'ee': 'the letter E\'s name',
+    'rva': 'an abbreviation of rouva (A1)', 'in': 'English', 'show': 'English', 'house': 'English',
+    'college': 'English, glossed only "sweatshirt"', 'penny': 'English', 'avenue': 'English',
+    'jersey': 'English', 'gloria': 'the name Gloria', 'graham': 'the name Graham',
+    'nelson': 'the name Nelson', 'maya': 'the name Maya', 'lana': 'the name Lana',
+    'santa': 'the name Santa, glossed only "sand"', 'frankki': 'the name Frank',
+    'ainu': 'glossed only as the people; the count is the spoken ainoa',
+    # Spoken forms, curses, slang and insults:
+    'tissi': 'slang ("boob")', 'perhana': 'a mild curse', 'pirun': 'a curse ("damn")',
+    'pahus': 'a mild curse', 'kusettaa': 'vulgar ("to con", from kusi)', 'lesbo': 'slang',
+    'beibi': 'slang ("baby")', 'viis': 'the spoken "never mind" (viis siitä)',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 

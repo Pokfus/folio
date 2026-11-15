@@ -186,4 +186,73 @@ B1 = [
                                                           'kuvailla mainita keskustella'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}
+B2 = [
+    ('politics and public administration', 'hallinto viranomainen virasto virkamies päätöksenteko '
+                                           'lainsäädäntö asetus hallitusohjelma oppositio koalitio '
+                                           'kansanedustaja presidentinvaalit ehdokas kampanja '
+                                           'äänestys enemmistö vähemmistö kannatus uudistus '
+                                           'vaalipiiri valtuusto kunnallinen julkishallinto '
+                                           'byrokratia diplomatia suurlähettiläs suurlähetystö '
+                                           'ulkopolitiikka sisäpolitiikka puolustus turvallisuuspolitiikka'),
+    ('the law and the courts', 'tuomioistuin oikeusjuttu syytetty asianomistaja todistus:noun '
+                               'todistaja:noun valitus vankeus ehdonalainen tutkintavankeus '
+                               'sopimusrikkomus korvaus vahingonkorvaus perustuslaki '
+                               'ihmisoikeus syrjintä rangaistus rikoslaki lainvastainen laillinen '
+                               'oikeudenmukainen kiistellä vedota kieltää:verb'),
+    ('the economy and finance', 'talouskasvu taantuma lama inflaatio työllisyys tuotanto kulutus '
+                                'kuluttaja vienti tuonti kauppatase investointi sijoittaja osake '
+                                'osakemarkkinat pörssi rahoitus valuutta pankkitili luotto '
+                                'tilintarkastus kirjanpito liikevaihto kilpailija '
+                                'yrittäjä toimitusjohtaja konserni tukiainen tuki:noun verotus '
+                                'kannattava kannattamaton'),
+    ('science and research', 'tiede tieteellinen tutkija:noun koe:noun hypoteesi teoria:noun '
+                             'menetelmä tulos:noun havainto aineisto tilasto analyysi '
+                             'johtopäätös näyttö:noun todennäköisyys laboratorio kokeilu '
+                             'keksintö löytö ilmiö rakenne prosessi'),
+    ('technology', 'teknologia ohjelmisto laitteisto tekoäly algoritmi tietoturva tietokanta '
+                   'verkko palvelin käyttäjä käyttöliittymä päivitys digitaalinen automaatio '
+                   'robotti innovaatio kehitys tuotekehitys'),
+    ('the environment and natural resources', 'ilmastonmuutos kasvihuonekaasu päästö hiilidioksidi '
+                                              'uusiutuva aurinkoenergia tuulivoima ydinvoima '
+                                              'luonnonvara metsätalous kaivos öljy:noun '
+                                              'kestävä kestävyys monimuotoisuus sukupuutto '
+                                              'saastuminen jätehuolto ekologinen suojelualue'),
+    ('health and the mind', 'mielenterveys psykologi psykiatri terapia ahdistus uupumus '
+                            'riippuvuus diagnoosi sairaanhoito terveydenhuolto kansanterveys '
+                            'ehkäisy elinajanodote hyvinvointi aivot hermosto immuniteetti '
+                            'tulehdus krooninen'),
+    ('the arts, literature and the media', 'kirjallisuus romaani runo runoilija kirjailija '
+                                           'teos julkaisu kustantaja arvostelu:noun kriitikko '
+                                           'taiteilija veistos maalaus näytelmä ohjaaja '
+                                           'elokuvaohjaaja sävellys säveltäjä orkesteri '
+                                           'tiedotusväline lehdistö sananvapaus sensuuri '
+                                           'propaganda some'),
+    ('history and society', 'historiallinen vuosikymmen aikakausi sivilisaatio imperiumi siirtomaa '
+                            'itsenäisyys sisällissota vallankumous kansakunta kansallinen '
+                            'kulttuuri identiteetti vähemmistö:noun maahanmuutto pakolainen '
+                            'köyhyys eriarvoisuus hyvinvointivaltio sosiaaliturva eläke '
+                            'työväenluokka keskiluokka'),
+    ('argument and evaluation', 'väite perustelu todiste:noun peruste näkemys kanta:noun kritiikki '
+                                'arvio arviointi johtopäätös syy-yhteys seuraus:noun vaikutus:noun '
+                                'tekijä:noun edellytys rajoitus ristiriita vastaväite '
+                                'kiistanalainen perusteltu ilmeinen epäselvä vakuuttava '
+                                'merkittävä olennainen keskeinen'),
+    ('formal connectors', 'kuitenkaan mutta:conj sen_vuoksi tämän_vuoksi näin_ollen siitä_huolimatta '
+                          'puolestaan toisin_sanoen esimerkiksi:adv eritoten etenkin varsinkin '
+                          'lähinnä ainoastaan niin_ikään vastaavasti samoin:adv lisäksi:adv '
+                          'joskin vaikkakin sikäli kunhan:conj'),
+    ('words for describing', 'tehokas tehoton luotettava:adj kattava yksityiskohtainen yleinen:adj '
+                             'abstrakti konkreettinen vastaava erillinen jatkuva väliaikainen '
+                             'pysyvä nopea:adj hidas merkityksetön ratkaiseva monipuolinen '
+                             'ainutlaatuinen keskimääräinen huomattava vähäinen'),
+    ('verbs of reporting, analysing and persuading', 'todeta korostaa painottaa huomauttaa '
+                                                     'tiivistää analysoida tulkita arvioida '
+                                                     'perustella todistaa:verb osoittaa:verb '
+                                                     'kumota suostutella vakuuttaa:verb '
+                                                     'väittää:verb myöntää:verb kyseenalaistaa '
+                                                     'edistää heikentää vahvistaa:verb '
+                                                     'ennustaa raportoida tiedottaa ilmaista '
+                                                     'edustaa määritellä soveltaa toteuttaa'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}

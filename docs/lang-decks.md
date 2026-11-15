@@ -3747,7 +3747,8 @@ changed was the one that had been wrong all along.
   vowel, the long consonant and the diphthong) **and A1, `decks/Finnish-A1.folio-deck.json`** (500 notes / 1,000
   cards: 345 from a hand-written topic inventory, 155 by frequency) **and A2, `decks/Finnish-A2.folio-deck.json`**
   (750 notes / 1,500 cards, 2026-11-15, on request: "Add A2"; `--level a2`) **and B1,
-  `decks/Finnish-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-15, on request: "Add B1"; `--level b1`). `python3 .claude/finnish/run.py [--level a1]`,
+  `decks/Finnish-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-15, on request: "Add B1"; `--level b1`) **and B2,
+  `decks/Finnish-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-15, on request: "Add B2"; `--level b2`). `python3 .claude/finnish/run.py [--level a1]`,
   `python3 .claude/finnish/alphabet.py`, `node .claude/finnish/check-finnish.js`; a re-run is byte-identical.
   Hungarian's pipeline adapted, no romanisation, verbs by their first infinitive with the "I" and "he/she" forms,
   past and perfect; nouns with plural, genitive, partitive and plural partitive. **What is new**: the tables'

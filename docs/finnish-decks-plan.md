@@ -5,8 +5,8 @@ Finnish set built in the Hungarian decks' shape (`docs/hungarian-decks-plan.md`,
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless
 this file says otherwise. Asked for on 2026-11-15: "Add a Finnish language collection."
 
-**STATUS (2026-11-15): the alphabet deck, A1, A2 and B1 are built** (`.claude/finnish/`, §6–§8). B2, C1 and a
-phrases deck are not.
+**STATUS (2026-11-15): the alphabet deck and A1 to B2 are built** (`.claude/finnish/`, §6–§9). C1 and a phrases
+deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP — the
@@ -33,7 +33,7 @@ the closest language and pipeline). **Any of these is the owner's to overrule.**
 | Finnish A1 Beginner — built | `Finnish-A1.folio-deck.json` | 500 |
 | Finnish A2 Elementary — built | `Finnish-A2.folio-deck.json` | 750 |
 | Finnish B1 Intermediate — built | `Finnish-B1.folio-deck.json` | 1,000 |
-| Finnish B2 Upper Intermediate | `Finnish-B2.folio-deck.json` | 1,500 |
+| Finnish B2 Upper Intermediate — built | `Finnish-B2.folio-deck.json` | 1,500 |
 | Finnish C1 Advanced | `Finnish-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
@@ -97,7 +97,7 @@ headword line and are missing where Wiktionary gives none.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2 and B1 done, §7–§8) — A2 to C1, one level per session: write the
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2, B1 and B2 done, §7–§9) — A2 to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `finnish_level.py`, run, read every card.
 **Phase 3** — a phrases deck (Hungarian's `phrases.py` is the model).
 
@@ -159,3 +159,27 @@ the inventory's share is lower than A2's. Five plural or inflected spellings wer
 - **Senses**: `ETYMS` shows `rikki` "broken" before "sulphur"; `LEAD` puts `lista` "list", `lasku` "bill", `korko`
   "interest" and `kierrättää` "recycle" first. `GLOSS` writes `kiertää` (whose senses are headings, "Senses
   related to turning …"), `saakka` (a description, like `asti`) and `ääntäminen` (only "verbal noun of ääntää").
+
+## 9. As built (2026-11-15): B2
+
+Asked for on 2026-11-15: "Add B2." `python3 .claude/finnish/run.py --level b2`: 1,500 notes, 278 from the inventory
+(`inventory.B2`, thirteen topics after the CEFR B2 descriptor's scope, `SCOPE['b2']`) and 1,222 by frequency;
+sentences for 1,394, three apiece for 1,210. The level's academic and public-life vocabulary is rare in subtitles
+and in Tatoeba, so more of its words have no sentence than at any level below. A1 to B1 rebuild byte-identical;
+a B2 re-run is byte-identical.
+
+**What reading the 1,500 found** (each `select.EXCLUDE`d or written into `build_deck`, with its reason):
+- **Forms** filed as words: participles (`menevä`, `näkevä`, `pitävä`, `kerrottava`), possessives
+  (`kultaseni`, `sinunlaisesi`), a superlative with no English (`korkein`), imperatives and calls (`poistu`,
+  `liikkumatta`, `roskaa`, `öitä`, `huomiseen`, `menoksi`), `kuuntelen` (the radio's "over"), `tuliko`,
+  `ellemme`, `tuhatta`, `voihan`, `kotia`, and `näkemä`, whose count is `näkemiin`'s.
+- **Another subtitle credit line**, `versionumero` ("version number").
+- **Letters' names, abbreviations, English and names**: `ää`, `aa`, `ee`, `rva`, `in`, `show`, `house`,
+  `college`, `penny`, `avenue`, `jersey`, `gloria`, `graham`, `nelson`, `maya`, `lana`, `santa`, `frankki`,
+  `ainu`.
+- **Slang, curses and insults**: `tissi`, `perhana`, `pirun`, `pahus`, `kusettaa`, `lesbo`, `beibi`, `viis`.
+- **Three pairs sharing one English side**, now told apart in `GLOSS`: `pieleen` / `pielessä` (going wrong,
+  being wrong), `materiaali` / `aineisto`, `henkilöllisyys` / `identiteetti`; and `saastuminen`, glossed only as
+  a verbal noun.
+- **The check's own false alarm**: `check-finnish.js` reads an example's English as well as its Finnish, so
+  its `perse` prefix matched "perseverance" (`kestävyys`); it is `perse(?!ver)` now.
