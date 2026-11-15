@@ -13,7 +13,8 @@ to the Council of Europe's CEFR global descriptor for its band, and the deck's
 description says both things in plain words.  THREE LEVELS, A1 to B1, at the
 Zulu and Hausa sizes: English Wiktionary holds about 2,300 Amharic words, and
 A1 + A2 + B1 (500 + 750 + 1,000) would use most of them; there is no source here
-for a B2 or a C1.  The plan is `docs/amharic-decks-plan.md`.
+for a B2 or a C1.  B1 IS SHORT OF ITS 1,000 (about 500): that is what the source
+has left after A2 (`docs/amharic-decks-plan.md` §6).  The plan is `docs/amharic-decks-plan.md`.
 
 THE TITLES ARE ENGLISH and carry the CEFR band, so `levelRank` in
 `.claude/build-lang-decks.js` sorts them with no new rule.
@@ -67,7 +68,8 @@ SCOPE = {
                  'simple connected text on familiar topics, and to describe experiences and '
                  'events, dreams, hopes and ambitions, and briefly give reasons and explanations '
                  'for opinions and plans',
-        'topics': '',
+        'topics': 'health and the body, the home and the table, money and doing things, the '
+                  'world about us, and describing people and things',
     },
 }
 

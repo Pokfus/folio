@@ -39,6 +39,13 @@ receive", ለበሰ "to dress", ነቃ "to wake", ተራመደ "to walk", ሀብ
 "strong", ንጹሕ "clean".  Left out for their glosses: ኬላ (filed as "station", a
 checkpoint), ዝቅተኛ (filed only as "inferior"), ቡን (a second word for coffee,
 which A1 teaches as ቡና); of the three words for forest, ደን is taught.
+
+B1 (2026-11-15) IS WHAT IS LEFT.  After A1 and A2 the fill takes every remaining
+lemma the Amharic Wikipedia uses at all (about 480), so this inventory only adds
+the everyday words English Wiktionary has but the corpus never uses -- the fill
+cannot find a word with no count.  ጥቅምቲ ("October, the second month") is not
+taken for the missing ጥቅምት: it is the Tigrinya spelling.  The set phrases and
+the interjections are not taught here.
 """
 
 INVENTORY = {
@@ -118,5 +125,17 @@ INVENTORY = {
          'ፈጣን ድሀ ደካማ ቆሻሻ ርጥብ ደረቅ ባዶ መራራ አስቀያሚ ወፍራም ቀጭን ጠባብ ጥልቅ ወጣት'),
         ('feasts and faith',
          'ፋሲካ መስቀል ጾም ጸሎት መስጊድ ቅዳሴ'),
+    ],
+    'b1': [
+        ('health and the body',
+         'አመመ አነጠሰ አከመ ኪኒን ጐድን ዛለ'),
+        ('the home and the table',
+         'ማንካ ደምበጃን ፋኑስ መንጣፍ በጣጢስ የገማ'),
+        ('money and doing things',
+         'መነዘረ አደሰ ሐለመ አፌዘ ጐረፈ'),
+        ('the world about us',
+         'ቀስተዳመና የሌሊትወፍ ዘርቤዶ አንበሲት'),
+        ('describing people and things',
+         'ለፍላፊ ቀፋፊ ደነዝ'),
     ],
 }

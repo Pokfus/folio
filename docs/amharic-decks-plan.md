@@ -6,8 +6,8 @@ record of how those were built, and every rule there applies here unless this fi
 on 2026-11-15: "Add an Amharic language collection." The owner was not asked: the Zulu and Hausa owners'
 answers to the same questions, for sources as thin as these, were taken.
 
-**STATUS (2026-11-15): the fidäl deck, A1 and A2 are built** (`.claude/amharic/`, §6). B1 is next, and will be
-about 500 notes, not 1,000: after A2 only about 490 lemmas pass the fill's rules and appear in the corpus (§6).
+**STATUS (2026-11-15): all four planned decks are built** — the fidäl deck, A1, A2 and B1 (`.claude/amharic/`, §6).
+B1 holds 494 notes, not 1,000: what the source has left after A2 (§6).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck this plan produces. The collection's first commit carried a line and a bump because it also
@@ -30,7 +30,7 @@ changed the APP (the shelf's hue in `app.js`) — the Hebrew and Zulu precedent.
 | Amharic Alphabet (Fidäl) — built | `Amharic-Alphabet.folio-deck.json` | 44 |
 | Amharic A1 Beginner — built | `Amharic-A1.folio-deck.json` | 500 |
 | Amharic A2 Elementary — built | `Amharic-A2.folio-deck.json` | 750 |
-| Amharic B1 Intermediate | `Amharic-B1.folio-deck.json` | 1,000 planned; about 500 left |
+| Amharic B1 Intermediate — built | `Amharic-B1.folio-deck.json` | 494 (planned 1,000) |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
 
@@ -116,8 +116,7 @@ and all.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the fidäl deck, A1. **Phase 2** — A2 (done), then B1: write the level's
-inventory into `inventory.py` and its `topics` into `amharic_level.SCOPE`, run, read every card. **Phase 3** — a phrases deck only if asked (Wiktionary
+**Phase 1 (done)** — the pipeline, the fidäl deck, A1. **Phase 2 (done)** — A2, then B1. **Phase 3** — a phrases deck only if asked (Wiktionary
 has 7 Amharic phrase entries and one proverb).
 
 ## 6. As built (2026-11-15)
@@ -154,3 +153,16 @@ reaches down to a frequency of 18. What reading the A2 ranking added, each a rul
   the decks teach the Ethiopian ones), second spellings of words taught (ደሞዝ, ደሀ, እባት, ሌት, ንፋስ, ኡነት, ጦም,
   መስታዎት), glosses that are not the word the corpus counts (ጠራ "to be clear" for "to call", ጭራ "flyswatter"
   for "tail", ከልብ "dog" for "sincerely"), and the encyclopaedia's titles and names (ፊታውራሪ, አቡነ, ኢጣልያ).
+
+**B1 (2026-11-15): 494 notes, not the planned 1,000, because that is what is left.** `python3
+.claude/amharic/run.py --level b1`: 24 from the inventory and 470 by frequency; 51 with forms, 6 with sentences; a
+re-run and a clean `--re-extract` are byte-identical, the other three decks rebuilt byte-identical alongside. The
+fill takes every remaining lemma the Amharic Wikipedia uses at all (down to a count of 1), so the inventory only
+adds everyday words English Wiktionary has that the corpus never uses (to sneeze, a pill, a spoon, a rainbow,
+to exchange money …). The level reads as what it is — the rest of the dictionary, many of its words concrete and
+rarer (tools, animals, plants, spices) — and the deck's description says it is short and why. What reading the
+B1 ranking added: twenty more `EXCLUDE` lines (second spellings — ማዎቅ, ትናንትና, ጠጀ, ሲጃራ, አሞት, ብጒንጅ, ቈጠረ,
+ኣከስት, ሆመጠጠ; ማረስ, the infinitive of A2's አረሰ; ሮብ, defined only as "synonym of ረቡዕ"; a letter's name, two
+languages from the encyclopaedia, a dialect word, and four words of sexual or anatomical vocabulary the level
+does not need), and Egypt keeps its capital. ጥቅምቲ ("October", the second month) was not taken for A2's
+missing ጥቅምት: it is the Tigrinya spelling. **There is no source here for a B2.**

@@ -80,7 +80,7 @@ KEEP_CAP = re.compile(r"^(I|God|Monday|Tuesday|Wednesday|Thursday|Friday|Saturda
                       r"Christian|Christianity|Catholic|Amharic|Arabic|Arab|Amhara|English|"
                       r"Ethiopia|Ethiopian|Greek|Jesus|Muslim|Islam|Orthodox|Ge'ez|Old|New|"
                       r"January|February|March|April|May|June|July|August|September|October|"
-                      r"November|December|Easter|Christmas|Bible|African|Englishman|Jannat)\b")
+                      r"November|December|Easter|Christmas|Bible|African|Englishman|Jannat|Egypt)\b")
 MONTH = re.compile(r"\b(january|february|march|april|may|june|july|august|september|october|"
                    r"november|december)\b")
 
@@ -304,6 +304,10 @@ def desc(entries, n):
         f"begins '{SC['quote']}' — a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
          if LEVEL != 'a1' else "") +
+        ("THIS LEVEL IS SHORT: a B1 deck would hold about 1,000 words, and this one holds "
+         f"{n}, because that is what English Wiktionary has left after A1 and A2 — the rest of "
+         "its Amharic words, many of them concrete and rarer (tools, animals, plants, spices). "
+         "There is no B2 for the same reason. " if LEVEL == 'b1' else "") +
         "WHERE THESE WORDS COME FROM, since it matters: no exam board publishes a graded word list "
         "for Amharic, so this deck is not any examination's vocabulary and does not claim to be. "
         f"It is assembled from two things that can be stated. {from_inv} of the {n} come from a "

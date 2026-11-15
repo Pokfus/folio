@@ -107,6 +107,28 @@ EXCLUDE = {
     'ከልብ': 'its count is ከልብ "sincerely" (ከ- + ልብ "heart"), not the rare "dog"',
     'ጭራ': 'Wiktionary glosses only "flyswatter"; its count is ጭራ "tail"',
     'መስታዎት': 'a spelling of መስታወት "mirror, glass", which is taught',
+    # Read off the B1 ranking (2026-11-15).
+    'ማረስ': 'the infinitive of አረሰ "to plough", taught at A2',
+    'ማዎቅ': 'a spelling of ማወቅ "to know", taught at A1',
+    'ትናንትና': 'a longer form of ትናንት "yesterday", taught at A1',
+    'ጠጀ': 'a spelling of ጠጅ "mead", taught at A2',
+    'ሲጃራ': 'a spelling of ሲጋራ "cigarette", which B1 teaches',
+    'አሞት': 'a spelling of ሐሞት "bile", which B1 teaches',
+    'ዋዌ': 'the name of a Ge\'ez letter, from the articles on the script',
+    'ኬላ': 'Wiktionary glosses "station"; the everyday word is a checkpoint',
+    'ቡን': 'a second word for coffee, which A1 teaches as ቡና',
+    'አርሜንኛ': 'the Armenian language, from the encyclopaedia',
+    'ጋለሞታ': 'sexual vocabulary the level does not need',
+    'ውሽማ': 'sexual vocabulary the level does not need',
+    'ቁላ': 'anatomical vocabulary the level does not need',
+    'ቂንጥር': 'anatomical vocabulary the level does not need',
+    'ብጒንጅ': 'a spelling of ብጉንጅ "abscess, boil", which B1 teaches',
+    'ቈጠረ': 'a spelling of ቆጠረ "to count", which B1 teaches',
+    'ኣከስት': 'a spelling of አክስት "aunt", taught at A2',
+    'ሆመጠጠ': 'a spelling of ኰመጠጠ "to be sour", which B1 teaches',
+    'ዕብራይጥ': 'the Hebrew language, from the encyclopaedia',
+    'የልምዣት': 'a dialect word (Gojjam), as Wiktionary files it',
+    'ሮብ': 'a synonym of ረቡዕ "Wednesday", taught at A1; Wiktionary defines it only by that pointer',
 }
 
 
