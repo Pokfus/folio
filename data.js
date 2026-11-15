@@ -11250,7 +11250,9 @@ window.CARD_DATA = [
 {"id":"gin-512","num":"512","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Hyderabad","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Founded</span><span class=\"dt-v\">1589</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Hyderabad","tags":["place","city","geography","capital","india"],"difficulty":2,"map":{"layer":"india-states","key":"Telangana","dot":"Hyderabad"},"facts":[["State","Telangana"],["Population","6.99M (2011)"],["Area","977 km² (377 sq mi)"],["Rank in state","Largest city"]],"notes":["Population and area are the census entry ‘(a) Hyderabad’ of table A-04 (the municipal corporation with its outgrowths), the city line under the urban agglomeration of 7.68 million."]},
 {"id":"gin-012","num":"012","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Telangana","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">2 June 2014</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Telangana","tags":["place","geography","india","state","deccan"],"difficulty":3,"map":{"layer":"india-states","key":"Telangana"},"facts":[["Kind","State"],["Capital","Hyderabad"],["Population","35.0M (2011)"],["Area","112k km² (43.3k sq mi)"]],"notes":["Population and area are the Government of Telangana's own figures; the shape drawn on the map is Natural Earth's line of before 2014, about 1,100 km² too large (docs/india-geography-card-plan.md), so no figure is taken from the map and the card says nothing about which states it borders."]},
 {"id":"gin-513","num":"513","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Thiruvananthapuram","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Thiruvananthapuram","tags":["place","city","geography","capital","india"],"difficulty":4,"map":{"layer":"india-states","key":"Kerala","dot":"Thiruvananthapuram"},"facts":[["State","Kerala"],["Population","744k (2011)"],["Area","142 km² (54.7 sq mi)"],["Rank in state","Largest city"]]},
-{"id":"gin-013","num":"013","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Kerala","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">1 November 1956</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Kerala","tags":["place","geography","india","state","south india"],"difficulty":3,"map":{"layer":"india-states","key":"Kerala"},"facts":[["Kind","State"],["Capital","Thiruvananthapuram"],["Population","33.4M (2011)"],["Area","38.9k km² (15.0k sq mi)"]]}
+{"id":"gin-013","num":"013","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Kerala","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">1 November 1956</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Kerala","tags":["place","geography","india","state","south india"],"difficulty":3,"map":{"layer":"india-states","key":"Kerala"},"facts":[["Kind","State"],["Capital","Thiruvananthapuram"],["Population","33.4M (2011)"],["Area","38.9k km² (15.0k sq mi)"]]},
+{"id":"gin-514","num":"514","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Ranchi","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State capital</span><span class=\"dt-v\">2000</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ranchi","tags":["place","city","geography","capital","india"],"difficulty":4,"map":{"layer":"india-states","key":"Jharkhand","dot":"Ranchi"},"facts":[["State","Jharkhand"],["Population","1.07M (2011)"],["Area","175 km² (67.6 sq mi)"],["Rank in state","Largest city"]]},
+{"id":"gin-014","num":"014","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Jharkhand","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">15 November 2000</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Jharkhand","tags":["place","geography","india","state","east india"],"difficulty":3,"map":{"layer":"india-states","key":"Jharkhand"},"facts":[["Kind","State"],["Capital","Ranchi"],["Population","33.0M (2011)"],["Area","79.7k km² (30.8k sq mi)"]]}
 ];
 
 window.COLLECTION_TREE = {
@@ -29249,7 +29251,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-india",
       "title": "India",
-      "total": 24,
+      "total": 26,
       "placeholder": false,
       "children": [
         {
@@ -29269,7 +29271,8 @@ window.COLLECTION_TREE = {
             "gin-010",
             "gin-011",
             "gin-012",
-            "gin-013"
+            "gin-013",
+            "gin-014"
           ]
         },
         {
@@ -29287,7 +29290,8 @@ window.COLLECTION_TREE = {
             "gin-508",
             "gin-511",
             "gin-512",
-            "gin-513"
+            "gin-513",
+            "gin-514"
           ]
         },
         {

@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T21:54Z",
+ "generated": "2026-11-15T21:59Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8288,
+  "ok": 8290,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89356,6 +89356,20 @@
    "answer": "Kerala",
    "title": "Kerala",
    "url": "https://en.wikipedia.org/wiki/Kerala",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-514": {
+   "answer": "Ranchi",
+   "title": "Ranchi",
+   "url": "https://en.wikipedia.org/wiki/Ranchi",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-014": {
+   "answer": "Jharkhand",
+   "title": "Jharkhand",
+   "url": "https://en.wikipedia.org/wiki/Jharkhand",
    "via": "answer",
    "status": "ok"
   }
