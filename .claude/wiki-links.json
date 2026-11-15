@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T22:10Z",
+ "generated": "2026-11-15T22:11Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8295,
+  "ok": 8296,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89406,6 +89406,13 @@
    "title": "Haryana",
    "url": "https://en.wikipedia.org/wiki/Haryana",
    "via": "answer",
+   "status": "ok"
+  },
+  "gin-518": {
+   "answer": "Chandigarh",
+   "title": "Chandigarh",
+   "url": "https://en.wikipedia.org/wiki/Chandigarh",
+   "via": "glossary",
    "status": "ok"
   }
  }

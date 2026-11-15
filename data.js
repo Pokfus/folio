@@ -11257,7 +11257,8 @@ window.CARD_DATA = [
 {"id":"gin-015","num":"015","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Assam","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Ceded to British</span><span class=\"dt-v\">1826</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Assam","tags":["place","geography","india","state","northeast india"],"difficulty":3,"map":{"layer":"india-states","key":"Assam"},"facts":[["Kind","State"],["Capital","Dispur"],["Population","31.2M (2011)"],["Area","78.4k km² (30.3k sq mi)"]]},
 {"id":"gin-016","num":"016","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Punjab","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Reorganised</span><span class=\"dt-v\">1 November 1966</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Punjab","tags":["place","geography","india","state","punjab"],"difficulty":3,"map":{"layer":"india-states","key":"Punjab"},"facts":[["Kind","State"],["Capital","Chandigarh"],["Population","27.7M (2011)"],["Area","50.4k km² (19.4k sq mi)"]]},
 {"id":"gin-516","num":"516","category":"Geography","question":"The dot marks <span class=\"blank\">_____</span>, capital of the shaded state though it lies in a union territory beside it.","answer":"Chandigarh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Union territory</span><span class=\"dt-v\">1 November 1966</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Chandigarh","tags":["place","city","geography","capital","india"],"difficulty":3,"map":{"layer":"india-states","key":"Punjab","dot":"Chandigarh"},"facts":[["Capital of","Punjab and Haryana"],["Lies in","Chandigarh (union territory)"],["Population","962k (2011)"],["Area","103 km² (39.8 sq mi)"]]},
-{"id":"gin-018","num":"018","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Haryana","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">1 November 1966</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Haryana","tags":["place","geography","india","state","north india"],"difficulty":3,"map":{"layer":"india-states","key":"Haryana"},"facts":[["Kind","State"],["Capital","Chandigarh"],["Population","25.4M (2011)"],["Area","44.2k km² (17.1k sq mi)"]]}
+{"id":"gin-018","num":"018","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Haryana","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">1 November 1966</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Haryana","tags":["place","geography","india","state","north india"],"difficulty":3,"map":{"layer":"india-states","key":"Haryana"},"facts":[["Kind","State"],["Capital","Chandigarh"],["Population","25.4M (2011)"],["Area","44.2k km² (17.1k sq mi)"]]},
+{"id":"gin-518","num":"518","category":"Geography","question":"The dot marks <span class=\"blank\">_____</span>, capital of the shaded state though it lies in a union territory beside it.","answer":"Chandigarh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">First census</span><span class=\"dt-v\">1961</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Chandigarh","tags":["place","city","geography","capital","india"],"difficulty":3,"map":{"layer":"india-states","key":"Haryana","dot":"Chandigarh"},"facts":[["Capital of","Haryana and Punjab"],["Lies in","Chandigarh (union territory)"],["Population","962k (2011)"],["Area","103 km² (39.8 sq mi)"]]}
 ];
 
 window.COLLECTION_TREE = {
@@ -29256,7 +29257,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-india",
       "title": "India",
-      "total": 31,
+      "total": 32,
       "placeholder": false,
       "children": [
         {
@@ -29301,7 +29302,8 @@ window.COLLECTION_TREE = {
             "gin-513",
             "gin-514",
             "gin-515",
-            "gin-516"
+            "gin-516",
+            "gin-518"
           ]
         },
         {
