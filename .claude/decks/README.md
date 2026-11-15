@@ -1,6 +1,6 @@
 # The Mandarin deck generators
 
-These build the three `.folio-deck.json` files in `decks/`. **Not part of the site** — nothing here is
+These built the nine HSK `.folio-deck.json` files in `decks/` (and, since Nov 2026, `build-beginner.js` builds three more — see "The order, the pinned ids and the three beginner decks"). **Not part of the site** — nothing here is
 loaded by it, and a deck file is imported through the Studio exactly as a stranger's would be, through
 `uDeckNormalize`, with no privileged path of any kind.
 
@@ -46,6 +46,29 @@ Add for the whole language — the collection banner's own + buys instead.
 `extras.js` is **both a script and a module**: required, it runs down to the pool and the segmenter and
 stops, which is how `build-extra.js` gets the same corpus, the same traditional-script exclusions and the
 same sentence selection as the vocabulary decks rather than a second copy of them.
+
+## The order, the pinned ids and the three beginner decks (Nov 2026)
+
+The nine decks cannot be rebuilt — `w26-*.json`, the generator's inputs, are not in the repo — so since Sep
+2026 every change to them goes through `mandarin-fix.js` and its record, `mandarin-fixes.json`. The
+beginner pass (`docs/mandarin-review.md`) added three things on that model.
+
+    node mandarin-fix.js --check        # the nine decks carry their fixes, their order and their pinned ids
+    node build-beginner.js --check      # the three beginner decks are what the tables and the decks give
+
+| file | what it is |
+|---|---|
+| `mandarin-ids.json` | deck id → headword (or key) → the number in the card's id. **Never delete or renumber a row**: the Update press merges a reader's progress by id. A new note takes the next free number. |
+| `mandarin-order.json` | deck id → the full list of headwords, in the order the deck is dealt. Applied by `mandarin-fix.js`, which moves a note with its id and rewrites `num`. May be edited by hand; a list that is not exactly the deck's headwords is refused. |
+| `mandarin-order.js` | how that file was computed (the rules are in its header): Level 1's hand-written head, then frequency over the nine decks' own sentences, confusable notes forty apart; the phrases by reading level. Re-run it on purpose, never as a side effect. |
+| `build-beginner.js` | writes `Mandarin-Pinyin-and-Tones`, `Mandarin-Level-1-Character-Parts` and `Mandarin-First-Phrases`. **Reads no live source**: only the shipped Level 1 to 3 decks and the two tables below. Re-run it after `mandarin-fix.js` changes Level 1, 2 or 3. |
+| `beginner-pinyin.json` | the sounds: IPA and descriptions quoted from two Wikipedia articles at the revisions it names. A row's `key` is what its id is pinned to. |
+| `beginner-phrases.json` | the first phrases: hand-chosen CC-CEDICT headwords with the reading as printed and the senses to carry; `trad` and `senses` are captured from CC-CEDICT by `build-beginner.js --capture <cedict file>` and never typed. |
+
+`mandarin-fix.js` leaves the three beginner decks alone (they are not in its record) but still holds them to
+their pinned ids. To add a first phrase: add a row (`w`, `c`, `py`, `pick`), fetch CC-CEDICT, run
+`--capture`, then build — a headword CC-CEDICT lacks, one using a character Level 1 does not, or one
+already carded in the nine decks is refused. After any of this, `node .claude/build-lang-decks.js`.
 
 ## Changing the card type's CSS
 

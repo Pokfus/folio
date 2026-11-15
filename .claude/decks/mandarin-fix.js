@@ -504,6 +504,38 @@ const punctExamples = (html) => String(html).replace(
   });
 
 const fixes = JSON.parse(fs.readFileSync(FIXES, "utf8"));
+/* THE ORDER A DECK IS DEALT IN, AND THE PIN THAT MAKES RE-ORDERING SAFE (Nov 2026, the beginner pass).
+   `mandarin-order.json` is `{ <deck id>: { why, order: [headword, …] } }`, written by mandarin-order.js
+   (its header has the rules) and applied at the foot of the loop below: the notes are put in that order,
+   EACH KEEPING ITS ID, and `num` is rewritten to the new position. A list that is not exactly the deck's
+   headwords — one missing, one extra, one twice — is refused and the deck is not written.
+   `mandarin-ids.json` is `{ <deck id>: { <headword>: N } }` for the id `u_<deck id>_N`. The ids were the
+   note's POSITION when the decks were built, and the Update press merges a reader's progress by id, so
+   an edit that renumbered would hand every schedule to another word. Every Mandarin deck in decks/ is
+   checked against the pin on every run, the three `build-beginner.js` writes included (their notes are
+   keyed by `key`), and a deck that disagrees is refused. */
+const ORDER_FILE = path.join(__dirname, "mandarin-order.json"), IDS_FILE = path.join(__dirname, "mandarin-ids.json");
+const ORDER = fs.existsSync(ORDER_FILE) ? JSON.parse(fs.readFileSync(ORDER_FILE, "utf8")) : {};
+const PIN = JSON.parse(fs.readFileSync(IDS_FILE, "utf8"));
+const badOrder = [], badPin = [];
+let ordered = 0;
+const noteKey = (c) => String(c.key || c.hanzi || (c.fields || {}).Simplified || "");
+function pinFaults(d, mayRetire) {
+  const id = d.meta && d.meta.id, pin = PIN[id], out = [];
+  if (!pin) return [id + ": no rows in mandarin-ids.json"];
+  const seenKey = new Set();
+  for (const c of d.cards || []) {
+    const k = noteKey(c), want = "u_" + id + "_" + pin[k];
+    if (!(k in pin)) out.push(id + "/" + k + ": not pinned (" + c.id + ")");
+    else if (c.id !== want) out.push(id + "/" + k + ": id " + c.id + ", pinned " + want);
+    if (seenKey.has(k)) out.push(id + "/" + k + ": twice in the deck");
+    seenKey.add(k);
+  }
+  /* a note of the nine decks never leaves; one of build-beginner.js's may, and its row stays so that
+     its number is not handed to another note */
+  if (!mayRetire) for (const k of Object.keys(pin)) if (!seenKey.has(k)) out.push(id + "/" + k + ": pinned, not in the deck");
+  return out;
+}
 /* `decks` edits a deck's own METADATA rather than a note — currently only the subtitle, which is what
    the Collections page prints under a deck's title. It is here rather than hand-edited into the files
    for the reason everything else is: these decks cannot be regenerated, so an edit with no record is an
@@ -549,7 +581,14 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
   const d = JSON.parse(before);
   const dm = deckMeta[d.meta && d.meta.id];
   if (dm) {
-    Object.keys(dm).forEach((k) => { if (k !== "why" && k !== "addFields" && k !== "tpl" && k !== "css") d.meta[k] = dm[k]; });
+    Object.keys(dm).forEach((k) => { if (k !== "why" && k !== "addFields" && k !== "tpl" && k !== "css" && k !== "descAdd") d.meta[k] = dm[k]; });
+    /* `descAdd` PUTS ONE PASSAGE INTO THE DECK'S DESCRIPTION, before its credits (" — Word list, …"), and
+       is idempotent on the passage itself. The descriptions are 2,500 characters of generator output and
+       setting one whole through `desc` would put nine copies of it in the record to change a sentence. */
+    if (dm.descAdd && String(d.meta.desc || "").indexOf(dm.descAdd) < 0) {
+      const cur = String(d.meta.desc || ""), at = cur.indexOf(" — Word list,");
+      d.meta.desc = at < 0 ? cur + dm.descAdd : cur.slice(0, at) + dm.descAdd + cur.slice(at);
+    }
     /* `css` APPENDS TO EVERY TYPE'S OWN SCOPED SHEET rather than setting a deck field, which is what a
        rule needs that belongs to no one field — the sense tag on an example is written into a block the
        Examples field already owns. Idempotent on the rule's first selector, like `addFields`'s. */
@@ -583,7 +622,12 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
   }
   const want = byDeck.get(d.meta && d.meta.id);
   const wantHint = hintsByDeck.get(d.meta && d.meta.id);
-  if (!want && !wantHint && !dm) continue;
+  if (!want && !wantHint && !dm) {
+    // a deck this record does not edit (build-beginner.js's three) is still held to its pinned ids
+    const pf = pinFaults(d, true);
+    if (pf.length) badPin.push(f + ": " + pf.length + " — " + pf.slice(0, 5).join("; "));
+    continue;
+  }
   let hits = 0;
   for (const c of d.cards || []) {
     const fl = c.fields || {};
@@ -972,6 +1016,24 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^Mandarin-.*\.folio-deck\.jso
     c.answer = fl.Pinyin + " — " + ans;
     hitsBrit++;
   }
+  /* ---------- THE ORDER ---------- see ORDER above. Last, so every edit above has found its note by
+     headword first; and the ids are checked AFTER it, on what would be written. */
+  const ord = ORDER[d.meta && d.meta.id];
+  if (ord && Array.isArray(ord.order)) {
+    const byWord = new Map((d.cards || []).map((c) => [noteKey(c), c]));
+    const list = ord.order, uniq = new Set(list);
+    const lost = (d.cards || []).map(noteKey).filter((k) => !uniq.has(k)), extra = list.filter((k) => !byWord.has(k));
+    if (uniq.size !== list.length || lost.length || extra.length) {
+      badOrder.push(d.meta.id + ": " + (list.length - uniq.size) + " twice, " + lost.length + " not listed (" + lost.slice(0, 5).join(" ") + "), "
+        + extra.length + " not in the deck (" + extra.slice(0, 5).join(" ") + ")");
+      continue;
+    }
+    d.cards = list.map((k) => byWord.get(k));
+    d.cards.forEach((c, i) => { c.num = String(i + 1); });
+    ordered++;
+  }
+  const pf = pinFaults(d);
+  if (pf.length) { badPin.push(f + ": " + pf.length + " — " + pf.slice(0, 5).join("; ")); continue; }
   const after = JSON.stringify(d);
   if (after !== before) {
     if (!CHECK) fs.writeFileSync(p, after);
@@ -1049,6 +1111,19 @@ if (badMW.length) {
 if (badGloss.length) {
   console.log("\n  FAIL  " + badGloss.length + " `gloss` fix(es) on a note that has not exactly one sense — use `senses`:");
   badGloss.forEach((k) => console.log("        " + k));
+  process.exit(1);
+}
+if (ordered) console.log("  " + ordered + " deck(s) held to the order in mandarin-order.json");
+if (badOrder.length) {
+  console.log("\n  FAIL  " + badOrder.length + " order(s) in mandarin-order.json that are not exactly the deck's headwords (deck not written):");
+  badOrder.forEach((k) => console.log("        " + k));
+  process.exit(1);
+}
+/* An id that has moved off its note is a reader's progress handed to another word. Never repair this by
+   editing mandarin-ids.json to match the deck: find what renumbered the deck and undo it. */
+if (badPin.length) {
+  console.log("\n  FAIL  " + badPin.length + " deck(s) whose card ids are not the ones mandarin-ids.json pins (deck not written):");
+  badPin.forEach((k) => console.log("        " + k));
   process.exit(1);
 }
 if (missing.length) {

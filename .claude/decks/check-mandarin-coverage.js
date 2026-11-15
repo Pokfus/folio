@@ -54,6 +54,9 @@ const files = fs.readdirSync(DIR).filter((f) => /^Mandarin-.*\.folio-deck\.json$
 const notes = [];
 for (const f of files) {
   const d = JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8"));
+  // the sounds deck and the character-parts deck (Nov 2026) are not vocabulary: their types have no
+  // Pinyin field, and every measure below would count all of their notes as missing something
+  if (!Object.values((d.meta && d.meta.types) || {}).some((t) => (t.fields || []).indexOf("Pinyin") >= 0)) continue;
   const deck = f.replace(/\.folio-deck\.json$/, "").replace(/^Mandarin-/, "");
   for (const c of d.cards || []) {
     const fl = c.fields || {};
