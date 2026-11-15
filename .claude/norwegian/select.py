@@ -76,6 +76,39 @@ EXCLUDE = {
     'bure': 'its count is bure inne "to lock up", which its entry does not give',
     'dyrt': 'the neuter of dyr (A1)', 'sale': 'its count is salt (A1); its entry is "to saddle"',
     'lake': 'the English word, and laken "a sheet"; its entry is "brine"',
+    # Read off the B2 ranking (2026-11-15).
+    # A FORM OR A SPELLING TAUGHT ON ANOTHER CARD
+    'fett': 'the neuter of fet (B1)', 'grønt': 'the neuter of grønn (A1)',
+    'langsomt': 'the neuter of langsom (A2)', 'effektivt': 'the neuter of effektiv, taught in B2',
+    'seksuelt': 'the neuter of seksuell, taught in B2', 'brutalt': 'the neuter of brutal, taught in B2',
+    'tynne': 'the plural of tynn (A2); its entry is "to thin"', 'sure': 'the plural of sur (A2)',
+    'savnet': 'the participle of savne (A2)', 'forbannet': 'the participle of forbanne (B1)',
+    'lest': 'the participle of lese (A1); its entry is "a shoemaker\'s last"',
+    'katte': 'a form of katt (A2)', 'antagelig': 'the second spelling of antakelig, taught in B2',
+    'hverken': 'the second spelling of verken (A2)', 'fler': 'the second spelling of flere (A1)',
+    'bru': 'the second spelling of bro (A2)', 'tjukk': 'the second spelling of tykk (A2)',
+    'òg': 'the Nynorsk and dialect spelling of også (A1)',
+    # A COUNT THAT IS ANOTHER WORD'S, OR A WORD WITH NO MEANING TO TEACH
+    'lever': 'its count is lever, the present of leve (A1); its entry is "a liver"',
+    'rev': 'its count is rev, the past of rive (A2); its entry is "a fox"',
+    'ete': 'its count is ett "one"; its entry is the dialect "to eat"',
+    'ør': 'its count is ører, the plural of øre (A2); its entry is "a sandbank"',
+    'matte': 'its count is the colloquial "maths"; its entry is "a mat"',
+    'akter': 'its count is not "aft"', 'mele': 'its count is mel (A2)\'s forms',
+    'kverke': 'its count is not "strangles"', 'maje': 'its count is not "a Black Maria"',
+    'ark': 'its count is et ark "a sheet of paper", which its entry does not give',
+    'blakk': 'its count is the colloquial "broke", which its entry does not give',
+    'jukse': 'its count is jukse "to cheat", which its entry does not give',
+    'ruse': 'its count is rus "intoxication"\'s forms', 'lime': 'its count is lime "to glue"',
+    'mo': 'its count is not "sultry"', 'ar': 'a misspelling\'s count; its entry is a unit of area',
+    'in': 'the English word', 'green': 'English', 'house': 'English', 'make': 'English', 'kid': 'English',
+    'boss': 'English', 'turner': 'the name', 'ska': 'a spelling removed in 2005',
+    'bye': 'a spelling removed in 2005', 'alfa': 'a Greek letter', 'ave': 'met only in Ave Maria',
+    'ah': 'an interjection with no meaning to teach', 'eh': 'an interjection with no meaning to teach',
+    'he': 'an interjection with no meaning to teach', 'mm': 'an interjection with no meaning to teach',
+    'ho': 'an interjection with no meaning to teach', 'rein': 'the second spelling of ren (A2)',
+    'skjær': 'its count is et skjær "a skerry" and skjære (A2)',
+    'kåte': 'sexual; its count is kåt "horny"', 'voldtekt': 'excluded with voldta (B1)',
     'voldta': 'not taught in a level deck, though common in the subtitles\' crime drama (as Swedish)',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
@@ -84,7 +117,7 @@ EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 SWEARS = {'faen', 'helvete', 'jævla', 'jævel', 'jævlig', 'dritt', 'drite', 'satan', 'fitte',
           'kuk', 'hore', 'idiot', 'pikk', 'ræva', 'rævhøl', 'rasshøl', 'drittsekk', 'pokker',
           'fanden', 'djevel', 'homo', 'knulle', 'pule', 'shit', 'fuck', 'dust', 'dritings',
-          'ræv', 'pisse', 'fanken', 'pupp', 'kjerring'}
+          'ræv', 'pisse', 'fanken', 'pupp', 'kjerring', 'tispe', 'dæven', 'ludder', 'runke'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists
 # another first.
@@ -105,7 +138,10 @@ FILL_POS = {'alt': 'pron',     # "everything", not "an alto"
             'konge': 'noun',     # "king"; Wiktionary's first is the slang adjective
             'gift': 'adj',       # "married", not "poison"
             # B1 (2026-11-15)
-            'trosse': 'verb', 'spy': 'verb', 'øse': 'verb'}
+            'trosse': 'verb', 'spy': 'verb', 'øse': 'verb',
+            # B2 (2026-11-15)
+            'bøye': 'verb',      # "to bend", not "a buoy"
+            'skjør': 'adj'}      # "fragile", not "soured milk"
 
 # A WORD DEALT BY ANOTHER'S COUNT.
 # `hel` "whole" is met as its definite `hele` (hele dagen), and that spelling's count went to

@@ -5,7 +5,7 @@ Norwegian (Bokmål) set, built in the Swedish decks' shape (`docs/swedish-decks-
 `.claude/norwegian/` adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there
 applies here unless this file says otherwise. Asked for on 2026-11-15: "Add a Norwegian language collection."
 
-**STATUS (2026-11-15): A1, A2 and B1 are built** (`.claude/norwegian/`, §6–§8). B2, C1 and a phrases deck follow on request.
+**STATUS (2026-11-15): A1 to B2 are built** (`.claude/norwegian/`, §6–§9). C1 and a phrases deck follow on request.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP —
@@ -32,7 +32,7 @@ is the owner's to overrule.**
 | Norwegian A1 Beginner — built | `Norwegian-A1.folio-deck.json` | 500 |
 | Norwegian A2 Elementary — built | `Norwegian-A2.folio-deck.json` | 750 |
 | Norwegian B1 Intermediate — built | `Norwegian-B1.folio-deck.json` | 1,000 |
-| Norwegian B2 Upper Intermediate | `Norwegian-B2.folio-deck.json` | 1,500 |
+| Norwegian B2 Upper Intermediate — built | `Norwegian-B2.folio-deck.json` | 1,500 |
 | Norwegian C1 Advanced | `Norwegian-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
@@ -96,7 +96,7 @@ frequency, as every subtitle-ordered deck on the shelf does. Tatoeba has fewer B
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2 and B1 done) — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2, B1 and B2 done) — A2 to C1, one level per session: write the level's
 inventory into `inventory.py`, its `SCOPE` into `norwegian_level.py` (already written for all five) and its
 `STAMP` into `build_deck.py`, run, read every card. **Phase 3** — a phrases deck (Swedish's `phrases.py`, with
 particle verbs: `ta vare på`, `finne ut`).
@@ -167,3 +167,33 @@ inventory words are not Bokmål headwords and were replaced or dropped (`fortjen
 
 **Known, left.** The subtitles' crime and fantasy vocabulary is heavier here than at A2 (`drapsmann`, `gissel`,
 `kokain`, `vampyr`, `zombie`, `demon`) — frequency, labelled as such in the description.
+
+## 9. As built (2026-11-15): B2
+
+Asked for on 2026-11-15: "Add B2." `python3 .claude/norwegian/run.py --level b2`. **1,500 notes: 161 from a
+13-topic inventory** (`inventory.py` `B2`, the Swedish B2 topics in Bokmål: the economy, politics, law, science
+and technology, the environment, health and society, media, culture and society, the abstract nouns of
+discussion, arguing and reasoning, B2 verbs, evaluating adjectives, formal connectors — `SCOPE['b2']`) **and 1,339
+by frequency**; three sentences for 228, **none for 731** — very nearly half the deck, against a quarter for
+Swedish B2: Tatoeba's Bokmål (14,219 pairs) has little formal vocabulary, and the description says how many carry
+sentences. Every card was read; A1 to B1 re-run byte-identical, and B2 re-runs byte-identical with the extract
+rebuilt. Twenty inventory words are not Bokmål headwords in the extract: four replaced (`innviklet` →
+`komplisert`, `uavhengig av` → `uavhengig`, `tross alt` → `tross`, `drivhuseffekt` → `drivhus`), sixteen removed
+(`konjunktur`, `arbeidsmarked`, `forskrift`, `utredning`, `journalistikk`, three multi-word verbs …), and
+`objektiv`, whose only Wiktionary entry is the noun "a lens", removed rather than taught as that.
+
+**What the B2 ranking turned up**, each in `select.EXCLUDE` or a `build_deck.py` table with its reason:
+- **A rare headword taking a common word's count**, as at B1: `lever` "a liver" (the present of leve), `rev` "a
+  fox" (the past of rive), `lest` (lese's participle), `ete` (ett "one"), `ør` (ører), `matte` (the colloquial
+  "maths"); English words (`in`, `green`, `house`, `make`, `kid`, `boss`) and names (`turner`).
+- Forms and second spellings taught elsewhere: adjective neuters and plurals (`fett`, `grønt`, `langsomt`,
+  `effektivt`, `tynne`, `sure`), participles (`savnet`, `forbannet`), `katte`; `antagelig`, `hverken`, `fler`,
+  `bru`, `tjukk`, `rein` and `òg` beside the spellings taught; spellings removed in 2005 (`ska`, `bye`).
+- Noun before verb (`bøye` "to bend", not "a buoy"); `skjør` "fragile", not "soured milk".
+- `koselig`'s "hello" and `hamburger`'s order fixed by `GLOSS`; `tispe`, `dæven`, `ludder` and `runke` to
+  `SWEARS`; `kåte` and `voldtekt` excluded with `voldta`. `dømmekraft`, whose entry gives no gender, is en/ei by
+  its forms (`GENDER_FIX`).
+
+**Known, left.** The fill is heavier still with the subtitles' crime, war and fantasy vocabulary (`henrette`,
+`knivstikke`, `romvesen`, `varulv`, `torpedo`) and carries some sexual vocabulary (`penis`, `vagina`, `porno`,
+`kondom`) on frequency — plain words, not slang, as Swedish B2 left them.

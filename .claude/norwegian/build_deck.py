@@ -34,7 +34,7 @@ from norwegian_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
 STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-15T00:00:00.000Z',
-         'b1': '2026-11-15T00:00:00.000Z'}[LEVEL]
+         'b1': '2026-11-15T00:00:00.000Z', 'b2': '2026-11-15T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'norwegian'
@@ -179,6 +179,11 @@ GLOSS = {
     'sankthans': {'noun': ['Midsummer (the observance on the evening of 23 June)']},
     'forholde': {'verb': ['to withhold', 'forholde seg til: to relate to']},
     'tyste': {'verb': ['to snitch, to inform on someone (usually to the police)']},
+    # B2 (2026-11-15)
+    'bag': {'noun': ['bag']}, 'skalle': {'noun': ['skull']}, 'pave': {'noun': ['pope']},
+    'sete': {'noun': ['seat', 'saddle (on a bicycle, motorcycle)']},
+    'koselig': {'adj': ['cosy, comfortable', 'nice, pleasant']},   # its third is "hello"
+    'hamburger': {'noun': ['hamburger (the food)', 'Hamburger (a person from Hamburg)']},
 }
 
 # A WORD WIKTIONARY FILES ONLY AS A FORM OF ANOTHER, which a learner meets as a word of its
@@ -213,7 +218,8 @@ MONTHS = set('januar februar mars april mai juni juli august september oktober n
 
 # A GENDER WRITTEN HERE, where the lemma's first entry is not the everyday word's.
 GENDER_FIX = {'mann': 'm',     # Wiktionary's senses carry both tags; en mann
-              'folk': 'n'}    # et folk; Wiktionary's head line says plural only
+              'folk': 'n',    # et folk; Wiktionary's head line says plural only
+              'dømmekraft': 'mf'}   # B2: no gender given; its forms are kraft's (en/ei)
 
 # A PART OF SPEECH NOT SHOWN for one word: a block that is noise beside the word a beginner meets.
 DROP_POS = {('bak', 'noun'), ('lege', 'verb'), ('godt', 'noun'), ('ut', 'intj'),
@@ -224,7 +230,9 @@ DROP_POS = {('bak', 'noun'), ('lege', 'verb'), ('godt', 'noun'), ('ut', 'intj'),
             ('hylle', 'verb'), ('ende', 'adv'), ('le', 'adj'), ('le', 'noun'), ('kul', 'noun'),
             ('konge', 'adj'), ('gift', 'noun'), ('røre', 'noun'), ('skille', 'noun'),
             # B1
-            ('rulle', 'noun'), ('helse', 'verb'), ('spy', 'noun'), ('øse', 'noun'), ('trosse', 'noun')}
+            ('rulle', 'noun'), ('helse', 'verb'), ('spy', 'noun'), ('øse', 'noun'), ('trosse', 'noun'),
+            # B2
+            ('porno', 'adj'), ('stokk', 'adv'), ('bøye', 'noun'), ('skjør', 'noun')}
 
 # A FORM WIKTIONARY MIS-TAGS, not shown: `dradd` is listed as a past of dra (dro).
 FORM_DROP = {('dra', 'dradd'),

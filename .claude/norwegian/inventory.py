@@ -149,4 +149,41 @@ B1 = [
                                 'for_eksempel i_hvert_fall uansett'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}
+# B2 (2026-11-15): the CEFR B2 descriptor's "complex text on both concrete and abstract topics"
+# -- the Swedish B2 topic list in Bokmål.  Words lower levels teach are skipped.
+B2 = [
+    ('the economy and work', 'inflasjon rente lån investering aksje budsjett vekst:noun '
+                             'arbeidsledighet næringsliv konkurranse eksport import gründer '
+                             'entreprenør styre forhandling lønnsom'),
+    ('politics and the state', 'opposisjon minister stortingsrepresentant lovgivning reform '
+                               'vedtak valgkamp flertall mindretall ideologi propaganda korrupsjon '
+                               'ytringsfrihet integrering diskriminering likestilling velferd bistand'),
+    ('law and justice', 'tiltale rettssak bot kriminalitet'),
+    ('science and technology', 'forskning forsker hypotese analyse oppdagelse oppfinnelse utvikling '
+                               'digital programvare algoritme data kunstig intelligens'),
+    ('the environment and resources', 'klimaendring drivhus karbondioksid fossil fornybar '
+                                      'bærekraftig bærekraft ressurs naturressurs utryddelse '
+                                      'mangfold økosystem kjernekraft vindkraft solenergi'),
+    ('health and society', 'omsorg helsevesen psykisk depresjon angst avhengighet '
+                           'misbruk rehabilitering livsstil forebygge'),
+    ('media and communication', 'sensur debatt kommunikasjon budskap tolkning '
+                                'publisere kommentere granske'),
+    ('culture and society', 'verdi:noun norm fordom religion sekulær globalisering '
+                            'migrasjon befolkning likhet'),
+    ('abstract nouns', 'aspekt faktor vilkår forutsetning konsekvens betydning sammenheng '
+                       'perspektiv tendens hindring begrensning innflytelse strategi prioritet '
+                       'kvalitet kvantitet prosess struktur funksjon'),
+    ('arguing and reasoning', 'understreke begrunne forutsette konstatere '
+                              'bedømme vurdere evaluere analysere tolke oppsummere argumentere '
+                              'motsi innrømme tydeliggjøre belyse'),
+    ('verbs of B2', 'oppnå anvende etablere opprettholde bidra motvirke begrense tilpasse omfatte '
+                    'medføre fremheve avstå lette:verb vanskeliggjøre forsterke svekke'),
+    ('describing and evaluating', 'omfattende betydelig avgjørende vesentlig grunnleggende kompleks '
+                                  'komplisert tvetydig entydig effektiv kontroversiell '
+                                  'subjektiv urimelig relevant aktuell eksisterende åpenbar '
+                                  'sannsynlig usannsynlig'),
+    ('connectors and discourse', 'imidlertid således følgelig dog uavhengig vedrørende særlig '
+                                 'tross ifølge hvorvidt dermed'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}
