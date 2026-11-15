@@ -57,6 +57,8 @@ window.CHANGELOG = [
       "<b>Year in review</b> on your account page sums up your year: answers, days, time, discoveries and favourite collections.",
       "Each minigame's results now show <b>how your friends did today</b>.",
       "Import a deck from an <b>Anki</b> or <b>Quizlet</b> text export, and download any deck as a file Anki imports.",
+      "The Atlas now shows India's states and union territories when you zoom in; the switch is renamed <b>States and provinces</b>.",
+      "28 more map cards now light up their region on your Personal Atlas once studied.",
     ],
   },
   {
