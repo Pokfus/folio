@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T21:59Z",
+ "generated": "2026-11-15T22:03Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8290,
+  "ok": 8292,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89370,6 +89370,20 @@
    "answer": "Jharkhand",
    "title": "Jharkhand",
    "url": "https://en.wikipedia.org/wiki/Jharkhand",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-515": {
+   "answer": "Dispur",
+   "title": "Dispur",
+   "url": "https://en.wikipedia.org/wiki/Dispur",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-015": {
+   "answer": "Assam",
+   "title": "Assam",
+   "url": "https://en.wikipedia.org/wiki/Assam",
    "via": "answer",
    "status": "ok"
   }

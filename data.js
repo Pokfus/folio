@@ -11252,7 +11252,9 @@ window.CARD_DATA = [
 {"id":"gin-513","num":"513","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Thiruvananthapuram","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Thiruvananthapuram","tags":["place","city","geography","capital","india"],"difficulty":4,"map":{"layer":"india-states","key":"Kerala","dot":"Thiruvananthapuram"},"facts":[["State","Kerala"],["Population","744k (2011)"],["Area","142 km² (54.7 sq mi)"],["Rank in state","Largest city"]]},
 {"id":"gin-013","num":"013","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Kerala","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">1 November 1956</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Kerala","tags":["place","geography","india","state","south india"],"difficulty":3,"map":{"layer":"india-states","key":"Kerala"},"facts":[["Kind","State"],["Capital","Thiruvananthapuram"],["Population","33.4M (2011)"],["Area","38.9k km² (15.0k sq mi)"]]},
 {"id":"gin-514","num":"514","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Ranchi","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State capital</span><span class=\"dt-v\">2000</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ranchi","tags":["place","city","geography","capital","india"],"difficulty":4,"map":{"layer":"india-states","key":"Jharkhand","dot":"Ranchi"},"facts":[["State","Jharkhand"],["Population","1.07M (2011)"],["Area","175 km² (67.6 sq mi)"],["Rank in state","Largest city"]]},
-{"id":"gin-014","num":"014","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Jharkhand","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">15 November 2000</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Jharkhand","tags":["place","geography","india","state","east india"],"difficulty":3,"map":{"layer":"india-states","key":"Jharkhand"},"facts":[["Kind","State"],["Capital","Ranchi"],["Population","33.0M (2011)"],["Area","79.7k km² (30.8k sq mi)"]]}
+{"id":"gin-014","num":"014","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Jharkhand","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">15 November 2000</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Jharkhand","tags":["place","geography","india","state","east india"],"difficulty":3,"map":{"layer":"india-states","key":"Jharkhand"},"facts":[["Kind","State"],["Capital","Ranchi"],["Population","33.0M (2011)"],["Area","79.7k km² (30.8k sq mi)"]]},
+{"id":"gin-515","num":"515","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Dispur","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Dispur","tags":["place","city","geography","capital","india"],"difficulty":4,"map":{"layer":"india-states","key":"Assam","dot":"Dispur"},"facts":[["State","Assam"],["Part of","Guwahati"],["Guwahati population","957k (2011)"],["Guwahati area","219 km² (84.6 sq mi)"]],"notes":["Dispur is a ward of Guwahati, not a census town, so the grid gives the city's figures and labels them so; the ward's own area and population are from the ward table in Basumatary and Anand (2018)."]},
+{"id":"gin-015","num":"015","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Assam","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Ceded to British</span><span class=\"dt-v\">1826</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Assam","tags":["place","geography","india","state","northeast india"],"difficulty":3,"map":{"layer":"india-states","key":"Assam"},"facts":[["Kind","State"],["Capital","Dispur"],["Population","31.2M (2011)"],["Area","78.4k km² (30.3k sq mi)"]]}
 ];
 
 window.COLLECTION_TREE = {
@@ -29251,7 +29253,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-india",
       "title": "India",
-      "total": 26,
+      "total": 28,
       "placeholder": false,
       "children": [
         {
@@ -29272,7 +29274,8 @@ window.COLLECTION_TREE = {
             "gin-011",
             "gin-012",
             "gin-013",
-            "gin-014"
+            "gin-014",
+            "gin-015"
           ]
         },
         {
@@ -29291,7 +29294,8 @@ window.COLLECTION_TREE = {
             "gin-511",
             "gin-512",
             "gin-513",
-            "gin-514"
+            "gin-514",
+            "gin-515"
           ]
         },
         {
