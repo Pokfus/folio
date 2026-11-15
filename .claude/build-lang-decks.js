@@ -141,6 +141,12 @@ function levelRank(title) {
      those two decks are the rung below N5, not a phrase book after the ladder. Hiragana first, as it is taught. */
   if (/\bHiragana\b/.test(title)) return -2;
   if (/\bKatakana\b/.test(title)) return -1;
+  /* THEN THE FIRST WORDS AND THE FIRST LEVEL'S KANJI (Nov 2026), both below N5: the greetings and particles the
+     JLPT lists file at N3 and above, and the kanji N5's fronts are written with. A kanji deck sits just below
+     the level it is for; the ranks are fractions because only their order is read. */
+  if (/\bFirst Words\b/.test(title)) return -0.5;
+  const kj = /\bKanji for JLPT N([1-5])\b/.exec(title);
+  if (kj) return 5 - Number(kj[1]) - 0.5;
   /* THE JLPT COUNTS DOWNWARD — N5 is the first level and N1 the last — so its number is inverted, as UKBI's
      peringkat would be. Left to the rules below, "JLPT N5" matches none, ranks 90 and the shelf sorts the five
      alphabetically: N1 first, upside down, with nothing to say so. */

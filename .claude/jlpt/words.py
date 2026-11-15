@@ -80,20 +80,213 @@ def usually_kana(seq, form, reading):
     return bool(ss) and 'uk' in ss[0]['misc']
 
 
-def english_html(ss, gl_cap=4):
-    rows, last = [], None
+def english_html(ss, gl_cap=4, notes=False, last=None):
+    """`notes`: JMdict's own note on the sense is printed after it.  For a grammar word the note IS the meaning
+    -- で is "at; in" three times over, and what tells the senses apart is "indicates location of action",
+    "indicates means of action" -- so the first-words deck, which is where the particles are, shows them."""
+    rows = []
     for s in ss:
         lab = pos_label(s['pos'], s['misc'])
-        gl = '; '.join(s['gloss'][:gl_cap])
+        gl = esc('; '.join(s['gloss'][:gl_cap]))
+        if notes and s.get('inf'):
+            gl += ' <span class="uc-inf">(%s)</span>' % esc('; '.join(s['inf']))
         head = '<div class="uc-pos">%s</div>' % esc(lab) if lab and lab != last else ''
         last = lab or last
-        rows.append('<div class="uc-sense">%s<div class="uc-gl">%s</div></div>' % (head, esc(gl)))
+        rows.append('<div class="uc-sense">%s<div class="uc-gl">%s</div></div>' % (head, gl))
     return ''.join(rows)
 
 
 def first_gloss(seq, form, reading):
     ss = senses(seq, form, reading, cap=1)
     return ss[0]['gloss'][0] if ss else ''
+
+
+# ------------------------------------------------------------------------------ the English -> Japanese question
+def prompt_parts(ss, gl_cap=4, notes=False):
+    """(the first sense, the other senses) as the card prints them.  The reverse card asks with the first alone."""
+    if not ss:
+        return '', ''
+    # the other senses do not repeat a part of speech the question has just printed
+    return (english_html(ss[:1], gl_cap, notes),
+            english_html(ss[1:], gl_cap, notes, last=pos_label(ss[0]['pos'], ss[0]['misc']) or None))
+
+
+_POS_RX = re.compile(r'(<div class="uc-pos">)([^<]*)(</div>)')
+
+
+def _fold(eng, label):
+    """Fold a label into the part-of-speech line the card already prints (`dedupe-glosses.py`'s own shape)."""
+    def rep(m):
+        return m.group(1) + (m.group(2).rstrip() + ', ' + label if m.group(2).strip() else label) + m.group(3)
+    new, n = _POS_RX.subn(rep, eng, count=1)
+    return new if n else '<div class="uc-pos">' + label + '</div>' + eng
+
+
+def plain(h):
+    return re.sub(r'<rt>.*?</rt>|<[^>]+>', '', h or '')
+
+
+def label_prompts(notes, cap=3):
+    """EVERY QUESTION HAS ONE ANSWER.  Two notes whose first gloss is the same word ("to do": する and やる; "one":
+    一 and 一つ; "that": その, それ, あれ) ask the same question, and the reverse card for either is a coin toss.
+    Nothing in the sources says how they differ, so each one's question names the others -- "not やる" -- which
+    invents nothing and tells a learner the one thing worth knowing, that the language has another word for it.
+    `notes` are dicts with fields; returns how many were labelled.  Asserts every Prompt is then unique."""
+    def first(n):
+        m = re.search(r'<div class="uc-gl">(.*?)</div>', n['fields']['Prompt'])
+        # the gloss itself: without the dictionary's note on the sense, which differs where the gloss does not
+        # (ません and ない are both "not")
+        return (html.unescape(re.sub(r'<span class="uc-inf">.*?</span>|<[^>]+>', '', m.group(1)))
+                .split(';')[0].strip().lower() if m else '')
+
+    def name(n, others):
+        w = plain(n['fields']['Word'])
+        # two notes written alike are told apart by their readings
+        return '%s (%s)' % (w, n['fields']['Reading']) if any(plain(o['fields']['Word']) == w for o in others) else w
+
+    groups = defaultdict(list)
+    for n in notes:
+        groups[first(n)].append(n)
+    done = 0
+    for g in groups.values():
+        if len(g) < 2:
+            continue
+        for n in g:
+            rest = [o for o in g if o is not n]
+            names = [name(o, [x for x in g if x is not o]) for o in rest]
+            n['_full'] = 'not ' + ', '.join(esc(x) for x in names)
+            lab = 'not ' + ', '.join(esc(x) for x in names[:cap]) + (' …' if len(names) > cap else '')
+            n['_base'] = n['fields']['Prompt']
+            n['fields']['Prompt'] = _fold(n['_base'], lab)
+            done += 1
+    seen = defaultdict(list)
+    for n in notes:
+        seen[n['fields']['Prompt']].append(n)
+    for same in seen.values():
+        if len(same) > 1:           # the capped label hid the difference: name every sibling
+            for n in same:
+                if '_base' in n:
+                    n['fields']['Prompt'] = _fold(n['_base'], n['_full'])
+    seen = defaultdict(list)
+    for n in notes:
+        seen[n['fields']['Prompt']].append(plain(n['fields']['Word']))
+        n.pop('_base', None); n.pop('_full', None)
+    left = [v for v in seen.values() if len(v) > 1]
+    if left:
+        raise SystemExit('label_prompts: %d questions still have two answers (e.g. %r)' % (len(left), left[0]))
+    return done
+
+
+# ------------------------------------------------------------------------------ a verb's forms
+# DERIVED FROM THE VERB'S CLASS, AS ROMAJI IS FROM KANA: nothing here is looked up or composed.  JMdict names the
+# class of every verb (it is the card's own part-of-speech line), and for these classes the class and the last
+# kana fix the four forms a beginner meets before the dictionary form: polite (ます), て, negative (ない), past (た).
+# A class not listed here gets NO forms -- the suru verbs in -ずる and -す, the archaic ones -- rather than a guess,
+# and so does a word whose last kana is not its class's (`conjugate` returns None).
+_GODAN = {'う': ('い', 'って', 'わ', 'った'), 'く': ('き', 'いて', 'か', 'いた'), 'ぐ': ('ぎ', 'いで', 'が', 'いだ'),
+          'す': ('し', 'して', 'さ', 'した'), 'つ': ('ち', 'って', 'た', 'った'), 'ぬ': ('に', 'んで', 'な', 'んだ'),
+          'ぶ': ('び', 'んで', 'ば', 'んだ'), 'む': ('み', 'んで', 'ま', 'んだ'), 'る': ('り', 'って', 'ら', 'った')}
+_V5 = {'v5b': 'ぶ', 'v5g': 'ぐ', 'v5k': 'く', 'v5m': 'む', 'v5n': 'ぬ', 'v5r': 'る', 'v5s': 'す', 'v5t': 'つ', 'v5u': 'う'}
+CONJ_LABELS = ('polite', 'て-form', 'negative', 'past')
+
+
+def conjugate(word, cls):
+    """(polite, te, negative, past) of a dictionary form written `word`, or None where the class is not one whose
+    forms follow from it.  Works on the kana reading and on the written form alike: only the ending changes --
+    except 来る, whose kanji is read き / こ, which is why the caller conjugates the reading separately."""
+    if not word:
+        return None
+    if cls in ('v1', 'v1-s'):
+        if word[-1] != 'る':
+            return None
+        st = word[:-1]
+        return st + 'ます', st + 'て', st + 'ない', st + 'た'
+    if cls in _V5:
+        if word[-1] != _V5[cls]:
+            return None
+        i, te, a, ta = _GODAN[word[-1]]
+        st = word[:-1]
+        return st + i + 'ます', st + te, st + a + 'ない', st + ta
+    if cls == 'v5k-s':                       # 行く: 行って, 行った
+        if word[-1] != 'く':
+            return None
+        st = word[:-1]
+        return st + 'きます', st + 'って', st + 'かない', st + 'った'
+    if cls == 'v5aru':                       # いらっしゃる, くださる, なさる, おっしゃる: -います
+        if word[-1] != 'る':
+            return None
+        st = word[:-1]
+        return st + 'います', st + 'って', st + 'らない', st + 'った'
+    if cls == 'v5r-i':                       # ある: its negative is ない
+        if word[-2:] not in ('ある', '有る', '在る'):
+            return None
+        st = word[:-1]
+        return st + 'ります', st + 'って', word[:-2] + 'ない', st + 'った'
+    if cls == 'v5u-s':                       # 問う, 請う: 問うて, 問うた
+        if word[-1] != 'う':
+            return None
+        st = word[:-1]
+        return st + 'います', word + 'て', st + 'わない', word + 'た'
+    if cls == 'vk':                          # 来る
+        if word.endswith('来る'):
+            st = word[:-1]
+            return st + 'ます', st + 'て', st + 'ない', st + 'た'
+        if word.endswith('くる'):
+            st = word[:-2]
+            return st + 'きます', st + 'きて', st + 'こない', st + 'きた'
+        return None
+    if cls == 'vs-i':                        # する
+        if word[-2:] not in ('する', '為る'):
+            return None
+        st = word[:-2]
+        return st + 'します', st + 'して', st + 'しない', st + 'した'
+    return None
+
+
+_VERB = set(_V5) | {'v1', 'v1-s', 'v5k-s', 'v5aru', 'v5r-i', 'v5u-s', 'vk', 'vs-i'}
+
+
+def conj_html(ss, shown, reading):
+    """The four forms of a verb, written as the card's front writes the word (`shown`), each over its romaji."""
+    cls = next((p for p in (ss[0]['pos'] if ss else []) if p in _VERB), None)
+    if not cls:
+        return ''
+    rd = conjugate(reading, cls)
+    wr = conjugate(shown, cls) if shown != reading else rd
+    if not rd or not wr:
+        return ''
+    out = []
+    for lab, w, r in zip(CONJ_LABELS, wr, rd):
+        ro = romaji(r)
+        out.append('<div class="uc-cj"><span class="uc-cjl">%s</span>%s%s</div>'
+                   % (lab, _align(w, r) if any(is_kanji(ch) for ch in w) else esc(w),
+                      '<span class="uc-cjr">%s</span>' % esc(ro) if ro else ''))
+    return ''.join(out)
+
+
+# ------------------------------------------------------------------------------ kanji a level has not reached
+# THE FRONT IS IN KANA WHERE THE WORD'S KANJI ARE NOT YET THE LEVEL'S (N5 and N4, Nov 2026).  N5's 667 words are
+# written with 411 different kanji and 256 of them occur in one word each (喫茶店, 鉛筆, 鍵), which made the first
+# deck a kanji course nobody had planned.  KANJIDIC2 carries each kanji's FORMER JLPT level -- the pre-2010
+# specification, the last time the board said which kanji belong where and the source Waller's word lists were
+# built from: 103 at the old level 4 (now N5) and 181 more at level 3 (N4).  A word any of whose kanji is above
+# its deck's level is asked in kana; its back still writes it in kanji, furigana over them, with the kanji rows.
+# From N3 on nothing is gated: the old level 2 was split between N3 and N2 with no list saying how.
+KANJI_FLOOR = {'n5': 4, 'n4': 3}
+
+
+def beyond(form, lv):
+    """The kanji of `form` that the level has not reached, in order; empty from N3 on."""
+    floor = KANJI_FLOOR.get(lv)
+    if not floor or not form:
+        return []
+    out = []
+    for ch in form:
+        if ch in '々〆ヶ' or not is_kanji(ch):
+            continue
+        if KJ.get(ch, {}).get('j', 0) < floor and ch not in out:
+            out.append(ch)
+    return out
 
 
 # ------------------------------------------------------------------------------ furigana
@@ -206,16 +399,30 @@ for i, r in enumerate(TAT):
                 IDX[key].append(i)
 
 
+# A TATOEBA PAIR WHOSE ENGLISH SAYS THE OPPOSITE OF ITS JAPANESE.  The corpus links sentences by hand and a few
+# links are wrong; nothing here can find them, so the ones a reader has reported are listed by the Japanese
+# sentence's Tatoeba id and never used.  80500: 明日の天気は良くなるだろう against "The weather outlook for
+# tomorrow is not good." (found on the N5 card for なる, 2026-11-15).
+BAD_PAIRS = {80500}
+
+
 def _ok_sentence(r):
     ja, en = r['ja'], r['en']
-    return 4 <= len(ja) <= 30 and len(en) <= 90 and not LATIN.search(ja) and ja[-1] in '。？！?!」'
+    return (4 <= len(ja) <= 30 and len(en) <= 90 and not LATIN.search(ja) and ja[-1] in '。？！?!」'
+            and r['id'] not in BAD_PAIRS)
 
 
-def _match(r, cands, reading, form=''):
+def _match(r, cands, reading, form='', pos1=None):
     """Token span(s) of the headword in sentence r, or None.  One token whose dictionary form is the word
-    (with its reading agreeing), else a run of tokens that spells it exactly at token boundaries."""
+    (with its reading agreeing), else a run of tokens that spells it exactly at token boundaries.
+    `pos1` (the grammar words of the first-words deck): the token must be WRITTEN as the word and be that part of
+    speech -- は the particle and not は the tooth, だ and not its forms で and な."""
     t = r['t']
     for i, (surf, lem, base, pos, kana) in enumerate(t):
+        if pos1:
+            if surf in cands and pos in pos1:
+                return (i, i + 1)
+            continue
         if base in cands or lem in cands:
             # A KANA SPELLING IS SHARED BY HOMOGRAPHS -- いる "to be" (居る) and いる "to need" (要る) -- and
             # UniDic's lemma carries the kanji that tells them apart, so a word matched on its kana must agree
@@ -231,6 +438,8 @@ def _match(r, cands, reading, form=''):
             if base in AUX_TE and i and t[i - 1][0] in ('て', 'で') and t[i - 1][3] == '助詞':
                 continue
             return (i, i + 1)
+    if pos1 and all(len(x) == 1 for x in cands):
+        return None
     for i in range(len(t)):
         s, k = '', ''
         for j in range(i, min(i + 6, len(t))):
@@ -268,7 +477,7 @@ def _sentence_html(r, span, form, reading):
             '<div class="uc-exe">%s</div></div>' % (esc(r['ja']), ''.join(out), esc(r['en'])))
 
 
-def examples(form, reading, known, uk=False, n=3):
+def examples(form, reading, known, uk=False, n=3, pos1=None):
     """Up to n Tatoeba sentences using the word, preferring those whose other words the learner already has
     (`known`: dictionary forms at this level and below), then the shortest; ties by Tatoeba id."""
     cands = {x for x in (form, reading if (uk or not form) else None) if x}
@@ -288,7 +497,7 @@ def examples(form, reading, known, uk=False, n=3):
         r = TAT[i]
         if not _ok_sentence(r):
             continue
-        span = _match(r, cands, reading, form)
+        span = _match(r, cands, reading, form, pos1)
         if not span:
             continue
         content = [tk for tk in r['t'] if tk[3] not in SKIP_POS]
@@ -338,14 +547,102 @@ def romaji_phrase(shown, reading):
     toks = [(w.surface, w.feature.pos1 or '', kata2hira(w.feature.kana or w.surface)) for w in _TAG(shown)]
     if ''.join(k for _s, _p, k in toks) != reading:
         return romaji(reading)
-    out = []
-    for s, p, k in toks:
-        if p == '助詞' and s in ('は', 'へ', 'を'):
-            out.append({'は': 'wa', 'へ': 'e', 'を': 'o'}[s])
+    # THE KANA BETWEEN TWO PARTICLES ARE ROMANISED AS ONE RUN, never token by token (Nov 2026): the analyser cuts
+    # 行ってきます as 行っ + て + き + ます, and a small っ at the end of a token has no consonant after it to
+    # double -- so the phrase came out "itekimasu".
+    out, run = [], ''
+    for s, p, k in toks + [('', '助詞', '')]:
+        if p == '助詞' and s in ('は', 'へ', 'を', ''):
+            if run:
+                r = romaji(run)
+                if r is None:
+                    return romaji(reading)
+                out.append(r)
+                run = ''
+            if s:
+                out.append({'は': 'wa', 'へ': 'e', 'を': 'o'}[s])
         else:
-            r = romaji(k)
-            if r is None:
-                return romaji(reading)
-            out.append(r)
+            run += k
     # the words are run together as the kana are: the reading is one unit on the card
     return ''.join(out)
+
+
+# ------------------------------------------------------------------------------ one note
+SAY_AS = {'は': 'わ', 'へ': 'え'}       # the two particles a speech engine would read as the letter
+
+
+def make_note(seq, form, reading, lv, known, universe=(), others=(), pos1=None, sense_notes=False,
+              kanji_rows=True):
+    """Every field of one word's note, the same for every deck that cards words.  `lv` is the level whose kanji
+    the front may use (`beyond`); `others` the entry's other spellings and readings on the list."""
+    uk = bool(form) and usually_kana(seq, form, reading)
+    ss = senses(seq, form, reading) or senses(seq, '', reading)
+    eng = english_html(ss, notes=sense_notes)
+    if not eng:
+        raise SystemExit('no usable sense for %s %s (%s)' % (form, reading, seq))
+    late = [] if uk else beyond(form, lv)
+    front = reading if (uk or not form or late) else form
+    also = []
+    if uk:
+        also.append('usually written in kana · kanji: ' + esc(form))
+    elif late:
+        also.append('shown in kana: %s %s after %s' % ('、'.join(esc(x) for x in late),
+                                                      'comes' if len(late) == 1 else 'come', lv.upper()))
+    oth = []
+    for x in others:
+        if x and x not in (form, reading) and x not in oth:
+            oth.append(x)
+    if oth:
+        also.append('also ' + ' / '.join(esc(x) for x in oth))
+    ex_html, nex = examples(form, reading, known, uk=uk, pos1=pos1)
+    # A WORD USUALLY WRITTEN IN KANA gets no kanji rows: its card never shows the kanji, and the compounds of
+    # 為 (する) or 居 (いる) are not words a learner of する needs.
+    single = [ch for ch in form if is_kanji(ch)] if form and not uk else []
+    prompt, more = prompt_parts(ss, notes=sense_notes)
+    prt = bool(ss) and 'prt' in ss[0]['pos']
+    return {
+        'seq': seq, 'form': form, 'uk': uk, 'late': bool(late), 'nex': nex,
+        'f': freq_of('' if uk else form, reading),
+        'fields': {
+            'Word': esc(front),
+            'Furigana': furigana(form, reading) if not uk else esc(reading),
+            'Reading': esc(reading),
+            # THE TAGGER IS GIVEN THE WORD AS IT IS WRITTEN, never the kana of a word shown in kana for its
+            # level: a bare はし is as likely to be segmented は + し, and its は then spelled "wa"
+            'Romaji': esc(romaji_phrase(reading if (uk or not form) else form, reading) or ''),
+            'Also': ' · '.join(also),
+            'English': eng,
+            'Prompt': prompt,
+            'More': more,
+            'Conj': conj_html(ss, front, reading),
+            'Kanji': kanji_html(form) if (kanji_rows and not uk) else '',
+            'Compounds': compounds_html(single[0], universe, seq) if (len(single) == 1 and universe) else '',
+            'Examples': ex_html,
+            'Say': esc(SAY_AS.get(reading, reading) if prt else reading),
+        }}
+
+
+def resolve_fronts(notes):
+    """TWO NOTES WITH ONE FRONT are two different words spelled alike (私 わたし and 私 わたくし are separate JMdict
+    entries), and a front that cannot say which one it asks is unanswerable; only those show their furigana.
+    Two KANA words spelled alike (いる "to be", いる "to need") have no furigana to show, so each carries its
+    kanji spelling small beside it -- the one thing the dictionary gives that tells them apart."""
+    fronts = defaultdict(list)
+    for n in notes:
+        fronts[n['fields']['Word']].append(n)
+    clash = 0
+    for same in fronts.values():
+        if len(same) < 2:
+            continue
+        for n in same:
+            n['fields']['Word'] = n['fields']['Furigana']
+            clash += 1
+        again = defaultdict(list)
+        for n in same:
+            again[n['fields']['Word']].append(n)
+        for still in again.values():
+            if len(still) > 1:
+                for n in still:
+                    if n['form']:
+                        n['fields']['Word'] += '<span class="uc-hint">（%s）</span>' % esc(n['form'])
+    return clash

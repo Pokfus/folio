@@ -47,8 +47,8 @@ changed was the one that had been wrong all along.
   one is the odd one out and its bullet says why: **its exam board publishes no word list at all**, so
   unlike every other deck here its vocabulary is assembled rather than read, and the deck's own
   description states that in those words. The **Japanese set** (Oct 2026) is in the same position, the
-  JLPT having published no list since 2010: five JLPT levels, hiragana, katakana, phrases and idioms, built by
-  `.claude/jlpt/` (its own bullet below). **A COMBINED FILE IS GITIGNORED**, French, Spanish, Italian
+  JLPT having published no list since 2010: five JLPT levels, hiragana, katakana, phrases and idioms, and
+  since Nov 2026 a first-words deck and the N5 kanji, built by `.claude/jlpt/` (its own bullet below). **A COMBINED FILE IS GITIGNORED**, French, Spanish, Italian
   and Indonesian alike: it is an artefact of the levels it combines rather than another deck, so
   committing it duplicates every megabyte the repo already carries for them, and its own `combine.py`
   regenerates it byte for byte.
@@ -2480,10 +2480,12 @@ changed was the one that had been wrong all along.
 - `.claude/jlpt/` — the generator behind the **Japanese** set (Oct 2026, on request; the plan, the owner's
   answers and what building it changed are in `docs/japanese-decks-plan.md`): **five JLPT levels**
   `JLPT-N5…N1-Japanese.folio-deck.json`, **two kana decks** `Japanese-Hiragana` and `Japanese-Katakana`,
-  `Japanese-Phrases-and-Expressions` and `Japanese-Idioms` (four-character idioms and proverbs). The counts are
+  `Japanese-Phrases-and-Expressions` and `Japanese-Idioms` (four-character idioms and proverbs), and since
+  Nov 2026 `Japanese-First-Words` and `Japanese-Kanji-N5` (the beginner pass, its own point below). The counts are
   in each deck's own subtitle and in `lang-decks.js`. PYTHON, like `.claude/ukbi/`. `run.py` runs every
   stage in order, and **re-running it must reproduce every shipped file byte for byte**.
   `PYTHONPATH=<fugashi + unidic_lite> python3 .claude/jlpt/run.py [--no-extract]` (about 20 minutes).
+  **Unpack `links.tar.bz2` to `links.csv` in the cache before `extract.py`** (it reads the CSV).
   **The downloads** go into `.claude/jlpt-cache/` (gitignored, ~450 MB unpacked):
   `https://www.edrdg.org/pub/Nihongo/JMdict_e.gz`, `https://www.edrdg.org/kanjidic/kanjidic2.xml.gz`, Tatoeba's
   `per_language/jpn/jpn_sentences.tsv.bz2`, `per_language/eng/eng_sentences.tsv.bz2` and `links.tar.bz2`,
@@ -2527,8 +2529,59 @@ changed was the one that had been wrong all along.
   · **THE IDIOMS DECK LEAVES OUT JMdict's `id` TAG**: 花が咲く, 頭が痛い and 手を出す have literal twins, and
     the corpus's sentences for them are nearly all literal. **THE PHRASES DECK LEAVES OUT pure particle +
     auxiliary chunks** (には, ですか, だった), which a substring count would put at the top.
-  · **`node .claude/jlpt/check-jlpt.js [n5…n1|hiragana|katakana|phrases|idioms]` is the browser half.** It
-    runs the file assertions (unique ids, every English side unique, no JMdict entry at two levels), imports
+  · **THE BEGINNER PASS (Nov 2026, on request, after an audit of what a learner with no Japanese meets).**
+    The reasoning and the measurements are in `docs/japanese-decks-plan.md` §11; the rules a later change must
+    keep are these. **A CARD ID IS PINNED TO ITS NOTE** in `.claude/jlpt/ids.json` (`common.note_ids`: deck →
+    JMdict entry, kana or kanji → number). The number used to be the note's POSITION, so any re-ordering — or a
+    newer Tatoeba export moving two frequency counts past each other — would have handed every reader's
+    progress to another word through the Update press, which merges by id. Never delete a row of ids.json; a
+    new note takes the next free number; `seed_ids.py` rebuilt the file from the decks shipped on 2026-10-30
+    and is kept only for the day the file is lost. `num` is the position, the id is not. **THE FIRST-WORDS
+    DECK IS THE LOWEST DECK** (`build_start.py`, `Japanese-First-Words`, id `jafirst`): a table of JMdict
+    sequence numbers — greetings, the copula and polite endings, the particles, a few words for people, time
+    and money — each checked against its spelling and reading, built FIRST and read by every level as the
+    deck below it. Waller's lists put こんにちは at N3 and おはよう at N2 and have no です, が or を at all;
+    those words are carded there once and the level that listed them skips them (N3 lost 9, N2 6, N1 6). An
+    entry N5 or N4 cards is refused. What JMdict has no entry for (でした, ました) is not carded. The
+    particles' examples are matched by PART OF SPEECH (`_match(pos1=…)`: は the particle, not は the tooth),
+    their senses print JMdict's own sense notes (`english_html(notes=True)`: で is "at; in" three times over
+    and the note is what tells them apart), and **the speaker says は as わ and へ as え** (the type's `Say`
+    field; every other note says its reading). **AT N5 AND N4 A WORD WHOSE KANJI ARE ABOVE THE LEVEL IS ASKED
+    IN KANA** (`words.beyond`, `KANJI_FLOOR`): the measure is KANJIDIC2's former JLPT level (`j` in
+    `kanji.json`; 103 kanji at the old level 4, 181 more at level 3), the pre-2010 specification Waller's
+    lists come from. 343 of N5's 502 kanji fronts became kana, and about two thirds of N4's; the back still
+    writes the word in kanji with furigana and the kanji rows. Nothing is gated from N3 on (the old level 2
+    was split between N3 and N2 with no list saying how). The romaji of a gated word is made from its KANJI
+    spelling: the tagger handed a bare はし is as likely to cut it は + し and spell the は "wa". **TWO KANA
+    WORDS SPELLED ALIKE carry their kanji small beside the front** (`resolve_fronts`: いる（居る） /
+    いる（要る） were two identical fronts before). **A VERB SHOWS ITS POLITE, て, NEGATIVE AND PAST FORMS**
+    (`Conj`, `words.conjugate`): derived from the JMdict verb class as romaji is from kana, for the classes
+    whose forms follow from the class (ichidan, the nine godan endings, 行く, ある, 来る, する, the -aru and
+    問う classes) and for no other — a class not in the table gets no forms rather than a guess. **THE
+    REVERSE CARD ASKS WITH THE FIRST SENSE ALONE** (`Prompt`, the rest in `More`), and two notes whose first
+    gloss is the same word each name the other in the part-of-speech line (`label_prompts`, "not やる" —
+    `dedupe-glosses.py`'s own "named" layer applied to the question; it asserts every question is unique).
+    **N5 IS NOT IN PLAIN FREQUENCY ORDER** (`build_level.sequence`): the closed sets of `SETS` are dealt as
+    one run where their commonest member stood (the numbers were at 29, 112, 216 … 480), two notes sharing a
+    first gloss or a written form are kept `GAP` = 40 notes apart, and `AFTER` puts わたし before わたくし
+    and いい before よい, the two places the corpus count is known to mislead. A name in `SETS` that does not
+    find exactly one N5 note stops the build. N4–N1 stay in frequency order. **THE N5 KANJI DECK**
+    (`build_kanji.py`, `Japanese-Kanji-N5`, id `jakanji5`, type `kanji`) is the 103 kanji of the old level
+    4, in the order the first-words deck and then N5 first write them; its reverse card asks with the
+    meanings AND the readings. **THE KANA DECKS** show their example word in kana with the kana picked out
+    (83 of 98 hiragana examples had the kana only in the furigana over a kanji), never a word where a small
+    ゃゅょ follows a single kana (き was "as in 今日"), carry a back-only `Tip` (は, へ, う, い) and `Like`
+    (look-alikes, a judgement of shape), and deal the chart, the voiced kana, っ / ー, the combinations, then
+    the rare ones (ぢ づ ヲ and the combinations no JLPT word contains). **`romaji_phrase` romanises the kana
+    between two particles as ONE run**: token by token, 行ってきます came out "itekimasu", the small っ at
+    the end of a token having nothing to double. **A TATOEBA PAIR THAT SAYS THE OPPOSITE** is listed by id in
+    `words.BAD_PAIRS` (one so far). **The catalogue ranks** First Words −0.5 and "Kanji for JLPT N5" just
+    below its level (`levelRank`). **No app change was needed**, so there is no changelog line; a suggested
+    daily pace is only prose in the kana descriptions, because a deck cannot set its own limit.
+  · **`node .claude/jlpt/check-jlpt.js [first|n5…n1|kanji|hiragana|katakana|phrases|idioms]` is the browser
+    half.** It runs the file assertions (unique ids that are the ones `ids.json` pins, every English side and
+    every question unique, no JMdict entry in two of the first-words and level decks, the verb forms, N5's
+    sets, the kana examples), imports
     the deck through the Studio, studies it at phone width, and asserts **`<rt>` on the rendered card**.
     Furigana that the sanitizer strips leaves a card that still reads, with the reading beside the kanji
     instead of over them.

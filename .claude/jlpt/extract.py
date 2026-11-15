@@ -4,7 +4,7 @@
     PYTHONPATH=<fugashi + unidic_lite, installed outside the repo> python3 extract.py
 
 Writes  jmdict.json  (seq -> forms, readings, senses, priority)
-        kanji.json   (literal -> meanings, on, kun, strokes, grade, parts)
+        kanji.json   (literal -> meanings, on, kun, strokes, grade, former JLPT level, parts)
         furigana.json ("text|reading" -> [[ruby, rt], ...])
         tatoeba.json (Japanese sentences with an English translation, tokenised)
         freq.json    (lemma -> count over that corpus)
@@ -58,7 +58,11 @@ def kanji():
         # SKIP codes are NOT read: they are Jack Halpern's, under his own terms (KANJIDIC2 licence §8).
         out[lit] = {'m': mean, 'on': on, 'kun': kun,
                     'sc': int(misc.findtext('stroke_count') or 0),
-                    'g': int(misc.findtext('grade') or 0), 'f': int(misc.findtext('freq') or 0)}
+                    'g': int(misc.findtext('grade') or 0), 'f': int(misc.findtext('freq') or 0),
+                    # THE FORMER JLPT LEVEL of the kanji, 4 (the first) to 1: KANJIDIC2's own field, from the
+                    # pre-2010 test specifications -- the same source Waller's word lists were built from, and the
+                    # last time the board said which kanji belong to which level.  0 where it gives none.
+                    'j': int(misc.findtext('jlpt') or 0)}
     # A KANJI'S PARTS: the elements KanjiVG draws it from, one level down.  `kvg:original` names the full
     # form of a radical variant (⺍ is drawn from 小), which is the form a reader can look up.
     kv = os.path.join(SRC, 'kanjivg', 'kanji')
