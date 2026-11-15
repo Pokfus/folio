@@ -3698,6 +3698,23 @@ changed was the one that had been wrong all along.
   The findings (a personal pronoun's shared table, the -s verbs, the closed-class rule against a common verb,
   the `i` missing from kaikki's extract) are 📖 `docs/swedish-decks-plan.md`. The `l1` row is 9.9 million
   (Ethnologue via Wikipedia); the hue is measured, `#BD4B7B` (re-swept at the merge: Romanian had taken the olive `#757839`).
+- `.claude/danish/` — the generator behind the Danish decks (Nov 2026, on request: "Add a Danish language
+  collection"; the Swedish, Hindi and Greek owners' decisions taken, the owner not asked). **Built: A1,
+  `decks/Danish-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Danish-A2.folio-deck.json`** (750 / 1,500;
+  2026-11-15, on request: "Add A2"; `--level a2`) **and B1, `decks/Danish-B1.folio-deck.json`** (1,000 / 2,000; 2026-11-15,
+  on request: "Add B1"; `--level b1`) **and B2, `decks/Danish-B2.folio-deck.json`** (1,500 / 3,000;
+  2026-11-15, on request: "Add B2"; 90 % of it by frequency, Danish Wiktionary lacking much of its inventory) **and C1, `decks/Danish-C1.folio-deck.json`** (1,500 / 3,000;
+  2026-11-15, on request: "Add C1"; 96 % by frequency, four cards in ten with no sentence) — all five levels **— and the phrases deck,
+  `decks/Danish-Phrases-and-Expressions.folio-deck.json`** (530 in Phrases / Particle verbs / Idioms / Proverbs, every
+  candidate Danish Wiktionary has; `--level phr`, `phrases.py`, 2026-11-15). The plan is complete. `python3 .claude/danish/run.py [--level a1]`,
+  `node .claude/danish/check-danish.js`; a re-run is byte-identical. Swedish's pipeline adapted, no alphabet deck and
+  no romanisation; nouns carry en/et, verbs their present, past and perfect WITH ITS AUXILIARY (`har spist`, `er
+  gået`). No published word list for Prøve i Dansk or Studieprøven, so a level is a topic inventory plus lemma
+  frequency, and the description says so. The findings (adjective and pronoun forms read off the headword line, a
+  verb's two-box table, the auxiliary inside the participle cell, the imperative that claims "but" and "father",
+  the closed word's half against a common verb, the capital `I`, the `i` missing from kaikki's extract) are
+  📖 `docs/danish-decks-plan.md`. The `LANGS` row is 5.5 million (Ethnologue via Wikipedia, no L2 figure); the hue
+  is measured, `#752466`.
 - `.claude/irish/` — the generator behind the Irish decks (Nov 2026, on request: "Add an Irish language
   collection"; the Hindi and Swedish owners' decisions taken, the owner not asked). **Built: all five levels,
   `decks/Irish-A1.folio-deck.json`** (500 notes / 1,000 cards), **`Irish-A2`** (750), **`Irish-B1`** (1,000), **`Irish-B2`** (1,500), **`Irish-C1`** (1,500) **and `Irish-Phrases-and-Expressions`** (613 in five subdecks). `python3 .claude/irish/run.py [--level a1]`,
