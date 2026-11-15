@@ -12496,6 +12496,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      stand well off: the Anglo-Saxon Chronicle 92.9, Bede 43.9, Snorri 81.5, the Poetic Edda 20.7. Keyed by
      id, the chronicle being anonymous. */
   "russian-primary-chronicle": "#933700",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-nine colours placed (Nov 2026, adding the Ninety-five
+     Theses): CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes'
+     inks and 4.5:1 on every light paper, card and second paper. A sweep of the cube at a step of 3,
+     refined to 1 around the best, tops out at 15.6 — level with the shelf's tightest real pair
+     (Polybius and Snorri, 15.6), so nothing was widened. THE EURIPIDES TEST: this deep violet's
+     nearest are Euripides 15.6, Homer 15.6 and Snorri 15.9, none a book read beside Luther; the ones
+     that are stand well off — Dante 29.1, Machiavelli 52.0, Augustine 68.2, Boethius 89.8, Aquinas
+     126.4. Of the sweep's other near-best, a green stood 14.8 from Aquinas and was refused for it,
+     the two theologians of penance in neighbouring colours reading as a set. It reads 8.98:1
+     on the tightest light paper. */
+  "Martin Luther": "#410064",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -16096,6 +16107,38 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Rurik": [[11, 153]],
         "Yaroslav_the_Wise": [42, [133, 153]],
       },
+    },
+    {
+      id: "luther-ninety-five-theses",
+      title: "The Ninety-five Theses",
+      subtitle: "A Disputation on the Power and Efficacy of Indulgences",
+      author: "Martin Luther",
+      // dated 31 October 1517, the eve of All Saints
+      written: "1517",
+      year: 1517,
+      // named by the 1915 volume's contents page: "Translation (C. M. Jacobs)"
+      translator: "Charles M. Jacobs",
+      edition: "Works of Martin Luther, with Introductions and Notes, Volume I, A. J. Holman Company, Philadelphia, 1915",
+      /* A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION: published 1915 (pre-1929 rule in the United
+         States); Jacobs died in 1938, so life plus a hundred runs to 2039. See .claude/fetch-book.js. */
+      rights:
+        "Public domain, with one limit. Luther wrote the Theses in Latin in 1517, so the work itself has " +
+        "never been in copyright. Charles M. Jacobs's English translation was published in Philadelphia " +
+        "in 1915, in the first volume of the Works of Martin Luther, and is in the public domain in the " +
+        "United States as a work published before 1929. Jacobs died in 1938, so it is also free in " +
+        "countries that protect a work for seventy or eighty years after its author's death, but not yet " +
+        "where the term is a hundred years. The text is the proofread Wikisource transcription of the " +
+        "1915 volume.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Works_of_Martin_Luther,_with_introductions_and_notes/Volume_1/Disputation_on_Indulgences",
+      /* NO `origLang`: the Latin is not set beside it. Two parts, in the 1915 volume's order: the
+         covering letter to Albrecht of Mainz, then the Disputation, its ninety-five theses numbered. */
+      chapterWord: "Part",
+      count: 2,
+      total: 2,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page (every `.ttip`). `Corinth` is
+         the city, reached through Thesis 78's "I. Corinthians xii", which is Paul's epistle. */
+      glossOff: ["Corinth"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -25610,6 +25653,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "The tributaries of the Varangians drove them back beyond the sea and, refusing them further tribute, set out to govern themselves. There was no law among them, but tribe rose against tribe. Discord thus ensued among them, and they began to war one against another. They said to themselves, “Let us seek a prince who may rule over us, and judge us according to the law.” They accordingly went overseas to the Varangian Russes: these particular Varangians were known as Russes, just as some are called Swedes, and others Normans, Angles, and Goths, for they were thus named. The Chuds, the Slavs, and…" },
     { book: "declaration-of-independence", n: 1, t: "The Unanimous Declaration", p: 6,
       text: "We hold these Truths to be self-evident, that all Men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty, and the Pursuit of Happiness.—That to secure these Rights, Governments are instituted among Men, deriving their just Powers from the Consent of the Governed, that whenever any Form of Government becomes destructive of these Ends, it is the Right of the People to alter or to abolish it, and to institute new Government, laying its Foundation on such Principles, and organizing its Powers in such Form, as to them shall…" },
+    { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
+      text: "Again:—\"Why does not the pope, whose wealth is to-day greater than the riches of the richest, build just this one church of St. Peter with his own money, rather than with the money of poor believers?\"" },
     { book: "kalidasa-shakuntala", n: 6, t: "Act IV", p: 138,
       text: "Hear, my daughter—When thou art settled in the mansion of thy husband, show due reverence to him, and to those whom he reveres: though he have other wives, be rather an affectionate handmaid to them than a rival.—Should he displease thee, let not thy resentment lead thee to disobedience.—In thy conduct to thy domesticks be rigidly just and impartial; and seek not eagerly thy own gratifications.—By such behaviour young women become respectable; but perverse wives are the bane of a family.—What thinks Gautamí of this lesson ? Gaut. It is incomparable:—my child, be sure to remember it. Can.…" },
   ];
