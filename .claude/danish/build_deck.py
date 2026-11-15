@@ -39,7 +39,8 @@ from danish_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
 STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-15T00:00:00.000Z',
-         'b1': '2026-11-15T00:00:00.000Z', 'b2': '2026-11-15T00:00:00.000Z'}[LEVEL]
+         'b1': '2026-11-15T00:00:00.000Z', 'b2': '2026-11-15T00:00:00.000Z',
+         'c1': '2026-11-15T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'danish'
@@ -160,6 +161,12 @@ GLOSS = {
     'ride': {'verb': ['to ride (a horse, a bicycle)']},           # its second sense is sexual
     'sæson': {'noun': ['season (the time of year when something is done)']},
     'lem': {'noun': ['limb']},                                     # B2: its second sense is sexual
+    # C1 (2026-11-15): a grammar note rewritten, a sexual or crude sense cut
+    'ganske vist': {'adv': ['admittedly, it is true (that), to be sure']},
+    'grundet': {'prep': ['owing to, due to']},
+    'mis': {'noun': ['kitty, puss (a cat)']}, 'skede': {'noun': ['sheath, scabbard']},
+    'kæp': {'noun': ['stick, cane']}, 'hed': {'adj': ['hot, scorching']},
+    'afføring': {'noun': ['defecation, bowel movement', 'faeces, stool']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -171,7 +178,8 @@ MONTHS = set('januar februar marts april maj juni juli august september oktober 
 # NO ARTICLE for a language's name, which Danish uses without one (jeg taler dansk)
 NO_ART = {'dansk', 'engelsk', 'tysk', 'fransk', 'svensk', 'norsk', 'spansk', 'kinesisk', 'japansk',
           'italiensk', 'russisk', 'græsk', 'irsk', 'arabisk',
-          'fru', 'aftes', 'vegne'}   # a title (fru Hansen), nouns met only in i aftes, på … vegne
+          'fru', 'aftes', 'vegne', 'fjor', 'overmorgen', 'styrbord', 'bagbord'}   # a title (fru Hansen); nouns met only in i aftes,
+          # på … vegne, i fjor, i overmorgen; the ship's sides (om styrbord)
 
 # A GENDER WRITTEN HERE, where the lemma's first entry is not the everyday word's.
 GENDER_FIX = {'penge': 'p', 'forældre': 'p', 'farfar': 'c', 'kuglepen': 'c',
@@ -185,7 +193,16 @@ GENDER_FIX = {'penge': 'p', 'forældre': 'p', 'farfar': 'c', 'kuglepen': 'c',
               'plet': 'c', 'eks': 'c', 'kranium': 'n', 'rumvæsen': 'n', 'skænderi': 'n', 'sønnike': 'c',
               'matematik': 'c', 'vodka': 'c', 'cirkus': 'n', 'opskrift': 'c', 'drikkepenge': 'p', 'bums': 'c',
               'kirurg': 'c', 'brormand': 'c', 'obduktion': 'c', 'chips': 'p', 'underbukser': 'p', 'tremme': 'c',
-              'rand': 'c', 'søskende': 'p', 'påvirkning': 'c', 'vindkraft': 'c', 'mil': 'c'}
+              'rand': 'c', 'søskende': 'p', 'påvirkning': 'c', 'vindkraft': 'c', 'mil': 'c',
+              # C1
+              'stedfar': 'c', 'republikaner': 'c', 'kapsel': 'c', 'polterabend': 'c', 'kneb': 'n',
+              'cheerleader': 'c', 'nybegynder': 'c', 'udenrigsministerium': 'n', 'demokrat': 'c', 'razzia': 'c',
+              'bif': 'c', 'småting': 'p', 'sushi': 'c', 'kopper': 'p', 'jalousi': 'c', 'raket': 'c',
+              'velkomst': 'c', 'højdepunkt': 'n', 'sammenbrud': 'n', 'brandy': 'c', 'pårørende': 'p',
+              'premierminister': 'c', 'udenrigsminister': 'c', 'ligning': 'c', 'kunstværk': 'n', 'sonde': 'c',
+              'skændsel': 'c', 'forbud': 'n', 'budding': 'c', 'bedemand': 'c', 'ekspertise': 'c',
+              'trolddom': 'c', 'hektar': 'c', 'udkast': 'n', 'yoghurt': 'c', 'kobling': 'c', 'boghandel': 'c',
+              'dekan': 'c', 'sanktion': 'c', 'folkeafstemning': 'c', 'retssikkerhed': 'c', 'korstog': 'n'}
 
 # A PART OF SPEECH NOT SHOWN for one word: a block that is noise beside the word a beginner meets.
 DROP_POS = {('kende', 'adv'), ('lukke', 'noun'), ('færdig', 'intj'), ('nu', 'noun'), ('om', 'adv'),
@@ -194,7 +211,9 @@ DROP_POS = {('kende', 'adv'), ('lukke', 'noun'), ('færdig', 'intj'), ('nu', 'no
             # A2
             ('herre', 'adv'), ('kæreste', 'verb'), ('gemme', 'noun'), ('pleje', 'noun'), ('brænde', 'noun'),
             ('skidt', 'noun'), ('tosse', 'verb'), ('tæppe', 'verb'), ('tåge', 'verb'), ('ægte', 'verb'),
-            ('dække', 'noun'), ('skifte', 'noun')}
+            ('dække', 'noun'), ('skifte', 'noun'),
+            # C1
+            ('grundet', 'adj'), ('pinlig', 'adv'), ('reporter', 'verb'), ('sambo', 'adj')}
 
 # A GLOSS THAT IS NOT A MEANING: a pointer to another headword or a form label.
 NOT_A_MEANING = re.compile(

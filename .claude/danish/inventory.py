@@ -16,7 +16,7 @@ Wiktionary heads a word under a form a learner does not meet first, the
 learner's word is written and `select.ALIAS` names the headword (`mange`,
 filed under `mangen`).
 
-A1 to B2 are written (2026-11-15); C1 is the plan's later phase.
+Every level, A1 to C1, is written (2026-11-15).
 """
 
 A1 = [
@@ -186,4 +186,31 @@ B2 = [
                                  'trods trods_alt ifølge hvorvidt derved'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}
+C1 = [
+    ('academic and intellectual', 'afhandling empiri empirisk teoretisk begreb definition slutning kriterium '
+                                  'fænomen mekanisme variabel korrelation udvalg metodik kildekritik abstrakt '
+                                  'konkret principiel'),
+    ('society and governance', 'forvaltning myndighedsudøvelse offentlighed statsborgerskab samfundsdebat '
+                               'folkeafstemning valgperiode grundlov magtdeling retsstat sanktion tilsyn '
+                               'beføjelse'),
+    ('economy and business', 'omsætning kapital gældsætning lavkonjunktur højkonjunktur nedskæring '
+                             'effektivisering udbud afkast interessent'),
+    ('law and ethics', 'etik moralsk integritet retssikkerhed overtrædelse sanktion forældelse præcedens '
+                       'formål'),
+    ('mind and behaviour', 'bevidsthed drivkraft motivation selvværd selvtillid sårbarhed tillid ambivalens '
+                           'fornægtelse fortrængning'),
+    ('language and rhetoric', 'retorik nuance ironi metafor undertone formulering fremstilling '
+                              'ræsonnement standpunkt indvending indrømmelse udtryk'),
+    ('abstract nouns', 'betydning tilgang omstændighed fænomen forløb afvejning helhed bestanddel særpræg '
+                       'tvetydighed modsætning forudsigelighed'),
+    ('verbs of C1', 'anskueliggøre problematisere nuancere præcisere kortlægge påvise dokumentere forudsige '
+                    'påberåbe fastholde bestride tilgodese afhjælpe prioritere tilskrive fravige tilsidesætte '
+                    'udlede'),
+    ('adjectives of C1', 'håndgribelig indgående overordnet utvetydig modstridende ensidig velbegrundet '
+                         'uholdbar gennemgribende betragtelig marginal ubetydelig uundværlig uforudsigelig '
+                         'tvivlsom'),
+    ('formal connectors', 'derudover endvidere hvorved hermed således ikke_desto_mindre i_særdeleshed '
+                          'ganske_vist hvorvidt uagtet foruden'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2, 'c1': C1}

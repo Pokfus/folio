@@ -5,7 +5,7 @@ Danish set, built in the Swedish decks' shape (`docs/swedish-decks-plan.md`, who
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-15: "Add a Danish language collection."
 
-**STATUS (2026-11-15): A1 to B2 are built** (§6–§9). C1 is a later phase, one level per request, as Swedish's were.
+**STATUS (2026-11-15): all five levels, A1 to C1, are built** (§6–§10). A phrases deck is the one phase left.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck of this plan. The collection's first commit carried one because it also changed the APP — the
@@ -33,7 +33,7 @@ owner's to overrule.**
 | Danish A2 Elementary — built | `Danish-A2.folio-deck.json` | 750 |
 | Danish B1 Intermediate — built | `Danish-B1.folio-deck.json` | 1,000 |
 | Danish B2 Upper Intermediate — built | `Danish-B2.folio-deck.json` | 1,500 |
-| Danish C1 Advanced | `Danish-C1.folio-deck.json` | 1,500 |
+| Danish C1 Advanced — built | `Danish-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
 
@@ -99,7 +99,7 @@ One of A1's 500 words (`apotek`) has no Tatoeba sentence.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2, B1 and B2 done) — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2 (done)** — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` (and its `SCOPE` is already in `danish_level.py`; add its `STAMP` in `build_deck.py`),
 run, read every card. **Phase 3** — a phrases deck, from Swedish's `phrases.py`.
 
@@ -204,3 +204,36 @@ better than more hand inventory against a thin dictionary.
 
 **Known, left.** The fill's crime, fantasy and slang vocabulary (`narko`, `strømer`, `lejemorder`, `varulv`, `ork`,
 `hash`) stays on frequency, as at every level; so do a few anatomical words (`penis`, `kondom`).
+
+## 10. As built (2026-11-15): C1
+
+Asked for on 2026-11-15: "Add C1" — built the same way as B2; the owner was not asked §9's choice, which stands.
+`python3 .claude/danish/run.py --level c1`; no new source. **1,500 notes: only 62 from a 10-topic inventory**
+(`inventory.py` `C1`, Swedish C1's topics: academic life, governance, the economy, law and ethics, mind and behaviour,
+language and rhetoric, abstract nouns, the level's verbs and adjectives, formal connectors — scoped to
+`SCOPE['c1']`) **and 1,438 by frequency**; three sentences for 369, **none for 637**. Every card was read once. A1 to
+B2 re-run byte-identical.
+
+**THE THINNEST LEVEL ON THE SHELF FOR SOURCES.** 46 inventory words have no Danish Wiktionary entry (`definition`,
+`mekanisme`, `kapital`, `etik`, `integritet`, `afkast`, `påvise`, `fastholde`, `marginal`, `endvidere` …, listed by
+the run), so 96 % of C1 is the subtitles' frequency between roughly the 5,000th and 6,500th Danish lemma — a band
+of everyday nouns, animals, foods, professions and crime-drama vocabulary more than the academic register the CEFR
+descriptor names. **Four in ten cards have no example sentence**: Tatoeba's 44,000 Danish sentences do not reach this
+far down the frequency list. The description states both facts in its counts. §9's choice for the owner (a graded
+list, or a second corpus) applies here most of all.
+
+**What the C1 ranking turned up**, each fixed with its reason beside it:
+- **English in the subtitles** (`out`, `yes`, `hi`, `made`, `gold`, `not`, `he`, `as`, `ask`, `eagle`, `hip`,
+  `clean`), a name (`arne`), a dialect form (`moar`).
+- **Forms of taught words** (`brutalt`, `besværligt`, `negativt`, `samtidigt`; `kære`; `værsågod`, `grev`) and
+  another word's imperative or participle (`bestil`, `lid`).
+- **Crude and sexual words, slurs and insults** — more of them at this depth than at any other level (fifteen
+  excluded: `pikhoved`, `blowjob`, `onanere`, `tis`, `prut`, `sjuske`, `misfoster`, `tøjte` …); a crude or sexual sense
+  cut from `mis`, `skede`, `kæp`, `hed` and `afføring`. Anatomical words (`vagina`, `testikel`, `livmoder`) stay.
+- **Wiktionary notes in place of meanings**: `ganske vist` ("used concessively, similar to German zwar") and
+  `grundet` ("shallow", where the count is the preposition "owing to") rewritten; `sambo` read as the noun.
+- Genders Wiktionary omits (42, `GENDER_FIX`); `fjor`, `overmorgen` (only in `i fjor`, `i overmorgen`) and the ship's
+  sides `styrbord`, `bagbord` take no article.
+
+**Known, left.** As at B2, the fill's crime, fantasy and slang vocabulary stays on frequency (`snigmorder`,
+`haglgevær`, `enhjørning`, `smølf`).

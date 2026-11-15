@@ -126,6 +126,25 @@ EXCLUDE = {
     'nødder': 'Wiktionary\'s entry is the slang "breasts"; nød "nut" is its plural\'s word',
     'rap': 'its count is rap music; its entry is a duck\'s quack',
     'neger': 'a slur', 'liderlig': 'crude', 'porno': 'not taught in a level deck', 'voldtægt': 'as voldtage (B1)',
+    # Read off the C1 ranking (2026-11-15).
+    # A FORM TAUGHT ON ANOTHER CARD, or another spelling of one
+    'brutalt': 'the neuter of brutal (B2)', 'besværligt': 'the neuter of besværlig (C1)',
+    'negativt': 'the neuter of negativ (B1)', 'samtidigt': 'the neuter of samtidig (B1)',
+    'kære': 'its count is the plural of kær (A2); its verb "to appeal" is rare',
+    'værsågod': 'the older spelling of værsgo (A1)', 'grev': 'the title before a count\'s name; greve is taught',
+    'bestil': 'the imperative of bestille (A2)', 'lid': 'the participle of lide (A1); its noun "trust" is rare',
+    # ITS COUNT IS NOT FOR ITS ENTRY: English, names, a dialect
+    'out': 'English', 'yes': 'English', 'hi': 'English', 'made': 'English', 'gold': 'English',
+    'not': 'English', 'he': 'English', 'as': 'English; its noun is one of the Æsir', 'ask': 'English',
+    'eagle': 'English', 'hip': 'English', 'clean': 'English', 'arne': 'its count is the name Arne',
+    'old': 'its count is not the school subject', 'moar': 'dialect', 'fas': 'its count is not "a chamfer"',
+    'gokke': 'its count is not "to bat"', 'tæv': 'Wiktionary gives it no gender, as tæsk (B2)',
+    # CRUDE OR SEXUAL WORDS, SLURS AND INSULTS
+    'pikhoved': 'crude', 'diller': 'crude', 'babs': 'crude', 'blowjob': 'crude', 'onanere': 'not taught in a level deck',
+    'samleje': 'not taught in a level deck', 'orgasme': 'not taught in a level deck', 'hor': 'not taught in a level deck',
+    'tis': 'crude', 'fise': 'crude', 'prut': 'crude', 'prutte': 'crude', 'nederen': 'crude slang',
+    'sjuske': 'an insult', 'misfoster': 'an insult', 'pædofil': 'not taught in a level deck',
+    'tjald': 'drug slang',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
@@ -134,7 +153,7 @@ SWEARS = {'fanden', 'fandme', 'fuck', 'fucking', 'lort', 'pis', 'pisse', 'røv',
           'kraftedeme', 'kælling', 'luder', 'idiot', 'fjols', 'nar', 'bøsse', 'kneppe', 'pik',
           'fisse', 'skide', 'shit', 'svin', 'røvhul', 'dælme', 'sgu', 'fandeme',
           'fandens', 'forbandet', 'pokker', 'pokkers', 'kraftedme', 'fanden',
-          'skiderik', 'nosse', 'forpulet', 'tæve', 'stodder', 'helvedes', 'hore', 'mær', 'kusse'}
+          'skiderik', 'nosse', 'forpulet', 'tæve', 'stodder', 'helvedes', 'hore', 'mær', 'kusse', 'tøjte'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists
 # another first.
@@ -152,7 +171,9 @@ FILL_POS = {'tro': 'verb', 'nok': 'adv', 'lige': 'adv', 'slå': 'verb', 'prøve'
             'ride': 'verb', 'klippe': 'verb', 'putte': 'verb', 'lette': 'verb', 'spare': 'verb',
             'tømme': 'verb', 'skinne': 'verb', 'rode': 'verb',
             # B2 (2026-11-15)
-            'arve': 'verb', 'våge': 'verb', 'gylden': 'adj'}
+            'arve': 'verb', 'våge': 'verb', 'gylden': 'adj',
+            # C1 (2026-11-15)
+            'sambo': 'noun'}
 
 # A WORD DEALT BY ANOTHER'S COUNT.  The pronoun `I` "you (plural)" is counted in the
 # subtitles under its lower case, the preposition `i`, so it is dealt by its object form's.
