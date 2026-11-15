@@ -248,6 +248,7 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~490 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/swedish-cache/
+.claude/danish-cache/
 
 # the corpora .claude/dutch/run.py builds the Dutch decks from — the Wiktionary
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~400 MB) — plus
@@ -278,3 +279,7 @@ countries-info.json
 # CC-Canto, HKCanCor (out of the PyCantonese wheel) and the Tatoeba exports (~160 MB) —
 # plus the intermediate files between its stages. The decks it writes ARE committed.
 .claude/cantonese-cache/
+# the corpora .claude/amharic/run.py builds the Amharic decks from — the Wiktionary
+# extract, the Amharic Wikipedia dump and the Tatoeba exports (~130 MB) — plus the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/amharic-cache/

@@ -30274,6 +30274,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the shelf: a leaf green, 19.5 from its nearest neighbour (Portuguese's #009657); 4.7:1 against white. Not a flag
        colour: Arabic is the language of twenty-odd states, and none of them is its colour. */
     "lang-arabic":     { bg: "#2A8424" }, // measured green
+    /* DANISH (Nov 2026) was not named a colour, so it was MEASURED as Swedish was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 69 hues on the
+       page. The raw winner was a moss green (#4E7E00, 15.1), refused as one more green in a section that has
+       many, as Greek's and Vietnamese's were; outside the greens and the refused bright-magenta band, this deep
+       plum is the farthest point, 15.0 from its nearest neighbours (Japanese's plum and two others), against a
+       tightest existing pair of 4.0. 9.5:1 against white. Not the flag's red. Re-swept at the merge with Amharic's wine on
+       the shelf (70 hues): still the winner, unchanged. */
+    "lang-danish":     { bg: "#752466" }, // measured deep plum
     "lang-french":     { bg: "#107CD0" }, // measured blue, not named in the request
     "lang-german":     { bg: "#633318" }, // brown
     /* GREEK (Nov 2026) was not named a colour, so it was MEASURED as French was: swept in CIELAB inside the
@@ -30456,6 +30464,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        green): an ochre, 14.3 from its nearest neighbour (World History's sepia), against a tightest existing
        pair of 0.0; 4.6:1 against white. Not a flag colour, and deliberately not Mandarin's rose beside it. */
     "lang-cantonese":  { bg: "#8C7126" }, // measured ochre
+    /* AMHARIC (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 70 hues on the
+       page, the magenta band's standing rejection kept (the raw runner-up, 15.0, was a plum there) and the
+       greens left out (the raw winner, 15.1): a deep wine, 14.7 from its nearest neighbour (the Japan
+       collection's kuwazome red-purple), against a tightest existing pair of 4.0; 10.0:1 against white. Not a flag colour. */
+    "lang-amharic":    { bg: "#85063D" }, // measured wine
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
