@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T21:45Z",
+ "generated": "2026-11-15T21:47Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8284,
+  "ok": 8285,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89328,6 +89328,13 @@
    "answer": "Odisha",
    "title": "Odisha",
    "url": "https://en.wikipedia.org/wiki/Odisha",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-512": {
+   "answer": "Hyderabad",
+   "title": "Hyderabad",
+   "url": "https://en.wikipedia.org/wiki/Hyderabad",
    "via": "answer",
    "status": "ok"
   }
