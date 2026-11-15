@@ -24914,6 +24914,47 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       o: { lang: "de", t: "Man hat der Historie das Amt, die Vergangenheit zu richten, die Mitwelt zum Nutzen zukünftiger Jahre zu belehren, beigemessen: so hoher Aemter unterwindet sich gegenwärtiger Versuch nicht: er will blos zeigen, wie es eigentlich gewesen.", a: "Leopold von Ranke", s: "Geschichten der romanischen und germanischen Völker, Vorrede, 1824" } },
     { t: "Misunderstanding of the present grows inevitably out of ignorance of the past.", a: "Marc Bloch", s: "The Historian's Craft, 1949",
       o: { lang: "fr", t: "L'incompréhension du présent naît fatalement de l'ignorance du passé.", a: "Marc Bloch", s: "Apologie pour l'histoire, 1949" } },
+    /* ---- Nov 2026, on request: seventeen more, each checked against its work before it went in. The
+       English is a standard published translation where the writer did not write in English — Ross's
+       Aristotle (1908), Legge's Analects, Long's Marcus Aurelius, Elizabeth Carter's Enchiridion (1758),
+       N. H. Thomson's Discourses (1883) and Saunders's Schopenhauer (1890) — and each of those carries its
+       original, read from a primary text: the Analects and the Meditations from the Library's own books,
+       Aristotle from Perseus, the Enchiridion from Greek Wikisource, Machiavelli from Italian Wikisource,
+       and Schopenhauer from the scan of the first edition of the Parerga (1851, vol. II, ch. 26).
+       THREE WORDINGS DIFFER FROM THE LINES AS THEY WERE SENT, and on purpose. The Machiavelli most often
+       quoted ("Whoever wishes to foresee the future must consult the past") could not be found in any
+       translation that could be read, so the line is Thomson's, which renders the same Italian sentence.
+       Mandela's is the government archive's text of the Mindset Network address ("we can use"; the
+       "which you can use" form is the delivered version as books report it, and he departed from his
+       text). Newton's spelling is modernised from "the sholders of Giants"; the letter is dated 5 February
+       1675/6, Old Style, which is 1676 by the year's modern start.
+       LEFT OUT: "No man is free who is not master of himself" — Crossley's Golden Sayings take it from
+       the Stobaean aphorisms, whose ascription to Epictetus Schenkl and Elter doubted, and no Greek for it
+       could be read in any edition; and two lines of fiction (Yoda, Tyrion Lannister), since this pool is
+       voices from history and holds none. ---- */
+    { t: "All men by nature desire to know.", a: "Aristotle", s: "Metaphysics I, 980a21",
+      o: { lang: "grc", t: "Πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέγονται φύσει.", a: "Ἀριστοτέλης", s: "Τὰ μετὰ τὰ φυσικά Α΄, 980a21" } },
+    { t: "Reading maketh a full man; conference a ready man; and writing an exact man.", a: "Francis Bacon", s: "Essays: Of Studies, 1625" },
+    { t: "If I have seen further it is by standing on the shoulders of giants.", a: "Isaac Newton", s: "Letter to Robert Hooke, 5 February 1676" },
+    { t: "Ignorance more frequently begets confidence than does knowledge.", a: "Charles Darwin", s: "The Descent of Man, Introduction, 1871" },
+    { t: "The highest result of education is tolerance.", a: "Helen Keller", s: "Optimism, 1903" },
+    { t: "Education is the most powerful weapon we can use to change the world.", a: "Nelson Mandela", s: "Address at the launch of Mindset Network, Johannesburg, 16 July 2003" },
+    { t: "The wise are wont to say, and not without reason or at random, that he who would forecast what is about to happen should look to what has been.", a: "Niccolò Machiavelli", s: "Discourses on Livy III.43",
+      o: { lang: "it", t: "Sogliono dire gli uomini prudenti, e non a caso né immeritamente, che chi vuole vedere quello che ha a essere, consideri quello che è stato.", a: "Niccolò Machiavelli", s: "Discorsi sopra la prima deca di Tito Livio III.43" } },
+    { t: "Those who cannot remember the past are condemned to repeat it.", a: "George Santayana", s: "The Life of Reason, vol. I, 1905" },
+    { t: "The past is never dead. It's not even past.", a: "William Faulkner", s: "Requiem for a Nun, 1951" },
+    { t: "They who know the truth are not equal to those who love it, and they who love it are not equal to those who delight in it.", a: "Confucius", s: "Analects VI.20",
+      o: { lang: "lzh", t: "知之者不如好之者，好之者不如樂之者。", a: "孔子", s: "《論語·雍也》" } },
+    { t: "If it is not right, do not do it: if it is not true, do not say it.", a: "Marcus Aurelius", s: "Meditations XII.17",
+      o: { lang: "grc", t: "Εἰ μὴ καθήκει, μὴ πράξῃς· εἰ μὴ ἀληθές ἐστι, μὴ εἴπῃς.", a: "Μᾶρκος Αὐρήλιος", s: "Τὰ εἰς ἑαυτόν ΙΒ΄.17" } },
+    { t: "Be, and not seem.", a: "Ralph Waldo Emerson", s: "Spiritual Laws, in Essays: First Series, 1841" },
+    { t: "Every man takes the limits of his own field of vision for the limits of the world.", a: "Arthur Schopenhauer", s: "Parerga and Paralipomena II, ch. 26, 1851",
+      o: { lang: "de", t: "Jeder hält das Ende seines Gesichtskreises für das der Welt.", a: "Arthur Schopenhauer", s: "Parerga und Paralipomena II, Kap. 26, 1851" } },
+    { t: "There is nothing either good or bad but thinking makes it so.", a: "William Shakespeare", s: "Hamlet II.2, c. 1600" },
+    { t: "He who knows only his own side of the case, knows little of that.", a: "John Stuart Mill", s: "On Liberty, ch. II, 1859" },
+    { t: "Well done is better than well said.", a: "Benjamin Franklin", s: "Poor Richard's Almanack, 1737" },
+    { t: "Men are disturbed, not by things, but by the principles and notions which they form concerning things.", a: "Epictetus", s: "Enchiridion 5",
+      o: { lang: "grc", t: "Ταράσσει τοὺς ἀνθρώπους οὐ τὰ πράγματα, ἀλλὰ τὰ περὶ τῶν πραγμάτων δόγματα.", a: "Ἐπίκτητος", s: "Ἐγχειρίδιον 5" } },
   ];
   /* ---------- the running order the daily quote follows ----------
      The pool leans on a few voices — four of the twenty lines are Confucius, and in the array's own order
