@@ -8,15 +8,25 @@ Card 1 is JAPANESE -> ENGLISH.  Its front is the word AS A JAPANESE READER WRITE
 dictionary does not mark the word "usually written in kana", kana where it does -- with no reading, so
 the card asks what the word is.  Its back puts the reading over the kanji as furigana (<ruby>) and the
 Hepburn romaji under it, always: the reading is the answer's first half.  Card 2 is ENGLISH -> JAPANESE.
+
+AT N5 AND N4 THE FRONT IS IN KANA where the word's kanji are not yet that level's (Nov 2026, `build_level.py`):
+the back still writes it in kanji with its furigana.
 """
 
 TYPE_ID = 'jlpt'
-FIELDS = ['Word', 'Furigana', 'Reading', 'Romaji', 'Also', 'English', 'Kanji', 'Compounds', 'Examples']
+FIELDS = ['Word', 'Furigana', 'Reading', 'Romaji', 'Also', 'English', 'Prompt', 'More', 'Conj', 'Kanji', 'Compounds',
+          'Examples', 'Say']
 
-SAY = '<span class="uc-tts uc-say" data-say="{{Reading}}"></span>'
+# WHAT THE SPEAKER SAYS is its own field (Nov 2026), the reading for every word but two: the particles は and へ
+# are written with the kana for "ha" and "he" and said "wa" and "e", and a speech engine handed the bare kana
+# reads the letter, not the particle.
+SAY = '<span class="uc-tts uc-say" data-say="{{Say}}"></span>'
 HEAD = ('<div class="uc-word">{{Furigana}}' + SAY + '</div>'
         '{{#Romaji}}<div class="uc-romaji">{{Romaji}}</div>{{/Romaji}}'
         '{{#Also}}<div class="uc-also">{{Also}}</div>{{/Also}}')
+# A VERB'S FOUR EVERYDAY FORMS (Nov 2026) stand under its meaning: the dictionary form is what the card asks, and
+# not one example sentence in ten uses it.
+CONJ = '{{#Conj}}<div class="uc-conj">{{Conj}}</div>{{/Conj}}'
 TAIL = ('{{#Kanji}}<div class="uc-kanji">{{Kanji}}</div>{{/Kanji}}'
         '{{#Compounds}}<div class="uc-cmp">{{Compounds}}</div>{{/Compounds}}'
         '{{#Examples}}<details class="uc-fold"><summary>In a sentence</summary>'
@@ -26,9 +36,15 @@ FRONT_JA = '<div class="uc-word uc-front">{{Word}}</div>'
 # THE BACK RENDERS {{FrontSide}}, which is what tells the study shell not to draw the question a second time,
 # and the CSS hides that bare word inside it (`.uc-back .uc-front`) so the furigana headword stands in its place
 # rather than beneath a copy of itself.
-BACK_JA = '<div class="uc-back">{{FrontSide}}</div>' + HEAD + '<hr><div class="uc-field">{{English}}</div>' + TAIL
-FRONT_EN = '<div class="uc-ask">Say it in Japanese</div><div class="uc-field">{{English}}</div>'
-BACK_EN = '{{FrontSide}}<hr>' + HEAD + TAIL
+BACK_JA = ('<div class="uc-back">{{FrontSide}}</div>' + HEAD + '<hr><div class="uc-field">{{English}}</div>'
+           + CONJ + TAIL)
+# THE ENGLISH -> JAPANESE CARD ASKS WITH THE FIRST SENSE ALONE (`Prompt`, Nov 2026).  Three senses on the question
+# -- この was asked as "this / last (couple of years) / you (as in "you liar")" -- are three questions, and the
+# second and third are the ones a learner does not yet have.  The other senses are on the back (`More`).
+FRONT_EN = '<div class="uc-ask">Say it in Japanese</div><div class="uc-field">{{Prompt}}</div>'
+BACK_EN = ('{{FrontSide}}<hr>' + HEAD
+           + '{{#More}}<div class="uc-field uc-more"><div class="uc-morelab">also</div>{{More}}</div>{{/More}}'
+           + CONJ + TAIL)
 
 CARDS = [{'name': 'Japanese → English', 'front': FRONT_JA, 'back': BACK_JA},
          {'name': 'English → Japanese', 'front': FRONT_EN, 'back': BACK_EN}]
@@ -104,6 +120,59 @@ CSS = """.card {
 }
 .uc-gl {
   line-height: 1.5;
+}
+/* A HOMOGRAPH'S KANJI, small beside a front two kana words share (いる "to be" / いる "to need"). */
+.uc-hint {
+  margin-left: 6px;
+  font-size: 0.42em;
+  opacity: 0.6;
+}
+.uc-inf {
+  font-size: 0.86em;
+  opacity: 0.66;
+}
+.uc-more {
+  margin-top: 10px;
+  opacity: 0.85;
+}
+.uc-morelab {
+  margin-bottom: 3px;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint, #6C6A63);
+}
+/* A VERB'S FORMS: label over form, four across where there is room. */
+.uc-conj {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 18px;
+  margin-top: 12px;
+}
+.uc-cj {
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.9;
+}
+.uc-cj rt {
+  font-size: 0.5em;
+  opacity: 0.7;
+}
+.uc-cjl {
+  display: block;
+  font-size: 9px;
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.uc-cjr {
+  display: block;
+  font-size: 11.5px;
+  line-height: 1.2;
+  font-style: italic;
+  opacity: 0.62;
 }
 /* ONE ROW PER KANJI: the character, its meanings, its on and kun readings, and the parts it is drawn from. */
 .uc-kanji {
