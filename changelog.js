@@ -49,7 +49,7 @@ window.CHANGELOG = [
       "<b>Find it</b> no longer asks for areas that have nothing drawn on the board.",
       "<b>What language?</b> is resting for now and has left the home page.",
       "The <b>Report</b> button now sits on the same line as the card's id.",
-      "23 new quotations in the <b>daily quote</b>, a few of them from favourite books, films and shows.",
+      "31 new quotations in the <b>daily quote</b>, some of them from favourite novels, films, shows and games.",
       "One card has more exact dates and another a fuller picture.",
     ],
   },

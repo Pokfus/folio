@@ -24973,10 +24973,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        longer: "for surely the world will not … Armor yourself in it"); his second is the novel's, A Game of Thrones, said to Jon Snow. ---- */
     { t: "Power resides where men believe it resides.", a: "Varys", s: "Game of Thrones, season 2, episode 3, “What Is Dead May Never Die” (2012)" },
     { t: "Never forget what you are. The rest of the world will not. Wear it like armor, and it can never be used to hurt you.", a: "Tyrion Lannister", s: "Game of Thrones, season 1, episode 1, “Winter Is Coming” (2011)" },
-    { t: "A mind needs books as a sword needs a whetstone, if it is to keep its edge.", a: "Tyrion Lannister", s: "George R. R. Martin, A Game of Thrones (1996)" },
+    { t: "A mind needs books as a sword needs a whetstone, if it is to keep its edge.", a: "George R. R. Martin", s: "A Game of Thrones (1996), spoken by Tyrion Lannister" },
     { t: "Understanding is the first step to acceptance, and only with acceptance can there be recovery.", a: "Albus Dumbledore", s: "J. K. Rowling, Harry Potter and the Goblet of Fire (2000)" },
     { t: "Pride is not the opposite of shame, but its source. True humility is the only antidote to shame.", a: "Uncle Iroh", s: "Avatar: The Last Airbender, book 2, “Bitter Work” (2006)" },
     { t: "Do. Or do not. There is no try.", a: "Yoda", s: "Star Wars: The Empire Strikes Back (1980)" },
+    /* ---- Nov 2026, on request: more from the novels, credited to their AUTHOR (the owner: "cite these as George R. R. Martin quotes
+       rather than their characters"; Tolkien likewise), the character named in `s`. Each wording was checked against quotations of the
+       printed text. Syrio's line is Arya reporting him ("Syrio says that every hurt is a lesson…"). NOT ADDED: "A man must know how to
+       look before he can hope to see" (the three-eyed crow) — no source for that wording could be found. ---- */
+    { t: "Laughter is poison to fear.", a: "George R. R. Martin", s: "A Game of Thrones (1996), Catelyn Stark" },
+    { t: "Every hurt is a lesson, and every lesson makes you better.", a: "George R. R. Martin", s: "A Game of Thrones (1996), Syrio Forel's saying, as Arya repeats it" },
+    { t: "I prefer my history dead. Dead history is writ in ink, the living sort in blood.", a: "George R. R. Martin", s: "A Feast for Crows (2005), Rodrik Harlaw" },
+    { t: "A reader lives a thousand lives before he dies. The man who never reads lives only one.", a: "George R. R. Martin", s: "A Dance with Dragons (2011), Jojen Reed" },
+    { t: "The man who does nothing also takes a risk.", a: "George R. R. Martin", s: "A Dance with Dragons (2011), Ser Richard Horpe" },
+    { t: "Not all those who wander are lost.", a: "J. R. R. Tolkien", s: "The Fellowship of the Ring (1954), Book II, ch. 2, Bilbo's verse on Aragorn" },
+    { t: "The praise of the praiseworthy is above all rewards.", a: "J. R. R. Tolkien", s: "The Two Towers (1954), Book IV, ch. 5, Faramir" },
+    { t: "What is better — to be born good, or to overcome your evil nature through great effort?", a: "Paarthurnax", s: "The Elder Scrolls V: Skyrim (Bethesda, 2011)" },
   ];
   /* ---------- the running order the daily quote follows ----------
      The pool leans on a few voices — four of the twenty lines are Confucius, and in the array's own order
