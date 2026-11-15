@@ -11659,7 +11659,8 @@ window.GLOSSARY = {
 "Bengaluru": "",
 "Karnataka": "",
 "Gujarat": "",
-"Andhra_Pradesh": ""
+"Andhra_Pradesh": "",
+"Bhubaneswar": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -36592,7 +36593,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Bengaluru": ["place","city","geography","india"],
 "Karnataka": ["place","geography","india","state"],
 "Gujarat": ["place","geography","india","state"],
-"Andhra_Pradesh": ["place","geography","india","state"]
+"Andhra_Pradesh": ["place","geography","india","state"],
+"Bhubaneswar": ["place","city","geography","india"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

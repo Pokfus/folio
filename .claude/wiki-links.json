@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T21:41Z",
+ "generated": "2026-11-15T21:43Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8282,
+  "ok": 8283,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89314,6 +89314,13 @@
    "answer": "Andhra Pradesh",
    "title": "Andhra Pradesh",
    "url": "https://en.wikipedia.org/wiki/Andhra_Pradesh",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-511": {
+   "answer": "Bhubaneswar",
+   "title": "Bhubaneswar",
+   "url": "https://en.wikipedia.org/wiki/Bhubaneswar",
    "via": "answer",
    "status": "ok"
   }

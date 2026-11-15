@@ -11244,7 +11244,8 @@ window.CARD_DATA = [
 {"id":"gin-508","num":"508","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Bengaluru","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Founded</span><span class=\"dt-v\">1537</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Bengaluru","tags":["place","city","geography","capital","india"],"difficulty":2,"map":{"layer":"india-states","key":"Karnataka","dot":"Bengaluru"},"facts":[["State","Karnataka"],["Population","8.50M (2011)"],["Area","741 km² (286 sq mi)"],["Rank in state","Largest city"]]},
 {"id":"gin-008","num":"008","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Karnataka","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Renamed</span><span class=\"dt-v\">1 November 1973</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Karnataka","tags":["place","geography","india","state","south india"],"difficulty":3,"map":{"layer":"india-states","key":"Karnataka"},"facts":[["Kind","State"],["Capital","Bengaluru"],["Population","61.1M (2011)"],["Area","192k km² (74.1k sq mi)"]]},
 {"id":"gin-009","num":"009","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Gujarat","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">1 May 1960</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Gujarat","tags":["place","geography","india","state","west india"],"difficulty":3,"map":{"layer":"india-states","key":"Gujarat"},"facts":[["Kind","State"],["Capital","Gandhinagar"],["Population","60.4M (2011)"],["Area","196k km² (75.8k sq mi)"]]},
-{"id":"gin-010","num":"010","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Andhra Pradesh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State divided</span><span class=\"dt-v\">2 June 2014</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Andhra Pradesh","tags":["place","geography","india","state","south india"],"difficulty":3,"map":{"layer":"india-states","key":"Andhra Pradesh"},"facts":[["Kind","State"],["Capital","Amaravati"],["Population","49.6M (2011)"],["Area","163k km² (62.9k sq mi)"]],"notes":["Population and area are the undivided state's 2011 census figures (Census A-01: 84,580,777 people, 275,045 km²) less Telangana's as its government publishes them (35,003,674 people, 112,077 km²): 49,577,103 and 162,968 km². No opened source prints the residual figures directly.","The Natural Earth line drawn on the map is the Telangana boundary of before the 2014 amendment act (docs/india-geography-card-plan.md); the card says nothing about the two states' shared border."]}
+{"id":"gin-010","num":"010","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Andhra Pradesh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State divided</span><span class=\"dt-v\">2 June 2014</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Andhra Pradesh","tags":["place","geography","india","state","south india"],"difficulty":3,"map":{"layer":"india-states","key":"Andhra Pradesh"},"facts":[["Kind","State"],["Capital","Amaravati"],["Population","49.6M (2011)"],["Area","163k km² (62.9k sq mi)"]],"notes":["Population and area are the undivided state's 2011 census figures (Census A-01: 84,580,777 people, 275,045 km²) less Telangana's as its government publishes them (35,003,674 people, 112,077 km²): 49,577,103 and 162,968 km². No opened source prints the residual figures directly.","The Natural Earth line drawn on the map is the Telangana boundary of before the 2014 amendment act (docs/india-geography-card-plan.md); the card says nothing about the two states' shared border."]},
+{"id":"gin-511","num":"511","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Bhubaneswar","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Bhubaneswar","tags":["place","city","geography","capital","india"],"difficulty":3,"map":{"layer":"india-states","key":"Odisha","dot":"Bhubaneswar"},"facts":[["State","Odisha"],["Population","841k (2011)"],["Area","135 km² (52.0 sq mi)"],["Rank in state","Largest city"]]}
 ];
 
 window.COLLECTION_TREE = {
@@ -29243,7 +29244,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-india",
       "title": "India",
-      "total": 18,
+      "total": 19,
       "placeholder": false,
       "children": [
         {
@@ -29275,7 +29276,8 @@ window.COLLECTION_TREE = {
             "gin-505",
             "gin-506",
             "gin-507",
-            "gin-508"
+            "gin-508",
+            "gin-511"
           ]
         },
         {
