@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T22:15Z",
+ "generated": "2026-11-15T22:34Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8298,
+  "ok": 8299,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89426,6 +89426,13 @@
    "answer": "Raipur",
    "title": "Raipur",
    "url": "https://en.wikipedia.org/wiki/Raipur",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-019": {
+   "answer": "Delhi",
+   "title": "Delhi",
+   "url": "https://en.wikipedia.org/wiki/Delhi",
    "via": "answer",
    "status": "ok"
   }
