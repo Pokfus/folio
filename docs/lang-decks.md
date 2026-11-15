@@ -3844,6 +3844,26 @@ changed was the one that had been wrong all along.
   behind a surface that is no word; verbs by their past "he" form with binyan, infinitive, present and future. The
   plan and every finding are 📖 `docs/hebrew-decks-plan.md`. The `l1` row is 5 million (9 in all, Ethnologue 2018,
   via Wikipedia's infobox); the hue is measured, `#5E6EC0`.
+- `.claude/finnish/` — the generator behind the Finnish decks (Nov 2026, on request: "Add a Finnish language
+  collection"; the Hungarian answers taken, the owner not asked). **Built: the alphabet,
+  `decks/Finnish-Alphabet.folio-deck.json`** (34 notes: the 29 letters' sounds, then ng/nk, the stress, the long
+  vowel, the long consonant and the diphthong) **and A1, `decks/Finnish-A1.folio-deck.json`** (500 notes / 1,000
+  cards: 345 from a hand-written topic inventory, 155 by frequency) **and A2, `decks/Finnish-A2.folio-deck.json`**
+  (750 notes / 1,500 cards, 2026-11-15, on request: "Add A2"; `--level a2`) **and B1,
+  `decks/Finnish-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-15, on request: "Add B1"; `--level b1`) **and B2,
+  `decks/Finnish-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-15, on request: "Add B2"; `--level b2`) **and C1,
+  `decks/Finnish-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-15, on request: "Add C1"; `--level c1`) **and the phrases deck,
+  `decks/Finnish-Phrases-and-Expressions.folio-deck.json`** (1,832: 492 phrases, 933 idioms, 407 proverbs;
+  `--level phr`, `phrases.py`, 2026-11-15, on request: "Add phrases"). The set is complete. `python3 .claude/finnish/run.py [--level a1]`,
+  `python3 .claude/finnish/alphabet.py`, `node .claude/finnish/check-finnish.js`; a re-run is byte-identical.
+  Hungarian's pipeline adapted, no romanisation, verbs by their first infinitive with the "I" and "he/she" forms,
+  past and perfect; nouns with plural, genitive, partitive and plural partitive. **What is new**: the tables'
+  tags are clean (read by tag, not position), but the participles' are garbled, so the past participle is read
+  off the perfect; a personal pronoun's table holds both numbers of its person; the case notes Wiktionary writes
+  into a gloss are cut; "See" is a pointer only with its capital (`näkemiin` "see you later"); spoken-Finnish
+  sentences rank last. The plan and every finding are 📖 `docs/finnish-decks-plan.md`. The `l1` row is Wikipedia's
+  5.0 million (no L2 figure, so `total` is the same); the hue is measured, `#8D572D` (re-swept at the merge: Norwegian had
+  taken a hue 2.4 from the first sweep's `#907227`).
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
