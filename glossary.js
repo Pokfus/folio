@@ -11712,7 +11712,8 @@ window.GLOSSARY = {
 "Chandigarh": "",
 "Haryana": "",
 "Chhattisgarh": "",
-"Raipur": ""
+"Raipur": "",
+"Delhi": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -25117,7 +25118,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "William_King_(geologist)": ["William King"],
 "Bengaluru": ["Bangalore"],
 "Thiruvananthapuram": ["Trivandrum"],
-"Punjab,_India": ["Punjab state"]
+"Punjab,_India": ["Punjab state"],
+"Delhi": ["National Capital Territory of Delhi","NCT of Delhi"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -37038,7 +37040,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Chandigarh": ["place","city","geography","india"],
 "Haryana": ["place","geography","india","state"],
 "Chhattisgarh": ["place","geography","india","state"],
-"Raipur": ["place","city","geography","india"]
+"Raipur": ["place","city","geography","india"],
+"Delhi": ["place","geography","india","union territory"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
