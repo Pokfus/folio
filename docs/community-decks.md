@@ -1076,3 +1076,17 @@ The nine sections below are the bullets as they stood in CLAUDE.md, verbatim.
     throws** — removing the still-focused input fires blur in the middle of `#view`'s innerHTML assignment, so
     blur first and defer the render out of the event; and a test that opens IndexedDB **must close it**, or the
     idle connection blocks the app's own open after a reload and pushes it onto the localStorage fallback.
+
+
+## Anki and Quizlet, both ways (2026-11-15, on request)
+
+**Import**: the "Import a deck…" picker also takes `.txt` / `.tsv` / `.csv`, which `uDeckImportFile` sends to
+`uDeckImportPlainText`. `ankiTextToDeck` reads Anki's "Notes in Plain Text" export (its `#separator:`, `#html:`,
+`#guid/notetype/deck/tags column:` headers, CSV-style quoting) and Quizlet's export (term and definition split by a
+tab, comma or semicolon), builds a deck FILE and hands it to `uDeckImportText` — so `uDeckNormalize` stays the one
+ingest choke point and no sanitizer changed (`SANITIZE_REV` untouched). Non-HTML text is escaped with its line breaks
+kept; an Anki deck column becomes the subdeck path (both use "::"); a cloze note becomes a Basic card ([...] on the
+front, in full on the back); the tags column is dropped. An `.apkg` is not read.
+**Export**: the deck menu's "Export for Anki" (`ankiExportEntry`) writes any entry — a Folio deck, a collection, a
+language or one of your own — as Anki's tab-separated notes file with its header lines (Basic note type, deck and
+tags columns). Map, locator, artwork, flag and draw cards cannot travel as text and are left out, with a count.
