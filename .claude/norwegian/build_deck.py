@@ -33,7 +33,7 @@ from nb import fold, WORD as NBWORD
 from norwegian_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
-STAMP = {'a1': '2026-11-15T00:00:00.000Z'}[LEVEL]
+STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-15T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'norwegian'
@@ -90,6 +90,11 @@ def gloss_text(g, pos):
 # of speech, the first that has it), unless named here.
 ETYMS = {
     'rom': ['2'],             # et rom "a room"; etymology 1 is "rum"
+    # A2 (2026-11-15)
+    'kart': ['2'],            # et kart "a map"; etymology 1 is "unripe fruit"
+    'lønn': ['2'],            # "salary, wage"; etymology 1 is "a maple"
+    'kurs': ['2'],            # et kurs "a course (of lessons)"; etymology 1 is a ship's course
+    'skuffe': ['3'],          # "to disappoint"; etymology 2 is "to shovel"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where Wiktionary's
@@ -138,6 +143,26 @@ GLOSS = {
     'krone': {'noun': ['krone (the Norwegian and Danish currency)', 'crown (a royal headdress)']},
     'vann': {'noun': ['water', 'lake (a body of fresh water)']},
     'hel': {'adj': ['whole, entire (hele dagen, "the whole day")', 'unbroken, in one piece']},
+    # A2 (2026-11-15): a vulgar, sexual or slang sense cut, or a pointer or note written as a meaning
+    'gifte': {'verb': ['to marry, to wed', 'gifte seg: to get married']},
+    'slags': {'adj': ['kind of, sort of (en slags …, "a kind of …"; alle slags, "all kinds of")']},
+    'nummer': {'noun': ['number']},
+    'ende': {'noun': ['end']},
+    'type': {'noun': ['type, kind, sort', 'guy, bloke (a boy or man)']},
+    'sex': {'noun': ['sex']},
+    'mål': {'noun': ['goal, aim, target', 'goal (in sport)', 'measure, measurement']},
+    'onkel': {'noun': ['uncle']},
+    'overalt': {'adv': ['everywhere']},
+    'hær': {'noun': ['army']},
+    'lande': {'verb': ['to land']},
+    'sur': {'adj': ['sour', 'sulky, in a bad temper']},
+    'gress': {'noun': ['grass']},
+    'høne': {'noun': ['hen']},
+    'film': {'noun': ['film, movie', 'film (for a camera)']},
+    'pleie': {'verb': ['to usually do, to be in the habit of (jeg pleier å …, "I usually …")',
+                       'to nurse, to care for, to look after']},
+    'rive': {'verb': ['to tear, to rip, to scratch', 'to grate']},   # Wiktionary's carry "+ av"
+    'amerikaner': {'noun': ['American (a person from America)']},
 }
 
 # A WORD WIKTIONARY FILES ONLY AS A FORM OF ANOTHER, which a learner meets as a word of its
@@ -145,6 +170,8 @@ GLOSS = {
 FORM_WORDS = {
     'hans': {'pos': 'det', 'glosses': ['his (the possessive of han; it does not change: hans bil, '
                                        'hans hus)']},
+    # A2 (2026-11-15)
+    'senere': {'pos': 'adv', 'glosses': ['later (the comparative of sen: vi ses senere, "see you later")']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -173,10 +200,15 @@ GENDER_FIX = {'mann': 'm',     # Wiktionary's senses carry both tags; en mann
 # A PART OF SPEECH NOT SHOWN for one word: a block that is noise beside the word a beginner meets.
 DROP_POS = {('bak', 'noun'), ('lege', 'verb'), ('godt', 'noun'), ('ut', 'intj'),
             ('glemme', 'noun'), ('stå', 'noun'), ('tro', 'adj'), ('tro', 'noun'), ('vente', 'noun'),
-            ('vise', 'noun'), ('virke', 'noun'), ('slå', 'noun'), ('egen', 'adj')}
+            ('vise', 'noun'), ('virke', 'noun'), ('slå', 'noun'), ('egen', 'adj'),
+            # A2
+            ('hyggelig', 'intj'), ('straks', 'noun'), ('straks', 'conj'), ('særlig', 'intj'),
+            ('hylle', 'verb'), ('ende', 'adv'), ('le', 'adj'), ('le', 'noun'), ('kul', 'noun'),
+            ('konge', 'adj'), ('gift', 'noun'), ('røre', 'noun'), ('skille', 'noun')}
 
 # A FORM WIKTIONARY MIS-TAGS, not shown: `dradd` is listed as a past of dra (dro).
-FORM_DROP = {('dra', 'dradd')}
+FORM_DROP = {('dra', 'dradd'),
+             ('drive', 'drivende')}   # the present participle, tagged a present
 
 NOT_A_MEANING = re.compile(
     r'^\*?\s*see:|^synonym of |senses\.?$|^(?:indefinite|definite|genitive|neuter|plural|'

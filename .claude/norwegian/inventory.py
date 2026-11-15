@@ -60,4 +60,47 @@ A1 = [
                        'reise:verb hjelpe finne:verb'),
 ]
 
-INVENTORY = {'a1': A1}
+# A2 (2026-11-15): the CEFR A2 descriptor's "areas of most immediate relevance" -- the
+# Swedish A2 topic list in Bokmål.  Words A1 teaches are skipped by `select.py`.
+A2 = [
+    ('seasons and dates', 'årstid vår:noun sommer høst vinter helg ferie jul påske bursdag '
+                          'kalender dato sekund kvarter'),
+    ('more numbers', 'fjorten femten seksten sytten atten nitten førti seksti sytti åtti nitti '
+                     'million fjerde femte dobbel'),
+    ('the land and nature', 'natur skog fjell innsjø elv strand øy jorde tre:noun blomst gress '
+                            'stein himmel stjerne måne jord landsbygd park fjord'),
+    ('weather', 'sky:noun skyet blåse storm grad temperatur kulde varme tåke torden våt tørr'),
+    ('animals', 'dyr hund katt hest ku gris sau høne fugl mus kanin bjørn ulv elg'),
+    ('clothes', 'klær genser bukse skjørt kjole skjorte jakke frakk lue sko sokk hatt veske '
+                'hanske brille størrelse kle'),
+    ('the home and the kitchen', 'hage vegg gulv tak trapp sofa lampe skap hylle teppe komfyr '
+                                 'kjøleskap ovn tallerken kopp glass kniv gaffel kjele oppvask '
+                                 'vaske rydde leie nabo'),
+    ('food and cooking', 'grønnsak gulrot løk kylling pølse skinke agurk banan jordbær suppe kake '
+                         'juice godteri saus pepper olje mel smørbrød koke steke bake smake søt '
+                         'sur'),
+    ('work and jobs', 'sjef kollega firma bedrift lønn yrke sykepleier bonde kokk selger ingeniør '
+                      'tjeneste ansette arbeidsløs søke'),
+    ('school and learning', 'klasse lekse kurs universitet svar ord setning øvelse '
+                            'karakter papir datamaskin studere'),
+    ('travel and transport', 'reise:noun båt trikk holdeplass pass koffert kart turist utland '
+                             'ankomst avgang forsinkelse lande bytte'),
+    ('the town', 'sentrum torg kirke museum bibliotek kino teater post politistasjon '
+                 'bensinstasjon parkering hjørne bro kryss nabolag forstad'),
+    ('health', 'kropp hjerte rygg hals finger kne blod tannlege resept forkjølelse hoste smerte '
+               'skadet hvile'),
+    ('feelings', 'følelse sint bekymring nervøs lykkelig overraske redd frykt kjærlighet '
+                 'le:verb gråte bekymre savne hate'),
+    ('free time', 'fritid sport fotball kamp musikk sang film bilde kunst spill svømme danse '
+                  'synge male trene fiske tur'),
+    ('everyday verbs', 'bære stille snu tape velge bestemme minnes låne endre sammenligne forklare '
+                       'beskrive bestille stige'),
+    ('describing things and people', 'høy lav bred smal tykk tynn tung myk hard rask langsom ren '
+                                     'skitten vakker pen stygg slem morsom kjedelig interessant '
+                                     'vanlig rar enkel mørk lys:adj full tom åpen stenge '
+                                     'hyggelig'),
+    ('time words', 'sjelden straks fortsatt senere tidligere nettopp mens ennå daglig'),
+    ('connectors', 'derfor selv_om likevel altså dessuten enten verken unntatt'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2}

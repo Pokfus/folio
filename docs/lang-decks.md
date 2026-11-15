@@ -3682,7 +3682,8 @@ changed was the one that had been wrong all along.
   (Ethnologue via Wikipedia); the hue is measured, `#BD4B7B` (re-swept at the merge: Romanian had taken the olive `#757839`).
 - `.claude/norwegian/` — the generator behind the Norwegian decks (Nov 2026, on request: "Add a Norwegian language
   collection"; the Swedish owner's decisions taken, the owner not asked). **Built: A1,
-  `decks/Norwegian-A1.folio-deck.json`** (500 notes / 1,000 cards), in Bokmål. `python3 .claude/norwegian/run.py
+  `decks/Norwegian-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Norwegian-A2.folio-deck.json`**
+  (750 / 1,500; 2026-11-15, on request: "Add A2"), in Bokmål. `python3 .claude/norwegian/run.py
   [--level a1]`, `node .claude/norwegian/check-norwegian.js`; a re-run is byte-identical. Swedish's pipeline adapted,
   with the forms read off Wiktionary's HEAD LINE (Bokmål entries carry almost no tables), three genders printed
   en / ei / et and `en/ei` where Bokmål allows both, and a verb's present, past and past participle. Norskprøven

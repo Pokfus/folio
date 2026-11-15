@@ -32,13 +32,28 @@ EXCLUDE = {
     'ei': 'the feminine of the article en, taught on its card (its own entry is a rare "not")',
     'hele': 'the definite of hel "whole" (A1), whose count it is; its own entry is a rare noun',
     'godt': 'the neuter of god (A1), used as the adverb "well"; bra and vel teach it',
+    # Read off the A2 ranking (2026-11-15).
+    # A FORM TAUGHT ON ANOTHER CARD
+    'gode': 'the definite and plural of god (A1); its noun "a benefit" takes its count',
+    'hvite': 'the plural of hvit (A1); its noun "egg white" takes its count',
+    'raskt': 'the neuter of rask, taught in A2', 'enkelt': 'the neuter of enkel, taught in A2',
+    'fullt': 'the neuter of full, taught in A2', 'ene': 'the definite of en (A1)',
+    'sett': 'the past participle of se (A1); its noun "a set" takes its count',
+    'huse': 'its count is huset, the definite of hus (A1)',
+    'kule': 'its count is kule, the plural of kul "cool" (A2)',
+    'kong': 'its count is kongen, the definite of konge "king" (A2); its own entry is "a boil"',
+    'faste': 'its count is fast "firm, fixed", whose plural it shares',
+    'bar': 'its plural is bare "only" (A1), whose count it takes',
+    'purke': 'slang for the police in the subtitles; its entry is "a sow"',
+    'and': 'its count is the English word in the subtitles; its entry is "a duck"',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
 # Swearing and insults are never in a level deck.
 SWEARS = {'faen', 'helvete', 'jævla', 'jævel', 'jævlig', 'dritt', 'drite', 'satan', 'fitte',
           'kuk', 'hore', 'idiot', 'pikk', 'ræva', 'rævhøl', 'rasshøl', 'drittsekk', 'pokker',
-          'fanden', 'djevel', 'homo', 'knulle', 'pule', 'shit', 'fuck', 'dust', 'dritings'}
+          'fanden', 'djevel', 'homo', 'knulle', 'pule', 'shit', 'fuck', 'dust', 'dritings',
+          'ræv'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists
 # another first.
@@ -49,7 +64,15 @@ FILL_POS = {'alt': 'pron',     # "everything", not "an alto"
             'kaste': 'verb', 'bry': 'verb',            # the verb, not a noun spelt like it
             'grunn': 'noun',     # "reason, ground", not the adjective "shallow"
             'død': 'adj',        # "dead"; the noun "death" is Wiktionary's first
-            'egen': 'det'}       # "own", not "peculiar"
+            'egen': 'det',       # "own", not "peculiar"
+            # A2 (2026-11-15): the verb, not a noun spelt like it
+            'røre': 'verb', 'vare': 'verb', 'banke': 'verb', 'spore': 'verb', 'hoppe': 'verb',
+            'føre': 'verb', 'råde': 'verb', 'dekke': 'verb', 'ri': 'verb', 'rekke': 'verb',
+            'pleie': 'verb', 'bringe': 'verb', 'rive': 'verb', 'rømme': 'verb', 'skifte': 'verb',
+            'sikte': 'verb', 'skille': 'verb', 'skjære': 'verb', 'skuffe': 'verb',
+            'kul': 'adj',        # "cool", not "a lump"
+            'konge': 'noun',     # "king"; Wiktionary's first is the slang adjective
+            'gift': 'adj'}       # "married", not "poison"
 
 # A WORD DEALT BY ANOTHER'S COUNT.
 # `hel` "whole" is met as its definite `hele` (hele dagen), and that spelling's count went to

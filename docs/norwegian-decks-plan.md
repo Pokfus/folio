@@ -5,7 +5,7 @@ Norwegian (Bokmål) set, built in the Swedish decks' shape (`docs/swedish-decks-
 `.claude/norwegian/` adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there
 applies here unless this file says otherwise. Asked for on 2026-11-15: "Add a Norwegian language collection."
 
-**STATUS (2026-11-15): A1 is built** (`.claude/norwegian/`, §6). A2–C1 and a phrases deck follow on request.
+**STATUS (2026-11-15): A1 and A2 are built** (`.claude/norwegian/`, §6–§7). B1–C1 and a phrases deck follow on request.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP —
@@ -30,7 +30,7 @@ is the owner's to overrule.**
 | deck | file | notes |
 |---|---|---|
 | Norwegian A1 Beginner — built | `Norwegian-A1.folio-deck.json` | 500 |
-| Norwegian A2 Elementary | `Norwegian-A2.folio-deck.json` | 750 |
+| Norwegian A2 Elementary — built | `Norwegian-A2.folio-deck.json` | 750 |
 | Norwegian B1 Intermediate | `Norwegian-B1.folio-deck.json` | 1,000 |
 | Norwegian B2 Upper Intermediate | `Norwegian-B2.folio-deck.json` | 1,500 |
 | Norwegian C1 Advanced | `Norwegian-C1.folio-deck.json` | 1,500 |
@@ -96,7 +96,7 @@ frequency, as every subtitle-ordered deck on the shelf does. Tatoeba has fewer B
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2 done) — A2 to C1, one level per session: write the level's
 inventory into `inventory.py`, its `SCOPE` into `norwegian_level.py` (already written for all five) and its
 `STAMP` into `build_deck.py`, run, read every card. **Phase 3** — a phrases deck (Swedish's `phrases.py`, with
 particle verbs: `ta vare på`, `finne ut`).
@@ -109,3 +109,31 @@ particle verbs: `ta vare på`, `finne ut`).
 included). A1: 500 notes, 356 from the inventory and 144 by frequency; three sentences for 482, none for 7.
 Every card was read. The shelf's hue is measured: `#85063D`, a deep wine, 14.7 from its nearest of the 70 hues
 (Japan), with the magenta band's standing rejection kept and the greens left out (`lang-norwegian` in `app.js`).
+
+## 7. As built (2026-11-15): A2
+
+Asked for on 2026-11-15: "Add A2." `python3 .claude/norwegian/run.py --level a2`; the same stages, no new source.
+**750 notes: 295 from a 19-topic inventory** (`inventory.py` `A2`, the Swedish A2 topics in Bokmål: seasons and
+dates, numbers to a million, the land and nature, weather, animals, clothes, the home and kitchen, food and
+cooking, work, school, travel, the town, health, feelings, free time, verbs, describing, time words, connectors —
+`SCOPE['a2']`) **and 455 by frequency**; three sentences for 596, none for 38. Every card was read. A1 re-runs
+byte-identical after every change below. Nine inventory words are not Bokmål headwords — mostly participles
+Wiktionary files as verb forms — and were replaced or dropped (`briller` → `brille`, `forkjølet` → `forkjølelse`,
+`bekymret` → `bekymring`, `overrasket` → `overraske`, `stengt` → `stenge`; `leksjon`, `skuffet` and `blond`
+dropped); `senere` "later", filed only as sen's comparative, is a `FORM_WORDS` card.
+
+**What the A2 ranking turned up**, each fixed with its reason beside it:
+- **Noun before verb, again and more often** (`select.FILL_POS`): `røre`, `vare` "to last", `banke`, `spore`,
+  `hoppe` (not "a mare"), `føre`, `råde`, `dekke`, `ri`, `rekke`, `pleie`, `bringe`, `rive`, `rømme` (not "sour
+  cream"), `skifte`, `sikte`, `skille`, `skjære` (not "a magpie"); `kul` is "cool", `konge` "king", `gift`
+  "married". `ETYMS` takes `kart` "a map" (not "unripe fruit"), `lønn` "salary" (not "a maple"), `kurs` "a course
+  of lessons" and `skuffe` "to disappoint".
+- **A form taught elsewhere, or a count that is another word's** (`select.EXCLUDE`): adjective neuters and plurals
+  (`raskt`, `enkelt`, `fullt`, `gode`, `hvite`), `ene`, `sett` (se's participle), `huse` (huset), `kong` (kongen),
+  `kule` (kul's plural), `faste`, `bar`; `purke` and `and`, whose counts are police slang and the English word.
+- A vulgar, sexual or slang sense cut by `GLOSS` (`nummer`, `ende`, `onkel`, `lande`, `gress`, `høne`, `type`);
+  `mål` written as "goal" first, its fourteen Wiktionary senses leading with "a given dimension"; `ræv` to `SWEARS`.
+- `drive`'s present participle, tagged a present, kept off the card (`FORM_DROP`).
+
+**Known, left.** The fill carries the subtitles' crime vocabulary (`våpen`, `fengsel`, `drap`, `morder`, `pistol`),
+as A1 does and every subtitle-ordered deck on the shelf does.
