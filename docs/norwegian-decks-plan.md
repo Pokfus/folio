@@ -5,7 +5,7 @@ Norwegian (Bokmål) set, built in the Swedish decks' shape (`docs/swedish-decks-
 `.claude/norwegian/` adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there
 applies here unless this file says otherwise. Asked for on 2026-11-15: "Add a Norwegian language collection."
 
-**STATUS (2026-11-15): all five levels, A1 to C1, are built** (`.claude/norwegian/`, §6–§10). A phrases deck follows on request.
+**STATUS (2026-11-15): the plan is complete** — all five levels, A1 to C1, and the phrases deck (`.claude/norwegian/`, §6–§11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP —
@@ -34,6 +34,7 @@ is the owner's to overrule.**
 | Norwegian B1 Intermediate — built | `Norwegian-B1.folio-deck.json` | 1,000 |
 | Norwegian B2 Upper Intermediate — built | `Norwegian-B2.folio-deck.json` | 1,500 |
 | Norwegian C1 Advanced — built | `Norwegian-C1.folio-deck.json` | 1,500 |
+| Norwegian Phrases and Expressions — built | `Norwegian-Phrases-and-Expressions.folio-deck.json` | 310 |
 
 ## 2. Sources and licences
 
@@ -98,7 +99,7 @@ frequency, as every subtitle-ordered deck on the shelf does. Tatoeba has fewer B
 
 **Phase 1 (done)** — the pipeline and A1. **Phase 2 (done)** — A2 to C1, one level per session: write the level's
 inventory into `inventory.py`, its `SCOPE` into `norwegian_level.py` (already written for all five) and its
-`STAMP` into `build_deck.py`, run, read every card. **Phase 3** — a phrases deck (Swedish's `phrases.py`, with
+`STAMP` into `build_deck.py`, run, read every card. **Phase 3 (done)** — a phrases deck (Swedish's `phrases.py`, with
 particle verbs: `ta vare på`, `finne ut`).
 
 ## 6. As built (2026-11-15): A1
@@ -230,3 +231,36 @@ level most.
 
 **Known, left.** The subtitles' crime and war vocabulary (`massakre`, `halshugge`, `attentat`) and some plain
 sexual vocabulary (`orgasme`, `ereksjon`, `samleie`) on frequency, as at B2.
+
+## 11. As built (2026-11-15): the phrases deck
+
+Asked for on 2026-11-15: "Add a phrases deck." `python3 .claude/norwegian/run.py --level phr` (after all five
+levels); the selection stage is `phrases.py`, Swedish's arrangement with **one subdeck Swedish did not have —
+FIXED EXPRESSIONS**, the multi-word adverbs, prepositions and conjunctions sentences are built from (`på grunn av`,
+`i stedet for`, `til og med`, `med andre ord`): the Bokmål extract files more of them than it does particle verbs,
+and a word list cannot see them. **310 expressions in five subdecks**: 100 Phrases, 94 Fixed expressions, 46
+Particle verbs, 50 Idioms, 20 Proverbs — **every expression that passes the filters**, no cap reached: English
+Wiktionary lists far fewer Bokmål expressions than Swedish ones (Swedish's deck chose 830 from about 1,700), and
+the description says so. Nothing a level teaches is taught again (`av og til`, `god morgen`, `i dag` are A1's).
+
+- **Classification**, Swedish's plus one rule: a proverb is Wiktionary's `proverb`; an idiom has a sense tagged
+  `idiomatic`; a particle verb is a multi-word `verb` with no such tag; a fixed expression is a multi-word `adv`,
+  `prep` or `conj`; a phrase is a `phrase` / `intj` / `prep_phrase`. The highest wins. Latin, Italian and French
+  loans (`a priori`, `ad hoc`, `a cappella`, `anno domini`) are filtered by their opening preposition or their
+  words (`phrases.LOAN_START`, `FOREIGN`), and the Latin that got through by another part of speech excluded.
+- **Order**: Tatoeba sentences containing the expression (a particle verb's first word in any form of its verb),
+  then the frequency estimate. 115 of the 310 occur in Tatoeba; 115 carry a sentence, 50 of them three.
+- **A FILTER THAT WAS TOO WIDE**: the phrases deck drops Wiktionary's pointer senses ("See ta sig"), and Swedish's
+  pattern matched case-insensitively — so `vi sees` "see you" lost its only gloss and printed an empty English
+  side. The pattern is case-sensitive now (`build_deck.english`); the levels are unaffected (byte-identical).
+- **`EXCLUDE`** (each with its reason): phrasebook sentences built from level words (`jeg elsker deg`, `jeg er
+  sulten`, `tror du på Gud` — the Hindi, Turkish and Swedish rule; the formulas asked and answered whole, `jeg vet
+  ikke`, `hvordan går det`, `snakker du engelsk`, stay); the second spelling of one expression (`intet problem`,
+  `godt nytt år`, `hokuspokus filiokus`); Nynorsk (`i ein fei`, `til dømes`) and spellings removed in 2005; a
+  sexual sense (`gå til sengs med`), a film title, a slogan, a geographer's term filed as an idiom.
+- `tusen takk` and `mange takk` shared "many thanks"; `tusen takk` is written "thank you very much (literally: a
+  thousand thanks)" in `GLOSS`.
+
+**Known, left.** Two pairs share an English side and are told apart by the dedupe pass's label (`på fersken` /
+`på fersk gjerning`, `side om side` / `side ved side`), as Wiktionary glosses them alike. The particle-verb
+subdeck is small (46) because Wiktionary lists few Bokmål particle verbs, not because the deck caps them.

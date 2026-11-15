@@ -38,6 +38,12 @@ TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500, 'c1': 1500}
 
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
 
+# THE PHRASES DECK (`phrases.py`, `run.py --level phr`): not a CEFR level, built on all five.
+TITLES['phr'] = 'Norwegian Phrases and Expressions'
+DECK_IDS['phr'] = 'norwegianphrase'
+DECK_FILES['phr'] = 'Norwegian-Phrases-and-Expressions.folio-deck.json'
+BELOW['phr'] = list(BANDS)
+
 SCOPE = {
     'a1': {
         'quote': 'Can understand and use familiar everyday expressions and very basic '

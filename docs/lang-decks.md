@@ -3685,7 +3685,9 @@ changed was the one that had been wrong all along.
   `decks/Norwegian-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Norwegian-A2.folio-deck.json`**
   (750 / 1,500; 2026-11-15, on request: "Add A2") **and B1, `decks/Norwegian-B1.folio-deck.json`** (1,000 / 2,000;
   2026-11-15, "Add B1") **and B2, `decks/Norwegian-B2.folio-deck.json`** (1,500 / 3,000; 2026-11-15, "Add B2")
-  **and C1, `decks/Norwegian-C1.folio-deck.json`** (1,500 / 3,000; 2026-11-15, "Add C1") — all five levels — in Bokmål. `python3 .claude/norwegian/run.py
+  **and C1, `decks/Norwegian-C1.folio-deck.json`** (1,500 / 3,000; 2026-11-15, "Add C1") — all five levels — in Bokmål,
+  **and the phrases deck, `decks/Norwegian-Phrases-and-Expressions.folio-deck.json`** (310 expressions in Phrases /
+  Fixed expressions / Particle verbs / Idioms / Proverbs, 2026-11-15; `--level phr`, `phrases.py`). `python3 .claude/norwegian/run.py
   [--level a1]`, `node .claude/norwegian/check-norwegian.js`; a re-run is byte-identical. Swedish's pipeline adapted,
   with the forms read off Wiktionary's HEAD LINE (Bokmål entries carry almost no tables), three genders printed
   en / ei / et and `en/ei` where Bokmål allows both, and a verb's present, past and past participle. Norskprøven
