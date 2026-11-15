@@ -108,6 +108,42 @@ EXCLUDE = {
     'he': 'an interjection with no meaning to teach', 'mm': 'an interjection with no meaning to teach',
     'ho': 'an interjection with no meaning to teach', 'rein': 'the second spelling of ren (A2)',
     'skjær': 'its count is et skjær "a skerry" and skjære (A2)',
+    # Read off the C1 ranking (2026-11-15).
+    # A FORM OR A SPELLING TAUGHT ON ANOTHER CARD
+    'ensomt': 'the neuter of ensom (B1)', 'strengt': 'the neuter of streng (B2)',
+    'mentalt': 'the neuter of mental, taught in C1', 'intenst': 'the neuter of intens, taught in C1',
+    'spesifikt': 'the neuter of spesifikk, taught in C1', 'sosialt': 'the neuter of sosial (B1)',
+    'profesjonelt': 'the neuter of profesjonell (B1)', 'skarpt': 'the neuter of skarp (B2)',
+    'formelt': 'the neuter of formell, taught in C1', 'lokalt': 'the neuter of lokal (B1)',
+    'jevnt': 'the neuter of jevn', 'komfortabelt': 'the neuter of komfortabel (B2)',
+    'manuelt': 'the neuter of manuell', 'lukket': 'the participle of lukke (A1)',
+    'bedre': 'its count is bedre "better", the comparative of god (A1)',
+    'kopper': 'its count is the plural of kopp (A2); its entry is "copper"',
+    'tiende': 'its count is the ordinal "tenth"; its entry is "a tithe"',
+    'bur': 'its count is et bur "a cage", which its entry does not give',
+    'lam': 'its count is et lam "a lamb" as much as the adjective "paralysed"',
+    'tyve': 'the second spelling of tjue (A1)', 'hu': 'the dialect spelling of hun (A1)',
+    'broder': 'the formal brother, bror being taught (A1)',
+    'nase': 'a spelling removed in 2005', 'knut': 'a spelling removed in 2005',
+    'mit': 'a spelling removed in 2005',
+    # A COUNT THAT IS ANOTHER WORD'S: NAMES, ENGLISH, PIECES OF PHRASES
+    'leif': 'the name Leif', 'loke': 'the name Loke (Loki)', 'holt': 'the name', 'val': 'the name',
+    'balboa': 'the name', 'pentagon': 'the Pentagon', 'ass': 'the English word',
+    'bridge': 'English', 'die': 'English', 'rape': 'English', 'sake': 'English', 'rise': 'English',
+    'sole': 'English', 'ake': 'its count is not "to ride"', 'or': 'a misspelling\'s count; its entry is "an alder"',
+    'mort': 'its count is not "a roach (fish)"', 'il': 'its count is not "a sole of the foot"',
+    'li': 'its count is not "a hillside"', 'bu': 'its count is not "an estate"',
+    'høl': 'its count is not "a river pool"', 'nyss': 'its count is not "a poor cod"',
+    'lodde': 'its count is not "a capelin"', 'gange': 'its count is ganger "times"',
+    'kontinent': 'its count is the noun "a continent", not the adjective "continent"',
+    'pallium': 'rare', 'vanne': 'its count is vann (A1)\'s forms',
+    'hiv': 'its count is hiv, the imperative of hive "to heave"',
+    'forhånd': 'met only in på forhånd', 'frifot': 'met only in på frifot',
+    'henhold': 'met only in i henhold til',
+    'ai': 'an interjection with no meaning to teach', 'bø': 'an interjection with no meaning to teach',
+    'mugge': 'its second sense is vulgar', 'internasjonalt': 'the neuter of internasjonal (B2)',
+    'spesial': 'its count is the prefix spesial-; spesiell (B1) is the word', 'pervo': 'slang', 'onanere': 'sexual',
+    'voldtektsmann': 'excluded with voldta (B1)',
     'kåte': 'sexual; its count is kåt "horny"', 'voldtekt': 'excluded with voldta (B1)',
     'voldta': 'not taught in a level deck, though common in the subtitles\' crime drama (as Swedish)',
 }
@@ -117,7 +153,8 @@ EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 SWEARS = {'faen', 'helvete', 'jævla', 'jævel', 'jævlig', 'dritt', 'drite', 'satan', 'fitte',
           'kuk', 'hore', 'idiot', 'pikk', 'ræva', 'rævhøl', 'rasshøl', 'drittsekk', 'pokker',
           'fanden', 'djevel', 'homo', 'knulle', 'pule', 'shit', 'fuck', 'dust', 'dritings',
-          'ræv', 'pisse', 'fanken', 'pupp', 'kjerring', 'tispe', 'dæven', 'ludder', 'runke'}
+          'ræv', 'pisse', 'fanken', 'pupp', 'kjerring', 'tispe', 'dæven', 'ludder', 'runke',
+          'soper', 'tøs', 'faenskap'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists
 # another first.

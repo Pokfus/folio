@@ -186,4 +186,24 @@ B2 = [
                                  'tross ifølge hvorvidt dermed'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2}
+# C1 (2026-11-15): the CEFR C1 descriptor's "demanding, longer texts" -- the Swedish C1 topic
+# list in Bokmål.  Words lower levels teach are skipped.
+C1 = [
+    ('academic and intellectual', 'avhandling empirisk teoretisk begrep definisjon slutning '
+                                  'kriterium fenomen mekanisme variabel korrelasjon utvalg '
+                                  'metodikk abstrakt:adj konkret prinsipiell'),
+    ('society and governance', 'forvaltning offentlighet statsborgerskap folkeavstemning grunnlov '
+                               'maktfordeling sanksjon tilsyn myndighet fullmakt'),
+    ('economy and business', 'omsetning kapital gjeld:noun lavkonjunktur anbud avkastning'),
+    ('law and ethics', 'etikk moralsk overtredelse presedens formål'),
+    ('mind and behaviour', 'bevissthet drivkraft motivasjon selvfølelse selvtillit fornektelse'),
+    ('language and rhetoric', 'retorikk nyanse ironi metafor formulering fremstilling standpunkt'),
+    ('abstract nouns', 'tilnærming omstendighet forløp helhet bestanddel særtrekk motsetning'),
+    ('verbs of C1', 'presisere kartlegge påvise belegge forutsi bestride utbedre tilskrive fravike '
+                    'tilsidesette'),
+    ('adjectives of C1', 'påtagelig inngående motstridende velbegrunnet uholdbar betraktelig '
+                         'marginal ubetydelig uforutsigbar tvilsom'),
+    ('formal connectors', 'dessuten derved således ikke_desto_mindre riktignok hvorvidt uaktet'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2, 'c1': C1}

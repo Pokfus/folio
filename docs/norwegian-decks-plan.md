@@ -5,7 +5,7 @@ Norwegian (Bokmål) set, built in the Swedish decks' shape (`docs/swedish-decks-
 `.claude/norwegian/` adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there
 applies here unless this file says otherwise. Asked for on 2026-11-15: "Add a Norwegian language collection."
 
-**STATUS (2026-11-15): A1 to B2 are built** (`.claude/norwegian/`, §6–§9). C1 and a phrases deck follow on request.
+**STATUS (2026-11-15): all five levels, A1 to C1, are built** (`.claude/norwegian/`, §6–§10). A phrases deck follows on request.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP —
@@ -33,7 +33,7 @@ is the owner's to overrule.**
 | Norwegian A2 Elementary — built | `Norwegian-A2.folio-deck.json` | 750 |
 | Norwegian B1 Intermediate — built | `Norwegian-B1.folio-deck.json` | 1,000 |
 | Norwegian B2 Upper Intermediate — built | `Norwegian-B2.folio-deck.json` | 1,500 |
-| Norwegian C1 Advanced | `Norwegian-C1.folio-deck.json` | 1,500 |
+| Norwegian C1 Advanced — built | `Norwegian-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
 
@@ -96,7 +96,7 @@ frequency, as every subtitle-ordered deck on the shelf does. Tatoeba has fewer B
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2, B1 and B2 done) — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2 (done)** — A2 to C1, one level per session: write the level's
 inventory into `inventory.py`, its `SCOPE` into `norwegian_level.py` (already written for all five) and its
 `STAMP` into `build_deck.py`, run, read every card. **Phase 3** — a phrases deck (Swedish's `phrases.py`, with
 particle verbs: `ta vare på`, `finne ut`).
@@ -197,3 +197,36 @@ rebuilt. Twenty inventory words are not Bokmål headwords in the extract: four r
 **Known, left.** The fill is heavier still with the subtitles' crime, war and fantasy vocabulary (`henrette`,
 `knivstikke`, `romvesen`, `varulv`, `torpedo`) and carries some sexual vocabulary (`penis`, `vagina`, `porno`,
 `kondom`) on frequency — plain words, not slang, as Swedish B2 left them.
+
+## 10. As built (2026-11-15): C1
+
+Asked for on 2026-11-15: "Add C1." `python3 .claude/norwegian/run.py --level c1`. **1,500 notes: 72 from a
+10-topic inventory** (`inventory.py` `C1`, the Swedish C1 topics in Bokmål: academic and intellectual, society and
+governance, economy, law and ethics, mind and behaviour, language and rhetoric, abstract nouns of analysis, verbs
+and adjectives of formal argument, formal connectors — `SCOPE['c1']`) **and 1,428 by frequency**; three sentences
+for 104, **none for 1,009** — two thirds of the deck; Tatoeba's Bokmål has almost nothing at this register, and
+the description states how many carry sentences. Every card was read; A1 to B1 re-run byte-identical, and C1
+re-runs byte-identical with the extract rebuilt. **Thirty-seven inventory words are not headwords** in the Bokmål
+extract (`empiri`, `rettsstat`, `integritet`, `resonnement`, `forutsigbarhet`, `problematisere`, `utlede` …) and
+were removed: English Wiktionary's Bokmål is thin in formal vocabulary, so the inventory carries half of Swedish
+C1's.
+
+**The fill at this depth is the subtitles' long tail**, as Swedish C1's was: many everyday nouns a C1 learner may
+know from B-level life (`tannbørste`, `popkorn`, `kattunge`) beside formal ones. A graded lexicon would change this
+level most.
+
+**What the C1 ranking turned up**, each in `select.EXCLUDE` or a `build_deck.py` table with its reason:
+- A rare headword taking a common word's count: `bedre` "to improve" (the comparative "better"), `kopper`
+  "copper" (cups), `tiende` "a tithe" (the ordinal "tenth"), `bur`, `lam`, `gange`, `hiv`; names (`leif`, `loke`,
+  `balboa`, `pentagon`) and English (`ass`, `bridge`, `die`, `rape`, `sake`, `rise`, `sole`).
+- Adjective neuters used as adverbs, a dozen (`strengt`, `mentalt`, `sosialt`, `lokalt` …), `lukket`; `tyve`,
+  `hu` and `broder` beside `tjue`, `hun` and `bror`; spellings removed in 2005; phrase-only words (`forhånd`,
+  `frifot`, `henhold`).
+- `abstrakt` named as the adjective (its first entry is "an abstract"); `pung` and `trekant` lose a sexual sense;
+  `soper`, `tøs` and `faenskap` to `SWEARS`; `onanere`, `pervo` and `voldtektsmann` excluded.
+- **A fix that reaches B2**: a language's name takes no article (`jeg snakker dansk`), and B2's `dansk` was
+  printed "en dansk" — `dansk` and `latin` join `NO_ART` and `check-norwegian.js`'s list. That one B2 card is the
+  only change to a lower level (verified card by card).
+
+**Known, left.** The subtitles' crime and war vocabulary (`massakre`, `halshugge`, `attentat`) and some plain
+sexual vocabulary (`orgasme`, `ereksjon`, `samleie`) on frequency, as at B2.

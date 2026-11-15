@@ -34,7 +34,8 @@ from norwegian_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
 STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-15T00:00:00.000Z',
-         'b1': '2026-11-15T00:00:00.000Z', 'b2': '2026-11-15T00:00:00.000Z'}[LEVEL]
+         'b1': '2026-11-15T00:00:00.000Z', 'b2': '2026-11-15T00:00:00.000Z',
+         'c1': '2026-11-15T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'norwegian'
@@ -184,6 +185,8 @@ GLOSS = {
     'sete': {'noun': ['seat', 'saddle (on a bicycle, motorcycle)']},
     'koselig': {'adj': ['cosy, comfortable', 'nice, pleasant']},   # its third is "hello"
     'hamburger': {'noun': ['hamburger (the food)', 'Hamburger (a person from Hamburg)']},
+    # C1 (2026-11-15)
+    'pung': {'noun': ['pouch', 'purse']}, 'trekant': {'noun': ['triangle']}, 'tiss': {'noun': ['pee']},
 }
 
 # A WORD WIKTIONARY FILES ONLY AS A FORM OF ANOTHER, which a learner meets as a word of its
@@ -209,7 +212,7 @@ LEAD = {
 }
 
 # NO ARTICLE for a language's name, which Norwegian uses without one (jeg snakker norsk)
-NO_ART = {'norsk', 'engelsk'}
+NO_ART = {'norsk', 'engelsk', 'dansk', 'latin'}
 
 # THE MONTHS carry no article and no forms: Norwegian uses a month's name bare (i mai), and
 # Wiktionary's `maien`, `maier` are not what a learner needs on the card.
