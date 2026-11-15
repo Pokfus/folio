@@ -452,6 +452,8 @@
           if (!g) groups.set(k, g = { n: d.within || d.n, c: d.c, kind: d.kind, city: isCity }); else if (isCity && !g.city) { g.c = d.c; g.n = d.n; g.kind = d.kind; g.city = true; }
         }
         groups.forEach((g) => { const p = api.project(g.c[0], g.c[1]); if (inView(api, p)) sibAt.push([p[0], p[1], g.n, g.kind]); });
+        // a region's name that a studied DOT of the same name already carries (Uruk: the city's card and the Uruk period's region, 2026-11-15) is named once, at the dot
+        if (faceAt.length && sibAt.length) { const dotNames = new Set(sibAt.map((sa) => String(sa[2] || "").trim().toLowerCase())); faceAt = faceAt.filter((fa) => !(fa[3] && dotNames.has(String(fa[2] || "").trim().toLowerCase()))); }
         // the card's own further places (`locator.also`): drawn whether or not anything has been studied, as named dots beside its own
         for (const a of (meLoc && meLoc.also) || []) { const p = api.project(a.at[0], a.at[1]); if (inView(api, p)) sibAt.push([p[0], p[1], a.name, "point"]); }
         if (anchor) { const p = api.project(anchor.c[0], anchor.c[1]); if (inView(api, p)) anchorAt = [p[0], p[1]]; }
