@@ -12496,6 +12496,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      stand well off: the Anglo-Saxon Chronicle 92.9, Bede 43.9, Snorri 81.5, the Poetic Edda 20.7. Keyed by
      id, the chronicle being anonymous. */
   "russian-primary-chronicle": "#933700",
+  /* MEASURED AS EVERY ROW ABOVE, with fifty-nine colours placed (Nov 2026, adding the King James Bible):
+     CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and
+     4.5:1 on every light paper, card and second paper. A sweep of the cube at a step of 3 put a magenta
+     first (15.4) and a deep royal purple second (15.3); the purple, refined at a step of 1, reaches 15.6 —
+     level with the shelf's tightest real pair (Polybius and Snorri) — and is taken for its contrast too
+     (8.98:1 on the tightest light paper, against the magenta's 4.68). Its nearest neighbours are Euripides
+     and Homer (15.6) and Snorri Sturluson (15.9), none read beside the Bible; the books that are stand well
+     off — Augustine 68.2, Aquinas 126.4, Bede 83.3, Gilgamesh 98.2, Dante 29.1, Boethius 89.8. Two dark
+     greens further down the sweep (15.0 and 14.8) were refused on the Euripides test: one sits 15.3 from
+     Gilgamesh, whose flood is Genesis's, the other 14.8 from Aquinas. Keyed by id, the book being anonymous. */
+  "king-james-bible": "#410064",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -16095,6 +16106,159 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Sviatoslav_I": [[47, 153]],
         "Rurik": [[11, 153]],
         "Yaroslav_the_Wise": [42, [133, 153]],
+      },
+    },
+    {
+      id: "king-james-bible",
+      title: "The King James Bible",
+      subtitle: "The Holy Bible, Authorized Version, 1611",
+      /* Many hands over more than a thousand years; tradition's attributions cover only part of it.
+         Shelved as the Rigveda is, and keyed for colour by id — see bookColor. */
+      author: "Anonymous",
+      /* The span the books were written in, hedged at both ends: the oldest poetry may be older, and the
+         latest piece is the last two chapters of 2 Esdras, usually put in the third century CE. */
+      written: "c. 1000 BCE – c. 300 CE",
+      year: -1000,
+      translator: "the King James translators",
+      edition:
+        "The Authorized Version of 1611, in the standard text of 1769, as transcribed by the CrossWire " +
+        "Bible Society and published by eBible.org",
+      /* A LIMIT TO STATE THAT IS NOT A TERM OF YEARS: the Crown's perpetual right to print it in the United
+         Kingdom, held under letters patent. Not copyright, and it reaches nowhere else; see
+         .claude/fetch-book.js for the transcriptions measured and why this one was taken. */
+      rights:
+        "Public domain, with one limit that is not a copyright. The King James Bible was first printed in " +
+        "1611, and the text given here is the standard text of 1769, so it is out of copyright everywhere. " +
+        "In the United Kingdom, however, the right to print it belongs to the Crown under royal letters " +
+        "patent that have no end date, and is exercised by licensed printers — eBible.org names Cambridge " +
+        "University Press, Oxford University Press and Collins. That right is not copyright and has no " +
+        "force outside the United Kingdom. The text is the CrossWire Bible Society's transcription as " +
+        "published by eBible.org, which places it in the public domain. The dedication to King James, " +
+        "the translators' preface and the summaries at the head of each chapter are not reproduced.",
+      sourceName: "eBible.org",
+      sourceUrl: "https://ebible.org/kjv/",
+      /* NO `origLang`: no Hebrew or Greek column — the book's own first page explains the setting. A
+         chapter is one chapter of one book and a section is a verse, so a passage is cited as it always
+         is; the tabs run 1–1,362 straight through and each title carries the reference ("Psalm 23"),
+         the Summa's arrangement. */
+      chapterWord: "Chapter",
+      count: 1362,
+      total: 1362,
+      /* The eighty books, in the order the 1611 printing sets them: the Old Testament, the Apocrypha
+         between the Testaments, the New Testament. */
+      parts: [
+        { n: 1, label: "Genesis", note: "Old Testament · 50 chapters" },
+        { n: 2, label: "Exodus", note: "Old Testament · 40 chapters" },
+        { n: 3, label: "Leviticus", note: "Old Testament · 27 chapters" },
+        { n: 4, label: "Numbers", note: "Old Testament · 36 chapters" },
+        { n: 5, label: "Deuteronomy", note: "Old Testament · 34 chapters" },
+        { n: 6, label: "Joshua", note: "Old Testament · 24 chapters" },
+        { n: 7, label: "Judges", note: "Old Testament · 21 chapters" },
+        { n: 8, label: "Ruth", note: "Old Testament · 4 chapters" },
+        { n: 9, label: "1 Samuel", note: "Old Testament · 31 chapters" },
+        { n: 10, label: "2 Samuel", note: "Old Testament · 24 chapters" },
+        { n: 11, label: "1 Kings", note: "Old Testament · 22 chapters" },
+        { n: 12, label: "2 Kings", note: "Old Testament · 25 chapters" },
+        { n: 13, label: "1 Chronicles", note: "Old Testament · 29 chapters" },
+        { n: 14, label: "2 Chronicles", note: "Old Testament · 36 chapters" },
+        { n: 15, label: "Ezra", note: "Old Testament · 10 chapters" },
+        { n: 16, label: "Nehemiah", note: "Old Testament · 13 chapters" },
+        { n: 17, label: "Esther", note: "Old Testament · 10 chapters" },
+        { n: 18, label: "Job", note: "Old Testament · 42 chapters" },
+        { n: 19, label: "Psalms", note: "Old Testament · 150 chapters" },
+        { n: 20, label: "Proverbs", note: "Old Testament · 31 chapters" },
+        { n: 21, label: "Ecclesiastes", note: "Old Testament · 12 chapters" },
+        { n: 22, label: "Song of Solomon", note: "Old Testament · 8 chapters" },
+        { n: 23, label: "Isaiah", note: "Old Testament · 66 chapters" },
+        { n: 24, label: "Jeremiah", note: "Old Testament · 52 chapters" },
+        { n: 25, label: "Lamentations", note: "Old Testament · 5 chapters" },
+        { n: 26, label: "Ezekiel", note: "Old Testament · 48 chapters" },
+        { n: 27, label: "Daniel", note: "Old Testament · 12 chapters" },
+        { n: 28, label: "Hosea", note: "Old Testament · 14 chapters" },
+        { n: 29, label: "Joel", note: "Old Testament · 3 chapters" },
+        { n: 30, label: "Amos", note: "Old Testament · 9 chapters" },
+        { n: 31, label: "Obadiah", note: "Old Testament · 1 chapter" },
+        { n: 32, label: "Jonah", note: "Old Testament · 4 chapters" },
+        { n: 33, label: "Micah", note: "Old Testament · 7 chapters" },
+        { n: 34, label: "Nahum", note: "Old Testament · 3 chapters" },
+        { n: 35, label: "Habakkuk", note: "Old Testament · 3 chapters" },
+        { n: 36, label: "Zephaniah", note: "Old Testament · 3 chapters" },
+        { n: 37, label: "Haggai", note: "Old Testament · 2 chapters" },
+        { n: 38, label: "Zechariah", note: "Old Testament · 14 chapters" },
+        { n: 39, label: "Malachi", note: "Old Testament · 4 chapters" },
+        { n: 40, label: "1 Esdras", note: "Apocrypha · 9 chapters" },
+        { n: 41, label: "2 Esdras", note: "Apocrypha · 16 chapters" },
+        { n: 42, label: "Tobit", note: "Apocrypha · 14 chapters" },
+        { n: 43, label: "Judith", note: "Apocrypha · 16 chapters" },
+        { n: 44, label: "Rest of Esther", note: "Apocrypha · 7 chapters" },
+        { n: 45, label: "Wisdom", note: "Apocrypha · 19 chapters" },
+        { n: 46, label: "Ecclesiasticus", note: "Apocrypha · 51 chapters" },
+        { n: 47, label: "Baruch", note: "Apocrypha · 6 chapters" },
+        { n: 48, label: "Song of the Three Children", note: "Apocrypha · 1 chapter" },
+        { n: 49, label: "Susanna", note: "Apocrypha · 1 chapter" },
+        { n: 50, label: "Bel and the Dragon", note: "Apocrypha · 1 chapter" },
+        { n: 51, label: "Prayer of Manasses", note: "Apocrypha · 1 chapter" },
+        { n: 52, label: "1 Maccabees", note: "Apocrypha · 16 chapters" },
+        { n: 53, label: "2 Maccabees", note: "Apocrypha · 15 chapters" },
+        { n: 54, label: "Matthew", note: "New Testament · 28 chapters" },
+        { n: 55, label: "Mark", note: "New Testament · 16 chapters" },
+        { n: 56, label: "Luke", note: "New Testament · 24 chapters" },
+        { n: 57, label: "John", note: "New Testament · 21 chapters" },
+        { n: 58, label: "Acts", note: "New Testament · 28 chapters" },
+        { n: 59, label: "Romans", note: "New Testament · 16 chapters" },
+        { n: 60, label: "1 Corinthians", note: "New Testament · 16 chapters" },
+        { n: 61, label: "2 Corinthians", note: "New Testament · 13 chapters" },
+        { n: 62, label: "Galatians", note: "New Testament · 6 chapters" },
+        { n: 63, label: "Ephesians", note: "New Testament · 6 chapters" },
+        { n: 64, label: "Philippians", note: "New Testament · 4 chapters" },
+        { n: 65, label: "Colossians", note: "New Testament · 4 chapters" },
+        { n: 66, label: "1 Thessalonians", note: "New Testament · 5 chapters" },
+        { n: 67, label: "2 Thessalonians", note: "New Testament · 3 chapters" },
+        { n: 68, label: "1 Timothy", note: "New Testament · 6 chapters" },
+        { n: 69, label: "2 Timothy", note: "New Testament · 4 chapters" },
+        { n: 70, label: "Titus", note: "New Testament · 3 chapters" },
+        { n: 71, label: "Philemon", note: "New Testament · 1 chapter" },
+        { n: 72, label: "Hebrews", note: "New Testament · 13 chapters" },
+        { n: 73, label: "James", note: "New Testament · 5 chapters" },
+        { n: 74, label: "1 Peter", note: "New Testament · 5 chapters" },
+        { n: 75, label: "2 Peter", note: "New Testament · 3 chapters" },
+        { n: 76, label: "1 John", note: "New Testament · 5 chapters" },
+        { n: 77, label: "2 John", note: "New Testament · 1 chapter" },
+        { n: 78, label: "3 John", note: "New Testament · 1 chapter" },
+        { n: 79, label: "Jude", note: "New Testament · 1 chapter" },
+        { n: 80, label: "Revelation", note: "New Testament · 22 chapters" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered text of all 1,362 chapters (a headless run
+         listing every `.ttip`, 156 keys), as the Russian Primary Chronicle's was. Three kinds. MODERN STATES and
+         modern places the Bible's names are not: Israel, Egypt, Jordan (the river, every time), Lebanon, Syria,
+         Ethiopia, Greece, Italy, Spain, India, Libya, Armenia, Cyprus, Palestine, Asia (Acts' Roman province, not
+         the continent), Salem, Philadelphia and Tripoli. NAMESAKES: Lysias, Gorgias, Archelaus, Antipater,
+         Lysimachus, Callisthenes, Patroclus, Crispus, Josephus, Onesimus, Titus and Niger are other men who share a
+         name; Cleopatra is not the seventh; Arbela and the Hydaspes are a town and a river, not battles; the
+         Hittites of Canaan are not the Anatolian kingdom; Ammon is a people, not an oracle; Apollos is a man, not
+         Apollo; the Legion is a demon, the Caesar of the Gospels Tiberius, and Paul is not Paul I of Russia. And
+         ORDINARY WORDS that met an entry at a sentence's start or in a name — Aha, Sarai, Salmon, Touch, Eye,
+         Iron, Earth, Moon, Water, Sound, Gold, Silver, Truth, Prologue, Perceive, Dominion, Shout, Sanctuary,
+         Pentecost (the Jewish feast here, against an entry on the Christian one), and a run of Korean, Egyptian
+         and Greek names (Silla, Imna, Sabi, Buzi, Zer, Kore, Keros, Phoros, Harsha, Hadar, Theras, Emmer) that
+         are Hebrew names in this book. What stays is right in place: Jerusalem, Babylon, Assyria, Persia, the
+         Medes, Damascus, Tyre, Nineveh, the Pharaohs, Cyrus, the Roman cities and emperors of Acts, and Noah. */
+      glossOff: ["Israel", "Egypt", "Jordan", "Lebanon", "Syria", "Ethiopia", "Greece", "Italy", "Spain", "India",
+        "Libya", "Armenia", "Cyprus", "State_of_Palestine", "Asia", "Salem", "Philadelphia", "Tripoli",
+        "Lysias", "Gorgias", "Archelaus_(general)", "Antipater", "Lysimachus", "Callisthenes", "Patroclus",
+        "Crispus", "Josephus", "Onesimus_(Bostonian)", "Titus", "Niger", "Cleopatra_VII", "Battle_of_Gaugamela",
+        "Battle_of_the_Hydaspes", "Hittites", "Oracle_of_Ammon", "Apollo", "Roman_legion", "Julius_Caesar",
+        "Paul_I_of_Russia", "Hor-Aha", "Sarai_(city)", "Salmon", "Somatosensory_system", "Human_eye", "Iron",
+        "Earth", "Moon", "Water", "Sound", "Gold", "Silver", "Truth", "Prologue", "Perception", "Dominion",
+        "Ring_shout", "Sanctuary", "Pentecost", "Silla", "Mimana", "Sabi_(Korea)", "Mandarin_square", "Djer",
+        "Kore", "Keros", "Phoros", "Harsha", "Hadar,_Ethiopia", "Thera", "Emmer"],
+      /* …and in named chapters only: Judah is Jacob's son and then his tribe through Genesis–Ruth (tabs 1–236),
+         long before there was a kingdom; Noah is also Zelophehad's daughter (Numbers 26, 27 and 36, Joshua 17);
+         and the Claudius of Acts 23 is Claudius Lysias, the tribune, not the emperor of Acts 11 and 18. */
+      glossOffIn: {
+        "Kingdom_of_Judah": [[1, 236]],
+        "Noah": [143, 144, 153, 204],
+        "Claudius": [1214],
       },
     },
   ];
@@ -25612,6 +25776,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "We hold these Truths to be self-evident, that all Men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty, and the Pursuit of Happiness.—That to secure these Rights, Governments are instituted among Men, deriving their just Powers from the Consent of the Governed, that whenever any Form of Government becomes destructive of these Ends, it is the Right of the People to alter or to abolish it, and to institute new Government, laying its Foundation on such Principles, and organizing its Powers in such Form, as to them shall…" },
     { book: "kalidasa-shakuntala", n: 6, t: "Act IV", p: 138,
       text: "Hear, my daughter—When thou art settled in the mansion of thy husband, show due reverence to him, and to those whom he reveres: though he have other wives, be rather an affectionate handmaid to them than a rival.—Should he displease thee, let not thy resentment lead thee to disobedience.—In thy conduct to thy domesticks be rigidly just and impartial; and seek not eagerly thy own gratifications.—By such behaviour young women become respectable; but perverse wives are the bane of a family.—What thinks Gautamí of this lesson ? Gaut. It is incomparable:—my child, be sure to remember it. Can.…" },
+    { book: "king-james-bible", n: 501, t: "Psalm 23", p: 1,
+      text: "The LORD is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul: he leadeth me in the paths of righteousness for his name’s sake. Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me. Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over. Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever." },
   ];
   function homeDailyExcerpt() {
     const list = HOME_EXCERPTS.filter((e) => BOOK_BY_ID[e.book]);
