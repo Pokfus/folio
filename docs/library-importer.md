@@ -2672,3 +2672,51 @@ interrupted by them; each of its three shapes fails quietly on the ordinary path
 
 Re-run after touching: `node .claude/fetch-book.js treaty-of-versailles --force` (no raw cache on this path —
 it refetches 17 pages), then `node .claude/book-audit.js` and `node .claude/check-cutoff.js`.
+
+## `between` — one wiki page cut into parts at its anchors (Nov 2026, the Ninety-five Theses)
+
+`between: (n) => [openingAnchor, nextAnchor]` → `betweenAnchors`, applied to the fetched page before anything else
+reads it. The 1915 *Works of Luther* page transcludes an introduction and four documents, each a `prp-pages-output`
+block behind its own `{{anchor}}`; the part is the stretch from its anchor to the next, cut back to the `<p>` that
+holds the second anchor (cut at the span, the part ends on an unclosed `<p>`), with the page's reference list
+appended because the markers are resolved against it by id. A missing or out-of-order anchor THROWS — a fall-back to
+the whole page would ship the introduction as text. The page numbers its notes straight through, so after
+`cleanBody` each part keeps only the notes its markers open, renumbered by `pruneNotes`.
+
+`wrapBareRuns: true` runs `wrapBareRuns` over the single-column body just before `sections: "leading"`: a scan page
+that opens on a new paragraph may arrive as bare text between two `<p>`s (Thesis 13), invisible to a `<p>`-anchored
+number pass. Gated per book.
+
+Re-run after touching: `node .claude/fetch-book.js luther-ninety-five-theses --force` (two fetches of one page), then
+count the theses (95, in order) and `node .claude/book-audit.js`.
+
+## The `usfm` layout — scripture in Bible-society markup, one zip (Nov 2026, the King James Bible)
+
+`layout: "usfm"` → `unzipEntries` (a 30-line zip reader on Node's `zlib`, so the importer keeps zero deps),
+`extractUsfm` / `usfmInline`, and the `KJV_BOOKS` table (code, tab name, the book's title, section, chapter
+count — 80 books in the 1611 order, Apocrypha between the Testaments). Source: eBible.org's
+`eng-kjv_usfm.zip`, CrossWire's transcription of the 1769 standard text; one request, cached as served
+(`en-usfm.zip`), fetched with `fetchBuffer` because `fetchText` would decode a zip as UTF-8.
+
+- **Measured against the two obvious sources first.** Gutenberg #10 has no Psalm titles, no italics, no
+  marginal notes and 204 mid-verse paragraph breaks; Wikisource's `Bible (King James)` is half scan
+  transclusion, half wikitext, with the scan ending before Lamentations. The USFM carries all of it.
+- **A verse is a paragraph** (`<span class="bk-n">` = the verse number), as every King James printing sets it;
+  the transcription's `\p` and `\q1` are a modern editor's paragraphing and are not followed. The ¶ marks stay
+  in the text. `\add` → italic (inverted inside an italic line: a Psalm title `\d`, an Epistle's subscription
+  `\s1`); Psalm 119's `\s1 \tl` letters and Baruch 6's `\ms1` → bold; `\p` WITH text (the two prologues to
+  Ecclesiasticus, its chapter 51 heading) → a plain paragraph; `\is1` above Susanna's and Bel's first chapter →
+  an italic line under the book's title, which heads every book's first chapter.
+- **Markers can be NESTED** (`\+add`, `\+nd`, `\+w` inside `\wj`): 1,800-odd, all in the words of Jesus. Every
+  marker regex takes the optional `+`, and anything left unread is reported per verse — which is how they were found.
+- **`\nd` is obeyed, not its typing**: twelve times the divine name is typed "Lord" inside a supplied word
+  (Numbers 23:15, "<i>the LORD</i>"); the marker means capitals, so its contents are capitalised.
+- **The checks a run prints**: chapters and verses per section, and a warning unless the two Testaments come
+  to 1,189 chapters and 31,102 verses; each book's chapter count against the table; a verse that does not
+  follow the one before it (the Rest of Esther opening at 10:4 is the one expected exception).
+- Tabs run 1–1,362 straight through and each title carries the reference (`kjvTitle`: "Genesis 1", "Psalm 23",
+  a one-chapter book by its name alone) — the Summa's arrangement. `parts` are the 80 books; app.js's
+  `parts` must list the same 80 (generate them from `KJV_BOOKS`, never by hand).
+
+Re-run after touching: `node .claude/fetch-book.js king-james-bible` (reads the cache; `--force` refetches the
+zip), then `node .claude/test-library.js`.

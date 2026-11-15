@@ -283,3 +283,8 @@ countries-info.json
 # extract, the Amharic Wikipedia dump and the Tatoeba exports (~130 MB) — plus the
 # intermediate files between its stages. The decks it writes ARE committed.
 .claude/amharic-cache/
+
+# the corpora .claude/norwegian/run.py builds the Norwegian decks from — the Wiktionary
+# extract, the OpenSubtitles frequency list and the Tatoeba exports (~220 MB) — plus
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/norwegian-cache/

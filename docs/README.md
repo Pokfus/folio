@@ -55,7 +55,7 @@ before changing the thing it names.
 | `card-difficulty.md` | The 1–5 rating, the community rating, and `undatable`. |
 | `map-cards.md` | The geography format — a shape on a globe as the question. |
 | `war-cards.md` | `card.war` — the two sides of a war shaded on a card's globe and on the reader's own atlas. |
-| `library-books.md` | Per-book findings for all 63 — how each edition is set, what pairs, the licence ground. |
+| `library-books.md` | Per-book findings for all 64 — how each edition is set, what pairs, the licence ground. |
 | `library-importer.md` | `.claude/fetch-book.js` — the 23 layouts, the extraction faults, the per-book options. |
 | `lang-decks.md` | The community and language decks' generators, and every pipeline's findings. |
 | `russian-decks-plan.md` | The plan for the Russian language decks (TORFL A1–C2 + phrases): word source, lemma order, stress, aspect pairs, the as-built findings per level. Alphabet, A1–C2 and phrases are built. |
@@ -71,6 +71,7 @@ before changing the thing it names.
 | `dutch-decks-plan.md` | The plan for the Dutch language decks (A1–C1 assembled to CEFR, no alphabet deck, IPA on every card): the decisions, sources, the card, the findings. Complete: all five levels and the phrases deck. |
 | `swedish-decks-plan.md` | The plan for the Swedish language decks (A1–C1 assembled to CEFR): the decisions taken from the Hindi and Greek precedent, sources, the card, the findings. A1 is built. |
 | `danish-decks-plan.md` | The plan for the Danish language decks (A1–C1 assembled to CEFR, Swedish's pipeline adapted): the decisions, sources, the card, the findings. Complete: all five levels and the phrases deck. |
+| `norwegian-decks-plan.md` | The plan for the Norwegian (Bokmål) language decks (A1–C1 assembled to CEFR), Swedish's pipeline adapted: the decisions, sources, the card (en/ei/et), the findings. Complete: all five levels and the phrases deck. |
 | `irish-decks-plan.md` | The plan for the Irish (Gaeilge) language decks (A1–C1 assembled to CEFR, phrases): the decisions, sources (Wiktionary, the Irish Wikipedia counted, Tatoeba), the card, the findings (the initial mutations, phrase-shaped table cells, the irregular verbs). Complete: A1 to C1 and the phrases deck are built. |
 | `hungarian-decks-plan.md` | The plan for the Hungarian language decks (alphabet, A1–C1 assembled to CEFR): the decisions taken from the Greek precedent, sources, the card, the findings (the shifted verb tables, the subtitles' õ/û). Complete: alphabet, A1–C1 and phrases are built. |
 | `urdu-decks-plan.md` | The plan for the Urdu language decks (alphabet, A1–C1 assembled to CEFR, phrases), adapted from Hindi's: the decisions, sources, the right-to-left card, the findings. Complete: alphabet, A1–C1 and phrases are built. |
