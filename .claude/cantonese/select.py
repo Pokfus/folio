@@ -34,6 +34,12 @@ from hand import HAND, EXCLUDE
 # conversation they are rare (people greet once and talk for an hour).
 LEAD_TOPICS = {'greetings and politeness'}
 HK_MIN = 3
+# A SINGLE CHARACTER needs more (B1, 2026-11-15): deep in the corpus's tail the one-character "words" are
+# bound forms the transcribers cut off a compound (所, 法, 之, 性, 化 at 4-12 tokens; the A2 fill's last single characters, 嘥 煩 爛 紙, have 13-14), not words a speaker
+# says alone; a word of two characters or more at the same count is a word (過癮, 戇居, 樂趣).
+HK_MIN_1 = 13
+NUMERALS = set('零一二三四五六七八九十百千萬兩廿卅')
+NAME_TAGS = {'nr', 'ns', 'nt', 'nz', 'nx'}
 
 
 def usable(e):
@@ -53,6 +59,18 @@ def reading(w, L, fr, jp=None):
     order = {e['j']: i for i, e in enumerate(L)}
     return sorted(ents, key=lambda e: (-hk.get(e['j'], 0), -both.get(e['j'], 0),
                                        0 if e['g'] else 1, order[e['j']]))[0]
+
+
+def name_or_number(w, fr):
+    """A word HKCanCor tags mostly as a name (碧咸, 朗拿度, 荔景), or one built only of numerals (二千)."""
+    if all(ch in NUMERALS for ch in w):
+        return True
+    tags = {}
+    for t in (fr.get('pos') or {}).values():
+        for k, v in t.items():
+            tags[k] = tags.get(k, 0) + v
+    n = sum(tags.values())
+    return bool(n) and sum(v for k, v in tags.items() if k in NAME_TAGS) * 2 > n
 
 
 def interjection(fr, jp):
@@ -110,7 +128,9 @@ def main():
         if w in taught or w in EXCLUDE or w not in lex:
             continue
         e = reading(w, lex[w], fr)
-        if not e or e['name'] or not e['g'] or interjection(fr, e['j']):
+        if len(w) == 1 and hk(fr) < HK_MIN_1:
+            continue
+        if not e or e['name'] or not e['g'] or interjection(fr, e['j']) or name_or_number(w, fr):
             continue
         key = f"{w}|{e['j']}"
         taught.add(w)

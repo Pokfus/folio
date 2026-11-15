@@ -180,6 +180,14 @@ SHOW = {
     '教書|gaau3 syu1': ['to work as a teacher', 'to teach (in a school)'],
     '親|can1': ['relative', 'parent', 'close', 'in person'],
     '儲|cyu5': ['to save', 'to store', 'to keep in reserve'],
+    # B1
+    '花紅|faa1 hung4': ['bonus (extra pay, typically given at year-end)', 'gift for a wedding or other happy occasion'],
+    '老爺|lou5 je4': ["honorific term for a wife to call her husband's father", '(coll.) maternal grandfather', 'master'],
+    '肝|gon1': ['liver'],
+    '腎|san6': ['kidney', 'gizzard'],
+    '樹林|syu6 lam4': ['woods', 'grove', 'forest'],
+    '相機|soeng3 gei1': ['camera (abbr. for 照相機)'],
+    '兩點|loeng5 dim2': ["two o'clock", 'Two points'],
     # the everyday Cantonese sense, which the dictionaries list late
     '你|nei5': ['you (informal, as opposed to courteous 您)'],
     '好|hou2': ['good', '(before an adjective for exclamatory effect) so', 'all right!', '(after a form of address) hello'],

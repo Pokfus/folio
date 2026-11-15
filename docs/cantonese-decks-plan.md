@@ -5,8 +5,8 @@ language set in the shape of the ones already shipped, Thai's above all (`docs/t
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-15: "Add a Cantonese language collection."
 
-**STATUS (2026-11-15): the Jyutping and Tones deck, A1 and A2 are built** (`.claude/cantonese/`, §6–§7). B1 to
-C1 and a phrases deck are planned, one per session.
+**STATUS (2026-11-15): the Jyutping and Tones deck, A1, A2 and B1 are built** (`.claude/cantonese/`, §6–§8).
+B2, C1 and a phrases deck are planned, one per session.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP —
@@ -40,7 +40,7 @@ other languages (Hindi, Thai) were taken rather than asked again — **they are 
 | Cantonese Jyutping and Tones — built | `Cantonese-Jyutping-and-Tones.folio-deck.json` | 39 |
 | Cantonese A1 Beginner — built | `Cantonese-A1.folio-deck.json` | 500 |
 | Cantonese A2 Elementary — built | `Cantonese-A2.folio-deck.json` | 750 |
-| Cantonese B1 Intermediate | `Cantonese-B1.folio-deck.json` | 1,000 |
+| Cantonese B1 Intermediate — built | `Cantonese-B1.folio-deck.json` | 1,000 |
 | Cantonese B2 Upper Intermediate | `Cantonese-B2.folio-deck.json` | 1,500 |
 | Cantonese C1 Advanced | `Cantonese-C1.folio-deck.json` | 1,500 |
 | Cantonese Phrases and Expressions | `Cantonese-Phrases-and-Expressions.folio-deck.json` | — |
@@ -144,7 +144,7 @@ sentence (Tatoeba's Cantonese–English pairs are 2,852). Some glosses keep CC-C
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the Jyutping and Tones deck, A1. **Phase 2** — A2 (done, §7) to C1, one level per
+**Phase 1 (done)** — the pipeline, the Jyutping and Tones deck, A1. **Phase 2** — A2 (done, §7), B1 (done, §8), B2 and C1, one level per
 session: write the level's inventory into `inventory.py` and its `SCOPE` into `cantonese_level.py`, run, read
 every card, extend `SHOW`, `JUNK`, `hand.py`. **Phase 3** — a phrases deck (CC-Canto's idioms and set phrases,
 Tatoeba's short sentences).
@@ -201,3 +201,27 @@ no hand glosses. Both levels re-run byte-identical (verified, `--re-extract`).
   (their everyday senses, "to tidy" and "to chat", are not among their glosses), 膊頭 (CC-Canto's gloss is a
   stray sentence). Not in either dictionary and dropped by `select.py`: BB 份工 T恤 叫嘢食 凍飲 少甜 執屋 露台 酒店房 月台
   好脾氣 唱K 未試過 唔鍾意 差過.
+
+## 8. As built (2026-11-15): B1
+
+On request ("Add B1"). `python3 .claude/cantonese/run.py --level b1`. 1,000 notes: 395 from the B1 inventory (16
+topics, `inventory.py` `B1`), 605 by frequency. Sentences for only 248, three for 49: Tatoeba's 2,256 short
+Cantonese–English pairs are used up by the first two levels, and the deck's description says many words have
+none. 602 show a simplified form; no hand glosses. A re-run is byte-identical (verified).
+
+- **THE FILL REACHES HKCanCor's TAIL, so it is filtered harder** (`select.py`). At B1 the fill takes words the
+  corpus has 4 to 13 times, and there the one-character "words" are mostly bound forms its transcribers cut off a
+  compound (所, 法, 之, 性, 化, 類, 式), dealt early because Tatoeba's counts lead the dealing order. A single
+  character now needs 13 HKCanCor tokens (`HK_MIN_1`; A2's last single characters, 嘥 煩 爛 紙, have 13–14, so A2
+  keeps them), a word HKCanCor tags mostly as a name is skipped (碧咸 Beckham, 朗拿度 Ronaldo, 荔景, 雀仔街), and so is
+  one built only of numerals (二千, 四十). What is left is spoken Hong Kong Cantonese: 老奉, 核突, 巴閉, 戇居, 冚唪唥,
+  打邊爐, 甩皮甩骨, 陰公, 離譜, 過癮. The name rule moved one A2 word: 大陸 "mainland" (HKCanCor tags it ns) gave way to
+  缸 "jar".
+- **`EXCLUDE` grew again**: other spellings of words already taught (鐘意, 噚日, 乜野, 屋村, 痴線), two words from one
+  HKCanCor conversation that a learner's deck should not deal (艷舞, 全裸), 變態 ("pervert"), 低能 and 鬼佬 (an insult
+  and a derogatory word), 西隧 and 城巴 (names), 阿爸 (CC-CEDICT's only sense is the Aramaic "Abba").
+- **Seven more `SHOW` rows**: 樹林 opened on Shulin city in Taiwan, 肝 kept a gaming sense ("grindy"), 花紅 opened on a
+  crabapple (it is the year-end bonus), 老爺 on "lord" (in Hong Kong, a wife's father-in-law).
+- **Not in either dictionary and dropped by `select.py`**: 請人 計劃書 傾生意 放大假 返夜班 銀行戶口 還錢 交稅 樓價 圖書證 電台
+  Wi-Fi 社交媒體 睇新聞 新移民 診症 扭親 抹枱 朋友仔 識朋友 年廿八 — and many inventory words were already taught at A1 or A2,
+  which is why the inventory share is smaller than at the lower levels.

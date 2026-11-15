@@ -42,6 +42,13 @@ EXCLUDE = {
     '阿媽': "CC-CEDICT's sense is Taiwanese 'grandma'",
     '隊': "HKCanCor's deoi2 is the slang 'to eat or drink greedily'; the dictionaries' first senses are 'to attack; to stab'",
     '英': 'a bound form (英文, 英國, both taught); its glosses are country names',
+    # B1's fill: another spelling of a word a lower level teaches, and entries a learner's deck should not deal
+    '鐘意': 'a spelling of 鍾意 (A1)', '噚日': 'a spelling of 尋日 (A1)', '乜野': 'a spelling of 乜嘢 (A1)',
+    '屋村': 'a spelling of 屋邨 (A2)', '痴線': 'a spelling of 黐線 (A2)',
+    '艷舞': 'erotic dancing; one HKCanCor conversation', '全裸': 'one HKCanCor conversation',
+    '變態': "its everyday sense is 'pervert'", '低能': 'an insult', '鬼佬': 'a derogatory word for Westerners',
+    '西隧': 'a name (the Western Harbour Crossing)', '城巴': 'a name (Citybus)',
+    '阿爸': "CC-CEDICT's only sense is the Aramaic 'Abba'; the Cantonese 'dad' is in neither dictionary",
     '可': 'a bound form ("-able"), never a word on its own in speech',
     '哋': "the plural suffix of 我哋 / 你哋 / 佢哋, all three taught; alone, HKCanCor has only a rare dei2",
     '喀': "HKCanCor's hesitation haak6 (696 tokens, tagged e); the dictionaries' 喀 is another word, 'to vomit'",
