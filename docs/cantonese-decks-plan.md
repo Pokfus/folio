@@ -5,8 +5,9 @@ language set in the shape of the ones already shipped, Thai's above all (`docs/t
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-15: "Add a Cantonese language collection."
 
-**STATUS (2026-11-15): the Jyutping and Tones deck, A1, A2, B1 and B2 are built** (`.claude/cantonese/`,
-§6–§9; B2 at 939 notes, short of 1,500: the spoken corpus is used up). C1 and a phrases deck are planned.
+**STATUS (2026-11-15): the Jyutping and Tones deck and all five levels are built** (`.claude/cantonese/`,
+§6–§10; B2 at 939 and C1 at 598 notes, short of 1,500 each: the spoken corpus is used up). A phrases deck is
+planned.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP —
@@ -42,7 +43,7 @@ other languages (Hindi, Thai) were taken rather than asked again — **they are 
 | Cantonese A2 Elementary — built | `Cantonese-A2.folio-deck.json` | 750 |
 | Cantonese B1 Intermediate — built | `Cantonese-B1.folio-deck.json` | 1,000 |
 | Cantonese B2 Upper Intermediate — built | `Cantonese-B2.folio-deck.json` | 939 (of 1,500 planned) |
-| Cantonese C1 Advanced | `Cantonese-C1.folio-deck.json` | 1,500 |
+| Cantonese C1 Advanced — built | `Cantonese-C1.folio-deck.json` | 598 (of 1,500 planned) |
 | Cantonese Phrases and Expressions | `Cantonese-Phrases-and-Expressions.folio-deck.json` | — |
 
 ## 2. Sources and licences
@@ -144,7 +145,7 @@ sentence (Tatoeba's Cantonese–English pairs are 2,852). Some glosses keep CC-C
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the Jyutping and Tones deck, A1. **Phase 2** — A2 (done, §7), B1 (done, §8), B2 (done, §9) and C1, one level per
+**Phase 1 (done)** — the pipeline, the Jyutping and Tones deck, A1. **Phase 2 (done)** — A2 (§7), B1 (§8), B2 (§9) and C1 (§10), one level per
 session: write the level's inventory into `inventory.py` and its `SCOPE` into `cantonese_level.py`, run, read
 every card, extend `SHOW`, `JUNK`, `hand.py`. **Phase 3** — a phrases deck (CC-Canto's idioms and set phrases,
 Tatoeba's short sentences).
@@ -255,3 +256,24 @@ unchanged; B2 re-runs byte-identical (verified).
   case-sensitive, so 證人 "witness" is no longer emptied; 心諗 is excluded (CC-Canto's gloss is the literal "the
   heart thinks"); 收皮 (its only gloss is the obscenity it means) and 紀錄 (its only gloss is a usage note) were taken
   out of the inventory.
+
+## 10. As built (2026-11-15): C1
+
+On request ("Add C1"). `python3 .claude/cantonese/run.py --level c1`. **598 notes, short of the 1,500 planned,
+and every one from the inventory** (28 topics, `inventory.py` `C1`): HKCanCor has no word left that passes the
+fill's rules. Sentences for 25. 389 show a simplified form. A1–B2 re-run unchanged; C1 re-runs byte-identical
+(verified).
+
+- **The register is educated speech**: philosophy and ethics, reasoning, academic language, government and
+  diplomacy, power and social change, development, management, medicine and psychology, the courts (終審法院,
+  律政司, 懲教), city planning (活化, 收地), the planet, heritage and Chinese opera (粵劇 at B2, 京劇 and 崑曲 here), belief,
+  the media, language and literature, the formal nouns, verbs and adjectives, Hong Kong's institutions (廉政公署,
+  消費者委員會, 港鐵公司) — and 88 four-character expressions educated Cantonese speakers use (一石二鳥, 塞翁失馬,
+  雪中送炭, 入鄉隨俗, 心想事成, 身體健康), with a last topic of fluent Hong Kong speech (一嚿雲, 一頭霧水, 牙擦, 撞彩, 咪住). 69
+  inventory words are in neither dictionary and were dropped, and many candidates were already taught lower down.
+- **The description says so** (`desc`): where a level has no frequency words it says all of them come from the
+  vocabulary written for its scope and why, rather than "the other 0 are the commonest remaining words".
+- **Fixes, read off the cards**: three more `SHOW` rows (小說家 opened on the "School of Minor-talks" of the Warring
+  States, 方言 on Yang Xiong's first-century dictionary, 頭條 on the Toutiao app); 地獄 was taken out of the
+  inventory (its "hell" sense is tagged Buddhist, so weak, and the card would have shown only a slang sense about
+  dark humour).

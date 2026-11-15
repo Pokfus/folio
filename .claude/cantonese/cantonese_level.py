@@ -99,7 +99,23 @@ SCOPE = {
                   'evaluation, the formal connectors, the verbs of reporting, analysing and '
                   'persuading, and the colloquial expressions of everyday Hong Kong speech',
     },
-    # C1 is written when it is built (docs/cantonese-decks-plan.md §5).
+    'c1': {
+        'quote': 'Can understand a wide range of demanding, longer texts, and recognise '
+                 'implicit meaning',
+        'gloss': 'able to express ideas fluently and spontaneously without much obvious '
+                 'searching for expressions, to use language flexibly and effectively for '
+                 'social, academic and professional purposes, and to produce clear, '
+                 'well-structured, detailed text on complex subjects',
+        'topics': 'philosophy and ethics, thinking and reasoning, academic and scholarly language, '
+                  'government, diplomacy and the constitution, power and social change, the economy '
+                  'and development, organisations and management, medicine, psychology and '
+                  'relationships, law, rights and the courts, the city and its planning, nature and '
+                  'the planet, art, heritage and Chinese opera, belief and religion, the media, '
+                  'language and literature, history, the shades of feeling and judgement, the '
+                  'abstract nouns, verbs and adjectives of formal speech, the four-character '
+                  'expressions educated speakers use, the literary connectors, Hong Kong\'s '
+                  'institutions, and the expressions of fluent Hong Kong speech',
+    },
 }
 
 

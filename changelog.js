@@ -57,7 +57,7 @@ window.CHANGELOG = [
       "A new <b>Amharic</b> language collection: a fidäl alphabet deck, three graded vocabulary decks and phrases, all in both directions with romanisation.",
       "New <b>Danish</b> and <b>Norwegian</b> language collections: levels A1 to C1, plus phrases, idioms and proverbs, all in both directions.",
       "New in the Library: the <b>King James Bible</b>, with the Apocrypha and its marginal notes, and Luther's <b>Ninety-five Theses</b> (1517).",
-      "A <b>Cantonese</b> collection joins the Languages section: a Jyutping and tones deck, then A1 to B2, 3,189 words in both directions.",
+      "A <b>Cantonese</b> collection joins the Languages section: a Jyutping and tones deck, then A1 to C1, 3,787 words in both directions.",
     ],
   },
   {

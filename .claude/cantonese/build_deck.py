@@ -192,6 +192,10 @@ SHOW = {
     '郊區|gaau1 keoi1': ['suburbs', 'outskirts', 'suburban district'],
     '海灣|hoi2 waan1': ['bay', 'gulf'],
     '煙花|jin1 faa1': ['fireworks'],
+    # C1
+    '小說家|siu2 syut3 gaa1': ['novelist'],
+    '方言|fong1 jin4': ['dialect', 'topolect'],
+    '頭條|tau4 tiu4': ['lead story (on the news)'],
     # the everyday Cantonese sense, which the dictionaries list late
     '你|nei5': ['you (informal, as opposed to courteous 您)'],
     '好|hou2': ['good', '(before an adjective for exclamatory effect) so', 'all right!', '(after a form of address) hello'],
@@ -413,12 +417,18 @@ def desc(entries, n):
         "a thing, 睇 to look, and the sentence-final particles that carry a Cantonese speaker's "
         "tone of voice. WHERE THESE WORDS COME FROM, since it matters: no examination publishes a "
         "graded word list for Cantonese, so this deck is not any examination's vocabulary and does "
-        f"not claim to be. It is assembled from two things that can be stated. {from_inv} of the "
-        f"{n} come from a vocabulary written for the level's scope — {SC['topics']} — and the other "
-        f"{n - from_inv} are the commonest remaining words of spoken Cantonese, counted in the Hong "
-        "Kong Cantonese Corpus (recorded conversations and radio, 1997–98). The cards are dealt by "
-        "how often the words are heard there and in Tatoeba's Cantonese sentences, so the commonest "
-        "come first" + (", after a first handful of greetings. " if LEVEL == 'a1' else ". ") +
+        + (f"not claim to be. It is assembled from two things that can be stated. {from_inv} of the "
+           f"{n} come from a vocabulary written for the level's scope — {SC['topics']} — and the other "
+           f"{n - from_inv} are the commonest remaining words of spoken Cantonese, counted in the Hong "
+           "Kong Cantonese Corpus (recorded conversations and radio, 1997–98). The cards are dealt by "
+           "how often the words are heard there and in Tatoeba's Cantonese sentences, so the commonest "
+           "come first" + (", after a first handful of greetings. " if LEVEL == 'a1' else ". ")
+           if from_inv < n else
+           f"not claim to be. All {n} come from a vocabulary written for the level's scope — "
+           f"{SC['topics']}: by this level the Hong Kong Cantonese Corpus (recorded conversations and "
+           "radio, 1997–98), which supplies the commonest words at the levels below, has none left "
+           "that they have not taught. The cards are dealt by how often the words are heard in that "
+           "corpus and in Tatoeba's Cantonese sentences, and the words neither has come last. ") +
         (f"THIS LEVEL IS SHORT of the {TARGET[LEVEL]:,} words planned for it: the spoken corpus has no "
          "more words that the levels below have not taught, and the rest of the level is the vocabulary "
          "written for its topics, so the deck stops where the sources do rather than take words from "
