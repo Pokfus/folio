@@ -30630,6 +30630,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        greens left out (the raw winner, 15.1): a deep wine, 14.7 from its nearest neighbour (the Japan
        collection's kuwazome red-purple), against a tightest existing pair of 4.0; 10.0:1 against white. Not a flag colour. */
     "lang-amharic":    { bg: "#85063D" }, // measured wine
+    /* NORWEGIAN (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white), the magenta band's standing rejection kept and the
+       greens left out. Its first sweep chose a deep wine (#85063D), which Amharic's parallel sweep also chose; re-swept
+       at the merge against all 72 other hues: a dark ochre, 14.6 from its nearest neighbour (World History's sepia),
+       14.6 from Gateway to Global Affairs and Palaeontology; 4.8:1 against white. Not a flag colour. */
+    "lang-norwegian":  { bg: "#896F23" }, // measured ochre
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
