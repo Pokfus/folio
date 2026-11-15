@@ -23,8 +23,8 @@ book added later will meet the same traps.
   (C. M. Jacobs)"), not the wiki header's series editors. `sections: "leading"` numbers the Theses; **checked: 95,
   once each, in order** — Thesis 13 opens scan page 46 as bare text between paragraphs and was missed until
   `wrapBareRuns` (gated) wrapped it. The printed heads (numeral, title, date) go by `dropHeads`. Licence: a 1915 US
-  publication; Jacobs died 1938, so life plus a hundred runs to 2039 and the rights box says so. Colour `#410064`
-  (15.6, level with the shelf's tightest pair). `glossOff`: `Corinth`, on Thesis 78's "I. Corinthians". The Latin
+  publication; Jacobs died 1938, so life plus a hundred runs to 2039 and the rights box says so. Colour `#9A0084`
+  (15.6, level with the shelf's tightest pair; the first pick went to the King James Bible the same day). `glossOff`: `Corinth`, on Thesis 78's "I. Corinthians". The Latin
   (la.wikisource, "Disputatio pro declaratione virtutis indulgentiarum") is not set beside it.
   `russian-primary-chronicle` (~485 KB, **153 chapters** — the undated opening, 148 annal entries and Cross's
   four appendix texts — **7 notes**, no original; Samuel H. Cross's translation of the Laurentian text,

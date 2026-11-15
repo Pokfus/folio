@@ -3654,6 +3654,24 @@ changed was the one that had been wrong all along.
   carried onto its second noun, the stub formulae, glosses that are not the counted word) are
   📖 `docs/zulu-decks-plan.md`. The `l1` row is 12 million (Ethnologue via Wikipedia); the hue is measured,
   `#9A012F` (re-swept at the merge: Greek had taken `#6D67D1`'s neighbour). `levelRank` sorts "Noun Classes" before A1.
+- `.claude/amharic/` — the generator behind the Amharic decks (Nov 2026, on request: "Add an Amharic language
+  collection"; the Zulu and Hausa owners' answers taken, the owner not asked). **Built: the fidäl deck,
+  `decks/Amharic-Alphabet.folio-deck.json`** (44 notes: the seven orders, 34 consonants with their rows, the
+  labialised forms, the punctuation), **A1, `decks/Amharic-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2,
+  `decks/Amharic-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-15: the Ethiopian months, the twin and "of"
+  adjective rules from A2 on) **and B1, `decks/Amharic-B1.folio-deck.json`** (494 notes, 2026-11-15: short of
+  1,000, the source used up; no B2) **and the phrases deck, `decks/Amharic-Phrases-and-Expressions.folio-deck.json`**
+  (200 notes: 13 Wiktionary phrases, 187 Tatoeba sentences labelled by who is spoken to; `python3
+  .claude/amharic/phrases.py`). The collection is complete.
+  `python3 .claude/amharic/run.py [--level a1|a2|b1]`, `python3 .claude/amharic/alphabet.py`,
+  `node .claude/amharic/check-amharic.js`; a re-run is byte-identical. Zulu's arrangement: about 2,300
+  Wiktionary words, about 250 Tatoeba pairs, no subtitle list, so the frequency is the Amharic Wikipedia's
+  (14,255 articles), A1–B1 only, no hand glosses; Wiktionary's romanisation under every word and no speaker
+  (the Hausa rule). Every match is by a Latin KEY built syllable by syllable, with the homophone letters
+  (ሀ ሐ ኀ, ሰ ሠ, አ ዐ, ጸ ፀ) folded together and the written-on prepositions and endings peeled as a
+  fallback; the findings (the fold's true homographs, the infinitive twins, the declension tables' faults,
+  the normalised romanisation) are 📖 `docs/amharic-decks-plan.md`. The `LANGS` row is 35 million L1, 60
+  in all (Ethnologue via Wikipedia); the hue is measured, `#85063D`.
 - `.claude/oldenglish/` — the generator behind the Old English decks (Nov 2026, on request: "Add an Old
   English language collection"). **Built: the alphabet and pronunciation deck,
   `decks/Old-English-Alphabet.folio-deck.json`** (41 notes) **and Level 1,
@@ -3680,6 +3698,38 @@ changed was the one that had been wrong all along.
   The findings (a personal pronoun's shared table, the -s verbs, the closed-class rule against a common verb,
   the `i` missing from kaikki's extract) are 📖 `docs/swedish-decks-plan.md`. The `l1` row is 9.9 million
   (Ethnologue via Wikipedia); the hue is measured, `#BD4B7B` (re-swept at the merge: Romanian had taken the olive `#757839`).
+- `.claude/danish/` — the generator behind the Danish decks (Nov 2026, on request: "Add a Danish language
+  collection"; the Swedish, Hindi and Greek owners' decisions taken, the owner not asked). **Built: A1,
+  `decks/Danish-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Danish-A2.folio-deck.json`** (750 / 1,500;
+  2026-11-15, on request: "Add A2"; `--level a2`) **and B1, `decks/Danish-B1.folio-deck.json`** (1,000 / 2,000; 2026-11-15,
+  on request: "Add B1"; `--level b1`) **and B2, `decks/Danish-B2.folio-deck.json`** (1,500 / 3,000;
+  2026-11-15, on request: "Add B2"; 90 % of it by frequency, Danish Wiktionary lacking much of its inventory) **and C1, `decks/Danish-C1.folio-deck.json`** (1,500 / 3,000;
+  2026-11-15, on request: "Add C1"; 96 % by frequency, four cards in ten with no sentence) — all five levels **— and the phrases deck,
+  `decks/Danish-Phrases-and-Expressions.folio-deck.json`** (530 in Phrases / Particle verbs / Idioms / Proverbs, every
+  candidate Danish Wiktionary has; `--level phr`, `phrases.py`, 2026-11-15). The plan is complete. `python3 .claude/danish/run.py [--level a1]`,
+  `node .claude/danish/check-danish.js`; a re-run is byte-identical. Swedish's pipeline adapted, no alphabet deck and
+  no romanisation; nouns carry en/et, verbs their present, past and perfect WITH ITS AUXILIARY (`har spist`, `er
+  gået`). No published word list for Prøve i Dansk or Studieprøven, so a level is a topic inventory plus lemma
+  frequency, and the description says so. The findings (adjective and pronoun forms read off the headword line, a
+  verb's two-box table, the auxiliary inside the participle cell, the imperative that claims "but" and "father",
+  the closed word's half against a common verb, the capital `I`, the `i` missing from kaikki's extract) are
+  📖 `docs/danish-decks-plan.md`. The `LANGS` row is 5.5 million (Ethnologue via Wikipedia, no L2 figure); the hue
+  is measured, `#752466`.
+- `.claude/norwegian/` — the generator behind the Norwegian decks (Nov 2026, on request: "Add a Norwegian language
+  collection"; the Swedish owner's decisions taken, the owner not asked). **Built: A1,
+  `decks/Norwegian-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Norwegian-A2.folio-deck.json`**
+  (750 / 1,500; 2026-11-15, on request: "Add A2") **and B1, `decks/Norwegian-B1.folio-deck.json`** (1,000 / 2,000;
+  2026-11-15, "Add B1") **and B2, `decks/Norwegian-B2.folio-deck.json`** (1,500 / 3,000; 2026-11-15, "Add B2")
+  **and C1, `decks/Norwegian-C1.folio-deck.json`** (1,500 / 3,000; 2026-11-15, "Add C1") — all five levels — in Bokmål,
+  **and the phrases deck, `decks/Norwegian-Phrases-and-Expressions.folio-deck.json`** (310 expressions in Phrases /
+  Fixed expressions / Particle verbs / Idioms / Proverbs, 2026-11-15; `--level phr`, `phrases.py`). `python3 .claude/norwegian/run.py
+  [--level a1]`, `node .claude/norwegian/check-norwegian.js`; a re-run is byte-identical. Swedish's pipeline adapted,
+  with the forms read off Wiktionary's HEAD LINE (Bokmål entries carry almost no tables), three genders printed
+  en / ei / et and `en/ei` where Bokmål allows both, and a verb's present, past and past participle. Norskprøven
+  publishes no word list, so a level is a topic inventory plus lemma frequency, and the description says so. The
+  findings (`i` missing from kaikki's extract again, `når` against `nå`, `hel` met as `hele`, the -e infinitives
+  spelt like nouns) are 📖 `docs/norwegian-decks-plan.md`. The `LANGS` row is 4.32 million (Wikipedia's infobox,
+  2012); the hue is measured, `#896F23` (re-swept at the merge: Amharic had taken the first sweep's wine `#85063D`).
 - `.claude/irish/` — the generator behind the Irish decks (Nov 2026, on request: "Add an Irish language
   collection"; the Hindi and Swedish owners' decisions taken, the owner not asked). **Built: all five levels,
   `decks/Irish-A1.folio-deck.json`** (500 notes / 1,000 cards), **`Irish-A2`** (750), **`Irish-B1`** (1,000), **`Irish-B2`** (1,500), **`Irish-C1`** (1,500) **and `Irish-Phrases-and-Expressions`** (613 in five subdecks). `python3 .claude/irish/run.py [--level a1]`,

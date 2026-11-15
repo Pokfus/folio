@@ -35,14 +35,13 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1313", released: "2026-11-15T21:07Z" };
+window.FOLIO_VERSION = { v: "1.1317", released: "2026-11-15T21:38Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-15",
-    t: "Tidier atlas windows, new glossary terms and more daily quotes",
+    t: "Tidier atlas windows, two language collections and more daily quotes",
     items: [
-      "New in the Library: Martin Luther's <b>Ninety-five Theses</b> (1517), with his covering letter to the Archbishop of Mainz.",
       "56 new glossary terms for World History, Ancient Greece, Ancient Egypt and Ancient Rome cards, and a Byzantine sense of <b>themes</b> that links only where it fits.",
       "Egyptian dynasties are now written with numbers (<b>18th Dynasty</b>) everywhere, glossary included, and the Council of Five Hundred always in words.",
       "Roman provinces go by their Latin names (<b>Hispania Ulterior</b>, <b>Gallia Cisalpina</b>), the emperor Gaius is always <b>Caligula</b> and the <b>Kalends</b> take a K.",
@@ -55,6 +54,9 @@ window.CHANGELOG = [
       "One card has more exact dates, one a fuller picture and one a new picture; two quote new book passages and one asks a new question.",
       "The Wikipedia button at the foot of a glossary popup is half as tall.",
       "<b>Feather</b> now links to its glossary entry only in Biology.",
+      "A new <b>Amharic</b> language collection: a fidäl alphabet deck, three graded vocabulary decks and phrases, all in both directions with romanisation.",
+      "New <b>Danish</b> and <b>Norwegian</b> language collections: levels A1 to C1, plus phrases, idioms and proverbs, all in both directions.",
+      "New in the Library: the <b>King James Bible</b>, with the Apocrypha and its marginal notes, and Luther's <b>Ninety-five Theses</b> (1517).",
     ],
   },
   {
