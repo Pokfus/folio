@@ -5,8 +5,8 @@ language set in the shape of the ones already shipped, Thai's above all (`docs/t
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-15: "Add a Cantonese language collection."
 
-**STATUS (2026-11-15): the Jyutping and Tones deck and A1 are built** (`.claude/cantonese/`, §6). A2 to C1 and
-a phrases deck are planned, one per session.
+**STATUS (2026-11-15): the Jyutping and Tones deck, A1 and A2 are built** (`.claude/cantonese/`, §6–§7). B1 to
+C1 and a phrases deck are planned, one per session.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP —
@@ -39,7 +39,7 @@ other languages (Hindi, Thai) were taken rather than asked again — **they are 
 |---|---|---|
 | Cantonese Jyutping and Tones — built | `Cantonese-Jyutping-and-Tones.folio-deck.json` | 39 |
 | Cantonese A1 Beginner — built | `Cantonese-A1.folio-deck.json` | 500 |
-| Cantonese A2 Elementary | `Cantonese-A2.folio-deck.json` | 750 |
+| Cantonese A2 Elementary — built | `Cantonese-A2.folio-deck.json` | 750 |
 | Cantonese B1 Intermediate | `Cantonese-B1.folio-deck.json` | 1,000 |
 | Cantonese B2 Upper Intermediate | `Cantonese-B2.folio-deck.json` | 1,500 |
 | Cantonese C1 Advanced | `Cantonese-C1.folio-deck.json` | 1,500 |
@@ -144,7 +144,7 @@ sentence (Tatoeba's Cantonese–English pairs are 2,852). Some glosses keep CC-C
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the Jyutping and Tones deck, A1. **Phase 2** — A2 to C1, one level per
+**Phase 1 (done)** — the pipeline, the Jyutping and Tones deck, A1. **Phase 2** — A2 (done, §7) to C1, one level per
 session: write the level's inventory into `inventory.py` and its `SCOPE` into `cantonese_level.py`, run, read
 every card, extend `SHOW`, `JUNK`, `hand.py`. **Phase 3** — a phrases deck (CC-Canto's idioms and set phrases,
 Tatoeba's short sentences).
@@ -157,8 +157,9 @@ Tatoeba's short sentences).
 .claude/cantonese/check-cantonese.js` is the check. **A re-run is byte-identical**, verified from an empty cache
 (every source downloaded afresh) and again with `--no-fetch`.
 
-**A1**: 500 notes — 490 from the inventory (22 topics), 10 by frequency (噉, 即係, 嘢, 以, 而, 噉樣, 咁, 面, 度,
-來); sentences for 410, three for 318; 208 show a simplified form; four hand glosses.
+**A1**: 500 notes — 490 from the inventory (22 topics), 10 by frequency (噉, 即係, 嘢, 噉樣, 咁, 來, 其實, 嘞, 咪,
+下, since A2's change to the fill, §7; first built with 以, 而, 面 and 度 in place of the last four); sentences
+for 410, three for 317; 209 show a simplified form; four hand glosses.
 
 **The Jyutping and Tones deck**: 39 notes — the six tones on si, the checked syllables, eleven initials spelt
 unlike English (b p d t g k gw kw ng j z c), and twenty vowels, diphthongs and syllabic m and ng. Each example
@@ -168,3 +169,35 @@ sorts it before A1 (`/\bJyutping\b/`).
 
 The shelf's hue is measured, `#8C7126` (an ochre): the CIELAB sweep's raw winner was a green, and the greens and
 the magenta band were left out as for Hebrew; 14.3 from its nearest neighbour (World History's sepia) of 70.
+
+## 7. As built (2026-11-15): A2
+
+On request ("Add A2"). `python3 .claude/cantonese/run.py --level a2`. 750 notes: 451 from the A2 inventory (16
+topics, `inventory.py` `A2`), 299 by frequency; A1's cards are not repeated (`words_below` now reads 'word|jyutping'
+keys off the shipped deck, and an inventory word A1 teaches is skipped unless a second reading is named).
+Sentences for 409, three for 218 (Tatoeba's Cantonese is thin past the first words); 358 show a simplified form;
+no hand glosses. Both levels re-run byte-identical (verified, `--re-extract`).
+
+- **THE FILL IS RANKED BY HKCanCor ALONE** (`select.py`, `HK_MIN = 3`). Ranked by the two corpora's summed rate,
+  A2's fill was mostly single characters that are not spoken words: 斯, 尼, 姆, 菲, 蘭 (pieces of transliterated
+  names Tatoeba's machine segmenter splits apart), and the literary 者, 之, 於, 所. HKCanCor is cut by hand, so its
+  counts are words; ranked by it, the fill is spoken Cantonese — 犀利, 好彩, 黐線, 搞笑, 撳, 嘥, 啩, 不嬲, 直程.
+  Tatoeba still contributes to the dealing order and the examples. The change reached A1's fill too (four of its
+  ten words, §6); A1 had not been merged, so no reader held the old deck.
+- **`EXCLUDE` grew** (`hand.py`): the surnames HKCanCor's speakers name people by (陳 李 黃 郭 黎), a station name
+  (亞視), numbers built of numbers taught (一百, 二十 …), hesitations not tagged as interjections (嗯 呵 呃 嘿), 哩,
+  俾 (Hong Kong's everyday spelling of 畀 "to give", which the dictionaries gloss "to cause" first), 隊 (HKCanCor's
+  deoi2 is slang), 英 (a bound form), and A1's withdrawn 嘅話 and 阿媽 so the fill cannot bring them back.
+- **About 50 more `SHOW` rows**, read off every card: 天橋 had opened on two districts of Jinan and Beijing, 大方
+  on "expert; scholar; mother earth" (it is "generous"), 乾 on a trigram, 明 on the Ming dynasty, 越 on the
+  ancient Yue peoples, 易 on the I Ching, 曳 on "inferior" (in Hong Kong, "naughty"), 貓 on "modem", 豬 on "a
+  virgin", 老闆 on a brand, 加 on Canada.
+- **A Taiwanese sense is shown only when there is no other** (`gloss_list`): 幼稚園 is CC-CEDICT's "kindergarten
+  (Tw)" and was dropped whole before; 感冒 keeps "(Tw) to detest" out.
+- **Readings named in the inventory**: 椅:ji2 (ji1 is a tree), 碟:dip6 (dip2 is "CD"), 曳:jai5.
+- **Left out, with the reason**: 訓 and 襟 (another word than the one meant: 瞓 "to sleep" is A1's 瞓覺, and the
+  fill brought 瞓 itself), 屙肚 (CC-Canto's gloss is "to defecate"; the word is "diarrhoea"), 好過 (CC-CEDICT's sense
+  is "to have an easy time", not "better than"), 還 (its waan4 entry carries Mandarin hái's "still"), 執 and 傾
+  (their everyday senses, "to tidy" and "to chat", are not among their glosses), 膊頭 (CC-Canto's gloss is a
+  stray sentence). Not in either dictionary and dropped by `select.py`: BB 份工 T恤 叫嘢食 凍飲 少甜 執屋 露台 酒店房 月台
+  好脾氣 唱K 未試過 唔鍾意 差過.

@@ -3658,7 +3658,9 @@ changed was the one that had been wrong all along.
   collection"; the Hindi and Thai owners' decisions taken, the owner not asked). **Built: the Jyutping and Tones deck,
   `decks/Cantonese-Jyutping-and-Tones.folio-deck.json`** (39 notes: the six tones, the checked syllables, the
   initials and vowels Jyutping spells unlike English) **and A1, `decks/Cantonese-A1.folio-deck.json`** (500 notes /
-  1,000 cards: 490 inventory, 10 frequency). `python3 .claude/cantonese/run.py [--level a1]`,
+  1,000 cards: 490 inventory, 10 frequency) **and A2, `decks/Cantonese-A2.folio-deck.json`** (750 notes / 1,500
+  cards: 451 inventory, 299 frequency; 2026-11-15, "Add A2" — the fill since ranked by HKCanCor alone, Tatoeba's
+  machine cut having made name fragments "common"). `python3 .claude/cantonese/run.py [--level a1|a2]`,
   `python3 .claude/cantonese/sounds.py`, `node .claude/cantonese/check-cantonese.js`; a re-run is byte-identical.
   SPOKEN Hong Kong Cantonese in traditional characters, the simplified form beneath, Jyutping with tone digits.
   The first set built without Wiktionary: meanings from CC-CEDICT and CC-Canto, Jyutping from CC-Canto and its

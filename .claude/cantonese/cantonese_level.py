@@ -53,7 +53,23 @@ SCOPE = {
                   'question words, aspect markers, prepositions and conjunctions every sentence '
                   'is built out of',
     },
-    # A2 to C1 are written when each level is built (docs/cantonese-decks-plan.md §5).
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'gloss': 'able to manage simple, routine exchanges of information on familiar matters '
+                 '— personal and family information, shopping, the local area, work — and to '
+                 'describe in simple terms their background, their surroundings and what they '
+                 'immediately need',
+        'topics': 'relatives and the people around you, jobs, work and school, clothes and '
+                  'shopping with an Octopus card, cooking, dim sum and cha chaan teng food, the '
+                  'furniture and chores of a flat, the town and its buildings, travel and '
+                  'directions by MTR, ferry and tram, the countryside, nature and animals, the '
+                  'seasons and typhoons, health and the body, feelings and character, free time, '
+                  'sport and the festivals (Lunar New Year and its red packets, Mid-Autumn and its '
+                  'mooncakes), more classifiers, telling what happened and when, comparing and '
+                  'giving an opinion, and the everyday verbs of moving, dressing and doing',
+    },
+    # B1 to C1 are written when each level is built (docs/cantonese-decks-plan.md §5).
 }
 
 
@@ -67,15 +83,16 @@ _DECKS = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'd
 
 
 def words_below():
-    """Every word a lower level teaches, read off its SHIPPED deck file (`Word`)."""
-    from yue import fold
+    """Every card a lower level teaches, read off its SHIPPED deck file, as 'word|jyutping' keys.
+
+    A Cantonese card is a word in ONE reading (`select.py`), so the key carries the Jyutping."""
     out = set()
     for lvl in BELOW.get(LEVEL, []):
         p = os.path.join(_DECKS, DECK_FILES[lvl])
         if not os.path.exists(p):
             raise SystemExit(f'{LEVEL} is built on {lvl}, but {p} is missing')
         for c in json.load(open(p, encoding='utf-8'))['cards']:
-            w = (c.get('fields') or {}).get('Word', '')
-            if w:
-                out.add(fold(w))
+            F = c.get('fields') or {}
+            if F.get('Word'):
+                out.add(F['Word'] + '|' + F.get('Jyutping', ''))
     return out

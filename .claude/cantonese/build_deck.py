@@ -85,7 +85,7 @@ JUNK = re.compile(
     r'^the five Liang|^Belgi|Beijing dialect|euphemis|屄|penis|prick|shithead|\(crude\)|lewd|'
     r'pornographic|a term of gang|triad|^Witness$|^Up stair$|^\(loanword\) fan$|reactionary|'
     r'Apple \(American tech company\)|nickname of|^used in |^see |phonetic|derogatory|heroin|a disco|'
-    r'-azine|piss off|\(Tw\)|^\(figurative - old\)$|^\(bound form\) Japan|'
+    r'-azine|^Canada \(abbr|colloquial pr\.|\(brand\)|Idesia|piss off|^\(figurative - old\)$|^\(bound form\) Japan|'
     r'anti-communist|^revolutionary$|^vulgar$|^a reptile$|^a broker$|^Spanish$|noun \(part of speech\)', re.I)
 
 # word|jyutping -> the glosses to show, in order: each one the dictionaries' own (see the docstring).
@@ -126,6 +126,60 @@ SHOW = {
     '咳|kat1': ['cough'],
     # 度 after 呢 / 嗰 / 邊 is "place" (HKCanCor tags it f, a position word, 72 of its 87 dou6 tokens)
     '度|dou6': ['here', 'there', 'where', 'degree (angles, temperature etc)'],
+    # A2: the everyday Hong Kong sense
+    '天橋|tin1 kiu4': ['overhead walkway', 'pedestrian bridge', 'overpass'],
+    '大方|daai6 fong1': ['generous', 'magnanimous', 'stylish'],
+    '曳|jai5': ['naughty', 'mischievous', 'bad'],
+    '乾|gon1': ['dry', 'dried food', 'empty'],
+    '大學|daai6 hok6': ['university', 'college'],
+    '婆婆|po4 po2': ['grandma', "husband's mother"],
+    '公公|gung1 gung1': ['grandpa', 'grandad', "husband's father"],
+    '樽|zeon1': ['bottle', 'goblet'],
+    '鑊|wok6': ['large iron pot', 'pan', 'a problem'],
+    '悶|mun6': ['bored', 'stuffy', 'depressed'],
+    '豬|zyu1': ['pig', 'hog', 'fat'],
+    '貓|maau1': ['cat'],
+    '沙|saa1': ['sand', 'hoarse', 'powder'],
+    '雙|soeng1': ['pair', 'double', 'both'],
+    '啖|daam6': ['mouthful (a classifier)', 'to eat', 'to taste'],
+    '埋|maai4': ['to move closer to', 'to settle (an account)', 'to finish up', 'to bury'],
+    '部|bou6': ['classifier for works of literature, films, machines etc', 'part', 'section', 'department'],
+    '座|zo6': ['classifier for large immovable objects such as buildings, mountains, bridges etc', 'seat', 'base'],
+    '支|zi1': ['classifier for rods such as pens and guns, for army divisions and for songs or compositions', 'branch', 'to support'],
+    '焗|guk6': ['to bake', 'stuffy', 'muggy', 'to steam'],
+    '約|joek3': ['to make an appointment', 'to invite', 'approximately'],
+    # A2's fill: the spoken sense, not a dynasty, a state or a bound form
+    '定|ding6': ['surely', 'certainly', 'to fix', 'to decide'],
+    '明|ming4': ['to understand', 'bright', '(of meaning) clear'],
+    '理|lei5': ['to pay attention to', 'reason', 'logic', 'to manage'],
+    '關|gwaan1': ['to close', 'to shut', 'to turn off', 'to concern'],
+    '望|mong6': ['to look towards', 'to gaze (into the distance)', 'to hope', 'to expect'],
+    '號|hou6': ['(bound form) mark', 'sign', 'to assign a number', '(bound form) name'],
+    '齊|cai4': ['all together', 'complete', 'neat', 'even'],
+    '越|jyut6': ['the more... the more', 'to exceed', 'to climb over', 'to surpass'],
+    '跟|gan1': ['to follow closely', 'to go with', 'with', 'compared with'],
+    '抵|dai2': ['to be equal to', 'to make up for', 'to withstand', 'to press against'],
+    '底|dai2': ['bottom', 'base', 'end (of the month, year etc)', 'foundation'],
+    '易|ji6': ['easy', 'simple', 'liable to', 'to change'],
+    '嘩|faa1': ['wow!', 'noisy', 'to shout'],
+    '衰|seoi1': ['bad', 'annoying', 'nasty-looking', 'to decline'],
+    '團|tyun4': ['group', 'society', 'ball', 'lump'],
+    '機|gei1': ['machine', 'engine', 'opportunity', 'mechanism'],
+    '老|lou5': ['old (of people)', 'experienced', 'always', 'outdated'],
+    '晚|maan5': ['evening', 'night', 'late'],
+    '尾|mei5': ['tail', 'end', 'the last', 'classifier for fish'],
+    '鬼|gwai2': ['ghost', 'devil', 'terrible', 'clever'],
+    '升|sing1': ['to ascend', 'to rise', 'to promote', 'litre'],
+    '集|zaap6': ['classifier for sections of a TV series etc: episode', 'to gather', 'to collect', 'a market'],
+    '分|fan1': ['to divide', 'minute (unit of time)', 'to separate', 'to distribute'],
+    '有啲|jau5 di1': ['a few', 'some', 'slightly', 'somewhat'],
+    '溫|wan1': ['to review (a lesson etc)', 'warm', 'lukewarm', 'temperature'],
+    '阿|aa3': ['prefix used before monosyllabic names, kinship terms etc to indicate familiarity'],
+    '大佬|daai6 lou2': ['elder brother', 'big shot (leading some field or group)', 'godfather (in an organization)'],
+    '字典|zi6 din2': ['(coll.) dictionary', 'Chinese character dictionary (containing entries for single characters, contrasted with a 詞典, which has entries for words of one or more characters)'],
+    '教書|gaau3 syu1': ['to work as a teacher', 'to teach (in a school)'],
+    '親|can1': ['relative', 'parent', 'close', 'in person'],
+    '儲|cyu5': ['to save', 'to store', 'to keep in reserve'],
     # the everyday Cantonese sense, which the dictionaries list late
     '你|nei5': ['you (informal, as opposed to courteous 您)'],
     '好|hou2': ['good', '(before an adjective for exclamatory effect) so', 'all right!', '(after a form of address) hello'],
@@ -223,6 +277,10 @@ def gloss_list(e):
                     out.append(p)
         return out
     good, weak = split(e.get('g', [])), split(e.get('w', []))
+    # a TAIWANESE sense ("(Tw) to detest" under 感冒) is shown only when the word has no other:
+    # 幼稚園 is CC-CEDICT's "kindergarten (Tw)", and Hong Kong says it too
+    tw = lambda xs: [x for x in xs if '(Tw)' not in x] or [re.sub(r'\s*\(Tw\)\s*', ' ', x).strip() for x in xs]
+    good, weak = tw(good), tw(weak)
     seen, out = set(), []
     for p in good or weak:
         k = p.lower()
@@ -346,9 +404,9 @@ def desc(entries, n):
         f"not claim to be. It is assembled from two things that can be stated. {from_inv} of the "
         f"{n} come from a vocabulary written for the level's scope — {SC['topics']} — and the other "
         f"{n - from_inv} are the commonest remaining words of spoken Cantonese, counted in the Hong "
-        "Kong Cantonese Corpus (recorded conversations and radio, 1997–98) and in Tatoeba's "
-        "Cantonese sentences. The cards are dealt by that frequency, so the words you hear most "
-        "often come first, after a first handful of greetings. "
+        "Kong Cantonese Corpus (recorded conversations and radio, 1997–98). The cards are dealt by "
+        "how often the words are heard there and in Tatoeba's Cantonese sentences, so the commonest "
+        "come first" + (", after a first handful of greetings. " if LEVEL == 'a1' else ". ") +
         "Every headword is printed in the traditional characters Hong Kong uses, with the "
         "simplified form beneath where it differs, and in Jyutping, the Linguistic Society of Hong "
         "Kong's romanisation, which ends every syllable with its TONE as a digit: 1 high, 2 high "

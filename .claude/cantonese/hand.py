@@ -25,6 +25,23 @@ HAND = {
 }
 
 EXCLUDE = {
+    '俾': "Hong Kong's everyday spelling of 畀 bei2 'to give' (taught at A1), which both dictionaries gloss with the literary 'to cause' first",
+    # A2's fill (HKCanCor's ranking): surnames the corpus's speakers name people by, whose dictionary
+    # entries would teach another sense (陳 "to lay out", 黃 "yellow", taught as 黃色)
+    '陳': 'a surname in HKCanCor', '李': 'a surname in HKCanCor', '黃': 'a surname in HKCanCor',
+    '郭': 'a surname in HKCanCor', '黎': 'a surname in HKCanCor',
+    '亞視': 'a television station (ATV), a name',
+    # numbers built from numbers already taught
+    '一百': 'a number built of 一 and 百', '二十': 'a number built of 二 and 十', '三十': 'a number built of 三 and 十',
+    '十五': 'a number built of 十 and 五', '三千': 'a number built of 三 and 千',
+    # hesitations and noises HKCanCor does not tag mostly as interjections
+    '嗯': 'a hesitation', '呵': 'a hesitation', '呃': 'a hesitation', '嘿': 'a hesitation',
+    '哩': "HKCanCor's lei5 is a particle; the dictionaries' 哩 is 'mile'",
+    # taken out of A1's inventory for a doubtful sense; the fill must not bring them back
+    '嘅話': "CC-Canto's only gloss is 'as said'; it is a clause-final 'if'",
+    '阿媽': "CC-CEDICT's sense is Taiwanese 'grandma'",
+    '隊': "HKCanCor's deoi2 is the slang 'to eat or drink greedily'; the dictionaries' first senses are 'to attack; to stab'",
+    '英': 'a bound form (英文, 英國, both taught); its glosses are country names',
     '可': 'a bound form ("-able"), never a word on its own in speech',
     '哋': "the plural suffix of 我哋 / 你哋 / 佢哋, all three taught; alone, HKCanCor has only a rare dei2",
     '喀': "HKCanCor's hesitation haak6 (696 tokens, tagged e); the dictionaries' 喀 is another word, 'to vomit'",
