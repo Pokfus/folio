@@ -12496,6 +12496,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      stand well off: the Anglo-Saxon Chronicle 92.9, Bede 43.9, Snorri 81.5, the Poetic Edda 20.7. Keyed by
      id, the chronicle being anonymous. */
   "russian-primary-chronicle": "#933700",
+  /* Measured as the rows above were, and the shelf is full: searched over its own lightness band (L
+     12–48) and chroma (20–65) with at least 5:1 on every light paper, the best-separated colour left
+     clears its nearest neighbour by 16.5 — above the tightest real pair (Polybius and Snorri, 15.6) and
+     nowhere better. This dark aubergine is that colour: 16.5 from #42426F, 16.9 from #460030, 9.3:1 on
+     the lightest paper, and lighter than #460030, which the night banner's 45% mix is measured on. */
+  "Adam Smith": "#422448",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -16027,6 +16033,58 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "European_Commission", "Iron", "Horse", "Roman_legion", "Stadion_(unit)", "Reconstruction_era",
         "Ancient_Egypt", "Slovakia", "Slovenia", "Oracle_of_Ammon", "Bosnia_and_Herzegovina", "Nassau",
         "Swabia", "Munich"],
+    },
+    {
+      id: "smith-wealth-of-nations",
+      title: "The Wealth of Nations",
+      subtitle: "An Inquiry into the Nature and Causes of the Wealth of Nations",
+      author: "Adam Smith",
+      // first published in London on 9 March 1776, in two volumes
+      written: "1776",
+      year: 1776,
+      /* NO `translator`: written in English, so the rights box names the edition, as for Macbeth. */
+      edition: "P. F. Collier & Son, New York, 1902, in three volumes",
+      /* Smith died in 1790 and the printing is of 1902, before 1929; no translator, so no life term.
+         See .claude/fetch-book.js for what of the volumes is and is not taken. */
+      rights:
+        "Public domain. Adam Smith published the book in 1776 and died in 1790, and he wrote in English, " +
+        "so there is no translation to date. The text is that of the edition printed by P. F. Collier & " +
+        "Son in New York in 1902, a publication before 1929 and so in the public domain in the United " +
+        "States as well. What is taken is Smith's Introduction and the five books; the publisher's " +
+        "biographical note, the preface, the introductory sketch of the history of political economy, " +
+        "the appendix and the index are not reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Wealth_of_Nations",
+      /* NO `origLang`: written in English. Thirty-four tabs: Smith's Introduction, then the five Books'
+         chapters, each titled with the citation it goes by (I.1 … V.3), Book II's introduction as a tab
+         of its own and Book IV's at the head of IV.1, where the printing sets it. */
+      chapterWord: "Chapter",
+      count: 34,
+      total: 34,
+      parts: [
+        { n: 1, label: "Introduction", note: "Introduction and Plan of the Work" },
+        { n: 2, label: "Book I", note: "11 chapters" },
+        { n: 3, label: "Book II", note: "Introduction and 5 chapters" },
+        { n: 4, label: "Book III", note: "4 chapters" },
+        { n: 5, label: "Book IV", note: "9 chapters" },
+        { n: 6, label: "Book V", note: "3 chapters" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered text of the front matter and all
+         34 chapters (a headless run listing every `.ttip`). NAMESAKES: `Sound` is acoustics against the
+         Danish toll on "the Sound", `Raleigh` the city against Sir Walter, `Alexander_III_of_Russia` the
+         tsar against the twelfth-century pope who emancipated serfs, `Hippias_(tyrant)` against the
+         sophist, `John_Smith_(explorer)` against the author of the Memoirs of Wool, `Anderson_shelter`
+         against Adam Anderson the historian of commerce, `Academy` (Plato's) against the French Academy
+         of Sciences — right once, in V.1, and taken off with the wrong one as the treaty's Munich was.
+         NAMES INSIDE NAMES: `Jersey` and `York` on New Jersey and New York (and on the edition's own
+         "New York"). PRESENT-DAY ENTRIES Smith's words are not: `Guinea` the modern republic against
+         the coast of Guinea, `United_Kingdom` against his "both parts of the United Kingdom" of Great
+         Britain, `Commonwealth_of_Nations` against "the Sovereign or Commonwealth", and
+         `Plantations_in_the_American_South` against the Board of Trade and Plantations, which means the
+         colonies at large. Re-run the sweep after a batch of glossary terms. */
+      glossOff: ["Sound", "Raleigh", "Alexander_III_of_Russia", "Hippias_(tyrant)", "John_Smith_(explorer)",
+        "Anderson_shelter", "Academy", "Jersey", "York", "Guinea", "United_Kingdom",
+        "Commonwealth_of_Nations", "Plantations_in_the_American_South"],
     },
     {
       id: "russian-primary-chronicle",

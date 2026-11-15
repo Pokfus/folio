@@ -1134,6 +1134,69 @@ const TREATY_PARTS = [
   "Guarantees",
   "Miscellaneous Provisions",
 ];
+/* THE WEALTH OF NATIONS' THIRTY-FOUR PAGES, in the order Wikisource transcludes them from the three
+   volumes of the Collier printing of 1902: Smith's Introduction, then Book I's eleven chapters, Book
+   II's introduction and five chapters, and Books III, IV and V. Each row is [Book, chapter, wiki page,
+   title]. The titles are TRANSCRIBED from the `section` field of each page's own header — never
+   composed — and then read against the heading the printed page carries, which wins where the two
+   differ: the printing spells "Labor" where the wiki's headers say "Labour", and II.2's header reads
+   "the Experience of maintaining the National Capital" where the page reads "Expense". A space missing
+   after a colon in three headers is the wiki's slip and is not carried. Book IV's short introduction is printed at the head of
+   its first chapter's page and comes through inside it, so it has no row of its own. A Folio chapter
+   is keyed by its continuous number; a reader cites "Book II, chapter 3", which is what `cite` keeps. */
+const WN_PAGES = [
+  ["", 0, "Introduction and plan of the work", "Introduction and Plan of the Work"],
+  ["I", 1, "Book I/Chapter 1", "Of the Division of Labor"],
+  ["I", 2, "Book I/Chapter 2", "Of the Principle which gives Occasion to the Division of Labor"],
+  ["I", 3, "Book I/Chapter 3", "That the Division of Labor is limited by the Extent of the Market"],
+  ["I", 4, "Book I/Chapter 4", "Of the Origin and Use of Money"],
+  ["I", 5, "Book I/Chapter 5", "Of the real and nominal Price of Commodities, or of their Price in Labor, and their Price in Money"],
+  ["I", 6, "Book I/Chapter 6", "Of the component Parts of the Price of Commodities"],
+  ["I", 7, "Book I/Chapter 7", "Of the natural and market Price of Commodities"],
+  ["I", 8, "Book I/Chapter 8", "Of the Wages of Labor"],
+  ["I", 9, "Book I/Chapter 9", "Of the Profits of Stock"],
+  ["I", 10, "Book I/Chapter 10", "Of Wages and Profit in the different Employments of Labor and Stock"],
+  ["I", 11, "Book I/Chapter 11", "Of the Rent of Land"],
+  ["II", 0, "Book II/Introduction", "Introduction"],
+  ["II", 1, "Book II/Chapter 1", "Of the Division of Stock"],
+  ["II", 2, "Book II/Chapter 2", "Of Money considered as a particular Branch of the general Stock of the Society, or of the Expense of maintaining the National Capital"],
+  ["II", 3, "Book II/Chapter 3", "Of the Accumulation of Capital, or of productive and unproductive Labor"],
+  ["II", 4, "Book II/Chapter 4", "Of Stock lent at Interest"],
+  ["II", 5, "Book II/Chapter 5", "Of the different Employment of Capitals"],
+  ["III", 1, "Book III/Chapter 1", "Of the Natural Progress of Opulence"],
+  ["III", 2, "Book III/Chapter 2", "Of the Discouragement of Agriculture in the ancient State of Europe after the Fall of the Roman Empire"],
+  ["III", 3, "Book III/Chapter 3", "Of the Rise and Progress of Cities and Towns, after the Fall of the Roman Empire"],
+  ["III", 4, "Book III/Chapter 4", "How the Commerce of the Towns contributed to the Improvement of the Country"],
+  ["IV", 1, "Book IV/Chapter 1", "Of the Principle of the commercial, or mercantile System"],
+  ["IV", 2, "Book IV/Chapter 2", "Of Restraints upon the Importation from foreign Countries of such Goods as can be produced at Home"],
+  ["IV", 3, "Book IV/Chapter 3", "Of the extraordinary Restraints upon the Importation of Goods of almost all Kinds, from those Countries with which the Balance is supposed to be disadvantageous"],
+  ["IV", 4, "Book IV/Chapter 4", "Of Drawbacks"],
+  ["IV", 5, "Book IV/Chapter 5", "Of Bounties"],
+  ["IV", 6, "Book IV/Chapter 6", "Of Treaties of Commerce"],
+  ["IV", 7, "Book IV/Chapter 7", "Of Colonies"],
+  ["IV", 8, "Book IV/Chapter 8", "Conclusion of the Mercantile System"],
+  ["IV", 9, "Book IV/Chapter 9", "Of the Agricultural Systems, or of those Systems of Political Economy, which represent the Produce of Land, as either the sole or the principal Source of the Revenue and Wealth of every Country"],
+  ["V", 1, "Book V/Chapter 1", "Of the Expenses of the Sovereign or Commonwealth"],
+  ["V", 2, "Book V/Chapter 2", "Of the Sources of the general or public Revenue of the Society"],
+  ["V", 3, "Book V/Chapter 3", "Of public Debts"],
+];
+const WN_PARTS = (() => {
+  const out = [];
+  WN_PAGES.forEach((r, i) => {
+    const label = r[0] ? "Book " + r[0] : "Introduction";
+    const last = out[out.length - 1];
+    if (last && last.label === label) last.to = i + 1;
+    else out.push({ n: out.length + 1, label: label, from: i + 1, to: i + 1 });
+  });
+  return out;
+})();
+function wnTitle(n) {
+  const r = WN_PAGES[n - 1];
+  if (!r) return "Chapter " + n;
+  // the Introductions are titled as the edition titles them; a chapter carries its citation
+  if (!r[0] || !r[1]) return r[3];
+  return r[0] + "." + r[1] + " — " + r[3];
+}
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -18983,6 +19046,96 @@ const BOOKS = {
     titleOf: (n) => TREATY_PARTS[n - 1],
     chapters: Array.from({ length: 15 }, (_, i) => i + 1),
   },
+  "smith-wealth-of-nations": {
+    title: "The Wealth of Nations",
+    subtitle: "An Inquiry into the Nature and Causes of the Wealth of Nations",
+    author: "Adam Smith",
+    /* NO `translator`: written in English, as Macbeth and the Declaration were, so the run header and
+       the rights box name the printing instead. */
+    edition: "P. F. Collier & Son, New York, 1902, in three volumes",
+    written: "1776",
+    year: 1776,
+
+    /* ---------- THE LICENCE ----------
+       The plainest kind. Smith wrote in English and died in 1790, so there is no translator and no
+       life term to state. The printing transcribed is Collier's of 1902 (read off the title page of
+       volume 1 and the index page at Wikisource, which both name P. F. Collier & Son, New York,
+       MCMII) — a pre-1929 publication, so even the edition's own typesetting is free in the United
+       States. Wikisource marks the transcription proofread and validated and tags it PD-old. What the
+       volumes add around Smith — Collier's unsigned biographical note, the preface, the "Introductory
+       Sketch of the History of Political Economy", the appendix and the index — is not taken. */
+    rights:
+      "Public domain. Adam Smith published the book in 1776 and died in 1790, and he wrote in English, " +
+      "so there is no translation to date. The text is that of the edition printed by P. F. Collier & " +
+      "Son in New York in 1902, a publication before 1929 and so in the public domain in the United " +
+      "States as well. What is taken is Smith's Introduction and the five books; the publisher's " +
+      "biographical note, the preface, the introductory sketch of the history of political economy, " +
+      "the appendix and the index are not reproduced.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Wealth_of_Nations",
+
+    /* THE FRONT MATTER. The standard account of the book and nothing past it: where a famous phrase
+       is famous out of proportion to its place in the text (the invisible hand), it says so. */
+    about: [
+      "<b>The Wealth of Nations</b> is an inquiry, as its full title says, into the nature and causes " +
+        "of the wealth of nations: what makes one country rich and another poor, and what a government " +
+        "does that helps or hinders it. Adam Smith published it in London in 1776, in two volumes, and " +
+        "it is the book from which economics as a separate subject is usually dated — not because " +
+        "nobody had written about trade and money before, but because nobody had put the whole of it " +
+        "into one connected argument.",
+      "Smith was born in Kirkcaldy in Fife in 1723, studied at Glasgow and at Balliol College, " +
+        "Oxford, and was professor of moral philosophy at Glasgow when he published his first book, " +
+        "<i>The Theory of Moral Sentiments</i>, in 1759. In 1764 he left the university to travel in " +
+        "France as tutor to the young Duke of Buccleuch, and there he met the French economists who " +
+        "called themselves the <i>économistes</i> — François Quesnay and Anne-Robert-Jacques Turgot " +
+        "among them — whose ideas he argues with in Book IV. He spent most of the next decade writing " +
+        "this book, largely at home in Kirkcaldy. Two years after it appeared he was made a " +
+        "commissioner of customs in Edinburgh, and he died there in 1790.",
+      "The argument begins with the division of labour, and with a pin factory: one man working " +
+        "alone could hardly make twenty pins in a day, Smith says, but ten men each doing one part of " +
+        "the job made upwards of forty-eight thousand. From there Book I works through money, prices, " +
+        "wages, profits and rent; Book II is about capital, and what makes some labour productive and " +
+        "some not; Book III is a history of how Europe grew rich after the fall of Rome, and why it did " +
+        "so in what Smith thinks the wrong order. Book IV is the long attack on what he calls the " +
+        "mercantile system — the belief that a nation grows rich by hoarding gold and protecting its " +
+        "trade — and on the colonial policies built on it, written while the American colonies were " +
+        "moving towards rebellion. Book V turns to what a government should do and how it should pay " +
+        "for it: defence, justice, public works, education, and the taxes and debts that fund them.",
+      "Two things are worth knowing before you start. The \"invisible hand\" for which the book is " +
+        "most often quoted appears in it exactly once, in the second chapter of Book IV, in a passage " +
+        "about why a merchant prefers to invest at home; it is a phrase in an argument, not the " +
+        "book's thesis. And Smith is a good deal less simple than the slogans made of him. He is " +
+        "suspicious of merchants and manufacturers who meet together, warns that the division of " +
+        "labour can leave a worker \"as stupid and ignorant as it is possible for a human creature to " +
+        "become\" unless the public pays for schools, and spends much of Book V on things he thinks " +
+        "only a state can provide.",
+      "The text is that of the three-volume edition published by P. F. Collier & Son in New York in " +
+        "1902, as transcribed and proofread at Wikisource. Smith revised the book through five " +
+        "editions in his lifetime and the third, of 1784, added a good deal of new material; the " +
+        "Collier volumes do not say which edition they reprint, and so this page does not either. The " +
+        "numbered notes folded under a chapter are those printed at the foot of the edition's pages, " +
+        "and they are of two kinds: most are Smith's own references, but about a fifth are comments " +
+        "by the 1902 edition's unnamed editor, signed <i>—Ed.</i>, written more than a century after " +
+        "the book and often arguing with it. " +
+        "Each chapter's title carries the reference it is cited by — I.1 is Book I, chapter 1 — and " +
+        "the short introduction Smith wrote for Book IV stands at the head of that book's first " +
+        "chapter, where this printing sets it.",
+    ],
+
+    chapterWord: "Chapter",
+    titleOf: (n) => wnTitle(n),
+    // the printed BOOK / CHAPTER / title lines Folio's own heading already says — see wealthHeads
+    head: "wealth",
+    parts: WN_PARTS,
+    page: (n) => "The Wealth of Nations/" + WN_PAGES[n - 1][2],
+    chapters: Array.from({ length: WN_PAGES.length }, (_, i) => i + 1),
+    count: WN_PAGES.length,
+    total: WN_PAGES.length,
+    reFixes: [
+      [/whole body_of(\s+)the people/g, "whole body of$1the people",
+       "an underscore for a space in IV.5, in 'paid by the whole body of the people' (book-audit's OCR sentinel)"],
+    ],
+  },
 };
 
 /* ---------- args ---------- */
@@ -32209,8 +32362,96 @@ function joinBrokenParas(chapters) {
     (kept ? ", kept " + kept + " prose/verse boundar" + (kept === 1 ? "y" : "ies") : ""));
 }
 
+/* ============================================================
+   THE WEALTH OF NATIONS' PRINTED HEADS                     (head: "wealth")
+   ============================================================
+   Nov 2026, adding the Wealth of Nations. A hook, not a layout: the book goes through the ordinary
+   wiki walk and `cleanBody` untouched. What Collier's printing adds at the top of a chapter is one to
+   three centred blocks mixing four things — the running title ("AN INQUIRY INTO THE NATURE AND
+   CAUSES OF / THE WEALTH OF NATIONS"), "BOOK IV", "CHAPTER VII" with the chapter's title under it,
+   and an "introduction" or "(Continued)" label — with two things that are TEXT: the Book's own
+   subtitle ("Of Systems of Political Economy") and the first "Part I" head of a chapter divided into
+   parts. `dropHeads` cannot do it, because it keeps or drops a block WHOLE and four of these blocks
+   hold a line of each kind (IV.7's is "CHAPTER VII / of colonies / Part I / Of the Motives…").
+   So the leading blocks are read line by line: the furniture Folio already prints in its own
+   heading (the part bar says the Book, the tab says the chapter and its title) goes, and the rest is
+   set back as blockquotes in the shape the mid-chapter "Part II" heads already have. A footnote
+   marker hung on a dropped line (I.5's "CHAPTER V", an editor's note) is carried to the end of the
+   chapter's first paragraph rather than lost. Runs in `writeEnglish`, on cached and fresh chapters
+   alike, and counts what it did on every run. Idempotent: a second pass finds no furniture. */
+function wealthHeads(chapters) {
+  const FURNITURE = [
+    /^AN INQUIRY INTO THE NATURE AND CAUSES OF$/i, /^THE WEALTH OF NATIONS$/i,
+    /^BOOK [IVX]+$/i, /^introduction(?: and plan of the work)?$/i,
+  ];
+  const textOf = (s) => s.replace(/<[^>]*>/g, " ").replace(/&nbsp;|&#\d+;/g, " ").replace(/\s+/g, " ").trim();
+  let dropped = 0, kept = 0, carried = 0;
+  for (const c of chapters) {
+    let b = c.html, head = "";
+    // the leading blocks, balanced so V.1's nested blockquote is taken whole
+    for (;;) {
+      const m = b.match(/^\s*<blockquote>/);
+      if (!m) break;
+      let depth = 0, i = 0, end = -1;
+      const re = /<(\/?)blockquote>/g;
+      let t;
+      while ((t = re.exec(b))) {
+        depth += t[1] ? -1 : 1;
+        if (depth === 0) { end = t.index + t[0].length; break; }
+      }
+      if (end < 0) break;
+      head += b.slice(0, end).replace(/<\/?blockquote>/g, "\n");
+      b = b.slice(end);
+      i++;
+    }
+    if (!head) continue;
+    const lines = head.split(/<\/?p>|\n/).map((s) => s.trim()).filter((s) => textOf(s));
+    const groups = [];
+    const sups = [];
+    let afterChapter = false;
+    for (const line of lines) {
+      const t = textOf(line);
+      const dropIt = () => { dropped++; (line.match(/<sup class="fn"[^>]*><\/sup>/g) || []).forEach((s) => sups.push(s)); };
+      if (afterChapter) { afterChapter = false; dropIt(); continue; }       // the chapter's title
+      if (/^CHAPTER [IVXL]+$/i.test(t)) { afterChapter = true; dropIt(); continue; }
+      if (/\(\s*Continued\s*\)$/i.test(t) || FURNITURE.some((rx) => rx.test(t))) { dropIt(); continue; }
+      kept++;
+      // a Part head opens its own block; the line after a bare "Part I" is its title, in the same block
+      const last = groups[groups.length - 1];
+      if (/^Part [IVX]+\b/.test(t) || !last || last.open === false) groups.push({ lines: [line], open: /^Part [IVX]+$/.test(t) });
+      else { last.lines.push(line); last.open = false; }
+    }
+    let rest = b.replace(/^\s+/, "");
+    /* THE NEXT BOOK'S OPENING, TRANSCLUDED A PAGE TOO FAR. I.11's page asks for scan pages 236–391
+       with no closing section, and page 391 is wholly Book II's half-title and the first paragraphs of
+       its introduction — which the next chapter's own page transcludes again. So I.11 ended on "A
+       weaver", mid-sentence, with Book II's head standing above it as a quotation (check-cutoff found
+       it). A Book's head can only open a chapter, so one found anywhere later is that overlap, and the
+       chapter is cut there — only when the next chapter really does open on the same words. */
+    const later = rest.search(/<blockquote>\s*<p>BOOK [IVX]+<\/p>/);
+    if (later > 0) {
+      const next = chapters.find((x) => x.n === c.n + 1);
+      const probe = textOf(rest.slice(later)).slice(120, 200);
+      if (next && probe && textOf(next.html).includes(probe)) {
+        console.log("  " + BOOK.chapterWord + " " + c.n + ": cut " + (rest.length - later) +
+          " characters of the next Book's opening, transcluded a page too far");
+        rest = rest.slice(0, later).replace(/\s+$/, "");
+      }
+    }
+    if (sups.length) {
+      const k = rest.indexOf("</p>");
+      if (k >= 0) { rest = rest.slice(0, k) + sups.join("") + rest.slice(k); carried += sups.length; }
+    }
+    c.html = groups.map((g) => "<blockquote>\n" + g.lines.map((l) => "<p>" + l + "</p>").join("") + "\n</blockquote>\n").join("") + rest;
+    c.t = chapterTitle(c.n);
+  }
+  console.log("  printed heads: " + dropped + " line(s) of furniture dropped, " + kept + " kept (Book subtitles and Part heads), " +
+    carried + " note marker(s) carried to the first paragraph");
+}
+
 function writeEnglish(chapters, warnings) {
   chapters.sort((a, b) => a.n - b.n);
+  if (BOOK.head === "wealth") wealthHeads(chapters);
   /* A tag the source escaped, which would otherwise be PRINTED — see dropEscapedTags for the three
      tests and for why this is here rather than in `stripTags`. */
   dropEscapedTagsIn(chapters);

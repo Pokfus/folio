@@ -2672,3 +2672,20 @@ interrupted by them; each of its three shapes fails quietly on the ordinary path
 
 Re-run after touching: `node .claude/fetch-book.js treaty-of-versailles --force` (no raw cache on this path —
 it refetches 17 pages), then `node .claude/book-audit.js` and `node .claude/check-cutoff.js`.
+
+## The `wealth` head hook — a chapter head that mixes furniture and text (Nov 2026, the Wealth of Nations)
+
+`head: "wealth"` → `wealthHeads`, called at the top of `writeEnglish` (so it runs on cached and fresh
+chapters alike, and a change to it needs no refetch). Collier's 1902 printing opens a chapter with one to
+three centred blocks that mix what Folio already prints (the running title, "BOOK IV", "CHAPTER VII" and
+the title under it, "introduction", "(Continued)") with what is text (the Book's own subtitle, a chapter's
+first "Part I" head). `dropHeads` keeps or drops a block whole, so it cannot split them; the hook reads the
+leading blocks line by line, drops the furniture, sets the rest back as blockquotes shaped like the
+mid-chapter Part heads, and carries a note marker hung on a dropped line to the first paragraph.
+Two things it settled:
+· **A Book's head found anywhere but the top of a chapter is a page transcluded twice.** I.11's wiki page
+  asks for scan pages 236–391 with no closing section, and page 391 is wholly Book II's — so I.11 ended
+  "…A weaver" with Book II's half-title above it. `check-cutoff.js` found it; the hook cuts there, but only
+  when the next chapter really opens on the same words, and says so on every run.
+· **The printed head beats the wiki's `section` header.** The headers say "Labour" where the page prints
+  "Labor", and "Experience" for II.2's "Expense"; `WN_PAGES` transcribes the page.
