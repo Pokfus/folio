@@ -274,3 +274,7 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~220 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/hebrew-cache/
+# the corpora .claude/amharic/run.py builds the Amharic decks from — the Wiktionary
+# extract, the Amharic Wikipedia dump and the Tatoeba exports (~130 MB) — plus the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/amharic-cache/
