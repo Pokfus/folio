@@ -11260,7 +11260,8 @@ window.CARD_DATA = [
 {"id":"gin-018","num":"018","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Haryana","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">1 November 1966</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Haryana","tags":["place","geography","india","state","north india"],"difficulty":3,"map":{"layer":"india-states"},"facts":[["Kind","State"],["Capital","Chandigarh"],["Population","25.4M (2011)"],["Area","44.2k km² (17.1k sq mi)"]]},
 {"id":"gin-518","num":"518","category":"Geography","question":"The dot marks <span class=\"blank\">_____</span>, capital of the shaded state though it lies in a union territory beside it.","answer":"Chandigarh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">First census</span><span class=\"dt-v\">1961</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Chandigarh","tags":["place","city","geography","capital","india"],"difficulty":3,"map":{"layer":"india-states","dot":"Chandigarh"},"facts":[["Capital of","Haryana and Punjab"],["Lies in","Chandigarh (union territory)"],["Population","962k (2011)"],["Area","103 km² (39.8 sq mi)"]]},
 {"id":"gin-017","num":"017","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Chhattisgarh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">1 November 2000</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Chhattisgarh","tags":["place","geography","india","state","central india"],"difficulty":3,"map":{"layer":"india-states"},"facts":[["Kind","State"],["Capital","Raipur"],["Population","25.5M (2011)"],["Area","135k km² (52.2k sq mi)"]]},
-{"id":"gin-517","num":"517","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Raipur","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Seat of division</span><span class=\"dt-v\">1818</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Raipur","tags":["place","city","geography","capital","india"],"difficulty":4,"map":{"layer":"india-states","dot":"Raipur"},"facts":[["State","Chhattisgarh"],["Population","1.01M (2011)"],["Area","148 km² (57.0 sq mi)"],["Rank in state","Largest city"]]}
+{"id":"gin-517","num":"517","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Raipur","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Seat of division</span><span class=\"dt-v\">1818</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Raipur","tags":["place","city","geography","capital","india"],"difficulty":4,"map":{"layer":"india-states","dot":"Raipur"},"facts":[["State","Chhattisgarh"],["Population","1.01M (2011)"],["Area","148 km² (57.0 sq mi)"],["Rank in state","Largest city"]]},
+{"id":"gin-701","num":"701","category":"Geography","question":"The city marked on the map is <span class=\"blank\">_____</span>.","answer":"Ahmedabad","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Founded</span><span class=\"dt-v\">1411</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ahmedabad","tags":["place","geography","india","city"],"difficulty":3,"locator":{"name":"Ahmedabad","at":[72.5714,23.0225],"zoom":6,"ask":true},"facts":[["Population","5.63M (2011)"],["Area","519 km² (200 sq mi)"],["State","Gujarat"],["Known for","Walled old city, cotton mills"]],"notes":["Population and area are the census entry ‘(a) Ahmadabad’ of table A-04 (the municipal corporation with its outgrowths), the city line under the urban agglomeration of 6.36 million.","The Sabarmati Riverfront sentence rests on Pessina's abstract; the heavy-metal sentence on Mohanty et al.'s; the semi-arid catchment on Sonam et al.'s."]}
 ];
 
 window.COLLECTION_TREE = {
@@ -29259,7 +29260,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-india",
       "title": "India",
-      "total": 34,
+      "total": 35,
       "placeholder": false,
       "children": [
         {
@@ -29314,7 +29315,9 @@ window.COLLECTION_TREE = {
           "id": "geo-india-cities",
           "title": "Other great cities",
           "placeholder": false,
-          "cardIds": []
+          "cardIds": [
+            "gin-701"
+          ]
         },
         {
           "id": "geo-india-water",

@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"4aa30c02b0da4732","counts":{"terms":984,"points":747,"countries":237,"windows":1619,"faces":397,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"291af27b85ba2181","counts":{"terms":985,"points":748,"countries":237,"windows":1620,"faces":397,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -19,6 +19,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"4aa30c02b0da4732","counts":
 "Aegina":"pl:q191082",
 "Afar_Region":"pl:q193494",
 "Afghanistan":"adm0:afg",
+"Ahmedabad":"city:1159151433",
 "Ai-Khanoum":"pl:q857845",
 "Alabama":"adm1:usa:us-al",
 "Alaska":"reg:1159104349",
@@ -1011,6 +1012,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"4aa30c02b0da4732","counts":
 "Aelia_Capitolina":[35.231,31.776,"coord",0,0,0],
 "Afar_Region":[41.417,11.817,"region",0,0,0],
 "Afghanistan":[66.5,34.16,"country","adm0:afg",0,5.73],
+"Ahmedabad":[72.578,23.032,"city",0,0,0],
 "Ai-Khanoum":[69.411,37.166,"site",0,0,0],
 "Akkadian_Empire":[43.604,33.765,"polity","pol:akkad",-2250,3.33],
 "Akrotiri":[25.404,36.351,"coord",0,0,0],
