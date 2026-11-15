@@ -23,8 +23,9 @@ say, `gw-audit.js`'s four rules, the date line), and 📖 **`docs/russia-geograp
 recent collection built on both and the closest model — **read the sections each deck below points at before
 writing a card**. This file records only the running orders and the decisions particular to India.
 
-The next card to write is the lowest `gin-NNN` not in `data.js` — since 2026-11-14 every deck can be written (the wait
-below is over), so that is `gin-001`:
+**Written so far (2026-11-15): 34 cards** — the states `gin-001`–`gin-018` and their capitals `gin-501`–`gin-508` and
+`gin-511`–`gin-518`; `gin-509` and `gin-510` are deferred (see "As written" below). The cities, water and mountains decks
+are not begun. The next card to write is the lowest `gin-NNN` not in `data.js` — `gin-019` Delhi:
 
     node .claude/next-cards.js gin- 5
 
@@ -281,6 +282,17 @@ sandbox (knowindia, up.gov.in, ap.gov.in, surveyofindia, data.gov.in); **these a
   `notes` says so; **Telangana's are the state government's** (35,003,674; 112,077 km²), never the map's.
 - **Map cards carry no `why`** (`checkWhy` exempts them); the glossary term of each answer is new and written from the
   card's own sources.
+
+- **The two Chandigarh capitals** (`gin-516` Punjab, `gin-518` Haryana) ask *"The dot marks ___, capital of the shaded
+  state though it lies in a union territory beside it."* and say so again in the background; the two backgrounds are
+  written separately from the same open sources (Mihkelson et al. 2024 on the master plan, the Constitution on the 1966
+  act), and the glossary term `Chandigarh` is shared with the union territory's own card, `gin-031`, still to be written.
+- **Dispur** (`gin-515`) is a ward of Guwahati, not a census town: its grid gives Guwahati's figures under labelled rows
+  and the ward's own size from the ward table of Basumatary and Anand (2018).
+- **The sentences that failed review, and why** (recorded so a later batch does not repeat them): a claim inferred rather
+  than read (a "Telugu-speaking" region, "hill districts", "snows" feeding a river, a "pesticide factory") was cut every
+  time it appeared; a date already on the date line was taken out of the prose; and every IGI page was re-searched
+  before commit.
 
 **Deferred (written later or never, never renumbered):**
 - **`gin-509` Gandhinagar** — no opened source gives the planned capital's founding and history (the only open study,
