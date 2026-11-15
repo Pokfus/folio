@@ -5,8 +5,8 @@ Finnish set built in the Hungarian decks' shape (`docs/hungarian-decks-plan.md`,
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless
 this file says otherwise. Asked for on 2026-11-15: "Add a Finnish language collection."
 
-**STATUS (2026-11-15): the alphabet deck and every level, A1 to C1, are built** (`.claude/finnish/`, §6–§10). A
-phrases deck is not.
+**STATUS (2026-11-15): COMPLETE — the alphabet deck, every level (A1 to C1) and the phrases deck are built**
+(`.claude/finnish/`, §6–§11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP — the
@@ -35,6 +35,7 @@ the closest language and pipeline). **Any of these is the owner's to overrule.**
 | Finnish B1 Intermediate — built | `Finnish-B1.folio-deck.json` | 1,000 |
 | Finnish B2 Upper Intermediate — built | `Finnish-B2.folio-deck.json` | 1,500 |
 | Finnish C1 Advanced — built | `Finnish-C1.folio-deck.json` | 1,500 |
+| Finnish Phrases and Expressions — built | `Finnish-Phrases-and-Expressions.folio-deck.json` | 1,832 |
 
 ## 2. Sources and licences
 
@@ -99,7 +100,7 @@ headword line and are missing where Wiktionary gives none.
 
 **Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2 (done, §7–§10)** — A2 to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `finnish_level.py`, run, read every card.
-**Phase 3** — a phrases deck (Hungarian's `phrases.py` is the model).
+**Phase 3 (done, §11)** — a phrases deck (Hungarian's `phrases.py` is the model).
 
 ## 6. As built (2026-11-15): the alphabet and A1
 
@@ -208,3 +209,32 @@ a synonym pointer only) and tells `uskonnollinen` from `uskova`.
 **The check read the English as Finnish.** `check-finnish.js` tested an example's English with the Finnish swear
 prefixes, so `perse` matched "perseverance" at B2 and "persecuted" at C1. It now reads the Finnish sentences only,
 as `examples.clean` does, and keeps its separate English test.
+
+## 11. As built (2026-11-15): the phrases deck
+
+Asked for on 2026-11-15: "Add phrases." `python3 .claude/finnish/run.py --level phr` (`phrases.py`, ported from
+`.claude/hungarian/phrases.py`): 1,832 expressions in three subdecks — 492 phrases, 933 idioms, 407 proverbs —
+Wiktionary's own classes (an expression filed as a phrase or an interjection and not tagged idiomatic; a sense
+tagged idiomatic; the part of speech `proverb`). Nothing a level deck teaches is taught again. Within a subdeck
+the order is how many of Tatoeba's Finnish sentences contain the expression (502 do), an idiom that is a verb
+matched with its verb in any form and, two words long, in either order (`examples.phrase_hits`); then the
+expression's frequency estimate. Sentences for 494, three apiece for 166: most idioms and proverbs are in no
+Tatoeba sentence, and the description says so. A1 to C1 rebuild byte-identical; a re-run is byte-identical.
+
+It is the largest phrases deck on the shelf after Dutch's because Finnish Wiktionary is rich in idioms and
+proverbs; it was not cut to a size. **What the first build and the reading found:**
+- **A capitalised word inside an expression was dropped by the tokenizer** (`tokens` skips a capital inside a
+  sentence), so `kuin Ruuneperi` was matched on `kuin` alone and came FIRST in the Phrases subdeck. The phrase
+  matcher now reads every word of the expression.
+- **Variants glossed alike** (`rakastan sinua`, `minä rakastan sinua`, `mä rakastan sua`): one expression per
+  meaning is kept, the commonest; an expression with a spoken spelling (`examples.COLLOQUIAL`) never is. Real
+  synonyms whose glosses differ in a word (two proverbs for "measure twice and cut once") stay, told apart by
+  the shelf's dedupe label.
+- **Senses that are no meaning**: twelve expressions whose every sense was "Used other than figuratively …: see
+  …", "synonym of …" or "A (pronunciation) variant of …" came out with no English; `phrases.good` drops those
+  senses before an expression is chosen.
+- **`EXCLUDE`**, each with its reason: fragments (`elämä on`, `en puhu`), personal sentences (`olen hetero`, `en
+  ole uskonnollinen`, Hungarian's rule), foreign phrases (`c'est la vie`, `iter semel`, `dagen efter`), and the
+  rude, crude or violent (`turpa kiinni`, `pää kiinni`, `haista home`, `älä hitossa`, `istu ja pala`, `reikä
+  päähän`, `päästä pukille`, `vanha pieru`, `antaa turpaan`). The phrasebook's questions (`puhutko englantia`,
+  `tarvitsen lääkärin`) stay.
