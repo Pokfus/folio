@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T21:27Z",
+ "generated": "2026-11-15T21:30Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8276,
+  "ok": 8278,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89272,6 +89272,20 @@
    "answer": "Tamil Nadu",
    "title": "Tamil Nadu",
    "url": "https://en.wikipedia.org/wiki/Tamil_Nadu",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-007": {
+   "answer": "Rajasthan",
+   "title": "Rajasthan",
+   "url": "https://en.wikipedia.org/wiki/Rajasthan",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-507": {
+   "answer": "Jaipur",
+   "title": "Jaipur",
+   "url": "https://en.wikipedia.org/wiki/Jaipur",
    "via": "answer",
    "status": "ok"
   }
