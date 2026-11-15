@@ -10251,7 +10251,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      and definition split by a tab, a comma or a semicolon) — and turns them into a deck file, which then goes through
      `uDeckImportText` like any other: so `uDeckNormalize` stays the one ingest choke point and every field is sanitized
      there. The first two fields that are not a GUID, a note type, a deck or tags are the front and the back; a third and
-     later field is kept on the back under a rule. An Anki deck column becomes the subdeck path (both use "::"). A cloze
+     later field is kept on the back under a rule; the tags column is read past and dropped (a card of your own carries no tags). An Anki deck column becomes the subdeck path (both use "::"). A cloze
      note is brought in as a Basic card, its deletions shown as [...] on the front and in full on the back. Text that is
      not marked HTML is escaped, its line breaks kept. Nothing is fetched: an Anki .apkg (a zipped database) is not read,
      and the message says so. */
@@ -10303,7 +10303,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         CLOZE.lastIndex = 0;
         const full = front.replace(CLOZE, "$1");
         front = front.replace(CLOZE, "[...]");
-        back = full + (back ? "\n\n" + back : "");
+        back = full + (back ? (html ? "<br><br>" : "\n\n") + back : "");
       }
       CLOZE.lastIndex = 0;
       if (!String(front).trim() && !String(back).trim()) return;
@@ -10317,7 +10317,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function uDeckImportPlainText(text, fileName) {
     const got = ankiTextToDeck(text, fileName);
     if (!got.deck.cards.length) return { error: "No cards were found in that file. Export notes as plain text, one note a line." };
-    const r = uDeckImportText(JSON.stringify(got.deck), true);
+    const r = uDeckImportText(JSON.stringify(got.deck), false);   // no id in the file, so it is given a fresh one
     if (r && !r.error && got.cloze) setTimeout(() => toast(got.cloze + " cloze note" + (got.cloze === 1 ? " was" : "s were") + " brought in as Basic cards"), 2500);
     return r;
   }
