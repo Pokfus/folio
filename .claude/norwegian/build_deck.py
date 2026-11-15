@@ -33,7 +33,8 @@ from nb import fold, WORD as NBWORD
 from norwegian_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
-STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-15T00:00:00.000Z'}[LEVEL]
+STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-15T00:00:00.000Z',
+         'b1': '2026-11-15T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'norwegian'
@@ -163,6 +164,21 @@ GLOSS = {
                        'to nurse, to care for, to look after']},
     'rive': {'verb': ['to tear, to rip, to scratch', 'to grate']},   # Wiktionary's carry "+ av"
     'amerikaner': {'noun': ['American (a person from America)']},
+    # B1 (2026-11-15)
+    'elskling': {'noun': ['darling, love (a term of address)']},
+    'rote': {'verb': ['to make a mess, to untidy']},          # its second is sexual
+    'eldre': {'adj': ['older, elder (the comparative of gammel)', 'elderly (de eldre, "the elderly")']},
+    'hjelp': {'intj': ['help!']},
+    'vogn': {'noun': ['wagon, cart, carriage']},
+    'tenne': {'verb': ['to light, to set fire to', 'to turn on (a lamp)']},   # its third is sexual
+    'engel': {'noun': ['angel', 'guardian, protector']},
+    'majestet': {'noun': ['majesty']},
+    'jøde': {'noun': ['Jew']},
+    'lengre': {'adj': ['longer (the comparative of lang)', 'ikke lengre: no longer']},
+    'døgn': {'noun': ['day and night, a 24-hour period']},
+    'sankthans': {'noun': ['Midsummer (the observance on the evening of 23 June)']},
+    'forholde': {'verb': ['to withhold', 'forholde seg til: to relate to']},
+    'tyste': {'verb': ['to snitch, to inform on someone (usually to the police)']},
 }
 
 # A WORD WIKTIONARY FILES ONLY AS A FORM OF ANOTHER, which a learner meets as a word of its
@@ -183,6 +199,8 @@ LEAD = {
     'kone': 'wife',                           # first listed is "housewife"
     'middag': 'dinner',                       # first listed is "noon, midday"
     'kjøtt': 'meat (animal flesh as food)',   # first listed is "flesh"
+    'forbrytelse': 'crime',                   # first listed is "forfeiture"
+    'pusse': 'to polish, to brush',           # first listed is "to incite"
 }
 
 # NO ARTICLE for a language's name, which Norwegian uses without one (jeg snakker norsk)
@@ -204,11 +222,14 @@ DROP_POS = {('bak', 'noun'), ('lege', 'verb'), ('godt', 'noun'), ('ut', 'intj'),
             # A2
             ('hyggelig', 'intj'), ('straks', 'noun'), ('straks', 'conj'), ('særlig', 'intj'),
             ('hylle', 'verb'), ('ende', 'adv'), ('le', 'adj'), ('le', 'noun'), ('kul', 'noun'),
-            ('konge', 'adj'), ('gift', 'noun'), ('røre', 'noun'), ('skille', 'noun')}
+            ('konge', 'adj'), ('gift', 'noun'), ('røre', 'noun'), ('skille', 'noun'),
+            # B1
+            ('rulle', 'noun'), ('helse', 'verb'), ('spy', 'noun'), ('øse', 'noun'), ('trosse', 'noun')}
 
 # A FORM WIKTIONARY MIS-TAGS, not shown: `dradd` is listed as a past of dra (dro).
 FORM_DROP = {('dra', 'dradd'),
-             ('drive', 'drivende')}   # the present participle, tagged a present
+             ('drive', 'drivende'),   # the present participle, tagged a present
+             ('rense', 'rensende'), ('ydmyke', 'pparticiple ydmykende')}
 
 NOT_A_MEANING = re.compile(
     r'^\*?\s*see:|^synonym of |senses\.?$|^(?:indefinite|definite|genitive|neuter|plural|'

@@ -103,4 +103,50 @@ A2 = [
     ('connectors', 'derfor selv_om likevel altså dessuten enten verken unntatt'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2}
+# B1 (2026-11-15): the CEFR B1 descriptor's "familiar matters regularly encountered in work,
+# school, leisure" -- the Swedish B1 topic list in Bokmål.  Words lower levels teach are skipped.
+B1 = [
+    ('work and the economy', 'økonomi arbeidsgiver arbeidstaker lærling praksis utdanning '
+                             'erfaring søknad intervju kontrakt kostnad utgift inntekt pensjon '
+                             'fagforening streik gevinst tap marked kunde heltid deltid '
+                             'overtid oppsigelse forfremme'),
+    ('society and politics', 'samfunn politikk politiker parti kommune borger innvandrer '
+                             'flyktning demokrati rettighet plikt myndighet domstol forbrytelse '
+                             'straff anmeldelse stemme:verb demonstrasjon'),
+    ('media and technology', 'nyhet artikkel program kanal internett nettside e-post passord '
+                             'skjerm tastatur laste lagre slette:verb annonse reklame'),
+    ('the environment', 'miljø klima forurensning avfall gjenvinning energi strøm bensin utslipp '
+                        'beskytte jordbruk landskap flom tørke:noun'),
+    ('education', 'videregående høyskole fag eksamen oppgave forelesning lærebok rektor semester '
+                  'kunnskap'),
+    ('relationships and family life', 'forhold ekteskap skilsmisse samboer kjæreste vennskap '
+                                      'slekt slektning fetter kusine tante onkel svigermor '
+                                      'barnebarn tenåring oppvekst bryllup'),
+    ('home and housing', 'bolig leieboer utleier enebolig rekkehus pusse_opp møbel oppvarming '
+                         'vaskemaskin oppvaskmaskin støvsuger balkong kjeller loft'),
+    ('health and the body', 'helse sykdom skade:noun behandling operasjon vaksine allergi stresse '
+                            'søvn mosjon kosthold vekt lunge skjelett muskel hud blodtrykk akutt '
+                            'ambulanse undersøkelse'),
+    ('travel and experiences', 'reisebyrå bestilling utflukt severdighet opplevelse eventyr utsikt '
+                               'overnatting vandrerhjem telt toll valuta kyst foss'),
+    ('culture and leisure', 'kultur konsert utstilling roman forfatter dikt maleri kunstner '
+                            'forestilling publikum scene tradisjon sankthans høytid hobby '
+                            'interesse'),
+    ('feelings and opinions', 'oppfatning håp:noun uro skuffelse sorg skam misunnelse stolthet '
+                              'tillit tvil foretrekke påstand'),
+    ('thinking and talking', 'forklaring eksempel løsning forslag diskusjon argument fordel ulempe '
+                             'årsak følge:noun resultat hensikt sammenligning likhet beskrivelse'),
+    ('verbs of B1', 'påvirke utvikle forbedre minske øke erstatte gjenta kritisere klage oppmuntre '
+                    'støtte:verb organisere delta:verb gjennomføre beslutte anbefale tillate forby '
+                    'lykkes mislykkes oppleve'),
+    ('describing and judging', 'urettferdig rettferdig selvstendig ansvarlig pålitelig '
+                               'nysgjerrig sta sjenert modig lat flittig positiv negativ '
+                               'tilstrekkelig passe:adj behagelig ubehagelig offentlig moderne '
+                               'tradisjonell økonomisk politisk sosial'),
+    ('time and frequency', 'hittil samtidig etter_hvert til_slutt stadig hverdag '
+                           'århundre tiår'),
+    ('connectors and argument', 'derimot ettersom med_mindre nemlig '
+                                'for_eksempel i_hvert_fall uansett'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}

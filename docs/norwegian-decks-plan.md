@@ -5,7 +5,7 @@ Norwegian (Bokmål) set, built in the Swedish decks' shape (`docs/swedish-decks-
 `.claude/norwegian/` adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there
 applies here unless this file says otherwise. Asked for on 2026-11-15: "Add a Norwegian language collection."
 
-**STATUS (2026-11-15): A1 and A2 are built** (`.claude/norwegian/`, §6–§7). B1–C1 and a phrases deck follow on request.
+**STATUS (2026-11-15): A1, A2 and B1 are built** (`.claude/norwegian/`, §6–§8). B2, C1 and a phrases deck follow on request.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP —
@@ -31,7 +31,7 @@ is the owner's to overrule.**
 |---|---|---|
 | Norwegian A1 Beginner — built | `Norwegian-A1.folio-deck.json` | 500 |
 | Norwegian A2 Elementary — built | `Norwegian-A2.folio-deck.json` | 750 |
-| Norwegian B1 Intermediate | `Norwegian-B1.folio-deck.json` | 1,000 |
+| Norwegian B1 Intermediate — built | `Norwegian-B1.folio-deck.json` | 1,000 |
 | Norwegian B2 Upper Intermediate | `Norwegian-B2.folio-deck.json` | 1,500 |
 | Norwegian C1 Advanced | `Norwegian-C1.folio-deck.json` | 1,500 |
 
@@ -96,7 +96,7 @@ frequency, as every subtitle-ordered deck on the shelf does. Tatoeba has fewer B
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2 done) — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2 and B1 done) — A2 to C1, one level per session: write the level's
 inventory into `inventory.py`, its `SCOPE` into `norwegian_level.py` (already written for all five) and its
 `STAMP` into `build_deck.py`, run, read every card. **Phase 3** — a phrases deck (Swedish's `phrases.py`, with
 particle verbs: `ta vare på`, `finne ut`).
@@ -137,3 +137,33 @@ dropped); `senere` "later", filed only as sen's comparative, is a `FORM_WORDS` c
 
 **Known, left.** The fill carries the subtitles' crime vocabulary (`våpen`, `fengsel`, `drap`, `morder`, `pistol`),
 as A1 does and every subtitle-ordered deck on the shelf does.
+
+## 8. As built (2026-11-15): B1
+
+Asked for on 2026-11-15: "Add B1." `python3 .claude/norwegian/run.py --level b1`. **1,000 notes: 235 from a
+16-topic inventory** (`inventory.py` `B1`, the Swedish B1 topics in Bokmål: work and the economy, society and
+politics, media and technology, the environment, education, relationships, housing, health, travel, culture,
+feelings and opinions, explaining and arguing, B1 verbs, judging adjectives, time words, connectors —
+`SCOPE['b1']`) **and 765 by frequency**; three sentences for 428, **none for 240** — Tatoeba's Bokmål is thin at
+this level (`fagforening`, `oppsigelse`, `kosthold`), and the description states how many carry sentences. Every
+card was read; A1 and A2 re-run byte-identical, and B1 re-runs byte-identical with the extract rebuilt. Fifteen
+inventory words are not Bokmål headwords and were replaced or dropped (`fortjeneste` → `gevinst`, `forfremmelse`
+→ `forfremme`, `epost` → `e-post`, `leietaker` → `leieboer`, `stress` → `stresse`, `påstå` → `påstand`;
+`ansatt`, a participle, `storting`, a name, and seven phrases and compounds Wiktionary lacks, dropped).
+
+**What the B1 ranking turned up**, each in `select.EXCLUDE` or a `build_deck.py` table with its reason:
+- **A rare headword taking a common word's count** — more of these than at any level so far: `verk` "an ache"
+  took `verken` "neither", `trette` "a quarrel" `tretten` "thirteen", `våk` "a buzzard" `våken` "awake", `helle`
+  `heller`, `gasse` `gassen`, `sale` `salt`, `los` "Los Angeles", `hitle` "Hitler", `morse` `morsen` (the spoken
+  "mum"); names and English (`adam`, `texas`, `lind`, `hank`, `eve`, `more`, `lake`).
+- Forms and second spellings taught on another card: adjective neuters and plurals (`dypt`, `normalt`, `varmt`,
+  `sterkt`, `fritt`, `rødt`, `sykt`, `dobbelt`, `dyrt`, `syke`, `onde`, `hellige`, `lyse`), `jorden`, `elsket`;
+  `framtid`, `leite`, `hand` and `sort` beside `fremtid`, `lete`, `hånd` and `svart`; phrase-only words (`fjor`,
+  `hjel`, `rede`, `carte`).
+- Noun before verb again (`trosse`, `spy`, `øse`); `delta` and `slette` named as verbs in the inventory (not the
+  Greek letter, not "a plain"); two verbs' present participles tagged presents (`FORM_DROP`).
+- Sexual or vulgar senses cut by `GLOSS` (`rote`, `tenne`); `pisse`, `fanken`, `pupp` and `kjerring` to `SWEARS`;
+  `voldta` excluded, as Swedish's `våldta` was.
+
+**Known, left.** The subtitles' crime and fantasy vocabulary is heavier here than at A2 (`drapsmann`, `gissel`,
+`kokain`, `vampyr`, `zombie`, `demon`) — frequency, labelled as such in the description.

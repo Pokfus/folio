@@ -46,6 +46,37 @@ EXCLUDE = {
     'bar': 'its plural is bare "only" (A1), whose count it takes',
     'purke': 'slang for the police in the subtitles; its entry is "a sow"',
     'and': 'its count is the English word in the subtitles; its entry is "a duck"',
+    # Read off the B1 ranking (2026-11-15).
+    # A FORM OR A SPELLING TAUGHT ON ANOTHER CARD
+    'dypt': 'the neuter of dyp, taught in B1', 'normalt': 'the neuter of normal, taught in B1',
+    'varmt': 'the neuter of varm (A1)', 'sterkt': 'the neuter of sterk (A2)',
+    'fritt': 'the neuter of fri (A2)', 'rødt': 'the neuter of rød (A1)',
+    'sykt': 'the neuter of syk (A1), here the slang "really"', 'dobbelt': 'the neuter of dobbel (A2)',
+    'søte': 'its count is the plural of søt (A2); its entry is "to sweeten"',
+    'syke': 'the plural of syk (A1)', 'halve': 'the definite of halv (A1)',
+    'onde': 'the definite of ond, taught in B1', 'gale': 'the plural of gal (A2); its entry is "to crow"',
+    'hellige': 'the plural of hellig, taught in B1', 'lyse': 'the plural of lys (A2)',
+    'jorden': 'the definite of jord (A2)', 'elsket': 'the participle of elske (A1)',
+    'framtid': 'the second spelling of fremtid (A2)', 'leite': 'the second spelling of lete (A1)',
+    'hand': 'the second spelling of hånd (A1)', 'sort': 'the second spelling of svart (A1)',
+    'fader': 'the formal father, far being taught (A1)', 'mang': 'the base form of mange (A1), met only in phrases',
+    'lee': 'lee på seg "to move", which shares bevege\'s English side; rare beside it',
+    # A COUNT THAT IS ANOTHER WORD'S
+    'verk': 'its count is verken "neither" (A2); its entry is "an ache"',
+    'trette': 'its count is tretten "thirteen"; its entry is "a quarrel"',
+    'våk': 'its count is våken "awake"; its entry is "a buzzard"',
+    'helle': 'its count is heller "rather" (A1); its entry is "a flat stone"',
+    'gasse': 'its count is gassen "the gas"; its entry is "a gander"',
+    'los': 'its count is Los Angeles; its entry is "a pilot"', 'hitle': 'its count is the name Hitler',
+    'texas': 'the state', 'adam': 'the name', 'lind': 'the name Linda\'s count', 'hank': 'the name',
+    'eve': 'the name', 'more': 'the English word', 'carte': 'met only in à la carte',
+    'morse': 'its count is morsen, the spoken "mum"; its entry is Morse code',
+    'dump': 'its count is dumpe "to fail" and dum (A2)', 'el': 'a prefix-like clipping of elektrisitet',
+    'fjor': 'met only in i fjor', 'hjel': 'met only in i hjel', 'rede': 'met only in gjøre rede for',
+    'bure': 'its count is bure inne "to lock up", which its entry does not give',
+    'dyrt': 'the neuter of dyr (A1)', 'sale': 'its count is salt (A1); its entry is "to saddle"',
+    'lake': 'the English word, and laken "a sheet"; its entry is "brine"',
+    'voldta': 'not taught in a level deck, though common in the subtitles\' crime drama (as Swedish)',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
@@ -53,7 +84,7 @@ EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 SWEARS = {'faen', 'helvete', 'jævla', 'jævel', 'jævlig', 'dritt', 'drite', 'satan', 'fitte',
           'kuk', 'hore', 'idiot', 'pikk', 'ræva', 'rævhøl', 'rasshøl', 'drittsekk', 'pokker',
           'fanden', 'djevel', 'homo', 'knulle', 'pule', 'shit', 'fuck', 'dust', 'dritings',
-          'ræv'}
+          'ræv', 'pisse', 'fanken', 'pupp', 'kjerring'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists
 # another first.
@@ -72,7 +103,9 @@ FILL_POS = {'alt': 'pron',     # "everything", not "an alto"
             'sikte': 'verb', 'skille': 'verb', 'skjære': 'verb', 'skuffe': 'verb',
             'kul': 'adj',        # "cool", not "a lump"
             'konge': 'noun',     # "king"; Wiktionary's first is the slang adjective
-            'gift': 'adj'}       # "married", not "poison"
+            'gift': 'adj',       # "married", not "poison"
+            # B1 (2026-11-15)
+            'trosse': 'verb', 'spy': 'verb', 'øse': 'verb'}
 
 # A WORD DEALT BY ANOTHER'S COUNT.
 # `hel` "whole" is met as its definite `hele` (hele dagen), and that spelling's count went to
