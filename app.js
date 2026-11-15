@@ -30697,6 +30697,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        its nearest neighbour (Ancient Mesopotamia), then 14.3 from World History and 14.5 from Spanish, against a
        tightest existing pair of 4.0; 5.9:1 against white. */
     "lang-finnish":    { bg: "#8D572D" }, // measured sienna
+    /* LAO (Nov 2026) was not named a colour, so it was MEASURED as Finnish was: swept in CIELAB inside the shelf's
+       band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 75 hues on the
+       page, the magenta band's standing rejection kept and anything within 15 of the red or blue of the Lao flag
+       refused. The winner is this leaf green, 15.1 from its nearest neighbours (Ancient Egypt's malachite and
+       Korean's dark green, then Old English's deep green at 15.2); with the greens left out, the best was a teal
+       at 13.9. 6.2:1 against white. Not a flag colour. */
+    "lang-lao":        { bg: "#426A43" }, // measured leaf green
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were

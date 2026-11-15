@@ -293,3 +293,8 @@ countries-info.json
 # extract (4.7 GB), the OpenSubtitles frequency list and the Tatoeba exports — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/finnish-cache/
+
+# the corpora .claude/lao/run.py builds the Lao decks from — the Wiktionary extract,
+# the Lao Wikipedia dump and the Tatoeba exports (~140 MB) — plus the intermediate
+# files between its stages. The decks it writes ARE committed.
+.claude/lao-cache/
