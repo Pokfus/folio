@@ -167,8 +167,10 @@ word's Jyutping and meaning are asserted against the dictionaries; the IPA is de
 standard correspondence (`sounds.ipa`); every sound side and every spelling unique (asserted). `levelRank`
 sorts it before A1 (`/\bJyutping\b/`).
 
-The shelf's hue is measured, `#8C7126` (an ochre): the CIELAB sweep's raw winner was a green, and the greens and
-the magenta band were left out as for Hebrew; 14.3 from its nearest neighbour (World History's sepia) of 70.
+The shelf's hue is measured, `#86522A` (a russet). The first sweep chose an ochre, `#8C7126`, 14.3 from World
+History's sepia; Norwegian's parallel session then took `#896F23`, 1.0 from it, and the re-sweep at the B1 merge
+against all 97 other hues (greens and the magenta band left out, as for Hebrew) found the russet, 14.1 from its
+nearest neighbours (Mesopotamia's umber and India's geography red).
 
 ## 7. As built (2026-11-15): A2
 

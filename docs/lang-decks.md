@@ -3671,7 +3671,7 @@ changed was the one that had been wrong all along.
   Jyutping. A card is a word in ONE reading (呢 ne1 / ni1). The findings (the 2015 readings file, Yale's y in a
   Jyutping field, the Mandarin-first sense order and `SHOW`, untagged slang, HKCanCor's particle spellings,
   Tatoeba's untrustworthy mou2) are 📖 `docs/cantonese-decks-plan.md`. The `LANGS` row is Yue Chinese's (85 million
-  L1, 86 total); the hue is measured, `#8C7126`. `levelRank` sorts "Jyutping" before A1.
+  L1, 86 total); the hue is measured, `#86522A` (re-swept at the B1 merge: Norwegian had taken an ochre 1.0 from the first sweep's `#8C7126`). `levelRank` sorts "Jyutping" before A1.
 - `.claude/amharic/` — the generator behind the Amharic decks (Nov 2026, on request: "Add an Amharic language
   collection"; the Zulu and Hausa owners' answers taken, the owner not asked). **Built: the fidäl deck,
   `decks/Amharic-Alphabet.folio-deck.json`** (44 notes: the seven orders, 34 consonants with their rows, the

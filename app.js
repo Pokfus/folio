@@ -30671,11 +30671,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        tightest existing pair of 4.0; 4.7:1 against white. Not a flag colour (Israel's blue is far deeper). */
     "lang-hebrew":     { bg: "#5E6EC0" }, // measured cornflower
     /* CANTONESE (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
-       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 70 hues on the
-       page, the magenta band's standing rejection kept and the greens left out (the raw winner, 15.0, was a
-       green): an ochre, 14.3 from its nearest neighbour (World History's sepia), against a tightest existing
-       pair of 0.0; 4.6:1 against white. Not a flag colour, and deliberately not Mandarin's rose beside it. */
-    "lang-cantonese":  { bg: "#8C7126" }, // measured ochre
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white), the magenta band's standing rejection kept and the
+       greens left out. Its first sweep chose an ochre (#8C7126), and Norwegian's parallel sweep chose one 1.0 from it;
+       re-swept at the merge against all 97 other hues on the page: a russet, 14.1 from its nearest neighbours
+       (Mesopotamia's umber and India's geography red); 6.5:1 against white. Not a flag colour. */
+    "lang-cantonese":  { bg: "#86522A" }, // measured russet
     /* AMHARIC (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 70 hues on the
        page, the magenta band's standing rejection kept (the raw runner-up, 15.0, was a plum there) and the
