@@ -5,7 +5,7 @@ Danish set, built in the Swedish decks' shape (`docs/swedish-decks-plan.md`, who
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here
 unless this file says otherwise. Asked for on 2026-11-15: "Add a Danish language collection."
 
-**STATUS (2026-11-15): A1 and A2 are built** (§6, §7). B1 to C1 are later phases, one level per request, as Swedish's were.
+**STATUS (2026-11-15): A1, A2 and B1 are built** (§6–§8). B2 and C1 are later phases, one level per request, as Swedish's were.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck of this plan. The collection's first commit carried one because it also changed the APP — the
@@ -31,7 +31,7 @@ owner's to overrule.**
 |---|---|---|
 | Danish A1 Beginner — built | `Danish-A1.folio-deck.json` | 500 |
 | Danish A2 Elementary — built | `Danish-A2.folio-deck.json` | 750 |
-| Danish B1 Intermediate | `Danish-B1.folio-deck.json` | 1,000 |
+| Danish B1 Intermediate — built | `Danish-B1.folio-deck.json` | 1,000 |
 | Danish B2 Upper Intermediate | `Danish-B2.folio-deck.json` | 1,500 |
 | Danish C1 Advanced | `Danish-C1.folio-deck.json` | 1,500 |
 
@@ -99,7 +99,7 @@ One of A1's 500 words (`apotek`) has no Tatoeba sentence.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2 done) — A2 to C1, one level per session: write the level's
+**Phase 1 (done)** — the pipeline and A1. **Phase 2** (A2 and B1 done) — A2 to C1, one level per session: write the level's
 inventory into `inventory.py` (and its `SCOPE` is already in `danish_level.py`; add its `STAMP` in `build_deck.py`),
 run, read every card. **Phase 3** — a phrases deck, from Swedish's `phrases.py`.
 
@@ -142,3 +142,33 @@ after every change below, extract included.
 
 **Known, left.** The fill carries the subtitles' crime vocabulary (`våben`, `pistol`, `mord`, `fængsel`), as A1 does.
 `le` "to laugh" shares its English side with `grine` and is labelled by the shelf's dedupe pass ("not grine").
+
+## 8. As built (2026-11-15): B1
+
+Asked for on 2026-11-15: "Add B1". `python3 .claude/danish/run.py --level b1`; no new source. **1,000 notes: 226
+from a 16-topic inventory** (`inventory.py` `B1`, Swedish B1's topics: work and the economy, society and politics,
+media and technology, the environment, education, relationships, housing, health, travel, culture, feelings and
+opinions, thinking and talking, the level's verbs, describing and judging, time, connectors — scoped to
+`SCOPE['b1']`) **and 774 by frequency**; three sentences for 730, **none for 87** — Tatoeba's Danish runs thin for
+the level's abstract nouns. Every card was read once. A1 and A2 re-run byte-identical.
+
+**Danish Wiktionary is thinner than Swedish here**: 16 inventory words have no entry and were dropped (`praktik`,
+`interview`, `program`, `printe`, `annonce`, `udledning`, `tørke`, `lærebog`, `skilsmisse`, `opvarmning`, `akut`,
+`booking`, `udstilling`, `overbevise`, `nutildags`, `til sidst`), so the fill carries more of the level than
+Swedish's did.
+
+**What the B1 ranking turned up**, each fixed with its reason beside it in `select.py` and `build_deck.py`:
+- **More rare nouns over common verbs** (`ride` "kittiwake", `klippe` "bedrock" over "to cut", `putte`, `lette`
+  "a Latvian", `spare`, `tømme` "rein", `skinne` "rail", `rode`) — `FILL_POS`; `pille` takes "pill", not "pillar".
+- **Counts belonging to another word**: a present tense (`holder`, `tvivler`, `skifter`), a participle
+  (`modtaget`), an imperative (`lev`), a past (`lo`), a plural (`onde`, `hellige`, `lange`), a name (`rom`, `van`,
+  `el`); formal or old spellings (`broder`, `moder`, `vore`, `vort`, `kong`); and entries whose meaning is not the
+  count's (`pinligt` "precisely", `service` "tableware", `sprut` "a squirt", `kædemaske`).
+- **Swearing, insults and crude words**: `skiderik`, `nosse`, `forpulet`, `tæve`, `åndssvag`, `patte`, `fis`;
+  `voldtage` left out on Swedish's precedent (`våldta`).
+- Inventory readings: `slette:verb` ("to delete", not "a plain"), `kælder:noun`. A pointer gloss rewritten
+  (`allesammen`), a sexual sense cut (`ride`), genders Wiktionary omits (`seddel`, `jakkesæt`, `point`, `gidsel`,
+  `skub`, `sæson` …), and `vegne` (only in `på … vegne`) taking no article.
+
+**Known, left.** The fill carries the subtitles' crime and fantasy vocabulary (`forbrydelse`, `vampyr`, `dæmon`,
+`spøgelse`, `heks`), as A1 and A2 do. `tisse` "to pee" was left out as childish rather than taught.

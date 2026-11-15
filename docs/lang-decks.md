@@ -3683,7 +3683,8 @@ changed was the one that had been wrong all along.
 - `.claude/danish/` — the generator behind the Danish decks (Nov 2026, on request: "Add a Danish language
   collection"; the Swedish, Hindi and Greek owners' decisions taken, the owner not asked). **Built: A1,
   `decks/Danish-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Danish-A2.folio-deck.json`** (750 / 1,500;
-  2026-11-15, on request: "Add A2"; `--level a2`). `python3 .claude/danish/run.py [--level a1]`,
+  2026-11-15, on request: "Add A2"; `--level a2`) **and B1, `decks/Danish-B1.folio-deck.json`** (1,000 / 2,000; 2026-11-15,
+  on request: "Add B1"; `--level b1`). `python3 .claude/danish/run.py [--level a1]`,
   `node .claude/danish/check-danish.js`; a re-run is byte-identical. Swedish's pipeline adapted, no alphabet deck and
   no romanisation; nouns carry en/et, verbs their present, past and perfect WITH ITS AUXILIARY (`har spist`, `er
   gået`). No published word list for Prøve i Dansk or Studieprøven, so a level is a topic inventory plus lemma

@@ -38,7 +38,8 @@ from da import fold, nfc, WORD as DAWORD
 from danish_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
-STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-15T00:00:00.000Z'}[LEVEL]
+STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-15T00:00:00.000Z',
+         'b1': '2026-11-15T00:00:00.000Z'}[LEVEL]
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
        'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
 TYPE_ID = 'danish'
@@ -108,6 +109,7 @@ ETYMS = {
     # A2 (2026-11-15)
     'skab': ['2'],              # "a cupboard"; etymology 1 is "mange"
     'mål': ['2'],               # "a goal, a measure"; etymology 1 is "language"
+    'pille': ['2'],             # B1: "a pill"; etymology 1 is "a pillar"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where Wiktionary's
@@ -151,6 +153,12 @@ GLOSS = {
     'skidt': {'adj': ['bad, poor'], 'intj': ["never mind, it doesn't matter"]},
     'aftes': {'noun': ['i aftes: last night, yesterday evening']},
     'hær': {'noun': ['army']},
+    # B1 (2026-11-15)
+    'allesammen': {'pron': ['all, everyone (all of them, all of you)']},   # Wiktionary's is a pointer
+    'vegne': {'noun': ['på … vegne: on behalf of (på mine vegne, "on my behalf")']},
+    'tøs': {'noun': ['girl, lass']},
+    'ride': {'verb': ['to ride (a horse, a bicycle)']},           # its second sense is sexual
+    'sæson': {'noun': ['season (the time of year when something is done)']},
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.
@@ -161,12 +169,16 @@ MONTHS = set('januar februar marts april maj juni juli august september oktober 
 
 # NO ARTICLE for a language's name, which Danish uses without one (jeg taler dansk)
 NO_ART = {'dansk', 'engelsk', 'tysk', 'fransk', 'svensk', 'norsk', 'spansk',
-          'fru', 'aftes'}   # a title (fru Hansen) and a noun met only in i aftes
+          'fru', 'aftes', 'vegne'}   # a title (fru Hansen), nouns met only in i aftes, på … vegne
 
 # A GENDER WRITTEN HERE, where the lemma's first entry is not the everyday word's.
 GENDER_FIX = {'penge': 'p', 'forældre': 'p', 'farfar': 'c', 'kuglepen': 'c',
               # A2: Wiktionary gives these no gender
-              'maskine': 'c', 'kursus': 'n', 'busstoppested': 'n', 'oberst': 'c', 'forskel': 'c'}
+              'maskine': 'c', 'kursus': 'n', 'busstoppested': 'n', 'oberst': 'c', 'forskel': 'c',
+              # B1
+              'seddel': 'c', 'jakkesæt': 'n', 'jæger': 'c', 'mail': 'c', 'farbror': 'c', 'morbror': 'c',
+              'underskud': 'n', 'seværdighed': 'c', 'stilling': 'c', 'kontanter': 'p', 'smitte': 'c',
+              'point': 'n', 'gidsel': 'n', 'skub': 'n', 'sæson': 'c'}
 
 # A PART OF SPEECH NOT SHOWN for one word: a block that is noise beside the word a beginner meets.
 DROP_POS = {('kende', 'adv'), ('lukke', 'noun'), ('færdig', 'intj'), ('nu', 'noun'), ('om', 'adv'),

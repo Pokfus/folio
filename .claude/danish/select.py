@@ -69,6 +69,32 @@ EXCLUDE = {
     'forsvind': 'the imperative of forsvinde (A2), filed as an interjection',
     'dér': 'the stressed spelling of der (A1)',
     'aflede': 'its table gives lede\'s forms (leder, ledte), which claim lede\'s and leder\'s count',
+    # Read off the B1 ranking (2026-11-15).
+    # A FORM TAUGHT ON ANOTHER CARD, or an old or formal spelling of one
+    'særligt': 'the neuter of særlig (A2)', 'ordentligt': 'the neuter of ordentlig (B1)', 'dybt': 'the neuter of dyb (B1)',
+    'onde': 'the plural of ond (A1); its noun "evil" is rare beside it',
+    'hellige': 'the plural of hellig; its verb "to hallow" is rare beside it',
+    'lange': 'the plural of lang (A1); its noun is a fish',
+    'vore': 'the plural of vor, whose card shows it', 'vort': 'the neuter of vor, whose card shows it',
+    'broder': 'the formal brother, bror being taught (A1)', 'moder': 'the formal mother, mor being taught (A1)',
+    'kong': 'the title before a king\'s name; konge is taught (A2)',
+    'holder': 'its count is holder, the present of holde (A1); the noun "holder" is rare beside it',
+    'tvivler': 'its count is the present of tvivle (B1); the noun "doubter" is rare',
+    'skifter': 'the present of skifte (A2), filed as the radio "over"',
+    'modtaget': 'the participle of modtage, filed as the radio "roger"',
+    'lev': 'its count is lev! "live!" (leve); its noun is a Bulgarian coin',
+    'lo': 'its count is lo, the past of le (A2); its noun is a threshing floor',
+    # ITS COUNT IS NOT FOR ITS ENTRY
+    'kædemaske': 'a crochet term; its count is not the deck\'s', 'el': 'its count is el "electricity"; its noun is "alder"',
+    'rom': 'its count is Rome; its noun is "rum"', 'van': 'its count is vant "used to"; its noun is a Norse god',
+    'mile': 'its count is the English mile; its noun is "a dune"', 'næ': 'the spoken "no"; its noun is "the waning moon"',
+    'rage': 'its count is not "to scrape"', 'las': 'its count is not "a rag"', 'lude': 'its count is luder, a swear word',
+    'ram': 'its count is ramme "to hit"; its adjective is rare',
+    'pinligt': 'its count is "embarrassing"; Wiktionary\'s adverb is "precisely"',
+    'service': 'its count is the service; Wiktionary\'s noun is "tableware"',
+    'sprut': 'its count is the slang "booze"; its noun is "a squirt"',
+    'patte': 'a crude word for a breast', 'fis': 'a fart', 'tisse': 'to pee; childish',
+    'åndssvag': 'an insult', 'voldtage': 'not taught in a level deck, though common in the subtitles\' crime drama',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
@@ -76,7 +102,8 @@ EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 SWEARS = {'fanden', 'fandme', 'fuck', 'fucking', 'lort', 'pis', 'pisse', 'røv', 'satan', 'helvede',
           'kraftedeme', 'kælling', 'luder', 'idiot', 'fjols', 'nar', 'bøsse', 'kneppe', 'pik',
           'fisse', 'skide', 'shit', 'svin', 'røvhul', 'dælme', 'sgu', 'fandeme',
-          'fandens', 'forbandet', 'pokker', 'pokkers', 'kraftedme', 'fanden'}
+          'fandens', 'forbandet', 'pokker', 'pokkers', 'kraftedme', 'fanden',
+          'skiderik', 'nosse', 'forpulet', 'tæve'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists
 # another first.
@@ -89,7 +116,10 @@ FILL_POS = {'tro': 'verb', 'nok': 'adv', 'lige': 'adv', 'slå': 'verb', 'prøve'
             'fri': 'adj', 'bringe': 'verb', 'ane': 'verb', 'normal': 'adj', 'kær': 'adj', 'føde': 'verb',
             'føre': 'verb', 'le': 'verb', 'kaste': 'verb', 'fylde': 'verb', 'tvinge': 'verb', 'sej': 'adj',
             'tjekke': 'verb', 'rende': 'verb', 'tælle': 'verb', 'banke': 'verb', 'rive': 'verb',
-            'hoppe': 'verb', 'styre': 'verb', 'spænde': 'verb', 'bytte': 'verb'}
+            'hoppe': 'verb', 'styre': 'verb', 'spænde': 'verb', 'bytte': 'verb',
+            # B1 (2026-11-15)
+            'ride': 'verb', 'klippe': 'verb', 'putte': 'verb', 'lette': 'verb', 'spare': 'verb',
+            'tømme': 'verb', 'skinne': 'verb', 'rode': 'verb'}
 
 # A WORD DEALT BY ANOTHER'S COUNT.  The pronoun `I` "you (plural)" is counted in the
 # subtitles under its lower case, the preposition `i`, so it is dealt by its object form's.

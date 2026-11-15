@@ -16,7 +16,7 @@ Wiktionary heads a word under a form a learner does not meet first, the
 learner's word is written and `select.ALIAS` names the headword (`mange`,
 filed under `mangen`).
 
-A1 and A2 are written (2026-11-15); B1 to C1 are the plan's later phases.
+A1, A2 and B1 are written (2026-11-15); B2 and C1 are the plan's later phases.
 """
 
 A1 = [
@@ -103,4 +103,48 @@ A2 = [
     ('connectors', 'derfor selvom hvis inden når også desuden alligevel enten hverken undtagen'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2}
+B1 = [
+    ('work and the economy', 'økonomi arbejdsgiver arbejdstager ansat lærling praktik uddannelse erfaring '
+                             'ansøgning interview kontrakt skat udgift indkomst indtægt pension fagforening '
+                             'strejke overskud underskud marked fuldtid deltid overarbejde fyring '
+                             'forfremmelse'),
+    ('society and politics', 'samfund politik politiker parti folketing kommune borger indvandrer flygtning '
+                             'demokrati rettighed pligt myndighed domstol forbrydelse straf anmeldelse stemme:verb '
+                             'demonstration valg'),
+    ('media and technology', 'avis nyhed artikel program kanal internet hjemmeside mail adgangskode app '
+                             'skærm tastatur downloade printe gemme:verb slette:verb annonce reklame'),
+    ('the environment', 'miljø klima forurening affald genbrug energi strøm benzin udledning beskytte '
+                        'landbrug landskab oversvømmelse tørke'),
+    ('education', 'gymnasium fag:noun eksamen opgave forelæsning lærebog rektor semester viden '
+                  'skoleelev'),
+    ('relationships and family life', 'forhold ægteskab skilsmisse samlever kæreste venskab familie slægt '
+                                      'slægtning fætter kusine moster faster morbror farbror svigermor '
+                                      'barnebarn teenager opvækst bryllup begravelse mødes omgås'),
+    ('home and housing', 'bolig lejer udlejer villa rækkehus flytte renovere møbel opvarmning nabolag '
+                         'vaskemaskine opvaskemaskine støvsuger altan kælder:noun loft'),
+    ('health and the body', 'sundhed sygdom skade:noun behandling operation vaccine allergi stress søvn '
+                            'motion kost vægt lunge skelet muskel hud blodtryk akut ambulance '
+                            'undersøgelse'),
+    ('travel and experiences', 'rejsebureau booking udflugt seværdighed oplevelse eventyr udsigt '
+                               'vandrerhjem telt grænse told valuta kyst vandfald'),
+    ('culture and leisure', 'kultur koncert udstilling roman forfatter digt maleri kunstner forestilling '
+                            'publikum scene tradition fest hobby interesse'),
+    ('feelings and opinions', 'holdning mening tro:noun håb uro skuffelse glæde sorg skam misundelse '
+                              'stolthed tillid tvivl foretrække mene påstå tvivle overbevise'),
+    ('thinking and talking', 'forklaring eksempel problem løsning forslag diskussion argument fordel '
+                             'ulempe årsag følge:noun resultat formål sammenligning forskel lighed '
+                             'beskrivelse'),
+    ('verbs of B1', 'påvirke udvikle forbedre mindske øge erstatte undgå gentage kritisere klage opmuntre '
+                    'støtte organisere deltage gennemføre foreslå anbefale tilbyde kræve tillade forbyde '
+                    'lykkes mislykkes opleve overraske imponere'),
+    ('describing and judging', 'tilfreds utilfreds uretfærdig retfærdig selvstændig ansvarlig pålidelig '
+                               'nysgerrig stædig genert modig doven flittig ærlig alvorlig positiv negativ '
+                               'nødvendig mulig umulig tilstrækkelig behagelig ubehagelig offentlig privat '
+                               'moderne traditionel økonomisk politisk social'),
+    ('time and frequency', 'nutildags hidtil samtidig efterhånden endelig konstant pludselig '
+                           'hverdag århundrede årti'),
+    ('connectors and argument', 'derimod desuden fordi eftersom medmindre mens skønt nemlig '
+                                'for_eksempel til_sidst i_hvert_fald alligevel dels'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}
