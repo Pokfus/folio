@@ -36,6 +36,20 @@ EXCLUDE = {
     'niittää': 'the count is niitä, the partitive of ne ("them"); glossed "to mow"',
     # COLLOQUIAL SPELLINGS of words the deck teaches in the standard form:
     'mä': 'the spoken form of minä ("I"), which the deck teaches',
+    # Read off the A2 ranking (2026-11-15).
+    'sä': 'the spoken form of sinä ("you"), A1',
+    'niiden': 'the genitive of ne ("their"), with no English of its own',
+    'joita': 'the partitive plural of joka (A1), glossed only "whom."',
+    'jolla': 'the adessive of joka (A1), glossed only "if"',
+    'jota': 'the count is joka\'s partitive (A1); glossed only "iota"',
+    'niistää': 'the count is niistä, the elative of ne; glossed "to blow one\'s nose"',
+    'näet': 'the "you see" of nähdä (A1); its own entry is "you see, you know"',
+    'kahden': 'the genitive of kaksi (A1), glossed only "between the two"',
+    'miehet': 'the plural of mies (A1), glossed only "gentlemen" (an address)',
+    'yötä': 'the partitive of yö (A1), glossed only "night!"',
+    'päivää': 'the partitive of päivä (A1), glossed "good day"; hyvää päivää is A1',
+    'senkin': 'an insult\'s opening ("you ...!")',
+    'turpa': 'the count is the rude "turpa kiinni" ("shut your trap"); glossed only "muzzle"',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 

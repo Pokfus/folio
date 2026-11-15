@@ -70,13 +70,17 @@ TRAIL = re.compile(r'\s*[:;,]\s*$')
 CASES_RE = (r'(?:nominative|genitive|partitive|inessive|elative|illative|adessive|ablative|'
             r'allative|essive|translative|abessive|instructive|comitative|possessive suffix|'
             r'(?:the )?(?:illative of )?(?:first|second|third|fourth|fifth) infinitive)')
-GRAMMAR = re.compile(r'\s+with (?:the )?' + CASES_RE + r'(?:\s+(?:or|and)\s+(?:\([^)]*\)\s+)?'
+GRAMMAR = re.compile(r'\s+(?:with|and) (?:the )?' + CASES_RE + r'(?:\s+(?:or|and)\s+(?:\([^)]*\)\s+)?'
                      + CASES_RE + r')*(?:\s+‘[^’]*’)?(?:\s+or\s+\([^)]*\)\s+' + CASES_RE + r')?')
+# A2 (2026-11-12): the same notes written as "or (with verbs) of verbal noun ‘doing’",
+# "or of third infinitive ‘to do’", "(with verbs) along of third infinitive ‘to do’"
+GRAMMAR2 = re.compile(r'[;,]?\s*(?:or\s+)?(?:\((?:with|of) [^)]*\)\s+)?(?:along\s+)?of\s+(?:the\s+)?'
+                      r'(?:verbal noun|(?:first|second|third|fourth|fifth) infinitive)(?:\s+‘[^’]*’)?')
 XREF = re.compile(r'\s*\((?:compare|see|cf\.)\b[^()]*\)', re.I)
 
 
 def gloss_text(g):
-    g = XREF.sub('', GRAMMAR.sub('', g))
+    g = XREF.sub('', GRAMMAR2.sub('', GRAMMAR.sub('', g)))
     return TRAIL.sub('', shorten(g))
 
 
@@ -130,6 +134,13 @@ GLOSS = {
     # one meaning, two registers: the reverse card needs to say which is asked for
     'sisko': {'noun': ['sister (the everyday word)']},
     'sisar': {'noun': ['sister (the formal, written word)']},
+    # A2: "both" twice; kumpikin takes a singular verb, molemmat a plural one
+    'kumpikin': {'pron': ['each of the two, both (with a singular verb)']},
+    'molemmat': {'pron': ['both (with a plural verb)']},
+    # Wiktionary's sense reads "Expresses or emphasizes an extent, a bound or a limit."
+    # its first sense is a grammar note ("(with adjectives or participles); or (with verbs) ...")
+    'kuulostaa': {'verb': ['to sound (like), to seem (from what one hears)']},
+    'asti': {'postp': ['until, up to, as far as (with the illative or the elative)']},
 }
 POS_LABEL = {}
 
@@ -148,7 +159,7 @@ DROP_POS = {('minä', 'noun'), ('ja', 'noun'), ('tai', 'noun'), ('mutta', 'noun'
 NOT_A_MEANING = re.compile(
     r'^\*?\s*[Ss]ee:|^See |^Used in expressions|^Used other than figuratively|^[Uu]sage notes|'
     r'senses\.?$|^[Ss]ynonym of |^(?:first|second|third)-person .* of \S+$|'
-    r'^(?:comparative|superlative) degree of |'
+    r'^(?:comparative|superlative) degree of |^verbal noun of \S+$|'
     r'^(?:nominative|genitive|partitive|plural|singular)[^;]* of \S+(?: \([^)]*\))?$')
 
 

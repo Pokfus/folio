@@ -5,8 +5,8 @@ Finnish set built in the Hungarian decks' shape (`docs/hungarian-decks-plan.md`,
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless
 this file says otherwise. Asked for on 2026-11-15: "Add a Finnish language collection."
 
-**STATUS (2026-11-15): the alphabet deck and A1 are built** (`.claude/finnish/`, §6). A2 to C1 and a phrases deck
-are not.
+**STATUS (2026-11-15): the alphabet deck, A1 and A2 are built** (`.claude/finnish/`, §6–§7). B1 to C1 and a
+phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP — the
@@ -31,7 +31,7 @@ the closest language and pipeline). **Any of these is the owner's to overrule.**
 |---|---|---|
 | Finnish Alphabet — built | `Finnish-Alphabet.folio-deck.json` | 34 |
 | Finnish A1 Beginner — built | `Finnish-A1.folio-deck.json` | 500 |
-| Finnish A2 Elementary | `Finnish-A2.folio-deck.json` | 750 |
+| Finnish A2 Elementary — built | `Finnish-A2.folio-deck.json` | 750 |
 | Finnish B1 Intermediate | `Finnish-B1.folio-deck.json` | 1,000 |
 | Finnish B2 Upper Intermediate | `Finnish-B2.folio-deck.json` | 1,500 |
 | Finnish C1 Advanced | `Finnish-C1.folio-deck.json` | 1,500 |
@@ -97,7 +97,7 @@ headword line and are missing where Wiktionary gives none.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1, one level per session: write the
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2 done, §7) — A2 to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `finnish_level.py`, run, read every card.
 **Phase 3** — a phrases deck (Hungarian's `phrases.py` is the model).
 
@@ -112,3 +112,25 @@ for 498, at least one for all 500. The alphabet: 34 notes — the 29 letters in 
 names, then ng/nk, the stress, the long vowel, the long consonant and the diphthong; every sound side unique
 (asserted). The shelf's hue is measured: `#907227`, a dark mustard, 14.5 from its nearest neighbour (World
 History) against all 69 other hues on the page.
+
+## 7. As built (2026-11-15): A2
+
+Asked for on 2026-11-15: "Add A2." `python3 .claude/finnish/run.py --level a2`: 750 notes, 408 from the inventory
+(`inventory.A2`, the fifteen topics of the Hungarian A2) and 342 by frequency; sentences for 744, three apiece for
+727. The scope is the CEFR A2 global descriptor (`SCOPE['a2']`). Six inventory words were not Wiktionary
+headwords as written and were respelt (`isovanhempi`, `kenkä`, `porras`) or dropped (`t-paita`, `myöhemmin`,
+`puolet`). A re-run is byte-identical.
+
+**What reading the 750 found:**
+- **More forms and borrowed counts in the fill**, each `select.EXCLUDE`d with its reason: the case forms of the
+  pronouns Wiktionary files as words (`niiden`, `joita`, `jolla`, `kahden`), plurals and partitives glossed as
+  forms of address or greetings (`miehet`, `yötä`, `päivää`), `näet` ("you see", nähdä's form), counts that are
+  another word's (`jota` "iota" is joka's partitive; `niistää` "to blow one's nose" is niistä), spoken `sä`, and
+  two insults (`senkin`, `turpa`).
+- **The grammar notes come in more shapes** than A1 showed: "and allative ‘to’", "or (with verbs) of verbal noun
+  ‘doing’", "(with verbs) along of third infinitive ‘to do’". `GRAMMAR` takes "and" as well as "with", and
+  `GRAMMAR2` cuts the rest. **This reached five A1 cards** (`mennä`, `puhua`, `päästä`, `panna`, `sattua`), which
+  had shipped with the fragments; A1 was rebuilt with them cut and nothing else changed.
+- **Written glosses**: `kumpikin` and `molemmat` (both "both": a singular verb and a plural one), `asti` (whose
+  sense is a description) and `kuulostaa` (whose first sense is a grammar note). "verbal noun of X" alone is no
+  meaning (`tekeminen`).

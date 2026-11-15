@@ -3745,7 +3745,8 @@ changed was the one that had been wrong all along.
   collection"; the Hungarian answers taken, the owner not asked). **Built: the alphabet,
   `decks/Finnish-Alphabet.folio-deck.json`** (34 notes: the 29 letters' sounds, then ng/nk, the stress, the long
   vowel, the long consonant and the diphthong) **and A1, `decks/Finnish-A1.folio-deck.json`** (500 notes / 1,000
-  cards: 345 from a hand-written topic inventory, 155 by frequency). `python3 .claude/finnish/run.py [--level a1]`,
+  cards: 345 from a hand-written topic inventory, 155 by frequency) **and A2, `decks/Finnish-A2.folio-deck.json`**
+  (750 notes / 1,500 cards, 2026-11-15, on request: "Add A2"; `--level a2`). `python3 .claude/finnish/run.py [--level a1]`,
   `python3 .claude/finnish/alphabet.py`, `node .claude/finnish/check-finnish.js`; a re-run is byte-identical.
   Hungarian's pipeline adapted, no romanisation, verbs by their first infinitive with the "I" and "he/she" forms,
   past and perfect; nouns with plural, genitive, partitive and plural partitive. **What is new**: the tables'
