@@ -39530,7 +39530,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return '<a class="learn-more learn-more-gloss" href="' + href + '" target="_blank" rel="noopener noreferrer" aria-label="Learn more: ' + esc(t) + ' on Wikipedia">' +
       '<span class="learn-more-text"><span class="learn-more-eyebrow">Learn more</span><span class="learn-more-title notranslate">' + esc(t) + "</span>" +
       '<span class="learn-more-sub">The full article on Wikipedia</span></span>' +
-      '<img class="learn-more-logo" src="wikipedia-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async">' +
+      '<img class="learn-more-logo" src="wikipedia-logo.png" alt="" width="24" height="24" loading="lazy" decoding="async">' +
       "</a>";
   }
   /* ==========================================================================================
