@@ -4094,6 +4094,8 @@
     Behaviour: { roots: ["psych", "bio"], tags: ["psychology", "biology", "neuroscience"] },
     /* the Roman magistrate: "an American consul" in a Second World War card is a diplomat (2026-11-13, found by check-gloss-links on ww2-197) */
     Consul: { roots: ["col-40", "col-8", "col-13"], tags: ["rome", "roman", "italy", "republic"] },
+    /* the plumage: "a doctor's poisoned feather" in a Roman card is not a biology lesson; links by itself only in Biology (2026-11-15, on request) */
+    Feather: { roots: ["bio"], tags: ["biology", "birds", "anatomy", "zoology"] },
     /* the Roman magistrate links by itself only in Ancient Rome: "dictator" in a modern history card is the other sense (wh-340 links it by hand; 2026-11-15) */
     Roman_dictator: { roots: ["col-40"], tags: ["rome", "roman", "republic"] },
     /* THE BYZANTINE PROVINCE (2026-11-15, on request: "ensure this gloss is only linked in Byzantine related cards"). Byzantine cards sit in
