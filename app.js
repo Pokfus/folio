@@ -4031,7 +4031,8 @@
     const r = GLOSS_ONLY_IN[key];
     if (!r) return true;
     const t = ((window.GLOSSARY_TAGS || {})[hostKey]) || [];
-    return t.some((x) => r.tags.includes(x));
+    if (t.some((x) => r.tags.includes(x))) return true;
+    return !!(r.text && r.text.test(String((window.GLOSSARY || {})[hostKey] || "")));   // `text`: the host term's own description names the subject
   }
   // wrap any glossary terms found in a description in clickable .ttip spans (skipping self)
   function linkifyGloss(text, selfKey, scope) {
@@ -4071,10 +4072,21 @@
     Pain: { roots: ["psych", "bio"], tags: ["psychology", "biology", "neuroscience", "medicine"] },
     /* the Roman magistrate: "an American consul" in a Second World War card is a diplomat (2026-11-13, found by check-gloss-links on ww2-197) */
     Consul: { roots: ["col-40", "col-8", "col-13"], tags: ["rome", "roman", "italy", "republic"] },
+    /* the Roman magistrate links by itself only in Ancient Rome: "dictator" in a modern history card is the other sense (wh-340 links it by hand; 2026-11-15) */
+    Roman_dictator: { roots: ["col-40"], tags: ["rome", "roman", "republic"] },
+    /* THE BYZANTINE PROVINCE (2026-11-15, on request: "ensure this gloss is only linked in Byzantine related cards"). Byzantine cards sit in
+       several collections and share no tag, so `text` is the test rather than a root: the term links in a card whose background names
+       the empire (and in a popup whose own term's description does), and the "themes" of a book or a painting stay plain everywhere else.
+       Not a bare /Byzanti/: gr-357, a poet's card, cites "the Suda, a Byzantine reference work" beside "his great theme". */
+    "Theme_(Byzantine_district)": { roots: [], text: /Byzantine (?:Empire|empire|emperors?|state|army|provinces?)|Byzantium|Eastern Roman Empire/, tags: ["byzantium", "byzantine", "byzantine empire"] },
   };
-  function glossScopedOff(cardId) {
+  function glossScopedOff(cardId, text) {
     const root = cardId ? cardCollectionRoot(cardId) : null, rid = root && root.id;
-    return Object.keys(GLOSS_ONLY_IN).filter((k) => !(rid && GLOSS_ONLY_IN[k].roots.includes(rid)));
+    return Object.keys(GLOSS_ONLY_IN).filter((k) => {
+      const r = GLOSS_ONLY_IN[k];
+      if (rid && r.roots.includes(rid)) return false;
+      return !(r.text && text && r.text.test(text));
+    });
   }
   function autoLinkGlossary(rootEl, answerText, offKeys, scope, cardId) {
     if (!rootEl) return;
@@ -4087,7 +4099,7 @@
     const answerKey = answer ? ((idx.byAnySurface || idx.byName)[answer] || idx.byName[answer]) : null;
     if (answerKey) linked.add(answerKey);
     if (offKeys && offKeys.length) offKeys.forEach((k) => linked.add(k));   // terms the editor removed in this card's background — keep them un-linked
-    if (!scope || scope === GLOSS_SCOPE_SITE) glossScopedOff(cardId).forEach((k) => linked.add(k));   // GLOSS_ONLY_IN: a collection-bound term stays plain outside its collections
+    if (!scope || scope === GLOSS_SCOPE_SITE) glossScopedOff(cardId, rootEl.textContent || "").forEach((k) => linked.add(k));   // GLOSS_ONLY_IN: a collection-bound term stays plain outside its collections
     // respect hand-added links already in the source: don't auto-link a term the editor linked manually
     rootEl.querySelectorAll(".ttip[data-k]").forEach((sp) => linked.add(sp.getAttribute("data-k")));
     // gather eligible text nodes in document order (skip links + the answer term)
