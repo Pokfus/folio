@@ -337,7 +337,7 @@
           <div class="atlas2-sheet" id="atlas2-sheet" hidden>
             <div class="atlas2-sheet-head"><strong>Legend</strong><button type="button" class="atlas2-sheet-close" aria-label="Close the legend">×</button></div>
             <label><input type="checkbox" data-layer="borders"> Borders</label>
-            <label><input type="checkbox" data-layer="provinces"> Provinces</label>
+            <label><input type="checkbox" data-layer="provinces"> States and provinces</label>
             <fieldset class="atlas2-group"><legend>Names</legend>
               <label><input type="checkbox" data-layer="countries"> Countries</label>
               <label><input type="checkbox" data-layer="places"> Places</label>

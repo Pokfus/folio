@@ -1,9 +1,9 @@
-# Atlas v2 — a lazy admin-1 layer (design, 2026-10-30; steps 1 and 2 built 2026-11-14 — §8)
+# Atlas v2 — a lazy admin-1 layer (design, 2026-10-30; steps 1 and 2 built 2026-11-14, step 3 2026-11-15 — §8)
 
 > **📖 READ BEFORE ADDING A COUNTRY'S STATES OR PROVINCES TO THE ATLAS, OR BUILDING ANY PART OF THIS.** The design for
 > giving more countries their states and provinces — shaded in a map card's window and drawn on the Personal Atlas —
 > **without rebuilding `topology.bin`**. India (`geo-india`, 📖 `docs/india-geography-card-plan.md`) is the first country.
-> Nothing here is built yet; the steps in §6 are each their own PR.
+> Steps 1–3 of §6 are built for India (§8); step 4, the next country, is a spec row and a rebuild of this file alone.
 
 ## 1. The owner's requirements (2026-10-30)
 
@@ -152,7 +152,8 @@ core as it stands. `topology.bin`, the tiles, water, relief, history, the slices
   file's countries; Personal only a discovered state's (§3.2). Being on by default does not make the file load at boot:
   it loads the first time the switch is on, the year is the present and the view is zoomed in over one of its countries
   (or a Personal Atlas holds one of its ids, or a card window needs one). Whether the switch's label should become
-  "States and provinces" now that it covers India's states and union territories is a wording call for step 3.
+  "States and provinces" now that it covers India's states and union territories is a wording call for step 3 — **decided in step 3
+  (2026-11-15): the label reads "States and provinces"** (§8), the saved key still `provinces`.
 - **D2 — the first build is India alone.** `admin1-spec.json` starts with India's 36 units; step 4 adds the next country.
 
 ## 8. As built (2026-11-14): steps 1 and 2
@@ -206,3 +207,39 @@ section: the reader's `junctionAt` fallback is exact for a junction on one core 
   shaded; the Punjab capital window draws Chandigarh outside the shape).
 - **From here the India states and capitals decks can be written** (gin-001–036, gin-501–536). Not built: the registry ids (`places-registry.js`),
   the page's Provinces switch over India, the Personal Atlas and its frame-gate case — step 3.
+
+## 9. As built (2026-11-15): step 3 — the Atlas page and the registry
+
+- **When the page loads the file** (§3.2 (a), (c)): `plan()` calls `ensureAdmin1()` the first time `view.admin1` holds (the switch on, the present,
+  under `ADMIN1_KM_PER_PX`) while the view's lon/lat box meets a box of `ADMIN1_FILE_BOXES` in `atlas.js` (`overAdmin1File`; India
+  `[68, 6.5, 97.5, 35.5]`); `refreshPersonalPresent` calls it when the Personal Atlas holds a flag-2 `adm1:` id whose country is in that table, at
+  any zoom. Never at boot, never over another country (both asserted). The table is guarded: `check-admin1.js` ("boxes") fails when a country of
+  the file has no box or a vertex of its units (own arcs and every referenced core arc) lies outside it — step 4 adds a row there with the spec row.
+- **Map and Full** (D1): every inner line of the file while `view.admin1` holds, in the core's admin-1 line (the history's border pass over the
+  slot, `drawHistoryBorders`), and no fill pass at all (`fillFaces: []`); nothing of the slot is handed to the renderer otherwise, so the existing
+  frame-gate views pay nothing. Measured at India 2 km/px: 27,852 slot border segments a frame (every face's border list at level 2, the core-ref
+  pieces discarded by the arc table).
+- **Personal** (D1, §3.2 "the present day"): a unit is kept when it or its country is flag 2 (the core's own admin-1 rule). A kept face is drawn
+  with the BARE alpha (stencil only, no colour) BEFORE the empty-land darkening (`beforeDim`: in `atlas-gl.js` the page's slot fill moved ahead of
+  `drawHistoryDim`; a window's tinted slot fill keeps its old place after the presences), so it is plain land while the rest of an undiscovered India
+  is the darker empty land; at the tile zooms its coast stroke marks the stencil too. Its inner lines (while `view.admin1`) are only the kept faces'
+  border lists — a line is drawn when a kept unit lies on a side. Its share of India's international border joins the core's arc mask: the worker's
+  `history-meta` for the slot now carries `coreBorderOff` / `coreBorders` (per face, the core arcs of its kind-1 references; `CORE_CACHE_REV`
+  re-installed). A past year draws none of the file. With no kept unit the Personal Atlas draws nothing of it, though the file may be in.
+- **Names**: the worker turns each unit into an ordinary `admin1` gazetteer row once both files are in (`adm1Rows`: the file's `faceAnchor`, rank by
+  `build-gazetteer.js`'s area bins + 3, room = √area km), so the same rules apply as for a Russian subject: the switch, `view.admin1` and
+  `MIN_CHORD_PX` in Map and Full, flag 2 only in Personal, never in a past year. The main thread adds the same units to `G` (`adm1GRows`, `src:
+  "admin1"`) so a placed name, a tap on it, the popup and the **search** know them — Q1 decided: the search finds an Indian state only once the
+  file is in (it is not fetched for a keystroke). A deep link `#map/…/adm1:ind:…` opens the place only once something else has fetched the file
+  (not built: such links have no writer yet).
+- **Not built**: a tap on the LAND of an Indian state (the whole-state selection, §12 of `test-atlas-popups.js`) — the slot is never in the ID pass,
+  so the land under a tap is India's core face; a tap on the state's name opens its popup. The still renderer (no WebGL2) has no slot, as in step 2.
+- **The registry** (§3.3): `places-registry.js` reads `admin1.bin` (`readAdmin1`, source `"admin1"`, kind `admin1`, `at` the label point, `within` the
+  core country; `loadRegistry({ admin1: false })` leaves them out), so `add-places.js`, `check-places.js` and `build-card-places.js` accept
+  `adm1:ind:<iso>`. Loading them changed no generated file (`check-places.js` 31 ok). No card names one yet; `card-places.js` was not rebuilt.
+- **The wording call** (D1): the legend's switch reads **"States and provinces"** — it is the one switch for the US's and India's states, India's union
+  territories, China's provinces and Russia's subjects; "Provinces" alone mislabelled the first two. The saved key stays `provinces`.
+- **Tests**: `test-atlas-admin1-page.js` (new: the lazy fetch, Map and Full's lines and names, the switch / zoom / year, the search, Personal with
+  Uttar Pradesh discovered — plain land inside it, empty land in Madhya Pradesh, its name alone, fewer segments than Map — and a reader with none;
+  the Personal reader's index entry is extended in the test, as no card names an Indian unit yet); `test-atlas-perf.js` gains two gesture cases at
+  India 2 km/px, Map and Personal (Uttar Pradesh discovered, a context of its own), each held to the worst-frame and drag-release rules.
