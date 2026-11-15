@@ -11236,7 +11236,9 @@ window.CARD_DATA = [
 {"id":"gin-504","num":"504","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Kolkata","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Founded</span><span class=\"dt-v\">24 August 1690</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Kolkata","tags":["place","city","geography","capital","india"],"difficulty":2,"map":{"layer":"india-states","key":"West Bengal","dot":"Kolkata"},"facts":[["State","West Bengal"],["Population","4.50M (2011)"],["Area","185 km² (71.4 sq mi)"],["Rank in state","Largest city"]]},
 {"id":"gin-004","num":"004","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"West Bengal","answerDate":"","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"West Bengal","tags":["place","geography","india","state","bengal"],"difficulty":3,"map":{"layer":"india-states","key":"West Bengal"},"facts":[["Kind","State"],["Capital","Kolkata"],["Population","91.3M (2011)"],["Area","88.8k km² (34.3k sq mi)"]]},
 {"id":"gin-505","num":"505","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Bhopal","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Gas disaster</span><span class=\"dt-v\">1984</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Bhopal","tags":["place","city","geography","capital","india"],"difficulty":3,"map":{"layer":"india-states","key":"Madhya Pradesh","dot":"Bhopal"},"facts":[["State","Madhya Pradesh"],["Population","1.80M (2011)"],["Area","286 km² (110 sq mi)"],["Rank in state","2nd largest city"]]},
-{"id":"gin-005","num":"005","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Madhya Pradesh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">1 November 1956</span><span class=\"dt-k\">State divided</span><span class=\"dt-v\">1 November 2000</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Madhya Pradesh","tags":["place","geography","india","state","narmada"],"difficulty":3,"map":{"layer":"india-states","key":"Madhya Pradesh"},"facts":[["Kind","State"],["Capital","Bhopal"],["Population","72.6M (2011)"],["Area","308k km² (119k sq mi)"]]}
+{"id":"gin-005","num":"005","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Madhya Pradesh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">State formed</span><span class=\"dt-v\">1 November 1956</span><span class=\"dt-k\">State divided</span><span class=\"dt-v\">1 November 2000</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Madhya Pradesh","tags":["place","geography","india","state","narmada"],"difficulty":3,"map":{"layer":"india-states","key":"Madhya Pradesh"},"facts":[["Kind","State"],["Capital","Bhopal"],["Population","72.6M (2011)"],["Area","308k km² (119k sq mi)"]]},
+{"id":"gin-506","num":"506","category":"Geography","question":"The dot on the map marks <span class=\"blank\">_____</span>, the capital of the state shaded around it.","answer":"Chennai","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Fort St George</span><span class=\"dt-v\">1640</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Chennai","tags":["place","city","geography","capital","india"],"difficulty":2,"map":{"layer":"india-states","key":"Tamil Nadu","dot":"Chennai"},"facts":[["State","Tamil Nadu"],["Population","4.65M (2011)"],["Area","175 km² (67.6 sq mi)"],["Rank in state","Largest city"]]},
+{"id":"gin-006","num":"006","category":"Geography","question":"The state or union territory shaded on the map is <span class=\"blank\">_____</span>.","answer":"Tamil Nadu","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Renamed</span><span class=\"dt-v\">14 January 1969</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Tamil Nadu","tags":["place","geography","india","state","south india"],"difficulty":3,"map":{"layer":"india-states","key":"Tamil Nadu"},"facts":[["Kind","State"],["Capital","Chennai"],["Population","72.1M (2011)"],["Area","130k km² (50.2k sq mi)"]]}
 ];
 
 window.COLLECTION_TREE = {
@@ -29235,7 +29237,7 @@ window.COLLECTION_TREE = {
     {
       "id": "geo-india",
       "title": "India",
-      "total": 10,
+      "total": 12,
       "placeholder": false,
       "children": [
         {
@@ -29247,7 +29249,8 @@ window.COLLECTION_TREE = {
             "gin-002",
             "gin-003",
             "gin-004",
-            "gin-005"
+            "gin-005",
+            "gin-006"
           ]
         },
         {
@@ -29259,7 +29262,8 @@ window.COLLECTION_TREE = {
             "gin-502",
             "gin-503",
             "gin-504",
-            "gin-505"
+            "gin-505",
+            "gin-506"
           ]
         },
         {
