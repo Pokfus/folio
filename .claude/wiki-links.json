@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T21:43Z",
+ "generated": "2026-11-15T21:45Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8283,
+  "ok": 8284,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89321,6 +89321,13 @@
    "answer": "Bhubaneswar",
    "title": "Bhubaneswar",
    "url": "https://en.wikipedia.org/wiki/Bhubaneswar",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-011": {
+   "answer": "Odisha",
+   "title": "Odisha",
+   "url": "https://en.wikipedia.org/wiki/Odisha",
    "via": "answer",
    "status": "ok"
   }
