@@ -11122,3 +11122,18 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
 .yr-col:hover .yr-bar{background:var(--indigo-bright);}
 .yr-m{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-quiet);}
 .yr-top{line-height:1.5;}
+
+/* Today among friends — the board under a results screen's Share button (gameFriendsHydrate, Nov 2026) */
+.gfriends:empty{display:none;}
+.gfriends{margin:14px auto 0; max-width:420px; text-align:left;}
+.gf-head{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.16em; text-transform:uppercase; color:var(--ink-quiet); font-weight:600; margin-bottom:6px;}
+.gf-list{list-style:none; margin:0; padding:0; border:1px solid var(--rule); border-radius:12px; background:var(--card); overflow:hidden;}
+.gf-row{display:grid; grid-template-columns:28px 1fr auto; gap:10px; align-items:center; padding:8px 12px; border-top:1px solid var(--rule);}
+.gf-row:first-child{border-top:0;}
+.gf-me{background:var(--indigo-wash);}
+.gf-rank{font-family:var(--mono); font-weight:600; color:var(--ink-quiet);}
+.gf-won .gf-rank{color:var(--ochre);}
+.gf-name{min-width:0; overflow-wrap:anywhere;}
+.gf-name small{color:var(--ink-quiet);}
+.gf-score{font-family:var(--mono); font-weight:600;}
+.gf-wait, .gf-none{font-size:calc(12.5px * var(--fs)); color:var(--ink-quiet); margin:8px 0 0;}

@@ -10238,14 +10238,137 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return;
     }
     const fr = new FileReader();
-    fr.onload = () => cb(uDeckImportText(String(fr.result || ""), false));
+    const plain = /\.(txt|tsv|csv)$/i.test(file.name || "");   // an Anki or Quizlet text export (uDeckImportPlainText)
+    fr.onload = () => cb(plain ? uDeckImportPlainText(String(fr.result || ""), file.name) : uDeckImportText(String(fr.result || ""), false));
     fr.onerror = () => cb({ error: "Couldn't read that file." });
     fr.readAsText(file);
+  }
+  /* ---------- ANKI AND QUIZLET, BOTH WAYS (2026-11-15, on request: "export a deck as Anki-importable TSV, and import
+     Anki or Quizlet text exports into community decks") ----------
+     IMPORT reads the two plain-text exports those apps make — Anki's "Notes in Plain Text" (.txt, tab-separated, with its
+     `#separator:`, `#html:`, `#columns:`, `#tags column:`, `#deck column:`, `#notetype column:` and `#guid column:`
+     header lines, a field quoted when it holds the separator or a line break) and Quizlet's export (one card a line, term
+     and definition split by a tab, a comma or a semicolon) — and turns them into a deck file, which then goes through
+     `uDeckImportText` like any other: so `uDeckNormalize` stays the one ingest choke point and every field is sanitized
+     there. The first two fields that are not a GUID, a note type, a deck or tags are the front and the back; a third and
+     later field is kept on the back under a rule. An Anki deck column becomes the subdeck path (both use "::"). A cloze
+     note is brought in as a Basic card, its deletions shown as [...] on the front and in full on the back. Text that is
+     not marked HTML is escaped, its line breaks kept. Nothing is fetched: an Anki .apkg (a zipped database) is not read,
+     and the message says so. */
+  function ankiParseRows(text, sep) {
+    const rows = []; let row = [], f = "", q = false;
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      if (q) {
+        if (ch === '"') { if (text[i + 1] === '"') { f += '"'; i++; } else q = false; }
+        else f += ch;
+      } else if (ch === '"' && f === "") q = true;
+      else if (ch === sep) { row.push(f); f = ""; }
+      else if (ch === "\n") { row.push(f); rows.push(row); row = []; f = ""; }
+      else if (ch !== "\r") f += ch;
+    }
+    if (f !== "" || row.length) { row.push(f); rows.push(row); }
+    return rows;
+  }
+  function ankiTextToDeck(text, fileName) {
+    text = String(text || "").replace(/^﻿/, "");
+    const head = {}, lines = text.split(/\r?\n/);
+    let skip = 0;
+    while (skip < lines.length && /^#[a-z ]+:/i.test(lines[skip])) {
+      const m = /^#([a-z ]+):(.*)$/i.exec(lines[skip]);
+      head[m[1].trim().toLowerCase()] = m[2].trim();
+      skip++;
+    }
+    const body = lines.slice(skip).join("\n");
+    const SEPS = { tab: "\t", comma: ",", semicolon: ";", pipe: "|", space: " ", colon: ":" };
+    let sep = head.separator ? (SEPS[head.separator.toLowerCase()] || head.separator.charAt(0)) : "";
+    if (!sep) {
+      const sample = body.split("\n").slice(0, 50).join("\n");
+      sep = sample.indexOf("\t") >= 0 ? "\t" : (sample.split(";").length > sample.split(",").length ? ";" : ",");
+    }
+    const html = /^(true|yes|1)$/i.test(head.html || "");
+    const col = (k) => (head[k + " column"] ? (parseInt(head[k + " column"], 10) || 0) - 1 : -1);
+    const special = { guid: col("guid"), notetype: col("notetype"), deck: col("deck"), tags: col("tags") };
+    const skipCols = new Set(Object.values(special).filter((x) => x >= 0));
+    const toHtml = (v) => (html ? String(v) : esc(String(v)).replace(/\n/g, "<br>"));
+    const CLOZE = /\{\{c\d+::([\s\S]*?)(?:::[\s\S]*?)?\}\}/g;
+    const cards = [];
+    let cloze = 0;
+    ankiParseRows(body, sep).forEach((r) => {
+      const fields = r.filter((v, i) => !skipCols.has(i));
+      if (!fields.length || !fields.some((v) => String(v).trim())) return;
+      let front = fields[0] || "", back = fields[1] || "";
+      if (CLOZE.test(front)) {
+        cloze++;
+        CLOZE.lastIndex = 0;
+        const full = front.replace(CLOZE, "$1");
+        front = front.replace(CLOZE, "[...]");
+        back = full + (back ? "\n\n" + back : "");
+      }
+      CLOZE.lastIndex = 0;
+      if (!String(front).trim() && !String(back).trim()) return;
+      const c = { question: toHtml(front), answer: toHtml(back) + fields.slice(2).filter((v) => String(v).trim()).map((v) => "<hr>" + toHtml(v)).join("") };
+      if (special.deck >= 0 && r[special.deck]) c.sub = String(r[special.deck]);
+      cards.push(c);
+    });
+    const title = (head.deck || String(fileName || "Imported deck").replace(/\.(txt|tsv|csv)$/i, "").replace(/[_-]+/g, " ")).trim().slice(0, 80) || "Imported deck";
+    return { deck: { folioDeck: UDECK_FORMAT, meta: { title: title, desc: "Imported from a text export." }, cards: cards }, cloze: cloze };
+  }
+  function uDeckImportPlainText(text, fileName) {
+    const got = ankiTextToDeck(text, fileName);
+    if (!got.deck.cards.length) return { error: "No cards were found in that file. Export notes as plain text, one note a line." };
+    const r = uDeckImportText(JSON.stringify(got.deck), true);
+    if (r && !r.error && got.cloze) setTimeout(() => toast(got.cloze + " cloze note" + (got.cloze === 1 ? " was" : "s were") + " brought in as Basic cards"), 2500);
+    return r;
+  }
+  /* EXPORT writes any deck a reader can open — one of Folio's, a collection, a language, or one of their own — as the
+     file Anki's File → Import reads with no settings changed: tab-separated, HTML on, a header naming the columns, the
+     note type Basic, and the deck and tags columns. A card whose question is a map, a flag to draw, a locator or an
+     artwork cannot travel as text and is left out, and the toast says how many. A card of a deck's own type puts its
+     first filled field on the front and the rest on the back. */
+  async function ankiExportEntry(id) {
+    const info = entryInfo(id) || {};
+    let ids = entryCardIds(id) || [];
+    const avail = availableCardIdSet();
+    ids = ids.filter((x) => isCommunityCard(x) || avail.has(x));
+    if (ids.some(isCommunityCard)) { try { await uWarm(ids.filter(isCommunityCard)); } catch (e) {} }
+    const cell = (v) => { v = String(v == null ? "" : v).replace(/\r?\n/g, " "); return /[\t"]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+    const deckOf = (cid) => {
+      if (isCommunityCard(cid)) { const c = cardById(cid); return ["Folio", info.title || "Deck"].concat(c && c.sub ? [c.sub] : []).join("::"); }
+      const leaf = cardLeaves(cid)[0];
+      return leaf ? "Folio::" + nodePath(NODE_BY_ID[leaf.id]).join("::") : "Folio";
+    };
+    const out = ["#separator:tab", "#html:true", "#notetype:Basic", "#columns:Front\tBack\tDeck\tTags", "#deck column:3", "#tags column:4"];
+    let left = 0;
+    ids.forEach((cid) => {
+      const c = cardById(cid);
+      if (!c) return;
+      if (!isCommunityCard(cid) && (cardMapSpec(c) || cardLocatorFront(c) || cardArtSpec(c) || cardFlagSpec(c) || cardDrawSpec(c))) { left++; return; }
+      let front = c.question || "", back = c.answer || "";
+      if (c.fields && (!front || !back)) {
+        const t = cardTypeOf(c), order = (t && t.fields) || Object.keys(c.fields);
+        const vals = order.map((f) => String(c.fields[f] || "")).filter((v) => v.trim());
+        front = front || vals[0] || ""; back = back || vals.slice(1).join("<br>");
+      }
+      if (c.answerDate && !c.fields) back += "<br>" + c.answerDate;
+      if (!String(front).trim()) { left++; return; }
+      const tags = (Array.isArray(c.tags) ? c.tags : []).map((t) => String(t).trim().replace(/\s+/g, "_")).filter(Boolean).join(" ");
+      out.push([front, back, deckOf(cid), tags].map(cell).join("\t"));
+    });
+    const n = out.length - 6;
+    if (!n) { toast("Nothing in this " + (entryNoun(id) || "deck") + " can be written as text cards."); return; }
+    const name = (info.title || "deck").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 48) || "deck";
+    const url = URL.createObjectURL(new Blob([out.join("\n") + "\n"], { type: "text/tab-separated-values" }));
+    const a = document.createElement("a");
+    a.href = url; a.download = name + ".anki.txt";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
+    toast(n.toLocaleString("en-GB") + " cards written for Anki" + (left ? " · " + left + " map or picture cards left out" : ""));
   }
   function uDeckPickFile(cb) {
     const inp = document.createElement("input");
     inp.type = "file";
-    inp.accept = ".json,application/json";
+    inp.accept = ".json,application/json,.txt,.tsv,.csv,text/plain,text/csv,text/tab-separated-values";
     inp.style.display = "none";
     document.body.appendChild(inp);
     inp.addEventListener("change", () => { const f = inp.files && inp.files[0]; inp.remove(); if (f) uDeckImportFile(f, cb); });
@@ -18149,6 +18272,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         /* CRAM (Nov 2026, on request) — a run through the deck before an exam that touches no schedule. See
            startCram. Off the pooled review's sheet, which is every deck at once and has no exam to cram for. */
         (isReview ? "" : item("cram", "Cram", "Run through this " + thing + " before an exam — nothing is scheduled")) +
+        (isReview ? "" : item("anki", "Export for Anki", "Download this " + thing + "'s cards as a file Anki imports")) +   // ankiExportEntry (Nov 2026)
         item("limits", "Daily limits", L.newPerDay + " new/day · " + L.maxReviews + " reviews/day") +
         /* READY BY A DATE (see openDeadline). It sits directly under Daily limits because it is the same
            figure asked for from the other end — a reader who knows the date does not know the number, and
@@ -18282,6 +18406,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         }
         if (act === "custom") { close(); openCustomStudy(id); return; }
         if (act === "cram") { close(); startCram(id); return; }
+        if (act === "anki") { close(); ankiExportEntry(id); return; }
         if (act === "limits") { close(); openDeckLimits(id); return; }
         if (act === "deadline") { close(); openDeadline(id); return; }
         if (act === "rename") {
@@ -29835,7 +29960,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<div class="collection-list studio-list">' +
         (decks.length
           ? decks.map((d) => udeckRowHTML(d) + (studioState.deck === d.id ? '<div class="studio-inline" id="stInline"></div>' : "")).join("")
-          : '<div class="lib-empty studio-empty">No decks yet. “New deck” starts one; “Import” opens a <code>.folio-deck.json</code> file someone sent you.</div>') +
+          : '<div class="lib-empty studio-empty">No decks yet. “New deck” starts one; “Import” opens a <code>.folio-deck.json</code> file someone sent you, or a plain-text export from Anki or Quizlet.</div>') +
       '</div>' +
       orphanSectionHTML() +
     '</div>';
@@ -40981,8 +41106,67 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function gameShareHTML(key, s, n, grid, note) {
     const o = { k: key, d: gameDayStr(), s: s, n: n, g: grid || "", x: note || "" };
     if (GAME_DAY) o.a = 1;
+    if (!GAME_DAY) setTimeout(gameFriendsHydrate, 0);   // the friends' board below (gameFriendsHydrate), filled once the screen is in the page
     return '<div class="gshare-row"><button type="button" class="btn ghost gshare-open" data-gshare="' + esc(JSON.stringify(o)) + '">' +
-      SHARE_ICON + "Share result</button></div>";
+      SHARE_ICON + "Share result</button></div>" +
+      (GAME_DAY ? "" : '<div class="gfriends" data-gfk="' + esc(key) + '" aria-live="polite"></div>');
+  }
+  /* ---------- TODAY'S BOARD AMONG FRIENDS (2026-11-15, on request: "a friends leaderboard for the daily games, shown
+     on the minigame completion screen") ----------
+     Every results screen goes through `gameShareHTML`, so the board rides under its Share button and a tenth game gets
+     it for nothing. NOTHING NEW IS STORED OR SYNCED: a day's result is already `S.games[key]` ({ date, played, won, s,
+     n }) in the progress blob, and an accepted friend's blob is readable under the existing RLS (the friend view reads
+     it whole); this asks for that one key alone (`games:data->games`). A friend's figure is as fresh as their last sync,
+     and their "today" is the day their own result was written under. Signed-out readers and an archived day get no
+     board; a reader with no friends gets one line saying where to add them. One fetch per minute at most. */
+  let _gfCache = null;
+  async function gameFriendsLoad() {
+    if (_gfCache && Date.now() - _gfCache.at < 60000) return _gfCache;
+    const me = SUPA && SUPA.user && SUPA.user.id;
+    if (!me) return null;
+    const fr = await supaFetch("/rest/v1/friends?select=user_id,friend_id,status");
+    if (!fr.ok) return null;
+    const ids = [...new Set((fr.data || []).filter((r) => r.status === "accepted").map((r) => (r.user_id === me ? r.friend_id : r.user_id)))];
+    const out = { at: Date.now(), friends: [] };
+    if (ids.length) {
+      const [pr, pg] = await Promise.all([
+        supaFetch("/rest/v1/profiles?id=in.(" + ids.join(",") + ")&select=id,name,username"),
+        supaFetch("/rest/v1/progress?user_id=in.(" + ids.join(",") + ")&select=user_id,games:data->games"),
+      ]);
+      const games = {};
+      if (pg.ok && Array.isArray(pg.data)) pg.data.forEach((r) => { games[r.user_id] = r.games || {}; });
+      if (pr.ok && Array.isArray(pr.data)) pr.data.forEach((p) => out.friends.push({ id: p.id, name: p.name || p.username || "", username: p.username || "", games: games[p.id] || {} }));
+    }
+    return (_gfCache = out);
+  }
+  function gameFriendsHydrate() {
+    const boxes = [...document.querySelectorAll(".gfriends[data-gfk]:not([data-gfdone])")];
+    if (!boxes.length || !(SUPA && SUPA.user)) return;
+    boxes.forEach((b) => b.setAttribute("data-gfdone", "1"));
+    gameFriendsLoad().then((d) => {
+      if (!d) return;
+      const t = todayStr();
+      boxes.forEach((box) => {
+        if (!box.isConnected) return;
+        const key = box.dataset.gfk;
+        if (!d.friends.length) { box.innerHTML = '<p class="gf-none">Add friends on your <a href="#account">Account</a> page to see how they did today.</p>'; return; }
+        const res = (g) => (g && g.date === t && g.played ? g : null);
+        const rows = [{ me: true, name: "You", g: res((S.games || {})[key]) }].concat(d.friends.map((f) => ({ name: f.name, username: f.username, g: res((f.games || {})[key]) })));
+        const frac = (g) => (typeof g.s === "number" && g.n ? g.s / g.n : (g.won ? 1 : 0));
+        const played = rows.filter((r) => r.g).sort((a, b) => (b.g.won - a.g.won) || (frac(b.g) - frac(a.g)) || (a.me ? -1 : b.me ? 1 : a.name.localeCompare(b.name)));
+        const waiting = rows.filter((r) => !r.g && !r.me);
+        let rank = 0, last = null;
+        const li = played.map((r, i) => {
+          const key2 = r.g.won + ":" + frac(r.g);
+          if (key2 !== last) { rank = i + 1; last = key2; }
+          const sc = typeof r.g.s === "number" && typeof r.g.n === "number" ? r.g.s + "/" + r.g.n : (r.g.won ? "won" : "played");
+          return '<li class="gf-row' + (r.me ? " gf-me" : "") + (r.g.won ? " gf-won" : "") + '"><span class="gf-rank">' + rank + '</span><span class="gf-name">' + esc(r.name) +
+            (r.username ? " <small>@" + esc(r.username) + "</small>" : "") + '</span><span class="gf-score">' + esc(sc) + "</span></li>";
+        }).join("");
+        box.innerHTML = '<div class="gf-head">Today among friends</div><ol class="gf-list">' + li + "</ol>" +
+          (waiting.length ? '<p class="gf-wait">Not played yet: ' + waiting.slice(0, 6).map((r) => esc(r.name)).join(", ") + (waiting.length > 6 ? " and " + (waiting.length - 6) + " more" : "") + ".</p>" : "");
+      });
+    });
   }
   // each platform's public web share address; t = the whole text, u = the address, b = the text without the address
   const SHARE_TARGETS = [
