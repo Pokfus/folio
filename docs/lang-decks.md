@@ -3654,6 +3654,19 @@ changed was the one that had been wrong all along.
   carried onto its second noun, the stub formulae, glosses that are not the counted word) are
   📖 `docs/zulu-decks-plan.md`. The `l1` row is 12 million (Ethnologue via Wikipedia); the hue is measured,
   `#9A012F` (re-swept at the merge: Greek had taken `#6D67D1`'s neighbour). `levelRank` sorts "Noun Classes" before A1.
+- `.claude/amharic/` — the generator behind the Amharic decks (Nov 2026, on request: "Add an Amharic language
+  collection"; the Zulu and Hausa owners' answers taken, the owner not asked). **Built: the fidäl deck,
+  `decks/Amharic-Alphabet.folio-deck.json`** (44 notes: the seven orders, 34 consonants with their rows, the
+  labialised forms, the punctuation) **and A1, `decks/Amharic-A1.folio-deck.json`** (500 notes / 1,000 cards).
+  `python3 .claude/amharic/run.py [--level a1]`, `python3 .claude/amharic/alphabet.py`,
+  `node .claude/amharic/check-amharic.js`; a re-run is byte-identical. Zulu's arrangement: about 2,300
+  Wiktionary words, about 250 Tatoeba pairs, no subtitle list, so the frequency is the Amharic Wikipedia's
+  (14,255 articles), A1–B1 only, no hand glosses; Wiktionary's romanisation under every word and no speaker
+  (the Hausa rule). Every match is by a Latin KEY built syllable by syllable, with the homophone letters
+  (ሀ ሐ ኀ, ሰ ሠ, አ ዐ, ጸ ፀ) folded together and the written-on prepositions and endings peeled as a
+  fallback; the findings (the fold's true homographs, the infinitive twins, the declension tables' faults,
+  the normalised romanisation) are 📖 `docs/amharic-decks-plan.md`. The `LANGS` row is 35 million L1, 60
+  in all (Ethnologue via Wikipedia); the hue is measured, `#85063D`.
 - `.claude/oldenglish/` — the generator behind the Old English decks (Nov 2026, on request: "Add an Old
   English language collection"). **Built: the alphabet and pronunciation deck,
   `decks/Old-English-Alphabet.folio-deck.json`** (41 notes) **and Level 1,

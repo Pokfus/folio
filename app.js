@@ -30448,6 +30448,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        out: a cornflower blue, 15.0 from its nearest neighbours (French's blue and Tagalog's azure), against a
        tightest existing pair of 4.0; 4.7:1 against white. Not a flag colour (Israel's blue is far deeper). */
     "lang-hebrew":     { bg: "#5E6EC0" }, // measured cornflower
+    /* AMHARIC (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 70 hues on the
+       page, the magenta band's standing rejection kept (the raw runner-up, 15.0, was a plum there) and the
+       greens left out (the raw winner, 15.1): a deep wine, 14.7 from its nearest neighbour (the Japan
+       collection's kuwazome red-purple), against a tightest existing pair of 4.0; 10.0:1 against white. Not a flag colour. */
+    "lang-amharic":    { bg: "#85063D" }, // measured wine
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
