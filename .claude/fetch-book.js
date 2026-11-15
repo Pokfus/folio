@@ -1134,6 +1134,114 @@ const TREATY_PARTS = [
   "Guarantees",
   "Miscellaneous Provisions",
 ];
+/* THE KING JAMES BIBLE'S EIGHTY BOOKS, in the order the 1611 printing sets them: the Old Testament,
+   then the Apocrypha between the Testaments, then the New. Each row is the USFM code the eBible.org
+   files are named by, the short name a chapter tab carries, the book's own title as the transcription
+   heads it (its `\toc1`, set here in title case — the New Testament's are in capitals there), the
+   section, and the number of chapters the book has, which the extractor CHECKS against the file
+   rather than trusts. The Apocrypha's order is 1611's, not the transcription's (which files them in
+   the order of the Greek Bible): 1 and 2 Esdras first, the Prayer of Manasses before the Maccabees.
+   The Rest of Esther is numbered on from the Hebrew Esther, chapters 10 to 16, as the printing has it,
+   so its row says where its numbering starts. */
+const KJV_BOOKS = [
+  ["GEN", "Genesis", "The First Book of Moses, called Genesis", "ot", 50],
+  ["EXO", "Exodus", "The Second Book of Moses, called Exodus", "ot", 40],
+  ["LEV", "Leviticus", "The Third Book of Moses, called Leviticus", "ot", 27],
+  ["NUM", "Numbers", "The Fourth Book of Moses, called Numbers", "ot", 36],
+  ["DEU", "Deuteronomy", "The Fifth Book of Moses, called Deuteronomy", "ot", 34],
+  ["JOS", "Joshua", "The Book of Joshua", "ot", 24],
+  ["JDG", "Judges", "The Book of Judges", "ot", 21],
+  ["RUT", "Ruth", "The Book of Ruth", "ot", 4],
+  ["1SA", "1 Samuel", "The First Book of Samuel, otherwise called the First Book of the Kings", "ot", 31],
+  ["2SA", "2 Samuel", "The Second Book of Samuel, otherwise called the Second Book of the Kings", "ot", 24],
+  ["1KI", "1 Kings", "The First Book of the Kings, commonly called the Third Book of the Kings", "ot", 22],
+  ["2KI", "2 Kings", "The Second Book of the Kings, commonly called the Fourth Book of the Kings", "ot", 25],
+  ["1CH", "1 Chronicles", "The First Book of the Chronicles", "ot", 29],
+  ["2CH", "2 Chronicles", "The Second Book of the Chronicles", "ot", 36],
+  ["EZR", "Ezra", "Ezra", "ot", 10],
+  ["NEH", "Nehemiah", "The Book of Nehemiah", "ot", 13],
+  ["EST", "Esther", "The Book of Esther", "ot", 10],
+  ["JOB", "Job", "The Book of Job", "ot", 42],
+  ["PSA", "Psalms", "The Book of Psalms", "ot", 150],
+  ["PRO", "Proverbs", "The Proverbs", "ot", 31],
+  ["ECC", "Ecclesiastes", "Ecclesiastes, or the Preacher", "ot", 12],
+  ["SNG", "Song of Solomon", "The Song of Solomon", "ot", 8],
+  ["ISA", "Isaiah", "The Book of the Prophet Isaiah", "ot", 66],
+  ["JER", "Jeremiah", "The Book of the Prophet Jeremiah", "ot", 52],
+  ["LAM", "Lamentations", "The Lamentations of Jeremiah", "ot", 5],
+  ["EZK", "Ezekiel", "The Book of the Prophet Ezekiel", "ot", 48],
+  ["DAN", "Daniel", "The Book of Daniel", "ot", 12],
+  ["HOS", "Hosea", "Hosea", "ot", 14],
+  ["JOL", "Joel", "Joel", "ot", 3],
+  ["AMO", "Amos", "Amos", "ot", 9],
+  ["OBA", "Obadiah", "Obadiah", "ot", 1],
+  ["JON", "Jonah", "Jonah", "ot", 4],
+  ["MIC", "Micah", "Micah", "ot", 7],
+  ["NAM", "Nahum", "Nahum", "ot", 3],
+  ["HAB", "Habakkuk", "Habakkuk", "ot", 3],
+  ["ZEP", "Zephaniah", "Zephaniah", "ot", 3],
+  ["HAG", "Haggai", "Haggai", "ot", 2],
+  ["ZEC", "Zechariah", "Zechariah", "ot", 14],
+  ["MAL", "Malachi", "Malachi", "ot", 4],
+  ["1ES", "1 Esdras", "1 Esdras", "ap", 9],
+  ["2ES", "2 Esdras", "2 Esdras", "ap", 16],
+  ["TOB", "Tobit", "Tobit", "ap", 14],
+  ["JDT", "Judith", "Judith", "ap", 16],
+  ["ESG", "Rest of Esther", "The Rest of the Chapters of the Book of Esther, which are found neither in the Hebrew, nor in the Chaldee", "ap", 7, 10],
+  ["WIS", "Wisdom", "The Wisdom of Solomon", "ap", 19],
+  ["SIR", "Ecclesiasticus", "The Wisdom of Jesus the Son of Sirach, or Ecclesiasticus", "ap", 51],
+  ["BAR", "Baruch", "Baruch", "ap", 6],
+  ["S3Y", "Song of the Three Children", "The Song of the Three Holy Children", "ap", 1],
+  ["SUS", "Susanna", "The History of Susanna", "ap", 1],
+  ["BEL", "Bel and the Dragon", "The History of the Destruction of Bel and the Dragon", "ap", 1],
+  ["MAN", "Prayer of Manasses", "The Prayer of Manasseh, King of Judah, when he was holden captive in Babylon", "ap", 1],
+  ["1MA", "1 Maccabees", "The First Book of the Maccabees", "ap", 16],
+  ["2MA", "2 Maccabees", "The Second Book of the Maccabees", "ap", 15],
+  ["MAT", "Matthew", "The Gospel according to St. Matthew", "nt", 28],
+  ["MRK", "Mark", "The Gospel according to St. Mark", "nt", 16],
+  ["LUK", "Luke", "The Gospel according to St. Luke", "nt", 24],
+  ["JHN", "John", "The Gospel according to St. John", "nt", 21],
+  ["ACT", "Acts", "The Acts of the Apostles", "nt", 28],
+  ["ROM", "Romans", "The Epistle of Paul the Apostle to the Romans", "nt", 16],
+  ["1CO", "1 Corinthians", "The First Epistle of Paul the Apostle to the Corinthians", "nt", 16],
+  ["2CO", "2 Corinthians", "The Second Epistle of Paul the Apostle to the Corinthians", "nt", 13],
+  ["GAL", "Galatians", "The Epistle of Paul the Apostle to the Galatians", "nt", 6],
+  ["EPH", "Ephesians", "The Epistle of Paul the Apostle to the Ephesians", "nt", 6],
+  ["PHP", "Philippians", "The Epistle of Paul the Apostle to the Philippians", "nt", 4],
+  ["COL", "Colossians", "The Epistle of Paul the Apostle to the Colossians", "nt", 4],
+  ["1TH", "1 Thessalonians", "The First Epistle of Paul the Apostle to the Thessalonians", "nt", 5],
+  ["2TH", "2 Thessalonians", "The Second Epistle of Paul the Apostle to the Thessalonians", "nt", 3],
+  ["1TI", "1 Timothy", "The First Epistle of Paul the Apostle to Timothy", "nt", 6],
+  ["2TI", "2 Timothy", "The Second Epistle of Paul the Apostle to Timothy", "nt", 4],
+  ["TIT", "Titus", "The Epistle of Paul the Apostle to Titus", "nt", 3],
+  ["PHM", "Philemon", "The Epistle of Paul the Apostle to Philemon", "nt", 1],
+  ["HEB", "Hebrews", "The Epistle of Paul the Apostle to the Hebrews", "nt", 13],
+  ["JAS", "James", "The General Epistle of James", "nt", 5],
+  ["1PE", "1 Peter", "The First Epistle General of Peter", "nt", 5],
+  ["2PE", "2 Peter", "The Second Epistle General of Peter", "nt", 3],
+  ["1JN", "1 John", "The First Epistle General of John", "nt", 5],
+  ["2JN", "2 John", "The Second Epistle of John", "nt", 1],
+  ["3JN", "3 John", "The Third Epistle of John", "nt", 1],
+  ["JUD", "Jude", "The General Epistle of Jude", "nt", 1],
+  ["REV", "Revelation", "The Revelation of St. John the Divine", "nt", 22],
+].map((r, i, all) => {
+  const from = all.slice(0, i).reduce((s, x) => s + x[4], 1);
+  return { code: r[0], name: r[1], full: r[2], sec: r[3], count: r[4], first: r[5] || 1,
+    part: i + 1, from: from, to: from + r[4] - 1 };
+});
+// tab n → its book and the chapter number the book itself prints
+function kjvAt(n) {
+  const b = KJV_BOOKS.find((x) => n >= x.from && n <= x.to);
+  return b ? { book: b, ch: b.first + (n - b.from) } : null;
+}
+// what a tab is called: "Genesis 1", "Psalm 23", and a one-chapter book by its name alone
+function kjvTitle(n) {
+  const at = kjvAt(n);
+  if (!at) return "Chapter " + n;
+  if (at.book.count === 1) return at.book.name;
+  return (at.book.code === "PSA" ? "Psalm" : at.book.name) + " " + at.ch;
+}
+
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -18983,6 +19091,112 @@ const BOOKS = {
     titleOf: (n) => TREATY_PARTS[n - 1],
     chapters: Array.from({ length: 15 }, (_, i) => i + 1),
   },
+  "king-james-bible": {
+    title: "The King James Bible",
+    subtitle: "The Holy Bible, Authorized Version, 1611",
+    /* NO AUTHOR TO NAME. The Bible is the work of many hands over more than a thousand years, and
+       tradition's attributions (Moses, David, Solomon, the evangelists, Paul) cover only part of it and
+       are argued over for most of what they cover. So it is shelved as the Rigveda and the Epic of
+       Gilgamesh are, and its colour keys on its id. */
+    author: "Anonymous",
+    /* The translators are a company of about fifty scholars, not one name, so the byline names them
+       as a body, as the Summa's names the English Dominicans. */
+    translator: "the King James translators",
+    edition: "The Authorized Version of 1611, in the standard text of 1769, as transcribed by the CrossWire " +
+      "Bible Society and published by eBible.org",
+    /* The span the books were written in, hedged at both ends. The oldest poetry may be older than
+       1000 BCE; the latest piece in the book is the last two chapters of 2 Esdras, usually put in the
+       third century CE. `year` is the single number the shelf's date sort needs. */
+    written: "c. 1000 BCE – c. 300 CE",
+    year: -1000,
+
+    /* ---------- THE LICENCE, AND THE ONE LIMIT ON IT, WHICH IS NOT A TERM OF YEARS ----------
+       The translation was printed in 1611 and the text read here is the Oxford standard text of 1769,
+       so it has been out of copyright everywhere copyright runs for centuries. The limit is the
+       Crown's: in the United Kingdom the right to print the Authorized Version was granted by royal
+       letters patent that do not expire, and eBible.org's own copyright page says so in terms —
+       Cambridge University Press, Oxford University Press and Collins hold the right to print it
+       there. That is a royal prerogative, not copyright, and it reaches nowhere outside the United
+       Kingdom. It is stated on the page rather than left out, as Giles's 2029 and McKechnie's 2031
+       are; whether it touches a website is not something this entry can settle, and it says so.
+
+       WHAT ELSE WAS MEASURED, and why this transcription — see the block above extractUsfm. */
+    rights:
+      "Public domain, with one limit that is not a copyright. The King James Bible was first printed in " +
+      "1611, and the text given here is the standard text of 1769, so it is out of copyright everywhere. " +
+      "In the United Kingdom, however, the right to print it belongs to the Crown under royal letters " +
+      "patent that have no end date, and is exercised by licensed printers — eBible.org names Cambridge " +
+      "University Press, Oxford University Press and Collins. That right is not copyright and has no " +
+      "force outside the United Kingdom. The text is the CrossWire Bible Society's transcription as " +
+      "published by eBible.org, which places it in the public domain. The dedication to King James, " +
+      "the translators' preface and the summaries at the head of each chapter are not reproduced.",
+    sourceName: "eBible.org",
+    sourceUrl: "https://ebible.org/kjv/",
+
+    about: [
+      "<b>The King James Bible</b>, also called the <b>Authorized Version</b>, is the English translation " +
+        "of the Bible made by order of King James I of England and first printed in London in 1611. For " +
+        "about three hundred years it was the Bible of the English-speaking Protestant world, read aloud " +
+        "in churches every week, and it is still the most widely printed English Bible. Its sentences " +
+        "passed into the language: <i>let there be light</i>, <i>my brother's keeper</i>, <i>the salt of " +
+        "the earth</i>, <i>a law unto themselves</i>, <i>the powers that be</i> and hundreds more first " +
+        "reached most English speakers through it.",
+      "The Bible is not one book but a library. The <b>Old Testament</b> is the scripture of ancient " +
+        "Israel, written in Hebrew, with a few chapters in Aramaic: the five books of the law, the " +
+        "histories of Israel and Judah, the Psalms and the other poetry and wisdom, and the prophets. Its " +
+        "books were written and edited over many centuries in the first millennium BCE. The <b>New " +
+        "Testament</b> was written in Greek in the first century CE and perhaps the early second: the four " +
+        "Gospels of the life of Jesus, the Acts of the Apostles, the letters of Paul and others to the " +
+        "first Christian communities, and the Revelation. Between them stands the <b>Apocrypha</b>, " +
+        "Jewish books that survive in Greek and Latin but are not in the Hebrew Bible.",
+      "The translation began at a conference James held at Hampton Court in January 1604, where a new " +
+        "English Bible was proposed. About fifty scholars were organised in six companies, two each at " +
+        "Westminster, Oxford and Cambridge, and each was given a group of books. They were told to revise " +
+        "the Bishops' Bible, the English Bible then read in churches, against the Hebrew and Greek, and " +
+        "to keep its wording where they could. In practice they drew on every English version before " +
+        "them, and above all on William Tyndale, whose New Testament of 1526 supplies much of the wording " +
+        "of theirs. The result was printed by Robert Barker, the King's Printer, in 1611. Its title page " +
+        "says it was <i>appointed to be read in Churches</i>; no record of a formal authorisation " +
+        "survives, but the name Authorized Version stuck.",
+      "The spelling here is not 1611's. The first printing spelled as its compositors did — " +
+        "<i>heauen</i>, <i>euill</i>, <i>vnto</i> — and contained many misprints, which later printings " +
+        "corrected and sometimes multiplied. In 1769 the Oxford printer published a text revised by " +
+        "Benjamin Blayney, with the spelling and punctuation regularised, and most King James Bibles " +
+        "printed since reproduce it. That standard text is the one given here. The words are the " +
+        "translators'; only the spelling and small details have changed.",
+      "The Apocrypha is included because the King James Bible of 1611 included it, printed between the " +
+        "Testaments as it is here, in the order of that printing. The translators did not treat these " +
+        "books as scripture equal to the rest, but the Church of England read from them. From the " +
+        "nineteenth century most printings left them out, which is why many King James Bibles today " +
+        "have only sixty-six books.",
+      "How the page is set. Each tab is one chapter, and each verse begins on its own line with its " +
+        "number, as the King James Bible has always been printed; the mark ¶ is the translators' sign " +
+        "for a new paragraph. Words in <i>italic</i> are not emphasis: they are words the translators " +
+        "added to make the English read, with nothing standing for them in the Hebrew or Greek. The " +
+        "notes under each chapter are the translators' own marginal notes, as this transcription has " +
+        "them, mostly giving a more literal rendering (<i>Heb.</i>, the Hebrew says) or another possible " +
+        "one (<i>Or</i>). The titles of the Psalms and the short notes at the foot of the Epistles " +
+        "saying where each was written are printed as the King James Bible prints them; the Psalm titles " +
+        "are part of the Hebrew text, while the notes on the Epistles come from later manuscripts. The tabs are numbered straight through the book, " +
+        "1 to 1,362; the name on each tab is the chapter's usual reference, such as Genesis 1 or Psalm " +
+        "23. Not included: the translators' dedication to King James, their long preface " +
+        "<i>The Translators to the Reader</i>, and the short summary printed at the head of every " +
+        "chapter, which this transcription does not carry. The text comes from the CrossWire Bible " +
+        "Society's transcription, published by eBible.org; it has not been checked here against a " +
+        "printed copy, so small slips may remain.",
+    ],
+
+    layout: "usfm",
+    url: "https://ebible.org/Scriptures/eng-kjv_usfm.zip",
+    chapterWord: "Chapter",
+    chapters: Array.from({ length: KJV_BOOKS[KJV_BOOKS.length - 1].to }, (_, i) => i + 1),
+    titleOf: (n) => kjvTitle(n),
+    // the eighty books are the parts, so the contents panel lists the chapters under their book
+    parts: KJV_BOOKS.map((b) => ({ n: b.part, label: b.name, from: b.from, to: b.to })),
+    /* The shortest chapter in the book is Psalm 117, two verses and 249 characters with their markup;
+       a failed extraction yields nothing at all. */
+    minChars: 150,
+  },
 };
 
 /* ---------- args ---------- */
@@ -19049,6 +19263,26 @@ async function fetchText(url) {
       const t = await r.text();
       if (t.length < 1024) throw new Error("suspiciously short body (" + t.length + " bytes)");
       return t;
+    } catch (e) {
+      last = e.message;
+      await sleep(2000 + a * 3000);
+    }
+  }
+  throw new Error("could not fetch " + url + ": " + last);
+}
+
+/* The same, for a file that is not text — the King James Bible arrives as one zip, and `r.text()`
+   would decode its bytes as UTF-8 and corrupt every compressed block. A cut transfer is caught by
+   `unzipEntries`, which finds no end-of-directory record in it and throws. */
+async function fetchBuffer(url) {
+  let last = "";
+  for (let a = 0; a < 6; a++) {
+    try {
+      const r = await fetch(url, { headers: { "User-Agent": UA } });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const b = Buffer.from(await r.arrayBuffer());
+      if (b.length < 1024) throw new Error("suspiciously short body (" + b.length + " bytes)");
+      return b;
     } catch (e) {
       last = e.message;
       await sleep(2000 + a * 3000);
@@ -30010,6 +30244,172 @@ function extractAnnals(h, warn) {
   return { chapters: chapters, counts: counts };
 }
 
+/* ============================================================
+   USFM, ONE FILE PER BOOK OF THE BIBLE, IN ONE ZIP                    (layout: "usfm")
+   ============================================================
+   Nov 2026, adding the King James Bible. The first book here that is not prose or verse laid out for
+   reading but a MARKUP for scripture: USFM, the Unified Standard Format Markers that Bible societies
+   exchange texts in. eBible.org publishes CrossWire's King James text that way, one `.usfm` file per
+   book of the Bible, all of them in one zip — so the whole Bible is ONE request, cached as served, and
+   a re-extract needs no network at all (the Canterbury Tales' and Don Quixote's arrangement).
+
+   WHY THIS TRANSCRIPTION AND NOT THE TWO OBVIOUS ONES. Both were fetched and measured first.
+   · Project Gutenberg's eBook #10 is complete and clean but is a reading text with the apparatus
+     gone: no Psalm has its title ("To the chief Musician, A Psalm of David…" — 116 of them, part of
+     the text in every printing), the italic of the supplied words is gone, the translators' marginal
+     notes are gone, and its paragraphs break mid-verse wherever the typist's line did (204 such
+     breaks, "Selah." on a line of its own ten times). Psalm 3:1 reads "Lord" where every printing
+     has the divine name in capitals.
+   · Wikisource's `Bible (King James)` is the 1769 Oxford text it names, but it is a migration in
+     progress: some books are transcluded from a scan of the 1769 volumes and some are wikitext,
+     Genesis is both on one page, and the scan stops short of Lamentations. Two extractors for one
+     book, and a page whose own banner says it is incomplete.
+   · eBible.org's USFM carries everything the printing does: the italic (`\add`, 20,923 of them), the
+     marginal notes (`\f`, 6,959), the ¶ paragraph marks inside the verses, the Psalm titles (`\d`),
+     Psalm 119's Hebrew letters, the subscriptions at the foot of the Epistles, and the Apocrypha.
+
+   HOW IT IS SET. Every verse is its own paragraph, opening on its number as a section marker —
+   which is how the King James Bible has always been printed, verse by verse, the ¶ marking where the
+   translators wanted a paragraph to begin. The transcription's own `\p` and `\q1` breaks are a modern
+   editor's paragraphing and poetic lines, laid OVER the verses, and are not followed. `\add` is
+   italic; a Psalm title is italic, so a supplied word inside it is set roman, as the printing does it;
+   Psalm 119's letters are bold headings, and the other `\s1` lines (the Epistles' subscriptions, the
+   Rest of Esther's "placed in the Greek" notes, the Prologue to Ecclesiasticus) are italic lines, as
+   printed. A note becomes a footnote in the chapter's fold, led by the verse it stands in. `\nd`
+   (the divine name, already in capitals) and `\wj` (the words of Jesus, which a red-letter edition
+   prints in red — no King James printing of 1611 or 1769 did) are unwrapped, and every `\w` wrapper
+   (the Strong's numbers keyed to each word) is reduced to its word. Inside the words of Jesus a
+   marker is written NESTED, `\+add` for `\add` — 1,800-odd of them, all in the Gospels, Acts and
+   Revelation — and is read the same. Any marker this list does not
+   name is REPORTED, never dropped in silence. */
+function unzipEntries(buf) {
+  const zlib = require("zlib");
+  let eocd = -1;
+  for (let i = buf.length - 22; i >= Math.max(0, buf.length - 65557); i--) {
+    if (buf.readUInt32LE(i) === 0x06054b50) { eocd = i; break; }
+  }
+  if (eocd < 0) throw new Error("not a zip file (no end-of-directory record)");
+  const n = buf.readUInt16LE(eocd + 10);
+  let p = buf.readUInt32LE(eocd + 16);
+  const out = {};
+  for (let k = 0; k < n; k++) {
+    if (buf.readUInt32LE(p) !== 0x02014b50) throw new Error("zip directory entry " + k + " is damaged");
+    const method = buf.readUInt16LE(p + 10), csize = buf.readUInt32LE(p + 20);
+    const nl = buf.readUInt16LE(p + 28), xl = buf.readUInt16LE(p + 30), cl = buf.readUInt16LE(p + 32);
+    const lo = buf.readUInt32LE(p + 42);
+    const name = buf.slice(p + 46, p + 46 + nl).toString("utf8");
+    const start = lo + 30 + buf.readUInt16LE(lo + 26) + buf.readUInt16LE(lo + 28);
+    const raw = buf.slice(start, start + csize);
+    if (method === 0) out[name] = raw;
+    else if (method === 8) out[name] = zlib.inflateRawSync(raw);
+    else throw new Error("zip entry " + name + " uses compression method " + method);
+    p += 46 + nl + xl + cl;
+  }
+  return out;
+}
+
+// the inline markers, in one pass; `ital` is true inside a line the printing sets in italic
+function usfmInline(s, ital, notes, ref, counts, warn) {
+  const escH = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  s = s.replace(/\\\+?w ([^|\\]*?)(?:\|[^\\]*)?\\\+?w\*/g, "$1");
+  // a note first, so its own markers are read inside it rather than as the verse's
+  s = s.replace(/\\f \+ \\fr ([\d.]+) \\ft ([\s\S]*?)\\f\*/g, (m, fr, ft) => {
+    notes.push("<b>" + fr.replace(".", ":") + "</b> " + usfmInline(ft, false, [], ref, counts, warn));
+    counts.notes++;
+    return "\u0001" + notes.length + "\u0002";
+  });
+  s = escH(s);
+  s = s.replace(/\\\+?add ([\s\S]*?)\\\+?add\*/g, (m, x) => { counts.add++; return ital ? "</i>" + x + "<i>" : "<i>" + x + "</i>"; });
+  /* `\nd` is the divine name, which the printing sets in capitals (LORD, GOD, JAH). The transcription
+     usually types it in capitals already, but twelve times — where the name stands inside a supplied
+     word, "the LORD" in italic — it types "Lord" and leaves the capitals to the marker. So the marker
+     is obeyed rather than the typing: anything inside it is set in capitals. */
+  s = s.replace(/\\\+?nd ([\s\S]*?)\\\+?nd\*/g, (m, x) => {
+    counts.nd++;
+    return x.replace(/[a-z]+/g, (w, i) => (i > 0 && x[i - 1] === "’" ? w : w.toUpperCase()));
+  });
+  s = s.replace(/\\(wj|tl)\*?/g, "");
+  const left = s.match(/\\[a-z+]+\d?\*?/g);
+  if (left) warn(ref + ": marker(s) left unread: " + [...new Set(left)].join(" "));
+  s = s.replace(/\u0001(\d+)\u0002/g, '<sup class="fn" data-fn="$1"></sup>');
+  s = s.replace(/<i>\s*<\/i>/g, "").replace(/\s+/g, " ").trim();
+  // a note marker hangs on the word before it, never on a space
+  return s.replace(/ (<sup class="fn")/g, "$1");
+}
+
+/* One book's file → its chapters. `meta` is the book's KJV_BOOKS row. */
+function extractUsfm(text, meta, warn) {
+  const counts = { verses: 0, notes: 0, add: 0, nd: 0, titles: 0, heads: 0, subs: 0, prose: 0 };
+  const units = [];
+  text.replace(/\r/g, "").split("\n").forEach((line) => {
+    const m = line.match(/^\\([a-z]+\d?)(?:\s+|$)([\s\S]*)$/);
+    if (!m) { if (line.trim() && units.length) units[units.length - 1].text += " " + line; return; }
+    units.push({ tag: m[1], text: m[2] });
+  });
+  const IGNORE = new Set(["id", "ide", "h", "toc1", "toc2", "toc3", "mt1", "mt2", "p", "q1", "b"]);
+  const chapters = [];
+  let cur = null, lastV = 0;
+  const before = [];
+  for (const u of units) {
+    /* Susanna and Bel carry one line ABOVE their first chapter saying why they stand apart from
+       Daniel; it is printed under the book's title. */
+    if (u.tag === "is1" && !cur) {
+      counts.subs++;
+      before.push("<p><i>" + usfmInline(u.text, true, [], meta.name, counts, warn) + "</i></p>");
+      continue;
+    }
+    /* A `\p` carrying text is prose that is not a verse: the two prologues to Ecclesiasticus and the
+       heading over its last chapter. Every other `\p` is an empty break and is not followed. */
+    if (u.tag === "p" && u.text.trim() && cur) {
+      cur.html.push("<p>" + usfmInline(u.text, false, cur.notes, meta.name + " " + cur.ch, counts, warn) + "</p>");
+      counts.prose++;
+      continue;
+    }
+    if (u.tag === "c") {
+      cur = { ch: +u.text.trim(), html: [], notes: [] };
+      chapters.push(cur);
+      lastV = 0;
+      continue;
+    }
+    if (IGNORE.has(u.tag)) {
+      if (u.text.trim() && !/^(id|ide|h|toc\d|mt\d)$/.test(u.tag)) warn(meta.name + ": text on a \\" + u.tag + " line: " + u.text.slice(0, 40));
+      continue;
+    }
+    if (!cur) { warn(meta.name + ": \\" + u.tag + " before the first chapter"); continue; }
+    const ref = meta.name + " " + cur.ch;
+    if (u.tag === "v") {
+      const m = u.text.match(/^(\d+)\s+([\s\S]*)$/);
+      if (!m) { warn(ref + ": a verse with no number: " + u.text.slice(0, 40)); continue; }
+      const v = +m[1];
+      /* The Rest of Esther opens at 10:4, where the Hebrew Esther stops — the printing numbers it so,
+         and it is the one chapter in the book that does not start at verse 1. */
+      const opens = meta.code === "ESG" && cur.ch === 10 && lastV === 0 ? 3 : lastV;
+      if (v !== opens + 1) warn(ref + ": verse " + v + " follows verse " + lastV);
+      lastV = v;
+      counts.verses++;
+      cur.html.push('<p><span class="bk-n">' + v + "</span> " + usfmInline(m[2], false, cur.notes, ref + ":" + v, counts, warn) + "</p>");
+    } else if (u.tag === "d") {
+      counts.titles++;
+      cur.html.push("<p><i>" + usfmInline(u.text, true, cur.notes, ref, counts, warn) + "</i></p>");
+    } else if (u.tag === "s1" && /\\tl /.test(u.text)) {
+      counts.heads++;
+      cur.html.push("<p><b>" + usfmInline(u.text, false, cur.notes, ref, counts, warn) + "</b></p>");
+    } else if (u.tag === "s1") {
+      counts.subs++;
+      cur.html.push("<p><i>" + usfmInline(u.text, true, cur.notes, ref, counts, warn) + "</i></p>");
+    } else if (u.tag === "ms1") {
+      counts.heads++;
+      cur.html.push("<p><b>" + usfmInline(u.text, false, cur.notes, ref, counts, warn) + "</b></p>");
+    } else warn(ref + ": a \\" + u.tag + " line, which this extractor does not read: " + u.text.slice(0, 40));
+  }
+  // the book's own title at the head of its first chapter, as the printing sets it
+  if (chapters.length) chapters[0].html.unshift("<p><b>" + meta.full + "</b></p>", ...before);
+  return {
+    chapters: chapters.map((c) => ({ ch: c.ch, html: c.html.join("\n").replace(/<i>\s*<\/i>/g, ""), notes: c.notes })),
+    counts: counts,
+  };
+}
+
 function partOf(n) {
   const p = (BOOK.parts || []).find((x) => n >= x.from && n <= x.to);
   return p ? p.n : 1;
@@ -31505,6 +31905,47 @@ async function fetchEnglish() {
         throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.html.length + " chars)");
       chapters.push({ n: ch.n, t: ch.t, p: partOf(ch.n), html: ch.html, notes: ch.notes });
     });
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* THE KING JAMES BIBLE — one zip of USFM files, cached as served; see the block above extractUsfm.
+     Every book's chapter count is checked against KJV_BOOKS, and the totals printed are the ones any
+     edition can be held to: 1,189 chapters and 31,102 verses in the two Testaments. */
+  if (BOOK.layout === "usfm") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-usfm.zip");
+    let buf;
+    if (!FORCE && fs.existsSync(cf)) buf = fs.readFileSync(cf);
+    else { buf = await fetchBuffer(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, buf); }
+    const files = unzipEntries(buf);
+    const tot = { verses: 0, notes: 0, add: 0, nd: 0, titles: 0, heads: 0, subs: 0, prose: 0 };
+    const bySec = { ot: [0, 0], ap: [0, 0], nt: [0, 0] };
+    for (const meta of KJV_BOOKS) {
+      const name = Object.keys(files).find((f) => new RegExp("^\\d+-" + meta.code + ".*\\.usfm$").test(f));
+      if (!name) { warn(meta.name + ": no file for " + meta.code + " in the zip"); continue; }
+      const got = extractUsfm(correctRaw(files[name].toString("utf8").replace(/^﻿/, "")), meta, warn);
+      if (got.chapters.length !== meta.count)
+        warn(meta.name + ": " + got.chapters.length + " chapters in the file; the table expects " + meta.count);
+      got.chapters.forEach((c, i) => {
+        if (c.ch !== meta.first + i) warn(meta.name + ": chapter " + c.ch + " where " + (meta.first + i) + " was expected");
+        const n = meta.from + i;
+        bySec[meta.sec][0]++;
+        if (n < FROM || n > TO) return;
+        if (c.html.length < (BOOK.minChars || 200))
+          throw new Error(kjvTitle(n) + " came back short (" + c.html.length + " chars)");
+        chapters.push({ n: n, t: kjvTitle(n), p: meta.part, html: c.html, notes: c.notes });
+      });
+      bySec[meta.sec][1] += got.counts.verses;
+      Object.keys(tot).forEach((k) => { tot[k] += got.counts[k]; });
+    }
+    console.log("  chapters / verses — Old Testament " + bySec.ot.join(" / ") + ", Apocrypha " + bySec.ap.join(" / ") +
+      ", New Testament " + bySec.nt.join(" / "));
+    if (bySec.ot[0] + bySec.nt[0] !== 1189 || bySec.ot[1] + bySec.nt[1] !== 31102)
+      warn("the two Testaments come to " + (bySec.ot[0] + bySec.nt[0]) + " chapters and " + (bySec.ot[1] + bySec.nt[1]) +
+        " verses; every King James Bible has 1,189 and 31,102");
+    console.log("  " + tot.add + " supplied word(s) in italic, " + tot.notes + " marginal note(s), " + tot.nd +
+      " divine name(s), " + tot.titles + " Psalm title(s), " + tot.heads + " heading(s), " + tot.subs + " italic line(s), " + tot.prose +
+      " paragraph(s) of prose outside the verses");
     return writeEnglish(chapters, warnings);
   }
 
