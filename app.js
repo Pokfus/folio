@@ -24738,7 +24738,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      PAGE: HOME
      ============================================================ */
   // Short, public-domain reflections on learning, history and knowledge from historical thinkers.
-  // daily quote — voices from across the world's history; standard published translations of
+  // daily quote — voices from across the world's history (and, since Nov 2026 on request, a few from fiction, named as such); standard published translations of
   // well-documented passages, no loose internet attributions. s = where the words come from (the work
   // and its book/chapter/letter), shown small under the speaker; a quote whose wording is traditional
   // rather than traceable to a passage says so plainly rather than borrowing a citation it hasn't earned.
@@ -24955,6 +24955,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { t: "Well done is better than well said.", a: "Benjamin Franklin", s: "Poor Richard's Almanack, 1737" },
     { t: "Men are disturbed, not by things, but by the principles and notions which they form concerning things.", a: "Epictetus", s: "Enchiridion 5",
       o: { lang: "grc", t: "Ταράσσει τοὺς ἀνθρώπους οὐ τὰ πράγματα, ἀλλὰ τὰ περὶ τῶν πραγμάτων δόγματα.", a: "Ἐπίκτητος", s: "Ἐγχειρίδιον 5" } },
+    /* ---- Nov 2026, on request: lines from FICTION join the pool — the owner's choice, sent after the first batch left Yoda and Tyrion out
+       on the ground that the pool held historical voices only. The speaker is the character and `s` names the work (and the episode), so
+       nothing reads as a historical attribution. Tyrion's first line is the television wording of season 1, episode 1 (the novel's is
+       longer: "for surely the world will not … Armor yourself in it"); his second is the novel's, A Game of Thrones, said to Jon Snow. ---- */
+    { t: "Power resides where men believe it resides.", a: "Varys", s: "Game of Thrones, season 2, episode 3, “What Is Dead May Never Die” (2012)" },
+    { t: "Never forget what you are. The rest of the world will not. Wear it like armor, and it can never be used to hurt you.", a: "Tyrion Lannister", s: "Game of Thrones, season 1, episode 1, “Winter Is Coming” (2011)" },
+    { t: "A mind needs books as a sword needs a whetstone, if it is to keep its edge.", a: "Tyrion Lannister", s: "George R. R. Martin, A Game of Thrones (1996)" },
+    { t: "Understanding is the first step to acceptance, and only with acceptance can there be recovery.", a: "Albus Dumbledore", s: "J. K. Rowling, Harry Potter and the Goblet of Fire (2000)" },
+    { t: "Pride is not the opposite of shame, but its source. True humility is the only antidote to shame.", a: "Uncle Iroh", s: "Avatar: The Last Airbender, book 2, “Bitter Work” (2006)" },
+    { t: "Do. Or do not. There is no try.", a: "Yoda", s: "Star Wars: The Empire Strikes Back (1980)" },
   ];
   /* ---------- the running order the daily quote follows ----------
      The pool leans on a few voices — four of the twenty lines are Confucius, and in the array's own order
