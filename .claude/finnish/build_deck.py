@@ -118,6 +118,7 @@ def shorten(g):
 # etymology is NOT the everyday word, or two are), each read off the A1 build (2026-11-15):
 ETYMS = {
     'juuri': ['2', '1'],       # "just, exactly" (the subtitles' count) before "root"
+    'rikki': ['2', '1'],       # "broken" (B1) before "sulphur"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, each with its reason.
@@ -140,6 +141,11 @@ GLOSS = {
     # Wiktionary's sense reads "Expresses or emphasizes an extent, a bound or a limit."
     # its first sense is a grammar note ("(with adjectives or participles); or (with verbs) ...")
     'kuulostaa': {'verb': ['to sound (like), to seem (from what one hears)']},
+    'saakka': {'postp': ['until, up to, as far as (with the illative or the elative)']},
+    # its senses are headings ("Senses related to turning ...", "... circular movement")
+    'kiertää': {'verb': ['to go round, to circle', 'to turn, to twist, to wind', 'to avoid, to get round']},
+    # Wiktionary has only "verbal noun of ääntää"
+    'ääntäminen': {'noun': ['pronunciation']},
     'asti': {'postp': ['until, up to, as far as (with the illative or the elative)']},
 }
 POS_LABEL = {}
@@ -149,6 +155,10 @@ LEAD = {
     'syy': 'cause, reason',    # Wiktionary's first sense is "fibre"
     'lounas': 'lunch',         # "southwest" first
     'sade': 'rain',            # "precipitation" first
+    'lista': 'list',           # "thin, narrow strip of material" first
+    'lasku': 'bill',           # "descent" first, "bill, invoice" fifth
+    'korko': 'interest',       # "heel (of a shoe)" first
+    'kierrättää': 'recycle',   # "to take (someone) all over" first; the B1 inventory's sense
 }
 
 # A PART OF SPEECH NOT SHOWN for one word: a block that is noise beside the word a

@@ -119,4 +119,71 @@ A2 = [
                        'huutaa riidellä'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2}
+B1 = [
+    ('work, money and the economy', 'työnantaja työtön työttömyys ura hakemus haastattelu '
+                                    'irtisanoa palkata ylennys vero talous budjetti laina korko '
+                                    'säästää tuhlata kuitti lasku tili velka sijoittaa hyöty '
+                                    'kustannus tulot meno tarjous alennus '
+                                    'kilpailu markkinat tuote palvelu asiakaspalvelu sopimus:noun'),
+    ('education', 'koulutus opinnot opiskelu arvosana todistus stipendi luento esitelmä tutkimus '
+                  'aine historia maantieto matematiikka kemia fysiikka biologia kielioppi '
+                  'ääntäminen käännös kääntää harjoitus tehtävä:noun selitys ymmärrys oppilas '
+                  'rehtori päiväkoti'),
+    ('the news, media and technology', 'sanomalehti aikakauslehti toimittaja haastatella '
+                                       'artikkeli otsikko mainos televisio radio ohjelma kanava '
+                                       'internet verkkosivu sähköposti viesti:noun tietokone '
+                                       'näyttö näppäimistö ladata tallentaa salasana sovellus '
+                                       'älypuhelin akku laite tekniikka julkaista'),
+    ('government, law and society', 'hallitus valtio eduskunta ministeri pääministeri vaali '
+                                    'äänestää puolue politiikka laki rikos rikollinen tuomari '
+                                    'oikeudenkäynti varas varkaus sakko kansalainen yhteiskunta '
+                                    'kunta väestö maahanmuuttaja oikeus:noun vapaus tasa-arvo '
+                                    'demokratia mielenosoitus armeija sotilas rauha'),
+    ('the environment and the weather', 'ympäristö ilmasto saaste kierrättää jäte roska '
+                                        'luonnonsuojelu sähkö energia lämpötila sääennuste '
+                                        'kuivuus tulva helle lämmetä '
+                                        'kylmetä sulaa jäätyä'),
+    ('health and medicine', 'sairaus tauti oire hoito leikkaus potilas lääkitys rokote allergia '
+                            'stressi masennus uni:noun liikunta ruokavalio terveellinen '
+                            'epäterveellinen vointi tutkia:verb ensiapu ambulanssi päivystys'),
+    ('travel and transport', 'liikenne ruuhka moottoritie risteys kaista nopeus ajokortti '
+                             'polttoaine bensiini tankata lento lähtöselvitys matkatavara '
+                             'yöpyä nähtävyys matkailu matkatoimisto kulkuneuvo raitiovaunu '
+                             'metro satama'),
+    ('the household and its chores', 'kotityö tiskata silittää pyykki lakana roskapussi '
+                                     'remontti korjaus vuokralainen omistaja kalusteet sähkölasku '
+                                     'naapurusto lämmitys'),
+    ('relationships and the stages of life', 'suhde:noun avioliitto mennä_naimisiin erota avioero '
+                                             'seurustella rakastua kihlautua häät syntymäpäivä '
+                                             'lapsuus nuoruus vanhuus kuolema hautajaiset raskaus '
+                                             'synnyttää kasvattaa sukupolvi ystävyys'),
+    ('feelings and character', 'tunteellinen luonne käytös luottamus kateus häpeä ylpeys '
+                               'pettymys helpotus innostus kiinnostus kiinnostunut '
+                               'tyytyväinen tyytymätön itsekäs rehellinen epärehellinen '
+                               'kärsivällinen kunnianhimoinen avulias luotettava'),
+    ('religion and festivals', 'uskonto usko kristitty kirkko:noun rukoilla joulu pääsiäinen '
+                               'juhannus vappu itsenäisyyspäivä juhlia perinne tapa:noun'),
+    ('ideas, reasons and plans', 'mielipide näkökulma syy:noun seuraus tarkoitus:noun tavoite '
+                                 'suunnitelma vaihtoehto ratkaisu ongelma:noun ehdotus '
+                                 'päätös:noun mahdollisuus kokemus tieto:noun taito kyky '
+                                 'merkitys vaikutus ero:noun etu haitta'),
+    ('connectors', 'kuitenkin vaikka:conj siksi koska:conj jotta lisäksi myöskin sen_sijaan '
+                   'toisaalta esimerkiksi nimittäin siis:adv ensinnäkin lopulta kuten:conj '
+                   'paitsi:conj samalla jolloin joten:adv mikäli ellei'),
+    ('words for describing', 'tärkeä mielenkiintoinen tavallinen erilainen samanlainen '
+                             'yksinkertainen monimutkainen tarpeellinen hyödyllinen '
+                             'mahdoton turvallinen vaarallinen terve:adj sopiva kohtuullinen '
+                             'nykyaikainen perinteinen julkinen yksityinen kansainvälinen '
+                             'paikallinen virallinen yleinen harvinainen'),
+    ('verbs of thinking, deciding, arguing and changing', 'harkita pohtia miettiä olettaa '
+                                                          'epäillä:verb päättää:verb suunnitella '
+                                                          'ehdottaa väitellä kiistää vakuuttaa '
+                                                          'neuvotella sopia:verb hyväksyä:verb '
+                                                          'vastustaa kannattaa:verb arvostella '
+                                                          'kehittää kehittyä parantaa '
+                                                          'vähentää lisätä kasvaa:verb '
+                                                          'muuttua:verb vertailla verrata '
+                                                          'kuvailla mainita keskustella'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1}

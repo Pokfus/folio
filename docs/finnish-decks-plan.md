@@ -5,7 +5,7 @@ Finnish set built in the Hungarian decks' shape (`docs/hungarian-decks-plan.md`,
 adapts); `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless
 this file says otherwise. Asked for on 2026-11-15: "Add a Finnish language collection."
 
-**STATUS (2026-11-15): the alphabet deck, A1 and A2 are built** (`.claude/finnish/`, §6–§7). B1 to C1 and a
+**STATUS (2026-11-15): the alphabet deck, A1, A2 and B1 are built** (`.claude/finnish/`, §6–§8). B2, C1 and a
 phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
@@ -32,7 +32,7 @@ the closest language and pipeline). **Any of these is the owner's to overrule.**
 | Finnish Alphabet — built | `Finnish-Alphabet.folio-deck.json` | 34 |
 | Finnish A1 Beginner — built | `Finnish-A1.folio-deck.json` | 500 |
 | Finnish A2 Elementary — built | `Finnish-A2.folio-deck.json` | 750 |
-| Finnish B1 Intermediate | `Finnish-B1.folio-deck.json` | 1,000 |
+| Finnish B1 Intermediate — built | `Finnish-B1.folio-deck.json` | 1,000 |
 | Finnish B2 Upper Intermediate | `Finnish-B2.folio-deck.json` | 1,500 |
 | Finnish C1 Advanced | `Finnish-C1.folio-deck.json` | 1,500 |
 
@@ -97,7 +97,7 @@ headword line and are missing where Wiktionary gives none.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2 done, §7) — A2 to C1, one level per session: write the
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** (A2 and B1 done, §7–§8) — A2 to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `finnish_level.py`, run, read every card.
 **Phase 3** — a phrases deck (Hungarian's `phrases.py` is the model).
 
@@ -134,3 +134,28 @@ headwords as written and were respelt (`isovanhempi`, `kenkä`, `porras`) or dro
 - **Written glosses**: `kumpikin` and `molemmat` (both "both": a singular verb and a plural one), `asti` (whose
   sense is a description) and `kuulostaa` (whose first sense is a grammar note). "verbal noun of X" alone is no
   meaning (`tekeminen`).
+
+## 8. As built (2026-11-15): B1
+
+Asked for on 2026-11-15: "Add B1." `python3 .claude/finnish/run.py --level b1`: 1,000 notes, 296 from the inventory
+(`inventory.B1`, sixteen topics after the CEFR B1 descriptor's scope, `SCOPE['b1']`) and 704 by frequency;
+sentences for 992, three apiece for 947. Many inventory words were already taught by A1 and A2's fill, which is why
+the inventory's share is lower than A2's. Five plural or inflected spellings were respelt as headwords (`meno`,
+`vaali`) or dropped (`uutiset` — `uutinen` is A2 —, `hinta-laatusuhde`, the partitives `hellettä` and
+`pakkasta`, `jonka vuoksi`). A1 and A2 rebuild byte-identical; a B1 re-run is byte-identical.
+
+**What reading the 1,000 found** (each `select.EXCLUDE`d or written into `build_deck`, with its reason):
+- **The subtitles' credit lines**: `suomennos` ("translation"), `tekstitys` ("subtitling") and `oikoluku`
+  ("proofreading") are counted once a film from "Suomennos: …" and similar lines — real words, but their rank is
+  an artefact.
+- **More forms** filed as words — imperatives (`varo`, `varokaa`, `lue`, `jatkakaa`, `olkoon`), partitives
+  glossed as calls (`tietä` "make way!", `tulta` "fire!", `iltaa`), case forms of pronouns and numerals
+  (`kolmen`, `joiden`, `johonkin`, `kaikista`, `monet`), the third infinitive (`syömään`, `menemään`),
+  participles (`tekevä`, `tietävä`, `kuoleva`), `ellei`'s persons (`ellet`, `ellen`) and `tahdon` "I do".
+- **Names and borrowed counts**: `henry`, `max`, `mari`, `lee`, `san`, `sara`, `sepä` (se + -pä), `kevi`, and the
+  abbreviation `hra`.
+- **Spoken forms, exclamations and insults**: `sun`, `tää`, `tä`, `mitäs`, `eka`, `kyttä`; `jeesus`, `jessus`,
+  `jestas`, `hemmetti`; `ämmä`; `hyvänen` (only in "hyvänen aika").
+- **Senses**: `ETYMS` shows `rikki` "broken" before "sulphur"; `LEAD` puts `lista` "list", `lasku` "bill", `korko`
+  "interest" and `kierrättää` "recycle" first. `GLOSS` writes `kiertää` (whose senses are headings, "Senses
+  related to turning …"), `saakka` (a description, like `asti`) and `ääntäminen` (only "verbal noun of ääntää").
