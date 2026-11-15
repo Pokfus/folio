@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-15T22:03Z",
+ "generated": "2026-11-15T22:06Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8292,
+  "ok": 8293,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89385,6 +89385,13 @@
    "title": "Assam",
    "url": "https://en.wikipedia.org/wiki/Assam",
    "via": "answer",
+   "status": "ok"
+  },
+  "gin-016": {
+   "answer": "Punjab",
+   "title": "Punjab",
+   "url": "https://en.wikipedia.org/wiki/Punjab",
+   "via": "glossary",
    "status": "ok"
   }
  }
