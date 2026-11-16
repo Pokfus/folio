@@ -233,7 +233,7 @@ def main():
     meta = {
         'id': 'mnabc', 'title': 'Mongolian Alphabet',
         'subtitle': '35 letters and the long vowel · both directions, as two cards each',
-        'desc': desc, 'author': '', 'language': 'en', 'color': '#3C7676',
+        'desc': desc, 'author': '', 'language': 'en', 'color': '#A16C02',
         'tags': ['mongolian', 'alphabet', 'cyrillic'], 'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Mongolian letter', 'speechLang': 'mn-MN',

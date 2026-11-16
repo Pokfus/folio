@@ -120,9 +120,10 @@ IPA and MNS romanisation read from the pinned table, and an A1 word (for ы, a f
 ъ and щ, Wiktionary entries, авъяас and борщ), then the long vowel. The table's row 1 types a Cyrillic а in its
 romanisation columns; it is read as the Latin a. Every sound side is unique (asserted).
 
-The shelf's hue is measured: `#3C7676`, a muted teal, swept against the 79 hues on the page with the magenta
-band's standing rejection and the greens left out: 13.9 from its nearest neighbours (Economics, France), against a
-tightest existing pair of 4.0; 5.2:1 against white.
+The shelf's hue is measured: `#A16C02`, a golden ochre. The first sweep found `#3C7676`, a muted teal — and the
+Navajo collection, built in a parallel session, measured the same colour and merged first, so at the merge the sweep
+was re-run against all 80 hues (magenta band and greens left out): 14.0 from its nearest neighbours (Palaeontology,
+India), against a tightest existing pair of 4.0; 4.5:1 against white.
 
 ## 7. As built (2026-11-16): A2
 

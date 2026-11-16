@@ -37,7 +37,7 @@ from mongolian_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 STAMP = '2026-11-16T00:00:00.000Z'
 TYPE_ID = 'mongolian'
-COLOR = '#3C7676'          # the shelf's measured hue (app.js `lang-mongolian`)
+COLOR = '#A16C02'          # the shelf's measured hue (app.js `lang-mongolian`)
 FIELDS = ['Mongolian', 'Word', 'English', 'Forms', 'Examples']
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
