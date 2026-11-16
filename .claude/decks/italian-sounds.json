@@ -1,0 +1,113 @@
+{
+ "_": "italian-sounds.json — the table behind decks/Italian-Sounds-and-Spelling.folio-deck.json, read by build-italian-sounds.js. NOTHING IN IT IS COMPOSED. Every `like` (the English sound a letter resembles) is the 'English approximation' cell of Wikipedia's Help:IPA/Italian at the revision in `sources.ipa`; every `when` and every `says` is a sentence, or a marked cut of one, from Wikipedia's 'Italian orthography' at the revision in `sources.orthography` — the sections Vowels, C and G, C and Q, S and Z, Silent H and Diacritics — except the three rows marked `from`: 'ipa' (the note on the Consonants heading of Help:IPA/Italian) and 'phonology' (Wikipedia's 'Italian phonology' at the revision in `sources.phonology`: the Consonants list and 'Stress patterns'). Wiki markup is turned into <b>, <i> and ⟨ ⟩, a link becomes its text, a footnote is dropped, a cut inside a passage is marked […], and nothing is reworded. The slashed transcription beside an example word in `words` is that word's pronunciation in the English Wiktionary (kaikki.org, read 2026-11-16), copied, and it is there so that a word chosen by hand can be checked: `words` is used where the spelling alone does not decide the sound (an open or a close e, s between vowels, z, the stress), and each such word is either the article's own example or one whose transcription shows the sound. `rx` is NOT from the articles: it is how the builder finds, among the one-word headwords of the CILS A1 deck (the article taken off, lower case), the first three words in the order the deck is dealt that show a row whose sound the spelling decides; `mark` is which letters of a `words` row are picked out. A row no A1 headword shows is not carded (gh). The letters that sound as an English speaker expects (b, d, f, l, m, n, p, t, v) have no card.",
+ "sources": {
+  "ipa": { "title": "Help:IPA/Italian", "url": "https://en.wikipedia.org/wiki/Help:IPA/Italian", "revid": 1385545483, "timestamp": "2026-11-13T21:38:10Z" },
+  "orthography": { "title": "Italian orthography", "url": "https://en.wikipedia.org/wiki/Italian_orthography", "revid": 1385885869, "timestamp": "2026-11-15T20:15:22Z" },
+  "phonology": { "title": "Italian phonology", "url": "https://en.wikipedia.org/wiki/Italian_phonology", "revid": 1374139897, "timestamp": "2026-09-10T02:30:15Z" }
+ },
+ "vowels": [
+  { "key": "vowel:a", "show": "a",
+    "says": "Of those, only ⟨a⟩ represents one sound value, while all others have two.",
+    "rows": [ { "when": "", "ipa": "/a/", "like": "f<b>a</b>st (<i>Scottish English</i>)", "rx": "a" } ] },
+  { "key": "vowel:e", "show": "e",
+    "says": "In stressed syllables, ⟨e⟩ represents both open /ɛ/ and close /e/. […] There is typically no orthographic distinction between the open and close sounds represented, although accent marks are used in certain instances […]. In unstressed syllables, only the close variants occur.",
+    "rows": [
+     { "when": "", "ipa": "/e/", "like": "f<b>a</b>de", "words": [["perché", "/perˈke/"]], "mark": "é" },
+     { "when": "", "ipa": "/ɛ/", "like": "b<b>e</b>d", "words": [["cioè", "/t͡ʃoˈɛ/"], ["essere", "/ˈɛs.se.re/"]], "mark": "è|^e" } ] },
+  { "key": "vowel:i", "show": "i",
+    "says": "In addition to representing the vowels /i/ and /u/, ⟨i⟩ and ⟨u⟩ also typically represent the semivowels /j/ and /w/, when unstressed and occurring before another vowel. Many exceptions exist […].",
+    "rows": [
+     { "when": "", "ipa": "/i/", "like": "sk<b>i</b>", "words": [["sì", "/ˈsi/"], ["lì", "/ˈli/"]], "mark": "ì" },
+     { "when": "when unstressed and occurring before another vowel", "ipa": "/j/", "like": "<b>y</b>es", "words": [["ieri", "/ˈjɛ.ri/"], ["più", "/ˈpju/"]], "mark": "i(?=[eù])" } ] },
+  { "key": "vowel:o", "show": "o",
+    "says": "Similarly, ⟨o⟩ represents both open /ɔ/ and close /o/ […]. In unstressed syllables, only the close variants occur.",
+    "rows": [
+     { "when": "", "ipa": "/o/", "like": "st<b>o</b>ry", "words": [["otto", "/ˈɔt.to/"]], "mark": "o$" },
+     { "when": "", "ipa": "/ɔ/", "like": "<b>o</b>ff", "words": [["otto", "/ˈɔt.to/"], ["però", "/peˈrɔ/"]], "mark": "^o|ò" } ] },
+  { "key": "vowel:u", "show": "u",
+    "rows": [
+     { "when": "", "ipa": "/u/", "like": "r<b>u</b>le", "words": [["tuo", "/ˈtu.o/"]], "mark": "u" },
+     { "when": "when unstressed and occurring before another vowel", "ipa": "/w/", "like": "<b>w</b>ine", "words": [["qui", "/ˈkwi/"]], "mark": "u" } ] }
+ ],
+ "consonants": [
+  { "key": "letter:c", "show": "c",
+    "says": "The letters ⟨c⟩ and ⟨g⟩ represent the plosives /k/ and /ɡ/ before ⟨h⟩ and before the vowels ⟨a⟩, ⟨o⟩, ⟨u⟩. They represent the affricates /tʃ/ and /dʒ/ when they precede a front vowel (⟨i⟩ or ⟨e⟩).",
+    "rows": [
+     { "when": "before […] the vowels ⟨a⟩, ⟨o⟩, ⟨u⟩", "ipa": "/k/", "like": "s<b>c</b>ar", "rx": "(?<![sc])c(?=[aouàòù])" },
+     { "when": "when they precede a front vowel (⟨i⟩ or ⟨e⟩)", "ipa": "/tʃ/", "like": "<b>ch</b>eck", "rx": "(?<![sc])c(?=[eiéèì])" } ] },
+  { "key": "letter:ch", "show": "ch",
+    "says": "When the \"hard\" (plosive) pronunciation /k/ or /ɡ/ occurs before a front vowel ⟨i⟩ or ⟨e⟩, digraphs ⟨ch⟩ and ⟨gh⟩ are used, so that ⟨che⟩ represents /ke/ or /kɛ/ and ⟨chi⟩ represents /ki/ or /kj/.",
+    "rows": [ { "when": "before a front vowel ⟨i⟩ or ⟨e⟩", "ipa": "/k/", "like": "s<b>c</b>ar", "rx": "ch(?=[eiéèì])" } ] },
+  { "key": "letter:g", "show": "g",
+    "says": "The letters ⟨c⟩ and ⟨g⟩ represent the plosives /k/ and /ɡ/ before ⟨h⟩ and before the vowels ⟨a⟩, ⟨o⟩, ⟨u⟩. They represent the affricates /tʃ/ and /dʒ/ when they precede a front vowel (⟨i⟩ or ⟨e⟩).",
+    "rows": [
+     { "when": "before […] the vowels ⟨a⟩, ⟨o⟩, ⟨u⟩", "ipa": "/ɡ/", "like": "a<b>g</b>ain", "rx": "(?<!g)g(?=[aouàòù])" },
+     { "when": "when they precede a front vowel (⟨i⟩ or ⟨e⟩)", "ipa": "/dʒ/", "like": "<b>j</b>ob", "rx": "(?<!g)g(?=[eiéèì])" } ] },
+  { "key": "letter:gh", "show": "gh",
+    "says": "When the \"hard\" (plosive) pronunciation /k/ or /ɡ/ occurs before a front vowel ⟨i⟩ or ⟨e⟩, digraphs ⟨ch⟩ and ⟨gh⟩ are used […]. The same principle applies to ⟨gh⟩: ⟨ghe⟩ and ⟨ghi⟩ represent /ɡe/ or /ɡɛ/ and /ɡi/ or /ɡj/.",
+    "rows": [ { "when": "before a front vowel ⟨i⟩ or ⟨e⟩", "ipa": "/ɡ/", "like": "a<b>g</b>ain", "rx": "gh(?=[eiéèì])" } ] },
+  { "key": "letter:ci-gi", "show": "ci · gi", "name": "before another vowel",
+    "says": "The letter ⟨i⟩ can also function within digraphs (two letters representing one sound) ⟨ci⟩ and ⟨gi⟩ to indicate \"soft\" (affricate) /tʃ/ or /dʒ/ before another vowel. In these instances, the vowel following the digraph is stressed, and ⟨i⟩ represents no vowel sound: ciò (/tʃɔ/), giù (/dʒu/).",
+    "rows": [
+     { "when": "⟨ci⟩ […] before another vowel", "ipa": "/tʃ/", "like": "<b>ch</b>eck", "words": [["ciao", "/ˈt͡ʃa.o/"], ["ciò", "/ˈt͡ʃɔ/"]], "mark": "ci(?=[aò])" },
+     { "when": "⟨gi⟩ […] before another vowel", "ipa": "/dʒ/", "like": "<b>j</b>ob", "words": [["il giorno", "/ˈd͡ʒor.no/"], ["già", "/ˈd͡ʒa/"]], "mark": "gi(?=[oà])" } ] },
+  { "key": "letter:gli", "show": "gl · gli",
+    "says": "⟨g⟩ joins with ⟨l⟩ to form a digraph representing palatal /ʎ/ before ⟨i⟩ (before other vowels, the trigraph ⟨gli⟩ is used) […]. Between vowels these are pronounced phonetically long, as in /ˈaʎʎo/ aglio, \"garlic\" […].",
+    "rows": [ { "when": "before ⟨i⟩ (before other vowels, the trigraph ⟨gli⟩ is used)", "ipa": "/ʎ/", "like": "bi<b>lli</b>on", "rx": "gli" } ] },
+  { "key": "letter:gn", "show": "gn",
+    "says": "⟨g⟩ joins […] with ⟨n⟩ to represent /ɲ/ with any vowel following. Between vowels these are pronounced phonetically long, as in […] /ˈoɲɲi/ ogni, \"each\".",
+    "rows": [ { "when": "with any vowel following", "ipa": "/ɲ/", "like": "ca<b>ny</b>on", "rx": "gn" } ] },
+  { "key": "letter:sc", "show": "sc",
+    "says": "The digraph ⟨sc⟩ is used before ⟨e⟩ and ⟨i⟩ to represent /ʃ/; before other vowels, ⟨sci⟩ is used for /ʃ/. Otherwise, ⟨sc⟩ represents /sk/, the ⟨c⟩ of which follows the normal orthographic rules explained above.",
+    "rows": [
+     { "when": "before ⟨e⟩ and ⟨i⟩", "ipa": "/ʃ/", "like": "<b>sh</b>oe", "rx": "sc(?=[eiéèì])" },
+     { "when": "Otherwise", "ipa": "/sk/", "like": "", "rx": "sc(?=[aouàòùh])" } ] },
+  { "key": "letter:qu", "show": "qu · cqu",
+    "says": "Normally /kw/ is represented by ⟨qu⟩, but it is represented by ⟨cu⟩ in some words, such as cuoco, cuoio, cuore, scuola, scuotere, and percuotere. […] The sequence /kkw/ is always spelled ⟨cqu⟩ (e.g. acqua) […].",
+    "rows": [
+     { "when": "⟨qu⟩", "ipa": "/kw/", "like": "", "rx": "(?<!c)qu" },
+     { "when": "⟨cqu⟩", "ipa": "/kkw/", "like": "", "rx": "cqu" } ] },
+  { "key": "letter:r", "show": "r", "from": "phonology",
+    "says": "Intervocalically, single /r/ is realised as a trill with one or two contacts. […] Geminate /rr/ manifests as a trill with three to seven contacts.",
+    "rows": [ { "when": "", "ipa": "/r/", "like": "<i>trilled r</i>", "rx": "r" } ] },
+  { "key": "letter:s", "show": "s",
+    "says": "It can be either voiceless or voiced (/s/ or /z/) between vowels; in standard Tuscany-based pronunciation some words are pronounced with /s/ between vowels (e.g. casa, cosa, così, mese […]), but most words are pronounced with /z/ (e.g. bisogno, rosa […]); in Northern Italy (and also increasingly in Tuscany) ⟨s⟩ between vowels is always pronounced with /z/ whereas in Southern Italy ⟨s⟩ between vowels is always pronounced /s/. ⟨ss⟩ always represents voiceless /ss/ […].",
+    "rows": [
+     { "when": "At the start of a word before a vowel […] or a voiceless consonant", "ipa": "/s/", "like": "<b>s</b>orry", "rx": "^s(?=[aeiouàèéìòùpftq])" },
+     { "when": "before voiced consonants", "ipa": "/z/", "like": "ama<b>z</b>on", "rx": "s(?=[bdgvlmnr])" },
+     { "when": "between vowels", "ipa": "/s/ or /z/", "like": "", "words": [["la casa", "/ˈka.sa/, /ˈka.za/"], ["la cosa", "/ˈkɔ.za/, /ˈkɔ.sa/"], ["il bisogno", "/biˈzoɲ.ɲo/"]], "mark": "(?<=[aeiou])s(?=[aeiou])" },
+     { "when": "⟨ss⟩", "ipa": "/ss/", "like": "", "rx": "ss" } ] },
+  { "key": "letter:z", "show": "z · zz",
+    "says": "⟨z⟩ represents a dental affricate consonant; either /dz/ (zanzara /dzanˈdzara/) or /ts/ (canzone /kanˈtsone/), depending on context, although there are few minimal pairs. […] ⟨zz⟩ may represent either a voiceless alveolar affricate /tts/ or its voiced counterpart /ddz/ […].",
+    "rows": [
+     { "when": "", "ipa": "/ts/", "like": "ca<b>ts</b>", "words": [["grazie", "/ˈɡrat.t͡sje/"], ["il marzo", "/ˈmar.t͡so/"], ["il ragazzo", "/raˈɡat.t͡so/"]], "mark": "z+" },
+     { "when": "", "ipa": "/dz/", "like": "da<b>ds</b>", "words": [["zero", "/ˈd͡zɛ.ro/"], ["il mezzo", "/ˈmɛd.d͡zo/"], ["organizzare", "/or.ɡa.nidˈd͡za.re/"]], "mark": "z+" } ] }
+ ],
+ "rules": [
+  { "key": "rule:h", "show": "ho · o", "kind": "silent h", "name": "h is never sounded",
+    "says": "In addition to being used to indicate a hard ⟨c⟩ or ⟨g⟩ before front vowels (see above), ⟨h⟩ is used to distinguish ho, hai, ha, hanno (present indicative of avere, \"to have\") from o (\"or\"), ai (\"to the\", m. pl.), a (\"to\"), anno (\"year\"); since ⟨h⟩ is always silent, there is no difference in the pronunciation of such words.",
+    "heads": ["avere, \"to have\"", "the same sound"],
+    "pairs": [["ho", "o (\"or\")"], ["hai", "ai (\"to the\", m. pl.)"], ["ha", "a (\"to\")"], ["hanno", "anno (\"year\")"]],
+    "words": [["avere"], ["o"], ["l'anno", "/ˈan.no/"]] },
+  { "key": "rule:double", "show": "tt · nn · ss", "kind": "double consonants", "name": "a doubled letter is a longer sound", "from": "ipa",
+    "says": "Except /z/, all consonants after a vowel and before /r/, /l/, a vowel or a semivowel may be geminated. Gemination in IPA is represented by doubling the consonant (fatto [ˈfatto], mezzo [ˈmɛddzo]), and can usually be told from orthography.",
+    "words": [["il fatto", "/ˈfat.to/"], ["tutto", "/ˈtut.to/"], ["l'anno", "/ˈan.no/"]] },
+  { "key": "rule:stress", "show": "buongiorno · parlare · grazie", "kind": "stress", "name": "usually the syllable before the last", "from": "phonology",
+    "says": "In Italian, stress is lexical, meaning it is word-specific and partly unpredictable. Penultimate stress (primary stress on the second-to-last syllable) is also generally preferred.",
+    "words": [["buongiorno", "/ˌbwɔnˈd͡ʒor.no/"], ["parlare", "/parˈla.re/"], ["grazie", "/ˈɡrat.t͡sje/"]] },
+  { "key": "rule:stress-early", "show": "essere · subito · la domenica", "kind": "stress", "name": "an earlier syllable, and nothing is written",
+    "says": "This use of accents is generally mandatory only to indicate stress on a word-final vowel; elsewhere, accents are generally found only in dictionaries.",
+    "words": [["essere", "/ˈɛs.se.re/"], ["subito", "/ˈsu.bi.to/"], ["la domenica", "/doˈme.ni.ka/"]] },
+  { "key": "rule:accent", "show": "à · è · é · ì · ò · ù", "kind": "written accent", "name": "stress on the last vowel",
+    "says": "The acute accent (´) may be used on ⟨é⟩ and ⟨ó⟩ to represent stressed close-mid vowels. This use of accents is generally mandatory only to indicate stress on a word-final vowel; elsewhere, accents are generally found only in dictionaries. […] The grave accent (`) is found on ⟨à⟩, ⟨è⟩, ⟨ì⟩, ⟨ò⟩, ⟨ù⟩.",
+    "words": [["perché", "/perˈke/"], ["la città", "/t͡ʃitˈta/"], ["il lunedì", "/lu.neˈdi/"]] },
+  { "key": "rule:accent-mono", "show": "più · già · qui", "kind": "written accent", "name": "words of one syllable",
+    "says": "Monosyllabic words generally lack an accent (e.g. ho, me). The accent is written, however, if there is an ⟨i⟩ or a ⟨u⟩ preceding another vowel (più, può). This applies even if the ⟨i⟩ is \"silent\", i.e. part of the digraphs ⟨ci⟩ or ⟨gi⟩ representing /tʃ/ and /dʒ/ (ciò, giù). It does not apply, however, if the word begins with ⟨qu⟩ (qua, qui).",
+    "words": [["più", "/ˈpju/"], ["già", "/ˈd͡ʒa/"], ["qui", "/ˈkwi/"]] },
+  { "key": "rule:accent-pairs", "show": "la · là", "kind": "written accent", "name": "one-syllable words told apart by the accent",
+    "says": "Many monosyllabic words are spelled with an accent in order to avoid ambiguity with other words (e.g. là, lì versus la, li). This is known as accento distintivo […].",
+    "heads": ["without", "with the accent"],
+    "pairs": [["la", "là"], ["li", "lì"]],
+    "words": [["là", "/ˈla/"], ["lì", "/ˈli/"], ["li"]] }
+ ]
+}

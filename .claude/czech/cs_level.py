@@ -14,7 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 BANDS = ("a1", "a2", "b1", "b2")
 SIZE = {"b1": 1000, "b2": 1200}          # an assembled level's size, in notes (Polish B1's)
 FILE = "Czech-%s.folio-deck.json"
-COLOR = "#3C7675"   # the Czech collection's hue, `lang-czech` in app.js COLL_THEME (measured)
+COLOR = "#495A5A"   # the Czech collection's hue, `lang-czech` in app.js COLL_THEME (measured)
 
 
 def deck_id(level):

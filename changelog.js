@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1336", released: "2026-11-16T04:27Z" };
+window.FOLIO_VERSION = { v: "1.1339", released: "2026-11-16T12:56Z" };
 
 window.CHANGELOG = [
   {
@@ -44,6 +44,7 @@ window.CHANGELOG = [
     items: [
       "<b>The Quran</b> is in the Library, in Marmaduke Pickthall's 1930 English translation, one sûrah to a tab with every verse numbered.",
       "New in the Library: Thomas Hobbes's <b>Leviathan</b> (1651), the whole first edition with his own margin notes.",
+      "New in the Library: Jean-Jacques Rousseau's <b>The Social Contract</b> (1762) in G. D. H. Cole's translation, with the French of the first edition beside it.",
       "Immanuel Kant's <b>Critique of Pure Reason</b> is in the Library, complete in J. M. D. Meiklejohn's 1855 translation, with Kant's notes.",
       "The <b>Account</b> page is now four tabs (Overview, Statistics, Badges and Friends) under one row of figures, and about half as long.",
       "Account controls sit behind <b>Manage account</b>, which can now delete your account; a display name keeps accents and non-Latin letters.",
@@ -53,7 +54,9 @@ window.CHANGELOG = [
       "<b>Khmer A2</b> and <b>B1</b> decks (1,750 more words) and a phrases deck of 860 phrases and sentences join the Khmer (Cambodian) collection.",
       "A new <b>Icelandic</b> language collection: an alphabet deck, levels A1 to C1 and 734 phrases, idioms and proverbs, every noun with its four cases.",
       "A new <b>Czech</b> language collection: A1 and A2 (2,374 words) from the official list of the Czech residence exam, then B1 and B2 (2,200 words).",
+      "A new <b>Navajo</b> language collection: an alphabet and sounds deck, A1 to B1 (1,386 words) and 145 phrases, all in both directions.",
       "<b>On this day</b> now sits directly below the minigames on the home page, above the suggested reading.",
+      "Italian gains a <b>Sounds and spelling</b> deck, and <b>CILS A1</b> now opens with ciao, grazie and per favore, with numbers, days and seasons together.",
       "Mandarin Chinese gains a <b>Bopomofo</b> deck: 62 zhuyin symbols, tone marks and combinations, each with its pinyin, sound and example words.",
       "Shakespeare's <b>Romeo and Juliet</b> (Yale edition, 1917, with its Prologue) and <b>Julius Caesar</b> (1919) are in the Library, each with its characters and every gloss.",
       "Spanish gains a <b>Sounds and spelling</b> deck, and <b>DELE A1</b> now opens with hola, gracias and por favor, in a teaching order.",

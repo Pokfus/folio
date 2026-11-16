@@ -12679,6 +12679,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Aquinas and a purple 14.7 from Magna Carta and Euripides, and the olive was taken over both for clearing
      every political book by twice the margin. It reads 7.76:1 on the tightest light paper. */
   "Thomas Hobbes": "#263700",
+  /* Nov 2026, adding The Social Contract, and the band is still full. Measured as CIE76 distance over the
+     same band and bars (L 12.3–47.8, chroma 18–85, 4.5:1 on all forty-five light papers, cards and second
+     papers, 22 or more from the fifteen light inks), a sweep of the cube at a step of 3 tops out at 14.7.
+     THE EURIPIDES TEST: of the sweep's best, a violet stood 14.7 from Magna Carta, a political text read
+     beside this one, so this dark brown was taken: its nearest are Sophocles 14.6, Confucius 14.8 and
+     Beowulf 15.2, none read beside Rousseau, and the books that are stand well off — Plato 34.0, Hobbes
+     38.7, Jefferson 46.2, Aristotle 46.5, Machiavelli 63.3 and Magna Carta 72.4. It reads 5.77:1 on the
+     tightest light paper. */
+  "Jean-Jacques Rousseau": "#663930",
   /* MEASURED AS EVERY ROW ABOVE, with sixty-three colours placed (Nov 2026, adding the Critique of Pure
      Reason): CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and
      4.5:1 on every light paper, card and second paper. The band is full, as Hobbes's row found: a sweep at a
@@ -16636,6 +16645,50 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Somatosensory_system", "Tendon", "Scale_(zoology)", "Solar_eclipse", "Common_Sense_(pamphlet)", "Libertus",
         "Immortals", "Homo", "Lyon", "Apollo", "Titus", "Crispus", "Niger", "Gene", "Battle_of_Lepanto",
         "Tyrannicides"],
+    },
+    {
+      id: "rousseau-social-contract",
+      title: "The Social Contract",
+      subtitle: "Du contrat social, ou Principes du droit politique",
+      author: "Jean-Jacques Rousseau",
+      written: "1762",
+      year: 1762,
+      translator: "G. D. H. Cole",
+      edition: "The Social Contract and Discourses, Everyman's Library, London, 1913",
+      /* A LIMIT TO STATE, on the translation: published in 1913, so public domain in the United States;
+         Cole died in 1959, so life plus seventy runs to 1 January 2030. See .claude/fetch-book.js. */
+      rights:
+        "The French text is public domain everywhere: Rousseau published it in 1762 and died in 1778. " +
+        "G. D. H. Cole's English translation was published in London in 1913, so it is in the public " +
+        "domain in the United States. Cole died in 1959, so where copyright runs for the author's life " +
+        "plus seventy years his translation stays in copyright until 1 January 2030.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Social_Contract_(tr._Cole)",
+      /* Paired on the CHAPTER, as The Prince is: neither Cole nor the 1762 edition numbers anything below
+         it. The French is the first edition (Amsterdam, Marc Michel Rey, 1762) as validated on French
+         Wikisource. Section 1, Rousseau's Foreword, has no French: that transcription gives it no page. */
+      origLang: "fr",
+      origName: "French",
+      /* Forty-nine sections — the Foreword and the forty-eight chapters of the four Books — so a tab runs
+         one ahead of the chapter's place in the book; each title opens with its chapter's numeral in its
+         Book. "Section" so that no tab claims to be a chapter it is not (Leviathan's arrangement). */
+      chapterWord: "Section",
+      count: 49,
+      total: 49,
+      parts: [
+        { n: 1, label: "Book I", note: "The Foreword and chapters I–IX — the compact and the state it creates" },
+        { n: 2, label: "Book II", note: "Chapters I–XII — sovereignty, the general will, law and the Legislator" },
+        { n: 3, label: "Book III", note: "Chapters I–XVIII — government, its forms, and how it usurps the sovereign" },
+        { n: 4, label: "Book IV", note: "Chapters I–IX — voting, the Roman institutions, civil religion" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 49 sections (every
+         `.ttip`). Saint-Pierre is the Abbé (IV. 3), not the islands; Providence is not the capital of Rhode
+         Island; "Talent is buried" (II. 9) is ability, not the weight; the Palatine of IV. 4's note is a
+         Polish Count Palatine, not the hill; and Sovereignty's entry is the modern interstate sense, where
+         Rousseau's is the people's. Israel and Syria go where he means the biblical and ancient lands, as
+         they do on Leviathan's shelf. */
+      glossOff: ["Saint-Pierre,_Saint_Pierre_and_Miquelon", "Providence", "Talent_(measurement)", "Palatine_Hill",
+        "Sovereignty", "Israel", "Syria"],
     },
     {
       id: "kant-critique-of-pure-reason",
@@ -31453,12 +31506,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        at 13.9. 6.2:1 against white. Not a flag colour. */
     "lang-lao":        { bg: "#426A43" }, // measured leaf green
     /* CZECH (Nov 2026) was not named a colour, so it was MEASURED as Lao was: swept in CIELAB inside the shelf's
-       band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 79 hues on the
+       band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all the hues on the
        page, the magenta band's standing rejection kept, the greens left out and anything within 15 of the red or
-       blue of the Czech flag refused (none came near: the winner is 43.8 from the nearer). This deep teal is the
-       winner, 13.8 from its nearest neighbour (Ancient Egypt's malachite), then 14.1 from Economics and 14.2
-       from France, against a tightest existing pair of 4.0; 5.2:1 against white. Not a flag colour. */
-    "lang-czech":      { bg: "#3C7675" }, // measured deep teal
+       blue of the Czech flag refused. Its first sweep chose a deep teal (#3C7675); Navajo's parallel sweep landed
+       0.1 from it (#3C7676, kept for its turquoise), so Czech was re-swept at the merge against all 80 other hues.
+       This slate is the winner, 13.5 from its nearest neighbour (Korean), then 13.6 from Philosophy and 14.2 from
+       the Cold War; 37.8 from the flag's blue, 7.3:1 against white. Not a flag colour. */
+    "lang-czech":      { bg: "#495A5A" }, // measured slate
+    /* NAVAJO (Nov 2026) was not named a colour, so it was MEASURED as Lao was: swept in CIELAB inside the shelf's
+       band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 79 hues on the page.
+       The outright winner was a yellow-green (#4E7E00, 15.1), refused as a fourth green beside Middle-earth, Arabic
+       and Geography (all within 15.5 of it). This turquoise-teal is the best point of the cyan band: 13.9 from its
+       nearest neighbours (Economics and France, then Philosophy at 14.1), against a tightest existing pair of 4.0;
+       5.2:1 against white. Turquoise is the subject's own argument: dootłʼizh, one of the four sacred colours of
+       the Diné, of the sacred mountain of the south. Not a flag colour. */
+    "lang-navajo":     { bg: "#3C7676" }, // measured turquoise-teal
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were

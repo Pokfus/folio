@@ -315,3 +315,8 @@ countries-info.json
 # word list as fetched, the Wiktionary extract, the OpenSubtitles frequency list and
 # the Tatoeba exports, plus the stages' intermediate files. The decks it writes ARE committed.
 .claude/czech-cache/
+
+# Working cache for .claude/navajo/ (Nov 2026): the Wiktionary extract, the Navajo
+# Wikipedia dump and the Tatoeba exports the Navajo decks are built from. The decks it
+# writes ARE committed — this is only the working cache behind it.
+.claude/navajo-cache/

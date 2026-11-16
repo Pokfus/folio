@@ -165,5 +165,6 @@ A re-run reproduces the shipped deck byte for byte (checked 2026-11-16). A2 is b
 `SIZE` and `SCOPE` and a `C1` list in `inventory.py`, and re-run A1–B2 to confirm they are unchanged.
 
 The shelf: the `LANGS` row in `.claude/build-lang-decks.js` (`l1: 9.8`, `total: 12`, Ethnologue 28th ed. via
-Wikipedia's infobox, read 2026-11-16) and the hue `lang-czech` `#3C7675` in `app.js` `COLL_THEME` (measured:
-13.8 from its nearest neighbour among 80 hues — re-sweep at the merge if a sibling lands near it).
+Wikipedia's infobox, read 2026-11-16) and the hue `lang-czech` `#495A5A` in `app.js` `COLL_THEME` (measured;
+re-swept at the merge of 2026-11-16, Navajo having landed 0.1 from the first sweep's `#3C7675`: now 13.5 from its
+nearest neighbour among 81 hues — re-sweep again if a sibling lands near it).
