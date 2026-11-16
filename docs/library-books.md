@@ -12,7 +12,25 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently sixty-six:
+  matter (chapter 0 — see the Library bullet). Currently sixty-seven:
+  `rousseau-social-contract` (~260 KB, **49 sections** — Rousseau's Foreword and the 48 chapters of the four Books, so a
+  tab runs one ahead of the chapter's place; each title opens with its numeral in its Book, the Books are the `parts`;
+  `chapterWord: "Section"` — **47 notes**, Rousseau's with a few of Cole's; original **French**, paired on the CHAPTER as
+  The Prince is). G. D. H. Cole's translation, Everyman's Library, London, 1913, the only one on English Wikisource.
+  **The first book cut out of one-page-per-Book transcriptions at its printed chapter heads** (`cut` →
+  `cutAtChapterHeads`; heads counted and their numerals checked, a missing one throws); the Foreword is cut off the
+  work's front page by its head (`cut` returning a string). Books I and III open on a preamble before Chapter I,
+  kept at the head of that chapter under a `bk-head` "Chapter I" (both columns). **Book IV's 31 scan pages are "not
+  proofread" on Wikisource**; 18 `reFixes` rows, each found by a word diff of the whole import against Gutenberg
+  #46333 (Cole from another printing — -ise spellings, double quotes, so only non-readings are fixed): `curić` for
+  curiæ, `arid`, `thenceforce`, `severally`, a stray `40`, soft hyphens, two lost paragraph breaks, and others. The
+  French is the 1762 Rey first edition, validated on fr.wikisource, one page per chapter (`perChapter`,
+  `prep: "contrat"`: the `header=1` furniture, half-titles, "Fin du Livre", the `<h2>`/`<h3>` heads); the Foreword
+  has no French page, so section 1 has no original (`O.page(n)` → null); the French notes are not carried. Licence:
+  a 1913 US publication; Cole died 1959, so life plus seventy runs to 2030 and the rights box says so. Fetched
+  through index.php (`api` falls back to `action=render&useparsoid=0` on the API's rate-limit notice). Colour
+  `#663930` (14.7 by CIE76: the band is full). `glossOff`: 7 keys — see the comment on the app.js entry. Not
+  included: Cole's introduction, the contents, the title page.
   `kant-critique-of-pure-reason` (~1.3 MB, **19 sections** — the two prefaces, the Introduction, the Æsthetic, the
   Logic's introduction, the Analytic's five chapters, the Dialectic's introduction, Book I and three chapters, and the
   Doctrine of Method's four chapters; `chapterWord: "Section"`, since Kant's chapters restart within each Book —
