@@ -35,19 +35,27 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1321", released: "2026-11-16T02:06Z" };
+window.FOLIO_VERSION = { v: "1.1329", released: "2026-11-16T02:14Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-16",
-    t: "The Quran joins the Library",
+    t: "The Quran, Leviathan; Lao, Yoruba, Khmer, Icelandic decks; bopomofo",
     items: [
       "<b>The Quran</b> is in the Library, in Marmaduke Pickthall's 1930 English translation, one sûrah to a tab with every verse numbered.",
+      "New in the Library: Thomas Hobbes's <b>Leviathan</b> (1651), the whole first edition with his own margin notes.",
+      "A new <b>Yoruba</b> language collection: an alphabet and tones deck, A1 to B1 (2,250 words) and phrases, every word with its tone marks.",
+      "A <b>Lao</b> collection joins the Languages section: an alphabet deck, A1 to B1 (1,721 words) and 79 phrases and sentences, all in both directions.",
+      "<b>Khmer A2</b> and <b>B1</b> decks (1,750 more words) and a phrases deck of 860 phrases and sentences join the Khmer (Cambodian) collection.",
+      "A new <b>Icelandic</b> language collection: an alphabet deck, levels A1 to C1 and 734 phrases, idioms and proverbs, every noun with its four cases.",
+      "<b>On this day</b> now sits directly below the minigames on the home page, above the suggested reading.",
+      "Mandarin Chinese gains a <b>Bopomofo</b> deck: 62 zhuyin symbols, tone marks and combinations, each with its pinyin, sound and example words.",
+      "<b>Romeo and Juliet</b> is in the Library: Shakespeare's play in the Yale edition of 1917, with its Prologue, list of characters and every gloss.",
     ],
   },
   {
     d: "2026-11-15",
-    t: "Tidier atlas windows, two language collections and more daily quotes",
+    t: "Tidier atlas windows, new language collections and more daily quotes",
     items: [
       "56 new glossary terms for World History, Ancient Greece, Ancient Egypt and Ancient Rome cards, and a Byzantine sense of <b>themes</b> that links only where it fits.",
       "Egyptian dynasties are now written with numbers (<b>18th Dynasty</b>) everywhere, glossary included, and the Council of Five Hundred always in words.",
@@ -62,6 +70,7 @@ window.CHANGELOG = [
       "The Wikipedia button at the foot of a glossary popup is half as tall.",
       "<b>Feather</b> now links to its glossary entry only in Biology.",
       "A new <b>Amharic</b> language collection: a fidäl alphabet deck, three graded vocabulary decks and phrases, all in both directions with romanisation.",
+      "A new <b>Khmer (Cambodian)</b> language collection: an alphabet deck and an A1 deck of 500 words in both directions, each with its romanisation.",
       "New <b>Danish</b>, <b>Norwegian</b> and <b>Finnish</b> language collections: levels A1 to C1, plus phrases, idioms and proverbs, all in both directions.",
       "New in the Library: the <b>King James Bible</b>, with the Apocrypha and its marginal notes, and Luther's <b>Ninety-five Theses</b> (1517).",
       "A <b>Cantonese</b> collection joins the Languages section: a Jyutping and tones deck, A1 to C1 (3,787 words) and 347 phrases, slang and idioms.",

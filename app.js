@@ -12651,8 +12651,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      its nearest are the Book of Documents 15.0, Aquinas 15.7 and Chaucer 15.9, none read beside the
      Quran, and the books that are stand well off (the King James Bible, Augustine, Luther, Dante, all
      over 30). Green is besides the colour long associated with Islam. Keyed by id, the book being
-     anonymous on the shelf. It reads 4.51:1 on the tightest light paper. */
+     anonymous on the shelf. It reads 4.51:1 on the tightest light paper. Measured the same day as
+     Leviathan's row below, which took the refused olive; the two stand 28.8 apart. */
   "quran": "#006321",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-one colours placed (Nov 2026, adding Leviathan): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. A sweep of the cube at a step of 3, refined to 1 around the
+     best, tops out at 15.2 — below the shelf's tightest real pair (15.6), so the band is now FULL and
+     nothing better exists inside it. THE EURIPIDES TEST: this dark olive's nearest are Gilgamesh 15.2, the
+     Book of Documents 15.3 and Boethius 15.4, none a book read beside Hobbes; the ones that are stand well
+     off — Jefferson 29.2, Augustine 34.9, Aquinas 38.4, Aristotle 56.0, Plato 68.4, Machiavelli 79.9 and
+     Thucydides, whom Hobbes translated, 90.0. Of the sweep's other near-best, a green stood 15.7 from
+     Aquinas and a purple 14.7 from Magna Carta and Euripides, and the olive was taken over both for clearing
+     every political book by twice the margin. It reads 7.76:1 on the tightest light paper. */
+  "Thomas Hobbes": "#263700",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -15810,6 +15822,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       glossOff: ["Norway", "Ireland", "Russia", "Gunpowder"],
     },
     {
+      id: "romeo-and-juliet",
+      title: "Romeo and Juliet",
+      subtitle: "The Most Excellent and Lamentable Tragedy of Romeo and Juliet",
+      author: "William Shakespeare",
+      /* "c." because no record names the year of writing: the play was first printed in 1597, and the
+         mid-1590s is where its style and its borrowings point. */
+      written: "c. 1595",
+      year: 1595,
+      // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+      edition: "The Yale Shakespeare, ed. Willard Higley Durham, Yale University Press, New Haven, 1917",
+      /* The play has never been in copyright; the Yale edition was published in 1917 and its editor died
+         in 1955, so it clears the US pre-1929 rule and, since the start of 2026, life plus seventy — not
+         yet life plus a hundred, which is why this text does not borrow Macbeth's wording. */
+      rights:
+        "Public domain. Shakespeare wrote the play in the mid-1590s and it was first printed in 1597, " +
+        "so the work itself has never been in copyright. The text here is the Yale Shakespeare edition " +
+        "edited by Willard Higley Durham and published by Yale University Press in 1917; Durham lived from " +
+        "1883 to 1955, so the edition is out of copyright in the United States under the rule for works " +
+        "published before 1929, and everywhere the term is the editor's life plus seventy years or less. " +
+        "What is taken is the play, the edition's list of characters, Durham's glosses from the foot of " +
+        "each page and his end notes, which are set with the glosses that point to them; his appendices " +
+        "and index are not reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Romeo_and_Juliet_(1917)_Yale",
+      /* NO `origLang`: Shakespeare's English is the original. Five acts, each a tab; the opening Chorus
+         is set at the head of Act I, after the list of characters. */
+      chapterWord: "Act",
+      count: 5,
+      total: 5,
+    },
+    {
       id: "classic-of-tea",
       title: "The Classic of Tea",
       subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -16485,6 +16528,59 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       glossOff: ["Israel", "Egypt", "Temple", "Shun", "Sovereignty", "Truth", "Taste", "Ring_shout", "Earth",
         "Moon", "Cattle", "Somatosensory_system", "Ant", "Coinage", "Gold", "Iron", "Inscription", "Winnowing",
         "Elephant"],
+    },
+    {
+      id: "hobbes-leviathan",
+      title: "Leviathan",
+      subtitle: "Or the Matter, Forme, & Power of a Common-wealth Ecclesiasticall and Civill",
+      author: "Thomas Hobbes",
+      written: "1651",
+      year: 1651,
+      /* NO `translator`: written in English, like the Declaration. */
+      edition: "The first edition (the 'Head' issue), printed for Andrew Crooke, London, 1651",
+      /* No limit to state: printed in 1651, its author dead since 1679. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Thomas Hobbes published Leviathan in London in 1651 and died in 1679, " +
+        "so the book has never been in copyright anywhere. The text is the proofread Wikisource " +
+        "transcription of the first edition, from a scan of a copy held by the Internet Archive.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Leviathan_(1651)",
+      /* NO `origLang`: the book is English. Forty-nine sections — Hobbes's Introduction, his forty-seven
+         chapters and his Review and Conclusion — so a tab's number runs one ahead of the chapter's, whose
+         Roman numeral opens each title (Don Quixote's arrangement; the front matter says so). "Section"
+         rather than "Chapter" so that no tab claims to be a chapter it is not. */
+      chapterWord: "Section",
+      count: 49,
+      total: 49,
+      /* Hobbes's own four Parts. */
+      parts: [
+        { n: 1, label: "Part I · Of Man", note: "The Introduction and chapters I–XVI — sense, speech, the passions, the state of nature" },
+        { n: 2, label: "Part II · Of Common-wealth", note: "Chapters XVII–XXXI — the covenant, the sovereign, the liberty of subjects, the laws" },
+        { n: 3, label: "Part III · Of a Christian Common-wealth", note: "Chapters XXXII–XLIII — Scripture read against any church's claim over the sovereign" },
+        { n: 4, label: "Part IV · Of the Kingdome of Darknesse", note: "Chapters XLIV–XLVII and the Review and Conclusion" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 49 sections (every
+         `.ttip`). Hobbes's COMMON-WEALTH is any state, not the Commonwealth of Nations, and his Dominion,
+         Constitution, Providence and Concord are words, not the British dominions, a state's charter, or the
+         capitals of Rhode Island and New Hampshire; his Trinity is the doctrine, not the nuclear test; his
+         Successors, Commons, Altar, Ecclesia, Principalities, Plantations, Procurator, Overseer, Pastoral and
+         Duces are not the Diadochi, the United Kingdom's House, a Greek altar, the Athenian assembly,
+         medieval principalities, the American South, a Roman official, a slave-driver, herding or Mussolini.
+         The modern countries go where he means the ancient or biblical people (Greece, Israel, Jordan, Egypt,
+         Palestine, Syria, the "Antient Germans"), as they do on the King James Bible's shelf, and so do the
+         ordinary words that meet an entry (Earth, Moon, Water, Sound, Gold, Silver, Truth, Eye, Ear, Touch,
+         Tendons, Scales, Totality, Common Sense, LIBERTAS, Immortals, Homo, Lyons) and the Bible's men who
+         share a name (Apollos, Titus the epistle, Crispus, Simeon called Niger), and "Genes." — Genesis.
+         Chapter XII's "war at Lepanto" is Athens's at Naupactus, not the battle of 1571, and a Tyrannicide
+         is the act, not Harmodius and Aristogeiton. */
+      glossOff: ["Commonwealth_of_Nations", "Dominion", "Constitution", "Providence", "Concord",
+        "Trinity_(nuclear_test)", "Diadochi", "House_of_Commons_of_the_United_Kingdom", "Greek_altar",
+        "Ecclesia_(ancient_Athens)", "Principality", "Plantations_in_the_American_South", "Procurator_(ancient_Rome)",
+        "Overseer", "Pastoralism", "Duce", "Greece", "Israel", "Jordan", "Egypt", "State_of_Palestine", "Syria",
+        "Germany", "Earth", "Moon", "Water", "Sound", "Gold", "Silver", "Truth", "Human_eye", "Ear",
+        "Somatosensory_system", "Tendon", "Scale_(zoology)", "Solar_eclipse", "Common_Sense_(pamphlet)", "Libertus",
+        "Immortals", "Homo", "Lyon", "Apollo", "Titus", "Crispus", "Niger", "Gene", "Battle_of_Lepanto",
+        "Tyrannicides"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -25986,6 +26082,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "MIDWAY upon the journey of our life I found myself within a forest dark, For the straightforward pathway had been lost. Ah me! how hard a thing it is to say What was this forest savage, rough, and stern, Which in the very thought renews the fear. So bitter is it, death is little more; But of the good to treat, which there I found, Speak will I of the other things I saw there. I cannot well repeat how there I entered, So full was I of slumber at the moment In which I had abandoned the true way. But after I had reached a mountain's foot, At that point where the valley terminated, Which had with…" },
     { book: "macbeth", n: 5, t: "Act V", p: 101,
       text: "She should have died hereafter; There would have been a time for such a word. To-morrow, and to-morrow, and to-morrow, Creeps in this petty pace from day to day, To the last syllable of recorded time; And all our yesterdays have lighted fools The way to dusty death. Out, out, brief candle! Life's but a walking shadow, a poor player That struts and frets his hour upon the stage, And then is heard no more; it is a tale Told by an idiot, full of sound and fury, Signifying nothing. Enter a Messenger. Thou com'st to use thy tongue; thy story quickly. Mess Gracious my lord, I should report that…" },
+    { book: "romeo-and-juliet", n: 2, t: "Act II", p: 23,
+      text: "He jests at scars, that never felt a wound. [Juliet appears above at a window.] But, soft! what light through yonder window breaks? It is the east, and Juliet is the sun! Arise, fair sun, and kill the envious moon, Who is already sick and pale with grief, That thou her maid art far more fair than she: Be not her maid, since she is envious; Her vestal livery is but sick and green, And none but fools do wear it; cast it off. It is my lady; O! it is my love: O! that she knew she were. She speaks, yet she says nothing: what of that? Her eye discourses; I will answer it. I am too bold, 'tis not to…" },
     { book: "classic-of-tea", n: 1, t: "The Origin of Tea", p: 1,
       text: "Tea is a fine tree of the South. Its height is from one to two feet to several tens of feet. The tea plants which grow on the hills and by the streams of Pa Shan [in the province of Szechwan] are sometimes so big that it takes two men to encircle them with their arms. They are cut down and then their leaves are plucked. A tea plant is like kua lu, a tree growing in Canton, the leaves of which are bitter and acrid in taste; its leaves are like those of the gardenia; its flowers are like the white cinnamon roses; its seeds are like those of the palm and coconut palm; its stalks are like those…" },
     { book: "magna-carta", n: 39, t: "Chapter 39", p: 1,
@@ -26004,6 +26102,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "The tributaries of the Varangians drove them back beyond the sea and, refusing them further tribute, set out to govern themselves. There was no law among them, but tribe rose against tribe. Discord thus ensued among them, and they began to war one against another. They said to themselves, “Let us seek a prince who may rule over us, and judge us according to the law.” They accordingly went overseas to the Varangian Russes: these particular Varangians were known as Russes, just as some are called Swedes, and others Normans, Angles, and Goths, for they were thus named. The Chuds, the Slavs, and…" },
     { book: "declaration-of-independence", n: 1, t: "The Unanimous Declaration", p: 6,
       text: "We hold these Truths to be self-evident, that all Men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty, and the Pursuit of Happiness.—That to secure these Rights, Governments are instituted among Men, deriving their just Powers from the Consent of the Governed, that whenever any Form of Government becomes destructive of these Ends, it is the Right of the People to alter or to abolish it, and to institute new Government, laying its Foundation on such Principles, and organizing its Powers in such Form, as to them shall…" },
+    { book: "hobbes-leviathan", n: 14, t: "XIII. Of the Naturall Condition of Mankind, as concerning their Felicity, and Misery", p: 12,
+      text: "Whatsoever therefore is consequent to a time of Warre, where every man is Enemy to every man; the same is consequent to the time, wherein men live without other security, than what their own strength, and their own invention shall furnish them withall. In such condition, there is no place for Industry; because the fruit thereof is uncertain: and consequently no Culture of the Earth; no Navigation, nor use of the commodities that may be imported by Sea; no commodious Building; no Instruments of moving, and removing such things as require much force; no Knowledge of the face of the Earth; no account of Time; no Arts; no Letters; no Society; and which is worst of all, continuall feare, and danger of violent death; And the life of man, solitary, poore, nasty, brutish, and short." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
       text: "Again:—\"Why does not the pope, whose wealth is to-day greater than the riches of the richest, build just this one church of St. Peter with his own money, rather than with the money of poor believers?\"" },
     { book: "kalidasa-shakuntala", n: 6, t: "Act IV", p: 138,
@@ -28455,8 +28555,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           ${/* ADMIN ONLY (Nov 2026): the way into the games archive, which plays past days and records nothing (PAGES.gamearchive) */""}
           ${isAdmin() ? '<a class="games-archive-link" href="#gamearchive">Games archive <span>— play a past day, not recorded</span></a>' : ""}
         </section>
-        <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}${homeTermHTML()}</div>
+        ${/* ON THIS DAY sits directly under the minigames, above Suggested reading (Nov 2026, on request) */""}
         ${homeOnThisDayHTML()}
+        <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}${homeTermHTML()}</div>
         <footer class="home-foot">${aboutLink}<button class="home-about" id="b-changelog" type="button">Changelog</button><button class="home-about" id="b-credits" type="button">Credits</button>${versionLineHTML()}</footer>
         ${/* ADMIN ONLY (Oct 2026, on request): a small refresh at the bottom left of the home page that brings the page to the latest deploy — it empties Folio's caches and the service worker, then reloads. */""}
         ${isAdmin() ? '<div class="home-admin-row"><button class="home-refresh" id="b-refresh" type="button" title="Refresh to the latest version" aria-label="Refresh to the latest version"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><polyline points="20 4 20 11 13 11"/></svg></button></div>' : ""}
@@ -31160,6 +31261,35 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        its nearest neighbour (Ancient Mesopotamia), then 14.3 from World History and 14.5 from Spanish, against a
        tightest existing pair of 4.0; 5.9:1 against white. */
     "lang-finnish":    { bg: "#8D572D" }, // measured sienna
+    /* ICELANDIC (Nov 2026) was not named a colour, so it was MEASURED as Finnish was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) against all 74 other hues, the magenta band's standing
+       rejection kept and the greens left out. The raw winner, a deep indigo (#333C81, 14.3), was REFUSED for standing
+       13.2 from the blue of Iceland's flag; this ultramarine is the runner-up, 14.1 from its nearest neighbour (Urdu),
+       then 14.4 from China (Geography) and 17.9 from Ancient Rome, against a tightest existing pair of 0.0 (Hungarian
+       and Vietnamese share a hue); 23.2 from the flag's blue, 10:1 against white. Re-swept at the merge against all 78
+       other hues (Khmer, Yoruba and Lao had arrived): it is now the winner outright, still 14.1 from Urdu. */
+    "lang-icelandic":  { bg: "#303696" }, // measured ultramarine
+    /* KHMER (Nov 2026, asked for as "a Cambodian language collection") was not named a colour, so it was MEASURED
+       as Hebrew was: swept in CIELAB inside the shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the
+       point farthest from all 73 hues on the page, the magenta band's standing rejection kept and the greens left
+       out: a deep brick red, 14.3 from its nearest neighbour (#8D2D39), against a tightest existing pair of 4.0;
+       10.0:1 against white. Not a flag colour. */
+    "lang-khmer-cambodian": { bg: "#76281C" }, // measured brick red
+    /* YORUBA (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 74 hues on the
+       page, the magenta band's standing rejection kept and the greens left out. Two points tied at 13.4: a brick
+       red in the crowded red-brown band (the Viking Age, Russia, Cantonese and Indonesian all within 14.3 of it)
+       and this indigo, 13.4 from its nearest neighbour (China's Geography blue), 13.5 from Hebrew and 13.6 from
+       the United States, against a tightest existing pair of 4.0; 7.2:1 against white. The tie went to the
+       indigo, the subject's own colour (adire, the Yoruba indigo-dyed cloth). Not a flag colour. */
+    "lang-yoruba":     { bg: "#3A5498" }, // measured indigo
+    /* LAO (Nov 2026) was not named a colour, so it was MEASURED as Finnish was: swept in CIELAB inside the shelf's
+       band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 75 hues on the
+       page, the magenta band's standing rejection kept and anything within 15 of the red or blue of the Lao flag
+       refused. The winner is this leaf green, 15.1 from its nearest neighbours (Ancient Egypt's malachite and
+       Korean's dark green, then Old English's deep green at 15.2); with the greens left out, the best was a teal
+       at 13.9. 6.2:1 against white. Not a flag colour. */
+    "lang-lao":        { bg: "#426A43" }, // measured leaf green
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
