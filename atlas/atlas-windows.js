@@ -53,9 +53,10 @@
     let tlStop = () => {};   // removes the war timeline and stops its play (a war window only)
     let unhold = () => {};   // the hub is held while this window is pending (see AtlasEmbed.hold); let go at the first of: the window is mounted, it fell back to V1, it failed, it was stopped
     if (W.AtlasEmbed && W.AtlasEmbed.hold) { const let0 = W.AtlasEmbed.hold(); unhold = () => { unhold = () => {}; let0(); }; }   // the context app.js handed over, kept so a suite can mount synthetic windows (the fit sweep of test-atlas-windows.js) through the same code
-    const { CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, cardCollectionRoot, cardLocator, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon } = X, S = X.S;
+    const { CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, cardCollectionRoot, cardLocator, cardMapKeys, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon } = X, S = X.S;
     const cv = host.querySelector(".mc-canvas");
-    const layerName = host.getAttribute("data-map-layer"), key = host.getAttribute("data-map-key");
+    const layerName = host.getAttribute("data-map-layer");
+    let key = host.getAttribute("data-map-key") || "";   // a map card with no authored key (2026-11-15) leaves it empty, and the window reads its keys off the card's places below (`keyCard`, app.js cardMapKeys)
     const def = CARD_MAP_LAYERS[layerName];
     /* THE WINDOW THE ENGINE COULD NOT DRAW (Phase 5, decision 3): a plain sentence in the window's place and the card's own text around it. Nothing else the card offers depends on the map. */
     const plain = (why) => {
@@ -149,6 +150,10 @@
     /* a map card's window draws the collection's studied places too (app.js cardMapHTML `data-map-sib`, 2026-11-07); it stays a map card in everything else */
     const sibOf = sibCard || (!isGloss && !isWar ? host.getAttribute("data-map-sib") || "" : "");
     const sib = sibOf ? locatorSiblings(sibOf) : { dots: [], termName: new Map(), own: new Set() };
+    /* A MAP CARD WHOSE KEY IS ITS PLACES (2026-11-15, docs/map-cards.md "The key is the card's places"): no `data-map-key`, so the shaded shape is the card's places read through card-faces.js
+       (cardMapKeys) once `atlas2cards` and the light card → places index `atlas2places` are in; a sibling map card drawn on this window is resolved the same way */
+    const keyCard = !key && !sibCard && !isGloss && !isWar && !isMembers ? host.getAttribute("data-map-sib") || "" : "";
+    const sibKeyless = sib.dots.some((d) => d.map && !d.map.keys.length);
     const anchor = (() => {
       const a = sibCard && root0 ? CMAP_ANCHOR[root0.id] : null;
       if (!a || isWar) return null;   // a war window spends red on the defeated side
@@ -157,8 +162,9 @@
       return me && String(me.name || "").trim().toLowerCase() === k ? null : a;
     })();
     const wantsOwnRiver = !isWar && locKind === "river" && sib.own && sib.own.size > 0;
-    const wantsAlt = !!(S.settings && S.settings.mapAlt) && !sibCard && !!key;   // "Describe geography maps": the sentence naming the shaded shape's neighbours (docs/atlas-v2-phase5-plan.md §4.3)
+    const wantsAlt = !!(S.settings && S.settings.mapAlt) && !sibCard && (!!key || !!keyCard);   // "Describe geography maps": the sentence naming the shaded shape's neighbours (docs/atlas-v2-phase5-plan.md §4.3)
     const need = [ensureData("atlas2"), ensureData("atlas2embed"), ensureData("atlas2cards")];
+    if (keyCard || sibKeyless) need.push(ensureData("atlas2places"));
     if (wantsAlt) need.push(ensureData("atlas2nbr"));
     if (isWar) need.push(ensureData("atlas2wars"));
     if (wantsOwnRiver) { need.push(ensureData("rivers1")); if (hiRegion && DATA_BUNDLES["river_" + hiRegion]) need.push(ensureData("river_" + hiRegion)); }
@@ -172,6 +178,7 @@
     const tlStep = () => (tlIdx >= 0 ? tlSteps[tlIdx] : null);
     function model() {
       FACES = window.ATLAS_CARD_FACES; const L = FACES && FACES.layers[layerName]; if (!L) return false;
+      if (!key && keyCard) { key = cardMapKeys(CARD_BY_ID[keyCard]).join("|"); if (!key) return false; host.setAttribute("data-map-key", key); }   // written back: the host contract (`data-map-key`) holds once the window has its model
       if (key) for (const k of key.split("|")) { const t = L[k]; if (!t) return false; targets.push({ n: k, id: t[0], c: [t[1], t[2]], b: [t[3], t[4], t[5], t[6]] }); }
       if (glossFace) targets.push({ n: host.getAttribute("data-map-atname") || "", id: glossFace, c: null, b: null });   // the glossary window's face: framed by its own `at` and zoom (fit), tinted by id
       const atAttr = host.getAttribute("data-map-at");
@@ -438,8 +445,9 @@
           if (d.map) {   // a geography map card (app.js locatorSiblings): resolved off the card-faces table
             const L = FACES && FACES.layers[d.map.layer]; if (!L) continue;
             // the same shape as this card's own (a country card and its capital's card): naming it here would answer this card's question
-            if (d.map.keys.some((k2) => myKeys.has(k2))) continue;
-            if (d.kind === "face") { const t = L[d.map.keys[0]]; if (t) { const p = api.project(t[1], t[2]); if (inView(api, p)) faceAt.push([p[0], p[1], d.n]); } continue; }
+            const dk = d.map.keys.length ? d.map.keys : cardMapKeys(CARD_BY_ID[d.id]);   // a sibling with no authored key: its places through the join (the sibling list is cached before the index lands)
+            if (dk.some((k2) => myKeys.has(k2))) continue;
+            if (d.kind === "face") { const t = L[dk[0]]; if (t) { const p = api.project(t[1], t[2]); if (inView(api, p)) faceAt.push([p[0], p[1], d.n]); } continue; }
             const P = (FACES.dots[d.map.layer] || {})[d.map.dot]; if (!P) continue;
             d = { id: d.id, n: d.n, c: [P[0], P[1]], kind: "point" };
           }
@@ -755,7 +763,7 @@
   }
   let regCache = null;
   function finditRegister(X) {
-    const key = X.CARDS.length; if (regCache && regCache.key === key) return regCache.v;
+    const key = X.CARDS.length + (window.ATLAS_CARD_FACES && window.ATLAS_CARD_PLACES ? ":k" : ""); if (regCache && regCache.key === key) return regCache.v;   // a map card's keys are readable only with both tables in (cardMapKeys)
     const out = { names: new Map(), marks: [] };
     X.CARDS.forEach((c0) => { const c = X.CARD_BY_ID[c0.id]; if (c) registerCard(X, c0.id, c, out); });
     regCache = { key, v: out }; return out;
@@ -869,7 +877,7 @@
     let rounds = [], ri = 0, tries = 0, found = 0, firstTry = 0, lock = false, over = false, pick = null, win = null, hubRef = null, marks = [], pin = null, pickPin = null, pulse = null, disposed = false, shown = null, named = null;   // named: an area round's other states, named after the reveal (stateNames); shown: an area round's rings, drawn by the window on the still renderer
     const reduced = () => prefersReducedMotion();
     const MAXY2 = new Date().getFullYear();
-    const need = [ensureData("atlas2"), ensureData("atlas2embed"), ensureData("atlas2cards"), ensureData("atlas2prose"), ensureData("atlas2findit"), ensureData("atlas2countries")];
+    const need = [ensureData("atlas2"), ensureData("atlas2embed"), ensureData("atlas2cards"), ensureData("atlas2prose"), ensureData("atlas2findit"), ensureData("atlas2countries"), ensureData("atlas2places")];   // atlas2places: a world map card's country is its places (cardMapKeys, 2026-11-15)
     const fail = () => { if (!root.isConnected) return; root.innerHTML = '<div class="data-loading dl-fail" role="alert"><strong>Find it could not be set up</strong><span class="dl-note">The map did not load. Check your connection and try again.</span><button class="btn" type="button" id="fi2Retry">Reload</button></div>'; const b = root.querySelector("#fi2Retry"); if (b) b.addEventListener("click", () => location.reload()); };   // the engine could not start at all (a refused bundle): a sentence, never a blank page
     Promise.all(need).then((ok) => {
       if (!root.isConnected) return;

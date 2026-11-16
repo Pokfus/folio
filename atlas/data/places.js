@@ -8,7 +8,7 @@
    FOLDS ON WIKIDATA'S OWN WORD (Phase 2c, Task 0a, owner's decision of 2026-10-12): a period settlement folds into a modern one on
    P1366 replaced by, P1365 replaces, a shared Wikipedia article, or P460 "said to be the same as" — and P460 counts only when the
    two items are under 25 km apart and in the same kind family (both settlements). Never on distance alone. */
-window.ATLAS_PLACES = {"format":1,"generated":"2026-11-12","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":88,"town":124,"strait":3,"gulf":2,"lake":10,"river":11,"island":25,"island-group":3,"range":14,"region":77,"site":417,"mountain":41,"cape":4,"hill":8},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
+window.ATLAS_PLACES = {"format":1,"generated":"2026-11-12","generator":"folio atlas-build: build-places.js (0.1.0)","kinds":["country","admin1","capital","city","town","sea","ocean","strait","gulf","lake","river","island","island-group","range","region","site","mountain","cape","hill"],"cols":["id","name","kind","sub","qid","within","at","aliases","wiki"],"counts":{"city":88,"town":124,"strait":3,"gulf":2,"lake":10,"river":11,"island":25,"island-group":3,"range":14,"region":77,"site":416,"mountain":41,"cape":4,"hill":8},"rows":[["pl:q189685","Abomey","city",0,189685,0,[1.9914,7.1853],0,1],
 ["pl:q380096","Adwa","city",0,380096,0,[38.9,14.1667],0,1],
 ["pl:q324293","Anyang","city",0,324293,0,[114.3461,36.0956],0,1],
 ["pl:q2749","Augsburg","city",0,2749,0,[10.8978,48.3689],0,1],
@@ -650,8 +650,6 @@ window.ATLAS_PLACES = {"format":1,"generated":"2026-11-12","generator":"folio at
 ["Hattusa, the Hittite capital"],1],
 ["pl:q26237","Hawara","site","site",26237,0,[30.899,29.274],0,1],
 ["pl:q249480","Heracleopolis Magna","site","site",249480,0,[30.9344,29.0856],0,1],
-["pl:q1607754","Heraion of Argos","site","site",1607754,0,[22.7747,37.6919],
-["Argive Heraion"],1],
 ["pl:q841207","Heraion of Samos","site","site",841207,0,[26.8856,37.6719],0,1],
 ["pl:q178813","Herculaneum","site","site",178813,0,[14.3475,40.8061],0,1],
 ["pl:q278988","Hierakonpolis","site","site",278988,0,[32.7794,25.0972],0,1],

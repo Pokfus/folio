@@ -28,6 +28,10 @@
 //                "map": { "layer": "us-states", "key": "California" },
 //                "facts": [["Capital", "Sacramento"], ["Population", "39.4 million"], …],
 //                "questions": []
+//              The key is written as the AUTHORING input and stored as the card's `places` (2026-11-15): this
+//              script turns it into the registry id through atlas/data/card-faces.js and drops `map.key` where
+//              the places say the same (.claude/map-places.js; India's layer and Cyprus's list keep it).
+//              After a batch, `node .claude/migrate-places.js --finish` does the same for any card written otherwise.
 //              A card whose ANSWER IS A PLACE may carry a `locator` — a globe at the foot of the card with
 //              that place marked. Written by `.claude/add-locators.js`, never by hand: the coordinate is
 //              the one the place's own Wikipedia article publishes, and a typed pair is a dot a degree out
@@ -242,7 +246,8 @@ if (isMap) {
      three (Cyprus, N. Cyprus and the buffer zone), and a card naming one shades two-thirds of the island
      and asks the reader to name it. The renderer joins the list with a PIPE for the markup's single
      attribute, so a name containing one is refused here rather than silently split in the browser. */
-  const mapKeys = Array.isArray(m.key) ? m.key : [m.key];
+  // a card that already carries no key (one read back from the corpus for --replace, 2026-11-15) is validated on the keys its places say (map-places.js)
+  const mapKeys = m.key == null && Array.isArray(card.places) ? (() => { const MPL = require("./map-places.js"); return MPL.mapKeys(card, MPL.loadJoin()); })() : Array.isArray(m.key) ? m.key : [m.key];
   if (!mapKeys.length || mapKeys.some((k) => typeof k !== "string" || !k.trim())) { console.error("ERROR: card.map.key is empty — it names the place, or the places, to shade."); process.exit(1); }
   if (mapKeys.some((k) => k.indexOf("|") >= 0)) { console.error("ERROR: card.map.key may not contain a pipe — the renderer joins a list of keys with one."); process.exit(1); }
   if ("zoom" in m && !(Number.isFinite(m.zoom) && m.zoom > 0)) { console.error("ERROR: card.map.zoom must be a positive number, or absent (the window fits the place automatically)."); process.exit(1); }
@@ -1033,6 +1038,17 @@ if (!deck) { console.error("ERROR: deck not found:", deckId, "| available:", lea
 /* --dry-run (Oct 2026, the World History audit): every guard above, and no write. Research agents
    drafting patches in parallel check a draft against the real rules without touching data.js. */
 if (process.argv.includes("--dry-run")) { console.log("dry run: " + card.id + " passes every guard (nothing written)"); process.exit(0); }
+/* A MAP CARD IS WRITTEN IN THE NEW SHAPE (2026-11-15, the old fields' later phase; docs/map-cards.md "The key is the card's places"). The key it was authored
+   with is validated above and then becomes the card's registry id(s) in `places`, through atlas/data/card-faces.js; `map.key` is dropped where those places say
+   the same keys back (.claude/map-places.js `finishCard` — India's layer, whose units are no registry rows yet, and Cyprus's ordered list keep it). The light
+   card → places index follows below (build-card-places.js), so check-places.js and migrate-places.js --check stay green. */
+const mapFinished = isMap ? (() => { const MPL = require("./map-places.js"); return MPL.finishCard(card, MPL.loadJoin()); })() : null;
+if (mapFinished && (mapFinished.added.length || mapFinished.stripped)) console.log("  map card: places " + JSON.stringify(card.places) + (mapFinished.stripped ? "; map.key dropped (its places say it)" : "; map.key kept (its places cannot say it)"));
+const reindexPlaces = () => {   // the two generated tables that read the cards' places: the light index, and the glossary popup's joins (a term a card answers)
+  if (!mapFinished || !mapFinished.added.length) return;
+  require("./atlas-build/build-card-places.js").build({ cards: require("./card-io").loadCards().cards, install: true, log: () => {} });
+  require("./atlas-build/build-glossary-places.js").build({ install: true, log: () => {} });
+};
 if (REPLACE) {
   const at = cards.findIndex((c) => c.id === card.id);
   const answerOf = (c) => String(c.answerText || c.answer || "").replace(/<[^>]*>/g, "").trim();
@@ -1040,6 +1056,7 @@ if (REPLACE) {
   cards[at] = card;
   require("./card-io").writeCards(cards, tree);
   loadWindow(dataPath);
+  reindexPlaces();
   console.log("replaced card " + card.id + " in place (deck " + deck.id + ")");
   // a changed ANSWER may have a different article (or none); an unchanged one keeps the link it has, which
   // may be a hand-corrected entry in wiki-links.json that a re-resolve would only repeat
@@ -1062,6 +1079,7 @@ fs.writeFileSync(dataPath, out);
    grows back in silence. See .claude/card-io.js. */
 require("./card-io").resplit();
 loadWindow(dataPath);   // re-parse to confirm the written file is valid JS
+reindexPlaces();
 console.log("added card " + card.id + " -> deck " + deck.id + " | total cards: " + cards.length);
 
 /* …AND ITS WIKIPEDIA ARTICLE (see the header and .claude/wiki-step.js). Synchronous and best-effort: the
