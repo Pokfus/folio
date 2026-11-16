@@ -369,7 +369,7 @@
      it is the same id for every reader who downloaded it. Once such a card has `CARD_STATS_MIN` answers
      across all readers, `cardStatsFor` finds it and the stars appear, measured rather than judged. The
      one thing that has never worked for those decks is the "By difficulty" study ORDER, which reads the
-     editorial rating; "By frequency" is what answers that, and lives beside it. The colour is the QUESTION/ANSWER label's own `--indigo`, on request,
+     editorial rating; what answers that is the order the deck FILE is in (see DECK_ORDERS). The colour is the QUESTION/ANSWER label's own `--indigo`, on request,
      so the corner reads as part of the card's own furniture rather than as a second kind of mark.
      THE WORD "Difficulty" IS PRINTED BESIDE THEM (Aug 2026, on request): five small stars in a corner say
      that something is being rated and not what. It is set small and thin so it labels the row rather than
@@ -7398,33 +7398,38 @@
      arriving here is already in deck order, so five cards all rated 3 stay in the order their deck puts
      them — which is the honest reading of "by difficulty" on a corpus where the rating is five buckets
      rather than a continuum. */
-  /* ---------- A FIFTH ORDER: BY FREQUENCY (Sep 2026, on request) ----------
-     For a LANGUAGE deck, "by difficulty" can say nothing — `cardDifficulty` is an editorial rating on
-     curated cards and a community card has none — and the order those decks actually ship in is the exam
-     list's, which is alphabetical by reading and so teaches nothing. This sorts a deck by how often its
-     own example sentences use each word, commonest first; `uDeckWordFreq` holds what that counts and,
-     more importantly, where it stops working.
-
-     IT IS OFFERED ONLY WHERE IT CAN ACT. `entryCanFreq` asks whether the deck behind the entry has any
-     sentences to count at all, and the cycler steps straight past this order where it has not — a curated
-     deck, or a community deck with no examples. An option that is drawn and does nothing is worse than an
-     option that is not drawn, because a reader who chooses it concludes the ordering is broken. */
-  const DECK_ORDERS = ["ordered", "random", "difficulty", "frequency"];
+  /* ---------- "BY FREQUENCY" WAS A FOURTH ORDER, AND IS WITHDRAWN (Sep 2026 – Nov 2026) ----------
+     It sorted a language deck by how often its own example sentences use each word. Three things were
+     wrong with it, and the third is why it is gone rather than mended.
+     · IT WAS OFFERED OR NOT BY ACCIDENT. `entryCanFreq` counted the deck's notes IN MEMORY, and since the
+       store was split a downloaded deck's notes are stubs until read — so the same deck offered the order
+       after a session and not before one, and `uAdoptNotes` never dropped the count it had cached cold.
+     · IT READ ONE FIELD NAME, `Simplified`, so it had never been offered on any deck but a Mandarin one.
+     · IT NEVER CHOSE WHICH WORDS ARRIVE. `buildSession` slices the day's new cards off the front of the
+       deck and only then calls `orderPile`, so this re-sorted the ten cards already dealt; the commonest
+       word of a deck still arrived on the day its place in the file gave it. Making it act would mean
+       reading a whole deck (up to 9 MB) out of IndexedDB before every session could be built.
+     The count is baked into the FILES instead, where it acts for every reader at no cost: the Mandarin
+     decks ship commonest first behind a hand-written head (`mandarin-order.json`), DELE A1 and the Spanish
+     phrases in a teaching order (`spanish-order.json`), JLPT N5 with its sets together. "Ordered" is that
+     order. A reader who had chosen "By frequency" is read as "Ordered": `setDeckOrderMode` always wrote
+     the old `random` boolean beside the name, and `deckOrderMode` falls back to it. */
+  const DECK_ORDERS = ["ordered", "random", "difficulty"];
   /* …AND THE CONTROL IS A CYCLER, NOT A SWITCH (Aug 2026, on request). Two orders were a switch and three
      will not fit in one: what replaces it is a single row naming the order in force, which steps to the
      next on every press and wraps. Three rows with a tick would say the same thing in three times the
      height, on a sheet a phone already has to scroll — and the switch's own reasoning was that a setting
      with a name for each state reads as a sentence, which a cycler keeps. */
-  const DECK_ORDER_LABEL = { ordered: "Ordered", random: "Random", difficulty: "By difficulty", frequency: "By frequency" };
+  const DECK_ORDER_LABEL = { ordered: "Ordered", random: "Random", difficulty: "By difficulty" };
   const DECK_ORDER_NOTE = {
     ordered: "Cards come up in their deck order, oldest history first",
     random: "The session is shuffled each day",
     difficulty: "The best-known terms first, working outward",
-    frequency: "The words this deck uses most, first",
   };
-  // the orders this entry can actually be given, in cycle order — see DECK_ORDERS' own note
+  // the orders an entry can be given, in cycle order. Every entry is offered all three: the one order that
+  // depended on the deck behind the entry is withdrawn — see DECK_ORDERS' own note
   function deckOrdersFor(id) {
-    return DECK_ORDERS.filter((m) => m !== "frequency" || entryCanFreq(id));
+    return DECK_ORDERS.slice();
   }
   function deckOrderMode(id) {
     if (id === REVIEW_ENTRY) {
@@ -7461,21 +7466,6 @@
   function sortByDifficulty(list) {
     return list.slice().sort((a, b) => (cardDifficultyRank(a) - cardDifficultyRank(b)));
   }
-  /* Commonest first. TIES KEEP THE DECK'S OWN ORDER, which is the whole of why this degrades gracefully
-     at the top of a syllabus: `sort` is stable, so the 3,029 Levels 7–9 words counted exactly once stay
-     exactly where their deck put them and only the words the deck really does lean on move. */
-  function sortByFrequency(id, list) {
-    const deckId = uDeckIdOf(id);
-    if (!deckId) return list;
-    const f = uDeckWordFreq(deckId);
-    if (!f.size) return list;
-    const n = (cid) => {
-      const c = cardById(cid);
-      const w = c && c.fields ? String(c.fields.Simplified || "") : "";
-      return w ? (f.get(w) || 0) : 0;
-    };
-    return list.slice().sort((a, b) => n(b) - n(a));
-  }
   // a card with no rating at all sorts LAST rather than first: an unrated card is unknown, not easy
   function cardDifficultyRank(id) {
     const c = cardById(id);
@@ -7487,7 +7477,6 @@
   function orderPile(id, list) {
     const mode = deckOrderMode(id);
     if (mode === "difficulty") return sortByDifficulty(list);
-    if (mode === "frequency") return sortByFrequency(id, list);
     return list;
   }
   /* AUTOMATIC READ-ALOUD, per entry (Aug 2026, on request — Anki's "read the answer aloud"). A card type
@@ -9511,7 +9500,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* Deliberately NO uCacheBust. Warming cannot change what uDeckStudyIds returns: a lazy cloze note is
        expanded from the `ords` its index carries and a warm one from clozeOrds(), and the two agree by
        construction — the index and the note were written in one transaction from the same card. Busting
-       here would throw the expansion away on every session start for nothing. */
+       here would throw the expansion away on every session start for nothing.
+       THE WORD COUNT IS THE ONE CACHE A WARM DOES CHANGE (Nov 2026): `uDeckWordFreq` counts the sentences
+       of the notes in memory, so a count taken while the deck was cold was empty or partial and was kept
+       for the session — the character panel warms the whole deck and then sorted by it. This deck's
+       count alone is dropped, so the next asker counts what is now here. */
+    if (n) _wordFreq.delete(deckId);
     return n;
   }
   async function uWarm(ids) {
@@ -18555,10 +18549,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const cyEl = ov.querySelector('.dm-cycle[data-act="order"]');
       if (cyEl) {
         const step = () => {
-          /* `deckOrdersFor` and not `DECK_ORDERS`: "By frequency" is stepped past on an entry whose deck
-             has no example sentences to count, so the cycler never lands on an order that would do
-             nothing. A mode already stored but not offered here still steps forward correctly, since a
-             missing index is -1 and -1 + 1 is the first. */
+          /* `deckOrdersFor`, the orders this entry is offered. A mode stored but no longer offered
+             ("By frequency", withdrawn Nov 2026) still steps forward correctly, since a missing index is
+             -1 and -1 + 1 is the first. */
           const cyc = deckOrdersFor(id);
           const next = cyc[(cyc.indexOf(deckOrderMode(id)) + 1) % cyc.length];
           setDeckOrderMode(id, next);
@@ -22412,8 +22405,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      the honest shape of what the data supports.
 
      IT IS DERIVED, NEVER STORED. Counting 23,000 sentences in a shipped field would be a figure that goes
-     stale the day a sentence is repaired, and the deck files are 21 MB already; this is one pass over a
-     deck a reader has just asked to study, cached for the session and busted with the other deck caches. */
+     stale the day a sentence is repaired, and the deck files are 21 MB already; this is one pass over the
+     notes in memory, cached for the session, busted with the other deck caches and dropped for a deck
+     whenever `uAdoptNotes` warms more of it.
+
+     ITS ONE READER IS THE CHARACTER PANEL (`charNeighbours`), which warms the whole deck first. The study
+     ORDER that used it, "By frequency", is withdrawn (Nov 2026 — see DECK_ORDERS): it counted whatever
+     happened to be in memory, and it only ever re-sorted the cards a session had already been dealt. */
   function uDeckWordFreq(deckId) {
     const hit = _wordFreq.get(deckId);
     if (hit) return hit;
@@ -22446,15 +22444,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       }
     }
     return out;
-  }
-  /* Whether this entry's deck can be ordered by frequency at all — a deck with no example sentences has
-     no corpus to count, and an order that silently does nothing is the one thing a cycler must not offer.
-     Asked of the DECK behind an entry, so a subdeck and a direction answer for their file. */
-  function entryCanFreq(id) {
-    const deckId = uDeckIdOf(id);
-    if (!deckId) return false;
-    const f = uDeckWordFreq(deckId);
-    return f.size > 0;
   }
   const CHARWIN_MAX = 24;
   let charWinEl = null;
@@ -30929,8 +30918,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* HUNGARIAN (Nov 2026) was not named a colour, so it was MEASURED as Greek was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white); re-swept at the merge against all 65 other hues on
        the page, this steel blue is still the winner, 16.9 from its nearest neighbours (Ancient Greece's Aegean blue
-       and French's blue), against a tightest existing pair of 4.0; 6.2:1 against white. Not a flag colour (Hungary's is red, white and green). */
-    "lang-hungarian":  { bg: "#14659F" }, // measured steel blue
+       and French's blue), against a tightest existing pair of 4.0; 6.2:1 against white. Not a flag colour (Hungary's is red, white and green).
+       THAT STEEL BLUE WAS VIETNAMESE'S (#14659F, taken in a parallel session and credited to it in Dutch's note
+       below), so two banners wore one colour and `test-lang-decks.js` ("no two the same") failed on main. Re-swept
+       on 2026-11-16 against the other 74 hues, the greens left out as a flag colour: a deep indigo, 14.3 from its
+       nearest neighbour (China's geography), then Rome's purple at 14.5 and the United States' navy at 14.8;
+       10.0:1 against white. */
+    "lang-hungarian":  { bg: "#333C81" }, // measured indigo
     "lang-indonesian": { bg: "#8D2D39" }, // red, the darker of the two
     /* IRISH (Nov 2026) was not named a colour, so it was MEASURED as Greek was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 67 hues on the
@@ -35415,14 +35409,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        because the alternative is a page that throws the day that gap closes: it maps over the orders the
        entry can take and reads each one's copy without checking, so an order in the list and not in this
        table is a blank screen rather than a missing card. */
-    frequency: {
-      lead: "The words this deck uses most in its own example sentences, first.",
-      body: [
-        "A vocabulary deck built from an exam list is in the order of that list, which is alphabetical by reading and has no teaching in it at all — you meet a word you will use every day and a word you may never see again on the same morning, in whatever order their spellings happen to fall.",
-        "This counts how often each of the deck's own headwords turns up in its example sentences and deals the commonest first. It says less the further up the levels you go, where most words appear once and only in their own sentence; there the deck's own order is kept.",
-      ],
-      who: "Best for a language deck you are starting, when you want the useful words first.",
-    },
   };
   const ORDER_PICK_HOWTO =
     "You can change this whenever you like, and nothing you have studied is affected: <b>press and hold the deck's row</b> in Daily study on the home page — or the Daily study banner itself, for your pooled review — and the sheet that opens has a <b>Review order</b> row that steps through these.";

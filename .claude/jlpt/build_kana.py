@@ -174,9 +174,14 @@ def build(script):
     return [n for n in notes if not late(n)] + [n for n in notes if late(n)], sum(1 for n in notes if late(n))
 
 
-PACE = ("At the app's default of five new cards a day the {c} cards take about {d} days; raising this deck's "
-        "daily new-card limit to fifteen or twenty in its options brings that to {d3} or {d4}. The reading cards "
-        "({s} → romaji) all come before the writing cards unless the deck is set to deal both directions together.")
+# THE DEFAULT IS TEN, BOTH DIRECTIONS TOGETHER (corrected Nov 2026): this said "the app's default of five new cards
+# a day" and that the reading cards all come first.  Five is the default for a reader's OWN deck; a deck on the
+# Languages shelf follows LIMIT_DEFAULTS.lang in app.js (ten), and `deckPairNew` deals a kana's two cards together
+# unless the reader switches that off.  A deck cannot set its own limit, so the arithmetic is stated instead.
+PACE = ("At the app's default for a language deck, ten new cards a day with both directions together, that is "
+        "five kana a day and the {c} cards take about {d} days; raising this deck's daily new-card limit to "
+        "fifteen or twenty in its options brings that to {d3} or {d4}. A kana's reading card ({s} → romaji) and "
+        "its writing card arrive together unless the deck's option to deal both directions together is switched off.")
 DESC = {
  'hiragana': ("The first thing to learn in Japanese, before any word: hiragana, the syllabary Japanese uses for its "
               "grammar — particles, verb endings — and for words with no kanji, and the script of every reading. "
@@ -215,7 +220,7 @@ if __name__ == '__main__':
                  for i, (x, num) in enumerate(zip(notes, nums), 1)]
         n = len(cards)
         days = lambda per: -(-2 * n // per)
-        pace = PACE.format(c=2 * n, d=days(5), d3=days(15), d4=days(20), s=script)
+        pace = PACE.format(c=2 * n, d=days(10), d3=days(15), d4=days(20), s=script)
         meta = {'id': did, 'title': 'Japanese — ' + script.capitalize(), 'subtitle': SUBS[script].format(n=n),
                 'desc': DESC[script].format(n=n, late=late, pace=pace), 'author': '', 'language': 'en', 'color': '#BC002D',
                 'tags': ['japanese', script, 'kana', 'writing'], 'glossMode': 'site',

@@ -3102,6 +3102,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     tells a reader choosing between two of them nothing, and audio is the norm so only its ABSENCE is
     printed. **A tree node carries its OWN example coverage rather than its file's**, because on an
     unwrapped deck those nodes are the rows a reader chooses between.
+  · **"BY FREQUENCY" IS WITHDRAWN (Nov 2026)**: `entryCanFreq` and `sortByFrequency` are gone and
+    `DECK_ORDERS` is three. It was offered only while a deck's notes were in memory, read `Simplified`
+    alone, and only re-sorted the cards `buildSession` had already dealt. The order lives in the deck
+    files (`mandarin-order.json`, `spanish-order.json`); a stored `order: "frequency"` reads as Ordered
+    through the `random` boolean written beside it. `uDeckWordFreq` stays for the character panel and
+    `uAdoptNotes` drops a deck's count when it warms more of it. Re-run after touching:
+    `test-learning.js`, `test-review-decks.js`, `test-char-network.js`. The entry as it stood:
   · **A LANGUAGE DECK CAN BE STUDIED BY FREQUENCY** (`DECK_ORDERS`'s fourth entry, `uDeckWordFreq` /
     `sortByFrequency` / `deckOrdersFor` / `entryCanFreq`; Sep 2026, on request). The exam lists these
     decks are built from are alphabetical by reading, an ordering with no teaching in it, and "By

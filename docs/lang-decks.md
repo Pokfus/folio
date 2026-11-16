@@ -1466,6 +1466,24 @@ changed was the one that had been wrong all along.
   Not part of the site.
 - `.claude/dele/` — the generator behind the four `decks/DELE-<level>-Spanish.folio-deck.json` files
   (A1, A2, B1, B2), community decks rather than site content.
+  **THE SPANISH SET IS EIGHT FILES SINCE THE BEGINNER PASS (Nov 2026; reasoning and measurements in "The
+  Spanish beginner pass" below).** The rules a later change must keep: **A CARD ID IS PINNED TO ITS NOTE** in
+  `.claude/decks/spanish-ids.json` (deck → headword → number; the sounds deck → row key → number), seeded
+  from the decks as shipped. `spanish-fix.js` APPLIES the pin as its last step, so a deck rebuilt by
+  `run.py` (which numbers by position) is numbered back; a note with no row takes the next free number, a
+  note the record removes moves to `_retired`, and `--check` fails on anything else. A RENAME renames the
+  pin's key in the same commit. **THE ORDER A DECK IS DEALT IN IS `spanish-order.json`** (DELE A1 and the
+  phrases; A2 to C2 have no entry and keep the generator's frequency order), computed by
+  `spanish-order.js` from the PINNED NUMBER, never from the file, and applied by `spanish-fix.js`.
+  A1's first 66 notes are written by hand; its closed sets are an ORDER INSIDE ONE LIST, never subdecks.
+  **`spanish-fix.js` SELECTS ITS DECKS BY CARD TYPE (`dele`)**, not by the `DELE-` file name, so
+  `Spanish-Phrases` is in the record now. **`Spanish — Sounds and spelling`** (`essounds`, type `essound`)
+  is written by `.claude/decks/build-spanish-sounds.js` from `spanish-sounds.json` and the shipped A1 deck
+  and nothing else: re-run it after `spanish-fix.js` changes A1, then `build-lang-decks.js`. **A REBUILD
+  (`run.py`) READS THE LIVE kaikki AND Tatoeba EXPORTS, so it refreshes glosses and sentences across the
+  whole level**, not only what was asked for; every edit of this pass is in the record, the order file or
+  the pin, so it survives one, and C1, C2 and the phrases cannot be rebuilt at all. `levelRank` puts the
+  sounds deck first. All of it is in CI: `spanish-fix.js --check`, `build-spanish-sounds.js --check`.
   **THREE MORE SPANISH DECKS SHIP THAT IT DOES NOT MAKE** (Aug 2026, on the request to add the missing
   Spanish decks): **`DELE-C1-Spanish`** (1,998 words), **`DELE-C2-Spanish`** (2,000) and
   **`Spanish-Phrases`** (400 expressions), supplied ready-made. They wear this pipeline's own shape — the
@@ -3861,7 +3879,7 @@ changed was the one that had been wrong all along.
   verbs by their third person singular. The findings (the verb tables' person tags shifted by a row and read by
   position with shape checks, the subtitles' õ/û, one headword holding two words, examples chosen against
   ambiguity and swearing) are 📖 `docs/hungarian-decks-plan.md`. The `l1` row is Wikipedia's 12 million; the hue
-  is measured, `#14659F`.
+  is measured, `#333C81` (it was `#14659F`, which Vietnamese also wore; re-swept 2026-11-16).
 - `.claude/tagalog/` — the generator behind the Tagalog decks (Nov 2026, on request: "Add a Tagalog language
   collection"; the Romanian set's decisions taken as the default). **Built: A1, `decks/Tagalog-A1.folio-deck.json`**
   (500 notes / 1,000 cards) **and A2, `decks/Tagalog-A2.folio-deck.json`** (750 / 1,500; 2026-11-12, "Add Tagalog A2") **, B1,
@@ -4170,6 +4188,101 @@ name a real card, so a typo is an error rather than a silent gap.
 Spanish card's front is the gloss alone, so `por` and `para` both glossing to "for" is one question
 with two right answers. Same rule as Mandarin's: a PAIR gets a `not X` line, a group of three or
 more gets distinguishing glosses instead.
+
+## The Spanish beginner pass (2026-11-16)
+
+On request, after the audit the Japanese and Mandarin decks had been given (`docs/japanese-decks-plan.md`
+§11, `docs/mandarin-review.md` "The beginner pass"): **what does a learner with no Spanish meet, in the order
+the shelf itself recommends** — A1 to C2, then the phrases? Every figure was measured on the seven decks as
+shipped that morning, at the language default of ten new cards a day with both directions together, which
+is five words a day. The rules are in the `.claude/dele/` entry above; this section is the reasoning.
+
+### What the audit found, by what it costs a beginner
+
+1. **The courtesies were missing or years away.** hola, adiós and de nada were cards of no deck. gracias
+   was the second card of B1 (day 198), perdón the twentieth of B2 (day 401), cero in B1 (day 249), and
+   por favor, lo siento, buenos días, buenas tardes, buenas noches and hasta luego were in the phrases
+   deck, which the shelf lists after C2: day 1,597 at the earliest. The inventories of *Nociones* the
+   generator reads list topics; greetings belong to the Plan curricular's *Funciones*, which it never read.
+2. **The preposition a was a card of no deck**, and neither al nor del was shown anywhere, though 398 of
+   A1's 1,478 example sentences use one of the three.
+3. **A1 was dealt by a subtitle frequency list.** Day one was de, que, no, the articles and lo. One to ten
+   ran from note 51 to note 309, the days of the week from 356 to 440, the months from 425 to 466. querer
+   was note 339 and gustar 448, the list counting the infinitive and not quiero or gusta. Over the first
+   fifty notes 42% of the words in a card's example sentences had been met on arrival and 1 sentence of
+   152 could be read whole (74% and 224 of 1,478 over the deck).
+4. **Nothing said how a letter is read.** 169 of A1's 492 headwords contain a letter that does not have
+   its English value (ñ, ll, rr, j, a silent h, c or g before e and i, z, qu, v) and 66 carry a written
+   accent. No deck and no description mentioned either.
+5. **The phrases deck was not where or what its description said.** It is the last deck on the shelf, yet
+   184 of its 400 expressions are spelled entirely with A1's words. Its description gave the level decks'
+   ordering (a subtitle list; it is Tatoeba's count) and said two expressions were kept "because the word
+   list is set by the exam board".
+6. **The reverse card was mostly sound.** A1 asks English → Spanish with every sense (51% of notes have
+   three or more), which is what tells de from desde. Notes with the SAME English and the same part of
+   speech, unhinted: one pair in A1, one in A2, six in B1, one in C2, one in the phrases. Notes that
+   merely share a first gloss and differ after it: 15, 51, 48 and 63 groups at B1 to C2, left alone.
+7. **Gender and number were sound**: every A1 noun but the twelve months and internet carries its article,
+   40 of 55 adjectives are pairs and 14 of the other 15 have a Forms row. **Verbs were sound**: all 93
+   carry the full table, and of the 275 verb forms their examples mark, 45% are present indicative, 26%
+   the infinitive, 12% the preterite, every one a cell of the card's own table. ser / estar and
+   por / para name each other on the front and say when each is used.
+8. **The pace was stated nowhere**: A1 was 99 days and the six levels 4.4 years.
+
+### What was built
+
+- **Card ids pinned** (`spanish-ids.json`), before anything moved. A1's were already not positional (492
+  notes, highest 506, after the folds and inserts of the A1 review); A2 and B1 nearly so; B2, C1, C2 and
+  the phrases were. Checked in a browser: a reader with five cards studied on the old A1 took the Update
+  and kept the same five ids on the same five words.
+- **Thirteen notes for A1** (`insert`, ids 507 to 519): hola, adiós, de nada and a, which nothing carded,
+  and gracias, cero, perdón and six courtesies MOVED from B1, B2 and the phrases (`dropDup` takes them out
+  there; a reader who already holds the old card keeps it). Meanings are the English Wiktionary's (kaikki,
+  read 2026-11-16) or the moved card's own; every sentence is a Tatoeba sentence named by id in the
+  entry's `why`, a Wiktionary usage example, or the moved card's. de gains a Forms row for del.
+- **An order for A1** (`spanish-order.json`): 66 notes by hand — the courtesies, a first exchange, the
+  subject pronouns, eight verbs, the question words, zero to ten, nine function words — then the
+  frequency order with each closed set together (the numbers above ten at notes 250–271, the ordinals,
+  the days at 401–407, the months at 464–475, the seasons, the compass points, left and right) and
+  look-alikes forty notes apart. hola is day one; the courtesies take three days.
+- **The phrases tiered by reading level**: 191 / 74 / 62 / 35 / 7 / 6 by the lowest level that spells them,
+  19 that use a word no level cards last. The description says so and says the deck can begin beside A1.
+- **`Spanish — Sounds and spelling`** (27 notes, one card each): the five vowels, sixteen consonant
+  letters and digraphs, and six rules (stress, the written accent, the pairs it tells apart, the question
+  words, ¿ and ¡). Every context, IPA value, English comparison and rule is quoted from Wikipedia,
+  "Spanish orthography", revision 1385920118; every example word is an A1 card with its speaker.
+- **Ten reverse-card hints** for the pairs under 6, and **the pace stated** in the A1, phrases and sounds
+  descriptions, since a deck cannot set its own limit.
+
+### What was decided against, and why
+
+- **Running the generator.** `run.py` downloads the live kaikki and Tatoeba exports (1.2 GB) and would
+  have refreshed every gloss and sentence of the level it rebuilt; nothing in this pass needed it.
+- **Re-ordering A2 to C2.** 86% to 92% of a card's example words have been met on arrival there.
+- **A first-words deck.** The words went into A1, the deck a beginner opens first; a separate deck is one
+  more thing to find, and a reader who adds only A1 would have gone on missing them.
+- **Subdecks for the sets.** The app deals subdecks in parallel, a day apart.
+- **Asking the reverse card with the first sense only** (the Japanese fix). It needs a new field on every
+  note of seven decks and a changed template, and here the full list of senses is what tells two
+  prepositions apart; measured, only ten pairs were truly ambiguous.
+- **Shorter example sentences for the first cards.** The order alone moved the first fifty notes from 42%
+  to 45% of words met (1 to 16 sentences whole): the head's own sentences are Tatoeba's, eight words at
+  the median, and replacing them is a content pass of its own.
+- **Rewriting the tense names** (Presente, Pretérito indefinido). They are the Spanish grammar's own.
+- **A grammar deck**, and cards for español, inglés or el euro: no A1 column lists them and nothing here
+  could be quoted for a rule of grammar beyond what the cards already say.
+
+### Limits to know about
+
+- **The Plan curricular's *Funciones* inventory could not be read**: cvc.cervantes.es answered with a
+  maintenance page on 2026-11-16. That the eleven courtesies are A1 material is therefore a judgement
+  here, not a citation, and the A1 description says they are supplied.
+- **The sounds deck quotes one article.** It gives Spain's pronunciation of c and z first, as the article
+  does, and its English comparisons are the article's (one is American: honor). gü has no card, no A1
+  headword showing it. The stressed syllable is not marked on the example words: no source here marks it.
+- **Days and months are still late** (day 81 and day 93): a set stands where its earliest member stood.
+- **The phrases deck has not been read card by card.** Six cards left it corrected; the other 394 are as
+  supplied, and 19 groups share a first gloss.
 
 ## The DELE card-by-card audit, beyond A1 — the batch log
 
@@ -6412,6 +6525,11 @@ are the same file seen from further in. Guarded by `.claude/test-deck-update.js`
 
 ### A LANGUAGE DECK CAN BE STUDIED BY FREQUENCY
 
+· **"BY FREQUENCY" IS WITHDRAWN (Nov 2026).** It was offered only while a deck's notes happened to be in
+memory, read the field `Simplified` alone, and re-sorted the day's cards after `buildSession` had already
+chosen them, so it never decided which words arrive. The count is baked into the deck FILES instead
+(`mandarin-order.json`, `spanish-order.json`); a stored choice of it reads as Ordered. What follows is
+the entry as it stood.
 · **A LANGUAGE DECK CAN BE STUDIED BY FREQUENCY** (`DECK_ORDERS`'s fourth entry, `uDeckWordFreq` /
 `sortByFrequency` / `deckOrdersFor` / `entryCanFreq`; Sep 2026, on request). The exam lists these
 decks are built from are alphabetical by reading, an ordering with no teaching in it — a reader

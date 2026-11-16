@@ -308,6 +308,26 @@ jobs:
       - name: check-whatlang
         if: ${{ !cancelled() }}
         run: node .claude/build-whatlang.js --verify
+      # The language decks' records and pinned ids (2026-11-16). A deck file in decks/ is edited only through its
+      # record (mandarin-fixes.json, spanish-fixes.json) and its cards are numbered from a pin (mandarin-ids.json,
+      # spanish-ids.json, jlpt/ids.json), because the Update press merges a reader's progress by card id: a hand
+      # edit, or a rebuild that renumbered, hands every schedule to another word and nothing on the page says so.
+      # All five read only the repository -- no corpus, no network, no browser.
+      - name: mandarin-fix --check (the Mandarin decks carry their fixes, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/mandarin-fix.js --check
+      - name: build-beginner --check (the three Mandarin beginner decks are what the tables and the decks give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/build-beginner.js --check
+      - name: spanish-fix --check (the Spanish decks carry their fixes, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/spanish-fix.js --check
+      - name: build-spanish-sounds --check (the Spanish sounds deck is what its table and DELE A1 give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/build-spanish-sounds.js --check
+      - name: jlpt check-ids (every Japanese card id is the one ids.json pins)
+        if: ${{ !cancelled() }}
+        run: node .claude/jlpt/check-ids.js
       # Timeline's clues (timeline-clues.js, Nov 2026): one to five words, no digit, never a word of the term's own name.
       - name: check-timeline-clues
         if: ${{ !cancelled() }}

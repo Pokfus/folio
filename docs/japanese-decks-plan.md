@@ -294,7 +294,9 @@ a later change must keep are in the `.claude/jlpt/` entry of `docs/lang-decks.md
 5. **The kana cards had gaps.** No note said は is "wa" and へ "e" as particles, though the level decks' romaji
    relies on it. In 83 of 98 hiragana examples the kana was only in the furigana over a kanji (が "as in 学校").
    Seven examples showed a different sound (き "as in 今日 kyou"). At the default five new cards a day the two
-   decks take 42 and 49 days.
+   decks take 42 and 49 days. *(Corrected 2026-11-16: five is the default for a reader's own deck. A deck on
+   the Languages shelf deals ten, both directions together — `LIMIT_DEFAULTS.lang`, `deckPairNew` — so the
+   two decks take 21 and 25 days, and `build_kana.py`'s descriptions now say so; no id moved.)*
 6. **The reverse card was ambiguous.** 100 of N5's 667 notes shared their first gloss with another (する / やる,
    一 / 一つ, その / それ / あれ), and 42% asked with three senses at once. Two kana fronts were identical
    (いる "to be", いる "to need").
