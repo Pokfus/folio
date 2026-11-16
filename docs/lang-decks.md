@@ -2523,6 +2523,62 @@ changed was the one that had been wrong all along.
   current description. The browser checkers are `check-delf.js <level>` for a level,
   **`check-phrases.js`** for the expressions and `check-combined.js` for the combined file. Not part of
   the site.
+- `.claude/cils/` — the generator behind the eight Italian decks of card type `cils` (Aug–Oct 2026; **this entry
+  was written on 2026-11-16, by the Italian beginner pass: until then no doc described the generator, only
+  its own file headers**): `decks/CILS-A1-Italian.folio-deck.json` to `CILS-C2-Italian`, the six bands;
+  `decks/Italian-Core-Vocabulary.folio-deck.json` (level `core`) and
+  `decks/Italian-Phrases-Expressions.folio-deck.json` (level `phrases`). Community decks, not site content:
+  `python3 .claude/cils/run.py [--level a2|b1|b2|c1|c2|core|phrases] [--no-fetch]`, ONE LEVEL PER RUN
+  (`cils_level.py` reads the level once, at import), caching about a gigabyte in `.claude/cils-cache/`
+  (gitignored; the Wiktionary dump alone is 762 MB). PYTHON, like `.claude/dele/` and `.claude/delf/`.
+  **Read `cils_level.py`'s header before anything else**: it is where the word list is defined and measured.
+  - **THE STAGES**, each writing into the cache for the next: `parse_cils.py` (the band's page → headwords;
+    it asserts the count against the page's own title AND against `cils_level.EXPECT`), `extract_kaikki.py`
+    (the Wiktionary record of every candidate lemma), `select.py` (lemma, part of speech, the order by a
+    subtitle frequency list), `examples.py` (three Tatoeba sentences), `build_deck.py` (articles by
+    spelling and gender, plurals, feminines, the paradigm with the auxiliary), `emit.py` (the file, its
+    card type and its description, whose counts are measured off the cards). `italian.py` holds the
+    spelling rules (Wiktionary's stress marks are taken off; the article is computed), `wikt.py` the
+    reading of a record, `build_phrase_list.py` the derivation of the phrases' list, `combine.py` the
+    one-file deck of seven subdecks (not shipped), `check-cils.js <level>` and `check-combined.js` the
+    browser checks.
+  - **THE WORD LIST IS A THIRD PARTY'S, AND IT HAS BEEN REVISED UNDER THE DECKS.** CILS publishes no word
+    list; the six bands are MindDory's (minddory.com/italian-vocabulary-list/<level>), a subtitle frequency
+    gradient with CEFR labels, strictly disjoint. `EXPECT` records what each page's title said when its
+    deck was built: 961 / 995 / 970 / 1,011 / 2,842 / 429. **Read on 2026-11-16 the same titles say 1,074 /
+    1,524 / 1,531 / 1,338 / 2,902 / 469**, so `parse_cils.py` now stops on its own assertion for every
+    band ("the list has been revised"). That is the assertion doing its job. It means **the six band
+    decks cannot be rebuilt as they are**: raising `EXPECT` would rebuild a band on a different word list
+    (113 to 561 more words) and would also refresh every meaning and sentence from the live Wiktionary
+    and Tatoeba exports. Nothing in the Nov 2026 pass ran the generator, and nothing should without a
+    decision to take the new list.
+  - **WHY C2 HOLDS 417 NOTES AGAINST C1'S 2,784.** The deck teaches the whole band (`select.py`: "there is
+    nothing to select"), and the bands are what the list's author cut: C1 was published at 2,842 words and
+    C2 at 429. `build_deck.REFUSED` turns away the entries that are not Italian (film titles and surnames
+    a subtitle corpus sweeps in) and `words_below` the words a lower band already teaches, which took C2
+    from 429 to 417. It is the tail of a frequency list, not a sixth of a syllabus.
+  - **`core` IS DERIVED**: every word of De Mauro's *nuovo vocabolario di base* (via pettarin/nvdb, whose
+    extraction does not carry De Mauro's three strata) that the six bands never reach, ordered by the same
+    frequency list — which ranks 31% of them by another word's count (`credo`, `faro`, `pero`), as its
+    description says. **`phrases` IS DERIVED** too: the multiword Italian entries of English Wiktionary
+    that are expressions, counted in Tatoeba (`PHRASE_MIN = 2`).
+  - **A WORD OF THESE DECKS IS ONE NOTE WITH TWO CARD TEMPLATES** (`emit.py`), unlike DELE's two notes: a
+    card id is the note id, plus `~2` for English → Italian. So pinning a note pins both schedules.
+  - **AFTER A BUILD, THE RECORDS** (2026-11-16): `run.py` writes a deck numbered by position, with none of
+    the hand edits. Then, in this order: `node .claude/decks/paradigm-fix.js` (one card per paradigm:
+    articles, possessives, demonstratives, lui / lei; SHARED with the French and Portuguese decks, and
+    for that reason not edited by the Italian pass), `node .claude/decks/italian-fix.js` (the Italian
+    record `italian-fixes.json`: the 47 cards CILS A1 gains, the cards other decks lose to it, the 28
+    feminine adjectives that were a second card for one word, fields rebuilt on a card, each
+    description; then the order `italian-order.json`, then the pinned ids `italian-ids.json`, APPLIED),
+    `node .claude/decks/build-italian-sounds.js`, `node .claude/build-lang-decks.js`. All three have
+    `--check`; the two Italian ones are in CI. `words_below` reads the SHIPPED lower decks, so a band rebuilt after this
+    pass leaves out by itself what CILS A1 now carries, and the record's `dropDup` finds it already gone.
+    📖 `.claude/decks/README.md` "The Italian decks" has the table of files; "The Italian beginner pass"
+    below has the reasoning.
+  - **`check-cils.js` DID NOT FINISH ON 2026-11-16, ON THE UNCHANGED DECKS EITHER**: its ten file-level
+    assertions pass, then it waits for `.studio-deck` after a Studio import and never sees it (five
+    minutes, on `main` and on the branch alike). It is not in CI. Not repaired here.
 - `.claude/jlpt/` — the generator behind the **Japanese** set (Oct 2026, on request; the plan, the owner's
   answers and what building it changed are in `docs/japanese-decks-plan.md`): **five JLPT levels**
   `JLPT-N5…N1-Japanese.folio-deck.json`, **two kana decks** `Japanese-Hiragana` and `Japanese-Katakana`,
@@ -3846,6 +3902,26 @@ changed was the one that had been wrong all along.
   toned ones in the proportions the carefully marked articles show; the findings (one spelling, many words; the
   dialect "alternatives"; the contractions and the bot stubs) are 📖 `docs/yoruba-decks-plan.md`. The `LANGS` row
   is 48 million L1, 53 in all (Ethnologue 2026 via Wikipedia's list); the hue is measured, `#3A5498`.
+- `.claude/mongolian/` — the generator behind the Mongolian decks (Nov 2026, on request: "Add a Mongolian language
+  collection"; the Amharic and Yoruba owners' answers taken, the owner not asked). **Built: the alphabet deck,
+  `decks/Mongolian-Alphabet.folio-deck.json`** (36 notes: the 35 Cyrillic letters with their names, IPA and MNS
+  romanisation read from a pinned revision of Wikipedia's "Mongolian Cyrillic alphabet", then the long vowel) **and A1,
+  `decks/Mongolian-A1.folio-deck.json`** (500 notes / 1,000 cards: 335 inventory, 165 frequency) **and A2,
+  `decks/Mongolian-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16: 153 inventory, 597 frequency) **and B1,
+  `decks/Mongolian-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-16: 71 everyday compounds and words the fill
+  does not reach, 929 frequency; the genitive-twin and strict people's-name rules from B1 on). **and the phrases deck,
+  `decks/Mongolian-Phrases-and-Expressions.folio-deck.json`** (2,357 notes: 29 Wiktionary phrases, a proverb and an idiom
+  among them, and 2,328 Tatoeba sentences of up to eight words, a pair sharing its English labelled familiar or polite by
+  its "you"; `python3 .claude/mongolian/phrases.py`). The collection is complete. `python3
+  .claude/mongolian/run.py [--level a1|a2|b1]`, `python3 .claude/mongolian/alphabet.py`, `node
+  .claude/mongolian/check-mongolian.js`; a re-run is byte-identical. Amharic's arrangement: about 3,100 Cyrillic
+  Wiktionary lemmas, no subtitle list, so the frequency is the Mongolian Wikipedia's (its 14,876 articles of 150 words
+  or more), A1–B1 only, no hand glosses, no speaker, and no romanisation on a level card (the Russian precedent).
+  Wiktionary's untagged form-of pages ("past participle in -сан of байх") are read as pointers, a form no lemma lists
+  is peeled through the case and verb endings to a lemma or a verb's stem, and the card shows only forms Wiktionary
+  prints (a noun's plural and three cases from its table). The findings are 📖 `docs/mongolian-decks-plan.md`. The
+  `LANGS` row is 5.0 million (Ethnologue via Wikipedia, no L2 figure); the hue is measured, `#A16C02` (re-swept at the merge: Navajo had
+  taken the first sweep's `#3C7676`).
 - `.claude/oldenglish/` — the generator behind the Old English decks (Nov 2026, on request: "Add an Old
   English language collection"). **Built: the alphabet and pronunciation deck,
   `decks/Old-English-Alphabet.folio-deck.json`** (41 notes) **and Level 1,
@@ -4027,6 +4103,49 @@ changed was the one that had been wrong all along.
   phrases, 72 Tatoeba sentences romanised word by word from Wiktionary's IPA, 2 proverbs); `python3 .claude/lao/phrases.py`.
   📖 `docs/lao-decks-plan.md`. The `LANGS` row is 3.7 million L1, 4.5 in all
   (Ethnologue 27th ed., via Wikipedia's infobox); the hue is measured, `#426A43`.
+- `.claude/navajo/` — the generator behind the Navajo decks (Nov 2026, on request: "Add a Navajo language collection";
+  the owner chose A1–B1 at Hausa's sizes, an alphabet and sounds deck and a phrases deck). **Built: the alphabet,
+  `decks/Navajo-Alphabet.folio-deck.json`** (41 notes: the 36 letters and digraphs of the standard orthography, then
+  vowel length, high tone, falling and rising tones, nasal vowels and the syllabic ń, from Wikipedia's "Navajo
+  phonology" and "Navajo language") **and A1, `decks/Navajo-A1.folio-deck.json`** (500 notes / 1,000 cards: 294 from a
+  hand-written topic inventory, 206 by frequency). `python3 .claude/navajo/run.py`, `python3 .claude/navajo/alphabet.py`,
+  `node .claude/navajo/check-navajo.js`; a re-run is byte-identical. Zulu's pipeline reshaped. **What is new**: the
+  headword is the standard spelling, which already marks tone, nasality and length, so the second line is Wiktionary's
+  IPA; the Navajo Wikipedia is nearly all animal and plant stubs (median 59 words), so a second count is made over
+  Wiktionary's 2,539 usage examples (under other headwords only), the cards are dealt by the geometric mean of the
+  two, and a fill word must be in both; possessed forms Wiktionary files as nouns of their own (`bijáád` beside
+  `ajáád`) are folded into the indefinite a- form; a verb's "I" and "you" forms come from Wiktionary's form-of entries.
+  **A2 built (2026-11-16)**: `decks/Navajo-A2.folio-deck.json`, 579 notes / 1,158 cards (531 inventory, 48
+  frequency), short of 750: the words both corpora count ran out after A1, so A2 is the hand-written inventory.
+  **B1 built (2026-11-16)**: `decks/Navajo-B1.folio-deck.json`, 307 notes / 614 cards, all inventory, short of 1,000;
+  chosen mostly from the Wiktionary entries that carry an IPA line or an example of their own.
+  **Phrases deck built (2026-11-16)**: `decks/Navajo-Phrases-and-Expressions.folio-deck.json`, 145 notes in five
+  subdecks (107 Wiktionary phrases and interjections, 38 Tatoeba sentences); `run.py --level phr`, `phrases.py`.
+  The collection is complete. 📖 `docs/navajo-decks-plan.md`. The `LANGS` row is 170,000 (Wikipedia's infobox, no L2 figure); the hue is measured,
+  `#3C7676`, a turquoise-teal.
+- `.claude/serbian/` — the generator behind the Serbian decks (Nov 2026, on request: "Add a Serbian language
+  collection"; the Ukrainian answers taken, the owner not asked). **Built: the alphabet,
+  `decks/Serbian-Alphabet.folio-deck.json`** (36 notes: the 30 Cyrillic letters with their Latin twins, the four
+  accent marks and the length mark, the syllabic r, from Wikipedia's "Serbian Cyrillic alphabet" and "Serbo-Croatian
+  phonology" at pinned revisions) **and A1, `decks/Serbian-A1.folio-deck.json`** (500 notes / 1,000 cards: 364 from a
+  hand-written topic inventory, 137 by frequency) **and A2, `decks/Serbian-A2.folio-deck.json`** (750 notes / 1,500
+  cards, 2026-11-16, on request: "Add A2"; `--level a2`; the derived imperfectives Wiktionary files as "imperfective
+  form of …" kept as words from A2 on, A1 unchanged) **and B1, `decks/Serbian-B1.folio-deck.json`** (1,000 notes /
+  2,000 cards, 2026-11-16, on request: "Add B1"; `--level b1`) **and B2, `decks/Serbian-B2.folio-deck.json`** (1,500
+  notes / 3,000 cards, 2026-11-16, on request: "Add B2"; `--level b2`; 88 % by frequency, sentences for 805) **and C1,
+  `decks/Serbian-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16, on request: "Add C1"; `--level c1`; 92 %
+  by frequency, sentences for 532) — all five levels — **and the phrases deck,
+  `decks/Serbian-Phrases-and-Expressions.folio-deck.json`** (88: 35 phrases, 37 idioms, 16 proverbs, every candidate
+  Wiktionary's Serbo-Croatian has; `--level phr`, `phrases.py`, 2026-11-16, on request). The set is complete.
+  `python3 .claude/serbian/run.py [--level a1]`,
+  `python3 .claude/serbian/alphabet.py`, `node .claude/serbian/check-serbian.js`; a re-run is byte-identical.
+  Ukrainian's pipeline re-keyed to English Wiktionary's Serbo-Croatian. **What is new**: the card leads with Cyrillic
+  and prints the Latin beneath the headword and every sentence (everything is compared in Latin, `sr.fold`); the
+  headword carries Wiktionary's tonal accent (`ку̏ћа`), stripped BY NAME so ć keeps its acute; Ekavian only — a sense
+  tagged with countries none of which is Serbia, or dialect, is weak, and an Ijekavian lemma's count goes to its
+  Ekavian partner; the present tense's persons are untagged and read in table order. 📖 `docs/serbian-decks-plan.md`.
+  The `LANGS` row is 8.2 million (Ethnologue 28th ed., via Wikipedia's infobox, no L2 figure); the hue is measured,
+  `#1C4C0E`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
@@ -4384,6 +4503,158 @@ is five words a day. The rules are in the `.claude/dele/` entry above; this sect
 - **Days and months are still late** (day 81 and day 93): a set stands where its earliest member stood.
 - **The phrases deck has not been read card by card.** Six cards left it corrected; the other 394 are as
   supplied, and 19 groups share a first gloss.
+
+## The Italian beginner pass (2026-11-16)
+
+On request, the audit the Japanese, Mandarin and Spanish decks had been given: **what does a learner with no
+Italian meet, in the order the shelf itself recommends** — CILS A1 to C2, then the core vocabulary, then the
+phrases? Every figure was measured on the eight decks as shipped that morning, at the language default of
+ten new cards a day with both directions together, which is five words a day. The rules are in the
+`.claude/cils/` entry above and in `.claude/decks/README.md`; this section is the reasoning.
+
+### What the audit found, by what it costs a beginner
+
+1. **The courtesies were missing or years away.** Of ciao, buongiorno, buonasera, arrivederci, grazie,
+   prego, per favore, scusa / scusi, permesso, sì and no, CILS A1 held four: no (note 15), sì (36), grazie
+   (46) and ciao (87, day 18). buongiorno, arrivederci and buonasera were in the core vocabulary, which the
+   shelf lists after C2: days 1,436, 1,444 and 1,452. per favore was in the phrases, day 2,040. prego was
+   carded only as the noun il prego, "prayer" (core, note 9, its three sentences all the verb), scusa only
+   as the noun la scusa (B2), permesso only as the adjective (B1), and buonanotte and scusi nowhere. The
+   generator's own header records that the word list has no greeting.
+2. **Nothing said how a letter is read.** 454 of A1's headwords contain a spelling that does not have its
+   English value (c or g before e and i, ch, gli, gn, sc, qu, z, a silent h) or a doubled consonant, and 41
+   end in a written accent. No deck and no description mentioned any of it.
+3. **A1 was dealt by a subtitle frequency list, and the closed sets were in four decks.** Day one was e,
+   non, che, di and the article. essere was note 34, avere 116, potere 313, dovere 504 and volere 572, the
+   list counting the infinitive and not voglio. Of zero to ten A1 had six (sei at note 25, because the list
+   counts "you are"; dieci at 275); quattro, nove and zero were in B1, sette and otto in A2, undici in the
+   core, and diciassette and diciannove in no deck. Of the days A1 had domenica alone (note 530), the other
+   six being in A2. The months were A1's, at notes 665 to 803 (days 133 to 161). voi was the first note of
+   A2. No season was in A1.
+4. **The preposition joined to the article was on no card**: del, alla, nei, sul and the rest (35 forms).
+   706 of A1's 2,816 example sentences (25%) contain one.
+5. **Five A1 cards were not what they said.** sei, the number six, carried three sentences of (tu) sei;
+   grazie three of grazie a, "thanks to"; su was glossed as the adverb over three sentences of the
+   preposition; testo was filed as a verb ("past participle of tessere") over three sentences of the noun;
+   and lui, lei names its own answer on the front of the English → Italian card ("lui — he, him").
+6. **28 adjectives were carded twice**, once as the masculine and once as its own feminine (patetico and
+   patetica, stupendo and stupenda): 25 in C1, 3 in the core. 16 of the masculines carried a reverse-card
+   hint naming the feminine.
+7. **The core vocabulary was not where its description said.** It is the seventh deck on the shelf, reached
+   on day 1,432, and its description said "on its own it is a better first deck than any of them". Measured
+   against the same subtitle list, its first 300 words are about as common as B1's first 300 (median rank
+   2,494 against 2,390) and 424 of its words are among the 5,000 commonest forms; 60% of its first 25
+   cards are ranked by another word's count, as it also says. It shares one headword with the six bands
+   (una): it is their remainder by construction, so nothing is carded twice between them.
+8. **The phrases deck was not what its subtitle said** ("1376 words"), and it is the last deck on the
+   shelf while 584 of its expressions were spelled entirely with A1's words (658 once A1's prepositions
+   show their forms). The A1-readable ones stood at a median position of 502.
+9. **The reverse card was otherwise sound.** No two notes of a deck share an English field: the generator
+   hints same-gloss pairs (2, 2, 0, 0, 37, 4, 39 and 89 notes hinted, A1 to the phrases) and the gender in
+   the part-of-speech line separates il giorno from la giornata. A1 asks English → Italian with every
+   sense (2.8 on average; 63% of notes have three or more).
+10. **Gender and number were sound.** 384 of A1's 385 nouns carry their article, 362 a plural with its own
+    article (the others are the twelve months and invariable nouns in -tà), all seven lo nouns show gli,
+    l'uomo shows gli uomini, and 164 of 168 adjectives show the feminine and both plurals.
+11. **Verbs were mostly sound.** 228 A1 verbs carry the full table (forme base with the auxiliary, presente,
+    imperfetto, futuro, condizionale, congiuntivo presente, passato prossimo agreeing where the auxiliary
+    is essere, imperativo). Of the 681 verb forms their sentences mark, 56% are the infinitive, participle
+    or gerund, 33% the presente, and **36 (5%) are passato remoto, a tense no table shows** (36 of 630 in
+    A2). No reflexive verb is carded before C1 (42 there, 17 in the core). Nothing says when essere and
+    when stare; tu against Lei is on the lui, lei card and nowhere else.
+12. **Example sentences are eight words at the median** (fifteen at most) at every level. In the order the
+    cards arrived, 42% of the words in a card's sentences had been met over A1's first fifty notes and
+    none of the 152 sentences could be read whole; 84% to 91% from A2 to the core.
+13. **The pace was stated nowhere**: A1 was 192 days, the six bands 1,432 days and the eight decks 6.3 years.
+    At 957 words A1 is about twice DELE A1.
+14. **C2 holds 417 notes against C1's 2,809** because the third party's bands were published at 429 and
+    2,842 words: see the `.claude/cils/` entry. **And the generator can no longer rebuild a band as it
+    is**: the list's pages have grown since (A1 is 1,074 words today), and `parse_cils.py` stops on that.
+
+### What was built
+
+- **Note ids pinned** (`italian-ids.json`, 11,569 rows), before anything moved. CILS A1, A2 and the core
+  were already not positional, after the paradigm folds. Checked in a browser with the decks as shipped:
+  a reader with ten A1 notes and five A2 notes studied in BOTH directions took the Update and kept the
+  same ids on the same words with both schedules, the twelve notes A2 lost staying on the device ("12
+  cards dropped from the list (kept here, with their progress)").
+- **An Italian record beside the paradigm one** (`italian-fixes.json`, applied by `italian-fix.js` after
+  `paradigm-fix.js`). The paradigm record is shared with the French and Portuguese decks and only folds
+  forms into one card; extending it with inserts, an order and a pin would have put two other languages
+  under rules nobody has measured for them. **The pass edits neither `paradigm-fix.js` nor
+  `paradigm-fixes.json`** (a French pass was running beside it): everything Italian is in the Italian
+  record, including the drop of a form that another card teaches (`dropForm`, the same check as the
+  paradigm record's `drop`).
+- **47 notes for A1** (ids 962 to 1008). Five that nothing carded — buonanotte, prego, scusa and scusi,
+  diciassette, diciannove — with meanings from the English Wiktionary (kaikki.org, read 2026-11-16) and
+  sentences from Tatoeba, each named by id. 42 MOVED, byte for byte, from the core (buongiorno, buonasera,
+  arrivederci, salve and seven numbers), the phrases (per favore, mi chiamo, come stai, va bene), A2 (voi,
+  four numbers, six days, l'estate), B1 (seven numbers, two seasons, permesso) and B2 (four numbers,
+  l'autunno); `dropDup` takes each out of its old deck, its row going to `_retired`. Nine courtesies took
+  one short Tatoeba sentence in place of their first.
+- **An order for A1** (`italian-order.json`): 76 notes by hand — the courtesies, a first exchange with the
+  commonest function words, the subject pronouns, ten verbs, the question words, zero to ten — then the
+  frequency order with the days from note 151 (day 31), the numbers above ten from 251, the months and the
+  seasons from 351, and look-alikes forty apart. ciao is day one; the courtesies take three days.
+- **`Italian — Sounds and spelling`** (23 notes, one card each, card type `itsound`): the five vowels,
+  eleven consonant letters and groups, and seven rules (the silent h, the doubled consonant, the stress
+  and when it is written, the accents). English comparisons are the cells of Wikipedia's Help:IPA/Italian
+  (revision 1385545483), contexts and rules sentences of "Italian orthography" (1385885869) and two of
+  "Italian phonology" (1374139897); every example word is an A1 card with its speaker, and a word chosen
+  by hand carries the English Wiktionary's transcription.
+- **The prepositions show their forms**: di, a, da, in and su each gained a Forms row (Wikipedia, "Italian
+  grammar", revision 1381706588, "Mandatory contractions").
+- **Four of the five cards repaired** (finding 5: sei, grazie, su, testo), **the 28 feminines folded** into
+  their masculine card (`italian-fixes.json`, `dropForm`), and the 16 stale hints taken off.
+- **The phrases tiered by reading level** (658 / 189 / 95 / 48 / 39 / 6 / 129 the core, 208 no deck) and
+  their subtitle corrected. **The core's description says where it sits** (beside A2), in place of the
+  sentence finding 7 quotes.
+- **The pace stated** in the A1, core, phrases and sounds descriptions, and **the counts a description
+  states are recounted** by `italian-fix.js` (they were off by one to eleven in seven decks).
+- **CI**: `italian-fix.js --check` and `build-italian-sounds.js --check`. (`paradigm-fix.js --check` is still
+  not in CI: it gates the French and Portuguese decks too, and was left for whoever owns that record.)
+
+### What was decided against, and why
+
+- **Running the generator.** It cannot run: see finding 14. Had it run, it would have refreshed every
+  meaning and sentence of the band it rebuilt.
+- **Cutting A1 in two, or moving its rarest words up to A2.** Every moved note costs its old id a retired
+  row and leaves a reader who holds the deck with the old card as well; the order already puts the
+  band's bureaucratic words (amministrativo, liquidità) last, and the description says the deck is large
+  and how to finish it sooner.
+- **Re-ordering A2 to C2 and the core.** 84% to 91% of a card's example words have been met on arrival
+  there. The core's head is ordered by borrowed counts, but nothing here has a count to put in their
+  place, and its own description says so.
+- **Moving the core up the shelf.** `build-lang-decks.js` sorts a deck that is not a level last, for every
+  language; the description now says to begin it beside A2.
+- **Subdecks for the sets.** The app deals subdecks in parallel, a day apart.
+- **A grammar deck** (essere and stare, the reflexives, tu and Lei, the passato prossimo with essere), and a
+  passato remoto table. Nothing on the shelf can be quoted for a rule of grammar beyond what the cards
+  show, and a table needs the generator.
+- **Cards for mi dispiace** (not an entry of the English Wiktionary; dispiacere is a B1 card), **gh** in the
+  sounds deck (no A1 headword shows it), and mangiare and bere in A1 (they are the band's A2 and B1 words,
+  not a closed set).
+- **Reverse-card hints.** None was needed: see finding 9.
+
+### Limits to know about
+
+- **The head's sentences are still long.** The order moved the first fifty notes from 0 to 8 sentences
+  readable whole of 152, and from 42% to 38% of words met: a courtesy's sentences use function words that
+  now arrive after it. Only nine cards were given a short sentence.
+- **The A1 cards were not read one by one.** Five faults of the kind in finding 5 were found by looking at
+  the head; a number or a noun whose spelling is also a verb form may carry the wrong sentences elsewhere.
+- **A reader who already holds a higher deck keeps the card that moved** and meets it again in A1.
+- **The sounds deck quotes three articles.** It gives s between vowels as the article does (both sounds),
+  marks no stressed syllable except on the two stress cards, and has no card for gh.
+- **That the courtesies, the numbers, the days and the seasons are A1 material is a judgement here**, not a
+  citation: CILS publishes a syllabus of functions and no word list, and the A1 description says they are
+  supplied.
+- **The paradigm cards still name their forms in the meaning** — the Italian lui, lei ("lui — he, him") and
+  the French and Portuguese ones ("le — him, it") — which shows the answer on the front of the English →
+  Italian card. The card is written by the shared `paradigm-fixes.json`, which this pass does not edit:
+  the repair is one entry there (the meanings without the forms, the forms in the Forms row), for all
+  three languages at once.
+- **`check-cils.js` did not finish**, on `main` or on the branch (the `.claude/cils/` entry says where).
 
 ## The DELE card-by-card audit, beyond A1 — the batch log
 
