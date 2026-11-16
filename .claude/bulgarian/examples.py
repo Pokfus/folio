@@ -66,6 +66,34 @@ def forms_of(row, lex):
     return out
 
 
+# THE PHRASES DECK ONLY: an expression that holds a verb (`да́вам си смéтка`, `и́мам предви́д`)
+# is matched with that verb in any of its forms; the verb is whichever word is a verb lemma
+# of the extract (a Bulgarian verb's headword is its я-form, so no ending tells it).  Every
+# other word is matched as written.  The level decks keep their exact matching.
+def phrase_parts(row, lex):
+    words = [fold(t) for t in tokens(row['word'])]
+    alts = [{w} for w in words]
+    for i, w in enumerate(words):
+        V = lex.get(w, {})
+        if 'alt_of' in V:
+            V = lex.get(V['alt_of'], {})
+        verbs = [e for e in V.get('entries', []) if e['pos'] == 'verb' and len(e['table']) > 6]
+        if verbs and len(w) > 2:
+            for e in verbs:
+                alts[i] |= {fold(t['f']) for t in e['table'] if ' ' not in t['f']}
+            break
+    return words, alts
+
+
+# THE PHRASES DECK ONLY: a sentence that holds the expression's words in their LITERAL sense
+# teaches the wrong thing on the card, so it is skipped for that expression.  Read off the
+# first build.
+LITERAL = {
+    'без пари': {'По време на престоя си в Индия останах без пари.'},   # "ran out of money", not "free"
+    'едно хубаво': {'Той се ожени за едно хубаво момиче.'},               # "a pretty girl", not "thoroughly"
+}
+
+
 def seq_hit(ft, words, alts):
     n = len(words)
     for j in range(len(ft) - n + 1):
@@ -87,7 +115,18 @@ def main():
     for row in rows:
         words = fold(row['word']).split()
         cands = []
-        if len(words) > 1:
+        if LEVEL == 'phr' and len(words) > 1:
+            pw, alts = phrase_parts(row, lex)
+            seen = set()
+            for fm in sorted(alts[0]):
+                for i in index.get(fm, []):
+                    if i in seen:
+                        continue
+                    seen.add(i)
+                    hit = seq_hit(toks[i][3], pw, alts)
+                    if hit:
+                        cands.append((i, 0, hit))
+        elif len(words) > 1:
             for i in index.get(words[0], []):
                 ft = toks[i][3]
                 for j in range(len(ft) - len(words) + 1):
@@ -110,7 +149,7 @@ def main():
             n = len(toks[i][3])
             return (own, 0 if 4 <= n <= 10 else 1, len(toks[i][1]), toks[i][0])
         picked = []
-        skip = ()
+        skip = LITERAL.get(row['key'], ()) if LEVEL == 'phr' else ()
         for c in sorted(cands, key=rank):
             if c[0] in used or toks[c[0]][1] in skip:
                 continue

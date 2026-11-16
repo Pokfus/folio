@@ -5,8 +5,8 @@ language set in the shape of the ones already shipped (Ukrainian, Russian TORFL,
 is the record of how those were built, and every rule there applies here unless this file says otherwise.
 Asked for on 2026-11-16: "Add a Bulgarian language collection."
 
-**STATUS (2026-11-16): the alphabet deck and all five levels, A1 to C1, are built** (`.claude/bulgarian/`, §6–§10).
-A phrases deck is next.
+**STATUS (2026-11-16): COMPLETE — the alphabet deck, all five levels (A1 to C1) and the phrases deck are built**
+(`.claude/bulgarian/`, §6–§11).
 
 Later decks under `decks/` are community content, not a change to Folio: **no changelog line and no version bump**
 for them. The collection's first commit carried one line and one bump, because it also changed the APP (the
@@ -34,7 +34,7 @@ Ukrainian (a Cyrillic Slavic language, assembled to CEFR), and the owner may ove
 | Bulgarian B1 Intermediate — built | `Bulgarian-B1.folio-deck.json` | 1,000 |
 | Bulgarian B2 Upper Intermediate — built | `Bulgarian-B2.folio-deck.json` | 1,500 |
 | Bulgarian C1 Advanced — built | `Bulgarian-C1.folio-deck.json` | 1,500 |
-| Bulgarian Phrases and Expressions | `Bulgarian-Phrases-and-Expressions.folio-deck.json` | — |
+| Bulgarian Phrases and Expressions — built | `Bulgarian-Phrases-and-Expressions.folio-deck.json` | 143 |
 
 ## 2. Sources and licences
 
@@ -200,3 +200,39 @@ letter names and calls to animals, the variant `двайсет`, pointers (`га
 `явле́ние` …). **All five levels rebuild byte-identical.** Known, left: some glosses are Wiktionary's oddities
 (`невъзпитан` "not nurtured up", `низина` "lowness" before "lowland"), and the fill carries the subtitles' genre
 vocabulary as every level does.
+
+## 11. As built (2026-11-16): the phrases deck
+
+`python3 .claude/bulgarian/run.py --level phr` runs `phrases.py` (ported from Ukrainian's) in place of `select.py`.
+143 expressions in FOUR subdecks: **51 Phrases** (Wiktionary's multi-word phrases and interjections not tagged
+idiomatic, and — Bulgarian's addition — its multi-word adverbs, conjunctions and prepositions: `ка́мо ли`, `като́ ця́ло`,
+`осве́н ако́`, `без о́глед на`, the greetings and wishes `добре́ дошъ́л`, `чести́т рожде́н ден`, `чести́та Ба́ба Ма́рта`),
+**60 Verbs with се**, **19 Idioms** and **13 Proverbs**. Nothing a level teaches is repeated (`добро утро`, `себе си`,
+`преди всичко` are on the levels). Ordered by Tatoeba occurrences, then frequency; 45 occur in a Tatoeba sentence, 43
+carry sentences, 17 three. **A re-run is byte-identical, and all five levels rebuild byte-identical with the changed
+code** (every new branch is `LEVEL == 'phr'`).
+
+**Findings:**
+- **A FOURTH SUBDECK, VERBS WITH СЕ.** Wiktionary enters about a hundred Bulgarian reflexive verbs under their own
+  headword (`боя́ се` "to be afraid", `надя́вам се` "to hope", `сме́я се` "to laugh", `успя́ се` "to oversleep"), whose
+  meaning is often not the plain verb's and which the levels — dealing single words — never reach. Those the subtitles
+  all but never use are left out (`REFLEXIVE_FLOOR`, a lemma frequency of 10: `ко́тя се`, `ку́рлуя се`, `щу́пя се` …),
+  as are the aorist forms Wiktionary files as verbs (`абони́рах се`, glossed "first-person singular … of").
+- **WIKTIONARY TAGS ONLY EIGHTEEN BULGARIAN IDIOMS**, so an untagged verb phrase with an object is an idiom too (`бера́
+  душа́`, `ям бой`). The deck is small for this reason and says so; nothing composed was added.
+- **A BULGARIAN VERB'S HEADWORD IS ITS я-FORM**, so `examples.phrase_parts` cannot find the verb by its ending as
+  Ukrainian's does: the verb is whichever word is a verb lemma of the extract with a table, matched in any of its forms
+  (`Смя́хме се на Том`, `Мо́лим се за мир`).
+- **MOST MULTI-WORD HEAD LINES CARRY NO STRESS.** `build_deck.stressed_words` gives each bare word the stress of
+  Wiktionary's own spellings of it — a lemma's head line or a form in any table — where every stressed spelling agrees;
+  ten expressions whose words disagree or have none take theirs from `STRESS`. A stray mark after a space (`кел файда ́`)
+  is dropped.
+- **A LITERAL SENTENCE TEACHES THE WRONG THING**: `examples.LITERAL` skips "останах без пари" ("I ran out of money")
+  for `без пари́` "free" and "едно хубаво момиче" ("a pretty girl") for `едно́ ху́баво` "thoroughly".
+- Excluded, each with its reason in `phrases.EXCLUDE` (17): sentences and templates built from level words (`не знам`,
+  `не разбирам`, `говорите ли английски`, `имам въпрос`, `аз съм българин`, `дайте ми`), the subtitles' credit line
+  (`ролите озвучиха артистите`), a note on translation (`в превод`), a word-for-word calque, the long form of a greeting
+  taught, two religious honorifics and the Nazi salute.
+
+**Known, left.** Wiktionary's labels are the source's: `усми́хна се` is labelled imperfective, `Ве́села Ко́леда` idiomatic,
+and `от мла́дих до ста́рих` keeps its archaic endings.

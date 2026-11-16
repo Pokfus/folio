@@ -36,7 +36,7 @@ The speaker reads the `Word` field: the headword without its stress mark.
 import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from bg import fold, nfc, show, speak, PRONOUN_CASES, CASE_NAMES, tokens
+from bg import fold, nfc, show, speak, syllables, PRONOUN_CASES, CASE_NAMES, tokens
 from bulgarian_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 STAMP = '2026-11-16T00:00:00.000Z'
@@ -150,7 +150,15 @@ STRESS = {'наздраве': 'наздра́ве', 'армия': 'а́рмия'
           'обет': 'обе́т', 'признак': 'при́знак', 'жестокост': 'жесто́кост', 'ветеран': 'ветера́н',
           'шахта': 'ша́хта', 'астма': 'а́стма', 'кисело': 'ки́село', 'каньон': 'каньо́н',
           'обвивка': 'обви́вка', 'явление': 'явле́ние', 'познание': 'позна́ние', 'показание': 'показа́ние',
-          'умиление': 'умиле́ние', 'адвокатура': 'адвокату́ра'}
+          'умиление': 'умиле́ние', 'адвокатура': 'адвокату́ра',
+          # the phrases deck: words whose Wiktionary spellings disagree or carry no stress
+          'оздравявай бързо': 'оздравя́вай бъ́рзо', 'подвивам коляно': 'подви́вам коля́но',
+          'държа си езика зад зъбите': 'държа́ си ези́ка зад зъ́бите', 'алфа и омега': 'а́лфа и оме́га',
+          'беден като църковна мишка': 'бе́ден като́ църко́вна ми́шка',
+          'ако ще турско да стане': 'а́ко ще ту́рско да ста́не', 'пладнешки обир': 'пла́днешки о́бир',
+          'кръвта вода не става': 'кръвта́ вода́ не ста́ва',
+          'една птичка пролет не прави': 'една́ пти́чка про́лет не пра́ви',
+          'разни хора-разни вкусове': 'ра́зни хо́ра-ра́зни вку́сове'}
 
 
 # ---- glosses ---------------------------------------------------------------------------
@@ -429,6 +437,34 @@ def examples_html(exs):
     return ''.join(out)
 
 
+_STRESSED = None
+
+
+def stressed_words(head, lex):
+    """THE PHRASES DECK ONLY: a multi-word head line Wiktionary prints bare (`кръвта вода не
+    става`) takes each word's stress from Wiktionary's own spellings of that word -- a lemma's
+    head line or a form in any table -- where every stressed spelling of it agrees; a word whose
+    spellings disagree (or that has none) is left for `STRESS`."""
+    global _STRESSED
+    import unicodedata
+    if _STRESSED is None:
+        seen = {}
+        for L in lex.values():
+            for e in L.get('entries', []):
+                for x in [e['head']] + [t['f'] for t in e['table']]:
+                    for w in x.split():
+                        if '\u0301' in unicodedata.normalize('NFD', w):
+                            seen.setdefault(fold(w), set()).add(nfc(w))
+        _STRESSED = {k: next(iter(v)) for k, v in seen.items() if len(v) == 1}
+    out = []
+    for w in head.split(' '):
+        if syllables(w) > 1 and '\u0301' not in unicodedata.normalize('NFD', w):
+            parts = w.split('-')
+            w = '-'.join(_STRESSED.get(fold(p), p) if syllables(p) > 1 else p for p in parts)
+        out.append(w)
+    return ' '.join(out)
+
+
 def build(rows, lex, exs):
     cards, entries = [], []
     for r in rows:
@@ -437,6 +473,9 @@ def build(rows, lex, exs):
             continue
         main = ents[0]
         head = lex[r['key']].get('head') if r.get('via') else main['head']
+        if LEVEL == 'phr' and ' ' in (head or ''):
+            # a mark standing alone after a space (`кел файда ́`) belongs to no letter
+            head = stressed_words(' '.join(re.sub(r'\s+[\u0301\u0300]', '', nfc(head)).split()), lex)
         head = show(STRESS.get(fold(r['word'])) or head or r['word'])
         ex = exs.get(r['key'], [])
         cards.append({'sub': r.get('sub', ''), 'fields': {
@@ -503,6 +542,44 @@ def desc(entries, n):
     )
 
 
+SUBS = ('Phrases', 'Verbs with се', 'Idioms', 'Proverbs')
+
+
+def desc_phr(entries, n):
+    by = {s: [e for e in entries if e['sub'] == s] for s in SUBS}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Bulgarian set phrases, reflexive verbs, idioms and proverbs, in four subdecks: "
+        f"{len(by['Phrases'])} everyday phrases, {len(by['Verbs with се'])} verbs with се, "
+        f"{len(by['Idioms'])} idioms and {len(by['Proverbs'])} proverbs. Both study directions come as "
+        "two cards of one expression — Bulgarian → English (see the Bulgarian, recall the meaning) and "
+        "English → Bulgarian (see an English meaning, recall the Bulgarian) — each with a schedule of its "
+        "own. This is a companion to the five level decks, Bulgarian A1 to C1, and not one of them: a level "
+        "is a list of single words, and an expression is a unit a list of words cannot see. Nothing here is "
+        "taught by any of the five, so the two can be studied together without repeating an entry. The "
+        f"PHRASES are the everyday formulas, greetings and wishes and the multi-word adverbs and "
+        f"conjunctions a sentence is joined with ({eg('Phrases')} …). The VERBS WITH СЕ are reflexive "
+        "verbs Wiktionary enters under their own headword, whose meaning is often not the plain verb's "
+        f"({eg('Verbs with се')} …), given like every Bulgarian verb in the first person singular. The "
+        f"IDIOMS are expressions whose meaning is not their words' ({eg('Idioms')} …), and the PROVERBS "
+        f"the sayings Wiktionary files as proverbs ({eg('Proverbs')} …). The deck is small because "
+        "Wiktionary's Bulgarian holds few expressions, and it does not pad them out with composed ones. "
+        "Within each subdeck the expressions come in the order of how many of Tatoeba's Bulgarian "
+        "sentences contain them, a verb being counted in any of its forms; only "
+        f"{found} of the {n} are found there at all, and the rest follow in the order of how common their "
+        "words are in film and television subtitles. Every expression is printed in Cyrillic with its "
+        f"stress marked. Real example sentences come with {n - ex0} of the {n} expressions, three apiece "
+        f"for {ex3}, with the expression picked out in colour and a speaker beside the sentence and the "
+        "headword. Sources. Expressions, meanings, stress and the idiom and proverb labels: English "
+        "Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Order: Tatoeba (tatoeba.org), CC BY 2.0 "
+        "FR, then a word list built from OpenSubtitles (hermitdave/FrequencyWords, CC BY-SA 4.0). Example "
+        "sentences: Tatoeba, CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -513,9 +590,16 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
-    subtitle = f'{n} words · both directions, as two cards per word'
-    description = desc(entries, n)
-    tags = ['bulgarian', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in SUBS}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Verbs with се']} verbs with се, "
+                    f"{by['Idioms']} idioms, {by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['bulgarian', 'phrases', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['bulgarian', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
         'subtitle': subtitle,
