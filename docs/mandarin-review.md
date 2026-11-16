@@ -416,6 +416,9 @@ this section is the reasoning.
   are stubs until read, so the order acts only after something has loaded the whole deck. A default that
   silently did nothing, or one that loaded 12 MB at boot, was worse than baking the same count into the
   files — which is what the `order` does, for every reader and at no cost.
+  *(2026-11-16: the order is withdrawn from the app altogether. Read closely it also never chose which
+  words arrive — `buildSession` slices the day's new cards off the front of the deck before `orderPile`
+  runs — so the 57% and 83% above describe a deck FILE in that order, not what the option gave a reader.)*
 - **Pinyin on the example sentences.** 569 of the 851 Level 1 sentences that segment into deck headwords
   contain a word CC-CEDICT gives more than one reading. It would be a hand pass; the speaker covers it.
 - **A grammar deck.** The only source that could be named is the standard's own grammar outline, and the
