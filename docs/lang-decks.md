@@ -3829,6 +3829,19 @@ changed was the one that had been wrong all along.
   toned ones in the proportions the carefully marked articles show; the findings (one spelling, many words; the
   dialect "alternatives"; the contractions and the bot stubs) are 📖 `docs/yoruba-decks-plan.md`. The `LANGS` row
   is 48 million L1, 53 in all (Ethnologue 2026 via Wikipedia's list); the hue is measured, `#3A5498`.
+- `.claude/mongolian/` — the generator behind the Mongolian decks (Nov 2026, on request: "Add a Mongolian language
+  collection"; the Amharic and Yoruba owners' answers taken, the owner not asked). **Built: the alphabet deck,
+  `decks/Mongolian-Alphabet.folio-deck.json`** (36 notes: the 35 Cyrillic letters with their names, IPA and MNS
+  romanisation read from a pinned revision of Wikipedia's "Mongolian Cyrillic alphabet", then the long vowel) **and A1,
+  `decks/Mongolian-A1.folio-deck.json`** (500 notes / 1,000 cards: 335 inventory, 165 frequency). `python3
+  .claude/mongolian/run.py [--level a1]`, `python3 .claude/mongolian/alphabet.py`, `node
+  .claude/mongolian/check-mongolian.js`; a re-run is byte-identical. Amharic's arrangement: about 3,100 Cyrillic
+  Wiktionary lemmas, no subtitle list, so the frequency is the Mongolian Wikipedia's (its 14,876 articles of 150 words
+  or more), A1–B1 only, no hand glosses, no speaker, and no romanisation on a level card (the Russian precedent).
+  Wiktionary's untagged form-of pages ("past participle in -сан of байх") are read as pointers, a form no lemma lists
+  is peeled through the case and verb endings to a lemma or a verb's stem, and the card shows only forms Wiktionary
+  prints (a noun's plural and three cases from its table). The findings are 📖 `docs/mongolian-decks-plan.md`. The
+  `LANGS` row is 5.0 million (Ethnologue via Wikipedia, no L2 figure); the hue is measured, `#3C7676`.
 - `.claude/oldenglish/` — the generator behind the Old English decks (Nov 2026, on request: "Add an Old
   English language collection"). **Built: the alphabet and pronunciation deck,
   `decks/Old-English-Alphabet.folio-deck.json`** (41 notes) **and Level 1,

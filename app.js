@@ -31372,6 +31372,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Korean's dark green, then Old English's deep green at 15.2); with the greens left out, the best was a teal
        at 13.9. 6.2:1 against white. Not a flag colour. */
     "lang-lao":        { bg: "#426A43" }, // measured leaf green
+    /* MONGOLIAN (Nov 2026) was not named a colour, so it was MEASURED as Yoruba was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 79 hues on
+       the page, the magenta band's standing rejection kept and the greens left out. The winner is this muted teal,
+       13.9 from its nearest neighbours (Economics' teal and France's slate), then 14.1 from Philosophy, against a
+       tightest existing pair of 4.0; 5.2:1 against white. Not a flag colour. */
+    "lang-mongolian":  { bg: "#3C7676" }, // measured muted teal
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
