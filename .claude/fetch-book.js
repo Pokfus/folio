@@ -32450,6 +32450,9 @@ async function fetchEnglish() {
     let raw;
     if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
     else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    // in the correction chain like every English branch (the book has no rows today; a row must leave the
+    // tokens .claude/quran-readings.json expects, or applyQuranReadings throws)
+    raw = correctRaw(raw);
     const got = extractPickthall(raw, warn);
     got.chapters.forEach((c) => {
       if (c.n < FROM || c.n > TO) return;
