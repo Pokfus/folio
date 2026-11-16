@@ -5,7 +5,7 @@ the shape of the Thai one (`docs/thai-decks-plan.md`), whose script, word cut an
 `docs/lang-decks.md` is the record of how the sets were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-15: "Add a Lao language collection."
 
-**STATUS (2026-11-16): the alphabet, A1, A2 and B1 are built** (`.claude/lao/`, §6–§8). B1 used up what Wiktionary
+**STATUS (2026-11-16): the alphabet, A1, A2, B1 and the phrases deck are built** (`.claude/lao/`, §6–§9). B1 used up what Wiktionary
 has: there is no B2 or C1 to build until it grows (§5).
 
 A deck under `decks/` is community content, not a change to Folio: no changelog line for any later deck this plan
@@ -31,6 +31,7 @@ The request named no word source, script deck or romanisation. The Thai answers 
 | Lao A2 Elementary — built | `Lao-A2.folio-deck.json` | 750 |
 | Lao B1 Intermediate — built | `Lao-B1.folio-deck.json` | 471 |
 | B2, C1 | — | not buildable from Wiktionary (§5) |
+| Lao Phrases and Expressions — built | `Lao-Phrases-and-Expressions.folio-deck.json` | 79 |
 
 ## 2. Sources and licences
 
@@ -137,3 +138,18 @@ hand`, `animals and shapes`) take words with no Wikipedia count at all, which on
 the fill: six variant spellings of words already taught (ດົນຕຣີ, ກະແລມ, ສຸກຂະພາບ, ອຸນນະພູມ, ຫໍພິພິດຕະພັນ,
 ອານຸສາວະລີ), six more one-syllable homographs, and ຄົນແຈ້, whose gloss lists a slur. A re-run is byte-identical (with
 and without `--re-extract`); A1 and A2 are unchanged.
+
+## 9. As built (2026-11-16): the phrases deck
+
+`python3 .claude/lao/phrases.py` (reads the cache `run.py` fills and the three level decks). 79 notes in three
+subdecks: **Phrases** (5) — Wiktionary's own phrases and interjections that no level teaches (ຈັງໃດ, ຈັກໂມງ, ຂ້ອຍຊື່,
+ຂ້ອຍຮັກເຈົ້າ, ຄຳອ່ວຍພອນປີໃໝ່); **Sentences** (72) — Tatoeba's Lao sentences with Tatoeba's English, shortest first;
+**Proverbs** (2) — Wiktionary's two. **Why sentences**: Wiktionary's whole Lao has five phrases, two proverbs and ten
+interjections, and A1 already teaches the commonest, so Wiktionary alone would make a handful of cards; Thai's deck of
+Wiktionary idioms has no Lao counterpart. **A sentence's romanisation is composed word by word** from each word's own
+IPA reading (the cut the examples use), and only a sentence every word of which has one is taken — nothing about the
+sound is typed — and none whose cut uses a syllable the levels refuse (`select.EXCLUDE`). It shows each word as said
+alone; the description says an unstressed syllable can be shorter in speech. Left out: a sentence that is a word a
+level teaches (ສະບາຍດີ, ຂອບໃຈ), a second sentence with the same Lao or English, anything over 40 letters, and two
+Wiktionary entries (`SKIP`: a dated spelling, an extreme honorific). Soft hyphens are stripped from the shown text, and
+`check-lao.js` allows a phrase card's punctuation but refuses a soft hyphen. A re-run is byte-identical.

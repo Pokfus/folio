@@ -29,7 +29,11 @@ for (const f of files) {
   d.cards.forEach((c, i) => {
     const F = c.fields, w = F.Word;
     if (c.id !== "u_" + id + "_" + (i + 1)) bad(f + ": card " + (i + 1) + " has id " + c.id);
-    if (!LAO.test(w || "")) bad(f + ": card " + (i + 1) + " Word is not Lao script: " + w);
+    // the phrases deck's sentences carry their punctuation and spaces (the speaker reads them whole)
+    const phrases = /Phrases/.test(d.meta.title);
+    const script = phrases ? (w || "").replace(/[\s!?,.;:"“”'’…\-]/g, "") : (w || "");
+    if (!LAO.test(script)) bad(f + ": card " + (i + 1) + " Word is not Lao script: " + w);
+    if (/[\u00ad\u200b]/.test(w || "")) bad(f + ": card " + (i + 1) + " Word holds a soft hyphen or zero-width space");
     if (alphabet) {
       if (sides.has(F.Sound)) bad(f + ": " + w + " shares its sound side with " + sides.get(F.Sound));
       sides.set(F.Sound, w);

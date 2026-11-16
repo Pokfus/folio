@@ -5,6 +5,7 @@
     python3 .claude/lao/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/lao/run.py --re-extract    # rebuild lex.json and freq.json
     python3 .claude/lao/alphabet.py            # the alphabet deck (reads lex.json)
+    python3 .claude/lao/phrases.py             # the phrases deck (after the levels)
 
 ONE LEVEL PER RUN (`lao_level` reads the level once, at import).  Downloads
 its sources into `.claude/lao-cache/` (gitignored, about 140 MB, most of it

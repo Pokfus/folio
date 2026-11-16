@@ -3903,6 +3903,8 @@ changed was the one that had been wrong all along.
   frequency; bare "abstract noun of" entries skipped). **B1 built (2026-11-16)**: `decks/Lao-B1.folio-deck.json`,
   471 notes / 942 cards (358 inventory, 113 frequency, capped at 500), the last level Wiktionary's Lao can fill — no
   B2 or C1 until it grows.
+  **Phrases deck built (2026-11-16)**: `decks/Lao-Phrases-and-Expressions.folio-deck.json`, 79 notes (5 Wiktionary
+  phrases, 72 Tatoeba sentences romanised word by word from Wiktionary's IPA, 2 proverbs); `python3 .claude/lao/phrases.py`.
   📖 `docs/lao-decks-plan.md`. The `LANGS` row is 3.7 million L1, 4.5 in all
   (Ethnologue 27th ed., via Wikipedia's infobox); the hue is measured, `#426A43`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
