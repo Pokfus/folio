@@ -56,7 +56,17 @@ EXCLUDE = {
     # the Western months, from the articles' dates: a set, left for A2
     'ဇန်နဝါရီ': MONTH, 'ဖေဖော်ဝါရီ': MONTH, 'မတ်': MONTH, 'ဧပြီ': MONTH, 'မေ': MONTH,
     'ဇွန်': MONTH, 'ဇူလိုင်': MONTH, 'ဩဂုတ်': MONTH, 'စက်တင်ဘာ': MONTH, 'အောက်တိုဘာ': MONTH,
-    'နိုဝင်ဘာ': MONTH, 'ဒီဇင်ဘာ': MONTH, 'ကာ': LITERARY, 'လျှင်': LITERARY,
+    'နိုဝင်ဘာ': MONTH, 'ဒီဇင်ဘာ': MONTH,
+    # Read off the A2 ranking (2026-11-16).
+    'ရာမ': 'Wiktionary glosses only the drug "ya ba"; its count is Rama, of the Ramayana',
+    'ရခိုင်': 'Wiktionary glosses only a banana; its count is Rakhine, the state and its people',
+    'သီရိ': 'its count is the element Thiri of royal and personal names',
+    'ရာဇ': 'its count is the element Raza of royal names and of ရာဇဝင် "chronicle"',
+    'ယနေ့': 'the literary "today"; A1 teaches the spoken ဒီနေ့',
+    'ယခင်': 'the literary "formerly"', 'ထို့ပြင်': LITERARY, 'ထို့အပြင်': LITERARY,
+    'သို့ရာတွင်': LITERARY, 'လိမ့်မည်': LITERARY, 'ဟူသည်': LITERARY, 'နှင့်တကွ': LITERARY,
+    'အကယ်၍': LITERARY, 'များသောအားဖြင့်': LITERARY,
+    'မြန်မာ့': 'defined only as the induced creaky (possessive) form of မြန်မာ, a name', 'ကာ': LITERARY, 'လျှင်': LITERARY,
 }
 
 
@@ -72,6 +82,9 @@ def main():
     D = json.load(open('lex.json', encoding='utf-8'))
     lex, ptr, pipa = D['lemmas'], D['pointers'], D['ptr_ipa']
     below = words_below()
+    # a card the inventory headed by a pointer's spelling (A1's မနက်) teaches the lemma it
+    # points to (နံနက်): that lemma is taught too, or A2 would teach "morning" again
+    below |= {ptr[k] for k in below if k in ptr}
     rows, seen, missing = [], set(), []
     for topic, words in INVENTORY.get(LEVEL, []):
         for item in words.split():

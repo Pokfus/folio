@@ -56,7 +56,11 @@ SCOPE = {
                  '— personal and family information, shopping, the local area, work — and to '
                  'describe in simple terms their background, their surroundings and what they '
                  'immediately need',
-        'topics': '(to be written with the level)',
+        'topics': 'the months, Western and Burmese, time, clothes and things worn, work and jobs, '
+                  'relatives and the stages of life, feelings, travel, the land and the weather, '
+                  'animals, the body, health, food and cooking, the kitchen and the home, talking '
+                  'and deciding, the everyday verbs of doing, describing things and people, and the '
+                  'faith and the feasts',
     },
     'b1': {
         'quote': 'Can understand the main points of clear standard input on familiar matters '

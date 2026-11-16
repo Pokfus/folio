@@ -89,6 +89,28 @@ ONLY = {
     'မယ်': (r'future',),                  # the future particle; also titles for women
     'အရာ': (r'\bthing\b', r'\bobject\b'),  # its first entry is "hundreds"
     'ဓာတ်ပုံ': (r'photograph',),          # its first gloss is a reliquary stupa
+    # A2 (2026-11-16)
+    'မတ်': (r'^March$',),                # the noun is also a brother-in-law, a coin and the mark
+    'ဇွန်': (r'^June$',),                 # also a jasmine
+    'ကုတ်': (r'^coat$',),                 # the noun is also a lever
+    'တူ': (r'nephew',),                  # also a hammer and chopsticks
+    'ဘဲ': (r'^duck',),                   # also "boyfriend" (slang) and a ploughshare
+    'ငန်း': (r'goose',),                 # also allotted work and a delirium
+    'ခြင်': (r'mosquito',),              # also a rafter
+    'ကျောက်': (r'^stone',),              # also smallpox and the back of an animal
+    'ပိုး': (r'insect',),                # also the Pwo Karen
+    'ချင်း': (r'ginger',),               # taught with food; the noun is ginger
+    'ပြုတ်': (r'^to boil',),             # also "to be detached" and "to cry"
+    'ဆူ': (r'^to boil',),                # also "to be noisy" and "to scold"
+    'ကျွန်း': (r'island',),              # also teak
+    'လယ်': (r'paddy field',),            # also the middle
+    'ချေး': (r'lend',),                  # also excrement and a tree
+    'ဆန်': (r'uncooked rice',),          # also "to go upstream"
+    'ကြော်': (r'^to fry',),               # also "to shout loudly"
+    'ဖိတ်': (r'^to invite',),             # the first verb is "to spill"
+    'ဘုန်းကြီး': (r'^monk',),             # also a chess piece
+    'ကိုက်': (r'^to bite', r'^to ache'),  # also "to come up to (expectations)"
+    'ပွဲ': (r'public function|festival|fair',),
 }
 
 # A GLOSS TO LEAD WITH inside an entry, where Wiktionary's first is not the everyday one.
@@ -99,26 +121,45 @@ LEAD = {
     'ငွေ': 'money',
     'ဆေး': 'medicine',
     'အရောင်': 'colour',
+    'လက်မှတ်': 'ticket',                   # first listed is "certificate of qualification"
 }
 
 POINTER = re.compile(r'^(alternative form of|alternative spelling of|form of|synonym of|'
-                     r'abbreviation of|short for|contraction of)\b', re.I)
+                     r'abbreviation of|short for|contraction of|induced creaky tone form of)\b', re.I)
 
 KEEP_CAP = re.compile(r"^(I|Buddha|Buddhist|Burmese|Myanmar|Burma|Monday|Tuesday|Wednesday|"
                       r"Thursday|Friday|Saturday|Sunday|English|January|February|March|April|"
                       r"May|June|July|August|September|October|November|December|Sir|God|"
-                      r"Christian|Muslim|Hindu|Pali|Sanskrit|Shan|Mon|Karen|Chinese|Indian)\b")
+                      r"Christian|Muslim|Hindu|Pali|Sanskrit|Shan|Mon|Karen|Chinese|Indian|American)\b")
+# Wiktionary writes the Burmese months in lower case ("waso, the fourth month ..."): capitalised
+BURMESE_MONTH = re.compile(r"^(tagu|kason|nayon|waso|wagaung|tawthalin|thadingyut|tazaungmon|nadaw|"
+                           r"pyatho|tabodwe|tabaung)\b", re.I)
 
 
 def lower_first(g):
+    if BURMESE_MONTH.match(g or ''):
+        return g[0].upper() + g[1:]
     if not g or KEEP_CAP.match(g) or (len(g) > 1 and g[1].isupper()):
         return g
     return g[0].lower() + g[1:]
 
 
+# "synonym of ရှာ (hra, “to seek, search”)": Wiktionary defines many Burmese compounds only by
+# a synonym, quoting that word's gloss.  From A2 on the card takes the quoted gloss (ရှာဖွေ "to
+# seek, search") rather than dropping the word; a synonym with no quoted gloss stays a pointer.
+# A1 shipped before the rule and is built without it, so it stands byte for byte.
+SYNONYM = re.compile(r'^synonym of \S+ \([^“”()]*“([^”]+)”\)$')
+
+
+def resolve_synonym(g):
+    m = SYNONYM.match(g['g']) if LEVEL != 'a1' else None
+    return dict(g, g=m.group(1)) if m else g
+
+
 def entries_for(row, lex):
     L = lex[row['key']]
-    ents = [dict(e, glosses=[g for g in e['glosses'] if not POINTER.match(g['g'])])
+    ents = [dict(e, glosses=[g for g in map(resolve_synonym, e['glosses'])
+                             if not POINTER.match(g['g'])])
             for e in L['entries']]
     ents = [e for e in ents if e['glosses']]
     if row['pos']:

@@ -6,8 +6,7 @@ record of how those were built, and every rule there applies here unless this fi
 on 2026-11-15: "Add a Burmese language collection." The owner was not asked: the Thai and Amharic owners'
 answers to the same questions were taken — **they are the owner's to overturn**.
 
-**STATUS (2026-11-15): the alphabet deck and A1 are built** (`.claude/burmese/`, §6). A2 and B1 are next, one
-per session.
+**STATUS (2026-11-16): the alphabet deck, A1 and A2 are built** (`.claude/burmese/`, §6–§7). B1 is next.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck this plan produces. The collection's first commit carried a line and a bump because it also
@@ -31,7 +30,7 @@ changed the APP (the shelf's hue in `app.js`) — the Hebrew, Zulu and Amharic p
 |---|---|---|
 | Burmese Alphabet — built | `Burmese-Alphabet.folio-deck.json` | 79 |
 | Burmese A1 Beginner — built | `Burmese-A1.folio-deck.json` | 500 |
-| Burmese A2 Elementary — planned | `Burmese-A2.folio-deck.json` | 750 |
+| Burmese A2 Elementary — built | `Burmese-A2.folio-deck.json` | 750 |
 | Burmese B1 Intermediate — planned | `Burmese-B1.folio-deck.json` | 1,000 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
@@ -103,7 +102,7 @@ first glosses keep Wiktionary's wording (မျက်လုံး "eyeball").
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet deck, A1. **Phase 2** — A2, then B1, one per session: write the
+**Phase 1 (done)** — the pipeline, the alphabet deck, A1. **Phase 2** — A2 (done), then B1: write the
 level's inventory into `inventory.py` and its topics into `burmese_level.SCOPE`, run, read every card, extend
 `EXCLUDE`, `ONLY` and `LEAD`. A level from A2 on may teach the literary particles A1 leaves out.
 
@@ -125,3 +124,28 @@ from a clean `--re-extract`).
   punctuation and the literary signs ၏ ၍ ၌ ၎င်း. Every letter side and every sound side unique (asserted).
 - **The shelf's hue** is measured: `#363B7F`, a deep indigo, 14.2 from its nearest of 74 (the comment at
   `lang-burmese` in `app.js`).
+
+## 7. As built (2026-11-16): A2
+
+On request ("Add A2"). `python3 .claude/burmese/run.py --level a2`: 750 notes, 375 from the A2 inventory (17
+topics, `inventory.py` `A2`) and 375 by frequency; A1's 500 words are not repeated. 52 with forms, 119 with
+sentences. A re-run is byte-identical, and A1 and the alphabet deck rebuild byte-identical alongside (verified).
+The inventory carries both calendars' months (the Western ones Myanmar uses day to day, and the twelve Burmese
+months the festivals are named by); the words English Wiktionary lacks are listed in `inventory.py`. The fill is
+the Wikipedia's written vocabulary — government, history, the faith, the arts — as the description says.
+What reading the A2 cards added, each a rule FROM A2 ON or a hand line, so A1 stands:
+- **"Synonym of" glosses are resolved** (`build_deck.resolve_synonym`, from A2 on): Wiktionary defines many
+  compounds only as "synonym of ရှာ (hra, “to seek, search”)", and six fill words (ရှာဖွေ, နည်းလမ်း, ကျွမ်းကျင်,
+  ခန့်မှန်း, ကျော်ကြား, လူမှုရေး) had no card at all; the card now takes the quoted gloss. A synonym with no quoted
+  gloss stays a pointer.
+- **"Taught below" follows the pointers** (`select`): A1 taught "morning" under the spoken spelling မနက်, a pointer
+  to နံနက်, so နံနက် counted as untaught and A2 would have taught it again.
+- **`ONLY` grew by 21** for A2's homographs (မတ် March, not a brother-in-law; ကုတ် a coat, not a lever; ဘဲ a duck;
+  ချင်း ginger; ဆန် uncooked rice; ကြော် "to fry", not "to shout"; ဖိတ် "to invite", not "to spill" …); `LEAD` puts
+  လက်မှတ်'s "ticket" first; a Burmese month's name keeps its capital (Wiktionary writes "tagu, the first month").
+- **"Induced creaky tone form of" is a pointer**, never a gloss (မြန်မာ့ was picked by the fill and is excluded).
+- **`EXCLUDE` grew by 15**: names behind other glosses (ရာမ, glossed as a drug, counted from Rama; ရခိုင်, glossed
+  as a banana, counted from Rakhine; the name elements သီရိ and ရာဇ) and the literary conjunctions and particles
+  (ယနေ့, ယခင်, ထို့ပြင်, ထို့အပြင်, သို့ရာတွင်, လိမ့်မည်, ဟူသည်, နှင့်တကွ, အကယ်၍, များသောအားဖြင့်).
+- **Left out of the inventory for their entries**: ထီး (only the royal parasol, not "umbrella") and အန္တရာယ်
+  "danger" (no reading).
