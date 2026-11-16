@@ -11,8 +11,8 @@ THE NAMES ARE ENGLISH, as for Polish and Turkish: the collection is "Czech" and 
 import html, json, os, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-BANDS = ("a1", "a2", "b1", "b2")
-SIZE = {"b1": 1000, "b2": 1200}          # an assembled level's size, in notes (Polish B1's)
+BANDS = ("a1", "a2", "b1", "b2", "c1")
+SIZE = {"b1": 1000, "b2": 1200, "c1": 1200}          # an assembled level's size, in notes (Polish B1's)
 FILE = "Czech-%s.folio-deck.json"
 COLOR = "#495A5A"   # the Czech collection's hue, `lang-czech` in app.js COLL_THEME (measured)
 
@@ -83,7 +83,7 @@ def _morph(stats, cards):
 
 
 def describe_assembled(level, n, stats, cards, s):
-    """A level with no official list (B1, B2): the inventory and the fill, said as what they are."""
+    """A level with no official list (B1 to C1): the inventory and the fill, said as what they are."""
     lv, fill = level.upper(), n - stats["inventory"]
     lower = [b.upper() for b in BANDS[:BANDS.index(level)]]
     span = " and ".join(lower) if len(lower) == 2 else "%s to %s" % (lower[0], lower[-1])
@@ -113,6 +113,12 @@ def describe_assembled(level, n, stats, cards, s):
 
 
 SCOPE = {
+    "c1": "the purposes the Common European Framework of Reference itself gives for C1 (the Council of Europe's "
+          "level specifications stop at B2): demanding, longer texts and their implicit meaning, and language used "
+          "flexibly for social, academic and professional purposes — the law and administration, economics and "
+          "finance, politics and international relations, science, medicine and technology, the mind and society, "
+          "philosophy and religion, history, literature, language and the arts, and the media and public debate, "
+          "with the abstract nouns, verbs of nuance and connectives of a formal text",
     "b2": "the themes of the Council of Europe's B2 specification, Vantage (van Ek and Trim, 2001), which carries "
           "the Threshold Level's themes a level further: work and careers, the economy and money, the state, "
           "politics and society, law and crime, the media and technology, science and research, health care, the "

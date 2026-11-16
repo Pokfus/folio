@@ -4050,7 +4050,8 @@ changed was the one that had been wrong all along.
   the owner not asked). **Built: A1, `decks/Czech-A1.folio-deck.json`** (1,213 notes / 2,426 cards) **and A2,
   `decks/Czech-A2.folio-deck.json`** (1,161 notes), **and B1, `decks/Czech-B1.folio-deck.json`** (1,000 notes,
   assembled: no list exists beyond A2, so a Threshold Level topic inventory plus frequency fill) **and B2,
-  `decks/Czech-B2.folio-deck.json`** (1,200 notes, the same on Vantage's themes). `python3 .claude/czech/run.py [--level a1|a2|b1|b2]`,
+  `decks/Czech-B2.folio-deck.json`** (1,200 notes, the same on Vantage's themes) **and C1,
+  `decks/Czech-C1.folio-deck.json`** (1,200 notes, on the CEFR's own description of C1). `python3 .claude/czech/run.py [--level a1|a2|b1|b2|c1]`,
   `node .claude/czech/check-czech.js`; a re-run is byte-identical. Polish's pipeline adapted. **What is new: an
   OFFICIAL list** — NPI ČR publishes the permanent-residence exam's whole A1–A2 lexicon (the Soupis lexikálních
   jednotek) as a search tool, read by `soupis.py`, so A1 and A2 select nothing (the Goethe line); A1 adds 51

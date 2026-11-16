@@ -231,6 +231,16 @@ FILL_EXCLUDE = {
     "doprdele", "svině",       # swearing, as above
     "party",                   # a variant of párty (B1)
     "chléb", "benzín",         # A1 teaches them as chleba and benzin, read through these entries
+    # Found by C1 (2026-11-16).
+    "alan", "pat", "val", "lino", "nika", "etan",   # "alane", "stalemate", "rampart", "linoleum", "niche",
+                               # "ethane": their counts are the names Alan, Pat, Val, Lino, Nika, Ethan
+    "ar", "car", "sun", "hot", "oukej", "superman",  # English words and film interjections in the subtitles
+    "angličan",                # lowercase, a football term: its count is Angličan, "Englishman"
+    "kalifornium",             # "californium": its count is Kalifornie
+    "rosit",                   # "to bedew": its count is not the word's (subtitle noise)
+    "jez",                     # "weir": its count is jíst's imperative, "eat!"
+    "ježiš",                   # the oath "Jesus!", as Ježíš
+    "šlapka", "zdrhnout",      # glossed "pedal", "to tighten": their counts are the slang senses, not taught
 }
 # A fill word glossed only as a fused or negated form of another is not a word: `te` "Combined form of to + je",
 # `nehýbat` "negative form of hýbat".

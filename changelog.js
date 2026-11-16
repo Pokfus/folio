@@ -53,7 +53,7 @@ window.CHANGELOG = [
       "A <b>Lao</b> collection joins the Languages section: an alphabet deck, A1 to B1 (1,721 words) and 79 phrases and sentences, all in both directions.",
       "<b>Khmer A2</b> and <b>B1</b> decks (1,750 more words) and a phrases deck of 860 phrases and sentences join the Khmer (Cambodian) collection.",
       "A new <b>Icelandic</b> language collection: an alphabet deck, levels A1 to C1 and 734 phrases, idioms and proverbs, every noun with its four cases.",
-      "A new <b>Czech</b> language collection: A1 and A2 (2,374 words) from the official list of the Czech residence exam, then B1 and B2 (2,200 words).",
+      "A new <b>Czech</b> language collection: A1 and A2 (2,374 words) from the official list of the Czech residence exam, then B1 to C1 (3,400 words).",
       "A new <b>Navajo</b> language collection: an alphabet and sounds deck, A1 to B1 (1,386 words) and 145 phrases, all in both directions.",
       "<b>On this day</b> now sits directly below the minigames on the home page, above the suggested reading.",
       "Italian gains a <b>Sounds and spelling</b> deck, and <b>CILS A1</b> now opens with ciao, grazie and per favore, with numbers, days and seasons together.",

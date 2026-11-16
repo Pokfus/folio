@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 456 MB of decks. The file itself is fetched on Add. */
+   section without fetching 457 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-Pinyin-and-Tones.folio-deck.json", id: "hsk30pin", title: "Mandarin Chinese — Pinyin and tones", sub: "68 sounds, tones and tone changes — start here, beside Level 1", notes: 68, cards: 68, ex: 100, bytes: 70898, rev: "6a1571dc957f" },
   { lang: "Mandarin Chinese", file: "Mandarin-Bopomofo.folio-deck.json", id: "hsk30bpm", title: "Mandarin Chinese — Bopomofo", sub: "62 zhuyin symbols, tone marks and combinations — beside Pinyin and tones", notes: 62, cards: 62, ex: 100, bytes: 72249, rev: "80fd41ebcd21" },
@@ -226,6 +226,7 @@ window.LANG_DECKS = [
   { lang: "Czech", file: "Czech-A2.folio-deck.json", id: "czecha2", title: "Czech A2", sub: "1,161 words · both directions, as two cards per word", notes: 1161, cards: 2322, ex: 80, say: false, bytes: 1397667, rev: "2a0e7aa08bfd" },
   { lang: "Czech", file: "Czech-B1.folio-deck.json", id: "czechb1", title: "Czech B1", sub: "1,000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 96, say: false, bytes: 1364658, rev: "3d516328f342" },
   { lang: "Czech", file: "Czech-B2.folio-deck.json", id: "czechb2", title: "Czech B2", sub: "1,200 words · both directions, as two cards per word", notes: 1200, cards: 2400, ex: 86, say: false, bytes: 1526028, rev: "7a7bce318645" },
+  { lang: "Czech", file: "Czech-C1.folio-deck.json", id: "czechc1", title: "Czech C1", sub: "1,200 words · both directions, as two cards per word", notes: 1200, cards: 2400, ex: 65, say: false, bytes: 1309272, rev: "ba8cfadf1b09" },
   { lang: "Hungarian", file: "Hungarian-Alphabet.folio-deck.json", id: "huabc", title: "Hungarian Alphabet", sub: "The 44 letters and their sounds, then stress and doubled letters (46 notes) · both directions, as two cards each", notes: 46, cards: 92, ex: 0, bytes: 17884, rev: "fc5469bdb639" },
   { lang: "Hungarian", file: "Hungarian-A1.folio-deck.json", id: "hungariana1", title: "Hungarian A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1648047, rev: "ec153d4c0355" },
   { lang: "Hungarian", file: "Hungarian-A2.folio-deck.json", id: "hungariana2", title: "Hungarian A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 100, bytes: 3204436, rev: "3374ee09e6ca" },

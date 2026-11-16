@@ -175,7 +175,95 @@ B2 = [
                                       "pravděpodobně zřejmě nepochybně bezpochyby"),
 ]
 
-INVENTORY = {"b1": B1, "b2": B2}
+# C1's SCOPE: the CEFR's own description of the level (Council of Europe, 2001; Companion Volume, 2020) -- a
+# wide range of demanding, longer texts and their implicit meaning, and language used flexibly and effectively
+# for social, academic and professional purposes, on complex subjects.  The Council's level specifications
+# (Waystage, Threshold, Vantage) stop at B2, so the inventory is written for those purposes: the vocabulary of
+# the professions and academic fields, abstract nouns, verbs of nuance, register and the connectives of a formal
+# text.  Words already taught at A1-B2 are skipped by `select.py`.
+C1 = [
+    ("law and administration", "legislativa legislativní zákonodárce zákonodárný vyhláška nařízení předpis "
+                               "směrnice novela paragraf ustanovení smluvní strana plnění odpovědnost "
+                               "náhrada škoda odškodnění vymáhat exekuce exekutor insolvence notář "
+                               "ověřit plná_moc zplnomocnit správní řízení rozhodnutí odvolat lhůta "
+                               "promlčení trestní občanskoprávní obhajoba obhájce žalobce žalovaný "
+                               "státní_zástupce soudnictví nezávislost justice zatčení vazba podmínka "
+                               "amnestie milost úřední samospráva obecní krajský"),
+    ("economics and finance", "makroekonomie mikroekonomie hospodářský fiskální měnový centrální_banka "
+                              "úroková_sazba likvidita kapitál kapitálový aktiva pasiva bilance účetnictví "
+                              "účetní audit zdanění odvod sleva daňový_ráj schodek přebytek státní_dluh "
+                              "zadluženost bankrot úpadek fúze akvizice monopol regulace deregulace "
+                              "privatizace znárodnit trh_práce mzdový minimální_mzda životní_úroveň "
+                              "hrubý_domácí_produkt globalizace konkurenceschopnost"),
+    ("politics and international relations", "suverenita suverénní federace unie integrace rozšíření "
+                                             "smlouva ratifikace ratifikovat summit vyjednávání vyjednávat "
+                                             "sankce embargo spojenectví aliance neutralita okupace "
+                                             "anexe nezávislost separatismus nacionalismus populismus "
+                                             "extremismus radikální konzervativní liberální levice pravice "
+                                             "ideologie totalitní autoritářský legitimita mandát "
+                                             "zastupitelstvo hejtman starosta volební_období legislativní "
+                                             "veto lobbing transparentnost"),
+    ("science, medicine and technology", "výzkumný empirický teoretický experimentální vědecký_poznatek "
+                                         "zkoumat zkoumání pozorování měřit ověřovat vyvrátit "
+                                         "prokazatelný hypotetický proměnná vzorec rovnice statistika "
+                                         "statistický pravděpodobnost molekula atom buňka organismus "
+                                         "imunita protilátka epidemie pandemie nákaza infekční "
+                                         "léčivo lékařství diagnostika genetický dědičnost "
+                                         "umělá_inteligence algoritmus automatizace inovace inovativní "
+                                         "vývojář kybernetický šifrování"),
+    ("the mind and society", "psychologie psychologický vědomí podvědomí vnímání vnímat paměť myšlení "
+                             "uvažování intuice motivace sebevědomí sebeúcta identita osobnost "
+                             "temperament emocionální racionální iracionální chování sociologie "
+                             "sociologický společenský instituce hodnota norma morálka morální etika "
+                             "etický svědomí odpovědnost svoboda autonomie solidarita "
+                             "vyloučení marginalizace sekularizace"),
+    ("philosophy and religion", "filozofie filozof filozofický pojem koncept podstata bytí existence "
+                                "realita pravda poznání rozum logika paradox dilema princip "
+                                "abstraktní konkrétní subjektivní objektivní relativní absolutní "
+                                "náboženský duchovní víra věřící ateismus křesťanství judaismus "
+                                "islám buddhismus kněz farář farnost biskup klášter mnich "
+                                "posvátný hřích spása"),
+    ("history", "dějiny historik historický dějinný období epocha éra středověk novověk starověk "
+                "renesance baroko osvícenství reformace husitství husita monarchie habsburský "
+                "císařství šlechta šlechtic poddaný nevolnictví revoluce převrat okupace "
+                "protektorát odboj kolaborace komunismus komunistický totalita normalizace "
+                "disident sametová_revoluce emigrace pamětník"),
+    ("literature, language and the arts", "literární beletrie prozaik dramatik básnický lyrika epika "
+                                          "žánr motiv téma děj postava vypravěč metafora symbolika "
+                                          "ironie satira parodie alegorie citát úryvek rukopis vydání "
+                                          "nakladatelství nakladatel překladatel kritika kritický "
+                                          "estetika estetický avantgarda moderna klasicismus "
+                                          "romantismus realismus rétorika řečník stylistika "
+                                          "spisovný hovorový nářečí slovní_zásoba frazém"),
+    ("the media and public debate", "veřejné_mínění průzkum_veřejného_mínění zpravodaj publicistika "
+                                    "publicista komentátor úvodník médium mediální manipulace "
+                                    "propaganda objektivita nestrannost svoboda_slova zaujatost "
+                                    "kontroverzní polemika diskutovat debata vyjádření prohlášení "
+                                    "tisková_konference mluvčí"),
+    ("verbs of nuance and register", "konstatovat podotknout poznamenat namítnout naznačit zdůraznit "
+                                     "zohlednit zvážit uvážit předpokládat domnívat_se usuzovat "
+                                     "vyvozovat dovodit polemizovat oponovat vyvracet potvrzovat "
+                                     "zpochybnit relativizovat bagatelizovat přeceňovat podceňovat "
+                                     "upřednostnit zanedbat opomenout přehlížet vymezit definovat "
+                                     "formulovat interpretovat analyzovat syntetizovat aplikovat "
+                                     "implementovat iniciovat koordinovat realizovat uskutečnit "
+                                     "dosáhnout docílit eliminovat minimalizovat optimalizovat"),
+    ("abstract nouns", "hledisko aspekt rozměr kontext rámec souvislost předpoklad východisko "
+                       "kritérium měřítko ukazatel tendence trend proces průběh vývoj fenomén "
+                       "jev faktor činitel podmínka okolnost důsledek implikace rozpor protiklad "
+                       "shoda soulad nesoulad rovnováha nerovnováha potenciál kapacita "
+                       "efektivita účinnost udržitelnost složitost komplexnost nejednoznačnost"),
+    ("connectives of a formal text", "nadto rovněž taktéž jakož i nýbrž leč ba dokonce nicméně "
+                                     "pakliže jestliže jelikož poněvadž neboť pročež tudíž "
+                                     "tedy čili respektive popřípadě případně eventuálně "
+                                     "potažmo přičemž načež ačkoli třebas byť přestože "
+                                     "naproti_tomu vzhledem_k ohledně stran vůči díky "
+                                     "na_rozdíl_od v_rámci za_účelem prostřednictvím "
+                                     "v_důsledku nanejvýš přinejmenším obzvláště "
+                                     "zpravidla převážně výhradně nanejvýš"),
+]
+
+INVENTORY = {"b1": B1, "b2": B2, "c1": C1}
 
 
 def headwords(level):
