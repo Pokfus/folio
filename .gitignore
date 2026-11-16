@@ -293,6 +293,11 @@ countries-info.json
 # extract (4.7 GB), the OpenSubtitles frequency list and the Tatoeba exports — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/finnish-cache/
+# the corpora .claude/khmer/run.py builds the Khmer decks from -- the Wiktionary
+# extract, the Khmer Wikipedia dump, the Tatoeba exports and the romanisations read
+# off Wiktionary's pages (~160 MB) -- plus the intermediate files between its stages.
+# The decks it writes ARE committed.
+.claude/khmer-cache/
 # the corpora .claude/yoruba/run.py builds the Yoruba decks from — the Wiktionary
 # extract, the Yoruba Wikipedia dump and the Tatoeba exports (~150 MB) — plus the
 # intermediate files between its stages. The decks it writes ARE committed.

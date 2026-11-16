@@ -35,15 +35,17 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1322", released: "2026-11-16T01:37Z" };
+window.FOLIO_VERSION = { v: "1.1324", released: "2026-11-16T01:42Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-16",
-    t: "Lao and Yoruba language collections",
+    t: "Lao, Yoruba and Khmer language decks",
     items: [
       "A new <b>Yoruba</b> language collection: an alphabet and tones deck, A1 to B1 (2,250 words) and phrases, every word with its tone marks.",
       "A <b>Lao</b> collection joins the Languages section: an alphabet deck, A1 to B1 (1,721 words) and 79 phrases and sentences, all in both directions.",
+      "<b>Khmer A2</b> and <b>B1</b> decks (1,750 more words) and a phrases deck of 860 phrases and sentences join the Khmer (Cambodian) collection.",
+      "<b>On this day</b> now sits directly below the minigames on the home page, above the suggested reading.",
     ],
   },
   {
@@ -63,6 +65,7 @@ window.CHANGELOG = [
       "The Wikipedia button at the foot of a glossary popup is half as tall.",
       "<b>Feather</b> now links to its glossary entry only in Biology.",
       "A new <b>Amharic</b> language collection: a fidäl alphabet deck, three graded vocabulary decks and phrases, all in both directions with romanisation.",
+      "A new <b>Khmer (Cambodian)</b> language collection: an alphabet deck and an A1 deck of 500 words in both directions, each with its romanisation.",
       "New <b>Danish</b>, <b>Norwegian</b> and <b>Finnish</b> language collections: levels A1 to C1, plus phrases, idioms and proverbs, all in both directions.",
       "New in the Library: the <b>King James Bible</b>, with the Apocrypha and its marginal notes, and Luther's <b>Ninety-five Theses</b> (1517).",
       "A <b>Cantonese</b> collection joins the Languages section: a Jyutping and tones deck, A1 to C1 (3,787 words) and 347 phrases, slang and idioms.",
