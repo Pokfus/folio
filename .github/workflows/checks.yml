@@ -334,6 +334,15 @@ jobs:
       - name: build-italian-sounds --check (the Italian sounds deck is what its table and CILS A1 give)
         if: ${{ !cancelled() }}
         run: node .claude/decks/build-italian-sounds.js --check
+      # The Portuguese decks (2026-11-16, the Portuguese beginner pass): portuguese-fixes.json (the cards CAPLE A1
+      # gains, the repaired meanings, the order, the pinned ids, the counts a description states), applied after
+      # the shared paradigm-fixes.json.
+      - name: portuguese-fix --check (the Portuguese decks carry their record, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/portuguese-fix.js --check
+      - name: build-portuguese-sounds --check (the Portuguese sounds deck is what its table and CAPLE A1 give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/build-portuguese-sounds.js --check
       - name: jlpt check-ids (every Japanese card id is the one ids.json pins)
         if: ${{ !cancelled() }}
         run: node .claude/jlpt/check-ids.js
