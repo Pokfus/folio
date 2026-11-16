@@ -6,6 +6,7 @@
     python3 .claude/khmer/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/khmer/run.py --re-extract    # re-count Wikipedia and rebuild lex.json
     python3 .claude/khmer/alphabet.py            # the alphabet deck
+    python3 .claude/khmer/phrases.py             # the phrases deck (after the levels)
 
 ONE LEVEL PER RUN (`khmer_level` reads the level once, at import).  Downloads its
 sources into `.claude/khmer-cache/` (gitignored, about 160 MB, most of it

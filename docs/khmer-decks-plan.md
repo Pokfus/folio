@@ -6,8 +6,8 @@ Thai, writes no spaces between words — and Amharic's for the frequency source 
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-15: "Add a Cambodian language collection."
 
-**STATUS (2026-11-16): the alphabet deck, A1, A2 and B1 are built** (`.claude/khmer/`, §6–§8). B2, C1 and a phrases
-deck are the next sessions' work — and B2 may not reach 1,500 (§8).
+**STATUS (2026-11-16): the alphabet deck, A1, A2, B1 and the phrases deck are built** (`.claude/khmer/`, §6–§9). B2
+and C1 are the next sessions' work — and B2 may not reach 1,500 (§8).
 
 ## 1. The decisions (2026-11-15)
 
@@ -38,7 +38,7 @@ owners gave for the same request rather than ask — **they are the owner's to o
 | Khmer B1 Intermediate — built | `Khmer-B1.folio-deck.json` | 1,000 |
 | Khmer B2 Upper Intermediate | `Khmer-B2.folio-deck.json` | 1,500 |
 | Khmer C1 Advanced | `Khmer-C1.folio-deck.json` | 1,500 |
-| Khmer Phrases and Expressions | `Khmer-Phrases-and-Expressions.folio-deck.json` | — |
+| Khmer Phrases and Expressions — built | `Khmer-Phrases-and-Expressions.folio-deck.json` | 860 |
 
 ## 2. Sources and licences
 
@@ -103,7 +103,7 @@ adds 66). The fill carries written-register words an encyclopaedia favours (ខ�
 
 **Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 and B1 (done) to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `khmer_level.py`, run, read every card, extend the
-tables. **Phase 3** — a phrases deck. **Phase 4** — a combined file, gitignored.
+tables. **Phase 3 (done)** — the phrases deck (§9). **Phase 4** — a combined file, gitignored.
 
 ## 6. As built (2026-11-15): the alphabet and A1
 
@@ -181,3 +181,29 @@ unchanged (verified).
 **Known, left.** Some first glosses are Wiktionary's older or narrower sense (មហេសី "maharṣi", ឯកភាព "unit (usually
 military)"); a few fill words are tree names likely counted from place names (ត្រាច, ជ្រៃ), which the solo test does
 not catch — they stand alone as names too.
+
+## 9. As built (2026-11-16): the phrases deck
+
+On request ("Add a phrases deck"). `python3 .claude/khmer/phrases.py` (after the level decks; a stage of its own,
+like Amharic's, not a `run.py` level). 860 notes in two subdecks. A re-run is byte-identical.
+
+- **NOT THAI'S THREE SUBDECKS, BECAUSE THE SOURCE HAS NO IDIOMS.** English Wiktionary files about forty Khmer entries
+  as phrases, two as proverbs and none with an idiomatic sense, so the deck takes the Amharic arrangement: **Phrases**
+  (35) — the phrase and proverb entries, interjections of more than one word, and the one-word set formulas of
+  `ONE_WORD` (ស្វាគមន៍ "welcome", អរុណសួស្តី "good morning") the levels do not teach, in the hand order of `PHRASES`,
+  romanised from their pages — then **Sentences** (825): Tatoeba's Khmer sentences of at most eight words on the word
+  cut, printed as Tatoeba has them, each card naming its Tatoeba number. No romanisation on a sentence (Tatoeba gives
+  none); `check-khmer.js` allows that, and `?` and `!`, on the Sentences subdeck only.
+- **The build fails on a Wiktionary entry it has not decided** (`LEFT_OUT`, with reasons): the sounds (ក្រុកៗ a hen's
+  clucking), an expletive, a soldiers' command, the layperson's "yes" to royalty, two shorter wordings of "are you
+  married?", អញ្ជើញ (B1 teaches it), and four second forms of an English side already taught (អរុណសុវត្ថិ, សុភោជន,
+  សុរសភោជន, សូមកុំជក់បារី). **One proverb is left out**: កុំដេកចាំស្លាប់ កុំអង្គុយចាំមាន, whose Wiktionary gloss and
+  romanisation are a whole five-couplet poem the headword only begins.
+- **ONE ENGLISH SIDE PER SENTENCE**: where Tatoeba has two Khmer sentences for one English one, the first in the
+  deck's order (fewest words, then Tatoeba number) is kept. A sentence that is only a level word or a phrase above,
+  or that holds Latin letters or digits, is left out.
+
+**Known, left.** The sentences are Tatoeba's as written and were not read one by one; a few carry a contributor's
+misspelling (សួរស្តី for សួស្តី "hello" in #11486545). Each card's Tatoeba number is there so a fault can be traced
+and the sentence added to `DROP`. If B2 or C1 are built later, `phrases.LEVELS` must list them so no expression is
+taught twice.

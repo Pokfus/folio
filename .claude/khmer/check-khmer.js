@@ -27,7 +27,8 @@ for (const f of files) {
   d.cards.forEach((c, i) => {
     const F = c.fields, w = F.Word;
     if (c.id !== "u_" + id + "_" + (i + 1)) bad(f + ": card " + (i + 1) + " has id " + c.id);
-    if (!KHMER.test(w || "")) bad(f + ": card " + (i + 1) + " Word is not Khmer script: " + w);
+    const sentence = c.sub === "Sentences";   // the phrases deck's Tatoeba sentences: ? and ! allowed, no romanisation
+    if (!(sentence ? /^[\u1780-\u17dd ?!]+$/ : KHMER).test(w || "")) bad(f + ": card " + (i + 1) + " Word is not Khmer script: " + w);
     if (alphabet) {
       if (sides.has(F.Sound)) bad(f + ": " + w + " shares its sound side with " + sides.get(F.Sound));
       sides.set(F.Sound, w);
@@ -35,7 +36,7 @@ for (const f of files) {
     }
     if (seen.has(w)) bad(f + ": " + w + " is already taught in " + seen.get(w));
     seen.set(w, f);
-    if (!F.Roman) bad(f + ": " + w + " has no romanisation");
+    if (!F.Roman && !sentence) bad(f + ": " + w + " has no romanisation");
     else if (/[\u1780-\u17ff]/.test(F.Roman)) bad(f + ": " + w + " romanisation holds Khmer script: " + F.Roman);
     if (!F.English) bad(f + ": " + w + " has no English");
     for (const g of F.English.replace(/<div class="uc-pos">[^<]*<\/div>/g, "").replace(/<\/(li|div)>/g, "\n").replace(/<[^>]+>/g, "").split("\n")) {
