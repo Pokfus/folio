@@ -17554,6 +17554,91 @@ const BOOKS = {
     chapters: [1, 2, 3, 4, 5],
   },
 
+  "romeo-and-juliet": {
+    title: "Romeo and Juliet",
+    subtitle: "The Most Excellent and Lamentable Tragedy of Romeo and Juliet",
+    author: "William Shakespeare",
+    // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+    edition: "The Yale Shakespeare, ed. Willard Higley Durham, Yale University Press, New Haven, 1917",
+    written: "c. 1595",
+    year: 1595,
+
+    /* ---------- THE LICENCE, AND WHY THIS EDITION ----------
+       The play has never been in copyright. The edition is the Yale Shakespeare's of 1917, the same
+       series as Macbeth's and transcribed on Wikisource in the same way (proofread scan, glosses as
+       hover tooltips, end notes on their own page), so the `yale` layout reads it. Durham lived
+       1883–1955 (Wikidata Q61749309; Wikisource tags the volume PD/US|1955): public domain in the
+       United States under the pre-1929 rule, and everywhere the term is life plus seventy years or
+       less since the start of 2026 — NOT yet where it is life plus a hundred, which the rights text
+       says rather than claiming Macbeth's wording. The 1917 volume's appendices and index are the
+       editor's apparatus and are left behind, as for Macbeth.
+
+       ONE DIFFERENCE FROM MACBETH: the play opens with a Chorus's sonnet on a page of its own
+       ("Text/Prologue"), set ahead of Act I as `prePage`; Act II's own Chorus sits on that act's page. */
+    rights:
+      "Public domain. Shakespeare wrote the play in the mid-1590s and it was first printed in 1597, " +
+      "so the work itself has never been in copyright. The text here is the Yale Shakespeare edition " +
+      "edited by Willard Higley Durham and published by Yale University Press in 1917; Durham lived from " +
+      "1883 to 1955, so the edition is out of copyright in the United States under the rule for works " +
+      "published before 1929, and everywhere the term is the editor's life plus seventy years or less. " +
+      "What is taken is the play, the edition's list of characters, Durham's glosses from the foot of " +
+      "each page and his end notes, which are set with the glosses that point to them; his appendices " +
+      "and index are not reproduced.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Romeo_and_Juliet_(1917)_Yale",
+
+    about: [
+      "<b>Romeo and Juliet</b> is set in Verona, where the houses of Montague and Capulet have kept up " +
+        "a feud so old that nobody in the play remembers its cause. Romeo, Montague's son, slips into a " +
+        "Capulet feast and falls in love with Juliet, Capulet's daughter, who is not yet fourteen; that " +
+        "night, under her window, they agree to marry, and the next day Friar Laurence marries them in " +
+        "secret. That same afternoon Juliet's cousin Tybalt kills Romeo's friend Mercutio in a street fight, " +
+        "Romeo kills Tybalt, and the Prince banishes him to Mantua.",
+      "Everything after that is a race against time that the lovers lose. Juliet's father, knowing " +
+        "nothing of the marriage, hurries on her wedding to the County Paris; the Friar gives her a " +
+        "drug that will make her seem dead, and sends a letter to tell Romeo. The letter never arrives. " +
+        "Romeo hears only that Juliet is dead, buys poison, and goes to her tomb, where he kills Paris " +
+        "and drinks it; Juliet wakes beside him and stabs herself with his dagger. Over their bodies " +
+        "the two fathers are reconciled.",
+      "The play opens with a Chorus who tells the audience the ending in a sonnet — the <i>pair of " +
+        "star-cross'd lovers</i> who <i>with their death bury their parents' strife</i> — and the " +
+        "lovers' first words to each other at the feast make another sonnet between them. It is a " +
+        "tragedy that keeps turning towards comedy: the bawdy Nurse, Mercutio's fantasy of Queen Mab, " +
+        "the servants' brawl that opens the first scene. The whole action is crowded into a few days " +
+        "of high summer.",
+      "The story was already old. Shakespeare took it from Arthur Brooke's English poem <i>The " +
+        "Tragicall Historye of Romeus and Juliet</i> (1562), which came through French from an Italian " +
+        "novella of Matteo Bandello; Luigi da Porto had told it earlier and first set it in Verona. " +
+        "Brooke's lovers take months over what Shakespeare's do in days, and his Juliet is sixteen.",
+      "The play was written in the mid-1590s and printed in Shakespeare's lifetime: a short first " +
+        "quarto in 1597, and in 1599 a much fuller second quarto, “newly corrected, augmented, and " +
+        "amended”, on which modern editions mostly rest. The text here is the <i>Yale Shakespeare</i> " +
+        "edition of 1917, edited by Willard Higley Durham of Yale University, in modernised spelling. " +
+        "The early printings do not divide the play into acts and scenes; the divisions here are the " +
+        "ones modern editors have settled on, as Durham's own note says. Its line numbers are the " +
+        "edition's, printed every few lines, and can differ by a line or two from another edition's. " +
+        "The numbered notes are Durham's: the short glosses at the foot of each page, and, where a gloss " +
+        "sent the reader to the back of the book, the longer note it pointed to. The notes are in " +
+        "American spelling, and the speakers' names are abbreviated as his page prints them.",
+    ],
+
+    layout: "yale",
+    page: (n) => "Romeo and Juliet (1917) Yale/Text/Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    notesPage: "Romeo and Juliet (1917) Yale/Notes",
+    castPage: "Romeo and Juliet (1917) Yale/Text",
+    prePage: "Romeo and Juliet (1917) Yale/Text/Prologue",
+    /* Three printed line numbers the transcription mistypes, each read off the scan's page image
+       (Commons, the volume's djvu) — the run's "counted line N where the page prints M" warnings. */
+    fixes: [
+      ['<span class="bk-n">14</span>To Mantua', '<span class="bk-n">124</span>To Mantua', "IV. i. 124 — p. 90 (djvu 102) prints 124"],
+      ['<span class="bk-n">17</span>Now, fellow,', '<span class="bk-n">13</span>Now, fellow,', "IV. iv. 13 — p. 95 (djvu 107) prints 13"],
+      ['<span class="bk-n">184</span>And by and by', '<span class="bk-n">284</span>And by and by', "V. iii. 284 — p. 117 (djvu 129) prints 284"],
+    ],
+    chapterWord: "Act",
+    titleOf: (n) => "Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    chapters: [1, 2, 3, 4, 5],
+  },
+
   "classic-of-tea": {
     title: "The Classic of Tea",
     subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -24649,10 +24734,20 @@ function extractYale(h, act, endnotes, used, warn) {
   for (const p of paras) {
     const plain = p.html.replace(/<[^>]+>/g, "").replace(/[\u0001-\u0005]/g, "").trim();
     if (p.kind === "center" && /^ACT\b/.test(plain)) continue;   // the act's own head: the tab says it
+    /* A Chorus's PROLOGUE (Romeo and Juliet, Nov 2026: one on a page of its own ahead of Act I, one at
+       the head of Act II) is a scene numbered 0 — its glosses sit under the anchor `A2Prol`, or, on the
+       prologue's own page, under no anchor at all. */
+    if (p.kind === "center" && /^PROLOGUE$/i.test(plain)) {
+      if (scenes.length) warn("a prologue after the first scene");
+      sc = { k: 0, head: "Prologue", items: [], lines: [] };
+      scenes.push(sc);
+      n = 0; last = null;
+      continue;
+    }
     const sm = p.kind === "center" && plain.match(/^Scene (\w+)$/);
     if (sm) {
       const k = YALE_SCENE.indexOf(sm[1]);
-      if (k !== scenes.length + 1) warn("scene '" + sm[1] + "' out of sequence");
+      if (k !== scenes.filter((x) => x.k).length + 1) warn("scene '" + sm[1] + "' out of sequence");
       sc = { k: k, head: "Scene " + sm[1], items: [], lines: [] };
       scenes.push(sc);
       n = 0; last = null;
@@ -24670,6 +24765,10 @@ function extractYale(h, act, endnotes, used, warn) {
       const name = sp[2].trim().replace(/\.$/, "");
       who = sp[4] ? sp[1] + name + sp[3] + " " + sp[4].trim() + sp[5] : sp[1] + name + sp[3] + sp[5];
       rest = p.html.slice(sp[0].length);
+    } else if (!sc.k) {
+      // the Chorus is set in roman ("Chor.") or inside a gloss tooltip, not in the italic SPEAKER reads
+      const cm = p.html.match(/^\u0001?(Chor)\.\u0002?\s*/);
+      if (cm) { who = cm[1]; rest = p.html.slice(cm[0].length); }
     }
     const item = { who: who, cont: !who, lines: [] };
     rest.split(/<br\s*\/?>/).forEach((seg, j) => {
@@ -24695,10 +24794,12 @@ function extractYale(h, act, endnotes, used, warn) {
   }
 
   /* ---- the glosses, per scene, off the foot of the page ---- */
-  const footScenes = foot.split(/<span id="A\d+S(\d+)" title="Anchor:[^"]*" class="wst-anchor">/).slice(1);
+  let footScenes = foot.split(/<span id="A\d+(S\d+|Prol)" title="Anchor:[^"]*" class="wst-anchor">/).slice(1);
+  // a prologue on a page of its own: its glosses carry no scene anchor
+  if (!footScenes.length && scenes.length && scenes[0].k === 0) footScenes = ["Prol", foot];
   const gloss = {};
   for (let k = 0; k + 1 < footScenes.length; k += 2) {
-    const num = +footScenes[k];
+    const num = footScenes[k] === "Prol" ? 0 : +footScenes[k].replace(/^S/, "");
     const txt = footScenes[k + 1]
       .replace(/<style[\s\S]*?<\/style>/g, "").replace(/<link [^>]*>/g, "")
       .replace(/<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>/g, "")
@@ -31542,15 +31643,25 @@ async function fetchEnglish() {
     };
     const endnotes = yaleEndnotes(await cached("en-notes.html", BOOK.notesPage), warn);
     const cast = BOOK.castPage ? yaleCast(await cached("en-cast.html", BOOK.castPage), warn) : "";
+    // a prologue on a page of its own (Romeo and Juliet's Chorus), set after the cast at the head of Act I
     const used = new Set();
+    const pre = { html: "", notes: [] };
+    if (BOOK.prePage && FROM <= BOOK.chapters[0]) Object.assign(pre, correctGot(extractYale(
+      await cached("en-prologue.html", BOOK.prePage), 0, endnotes, used, warn)));
     for (const n of BOOK.chapters) {
       if (n < FROM || n > TO) continue;
       const h = await cached("en-" + String(n).padStart(2, "0") + ".html", BOOK.page(n));
       const got = correctGot(extractYale(h, n, endnotes, used, warn));
       if (got.html.length < (BOOK.minChars || 200))
         throw new Error(BOOK.chapterWord + " " + n + " came back short (" + got.html.length + " chars)");
+      /* the prologue's own notes come first, so its markers are renumbered past none and the act's
+         past the prologue's */
+      const first = n === BOOK.chapters[0];
+      const off = first ? pre.notes.length : 0;
+      const body = off ? got.html.replace(/data-fn="(\d+)"/g, (a, d) => 'data-fn="' + (+d + off) + '"') : got.html;
       chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n),
-        html: (n === 1 && cast ? cast + "\n" : "") + got.html, notes: got.notes });
+        html: (first && cast ? cast + "\n" : "") + (first && pre.html ? pre.html + "\n" : "") + body,
+        notes: (first ? pre.notes : []).concat(got.notes) });
     }
     // every end note reaches the page, through a gloss or on its own line — checked, not assumed
     if (FROM <= BOOK.chapters[0] && TO >= BOOK.chapters[BOOK.chapters.length - 1]) {
