@@ -12642,6 +12642,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      greens further down the sweep (15.0 and 14.8) were refused on the Euripides test: one sits 15.3 from
      Gilgamesh, whose flood is Genesis's, the other 14.8 from Aquinas. Keyed by id, the book being anonymous. */
   "king-james-bible": "#410064",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-one colours placed (Nov 2026, adding Leviathan): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. A sweep of the cube at a step of 3, refined to 1 around the
+     best, tops out at 15.2 — below the shelf's tightest real pair (15.6), so the band is now FULL and
+     nothing better exists inside it. THE EURIPIDES TEST: this dark olive's nearest are Gilgamesh 15.2, the
+     Book of Documents 15.3 and Boethius 15.4, none a book read beside Hobbes; the ones that are stand well
+     off — Jefferson 29.2, Augustine 34.9, Aquinas 38.4, Aristotle 56.0, Plato 68.4, Machiavelli 79.9 and
+     Thucydides, whom Hobbes translated, 90.0. Of the sweep's other near-best, a green stood 15.7 from
+     Aquinas and a purple 14.7 from Magna Carta and Euripides, and the olive was taken over both for clearing
+     every political book by twice the margin. It reads 7.76:1 on the tightest light paper. */
+  "Thomas Hobbes": "#263700",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -16427,6 +16438,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Noah": [143, 144, 153, 204],
         "Claudius": [1214],
       },
+    },
+    {
+      id: "hobbes-leviathan",
+      title: "Leviathan",
+      subtitle: "Or the Matter, Forme, & Power of a Common-wealth Ecclesiasticall and Civill",
+      author: "Thomas Hobbes",
+      written: "1651",
+      year: 1651,
+      /* NO `translator`: written in English, like the Declaration. */
+      edition: "The first edition (the 'Head' issue), printed for Andrew Crooke, London, 1651",
+      /* No limit to state: printed in 1651, its author dead since 1679. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Thomas Hobbes published Leviathan in London in 1651 and died in 1679, " +
+        "so the book has never been in copyright anywhere. The text is the proofread Wikisource " +
+        "transcription of the first edition, from a scan of a copy held by the Internet Archive.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Leviathan_(1651)",
+      /* NO `origLang`: the book is English. Forty-nine sections — Hobbes's Introduction, his forty-seven
+         chapters and his Review and Conclusion — so a tab's number runs one ahead of the chapter's, whose
+         Roman numeral opens each title (Don Quixote's arrangement; the front matter says so). "Section"
+         rather than "Chapter" so that no tab claims to be a chapter it is not. */
+      chapterWord: "Section",
+      count: 49,
+      total: 49,
+      /* Hobbes's own four Parts. */
+      parts: [
+        { n: 1, label: "Part I · Of Man", note: "The Introduction and chapters I–XVI — sense, speech, the passions, the state of nature" },
+        { n: 2, label: "Part II · Of Common-wealth", note: "Chapters XVII–XXXI — the covenant, the sovereign, the liberty of subjects, the laws" },
+        { n: 3, label: "Part III · Of a Christian Common-wealth", note: "Chapters XXXII–XLIII — Scripture read against any church's claim over the sovereign" },
+        { n: 4, label: "Part IV · Of the Kingdome of Darknesse", note: "Chapters XLIV–XLVII and the Review and Conclusion" },
+      ],
     },
   ];
   const BOOK_BY_ID = {};
