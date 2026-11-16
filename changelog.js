@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1334", released: "2026-11-16T04:02Z" };
+window.FOLIO_VERSION = { v: "1.1335", released: "2026-11-16T04:11Z" };
 
 window.CHANGELOG = [
   {
@@ -55,6 +55,7 @@ window.CHANGELOG = [
       "Mandarin Chinese gains a <b>Bopomofo</b> deck: 62 zhuyin symbols, tone marks and combinations, each with its pinyin, sound and example words.",
       "Shakespeare's <b>Romeo and Juliet</b> (Yale edition, 1917, with its Prologue) and <b>Julius Caesar</b> (1919) are in the Library, each with its characters and every gloss.",
       "Spanish gains a <b>Sounds and spelling</b> deck, and <b>DELE A1</b> now opens with hola, gracias and por favor, in a teaching order.",
+      "French gains a <b>Sounds and spelling</b> deck, and <b>DELF A1</b> now opens with bonjour, merci and s'il vous plaît, with 43 everyday words added.",
       "The <b>By frequency</b> review order is gone: it only re-sorted cards already dealt, and language decks ship in a teaching order instead.",
       "<b>Hungarian</b> has a colour of its own on the Collections page; it had been sharing Vietnamese's.",
       "100 new cards in <b>Ancient Egypt</b>, from Thebes and the royal tombs through the Third Intermediate Period to Kush and the Assyrian invasions, with 95 new glossary terms.",
