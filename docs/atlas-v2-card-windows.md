@@ -43,7 +43,8 @@ Atlas page's own canvases.
 
 ## `startCardGlobe`'s contract (what a replacement must keep)
 
-- **Host attributes:** `data-map-layer`, `-key` (pipe list), `-dot`, `-zoom`, `-named`; locator: `-card`, `-at`, `-atname`, `-kind`,
+- **Host attributes:** `data-map-layer`, `-key` (pipe list; since 2026-11-15 empty in the markup for a map card whose key is its places — the window
+  fills it from `cardMapKeys` once `atlas2cards` and `atlas2places` are in, `docs/map-cards.md` "The key is the card's places"), `-dot`, `-zoom`, `-named`; locator: `-card`, `-at`, `-atname`, `-kind`,
   `-within`, `-label`, `-area` (rings joined by `;`, points by a space), `-spine`; war: `data-war-v`, `-varea`, `-l`, `-larea`.
 - **Markup:** `.mc-canvas`, `.mc-zoom .mc-btn[data-mc=in|out|home|go]`, `.mc-alt`, `.mc-new` (the "Discovered!" chip), the
   `mc-loading` / `mc-failed` states.

@@ -124,10 +124,13 @@ if (want(3)) {
 if (want(4)) {
   head(4, "Question — unambiguous within its own deck");
   const seats = {};
+  // a map card's key is its places read through card-faces.js where it carries none (map-places.js, 2026-11-15); the places are heavy, so through card-io
+  const MPL = require(path.join(__dirname, "map-places.js")), MPJ = MPL.loadJoin(), PLACES = {};
+  for (const c of require(path.join(__dirname, "card-io.js")).loadCards().cards) if (c.places) PLACES[c.id] = c.places;
   for (const d of GEO) for (const id of d.cardIds) {
     const c = BY[id];
     if (!c.map || !c.map.dot) continue;
-    const k = Array.isArray(c.map.key) ? c.map.key.join("|") : c.map.key;
+    const k = MPL.mapKeys(Object.assign({}, c, { places: PLACES[c.id] }), MPJ).join("|");
     (seats[k] = seats[k] || []).push(c);
   }
   for (const k of Object.keys(seats)) {

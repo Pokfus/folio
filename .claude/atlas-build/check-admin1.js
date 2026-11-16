@@ -23,6 +23,7 @@
                   levels are counted and held under COARSE_MAX
      capitals     the seat of each unit (admin1-capitals.json, coordinates fetched from Wikidata) inside the unit's face — or, where the seat lies in
                   another unit by fact (Chandigarh, the capital of Punjab and Haryana, is a union territory of its own), inside that one
+     boxes        (step 3) every country of the file has a box in atlas.js ADMIN1_FILE_BOXES (when the page fetches the file) holding every vertex of its units
      twin         admin1.bin.js decodes to the file's bytes, and every file:// twin together is within 12 MB */
 "use strict";
 const fs = require("fs"), path = require("path");
@@ -217,6 +218,25 @@ for (const c of spec.countries) {
   const fine = count(A.lodCount - 1);
   fine.n ? bad("no inner line crosses another or the boundary at LOD 2", fine.n + " crossings, e.g. " + fine.at.join(" ")) : ok("no inner line crosses another or the boundary at LOD 2");
   for (let L = 0; L < A.lodCount - 1; L++) { const r = count(L); r.n <= COARSE_MAX ? ok(`coarse crossings at level ${L} within ${COARSE_MAX}`, r.n + (r.at.length ? " (e.g. " + r.at.join(" ") + ")" : "")) : bad(`coarse crossings at level ${L} within ${COARSE_MAX}`, r.n + " (e.g. " + r.at.join(" ") + ")"); }
+}
+
+/* ---------- the page's boxes (step 3, 2026-11-15): atlas.js ADMIN1_FILE_BOXES decides when the Atlas page fetches the file (its Provinces lines over one of the
+   file's countries), so every country of the file must have a box there holding every vertex of its units — its own arcs and every core arc it references ---------- */
+{
+  const src = fs.readFileSync(path.join(ROOT, "atlas", "atlas.js"), "utf8");
+  const m = /const ADMIN1_FILE_BOXES = (\{[^;]*\});/.exec(src);
+  let boxes = null; try { boxes = m ? JSON.parse(m[1].replace(/([A-Z]{3}):/g, '"$1":')) : null; } catch (e) { boxes = null; }
+  if (!boxes) bad("atlas.js carries ADMIN1_FILE_BOXES");
+  else {
+    const CQ = C.quantum || Q;
+    for (const a3 of (H.admin1 && H.admin1.countries) || []) {
+      const box = boxes[a3]; if (!box) { bad("atlas.js ADMIN1_FILE_BOXES has " + a3); continue; }
+      const parent = "adm0:" + a3.toLowerCase(); let out = 0, n = 0; const ext = [Infinity, Infinity, -Infinity, -Infinity];
+      const see = (lo, la) => { n++; ext[0] = Math.min(ext[0], lo); ext[1] = Math.min(ext[1], la); ext[2] = Math.max(ext[2], lo); ext[3] = Math.max(ext[3], la); if (lo < box[0] || lo > box[2] || la < box[1] || la > box[3]) out++; };
+      A.faces.forEach((f) => { if (H.entities[f.entity].parent !== parent) return; for (const ring of f.rings) for (const ref of ring) { const a = Math.abs(ref) - 1; if (A.coreArc[a] >= 0) { const c = A.coreArc[a]; for (let i = C.arcOffset[c]; i < C.arcOffset[c + 1]; i++) see(C.lon[i] * CQ, C.lat[i] * CQ); } else for (let i = A.arcOffset[a]; i < A.arcOffset[a + 1]; i++) see(A.lon[i] * Q, A.lat[i] * Q); } });
+      out === 0 && n > 0 ? ok("atlas.js ADMIN1_FILE_BOXES." + a3 + " holds the country's units", `[${box.join(", ")}] ⊇ [${ext.map((v) => v.toFixed(2)).join(", ")}]`) : bad("atlas.js ADMIN1_FILE_BOXES." + a3 + " holds the country's units", `${out} of ${n} vertices outside; the units reach [${ext.map((v) => v.toFixed(3)).join(", ")}]`);
+    }
+  }
 }
 
 /* ---------- twin ---------- */

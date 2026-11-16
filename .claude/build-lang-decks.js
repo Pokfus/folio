@@ -84,7 +84,12 @@ const LANGS = [
   { word: "Russian", name: "Russian", l1: 145, total: 210 },     // Ethnologue 28th ed. (2026), via Wikipedia, read 2026-10-30
   { word: "Japanese", name: "Japanese", l1: 124, total: 126 },  // Ethnologue (29th ed., 2026), via Wikipedia's list, read 2026-10-30
   { word: "Persian", name: "Persian (Farsi)", l1: 91, total: 127 }, // Farsi + Dari + Tajik, Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
-  { word: "Vietnamese", name: "Vietnamese", l1: 86, total: 97 },  // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
+  { word: "Vietnamese", name: "Vietnamese", l1: 86, total: 97 },
+  /* CANTONESE (Nov 2026): Wikipedia's Cantonese article gives no speaker figure in its infobox, so the row is
+     Yue Chinese's, of which standard Cantonese is by far the largest variety: 85 million L1 (Ethnologue 28th
+     ed., via the Yue Chinese infobox) and 86 total (the "List of languages by total number of speakers"
+     table), both read 2026-11-15. The word "Cantonese" files no Mandarin deck: those are named "Mandarin-". */
+  { word: "Cantonese", name: "Cantonese", l1: 85, total: 86 },  // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
   { word: "Turkish", name: "Turkish", l1: 85, total: 94 },        // Wikipedia's infobox (Ethnologue 2022 says 77.6)
   { word: "Telugu", name: "Telugu", l1: 83, total: 96 },          // Census of India 2011 (82.97 million), via Wikipedia's infobox, read 2026-11-09
   { word: "Korean", name: "Korean", l1: 81, total: 82 },          // Wikipedia's infobox (81.2 million, as of 2020), read 2026-11-09
@@ -142,6 +147,9 @@ function levelRank(title) {
   /* ZULU'S NOUN CLASSES AND SOUNDS COME BEFORE A1 (Nov 2026): Zulu is written in the Latin alphabet, so its
      first deck is the classes and clicks every word card names, Hindi's alphabet's counterpart. */
   if (/\bNoun Classes\b/.test(title)) return -1;
+  /* CANTONESE'S JYUTPING AND TONES COME BEFORE A1 (Nov 2026): Chinese characters are not an alphabet, so the
+     collection's first deck is the romanisation and the six tones every word card prints. */
+  if (/\bJyutping\b/.test(title)) return -1;
   const m = /\b([ABC][12])\b/.exec(title);
   if (m) return LEVELS.indexOf(m[1]);
   /* THE KANA COME BEFORE EVERY LEVEL: Japanese cannot be read at all until hiragana and katakana are learnt, so

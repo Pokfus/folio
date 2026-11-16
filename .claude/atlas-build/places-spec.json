@@ -5011,31 +5011,6 @@
     }
    ]
   },
-  "pl:q1607754": {
-   "name": "Heraion of Argos",
-   "kind": "site",
-   "sub": "site",
-   "qid": "Q1607754",
-   "at": [
-    22.7747,
-    37.6919
-   ],
-   "within": "",
-   "aliases": [
-    "Argive Heraion"
-   ],
-   "wiki": "Heraion of Argos",
-   "by": "migration",
-   "evidence": {
-    "classes": [
-     "Q839954",
-     "Q1057440"
-    ],
-    "via": "label",
-    "km": 0
-   },
-   "cards": 1
-  },
   "pl:q1609149": {
    "name": "Pyramid of Neferirkare",
    "kind": "site",
