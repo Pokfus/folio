@@ -15799,6 +15799,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       glossOff: ["Norway", "Ireland", "Russia", "Gunpowder"],
     },
     {
+      id: "romeo-and-juliet",
+      title: "Romeo and Juliet",
+      subtitle: "The Most Excellent and Lamentable Tragedy of Romeo and Juliet",
+      author: "William Shakespeare",
+      /* "c." because no record names the year of writing: the play was first printed in 1597, and the
+         mid-1590s is where its style and its borrowings point. */
+      written: "c. 1595",
+      year: 1595,
+      // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+      edition: "The Yale Shakespeare, ed. Willard Higley Durham, Yale University Press, New Haven, 1917",
+      /* The play has never been in copyright; the Yale edition was published in 1917 and its editor died
+         in 1955, so it clears the US pre-1929 rule and, since the start of 2026, life plus seventy — not
+         yet life plus a hundred, which is why this text does not borrow Macbeth's wording. */
+      rights:
+        "Public domain. Shakespeare wrote the play in the mid-1590s and it was first printed in 1597, " +
+        "so the work itself has never been in copyright. The text here is the Yale Shakespeare edition " +
+        "edited by Willard Higley Durham and published by Yale University Press in 1917; Durham lived from " +
+        "1883 to 1955, so the edition is out of copyright in the United States under the rule for works " +
+        "published before 1929, and everywhere the term is the editor's life plus seventy years or less. " +
+        "What is taken is the play, the edition's list of characters, Durham's glosses from the foot of " +
+        "each page and his end notes, which are set with the glosses that point to them; his appendices " +
+        "and index are not reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Romeo_and_Juliet_(1917)_Yale",
+      /* NO `origLang`: Shakespeare's English is the original. Five acts, each a tab; the opening Chorus
+         is set at the head of Act I, after the list of characters. */
+      chapterWord: "Act",
+      count: 5,
+      total: 5,
+    },
+    {
       id: "classic-of-tea",
       title: "The Classic of Tea",
       subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -25928,6 +25959,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "MIDWAY upon the journey of our life I found myself within a forest dark, For the straightforward pathway had been lost. Ah me! how hard a thing it is to say What was this forest savage, rough, and stern, Which in the very thought renews the fear. So bitter is it, death is little more; But of the good to treat, which there I found, Speak will I of the other things I saw there. I cannot well repeat how there I entered, So full was I of slumber at the moment In which I had abandoned the true way. But after I had reached a mountain's foot, At that point where the valley terminated, Which had with…" },
     { book: "macbeth", n: 5, t: "Act V", p: 101,
       text: "She should have died hereafter; There would have been a time for such a word. To-morrow, and to-morrow, and to-morrow, Creeps in this petty pace from day to day, To the last syllable of recorded time; And all our yesterdays have lighted fools The way to dusty death. Out, out, brief candle! Life's but a walking shadow, a poor player That struts and frets his hour upon the stage, And then is heard no more; it is a tale Told by an idiot, full of sound and fury, Signifying nothing. Enter a Messenger. Thou com'st to use thy tongue; thy story quickly. Mess Gracious my lord, I should report that…" },
+    { book: "romeo-and-juliet", n: 2, t: "Act II", p: 23,
+      text: "He jests at scars, that never felt a wound. [Juliet appears above at a window.] But, soft! what light through yonder window breaks? It is the east, and Juliet is the sun! Arise, fair sun, and kill the envious moon, Who is already sick and pale with grief, That thou her maid art far more fair than she: Be not her maid, since she is envious; Her vestal livery is but sick and green, And none but fools do wear it; cast it off. It is my lady; O! it is my love: O! that she knew she were. She speaks, yet she says nothing: what of that? Her eye discourses; I will answer it. I am too bold, 'tis not to…" },
     { book: "classic-of-tea", n: 1, t: "The Origin of Tea", p: 1,
       text: "Tea is a fine tree of the South. Its height is from one to two feet to several tens of feet. The tea plants which grow on the hills and by the streams of Pa Shan [in the province of Szechwan] are sometimes so big that it takes two men to encircle them with their arms. They are cut down and then their leaves are plucked. A tea plant is like kua lu, a tree growing in Canton, the leaves of which are bitter and acrid in taste; its leaves are like those of the gardenia; its flowers are like the white cinnamon roses; its seeds are like those of the palm and coconut palm; its stalks are like those…" },
     { book: "magna-carta", n: 39, t: "Chapter 39", p: 1,
