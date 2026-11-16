@@ -38,7 +38,7 @@ import argparse, json, os, re, sys
 from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import cs, cs_level
+import cs, cs_level, inventory
 
 TOP_SURFACES = 80000
 SUPPLEMENT_N = 45
@@ -202,6 +202,114 @@ def pos_of(r):
     return out
 
 
+# THE FILL OF AN ASSEMBLED LEVEL never takes these, whatever their count -- each with its reason.
+FILL_EXCLUDE = {
+    "ok", "okej", "hej", "ehm", "hm", "hmm", "aha", "jo", "jé", "ach", "och", "oh", "au", "fuj", "haha",   # film dialogue
+    "kurva", "sakra", "hovno", "prdel", "debil", "kretén", "čurák", "hajzl", "zasraný", "posrat", "srát",
+    "kurevsky", "zkurvysyn", "mrcha", "děvka", "píča", "zmrd", "šuk", "kurwa",     # swearing: dubbed-film counts
+    "ve", "ze", "ke", "se",    # the vocalised forms of v, z, k, s ("alternative form of v"), taught with them
+    "tys", "žes", "bychom", "bys", "byste", "bych",   # fused and conditional forms (ty + jsi; být's conditional)
+    "mami", "tati", "mamko", "tatínku",              # vocatives with entries of their own: máma, táta are taught
+    "spoustu",                 # spousta's accusative, entered as an adverb; spousta is taught at A2
+    "dna",                     # "gout": its count is dno's genitive
+    "jménem",                  # "on behalf of": its count is jméno's instrumental
+    "frank",                   # "franc": its count is the name Frank
+    "um",                      # "skill": its count is English "um" in the subtitles
+    "stop",                    # Wiktionary's nouns ("hitchhiking"); its count is the interjection "stop!"
+    "moci", "zem",             # variants of moct (A1) and země, which carry the same meanings
+    "přede", "beze",           # vocalised před, bez, taught at A1 and A2
+    "dan", "don", "marka",     # judo's "dan", the Spanish title, "mark": their counts are the names Dan, Don, Mark
+    "korekce", "titulek",      # "correction", "caption": their counts are subtitle credits (Polish's `korekta`)
+    "vteřina",                 # "second" of time; Wiktionary's only sense is the arcsecond
+}
+# A fill word glossed only as a fused or negated form of another is not a word: `te` "Combined form of to + je",
+# `nehýbat` "negative form of hýbat".
+FUSED = re.compile(r"(?i)^(?:combined|negative) form of ")
+
+
+def assembled(level, D, S, counts, below):
+    """A level with no official list: the inventory (`inventory.py`), then the FILL up to `cs_level.SIZE` --
+    the commonest dictionary words no level below teaches -- on Polish's rules (`.claude/polish/select.py`):
+    a fill word may not be a form of a commoner word, a pronoun's cell always shadows, an interjection or
+    particle is shadowed by any table it sits in, a closed-class word (adverb, conjunction, preposition,
+    numeral) is exempt from a verb's shadow.  Never a word the official lists name at A1 or A2 (it is already
+    taught there, or was refused there for its meaning), never a pointer (its lemma is the word), never the base
+    of a reflexive verb already taught (`bát` after `bát se`)."""
+    listed = {re.sub(r"\s*\([^)]*\)", "", r["text"]).strip() for lv in S for r in S[lv]}
+    seen = set(below)
+    taught_refl = {w.split(" ")[0] for w in below if REFLEXIVE.match(w)}
+    words, unresolved = [], []
+    def reflexive_head(got):
+        """`snažit` -> `snažit se`: a verb that is only reflexive is taught with its clitic (`cs.only_reflexive`)."""
+        c = cs.only_reflexive(D.get(got["lemma"], [])) if " " not in got["word"] else None
+        return dict(got, word=got["word"] + " " + c) if c else got
+    for h, topic in inventory.headwords(level):
+        got = resolve(D, h)
+        if not got:
+            unresolved.append(h)
+            continue
+        got = reflexive_head(got)
+        if got["word"] in seen:
+            continue
+        seen.add(got["word"])
+        words.append(dict(got, topic=topic))
+    inv_n = len(words)
+    print("! the dictionary does not carry (dropped): %d -- %s" % (len(unresolved), ", ".join(unresolved)),
+          file=sys.stderr)
+    EXEMPT = {"verb": {"adv", "conj", "prep", "num"}, "other": {"adv", "conj", "prep", "particle", "num"}}
+    owners = defaultdict(set)
+    for o, entries in D.items():
+        for e in entries:
+            if cs.live(e) and o == cs.fold(o):
+                for f, tg in cs.table_forms(e):
+                    if cs.fold(f) != o:
+                        owners[cs.fold(f)].add((o, e["pos"], bool(set(tg) & {"imperative", "transgressive"})))
+    shadowed, fill = [], []
+    for w, n in sorted(counts.items(), key=lambda x: (-x[1], x[0])):
+        if len(words) + len(fill) >= cs_level.SIZE[level]:
+            break
+        if (w in seen or w in listed or w in FILL_EXCLUDE or w in EXCLUDE or len(w) < 2 or w in taught_refl
+                or w != cs.fold(w) or not any(cs.live(e) for e in D.get(w, [])) or cs.target(D.get(w, []))
+                or all(FUSED.match(s_["g"][-1]) for e in D[w] if cs.live(e) for s_ in e["senses"] if cs.gloss(s_))):
+            continue
+        own_pos = {e["pos"] for e in D.get(w, []) if cs.live(e)}
+        thin = bool(own_pos) and own_pos <= {"intj", "particle"}
+
+        # AN IMPERATIVE IS NOT A NOUN'S OWNER: `boj` "fight", `pokus` "attempt" and `dav` "crowd" are also
+        # imperatives (`boj se`, `pokus se`, dávit's `dav`) and were skipped as forms of their verbs.
+        def shadows(o, pos, imp):
+            if imp and own_pos & {"noun", "adj"}:
+                return False
+            if pos == "pron":
+                return True
+            if own_pos & EXEMPT["verb" if pos == "verb" else "other"]:
+                return False
+            return thin or counts.get(o, 0) > n
+        if any(shadows(o, pos, imp) for o, pos, imp in owners.get(w, ())):
+            shadowed.append(w)
+            continue
+        got = reflexive_head({"word": w, "lemma": w})
+        if got["word"] in seen:
+            continue
+        seen.add(w)
+        seen.add(got["word"])
+        fill.append(got)
+    print("  fill skipped as forms of a commoner word: %d (e.g. %s)" % (len(shadowed), ", ".join(shadowed[:15])),
+          file=sys.stderr)
+    words += fill
+    raw = {}
+    for w_, n_ in read_frequency():
+        raw[w_] = raw.get(w_, 0) + n_
+    for x in words:
+        x["count"] = 0 if " " in x["lemma"] else round(max(counts.get(x["lemma"], 0), raw.get(x["word"], 0)))
+    words.sort(key=lambda x: (" " in x["word"] and not REFLEXIVE.match(x["word"]), -x["count"], x["word"]))
+    out = {"level": level, "inventory": inv_n, "fill": len(fill), "unresolved": unresolved, "words": words}
+    with open(os.path.join(cs.CACHE, "wordlist-%s.json" % level), "w", encoding="utf-8") as fh:
+        json.dump(out, fh, ensure_ascii=False, indent=1)
+    print("wordlist-%s.json: %d words (%d inventory, %d frequency)" % (level, len(words), inv_n, len(fill)),
+          file=sys.stderr)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--level", default="a1")
@@ -210,6 +318,9 @@ def main():
     S = json.load(open(os.path.join(cs.CACHE, "soupis.json"), encoding="utf-8"))
     counts = lemma_counts(D, read_frequency())
     below = cs_level.taught_below(a.level)
+
+    if a.level not in S:
+        return assembled(a.level, D, S, counts, below)
 
     words, unresolved, seen = [], [], set(below)
     for r in S[a.level]:

@@ -48,7 +48,7 @@ LEAD = {}
 
 # A SENSE NOT TAUGHT though Wiktionary carries it untagged -- each with its reason.
 DROP_SENSE = {
-    ("udělat", "(se/si) to ejaculate semen, cum"),    # vulgar, untagged, beside "to do"
+    ("udělat", "to ejaculate semen, cum"),    # vulgar, untagged, beside "to do" (matched without its "(se) ")
 }
 # An ENTRY not taught: a rare homograph of a supplement word, which has no list part of speech to narrow it.
 DROP_ENTRY = {
@@ -83,7 +83,7 @@ def collect(word, L, colloquial, only_reflexive):
                 continue
             for g in ((cs.parent(s) if not only_reflexive else None),
                       cs.gloss(s, reflexive_mark=e["pos"] == "verb" and not only_reflexive, colloquial=colloquial)):
-                if g and g not in gl and (word, g) not in DROP_SENSE:
+                if g and g not in gl and (word, re.sub(r"^(?:\(colloquial\) )?\((?:se|si|se/si)\) ", "", g)) not in DROP_SENSE:
                     gl.append(g)
         if gl:
             pos = POS_NAME[e["pos"]]
@@ -285,7 +285,7 @@ def main():
     deck_id = cs_level.deck_id(lv)
     cards, refused = [], []
     stats = {"noun": 0, "verb": 0, "adj": 0, "pron": 0, "ex3": 0, "ex0": 0, "phrases": 0,
-             "official": 0, "supplement": 0, "collocation": 0, "coll_eg": []}
+             "official": 0, "supplement": 0, "collocation": 0, "coll_eg": [], "inventory": 0}
     for x in wl["words"]:
         w = x["word"]
         senses = senses_of(x, D)
@@ -298,6 +298,7 @@ def main():
         if " " in x["lemma"]:
             stats["phrases"] += 1
         stats["supplement" if x.get("supplement") else "official"] += 1
+        stats["inventory"] += "topic" in x
         if x.get("official") == "collocation":
             stats["collocation"] += 1
             stats["coll_eg"].append(x["from"])

@@ -3992,7 +3992,8 @@ changed was the one that had been wrong all along.
   is measured, `#303696`.
 - `.claude/czech/` — the generator behind the Czech decks (Nov 2026, on request: "Add a Czech language collection";
   the owner not asked). **Built: A1, `decks/Czech-A1.folio-deck.json`** (1,213 notes / 2,426 cards) **and A2,
-  `decks/Czech-A2.folio-deck.json`** (1,161 notes). `python3 .claude/czech/run.py [--level a1|a2]`,
+  `decks/Czech-A2.folio-deck.json`** (1,161 notes), **and B1, `decks/Czech-B1.folio-deck.json`** (1,000 notes,
+  assembled: no list exists beyond A2, so a Threshold Level topic inventory plus frequency fill). `python3 .claude/czech/run.py [--level a1|a2|b1]`,
   `node .claude/czech/check-czech.js`; a re-run is byte-identical. Polish's pipeline adapted. **What is new: an
   OFFICIAL list** — NPI ČR publishes the permanent-residence exam's whole A1–A2 lexicon (the Soupis lexikálních
   jednotek) as a search tool, read by `soupis.py`, so A1 and A2 select nothing (the Goethe line); A1 adds 51

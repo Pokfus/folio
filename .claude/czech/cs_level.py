@@ -11,7 +11,8 @@ THE NAMES ARE ENGLISH, as for Polish and Turkish: the collection is "Czech" and 
 import html, json, os, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-BANDS = ("a1", "a2")
+BANDS = ("a1", "a2", "b1")
+SIZE = {"b1": 1000}          # an assembled level's size, in notes (Polish B1's)
 FILE = "Czech-%s.folio-deck.json"
 COLOR = "#3C7675"   # the Czech collection's hue, `lang-czech` in app.js COLL_THEME (measured)
 
@@ -61,14 +62,71 @@ def _eg(cards, word):
     return "%s: %s" % (word, ", ".join(f for _, f in _row(c))) if c else None
 
 
+def _morph(stats, cards):
+    morph = ["Czech changes the endings of its nouns, adjectives and verbs, and stems change with them, so each "
+             "card carries the forms that cannot be guessed, read from a dictionary rather than generated."]
+    if stats["noun"]:
+        eg = _eg(cards, "pes") or _eg(cards, "dům")
+        morph.append("%s nouns show their gender, three cases of the singular and two of the plural%s." % (
+            C(stats["noun"]), " — " + eg if eg else ""))
+    if stats["verb"]:
+        eg = _eg(cards, "jít") or _eg(cards, "dělat")
+        morph.append("%s verbs show their aspect and its partner, the forms for já (I), on (he) and oni (they) "
+                     "and the past of on%s — a perfective verb's present forms being its future." % (
+                         C(stats["verb"]), " — " + eg if eg else ""))
+    if stats["adj"]:
+        morph.append("%s adjectives show their comparative and superlative." % C(stats["adj"]))
+    if stats["pron"]:
+        morph.append("%s pronouns show their cases." % C(stats["pron"]) if stats["pron"] > 1
+                     else "One pronoun shows its cases.")
+    return morph
+
+
+def describe_assembled(level, n, stats, cards, s):
+    """A level with no official list (B1): the inventory and the fill, said as what they are."""
+    lv, fill = level.upper(), n - stats["inventory"]
+    s.append("WHERE THESE WORDS COME FROM, since it matters: no Czech exam board publishes a word list beyond A2 — "
+             "the A1 and A2 decks follow the official list of the permanent-residence exam, but the B1 citizenship "
+             "exam and Charles University's CCE exams publish none. So %s of the %s words were written for Folio, "
+             "a topic at a time, for %s — the next layer of vocabulary beyond A1 and A2 — together with the words "
+             "of opinion and argument the level needs. They are Folio's choice, not an exam board's, and this is "
+             "not an official word list." % (C(stats["inventory"]), C(n), SCOPE[level]))
+    if fill:
+        s.append("The other %s are the commonest words of everyday Czech not already chosen, from a frequency list "
+                 "built from film and television subtitles, each word counted over all its forms." % C(fill))
+    s.append("No word taught in A1 or A2 is repeated.")
+    s.append("The cards are ordered by that frequency, so the words met most often come first%s." % (
+        "; the %s multi-word expressions, which a list of single words cannot count, come last" % C(stats["phrases"])
+        if stats["phrases"] > 1 else ""))
+    s.extend(_morph(stats, cards))
+    have = n - stats["ex0"]
+    if have:
+        s.append("Real example sentences come with %s of the %s words, three apiece for %s, with the word picked "
+                 "out in colour and a speaker beside the sentence and the headword." % (C(have), C(n), C(stats["ex3"])))
+    s.append("Meanings, forms and parts of speech: English Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). "
+             "Frequency ordering: a word list built from OpenSubtitles (hermitdave/FrequencyWords, CC BY-SA 4.0). "
+             "Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR.")
+    return " ".join(s)
+
+
+SCOPE = {
+    "b1": "the fourteen themes of the Council of Europe's Threshold Level (van Ek and Trim, 1990), the "
+          "specification the CEFR's level B1 descends from: personal identification, house and home and the "
+          "environment, daily life, free time and entertainment, travel, relations with other people, health and "
+          "body care, education, shopping, food and drink, services, places, language and the weather",
+}
+
+
 def describe(level, n, stats, cards):
     lv = level.upper()
     s = ["Both study directions in one deck: Czech → English (see the Czech, recall the meaning) and "
          "English → Czech (see an English meaning, recall the Czech). Each direction is a card of its own with "
          "its own schedule, so recognising a word and producing it are learnt separately.",
          "%s words and expressions for level %s of the Common European Framework of Reference for Languages."
-         % (C(n), lv),
-         "WHERE THESE WORDS COME FROM: %s of them are the %s entries of the official word list of the Czech "
+         % (C(n), lv)]
+    if level in SIZE:
+        return describe_assembled(level, n, stats, cards, s)
+    s += ["WHERE THESE WORDS COME FROM: %s of them are the %s entries of the official word list of the Czech "
          "language exam for permanent residence — the Soupis lexikálních jednotek published by the National "
          "Pedagogical Institute of the Czech Republic (NPI ČR) with its reference description of Czech for "
          "levels A1 and A2 — that an English dictionary can teach. The list's grammatical patterns (\"čekat na\", "
@@ -92,23 +150,7 @@ def describe(level, n, stats, cards):
              "all its forms, so the commonest come first%s." % (
                  "; the %s multi-word expressions, which a list of single words cannot count, come last"
                  % C(stats["phrases"]) if stats["phrases"] else ""))
-    morph = ["Czech changes the endings of its nouns, adjectives and verbs, and stems change with them, so each "
-             "card carries the forms that cannot be guessed, read from a dictionary rather than generated."]
-    if stats["noun"]:
-        eg = _eg(cards, "pes") or _eg(cards, "dům")
-        morph.append("%s nouns show their gender, three cases of the singular and two of the plural%s." % (
-            C(stats["noun"]), " — " + eg if eg else ""))
-    if stats["verb"]:
-        eg = _eg(cards, "jít") or _eg(cards, "dělat")
-        morph.append("%s verbs show their aspect and its partner, the forms for já (I), on (he) and oni (they) "
-                     "and the past of on%s — a perfective verb's present forms being its future." % (
-                         C(stats["verb"]), " — " + eg if eg else ""))
-    if stats["adj"]:
-        morph.append("%s adjectives show their comparative and superlative." % C(stats["adj"]))
-    if stats["pron"]:
-        morph.append("%s pronouns show their cases." % C(stats["pron"]) if stats["pron"] > 1
-                     else "One pronoun shows its cases.")
-    s.extend(morph)
+    s.extend(_morph(stats, cards))
     s.append("A reflexive verb is taught as the list writes it, with its se or si (bát se, dát si); where the "
              "dictionary's meaning says only that a sense is reflexive, it is marked (se/si).")
     have = n - stats["ex0"]

@@ -6,9 +6,10 @@ are LETTERS, never folded away: `byt` ("flat") is not `být` ("to be"), `sál`
 costs a little count and never a wrong word.
 
 THE POLISH PIPELINE ADAPTED (`.claude/polish/pl.py`), with what Czech changes:
-  * a reflexive sense is shown "(se/si) …": Wiktionary files `bát se`, `jmenovat
-    se` and `dát si` under the base verb, tagged `reflexive`, and the tag does not
-    say which clitic -- so both are named rather than one guessed;
+  * a reflexive sense is shown "(se) …" or "(si) …": Wiktionary files `bát se`,
+    `jmenovat se` and `dát si` under the base verb, tagged `reflexive`, and its raw
+    gloss says which clitic ("(reflexive with si) to deserve", kept by `extract.py`);
+    where it does not, both are named, "(se/si)", rather than one guessed;
   * the only capitalised tag that is not a place or a period is `Czech` itself
     (`Common-Czech`, the spoken koiné, is colloquial and is dropped with it).
 """
@@ -108,7 +109,7 @@ def gloss(s, reflexive_mark=True, colloquial=False):
     if any(" " not in x or " /" in x or " and " in x for x in s.get("f") or []) or POINTER_GLOSS.match(g) or BARE_XREF.match(g) or LETTER_GLOSS.search(g):
         return None
     if "reflexive" in t and reflexive_mark:
-        return mark + "(se/si) " + g
+        return mark + "(%s) " % s.get("c", "se/si") + g
     return mark + g
 
 
@@ -158,3 +159,19 @@ def table_forms(entry):
 def load_dict():
     with open(os.path.join(CACHE, "dict.json"), encoding="utf-8") as fh:
         return json.load(fh)
+
+
+def only_reflexive(entries):
+    """The clitic of a verb that is ONLY reflexive -- every glossed sense of every verb entry tagged reflexive with
+    the same clitic (`snažit` -> "se", `všimnout` -> "si") -- or None.  Such a verb is taught as `snažit se`."""
+    cl = set()
+    for e in entries:
+        if e["pos"] != "verb":
+            continue
+        for s_ in e["senses"]:
+            if gloss(s_) is None:
+                continue
+            if "reflexive" not in (s_.get("t") or []) or "c" not in s_:
+                return None
+            cl.add(s_["c"])
+    return cl.pop() if len(cl) == 1 else None

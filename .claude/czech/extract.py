@@ -32,7 +32,12 @@ def reduce(e):
         if not g:
             continue
         fo = [x.get("word") for x in (s.get("form_of") or []) + (s.get("alt_of") or []) if x.get("word")]
-        senses.append({"g": g, "t": s.get("tags", []), "f": fo})
+        sense = {"g": g, "t": s.get("tags", []), "f": fo}
+        # WHICH CLITIC: the tag says only `reflexive`, the raw gloss says "(reflexive with si) to deserve"
+        m = re.search(r"\(reflexive with (se|si)\b", " ".join(s.get("raw_glosses") or []))
+        if m:
+            sense["c"] = m.group(1)
+        senses.append(sense)
     forms, tables = [], 0
     for f in e.get("forms", []):
         tg = f.get("tags", [])
