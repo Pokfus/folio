@@ -6,6 +6,7 @@
     python3 .claude/czech/run.py --level b1      # assembled (inventory.py + frequency), on A1 and A2
     python3 .claude/czech/run.py --level b2      # assembled, on A1 to B1
     python3 .claude/czech/run.py --level c1      # assembled, on A1 to B2
+    python3 .claude/czech/run.py --level phr     # the phrases deck, on every level deck shipped
     python3 .claude/czech/run.py --no-fetch      # reuse whatever is cached
 
 ONE LEVEL PER RUN, built on top of the SHIPPED decks below it
@@ -16,7 +17,7 @@ THE STAGES, in order, each writing into the cache for the next:
 
     soupis.py       the official A1/A2 word list (NPI ČR), from its search tool
     extract.py      the whole Czech Wiktionary, reduced
-    select.py       the level's words: the list resolved (A1, A2) or the inventory and fill (B1–C1), in frequency order
+    select.py       (phrases.py for --level phr) the level's words: the list resolved (A1, A2) or the inventory and fill (B1–C1), in frequency order
     examples.py     three Tatoeba sentences each
     build_deck.py   meanings, forms rows, sentence markup, the deck file
 """
@@ -54,7 +55,7 @@ def main():
         run("soupis.py")
     if not os.path.exists(os.path.join(CACHE, "dict.json")):
         run("extract.py")
-    run("select.py", "--level", a.level)
+    run("phrases.py" if a.level == "phr" else "select.py", "--level", a.level)
     run("examples.py", "--level", a.level)
     run("build_deck.py", "--level", a.level)
 

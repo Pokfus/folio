@@ -5,7 +5,7 @@ Czech set, in the shape of the Polish one (`docs/polish-decks-plan.md`), whose p
 `docs/lang-decks.md` is the record of how the shelf was built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-16: "Add a Czech language collection."
 
-**STATUS (2026-11-16): A1, A2, B1, B2 and C1 are built** (`.claude/czech/`, §5). C2 and a phrases deck are not.
+**STATUS (2026-11-16): A1, A2, B1, B2, C1 and the phrases deck are built** (`.claude/czech/`, §4e, §5). C2 is not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any further deck this plan produces. The collection's first commit carried one line and one bump, because
@@ -35,6 +35,7 @@ The request named no level, source or size; each is one line to change.
 | Czech B1 — built | `Czech-B1.folio-deck.json` | 1,000 (294 inventory, 706 frequency) |
 | Czech B2 — built | `Czech-B2.folio-deck.json` | 1,200 (263 inventory, 937 frequency) |
 | Czech C1 — built | `Czech-C1.folio-deck.json` | 1,200 (335 inventory, 865 frequency) |
+| Czech Phrases and Expressions — built | `Czech-Phrases-and-Expressions.folio-deck.json` | 169 (what the levels leave) |
 
 ## 2. Where the words come from — checked before anything was built
 
@@ -177,9 +178,31 @@ text (`cs_level.SCOPE["c1"]`). No pipeline change.
 
 Every card of C1 was read (2026-11-16).
 
+## 4e. The phrases deck (2026-11-16)
+
+`python3 .claude/czech/run.py --level phr` runs `phrases.py` (Polish's, `docs/polish-decks-plan.md` §4e) in place of
+`select.py`, then the same `examples.py` and `build_deck.py`. It is built on EVERY level deck shipped
+(`cs_level.taught_below("phr")`) and repeats nothing they teach; **if C2 is built later, rebuild this deck after it.**
+
+- **FOUR subdecks, not Polish's three**: Czech Wiktionary tags few senses idiomatic (132, against Polish's thousands),
+  so the deck would have been 15 idioms and little else. It does carry ~220 multi-word adverbs, verbs, prepositions
+  and conjunctions (`mít rád`, `čas od času`, `bez ohledu na`), taught as **Expressions** (Irish's arrangement;
+  `phrases.EXPRESSION_POS`). Multi-word nouns and adjectives (2,500, `hlavní město`) are compound terms and stay out.
+  **169 notes: 50 Phrases, 57 Expressions, 15 Idioms, 47 Proverbs**, of 566 candidates — those occurring in at least
+  one Tatoeba sentence with an English translation (`MIN_HITS`), a verb idiom matched with its verb in any form.
+- **Left out, each in `phrases.EXCLUDE` with its reason**: phrasebook sentences built from level words (`miluji tě`,
+  `mám žízeň`, `jsem Čech`, `vezmeš si mě` — the questions and formulas stay: `jak se máš`, `jmenuji se`); `jsem z`, a
+  template; expressions whose sentences are the literal reading (`na druhou stranu`, `jít po`, `jako prase`, `co
+  do`); `abych byl`, a verb form; `vyser si voko`, vulgar though untagged. `mimo provoz` has no teachable sense.
+- A phrase ending in `se` (`styď se`, `jmenuji se`) is an expression of its own, not a reflexive headword
+  (`build_deck.senses_of` skips the reflexive narrowing for a card with a subdeck). Every level deck rebuilt
+  unchanged.
+
+Every card of the phrases deck was read (2026-11-16).
+
 ## 5. How to build, and what to run
 
-    python3 .claude/czech/run.py [--level a1|a2|b1|b2|c1] [--no-fetch]
+    python3 .claude/czech/run.py [--level a1|a2|b1|b2|c1|phr] [--no-fetch]
     node .claude/czech/check-czech.js
     node .claude/build-lang-decks.js
 

@@ -35,7 +35,7 @@ import cs, cs_level
 
 POS_NAME = {"noun": "noun", "verb": "verb", "adj": "adjective", "adv": "adverb", "pron": "pronoun",
             "num": "numeral", "prep": "preposition", "conj": "conjunction", "det": "determiner",
-            "intj": "interjection", "particle": "particle", "phrase": "phrase"}
+            "intj": "interjection", "particle": "particle", "phrase": "phrase", "proverb": "proverb"}
 CLOSED = {"prep", "conj", "particle", "pron"}
 MAX_SENSES = 5
 STAMP = 1794787200000                  # 2026-11-16, fixed so a re-run is byte-identical
@@ -101,7 +101,8 @@ def senses_of(x, D):
     when there is no other."""
     src = x.get("via") or x["lemma"]
     L = entries(src, D, x.get("pos"))
-    refl = bool(re.search(r" (se|si)$", x["word"])) and x["word"] not in REFLEXIVE_BASE
+    # a reflexive HEADWORD is a level deck's `bát se`; the phrases deck's `styď se` is an expression of its own
+    refl = bool(re.search(r" (se|si)$", x["word"])) and x["word"] not in REFLEXIVE_BASE and "sub" not in x
     if x["word"] in REFLEXIVE_BASE:
         L = [dict(e, senses=[s for s in e["senses"] if "reflexive" not in (s.get("t") or [])]) for e in L]
     if refl and not any("reflexive" in (s.get("t") or []) for e in L for s in e["senses"]):
@@ -274,6 +275,8 @@ def main():
     ap.add_argument("--level", default="a1")
     a = ap.parse_args()
     lv = a.level
+    if lv == "phr":     # the phrases deck teaches Wiktionary's proverbs too; no level deck does
+        cs.TEACH_POS |= {"proverb"}
     D = cs.load_dict()
     with open(os.path.join(cs.CACHE, "cs_full.txt"), encoding="utf-8") as fh:
         for i, line in enumerate(fh):
@@ -306,6 +309,7 @@ def main():
         stats["ex3"] += len(e) == 3
         stats["ex0"] += not e
         cards.append({
+            **({"sub": x["sub"]} if "sub" in x else {}),       # the phrases deck's subdeck
             "fields": {
                 "Czech": '<div class="uc-word">%s<span class="uc-tts uc-say" data-say="%s"></span></div>' % (E(w), E(w)),
                 "Word": w,
@@ -318,7 +322,7 @@ def main():
         })
     n = len(cards)
     css = open(os.path.join(cs.HERE, "card.css"), encoding="utf-8").read()
-    meta = cs_level.meta(lv, n, stats, css, STAMP, cards)
+    meta = cs_level.meta(lv, n, stats, css, STAMP, cards, wl.get("candidates", 0))
     deck = {"folioDeck": 1, "exportedAt": STAMP, "meta": meta, "cards": cards, "gloss": {}}
 
     # EVERY ENGLISH SIDE UNIQUE, as on every deck of the shelf: the shared pass, last of all.
