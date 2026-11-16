@@ -119,11 +119,45 @@
       (500 → 490 → 493) with both pairs kept, so the chain still works on a deck freshly rebuilt from
       500. A pair satisfied by neither is an error. A FOLD changes what the deck holds, and a description that goes on
       counting the old number is the fault `check-counts.js` exists for one directory over.
+
+  ---- the order and the pinned ids (Nov 2026, the beginner pass — docs/lang-decks.md) ----
+
+  WHICH DECKS. Every deck in `decks/` whose file name has "Spanish" in it and whose card type is `dele`
+      — by CARD TYPE, not by the `DELE-` prefix this file used to select on, which left
+      `Spanish-Phrases` outside the record. A Spanish deck of another type (the sounds deck
+      `build-spanish-sounds.js` writes) is not edited here and is still held to its pinned ids.
+
+  `spanish-order.json`  `{ <deck id>: { why, order: [headword, …] } }`, written by spanish-order.js (its
+      header has the rules) and applied LAST: the notes are put in that order and nothing else about them
+      moves. A list that is not exactly the deck's headwords is refused. A deck with no entry keeps the
+      order it has. An `insert` still names the card it sits `after`; where the deck has an order, the
+      order decides.
+
+  `spanish-ids.json`  `{ <deck id>: { <headword>: N } }` for the id `u_<deck id>_N`, seeded from the decks
+      as shipped on 2026-11-16. THE PIN IS APPLIED, NOT ONLY CHECKED, and that is the difference from
+      `mandarin-ids.json`: these decks CAN be rebuilt, the generator numbers its cards by POSITION, and
+      the Update press merges a reader's progress by id — so after a rebuild every note is given back
+      the number its headword is pinned to. A note with no row takes the next free number and gains a
+      row (under `--check` that is a failure). A row is never deleted: a note this record removes
+      (`dropDup`, `fold`) moves to `_retired`, so its number is never dealt to another word. A pinned
+      note that is missing for any other reason fails the run. A RENAME (`spanish`) must rename the
+      pin's key in the same commit, the number staying as it is.
 */
 const fs = require("fs"), path = require("path");
 const DIR = path.join(__dirname, "..", "..", "decks");
 const FIXES = path.join(__dirname, "spanish-fixes.json");
 const CHECK = process.argv.includes("--check"), VERBOSE = process.argv.includes("--verbose");
+const ORDER_FILE = path.join(__dirname, "spanish-order.json"), IDS_FILE = path.join(__dirname, "spanish-ids.json");
+const ORD = fs.existsSync(ORDER_FILE) ? JSON.parse(fs.readFileSync(ORDER_FILE, "utf8")) : {};
+const PIN = fs.existsSync(IDS_FILE) ? JSON.parse(fs.readFileSync(IDS_FILE, "utf8")) : null;
+const PIN_BEFORE = PIN ? JSON.stringify(PIN) : "";
+/* THE SPANISH DECKS, BY CARD TYPE. The file name only narrows what is parsed (decks/ holds 180 MB);
+   what makes a deck this record's is the `dele` type its cards are written in. Read once. */
+const SPANISH = fs.readdirSync(DIR).filter((x) => /Spanish/.test(x) && /\.folio-deck\.json$/.test(x)).sort()
+  .map((f) => ({ f, d: JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8")) }));
+const isDele = (d) => !!(d.meta && d.meta.types && d.meta.types.dele);
+const DELE_FILES = SPANISH.filter((x) => isDele(x.d)).map((x) => x.f);
+const readDeck = (f) => JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8"));
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
   .replace(/"/g, "&quot;").replace(/'/g, "&#x27;");
@@ -244,16 +278,18 @@ for (const [key, other] of hints) {
 
 const seen = new Set(), seenHint = new Set();
 let changed = 0, files = 0, metaHit = 0, dropped = 0;
-const missing = [], badEx = [], badFold = [], badSub = [], badConj = [];
+const missing = [], badEx = [], badFold = [], badSub = [], badConj = [], badOrder = [], badPin = [];
+const removed = new Set();   // <deck id>/<headword> this record deletes: its pin row is retired, never reused
+let ordered = 0, pinned = 0;
 
-for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.test(x)).sort()) {
+for (const f of DELE_FILES) {
   const p = path.join(DIR, f);
   const before = fs.readFileSync(p, "utf8");
   const d = JSON.parse(before);
   const id = d.meta && d.meta.id;
   const dm = deckMeta[id];
   const want = byDeck.get(id), wantHint = hintsByDeck.get(id);
-  if (!want && !wantHint && !dm) continue;
+  if (!want && !wantHint && !dm && !ORD[id] && !(PIN && PIN[id])) continue;
   let hits = 0;
 
   if (dm) {
@@ -274,12 +310,12 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
   if (dm && dm.dropDup) {
     const halves = (h) => String(h).split(",").map((x) => x.trim().replace(/^(el|la|los|las)\s+/, "")).filter(Boolean);
     for (const [head, lower] of Object.entries(dm.dropDup)) {
-      const lf = fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.test(x))
-        .map((x) => JSON.parse(fs.readFileSync(path.join(DIR, x), "utf8"))).find((x) => x.meta && x.meta.id === lower);
+      const lf = DELE_FILES.map(readDeck).find((x) => x.meta && x.meta.id === lower);
       const have = new Set(lf ? lf.cards.flatMap((c) => halves(c.fields.Spanish)) : []);
       if (!lf || !halves(head).every((x) => have.has(x))) { badFold.push(id + " → dropDup " + head + ": " + lower + " does not carry it"); continue; }
       const n = d.cards.length;
       d.cards = d.cards.filter((c) => c.fields.Spanish !== head);
+      removed.add(id + "/" + head);
       if (d.cards.length !== n) { dropped += n - d.cards.length; hits += n - d.cards.length; }
     }
   }
@@ -289,6 +325,7 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
      had already changed under it. */
   const foldAway = new Set();
   for (const w of (want ? want.values() : [])) (w.fix.fold || []).forEach((x) => foldAway.add(x));
+  foldAway.forEach((x) => removed.add(id + "/" + x));
   if (foldAway.size) {
     const n = d.cards.length;
     d.cards = d.cards.filter((c) => !foldAway.has(c.fields.Spanish));
@@ -539,8 +576,56 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
     hits++;
   }
 
+  /* THE ORDER, LAST, so that it is the order of what the record leaves: inserts in, folds and duplicates
+     out. Only the position of a note changes; a list that is not exactly the deck's headwords writes
+     nothing, since a note the list forgot would otherwise be dropped in silence. */
+  let refused = false;
+  const ord = ORD[id];
+  if (ord && Array.isArray(ord.order)) {
+    const byHead = new Map(d.cards.map((c) => [c.fields.Spanish, c]));
+    const list = ord.order, uniq = new Set(list);
+    if (byHead.size !== d.cards.length) { badOrder.push(id + ": two notes share a headword"); refused = true; }
+    else if (uniq.size !== list.length || list.length !== d.cards.length || list.some((h) => !byHead.has(h))) {
+      const lack = d.cards.map((c) => c.fields.Spanish).filter((h) => !uniq.has(h)), extra = list.filter((h) => !byHead.has(h));
+      badOrder.push(id + ": " + list.length + " in the order, " + d.cards.length + " in the deck" +
+        (lack.length ? "; not in the order: " + lack.slice(0, 8).join(", ") : "") + (extra.length ? "; not in the deck: " + extra.slice(0, 8).join(", ") : ""));
+      refused = true;
+    } else { d.cards = list.map((h) => byHead.get(h)); ordered++; }
+  }
+  /* THE PINNED IDS, APPLIED. See the header: a rebuilt deck comes back numbered by position, and this is
+     what hands every note the number a reader's progress is filed under. */
+  if (PIN && !refused) {
+    const pin = PIN[id] || (PIN[id] = {}), ret = (PIN._retired = PIN._retired || {}), gone = ret[id] || {};
+    const here = new Set(d.cards.map((c) => c.fields.Spanish));
+    if (here.size !== d.cards.length) badPin.push(id + ": two notes share a headword, so a headword cannot key an id");
+    for (const k of Object.keys(pin)) if (!here.has(k)) {
+      if (removed.has(id + "/" + k)) { (ret[id] = ret[id] || gone)[k] = pin[k]; delete pin[k]; }
+      else badPin.push(id + "/" + k + ": pinned as " + pin[k] + ", not in the deck");
+    }
+    const used = () => Math.max(0, ...Object.values(pin), ...Object.values(ret[id] || {}));
+    const floor = used(), seenN = new Map();   // the highest number the deck had used before this run
+    for (const c of d.cards) {
+      const k = c.fields.Spanish;
+      if (!(k in pin)) {
+        const own = /^u_[a-z0-9]+_(\d+)$/.exec(String(c.id)), n = own ? Number(own[1]) : 0;
+        /* an `insert` carries its own id, above every number the deck had used; anything else unpinned
+           takes the next free one. A LOWER free number is never taken: it was a folded card's once, and
+           a reader may still hold that card. The floor is fixed before the loop, since the notes are
+           met in deck order and not in the order of their numbers. */
+        const taken = new Set(Object.values(pin));
+        pin[k] = n > floor && !taken.has(n) ? n : used() + 1;
+      }
+      const wantId = "u_" + id + "_" + pin[k];
+      if (seenN.has(pin[k])) badPin.push(id + ": " + k + " and " + seenN.get(pin[k]) + " are both pinned to " + pin[k]);
+      seenN.set(pin[k], k);
+      if (c.id !== wantId) c.id = wantId;
+    }
+    pinned++;
+  }
+
   const after = JSON.stringify(d);
-  if (after !== before) {
+  if (refused) { /* nothing written: the order has to be mended first */ }
+  else if (after !== before) {
     if (!CHECK) fs.writeFileSync(p, after);
     changed += hits; files++;
     if (VERBOSE || CHECK) console.log((CHECK ? "  WOULD CHANGE " : "  updated ") + f + "  (" + hits + " edits)");
@@ -557,7 +642,7 @@ let reviewedN = 0;
    also be another card (usted's plural is ustedes, comer's first person is como), and only a reader can
    tell those from the accidents. */
 const crossBold = [];
-for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.test(x)).sort()) {
+for (const f of DELE_FILES) {
   const dk = JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8"));
   const heads = new Map();
   for (const c of dk.cards || []) for (const part of String(c.fields.Spanish).split(","))
@@ -583,9 +668,7 @@ for (const f of fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.
 }
 
 for (const [deck, list] of Object.entries(fixes.reviewed || {})) {
-  const f = fs.readdirSync(DIR).filter((x) => /^DELE-.*\.folio-deck\.json$/.test(x))
-    .map((x) => JSON.parse(fs.readFileSync(path.join(DIR, x), "utf8")))
-    .find((x) => x.meta && x.meta.id === deck);
+  const f = DELE_FILES.map(readDeck).find((x) => x.meta && x.meta.id === deck);
   if (!f) { missing.push(deck + " (reviewed: no such deck)"); continue; }
   const have = new Set(f.cards.map((c) => c.fields.Spanish));
   for (const w of list) { if (have.has(w)) reviewedN++; else missing.push(deck + "/" + w + " (reviewed)"); }
@@ -623,7 +706,33 @@ if (missing.length) {
   console.log("\n  FAIL  " + missing.length + " fix(es) matched no note:");
   missing.forEach((k) => console.log("        " + k)); process.exit(1);
 }
+if (ordered) console.log("  " + ordered + " deck(s) held to the order in spanish-order.json");
+if (badOrder.length) {
+  console.log("\n  FAIL  " + badOrder.length + " order(s) in spanish-order.json that are not exactly the deck's headwords (deck not written):");
+  badOrder.forEach((k) => console.log("        " + k)); process.exit(1);
+}
+/* A deck this record does not edit (the sounds deck) is still held to its pinned ids: its builder takes
+   its numbers from the same file, and a row must stay with its note here too. */
+if (PIN) for (const { f, d } of SPANISH) {
+  const id = d.meta && d.meta.id;
+  if (isDele(d)) { if (!PIN[id]) badPin.push(id + ": no rows in spanish-ids.json"); continue; }
+  const pin = PIN[id];
+  if (!pin) { badPin.push(id + " (" + f + "): no rows in spanish-ids.json"); continue; }
+  for (const c of d.cards) {
+    const k = c.key;
+    if (!(k in pin)) badPin.push(id + "/" + k + ": not pinned (" + c.id + ")");
+    else if (c.id !== "u_" + id + "_" + pin[k]) badPin.push(id + "/" + k + ": id " + c.id + ", pinned u_" + id + "_" + pin[k]);
+  }
+}
+if (badPin.length) {
+  console.log("\n  FAIL  " + badPin.length + " card id(s) that spanish-ids.json cannot account for (the pin is not rewritten):");
+  badPin.slice(0, 40).forEach((k) => console.log("        " + k)); process.exit(1);
+}
+const pinChanged = PIN && JSON.stringify(PIN) !== PIN_BEFORE;
+if (pinned) console.log("  " + pinned + " deck(s) numbered from spanish-ids.json" + (pinChanged ? " — rows added or retired" : ""));
+if (pinChanged && !CHECK) fs.writeFileSync(IDS_FILE, "{\n" + Object.keys(PIN).map((k) => JSON.stringify(k) + ":" + JSON.stringify(PIN[k])).join(",\n") + "\n}\n");
 if (CHECK) {
+  if (pinChanged) { console.log("\n  FAIL  a note has no pinned id, or a removed note's row is not retired — run without --check"); process.exit(1); }
   if (files) { console.log("\n  FAIL  the decks do not carry their fixes — run without --check"); process.exit(1); }
   console.log("  ok    every deck already carries its fixes");
 } else console.log(files ? "  " + changed + " edits written across " + files + " file(s)" : "  nothing to do");

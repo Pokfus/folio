@@ -71,6 +71,31 @@ their pinned ids. To add a first phrase: add a row (`w`, `c`, `py`, `pick`), fet
 `--capture`, then build — a headword CC-CEDICT lacks, one using a character Level 1 does not, or one
 already carded in the nine decks is refused. After any of this, `node .claude/build-lang-decks.js`.
 
+## The Spanish decks: the record, the order, the pinned ids and the sounds deck (Nov 2026)
+
+The DELE decks CAN be rebuilt (`.claude/dele/`, Python, 1.2 GB of live corpora), which is why every edit
+to them is in a record that is re-applied after a rebuild. The beginner pass (`docs/lang-decks.md`, "The
+Spanish beginner pass") added the Mandarin model's three files, with one difference: **the pin is APPLIED**,
+so a rebuilt deck, which the generator numbers by position, is numbered back.
+
+    node spanish-fix.js --check            # the seven decks carry their fixes, their order and their pinned ids
+    node build-spanish-sounds.js --check   # the sounds deck is what its table and DELE A1 give
+
+| file | what it is |
+|---|---|
+| `spanish-fixes.json` | the record: one entry per note, `insert` for a card the generator has not got, `dropDup` for a card a lower deck now carries, `hints`, and each deck's subtitle and description edits. |
+| `spanish-ids.json` | deck id → headword (a sounds row's key) → the number in the card's id. **Never delete or renumber a row.** A removed note's row moves to `_retired`; a rename renames the key. |
+| `spanish-order.json` | deck id → the full list of headwords in the order the deck is dealt (DELE A1, the phrases). May be edited by hand; a list that is not exactly the deck's headwords is refused. |
+| `spanish-order.js` | how that file is computed, from the PINNED NUMBER (the generator's frequency rank) and never from the file's own order: A1's hand-written head, the closed sets, look-alikes forty apart; the phrases by reading level. `--report` prints the measurements. |
+| `spanish-sounds.json` | the sounds table: rows quoted from one Wikipedia article at the revision it names. A row's `key` is what its id is pinned to. |
+| `build-spanish-sounds.js` | writes `Spanish-Sounds-and-Spelling`. **Reads no live source**: the table and the shipped A1 deck. |
+
+`spanish-fix.js` finds its decks by CARD TYPE (`dele`), so the phrases deck is covered and a Spanish deck
+of another type is left alone. To add a word to A1: an `insert` entry (the next free id, its senses, three
+sentences each naming where it came from in `why`), `spanish-fix.js`, then add the headword to the head in
+`spanish-order.js` or let it fall where its `after` puts it, `spanish-order.js`, `spanish-fix.js` again,
+`build-spanish-sounds.js` (A1's order decides its example words), and `node .claude/build-lang-decks.js`.
+
 ## Changing the card type's CSS
 
 `deckcore.js` holds it, and every built deck file carries a **copy** — so an edit there does not reach a

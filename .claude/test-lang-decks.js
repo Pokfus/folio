@@ -450,7 +450,19 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
       disagree.map((r) => r.id).join(" ") || "all " + ROWS.length + " rows");
   }
 
-  /* The curated shelf: a count under the title, and no file size (Oct 2026, on request). */
+  /* The curated shelf: a count under the title, and no file size (Oct 2026, on request).
+     A CURATED COLLECTION IS OPENED FIRST (Nov 2026). Its deck rows are built when the fold first opens, not
+     when the page arrives (`lazyChildren` in app.js, Oct 2026, on a report of lag), where a language's rows
+     are drawn shut — so measured at page load this counted 0 rows on main and failed, and the three checks
+     after it passed on an empty set. The first collection with a chevron is opened and the rows read then. */
+  const curOpened = await page.evaluate(() => {
+    const chev = document.querySelector(".collection:not(.lang-coll) .collection-actions > .chev");
+    if (!chev) return false;
+    chev.click();
+    return true;
+  });
+  check("a curated collection has a chevron to open", curOpened);
+  await page.waitForTimeout(300);
   const cur = await page.evaluate(() => {
     const rows = [...document.querySelectorAll(".collection:not(.lang-coll) .node")];
     const sized = rows.filter((r) => r.querySelector(":scope .node-size"));
