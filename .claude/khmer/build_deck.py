@@ -65,6 +65,9 @@ ETYMS = {
     'ពុក': ['2'],               # "father"; 1 is "rotten", 3 "beard"
     'ពង': ['2'],                # "egg"; 1 is "blister"
     'រឿង': ['2'],               # "story, matter"; 1 is "brilliant"
+    # A2
+    'ដោះ': ['2'],               # "to take off, to remove"; 1 is "breast, udder"
+    'ទ័ព': ['2'],               # "army, troops"; 1 is "walking"
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.  Each is
@@ -72,6 +75,8 @@ ETYMS = {
 LEAD = {
     'សង្សារ': 'boyfriend',      # first is the Buddhist samsara
     'ក្បាល': 'head',            # first are "lot, plot" and a weed (DROP)
+    # A2
+    'ទា': 'duck',               # first is "uncouth people"
 }
 
 ABS = re.compile(r'^abstract noun of [^\s(]+ \([^()]*?(?:, “([^”]+)”\)$|\): (.+)$)')
@@ -87,6 +92,9 @@ DROP = {
     ('ក្រដាស', 'bougainvillea'),  # a climber, spelt like "paper"
     ('ក្បាល', 'lot, plot'),     # land, before "head"
     ('ក្បាល', 'ash fleabane'),  # a weed, before "head"
+    # A2
+    ('ស្ដី', 'Liquidambar'),    # a tree, before "to say"
+    ('កង្កែប', 'antipersonnel mine'),  # a weapon's nickname under "frog"
 }
 
 # A PART OF SPEECH TO LEAD WITH, for a frequency word (an inventory word says its

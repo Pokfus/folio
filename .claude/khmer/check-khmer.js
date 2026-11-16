@@ -38,7 +38,7 @@ for (const f of files) {
     if (!F.Roman) bad(f + ": " + w + " has no romanisation");
     else if (/[\u1780-\u17ff]/.test(F.Roman)) bad(f + ": " + w + " romanisation holds Khmer script: " + F.Roman);
     if (!F.English) bad(f + ": " + w + " has no English");
-    for (const g of F.English.replace(/<\/(li|div)>/g, "\n").replace(/<[^>]+>/g, "").split("\n")) {
+    for (const g of F.English.replace(/<div class="uc-pos">[^<]*<\/div>/g, "").replace(/<\/(li|div)>/g, "\n").replace(/<[^>]+>/g, "").split("\n")) {
       const t = g.trim();
       if (POINTER.test(t)) bad(f + ": " + w + " is defined by a pointer: " + t);
       const letters = t.replace(/[^\p{L}]/gu, "");

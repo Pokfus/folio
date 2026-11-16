@@ -49,6 +49,35 @@ EXCLUDE = {
     'ឯកសារ': 'counted from the same heading; "document" waits for a later level',
     'មេ': 'counted from compounds the cut leaves whole only in part (មេឃ "sky", មេដឹកនាំ "leader"); the card opened on "mother"',
     'ម៉ា': 'a syllable count from loans and names (ម៉ាឡេស៊ី "Malaysia"); the card was "grandmother", which A1 teaches as យាយ',
+    # A2
+    'ស្រ': 'a syllable count (ស្រុក, ស្រី); the card was "noisily"',
+    'ត្រ': 'a syllable count (ត្រូវ, ត្រី); the card was "to wind thread on a spool"',
+    'ដា': 'a syllable count; the card was "rock"',
+    'សេ': 'a syllable count from loans; the card was "fast"',
+    'វី': 'a syllable count from loans; the card was "to spread out (grain)"',
+    'ហា': 'a syllable count (ហាង, ហាត់); the card was a literary "five"',
+    'ជី': 'a syllable count (ជីវិត, ជីដូន); the card was a unit of weight',
+    'រេ': 'a syllable count; the card was "to turn frequently"',
+    'សី': 'a syllable count (សីហា); the card was "shuttlecock"',
+    'គី': 'a syllable count (គីឡូ); the card was "shrimp paste"',
+    'មី': 'a syllable count from names and loans; the card was a noodle',
+    'អ៊ី': 'a syllable count from loans (អ៊ីតាលី, អ៊ីនធឺណិត); the card was "aunt"',
+    'ប្រា': 'a syllable count (ប្រាសាទ, ប្រាក់); the card was a fish',
+    'បេ': 'a syllable count from loans; the card was "package"',
+    'ឡូ': 'a syllable count from loans; the card was "dozen"',
+    'ខ': 'a one-letter count; the card was a stew',
+    'រូ': 'a syllable count; the card was a literary "like"',
+    'ម៉': 'a syllable count (ម៉ោង, ម៉ែ); the card was the sound a cow makes',
+    'ដំ': 'a syllable count (ដំបូង, ដំណើរ); the card was "to pound"',
+    'លប់': 'a syllable count; the card was a bird trap',
+    'លោ': 'a syllable count (លោក); the card was "to leap forward"',
+    'ទ័យ': 'the second half of ហឫទ័យ "heart" (royal), which the cut leaves in pieces',
+    'ធី': 'a syllable count (ពិធី, វិធី); the card was "to take an examination"',
+    'គណ': 'a syllable count (គណបក្ស); the card was an ecclesiastical district',
+    'ទំ': 'a syllable count (ទំនាក់ទំនង, ទំហំ); the card was "to perch"',
+    'រណ': 'a syllable count; the card was a literary "battle"',
+    'បូ': 'a syllable count (បូព៌ា, បូជា); the card was "ribbon"',
+    'ដង': 'counted mostly as "times" (ពីរដង "twice"), a sense Wiktionary does not list; the card taught "to draw water"',
 }
 
 LEAD_TOPICS = {'greetings and politeness'}
@@ -56,8 +85,10 @@ LEAD_TOPICS = {'greetings and politeness'}
 # Swearing and insults are never in a level deck.
 SWEARS = set()
 
+# ...and "abstract noun of ប្រើប្រាស់ (praə prah)" with no meaning of its own (A2: ការប្រើប្រាស់)
 POINTER = re.compile(r'^(?:alternative|obsolete|dated|rare|archaic) (?:form|spelling) of '
-                     r'|^(?:synonym|abbreviation) of [^;]*$', re.I)
+                     r'|^(?:synonym|abbreviation) of [^;]*$'
+                     r'|^abstract noun of [^\s(]+ \([^()]*\)$', re.I)
 
 
 def pointer_only(L):
@@ -115,13 +146,30 @@ def main():
             if via:
                 row['roman'] = own[0]
             rows.append(row)
+    # A WORD NO SOURCE ROMANISES IS NOT CARDED (A2): Wiktionary's own page prints an
+    # empty romanisation for some entries (ប្ដូរ, បញ្ជូន, កើន, ថយ, ម្យ៉ាង), and the
+    # extraction has none either, so the card would show the script alone.  The
+    # pages are read here, before the choice (`romanise.fetch`, cached).
+    import romanise
+
+    def has_roman(r, tr):
+        if r.get('compose') or tr.get(r['word']) or r.get('roman'):
+            return True
+        L = lex.get(r['via'] or r['key'], {})
+        return any(e['roman'] for e in L.get('entries', []))
+    tr = romanise.fetch({r['word'] for r in rows})
+    noroman = [r['word'] for r in rows if not has_roman(r, tr)]
+    rows = [r for r in rows if has_roman(r, tr)]
     n_inv = len(rows)
     swears = {key(s) for s in SWEARS}
     excl = {key(s) for s in EXCLUDE}
     fill = []
-    for k, L in sorted(lex.items(), key=lambda kv: (-kv[1]['freq'], kv[0])):
+    ranked = sorted(lex.items(), key=lambda kv: (-kv[1]['freq'], kv[0]))
+    for i, (k, L) in enumerate(ranked):
         if len(rows) + len(fill) >= TARGET[LEVEL]:
             break
+        if L['word'] not in tr:       # the next 200 pages at a time
+            tr = romanise.fetch({v['word'] for _, v in ranked[i:i + 200]})
         if 'entries' not in L or L.get('formonly'):
             continue
         if k in seen or k in below or k in swears or k in excl:
@@ -130,9 +178,13 @@ def main():
             continue
         if all(e['pos'] in ('phrase', 'proverb', 'name') for e in L['entries']):
             continue
+        row = {'key': k, 'via': '', 'word': L['word'], 'freq': L['freq'], 'pos': '',
+               'source': 'frequency', 'topic': ''}
+        if not has_roman(row, tr):
+            noroman.append(L['word'])
+            continue
         seen.add(k)
-        fill.append({'key': k, 'via': '', 'word': L['word'], 'freq': L['freq'], 'pos': '',
-                     'source': 'frequency', 'topic': ''})
+        fill.append(row)
     rows += fill
     # THE FIRST DAY'S WORDS LEAD, then everything by frequency: an encyclopaedia
     # rarely says "hello" or "thank you", and dealt by its counts alone the
@@ -142,6 +194,8 @@ def main():
     print(f'  {len(rows)} words: {n_inv} from the inventory, {len(fill)} by frequency')
     if missing:
         print('  NOT IN WIKTIONARY (dropped):', ' '.join(missing))
+    if noroman:
+        print('  NO ROMANISATION ON ITS PAGE (dropped):', ' '.join(noroman))
 
 
 if __name__ == '__main__':

@@ -6,8 +6,8 @@ Thai, writes no spaces between words — and Amharic's for the frequency source 
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-15: "Add a Cambodian language collection."
 
-**STATUS (2026-11-15): the alphabet deck and A1 are built** (`.claude/khmer/`, §6). A2 to C1 and a phrases deck
-are the next sessions' work.
+**STATUS (2026-11-16): the alphabet deck, A1 and A2 are built** (`.claude/khmer/`, §6–§7). B1 to C1 and a phrases
+deck are the next sessions' work.
 
 ## 1. The decisions (2026-11-15)
 
@@ -34,7 +34,7 @@ owners gave for the same request rather than ask — **they are the owner's to o
 |---|---|---|
 | Khmer Alphabet — built | `Khmer-Alphabet.folio-deck.json` | 87 |
 | Khmer A1 Beginner — built | `Khmer-A1.folio-deck.json` | 500 |
-| Khmer A2 Elementary | `Khmer-A2.folio-deck.json` | 750 |
+| Khmer A2 Elementary — built | `Khmer-A2.folio-deck.json` | 750 |
 | Khmer B1 Intermediate | `Khmer-B1.folio-deck.json` | 1,000 |
 | Khmer B2 Upper Intermediate | `Khmer-B2.folio-deck.json` | 1,500 |
 | Khmer C1 Advanced | `Khmer-C1.folio-deck.json` | 1,500 |
@@ -101,7 +101,7 @@ adds 66). The fill carries written-register words an encyclopaedia favours (ខ�
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1, one level per session: write the
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 (done) to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `khmer_level.py`, run, read every card, extend the
 tables. **Phase 3** — a phrases deck. **Phase 4** — a combined file, gitignored.
 
@@ -123,3 +123,29 @@ has no word for take the commonest Wiktionary word, romanised from its page. ឍ
 
 The shelf's hue is measured: `#76281C`, a brick red, 14.3 from its nearest of 73 (`#8D2D39`), greens and the magenta
 band left out as for the last sweeps.
+
+## 7. As built (2026-11-16): A2
+
+On request ("Add A2"). `python3 .claude/khmer/run.py --level a2`. 750 notes: 302 from the A2 inventory (19 topics,
+`inventory.py` `A2`), 448 by frequency; A1's 500 words are not repeated. Sentences for 278, three for 86 — Tatoeba's
+Khmer thins out fast past A1 (472 words have none). A re-run is byte-identical; A1 and the alphabet are unchanged
+(verified).
+
+- **The inventory gave 302 of its 330 words**: 45 of the first draft's spellings are not Wiktionary headwords. Where
+  Wiktionary has a shorter form it was taken instead (ក្មេក for the in-laws, ភ្លោះ "twins", ជិតខាង, បើកបរ, ច្បារ,
+  ស្លាប, វស្សា and ប្រាំង for the seasons, ថ្ងៃខួប, ទូរស័ព្ទចល័ត); the rest were dropped (ព្រលានយន្តហោះ "airport",
+  វ៉ាលី "suitcase", ចូលឆ្នាំ "New Year", the comparatives ច្រើនជាង / តិចជាង, the connectors ពេលដែល, មុនពេល,
+  ក្រោយពី, ឬក៏, លើកលែងតែ …). Because so much fell out, the fill is the larger half — more than Thai's A2 — and
+  carries the written vocabulary of an encyclopaedia (រដ្ឋាភិបាល "government", សង្គ្រាម "war", រាជធានី "capital").
+- **A WORD NO SOURCE ROMANISES IS NOT CARDED** (`select.py`, new): Wiktionary's own page prints an empty romanisation
+  for some entries, and the extraction has none either. `select.py` now reads the pages itself (`romanise.fetch`,
+  200 at a time down the ranking) and drops such a word, printing it: កាមេរ៉ា, ប្ដូរ, បញ្ជូន, កើន, ម្យ៉ាង, ថយ.
+- **Twenty-eight more `EXCLUDE` lines**, read off the ranking: the one- and two-letter counts the cut leaves (ស្រ,
+  ត្រ, ដា, សេ, វី, ហា, ជី, រេ, សី, គី, មី, អ៊ី, ប្រា, បេ, ឡូ, ខ, រូ, ម៉ — a cow's "moo" —, ដំ, លប់, លោ, ធី, គណ, ទំ, រណ,
+  បូ), the half of ហឫទ័យ the cut strands (ទ័យ), and ដង, counted as "times", a sense Wiktionary does not list.
+- **A gloss that is only "abstract noun of X"** now counts as a pointer for the fill (ការប្រើប្រាស់).
+- **Sense fixes**: `ETYMS` ដោះ (to take off, before "breast"), ទ័ព (army, before "walking"); `LEAD` ទា (duck);
+  `DROP` ស្ដី's tree and កង្កែប's antipersonnel mine; inventory parts of speech ដោះ:verb, ខ្ចី:verb (to borrow,
+  before "unripe").
+- **`check-khmer.js`** now skips the part-of-speech line when it looks for a Khmer sentence in a gloss: the dedupe
+  pass's labels ("verb, not កសាង, សង់") are mostly Khmer and were read as glosses.
