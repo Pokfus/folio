@@ -330,3 +330,7 @@ countries-info.json
 # the OpenSubtitles frequency list and the Tatoeba exports (~460 MB) — plus the intermediate
 # files between its stages. The decks it writes ARE committed.
 .claude/serbian-cache/
+# the corpora .claude/bulgarian/run.py builds the Bulgarian decks from — the Wiktionary
+# extract, the subtitle frequency list and the Tatoeba exports (~300 MB) — and
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/bulgarian-cache/

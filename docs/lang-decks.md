@@ -3768,6 +3768,23 @@ changed was the one that had been wrong all along.
   findings — the Russian in the Ukrainian subtitle list, the apostrophe, the pronouns' shared table, a table without
   its headword, diminutives as form-of entries, reciprocal aspect pairs — are 📖 `docs/ukrainian-decks-plan.md`. The
   `l1` row is Ethnologue's 32 million (via Wikipedia); the hue is measured, `#9F4500` (re-swept at the merge, Arabic having taken its first, `#2A8424`).
+- `.claude/bulgarian/` — the generator behind the Bulgarian decks (Nov 2026, on request: "Add a Bulgarian language
+  collection"; copied from `.claude/ukrainian/`, the word source, sizes and card following the Ukrainian set, and the
+  owner may overrule them). **Built: the alphabet, `decks/Bulgarian-Alphabet.folio-deck.json`** (30 letters) **and A1,
+  `decks/Bulgarian-A1.folio-deck.json`** (500 notes / 1,000 cards, 2026-11-16) **and A2,
+  `decks/Bulgarian-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16) **and B1,
+  `decks/Bulgarian-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-16) **and B2,
+  `decks/Bulgarian-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16) **and C1,
+  `decks/Bulgarian-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16; sentences for only 375, Tatoeba's
+  Bulgarian being spent) — all five levels — **and the phrases deck,
+  `decks/Bulgarian-Phrases-and-Expressions.folio-deck.json`** (143 expressions in four subdecks — phrases, verbs with
+  се, idioms, proverbs — `--level phr`, 2026-11-16): the collection is complete. `python3 .claude/bulgarian/run.py [--level a1]`, `python3 .claude/bulgarian/alphabet.py`,
+  `node .claude/bulgarian/check-bulgarian.js`; a re-run is byte-identical. A verb's headword is its first person
+  singular present (Bulgarian has no infinitive); the card shows a noun's definite form, plural and count form and a
+  verb's ти form, aorist and aspect partner. The findings — the pre-1945 second table, ѝ, the pronouns with no table,
+  verbal nouns and participles in a verb's table, plural-only nouns losing their count — are 📖
+  `docs/bulgarian-decks-plan.md`. The `l1` row is Wikipedia's infobox (6.8 million L1, 7.9 total); the hue is
+  measured, `#813F8D`.
 - `.claude/hausa/` — the generator behind the Hausa decks (Nov 2026, on request: "Add a Hausa language
   collection", then the owner's answers: CEFR A1–B1 at 500 / 750 / 1,000, the toned form as a second line,
   an alphabet (Boko) deck and later a phrases deck). **Built: the alphabet, `decks/Hausa-Alphabet.folio-deck.json`**
