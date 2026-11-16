@@ -74,6 +74,10 @@ ETYMS = {
     'rad': ['2'],             # "work"; etymology 1 is the adjective "willing"
     'halo': ['2'],            # "hello" (on the phone); etymology 1 is the halo round the sun
     'tuš': ['2'],             # "shower"; etymology 1 is "India ink"
+    # B1 (2026-11-16)
+    'spasti': ['2'],          # "to save, rescue"; etymology 1 is "to fall down"
+    'desni': ['2'],           # "right"; etymology 1 is the noun "gums"
+    'izvesti': ['3', '1'],    # "to carry out, perform" first, then "to export"; 2 is "to embroider"
 }
 # A PART OF SPEECH TO LEAD WITH, where Wiktionary's first is not the everyday word.
 POS_FIRST = {'da': 'particle', 'zdravo': 'intj', 'dobro': 'adv', 'hvala': 'intj',
@@ -89,7 +93,10 @@ LEAD = {'razgovarati': 'to talk',
         # A2: Wiktionary's first sense is the rarer one
         'pismo': 'letter', 'pucati': 'to shoot', 'sastanak': 'meeting', 'predsednik': 'president',
         'miran': 'calm', 'vodič': 'guide', 'pečurka': 'mushroom', 'semafor': 'traffic light',
-        'zanimanje': 'job', 'prevesti': 'to translate', 'uz': 'next to'}
+        'zanimanje': 'job', 'prevesti': 'to translate', 'uz': 'next to',
+        # B1
+        'gomila': 'pile, heap', 'savet': 'advice', 'kukavica': 'coward', 'pamet': 'mind',
+        'obratiti': 'to approach'}
 
 # A GLOSS THAT IS A USAGE NOTE, NOT A MEANING ("Used to connect a noun to an adjective ...",
 # "Intensity amplifier, used exclusively in phrases"): dropped wherever the entry has a

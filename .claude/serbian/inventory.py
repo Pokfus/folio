@@ -132,4 +132,57 @@ INVENTORY = {
          'upoznati deliti menjati popraviti graditi slomiti čuvati sakriti bacati naručiti '
          'probati šetati žuriti zakasniti navići obući'),
     ],
+    'b1': [
+        ('work and a career',
+         'karijera posao zaposlenje poslodavac zaposlen plata intervju iskustvo veština '
+         'sposobnost obuka sastanak projekt zadatak rok ugovor otkaz penzija štrajk sindikat '
+         'kancelarija odeljenje uspeh napredovanje konkurencija zaraditi zaposliti otpustiti '
+         'upravljati sarađivati'),
+        ('education and learning',
+         'obrazovanje škola student studija diplomirati upisati znanje nauka '
+         'istraživanje predmet lekcija domaći zadatak test rezultat stipendija profesor '
+         'nastava učionica ponavljati vežbati'),
+        ('the media and technology',
+         'novine časopis vest članak novinar emisija program kanal reklama internet '
+         'mreža sajt imejl lozinka poruka aplikacija ekran tastatura uređaj tehnologija '
+         'preuzeti instalirati pretraživati objaviti snimiti'),
+        ('the environment',
+         'otpad smeće klima energija struja gas '
+         'ugalj nafta sunčev zaštita šuma vazduh ekološki zagaditi štedeti'),
+        ('society and politics',
+         'društvo država vlada vlast politika političar stranka glasati demokratija '
+         'zakon pravo sloboda jednakost ministar parlament predsednik grad opština '
+         'stanovništvo stanovnik manjina siromaštvo bogatstvo nezaposlenost problem rešenje'),
+        ('law and crime',
+         'zločin kriminal lopov krađa ubistvo napad policija sud sudija advokat svedok kazna '
+         'zatvor dokaz žrtva optužiti uhapsiti osuditi ukrasti prevara'),
+        ('money and banking',
+         'račun štednja kredit kamata dug porez novčanik gotovina kartica kurs evro '
+         'trošak uštedeti potrošiti pozajmiti zaduživati'),
+        ('health and a way of life',
+         'zdravlje ishrana dijeta vežba trening teretana cigareta alkohol '
+         'stres umor san bolnica pregled operacija pacijent oporaviti povrediti'),
+        ('relationships and feelings',
+         'odnos veza prijateljstvo ljubav brak razvod svađa poverenje osećaj emocija sreća '
+         'ljubomora razočaranje zahvalan zabrinut iznenađen ljubomoran zaljubiti '
+         'venčati svađati poštovati'),
+        ('culture and the arts',
+         'kultura umetnost umetnik slika slikar pisac pesnik roman priča pesma pevač glumac '
+         'režiser scena publika tradicija običaj praznik festival kompozitor'),
+        ('the problems of travel',
+         'putnik smeštaj gužva saobraćaj nesreća kvar gubitak osiguranje '
+         'otkazati propustiti prijaviti rezervisati'),
+        ('opinions and connectives',
+         'mišljenje stav razlog posledica prednost mana primer činjenica uostalom međutim '
+         'zato stoga dakle naime zapravo inače takođe osim ukoliko iako mada jer slagati '
+         'tvrditi verovati sumnjati složiti'),
+        ('describing people and things',
+         'izgled visina težina mršav debeo zgodan ružan elegantan moderan staromodan '
+         'udoban neudoban skup ozbiljan pristojan uljudan hrabar sebičan zanimljiv uzbudljiv '
+         'opasan siguran korisno'),
+        ('the verbs of deciding, changing and making',
+         'odlučivati odabrati menjati promeniti poboljšati razviti stvoriti '
+         'proizvoditi pripremiti organizovati planirati ostvariti postići uporediti '
+         'opisati predložiti preporučiti zahtevati sprečiti uticati'),
+    ],
 }

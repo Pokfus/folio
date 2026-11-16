@@ -5,8 +5,8 @@ language set in the shape of the ones already shipped (Ukrainian, Polish, Hindi 
 record of how those were built, and every rule there applies here unless this file says otherwise. Asked for on
 2026-11-16: "Add a Serbian language collection."
 
-**STATUS (2026-11-16): the alphabet deck, A1 and A2 are built** (`.claude/serbian/`, §6–§7). B1 to C1 are planned,
-one level per session.
+**STATUS (2026-11-16): the alphabet deck, A1, A2 and B1 are built** (`.claude/serbian/`, §6–§8). B2 and C1 are
+planned, one level per session.
 
 Later decks under `decks/` are community content, not a change to Folio: **no changelog line and no version bump**
 for them. The collection's first commit carried one line and one bump, because it also changed the APP (the
@@ -37,7 +37,7 @@ The request named no word source, size or script, so the session took the arrang
 | Serbian Alphabet — built | `Serbian-Alphabet.folio-deck.json` | 36 (30 letters, 5 marks, syllabic r) |
 | Serbian A1 Beginner — built | `Serbian-A1.folio-deck.json` | 500 |
 | Serbian A2 Elementary — built | `Serbian-A2.folio-deck.json` | 750 |
-| Serbian B1 Intermediate | `Serbian-B1.folio-deck.json` | 1,000 |
+| Serbian B1 Intermediate — built | `Serbian-B1.folio-deck.json` | 1,000 |
 | Serbian B2 Upper Intermediate | `Serbian-B2.folio-deck.json` | 1,500 |
 | Serbian C1 Advanced | `Serbian-C1.folio-deck.json` | 1,500 |
 
@@ -144,3 +144,26 @@ words (`nitko`, `ured`, `cura`), lemmas whose count is another word's (`bok` the
 "letter" not "alphabet", `semafor` "traffic light", `pečurka` "mushroom", `predsednik` "president" …); `čim` drops
 its pronoun sense. Known, left: the fill carries the subtitles' crime-drama words (`ubica`, `pištolj`, `zločin`,
 `detektiv`) as every subtitle-ordered level does; `glupost` lists "one's stuff" among its senses, Wiktionary's own.
+
+## 8. As built (2026-11-16): B1
+
+`python3 .claude/serbian/run.py --level b1`. 1,000 notes: 231 from the B1 inventory (work and a career, education,
+the media and technology, the environment, society and politics, law and crime, money and banking, health and a way
+of life, relationships and feelings, culture and the arts, the problems of travel, opinions and connectives,
+describing people and things, the verbs of deciding, changing and making) and 769 by frequency, none taught in A1 or
+A2; sentences for 801, three apiece for 536. The share from the inventory is small because B1's abstract words are
+where Wiktionary's Serbian is thinnest, and because A1 and A2's fill had already taken many of them (`posao`,
+`problem`, `zakon`, `sud`). Inventory words Wiktionary lacks as lemmas were dropped (`zagađenje`, `reciklaža`,
+`bankomat`, `pušenje`, `usamljenost`, `prenoćište`, `pogoršati` …); `projekat` → `projekt`, `studije` → `studija`,
+`mejl` → `imejl`, `osećanje` → `osećaj`, `reditelj` → `režiser`.
+
+New from reading the ranking: `select.EXCLUDE` grew by twenty-six — pronoun forms (`kog`, `čime`), Croatian words
+(`zrak`, `kava`, `doma`, `vani`, `kamo`, `ponovno`, `shvaćati`), a Torlakian `toj`, lemmas whose count is another
+word's (`kuca` "knocks", `celiti` from cela, `videlo` the participle, `goriv` from gori, `viti`, the names Bob, Paul,
+Scott, the Los of Los Angeles, English "go" and "top", and `zena` and `bas`, which are žena and baš typed without their
+caron), an abbreviation (`gđa`) and `crnac`, now widely felt as offensive. `ETYMS` takes `spasti` "to save", `desni`
+"right" and `izvesti` "to carry out" before "to export"; `LEAD` puts `gomila` "pile, heap", `savet` "advice",
+`kukavica` "coward", `pamet` "mind" and `obratiti` "to approach" first. **A1, A2 and B1 rebuild byte-identical.**
+Known, left: the fill carries the subtitles' crime, war and fantasy words (`metak`, `pukovnik`, `veštica`, `zmaj`) and
+some slang (`kapirati`, `pandur`, `mator`), as the levels below do; `kći` "daughter" is a card here although A1's
+`ćerka` borrows its meaning, the two being different words.
