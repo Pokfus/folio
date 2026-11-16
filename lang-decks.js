@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 452 MB of decks. The file itself is fetched on Add. */
+   section without fetching 453 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-Pinyin-and-Tones.folio-deck.json", id: "hsk30pin", title: "Mandarin Chinese — Pinyin and tones", sub: "68 sounds, tones and tone changes — start here, beside Level 1", notes: 68, cards: 68, ex: 100, bytes: 70898, rev: "6a1571dc957f" },
   { lang: "Mandarin Chinese", file: "Mandarin-Bopomofo.folio-deck.json", id: "hsk30bpm", title: "Mandarin Chinese — Bopomofo", sub: "62 zhuyin symbols, tone marks and combinations — beside Pinyin and tones", notes: 62, cards: 62, ex: 100, bytes: 72249, rev: "80fd41ebcd21" },
@@ -202,6 +202,10 @@ window.LANG_DECKS = [
   { lang: "Zulu", file: "Zulu-A2.folio-deck.json", id: "zulua2", title: "Zulu A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 3, bytes: 1084475, rev: "7c6e128cc696" },
   { lang: "Zulu", file: "Zulu-B1.folio-deck.json", id: "zulub1", title: "Zulu B1 Intermediate", sub: "778 words · both directions, as two cards per word", notes: 778, cards: 1556, ex: 2, bytes: 1052164, rev: "fabc9fe8ceb2" },
   { lang: "Zulu", file: "Zulu-Phrases.folio-deck.json", id: "zuphrase", title: "Zulu Phrases", sub: "99 phrases and sentences · 33 phrases, 66 sentences · both directions", notes: 99, cards: 198, subs: 2, tree: [{"n":"Phrases","c":66,"x":0},{"n":"Sentences","c":132,"x":0}], flat: true, ex: 0, bytes: 46844, rev: "7c56b659a9c1" },
+  { lang: "Somali", file: "Somali-Alphabet.folio-deck.json", id: "soabc", title: "Somali Alphabet", sub: "33 letters and sounds · both directions, as two cards per letter", notes: 33, cards: 66, ex: 0, say: false, bytes: 12406, rev: "b8435c732ce5" },
+  { lang: "Somali", file: "Somali-A1.folio-deck.json", id: "somalia1", title: "Somali A1 Beginner", sub: "400 words · both directions, as two cards per word", notes: 400, cards: 800, ex: 10, say: false, bytes: 132564, rev: "d0a46015ed10" },
+  { lang: "Somali", file: "Somali-A2.folio-deck.json", id: "somalia2", title: "Somali A2 Elementary", sub: "439 words · both directions, as two cards per word", notes: 439, cards: 878, ex: 2, say: false, bytes: 133818, rev: "01ba7ea90586" },
+  { lang: "Somali", file: "Somali-Phrases-and-Expressions.folio-deck.json", id: "sophrase", title: "Somali Phrases and Expressions", sub: "90 expressions · 13 greetings, 17 everyday, 60 sentences · both directions", notes: 90, cards: 180, subs: 3, tree: [{"n":"Greetings and wishes","c":26,"x":0},{"n":"Everyday phrases","c":34,"x":0},{"n":"Sentences","c":120,"x":0}], flat: true, ex: 0, say: false, bytes: 36656, rev: "a024e2549e6f" },
   { lang: "Romanian", file: "Romanian-A1.folio-deck.json", id: "romaniana1", title: "Romanian A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 1154930, rev: "7299a34fc1d3" },
   { lang: "Romanian", file: "Romanian-A2.folio-deck.json", id: "romaniana2", title: "Romanian A2 Elementary", sub: "750 more words, none of them in A1 · both directions, as two cards per word", notes: 750, cards: 1500, ex: 98, bytes: 1964347, rev: "1caa96369cf7" },
   { lang: "Romanian", file: "Romanian-B1.folio-deck.json", id: "romanianb1", title: "Romanian B1 Intermediate", sub: "1,000 more words, none of them in A1 or A2 · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 93, bytes: 2688268, rev: "c1e8107ea558" },

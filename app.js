@@ -31521,6 +31521,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        then 14.2 from Russia's Geography amber, against a tightest existing pair of 4.0; 4.5:1 against white. Not a
        flag colour. */
     "lang-mongolian":  { bg: "#A16C02" }, // measured golden ochre
+    /* SOMALI (Nov 2026) was not named a colour, so it was MEASURED as Yoruba was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from every hue on the
+       page, the magenta band's standing rejection kept, the greens left out and anything within 15 of the light blue
+       of the Somali flag refused. Its first sweep chose a teal, #3C7575 — and Navajo's, run in a parallel session,
+       took #3C7676 and merged first; re-swept at the merge against all 81 other hues: two points tied at 13.2, a
+       burnt orange in the crowded red-brown band (Ukrainian, Spanish, China) and this slate teal, 13.2 from its
+       nearest neighbour (Philosophy), then 13.3 from Korean and 14.4 from the Cold War, against a tightest existing
+       pair of 4.0. The tie went to the slate, nearest the collection's first colour. 7.3:1 against white; 52.4 from
+       the flag's blue. Not a flag colour. */
+    "lang-somali":     { bg: "#485A5A" }, // measured slate teal
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
