@@ -35,13 +35,19 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1346", released: "2026-11-16T13:48Z" };
+window.FOLIO_VERSION = { v: "1.1347", released: "2026-11-16T14:56Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-16",
     t: "The Quran, Leviathan, Kant, language decks and 100 Ancient Egypt cards",
     items: [
+      "Writing your own deck is simpler: <b>tap a field to edit</b>, Add a card keeps your place and the kind of card, and Delete has an Undo.",
+      "A new deck asks <b>what kind of card</b> to start with, and five more ready-made kinds join the list: Definition, Date and event, Person, Formula, Multiple choice.",
+      "<b>Paste cards</b> turns a list copied from a spreadsheet, Quizlet or an AI chat into cards, and shows what it understood before adding them.",
+      "Importing a deck now explains Anki's .apkg files, and keeps Anki's fill-in-the-blank and reversed cards as what they are.",
+      "Sharing a deck starts with a short review and <b>gives you the link to send</b>; a shared deck's page has a Share button and ten cards to look through.",
+      "Studying a deck you wrote shows an <b>Edit</b> button that opens that card in the editor.",
       "The home page's <b>Suggested reading</b> and <b>Continue reading</b> box no longer switches by itself; swipe or use the arrow keys to turn it.",
       "Daily quote captions link the right glossary terms (Plato's <i>Republic</i> no longer opens the generic one), and Westeros lines credit <b>George R. R. Martin</b> and their book.",
       "<b>The Quran</b> is in the Library, in Marmaduke Pickthall's 1930 English translation, one sûrah to a tab with every verse numbered.",

@@ -8833,7 +8833,7 @@
     o.remoteId = /^[0-9a-fA-F-]{36}$/.test(String(m && m.remoteId)) ? String(m.remoteId) : "";
     o.slug = /^[a-z0-9][a-z0-9-]{2,63}$/.test(String(m && m.slug)) ? String(m.slug) : "";
     o.origin = (m && m.origin === "installed") ? "installed" : "mine";
-    o.remoteStatus = ["draft", "published", "hidden", "removed"].indexOf(m && m.remoteStatus) >= 0 ? m.remoteStatus : "";
+    o.remoteStatus = ["draft", "published", "unlisted", "hidden", "removed"].indexOf(m && m.remoteStatus) >= 0 ? m.remoteStatus : "";
     o.publishedVersion = Number(m && m.publishedVersion) || 0;
     o.installedVersion = Number(m && m.installedVersion) || 0;
     o.ownerName = uSP(m && m.ownerName).slice(0, 80);
@@ -9736,12 +9736,133 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ".uc-note {\n  margin-top: 16px;\n  font-size: 14px;\n  line-height: 1.65;\n  opacity: 0.78;\n}\n" +
         ".uc-credit {\n  margin-top: 12px;\n  font-size: 11px;\n  letter-spacing: 0.03em;\n  opacity: 0.55;\n}\n",
     },
+    /* FIVE MORE (Nov 2026, the authoring audit): the shapes a deck that is not vocabulary is most often made
+       of. Each is plain on purpose — a few named boxes and a centred card — because their job is to spare an
+       author the Card types tab, not to show what a template can do. */
+    {
+      id: "definition",
+      name: "Definition",
+      blurb: "A term on the front; what it means, and an example, on the back.",
+      fields: ["Term", "Definition", "Example"],
+      front: '<div class="uc-q">{{Term}}</div>',
+      back:
+        "{{FrontSide}}<hr>" +
+        '<div class="uc-def">{{Definition}}</div>' +
+        '{{#Example}}<div class="uc-block"><div class="uc-blocklabel">Example</div><div class="uc-note">{{Example}}</div></div>{{/Example}}',
+      css:
+        ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
+        ".uc-q {\n  font-size: 26px;\n  font-weight: 600;\n  line-height: 1.25;\n}\n" +
+        "hr {\n  margin: 16px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n" +
+        ".uc-def {\n  font-size: 18px;\n  line-height: 1.55;\n}\n" +
+        ".uc-block {\n  margin-top: 16px;\n}\n" +
+        ".uc-blocklabel {\n  margin-bottom: 4px;\n  font-size: 10px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.55;\n}\n" +
+        ".uc-note {\n  font-size: 15px;\n  line-height: 1.65;\n  font-style: italic;\n  opacity: 0.85;\n}\n",
+    },
+    {
+      id: "event",
+      name: "Date and event",
+      blurb: "An event asked for its date, and the date asked for its event — two cards from one note.",
+      fields: ["Event", "Date", "What happened"],
+      cards: [
+        {
+          name: "Event → Date",
+          front: '<div class="uc-ask">When?</div><div class="uc-q">{{Event}}</div>',
+          back: '{{FrontSide}}<hr><div class="uc-a">{{Date}}</div>{{#What happened}}<div class="uc-note">{{What happened}}</div>{{/What happened}}',
+        },
+        {
+          name: "Date → Event",
+          front: '<div class="uc-ask">What happened?</div><div class="uc-q">{{Date}}</div>',
+          back: '{{FrontSide}}<hr><div class="uc-a">{{Event}}</div>{{#What happened}}<div class="uc-note">{{What happened}}</div>{{/What happened}}',
+        },
+      ],
+      css:
+        ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
+        ".uc-ask {\n  margin-bottom: 8px;\n  font-size: 11px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.6;\n}\n" +
+        ".uc-q {\n  font-size: 24px;\n  font-weight: 600;\n  line-height: 1.25;\n}\n" +
+        "hr {\n  margin: 16px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n" +
+        ".uc-a {\n  font-size: 24px;\n  font-weight: 600;\n  line-height: 1.25;\n}\n" +
+        ".uc-note {\n  margin-top: 14px;\n  font-size: 14px;\n  line-height: 1.65;\n  opacity: 0.78;\n}\n",
+    },
+    {
+      id: "person",
+      name: "Person",
+      blurb: "A name on the front; what they are known for, their dates and a picture on the back.",
+      fields: ["Name", "Known for", "Dates", "Picture", "Notes"],
+      front: '<div class="uc-ask">Who was this?</div><div class="uc-q">{{Name}}</div>',
+      back:
+        "{{FrontSide}}<hr>" +
+        '{{#Picture}}<div class="uc-pic"><img src="{{Picture}}" alt="{{Name}}" loading="lazy"></div>{{/Picture}}' +
+        '<div class="uc-a">{{Known for}}</div>' +
+        '{{#Dates}}<div class="uc-dates">{{Dates}}</div>{{/Dates}}' +
+        '{{#Notes}}<div class="uc-note">{{Notes}}</div>{{/Notes}}',
+      css:
+        ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
+        ".uc-ask {\n  margin-bottom: 8px;\n  font-size: 11px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.6;\n}\n" +
+        ".uc-q {\n  font-size: 26px;\n  font-weight: 600;\n  line-height: 1.25;\n}\n" +
+        "hr {\n  margin: 16px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n" +
+        ".uc-pic img {\n  max-width: 100%;\n  max-height: 260px;\n  border-radius: 12px;\n  margin-bottom: 12px;\n}\n" +
+        ".uc-a {\n  font-size: 19px;\n  font-weight: 600;\n  line-height: 1.45;\n}\n" +
+        ".uc-dates {\n  margin-top: 7px;\n  font-size: 13px;\n  letter-spacing: 0.04em;\n  opacity: 0.65;\n}\n" +
+        ".uc-note {\n  margin-top: 14px;\n  font-size: 14px;\n  line-height: 1.65;\n  opacity: 0.78;\n}\n",
+    },
+    {
+      id: "formula",
+      name: "Formula",
+      blurb: "What a formula is called on the front; the formula, what its symbols mean and a worked example on the back.",
+      fields: ["Name", "Formula", "Symbols", "Example"],
+      front: '<div class="uc-ask">What is the formula?</div><div class="uc-q">{{Name}}</div>',
+      back:
+        "{{FrontSide}}<hr>" +
+        '<div class="uc-formula">{{Formula}}</div>' +
+        '{{#Symbols}}<div class="uc-block"><div class="uc-blocklabel">Where</div><div class="uc-note">{{Symbols}}</div></div>{{/Symbols}}' +
+        '{{#Example}}<div class="uc-block"><div class="uc-blocklabel">Example</div><div class="uc-note">{{Example}}</div></div>{{/Example}}',
+      css:
+        ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
+        ".uc-ask {\n  margin-bottom: 8px;\n  font-size: 11px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.6;\n}\n" +
+        ".uc-q {\n  font-size: 24px;\n  font-weight: 600;\n  line-height: 1.25;\n}\n" +
+        "hr {\n  margin: 16px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n" +
+        ".uc-formula {\n  font-size: 26px;\n  line-height: 1.4;\n  font-style: italic;\n}\n" +
+        ".uc-block {\n  margin-top: 16px;\n}\n" +
+        ".uc-blocklabel {\n  margin-bottom: 4px;\n  font-size: 10px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.55;\n}\n" +
+        ".uc-note {\n  font-size: 15px;\n  line-height: 1.65;\n  opacity: 0.85;\n}\n",
+    },
+    {
+      id: "choice",
+      name: "Multiple choice",
+      blurb: "A question with up to four options on the front; the right one, and why, on the back.",
+      fields: ["Question", "Option A", "Option B", "Option C", "Option D", "Answer", "Why"],
+      front:
+        '<div class="uc-q">{{Question}}</div><div class="uc-opts">' +
+        '{{#Option A}}<div class="uc-opt"><b>A</b> {{Option A}}</div>{{/Option A}}' +
+        '{{#Option B}}<div class="uc-opt"><b>B</b> {{Option B}}</div>{{/Option B}}' +
+        '{{#Option C}}<div class="uc-opt"><b>C</b> {{Option C}}</div>{{/Option C}}' +
+        '{{#Option D}}<div class="uc-opt"><b>D</b> {{Option D}}</div>{{/Option D}}' +
+        "</div>",
+      back:
+        "{{FrontSide}}<hr>" +
+        '<div class="uc-a">{{Answer}}</div>' +
+        '{{#Why}}<div class="uc-note">{{Why}}</div>{{/Why}}',
+      css:
+        ".card {\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
+        ".uc-q {\n  font-size: 20px;\n  font-weight: 600;\n  line-height: 1.35;\n}\n" +
+        ".uc-opts {\n  margin-top: 14px;\n}\n" +
+        ".uc-opt {\n  margin-top: 7px;\n  padding: 9px 12px;\n  border: 1px solid currentColor;\n  border-radius: 10px;\n  opacity: 0.9;\n}\n" +
+        ".uc-opt b {\n  margin-right: 8px;\n  opacity: 0.6;\n}\n" +
+        "hr {\n  margin: 16px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n" +
+        ".uc-a {\n  font-size: 20px;\n  font-weight: 600;\n  text-align: center;\n}\n" +
+        ".uc-note {\n  margin-top: 12px;\n  font-size: 14px;\n  line-height: 1.65;\n  opacity: 0.78;\n}\n",
+    },
   ];
+  /* A LINE BREAK TYPED INTO A FIELD IS A LINE BREAK ON THE CARD. A field's value is HTML, where a newline is
+     white space, so "line one⏎line two" came out as one line everywhere but the vocabulary type's
+     conjugations box. Every preset's text blocks keep their line breaks now; it is on the LEAF classes only,
+     never on `.card`, where a newline between two of a template's own tags would become a blank line. */
+  const PRESET_PRELINE = ".uc-word, .uc-target, .uc-note, .uc-ask, .uc-q, .uc-a, .uc-passage, .uc-def, .uc-formula, .uc-dates, .uc-opt {\n  white-space: pre-line;\n}\n";
   function cardTypePreset(id) { return CARD_TYPE_PRESETS.find((p) => p.id === id) || null; }
   // what a preset contributes to a new type record — everything but the id and the name, which uTypeCreate
   // owns because it is the one that has to keep them unique within the deck
   function cardTypePresetSpec(p, lang) {
-    const spec = { id: p.id, fields: p.fields.slice(), css: p.css, speechLang: lang || "", cloze: !!p.cloze };
+    const spec = { id: p.id, fields: p.fields.slice(), css: p.css + PRESET_PRELINE, speechLang: lang || "", cloze: !!p.cloze };
     /* A preset declares EITHER a `cards` list or the single `front`/`back` pair the older three were written
        with; uTypeSanitize folds the second form into a one-card list, so nothing here has to choose. */
     if (Array.isArray(p.cards)) spec.cards = p.cards.map((c) => Object.assign({}, c));
@@ -9893,16 +10014,66 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     uCardTouched(cardId);
   }
 
-  function uCardCreate(deckId) {
+  /* `opts` (Nov 2026): `type` and `sub` are what the new card starts as — the Studio hands it the kind of
+     the card the author was on, so twenty vocabulary cards are not twenty trips to the type picker — and
+     `after` puts it directly under that card instead of at the foot of the deck. */
+  function uCardCreate(deckId, opts) {
     const d = UDECKS[deckId];
     if (!d) return null;
     if (d.cardIds.length >= UDECK_MAX_CARDS) { toast("A deck holds at most " + UDECK_MAX_CARDS + " cards."); return null; }
     const c = { id: nextUCardId(d), deckId: deckId };
     CARD_FIELDS.forEach((f) => { c[f] = ""; });
+    const t = opts && opts.type ? uTypeGet(deckId, opts.type) : null;
+    if (t) { c.type = t.id; c.fields = {}; }
+    const sub = opts && opts.sub ? uSubNormalize(sanitizePlain(opts.sub).slice(0, 200)) : "";
+    if (sub) c.sub = sub;
     UCARDS[c.id] = c;
-    d.cardIds.push(c.id);
+    const at = opts && opts.after ? d.cardIds.indexOf(opts.after) : -1;
+    if (at >= 0) d.cardIds.splice(at + 1, 0, c.id); else d.cardIds.push(c.id);
     uCardTouched(c.id);
     return c;
+  }
+  // a copy of a card, placed under it: same type, subdeck and text, a fresh id and no study record
+  function uCardDuplicate(cardId) {
+    const src = UCARDS[cardId], d = src && UDECKS[src.deckId];
+    if (!d) return null;
+    if (d.cardIds.length >= UDECK_MAX_CARDS) { toast("A deck holds at most " + UDECK_MAX_CARDS + " cards."); return null; }
+    const c = uCardSanitize(JSON.parse(JSON.stringify(src)), d.id, 0);
+    c.id = nextUCardId(d); c.deckId = d.id;
+    UCARDS[c.id] = c;
+    d.cardIds.splice(d.cardIds.indexOf(cardId) + 1, 0, c.id);
+    uCardTouched(c.id);
+    return c;
+  }
+  // …and a deleted card put back where it was, which is what the Studio's Undo calls. `snap` is what
+  // uCardSnapshot took before the delete: the record, its position and its study records.
+  function uCardSnapshot(cardId) {
+    const c = UCARDS[cardId], d = c && UDECKS[c.deckId];
+    if (!d) return null;
+    const recs = {};
+    uNoteCardIds(cardId).forEach((id) => { if (S.cards[id]) recs[id] = S.cards[id]; });
+    return { card: JSON.parse(JSON.stringify(c)), at: d.cardIds.indexOf(cardId), recs: recs };
+  }
+  function uCardRestore(snap) {
+    const d = snap && snap.card && UDECKS[snap.card.deckId];
+    if (!d || UCARDS[snap.card.id]) return null;
+    UCARDS[snap.card.id] = snap.card;
+    d.cardIds.splice(Math.max(0, Math.min(snap.at, d.cardIds.length)), 0, snap.card.id);
+    Object.keys(snap.recs || {}).forEach((id) => { S.cards[id] = snap.recs[id]; });
+    uCardTouched(snap.card.id);
+    save();
+    return snap.card;
+  }
+  // a card moved to a 1-based place in its deck in one step (uCardMove is one row at a time)
+  function uCardMoveTo(cardId, pos) {
+    const c = UCARDS[cardId], d = c && UDECKS[c.deckId];
+    if (!d) return;
+    const i = d.cardIds.indexOf(cardId);
+    const j = Math.max(0, Math.min(d.cardIds.length - 1, (parseInt(pos, 10) || 1) - 1));
+    if (i < 0 || i === j) return;
+    d.cardIds.splice(i, 1);
+    d.cardIds.splice(j, 0, cardId);
+    uDeckSave(d.id);
   }
   /* A card's subdeck. It is NOT one of CARD_FIELDS — those are the Basic format's thirteen, and uCardSet
      refuses anything outside them — so it gets its own setter, the way the type and its fields do. Empty
@@ -10135,6 +10306,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const meta = {};
     UDECK_META_KEYS.forEach((f) => { meta[f] = rec.meta[f]; });
     downloadDeckFile(meta, rec.cards, rec.gloss);
+    deckBackupMark(deckId, rec.cards.length);   // a file is a copy kept: the Studio's "stored only here" line stands down
   }
   /* The same file, for a deck the reader has NOT installed (Aug 2026, on request — the deck page's
      "Download the deck file"). It goes through `remoteToLocal` and then strips the publishing keys exactly
@@ -10250,7 +10422,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      may fail to import where two half-size ones would not. The cap is a guard against a hostile file and
      not a promise that anything under it will import on any device. */
   const UDECK_MAX_BYTES = 208 * 1024 * 1024;
-  function uDeckImportFile(file, cb) {
+  /* WHAT A CHOSEN FILE IS, read off its CONTENT (Nov 2026). The extension used to decide — `.txt` was a list
+     and everything else was JSON — so a list saved without an extension, and Anki's own default export,
+     both answered "That file isn't valid JSON." An .apkg is a zip of a database and is not read; what it
+     gets now is the one sentence that says which export Anki offers instead. */
+  const APKG_MSG = "That is an Anki package (.apkg), which Folio can’t open. In Anki choose File → Export → “Notes in Plain Text (.txt)”, then import that file here.";
+  function deckTextKind(text, fileName) {
+    const t = String(text || "");
+    if (/\.(apkg|colpkg|anki2|anki21)$/i.test(fileName || "") || /^PK\u0003\u0004/.test(t) || /^SQLite format 3/.test(t)) return "apkg";
+    const lead = t.replace(/^﻿/, "").replace(/^\s+/, "");
+    if (lead.charAt(0) === "{" && /"folioDeck"/.test(lead.slice(0, 4000))) return "deck";
+    if (lead.charAt(0) === "{" || lead.charAt(0) === "[") { try { JSON.parse(lead); return "deck"; } catch (e) {} }
+    return "list";
+  }
+  /* A deck file is imported at once. A LIST is shown first — `preview(text, name)`, the Studio's paste sheet —
+     because a list is the one input Folio has to interpret (which character divides it, whether its first
+     line is a heading, which side is the front), and an interpretation nobody was shown is how a wrong one
+     was reported as "Imported". Without `preview` a list is imported as it is read, as before. */
+  function uDeckImportFile(file, cb, preview) {
     if (!file) return;
     if (file.size > UDECK_MAX_BYTES) {
       cb({ error: "That file is " + Math.round(file.size / 1048576) + " MB and a deck file may be at most "
@@ -10258,8 +10447,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return;
     }
     const fr = new FileReader();
-    const plain = /\.(txt|tsv|csv)$/i.test(file.name || "");   // an Anki or Quizlet text export (uDeckImportPlainText)
-    fr.onload = () => cb(plain ? uDeckImportPlainText(String(fr.result || ""), file.name) : uDeckImportText(String(fr.result || ""), false));
+    fr.onload = () => {
+      const text = String(fr.result || ""), kind = deckTextKind(text, file.name);
+      if (kind === "apkg") cb({ error: APKG_MSG });
+      else if (kind === "deck") cb(uDeckImportText(text, false));
+      else if (preview) { preview(text, file.name); cb(null); }
+      else cb(uDeckImportPlainText(text, file.name));
+    };
     fr.onerror = () => cb({ error: "Couldn't read that file." });
     fr.readAsText(file);
   }
@@ -10290,7 +10484,43 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (f !== "" || row.length) { row.push(f); rows.push(row); }
     return rows;
   }
-  function ankiTextToDeck(text, fileName) {
+  /* WHICH CHARACTERS STAND BETWEEN A FRONT AND A BACK (Nov 2026, the authoring audit). The first version
+     knew tab, comma and semicolon and chose between the last two by counting — so a list written
+     "bonjour - hello" came in as questions with no answers, and said "Imported". A separator is now the
+     candidate that the MOST LINES contain, tab first, and one that fewer than half the lines contain is no
+     separator at all. `multi` ones are longer than a character, so the row parser never sees them: the
+     first occurrence on each line is turned into a tab before it runs. */
+  const CARD_SEPS = [
+    { id: "tab", ch: "\t", label: "Tab (a spreadsheet, Anki, Quizlet)" },
+    { id: "pipe", ch: "|", label: "Bar  |" },
+    { id: "semicolon", ch: ";", label: "Semicolon  ;" },
+    { id: "dash", ch: " - ", multi: /\s[-–—]\s/, label: "Dash  -" },
+    { id: "equals", ch: " = ", multi: /\s=\s/, label: "Equals  =" },
+    { id: "comma", ch: ",", label: "Comma  ," },
+    { id: "colon", ch: ": ", multi: /:\s/, label: "Colon  :" },
+  ];
+  function cardSepById(id) { return CARD_SEPS.find((x) => x.id === id) || null; }
+  function cardSepDetect(body) {
+    const lines = String(body || "").split("\n").map((l) => l.trim()).filter(Boolean).slice(0, 200);
+    if (!lines.length) return CARD_SEPS[0];
+    let best = null, bestN = 0;
+    CARD_SEPS.forEach((c) => {
+      const n = lines.filter((l) => (c.multi ? c.multi.test(l) : l.indexOf(c.ch) >= 0)).length;
+      if (n > bestN) { best = c; bestN = n; }   // strictly more, so the earlier candidate wins a tie
+    });
+    return best && bestN * 2 >= lines.length ? best : CARD_SEPS[0];
+  }
+  const CARD_HEADER_RX = /^(front|back|term|terms|definition|definitions|question|answer|word|meaning|translation|prompt|response|q|a|side ?[12ab])$/i;
+  /* `opts` (all optional): `sep` a CARD_SEPS id (else Anki's own header, else detected) · `header` true/false
+     to drop or keep the first row (else guessed from its words) · `swap` to turn every card round ·
+     `kind` "two-way" to make each row a note asked in both directions.
+     ANKI'S NOTE TYPES ARE KEPT (item 40 of the audit): a cloze note becomes a note of Folio's own
+     fill-in-the-blank type — both write {{c1::…}} — and a "Basic (and reversed card)" note a two-way one,
+     where the first version flattened both to Basic. The types they need travel in the deck's `meta.types`,
+     built from the same presets the Studio offers.
+     Returns the deck plus `info`, which is what the preview shows before anything is stored. */
+  function ankiTextToDeck(text, fileName, opts) {
+    opts = opts || {};
     text = String(text || "").replace(/^﻿/, "");
     const head = {}, lines = text.split(/\r?\n/);
     let skip = 0;
@@ -10299,46 +10529,82 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       head[m[1].trim().toLowerCase()] = m[2].trim();
       skip++;
     }
-    const body = lines.slice(skip).join("\n");
+    let body = lines.slice(skip).join("\n");
     const SEPS = { tab: "\t", comma: ",", semicolon: ";", pipe: "|", space: " ", colon: ":" };
-    let sep = head.separator ? (SEPS[head.separator.toLowerCase()] || head.separator.charAt(0)) : "";
-    if (!sep) {
-      const sample = body.split("\n").slice(0, 50).join("\n");
-      sep = sample.indexOf("\t") >= 0 ? "\t" : (sample.split(";").length > sample.split(",").length ? ";" : ",");
+    const anki = !!head.separator;
+    let sepDef = opts.sep ? cardSepById(opts.sep) : null, sep;
+    if (sepDef) sep = sepDef.ch;
+    else if (anki) { sep = SEPS[head.separator.toLowerCase()] || head.separator.charAt(0); sepDef = CARD_SEPS.find((x) => x.ch === sep) || { id: "", ch: sep, label: sep }; }
+    else { sepDef = cardSepDetect(body); sep = sepDef.ch; }
+    if (sepDef.multi) {
+      body = body.split("\n").map((l) => l.replace(sepDef.multi, "\t")).join("\n");
+      sep = "\t";
     }
     const html = /^(true|yes|1)$/i.test(head.html || "");
     const col = (k) => (head[k + " column"] ? (parseInt(head[k + " column"], 10) || 0) - 1 : -1);
     const special = { guid: col("guid"), notetype: col("notetype"), deck: col("deck"), tags: col("tags") };
     const skipCols = new Set(Object.values(special).filter((x) => x >= 0));
     const toHtml = (v) => (html ? String(v) : esc(String(v)).replace(/\n/g, "<br>"));
-    const CLOZE = /\{\{c\d+::([\s\S]*?)(?:::[\s\S]*?)?\}\}/g;
-    const cards = [];
-    let cloze = 0;
-    ankiParseRows(body, sep).forEach((r) => {
+    const CLOZE = /\{\{c\d+::[\s\S]*?\}\}/;
+    let rows = ankiParseRows(body, sep);
+    /* A LIST THAT IS NOT A TABLE. A comma or a semicolon inside a definition is prose, not a column: "Paris,
+       the capital of France, on the Seine" is a front and one back. So outside an Anki export, unless every
+       row has the same number of cells (a real CSV) or a cell was quoted, a row is cut at its FIRST separator
+       and the rest is the back. */
+    if (!anki && !sepDef.multi && sep !== "\t") {
+      const counts = {};
+      rows.forEach((r) => { if (r.some((v) => String(v).trim())) counts[r.length] = 1; });
+      if (Object.keys(counts).length > 1 && !/(^|\n)\s*"/.test(body)) rows = rows.map((r) => (r.length > 2 ? [r[0], r.slice(1).join(sep === "," || sep === ";" ? sep + " " : sep).replace(/\s+/g, " ")] : r));
+    }
+    rows = rows.map((r) => r.map((v) => String(v).trim())).filter((r) => r.some((v) => v));
+    const firstCells = rows[0] ? rows[0].filter((v, i) => !skipCols.has(i)) : [];
+    const headerGuess = !anki && firstCells.length >= 2 && firstCells.slice(0, 2).every((v) => CARD_HEADER_RX.test(v));
+    const dropHeader = opts.header === undefined ? headerGuess : !!opts.header;
+    if (dropHeader && rows.length) rows = rows.slice(1);
+    const typeOf = (name) => (/cloze/i.test(name) ? "cloze" : /revers/i.test(name) ? "two-way" : "");
+    const globalType = typeOf(head.notetype || "");
+    const cards = [], used = {};
+    let cloze = 0, noBack = 0, cols = 0;
+    rows.forEach((r) => {
       const fields = r.filter((v, i) => !skipCols.has(i));
-      if (!fields.length || !fields.some((v) => String(v).trim())) return;
+      if (!fields.length || !fields.some((v) => v)) return;
+      cols = Math.max(cols, fields.length);
       let front = fields[0] || "", back = fields[1] || "";
-      if (CLOZE.test(front)) {
+      if (opts.swap) { const t = front; front = back; back = t; }
+      if (!front && !back) return;
+      const rest = fields.slice(2).filter((v) => v);
+      let kind = special.notetype >= 0 ? typeOf(r[special.notetype] || "") : globalType;
+      if (!kind && CLOZE.test(front)) kind = "cloze";
+      if (kind === "cloze" && !CLOZE.test(front)) kind = "";
+      if (!kind && opts.kind === "two-way") kind = "two-way";
+      let c;
+      if (kind === "cloze") {
         cloze++;
-        CLOZE.lastIndex = 0;
-        const full = front.replace(CLOZE, "$1");
-        front = front.replace(CLOZE, "[...]");
-        back = full + (back ? (html ? "<br><br>" : "\n\n") + back : "");
+        c = { type: "cloze", fields: { Text: toHtml(front), Notes: [back].concat(rest).filter(Boolean).map(toHtml).join("<br>") } };
+      } else if (kind === "two-way") {
+        c = { type: "two-way", fields: { Front: toHtml(front), Back: toHtml(back), Notes: rest.map(toHtml).join("<br>") } };
+      } else {
+        c = { question: toHtml(front), answer: toHtml(back) + rest.map((v) => "<hr>" + toHtml(v)).join("") };
       }
-      CLOZE.lastIndex = 0;
-      if (!String(front).trim() && !String(back).trim()) return;
-      const c = { question: toHtml(front), answer: toHtml(back) + fields.slice(2).filter((v) => String(v).trim()).map((v) => "<hr>" + toHtml(v)).join("") };
+      if (kind) used[kind] = 1;
+      if (!back && kind !== "cloze") noBack++;
       if (special.deck >= 0 && r[special.deck]) c.sub = String(r[special.deck]);
       cards.push(c);
     });
-    const title = (head.deck || String(fileName || "Imported deck").replace(/\.(txt|tsv|csv)$/i, "").replace(/[_-]+/g, " ")).trim().slice(0, 80) || "Imported deck";
-    return { deck: { folioDeck: UDECK_FORMAT, meta: { title: title, desc: "Imported from a text export." }, cards: cards }, cloze: cloze };
+    const types = {};
+    Object.keys(used).forEach((k) => { const p = cardTypePreset(k); if (p) types[k] = Object.assign({ name: p.name }, cardTypePresetSpec(p)); });
+    const title = (head.deck || String(fileName || "Imported deck").replace(/\.(txt|tsv|csv|text)$/i, "").replace(/[_-]+/g, " ")).trim().slice(0, 80) || "Imported deck";
+    const meta = { title: title, desc: "Imported from a text export." };
+    if (Object.keys(types).length) meta.types = types;
+    return { deck: { folioDeck: UDECK_FORMAT, meta: meta, cards: cards }, cloze: cloze,
+      info: { sep: sepDef.id, anki: anki, header: dropHeader, headerGuess: headerGuess, noBack: noBack, cols: cols, twoWay: used["two-way"] ? 1 : 0 } };
   }
-  function uDeckImportPlainText(text, fileName) {
-    const got = ankiTextToDeck(text, fileName);
+  function uDeckImportPlainText(text, fileName, opts) {
+    const got = ankiTextToDeck(text, fileName, opts);
     if (!got.deck.cards.length) return { error: "No cards were found in that file. Export notes as plain text, one note a line." };
+    if (opts && opts.title) got.deck.meta.title = String(opts.title).slice(0, 80);
     const r = uDeckImportText(JSON.stringify(got.deck), false);   // no id in the file, so it is given a fresh one
-    if (r && !r.error && got.cloze) setTimeout(() => toast(got.cloze + " cloze note" + (got.cloze === 1 ? " was" : "s were") + " brought in as Basic cards"), 2500);
+    if (r && !r.error && got.cloze && !(opts && opts.quiet)) setTimeout(() => toast(plural(got.cloze, "cloze note", "cloze notes") + " brought in as fill-in-the-blank cards"), 2500);
     return r;
   }
   /* EXPORT writes any deck a reader can open — one of Folio's, a collection, a language, or one of their own — as the
@@ -10385,13 +10651,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     setTimeout(() => URL.revokeObjectURL(url), 30000);
     toast(n.toLocaleString("en-GB") + " cards written for Anki" + (left ? " · " + left + " map or picture cards left out" : ""));
   }
-  function uDeckPickFile(cb) {
+  function uDeckPickFile(cb, preview) {
     const inp = document.createElement("input");
     inp.type = "file";
-    inp.accept = ".json,application/json,.txt,.tsv,.csv,text/plain,text/csv,text/tab-separated-values";
+    // .apkg is offered so that choosing one is ANSWERED (see APKG_MSG) rather than greyed out with no reason
+    inp.accept = ".json,application/json,.txt,.tsv,.csv,text/plain,text/csv,text/tab-separated-values,.apkg,.colpkg";
     inp.style.display = "none";
     document.body.appendChild(inp);
-    inp.addEventListener("change", () => { const f = inp.files && inp.files[0]; inp.remove(); if (f) uDeckImportFile(f, cb); });
+    inp.addEventListener("change", () => { const f = inp.files && inp.files[0]; inp.remove(); if (f) uDeckImportFile(f, cb, preview); });
     inp.click();
   }
 
@@ -10405,6 +10672,32 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      scheduling on the cards that didn't change survives. */
   function uDeckIsMine(d) { return !d || d.origin !== "installed"; }
   function uDeckIsPublished(d) { return !!(d && d.remoteId && d.remoteStatus === "published"); }
+  /* SHARED BY LINK (Nov 2026): status `unlisted`. The deck has its page and anyone holding the address can
+     open and add it, but it is in no list — not the shared decks page, not the home page's shelf, not "more
+     from this author". It needs section 19 of .claude/supabase-schema.sql; on a database without it the
+     share is refused with a sentence (linkOnlyMsg) and nothing is changed. */
+  function uDeckIsLinkOnly(d) { return !!(d && d.remoteId && d.remoteStatus === "unlisted"); }
+  function uDeckIsShared(d) { return uDeckIsPublished(d) || uDeckIsLinkOnly(d); }
+  function deckShareUrl(slug) { return location.origin + location.pathname + "#deck/" + encodeURIComponent(slug); }
+  // the platform's own share sheet where there is one (a phone), the clipboard everywhere else — shareBook's rule
+  function shareDeck(title, slug) {
+    const url = deckShareUrl(slug);
+    const data = { title: title, text: title + " — a deck of flashcards on Folio", url: url };
+    if (navigator.share && (!navigator.canShare || navigator.canShare(data))) {
+      navigator.share(data).catch((e) => { if (e && e.name !== "AbortError") copySelText(url, "Link copied"); });
+      return;
+    }
+    copySelText(url, "Link copied");
+  }
+  const LINK_ONLY_MSG = "Sharing by link only isn’t set up on this site yet. Share the deck with everyone, or export its file and send that.";
+  const LINK_ONLY_MSG_ADMIN = "Link-only sharing isn’t set up on this database yet. Run section 19 (LINK-ONLY SHARING) of .claude/supabase-schema.sql once in the Supabase SQL editor, then share again.";
+  function linkOnlyMsg() { return isAdmin() ? LINK_ONLY_MSG_ADMIN : LINK_ONLY_MSG; }
+  // the status column's check constraint refusing a value it has not been taught
+  function statusCheckFailed(r) {
+    const body = r && r.data;
+    const msg = body ? String(body.message || "") + " " + String(body.code || "") : "";
+    return !!(r && r.status === 400 && /status_check|23514/.test(msg));
+  }
   function slugify(s, salt) {
     let base = sanitizePlain(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 48);
     if (base.length < 3) base = "deck-" + base;
@@ -10414,7 +10707,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     return {
       slug: d.slug, title: d.title || "Untitled deck", subtitle: d.subtitle || "", description: d.desc || "",
       author: d.author || (SUPA_PROFILE ? SUPA_PROFILE.name : "") || "", language: d.language || "en",
-      tags: d.tags || [], gloss_mode: d.glossMode || "site", status: "published", version: (d.publishedVersion || 0) + 1,
+      tags: d.tags || [], gloss_mode: d.glossMode || "site", status: d._shareAs === "unlisted" ? "unlisted" : "published", version: (d.publishedVersion || 0) + 1,
       // the author's default colour, sent only when they chose one — `user_decks.color` arrived after the
       // phase-2 block, so a colourless deck still publishes from a database whose owner has not run
       // section 11 of .claude/supabase-schema.sql yet (the same courtesy `types` gets, one line down)
@@ -10452,15 +10745,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function colorColumnMsg() { return isAdmin() ? COLOR_COLUMN_MSG_ADMIN : COLOR_COLUMN_MSG; }
   function colorColumnMissing(r) { return missingColumn(r, "color"); }
   // returns { ok } | { error }
-  async function uDeckPublish(deckId) {
+  /* `opts.status` (Nov 2026): "published" lists the deck, "unlisted" shares it by link only; left out, a deck
+     already shared keeps the way it is shared and a new one is listed. CARDS WITH NOTHING ON THEM ARE NOT
+     UPLOADED — a blank left behind by one press too many used to be published with the rest. */
+  async function uDeckPublish(deckId, opts) {
     const d = UDECKS[deckId];
     if (!d) return { error: "That deck is gone." };
-    if (!uDeckIsMine(d)) return { error: "This deck belongs to someone else. Duplicate it first if you want to publish your own version." };
-    if (!supaLoggedIn()) return { error: "Sign in on the Account page to publish a deck." };
+    if (!uDeckIsMine(d)) return { error: "This deck belongs to someone else. Duplicate it first if you want to share your own version." };
+    if (!supaLoggedIn()) return { error: "Sign in on the Account page to share a deck." };
     await uWarmDeck(deckId);   // publishing uploads every card, so all of them have to be in hand first
-    const cards = uDeckCards(d);
-    if (!cards.length) return { error: "Write at least one card before publishing." };
-    if (!sanitizePlain(d.title).trim() || d.title === "Untitled deck") return { error: "Give the deck a title before publishing." };
+    const cards = uDeckCards(d).filter((c) => !uCardIsEmpty(c));
+    if (!cards.length) return { error: "Write at least one card before sharing." };
+    if (!sanitizePlain(d.title).trim() || d.title === "Untitled deck") return { error: "Give the deck a name before sharing." };
+    const wantStatus = (opts && opts.status) || (uDeckIsLinkOnly(d) ? "unlisted" : "published");
+    d._shareAs = wantStatus;   // read by uDeckRemotePayload; never stored (uDeckMetaRecord whitelists)
 
     if (!d.slug) d.slug = slugify(d.title);
     let row = null;
@@ -10483,7 +10781,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           method: "PATCH", body: payload(), headers: { Prefer: "return=representation" },
         });
       }
-      if (!r.ok) return { error: typesColumnMissing(r) ? typesColumnMsg() : communityErr(r, "Couldn't update the published deck.") };
+      if (!r.ok) return { error: statusCheckFailed(r) ? linkOnlyMsg() : typesColumnMissing(r) ? typesColumnMsg() : communityErr(r, "Couldn't update the shared deck.") };
       row = Array.isArray(r.data) ? r.data[0] : r.data;
     } else {
       let attempt = 0;
@@ -10494,7 +10792,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         // 409 = the slug is taken; try another suffix before giving up
         if (r.status === 409) { d.slug = slugify(d.title); attempt++; continue; }
         if (colorColumnMissing(r) && d.color && !dropColor) { dropColor = true; warn = colorColumnMsg(); continue; }
-        return { error: typesColumnMissing(r) ? typesColumnMsg() : communityErr(r, "Couldn't publish the deck.") };
+        return { error: statusCheckFailed(r) ? linkOnlyMsg() : typesColumnMissing(r) ? typesColumnMsg() : communityErr(r, "Couldn't share the deck.") };
       }
       if (!row) return { error: "That deck name is taken — try a different title." };
     }
@@ -10801,7 +11099,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const out = {};
     r.data.forEach((row) => {
       const d = localDeckForRemote(row.id);
-      if (d && row.status === "published" && Number(row.version) > Number(d.installedVersion || 0)) out[d.id] = row.version;
+      // a deck shared by link offers its updates exactly as a listed one does
+      if (d && (row.status === "published" || row.status === "unlisted") && Number(row.version) > Number(d.installedVersion || 0)) out[d.id] = row.version;
     });
     return out;
   }
@@ -18375,9 +18674,26 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       document.body.appendChild(el);
     }
     el.textContent = msg;
+    el.classList.remove("toast-act");
     el.classList.add("show");
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.classList.remove("show"), ms || 2200);
+    /* AS LONG AS IT TAKES TO READ (Nov 2026). A fixed 2.2 s was right for "Card deleted" and far too short
+       for the thirty-word sentences a failed publish answers with, which were gone before the second line.
+       Roughly 55 ms a character over the first forty, capped at eight seconds; a caller's own `ms` wins. */
+    const len = String(msg == null ? "" : msg).length;
+    toastTimer = setTimeout(() => el.classList.remove("show", "toast-act"), ms || Math.min(8000, 2200 + Math.max(0, len - 40) * 55));
+  }
+  /* A toast with ONE thing to press — "Undo" after a delete, "Add to daily study" after an import. The
+     plain toast ignores the pointer; this one takes it for as long as it shows. `run` fires once. */
+  function toastAction(msg, label, run, ms) {
+    toast(msg, ms || 6500);
+    const el = document.getElementById("toast");
+    if (!el) return;
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "toast-btn"; b.textContent = label;
+    b.addEventListener("click", () => { el.classList.remove("show", "toast-act"); clearTimeout(toastTimer); run(); });
+    el.appendChild(b);
+    el.classList.add("toast-act");
   }
   // in-page replacement for native prompt()/confirm() — those are silently blocked in sandboxed/embedded contexts
   // (so the New-collection/rename/delete buttons appeared dead). onOk fires only on confirm (value for prompts, true for confirms).
@@ -30343,7 +30659,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               page now, top to bottom. */""}
         <span class="eyebrow">Study</span>
         <h1>Collections</h1>
-        <p>Curated collections of flashcards. New subjects are on the way.</p>
+        <p>Curated collections of flashcards. New subjects are on the way. <button type="button" class="sa-link coll-own" id="collOwn">Or write a deck of your own.</button></p>
         ${/* The `.lib-cap` line stating how many decks the reader's level allowed is gone with the cap
               itself (Aug 2026, on request) — there is no limit left to state. */""}
       </div>
@@ -30409,6 +30725,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       collTab = b.dataset.colltab;
       renderInPlace();
     }));
+    // the page's own sentence about writing a deck: the Your decks tab, with its three buttons in view
+    const own = root.querySelector("#collOwn");
+    if (own) own.addEventListener("click", () => {
+      collTab = "community";
+      renderInPlace();
+      studioReveal(document.querySelector("#yourDecks"));
+    });
     /* SCROLL THE ACTIVE CHIP INTO VIEW (Sep 2026, on a bug report found by measurement).
        The bar scrolls sideways on a phone — six words do not fit on 390px — and the default tab is
        ALL, which is last. Measured at 390px: the row is 512px of content in a 358px track and the
@@ -30448,7 +30771,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<div class="collection-main">' +
           '<div class="collection-title-row">' +
             '<span class="collection-title">' + esc(d.title) + '</span>' +
-            (installed ? '<span class="pill udeck-tag">installed</span>' : uDeckIsPublished(d) ? '<span class="pill udeck-tag">shared</span>' : "") +
+            (installed ? '<span class="pill udeck-tag">installed</span>' : uDeckIsPublished(d) ? '<span class="pill udeck-tag">shared</span>' : uDeckIsLinkOnly(d) ? '<span class="pill udeck-tag">shared by link</span>' : "") +
             (_deckUpdates[d.id] ? '<span class="pill udeck-upd">update</span>' : "") +
             (n ? '<span class="collection-count">' + n + " " + (n === 1 ? "card" : "cards") + '</span>' : '<span class="pill soon">Empty</span>') +
           '</div>' +
@@ -30571,12 +30894,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<div class="udeck-actions studio-actions">' +
         '<button class="btn" type="button" id="stNew">New deck</button>' +
         '<button class="btn ghost" type="button" id="stImport">Import a deck…</button>' +
-        '<button class="btn ghost" type="button" id="udBrowse">Browse shared decks</button>' +
+        // "Browse shared decks" stood here and only scrolled to the section directly below (removed Nov 2026)
+        '<button class="btn ghost" type="button" id="stPasteNew">Paste cards…</button>' +
       '</div>' +
       '<div class="collection-list studio-list">' +
         (decks.length
           ? decks.map((d) => udeckRowHTML(d) + (studioState.deck === d.id ? '<div class="studio-inline" id="stInline"></div>' : "")).join("")
-          : '<div class="lib-empty studio-empty">No decks yet. “New deck” starts one; “Import” opens a <code>.folio-deck.json</code> file someone sent you, or a plain-text export from Anki or Quizlet.</div>') +
+          : '<div class="lib-empty studio-empty">No decks yet. “New deck” starts one. “Import a deck…” opens a deck file someone sent you, or a text export from Anki or Quizlet. “Paste cards…” takes a list copied from anywhere.</div>') +
       '</div>' +
       orphanSectionHTML() +
     '</div>';
@@ -30603,16 +30927,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       });
     }
     // under `#studio` the tab is set by the route itself (PAGES.studio), so the reader's own tab choice stands
-    const openInline = (id) => { studioState.deck = id; studioState.card = null; if (!collTabIs("community") && !(current && current.name === "studio")) collTab = "community"; render(); };
+    /* A deck opens on its CARDS, with the list unfiltered — the tab and the search are remembered while one
+       deck is open, and used to follow the reader into the next deck they opened (Nov 2026). The editor is
+       brought into view, since it opens under the deck's row and that row may be anywhere on the page. */
+    const openInline = (id) => {
+      if (studioState.deck !== id) { studioState.tab = "cards"; studioState.q = ""; studioState.type = ""; studioState.term = null; }
+      studioState.deck = id; studioState.card = null;
+      if (!collTabIs("community") && !(current && current.name === "studio")) collTab = "community";
+      studioRepaint();
+      studioReveal(document.querySelector('.studio-deck[data-sd="' + cssEsc(id) + '"]'));
+    };
+    _studioOpenInline = openInline;
     const nw = root.querySelector("#stNew");
-    if (nw) nw.addEventListener("click", () => { const d = uDeckCreate("Untitled deck"); openInline(d.id); });
+    // a new deck opens with its name selected: the first thing typed is what it is called
+    if (nw) nw.addEventListener("click", () => { const d = uDeckCreate("Untitled deck"); studioState.focus = "title"; openInline(d.id); });
     const im = root.querySelector("#stImport");
-    if (im) im.addEventListener("click", () => uDeckPickFile((r) => { uImportDone(r); }));
-    const br = root.querySelector("#udBrowse");
-    if (br) br.addEventListener("click", () => {
-      const sec = document.querySelector("#sharedDecks");
-      if (sec) sec.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" });
-    });
+    if (im) im.addEventListener("click", () => uDeckPickFile((r) => { studioImportLanded(r); }, (text, name) => openPasteCards({ text: text, fileName: name })));
+    const pn = root.querySelector("#stPasteNew");
+    if (pn) pn.addEventListener("click", () => openPasteCards({}));
     root.querySelectorAll("[data-uadd]").forEach((b) => wireAddButton(b, uDeckEntry(b.dataset.uadd)));
     root.querySelectorAll("[data-uaddsub]").forEach((b) => wireAddButton(b, b.dataset.uaddsub));
     root.querySelectorAll("[data-usub]").forEach((rowEl) => {
@@ -30628,7 +30960,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     });
     root.querySelectorAll("[data-uedit]").forEach((b) => b.addEventListener("click", (e) => {
       e.stopPropagation();
-      if (studioState.deck === b.dataset.uedit) { studioState.deck = null; studioState.card = null; render(); }
+      if (studioState.deck === b.dataset.uedit) {
+        const n = uDeckPruneEmpty(b.dataset.uedit); if (n) toast(plural(n, "empty card", "empty cards") + " removed");
+        studioState.deck = null; studioState.card = null; studioRepaint();
+      }
       else openInline(b.dataset.uedit);
     }));
     root.querySelectorAll("[data-export]").forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); uDeckExport(b.dataset.export); }));
@@ -30659,7 +30994,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const d = UDECKS[studioState.deck];
       if (!uWarmed(d.cardIds || [])) {
         inline.innerHTML = '<div class="data-loading">Loading this deck…</div>';
-        uWarmDeck(d.id).then(() => { if (current && (current.name === "decks" || current.name === "studio")) render(); });
+        uWarmDeck(d.id).then(() => { if (current && (current.name === "decks" || current.name === "studio")) studioRepaint(); });
       } else studioRenderDeck(inline, d);
     }
   }
@@ -34044,7 +34379,54 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      the card SURFACE, via liveCardEditorHTML / wireLiveCardEditor.
      ============================================================ */
   // type "" = the built-in Basic row; `tpl` is which of the open type's card templates is being edited
-  const studioState = { deck: null, card: null, tab: "cards", term: null, type: "", tpl: 0 };
+  const studioState = { deck: null, card: null, tab: "cards", term: null, type: "", tpl: 0, q: "", focus: "", design: false };
+  let _studioOpenInline = null;   // the Your-decks section's own "open this deck's editor", for callers outside it
+  /* THE STUDIO REPAINTS IN PLACE (Nov 2026, the authoring audit). Every one of its controls used to call
+     render(), which is a NAVIGATION: it scrolls the reader to the top of the Collections page — and the
+     editor is a screen and a half below that on a phone, so "Add a card" looked as if it had done nothing.
+     A press inside the editor is never a navigation; this is render() with the scroll and the page ghost
+     off (see renderInPlace). `studioState.focus` asks the next paint to put the caret somewhere:
+     "card" = the open card's first field, "title" = the deck's name. */
+  function studioRepaint() { renderInPlace(); }
+  // bring part of the editor into view — only when it is not already there, so a press never moves a
+  // reader who can see what they pressed for
+  function studioReveal(el) {
+    if (!el || !el.getBoundingClientRect) return;
+    const r = el.getBoundingClientRect(), vh = window.innerHeight || 800;
+    if (r.top >= 70 && r.top <= vh * 0.6) return;
+    window.scrollTo({ top: Math.max(0, window.scrollY + r.top - 84), behavior: "auto" });
+  }
+  function caretToEnd(el) {
+    try {
+      const rg = document.createRange(); rg.selectNodeContents(el); rg.collapse(false);
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(rg);
+    } catch (e) {}
+  }
+  /* A CARD WITH NOTHING ON IT. "Add a card" pressed once too often used to leave a blank card that was dealt
+     in a session and uploaded in a publish. A Basic card is empty with no question, answer, background or
+     picture; a typed one with every field of its type blank. */
+  function uCardIsEmpty(c) {
+    if (!c) return true;
+    const has = (v) => !!String(v == null ? "" : v).replace(/<(?!img\b)[^>]*>/gi, "").replace(/&nbsp;/g, " ").trim();
+    if (c.image && c.image.src) return false;
+    if (c.video && c.video.src) return false;
+    if (cardTypeOf(c)) return !Object.keys(c.fields || {}).some((k) => has(c.fields[k]));
+    if (has(c.question) || has(c.answer) || has(c.abstract) || has(c.answerDate)) return false;
+    return !(Array.isArray(c.questions) && c.questions.some(has));
+  }
+  // …and the sweep: every empty card but `keepId` goes. Returns how many went. Called where a deck leaves
+  // the editor — Study, export, sharing, the way back to the list — never while one is being written.
+  function uDeckPruneEmpty(deckId, keepId) {
+    const d = UDECKS[deckId];
+    if (!d || !uDeckIsMine(d) || !uWarmed(d.cardIds || [])) return 0;
+    const gone = uDeckCards(d).filter((c) => c.id !== keepId && uCardIsEmpty(c));
+    gone.forEach((c) => {
+      uNoteCardIds(c.id).forEach((id) => { delete S.cards[id]; if (S.suspended) delete S.suspended[id]; });
+      uCardDelete(c.id);
+    });
+    if (gone.length) { if (studioState.card && !UCARDS[studioState.card]) studioState.card = null; save(); }
+    return gone.length;
+  }
   let _deckUpdates = {};   // local deckId -> the newer remote version, filled after boot by communityCheckUpdates()
   const STUDIO_META_FIELDS = [
     ["title", "Title", "text", "What is this deck about?"],
@@ -34110,7 +34492,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function orphanSectionHTML() {
     const rows = orphanRemoteDecks();
     if (!rows.length) return "";
-    const where = { published: "on the shared decks page", draft: "unlisted — it has a page, but nobody can find it", hidden: "hidden by a moderator" };
+    const where = { published: "on the shared decks page", unlisted: "shared by link only", draft: "sharing stopped — nobody else can open it", hidden: "hidden by a moderator" };
     return '<div class="studio-orphans">' +
       '<h2 class="studio-sec">Published, but not on this device</h2>' +
       '<p class="studio-sec-note">Your account owns these and there is no copy here — deleted on another device, or before deleting a deck took its shared copy with it. Removing one deletes it, its cards and its reviews for good; anyone who already installed it keeps their copy.</p>' +
@@ -34144,31 +34526,43 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!studioState.card && cards.length) studioState.card = cards[0].id;
     if (!uDeckIsMine(d)) { studioRenderInstalled(root, d, cards); return; }
 
-    const pubState = uDeckIsPublished(d) ? (Number(d.publishedVersion || 0) < Number(d.version || 1) ? "stale" : "live")
+    /* ONE VOCABULARY FOR SHARING (Nov 2026): a deck is Not shared, Shared, Shared by link, or its sharing is
+       stopped — and the buttons say Share, Send changes, Stop sharing. It was Publish / Unpublish / Unlisted /
+       Not shared, four words for two states. "stale" is either kind of share with edits not yet sent. */
+    const shared = uDeckIsShared(d), linkOnly = uDeckIsLinkOnly(d);
+    const pubState = shared ? (Number(d.publishedVersion || 0) < Number(d.version || 1) ? "stale" : "live")
       : (d.remoteId ? "unlisted" : "none");
 
     root.innerHTML =
       '<div class="studio-head">' +
-        '<button class="btn tiny ghost" type="button" id="stAll">&larr; All decks</button>' +
-        '<h1 class="studio-title" id="stTitleH">' + esc(d.title) + '</h1>' +
+        '<button class="btn tiny ghost" type="button" id="stAll" aria-label="Back to all decks">&larr;<span class="st-all-t"> All decks</span></button>' +
+        /* THE NAME IS EDITED WHERE IT IS READ (Nov 2026). It used to live only inside the folded "Deck
+           details", so a new deck stayed "Untitled deck" until Publish refused it. The heading is the field;
+           the box in Deck details stays, and the two write through the same setter. */
+        '<h1 class="studio-title" id="stTitleH" contenteditable="true" role="textbox" aria-label="Deck name" spellcheck="false" title="Tap to rename">' + esc(d.title) + '</h1>' +
         '<div class="studio-head-actions">' +
-          (cards.length ? '<button class="btn tiny" type="button" id="stStudy">Study</button>' : "") +
-          '<button class="btn tiny ghost" type="button" id="stExport">Export</button>' +
+          (cards.some((c) => !uCardIsEmpty(c)) ? '<button class="btn tiny" type="button" id="stStudy">Study</button>' : "") +
+          '<button class="btn tiny ghost st-more" type="button" id="stMore" aria-label="More: export, deck details, delete" title="Export, deck details, delete">&#8943;</button>' +
         '</div>' +
       '</div>' +
-      '<div class="studio-publish' + (pubState === "live" || pubState === "stale" ? " on" : "") + '">' +
+      '<div class="studio-publish' + (shared ? " on" : "") + '">' +
         '<div class="sp-state">' +
           (pubState === "none" ? "<b>Not shared.</b> This deck is on this device only."
-           : pubState === "unlisted" ? "<b>Unpublished.</b> It has a page but nobody can find it."
-           : pubState === "stale" ? "<b>Shared</b> — with edits you haven't published yet."
-           : "<b>Shared.</b> Anyone can find and install it.") +
-          (d.slug && pubState !== "none" ? ' <a class="sp-link" href="#deck/' + encodeURIComponent(d.slug) + '">View its page</a>' : "") +
+           : pubState === "unlisted" ? "<b>Sharing stopped.</b> Nobody else can open it now."
+           : pubState === "stale" ? "<b>" + (linkOnly ? "Shared by link" : "Shared") + "</b> — with changes you haven't sent yet."
+           : linkOnly ? "<b>Shared by link.</b> Only people you send the link to can open it."
+           : "<b>Shared.</b> Anyone can find and add it.") +
+          (d.slug && shared ? ' <a class="sp-link" href="#deck/' + encodeURIComponent(d.slug) + '">View its page</a>' : "") +
         '</div>' +
         '<div class="sp-acts">' +
-          '<button class="btn tiny" type="button" id="stPublish">' + (pubState === "none" || pubState === "unlisted" ? "Publish" : "Publish changes") + '</button>' +
-          (pubState === "live" || pubState === "stale" ? '<button class="btn tiny ghost" type="button" id="stUnpublish">Unpublish</button>' : "") +
+          (shared && d.slug ? '<button class="btn tiny ghost" type="button" id="stShareLink">Copy link</button>' : "") +
+          (pubState === "live" ? '<button class="btn tiny ghost" type="button" id="stPublish">Sharing options</button>'
+            : '<button class="btn tiny" type="button" id="stPublish">' + (pubState === "stale" ? "Send changes" : "Share…") + '</button>') +
+          (shared ? '<button class="btn tiny ghost" type="button" id="stUnpublish">Stop sharing</button>' : "") +
         '</div>' +
       '</div>' +
+      /* A DECK YOU WROTE LIVES IN THIS BROWSER (see backupNoteHTML): said once it is worth losing. */
+      backupNoteHTML(d, cards.length) +
       '<details class="studio-settings"><summary>Deck details</summary><div class="studio-settings-body">' +
         STUDIO_META_FIELDS.map(([f, label, type, ph]) =>
           '<label class="admin-field"><span class="af-label">' + esc(label) + '</span><input class="af-input" data-meta="' + f + '" type="' + type + '" value="' + esc(d[f] || "") + '" placeholder="' + esc(ph) + '" /></label>').join("") +
@@ -34207,12 +34601,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        studioState.tab === "types" ? studioTypesHTML(d) :
       '<div class="studio-cols">' +
         '<div class="studio-cardlist">' +
-          '<div class="studio-cardlist-head"><span>' + cards.length + " " + (cards.length === 1 ? "card" : "cards") + '</span><button class="btn tiny" type="button" id="stAddCard">Add a card</button></div>' +
-          /* THE WAY TO THE PROMPTS, at the top of the list a reader is about to fill. It is a line rather
-             than a button because it is a suggestion, not one of this panel's commands — and it is here
-             rather than in the card editor because the moment somebody wants ten cards is the moment they
-             are looking at an empty list. */
-          '<div class="studio-aihint">Writing a lot of these? <button class="sa-link" type="button" id="stAiHelp">Prompts for generating them with an AI</button></div>' +
+          /* A SPLIT BUTTON (Nov 2026). The left half adds a card of the kind the author is already writing —
+             the open card's type and subdeck — and the right half opens the kinds, so the ready-made shapes
+             are one press from the list instead of a tab, a gallery and a dropdown away. */
+          '<div class="studio-cardlist-head"><span>' + cards.length + " " + (cards.length === 1 ? "card" : "cards") + '</span>' +
+            '<span class="st-addgrp"><button class="btn tiny" type="button" id="stAddCard">Add a card</button>' +
+            '<button class="btn tiny st-addkind" type="button" id="stAddKind" aria-label="Add another kind of card" title="Add another kind of card">&#9662;</button></span></div>' +
+          /* THE WAYS TO WRITE MANY AT ONCE, at the top of the list a reader is about to fill: a pasted list
+             (two columns from a spreadsheet, a Quizlet export, an AI's reply) and the prompts that produce
+             one. Lines rather than buttons because they are suggestions, not this panel's commands. */
+          '<div class="studio-aihint"><button class="sa-link" type="button" id="stPaste">Paste a list of cards</button>' +
+            ' &middot; <button class="sa-link" type="button" id="stAiHelp">Write them with an AI</button></div>' +
+          // a search box once the list is longer than a screen of rows; it filters in place, never repaints
+          (cards.length > 7 ? '<input class="af-input st-cardq" id="stCardQ" type="search" placeholder="Find a card…" aria-label="Find a card in this deck" value="' + esc(studioState.q || "") + '" />' : "") +
           '<div class="studio-cardrows" id="stRows">' +
             (cards.length ? cards.map((c, i) =>
               '<div class="studio-cardrow' + (c.id === studioState.card ? " active" : "") + '" data-card="' + esc(c.id) + '">' +
@@ -34228,18 +34629,47 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<div class="studio-editor" id="stEditor"></div>' +
       '</div>');
 
-    root.querySelectorAll("[data-tab]").forEach((b) => b.addEventListener("click", () => { studioState.tab = b.dataset.tab; render(); }));
-    root.querySelectorAll('input[name="glossmode"]').forEach((r) => r.addEventListener("change", () => { uDeckSetGlossMode(d.id, r.value); render(); }));
+    root.querySelectorAll("[data-tab]").forEach((b) => b.addEventListener("click", () => { studioState.tab = b.dataset.tab; studioRepaint(); }));
+    root.querySelectorAll('input[name="glossmode"]').forEach((r) => r.addEventListener("change", () => { uDeckSetGlossMode(d.id, r.value); studioRepaint(); }));
     if (studioState.tab === "gloss") { studioWireGloss(root, d); }
     if (studioState.tab === "types") { studioWireTypes(root, d); }
 
-    root.querySelector("#stAll").addEventListener("click", () => { studioState.deck = null; studioState.card = null; render(); });
-    const ex = root.querySelector("#stExport"); if (ex) ex.addEventListener("click", () => uDeckExport(d.id));
-    const sy = root.querySelector("#stStudy"); if (sy) sy.addEventListener("click", () => route("study", { scope: { type: "udeck", id: d.id } }));
+    // leaving the editor sweeps the cards nothing was written on (uDeckPruneEmpty), and says so
+    const sweep = (keepId) => { const n = uDeckPruneEmpty(d.id, keepId); if (n) toast(plural(n, "empty card", "empty cards") + " removed"); return n; };
+    root.querySelector("#stAll").addEventListener("click", () => { sweep(); studioState.deck = null; studioState.card = null; studioRepaint(); studioReveal(document.querySelector("#yourDecks")); });
+    const sy = root.querySelector("#stStudy"); if (sy) sy.addEventListener("click", () => { sweep(); route("study", { scope: { type: "udeck", id: d.id } }); });
+    const more = root.querySelector("#stMore"); if (more) more.addEventListener("click", () => openDeckMoreSheet(d, root));
+    // the row's title, the heading and the box in Deck details are one name
+    const titleSync = (from) => {
+      const h = root.querySelector("#stTitleH"); if (h && h !== from) h.textContent = d.title;
+      const inp = root.querySelector('[data-meta="title"]'); if (inp && inp !== from) inp.value = d.title === "Untitled deck" ? "" : d.title;
+      document.querySelectorAll('.studio-deck[data-sd="' + cssEsc(d.id) + '"] .collection-title').forEach((el) => { el.textContent = d.title; });
+    };
     root.querySelectorAll("[data-meta]").forEach((el) => el.addEventListener("input", () => {
       uDeckSetMeta(d.id, el.dataset.meta, el.value);
-      if (el.dataset.meta === "title") { const h = root.querySelector("#stTitleH"); if (h) h.textContent = d.title; }
+      if (el.dataset.meta === "title") titleSync(el);
     }));
+    const th = root.querySelector("#stTitleH");
+    if (th) {
+      th.addEventListener("input", () => { uDeckSetMeta(d.id, "title", th.textContent.replace(/\s+/g, " ")); titleSync(th); });
+      th.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === "Escape") { e.preventDefault(); th.blur(); } });
+      th.addEventListener("paste", (e) => {
+        e.preventDefault();
+        const t = ((e.clipboardData || window.clipboardData) || { getData: () => "" }).getData("text/plain").replace(/\s+/g, " ").trim();
+        document.execCommand("insertText", false, t);
+      });
+      // an emptied name is not a name: it goes back to the placeholder title rather than to nothing
+      th.addEventListener("blur", () => {
+        if (!th.textContent.trim()) { uDeckSetMeta(d.id, "title", "Untitled deck"); d.title = d.title || "Untitled deck"; }
+        th.textContent = d.title; titleSync(th);
+      });
+      // a new deck opens with its name selected, so the first thing typed is what it is called
+      if (studioState.focus === "title") {
+        studioState.focus = "";
+        th.focus();
+        try { const rg = document.createRange(); rg.selectNodeContents(th); const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(rg); } catch (e) {}
+      }
+    }
     const tg = root.querySelector("#stTags"); if (tg) tg.addEventListener("input", () => uDeckSetTags(d.id, tg.value));
     // the swatches mark themselves and stay put, like the review sheet's — nothing on this page repaints
     // from a colour, and re-rendering would fold the details panel the reader is working in
@@ -34248,31 +34678,447 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       root.querySelectorAll("#stColors .dm-swatch").forEach((o) => o.classList.toggle("on", o === sw));
     }));
     const aih = root.querySelector("#stAiHelp");
-    if (aih) aih.addEventListener("click", () => route("mission", { scrollTo: "aiPrompts" }));
+    if (aih) aih.addEventListener("click", () => openAiPromptSheet(d));
+    const pst = root.querySelector("#stPaste");
+    if (pst) pst.addEventListener("click", () => openPasteCards({ deckId: d.id }));
     const addC = root.querySelector("#stAddCard");   // absent on the Glossary tab
-    if (addC) addC.addEventListener("click", () => {
-      const c = uCardCreate(d.id);
-      if (c) { studioState.card = c.id; render(); }
-    });
-    root.querySelectorAll("[data-copen]").forEach((b) => b.addEventListener("click", () => { studioState.card = b.dataset.copen; render(); }));
-    root.querySelectorAll("[data-up]").forEach((b) => b.addEventListener("click", () => { uCardMove(b.dataset.up, -1); render(); }));
-    root.querySelectorAll("[data-down]").forEach((b) => b.addEventListener("click", () => { uCardMove(b.dataset.down, 1); render(); }));
+    if (addC) addC.addEventListener("click", () => studioAddCard(d));
+    const addK = root.querySelector("#stAddKind");
+    if (addK) addK.addEventListener("click", () => openAddKindSheet(d, (typeId) => studioAddCard(d, typeId)));
+    root.querySelectorAll("[data-copen]").forEach((b) => b.addEventListener("click", () => {
+      studioState.card = b.dataset.copen; studioRepaint();
+      studioReveal(document.querySelector("#stEditor"));
+    }));
+    root.querySelectorAll("[data-up]").forEach((b) => b.addEventListener("click", () => { uCardMove(b.dataset.up, -1); studioRepaint(); }));
+    root.querySelectorAll("[data-down]").forEach((b) => b.addEventListener("click", () => { uCardMove(b.dataset.down, 1); studioRepaint(); }));
+    /* The search filters the rows that are already there. No repaint — a repaint per keystroke takes the
+       caret out of the box — and the query is kept in studioState so the next repaint draws it back. */
+    const cq = root.querySelector("#stCardQ");
+    const applyQ = () => {
+      const q = (studioState.q || "").trim().toLowerCase();
+      root.querySelectorAll("#stRows .studio-cardrow").forEach((r) => {
+        const c = UCARDS[r.dataset.card];
+        r.hidden = !!q && !(c && studioCardHay(c).indexOf(q) >= 0);
+      });
+    };
+    if (cq) { cq.addEventListener("input", () => { studioState.q = cq.value; applyQ(); }); applyQ(); }
+    // the open card's row is brought into view INSIDE the list's own scroller, never by moving the page
+    const act = root.querySelector("#stRows .studio-cardrow.active"), rowsEl = root.querySelector("#stRows");
+    if (act && rowsEl && rowsEl.scrollHeight > rowsEl.clientHeight) {
+      const top = act.offsetTop - rowsEl.offsetTop;
+      if (top < rowsEl.scrollTop || top + act.offsetHeight > rowsEl.scrollTop + rowsEl.clientHeight) rowsEl.scrollTop = Math.max(0, top - rowsEl.clientHeight / 2);
+    }
 
     const pub = root.querySelector("#stPublish");
-    if (pub) pub.addEventListener("click", async () => {
-      const label = pub.textContent;
-      pub.disabled = true; pub.textContent = "Publishing…";
-      const r = await uDeckPublish(d.id);
-      if (r.error) { toast(r.error); pub.disabled = false; pub.textContent = label; return; }
-      toast(r.warn || "Published — anyone can find this deck now");
-      render();
+    if (pub) pub.addEventListener("click", () => {
+      // edits to a deck that is already shared go straight up, the way it is shared: one press, as before
+      if (pubState === "stale") { studioShareNow(d, pub, {}); return; }
+      openShareSheet(d);
     });
+    const lnk = root.querySelector("#stShareLink");
+    if (lnk) lnk.addEventListener("click", () => shareDeck(d.title, d.slug));
     const unpub = root.querySelector("#stUnpublish");
     if (unpub) unpub.addEventListener("click", () => inlineConfirm(
-      "Unpublish “" + d.title + "”? It disappears from the shared list. People who already installed it keep their copy.",
-      async () => { const r = await uDeckUnpublish(d.id); toast(r.error || "Unpublished"); render(); }, "Unpublish"));
+      "Stop sharing “" + d.title + "”? " + (linkOnly ? "Its link stops working." : "It leaves the shared decks page and its link stops working.") + " People who already added it keep their copy.",
+      async () => { const r = await uDeckUnpublish(d.id); toast(r.error || "No longer shared"); studioRepaint(); }, "Stop sharing"));
+    const bk = root.querySelector("#stBackup");
+    if (bk) bk.addEventListener("click", () => { uDeckPruneEmpty(d.id, studioState.card); uDeckExport(d.id); });
+    const bkx = root.querySelector("#stBackupNo");
+    if (bkx) bkx.addEventListener("click", () => { deckBackupMark(d.id, uDeckCards(d).length); const n = root.querySelector(".st-backup"); if (n) n.remove(); });
 
     if (studioState.tab === "cards") studioRenderCardEditor(root.querySelector("#stEditor"));
+  }
+
+  /* ---------- adding a card, and choosing what kind (Nov 2026, the authoring audit) ----------
+     THE KINDS a deck can add: "Question and answer" (the built-in Basic card, whose editor now opens in its
+     short form — see `compact` in liveCardEditorHTML), every type the deck already has, and every ready-made
+     shape it has not got yet. Choosing a shape the deck lacks CREATES the type on the spot (`studioPickKind`),
+     so nobody has to visit the Card types tab to make their first vocabulary card. */
+  function studioKinds(d) {
+    const own = uTypeList(d.id);
+    const rows = [{ id: CARD_TYPE_BASIC, name: "Question and answer", blurb: "A question and its answer, with room for notes and a picture." }];
+    own.forEach((t) => rows.push({ id: t.id, name: t.name, blurb: (t.fields || []).join(" · "), own: true }));
+    CARD_TYPE_PRESETS.forEach((p) => { if (!own.some((t) => t.id === p.id)) rows.push({ id: p.id, name: p.name, blurb: p.blurb }); });
+    return rows;
+  }
+  // `cb(typeId)` with "" for the built-in card; a preset's type is made first if the deck has none
+  function studioPickKind(d, kindId, cb) {
+    if (!kindId || kindId === CARD_TYPE_BASIC) { cb(""); return; }
+    const have = uTypeGet(d.id, kindId);
+    if (have) { cb(have.id); return; }
+    const p = cardTypePreset(kindId);
+    if (!p) return;
+    const make = (lang) => { const t = uTypeCreate(d.id, p.name, cardTypePresetSpec(p, lang)); if (t) cb(t.id); };
+    if (p.askLang) openSpeechLangSheet(p, make); else make();
+  }
+  function openAddKindSheet(d, cb) {
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">Add a card</span>' +
+        '<span class="dm-where">Choose what kind. The button beside this one adds the same kind again.</span></div></div>' +
+      studioKinds(d).map((k) =>
+        '<button type="button" class="dm-item" data-addkind="' + esc(k.id) + '"><b>' + esc(k.name) + "</b><small>" + esc(k.blurb) + "</small></button>").join("");
+    return deckSheet("Add a card", html, (ov, close) => {
+      ov.querySelectorAll("[data-addkind]").forEach((b) => b.addEventListener("click", () => { close(); studioPickKind(d, b.dataset.addkind, cb); }));
+    });
+  }
+  /* ONE PRESS, ONE CARD TO WRITE ON. With no `typeId` the new card is the kind the author is already on —
+     the open card's type and subdeck. With one it is that kind ("" = the built-in card). And a card nothing
+     has been written on is REUSED rather than stacked: a second press on "Add a card" used to leave a blank
+     card behind, which was then dealt in a session and uploaded in a publish. */
+  function studioAddCard(d, typeId) {
+    const cur = UCARDS[studioState.card];
+    const explicit = typeId !== undefined;
+    studioState.tab = "cards"; studioState.q = "";
+    if (cur && cur.deckId === d.id && uCardIsEmpty(cur)) {
+      if (explicit && (cur.type || "") !== (typeId || "")) uCardSetType(cur.id, typeId || CARD_TYPE_BASIC);
+      studioState.focus = "card"; studioRepaint(); return;
+    }
+    const c = uCardCreate(d.id, { type: explicit ? typeId : (cur ? cur.type : ""), sub: cur ? cur.sub : "" });
+    if (c) { studioState.card = c.id; studioState.focus = "card"; studioRepaint(); }
+  }
+  // what the list's search box matches: everything written on the card, as plain lower-case text
+  function studioCardHay(c) {
+    const parts = [c.question, c.answer, c.abstract, c.sub];
+    if (c.fields) Object.keys(c.fields).forEach((k) => parts.push(c.fields[k]));
+    return sanitizePlain(parts.filter(Boolean).join(" ")).toLowerCase();
+  }
+  /* THE DECK'S OWN MENU — one "more" button in the editor's head instead of a second Export beside the
+     row's. Everything that is done TO the deck rather than to a card. */
+  function openDeckMoreSheet(d, root) {
+    const item = (act, title, note, cls) => '<button type="button" class="dm-item' + (cls ? " " + cls : "") + '" data-act="' + act + '"><b>' + title + "</b><small>" + note + "</small></button>";
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">' + esc(d.title) + '</span>' +
+        '<span class="dm-where">' + plural(uDeckCards(d).length, "card", "cards") + '</span></div></div>' +
+      item("paste", "Paste a list of cards", "Two columns from a spreadsheet, a Quizlet export, an AI’s reply") +
+      item("details", "Deck details", "Subtitle, author, description, tags, colour, glossary") +
+      item("export", "Export the deck file", "A <code>.folio-deck.json</code> to keep as a backup or send to someone") +
+      item("anki", "Export for Anki", "A text file Anki’s File → Import reads as it is") +
+      item("delete", "Delete this deck", "For good — export it first if you want a copy", "dm-danger");
+    return deckSheet("Deck options", html, (ov, close) => {
+      ov.querySelectorAll("[data-act]").forEach((b) => b.addEventListener("click", () => {
+        const act = b.dataset.act;
+        close();
+        if (act === "paste") openPasteCards({ deckId: d.id });
+        else if (act === "export") { uDeckPruneEmpty(d.id, studioState.card); uDeckExport(d.id); }
+        else if (act === "anki") ankiExportEntry(uDeckEntry(d.id));
+        else if (act === "delete") confirmDeleteDeck(d);
+        else if (act === "details") {
+          const det = root && root.querySelector(".studio-settings");
+          if (det) { det.open = true; studioReveal(det); const f = det.querySelector('[data-meta="subtitle"]'); if (f) f.focus(); }
+        }
+      }));
+    });
+  }
+
+  /* ---------- after an import, and the paste sheet (Nov 2026, the authoring audit) ----------
+     THE TAIL OF EVERY STUDIO IMPORT. `r` is what uDeckImportText returned; null means a list went to the
+     preview sheet instead and there is nothing to report yet. A deck brought in from a FILE is shown in the
+     list, not opened — opening the editor warms every note, and an imported deck may be tens of thousands of
+     them that nobody has asked to edit — while one made from PASTED cards is opened (`opt.open`), since
+     pasting is writing. Either way the toast offers the one thing a reader does next. */
+  async function studioImportLanded(r, opt) {
+    if (!r) return;
+    if (r.error) { toast(r.error); return; }
+    const d = r.deck, entry = uDeckEntry(d.id);
+    if (opt && opt.open && _studioOpenInline) _studioOpenInline(d.id);
+    else { renderInPlace(); studioReveal(document.querySelector('.studio-deck[data-sd="' + cssEsc(d.id) + '"]')); }
+    if (r.saved) {
+      const slow = setTimeout(() => toast("Saving “" + d.title + "” to this device…"), 400);
+      await r.saved;
+      clearTimeout(slow);
+    }
+    const n = uDeckStudyIds(d.cardIds || []).length;
+    const msg = "Imported “" + d.title + "” — " + plural(n, "card", "cards");
+    if (isActive(entry)) { toast(msg); return; }
+    toastAction(msg, "Add to daily study", () => { addActive(entry); refreshAddButtons(); toast("Added to daily review"); });
+  }
+  /* Cards added to a deck in ONE write. The Studio's own setters save per field, which is right for a
+     keystroke and wrong for a pasted list of five hundred: this sanitizes each record the way an import
+     does (uCardSanitize — the same choke point), numbers them after the deck's highest id, and saves the
+     index and the new notes together. A type the deck lacks is made from its preset first. */
+  function uCardsAppend(deckId, raws) {
+    const d = UDECKS[deckId];
+    if (!d || !Array.isArray(raws)) return 0;
+    let next = 1;
+    (d.cardIds || []).forEach((id) => { const m = /_(\d+)$/.exec(id); if (m && +m[1] >= next) next = +m[1] + 1; });
+    const room = Math.max(0, UDECK_MAX_CARDS - d.cardIds.length), ids = [];
+    raws.slice(0, room).forEach((raw) => {
+      if (raw && raw.type && !uTypeGet(deckId, raw.type)) {
+        const p = cardTypePreset(raw.type);
+        if (p) uTypeCreate(deckId, p.name, cardTypePresetSpec(p));
+      }
+      const id = "u_" + d.id + "_" + next++;
+      const c = uCardSanitize(Object.assign({}, raw, { id: id }), deckId, 0);
+      c.id = id; c.deckId = deckId;
+      if (c.type && !uTypeGet(deckId, c.type)) { delete c.type; delete c.fields; }
+      UCARDS[id] = c;
+      d.cardIds.push(id);
+      ids.push(id);
+    });
+    if (ids.length) uDeckSave(deckId, ids);
+    return ids.length;
+  }
+  /* PASTE CARDS — and the preview every list goes through. Three ways in, one sheet: `deckId` adds the cards
+     to that deck; `text` (+ `fileName`) is a text file the import picker was handed; neither is a new deck
+     from whatever is pasted. Quizlet's export is a box of text to copy, an AI answers in a chat window and a
+     spreadsheet is two selected columns: none of them is a FILE, and a phone cannot make one.
+     What is shown is what will be stored: the first rows as front and back, the divider that was found (and
+     a way to overrule it), whether the first line was taken as a heading, and how many lines came out with
+     no back — the figures that were invisible when a list was imported unseen.
+     A pasted Folio deck file (JSON, which is what the first AI prompt asks for) is recognised and imported
+     as the deck it is. */
+  function openPasteCards(o) {
+    o = o || {};
+    const into = o.deckId ? UDECKS[o.deckId] : null;
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">' +
+        (into ? "Paste a list of cards" : o.fileName ? "Import “" + esc(o.fileName) + "”" : "Paste cards") + '</span>' +
+        '<span class="dm-where">' + (into ? "They are added to “" + esc(into.title) + "”. " : "") + 'One card a line: the front, then the back.</span></div></div>' +
+      '<textarea class="af-input pc-text" id="pcText" rows="6" spellcheck="false" aria-label="The cards, one a line" placeholder="bonjour — hello&#10;merci — thank you&#10;&#10;Copy two columns from a spreadsheet, a Quizlet export, or an AI’s reply."></textarea>' +
+      '<div class="pc-opts">' +
+        '<label class="pc-opt"><span>Divided by</span><select class="af-input" id="pcSep"><option value="">Detect</option>' +
+          CARD_SEPS.map((c) => '<option value="' + c.id + '">' + esc(c.label) + "</option>").join("") + "</select></label>" +
+        '<label class="pc-opt"><span>Make them</span><select class="af-input" id="pcKind">' +
+          '<option value="">Question and answer</option><option value="two-way">Two-way — asked in both directions</option></select></label>' +
+        '<label class="pc-check"><input type="checkbox" id="pcHeader" /> The first line is a heading</label>' +
+        '<label class="pc-check"><input type="checkbox" id="pcSwap" /> Swap front and back</label>' +
+      "</div>" +
+      (into ? "" : '<label class="dm-field pc-titlerow"><span>Deck name</span><input class="af-input" id="pcTitle" type="text" maxlength="80" placeholder="What is this deck about?" /></label>') +
+      '<div class="pc-preview" id="pcPreview" aria-live="polite"></div>' +
+      '<button type="button" class="dm-item pc-go" id="pcGo" disabled><b>Nothing to add yet</b><small>Paste a list above</small></button>';
+    return deckSheet("Paste cards", html, (ov, close) => {
+      ov.classList.add("pc-sheet");
+      const ta = ov.querySelector("#pcText"), sepSel = ov.querySelector("#pcSep"), kindSel = ov.querySelector("#pcKind");
+      const hdr = ov.querySelector("#pcHeader"), swp = ov.querySelector("#pcSwap"), ttl = ov.querySelector("#pcTitle");
+      const pv = ov.querySelector("#pcPreview"), go = ov.querySelector("#pcGo");
+      let hdrTouched = false, state = null;
+      if (o.text) ta.value = o.text;
+      if (ttl && o.fileName) ttl.value = String(o.fileName).replace(/\.(txt|tsv|csv|text|json)$/i, "").replace(/[_-]+/g, " ").trim().slice(0, 80);
+      const plain = (h) => sanitizePlain(String(h == null ? "" : h).replace(/<br\s*\/?>/gi, " ")).slice(0, 160);
+      const setGo = (on, title, note) => { go.disabled = !on; go.querySelector("b").textContent = title; go.querySelector("small").textContent = note; };
+      const listOpts = () => ({ sep: sepSel.value || undefined, header: hdrTouched ? hdr.checked : undefined, swap: swp.checked, kind: kindSel.value });
+      function compute() {
+        const text = ta.value;
+        state = null;
+        ov.querySelector(".pc-opts").hidden = false;
+        if (!text.trim()) { pv.innerHTML = ""; setGo(false, "Nothing to add yet", "Paste a list above"); return; }
+        const kind = deckTextKind(text, o.fileName);
+        if (kind === "apkg") { pv.innerHTML = '<p class="pc-warn">' + esc(APKG_MSG) + "</p>"; setGo(false, "Can’t read this", "Export it from Anki as plain text"); return; }
+        if (kind === "deck") {
+          let raw = null;
+          try { raw = JSON.parse(text.replace(/^﻿/, "")); } catch (e) {}
+          const n = raw && Array.isArray(raw.cards) ? raw.cards.length : 0;
+          ov.querySelector(".pc-opts").hidden = true;
+          if (!raw || !raw.folioDeck || !n) { pv.innerHTML = '<p class="pc-warn">This looks like a deck file, but it is not one Folio can read: it needs <code>"folioDeck": 1</code> and a list of <code>cards</code>.</p>'; setGo(false, "Can’t read this", "Check that the whole reply was copied"); return; }
+          const t = sanitizePlain(raw.meta && raw.meta.title) || "Untitled deck";
+          pv.innerHTML = '<p class="pc-note">A Folio deck file: <b>' + esc(t) + "</b>, " + plural(n, "card", "cards") + ".</p>";
+          if (ttl && !ttl.value) ttl.value = t;
+          state = { deck: true };
+          setGo(true, into ? "Add its " + plural(n, "card", "cards") + " to this deck" : "Import the deck", into ? "They join “" + into.title + "”" : "It appears under Your decks");
+          return;
+        }
+        const got = ankiTextToDeck(text, o.fileName, listOpts());
+        const cards = got.deck.cards, info = got.info;
+        if (!hdrTouched) hdr.checked = !!info.header;
+        const found = cardSepById(info.sep);
+        sepSel.options[0].textContent = "Detect" + (!sepSel.value && found ? " — found: " + found.label.replace(/\s{2,}.*$/, "") : "");
+        if (!cards.length) { pv.innerHTML = '<p class="pc-warn">No cards found. Put each card on its own line.</p>'; setGo(false, "Nothing to add yet", "No cards were found"); return; }
+        const side = (c, i) => plain(c.type === "cloze" ? (i ? c.fields.Notes : c.fields.Text) : c.type ? (i ? c.fields.Back : c.fields.Front) : (i ? c.answer : c.question));
+        pv.innerHTML =
+          '<table class="pc-table"><thead><tr><th>Front</th><th>Back</th></tr></thead><tbody>' +
+          cards.slice(0, 5).map((c) => "<tr><td>" + esc(side(c, 0)) + "</td><td>" + (side(c, 1) ? esc(side(c, 1)) : c.type === "cloze" ? '<i>the hidden words</i>' : '<i class="pc-none">nothing</i>') + "</td></tr>").join("") +
+          "</tbody></table>" +
+          (cards.length > 5 ? '<p class="pc-note">…and ' + (cards.length - 5).toLocaleString("en-GB") + " more.</p>" : "") +
+          (info.noBack ? '<p class="pc-warn">' + plural(info.noBack, "line has", "lines have") + " no back. If that is most of them, the divider is wrong — choose it above.</p>" : "") +
+          (got.cloze ? '<p class="pc-note">' + plural(got.cloze, "line", "lines") + " with {{c1::…}} become fill-in-the-blank cards.</p>" : "");
+        state = { got: got };
+        // what the list MAKES: a two-way line is two cards, a fill-in-the-blank line one per numbered blank
+        const made = cards.reduce((a, c) => {
+          if (c.type === "two-way") return a + 2;
+          if (c.type === "cloze") { const seen = {}; String(c.fields.Text).replace(/\{\{c(\d+)::/g, (m, d1) => { seen[d1] = 1; return m; }); return a + Math.max(1, Object.keys(seen).length); }
+          return a + 1;
+        }, 0);
+        setGo(true, (into ? "Add " : "Make a deck of ") + plural(made, "card", "cards"),
+          into ? "They join “" + into.title + "”" : "It appears under Your decks, open for editing");
+      }
+      [ta, sepSel, kindSel, swp].forEach((el) => el.addEventListener("input", compute));
+      hdr.addEventListener("change", () => { hdrTouched = true; compute(); });
+      go.addEventListener("click", () => {
+        if (!state) return;
+        const text = ta.value, title = ttl ? ttl.value.trim() : "";
+        if (into) {
+          let raws = [];
+          if (state.deck) { const norm = uDeckNormalize(JSON.parse(text.replace(/^﻿/, ""))); raws = norm ? norm.cards : []; }
+          else raws = state.got.deck.cards;
+          // a card of a type the pasted deck file defined is brought in as text the built-in card can show
+          const n = uCardsAppend(into.id, raws.map((c) => (c.type && !cardTypePreset(c.type) && !uTypeGet(into.id, c.type)
+            ? { question: Object.values(c.fields || {})[0] || "", answer: Object.values(c.fields || {}).slice(1).filter(Boolean).join("<br>") } : c)));
+          close();
+          if (!n) { toast("Nothing was added — the deck is full."); return; }
+          studioState.card = into.cardIds[into.cardIds.length - n]; studioState.tab = "cards"; studioState.q = "";
+          studioRepaint();
+          toast(plural(n, "card", "cards") + " added" + (n < raws.length ? " — the deck is full, " + (raws.length - n) + " left out" : ""));
+          return;
+        }
+        let r;
+        if (state.deck) {
+          r = uDeckImportText(text.replace(/^﻿/, ""), false);
+          if (r && !r.error && title) uDeckSetMeta(r.deck.id, "title", title);
+        } else r = uDeckImportPlainText(text, o.fileName, Object.assign(listOpts(), { title: title || "Pasted cards", quiet: true }));
+        if (r && r.error) { toast(r.error); return; }
+        close();
+        studioImportLanded(r, { open: true });
+      });
+      compute();
+      setTimeout(() => { if (!o.text) ta.focus(); }, 60);
+    });
+  }
+  /* THE PROMPTS, WHERE THE CARDS ARE WRITTEN. The Studio's link used to leave for the About page, three
+     screens down it; this is the same list in a sheet over the deck, each with Copy, and a button that opens
+     the paste sheet for what comes back. The two at the top ask for a plain list — a question and an answer
+     to a line — which is what most decks are; the three after them are the About page's own (AI_PROMPTS),
+     for cards in Folio's long form. */
+  const AI_LIST_PROMPTS = [
+    {
+      id: "list",
+      title: "Simple question-and-answer cards",
+      note: "One card a line. Paste the reply straight into “Paste a list of cards”.",
+      text:
+'Write me 20 flashcards about [YOUR SUBJECT].\n' +
+'\n' +
+'Each card is a short question and its answer. The question must have one\n' +
+'clear answer, and the answer must be a few words, not a sentence. Do not\n' +
+'repeat a fact. Do not invent anything: if you are unsure of a date, a name\n' +
+'or a figure, leave that card out.\n' +
+'\n' +
+'Reply with one card per line and nothing else, in exactly this form:\n' +
+'\n' +
+'question | answer',
+    },
+    {
+      id: "vocab",
+      title: "A vocabulary list",
+      note: "A word and its meaning to a line. In the paste sheet choose “Two-way” to be asked both directions.",
+      text:
+'Write me a vocabulary list of 30 [LANGUAGE] words about [TOPIC, OR "everyday\n' +
+'life"] for a learner at [LEVEL, e.g. beginner].\n' +
+'\n' +
+'Give each word in its dictionary form with the most common English meaning.\n' +
+'Nouns carry their article where the language has one. No duplicates, no\n' +
+'phrases, no explanations.\n' +
+'\n' +
+'Reply with one word per line and nothing else, in exactly this form:\n' +
+'\n' +
+'word | meaning',
+    },
+  ];
+  function openAiPromptSheet(d) {
+    const all = AI_LIST_PROMPTS.concat(AI_PROMPTS);
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">Write cards with an AI</span>' +
+        '<span class="dm-where">Copy a prompt, fill in the [square brackets], paste it into any AI chat — then paste what comes back here. Check the facts: an AI states a wrong date as confidently as a right one.</span></div></div>' +
+      all.map((p, i) =>
+        '<div class="ai-row"><div class="ai-rowmain"><b>' + esc(p.title) + "</b><small>" + esc(p.note) + "</small></div>" +
+        '<button type="button" class="btn tiny" data-aicopy="' + i + '">Copy</button>' +
+        '<details class="ai-text"><summary>Read the prompt</summary><pre>' + esc(p.text) + "</pre></details></div>").join("") +
+      '<button type="button" class="dm-item" id="aiPaste"><b>Paste the reply</b><small>' + (d ? "Its cards are added to “" + esc(d.title) + "”" : "It becomes a new deck") + "</small></button>";
+    return deckSheet("Write cards with an AI", html, (ov, close) => {
+      ov.classList.add("pc-sheet");
+      ov.querySelectorAll("[data-aicopy]").forEach((b) => b.addEventListener("click", () => {
+        copySelText(all[+b.dataset.aicopy].text, "Prompt copied");
+        b.textContent = "Copied";
+      }));
+      ov.querySelector("#aiPaste").addEventListener("click", () => { close(); openPasteCards(d ? { deckId: d.id } : {}); });
+    });
+  }
+
+  /* ---------- sharing a deck from the Studio (Nov 2026, the authoring audit) ----------
+     SHARING IS REVIEWED ONCE, THEN ONE PRESS. "Publish" used to upload on the press, whatever the deck was
+     called and whatever was on its cards, and answer with a toast; the only way to hand the result to
+     somebody was to open its page and copy the address bar. The first share of a deck now opens a sheet —
+     its name, its description, who can open it, what is about to go up — and the answer carries the link.
+     Edits to a deck that is already shared still go up on one press (`studioShareNow`). */
+  async function studioShareNow(d, btn, opts) {
+    const label = btn ? btn.textContent : "";
+    if (btn) { btn.disabled = true; btn.textContent = "Sending…"; } else toast("Sharing “" + d.title + "”…", 20000);
+    const first = !uDeckIsShared(d);
+    const r = await uDeckPublish(d.id, opts);
+    if (r.error) { toast(r.error); if (btn && btn.isConnected) { btn.disabled = false; btn.textContent = label; } return false; }
+    studioRepaint();
+    if (r.warn) { toast(r.warn); return true; }
+    if (first || (opts && opts.announce)) {
+      toastAction(uDeckIsLinkOnly(d) ? "Shared by link — send it to whoever should have it" : "Shared — anyone can find this deck now",
+        navigator.share ? "Send the link" : "Copy link", () => shareDeck(d.title, d.slug), 9000);
+    } else toast("Changes sent — people who added it are offered the update");
+    return true;
+  }
+  function openShareSheet(d) {
+    /* SIGNED OUT IS A QUESTION WITH A BUTTON, not a two-second toast naming a page: sharing needs an owner on
+       the server, and the way to become one is one press from here. The deck stays open in the Studio's own
+       state, so coming back to Collections lands on it. */
+    if (!supaLoggedIn()) {
+      inlineConfirm("Sharing a deck needs a free Folio account, so the deck has an owner who can update it or take it down. Sign in or create one, then come back — this deck stays open.",
+        () => route("account"), "Sign in");
+      return;
+    }
+    if (uDeckPruneEmpty(d.id)) studioRepaint();
+    const cards = uDeckCards(d);
+    if (!cards.length) { toast("Write at least one card before sharing."); return; }
+    const noAns = cards.filter((c) => !cardTypeOf(c) && !sanitizePlain(c.answer).trim()).length;
+    const shared = uDeckIsShared(d);
+    let who = uDeckIsLinkOnly(d) ? "unlisted" : "published";
+    const untitled = !sanitizePlain(d.title).trim() || d.title === "Untitled deck";
+    const author = d.author || (SUPA_PROFILE ? SUPA_PROFILE.name : "") || "";
+    const opt = (v, title, note) => '<button type="button" class="dm-item sh-opt' + (who === v ? " on" : "") + '" role="radio" aria-checked="' + (who === v ? "true" : "false") + '" data-who="' + v + '">' +
+      "<b>" + title + "</b><small>" + note + "</small></button>";
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">' + (shared ? "Sharing options" : "Share this deck") + '</span>' +
+        '<span class="dm-where">' + plural(uDeckStudyIds(d.cardIds || []).length, "card", "cards") + (author ? " · shared as " + esc(author) : "") + '</span></div></div>' +
+      '<label class="dm-field dm-fieldcol"><span>Name</span><input class="af-input" id="shTitle" type="text" maxlength="200" placeholder="What is this deck about?" value="' + esc(untitled ? "" : d.title) + '" /></label>' +
+      '<label class="dm-field dm-fieldcol"><span>Description <small>optional &mdash; what a learner gets from it</small></span>' +
+        '<textarea class="af-input" id="shDesc" rows="3" maxlength="2000">' + esc(d.desc || "") + "</textarea></label>" +
+      '<div class="sh-who" role="radiogroup" aria-label="Who can open it">' +
+        opt("published", "Anyone", "It is listed under Shared decks, where people can find it and add it") +
+        opt("unlisted", "Only people with the link", "It is in no list; you send the link to whoever should have it") +
+      "</div>" +
+      (noAns ? '<p class="pc-warn sh-note">' + plural(noAns, "card has", "cards have") + " no answer yet.</p>" : "") +
+      '<p class="pc-note sh-note">Folio does not fact-check shared decks. You can change this or stop sharing at any time; people who have added the deck keep their copy.</p>' +
+      '<button type="button" class="dm-item pc-go" id="shGo"><b>' + (shared ? "Save and send" : "Share it") + "</b><small>You get the link to send as soon as it is up</small></button>";
+    return deckSheet(shared ? "Sharing options" : "Share this deck", html, (ov, close) => {
+      ov.classList.add("pc-sheet");
+      ov.querySelectorAll("[data-who]").forEach((b) => b.addEventListener("click", () => {
+        who = b.dataset.who;
+        ov.querySelectorAll("[data-who]").forEach((x) => { x.classList.toggle("on", x === b); x.setAttribute("aria-checked", x === b ? "true" : "false"); });
+      }));
+      ov.querySelector("#shGo").addEventListener("click", () => {
+        const ttl = ov.querySelector("#shTitle"), name = ttl.value.replace(/\s+/g, " ").trim();
+        if (!name || name === "Untitled deck") { toast("Give the deck a name first."); ttl.focus(); return; }
+        uDeckSetMeta(d.id, "title", name);
+        uDeckSetMeta(d.id, "desc", ov.querySelector("#shDesc").value);
+        close();
+        studioShareNow(d, null, { status: who, announce: true });
+      });
+    });
+  }
+  /* A DECK YOU WROTE LIVES IN THIS BROWSER AND NOWHERE ELSE. The Studio said so in one clause of its
+     introduction; nothing said it again once there was something to lose. Past twenty cards an unshared
+     deck gets one quiet line with the two ways to keep a copy, and the line goes when either is taken or
+     it is dismissed — coming back once twenty more cards have been written since. The register is per
+     device, like the deck: `folio_deck_backup_v1`, deck id → the card count the last time a copy was kept. */
+  const DECK_BACKUP_KEY = "folio_deck_backup_v1", DECK_BACKUP_EVERY = 20;
+  function deckBackupRead() { try { return JSON.parse(localStorage.getItem(DECK_BACKUP_KEY) || "{}") || {}; } catch (e) { return {}; } }
+  function deckBackupMark(deckId, n) {
+    const m = deckBackupRead(); m[deckId] = n | 0;
+    try { localStorage.setItem(DECK_BACKUP_KEY, JSON.stringify(m)); } catch (e) {}
+  }
+  function backupNoteHTML(d, n) {
+    if (!d || !uDeckIsMine(d) || uDeckIsShared(d) || n < DECK_BACKUP_EVERY) return "";
+    const at = deckBackupRead()[d.id];
+    if (at != null && n < (at | 0) + DECK_BACKUP_EVERY) return "";
+    return '<div class="st-backup"><span><b>This deck is stored only in this browser.</b> Clearing its data, or changing phone, loses it. ' +
+      "Export a copy now and then — or share it, which keeps one on your account.</span>" +
+      '<span class="st-backup-acts"><button class="btn tiny" type="button" id="stBackup">Export a copy</button>' +
+      '<button class="btn tiny ghost" type="button" id="stBackupNo">Not now</button></span></div>';
   }
 
   /* ---------- the Studio's card-types tab ----------
@@ -34321,7 +35167,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ov.querySelectorAll("[data-preset]").forEach((b) => b.addEventListener("click", () => {
         const p = cardTypePreset(b.dataset.preset);
         close();
-        if (!p) { const blank = uTypeCreate(deckId, "New type"); if (blank) after(blank); return; }
+        if (!p) { const blank = uTypeCreate(deckId, "New type"); if (blank) { studioState.design = true; after(blank); } return; }
         // the vocabulary shape reads its answer aloud, and which language that is in is the one thing about
         // it Folio cannot guess — so it is asked once, here, instead of left wrong until somebody notices
         if (p.askLang) { openSpeechLangSheet(p, (lang) => { const t = uTypeCreate(deckId, p.name, cardTypePresetSpec(p, lang)); if (t) after(t); }); return; }
@@ -34375,11 +35221,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function studioBasicTypeHTML() {
     return '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">Basic</h2>' +
       '<div class="admin-ed-key">Folio&rsquo;s own format</div></div></div>' +
-      '<div class="ut-about"><p>A Basic card is the one the rest of Folio is written in: a question with a blank in it, ' +
-      'an answer with its date line, a background, an illustration and the works behind it. Its layout is Folio&rsquo;s, ' +
-      'and it is edited on the Cards tab.</p>' +
-      '<p>A type of your own replaces all of that with templates you write yourself — the HTML of the front, the HTML of ' +
-      'the back, and one stylesheet for the card. Pick one of these to start from, or add a blank one on the left.</p></div>' +
+      '<div class="ut-about"><p>Basic is the built-in question-and-answer card: a question, an answer, and room for notes ' +
+      'and a picture. It is also the card the rest of Folio is written in, so its longer form — a date line, sources, ' +
+      'glossary links — is there under &ldquo;More options&rdquo; on the Cards tab.</p>' +
+      '<p>A type is a card with boxes of your own. Pick a ready-made one below — &ldquo;Add a card&rdquo; on the Cards tab ' +
+      'offers the same list — or add a blank one. Any of them can be restyled afterwards under &ldquo;Customise the design&rdquo;.</p></div>' +
       /* The presets again, as a gallery — the "Add a type" button opens the same list in a sheet, but this
          pane is what a first-time author is already looking at, and a feature reached only through a button
          labelled with what it does rather than with what it offers is one nobody goes looking for. */
@@ -34430,8 +35276,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<div class="ut-form">' +
         '<label class="admin-field"><span class="af-label">Name</span>' +
           '<input class="af-input" data-utype="name" type="text" value="' + esc(t.name) + '" /></label>' +
-        '<label class="admin-field"><span class="af-label">Fields <small>&mdash; comma separated, in the order you want to fill them in</small></span>' +
-          '<input class="af-input" id="stTypeFields" type="text" spellcheck="false" value="' + esc(t.fields.join(", ")) + '" /></label>' +
+        /* THE FIELDS AS CHIPS (Nov 2026): each of the type's boxes is a chip with its own ×, and a new one is
+           typed into the box beside them. The comma-separated line is kept under "Customise the design" —
+           it is still the way to REORDER or rename them in one edit — and both write through uTypeSetFields. */
+        '<div class="admin-field"><span class="af-label">Fields <small>&mdash; the boxes a card of this type is filled in with</small></span>' +
+          '<div class="ut-chips" id="utChips">' +
+            t.fields.map((f) => '<span class="ut-chip">' + esc(f) + '<button type="button" data-fdel="' + esc(f) + '" aria-label="Remove the field ' + esc(f) + '" title="Remove this field">&times;</button></span>').join("") +
+            (t.fields.length < UTYPE_MAX_FIELDS ? '<input class="af-input ut-chipadd" id="utFieldAdd" type="text" spellcheck="false" maxlength="40" placeholder="Add a field…" aria-label="Add a field" />' : "") +
+          "</div></div>" +
         '<label class="admin-field"><span class="af-label">Spoken language ' +
           '<small>&mdash; what a read-aloud button on this type says its words in</small></span>' +
           '<select class="af-input" data-utype="speechLang">' +
@@ -34449,6 +35301,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             : "Every blank on a note is hidden and revealed together, on one card") + "</small></div>" +
           '<div class="switch' + (t.cloze ? " on" : "") + '" id="utCloze" role="switch" tabindex="0" aria-label="One card per blank" aria-checked="' + (t.cloze ? "true" : "false") + '"></div>' +
         "</div>" +
+        '<div class="ut-preview"><span class="af-label">Preview</span><div class="ut-preview-box" id="stTypePv"></div></div>' +
+        /* THE TEMPLATES, FOLDED (Nov 2026). A ready-made type works as it stands, and the three code boxes and
+           their page of syntax were the first thing under its name. They open on request, stay open for the
+           session once opened (studioState.design), and start open on a type made from scratch — where
+           writing them is the whole job. */
+        '<details class="ut-design" id="utDesign"' + (studioState.design ? " open" : "") + '><summary>Customise the design <small>&mdash; the HTML and CSS behind this type</small></summary><div class="ut-design-body">' +
+        '<label class="admin-field"><span class="af-label">Fields, as one line <small>&mdash; comma separated; edit it to reorder or rename them</small></span>' +
+          '<input class="af-input" id="stTypeFields" type="text" spellcheck="false" value="' + esc(t.fields.join(", ")) + '" /></label>' +
         '<div class="ut-help">Write <code>{{' + esc(t.fields[0] || "Front") + "}}</code> in a template to drop that field in. " +
           "<code>{{FrontSide}}</code> on the back is the front as it rendered. " +
           "<code>{{#Field}}…{{/Field}}</code> keeps a block only when that field is filled in, and " +
@@ -34471,7 +35331,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         box("front", "Front template", "the HTML shown before the answer", tpl.front, 7) +
         box("back", "Back template", "the HTML shown once the card is turned over", tpl.back, 7) +
         box("css", "CSS", "styles every card of this type; <code>.card</code> is the card itself", t.css, 10) +
-        '<div class="ut-preview"><span class="af-label">Preview</span><div class="ut-preview-box" id="stTypePv"></div></div>' +
+        "</div></details>" +
       "</div>";
   }
   // The preview renders a REAL card — the one being edited if it uses this type, else a stand-in whose fields
@@ -34497,11 +35357,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function studioWireTypes(root, d) {
     root.querySelectorAll("[data-topensel]").forEach((b) => b.addEventListener("click", () => {
       studioState.type = b.dataset.topensel === CARD_TYPE_BASIC ? "" : b.dataset.topensel;
-      render();
+      studioRepaint();
     }));
     // both ways in — the button at the head of the list opens the presets in a sheet, the pane behind it
     // shows the same three as a gallery — and both land in the same place: the new type, open for editing
-    const open = (t) => { studioState.type = t.id; render(); };
+    const open = (t) => { studioState.type = t.id; studioRepaint(); };
     const add = root.querySelector("#stAddType");
     if (add) add.addEventListener("click", () => openTypePresetSheet(d.id, open));
     root.querySelectorAll(".ut-preset[data-preset]").forEach((b) => b.addEventListener("click", () => {
@@ -34533,7 +35393,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* The card-template controls. Switching, adding and removing all re-render — each changes which template
        the two big boxes are showing, which is not something to patch in place — and each blurs first, for the
        reason the field list does: removing a focused control mid-innerHTML is what Chrome refuses. */
-    const rerender = (el) => { if (el) el.blur(); setTimeout(render, 0); };
+    const rerender = (el) => { if (el) el.blur(); setTimeout(studioRepaint, 0); };
     /* THE CLOZE SWITCH RE-RENDERS, unlike every other field on this form. It changes how many cards each
        note of the type makes — so the card list, the preview and the note counts under it are all describing
        something else the moment it is thrown — and the switch's own note has to be rewritten with it. */
@@ -34589,6 +35449,27 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Remove the card"
       );
     });
+    const design = root.querySelector("#utDesign");
+    if (design) design.addEventListener("toggle", () => { studioState.design = design.open; });
+    // the chips: a × drops that field, the box adds one; both rewrite the list the comma line holds
+    const setFields = (list, el) => { uTypeSetFields(d.id, t.id, list.join(",")); adminFlashSaved(); rerender(el); };
+    root.querySelectorAll("[data-fdel]").forEach((b) => b.addEventListener("click", () => {
+      const live = uTypeGet(d.id, t.id);
+      if (!live || live.fields.length <= 1) { toast("A type needs at least one field."); return; }
+      setFields(live.fields.filter((f) => f !== b.dataset.fdel), b);
+    }));
+    const fadd = root.querySelector("#utFieldAdd");
+    if (fadd) {
+      const add = () => {
+        const v = fadd.value.trim(), live = uTypeGet(d.id, t.id);
+        if (!v || !live) return;
+        if (!UTYPE_FIELD_RX.test(v)) { toast("A field name is letters, digits and spaces, starting with a letter or digit."); return; }
+        if (live.fields.indexOf(v) >= 0) { fadd.value = ""; return; }
+        setFields(live.fields.concat([v]), fadd);
+      };
+      fadd.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); add(); } });
+      fadd.addEventListener("change", add);
+    }
     const ff = root.querySelector("#stTypeFields");
     // the field LIST does re-render: it changes which boxes a card of this type offers, and the help line above
     // …and it does so OUT of the event. render() replaces #view, and removing a still-focused input fires
@@ -34598,14 +35479,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       uTypeSetFields(d.id, t.id, ff.value);
       adminFlashSaved();
       ff.blur();
-      setTimeout(render, 0);
+      setTimeout(studioRepaint, 0);
     });
     const del = root.querySelector("#stDelType");
     if (del) del.addEventListener("click", () => {
       const n = uDeckCards(d).filter((c) => c.type === t.id).length;
       inlineConfirm("Delete the “" + t.name + "” card type?" +
         (n ? " " + n + " " + (n === 1 ? "card goes" : "cards go") + " back to Basic, and the text written into its fields goes with it." : ""),
-        () => { uTypeDelete(d.id, t.id); studioState.type = ""; toast("Card type deleted"); render(); }, "Delete");
+        () => { uTypeDelete(d.id, t.id); studioState.type = ""; toast("Card type deleted"); studioRepaint(); }, "Delete");
     });
   }
 
@@ -34685,9 +35566,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const add = root.querySelector("#stAddTerm");
     if (add) add.addEventListener("click", () => inlinePrompt("What is the term called?", "", (name) => {
       const slug = uGlossCreate(d.id, name);
-      if (slug) { studioState.term = slug; render(); }
+      if (slug) { studioState.term = slug; studioRepaint(); }
     }));
-    root.querySelectorAll("[data-topen]").forEach((b) => b.addEventListener("click", () => { studioState.term = b.dataset.topen; render(); }));
+    root.querySelectorAll("[data-topen]").forEach((b) => b.addEventListener("click", () => { studioState.term = b.dataset.topen; studioRepaint(); }));
     const slug = studioState.term;
     if (!slug) return;
     const descEl = root.querySelector('[data-gf="desc"]');
@@ -34749,7 +35630,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     });
     const del = root.querySelector("#stDelTerm");
     if (del) del.addEventListener("click", () => inlineConfirm("Delete the term “" + glossTitle(uGlossKey(d.id, slug)) + "”?", () => {
-      uGlossDelete(d.id, slug); studioState.term = null; toast("Term deleted"); render();
+      uGlossDelete(d.id, slug); studioState.term = null; toast("Term deleted"); studioRepaint();
     }, "Delete"));
   }
 
@@ -34782,7 +35663,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           '<div class="studio-cardrow"><span class="scr-open"><span class="scr-n">' + (i + 1) + '</span>' +
           '<span class="scr-title">' + esc(uCardTitle(c)) + '</span></span></div>').join("") + '</div>' +
       '</div>';
-    root.querySelector("#stAll").addEventListener("click", () => { studioState.deck = null; studioState.card = null; render(); });
+    root.querySelector("#stAll").addEventListener("click", () => { studioState.deck = null; studioState.card = null; studioRepaint(); });
     const sy = root.querySelector("#stStudy"); if (sy) sy.addEventListener("click", () => route("study", { scope: { type: "udeck", id: d.id } }));
     const ex = root.querySelector("#stExport"); if (ex) ex.addEventListener("click", () => uDeckExport(d.id));
     const up = root.querySelector("#stUpdate");
@@ -34795,19 +35676,90 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       r.deck.forkedFrom = { slug: d.slug || "", title: d.title || "", author: d.ownerName || d.author || "" };   // credit the original
       uDeckSave(r.deck.id);
       studioState.deck = r.deck.id; studioState.card = null;
-      render();
+      studioRepaint();
       await r.saved;   // the copy's own notes — say it is duplicated once it really is (see uImportDone)
       toast("Duplicated — this copy is yours to edit");
     });
     root.querySelector("#stRemove").addEventListener("click", () => inlineConfirm(
       "Remove “" + d.title + "” from this device? Your progress on its cards goes too.",
-      async () => { const r = await uDeckUninstall(d.id); studioState.deck = null; toast(uninstallSaid(r)); render(); }, "Remove"));
+      async () => { const r = await uDeckUninstall(d.id); studioState.deck = null; toast(uninstallSaid(r)); studioRepaint(); }, "Remove"));
   }
 
+  /* THE CARD'S OWN CHROME, shared by the built-in card's editor and a typed card's (Nov 2026): its title, what
+     can be done to it, and — under the card — the button for the next one. Three changes from the row of one
+     red button it replaces. DELETE NO LONGER ASKS: it deletes and offers Undo, which is one press instead of
+     two and loses nothing, where a confirmation is a question an author answers by reflex. DUPLICATE starts
+     the next card from this one. MOVE takes a place number, since the list's arrows move one row a press. */
+  function studioCardHeadHTML(c, d, keyLine) {
+    const many = d && (d.cardIds || []).length > 2;
+    return '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(uCardTitle(c)) + '</h2>' +
+        '<div class="admin-ed-key">' + keyLine + '</div></div>' +
+        '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span>' +
+        '<button class="btn tiny ghost" id="stDupCard" type="button" title="A copy of this card, placed under it">Duplicate</button>' +
+        (many ? '<button class="btn tiny ghost" id="stMoveCard" type="button" title="Move this card to another place in the deck">Move</button>' : "") +
+        '<button class="admin-delete" id="stDelCard" type="button">Delete card</button></div></div>';
+  }
+  function studioCardFootHTML() {
+    return '<div class="st-cardfoot"><button class="btn" type="button" id="stAddNext">Add another card</button>' +
+      '<span class="st-cardfoot-note">Saved as you type. The next card starts as the same kind.</span></div>';
+  }
+  function studioWireCardChrome(host, c, d) {
+    const dup = host.querySelector("#stDupCard");
+    if (dup) dup.addEventListener("click", () => {
+      const n = uCardDuplicate(c.id);
+      if (n) { studioState.card = n.id; studioState.focus = "card"; toast("Card duplicated"); studioRepaint(); }
+    });
+    const mv = host.querySelector("#stMoveCard");
+    if (mv && d) mv.addEventListener("click", () => {
+      const n = d.cardIds.length, at = d.cardIds.indexOf(c.id) + 1;
+      inlinePrompt("Move this card to which place? It is number " + at + " of " + n + ".", String(at), (v) => {
+        const to = parseInt(v, 10);
+        if (!to || to < 1) return;
+        uCardMoveTo(c.id, to); studioRepaint();
+      }, { inputLabel: "Place in the deck, 1 to " + n });
+    });
+    const del = host.querySelector("#stDelCard");
+    if (del) del.addEventListener("click", () => {
+      const snap = uCardSnapshot(c.id), wasEmpty = uCardIsEmpty(c);
+      const ids = d ? d.cardIds.slice() : [], i = ids.indexOf(c.id);
+      uCardDelete(c.id);
+      studioState.card = ids[i + 1] || ids[i - 1] || null;
+      studioRepaint();
+      if (wasEmpty || !snap) { toast("Card deleted"); return; }
+      toastAction("Card deleted", "Undo", () => {
+        const back = uCardRestore(snap);
+        if (back) { studioState.card = back.id; studioRepaint(); toast("Card restored"); }
+      });
+    });
+    const next = host.querySelector("#stAddNext");
+    if (next && d) next.addEventListener("click", () => studioAddCard(d));
+  }
+  // whether the built-in card's long form opens: the author's last choice, or a card that already uses it
+  const STUDIO_MORE_KEY = "folio.studio.more";
+  function studioMoreOpen(c) {
+    try { if (localStorage.getItem(STUDIO_MORE_KEY) === "1") return true; } catch (e) {}
+    return !!(c && (sanitizePlain(c.answerDate) || (Array.isArray(c.questions) && c.questions.length) || (Array.isArray(c.sources) && c.sources.length)));
+  }
   function studioRenderCardEditor(host) {
     if (!host) return;
     const c = UCARDS[studioState.card];
-    if (!c) { host.innerHTML = '<div class="admin-editor-empty">Add a card to start writing, then double-click any part of it to edit.</div>'; return; }
+    if (!c) {
+      /* AN EMPTY DECK ASKS WHAT IT IS FOR (Nov 2026). The ready-made shapes used to sit on a second tab,
+         behind a paragraph about HTML and stylesheets; this pane said only "Add a card to start writing".
+         The same list the split button opens, drawn where a first-time author is already looking. */
+      const d0 = UDECKS[studioState.deck];
+      if (!d0) { host.innerHTML = ""; return; }
+      host.innerHTML = '<div class="st-kinds"><h2 class="st-kinds-h">What kind of card first?</h2>' +
+        '<p class="st-kinds-p">One deck can mix kinds, and a card&rsquo;s kind can be changed later.</p>' +
+        '<div class="ut-presets">' + studioKinds(d0).map((k) =>
+          '<button type="button" class="ut-preset st-kind" data-addkind="' + esc(k.id) + '">' +
+          '<span class="ut-preset-name">' + esc(k.name) + "</span>" +
+          '<span class="ut-preset-blurb">' + esc(k.blurb) + "</span></button>").join("") +
+        "</div></div>";
+      host.querySelectorAll("[data-addkind]").forEach((b) => b.addEventListener("click", () =>
+        studioPickKind(d0, b.dataset.addkind, (typeId) => studioAddCard(d0, typeId))));
+      return;
+    }
     const d = UDECKS[c.deckId];
     const typePicker = studioTypePickerHTML(d, c);
     // A card of one of the deck's own types has no question / answer / background — it has that type's fields —
@@ -34818,20 +35770,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<label class="ces-m ces-m-wide"><span>answer text — plain, used when the card is read back</span><input class="af-input" id="cesAnswerText" type="text" spellcheck="false" /></label>' +
       '</div>';
     host.innerHTML =
-      '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(uCardTitle(c)) + '</h2>' +
-        '<div class="admin-ed-key">' + esc(d ? d.title : "") + '</div></div>' +
-        '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span>' +
-        '<button class="admin-delete" id="stDelCard" type="button">Delete card</button></div></div>' +
+      studioCardHeadHTML(c, d, esc(d ? d.title : "")) +
       typePicker +
-      liveCardEditorHTML({ dirAttr: "", metaHtml: metaRow, imagePanel: true, videoPanel: true, sourcesPanel: true });
+      liveCardEditorHTML({ dirAttr: "", metaHtml: metaRow, imagePanel: true, videoPanel: true, sourcesPanel: true,
+        compact: true, more: studioMoreOpen(c), blank: true }) +
+      studioCardFootHTML();
 
     studioWireTypePicker(host, c);
-    wireLiveCardEditor(host, {
+    const ed = wireLiveCardEditor(host, {
       card: c,
       isEn: true,
       dirAttr: "",
       imagePanel: true,
       videoPanel: true,
+      // the Studio's surface: one tap edits a field, Tab and Enter walk them, and the long form is folded
+      tapEdit: true,
+      compact: true,
+      onMore: (open) => { try { localStorage.setItem(STUDIO_MORE_KEY, open ? "1" : "0"); } catch (e) {} },
       glossOff: [],
       // Phase 1 links a user's cards against the curated site glossary. Per-deck glossaries (deck.glossMode
       // 'own'/'both') are stored but not yet editable — the scope plumbing from phase 0 is what they'll use.
@@ -34859,81 +35814,118 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       afterImage: () => adminFlashSaved(),
       afterVideo: () => adminFlashSaved(),
     });
-
-    host.querySelector("#stDelCard").addEventListener("click", () => {
-      inlineConfirm("Delete this card from “" + (d ? d.title : "the deck") + "”?", () => {
-        uCardDelete(c.id); studioState.card = null; toast("Card deleted"); render();
-      }, "Delete");
-    });
+    studioWireCardChrome(host, c, d);
+    if (studioState.focus === "card") {
+      studioState.focus = "";
+      studioReveal(host);
+      if (ed && ed.focusField) ed.focusField("question");
+    }
   }
   /* ---------- choosing a card's type ----------
      One row above the card, on both surfaces, so the answer to "what kind of card is this?" is in the same
-     place whichever kind it currently is. A deck with no types of its own still shows it, with a line saying
-     where to make one — a picker of one option explains the feature better than no picker at all does. */
+     place whichever kind it currently is. It lists the deck's own types AND the ready-made shapes the deck
+     has not got yet (Nov 2026): picking one of those makes the type and turns the card into it, so the
+     picker is never a list of one with a note saying where to go to lengthen it. */
+  const SUB_NEW = "__new";
   function studioTypePickerHTML(d, c) {
     const types = uTypeList(d ? d.id : "");
     const cur = c.type && uTypeGet(c.deckId, c.type) ? c.type : CARD_TYPE_BASIC;
+    const presets = CARD_TYPE_PRESETS.filter((p) => !types.some((t) => t.id === p.id));
+    const subs = uSubNodes(d ? d.id : "");
+    const sub = (c && c.sub) || "";
     return '<div class="ces-typebar">' +
-      '<label class="ces-typepick"><span>Card type</span>' +
+      '<label class="ces-typepick"><span>Kind</span>' +
         '<select class="af-input" id="cesCardType">' +
-          '<option value="' + CARD_TYPE_BASIC + '"' + (cur === CARD_TYPE_BASIC ? " selected" : "") + ">Basic — Folio&rsquo;s own format</option>" +
+          '<option value="' + CARD_TYPE_BASIC + '"' + (cur === CARD_TYPE_BASIC ? " selected" : "") + ">Question and answer (Basic)</option>" +
           types.map((t) => '<option value="' + esc(t.id) + '"' + (cur === t.id ? " selected" : "") + ">" + esc(t.name) + "</option>").join("") +
+          (presets.length ? '<optgroup label="Ready-made">' + presets.map((p) => '<option value="' + esc(p.id) + '">' + esc(p.name) + "</option>").join("") + "</optgroup>" : "") +
         "</select></label>" +
-      (types.length ? "" : '<span class="ces-typenote">Write your own on the <b>Card types</b> tab.</span>') +
-      /* Which subdeck this card is in. A datalist rather than a <select> because the deck's subdecks ARE
-         the titles its cards name — there is no list to pick from until a card names one, so the first
-         has to be typed, and every one after it is offered. Leaving it empty puts the card in the deck
-         itself. */
+      /* Which subdeck this card is in. A PICKER (Nov 2026) of the subdecks the deck already has, with "New
+         subdeck…" opening the box to name one — the `A::B` path syntax is still read there, but nobody has
+         to know it to file a card. Leaving it at None puts the card in the deck itself. `#cesCardSub` is
+         the same input it always was, shown only while a new name is being typed. */
       '<label class="ces-typepick"><span>Subdeck</span>' +
-        '<input class="af-input" id="cesCardSub" type="text" list="cesSubList" placeholder="none" ' +
+        '<select class="af-input" id="cesSubPick">' +
+          '<option value=""' + (sub ? "" : " selected") + ">None</option>" +
+          // every NODE, not only the paths cards name, so a parent can be picked as readily as a leaf
+          subs.map((x) => '<option value="' + esc(x) + '"' + (x === sub ? " selected" : "") + ">" + esc(x.split(SUB_SEP).join(" › ")) + "</option>").join("") +
+          '<option value="' + SUB_NEW + '">New subdeck…</option>' +
+        "</select>" +
+        '<input class="af-input" id="cesCardSub" type="text" list="cesSubList" placeholder="Name the new subdeck" hidden ' +
           'title="Type ' + SUB_SEP + ' between names to put a subdeck inside another, as in ' +
             'A1' + SUB_SEP + 'Spanish to English" ' +
-          'value="' + esc((c && c.sub) || "") + '" />' +
+          'value="' + esc(sub) + '" />' +
         '<datalist id="cesSubList">' +
-          // every NODE, not only the paths cards name, so a parent can be picked as readily as a leaf
-          uSubNodes(d ? d.id : "").map((x) => '<option value="' + esc(x) + '"></option>').join("") +
+          subs.map((x) => '<option value="' + esc(x) + '"></option>').join("") +
         "</datalist></label>" +
     "</div>";
   }
   function studioWireTypePicker(host, c) {
-    const sub = host.querySelector("#cesCardSub");
+    const sub = host.querySelector("#cesCardSub"), pick = host.querySelector("#cesSubPick");
+    const setSub = (v) => {
+      v = String(v || "").trim();
+      if (v === (c.sub || "")) return;
+      uCardSetSub(c.id, v);
+      studioRepaint();
+    };
     /* On `change` rather than every keystroke: the deck's subdeck list is derived from the cards, so each
        keystroke would otherwise create a subdeck per prefix — "E", "En", "Eng" — and the row list under the
        deck would grow a row for each. It re-renders because the Collections page and the card list group by
        this, and the datalist behind the box is built from it. */
-    if (sub) sub.addEventListener("change", () => {
-      const v = sub.value.trim();
-      if (v === ((c.sub || ""))) return;
-      uCardSetSub(c.id, v);
-      render();
+    if (sub) sub.addEventListener("change", () => setSub(sub.value));
+    if (pick) pick.addEventListener("change", () => {
+      if (pick.value === SUB_NEW) { if (sub) { sub.hidden = false; sub.value = ""; sub.focus(); } return; }
+      setSub(pick.value);
     });
     const sel = host.querySelector("#cesCardType");
     if (!sel) return;
     sel.addEventListener("change", () => {
-      const to = sel.value;
       const from = c.type || CARD_TYPE_BASIC;
-      if (to === from) return;
+      if (sel.value === from) return;
       // Changing type does not throw anything away: a Basic card keeps its question and background, and a
       // typed card keeps its field values, so switching back and forth is free and reversible.
-      uCardSetType(c.id, to);
-      render();
+      // A ready-made shape the deck has not got is made first (studioPickKind), then the card turned into it.
+      studioPickKind(UDECKS[c.deckId], sel.value, (typeId) => {
+        uCardSetType(c.id, typeId || CARD_TYPE_BASIC);
+        studioState.focus = "card";
+        studioRepaint();
+      });
     });
+  }
+  /* WHICH OF A TYPE'S FIELDS HOLD A PICTURE'S ADDRESS: the ones a template puts inside `src="…"`. They get a
+     one-line box and a note saying what to paste, since a paragraph box labelled "Image" invites a
+     description of the picture rather than its link. */
+  function typeImageFields(t) {
+    const out = {};
+    const all = typeCards(t).map((x) => String(x.front || "") + String(x.back || "")).join(" ");
+    (t.fields || []).forEach((f) => { if (all.indexOf('src="{{' + f + '}}"') >= 0) out[f] = true; });
+    return out;
   }
   function studioRenderTypedCardEditor(host, c, d, typePicker) {
     const t = cardTypeOf(c);
     const vals = c.fields || {};
+    const imgF = typeImageFields(t);
     host.innerHTML =
-      '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(uCardTitle(c)) + "</h2>" +
-        '<div class="admin-ed-key">' + esc(t.name) + (d ? " · " + esc(d.title) : "") + "</div></div>" +
-        '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span>' +
-        '<button class="admin-delete" id="stDelCard" type="button">Delete card</button></div></div>' +
+      studioCardHeadHTML(c, d, esc(t.name) + (d ? " · " + esc(d.title) : "")) +
       typePicker +
-      '<div class="ut-form">' +
+      '<div class="ut-form ut-cardform">' +
+        /* A SMALL RIBBON for boxes that hold HTML as text: bold and italic wrap the selection in the tags a
+           template renders, and on a fill-in-the-blank type "Blank" wraps it in the next {{cN::…}} — the
+           marker nobody should have to type by hand. It acts on whichever box was last in use. */
+        '<div class="ut-fieldbar" role="toolbar" aria-label="Formatting">' +
+          '<button type="button" class="rt-btn" data-wrap="b" title="Bold the selected words"><b>B</b></button>' +
+          '<button type="button" class="rt-btn" data-wrap="i" title="Italicise the selected words"><i>I</i></button>' +
+          (t.cloze ? '<button type="button" class="rt-btn rt-wide ut-blankbtn" data-wrap="cloze" title="Hide the selected words: they become the blank this card asks for">Blank</button>' +
+            '<span class="ut-fieldbar-note">Select the words to recall, then press Blank.</span>' : "") +
+        "</div>" +
         t.fields.map((f) =>
-          '<label class="admin-field"><span class="af-label">' + esc(f) + "</span>" +
-          '<textarea class="af-input ut-code" data-ufield="' + esc(f) + '" rows="3" spellcheck="false">' + esc(vals[f] || "") + "</textarea></label>").join("") +
+          '<label class="admin-field"><span class="af-label">' + esc(f) +
+            (imgF[f] ? ' <small>&mdash; the picture&rsquo;s link (https://…)</small>' : "") + "</span>" +
+          '<textarea class="af-input ut-field' + (imgF[f] ? " ut-field-url" : "") + '" data-ufield="' + esc(f) + '" rows="' + (imgF[f] ? 1 : 2) + '"' +
+            (imgF[f] ? ' spellcheck="false" inputmode="url"' : "") + ">" + esc(vals[f] || "") + "</textarea></label>").join("") +
         '<div class="ut-preview"><span class="af-label">Preview</span><div class="ut-preview-box" id="stCardPv"></div></div>' +
-      "</div>";
+      "</div>" +
+      studioCardFootHTML();
     studioWireTypePicker(host, c);
     function paint() {
       const box = host.querySelector("#stCardPv");
@@ -34947,28 +35939,59 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       wireSpeakControls(box);
     }
     paint();
-    host.querySelectorAll("[data-ufield]").forEach((el) => el.addEventListener("input", () => {
-      uCardSetFieldValue(c.id, el.dataset.ufield, el.value);
-      adminFlashSaved();
-      paint();   // in place, so the caret stays where the author is typing
-      const title = uCardTitle(c);
-      const h = host.querySelector(".admin-ed-title"); if (h) h.textContent = title;
-      const row = document.querySelector('.studio-cardrow[data-card="' + cssEsc(c.id) + '"] .scr-title');
-      if (row) row.textContent = title;
-    }));
-    host.querySelector("#stDelCard").addEventListener("click", () => {
-      inlineConfirm("Delete this card from “" + (d ? d.title : "the deck") + "”?", () => {
-        uCardDelete(c.id); studioState.card = null; toast("Card deleted"); render();
-      }, "Delete");
+    // a box grows with what is typed into it, so a long answer is not read through a two-line slot
+    const grow = (el) => { el.style.height = "auto"; el.style.height = Math.min(420, el.scrollHeight + 2) + "px"; };
+    let lastBox = null;
+    const boxes = [...host.querySelectorAll("[data-ufield]")];
+    boxes.forEach((el) => {
+      grow(el);
+      el.addEventListener("focus", () => { lastBox = el; });
+      el.addEventListener("input", () => {
+        uCardSetFieldValue(c.id, el.dataset.ufield, el.value);
+        adminFlashSaved();
+        grow(el);
+        paint();   // in place, so the caret stays where the author is typing
+        const title = uCardTitle(c);
+        const h = host.querySelector(".admin-ed-title"); if (h) h.textContent = title;
+        const row = document.querySelector('.studio-cardrow[data-card="' + cssEsc(c.id) + '"] .scr-title');
+        if (row) row.textContent = title;
+      });
     });
+    host.querySelectorAll("[data-wrap]").forEach((b) => {
+      b.addEventListener("mousedown", (e) => e.preventDefault());   // the box keeps its selection
+      b.addEventListener("click", () => {
+        const el = lastBox || boxes[0];
+        if (!el) return;
+        const a = el.selectionStart || 0, z = el.selectionEnd || 0, v = el.value, pickd = v.slice(a, z);
+        let open, shut;
+        if (b.dataset.wrap === "cloze") {
+          if (!pickd.trim()) { toast("Select the words to hide first."); el.focus(); return; }
+          // the next number after the highest already on this note, so each blank is a card of its own
+          let n = 0;
+          boxes.forEach((x) => { String(x.value).replace(/\{\{c(\d+)::/g, (m, d1) => { n = Math.max(n, +d1); return m; }); });
+          open = "{{c" + (n + 1) + "::"; shut = "}}";
+        } else { open = "<" + b.dataset.wrap + ">"; shut = "</" + b.dataset.wrap + ">"; }
+        el.value = v.slice(0, a) + open + pickd + shut + v.slice(z);
+        el.focus();
+        el.selectionStart = a + open.length; el.selectionEnd = a + open.length + pickd.length;
+        el.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+    });
+    studioWireCardChrome(host, c, d);
+    if (studioState.focus === "card") {
+      studioState.focus = "";
+      studioReveal(host);
+      if (boxes[0]) boxes[0].focus();
+    }
   }
   // What a card is called in the deck's own list. A Basic card is its answer; a typed card has no answer, so
   // it is the first field with anything in it — which is the one an author fills in first.
   function uCardTitle(c) {
     if (!c) return "(untitled)";
     if (cardTypeOf(c)) {
-      const t = cardTypeOf(c), vals = c.fields || {};
+      const t = cardTypeOf(c), vals = c.fields || {}, img = typeImageFields(t);
       for (let i = 0; i < t.fields.length; i++) {
+        if (img[t.fields[i]]) continue;   // a picture's address is not what a card is called
         // cloze markers are OPENED for the list: a row reading "fought in {{c1::1066}}" makes the author
         // read past the apparatus to find out which card it is, which is the one thing a list is for
         const v = sanitizePlain(clozeMark(vals[t.fields[i]], true)).trim();
@@ -35423,7 +36446,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function sharedDecksHTML(nSpecial) {
     return '<div class="collection-group community-group" id="sharedDecks">' +
       '<div class="group-head"><span class="group-label">Shared decks</span><span class="group-line"></span>' +
-        '<span class="group-count" id="sdCount">' + ((communityState.decks || []).length || "") + "</span></div>" +
+        '<span class="group-count" id="sdCount" data-special="' + (nSpecial || 0) + '">' + (((communityState.decks || []).length + (nSpecial || 0)) || "") + "</span></div>" +
       // Folio's own three courses, above the intro that says the decks below are not fact-checked by Folio
       (nSpecial ? '<div class="collection-list" id="collection-list-special"></div>' : "") +
       '<p class="udeck-intro">Decks written by other people using Folio. They are <b>not fact-checked by Folio</b> — treat them as you would any notes a classmate lends you.</p>' +
@@ -35444,7 +36467,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (communityState.error) { results.innerHTML = '<div class="lib-empty">' + esc(communityState.error) + "</div>"; return; }
       results.innerHTML = sharedRowsHTML();
       const cnt = root.querySelector("#sdCount");
-      if (cnt) cnt.textContent = (communityState.decks || []).length || "";
+      // the courses drawn at the head of this group are part of what it holds, so they are counted with it
+      if (cnt) cnt.textContent = ((communityState.decks || []).length + (parseInt(cnt.dataset.special, 10) || 0)) || "";
       const go = (el) => route("deck", { slug: el.dataset.slug });
       results.querySelectorAll("[data-slug]").forEach((r) => {
         r.addEventListener("click", () => go(r));
@@ -35501,7 +36525,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           '<div class="creport-main"><b>' + esc(d ? d.title : "(deleted deck)") + '</b> — ' + esc(rep.reason) +
             (rep.note ? '<span class="creport-note">' + esc(rep.note) + '</span>' : "") + '</div>' +
           '<div class="creport-acts">' +
-            (d && d.status === "published" ? '<button class="btn tiny danger" type="button" data-hide="' + esc(rep.deck_id) + '">Hide deck</button>' : "") +
+            (d && (d.status === "published" || d.status === "unlisted") ? '<button class="btn tiny danger" type="button" data-hide="' + esc(rep.deck_id) + '">Hide deck</button>' : "") +
             (d && d.status === "hidden" ? '<button class="btn tiny ghost" type="button" data-unhide="' + esc(rep.deck_id) + '">Restore</button>' : "") +
             '<button class="btn tiny ghost" type="button" data-close="' + esc(rep.id) + '">Dismiss</button>' +
           '</div></div>';
@@ -35539,7 +36563,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     root.innerHTML =
       '<div class="ddetail-head">' +
         '<button class="btn tiny ghost" type="button" id="ddBack">&larr; Shared decks</button>' +
-        (row.status !== "published" ? '<span class="pill soon">' + esc(row.status) + '</span>' : "") +
+        (row.status !== "published" ? '<span class="pill soon">' + esc(row.status === "unlisted" ? "shared by link" : row.status) + '</span>' : "") +
       '</div>' +
       '<div class="page-head ddetail-title">' +
         '<span class="eyebrow">Community deck</span>' +
@@ -35557,15 +36581,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       (row.tags && row.tags.length ? '<div class="ddetail-tags">' + row.tags.map((t) => '<span class="pill">' + esc(t) + '</span>').join("") + '</div>' : "") +
       (row.forked_from && row.forked_from.title
         ? '<p class="ddetail-fork">Based on <b>' + esc(row.forked_from.title) + '</b>' + (row.forked_from.author ? " by " + esc(row.forked_from.author) : "") + '</p>' : "") +
-      /* THE AUTHOR'S OWN DESCRIPTION (the Studio's "Description" field, published as `description`). It is
-         a paragraph the author wrote about their deck, so it is set as prose rather than as another line of
-         metadata — and where there is none the page says so plainly, since a reader deciding whether to
-         install a stranger's deck is owed the difference between "the author said nothing" and a gap where
-         something might have failed to load. */
-      (row.description
-        ? '<div class="ddetail-desc"><h2>About this deck</h2><p>' + esc(row.description).replace(/\n+/g, "</p><p>") + '</p></div>'
-        : '<div class="ddetail-desc ddetail-nodesc"><h2>About this deck</h2><p>The author hasn&rsquo;t written a description.</p></div>') +
-      '<div class="ddetail-warn">Written by a Folio user, not by Folio. Nothing here has been fact-checked — check anything that matters against a source you trust.</div>' +
+      /* THE BUTTONS COME BEFORE THE PROSE (Nov 2026). A description runs to a screen on a phone, and "Add to
+         my decks" used to sit under it — below the fold of the page whose whole purpose is that button. */
       '<div class="ddetail-actions">' +
         (local
           ? (hasUpdate ? '<button class="btn" type="button" id="ddUpdate">Update to the latest version</button>' : '<button class="btn" type="button" id="ddStudy">Study</button>')
@@ -35580,35 +36597,56 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            downloads the same `.folio-deck.json` a Studio export writes, which is what lets a reader keep a
            copy, pass it on, or open it in a Folio that is not signed in to anything. It needs no install
            and no account — the deck's cards are already in hand, this page having fetched them. */
+        /* …and the way to hand the deck to somebody (Nov 2026): the phone's own share sheet, or the link on
+           the clipboard. The address bar was the only way before, and an installed app has none. */
+        '<button class="btn ghost" type="button" id="ddShare">Share</button>' +
         '<button class="btn ghost" type="button" id="ddDownload">Download the deck file</button>' +
         (mine ? "" : '<button class="btn ghost" type="button" id="ddReport">Report</button>') +
-        (isAdmin() && row.status === "published" ? '<button class="btn ghost danger" type="button" id="ddHide">Hide (admin)</button>' : "") +
+        (isAdmin() && (row.status === "published" || row.status === "unlisted") ? '<button class="btn ghost danger" type="button" id="ddHide">Hide (admin)</button>' : "") +
         (isAdmin() && row.status === "hidden" ? '<button class="btn ghost" type="button" id="ddUnhide">Restore (admin)</button>' : "") +
         (isAdmin() ? '<button class="btn ghost" type="button" id="ddPick">' + (row.staff_pick ? "Remove staff pick" : "Mark staff pick") + "</button>" : "") +
       '</div>' +
+      /* THE AUTHOR'S OWN DESCRIPTION (the Studio's "Description" field, published as `description`). It is
+         a paragraph the author wrote about their deck, so it is set as prose rather than as another line of
+         metadata — and where there is none the page says so plainly, since a reader deciding whether to
+         install a stranger's deck is owed the difference between "the author said nothing" and a gap where
+         something might have failed to load. */
+      (row.description
+        ? '<div class="ddetail-desc"><h2>About this deck</h2><p>' + esc(row.description).replace(/\n+/g, "</p><p>") + '</p></div>'
+        : '<div class="ddetail-desc ddetail-nodesc"><h2>About this deck</h2><p>The author hasn&rsquo;t written a description.</p></div>') +
+      '<div class="ddetail-warn">Written by a Folio user, not by Folio. Nothing here has been fact-checked — check anything that matters against a source you trust.</div>' +
       // …and why that button is there over a deck the reader can already see: shared decks live on the
       // device and are shared by every account signing in on it, so this one is here without being yours
       (onAccount || !local ? "" :
         '<p class="ddetail-adopt">This deck is already on this device, but it isn&rsquo;t on your account &mdash; ' +
         'so it won&rsquo;t appear on your other devices. Adding it to your account fixes that and downloads nothing.</p>') +
-      '<div class="ddetail-sample"><h2>A card from this deck</h2><div id="ddSample"></div></div>' +
+      '<div class="ddetail-sample"><div class="dds-head"><h2>Cards from this deck</h2><span class="dds-nav" id="ddSampleNav"></span></div><div id="ddSample"></div></div>' +
       '<div class="ddetail-reviews" id="ddReviews"></div>' +
       '<div class="ddetail-more" id="ddMore"></div>';
 
     root.querySelector("#ddBack").addEventListener("click", () => route("decks"));
 
-    // a real, flippable card so a reader can judge the deck before installing
-    const sampleBox = root.querySelector("#ddSample");
-    const first = cards[0];
-    if (first && first.data) {
-      const norm = uCardSanitize(first.data, "preview0", 0);   // never trust the server copy
+    // real cards, so a reader can judge the deck before installing — the first TEN, stepped through (Nov
+    // 2026): one card says what a deck looks like, and nothing about whether the rest are like it
+    const sampleBox = root.querySelector("#ddSample"), sampleNav = root.querySelector("#ddSampleNav");
+    const samples = cards.filter((x) => x && x.data).slice(0, 10);
+    let sampleAt = 0;
+    const paintSample = () => {
+      const norm = uCardSanitize(samples[sampleAt].data, "preview0", 0);   // never trust the server copy
       // The sample belongs to no local deck, so a card of one of the author's own types has nowhere to look
       // its template up. Hand it the type directly — sanitized here, since row.types is the server's word.
       if (norm.type) { const pt = uTypesSanitize(row.types)[norm.type]; if (pt) norm._type = pt; }
       renderCardPreviewInto(sampleBox, norm);
-    } else {
-      sampleBox.innerHTML = '<div class="lib-empty">This deck has no cards to preview.</div>';
-    }
+      if (sampleNav && samples.length > 1) {
+        sampleNav.innerHTML = '<button type="button" class="btn tiny ghost" id="ddPrev" aria-label="Previous card"' + (sampleAt ? "" : " disabled") + '>&larr;</button>' +
+          '<span class="dds-n">' + (sampleAt + 1) + " of " + samples.length + "</span>" +
+          '<button type="button" class="btn tiny ghost" id="ddNext" aria-label="Next card"' + (sampleAt < samples.length - 1 ? "" : " disabled") + '>&rarr;</button>';
+        sampleNav.querySelector("#ddPrev").addEventListener("click", () => { if (sampleAt > 0) { sampleAt--; paintSample(); } });
+        sampleNav.querySelector("#ddNext").addEventListener("click", () => { if (sampleAt < samples.length - 1) { sampleAt++; paintSample(); } });
+      }
+    };
+    if (samples.length) paintSample();
+    else sampleBox.innerHTML = '<div class="lib-empty">This deck has no cards to preview.</div>';
 
     const inst = root.querySelector("#ddInstall");
     if (inst) inst.addEventListener("click", async () => {
@@ -35654,6 +36692,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }, "Remove"));
     const dl = root.querySelector("#ddDownload");
     if (dl) dl.addEventListener("click", () => deckFileDownload(row, cards, gloss));
+    const shr = root.querySelector("#ddShare");
+    if (shr) shr.addEventListener("click", () => shareDeck(row.title, row.slug));
     const rep = root.querySelector("#ddReport");
     if (rep) rep.addEventListener("click", () => deckReportPrompt(row));
     const hide = root.querySelector("#ddHide");
@@ -36681,6 +37721,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       showWBTools();
       mountDrawCard(cardRoot, c);   // a draw card puts the pen down and pins the marker to its pad
       showAdminEditBtn(id);
+      showOwnEditBtn(id);   // …and an author's way from a card of their own to its editor
       // read-aloud: mute toggle (persisted — stays muted for future cards/decks until unmuted) + the Question play control
       const muteBtn = cardRoot.querySelector("#ttsMute");
       if (muteBtn) muteBtn.addEventListener("click", () => {
@@ -47648,7 +48689,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <ol class="msn-steps ai-steps">
             ${step(1, "Copy a prompt", "Press <b>Copy</b> on whichever of the three below fits what you are doing, and replace the parts in [square brackets].")}
             ${step(2, "Read what comes back", "An AI will state a wrong date as confidently as a right one. Check the facts before you keep them — a card you cannot vouch for is a card that teaches you something untrue.")}
-            ${step(3, "Bring it into Folio", "For the first prompt, save the reply as <b>something.folio-deck.json</b> and open <b>Collections &rarr; Your decks &rarr; Import a deck file</b>. For the other two, open your deck in the Studio and paste the parts into a new card.")}
+            ${step(3, "Bring it into Folio", "For the first prompt, copy the whole reply and open <b>Collections &rarr; Your decks &rarr; Paste cards…</b> — or save it as <b>something.folio-deck.json</b> and use <b>Import a deck…</b>. For the other two, open your deck in the Studio and paste the parts into a new card. The Studio&rsquo;s own <b>Write them with an AI</b> has two shorter prompts for plain question-and-answer lists.")}
           </ol>
           <div class="ai-prompts">
             ${AI_PROMPTS.map((p) => `
@@ -48617,6 +49658,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      does to the card in front of you. "Admin" on a study card would be a button that says where it goes
      rather than what it is for, which on the one control an editor presses a hundred times a day is the
      wrong half to state. */
+  /* AN AUTHOR'S WAY BACK TO THEIR OWN CARD (Nov 2026). The button above is the admin's and opens the admin
+     editor, which reads curated cards only; someone studying a deck they wrote had no route from a typo to
+     the card it was on. Same place, same look, for a card of a deck that is the reader's own — it opens
+     that deck in the Studio with that card selected. Never over a curated card, never over an installed
+     deck (those are read-only: "Duplicate to edit" is the way in). It reuses the admin button's id, so
+     hideAdminEditBtn — already in render()'s close list — removes it with the page. */
+  function showOwnEditBtn(cardId) {
+    const noteId = uCardBaseId(cardId), c = UCARDS[noteId], d = c && UDECKS[c.deckId];
+    if (!d || !uDeckIsMine(d)) return;
+    hideAdminEditBtn();   // an admin's own button would open the admin editor, which cannot edit this card
+    const b = document.createElement("button");
+    b.id = "admin-edit-fab"; b.className = "admin-edit-fab own-edit-fab"; b.type = "button";
+    b.setAttribute("aria-label", "Edit this card in your deck");
+    b.title = "Edit this card";
+    b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>Edit';
+    b.addEventListener("click", () => {
+      studioState.deck = d.id; studioState.card = noteId; studioState.tab = "cards"; studioState.q = ""; studioState.focus = "card";
+      route("studio");
+      // a navigation scrolls to the top of the page it lands on; the card is further down it
+      setTimeout(() => { if (current && current.name === "studio") studioReveal(document.querySelector("#stEditor")); }, 480);
+    });
+    document.body.appendChild(b);
+  }
   function showAdminEditBtn(cardId) {
     hideAdminEditBtn();
     if (!isAdmin()) return;
@@ -48934,6 +49998,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<span class="rt-sep"></span>' +
       '<button type="button" class="rt-btn rt-color-btn" data-act="color" title="Text colour"><span class="rt-colA">A</span><span class="rt-colBar"></span></button>' +
       btn("removeFormat", "Clear formatting", "&#11199;") +
+      (o.blank ? '<span class="rt-sep"></span><button type="button" class="rt-btn rt-wide rt-blank" id="rtBlank" title="Turn the selected words of the question into the blank — they become the answer">Blank</button>' : "") +
       '<span class="rt-sep rt-link-sep"></span>' +
       '<button type="button" class="rt-btn rt-link rt-wide" data-act="link" title="Link the selected word(s) to a glossary term">Link term</button>' +
       '<button type="button" class="rt-btn rt-link rt-wide" data-act="unlink" title="Remove the glossary link around the cursor">Unlink</button>' +
@@ -49114,6 +50179,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       el.addEventListener("paste", (e) => { e.preventDefault(); const t = ((e.clipboardData || window.clipboardData) || { getData: () => "" }).getData("text/plain"); document.execCommand("insertText", false, t); });   // paste as plain text — keep the shipped markup clean
       el.addEventListener("click", (e) => { const t = e.target.closest(".ttip"); if (t && el.contains(t) && isGlossField(el)) showGlossBubble(t, el); });   // click a gloss word → its editing bubble (gloss-aware fields only)
       el.addEventListener("keydown", (e) => {
+        // the Studio's tap-to-edit fields take Enter themselves (it walks to the next field) and say so by
+        // preventing the default; a break inserted here would land in the field the caret has just moved to
+        if (e.defaultPrevented) return;
         if (e.key === "Enter") {   // a plain Enter injects <div>/<br>/&nbsp;; insert a single <br> instead — but keep native behaviour inside a list
           let n = window.getSelection().anchorNode, inList = false;
           while (n && n !== el) { if (n.nodeName === "LI") { inList = true; break; } n = n.parentNode; }
@@ -49864,9 +50932,19 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     answerDate: "Double-click to add the date line",
     abstract: "Double-click to write the background…",
   };
+  /* …and what the same four say in the Studio (Nov 2026), where one tap edits a field (`tapEdit`) and the
+     card opens in its short form (`compact`): a question, an answer, a picture, notes. "Double-click" was an
+     instruction a phone cannot follow, and "blank the answer as _____" one nobody had explained. */
+  const LIVE_CARD_PH_TAP = {
+    question: "Write the question…",
+    answer: "Write the answer",
+    answerDate: "A date line, if the answer has dates",
+    abstract: "Notes shown with the answer — optional",
+  };
   const LIVE_CARD_FIELDS = ["question", "answer", "answerDate", "abstract"];
   function liveCardEditorHTML(o) {
-    const live = (f, cls) => '<div class="' + cls + ' ces-field" data-field="' + f + '" data-rich="1" data-ph="' + esc(LIVE_CARD_PH[f] || "") + '" title="Double-click to edit" spellcheck="' + (f === "answer" ? "false" : "true") + '"' + o.dirAttr + '></div>';
+    const PH = o.compact ? LIVE_CARD_PH_TAP : LIVE_CARD_PH;
+    const live = (f, cls) => '<div class="' + cls + ' ces-field" data-field="' + f + '" data-rich="1" data-ph="' + esc(PH[f] || "") + '" title="' + (o.compact ? "Tap to edit" : "Double-click to edit") + '" spellcheck="' + (f === "answer" ? "false" : "true") + '"' + o.dirAttr + '></div>';
     /* ONE frame, ONE panel. A card shows a picture or a clip and never both, so asking the author to pick
        the right box before pasting was asking them to classify a URL Folio can classify itself: videoSource()
        already recognises every link the player can take, and anything it does not recognise is a picture.
@@ -49897,8 +50975,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           '<button type="button" class="ces-srcadd" id="cesSrcAdd">+ Add a source</button>' +
         "</div>"
       : "";
-    return '<div class="card-edit-single">' +
-        rtRibbonHtml({ footnote: !!o.sourcesPanel }) +   // OUTSIDE .ces-top: position:sticky can't escape its parent, and .ces-top ends just below the ribbon — as a direct child of the full-height column it stays pinned while the whole card scrolls
+    return '<div class="card-edit-single' + (o.compact ? " ces-compact" + (o.more ? " ces-more" : "") : "") + '">' +
+        rtRibbonHtml({ footnote: !!o.sourcesPanel, blank: !!o.blank }) +   // OUTSIDE .ces-top: position:sticky can't escape its parent, and .ces-top ends just below the ribbon — as a direct child of the full-height column it stays pinned while the whole card scrolls
         '<div class="ces-top">' + (o.metaHtml || "") + '</div>' +
         '<div class="study-card admin-pv-card admin-live-card">' +
           // a card can carry up to CARD_MAX_QUESTIONS phrasings of its question; the chevrons cycle through
@@ -49921,6 +50999,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             srcPanelHtml +
           '</div></div>' +
         '</div>' +
+        /* THE LONG FORM, FOLDED (Nov 2026). The date line, further phrasings of the question, the plain answer
+           text, glossary links, the sources apparatus and the HTML source are what Folio's own cards are
+           written with, and they were the first thing a newcomer met on the way to "capital of France".
+           One switch shows them; nothing is lost while they are hidden, and a card that already uses one of
+           them opens with the switch on (the caller's `more`). */
+        (o.compact ? '<button type="button" class="ces-morebtn" id="cesMore" aria-expanded="' + (o.more ? "true" : "false") + '">' +
+          '<span class="ces-more-off">More options</span><span class="ces-more-on">Fewer options</span>' +
+          '<small> &mdash; a date line, other ways to ask, sources, glossary links, the HTML</small></button>' : "") +
         '<div class="ces-src"><button class="af-src-toggle" id="cesSrcToggle" type="button"><span class="afs-chev">&#9656;</span> HTML source — whole card</button><textarea class="af-src ces-src-ta" id="cesSrcTa" spellcheck="false" hidden></textarea></div>' +
       '</div>';
   }
@@ -49939,13 +51025,81 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       syncEmpty(el);
     });
     // double-click enters editing; blur leaves it (each keystroke saves either way)
+    const enterEdit = (el) => {
+      if (el.isContentEditable) return false;
+      el.contentEditable = "true"; el.classList.add("editing"); el.focus();
+      return true;
+    };
     host.querySelectorAll(".ces-field").forEach((el) => {
-      el.addEventListener("dblclick", () => {
-        if (el.isContentEditable) return;
-        el.contentEditable = "true"; el.classList.add("editing"); el.focus();
-      });
+      el.addEventListener("dblclick", () => { enterEdit(el); });
       el.addEventListener("blur", () => { el.contentEditable = "false"; el.classList.remove("editing"); });
     });
+    /* ONE TAP EDITS (the Studio's `tapEdit`, Nov 2026). Double-click was the only way in: a phone does not
+       reliably fire one (see the pointer-event note on the study card's double-tap), and with no tabindex
+       a keyboard could not reach the fields at all. So here a click enters editing with the caret where
+       the click was, the fields are tab stops that open when focus lands on them, and Enter walks
+       question → answer → the next field instead of adding blank lines to a one-line answer. The admin's
+       editor keeps double-click: its fields hold glossary links that a single click must still open. */
+    if (o.tapEdit) {
+      const fields = () => [...host.querySelectorAll(".ces-field")].filter((x) => x.offsetParent !== null);
+      host.querySelectorAll(".ces-field").forEach((el) => {
+        el.tabIndex = 0;
+        // a press focuses the field BEFORE its click arrives, so `fresh` carries "this press opened it" across
+        let fresh = false;
+        el.addEventListener("click", (e) => {
+          const entered = enterEdit(el) || fresh;
+          fresh = false;
+          if (!entered) return;
+          const cur = window.getSelection();
+          if (cur && !cur.isCollapsed && el.contains(cur.anchorNode)) return;   // a swept selection stands
+          let rg = null;
+          try {
+            if (document.caretRangeFromPoint) rg = document.caretRangeFromPoint(e.clientX, e.clientY);
+            else if (document.caretPositionFromPoint) {
+              const cp = document.caretPositionFromPoint(e.clientX, e.clientY);
+              if (cp) { rg = document.createRange(); rg.setStart(cp.offsetNode, cp.offset); rg.collapse(true); }
+            }
+          } catch (err) { rg = null; }
+          if (rg && el.contains(rg.startContainer)) { const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(rg); }
+          else caretToEnd(el);
+        });
+        el.addEventListener("focus", () => { if (enterEdit(el)) { fresh = true; caretToEnd(el); } });
+        el.addEventListener("keydown", (e) => {
+          if (e.key !== "Enter" || e.shiftKey || e.isComposing) return;
+          if (el.dataset.field === "abstract") return;   // the notes are prose: Enter is a new line there
+          e.preventDefault();
+          const f = fields(), nx = f[f.indexOf(el) + 1];
+          if (nx) nx.focus(); else el.blur();
+        });
+      });
+    }
+    const moreBtn = host.querySelector("#cesMore");
+    if (moreBtn) moreBtn.addEventListener("click", () => {
+      const box = host.querySelector(".card-edit-single");
+      const open = !box.classList.contains("ces-more");
+      box.classList.toggle("ces-more", open);
+      moreBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      if (o.onMore) o.onMore(open);
+    });
+    /* THE BLANK, MADE BY A BUTTON. Folio's own cards ask with a gap in a sentence, written as
+       <span class="blank">_____</span> — which the placeholder used to describe and nothing helped with.
+       Select the words in the question and press Blank: they are replaced by the gap, and they become the
+       answer when there is none yet. With nothing selected it drops a gap at the caret. */
+    const blankBtn = host.querySelector("#rtBlank");
+    if (blankBtn) {
+      blankBtn.addEventListener("mousedown", (e) => e.preventDefault());   // the field keeps its selection
+      blankBtn.addEventListener("click", () => {
+        const qf = host.querySelector('[data-field="question"]'), af = host.querySelector('[data-field="answer"]');
+        const sel = window.getSelection();
+        if (!qf || !sel || !sel.rangeCount || !qf.contains(sel.anchorNode)) { toast("Select the answer’s words in the question first."); return; }
+        const rg = sel.getRangeAt(0), picked = String(sel).replace(/\s+/g, " ").trim();
+        const gap = document.createElement("span"); gap.className = "blank"; gap.textContent = "_____";
+        rg.deleteContents(); rg.insertNode(gap);
+        rg.setStartAfter(gap); rg.collapse(true); sel.removeAllRanges(); sel.addRange(rg);
+        qf.dispatchEvent(new Event("input", { bubbles: true }));
+        if (picked && af && !af.textContent.trim()) { af.textContent = picked; af.dispatchEvent(new Event("input", { bubbles: true })); }
+      });
+    }
 
     // ---- question phrasings: ONE live field over a pool of up to CARD_MAX_QUESTIONS, cycled by the
     // chevrons. qList is the working pool (index 0 = the card's `question`, the rest its `questions`
@@ -50081,7 +51235,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       } else if (!mediaOn) {
         mediaSlotEl.innerHTML = "";
       } else {
-        mediaSlotEl.innerHTML = '<div class="ces-img-ph" role="button" tabindex="0" title="Click to add an image or a video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Add an image or a video <small>— paste any link; editor only, nothing shows on the study page until one is set</small></span></div>';
+        mediaSlotEl.innerHTML = '<div class="ces-img-ph" role="button" tabindex="0" title="Click to add an image or a video" aria-label="Add a picture or a video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Add an image or a video <small>— paste any link; editor only, nothing shows on the study page until one is set</small></span></div>';
       }
       const t = mediaSlotEl.firstElementChild;
       if (t) {
@@ -50280,7 +51434,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       });
     }
     wireRichEditor(host);
-    return { syncSrc: syncSrc, renderMediaSlot: renderMediaSlot };
+    // `focusField` puts the caret in one of the four fields — what the Studio calls after "Add a card"
+    const focusField = (f) => { const el = host.querySelector('[data-field="' + f + '"]'); if (el) { enterEdit(el); caretToEnd(el); } };
+    return { syncSrc: syncSrc, renderMediaSlot: renderMediaSlot, focusField: focusField };
   }
 
   function adminRenderEditor() {

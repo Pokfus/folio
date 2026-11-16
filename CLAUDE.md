@@ -169,7 +169,10 @@ every relevant suite. Playwright and Chromium are preinstalled in cloud sessions
   numbers them. 📖 `docs/source-footnotes.md` — READ BEFORE TOUCHING THE APPARATUS.
 - **Glossary Atlas windows (2026-10-23)**: a popup's map is for a term that IS a location only (the town, never the treaty — `locationClass` in `build-glossary-places.js` decides by tags), a state or a people shaded at the year of its greatest extent, the card windows' zoom / recentre / relief buttons (2026-10-24; no globe button), never a `placesSeen` write; `atlas/data/glossary-places.js` format 2 is generated (`--install`; `check-places.js` fails when it lags); `test-gloss-atlas-window.js` guards it. 📖 `docs/glossary-atlas-windows.md` — READ BEFORE TOUCHING THE GLOSSARY POPUP'S MAP, ITS TABLE OR `mountGlossAtlas`.
 - **Community decks** never enter `CARDS` / the tree / `window.GLOSSARY`; `uDeckNormalize` is the one
-  ingest choke point; bump `SANITIZE_REV` when a sanitizer changes.
+  ingest choke point; bump `SANITIZE_REV` when a sanitizer changes. **The Studio repaints in place**
+  (`studioRepaint`, never `render()`), a field opens on one tap (`tapEdit`), the built-in card opens in its
+  short form (`compact`), a list is previewed before it is stored (`openPasteCards`), and there is no picture
+  upload on purpose — `docs/community-decks.md` "The authoring audit"; `test-deck-authoring.js` guards it.
   📖 `docs/community-decks.md` — READ BEFORE TOUCHING ANY OF IT.
 - **Never name a CSS class `ad-…`** (ad blockers hide it; `adBaitCheck` in `test-layout.js`).
 - **Units and spelling** are rendering passes over text nodes (`unitizeTree`, `spellTree`); content is
@@ -300,6 +303,8 @@ editing a plan, the tree, or this table.
   `node .claude/check-reach.js` says which scholarly hosts answer — never assume a host is shut.
 - Supabase: schema in `.claude/supabase-schema.sql`; the live project has every block up to section 17 —
   **section 18 (`delete_my_account`, Nov 2026) is the owner's to run**; until then the account page's
-  Delete account says it is not set up (📖 `docs/accounts-sync.md` "The account page, compacted"). Every feature
+  Delete account says it is not set up (📖 `docs/accounts-sync.md` "The account page, compacted"). **Section 19
+  (link-only sharing, status `unlisted`, Nov 2026) is the owner's to run too**; until then the Studio's "Only
+  people with the link" is refused with a sentence (`linkOnlyMsg`). Every feature
   must degrade to a sentence on a database missing a later block.
 - Never rewrite git history; the repo is ~0.5 GB and that is expected.

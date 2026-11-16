@@ -1195,3 +1195,66 @@ end $$;
 revoke all on function public.delete_my_account(text) from public;
 revoke all on function public.delete_my_account(text) from anon;
 grant execute on function public.delete_my_account(text) to authenticated;
+
+
+-- ============================================================================================
+-- 19) LINK-ONLY SHARING  (run once)
+-- ============================================================================================
+-- Nov 2026, out of the audit of card creation and sharing: a deck could be shared with everyone or with
+-- nobody, and "I made this for my study group" had no answer but the public shelf.  A fifth status,
+-- `unlisted`, is a deck that has its page and can be opened, added, updated and rated by anyone who is
+-- given its address, and that is in NO LIST: every listing in app.js asks for `status=eq.published`
+-- (the shared decks page, the home shelf, "more from this author", the admin's count), so nothing has
+-- to change there.
+--
+-- WHAT IT IS NOT: a secret.  The row is readable by whoever asks the REST API for it, exactly as a
+-- published one is — the policies below let `unlisted` through everywhere `published` already goes — so
+-- somebody who queries the table directly, rather than through Folio, can enumerate unlisted decks.  It
+-- keeps a deck off the shelf; it does not hide it from a determined stranger.  A deck that must not be
+-- read by anyone else should not be shared at all (the Studio's "Stop sharing" sets `draft`, which only
+-- its owner can read).
+--
+-- UNTIL THIS BLOCK IS RUN, choosing "Only people with the link" in the Studio is refused by the status
+-- column's own check constraint; app.js turns that into a sentence (`linkOnlyMsg`) and changes nothing.
+--
+-- Five statements, each the existing one with `unlisted` let in beside `published`:
+
+alter table public.user_decks drop constraint if exists user_decks_status_check;
+alter table public.user_decks add constraint user_decks_status_check
+  check (status in ('draft','published','unlisted','hidden','removed'));
+
+drop policy if exists "published decks are public" on public.user_decks;
+create policy "published decks are public"
+  on public.user_decks for select to anon, authenticated
+  using (status in ('published','unlisted') or owner = auth.uid()
+         or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+
+drop policy if exists "cards of readable decks" on public.user_cards;
+create policy "cards of readable decks"
+  on public.user_cards for select to anon, authenticated
+  using (exists (
+    select 1 from public.user_decks d
+    where d.id = user_cards.deck_id
+      and (d.owner = auth.uid()
+           or (d.status in ('published','unlisted') and (is_demo or d.price_cents = 0))
+           or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'))
+  ));
+
+drop policy if exists "gloss of readable decks" on public.user_gloss;
+create policy "gloss of readable decks"
+  on public.user_gloss for select to anon, authenticated
+  using (exists (select 1 from public.user_decks d where d.id = user_gloss.deck_id
+                   and (d.status in ('published','unlisted') or d.owner = auth.uid())));
+
+drop policy if exists "ratings of readable decks" on public.deck_ratings;
+create policy "ratings of readable decks"
+  on public.deck_ratings for select to anon, authenticated
+  using (exists (select 1 from public.user_decks d where d.id = deck_ratings.deck_id
+                   and (d.status in ('published','unlisted') or d.owner = auth.uid())));
+
+drop policy if exists "rate as yourself" on public.deck_ratings;
+create policy "rate as yourself"
+  on public.deck_ratings for insert to authenticated
+  with check (user_id = auth.uid()
+              and exists (select 1 from public.user_decks d
+                            where d.id = deck_ratings.deck_id and d.status in ('published','unlisted') and d.owner <> auth.uid()));

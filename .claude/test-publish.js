@@ -291,6 +291,14 @@ async function openDeckInStudio(page, base, title) {
   }, title);
   await page.waitForTimeout(600);
 }
+/* SHARING, AS A READER DOES IT (Nov 2026). The first share of a deck opens a sheet — its name, who can open
+   it — and goes up on that sheet's button; edits to a deck already shared still go up on the one press.
+   A sheet ignores presses for its first half second, hence the wait. */
+async function shareDeck(page) {
+  await page.click("#stPublish");
+  await page.waitForTimeout(700);
+  if (await page.evaluate(() => !!document.querySelector(".deck-menu #shGo"))) await page.click(".deck-menu #shGo");
+}
 async function typeField(page, field, text) {
   const sel = '.studio-editor [data-field="' + field + '"]';
   await page.dblclick(sel);
@@ -325,7 +333,7 @@ async function typeField(page, field, text) {
   await A.page.waitForTimeout(300);
 
   check("publish strip shows unshared state", /Not shared/.test(await A.page.textContent(".sp-state")));
-  await A.page.click("#stPublish");
+  await shareDeck(A.page);
   await A.page.waitForTimeout(900);
   check("deck row created on the server", db.decks.length === 1, JSON.stringify(db.decks.map((d) => d.slug)));
   check("cards uploaded as rows", db.cards.length === 1, "cards=" + db.cards.length);
@@ -435,7 +443,7 @@ async function typeField(page, field, text) {
 
   // ================= Alice ships an update; Bob picks it up =================
   await A.page.bringToFront();
-  await A.page.click("#stPublish");
+  await shareDeck(A.page);
   await A.page.waitForTimeout(900);
   check("republish bumps the version", db.decks[0].version === 2, "v" + db.decks[0].version);
   check("republish replaces the cards", db.cards.length === 1 && /died in 337/.test(db.cards[0].data.abstract),
@@ -581,7 +589,7 @@ async function typeField(page, field, text) {
     await typeField(A.page, "answer", "Emperor " + (i + 2));
     await typeField(A.page, "abstract", "Another ruler of the empire.");
   }
-  await A.page.click("#stPublish");
+  await shareDeck(A.page);
   await A.page.waitForTimeout(1100);
   check("deck now has five cards", db.decks[0].card_count === 5, "count=" + db.decks[0].card_count);
 
@@ -773,7 +781,7 @@ async function typeField(page, field, text) {
   }, "Paged Deck");
   check("the paged deck imported", opened);
   await A.page.waitForTimeout(700);
-  await A.page.click("#stPublish");
+  await shareDeck(A.page);
   await A.page.waitForTimeout(1500);
   const pagedRow = db.decks.find((d) => d.title === "Paged Deck");
   check("a deck larger than one page uploads every card", !!pagedRow && db.cards.filter((c) => c.deck_id === pagedRow.id).length === PAGED_N,
@@ -851,7 +859,7 @@ async function typeField(page, field, text) {
   }, "Typed Deck");
   check("the typed deck imported", typedOpened);
   await A.page.waitForTimeout(800);
-  await A.page.click("#stPublish");
+  await shareDeck(A.page);
   await A.page.waitForTimeout(1800);
 
   const typedRow = db.decks.find((d) => d.title === "Typed Deck");
@@ -1371,7 +1379,7 @@ async function typeField(page, field, text) {
   await typeField(oneDevice.page, "question", "The word for water is ___.");
   await typeField(oneDevice.page, "answer", "shui");
   await oneDevice.page.waitForTimeout(300);
-  await oneDevice.page.click("#stPublish");
+  await shareDeck(oneDevice.page);
   await oneDevice.page.waitForTimeout(1200);
   const sharedRow = db.decks.find((d) => d.title === "Shared On One Device");
   check("a deck shared by the first account on this device", !!sharedRow, JSON.stringify(db.decks.map((d) => d.title)));
