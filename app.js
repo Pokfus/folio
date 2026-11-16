@@ -25488,9 +25488,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       o: { lang: "lzh", t: "大人者，不失其赤子之心者也。", a: "孟子", s: "《孟子·離婁下》" } },
     { t: "A man has only one death; it may be as weighty as Mount Tai or as light as a goose feather.", a: "Sima Qian", s: "Letter to Ren An",
       o: { lang: "lzh", t: "人固有一死，或重於泰山，或輕於鴻毛。", a: "司馬遷", s: "《報任安書》" } },
-    { t: "As long as you live, keep learning how to live.", a: "Seneca", s: "Moral Letters to Lucilius 76",
+    { t: "As long as you live, keep learning how to live.", a: "Seneca", s: "Moral Letters to Lucilius 76", g: { "Seneca": "Seneca_the_Younger" },
       o: { lang: "la", t: "Tamdiu discendum est, quemadmodum vivas, quamdiu vivas.", a: "Lucius Annaeus Seneca", s: "Epistulae morales ad Lucilium 76.3" } },
-    { t: "While we teach, we learn.", a: "Seneca", s: "Moral Letters to Lucilius 7",
+    { t: "While we teach, we learn.", a: "Seneca", s: "Moral Letters to Lucilius 7", g: { "Seneca": "Seneca_the_Younger" },
       o: { lang: "la", t: "Homines dum docent discunt.", a: "Lucius Annaeus Seneca", s: "Epistulae morales ad Lucilium 7.8" } },
     { t: "To be ignorant of what occurred before you were born is to remain forever a child.", a: "Cicero", s: "Orator 34.120",
       o: { lang: "la", t: "Nescire autem quid ante quam natus sis acciderit, id est semper esse puerum.", a: "Marcus Tullius Cicero", s: "Orator 34.120" } },
@@ -25502,7 +25502,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // project's own books/marcus-aurelius-meditations.grc.js rather than set down from memory. The
       // English above is a free rendering of the section's opening two clauses; those are the clauses here.
       o: { lang: "grc", t: "Τὰ προγεγονότα ἀναθεωρεῖν, τὰς τοσαύτας τῶν ἡγεμονιῶν μεταβολάς· ἔξεστι καὶ τὰ ἐσόμενα προεφορᾶν.", a: "Μᾶρκος Αὐρήλιος", s: "Τὰ εἰς ἑαυτόν Ζ΄.49" } },
-    { t: "Knowledge which is acquired under compulsion obtains no hold on the mind.", a: "Plato", s: "Republic VII, 536e",
+    { t: "Knowledge which is acquired under compulsion obtains no hold on the mind.", a: "Plato", s: "Republic VII, 536e", g: { "Republic": "Republic_(Plato)" },
       o: { lang: "grc", t: "ψυχῇ δὲ βίαιον οὐδὲν ἔμμονον μάθημα.", a: "Πλάτων", s: "Πολιτεία Ζ΄, 536e" } },
     { t: "It is impossible for a man to learn what he thinks he already knows.", a: "Epictetus", s: "Discourses II.17",
       o: { lang: "grc", t: "ἀμήχανον γάρ, ἅ τις οἴεται εἰδέναι, ταῦτα ἄρχεσθαι μανθάνειν.", a: "Ἐπίκτητος", s: "Διατριβαί Β΄.17" } },
@@ -25568,7 +25568,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // الحق" — nothing is fitter for the seeker of truth than the truth — which this translation does not
     // carry, and a flip that answered with a clause the reader was never shown would be the wrong half of
     // the page. Tagore's entry cuts for the same reason.
-    { t: "We ought not to be ashamed of appreciating the truth and of acquiring it wherever it comes from, even if it comes from races distant and nations different from us.", a: "Al-Kindi", s: "On First Philosophy, 9th century",
+    { t: "We ought not to be ashamed of appreciating the truth and of acquiring it wherever it comes from, even if it comes from races distant and nations different from us.", a: "Al-Kindi", s: "On First Philosophy, 9th century", g: { "Philosophy": "" },
       o: { lang: "ar", t: "وينبغي لنا أن لا نستحي من استحسان الحق، واقتناء الحق من أين أتى، وإن أتى من الأجناس القاصية عنا، والأمم المباينة.", a: "الكندي", s: "الفلسفة الأولى، خطبة الكتاب" } },
     { t: "Truth does not contradict truth; it agrees with it and bears witness to it.", a: "Ibn Rushd", s: "The Decisive Treatise, c. 1179",
       o: { lang: "ar", t: "الحق لا يضاد الحق بل يوافقه ويشهد له.", a: "ابن رشد", s: "فصل المقال" } },
@@ -25588,7 +25588,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // rather than what the search results say. And the Arabic keeps al-Biruni's own frame: the words are a
     // standing Arabic proverb, so he writes "the saying of him who said it is true" rather than claiming
     // the line for himself, which is worth a reader seeing when they flip it.
-    { t: "Hearsay does not equal eye-witness.", a: "Al-Biruni", s: "Preface to India (Tahqiq ma li-l-Hind), c. 1030",
+    { t: "Hearsay does not equal eye-witness.", a: "Al-Biruni", s: "Preface to India (Tahqiq ma li-l-Hind), c. 1030", g: { "India": "" },
       o: { lang: "ar", t: "إنما صدق قول القائل ليس الخبر كالعيان.", a: "البيروني", s: "تحقيق ما للهند، المقدمة" } },
     // TWO SOURCES WERE READ AND THEY DISAGREE BY ONE LETTER, WHICH IS WHY BOTH WERE READ. Arabic
     // Wikisource's Muqaddimah has "بطبعته" where the printed text has "بطبيعته" — the second is the
@@ -25613,17 +25613,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // always carried. **THE TAIL IS WHERE THE MISATTRIBUTION LIVED**: "and you will make progress" is in
     // no source, where the Talmud gives a reason of its own — say less rather than keep a rounder sentence.
     // Changing `a` re-solves the running order, the no-repeat rule being keyed on the author.
-    { t: "Teach thy tongue to say, \"I do not know,\" lest thou be led to falsehoods and be apprehended.", a: "The Talmud", s: "Babylonian Talmud, Berakhot 4a",
+    { t: "Teach thy tongue to say, \"I do not know,\" lest thou be led to falsehoods and be apprehended.", a: "The Talmud", s: "Babylonian Talmud, Berakhot 4a", g: { "Babylonian": "" },
       o: { lang: "he", t: "לַמֵּד לְשׁוֹנְךָ לוֹמַר ״אֵינִי יוֹדֵעַ״, שֶׁמָּא תִּתְבַּדֶּה וְתֵאָחֵז.", a: "התלמוד הבבלי", s: "בבלי, ברכות ד ע״א" } },
     { t: "My work is meant to be a possession for all time, rather than a prize essay to be heard for the moment.", a: "Thucydides", s: "History of the Peloponnesian War 1.22",
       o: { lang: "grc", t: "κτῆμα ἐς αἰεὶ μᾶλλον ἢ ἀγώνισμα ἐς τὸ παραχρῆμα ἀκούειν.", a: "Θουκυδίδης", s: "Ἱστορίαι Α΄.22" } },
-    { t: "This is the display of the inquiry of Herodotus, so that the deeds of men may not be erased by time.", a: "Herodotus", s: "Histories 1.1",
+    { t: "This is the display of the inquiry of Herodotus, so that the deeds of men may not be erased by time.", a: "Herodotus", s: "Histories 1.1", g: { "Histories": "Histories_(Herodotus)" },
       o: { lang: "grc", t: "ὡς μήτε τὰ γενόμενα ἐξ ἀνθρώπων τῷ χρόνῳ ἐξίτηλα γένηται.", a: "Ἡρόδοτος", s: "Ἱστορίαι Α΄.1" } },
     /* The German carried only the closing clause — "Er will bloß zeigen…" — against an English of two
        sentences, so flipping the quote over shrank it to a fragment (Aug 2026, on a report). Both halves
        now give Ranke's whole sentence, and the original is his 1824 spelling verbatim ("blos", "Aemter"),
        checked against the printed preface rather than the form the line is usually quoted in. */
-    { t: "History has been assigned the task of judging the past, of instructing the present for the benefit of future ages. To such high offices this work does not presume: it wants only to show what actually happened.", a: "Leopold von Ranke", s: "Preface to Histories of the Latin and Germanic Nations, 1824",
+    { t: "History has been assigned the task of judging the past, of instructing the present for the benefit of future ages. To such high offices this work does not presume: it wants only to show what actually happened.", a: "Leopold von Ranke", s: "Preface to Histories of the Latin and Germanic Nations, 1824", g: { "Latin": "" },
       o: { lang: "de", t: "Man hat der Historie das Amt, die Vergangenheit zu richten, die Mitwelt zum Nutzen zukünftiger Jahre zu belehren, beigemessen: so hoher Aemter unterwindet sich gegenwärtiger Versuch nicht: er will blos zeigen, wie es eigentlich gewesen.", a: "Leopold von Ranke", s: "Geschichten der romanischen und germanischen Völker, Vorrede, 1824" } },
     { t: "Misunderstanding of the present grows inevitably out of ignorance of the past.", a: "Marc Bloch", s: "The Historian's Craft, 1949",
       o: { lang: "fr", t: "L'incompréhension du présent naît fatalement de l'ignorance du passé.", a: "Marc Bloch", s: "Apologie pour l'histoire, 1949" } },
@@ -25672,8 +25672,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        on the ground that the pool held historical voices only. The speaker is the character and `s` names the work (and the episode), so
        nothing reads as a historical attribution. Tyrion's first line is the television wording of season 1, episode 1 (the novel's is
        longer: "for surely the world will not … Armor yourself in it"); his second is the novel's, A Game of Thrones, said to Jon Snow. ---- */
-    { t: "Power resides where men believe it resides.", a: "Varys", s: "Game of Thrones, season 2, episode 3, “What Is Dead May Never Die” (2012)" },
-    { t: "Never forget what you are. The rest of the world will not. Wear it like armor, and it can never be used to hurt you.", a: "Tyrion Lannister", s: "Game of Thrones, season 1, episode 1, “Winter Is Coming” (2011)" },
+    /* These two were the TELEVISION lines credited to the characters until Nov 2026, when the owner asked that every line from
+       Westeros name George R. R. Martin and cite the A Song of Ice and Fire book it is in. Varys's riddle is in A Clash of Kings, his
+       talk with Tyrion; the novel goes on "No more and no less." Tyrion's is now the NOVEL's wording (A Game of Thrones, said to Jon
+       Snow), since the show's shorter "Wear it like armor" is not what the cited book prints. */
+    { t: "Power resides where men believe it resides.", a: "George R. R. Martin", s: "A Clash of Kings (1998), Varys" },
+    { t: "Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.", a: "George R. R. Martin", s: "A Game of Thrones (1996), Tyrion Lannister to Jon Snow" },
     { t: "A mind needs books as a sword needs a whetstone, if it is to keep its edge.", a: "George R. R. Martin", s: "A Game of Thrones (1996), spoken by Tyrion Lannister" },
     { t: "Understanding is the first step to acceptance, and only with acceptance can there be recovery.", a: "Albus Dumbledore", s: "J. K. Rowling, Harry Potter and the Goblet of Fire (2000)" },
     { t: "Pride is not the opposite of shame, but its source. True humility is the only antidote to shame.", a: "Uncle Iroh", s: "Avatar: The Last Airbender, book 2, “Bitter Work” (2006)" },
@@ -25820,6 +25824,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      the day's own pick the reader has been carried this visit. It lives outside the page's render, so a
      re-render (a setting, a sync) keeps the quote on screen rather than snapping back to the day's first. */
   let _dqStep = 0;
+  /* A QUOTE'S `g` CORRECTS ITS CAPTION'S GLOSSARY LINKS (Nov 2026, on request: Plato's "Republic" opened the
+     generic Republic term). The caption is auto-linked by surface (wireDailyQuote), and a word of a title can be
+     a different term's name: { surface: key } links that surface to the right term by hand (autoLinkGlossary
+     keeps a hand link), { surface: "" } keeps it plain — those surfaces ride on the figcaption and
+     wireDailyQuote turns them into the keys it leaves off. A hand link goes on the surface's first appearance
+     in the English caption only. */
+  function dqCaptionGloss(g, cap) {
+    if (!g) return cap;
+    const plain = [];
+    Object.keys(g).forEach((surf) => {
+      if (!g[surf]) { plain.push(surf); return; }
+      const at = cap.indexOf('<span class="dq-live">');
+      const hit = at < 0 ? -1 : cap.indexOf(esc(surf), at);
+      if (hit >= 0) cap = cap.slice(0, hit) + '<span class="ttip" data-k="' + esc(g[surf]) + '">' + esc(surf) + "</span>" + cap.slice(hit + esc(surf).length);
+    });
+    return plain.length ? cap.replace("<figcaption>", '<figcaption data-gloss-plain="' + esc(JSON.stringify(plain)) + '">') : cap;
+  }
   function dailyQuoteHTML() {
     const q = QUOTES[QUOTE_ORDER[(dayIndex() + _dqStep) % QUOTE_ORDER.length]];
     const o = q.o;
@@ -25832,12 +25853,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // its place, so where `o.s` is missing the one line is emitted UNPAIRED and simply stays put — which
     // is also what it is, the modern reference for the passage rather than a second language of it.
     const srcPair = (en) => (o && o.s ? pair(en, o.s) : esc(en));
+    const cap = dqCaptionGloss(q.g, "<figcaption>" + pair(q.a, o && o.a) +   // the caption's dash is the gold ::before rule, not a text em-dash
+      (q.s ? '<span class="dq-src">' + srcPair(q.s) + "</span>" : "") + "</figcaption>");
     return '<figure class="daily-quote' + (o ? " dq-flip" : "") + '"' +
       (o ? ' tabindex="0" role="button" title="Show the original" aria-label="Show the original"' : "") + ">" +
       '<blockquote class="verbatim">' + pair(q.t, o && o.t) + "</blockquote>" +   // a quotation is someone's words, in a spelling and units we did not choose: EVERY entry is `.verbatim` (the pool is published translations only), and both passes skip it (2026-10-19)
-      "<figcaption>" + pair(q.a, o && o.a) +   // the caption's dash is the gold ::before rule, not a text em-dash
-      (q.s ? '<span class="dq-src">' + srcPair(q.s) + "</span>" : "") +
-      "</figcaption></figure>";
+      cap + "</figure>";
   }
   // flip the whole figure between the reader's language and the original. The swap itself is still the
   // instant `hidden` toggle — it just happens behind a fade, with the figure's height easing between the
@@ -25936,10 +25957,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const cap = fig.querySelector("figcaption");
     if (cap && uiLang() === "en") {
       try {
+        // the surfaces the quote's `g` keeps plain (dailyQuoteHTML), resolved here to the keys they would link to
+        let plain = null;
+        try { plain = JSON.parse(cap.getAttribute("data-gloss-plain") || "null"); } catch (e) {}
+        const idx = plain && glossIndexFor("site");
+        const off = idx ? plain.map((sf) => resolveGlossKey(idx, sf)).filter(Boolean) : null;
         const live = cap.querySelectorAll(".dq-live");
-        if (live.length) live.forEach((el) => autoLinkGlossary(el, "", null, "site"));
+        if (live.length) live.forEach((el) => autoLinkGlossary(el, "", off, "site"));
         const src = cap.querySelector(".dq-src");
-        if (src && !src.querySelector(".dq-live")) autoLinkGlossary(src, "", null, "site");
+        if (src && !src.querySelector(".dq-live")) autoLinkGlossary(src, "", off, "site");
         setupTooltips(cap);
       } catch (e) { /* a quote with no linkable term is the ordinary case, not a fault */ }
     }
