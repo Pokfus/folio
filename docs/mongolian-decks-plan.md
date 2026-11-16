@@ -5,8 +5,8 @@
 were built, and every rule there applies here unless this file says otherwise. The owner was not asked: the
 Amharic and Yoruba owners' answers were taken, the sources being as thin (§2).
 
-**STATUS (2026-11-16): the alphabet, A1 and A2 are built** (`.claude/mongolian/`, §6–§7). B1 and a phrases
-deck are the next phases (§5).
+**STATUS (2026-11-16): the alphabet, A1, A2 and B1 are built** (`.claude/mongolian/`, §6–§8). A phrases deck
+is the next phase (§5).
 
 ## 1. The decisions (taken from the Amharic, Yoruba, Russian and Ukrainian sets)
 
@@ -28,7 +28,7 @@ deck are the next phases (§5).
 | Mongolian Alphabet — built | `Mongolian-Alphabet.folio-deck.json` | 36 |
 | Mongolian A1 Beginner — built | `Mongolian-A1.folio-deck.json` | 500 |
 | Mongolian A2 Elementary — built | `Mongolian-A2.folio-deck.json` | 750 |
-| Mongolian B1 Intermediate | `Mongolian-B1.folio-deck.json` | 1,000 |
+| Mongolian B1 Intermediate — built | `Mongolian-B1.folio-deck.json` | 1,000 |
 | Mongolian Phrases and Expressions | `Mongolian-Phrases-and-Expressions.folio-deck.json` | — |
 
 ## 2. Sources and licences — and what is missing
@@ -101,7 +101,7 @@ they are shown as Wiktionary prints them. A quarter of the cards have no sentenc
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 (done), then B1, one level per session: write the
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2 (done)** — A2, then B1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `mongolian_level.py`; read the ranking for new
 exclusions; read every card. **Phase 3** — the phrases deck. A level must leave the levels below it
 byte-identical.
@@ -146,3 +146,29 @@ byte-identical, and A1 and the alphabet still rebuild byte-identical.**
 **Known, left.** The fill is the encyclopaedia's again — politics, science and history (парламент, хүчилтөрөгч,
 комиссар) — beside everyday words the inventory could not reach. Synonym pairs are labelled by the shelf's
 de-duplication ("not өртөө"). Two thirds of the cards have no sentence.
+
+## 8. As built (2026-11-16): B1
+
+`python3 .claude/mongolian/run.py --level b1`. 1,000 notes / 2,000 cards: 71 from the inventory (`inventory.B1`, 7
+topics), 929 by frequency (down to a count of 6); sentences for 96, forms for 133. **A re-run is byte-identical; A1
+and the alphabet still rebuild byte-identical, and A2 differs in one gloss** — the new `KEEP_CAP` names (below)
+correct загалмай's "eurasian hobby" to "Eurasian hobby".
+
+- **THE INVENTORY WAS WRITTEN THE OTHER WAY ROUND** (the Yoruba B1): after A2 about 1,200 single words with a count
+  are left and the fill alone reaches 1,000, so the inventory is read off what the fill does NOT reach — the
+  everyday compounds Wiktionary files as entries (the fill deals no multi-word entry: их сургууль "university",
+  гар утас "mobile phone", өглөөний цай "breakfast", толь бичиг "dictionary", унадаг дугуй "bicycle"), the three
+  months A2 lacked, which Wiktionary spells as one word (долоодугаар сар, арваннэгдүгээр сар, арванхоёрдугаар сар),
+  and a few single words the encyclopaedia rarely writes (саван "soap", тахиа "chicken", хонох "to stay the night").
+  A multi-word entry is dealt by its rarer word's count, halved.
+- **TWO RULES FROM B1 ON** (`select.py`; A1 and A2 shipped without them): a lemma that is only another lemma's
+  genitive (`genitive_twin`: аймгийн, төрийн; a bare -н is not read, so саван is no genitive of сава), and a
+  STRICTER people's-name test (`people_name`) in place of A2's "every gloss capitalised", which had also dropped
+  verbs glossed "To stay the night" and animals glossed "Eurasian magpie" or "Przewalski's horse".
+- **MORE EXCLUSIONS** ("Read off the B1 ranking"): байна (a usage note for a gloss), spellings of taught words
+  (чүдэнз, сумо), Russian and English loans with a taught Mongolian word (больниц, масло, констракшн), sexual and
+  vulgar vocabulary, fifteen chemical elements and three scientific units from the science articles.
+
+**Known, left.** B1 is broad and concrete — tools, animals, plants, food, trades — with some science and history
+from the encyclopaedia, and the last words' order means little (counts of 6 to 20). Tatoeba is used up: only 96
+cards have a sentence. Synonym pairs are labelled by the shelf's de-duplication ("not хулчгар").

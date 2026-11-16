@@ -94,7 +94,7 @@ POINTER = re.compile(r'^(alternative form of|alternative spelling of|form of|syn
 KEEP_CAP = re.compile(r"^(I|God|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|"
                       r"Mongol|Mongols|Mongolian|Mongolia|English|Russian|Russians|Chinese|"
                       r"Han|Buddha|Buddhism|Buddhist|Moon|Sun|Earth|January|February|March|"
-                      r"April|May|June|July|August|September|October|November|December)\b")
+                      r"April|May|June|July|August|September|October|November|December|Eurasian|Przewalski)\b")
 
 
 def lower_first(g):

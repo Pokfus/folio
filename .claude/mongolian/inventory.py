@@ -40,6 +40,16 @@ together", шийдэх "to decide", утасдах "to phone", авчрах "to
 үргэлжлэх "to continue", бэлтгэх "to prepare", гоё "nice", муухай "ugly",
 ухаантай "clever", тэнэг "stupid", чимээгүй "quiet", аюулгүй "safe", ховор
 "rare", амархан "easy", хүчтэй "strong".
+
+B1 (2026-11-16) WAS WRITTEN THE OTHER WAY ROUND, as the Yoruba B1 was: after A1
+and A2 about 1,200 single words with a count are left, so the frequency fill
+alone reaches 1,000.  The inventory is read off what the fill does NOT reach:
+the everyday compounds Wiktionary files as entries of their own (the fill
+takes no multi-word entry: их сургууль "university", гар утас "mobile phone",
+өглөөний цай "breakfast", the three months A2 lacked, which Wiktionary spells
+as one word: долоодугаар сар, арваннэгдүгээр сар, арванхоёрдугаар сар) and a
+few single words the encyclopaedia rarely writes (саван "soap", тахиа
+"chicken", хонох "to stay the night").  They push out the fill's noisiest tail.
 """
 
 INVENTORY = {
@@ -127,5 +137,27 @@ INVENTORY = {
          'унах засах цэвэрлэх хаях нэмэх хасах тоолох үнэрлэх дуусгах хүлээн_авах'),
         ('describing things',
          'цэвэр бохир зузаан нимгэн хуурай нойтон хатуу зөөлөн хөгжилтэй аюултай энгийн сул'),
+    ],
+    'b1': [
+        ('the months A2 could not have',
+         'долоодугаар_сар арваннэгдүгээр_сар арванхоёрдугаар_сар'),
+        ('meals and food',
+         'өглөөний_цай өдрийн_хоол оройн_хоол хоол_хийх галын_өрөө халуун_ногоо цагаан_архи '
+         'түргэн_хоол тахиа'),
+        ('town, shops and transport',
+         'их_сургууль номын_сан их_дэлгүүр номын_дэлгүүр хүнсний_дэлгүүр амьтны_хүрээлэн '
+         'оршуулгын_газар төмөр_зам усан_онгоц нисдэг_тэрэг ачааны_машин унадаг_дугуй'),
+        ('things and the media',
+         'гар_утас гэрэл_зураг зургийн_аппарат нүдний_шил толь_бичиг цагаан_толгой ил_захидал '
+         'зурагт_хуудас зар_сурталчилгаа нууц_үг орны_даавуу задгай_мөнгө саван'),
+        ('people and life',
+         'нялх_хүүхэд бага_нас ах_дүү авга_ах найз_нөхөр шүдний_эмч нас_барах аз_жаргал '
+         'эр_зориг зан_төрх ээлж_дараалал хэзээ_ч_үгүй хонох'),
+        ('the land, the sky and animals',
+         'галт_уул далайн_эрэг уур_амьсгал цасан_ширхэг сүүлт_од шар_шувуу яст_мэлхий '
+         'далайн_гахай хулан тахь шаазгай хөлдөх'),
+        ('the country and society',
+         'эдийн_засаг шинжлэх_ухаан хөдөө_аж_ахуй үндсэн_хууль энх_тайван гэмт_хэрэг '
+         'иргэний_дайн газрын_тос морин_хуур'),
     ],
 }

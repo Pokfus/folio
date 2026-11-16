@@ -19,7 +19,7 @@ THE FILL'S EXCLUSIONS, each for a fault it produced on reading the ranking:
     encyclopaedia's history articles rank them high);
   · the hand list `EXCLUDE`, each line with its reason.
 """
-import json, os, sys
+import json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from mn import key, verb_stem
@@ -65,12 +65,72 @@ EXCLUDE = {
     'шадар': 'an old court title ("minion"), from the history articles',
     'хиа': 'an old court title ("aide, page"), from the history articles',
     'үхсэн': 'the past participle of үхэх "to die", which A2 teaches',
+    # Read off the B1 ranking (2026-11-16).
+    'байна': 'Wiktionary\'s only sense is a usage note; it is the present of байх "to be", taught at A1',
+    'чүдэнз': 'a spelling of шүдэнз "match", which B1 teaches',
+    'сумо': 'a spelling of сүмо "sumo", which B1 teaches',
+    'больниц': 'a Russian loan; the Mongolian word, эмнэлэг "hospital", is taught at A1',
+    'масло': 'a Russian loan; the Mongolian word, тос "butter, oil", is taught at A2',
+    'констракшн': 'an English loan of slang; барилга "building, construction" is taught at A2',
+    'үеэ': 'its count is үе "time, period" with the reflexive -ээ, not "in earlier times"',
+    'секс': 'sexual vocabulary the level does not need',
+    'гомосекс': 'sexual vocabulary the level does not need',
+    'үтрээ': 'anatomical vocabulary the level does not need',
+    'янхан': 'an offensive word the level does not need',
+    'новш': 'a vulgar word the level does not need',
+    'хүчиндэх': 'vocabulary of sexual violence the level does not need',
+    'баас': 'a vulgar sense first ("shit"); the level does not need it',
+    'берилли': 'a chemical element, from the encyclopaedia\'s science articles',
+    'сканди': 'a chemical element, from the encyclopaedia\'s science articles',
+    'неон': 'a chemical element, from the encyclopaedia\'s science articles',
+    'аргон': 'a chemical element, from the encyclopaedia\'s science articles',
+    'лити': 'a chemical element, from the encyclopaedia\'s science articles',
+    'гели': 'a chemical element, from the encyclopaedia\'s science articles',
+    'радий': 'a chemical element, from the encyclopaedia\'s science articles',
+    'кали': 'a chemical element, from the encyclopaedia\'s science articles',
+    'натри': 'a chemical element, from the encyclopaedia\'s science articles',
+    'магни': 'a chemical element, from the encyclopaedia\'s science articles',
+    'хлор': 'a chemical element, from the encyclopaedia\'s science articles',
+    'фтор': 'a chemical element, from the encyclopaedia\'s science articles',
+    'фосфор': 'a chemical element, from the encyclopaedia\'s science articles',
+    'титан': 'a chemical element, from the encyclopaedia\'s science articles',
+    'кальци': 'a chemical element, from the encyclopaedia\'s science articles',
+    'нанометр': 'a scientific unit, from the encyclopaedia\'s science articles',
+    'микрометр': 'a scientific unit, from the encyclopaedia\'s science articles',
+    'микрон': 'a scientific unit, from the encyclopaedia\'s science articles',
     'зүй': 'its count is the "-logy" of the names of sciences, not "rule, principle"',
 }
 
 
 def usable(L):
     return any(not g['weak'] for e in L['entries'] for g in e['glosses'])
+
+
+GENITIVE = ('гийн', 'ийн', 'ын', 'ний', 'ны')
+PEOPLE = re.compile(r"^[A-Z][a-z]+(?:$|,| \(| people\b| person\b)")
+
+
+def genitive_twin(k, L, lex):
+    """From B1 on: a lemma that is only another lemma's genitive (аймгийн "provincial" is аймаг
+    "province" + -ийн, төрийн is төр + -ийн): an adjective or noun ending in a genitive ending
+    whose stem, or the stem with its dropped vowel, is a lemma of its own.  A bare -н is not
+    read (саван "soap" is no genitive of сава).  A1 and A2 shipped without the rule."""
+    if not all(e['pos'] in ('adj', 'noun', 'pron') for e in L['entries']):
+        return False
+    for g in GENITIVE:
+        if k.endswith(g) and len(k) - len(g) >= 2:
+            st = k[:-len(g)]
+            if any(x in lex for x in (st, st + 'а', st + 'э', st + 'о', st + 'ө', st + 'ь')):
+                return True
+    return False
+
+
+def people_name(L):
+    """From B1 on, the A1/A2 capital rule made strict: every ordinary gloss is a capitalised name
+    standing alone ("German", "Khalkha (a subgroup …)", "Manchu people") -- not "To stay the
+    night", "Eurasian magpie" or "Przewalski's horse", which A2's rule would have dropped."""
+    gl = [g['g'] for e in L['entries'] for g in e['glosses'] if not g['weak']]
+    return bool(gl) and all(PEOPLE.match(g) and not g.startswith('To ') for g in gl)
 
 
 def main():
@@ -106,7 +166,10 @@ def main():
             continue
         if all(e['pos'] in ('phrase', 'intj', 'num') for e in L['entries']):
             continue
-        if all(g['g'][:1].isupper() for e in L['entries'] for g in e['glosses'] if not g['weak']):
+        if LEVEL not in ('a1', 'a2'):
+            if genitive_twin(k, L, lex) or people_name(L):
+                continue
+        elif all(g['g'][:1].isupper() for e in L['entries'] for g in e['glosses'] if not g['weak']):
             continue                     # a people, a language, a name: "German", "Han Chinese"
         seen.add(k)
         fill.append({'key': k, 'word': L['word'], 'freq': L['freq'], 'pos': '',
