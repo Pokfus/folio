@@ -3769,6 +3769,24 @@ changed was the one that had been wrong all along.
   fallback; the findings (the fold's true homographs, the infinitive twins, the declension tables' faults,
   the normalised romanisation) are 📖 `docs/amharic-decks-plan.md`. The `LANGS` row is 35 million L1, 60
   in all (Ethnologue via Wikipedia); the hue is measured, `#85063D`.
+- `.claude/yoruba/` — the generator behind the Yoruba decks (Nov 2026, on request: "Add a Yoruba language
+  collection"; the Zulu, Hausa and Amharic owners' answers taken, the owner not asked). **Built: the alphabet deck,
+  `decks/Yoruba-Alphabet.folio-deck.json`** (34 notes: the 25 letters, the three tones, the nasal vowels, the
+  syllabic nasal), **A1, `decks/Yoruba-A1.folio-deck.json`** (500 notes / 1,000 cards: 321 inventory, 179
+  frequency) **and A2, `decks/Yoruba-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16: 192 inventory,
+  558 frequency; an unmarked spelling with a commoner marked homograph is not dealt) **and B1,
+  `decks/Yoruba-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-16: 141 inventory read off the words the
+  fill does not reach, 859 frequency down to a count of one) **and the phrases deck,
+  `decks/Yoruba-Phrases-and-Expressions.folio-deck.json`** (123 notes in five subdecks: greetings, everyday phrases,
+  idioms and similes, 16 proverbs with their literal readings, 30 Tatoeba sentences; `python3 .claude/yoruba/phrases.py`;
+  the owner chose it over a B2, Wiktionary being used up). The collection is complete. `python3 .claude/yoruba/run.py [--level a1|a2|b1]`, `python3 .claude/yoruba/alphabet.py`,
+  `node .claude/yoruba/check-yoruba.js`; a re-run is byte-identical. Amharic's arrangement: about 4,300 Wiktionary
+  words, 60 Tatoeba pairs, no subtitle list, so the frequency is the Yoruba Wikipedia's (its 8,155 articles of 150
+  words or more), A1–B1 only, no hand glosses, no speaker. **A card is a TONED spelling**, read off Wiktionary's
+  headword line (its pages are titled without tones), and an unmarked spelling's count is shared out among the
+  toned ones in the proportions the carefully marked articles show; the findings (one spelling, many words; the
+  dialect "alternatives"; the contractions and the bot stubs) are 📖 `docs/yoruba-decks-plan.md`. The `LANGS` row
+  is 48 million L1, 53 in all (Ethnologue 2026 via Wikipedia's list); the hue is measured, `#3A5498`.
 - `.claude/oldenglish/` — the generator behind the Old English decks (Nov 2026, on request: "Add an Old
   English language collection"). **Built: the alphabet and pronunciation deck,
   `decks/Old-English-Alphabet.folio-deck.json`** (41 notes) **and Level 1,
