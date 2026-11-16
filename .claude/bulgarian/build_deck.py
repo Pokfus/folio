@@ -74,10 +74,13 @@ ETYMS = {
     'да': ['1', '2'],         # "yes" AND the particle of every subordinate verb, both A1
     'карам': ['2'],           # "to drive; to make (someone do)"; etymology 1 is a rare "to rebuke"
     'о': ['3', '2'],          # the interjection "oh" before the preposition "against"
+    'съд': ['2', '1'],        # "court" before "vessel": the subtitles' word is the court
+    'чест': ['2', '1'],       # the noun "honour" before the rarer adjective "frequent"
+    'клас': ['2'],            # "class (at school)"; etymology 1 is "ear of corn"
 }
 
 # A PART OF SPEECH TO LEAD WITH, where Wiktionary's first is not the everyday word.
-POS_FIRST = {'о': 'intj'}
+POS_FIRST = {'о': 'intj', 'чест': 'noun'}
 # A PART OF SPEECH LEFT OFF, where it is a different, rarer word spelt the same.
 DROP_POS = {'малко': {'noun'},                     # "little one" beside the adverb "a little"
             'шест': {'adv'}}                           # school slang "top marks" beside "six"
@@ -96,6 +99,18 @@ LEAD = {
     'търся': ['to look for'],                          # not a rare "to ransack"
     'струвам': ['to cost'],
     'път': ['path, road', 'time (an instance'],        # пътя "the road" and един път "once"
+    'връзка': ['connection', 'relationship'],          # not "lace (for footwear)"
+    'изобщо': ['at all', 'generally'],
+    'прекарам': ['to pass, to spend (time)'],
+    'ред': ['turn (opportunity)', 'row, rank', 'line, queue'],
+    'утро': ['morning'],
+    'смятам': ['to consider', 'to intend'],
+    'новина': ['piece of news'],
+    'пич': ['dude'],                                   # not "bastard"
+    'право': ['right', 'law (as a specialty)'],
+    'продължавам': ['to last, to continue'], 'продължа': ['to last, to continue'],
+    'занимавам': ['to serve a certain duty; to keep oneself busy'],
+    'кача': ['to go up', 'to take up'],
 }
 # A GLOSS LEFT OFF.
 GLOSS_DROP = {}
@@ -104,7 +119,7 @@ PARTNER = {'направя': ['пра́вя'], 'правя': ['напра́вя'
            'изглеждам': []}                                # "to seem" has no perfective; изгле́дам is "to watch"
 
 # A HEADWORD'S STRESS WRITTEN HERE, where Wiktionary's head line carries none.
-STRESS = {'наздраве': 'наздра́ве'}
+STRESS = {'наздраве': 'наздра́ве', 'армия': 'а́рмия'}
 
 
 # ---- glosses ---------------------------------------------------------------------------

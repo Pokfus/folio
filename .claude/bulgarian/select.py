@@ -41,6 +41,20 @@ EXCLUDE = {
     'пара': "'steam', whose own forms count 2,333 of its 174,148: the rest are пари 'money' (A1)",
     'ща': "'to want', a bookish word whose count is щях, щеше, the past of the future particle ще",
     'пръв': "a variant of първи 'first', on this level's own card",
+    # Read off the A2 ranking (2026-11-16).
+    'бе': "an emphatic particle, whose count is бе 'was', the aorist of съм (A1)",
+    'твоя': 'a form of твой (A1), on its card', 'нашия': 'a form of наш (A1), on its card',
+    'нашият': 'a form of наш (A1), on its card', 'нашите': 'a form of наш (A1), on its card',
+    'вашите': 'a form of ваш (A1), on its card',
+    'брава': "'lock (of a door)', whose own forms count 193 of its 32,443: the rest are браво 'bravo'",
+    'кос': "'blackbird', whose own forms count 224 of its 29,357: the rest are коса 'hair' (A2)",
+    'тоалетен': "'dressing', whose own forms count 47 of its 22,890: the rest are тоалетна 'toilet' (A2)",
+    'поява': "'appearance', whose own forms count 496 of its 24,511: the rest are появи, of the verb появя се",
+    'окажа': "glossed only 'in idioms'",
+    'франк': "'franc', whose count is the name Frank",
+    'том': "'volume (book)', whose count is the name Tom",
+    'кучи': "an insult (кучи син 'son of a bitch')",
+    'рожден': "'birth' as an adjective, counted from рожден ден 'birthday', a phrase",
 }
 
 SWEARS = {'мамка', 'путка', 'шибан', 'шибам', 'еба', 'курва', 'кучка', 'педал', 'лайно', 'гъз',

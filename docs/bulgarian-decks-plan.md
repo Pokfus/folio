@@ -5,7 +5,7 @@ language set in the shape of the ones already shipped (Ukrainian, Russian TORFL,
 is the record of how those were built, and every rule there applies here unless this file says otherwise.
 Asked for on 2026-11-16: "Add a Bulgarian language collection."
 
-**STATUS (2026-11-16): Phase 1 built — the alphabet deck and A1** (`.claude/bulgarian/`, §6). A2 to C1 and a
+**STATUS (2026-11-16): the alphabet deck, A1 and A2 are built** (`.claude/bulgarian/`, §6–§7). B1 to C1 and a
 phrases deck are next, one per session.
 
 Later decks under `decks/` are community content, not a change to Folio: **no changelog line and no version bump**
@@ -30,7 +30,7 @@ Ukrainian (a Cyrillic Slavic language, assembled to CEFR), and the owner may ove
 |---|---|---|
 | Bulgarian Alphabet — built | `Bulgarian-Alphabet.folio-deck.json` | 30 |
 | Bulgarian A1 Beginner — built | `Bulgarian-A1.folio-deck.json` | 500 |
-| Bulgarian A2 Elementary | `Bulgarian-A2.folio-deck.json` | 750 |
+| Bulgarian A2 Elementary — built | `Bulgarian-A2.folio-deck.json` | 750 |
 | Bulgarian B1 Intermediate | `Bulgarian-B1.folio-deck.json` | 1,000 |
 | Bulgarian B2 Upper Intermediate | `Bulgarian-B2.folio-deck.json` | 1,500 |
 | Bulgarian C1 Advanced | `Bulgarian-C1.folio-deck.json` | 1,500 |
@@ -112,3 +112,23 @@ re-run is byte-identical** (verified). A1: 500 notes, 388 from the inventory and
 with their Bulgarian names (бъ, въ, гъ …; и кратко, ер голям, ер малък), the sounds for an English speaker, and the
 five places a Russian reader parts company (щ, ъ, ь, е, no ы э ё). The shelf's hue is measured: `#813F8D`, a purple
 14.0 from its nearest of 79 (Danish), the greens and the magenta band left out and nothing within 20 of the flag.
+
+## 7. As built (2026-11-16): A2
+
+`python3 .claude/bulgarian/run.py --level a2`. 750 notes: 337 from the A2 inventory (`inventory.py`: relatives and the
+people around you, jobs and study, clothes, food and cooking, the rooms and furniture of a home, the town, travel,
+nature and the compass, animals, health, feelings and character, free time, telling when, the higher numbers and
+measures, the everyday verbs) and 413 by frequency, none taught in A1; sentences for 694, three apiece for 598. The
+A2 `SCOPE` quotes the CEFR A2 global descriptor. **Wiktionary's Bulgarian is thin past the core**: 45 inventory words
+have no lemma there and were dropped (`професия`, `инженер`, `заплата`, `палто`, `квартал`, `ваканция`, `екскурзия`,
+`паркинг`, `Коледа`, `Великден` …); plurals and adjectives filed only under another headword were taken in that form
+(`обувки` → `обувка`, `пердета` → `перде`, `слънчево` → `слънчев`, `уплашен` → `уплаша`, `изненадан` → `изненада`).
+New from reading the ranking: `select.EXCLUDE` grew by fourteen — forms of the A1 possessives (`твоя`, `нашия`,
+`нашите` …), `бе` (the count is the aorist of съм), lemmas whose own forms barely count (`брава` — the count is
+браво; `кос` — коса; `тоалетен` — тоалетна; `поява` — появи), names (`франк` Frank, `том` Tom), an insult (`кучи`),
+`рожден` (counted from рожден ден) and `окажа` (glossed only "in idioms"). `ETYMS` takes `съд` "court" before
+"vessel", `чест` "honour" before "frequent" and `клас` "class", not "ear of corn"; `LEAD` orders `връзка`
+"connection", `изобщо` "at all", `прекарам` "to spend (time)", `ред` "turn", `смятам` "to consider", `новина`
+"piece of news", `право` "right", `продължа(вам)` "to continue", `пич` "dude". **A1 rebuilds byte-identical, and so
+does A2.** Known, left: the fill keeps the subtitles' police and drama vocabulary (`убиец`, `пистолет`, `ченге`,
+`детектив`) and slang (`пич`, `гадже`, `готин`), as A1 kept `дя́вол`.
