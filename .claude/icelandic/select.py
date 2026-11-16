@@ -64,6 +64,36 @@ EXCLUDE = {
     'totta': 'its count is a sexual sense',
     'fær': 'its count is fær, the present of fá "to get" (A1); its entry is "able"',
     'nauðga': 'not taught in a level deck, though common in the subtitles\' crime drama (as Norwegian\'s voldta)',
+    # Read off the B2 ranking (2026-11-16).
+    # A COUNT THAT IS ANOTHER WORD'S, OR A WORD MET ONLY IN A SET PHRASE
+    'gat': 'its count is gat, the past of geta "can" (A1); its entry is "a hole"',
+    'lagður': 'its count is the participle of leggja "to lay" (A1); its entry is "a tuft of wool"',
+    'borinn': 'the participle of bera "to carry" (A2)',
+    'gula': 'its count is gulur "yellow" (A1)\'s forms; its entry is "jaundice"',
+    'ranga': 'its count is rangur "wrong" (A2)\'s forms; its entry is "the reverse side"',
+    'móður': 'its count is móður, the genitive of móðir "mother" (A1); its entry is "anger"',
+    'falda': 'its count is falinn "hidden"\'s forms; its entry is "to hem"',
+    'stríður': 'its count is stríð "war" (A2)\'s forms; its entry is "unwieldy"',
+    'skyldur': 'its count is skyldur, the plural of skylda "duty" (B1); its entry is "related"',
+    'met': 'its count is met "a record" and meta\'s forms, which its entry ("counterweights") does not give',
+    'kefja': 'its own spelling is not met in the subtitles; its count is other words\' forms',
+    'kringja': 'its count is í kring and kringum (A2); its entry is "to round"',
+    'kínverji': 'its count is Kínverji "a Chinese person"; its entry is "a firecracker"',
+    'gemsi': 'its count is the slang "a mobile phone"; its entry is "a year-old sheep"',
+    'emm': 'the name of a letter', 'ess': 'the name of a letter',
+    'alfa': 'a Greek letter', 'delta': 'a Greek letter',
+    'eð': 'met only in hvort eð er', 'kennsl': 'met only in bera kennsl á "to recognise"',
+    'blasa': 'met only in blasa við', 'runka': 'met only in a sexual phrase',
+    'not': 'its count is the English word; its entry is "use"', 'for': 'the English word; its entry is "mud"',
+    'lost': 'the English word; its entry is "a shock"', 'ok': 'the English word; its entry is "a yoke"',
+    'patt': 'its count is the name Pat; its entry is "stalemate"',
+    'je': 'an interjection with no meaning to teach', 'au': 'an interjection with no meaning to teach',
+    # SLANG, OR SEXUAL
+    'ljóska': 'its count is the slang "a blonde"', 'sæta': 'its count is the slang "a pretty girl"',
+    'graður': 'its count is the slang "horny"', 'káfa': 'sexual', 'fróa': 'its count is a sexual sense',
+    'mök': 'sexual', 'kynmök': 'sexual', 'nauðgun': 'excluded with nauðga (B1)',
+    'svertingi': 'a dated term for a black person, now offensive',
+    'öfuguggi': 'an insult (a slur on gay men)',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
@@ -72,7 +102,9 @@ SWEARS = {'fjandi', 'andskoti', 'helvíti', 'djöfull', 'fokk', 'skítur', 'tík
           # A2 (2026-11-16): curses and insults
           'fjandans', 'fjári', 'fífl', 'hálfviti', 'auli', 'rass', 'kjaftæði', 'bjáni',
           # B1 (2026-11-16)
-          'hommi', 'pissa', 'fáviti', 'rassgat', 'píka', 'drullusokkur', 'skratti', 'fjárans'}
+          'hommi', 'pissa', 'fáviti', 'rassgat', 'píka', 'drullusokkur', 'skratti', 'fjárans',
+          # B2 (2026-11-16)
+          'tæfa', 'ansans', 'árans', 'helvískur', 'mella', 'flón', 'heimskingi', 'kúkur', 'úrþvætti'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists
 # another first.
@@ -86,7 +118,8 @@ FILL_POS = {'sá': 'pron',       # "that (one)", not "to sow"
             # B1 (2026-11-16): the verb, not a noun spelt like it, and the reverse
             'skemma': 'verb', 'jafna': 'verb', 'stytta': 'verb', 'hella': 'verb', 'spá': 'verb',
             'sturta': 'noun',    # "a shower", not "to pour down"
-            'þyrla': 'noun'}     # "a helicopter", not "to whirl"
+            'þyrla': 'noun',     # "a helicopter", not "to whirl"
+            'rita': 'verb'}      # B2: "to write", not "a kittiwake"
 
 # A WORD DEALT BY ANOTHER'S COUNT.
 SAME_AS = {}

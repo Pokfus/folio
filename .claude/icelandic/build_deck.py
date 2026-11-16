@@ -43,7 +43,7 @@ from icelandic_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
 STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-16T00:00:00.000Z',
-         'b1': '2026-11-16T00:00:00.000Z'}.get(LEVEL, '')
+         'b1': '2026-11-16T00:00:00.000Z', 'b2': '2026-11-16T00:00:00.000Z'}.get(LEVEL, '')
 if not STAMP:
     raise SystemExit(f'no STAMP for {LEVEL}: write the day the level is first built into build_deck.py')
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
@@ -148,6 +148,11 @@ GLOSS = {
     'drusla': {'noun': ['rag, a shred of cloth', 'an old banger, a jalopy']},
     'grey': {'noun': ['poor thing, poor wretch (greyið, "the poor thing")', 'bitch (a female dog)']},
     'skjár': {'noun': ['screen (a monitor, a television screen)']},
+    # B2 (2026-11-16)
+    'vonast': {'verb': ['to hope (vonast til: ég vonast til að …, "I hope that …")']},
+    'limur': {'noun': ['limb']},                              # its second is anatomical
+    'sýra': {'noun': ['acid', 'sour whey']},                  # its third is drug slang
+    'sæði': {'noun': ['seed, seeds', 'offspring']},
     'króna': {'noun': ['króna (the Icelandic currency)', 'crown']},
     'gjörðu svo vel': {'phrase': ['here you are, there you go (handing something over)',
                                   'please (inviting someone to come in, sit down or help themselves)']},

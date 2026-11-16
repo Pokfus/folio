@@ -102,12 +102,12 @@ A2 = [
     ('connectors', 'þess_vegna þó samt auk_þess hvorki'),
 ]
 B1 = [
-    ('work and the economy', 'efnahagur hagkerfi atvinnurekandi starfsmaður lærlingur menntun reynsla '
+    ('work and the economy', 'efnahagur atvinnurekandi starfsmaður lærlingur menntun reynsla '
                              'viðtal kostnaður útgjöld tekjur eftirlaun stéttarfélag verkfall '
-                             'hagnaður tap markaður viðskiptavinur yfirvinna uppsögn'),
+                             'hagnaður tap markaður viðskiptavinur uppsögn'),
     ('society and politics', 'samfélag stjórnmál stjórnmálamaður flokkur sveitarfélag borgari '
-                             'innflytjandi flóttamaður lýðræði réttindi skylda yfirvöld dómstóll '
-                             'refsing mótmæli alþingi ríkisstjórn'),
+                             'innflytjandi flóttamaður lýðræði réttindi skylda dómstóll '
+                             'refsing mótmæli ríkisstjórn'),
     ('media and technology', 'rás internet vefsíða tölvupóstur lykilorð skjár lyklaborð vista '
                              'auglýsing fjölmiðill'),
     ('the environment', 'umhverfi loftslag mengun rusl endurvinnsla orka rafmagn bensín '
@@ -115,30 +115,50 @@ B1 = [
     ('education', 'menntaskóli fag fyrirlestur kennslubók skólastjóri þekking nám nemi'),
     ('relationships and family life', 'skilnaður sambúð vinátta ættingi tengdamóðir barnabarn '
                                       'unglingur uppeldi'),
-    ('home and housing', 'húsnæði leigjandi leigusali einbýlishús raðhús húsgögn upphitun '
-                         'þvottavél uppþvottavél ryksuga svalir kjallari'),
+    ('home and housing', 'húsnæði leigjandi leigusali einbýlishús upphitun þvottavél uppþvottavél '
+                         'ryksuga svalir kjallari'),
     ('health and the body', 'sjúkdómur meiðsli meðferð bóluefni ofnæmi svefn hreyfing mataræði '
                             'þyngd lunga beinagrind vöðvi húð blóðþrýstingur sjúkrabíll'),
-    ('travel and experiences', 'ferðaskrifstofa bókun skoðunarferð upplifun ævintýri útsýni gisting '
-                               'farfuglaheimili tjald tollur gjaldmiðill'),
-    ('culture and leisure', 'menning tónleikar skáldsaga rithöfundur ljóð málverk listamaður '
-                            'áhorfandi hefð hátíð áhugamál'),
-    ('feelings and opinions', 'vonbrigði sorg skömm öfund stolt traust efi'),
+    ('travel and experiences', 'bókun upplifun ævintýri útsýni gisting farfuglaheimili tjald '
+                               'tollur gjaldmiðill'),
+    ('culture and leisure', 'menning tónleikar skáldsaga rithöfundur ljóð málverk áhorfandi hefð '
+                            'hátíð áhugamál'),
+    ('feelings and opinions', 'vonbrigði sorg skömm öfund traust efi'),
     ('thinking and talking', 'skýring lausn tillaga umræða rök galli orsök afleiðing niðurstaða '
                              'tilgangur samanburður lýsing'),
     ('verbs of B1', 'þróa minnka endurtaka gagnrýna kvarta hvetja skipuleggja framkvæma takast '
-                    'mistakast upplifa'),
+                    'upplifa'),
     ('describing and judging', 'ósanngjarn sanngjarn sjálfstæður ábyrgur áreiðanlegur forvitinn '
                                'þrjóskur feiminn hugrakkur latur duglegur jákvæður neikvæður '
-                               'þægilegur óþægilegur opinber nútímalegur hefðbundinn '
-                               'efnahagslegur pólitískur félagslegur'),
-    ('time and frequency', 'hingað_til samtímis smám_saman að_lokum stöðugt hversdagur öld '
-                           'áratugur'),
-    ('connectors and argument', 'hins_vegar þar_sem nefnilega til_dæmis að_minnsta_kosti'),
+                               'þægilegur óþægilegur opinber nútímalegur hefðbundinn pólitískur '
+                               'félagslegur'),
+    ('time and frequency', 'hingað_til samtímis smám_saman hversdagur öld áratugur'),
+    ('connectors and argument', 'þar_sem nefnilega til_dæmis að_minnsta_kosti'),
 ]
 
-# The levels above B1 are written one per session, on request (the plan, §5).
-B2 = []
+B2 = [
+    ('the economy and work', 'verðbólga lán vöxtur atvinnuleysi samkeppni frumkvöðull'),
+    ('politics and the state', 'ráðherra löggjöf meirihluti minnihluti hugmyndafræði áróður '
+                               'spilling mismunun jafnrétti velferð kosning skattur frambjóðandi '
+                               'ríkisborgari atkvæði sjálfstæði aðgerðasinni'),
+    ('law and justice', 'lögbrot sekt lögfræði'),
+    ('science and technology', 'tilgáta greining þróun stafrænn hugbúnaður reiknirit gervigreind'),
+    ('the environment and resources', 'loftslagsbreyting gróðurhús koltvísýringur endurnýjanlegur '
+                                      'útrýming fjölbreytni vistkerfi kjarnorka sólarorka '
+                                      'jarðhiti'),
+    ('health and society', 'umönnun þunglyndi kvíði fíkn misnotkun heilbrigði'),
+    ('media and communication', 'ritskoðun kappræða boðskapur gagnrýni'),
+    ('culture and society', 'gildi fordómur trúarbrögð'),
+    ('abstract nouns', 'skilyrði forsenda mikilvægi samhengi sjónarhorn hindrun takmörkun '
+                       'forgangur gæði magn ferli'),
+    ('arguing and reasoning', 'rökstyðja fullyrða andmæla'),
+    ('verbs of B2', 'takmarka styrkja veikja'),
+    ('describing and evaluating', 'umfangsmikill verulegur skilvirkur umdeildur viðeigandi '
+                                  'núverandi líklegur'),
+    ('connectors and discourse', 'þar_af_leiðandi engu_að_síður þrátt_fyrir'),
+]
+
+# The levels above B2 are written one per session, on request (the plan, §5).
 C1 = []
 
 INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2, 'c1': C1}

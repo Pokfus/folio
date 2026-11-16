@@ -6,8 +6,8 @@ Icelandic set, built in the Norwegian decks' shape (`docs/norwegian-decks-plan.m
 `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-15: "Add an Icelandic language collection."
 
-**STATUS (2026-11-16): Phase 1 done, Phase 2 under way** — the pipeline, the alphabet deck and A1 (§6), A2 (§7) and
-B1 (§8). B2, C1 and a phrases deck are the later phases (§5), one per request.
+**STATUS (2026-11-16): Phase 1 done, Phase 2 under way** — the pipeline, the alphabet deck and A1 (§6), A2 (§7), B1
+(§8) and B2 (§9). C1 and a phrases deck are the later phases (§5), one per request.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP —
@@ -35,7 +35,7 @@ these is the owner's to overrule.**
 | Icelandic A1 Beginner — built | `Icelandic-A1.folio-deck.json` | 500 |
 | Icelandic A2 Elementary — built | `Icelandic-A2.folio-deck.json` | 750 |
 | Icelandic B1 Intermediate — built | `Icelandic-B1.folio-deck.json` | 1,000 |
-| Icelandic B2 Upper Intermediate | `Icelandic-B2.folio-deck.json` | 1,500 |
+| Icelandic B2 Upper Intermediate — built | `Icelandic-B2.folio-deck.json` | 1,500 |
 | Icelandic C1 Advanced | `Icelandic-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
@@ -109,8 +109,8 @@ higher levels will have markedly fewer.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet and A1. **Phase 2** — A2 and B1 (done) to C1, one level per request:
-write the level's inventory into `inventory.py` (B2 and C1 are empty lists), its `SCOPE` is already in `icelandic_level.py`, its
+**Phase 1 (done)** — the pipeline, the alphabet and A1. **Phase 2** — A2, B1 and B2 (done) to C1, one level per
+request: write the level's inventory into `inventory.py` (C1 is an empty list), its `SCOPE` is already in `icelandic_level.py`, its
 `STAMP` into `build_deck.py` (a level with none refuses to build), run, read every card, and widen the deck's
 description where a level needs it. **Phase 3** — a phrases deck (Norwegian's `phrases.py`, not copied yet;
 `build_deck.py` refuses `--level phr` until then).
@@ -161,12 +161,17 @@ dropped (`útlönd` → `útland`, `frítími` → `skemmtun`, `áhugaverður` �
 
 Asked for on 2026-11-16: "Add B1." `python3 .claude/icelandic/run.py --level b1`. **1,000 notes: 175 from a 16-topic
 inventory** (`inventory.py` `B1`, Norwegian's B1 topics in Icelandic: work and the economy, society and politics —
-`alþingi`, `ríkisstjórn` —, media and technology, the environment — `jarðskjálfti`, `hraun` —, education,
+`ríkisstjórn` —, media and technology, the environment — `jarðskjálfti`, `hraun` —, education,
 relationships, housing, health, travel, culture, feelings and opinions, explaining and arguing, B1 verbs, judging
 adjectives, time words, connectors — `SCOPE['b1']`) **and 825 by frequency**; three sentences for 384, **none for
 291** — Tatoeba's Icelandic is thin at this level (`stéttarfélag`, `uppþvottavél`, `blóðþrýstingur`), and the
-description states how many carry sentences. Every inventory word was found in Wiktionary. Every card was read; A1
-and A2 re-run byte-identical, and B1 re-runs byte-identical with the extract rebuilt.
+description states how many carry sentences. Every card was read; A1 and A2 re-run byte-identical, and B1 re-runs
+byte-identical with the extract rebuilt. **Fifteen inventory words are not headwords in the extract** and were
+dropped by `select.py` (`hagkerfi`, `yfirvinna`, `alþingi`, `raðhús`, `húsgögn`, `ferðaskrifstofa`,
+`skoðunarferð`, `listamaður`, `stolt`, `mistakast`, `efnahagslegur`, `yfirvöld`, `að lokum`, `stöðugt`, `hins
+vegar`). *Correction, 2026-11-16:* this section first said every word was found — the run's "NOT IN WIKTIONARY"
+line was missed by a filter that matched the wrong case. The fifteen were taken out of `inventory.py` with B2; the
+deck did not change by a byte, since `select.py` had always dropped them.
 
 **What the B1 ranking turned up**, each in `select.py` or `build_deck.py` with its reason:
 - **A count that is another word's** — more than at A2: `má` (mega's present), `var` (vera's past), `fær` (fá's
@@ -186,3 +191,34 @@ and A2 re-run byte-identical, and B1 re-runs byte-identical with the extract reb
 `hryðjuverkamaður`, `riffill`, `sjóræningi`, `dreki`), and some plain body words (`typpi`, `eista`, `pungur`) come in
 on frequency — plain words, not slang, as Norwegian B2 left them. `benda`'s card has no present: BÍN's forms reach
 only a lemma's first verb entry, and `benda` "to point" is its second.
+
+## 9. As built (2026-11-16): B2
+
+Asked for on 2026-11-16: "Add B2." `python3 .claude/icelandic/run.py --level b2`. **1,500 notes: 82 from a 13-topic
+inventory** (`inventory.py` `B2`, Norwegian's B2 topics in Icelandic: the economy, politics, law, science and
+technology, the environment — `jarðhiti`, `loftslagsbreyting` —, health and society, media, culture and society, the
+abstract nouns of discussion, arguing and reasoning, B2 verbs, evaluating adjectives, formal connectors —
+`SCOPE['b2']`) **and 1,418 by frequency**; three sentences for 240, **none for 833** — more than half the deck, as
+with Norwegian B2: Tatoeba's Icelandic has almost no formal vocabulary, and the description says how many carry
+sentences. Every card was read; A1 to B1 re-run byte-identical, and B2 re-runs byte-identical with the extract
+rebuilt. **English Wiktionary's Icelandic is thin in formal vocabulary**: forty-seven of the inventory's words are
+not headwords (`fjárfesting`, `útflutningur`, `auðlind`, `uppgötvun`, `túlka`, `viðhalda`, `varðandi` …): forty-three
+were removed and four replaced by a form the extract has (`kosningar` → `kosning`, `loftslagsbreytingar` →
+`loftslagsbreyting`, `fordómar` → `fordómur`, `réttarhöld` → `lögbrot`), and seven civic words added that it does
+have (`skattur`, `frambjóðandi`, `ríkisborgari`, `atkvæði`, `sjálfstæði`, `aðgerðasinni`, `heilbrigði`). A graded
+lexicon would change this level most.
+
+**What the B2 ranking turned up**, each in `select.py` or `build_deck.py` with its reason:
+- **A count that is another word's**: `gat` (geta's past), `borinn` and `lagður` (participles), `gula`, `ranga`,
+  `falda`, `stríður`, `skyldur` and `móður` (other words' forms), `met` ("a record", which its entry does not give),
+  `kínverji` (Kínverji, "a Chinese person"), `gemsi` (slang, "a mobile"), `kringja`, `kefja`; English words (`not`,
+  `for`, `lost`, `ok`) and names (`patt`); two letters' names and two Greek letters; words met only in a set phrase
+  (`eð`, `kennsl`, `blasa`). `rita` is read as "to write", not "a kittiwake".
+- **Slang, sexual words and slurs** excluded (`ljóska`, `sæta`, `graður`, `káfa`, `fróa`, `mök`, `kynmök`, `runka`,
+  `nauðgun`; `svertingi`, a dated term for a black person now offensive; `öfuguggi`, a slur) or to `SWEARS`
+  (`tæfa`, `ansans`, `árans`, `helvískur`, `mella`, `flón`, `heimskingi`, `kúkur`, `úrþvætti`); a drug or sexual
+  sense cut by `GLOSS` (`sýra`, `sæði`, `limur`); `vonast` written with `vonast til`.
+
+**Known, left.** The fill is heavier still with the subtitles' crime, war and fantasy vocabulary (`leyniskytta`,
+`handsprengja`, `vampíra`, `uppvakningur`, `hobbiti`), and carries some plain words of sex and drugs (`klám`,
+`kókaín`, `heróín`, `vændiskona`, `geirvarta`) on frequency — plain words, not slang, as Norwegian B2 left them.

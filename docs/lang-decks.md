@@ -3870,7 +3870,8 @@ changed was the one that had been wrong all along.
   pre-aspiration, the stress and vowel length) **and A1, `decks/Icelandic-A1.folio-deck.json`** (500 notes / 1,000
   cards) **and A2, `decks/Icelandic-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16, on request: "Add A2";
   `--level a2`) **and B1, `decks/Icelandic-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-16, on request:
-  "Add B1"; `--level b1`). `python3 .claude/icelandic/run.py [--level a1]`, `python3 .claude/icelandic/alphabet.py`,
+  "Add B1"; `--level b1`) **and B2, `decks/Icelandic-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16, on
+  request: "Add B2"; `--level b2`; 95 % by frequency, English Wiktionary lacking much of its inventory). `python3 .claude/icelandic/run.py [--level a1]`, `python3 .claude/icelandic/alphabet.py`,
   `node .claude/icelandic/check-icelandic.js`; a re-run is byte-identical. Norwegian's pipeline adapted, no
   romanisation, nouns with their gender as a label (Icelandic has no indefinite article) and their four cases in
   both numbers, verbs by their present "he" form, past and supine. **What is new**: the subtitle list is
