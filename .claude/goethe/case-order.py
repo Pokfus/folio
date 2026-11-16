@@ -158,7 +158,12 @@ def main():
     for f in files:
         raw = open(f, encoding='utf-8').read()
         d = json.loads(raw)
-        if json.dumps(d, ensure_ascii=False, separators=(',', ':')) != raw:
+        compact = json.dumps(d, ensure_ascii=False, separators=(',', ':'))
+        # A FILE STRAIGHT OUT OF `emit.py` IS NOT COMPACT (Nov 2026): it is written with
+        # json's default separators, so the first check after a rebuild -- the one this
+        # script's header asks for -- stopped here on the A2 deck.  Both spellings of the
+        # same data are accepted; a rewrite is always the compact one.
+        if compact != raw and json.dumps(d, ensure_ascii=False) != raw:
             sys.exit('%s does not round-trip; refusing to rewrite it' % f)
         cards = tables = 0
         for c in d['cards']:

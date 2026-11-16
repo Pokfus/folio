@@ -38,8 +38,23 @@ W = json.load(open(lvlf('wikt.json')))
 below = words_below()
 entries, seen = [], set()
 dropped_below = []
+# A WORD-GROUP ENTRY THAT THE ALPHABET ALSO PRINTS IS ONE WORD (Nov 2026, the German
+# beginner pass).  A2's Wortgruppenliste names its school subjects, family members,
+# jobs and exam words WITHOUT an article -- `Musik`, `Kind`, `Babysitter` -- and the
+# alphabet prints the same nouns with one, so `display` differed and eight words were
+# carded twice (die Musik, das Kind, die Geschichte, die Kunst, der Sport, der Text,
+# die Prüfung, der Babysitter): two notes with one headword, which
+# `.claude/dedupe-glosses.py` rightly refuses, so the A2 deck could not be written at
+# all.  The alphabet's entry is kept, since it carries the article and the plural.
+# Gated off for A1, whose two halves never overlapped this way and which must stay
+# byte for byte as committed -- inert there BY CONSTRUCTION, as `BRACKET_CONT` is.
+from goethe_level import LEVEL
+alpha_words = {e['word'] for e in wl} if LEVEL != 'a1' else set()
+by_group = lambda e: bool(e.get('group')) and not e.get('article')
 for e in wl + wg:
     if e['display'] in seen:
+        continue
+    if by_group(e) and e['word'] in alpha_words:
         continue
     if e['word'] in below:
         dropped_below.append(e['display'])
