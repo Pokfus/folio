@@ -1150,3 +1150,48 @@ end $$;
 
 revoke all on function public.bump_collection(text, text) from public;
 grant execute on function public.bump_collection(text, text) to anon, authenticated;
+
+
+-- ============================================================================================
+-- 18) DELETING YOUR OWN ACCOUNT  (run once)
+-- ============================================================================================
+-- Nov 2026, out of the account-page audit: there was no way for a reader to delete their account — the
+-- publishable key cannot touch `auth.users`, so it has to be a function.
+--
+-- IT TAKES THE PASSWORD, for section 12's reason turned round: a session left open on a shared computer
+-- must not be enough to destroy an account, so the caller proves they are its owner again.  It deletes
+-- exactly one row — the caller's own, `auth.uid()` — and never takes an id as an argument.  Every table
+-- that hangs off `auth.users` is `on delete cascade` (profiles, progress, friends, user_decks and what
+-- hangs off those, deck_installs, deck_ratings, review_log); `deck_reports.reporter` and
+-- `feedback.author` are `on delete set null`, so a report or a note outlives its author without naming
+-- them.  The pooled counters (card_stats, game_stats, book_stats, collection_stats) are joined to nobody
+-- and are left as they are.
+--
+-- It answers `true` when the account is gone and `false` when the password is wrong (or nobody is signed
+-- in).  UNTIL THIS BLOCK IS RUN the account page says deleting is not set up yet: the call 404s and
+-- app.js turns that into a sentence (`supaDeleteAccount`).  Needs pgcrypto, which section 12 creates.
+
+create extension if not exists pgcrypto;
+
+create or replace function public.delete_my_account(pw text)
+returns boolean
+language plpgsql
+security definer
+set search_path = public, extensions
+as $$
+declare me uuid := auth.uid();
+begin
+  if me is null then return false; end if;
+  perform 1 from auth.users u
+   where u.id = me
+     and u.encrypted_password is not null
+     and u.encrypted_password = crypt(pw, u.encrypted_password);
+  if not found then return false; end if;
+  delete from auth.users where id = me;
+  return true;
+end $$;
+
+-- only somebody signed in has an account to delete
+revoke all on function public.delete_my_account(text) from public;
+revoke all on function public.delete_my_account(text) from anon;
+grant execute on function public.delete_my_account(text) to authenticated;

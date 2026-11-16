@@ -35,15 +35,18 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1329", released: "2026-11-16T02:14Z" };
+window.FOLIO_VERSION = { v: "1.1330", released: "2026-11-16T02:21Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-16",
-    t: "The Quran, Leviathan; Lao, Yoruba, Khmer, Icelandic decks; bopomofo",
+    t: "The Quran, Leviathan, new language decks and a shorter Account page",
     items: [
       "<b>The Quran</b> is in the Library, in Marmaduke Pickthall's 1930 English translation, one sûrah to a tab with every verse numbered.",
       "New in the Library: Thomas Hobbes's <b>Leviathan</b> (1651), the whole first edition with his own margin notes.",
+      "The <b>Account</b> page is now four tabs (Overview, Statistics, Badges and Friends) under one row of figures, and about half as long.",
+      "Account controls sit behind <b>Manage account</b>, which can now delete your account; a display name keeps accents and non-Latin letters.",
+      "Signed out, the Account page shows this device's statistics, weak spots and suspended cards, and <b>Forgot password?</b> sits under the password.",
       "A new <b>Yoruba</b> language collection: an alphabet and tones deck, A1 to B1 (2,250 words) and phrases, every word with its tone marks.",
       "A <b>Lao</b> collection joins the Languages section: an alphabet deck, A1 to B1 (1,721 words) and 79 phrases and sentences, all in both directions.",
       "<b>Khmer A2</b> and <b>B1</b> decks (1,750 more words) and a phrases deck of 860 phrases and sentences join the Khmer (Cambodian) collection.",
