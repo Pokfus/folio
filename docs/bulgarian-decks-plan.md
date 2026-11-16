@@ -5,8 +5,8 @@ language set in the shape of the ones already shipped (Ukrainian, Russian TORFL,
 is the record of how those were built, and every rule there applies here unless this file says otherwise.
 Asked for on 2026-11-16: "Add a Bulgarian language collection."
 
-**STATUS (2026-11-16): the alphabet deck, A1, A2, B1 and B2 are built** (`.claude/bulgarian/`, §6–§9). C1 and a
-phrases deck are next, one per session.
+**STATUS (2026-11-16): the alphabet deck and all five levels, A1 to C1, are built** (`.claude/bulgarian/`, §6–§10).
+A phrases deck is next.
 
 Later decks under `decks/` are community content, not a change to Folio: **no changelog line and no version bump**
 for them. The collection's first commit carried one line and one bump, because it also changed the APP (the
@@ -33,7 +33,7 @@ Ukrainian (a Cyrillic Slavic language, assembled to CEFR), and the owner may ove
 | Bulgarian A2 Elementary — built | `Bulgarian-A2.folio-deck.json` | 750 |
 | Bulgarian B1 Intermediate — built | `Bulgarian-B1.folio-deck.json` | 1,000 |
 | Bulgarian B2 Upper Intermediate — built | `Bulgarian-B2.folio-deck.json` | 1,500 |
-| Bulgarian C1 Advanced | `Bulgarian-C1.folio-deck.json` | 1,500 |
+| Bulgarian C1 Advanced — built | `Bulgarian-C1.folio-deck.json` | 1,500 |
 | Bulgarian Phrases and Expressions | `Bulgarian-Phrases-and-Expressions.folio-deck.json` | — |
 
 ## 2. Sources and licences
@@ -178,3 +178,25 @@ sense is now dropped** ("only used in по́-по́сле", "see съ́рдя с
 line on five cards of A1, A2 and B1 (`после`, `дълго`, `напред`, `нататък`, `сърдя`), which rebuild otherwise
 byte-identical. Known, left: the fill carries the subtitles' genre vocabulary (`вампир`, `пират`, `гангстер`) and
 adult words (`секс`, `презерватив`), as subtitle-ordered decks on the shelf do.
+
+## 10. As built (2026-11-16): C1
+
+`python3 .claude/bulgarian/run.py --level c1`. 1,500 notes: 159 from the C1 inventory (politics and the state, law,
+the economy, science, philosophy and belief, language and literature, the arts, the mind and behaviour, society and
+change, the land, the words of nuance, the verbs of arguing) and 1,341 by frequency, none taught below. **The
+smallest inventory on the shelf, because Wiktionary's Bulgarian ends here**: of two checked drafts' ~520 words, about
+170 have no lemma (`идеология`, `коалиция`, `подсъдим`, `завещание`, `методология`, `генетика`, `философ`, `естетика`,
+`мотивация`, `глобализация`, `екосистема`, `донякъде`, `оспорвам`, `пренебрегвам` …) and most of the rest were taught
+below. **Sentences for only 375 of the 1,500, three apiece for 83**: Tatoeba's 19,258 Bulgarian pairs are spent by
+C1, and the description gives the figures. New from reading the ranking: `select.usable` now refuses a lemma whose
+every gloss describes a form ("definite object … participle of …"), which several -ния entries (`очаквания`,
+`обяснения`) had reached the fill with; `select.EXCLUDE` grew by forty-one — lemmas whose own forms count nothing or
+next to nothing (`тесам`, `юря`, `рося`, `напека`, `смия`, `перя`, `кълн`, `бърна`), counts that are another word
+(`талий` Италия, `кайра` Кайро, `нет` and `меня` Russian, `тур`, names — `ива`, `юта`, `мара`, `юда` —, brands),
+letter names and calls to animals, the variant `двайсет`, pointers (`гадя`, `цапам`), an oath, a slur, and
+`скалпел`, whose stress Wiktionary does not give and is not supplied from memory. `ETYMS` takes `опека`
+"guardianship" before "to bake"; `LEAD` orders `хлебарка` "cockroach", `кама` "dagger", `бродя` "to roam", `пестя`
+"to spare" and `изтребител` "fighter plane"; `STRESS` supplies twenty-two head lines (`катего́рия`, `перспекти́ва`,
+`явле́ние` …). **All five levels rebuild byte-identical.** Known, left: some glosses are Wiktionary's oddities
+(`невъзпитан` "not nurtured up", `низина` "lowness" before "lowland"), and the fill carries the subtitles' genre
+vocabulary as every level does.

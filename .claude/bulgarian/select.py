@@ -140,6 +140,46 @@ EXCLUDE = {
     'трябвам': "the personal 'to be needed', beside трябва 'must' (A1); its count is трябва's",
     'брей': "'bryony', whose count is the interjection брей",
     'патя': "'to suffer misfortune', whose own forms count 20 of its 3,814",
+    # Read off the C1 ranking (2026-11-16).
+    'бърна': "'lip (of an animal)', whose own forms count 7 of its 1,940",
+    'тесам': "'to patch', whose own forms count none of its 1,470",
+    'рося': "'to sprinkle', whose own forms count 2 of its 1,315",
+    'юря': "'to charge', whose own forms count none of its 1,313",
+    'напека': "'to bake plenty', whose own forms count 2 of its 1,262",
+    'смия': "'to wash off', whose own forms count 3 of its 1,240",
+    'перя': "'to spread', whose own forms count 1 of its 1,022",
+    'кълн': "'germ', whose own forms count 10 of its 1,497",
+    'талий': "'thallium', whose count is Италия 'Italy'",
+    'кайра': "'guillemot', whose count is Кайро 'Cairo'",
+    'комисионен': "'commission', whose own forms count none of its 1,084",
+    'меня': "'to change', whose count is Russian меня 'me'",
+    'ес': "a call to a beast, whose count is other words' lines",
+    'ози': "'Aussie', whose count is Russian and other lines",
+    'ки': 'a dialect particle',
+    'дий': "'giddy up'",
+    'ро': 'the Greek letter rho',
+    'мус': "'mousse', whose count is other words' lines",
+    'ер': 'the name of a letter',
+    'арт': "'art' as an adjective, counted from English titles",
+    'двайсет': 'a colloquial variant of двадесет (A1)',
+    'тур': "'aurochs', whose count is тур 'round, tour'",
+    'ива': "'goat willow', whose count is the name Iva",
+    'юта': "'jute', whose count is Utah",
+    'мара': 'whose count is the name Mara',
+    'юда': 'a spirit of folklore, whose count is Judas',
+    'коб': "a horse breed, counted from other words' lines",
+    'нет': "'the net', whose count is Russian нет 'no'",
+    'шшт': 'a hushing noise',
+    'тесла': 'a brand name',
+    'рено': 'a brand name',
+    'порше': 'a brand name',
+    'мерцедес': 'a brand name',
+    'британия': 'a proper name',
+    'педераст': 'a slur',
+    'егати': 'a mild oath',
+    'гадя': "glossed only with the phrase гади ми се, not a meaning",
+    'цапам': "glossed only with an arrow, Wiktionary's empty pointer",
+    'скалпел': "Wiktionary marks no stress, and its stress is not one to supply from memory",
 }
 
 SWEARS = {'мамка', 'путка', 'шибан', 'шибам', 'еба', 'курва', 'кучка', 'педал', 'лайно', 'гъз',
@@ -148,8 +188,15 @@ SWEARS = {'мамка', 'путка', 'шибан', 'шибам', 'еба', 'к�
 ONE_LETTER = {'в', 'с', 'у', 'и', 'а', 'я', 'о'}
 
 
+# A GLOSS THAT IS A FORM'S DESCRIPTION ("definite object masculine singular past passive
+# participle of …"), which Wiktionary files under a part of speech of its own.
+import re
+FORM_GLOSS = re.compile(r'participle of|^definite (subject|object)|^(only used in|see) ')
+
+
 def usable(L):
-    return any(not g['weak'] for e in L['entries'] for g in e['glosses'])
+    return any(not g['weak'] and not FORM_GLOSS.search(g['g'])
+               for e in L['entries'] for g in e['glosses'])
 
 
 def main():

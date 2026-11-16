@@ -3718,7 +3718,9 @@ changed was the one that had been wrong all along.
   `decks/Bulgarian-A1.folio-deck.json`** (500 notes / 1,000 cards, 2026-11-16) **and A2,
   `decks/Bulgarian-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16) **and B1,
   `decks/Bulgarian-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-16) **and B2,
-  `decks/Bulgarian-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16); C1 and the phrases deck are next. `python3 .claude/bulgarian/run.py [--level a1]`, `python3 .claude/bulgarian/alphabet.py`,
+  `decks/Bulgarian-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16) **and C1,
+  `decks/Bulgarian-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16; sentences for only 375, Tatoeba's
+  Bulgarian being spent) — all five levels; the phrases deck is next. `python3 .claude/bulgarian/run.py [--level a1]`, `python3 .claude/bulgarian/alphabet.py`,
   `node .claude/bulgarian/check-bulgarian.js`; a re-run is byte-identical. A verb's headword is its first person
   singular present (Bulgarian has no infinitive); the card shows a noun's definite form, plural and count form and a
   verb's ти form, aorist and aspect partner. The findings — the pre-1945 second table, ѝ, the pronouns with no table,
