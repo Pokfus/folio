@@ -35,15 +35,17 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1334", released: "2026-11-16T03:58Z" };
+window.FOLIO_VERSION = { v: "1.1337", released: "2026-11-16T12:49Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-16",
-    t: "The Quran, Leviathan, language decks and 100 Ancient Egypt cards",
+    t: "The Quran, Leviathan, Kant, language decks and 100 Ancient Egypt cards",
     items: [
       "<b>The Quran</b> is in the Library, in Marmaduke Pickthall's 1930 English translation, one sûrah to a tab with every verse numbered.",
       "New in the Library: Thomas Hobbes's <b>Leviathan</b> (1651), the whole first edition with his own margin notes.",
+      "New in the Library: Jean-Jacques Rousseau's <b>The Social Contract</b> (1762) in G. D. H. Cole's translation, with the French of the first edition beside it.",
+      "Immanuel Kant's <b>Critique of Pure Reason</b> is in the Library, complete in J. M. D. Meiklejohn's 1855 translation, with Kant's notes.",
       "The <b>Account</b> page is now four tabs (Overview, Statistics, Badges and Friends) under one row of figures, and about half as long.",
       "Account controls sit behind <b>Manage account</b>, which can now delete your account; a display name keeps accents and non-Latin letters.",
       "Signed out, the Account page shows this device's statistics, weak spots and suspended cards, and <b>Forgot password?</b> sits under the password.",
@@ -51,10 +53,10 @@ window.CHANGELOG = [
       "A <b>Lao</b> collection joins the Languages section: an alphabet deck, A1 to B1 (1,721 words) and 79 phrases and sentences, all in both directions.",
       "<b>Khmer A2</b> and <b>B1</b> decks (1,750 more words) and a phrases deck of 860 phrases and sentences join the Khmer (Cambodian) collection.",
       "A new <b>Icelandic</b> language collection: an alphabet deck, levels A1 to C1 and 734 phrases, idioms and proverbs, every noun with its four cases.",
-      "A new <b>Navajo</b> language collection, starting with an alphabet and sounds deck and an A1 deck of 500 words in both directions.",
+      "A new <b>Navajo</b> language collection: an alphabet and sounds deck, A1 to B1 (1,386 words) and 145 phrases, all in both directions.",
       "<b>On this day</b> now sits directly below the minigames on the home page, above the suggested reading.",
       "Mandarin Chinese gains a <b>Bopomofo</b> deck: 62 zhuyin symbols, tone marks and combinations, each with its pinyin, sound and example words.",
-      "<b>Romeo and Juliet</b> is in the Library: Shakespeare's play in the Yale edition of 1917, with its Prologue, list of characters and every gloss.",
+      "Shakespeare's <b>Romeo and Juliet</b> (Yale edition, 1917, with its Prologue) and <b>Julius Caesar</b> (1919) are in the Library, each with its characters and every gloss.",
       "Spanish gains a <b>Sounds and spelling</b> deck, and <b>DELE A1</b> now opens with hola, gracias and por favor, in a teaching order.",
       "The <b>By frequency</b> review order is gone: it only re-sorted cards already dealt, and language decks ship in a teaching order instead.",
       "<b>Hungarian</b> has a colour of its own on the Collections page; it had been sharing Vietnamese's.",
