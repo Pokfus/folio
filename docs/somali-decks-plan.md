@@ -5,8 +5,8 @@ language set in the shape of the ones already shipped (Hausa, Zulu, Yoruba …);
 record of how those were built, and every rule there applies here unless this file says otherwise. Asked for
 on 2026-11-16: "Add a Somali language collection."
 
-**STATUS (2026-11-16): the alphabet deck and A1 are built** (`.claude/somali/`, §6). A2 and the phrases deck
-are next, one per session.
+**STATUS (2026-11-16): the alphabet deck, A1 and A2 are built** (`.claude/somali/`, §6–§7). A2 holds 439
+notes, not 500: what the source has left (§7). The phrases deck is next.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck this plan produces. The collection's first commit carried one line and one bump because it
@@ -28,7 +28,7 @@ Asked after a survey of the sources (§2), the thinnest of any language on the s
 |---|---|---|
 | Somali Alphabet — built | `Somali-Alphabet.folio-deck.json` | 33 |
 | Somali A1 Beginner — built | `Somali-A1.folio-deck.json` | 400 |
-| Somali A2 Elementary — planned | `Somali-A2.folio-deck.json` | 500 |
+| Somali A2 Elementary — built | `Somali-A2.folio-deck.json` | 439 (planned 500) |
 | Somali phrases — planned | (named when built) | — |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
@@ -96,9 +96,8 @@ page. 40 of A1's 400 words have a sentence.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2: write its inventory into `inventory.py`,
-its missing glosses into `hand.py` and its scope into `somali_level.SCOPE` (the A2 scope there is the Yoruba
-placeholder, to be rewritten), run with `--re-extract`, read every card. Expect the fill to run thin: after A1
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2 (done, §7)** — A2: write its inventory into `inventory.py`,
+its missing glosses into `hand.py` and its scope into `somali_level.SCOPE`, run with `--re-extract`, read every card. Expect the fill to run thin: after A1
 only about 600 usable Wiktionary words are left. **Phase 3** — the phrases deck.
 
 ## 6. As built (2026-11-16): the alphabet and A1
@@ -112,3 +111,36 @@ the check. **A re-run is byte-identical** (verified for both decks). A1: 400 not
 notes — the 21 consonants in the primers' order, the glottal stop, the five vowels, the long vowels and five
 diphthongs; every sound side unique (asserted). The shelf's hue is measured: `#3C7575`, a teal, 13.8 from its
 nearest of 79 (France, Philosophy).
+
+## 7. As built (2026-11-16): A2
+
+`python3 .claude/somali/run.py --level a2 [--re-extract]`. **439 notes / 878 cards, not the planned 500**: 254 from
+the inventory (`inventory.A2`, 18 topics scoped to the A2 descriptor), 185 by frequency, which then has nothing
+usable left (its last words are counted once). 88 hand-glossed (`hand.HAND_A2`), 64 with a tone line, 51 with
+plurals, 7 with sentences. **A re-run is byte-identical, and A1 and the alphabet still rebuild byte-identical.**
+
+- **EACH LEVEL HAS ITS OWN LEXICON** (`somali_level.LEX`: `lex.json`, `lex-a2.json`; `hand.HANDS`,
+  `somali_level.HAND_LEVELS`), the Hausa finding: a hand noun claims its definite forms (waji → wajiga), so A2's
+  hand glosses in A1's lexicon would move A1's counts and its positional ids. A word is hand-glossed on one
+  level only (asserted in `extract.py`).
+- **THE FILL RUNS OUT.** After A1, Wiktionary's remaining Somali is largely noise for a level deck: definite
+  forms filed as nouns (`wajiga`, `qoorta`, `timaha`, `musqusha`), variant and dialect spellings of taught
+  words (`magaalad`, `babuur`, `anaga`, `ayeey`), verbal nouns and infinitives filed as verbs (`socod`, `tirin`,
+  `noolaan`), second and third words for a taught meaning (`luqun`, `duun` "neck"; `xadiid` "iron"), and slurs,
+  insults and clan epithets from the history articles. Each is in `select.EXCLUDE` with its reason (about 75
+  lines, "Read off the A2 ranking"). What is left — 185 words, counts 164 down to 1 — is dealt. Padding to 500
+  with excluded entries would teach the noise, so the description says the level is smaller and why.
+- **HAND_ONLY grew** (`cabitaan` "a drink", not Wiktionary's "soda"; `sheeko` "story", not "conversation";
+  `raadi` "look for", not "find"). **Two seasons** Wiktionary lacks are hand-glossed (`jiilaal`, `dayr`);
+  `gu'` and `xagaa` are its own. `ciid` carries both its words, "sand" and "Eid".
+- **Small corrections, each with its reason in `build_deck.py`**: `askari` is masculine (`GENDER_FIX`:
+  askariga / askarigii 5 articles each, the feminine article none); `gu'` shows one of Wiktionary's two
+  identical entries (`ONE_ENTRY`); a gloss that is a dialect pointer ("southern Somali form of tidhi") or
+  begins with punctuation (`ciddi`'s ".sand") is dropped (`POINTER`). A1 is unaffected by all three.
+
+**Known, left.** The fill keeps Wiktionary's topics with the encyclopaedia's order (`asaas` "found",
+`dimuqraadi`, `kacaan`). Some fill glosses are Wiktionary's narrower or older senses (`wacan` "perfect", `murugo`
+"sad" as an adjective). Seven sentences in all: Tatoeba's Somali is nearly used up by A1. No B1 is planned (the
+owner's choice of A1–A2, §1); after A2, 251 Wiktionary entries remain untaught, nearly
+all of them excluded above or never used in the Somali Wikipedia.
+

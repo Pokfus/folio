@@ -36,7 +36,7 @@ import html, json, os, re, sys, unicodedata
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from so import nfc, key
-from somali_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE, WHO
+from somali_level import LEVEL, LEX, TARGET, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE, WHO
 
 STAMP = '2026-11-16T00:00:00.000Z'
 TYPE_ID = 'somali'
@@ -72,11 +72,15 @@ LEAD = {
 }
 # WIKTIONARY'S ENTRY IS NOT SHOWN AT ALL, only the hand row (`hand.py`): its sense is not
 # the word's (miro "nut" for "fruit"), so showing it second would teach a wrong meaning.
-HAND_ONLY = {'miro', 'shaati', 'qurux', 'fudud', 'gadaal'}
+HAND_ONLY = {'miro', 'shaati', 'qurux', 'fudud', 'gadaal',
+             'cabitaan', 'sheeko', 'raadi'}     # A2
 # A GENDER CORRECTED, with the evidence: the article the Somali Wikipedia writes on it.
 GENDER_FIX = {
     'sanad': 'm',                   # Wiktionary's head says f; sanadka 543 articles, sanadda 2
+    'askari': 'm',                  # Wiktionary's head says f; askariga / askarigii 5 each, -da none
 }
+# ONE ENTRY ONLY, where Wiktionary carries the same word twice (gu' "spring" and "spring, springtime").
+ONE_ENTRY = {"gu'"}
 # A PART OF SPEECH TO LEAD WITH, for a fill word (the inventory names its own with `:pos`).
 LEAD_POS = {}
 
@@ -85,9 +89,9 @@ LEAD_POS = {}
 # teach; those words show no tone line rather than a mark nothing explains.
 ACCENT_ONLY = re.compile(r"[a-zA-Z' \-\u0300\u0301]+")
 POINTER = re.compile(r'^(alternative form of|alternative spelling of|form of|synonym of|'
-                     r'contraction of|plural of)\b', re.I)
+                     r'contraction of|plural of|(?:northern|southern) somali form of)\b|^[^\w(]', re.I)
 KEEP_CAP = re.compile(r"^(I|God|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|"
-                      r"Muslim|Islam|Somali|Somalia|English|Arabic|Africa|African|Europe|"
+                      r"Muslim|Islam|Somali|Somalia|Somaliness|English|Arabic|Africa|African|Europe|"
                       r"Earth|Quran|January|February|March|April|May|June|July|August|"
                       r"September|October|November|December|Ramadan|Eid)\b")
 
@@ -108,7 +112,7 @@ def lower_first(g):
 
 def entries_for(row, lex):
     L = lex[row['key']]
-    ents = L['entries']
+    ents = L['entries'][:1] if row['key'] in ONE_ENTRY else L['entries']
     if row['key'] in HAND_ONLY:
         ents = [e for e in ents if e['hand']]
     if row['key'] in GENDER_FIX:
@@ -227,6 +231,11 @@ def desc(entries, n):
         f"begins '{SC['quote']}' — a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
          if LEVEL != 'a1' else "") +
+        (f"A2 WAS PLANNED AT {TARGET[LEVEL]} WORDS AND HOLDS {n}: after A1, that is every word English "
+         "Wiktionary has that the Somali Wikipedia uses at all and that is not a variant spelling, a "
+         "definite form filed as a word, or a slur; padding to the plan would teach the noise. The "
+         "last words dealt appear in only one or two articles, so their order says little. "
+         if n < TARGET[LEVEL] else "") +
         "WHERE THESE WORDS COME FROM, since it matters: no exam board publishes a graded word list "
         "for Somali, so this deck is not any examination's vocabulary and does not claim to be. "
         f"It is assembled from two things that can be stated. {from_inv} of the {n} come from a "
@@ -261,7 +270,7 @@ def desc(entries, n):
 
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
-    lex = json.load(open('lex.json', encoding='utf-8'))['lemmas']
+    lex = json.load(open(LEX, encoding='utf-8'))['lemmas']
     exs = json.load(open(f('examples.json'), encoding='utf-8'))
     cards, entries = build(rows, lex, exs)
     DECK = DECK_IDS[LEVEL]

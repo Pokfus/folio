@@ -3,7 +3,7 @@
 
     python3 examples.py      (from the cache directory, by run.py)
 
-Reads `selected-<level>.json`, `lex.json` and the Tatoeba exports
+Reads `selected-<level>.json`, the level's lexicon and the Tatoeba exports
 (`som_sentences_detailed.tsv`, `som-eng_links.tsv`, `eng_sentences.tsv`,
 CC BY 2.0 FR) and writes `examples-<level>.json`: word key -> up to three
 [Somali sentence as HTML, English] rows, the word in bold.
@@ -25,7 +25,7 @@ import csv, html, json, os, sys, unicodedata
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from so import nfc, tokens
-from somali_level import f
+from somali_level import f, LEX
 
 csv.field_size_limit(10 ** 8)
 E = lambda s: html.escape(s, quote=False)
@@ -98,7 +98,7 @@ def tatoeba_html(sentence, word):
 
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
-    lex = json.load(open('lex.json', encoding='utf-8'))['lemmas']
+    lex = json.load(open(LEX, encoding='utf-8'))['lemmas']
     pairs = load()
     used, out = set(), {}
     for row in rows:

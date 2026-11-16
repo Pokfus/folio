@@ -27,6 +27,9 @@ DECK_IDS = {k: f'somali{k}' for k in BANDS}
 DECK_FILES = {k: f'Somali-{k.upper()}.folio-deck.json' for k in BANDS}
 TARGET = {'a1': 400, 'a2': 500}
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
+# The hand glosses a level's lexicon merges (its own and those below it), and the file it is.
+HAND_LEVELS = BANDS[:BANDS.index(LEVEL) + 1]
+LEX = 'lex.json' if LEVEL == 'a1' else f'lex-{LEVEL}.json'
 
 SCOPE = {
     'a1': {
@@ -50,11 +53,11 @@ SCOPE = {
                  '— personal and family information, shopping, the local area, work — and to '
                  'describe in simple terms their background, their surroundings and what they '
                  'immediately need',
-        'topics': 'the ordinals, the times of day and meals, directions and places, clothes, work and '
-                  'jobs, relatives and the stages of life, feelings, travel, the countryside and the '
-                  'weather, the body and health, food and the kitchen, the things of a home, talking '
-                  'and learning, the everyday verbs of doing, describing people, and the feasts and '
-                  'the faith',
+        'topics': 'the months, the seasons and the times of day, directions and places, clothes, work '
+                  'and jobs, people and the stages of life, feelings, travel, the land and the weather, '
+                  'animals, the body and health, food and the kitchen, the things of a home, talking '
+                  'and learning, the verbs of doing, describing people and things, the faith and the '
+                  'feasts, the ordinals, and the little words of time',
     },
 }
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner'}

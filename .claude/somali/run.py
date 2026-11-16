@@ -17,7 +17,7 @@ THE STAGES, in order.  Each writes its output into the cache for the next:
 
     wikitext.py     the Somali Wikipedia's spellings, counted per article (so_counts.json)
     extract.py      every Somali word in Wiktionary plus the hand glosses, with a
-                    frequency counted over its forms (built once: lex.json)
+                    frequency counted over its forms (one per level: lex.json, lex-a2.json)
     select.py       the inventory, then the commonest remaining words
     examples.py     Wiktionary's own examples, then Tatoeba's
     build_deck.py   headword, accent line, glosses, plurals, sentences, and the
@@ -77,7 +77,8 @@ def main():
         fetch()
     os.chdir(CACHE)
     stages = ['select.py', 'examples.py', 'build_deck.py']
-    if not os.path.exists('lex.json') or '--re-extract' in sys.argv:
+    from somali_level import LEX
+    if not os.path.exists(LEX) or '--re-extract' in sys.argv:
         stages.insert(0, 'extract.py')
     if not os.path.exists('so_counts.json') or '--re-extract' in sys.argv:
         stages.insert(0, 'wikitext.py')

@@ -3,7 +3,7 @@
 
     python3 select.py      (from the cache directory, by run.py)
 
-Reads `lex.json` and `inventory.py`, writes `selected-<level>.json`: one row per
+Reads the level's lexicon (`somali_level.LEX`) and `inventory.py`, writes `selected-<level>.json`: one row per
 note, dealt by frequency (the commonest first), each marked with where it came
 from (`inventory` or `frequency`).
 
@@ -25,7 +25,7 @@ import json, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from so import key
-from somali_level import LEVEL, TARGET, f, words_below
+from somali_level import LEVEL, LEX, TARGET, f, words_below
 from inventory import INVENTORY
 
 # Read off the A1 ranking (2026-11-16).  Each with its reason.
@@ -80,6 +80,97 @@ EXCLUDE = {
     'iska': 'the reflexive is + the preposition ka, written as one; glossed only "yourself"',
     'qoy': 'its count is qoyska "the family" (qoys + -ka), not the verb "to be wet"',
     'dusha': 'the definite form of dul "top" (dul + -sha), filed as a preposition',
+    # Read off the A2 ranking (2026-11-16).
+    'socod': 'the verbal noun of soco "walk", taught at A1',
+    'asaga': 'a dialect form of isaga "he", taught at A1',
+    'anaga': 'a dialect form of annaga "we", taught at A1',
+    'ayaga': 'a dialect form of iyaga "they", taught at A1',
+    'dabar': 'glossed "back", which dhabar teaches at A1',
+    'imaad': 'a form of yimaad "to come", taught at A1',
+    'askar': 'a variant of askari "soldier", taught at A2',
+    'qorsheynta': 'a definite form (qorsheyn + -ta)',
+    'magaalad': 'a variant of magaalo "city", taught at A1',
+    'jaale': 'a variant of jaalle, taught at A1',
+    'caro': 'Wiktionary glosses "earth"; its count is caro "anger"',
+    'qoorta': 'the definite form of qoor "neck", taught at A2',
+    'ayeey': 'a variant of ayeeyo "grandmother", taught at A1',
+    'fadhi': 'the noun "sitting, session" filed as a verb; fadhiiso is taught',
+    'can': 'glossed "buccal"; a rare word',
+    'wajiga': 'the definite form of waji "face", taught at A2',
+    'aar': 'a male lion; libaax is taught (the inventory leaves it out)',
+    'cal': 'a rare word for "mountain"; buur is taught',
+    'badhi': 'a variant of bari "east", taught at A2',
+    'cayn': "a letter's name",
+    'malay': 'a rarer word for "fish"; kalluun is taught',
+    'tolid': 'a verbal noun filed as a verb',
+    'hurdo': 'the noun "sleep" filed as a verb; seexo is taught',
+    'timaha': 'the definite form of timo "hair", taught at A1',
+    'tirin': 'the infinitive of tiri "count", taught at A2',
+    'culeys': 'the noun "weight" filed as the adjective "heavy"; culus is taught',
+    'qaraar': 'glossed as a Southern Somali form of another word',
+    'fariisan': 'a form of fadhiiso "sit", taught at A1',
+    'ogow': 'the imperative of og "know", taught at A1',
+    'turjubaan': 'a variant of turjumaan "translator", taught at A2',
+    'qeybgal': 'a variant of qaybgal',
+    'sheegid': 'the verbal noun of sheeg "tell", taught at A1',
+    'musqusha': 'the definite form of musqul, taught at A1',
+    'kaladuwan': 'kala duwan written as one; duwan is taught',
+    'jebi': 'glossed only as "transitive of jab"',
+    'luqun': 'a second word for "neck"; qoor is taught',
+    'iskuday': 'glossed only by a pointer ("tijaab")',
+    'gadh': 'a dialect form of "buy"; iibso and gad are taught',
+    'gus': 'sexual vocabulary the level does not need',
+    'iloob': 'a second word for "forget"; hilmaam is taught',
+    'intee': 'glossed "where"; it is "how much, how far"',
+    'wiyil': 'a male rhinoceros, glossed with a vowel notation the deck does not teach',
+    'dabada': 'a definite form (dabo + -da)',
+    'isticmaalaha': 'a definite form (isticmaale + -ha)',
+    'hey': 'a variant of hay "hold, have"',
+    'samay': 'a variant of samee "make", taught at A1',
+    'babuur': 'a variant of baabuur "car", taught at A1',
+    'bidde': 'slavery vocabulary; not a level word',
+    'xadiid': 'a third word for "iron"; bir and feero are taught',
+    'kacsi': 'sexual vocabulary the level does not need',
+    'kuleel': 'a variant of kulul "hot", taught at A1',
+    'duun': 'a third word for "neck"; qoor is taught',
+    'heesid': 'a verbal noun',
+    'maxa': 'a variant of maxaa "what", taught at A1',
+    'noolaan': 'the infinitive of nool "live", taught at A1',
+    'dalbo': 'glossed "choose"; the word is dalbo "to order, to request"',
+    'jilb': 'a variant of jilib "knee"',
+    'sayn': 'a variant of dabo "tail"',
+    'xirid': 'a verbal noun',
+    'shaqey': 'a form of shaqee "work", taught at A1',
+    'garo': 'a third word for "understand"; fahan is taught at A1',
+    'qodid': 'a verbal noun',
+    'qusuusi': 'a historical title, from the history articles',
+    'saaxo': 'a rare word for "sleep"; seexo is taught',
+    'sugto': 'a form of sug "wait", taught at A1',
+    'xagee': 'a variant of xaggee "where?", taught at A1',
+    'dabadhilif': 'an insult ("stooge")',
+    'garac': 'a slur ("bastard")',
+    'horgal': 'a political insult',
+    'idoor': 'an insult for a clan',
+    'diig': 'a variant of dhiig "blood", taught at A1',
+    'gaarhaye': 'a historical title',
+    'iidoor': 'a clan name',
+    'sarreya': 'a form of sare "high", taught at A1',
+    'tarbiyad': 'glossed "something usurious"; the word is tarbiyad "upbringing"',
+    'shukaansi': 'courting vocabulary the level does not need',
+    "faa'idooyin": 'the plural of faa\'ido "profit", taught at A2',
+    'diman': 'the infinitive of dhimo "die"',
+    'faasiq': 'a term of religious condemnation, from the history articles',
+    'faasiqnimo': 'from the history articles',
+    'jeesjeeska': 'a definite form (jeesjees + -ka)',
+    'jiidid': 'a verbal noun',
+    'kaley': 'a variant of kaalay "come!", taught at A1',
+    'maqsinka': 'a definite form (maqsin + -ka)',
+    'sahlidda': 'a definite form (sahlid + -da)',
+    'sayyidka': 'a historical title',
+    'shirshoore': 'a clan epithet, from the history articles',
+    'tirtirid': 'a verbal noun',
+    'guraac': 'a variant of quraac "breakfast", taught at A2',
+    'otismo': 'medical vocabulary the level does not need',
     'rag': 'Wiktionary glosses "man"; the word is the plural "men", and nin "man" is taught',
 }
 
@@ -89,7 +180,7 @@ def usable(L):
 
 
 def main():
-    D = json.load(open('lex.json', encoding='utf-8'))
+    D = json.load(open(LEX, encoding='utf-8'))
     lex, ptr = D['lemmas'], D['pointers']
     back = {s: t for t, ss in ptr.items() for s in ss}
     below = words_below()

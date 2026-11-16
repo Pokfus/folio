@@ -48,4 +48,40 @@ INVENTORY = {
         ('the little words of place and manner', 'halkan halkaas mar aad kaliya weli hore gadaal dhex '
                                                  'hoos kor sare dhinac'),
     ],
+    # A2 (2026-11-16).  Wiktionary's words where it has them (about 200), the rest in hand.HAND_A2.
+    # Left out: the months A1's fill already dealt (oktoobar, abriil ...), luqun "neck" (qoor is
+    # taught), aar "lion" (a male lion; libaax is taught), bataate "potato" (counted nowhere).
+    'a2': [
+        ('the months, the seasons and the times of day', 'jannaayo juunyo luuliyo sebteembar nofeembar '
+         "jiilaal gu' dayr aroor kol dabadeed"),
+        ('directions and places', 'koonfur bari xaafad dariiq derbi jaamacad maktabad garoon dekad dal '
+         'gobol degmo makhaayad hudheel'),
+        ('clothes', 'jaakad dirac shaal buste'),
+        ('work and jobs', 'ganacsade darawal kalkaaliye askari tuug geesi tumaal injinyeer turjumaan'),
+        ('people and the stages of life', 'oday cunug ciyaal barbaar dhalinyaro soddog abaayo aroos '
+         'dhalasho geeri nolol'),
+        ('feelings', 'farxad cabsi walwal xiiso murugo xanaaq jaceyl kibir xishood caajis yaab nasiib'),
+        ('travel', 'baasaboor socdaal tigidh'),
+        ('the land and the weather', 'abaar kulayl hawo ciid baraf caws dayax iftiin caleen ubax duur '
+         'qiiq onkod biriq caad dambas'),
+        ('animals', 'mas geri bakayle rah caaro kaneeco dibi orgi awr'),
+        ('the body and health', 'waji qoor garab maskax jilib carrab suul cudud sambab ciddi '
+         'caafimaad qandho dhaawac matag hindhis barar gaajo harraad'),
+        ('food and the kitchen', 'quraac qado casho digaag basal saxan dheri fargeeto cabitaan canjeero '
+         'malab subag maraq farmaajo tufaax cambe yaanyo khiyaar xabxab sarreen daqiiq toon qorfe mindi'),
+        ('the things of a home', 'telefoon telefishan raadiyo kombiyuutar sanduuq furaash muraayad fure '
+         'barkin shumac irbad saabuun shukumaan masaasad caday nal xarig ul'),
+        ('talking and learning', "su'aal luqad cashar imtixaan aqoon qoraal sheeko qaamuus xisaab "
+         'maahmaah kaftan tarjum waxbar wadahadal weydii'),
+        ('the verbs of doing', 'raadi xasuuso ooy nadiifi shub dabaal gub dhaqaaq jar celi dadaal tiri '
+         'dareen bixi aamin fuul tus riix jeex ogaan qas dhamee qosol lun gudbi feker shid noqo daa '
+         'qaniin qaylo ilaali hilmaam kori caawi naso diyaari jooji iibi kaydi hagaaji taabo'),
+        ('describing people and things', 'qurxoon daallan gaajaysan daacad caato buuran xariif sabool '
+         'mugdi qadhaadh mac caydhiin qalalan jilicsan qaali jaban raqiis ballaran ciriiri duug'),
+        ('the faith and the feasts', 'salaad soon ramadaan quraan tuko'),
+        ('numbers and the ordinals', 'lixdan toddobaatan siddeetan sagaashan eber malyuun kowaad labaad '
+         'saddexaad afraad shanaad'),
+        ('joining words and the little words of time', 'ilaa sidoo_kale xitaa had_iyo_jeer marna '
+         'mararka_qaarkood inta_badan sababtoo_ah bilaa saas haye raali'),
+    ],
 }

@@ -24,7 +24,7 @@ under another spelling (`badhan` for badan), the hand row is the spelling the
 Somali Wikipedia writes.
 """
 
-HAND = {
+HAND = {   # A1
     # yes, no, greetings
     'maya': [('particle', 'no')],
     'salaan': [('noun', 'greeting', 'f')],
@@ -132,3 +132,115 @@ HAND = {
     'kor': [('noun', 'top; upper part', 'm')],
     'sare': [('adj', 'upper; high')],
 }
+
+# A2 (2026-11-16): the words A2's inventory names that English Wiktionary lacks, or has
+# only with a sense that is not the word's (those marked HAND_ONLY in build_deck).
+HAND_A2 = {
+    # the seasons and the directions
+    'jiilaal': [('noun', 'the long dry season (December to March)', 'm')],
+    'dayr': [('noun', 'the short rainy season (October and November)', 'm')],
+    'koonfur': [('noun', 'south', 'f')],
+    'bari': [('noun', 'east', 'm')],
+    # places
+    'jaamacad': [('noun', 'university', 'f')],
+    'maktabad': [('noun', 'library; bookshop', 'f')],
+    'garoon': [('noun', 'sports ground; airfield', 'm')],
+    'dekad': [('noun', 'port, harbour', 'f')],
+    'dal': [('noun', 'country', 'm')],
+    'gobol': [('noun', 'region, province', 'm')],
+    'degmo': [('noun', 'district', 'f')],
+    'makhaayad': [('noun', 'restaurant; café', 'f')],
+    'hudheel': [('noun', 'hotel', 'm')],
+    # clothes
+    'jaakad': [('noun', 'jacket', 'f')],
+    'dirac': [('noun', "a woman's long light dress (the dirac)", 'm')],
+    'shaal': [('noun', 'shawl; scarf', 'm')],
+    # work
+    'ganacsade': [('noun', 'trader; businessman', 'm')],
+    'darawal': [('noun', 'driver', 'm')],
+    'kalkaaliye': [('noun', 'assistant; nurse', 'm')],
+    # the stages of life
+    'aroos': [('noun', 'wedding', 'm')],
+    'dhalasho': [('noun', 'birth', 'f')],
+    'geeri': [('noun', 'death', 'f')],
+    'nolol': [('noun', 'life', 'f')],
+    # feelings
+    'farxad': [('noun', 'happiness, joy', 'f')],
+    'cabsi': [('noun', 'fear', 'f')],
+    'walwal': [('noun', 'worry, anxiety', 'm')],
+    'xiiso': [('noun', 'interest; fun', 'f')],
+    # travel
+    'baasaboor': [('noun', 'passport', 'm')],
+    'socdaal': [('noun', 'journey', 'm')],
+    'tigidh': [('noun', 'ticket', 'm')],
+    # the weather and the land
+    'abaar': [('noun', 'drought', 'f')],
+    'kulayl': [('noun', 'heat', 'm')],
+    'hawo': [('noun', 'air', 'f')],
+    'ciid': [('noun', 'sand', 'f'), ('noun', 'Eid (the feast)', 'f')],
+    # the body and health
+    'waji': [('noun', 'face', 'm')],
+    'qoor': [('noun', 'neck', 'f')],
+    'garab': [('noun', 'shoulder', 'm')],
+    'maskax': [('noun', 'brain; mind', 'f')],
+    'caafimaad': [('noun', 'health', 'm')],
+    'qandho': [('noun', 'fever', 'f')],
+    'dhaawac': [('noun', 'injury, wound', 'm')],
+    # food and the kitchen
+    'quraac': [('noun', 'breakfast', 'f')],
+    'qado': [('noun', 'lunch', 'f')],
+    'casho': [('noun', 'supper, dinner', 'f')],
+    'digaag': [('noun', 'chicken', 'm')],
+    'basal': [('noun', 'onion', 'm')],
+    'saxan': [('noun', 'plate, dish', 'm')],
+    'dheri': [('noun', 'cooking pot', 'm')],
+    'fargeeto': [('noun', 'fork', 'f')],
+    'cabitaan': [('noun', 'a drink', 'm')],                  # HAND_ONLY; Wiktionary: "soda"
+    'canjeero': [('noun', 'canjeero, a thin fermented pancake', 'f')],
+    # the things of a home
+    'telefoon': [('noun', 'telephone', 'm')],
+    'telefishan': [('noun', 'television', 'm')],
+    'raadiyo': [('noun', 'radio', 'm')],
+    'kombiyuutar': [('noun', 'computer', 'm')],
+    'sanduuq': [('noun', 'box; chest', 'm')],
+    'furaash': [('noun', 'mattress', 'm')],
+    # talking and learning
+    "su'aal": [('noun', 'question', 'f')],
+    'luqad': [('noun', 'language', 'f')],
+    'cashar': [('noun', 'lesson', 'm')],
+    'imtixaan': [('noun', 'examination, test', 'm')],
+    'aqoon': [('noun', 'knowledge', 'f')],
+    'qoraal': [('noun', 'writing; text', 'm')],
+    'sheeko': [('noun', 'story', 'f')],                      # HAND_ONLY; Wiktionary: "conversation"
+    # the verbs of doing
+    'raadi': [('verb', 'look for, search for')],              # HAND_ONLY; Wiktionary: "find"
+    'xasuuso': [('verb', 'remember')],
+    'ooy': [('verb', 'cry, weep')],
+    'nadiifi': [('verb', 'clean (something)')],
+    # describing people
+    'qurxoon': [('adj', 'beautiful')],
+    'daallan': [('adj', 'tired')],
+    'gaajaysan': [('adj', 'hungry')],
+    # the faith and the feasts
+    'salaad': [('noun', 'prayer (the five daily prayers)', 'f')],
+    'soon': [('noun', 'fasting; a fast', 'm')],
+    'ramadaan': [('noun', 'Ramadan', 'm')],
+    'quraan': [('noun', 'the Quran', 'm')],
+    # the ordinals
+    'kowaad': [('adj', 'first')],
+    'labaad': [('adj', 'second')],
+    'saddexaad': [('adj', 'third')],
+    'afraad': [('adj', 'fourth')],
+    'shanaad': [('adj', 'fifth')],
+    # joining and the little words of time
+    'ilaa': [('prep', 'until; up to, as far as')],
+    'sidoo kale': [('adv', 'also, too')],
+    'xitaa': [('adv', 'even')],
+    'had iyo jeer': [('adv', 'always')],
+    'marna': [('adv', 'never (with a negative verb)')],
+    'mararka qaarkood': [('adv', 'sometimes')],
+    'inta badan': [('adv', 'mostly; usually')],
+    'sababtoo ah': [('conj', 'because (of the fact that)')],
+}
+
+HANDS = {'a1': HAND, 'a2': HAND_A2}

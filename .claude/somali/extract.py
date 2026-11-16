@@ -6,8 +6,13 @@
 Reads `kaikki-so.jsonl` (the kaikki.org extraction of English Wiktionary,
 CC BY-SA 4.0), `so_counts.json` (wikitext.py's counts of the Somali Wikipedia)
 and `hand.py` (Folio's glosses for the core words Wiktionary lacks), and writes
-`lex.json`.  Built once for all levels (a level's hand glosses are only dealt
-when its inventory names them).
+the level's lexicon (`somali_level.LEX`: `lex.json` for A1, `lex-a2.json`).
+
+EACH LEVEL HAS ITS OWN LEXICON, the Hausa finding: a hand entry is a lemma the
+frequency count can credit (a hand noun claims its definite forms, waji ->
+wajiga), so adding A2's hand glosses to A1's lexicon would move A1's counts, its
+order and its positional card ids.  A level merges only its own hand glosses and
+those of the levels below it (`hand.HANDS`, `somali_level.HAND_LEVELS`).
 
 ONE LEMMA PER ORDINARY SPELLING.  Somali writes no tone, so a page title is the
 word as a reader meets it (`nin`), and a card is that spelling: every part of
@@ -40,9 +45,10 @@ import collections, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from so import key, nfc, is_somali
-from hand import HAND
+from hand import HANDS
+from somali_level import HAND_LEVELS, LEX
 
-DUMP, COUNTS, OUT = 'kaikki-so.jsonl', 'so_counts.json', 'lex.json'
+DUMP, COUNTS, OUT = 'kaikki-so.jsonl', 'so_counts.json', LEX
 
 KEEP_POS = {'noun', 'verb', 'adj', 'adv', 'intj', 'phrase', 'prep', 'pron', 'conj',
             'particle', 'det', 'num', 'article'}
@@ -221,6 +227,11 @@ def main():
         L['entries'].append(ent)
 
     # ---- the hand glosses: a row Wiktionary lacks, or a sense it lacks (hand.py) ----
+    HAND = {}
+    for lvl in HAND_LEVELS:
+        for w, rows in HANDS[lvl].items():
+            assert w not in HAND, f'{w} is hand-glossed on two levels'
+            HAND[w] = rows
     for w, rows in HAND.items():
         L = lemmas.setdefault(key(w), {'word': nfc(w), 'entries': []})
         for r in rows:
