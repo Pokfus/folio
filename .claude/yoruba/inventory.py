@@ -36,6 +36,15 @@ rédíò "radio", Ọlọ́run "God", Kìrìsìtẹ́nì "Christian", bíbélì 
 pàápàá "especially".  Left out for their glosses: ayélujára (filed first as a
 colonial coin, not "the internet"), ìmọ̀ràn ("understanding of facts", not
 "advice"); ìbà is "praise" there, and fever is ibà, which the fill deals.
+
+B1 IS BUILT THE OTHER WAY ROUND (2026-11-16).  Most of a B1 topic list written
+first is not in English Wiktionary (government, law, health and work: ìdìbò,
+ààrẹ, adájọ́, ẹ̀sùn, ìtọ́jú, ìwádìí, àbájáde, ètò, ìyípadà ... none has an
+entry), and the frequency fill alone reaches 1,000 words, down to a count of
+one.  So the B1 inventory was read off the Wiktionary words the fill does NOT
+reach: about 170 everyday words and compounds (household things, trades,
+schooling, machines, health, time words) that the encyclopaedia rarely writes,
+and that push out the fill's noisiest tail.
 """
 
 INVENTORY = {
@@ -132,5 +141,42 @@ INVENTORY = {
          'àgbélébùú ọpẹ́ ijó ìlù'),
         ('little words',
          'bóyá àyàfi kódà'),
+    ],
+    'b1': [
+        ('time and how often',
+         'ọjọ́_iwájú ayé_àtijọ́ lóde_òní níjẹta lọ́tùn-ún-la àfẹ̀mọ́júmọ́ ìyálẹ̀ta ààjìn láràárọ̀ '
+         'lọ́sọ̀ọ̀sán lẹ́sẹ̀kẹ́sẹ̀ ìdata ìdarin ìdámárùn-ún'),
+        ('family and people',
+         'ọmọ_ẹgbẹ́ ọmọ_ọ̀dọ̀ bàbá_bàbá bàbá_ìyá onísùúrù asùnta kólékólé'),
+        ('work and trades',
+         'kọ́lékọ́lé apòògùn ayafọ́tò akólẹ́tà oníbàtà rẹfirí dókítà_eyín tẹpá_mọ́ṣẹ́ '
+         'owó_ìfẹ̀yìntì háyà'),
+        ('school and knowledge',
+         'ilé-ìwé_alákọ̀ọ́bẹ̀rẹ̀ ilé-ìwé_girama ọmọ_ilé_ìwé iṣẹ́_àmúrelé ìmọ̀_sáyẹ́ǹsì '
+         'onímọ̀_ìjìnlẹ̀ ìmọ̀_ìṣirò ìmọ̀_ìṣègùn ìmọ̀_ètò_ọrọ̀-ajé ìmọ̀_ẹ̀rọ ẹ̀ka_èdè '
+         'àkànlò_èdè báírò yíǹkì ṣọ́ọ̀kì àpòòwé féèlì ṣẹ̀dà'),
+        ('machines and the media',
+         'ẹ̀rọ_ayélujára ẹ̀rọ_ìtẹ̀wé ẹ̀rọ_ìṣírò ẹ̀rọ_amúlétutù ẹ̀rọ_amúnáwá ẹ̀rọ_amóhuntutù '
+         'ẹ̀rọ_ìfọṣọ ẹ̀rọ_ìránṣọ jẹnẹrétọ̀ makirofóònù tẹ̀_jáde'),
+        ('the home and the kitchen',
+         'ibalùwẹ̀ síńkì kẹ́tùrù korobá tíréè àléré amúga kítípa aburadà pọtimáńtò ṣọ́bìrì '
+         'gọ́tà owó_omi epo_pupa'),
+        ('food and drink',
+         'àkàrà_òyìnbó ṣokoléètì áísìkiriìmù ṣingọ́ọ̀mù wàràkàṣì yúgọ́ọ̀tì èso_àjàrà kajú apálá '
+         'ayù ẹja_àrọ̀'),
+        ('the body and health',
+         'irun_ojú ìkasẹ̀ èyìnjìjà àtọ̀gbẹ ẹ̀jẹ̀_ríru àrùn_gágá báńdéèjì áńbúláǹsì kálòlò '
+         'súkè sẹ́n'),
+        ('animals and the wild',
+         'àkéekèe ìbakasíẹ ògòǹgò àgbébọ̀ èrukùkù èèrà wùkúwùkú ìkòrikò ìlábùrù akika '
+         'ìjàkárìwọ̀ ilé_ẹyẹ igbó_kìjikìji òwúsúwusù'),
+        ('travel and the world',
+         'ọkọ̀_òfuurufú pápákọ̀_òfuurufú òkè_òkun àgọ́_ọlọ́pàá epo_rọ̀bì àyípadà_ojú-ọjọ́ '
+         'ilé_ìkóhun-ìṣẹ̀ǹbáyé-sí wẹdò lọọlé jápa'),
+        ('society and rights',
+         'ẹ̀tọ́_ọmọnìyàn ogun_abẹ́lé ọ̀run_àpáàdì èdè_àìyedè ọ̀rọ̀_ẹ̀yìn wọ́de rẹ́jẹ ṣàwáwí'),
+        ('doing and thinking',
+         'pọ̀_sí_i dá_padà dá_mọ̀ tì_lẹ́yìn yà_lẹ́nu pọkàn_pọ̀ gbọ́kàn_lé tànmọ́ọ̀ '
+         'ìfọ̀rọ̀wérò burẹ́wà eré_ìdárayá ọwọ́_òsì ọwọ́_ọ̀tún'),
     ],
 }

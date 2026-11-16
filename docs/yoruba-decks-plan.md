@@ -5,8 +5,8 @@
 were built, and every rule there applies here unless this file says otherwise. The owner was not asked:
 the Zulu, Hausa and Amharic owners' answers were taken, the sources being as thin (§2).
 
-**STATUS (2026-11-16): the alphabet deck, A1 and A2 are built** (`.claude/yoruba/`, §6–§7). B1 is next,
-then a phrases deck.
+**STATUS (2026-11-16): the alphabet deck and all three levels, A1, A2 and B1, are built** (`.claude/yoruba/`,
+§6–§8). A phrases deck is next.
 
 ## 1. The decisions (taken from the Zulu, Hausa and Amharic sets)
 
@@ -26,7 +26,7 @@ then a phrases deck.
 | Yoruba Alphabet — built | `Yoruba-Alphabet.folio-deck.json` | 34 |
 | Yoruba A1 Beginner — built | `Yoruba-A1.folio-deck.json` | 500 |
 | Yoruba A2 Elementary — built | `Yoruba-A2.folio-deck.json` | 750 |
-| Yoruba B1 Intermediate | `Yoruba-B1.folio-deck.json` | 1,000 |
+| Yoruba B1 Intermediate — built | `Yoruba-B1.folio-deck.json` | 1,000 |
 | Yoruba Phrases and Expressions | `Yoruba-Phrases-and-Expressions.folio-deck.json` | — |
 
 ## 2. Sources and licences — and what is missing
@@ -92,7 +92,7 @@ noun, jí "to wake up" as a particle). The days of the week keep Wiktionary's ca
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 (done) then B1, one level per session: write
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2 (done)** — A2 then B1, one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `yoruba_level.py`; read the ranking for new
 exclusions; read every card. **Phase 3** — the phrases deck (Wiktionary's phrase and proverb entries — it has
 17 proverbs — and Tatoeba's sentences). A level must leave the levels below it byte-identical.
@@ -138,3 +138,25 @@ other spellings for 8. **A re-run is byte-identical, and A1 and the alphabet sti
 
 **Known, left.** The fill is the encyclopaedia's again: government and history (ṣàkóso, amúnisìn, olú-ìlú),
 linguistics (àkọtọ́, sílébù, fonọ́lọ́jì), sport (líìgì). Two thirds of the cards have no sentence.
+
+## 8. As built (2026-11-16): B1
+
+`python3 .claude/yoruba/run.py --level b1`. 1,000 notes / 2,000 cards: 141 from the inventory (`inventory.B1`,
+12 topics), 859 by frequency; sentences for 170, other spellings for 5. **A re-run is byte-identical, and A1,
+A2 and the alphabet still rebuild byte-identical.** B1 is full: about 1,175 Wiktionary words with a count were
+left after A2, unlike the Amharic B1 (494).
+
+- **THE INVENTORY WAS WRITTEN THE OTHER WAY ROUND.** A B1 topic list written first is mostly not in English
+  Wiktionary (ìdìbò, ààrẹ, adájọ́, ẹ̀sùn, ìtọ́jú, ìwádìí, àbájáde, ètò, ìyípadà … have no entry), and the fill
+  alone reaches 1,000 words. So the inventory was read off the Wiktionary words the fill does NOT reach: about
+  140 everyday words and compounds the encyclopaedia rarely writes (household things, trades, schooling,
+  machines, health, time words: kẹ́tùrù, áńbúláǹsì, ẹ̀rọ amóhuntutù, iṣẹ́ àmúrelé, lọ́tùn-ún-la), which push out
+  the fill's noisiest tail.
+- **THE FILL GOES DOWN TO A COUNT OF ONE**, so from B1 on a lemma whose first ordinary sense is a given name, a
+  title, another word's dated or dialect spelling, or a plant's name is not dealt (`select.obscure`), and some
+  twenty dialect forms, people's names and anatomical words are excluded by name ("Read off the B1 ranking").
+  The description says the last words' order means little.
+
+**Known, left.** Much of B1 is traditional culture (drums, Ifá, chieftaincy titles, foods) and natural history,
+because that is what Wiktionary's remaining Yoruba entries are; the government, law and health vocabulary a B1
+usually has is missing from the source. Synonym pairs are labelled by the shelf's de-duplication ("not ẹyẹlé").

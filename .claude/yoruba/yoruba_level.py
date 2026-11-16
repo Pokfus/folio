@@ -56,6 +56,18 @@ SCOPE = {
                   'and learning, the everyday verbs of doing, describing people, and the feasts and '
                   'the faith',
     },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to produce '
+                 'simple connected text on familiar topics, and to describe experiences and '
+                 'events, dreams, hopes and ambitions, and briefly give reasons and explanations '
+                 'for opinions and plans',
+        'topics': 'time and how often, family and people, work and trades, school and knowledge, '
+                  'machines and the media, the home and the kitchen, food and drink, the body and '
+                  'health, animals and the wild, travel and the world, society and rights, and the '
+                  'verbs of doing and thinking',
+    },
 }
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner'}
 

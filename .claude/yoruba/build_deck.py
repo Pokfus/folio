@@ -241,6 +241,10 @@ def desc(entries, n):
         f"begins '{SC['quote']}' — a learner here is {SC['gloss']}. " +
         ("The words already taught by the levels below this one are left out. "
          if LEVEL != 'a1' else "") +
+        ("AT THIS LEVEL THE SOURCES RUN THIN: English Wiktionary lacks much of what a B1 topic list "
+         "would hold (government, law, health), so the written part was chosen from the everyday "
+         "words Wiktionary does have, and the last words dealt by frequency appear in only one or "
+         "two articles, so their order says little. " if LEVEL == 'b1' else "") +
         "WHERE THESE WORDS COME FROM, since it matters: no exam board publishes a graded word list "
         "for Yoruba, so this deck is not any examination's vocabulary and does not claim to be. "
         f"It is assembled from two things that can be stated. {from_inv} of the {n} come from a "

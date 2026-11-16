@@ -21,9 +21,13 @@ THE FILL'S EXCLUSIONS, each for a fault it produced on reading the ranking:
     iwe "gizzard" beside ìwé "book", ojo "coward" beside òjò "rain", itan "thigh"
     beside ìtàn "history".  Such a word's count is mostly its homograph written
     carelessly, in the half-marked articles, so it is not a frequency at all;
+  · from B1 on, a lemma whose first ordinary sense is a given name, a title, a
+    dated or dialect spelling of another word, or a plant's name (`obscure`):
+    the fill reaches words counted once or twice, and those are what the tail
+    of the count is made of;
   · the hand list `EXCLUDE`, each line with its reason.
 """
-import json, os, sys
+import json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from yo import nfc, key, toned
@@ -93,7 +97,42 @@ EXCLUDE = {
     'jíjẹ': 'the verbal noun of jẹ "to eat", taught at A1',
     'bẹ́rẹ̀': 'Wiktionary glosses an elderly relative; its count is bẹ̀rẹ̀ "to begin", miswritten',
     'Aláké': 'the title of the Ẹ̀gbá king, from the history articles',
+    # Read off the B1 ranking (2026-11-16).
+    'rìí': 'a dialect form of tí "which"; tí is taught',
+    'dò': 'the solfège syllable, from the music articles',
+    'ogu': 'a dialect form of ogun "war", taught at A2',
+    'ọrúkọ': 'a dialect form of orúkọ "name", taught at A1',
+    'àpèjẹ́': 'a dialect word for "name"; orúkọ is taught',
+    'èní': 'a Lagos form of òní "today", taught at A1',
+    'ọ̀bùn': 'filed as "market"; the standard word is ọjà, and ọ̀bùn is "a dirty person"',
+    'ulí': 'a dialect form of ilé "house", taught at A1',
+    'hí': 'a dialect form of sí "to, at", taught at A1',
+    'nẹ́': 'a dialect form of ní "to have", taught at A1',
+    'wèé': 'a dialect form of "this"; yìí is taught',
+    'ìwéwèé': 'a dialect form of "this one"; èyí is taught',
+    'rẹ̀n': 'a dialect form of rìn "to walk", taught at A1',
+    'hùn': 'a dialect form of sùn "to sleep", taught at A1',
+    'yún': 'a dialect form of lọ "to go", taught at A1',
+    'Ànàgó': 'a people\'s name (a Yoruba subgroup)',
+    'àtọ̀': 'sexual vocabulary the level does not need',
+    'ìbálé': 'sexual vocabulary the level does not need',
+    'idọ': 'anatomical vocabulary the level does not need',
+    'pokùnso': 'suicide by hanging, from the history articles; not a level word',
 }
+
+OBSCURE = re.compile(r'given name|^(?:a |the )?(?:title of the |term of address for )|dated spelling of|'
+                     r'\b(?:Lagos|Ondo|Ọwọ|Owe|Ikalẹ|Ekiti|Ìjẹ̀bú|Ào|Ìlàjẹ|Ọ̀yọ́|Ìjẹ̀ṣà|Ẹ̀gbá) form of|'
+                     r'^(?:the |a )?name (?:for|of) (?:a variety of |several )?(?:similar )?(?:plants?|species|trees?)|'
+                     r'^(?:the |a )?(?:plant|tree|herb|shrub|grass|palm)s? |name of a plant|oríkì name|'
+                     r'^any (?:\w+ )?(?:plant |palm tree |tree )?of (?:the )?(?:various )?species|^any raffia|'
+                     r'^a class of (?:\w+ )?trees|^several plants', re.I)
+
+
+def obscure(L):
+    """A lemma whose first ordinary sense is a given name, a title, another word's dated or
+    dialect spelling, or a plant's name (from B1 on)."""
+    g = next((g['g'] for e in L['entries'] for g in e['glosses'] if not g['weak']), '')
+    return bool(OBSCURE.search(g))
 
 
 def shadowed(h, lex, by_key):
@@ -143,6 +182,8 @@ def main():
         if all(e['pos'] in ('phrase', 'intj', 'num', 'prep_phrase') for e in L['entries']):
             continue
         if LEVEL != 'a1' and shadowed(h, lex, by_key):
+            continue
+        if LEVEL not in ('a1', 'a2') and obscure(L):
             continue
         seen.add(h)
         fill.append({'key': h, 'word': L['word'], 'freq': L['freq'], 'pos': '',
