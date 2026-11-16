@@ -66,7 +66,15 @@ EXCLUDE = {
     'ယခင်': 'the literary "formerly"', 'ထို့ပြင်': LITERARY, 'ထို့အပြင်': LITERARY,
     'သို့ရာတွင်': LITERARY, 'လိမ့်မည်': LITERARY, 'ဟူသည်': LITERARY, 'နှင့်တကွ': LITERARY,
     'အကယ်၍': LITERARY, 'များသောအားဖြင့်': LITERARY,
-    'မြန်မာ့': 'defined only as the induced creaky (possessive) form of မြန်မာ, a name', 'ကာ': LITERARY, 'လျှင်': LITERARY,
+    'မြန်မာ့': 'defined only as the induced creaky (possessive) form of မြန်မာ, a name',
+    # Read off the B1 ranking (2026-11-16).
+    'ဗမာ့': 'defined only as the induced creaky (possessive) form of ဗမာ, a name',
+    'ကုလား': 'a word for people of South Asian descent that is widely held to be offensive',
+    'ထားဝယ်': 'a people\'s name (the Dawei), from the encyclopaedia',
+    'ဓနု': 'a sign of the zodiac (Sagittarius), from the encyclopaedia',
+    'ပုဒ်မ': 'glossed only as the name of the full stop ။, which the Alphabet deck teaches',
+    'အသတ်': 'glossed only as the name of the asat ်, which the Alphabet deck teaches',
+    'တံခွန်': 'glossed as the name of the asat ်, which the Alphabet deck teaches', 'ကာ': LITERARY, 'လျှင်': LITERARY,
 }
 
 

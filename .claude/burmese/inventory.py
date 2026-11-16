@@ -39,6 +39,27 @@ hotel)", လမ်းမ "main road", စိတ်ညစ် "to be fed up", ပ�
 "light bulb", အစ္စလာမ် "Islam", သင်္ကြန် "Thingyan".  Left out for their entries:
 ထီး (Wiktionary has only the royal parasol, not "umbrella") and အန္တရာယ် "danger"
 (no reading).
+
+B1 IS SCOPED TO THE CEFR B1 DESCRIPTOR, looked up the same way (2026-11-16).  It opens
+with THE WRITTEN LANGUAGE: the literary particles and words A1 and A2 held back
+(သည်, ၏, နှင့်, ဤ, ထို, ...), which a B1 reader of a newspaper or a notice meets on
+every line.  English Wiktionary has comparatively few of B1's everyday words, so the
+inventory is short and the fill is most of the level.  Not in English Wiktionary, so
+not taught: ပြီးလျှင် "after", ဟု (the quotative), ဆေးစစ် "medical check-up",
+ဓာတ်မတည့် "allergic", ဆေးရုံတက် "to be admitted to hospital", အပူချိန်
+"temperature", မူးဝေ "dizzy", သေဆုံး "to die", အလုပ်လျှောက် "to apply for a job",
+အလုပ်လက်မဲ့ "unemployed", ကျွမ်းကျင်မှု "skill", ဈေးကွက် "market (economy)",
+ဘာသာရပ် "subject (of study)", ဝက်ဘ်ဆိုက် "website", ထုတ်ဝေ "to publish", မိုးခေါင်
+"drought", မြို့ပြ "urban", ရာဇဝတ်မှု "crime", တန်းတူ "equal", ယုံကြည်ချက် "belief",
+အထောက်အထား "evidence", အကြံပြု "to suggest", နှိုင်းယှဉ် "to compare",
+စိတ်လှုပ်ရှား "excited", စိတ်ဖိစီး "stressed", ဂုဏ်ယူ "proud", စိုးရိမ် "anxious",
+ခရီးဆောင်အိတ် "luggage", ထွက်ခွာ "to depart", ငွေလဲ "to change money", အိမ်ငှား
+"tenant", ချက်ပြုတ် "to cook", ဖြစ်ပေါ် "to arise", ဆက်လက် "to continue",
+စုဆောင်း "to collect", ထိန်းချုပ် "to control", ဖြစ်နိုင် "possible", လွယ်ကူ
+"easy", ခက်ခဲ "difficult", ရှုပ်ထွေး "complicated", ရိုးရှင်း "simple", ခေတ်မီ
+"modern", တိကျ "precise".  Left out for their entries: မည် (Wiktionary has no future
+particle under it), ကာ, မဲ (no "vote"), ဝတ္ထု (no "novel"), သဒ္ဒါ (no "grammar"), and
+မီးပူတိုက် "to iron" (its IPA in Wiktionary covers two of its three syllables).
 """
 
 INVENTORY = {
@@ -171,5 +192,37 @@ INVENTORY = {
         ('the faith and the feasts',
          'ဗုဒ္ဓဘာသာ ခရစ်ယာန် ဟိန္ဒူ ဘုန်းကြီး:noun ကိုရင်:noun သီလရှင် ဘုန်းကြီးကျောင်း စေတီ ပုထိုး '
          'ဘုရားပွဲ ပွဲတော် ပွဲ:noun ဆွမ်း ဆုတောင်း နတ် ကံ ကုသိုလ် ဥပုသ် ဘုရားရှိခိုး အလှူ'),
+    ],
+    'b1': [
+        ('the written language: the literary particles and words a reader meets first',
+         'သည်:postp+det ၏ နှင့်:conj+postp သော:particle သည့် ဤ ထို တွင်:postp သို့ ဖြင့် ၌ '
+         'လျှင်:conj ၍ သို့သော် သို့မဟုတ် လည်းကောင်း:conj မိမိ ယခု ယနေ့ စသည် ခြင်း:particle'),
+        ('health',
+         'ကိုယ်ဝန် ကိုယ်ဝန်ဆောင် ကင်ဆာ ဆီးချို သွေးတိုး ဗိုင်းရပ်စ် ကာကွယ်ဆေး အာဟာရ ဗီတာမင် '
+         'ကျိုး:verb ယား အသက်ရှူ'),
+        ('work and money',
+         'အင်တာဗျူး အတွေ့အကြုံ ကုန်ပစ္စည်း ဖောက်သည် အရှုံး အခွန် ချေးငွေ ပိုင်ရှင်'),
+        ('study',
+         'ဘွဲ့ သင်ခန်းစာ စာကြည့်တိုက် ပညာသင်ဆု အောင်:verb ကျ:verb အိမ်စာ:noun ဆွေးနွေးပွဲ '
+         'အဘိဓာန် အသံထွက်'),
+        ('the media',
+         'ရုပ်မြင်သံကြား ကြော်ငြာ:noun ဇာတ်ကား ပုံနှိပ် ဗီဒီယို ဖုန်းဆက်'),
+        ('the environment and where people live',
+         'ညစ်ညမ်း ရေနံ ဓာတ်အား ဆင်ခြေဖုံး ကျေးလက် လူဦးရေ'),
+        ('society, the law and conflict',
+         'မဲပေး တရားရုံး ရဲစခန်း ခိုး:verb သူခိုး အခွင့်အရေး လွတ်လပ်ခွင့် စစ်:noun ငြိမ်းချမ်းရေး '
+         'ဆန္ဒပြ အကြမ်းဖက် ဒုက္ခသည် ဓလေ့'),
+        ('opinions and reasons',
+         'ထင်:verb သဘောထား ကောင်းကျိုး ဆိုးကျိုး'),
+        ('feelings',
+         'ကျေနပ် စိတ်ရှည် နောင်တ ကြောက်ရွံ့ လွမ်း သံသယ မုန်း ခွင့်လွှတ် အားနာ'),
+        ('travel',
+         'ခရီးသည် တည်းခိုခန်း ဆိုက်ရောက် အကောက်ခွန် သံရုံး ရှုခင်း ဓာတ်ပုံရိုက် လမ်းပျောက်'),
+        ('the home and the neighbours',
+         'အိမ်ရှင် အိမ်နီးချင်း'),
+        ('change and doing things',
+         'ပြောင်း:verb လျော့ ကျဆင်း ကျရှုံး ရှုံး:verb တောင်းဆို တုံ့ပြန် သတိပေး'),
+        ('describing',
+         'သင့်တော် မှား အခမဲ့ ဖြည်းဖြည်း'),
     ],
 }

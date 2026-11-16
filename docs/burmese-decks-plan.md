@@ -6,7 +6,8 @@ record of how those were built, and every rule there applies here unless this fi
 on 2026-11-15: "Add a Burmese language collection." The owner was not asked: the Thai and Amharic owners'
 answers to the same questions were taken — **they are the owner's to overturn**.
 
-**STATUS (2026-11-16): the alphabet deck, A1 and A2 are built** (`.claude/burmese/`, §6–§7). B1 is next.
+**STATUS (2026-11-16): the collection is complete as planned** — the alphabet deck, A1, A2 and B1
+(`.claude/burmese/`, §6–§8). A B2 is possible (§1) and is the owner's to ask for.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck this plan produces. The collection's first commit carried a line and a bump because it also
@@ -31,7 +32,7 @@ changed the APP (the shelf's hue in `app.js`) — the Hebrew, Zulu and Amharic p
 | Burmese Alphabet — built | `Burmese-Alphabet.folio-deck.json` | 79 |
 | Burmese A1 Beginner — built | `Burmese-A1.folio-deck.json` | 500 |
 | Burmese A2 Elementary — built | `Burmese-A2.folio-deck.json` | 750 |
-| Burmese B1 Intermediate — planned | `Burmese-B1.folio-deck.json` | 1,000 |
+| Burmese B1 Intermediate — built | `Burmese-B1.folio-deck.json` | 1,000 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
 
@@ -102,7 +103,7 @@ first glosses keep Wiktionary's wording (မျက်လုံး "eyeball").
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet deck, A1. **Phase 2** — A2 (done), then B1: write the
+**Phase 1 (done)** — the pipeline, the alphabet deck, A1. **Phase 2 (done)** — A2, then B1: write the
 level's inventory into `inventory.py` and its topics into `burmese_level.SCOPE`, run, read every card, extend
 `EXCLUDE`, `ONLY` and `LEAD`. A level from A2 on may teach the literary particles A1 leaves out.
 
@@ -149,3 +150,28 @@ What reading the A2 cards added, each a rule FROM A2 ON or a hand line, so A1 st
   (ယနေ့, ယခင်, ထို့ပြင်, ထို့အပြင်, သို့ရာတွင်, လိမ့်မည်, ဟူသည်, နှင့်တကွ, အကယ်၍, များသောအားဖြင့်).
 - **Left out of the inventory for their entries**: ထီး (only the royal parasol, not "umbrella") and အန္တရာယ်
   "danger" (no reading).
+
+## 8. As built (2026-11-16): B1
+
+On request ("Add B1"). `python3 .claude/burmese/run.py --level b1`: 1,000 notes, 111 from the B1 inventory (13
+topics) and 889 by frequency; A1's and A2's words are not repeated. 20 with forms, 83 with sentences. A re-run
+is byte-identical, and A1, A2 and the alphabet deck rebuild byte-identical alongside (verified).
+- **THE LEVEL OPENS WITH THE WRITTEN LANGUAGE**: the literary particles and words A1 and A2 held back (သည်, ၏,
+  နှင့်, သော, သည့်, ဤ, ထို, တွင်, သို့, ဖြင့်, ၌, လျှင်, ၍, သို့သော်, သို့မဟုတ်, လည်းကောင်း, မိမိ, ယခု, ယနေ့,
+  စသည်, ခြင်း) — a B1 reader meets them on every line of a newspaper. The inventory ignores `EXCLUDE`, so they
+  are taught here while the fill still leaves the rest of the literary register alone. The deck's description
+  says so (the A1 and A2 wording is unchanged).
+- **THE INVENTORY IS SHORT**: English Wiktionary has comparatively few of B1's everyday words (no "temperature",
+  "unemployed", "website", "crime", "possible", "easy", "difficult", "modern" …; the list is in `inventory.py`),
+  so the fill — the Wikipedia's written vocabulary — is most of the level.
+- **A dictionary citation kept as a sense is dropped** (`build_deck.CITATION`): အရေးယူ carried "“အရေးယူ” in
+  Myanmar–English Dictionary (Myanmar Language Commission 1993) …" as a second gloss; `check-burmese.js` fails on
+  one. The only such gloss in the extract.
+- **`ONLY` and `LEAD`**: ထင် "to think" (not "to be visible"), ခိုး "to steal", ကျိုး "to break", သော the particle
+  (not "to joke"), အိမ်စာ "homework" (not the house sparrow); ဘွဲ့ leads with "academic degree". "Latin" and
+  "Soviet" get their capitals back.
+- **`EXCLUDE` grew by 7**: ဗမာ့ (only a possessive form of a name), ကုလား (a word for people of South Asian
+  descent that is widely held to be offensive), ထားဝယ် (a people's name), ဓနု (a sign of the zodiac), and ပုဒ်မ,
+  အသတ်, တံခွန် (glossed only as names of marks the Alphabet deck teaches).
+- **Left out of the inventory**: မီးပူတိုက် "to iron" (Wiktionary's IPA covers two of its three syllables), and
+  မည်, ကာ, မဲ, ဝတ္ထု, သဒ္ဒါ for their entries.

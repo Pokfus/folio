@@ -69,7 +69,10 @@ SCOPE = {
                  'simple connected text on familiar topics, and to describe experiences and '
                  'events, dreams, hopes and ambitions, and briefly give reasons and explanations '
                  'for opinions and plans',
-        'topics': '(to be written with the level)',
+        'topics': 'the written language (the literary particles a reader meets first), health, '
+                  'work and money, study, the media, the environment, society, the law and '
+                  'conflict, opinions, feelings, travel, the home and the neighbours, change and '
+                  'doing things, and describing',
     },
 }
 

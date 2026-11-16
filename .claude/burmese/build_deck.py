@@ -111,6 +111,12 @@ ONLY = {
     'ဘုန်းကြီး': (r'^monk',),             # also a chess piece
     'ကိုက်': (r'^to bite', r'^to ache'),  # also "to come up to (expectations)"
     'ပွဲ': (r'public function|festival|fair',),
+    # B1 (2026-11-16)
+    'ထင်': (r'^to think',),                # the first verb gloss is "to be visible"
+    'ခိုး': (r'^to steal',),               # also "to cause the eyes to smart"
+    'ကျိုး': (r'^to break',),              # also a cripple and a consequence
+    'သော': (r'particle',),                # the verb is "to joke"
+    'အိမ်စာ': (r'homework',),             # also the house sparrow
 }
 
 # A GLOSS TO LEAD WITH inside an entry, where Wiktionary's first is not the everyday one.
@@ -122,6 +128,7 @@ LEAD = {
     'ဆေး': 'medicine',
     'အရောင်': 'colour',
     'လက်မှတ်': 'ticket',                   # first listed is "certificate of qualification"
+    'ဘွဲ့': 'academic degree',             # first listed is a title or award
 }
 
 POINTER = re.compile(r'^(alternative form of|alternative spelling of|form of|synonym of|'
@@ -131,9 +138,10 @@ KEEP_CAP = re.compile(r"^(I|Buddha|Buddhist|Burmese|Myanmar|Burma|Monday|Tuesday
                       r"Thursday|Friday|Saturday|Sunday|English|January|February|March|April|"
                       r"May|June|July|August|September|October|November|December|Sir|God|"
                       r"Christian|Muslim|Hindu|Pali|Sanskrit|Shan|Mon|Karen|Chinese|Indian|American)\b")
-# Wiktionary writes the Burmese months in lower case ("waso, the fourth month ..."): capitalised
+# Wiktionary writes the Burmese months in lower case ("waso, the fourth month ..."), and the
+# extraction "latin", "soviet": capitalised
 BURMESE_MONTH = re.compile(r"^(tagu|kason|nayon|waso|wagaung|tawthalin|thadingyut|tazaungmon|nadaw|"
-                           r"pyatho|tabodwe|tabaung)\b", re.I)
+                           r"pyatho|tabodwe|tabaung|latin|soviet)\b", re.I)   # and two proper adjectives (B1)
 
 
 def lower_first(g):
@@ -151,6 +159,11 @@ def lower_first(g):
 SYNONYM = re.compile(r'^synonym of \S+ \([^“”()]*“([^”]+)”\)$')
 
 
+# A "gloss" that is a dictionary citation the extraction kept as a sense (အရေးယူ: "“အရေးယူ” in
+# Myanmar–English Dictionary (Myanmar Language Commission 1993). Searchable online at SEAlang.net").
+CITATION = re.compile(r'SEAlang|Myanmar–English Dictionary')
+
+
 def resolve_synonym(g):
     m = SYNONYM.match(g['g']) if LEVEL != 'a1' else None
     return dict(g, g=m.group(1)) if m else g
@@ -159,7 +172,7 @@ def resolve_synonym(g):
 def entries_for(row, lex):
     L = lex[row['key']]
     ents = [dict(e, glosses=[g for g in map(resolve_synonym, e['glosses'])
-                             if not POINTER.match(g['g'])])
+                             if not POINTER.match(g['g']) and not CITATION.search(g['g'])])
             for e in L['entries']]
     ents = [e for e in ents if e['glosses']]
     if row['pos']:
@@ -317,10 +330,17 @@ def desc(entries, n):
         "writes no spaces between words, so that text was cut into words against the "
         "dictionary, and only words of two syllables or more are taken from the count (a "
         "one-syllable count also holds every piece the cut could not place). Burmese has two "
-        "registers, the written and the spoken; this deck teaches the SPOKEN one (တယ်, ရဲ့, "
-        "နဲ့, ဒီ), while Wikipedia is written in the literary one (သည်, ၏, နှင့်, ဤ), whose "
-        "particles are left for a later level — and its fill is encyclopaedic in places "
-        "(government, history, religion). The cards are dealt by that frequency, so the words "
+        "registers, the written and the spoken" +
+        (". This level begins with the WRITTEN one: the literary particles and words (သည်, ၏, "
+         "နှင့်, ဤ, ထို) that the A1 and A2 decks leave out and that a reader of a newspaper or a "
+         "notice meets on every line; its fill is the written language of the Burmese Wikipedia, "
+         "encyclopaedic in places (government, history, religion). English Wiktionary has fewer "
+         "of this level's everyday words, so the vocabulary written for the level is short and "
+         "the commonest remaining words are most of it. " if LEVEL == 'b1' else
+         "; this deck teaches the SPOKEN one (တယ်, ရဲ့, နဲ့, ဒီ), while Wikipedia is written in "
+         "the literary one (သည်, ၏, နှင့်, ဤ), whose particles are left for a later level — and "
+         "its fill is encyclopaedic in places (government, history, religion). ") +
+        "The cards are dealt by that frequency, so the words "
         "met most often come first. Only words English Wiktionary has an entry for can be "
         "taught here. Every word is in the Myanmar script, as Burmese is written; the Alphabet "
         "deck, first in this collection, teaches the letters and the tone marks. Beneath each "

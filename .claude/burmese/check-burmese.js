@@ -56,6 +56,7 @@ for (const f of files) {
     for (const g of text(F.English).split("\n"))
       if (POINTER.test(g.trim())) bad(f + ": " + w + " is defined by a pointer: " + g.trim());
     for (const [, l] of F.Forms.matchAll(/class="uc-fl">([^<]*)</g)) if (!LABELS.has(l)) bad(f + ": " + w + " forms label " + l);
+    if (/SEAlang|Myanmar–English Dictionary/.test(F.English)) bad(f + ": " + w + " has a dictionary citation as a gloss");
     if (ZAWGYI.test(F.Forms + F.Examples)) bad(f + ": " + w + " has a Zawgyi code point in its forms or sentences");
     for (const k of ["Burmese", "English", "Forms", "Examples"]) balanced(f, w, k, F[k]);
     if (sides.has(F.English)) bad(f + ": " + w + " shares its English side with " + sides.get(F.English));
