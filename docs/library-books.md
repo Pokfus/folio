@@ -12,7 +12,7 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently sixty-five:
+  matter (chapter 0 — see the Library bullet). Currently sixty-seven:
   `rousseau-social-contract` (~260 KB, **49 sections** — Rousseau's Foreword and the 48 chapters of the four Books, so a
   tab runs one ahead of the chapter's place; each title opens with its numeral in its Book, the Books are the `parts`;
   `chapterWord: "Section"` — **47 notes**, Rousseau's with a few of Cole's; original **French**, paired on the CHAPTER as
@@ -31,6 +31,24 @@ book added later will meet the same traps.
   through index.php (`api` falls back to `action=render&useparsoid=0` on the API's rate-limit notice). Colour
   `#663930` (14.7 by CIE76: the band is full). `glossOff`: 7 keys — see the comment on the app.js entry. Not
   included: Cole's introduction, the contents, the title page.
+  `kant-critique-of-pure-reason` (~1.3 MB, **19 sections** — the two prefaces, the Introduction, the Æsthetic, the
+  Logic's introduction, the Analytic's five chapters, the Dialectic's introduction, Book I and three chapters, and the
+  Doctrine of Method's four chapters; `chapterWord: "Section"`, since Kant's chapters restart within each Book —
+  **150 notes**, Kant's own and Meiklejohn's (signed "Tr."), no original; J. M. D. Meiklejohn's translation of the
+  second edition, Bohn, London, 1855, proofread on Wikisource from the Internet Archive scan). Five tabs join a short
+  head page to the chapter it introduces (`page(n)` returns an array), so no tab is a page long. Titles transcribed
+  from the 1855 contents page (`titleOf`). Public domain worldwide: Kant d. 1804, Meiklejohn d. 1902 (Wikidata), no
+  limit to state. **No original**: de.wikisource holds the 1781 FIRST edition, not the 1787 text Meiklejohn
+  translates, so a facing column would pair two different texts. **`prep: "kant"`** (`kantPrep` on every raw page,
+  `kantFinish` + `kantNestedNotes` on the assembled section): the 181 centred heading blocks become `bk-head` lines
+  (they would otherwise be blockquotes), the seven table diagrams (judgments, categories, principles, "nothing", the
+  cosmological ideas, two of the paralogisms) become indented blocks of one paragraph per cell, five asterisk rows
+  become `* * * * *` paragraphs, and two of Meiklejohn's notes on Kant's notes are spliced into their parents in
+  square brackets (one is a cross-reference to the printed page 175, kept as printed). The § numbers stay in the
+  headings — they restart and stop, and there is nothing to pair — so the run reports "19 chapter(s) with NONE".
+  Colour `#592F85` (14.8: the band is full; the philosophers stand 19.6 or more off). `glossOff`: Wolf (Christian
+  Wolff), Subsistence (the category), Providence, Republic (Plato's) — swept over all 19 sections. Excerpt: the
+  Copernican passage of the second preface. Not included: the translator's preface, the contents and the errata.
   `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
   Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
   **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on
@@ -366,6 +384,13 @@ book added later will meet the same traps.
   numbers are fixed off the scan (IV. i. 124, IV. iv. 13, V. iii. 284). Left as transcribed, unverified
   against the print: "Benvoilo" in the list of characters, and "Uncle to Capulet" standing alone on its
   line there. Shakespeare's existing `BOOK_AUTHOR_COLOR` row colours its tile.
+  `julius-caesar` (~246 KB, all 5 acts, **593 notes**, no original — the Yale Shakespeare of 1919, ed.
+  Lawrence Mason, 1882–1939 (Wikidata Q56478978), so public domain in the US by the pre-1929 rule and under
+  life plus eighty, NOT yet life plus a hundred, and the rights text says so; `layout: "yale"` as it stands,
+  no Chorus). 547 of 593 glosses land on their word, 13 on their text, 33 at a line's end, none lost; all 45
+  end notes reach the page. Two mistyped printed line numbers (III. i. 273, V. i. 52) are put right off the
+  scan by `plineFixes`, BEFORE extraction — put right afterwards by `fixes`, the six glosses keyed to them
+  were lost, "dogs of war" and its end note among them. Shakespeare's `BOOK_AUTHOR_COLOR` row colours it.
   `marco-polo` (~2.77 MB, all 235 chapters, **788 notes**, no original — Sir Henry Yule's
   translation in the third edition of 1903 as revised by Henri Cordier, and **the first book here
   printed in TWO source files**, which costs a second fetch and one loop and matters only because

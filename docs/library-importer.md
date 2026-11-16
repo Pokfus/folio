@@ -2420,6 +2420,10 @@ findings are in `docs/library-books.md`; what is worth carrying to the next play
   tooltip, so it is read only inside a prologue. The cache was primed by hand with a slow curl loop
   (the API rate-limited from the first request), and three printed line numbers the transcription
   mistypes are put right by `fixes`, each witnessed by the scan's page image (Commons `thumb.php`).
+- **A mistyped printed line number goes in `plineFixes`, not `fixes`** (Nov 2026, Julius Caesar, the Yale
+  volume of 1919): `[act, printed, correct, witness]`, applied to the act's cached page BEFORE `extractYale`
+  and required to match exactly once. A gloss finds its line by number during extraction, so a number put
+  right only in the output (`fixes`) leaves every gloss keyed to it "lost" — six on this play's two misprints.
 
 ## The `chajing` layout — a digest read off a scan's OCR, beside a Chinese text read off wikitext (Oct 2026, the Classic of Tea)
 
@@ -2813,3 +2817,22 @@ the notes a part's own markers open are kept, as for `between`.
 Re-run after touching: `node .claude/fetch-book.js rousseau-social-contract --force` (five English and 48 French
 fetches), then check 49 sections, 47 notes, the two preambles' "Chapter I" heads, and `node .claude/book-audit.js`.
 
+## `prep: "kant"` — centred headings, table diagrams and notes on notes (Nov 2026, the Critique of Pure Reason)
+
+`kantPrep(h, warn)` runs on EVERY raw page of a section (the first page and each extra one of a `page(n)` array), before
+`notesOf` and `cleanBody`; `kantFinish` and `kantNestedNotes` run once on the assembled section. Three things Meiklejohn's
+1855 transcription does that the generic passes get silently wrong: **every heading is a `wst-center` div** (189 over 24
+pages, none over 240 characters), which the generic pass turns into a blockquote — each block is fenced with `@@KNH@@` and
+becomes ONE `bk-head` paragraph, its lines kept as `<br>` (splitting per line would cut through spans that wrap two lines,
+and the stripper drops the half it never saw open); a block over 300 characters or holding a table is kept as text and
+warned. `wst-block-center` (the centred lists and verse) is left a blockquote. **Its tables are diagrams** — each non-empty
+cell becomes one paragraph of a blockquote, row by row; unwrapped, the cell heads landed outside every paragraph between
+`<br>`s. **A row of asterisks is a display:block span**, sometimes mid-paragraph — it becomes `<p>* * * * *</p>`, splitting
+its paragraph. And **a note cited from inside a note** (Meiklejohn on Kant's note, twice) reaches the list uncited with a
+bare `&#91;N&#93;` in its parent — spliced into the parent in square brackets, dropped from the list, markers renumbered;
+any note still uncited is warned. The run prints "N heading block(s) fenced, N lifted, …" and MISMATCH if the two differ.
+Gated on `prep === "kant"`, so inert on every other book.
+
+Re-run after touching: `node .claude/fetch-book.js kant-critique-of-pure-reason --force` (24 pages), check "181 heading
+block(s) fenced, 181 lifted, 7 table(s) read as blocks, 5 asterisk row(s), 2 note(s) inside a note spliced", then
+`node .claude/book-audit.js`.
