@@ -2,10 +2,11 @@
 """Build an Burmese deck, end to end.
 
     python3 .claude/burmese/run.py                 # A1
-    python3 .claude/burmese/run.py --level a2      # another level: a2, b1 (inventory first: inventory.py)
+    python3 .claude/burmese/run.py --level a2      # another level: a2, b1, b2 (inventory first: inventory.py)
     python3 .claude/burmese/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/burmese/run.py --re-extract    # rebuild the counts and the lexicon
     python3 .claude/burmese/alphabet.py            # the alphabet deck
+    python3 .claude/burmese/phrases.py             # the phrases deck (reads the cache and the level decks)
 
 ONE LEVEL PER RUN (`burmese_level` reads the level once, at import).  Downloads
 its sources into `.claude/burmese-cache/` (gitignored, about 230 MB, Tatoeba's

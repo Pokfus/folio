@@ -7,7 +7,9 @@
    as another form of a spoken word's (the fault Wiktionary's tagged alternatives produced), a speaker button (few
    devices have a Burmese voice — the Hausa rule), unbalanced HTML, an id out of sequence, and two notes sharing an
    English side (the reverse card would have two answers). The Alphabet deck is checked for its own: a unique
-   letter side and a unique sound side. */
+   letter side and a unique sound side. The phrases deck for what applies to a phrase, a proverb or a sentence:
+   its three subdecks, Myanmar script on the front, nothing a level teaches, a reading on every phrase and
+   proverb, a Tatoeba number on every sentence, balanced HTML, a unique English side. */
 "use strict";
 const fs = require("fs");
 const path = require("path");
@@ -33,6 +35,7 @@ for (const f of files) {
   const d = JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8"));
   const id = d.meta.id;
   const abc = /Alphabet/.test(d.meta.title);
+  const phr = /Phrases/.test(d.meta.title);
   for (const t of Object.values(d.meta.types))
     for (const c of t.cards) if (/uc-tts/.test(c.front + c.back)) bad(f + ": template " + c.name + " has a speaker button");
   const sides = new Map(), letters = new Map();
@@ -48,6 +51,17 @@ for (const f of files) {
       return;
     }
     const w = F.Word;
+    if (phr) {
+      if (!["Phrases", "Proverbs", "Sentences"].includes(c.sub)) bad(f + ": " + w + " is in subdeck " + c.sub);
+      if (!/[\u1000-\u102A]/.test(w || "") || ZAWGYI.test(w)) bad(f + ": card " + (i + 1) + " has no plain Myanmar script: " + w);
+      if (seen.has(w)) bad(f + ": " + w + " is already taught in " + seen.get(w));
+      if (c.sub !== "Sentences" && (!F.Roman || /[\u1000-\u109F]/.test(F.Roman))) bad(f + ": " + w + " has no Latin reading");
+      if (c.sub === "Sentences" && !/Tatoeba #\d+/.test(F.English)) bad(f + ": sentence " + w + " has no Tatoeba number");
+      for (const k of ["Burmese", "English"]) balanced(f, w, k, F[k]);
+      if (sides.has(F.English)) bad(f + ": " + w + " shares its English side with " + sides.get(F.English));
+      sides.set(F.English, w);
+      return;
+    }
     if (!MY.test(w || "") || ZAWGYI.test(w)) bad(f + ": card " + (i + 1) + " Word is not plain Myanmar script: " + w);
     if (seen.has(w)) bad(f + ": " + w + " is already taught in " + seen.get(w));
     seen.set(w, f);
@@ -62,7 +76,7 @@ for (const f of files) {
     if (sides.has(F.English)) bad(f + ": " + w + " shares its English side with " + sides.get(F.English));
     sides.set(F.English, w);
   });
-  console.log("ok    " + f + ": " + d.cards.length + " notes" + (abc ? "" : ", " +
+  console.log("ok    " + f + ": " + d.cards.length + " notes" + (abc || phr ? "" : ", " +
     d.cards.filter((c) => c.fields.Forms).length + " with forms, " +
     d.cards.filter((c) => c.fields.Examples).length + " with sentences"));
 }

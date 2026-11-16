@@ -7,7 +7,7 @@ on 2026-11-15: "Add a Burmese language collection." The owner was not asked: the
 answers to the same questions were taken — **they are the owner's to overturn**.
 
 **STATUS (2026-11-16): the collection is complete** — the alphabet deck, A1, A2, B1 and, asked for afterwards,
-B2 (`.claude/burmese/`, §6–§9).
+B2 and a phrases deck (`.claude/burmese/`, §6–§10).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck this plan produces. The collection's first commit carried a line and a bump because it also
@@ -34,6 +34,7 @@ changed the APP (the shelf's hue in `app.js`) — the Hebrew, Zulu and Amharic p
 | Burmese A2 Elementary — built | `Burmese-A2.folio-deck.json` | 750 |
 | Burmese B1 Intermediate — built | `Burmese-B1.folio-deck.json` | 1,000 |
 | Burmese B2 Upper Intermediate — built, asked for 2026-11-16 | `Burmese-B2.folio-deck.json` | 1,500 |
+| Burmese Phrases and Expressions — built, asked for 2026-11-16 | `Burmese-Phrases-and-Expressions.folio-deck.json` | 373 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
 
@@ -104,7 +105,7 @@ first glosses keep Wiktionary's wording (မျက်လုံး "eyeball").
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet deck, A1. **Phase 2 (done)** — A2, then B1, then B2 (asked for afterwards): write the
+**Phase 1 (done)** — the pipeline, the alphabet deck, A1. **Phase 3 (done)** — a phrases deck, asked for on 2026-11-16 (§10). **Phase 2 (done)** — A2, then B1, then B2 (asked for afterwards): write the
 level's inventory into `inventory.py` and its topics into `burmese_level.SCOPE`, run, read every card, extend
 `EXCLUDE`, `ONLY` and `LEAD`. A level from A2 on may teach the literary particles A1 leaves out.
 
@@ -201,3 +202,33 @@ rebuild byte-identical alongside (verified).
   anatomical words (the Amharic precedent).
 - **The description** says the literary particles were taught at B1 and that this level's list is the
   one-syllable words (A1's, A2's and B1's descriptions are unchanged).
+
+## 10. As built (2026-11-16): the phrases deck
+
+On request ("Add a phrases deck"). `python3 .claude/burmese/phrases.py`: 373 notes in three subdecks, the Amharic
+arrangement with a third subdeck, because English Wiktionary has about forty Burmese proverbs. A re-run is
+byte-identical. Not a CEFR level; nothing a level deck teaches is repeated (compared as spelt: မင်္ဂလာပါ,
+ရပါတယ်, ဆောရီး, တာ့တာ … are A1's and are left out).
+- **Phrases (37)**: every phrase and interjection Wiktionary has that the levels do not teach, in a hand order
+  (`PHRASES`: greetings first — စားပြီးပြီလား "have you eaten?", the everyday hello — then the phrasebook, the
+  wishes, the exclamations), with Wiktionary's gloss (two senses at most), its IPA and its register. Where two
+  share an English meaning, `LABEL` says what Wiktionary says of each: plain or polite (မသိဘူး / မသိပါဘူး),
+  said by a man or a woman (ကျွန်တော် / ကျွန်မ မြန်မာပါ), familiar or formal (the four "are you married?").
+  ကိစ္စမရှိဘူး, defined only as an alternative form, takes its polite form's gloss. A new Wiktionary entry stops
+  the script until it is placed. **Left out** (`LEFT_OUT`): ကျေးဇူးပြု၍ (no gloss), ဗိုက်ဆာတယ် (Wiktionary glosses
+  it "I'm thirsty", ရေငတ်တယ်'s gloss — it means "I'm hungry"), a vulgar interjection, an abbreviation of a vulgar
+  insult, derogatory internet slang, and နိုင်းကျော်တယ် (no reading).
+- **Proverbs (28)**: Wiktionary's, in its order, with its explanation and literal meaning. Left out
+  (`PROVERBS_LEFT_OUT`): မိုးရွာတုန်း ရေခံ (its gloss is လသာတုန်း ဗိုင်းငင်'s, "make hay while the sun shines") and
+  the three that turn on ကုလား (B1's exclusion). A proverb's IPA can carry the Burmese comma ၊ between its halves;
+  the reading takes a Latin comma (`check-burmese.js` fails on Myanmar script in a reading).
+- **Sentences (308)**: Tatoeba's Burmese sentences of at most fifteen syllables (of 502 with an English
+  translation, 434 are that short), as written, each with its Tatoeba number; no reading. Where several share
+  one English sentence and differ by their first-person pronoun, the card says who is speaking (`SPEAKER`:
+  ကျွန်တော် / ကျနော် a man, ကျွန်မ / ကျမ a woman, ငါ familiar); otherwise the shorter is kept. **`DROP` names 42**,
+  each read off the list with its reason: seventeen mistyped (ကျွန်တောတို့, ကျောင်သား, ကျေးဇူးပြပြီး, ပြော့ for
+  ပျော့ …), eleven mistranslated (နက်ဖြန် "tomorrow" paired with "now" three times; ပြုံးမယ် "I will smile" with
+  "Smile."; "always" where the English asks "ever" …), one incomplete, a slang wording, a book title, the
+  ကုလား proverb, and the curses, "Shoot!", "Attack!" and the sentences about dying, which are not everyday.
+- **`check-burmese.js`** checks the deck's three subdecks, Myanmar script on every front, a reading on every
+  phrase and proverb, a Tatoeba number on every sentence and unique English sides.

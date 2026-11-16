@@ -3756,7 +3756,9 @@ changed was the one that had been wrong all along.
   glosses resolved from A2 on — `docs/burmese-decks-plan.md` §7), **B1, `decks/Burmese-B1.folio-deck.json`**
   (1,000 notes, 2026-11-16: it opens with the literary particles A1 and A2 leave out — §8), and **B2,
   `decks/Burmese-B2.folio-deck.json`** (1,500 notes, asked for afterwards: its own list is the everyday
-  one-syllable words the fill cannot take — §9).
+  one-syllable words the fill cannot take — §9). **The phrases deck,
+  `decks/Burmese-Phrases-and-Expressions.folio-deck.json`** (373 notes, `python3 .claude/burmese/phrases.py`: 37
+  Wiktionary phrases and interjections, 28 proverbs, 308 Tatoeba sentences labelled by who is speaking — §10).
   `python3 .claude/burmese/run.py [--level a1|a2|b1|b2]`, `python3 .claude/burmese/alphabet.py`,
   `node .claude/burmese/check-burmese.js`; a re-run is byte-identical. About 7,600 Wiktionary lemmas and 590
   Tatoeba sentences, no subtitle list, so the frequency is the Burmese Wikipedia's (115,477 articles), cut into
