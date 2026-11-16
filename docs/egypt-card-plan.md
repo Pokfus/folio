@@ -174,6 +174,33 @@ Two answer terms collided before import and were moved: Gempaaten (`eg-310`, key
 `Temple_of_Amenhotep_IV`) stays, so `eg-312` took Meryre, the high priest of the Aten; and the Wilbour
 Papyrus is `eg-810`'s, so `eg-374` took the Mayer Papyri.
 
+**`eg-401`–`eg-500` (written together, in ten parallel batches) retitled 64 lines** (eight more changed
+only an article, a capital or a dynasty written as a numeral), and the list below shows the term each
+card answers. The same kinds again:
+
+- **Already taken**: the Valley of the Kings (`wh-227`) → Meretseger, the goddess of the peak above it;
+  the Third Intermediate Period (`wh-230`) → Ramesses XI, whose death opens it; the Kingdom of Kush
+  (`wh-416`) → El-Kurru, its royal cemetery; Nubia (`wh-229`) → the Nubians; the God's Wife of Amun
+  (`eg-291`) → Nitocris I at `eg-438` and Shepenupet I at `eg-460`; Medinet Habu (`eg-365`) → the migdol
+  its gate copies; Kerma culture (`eg-242`) → Kerma, the city; the Book of the Dead (`eg-764`) → the
+  Greenfield Papyrus; Libu (`eg-367`) → Osorkon the Elder.
+- **The line named an area**: `eg-402`, `eg-405`, `eg-406`, `eg-409`, `eg-412`, `eg-415`, `eg-417`,
+  `eg-418`, `eg-420`–`eg-427`, `eg-429`, `eg-431`–`eg-433`, `eg-435`–`eg-437`, `eg-439`, `eg-440`,
+  `eg-445`, `eg-448`, `eg-450`, `eg-454`, `eg-457`, `eg-459`, `eg-461`, `eg-462`, `eg-464`–`eg-470`,
+  `eg-471`, `eg-475`, `eg-479`, `eg-481`, `eg-482`, `eg-486`, `eg-490`, `eg-495`, `eg-496`,
+  `eg-498`–`eg-500`. The Levantine campaign of Shoshenq I has no term of its own (Wikipedia folds it into
+  Shishak), so `eg-454` teaches it through Rehoboam, in whose fifth year the Bible dates it.
+- **Two subjects on one line**: the 23rd and 24th Dynasties → the 23rd (the 24th through Tefnakht,
+  `eg-459`, and Bakenranef, `eg-490`); Lower and Upper Nubia → Lower Nubia; Alara and Kashta → Kashta.
+- **Wikipedia's head word differs**: the tombs of Rekhmire and Nakht key as `TT100` and `TT52`, KV35 as
+  `Tomb_of_Amenhotep_II`, the Royal Cache keeps TT320 and DB320 as aliases; Djeme and the
+  Autobiography of Ineni have no article of their own and show no Learn-more tile.
+
+`eg-474` took the general term archaism, so `eg-524 Saite art and archaism` needs a narrower answer.
+Three answer terms collided between batches before import and were moved: Tefnakht stays at `eg-459`,
+so `eg-475` took Nimlot of Hermopolis; Kawa stays at `eg-486`, so `eg-495` took the Shrine of Taharqa;
+Rehoboam stays at `eg-454`, so `eg-467` took Hoshea.
+
 ## Making the collection
 
 Four things had to be decided because nothing existed to inherit them from.
@@ -901,113 +928,113 @@ safe.
     eg-399  Opet Festival
     eg-400  Avenue of Sphinxes
     eg-401  Precinct of Mut
-    eg-402  Montu and the Theban gods
+    eg-402  Montu
     eg-403  Theban Necropolis
-    eg-404  Valley of the Kings
-    eg-405  The design of an Egyptian royal tomb
-    eg-406  The decoration of the royal tombs
+    eg-404  Meretseger
+    eg-405  KV2
+    eg-406  KV57
     eg-407  Amduat
     eg-408  Book of Gates
-    eg-409  The later netherworld books
-    eg-410  KV20 and the earliest royal tombs
+    eg-409  Book of Caverns
+    eg-410  KV20
     eg-411  Valley of the Queens
-    eg-412  The mortuary temples of western Thebes
-    eg-413  The mortuary temple of Amenhotep III
+    eg-412  Mortuary temple
+    eg-413  Mortuary Temple of Amenhotep III
     eg-414  Deir el-Bahari
-    eg-415  Tombs of the Nobles
-    eg-416  The tomb of Rekhmire
-    eg-417  Theban tomb painting
-    eg-418  Theban tomb autobiographies
+    eg-415  Sheikh Abd el-Qurna
+    eg-416  Tomb of Rekhmire
+    eg-417  Tomb of Nakht
+    eg-418  Autobiography of Ineni
     eg-419  Deir el-Medina
-    eg-420  The workmen of Deir el-Medina
-    eg-421  The village of Deir el-Medina
-    eg-422  The Deir el-Medina ostraca
-    eg-423  Daily life at Deir el-Medina
-    eg-424  Women at Deir el-Medina
-    eg-425  Justice and the oracle at Deir el-Medina
-    eg-426  The tools and methods of the tomb builders
-    eg-427  Egyptian quarrying and stone transport
+    eg-420  Servant in the Place of Truth
+    eg-421  Sennedjem
+    eg-422  Medical Ostraca of Deir el-Medina
+    eg-423  Tomb of Kha and Merit
+    eg-424  Naunakhte
+    eg-425  Papyrus Salt 124
+    eg-426  plumb bob
+    eg-427  Gebel el-Silsila
     eg-428  Unfinished obelisk
-    eg-429  Egyptian ramps, levelling and lifting
-    eg-430  The Deir el-Bahari royal cache
-    eg-431  The reburial of the royal mummies
-    eg-432  The royal mummies as evidence
-    eg-433  The Theban festivals of the dead
+    eg-429  seked
+    eg-430  Royal Cache
+    eg-431  KV35
+    eg-432  Pentawer
+    eg-433  Sokar
     eg-434  Beautiful Festival of the Valley
-    eg-435  Medinet Habu as a fortified enclosure
-    eg-436  Western Thebes as a town
-    eg-437  Thebes after the New Kingdom
-    eg-438  The God's Wives of Amun at Thebes
-    eg-439  Thebes under the Ptolemies and Romans
-    eg-440  Why so much of Egypt's record comes from Thebes
+    eg-435  Migdol
+    eg-436  Djeme
+    eg-437  Mentuemhat
+    eg-438  Nitocris I
+    eg-439  Thebaid
+    eg-440  El Qurn
 
 ## The Later Periods
 
 ### The Third Intermediate Period — `eg-third-intermediate`
 
-    eg-441  Third Intermediate Period of Egypt
-    eg-442  Twenty-first Dynasty of Egypt
+    eg-441  Ramesses XI
+    eg-442  21st Dynasty of Egypt
     eg-443  Tanis
     eg-444  Smendes
-    eg-445  The divided rule of Tanis and Thebes
+    eg-445  El Hiba
     eg-446  Pinedjem I
     eg-447  Psusennes I
-    eg-448  The royal tombs of Tanis
-    eg-449  The silver coffin of Psusennes I
-    eg-450  The Libyan settlement in Egypt
+    eg-448  Amenemope
+    eg-449  silver coffin of Psusennes I
+    eg-450  Osorkon the Elder
     eg-451  Meshwesh
-    eg-452  Twenty-second Dynasty of Egypt
+    eg-452  22nd Dynasty of Egypt
     eg-453  Shoshenq I
-    eg-454  The Levantine campaign of Shoshenq I
+    eg-454  Rehoboam
     eg-455  Bubastite Portal
     eg-456  Osorkon II
-    eg-457  The fragmentation of the Twenty-second Dynasty
-    eg-458  The Twenty-third and Twenty-fourth Dynasties
-    eg-459  The Egyptian principalities of the eighth century
-    eg-460  Thebes under the God's Wives
-    eg-461  The Theban priestly state
-    eg-462  Third Intermediate Period burial practice
+    eg-457  Takelot II
+    eg-458  23rd Dynasty of Egypt
+    eg-459  Tefnakht
+    eg-460  Shepenupet I
+    eg-461  High Priest of Amun
+    eg-462  Sons of Horus
     eg-463  Bab el-Gasus
-    eg-464  Third Intermediate Period coffins
-    eg-465  The Book of the Dead in the Third Intermediate Period
-    eg-466  Egyptian bronze statuary
-    eg-467  Egypt, Israel and Judah
-    eg-468  Egypt and Phoenicia
-    eg-469  Egypt and Assyria before the invasions
-    eg-470  The Egyptian oracle and the decline of royal authority
-    eg-471  Animal cults in the Third Intermediate Period
+    eg-464  Cartonnage
+    eg-465  Greenfield Papyrus
+    eg-466  Statue of Karomama
+    eg-467  Hoshea
+    eg-468  Osorkon Bust
+    eg-469  Battle of Qarqar
+    eg-470  Banishment Stela
+    eg-471  Bubastis
     eg-472  Serapeum of Saqqara
     eg-473  Apis
-    eg-474  Egyptian archaism
-    eg-475  Egypt on the eve of the Kushite conquest
+    eg-474  archaism
+    eg-475  Nimlot of Hermopolis
 
 ### Kush and the Twenty-fifth Dynasty — `eg-kush`
 
-    eg-476  Nubia
-    eg-477  Lower and Upper Nubia
+    eg-476  Nubians
+    eg-477  Lower Nubia
     eg-478  A-Group culture
-    eg-479  Egypt and Nubia through the pharaonic period
-    eg-480  Kerma as the first Kushite state
-    eg-481  Egyptian colonial Nubia in the New Kingdom
-    eg-482  The Egyptianisation of Nubia
-    eg-483  Kingdom of Kush
+    eg-479  Ta-Seti
+    eg-480  Kerma
+    eg-481  Amara West
+    eg-482  Heqanefer
+    eg-483  El-Kurru
     eg-484  Napata
     eg-485  Jebel Barkal
-    eg-486  The Kushite cult of Amun
-    eg-487  Alara and Kashta
+    eg-486  Kawa
+    eg-487  Kashta
     eg-488  Piye
-    eg-489  The Victory Stele of Piye
-    eg-490  The Kushite conquest of Egypt
-    eg-491  Twenty-fifth Dynasty of Egypt
+    eg-489  Victory Stele of Piye
+    eg-490  Bakenranef
+    eg-491  25th Dynasty of Egypt
     eg-492  Shabaka
     eg-493  Shabaka Stone
     eg-494  Taharqa
-    eg-495  The building programme of the Kushite kings
-    eg-496  Kushite royal ideology
+    eg-495  Shrine of Taharqa
+    eg-496  Abar
     eg-497  Nubian pyramids
-    eg-498  Kushite art and the return to Old Kingdom models
-    eg-499  Kush, Egypt and Assyria
-    eg-500  The Assyrian invasions of Egypt
+    eg-498  Sphinx of Taharqo
+    eg-499  Eltekeh
+    eg-500  Esarhaddon
     eg-501  The sack of Thebes in 663 BCE
     eg-502  Tantamani and the Kushite withdrawal
     eg-503  Meroë

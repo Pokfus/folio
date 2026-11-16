@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1331", released: "2026-11-16T02:25Z" };
+window.FOLIO_VERSION = { v: "1.1332", released: "2026-11-16T03:19Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-16",
-    t: "The Quran, Leviathan, new language decks and a shorter Account page",
+    t: "The Quran, Leviathan, language decks and 100 Ancient Egypt cards",
     items: [
       "<b>The Quran</b> is in the Library, in Marmaduke Pickthall's 1930 English translation, one sûrah to a tab with every verse numbered.",
       "New in the Library: Thomas Hobbes's <b>Leviathan</b> (1651), the whole first edition with his own margin notes.",
@@ -57,6 +57,7 @@ window.CHANGELOG = [
       "Spanish gains a <b>Sounds and spelling</b> deck, and <b>DELE A1</b> now opens with hola, gracias and por favor, in a teaching order.",
       "The <b>By frequency</b> review order is gone: it only re-sorted cards already dealt, and language decks ship in a teaching order instead.",
       "<b>Hungarian</b> has a colour of its own on the Collections page; it had been sharing Vietnamese's.",
+      "100 new cards in <b>Ancient Egypt</b>, from Thebes and the royal tombs through the Third Intermediate Period to Kush and the Assyrian invasions, with 95 new glossary terms.",
     ],
   },
   {
