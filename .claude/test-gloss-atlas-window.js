@@ -9,7 +9,7 @@
      1  the table: in step; no window for a term tagged an event, a person or a thing (unless it is one of the input file's own pins); a year only on an entity; the pin's ids resolve and never name a polity;
         Rome's greatest extent is 117 (Trajan: the data's own answer, pinned so a drift in the arithmetic is seen).
      2  a COUNTRY (Tanzania, on wh-016): engine "v2", the four buttons (each one works, none closes the popup), the highlight is adm0:tza, the name is drawn, the wheel raises the zoom, a drag moves the view; the pin is still in the bar; placesSeen stays empty.
-     3  a POINT (Olduvai Gorge): the gold square and its name, no highlight, no "Discovered!" chip; a term with no window (Louis Leakey, a person) shows no block.
+     3  a POINT (Olduvai Gorge): the gold circle and its name (the square is a present-day capital's alone — Athens, on gr-805), no highlight, no "Discovered!" chip; a term with no window (Louis Leakey, a person) shows no block.
      4  a STATE (the Byzantine Empire, on wh-498): the spec's year is the table's (561), the whole history lands (settled), the highlight is pol:byzantium drawn `exact`, other states neutral, and the selection gold is on the
         pixels; a PEOPLE (the Yangshao culture, on cnh-046): peoples "all" with peopleOnly pol:yangshao at −4000.
      5  the PHONE (390 × 844): a drag on the map pans the map and does not move the sheet (--gs-dy unchanged); a drag on the title still does.
@@ -135,13 +135,23 @@ async function goldShare(page, key) {
     const { page, errors } = await openPopup(ctx, "wh-016", "Olduvai_Gorge");
     const s = await hostState(page, "Olduvai_Gorge");
     check("Olduvai Gorge: a window with its buttons, no highlight", s.host && s.engine === "v2" && s.buttons === "in,out,home,relief" && s.probe && s.probe.hl.length === 0, s.engine);
-    check("the gold square and its name, nothing else", s.boxes && s.boxes.marks.length === 1 && s.boxes.names.length === 1 && s.boxes.names[0].text === "Olduvai Gorge", JSON.stringify(s.boxes && { m: s.boxes.marks.length, n: s.boxes.names.map((n) => n.text) }));
+    check("the gold mark and its name, nothing else", s.boxes && s.boxes.marks.length === 1 && s.boxes.names.length === 1 && s.boxes.names[0].text === "Olduvai Gorge", JSON.stringify(s.boxes && { m: s.boxes.marks.length, n: s.boxes.names.map((n) => n.text) }));
+    // the square is a present-day national capital's alone (2026-11-16, on request): a site is the circle
+    check("…the circle, not the square (a site is no capital)", s.boxes && s.boxes.marks.length === 1 && s.boxes.marks[0].kind === "dot", JSON.stringify(s.boxes && s.boxes.marks.map((m) => m.kind)));
     check("no \"Discovered!\" chip", !s.chip);
     await page.click(SEL("Olduvai_Gorge") + " .gloss-close"); await sleep(300);
     await page.click(`[data-k="Louis_Leakey"]`); await page.waitForSelector(SEL("Louis_Leakey"), { timeout: 30000 }); await sleep(600);
     const t = await page.evaluate(() => { const w = document.querySelector('.gloss-win[data-k="Louis_Leakey"]'), slot = w && w.querySelector(".gloss-atlas"); return { hidden: slot ? slot.hidden : null, empty: slot ? !slot.firstChild : null, win: !!(GPw => true) }; });
     check("Louis Leakey (a person): no window block", t.hidden === true && t.empty === true, JSON.stringify(t));
     check("…and the table has no window for him", !GP.windows.Louis_Leakey);
+    allErrors.push(...errors); await ctx.close();
+  }
+  {
+    // a present-day national capital (Athens, on gr-805): the gold square (2026-11-16, on request)
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    const { page, errors } = await openPopup(ctx, "gr-805", "Athens");
+    const s = await hostState(page, "Athens");
+    check("Athens (a capital): the gold square and its name", s.boxes && s.boxes.marks.length === 1 && s.boxes.marks[0].kind === "square" && s.boxes.names.some((n) => n.text === "Athens"), JSON.stringify(s.boxes && { m: s.boxes.marks.map((m) => m.kind), n: s.boxes.names.map((n) => n.text) }));
     allErrors.push(...errors); await ctx.close();
   }
 
