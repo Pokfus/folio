@@ -4010,6 +4010,20 @@ changed was the one that had been wrong all along.
   phrases, 72 Tatoeba sentences romanised word by word from Wiktionary's IPA, 2 proverbs); `python3 .claude/lao/phrases.py`.
   📖 `docs/lao-decks-plan.md`. The `LANGS` row is 3.7 million L1, 4.5 in all
   (Ethnologue 27th ed., via Wikipedia's infobox); the hue is measured, `#426A43`.
+- `.claude/serbian/` — the generator behind the Serbian decks (Nov 2026, on request: "Add a Serbian language
+  collection"; the Ukrainian answers taken, the owner not asked). **Built: the alphabet,
+  `decks/Serbian-Alphabet.folio-deck.json`** (36 notes: the 30 Cyrillic letters with their Latin twins, the four
+  accent marks and the length mark, the syllabic r, from Wikipedia's "Serbian Cyrillic alphabet" and "Serbo-Croatian
+  phonology" at pinned revisions) **and A1, `decks/Serbian-A1.folio-deck.json`** (500 notes / 1,000 cards: 364 from a
+  hand-written topic inventory, 136 by frequency). `python3 .claude/serbian/run.py [--level a1]`,
+  `python3 .claude/serbian/alphabet.py`, `node .claude/serbian/check-serbian.js`; a re-run is byte-identical.
+  Ukrainian's pipeline re-keyed to English Wiktionary's Serbo-Croatian. **What is new**: the card leads with Cyrillic
+  and prints the Latin beneath the headword and every sentence (everything is compared in Latin, `sr.fold`); the
+  headword carries Wiktionary's tonal accent (`ку̏ћа`), stripped BY NAME so ć keeps its acute; Ekavian only — a sense
+  tagged with countries none of which is Serbia, or dialect, is weak, and an Ijekavian lemma's count goes to its
+  Ekavian partner; the present tense's persons are untagged and read in table order. 📖 `docs/serbian-decks-plan.md`.
+  The `LANGS` row is 8.2 million (Ethnologue 28th ed., via Wikipedia's infobox, no L2 figure); the hue is measured,
+  `#1C4C0E`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/

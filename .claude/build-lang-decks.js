@@ -69,7 +69,7 @@ const OUT = path.join(ROOT, "lang-decks.js");
    Persian is Farsi + Dari + Tajik (Ethnologue 28th ed., 127, infobox), Polish and Ukrainian are their infobox
    totals (43 and 39), and Romanian and Greek, whose infoboxes give no second-language figure, are their L1
    (22, 13.5). Tagalog is the 2026 table's 87; Dutch, Zulu and Swedish are their infobox totals (30, 28, 13), Irish the census figures in its row (2.1);
-   Hungarian, Danish, Finnish, Norwegian and Icelandic, with no second-language figure, are their L1 (12, 5.5, 5, 4.3, 0.39). Hebrew is its infobox total (9, Ethnologue 2018). Latin and Old English stay 0. `l1` is kept beside it, and a language
+   Hungarian, Serbian, Danish, Finnish, Norwegian and Icelandic, with no second-language figure, are their L1 (12, 8.2, 5.5, 5, 4.3, 0.39). Hebrew is its infobox total (9, Ethnologue 2018). Latin and Old English stay 0. `l1` is kept beside it, and a language
    added with no `total` falls back to its `l1` (and is reported) rather than sorting as NaN. */
 const LANGS = [
   { word: "Mandarin", name: "Mandarin Chinese", l1: 941, total: 1183 },
@@ -113,6 +113,7 @@ const LANGS = [
   { word: "Zulu", name: "Zulu", l1: 12, total: 28 },            // Wikipedia's infobox (Ethnologue), 12.1 million, read 2026-11-09
   { word: "Hungarian", name: "Hungarian", l1: 12, total: 12 },    // Wikipedia's infobox (12 million, 2021–2023), read 2026-11-09
   { word: "Swedish", name: "Swedish", l1: 9.9, total: 13 },      // Ethnologue 25th ed. (2012–2021 figures), via Wikipedia's infobox, read 2026-11-09
+  { word: "Serbian", name: "Serbian", l1: 8.2, total: 8.2 },      // Wikipedia's infobox (8.2 million, Ethnologue 28th ed., 2022–23), read 2026-11-16; no second-language figure
   { word: "Danish", name: "Danish", l1: 5.5, total: 5.5 },        // Wikipedia's infobox (5.52 million, Ethnologue 18th ed., 2012), read 2026-11-15; no second-language figure
   { word: "Hebrew", name: "Hebrew", l1: 5, total: 9 },         // Wikipedia's infobox (Ethnologue 2018: 9 million speakers of Modern Hebrew, 5 million native), read 2026-11-12
   { word: "Swahili", name: "Swahili", l1: 5, total: 95 },       // Wikipedia's infobox, 5.3 million L1 (Ethnologue 27th ed.; 92 million L2), read 2026-11-09
