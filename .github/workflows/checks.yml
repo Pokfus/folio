@@ -334,6 +334,15 @@ jobs:
       - name: build-italian-sounds --check (the Italian sounds deck is what its table and CILS A1 give)
         if: ${{ !cancelled() }}
         run: node .claude/decks/build-italian-sounds.js --check
+      # The German decks (2026-11-16, the German beginner pass): german-fixes.json (the cards Goethe A1 gains, the
+      # duplicates A2 and B1 lose, the order, the pinned ids, the counts a description states) over the seven
+      # decks of card type `goethe`, Goethe A2 among them. Both read only the repository.
+      - name: german-fix --check (the German decks carry their record, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/german-fix.js --check
+      - name: build-german-sounds --check (the German sounds deck is what its table and Goethe A1 give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/build-german-sounds.js --check
       # The Portuguese decks (2026-11-16, the Portuguese beginner pass): portuguese-fixes.json (the cards CAPLE A1
       # gains, the repaired meanings, the order, the pinned ids, the counts a description states), applied after
       # the shared paradigm-fixes.json.

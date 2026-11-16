@@ -35,13 +35,15 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1345", released: "2026-11-16T13:44Z" };
+window.FOLIO_VERSION = { v: "1.1347", released: "2026-11-16T13:57Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-16",
     t: "The Quran, Leviathan, Kant, language decks and 100 Ancient Egypt cards",
     items: [
+      "The home page's <b>Suggested reading</b> and <b>Continue reading</b> box no longer switches by itself; swipe or use the arrow keys to turn it.",
+      "Daily quote captions link the right glossary terms (Plato's <i>Republic</i> no longer opens the generic one), and Westeros lines credit <b>George R. R. Martin</b> and their book.",
       "<b>The Quran</b> is in the Library, in Marmaduke Pickthall's 1930 English translation, one sûrah to a tab with every verse numbered.",
       "New in the Library: Thomas Hobbes's <b>Leviathan</b> (1651), the whole first edition with his own margin notes.",
       "New in the Library: Jean-Jacques Rousseau's <b>The Social Contract</b> (1762) in G. D. H. Cole's translation, with the French of the first edition beside it.",
@@ -74,6 +76,7 @@ window.CHANGELOG = [
       "In a glossary popup's map, only a <b>present-day national capital</b> is marked with a square; every other place is a circle.",
       "On a phone, a drag anywhere on an <b>artefact</b>'s window, its picture included, now scrolls the window instead of the page behind it.",
       "On the Collections page, a <b>language deck</b> shows its title and one-line description, without the card count or example share.",
+      "German gains <b>Goethe A2</b> (689 words) and a <b>Sounds and spelling</b> deck, and <b>Goethe A1</b> now opens with hallo, danke and bitte, with numbers, days and months together.",
     ],
   },
   {
