@@ -12,7 +12,23 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently sixty-four:
+  matter (chapter 0 — see the Library bullet). Currently sixty-five:
+  `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
+  Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
+  **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on
+  Wikisource from the Internet Archive scan). English original, so no translator and no limit to state.
+  **`prep: "leviathan"`** (`leviathanPrep` on the raw page, `liftSidenotes` after `cleanBody`): the transcription's
+  italic is `{{italic}}` → `<span class="wst-italic-body">`, which the extractor would have dropped to roman
+  everywhere, so it is rewritten to `<i>`; the **878 marginal notes** (`wst-sidenote`, set mid-line where the
+  printed note stood) are fenced with private-use characters and lifted to a `bk-head` line above their paragraph,
+  never splitting it (fenced = lifted is printed on every run); the drop capitals (image alt or span) are rejoined
+  to their word in ordinary case, as are eight all-capitals opening words ("BY Consequence"); the chapter head — a
+  Part title, a decorative band, rules, "CHAP. XIII." and the title — is cut and the TITLE READ OFF IT. One
+  `fixes` row repairs a `{sc|Despoticall}}` template typed a brace short (chapter XX). Chapter IX's chart of the
+  sciences arrives as one list of ▶ lines (`lineBlocks`), its tree flattened — the transcription's own rendering;
+  the Introduction's four-part plan is the other lineated block. Colour `#263700` (15.2: the band is full).
+  `glossOff`: 48 keys, swept over all 49 sections — see the comment on the app.js entry. Not included: the
+  dedication to Francis Godolphin, the contents and the engraved title page (said in the front matter).
   `luther-ninety-five-theses` (~33 KB, **2 chapters** — the covering letter to Albrecht of Mainz and the Disputation
   itself, in the 1915 volume's order — **48 notes**, no original; Charles M. Jacobs's translation in *Works of Martin
   Luther* I, A. J. Holman, Philadelphia, 1915, proofread on Wikisource). **The first book cut out of ONE wiki page at

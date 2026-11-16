@@ -2727,3 +2727,22 @@ count — 80 books in the 1611 order, Apocrypha between the Testaments). Source:
 
 Re-run after touching: `node .claude/fetch-book.js king-james-bible` (reads the cache; `--force` refetches the
 zip), then `node .claude/test-library.js`.
+
+## `prep: "leviathan"` — a printer's page read off its own markup (Nov 2026, Leviathan)
+
+`leviathanPrep(h, warn)` runs on the RAW page (right after `between`, before `notesOf` and `cleanBody`) and
+returns `{ h, t, side }`; `liftSidenotes(html, warn)` runs on what `cleanBody` returns. Four things the 1651
+transcription does that the generic passes get silently wrong: **italic as a class** (`wst-italic-body`, styled by
+a stylesheet the extractor discards — every italic word would ship roman, nothing throws); **marginal notes
+inline** (`wst-sidenote`, at the printed LINE, mid-sentence — fenced with U+E000/U+E001, which survive
+`cleanBody` as text, then lifted to `<p class="bk-head">` above the paragraph, which is never split; a fenced note
+outside any paragraph becomes its own line and is warned; the run prints "N fenced, N lifted" and MISMATCH if
+they differ); **drop capitals** as an image (`alt`) or span, followed by "Ature" or `wst-uppercase` + smallcaps —
+rejoined in ordinary case; and **the chapter head** as a run of centred blocks, cut, with the title read off the
+"CHAP." block (returned as `tFromText`, so a `titles[n]` would still win). An all-capitals first word of a
+chapter's first prose paragraph is set in ordinary case after the lift, each one warned. Every rewrite uses
+`blockEnd` for balanced spans. Gated on `prep === "leviathan"`, so inert on every other book.
+
+Re-run after touching: `node .claude/fetch-book.js hobbes-leviathan --force` (49 pages; Wikisource throttles
+hard — expect a page a minute), check "878 marginal note(s) fenced, 878 lifted" and the eight opening-word
+warnings, then `node .claude/book-audit.js`.

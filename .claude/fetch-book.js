@@ -19379,6 +19379,102 @@ const BOOKS = {
        a failed extraction yields nothing at all. */
     minChars: 150,
   },
+  "hobbes-leviathan": {
+    title: "Leviathan",
+    subtitle: "Or the Matter, Forme, & Power of a Common-wealth Ecclesiasticall and Civill",
+    author: "Thomas Hobbes",
+    /* NO `translator`: written in English, as the Declaration and Macbeth were, so the run header names
+       the printing. */
+    edition: "The first edition (the 'Head' issue), printed for Andrew Crooke, London, 1651",
+    written: "1651",
+    year: 1651,
+    /* ---------- THE LICENCE, and it needs no qualification at all ----------
+       Hobbes died in 1679 and the book was printed in 1651, so there has never been a copyright in it
+       anywhere that copyright has existed. The transcription is Wikisource's, of the Internet Archive's
+       scan of a copy of the first issue, proofread page by page (every page fetched carries
+       `data-page-quality="3"`, Proofread). There is no translator and no editor's apparatus to clear: the
+       pages carry no footnotes at all, and the marginal notes are Hobbes's own. */
+    rights:
+      "Public domain worldwide. Thomas Hobbes published Leviathan in London in 1651 and died in 1679, " +
+      "so the book has never been in copyright anywhere. The text is the proofread Wikisource " +
+      "transcription of the first edition, from a scan of a copy held by the Internet Archive.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Leviathan_(1651)",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Every fact
+       in it was checked rather than recalled; where the record is a matter of attribution (the
+       frontispiece) it says "usually". */
+    about: [
+      "<b>Leviathan</b> is an argument about why people should obey a government, and how much. Thomas " +
+        "Hobbes begins with human nature — how we perceive, think, speak and want — and works up from it " +
+        "to the state. Without a power over them all, he says, people live in a condition of war, " +
+        "<i>of every man, against every man</i>, in which there is no industry, no knowledge, no society, " +
+        "and the life of man is <i>solitary, poore, nasty, brutish, and short</i>. To escape it they " +
+        "agree to hand their right of governing themselves to one person or assembly, the sovereign, " +
+        "whose power must then be undivided, and whom no subject may resist except to save his own life. " +
+        "That artificial person is the Leviathan of the title, the sea-monster of the Book of Job — " +
+        "<i>a Mortall God</i>, as Hobbes calls it.",
+      "The book has four parts. <i>Of Man</i> (chapters 1–16) is the psychology and the theory of " +
+        "language the rest is built on. <i>Of Common-wealth</i> (17–31) is the political argument " +
+        "proper: the covenant, the rights of sovereigns, the liberty of subjects, the laws. The second " +
+        "half of the book is often skipped and should not be: <i>Of a Christian Common-wealth</i> " +
+        "(32–43) reads the Bible to show that it gives no church a power over the sovereign, and " +
+        "<i>Of the Kingdome of Darknesse</i> (44–47) is an attack on the clergy, above all the papacy, " +
+        "for having claimed one.",
+      "Hobbes was born at Westport, beside Malmesbury in Wiltshire, in 1588, and spent most of his life " +
+        "in the service of the Cavendish family, the Earls of Devonshire. His first published book was a " +
+        "translation of Thucydides (1629). In 1640, as Parliament turned on the king's ministers, he " +
+        "left for Paris, where he wrote <i>De Cive</i> and for a time taught mathematics to the exiled " +
+        "Prince of Wales, the future Charles II. Leviathan was written there and printed in London in " +
+        "1651, two years after the execution of Charles I; at the end of that year Hobbes came home and " +
+        "made his peace with the new regime. He published a Latin version, revised, in 1668, and died " +
+        "at Hardwick Hall in Derbyshire in 1679, aged ninety-one.",
+      "The book made him notorious. Royalists read its account of when a subject may change allegiance " +
+        "as a defence of submitting to Cromwell, and churchmen of every party read its theology as " +
+        "atheism. In 1666 a committee of the House of Commons was empowered to look into it, among other " +
+        "books, for atheism and profaneness, and in 1683, four years after his death, the University of " +
+        "Oxford condemned propositions from it and had the condemned books burned. It has since become one of the founding works " +
+        "of modern political philosophy, read alike by those who share none of its conclusions.",
+      "The text here is the first edition, as it was printed in 1651 — the issue known as the 'Head' " +
+        "from the ornament on its title page; two later printings carry the same date. The spelling, " +
+        "capitals and italics are the printer's (<i>Common-wealth</i>, <i>Warre</i>, <i>Ioynts</i> for " +
+        "joints), and only the long s is shown as an ordinary s. The italic lines set above a paragraph " +
+        "are Hobbes's own marginal notes, printed in the outer margin beside the lines they summarise; " +
+        "they stand here above the paragraph they were printed beside. The book is given in its own " +
+        "order — the Introduction, the forty-seven chapters, and the closing Review and Conclusion — so " +
+        "a tab's number runs one ahead of Hobbes's chapter number, which opens each title. The " +
+        "dedication to Francis Godolphin, the contents table and the engraved title page are not " +
+        "included.",
+    ],
+
+    /* THE SECTION IS NOT THE CHAPTER, on purpose and as Don Quixote's tab is not its citation: the
+       book opens on Hobbes's own Introduction and closes on his Review and Conclusion, neither of which
+       has a chapter number, so `n` runs 1..49 and each title opens on the chapter's own Roman numeral
+       as the edition prints it ("XIII. Of the Naturall Condition of Mankind…"). The tab word is
+       "Section" rather than "Chapter" so that no tab claims to be a chapter it is not. */
+    chapterWord: "Section",
+    chapters: Array.from({ length: 49 }, (_, i) => i + 1),
+    page: (n) => "Leviathan (1651)/" + (n === 1 ? "Introduction" : n === 49 ? "A Review and Conclusion" : "Chapter " + (n - 1)),
+    // the title is read off each chapter's own head by leviathanPrep; this is only the fallback
+    titleOf: (n) => (n === 1 ? "The Introduction" : n === 49 ? "A Review, and Conclusion" : toRoman(n - 1) + "."),
+    // Hobbes's four Parts, with the Introduction before the first and the Review after the last
+    parts: [
+      { n: 1, label: "Part I · Of Man", from: 1, to: 17 },
+      { n: 2, label: "Part II · Of Common-wealth", from: 18, to: 32 },
+      { n: 3, label: "Part III · Of a Christian Common-wealth", from: 33, to: 44 },
+      { n: 4, label: "Part IV · Of the Kingdome of Darknesse", from: 45, to: 49 },
+    ],
+    /* The raw-page pass and the marginal notes — see leviathanPrep. No `sections`: the book has no
+       numbered divisions below the chapter. */
+    prep: "leviathan",
+    /* A template the transcription mistyped (one brace short), which reaches the reader as characters. */
+    fixes: [["{sc|Despoticall}}", "Despoticall", "chapter XX: a {{sc}} template typed one brace short; the word is its own argument, so this repairs markup, not a reading"]],
+    // the Introduction's four-part plan of the book is one indented block, an item to a line
+    lineBlocks: true,
+    /* The shortest section is chapter I, Of Sense, at 4,186 characters; a failed extraction returns
+       nothing. */
+    minChars: 3000,
+  },
 };
 
 /* ---------- args ---------- */
@@ -20271,6 +20367,9 @@ const MALORY_RUBRIC = [
 let MALORY = { chapters: 0, books: 0, rubrics: 0, odd: 0, notesOnHeads: 0 };
 /* How many notes `dropNotes` took, counted rather than assumed inert — see the block that sets it. */
 let DROPPED_NOTES = 0;
+/* The 1651 Leviathan's marginal notes, fenced on the raw page and lifted after cleanBody — the two counts
+   must agree, or a note was lost between them (see leviathanPrep). */
+let SIDENOTES = { fenced: 0, lifted: 0 };
 function markMaloryHeads(b, book, warn) {
   const expect = book.expect;
   const plain = (s) =>
@@ -22265,6 +22364,125 @@ function betweenAnchors(h, span) {
   const k = h.lastIndexOf("<p>", j);
   const refs = h.match(/<ol class="references">[\s\S]*?<\/ol>/);
   return h.slice(i, k > i ? k : j) + (refs ? "\n" + refs[0] : "");
+}
+
+/* ---------- THE 1651 LEVIATHAN: a printer's page read off its own markup (Nov 2026) ----------
+   `prep: "leviathan"`, run on the RAW page before the notes are gathered and before cleanBody, then
+   `liftSidenotes` on what cleanBody returns. Four things the 'Head' edition's transcription does that no
+   earlier book did, each of which the generic passes get silently wrong:
+   · ITS ITALIC IS A CLASS, NOT A TAG. Wikisource sets the edition's italic with {{italic}}, which renders
+     `<span class="wst-italic-body">` and leaves the styling to a stylesheet the extractor throws away —
+     so every italic word in the book (a few thousand: Hobbes italicises his defined terms, his Latin and
+     every proper name) would arrive in roman with nothing to say so. Rewritten to `<i>`.
+   · ITS MARGINAL NOTES ARE INLINE. Each is a `wst-sidenote` span standing at the LINE of the page it was
+     printed beside, which is usually mid-sentence ("in the faculties of body, and Men by nature Equall.
+     mind"). Fenced here with two private-use characters, which survive cleanBody as text, and lifted by
+     `liftSidenotes` to a `bk-head` line above the paragraph that holds it — the paragraph is never split,
+     since that would print a break Hobbes did not.
+   · ITS DROP CAPITALS ARE PICTURES OR SPANS, and the word after one is set in capitals: the image's alt
+     letter (or the span's text), then "Ature" or `wst-uppercase`"a" + smallcaps "ture". Joined into one
+     word in ordinary case — "Nature", "Concerning" — as every reading edition prints it.
+   · THE HEAD OF A CHAPTER IS A RUN OF CENTRED BLOCKS — a Part title over the chapters that open a Part, a
+     decorative band, rules, "CHAP. XIII." and the chapter's own title. All of it is cut (Folio prints the
+     title above the text), and the title is READ OFF it, never composed: it is returned for the tab. */
+function leviathanPrep(h, warn) {
+  let b = h;
+  // balanced span rewrite, innermost-last: each opener found is replaced together with its own closer
+  const eachSpan = (rx, fn) => {
+    for (let guard = 0; guard < 20000; guard++) {
+      rx.lastIndex = 0;
+      const m = rx.exec(b);
+      if (!m) return;
+      const end = blockEnd(b, m.index, "span");
+      if (end < 0) { warn("unbalanced span: " + m[0]); return; }
+      const inner = b.slice(m.index + m[0].length, end - "</span>".length);
+      b = b.slice(0, m.index) + fn(inner, m) + b.slice(end);
+    }
+  };
+  const textOf = (s) => s.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<[^>]*>/g, "").replace(/&#32;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+  // the marginal notes first, so the italic inside one is rewritten along with the rest
+  let side = 0;
+  eachSpan(/<span class="wst-sidenote(?:-inner)?\b[^"]*"[^>]*>/g, (inner, m) => {
+    if (/wst-sidenote-inner/.test(m[0])) return inner;
+    side++;
+    return "" + inner + "";
+  });
+  eachSpan(/<span class="wst-italic-body"[^>]*>/g, (inner) => "<i>" + inner + "</i>");
+  // the drop capital and the capitals after it
+  eachSpan(/<span class="dropinitial\b[^"]*"[^>]*>/g, (inner) => {
+    const alt = /<img[^>]*\balt="([A-Za-z])"/.exec(inner);
+    const letter = alt ? alt[1] : textOf(inner);
+    if (!/^[A-Z]$/.test(letter)) warn("drop capital not read: " + JSON.stringify(letter));
+    return "" + letter;
+  });
+  eachSpan(/<span class="wst-uppercase"[^>]*>/g, (inner) => inner);
+  b = b.replace(/([A-Z])((?:<[^>]*>)*)([A-Z])(?=[a-z])/g, (m, l, tags, c) => l + tags + c.toLowerCase())
+       .replace(//g, "");
+  // the head: everything in the transclusion before the first paragraph of prose
+  const i = b.indexOf('<div class="prp-pages-output"');
+  if (i < 0) throw new Error("no body");
+  const open = b.indexOf(">", i) + 1;
+  let k = open, title = "";
+  for (let guard = 0; guard < 40; guard++) {
+    const rest = b.slice(k);
+    const m = /^(?:\s+|<link[^>]*>|<style[\s\S]*?<\/style>|<hr[^>]*>|<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>|<figure[\s\S]*?<\/figure>)/.exec(rest);
+    if (m) { k += m[0].length; continue; }
+    if (/^<div class="wst-center/.test(rest)) {
+      const end = blockEnd(b, k, "div");
+      const t = textOf(b.slice(k, end));
+      if (/^CHAP\.|INTRODUCTION|REVIEW/i.test(t)) title = t;
+      k = end;
+      continue;
+    }
+    break;
+  }
+  b = b.slice(0, open) + b.slice(k);
+  title = title.replace(/^CHAP\.\s*([IVXLC]+)\.?\s*/, "$1. ").replace(/\s*\.$/, "");
+  if (/^THE INTRODUCTION/i.test(title)) title = "The Introduction";
+  if (/^A REVIEW/i.test(title)) title = "A Review, and Conclusion";
+  if (!title) warn("no chapter head found");
+  return { h: b, t: title, side };
+}
+
+/* The second half of the marginal notes: each fenced note becomes a `bk-head` line ABOVE the paragraph
+   it stood beside, in the order they were printed (Project Gutenberg's text of this edition sets them the
+   same way, as lines in the flow). bk-head is written after cleanBody, whose tag stripper drops every
+   attribute. A note left outside any paragraph is still set as its own line, and said. */
+function liftSidenotes(html, warn) {
+  const clean = (s) => {
+    s = s.replace(/\s+/g, " ").trim();
+    /* the margin is italic already, as bk-head is: a note set wholly in italic loses its tags, nested
+       ones included (chapter XXXIX's "Ecclesia properly what." arrives as <i>Ecclesia <i>properly what.</i></i>) */
+    if (/^<i>[\s\S]*<\/i>$/.test(s)) s = s.replace(/<\/?i>/g, "").trim();
+    return s;
+  };
+  let lifted = 0;
+  html = html.replace(/<p>([\s\S]*?)<\/p>/g, (m, body) => {
+    if (body.indexOf("") < 0) return m;
+    const heads = [];
+    body = body.replace(/\s*([\s\S]*?)\s*/g, (x, note, at, all) => {
+      const t = clean(note);
+      if (t) heads.push('<p class="bk-head">' + t + "</p>");
+      lifted++;
+      // keep one space where the note stood between two words, none at the edges of the paragraph
+      return at === 0 || at + x.length === all.length ? "" : " ";
+    });
+    return heads.join("\n") + "\n<p>" + body.trim() + "</p>";
+  });
+  html = html.replace(/([\s\S]*?)/g, (x, note) => {
+    warn("a marginal note outside a paragraph: " + clean(note).slice(0, 60));
+    lifted++;
+    return '<p class="bk-head">' + clean(note) + "</p>";
+  });
+  if (/[]/.test(html)) warn("an unmatched marginal-note fence survived");
+  /* A chapter with no drop capital opens on its first word in capitals ("BY Consequence"); it is set in
+     ordinary case like the drop-capital openings. Only the first word of the first paragraph of prose
+     (a lifted note is not one), only a word of two letters or more, and every change is reported. */
+  html = html.replace(/<p>((?:<[^>]*>)*)([A-Z])([A-Z]+)(?=[\s,;:])/, (m, pre, c, rest) => {
+    warn("opening word set in ordinary case: " + c + rest);
+    return "<p>" + pre + c + rest.toLowerCase();
+  });
+  return { html, lifted };
 }
 
 function notesOf(h) {
@@ -32460,6 +32678,10 @@ async function fetchEnglish() {
     /* ONE PAGE, SEVERAL PARTS (Nov 2026, the Ninety-five Theses): see `betweenAnchors`. */
     if (BOOK.between) h = betweenAnchors(h, BOOK.between(n));
     let html, notes, orig = "", tFromText = "";
+    if (BOOK.prep === "leviathan") {
+      const got = leviathanPrep(h, warn);
+      h = got.h; tFromText = got.t; SIDENOTES.fenced += got.side;
+    }
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
        the RAW page, before the notes are gathered and before cleanBody, because by the time cleanBody
@@ -32518,6 +32740,10 @@ async function fetchEnglish() {
       const multi = pageNames.length > 1;
       html = cleanBody(h, got.ids, BOOK, multi ? (m) => { if (!/^no section numbers found/.test(m)) warn(m); } : warn);
       if (keep) html = pruneNotes(html, keep);
+      if (BOOK.prep === "leviathan") {
+        const got = liftSidenotes(html, warn);
+        html = got.html; SIDENOTES.lifted += got.lifted;
+      }
       /* A PART CUT OUT OF A LONGER PAGE carries the page's WHOLE note list — the Theses' page numbers
          its notes 1–84 straight through the introduction and four documents — so only the notes this
          part's own markers open are kept, renumbered from 1 by pruneNotes. */
@@ -33099,6 +33325,9 @@ function writeEnglish(chapters, warnings) {
       " carrying Caxton's own rubric (" + MALORY.odd + " of them set as a centred block instead), " +
       MALORY.books + " book half-title(s) lifted out, " +
       MALORY.notesOnHeads + " footnote marker(s) carried off a heading");
+  if (SIDENOTES.fenced || SIDENOTES.lifted)
+    console.log("  " + SIDENOTES.fenced + " marginal note(s) fenced, " + SIDENOTES.lifted + " lifted" +
+      (SIDENOTES.fenced === SIDENOTES.lifted ? "" : " — MISMATCH, a note was lost or doubled"));
   if (DROPPED_NOTES)
     console.log("  " + DROPPED_NOTES + " transcriber's note(s) dropped — an apparatus this edition " +
       "does not print; see `dropNotes`");

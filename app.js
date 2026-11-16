@@ -12642,6 +12642,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      greens further down the sweep (15.0 and 14.8) were refused on the Euripides test: one sits 15.3 from
      Gilgamesh, whose flood is Genesis's, the other 14.8 from Aquinas. Keyed by id, the book being anonymous. */
   "king-james-bible": "#410064",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-one colours placed (Nov 2026, adding Leviathan): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. A sweep of the cube at a step of 3, refined to 1 around the
+     best, tops out at 15.2 — below the shelf's tightest real pair (15.6), so the band is now FULL and
+     nothing better exists inside it. THE EURIPIDES TEST: this dark olive's nearest are Gilgamesh 15.2, the
+     Book of Documents 15.3 and Boethius 15.4, none a book read beside Hobbes; the ones that are stand well
+     off — Jefferson 29.2, Augustine 34.9, Aquinas 38.4, Aristotle 56.0, Plato 68.4, Machiavelli 79.9 and
+     Thucydides, whom Hobbes translated, 90.0. Of the sweep's other near-best, a green stood 15.7 from
+     Aquinas and a purple 14.7 from Magna Carta and Euripides, and the olive was taken over both for clearing
+     every political book by twice the margin. It reads 7.76:1 on the tightest light paper. */
+  "Thomas Hobbes": "#263700",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -16458,6 +16469,59 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Noah": [143, 144, 153, 204],
         "Claudius": [1214],
       },
+    },
+    {
+      id: "hobbes-leviathan",
+      title: "Leviathan",
+      subtitle: "Or the Matter, Forme, & Power of a Common-wealth Ecclesiasticall and Civill",
+      author: "Thomas Hobbes",
+      written: "1651",
+      year: 1651,
+      /* NO `translator`: written in English, like the Declaration. */
+      edition: "The first edition (the 'Head' issue), printed for Andrew Crooke, London, 1651",
+      /* No limit to state: printed in 1651, its author dead since 1679. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Thomas Hobbes published Leviathan in London in 1651 and died in 1679, " +
+        "so the book has never been in copyright anywhere. The text is the proofread Wikisource " +
+        "transcription of the first edition, from a scan of a copy held by the Internet Archive.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Leviathan_(1651)",
+      /* NO `origLang`: the book is English. Forty-nine sections — Hobbes's Introduction, his forty-seven
+         chapters and his Review and Conclusion — so a tab's number runs one ahead of the chapter's, whose
+         Roman numeral opens each title (Don Quixote's arrangement; the front matter says so). "Section"
+         rather than "Chapter" so that no tab claims to be a chapter it is not. */
+      chapterWord: "Section",
+      count: 49,
+      total: 49,
+      /* Hobbes's own four Parts. */
+      parts: [
+        { n: 1, label: "Part I · Of Man", note: "The Introduction and chapters I–XVI — sense, speech, the passions, the state of nature" },
+        { n: 2, label: "Part II · Of Common-wealth", note: "Chapters XVII–XXXI — the covenant, the sovereign, the liberty of subjects, the laws" },
+        { n: 3, label: "Part III · Of a Christian Common-wealth", note: "Chapters XXXII–XLIII — Scripture read against any church's claim over the sovereign" },
+        { n: 4, label: "Part IV · Of the Kingdome of Darknesse", note: "Chapters XLIV–XLVII and the Review and Conclusion" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 49 sections (every
+         `.ttip`). Hobbes's COMMON-WEALTH is any state, not the Commonwealth of Nations, and his Dominion,
+         Constitution, Providence and Concord are words, not the British dominions, a state's charter, or the
+         capitals of Rhode Island and New Hampshire; his Trinity is the doctrine, not the nuclear test; his
+         Successors, Commons, Altar, Ecclesia, Principalities, Plantations, Procurator, Overseer, Pastoral and
+         Duces are not the Diadochi, the United Kingdom's House, a Greek altar, the Athenian assembly,
+         medieval principalities, the American South, a Roman official, a slave-driver, herding or Mussolini.
+         The modern countries go where he means the ancient or biblical people (Greece, Israel, Jordan, Egypt,
+         Palestine, Syria, the "Antient Germans"), as they do on the King James Bible's shelf, and so do the
+         ordinary words that meet an entry (Earth, Moon, Water, Sound, Gold, Silver, Truth, Eye, Ear, Touch,
+         Tendons, Scales, Totality, Common Sense, LIBERTAS, Immortals, Homo, Lyons) and the Bible's men who
+         share a name (Apollos, Titus the epistle, Crispus, Simeon called Niger), and "Genes." — Genesis.
+         Chapter XII's "war at Lepanto" is Athens's at Naupactus, not the battle of 1571, and a Tyrannicide
+         is the act, not Harmodius and Aristogeiton. */
+      glossOff: ["Commonwealth_of_Nations", "Dominion", "Constitution", "Providence", "Concord",
+        "Trinity_(nuclear_test)", "Diadochi", "House_of_Commons_of_the_United_Kingdom", "Greek_altar",
+        "Ecclesia_(ancient_Athens)", "Principality", "Plantations_in_the_American_South", "Procurator_(ancient_Rome)",
+        "Overseer", "Pastoralism", "Duce", "Greece", "Israel", "Jordan", "Egypt", "State_of_Palestine", "Syria",
+        "Germany", "Earth", "Moon", "Water", "Sound", "Gold", "Silver", "Truth", "Human_eye", "Ear",
+        "Somatosensory_system", "Tendon", "Scale_(zoology)", "Solar_eclipse", "Common_Sense_(pamphlet)", "Libertus",
+        "Immortals", "Homo", "Lyon", "Apollo", "Titus", "Crispus", "Niger", "Gene", "Battle_of_Lepanto",
+        "Tyrannicides"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -25979,6 +26043,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "The tributaries of the Varangians drove them back beyond the sea and, refusing them further tribute, set out to govern themselves. There was no law among them, but tribe rose against tribe. Discord thus ensued among them, and they began to war one against another. They said to themselves, “Let us seek a prince who may rule over us, and judge us according to the law.” They accordingly went overseas to the Varangian Russes: these particular Varangians were known as Russes, just as some are called Swedes, and others Normans, Angles, and Goths, for they were thus named. The Chuds, the Slavs, and…" },
     { book: "declaration-of-independence", n: 1, t: "The Unanimous Declaration", p: 6,
       text: "We hold these Truths to be self-evident, that all Men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty, and the Pursuit of Happiness.—That to secure these Rights, Governments are instituted among Men, deriving their just Powers from the Consent of the Governed, that whenever any Form of Government becomes destructive of these Ends, it is the Right of the People to alter or to abolish it, and to institute new Government, laying its Foundation on such Principles, and organizing its Powers in such Form, as to them shall…" },
+    { book: "hobbes-leviathan", n: 14, t: "XIII. Of the Naturall Condition of Mankind, as concerning their Felicity, and Misery", p: 12,
+      text: "Whatsoever therefore is consequent to a time of Warre, where every man is Enemy to every man; the same is consequent to the time, wherein men live without other security, than what their own strength, and their own invention shall furnish them withall. In such condition, there is no place for Industry; because the fruit thereof is uncertain: and consequently no Culture of the Earth; no Navigation, nor use of the commodities that may be imported by Sea; no commodious Building; no Instruments of moving, and removing such things as require much force; no Knowledge of the face of the Earth; no account of Time; no Arts; no Letters; no Society; and which is worst of all, continuall feare, and danger of violent death; And the life of man, solitary, poore, nasty, brutish, and short." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
       text: "Again:—\"Why does not the pope, whose wealth is to-day greater than the riches of the richest, build just this one church of St. Peter with his own money, rather than with the money of poor believers?\"" },
     { book: "kalidasa-shakuntala", n: 6, t: "Act IV", p: 138,
