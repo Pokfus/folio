@@ -31,8 +31,11 @@ DECK_FILES = {k: f'Lao-{k.upper()}.folio-deck.json' for k in BANDS}
 
 # Sizes in NOTES, the Thai set's.  Wiktionary holds some 2,400 Lao words in all
 # (Thai's 21,000): after A1 about 1,530 usable ones were left, enough for A2's
-# 750; B1 onward is sized once A2 shows what remains (docs/lao-decks-plan.md §5).
-TARGET = {'a1': 500, 'a2': 750}
+# 750.  After A2 about 780 were left, 84 of them compound numbers and many plant species,
+# lunar months and variant spellings, so B1's cap is 500, not Thai's 1,000 -- and it is not
+# reached: the frequency fill runs dry, so B1 is every usable word left that its inventory
+# or the fill can deal.  It is the last level Wiktionary can fill (docs/lao-decks-plan.md §5).
+TARGET = {'a1': 500, 'a2': 750, 'b1': 500}
 
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
 
@@ -63,6 +66,18 @@ SCOPE = {
                   'health and the body, feelings and character, free time, sport and festivals, '
                   'money, tools, telling what happened and comparing, and the everyday verbs of '
                   'moving, dressing and doing',
+    },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to produce '
+                 'simple connected text on familiar topics, and to describe experiences and '
+                 'events, dreams, hopes and ambitions, and briefly give reasons and explanations '
+                 'for opinions and plans',
+        'topics': 'work, money and society, the law and crime, education, media and technology, '
+                  'the parts of the body and illness, the home and its everyday objects, more food, '
+                  'nature, weather and animals, travel, Buddhism, festivals and Lao customs, feelings '
+                  'and character, and the verbs of doing and changing',
     },
 }
 

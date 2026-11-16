@@ -5,7 +5,8 @@ the shape of the Thai one (`docs/thai-decks-plan.md`), whose script, word cut an
 `docs/lang-decks.md` is the record of how the sets were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-15: "Add a Lao language collection."
 
-**STATUS (2026-11-16): the alphabet, A1 and A2 are built** (`.claude/lao/`, §6–§7). B1 onward are not sized yet (§5).
+**STATUS (2026-11-16): the alphabet, A1, A2 and B1 are built** (`.claude/lao/`, §6–§8). B1 used up what Wiktionary
+has: there is no B2 or C1 to build until it grows (§5).
 
 A deck under `decks/` is community content, not a change to Folio: no changelog line for any later deck this plan
 produces. The collection's first commit carried one, as Thai's and Finnish's did, because it also changed the APP —
@@ -28,7 +29,8 @@ The request named no word source, script deck or romanisation. The Thai answers 
 | Lao Alphabet — built | `Lao-Alphabet.folio-deck.json` | 79 |
 | Lao A1 Beginner — built | `Lao-A1.folio-deck.json` | 500 |
 | Lao A2 Elementary — built | `Lao-A2.folio-deck.json` | 750 |
-| B1 onward | — | not sized (§5) |
+| Lao B1 Intermediate — built | `Lao-B1.folio-deck.json` | 471 |
+| B2, C1 | — | not buildable from Wiktionary (§5) |
 
 ## 2. Sources and licences
 
@@ -87,9 +89,12 @@ first sense. The tones are Vientiane's; other dialects differ.
 
 **Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — the later levels. After A1 about 1,530 usable
 Lao words were left in Wiktionary (some 400 of them with no Wikipedia count, so only an inventory can deal them),
-enough for A2 at Thai's 750 (**done**, §7). After A2 about 780 remain, much of it encyclopedic vocabulary, rare
-homographs and number words, so Thai's B1 of 1,000 cannot be met: size B1 to what reads as usable before building,
-and stop there unless Wiktionary grows. For each level write its inventory into `inventory.py`, its `TARGET` and
+enough for A2 at Thai's 750 (**done**, §7). After A2 about 780 remained, 84 of them compound numbers and many
+plant species, lunar months and variant spellings, so B1 was capped at 500 instead of Thai's 1,000 and came out at
+471 (**done**, §8): the frequency fill ran dry. **That is the end of what Wiktionary can supply.** What is left after B1
+is compound numbers, botanical names, lunar months, variant spellings and the refused homographs, so there is no
+B2 or C1 until Wiktionary's Lao grows; a later session should re-download `kaikki-lo.jsonl` (delete it from the
+cache) and count again before planning one. For each level write its inventory into `inventory.py`, its `TARGET` and
 `SCOPE` into `lao_level.py`, run, read every card. **Phase 3** — a phrases deck, if Wiktionary's Lao phrases (five
 entries today) ever make one.
 
@@ -118,3 +123,15 @@ as the meaning — the fill now skips them (`select.POINTER`), and where Lao add
 "to tell" (`LEAD`); and 32 more one-syllable homographs, variant spellings (ກີລາ, ອາຟຣິກກາ, ພຣະເຈົ້າ), bound forms
 (ລັດຖະ, ອານາ) and demonyms were refused, each with its reason in `select.EXCLUDE`. The fill is again written,
 encyclopedic Lao (ministry, constitution, sovereignty, coup d'état).
+
+## 8. As built (2026-11-16): B1
+
+`python3 .claude/lao/run.py --level b1`. 471 notes against a cap of 500, 358 from the B1 inventory and 113 by
+frequency; 32 show a classifier; sentences for 17 only (Tatoeba's Lao is exhausted). The inventory is weighted to the
+everyday words still untaught (the body and illness, the home and its objects, food, nature and animals, school and
+technology, Buddhism and festivals, work, money and the law, feelings), because A1's and A2's frequency fills had
+already dealt most of the society and government vocabulary B1's scope names; two topics (`more food and things to
+hand`, `animals and shapes`) take words with no Wikipedia count at all, which only an inventory can deal. Refused from
+the fill: six variant spellings of words already taught (ດົນຕຣີ, ກະແລມ, ສຸກຂະພາບ, ອຸນນະພູມ, ຫໍພິພິດຕະພັນ,
+ອານຸສາວະລີ), six more one-syllable homographs, and ຄົນແຈ້, whose gloss lists a slur. A re-run is byte-identical (with
+and without `--re-extract`); A1 and A2 are unchanged.
