@@ -77,18 +77,30 @@ EXCLUDE = {
     'ទំ': 'a syllable count (ទំនាក់ទំនង, ទំហំ); the card was "to perch"',
     'រណ': 'a syllable count; the card was a literary "battle"',
     'បូ': 'a syllable count (បូព៌ា, បូជា); the card was "ribbon"',
+    # B1
+    'ម៉ៅ': 'counted as a name (Mao); the card was "mouse"',
+    'ក្រចេះ': 'counted as the province of Kratié; the card was an aromatic tree',
     'ដង': 'counted mostly as "times" (ពីរដង "twice"), a sense Wiktionary does not list; the card taught "to draw water"',
 }
 
 LEAD_TOPICS = {'greetings and politeness'}
 
 # Swearing and insults are never in a level deck.
-SWEARS = set()
+SWEARS = {'ញី'}     # B1: "woman" used insultingly of loose women
+
+# A SHORT WORD THAT IS NEVER WRITTEN ALONE IS A FRAGMENT (B1 on; `solo.py` says how
+# it is measured).  A fill word of three code points or fewer must stand alone, between
+# typed breaks, in at least this share of the articles it is counted in.  GATED from B1:
+# A1 and A2 were built before it and are not rebuilt by it.
+SOLO_MIN, SOLO_LEN, SOLO_FROM = 0.08, 3, ('b1', 'b2', 'c1')
 
 # ...and "abstract noun of ប្រើប្រាស់ (praə prah)" with no meaning of its own (A2: ការប្រើប្រាស់)
 POINTER = re.compile(r'^(?:alternative|obsolete|dated|rare|archaic) (?:form|spelling) of '
                      r'|^(?:synonym|abbreviation) of [^;]*$'
-                     r'|^abstract noun of [^\s(]+ \([^()]*\)$', re.I)
+                     r'|^abstract noun of [^\s(]+ \([^()]*\)$'
+                     # B1: a bound syllable -- ប្រាស់ "used in the compound ប្រើប្រាស់", បាល
+                     # "guardian (mainly used in composition)"
+                     r'|^used in the compound |\(mainly used in composition\)$', re.I)
 
 
 def pointer_only(L):
@@ -163,6 +175,8 @@ def main():
     n_inv = len(rows)
     swears = {key(s) for s in SWEARS}
     excl = {key(s) for s in EXCLUDE}
+    solo = json.load(open('solo.json', encoding='utf-8')) if LEVEL in SOLO_FROM else {}
+    fragments = []
     fill = []
     ranked = sorted(lex.items(), key=lambda kv: (-kv[1]['freq'], kv[0]))
     for i, (k, L) in enumerate(ranked):
@@ -177,6 +191,9 @@ def main():
         if ' ' in k or not usable(L) or L['freq'] <= 0 or pointer_only(L):
             continue
         if all(e['pos'] in ('phrase', 'proverb', 'name') for e in L['entries']):
+            continue
+        if LEVEL in SOLO_FROM and len(k) <= SOLO_LEN and solo.get(k, 0) < SOLO_MIN * L['freq']:
+            fragments.append(L['word'])
             continue
         row = {'key': k, 'via': '', 'word': L['word'], 'freq': L['freq'], 'pos': '',
                'source': 'frequency', 'topic': ''}
@@ -194,6 +211,8 @@ def main():
     print(f'  {len(rows)} words: {n_inv} from the inventory, {len(fill)} by frequency')
     if missing:
         print('  NOT IN WIKTIONARY (dropped):', ' '.join(missing))
+    if fragments:
+        print(f'  {len(fragments)} short fragments left out (solo.py):', ' '.join(fragments[:60]))
     if noroman:
         print('  NO ROMANISATION ON ITS PAGE (dropped):', ' '.join(noroman))
 

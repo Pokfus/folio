@@ -19,6 +19,7 @@ THE STAGES, in order.  Each writes its output into the cache for the next:
     wikitext.py     the Khmer Wikipedia cut into words and counted (km_counts.json)
     extract.py      every Khmer word of Wiktionary, compacted, with its count (lex.json)
                     (both built once for all levels)
+    solo.py         how often each word stands alone between typed breaks (solo.json)
     select.py       the inventory, then the commonest remaining words
     romanise.py     each word's romanisation, read off its Wiktionary page (wikt-tr.json)
     examples.py     three sentences each: Tatoeba's, cut into words, then Wiktionary's
@@ -79,6 +80,8 @@ def main():
     stages = ['select.py', 'romanise.py', 'examples.py', 'build_deck.py']
     if not os.path.exists('lex.json') or '--re-extract' in sys.argv:
         stages[:0] = ['wikitext.py', 'extract.py']
+    if not os.path.exists('solo.json') or '--re-extract' in sys.argv:
+        stages.insert(stages.index('select.py'), 'solo.py')
     for stage in stages:
         print(stage.split('.')[0] + ':')
         sys.argv = [stage]

@@ -3775,7 +3775,9 @@ changed was the one that had been wrong all along.
   vowels with both series' readings, independent vowels, diacritics, punctuation, digits — every sound read from a
   pinned revision of Wikipedia's "Khmer script") **and A1, `decks/Khmer-A1.folio-deck.json`** (500 notes / 1,000
   cards) **and A2, `decks/Khmer-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16: a word whose Wiktionary page
-  prints no romanisation is not carded). `python3 .claude/khmer/run.py [--level a1|a2]`, `python3 .claude/khmer/alphabet.py`,
+  prints no romanisation is not carded) **and B1, `decks/Khmer-B1.folio-deck.json`** (1,000 notes / 2,000 cards,
+  2026-11-16: 844 by frequency, Wiktionary running thin; a short word that never stands alone between typed breaks
+  is a fragment of the word cut and is left out, `solo.py`, gated from B1). `python3 .claude/khmer/run.py [--level a1|a2|b1]`, `python3 .claude/khmer/alphabet.py`,
   `node .claude/khmer/check-khmer.js`; a re-run is byte-identical. Khmer writes no spaces, so the word cut is Thai's
   maximal matching (`km.Segmenter`, on clusters, never after the coeng); the frequency is the Khmer Wikipedia's
   (14,475 articles), as Amharic's; **the romanisation is read off each word's Wiktionary page** (`romanise.py`),

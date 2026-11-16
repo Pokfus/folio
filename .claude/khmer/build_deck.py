@@ -68,6 +68,9 @@ ETYMS = {
     # A2
     'ដោះ': ['2'],               # "to take off, to remove"; 1 is "breast, udder"
     'ទ័ព': ['2'],               # "army, troops"; 1 is "walking"
+    # B1
+    'រោង': ['2'],               # "hall, building"; 1 is the Dragon of the zodiac
+    'លប': ['2'],                # "secretly"; 1 is a fish trap
 }
 
 # A GLOSS TO LEAD WITH, where Wiktionary's first is not the everyday one.  Each is

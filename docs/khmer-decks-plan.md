@@ -6,8 +6,8 @@ Thai, writes no spaces between words — and Amharic's for the frequency source 
 `docs/lang-decks.md` is the record of how those were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-15: "Add a Cambodian language collection."
 
-**STATUS (2026-11-16): the alphabet deck, A1 and A2 are built** (`.claude/khmer/`, §6–§7). B1 to C1 and a phrases
-deck are the next sessions' work.
+**STATUS (2026-11-16): the alphabet deck, A1, A2 and B1 are built** (`.claude/khmer/`, §6–§8). B2, C1 and a phrases
+deck are the next sessions' work — and B2 may not reach 1,500 (§8).
 
 ## 1. The decisions (2026-11-15)
 
@@ -35,7 +35,7 @@ owners gave for the same request rather than ask — **they are the owner's to o
 | Khmer Alphabet — built | `Khmer-Alphabet.folio-deck.json` | 87 |
 | Khmer A1 Beginner — built | `Khmer-A1.folio-deck.json` | 500 |
 | Khmer A2 Elementary — built | `Khmer-A2.folio-deck.json` | 750 |
-| Khmer B1 Intermediate | `Khmer-B1.folio-deck.json` | 1,000 |
+| Khmer B1 Intermediate — built | `Khmer-B1.folio-deck.json` | 1,000 |
 | Khmer B2 Upper Intermediate | `Khmer-B2.folio-deck.json` | 1,500 |
 | Khmer C1 Advanced | `Khmer-C1.folio-deck.json` | 1,500 |
 | Khmer Phrases and Expressions | `Khmer-Phrases-and-Expressions.folio-deck.json` | — |
@@ -101,7 +101,7 @@ adds 66). The fill carries written-register words an encyclopaedia favours (ខ�
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 (done) to C1, one level per session: write the
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 and B1 (done) to C1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `khmer_level.py`, run, read every card, extend the
 tables. **Phase 3** — a phrases deck. **Phase 4** — a combined file, gitignored.
 
@@ -149,3 +149,35 @@ Khmer thins out fast past A1 (472 words have none). A re-run is byte-identical; 
   before "unripe").
 - **`check-khmer.js`** now skips the part-of-speech line when it looks for a Khmer sentence in a gloss: the dedupe
   pass's labels ("verb, not កសាង, សង់") are mostly Khmer and were read as glosses.
+
+## 8. As built (2026-11-16): B1
+
+On request ("Add B1"). `python3 .claude/khmer/run.py --level b1`. 1,000 notes: **156 from the B1 inventory** (16 topics,
+`inventory.py` `B1`), **844 by frequency**; A1 and A2 are not repeated. Sentences for 210, three for 33 — Tatoeba's
+Khmer is used up at this level (790 words have none). A re-run is byte-identical; A1, A2 and the alphabet re-run
+unchanged (verified).
+
+- **WIKTIONARY RUNS THIN.** Of the inventory's first draft (about 290 words), 85 were already in A1 or A2 and 71 are
+  not Wiktionary headwords (the professions with អ្នក-, most abstract nouns in ការ- and ភាព-, the connectors
+  ទោះយ៉ាងណា, ផ្ទុយទៅវិញ, លើសពីនេះ …); the forms Wiktionary does have were taken (ឈ្នួល, ក្រីក្រ, ចំណេះ, អ្នកទេសចរ,
+  ពុទ្ធសាសនា, បង្កើន, បន្ថយ …). So the fill is most of the deck, and it is the encyclopaedia's vocabulary: history,
+  monarchy, Buddhism, administration. Wiktionary keeps 9,107 Khmer words with a meaning; after B1 about 6,850 remain, many of
+  them names, rare plants and compounds, so **B2's 1,500 should be checked against what is left before it is built**
+  (Amharic stopped at B1 for this reason).
+- **A SHORT WORD NEVER WRITTEN ALONE IS A FRAGMENT** (`solo.py`, new; `select.SOLO_MIN`). The word cut leaves syllables
+  of words Wiktionary lacks, and past A2 they crowd the fill with rare senses: ផា "cloth", ទស "ten", ទូរ "to compare",
+  ភារ "used in the compound …", ន៏ (a garbled gloss). `solo.py` counts, per article, the words that make a whole chunk
+  between typed breaks (spaces, zero width spaces) — no cut involved — and a fill word of three code points or fewer
+  must stand alone in at least 8 % of the articles it is counted in. Measured: real short words 12–30 % (លួច 23 %,
+  ដែក 21 %, នឹក 30 %), fragments under 5 %; the band from 8 to 10 % still holds real words (ដូន "grandmother", សេក
+  "parrot", ភក់ "mud"). 43 words left out at B1. **Gated from B1** (`SOLO_FROM`): A1 and A2 are not rebuilt by it.
+- **Bound syllables count as pointers**: a gloss that begins "used in the compound …" or ends "(mainly used in
+  composition)" (ប្រាស់, បាល).
+- **Hand lines**: `EXCLUDE` ម៉ៅ (counted as the name Mao; the card was "mouse"), ក្រចេះ (counted as the province of
+  Kratié; the card was a tree); `SWEARS` ញី (an insult); `ETYMS` រោង ("hall", before the zodiac's Dragon), លប
+  ("secretly", before a fish trap).
+- **No romanisation on its page, dropped** (the A2 rule): seventeen fill words, among them ឆ្ពោះ, រហ័ស, ស៊ីវិល, ប្រមុខ.
+
+**Known, left.** Some first glosses are Wiktionary's older or narrower sense (មហេសី "maharṣi", ឯកភាព "unit (usually
+military)"); a few fill words are tree names likely counted from place names (ត្រាច, ជ្រៃ), which the solo test does
+not catch — they stand alone as names too.
