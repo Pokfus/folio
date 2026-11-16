@@ -343,6 +343,98 @@ of three interjection readings the card teaches.
   instance, so it is a one-off rather than a class; it was found by eye while writing examples, and
   nothing in the pipeline could have found it.
 
+## The beginner pass (2026-11-15)
+
+On request, after an audit that asked the question the Japanese decks had just been asked
+(`docs/japanese-decks-plan.md` §11): **what does a learner with no Chinese meet, in the order the shelf
+itself recommends?** Every figure was measured on the nine decks as shipped that morning. The rules a
+later change must keep are in the Mandarin entry of `docs/lang-decks.md` and in `.claude/decks/README.md`;
+this section is the reasoning.
+
+### What the audit found
+
+1. **Level 1 was dealt alphabetically by pinyin.** The cards carry no difficulty rating, so the app's
+   default order falls through to file order, and the file was the syllabus's. Day one was 爱, 八, 爸爸, 吧,
+   白天. 你好 was note 147, 是 188, 我 221, 谢谢 241, 再见 272; zero to ten ran from note 2 to note 254 and
+   the eleven personal pronouns from 146 to 222. When a card arrived, 30% of its example sentences'
+   characters had been met over the first 50 notes (0 of 150 sentences fully readable) and 60% over the
+   whole deck (145 of 900).
+2. **Nothing came before the first word.** There was no pinyin deck and the Level 1 description never said
+   "tone". 165 of 300 Level 1 words contain a letter that does not have its English value (q, x, c, z, zh,
+   ch, sh, r, j, ü); 60 notes have a neutral tone; six write the 不 / 一 tone change into their pinyin
+   unexplained and five leave the third-tone change unwritten (你好). Level 1 itself covers all 21 initials
+   and all 20 tone pairs.
+3. **The Everyday phrases deck was not what its subtitle said** ("usable alongside Level 1 onwards"). Its
+   order was film-subtitle frequency: 快点, 没错, 干什么, 干嘛, 该死, with five curses in the first forty. 37 of
+   159 phrases are spelled with Level 1's words alone; 27 use a word no level lists.
+4. **Survival words were carded but late, and some were missing**: 星期一 to 星期六 (the syllabus lists 星期,
+   星期日 and 星期天), 没问题, 明天见, 请坐, 是不是. Of 69 candidates tried, 46 are CC-CEDICT entries and 23
+   are not (您好, 好的, 多少钱, 不知道).
+5. **Character load.** Level 1's fronts use 248 characters, 152 of them in one word only and 111 never
+   carded alone. The parts are shown on the back of the same card: 209 different parts, 123 used once.
+6. **A word list cannot carry grammar.** 99 of 165 noun notes name a measure word, from 45 classifiers of
+   which five are Level 1 notes. This pass does not close that: see "decided against".
+7. **The reverse card and the example sentences were sound** — the earlier review's work. No action.
+
+### What was built
+
+- **Card ids pinned to their notes** (`mandarin-ids.json`). The ids were positional (`u_hsk30l1_1` was 爱)
+  and the Update press merges progress by id. The decks cannot be regenerated, so the id is already in the
+  file and travels with its note; the pin is what lets `mandarin-fix.js --check` prove nothing renumbered.
+  Checked in a browser: a reader with three cards studied on the old Level 1 took the Update and kept the
+  same three ids on the same three words, and the next new cards came from the new order.
+- **An `order` for eight decks** (`mandarin-order.json`, applied by `mandarin-fix.js`). **Level 1**: 74
+  notes by hand — the courtesies, the first sentence's words, the pronouns, the question words, zero to a
+  thousand, the commonest function words, the days — then the other 226 by how often the nine decks' own
+  sentences use them, with notes that share a first gloss or a `not X` hint kept forty apart. In that order
+  the share of a card's sentences already met when it arrives is 44% over the first 50 notes (it was 30%)
+  and 79% over the deck (it was 60%), and 365 of the 900 sentences are fully readable on arrival (145).
+  The app's own "By frequency" order measures higher, 57% and 83%, but it puts 你好 at 245 and the numbers
+  between 15 and 238: the hand-written head costs a little readability to deal the sets together.
+  **Levels 2 to 6 and 7–9**: by the same count, commonest first. **Everyday phrases**: tiered by the
+  lowest level whose word list spells the whole phrase (37 / 20 / 10 / 56 / 27), its nine curses last, and
+  a subtitle that says so.
+- **`Mandarin Chinese — Pinyin and tones`** (68 notes, one card each): the five tone marks, where the mark
+  goes, the three tone changes, 24 initials, 35 finals. IPA and descriptions are quoted from two Wikipedia
+  articles at named revisions; every example word is a Level 1 to 3 card with its speaker.
+- **`Mandarin Chinese — Character parts for Level 1`** (42 notes): every part found in three or more Level
+  1 characters, in the order Level 1 first needs them. 173 of the 248 characters contain one.
+- **`Mandarin Chinese — First phrases`** (80 notes, two cards each): 75 CC-CEDICT entries written only
+  with Level 1's characters and carded nowhere else, and five whole sentences the Level 1 deck already
+  carried with their translations (你叫什么名字？ 这个多少钱？).
+
+### What was decided against, and why
+
+- **Making "By frequency" the default order in the app.** The audit proposed it for Levels 2 and above.
+  `uDeckWordFreq` counts only the notes in memory, and since the store was split a downloaded deck's notes
+  are stubs until read, so the order acts only after something has loaded the whole deck. A default that
+  silently did nothing, or one that loaded 12 MB at boot, was worse than baking the same count into the
+  files — which is what the `order` does, for every reader and at no cost.
+- **Pinyin on the example sentences.** 569 of the 851 Level 1 sentences that segment into deck headwords
+  contain a word CC-CEDICT gives more than one reading. It would be a hand pass; the speaker covers it.
+- **A grammar deck.** The only source that could be named is the standard's own grammar outline, and the
+  2026 edition's was not confirmed to exist.
+- **A character deck for Level 1.** 137 of the 248 characters are already single-character notes.
+- **Expressions the dictionary has no entry for.** 你好吗, 多少钱 on its own, 不知道, 好的 and 我爱你 are not
+  CC-CEDICT headwords and the decks carry none of them as a whole sentence, so they are not carded.
+- **Subdecks for the sets.** The app deals subdecks in parallel, a day apart: a sequence has to be an order
+  inside one list.
+- **Hiding the traditional form or the bopomofo.** A preference about the card type, not a measured fault.
+
+### Limits to know about
+
+- **Frequency is the decks' own sentences**, which are Tatoeba's: 汤 ("soup") counted blind is 420 uses,
+  386 of them 汤姆 (Tom). Six transliterated names are stepped over; others may remain. At Levels 7–9
+  more than half the words are used by one sentence, their own, and that band is still mostly alphabetical.
+- **The character parts are Make Me a Hanzi's as the Level 1 cards carry them**, one level deep. A
+  character whose card names a single part (气 → 亻) is not counted, and 丷, which the cards gloss
+  "kwukyel", is not carded. Some breakdowns that remain are a decomposition, not an etymology (口 → 冂 + 一).
+- **The sounds deck quotes its descriptions.** Where the article has no English comparison the card has
+  none, and the article's "aspirated" on f, s, x and sh is not carried (its own consonant table lists them
+  as plain fricatives). The final *weng* is left out: no word of Levels 1 to 3 has it.
+- **24 of the 75 first phrases show no example sentence** (and the five sentences are their own): the
+  Level 1 to 3 decks have none short enough in which the phrase stands as a word.
+
 ## Ten more ways to improve the collection — and what happened to them
 
 These were the next ten, written after the first twelve shipped and after every note gained an example.

@@ -20,7 +20,28 @@ changed was the one that had been wrong all along.
 - `decks/*.folio-deck.json` — **the community decks**, files a reader imports through the Studio. Not part
   of the site and never loaded by it: a deck file is somebody else's content that happens to have been
   written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
-  The Mandarin set is **NINE** files — 11,532 notes / 23,064 cards, 20.5 MB: the seven HSK 3.0 levels of
+  **THE MANDARIN SET IS TWELVE FILES SINCE THE BEGINNER PASS (Nov 2026, on request, after an audit of what a
+  learner with no Chinese meets; reasoning and measurements in `docs/mandarin-review.md`, "The beginner
+  pass").** Three decks were added below and beside Level 1 — **Pinyin and tones** (`hsk30pin`, 68 notes),
+  **Character parts for Level 1** (`hsk30cmp`, 42) and **First phrases** (`hsk30fst`, 80) — written by
+  `.claude/decks/build-beginner.js` from files in this repo only (the shipped Level 1 to 3 decks,
+  `beginner-pinyin.json`, `beginner-phrases.json`); `--check` says whether they are current, and it must be
+  re-run after `mandarin-fix.js` changes Level 1, 2 or 3, which they quote. The rules a later change must
+  keep: **A CARD ID IS PINNED TO ITS NOTE** in `.claude/decks/mandarin-ids.json` (deck → headword or key →
+  number). The ids were positional and the Update press merges by id; never delete or renumber a row, a new
+  note takes the next free number, and `mandarin-fix.js --check` fails a deck that disagrees with the pin.
+  **THE ORDER A DECK IS DEALT IN IS `mandarin-order.json`**, a full list of headwords per deck applied by
+  `mandarin-fix.js`, which moves a note with its id and rewrites `num` only. Level 1's first 74 notes are
+  written by hand in `mandarin-order.js` (courtesies, the first sentence, pronouns, question words, numbers,
+  function words, days); everything else is by how often the nine decks' own sentences use the word, and
+  the Everyday phrases are tiered by the level that can read them. **THE SETS ARE AN ORDER INSIDE ONE LIST,
+  NEVER SUBDECKS** (the app deals subdecks in parallel). **NOTHING IN THE THREE DECKS IS COMPOSED**: a First
+  phrases row is a CC-CEDICT entry captured verbatim or a sentence a shipped card already carries, a sound's
+  description is a quotation, an example word is a shipped card. `build-lang-decks.js`'s `levelRank` puts
+  the sounds first, the parts next, Level 1, then the first phrases. **The in-app "By frequency" order was
+  NOT made the default**: it counts only notes in memory, so on a downloaded deck it acts only after
+  something has loaded the whole deck — the count is baked into the file order instead.
+  The other nine are 11,532 notes / 23,064 cards, 20.5 MB: the seven HSK 3.0 levels of
   the 2026 standard plus the two the syllabus leaves out, **Everyday phrases** (159) and **Idioms**
   (477 chengyu). **It was ONE file of nine subdecks until Aug 2026 and was split on a bug report**: "why
   are the file sizes in the Mandarin Chinese collection all the same? It shouldn't download the whole
@@ -3905,6 +3926,26 @@ changed was the one that had been wrong all along.
   sentences rank last. The plan and every finding are 📖 `docs/finnish-decks-plan.md`. The `l1` row is Wikipedia's
   5.0 million (no L2 figure, so `total` is the same); the hue is measured, `#8D572D` (re-swept at the merge: Norwegian had
   taken a hue 2.4 from the first sweep's `#907227`).
+- `.claude/lao/` — the generator behind the Lao decks (Nov 2026, on request: "Add a Lao language collection"; the
+  Thai answers taken, the owner not asked). **Built: the alphabet, `decks/Lao-Alphabet.folio-deck.json`** (79 notes:
+  the 27 consonants, the six ຫ ligatures, 27 vowels, the tone marks and two signs, the three class rules, the digits,
+  every fact from Wikipedia's "Lao script" and "Lao language") **and A1, `decks/Lao-A1.folio-deck.json`** (500 notes /
+  1,000 cards: 352 from a hand-written topic inventory, 148 by frequency). `python3 .claude/lao/run.py`,
+  `python3 .claude/lao/alphabet.py`, `node .claude/lao/check-lao.js`; a re-run is byte-identical. Thai's pipeline
+  re-keyed (the same unspaced script, the same maximal-matching cut). **What is new**: Wiktionary's own Lao
+  romanisation is not one system and breaks on ຍ (ໄດ້ຍິນ "dn"), so the card's romanisation is read off the Vientiane
+  IPA (`lo.romanise`, Paiboon-style letters, each syllable's tone in Chao tone letters); no Lao frequency list could be
+  licensed, so the counts are made from the Lao Wikipedia dump, ONLY over runs the dictionary covers whole (otherwise
+  syllables of unknown words took the counts); Wiktionary holds about 2,400 Lao words and lacks ວ່າ, ຍັງ, ເອົາ, ຢາກ, ຄິດ
+  and more, which are left out, not glossed by hand; Tatoeba has about 230 Lao sentences, so 394 of A1's words have
+  none. **A2 built (2026-11-16)**: `decks/Lao-A2.folio-deck.json`, 750 notes / 1,500 cards (389 inventory, 361
+  frequency; bare "abstract noun of" entries skipped). **B1 built (2026-11-16)**: `decks/Lao-B1.folio-deck.json`,
+  471 notes / 942 cards (358 inventory, 113 frequency, capped at 500), the last level Wiktionary's Lao can fill — no
+  B2 or C1 until it grows.
+  **Phrases deck built (2026-11-16)**: `decks/Lao-Phrases-and-Expressions.folio-deck.json`, 79 notes (5 Wiktionary
+  phrases, 72 Tatoeba sentences romanised word by word from Wiktionary's IPA, 2 proverbs); `python3 .claude/lao/phrases.py`.
+  📖 `docs/lao-decks-plan.md`. The `LANGS` row is 3.7 million L1, 4.5 in all
+  (Ethnologue 27th ed., via Wikipedia's infobox); the hue is measured, `#426A43`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/

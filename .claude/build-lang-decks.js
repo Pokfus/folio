@@ -116,6 +116,7 @@ const LANGS = [
   { word: "Hebrew", name: "Hebrew", l1: 5, total: 9 },         // Wikipedia's infobox (Ethnologue 2018: 9 million speakers of Modern Hebrew, 5 million native), read 2026-11-12
   { word: "Swahili", name: "Swahili", l1: 5, total: 95 },       // Wikipedia's infobox, 5.3 million L1 (Ethnologue 27th ed.; 92 million L2), read 2026-11-09
   { word: "Finnish", name: "Finnish", l1: 5, total: 5 },        // Wikipedia's infobox ("5.0 million", Finland 4.75 million in 2023), read 2026-11-15
+  { word: "Lao", name: "Lao", l1: 3.7, total: 4.5 },          // Wikipedia's infobox (Ethnologue 27th ed.: 3.69 million L1, 2015; 0.80 million L2), read 2026-11-15
   /* NORWEGIAN (Nov 2026): Wikipedia's infobox (read 2026-11-15) gives 4.32 million native speakers (2012, De Smedt et
      al., The Norwegian Language in the Digital Age) and no second-language figure, so `total` is its L1, as Hungarian's. */
   { word: "Norwegian", name: "Norwegian", l1: 4.3, total: 4.3 },
@@ -144,6 +145,14 @@ function levelRank(title) {
   /* AN ALPHABET COMES BEFORE EVERY LEVEL (Oct 2026, Russian): its level decks carry no
      transliteration, so the alphabet is the first thing a learner opens, not a phrase book after them. */
   if (/\bAlphabet\b/.test(title)) return -1;
+  /* MANDARIN'S THREE BEGINNER DECKS (Nov 2026, docs/mandarin-review.md "The beginner pass"). Pinyin and
+     tones is the rung below everything: every card's reading is written in it. The character parts sit
+     between it and Level 1, whose characters they are; the first phrases follow Level 1, whose words they
+     are made of. Tested BEFORE the level rule below, which would read the "Level 1" in a title and file
+     the parts deck beside Level 1 itself. */
+  if (/\bPinyin and tones\b/.test(title)) return -2;
+  if (/\bCharacter parts for Level 1\b/.test(title)) return -1;
+  if (/\bFirst phrases\b/.test(title)) return 0.5;
   /* ZULU'S NOUN CLASSES AND SOUNDS COME BEFORE A1 (Nov 2026): Zulu is written in the Latin alphabet, so its
      first deck is the classes and clicks every word card names, Hindi's alphabet's counterpart. */
   if (/\bNoun Classes\b/.test(title)) return -1;
