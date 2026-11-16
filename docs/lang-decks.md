@@ -4010,6 +4010,26 @@ changed was the one that had been wrong all along.
   phrases, 72 Tatoeba sentences romanised word by word from Wiktionary's IPA, 2 proverbs); `python3 .claude/lao/phrases.py`.
   📖 `docs/lao-decks-plan.md`. The `LANGS` row is 3.7 million L1, 4.5 in all
   (Ethnologue 27th ed., via Wikipedia's infobox); the hue is measured, `#426A43`.
+- `.claude/navajo/` — the generator behind the Navajo decks (Nov 2026, on request: "Add a Navajo language collection";
+  the owner chose A1–B1 at Hausa's sizes, an alphabet and sounds deck and a phrases deck). **Built: the alphabet,
+  `decks/Navajo-Alphabet.folio-deck.json`** (41 notes: the 36 letters and digraphs of the standard orthography, then
+  vowel length, high tone, falling and rising tones, nasal vowels and the syllabic ń, from Wikipedia's "Navajo
+  phonology" and "Navajo language") **and A1, `decks/Navajo-A1.folio-deck.json`** (500 notes / 1,000 cards: 294 from a
+  hand-written topic inventory, 206 by frequency). `python3 .claude/navajo/run.py`, `python3 .claude/navajo/alphabet.py`,
+  `node .claude/navajo/check-navajo.js`; a re-run is byte-identical. Zulu's pipeline reshaped. **What is new**: the
+  headword is the standard spelling, which already marks tone, nasality and length, so the second line is Wiktionary's
+  IPA; the Navajo Wikipedia is nearly all animal and plant stubs (median 59 words), so a second count is made over
+  Wiktionary's 2,539 usage examples (under other headwords only), the cards are dealt by the geometric mean of the
+  two, and a fill word must be in both; possessed forms Wiktionary files as nouns of their own (`bijáád` beside
+  `ajáád`) are folded into the indefinite a- form; a verb's "I" and "you" forms come from Wiktionary's form-of entries.
+  **A2 built (2026-11-16)**: `decks/Navajo-A2.folio-deck.json`, 579 notes / 1,158 cards (531 inventory, 48
+  frequency), short of 750: the words both corpora count ran out after A1, so A2 is the hand-written inventory.
+  **B1 built (2026-11-16)**: `decks/Navajo-B1.folio-deck.json`, 307 notes / 614 cards, all inventory, short of 1,000;
+  chosen mostly from the Wiktionary entries that carry an IPA line or an example of their own.
+  **Phrases deck built (2026-11-16)**: `decks/Navajo-Phrases-and-Expressions.folio-deck.json`, 145 notes in five
+  subdecks (107 Wiktionary phrases and interjections, 38 Tatoeba sentences); `run.py --level phr`, `phrases.py`.
+  The collection is complete. 📖 `docs/navajo-decks-plan.md`. The `LANGS` row is 170,000 (Wikipedia's infobox, no L2 figure); the hue is measured,
+  `#3C7676`, a turquoise-teal.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
