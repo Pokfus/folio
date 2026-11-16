@@ -94,7 +94,9 @@ plant species, lunar months and variant spellings, so B1 was capped at 500 inste
 471 (**done**, §8): the frequency fill ran dry. **That is the end of what Wiktionary can supply.** What is left after B1
 is compound numbers, botanical names, lunar months, variant spellings and the refused homographs, so there is no
 B2 or C1 until Wiktionary's Lao grows; a later session should re-download `kaikki-lo.jsonl` (delete it from the
-cache) and count again before planning one. For each level write its inventory into `inventory.py`, its `TARGET` and
+cache) and count again before planning one. **B2 was asked for on 2026-11-16**: the extraction was re-downloaded, found byte-identical (2,751 entries), and what
+remained after B1 was about 240 words — 73 compound numbers, 10 lunar months, 11 species names, 10 empty "abstract noun
+of" entries and 136 others, mostly second spellings or synonyms of taught words — so the owner chose to stop at B1. For each level write its inventory into `inventory.py`, its `TARGET` and
 `SCOPE` into `lao_level.py`, run, read every card. **Phase 3** — a phrases deck, if Wiktionary's Lao phrases (five
 entries today) ever make one.
 
