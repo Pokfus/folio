@@ -58,6 +58,20 @@ SCOPE = {
                   'colours, the everyday verbs, and the pronouns, question words, '
                   'postpositions and particles every sentence is built out of',
     },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'gloss': 'able to communicate in simple and routine tasks requiring a simple and '
+                 'direct exchange of information on familiar and routine matters, and to '
+                 'describe in simple terms their background, their immediate surroundings '
+                 'and matters of immediate need',
+        'topics': 'work and jobs, school, free time, ceremony and prayer, money and the town, '
+                  'getting about, the home and the yard, clothes and jewellery, food and cooking, '
+                  'the animals of the farm and the wild, the land and its plants, the weather, the '
+                  'days and the months, directions, the body and feeling ill, feelings and character, '
+                  'family and people, and the everyday verbs, describing words and adverbs a simple '
+                  'account of one\'s day needs',
+    },
 }
 
 def f(name):

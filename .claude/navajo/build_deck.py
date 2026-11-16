@@ -67,6 +67,13 @@ POS_ONLY = {
     'doo': ['particle'],     # the negative; the verb reading is a past-conjecture construction
     'ádin': ['verb'],        # "there is none"; the number reading is "zero"
     'dinééh': ['noun'],      # "young man"; the verb is "he/she moves house"
+    # A2 (2026-11-16)
+    'náhookǫs': ['noun'],    # "north"; the verb is "to turn over and over"
+    'haʼaʼaah': ['noun'],    # "east"; the verb is "to take something out"
+    'shádiʼááh': ['noun'],   # "south"; the verb is "a solid roundish object starts to be carried"
+    'tłʼéʼííłnííʼ': ['adv'], # "midnight"; Wiktionary's noun reading ("bee") is a stray sense
+    'ndikʼąʼ': ['noun'],     # "cotton, cloth"; the verb is "it burns"
+    'naʼniyęęsh': ['noun'],  # "irrigation"; the verb is "to flow about"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where its first
@@ -74,13 +81,17 @@ POS_ONLY = {
 # or trimmed -- never a meaning it does not give.
 GLOSS = {
     'óola': {'noun': ['hour, the hour', 'gold']},
+    # A2 (2026-11-16)
+    'bighaaʼ': {'noun': ['wool, fleece', 'fur']},
+    'náhookǫs': {'noun': ['north', 'the Big Dipper']},  # its third sense, the whirling-log sign, is not A2's
+    'tsésǫʼ': {'noun': ['glass, window, pane', 'mica']},
 }
 
 
 # A GLOSS THAT IS A GRAMMATICAL POINTER, NOT A MEANING: Wiktionary files `naaltsoos` "book" with a
 # verb reading "Simple passive form of neiłtsoos", `óltaʼ` "school" with "simple passive form of
 # ółtaʼ".  A part of speech left with nothing else is not shown.
-NOT_A_MEANING = re.compile(r'(?i)^(simple passive|reciprocal of)|\b(im)?perfective of\b|\bfuture (form )?of\b')
+NOT_A_MEANING = re.compile(r'(?i)^(simple passive|reciprocal of|unpossessed form of|IPA)|\b(im)?perfective of\b|\bfuture (form )?of\b')
 
 
 def entries_for(row, lex):

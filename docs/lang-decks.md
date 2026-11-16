@@ -4022,6 +4022,8 @@ changed was the one that had been wrong all along.
   Wiktionary's 2,539 usage examples (under other headwords only), the cards are dealt by the geometric mean of the
   two, and a fill word must be in both; possessed forms Wiktionary files as nouns of their own (`bijáád` beside
   `ajáád`) are folded into the indefinite a- form; a verb's "I" and "you" forms come from Wiktionary's form-of entries.
+  **A2 built (2026-11-16)**: `decks/Navajo-A2.folio-deck.json`, 579 notes / 1,158 cards (531 inventory, 48
+  frequency), short of 750: the words both corpora count ran out after A1, so A2 is the hand-written inventory.
   📖 `docs/navajo-decks-plan.md`. The `LANGS` row is 170,000 (Wikipedia's infobox, no L2 figure); the hue is measured,
   `#3C7676`, a turquoise-teal.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**

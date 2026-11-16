@@ -60,6 +60,8 @@ EXCLUDE.update({
     'adilohii': '"lassoer": not an A1 word',
     'aleeh': 'glossed as a grammatical formula ("unspecified subject occurs"), not a meaning',
     'ajéí': 'Wiktionary glosses "pleural organs"; the everyday heart is ajéí in a sense it does not give',
+    # Read off the A2 ranking (2026-11-16).
+    'his': '"pus": not a word the level needs',
     'ałchʼįʼ': 'glossed only as "reciprocal of bichʼįʼ", a pointer, not a meaning',
     'bizis': 'a possessed form ("its bag") filed as its own noun',
     'bitooʼ': 'a possessed form ("its juice") filed as its own noun',
@@ -72,7 +74,7 @@ del EXCLUDE['atsįʼ']
 
 # A GLOSS THAT IS A TAXON (a Latin name in brackets, a family in -idae) or a grammatical
 # form ("simple passive perfective of ...") is never a fill word.
-FORMGLOSS = re.compile(r'(?i)^(simple passive|reciprocal of)|\b(im)?perfective of\b|\bfuture (form )?of\b')
+FORMGLOSS = re.compile(r'(?i)^(simple passive|reciprocal of|unpossessed form of)|\b(im)?perfective of\b|\bfuture (form )?of\b')
 TAXON = re.compile(r'\([A-Z][a-z]+(?: [a-z]+)?\)|idae\b|^[A-Z][a-z]+$')
 
 

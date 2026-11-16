@@ -5,8 +5,8 @@ language set in the shape of the ones already shipped (Hausa, Zulu, Lao …).
 `docs/lang-decks.md` records how those were built, and every rule there applies here unless this file says
 otherwise. Asked for on 2026-11-16: "Add a Navajo language collection."
 
-**STATUS (2026-11-16): the alphabet and sounds deck and A1 are built** (`.claude/navajo/`, §6). A2, B1 and
-the phrases deck are still to come, one per session.
+**STATUS (2026-11-16): the alphabet and sounds deck, A1 and A2 are built** (`.claude/navajo/`, §6–§7). A2 has
+579 notes, not 750: the counted words ran out after A1 (§7). B1 and the phrases deck are still to come.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck this plan produces. The collection's first commit did carry one line and one bump, because
@@ -27,7 +27,7 @@ These were asked after a survey of the sources (§2): a rich dictionary, almost 
 |---|---|---|
 | Navajo Alphabet and Sounds (built) | `Navajo-Alphabet.folio-deck.json` | 41 |
 | Navajo A1 Beginner (built) | `Navajo-A1.folio-deck.json` | 500 |
-| Navajo A2 Elementary | `Navajo-A2.folio-deck.json` | 750 |
+| Navajo A2 Elementary (built) | `Navajo-A2.folio-deck.json` | 579 (planned 750) |
 | Navajo B1 Intermediate | `Navajo-B1.folio-deck.json` | 1,000 |
 | Navajo Phrases and Expressions | `Navajo-Phrases-and-Expressions.folio-deck.json` | — |
 
@@ -125,3 +125,35 @@ every example word is in the A1 lexicon with Wiktionary's IPA.
 France). The outright winner was a yellow-green at 15.1, but it was refused: it would have been a fourth
 green within 15.5 of Middle-earth, Arabic and Geography. Turquoise is also the subject's own colour,
 dootłʼizh. **Re-sweep at the merge** if a parallel session has taken a hue near it.
+
+## 7. As built (2026-11-16): A2
+
+`python3 .claude/navajo/run.py --level a2`. **579 notes / 1,158 cards, against the planned 750.** 531 come
+from the inventory (`inventory.A2`, 35 topics scoped to the A2 descriptor) and 48 from the fill. 183 have
+sentences, three apiece for 35. 169 have IPA and 136 a forms line. A re-run is byte-identical, and A1 still
+rebuilds byte-identical.
+
+- **THE COUNTED WORDS RAN OUT AFTER A1.** Only about 130 lemmas outside A1 appear in both corpora, and A2's
+  fill took the 48 that survive the exclusions. A second tier was measured and refused: words whose own
+  Wiktionary page has an example, ranked by the Wikipedia count. It gave 52 words, mostly stub vocabulary.
+  So A2 is almost all the hand-written inventory, and its words have no count of their own. The smoothed
+  `score` orders them, which in practice is the Wikipedia count where there is one. Wiktionary has the
+  words (about 6,400 lemmas); what is missing is a corpus to rank them. **The level stopped at 579
+  rather than adding about 170 more words chosen with no count.** Asking for more fills it from the
+  inventory.
+- **HOW THE INVENTORY WAS FOUND**: English concepts matched against Wiktionary's glosses ("he/she is …",
+  "to …", "it is …", or a noun's first sense), the best-scoring match taken, then every pick read. Navajo
+  verbs are often filed under the SHAPE of their object ("he/she is throwing it (a slender flexible
+  object)"), so many everyday English verbs ("to give", "to help", "to open") have no single headword. A2
+  teaches the ones Wiktionary does file plainly.
+- **Readings fixed after reading the cards** (`build_deck.POS_ONLY`, `GLOSS`): the directions `náhookǫs`,
+  `haʼaʼaah` and `shádiʼááh` show their noun ("north", "east", "south"), not an unrelated verb;
+  `ndikʼąʼ` "cloth" and `naʼniyęęsh` "irrigation" show their noun too. `bighaaʼ`, `tsésǫʼ` and `náhookǫs`
+  have their senses reordered or trimmed. Glosses beginning "unpossessed form of" or with raw IPA are
+  dropped (`NOT_A_MEANING`). `akąʼ` and `aʼáád` were taken out of the inventory: their first senses are
+  anatomical, not "husband" and "wife".
+
+**Known, left.** Two thirds of A2 has no sentence: Wiktionary illustrates few compound nouns, and Tatoeba has
+nothing to add. The days of the week are Wiktionary's spellings, which mix two systems (`Damóo Biiskání`,
+`Damóo dóó Naakijį́`). Wednesday and Thursday are left out: their entries follow neither of those two patterns
+(`Tágíjį́ Ndaʼanish`, `damóodóó dį́ʼíjį́`), and a set of days in three spellings would teach the inconsistency.
