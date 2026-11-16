@@ -136,7 +136,7 @@ for (const id of LEVELS) {
   if (dm) {
     if (dm.subtitle !== undefined) d.meta.subtitle = dm.subtitle;
     const pend = [];
-    (dm.descSub || []).forEach(([from, to]) => { if (String(d.meta.desc).indexOf(from) >= 0) d.meta.desc = d.meta.desc.split(from).join(to); else pend.push([from, to]); });
+    (dm.descSub || []).forEach(([from, to]) => { if (to.indexOf(from) >= 0) errors.push(id + ": a descSub whose replacement contains what it replaces would be applied again on every run: " + from.slice(0, 60)); else if (String(d.meta.desc).indexOf(from) >= 0) d.meta.desc = d.meta.desc.split(from).join(to); else pend.push([from, to]); });
     pend.forEach(([from, to]) => { if (String(d.meta.desc).indexOf(to) < 0) errors.push(id + ": descSub matches neither the old text nor the new: " + from.slice(0, 70)); });
   }
 
@@ -189,17 +189,21 @@ for (const id of LEVELS) {
     if (d.cards.some((c) => c.id === ins.id)) continue;
     const num = ins.id.split("_").pop();
     let card;
-    if (ins.note) card = Object.assign({}, ins.note, { id: ins.id, num, category, fields: Object.assign({}, ins.note.fields) });
-    else {
+    const exHTML = (word, targets) => (ins.ex || []).map(([fr, en]) => {
+      const b = boldSentence(fr, targets);
+      if (!b.hits) errors.push(id + "/" + word + " (insert): the example does not contain the word: " + fr);
+      if (!en || !String(en).trim()) errors.push(id + "/" + word + " (insert): an example without a translation");
+      return '<div class="uc-exi"><div class="uc-exz"><span class="uc-tts uc-exsay" data-say="' + escAttr(fr) + '"></span>' + b.html + '</div><div class="uc-exe">' + esc(en) + "</div></div>";
+    }).join("");
+    if (ins.note) {
+      card = Object.assign({}, ins.note, { id: ins.id, num, category, fields: Object.assign({}, ins.note.fields) });
+      // a moved card whose sentences did not show the word it teaches: the record's `ex` replaces them
+      if (ins.ex) card.fields.Examples = exHTML(card.fields.Word, ins.bold || [card.fields.Word]);
+    } else {
       const bare = ins.word, art = ins.art ? (VOWEL.test(bare) ? "l'" : ins.art === "m" ? "le" : "la") : "";
       const word = art ? art + (art === "l'" ? "" : " ") + bare : bare;
       const targets = ins.bold || [bare];
-      const ex = (ins.ex || []).map(([fr, en]) => {
-        const b = boldSentence(fr, targets);
-        if (!b.hits) errors.push(id + "/" + word + " (insert): the example does not contain the word: " + fr);
-        if (!en || !String(en).trim()) errors.push(id + "/" + word + " (insert): an example without a translation");
-        return '<div class="uc-exi"><div class="uc-exz"><span class="uc-tts uc-exsay" data-say="' + escAttr(fr) + '"></span>' + b.html + '</div><div class="uc-exe">' + esc(en) + "</div></div>";
-      }).join("");
+      const ex = exHTML(word, targets);
       const ans = flatGlosses(ins.senses || []);
       card = { id: ins.id, num, category, sub: "", question: word, answer: ans, answerDate: "", traditional: "", hanzi: "", pinyin: "",
         translations: "", abstract: "", citation: "", answerText: ans, type: "delf",
