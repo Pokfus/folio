@@ -158,7 +158,23 @@ B2 = [
     ('connectors and discourse', 'þar_af_leiðandi engu_að_síður þrátt_fyrir'),
 ]
 
-# The levels above B2 are written one per session, on request (the plan, §5).
-C1 = []
+# C1 (2026-11-16): every word checked against the extract before it was written here --
+# English Wiktionary's Icelandic is thin in formal vocabulary: of the first draft's 155
+# candidates, 57 were not headwords and 35 were already taught below (the plan, §10).
+C1 = [
+    ('academic and intellectual', 'fræði fræðimaður fræðigrein aðferðafræði heimspeki rökfræði '
+                                  'sálfræði hagfræði tölfræði athugun líkan tilvitnun samantekt '
+                                  'yfirlit nálgun'),
+    ('society and governance', 'stjórnsýsla lýðveldi mannréttindi löggjafarvald einræði alræði '
+                               'þjóðerni þjóðernishyggja kapítalismi sósíalismi lýðræðislegur '
+                               'borgaralegur'),
+    ('the economy', 'fjármagn hlutafélag gjaldþrot hagvöxtur fátækt velmegun'),
+    ('ethics and the mind', 'siðferði vitund skynjun sjálfsmynd skapgerð hvöt hvati samkennd '
+                            'auðmýkt hræsni umburðarlyndi ímyndun sálfræðilegur'),
+    ('language and rhetoric', 'málfræði setningafræði framburður beyging greinarmerki'),
+    ('abstract nouns of analysis', 'hugtak andstæða þversögn staðall frávik'),
+    ('verbs and adjectives of argument', 'álykta flokka staðhæfa ótvíræður tvíræður gagnrýninn'),
+    ('formal connectors', 'jafnframt'),
+]
 
 INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2, 'c1': C1}

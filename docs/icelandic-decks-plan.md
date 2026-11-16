@@ -6,8 +6,8 @@ Icelandic set, built in the Norwegian decks' shape (`docs/norwegian-decks-plan.m
 `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-15: "Add an Icelandic language collection."
 
-**STATUS (2026-11-16): Phase 1 done, Phase 2 under way** — the pipeline, the alphabet deck and A1 (§6), A2 (§7), B1
-(§8) and B2 (§9). C1 and a phrases deck are the later phases (§5), one per request.
+**STATUS (2026-11-16): Phases 1 and 2 done** — the pipeline, the alphabet deck and A1 (§6), A2 (§7), B1 (§8), B2 (§9)
+and C1 (§10): all five levels. A phrases deck is the remaining phase (§5).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP —
@@ -36,7 +36,7 @@ these is the owner's to overrule.**
 | Icelandic A2 Elementary — built | `Icelandic-A2.folio-deck.json` | 750 |
 | Icelandic B1 Intermediate — built | `Icelandic-B1.folio-deck.json` | 1,000 |
 | Icelandic B2 Upper Intermediate — built | `Icelandic-B2.folio-deck.json` | 1,500 |
-| Icelandic C1 Advanced | `Icelandic-C1.folio-deck.json` | 1,500 |
+| Icelandic C1 Advanced — built | `Icelandic-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
 
@@ -109,8 +109,8 @@ higher levels will have markedly fewer.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet and A1. **Phase 2** — A2, B1 and B2 (done) to C1, one level per
-request: write the level's inventory into `inventory.py` (C1 is an empty list), its `SCOPE` is already in `icelandic_level.py`, its
+**Phase 1 (done)** — the pipeline, the alphabet and A1. **Phase 2 (done)** — A2 to C1, one level per request: write
+the level's inventory into `inventory.py`, its `SCOPE` is already in `icelandic_level.py`, its
 `STAMP` into `build_deck.py` (a level with none refuses to build), run, read every card, and widen the deck's
 description where a level needs it. **Phase 3** — a phrases deck (Norwegian's `phrases.py`, not copied yet;
 `build_deck.py` refuses `--level phr` until then).
@@ -222,3 +222,38 @@ lexicon would change this level most.
 **Known, left.** The fill is heavier still with the subtitles' crime, war and fantasy vocabulary (`leyniskytta`,
 `handsprengja`, `vampíra`, `uppvakningur`, `hobbiti`), and carries some plain words of sex and drugs (`klám`,
 `kókaín`, `heróín`, `vændiskona`, `geirvarta`) on frequency — plain words, not slang, as Norwegian B2 left them.
+
+## 10. As built (2026-11-16): C1
+
+Asked for on 2026-11-16: "Add C1." `python3 .claude/icelandic/run.py --level c1`. **1,500 notes: 63 from an 8-topic
+inventory** (`inventory.py` `C1`, Norwegian's C1 topics in Icelandic: academic and intellectual, society and
+governance, the economy, ethics and the mind, language and rhetoric, abstract nouns of analysis, verbs and adjectives
+of argument, formal connectors — `SCOPE['c1']`) **and 1,437 by frequency**; three sentences for 115, **none for
+1,085** — nearly three quarters of the deck; Tatoeba's Icelandic has almost nothing at this register, and the
+description states how many carry sentences. Every card was read; A1 to B2 re-run byte-identical, and C1 re-runs
+byte-identical with the extract rebuilt. **The inventory was checked against the extract before it was written**,
+after B1 and B2: of a first draft of 155 candidates, 57 are not headwords (`siðfræði`, `fullveldi`, `orðræða`,
+`skilgreina`, `endurspegla`, `fjármál`, `persónuleiki`, `dómgreind` …) and 35 were already taught below, which
+leaves 63. A graded lexicon would change this level most.
+
+**The fill at this depth is the subtitles' long tail**, as Norwegian C1's was: many everyday nouns a C1 learner may
+know from B-level life (`tannbursti`, `sólgleraugu`, `hnetusmjör`) beside formal ones.
+
+**What the C1 ranking turned up**, each in `select.py` or `build_deck.py` with its reason:
+- **A count that is another word's**: `verður` (verða's present), `lá` (liggja's past), `mat` (matur's accusative),
+  `manna` (maður's genitive plural), `men`, `endur` (önd's plural), `æður`, `daglegt` (a neuter); English (`at`,
+  `art`, `set`, `il`) and names (`kurt`, `adda`, `bambi`); slang its entry does not give (`pæla` "to think about",
+  `jóna` "a joint"); musical notes and Greek letters; words met only in a set phrase (`skefjar`, `kinka`, `mund`,
+  `mannavillt`, `hylma`, `aðsig`). `kapall` is "a cable" (etymology 2, not "a mare"); `alast` is written with
+  `alast upp` "to grow up".
+- **`heldur` "but, rather" lost its count to `halda`**, whose present it also is — as Norwegian's `når` did to `nå`:
+  its own spelling is met 6,249 times, but the split dealt it 36, so a conjunction a beginner needs (`ekki þetta
+  heldur hitt`, "not this but that") arrived only at C1. The card leads with the conjunction (`ETYMS`), dropping the
+  rare adjective "sturdy". Giving it the spelling outright (`extract.OWN`) would move it into A1 and reorder every
+  shipped level, so it is left here and recorded.
+- **Sexual words and slurs** excluded (`standpína`, `samfarir`, `munnmök`, `tott`, `snípur`, `hreðjar`, `skvísa`,
+  `tittlingur`'s slang …; `surtur`, a racial slur) or to `SWEARS` (`fokking`, `perri`, `lessa`, `viðrini`, `ári`,
+  `hóruhús`, and the childish `kúka`, `prumpa`, `freta`).
+
+**Known, left.** The subtitles' crime and war vocabulary (`fjöldamorð`, `launmorðingi`, `jarðsprengja`) and some plain
+words of the body, sex and drugs (`leggöng`, `kynfæri`, `skyndikynni`, `hass`, `vændi`) on frequency, as at B2.

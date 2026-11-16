@@ -43,7 +43,8 @@ from icelandic_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
 STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-16T00:00:00.000Z',
-         'b1': '2026-11-16T00:00:00.000Z', 'b2': '2026-11-16T00:00:00.000Z'}.get(LEVEL, '')
+         'b1': '2026-11-16T00:00:00.000Z', 'b2': '2026-11-16T00:00:00.000Z',
+         'c1': '2026-11-16T00:00:00.000Z'}.get(LEVEL, '')
 if not STAMP:
     raise SystemExit(f'no STAMP for {LEVEL}: write the day the level is first built into build_deck.py')
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
@@ -110,6 +111,9 @@ ETYMS = {
     'benda': ['2'],           # "to point"; etymology 1 is "to bend"
     'vasi': ['2'],            # "a pocket"; etymology 1 is "a vase"
     'hagur': ['2'],           # "an advantage; finances", not the rare adjective "handy"
+    # C1 (2026-11-16)
+    'heldur': ['2'],          # the conjunction "but, rather", not the adjective "sturdy"
+    'kapall': ['2'],          # "a cable"; etymology 1 is "a mare"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where Wiktionary's
@@ -153,6 +157,8 @@ GLOSS = {
     'limur': {'noun': ['limb']},                              # its second is anatomical
     'sýra': {'noun': ['acid', 'sour whey']},                  # its third is drug slang
     'sæði': {'noun': ['seed, seeds', 'offspring']},
+    # C1 (2026-11-16)
+    'alast': {'verb': ['to grow up (alast upp: hún ólst upp á Íslandi, "she grew up in Iceland")']},
     'króna': {'noun': ['króna (the Icelandic currency)', 'crown']},
     'gjörðu svo vel': {'phrase': ['here you are, there you go (handing something over)',
                                   'please (inviting someone to come in, sit down or help themselves)']},

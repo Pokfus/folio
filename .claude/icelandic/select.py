@@ -94,6 +94,34 @@ EXCLUDE = {
     'mök': 'sexual', 'kynmök': 'sexual', 'nauðgun': 'excluded with nauðga (B1)',
     'svertingi': 'a dated term for a black person, now offensive',
     'öfuguggi': 'an insult (a slur on gay men)',
+    # Read off the C1 ranking (2026-11-16).
+    # A COUNT THAT IS ANOTHER WORD'S, OR A WORD MET ONLY IN A SET PHRASE
+    'verður': 'its count is verður, the present of verða "to become" (A1); its entries are "a meal" and "worthy"',
+    'lá': 'its count is lá, the past of liggja "to lie" (A2); its entry is "to blame"',
+    'mat': 'its count is mat, a case of matur "food" (A1); its entry is "an evaluation"',
+    'manna': 'its count is manna, the genitive plural of maður (A1); its entry is "to man"',
+    'men': 'its count is the English word and menn (maður\'s plural); its entry is "a necklace"',
+    'endur': 'its count is endur "ducks" (önd\'s plural, B2); its entry is met only in set phrases',
+    'æður': 'its count is æð "a vein" (C1)\'s forms; its entry is "wadeable"',
+    'daglegt': 'the neuter of daglegur, taught in C1',
+    'æs': 'its own spelling is not met in the subtitles', 'arða': 'its own spelling is barely met in the subtitles',
+    'skefjar': 'met only in set phrases', 'kinka': 'met only in kinka kolli "to nod"',
+    'mannavillt': 'met only in fara mannavillt', 'mund': 'met only in set phrases',
+    'pæla': 'its count is the colloquial "to think about", which its entry ("to hoe") does not give',
+    'jóna': 'its count is the slang "a joint"; its entry is "to ionise"',
+    'kurt': 'its count is the name Kurt', 'adda': 'its count is the name Adda', 'bambi': 'the name Bambi',
+    'at': 'the English word; its entry is "a fight"', 'il': 'the English and French word; its entry is "a sole"',
+    'ið': 'its own spelling is a fragment (iði, -ið)', 'des': 'a musical note\'s name (D flat)',
+    'es': 'a musical note\'s name (E flat)', 'beta': 'a Greek letter', 'þeta': 'a Greek letter',
+    'ómega': 'a Greek letter',
+    # SEXUAL, OR A SLUR
+    'standpína': 'sexual', 'samfarir': 'sexual', 'elskast': 'sexual', 'tott': 'sexual',
+    'barna': 'sexual ("to get pregnant")', 'sæða': 'sexual', 'snípur': 'sexual', 'hreðjar': 'sexual',
+    'tittlingur': 'its count is the slang sense; its entry is "a small bird"',
+    'skvísa': 'slang for a woman', 'surtur': 'a racial slur', 'munnmök': 'sexual',
+    'hylma': 'met only in hylma yfir "to cover up"', 'art': 'its count is the English word; its entry is "a nature"',
+    'set': 'its count is the English word; its entry is "a seat"',
+    'aðsig': 'met only in set phrases',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
@@ -104,7 +132,9 @@ SWEARS = {'fjandi', 'andskoti', 'helvíti', 'djöfull', 'fokk', 'skítur', 'tík
           # B1 (2026-11-16)
           'hommi', 'pissa', 'fáviti', 'rassgat', 'píka', 'drullusokkur', 'skratti', 'fjárans',
           # B2 (2026-11-16)
-          'tæfa', 'ansans', 'árans', 'helvískur', 'mella', 'flón', 'heimskingi', 'kúkur', 'úrþvætti'}
+          'tæfa', 'ansans', 'árans', 'helvískur', 'mella', 'flón', 'heimskingi', 'kúkur', 'úrþvætti',
+          # C1 (2026-11-16)
+          'fokking', 'perri', 'lessa', 'viðrini', 'ári', 'kúka', 'prumpa', 'hóruhús', 'freta'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists
 # another first.
