@@ -83,7 +83,8 @@ const examplesOf = (c) => [...String(c.fields.Examples).matchAll(/<div class="uc
 function formsOf(c) {
   const out = new Set(), add = (s) => toks(s).forEach((t) => out.add(t));
   add(c.fields.Word);
-  for (const m of String(c.fields.Forms).matchAll(/<span class="uc-fl">[^<]*<\/span>([^<]*)/g)) add(strip(m[1]));
+  /* a Forms value up to its first colon or dash: what follows is an example or an English note (dele, dela — his, hers) */
+  for (const m of String(c.fields.Forms).matchAll(/<span class="uc-fl">[^<]*<\/span>([^<]*)/g)) add(strip(m[1]).split(/:| — /)[0]);
   for (const m of String(c.fields.Conjugation).matchAll(/<span class="uc-cj-f">([\s\S]*?)<\/span><\/div>/g)) add(strip(m[1]));
   for (const m of String(c.fields.Conjugation).matchAll(/<span class="uc-cj-nfi"><i>[^<]*<\/i><b>([\s\S]*?)<\/b>/g)) add(strip(m[1]));
   return out;
