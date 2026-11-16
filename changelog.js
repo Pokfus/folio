@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1326", released: "2026-11-16T01:59Z" };
+window.FOLIO_VERSION = { v: "1.1328", released: "2026-11-16T02:10Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-16",
-    t: "Leviathan in the Library; Lao, Yoruba, Khmer and Icelandic decks",
+    t: "Leviathan; Lao, Yoruba, Khmer, Icelandic decks; Mandarin bopomofo",
     items: [
       "New in the Library: Thomas Hobbes's <b>Leviathan</b> (1651), the whole first edition with his own margin notes.",
       "A new <b>Yoruba</b> language collection: an alphabet and tones deck, A1 to B1 (2,250 words) and phrases, every word with its tone marks.",
@@ -48,6 +48,8 @@ window.CHANGELOG = [
       "<b>Khmer A2</b> and <b>B1</b> decks (1,750 more words) and a phrases deck of 860 phrases and sentences join the Khmer (Cambodian) collection.",
       "A new <b>Icelandic</b> language collection: an alphabet deck, levels A1 to C1 and 734 phrases, idioms and proverbs, every noun with its four cases.",
       "<b>On this day</b> now sits directly below the minigames on the home page, above the suggested reading.",
+      "Mandarin Chinese gains a <b>Bopomofo</b> deck: 62 zhuyin symbols, tone marks and combinations, each with its pinyin, sound and example words.",
+      "<b>Romeo and Juliet</b> is in the Library: Shakespeare's play in the Yale edition of 1917, with its Prologue, list of characters and every gloss.",
     ],
   },
   {

@@ -155,6 +155,9 @@ function levelRank(title) {
      are made of. Tested BEFORE the level rule below, which would read the "Level 1" in a title and file
      the parts deck beside Level 1 itself. */
   if (/\bPinyin and tones\b/.test(title)) return -2;
+  /* BOPOMOFO (Nov 2026, on request) is the other way the cards write a reading: beside Pinyin and tones,
+     just after it, and before the character parts. */
+  if (/\bBopomofo\b/.test(title)) return -1.5;
   if (/\bCharacter parts for Level 1\b/.test(title)) return -1;
   if (/\bFirst phrases\b/.test(title)) return 0.5;
   /* ZULU'S NOUN CLASSES AND SOUNDS COME BEFORE A1 (Nov 2026): Zulu is written in the Latin alphabet, so its

@@ -339,6 +339,15 @@ book added later will meet the same traps.
   it is hung on the line its anchor cites (`Iii15` is I. ii. 15). Lewis's brackets on a speaker he
   supplied are kept (`[First] Mur`). Its `BOOK_AUTHOR_COLOR` row is where the Euripides test chose
   a deep navy over the band's best, a magenta whose nearest neighbour is Euripides.
+  `romeo-and-juliet` (~268 KB, all 5 acts, **588 notes**, no original — the Yale Shakespeare of 1917,
+  ed. Willard Higley Durham, 1883–1955, so public domain in the US by the pre-1929 rule and under life
+  plus seventy, NOT yet life plus a hundred, and the rights text says so; `layout: "yale"`, Macbeth's
+  extractor with the prologue added — see `docs/library-importer.md` "The `yale` layout"). The opening
+  Chorus is its own page (`prePage`), set after the cast at the head of Act I; Act II's Chorus is on that
+  act's page. 564 of 588 notes land on their word, 4 on their text, 18 at a line's end, 2 end notes hung on their line; all 84 end notes reach the page. Three mistyped line
+  numbers are fixed off the scan (IV. i. 124, IV. iv. 13, V. iii. 284). Left as transcribed, unverified
+  against the print: "Benvoilo" in the list of characters, and "Uncle to Capulet" standing alone on its
+  line there. Shakespeare's existing `BOOK_AUTHOR_COLOR` row colours its tile.
   `marco-polo` (~2.77 MB, all 235 chapters, **788 notes**, no original — Sir Henry Yule's
   translation in the third edition of 1903 as revised by Henri Cordier, and **the first book here
   printed in TWO source files**, which costs a second fetch and one loop and matters only because

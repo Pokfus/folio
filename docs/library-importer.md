@@ -2413,6 +2413,13 @@ findings are in `docs/library-books.md`; what is worth carrying to the next play
 - Fetching: the API rate-limited a fresh walk hard (Oct 2026). The cache was primed by a slow loop
   with long backoff; `action=render` answers when `api.php` will not, but returns Parsoid markup,
   which this extractor was not written against.
+- **A Chorus's prologue is scene 0** (Nov 2026, Romeo and Juliet, the Yale volume of 1917): a centred
+  `PROLOGUE` opens a scene with `k: 0` headed "Prologue"; its glosses sit under the anchor `A2Prol`, or —
+  for the prologue on a page of its own, which the entry names as `prePage` and which is set after the
+  cast at the head of Act I — under no anchor at all. The Chorus's speaker is set in roman or inside a
+  tooltip, so it is read only inside a prologue. The cache was primed by hand with a slow curl loop
+  (the API rate-limited from the first request), and three printed line numbers the transcription
+  mistypes are put right by `fixes`, each witnessed by the scan's page image (Commons `thumb.php`).
 
 ## The `chajing` layout — a digest read off a scan's OCR, beside a Chinese text read off wikitext (Oct 2026, the Classic of Tea)
 
