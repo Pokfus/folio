@@ -3193,12 +3193,12 @@
      out therefore also FORGETS that account — its token is dead the moment the request lands, and a
      remembered account that cannot be switched to is worse than none. */
   async function supaSignOut(opts) {
-    const keep = !!(opts && opts.keepToken);
+    const keep = !!(opts && opts.keepToken), gone = !!(opts && opts.gone);   // `gone`: the account was just deleted — nothing to push to, no token left to revoke
     if (supaLoggedIn()) {
-      clearTimeout(_supaPushTimer); _supaPushTimer = null; await supaPush();   // final sync of this device's progress
+      clearTimeout(_supaPushTimer); _supaPushTimer = null; if (!gone) await supaPush();   // final sync of this device's progress
       if (keep) supaRemember(); else supaForget(SUPA.user.id);
     }
-    if (!keep) supaFetch("/auth/v1/logout", { method: "POST" });   // best-effort token revoke
+    if (!keep && !gone) supaFetch("/auth/v1/logout", { method: "POST" });   // best-effort token revoke
     SUPA = null; SUPA_PROFILE = null; supaSaveSession();
     let g = null; try { g = JSON.parse(localStorage.getItem(SUPA_GUEST_KEY) || "null"); } catch (e) {}
     try { localStorage.removeItem(SUPA_GUEST_KEY); } catch (e) {}
@@ -3230,6 +3230,26 @@
     if (SUPA && SUPA.user && uKey(em) === uKey(SUPA.user.email)) return { error: "That is already your address." };
     const r = await supaFetch("/auth/v1/user", { method: "PUT", body: { email: em } });
     return r.ok ? { ok: true } : { error: supaErrMsg(r, "Could not change the email address.") };
+  }
+  /* DELETING THE ACCOUNT (Nov 2026, out of the account-page audit). There was no way to: a reader who
+     wanted their account gone had to write in. `public.delete_my_account(pw)` (section 18 of
+     `.claude/supabase-schema.sql`) is `security definer`, checks the PASSWORD against the caller's own row —
+     a session left open on a shared computer is not enough to destroy an account — and deletes that one
+     `auth.users` row; every table that hangs off it cascades. It answers `true` when the account is gone
+     and `false` for a wrong password.
+     IT DEGRADES TO A SENTENCE on a database that has not run section 18 (a 404), like every later block.
+     Afterwards the device is signed out through the ordinary path, with `gone`: there is no account left
+     to push to and no token left to revoke, and the device goes back to the guest record it held before. */
+  async function supaDeleteAccount(pw) {
+    if (!supaLoggedIn()) return { error: "You are not signed in." };
+    if (!pw) return { error: "Enter your password." };
+    const r = await supaFetch("/rest/v1/rpc/delete_my_account", { method: "POST", body: { pw: pw } });
+    if (r.status === 404) return { error: "Deleting an account from this page isn't set up on this site yet — send a note through Feedback and it will be removed for you." };
+    if (r.status === 0) return { error: "Could not reach the server — check your connection and try again." };
+    if (!r.ok) return { error: supaErrMsg(r, "Could not delete the account.") };
+    if (r.data !== true) return { error: "That password is not right." };
+    await supaSignOut({ gone: true });
+    return { ok: true };
   }
   /* SWITCHING. The order is what keeps the two accounts' progress apart, and every step earns its place:
      the live account's work is pushed and its token kept, the ordinary sign-out path restores the DEVICE's
@@ -24329,7 +24349,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         " — " + n + " artefact" + (n === 1 ? "" : "s") + '">See Reliquary</button>'
       : "") + "</div>";
     return head + '<div class="showcase">' + cells + '</div>' +
-      (own ? '<p class="ar-note">Open an artefact below to pin it here — up to ' + SHOWCASE_MAX + ', shown to anyone who visits your profile.</p>' : "");
+      (own ? '<p class="ar-note">Pin an artefact from your Reliquary — up to ' + SHOWCASE_MAX + ', shown to anyone who visits your profile.</p>' : "");
   }
   /* THE WAITING-CHESTS BANNER, at the very top of the account page (Aug 2026, on request, with the chest
      overlay's own "Save for later"). The two halves are one feature: a chest may now be put by, so there
@@ -44983,10 +45003,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const best = (prog.daily && prog.daily.best) || 0;
     const due = dueN != null ? '<div class="statcard"><b>' + dueN + '</b><span>Due now</span></div>' : "";
     return '<div class="statgrid">' +
-      '<div class="statcard"><b>' + seen + '</b><span>Cards seen</span></div>' +
+      '<div class="statcard"><b>' + seen + '</b><span>Cards studied</span></div>' +
       '<div class="statcard zh"><b>' + streak + '</b><span>Day streak</span></div>' + due +
       '<div class="statcard"><b>' + mature + '</b><span>Mature (21d+)</span></div>' +
-      '<div class="statcard"><b>' + wins + '</b><span>Minigame wins</span></div>' +
+      '<div class="statcard"><b>' + wins + '</b><span>Quiz wins</span></div>' +
       '<div class="statcard"><b>' + best + '</b><span>Best score</span></div></div>';
   }
   /* ---------- review statistics: heatmap, forecast, retention ----------
@@ -45269,11 +45289,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           ${retBody}
         </div>
         ${fcCard}
+        ${/* PAIRED BY HEIGHT (Nov 2026): the two bar charts share a row and the two card lists share the
+              next, where a chart beside a twenty-row list left half a card of blank space under it; an odd
+              card out at the end takes the full row (see `.revstats` in styles.css). */""}
+        ${answerButtonsHTML(prog)}
+        ${forgettingCurveHTML(prog)}
         ${leechPanelHTML(prog)}
         ${slowPanelHTML(prog)}
-        ${forgettingCurveHTML(prog)}
         ${seenOnceHTML(prog)}
-        ${answerButtonsHTML(prog)}
       </div>`;
   }
   /* ==========================================================================================
@@ -45531,15 +45554,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       prev = t;
       if (run > best) best = run;
     });
-    return best;
+    /* …and never less than the run the reader is ON, or the best one `bumpStreak` recorded: the log is
+       pruned and a streak is not, so a run older than the log read as a "longest streak" shorter than
+       the current one printed two tiles away. */
+    const st = (prog && prog.streak) || {};
+    return Math.max(best, st.best | 0, streakLive(prog));
   }
+  /* THE DAILY LOG IS A WINDOW, AND A TOTAL OVER IT IS ONLY "ALL TIME" UNTIL IT IS PRUNED (Nov 2026).
+     `logReview` drops days older than REVIEW_LOG_DAYS, so after thirteen months "Reviews, all time" was a
+     figure that could go DOWN. Once the log reaches back to the edge of that window the totals are taken
+     over exactly the window and `windowed` tells the tiles to say "past 13 months"; before that every
+     review the reader has given is still in it and "all time" is true. */
   function reviewLogTotals(prog) {
     const log = (prog && prog.reviewLog) || {};
+    const keys = Object.keys(log).filter((k) => ((log[k] || [])[0] || 0) > 0).sort();
+    const cut = dayKey(Date.now() - REVIEW_LOG_DAYS * DAY), edge = dayKey(Date.now() - (REVIEW_LOG_DAYS - 31) * DAY);
+    const windowed = !!keys.length && keys[0] <= edge;
     let reviews = 0, days = 0;
-    Object.keys(log).forEach((k) => { const n = (log[k] || [])[0] || 0; reviews += n; if (n > 0) days++; });
-    return { reviews, days };
+    keys.forEach((k) => { if (windowed && k < cut) return; reviews += log[k][0]; days++; });
+    return { reviews, days, windowed };
   }
-  const GAME_TITLES = { challenge: "Multiple choice", chrono: "Timeline", truefalse: "True or False", whosaid: "Who said it?", findit: "Find it", thread: "Common Thread" };
+  /* A game's name comes from GAME_NAMES, the table the home tiles and the archive read (Nov 2026): this had
+     a copy of its own that stopped at six games, so the four added since were printed as their ids. */
+  function gameTitle(k) { return (GAME_NAMES[k] && GAME_NAMES[k][0]) || k; }
   function exploreStatsHTML(prog) {
     const gloss = glossSeenCount(prog);   // only the curated glossary, and only terms that still exist
     const glossTotal = glossTotalCount();
@@ -45578,9 +45615,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ? '<button type="button" class="rs-card ex-meter ex-meter-link" data-exgo="' + esc(go) + '">' + body + '<span class="ex-go" aria-hidden="true">→</span></button>'
         : '<div class="rs-card ex-meter">' + body + "</div>";
     };
-    const gameRows = DAILY_GAMES.map((k) => {
-      const g = gl[k] || { plays: 0, wins: 0 };
-      return '<div class="ex-grow"><span class="exg-name">' + esc(t(GAME_TITLES[k] || k)) + "</span>" +
+    // …and only the games that have been played: nine rows of "0 plays · 0 perfect" say nothing nine times
+    const gameRows = DAILY_GAMES.filter((k) => gl[k] && (gl[k].plays | 0) > 0).map((k) => {
+      const g = gl[k];
+      return '<div class="ex-grow"><span class="exg-name">' + esc(t(gameTitle(k))) + "</span>" +
         '<span class="exg-n">' + g.plays + (g.plays === 1 ? " play" : " plays") + "</span>" +
         '<span class="exg-w">' + g.wins + " perfect</span></div>";
     }).join("");
@@ -45605,14 +45643,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         tile(fmtStudyTime(lifeMs), "Time studied", "Every minute a card has been on your screen since this counter began — the minigames are not counted") +
         (readMs ? tile(fmtStudyTime(readMs), "Time reading", "Every minute spent in a book in the Library") : "") +
         (geoLoaded ? tile(histPlaces, "Historical territories", "Territories from the Atlas's historical maps, and the UK's home nations — places you have opened that are not present-day countries") : "") +
-        tile(tot.reviews, "Reviews, all time", "Every grade you have given, from the day-by-day log") +
-        tile(tot.days, "Days studied", "Days with at least one review") +
+        tile(tot.reviews, tot.windowed ? "Reviews, past 13 months" : "Reviews, all time", tot.windowed ? "Every grade you have given in the past 13 months — the day-by-day log keeps no more than that" : "Every grade you have given, from the day-by-day log") +
+        tile(tot.days, tot.windowed ? "Days studied, past 13 months" : "Days studied", "Days with at least one review") +
         tile("🔥 " + best, "Longest streak", "The longest run of consecutive days with a review") +
         tile(cotd, "Card-of-the-day picks", "Cards you added to your review from the home page's card of the day") +
         tile(plays, "Games played", "Every daily minigame you have finished") +
         tile(wins, "Perfect runs", "Games finished without a single mistake") +
       "</div>" +
-      '<div class="ex-games">' + gameRows + "</div>";
+      (gameRows ? '<div class="ex-games">' + gameRows + "</div>" : "");
   }
 
   // the root collection an item belongs to (walk up the tree) — used to tint profile rows in the collection's hue
@@ -45644,17 +45682,33 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function renderCollectionLevels(container, cards, compareCards) {
     const cols = TREE.collections.filter((c) => subtreeCardIds(c).length > 0 && !isComingSoon(c));
     if (!cols.length) { container.innerHTML = '<div class="cl-empty">No collections studied yet — your progress in each appears here as you study.</div>'; return 0; }
-    container.innerHTML = cols.map((c) => {
+    /* ONLY THE COLLECTIONS THAT HAVE BEEN STARTED, THE REST BEHIND ONE BUTTON (Nov 2026). Every collection
+       on the site was listed, so a reader three collections in scrolled past thirty rows of "0 / 1,000" —
+       a third of the page saying nothing. A row is drawn when the reader (or, on a friend's profile, either
+       of you) has studied a card in it.
+       …AND TWO COLLECTIONS OF ONE NAME SAY WHICH THEY ARE: the United States, China, Russia and India are
+       each a history collection and a geography one, and the list printed the same word twice. The shelf's
+       own section name (COLLECTION_SECTION) is added only where a title is shared. */
+    const titles = {}; cols.forEach((c) => { const k = nodeTitle(c); titles[k] = (titles[k] || 0) + 1; });
+    const rowOf = (c) => {
       const total = subtreeCardIds(c).length, studied = collectionStudiedFrom(c, cards);
       const hue = COLL_THEME[c.id] ? ' style="--coll-bg:' + COLL_THEME[c.id].bg + '"' : "";
       const you = compareCards ? '<span class="cl-you" title="Your own progress in this collection">You: ' + collectionStudiedFrom(c, compareCards) + " / " + total + "</span>" : "";
+      const sec = titles[nodeTitle(c)] > 1 && COLLECTION_SECTION[c.id] ? '<span class="cl-sec">' + esc(COLLECTION_SECTION[c.id]) + "</span>" : "";
       return '<div class="cl-row"' + hue + '>' + collectionIconMarkup(c.id) +
-        '<div class="cl-main"><div class="cl-name">' + esc(nodeTitle(c)) + you + '</div>' + deckProgMarkup(studied, total) + '</div></div>';
-    }).join("");
+        '<div class="cl-main"><div class="cl-name">' + esc(nodeTitle(c)) + sec + you + '</div>' + deckProgMarkup(studied, total) + '</div></div>';
+    };
+    const begun = (c) => collectionStudiedFrom(c, cards) > 0 || (!!compareCards && collectionStudiedFrom(c, compareCards) > 0);
+    const on = cols.filter(begun), off = cols.filter((c) => !begun(c));
+    container.innerHTML = (on.length ? on.map(rowOf).join("") : '<div class="cl-empty">No collections studied yet — your progress in each appears here as you study.</div>') +
+      (off.length ? moreBtnHTML("Show the " + off.length + " not started", "Hide the ones not started") + '<div class="coll-levels cl-rest" hidden>' + off.map(rowOf).join("") + "</div>" : "");
     animateProgs(container);
     return cols.length;
   }
-  function roleBadge(role) { return '<span class="role-badge ' + (role === "admin" ? "role-admin" : "role-user") + '">' + (role === "admin" ? "Admin" : "User") + '</span>'; }
+  /* Only a role worth saying (Nov 2026): every ordinary account wore a "User" chip, which told a reader
+     nothing about themselves or a friend. An admin's is still drawn; `sep` is the separator the caller
+     wants in front of it, so a line with no badge has no stray dot either. */
+  function roleBadge(role, sep) { return role === "admin" ? (sep || "") + '<span class="role-badge role-admin">Admin</span>' : ""; }
   function afterAuthChange() { applyMode(); route("account"); }
 
   /* ---------- achievements ---------- */
@@ -45969,8 +46023,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function badgesHTML(achObj, stats) {
     const got = (id) => achObj && achObj[id];
     const earned = ACHIEVEMENTS.filter((a) => got(a.id)).length;
-    return '<div class="badges-head"><span class="badges-count">' + earned + ' of ' + ACHIEVEMENTS.length + ' unlocked</span></div>' +
-      '<div class="badges">' + ACHIEVEMENTS.map((a) => {
+    /* THE EARNED ONES, THE NEAREST FEW, AND THE REST BEHIND ONE BUTTON (Nov 2026). All fifty were drawn
+       at once, which on a phone was three and a half screens of grey tiles under a handful of gold ones.
+       What a reader looks at is what they HAVE and what they are closest to: so the earned badges come
+       first, then the BADGE_NEXT locked ones furthest along (a badge with no countable goal counts as not
+       begun), and the remainder is folded under "Show the other N" — the delegated [data-more] listener
+       at the foot of this file opens it. Nothing is dropped: every badge is still one press away. */
+    const frac = (a) => { if (!a.prog || !stats) return 0; const pr = a.prog(stats); return pr[1] > 0 ? Math.min(1, pr[0] / pr[1]) : 0; };
+    const locked = ACHIEVEMENTS.filter((a) => !got(a.id)).map((a, i) => ({ a, f: frac(a), i })).sort((x, y) => y.f - x.f || x.i - y.i).map((x) => x.a);
+    const shown = ACHIEVEMENTS.filter((a) => got(a.id)).concat(locked.slice(0, BADGE_NEXT)), rest = locked.slice(BADGE_NEXT);
+    const tileOf = (a) => {
         const has = got(a.id);
         // earned → its unlock date; locked with a countable goal → a "6/10" progress hint
         let sub = "";
@@ -45983,7 +46045,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             '<span class="badge-face badge-front"><span class="badge-ic">' + a.icon + '</span><span class="badge-name">' + esc(a.name) + '</span>' + (sub ? '<span class="badge-sub">' + esc(sub) + '</span>' : "") + '</span>' +
             '<span class="badge-face badge-back"><span class="badge-back-h">How to earn</span><span class="badge-how">' + esc(a.desc) + '</span></span>' +
           '</span></button>';
-      }).join("") + '</div>';
+    };
+    return '<div class="badges-head"><span class="badges-count">' + earned + ' of ' + ACHIEVEMENTS.length + ' unlocked</span></div>' +
+      '<div class="badges">' + shown.map(tileOf).join("") + '</div>' +
+      (rest.length ? moreBtnHTML("Show the other " + rest.length + " badges", "Show fewer badges") + '<div class="badges badges-rest" hidden>' + rest.map(tileOf).join("") + '</div>' : "");
+  }
+  const BADGE_NEXT = 6;
+  /* ONE FOLD, WHEREVER A LIST IS LONGER THAN WHAT A READER CAME FOR. The button opens the element that
+     FOLLOWS it and says the other thing; the listener is delegated (foot of this file), so the HTML can
+     be set by any renderer — your own page, a friend's — without each of them wiring it. */
+  function moreBtnHTML(openLbl, shutLbl) {
+    return '<button type="button" class="more-btn" data-more="1" aria-expanded="false" data-open="' + esc(openLbl) + '" data-shut="' + esc(shutLbl) + '">' + esc(openLbl) + "</button>";
   }
 
   PAGES.account = function (root, params) {
@@ -46058,10 +46130,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ${supaOtherAccounts().length ? '<div class="section-label">Pick up where you left off</div>' + acctSwitchListHTML() : ""}
       <div class="auth-split">
       <div class="auth-card">
-        <div class="auth-tabs">
-          <button class="auth-tab active" data-av="signin" type="button">Sign in</button>
-          <button class="auth-tab" data-av="register" type="button">Create account</button>
-          <button class="auth-tab" data-av="forgot" type="button">Forgot password</button>
+        ${/* TWO TABS, AND "FORGOT PASSWORD?" WHERE IT IS WANTED (Nov 2026). It was a third tab, which on a
+              phone wrapped all three onto two lines each — and it is not a third thing to do here: it is
+              what a reader reaches for at the password field, so it is a link under that field, and its
+              form carries the way back. The tabs say which is selected to a screen reader as well. */""}
+        <div class="auth-tabs" role="tablist" aria-label="Sign in or create an account">
+          <button class="auth-tab active" data-av="signin" type="button" role="tab" aria-selected="true">Sign in</button>
+          <button class="auth-tab" data-av="register" type="button" role="tab" aria-selected="false">Create account</button>
         </div>
         <form class="auth-form" data-form="signin">
           ${/* "Email or username" (Aug 2026, on request), which is also why the type is `text` rather than
@@ -46070,6 +46145,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 the right token for a field that takes either, and password managers fill it as happily. */""}
           <label>Email or username<input class="auth-in" name="u" type="text" autocomplete="username" required></label>
           <label>Password<input class="auth-in" name="p" type="password" autocomplete="current-password" required></label>
+          <button type="button" class="link-btn auth-forgot" data-av="forgot">Forgot password?</button>
           <div class="auth-msg" data-msg></div>
           <button class="auth-btn" type="submit">Sign in</button>
         </form>
@@ -46086,6 +46162,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <label>Email<input class="auth-in" name="u" type="email" autocomplete="email" required></label>
           <div class="auth-msg" data-msg></div>
           <button class="auth-btn" type="submit">Send reset link</button>
+          <button type="button" class="link-btn auth-forgot" data-av="signin">&larr; Back to sign in</button>
         </form>
       </div>
         <div class="auth-perks">
@@ -46112,23 +46189,31 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             anybody else, and walling the only way to look at them behind a sign-in would make the browser
             unreachable for exactly the reader who has no other record of their studying. It appears only
             once something has been studied — on a first visit there is nothing to browse. */""}
+      ${/* …AND SO IS THE REST OF THE DEVICE'S RECORD (Nov 2026, out of the page audit). A guest with five
+            hundred cards studied was shown the browser and nothing else: no figures, no review statistics,
+            no weak spots, no list of the cards they had suspended — all of it computed from this device and
+            none of it needing an account. The same tiles, links and statistics the signed-in page draws. */""}
       ${Object.keys(S.cards || {}).length ? `
+      <div class="section-label">On this device</div>
+      ${acctTilesHTML(S, false)}
       <div class="section-label">Your cards</div>
-      <button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="browse">
-        <div class="rs-head"><h3>Card browser</h3><span class="rs-meta">search &amp; act</span></div>
-        <span class="rs-sub">Every card you could study — its state, when it is due, how often you have forgotten it. Flag them, push them to a date, or put one back to new.</span>
-        <span class="ex-go" aria-hidden="true">&rarr;</span>
-      </button>` : ""}`;
-    root.querySelectorAll("[data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
+      ${acctLinksHTML()}
+      ${acctStatsHTML()}` : ""}`;
+    root.querySelectorAll(".acct-links [data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
+    if (root.querySelector("#reviewStats")) wireAcctStats(root);
     { const rel = root.querySelector("#reliquary"); if (rel) { rel.innerHTML = reliquaryHTML(S, true, { entry: true }); wireReliquary(rel); } }
     // the tiles carry the artefacts' own pictures, which are lazy — fill them in when the bundle lands
     // rather than holding a page full of other things the reader came for. See refreshReliquary.
     if (!dataReady("artefactExtra")) ensureData("artefactExtra").then(() => { if (current && current.name === "account") refreshReliquary(); });
     wireAcctSwitch(root);
+    // the reset form belongs to the Sign-in tab: it is reached from that form and goes back to it
     const tabs = root.querySelectorAll(".auth-tab"), forms = root.querySelectorAll(".auth-form");
-    tabs.forEach((t) => t.addEventListener("click", () => {
-      tabs.forEach((x) => x.classList.toggle("active", x === t));
-      forms.forEach((f) => { f.hidden = f.dataset.form !== t.dataset.av; });
+    root.querySelectorAll("[data-av]").forEach((t) => t.addEventListener("click", () => {
+      const want = t.dataset.av, tabOf = want === "forgot" ? "signin" : want;
+      tabs.forEach((x) => { const on = x.dataset.av === tabOf; x.classList.toggle("active", on); x.setAttribute("aria-selected", on ? "true" : "false"); });
+      forms.forEach((f) => { f.hidden = f.dataset.form !== want; });
+      const first = root.querySelector('.auth-form[data-form="' + want + '"] input');
+      if (first && !t.classList.contains("auth-tab")) first.focus();
     }));
     const msg = (form, text, ok) => { const m = form.querySelector("[data-msg]"); m.textContent = text || ""; m.className = "auth-msg" + (text ? (ok ? " ok" : " err") : ""); };
     /* THE LABEL IS STASHED BEFORE IT IS OVERWRITTEN, WHICH IT WAS NOT (Sep 2026, on a bug report about
@@ -46176,158 +46261,57 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     });
   }
 
-  function acctSelfView(root) {
-    const me = SUPA_PROFILE || { username: ((SUPA.user && SUPA.user.email) || "account").split("@")[0], role: "user" };   // profile may still be loading right after boot
-    const joined = new Date(S.user.joined).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
-    // profile hero: a level-progress ring around the avatar + a row of headline stat tiles
-    const info = levelFromXP(folioXP());
-    const ringC = 2 * Math.PI * 34;   // r=34 in a 76×76 viewBox
-    const frac = info.need > 0 ? Math.min(1, info.into / info.need) : 1;
-    const st = progStats(S, 0);
-    const earnedBadges = Object.keys(S.achievements || {}).filter((k) => S.achievements[k]).length;
-    const statTile = (cls, val, label) => `<div class="ph-stat ${cls}"><b>${val}</b><span>${label}</span></div>`;
-    root.innerHTML = `
-      <div class="page-head"><span class="eyebrow">Your record</span><h1>Account</h1></div>
-      ${/* Waiting chests were announced here and are now above the Daily-study banner on the home page
-            (Aug 2026, on request), which is where a reader who deferred one lands. */""}
-      <div class="profile">
-        <div class="ph-ava">
-          <svg class="ph-ring" viewBox="0 0 76 76" aria-hidden="true">
-            <circle cx="38" cy="38" r="34" fill="none" stroke="color-mix(in srgb, var(--indigo) 16%, transparent)" stroke-width="4"/>
-            <circle cx="38" cy="38" r="34" fill="none" stroke="#C39A2E" stroke-width="4" stroke-linecap="round" stroke-dasharray="${ringC.toFixed(1)}" stroke-dashoffset="${(ringC * (1 - frac)).toFixed(1)}" transform="rotate(-90 38 38)"/>
-          </svg>
-          <button class="mono-btn" id="monoBtn" type="button" title="${me.avatar ? "Change or remove your profile photo" : "Add a profile photo"}" aria-haspopup="${me.avatar ? "menu" : "false"}" aria-label="${me.avatar ? "Change or remove your profile photo" : "Add a profile photo"}">
-            <span id="mono">${monogramHTML(me.avatar, S.user.name)}</span>
-            <span class="mono-cam" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
-          </button>
-          <span class="ph-lvl" title="Folio level — the ring fills toward the next level">Lv ${info.level}</span>
-        </div>
-        <input type="file" id="avatarFile" accept="image/*" hidden>
-        <div class="who">
-          <input class="namefield" id="name" value="${esc(S.user.name)}" maxlength="28" aria-label="Display name" />
-          <div class="since"><span id="unShown">@${esc(me.username)}</span> · ${roleBadge(me.role)} · since ${joined}${/* THE ADDRESS OF YOUR OWN PROFILE, so the thing to share is on the page rather than something a reader has to know the shape of. It copies rather than opening: pressing it would take you to your own account page, which is where you already are. */""} · <button type="button" class="link-btn" id="unCopy" title="Copy the link to your profile">copy link</button></div>
-        </div>
-        ${/* Aug 2026, on request: Change password moved up here beside Sign out. The two are the same kind
-              of thing — what you do to the ACCOUNT — and it had been sitting a section lower among the
-              photo controls, where it read as one of them. */""}
-        <div class="acct-idacts">
-          <button class="ghost-btn" id="unToggle" type="button">Username</button>
-          <button class="ghost-btn" id="emToggle" type="button">Email address</button>
-          <button class="ghost-btn" id="pwToggle" type="button">Change password</button>
-          <button class="ghost-btn" id="swToggle" type="button">Switch account</button>
-          <button class="ghost-btn" id="signout" type="button">Sign out</button>
-        </div>
-      </div>
-      ${/* …and the sync line moved with them: it says what happens to the thing those two buttons act on,
-            so it belongs directly under them rather than beside a Remove-photo button. */""}
-      <div class="acct-syncnote"><span class="auth-note">${S._supaTs ? "Progress synced to your account ✓" : "Progress will sync automatically as you study"}</span></div>
-      ${/* CHANGING THE HANDLE (Sep 2026, on a bug report about creating an account). Sign-up does not always
-            grant the username asked for — a taken one is answered with `scholar_<8 hex>` so that the account
-            is still made — and until now there was no way back from that: the field above edits the display
-            name, and the handle was write-once. The panel says what the handle IS as well as changing it,
-            since it is what the reader signs in with and what a friend searches for. */""}
-      <div class="acct-panel" id="unPanel" hidden>
-        <div class="acct-current">Your username is <b>@${esc(me.username)}</b></div>
-        <label>New username<input class="auth-in" id="unNew" autocomplete="username" placeholder="letters, numbers, underscore" maxlength="24"></label>
-        <div class="auth-msg" id="unMsg"></div>
-        <button class="auth-btn sm" id="unSave" type="button">Change username</button>
-        <p class="auth-note">This is the handle you can sign in with and the one friends add you by. Your display name above is separate.</p>
-      </div>
-      ${/* SEEING AND CHANGING THE ADDRESS (Aug 2026, on request). The address a reader signs in with was
-            nowhere on this page, which on an account that also has a username is the one fact they cannot
-            look up anywhere else. It is shown plainly and changed in the same panel, and the note says the
-            change is not immediate — GoTrue emails a link and the swap happens when it is followed. */""}
-      <div class="acct-panel" id="emPanel" hidden>
-        <div class="acct-current">Signed in as <b>${esc((SUPA.user && SUPA.user.email) || "—")}</b></div>
-        <label>New email address<input class="auth-in" id="emNew" type="email" autocomplete="email" placeholder="${esc((SUPA.user && SUPA.user.email) || "you@example.com")}"></label>
-        <div class="auth-msg" id="emMsg"></div>
-        <button class="auth-btn sm" id="emSave" type="button">Send confirmation link</button>
-        <p class="auth-note">Your address changes once you follow the link we send to the new one. Until then, keep signing in with the old address — or with your username.</p>
-      </div>
-      <div class="acct-panel" id="pwPanel" hidden>
-        <label>New password<input class="auth-in" id="pwNew" type="password" autocomplete="new-password"></label>
-        <label>Confirm<input class="auth-in" id="pwNew2" type="password" autocomplete="new-password"></label>
-        <div class="auth-msg" id="pwMsg"></div>
-        <button class="auth-btn sm" id="pwSave" type="button">Update password</button>
-      </div>
-      ${/* The switcher, and the way to add one more to it. "Sign in to another account" signs THIS one out
-            while keeping its token, which is what lands the reader on the ordinary sign-in form with both
-            accounts remembered — rather than a second copy of that form living inside this page. */""}
-      <div class="acct-panel" id="swPanel" hidden>
-        ${supaOtherAccounts().length ? acctSwitchListHTML() : '<p class="auth-note">No other account is remembered on this device yet.</p>'}
-        <button class="auth-btn sm ghost" id="swAdd" type="button">Sign in to another account</button>
-        <p class="auth-note">Switching keeps you signed in to both — your work on each stays its own. Signing out forgets the account you sign out of.</p>
-      </div>
-      <div class="ph-stats">
-        ${statTile("st-seen", st.seen, "Cards studied")}
-        ${statTile("st-streak", "🔥 " + st.streak, "Day streak")}
-        ${statTile("st-badges", earnedBadges, "Badges")}
-        ${statTile("st-wins", st.wins, "Quiz wins")}
-      </div>
-      ${/* HOW FAR TO THE NEXT STREAK CHEST (Aug 2026, on request). It sits under the stat tiles, beside the
-            streak figure it counts from — the tile says how long the run is and this says what the run is
-            worth, which are two halves of one fact and read badly a section apart. */""}
-      ${/* THE REMOVE-PHOTO ROW STOOD HERE AND IS GONE (Sep 2026, on request: "instead, make it so that
-            clicking your own profile picture offers two options: edit photo and remove photo"). It was a
-            button in a section of its own, a screen away from the picture it acted on, and it existed only
-            while there WAS a photo — so the row appeared and disappeared as the reader changed it. Both
-            actions are on the picture now; see the menu in the wiring below. */""}
-      ${/* THE RELIQUARY (Aug 2026, on request). The showcase sits directly under the profile hero because
-            it IS part of the profile — the four artefacts a reader has chosen to be seen holding — while
-            the inventory itself is a section of its own further down, beside the badges it belongs with. */""}
-      <div id="showcase"></div>
-      <div class="section-label">Friends</div>
-      <div class="friends-box" id="friendsBox"></div>
-      <div class="section-label">Badges</div>
-      <div class="badges-box" id="badgesBox"></div>
-      ${/* THE INVENTORY STOOD HERE AND IS GONE (Aug 2026, on request). This page carried the artefacts
-            TWICE — four of them in the showcase above, all of them in a section here — under two names, so
-            a reader met the same collection at two points on one page and had no way to tell what the
-            difference between them was meant to be. The showcase keeps its four (they are a CHOICE, and
-            part of the profile) and its "See Reliquary" button is now the one way to the whole thing.
-            The SIGNED-OUT page keeps its own copy of this section, which is not a duplicate there: that
-            page has no showcase at all, so without it a guest's collection would be unreachable. */""}
-      <div class="section-label">Collection progress</div>
-      <div class="coll-levels" id="collLevels"></div>
-      <div id="statWrap"></div>
-      <div class="section-label">Your cards</div>
-      ${/* THE WAY INTO THE BROWSER. It sits at the head of the statistics rather than among them, because
-            everything below is a summary and this is the thing that lets a reader ask their own question of
-            it — "what do I keep failing" is one search and no chart. It is a link on your OWN record only,
-            like the glossary meter beside it: a friend's cards are not yours to act on. */""}
-      <button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="browse">
-        <div class="rs-head"><h3>Card browser</h3><span class="rs-meta">search &amp; act</span></div>
-        <span class="rs-sub">Every card you could study — its state, when it is due, how often you have forgotten it. Flag them, push them to a date, or put one back to new.</span>
-        <span class="ex-go" aria-hidden="true">&rarr;</span>
-      </button>
-      ${/* Weak spots and Year in review (Nov 2026, on request): two more ways into the reader's own record */""}
-      <button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="weak">
-        <div class="rs-head"><h3>Weak spots</h3><span class="rs-meta">by deck, period &amp; tag</span></div>
-        <span class="rs-sub">Where your memory slips most, and your weakest cards to study in one tap.</span>
-        <span class="ex-go" aria-hidden="true">&rarr;</span>
-      </button>
-      <button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="year">
-        <div class="rs-head"><h3>Year in review</h3><span class="rs-meta">${new Date().getFullYear()}</span></div>
-        <span class="rs-sub">Your year in Folio: answers, days, time, discoveries and the collections you studied most.</span>
-        <span class="ex-go" aria-hidden="true">&rarr;</span>
-      </button>
-      <div class="section-label">Review statistics</div>
-      <div id="reviewStats"></div>
-      <div class="section-label">Deck statistics</div>
-      <div id="deckStats"></div>
-      <div class="section-label">Beyond the cards</div>
-      <div id="exploreStats"></div>
-      <div class="section-label">Progress by deck</div>
-      <div class="suspbox">
-        <button class="suspbox-head open" id="dpHead" type="button" aria-expanded="true"><span class="suspbox-title">By deck <span class="suspbox-count" id="dpCount"></span></span><span class="suspbox-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
-        <div class="suspbox-collapse" id="dpCollapse"><div class="suspbox-collapse-inner"><div class="deckprog" id="deckprog"></div></div></div>
-      </div>
-      <div class="section-label">Suspended cards</div>
-      <div class="suspbox">
-        <button class="suspbox-head" id="suspHead" type="button" aria-expanded="false"><span class="suspbox-title">Set-aside cards <span class="suspbox-count" id="suspCount"></span></span><span class="suspbox-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
-        <div class="suspbox-collapse collapsed" id="suspCollapse"><div class="suspbox-collapse-inner"><div class="susplist" id="susplist"></div></div></div>
-      </div>`;
-    root.querySelector("#statWrap").innerHTML = statGridHTML(S, dueCountNow());
+  /* ---------- THE PIECES BOTH HALVES OF THIS PAGE DRAW (Nov 2026, out of the page audit) ----------
+     The signed-in page and the signed-out one used to share nothing but a Card browser button, written
+     twice. A guest studies on this device exactly as an account does, so the tiles, the three ways into
+     their own cards and the whole statistics block are about the DEVICE'S record and not about an account:
+     they are built here once and drawn on both. What stays behind the sign-in is what needs one — the
+     profile, the showcase, friends, badges, sync. */
+  function acctTilesHTML(prog, withBadges) {
+    const st = progStats(prog, 0), cards = prog.cards || {};
+    const mature = Object.keys(cards).filter((id) => cards[id] && cards[id].interval >= MATURE_DAYS).length;
+    const earned = Object.keys(prog.achievements || {}).filter((k) => prog.achievements[k]).length;
+    const best = (prog.daily && prog.daily.best) || 0;
+    const tile = (cls, val, label, hint) => '<div class="ph-stat ' + cls + '"' + (hint ? ' title="' + esc(hint) + '"' : "") + "><b>" + val + "</b><span>" + label + "</span></div>";
+    /* ONE ROW OF FIGURES, NOT TWO. A second grid further down the page repeated three of these under
+       other names ("Cards seen", "Minigame wins") and added Due now and Mature; those two moved up here
+       and the grid is gone. The best quiz score rides in the wins tile's title rather than a tile. */
+    return '<div class="ph-stats' + (withBadges ? "" : " ph-five") + '">' +
+      tile("st-seen", st.seen, "Cards studied") +
+      tile("st-streak", "🔥 " + st.streak, "Day streak") +
+      tile("st-due", dueCountNow(), "Due now") +
+      tile("st-mature", mature, "Mature", "Cards on an interval of " + MATURE_DAYS + " days or more") +
+      (withBadges ? tile("st-badges", earned, "Badges") : "") +
+      tile("st-wins", st.wins, "Quiz wins", best ? "Best score: " + best : "") +
+      "</div>";
+  }
+  /* The three ways into the reader's own cards. They were shrink-to-fit buttons stacked in a column, each a
+     different width; they are one row of three (one column on a phone), with a sentence short enough to
+     stand in a third of the page. */
+  function acctLinksHTML() {
+    const link = (go, h, meta, sub) => '<button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="' + go + '">' +
+      '<div class="rs-head"><h3>' + h + '</h3><span class="rs-meta">' + meta + "</span></div>" +
+      '<span class="rs-sub">' + sub + '</span><span class="ex-go" aria-hidden="true">&rarr;</span></button>';
+    return '<div class="acct-links">' +
+      link("browse", "Card browser", "search &amp; act", "Every card you could study: its state, when it is due, how often you have forgotten it. Flag, reschedule or reset.") +
+      link("weak", "Weak spots", "by deck &amp; tag", "Where your memory slips most, and your weakest cards to study in one tap.") +
+      link("year", "Year in review", String(new Date().getFullYear()), "Your year in Folio: answers, days, time, discoveries and the collections you studied most.") +
+      "</div>";
+  }
+  /* The statistics block. "Progress by deck" sits under the deck statistics it is the long form of, folded
+     shut; each fold carries ONE name (the section labels that repeated them in other words are gone). */
+  function acctStatsHTML() {
+    const chev = '<span class="suspbox-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>';
+    const fold = (id, title) => '<div class="suspbox acct-fold">' +
+      '<button class="suspbox-head" id="' + id + 'Head" type="button" aria-expanded="false"><span class="suspbox-title">' + title + ' <span class="suspbox-count" id="' + id + 'Count"></span></span>' + chev + "</button>" +
+      '<div class="suspbox-collapse collapsed" id="' + id + 'Collapse"><div class="suspbox-collapse-inner">';
+    return '<div class="section-label">Review statistics</div><div id="reviewStats"></div>' +
+      '<div class="section-label">Deck statistics</div><div id="deckStats"></div>' +
+      fold("dp", "Progress by deck") + '<div class="deckprog" id="deckprog"></div></div></div></div>' +
+      '<div class="section-label">Beyond the cards</div><div id="exploreStats"></div>' +
+      fold("susp", "Suspended cards") + '<div class="susplist" id="susplist"></div></div></div></div>';
+  }
+  function wireAcctStats(root) {
     root.querySelector("#reviewStats").innerHTML = reviewStatsHTML(S, S.user && S.user.joined);   // the heatmap opens on the day the account was created
     wireReviewStats(root.querySelector("#reviewStats"), S);
     /* "Study these" on the recalled-once card. Drawn only on the reader's OWN page (see seenOnceHTML) —
@@ -46342,14 +46326,203 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     renderDeckStats(root.querySelector("#deckStats"), S, true);   // your own community decks belong in your picker
     root.querySelector("#exploreStats").innerHTML = exploreStatsHTML(S);
     // the glossary meter is a way IN to what it counts (a friend's copy carries no link — see exploreStatsHTML)
-    root.querySelectorAll("[data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
+    root.querySelectorAll("#exploreStats [data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
+    const foldWire = (id) => {
+      const head = root.querySelector("#" + id + "Head"), col = root.querySelector("#" + id + "Collapse");
+      head.addEventListener("click", () => { const c = col.classList.toggle("collapsed"); head.setAttribute("aria-expanded", c ? "false" : "true"); head.classList.toggle("open", !c); });
+    };
+    root.querySelector("#dpCount").textContent = "(" + renderDeckProgress(root.querySelector("#deckprog"), S.cards) + ")";
+    foldWire("dp");
+    const suspList = root.querySelector("#susplist"), suspCount = root.querySelector("#suspCount");
+    function renderSuspended() {
+      const ids = Object.keys(S.suspended || {}).filter((id) => S.suspended[id] && cardById(id));
+      ids.sort((a, b) => (Number(S.suspended[b]) || 0) - (Number(S.suspended[a]) || 0));
+      suspCount.textContent = "(" + ids.length + ")";
+      if (!ids.length) { suspList.innerHTML = '<div class="susp-empty">No cards are suspended. Cards you suspend during review will appear here.</div>'; return; }
+      suspList.innerHTML = ids.map((id) => {
+        const c = cardById(id), ts = S.suspended[id];
+        const when = (typeof ts === "number") ? new Date(ts).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }) : "date unknown";
+        return '<div class="susp-row" data-id="' + esc(id) + '"><div class="susp-info"><span class="susp-name">' + esc(c.answer || "(untitled)") + '</span><span class="susp-meta">' + esc(id) + ' &middot; suspended ' + esc(when) + '</span></div><button class="susp-restore" type="button" data-id="' + esc(id) + '" aria-label="Remove from suspension">Unsuspend</button></div>';
+      }).join("");
+      suspList.querySelectorAll(".susp-restore").forEach((b) => b.addEventListener("click", () => { delete S.suspended[b.dataset.id]; save(); toast("Card returned to your reviews"); renderSuspended(); }));
+    }
+    renderSuspended();
+    foldWire("susp");
+  }
+
+  /* ---------- THE SIGNED-IN PAGE, IN FOUR TABS (Nov 2026, out of the page audit) ----------
+     It was one column ten screens long on a laptop and fifteen on a phone, in an order that put what a
+     reader studies WITH — their cards, their review statistics — five thousand pixels down, under the
+     friends list, fifty badges and every collection on the site. It is now a hero, one row of figures and
+     four tabs:
+       Overview    the three ways into your cards, the showcase, the collections you have started
+       Statistics  review statistics, deck statistics, beyond the cards, suspended cards
+       Badges      what you have earned and the few you are nearest to
+       Friends     the friends list (the tab carries a count while a request is waiting)
+     EVERY PANEL IS IN THE DOCUMENT; the tab only shows one. So nothing that looks an element up by id —
+     `refreshReliquary`, the badge tour, a test — has to know which tab is open. The exception is the
+     Statistics panel's CONTENT, which is filled the first time that tab is shown: it is the expensive half
+     of the page (a year of heatmap, the per-review log read four ways) and most visits never open it.
+     `_acctTab` is the tab to draw: a re-render (a new photo, a name, a friend accepted) keeps the reader
+     where they were, and leaving the page does not forget it for the visit.
+     THE ACCOUNT'S OWN CONTROLS ARE BEHIND ONE BUTTON. Username, Email address, Change password, Switch
+     account and Sign out were five buttons in the hero — a third of it on a phone, for things a reader
+     does a few times a year. "Manage account" opens them, with the sync line and the panel each of them
+     owns; Delete account joins them there. */
+  const ACCT_TABS = [["overview", "Overview"], ["stats", "Statistics"], ["badges", "Badges"], ["friends", "Friends"]];
+  let _acctTab = "overview";
+  function acctSelfView(root) {
+    const me = SUPA_PROFILE || { username: ((SUPA.user && SUPA.user.email) || "account").split("@")[0], role: "user" };   // profile may still be loading right after boot
+    const joined = new Date(S.user.joined).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+    // profile hero: a level-progress ring around the avatar
+    const info = levelFromXP(folioXP());
+    const ringC = 2 * Math.PI * 34;   // r=34 in a 76×76 viewBox
+    const frac = info.need > 0 ? Math.min(1, info.into / info.need) : 1;
+    if (!ACCT_TABS.some((t) => t[0] === _acctTab)) _acctTab = "overview";
+    const tabBtn = (t) => `<button type="button" role="tab" class="acct-tab${t[0] === _acctTab ? " active" : ""}" id="atab-${t[0]}" data-atab="${t[0]}" aria-selected="${t[0] === _acctTab}" aria-controls="apanel-${t[0]}" tabindex="${t[0] === _acctTab ? 0 : -1}">${t[1]}${t[0] === "friends" ? '<span class="acct-tabn" id="frTabN" hidden></span>' : ""}</button>`;
+    const panel = (id, body) => `<div class="acct-tabpanel" role="tabpanel" id="apanel-${id}" data-apanel="${id}" aria-labelledby="atab-${id}"${id === _acctTab ? "" : " hidden"}>${body}</div>`;
+    root.innerHTML = `
+      <div class="page-head"><span class="eyebrow">Your record</span><h1>Account</h1></div>
+      <div class="profile">
+        <div class="ph-ava">
+          <svg class="ph-ring" viewBox="0 0 76 76" aria-hidden="true">
+            <circle cx="38" cy="38" r="34" fill="none" stroke="color-mix(in srgb, var(--indigo) 16%, transparent)" stroke-width="4"/>
+            <circle cx="38" cy="38" r="34" fill="none" stroke="#C39A2E" stroke-width="4" stroke-linecap="round" stroke-dasharray="${ringC.toFixed(1)}" stroke-dashoffset="${(ringC * (1 - frac)).toFixed(1)}" transform="rotate(-90 38 38)"/>
+          </svg>
+          <button class="mono-btn" id="monoBtn" type="button" title="${me.avatar ? "Change or remove your profile photo" : "Add a profile photo"}"${me.avatar ? ' aria-haspopup="menu"' : ""} aria-label="${me.avatar ? "Change or remove your profile photo" : "Add a profile photo"}">
+            <span id="mono">${monogramHTML(me.avatar, S.user.name)}</span>
+            <span class="mono-cam" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
+          </button>
+          <span class="ph-lvl" title="Folio level — the ring fills toward the next level">Lv ${info.level}</span>
+        </div>
+        <input type="file" id="avatarFile" accept="image/*" hidden>
+        <div class="who">
+          ${/* THE NAME SAYS IT CAN BE EDITED (Nov 2026). It is an input dressed as a heading, and the only
+                sign of that was an underline on hover — which a phone never shows. The pencil is inside the
+                label, so pressing it puts the cursor in the field. */""}
+          <label class="name-wrap" title="Edit your display name">
+            <input class="namefield" id="name" value="${esc(S.user.name)}" maxlength="28" size="${Math.max(4, String(S.user.name || "").length)}" aria-label="Display name" />
+            <span class="name-pen" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>
+          </label>
+          <div class="since"><span id="unShown">@${esc(me.username)}</span>${roleBadge(me.role, " · ")} · since ${joined}${/* THE ADDRESS OF YOUR OWN PROFILE, so the thing to share is on the page rather than something a reader has to know the shape of. It copies rather than opening: pressing it would take you to your own account page, which is where you already are. */""} · <button type="button" class="link-btn" id="unCopy" title="Copy the link to your profile">copy link</button></div>
+        </div>
+        <button class="ghost-btn acct-manage" id="mgToggle" type="button" aria-expanded="false" aria-controls="mgPanel">Manage account</button>
+      </div>
+      <div class="acct-mg" id="mgPanel" hidden>
+        <div class="acct-idacts">
+          <button class="ghost-btn" id="unToggle" type="button">Username</button>
+          <button class="ghost-btn" id="emToggle" type="button">Email address</button>
+          <button class="ghost-btn" id="pwToggle" type="button">Change password</button>
+          <button class="ghost-btn" id="swToggle" type="button">Switch account</button>
+          <button class="ghost-btn" id="signout" type="button">Sign out</button>
+          <button class="ghost-btn danger" id="delToggle" type="button">Delete account</button>
+        </div>
+        <div class="acct-syncnote"><span class="auth-note">${S._supaTs ? "Progress synced to your account ✓" : "Progress will sync automatically as you study"}</span></div>
+        ${/* CHANGING THE HANDLE (Sep 2026, on a bug report about creating an account). Sign-up does not always
+              grant the username asked for — a taken one is answered with `scholar_<8 hex>` so that the account
+              is still made — and until now there was no way back from that: the field above edits the display
+              name, and the handle was write-once. The panel says what the handle IS as well as changing it,
+              since it is what the reader signs in with and what a friend searches for. */""}
+        <div class="acct-panel" id="unPanel" hidden>
+          <div class="acct-current">Your username is <b>@${esc(me.username)}</b></div>
+          <label>New username<input class="auth-in" id="unNew" autocomplete="username" placeholder="letters, numbers, underscore" maxlength="24"></label>
+          <div class="auth-msg" id="unMsg"></div>
+          <button class="auth-btn sm" id="unSave" type="button">Change username</button>
+          <p class="auth-note">This is the handle you can sign in with and the one friends add you by. Your display name above is separate.</p>
+        </div>
+        ${/* SEEING AND CHANGING THE ADDRESS (Aug 2026, on request). The address a reader signs in with was
+              nowhere on this page, which on an account that also has a username is the one fact they cannot
+              look up anywhere else. It is shown plainly and changed in the same panel, and the note says the
+              change is not immediate — GoTrue emails a link and the swap happens when it is followed. */""}
+        <div class="acct-panel" id="emPanel" hidden>
+          <div class="acct-current">Signed in as <b>${esc((SUPA.user && SUPA.user.email) || "—")}</b></div>
+          <label>New email address<input class="auth-in" id="emNew" type="email" autocomplete="email" placeholder="${esc((SUPA.user && SUPA.user.email) || "you@example.com")}"></label>
+          <div class="auth-msg" id="emMsg"></div>
+          <button class="auth-btn sm" id="emSave" type="button">Send confirmation link</button>
+          <p class="auth-note">Your address changes once you follow the link we send to the new one. Until then, keep signing in with the old address — or with your username.</p>
+        </div>
+        <div class="acct-panel" id="pwPanel" hidden>
+          <label>New password<input class="auth-in" id="pwNew" type="password" autocomplete="new-password"></label>
+          <label>Confirm<input class="auth-in" id="pwNew2" type="password" autocomplete="new-password"></label>
+          <div class="auth-msg" id="pwMsg"></div>
+          <button class="auth-btn sm" id="pwSave" type="button">Update password</button>
+        </div>
+        ${/* The switcher, and the way to add one more to it. "Sign in to another account" signs THIS one out
+              while keeping its token, which is what lands the reader on the ordinary sign-in form with both
+              accounts remembered — rather than a second copy of that form living inside this page. */""}
+        <div class="acct-panel" id="swPanel" hidden>
+          ${supaOtherAccounts().length ? acctSwitchListHTML() : '<p class="auth-note">No other account is remembered on this device yet.</p>'}
+          <button class="auth-btn sm ghost" id="swAdd" type="button">Sign in to another account</button>
+          <p class="auth-note">Switching keeps you signed in to both — your work on each stays its own. Signing out forgets the account you sign out of.</p>
+        </div>
+        ${/* DELETING THE ACCOUNT (Nov 2026, out of the page audit: there was no way to). It asks for the
+              password AND the username: the password because a session left open on a shared computer must
+              not be enough to destroy an account, the username because the button is one row away from
+              Sign out. What it removes is said before the fields, not after. See supaDeleteAccount. */""}
+        <div class="acct-panel" id="delPanel" hidden>
+          <div class="acct-current">Delete <b>@${esc(me.username)}</b> for good</div>
+          <p class="auth-note">This removes your account, your synced progress, your friends and any decks you have shared, on every device. It cannot be undone. This device goes back to how it was before you signed in.</p>
+          <label>Your password<input class="auth-in" id="delPw" type="password" autocomplete="current-password"></label>
+          <label>Type your username to confirm<input class="auth-in" id="delName" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${esc(me.username)}"></label>
+          <div class="auth-msg" id="delMsg"></div>
+          <button class="auth-btn sm danger" id="delSave" type="button">Delete my account</button>
+        </div>
+      </div>
+      ${acctTilesHTML(S, true)}
+      <div class="acct-tabs" role="tablist" aria-label="Account sections">${ACCT_TABS.map(tabBtn).join("")}</div>
+      ${panel("overview", `
+        <div class="section-label">Your cards</div>
+        ${acctLinksHTML()}
+        ${/* THE RELIQUARY (Aug 2026, on request). The showcase is part of the profile — the four artefacts
+              a reader has chosen to be seen holding — and its "See Reliquary" button is the one way to the
+              whole collection from here (the inventory section this page once carried as well is gone). */""}
+        <div id="showcase"></div>
+        <div class="section-label">Collection progress</div>
+        <div class="coll-levels" id="collLevels"></div>`)}
+      ${panel("stats", acctStatsHTML())}
+      ${panel("badges", `<div class="badges-box" id="badgesBox"></div>`)}
+      ${panel("friends", `<div class="friends-box" id="friendsBox"></div>`)}`;
+
+    /* THE TABS. Arrow keys move between them (the tablist pattern: one tab stop, the arrows inside it). */
+    let statsDrawn = false;
+    const tabs = [...root.querySelectorAll("[data-atab]")];
+    const showTab = (id, focus) => {
+      _acctTab = id;
+      tabs.forEach((t) => { const on = t.dataset.atab === id; t.classList.toggle("active", on); t.setAttribute("aria-selected", on ? "true" : "false"); t.tabIndex = on ? 0 : -1; if (on && focus) t.focus(); });
+      root.querySelectorAll("[data-apanel]").forEach((p) => { p.hidden = p.dataset.apanel !== id; });
+      if (id === "stats" && !statsDrawn) { statsDrawn = true; wireAcctStats(root); }
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener("click", () => showTab(t.dataset.atab));
+      t.addEventListener("keydown", (e) => {
+        const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        showTab(tabs[(i + d + tabs.length) % tabs.length].dataset.atab, true);
+      });
+    });
+    showTab(_acctTab);
+    root.querySelectorAll(".acct-links [data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
 
     const nameInput = root.querySelector("#name");
     const monoInitial = (v) => { const m = root.querySelector("#mono .monogram:not(.has-img)"); if (m) m.textContent = initialOf(v); };   // only when no photo is set
-    const sync = () => { const v = (nameInput.value.trim().replace(/[^a-z0-9_.\- ]/gi, "") || "Scholar").slice(0, 28); nameInput.value = v; S.user.name = v; monoInitial(v); save(); supaSetName(v); };
-    nameInput.addEventListener("input", () => monoInitial(nameInput.value || "S"));
-    nameInput.addEventListener("change", () => { sync(); toast("Name saved"); });
+    /* A NAME IN ANY ALPHABET, SAVED ONCE (Nov 2026). The filter kept a-z and 0-9 and dropped everything
+       else, so "José" was saved as "Jos" and a name in Greek, Cyrillic or Chinese as "Scholar", without a
+       word. It keeps letters, marks and digits of every script now, with the same handful of punctuation.
+       And it wrote — to the device and to the account — on `change` AND again on the `blur` that follows
+       it, and on every blur whether or not anything had been typed; it writes when the name is different. */
+    const cleanName = (v) => (String(v || "").replace(/[^\p{L}\p{M}\p{N}_.\-' ]/gu, "").replace(/\s+/g, " ").trim() || "Scholar").slice(0, 28);
+    const sizeName = () => { nameInput.size = Math.max(4, nameInput.value.length); };
+    const sync = () => {
+      const v = cleanName(nameInput.value);
+      nameInput.value = v; sizeName(); monoInitial(v);
+      if (v === S.user.name) return;
+      S.user.name = v; save(); supaSetName(v); toast("Name saved");
+    };
+    nameInput.addEventListener("input", () => { monoInitial(nameInput.value || "S"); sizeName(); });
+    nameInput.addEventListener("change", sync);
     nameInput.addEventListener("blur", sync);
+    nameInput.addEventListener("keydown", (e) => { if (e.key === "Enter") nameInput.blur(); });
 
     // profile photo: click the monogram to pick an image (resized client-side), Remove photo to clear it
     const avatarInput = root.querySelector("#avatarFile");
@@ -46390,10 +46563,28 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // …or the same file will not fire `change` again if it is picked a second time after a cancel
       avatarInput.value = "";
     });
-    root.querySelector("#signout").addEventListener("click", async (e) => { e.target.disabled = true; await supaSignOut(); toast("Signed out"); afterAuthChange(); });
-    /* One panel open at a time. They are three answers to "what about this account", and two of them
-       showing at once pushes the third off the screen on a phone for no reason. */
-    const panels = ["unPanel", "emPanel", "pwPanel", "swPanel"];
+
+    /* EVERY ACCOUNT ACTION RESTORES ITS BUTTON AND SAYS WHAT WENT WRONG (Nov 2026). Sign out and the email
+       and password saves awaited the network with no `try`: a throw left the button disabled for the rest
+       of the visit with nothing said, and the password save was not disabled at all, so two presses sent
+       two requests. `acting` is the one wrapper: the button is off while the call runs, back on however it
+       ends, and a throw becomes the message `authThrewMsg` gives the sign-in forms. */
+    const acting = async (btn, fn) => {
+      if (btn.disabled) return { error: "" };
+      btn.disabled = true;
+      try { return (await fn()) || {}; } catch (err) { return { error: authThrewMsg(err) }; } finally { btn.disabled = false; }
+    };
+    const say = (id, text, ok) => { const m = root.querySelector(id); m.textContent = text || ""; m.className = "auth-msg" + (text ? (ok ? " ok" : " err") : ""); };
+    const mgToggle = root.querySelector("#mgToggle"), mgPanel = root.querySelector("#mgPanel");
+    mgToggle.addEventListener("click", () => { mgPanel.hidden = !mgPanel.hidden; mgToggle.setAttribute("aria-expanded", mgPanel.hidden ? "false" : "true"); mgToggle.classList.toggle("open", !mgPanel.hidden); });
+    root.querySelector("#signout").addEventListener("click", async (e) => {
+      const r = await acting(e.currentTarget, async () => { await supaSignOut(); return { ok: true }; });
+      if (r.error) return toast(r.error);
+      if (r.ok) { toast("Signed out"); afterAuthChange(); }
+    });
+    /* One panel open at a time. They are answers to "what about this account", and two of them showing at
+       once pushes the rest off the screen on a phone for no reason. */
+    const panels = ["unPanel", "emPanel", "pwPanel", "swPanel", "delPanel"];
     const openPanel = (want) => panels.forEach((p) => {
       const el = root.querySelector("#" + p);
       if (el) el.hidden = p === want ? !el.hidden : true;
@@ -46412,41 +46603,53 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     root.querySelector("#emToggle").addEventListener("click", () => openPanel("emPanel"));
     root.querySelector("#swToggle").addEventListener("click", () => openPanel("swPanel"));
     root.querySelector("#pwToggle").addEventListener("click", () => openPanel("pwPanel"));
+    root.querySelector("#delToggle").addEventListener("click", () => openPanel("delPanel"));
     root.querySelector("#unSave").addEventListener("click", async (e) => {
-      const m = root.querySelector("#unMsg"), inp = root.querySelector("#unNew");
-      e.target.disabled = true;
-      let r; try { r = await supaSetUsername(inp.value); } catch (err) { r = { error: authThrewMsg(err) }; } finally { e.target.disabled = false; }
-      if (r.error) { m.textContent = r.error; m.className = "auth-msg err"; return; }
-      m.textContent = "Username changed to @" + r.username + "."; m.className = "auth-msg ok";
+      const inp = root.querySelector("#unNew");
+      const r = await acting(e.currentTarget, () => supaSetUsername(inp.value));
+      if (r.error) return say("#unMsg", r.error);
+      if (!r.username) return;
+      say("#unMsg", "Username changed to @" + r.username + ".", true);
       inp.value = "";
-      // the handle is printed twice on this page — the identity line and this panel's own current-value line
-      const shown = root.querySelector("#unShown"), cur = root.querySelector("#unPanel .acct-current b");
+      me.username = r.username;
+      // the handle is printed on this page three times — the identity line, this panel and the delete panel
+      const shown = root.querySelector("#unShown");
       if (shown) shown.textContent = "@" + r.username;
-      if (cur) cur.textContent = "@" + r.username;
+      root.querySelectorAll("#unPanel .acct-current b, #delPanel .acct-current b").forEach((b) => { b.textContent = "@" + r.username; });
+      root.querySelector("#delName").placeholder = r.username;
     });
     root.querySelector("#emSave").addEventListener("click", async (e) => {
-      const m = root.querySelector("#emMsg"), inp = root.querySelector("#emNew");
-      e.target.disabled = true;
-      const r = await supaSetEmail(inp.value);
-      e.target.disabled = false;
-      if (r.error) { m.textContent = r.error; m.className = "auth-msg err"; return; }
-      m.textContent = "Check " + inp.value.trim() + " for the confirmation link."; m.className = "auth-msg ok";
+      const inp = root.querySelector("#emNew"), to = inp.value.trim();
+      const r = await acting(e.currentTarget, () => supaSetEmail(inp.value));
+      if (r.error) return say("#emMsg", r.error);
+      if (!r.ok) return;
+      say("#emMsg", "Check " + to + " for the confirmation link.", true);
       inp.value = "";
     });
     wireAcctSwitch(root);
     root.querySelector("#swAdd").addEventListener("click", async (e) => {
-      e.target.disabled = true;
-      await supaSignOut({ keepToken: true });   // …keeping the token, which is what makes this a switch
-      toast("Sign in with the other account — this one is remembered");
-      afterAuthChange();
+      const r = await acting(e.currentTarget, async () => { await supaSignOut({ keepToken: true }); return { ok: true }; });   // …keeping the token, which is what makes this a switch
+      if (r.error) return toast(r.error);
+      if (r.ok) { toast("Sign in with the other account — this one is remembered"); afterAuthChange(); }
     });
-    root.querySelector("#pwSave").addEventListener("click", async () => {
-      const a = root.querySelector("#pwNew").value, b = root.querySelector("#pwNew2").value, m = root.querySelector("#pwMsg");
-      if (a !== b) { m.textContent = "Passwords don't match."; m.className = "auth-msg err"; return; }
-      const r = await supaSetPassword(a);
-      if (r.error) { m.textContent = r.error; m.className = "auth-msg err"; return; }
-      m.textContent = "Password updated."; m.className = "auth-msg ok";
+    root.querySelector("#pwSave").addEventListener("click", async (e) => {
+      const a = root.querySelector("#pwNew").value, b = root.querySelector("#pwNew2").value;
+      if (a !== b) return say("#pwMsg", "Passwords don't match.");
+      const r = await acting(e.currentTarget, () => supaSetPassword(a));
+      if (r.error) return say("#pwMsg", r.error);
+      if (!r.ok) return;
+      say("#pwMsg", "Password updated.", true);
       root.querySelector("#pwNew").value = ""; root.querySelector("#pwNew2").value = "";
+    });
+    root.querySelector("#delSave").addEventListener("click", async (e) => {
+      const pw = root.querySelector("#delPw").value, typed = uKey(root.querySelector("#delName").value.replace(/^@/, ""));
+      if (!pw) return say("#delMsg", "Enter your password.");
+      if (typed !== uKey(me.username || "")) return say("#delMsg", "Type your username, " + (me.username || "") + ", to confirm.");
+      const r = await acting(e.currentTarget, () => supaDeleteAccount(pw));
+      if (r.error) return say("#delMsg", r.error);
+      if (!r.ok) return;
+      toast("Your account has been deleted.", 6000);
+      afterAuthChange();
     });
 
     renderFriends(root.querySelector("#friendsBox"));
@@ -46455,27 +46658,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     root.querySelector("#showcase").innerHTML = showcaseHTML(S, true);
     wireReliquary(root.querySelector("#showcase"));
     renderCollectionLevels(root.querySelector("#collLevels"), S.cards);
-
-    const dp = root.querySelector("#deckprog");
-    root.querySelector("#dpCount").textContent = "(" + renderDeckProgress(dp, S.cards) + ")";
-    const dpHead = root.querySelector("#dpHead"), dpCollapse = root.querySelector("#dpCollapse");
-    dpHead.addEventListener("click", () => { const c = dpCollapse.classList.toggle("collapsed"); dpHead.setAttribute("aria-expanded", c ? "false" : "true"); dpHead.classList.toggle("open", !c); });
-
-    const suspHead = root.querySelector("#suspHead"), suspCollapse = root.querySelector("#suspCollapse"), suspList = root.querySelector("#susplist"), suspCount = root.querySelector("#suspCount");
-    function renderSuspended() {
-      const ids = Object.keys(S.suspended || {}).filter((id) => S.suspended[id] && cardById(id));
-      ids.sort((a, b) => (Number(S.suspended[b]) || 0) - (Number(S.suspended[a]) || 0));
-      suspCount.textContent = "(" + ids.length + ")";
-      if (!ids.length) { suspList.innerHTML = '<div class="susp-empty">No cards are set aside. Cards you suspend during review will appear here.</div>'; return; }
-      suspList.innerHTML = ids.map((id) => {
-        const c = cardById(id), ts = S.suspended[id];
-        const when = (typeof ts === "number") ? new Date(ts).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }) : "date unknown";
-        return '<div class="susp-row" data-id="' + esc(id) + '"><div class="susp-info"><span class="susp-name">' + esc(c.answer || "(untitled)") + '</span><span class="susp-meta">' + esc(id) + ' &middot; suspended ' + esc(when) + '</span></div><button class="susp-restore" type="button" data-id="' + esc(id) + '" aria-label="Remove from suspension">Unsuspend</button></div>';
-      }).join("");
-      suspList.querySelectorAll(".susp-restore").forEach((b) => b.addEventListener("click", () => { delete S.suspended[b.dataset.id]; save(); toast("Card returned to your reviews"); renderSuspended(); }));
-    }
-    renderSuspended();
-    suspHead.addEventListener("click", () => { const open = suspCollapse.classList.toggle("collapsed"); suspHead.setAttribute("aria-expanded", open ? "false" : "true"); suspHead.classList.toggle("open", !open); });
   }
 
   function renderFriends(box) {
@@ -46517,6 +46699,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          handlers used to call `checkAchievements()` themselves, BEFORE anything had recorded the new
          count, which is a second reason the friend badges never fired. */
       setFriendCount(accepted.length);
+      // a request waiting is said on the Friends TAB, which is otherwise the only place it would show
+      { const tn = document.querySelector("#frTabN"); if (tn) { tn.hidden = !incoming.length; tn.textContent = incoming.length ? String(incoming.length) : ""; tn.setAttribute("aria-label", incoming.length + (incoming.length === 1 ? " request waiting" : " requests waiting")); } }
       let html = '<div class="friend-add"><input class="auth-in" id="friendAdd" placeholder="Add a friend by username" autocomplete="off"><button class="auth-btn sm" id="friendAddBtn" type="button">Add</button></div><div class="friend-msg" id="friendMsg"></div>';
       if (incoming.length) html += '<div class="friend-sub">Requests</div>' + incoming.map((k) => userRow(k, profs, '<span class="friend-acts"><button class="mini-btn ok" data-accept="' + esc(k) + '">Accept</button><button class="mini-btn" data-decline="' + esc(k) + '">Decline</button></span>', false)).join("");
       if (outgoing.length) html += '<div class="friend-sub">Pending</div>' + outgoing.map((k) => userRow(k, profs, '<span class="friend-acts"><button class="mini-btn" data-cancel="' + esc(k) + '">Cancel</button></span>', false)).join("");
@@ -46664,7 +46848,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <button class="back-link" id="uBack" type="button">← Back to your account</button>
         <div class="profile friend-profile"${skin}>
           ${monogramHTML(u.avatar, u.name)}
-          <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)} · ${roleBadge(u.role)}${u.theme && u.theme !== "folio" ? ' · <span class="ft-wearing">wearing ' + esc(themeName(u.theme)) + "</span>" : ""}</div></div>
+          <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)}${roleBadge(u.role, " · ")}${u.theme && u.theme !== "folio" ? ' · <span class="ft-wearing">wearing ' + esc(themeName(u.theme)) + "</span>" : ""}</div></div>
           ${pending
             ? '<span class="mini-btn static">' + (mine ? "Request sent" : "Wants to be friends") + "</span>"
             : '<button class="auth-btn sm" id="uAdd" type="button">Add friend</button>'}
@@ -46711,7 +46895,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           ${u.avatar
             ? `<button class="mono-view" type="button" id="fAvatar" aria-label="View ${esc(u.name)}'s profile photo">${monogramHTML(u.avatar, u.name)}</button>`
             : monogramHTML(u.avatar, u.name)}
-          <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)} · ${roleBadge(u.role)}${u.theme && u.theme !== "folio" ? ' · <span class="ft-wearing">wearing ' + esc(themeName(u.theme)) + '</span>' : ""}</div></div>
+          <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)}${roleBadge(u.role, " · ")}${u.theme && u.theme !== "folio" ? ' · <span class="ft-wearing">wearing ' + esc(themeName(u.theme)) + '</span>' : ""}</div></div>
           <button class="ghost-btn" id="rmFriend" type="button">Remove friend</button>
         </div>
         ${/* the four artefacts they chose to be seen holding — the whole point of the showcase is that
@@ -52099,6 +52283,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // badges: one delegated listener flips a badge over to its "how to earn it" back, and back again on a
   // second click (covers both the profile and a friend's badge grid, which render the same markup)
   document.addEventListener("click", (e) => {
+    {
+      const m = e.target.closest("[data-more]");
+      if (m) {
+        const box = m.nextElementSibling; if (!box) return;
+        box.hidden = !box.hidden;
+        m.setAttribute("aria-expanded", box.hidden ? "false" : "true");
+        m.textContent = box.hidden ? m.dataset.open : m.dataset.shut;
+        if (!box.hidden) animateProgs(box);
+        return;
+      }
+    }
     const b = e.target.closest(".badge"); if (!b || b.classList.contains("ach-tile")) return;   // openAchPop turns its own
     b.setAttribute("aria-pressed", b.classList.toggle("flipped") ? "true" : "false");
   });

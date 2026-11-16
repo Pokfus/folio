@@ -118,6 +118,41 @@ link is followed, so the panel says so rather than reporting a change that has n
 once on a phone is the whole account page.
 
 
+## The account page, compacted — and deleting an account (2026-11-16)
+
+Out of an audit of the page: signed in it was ten screens on a laptop and fifteen on a phone.
+
+- **Four tabs** (`ACCT_TABS`, `_acctTab`, `acctSelfView`): Overview (the three ways into your cards, the
+  showcase, the collections you have STARTED), Statistics, Badges, Friends. Every panel is in the document
+  and one is shown, so nothing that looks an element up by id has to know the tab; the exception is the
+  Statistics panel's CONTENT, drawn by `wireAcctStats` the first time that tab is opened (a suite that
+  reads a statistic presses the tab first). `_acctTab` survives a re-render. The Friends tab carries a
+  count while a request is waiting (`#frTabN`, set by `renderFriends`).
+- **One row of figures** (`acctTilesHTML`): Cards studied, Day streak, Due now, Mature, Badges, Quiz
+  wins. The second grid that repeated three of them under other names is gone from your own page
+  (`statGridHTML` is still a friend's).
+- **Manage account** (`#mgToggle` / `#mgPanel`) holds Username, Email address, Change password, Switch
+  account, Sign out and Delete account, the sync line and each one's panel. Every action goes through
+  `acting(btn, fn)`: the button is off while the call runs and back on however it ends, and a throw is a
+  sentence rather than a button left disabled.
+- **Folds** (`moreBtnHTML`, one delegated `[data-more]` listener): `badgesHTML` draws the earned badges and
+  the `BADGE_NEXT` locked ones furthest along, the rest behind "Show the other N";
+  `renderCollectionLevels` draws only collections with a card studied (yours, or on a friend's profile
+  either of yours) and names the section where two collections share a title.
+- **The signed-out page draws the device's own record** (`acctTilesHTML`, `acctLinksHTML`,
+  `acctStatsHTML` — the same three the signed-in page uses) once a card has been studied. The sign-in card
+  is two tabs; "Forgot password?" is a link under the password field and its form carries the way back.
+- **A display name keeps letters, marks and digits of every script** (`cleanName`) and is saved once, when
+  it has changed.
+- **DELETING AN ACCOUNT** (`supaDeleteAccount`, `public.delete_my_account(pw)` — **section 18 of
+  `.claude/supabase-schema.sql`, which must be run on the live project**). `security definer`; it checks
+  the PASSWORD against the caller's own `auth.users` row and deletes that one row, and every table hanging
+  off it cascades. `true` = gone, `false` = wrong password. **A 404 (section 18 not run) is a sentence**
+  pointing at Feedback. Afterwards `supaSignOut({ gone: true })` skips the final push and the logout call —
+  there is no account to send either to — and restores the device's guest record. The panel asks for the
+  password and the typed username. `.claude/test-account-page.js` guards both halves against a mock; the
+  function itself has only been read, never run against a database, by the session that wrote it.
+
 ## Creating an account — the three silent faults, moved out of `CLAUDE.md`
 
 - **CREATING AN ACCOUNT — three faults, all silent (Sep 2026, on a bug report).** They are one bullet

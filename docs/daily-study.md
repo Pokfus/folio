@@ -1144,7 +1144,7 @@ now measures that the name is **drawn** (text, width, and a `.dk-body` that has 
 "not cut off" test having passed on a hidden title, whose `scrollWidth` and `clientWidth` are both 0.
 Each collection's PROGRESS is also listed on the **profile** (`renderCollectionLevels` in
 `acctSelfView` — the name is historical; the section is headed "Collection progress" and shows an icon and a
-studied/total bar). `grade()` calls `announceLevelUps()` on a freshly-studied card, which grants a chest and
+studied/total bar; since Nov 2026 only collections with a card studied, the rest behind a fold). `grade()` calls `announceLevelUps()` on a freshly-studied card, which grants a chest and
 **opens the chest overlay** — that overlay IS the level-up celebration now, so `congratsPopup` is no longer
 raised behind it (two overlays for one event). `congratsPopup(items)` (a `.levelup-pop` overlay modelled on
 `inlineModal`) survives for anything else that wants it and is **dismissed by clicking anywhere on screen**

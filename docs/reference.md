@@ -9593,7 +9593,10 @@ division-capital city tier are inert dead code.
     `fetch-book.js`, after changing a book's `about`, or after renaming anything on the Collections
     page.**
   · `node .claude/test-account-page.js` — the SIGNED-IN account page and the Edit dashboard's account
-    figures (Aug 2026). **Re-run after touching `acctSelfView` / `showcaseHTML` / `openCollectionWin` /
+    figures (Aug 2026; the tabs, Manage account, the folds and Delete account since Nov 2026 —
+    `docs/accounts-sync.md` "The account page, compacted"). **Re-run after touching `acctSelfView` /
+    `acctAuthView` / `acctTilesHTML` / `acctStatsHTML` / `wireAcctStats` / `badgesHTML` /
+    `renderCollectionLevels` / `supaDeleteAccount` / `showcaseHTML` / `openCollectionWin` /
     `adminRenderDashboard` / `dashLoadRemote` / `supaFetch`'s count parsing.**
   · `node .claude/test-card-types.js` — the XP curve, community-deck **card types**, reverse cards,
     **bury siblings** and **one card per cloze**, 229 assertions in five parts. **Re-run after touching
