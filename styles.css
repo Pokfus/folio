@@ -4847,6 +4847,14 @@ body.no-anim .ar-frame.ar-loading::after{animation:none;}
 }
 @media (max-width:640px){
   .ar-win{flex-direction:column; gap:14px; padding:20px 18px;}
+  /* ONE SCROLLER ON A PHONE (2026-11-16, on request: a drag on the plate's PICTURE scrolled the darkened page behind it,
+     a drag on its text scrolled the plate). The plate was a scroll box inside the overlay's scroll box; on an iPhone a
+     drag that starts on the framed picture (its own layer: overflow hidden, a radius, a transform transition) can miss the
+     inner box and chain past the overlay to the page. So the plate stops scrolling and grows to its full height, and the
+     whole-screen overlay is the one box that scrolls under a finger anywhere on it — contained, so it never hands the
+     drag on to the page. `margin:auto` centres a short plate and lets a tall one start at the top, unclipped. */
+  .artefact-pop:not(.collection-pop){align-items:flex-start; overscroll-behavior:contain; -webkit-overflow-scrolling:touch;}
+  .artefact-pop:not(.collection-pop) > .ar-win{max-height:none; overflow:visible; margin:auto;}
   .ar-winart{width:100%; max-width:260px; align-self:center;}
   .showcase{grid-template-columns:repeat(2,1fr);}
   .ar-grid{grid-template-columns:repeat(auto-fill,minmax(112px,1fr));}
@@ -10423,7 +10431,7 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
      of its own so its two children join `.banners`' flex column and `order` can place them — the week box first (order 1, after everything
      at the default 0), then the games, then Continue reading and the foot, which keep their old place at the end. */
   .home-two{display:contents;}
-  .home-trio, .home-two > .home-term{display:none;}
+  .home-trio{display:none;}   /* the Term of the day stays on a phone too, directly below Suggested reading (2026-11-16, on request) */
   .home-two > .home-week{display:flex;}
   .home-two > .home-week{order:1;}
   .games-sec{order:2;}

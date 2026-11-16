@@ -1388,10 +1388,14 @@
      popup over the map; the precedent is the Atlas's card popup, which strips the locator block), none for a community deck's term; and when the engine cannot draw it (the bundle refused, no WebGL2 for a state of the
      past, a face the engine cannot find) the block GOES rather than the card window's sentence — a popup without a map is the popup of before. WHERE IT SITS (the owner, 2026-10-23): below the
      description and the Library banner, above the Sources fold — the definition is read first, the map is where it happened, the works come last. */
-  const GLOSS_POINT_KINDS = ["capital", "city", "town", "site", "mountain", "cape", "hill", "island", "coord"];   // drawn as the gold square (a mountain or a hill as the peak triangle, 2026-11-14); every other kind as the name alone (a region, a sea, a lake, a range, a river — water in blue italic, atlas-windows.js)
+  const GLOSS_POINT_KINDS = ["capital", "city", "town", "site", "mountain", "cape", "hill", "island", "coord"];   // drawn as a gold mark: the square a present-day capital's, the circle any other's (2026-11-16), a mountain or a hill the peak triangle (2026-11-14); every other kind as the name alone (a region, a sea, a lake, a range, a river — water in blue italic, atlas-windows.js)
   function glossWindowSpec(key) { const t = window.ATLAS_GLOSSARY_PLACES; const w = key && !isDeckGlossKey(key) && t && t.windows && t.windows[key]; return Array.isArray(w) && w.length >= 6 && isFinite(w[0]) && isFinite(w[1]) ? { lon: w[0], lat: w[1], kind: String(w[2] || ""), face: w[3] ? String(w[3]) : "", year: w[4] ? Number(w[4]) : 0, zoom: w[5] ? Number(w[5]) : 0 } : null; }
+  /* A PRESENT-DAY NATIONAL CAPITAL IS THE ONLY SQUARE (2026-11-16, on request; atlas-windows.js `ownSquare`). The registry's `capital` is Natural Earth's ADM0CAP flag, which also marks
+     Johannesburg, not one of South Africa's three capitals (Pretoria, Cape Town and Bloemfontein). Its kind is read as a city's here. */
+  const GLOSS_NOT_CAPITAL = new Set(["Johannesburg"]);
   function glossWindowHTML(key, w) {
     const name = glossTitle(key);
+    if (w.kind === "capital" && GLOSS_NOT_CAPITAL.has(key)) w = Object.assign({}, w, { kind: "city" });
     const said = (w.face ? name + " shaded on an interactive globe" + (w.year ? ", at its greatest extent in " + yearLabel(w.year) : "") : name + " marked on an interactive globe") + ". Drag to turn it; pinch, scroll or use the zoom buttons to zoom; the arrow keys turn it and + and − zoom.";
     const kind = w.face ? "region" : GLOSS_POINT_KINDS.indexOf(w.kind) >= 0 ? "point" : "region";   // "region": no dot, the name centred on the point — a face carries its own shading
     return '<div class="map-card map-gloss" data-map-layer="world" data-map-named data-map-at="' + w.lon + "," + w.lat + '" data-map-atname="' + esc(name) + '" data-map-kind="' + kind + '"' + (w.kind ? ' data-map-placekind="' + esc(w.kind) + '"' : "") +
@@ -26521,7 +26525,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* ---------- THE TERM OF THE DAY (2026-11-13, on request) ----------
      "Since the Suggested Reading box now sits in the bottom left on those formats with nothing to the right of it, add a box
      there with a randomly selected daily highlighted gloss term, preferably one with an image." A tablet's and a desktop's
-     alone (styles.css hides it on a phone, where the reading box stands by itself as before). The draw is `dayPick` over the
+     alone at first; since 2026-11-16 a phone's too, directly below the reading box (both at `order:3` in styles.css). The draw is `dayPick` over the
      curated glossary — never a deck's own terms — so everyone sharing a day shares a term and it does not change on a reload;
      the pool is the terms WITH a picture and a text (the pictures and texts ride the lazy glossExtra bundle, so the box is drawn
      empty and filled when that lands), falling back to every term with a text. A press opens the term's own popup. */
@@ -35091,13 +35095,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<div class="node-title-row">' +
           '<span class="node-title">' + esc(o.title) + '</span>' +
         '</div>' +
-        /* The count on a line of its own under the title, exactly as the curated shelf sets it — see
-           `nodeMetaHTML` in buildNode. No file size (Oct 2026, on request): Daily study's Download button
-           still says what a deck will fetch. */
-        '<div class="node-meta">' +
-          '<span class="node-count">' + (o.cards || 0).toLocaleString() + " cards</span>" +
-          langFactsHTML(o) +
-        '</div>' +
+        /* NO COUNT AND NO FACTS LINE (2026-11-16, on request: "when unfolding a language collection, its decks should not
+           say the number of cards and % of examples. The one line description is sufficient."). The row is its title and,
+           on a top-level deck, its subtitle below; Daily study's Download row still says what a deck holds and fetches.
+           `langFactsHTML` (the "N% with examples" / "no audio" chips) went with it. */
         /* THE DECK'S OWN SUBTITLE (Sep 2026). Nine decks presented as nine levels said nothing about
            where a learner should start, how big each is against the others, or where a deck outside the
            ladder fits — a shelf rather than a course. It is drawn only on a TOP-LEVEL row and only where
@@ -35127,28 +35128,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         kids.map((k, i) => langRowHTML(k, i, depth + 1)).join("") +
       "</div></div></div>" +
     "</div>";
-  }
-  /* WHAT A DECK TEACHES, ON THE SHELF (`langFactsHTML`; Sep 2026, on request). A row said how many
-     cards a deck holds and how many megabytes it costs, and nothing about whether it carries EXAMPLE
-     SENTENCES or whether its words can be HEARD — which are the two things that most decide whether a
-     vocabulary deck is worth twenty megabytes, and the two that actually vary across this shelf.
-     THE FIGURES ARE THE CATALOGUE'S, measured off each deck file by `.claude/build-lang-decks.js`, so
-     nothing here can drift from the deck it describes.
-     ONLY WHAT VARIES IS DRAWN. Every deck on the shelf is asked both ways, so saying so on all of them
-     tells a reader choosing between two of them nothing; audio is the norm and its ABSENCE is the fact,
-     so "no audio" is drawn on the eight decks that lack it and nothing at all on the rest. Example
-     coverage runs from 16% to 100% and is always drawn — with `100% examples` said as `with examples`,
-     since a percentage a reader has to notice is 100 is a percentage that should have been a word. */
-  function langFactsHTML(o) {
-    let out = "";
-    if (typeof o.ex === "number") {
-      out += '<span class="node-fact" title="How many of this deck\u2019s words come with an example sentence.">' +
-        (o.ex >= 100 ? "with examples" : esc(o.ex + "% with examples")) + "</span>";
-    }
-    if (o.say === false) {
-      out += '<span class="node-fact node-fact-no" title="This deck has no read-aloud control on its cards.">no audio</span>';
-    }
-    return out;
   }
   /* A catalogue tree node turned into a row spec, all the way down. The entry id is the same one app.js
      uses everywhere else for a subdeck of one of the reader's own decks, so a row added here is the row
