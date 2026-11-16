@@ -44,13 +44,35 @@ EXCLUDE = {
     'minna': 'its count is minna "less", the comparative of lítill (A1); its entry is "to remind"',
     'ber': 'its count is ber, the present of bera "to carry" (A2), and ber "a berry"; its entry is "bare"',
     'síður': 'its count is síður "less, rather" (the comparative adverb) and síða "a page"; its entry is "long, low-hanging"',
+    # Read off the B1 ranking (2026-11-16).
+    'sumur': 'the singular of sumir "some" (A2), whose card teaches it',
+    'má': 'its count is má, the present of mega "may" (A1); its entry is "to blur"',
+    'dá': 'its count is mostly deyja "to die" (A1)\'s forms (dáinn, dáið); its entries are "a coma" and a literary "to adore"',
+    'parís': 'its count is the city, Paris; its entry is "hopscotch"',
+    'mattur': 'its own spelling is met once in the subtitles; its count is other words\' forms',
+    'æja': 'its count is the interjection æ; its entry is a rare "to stop to rest"',
+    'gella': 'its count is the slang "a babe"; its entry is "a cod tongue"',
+    'var': 'its count is var, the past of vera "to be" (A1); its entry is "cautious"',
+    'húfur': 'its count is húfa "a cap" (A2)\'s forms; its entry is "a ship\'s hull"',
+    'þinur': 'its count is þinn "your" (A1)\'s forms; its entry is "a fir"',
+    'me': 'its count is the English word; its entry is "baa"',
+    'skutla': 'its count is the slang "a babe"; its entry is "a shuttle"',
+    'dauðans': 'the genitive of dauði "death" (A2), used as an intensifier',
+    'seyðir': 'met only in set phrases; á seyði is taught on seyði',
+    'pat': 'its count is the name Pat; its entry is "a gesture"',
+    'ver': 'its count is ver, the present of verja and vera\'s forms; its entry is "a line in the water"',
+    'totta': 'its count is a sexual sense',
+    'fær': 'its count is fær, the present of fá "to get" (A1); its entry is "able"',
+    'nauðga': 'not taught in a level deck, though common in the subtitles\' crime drama (as Norwegian\'s voldta)',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
 # Swearing and insults are never in a level deck.
 SWEARS = {'fjandi', 'andskoti', 'helvíti', 'djöfull', 'fokk', 'skítur', 'tík', 'hóra', 'drulla',
           # A2 (2026-11-16): curses and insults
-          'fjandans', 'fjári', 'fífl', 'hálfviti', 'auli', 'rass', 'kjaftæði', 'bjáni'}
+          'fjandans', 'fjári', 'fífl', 'hálfviti', 'auli', 'rass', 'kjaftæði', 'bjáni',
+          # B1 (2026-11-16)
+          'hommi', 'pissa', 'fáviti', 'rassgat', 'píka', 'drullusokkur', 'skratti', 'fjárans'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists
 # another first.
@@ -60,7 +82,11 @@ FILL_POS = {'sá': 'pron',       # "that (one)", not "to sow"
             # A2 (2026-11-16): the verb, not a noun spelt like it
             'renna': 'verb', 'velta': 'verb', 'kanna': 'verb', 'kveðja': 'verb', 'vísa': 'verb',
             'skella': 'verb', 'hrífa': 'verb', 'greiða': 'verb', 'enda': 'verb',
-            'meðal': 'prep'}     # "among", not "a medicine"
+            'meðal': 'prep',     # "among", not "a medicine"
+            # B1 (2026-11-16): the verb, not a noun spelt like it, and the reverse
+            'skemma': 'verb', 'jafna': 'verb', 'stytta': 'verb', 'hella': 'verb', 'spá': 'verb',
+            'sturta': 'noun',    # "a shower", not "to pour down"
+            'þyrla': 'noun'}     # "a helicopter", not "to whirl"
 
 # A WORD DEALT BY ANOTHER'S COUNT.
 SAME_AS = {}

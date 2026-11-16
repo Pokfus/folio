@@ -42,7 +42,8 @@ from isl import fold, WORD as ISWORD
 from icelandic_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
-STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-16T00:00:00.000Z'}.get(LEVEL, '')
+STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-16T00:00:00.000Z',
+         'b1': '2026-11-16T00:00:00.000Z'}.get(LEVEL, '')
 if not STAMP:
     raise SystemExit(f'no STAMP for {LEVEL}: write the day the level is first built into build_deck.py')
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
@@ -105,6 +106,10 @@ ETYMS = {
     # A2 (2026-11-16)
     'kokkur': ['2'],          # "a cook"; etymology 1 is "a cock"
     'lok': ['2', '1'],        # "an end" (að lokum, "finally") first, then "a lid"
+    # B1 (2026-11-16)
+    'benda': ['2'],           # "to point"; etymology 1 is "to bend"
+    'vasi': ['2'],            # "a pocket"; etymology 1 is "a vase"
+    'hagur': ['2'],           # "an advantage; finances", not the rare adjective "handy"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where Wiktionary's
@@ -132,6 +137,17 @@ GLOSS = {
     'dreyma': {'verb': ['to dream (with the dreamer in the accusative: mig dreymdi, "I dreamt")']},
     'drífa': {'verb': ['to hurry (drífa sig: drífðu þig!, "hurry up!")', 'to drive, to push on']},
     'ríða': {'verb': ['to ride (a horse)']},                  # its slang sense is sexual
+    # B1 (2026-11-16)
+    'seyði': {'noun': ['broth', 'á seyði: going on, afoot (hvað er á seyði?, "what\'s going on?")']},
+    'hlakka': {'verb': ['to look forward (hlakka til: ég hlakka til, "I\'m looking forward to it")']},
+    'tíð': {'noun': ['time, period', 'weather conditions']},
+    'kóngur': {'noun': ['king', 'king (in cards and chess)']},
+    'drasl': {'noun': ['junk, rubbish, mess']},
+    'rugl': {'noun': ['confusion, a mix-up', 'nonsense']},
+    'spilla': {'verb': ['to spoil, to corrupt, to contaminate']},
+    'drusla': {'noun': ['rag, a shred of cloth', 'an old banger, a jalopy']},
+    'grey': {'noun': ['poor thing, poor wretch (greyið, "the poor thing")', 'bitch (a female dog)']},
+    'skjár': {'noun': ['screen (a monitor, a television screen)']},
     'króna': {'noun': ['króna (the Icelandic currency)', 'crown']},
     'gjörðu svo vel': {'phrase': ['here you are, there you go (handing something over)',
                                   'please (inviting someone to come in, sit down or help themselves)']},
@@ -159,6 +175,8 @@ FORM_WORDS = {
 LEAD = {
     'leiður': 'sad',                          # first listed is "wearisome, annoying"
     'hætta': 'to quit',                       # first listed is "to risk"
+    'hvetja': 'to encourage',                 # first listed is "to sharpen"
+    'innflytjandi': 'immigrant',              # first listed is "importer"
 }
 
 # A GENDER WRITTEN HERE, where the lemma's first entry is not the everyday word's.
