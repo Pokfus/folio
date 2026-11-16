@@ -128,6 +128,38 @@ words), and `node .claude/build-lang-decks.js`. To move a word down from a highe
 card's `fields` copied into the entry and a `dropDup` row on the deck it leaves. The counts a description
 states are recounted on every run; a figure typed into a `descSub` is held to the order by `italian-order.js`.
 
+## The German decks: the record, the order, the pinned ids, Goethe A2 and the sounds deck (Nov 2026)
+
+Seven decks of card type `goethe`. `.claude/goethe/run.py` (Python, about 1.3 GB of live corpora) writes
+two of them, A1 and A2; the shipped B1, the B2, C1 and C2 vocabulary and the phrases were supplied
+ready-made, and A1 cannot be rebuilt byte for byte. So every change is in a record (`docs/lang-decks.md`,
+"The German beginner pass"), on the Italian model: **a word is ONE NOTE with two card templates**, so the
+pin is of note ids (a card id is the note id, plus `~2` for English → German).
+
+    python3 ../goethe/case-order.py --check   # every case table runs Nominativ, Genitiv, Dativ, Akkusativ (not in CI)
+    node german-fix.js --check                # the German record, the order and the pinned ids
+    node build-german-sounds.js --check       # the sounds deck is what its table and Goethe A1 give
+
+| file | what it is |
+|---|---|
+| `german-fixes.json` | the record: `insert` (a card a list lacks: a moved card's six `fields` byte for byte with `from`, or `senses` / `forms` / `ex` / `conjFrom` with a source for every sentence), `notes` (a field rebuilt on a card, or a rename with `word`), `decks.<id>.dropDup` (`headword → "<lower deck>/<its headword>"`, a card a lower deck carries), `dropForm` (a card that is only a form of another), `subtitle` and `descSub`. |
+| `german-ids.json` | deck id → headword (a sounds row's key) → the number in the note's id. **Never delete or renumber a row.** A removed note's row moves to `_retired` (40 of them); a rename renames the key. APPLIED, so a deck numbered by position is numbered back. Goethe A2's rows were seeded from the generator's output of 2026-11-16. |
+| `german-order.json` | deck id → the full list of headwords in the order the deck is dealt (Goethe A1, the phrases). May be edited by hand; a list that is not exactly the deck's headwords is refused. A deck with no entry is dealt in the order of its pinned numbers. |
+| `german-order.js` | how that file is computed, from the PINNED NUMBER and never from the file's own order: A1's hand-written head, the closed sets (five placed at a note number), look-alikes forty apart; the phrases by reading level. It fails if a description's stated figures (`descSub`) no longer match the order. `--report` prints the measurements. |
+| `german-sounds.json` | the sounds table: cells and sentences quoted from three Wikipedia pages at the revisions it names, and the English Wiktionary's transcription of each example word. A row's `key` is what its id is pinned to. |
+| `build-german-sounds.js` | writes `German-Sounds-and-Spelling` (card type `desound`). **Reads no live source**: the table and the shipped A1 deck. |
+
+`german-fix.js` finds its decks by CARD TYPE (`goethe`), as `case-order.py` does, so a German deck of
+another type is left alone but held to its pin. **After a rebuild of A2** (the only level to rebuild):
+`case-order.py`, then `german-fix.js`, `build-german-sounds.js`, `node .claude/build-lang-decks.js`; never
+`run.py --level a1` or `--level b1`. To add a word to A1: an `insert` entry (the next free id above 797,
+its senses, three sentences each naming its Tatoeba ids, a `why`), `german-fix.js`, then name the headword
+in the head or in a set in `german-order.js` (an insert with no place fails that script),
+`german-order.js`, `german-fix.js` again, `build-german-sounds.js`, and `node .claude/build-lang-decks.js`.
+To move a word down from a higher deck: the same, with the card's `fields` copied into the entry and a
+`dropDup` row on the deck it leaves. The counts a description states are recounted on every run; a figure
+typed into a `descSub` is held to the order by `german-order.js`.
+
 ## Changing the card type's CSS
 
 `deckcore.js` holds it, and every built deck file carries a **copy** — so an edit there does not reach a

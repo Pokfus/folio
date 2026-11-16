@@ -1,0 +1,102 @@
+{
+ "_": "german-sounds.json — the table behind decks/German-Sounds-and-Spelling.folio-deck.json, read by build-german-sounds.js. NOTHING IN IT IS COMPOSED. Every `like` (the English sound a letter resembles) is the 'English approximation' cell of Wikipedia's Help:IPA/Standard German at the revision in `sources.ipa`, with its own regional labels (DE, AT, CH; RP; Scottish). Every `when` and every `ipa` of a consonant row is a cell of the Consonants table of 'Grapheme-to-phoneme correspondences' in Wikipedia's 'German orthography' at the revision in `sources.orthography`; a vowel row's `ipa` is the symbol of the Help:IPA row its `like` comes from. Every `says` is a sentence, or a marked cut of one, of 'German orthography' (the sections Umlaut diacritic usage, Capitalization, Vowel length and Short vowels) — except the two stress rows, which are sentences of Wikipedia's 'Standard German phonology' at the revision in `sources.phonology` (section Stress). Wiki markup is turned into <b>, <i> and ⟨ ⟩, a link becomes its text, a footnote is dropped, a cut inside a passage is marked […], and nothing is reworded. The transcription beside an example word in `words` is the first pronunciation the English Wiktionary gives that word (kaikki.org, read 2026-11-16), copied, and it is there so that a word chosen by hand can be checked: `words` is used wherever the spelling alone does not decide the sound (a long or a short ä, ö, ü; s before a vowel; v; a final b, d or g; where the stress falls). `rx` is NOT from the articles: it is how the builder finds, among the one-word headwords of the Goethe A1 deck (the article taken off, lower case), the first three words in the order the deck is dealt that show a row whose sound the spelling decides; `mark` is which letters of a `words` row are picked out. A row no A1 headword shows is not carded. The letters that sound as an English speaker expects (f, k, l, m, n, p, t and, before a vowel, b, d, g) have no card.",
+ "sources": {
+  "ipa": { "title": "Help:IPA/Standard German", "url": "https://en.wikipedia.org/wiki/Help:IPA/Standard_German", "revid": 1376653424, "timestamp": "2026-09-25T13:28:28Z" },
+  "orthography": { "title": "German orthography", "url": "https://en.wikipedia.org/wiki/German_orthography", "revid": 1381205306, "timestamp": "2026-10-20T17:41:55Z" },
+  "phonology": { "title": "Standard German phonology", "url": "https://en.wikipedia.org/wiki/Standard_German_phonology", "revid": 1381175677, "timestamp": "2026-10-20T13:28:40Z" }
+ },
+ "vowels": [
+  { "key": "vowel:ä", "show": "ä",
+    "rows": [
+     { "when": "", "ipa": "/ɛː/", "like": "<i>RP</i> h<b>air</b>", "words": [["spät", "/ʃpɛːt/"], ["das Mädchen", "/ˈmɛːtçən/"], ["später", "/ˈʃpɛːtɐ/"]], "mark": "ä" },
+     { "when": "", "ipa": "/ɛ/", "like": "b<b>e</b>t", "words": [["der März", "/mɛrts/"], ["das Getränk", "/ɡəˈtʁɛŋk/"]], "mark": "ä" } ] },
+  { "key": "vowel:ö", "show": "ö",
+    "rows": [
+     { "when": "", "ipa": "/øː/", "like": "<i>somewhat like</i> h<b>ear</b>d", "words": [["schön", "/ʃøːn/"], ["hören", "/ˈhøːrən/"]], "mark": "ö" },
+     { "when": "", "ipa": "/œ/", "like": "<i>somewhat like</i> h<b>ur</b>t; <i>RP</i> <b>ugh</b>", "words": [["möchten", "/ˈmœçtn̩/"], ["können", "/ˈkœnən/"], ["zwölf", "/t͡svœlf/"]], "mark": "ö" } ] },
+  { "key": "vowel:ü", "show": "ü",
+    "rows": [
+     { "when": "", "ipa": "/yː/", "like": "<i>somewhat like</i> f<b>ew</b>", "words": [["über", "/ˈyːbɐ/"], ["müde", "/ˈmyːdə/"], ["grün", "/ɡʁyːn/"]], "mark": "ü" },
+     { "when": "", "ipa": "/ʏ/", "like": "<i>somewhat like</i> c<b>u</b>te", "words": [["fünf", "/fʏnf/"], ["müssen", "/ˈmʏsən/"], ["tschüss", "/t͡ʃʏs/"]], "mark": "ü" } ] },
+  { "key": "vowel:ei", "show": "ei",
+    "rows": [ { "when": "", "ipa": "/aɪ/", "like": "h<b>igh</b>", "words": [["nein", "/naɪ̯n/"], ["mein", "/maɪ̯n/"], ["drei", "/dʁaɪ̯/"]], "mark": "ei" } ] },
+  { "key": "vowel:ie", "show": "ie",
+    "says": "Mostly, the long vowel /iː/ is represented in writing by the digraph ⟨ie⟩, for instance in L<b>ie</b>be ('love'), h<b>ie</b>r ('here').",
+    "rows": [ { "when": "", "ipa": "/iː/", "like": "s<b>ee</b>d", "words": [["wie", "/viː/"], ["sie", "/ziː/"], ["viel", "/fiːl/"]], "mark": "ie" } ] },
+  { "key": "vowel:eu", "show": "eu, äu",
+    "rows": [ { "when": "", "ipa": "/ɔʏ/", "like": "ch<b>oi</b>ce", "words": [["heute", "/ˈhɔʏ̯tə/"], ["neu", "/nɔʏ̯/"], ["der Freund", "/frɔʏ̯nt/"]], "mark": "eu|äu" } ] },
+  { "key": "vowel:au", "show": "au",
+    "rows": [ { "when": "", "ipa": "/aʊ/", "like": "v<b>ow</b>", "words": [["aus", "/aʊ̯s/"], ["auf", "/aʊ̯f/"], ["auch", "/aʊ̯x/"]], "mark": "au" } ] },
+  { "key": "vowel:e-final", "show": "-e", "name": "an unstressed e at the end of a word",
+    "rows": [ { "when": "", "ipa": "/ə/", "like": "<i>DE:</i> bal<b>a</b>nce <i>(but not</i> sof<b>a</b><i>)</i>; <i>AT, CH:</i> b<b>e</b>t", "words": [["bitte", "/ˈbɪtə/"], ["heute", "/ˈhɔʏ̯tə/"], ["der Name", "/ˈnaːmə/"]], "mark": "e$" } ] },
+  { "key": "vowel:er-final", "show": "-er", "name": "an unstressed er at the end of a word",
+    "rows": [ { "when": "", "ipa": "/ɐ/", "like": "<i>DE, AT:</i> fr<b>u</b>stration; <i>CH: Scottish</i> lett<b>er</b>", "words": [["immer", "/ˈɪmɐ/"], ["über", "/ˈyːbɐ/"], ["besser", "/ˈbɛsɐ/"]], "mark": "er$" } ] },
+  { "key": "vowel:en-final", "show": "-en", "name": "an unstressed en at the end of a word",
+    "rows": [ { "when": "", "ipa": "/n̩/", "like": "sudd<b>en</b>", "words": [["möchten", "/ˈmœçtn̩/"], ["haben", "/ˈhaːbən/, [-bn̩]"], ["machen", "/ˈmaxən/, [ˈmäχn̩]"]], "mark": "en$" } ] }
+ ],
+ "consonants": [
+  { "key": "letter:ch", "show": "ch",
+    "rows": [
+     { "when": "after ⟨a, o, u⟩", "ipa": "[x]", "like": "<i>Scottish</i> lo<b>ch</b>", "words": [["auch", "/aʊ̯x/"], ["noch", "/nɔx/"], ["machen", "/ˈmaxən/"]], "mark": "ch" },
+     { "when": "after other vowels or consonants", "ipa": "[ç]", "like": "<b>h</b>ue", "words": [["ich", "/ɪç/"], ["nicht", "/nɪçt/"], ["die Milch", "/mɪlç/"]], "mark": "ch" } ] },
+  { "key": "letter:chs", "show": "chs",
+    "rows": [ { "when": "within a morpheme", "ipa": "[ks]", "like": "", "words": [["sechs", "/sɛks/"]], "mark": "chs" } ] },
+  { "key": "letter:sch", "show": "sch",
+    "rows": [ { "when": "", "ipa": "[ʃ]", "like": "<b>sh</b>all", "words": [["schon", "/ʃoːn/"], ["schön", "/ʃøːn/"], ["die Schule", "/ˈʃuːlə/"]], "mark": "sch" } ] },
+  { "key": "letter:sp-st", "show": "sp, st", "name": "at the beginning of a word",
+    "rows": [ { "when": "before ⟨p, t⟩ at the beginning of a word or syllable", "ipa": "[ʃ]", "like": "<b>sh</b>all", "words": [["sprechen", "/ˈʃprɛçən/"], ["die Stadt", "/ʃtat/"], ["die Straße", "/ˈʃtʁaːsə/"]], "mark": "^s" } ] },
+  { "key": "letter:s", "show": "s",
+    "rows": [
+     { "when": "before vowel (except after obstruents)", "ipa": "[z]", "like": "<i>DE, CH:</i> <b>z</b>ebra; <i>AT:</i> <b>s</b>oup", "words": [["sie", "/ziː/"], ["sehr", "/zeːr/"], ["die Sonne", "/ˈzɔnə/"]], "mark": "^s" },
+     { "when": "before consonants, after obstruents, or when final", "ipa": "[s]", "like": "fa<b>s</b>t", "words": [["was", "/vas/"], ["aus", "/aʊ̯s/"], ["das Haus", "[haʊ̯s]"]], "mark": "s$" } ] },
+  { "key": "letter:ß", "show": "ß, ss",
+    "rows": [ { "when": "", "ipa": "[s]", "like": "fa<b>s</b>t", "words": [["heißen", "/ˈhaɪ̯sən/"], ["groß", "/ɡʁoːs/"], ["müssen", "/ˈmʏsən/"]], "mark": "ß|ss" } ] },
+  { "key": "letter:z", "show": "z",
+    "rows": [ { "when": "", "ipa": "[ts]", "like": "ca<b>ts</b>", "words": [["zu", "/t͡suː/"], ["zwei", "/t͡svaɪ̯/"], ["zehn", "/t͡seːn/"]], "mark": "z" } ] },
+  { "key": "letter:w", "show": "w",
+    "rows": [ { "when": "", "ipa": "[v]", "like": "<b>v</b>anish", "words": [["wie", "/viː/"], ["was", "/vas/"], ["wo", "/voː/"]], "mark": "w" } ] },
+  { "key": "letter:v", "show": "v",
+    "rows": [
+     { "when": "otherwise", "ipa": "[f]", "like": "<b>f</b>uss", "words": [["von", "/fɔn/"], ["vier", "/fiːr/"], ["viel", "/fiːl/"]], "mark": "v" },
+     { "when": "in foreign borrowings not at the end of a word", "ipa": "[v]", "like": "<b>v</b>anish", "words": [["der November", "/noˈfɛmbɐ/, /noˈvɛmbɐ/"]], "mark": "v" } ] },
+  { "key": "letter:j", "show": "j",
+    "rows": [ { "when": "", "ipa": "[j]", "like": "<b>y</b>ard", "words": [["jetzt", "/jɛtst/"], ["das Jahr", "/jaːr/"], ["der Junge", "/ˈjʊŋə/"]], "mark": "j" } ] },
+  { "key": "letter:bdg-final", "show": "-b, -d, -g", "name": "b, d and g at the end of a syllable",
+    "rows": [
+     { "when": "syllable final", "ipa": "[p]", "like": "<b>p</b>uck", "words": [["ab", "/ap/"], ["gelb", "/ɡɛlp/"]], "mark": "b$" },
+     { "when": "syllable final", "ipa": "[t]", "like": "<b>t</b>all", "words": [["und", "/ʊnt/"], ["das Kind", "/kɪnt/"], ["der Hund", "/hʊnt/"]], "mark": "d$" },
+     { "when": "syllable final", "ipa": "[k]", "like": "<b>c</b>old", "words": [["der Tag", "/taːk/"]], "mark": "g$" } ] },
+  { "key": "letter:ig", "show": "-ig",
+    "rows": [ { "when": "when part of word-final -⟨ig⟩", "ipa": "[ç] or [k] (Southern Germany)", "like": "<b>h</b>ue", "words": [["richtig", "/ˈʁɪçtɪç/"], ["wichtig", "/ˈvɪçtɪç/"], ["zwanzig", "/ˈtsvantsɪç/"]], "mark": "ig$" } ] },
+  { "key": "letter:r", "show": "r",
+    "rows": [
+     { "when": "Standard German", "ipa": "[ʁ] before vowels, [ɐ] in other cases", "like": "<i>DE: French</i> <b>r</b>ouge; <i>AT, CH: Scottish</i> <b>r</b>ed", "words": [["rot", "/roːt/, [ʁoːt(ʰ)]"], ["richtig", "/ˈʁɪçtɪç/"], ["die Uhr", "/uːr/, [ʔuːɐ̯]"]], "mark": "r" } ] },
+  { "key": "letter:h", "show": "h",
+    "rows": [
+     { "when": "before a vowel", "ipa": "[h]", "like": "<b>h</b>ut", "words": [["haben", "/ˈhaːbən/"], ["heute", "/ˈhɔʏ̯tə/"], ["das Haus", "[haʊ̯s]"]], "mark": "^h" },
+     { "when": "when lengthening a vowel", "ipa": "silent", "like": "", "words": [["zehn", "/t͡seːn/"], ["das Jahr", "/jaːr/"], ["wohnen", "/ˈvoːnən/"]], "mark": "h" } ] },
+  { "key": "letter:ng", "show": "ng",
+    "rows": [ { "when": "usually", "ipa": "[ŋ]", "like": "lo<b>ng</b>", "words": [["lang", "/laŋ(k)/, [laŋ]"], ["jung", "/jʊŋ(k)/"], ["die Zeitung", "/ˈt͡saɪ̯tʊŋ/"]], "mark": "ng" } ] },
+  { "key": "letter:pf", "show": "pf",
+    "rows": [ { "when": "", "ipa": "[pf]", "like": "cu<b>pf</b>ul", "rx": "pf" } ] },
+  { "key": "letter:tsch", "show": "tsch",
+    "rows": [ { "when": "", "ipa": "[tʃ]", "like": "ma<b>tch</b>", "words": [["tschüss", "/t͡ʃʏs/"], ["deutsch", "/dɔʏ̯t͡ʃ/"]], "mark": "tsch" } ] }
+ ],
+ "rules": [
+  { "key": "rule:umlaut", "show": "ä ö ü", "kind": "German spelling", "name": "the umlaut",
+    "says": "The accented letters ⟨ä, ö, ü⟩ are used to indicate the presence of umlauts (fronting of back vowels). […] When it is not possible to use the umlauts (for example, when using a restricted character set) the characters ⟨Ä, Ö, Ü, ä, ö, ü⟩ should be transcribed as ⟨Ae, Oe, Ue, ae, oe, ue⟩ respectively […]; simply using the base vowel (e.g., ⟨u⟩ instead of ⟨ü⟩) would be wrong and misleading.",
+    "words": [["schon", "/ʃoːn/"], ["schön", "/ʃøːn/"], ["für", "/fyːɐ̯/"]] },
+  { "key": "rule:length", "show": "nn  h", "kind": "German spelling", "name": "a long or a short vowel",
+    "says": "A doubled consonant after a vowel indicates that the vowel is short, while a single consonant often indicates the vowel is long, e.g. Kamm ('comb') has a short vowel /kam/, while kam ('came') has a long vowel /kaːm/. […] A silent ⟨h⟩ indicates the vowel length in certain cases.",
+    "words": [["kommen", "/ˈkɔmən/"], ["der Mann", "/man/"], ["zehn", "/t͡seːn/"], ["gut", "/ɡuːt/"]] },
+  { "key": "rule:capital", "show": "A a", "kind": "German spelling", "name": "the capital letter",
+    "says": "A typical feature of German spelling is the general capitalization of nouns and of most nominalized words. In addition, capital letters are used: at the beginning of sentences […]; in the formal pronoun Sie 'you' and the determiner Ihr 'your' […].",
+    "words": [["das Essen", ""], ["essen", "/ˈɛsən/"], ["Sie", ""], ["sie", "/ziː/"]] },
+  { "key": "rule:stress", "show": "ˈ", "kind": "German stress", "name": "where the stress falls",
+    "says": "In German words there is always one syllable carrying main stress, with all other syllables either being unstressed or carrying a secondary stress. […] Traditionally, word stress is seen as falling onto the first stem syllable.",
+    "words": [["der Name", "/ˈnaːmə/"], ["immer", "/ˈɪmɐ/"], ["das Hotel", "/hoˈtɛl/"], ["die Entschuldigung", "/ɛntˈʃʊldiɡʊŋ/"]] },
+  { "key": "rule:stress-prefix", "show": "be-  ab-", "kind": "German stress", "name": "a verb with a prefix",
+    "says": "Words beginning with be-, ge-, er-, ver-, zer-, ent-, emp- and a few other inseparable prefixes are stressed on the root. Words beginning with the separable prefixes ab-, auf-, ein-, vor-, and most prepositional adverbs are stressed on the prefix.",
+    "words": [["verstehen", "/fərˈʃteːən/"], ["bezahlen", "/bəˈtsaːlən/"], ["bekommen", "/bəˈkɔmən/"], ["aufstehen", "/ˈʔaufˌʃteːən/"], ["einkaufen", "/ˈaɪ̯nˌkaʊ̯fən/"]] }
+ ]
+}
