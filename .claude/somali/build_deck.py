@@ -40,7 +40,7 @@ from somali_level import LEVEL, LEX, TARGET, f, TITLES, DECK_IDS, DECK_FILES, NA
 
 STAMP = '2026-11-16T00:00:00.000Z'
 TYPE_ID = 'somali'
-COLOR = '#3C7575'          # the shelf's measured hue (app.js `lang-somali`)
+COLOR = '#485A5A'          # the shelf's measured hue (app.js `lang-somali`)
 FIELDS = ['Somali', 'Tone', 'Word', 'English', 'Forms', 'Examples']
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',

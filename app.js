@@ -12679,6 +12679,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Aquinas and a purple 14.7 from Magna Carta and Euripides, and the olive was taken over both for clearing
      every political book by twice the margin. It reads 7.76:1 on the tightest light paper. */
   "Thomas Hobbes": "#263700",
+  /* Nov 2026, adding The Social Contract, and the band is still full. Measured as CIE76 distance over the
+     same band and bars (L 12.3–47.8, chroma 18–85, 4.5:1 on all forty-five light papers, cards and second
+     papers, 22 or more from the fifteen light inks), a sweep of the cube at a step of 3 tops out at 14.7.
+     THE EURIPIDES TEST: of the sweep's best, a violet stood 14.7 from Magna Carta, a political text read
+     beside this one, so this dark brown was taken: its nearest are Sophocles 14.6, Confucius 14.8 and
+     Beowulf 15.2, none read beside Rousseau, and the books that are stand well off — Plato 34.0, Hobbes
+     38.7, Jefferson 46.2, Aristotle 46.5, Machiavelli 63.3 and Magna Carta 72.4. It reads 5.77:1 on the
+     tightest light paper. */
+  "Jean-Jacques Rousseau": "#663930",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-three colours placed (Nov 2026, adding the Critique of Pure
+     Reason): CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and
+     4.5:1 on every light paper, card and second paper. The band is full, as Hobbes's row found: a sweep at a
+     step of 3, refined to 1 around the best, tops out at 14.8. THE EURIPIDES TEST: this violet's nearest are
+     Euripides 14.8, Snorri Sturluson 14.9, Herodotus 15.0 and the King James Bible 15.1, none a book read
+     beside Kant; the philosophers stand well off — Seneca 19.6, Plato 26.3, Machiavelli 38.8, Aristotle 50.5,
+     Augustine 66.9, Marcus Aurelius 79.3, Boethius 85.8, Hobbes 87.9, Lucretius 97.8, Aquinas 119.3. The
+     sweep's other near-best were refused on the same test: a magenta stood 14.6 from Plato, a green 14.5 from
+     Aquinas, a brown 16.9 from Augustine. It reads 5.83:1 on the tightest light paper. */
+  "Immanuel Kant": "#592F85",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -15867,6 +15886,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       total: 5,
     },
     {
+      id: "julius-caesar",
+      title: "Julius Caesar",
+      subtitle: "The Tragedy of Julius Caesar",
+      author: "William Shakespeare",
+      /* No "c.": a Swiss traveller, Thomas Platter, saw a play of Julius Caesar acted on Bankside in
+         September 1599, generally taken to be this one, new at the Globe. First printed in the Folio of 1623. */
+      written: "1599",
+      year: 1599,
+      // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+      edition: "The Yale Shakespeare, ed. Lawrence Mason, Yale University Press, New Haven, 1919",
+      /* The play has never been in copyright; the Yale edition was published in 1919 and its editor died
+         in 1939 (Wikidata Q56478978), so it clears the US pre-1929 rule and life plus eighty — not yet life
+         plus a hundred, which the rights text says. */
+      rights:
+        "Public domain. Shakespeare wrote the play in 1599 and it was first printed in the First Folio of " +
+        "1623, so the work itself has never been in copyright. The text here is the Yale Shakespeare " +
+        "edition edited by Lawrence Mason and published by Yale University Press in 1919; Mason lived from " +
+        "1882 to 1939, so the edition is out of copyright in the United States under the rule for works " +
+        "published before 1929, and everywhere the term is the editor's life plus eighty years or less. " +
+        "What is taken is the play, the edition's list of characters, Mason's glosses from the foot of " +
+        "each page and his end notes, which are set with the glosses that point to them; his appendices " +
+        "and index are not reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Julius_Caesar_(1919)_Yale",
+      /* NO `origLang`: Shakespeare's English is the original. Five acts, each a tab; the list of
+         characters at the head of Act I. */
+      chapterWord: "Act",
+      count: 5,
+      total: 5,
+    },
+    {
       id: "classic-of-tea",
       title: "The Classic of Tea",
       subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -16595,6 +16645,85 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Somatosensory_system", "Tendon", "Scale_(zoology)", "Solar_eclipse", "Common_Sense_(pamphlet)", "Libertus",
         "Immortals", "Homo", "Lyon", "Apollo", "Titus", "Crispus", "Niger", "Gene", "Battle_of_Lepanto",
         "Tyrannicides"],
+    },
+    {
+      id: "rousseau-social-contract",
+      title: "The Social Contract",
+      subtitle: "Du contrat social, ou Principes du droit politique",
+      author: "Jean-Jacques Rousseau",
+      written: "1762",
+      year: 1762,
+      translator: "G. D. H. Cole",
+      edition: "The Social Contract and Discourses, Everyman's Library, London, 1913",
+      /* A LIMIT TO STATE, on the translation: published in 1913, so public domain in the United States;
+         Cole died in 1959, so life plus seventy runs to 1 January 2030. See .claude/fetch-book.js. */
+      rights:
+        "The French text is public domain everywhere: Rousseau published it in 1762 and died in 1778. " +
+        "G. D. H. Cole's English translation was published in London in 1913, so it is in the public " +
+        "domain in the United States. Cole died in 1959, so where copyright runs for the author's life " +
+        "plus seventy years his translation stays in copyright until 1 January 2030.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Social_Contract_(tr._Cole)",
+      /* Paired on the CHAPTER, as The Prince is: neither Cole nor the 1762 edition numbers anything below
+         it. The French is the first edition (Amsterdam, Marc Michel Rey, 1762) as validated on French
+         Wikisource. Section 1, Rousseau's Foreword, has no French: that transcription gives it no page. */
+      origLang: "fr",
+      origName: "French",
+      /* Forty-nine sections — the Foreword and the forty-eight chapters of the four Books — so a tab runs
+         one ahead of the chapter's place in the book; each title opens with its chapter's numeral in its
+         Book. "Section" so that no tab claims to be a chapter it is not (Leviathan's arrangement). */
+      chapterWord: "Section",
+      count: 49,
+      total: 49,
+      parts: [
+        { n: 1, label: "Book I", note: "The Foreword and chapters I–IX — the compact and the state it creates" },
+        { n: 2, label: "Book II", note: "Chapters I–XII — sovereignty, the general will, law and the Legislator" },
+        { n: 3, label: "Book III", note: "Chapters I–XVIII — government, its forms, and how it usurps the sovereign" },
+        { n: 4, label: "Book IV", note: "Chapters I–IX — voting, the Roman institutions, civil religion" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 49 sections (every
+         `.ttip`). Saint-Pierre is the Abbé (IV. 3), not the islands; Providence is not the capital of Rhode
+         Island; "Talent is buried" (II. 9) is ability, not the weight; the Palatine of IV. 4's note is a
+         Polish Count Palatine, not the hill; and Sovereignty's entry is the modern interstate sense, where
+         Rousseau's is the people's. Israel and Syria go where he means the biblical and ancient lands, as
+         they do on Leviathan's shelf. */
+      glossOff: ["Saint-Pierre,_Saint_Pierre_and_Miquelon", "Providence", "Talent_(measurement)", "Palatine_Hill",
+        "Sovereignty", "Israel", "Syria"],
+    },
+    {
+      id: "kant-critique-of-pure-reason",
+      title: "Critique of Pure Reason",
+      subtitle: "Kritik der reinen Vernunft",
+      author: "Immanuel Kant",
+      written: "1781, revised 1787",
+      year: 1781,
+      translator: "J. M. D. Meiklejohn",
+      edition: "Bohn's Philosophical Library, Henry G. Bohn, London, 1855",
+      /* No limit to state: Kant died in 1804 and his translator more than a century ago. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Immanuel Kant died in 1804. J. M. D. Meiklejohn's translation was " +
+        "published in London in 1855 and its translator died more than a century ago. The text is the " +
+        "proofread Wikisource transcription of the 1855 printing, from a scan held by the Internet Archive.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Critique_of_Pure_Reason_(Meiklejohn)",
+      /* NO `origLang`: no proofread German of the SECOND edition, the one Meiklejohn translates, was found.
+         Nineteen sections in Kant's own divisions, each titled from the 1855 contents page; the book's
+         chapters restart within each Book, so "Section" rather than "Chapter" (Leviathan's arrangement). */
+      chapterWord: "Section",
+      count: 19,
+      total: 19,
+      parts: [
+        { n: 1, label: "Prefaces and Introduction", note: "The prefaces to the first and second editions, and the Introduction — analytic and synthetic judgments" },
+        { n: 2, label: "Doctrine of Elements · Transcendental Æsthetic", note: "Space and time as the forms of intuition" },
+        { n: 3, label: "Transcendental Logic · The Analytic", note: "The categories, their deduction, the schematism and the principles; phænomena and noumena" },
+        { n: 4, label: "Transcendental Logic · The Dialectic", note: "The illusions of reason — the paralogisms, the antinomy and the ideal" },
+        { n: 5, label: "Transcendental Doctrine of Method", note: "The discipline, canon, architectonic and history of pure reason" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 19 sections (every `.ttip`,
+         Nov 2026). Kant's WOLF is Christian Wolff, the philosopher, not the grey wolf; SUBSISTENCE is the
+         category of "Inherence and Subsistence", not how a society gets its living; PROVIDENCE is divine, not
+         the capital of Rhode Island; and "the Republic of Plato" is the dialogue, not the form of state. */
+      glossOff: ["Wolf", "Subsistence", "Providence", "Republic"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -26160,6 +26289,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "She should have died hereafter; There would have been a time for such a word. To-morrow, and to-morrow, and to-morrow, Creeps in this petty pace from day to day, To the last syllable of recorded time; And all our yesterdays have lighted fools The way to dusty death. Out, out, brief candle! Life's but a walking shadow, a poor player That struts and frets his hour upon the stage, And then is heard no more; it is a tale Told by an idiot, full of sound and fury, Signifying nothing. Enter a Messenger. Thou com'st to use thy tongue; thy story quickly. Mess Gracious my lord, I should report that…" },
     { book: "romeo-and-juliet", n: 2, t: "Act II", p: 23,
       text: "He jests at scars, that never felt a wound. [Juliet appears above at a window.] But, soft! what light through yonder window breaks? It is the east, and Juliet is the sun! Arise, fair sun, and kill the envious moon, Who is already sick and pale with grief, That thou her maid art far more fair than she: Be not her maid, since she is envious; Her vestal livery is but sick and green, And none but fools do wear it; cast it off. It is my lady; O! it is my love: O! that she knew she were. She speaks, yet she says nothing: what of that? Her eye discourses; I will answer it. I am too bold, 'tis not to…" },
+    { book: "julius-caesar", n: 3, t: "Act III", p: 142,
+      text: "Friends, Romans, countrymen, lend me your ears; I come to bury Cæsar, not to praise him. The evil that men do lives after them, The good is oft interred with their bones; So let it be with Cæsar. The noble Brutus Hath told you Cæsar was ambitious; If it were so, it was a grievous fault, And grievously hath Cæsar answer'd it. Here, under leave of Brutus and the rest,— For Brutus is an honourable man; So are they all, all honourable men,— Come I to speak in Cæsar's funeral. He was my friend, faithful and just to me: But Brutus says he was ambitious; And Brutus is…" },
     { book: "classic-of-tea", n: 1, t: "The Origin of Tea", p: 1,
       text: "Tea is a fine tree of the South. Its height is from one to two feet to several tens of feet. The tea plants which grow on the hills and by the streams of Pa Shan [in the province of Szechwan] are sometimes so big that it takes two men to encircle them with their arms. They are cut down and then their leaves are plucked. A tea plant is like kua lu, a tree growing in Canton, the leaves of which are bitter and acrid in taste; its leaves are like those of the gardenia; its flowers are like the white cinnamon roses; its seeds are like those of the palm and coconut palm; its stalks are like those…" },
     { book: "magna-carta", n: 39, t: "Chapter 39", p: 1,
@@ -26180,6 +26311,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "We hold these Truths to be self-evident, that all Men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty, and the Pursuit of Happiness.—That to secure these Rights, Governments are instituted among Men, deriving their just Powers from the Consent of the Governed, that whenever any Form of Government becomes destructive of these Ends, it is the Right of the People to alter or to abolish it, and to institute new Government, laying its Foundation on such Principles, and organizing its Powers in such Form, as to them shall…" },
     { book: "hobbes-leviathan", n: 14, t: "XIII. Of the Naturall Condition of Mankind, as concerning their Felicity, and Misery", p: 12,
       text: "Whatsoever therefore is consequent to a time of Warre, where every man is Enemy to every man; the same is consequent to the time, wherein men live without other security, than what their own strength, and their own invention shall furnish them withall. In such condition, there is no place for Industry; because the fruit thereof is uncertain: and consequently no Culture of the Earth; no Navigation, nor use of the commodities that may be imported by Sea; no commodious Building; no Instruments of moving, and removing such things as require much force; no Knowledge of the face of the Earth; no account of Time; no Arts; no Letters; no Society; and which is worst of all, continuall feare, and danger of violent death; And the life of man, solitary, poore, nasty, brutish, and short." },
+    { book: "kant-critique-of-pure-reason", n: 2, t: "Preface to the Second Edition", p: 11,
+      text: "It appears to me that the examples of mathematics and natural philosophy, which, as we have seen, were brought into their present condition by a sudden revolution, are sufficiently remarkable to fix our attention on the essential circumstances of the change which has proved so advantageous to them, and to induce us to make the experiment of imitating them, so far as the analogy which, as rational sciences, they bear to metaphysics may permit. It has hitherto been assumed that our cognition must conform to the objects; but all attempts to ascertain anything about these objects a priori, by means of conceptions, and thus to extend the range of our knowledge, have been rendered abortive by this assumption. Let us then make the experiment whether we may not be more successful in metaphysics, if we assume that the objects must conform to our cognition. This appears, at all events, to accord better with the possibility of our gaining the end we have in view, that is to say, of arriving at the cognition of objects a priori, of determining something with respect to these objects, before they are given to us. We here propose to do just what Copernicus did in attempting to explain the celestial movements. When he found that he could make no progress by assuming that all the heavenly bodies revolved round the spectator, he reversed the process, and tried the experiment of assuming that the spectator revolved, while the stars remained at rest." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
       text: "Again:—\"Why does not the pope, whose wealth is to-day greater than the riches of the richest, build just this one church of St. Peter with his own money, rather than with the money of poor believers?\"" },
     { book: "kalidasa-shakuntala", n: 6, t: "Act IV", p: 138,
@@ -31372,13 +31505,32 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Korean's dark green, then Old English's deep green at 15.2); with the greens left out, the best was a teal
        at 13.9. 6.2:1 against white. Not a flag colour. */
     "lang-lao":        { bg: "#426A43" }, // measured leaf green
+    /* NAVAJO (Nov 2026) was not named a colour, so it was MEASURED as Lao was: swept in CIELAB inside the shelf's
+       band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 79 hues on the page.
+       The outright winner was a yellow-green (#4E7E00, 15.1), refused as a fourth green beside Middle-earth, Arabic
+       and Geography (all within 15.5 of it). This turquoise-teal is the best point of the cyan band: 13.9 from its
+       nearest neighbours (Economics and France, then Philosophy at 14.1), against a tightest existing pair of 4.0;
+       5.2:1 against white. Turquoise is the subject's own argument: dootłʼizh, one of the four sacred colours of
+       the Diné, of the sacred mountain of the south. Not a flag colour. */
+    "lang-navajo":     { bg: "#3C7676" }, // measured turquoise-teal
+    /* MONGOLIAN (Nov 2026) was not named a colour, so it was MEASURED as Yoruba was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 80 hues on
+       the page, the magenta band's standing rejection kept and the greens left out. Its first sweep found a muted
+       teal, #3C7676 — and Navajo's, run in a parallel session, found the same colour and merged first; re-swept at
+       the merge: this golden ochre, 14.0 from its nearest neighbours (Palaeontology's ochre and India's saffron),
+       then 14.2 from Russia's Geography amber, against a tightest existing pair of 4.0; 4.5:1 against white. Not a
+       flag colour. */
+    "lang-mongolian":  { bg: "#A16C02" }, // measured golden ochre
     /* SOMALI (Nov 2026) was not named a colour, so it was MEASURED as Yoruba was: swept in CIELAB inside the
-       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 79 hues on the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from every hue on the
        page, the magenta band's standing rejection kept, the greens left out and anything within 15 of the light blue
-       of the Somali flag refused. The winner is this teal, 13.8 from its nearest neighbours (France's slate and
-       Philosophy's petrol), then 14.3 from Economics; the runner-up, a dark amber at 13.4, sat in the crowded
-       ochre band. 5.3:1 against white; 50.8 from the flag's blue. Not a flag colour. */
-    "lang-somali":     { bg: "#3C7575" }, // measured teal
+       of the Somali flag refused. Its first sweep chose a teal, #3C7575 — and Navajo's, run in a parallel session,
+       took #3C7676 and merged first; re-swept at the merge against all 81 other hues: two points tied at 13.2, a
+       burnt orange in the crowded red-brown band (Ukrainian, Spanish, China) and this slate teal, 13.2 from its
+       nearest neighbour (Philosophy), then 13.3 from Korean and 14.4 from the Cold War, against a tightest existing
+       pair of 4.0. The tie went to the slate, nearest the collection's first colour. 7.3:1 against white; 52.4 from
+       the flag's blue. Not a flag colour. */
+    "lang-somali":     { bg: "#485A5A" }, // measured slate teal
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were

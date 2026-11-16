@@ -311,6 +311,16 @@ countries-info.json
 # the Lao Wikipedia dump and the Tatoeba exports (~140 MB) — plus the intermediate
 # files between its stages. The decks it writes ARE committed.
 .claude/lao-cache/
+
+# Working cache for .claude/navajo/ (Nov 2026): the Wiktionary extract, the Navajo
+# Wikipedia dump and the Tatoeba exports the Navajo decks are built from. The decks it
+# writes ARE committed — this is only the working cache behind it.
+.claude/navajo-cache/
+
+# the corpora .claude/mongolian/run.py builds the Mongolian decks from — the Wiktionary
+# extract, the Mongolian Wikipedia dump and the Tatoeba exports (~190 MB) — plus the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/mongolian-cache/
 # the corpora .claude/somali/run.py builds the Somali decks from — the Wiktionary
 # extract, the Somali Wikipedia dump and the Tatoeba exports (~140 MB) — plus the
 # intermediate files between its stages. The decks it writes ARE committed.

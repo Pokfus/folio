@@ -110,8 +110,10 @@ with `--re-extract` after editing `hand.py`.** `python3 .claude/somali/alphabet.
 the check. **A re-run is byte-identical** (verified for both decks). A1: 400 notes, 275 from the inventory and
 125 by frequency; 87 hand-glossed, 92 with a tone line, 80 with plurals, 40 with sentences. The alphabet: 33
 notes — the 21 consonants in the primers' order, the glottal stop, the five vowels, the long vowels and five
-diphthongs; every sound side unique (asserted). The shelf's hue is measured: `#3C7575`, a teal, 13.8 from its
-nearest of 79 (France, Philosophy).
+diphthongs; every sound side unique (asserted). The shelf's hue is measured: first `#3C7575`, a teal, 13.8 from its
+nearest of 79; Navajo's parallel sweep took `#3C7676` and merged first, so it was re-swept at the merge against
+all 81: `#485A5A`, a slate teal, 13.2 from its nearest (Philosophy), tied with a burnt orange in the crowded
+red-brown band.
 
 ## 7. As built (2026-11-16): A2
 

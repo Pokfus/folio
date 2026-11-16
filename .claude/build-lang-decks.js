@@ -118,6 +118,7 @@ const LANGS = [
   { word: "Hebrew", name: "Hebrew", l1: 5, total: 9 },         // Wikipedia's infobox (Ethnologue 2018: 9 million speakers of Modern Hebrew, 5 million native), read 2026-11-12
   { word: "Swahili", name: "Swahili", l1: 5, total: 95 },       // Wikipedia's infobox, 5.3 million L1 (Ethnologue 27th ed.; 92 million L2), read 2026-11-09
   { word: "Finnish", name: "Finnish", l1: 5, total: 5 },        // Wikipedia's infobox ("5.0 million", Finland 4.75 million in 2023), read 2026-11-15
+  { word: "Mongolian", name: "Mongolian", l1: 5, total: 5 },    // Wikipedia's infobox (Ethnologue 28th ed.: 5.05 million, 2020–2022), read 2026-11-16; no second-language figure
   { word: "Lao", name: "Lao", l1: 3.7, total: 4.5 },          // Wikipedia's infobox (Ethnologue 27th ed.: 3.69 million L1, 2015; 0.80 million L2), read 2026-11-15
   /* NORWEGIAN (Nov 2026): Wikipedia's infobox (read 2026-11-15) gives 4.32 million native speakers (2012, De Smedt et
      al., The Norwegian Language in the Digital Age) and no second-language figure, so `total` is its L1, as Hungarian's. */
@@ -129,6 +130,9 @@ const LANGS = [
   /* ICELANDIC (Nov 2026): Wikipedia's infobox (read 2026-11-15) gives 388,720 speakers (Ethnologue 26th ed.) and no
      second-language figure, so `total` is its L1, as Norwegian's. */
   { word: "Icelandic", name: "Icelandic", l1: 0.39, total: 0.39 },
+  /* NAVAJO (Nov 2026): Wikipedia's infobox (read 2026-11-16) gives 170,000 speakers (2019 census figure) and no
+     separate second-language figure, so `total` is its L1, as Icelandic's. */
+  { word: "Navajo", name: "Navajo", l1: 0.17, total: 0.17 },
   /* LATIN HAS NO NATIVE SPEAKERS, so its l1 is 0 and it sorts last — the honest place for a language
      nobody grows up with, and the one a figure cannot argue with. Not a guess at a number. */
   { word: "Latin", name: "Latin", l1: 0, total: 0 },
