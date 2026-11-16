@@ -211,11 +211,12 @@ async function studioChecks(page, base) {
   /* Adding a type starts with a SHAPE (Aug 2026, on request): the button opens a sheet of ready-made types
      with "Start from scratch" last. The presets are covered further down; this is the blank one, which is
      what the rest of this section then programs by hand. */
-  check("the ready-made shapes are offered in the pane itself", (await page.$$(".ut-preset")).length === 4,
+  // nine since Nov 2026: Definition, Date and event, Person, Formula and Multiple choice joined the four
+  check("the ready-made shapes are offered in the pane itself", (await page.$$(".ut-preset")).length === 9,
     String((await page.$$(".ut-preset")).length));
   await page.click("#stAddType");
   await sheetArmed(page);
-  check("Add a type offers the same shapes plus a blank one", (await page.$$(".deck-menu [data-preset]")).length === 5,
+  check("Add a type offers the same shapes plus a blank one", (await page.$$(".deck-menu [data-preset]")).length === 10,
     String((await page.$$(".deck-menu [data-preset]")).length));
   await page.click('.deck-menu [data-preset=""]');
   await page.waitForTimeout(400);
@@ -255,7 +256,8 @@ async function studioChecks(page, base) {
   check("the card editor offers a type picker", await page.$("#cesCardType") !== null);
   const opts = await page.$$eval("#cesCardType option", (els) => els.map((e) => e.value));
   check("the picker lists Basic first", opts[0] === "basic", JSON.stringify(opts));
-  check("…and the deck's own type after it", opts.length === 2 && opts[1] !== "basic", JSON.stringify(opts));
+  // …and, since Nov 2026, the ready-made shapes the deck has not got yet after that (a pick makes the type)
+  check("…and the deck's own type after it", opts.length >= 2 && opts[1] === "new-type" && opts.indexOf("two-way") > 1, JSON.stringify(opts));
   check("a new card starts as Basic", await page.$eval("#cesCardType", (el) => el.value) === "basic");
   check("a Basic card still shows Folio's own surface", await page.$('[data-field="question"]') !== null);
 
@@ -322,7 +324,7 @@ async function presetChecks(page, base) {
   await page.click('[data-topensel="basic"]');
   await page.waitForTimeout(350);
   const names = await page.$$eval(".ut-preset-name", (els) => els.map((e) => e.textContent));
-  check("the pane names all four shapes", JSON.stringify(names) === '["Vocabulary","Picture","Two-way","Fill in the blank"]', JSON.stringify(names));
+  check("the pane names every shape", JSON.stringify(names) === '["Vocabulary","Picture","Two-way","Fill in the blank","Definition","Date and event","Person","Formula","Multiple choice"]', JSON.stringify(names));
 
   // --- vocabulary: the one that reads its answer aloud ---
   await page.click("#stAddType");
@@ -713,6 +715,14 @@ async function clozeChecks(page, base) {
   check("each blank has a schedule of its own", sched.every(Boolean), JSON.stringify(sched));
 }
 
+/* A type's templates and stylesheet are folded under "Customise the design" since Nov 2026 (a ready-made type
+   works as it stands). Opened the way a reader opens it; it then stays open for the rest of the session. */
+async function openDesign(page) {
+  if (await page.evaluate(() => { const d = document.querySelector("#utDesign"); return !!d && !d.open; })) {
+    await page.click("#utDesign > summary");
+    await page.waitForTimeout(150);
+  }
+}
 async function reverseChecks(page, base) {
   await page.goto(base + "/#studio");
   await page.reload();
@@ -735,6 +745,7 @@ async function reverseChecks(page, base) {
   check("the first is open", await page.$eval("#stTplName", (el) => el.value) === opts[0], opts[0]);
   check("a second template can be removed", await page.$("#stTplDel") !== null);
   const front1 = await page.$eval('[data-utype="front"]', (el) => el.value);
+  await openDesign(page);
   await page.selectOption("#stTplPick", "1");
   await page.waitForTimeout(700);
   const front2 = await page.$eval('[data-utype="front"]', (el) => el.value);
@@ -916,6 +927,7 @@ async function reverseChecks(page, base) {
   await page.waitForTimeout(400);
   await page.evaluate(() => { const b = [...document.querySelectorAll("[data-topensel]")].find((x) => /Pair/.test(x.textContent)); if (b) b.click(); });
   await page.waitForTimeout(600);
+  await openDesign(page);
   await page.selectOption("#stTplPick", "1");
   await page.waitForTimeout(700);
   check("the second template is open, ready to remove", /Card 2 of 2/.test(await page.$eval(".ut-cards .af-label", (el) => el.textContent.replace(/\s+/g, " "))));

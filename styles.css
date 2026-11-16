@@ -10554,6 +10554,133 @@ body .collection .collection-row > .collection-deco, body[data-theme] .collectio
   .page .collection.udeck .collection-actions .studio-deck-open{flex:0 0 auto;}   /* the pencil keeps the Studio list's `flex:1` elsewhere; here it would spread the controls out */
   .studio-inline{padding:14px 12px 18px;}
 }
+/* ---------- THE STUDIO, SIMPLIFIED (Nov 2026, the authoring audit) ----------
+   What the audit of card creation changed in the editor: the deck's name is edited in its own heading, one
+   "more" button replaces the second Export, "Add a card" is a split button over the kinds of card, the
+   built-in card opens in a short form with its long form folded, and a list can be pasted with a preview. */
+.studio-title[contenteditable]{cursor:text; border-radius:8px; padding:2px 6px; margin-left:-6px; outline:none; overflow-wrap:anywhere;
+  border:1px dashed transparent; transition:border-color .14s var(--ease), background .14s var(--ease);}
+.studio-title[contenteditable]:hover{border-color:var(--rule);}
+.studio-title[contenteditable]:focus{border-color:var(--indigo-bright); background:var(--card); box-shadow:0 0 0 3px var(--indigo-wash);}
+.st-more{font-size:calc(17px * var(--fs)); line-height:1; padding:5px 11px; letter-spacing:0;}
+/* the row's own Export and Delete are in the open editor's "more" menu, so the row above it does not say them twice */
+.page .collection.udeck-editing .udeck-act{display:none;}
+.st-addgrp{display:inline-flex;}
+.st-addgrp .btn{margin:0;}
+.st-addgrp #stAddCard{border-top-right-radius:0; border-bottom-right-radius:0;}
+.st-addgrp .st-addkind{border-top-left-radius:0; border-bottom-left-radius:0; padding-left:9px; padding-right:10px; border-left:1px solid color-mix(in srgb, var(--paper) 40%, transparent);}
+.st-cardq{margin:0 8px 8px; width:calc(100% - 16px); padding:7px 10px; font-size:calc(13px * var(--fs));}
+.studio-cardrow[hidden]{display:none;}
+.studio-aihint{padding:8px 12px 8px;}
+.st-kinds{padding:6px 4px 10px;}
+.st-kinds-h{margin:0 0 4px; font-family:var(--display); font-weight:600; font-size:calc(19px * var(--fs)); color:var(--ink);}
+.st-kinds-p{margin:0; font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink-soft);}
+.st-cardfoot{display:flex; align-items:center; flex-wrap:wrap; gap:8px 14px; margin-top:16px; padding-top:14px; border-top:1px solid var(--rule);}
+.st-cardfoot-note{font-family:var(--sans); font-size:calc(12px * var(--fs)); color:var(--ink-faint);}
+.studio-editor .admin-ed-actions{flex-wrap:wrap; justify-content:flex-end; gap:7px;}
+.studio-editor .admin-ed-head{margin-bottom:14px; padding-bottom:12px;}
+.ces-typepick .af-input[hidden]{display:none;}
+.ces-typepick select.af-input{appearance:auto;}
+/* the built-in card's short form: what `ces-compact` folds until "More options" is pressed */
+.ces-compact:not(.ces-more) .ces-top,
+.ces-compact:not(.ces-more) .ces-qchev,
+.ces-compact:not(.ces-more) .ces-qtools,
+.ces-compact:not(.ces-more) .av-row,
+.ces-compact:not(.ces-more) .ces-srcpanel,
+.ces-compact:not(.ces-more) .ces-src,
+.ces-compact:not(.ces-more) .rt-link,
+.ces-compact:not(.ces-more) .rt-link-sep,
+.ces-compact:not(.ces-more) .rt-fn,
+.ces-compact:not(.ces-more) .rt-fn-sep{display:none;}
+.ces-compact .ces-field{cursor:text;}
+.ces-compact .ces-field:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px; border-radius:6px;}
+.ces-morebtn{appearance:none; display:block; width:100%; margin:12px 0 0; padding:10px 12px; text-align:left; cursor:pointer;
+  background:none; border:1px dashed var(--rule); border-radius:10px; font-family:var(--sans); font-size:calc(13px * var(--fs)); font-weight:600; color:var(--ink-soft);}
+.ces-morebtn small{font-weight:400; color:var(--ink-faint); font-size:calc(12px * var(--fs));}
+.ces-morebtn:hover{border-color:var(--indigo); color:var(--indigo);}
+.ces-morebtn .ces-more-on, .ces-more .ces-morebtn .ces-more-off, .ces-more .ces-morebtn small{display:none;}
+.ces-more .ces-morebtn .ces-more-on{display:inline;}
+.rt-blank{color:var(--indigo); font-family:var(--sans); font-weight:600;}
+/* the picture slot is a line, not a 16:9 box, until it holds something */
+.ces-compact .ces-img-ph{aspect-ratio:auto; flex-direction:row; justify-content:flex-start; gap:10px; padding:11px 14px;}
+.ces-compact .ces-img-ph svg{width:20px; height:20px; flex:none;}
+/* a typed card's fields: prose boxes, not code boxes */
+.ut-field{font-family:var(--sans); font-size:calc(14.5px * var(--fs)); line-height:1.5; resize:vertical; min-height:44px;}
+.ut-field-url{font-family:var(--mono); font-size:calc(12px * var(--fs)); white-space:nowrap; overflow-x:auto;}
+.ut-fieldbar{display:flex; align-items:center; flex-wrap:wrap; gap:4px 6px; padding:4px 6px; border:1px solid var(--rule); border-radius:9px; background:var(--card);}
+.ut-fieldbar-note{font-family:var(--sans); font-size:calc(12px * var(--fs)); color:var(--ink-faint); margin-left:4px;}
+.ut-blankbtn{color:var(--indigo); font-family:var(--sans); font-weight:600;}
+/* the type form's templates and stylesheet, folded under "Customise the design" */
+.ut-design{border:1px solid var(--rule); border-radius:11px; background:var(--card);}
+.ut-design > summary{cursor:pointer; padding:11px 14px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft);}
+.ut-design > summary small{font-family:var(--sans); letter-spacing:0; text-transform:none; color:var(--ink-faint); margin-left:6px;}
+.ut-design[open] > summary{border-bottom:1px solid var(--rule);}
+.ut-design-body{display:flex; flex-direction:column; gap:12px; padding:12px 14px 14px;}
+.ut-chips{display:flex; flex-wrap:wrap; align-items:center; gap:6px;}
+.ut-chip{display:inline-flex; align-items:center; gap:4px; padding:4px 4px 4px 10px; border:1px solid var(--rule); border-radius:999px; background:var(--card); font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink);}
+.ut-chip button{appearance:none; border:0; background:none; cursor:pointer; width:20px; height:20px; border-radius:50%; color:var(--ink-faint); font-size:calc(13px * var(--fs)); line-height:1;}
+.ut-chip button:hover{background:var(--paper-2); color:var(--zh);}
+.ut-chipadd{width:150px; padding:5px 10px; font-size:calc(13px * var(--fs)); border-radius:999px;}
+/* the paste sheet and the prompts sheet: wider than a menu, since one holds a table and the other prose */
+.pc-sheet .dm-box{width:min(560px,96vw);}
+.pc-text{margin:4px 8px 0; width:calc(100% - 16px); font-family:var(--mono); font-size:calc(12.5px * var(--fs)); line-height:1.5; resize:vertical; min-height:96px;}
+.pc-opts{display:grid; grid-template-columns:1fr 1fr; gap:8px 12px; padding:10px 10px 4px;}
+.pc-opts[hidden]{display:none;}
+.pc-opt{display:flex; flex-direction:column; gap:4px; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
+.pc-opt select.af-input{appearance:auto; padding:6px 8px; font-size:calc(13px * var(--fs)); text-transform:none; letter-spacing:0;}
+.pc-check{display:flex; align-items:center; gap:7px; font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink); cursor:pointer;}
+.pc-check input{width:16px; height:16px; accent-color:var(--indigo);}
+.pc-titlerow input{flex:1 1 auto; max-width:68%;}
+.pc-preview{padding:6px 10px 2px;}
+.pc-table{width:100%; border-collapse:collapse; table-layout:fixed; font-family:var(--sans); font-size:calc(12.5px * var(--fs));}
+.pc-table th{text-align:left; padding:5px 8px; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); border-bottom:1px solid var(--rule);}
+.pc-table td{padding:6px 8px; border-bottom:1px solid var(--rule); color:var(--ink); vertical-align:top; overflow:hidden; text-overflow:ellipsis; overflow-wrap:anywhere;}
+.pc-none{color:var(--zh);}
+.pc-note, .pc-warn{margin:8px 0 0; font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+.pc-warn{color:var(--zh);}
+.pc-go{margin-top:8px; border-color:var(--indigo); background:var(--indigo-wash);}
+.pc-go[disabled]{opacity:.55; cursor:default; border-color:var(--rule); background:none;}
+.ai-row{display:grid; grid-template-columns:1fr auto; gap:6px 12px; align-items:center; padding:10px 14px; border-bottom:1px solid var(--rule);}
+.ai-rowmain{display:flex; flex-direction:column; gap:2px; font-family:var(--sans);}
+.ai-rowmain b{font-weight:600; font-size:calc(14px * var(--fs)); color:var(--ink);}
+.ai-rowmain small{font-size:calc(12px * var(--fs)); line-height:1.4; color:var(--ink-faint);}
+.ai-text{grid-column:1 / -1; font-family:var(--sans); font-size:calc(12px * var(--fs)); color:var(--ink-soft);}
+.ai-text summary{cursor:pointer;}
+.ai-text pre{margin:8px 0 0; padding:10px 12px; max-height:220px; overflow:auto; white-space:pre-wrap; border-radius:9px; background:var(--paper-2); font-family:var(--mono); font-size:calc(11.5px * var(--fs)); line-height:1.5; color:var(--ink);}
+/* sharing: the sheet's two choices, the line that says a deck lives in this browser, the deck page's sampler */
+.sh-who{display:flex; flex-direction:column; gap:6px; padding:4px 8px;}
+.sh-opt{border-color:var(--rule);}
+.sh-opt.on{border-color:var(--indigo); background:var(--indigo-wash);}
+.sh-opt b::before{content:""; display:inline-block; width:11px; height:11px; margin-right:9px; border-radius:50%; border:2px solid var(--ink-faint); vertical-align:-1px;}
+.sh-opt.on b::before{border-color:var(--indigo); background:var(--indigo);}
+.sh-note{padding:0 14px;}
+.pc-sheet .dm-fieldcol textarea.af-input{resize:vertical;}
+.st-backup{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px 14px; padding:11px 14px; margin-bottom:14px; border:1px dashed color-mix(in srgb, var(--zh) 45%, var(--rule)); border-radius:12px;
+  font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+.st-backup > span:first-child{flex:1 1 260px;}
+.st-backup-acts{display:flex; gap:7px; flex:none;}
+.sp-acts{display:flex; flex-wrap:wrap; gap:7px;}
+.dds-head{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+.dds-nav{display:inline-flex; align-items:center; gap:8px;}
+.dds-n{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.06em; color:var(--ink-faint);}
+/* a toast with one thing to press (toastAction) */
+.toast.toast-act{pointer-events:auto; display:flex; align-items:center; gap:14px;}
+.toast-btn{appearance:none; flex:none; cursor:pointer; border:1px solid color-mix(in srgb, var(--paper) 45%, transparent); background:none; color:var(--paper);
+  font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; font-weight:700; padding:6px 10px; border-radius:7px;}
+.toast-btn:hover{background:color-mix(in srgb, var(--paper) 16%, transparent);}
+.coll-own{font-size:inherit;}
+@media (max-width:640px){
+  /* the editor's head on a phone: back arrow, name and the two buttons on ONE line (it was three) */
+  .studio-inline .studio-head{flex-wrap:nowrap; gap:8px;}
+  .studio-inline .studio-title{min-width:0; font-size:calc(19px * var(--fs));}
+  .studio-head .st-all-t{display:none;}
+  .studio-inline .studio-publish{padding:9px 12px; margin-bottom:10px; gap:8px;}
+  .studio-inline .studio-settings{margin-bottom:12px;}
+  .studio-inline .studio-settings > summary{padding:10px 13px;}
+  .pc-opts{grid-template-columns:1fr;}
+  .ces-typebar{gap:8px;}
+  .ces-typepick .af-input{min-width:0; max-width:56vw;}
+}
 .page .coll-reach .cr-short{display:none;}
 .page .coll-reach.is-done .cr-long{display:inline;}
 .page .community-group, .page #sharedDecks{margin-top:22px;}

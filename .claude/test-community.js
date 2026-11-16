@@ -92,6 +92,8 @@ async function typeField(page, field, text) {
   await typeField(page, "question", "The two annually elected heads of the Roman Republic were the ___.");
   await typeField(page, "answer", "Consuls");
   await typeField(page, "abstract", "Two consuls held office together for a single year.");
+  // the plain answer text is part of the card's long form, folded under "More options" since Nov 2026
+  await page.click("#cesMore");
   await page.fill(".studio-editor #cesAnswerText", "Consuls");
   await page.waitForTimeout(300);
 
