@@ -52,7 +52,7 @@ window.CHANGELOG = [
       "A <b>Lao</b> collection joins the Languages section: an alphabet deck, A1 to B1 (1,721 words) and 79 phrases and sentences, all in both directions.",
       "<b>Khmer A2</b> and <b>B1</b> decks (1,750 more words) and a phrases deck of 860 phrases and sentences join the Khmer (Cambodian) collection.",
       "A new <b>Icelandic</b> language collection: an alphabet deck, levels A1 to C1 and 734 phrases, idioms and proverbs, every noun with its four cases.",
-      "A new <b>Czech</b> language collection: A1 and A2 (2,374 words) from the official word list of the Czech permanent-residence exam.",
+      "A new <b>Czech</b> language collection: A1 and A2 (2,374 words) from the official list of the Czech residence exam, and a B1 deck of 1,000 words.",
       "<b>On this day</b> now sits directly below the minigames on the home page, above the suggested reading.",
       "Mandarin Chinese gains a <b>Bopomofo</b> deck: 62 zhuyin symbols, tone marks and combinations, each with its pinyin, sound and example words.",
       "Shakespeare's <b>Romeo and Juliet</b> (Yale edition, 1917, with its Prologue) and <b>Julius Caesar</b> (1919) are in the Library, each with its characters and every gloss.",
