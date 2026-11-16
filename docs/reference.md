@@ -3336,6 +3336,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     every `uc-exadd` example block is STRIPPED from every note before the fixes are applied — without
     that, deleting an `ex` from the record leaves the sentence in the deck and `--check` goes on
     passing, which is the decks and their own record drifting apart in silence.
+- **📖 `.claude/decks/french-fixes.json` + `french-fix.js` — THE ONE WAY A DELF / DALF FRENCH DECK IS
+  HAND-EDITED, ORDERED AND NUMBERED (Nov 2026).** `spanish-fix.js`'s model: the decks can be rebuilt from
+  `.claude/delf/`, so an edit lives in a record that is re-applied, the order in `french-order.json`
+  (`french-order.js` computes it), and the card ids in `french-ids.json`, a pin that is APPLIED because
+  the Update press merges a reader's progress by id. `paradigm-fix.js` (the folds, shared with Italian
+  and Portuguese) runs first. `French-Sounds-and-Spelling` is built by `build-french-sounds.js` from
+  `french-sounds.json` and the shipped A1 and reads no live source. Decks are selected by card type
+  (`delf`), never by file name. Re-run after touching any of them: `node .claude/decks/paradigm-fix.js
+  --check`, `node .claude/decks/french-fix.js --check`, `node .claude/decks/build-french-sounds.js
+  --check` (all three in CI) and `node .claude/test-lang-decks.js`. Reasoning and measurements:
+  `docs/lang-decks.md`, "The French beginner pass".
 - **📖 `.claude/decks/spanish-fixes.json` + `spanish-fix.js` — THE ONE WAY A DELE SPANISH DECK IS
   HAND-EDITED, AND THE ONLY PLACE AN EDIT MAY BE MADE.** `mandarin-fix.js`'s model, for the opposite
   reason: the Mandarin decks cannot be regenerated, so a hand edit there is permanent; the DELE decks

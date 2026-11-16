@@ -151,7 +151,7 @@
   },
   "frphrases": {
    "why": "THE BEGINNER PASS (Nov 2026). The phrases deck is the last on the shelf, yet 153 of its expressions are spelled entirely with DELF A1's words; it is now dealt by reading level (french-order.json) and its description says it can begin beside A1. Seven greetings it carried (ça va, comment ça va, comment allez-vous, je m'appelle, bonne nuit, bonne journée, à demain) are now cards of DELF A1, the first deck; dropDup takes them out. The counts follow.",
-   "subtitle": "395 expressions, the 153 that DELF A1's words spell first · both directions, as two cards each",
+   "subtitle": "395 expressions, the 153 that A1's words spell first · both directions, as two cards each",
    "dropDup": {
     "ça va": "delfa1",
     "comment ça va": "delfa1",
