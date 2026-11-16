@@ -114,7 +114,7 @@ show their key and a sentence; Find it plays (country and point rounds are score
 | the Personal-Atlas register (`atlasRegister*`) | deleted, except Find it's pool builder (moved into `atlas-windows.js`, same deal) |
 | `startCardGlobeV1`, v1's Find it | the Canvas 2D path (§5) |
 
-`.claude/atlas-build/freeze-*.js` were run once and deleted with the files they read; `frozen/README.md` names the commit that last held the sources. The cards' old `locator`, `war` and `map` fields **stay**: they are the card windows' drawing spec (`CARD_MAP_LAYERS`, the `card-faces.js` join), not leftovers of v1. **No migration removes them** — `migrate-places.js --finish` is not run, and nothing is to run it without a new decision; removing them is a later phase that has to teach the windows to read `places` first.
+`.claude/atlas-build/freeze-*.js` were run once and deleted with the files they read; `frozen/README.md` names the commit that last held the sources. The cards' old `locator` and `war` fields **stay**: they are the card windows' drawing and question spec, not leftovers of v1. **A map card's `map.key` is retired** (2026-11-15, the later phase): the windows read the card's `places` through the `card-faces.js` join (`cardMapKeys`), `migrate-places.js --finish` drops every key the places say, and `layer`, `dot` and `zoom` stay (India's layer and Cyprus's list keep a key) — `docs/map-cards.md` "The key is the card's places".
 
 ## 8. Reader data
 
@@ -148,6 +148,7 @@ every old spelling and proves it.
 | Find it's pick (`flash`, the fast frame and the full frame's outline) | `test-findit-pick.js` at `FOLIO_SLOW_FRAMES=0`, `60` and `120` (the sample point is beyond the glow's reach) |
 | the fallbacks (no WebGL2, context loss, `file://`) | `test-atlas-fallbacks.js`, `test-window-fallbacks.js` |
 | the land-change layer (`landChangesAlive`, the worker's `handleLandChanges`, the draw after the lakes in `atlas-gl.js` / `atlas-canvas.js`, `build-land-changes.js`, `land-changes.json`), the hole winding in `build-water.js` | `test-land-changes.js` (WebGL2 and Canvas 2D: the polders at 1900, 1950 and today; Manitoulin), `build-land-changes.js --check`, `check-water.js`; `check-core-cache.js --install` after the worker edit |
+| the admin-1 slot on the page (`ADMIN1_FILE_BOXES`, `overAdmin1File`, `adm1Draw`, `adm1Style`, `adm1GRows`, the slot's part of `refreshPersonalPresent`, the worker's `adm1Rows`, the slot's `refTable` / `setAdmin1RefTable` and second border pass, the slot's place in `atlas-gl.js`'s draw order) (2026-11-15) | `test-atlas-admin1-page.js`, `check-admin1.js`, then `test-atlas-undiscovered.js`, `test-atlas-personal.js`, `test-atlas-windows.js` §10, `test-atlas-perf.js` (`docs/atlas-v2-admin1-layer.md` §8) |
 | a card window or Find it | `test-atlas-embed.js`, `test-atlas-windows.js`, `test-war-timeline.js` (the war window's timeline), `test-map-cards.js`, `test-card-locator.js`, `test-war-cards.js`, `test-findit-learn.js`, `test-panels.js` |
 | the worker, the format reader, earcut, `topology.bin` | `check-core-cache.js --install`, then the render suites |
 | a data file | its builder's `--check` / its checker (the table in §3), then `check-credits.js` |

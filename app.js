@@ -10240,14 +10240,137 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return;
     }
     const fr = new FileReader();
-    fr.onload = () => cb(uDeckImportText(String(fr.result || ""), false));
+    const plain = /\.(txt|tsv|csv)$/i.test(file.name || "");   // an Anki or Quizlet text export (uDeckImportPlainText)
+    fr.onload = () => cb(plain ? uDeckImportPlainText(String(fr.result || ""), file.name) : uDeckImportText(String(fr.result || ""), false));
     fr.onerror = () => cb({ error: "Couldn't read that file." });
     fr.readAsText(file);
+  }
+  /* ---------- ANKI AND QUIZLET, BOTH WAYS (2026-11-15, on request: "export a deck as Anki-importable TSV, and import
+     Anki or Quizlet text exports into community decks") ----------
+     IMPORT reads the two plain-text exports those apps make — Anki's "Notes in Plain Text" (.txt, tab-separated, with its
+     `#separator:`, `#html:`, `#columns:`, `#tags column:`, `#deck column:`, `#notetype column:` and `#guid column:`
+     header lines, a field quoted when it holds the separator or a line break) and Quizlet's export (one card a line, term
+     and definition split by a tab, a comma or a semicolon) — and turns them into a deck file, which then goes through
+     `uDeckImportText` like any other: so `uDeckNormalize` stays the one ingest choke point and every field is sanitized
+     there. The first two fields that are not a GUID, a note type, a deck or tags are the front and the back; a third and
+     later field is kept on the back under a rule; the tags column is read past and dropped (a card of your own carries no tags). An Anki deck column becomes the subdeck path (both use "::"). A cloze
+     note is brought in as a Basic card, its deletions shown as [...] on the front and in full on the back. Text that is
+     not marked HTML is escaped, its line breaks kept. Nothing is fetched: an Anki .apkg (a zipped database) is not read,
+     and the message says so. */
+  function ankiParseRows(text, sep) {
+    const rows = []; let row = [], f = "", q = false;
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      if (q) {
+        if (ch === '"') { if (text[i + 1] === '"') { f += '"'; i++; } else q = false; }
+        else f += ch;
+      } else if (ch === '"' && f === "") q = true;
+      else if (ch === sep) { row.push(f); f = ""; }
+      else if (ch === "\n") { row.push(f); rows.push(row); row = []; f = ""; }
+      else if (ch !== "\r") f += ch;
+    }
+    if (f !== "" || row.length) { row.push(f); rows.push(row); }
+    return rows;
+  }
+  function ankiTextToDeck(text, fileName) {
+    text = String(text || "").replace(/^﻿/, "");
+    const head = {}, lines = text.split(/\r?\n/);
+    let skip = 0;
+    while (skip < lines.length && /^#[a-z ]+:/i.test(lines[skip])) {
+      const m = /^#([a-z ]+):(.*)$/i.exec(lines[skip]);
+      head[m[1].trim().toLowerCase()] = m[2].trim();
+      skip++;
+    }
+    const body = lines.slice(skip).join("\n");
+    const SEPS = { tab: "\t", comma: ",", semicolon: ";", pipe: "|", space: " ", colon: ":" };
+    let sep = head.separator ? (SEPS[head.separator.toLowerCase()] || head.separator.charAt(0)) : "";
+    if (!sep) {
+      const sample = body.split("\n").slice(0, 50).join("\n");
+      sep = sample.indexOf("\t") >= 0 ? "\t" : (sample.split(";").length > sample.split(",").length ? ";" : ",");
+    }
+    const html = /^(true|yes|1)$/i.test(head.html || "");
+    const col = (k) => (head[k + " column"] ? (parseInt(head[k + " column"], 10) || 0) - 1 : -1);
+    const special = { guid: col("guid"), notetype: col("notetype"), deck: col("deck"), tags: col("tags") };
+    const skipCols = new Set(Object.values(special).filter((x) => x >= 0));
+    const toHtml = (v) => (html ? String(v) : esc(String(v)).replace(/\n/g, "<br>"));
+    const CLOZE = /\{\{c\d+::([\s\S]*?)(?:::[\s\S]*?)?\}\}/g;
+    const cards = [];
+    let cloze = 0;
+    ankiParseRows(body, sep).forEach((r) => {
+      const fields = r.filter((v, i) => !skipCols.has(i));
+      if (!fields.length || !fields.some((v) => String(v).trim())) return;
+      let front = fields[0] || "", back = fields[1] || "";
+      if (CLOZE.test(front)) {
+        cloze++;
+        CLOZE.lastIndex = 0;
+        const full = front.replace(CLOZE, "$1");
+        front = front.replace(CLOZE, "[...]");
+        back = full + (back ? (html ? "<br><br>" : "\n\n") + back : "");
+      }
+      CLOZE.lastIndex = 0;
+      if (!String(front).trim() && !String(back).trim()) return;
+      const c = { question: toHtml(front), answer: toHtml(back) + fields.slice(2).filter((v) => String(v).trim()).map((v) => "<hr>" + toHtml(v)).join("") };
+      if (special.deck >= 0 && r[special.deck]) c.sub = String(r[special.deck]);
+      cards.push(c);
+    });
+    const title = (head.deck || String(fileName || "Imported deck").replace(/\.(txt|tsv|csv)$/i, "").replace(/[_-]+/g, " ")).trim().slice(0, 80) || "Imported deck";
+    return { deck: { folioDeck: UDECK_FORMAT, meta: { title: title, desc: "Imported from a text export." }, cards: cards }, cloze: cloze };
+  }
+  function uDeckImportPlainText(text, fileName) {
+    const got = ankiTextToDeck(text, fileName);
+    if (!got.deck.cards.length) return { error: "No cards were found in that file. Export notes as plain text, one note a line." };
+    const r = uDeckImportText(JSON.stringify(got.deck), false);   // no id in the file, so it is given a fresh one
+    if (r && !r.error && got.cloze) setTimeout(() => toast(got.cloze + " cloze note" + (got.cloze === 1 ? " was" : "s were") + " brought in as Basic cards"), 2500);
+    return r;
+  }
+  /* EXPORT writes any deck a reader can open — one of Folio's, a collection, a language, or one of their own — as the
+     file Anki's File → Import reads with no settings changed: tab-separated, HTML on, a header naming the columns, the
+     note type Basic, and the deck and tags columns. A card whose question is a map, a flag to draw, a locator or an
+     artwork cannot travel as text and is left out, and the toast says how many. A card of a deck's own type puts its
+     first filled field on the front and the rest on the back. */
+  async function ankiExportEntry(id) {
+    const info = entryInfo(id) || {};
+    let ids = entryCardIds(id) || [];
+    const avail = availableCardIdSet();
+    ids = ids.filter((x) => isCommunityCard(x) || avail.has(x));
+    if (ids.some(isCommunityCard)) { try { await uWarm(ids.filter(isCommunityCard)); } catch (e) {} }
+    const cell = (v) => { v = String(v == null ? "" : v).replace(/\r?\n/g, " "); return /[\t"]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+    const deckOf = (cid) => {
+      if (isCommunityCard(cid)) { const c = cardById(cid); return ["Folio", info.title || "Deck"].concat(c && c.sub ? [c.sub] : []).join("::"); }
+      const leaf = cardLeaves(cid)[0];
+      return leaf ? "Folio::" + nodePath(NODE_BY_ID[leaf.id]).join("::") : "Folio";
+    };
+    const out = ["#separator:tab", "#html:true", "#notetype:Basic", "#columns:Front\tBack\tDeck\tTags", "#deck column:3", "#tags column:4"];
+    let left = 0;
+    ids.forEach((cid) => {
+      const c = cardById(cid);
+      if (!c) return;
+      if (!isCommunityCard(cid) && (cardMapSpec(c) || cardLocatorFront(c) || cardArtSpec(c) || cardFlagSpec(c) || cardDrawSpec(c))) { left++; return; }
+      let front = c.question || "", back = c.answer || "";
+      if (c.fields && (!front || !back)) {
+        const t = cardTypeOf(c), order = (t && t.fields) || Object.keys(c.fields);
+        const vals = order.map((f) => String(c.fields[f] || "")).filter((v) => v.trim());
+        front = front || vals[0] || ""; back = back || vals.slice(1).join("<br>");
+      }
+      if (c.answerDate && !c.fields) back += "<br>" + c.answerDate;
+      if (!String(front).trim()) { left++; return; }
+      const tags = (Array.isArray(c.tags) ? c.tags : []).map((t) => String(t).trim().replace(/\s+/g, "_")).filter(Boolean).join(" ");
+      out.push([front, back, deckOf(cid), tags].map(cell).join("\t"));
+    });
+    const n = out.length - 6;
+    if (!n) { toast("Nothing in this " + (entryNoun(id) || "deck") + " can be written as text cards."); return; }
+    const name = (info.title || "deck").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 48) || "deck";
+    const url = URL.createObjectURL(new Blob([out.join("\n") + "\n"], { type: "text/tab-separated-values" }));
+    const a = document.createElement("a");
+    a.href = url; a.download = name + ".anki.txt";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
+    toast(n.toLocaleString("en-GB") + " cards written for Anki" + (left ? " · " + left + " map or picture cards left out" : ""));
   }
   function uDeckPickFile(cb) {
     const inp = document.createElement("input");
     inp.type = "file";
-    inp.accept = ".json,application/json";
+    inp.accept = ".json,application/json,.txt,.tsv,.csv,text/plain,text/csv,text/tab-separated-values";
     inp.style.display = "none";
     document.body.appendChild(inp);
     inp.addEventListener("change", () => { const f = inp.files && inp.files[0]; inp.remove(); if (f) uDeckImportFile(f, cb); });
@@ -16514,7 +16637,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // stays lit there rather than the bar going blank under a page that is plainly part of "your record"
     // A route with no tab of its own lights the tab it plainly belongs under: the discovered-terms list
     // is part of "your record", and one book is part of the Library it was opened from.
-    const lit = name === "glossary" || name === "browse" || name === "reliquary" ? "account"
+    const lit = name === "glossary" || name === "browse" || name === "reliquary" || name === "weak" || name === "year" ? "account"
       : name === "book" ? "library"
       // the Studio is where one of your own decks is edited, and those live on the Collections page
       // a card at its own address belongs under the collections its deck sits in
@@ -16645,6 +16768,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          could be linked to and a card could not, which is the one thing a reader wants to send
          somebody. It is READ-ONLY and spends no schedule: opening it is not studying it. */
       : name === "card" && current.params.id ? "card/" + encodeURIComponent(current.params.id)
+      // #timeline/<collection id | day-MM-DD> and #year/<YYYY> (Nov 2026): one optional segment each
+      : name === "timeline" && current.params.q ? "timeline/" + encodeURIComponent(current.params.q)
+      : name === "year" && current.params.y ? "year/" + encodeURIComponent(current.params.y)
       : name === "u" && current.params.name ? "u/" + encodeURIComponent(current.params.name)
       : name === "sample" && current.params.id ? "sample/" + encodeURIComponent(current.params.id)
       // #gamearchive/<YYYY-MM-DD>/<game> — an archived day being played (admins only; see PAGES.gamearchive)
@@ -18356,6 +18482,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         /* CRAM (Nov 2026, on request) — a run through the deck before an exam that touches no schedule. See
            startCram. Off the pooled review's sheet, which is every deck at once and has no exam to cram for. */
         (isReview ? "" : item("cram", "Cram", "Run through this " + thing + " before an exam — nothing is scheduled")) +
+        (isReview ? "" : item("anki", "Export for Anki", "Download this " + thing + "'s cards as a file Anki imports")) +   // ankiExportEntry (Nov 2026)
         item("limits", "Daily limits", L.newPerDay + " new/day · " + L.maxReviews + " reviews/day") +
         /* READY BY A DATE (see openDeadline). It sits directly under Daily limits because it is the same
            figure asked for from the other end — a reader who knows the date does not know the number, and
@@ -18489,6 +18616,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         }
         if (act === "custom") { close(); openCustomStudy(id); return; }
         if (act === "cram") { close(); startCram(id); return; }
+        if (act === "anki") { close(); ankiExportEntry(id); return; }
         if (act === "limits") { close(); openDeckLimits(id); return; }
         if (act === "deadline") { close(); openDeadline(id); return; }
         if (act === "rename") {
@@ -26060,6 +26188,60 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }).catch(() => {});
     b.addEventListener("click", () => { if (b.dataset.k) openGlossWin(b.dataset.k, b); });
   }
+  /* ---------- ON THIS DAY (2026-11-15, on request) ----------
+     A home box listing what happened on today's date, read from the cards' own `timeline` field (the ONE switch for a
+     card's dates — `cardTimelineField`, so an admin's delta is honoured) and nothing else: only a date written to the
+     day counts (`tlParse` with a `d`), so a year-only card is never placed on a day it does not claim. An event's `at`
+     reads "happened", a period's `from` "began" and its `to` "ended". The date is the one the card states, as authored
+     (a date before 1582 is the Julian one the sources give). Today is the reader's local calendar day; the pool is the
+     cards a reader can see (`availableCardIdSet`), up to three, the oldest first, the reader's own studied cards ahead
+     of the rest. On a day no card claims the box is not drawn. */
+  let _otdIndex = null;
+  function otdIndex() {
+    if (_otdIndex) return _otdIndex;
+    const idx = {}, avail = availableCardIdSet();
+    const put = (id, s, verb) => {
+      const p = tlParse(s);
+      if (!p || !p.d || !p.mo) return;
+      const k = String(p.mo).padStart(2, "0") + "-" + String(p.d).padStart(2, "0");
+      (idx[k] || (idx[k] = [])).push({ id, p, verb });
+    };
+    CARDS.forEach((c) => {
+      if (!avail.has(c.id)) return;
+      const f = cardTimelineField(c);
+      if (!f) return;
+      if (f.at != null) put(c.id, f.at, "");
+      else { put(c.id, f.from, "began"); put(c.id, f.to, "ended"); }
+    });
+    return (_otdIndex = idx);
+  }
+  function otdToday(d) {
+    d = d || new Date();
+    const k = String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+    const rows = (otdIndex()[k] || []).slice();
+    const studied = (id) => !!(S.cards && S.cards[id]);
+    rows.sort((a, b) => (studied(b.id) - studied(a.id)) || (a.p.t - b.p.t));
+    return { key: k, all: rows, top: rows.slice(0, 3).sort((a, b) => a.p.t - b.p.t) };
+  }
+  function otdYear(p) { const y = Math.abs(p.y); return y + (p.y < 0 ? " BCE" : (p.y < 1000 ? " CE" : "")); }
+  function homeOnThisDayHTML() {
+    const d = new Date(), o = otdToday(d);
+    if (!o.top.length) return "";
+    const day = d.getDate() + " " + TL_MONTHS[d.getMonth()];
+    const rows = o.top.map((r) => {
+      const t = cardTitle(r.id, 110), col = cardCollectionRoot(r.id);
+      const title = t.charAt(0).toUpperCase() + t.slice(1);
+      return '<li><button class="otd-row" type="button" data-card="' + esc(r.id) + '"><span class="otd-y">' + esc(otdYear(r.p)) + "</span>" +
+        '<span class="otd-t"><b>' + esc(title) + (r.verb ? " " + r.verb : "") + "</b>" + (col ? "<span>" + esc(nodeTitle(col)) + "</span>" : "") + "</span></button></li>";
+    }).join("");
+    const more = o.all.length > o.top.length ? " · " + (o.all.length - o.top.length) + " more" : "";
+    return '<section class="home-box home-otd" aria-label="On this day"><span class="hb-k">On this day · ' + esc(day) + "</span>" +
+      '<ol class="otd-list">' + rows + "</ol>" +
+      '<a class="otd-more" href="#timeline/day-' + o.key + '">See ' + esc(day) + " on the timeline" + esc(more) + " →</a></section>";
+  }
+  function homeOnThisDayWire(root) {
+    root.querySelectorAll(".home-otd .otd-row").forEach((b) => b.addEventListener("click", () => route("card", { id: b.dataset.card })));
+  }
   function homeWeekHTML(trio) {
     const now = Date.now(), today = dayKey(now);
     const day = { cards: 0, secs: 0, right: 0, total: 0 }, week = { cards: 0, secs: 0, right: 0, total: 0 };
@@ -28214,6 +28396,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           ${isAdmin() ? '<a class="games-archive-link" href="#gamearchive">Games archive <span>— play a past day, not recorded</span></a>' : ""}
         </section>
         <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}${homeTermHTML()}</div>
+        ${homeOnThisDayHTML()}
         <footer class="home-foot">${aboutLink}<button class="home-about" id="b-changelog" type="button">Changelog</button><button class="home-about" id="b-credits" type="button">Credits</button>${versionLineHTML()}</footer>
         ${/* ADMIN ONLY (Oct 2026, on request): a small refresh at the bottom left of the home page that brings the page to the latest deploy — it empties Folio's caches and the service worker, then reloads. */""}
         ${isAdmin() ? '<div class="home-admin-row"><button class="home-refresh" id="b-refresh" type="button" title="Refresh to the latest version" aria-label="Refresh to the latest version"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><polyline points="20 4 20 11 13 11"/></svg></button></div>' : ""}
@@ -28226,6 +28409,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        document-level guard that swallows the click after a hold is the same one, so a hold cannot also
        start a game. */
     homeTermWire(root);   // the term of the day (homeTermHTML)
+    homeOnThisDayWire(root);   // On this day (homeOnThisDayHTML)
     const cfRow = root.querySelector("#confuseRow");
     if (cfRow) cfRow.addEventListener("click", () => {
       const ids = confusionDrillIds();
@@ -29144,6 +29328,225 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     draw();
   };
 
+  /* ---------- THE TIMELINE PAGE (2026-11-15, on request: "a collection timeline page — every card with a timeline
+     field on one scrollable time axis") ----------
+     `#timeline` (every collection), `#timeline/<collection id>` (one), `#timeline/day-MM-DD` (every card dated to that
+     calendar day, any year — where the home page's On this day box leads). The axis runs DOWN the page, which is the one
+     layout a phone and a desktop share; a period is drawn as its span beside its start. The ONLY input is the card's
+     effective `timeline` field (`cardTimelineSpan`), never a date read off prose, and the pool is what a reader can see
+     (`availableCardIdSet`). A heading is put at every change of millennium in deep time, then of century. */
+  function tlPageItems() {
+    const avail = availableCardIdSet(), out = [];
+    CARDS.forEach((c) => {
+      if (!avail.has(c.id)) return;
+      const sp = cardTimelineSpan(c);
+      if (sp) out.push({ id: c.id, sp, col: cardCollectionRoot(c.id) });
+    });
+    return out.sort((a, b) => a.sp.start - b.sp.start);
+  }
+  function tlBand(t) {
+    const y = Math.floor(t);
+    if (y < -1e6) return "Before a million years ago";
+    if (y < -10000) return "Deep time, " + Math.ceil(-y / 1e4) * 10 + "–" + (Math.ceil(-y / 1e4) - 1) * 10 + " thousand years ago";
+    if (y < -1000) { const m = Math.ceil(-y / 1000); return "The " + ordinal(m) + " millennium BCE"; }
+    if (y < 0) { const c = Math.ceil(-y / 100); return "The " + ordinal(c) + " century BCE"; }
+    return "The " + ordinal(Math.floor(y / 100) + 1) + " century" + (y < 1000 ? " CE" : "");
+  }
+  function ordinal(n) { const s = ["th", "st", "nd", "rd"], v = n % 100; return n + (s[(v - 20) % 10] || s[v] || s[0]); }
+  PAGES.timeline = function (root, params) {
+    const q = String((params && params.q) || "");
+    const day = /^day-(\d\d)-(\d\d)$/.exec(q);
+    const all = tlPageItems();
+    const cols = [];
+    const colSeen = {};
+    all.forEach((x) => { if (x.col && !colSeen[x.col.id]) { colSeen[x.col.id] = 1; cols.push(x.col); } });
+    cols.sort((a, b) => nodeTitle(a).localeCompare(nodeTitle(b)));
+    const colId = !day && q && NODE_BY_ID[q] ? q : "";
+    let mine = false;
+    try { mine = localStorage.getItem("folio.timeline.mine") === "1"; } catch (e) {}
+    let items, title, sub;
+    if (day) {
+      const mo = +day[1], d = +day[2];
+      items = all.filter((x) => { const f = cardTimelineField(cardById(x.id)) || {}; return [f.at, f.from, f.to].some((s) => { const p = tlParse(s); return p && p.mo === mo && p.d === d; }); });
+      title = d + " " + (TL_MONTHS[mo - 1] || "");
+      sub = "Every card dated to this day of the year, in any year.";
+    } else {
+      items = colId ? all.filter((x) => x.col && x.col.id === colId) : all;
+      title = colId ? nodeTitle(NODE_BY_ID[colId]) : "Every collection";
+      sub = "Every dated card, oldest first. A period is shown from its start.";
+    }
+    const shown = mine ? items.filter((x) => S.cards && S.cards[x.id]) : items;
+    let band = "", rows = "";
+    shown.forEach((x) => {
+      const b = tlBand(x.sp.start);
+      if (b !== band) { band = b; rows += '<li class="tlp-band" role="presentation"><span>' + esc(b) + "</span></li>"; }
+      const t = cardTitle(x.id, 120), studied = !!(S.cards && S.cards[x.id]);
+      rows += '<li class="tlp-item' + (x.sp.period ? " tlp-period" : "") + (studied ? " tlp-mine" : "") + '"><span class="tlp-dot" aria-hidden="true"></span>' +
+        '<button type="button" class="tlp-row" data-card="' + esc(x.id) + '"><span class="tlp-date">' + esc(x.sp.label) + "</span>" +
+        '<b class="tlp-name">' + esc(t.charAt(0).toUpperCase() + t.slice(1)) + "</b>" +
+        (!colId && x.col ? '<span class="tlp-col">' + esc(nodeTitle(x.col)) + "</span>" : "") + "</button></li>";
+    });
+    const opts = '<option value="">Every collection</option>' + cols.map((c) => '<option value="' + esc(c.id) + '"' + (c.id === colId ? " selected" : "") + ">" + esc(nodeTitle(c)) + "</option>").join("");
+    let dayNav = "";
+    if (day) {
+      const dt = new Date(2024, +day[1] - 1, +day[2]);   // a leap year, so 29 February has neighbours
+      const k = (o) => { const x = new Date(dt); x.setDate(x.getDate() + o); return "day-" + String(x.getMonth() + 1).padStart(2, "0") + "-" + String(x.getDate()).padStart(2, "0"); };
+      dayNav = '<div class="tlp-daynav"><a class="btn ghost" href="#timeline/' + k(-1) + '">← Previous day</a><a class="btn ghost" href="#timeline/' + k(1) + '">Next day →</a><a class="btn ghost" href="#timeline">Whole timeline</a></div>';
+    }
+    root.innerHTML = '<div class="page-head"><span class="eyebrow">Timeline</span><h1>' + esc(title) + "</h1><p>" + esc(sub) + "</p></div>" +
+      dayNav +
+      '<div class="tlp-tools">' + (day ? "" : '<label class="tlp-pick"><span>Collection</span><select id="tlpCol">' + opts + "</select></label>") +
+      '<label class="tlp-mine-sw"><input type="checkbox" id="tlpMine"' + (mine ? " checked" : "") + "> Only cards I have studied</label>" +
+      '<span class="tlp-count">' + shown.length + " card" + (shown.length === 1 ? "" : "s") + "</span></div>" +
+      (shown.length ? '<ol class="tlp-list">' + rows + "</ol>" :
+        '<p class="tlp-empty">' + (mine && items.length ? "None of these cards has been studied yet." : "No card is dated here yet.") + "</p>");
+    const sel = root.querySelector("#tlpCol");
+    if (sel) sel.addEventListener("change", () => route("timeline", sel.value ? { q: sel.value } : {}));
+    root.querySelector("#tlpMine").addEventListener("change", (e) => { try { localStorage.setItem("folio.timeline.mine", e.target.checked ? "1" : "0"); } catch (er) {} PAGES.timeline(root, params); });
+    root.querySelectorAll(".tlp-row").forEach((b) => b.addEventListener("click", () => route("card", { id: b.dataset.card })));
+  };
+
+  /* ---------- WEAK SPOTS (2026-11-15, on request: "retention by deck, tag and period, with a one-tap 'study my
+     weakest 20'") ----------
+     Read off the card records alone (`S.cards`: reps, lapses, leech), because those are synced and complete for every
+     card ever studied on any device — the per-review log is local and begins the day it shipped. A group's figure is
+     the share of its answers that were not lapses: (reps − lapses) / reps over its studied cards; a group needs five
+     studied cards and twenty answers to be ranked, so two unlucky answers do not headline. A card's weakness is its
+     lapse share shrunk towards nothing on few answers ((lapses + 1) / (reps + 2) less the prior) plus a leech's mark;
+     a card never forgotten is never weak. "Study" deals the chosen cards through the ordinary `ids` session, so the
+     grades count, exactly as the account page's "Recalled once" list does. */
+  const WEAK_N = 20;
+  function weakData() {
+    const avail = availableCardIdSet(), cards = [];
+    Object.keys(S.cards || {}).forEach((id) => {
+      const r = S.cards[id], c = cardById(id);
+      if (!c || !avail.has(id) || isSuspended(id) || !r || !(r.reps > 0)) return;
+      const reps = r.reps | 0, lapses = Math.min(r.lapses | 0, reps);
+      const score = lapses ? (lapses + 1) / (reps + 2) - 1 / (reps + 2) + (r.leech ? 0.5 : 0) : 0;
+      cards.push({ id, c, reps, lapses, score });
+    });
+    return cards;
+  }
+  function weakGroups(cards, keysOf) {
+    const g = {};
+    cards.forEach((x) => keysOf(x).forEach((k) => {
+      if (!k) return;
+      const e = g[k] || (g[k] = { k, n: 0, reps: 0, lapses: 0, ids: [] });
+      e.n++; e.reps += x.reps; e.lapses += x.lapses; e.ids.push(x);
+    }));
+    return Object.values(g).filter((e) => e.n >= 5 && e.reps >= 20)
+      .map((e) => Object.assign(e, { recall: (e.reps - e.lapses) / e.reps }))
+      .sort((a, b) => a.recall - b.recall);
+  }
+  function weakEra(c) {
+    const sp = cardTimelineSpan(c);
+    let y = sp ? sp.start : null;
+    if (y == null) { const ys = cardYears(c); y = ys && ys.length ? ys[0] : null; }
+    if (y == null) return null;
+    if (y < -3000) return "Prehistory (before 3000 BCE)";
+    if (y < 500) return "Antiquity (3000 BCE – 500 CE)";
+    if (y < 1500) return "The Middle Ages (500 – 1500)";
+    if (y < 1800) return "The early modern age (1500 – 1800)";
+    if (y < 1900) return "The nineteenth century";
+    if (y < 2000) return "The twentieth century";
+    return "The twenty-first century";
+  }
+  PAGES.weak = function (root) {
+    const cards = weakData();
+    const head = '<div class="page-head"><span class="eyebrow">Your record</span><h1>Weak spots</h1><p>Where your memory slips most, from every answer you have given. A figure is the share of answers that were not forgotten.</p></div>';
+    if (!cards.length) { root.innerHTML = head + '<p class="tlp-empty">Study a few cards first: this page reads your answers.</p>'; return; }
+    const weakest = cards.filter((x) => x.score > 0).sort((a, b) => b.score - a.score);
+    const pct = (v) => Math.round(v * 100) + "%";
+    const groupHTML = (label, groups, nameOf) => {
+      if (!groups.length) return "";
+      return '<div class="section-label">' + esc(label) + '</div><div class="wk-groups">' + groups.slice(0, 8).map((e, i) =>
+        '<div class="wk-row"><span class="wk-name">' + esc(nameOf(e.k)) + '</span><span class="wk-bar" aria-hidden="true"><span style="width:' + Math.round(e.recall * 100) + '%"></span></span>' +
+        '<span class="wk-fig"><b>' + pct(e.recall) + "</b> · " + e.n + " cards</span>" +
+        (e.ids.some((x) => x.score > 0) ? '<button type="button" class="btn ghost wk-go" data-g="' + esc(label) + '" data-i="' + i + '">Study</button>' : '<span class="wk-go"></span>') + "</div>").join("") + "</div>";
+    };
+    const byCol = weakGroups(cards, (x) => { const r = cardCollectionRoot(x.id); return [r && r.id]; });
+    const byDeck = weakGroups(cards, (x) => { const l = cardLeaves(x.id)[0]; return [l && l.id]; });
+    const byEra = weakGroups(cards, (x) => [weakEra(x.c)]);
+    const byTag = weakGroups(cards, (x) => (Array.isArray(x.c.tags) ? x.c.tags : []).map(String));
+    const sets = { "By collection": byCol, "By deck": byDeck, "By period": byEra, "By tag": byTag };
+    const nodeName = (k) => { const n = NODE_BY_ID[k]; return n ? nodeTitle(n) : k; };
+    const deckName = (k) => { const n = NODE_BY_ID[k]; return n ? nodeWhere(n) : k; };
+    const total = cards.reduce((s, x) => s + x.reps, 0), lost = cards.reduce((s, x) => s + x.lapses, 0);
+    root.innerHTML = head +
+      '<div class="wk-top home-box"><span class="hb-k">Your weakest cards</span>' +
+      '<p class="wk-sum"><b>' + pct((total - lost) / total) + "</b> of " + total.toLocaleString("en-GB") + " answers over " + cards.length.toLocaleString("en-GB") + " cards were remembered. " +
+      (weakest.length ? weakest.length.toLocaleString("en-GB") + " cards have been forgotten at least once." : "You have not forgotten a card yet.") + "</p>" +
+      (weakest.length ? '<ol class="wk-list">' + weakest.slice(0, WEAK_N).map((x) =>
+        '<li><button type="button" class="wk-card" data-card="' + esc(x.id) + '"><b>' + esc((function (t) { return t.charAt(0).toUpperCase() + t.slice(1); })(cardTitle(x.id, 90))) + "</b><span>forgotten " + x.lapses + " of " + x.reps + " times" + (S.cards[x.id].leech ? " · leech" : "") + "</span></button></li>").join("") + "</ol>" +
+        '<button type="button" class="btn" id="wkStudy">Study my weakest ' + Math.min(WEAK_N, weakest.length) + "</button>" : "") + "</div>" +
+      groupHTML("By collection", byCol, nodeName) + groupHTML("By deck", byDeck, deckName) + groupHTML("By period", byEra, (k) => k) + groupHTML("By tag", byTag, (k) => k) +
+      '<p class="wk-note">A group is ranked once it has five studied cards and twenty answers.</p>';
+    const go = (list, where) => { const ids = list.filter((x) => x.score > 0).sort((a, b) => b.score - a.score).slice(0, WEAK_N).map((x) => x.id); if (ids.length) route("study", { scope: { type: "ids", ids, where } }); };
+    const ws = root.querySelector("#wkStudy");
+    if (ws) ws.addEventListener("click", () => go(weakest, "Your weakest cards"));
+    root.querySelectorAll(".wk-go[data-g]").forEach((b) => b.addEventListener("click", () => { const e = sets[b.dataset.g][+b.dataset.i]; go(e.ids, "Weak spots: " + (b.dataset.g === "By deck" ? deckName(e.k) : b.dataset.g === "By collection" ? nodeName(e.k) : e.k)); }));
+    root.querySelectorAll(".wk-card").forEach((b) => b.addEventListener("click", () => route("card", { id: b.dataset.card })));
+  };
+
+  /* ---------- YEAR IN REVIEW (2026-11-15, on request) ----------
+     `#year` (this year) or `#year/<YYYY>`. Every figure comes from a register that already exists — nothing new is
+     stored: the synced daily record `reviewLog` (answers, time, recall; kept REVIEW_LOG_DAYS, so a year that began
+     before that window says so), the first-seen registers `glossSeen` / `placesSeen`, `achievements`, `artefacts`,
+     `collAdded`, and `reading`'s last-opened time; the new cards met and the collections studied most come from the
+     per-review log, which lives on this device only, and are labelled as such. */
+  PAGES.year = function (root, params) {
+    const now = new Date(), Y = /^\d{4}$/.test(String((params && params.y) || "")) ? +params.y : now.getFullYear();
+    const inY = (t) => { const d = new Date(typeof t === "string" && /^\d{4}-\d\d-\d\d$/.test(t) ? t + "T12:00:00" : Number(t) || t); return !isNaN(d) && d.getFullYear() === Y; };
+    const RL = S.reviewLog || {};
+    const months = Array.from({ length: 12 }, () => 0);
+    let answers = 0, secs = 0, right = 0, tot = 0, daysOn = 0, best = { k: "", n: 0 }, run = 0, bestRun = 0, prev = null;
+    Object.keys(RL).filter((k) => k.slice(0, 4) === String(Y)).sort().forEach((k) => {
+      const e = RL[k] || [], n = e[0] | 0;
+      if (!n) return;
+      answers += n; daysOn++;
+      months[+k.slice(5, 7) - 1] += n;
+      if (e.length >= 6) { secs += (e[3] | 0) / 10; right += e[4] | 0; tot += e[5] | 0; }
+      if (n > best.n) best = { k, n };
+      const d = new Date(k + "T12:00:00");
+      run = prev && Math.round((d - prev) / DAY) === 1 ? run + 1 : 1; prev = d;
+      if (run > bestRun) bestRun = run;
+    });
+    const log = S.revlog || [], newIds = new Set(), colCount = {};
+    for (let i = 0; i < log.length; i++) {
+      const r = revRead(log[i]);
+      if (!r || !inY(r.t)) continue;
+      if (r.st === 0) newIds.add(r.id);
+      const c = cardCollectionRoot(r.id); if (c) colCount[c.id] = (colCount[c.id] || 0) + 1;
+    }
+    const cnt = (o) => Object.keys(o || {}).filter((k) => inY(o[k])).length;
+    const terms = cnt(S.glossSeen), places = cnt(S.placesSeen), badges = cnt(S.achievements), arts = cnt(S.artefacts);
+    const books = Object.keys(S.reading || {}).filter((k) => S.reading[k] && inY(S.reading[k].at)).length;
+    const colsAdded = Object.keys(S.collAdded || {}).filter((k) => S.collAdded[k] && inY(S.collAdded[k].at)).length;
+    const topCols = Object.keys(colCount).sort((a, b) => colCount[b] - colCount[a]).slice(0, 3);
+    const years = new Set([now.getFullYear()]);
+    Object.keys(RL).forEach((k) => years.add(+k.slice(0, 4)));
+    const ys = [...years].filter((y) => y > 2000).sort();
+    const windowStart = new Date(Date.now() - REVIEW_LOG_DAYS * DAY);
+    const partial = windowStart > new Date(Y, 0, 1);
+    const mins = Math.round(secs / 60), time = mins >= 60 ? Math.floor(mins / 60) + " h " + (mins % 60) + " min" : mins + " min";
+    const fig = (n, label) => '<div class="yr-fig"><b>' + (typeof n === "number" ? n.toLocaleString("en-GB") : esc(n)) + "</b><span>" + esc(label) + "</span></div>";
+    const maxM = Math.max(1, ...months);
+    const bars = months.map((n, i) => '<div class="yr-col" title="' + TL_MONTHS[i] + ": " + n.toLocaleString("en-GB") + ' answers"><span class="yr-bar" style="height:' + (n ? Math.max(3, Math.round((n / maxM) * 100)) : 0) + '%"></span><span class="yr-m">' + TL_MON3[i].charAt(0) + "</span></div>").join("");
+    const fmtDay = (k) => { const d = new Date(k + "T12:00:00"); return d.getDate() + " " + TL_MONTHS[d.getMonth()]; };
+    root.innerHTML = '<div class="page-head"><span class="eyebrow">Your record</span><h1>' + Y + " in review</h1><p>Your year in Folio, from your own study record.</p></div>" +
+      (ys.length > 1 ? '<div class="tlp-daynav">' + ys.map((y) => '<a class="btn' + (y === Y ? "" : " ghost") + '" href="#year/' + y + '">' + y + "</a>").join("") + "</div>" : "") +
+      (answers ? "" : '<p class="tlp-empty">No answers are recorded for ' + Y + ".</p>") +
+      '<div class="yr-grid">' + fig(answers, "answers") + fig(daysOn, "days studied") + fig(time, "time studied") + fig(tot ? Math.round((right / tot) * 100) + "%" : "—", "recalled") +
+      fig(bestRun, "longest run of days") + fig(best.n ? fmtDay(best.k) : "—", best.n ? "busiest day, " + best.n + " answers" : "busiest day") + "</div>" +
+      (answers ? '<div class="home-box yr-chart"><span class="hb-k">Answers by month</span><div class="yr-bars" role="img" aria-label="Answers by month: ' + months.map((n, i) => TL_MON3[i] + " " + n).join(", ") + '">' + bars + "</div></div>" : "") +
+      '<div class="section-label">Beyond the cards</div><div class="yr-grid">' + fig(terms, "glossary terms discovered") + fig(places, "places discovered") + fig(books, "books read in") +
+      fig(colsAdded, "collections added") + fig(badges, "badges earned") + fig(arts, "artefacts found") + "</div>" +
+      '<div class="section-label">On this device</div><div class="yr-grid">' + fig(newIds.size, "new cards met") + "</div>" +
+      (topCols.length ? '<p class="yr-top">Most studied: ' + topCols.map((id) => "<b>" + esc(nodeTitle(NODE_BY_ID[id])) + "</b> (" + colCount[id].toLocaleString("en-GB") + ")").join(", ") + ".</p>" : "") +
+      '<p class="wk-note">' + (partial ? "Your daily record keeps " + REVIEW_LOG_DAYS + " days, so days before " + fmtDay(dayKey(windowStart.getTime())) + " " + windowStart.getFullYear() + " are not counted. " : "") +
+      "New cards and collections come from this device's own answer log.</p>";
+  };
+
   PAGES.search = function (root) {
     const res = searchAll(searchQ);
     const group = (title, rows, render, more) => {
@@ -29771,7 +30174,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<div class="collection-list studio-list">' +
         (decks.length
           ? decks.map((d) => udeckRowHTML(d) + (studioState.deck === d.id ? '<div class="studio-inline" id="stInline"></div>' : "")).join("")
-          : '<div class="lib-empty studio-empty">No decks yet. “New deck” starts one; “Import” opens a <code>.folio-deck.json</code> file someone sent you.</div>') +
+          : '<div class="lib-empty studio-empty">No decks yet. “New deck” starts one; “Import” opens a <code>.folio-deck.json</code> file someone sent you, or a plain-text export from Anki or Quizlet.</div>') +
       '</div>' +
       orphanSectionHTML() +
     '</div>';
@@ -30670,6 +31073,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        out: a cornflower blue, 15.0 from its nearest neighbours (French's blue and Tagalog's azure), against a
        tightest existing pair of 4.0; 4.7:1 against white. Not a flag colour (Israel's blue is far deeper). */
     "lang-hebrew":     { bg: "#5E6EC0" }, // measured cornflower
+    /* CANTONESE (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white), the magenta band's standing rejection kept and the
+       greens left out. Parallel sessions twice landed beside it — Norwegian's ochre 1.0 from the first sweep's
+       #8C7126, then Finnish's sienna 2.5 from the second's #86522A — so it was re-swept at the phrases merge against
+       all 101 other hues: a maroon, 13.6 from its nearest neighbour (Visual Art's wine), with German's brown at 13.7; the raw
+       winner, 13.8, was a plum on the magenta band's edge (hue 345) and was passed over; 10.0:1 against white. Not a flag colour. */
+    "lang-cantonese":  { bg: "#6E2E2B" }, // measured maroon
     /* AMHARIC (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 70 hues on the
        page, the magenta band's standing rejection kept (the raw runner-up, 15.0, was a plum there) and the
@@ -30682,6 +31092,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        at the merge against all 72 other hues: a dark ochre, 14.6 from its nearest neighbour (World History's sepia),
        14.6 from Gateway to Global Affairs and Palaeontology; 4.8:1 against white. Not a flag colour. */
     "lang-norwegian":  { bg: "#896F23" }, // measured ochre
+    /* FINNISH (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white), the magenta band's standing rejection kept and the
+       greens left out. Its first sweep chose a dark mustard (#907227); Norwegian's parallel sweep landed 2.4 from it
+       (#896F23), so it was re-swept at the merge against all 72 other hues. The raw winner, a deep indigo (#333C81,
+       14.3), was REFUSED for standing 7.7 from the blue of Finland's flag; this sienna is the runner-up, 14.1 from
+       its nearest neighbour (Ancient Mesopotamia), then 14.3 from World History and 14.5 from Spanish, against a
+       tightest existing pair of 4.0; 5.9:1 against white. */
+    "lang-finnish":    { bg: "#8D572D" }, // measured sienna
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
@@ -37552,19 +37970,41 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   const CMAP_DEG = Math.PI / 180;
   /* The card's map, or null. Validated rather than trusted: `map` is a hand-authored field in data.js and a
      layer name with a typo in it would otherwise reach the renderer and paint an empty window. */
+  /* A MAP CARD'S KEYS (2026-11-15, the old fields' later phase; docs/map-cards.md "The key is the card's places"). A map card no longer names its shape twice: the authored `map.key` is
+     dropped wherever the card's `places` say the same (`.claude/migrate-places.js --finish`), and the shape is read off the places through the card windows' own join — card-faces.js maps
+     layer → key → entity id, and that id IS the registry id, one to one within a layer. So: the authored key where the card still has one (India's layer, whose entities are not registry
+     rows yet; Cyprus's ordered list of three), else every id of the card's places that is an entity of the layer, by its key there, in the places' sorted order (.claude/map-places.js is
+     the same rule in Node). The places are the heavy field when its bundle is in, else the light index card-places.js (`atlas2places`); with neither, or no card-faces.js (`atlas2cards`),
+     the answer is [] and the WINDOW resolves the keys itself once it has loaded both. */
+  let _mapKeyInv = null;
+  function cardMapKeys(c) {
+    const m = c && c.map;
+    if (!m || typeof m !== "object") return [];
+    if (m.key != null) return (Array.isArray(m.key) ? m.key : [m.key]).map((k) => String(k)).filter(Boolean);
+    const F = window.ATLAS_CARD_FACES, L = F && F.layers && F.layers[m.layer];
+    if (!L) return [];
+    let ids = Array.isArray(c.places) ? c.places : null;
+    if (!ids) { const P = window.ATLAS_CARD_PLACES, ix = P && P.cards && P.cards[c.id]; if (!Array.isArray(ix)) return []; ids = ix.map((i) => P.ids[i]); }
+    if (!_mapKeyInv || _mapKeyInv.F !== F) _mapKeyInv = { F: F, by: {} };
+    let inv = _mapKeyInv.by[m.layer];
+    if (!inv) { inv = _mapKeyInv.by[m.layer] = new Map(); Object.keys(L).forEach((k) => inv.set(L[k][0], k)); }
+    return ids.slice().sort().filter((id) => inv.has(id)).map((id) => inv.get(id));
+  }
   function cardMapSpec(c) {
     const m = c && c.map;
     if (!m || typeof m !== "object") return null;
     const layer = CARD_MAP_LAYERS[m.layer];
-    if (!layer || !m.key) return null;
+    if (!layer) return null;
+    /* a card with no authored key is a map card all the same (its front IS the map): its keys may simply not be readable yet (cardMapKeys), and its window then reads them */
+    if (m.key != null && !m.key) return null;
     /* `key` MAY BE A LIST, and Cyprus is why (Aug 2026, on request: "ensure the country Cyprus encompasses
        the whole island"). `world.js` files a partitioned island as separate polygons — Cyprus, N. Cyprus
        and the buffer zone are three — so a card naming one shades two-thirds of what the reader can see
        and asks them to name it. A list shades them as one place. The markup carries a single attribute, so
        the names are joined with a PIPE, which no place name in either layer contains; `add-card.js`
        refuses one that does, so the join can never become lossy. */
-    const keys = (Array.isArray(m.key) ? m.key : [m.key]).map((k) => String(k)).filter(Boolean);
-    if (!keys.length) return null;
+    const keys = cardMapKeys(c);
+    if (!keys.length && m.key != null) return null;
     // `dot` names a point in the layer's own table — a city, on a card whose answer is one
     const dot = m.dot && layer.points ? String(m.dot) : "";
     return { id: String(c.id || ""), layer: m.layer, key: keys.join("|"), keys: keys, dot: dot, zoom: Number(m.zoom) || 0, def: layer };
@@ -37751,7 +38191,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* the one object the lazy file reaches app.js through */
   function atlas2Ctx() {
     return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARDS, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, TINT_LATE, TINT_THIRD, GAME_MAX_DIFFICULTY,
-      cardCollectionRoot, cardLocator, cardMapSpec, cardSpanYears, cardWar, cardWarYears, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon,
+      cardCollectionRoot, cardLocator, cardMapSpec, cardMapKeys, cardSpanYears, cardWar, cardWarYears, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon,
       availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, esc, hashStr, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, unitSystem, gameProgress, setGameProgress,
       todayStr: gameDayStr, gameArchiveOn, gameShareHTML, gameNextLine };   // the games' draws seed on the archive's day while one is played (THE GAMES ARCHIVE); nothing else in the lazy file reads the date
   }
@@ -39343,7 +39783,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          is its NAME alone at its label point — a shape is drawn with its extent or not at all, so it gets no dot. The coordinates are in the lazy card-faces
          table, so the window resolves them (atlas-windows.js); the name is the card's answer, what the collection teaches ("United States", not NE's
          "United States of America"). */
-      else if (!l) { const ms = cardMapSpec(c); if (ms) dots.push({ id: cid, n: t || (ms.dot || ms.keys[0]), kind: ms.dot ? "point" : "face", map: { layer: ms.layer, keys: ms.keys, dot: ms.dot } }); }
+      else if (!l) { const ms = cardMapSpec(c); if (ms) dots.push({ id: cid, n: t || (ms.dot || ms.keys[0] || ""), kind: ms.dot ? "point" : "face", map: { layer: ms.layer, keys: ms.keys, dot: ms.dot } }); }
     });
     /* A STATE'S NAME STAYS ON ITS OWN CARD (2026-11-15, on request: "state labels (e.g. 'Ancient Egypt', 'Byzantine Empire') should only
        appear on their own card, and not on other cards' atlas windows. Labels for regions or geographical features (e.g. Faiyum, Aegean Sea)
@@ -39937,7 +40377,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           '<span class="tl-t">' + esc(title) + '</span><span class="tl-w">' + esc(x.s.label) + "</span>" +
           (self ? "</span>" : "</button>") + "</li>";
       }).join("") +
-      '</ol><p class="tl-key"><span><i class="tl-k-self"></i>this card</span><span><i class="tl-k-bar"></i>a period</span><span><i class="tl-k-dash"></i>a single event</span></p></div>';
+      '</ol><p class="tl-key"><span><i class="tl-k-self"></i>this card</span><span><i class="tl-k-bar"></i>a period</span><span><i class="tl-k-dash"></i>a single event</span>' +
+      (function () { const r = cardCollectionRoot(c.id); return r ? '<a class="tl-all" href="#timeline/' + encodeURIComponent(r.id) + '">' + esc(nodeTitle(r)) + "’s whole timeline →</a>" : ""; })() +   // the timeline page (Nov 2026)
+      '</p></div>';
   }
   // the axis: ~one tick per 95 px, from 1, 2, 5 … 500,000 years (World History's Palaeolithic spans 300,000), or 1 – 12 months when the window is under three years
   function tlTicks(a, b, px) {
@@ -40935,8 +41377,67 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function gameShareHTML(key, s, n, grid, note) {
     const o = { k: key, d: gameDayStr(), s: s, n: n, g: grid || "", x: note || "" };
     if (GAME_DAY) o.a = 1;
+    if (!GAME_DAY) setTimeout(gameFriendsHydrate, 0);   // the friends' board below (gameFriendsHydrate), filled once the screen is in the page
     return '<div class="gshare-row"><button type="button" class="btn ghost gshare-open" data-gshare="' + esc(JSON.stringify(o)) + '">' +
-      SHARE_ICON + "Share result</button></div>";
+      SHARE_ICON + "Share result</button></div>" +
+      (GAME_DAY ? "" : '<div class="gfriends" data-gfk="' + esc(key) + '" aria-live="polite"></div>');
+  }
+  /* ---------- TODAY'S BOARD AMONG FRIENDS (2026-11-15, on request: "a friends leaderboard for the daily games, shown
+     on the minigame completion screen") ----------
+     Every results screen goes through `gameShareHTML`, so the board rides under its Share button and a tenth game gets
+     it for nothing. NOTHING NEW IS STORED OR SYNCED: a day's result is already `S.games[key]` ({ date, played, won, s,
+     n }) in the progress blob, and an accepted friend's blob is readable under the existing RLS (the friend view reads
+     it whole); this asks for that one key alone (`games:data->games`). A friend's figure is as fresh as their last sync,
+     and their "today" is the day their own result was written under. Signed-out readers and an archived day get no
+     board; a reader with no friends gets one line saying where to add them. One fetch per minute at most. */
+  let _gfCache = null;
+  async function gameFriendsLoad() {
+    if (_gfCache && Date.now() - _gfCache.at < 60000) return _gfCache;
+    const me = SUPA && SUPA.user && SUPA.user.id;
+    if (!me) return null;
+    const fr = await supaFetch("/rest/v1/friends?select=user_id,friend_id,status");
+    if (!fr.ok) return null;
+    const ids = [...new Set((fr.data || []).filter((r) => r.status === "accepted").map((r) => (r.user_id === me ? r.friend_id : r.user_id)))];
+    const out = { at: Date.now(), friends: [] };
+    if (ids.length) {
+      const [pr, pg] = await Promise.all([
+        supaFetch("/rest/v1/profiles?id=in.(" + ids.join(",") + ")&select=id,name,username"),
+        supaFetch("/rest/v1/progress?user_id=in.(" + ids.join(",") + ")&select=user_id,games:data->games"),
+      ]);
+      const games = {};
+      if (pg.ok && Array.isArray(pg.data)) pg.data.forEach((r) => { games[r.user_id] = r.games || {}; });
+      if (pr.ok && Array.isArray(pr.data)) pr.data.forEach((p) => out.friends.push({ id: p.id, name: p.name || p.username || "", username: p.username || "", games: games[p.id] || {} }));
+    }
+    return (_gfCache = out);
+  }
+  function gameFriendsHydrate() {
+    const boxes = [...document.querySelectorAll(".gfriends[data-gfk]:not([data-gfdone])")];
+    if (!boxes.length || !(SUPA && SUPA.user)) return;
+    boxes.forEach((b) => b.setAttribute("data-gfdone", "1"));
+    gameFriendsLoad().then((d) => {
+      if (!d) return;
+      const t = todayStr();
+      boxes.forEach((box) => {
+        if (!box.isConnected) return;
+        const key = box.dataset.gfk;
+        if (!d.friends.length) { box.innerHTML = '<p class="gf-none">Add friends on your <a href="#account">Account</a> page to see how they did today.</p>'; return; }
+        const res = (g) => (g && g.date === t && g.played ? g : null);
+        const rows = [{ me: true, name: "You", g: res((S.games || {})[key]) }].concat(d.friends.map((f) => ({ name: f.name, username: f.username, g: res((f.games || {})[key]) })));
+        const frac = (g) => (typeof g.s === "number" && g.n ? g.s / g.n : (g.won ? 1 : 0));
+        const played = rows.filter((r) => r.g).sort((a, b) => (b.g.won - a.g.won) || (frac(b.g) - frac(a.g)) || (a.me ? -1 : b.me ? 1 : a.name.localeCompare(b.name)));
+        const waiting = rows.filter((r) => !r.g && !r.me);
+        let rank = 0, last = null;
+        const li = played.map((r, i) => {
+          const key2 = r.g.won + ":" + frac(r.g);
+          if (key2 !== last) { rank = i + 1; last = key2; }
+          const sc = typeof r.g.s === "number" && typeof r.g.n === "number" ? r.g.s + "/" + r.g.n : (r.g.won ? "won" : "played");
+          return '<li class="gf-row' + (r.me ? " gf-me" : "") + (r.g.won ? " gf-won" : "") + '"><span class="gf-rank">' + rank + '</span><span class="gf-name">' + esc(r.name) +
+            (r.username ? " <small>@" + esc(r.username) + "</small>" : "") + '</span><span class="gf-score">' + esc(sc) + "</span></li>";
+        }).join("");
+        box.innerHTML = '<div class="gf-head">Today among friends</div><ol class="gf-list">' + li + "</ol>" +
+          (waiting.length ? '<p class="gf-wait">Not played yet: ' + waiting.slice(0, 6).map((r) => esc(r.name)).join(", ") + (waiting.length > 6 ? " and " + (waiting.length - 6) + " more" : "") + ".</p>" : "");
+      });
+    });
   }
   // each platform's public web share address; t = the whole text, u = the address, b = the text without the address
   const SHARE_TARGETS = [
@@ -45620,6 +46121,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       <button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="browse">
         <div class="rs-head"><h3>Card browser</h3><span class="rs-meta">search &amp; act</span></div>
         <span class="rs-sub">Every card you could study — its state, when it is due, how often you have forgotten it. Flag them, push them to a date, or put one back to new.</span>
+        <span class="ex-go" aria-hidden="true">&rarr;</span>
+      </button>
+      ${/* Weak spots and Year in review (Nov 2026, on request): two more ways into the reader's own record */""}
+      <button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="weak">
+        <div class="rs-head"><h3>Weak spots</h3><span class="rs-meta">by deck, period &amp; tag</span></div>
+        <span class="rs-sub">Where your memory slips most, and your weakest cards to study in one tap.</span>
+        <span class="ex-go" aria-hidden="true">&rarr;</span>
+      </button>
+      <button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="year">
+        <div class="rs-head"><h3>Year in review</h3><span class="rs-meta">${new Date().getFullYear()}</span></div>
+        <span class="rs-sub">Your year in Folio: answers, days, time, discoveries and the collections you studied most.</span>
         <span class="ex-go" aria-hidden="true">&rarr;</span>
       </button>
       <div class="section-label">Review statistics</div>
@@ -51131,7 +51643,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     e.preventDefault();
     openKeySheet();
   });
-  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "admin", "warofages", "gamearchive", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u"];
+  const valid = ["home", "decks", "study", "order", "how", "map", "credits", "account", "settings", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "whatyear", "howfar", "pie", "admin", "warofages", "gamearchive", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary", "search", "card", "sample", "u", "timeline", "weak", "year"];
   /* #map2 is the address the engine was previewed at; since Phase 5 the Atlas is #map. A link or a bookmark to the old address is corrected in the address bar (replaceState: assigning would fire a hashchange and leave the dead address in the
      history for Back), with the view, the year and the place after it left as they were. */
   if (/^#map2(?=[\/?]|$)/.test(location.hash || "")) { try { history.replaceState(null, "", location.pathname + location.search + location.hash.replace(/^#map2/, "#map")); } catch (e) {} }
@@ -51157,6 +51669,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   if (initName === "gamearchive" && hParts[2]) initParams = { date: hParts[1] || "", game: hParts[2] };
   // #sample/<collection id> — ten cards of a collection, scheduling nothing (see PAGES.sample)
   if (initName === "sample") { try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; } }
+  // #timeline/<sub> and #year/<YYYY> — one optional segment (PAGES.timeline, PAGES.year)
+  if (initName === "timeline" && hParts[1]) { try { initParams.q = decodeURIComponent(hParts[1]); } catch (e) { initParams.q = hParts[1]; } }
+  if (initName === "year" && hParts[1]) initParams.y = hParts[1];
   // #u/<username> — a person at a stable address (see PAGES_u)
   if (initName === "u") { try { initParams.name = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.name = hParts[1] || ""; } }
   // #book/<id> — a book is a shareable address, the same shape as #deck/<slug> and #map/<year>/<slug>
@@ -51470,6 +51985,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       let sid = parts[1] || "";
       try { sid = decodeURIComponent(sid); } catch (e) {}
       if (!(current.name === "sample" && current.params.id === sid)) route("sample", { id: sid });
+      return;
+    }
+    if (parts[0] === "timeline" || parts[0] === "year") {   // #timeline/<sub>, #year/<YYYY> followed mid-session (the day box, the year buttons)
+      let v = parts[1] || "";
+      try { v = decodeURIComponent(v); } catch (e) {}
+      const key = parts[0] === "timeline" ? "q" : "y";
+      if (!(current.name === parts[0] && String(current.params[key] || "") === v)) route(parts[0], v ? { [key]: v } : {});
       return;
     }
     if (parts[0] === "u") {   // #u/<username> pasted or followed mid-session

@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1317", released: "2026-11-15T21:38Z" };
+window.FOLIO_VERSION = { v: "1.1320", released: "2026-11-15T22:40Z" };
 
 window.CHANGELOG = [
   {
@@ -55,8 +55,18 @@ window.CHANGELOG = [
       "The Wikipedia button at the foot of a glossary popup is half as tall.",
       "<b>Feather</b> now links to its glossary entry only in Biology.",
       "A new <b>Amharic</b> language collection: a fidäl alphabet deck, three graded vocabulary decks and phrases, all in both directions with romanisation.",
-      "New <b>Danish</b> and <b>Norwegian</b> language collections: levels A1 to C1, plus phrases, idioms and proverbs, all in both directions.",
+      "New <b>Danish</b>, <b>Norwegian</b> and <b>Finnish</b> language collections: levels A1 to C1, plus phrases, idioms and proverbs, all in both directions.",
       "New in the Library: the <b>King James Bible</b>, with the Apocrypha and its marginal notes, and Luther's <b>Ninety-five Theses</b> (1517).",
+      "A <b>Cantonese</b> collection joins the Languages section: a Jyutping and tones deck, A1 to C1 (3,787 words) and 347 phrases, slang and idioms.",
+      "<b>On this day</b> on the home page: what happened on today's date, from the cards you can study.",
+      "A new <b>Timeline</b> page shows every dated card on one scrolling line, for one collection or all of them.",
+      "<b>Weak spots</b> on your account page shows where you forget most, with your weakest 20 cards to study in one tap.",
+      "<b>Year in review</b> on your account page sums up your year: answers, days, time, discoveries and favourite collections.",
+      "Each minigame's results now show <b>how your friends did today</b>.",
+      "Import a deck from an <b>Anki</b> or <b>Quizlet</b> text export, and download any deck as a file Anki imports.",
+      "The Atlas now shows India's states and union territories when you zoom in; the switch is renamed <b>States and provinces</b>.",
+      "28 more map cards now light up their region on your Personal Atlas once studied.",
+      "A new <b>India</b> geography collection begins: 19 state and union territory cards, 16 capitals, 1 city and 35 glossary terms.",
     ],
   },
   {
