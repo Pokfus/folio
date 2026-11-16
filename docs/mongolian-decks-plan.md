@@ -5,8 +5,8 @@
 were built, and every rule there applies here unless this file says otherwise. The owner was not asked: the
 Amharic and Yoruba owners' answers were taken, the sources being as thin (§2).
 
-**STATUS (2026-11-16): the alphabet and A1 are built** (`.claude/mongolian/`, §6). A2, B1 and a phrases deck
-are the next phases (§5).
+**STATUS (2026-11-16): the alphabet, A1 and A2 are built** (`.claude/mongolian/`, §6–§7). B1 and a phrases
+deck are the next phases (§5).
 
 ## 1. The decisions (taken from the Amharic, Yoruba, Russian and Ukrainian sets)
 
@@ -27,7 +27,7 @@ are the next phases (§5).
 |---|---|---|
 | Mongolian Alphabet — built | `Mongolian-Alphabet.folio-deck.json` | 36 |
 | Mongolian A1 Beginner — built | `Mongolian-A1.folio-deck.json` | 500 |
-| Mongolian A2 Elementary | `Mongolian-A2.folio-deck.json` | 750 |
+| Mongolian A2 Elementary — built | `Mongolian-A2.folio-deck.json` | 750 |
 | Mongolian B1 Intermediate | `Mongolian-B1.folio-deck.json` | 1,000 |
 | Mongolian Phrases and Expressions | `Mongolian-Phrases-and-Expressions.folio-deck.json` | — |
 
@@ -101,7 +101,7 @@ they are shown as Wiktionary prints them. A quarter of the cards have no sentenc
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 then B1, one level per session: write the
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 (done), then B1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `mongolian_level.py`; read the ranking for new
 exclusions; read every card. **Phase 3** — the phrases deck. A level must leave the levels below it
 byte-identical.
@@ -123,3 +123,26 @@ romanisation columns; it is read as the Latin a. Every sound side is unique (ass
 The shelf's hue is measured: `#3C7676`, a muted teal, swept against the 79 hues on the page with the magenta
 band's standing rejection and the greens left out: 13.9 from its nearest neighbours (Economics, France), against a
 tightest existing pair of 4.0; 5.2:1 against white.
+
+## 7. As built (2026-11-16): A2
+
+`python3 .claude/mongolian/run.py --level a2`. 750 notes / 1,500 cards: 153 from the inventory (`inventory.A2`, 13
+topics scoped to the A2 descriptor), 597 by frequency; sentences for 259, forms for 160. **A re-run is
+byte-identical, and A1 and the alphabet still rebuild byte-identical.**
+
+- **THE INVENTORY IS SMALL because Wiktionary is**: of about 260 A2 words looked up, about 45 are missing (three of
+  the twelve months — July, November, December —, цүнх "bag", сувилагч "nurse", гэрлэх "to marry", эрүүл "healthy",
+  авчрах "to bring", хадгалах "to keep", гоё, тэнэг, амархан, хүчтэй …; `inventory.py` names them), so nine months
+  are taught and the frequency fill carries most of the level.
+- **MORE EXCLUSIONS** (`select.EXCLUDE`, "Read off the A2 ranking"): words whose count is another word peeled (сур
+  from сурах, авс from авсан, сал from салах, хаш from хашаа, дов from довтлох …), Ром (Rome) as "rum", the given
+  name Болд as "steel", peoples (Oirats, Dzungars, Kazakhs), old court titles, лал (its second sense offensive),
+  and үхсэн, the participle of a taught verb.
+- **`LEAD` NOW ALSO KEEPS ITS ENTRY**: алах "to kill" is Wiktionary's fourth entry, after an adjective, an adverb
+  and a noun, and the card shows three; the entry holding the lead gloss is sorted first before the cut. Eleven
+  A2 leads move Wiktionary's everyday gloss forward (чулуу "rock, stone", утас "telephone", зурагт "television",
+  тариа "injection", паспорт "passport", лууван "carrot" …). No A1 card changes.
+
+**Known, left.** The fill is the encyclopaedia's again — politics, science and history (парламент, хүчилтөрөгч,
+комиссар) — beside everyday words the inventory could not reach. Synonym pairs are labelled by the shelf's
+de-duplication ("not өртөө"). Two thirds of the cards have no sentence.

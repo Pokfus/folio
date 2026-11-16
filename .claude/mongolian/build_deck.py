@@ -71,6 +71,19 @@ LEAD = {
     'орших': 'to dwell',                    # first listed is the noun "entity"
     'тоо': 'number, numeral',               # first listed is the adjective "numerative"
     'тухай': 'about',                       # first listed is "occasion, time"
+    # A2 (2026-11-16)
+    'чулуу': 'rock, stone',                 # first listed is "calculus"
+    'хөдөө': 'countryside',                 # first listed is "land (for farming)"
+    'уур': 'anger, wrath',                  # first listed is "steam"
+    'утас': 'telephone',                    # first listed is "thread"
+    'зуух': 'hearth, oven, furnace',        # first listed is the verb "to bite"
+    'зурагт': 'television',                 # first listed is the adjective "illustrated"
+    'тариа': 'injection',                   # first listed is "grain, cereal"
+    'паспорт': 'passport',                  # first listed is "ID card"
+    'лууван': 'carrot',                     # first listed is "radish"
+    'тасалбар': 'ticket',                   # first listed is "cheque, check"
+    'ачаа': 'luggage',                      # first listed is "burden, load"
+    'алах': 'to kill',                      # the verb is Wiktionary's fourth entry, after an adjective
 }
 
 # A gloss that is only a pointer to another word, never shown.
@@ -99,6 +112,9 @@ def entries_for(row, lex):
     ents = [e for e in ents if e['glosses']]
     if row['pos']:
         ents = sorted(ents, key=lambda e: e['pos'] != row['pos'])
+    lead = LEAD.get(L['word'])
+    if lead:                             # the entry holding the lead gloss is never cut off
+        ents = sorted(ents, key=lambda e: not any(lead in g['g'] for g in e['glosses']))
     out, seen = [], {}
     for e in ents:
         if e['pos'] in seen:

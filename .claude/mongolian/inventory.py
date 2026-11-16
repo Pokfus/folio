@@ -24,6 +24,22 @@ call", буцах "to return", удаан "slow", хялбар "easy", хэцү�
 үзэсгэлэнтэй "beautiful", хөөрхөн "pretty", ядуу "poor", зөв "right,
 correct", гэхдээ "but", эсвэл "or", тэгээд "and then", хэрэв "if".  дугуй is
 filed only as "circle", so it is not taught for "bicycle, wheel".
+
+A2 IS SCOPED TO THE CEFR A2 DESCRIPTOR, looked up the same way (2026-11-16).
+Nine of the twelve months are here: English Wiktionary has no долдугаар сар
+"July", арван нэгдүгээр сар "November" or арван хоёрдугаар сар "December".  Nor
+these, which A2 would have: хормой "skirt", даашинз "dress", цүнх "bag",
+цагаан сар "the lunar new year", төрсөн өдөр "birthday", сувилагч "nurse",
+инженер "engineer", дарга "boss", нагац "maternal relative", хадам "in-law",
+хүргэн "son-in-law", гэрлэх "to marry", айдас "fear", ичих "to be ashamed",
+гуниг "sorrow", жаргал "happiness", вокзал "station", говь "Gobi, desert",
+хашаа "fence, yard", ишиг "kid (goat)", эрүүл "healthy", эм сан "pharmacy",
+халуурах "to have a fever", данх "kettle", шүүгээ "cupboard", ярилцах "to talk
+together", шийдэх "to decide", утасдах "to phone", авчрах "to bring", хадгалах
+"to keep", эвдрэх "to break", хэмжих "to measure", оролдох "to try",
+үргэлжлэх "to continue", бэлтгэх "to prepare", гоё "nice", муухай "ugly",
+ухаантай "clever", тэнэг "stupid", чимээгүй "quiet", аюулгүй "safe", ховор
+"rare", амархан "easy", хүчтэй "strong".
 """
 
 INVENTORY = {
@@ -80,5 +96,36 @@ INVENTORY = {
          'хөнгөн хурдан сайхан баян буруу олон цөөн бүх бүр ганц'),
         ('joining words',
          'ба болон бас мөн харин буюу учир гэж ч л маш хамт биш:verb'),
+    ],
+    'a2': [
+        ('clothes',
+         'хувцас гутал малгай цамц өмд дээл бээлий оймс хүрэм пальто товч:noun халаас'),
+        ('the months and the holidays',
+         'нэгдүгээр_сар хоёрдугаар_сар гуравдугаар_сар дөрөвдүгээр_сар тавдугаар_сар '
+         'зургаадугаар_сар наймдугаар_сар есдүгээр_сар аравдугаар_сар наадам баяр'),
+        ('work and jobs',
+         'жолооч цагдаа тогооч худалдагч зураач дуучин тариачин малчин ажилтан цалин албан_газар'),
+        ('relatives and the stages of life',
+         'авга бэр ач зээ өнчин хурим салах үхэх'),
+        ('feelings',
+         'уур инээх уйлах баярлах уурлах айх аз жаргалтай хайр'),
+        ('travel',
+         'аялал жуулчин паспорт виз тасалбар нисэх_буудал газрын_зураг гааль ачаа чемодан'),
+        ('the countryside and the herds',
+         'хөдөө нуур ой цэцэг өвс чулуу элс мөс худаг адуу үнээ тугал унага хурга чоно үнэг '
+         'баавгай туулай хулгана могой бүргэд'),
+        ('the body and health',
+         'өвчтэй шарх цус яс нуруу хөлрөх хоолой тариа'),
+        ('food and the kitchen',
+         'шөл гоймон төмс лууван байцаа сонгино сармис тос цөцгий тараг бяслаг ааруул чихэр '
+         'жигнэмэг аяга таваг халбага сэрээ хутга тогоо'),
+        ('the things of a home',
+         'тавилга хивс толь зурагт:noun радио утас компьютер хөргөгч зуух:noun шал хана дээвэр шат'),
+        ('talking and deciding',
+         'хэлэлцэх сонгох татгалзах тайлбарлах итгэх бодох мэдээ захидал'),
+        ('the everyday verbs of doing',
+         'унах засах цэвэрлэх хаях нэмэх хасах тоолох үнэрлэх дуусгах хүлээн_авах'),
+        ('describing things',
+         'цэвэр бохир зузаан нимгэн хуурай нойтон хатуу зөөлөн хөгжилтэй аюултай энгийн сул'),
     ],
 }

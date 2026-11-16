@@ -3833,8 +3833,9 @@ changed was the one that had been wrong all along.
   collection"; the Amharic and Yoruba owners' answers taken, the owner not asked). **Built: the alphabet deck,
   `decks/Mongolian-Alphabet.folio-deck.json`** (36 notes: the 35 Cyrillic letters with their names, IPA and MNS
   romanisation read from a pinned revision of Wikipedia's "Mongolian Cyrillic alphabet", then the long vowel) **and A1,
-  `decks/Mongolian-A1.folio-deck.json`** (500 notes / 1,000 cards: 335 inventory, 165 frequency). `python3
-  .claude/mongolian/run.py [--level a1]`, `python3 .claude/mongolian/alphabet.py`, `node
+  `decks/Mongolian-A1.folio-deck.json`** (500 notes / 1,000 cards: 335 inventory, 165 frequency) **and A2,
+  `decks/Mongolian-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16: 153 inventory, 597 frequency). `python3
+  .claude/mongolian/run.py [--level a1|a2]`, `python3 .claude/mongolian/alphabet.py`, `node
   .claude/mongolian/check-mongolian.js`; a re-run is byte-identical. Amharic's arrangement: about 3,100 Cyrillic
   Wiktionary lemmas, no subtitle list, so the frequency is the Mongolian Wikipedia's (its 14,876 articles of 150 words
   or more), A1–B1 only, no hand glosses, no speaker, and no romanisation on a level card (the Russian precedent).
