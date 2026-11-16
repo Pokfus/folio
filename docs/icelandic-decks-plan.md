@@ -6,8 +6,8 @@ Icelandic set, built in the Norwegian decks' shape (`docs/norwegian-decks-plan.m
 `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-15: "Add an Icelandic language collection."
 
-**STATUS (2026-11-16): Phases 1 and 2 done** — the pipeline, the alphabet deck and A1 (§6), A2 (§7), B1 (§8), B2 (§9)
-and C1 (§10): all five levels. A phrases deck is the remaining phase (§5).
+**STATUS (2026-11-16): the plan is complete** — the alphabet deck and A1 (§6), A2 (§7), B1 (§8), B2 (§9), C1 (§10)
+and the phrases deck (§11).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP —
@@ -37,6 +37,7 @@ these is the owner's to overrule.**
 | Icelandic B1 Intermediate — built | `Icelandic-B1.folio-deck.json` | 1,000 |
 | Icelandic B2 Upper Intermediate — built | `Icelandic-B2.folio-deck.json` | 1,500 |
 | Icelandic C1 Advanced — built | `Icelandic-C1.folio-deck.json` | 1,500 |
+| Icelandic Phrases and Expressions — built | `Icelandic-Phrases-and-Expressions.folio-deck.json` | 734 |
 
 ## 2. Sources and licences
 
@@ -112,8 +113,7 @@ higher levels will have markedly fewer.
 **Phase 1 (done)** — the pipeline, the alphabet and A1. **Phase 2 (done)** — A2 to C1, one level per request: write
 the level's inventory into `inventory.py`, its `SCOPE` is already in `icelandic_level.py`, its
 `STAMP` into `build_deck.py` (a level with none refuses to build), run, read every card, and widen the deck's
-description where a level needs it. **Phase 3** — a phrases deck (Norwegian's `phrases.py`, not copied yet;
-`build_deck.py` refuses `--level phr` until then).
+description where a level needs it. **Phase 3 (done)** — a phrases deck (Norwegian's `phrases.py`, §11).
 
 ## 6. As built (2026-11-15): the alphabet and A1
 
@@ -257,3 +257,33 @@ know from B-level life (`tannbursti`, `sólgleraugu`, `hnetusmjör`) beside form
 
 **Known, left.** The subtitles' crime and war vocabulary (`fjöldamorð`, `launmorðingi`, `jarðsprengja`) and some plain
 words of the body, sex and drugs (`leggöng`, `kynfæri`, `skyndikynni`, `hass`, `vændi`) on frequency, as at B2.
+
+## 11. As built (2026-11-16): the phrases deck
+
+Asked for on 2026-11-16: "Add a phrases deck." `python3 .claude/icelandic/run.py --level phr` (after all five levels);
+the selection stage is `phrases.py`, Norwegian's arrangement with its five subdecks. **734 expressions: 109
+Phrases, 156 Fixed expressions, 336 Particle verbs, 102 Idioms, 31 Proverbs** — **every expression that passes the
+filters**, no cap reached (the particle verbs' cap was raised from 250 to 400 to take all of them), and the
+description says so. Nothing a level teaches is taught again (`góðan daginn`, `í dag`, `þess vegna`, `þar af
+leiðandi` are the levels'). 200 of the 734 occur in Tatoeba; 197 carry a sentence, 98 of them three. Every card was
+read; the alphabet and A1 to C1 re-run byte-identical, and the deck re-runs byte-identical with the extract rebuilt.
+
+- **Classification and order** are Norwegian's: a proverb is Wiktionary's `proverb`; an idiom has a sense tagged
+  `idiomatic`; a particle verb is a multi-word `verb` with no such tag; a fixed expression is a multi-word `adv`,
+  `prep` or `conj`; a phrase is a `phrase` / `intj` / `prep_phrase`. Within a subdeck, Tatoeba sentences containing
+  the expression (a particle verb's first word in any form of its verb — BÍN's present included), then the
+  frequency estimate. The deck's description credits BÍN for that.
+- **`EXCLUDE`** (each with its reason): phrasebook sentences built from level words (`ég elska þig`, `ég er ekki
+  trúaður`, `borða morgunmat` — the Hindi, Turkish, Swedish and Norwegian rule; the formulas asked and answered
+  whole, `ég skil ekki`, `ég veit það ekki`, `talar þú ensku`, stay); one formula in many languages (`talar þú
+  þýsku`, `… japönsku`, `… latínu` — ensku is taught) and its bare template (`hvað er þetta á`); a pointer or a
+  second form of one expression (`sitt af hverju`, `je minn`, `teningnum er kastað`, `láta eins og vind um eyru
+  þjóta`), a misspelling (`hafa áhunga á`) and a mis-identification Wiktionary itself labels (`að vera heitt í
+  hamstri`); Danish (`ekki með fulle fem`), a colloquial spelling (`akkuru ekki`), a geometer's term; `alast upp`,
+  which C1's `alast` card is written as; sexual expressions and curses (`ríddu mér`, `fá það`, `sofa hjá`, `fróa
+  sér`, `runka sér`, `fara í sleik`, `reka við`, `hver fjandinn`).
+
+**Known, left.** Thirteen pairs share an English side and are told apart by the dedupe pass's label (`vertu sæll` /
+`vertu sæl`, `oj bara` / `oj barasta`, `standa út` / `skaga fram`, `í fyrra` / `árið sem leið` …), as Wiktionary
+glosses them alike — several are one greeting in its masculine and feminine forms. Five cards carry a forms line
+(the particle verbs Wiktionary gives forms for); the rest carry none.

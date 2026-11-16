@@ -44,7 +44,7 @@ from icelandic_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
 STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-16T00:00:00.000Z',
          'b1': '2026-11-16T00:00:00.000Z', 'b2': '2026-11-16T00:00:00.000Z',
-         'c1': '2026-11-16T00:00:00.000Z'}.get(LEVEL, '')
+         'c1': '2026-11-16T00:00:00.000Z', 'phr': '2026-11-16T00:00:00.000Z'}.get(LEVEL, '')
 if not STAMP:
     raise SystemExit(f'no STAMP for {LEVEL}: write the day the level is first built into build_deck.py')
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
@@ -520,9 +520,45 @@ def desc(entries, n):
     )
 
 
+PHR_SUBS = ('Phrases', 'Fixed expressions', 'Particle verbs', 'Idioms', 'Proverbs')
+
+
+def desc_phr(entries, n):
+    by = {s: [e for e in entries if e['sub'] == s] for s in PHR_SUBS}
+    ex3 = sum(1 for e in entries if e['examples'] == 3)
+    ex0 = sum(1 for e in entries if e['examples'] == 0)
+    found = sum(1 for e in entries if e['count'])
+    eg = lambda s: ', '.join(e['word'] for e in by[s][:3])
+    return (
+        f"{n} Icelandic set phrases, fixed expressions, particle verbs, idioms and proverbs, in five "
+        f"subdecks: {len(by['Phrases'])} everyday phrases, {len(by['Fixed expressions'])} fixed "
+        f"expressions, {len(by['Particle verbs'])} particle verbs, {len(by['Idioms'])} idioms and "
+        f"{len(by['Proverbs'])} proverbs. Both study directions come as two cards of one expression — "
+        "Icelandic → English (see the Icelandic, recall the meaning) and English → Icelandic (see an English "
+        "meaning, recall the Icelandic) — each with a schedule of its own. This is a companion to the five "
+        "level decks, Icelandic A1 to C1, and not one of them: a level is a list of words, and an expression is "
+        "a unit a list of words cannot see. Nothing here is taught by any of the five, so the two can be studied "
+        "together without repeating an entry. The PHRASES are the expressions Wiktionary files as phrases and "
+        f"does not mark as idiomatic — mostly the everyday formulas ({eg('Phrases')} …). The FIXED EXPRESSIONS "
+        "are the multi-word adverbs, prepositions and conjunctions sentences are built from "
+        f"({eg('Fixed expressions')} …). The PARTICLE VERBS are a verb and a particle or a preposition that "
+        f"together mean something the verb alone does not ({eg('Particle verbs')} …). The IDIOMS are "
+        f"expressions whose meaning is not their words' ({eg('Idioms')} …), and the PROVERBS the sayings "
+        f"Wiktionary files as proverbs ({eg('Proverbs')} …). Within each subdeck the expressions come in the "
+        "order of how many of Tatoeba's Icelandic sentences contain them, a particle verb being counted with its "
+        f"verb in any form; {found} of the {n} are found there, and the rest follow in the order of how common "
+        "their words are in film and television subtitles. The deck takes every expression English Wiktionary "
+        "lists for Icelandic that passes its filters, rather than the commonest of many. "
+        f"Real example sentences come with {n - ex0} of the {n} expressions, three apiece for {ex3}, with the "
+        "expression picked out in colour and a speaker beside the sentence and the headword. Sources. "
+        "Expressions, meanings and the idiom and proverb labels: English Wiktionary, via the kaikki.org "
+        "extraction (CC BY-SA 4.0). The forms of a particle verb's verb, used to find it in a sentence: "
+        f"{BIN_CREDIT}. Order: Tatoeba (tatoeba.org), CC BY 2.0 FR, then a word list built from OpenSubtitles "
+        "(hermitdave/FrequencyWords, CC BY-SA 4.0). Example sentences: Tatoeba, CC BY 2.0 FR."
+    )
+
+
 def main():
-    if LEVEL == 'phr':
-        raise SystemExit('the Icelandic phrases deck is not built yet (docs/icelandic-decks-plan.md)')
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
     exs = json.load(open(f('examples.json'), encoding='utf-8'))
@@ -532,11 +568,22 @@ def main():
         c['id'] = f'u_{DECK}_{i}'
         c['type'] = TYPE_ID
     n = len(cards)
+    if LEVEL == 'phr':
+        by = {k: sum(1 for e in entries if e['sub'] == k) for k in PHR_SUBS}
+        subtitle = (f"{n} expressions · {by['Phrases']} everyday, {by['Fixed expressions']} fixed, "
+                    f"{by['Particle verbs']} particle verbs, {by['Idioms']} idioms, "
+                    f"{by['Proverbs']} proverbs · both directions")
+        description = desc_phr(entries, n)
+        tags = ['icelandic', 'phrases', 'particle verbs', 'idioms', 'proverbs']
+    else:
+        subtitle = f'{n} words · both directions, as two cards per word'
+        description = desc(entries, n)
+        tags = ['icelandic', 'vocabulary', LEVEL, NAMES[LEVEL].lower()]
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n), 'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['icelandic', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'subtitle': subtitle,
+        'desc': description, 'author': '', 'language': 'en', 'color': COLOR,
+        'tags': tags,
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Icelandic vocabulary', 'speechLang': 'is-IS',

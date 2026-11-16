@@ -3873,7 +3873,10 @@ changed was the one that had been wrong all along.
   "Add B1"; `--level b1`) **and B2, `decks/Icelandic-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16, on
   request: "Add B2"; `--level b2`; 95 % by frequency, English Wiktionary lacking much of its inventory) **and C1,
   `decks/Icelandic-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16, on request: "Add C1"; `--level c1`;
-  96 % by frequency, nearly three cards in four with no sentence) — all five levels. `python3 .claude/icelandic/run.py [--level a1]`, `python3 .claude/icelandic/alphabet.py`,
+  96 % by frequency, nearly three cards in four with no sentence) — all five levels — **and the phrases deck,
+  `decks/Icelandic-Phrases-and-Expressions.folio-deck.json`** (734 in Phrases / Fixed expressions / Particle verbs /
+  Idioms / Proverbs, every candidate English Wiktionary has; `--level phr`, `phrases.py`, 2026-11-16). The plan is
+  complete. `python3 .claude/icelandic/run.py [--level a1]`, `python3 .claude/icelandic/alphabet.py`,
   `node .claude/icelandic/check-icelandic.js`; a re-run is byte-identical. Norwegian's pipeline adapted, no
   romanisation, nouns with their gender as a label (Icelandic has no indefinite article) and their four cases in
   both numbers, verbs by their present "he" form, past and supine. **What is new**: the subtitle list is
