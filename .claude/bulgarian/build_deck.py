@@ -76,7 +76,9 @@ ETYMS = {
     'о': ['3', '2'],          # the interjection "oh" before the preposition "against"
     'съд': ['2', '1'],        # "court" before "vessel": the subtitles' word is the court
     'чест': ['2', '1'],       # the noun "honour" before the rarer adjective "frequent"
-    'клас': ['2'],            # "class (at school)"; etymology 1 is "ear of corn"
+    'клас': ['2'],
+    'накажа': ['2'],          # "to punish"; etymology 1 is a rare "to say a lot of things"
+    'ранен': ['2', '1'],      # "wounded" before "early": the subtitles' word            # "class (at school)"; etymology 1 is "ear of corn"
 }
 
 # A PART OF SPEECH TO LEAD WITH, where Wiktionary's first is not the everyday word.
@@ -111,6 +113,9 @@ LEAD = {
     'продължавам': ['to last, to continue'], 'продължа': ['to last, to continue'],
     'занимавам': ['to serve a certain duty; to keep oneself busy'],
     'кача': ['to go up', 'to take up'],
+    'зарежа': ['to abandon'],
+    'развивам': ['to develop'], 'партия': ['party (a political'], 'образование': ['education'],
+    'свобода': ['freedom'],                          # not "to prune vines"
 }
 # A GLOSS LEFT OFF.
 GLOSS_DROP = {}
@@ -119,7 +124,8 @@ PARTNER = {'направя': ['пра́вя'], 'правя': ['напра́вя'
            'изглеждам': []}                                # "to seem" has no perfective; изгле́дам is "to watch"
 
 # A HEADWORD'S STRESS WRITTEN HERE, where Wiktionary's head line carries none.
-STRESS = {'наздраве': 'наздра́ве', 'армия': 'а́рмия'}
+STRESS = {'наздраве': 'наздра́ве', 'армия': 'а́рмия',
+          'засега': 'засега́', 'отбия': 'отби́я', 'чийто': 'чи́йто', 'предаване': 'предава́не'}
 
 
 # ---- glosses ---------------------------------------------------------------------------
@@ -185,6 +191,9 @@ def english(ents, word=''):
             # "Used other than figuratively or idiomatically: see під" (the phrases deck) names
             # the literal reading's words rather than giving a meaning
             if t.startswith('Used other than figuratively or idiomatically'):
+                continue
+            # a usage example filed as a sense (`у́мствен бага́ж ― úmstven bagáž ― intellect`)
+            if ' ― ' in t:
                 continue
             # "grandfather (diminutive)" and "grandfather (affectionate)": one line
             base = re.sub(r' \((diminutive|affectionate|augmentative)\)$', '', t)

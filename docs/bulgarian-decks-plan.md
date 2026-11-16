@@ -5,7 +5,7 @@ language set in the shape of the ones already shipped (Ukrainian, Russian TORFL,
 is the record of how those were built, and every rule there applies here unless this file says otherwise.
 Asked for on 2026-11-16: "Add a Bulgarian language collection."
 
-**STATUS (2026-11-16): the alphabet deck, A1 and A2 are built** (`.claude/bulgarian/`, §6–§7). B1 to C1 and a
+**STATUS (2026-11-16): the alphabet deck, A1, A2 and B1 are built** (`.claude/bulgarian/`, §6–§8). B2, C1 and a
 phrases deck are next, one per session.
 
 Later decks under `decks/` are community content, not a change to Folio: **no changelog line and no version bump**
@@ -31,7 +31,7 @@ Ukrainian (a Cyrillic Slavic language, assembled to CEFR), and the owner may ove
 | Bulgarian Alphabet — built | `Bulgarian-Alphabet.folio-deck.json` | 30 |
 | Bulgarian A1 Beginner — built | `Bulgarian-A1.folio-deck.json` | 500 |
 | Bulgarian A2 Elementary — built | `Bulgarian-A2.folio-deck.json` | 750 |
-| Bulgarian B1 Intermediate | `Bulgarian-B1.folio-deck.json` | 1,000 |
+| Bulgarian B1 Intermediate — built | `Bulgarian-B1.folio-deck.json` | 1,000 |
 | Bulgarian B2 Upper Intermediate | `Bulgarian-B2.folio-deck.json` | 1,500 |
 | Bulgarian C1 Advanced | `Bulgarian-C1.folio-deck.json` | 1,500 |
 | Bulgarian Phrases and Expressions | `Bulgarian-Phrases-and-Expressions.folio-deck.json` | — |
@@ -132,3 +132,25 @@ New from reading the ranking: `select.EXCLUDE` grew by fourteen — forms of the
 "piece of news", `право` "right", `продължа(вам)` "to continue", `пич` "dude". **A1 rebuilds byte-identical, and so
 does A2.** Known, left: the fill keeps the subtitles' police and drama vocabulary (`убиец`, `пистолет`, `ченге`,
 `детектив`) and slang (`пич`, `гадже`, `готин`), as A1 kept `дя́вол`.
+
+## 8. As built (2026-11-16): B1
+
+`python3 .claude/bulgarian/run.py --level b1`. 1,000 notes: 267 from the B1 inventory (work, education, the media and
+technology, the environment, society and politics, law and crime, money, health and a way of life, relationships
+and feelings, culture and the arts, the problems of travel, opinions and connectives, describing people and things,
+the verbs of deciding and changing, the economy and science, public life) and 733 by frequency, none taught below;
+sentences for 819, three apiece for 524 — Tatoeba's 19,258 Bulgarian pairs are wearing thin. The B1 `SCOPE` quotes the
+CEFR B1 global descriptor. **The inventory's share is the smallest yet because Wiktionary's Bulgarian is thinnest
+here**: 61 of the first draft's words have no lemma (`кариера`, `пенсия`, `заплащане`, `курс`, `новини`, `имейл`,
+`околна среда`, `избори`, `стрес`, `лечение`, `катастрофа`, `може би`, `разбира се`, and most `-ирам` verbs —
+`планирам`, `организирам`), so the draft was topped up with ninety words checked against the extract first, and the
+missing ones taken out. `чек` ("chequer" only), `права` ("make, constitution", not "rights") and `спестявания` (a
+participle) were taken out too. New from reading the ranking: `select.EXCLUDE` grew by twenty-six — names (`дон`,
+`ким`, `скот`, `лос`, `док`, `мак`, `стан`, `дан`), chemical elements counted from a country (`франций` Франция,
+`индий`, `калифорний`, `германий`), lemmas whose own forms barely count (`почин`, `спека`, `рея`, `гар`, `аба`,
+`ахам`, `бон`), forms and variants (`обед`, `тука`, `вашия`, `неговия`), the bookish `ала`, the note `ре`, the subtitle
+credits, and `страхувам` (glossed only as a pointer to страхувам се). `ETYMS` takes `накажа` "to punish" and `ранен`
+"wounded" before "early"; `LEAD` orders `зарежа` "to abandon", `развивам` "to develop", `партия` "party", `образование`
+"education", `свобода` "freedom"; `build_deck.english` drops a usage example Wiktionary filed as a sense (`у́мствен
+бага́ж ― …`). **A1, A2 and B1 rebuild byte-identical.** Known, left: the fill carries the subtitles' military and
+fantasy vocabulary (`генерал`, `сержант`, `меч`, `вещица`, `чудовище`) as the levels below do.

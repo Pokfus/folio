@@ -3716,7 +3716,8 @@ changed was the one that had been wrong all along.
   collection"; copied from `.claude/ukrainian/`, the word source, sizes and card following the Ukrainian set, and the
   owner may overrule them). **Built: the alphabet, `decks/Bulgarian-Alphabet.folio-deck.json`** (30 letters) **and A1,
   `decks/Bulgarian-A1.folio-deck.json`** (500 notes / 1,000 cards, 2026-11-16) **and A2,
-  `decks/Bulgarian-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16); B1 to C1 and the phrases deck are
+  `decks/Bulgarian-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16) **and B1,
+  `decks/Bulgarian-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-16); B2, C1 and the phrases deck are
   next. `python3 .claude/bulgarian/run.py [--level a1]`, `python3 .claude/bulgarian/alphabet.py`,
   `node .claude/bulgarian/check-bulgarian.js`; a re-run is byte-identical. A verb's headword is its first person
   singular present (Bulgarian has no infinitive); the card shows a noun's definite form, plural and count form and a
