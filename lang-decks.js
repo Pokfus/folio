@@ -5,6 +5,7 @@
    section without fetching 438 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-Pinyin-and-Tones.folio-deck.json", id: "hsk30pin", title: "Mandarin Chinese — Pinyin and tones", sub: "68 sounds, tones and tone changes — start here, beside Level 1", notes: 68, cards: 68, ex: 100, bytes: 70898, rev: "6a1571dc957f" },
+  { lang: "Mandarin Chinese", file: "Mandarin-Bopomofo.folio-deck.json", id: "hsk30bpm", title: "Mandarin Chinese — Bopomofo", sub: "62 zhuyin symbols, tone marks and combinations — beside Pinyin and tones", notes: 62, cards: 62, ex: 100, bytes: 72249, rev: "80fd41ebcd21" },
   { lang: "Mandarin Chinese", file: "Mandarin-Level-1-Character-Parts.folio-deck.json", id: "hsk30cmp", title: "Mandarin Chinese — Character parts for Level 1", sub: "The 42 parts Level 1's characters share — beside Level 1", notes: 42, cards: 42, ex: 0, bytes: 56285, rev: "11c8003fd5d5" },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "The first 300 words, greetings and numbers first — study with Pinyin and tones", notes: 300, cards: 600, ex: 100, bytes: 725089, rev: "1e6dab112a5d" },
   { lang: "Mandarin Chinese", file: "Mandarin-First-Phrases.folio-deck.json", id: "hsk30fst", title: "Mandarin Chinese — First phrases", sub: "80 replies, days and first questions made of Level 1's words — beside Level 1", notes: 80, cards: 160, ex: 64, bytes: 141984, rev: "5968bb02573d" },

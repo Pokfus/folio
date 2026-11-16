@@ -20,6 +20,13 @@ changed was the one that had been wrong all along.
 - `decks/*.folio-deck.json` — **the community decks**, files a reader imports through the Studio. Not part
   of the site and never loaded by it: a deck file is somebody else's content that happens to have been
   written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
+  **A THIRTEENTH, `Mandarin Chinese — Bopomofo` (`hsk30bpm`, 62 notes), WAS ADDED ON 2026-11-16 ON REQUEST** ("add
+  another deck to learn bopomofo"), by the same `build-beginner.js` from `beginner-bopomofo.json`: the five tone
+  marks, the 37 symbols in use (ㄪ ㄫ ㄬ ㄭ are not carded) and 20 two-symbol combinations; origins, IPA, pinyin
+  and notes quoted from Wikipedia's "Bopomofo" at a named revision, the sound descriptions shared with the
+  pinyin deck's table, every example word a Level 1 to 3 card's own Bopomofo field. Its reading field is
+  named `In pinyin`, not `Pinyin`, so `check-decks.js` does not take it for a vocabulary deck. `levelRank`
+  files it at -1.5, after Pinyin and tones.
   **THE MANDARIN SET IS TWELVE FILES SINCE THE BEGINNER PASS (Nov 2026, on request, after an audit of what a
   learner with no Chinese meets; reasoning and measurements in `docs/mandarin-review.md`, "The beginner
   pass").** Three decks were added below and beside Level 1 — **Pinyin and tones** (`hsk30pin`, 68 notes),
