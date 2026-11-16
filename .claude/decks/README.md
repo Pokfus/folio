@@ -103,7 +103,7 @@ in a record that is re-applied after a rebuild. The beginner pass (`docs/lang-de
 beginner pass") follows the Spanish model, with one more file in the chain: **`paradigm-fix.js` runs
 first** (the folds, shared with Italian and Portuguese), `french-fix.js` second.
 
-    node paradigm-fix.js --check          # the folded paradigms (le, la; mon, ma …)
+    node paradigm-fix.js --check          # the folded paradigms (le, la; mon, ma …) — by hand, not in CI
     node french-fix.js --check            # the seven decks carry their fixes, their order and their pinned ids
     node build-french-sounds.js --check   # the sounds deck is what its table and DELF A1 give
 

@@ -1892,7 +1892,8 @@ changed was the one that had been wrong all along.
   `french-order.js`): DELF A1's teaching order and the phrases' reading-level tiers. **THE SOUNDS DECK
   IS BUILT, NOT WRITTEN** (`build-french-sounds.js` from `french-sounds.json` and the shipped A1), reads
   no live source, and is of card type `frsound`, so every French tool selects its decks by card type
-  (`delf`) and never by file name. `--check` of all three runs in CI. After a rebuild:
+  (`delf`) and never by file name. `french-fix.js --check` and `build-french-sounds.js --check` run in CI
+  (`paradigm-fix.js --check` does not: run it by hand). After a rebuild:
   `paradigm-fix.js`, `french-fix.js`, `build-french-sounds.js`, `../build-lang-decks.js`. Six stages, run by
   `run.py`,
   caching its corpora in `.claude/delf-cache/` (~760 MB, gitignored). PYTHON, like `.claude/dele/` and
@@ -4487,8 +4488,9 @@ this section is the reasoning.
 - **The pace stated** in the A1, phrases and sounds descriptions (A1 is 96 days), and every description
   count that moved corrected. Three "three apiece" counts were already wrong before this pass (A2 said
   587, the file had 566) and are set to what is there.
-- **CI**: `french-fix.js --check`, `build-french-sounds.js --check`, and `paradigm-fix.js --check`,
-  which no workflow had been running.
+- **CI**: `french-fix.js --check` and `build-french-sounds.js --check`. `paradigm-fix.js --check` is
+  still run by no workflow: it is shared with Italian and Portuguese, whose own passes were under way in
+  parallel, so it was left for whoever owns all three to gate.
 
 ### What was decided against, and why
 

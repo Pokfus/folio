@@ -3344,8 +3344,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   and Portuguese) runs first. `French-Sounds-and-Spelling` is built by `build-french-sounds.js` from
   `french-sounds.json` and the shipped A1 and reads no live source. Decks are selected by card type
   (`delf`), never by file name. Re-run after touching any of them: `node .claude/decks/paradigm-fix.js
-  --check`, `node .claude/decks/french-fix.js --check`, `node .claude/decks/build-french-sounds.js
-  --check` (all three in CI) and `node .claude/test-lang-decks.js`. Reasoning and measurements:
+  --check` (by hand; not in CI), `node .claude/decks/french-fix.js --check`, `node
+  .claude/decks/build-french-sounds.js --check` (both in CI) and `node .claude/test-lang-decks.js`. Reasoning and measurements:
   `docs/lang-decks.md`, "The French beginner pass".
 - **📖 `.claude/decks/spanish-fixes.json` + `spanish-fix.js` — THE ONE WAY A DELE SPANISH DECK IS
   HAND-EDITED, AND THE ONLY PLACE AN EDIT MAY BE MADE.** `mandarin-fix.js`'s model, for the opposite
