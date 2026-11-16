@@ -77,6 +77,54 @@ def forms_of(row, lex):
     return out
 
 
+# THE PHRASES DECK ONLY: an expression that IS a verb (`baciti oko`, `praviti se lud`) is
+# matched with its verb in any form of that verb -- the verb word being whichever word is a
+# verb lemma (-ti, -ći) -- and every other word as written.  The levels keep their exact
+# matching, so they rebuild byte-identical.
+def phrase_parts(row, lex):
+    words = [fold(t) for t in tokens(row['word'])]
+    alts = [{w} for w in words]
+    L = lex.get(row['key'], {})
+    if any(e['pos'] == 'verb' for e in L.get('entries', [])):
+        for i, w in enumerate(words):
+            if not (w.endswith('ti') or w.endswith('ći')):
+                continue
+            V = lex.get(w, {})
+            if 'alt_of' in V:
+                V = lex.get(V['alt_of'], {})
+            for e in V.get('entries', []):
+                if e['pos'] == 'verb':
+                    alts[i] |= {fold(t['f']) for t in e['table'] if ' ' not in t['f']}
+            if len(alts[i]) > 1:
+                break
+    return words, alts
+
+
+# THE PHRASES DECK ONLY: a sentence that holds the expression's words in their LITERAL sense
+# teaches the wrong thing on the card, so it is skipped for that expression.  Read off the
+# first build.
+LITERAL = {
+    # "how are you?": these ask "how did you ..."
+    'kako si': {'Како си провео дан?'},
+    'kako ste': {'Како сте дошли до школе?', 'Како сте стигли до школе?',
+                 'Како сте сазнали шта се десило?'},
+    # the filler "what's-it-called": these ask what something is called
+    'kako se zove': {'Како се зове ова игра?', 'Како се зове твој друг?', 'Како се зове?'},
+    # "of course; as if": this asks "how do I not let ..."
+    'kako da ne': {'Како да не дам птицама да праве гнезда у димњаку?'},
+    # "I love you": a joke whose point is the negation
+    'volim te': {'Не волим те, волим само мајонез.'},
+}
+
+
+def seq_hit(ft, words, alts):
+    n = len(words)
+    for j in range(len(ft) - n + 1):
+        if all(ft[j + k] in alts[k] for k in range(n)):
+            return ft[j:j + n]
+    return None
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     lex = json.load(open('lex.json', encoding='utf-8'))
@@ -90,7 +138,18 @@ def main():
     for row in rows:
         words = fold(row['word']).split()
         cands = []
-        if len(words) > 1:
+        if LEVEL == 'phr' and len(words) > 1:
+            pw, alts = phrase_parts(row, lex)
+            seen = set()
+            for fm in sorted(alts[0]):
+                for i in index.get(fm, []):
+                    if i in seen:
+                        continue
+                    seen.add(i)
+                    hit = seq_hit(toks[i][3], pw, alts)
+                    if hit:
+                        cands.append((i, 0, hit))
+        elif len(words) > 1:
             for i in index.get(words[0], []):
                 ft = toks[i][3]
                 for j in range(len(ft) - len(words) + 1):
@@ -113,8 +172,9 @@ def main():
             n = len(toks[i][3])
             return (own, 0 if 4 <= n <= 10 else 1, len(toks[i][1]), toks[i][0])
         picked = []
+        skip = LITERAL.get(row['key'], ()) if LEVEL == 'phr' else ()
         for c in sorted(cands, key=rank):
-            if c[0] in used:
+            if c[0] in used or toks[c[0]][1] in skip:
                 continue
             used.add(c[0])
             _, s, en, _ = toks[c[0]]

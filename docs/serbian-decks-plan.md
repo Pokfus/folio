@@ -5,8 +5,8 @@ language set in the shape of the ones already shipped (Ukrainian, Polish, Hindi 
 record of how those were built, and every rule there applies here unless this file says otherwise. Asked for on
 2026-11-16: "Add a Serbian language collection."
 
-**STATUS (2026-11-16): COMPLETE to the plan — the alphabet deck and all five levels, A1 to C1, are built**
-(`.claude/serbian/`, §6–§10). A phrases deck (§5, Phase 3) is not begun.
+**STATUS (2026-11-16): COMPLETE — the alphabet deck, all five levels (A1 to C1) and the phrases deck are built**
+(`.claude/serbian/`, §6–§11).
 
 Later decks under `decks/` are community content, not a change to Folio: **no changelog line and no version bump**
 for them. The collection's first commit carried one line and one bump, because it also changed the APP (the
@@ -40,6 +40,7 @@ The request named no word source, size or script, so the session took the arrang
 | Serbian B1 Intermediate — built | `Serbian-B1.folio-deck.json` | 1,000 |
 | Serbian B2 Upper Intermediate — built | `Serbian-B2.folio-deck.json` | 1,500 |
 | Serbian C1 Advanced — built | `Serbian-C1.folio-deck.json` | 1,500 |
+| Serbian Phrases and Expressions — built | `Serbian-Phrases-and-Expressions.folio-deck.json` | 88 |
 
 ## 2. Sources and licences
 
@@ -214,3 +215,29 @@ grew by sixty-five — Croatian words (`obiteljski`, `scenarij`, `krivnja`, `nav
 form (`kime`) and a crude word. `ETYMS` takes `konac` "thread" over a bookish "end"; `LEAD` puts `tečnost` "liquid",
 `šah` "chess", `prilog` "contribution", `nastavak` "continuation", `kasa` "cash register", `dužina` "length" and
 `snalaziti` "to get by" first. **All five levels rebuild byte-identical.**
+
+## 11. As built (2026-11-16): the phrases deck
+
+`python3 .claude/serbian/run.py --level phr` runs `phrases.py` in place of `select.py` (Ukrainian's stage re-keyed).
+88 expressions in three subdecks, the Indonesian, Turkish, Hindi and Ukrainian arrangement (`docs/lang-decks.md`,
+"THE PHRASES DECK"): **35 Phrases** (Wiktionary's multi-word phrases and interjections not tagged idiomatic — `како
+си`, `у потпуности`, `ако Бог да`, the birthday, New Year and Christmas wishes and the Orthodox festival greetings with
+their replies, `Христос се роди` — `ваистину се роди`, `Христос васкрсе` — `ваистину васкрсе`), **37 Idioms** (a sense
+tagged idiomatic — `бабе и жабе`, `кад на врби роди грожђе`, `открити топлу воду`) and **16 Proverbs** (`ко рано рани
+две среће граби`, `ми о вуку, а вук на врата`). Nothing a level teaches is repeated (`лаку ноћ`, `добар дан` are A1's).
+Ordered by Tatoeba occurrences, then frequency; 25 occur in a Tatoeba sentence, 23 carry sentences, 4 three.
+
+**The deck is small because the source is**: English Wiktionary's Serbo-Croatian holds under a hundred and fifty
+multi-word phrases and proverbs in Latin script, far fewer than its Ukrainian; nothing is added from outside it.
+
+**Findings:** `examples.phrase_parts` matches an expression's verb (`-ti`, `-ći`) in any of its forms, for this deck
+only; `examples.LITERAL` skips sentences that use the words literally (`Како сте дошли до школе?` for "how are you?",
+`Како се зове ова игра?` for the filler "what's-it-called", a joke built on `не волим те`). Excluded, each with its
+reason in `phrases.EXCLUDE` (19): Ijekavian or Croatian forms (`sretan put`, `ljubav je slijepa`, `dvije muhe`,
+`namjerama`), the same expression twice (the imperfectives `otkrivati` / `izmišljati toplu vodu`, the half `mi o
+vuku`, `ja te volim`), phrasebook sentences (`imam pitanje`, `trebam taksi`), a compound noun (`muškatni oraščić`),
+religious invocations (the Hindi and Ukrainian rule; the festival greetings stay) and a crude proverb. **A re-run is
+byte-identical, and all five levels rebuild byte-identical with the changed stages.**
+
+**Known, left.** Some idioms open on Wiktionary's literal gloss before the figurative one (`капу кројити` "to sew a
+hat", `мирна Босна` "peaceful Bosnia"), as the source writes them; `jesti komu iz ruke` keeps Wiktionary's `komu`.
