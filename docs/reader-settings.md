@@ -416,6 +416,57 @@ Ten bullets, in the order they appeared in CLAUDE.md:
 
 ---
 
+## The Settings page, compacted (2026-11-16)
+
+Out of an audit of `#settings`, which measured it at 5,455px (5.7 screens) on a 1440×950 laptop and 8,074px
+(9.6 screens) on a 390×844 phone. It is 3,066px and 4,755px now. `node .claude/test-settings-page.js` guards
+everything below; re-run it after touching `PAGES.settings`, `inlineModal` or the `.set-*` rules.
+
+- **One sentence, and the rest behind "More"** (`info(title, short, more, sub)` in `PAGES.settings`; one
+  delegated `.set-more` listener). Description prose was 47% of the phone page. `more` is the old paragraph
+  itself, not a summary of it; the button is tied to the sentence's last word (`.set-tail`) so it never
+  wraps to a line of its own, and is named "More about <row>" for a screen reader. A row's status line
+  (storage, last backup, the review order's note) is `sub`, always shown.
+- **The cards.** Appearance (theme, Match my device, Night mode) spans both columns. Left: Study, Data.
+  Right: Accessibility (Text size, High contrast, Animations, Describe geography maps — out of Appearance and
+  Study), Reading, Audio, Atlas. Then **Help and about** — the walkthrough, "How Folio studies you", the
+  keyboard sheet and Sources and credits as one strip of links (`.set-links`; the ids `#replayTour`,
+  `#howLink`, `#creditsBtn` and `[data-keysheet]` are unchanged) — and the danger zone. The two columns are
+  grouped to come out level; re-measure when a row is added.
+- **Width and padding.** `.stage:has(.settings)` is 1120px from a 1200px viewport (two 393px columns left the
+  sentence beside a control 200–280px to wrap in); a row's padding is 12px, not 18.
+- **Theme tiles** are three across on a phone, a swatch and a name (the unlock date is in the tooltip), and
+  as many as fit from 1200px. The worn tile carries `aria-pressed`. The "hover to try it on" sentence is said
+  only where `(hover: hover)` matches.
+- **Review order** is a `<select>` of `deckOrdersFor(REVIEW_ENTRY)`, not a switch — see `docs/daily-study.md`.
+- **Daily limits** opens `openGlobalLimits()`: the "All decks" half of the Daily limits dialog on its own.
+  The figures themselves stay in that dialog, where they went in Aug 2026; an untouched Save writes nothing
+  (it would set `limitsCustom` and take every kind of deck off its own default).
+- **Rows that belong to a switch are in the page only while it is on**: the read-aloud voice and speed
+  (`.tts-dep`, `ttsRowsOn()`), and the reminder's time (`#remindTimeRow`, `hidden`). "Play sample" stands
+  beside the voice select. The reminder's platform note is behind "More", and is opened by the switch when
+  the browser cannot fire one in the background.
+- **Back up and restore** are one row with both buttons under the prose.
+- **Faults fixed.** Night mode had two keydown listeners, so Enter or Space flipped it twice and it could not
+  be worked from a keyboard. `.ed-day:focus-visible` (and the card browser's search) used `var(--focus)`, a
+  token defined nowhere, so no ring was drawn. Text size said the Atlas's names keep their size a month
+  after they stopped. The seven day buttons are a seven-cell grid (they wrapped to two lines at 390px) and
+  44px tall on a phone, as are the speed buttons; a switch's hit area is padded to 46px by `::before`. "Day
+  ends at" carries `max="12:00"` and says so. At night the time field is `color-scheme:dark` (its clock icon
+  was dark on dark). "Use less data" is drawn locked where the browser's own Data Saver forces it on.
+- **Reset progress** says what it clears (history, streak, badges, artefacts) on the row as well as in the
+  dialog, says when signed in that it reaches the account, and the dialog offers "Download a backup first".
+- **`inlineModal`** (every `inlinePrompt` / `inlineConfirm` on the site) is named by its message
+  (`aria-labelledby`), labels its field, keeps Tab inside itself, returns the focus to what opened it, and no
+  longer confirms on Enter while the focus is on Cancel. `opts` is optional: `inputLabel`, `danger` (focus
+  starts on Cancel — Restore uses it), `extra: { label, run }` (a third button that does not close).
+- **Left as it was, on purpose**: the scheduler choice, the day's end, the days off and load balancing stay
+  per device (`S.settings` is not in `PROGRESS_FIELDS`); the Scheduling row now says so. Two devices can
+  therefore run different schedulers over the same synced cards — moving these into the synced blob is a
+  decision for the owner, not a tidy-up. The dormant TTS keys (`tts`, `ttsMuted`, `ttsNarrator`) were not touched.
+- **Not rendered by the suite**: reminders switched on (a dev origin has no service worker), and a device's
+  real voice list.
+
 ## Read-aloud, set aside — moved out of `CLAUDE.md` (2026-09-11)
 
 **READ BEFORE CHANGING THE TTS GATE OR A DECK'S SPEECH CONTROL.** The account as it stood in
