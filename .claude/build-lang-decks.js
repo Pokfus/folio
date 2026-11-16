@@ -84,7 +84,12 @@ const LANGS = [
   { word: "Russian", name: "Russian", l1: 145, total: 210 },     // Ethnologue 28th ed. (2026), via Wikipedia, read 2026-10-30
   { word: "Japanese", name: "Japanese", l1: 124, total: 126 },  // Ethnologue (29th ed., 2026), via Wikipedia's list, read 2026-10-30
   { word: "Persian", name: "Persian (Farsi)", l1: 91, total: 127 }, // Farsi + Dari + Tajik, Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
-  { word: "Vietnamese", name: "Vietnamese", l1: 86, total: 97 },  // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
+  { word: "Vietnamese", name: "Vietnamese", l1: 86, total: 97 },
+  /* CANTONESE (Nov 2026): Wikipedia's Cantonese article gives no speaker figure in its infobox, so the row is
+     Yue Chinese's, of which standard Cantonese is by far the largest variety: 85 million L1 (Ethnologue 28th
+     ed., via the Yue Chinese infobox) and 86 total (the "List of languages by total number of speakers"
+     table), both read 2026-11-15. The word "Cantonese" files no Mandarin deck: those are named "Mandarin-". */
+  { word: "Cantonese", name: "Cantonese", l1: 85, total: 86 },  // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
   { word: "Turkish", name: "Turkish", l1: 85, total: 94 },        // Wikipedia's infobox (Ethnologue 2022 says 77.6)
   { word: "Telugu", name: "Telugu", l1: 83, total: 96 },          // Census of India 2011 (82.97 million), via Wikipedia's infobox, read 2026-11-09
   { word: "Korean", name: "Korean", l1: 81, total: 82 },          // Wikipedia's infobox (81.2 million, as of 2020), read 2026-11-09
@@ -94,6 +99,7 @@ const LANGS = [
   { word: "French", name: "French", l1: 74, total: 334 },
   { word: "Italian", name: "Italian", l1: 65, total: 66 },
   { word: "Hausa", name: "Hausa", l1: 58, total: 94 },            // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
+  { word: "Yoruba", name: "Yoruba", l1: 48, total: 53 },         // Wikipedia's "List of languages by total number of speakers" (Ethnologue 2026: 48 L1 + 5 L2), read 2026-11-15; the infobox gives 47.9 L1, 49.9 total (Ethnologue 28th ed., 2023)
   { word: "Amharic", name: "Amharic", l1: 35, total: 60 },       // Ethnologue 28th ed. (34.9 L1, 2020; 60.0 total, 2019–2020), via Wikipedia's infobox, read 2026-11-15
   { word: "Indonesian", name: "Indonesian", l1: 43, total: 255 },
   { word: "Polish", name: "Polish", l1: 40, total: 43 },          // Ethnologue (27th ed., 2021), via Wikipedia's infobox, read 2026-11-09
@@ -102,6 +108,7 @@ const LANGS = [
   { word: "Dutch", name: "Dutch", l1: 25, total: 30 },              // Wikipedia's infobox (2021 figure), read 2026-11-09
   { word: "Thai", name: "Thai", l1: 27, total: 71 },              // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
   { word: "Romanian", name: "Romanian", l1: 22, total: 22 },    // Wikipedia's infobox (22.2 million, Ethnologue 27th ed., 2020), read 2026-11-09
+  { word: "Khmer", name: "Khmer (Cambodian)", l1: 19, total: 21 }, // Ethnologue 28th ed. (19.5 L1, 2019; 20.5 total, 2019–2024), via Wikipedia's infobox, read 2026-11-15
   { word: "Greek", name: "Greek", l1: 13.5, total: 13.5 },          // Wikipedia's infobox (2015 figure), read 2026-11-09
   { word: "Zulu", name: "Zulu", l1: 12, total: 28 },            // Wikipedia's infobox (Ethnologue), 12.1 million, read 2026-11-09
   { word: "Hungarian", name: "Hungarian", l1: 12, total: 12 },    // Wikipedia's infobox (12 million, 2021–2023), read 2026-11-09
@@ -110,6 +117,7 @@ const LANGS = [
   { word: "Hebrew", name: "Hebrew", l1: 5, total: 9 },         // Wikipedia's infobox (Ethnologue 2018: 9 million speakers of Modern Hebrew, 5 million native), read 2026-11-12
   { word: "Swahili", name: "Swahili", l1: 5, total: 95 },       // Wikipedia's infobox, 5.3 million L1 (Ethnologue 27th ed.; 92 million L2), read 2026-11-09
   { word: "Finnish", name: "Finnish", l1: 5, total: 5 },        // Wikipedia's infobox ("5.0 million", Finland 4.75 million in 2023), read 2026-11-15
+  { word: "Lao", name: "Lao", l1: 3.7, total: 4.5 },          // Wikipedia's infobox (Ethnologue 27th ed.: 3.69 million L1, 2015; 0.80 million L2), read 2026-11-15
   /* NORWEGIAN (Nov 2026): Wikipedia's infobox (read 2026-11-15) gives 4.32 million native speakers (2012, De Smedt et
      al., The Norwegian Language in the Digital Age) and no second-language figure, so `total` is its L1, as Hungarian's. */
   { word: "Norwegian", name: "Norwegian", l1: 4.3, total: 4.3 },
@@ -141,9 +149,20 @@ function levelRank(title) {
   /* AN ALPHABET COMES BEFORE EVERY LEVEL (Oct 2026, Russian): its level decks carry no
      transliteration, so the alphabet is the first thing a learner opens, not a phrase book after them. */
   if (/\bAlphabet\b/.test(title)) return -1;
+  /* MANDARIN'S THREE BEGINNER DECKS (Nov 2026, docs/mandarin-review.md "The beginner pass"). Pinyin and
+     tones is the rung below everything: every card's reading is written in it. The character parts sit
+     between it and Level 1, whose characters they are; the first phrases follow Level 1, whose words they
+     are made of. Tested BEFORE the level rule below, which would read the "Level 1" in a title and file
+     the parts deck beside Level 1 itself. */
+  if (/\bPinyin and tones\b/.test(title)) return -2;
+  if (/\bCharacter parts for Level 1\b/.test(title)) return -1;
+  if (/\bFirst phrases\b/.test(title)) return 0.5;
   /* ZULU'S NOUN CLASSES AND SOUNDS COME BEFORE A1 (Nov 2026): Zulu is written in the Latin alphabet, so its
      first deck is the classes and clicks every word card names, Hindi's alphabet's counterpart. */
   if (/\bNoun Classes\b/.test(title)) return -1;
+  /* CANTONESE'S JYUTPING AND TONES COME BEFORE A1 (Nov 2026): Chinese characters are not an alphabet, so the
+     collection's first deck is the romanisation and the six tones every word card prints. */
+  if (/\bJyutping\b/.test(title)) return -1;
   const m = /\b([ABC][12])\b/.exec(title);
   if (m) return LEVELS.indexOf(m[1]);
   /* THE KANA COME BEFORE EVERY LEVEL: Japanese cannot be read at all until hiragana and katakana are learnt, so

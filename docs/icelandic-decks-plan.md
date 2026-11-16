@@ -126,7 +126,8 @@ is the check. **A re-run is byte-identical** (verified, extract included). A1: 5
 The shelf's hue is measured (`lang-icelandic` in `app.js`): swept against all 74 other hues inside the shelf's band,
 the magenta band's standing rejection kept and the greens left out. The raw winner, a deep indigo (`#333C81`), stood
 13.2 from the blue of Iceland's flag and was refused, as Finnish refused its flag's blue; the runner-up, `#303696`, an
-ultramarine, is 14.1 from its nearest (Urdu) and 23.2 from the flag.
+ultramarine, is 14.1 from its nearest (Urdu) and 23.2 from the flag. Re-swept at the merge with main (2026-11-16)
+against all 78 other hues, Khmer, Yoruba and Lao having arrived: it is now the winner outright, unchanged.
 
 ## 7. As built (2026-11-16): A2
 

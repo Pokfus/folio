@@ -384,3 +384,15 @@ Guarded by `test-layout.js`, `test-minigames.js`, `test-review-decks.js`, `test-
 `test-a11y.js` (the banner carries a solid `background-color` under its gradient, which is what the
 contrast sweep reads).
 
+
+
+## On this day (2026-11-15, on request)
+
+`homeOnThisDayHTML` draws a full-width box under `.home-two` listing up to three cards whose effective `timeline`
+field (`cardTimelineField`) names TODAY's month and day — an event's `at` ("happened"), a period's `from` ("began")
+or `to` ("ended"). Only a date written to the day counts, so a year-only card is never put on a day it does not
+claim; the date is the one the card states (a date before 1582 is the sources' Julian one). Pool:
+`availableCardIdSet`; the reader's studied cards are preferred, then shown oldest first. On a day no card claims
+(about 43 of 366 at the time of writing) the box is not drawn. Its link opens `#timeline/day-MM-DD`
+(`PAGES.timeline`), every card on that calendar day; each card's own timeline section links to its collection's
+`#timeline/<collection id>`.

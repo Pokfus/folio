@@ -1065,3 +1065,15 @@ write nothing, `gameProgress` resumes nothing and `gameLockedToday` locks nothin
 way to any other page, and the banner says "Archive — not recorded". The day runs from yesterday back 365
 days (the code keeps no start date). An archived day replays TODAY'S pools on the past seed, so a day whose
 pool has changed since deals what it would deal now. `test-minigames.js` shims `gameDayStr` for its Node sweep.
+
+
+## Today among friends (2026-11-15, on request)
+
+Every results screen goes through `gameShareHTML`, so the board (`gameFriendsHydrate`) rides under its Share
+button and a new game gets it for nothing. **Nothing new is stored or synced**: a day's result is already
+`S.games[key]` (`{ date, played, won, s, n }`) in the progress blob, and an accepted friend's blob is readable
+under the existing RLS; the board asks for that one key (`/progress?user_id=in.(…)&select=user_id,games:data->games`),
+at most once a minute (`_gfCache`). A friend counts as having played when their record's `date` is today's
+`todayStr()`; their figure is as fresh as their last sync. Ranked by won, then score share; ties share a rank.
+Signed-out readers and the games archive get no board; a reader with no friends gets one line pointing to the
+Account page.

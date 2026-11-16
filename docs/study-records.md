@@ -517,3 +517,21 @@ contradict the page below it. **A STREAK IS ONLY LIVE IF IT WAS TOUCHED TODAY OR
 carries a 40 in their blob, and printing it as a current streak compares against something that is not
 happening. **Nothing is ranked beyond the pair** — a wider standing would have to be published
 somewhere `progress` is not.
+
+
+## Weak spots and Year in review (2026-11-15, on request)
+
+Two read-only pages reached from the account page, both computed from registers that already exist — nothing new
+is stored or synced.
+
+* **`#weak` (`PAGES.weak`)** reads the card records alone (`S.cards`: `reps`, `lapses`, `leech`), because those are
+  synced and complete where the per-review log is local. A group's figure is (reps − lapses) / reps over its studied
+  cards, by collection, deck, period (`weakEra`: the card's timeline start, else the first year of its answer term)
+  and tag; a group is ranked only with five studied cards and twenty answers. A card's weakness is its lapse share
+  shrunk on few answers plus a leech's mark; a card never forgotten is never weak. "Study my weakest 20" and each
+  group's Study button deal through the ordinary `{type:"ids"}` session, so grades count, as "Recalled once" does.
+* **`#year[/<YYYY>]` (`PAGES.year`)** sums the synced `reviewLog` (answers, days, time, recall, longest run, busiest
+  day and month — kept `REVIEW_LOG_DAYS`, and a year that began before the window says so) and counts the
+  first-seen registers (`glossSeen`, `placesSeen`, `achievements`, `artefacts`, `collAdded`, `reading[].at`) by
+  their timestamps. New cards met and the collections studied most come from the local per-review log and are
+  labelled "On this device".

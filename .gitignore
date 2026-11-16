@@ -235,7 +235,7 @@ countries-info.json
 .claude/persian-cache/
 
 # the corpora .claude/zulu/run.py builds the Zulu decks from — the Wiktionary extract,
-# the Zulu Wikipedia dump and the Tatoeba exports (~180 MB) — plus the intermediate
+# the Zulu Wikipedia dump and the Tatoeba exports (~160 MB) — plus the intermediate
 # files between its stages. The decks it writes ARE committed.
 .claude/zulu-cache/
 
@@ -274,6 +274,11 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports (~220 MB) — plus
 # the intermediate files between its stages. The decks it writes ARE committed.
 .claude/hebrew-cache/
+
+# the corpora .claude/cantonese/run.py builds the Cantonese decks from — CC-CEDICT,
+# CC-Canto, HKCanCor (out of the PyCantonese wheel) and the Tatoeba exports (~160 MB) —
+# plus the intermediate files between its stages. The decks it writes ARE committed.
+.claude/cantonese-cache/
 # the corpora .claude/amharic/run.py builds the Amharic decks from — the Wiktionary
 # extract, the Amharic Wikipedia dump and the Tatoeba exports (~130 MB) — plus the
 # intermediate files between its stages. The decks it writes ARE committed.
@@ -292,3 +297,17 @@ countries-info.json
 # extract, the OpenSubtitles frequency list and the Tatoeba exports, plus the
 # intermediate files between its stages. The decks it writes ARE committed.
 .claude/icelandic-cache/
+# the corpora .claude/khmer/run.py builds the Khmer decks from -- the Wiktionary
+# extract, the Khmer Wikipedia dump, the Tatoeba exports and the romanisations read
+# off Wiktionary's pages (~160 MB) -- plus the intermediate files between its stages.
+# The decks it writes ARE committed.
+.claude/khmer-cache/
+# the corpora .claude/yoruba/run.py builds the Yoruba decks from — the Wiktionary
+# extract, the Yoruba Wikipedia dump and the Tatoeba exports (~150 MB) — plus the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/yoruba-cache/
+
+# the corpora .claude/lao/run.py builds the Lao decks from — the Wiktionary extract,
+# the Lao Wikipedia dump and the Tatoeba exports (~140 MB) — plus the intermediate
+# files between its stages. The decks it writes ARE committed.
+.claude/lao-cache/

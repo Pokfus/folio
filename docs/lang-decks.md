@@ -20,7 +20,28 @@ changed was the one that had been wrong all along.
 - `decks/*.folio-deck.json` — **the community decks**, files a reader imports through the Studio. Not part
   of the site and never loaded by it: a deck file is somebody else's content that happens to have been
   written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
-  The Mandarin set is **NINE** files — 11,532 notes / 23,064 cards, 20.5 MB: the seven HSK 3.0 levels of
+  **THE MANDARIN SET IS TWELVE FILES SINCE THE BEGINNER PASS (Nov 2026, on request, after an audit of what a
+  learner with no Chinese meets; reasoning and measurements in `docs/mandarin-review.md`, "The beginner
+  pass").** Three decks were added below and beside Level 1 — **Pinyin and tones** (`hsk30pin`, 68 notes),
+  **Character parts for Level 1** (`hsk30cmp`, 42) and **First phrases** (`hsk30fst`, 80) — written by
+  `.claude/decks/build-beginner.js` from files in this repo only (the shipped Level 1 to 3 decks,
+  `beginner-pinyin.json`, `beginner-phrases.json`); `--check` says whether they are current, and it must be
+  re-run after `mandarin-fix.js` changes Level 1, 2 or 3, which they quote. The rules a later change must
+  keep: **A CARD ID IS PINNED TO ITS NOTE** in `.claude/decks/mandarin-ids.json` (deck → headword or key →
+  number). The ids were positional and the Update press merges by id; never delete or renumber a row, a new
+  note takes the next free number, and `mandarin-fix.js --check` fails a deck that disagrees with the pin.
+  **THE ORDER A DECK IS DEALT IN IS `mandarin-order.json`**, a full list of headwords per deck applied by
+  `mandarin-fix.js`, which moves a note with its id and rewrites `num` only. Level 1's first 74 notes are
+  written by hand in `mandarin-order.js` (courtesies, the first sentence, pronouns, question words, numbers,
+  function words, days); everything else is by how often the nine decks' own sentences use the word, and
+  the Everyday phrases are tiered by the level that can read them. **THE SETS ARE AN ORDER INSIDE ONE LIST,
+  NEVER SUBDECKS** (the app deals subdecks in parallel). **NOTHING IN THE THREE DECKS IS COMPOSED**: a First
+  phrases row is a CC-CEDICT entry captured verbatim or a sentence a shipped card already carries, a sound's
+  description is a quotation, an example word is a shipped card. `build-lang-decks.js`'s `levelRank` puts
+  the sounds first, the parts next, Level 1, then the first phrases. **The in-app "By frequency" order was
+  NOT made the default**: it counts only notes in memory, so on a downloaded deck it acts only after
+  something has loaded the whole deck — the count is baked into the file order instead.
+  The other nine are 11,532 notes / 23,064 cards, 20.5 MB: the seven HSK 3.0 levels of
   the 2026 standard plus the two the syllabus leaves out, **Everyday phrases** (159) and **Idioms**
   (477 chengyu). **It was ONE file of nine subdecks until Aug 2026 and was split on a bug report**: "why
   are the file sizes in the Mandarin Chinese collection all the same? It shouldn't download the whole
@@ -3707,6 +3728,29 @@ changed was the one that had been wrong all along.
   carried onto its second noun, the stub formulae, glosses that are not the counted word) are
   📖 `docs/zulu-decks-plan.md`. The `l1` row is 12 million (Ethnologue via Wikipedia); the hue is measured,
   `#9A012F` (re-swept at the merge: Greek had taken `#6D67D1`'s neighbour). `levelRank` sorts "Noun Classes" before A1.
+- `.claude/cantonese/` — the generator behind the Cantonese decks (Nov 2026, on request: "Add a Cantonese language
+  collection"; the Hindi and Thai owners' decisions taken, the owner not asked). **Built: the Jyutping and Tones deck,
+  `decks/Cantonese-Jyutping-and-Tones.folio-deck.json`** (39 notes: the six tones, the checked syllables, the
+  initials and vowels Jyutping spells unlike English) **and A1, `decks/Cantonese-A1.folio-deck.json`** (500 notes /
+  1,000 cards: 490 inventory, 10 frequency) **and A2, `decks/Cantonese-A2.folio-deck.json`** (750 notes / 1,500
+  cards: 451 inventory, 299 frequency; 2026-11-15, "Add A2" — the fill since ranked by HKCanCor alone, Tatoeba's
+  machine cut having made name fragments "common") **and B1, `decks/Cantonese-B1.folio-deck.json`** (1,000 notes:
+  395 inventory, 605 frequency, single characters, names and numerals kept out of the corpus's tail; sentences for
+  only 248, Tatoeba used up) **and B2, `decks/Cantonese-B2.folio-deck.json`** (939 notes, short of 1,500: 804 inventory, 135
+  frequency, the spoken corpus used up; a Tatoeba-ranked second tier was tried and refused as written register) **and C1, `decks/Cantonese-C1.folio-deck.json`** (598 notes, all from the inventory, short of 1,500;
+  88 four-character expressions among them) **and the phrases deck,
+  `decks/Cantonese-Phrases-and-Expressions.folio-deck.json`** (347 expressions: 47 phrases, 164 slang, 108 idioms,
+  28 proverbs; `run.py --level phr`, `phrases.py`, from CC-Canto's own slang / idiom / proverb labels, with the
+  sexual, crude and derogatory slang it files untagged left out). The collection is complete. `python3 .claude/cantonese/run.py [--level a1|a2|b1|b2|c1|phr]`,
+  `python3 .claude/cantonese/sounds.py`, `node .claude/cantonese/check-cantonese.js`; a re-run is byte-identical.
+  SPOKEN Hong Kong Cantonese in traditional characters, the simplified form beneath, Jyutping with tone digits.
+  The first set built without Wiktionary: meanings from CC-CEDICT and CC-Canto, Jyutping from CC-Canto and its
+  readings of CC-CEDICT, frequency, parts of speech and the spoken reading from HKCanCor (read out of the
+  PyCantonese wheel, never installed), sentences from Tatoeba — cut into words by Tatoeba's own word-by-word
+  Jyutping. A card is a word in ONE reading (呢 ne1 / ni1). The findings (the 2015 readings file, Yale's y in a
+  Jyutping field, the Mandarin-first sense order and `SHOW`, untagged slang, HKCanCor's particle spellings,
+  Tatoeba's untrustworthy mou2) are 📖 `docs/cantonese-decks-plan.md`. The `LANGS` row is Yue Chinese's (85 million
+  L1, 86 total); the hue is measured, `#6E2E2B` (re-swept twice: Norwegian took an ochre 1.0 from the first sweep's `#8C7126`, Finnish a sienna 2.5 from the second's `#86522A`). `levelRank` sorts "Jyutping" before A1.
 - `.claude/amharic/` — the generator behind the Amharic decks (Nov 2026, on request: "Add an Amharic language
   collection"; the Zulu and Hausa owners' answers taken, the owner not asked). **Built: the fidäl deck,
   `decks/Amharic-Alphabet.folio-deck.json`** (44 notes: the seven orders, 34 consonants with their rows, the
@@ -3725,6 +3769,41 @@ changed was the one that had been wrong all along.
   fallback; the findings (the fold's true homographs, the infinitive twins, the declension tables' faults,
   the normalised romanisation) are 📖 `docs/amharic-decks-plan.md`. The `LANGS` row is 35 million L1, 60
   in all (Ethnologue via Wikipedia); the hue is measured, `#85063D`.
+- `.claude/khmer/` — the generator behind the Khmer (Cambodian) decks (Nov 2026, on request: "Add a Cambodian
+  language collection"; Thai's arrangement taken, the owner not asked). **Built: the alphabet deck,
+  `decks/Khmer-Alphabet.folio-deck.json`** (87 notes: 33 consonants with their series and subscripts, 16 dependent
+  vowels with both series' readings, independent vowels, diacritics, punctuation, digits — every sound read from a
+  pinned revision of Wikipedia's "Khmer script") **and A1, `decks/Khmer-A1.folio-deck.json`** (500 notes / 1,000
+  cards) **and A2, `decks/Khmer-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16: a word whose Wiktionary page
+  prints no romanisation is not carded) **and B1, `decks/Khmer-B1.folio-deck.json`** (1,000 notes / 2,000 cards,
+  2026-11-16: 844 by frequency, Wiktionary running thin; a short word that never stands alone between typed breaks
+  is a fragment of the word cut and is left out, `solo.py`, gated from B1) **and the phrases deck, `decks/Khmer-Phrases-and-Expressions.folio-deck.json`**
+  (860 notes: 35 Wiktionary phrases, one of them a proverb, 825 Tatoeba sentences of up to eight words; `python3
+  .claude/khmer/phrases.py`; Wiktionary has no Khmer idioms, so Amharic's two subdecks, not Thai's three). `python3 .claude/khmer/run.py [--level a1|a2|b1]`, `python3 .claude/khmer/alphabet.py`,
+  `node .claude/khmer/check-khmer.js`; a re-run is byte-identical. Khmer writes no spaces, so the word cut is Thai's
+  maximal matching (`km.Segmenter`, on clusters, never after the coeng); the frequency is the Khmer Wikipedia's
+  (14,475 articles), as Amharic's; **the romanisation is read off each word's Wiktionary page** (`romanise.py`),
+  because the kaikki extraction's differs from the page on words with a minor first syllable. No speaker (the
+  Hausa rule). The findings are 📖 `docs/khmer-decks-plan.md`. The `LANGS` row is "Khmer (Cambodian)", 19 million
+  L1, 21 in all (Ethnologue via Wikipedia); the hue is measured, `#76281C`.
+- `.claude/yoruba/` — the generator behind the Yoruba decks (Nov 2026, on request: "Add a Yoruba language
+  collection"; the Zulu, Hausa and Amharic owners' answers taken, the owner not asked). **Built: the alphabet deck,
+  `decks/Yoruba-Alphabet.folio-deck.json`** (34 notes: the 25 letters, the three tones, the nasal vowels, the
+  syllabic nasal), **A1, `decks/Yoruba-A1.folio-deck.json`** (500 notes / 1,000 cards: 321 inventory, 179
+  frequency) **and A2, `decks/Yoruba-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16: 192 inventory,
+  558 frequency; an unmarked spelling with a commoner marked homograph is not dealt) **and B1,
+  `decks/Yoruba-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-16: 141 inventory read off the words the
+  fill does not reach, 859 frequency down to a count of one) **and the phrases deck,
+  `decks/Yoruba-Phrases-and-Expressions.folio-deck.json`** (123 notes in five subdecks: greetings, everyday phrases,
+  idioms and similes, 16 proverbs with their literal readings, 30 Tatoeba sentences; `python3 .claude/yoruba/phrases.py`;
+  the owner chose it over a B2, Wiktionary being used up). The collection is complete. `python3 .claude/yoruba/run.py [--level a1|a2|b1]`, `python3 .claude/yoruba/alphabet.py`,
+  `node .claude/yoruba/check-yoruba.js`; a re-run is byte-identical. Amharic's arrangement: about 4,300 Wiktionary
+  words, 60 Tatoeba pairs, no subtitle list, so the frequency is the Yoruba Wikipedia's (its 8,155 articles of 150
+  words or more), A1–B1 only, no hand glosses, no speaker. **A card is a TONED spelling**, read off Wiktionary's
+  headword line (its pages are titled without tones), and an unmarked spelling's count is shared out among the
+  toned ones in the proportions the carefully marked articles show; the findings (one spelling, many words; the
+  dialect "alternatives"; the contractions and the bot stubs) are 📖 `docs/yoruba-decks-plan.md`. The `LANGS` row
+  is 48 million L1, 53 in all (Ethnologue 2026 via Wikipedia's list); the hue is measured, `#3A5498`.
 - `.claude/oldenglish/` — the generator behind the Old English decks (Nov 2026, on request: "Add an Old
   English language collection"). **Built: the alphabet and pronunciation deck,
   `decks/Old-English-Alphabet.folio-deck.json`** (41 notes) **and Level 1,
@@ -3886,6 +3965,26 @@ changed was the one that had been wrong all along.
   spelling even where that spelling is a lemma (`er` is vera's). The plan and every finding are
   📖 `docs/icelandic-decks-plan.md`. The `LANGS` row is 0.39 million (Ethnologue via Wikipedia, no L2 figure); the hue
   is measured, `#303696`.
+- `.claude/lao/` — the generator behind the Lao decks (Nov 2026, on request: "Add a Lao language collection"; the
+  Thai answers taken, the owner not asked). **Built: the alphabet, `decks/Lao-Alphabet.folio-deck.json`** (79 notes:
+  the 27 consonants, the six ຫ ligatures, 27 vowels, the tone marks and two signs, the three class rules, the digits,
+  every fact from Wikipedia's "Lao script" and "Lao language") **and A1, `decks/Lao-A1.folio-deck.json`** (500 notes /
+  1,000 cards: 352 from a hand-written topic inventory, 148 by frequency). `python3 .claude/lao/run.py`,
+  `python3 .claude/lao/alphabet.py`, `node .claude/lao/check-lao.js`; a re-run is byte-identical. Thai's pipeline
+  re-keyed (the same unspaced script, the same maximal-matching cut). **What is new**: Wiktionary's own Lao
+  romanisation is not one system and breaks on ຍ (ໄດ້ຍິນ "dn"), so the card's romanisation is read off the Vientiane
+  IPA (`lo.romanise`, Paiboon-style letters, each syllable's tone in Chao tone letters); no Lao frequency list could be
+  licensed, so the counts are made from the Lao Wikipedia dump, ONLY over runs the dictionary covers whole (otherwise
+  syllables of unknown words took the counts); Wiktionary holds about 2,400 Lao words and lacks ວ່າ, ຍັງ, ເອົາ, ຢາກ, ຄິດ
+  and more, which are left out, not glossed by hand; Tatoeba has about 230 Lao sentences, so 394 of A1's words have
+  none. **A2 built (2026-11-16)**: `decks/Lao-A2.folio-deck.json`, 750 notes / 1,500 cards (389 inventory, 361
+  frequency; bare "abstract noun of" entries skipped). **B1 built (2026-11-16)**: `decks/Lao-B1.folio-deck.json`,
+  471 notes / 942 cards (358 inventory, 113 frequency, capped at 500), the last level Wiktionary's Lao can fill — no
+  B2 or C1 until it grows.
+  **Phrases deck built (2026-11-16)**: `decks/Lao-Phrases-and-Expressions.folio-deck.json`, 79 notes (5 Wiktionary
+  phrases, 72 Tatoeba sentences romanised word by word from Wiktionary's IPA, 2 proverbs); `python3 .claude/lao/phrases.py`.
+  📖 `docs/lao-decks-plan.md`. The `LANGS` row is 3.7 million L1, 4.5 in all
+  (Ethnologue 27th ed., via Wikipedia's infobox); the hue is measured, `#426A43`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
