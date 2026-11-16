@@ -2,7 +2,7 @@
 """Build a Yoruba deck, end to end.
 
     python3 .claude/yoruba/run.py                 # A1
-    python3 .claude/yoruba/run.py --level a2      # another level (inventory first: inventory.py)
+    python3 .claude/yoruba/run.py --level a2      # another level: a2 (inventory first: inventory.py)
     python3 .claude/yoruba/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/yoruba/run.py --re-extract    # rebuild the counts and the lexicon
     python3 .claude/yoruba/alphabet.py            # the alphabet deck (reads lex.json)

@@ -17,12 +17,16 @@ THE FILL'S EXCLUSIONS, each for a fault it produced on reading the ranking:
     a multi-word lemma's count is only its rarest word's, halved;
   · a numeral the inventory does not teach (the ordinals of the date lines,
     keje, kẹjọ ...);
+  · from A2 on, AN UNMARKED SPELLING WHOSE MARKED HOMOGRAPH IS COMMONER (`shadowed`):
+    iwe "gizzard" beside ìwé "book", ojo "coward" beside òjò "rain", itan "thigh"
+    beside ìtàn "history".  Such a word's count is mostly its homograph written
+    carelessly, in the half-marked articles, so it is not a frequency at all;
   · the hand list `EXCLUDE`, each line with its reason.
 """
 import json, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from yo import nfc
+from yo import nfc, key, toned
 from yoruba_level import LEVEL, TARGET, f, words_below
 from inventory import INVENTORY
 
@@ -48,7 +52,55 @@ EXCLUDE = {
     'kẹsàn-án': 'an ordinal ("ninth"), from the date lines; left for A2',
     'kẹwàá': 'an ordinal ("tenth"), from the date lines; left for A2',
     'kẹrìndínlógún': 'an ordinal ("sixteenth"), from the date lines',
+    # Read off the A2 ranking (2026-11-16).
+    'ún': 'the object pronoun\'s form after u, written onto the verb',
+    'ín': 'the object pronoun\'s form after i, written onto the verb',
+    'ọ́n': 'the object pronoun\'s form after a nasal ọ',
+    'ọn': 'the object pronoun\'s form after a nasal ọ',
+    'mí': 'the object pronoun "me" after a mid- or low-tone verb, mi\'s other form; mi is taught',
+    'ayélujára': 'Wiktionary glosses first a colonial coin, not "the internet", which its count is',
+    'ìmọ̀ràn': 'Wiktionary glosses "understanding of facts"; its count is ìmọ̀ràn "advice"',
+    'dájú': 'Wiktionary glosses "to be heartless"; its count is dájú "to be certain"',
+    'péré': 'Wiktionary glosses "being luxuriant"; its count is péré "only, just"',
+    'dìbò': 'Wiktionary glosses only a kind of divination; its count is dìbò "to vote"',
+    'ète': 'Wiktionary glosses "dead skin"; its count is ète "plan, aim"',
+    'pàṣípààrọ̀': 'Wiktionary glosses only "metathesis"; its count is "exchange"',
+    'àdánidá': 'Wiktionary glosses "abandonment"; its count is àdánidá "natural"',
+    'ìbùkún': 'Wiktionary\'s gloss is garbled ("to act of drawing out"); the word is "blessing"',
+    'àfojúsùn': 'Wiktionary glosses "fixed gaze"; its count is àfojúsùn "goal, target"',
+    'gbòǹgbò': 'Wiktionary glosses "to be protruding"; its count is gbòǹgbò "root"',
+    'àgbájọ': 'Wiktionary glosses "raking"; its count is àgbájọ "collection, totality"',
+    'pátákó': 'Wiktionary glosses "being hard and flat"; its count is pátákó "board"',
+    'ìpọ́njú': 'Wiktionary glosses a darkening of the skin; its count is ìpọ́njú "hardship"',
+    'sẹ́nétọ̀': 'Wiktionary defines it only by a pointer to aṣòfin-àgbà',
+    'emi': 'its count is èmi "I", taught at A1, written without its mark',
+    'yè': 'Wiktionary glosses "mother"; its count is the verb yè "to survive"',
+    'odo': 'Wiktionary glosses "core of a syllable"; its count is odò "river", unmarked',
+    're': 'the solfège syllable; its count is rẹ̀ and rè unmarked',
+    'go': 'its count is the English "go" of the articles',
+    'èèyàn': 'a spoken form of ènìyàn "person", taught at A1',
+    'míì': 'a short form of mìíràn "other", taught at A1',
+    'èkejì': 'the ordinal pronoun "the second one"; kejì "second" is taught at A1',
+    'Ẹ̀gbá': 'a people\'s name (the Ẹ̀gbá), from the history articles',
+    'Fúlàní': 'a people\'s name, from the history articles',
+    'atọ́ka': 'Wiktionary glosses an owl; its count is atọ́ka "index, pointer"',
+    'àkókó': 'Wiktionary glosses a woodpecker; its count is àkókò "time", miswritten',
+    'ọ̀sìn': 'Wiktionary glosses a vulture; its count is ìsìn / ọ̀sìn "worship, rearing"',
+    'egbin': 'Wiktionary glosses an antelope; its count is ẹ̀gbin "filth", miswritten',
+    'dan': 'Wiktionary glosses only a counter-charm; its count is dán "to shine", unmarked',
+    'gbígbà': 'the verbal noun of gbà "to take, accept", taught at A1',
+    'gbígbá': 'the verbal noun of gbá "to hit, to play", taught at A1',
+    'jíjẹ': 'the verbal noun of jẹ "to eat", taught at A1',
+    'bẹ́rẹ̀': 'Wiktionary glosses an elderly relative; its count is bẹ̀rẹ̀ "to begin", miswritten',
+    'Aláké': 'the title of the Ẹ̀gbá king, from the history articles',
 }
+
+
+def shadowed(h, lex, by_key):
+    """An unmarked spelling with a marked homograph that is commoner (from A2 on)."""
+    if toned(h):
+        return False
+    return any(o != h and toned(o) and lex[o]['freq'] >= lex[h]['freq'] for o in by_key[key(h)])
 
 
 def usable(L):
@@ -77,6 +129,9 @@ def main():
                          'source': 'inventory', 'topic': topic})
     n_inv = len(rows)
     excl = {nfc(s).lower() for s in EXCLUDE}
+    by_key = {}
+    for h_ in lex:
+        by_key.setdefault(key(h_), []).append(h_)
     fill = []
     for h, L in sorted(lex.items(), key=lambda kv: (-kv[1]['freq'], kv[0])):
         if len(rows) + len(fill) >= TARGET[LEVEL]:
@@ -86,6 +141,8 @@ def main():
         if not usable(L) or L['freq'] < 1:
             continue
         if all(e['pos'] in ('phrase', 'intj', 'num', 'prep_phrase') for e in L['entries']):
+            continue
+        if LEVEL != 'a1' and shadowed(h, lex, by_key):
             continue
         seen.add(h)
         fill.append({'key': h, 'word': L['word'], 'freq': L['freq'], 'pos': '',

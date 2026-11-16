@@ -21,6 +21,21 @@ taught), rọrùn "to be easy", dáhùn "to answer", ọmọbìnrin / ọmọkù
 "cold", ilé ìdáná "kitchen", ọkọ̀ òfurufú "aeroplane", the greetings with ẹ kú
 (ẹ kú àárọ̀ ...), and the language's own name, Yorùbá, which Wiktionary files as
 a proper name.
+
+A2 IS SCOPED TO THE CEFR A2 DESCRIPTOR, looked up the same way (2026-11-16).
+The ordinals A1's fill left out are here.  English Wiktionary has none of the
+twelve traditional Yoruba months (Ṣẹ́rẹ́, Èrèlè ... Ọ̀pẹ̀; it files Agẹmọ only as
+"chameleon"), so the months are not taught.  Nor these, which A2 would have:
+ìtìjú "shame", bínú "to be angry", ronú "to think hard", yàn "to choose", tẹ̀lé
+"to follow", dúpẹ́ "to thank", kún "to be full", ṣófo "to be empty", yàtọ̀ "to be
+different", wúlò "to be useful", òtòṣì "poor person", ọlọ́gbọ́n "wise person",
+ìjì "storm", mànàmáná "lightning", òtútù "cold", ẹ̀rùn "the dry season", awakọ̀
+"driver", nọ́ọ̀sì "nurse", akọ̀wé "clerk", hòtẹ́ẹ̀lì "hotel", tíkẹ́ẹ̀tì "ticket",
+rédíò "radio", Ọlọ́run "God", Kìrìsìtẹ́nì "Christian", bíbélì "Bible", lẹ́ẹ̀kan
+"once", kíákíá "quickly", díẹ̀díẹ̀ "slowly", ṣáájú "before", àfi "except",
+pàápàá "especially".  Left out for their glosses: ayélujára (filed first as a
+colonial coin, not "the internet"), ìmọ̀ràn ("understanding of facts", not
+"advice"); ìbà is "praise" there, and fever is ibà, which the fill deals.
 """
 
 INVENTORY = {
@@ -73,5 +88,49 @@ INVENTORY = {
         ('little words of place and manner',
          'ibí gan-an pẹ̀lú láti sí:prep nínú lórí lábẹ́ lẹ́gbẹ̀ẹ́ níwájú lẹ́yìn:prep kò:particle máa ń '
          'yóò ti:particle tẹ́lẹ̀ bẹ́ẹ̀ yìí náà èyí ìyẹn gbogbo nǹkan ohun kan mìíràn'),
+    ],
+    'a2': [
+        ('numbers and order',
+         'kẹrin karùn-ún kẹfà keje kẹjọ kẹsàn-án kẹwàá ìdajì'),
+        ('time of day and meals',
+         'ìrọ̀lẹ́ kùtùkùtù oúnjẹ_àárọ̀ oúnjẹ_ọ̀sán oúnjẹ_alẹ́ aago láìpẹ́'),
+        ('directions and places',
+         'òsì ọ̀tún ẹ̀gbẹ́ pópó òpópónà afárá ààlà òkèèrè olú-ìlú ìjọba_ìbílẹ̀ àgbàlá ṣọ́ọ̀bù '
+         'ilé-ìkàwé ilé_ẹjọ́'),
+        ('clothes and things worn',
+         'bùbá ìró:noun gèlè agbádá aṣọ_òkè ẹ̀gbà:noun òrùka ìlẹ̀kẹ̀ sálúbàtà'),
+        ('work and jobs',
+         'ọlọ́pàá agbẹjọ́rò alágbẹ̀dẹ onídìrí ọ̀mọ̀wé oníṣègùn gbẹ́nàgbẹ́nà télọ̀ ahunṣọ ọ̀gá '
+         'owó_oṣù kíláàsì'),
+        ('relatives and the stages of life',
+         'ìyá_ìyá àna ìbejì àgbàlagbà opó ìsìnkú ìbí ọ̀gbẹ́ni oyún'),
+        ('feelings',
+         'ayọ̀ ìbànújẹ́ ìbínú ẹ̀rù:noun ìrètí àníyàn yọ̀:verb bẹ̀rù sunkún rẹ́rìn-ín ẹ̀rín ẹkún'),
+        ('travel and visiting',
+         'ìrìn_àjò àlejò takisí ọ̀kadà òfuurufú ìsinmi'),
+        ('the countryside and the weather',
+         'ọ̀dàn adágún òkìtì ihò erékùṣù aṣálẹ̀ ìkùukùu àrá ẹ̀fúùfù ìrì rọ̀:verb irin'),
+        ('the body and health',
+         'ikọ́ ọ̀fun ẹ̀dọ̀ ikùn egungun awọ ẹ̀dọ̀fóró ìfun ọmú èékánná àtàǹpàkò orúnkún '
+         'ìgbọ̀nwọ́ èjìká ẹ̀rẹ̀kẹ́ ètè'),
+        ('food and the kitchen',
+         'ìyẹ̀fun ẹ̀fọ́ àlùbọ́sà tòmátì ẹ̀pà ànàmọ́ ẹ̀gẹ́ oyin òróró ewébẹ̀ àkàrà ọkà ìṣáná '
+         'ọpọ́n ìgò ife àpò:noun agbọ̀n:noun ìgbálẹ̀ ọṣẹ'),
+        ('the things of a home',
+         'ògiri òrùlé dígí ẹ̀rọ_amóhùnmáwòrán ẹ̀rọ_ìbánisọ̀rọ̀ fìtílà àpótí ìrọ̀rí abẹ́rẹ́ okùn '
+         'fọ́tò'),
+        ('talking, learning and deciding',
+         'ìdáhùn ìbéèrè òtítọ́ irọ́ ìlérí àlàyé gbólóhùn òwe àlọ́:noun ewì ìwé_ìròyìn ẹjọ́ '
+         'olè rò:verb ránṣẹ́'),
+        ('the everyday verbs of doing',
+         'dá_dúró gé gún fà dì:verb jẹun bọ́ bọ̀ dìde dùbúlẹ̀ sinmi fò:verb jà sún_mọ́ '
+         'gbẹ:verb jìnnà dọ̀tí pọ́n:verb'),
+        ('describing people',
+         'olówó aláìní ọlọ́rọ̀ ọ̀lẹ aláàánú'),
+        ('the feasts and the faith',
+         'ìjọ àdúrà gbàdúrà Kérésìmesì àjọ̀dún ìgbàgbọ́ Mùsùlùmí àlùfáà òrìṣà Ifá ààwẹ̀ '
+         'àgbélébùú ọpẹ́ ijó ìlù'),
+        ('little words',
+         'bóyá àyàfi kódà'),
     ],
 }

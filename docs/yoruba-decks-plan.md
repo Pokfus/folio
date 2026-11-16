@@ -5,8 +5,8 @@
 were built, and every rule there applies here unless this file says otherwise. The owner was not asked:
 the Zulu, Hausa and Amharic owners' answers were taken, the sources being as thin (§2).
 
-**STATUS (2026-11-15): the alphabet deck and A1 are built** (`.claude/yoruba/`, §6). A2 and B1 are next,
-one level per session, then a phrases deck.
+**STATUS (2026-11-16): the alphabet deck, A1 and A2 are built** (`.claude/yoruba/`, §6–§7). B1 is next,
+then a phrases deck.
 
 ## 1. The decisions (taken from the Zulu, Hausa and Amharic sets)
 
@@ -25,7 +25,7 @@ one level per session, then a phrases deck.
 |---|---|---|
 | Yoruba Alphabet — built | `Yoruba-Alphabet.folio-deck.json` | 34 |
 | Yoruba A1 Beginner — built | `Yoruba-A1.folio-deck.json` | 500 |
-| Yoruba A2 Elementary | `Yoruba-A2.folio-deck.json` | 750 |
+| Yoruba A2 Elementary — built | `Yoruba-A2.folio-deck.json` | 750 |
 | Yoruba B1 Intermediate | `Yoruba-B1.folio-deck.json` | 1,000 |
 | Yoruba Phrases and Expressions | `Yoruba-Phrases-and-Expressions.folio-deck.json` | — |
 
@@ -92,7 +92,7 @@ noun, jí "to wake up" as a particle). The days of the week keep Wiktionary's ca
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 then B1, one level per session: write
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 (done) then B1, one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `yoruba_level.py`; read the ranking for new
 exclusions; read every card. **Phase 3** — the phrases deck (Wiktionary's phrase and proverb entries — it has
 17 proverbs — and Tatoeba's sentences). A level must leave the levels below it byte-identical.
@@ -113,3 +113,28 @@ which begins almost no word, the first that has it). Every sound side is unique 
 The shelf's hue is measured: `#3A5498`, an indigo. Swept against the 74 hues on the page, two points tied at
 13.4 — a brick red in the crowded red-brown band (the Viking Age, Russia, Cantonese, Indonesian within 14.3)
 and this indigo — and the tie went to the indigo, the colour of adire cloth. 7.2:1 against white.
+
+## 7. As built (2026-11-16): A2
+
+`python3 .claude/yoruba/run.py --level a2`. 750 notes / 1,500 cards: 192 from the inventory (`inventory.A2`, 17
+topics scoped to the A2 descriptor, the ordinals A1 held back among them), 558 by frequency; sentences for 197,
+other spellings for 8. **A re-run is byte-identical, and A1 and the alphabet still rebuild byte-identical**
+(the two new weak-sense patterns below touch no A1 card).
+
+- **THE INVENTORY IS SMALL because Wiktionary is**: of about 330 A2 words looked up, about 140 are missing —
+  all twelve Yoruba months (Agẹmọ is filed only as "chameleon"), ìtìjú, bínú, ronú, yàn, tẹ̀lé, dúpẹ́, kún,
+  ìjì, mànàmáná, awakọ̀, nọ́ọ̀sì, hòtẹ́ẹ̀lì, rédíò, Ọlọ́run … (`inventory.py` names them). The frequency fill
+  carries the rest, so A2 is mostly the Wikipedia's commonest remaining words.
+- **AN UNMARKED SPELLING WHOSE MARKED HOMOGRAPH IS COMMONER IS NOT DEALT** (`select.shadowed`, from A2 on):
+  iwe "gizzard" beside ìwé "book", ojo "coward" beside òjò "rain", itan "thigh" beside ìtàn — such a word's
+  count is mostly its homograph written carelessly. A1 shipped without the rule and is left as it is.
+- **MORE EXCLUSIONS** (`select.EXCLUDE`, "Read off the A2 ranking"): the rest of the object pronoun's
+  vowel-copies (ún, ín, ọ́n, ọn, mí), verbal nouns of taught verbs (gbígbà, jíjẹ), spoken or short forms of
+  taught words (èèyàn, míì), people's names (Ẹ̀gbá, Fúlàní, Aláké), and some twenty words Wiktionary glosses by
+  a rare sense where the count is the common one (dájú "to be heartless" for "certain", péré, dìbò, àfojúsùn,
+  ayélujára, ìmọ̀ràn …), each with its reason.
+- **WEAK SENSES**, two patterns added to `extract.py`: a grass, vine or palm's scientific name (bẹrẹ "the grass
+  Anadelphia afzelia") and a vulgar sexual sense (dó is "to settle" first). `LEAD` adds ayò, the game.
+
+**Known, left.** The fill is the encyclopaedia's again: government and history (ṣàkóso, amúnisìn, olú-ìlú),
+linguistics (àkọtọ́, sílébù, fonọ́lọ́jì), sport (líìgì). Two thirds of the cards have no sentence.

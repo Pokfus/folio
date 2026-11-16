@@ -43,6 +43,19 @@ SCOPE = {
                   'describing things, and the little words of place and manner every sentence is '
                   'built out of',
     },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'gloss': 'able to manage simple, routine exchanges of information on familiar matters '
+                 '— personal and family information, shopping, the local area, work — and to '
+                 'describe in simple terms their background, their surroundings and what they '
+                 'immediately need',
+        'topics': 'the ordinals, the times of day and meals, directions and places, clothes, work and '
+                  'jobs, relatives and the stages of life, feelings, travel, the countryside and the '
+                  'weather, the body and health, food and the kitchen, the things of a home, talking '
+                  'and learning, the everyday verbs of doing, describing people, and the feasts and '
+                  'the faith',
+    },
 }
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner'}
 

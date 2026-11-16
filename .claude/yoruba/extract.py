@@ -51,9 +51,9 @@ KEEP_TAGS = {'transitive', 'intransitive', 'ditransitive', 'stative', 'auxiliary
 # A SENSE THAT IS A PLANT'S OR AN ANIMAL'S SCIENTIFIC NAME, or a sexual one, is weak too: the
 # spelling's everyday word comes first (ọ̀kan "one" before Sorindeia juglandifolia; le "to be
 # hard" before its sexual sense), and such a sense is shown only where nothing else is.
-TAXON = re.compile(r'^(?:[Tt]he (?:tree|herb|plant|shrub) )?[A-Z][a-z]+ [a-z]{3,}(?: \(|$|,)|\(syn\. |'
-                   r'\([A-Z][a-z]+ [a-z]{3,}\)|\b[Tt]he (?:tree|herb|plant|shrub) [A-Z][a-z]+ [a-z]+')
-SEXUAL = re.compile(r'\b(?:erection|penis|vagina|vulva|sexual|intercourse|copulate|testicle)', re.I)
+TAXON = re.compile(r'^(?:[Tt]he (?:tree|herb|plant|shrub|grass|vine|palm) )?[A-Z][a-z]+ [a-z]{3,}(?: \(|$|,)|\(syn\. |'
+                   r'\([A-Z][a-z]+ [a-z]{3,}\)|\b[Tt]he (?:tree|herb|plant|shrub|grass|vine|palm) [A-Z][a-z]+ [a-z]+')
+SEXUAL = re.compile(r'\b(?:erection|penis|vagina|vulva|sexual|intercourse|copulate|testicle|fuck)', re.I)
 
 LETTER = re.compile(r'^the name of the latin(?: script)? letter|^the (?:first|\w+) letter of the yoruba',
                     re.I)

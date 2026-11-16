@@ -3751,8 +3751,9 @@ changed was the one that had been wrong all along.
 - `.claude/yoruba/` — the generator behind the Yoruba decks (Nov 2026, on request: "Add a Yoruba language
   collection"; the Zulu, Hausa and Amharic owners' answers taken, the owner not asked). **Built: the alphabet deck,
   `decks/Yoruba-Alphabet.folio-deck.json`** (34 notes: the 25 letters, the three tones, the nasal vowels, the
-  syllabic nasal) **and A1, `decks/Yoruba-A1.folio-deck.json`** (500 notes / 1,000 cards: 321 inventory, 179
-  frequency). `python3 .claude/yoruba/run.py [--level a1]`, `python3 .claude/yoruba/alphabet.py`,
+  syllabic nasal), **A1, `decks/Yoruba-A1.folio-deck.json`** (500 notes / 1,000 cards: 321 inventory, 179
+  frequency) **and A2, `decks/Yoruba-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16: 192 inventory,
+  558 frequency; an unmarked spelling with a commoner marked homograph is not dealt). `python3 .claude/yoruba/run.py [--level a1|a2]`, `python3 .claude/yoruba/alphabet.py`,
   `node .claude/yoruba/check-yoruba.js`; a re-run is byte-identical. Amharic's arrangement: about 4,300 Wiktionary
   words, 60 Tatoeba pairs, no subtitle list, so the frequency is the Yoruba Wikipedia's (its 8,155 articles of 150
   words or more), A1–B1 only, no hand glosses, no speaker. **A card is a TONED spelling**, read off Wiktionary's

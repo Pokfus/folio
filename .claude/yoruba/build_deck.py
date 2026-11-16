@@ -71,6 +71,7 @@ LEAD = {
     'ẹ̀wà': 'general name for beans',   # first listed is "the bean plant"
     'iye': 'value',                 # first listed is a title of respect; the count is "amount"
     'ìdí': 'reason',                # first listed is "buttocks"; the count is ìdí "reason"
+    'ayò': 'strategy game',         # first listed is the plants whose seeds are its counters
     'ọ̀run': 'sky',                 # first listed is a long account of the place of origin of souls
 }
 # A spelling whose other parts of speech are a dialect's or a slip, shown by these only.
