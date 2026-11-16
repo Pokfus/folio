@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1344", released: "2026-11-16T13:28Z" };
+window.FOLIO_VERSION = { v: "1.1345", released: "2026-11-16T13:44Z" };
 
 window.CHANGELOG = [
   {
@@ -61,6 +61,7 @@ window.CHANGELOG = [
       "A new <b>Bulgarian</b> language collection: an alphabet deck, A1 to C1 (5,250 words) and 143 phrases, every word with its stress marked.",
       "<b>On this day</b> now sits directly below the minigames on the home page, above the suggested reading.",
       "Italian gains a <b>Sounds and spelling</b> deck, and <b>CILS A1</b> now opens with ciao, grazie and per favore, with numbers, days and seasons together.",
+      "Portuguese gains a <b>Sounds and spelling</b> deck, and <b>CAPLE A1</b> now opens with olá, obrigado and por favor, with days, months and numbers together.",
       "Mandarin Chinese gains a <b>Bopomofo</b> deck: 62 zhuyin symbols, tone marks and combinations, each with its pinyin, sound and example words.",
       "Shakespeare's <b>Romeo and Juliet</b> (Yale edition, 1917, with its Prologue) and <b>Julius Caesar</b> (1919) are in the Library, each with its characters and every gloss.",
       "Spanish gains a <b>Sounds and spelling</b> deck, and <b>DELE A1</b> now opens with hola, gracias and por favor, in a teaching order.",
