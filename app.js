@@ -1388,10 +1388,14 @@
      popup over the map; the precedent is the Atlas's card popup, which strips the locator block), none for a community deck's term; and when the engine cannot draw it (the bundle refused, no WebGL2 for a state of the
      past, a face the engine cannot find) the block GOES rather than the card window's sentence — a popup without a map is the popup of before. WHERE IT SITS (the owner, 2026-10-23): below the
      description and the Library banner, above the Sources fold — the definition is read first, the map is where it happened, the works come last. */
-  const GLOSS_POINT_KINDS = ["capital", "city", "town", "site", "mountain", "cape", "hill", "island", "coord"];   // drawn as the gold square (a mountain or a hill as the peak triangle, 2026-11-14); every other kind as the name alone (a region, a sea, a lake, a range, a river — water in blue italic, atlas-windows.js)
+  const GLOSS_POINT_KINDS = ["capital", "city", "town", "site", "mountain", "cape", "hill", "island", "coord"];   // drawn as a gold mark: the square a present-day capital's, the circle any other's (2026-11-16), a mountain or a hill the peak triangle (2026-11-14); every other kind as the name alone (a region, a sea, a lake, a range, a river — water in blue italic, atlas-windows.js)
   function glossWindowSpec(key) { const t = window.ATLAS_GLOSSARY_PLACES; const w = key && !isDeckGlossKey(key) && t && t.windows && t.windows[key]; return Array.isArray(w) && w.length >= 6 && isFinite(w[0]) && isFinite(w[1]) ? { lon: w[0], lat: w[1], kind: String(w[2] || ""), face: w[3] ? String(w[3]) : "", year: w[4] ? Number(w[4]) : 0, zoom: w[5] ? Number(w[5]) : 0 } : null; }
+  /* A PRESENT-DAY NATIONAL CAPITAL IS THE ONLY SQUARE (2026-11-16, on request; atlas-windows.js `ownSquare`). The registry's `capital` is Natural Earth's ADM0CAP flag, which also marks
+     Johannesburg, not one of South Africa's three capitals (Pretoria, Cape Town and Bloemfontein). Its kind is read as a city's here. */
+  const GLOSS_NOT_CAPITAL = new Set(["Johannesburg"]);
   function glossWindowHTML(key, w) {
     const name = glossTitle(key);
+    if (w.kind === "capital" && GLOSS_NOT_CAPITAL.has(key)) w = Object.assign({}, w, { kind: "city" });
     const said = (w.face ? name + " shaded on an interactive globe" + (w.year ? ", at its greatest extent in " + yearLabel(w.year) : "") : name + " marked on an interactive globe") + ". Drag to turn it; pinch, scroll or use the zoom buttons to zoom; the arrow keys turn it and + and − zoom.";
     const kind = w.face ? "region" : GLOSS_POINT_KINDS.indexOf(w.kind) >= 0 ? "point" : "region";   // "region": no dot, the name centred on the point — a face carries its own shading
     return '<div class="map-card map-gloss" data-map-layer="world" data-map-named data-map-at="' + w.lon + "," + w.lat + '" data-map-atname="' + esc(name) + '" data-map-kind="' + kind + '"' + (w.kind ? ' data-map-placekind="' + esc(w.kind) + '"' : "") +
@@ -26521,7 +26525,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* ---------- THE TERM OF THE DAY (2026-11-13, on request) ----------
      "Since the Suggested Reading box now sits in the bottom left on those formats with nothing to the right of it, add a box
      there with a randomly selected daily highlighted gloss term, preferably one with an image." A tablet's and a desktop's
-     alone (styles.css hides it on a phone, where the reading box stands by itself as before). The draw is `dayPick` over the
+     alone at first; since 2026-11-16 a phone's too, directly below the reading box (both at `order:3` in styles.css). The draw is `dayPick` over the
      curated glossary — never a deck's own terms — so everyone sharing a day shares a term and it does not change on a reload;
      the pool is the terms WITH a picture and a text (the pictures and texts ride the lazy glossExtra bundle, so the box is drawn
      empty and filled when that lands), falling back to every term with a text. A press opens the term's own popup. */
@@ -31476,6 +31480,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        its nearest neighbour (Ancient Mesopotamia), then 14.3 from World History and 14.5 from Spanish, against a
        tightest existing pair of 4.0; 5.9:1 against white. */
     "lang-finnish":    { bg: "#8D572D" }, // measured sienna
+    /* BULGARIAN (Nov 2026) was not named a colour, so it was MEASURED as Finnish was: swept in CIELAB (ΔE 1976) inside
+       the shelf's band (L 28–55, chroma 7–62, 4.5:1 against white), the magenta band's standing rejection kept, the greens
+       left out, and nothing within 20 of the two colours of Bulgaria's flag. Against all 79 hues on the page: a purple,
+       14.0 from its nearest neighbour (Danish), 14.2 from Ancient Rome and 14.3 from Hindi; 6.9:1 against white. The
+       raw winner was a leaf green 15.1 from Middle-earth, refused as the greens are. Not a flag colour. */
+    "lang-bulgarian":  { bg: "#813F8D" }, // measured purple
     /* ICELANDIC (Nov 2026) was not named a colour, so it was MEASURED as Finnish was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) against all 74 other hues, the magenta band's standing
        rejection kept and the greens left out. The raw winner, a deep indigo (#333C81, 14.3), was REFUSED for standing
@@ -31505,6 +31515,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Korean's dark green, then Old English's deep green at 15.2); with the greens left out, the best was a teal
        at 13.9. 6.2:1 against white. Not a flag colour. */
     "lang-lao":        { bg: "#426A43" }, // measured leaf green
+    /* CZECH (Nov 2026) was not named a colour, so it was MEASURED as Lao was: swept in CIELAB inside the shelf's
+       band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all the hues on the
+       page, the magenta band's standing rejection kept, the greens left out and anything within 15 of the red or
+       blue of the Czech flag refused. Twice a parallel session merged first onto Czech's sweep: Navajo took
+       #3C7676 (0.1 from Czech's #3C7675), then Somali #485A5A (0.4 from Czech's re-swept #495A5A). Re-swept again
+       at the merge against all 82 other hues: two points tied at 13.1, a warm taupe at exactly 4.5:1 against white
+       and this rust red, 13.1 from its nearest neighbour (Russia's lacquer), then 13.3 from the Viking Age and
+       14.7 from Ukrainian, against a tightest existing pair of 0.4. The tie went to the rust for its contrast,
+       8.7:1 against white; 29.1 from the flag's red. Not a flag colour. */
+    "lang-czech":      { bg: "#8F2302" }, // measured rust red
     /* NAVAJO (Nov 2026) was not named a colour, so it was MEASURED as Lao was: swept in CIELAB inside the shelf's
        band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 79 hues on the page.
        The outright winner was a yellow-green (#4E7E00, 15.1), refused as a fourth green beside Middle-earth, Arabic
@@ -31513,6 +31533,31 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        5.2:1 against white. Turquoise is the subject's own argument: dootłʼizh, one of the four sacred colours of
        the Diné, of the sacred mountain of the south. Not a flag colour. */
     "lang-navajo":     { bg: "#3C7676" }, // measured turquoise-teal
+    /* MONGOLIAN (Nov 2026) was not named a colour, so it was MEASURED as Yoruba was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 80 hues on
+       the page, the magenta band's standing rejection kept and the greens left out. Its first sweep found a muted
+       teal, #3C7676 — and Navajo's, run in a parallel session, found the same colour and merged first; re-swept at
+       the merge: this golden ochre, 14.0 from its nearest neighbours (Palaeontology's ochre and India's saffron),
+       then 14.2 from Russia's Geography amber, against a tightest existing pair of 4.0; 4.5:1 against white. Not a
+       flag colour. */
+    "lang-mongolian":  { bg: "#A16C02" }, // measured golden ochre
+    /* SOMALI (Nov 2026) was not named a colour, so it was MEASURED as Yoruba was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from every hue on the
+       page, the magenta band's standing rejection kept, the greens left out and anything within 15 of the light blue
+       of the Somali flag refused. Its first sweep chose a teal, #3C7575 — and Navajo's, run in a parallel session,
+       took #3C7676 and merged first; re-swept at the merge against all 81 other hues: two points tied at 13.2, a
+       burnt orange in the crowded red-brown band (Ukrainian, Spanish, China) and this slate teal, 13.2 from its
+       nearest neighbour (Philosophy), then 13.3 from Korean and 14.4 from the Cold War, against a tightest existing
+       pair of 4.0. The tie went to the slate, nearest the collection's first colour. 7.3:1 against white; 52.4 from
+       the flag's blue. Not a flag colour. */
+    "lang-somali":     { bg: "#485A5A" }, // measured slate teal
+    /* SERBIAN (Nov 2026) was not named a colour, so it was MEASURED as Lao was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 79 hues
+       on the page, the magenta band's standing rejection kept; re-swept at the merge against all 82 others
+       (Navajo, Mongolian and Somali having joined), with the same answer. The winner is this deep forest green, 15.0 from
+       its nearest neighbour (Geography's olive), then 15.3 from World Geography's green and 15.5 from Biology's
+       forest; with the greens left out, the best was a teal at 13.8. 10.0:1 against white. Not a flag colour. */
+    "lang-serbian":    { bg: "#1C4C0E" }, // measured forest green
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
@@ -35073,13 +35118,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<div class="node-title-row">' +
           '<span class="node-title">' + esc(o.title) + '</span>' +
         '</div>' +
-        /* The count on a line of its own under the title, exactly as the curated shelf sets it — see
-           `nodeMetaHTML` in buildNode. No file size (Oct 2026, on request): Daily study's Download button
-           still says what a deck will fetch. */
-        '<div class="node-meta">' +
-          '<span class="node-count">' + (o.cards || 0).toLocaleString() + " cards</span>" +
-          langFactsHTML(o) +
-        '</div>' +
+        /* NO COUNT AND NO FACTS LINE (2026-11-16, on request: "when unfolding a language collection, its decks should not
+           say the number of cards and % of examples. The one line description is sufficient."). The row is its title and,
+           on a top-level deck, its subtitle below; Daily study's Download row still says what a deck holds and fetches.
+           `langFactsHTML` (the "N% with examples" / "no audio" chips) went with it. */
         /* THE DECK'S OWN SUBTITLE (Sep 2026). Nine decks presented as nine levels said nothing about
            where a learner should start, how big each is against the others, or where a deck outside the
            ladder fits — a shelf rather than a course. It is drawn only on a TOP-LEVEL row and only where
@@ -35109,28 +35151,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         kids.map((k, i) => langRowHTML(k, i, depth + 1)).join("") +
       "</div></div></div>" +
     "</div>";
-  }
-  /* WHAT A DECK TEACHES, ON THE SHELF (`langFactsHTML`; Sep 2026, on request). A row said how many
-     cards a deck holds and how many megabytes it costs, and nothing about whether it carries EXAMPLE
-     SENTENCES or whether its words can be HEARD — which are the two things that most decide whether a
-     vocabulary deck is worth twenty megabytes, and the two that actually vary across this shelf.
-     THE FIGURES ARE THE CATALOGUE'S, measured off each deck file by `.claude/build-lang-decks.js`, so
-     nothing here can drift from the deck it describes.
-     ONLY WHAT VARIES IS DRAWN. Every deck on the shelf is asked both ways, so saying so on all of them
-     tells a reader choosing between two of them nothing; audio is the norm and its ABSENCE is the fact,
-     so "no audio" is drawn on the eight decks that lack it and nothing at all on the rest. Example
-     coverage runs from 16% to 100% and is always drawn — with `100% examples` said as `with examples`,
-     since a percentage a reader has to notice is 100 is a percentage that should have been a word. */
-  function langFactsHTML(o) {
-    let out = "";
-    if (typeof o.ex === "number") {
-      out += '<span class="node-fact" title="How many of this deck\u2019s words come with an example sentence.">' +
-        (o.ex >= 100 ? "with examples" : esc(o.ex + "% with examples")) + "</span>";
-    }
-    if (o.say === false) {
-      out += '<span class="node-fact node-fact-no" title="This deck has no read-aloud control on its cards.">no audio</span>';
-    }
-    return out;
   }
   /* A catalogue tree node turned into a row spec, all the way down. The entry id is the same one app.js
      uses everywhere else for a subdeck of one of the reader's own decks, so a row added here is the row
