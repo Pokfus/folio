@@ -226,7 +226,10 @@ const PROBE = {
     // ordered by CORPUS COUNT rather than by a frequency list, so the commonest
     // expressions have to be near the front: this is the ordering's only
     // visible consequence and nothing else would report it going.
-    firstFew: ["não sei", "por favor", "de vez em quando"],
+    // (Nov 2026, the beginner pass: the order is the reading level FIRST — the
+    // expressions CAPLE A1's words spell — and the corpus count inside a level;
+    // `por favor` stood here until it was moved down to A1 with the courtesies.)
+    firstFew: ["não sei", "de acordo", "de vez em quando"],
     subs: ["Expressions", "Proverbs"],
     // an entry that is only said in Brazil, or only said the Brazilian way
     noBrazilian: ["onde fica o banheiro", "grana preta", "eu te amo"],

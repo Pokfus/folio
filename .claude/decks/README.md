@@ -160,6 +160,36 @@ To move a word down from a higher deck: the same, with the card's `fields` copie
 `dropDup` row on the deck it leaves. The counts a description states are recounted on every run; a figure
 typed into a `descSub` is held to the order by `german-order.js`.
 
+## The Portuguese decks: two records, the order, the pinned ids and the sounds deck (Nov 2026)
+
+The seven Portuguese decks of card type `caple` are built by `.claude/caple/` (Python, about 750 MB of live
+corpora that have been refreshed since), so every change to them is in a record. The beginner pass
+(`docs/lang-decks.md`, "The Portuguese beginner pass") added the Italian model's files: **two records**,
+applied in a fixed order, and **a word is ONE NOTE with two card templates**, so the pin is of note ids (a
+card id is the note id, plus `~2` for English → Portuguese).
+
+    node paradigm-fix.js --check               # the folded paradigms (shared with French and Italian; not in CI)
+    node portuguese-fix.js --check             # the Portuguese record, the order and the pinned ids
+    node build-portuguese-sounds.js --check    # the sounds deck is what its table and CAPLE A1 give
+
+| file | what it is |
+|---|---|
+| `paradigm-fixes.json` | SHARED, applied FIRST: one card per paradigm (`ele, ela`, `meu, minha`). The Portuguese pass did not edit it. |
+| `portuguese-fixes.json` | the Portuguese record, applied SECOND by `portuguese-fix.js`: `insert` (a moved card's six `fields` byte for byte with `from`, or `senses` / `forms` / `ex` with a source for every sentence), `decks.<id>.dropDup` and `dropForm`, `notes` (`senses`, `forms`, `ex`, `exDrop`, `exAdd`, or a rename with `word`), `subtitle` and `descSub`. Every meaning is Wiktionary's; every `src` names a Tatoeba id and how the sentence was judged European. |
+| `portuguese-ids.json` | deck id → headword (a sounds row's key) → the number in the note's id. **Never delete or renumber a row.** A removed note's row moves to `_retired` (33 of them); a rename renames the key. APPLIED, so a deck numbered by position is numbered back. |
+| `portuguese-order.json` | deck id → the full list of headwords in the order the deck is dealt (CAPLE A1, the phrases). May be edited by hand; a list that is not exactly the deck's headwords is refused. A deck with no entry is dealt in the order of its pinned numbers. |
+| `portuguese-order.js` | how that file is computed, from the PINNED NUMBER: A1's hand-written head, the closed sets (three placed at a note number), look-alikes forty apart; the phrases by reading level inside each of their two subdecks. It fails if a description's stated figures (`descSub`) no longer match the order. `--report` prints the measurements. |
+| `portuguese-sounds.json` | the sounds table: cells, notes and sentences quoted from two Wikipedia pages at the revisions it names, and Wiktionary's Portugal transcription of each A1 word. A row's `key` is what its id is pinned to. |
+| `build-portuguese-sounds.js` | writes `Portuguese-Sounds-and-Spelling` (card type `ptsound`). **Reads no live source**: the table and the shipped A1 deck. |
+
+`portuguese-fix.js` finds its decks by CARD TYPE (`caple`). To add a word to A1: an `insert` entry (the next
+free id above 548, its senses, three sentences each naming its Tatoeba id and its judgement in `src`, a
+`why`), `portuguese-fix.js`, then name the headword in the head or in a set in `portuguese-order.js` (an
+insert with no place fails that script), `portuguese-order.js`, `portuguese-fix.js` again,
+`build-portuguese-sounds.js` (A1's order decides its example words), and `node .claude/build-lang-decks.js`.
+A figure typed into a `descSub` is held to the order by `portuguese-order.js`; the counts are recounted on
+every run.
+
 ## Changing the card type's CSS
 
 `deckcore.js` holds it, and every built deck file carries a **copy** — so an edit there does not reach a

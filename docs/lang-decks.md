@@ -997,6 +997,16 @@ changed was the one that had been wrong all along.
   the DELE and Goethe arrangement exactly. It takes the **Goethe SHAPE** rather than the DELE one: one
   note with two card templates, so a corrected gloss is corrected both ways at once and each direction
   still keeps a schedule of its own.
+  · **EVERY HAND EDIT IS IN A RECORD, EVERY NOTE ID IS PINNED AND A1 AND THE PHRASES HAVE AN ORDER (Nov
+    2026, "The Portuguese beginner pass" below).** A rebuild is `run.py --level <x>` → `paradigm-fix.js` →
+    `portuguese-fix.js` → `build-portuguese-sounds.js` → `.claude/build-lang-decks.js`. `portuguese-fix.js`
+    applies `portuguese-fixes.json` (the 48 cards A1 gains, the cards a higher deck gives up, the repaired
+    meanings, the sentences taken off), puts back each note's pinned number (`portuguese-ids.json`: the
+    generator numbers by position and the Update press merges progress by id), applies
+    `portuguese-order.json` and recounts every figure the descriptions state. The figures at the head of
+    this entry are the generator's; the decks now hold 534, 497, 997, 1,386, 999, 698 and 1,332 notes, and
+    an eighth deck, `Portuguese — Sounds and spelling`, is not built here. 📖 `.claude/decks/README.md`
+    "The Portuguese decks" has the table of files.
   · **THE PHRASES DECK IS THE SEVENTH AND IT IS NOT A CEFR LEVEL** (`--level phr`; `parse_phrases.py`,
     and `PHRASES` / `SUBS` / `headwords_below` in `caple_level.py`. Aug 2026, on request: "add a deck
     with common phrases and expressions"). **It is the Mandarin set's own arrangement** — that deck
@@ -4834,6 +4844,191 @@ ten new cards a day with both directions together, which is five words a day. Th
 - **`check-goethe.js` does not finish**, on `main` or on the branch: it imports through the Studio and
   waits for a `.studio-deck` row that the page no longer shows within four minutes.
 - **The whole shelf is now 13,232 notes: 2,647 days at the default pace, 7.3 years.**
+
+## The Portuguese beginner pass (2026-11-16)
+
+On request, the audit the Japanese, Mandarin, Spanish and Italian decks had been given: **what does a learner
+with no Portuguese meet, in the order the shelf itself recommends** — CAPLE A1 to C2, then the phrases? Every
+figure was measured on the seven decks as shipped that morning, at the language default of ten new cards a day
+with both directions together, which is five words a day. The rules are in the `.claude/caple/` entry above
+and in `.claude/decks/README.md`, "The Portuguese decks"; this section is the reasoning.
+
+### What the audit found, by what it costs a beginner
+
+1. **The courtesies and the commonest words were missing or years away.** A1 held no greeting. olá and
+   obrigado were the ninth and tenth cards of B2 (day 400), sim the FIRST card of B2 (day 398, glossed
+   "indeed"), quem and qual beside them, obrigada the second card of C2 (day 878, its three sentences the
+   participle "obliged"); bom dia, boa tarde, boa noite, por favor, de nada, com licença and até logo were
+   in the phrases, which the shelf lists after C2 (day 1,018 at the earliest). **e, que, the article o / a
+   and the preposition a were cards of no deck**, nor was adeus. The A1 description said the Referencial's
+   Funções "supply the greetings, the courtesy formulas and the closed classes": the generator's cascade
+   treated them as scaffolding, and B2 and C2, which are filled by frequency, picked up what was left.
+2. **51 cards taught a minor sense as the word's meaning, 7 of them in A1.** `build_deck.py`'s `sense_rank`
+   scores a sense tagged Portugal below zero (the rule that keeps o comboio a train) and the card keeps
+   only the best-ranked senses, so a word with an ordinary untagged meaning and a regional extra showed the
+   extra alone: o tio "a posh, usually snobby, person", a carta "driver's license", saber "to taste of",
+   a mala "handbag", o casal "village; hamlet", gordo "of milk; whole" (A1); o pacote "ass", o chapéu "chip
+   (a goal…)", o sítio "website" (A2); a ponte "long weekend", a pega "whore", o túnel "nutmeg" (B1); o
+   bacalhau "handshake; vagina", o prego (B2). Counted against the English Wiktionary's own entries
+   (kaikki.org, every headword of the six levels): 7, 10, 16, 9, 8 and 1.
+3. **A further two dozen A1 cards were not what they said.** Read one by one against Wiktionary: o rádio
+   "radium", a água "a combination of water and other substance(s)", correr "to run (a program)", quanto
+   the preposition "as", tu "second-person singular prepositional pronoun" (a sense tagged Brazil), nos
+   glossed "we", lhe, vos and me by their grammatical descriptions, daí by its two Brazil-tagged senses,
+   a rapariga carrying the Brazilian derogatory sense, dezasseis and dezassete glossed "European Portuguese
+   standard spelling of dezesseis"; five cards filed as another word over three sentences of the word meant
+   (animal the adjective, computador "computing", tamanho "very large", o forte "fortress", quarto "fourth"
+   over the bedroom, a cima "summit" over em cima de); and five cards that were only a form of another (o
+   anos beside o ano, a essa "catafalque" beside esse / essa, a senhora, a menina, nossa "oh my God!", a
+   sense tagged Brazil, beside nosso).
+4. **Nothing said how a letter is read**, and European Portuguese is the Romance language furthest from its
+   spelling: 195 of A1's 491 headwords contain a spelling that has not its English value (ã, ão, a nasal
+   -m, lh, nh, ç, ch, x, rr, j, s between vowels, c or g before e and i, qu, a silent h), 49 carry a written
+   accent, and 199 end in the -e or -o that is not the full vowel.
+5. **A1 was dealt by a subtitle frequency list, and the closed sets were in four decks.** Day one was não,
+   de, um / uma, para and eu. ser was note 22, estar 61, poder 135, haver 208, querer 209, chamar-se 230,
+   the list counting the infinitive and not quero. Zero to ten ran from note 3 to 423 and eleven to
+   nineteen from 460 to 487; thirty to ninety were in B2 (days 449 to 542), cem in A2. Of the days A1 had
+   sábado and domingo, B2 terça-feira, and the other four no deck; abril was the only month carded (B2); A1
+   had verão alone of the seasons, B1 inverno. Over A1's first fifty notes 41% of the words in a card's
+   example sentences had been met on arrival and 1 of 148 sentences could be read whole (65% and 61 of
+   1,448 over the deck), chiefly because e, que, o and a were never met at all.
+6. **Brazilian sentences on a European deck.** `examples.py` rejects a sentence for a Brazilian word or the
+   gerund progressive, and says what it cannot fix. Not caught: the pronoun BEFORE the verb where Portugal
+   puts it after (Eu me lembro, Ela se despiu, vamos nos atrasar) on about 3% of the sentences of every
+   deck (45 on A1, 37 on A2, counted by a strict pattern and read), on the very cards whose tables teach
+   chamo-me: all three sentences of apresentar-se and both of despir-se; and Brazilian spellings matched as
+   forms — two of dezasseis's three sentences spell it dezesseis, all three of dezassete and of dezanove
+   the Brazilian way, o facto bolds fato, não bolds num, para bolds pra, estar bolds tão. 35% of A1's
+   sentences carry a positively European marker (tu forms, the pronoun after the verb, estar a + infinitive),
+   11% to 8% from B1 up.
+7. **The contractions were on four paradigm cards and no preposition.** 420 of A1's 1,448 sentences (29%)
+   use do, da, no, na, ao, à, pelo, num or one of the rest; de, em and por carried no Forms row.
+8. **Gender and number were sound, with one gap.** All 214 A1 nouns carry their article and 209 a plural
+   (os pães, os papéis, os meses are shown); 30 of 47 adjectives are pairs with both plurals. The 17 with one
+   form for both genders showed no plural, and they are the ones whose plural is not an added -s: difícil →
+   difíceis, azul → azuis, jovem → jovens.
+9. **Verbs were sound.** 132 A1 verbs carry the full table (six indicative tenses, three of the conjuntivo,
+   both imperatives, the personal infinitive, você on the third-person rows; the European falámos). Of the
+   390 verb forms their sentences mark, 28% are the infinitive, 25% the present, 17% the pretérito perfeito,
+   and every one is a cell of the card's table. Nothing told ser from estar, said that Portugal says estar a
+   + infinitive, or when tu, você and o senhor are used. The eleven reflexives stand beside their base verb
+   with the same part-of-speech label, so lembrar-se and lembrar both asked "to remember".
+10. **The reverse card was otherwise sound.** No two notes of a deck share an English field; the generator
+    hints same-gloss pairs (2, 1, 2, 4, 10, 2 and 155 notes, A1 to the phrases). A1 asks English →
+    Portuguese with every sense (1.9 on average, 25% of notes have three or more). The paradigm cards name
+    their own answer on that front (ele, ela: "ele — he, it"), as the Italian pass found.
+11. **The phrases deck.** Its two subdecks are what its description says (1,127 expressions, 215 proverbs,
+    each by Tatoeba's count, 715 uncounted and alphabetical), but it is the last deck on the shelf while 157
+    expressions and 9 proverbs were spelled entirely with A1's words; the app lists the two subdecks as two
+    decks and deals them side by side, so a beginner who adds the deck is dealt o tempo voa and errar é
+    humano beside não sei. Eight entries are not Portuguese or not European (buenas tardes, et al., cui bono,
+    allahu akbar, coming out, mas, né).
+12. **The counts were stale and the pace was stated nowhere.** A1's subtitle said 500 words over 491 notes
+    and its description "497 of the 491 words"; B1 and C1 said 1,000 over 998 and 999; every "together come
+    to" was the sum of the targets (5,100 for 5,086). A1 was 99 days, the six levels 1,018 days and the
+    seven decks 3.5 years.
+13. **C1 and C2 together (1,699) are smaller than B2 (1,400 + margin) by measurement, not by choice**: a
+    level's pool is the Referencial's inventory less every word a lower deck teaches, and `caple_level.py`
+    records the pools as 1,491 for B2, 1,054 for C1 and 741 for C2 — the upper levels describe what a speaker
+    does with words the lower ones already gave. `select.py` refuses a level short of its target.
+
+### What was built
+
+- **Note ids pinned** (`portuguese-ids.json`, 6,428 rows seeded before anything moved; A1 and A2 were
+  already not positional after the paradigm folds). Checked two ways. From the files, all seven decks
+  against `main`: of 6,428 old ids 6,389 name the same word, 6 a recorded rename (animal → o animal), 33 are
+  retired and none is reused; 6,217 notes are byte-identical in every field and the other 178 each have an
+  entry in the record. In a browser: a reader holding the old A1 and B2 with sixteen notes scheduled in
+  BOTH directions pressed Update on each and kept all 32 schedules on the same words, the notes the decks
+  lost (a senhora, o anos, nossa; olá, obrigado, sim and terça-feira in B2) staying on the device.
+- **A Portuguese record beside the paradigm one** (`portuguese-fixes.json`, applied by `portuguese-fix.js`
+  after `paradigm-fix.js`, which this pass does not edit): `italian-fix.js`'s model with two additions,
+  `exDrop` / `exAdd` for single sentences. It recounts every figure a description states.
+- **48 notes for A1** (ids 501 to 548). 26 MOVED, byte for byte, from B2 (olá, obrigado, sim, quem, qual,
+  terça-feira, abril, thirty to ninety), C2 (obrigada), A2 (cem), B1 (inverno) and the phrases (bom dia,
+  boa tarde, boa noite, por favor, de nada, com licença, até logo, tudo bem, muito prazer), each taken out of
+  its old deck by `dropDup`; 22 NEW (adeus, e, o / a, a, que, four days, eleven months, primavera, outono),
+  with meanings from the English Wiktionary and three Tatoeba sentences each, named by id. Every added
+  sentence says how it was judged: it carries a marker Portugal uses and Brazil does not (named: a tu form,
+  the pronoun after the verb, estar a + infinitive, o meu, a European spelling), or it is neutral — no word,
+  spelling or construction in it differs between the two. Tatoeba records no variety, so none is claimed to
+  have been written in Portugal.
+- **The meanings repaired, from Wiktionary**: the 7 Portugal-only cards of A1 and 31 of the 44 above it
+  (the ordinary sense put before the card's own; 13 left where the tagged sense IS the word's ordinary
+  meaning in Portugal, a camioneta "bus"), and the cards under 3 — five dropped as forms (`dropForm`), six
+  renamed in place to the word their sentences were of, the pronouns glossed, ser and estar given the
+  dictionary's own statement of the difference and estar the European progressive, tu and você their
+  register, the eleven reflexives the generator's own label "verb, reflexive".
+- **82 sentences taken off A1 and A2** (45 and 37: the pronoun before the verb, a Brazilian spelling, a
+  bolded word that is not the headword), replaced where the card would have been left bare or the fault was
+  the card's point (dezasseis, dezassete, catorze, apresentar-se, despir-se). dezanove has none left:
+  Tatoeba's one European sentence is twenty words.
+- **The contractions on the prepositions** (de, em, a, por: each form is its own Wiktionary entry,
+  "contraction of de + o"; com: comigo, contigo, consigo, connosco) and **the plural on the 15 one-form
+  adjectives**.
+- **An order for A1** (`portuguese-order.json`): 79 notes by hand — the courtesies, a first exchange with
+  the commonest function words, the subject pronouns, ten verbs, the question words, zero to ten — then the
+  frequency order with the days from note 121 (day 25), the numbers above ten from 201, the months and the
+  seasons from 301, and look-alikes forty apart. olá is day one; the courtesies take four days. Over the
+  first fifty notes 12 of 139 sentences can now be read whole (45% of words met); over the deck 204 of 1,510
+  (74%).
+- **`Portuguese — Sounds and spelling`** (26 notes, one card each, card type `ptsound`, first on the shelf):
+  the unstressed endings, ou and ei, the nasals, fifteen consonant letters and digraphs, six rules (the
+  stress and when it is written, the acute and the circumflex, the grave, falamos / falámos). English
+  comparisons are the cells of Wikipedia's Help:IPA/Portuguese (revision 1385653387, the EP half), sounds,
+  contexts and rules the cells, notes and sentences of "Portuguese orthography" (1378741311); every example
+  word is an A1 card with its speaker and the transcription Wiktionary gives it under the label Portugal
+  (459 of A1's words have one).
+- **The phrases tiered by reading level inside each subdeck** (Expressions 253 / 195 / 105 / 95 / 29 / 31
+  and 409 no level; Proverbs 28 with A1's words), the description saying that the Expressions can begin
+  beside A1 and the Proverbs are better left until B1.
+- **The pace stated** in the A1, phrases and sounds descriptions, and the counts recounted in all seven.
+- **CI**: `portuguese-fix.js --check` and `build-portuguese-sounds.js --check`.
+
+### What was decided against, and why
+
+- **Running the generator.** `run.py` fetches live sources: the kaikki dump was regenerated on 2026-10-30
+  (610 MB) and Tatoeba's export on 2026-11-14, so a rebuild refreshes every meaning and sentence of the
+  level it builds. The Referencial page still answers (2.9 MB), but `parse_referencial.py` records no hash
+  or count of what it read, so whether it reads the page as it did cannot be told without running it.
+  Nothing here needed it. The fault under 2 is one rule in `build_deck.py` (`sense_rank`: keep the first
+  untagged sense beside a Portugal-tagged one) and is listed, not made: a rule change needs all six levels
+  rebuilt and compared.
+- **Folding the phrases' two subdecks into one list.** The app shows them as two decks of the language
+  (`build-lang-decks.js`) and `check-caple.js` holds the deck to them; a reader who holds the deck would see
+  their cards change subdeck. The tiers and the description do the work.
+- **Re-ordering A2 to C2.** 77% to 88% of a card's example words have been met on arrival there.
+- **Cards for desculpe, até amanhã, tchau and bem-vindo.** desculpe is not an entry of the English
+  Wiktionary as an interjection: the verb desculpar stands among the courtesies with Desculpe! as its first
+  sentence. até amanhã has no entry. tchau has one with no regional label, and whether a Lisbon learner
+  should be taught that spelling could not be settled from the sources here.
+- **Removing vulgar senses** a card already showed (a pega, o pacote, o bacalhau): they are now second or
+  third, after the ordinary meaning.
+- **A grammar deck** (the personal infinitive, the position of the pronoun, tu / você / o senhor). The verb
+  tables show the first two; what could be quoted went onto the cards (ser, estar, você, o senhor).
+- **Reverse-card hints**, a first-words deck, and subdecks for the sets: as in the Spanish and Italian passes.
+
+### Limits to know about
+
+- **The A1 cards were read one by one against Wiktionary; A2 to C2 were not.** Above A1 only the
+  Portugal-only fault was counted and repaired. A card filed as the wrong word (finding 3) may stand there.
+- **Brazilian sentences were taken off A1 and A2 only**: B1 to the phrases keep about 3% with the pronoun
+  before the verb (about 95, 91, 42, 21 and 34 by a looser pattern).
+- **The paradigm cards still name their forms in the meaning** (ele, ela: "ele — he, it"; eles, elas;
+  algum, alguma), which shows the answer on the front of the English → Portuguese card. The repair is one
+  entry each in the shared `paradigm-fixes.json` (the meanings without the forms, the forms in the Forms
+  row), which this pass does not edit.
+- **A reader who already holds a higher deck keeps the card that moved** and meets it again in A1.
+- **That the courtesies, the numbers, the days, the months and the seasons are A1 material is a judgement
+  here**; the A1 description says they were added.
+- **A month carries an article** (o janeiro), as the generator writes every noun and as B2's o abril did.
+- **The sounds deck quotes two pages.** It has no row for õe or gu (no A1 headword shows them), takes its
+  English comparisons as the page gives them (one is General American: atom), and its speaker is the
+  device's pt-PT voice.
+- **`check-caple.js`'s browser half does not finish**, on `main` or on the branch: it imports the deck
+  through `#studio` and waits for an element that no longer appears. Its file half passes on all seven
+  decks; one probe was updated (por favor is now A1's).
 
 ## The DELE card-by-card audit, beyond A1 — the batch log
 
