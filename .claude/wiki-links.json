@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-15T22:34Z",
+ "generated": "2026-11-16T02:38Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8300,
-  "redirect-broader": 793,
-  "redirect-variant": 491,
+  "ok": 8386,
+  "redirect-broader": 802,
+  "redirect-variant": 492,
   "section-redirect": 190,
   "disambiguation": 154,
-  "none": 1183,
+  "none": 1187,
   "disambig-resolved": 109,
   "list-page": 6,
   "search-match": 10,
@@ -89441,6 +89441,743 @@
    "title": "Ahmedabad",
    "url": "https://en.wikipedia.org/wiki/Ahmedabad",
    "via": "answer",
+   "status": "ok"
+  },
+  "eg-401": {
+   "answer": "Precinct of Mut",
+   "title": "Precinct of Mut",
+   "url": "https://en.wikipedia.org/wiki/Precinct_of_Mut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-402": {
+   "answer": "Montu",
+   "title": "Montu",
+   "url": "https://en.wikipedia.org/wiki/Montu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-403": {
+   "answer": "Theban Necropolis",
+   "title": "Theban Necropolis",
+   "url": "https://en.wikipedia.org/wiki/Theban_Necropolis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-404": {
+   "answer": "Meretseger",
+   "title": "Meretseger",
+   "url": "https://en.wikipedia.org/wiki/Meretseger",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-405": {
+   "answer": "KV2",
+   "title": "KV2",
+   "url": "https://en.wikipedia.org/wiki/KV2",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-406": {
+   "answer": "KV57",
+   "title": "KV57",
+   "url": "https://en.wikipedia.org/wiki/KV57",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-407": {
+   "answer": "Amduat",
+   "title": "Amduat",
+   "url": "https://en.wikipedia.org/wiki/Amduat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-408": {
+   "answer": "Book of Gates",
+   "title": "Book of Gates",
+   "url": "https://en.wikipedia.org/wiki/Book_of_Gates",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-409": {
+   "answer": "Book of Caverns",
+   "title": "Book of Caverns",
+   "url": "https://en.wikipedia.org/wiki/Book_of_Caverns",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-410": {
+   "answer": "KV20",
+   "title": "KV20",
+   "url": "https://en.wikipedia.org/wiki/KV20",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-411": {
+   "answer": "Valley of the Queens",
+   "title": "Valley of the Queens",
+   "url": "https://en.wikipedia.org/wiki/Valley_of_the_Queens",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-412": {
+   "answer": "Mortuary temple",
+   "title": "Mortuary temple",
+   "url": "https://en.wikipedia.org/wiki/Mortuary_temple",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-413": {
+   "answer": "Mortuary Temple of Amenhotep III",
+   "title": "Mortuary Temple of Amenhotep III",
+   "url": "https://en.wikipedia.org/wiki/Mortuary_Temple_of_Amenhotep_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-414": {
+   "answer": "Deir el-Bahari",
+   "title": "Deir el-Bahari",
+   "url": "https://en.wikipedia.org/wiki/Deir_el-Bahari",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-415": {
+   "answer": "Sheikh Abd el-Qurna",
+   "title": "Sheikh Abd el-Qurna",
+   "url": "https://en.wikipedia.org/wiki/Sheikh_Abd_el-Qurna",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-416": {
+   "answer": "Tomb of Rekhmire",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Rekhmire",
+    "Ancient Egyptian race controversy",
+    "Art of ancient Egypt",
+    "Ancient Egyptian architecture",
+    "Hyksos"
+   ]
+  },
+  "eg-417": {
+   "answer": "Tomb of Nakht",
+   "title": "TT52",
+   "url": "https://en.wikipedia.org/wiki/TT52",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Tomb of Nakht"
+  },
+  "eg-418": {
+   "answer": "Autobiography of Ineni",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Thutmose II",
+    "Thutmose I",
+    "Index of ancient Egypt–related articles",
+    "Amenhotep I"
+   ]
+  },
+  "eg-419": {
+   "answer": "Deir el-Medina",
+   "title": "Deir el-Medina",
+   "url": "https://en.wikipedia.org/wiki/Deir_el-Medina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-420": {
+   "answer": "Servant in the Place of Truth",
+   "title": "Servant in the Place of Truth",
+   "url": "https://en.wikipedia.org/wiki/Servant_in_the_Place_of_Truth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-441": {
+   "answer": "Ramesses XI",
+   "title": "Ramesses XI",
+   "url": "https://en.wikipedia.org/wiki/Ramesses_XI",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-442": {
+   "answer": "21st Dynasty of Egypt",
+   "title": "Twenty-first Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Twenty-first_Dynasty_of_Egypt",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "21st Dynasty of Egypt"
+  },
+  "eg-443": {
+   "answer": "Tanis",
+   "title": "Tanis",
+   "url": "https://en.wikipedia.org/wiki/Tanis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-444": {
+   "answer": "Smendes",
+   "title": "Smendes",
+   "url": "https://en.wikipedia.org/wiki/Smendes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-445": {
+   "answer": "El Hiba",
+   "title": "El Hiba",
+   "url": "https://en.wikipedia.org/wiki/El_Hiba",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-446": {
+   "answer": "Pinedjem I",
+   "title": "Pinedjem I",
+   "url": "https://en.wikipedia.org/wiki/Pinedjem_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-447": {
+   "answer": "Psusennes I",
+   "title": "Psusennes I",
+   "url": "https://en.wikipedia.org/wiki/Psusennes_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-448": {
+   "answer": "Amenemope",
+   "title": "Amenemope (pharaoh)",
+   "url": "https://en.wikipedia.org/wiki/Amenemope_(pharaoh)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-449": {
+   "answer": "silver coffin of Psusennes I",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Psusennes I",
+    "Art of ancient Egypt",
+    "Wendjebauendjed",
+    "Amenemope (pharaoh)",
+    "Egyptian Museum"
+   ]
+  },
+  "eg-450": {
+   "answer": "Osorkon the Elder",
+   "title": "Osorkon the Elder",
+   "url": "https://en.wikipedia.org/wiki/Osorkon_the_Elder",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-451": {
+   "answer": "Meshwesh",
+   "title": "Meshwesh",
+   "url": "https://en.wikipedia.org/wiki/Meshwesh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-452": {
+   "answer": "22nd Dynasty of Egypt",
+   "title": "Twenty-second Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Twenty-second_Dynasty_of_Egypt",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "22nd Dynasty of Egypt"
+  },
+  "eg-453": {
+   "answer": "Shoshenq I",
+   "title": "Shoshenq I",
+   "url": "https://en.wikipedia.org/wiki/Shoshenq_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-454": {
+   "answer": "Rehoboam",
+   "title": "Rehoboam",
+   "url": "https://en.wikipedia.org/wiki/Rehoboam",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-455": {
+   "answer": "Bubastite Portal",
+   "title": "Bubastite Portal",
+   "url": "https://en.wikipedia.org/wiki/Bubastite_Portal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-456": {
+   "answer": "Osorkon II",
+   "title": "Osorkon II",
+   "url": "https://en.wikipedia.org/wiki/Osorkon_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-457": {
+   "answer": "Takelot II",
+   "title": "Takelot II",
+   "url": "https://en.wikipedia.org/wiki/Takelot_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-458": {
+   "answer": "23rd Dynasty of Egypt",
+   "title": "Twenty-third Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Twenty-third_Dynasty_of_Egypt",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "23rd Dynasty of Egypt"
+  },
+  "eg-459": {
+   "answer": "Tefnakht",
+   "title": "Tefnakht",
+   "url": "https://en.wikipedia.org/wiki/Tefnakht",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-460": {
+   "answer": "Shepenupet I",
+   "title": "Shepenupet I",
+   "url": "https://en.wikipedia.org/wiki/Shepenupet_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-461": {
+   "answer": "High Priest of Amun",
+   "title": "High Priest of Amun",
+   "url": "https://en.wikipedia.org/wiki/High_Priest_of_Amun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-462": {
+   "answer": "Sons of Horus",
+   "title": "Four sons of Horus",
+   "url": "https://en.wikipedia.org/wiki/Four_sons_of_Horus",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Sons of Horus"
+  },
+  "eg-463": {
+   "answer": "Bab el-Gasus",
+   "title": "Bab el-Gasus",
+   "url": "https://en.wikipedia.org/wiki/Bab_el-Gasus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-464": {
+   "answer": "Cartonnage",
+   "title": "Cartonnage",
+   "url": "https://en.wikipedia.org/wiki/Cartonnage",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-465": {
+   "answer": "Greenfield Papyrus",
+   "title": "Greenfield Papyrus",
+   "url": "https://en.wikipedia.org/wiki/Greenfield_Papyrus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-466": {
+   "answer": "Statue of Karomama",
+   "title": "Statue of Karomama, the Divine Adoratrice of Amun",
+   "url": "https://en.wikipedia.org/wiki/Statue_of_Karomama,_the_Divine_Adoratrice_of_Amun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-467": {
+   "answer": "Hoshea",
+   "title": "Hoshea",
+   "url": "https://en.wikipedia.org/wiki/Hoshea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-468": {
+   "answer": "Osorkon Bust",
+   "title": "Osorkon Bust",
+   "url": "https://en.wikipedia.org/wiki/Osorkon_Bust",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-469": {
+   "answer": "Battle of Qarqar",
+   "title": "Battle of Qarqar",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Qarqar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-470": {
+   "answer": "Banishment Stela",
+   "title": "Banishment Stela",
+   "url": "https://en.wikipedia.org/wiki/Banishment_Stela",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-481": {
+   "answer": "Amara West",
+   "title": "Amara, Nubia",
+   "url": "https://en.wikipedia.org/wiki/Amara,_Nubia",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Amara West"
+  },
+  "eg-482": {
+   "answer": "Heqanefer",
+   "title": "Heqanefer",
+   "url": "https://en.wikipedia.org/wiki/Heqanefer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-483": {
+   "answer": "El-Kurru",
+   "title": "El-Kurru",
+   "url": "https://en.wikipedia.org/wiki/El-Kurru",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-484": {
+   "answer": "Napata",
+   "title": "Napata",
+   "url": "https://en.wikipedia.org/wiki/Napata",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-485": {
+   "answer": "Jebel Barkal",
+   "title": "Jebel Barkal",
+   "url": "https://en.wikipedia.org/wiki/Jebel_Barkal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-486": {
+   "answer": "Kawa",
+   "title": "Kawa, Sudan",
+   "url": "https://en.wikipedia.org/wiki/Kawa,_Sudan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-487": {
+   "answer": "Kashta",
+   "title": "Kashta",
+   "url": "https://en.wikipedia.org/wiki/Kashta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-488": {
+   "answer": "Piye",
+   "title": "Piye",
+   "url": "https://en.wikipedia.org/wiki/Piye",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-489": {
+   "answer": "Victory Stele of Piye",
+   "title": "Stele of Piye",
+   "url": "https://en.wikipedia.org/wiki/Stele_of_Piye",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Victory Stele of Piye"
+  },
+  "eg-490": {
+   "answer": "Bakenranef",
+   "title": "Bakenranef",
+   "url": "https://en.wikipedia.org/wiki/Bakenranef",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-421": {
+   "answer": "Sennedjem",
+   "title": "Sennedjem",
+   "url": "https://en.wikipedia.org/wiki/Sennedjem",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-422": {
+   "answer": "Medical Ostraca of Deir el-Medina",
+   "title": "Medical Ostraca of Deir el-Medina",
+   "url": "https://en.wikipedia.org/wiki/Medical_Ostraca_of_Deir_el-Medina",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-423": {
+   "answer": "Tomb of Kha and Merit",
+   "title": "Tomb of Kha and Merit",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_Kha_and_Merit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-424": {
+   "answer": "Naunakhte",
+   "title": "Naunakhte",
+   "url": "https://en.wikipedia.org/wiki/Naunakhte",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-425": {
+   "answer": "Papyrus Salt 124",
+   "title": "Papyrus Salt 124",
+   "url": "https://en.wikipedia.org/wiki/Papyrus_Salt_124",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-426": {
+   "answer": "plumb bob",
+   "title": "Plumb bob",
+   "url": "https://en.wikipedia.org/wiki/Plumb_bob",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-427": {
+   "answer": "Gebel el-Silsila",
+   "title": "Gebel el-Silsila",
+   "url": "https://en.wikipedia.org/wiki/Gebel_el-Silsila",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-428": {
+   "answer": "Unfinished obelisk",
+   "title": "Unfinished obelisk",
+   "url": "https://en.wikipedia.org/wiki/Unfinished_obelisk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-429": {
+   "answer": "seked",
+   "title": "Seked",
+   "url": "https://en.wikipedia.org/wiki/Seked",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-430": {
+   "answer": "Royal Cache",
+   "title": "Royal Cache",
+   "url": "https://en.wikipedia.org/wiki/Royal_Cache",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-431": {
+   "answer": "KV35",
+   "title": "Tomb of Amenhotep II",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_Amenhotep_II",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "KV35"
+  },
+  "eg-432": {
+   "answer": "Pentawer",
+   "title": "Pentawer",
+   "url": "https://en.wikipedia.org/wiki/Pentawer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-433": {
+   "answer": "Sokar",
+   "title": "Sokar",
+   "url": "https://en.wikipedia.org/wiki/Sokar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-434": {
+   "answer": "Beautiful Festival of the Valley",
+   "title": "Beautiful Festival of the Valley",
+   "url": "https://en.wikipedia.org/wiki/Beautiful_Festival_of_the_Valley",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-435": {
+   "answer": "Migdol",
+   "title": "Migdol",
+   "url": "https://en.wikipedia.org/wiki/Migdol",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-436": {
+   "answer": "Djeme",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Wadjkare",
+    "Osorkon IV",
+    "Pinedjem I",
+    "Medinet Habu",
+    "Phoibammon of Preht"
+   ]
+  },
+  "eg-437": {
+   "answer": "Mentuemhat",
+   "title": "Mentuemhat",
+   "url": "https://en.wikipedia.org/wiki/Mentuemhat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-438": {
+   "answer": "Nitocris I",
+   "title": "Nitocris I (Divine Adoratrice)",
+   "url": "https://en.wikipedia.org/wiki/Nitocris_I_(Divine_Adoratrice)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-439": {
+   "answer": "Thebaid",
+   "title": "Thebaid",
+   "url": "https://en.wikipedia.org/wiki/Thebaid",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-440": {
+   "answer": "El Qurn",
+   "title": "El Qurn",
+   "url": "https://en.wikipedia.org/wiki/El_Qurn",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-471": {
+   "answer": "Bubastis",
+   "title": "Bubastis",
+   "url": "https://en.wikipedia.org/wiki/Bubastis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-472": {
+   "answer": "Serapeum of Saqqara",
+   "title": "Serapeum of Saqqara",
+   "url": "https://en.wikipedia.org/wiki/Serapeum_of_Saqqara",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-473": {
+   "answer": "Apis",
+   "title": "Apis (deity)",
+   "url": "https://en.wikipedia.org/wiki/Apis_(deity)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-474": {
+   "answer": "archaism",
+   "title": "Archaism",
+   "url": "https://en.wikipedia.org/wiki/Archaism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-475": {
+   "answer": "Nimlot of Hermopolis",
+   "title": "Nimlot of Hermopolis",
+   "url": "https://en.wikipedia.org/wiki/Nimlot_of_Hermopolis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-476": {
+   "answer": "Nubians",
+   "title": "Nubians",
+   "url": "https://en.wikipedia.org/wiki/Nubians",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-477": {
+   "answer": "Lower Nubia",
+   "title": "Lower Nubia",
+   "url": "https://en.wikipedia.org/wiki/Lower_Nubia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-478": {
+   "answer": "A-Group culture",
+   "title": "A-Group culture",
+   "url": "https://en.wikipedia.org/wiki/A-Group_culture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-479": {
+   "answer": "Ta-Seti",
+   "title": "Ta-Seti",
+   "url": "https://en.wikipedia.org/wiki/Ta-Seti",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-480": {
+   "answer": "Kerma",
+   "title": "Kerma",
+   "url": "https://en.wikipedia.org/wiki/Kerma",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-491": {
+   "answer": "25th Dynasty of Egypt",
+   "title": "Twenty-fifth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Twenty-fifth_Dynasty_of_Egypt",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "25th Dynasty of Egypt"
+  },
+  "eg-492": {
+   "answer": "Shabaka",
+   "title": "Shabaka",
+   "url": "https://en.wikipedia.org/wiki/Shabaka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-493": {
+   "answer": "Shabaka Stone",
+   "title": "Shabaka Stone",
+   "url": "https://en.wikipedia.org/wiki/Shabaka_Stone",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-494": {
+   "answer": "Taharqa",
+   "title": "Taharqa",
+   "url": "https://en.wikipedia.org/wiki/Taharqa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-495": {
+   "answer": "Shrine of Taharqa",
+   "title": "Shrine of Taharqa",
+   "url": "https://en.wikipedia.org/wiki/Shrine_of_Taharqa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-496": {
+   "answer": "Abar",
+   "title": "Abar (queen)",
+   "url": "https://en.wikipedia.org/wiki/Abar_(queen)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-497": {
+   "answer": "Nubian pyramids",
+   "title": "Nubian pyramids",
+   "url": "https://en.wikipedia.org/wiki/Nubian_pyramids",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-498": {
+   "answer": "Sphinx of Taharqo",
+   "title": "Sphinx of Taharqo",
+   "url": "https://en.wikipedia.org/wiki/Sphinx_of_Taharqo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-499": {
+   "answer": "Eltekeh",
+   "title": "Ge'alya",
+   "url": "https://en.wikipedia.org/wiki/Ge'alya",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Eltekeh"
+  },
+  "eg-500": {
+   "answer": "Esarhaddon",
+   "title": "Esarhaddon",
+   "url": "https://en.wikipedia.org/wiki/Esarhaddon",
+   "via": "glossary",
    "status": "ok"
   }
  }

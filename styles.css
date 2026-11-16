@@ -4082,7 +4082,13 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
   .settings > .set-card.set-wide, .settings > .set-card.danger{grid-column:1 / -1;}
 }
 .set-card{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm); padding:6px 22px;}
-.set-row{display:flex; align-items:center; gap:18px; padding:18px 0;}
+/* THE PAGE, COMPACTED (Nov 2026, out of an audit that measured it at 9.6 screens on a phone and 5.7 on a
+   laptop). A row's padding is 12px where it was 18 (39 rows of it); its description is one sentence with the
+   rest behind `.set-more` (see `info` in PAGES.settings); and on a wide screen the stage itself is wider for
+   this page alone, because two 393px columns left the sentence beside a control 200-280px to wrap in. */
+@media (min-width:1200px){ .stage:has(.settings){max-width:1120px;} }
+.set-row{display:flex; align-items:center; gap:18px; padding:12px 0;}
+.set-row[hidden]{display:none;}
 .set-row + .set-row{border-top:1px solid var(--rule);}
 .set-row .info{flex:1; min-width:0;}
 .set-row .info h3{font-family:var(--serif); font-weight:600; font-size:calc(16.5px * var(--fs)); margin:0 0 4px;}
@@ -4091,6 +4097,40 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
 /* a second, quieter line under a row's description — the Data card's storage and backup status (Oct 2026) */
 .set-row .info p.set-sub{margin-top:6px; font-size:calc(12.5px * var(--fs)); font-style:italic;}
 .set-row .ctl [hidden]{display:none;}
+.set-row .info a{color:var(--indigo); text-underline-offset:2px;}
+/* "More" — a word in the sentence's own line, not a button-shaped button: it is the least important thing in
+   the row. The hit area is padded out to 44px tall without moving the text (negative margin). */
+.set-more{appearance:none; border:0; background:none; padding:11px 6px; margin:-11px -6px -11px 0; cursor:pointer; font:inherit; font-weight:600; color:var(--indigo); text-decoration:underline; text-underline-offset:2px;}
+.set-more:hover{color:var(--indigo-bright);}
+.set-more:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-6px; border-radius:6px;}
+.set-tail{white-space:nowrap;}
+.set-row .info p.set-extra{margin-top:6px;}
+/* a row that belongs to the switch above it (the reminder's time): no rule between them, and close under it */
+.set-row.set-row-sub{border-top:0; padding-top:0;}
+.set-sublabel{font-size:calc(13.5px * var(--fs)); color:var(--ink-faint);}
+/* two controls on one line under the prose (a voice and its sample; Export and Import) */
+.set-row .ctl.set-ctl-line{display:flex; flex-wrap:wrap; align-items:center; gap:8px;}
+.set-ctl-line .set-sel{flex:1 1 160px; min-width:0; max-width:none;}
+/* the switch is 50x28 and a thumb is not: the pseudo-element is the rest of a 46px-tall target */
+.settings .switch::before{content:""; position:absolute; inset:-9px -4px;}
+/* HELP AND ABOUT — links, drawn as links. One line each on a phone, two columns from 640px, four from 1200px. */
+.set-links{display:grid; grid-template-columns:1fr; padding:2px 0 8px;}
+.set-link{appearance:none; border:0; border-top:1px solid var(--rule); background:none; text-align:left; cursor:pointer; color:inherit; font:inherit;
+  display:grid; grid-template-columns:1fr auto; align-items:center; column-gap:12px; padding:10px 0; min-height:48px;}
+.set-link:first-child{border-top:0;}
+.set-link::after{content:"\203A"; grid-column:2; grid-row:1 / span 2; font-size:calc(20px * var(--fs)); color:var(--ink-faint); line-height:1;}
+.set-link .sl-t{grid-column:1; font-family:var(--serif); font-weight:600; font-size:calc(15.5px * var(--fs)); color:var(--ink);}
+.set-link .sl-d{grid-column:1; font-size:calc(12.5px * var(--fs)); color:var(--ink-faint);}
+.set-link:hover .sl-t, .set-link:hover::after{color:var(--indigo);}
+.set-link:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px; border-radius:6px;}
+@media (min-width:640px){
+  .set-links{grid-template-columns:1fr 1fr; column-gap:28px;}
+  .set-link:nth-child(2){border-top:0;}
+}
+@media (min-width:1200px){
+  .set-links{grid-template-columns:repeat(4,1fr);}
+  .set-link{border-top:0;}
+}
 
 .switch{position:relative; width:50px; height:28px; border-radius:99px; background:var(--paper-2); border:1px solid var(--rule); cursor:pointer; transition:background .25s var(--ease), border-color .25s;}
 .switch::after{content:""; position:absolute; top:2px; left:2px; width:22px; height:22px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.2); transition:transform .26s var(--ease);}
@@ -4204,6 +4244,8 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
   font-family:var(--mono); font-size:calc(14px * var(--fs)); padding:8px 11px; cursor:pointer;}
 .set-time:hover{border-color:var(--indigo);}
 .set-time:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+/* the field's own clock icon is the browser's, drawn dark unless told the surface is: at night it was dark on dark */
+body.night .set-time{color-scheme:dark;}
 
 /* toast */
 /* A TOAST IS SIZED BY `width:max-content`, AND THAT IS NOT COSMETIC (Aug 2026, on a message that had to
@@ -4249,6 +4291,9 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
 .ip-actions{display:flex; justify-content:flex-end; gap:8px; margin-top:16px;}
 .ip-actions button{appearance:none; border:1px solid var(--rule); background:var(--paper); color:var(--ink); border-radius:8px; padding:8px 16px; font-family:var(--sans); font-size:calc(13px * var(--fs)); font-weight:600; cursor:pointer;}
 .ip-actions .ip-cancel:hover{border-color:var(--ink-faint);}
+.ip-actions{flex-wrap:wrap;}
+.ip-actions .ip-extra{margin-right:auto; border-color:transparent; background:none; color:var(--indigo); padding-left:0; text-decoration:underline; text-underline-offset:2px;}
+.ip-actions button:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 .ip-actions .ip-ok{background:var(--indigo); border-color:var(--indigo); color:#fff;}
 .ip-actions .ip-ok:hover{filter:brightness(1.08);}
 
@@ -4802,6 +4847,14 @@ body.no-anim .ar-frame.ar-loading::after{animation:none;}
 }
 @media (max-width:640px){
   .ar-win{flex-direction:column; gap:14px; padding:20px 18px;}
+  /* ONE SCROLLER ON A PHONE (2026-11-16, on request: a drag on the plate's PICTURE scrolled the darkened page behind it,
+     a drag on its text scrolled the plate). The plate was a scroll box inside the overlay's scroll box; on an iPhone a
+     drag that starts on the framed picture (its own layer: overflow hidden, a radius, a transform transition) can miss the
+     inner box and chain past the overlay to the page. So the plate stops scrolling and grows to its full height, and the
+     whole-screen overlay is the one box that scrolls under a finger anywhere on it — contained, so it never hands the
+     drag on to the page. `margin:auto` centres a short plate and lets a tall one start at the top, unclipped. */
+  .artefact-pop:not(.collection-pop){align-items:flex-start; overscroll-behavior:contain; -webkit-overflow-scrolling:touch;}
+  .artefact-pop:not(.collection-pop) > .ar-win{max-height:none; overflow:visible; margin:auto;}
   .ar-winart{width:100%; max-width:260px; align-self:center;}
   .showcase{grid-template-columns:repeat(2,1fr);}
   .ar-grid{grid-template-columns:repeat(auto-fill,minmax(112px,1fr));}
@@ -7777,8 +7830,9 @@ body[data-theme="gazette"] .xp-fill, body[data-theme="gazette"] .prog .fill{ bac
 body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 
 /* ---- theme picker (settings) ---- */
-.set-row-block{flex-direction:column; align-items:stretch; gap:16px;}
+.set-row-block{flex-direction:column; align-items:stretch; gap:10px;}
 .theme-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px;}
+@media (min-width:1200px){ .theme-grid{grid-template-columns:repeat(auto-fill,minmax(128px,1fr));} }   /* seven across in the wider stage */
 .theme-opt{display:flex; flex-direction:column; align-items:flex-start; gap:9px; appearance:none; cursor:pointer; text-align:left; padding:14px; border:1.5px solid var(--rule); border-radius:12px; background:var(--card); transition:border-color .15s, box-shadow .15s, transform .12s;}
 .theme-opt:hover{border-color:var(--ink-faint); transform:translateY(-1px);}
 /* A LOCKED TILE, WHICH ONLY AN EDITOR EVER SEES (Sep 2026, on request: "on an Admin account, allow me to
@@ -7824,7 +7878,7 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 .theme-group-label{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.2em; text-transform:uppercase; color:var(--ink-faint); margin:14px 0 8px;}
 #themeGrid > .theme-group-label:first-child{margin-top:0;}
 /* settings section heads (reuse the About page's chip language) */
-.set-head{display:flex; align-items:center; gap:12px; padding:16px 0 4px;}
+.set-head{display:flex; align-items:center; gap:12px; padding:12px 0 2px;}
 .set-head h2{margin:0; font-family:var(--display); font-weight:600; font-size:calc(19px * var(--fs)); letter-spacing:-.01em; color:var(--ink);}
 /* narrator cards */
 .narr-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:9px;}
@@ -7840,7 +7894,20 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 .set-card.danger .set-head h2{color:var(--zh);}
 .danger-btn{border-color:color-mix(in srgb,var(--zh) 55%, var(--rule)); color:var(--zh);}
 .danger-btn:hover{background:var(--zh-wash);}
-@media (max-width: 640px){ .theme-grid{grid-template-columns:repeat(2,1fr);} .narr-grid{grid-template-columns:1fr;} }
+/* ON A PHONE THE PICKER IS THREE ACROSS, A SWATCH AND A NAME (Nov 2026, out of the Settings audit: seven tiles
+   in two columns were 770px, and fifteen would be 1,200). The line under the name — the day it was unlocked —
+   is in the tile's tooltip already and is what gives way; the name is set smaller so "Aquamarine" fits. */
+@media (max-width: 640px){
+  .theme-grid{grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px;}
+  .theme-opt{padding:8px; gap:7px; min-width:0;}
+  .theme-opt .theme-mock{height:38px;}
+  .theme-opt .theme-name{font-size:calc(12.5px * var(--fs)); max-width:100%; overflow-wrap:anywhere;}
+  .theme-opt[data-theme="arcade"] .theme-name{font-size:calc(8.5px * var(--fs));}
+  .theme-opt[data-theme="marble"] .theme-name{font-size:calc(11px * var(--fs)); letter-spacing:.05em;}
+  .theme-opt .theme-tag{display:none;}
+  .theme-opt.theme-locked .theme-tag{display:block; font-size:calc(8px * var(--fs));}
+  .narr-grid{grid-template-columns:1fr;}
+}
 
 /* ============================================================
    COMMUNITY DECKS — the Library's "Your decks" section + the Studio
@@ -8788,7 +8855,7 @@ body.night .bk-tocard{color:var(--paper);}   /* a night theme's indigo is light:
 .bw-tools{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:10px;}
 .bw-search{flex:1 1 260px; min-width:0;}
 .bw-search input{width:100%; appearance:none; background:var(--card); border:1px solid var(--rule); border-radius:99px; padding:9px 15px; font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink);}
-.bw-search input:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+.bw-search input:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 .bw-help{flex:0 0 auto; font-size:calc(12px * var(--fs)); padding:7px 13px;}
 .bw-helpbox{background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:14px 18px; margin-bottom:12px; font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
 .bw-helpbox[hidden]{display:none;}
@@ -8860,12 +8927,15 @@ body.night .bk-tocard{color:var(--paper);}   /* a night theme's indigo is light:
    line and the description beside them wraps to one word per line. So this row alone lays its control out
    UNDER the prose, full width — found by looking at the page, which is the only way a squeeze like that
    shows up. */
-.set-row-stack{flex-direction:column; align-items:stretch; gap:12px;}
+.set-row-stack{flex-direction:column; align-items:stretch; gap:8px;}
 .set-row-stack .ctl{flex:none; width:100%;}
-.ed-days{display:flex; flex-wrap:wrap; gap:6px;}
-.ed-day{appearance:none; background:var(--card); border:1px solid var(--rule); border-radius:9px; padding:7px 9px; cursor:pointer; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); transition:background .14s var(--ease), border-color .14s var(--ease), color .14s var(--ease);}
+/* seven equal cells on one line at every width (Nov 2026): as wrapping chips they were 323px in a 312px row,
+   so Sunday sat alone on a second line of a phone; and 44px tall there, where 30 was under a thumb */
+.ed-days{display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:5px;}
+@media (max-width:640px){ .ed-day{min-height:44px;} .settings .fs-pick button{min-height:44px;} }
+.ed-day{appearance:none; min-width:0; text-align:center; background:var(--card); border:1px solid var(--rule); border-radius:9px; padding:7px 2px; cursor:pointer; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); transition:background .14s var(--ease), border-color .14s var(--ease), color .14s var(--ease);}
 .ed-day:hover{border-color:color-mix(in srgb,var(--indigo) 45%,var(--rule));}
-.ed-day:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+.ed-day:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}   /* was var(--focus), a token defined nowhere: no ring at all */
 .ed-day.off{background:color-mix(in srgb,var(--zh) 12%,var(--card)); border-color:color-mix(in srgb,var(--zh) 45%,transparent); color:var(--zh);}
 .ed-day.off span{text-decoration:line-through; text-decoration-thickness:1px;}
 
@@ -10361,7 +10431,7 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
      of its own so its two children join `.banners`' flex column and `order` can place them — the week box first (order 1, after everything
      at the default 0), then the games, then Continue reading and the foot, which keep their old place at the end. */
   .home-two{display:contents;}
-  .home-trio, .home-two > .home-term{display:none;}
+  .home-trio{display:none;}   /* the Term of the day stays on a phone too, directly below Suggested reading (2026-11-16, on request) */
   .home-two > .home-week{display:flex;}
   .home-two > .home-week{order:1;}
   .games-sec{order:2;}

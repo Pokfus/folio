@@ -1388,10 +1388,14 @@
      popup over the map; the precedent is the Atlas's card popup, which strips the locator block), none for a community deck's term; and when the engine cannot draw it (the bundle refused, no WebGL2 for a state of the
      past, a face the engine cannot find) the block GOES rather than the card window's sentence — a popup without a map is the popup of before. WHERE IT SITS (the owner, 2026-10-23): below the
      description and the Library banner, above the Sources fold — the definition is read first, the map is where it happened, the works come last. */
-  const GLOSS_POINT_KINDS = ["capital", "city", "town", "site", "mountain", "cape", "hill", "island", "coord"];   // drawn as the gold square (a mountain or a hill as the peak triangle, 2026-11-14); every other kind as the name alone (a region, a sea, a lake, a range, a river — water in blue italic, atlas-windows.js)
+  const GLOSS_POINT_KINDS = ["capital", "city", "town", "site", "mountain", "cape", "hill", "island", "coord"];   // drawn as a gold mark: the square a present-day capital's, the circle any other's (2026-11-16), a mountain or a hill the peak triangle (2026-11-14); every other kind as the name alone (a region, a sea, a lake, a range, a river — water in blue italic, atlas-windows.js)
   function glossWindowSpec(key) { const t = window.ATLAS_GLOSSARY_PLACES; const w = key && !isDeckGlossKey(key) && t && t.windows && t.windows[key]; return Array.isArray(w) && w.length >= 6 && isFinite(w[0]) && isFinite(w[1]) ? { lon: w[0], lat: w[1], kind: String(w[2] || ""), face: w[3] ? String(w[3]) : "", year: w[4] ? Number(w[4]) : 0, zoom: w[5] ? Number(w[5]) : 0 } : null; }
+  /* A PRESENT-DAY NATIONAL CAPITAL IS THE ONLY SQUARE (2026-11-16, on request; atlas-windows.js `ownSquare`). The registry's `capital` is Natural Earth's ADM0CAP flag, which also marks
+     Johannesburg, not one of South Africa's three capitals (Pretoria, Cape Town and Bloemfontein). Its kind is read as a city's here. */
+  const GLOSS_NOT_CAPITAL = new Set(["Johannesburg"]);
   function glossWindowHTML(key, w) {
     const name = glossTitle(key);
+    if (w.kind === "capital" && GLOSS_NOT_CAPITAL.has(key)) w = Object.assign({}, w, { kind: "city" });
     const said = (w.face ? name + " shaded on an interactive globe" + (w.year ? ", at its greatest extent in " + yearLabel(w.year) : "") : name + " marked on an interactive globe") + ". Drag to turn it; pinch, scroll or use the zoom buttons to zoom; the arrow keys turn it and + and − zoom.";
     const kind = w.face ? "region" : GLOSS_POINT_KINDS.indexOf(w.kind) >= 0 ? "point" : "region";   // "region": no dot, the name centred on the point — a face carries its own shading
     return '<div class="map-card map-gloss" data-map-layer="world" data-map-named data-map-at="' + w.lon + "," + w.lat + '" data-map-atname="' + esc(name) + '" data-map-kind="' + kind + '"' + (w.kind ? ' data-map-placekind="' + esc(w.kind) + '"' : "") +
@@ -12679,6 +12683,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Aquinas and a purple 14.7 from Magna Carta and Euripides, and the olive was taken over both for clearing
      every political book by twice the margin. It reads 7.76:1 on the tightest light paper. */
   "Thomas Hobbes": "#263700",
+  /* Nov 2026, adding The Social Contract, and the band is still full. Measured as CIE76 distance over the
+     same band and bars (L 12.3–47.8, chroma 18–85, 4.5:1 on all forty-five light papers, cards and second
+     papers, 22 or more from the fifteen light inks), a sweep of the cube at a step of 3 tops out at 14.7.
+     THE EURIPIDES TEST: of the sweep's best, a violet stood 14.7 from Magna Carta, a political text read
+     beside this one, so this dark brown was taken: its nearest are Sophocles 14.6, Confucius 14.8 and
+     Beowulf 15.2, none read beside Rousseau, and the books that are stand well off — Plato 34.0, Hobbes
+     38.7, Jefferson 46.2, Aristotle 46.5, Machiavelli 63.3 and Magna Carta 72.4. It reads 5.77:1 on the
+     tightest light paper. */
+  "Jean-Jacques Rousseau": "#663930",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-three colours placed (Nov 2026, adding the Critique of Pure
+     Reason): CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and
+     4.5:1 on every light paper, card and second paper. The band is full, as Hobbes's row found: a sweep at a
+     step of 3, refined to 1 around the best, tops out at 14.8. THE EURIPIDES TEST: this violet's nearest are
+     Euripides 14.8, Snorri Sturluson 14.9, Herodotus 15.0 and the King James Bible 15.1, none a book read
+     beside Kant; the philosophers stand well off — Seneca 19.6, Plato 26.3, Machiavelli 38.8, Aristotle 50.5,
+     Augustine 66.9, Marcus Aurelius 79.3, Boethius 85.8, Hobbes 87.9, Lucretius 97.8, Aquinas 119.3. The
+     sweep's other near-best were refused on the same test: a magenta stood 14.6 from Plato, a green 14.5 from
+     Aquinas, a brown 16.9 from Augustine. It reads 5.83:1 on the tightest light paper. */
+  "Immanuel Kant": "#592F85",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -15867,6 +15890,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       total: 5,
     },
     {
+      id: "julius-caesar",
+      title: "Julius Caesar",
+      subtitle: "The Tragedy of Julius Caesar",
+      author: "William Shakespeare",
+      /* No "c.": a Swiss traveller, Thomas Platter, saw a play of Julius Caesar acted on Bankside in
+         September 1599, generally taken to be this one, new at the Globe. First printed in the Folio of 1623. */
+      written: "1599",
+      year: 1599,
+      // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+      edition: "The Yale Shakespeare, ed. Lawrence Mason, Yale University Press, New Haven, 1919",
+      /* The play has never been in copyright; the Yale edition was published in 1919 and its editor died
+         in 1939 (Wikidata Q56478978), so it clears the US pre-1929 rule and life plus eighty — not yet life
+         plus a hundred, which the rights text says. */
+      rights:
+        "Public domain. Shakespeare wrote the play in 1599 and it was first printed in the First Folio of " +
+        "1623, so the work itself has never been in copyright. The text here is the Yale Shakespeare " +
+        "edition edited by Lawrence Mason and published by Yale University Press in 1919; Mason lived from " +
+        "1882 to 1939, so the edition is out of copyright in the United States under the rule for works " +
+        "published before 1929, and everywhere the term is the editor's life plus eighty years or less. " +
+        "What is taken is the play, the edition's list of characters, Mason's glosses from the foot of " +
+        "each page and his end notes, which are set with the glosses that point to them; his appendices " +
+        "and index are not reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Julius_Caesar_(1919)_Yale",
+      /* NO `origLang`: Shakespeare's English is the original. Five acts, each a tab; the list of
+         characters at the head of Act I. */
+      chapterWord: "Act",
+      count: 5,
+      total: 5,
+    },
+    {
       id: "classic-of-tea",
       title: "The Classic of Tea",
       subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -16595,6 +16649,85 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Somatosensory_system", "Tendon", "Scale_(zoology)", "Solar_eclipse", "Common_Sense_(pamphlet)", "Libertus",
         "Immortals", "Homo", "Lyon", "Apollo", "Titus", "Crispus", "Niger", "Gene", "Battle_of_Lepanto",
         "Tyrannicides"],
+    },
+    {
+      id: "rousseau-social-contract",
+      title: "The Social Contract",
+      subtitle: "Du contrat social, ou Principes du droit politique",
+      author: "Jean-Jacques Rousseau",
+      written: "1762",
+      year: 1762,
+      translator: "G. D. H. Cole",
+      edition: "The Social Contract and Discourses, Everyman's Library, London, 1913",
+      /* A LIMIT TO STATE, on the translation: published in 1913, so public domain in the United States;
+         Cole died in 1959, so life plus seventy runs to 1 January 2030. See .claude/fetch-book.js. */
+      rights:
+        "The French text is public domain everywhere: Rousseau published it in 1762 and died in 1778. " +
+        "G. D. H. Cole's English translation was published in London in 1913, so it is in the public " +
+        "domain in the United States. Cole died in 1959, so where copyright runs for the author's life " +
+        "plus seventy years his translation stays in copyright until 1 January 2030.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Social_Contract_(tr._Cole)",
+      /* Paired on the CHAPTER, as The Prince is: neither Cole nor the 1762 edition numbers anything below
+         it. The French is the first edition (Amsterdam, Marc Michel Rey, 1762) as validated on French
+         Wikisource. Section 1, Rousseau's Foreword, has no French: that transcription gives it no page. */
+      origLang: "fr",
+      origName: "French",
+      /* Forty-nine sections — the Foreword and the forty-eight chapters of the four Books — so a tab runs
+         one ahead of the chapter's place in the book; each title opens with its chapter's numeral in its
+         Book. "Section" so that no tab claims to be a chapter it is not (Leviathan's arrangement). */
+      chapterWord: "Section",
+      count: 49,
+      total: 49,
+      parts: [
+        { n: 1, label: "Book I", note: "The Foreword and chapters I–IX — the compact and the state it creates" },
+        { n: 2, label: "Book II", note: "Chapters I–XII — sovereignty, the general will, law and the Legislator" },
+        { n: 3, label: "Book III", note: "Chapters I–XVIII — government, its forms, and how it usurps the sovereign" },
+        { n: 4, label: "Book IV", note: "Chapters I–IX — voting, the Roman institutions, civil religion" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 49 sections (every
+         `.ttip`). Saint-Pierre is the Abbé (IV. 3), not the islands; Providence is not the capital of Rhode
+         Island; "Talent is buried" (II. 9) is ability, not the weight; the Palatine of IV. 4's note is a
+         Polish Count Palatine, not the hill; and Sovereignty's entry is the modern interstate sense, where
+         Rousseau's is the people's. Israel and Syria go where he means the biblical and ancient lands, as
+         they do on Leviathan's shelf. */
+      glossOff: ["Saint-Pierre,_Saint_Pierre_and_Miquelon", "Providence", "Talent_(measurement)", "Palatine_Hill",
+        "Sovereignty", "Israel", "Syria"],
+    },
+    {
+      id: "kant-critique-of-pure-reason",
+      title: "Critique of Pure Reason",
+      subtitle: "Kritik der reinen Vernunft",
+      author: "Immanuel Kant",
+      written: "1781, revised 1787",
+      year: 1781,
+      translator: "J. M. D. Meiklejohn",
+      edition: "Bohn's Philosophical Library, Henry G. Bohn, London, 1855",
+      /* No limit to state: Kant died in 1804 and his translator more than a century ago. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Immanuel Kant died in 1804. J. M. D. Meiklejohn's translation was " +
+        "published in London in 1855 and its translator died more than a century ago. The text is the " +
+        "proofread Wikisource transcription of the 1855 printing, from a scan held by the Internet Archive.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Critique_of_Pure_Reason_(Meiklejohn)",
+      /* NO `origLang`: no proofread German of the SECOND edition, the one Meiklejohn translates, was found.
+         Nineteen sections in Kant's own divisions, each titled from the 1855 contents page; the book's
+         chapters restart within each Book, so "Section" rather than "Chapter" (Leviathan's arrangement). */
+      chapterWord: "Section",
+      count: 19,
+      total: 19,
+      parts: [
+        { n: 1, label: "Prefaces and Introduction", note: "The prefaces to the first and second editions, and the Introduction — analytic and synthetic judgments" },
+        { n: 2, label: "Doctrine of Elements · Transcendental Æsthetic", note: "Space and time as the forms of intuition" },
+        { n: 3, label: "Transcendental Logic · The Analytic", note: "The categories, their deduction, the schematism and the principles; phænomena and noumena" },
+        { n: 4, label: "Transcendental Logic · The Dialectic", note: "The illusions of reason — the paralogisms, the antinomy and the ideal" },
+        { n: 5, label: "Transcendental Doctrine of Method", note: "The discipline, canon, architectonic and history of pure reason" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 19 sections (every `.ttip`,
+         Nov 2026). Kant's WOLF is Christian Wolff, the philosopher, not the grey wolf; SUBSISTENCE is the
+         category of "Inherence and Subsistence", not how a society gets its living; PROVIDENCE is divine, not
+         the capital of Rhode Island; and "the Republic of Plato" is the dialogue, not the form of state. */
+      glossOff: ["Wolf", "Subsistence", "Providence", "Republic"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -18248,23 +18381,56 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   }
   // in-page replacement for native prompt()/confirm() — those are silently blocked in sandboxed/embedded contexts
   // (so the New-collection/rename/delete buttons appeared dead). onOk fires only on confirm (value for prompts, true for confirms).
-  function inlineModal(message, hasInput, defaultValue, onOk, okLabel) {
+  /* THE DIALOG IS A DIALOG TO A KEYBOARD AND A SCREEN READER TOO (Nov 2026, out of the Settings audit). It had
+     the role and nothing else: no name (it is named by its own message now), an unlabelled field, Tab walking
+     out of it into the page behind, the focus left on <body> when it closed, and Enter confirming even with
+     the focus on Cancel. `opts` is optional and every older caller passes none:
+       · `inputLabel` — the field's name, where the message is too long to be one;
+       · `danger` — the confirm replaces or destroys something, so the focus starts on Cancel;
+       · `extra: { label, run }` — a third button that does something WITHOUT closing (Reset's "Download a
+         backup first"). */
+  let _ipN = 0;
+  function inlineModal(message, hasInput, defaultValue, onOk, okLabel, opts) {
+    opts = opts || {};
     const ex = document.querySelector(".inline-prompt"); if (ex) ex.remove();
+    const opener = document.activeElement;
     const ov = document.createElement("div"); ov.className = "inline-prompt";
-    ov.innerHTML = '<div class="ip-box" role="dialog" aria-modal="true"><div class="ip-msg"></div>' +
+    const mid = "ipMsg" + (++_ipN);
+    ov.innerHTML = '<div class="ip-box" role="dialog" aria-modal="true" aria-labelledby="' + mid + '"><div class="ip-msg" id="' + mid + '"></div>' +
       (hasInput ? '<input class="ip-input" type="text" spellcheck="false" />' : "") +
-      '<div class="ip-actions"><button type="button" class="ip-cancel">Cancel</button><button type="button" class="ip-ok">' + (okLabel || "OK") + "</button></div></div>";
+      '<div class="ip-actions">' + (opts.extra ? '<button type="button" class="ip-extra"></button>' : "") +
+      '<button type="button" class="ip-cancel">Cancel</button><button type="button" class="ip-ok">' + (okLabel || "OK") + "</button></div></div>";
     ov.querySelector(".ip-msg").textContent = message;
-    const input = ov.querySelector(".ip-input"); if (input) input.value = defaultValue == null ? "" : defaultValue;
+    const input = ov.querySelector(".ip-input");
+    if (input) { input.value = defaultValue == null ? "" : defaultValue; if (opts.inputLabel) input.setAttribute("aria-label", opts.inputLabel); else input.setAttribute("aria-labelledby", mid); }
+    const extra = ov.querySelector(".ip-extra");
+    if (extra) { extra.textContent = opts.extra.label; extra.addEventListener("click", () => opts.extra.run()); }
     document.body.appendChild(ov);
-    const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); };
+    const close = () => {
+      ov.remove(); document.removeEventListener("keydown", onKey, true);
+      try { if (opener && opener.isConnected && opener !== document.body && opener.focus) opener.focus(); } catch (e) {}
+    };
     const ok = () => { const v = input ? input.value : true; close(); onOk(v); };
-    function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } else if (e.key === "Enter") { e.preventDefault(); e.stopPropagation(); ok(); } }
+    function onKey(e) {
+      if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); }
+      else if (e.key === "Enter") {
+        const a = document.activeElement;
+        if (a && a.classList && a.classList.contains("ip-extra")) return;   // a button's own Enter presses it
+        e.preventDefault(); e.stopPropagation();
+        if (a && a.classList && a.classList.contains("ip-cancel")) close(); else ok();
+      } else if (e.key === "Tab") {
+        // the page behind is not part of the dialog: Tab goes round its own controls
+        const f = [...ov.querySelectorAll("input, button")], a = document.activeElement, i = f.indexOf(a);
+        if (!f.length) return;
+        e.preventDefault(); e.stopPropagation();
+        f[i < 0 ? 0 : (i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+      }
+    }
     ov.querySelector(".ip-ok").addEventListener("click", ok);
     ov.querySelector(".ip-cancel").addEventListener("click", close);
     ov.addEventListener("mousedown", (e) => { if (e.target === ov) close(); });
     document.addEventListener("keydown", onKey, true);
-    setTimeout(() => { if (input) { input.focus(); input.select(); } else { const b = ov.querySelector(".ip-ok"); if (b) b.focus(); } }, 0);
+    setTimeout(() => { if (input) { input.focus(); input.select(); } else { const b = ov.querySelector(opts.danger ? ".ip-cancel" : ".ip-ok"); if (b) b.focus(); } }, 0);
   }
   /* ---------- the added-deck options sheet (Aug 2026, on request) ----------
      Held down on a deck's row in the daily review. It carries the four things a reader wants to do to one
@@ -19809,6 +19975,40 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       });
     });
   }
+  /* THE "ALL DECKS" FIGURES ON THEIR OWN — Settings → Study → Daily limits (Nov 2026, out of the Settings audit).
+     The default every deck follows could only be reached through one deck's sheet (hold a row of the daily
+     study → Daily limits), so nobody looking in Settings found it. This is that dialog's "All decks" half with
+     nothing beside it: the same two fields, the same caps, and the same rule that only a figure the reader
+     CHANGED is written — saving the pane untouched would set `limitsCustom` and take every kind of deck off
+     its own default (LIMIT_DEFAULTS) for good. */
+  function openGlobalLimits() {
+    const G = globalLimits();
+    const numRow = (key, label, val, max) =>
+      '<label class="dm-field"><span>' + esc(label) + '</span><input class="dm-num" data-lim="' + key +
+      '" type="number" min="0" max="' + max + '" step="1" value="' + val + '" inputmode="numeric"></label>';
+    const html =
+      '<div class="dm-head"><span class="dm-title">Daily limits</span><span class="dm-where">All decks</span></div>' +
+      '<div class="dm-pane" data-pane="all">' +
+        numRow("gNew", "New cards/day", G.newPerDay, 999) +
+        numRow("gRev", "Maximum reviews/day", G.maxReviews, 9999) +
+        '<p class="dm-note">What every deck follows until it is given limits of its own. A deck you have already set keeps its own figures.' +
+        (S.settings.limitsCustom ? "" : " Until you change these, a language deck follows its own larger default.") + "</p>" +
+      "</div>" +
+      '<div class="dm-actions"><button type="button" class="btn ghost" data-act="cancel">Cancel</button>' +
+      '<button type="button" class="btn" data-act="save">Save</button></div>';
+    deckSheet("Daily limits", html, (ov, close) => {
+      const num = (k) => ov.querySelector('[data-lim="' + k + '"]');
+      ov.querySelector('[data-act="cancel"]').addEventListener("click", close);
+      ov.querySelector('[data-act="save"]').addEventListener("click", () => {
+        const n = (k, cap) => Math.max(0, Math.min(cap, Math.round(+num(k).value || 0)));
+        const gN = n("gNew", 999), gR = n("gRev", 9999), changed = gN !== G.newPerDay || gR !== G.maxReviews;
+        if (changed) setGlobalLimits({ newPerDay: gN, maxReviews: gR });
+        close();
+        render();
+        toast(changed ? "Daily limits saved" : "Daily limits unchanged");
+      });
+    });
+  }
   /* ==========================================================================================
      "I SIT THE EXAM ON THE 14TH" — working backwards from a date (Sep 2026)
      ==========================================================================================
@@ -19901,8 +20101,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       });
     });
   }
-  function inlinePrompt(message, defaultValue, onOk) { inlineModal(message, true, defaultValue, onOk); }
-  function inlineConfirm(message, onOk, okLabel) { inlineModal(message, false, null, () => onOk(), okLabel || "OK"); }
+  function inlinePrompt(message, defaultValue, onOk, opts) { inlineModal(message, true, defaultValue, onOk, null, opts); }
+  function inlineConfirm(message, onOk, okLabel, opts) { inlineModal(message, false, null, () => onOk(), okLabel || "OK", opts); }
   // full-screen level-up congratulations; items = [{ title, level, sys }]. Dismissed by clicking ANYWHERE on screen or Escape.
   /* The level-up overlay is dismissed by a click ANYWHERE, so clicking a nav tab takes it away and it looks
      as though it can't outlive its page. It can: a back/forward, a deep link and any programmatic hash change
@@ -25288,9 +25488,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       o: { lang: "lzh", t: "大人者，不失其赤子之心者也。", a: "孟子", s: "《孟子·離婁下》" } },
     { t: "A man has only one death; it may be as weighty as Mount Tai or as light as a goose feather.", a: "Sima Qian", s: "Letter to Ren An",
       o: { lang: "lzh", t: "人固有一死，或重於泰山，或輕於鴻毛。", a: "司馬遷", s: "《報任安書》" } },
-    { t: "As long as you live, keep learning how to live.", a: "Seneca", s: "Moral Letters to Lucilius 76",
+    { t: "As long as you live, keep learning how to live.", a: "Seneca", s: "Moral Letters to Lucilius 76", g: { "Seneca": "Seneca_the_Younger" },
       o: { lang: "la", t: "Tamdiu discendum est, quemadmodum vivas, quamdiu vivas.", a: "Lucius Annaeus Seneca", s: "Epistulae morales ad Lucilium 76.3" } },
-    { t: "While we teach, we learn.", a: "Seneca", s: "Moral Letters to Lucilius 7",
+    { t: "While we teach, we learn.", a: "Seneca", s: "Moral Letters to Lucilius 7", g: { "Seneca": "Seneca_the_Younger" },
       o: { lang: "la", t: "Homines dum docent discunt.", a: "Lucius Annaeus Seneca", s: "Epistulae morales ad Lucilium 7.8" } },
     { t: "To be ignorant of what occurred before you were born is to remain forever a child.", a: "Cicero", s: "Orator 34.120",
       o: { lang: "la", t: "Nescire autem quid ante quam natus sis acciderit, id est semper esse puerum.", a: "Marcus Tullius Cicero", s: "Orator 34.120" } },
@@ -25302,7 +25502,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // project's own books/marcus-aurelius-meditations.grc.js rather than set down from memory. The
       // English above is a free rendering of the section's opening two clauses; those are the clauses here.
       o: { lang: "grc", t: "Τὰ προγεγονότα ἀναθεωρεῖν, τὰς τοσαύτας τῶν ἡγεμονιῶν μεταβολάς· ἔξεστι καὶ τὰ ἐσόμενα προεφορᾶν.", a: "Μᾶρκος Αὐρήλιος", s: "Τὰ εἰς ἑαυτόν Ζ΄.49" } },
-    { t: "Knowledge which is acquired under compulsion obtains no hold on the mind.", a: "Plato", s: "Republic VII, 536e",
+    { t: "Knowledge which is acquired under compulsion obtains no hold on the mind.", a: "Plato", s: "Republic VII, 536e", g: { "Republic": "Republic_(Plato)" },
       o: { lang: "grc", t: "ψυχῇ δὲ βίαιον οὐδὲν ἔμμονον μάθημα.", a: "Πλάτων", s: "Πολιτεία Ζ΄, 536e" } },
     { t: "It is impossible for a man to learn what he thinks he already knows.", a: "Epictetus", s: "Discourses II.17",
       o: { lang: "grc", t: "ἀμήχανον γάρ, ἅ τις οἴεται εἰδέναι, ταῦτα ἄρχεσθαι μανθάνειν.", a: "Ἐπίκτητος", s: "Διατριβαί Β΄.17" } },
@@ -25368,7 +25568,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // الحق" — nothing is fitter for the seeker of truth than the truth — which this translation does not
     // carry, and a flip that answered with a clause the reader was never shown would be the wrong half of
     // the page. Tagore's entry cuts for the same reason.
-    { t: "We ought not to be ashamed of appreciating the truth and of acquiring it wherever it comes from, even if it comes from races distant and nations different from us.", a: "Al-Kindi", s: "On First Philosophy, 9th century",
+    { t: "We ought not to be ashamed of appreciating the truth and of acquiring it wherever it comes from, even if it comes from races distant and nations different from us.", a: "Al-Kindi", s: "On First Philosophy, 9th century", g: { "Philosophy": "" },
       o: { lang: "ar", t: "وينبغي لنا أن لا نستحي من استحسان الحق، واقتناء الحق من أين أتى، وإن أتى من الأجناس القاصية عنا، والأمم المباينة.", a: "الكندي", s: "الفلسفة الأولى، خطبة الكتاب" } },
     { t: "Truth does not contradict truth; it agrees with it and bears witness to it.", a: "Ibn Rushd", s: "The Decisive Treatise, c. 1179",
       o: { lang: "ar", t: "الحق لا يضاد الحق بل يوافقه ويشهد له.", a: "ابن رشد", s: "فصل المقال" } },
@@ -25388,7 +25588,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // rather than what the search results say. And the Arabic keeps al-Biruni's own frame: the words are a
     // standing Arabic proverb, so he writes "the saying of him who said it is true" rather than claiming
     // the line for himself, which is worth a reader seeing when they flip it.
-    { t: "Hearsay does not equal eye-witness.", a: "Al-Biruni", s: "Preface to India (Tahqiq ma li-l-Hind), c. 1030",
+    { t: "Hearsay does not equal eye-witness.", a: "Al-Biruni", s: "Preface to India (Tahqiq ma li-l-Hind), c. 1030", g: { "India": "" },
       o: { lang: "ar", t: "إنما صدق قول القائل ليس الخبر كالعيان.", a: "البيروني", s: "تحقيق ما للهند، المقدمة" } },
     // TWO SOURCES WERE READ AND THEY DISAGREE BY ONE LETTER, WHICH IS WHY BOTH WERE READ. Arabic
     // Wikisource's Muqaddimah has "بطبعته" where the printed text has "بطبيعته" — the second is the
@@ -25413,17 +25613,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // always carried. **THE TAIL IS WHERE THE MISATTRIBUTION LIVED**: "and you will make progress" is in
     // no source, where the Talmud gives a reason of its own — say less rather than keep a rounder sentence.
     // Changing `a` re-solves the running order, the no-repeat rule being keyed on the author.
-    { t: "Teach thy tongue to say, \"I do not know,\" lest thou be led to falsehoods and be apprehended.", a: "The Talmud", s: "Babylonian Talmud, Berakhot 4a",
+    { t: "Teach thy tongue to say, \"I do not know,\" lest thou be led to falsehoods and be apprehended.", a: "The Talmud", s: "Babylonian Talmud, Berakhot 4a", g: { "Babylonian": "" },
       o: { lang: "he", t: "לַמֵּד לְשׁוֹנְךָ לוֹמַר ״אֵינִי יוֹדֵעַ״, שֶׁמָּא תִּתְבַּדֶּה וְתֵאָחֵז.", a: "התלמוד הבבלי", s: "בבלי, ברכות ד ע״א" } },
     { t: "My work is meant to be a possession for all time, rather than a prize essay to be heard for the moment.", a: "Thucydides", s: "History of the Peloponnesian War 1.22",
       o: { lang: "grc", t: "κτῆμα ἐς αἰεὶ μᾶλλον ἢ ἀγώνισμα ἐς τὸ παραχρῆμα ἀκούειν.", a: "Θουκυδίδης", s: "Ἱστορίαι Α΄.22" } },
-    { t: "This is the display of the inquiry of Herodotus, so that the deeds of men may not be erased by time.", a: "Herodotus", s: "Histories 1.1",
+    { t: "This is the display of the inquiry of Herodotus, so that the deeds of men may not be erased by time.", a: "Herodotus", s: "Histories 1.1", g: { "Histories": "Histories_(Herodotus)" },
       o: { lang: "grc", t: "ὡς μήτε τὰ γενόμενα ἐξ ἀνθρώπων τῷ χρόνῳ ἐξίτηλα γένηται.", a: "Ἡρόδοτος", s: "Ἱστορίαι Α΄.1" } },
     /* The German carried only the closing clause — "Er will bloß zeigen…" — against an English of two
        sentences, so flipping the quote over shrank it to a fragment (Aug 2026, on a report). Both halves
        now give Ranke's whole sentence, and the original is his 1824 spelling verbatim ("blos", "Aemter"),
        checked against the printed preface rather than the form the line is usually quoted in. */
-    { t: "History has been assigned the task of judging the past, of instructing the present for the benefit of future ages. To such high offices this work does not presume: it wants only to show what actually happened.", a: "Leopold von Ranke", s: "Preface to Histories of the Latin and Germanic Nations, 1824",
+    { t: "History has been assigned the task of judging the past, of instructing the present for the benefit of future ages. To such high offices this work does not presume: it wants only to show what actually happened.", a: "Leopold von Ranke", s: "Preface to Histories of the Latin and Germanic Nations, 1824", g: { "Latin": "" },
       o: { lang: "de", t: "Man hat der Historie das Amt, die Vergangenheit zu richten, die Mitwelt zum Nutzen zukünftiger Jahre zu belehren, beigemessen: so hoher Aemter unterwindet sich gegenwärtiger Versuch nicht: er will blos zeigen, wie es eigentlich gewesen.", a: "Leopold von Ranke", s: "Geschichten der romanischen und germanischen Völker, Vorrede, 1824" } },
     { t: "Misunderstanding of the present grows inevitably out of ignorance of the past.", a: "Marc Bloch", s: "The Historian's Craft, 1949",
       o: { lang: "fr", t: "L'incompréhension du présent naît fatalement de l'ignorance du passé.", a: "Marc Bloch", s: "Apologie pour l'histoire, 1949" } },
@@ -25472,8 +25672,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        on the ground that the pool held historical voices only. The speaker is the character and `s` names the work (and the episode), so
        nothing reads as a historical attribution. Tyrion's first line is the television wording of season 1, episode 1 (the novel's is
        longer: "for surely the world will not … Armor yourself in it"); his second is the novel's, A Game of Thrones, said to Jon Snow. ---- */
-    { t: "Power resides where men believe it resides.", a: "Varys", s: "Game of Thrones, season 2, episode 3, “What Is Dead May Never Die” (2012)" },
-    { t: "Never forget what you are. The rest of the world will not. Wear it like armor, and it can never be used to hurt you.", a: "Tyrion Lannister", s: "Game of Thrones, season 1, episode 1, “Winter Is Coming” (2011)" },
+    /* These two were the TELEVISION lines credited to the characters until Nov 2026, when the owner asked that every line from
+       Westeros name George R. R. Martin and cite the A Song of Ice and Fire book it is in. Varys's riddle is in A Clash of Kings, his
+       talk with Tyrion; the novel goes on "No more and no less." Tyrion's is now the NOVEL's wording (A Game of Thrones, said to Jon
+       Snow), since the show's shorter "Wear it like armor" is not what the cited book prints. */
+    { t: "Power resides where men believe it resides.", a: "George R. R. Martin", s: "A Clash of Kings (1998), Varys" },
+    { t: "Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armor yourself in it, and it will never be used to hurt you.", a: "George R. R. Martin", s: "A Game of Thrones (1996), Tyrion Lannister to Jon Snow" },
     { t: "A mind needs books as a sword needs a whetstone, if it is to keep its edge.", a: "George R. R. Martin", s: "A Game of Thrones (1996), spoken by Tyrion Lannister" },
     { t: "Understanding is the first step to acceptance, and only with acceptance can there be recovery.", a: "Albus Dumbledore", s: "J. K. Rowling, Harry Potter and the Goblet of Fire (2000)" },
     { t: "Pride is not the opposite of shame, but its source. True humility is the only antidote to shame.", a: "Uncle Iroh", s: "Avatar: The Last Airbender, book 2, “Bitter Work” (2006)" },
@@ -25620,6 +25824,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      the day's own pick the reader has been carried this visit. It lives outside the page's render, so a
      re-render (a setting, a sync) keeps the quote on screen rather than snapping back to the day's first. */
   let _dqStep = 0;
+  /* A QUOTE'S `g` CORRECTS ITS CAPTION'S GLOSSARY LINKS (Nov 2026, on request: Plato's "Republic" opened the
+     generic Republic term). The caption is auto-linked by surface (wireDailyQuote), and a word of a title can be
+     a different term's name: { surface: key } links that surface to the right term by hand (autoLinkGlossary
+     keeps a hand link), { surface: "" } keeps it plain — those surfaces ride on the figcaption and
+     wireDailyQuote turns them into the keys it leaves off. A hand link goes on the surface's first appearance
+     in the English caption only. */
+  function dqCaptionGloss(g, cap) {
+    if (!g) return cap;
+    const plain = [];
+    Object.keys(g).forEach((surf) => {
+      if (!g[surf]) { plain.push(surf); return; }
+      const at = cap.indexOf('<span class="dq-live">');
+      const hit = at < 0 ? -1 : cap.indexOf(esc(surf), at);
+      if (hit >= 0) cap = cap.slice(0, hit) + '<span class="ttip" data-k="' + esc(g[surf]) + '">' + esc(surf) + "</span>" + cap.slice(hit + esc(surf).length);
+    });
+    return plain.length ? cap.replace("<figcaption>", '<figcaption data-gloss-plain="' + esc(JSON.stringify(plain)) + '">') : cap;
+  }
   function dailyQuoteHTML() {
     const q = QUOTES[QUOTE_ORDER[(dayIndex() + _dqStep) % QUOTE_ORDER.length]];
     const o = q.o;
@@ -25632,12 +25853,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // its place, so where `o.s` is missing the one line is emitted UNPAIRED and simply stays put — which
     // is also what it is, the modern reference for the passage rather than a second language of it.
     const srcPair = (en) => (o && o.s ? pair(en, o.s) : esc(en));
+    const cap = dqCaptionGloss(q.g, "<figcaption>" + pair(q.a, o && o.a) +   // the caption's dash is the gold ::before rule, not a text em-dash
+      (q.s ? '<span class="dq-src">' + srcPair(q.s) + "</span>" : "") + "</figcaption>");
     return '<figure class="daily-quote' + (o ? " dq-flip" : "") + '"' +
       (o ? ' tabindex="0" role="button" title="Show the original" aria-label="Show the original"' : "") + ">" +
       '<blockquote class="verbatim">' + pair(q.t, o && o.t) + "</blockquote>" +   // a quotation is someone's words, in a spelling and units we did not choose: EVERY entry is `.verbatim` (the pool is published translations only), and both passes skip it (2026-10-19)
-      "<figcaption>" + pair(q.a, o && o.a) +   // the caption's dash is the gold ::before rule, not a text em-dash
-      (q.s ? '<span class="dq-src">' + srcPair(q.s) + "</span>" : "") +
-      "</figcaption></figure>";
+      cap + "</figure>";
   }
   // flip the whole figure between the reader's language and the original. The swap itself is still the
   // instant `hidden` toggle — it just happens behind a fade, with the figure's height easing between the
@@ -25670,8 +25891,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         fig.insertAdjacentHTML("afterend", dailyQuoteHTML());
         const next = fig.nextElementSibling;
         fig.remove();
-        wireDailyQuote(root);
-        homeReadingSwap(root, 1);   // the reading box turns on the quote's minute (homeReadingHTML)
+        wireDailyQuote(root);   // (the reading box no longer turns with it — by hand only since Nov 2026, homeReadingHTML)
         if (!prefersReducedMotion() && next) {
           next.classList.add("dq-in");
           requestAnimationFrame(() => requestAnimationFrame(() => next.classList.remove("dq-in")));
@@ -25736,10 +25956,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const cap = fig.querySelector("figcaption");
     if (cap && uiLang() === "en") {
       try {
+        // the surfaces the quote's `g` keeps plain (dailyQuoteHTML), resolved here to the keys they would link to
+        let plain = null;
+        try { plain = JSON.parse(cap.getAttribute("data-gloss-plain") || "null"); } catch (e) {}
+        const idx = plain && glossIndexFor("site");
+        const off = idx ? plain.map((sf) => resolveGlossKey(idx, sf)).filter(Boolean) : null;
         const live = cap.querySelectorAll(".dq-live");
-        if (live.length) live.forEach((el) => autoLinkGlossary(el, "", null, "site"));
+        if (live.length) live.forEach((el) => autoLinkGlossary(el, "", off, "site"));
         const src = cap.querySelector(".dq-src");
-        if (src && !src.querySelector(".dq-live")) autoLinkGlossary(src, "", null, "site");
+        if (src && !src.querySelector(".dq-live")) autoLinkGlossary(src, "", off, "site");
         setupTooltips(cap);
       } catch (e) { /* a quote with no linkable term is the ordinary case, not a fault */ }
     }
@@ -25967,7 +26192,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      for every reader, Nov 2026), so swiping back and forth shows the same two and a fresh book
      file is not fetched every other minute. The swap is homeReadingSwap: wireDailyQuote's advance calls it as
      the quote moves on (one timer, held while the tab is hidden, as the quote is), and a horizontal swipe or
-     the arrow keys on the box call it by hand. A reader who has opened no book has the Suggested box alone. */
+     the arrow keys on the box call it by hand. A reader who has opened no book has the Suggested box alone.
+     NO LONGER ON A TIMER (Nov 2026, on request: "shouldn't automatically switch between the two"): the
+     quote's advance does not call homeReadingSwap any more; the box stays on its face until the reader
+     swipes or presses an arrow key, and the dots still say there is a second face. */
   let _hrPair = null;   // { cont, sug, mode } — the two books of this build's box; null when it has one face
   /* ONE SUGGESTED READING A DAY, THE SAME FOR EVERY READER (Nov 2026, on request: "there should be one
      suggested reading for the whole website displayed every day and changed to a random new section the
@@ -26093,6 +26321,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "She should have died hereafter; There would have been a time for such a word. To-morrow, and to-morrow, and to-morrow, Creeps in this petty pace from day to day, To the last syllable of recorded time; And all our yesterdays have lighted fools The way to dusty death. Out, out, brief candle! Life's but a walking shadow, a poor player That struts and frets his hour upon the stage, And then is heard no more; it is a tale Told by an idiot, full of sound and fury, Signifying nothing. Enter a Messenger. Thou com'st to use thy tongue; thy story quickly. Mess Gracious my lord, I should report that…" },
     { book: "romeo-and-juliet", n: 2, t: "Act II", p: 23,
       text: "He jests at scars, that never felt a wound. [Juliet appears above at a window.] But, soft! what light through yonder window breaks? It is the east, and Juliet is the sun! Arise, fair sun, and kill the envious moon, Who is already sick and pale with grief, That thou her maid art far more fair than she: Be not her maid, since she is envious; Her vestal livery is but sick and green, And none but fools do wear it; cast it off. It is my lady; O! it is my love: O! that she knew she were. She speaks, yet she says nothing: what of that? Her eye discourses; I will answer it. I am too bold, 'tis not to…" },
+    { book: "julius-caesar", n: 3, t: "Act III", p: 142,
+      text: "Friends, Romans, countrymen, lend me your ears; I come to bury Cæsar, not to praise him. The evil that men do lives after them, The good is oft interred with their bones; So let it be with Cæsar. The noble Brutus Hath told you Cæsar was ambitious; If it were so, it was a grievous fault, And grievously hath Cæsar answer'd it. Here, under leave of Brutus and the rest,— For Brutus is an honourable man; So are they all, all honourable men,— Come I to speak in Cæsar's funeral. He was my friend, faithful and just to me: But Brutus says he was ambitious; And Brutus is…" },
     { book: "classic-of-tea", n: 1, t: "The Origin of Tea", p: 1,
       text: "Tea is a fine tree of the South. Its height is from one to two feet to several tens of feet. The tea plants which grow on the hills and by the streams of Pa Shan [in the province of Szechwan] are sometimes so big that it takes two men to encircle them with their arms. They are cut down and then their leaves are plucked. A tea plant is like kua lu, a tree growing in Canton, the leaves of which are bitter and acrid in taste; its leaves are like those of the gardenia; its flowers are like the white cinnamon roses; its seeds are like those of the palm and coconut palm; its stalks are like those…" },
     { book: "magna-carta", n: 39, t: "Chapter 39", p: 1,
@@ -26113,6 +26343,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "We hold these Truths to be self-evident, that all Men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty, and the Pursuit of Happiness.—That to secure these Rights, Governments are instituted among Men, deriving their just Powers from the Consent of the Governed, that whenever any Form of Government becomes destructive of these Ends, it is the Right of the People to alter or to abolish it, and to institute new Government, laying its Foundation on such Principles, and organizing its Powers in such Form, as to them shall…" },
     { book: "hobbes-leviathan", n: 14, t: "XIII. Of the Naturall Condition of Mankind, as concerning their Felicity, and Misery", p: 12,
       text: "Whatsoever therefore is consequent to a time of Warre, where every man is Enemy to every man; the same is consequent to the time, wherein men live without other security, than what their own strength, and their own invention shall furnish them withall. In such condition, there is no place for Industry; because the fruit thereof is uncertain: and consequently no Culture of the Earth; no Navigation, nor use of the commodities that may be imported by Sea; no commodious Building; no Instruments of moving, and removing such things as require much force; no Knowledge of the face of the Earth; no account of Time; no Arts; no Letters; no Society; and which is worst of all, continuall feare, and danger of violent death; And the life of man, solitary, poore, nasty, brutish, and short." },
+    { book: "kant-critique-of-pure-reason", n: 2, t: "Preface to the Second Edition", p: 11,
+      text: "It appears to me that the examples of mathematics and natural philosophy, which, as we have seen, were brought into their present condition by a sudden revolution, are sufficiently remarkable to fix our attention on the essential circumstances of the change which has proved so advantageous to them, and to induce us to make the experiment of imitating them, so far as the analogy which, as rational sciences, they bear to metaphysics may permit. It has hitherto been assumed that our cognition must conform to the objects; but all attempts to ascertain anything about these objects a priori, by means of conceptions, and thus to extend the range of our knowledge, have been rendered abortive by this assumption. Let us then make the experiment whether we may not be more successful in metaphysics, if we assume that the objects must conform to our cognition. This appears, at all events, to accord better with the possibility of our gaining the end we have in view, that is to say, of arriving at the cognition of objects a priori, of determining something with respect to these objects, before they are given to us. We here propose to do just what Copernicus did in attempting to explain the celestial movements. When he found that he could make no progress by assuming that all the heavenly bodies revolved round the spectator, he reversed the process, and tried the experiment of assuming that the spectator revolved, while the stars remained at rest." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
       text: "Again:—\"Why does not the pope, whose wealth is to-day greater than the riches of the richest, build just this one church of St. Peter with his own money, rather than with the money of poor believers?\"" },
     { book: "kalidasa-shakuntala", n: 6, t: "Act IV", p: 138,
@@ -26321,7 +26553,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* ---------- THE TERM OF THE DAY (2026-11-13, on request) ----------
      "Since the Suggested Reading box now sits in the bottom left on those formats with nothing to the right of it, add a box
      there with a randomly selected daily highlighted gloss term, preferably one with an image." A tablet's and a desktop's
-     alone (styles.css hides it on a phone, where the reading box stands by itself as before). The draw is `dayPick` over the
+     alone at first; since 2026-11-16 a phone's too, directly below the reading box (both at `order:3` in styles.css). The draw is `dayPick` over the
      curated glossary — never a deck's own terms — so everyone sharing a day shares a term and it does not change on a reload;
      the pool is the terms WITH a picture and a text (the pictures and texts ride the lazy glossExtra bundle, so the box is drawn
      empty and filled when that lands), falling back to every term with a text. A press opens the term's own popup. */
@@ -31276,6 +31508,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        its nearest neighbour (Ancient Mesopotamia), then 14.3 from World History and 14.5 from Spanish, against a
        tightest existing pair of 4.0; 5.9:1 against white. */
     "lang-finnish":    { bg: "#8D572D" }, // measured sienna
+    /* BULGARIAN (Nov 2026) was not named a colour, so it was MEASURED as Finnish was: swept in CIELAB (ΔE 1976) inside
+       the shelf's band (L 28–55, chroma 7–62, 4.5:1 against white), the magenta band's standing rejection kept, the greens
+       left out, and nothing within 20 of the two colours of Bulgaria's flag. Against all 79 hues on the page: a purple,
+       14.0 from its nearest neighbour (Danish), 14.2 from Ancient Rome and 14.3 from Hindi; 6.9:1 against white. The
+       raw winner was a leaf green 15.1 from Middle-earth, refused as the greens are. Not a flag colour. */
+    "lang-bulgarian":  { bg: "#813F8D" }, // measured purple
     /* ICELANDIC (Nov 2026) was not named a colour, so it was MEASURED as Finnish was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) against all 74 other hues, the magenta band's standing
        rejection kept and the greens left out. The raw winner, a deep indigo (#333C81, 14.3), was REFUSED for standing
@@ -31305,6 +31543,49 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Korean's dark green, then Old English's deep green at 15.2); with the greens left out, the best was a teal
        at 13.9. 6.2:1 against white. Not a flag colour. */
     "lang-lao":        { bg: "#426A43" }, // measured leaf green
+    /* CZECH (Nov 2026) was not named a colour, so it was MEASURED as Lao was: swept in CIELAB inside the shelf's
+       band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all the hues on the
+       page, the magenta band's standing rejection kept, the greens left out and anything within 15 of the red or
+       blue of the Czech flag refused. Twice a parallel session merged first onto Czech's sweep: Navajo took
+       #3C7676 (0.1 from Czech's #3C7675), then Somali #485A5A (0.4 from Czech's re-swept #495A5A). Re-swept again
+       at the merge against all 82 other hues: two points tied at 13.1, a warm taupe at exactly 4.5:1 against white
+       and this rust red, 13.1 from its nearest neighbour (Russia's lacquer), then 13.3 from the Viking Age and
+       14.7 from Ukrainian, against a tightest existing pair of 0.4. The tie went to the rust for its contrast,
+       8.7:1 against white; 29.1 from the flag's red. Not a flag colour. */
+    "lang-czech":      { bg: "#8F2302" }, // measured rust red
+    /* NAVAJO (Nov 2026) was not named a colour, so it was MEASURED as Lao was: swept in CIELAB inside the shelf's
+       band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 79 hues on the page.
+       The outright winner was a yellow-green (#4E7E00, 15.1), refused as a fourth green beside Middle-earth, Arabic
+       and Geography (all within 15.5 of it). This turquoise-teal is the best point of the cyan band: 13.9 from its
+       nearest neighbours (Economics and France, then Philosophy at 14.1), against a tightest existing pair of 4.0;
+       5.2:1 against white. Turquoise is the subject's own argument: dootłʼizh, one of the four sacred colours of
+       the Diné, of the sacred mountain of the south. Not a flag colour. */
+    "lang-navajo":     { bg: "#3C7676" }, // measured turquoise-teal
+    /* MONGOLIAN (Nov 2026) was not named a colour, so it was MEASURED as Yoruba was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 80 hues on
+       the page, the magenta band's standing rejection kept and the greens left out. Its first sweep found a muted
+       teal, #3C7676 — and Navajo's, run in a parallel session, found the same colour and merged first; re-swept at
+       the merge: this golden ochre, 14.0 from its nearest neighbours (Palaeontology's ochre and India's saffron),
+       then 14.2 from Russia's Geography amber, against a tightest existing pair of 4.0; 4.5:1 against white. Not a
+       flag colour. */
+    "lang-mongolian":  { bg: "#A16C02" }, // measured golden ochre
+    /* SOMALI (Nov 2026) was not named a colour, so it was MEASURED as Yoruba was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from every hue on the
+       page, the magenta band's standing rejection kept, the greens left out and anything within 15 of the light blue
+       of the Somali flag refused. Its first sweep chose a teal, #3C7575 — and Navajo's, run in a parallel session,
+       took #3C7676 and merged first; re-swept at the merge against all 81 other hues: two points tied at 13.2, a
+       burnt orange in the crowded red-brown band (Ukrainian, Spanish, China) and this slate teal, 13.2 from its
+       nearest neighbour (Philosophy), then 13.3 from Korean and 14.4 from the Cold War, against a tightest existing
+       pair of 4.0. The tie went to the slate, nearest the collection's first colour. 7.3:1 against white; 52.4 from
+       the flag's blue. Not a flag colour. */
+    "lang-somali":     { bg: "#485A5A" }, // measured slate teal
+    /* SERBIAN (Nov 2026) was not named a colour, so it was MEASURED as Lao was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 79 hues
+       on the page, the magenta band's standing rejection kept; re-swept at the merge against all 82 others
+       (Navajo, Mongolian and Somali having joined), with the same answer. The winner is this deep forest green, 15.0 from
+       its nearest neighbour (Geography's olive), then 15.3 from World Geography's green and 15.5 from Biology's
+       forest; with the greens left out, the best was a teal at 13.8. 10.0:1 against white. Not a flag colour. */
+    "lang-serbian":    { bg: "#1C4C0E" }, // measured forest green
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
@@ -34865,13 +35146,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         '<div class="node-title-row">' +
           '<span class="node-title">' + esc(o.title) + '</span>' +
         '</div>' +
-        /* The count on a line of its own under the title, exactly as the curated shelf sets it — see
-           `nodeMetaHTML` in buildNode. No file size (Oct 2026, on request): Daily study's Download button
-           still says what a deck will fetch. */
-        '<div class="node-meta">' +
-          '<span class="node-count">' + (o.cards || 0).toLocaleString() + " cards</span>" +
-          langFactsHTML(o) +
-        '</div>' +
+        /* NO COUNT AND NO FACTS LINE (2026-11-16, on request: "when unfolding a language collection, its decks should not
+           say the number of cards and % of examples. The one line description is sufficient."). The row is its title and,
+           on a top-level deck, its subtitle below; Daily study's Download row still says what a deck holds and fetches.
+           `langFactsHTML` (the "N% with examples" / "no audio" chips) went with it. */
         /* THE DECK'S OWN SUBTITLE (Sep 2026). Nine decks presented as nine levels said nothing about
            where a learner should start, how big each is against the others, or where a deck outside the
            ladder fits — a shelf rather than a course. It is drawn only on a TOP-LEVEL row and only where
@@ -34901,28 +35179,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         kids.map((k, i) => langRowHTML(k, i, depth + 1)).join("") +
       "</div></div></div>" +
     "</div>";
-  }
-  /* WHAT A DECK TEACHES, ON THE SHELF (`langFactsHTML`; Sep 2026, on request). A row said how many
-     cards a deck holds and how many megabytes it costs, and nothing about whether it carries EXAMPLE
-     SENTENCES or whether its words can be HEARD — which are the two things that most decide whether a
-     vocabulary deck is worth twenty megabytes, and the two that actually vary across this shelf.
-     THE FIGURES ARE THE CATALOGUE'S, measured off each deck file by `.claude/build-lang-decks.js`, so
-     nothing here can drift from the deck it describes.
-     ONLY WHAT VARIES IS DRAWN. Every deck on the shelf is asked both ways, so saying so on all of them
-     tells a reader choosing between two of them nothing; audio is the norm and its ABSENCE is the fact,
-     so "no audio" is drawn on the eight decks that lack it and nothing at all on the rest. Example
-     coverage runs from 16% to 100% and is always drawn — with `100% examples` said as `with examples`,
-     since a percentage a reader has to notice is 100 is a percentage that should have been a word. */
-  function langFactsHTML(o) {
-    let out = "";
-    if (typeof o.ex === "number") {
-      out += '<span class="node-fact" title="How many of this deck\u2019s words come with an example sentence.">' +
-        (o.ex >= 100 ? "with examples" : esc(o.ex + "% with examples")) + "</span>";
-    }
-    if (o.say === false) {
-      out += '<span class="node-fact node-fact-no" title="This deck has no read-aloud control on its cards.">no audio</span>';
-    }
-    return out;
   }
   /* A catalogue tree node turned into a row spec, all the way down. The entry id is the same one app.js
      uses everywhere else for a subdeck of one of the reader's own decks, so a row added here is the row
@@ -46417,7 +46673,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <button class="ghost-btn" id="signout" type="button">Sign out</button>
           <button class="ghost-btn danger" id="delToggle" type="button">Delete account</button>
         </div>
-        <div class="acct-syncnote"><span class="auth-note">${S._supaTs ? "Progress synced to your account ✓" : "Progress will sync automatically as you study"}</span></div>
+        <div class="acct-syncnote"><span class="auth-note">${S._supaTs ? "Progress synced to your account ✓" : "Progress will sync automatically as you study"}</span> · <a class="auth-note" href="#settings">Settings on this device</a></div>
         ${/* CHANGING THE HANDLE (Sep 2026, on a bug report about creating an account). Sign-up does not always
               grant the username asked for — a taken one is answered with `scholar_<8 hex>` so that the account
               is still made — and until now there was no way back from that: the field above edits the display
@@ -47644,7 +47900,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const locked = !themeUnlocked(t[0]);   // only an admin ever sees one of these — see shownThemes
       const tag = locked ? "Locked — admin view" : when ? "Unlocked " + when : t[2];
       const tip = t[1] + " — " + t[2] + (locked ? ". Not yet unlocked; visible because you are an editor" : when ? ". Unlocked " + when : "") + ".";
-      return `<button class="theme-opt${locked ? " theme-locked" : ""}" data-theme="${t[0]}" type="button" title="${tip}">
+      return `<button class="theme-opt${locked ? " theme-locked" : ""}" data-theme="${t[0]}" type="button" title="${tip}" aria-pressed="${t[0] === (THEMES.includes(S.settings.theme) ? S.settings.theme : "folio")}">
       ${themeMockHTML(t)}
       <span class="theme-name">${t[1]}</span><span class="theme-tag">${tag}</span></button>`;
     };
@@ -47681,11 +47937,33 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // an admin is looking at every tile, so "N more are still to find" would be a sentence about a list
     // they can already see — they are told what the greyed ones mean instead
     const themeHint = isAdmin() && stillLocked
-      ? stillLocked + (stillLocked === 1 ? " theme is" : " themes are") + " not yet unlocked on this account — they are greyed above, and an editor may wear one anyway."
+      ? stillLocked + (stillLocked === 1 ? " theme is" : " themes are") + " locked on this account and greyed; an editor may wear one anyway."
       : !stillLocked ? ""
       : shownThemes.length > 1
-        ? stillLocked + (stillLocked === 1 ? " more theme is" : " more themes are") + " still to find — every tenth chest you open holds one."
+        ? stillLocked + (stillLocked === 1 ? " more is" : " more are") + " still to find — every tenth chest holds one."
         : "The other " + stillLocked + " are found in artefact chests — every tenth chest you open holds one. " + chestWaysText();
+    /* TWO LINES, AND THE REST BEHIND "MORE" (Nov 2026, out of the page audit: the page was nine and a half
+       screens on a phone and 47% of it was description). Every row's prose was a paragraph that argued its
+       setting in full; what a reader needs in order to find and flip a control is one sentence, and the
+       argument is still wanted by the one who stops to ask. So a row says the one sentence, and `more` — the
+       same text as before, not a summary of it — opens under it from a "More" button (the delegated
+       `.set-more` listener below). `sub` is a row's status line (.set-sub). `title` is plain text. */
+    let moreN = 0;
+    const info = (title, short, more, sub) => {
+      const id = "setMore" + (++moreN);
+      const btn = more ? '<button type="button" class="set-more" aria-expanded="false" aria-controls="' + id + '" data-about="' + esc(title) + '" aria-label="More about ' + esc(title) + '">More</button>' : "";
+      // "More" never wraps to a line of its own: it is tied to the sentence's last word (a plain word only —
+      // a sentence that ends in markup is left as it is)
+      const tail = more && /^([\s\S]*\s)([^\s<>]+)$/.exec(short);
+      return '<div class="info"><h3>' + esc(title) + "</h3><p>" +
+        (tail ? tail[1] + '<span class="set-tail">' + tail[2] + " " + btn + "</span>" : short + (btn ? " " + btn : "")) + "</p>" +
+        (more ? '<p class="set-extra" id="' + id + '" hidden>' + more + "</p>" : "") + (sub || "") + "</div>";
+    };
+    // "Hover a tile to try it on" was said to a phone, which has nothing to hover with
+    const themeTry = window.matchMedia && matchMedia("(hover: hover)").matches ? "Hover a tile to try it on; click to keep it." : "Tap a tile to wear it.";
+    const ttsRowsOn = () => ttsSupported() && S.settings.ttsButtons !== false;
+    // Chrome's Data Saver: lightMode() is on whatever the switch says, so the switch is drawn as the readout it is
+    const browserSaver = !!(navigator.connection && navigator.connection.saveData === true);
     const setHead = (accent, svg, title) => `<div class="set-head" style="--msn-accent:${accent}"><span class="msn-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${svg}</svg></span><h2>${title}</h2></div>`;
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Preferences</span><h1>Settings</h1>
@@ -47695,60 +47973,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <div class="set-card set-wide">
           ${setHead("var(--indigo)", '<circle cx="13.5" cy="6.5" r="2.5"/><circle cx="19" cy="13" r="2"/><circle cx="6" cy="12" r="2.5"/><path d="M12 2a10 10 0 1 0 10 10c0-1.2-1-2-2.2-2H16a3 3 0 0 1-3-3V4.2C13 3 12.8 2 12 2z"/>', "Appearance")}
           <div class="set-row set-row-block">
-            <div class="info"><h3>Theme</h3><p>Each theme has its own colours, typography and layout. Hover a tile to try it on; click to keep it. Night mode works within every theme.${themeHint ? " " + themeHint : ""}</p></div>
+            ${info("Theme", themeTry + (themeHint ? " " + themeHint : ""), "Each theme has its own colours, typography and layout. Night mode works within every theme.")}
             <div id="themeGrid"><div class="theme-grid">${shownThemes.map(themeBtn).join("")}</div></div>
           </div>
           <div class="set-row">
             ${/* Follow the operating system (Aug 2026, on request), and the default for a first-time
                   visitor. It sits ABOVE the manual switch because it decides whether that switch is the
                   control or merely the readout — flipping Night mode by hand turns this back off. */""}
-            <div class="info"><h3>Match my device</h3><p>Follow your system's light or dark appearance, and change with it.</p></div>
+            ${info("Match my device", "Follow your system's light or dark appearance, and change with it.")}
             <div class="ctl"><div class="switch ${S.settings.themeAuto ? "on" : ""}" id="sw-themeAuto" role="switch" aria-label="Match my device" tabindex="0" aria-checked="${!!S.settings.themeAuto}"></div></div>
           </div>
           <div class="set-row set-row-night${S.settings.themeAuto ? " row-locked" : ""}">
             ${/* the light / dark switch — this is its only home now, the top bar's slider having gone (Aug 2026) */""}
-            <div class="info"><h3>Night mode</h3><p>Switch to the deck's dark paper palette.</p></div>
+            ${info("Night mode", "Switch to the deck's dark paper palette.")}
             <div class="ctl"><div class="switch ${S.settings.night ? "on" : ""}${S.settings.themeAuto ? " switch-locked" : ""}" id="sw-night" role="switch" aria-label="Night mode" tabindex="0" aria-checked="${S.settings.night}"></div></div>
-          </div>
-          <div class="set-row">
-            ${/* Aug 2026, on request: "a user should be able to turn off all animations (since they may
-                  cause lag on some devices)". ON by default; turning it off drives BOTH halves — the
-                  stylesheet's killswitch through body.no-anim, and every JS-driven movement through
-                  prefersReducedMotion(), which reads this same setting. */""}
-            <div class="info"><h3>Animations</h3><p>Page transitions, the entrance of each block, and the small movements on buttons and sheets. Turn them off if the site feels slow on this device.</p></div>
-            <div class="ctl"><div class="switch ${S.settings.animations !== false ? "on" : ""}" id="sw-anim" role="switch" aria-label="Animations" tabindex="0" aria-checked="${S.settings.animations !== false}"></div></div>
-          </div>
-          <div class="set-row">
-            ${/* High contrast — see the CONTRAST block in styles.css for the measurements behind it. The
-                  quiet tokens are quiet on purpose, so this is a mode rather than a redesign. */""}
-            <div class="info"><h3>High contrast</h3><p>Darkens the quieter text — captions, eyebrows, source lines — and strengthens borders and focus outlines, so everything clears a 4.5:1 contrast ratio.</p></div>
-            <div class="ctl"><div class="switch ${S.settings.contrast ? "on" : ""}" id="sw-contrast" role="switch" aria-label="High contrast" tabindex="0" aria-checked="${!!S.settings.contrast}"></div></div>
-          </div>
-          <div class="set-row set-row-block">
-            ${/* Aug 2026, on request. The wording names the surfaces it reaches rather than promising a
-                  whole-site zoom — see the FONT_SIZES comment by applyTheme for why it is the prose only.
-                  A BLOCK row (the control under its description, like Theme and Language above): the three
-                  cells run to 186px, which on a phone leaves the sentence a column four words wide. */""}
-            ${/* It scales EVERYTHING now (Aug 2026, on request) — it used to reach the reading prose only,
-                  and the sentence named the three surfaces it got to. The one thing it cannot reach is the
-                  Atlas map's own labels, which are drawn on a canvas. */""}
-            ${/* A SLIDER across the full width, not buttons on the left (Aug 2026, on request). The sizes
-                  are an ORDERED scale — very small through very large — and a segmented control says
-                  nothing about that ordering while leaving two thirds of the row empty. A native
-                  <input type="range"> is what carries it: it is the one control a browser already gives
-                  arrow keys, Home/End and a drag to, and its value is the INDEX into FONT_SIZES rather
-                  than the name, so the scale and the stored setting can never disagree. The tick labels
-                  are aria-hidden marks under the track — the range itself is the control and announces
-                  the size through aria-valuetext, so labelling them again would read the scale twice. */""}
-            <div class="info"><h3>Text size</h3><p>How large the text across Folio is — every page, not just what you read on a card. The Atlas map's own labels keep their size.</p></div>
-            <div class="ctl"><div class="fs-slide" id="fsPick">
-              <input type="range" id="fsRange" class="fs-range" min="0" max="${FONT_SIZES.length - 1}" step="1"
-                     value="${FONT_SIZES.indexOf(fsNow)}" aria-label="Text size"
-                     aria-valuetext="${esc(fontSizeLabel(fsNow))}">
-              <div class="fs-ticks" aria-hidden="true">${
-                FONT_SIZES.map((f) => `<span class="fs-tick${fsNow === f ? " on" : ""}" data-fs="${f}"><span class="fs-a">A</span><span class="fs-lbl">${esc(fontSizeLabel(f))}</span></span>`).join("")
-              }</div>
-            </div></div>
           </div>
         </div>
         ${/* The language picker (moved off the top bar Aug 2026 — see langPickerHTML). Gone from the page
@@ -47763,11 +48001,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           </div>
         </div>` : ""}
         ${/* TWO EXPLICIT COLUMNS, NOT ONE AUTO-PLACED GRID (Oct 2026, on a report: "on desktop the Settings page
-              is formatted poorly and has big empty spaces"). Auto-placement pairs cards by ROW, so a one-row
-              Audio card sat beside the ten-row Study card with ~1900px of nothing under it, and Atlas beside
-              Data the same way. Each column is now its own stack, grouped so the two come out about level:
-              Study and Audio on the left; Reading, Atlas, Data and the two guides on the right. On a phone
-              the columns simply stack in this order. See .settings / .set-col in styles.css. */""}
+              is formatted poorly and has big empty spaces"). Auto-placement pairs cards by ROW, so a one-row card sat
+              beside the ten-row Study card with ~1900px of nothing under it. Each column is its own stack, grouped so
+              the two come out about level (Nov 2026, re-measured after the descriptions went behind "More"): Study
+              and Data on the left; Accessibility, Reading, Audio and Atlas on the right. On a phone the columns
+              simply stack in this order. See .settings / .set-col in styles.css. */""}
         <div class="set-col">
         <div class="set-card">
           ${setHead("#4F9D67", '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>', "Study")}
@@ -47778,9 +48016,23 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 allowance a reader had come to change, and read as a rule about Folio rather than as the
                 fallback behind a per-deck figure. It also had no companion: the maximum reviews a day was
                 only ever settable per deck, so the two halves of one idea lived in two places. */""}
+          <div class="set-row set-row-stack">
+            ${/* THE DAILY REVIEW'S ORDER — A PICKER OF EVERY ORDER IT CAN TAKE (Nov 2026, out of the page audit). This
+                  was a switch, "Random review order", from when there were two orders. There are four (DECK_ORDERS),
+                  the default is By difficulty, and a switch could only say Random or not: off, it read as
+                  "chronological" whatever was in force, and on-then-off left Ordered where By difficulty had been.
+                  The options are deckOrdersFor's, so an order the review cannot act on is not offered, and the line
+                  under the picker is that order's own DECK_ORDER_NOTE — one wording, here and on a deck's sheet. */""}
+            ${info("Review order", "The order each day's session deals its cards in.", "Random also draws each day's new cards at random from your active decks. Any single deck can be given an order of its own by holding its row in the daily study.", '<p class="set-sub" id="reviewOrderNote">' + esc(DECK_ORDER_NOTE[deckOrderMode(REVIEW_ENTRY)]) + ".</p>")}
+            <div class="ctl"><select class="set-sel" id="reviewOrderSel" aria-label="Review order">${deckOrdersFor(REVIEW_ENTRY).map((m) => `<option value="${m}"${m === deckOrderMode(REVIEW_ENTRY) ? " selected" : ""}>${esc(DECK_ORDER_LABEL[m])}</option>`).join("")}</select></div>
+          </div>
           <div class="set-row">
-            <div class="info"><h3>Random review order</h3><p>Shuffle each day's session and draw its new cards at random from your active decks, instead of chronologically. Any single deck can be set the other way by holding its row in the daily study.</p></div>
-            <div class="ctl"><div class="switch ${S.settings.reviewRandom ? "on" : ""}" id="sw-random" role="switch" aria-label="Random review order" tabindex="0" aria-checked="${!!S.settings.reviewRandom}"></div></div>
+            ${/* THE WAY TO THE "ALL DECKS" FIGURES (Nov 2026, out of the page audit). The stepper that stood here went
+                  to the Daily limits dialog in Aug 2026 (see the note above) and stays there: this row opens that
+                  dialog's "All decks" half on its own (openGlobalLimits), because a site-wide default that could only
+                  be reached by holding one deck's row was a setting nobody could find from Settings. */""}
+            ${info("Daily limits", "New cards and reviews a day, for all decks.", "Every deck follows these until it is given limits of its own. A deck's own figures are set by holding its row in the daily study. Until figures are saved here, each kind of deck follows its own default.")}
+            <div class="ctl"><button class="btn ghost" id="limitsOpen" type="button" aria-label="${S.settings.limitsCustom ? globalLimits().newPerDay + " / " + globalLimits().maxReviews + ": " + globalLimits().newPerDay + " new cards and " + globalLimits().maxReviews + " reviews a day" : "Defaults: the daily limits for all decks"}">${S.settings.limitsCustom ? globalLimits().newPerDay + " / " + globalLimits().maxReviews : "Defaults"}</button></div>
           </div>
           <div class="set-row">
             ${/* Aug 2026, on request. Days used to be UTC days, so everything dated changed at an hour that
@@ -47789,18 +48041,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   says "this device" outright — deriving a time zone from the Atlas home location would
                   need a tz database the site cannot ship, and guessing one from longitude would be worse
                   than the clock it replaced. See dayKey in app.js. */""}
-            <div class="info"><h3>Day ends at</h3><p>When one study day becomes the next: the review's new cards reset, the daily quote and the card of the day change, and your streak counts. Useful if you study after midnight. Follows this device's clock.</p></div>
-            <div class="ctl"><input class="set-time" id="dayEnd" type="time" step="900" value="${dayEndHHMM()}" aria-label="The time a study day ends"></div>
+            ${info("Day ends at", "When a study day ends: midnight to noon.", "This is when one study day becomes the next: the review's new cards reset, the daily quote and the card of the day change, and your streak counts. Useful if you study after midnight. Follows this device's clock.")}
+            <div class="ctl"><input class="set-time" id="dayEnd" type="time" step="900" min="00:00" max="12:00" value="${dayEndHHMM()}" aria-label="The time a study day ends"></div>
           </div>
           <div class="set-row set-row-remind">
             ${/* STUDY REMINDERS (Nov 2026, on request) — see remindCfg. Device-local, opt-in, and honest about the
                   platform: the sentence under the title is remindPlatform's, which says when this browser can
                   actually show one. Where it cannot at all there is no switch, only the sentence. */""}
-            <div class="info"><h3>Remind me when reviews are due</h3><p>Once a day, after the time you pick, a notification says how many cards are waiting. <span id="remindNote">${esc(remindPlatform().note)}</span></p></div>
+            ${remindPlatform().ok
+              ? info("Study reminders", "A daily notification says how many cards are waiting.", '<span id="remindNote">' + esc(remindPlatform().note) + "</span>")
+              : info("Study reminders", '<span id="remindNote">' + esc(remindPlatform().note) + "</span>")}
             <div class="ctl">${remindPlatform().ok ? `<div class="switch ${remindCfg().on ? "on" : ""}" id="sw-remind" role="switch" aria-label="Remind me when reviews are due" tabindex="0" aria-checked="${remindCfg().on}"></div>` : ""}</div>
           </div>
-          ${remindPlatform().ok ? `<div class="set-row${remindCfg().on ? "" : " row-locked"}" id="remindTimeRow">
-            <div class="info"><h3>Reminder time</h3><p>The earliest a reminder may come. Follows this device's clock.</p></div>
+          ${remindPlatform().ok ? `<div class="set-row set-row-sub" id="remindTimeRow"${remindCfg().on ? "" : " hidden"}>
+            <label class="info set-sublabel" for="remindTime">Not before this time, by this device's clock</label>
             <div class="ctl"><input class="set-time" id="remindTime" type="time" step="900" value="${remindCfg().time}" aria-label="The earliest time a reminder may come"></div>
           </div>` : ""}
           <div class="set-row">
@@ -47808,7 +48062,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   sake: it changes what the scheduler does, and an existing reader's intervals must not move
                   because they updated. What it can and cannot do is said plainly, since "evens out the load"
                   invites a reader to expect more than a few days either way. */""}
-            <div class="info"><h3>Even out the daily pile</h3><p>When a card's next interval is worked out, put it on the quietest of the few days the scheduler was already free to choose between &mdash; so a hundred cards learned in one week do not all come back on one day. It never moves a card further than it would have moved anyway, and it works with both schedulers. The 14-day forecast on your account page shows the effect.</p></div>
+            ${info("Even out the daily pile", "Puts each card on the quietest of the days it could fall on.", "When a card's next interval is worked out, it goes on the quietest of the few days the scheduler was already free to choose between &mdash; so a hundred cards learned in one week do not all come back on one day. It never moves a card further than it would have moved anyway, and it works with both schedulers. The 14-day forecast on your account page shows the effect.")}
             <div class="ctl"><div class="switch ${S.settings.loadBalance ? "on" : ""}" id="sw-load" role="switch" aria-label="Even out the daily pile" tabindex="0" aria-checked="${!!S.settings.loadBalance}"></div></div>
           </div>
           <div class="set-row set-row-stack">
@@ -47816,7 +48070,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   Date#getDay, so the scheduler needs no conversion at all. A day is AVOIDED rather than
                   forbidden — if every day in a card's range is marked it still lands on one, because a card
                   that cannot be scheduled at all is worse than one that arrives on a Sunday. */""}
-            <div class="info"><h3>Days you don't study</h3><p>Mark a day and Folio schedules around it where it can, moving a card to a neighbouring day instead. It cannot always: a card whose whole range falls on marked days still lands on one, and nothing already scheduled is moved.</p></div>
+            ${info("Days you don't study", "Mark a day and Folio schedules around it where it can.", "It moves a card to a neighbouring day instead. It cannot always: a card whose whole range falls on marked days still lands on one, and nothing already scheduled is moved.")}
             <div class="ctl"><div class="ed-days" id="edDays">${
               [1, 2, 3, 4, 5, 6, 0].map((d) => {
                 const off = easyDays()[d] === 0;
@@ -47830,8 +48084,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             ${/* SCHEDULING (Oct 2026, on request) — one scheduler for every deck, chosen here. It was a row on
                   each deck's own sheet (openDeckSched) from Aug 2026; the sheet is the same one, site-wide now.
                   The button's label says what is in force, so the row reads as a setting and not a link. */""}
-            <div class="info"><h3>Scheduling</h3><p>How Folio decides when each card comes back. SM-2 is the classic interval schedule; FSRS models how fast you forget each card and aims for the retention you ask for, usually from fewer reviews. One choice for every deck you study.</p></div>
-            <div class="ctl"><button class="btn ghost" id="schedOpen">${schedModeOf(null) === "fsrs" ? "FSRS \u00b7 " + Math.round(deckSchedCfg(null).retention * 100) + "%" : "SM-2"}</button></div>
+            ${info("Scheduling", "How Folio decides when each card comes back.", "SM-2 is the classic interval schedule; FSRS models how fast you forget each card and aims for the retention you ask for, usually from fewer reviews. One choice for every deck you study. It is kept on this device, like every setting here, so make the same choice on each device you study on.")}
+            <div class="ctl"><button class="btn ghost" id="schedOpen" type="button" aria-describedby="schedOpenWhat">${schedModeOf(null) === "fsrs" ? "FSRS \u00b7 " + Math.round(deckSchedCfg(null).retention * 100) + "%" : "SM-2"}</button><span id="schedOpenWhat" hidden>The scheduler in force. Opens the scheduling options.</span></div>
           </div>
           <div class="set-row">
             ${/* ANSWER BEFORE REVEALING (Sep 2026) — the one switch for every deck (a per-deck override stood
@@ -47839,24 +48093,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   opted into rather than done to somebody — the same line the site-wide read-aloud switch
                   draws. The copy states the finding rather than the mechanism, since the mechanism ("the
                   Reveal button is disabled") is visible on the card and the reason is not. */""}
-            <div class="info"><h3>Answer before revealing</h3><p>Hold back the Reveal button until you have typed something into the blank, or pressed “I don’t know”. Trying to remember and failing teaches you more than reading the answer does — reading it feels like studying and is closer to rereading.</p></div>
+            ${info("Answer before revealing", "Reveal waits until you type an answer or press “I don’t know”.", "Trying to remember and failing teaches you more than reading the answer does — reading it feels like studying and is closer to rereading.")}
             <div class="ctl"><div class="switch ${S.settings.attemptFirst ? "on" : ""}" id="sw-attempt" role="switch" aria-label="Answer before revealing" tabindex="0" aria-checked="${!!S.settings.attemptFirst}"></div></div>
           </div>
           <div class="set-row">
             ${/* RECALL IN FULL — see deckRecall. Off by default, on the same reasoning: it makes studying
                   harder on purpose. The copy says what the reader will be asked to DO, since the point is
                   a habit rather than a setting. */""}
-            <div class="info"><h3>Recall in full</h3><p>Before the answer is shown, a box asks you to write down everything you can remember about the term &mdash; not just the missing word. What you wrote is put beside the answer so you can mark it yourself, and then thrown away. Nobody sees it and nothing is stored.</p></div>
+            ${info("Recall in full", "Asks you to write all you remember before the answer shows.", "Not just the missing word: everything you can remember about the term. What you wrote is put beside the answer so you can mark it yourself, and then thrown away. Nobody sees it and nothing is stored.")}
             <div class="ctl"><div class="switch ${S.settings.recallFirst ? "on" : ""}" id="sw-recall" role="switch" aria-label="Recall in full" tabindex="0" aria-checked="${!!S.settings.recallFirst}"></div></div>
-          </div>
-          <div class="set-row">
-            ${/* THE MAP IN WORDS — see mapNeighbours. The copy states the trade rather than selling the
-                  feature: a geography card's shape IS its question, so any text alternative is a second
-                  route to the answer, and for many readers the neighbour list is the SHORTER one. Off by
-                  default and the reader's own trade to make; a card nobody can answer is worse than an
-                  easy one. */""}
-            <div class="info"><h3>Describe geography maps</h3><p>A geography card asks you to name a shape on a globe, which is a question with no words in it. This adds a line under the map naming what the shaded place borders &mdash; the same thing the map shows a reader who can see it. It will often make the card easier to answer.</p></div>
-            <div class="ctl"><div class="switch ${S.settings.mapAlt ? "on" : ""}" id="sw-mapalt" role="switch" aria-label="Describe geography maps" tabindex="0" aria-checked="${!!S.settings.mapAlt}"></div></div>
           </div>
           <div class="set-row">
             ${/* THE WHITEBOARD MARKER (Aug 2026, on request). It floats over every study card, every page of
@@ -47864,77 +48109,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   corner of the screen on all three. OFF removes the panel and the ink canvas with it — see
                   markerOn() — so it costs those pages nothing rather than merely being hidden. Anything
                   already drawn is kept: this decides whether the marker appears, not whether the ink exists. */""}
-            <div class="info"><h3>Whiteboard marker</h3><p>The floating pen that draws over a study card, a book page or the Atlas globe. Turn it off and it stops appearing anywhere; marks you have already made on a book are kept.</p></div>
+            ${info("Whiteboard marker", "The floating pen over a study card, a book page or the Atlas.", "Turn it off and it stops appearing anywhere; marks you have already made on a book are kept.")}
             <div class="ctl"><div class="switch ${S.settings.marker !== false ? "on" : ""}" id="sw-marker" role="switch" aria-label="Whiteboard marker" tabindex="0" aria-checked="${S.settings.marker !== false}"></div></div>
-          </div>
-        </div>
-        <div class="set-card">
-          ${setHead("#8257C2", '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>', "Audio")}
-          <div class="set-row">
-            <div class="info"><h3>Sound effects</h3><p>Soft clicks and chimes for buttons, card reveals, grades and level-ups.</p></div>
-            <div class="ctl"><div class="switch ${S.settings.sfx !== false ? "on" : ""}" id="sw-sfx" role="switch" aria-label="Sound effects" tabindex="0" aria-checked="${S.settings.sfx !== false}"></div></div>
-          </div>
-          ${/* READ ALOUD (Oct 2026, on request). The play triangles beside Question, Answer and Background on history,
-                science and special cards — see ttsSectionOk. The voice list arrives asynchronously, so the select
-                is re-filled by `_ttsVoicesHook` rather than read once; it is never hidden on an empty list, which
-                is what the device reports before its voices load. */""}
-          <div class="set-row">
-            <div class="info"><h3>Read-aloud buttons</h3><p>Show a small play button beside Question, Answer and Background on history, science and special cards. It reads that section aloud in an English voice.</p></div>
-            <div class="ctl"><div class="switch ${S.settings.ttsButtons !== false ? "on" : ""}" id="sw-tts" role="switch" aria-label="Read-aloud buttons" tabindex="0" aria-checked="${S.settings.ttsButtons !== false}"></div></div>
-          </div>
-          <div class="set-row set-row-stack">
-            <div class="info"><h3>Read-aloud voice</h3><p id="ttsVoiceNote">Which English voice your device uses. Automatic picks the most natural one it has.</p></div>
-            <div class="ctl"><select class="set-sel" id="ttsVoiceSel" aria-label="Read-aloud voice"></select></div>
-          </div>
-          <div class="set-row set-row-block">
-            <div class="info"><h3>Reading speed</h3><p>How fast the English voice reads.</p></div>
-            <div class="ctl"><div class="fs-pick units-pick" id="ttsRatePick" role="group" aria-label="Reading speed">${
-              [["slow", "Slow"], ["normal", "Normal"], ["fast", "Fast"]].map((r) => { const on = (TTS_RATES[S.settings.ttsRate] ? S.settings.ttsRate : "normal") === r[0]; return `<button type="button" data-ttsrate="${r[0]}" class="${on ? "on" : ""}" aria-pressed="${on}">${r[1]}</button>`; }).join("")
-            }</div></div>
-          </div>
-          <div class="set-row">
-            <div class="info"><h3>Try the voice</h3><p>Plays a sample sentence with the voice and speed above.</p></div>
-            <div class="ctl"><button type="button" class="btn ghost" id="ttsTry">Play sample</button></div>
-          </div>
-        </div>
-        </div>
-        <div class="set-col">
-        <div class="set-card">
-          ${setHead("#B8862B", '<polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/>', "Reading")}
-          <div class="set-row set-row-block">
-            ${/* Measurements — one system, not both (Aug 2026, on request). The content is written metric
-                  first with the imperial equivalent in brackets; this decides which of the two a reader
-                  sees. See the units block by applyTheme for how the swap is made. */""}
-            <div class="info"><h3>Measurements</h3><p>Which system distances, heights, areas and weights are shown in. Scientific figures — cranial capacities, isotope ratios, radiocarbon ages — keep their own units in both.</p></div>
-            <div class="ctl"><div class="fs-pick units-pick" id="unitPick" role="group" aria-label="Measurement units">${
-              [["metric", "Metric", "km"], ["imperial", "Imperial", "mi"]].map((u) => `<button type="button" data-units="${u[0]}" class="${unitsNow === u[0] ? "on" : ""}" aria-pressed="${unitsNow === u[0]}"><span class="fs-a" aria-hidden="true">${u[2]}</span>${u[1]}</button>`).join("")
-            }</div></div>
-          </div>
-          <div class="set-row set-row-block">
-            ${/* Spelling — one system, not both (Aug 2026, on request: "just as users can switch between
-                  metric and imperial units, they should also be able to switch between British and
-                  American English"). Modelled on Measurements directly above it, and sitting beside it
-                  for the same reason: both decide how the SAME authored prose is rendered, and neither
-                  touches what is stored. See the spelling block by applyTheme. */""}
-            <div class="info"><h3>Spelling</h3><p>Which spellings the cards, the glossary and the site's own words are shown in. Quoted sources, citations and the Library's books keep the spelling their author used.</p></div>
-            <div class="ctl"><div class="fs-pick units-pick" id="spellPick" role="group" aria-label="Spelling">${
-              [["en-GB", "British", "colour"], ["en-US", "American", "color"]].map((u) => `<button type="button" data-spelling="${u[0]}" class="${spellNow === u[0] ? "on" : ""}" aria-pressed="${spellNow === u[0]}"><span class="fs-a notranslate" aria-hidden="true">${u[2]}</span>${u[1]}</button>`).join("")
-            }</div></div>
-          </div>
-        </div>
-        <div class="set-card">
-          ${setHead("var(--geo)", '<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/>', "Atlas")}
-          <div class="set-row set-row-stack">
-            ${/* stacked: at the column's ~350px the country select beside the prose wrapped "Home location" to two lines */""}
-            <div class="info"><h3>Home location</h3><p>The Atlas globe opens centred on this place.</p></div>
-            <div class="ctl"><select class="set-sel" id="homeSel" aria-label="Atlas home location">${homeOpts}</select></div>
-          </div>
-          <div class="set-row">
-            ${/* THE WAY TO THE SOURCES AND CREDITS PAGE (Oct 2026, Atlas v2 Phase 1d). The page is generated from the map
-                  data files' own headers (see PAGES.credits); this row is one of its three doors, with the home page's
-                  footer and the About page's credits list. */""}
-            <div class="info"><h3>Sources and credits</h3><p>Every data source behind the globe — coastlines, borders, rivers, lakes, relief and place names — with its licence and the files made from it.</p></div>
-            <div class="ctl"><button class="btn ghost" id="creditsBtn" type="button">Open</button></div>
           </div>
         </div>
         <div class="set-card">
@@ -47945,58 +48121,181 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                   promising a vague economy: the background warms stop, and a picture waits to be asked
                   for. It is ON automatically wherever the browser itself asks for it (Chrome's Data Saver),
                   and the row says so, since a reader who finds it already on deserves to know why. */""}
-            <div class="info"><h3>Use less data</h3><p>Folio quietly fetches the glossary's citations, the artefacts and the rest of each card's background while you read, so they are there the moment you want them. This stops all of that, and holds each card's picture back until you tap it. ${navigator.connection && navigator.connection.saveData ? "Your browser is asking for this already, so it is on whatever this switch says." : "Nothing is lost — everything still arrives when you actually open it."}</p></div>
-            <div class="ctl"><div class="switch ${lightMode() ? "on" : ""}" id="sw-lightdata" role="switch" aria-label="Use less data" tabindex="0" aria-checked="${lightMode()}"></div></div>
+            ${info("Use less data", "Stops background fetching and holds each picture until you tap it.", "Folio quietly fetches the glossary's citations, the artefacts and the rest of each card's background while you read, so they are there the moment you want them. This stops all of that. " + (browserSaver ? "Your browser is asking for this already, so it is on whatever this switch says." : "Nothing is lost — everything still arrives when you actually open it."))}
+            <div class="ctl"><div class="switch ${lightMode() ? "on" : ""}${browserSaver ? " switch-locked" : ""}" id="sw-lightdata" role="switch" aria-label="Use less data" tabindex="0" aria-checked="${lightMode()}"${browserSaver ? ' aria-disabled="true"' : ""}></div></div>
           </div>
           <div class="set-row">
-            <div class="info"><h3>Where your progress lives</h3><p id="dataWhere">${guestNow()
-              ? "Only in this browser, on this device — you are not signed in, so nothing is copied anywhere else. Sign in, or download a backup now and then."
-              : "In this browser, and synced to your account, so another device signed in as you picks it up."}</p><p class="set-sub" id="dataStore">Checking this browser\u2019s storage\u2026</p></div>
-            <div class="ctl"><button class="btn ghost" id="persistAsk" hidden>Keep it</button></div>
+            <div class="info"><h3>Your progress</h3><p id="dataWhere">${guestNow()
+              ? 'Kept only in this browser. <a href="#account">Sign in</a> to sync it.'
+              : 'In this browser, and synced to your account. <a href="#account">Manage account</a>'}</p><p class="set-sub" id="dataStore">Checking this browser\u2019s storage\u2026</p></div>
+            <div class="ctl"><button class="btn ghost" id="persistAsk" type="button" aria-label="Keep it: ask the browser to keep Folio\u2019s storage" hidden>Keep it</button></div>
+          </div>
+          <div class="set-row set-row-stack">
+            ${/* ONE ROW FOR THE FILE BOTH WAYS (Nov 2026, out of the page audit): Back up and Restore a backup were two
+                  rows about one file. The two buttons stand under the prose, so neither squeezes it. */""}
+            ${info("Back up and restore", "Download your progress as one file, or restore from one.", "The file holds every card's schedule, your streak, badges, artefacts and settings. Restoring replaces the progress on this device with the file's; your settings are merged, and nothing else on this device is touched.", `<p class="set-sub" id="backupWhen">${backupLastAt() ? "Last downloaded on this device " + esc(new Date(backupLastAt()).toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" })) + "." : "No backup has been downloaded on this device yet."}</p>`)}
+            <div class="ctl set-ctl-line"><button class="btn ghost" id="export" type="button" aria-label="Export a backup file">Export</button><button class="btn ghost" id="importBtn" type="button" aria-label="Import\u2026 restore from a backup file">Import…</button><input type="file" id="importFile" accept="application/json,.json" hidden></div>
+          </div>
+        </div>
+        </div>
+        <div class="set-col">
+        <div class="set-card">
+          ${/* ACCESSIBILITY, AS ITS OWN CARD (Nov 2026, out of the page audit): Text size, High contrast and Animations
+                stood in Appearance and "Describe geography maps" in Study. They are the four a reader looks for together,
+                and Appearance is left with what a theme is. */""}
+          ${setHead("#2F7FBF", '<circle cx="12" cy="4.5" r="2"/><path d="M4 8.5h16"/><path d="M12 8.5v6"/><path d="M8.5 21l3.5-6.5 3.5 6.5"/>', "Accessibility")}
+          <div class="set-row set-row-block">
+            ${/* Aug 2026, on request. The wording names the surfaces it reaches rather than promising a
+                  whole-site zoom — see the FONT_SIZES comment by applyTheme for why it is the prose only.
+                  A BLOCK row (the control under its description, like Theme and Language above): the three
+                  cells run to 186px, which on a phone leaves the sentence a column four words wide. */""}
+            ${/* It scales EVERYTHING now (Aug 2026, on request) — it used to reach the reading prose only,
+                  and the sentence named the three surfaces it got to. The Atlas map's own names follow it too
+                  since Oct 2026 (`labelScaleNow` in atlas/atlas.js); the row said they kept their size until
+                  Nov 2026, a month after they stopped. */""}
+            ${/* A SLIDER across the full width, not buttons on the left (Aug 2026, on request). The sizes
+                  are an ORDERED scale — very small through very large — and a segmented control says
+                  nothing about that ordering while leaving two thirds of the row empty. A native
+                  <input type="range"> is what carries it: it is the one control a browser already gives
+                  arrow keys, Home/End and a drag to, and its value is the INDEX into FONT_SIZES rather
+                  than the name, so the scale and the stored setting can never disagree. The tick labels
+                  are aria-hidden marks under the track — the range itself is the control and announces
+                  the size through aria-valuetext, so labelling them again would read the scale twice. */""}
+            ${info("Text size", "The size of text on every page, the names on the Atlas included.")}
+            <div class="ctl"><div class="fs-slide" id="fsPick">
+              <input type="range" id="fsRange" class="fs-range" min="0" max="${FONT_SIZES.length - 1}" step="1"
+                     value="${FONT_SIZES.indexOf(fsNow)}" aria-label="Text size"
+                     aria-valuetext="${esc(fontSizeLabel(fsNow))}">
+              <div class="fs-ticks" aria-hidden="true">${
+                FONT_SIZES.map((f) => `<span class="fs-tick${fsNow === f ? " on" : ""}" data-fs="${f}"><span class="fs-a">A</span><span class="fs-lbl">${esc(fontSizeLabel(f))}</span></span>`).join("")
+              }</div>
+            </div></div>
           </div>
           <div class="set-row">
-            <div class="info"><h3>Back up</h3><p>Download your progress — every card's schedule, your streak, badges, artefacts and settings — as one file you can restore later.</p><p class="set-sub" id="backupWhen">${backupLastAt() ? "Last downloaded on this device " + esc(new Date(backupLastAt()).toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" })) + "." : "No backup has been downloaded on this device yet."}</p></div>
-            <div class="ctl"><button class="btn ghost" id="export">Export</button></div>
+            ${/* High contrast — see the CONTRAST block in styles.css for the measurements behind it. The
+                  quiet tokens are quiet on purpose, so this is a mode rather than a redesign. */""}
+            ${info("High contrast", "Darker quiet text, stronger borders and focus outlines.", "Captions, eyebrows and source lines are darkened, so everything clears a 4.5:1 contrast ratio.")}
+            <div class="ctl"><div class="switch ${S.settings.contrast ? "on" : ""}" id="sw-contrast" role="switch" aria-label="High contrast" tabindex="0" aria-checked="${!!S.settings.contrast}"></div></div>
           </div>
           <div class="set-row">
-            <div class="info"><h3>Restore a backup</h3><p>Replace the progress on this device with a backup file. Your settings are merged; nothing else on this device is touched.</p></div>
-            <div class="ctl"><button class="btn ghost" id="importBtn">Import…</button><input type="file" id="importFile" accept="application/json,.json" hidden></div>
+            ${/* Aug 2026, on request: "a user should be able to turn off all animations (since they may
+                  cause lag on some devices)". ON by default; turning it off drives BOTH halves — the
+                  stylesheet's killswitch through body.no-anim, and every JS-driven movement through
+                  prefersReducedMotion(), which reads this same setting. */""}
+            ${info("Animations", "Transitions and small movements. Turn off if Folio feels slow.", "Page transitions, the entrance of each block, and the small movements on buttons and sheets.")}
+            <div class="ctl"><div class="switch ${S.settings.animations !== false ? "on" : ""}" id="sw-anim" role="switch" aria-label="Animations" tabindex="0" aria-checked="${S.settings.animations !== false}"></div></div>
+          </div>
+          <div class="set-row">
+            ${/* THE MAP IN WORDS — see mapNeighbours. The copy states the trade rather than selling the
+                  feature: a geography card's shape IS its question, so any text alternative is a second
+                  route to the answer, and for many readers the neighbour list is the SHORTER one. Off by
+                  default and the reader's own trade to make; a card nobody can answer is worse than an
+                  easy one. */""}
+            ${info("Describe geography maps", "Adds a line under a map card naming what the shaded place borders.", "A geography card asks you to name a shape on a globe, which is a question with no words in it. The line says the same thing the map shows a reader who can see it. It will often make the card easier to answer.")}
+            <div class="ctl"><div class="switch ${S.settings.mapAlt ? "on" : ""}" id="sw-mapalt" role="switch" aria-label="Describe geography maps" tabindex="0" aria-checked="${!!S.settings.mapAlt}"></div></div>
           </div>
         </div>
         <div class="set-card">
-          ${setHead("var(--indigo)", '<circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>', "Guides")}
-          <div class="set-row">
-            ${/* The walkthrough is offered once, on the home page, to a reader who has never graded a card
-                  — so without this it would be unreachable the moment either answer was given. The Atlas
-                  and the Library keep their own "?" for the same reason. */""}
-            <div class="info"><h3>Walkthrough</h3><p>The three-minute tour of how cards are scheduled, how to add a deck to your daily study, and how to study one.</p></div>
-            <div class="ctl"><button class="btn ghost" id="replayTour">Take the tour</button></div>
+          ${setHead("#B8862B", '<polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/>', "Reading")}
+          <div class="set-row set-row-block">
+            ${/* Measurements — one system, not both (Aug 2026, on request). The content is written metric
+                  first with the imperial equivalent in brackets; this decides which of the two a reader
+                  sees. See the units block by applyTheme for how the swap is made. */""}
+            ${info("Measurements", "Metric or imperial for distances, heights, areas and weights.", "Scientific figures — cranial capacities, isotope ratios, radiocarbon ages — keep their own units in both.")}
+            <div class="ctl"><div class="fs-pick units-pick" id="unitPick" role="group" aria-label="Measurement units">${
+              [["metric", "Metric", "km"], ["imperial", "Imperial", "mi"]].map((u) => `<button type="button" data-units="${u[0]}" class="${unitsNow === u[0] ? "on" : ""}" aria-pressed="${unitsNow === u[0]}"><span class="fs-a" aria-hidden="true">${u[2]}</span>${u[1]}</button>`).join("")
+            }</div></div>
           </div>
-          <div class="set-row">
-            ${/* THE PAGE THAT EXPLAINS THE DIFFICULTY (Sep 2026) — see PAGES.how. It is reached from here
-                  rather than from the home page because this is where a reader stands when they are about
-                  to switch one of these settings OFF, which is the moment the explanation is worth most. */""}
-            <div class="info"><h3>How Folio studies you</h3><p>Several of the settings on this page make studying feel harder on purpose. This says which, and what the evidence behind each of them actually is.</p></div>
-            <div class="ctl"><button class="btn ghost" id="howLink">Read it</button></div>
-          </div>
-          <div class="set-row">
-            ${/* THE KEYBOARD SHEET'S OTHER DOOR (Nov 2026): `?` opens it on a keyboard; this opens it with every
-                  page's keys, for a reader on a touch screen or one who never thought to press `?`. Wired by
-                  the document-level [data-keysheet] listener beside openKeySheet. */""}
-            <div class="info"><h3>Keyboard shortcuts</h3><p>The keys each page answers to. On a keyboard, press <kbd>?</kbd> on any page for that page’s list.</p></div>
-            <div class="ctl"><button class="btn ghost" type="button" data-keysheet="all">Show</button></div>
+          <div class="set-row set-row-block">
+            ${/* Spelling — one system, not both (Aug 2026, on request: "just as users can switch between
+                  metric and imperial units, they should also be able to switch between British and
+                  American English"). Modelled on Measurements directly above it, and sitting beside it
+                  for the same reason: both decide how the SAME authored prose is rendered, and neither
+                  touches what is stored. See the spelling block by applyTheme. */""}
+            ${info("Spelling", "British or American spelling for the cards, the glossary and the site.", "Quoted sources, citations and the Library's books keep the spelling their author used.")}
+            <div class="ctl"><div class="fs-pick units-pick" id="spellPick" role="group" aria-label="Spelling">${
+              [["en-GB", "British", "colour"], ["en-US", "American", "color"]].map((u) => `<button type="button" data-spelling="${u[0]}" class="${spellNow === u[0] ? "on" : ""}" aria-pressed="${spellNow === u[0]}"><span class="fs-a notranslate" aria-hidden="true">${u[2]}</span>${u[1]}</button>`).join("")
+            }</div></div>
           </div>
         </div>
+        <div class="set-card">
+          ${setHead("#8257C2", '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>', "Audio")}
+          <div class="set-row">
+            ${info("Sound effects", "Soft clicks and chimes for buttons, card reveals, grades and level-ups.")}
+            <div class="ctl"><div class="switch ${S.settings.sfx !== false ? "on" : ""}" id="sw-sfx" role="switch" aria-label="Sound effects" tabindex="0" aria-checked="${S.settings.sfx !== false}"></div></div>
+          </div>
+          ${/* READ ALOUD (Oct 2026, on request). The play triangles beside Question, Answer and Background on history,
+                science and special cards — see ttsSectionOk. The voice list arrives asynchronously, so the select
+                is re-filled by `_ttsVoicesHook` rather than read once; it is never hidden on an empty list, which
+                is what the device reports before its voices load. */""}
+          ${/* THE VOICE AND THE SPEED BELONG TO THE SWITCH (Nov 2026, out of the page audit): both rows are `.tts-dep`
+                and are in the page only while the buttons are on and the browser can speak — they stayed live with
+                the switch off, which is three controls for a feature that is not there. "Play sample" stands beside
+                the voice it plays, where it was a row of its own. */""}
+          <div class="set-row">
+            ${ttsSupported()
+              ? info("Read-aloud buttons", "A play button beside Question, Answer and Background reads it aloud.", "On history, science and special cards, in an English voice.")
+              : info("Read-aloud buttons", "This browser has no speech engine, so the play buttons are not shown.")}
+            <div class="ctl"><div class="switch ${S.settings.ttsButtons !== false ? "on" : ""}" id="sw-tts" role="switch" aria-label="Read-aloud buttons" tabindex="0" aria-checked="${S.settings.ttsButtons !== false}"></div></div>
+          </div>
+          <div class="set-row set-row-stack tts-dep"${ttsRowsOn() ? "" : " hidden"}>
+            <div class="info"><h3>Voice</h3><p id="ttsVoiceNote">Automatic picks the most natural English voice your device has.</p></div>
+            <div class="ctl set-ctl-line"><select class="set-sel" id="ttsVoiceSel" aria-label="Read-aloud voice"></select><button type="button" class="btn ghost" id="ttsTry">Play sample</button></div>
+          </div>
+          <div class="set-row tts-dep"${ttsRowsOn() ? "" : " hidden"}>
+            <div class="info"><h3>Speed</h3></div>
+            <div class="ctl"><div class="fs-pick units-pick" id="ttsRatePick" role="group" aria-label="Reading speed">${
+              [["slow", "Slow"], ["normal", "Normal"], ["fast", "Fast"]].map((r) => { const on = (TTS_RATES[S.settings.ttsRate] ? S.settings.ttsRate : "normal") === r[0]; return `<button type="button" data-ttsrate="${r[0]}" class="${on ? "on" : ""}" aria-pressed="${on}">${r[1]}</button>`; }).join("")
+            }</div></div>
+          </div>
+        </div>
+        <div class="set-card">
+          ${setHead("var(--geo)", '<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/>', "Atlas")}
+          <div class="set-row set-row-stack">
+            ${/* stacked: at the column's ~350px the country select beside the prose wrapped "Home location" to two lines */""}
+            <div class="info"><h3>Home location</h3><p>The Atlas globe opens centred on this place.</p></div>
+            <div class="ctl"><select class="set-sel" id="homeSel" aria-label="Atlas home location">${homeOpts}</select></div>
+          </div>
+        </div>
+        </div>
+        ${/* HELP AND ABOUT — FOUR DOORS, NOT FOUR SETTINGS (Nov 2026, out of the page audit). The walkthrough, "How Folio
+              studies you" and the keyboard sheet were a Guides card of three rows, each a paragraph beside a button, and
+              Sources and credits a fourth in the Atlas card: links dressed as settings, 770px of them on a phone. They
+              are one strip of links at the foot. Why each is here: the walkthrough is offered once, on the home page, so
+              without this it is unreachable once answered; "How Folio studies you" (PAGES.how) is wanted at the moment a
+              reader is about to switch one of the harder settings off; the keyboard sheet's other door is `?`, which a
+              touch screen has not got (the document-level [data-keysheet] listener wires it); and this is one of the
+              three doors to the Sources and credits page (PAGES.credits), with the home footer and the About page. */""}
+        <div class="set-card set-wide set-help">
+          ${setHead("var(--indigo)", '<circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>', "Help and about")}
+          <div class="set-links">
+            <button type="button" class="set-link" id="replayTour"><span class="sl-t">Walkthrough</span><span class="sl-d">The three-minute tour of studying with Folio</span></button>
+            <button type="button" class="set-link" id="howLink"><span class="sl-t">How Folio studies you</span><span class="sl-d">Why some settings make studying harder on purpose</span></button>
+            <button type="button" class="set-link" data-keysheet="all"><span class="sl-t">Keyboard shortcuts</span><span class="sl-d">Every page’s keys; on a keyboard, press <kbd>?</kbd></span></button>
+            <button type="button" class="set-link" id="creditsBtn"><span class="sl-t">Sources and credits</span><span class="sl-d">The Atlas’s data sources and their licences</span></button>
+          </div>
         </div>
         <div class="set-card danger">
           ${setHead("var(--zh)", '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/>', "Danger zone")}
           <div class="set-row">
-            <div class="info"><h3>Reset progress</h3><p>Clear every card's study history and start fresh. Your decks and your settings are kept. This can't be undone.</p></div>
-            <div class="ctl"><button class="btn ghost danger-btn" id="reset">Reset…</button></div>
+            ${info("Reset progress", "Clears your study history, streak, badges and artefacts. It can't be undone.", "Your decks, your place in the Library and your settings are kept." + (guestNow() ? "" : ' You are signed in, so the reset also reaches your account, and your other devices take it up when they next sync. To close the account itself, use Delete account on the <a href="#account">Account</a> page.'))}
+            <div class="ctl"><button class="btn ghost danger-btn" id="reset" type="button" aria-label="Reset… your study progress">Reset…</button></div>
           </div>
         </div>
       </div>`;
 
+    // "More" under a row's one sentence — see `info` above. One listener for the page; the button's own text
+    // and name say which way it goes, and aria-expanded says it to a screen reader.
+    root.addEventListener("click", (e) => {
+      const b = e.target.closest && e.target.closest(".set-more");
+      if (!b) return;
+      const x = root.querySelector("#" + b.getAttribute("aria-controls"));
+      if (!x) return;
+      x.hidden = !x.hidden;
+      b.setAttribute("aria-expanded", String(!x.hidden));
+      b.textContent = x.hidden ? "More" : "Less";
+      b.setAttribute("aria-label", (x.hidden ? "More" : "Less") + " about " + b.dataset.about);
+    });
     const sw = root.querySelector("#sw-night");
     const toggleNight = () => setNight(!S.settings.night);
     sw.addEventListener("click", toggleNight);
@@ -48046,6 +48345,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       swTts.classList.toggle("on", S.settings.ttsButtons !== false);
       swTts.setAttribute("aria-checked", String(S.settings.ttsButtons !== false));
       if (S.settings.ttsButtons === false) ttsStop();
+      root.querySelectorAll(".tts-dep").forEach((r) => { r.hidden = !ttsRowsOn(); });   // the voice and the speed go with the switch
     };
     if (swTts) { swTts.addEventListener("click", toggleTts); swTts.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleTts(); } }); }
     const ttsSel = root.querySelector("#ttsVoiceSel");
@@ -48059,8 +48359,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ttsSel.innerHTML = h;
       ttsSel.value = cur;
       const note = root.querySelector("#ttsVoiceNote");
-      if (note) note.textContent = !ttsSupported() ? "This browser has no speech engine, so the play buttons are not shown."
-        : vs.length ? "Which English voice your device uses. Automatic picks the most natural one it has."
+      // (a browser with no speech engine says so on the switch's own row now — these rows are not drawn there)
+      if (note) note.textContent = vs.length ? "Automatic picks the most natural English voice your device has."
         : "No English voice found yet — if none appears, add one in your device's settings.";
     };
     fillTtsVoices();
@@ -48083,7 +48383,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* The grid is absent until a theme has been won (see the gate above), so every reader of it is
        guarded — a settings page that throws on its own first paint takes every control below it with it. */
     const themeGrid = root.querySelector("#themeGrid");
-    const markTheme = () => themeGrid && themeGrid.querySelectorAll(".theme-opt").forEach((b) => b.classList.toggle("active", b.dataset.theme === (S.settings.theme || "folio")));
+    const markTheme = () => themeGrid && themeGrid.querySelectorAll(".theme-opt").forEach((b) => { const on = b.dataset.theme === (S.settings.theme || "folio"); b.classList.toggle("active", on); b.setAttribute("aria-pressed", String(on)); });
     markTheme();
     (themeGrid ? themeGrid.querySelectorAll(".theme-opt") : []).forEach((b) => {
       b.addEventListener("click", () => {
@@ -48096,21 +48396,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       b.addEventListener("mouseenter", () => { document.body.dataset.theme = b.dataset.theme; });
       b.addEventListener("mouseleave", () => { document.body.dataset.theme = THEMES.includes(S.settings.theme) ? S.settings.theme : "folio"; });
     });
-    sw.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        toggleNight();
-      }
-    });
+    // (a second keydown listener for #sw-night stood here until Nov 2026: with the one above it, Enter or Space
+    // flipped Night mode twice, so the switch could not be worked from a keyboard at all)
 
-    // random review order (also togglable from the home banner's Chrono/Random pill)
-    const swRandom = root.querySelector("#sw-random");
-    const toggleRandom = () => {
-      setDeckOrderMode(REVIEW_ENTRY, S.settings.reviewRandom ? "ordered" : "random");
-      swRandom.classList.toggle("on", !!S.settings.reviewRandom);
-      swRandom.setAttribute("aria-checked", String(!!S.settings.reviewRandom));
-    };
-    if (swRandom) { swRandom.addEventListener("click", toggleRandom); swRandom.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleRandom(); } }); }
+    // the daily review's order — this picker is its only control now (the home banner's pill and its hold menu are gone)
+    const orderSel = root.querySelector("#reviewOrderSel");
+    if (orderSel) orderSel.addEventListener("change", () => {
+      setDeckOrderMode(REVIEW_ENTRY, orderSel.value);
+      const n = root.querySelector("#reviewOrderNote");
+      if (n) n.textContent = DECK_ORDER_NOTE[deckOrderMode(REVIEW_ENTRY)] + ".";
+    });
+    { const lb = root.querySelector("#limitsOpen"); if (lb) lb.addEventListener("click", openGlobalLimits); }
 
     // animations off, and high contrast — both are written to the body by applyTheme, so the switch only
     // has to store the choice and repaint (render() calls applyTheme on its way through)
@@ -48139,7 +48435,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     { const sb = root.querySelector("#schedOpen"); if (sb) sb.addEventListener("click", openSchedSheet); }
     wireSwitch("#sw-attempt", () => !!S.settings.attemptFirst, (v) => { S.settings.attemptFirst = v; });
     wireSwitch("#sw-recall", () => !!S.settings.recallFirst, (v) => { S.settings.recallFirst = v; });
-    wireSwitch("#sw-lightdata", () => lightMode(), (v) => { S.settings.saveData = v; });
+    wireSwitch("#sw-lightdata", () => lightMode(), (v) => {
+      S.settings.saveData = v;
+      if (browserSaver) toast("Your browser’s own data saver is on, so this stays on");
+    });
     wireSwitch("#sw-mapalt", () => !!S.settings.mapAlt, (v) => { S.settings.mapAlt = v; });
     { const hb = root.querySelector("#howLink"); if (hb) hb.addEventListener("click", () => route("how")); }
     wireSwitch("#sw-marker", () => S.settings.marker !== false, (v) => {
@@ -48185,7 +48484,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const on = remindCfg().on;
       if (remSw) { remSw.classList.toggle("on", on); remSw.setAttribute("aria-checked", String(on)); }
       const tr = root.querySelector("#remindTimeRow");
-      if (tr) tr.classList.toggle("row-locked", !on);
+      if (tr) tr.hidden = !on;   // the time is part of the switch: in the page only while reminders are on
       const nt = root.querySelector("#remindNote");
       if (nt) nt.textContent = remindPlatform().note;
     };
@@ -48199,7 +48498,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         remPaint();
         await remindWrite();
         const bg = await remindRegister(true);
-        toast(bg ? "Folio will remind you after " + cfg.time + " when cards are due" : "Reminders are on — the note above says when this browser can show them");
+        // the note is behind "More" now, so where the browser cannot fire one in the background it is opened
+        if (!bg) { const mb = root.querySelector(".set-row-remind .set-more"); if (mb && mb.getAttribute("aria-expanded") !== "true") mb.click(); }
+        toast(bg ? "Folio will remind you after " + cfg.time + " when cards are due" : "Reminders are on — the note under the switch says when this browser can show them");
       } else {
         remindCfgSet({ on: false, time: cfg.time });
         remPaint();
@@ -48243,13 +48544,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     root.querySelector("#reset").addEventListener("click", () => {
       // the wording says what resetProgress actually does — see RESET_KEEPS. It used to promise the study
       // history, the streak and the badges and quietly take the settings and the decks with them.
-      inlinePrompt("This clears your study history, your streak, your badges and your artefacts. Your decks, your place in the Library and your settings are kept. It cannot be undone. Type RESET to confirm.", "", (val) => {
+      // …and, signed in, that it does not stop at this device: save() pushes the emptied progress and
+      // resetProgress wipes the account's review log. The way out is offered in the dialog itself.
+      inlinePrompt("This clears your study history, your streak, your badges and your artefacts" + (guestNow() ? "" : ", on this device and on your account") + ". Your decks, your place in the Library and your settings are kept. It cannot be undone. Type RESET to confirm.", "", (val) => {
         if (String(val || "").trim().toUpperCase() !== "RESET") { toast("Reset cancelled — confirmation didn't match"); return; }
         resetProgress();
         save();
         toast("Progress reset");
         render();
-      });
+      }, { inputLabel: "Type RESET to confirm", extra: { label: "Download a backup first", run: () => { downloadBackupFile(); toast("Backup downloaded"); } } });
     });
 
     root.querySelector("#export").addEventListener("click", () => {
@@ -48273,7 +48576,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               const r = importBackup(pb.data);
               toast("Backup restored \u2014 " + r.cards + " card" + (r.cards === 1 ? "" : "s") + " with a study record");
               render();
-            }, "Restore");
+            }, "Restore", { danger: true });
           }).catch(() => toast("That file could not be read.", 5000));
         });
       }

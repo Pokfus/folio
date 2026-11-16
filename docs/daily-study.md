@@ -70,7 +70,10 @@ The four bullets below are as they stood in CLAUDE.md, verbatim.
   **It was chosen by HOLDING THE BANNER** (`openReviewMenu` → `openDeckMenu(REVIEW_ENTRY)`, Aug 2026, on request)
   until Oct 2026, when the banner lost its hold menu on request ("the daily study banner should have no long press
   menu") — it starts no session any more, so the sheet set options nothing could use; `openReviewMenu` is kept but
-  nothing wires it. What is left is the Settings page's own "Random review order" switch. **The banner's sheet IS the deck sheet now** (Aug 2026,
+  nothing wires it. What is left is the Settings page's own control — a "Random review order" switch until
+  Nov 2026, and a **Review order picker** of every order the review can take since (`#reviewOrderSel`,
+  `deckOrdersFor(REVIEW_ENTRY)`): the switch could say only Random or not, read as "chronological" while By
+  difficulty (the default) was in force, and on-then-off left Ordered behind. `test-settings-page.js` guards it. **The banner's sheet IS the deck sheet now** (Aug 2026,
   on request: "the same menu, without the delete option"): Custom study, Daily limits and Skip today above it, no
   Remove — there is nothing to take the review out OF. It was a `.review-order` pill absolutely positioned in the banner's top-right
   corner: a permanent control, in the corner of the one block on the home page that has something to say, for a

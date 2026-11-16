@@ -7,7 +7,7 @@ level, so one level can be built after another without either overwriting the
 other's working files.  The DELE pipeline's `dele_level` is the same idea; the
 two are deliberately separate files, because the German settings are German.
 """
-import json, os
+import json, os, re
 
 LEVEL = os.environ.get('GOETHE_LEVEL', 'a1').lower()
 
@@ -24,9 +24,11 @@ DECK_FILES = {'a1': 'Goethe-A1-German.folio-deck.json',
 WORTLISTE = {
     'a1': ('goethe_a1.pdf',
            'https://www.goethe.de/pro/relaunch/prf/en/A1_SD1_Wortliste_02.pdf'),
+    # the address moved (a hyphen after `Goethe`): the old one answered 404 on
+    # 2026-11-16 and this one served the same 32-page list
     'a2': ('goethe_a2.pdf',
            'https://www.goethe.de/pro/relaunch/prf/de/'
-           'GoetheZertifikat_A2_Wortliste.pdf'),
+           'Goethe-Zertifikat_A2_Wortliste.pdf'),
     'b1': ('b1-wortliste.pdf',
            'https://www.goethe.de/pro/relaunch/prf/de/'
            'Goethe-Zertifikat_B1_Wortliste.pdf'),
@@ -157,7 +159,15 @@ def words_below():
             raise SystemExit(f'{LEVEL} is built on {lvl}, but {p} is missing')
         deck = json.load(open(p, encoding='utf-8'))
         for c in deck['cards']:
-            w = (c.get('fields') or {}).get('German', '')
+            # `Word`, NOT `German` (Nov 2026, the German beginner pass): the German
+            # field of a shipped noun is markup -- `<span class="uc-art uc-f">die
+            # </span> Hand` -- so splitting it on a space never found the article,
+            # no noun was ever recognised as taught, and the first A2 build carded
+            # 259 of A1's nouns over again (der Mann, die Bitte, die Frau).  `Word`
+            # is the same headword as plain text.  Both are read, so a deck written
+            # before the field existed still answers.
+            f = c.get('fields') or {}
+            w = f.get('Word') or re.sub(r'<[^>]+>', '', f.get('German', ''))
             for half in w.split(', '):
                 parts = half.split(' ', 1)
                 out.add(parts[1] if parts[0] in ('der', 'die', 'das', 'der/die')

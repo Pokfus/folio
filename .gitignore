@@ -69,18 +69,11 @@ __pycache__/
 # writes ARE committed.
 .claude/arabic-cache/
 
-# The A2 German deck is deliberately NOT in the repo (on request, Aug 2026): it is a file
-# to hand a reader for import, not something the site should carry. It is built by
-# `python3 .claude/goethe/run.py --level a2`, which writes it here beside the A1 deck, so
-# this line is what stops a `git add -A` sweeping it in. Delete the line to ship it.
-#
-# THE B1 DECK CAME OUT OF THIS LIST IN AUG 2026, on the request to add the missing German decks,
-# and it HAD to: the Collections page's Languages section is drawn from `lang-decks.js`, which is
-# built by reading `decks/` off disk — so a deck that is here and ignored is one the catalogue
-# offers and the deployed site cannot fetch, i.e. an Add button that 404s. Anything in `decks/`
-# that a reader can be offered has to be committed; an ignored one has to be absent from disk too,
-# which is why A2 stays here and is not built by default.
-decks/Goethe-A2-German.folio-deck.json
+# THE A2 GERMAN DECK IS IN THE REPO SINCE 2026-11-16 (the German beginner pass, docs/lang-decks.md): its
+# line was here from Aug 2026, when it was a file to hand a reader and not something the site carried.
+# The rule it was kept under still stands — ANYTHING IN `decks/` IS EITHER COMMITTED OR ABSENT, because
+# the Languages section is drawn from `lang-decks.js`, which is built by reading `decks/` off disk, so a
+# deck that is present and ignored is an Add button that 404s on the live site and nowhere else.
 
 # the 40 MB Natural Earth admin-1 geojson .claude/build-us-states.js reads the state polygons off.
 # The us-states.js it writes IS committed — this is only the working cache behind it.
@@ -311,3 +304,30 @@ countries-info.json
 # the Lao Wikipedia dump and the Tatoeba exports (~140 MB) — plus the intermediate
 # files between its stages. The decks it writes ARE committed.
 .claude/lao-cache/
+# Working cache for .claude/czech/ (Nov 2026, the Czech decks): the official A1/A2
+# word list as fetched, the Wiktionary extract, the OpenSubtitles frequency list and
+# the Tatoeba exports, plus the stages' intermediate files. The decks it writes ARE committed.
+.claude/czech-cache/
+
+# Working cache for .claude/navajo/ (Nov 2026): the Wiktionary extract, the Navajo
+# Wikipedia dump and the Tatoeba exports the Navajo decks are built from. The decks it
+# writes ARE committed — this is only the working cache behind it.
+.claude/navajo-cache/
+
+# the corpora .claude/mongolian/run.py builds the Mongolian decks from — the Wiktionary
+# extract, the Mongolian Wikipedia dump and the Tatoeba exports (~190 MB) — plus the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/mongolian-cache/
+# the corpora .claude/somali/run.py builds the Somali decks from — the Wiktionary
+# extract, the Somali Wikipedia dump and the Tatoeba exports (~140 MB) — plus the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/somali-cache/
+
+# the corpora .claude/serbian/run.py builds the Serbian decks from — the Wiktionary extract,
+# the OpenSubtitles frequency list and the Tatoeba exports (~460 MB) — plus the intermediate
+# files between its stages. The decks it writes ARE committed.
+.claude/serbian-cache/
+# the corpora .claude/bulgarian/run.py builds the Bulgarian decks from — the Wiktionary
+# extract, the subtitle frequency list and the Tatoeba exports (~300 MB) — and
+# the intermediate files between its stages. The decks it writes ARE committed.
+.claude/bulgarian-cache/
