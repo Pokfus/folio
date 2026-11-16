@@ -12,7 +12,23 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently sixty-four:
+  matter (chapter 0 — see the Library bullet). Currently sixty-five:
+  `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
+  Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
+  **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on
+  Wikisource from the Internet Archive scan). English original, so no translator and no limit to state.
+  **`prep: "leviathan"`** (`leviathanPrep` on the raw page, `liftSidenotes` after `cleanBody`): the transcription's
+  italic is `{{italic}}` → `<span class="wst-italic-body">`, which the extractor would have dropped to roman
+  everywhere, so it is rewritten to `<i>`; the **878 marginal notes** (`wst-sidenote`, set mid-line where the
+  printed note stood) are fenced with private-use characters and lifted to a `bk-head` line above their paragraph,
+  never splitting it (fenced = lifted is printed on every run); the drop capitals (image alt or span) are rejoined
+  to their word in ordinary case, as are eight all-capitals opening words ("BY Consequence"); the chapter head — a
+  Part title, a decorative band, rules, "CHAP. XIII." and the title — is cut and the TITLE READ OFF IT. One
+  `fixes` row repairs a `{sc|Despoticall}}` template typed a brace short (chapter XX). Chapter IX's chart of the
+  sciences arrives as one list of ▶ lines (`lineBlocks`), its tree flattened — the transcription's own rendering;
+  the Introduction's four-part plan is the other lineated block. Colour `#263700` (15.2: the band is full).
+  `glossOff`: 48 keys, swept over all 49 sections — see the comment on the app.js entry. Not included: the
+  dedication to Francis Godolphin, the contents and the engraved title page (said in the front matter).
   `luther-ninety-five-theses` (~33 KB, **2 chapters** — the covering letter to Albrecht of Mainz and the Disputation
   itself, in the 1915 volume's order — **48 notes**, no original; Charles M. Jacobs's translation in *Works of Martin
   Luther* I, A. J. Holman, Philadelphia, 1915, proofread on Wikisource). **The first book cut out of ONE wiki page at
@@ -323,6 +339,15 @@ book added later will meet the same traps.
   it is hung on the line its anchor cites (`Iii15` is I. ii. 15). Lewis's brackets on a speaker he
   supplied are kept (`[First] Mur`). Its `BOOK_AUTHOR_COLOR` row is where the Euripides test chose
   a deep navy over the band's best, a magenta whose nearest neighbour is Euripides.
+  `romeo-and-juliet` (~268 KB, all 5 acts, **588 notes**, no original — the Yale Shakespeare of 1917,
+  ed. Willard Higley Durham, 1883–1955, so public domain in the US by the pre-1929 rule and under life
+  plus seventy, NOT yet life plus a hundred, and the rights text says so; `layout: "yale"`, Macbeth's
+  extractor with the prologue added — see `docs/library-importer.md` "The `yale` layout"). The opening
+  Chorus is its own page (`prePage`), set after the cast at the head of Act I; Act II's Chorus is on that
+  act's page. 564 of 588 notes land on their word, 4 on their text, 18 at a line's end, 2 end notes hung on their line; all 84 end notes reach the page. Three mistyped line
+  numbers are fixed off the scan (IV. i. 124, IV. iv. 13, V. iii. 284). Left as transcribed, unverified
+  against the print: "Benvoilo" in the list of characters, and "Uncle to Capulet" standing alone on its
+  line there. Shakespeare's existing `BOOK_AUTHOR_COLOR` row colours its tile.
   `marco-polo` (~2.77 MB, all 235 chapters, **788 notes**, no original — Sir Henry Yule's
   translation in the third edition of 1903 as revised by Henri Cordier, and **the first book here
   printed in TWO source files**, which costs a second fetch and one loop and matters only because

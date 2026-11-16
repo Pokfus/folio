@@ -10367,6 +10367,7 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .games-sec{order:2;}
   .banners > .rv-week{order:2;}   /* the week ahead: after the week box, before the games (it precedes them in the markup) */
   .home-two > :not(.home-week){order:3;}
+  .home-otd{order:2;}   /* On this day: directly after the minigames (it follows them in the markup), before Suggested reading (Nov 2026, on request) */
   .home-foot{order:4;}
   .home-foot{justify-content:center; text-align:center;}
   .home-foot .home-about{text-align:center;}

@@ -20,6 +20,13 @@ changed was the one that had been wrong all along.
 - `decks/*.folio-deck.json` — **the community decks**, files a reader imports through the Studio. Not part
   of the site and never loaded by it: a deck file is somebody else's content that happens to have been
   written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
+  **A THIRTEENTH, `Mandarin Chinese — Bopomofo` (`hsk30bpm`, 62 notes), WAS ADDED ON 2026-11-16 ON REQUEST** ("add
+  another deck to learn bopomofo"), by the same `build-beginner.js` from `beginner-bopomofo.json`: the five tone
+  marks, the 37 symbols in use (ㄪ ㄫ ㄬ ㄭ are not carded) and 20 two-symbol combinations; origins, IPA, pinyin
+  and notes quoted from Wikipedia's "Bopomofo" at a named revision, the sound descriptions shared with the
+  pinyin deck's table, every example word a Level 1 to 3 card's own Bopomofo field. Its reading field is
+  named `In pinyin`, not `Pinyin`, so `check-decks.js` does not take it for a vocabulary deck. `levelRank`
+  files it at -1.5, after Pinyin and tones.
   **THE MANDARIN SET IS TWELVE FILES SINCE THE BEGINNER PASS (Nov 2026, on request, after an audit of what a
   learner with no Chinese meets; reasoning and measurements in `docs/mandarin-review.md`, "The beginner
   pass").** Three decks were added below and beside Level 1 — **Pinyin and tones** (`hsk30pin`, 68 notes),
@@ -3769,6 +3776,23 @@ changed was the one that had been wrong all along.
   fallback; the findings (the fold's true homographs, the infinitive twins, the declension tables' faults,
   the normalised romanisation) are 📖 `docs/amharic-decks-plan.md`. The `LANGS` row is 35 million L1, 60
   in all (Ethnologue via Wikipedia); the hue is measured, `#85063D`.
+- `.claude/khmer/` — the generator behind the Khmer (Cambodian) decks (Nov 2026, on request: "Add a Cambodian
+  language collection"; Thai's arrangement taken, the owner not asked). **Built: the alphabet deck,
+  `decks/Khmer-Alphabet.folio-deck.json`** (87 notes: 33 consonants with their series and subscripts, 16 dependent
+  vowels with both series' readings, independent vowels, diacritics, punctuation, digits — every sound read from a
+  pinned revision of Wikipedia's "Khmer script") **and A1, `decks/Khmer-A1.folio-deck.json`** (500 notes / 1,000
+  cards) **and A2, `decks/Khmer-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16: a word whose Wiktionary page
+  prints no romanisation is not carded) **and B1, `decks/Khmer-B1.folio-deck.json`** (1,000 notes / 2,000 cards,
+  2026-11-16: 844 by frequency, Wiktionary running thin; a short word that never stands alone between typed breaks
+  is a fragment of the word cut and is left out, `solo.py`, gated from B1) **and the phrases deck, `decks/Khmer-Phrases-and-Expressions.folio-deck.json`**
+  (860 notes: 35 Wiktionary phrases, one of them a proverb, 825 Tatoeba sentences of up to eight words; `python3
+  .claude/khmer/phrases.py`; Wiktionary has no Khmer idioms, so Amharic's two subdecks, not Thai's three). `python3 .claude/khmer/run.py [--level a1|a2|b1]`, `python3 .claude/khmer/alphabet.py`,
+  `node .claude/khmer/check-khmer.js`; a re-run is byte-identical. Khmer writes no spaces, so the word cut is Thai's
+  maximal matching (`km.Segmenter`, on clusters, never after the coeng); the frequency is the Khmer Wikipedia's
+  (14,475 articles), as Amharic's; **the romanisation is read off each word's Wiktionary page** (`romanise.py`),
+  because the kaikki extraction's differs from the page on words with a minor first syllable. No speaker (the
+  Hausa rule). The findings are 📖 `docs/khmer-decks-plan.md`. The `LANGS` row is "Khmer (Cambodian)", 19 million
+  L1, 21 in all (Ethnologue via Wikipedia); the hue is measured, `#76281C`.
 - `.claude/yoruba/` — the generator behind the Yoruba decks (Nov 2026, on request: "Add a Yoruba language
   collection"; the Zulu, Hausa and Amharic owners' answers taken, the owner not asked). **Built: the alphabet deck,
   `decks/Yoruba-Alphabet.folio-deck.json`** (34 notes: the 25 letters, the three tones, the nasal vowels, the
@@ -3926,6 +3950,28 @@ changed was the one that had been wrong all along.
   sentences rank last. The plan and every finding are 📖 `docs/finnish-decks-plan.md`. The `l1` row is Wikipedia's
   5.0 million (no L2 figure, so `total` is the same); the hue is measured, `#8D572D` (re-swept at the merge: Norwegian had
   taken a hue 2.4 from the first sweep's `#907227`).
+- `.claude/icelandic/` — the generator behind the Icelandic decks (Nov 2026, on request: "Add an Icelandic language
+  collection"; the Norwegian and Finnish owners' decisions taken, the owner not asked). **Built: the alphabet,
+  `decks/Icelandic-Alphabet.folio-deck.json`** (39 notes: the 32 letters' sounds, then ei/ey, au, hv, ll,
+  pre-aspiration, the stress and vowel length) **and A1, `decks/Icelandic-A1.folio-deck.json`** (500 notes / 1,000
+  cards) **and A2, `decks/Icelandic-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16, on request: "Add A2";
+  `--level a2`) **and B1, `decks/Icelandic-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-16, on request:
+  "Add B1"; `--level b1`) **and B2, `decks/Icelandic-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16, on
+  request: "Add B2"; `--level b2`; 95 % by frequency, English Wiktionary lacking much of its inventory) **and C1,
+  `decks/Icelandic-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16, on request: "Add C1"; `--level c1`;
+  96 % by frequency, nearly three cards in four with no sentence) — all five levels — **and the phrases deck,
+  `decks/Icelandic-Phrases-and-Expressions.folio-deck.json`** (734 in Phrases / Fixed expressions / Particle verbs /
+  Idioms / Proverbs, every candidate English Wiktionary has; `--level phr`, `phrases.py`, 2026-11-16). The plan is
+  complete. `python3 .claude/icelandic/run.py [--level a1]`, `python3 .claude/icelandic/alphabet.py`,
+  `node .claude/icelandic/check-icelandic.js`; a re-run is byte-identical. Norwegian's pipeline adapted, no
+  romanisation, nouns with their gender as a label (Icelandic has no indefinite article) and their four cases in
+  both numbers, verbs by their present "he" form, past and supine. **What is new**: the subtitle list is
+  mis-encoded (đ for ð, ū for þ …) and mapped back before counting (`isl.subs_fold`); Wiktionary's extraction has no
+  Icelandic present tense, so a verb's present and imperative come from **BÍN** (the Database of Icelandic
+  Morphology, CC BY-SA 4.0, credited in every deck's description as its terms ask); a form-of entry claims its
+  spelling even where that spelling is a lemma (`er` is vera's). The plan and every finding are
+  📖 `docs/icelandic-decks-plan.md`. The `LANGS` row is 0.39 million (Ethnologue via Wikipedia, no L2 figure); the hue
+  is measured, `#303696`.
 - `.claude/lao/` — the generator behind the Lao decks (Nov 2026, on request: "Add a Lao language collection"; the
   Thai answers taken, the owner not asked). **Built: the alphabet, `decks/Lao-Alphabet.folio-deck.json`** (79 notes:
   the 27 consonants, the six ຫ ligatures, 27 vowels, the tone marks and two signs, the three class rules, the digits,

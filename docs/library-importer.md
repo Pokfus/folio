@@ -2413,6 +2413,13 @@ findings are in `docs/library-books.md`; what is worth carrying to the next play
 - Fetching: the API rate-limited a fresh walk hard (Oct 2026). The cache was primed by a slow loop
   with long backoff; `action=render` answers when `api.php` will not, but returns Parsoid markup,
   which this extractor was not written against.
+- **A Chorus's prologue is scene 0** (Nov 2026, Romeo and Juliet, the Yale volume of 1917): a centred
+  `PROLOGUE` opens a scene with `k: 0` headed "Prologue"; its glosses sit under the anchor `A2Prol`, or —
+  for the prologue on a page of its own, which the entry names as `prePage` and which is set after the
+  cast at the head of Act I — under no anchor at all. The Chorus's speaker is set in roman or inside a
+  tooltip, so it is read only inside a prologue. The cache was primed by hand with a slow curl loop
+  (the API rate-limited from the first request), and three printed line numbers the transcription
+  mistypes are put right by `fixes`, each witnessed by the scan's page image (Commons `thumb.php`).
 
 ## The `chajing` layout — a digest read off a scan's OCR, beside a Chinese text read off wikitext (Oct 2026, the Classic of Tea)
 
@@ -2720,3 +2727,63 @@ count — 80 books in the 1611 order, Apocrypha between the Testaments). Source:
 
 Re-run after touching: `node .claude/fetch-book.js king-james-bible` (reads the cache; `--force` refetches the
 zip), then `node .claude/test-library.js`.
+
+## The `pickthall` layout — a revised e-text put back to its printing by six OCRs (Nov 2026, the Quran)
+
+`layout: "pickthall"` → `extractPickthall`, `QURAN_SURAS` (Pickthall's own names and places of revelation,
+from the 1930 volume's *List of Sûrahs*, transcribed on Wikisource and checked against the OCR headings: all
+114 places agree), `applyQuranReadings`, and the offline generator `.claude/quran-readings.js`, which writes
+`.claude/quran-readings.json`. Source: Project Gutenberg #16955, three translations verse by verse (`Y:`
+Yusuf Ali, `P:` Pickthall, `S:` Shakir); only `P:` is read. Cached as `en-pg.txt`.
+
+- **The only complete transcription is not the book it names.** Measured against six OCR texts of scans of
+  the 1930 printing on archive.org, Gutenberg's Pickthall carries a later, unattributed revision: "no Allah
+  save Him" for "no God save Him", "prostrate" for "adore", "the Night of Predestination" for "the Night of
+  Power", "guardian" for "friend", Makka for Mecca, glosses added (2:19 "His omniscience and His
+  omnipotence"), and 43:81 turned round. A reviser's words are not Pickthall's, for the reader or for the
+  licence.
+- **Wikisource is not a second witness.** Its transcription of the 1930 scan covers about half the book
+  (pages 172–486 unproofread), and where it exists it was seeded from the same e-text: it reads "guardian"
+  at 2:107, where all six scans read "friend". It is not used. Look for this before trusting a "proofread"
+  transcription of a book that also circulates as an e-text.
+- **The vote** (`quran-readings.js` header has the detail): each witness is aligned to Gutenberg sûrah by
+  sûrah with jsdiff (reached through `NODE_PATH`; nothing ships), page furniture is stripped first (running
+  heads, sûrah headings, footnotes, markers, the invocation), and a region changes only where ≥ 4 of 6
+  witnesses agree and ≤ 1 reads Gutenberg. Two scans read by the same engine share mistakes ("Asa raid"), so
+  four votes always include the other engine. Held for a person: a word neither Gutenberg nor four witnesses
+  (twice each) know, more than two words added or three deleted, a region crossing a verse. Never taken: a
+  hyphen or space moved inside a compound (a line-end hyphen is ambiguous in OCR). Four engines CAN agree on
+  a misreading that is a word ("camest" → "earnest", five times), so every change under six votes was read by
+  hand, and the settled ones are `ACCEPT` / `REJECT` / `FIXES` in the generator. First run: 1,701 readings
+  (1,653 by vote, 48 by hand); the printed book's own misprints (whosover, commiteth, measureeth) are left
+  as Gutenberg corrected them.
+- **Verse numbers stay the standard 6,236**; the 1930 printing numbers Sûrahs I (invocation unnumbered), IV,
+  VI, XXXVI, XXXVIII and CVI one verse differently (the same in three witnesses). The book's page says so.
+- **Gutenberg's own faults**: four verse headers misprinted ("0.033" for 017.033 and three like it), so verses
+  are numbered by position and the header is only checked; the sûrah heads carry Yusuf Ali's wording of the
+  invocation, replaced by Pickthall's (1:1). Spaced hyphens are Pickthall's dashes → "—".
+- Accents on Arabic names are not reproduced (Gutenberg's ASCII forms stand; the witnesses are folded to
+  ASCII for the vote).
+
+Re-run after touching: `node .claude/fetch-book.js quran` (reads the cache), then
+`NODE_PATH=… node .claude/quran-readings.js` only if the witnesses or the rules change (it re-reads the six
+OCR texts from `book-cache/quran/`, `--fetch` to download them), then `node .claude/book-audit.js` and
+`node .claude/test-library.js`.
+## `prep: "leviathan"` — a printer's page read off its own markup (Nov 2026, Leviathan)
+
+`leviathanPrep(h, warn)` runs on the RAW page (right after `between`, before `notesOf` and `cleanBody`) and
+returns `{ h, t, side }`; `liftSidenotes(html, warn)` runs on what `cleanBody` returns. Four things the 1651
+transcription does that the generic passes get silently wrong: **italic as a class** (`wst-italic-body`, styled by
+a stylesheet the extractor discards — every italic word would ship roman, nothing throws); **marginal notes
+inline** (`wst-sidenote`, at the printed LINE, mid-sentence — fenced with U+E000/U+E001, which survive
+`cleanBody` as text, then lifted to `<p class="bk-head">` above the paragraph, which is never split; a fenced note
+outside any paragraph becomes its own line and is warned; the run prints "N fenced, N lifted" and MISMATCH if
+they differ); **drop capitals** as an image (`alt`) or span, followed by "Ature" or `wst-uppercase` + smallcaps —
+rejoined in ordinary case; and **the chapter head** as a run of centred blocks, cut, with the title read off the
+"CHAP." block (returned as `tFromText`, so a `titles[n]` would still win). An all-capitals first word of a
+chapter's first prose paragraph is set in ordinary case after the lift, each one warned. Every rewrite uses
+`blockEnd` for balanced spans. Gated on `prep === "leviathan"`, so inert on every other book.
+
+Re-run after touching: `node .claude/fetch-book.js hobbes-leviathan --force` (49 pages; Wikisource throttles
+hard — expect a page a minute), check "878 marginal note(s) fenced, 878 lifted" and the eight opening-word
+warnings, then `node .claude/book-audit.js`.

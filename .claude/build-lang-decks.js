@@ -69,7 +69,7 @@ const OUT = path.join(ROOT, "lang-decks.js");
    Persian is Farsi + Dari + Tajik (Ethnologue 28th ed., 127, infobox), Polish and Ukrainian are their infobox
    totals (43 and 39), and Romanian and Greek, whose infoboxes give no second-language figure, are their L1
    (22, 13.5). Tagalog is the 2026 table's 87; Dutch, Zulu and Swedish are their infobox totals (30, 28, 13), Irish the census figures in its row (2.1);
-   Hungarian, Danish, Finnish and Norwegian, with no second-language figure, are their L1 (12, 5.5, 5, 4.3). Hebrew is its infobox total (9, Ethnologue 2018). Latin and Old English stay 0. `l1` is kept beside it, and a language
+   Hungarian, Danish, Finnish, Norwegian and Icelandic, with no second-language figure, are their L1 (12, 5.5, 5, 4.3, 0.39). Hebrew is its infobox total (9, Ethnologue 2018). Latin and Old English stay 0. `l1` is kept beside it, and a language
    added with no `total` falls back to its `l1` (and is reported) rather than sorting as NaN. */
 const LANGS = [
   { word: "Mandarin", name: "Mandarin Chinese", l1: 941, total: 1183 },
@@ -108,6 +108,7 @@ const LANGS = [
   { word: "Dutch", name: "Dutch", l1: 25, total: 30 },              // Wikipedia's infobox (2021 figure), read 2026-11-09
   { word: "Thai", name: "Thai", l1: 27, total: 71 },              // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
   { word: "Romanian", name: "Romanian", l1: 22, total: 22 },    // Wikipedia's infobox (22.2 million, Ethnologue 27th ed., 2020), read 2026-11-09
+  { word: "Khmer", name: "Khmer (Cambodian)", l1: 19, total: 21 }, // Ethnologue 28th ed. (19.5 L1, 2019; 20.5 total, 2019–2024), via Wikipedia's infobox, read 2026-11-15
   { word: "Greek", name: "Greek", l1: 13.5, total: 13.5 },          // Wikipedia's infobox (2015 figure), read 2026-11-09
   { word: "Zulu", name: "Zulu", l1: 12, total: 28 },            // Wikipedia's infobox (Ethnologue), 12.1 million, read 2026-11-09
   { word: "Hungarian", name: "Hungarian", l1: 12, total: 12 },    // Wikipedia's infobox (12 million, 2021–2023), read 2026-11-09
@@ -124,6 +125,9 @@ const LANGS = [
      its daily speakers outside the education system, 71,968 (Republic, census 2022) + 43,557 (Northern Ireland,
      census 2021), and `total` those stating they can speak it, 1,873,997 (Republic, 2022) + 228,600 (NI, 2021). */
   { word: "Irish", name: "Irish", l1: 0.12, total: 2.1 },
+  /* ICELANDIC (Nov 2026): Wikipedia's infobox (read 2026-11-15) gives 388,720 speakers (Ethnologue 26th ed.) and no
+     second-language figure, so `total` is its L1, as Norwegian's. */
+  { word: "Icelandic", name: "Icelandic", l1: 0.39, total: 0.39 },
   /* LATIN HAS NO NATIVE SPEAKERS, so its l1 is 0 and it sorts last — the honest place for a language
      nobody grows up with, and the one a figure cannot argue with. Not a guess at a number. */
   { word: "Latin", name: "Latin", l1: 0, total: 0 },
@@ -151,6 +155,9 @@ function levelRank(title) {
      are made of. Tested BEFORE the level rule below, which would read the "Level 1" in a title and file
      the parts deck beside Level 1 itself. */
   if (/\bPinyin and tones\b/.test(title)) return -2;
+  /* BOPOMOFO (Nov 2026, on request) is the other way the cards write a reading: beside Pinyin and tones,
+     just after it, and before the character parts. */
+  if (/\bBopomofo\b/.test(title)) return -1.5;
   if (/\bCharacter parts for Level 1\b/.test(title)) return -1;
   if (/\bFirst phrases\b/.test(title)) return 0.5;
   /* ZULU'S NOUN CLASSES AND SOUNDS COME BEFORE A1 (Nov 2026): Zulu is written in the Latin alphabet, so its
