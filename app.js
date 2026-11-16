@@ -28395,8 +28395,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           ${/* ADMIN ONLY (Nov 2026): the way into the games archive, which plays past days and records nothing (PAGES.gamearchive) */""}
           ${isAdmin() ? '<a class="games-archive-link" href="#gamearchive">Games archive <span>— play a past day, not recorded</span></a>' : ""}
         </section>
-        <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}${homeTermHTML()}</div>
+        ${/* ON THIS DAY sits directly under the minigames, above Suggested reading (Nov 2026, on request) */""}
         ${homeOnThisDayHTML()}
+        <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}${homeTermHTML()}</div>
         <footer class="home-foot">${aboutLink}<button class="home-about" id="b-changelog" type="button">Changelog</button><button class="home-about" id="b-credits" type="button">Credits</button>${versionLineHTML()}</footer>
         ${/* ADMIN ONLY (Oct 2026, on request): a small refresh at the bottom left of the home page that brings the page to the latest deploy — it empties Folio's caches and the service worker, then reloads. */""}
         ${isAdmin() ? '<div class="home-admin-row"><button class="home-refresh" id="b-refresh" type="button" title="Refresh to the latest version" aria-label="Refresh to the latest version"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><polyline points="20 4 20 11 13 11"/></svg></button></div>' : ""}
