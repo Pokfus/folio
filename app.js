@@ -31372,6 +31372,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Korean's dark green, then Old English's deep green at 15.2); with the greens left out, the best was a teal
        at 13.9. 6.2:1 against white. Not a flag colour. */
     "lang-lao":        { bg: "#426A43" }, // measured leaf green
+    /* NAVAJO (Nov 2026) was not named a colour, so it was MEASURED as Lao was: swept in CIELAB inside the shelf's
+       band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 79 hues on the page.
+       The outright winner was a yellow-green (#4E7E00, 15.1), refused as a fourth green beside Middle-earth, Arabic
+       and Geography (all within 15.5 of it). This turquoise-teal is the best point of the cyan band: 13.9 from its
+       nearest neighbours (Economics and France, then Philosophy at 14.1), against a tightest existing pair of 4.0;
+       5.2:1 against white. Turquoise is the subject's own argument: dootłʼizh, one of the four sacred colours of
+       the Diné, of the sacred mountain of the south. Not a flag colour. */
+    "lang-navajo":     { bg: "#3C7676" }, // measured turquoise-teal
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were

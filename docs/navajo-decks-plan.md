@@ -1,0 +1,127 @@
+# The Navajo language decks: the plan (Nov 2026)
+
+**Read this before building, or changing the plan for, any Navajo deck in `decks/`.** It plans one more
+language set in the shape of the ones already shipped (Hausa, Zulu, Lao …).
+`docs/lang-decks.md` records how those were built, and every rule there applies here unless this file says
+otherwise. Asked for on 2026-11-16: "Add a Navajo language collection."
+
+**STATUS (2026-11-16): the alphabet and sounds deck and A1 are built** (`.claude/navajo/`, §6). A2, B1 and
+the phrases deck are still to come, one per session.
+
+A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
+for a later deck this plan produces. The collection's first commit did carry one line and one bump, because
+it also changed the APP (the shelf's hue in `app.js`). That follows the Hausa and Lao precedent.
+
+## 1. The owner's decisions (2026-11-16)
+
+These were asked after a survey of the sources (§2): a rich dictionary, almost no corpus.
+
+1. **Levels: CEFR A1–B1, smaller**, at Hausa's sizes. Each level is a hand-written topic inventory
+   (`inventory.py`) scoped to the CEFR global descriptor for its band, topped up with the commonest remaining
+   words. The deck's description says so. Sizes: **A1 500 · A2 750 · B1 1,000 notes**.
+2. **Extra decks: an alphabet and sounds deck**, first in the collection, **and a phrases deck** after the
+   levels.
+3. **This session: plan + generator + alphabet + A1 + the shelf entry**; later levels one per session.
+
+| deck | file | notes |
+|---|---|---|
+| Navajo Alphabet and Sounds (built) | `Navajo-Alphabet.folio-deck.json` | 41 |
+| Navajo A1 Beginner (built) | `Navajo-A1.folio-deck.json` | 500 |
+| Navajo A2 Elementary | `Navajo-A2.folio-deck.json` | 750 |
+| Navajo B1 Intermediate | `Navajo-B1.folio-deck.json` | 1,000 |
+| Navajo Phrases and Expressions | `Navajo-Phrases-and-Expressions.folio-deck.json` | — |
+
+The titles carry the CEFR band, so `levelRank` sorts them with no new rule. "Alphabet" sorts first.
+
+## 2. Sources and licences
+
+| what | source | licence |
+|---|---|---|
+| meanings, possessed forms, plurals, verb persons, IPA, usage examples | English Wiktionary via kaikki.org (`kaikki.org-dictionary-Navajo.jsonl`, 33 MB, 25,894 entries; about 6,400 lemmas once the form-of entries are folded) | CC BY-SA 4.0 |
+| frequency (1) | the Navajo Wikipedia, `nvwiki-20261101-pages-articles.xml.bz2` (22,581 articles, 1.36 M tokens), pinned | CC BY-SA 4.0 |
+| frequency (2) | Wiktionary's own Navajo usage examples, 2,539 sentences | CC BY-SA 4.0 |
+| example sentences | Wiktionary's usage examples; Tatoeba `nav` (66 sentences) | CC BY-SA 4.0; CC BY 2.0 FR |
+| sounds and letters (the alphabet deck) | Wikipedia, "Navajo phonology" and "Navajo language" § Orthography, read 2026-11-16 (they follow McDonough 2003, McDonough and Ladefoged 1993, Young and Morgan 1987) | CC BY-SA 4.0 |
+| level scope | CEFR global scale (Council of Europe), quoted | — |
+| speakers (`LANGS`) | 170,000 (2019 census figure, Wikipedia's infobox, read 2026-11-16); no separate L2 figure | — |
+
+**WHAT IS THIN.** No frequency list exists for Navajo, and Tatoeba holds 66 sentences. The Navajo Wikipedia
+is nearly all bot-written stubs about animals and plants: the median article is 59 words, and only 32
+articles reach 400. Ranked by it alone, "scientist" (the stub formula for a scientific name), "inch",
+"stag beetle" and "he/she is chewing them" are among the commonest words of the language (§4).
+
+## 3. The card
+
+One note, two templates (Navajo → English, English → Navajo), `speechLang: 'nv'`. Fields: `Navajo` (the
+headword), `Say` (Wiktionary's IPA), `Word` (the headword as printed; the check and the next level's
+de-duplication read it), `English` (meanings by part of speech), `Forms`, `Examples` (up to three). The CSS
+is `.claude/navajo/card.css` (Hausa's).
+
+- **The headword is the standard spelling, marks included.** Unlike Hausa or Zulu, ordinary written Navajo
+  marks its high tones (á), nasal vowels (ą), long vowels (aa) and the glottal stop (ʼ). So there is no
+  second "toned" line; the IPA takes that place, on 288 of A1's 500.
+- **Forms**: a noun's "my" and "his/her" forms (`shimá`, `bimá`) from its own possession table, and its
+  plural where Wiktionary gives one. A verb's "I" and "you" forms come from Wiktionary's form-of entries:
+  the imperfective, or a neuter verb's only form. A perfective or future form is never set beside an
+  imperfective headword. 167 of A1's cards have a forms line.
+- **NO SPEAKER BUTTON**: no device carries a Navajo voice. `check-navajo.js` fails on one.
+
+## 4. What Navajo needs that no earlier set did: the findings
+
+- **TWO CORPORA, AND A FILL WORD MUST BE IN BOTH.** A Wikipedia-only fill was mostly insects and birds. A
+  second count is made over Wiktionary's 2,539 example sentences, crediting only the sentences written under
+  *other* headwords, so a word's own page cannot vouch for it. The cards are dealt by the geometric mean of
+  the word's share of each corpus, smoothed by a half (`extract.py`, `score`). The fill takes only words
+  present in both. That one rule removed nearly every species name. The rest is `select.EXCLUDE`, in three
+  groups, each with its reason: the stubs' formula words, species names, and shades of a colour. Two more
+  rules sit there too: a gloss that is a taxon, and a gloss that is only a grammatical pointer.
+- **A POSSESSED FORM FILED AS ITS OWN NOUN.** Wiktionary has `bijáád` "his/her leg" beside `ajáád` "leg",
+  `hakʼéí` "one's kin" beside `akʼéí` "kin", and `binááʼ` beside `anááʼ`, each with the same possession
+  table. Nouns linked through each other's tables are one word. The card is the indefinite a- form, the
+  dictionary's form (`extract.py`).
+- **THE VERB'S FORMS ARE ENTRIES, NOT A TABLE.** 14,800 of kaikki's 17,500 verb entries are "first-person
+  singular imperfective of …". They feed the lemma count (a pointer each) and the card's "I" and "you" line.
+- **GLOSSES THAT ARE POINTERS, NOT MEANINGS** ("simple passive form of neiłtsoos" under `naaltsoos` "book",
+  "reciprocal of bichʼįʼ") are dropped from the card (`build_deck.NOT_A_MEANING`). A part of speech left with
+  nothing else is not shown.
+- **TWO KEYS** (`nv.py`): strict (tone and nasal marks kept, the glottal stop unified to ʼ), then loose (marks
+  dropped). The loose key is a fallback only, for corpus tokens of four letters or more that no lemma claims
+  strictly.
+- **Wikipedia's bold markup** (`'''`) became a glottal-stop token (`ʼʼ`) until it was stripped
+  (`wikitext.py`).
+
+**Known, left.** Some verbs that mean "it is …" print an "I" form Wiktionary gives (`łigai` "it is white",
+I `łinishgai`). That is correct Navajo, if odd on a colour. Some of the Wiktionary sentences are glosses of
+phrases rather than full sentences (`chidí daanéʼé` "toy truck"). 96 of A1's words have no sentence. The
+possessed forms are Wiktionary's own table, so a few are unusual (`shizǫʼ` "my star").
+
+## 5. Phases
+
+**Phase 1 (done):** the pipeline, the alphabet, A1. **Phase 2:** A2 then B1, one level per session. Write the
+level's inventory into `inventory.py` and its `SCOPE` into `navajo_level.py`, run it, and read every card.
+Wiktionary has the words, so expect the corpus, not the dictionary, to run out first. **Phase 3:** the
+phrases deck (Wiktionary's 110 `phrase` entries and its interjections). **Phase 4:** a combined file,
+gitignored.
+
+## 6. As built (2026-11-16): the alphabet and A1
+
+`python3 .claude/navajo/run.py [--level a1] [--no-fetch] [--re-extract]`. The stages are `wikitext.py` →
+`extract.py` → `select.py` → `examples.py` → `build_deck.py`, caching in `.claude/navajo-cache/` (gitignored,
+about 150 MB). `python3 .claude/navajo/alphabet.py` writes the alphabet deck; it reads `lex.json` for the
+example words and their IPA. `node .claude/navajo/check-navajo.js` is the check. **A re-run is byte-identical.**
+
+**A1**: 500 notes / 1,000 cards. 294 come from the inventory (`inventory.A1`, 19 topics scoped to the A1
+descriptor; every word looked up before it was written) and 206 from the fill. 404 have sentences, three
+apiece for 216. Every inventory word was found in Wiktionary. What A1 would have and the source lacks: a
+written-out Naabeehó, Bilagáana bizaad "English", "to write", "to learn", "to come", "window" (Wiktionary's
+`tsésǫʼ` is "mica").
+
+**The alphabet**: 41 notes. There are 36 letters and digraphs in the orthography table's order (ʼ a b ch chʼ d
+dl dz e g gh h hw i j k kʼ kw l ł m n o s sh t tʼ tł tłʼ ts tsʼ w x y z zh). Then come long vowels, high tone,
+the falling and rising tones, nasal vowels, and the syllabic ń. Every sound side is unique (asserted), and
+every example word is in the A1 lexicon with Wiktionary's IPA.
+
+**The shelf's hue is measured**: `#3C7676`, a turquoise-teal, 13.9 from its nearest of 79 (Economics and
+France). The outright winner was a yellow-green at 15.1, but it was refused: it would have been a fourth
+green within 15.5 of Middle-earth, Arabic and Geography. Turquoise is also the subject's own colour,
+dootłʼizh. **Re-sweep at the merge** if a parallel session has taken a hue near it.
