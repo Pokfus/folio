@@ -1,5 +1,5 @@
 {
- "why": "THE ITALIAN RECORD (Nov 2026, the Italian beginner pass — docs/lang-decks.md). Applied by .claude/decks/italian-fix.js AFTER paradigm-fix.js; read its header first. What is here: the cards CILS A1 gains (`insert`), the cards another deck loses to it (`decks.<id>.dropDup`), fields rebuilt on a card the generator wrote (`notes`), and each deck's words about itself (`decks.<id>.subtitle`, `descSub`). The folded paradigms stay in paradigm-fixes.json. NOTHING HERE IS COMPOSED: a moved card's `fields` are the card as it stood in the deck named by `from`, byte for byte; a new card's meanings are the English Wiktionary's (kaikki.org, read 2026-11-16), its forms the Wikipedia table its `why` names, and each of its sentences a Tatoeba sentence named by id in `src` (CC BY 2.0 FR).",
+ "why": "THE ITALIAN RECORD (Nov 2026, the Italian beginner pass — docs/lang-decks.md). Applied by .claude/decks/italian-fix.js AFTER paradigm-fix.js; read its header first. What is here: the cards CILS A1 gains (`insert`), the cards another deck loses to it (`decks.<id>.dropDup`), the feminine adjectives that were a second card for one word (`decks.<id>.dropForm`), fields rebuilt on a card the generator wrote (`notes`), and each deck's words about itself (`decks.<id>.subtitle`, `descSub`). The folded paradigms stay in paradigm-fixes.json. NOTHING HERE IS COMPOSED: a moved card's `fields` are the card as it stood in the deck named by `from`, byte for byte; a new card's meanings are the English Wiktionary's (kaikki.org, read 2026-11-16), its forms the Wikipedia table its `why` names, and each of its sentences a Tatoeba sentence named by id in `src` (CC BY 2.0 FR).",
  "insert": {
   "cilsa1": [
    {
@@ -1064,7 +1064,7 @@
    ]
   },
   "cilsc1/patetico": {
-   "why": "Its reverse-card hint named patetica, its own feminine, which was a second card for the same word and is folded away (paradigm-fixes.json, drop). The glosses are the card's own.",
+   "why": "Its reverse-card hint named patetica, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
    "senses": [
     [
      "adjective",
@@ -1077,7 +1077,7 @@
    ]
   },
   "cilsc1/sovietico": {
-   "why": "Its reverse-card hint named sovietica, its own feminine, which was a second card for the same word and is folded away (paradigm-fixes.json, drop). The glosses are the card's own.",
+   "why": "Its reverse-card hint named sovietica, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
    "senses": [
     [
      "adjective",
@@ -1088,7 +1088,7 @@
    ]
   },
   "cilsc1/sobrio": {
-   "why": "Its reverse-card hint named sobria, its own feminine, which was a second card for the same word and is folded away (paradigm-fixes.json, drop). The glosses are the card's own.",
+   "why": "Its reverse-card hint named sobria, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
    "senses": [
     [
      "adjective",
@@ -1101,7 +1101,7 @@
    ]
   },
   "cilsc1/defunto": {
-   "why": "Its reverse-card hint named defunta, its own feminine, which was a second card for the same word and is folded away (paradigm-fixes.json, drop). The glosses are the card's own.",
+   "why": "Its reverse-card hint named defunta, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
    "senses": [
     [
      "adjective",
@@ -1114,7 +1114,7 @@
    ]
   },
   "cilsc1/bizzarro": {
-   "why": "Its reverse-card hint named bizzarra, its own feminine, which was a second card for the same word and is folded away (paradigm-fixes.json, drop). The glosses are the card's own.",
+   "why": "Its reverse-card hint named bizzarra, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
    "senses": [
     [
      "adjective",
@@ -1128,7 +1128,7 @@
    ]
   },
   "cilsc1/spietato": {
-   "why": "Its reverse-card hint named spietata, its own feminine, which was a second card for the same word and is folded away (paradigm-fixes.json, drop). The glosses are the card's own.",
+   "why": "Its reverse-card hint named spietata, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
    "senses": [
     [
      "adjective",
@@ -1142,7 +1142,7 @@
    ]
   },
   "cilsc1/perverso": {
-   "why": "Its reverse-card hint named perversa, its own feminine, which was a second card for the same word and is folded away (paradigm-fixes.json, drop). The glosses are the card's own.",
+   "why": "Its reverse-card hint named perversa, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
    "senses": [
     [
      "adjective",
@@ -1155,7 +1155,7 @@
    ]
   },
   "cilsc1/leggendario": {
-   "why": "Its reverse-card hint named leggendaria, its own feminine, which was a second card for the same word and is folded away (paradigm-fixes.json, drop). The glosses are the card's own.",
+   "why": "Its reverse-card hint named leggendaria, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
    "senses": [
     [
      "adjective",
@@ -1166,7 +1166,7 @@
    ]
   },
   "cilsc1/perfido": {
-   "why": "Its reverse-card hint named perfida, its own feminine, which was a second card for the same word and is folded away (paradigm-fixes.json, drop). The glosses are the card's own.",
+   "why": "Its reverse-card hint named perfida, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
    "senses": [
     [
      "adjective",
@@ -1177,7 +1177,7 @@
    ]
   },
   "cilsc1/diabolico": {
-   "why": "Its reverse-card hint named diabolica, its own feminine, which was a second card for the same word and is folded away (paradigm-fixes.json, drop). The glosses are the card's own.",
+   "why": "Its reverse-card hint named diabolica, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
    "senses": [
     [
      "adjective",
@@ -1190,7 +1190,7 @@
    ]
   },
   "cilsc1/inappropriato": {
-   "why": "Its reverse-card hint named inappropriata, its own feminine, which was a second card for the same word and is folded away (paradigm-fixes.json, drop). The glosses are the card's own.",
+   "why": "Its reverse-card hint named inappropriata, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
    "senses": [
     [
      "adjective",
@@ -1203,7 +1203,7 @@
    ]
   },
   "cilsc1/subdolo": {
-   "why": "Its reverse-card hint named subdola, its own feminine, which was a second card for the same word and is folded away (paradigm-fixes.json, drop). The glosses are the card's own.",
+   "why": "Its reverse-card hint named subdola, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
    "senses": [
     [
      "adjective",
@@ -1216,7 +1216,7 @@
    ]
   },
   "cilsc1/eroico": {
-   "why": "Its reverse-card hint named eroica, its own feminine, which was a second card for the same word and is folded away (paradigm-fixes.json, drop). The glosses are the card's own.",
+   "why": "Its reverse-card hint named eroica, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
    "senses": [
     [
      "adjective",
@@ -1227,7 +1227,7 @@
    ]
   },
   "cilsc1/fasullo": {
-   "why": "Its reverse-card hint named fasulla, its own feminine, which was a second card for the same word and is folded away (paradigm-fixes.json, drop). The glosses are the card's own.",
+   "why": "Its reverse-card hint named fasulla, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
    "senses": [
     [
      "adjective",
@@ -1241,7 +1241,7 @@
    ]
   },
   "cilsc1/fortissimo": {
-   "why": "Its reverse-card hint named fortissima, its own feminine, which was a second card for the same word and is folded away (paradigm-fixes.json, drop). The glosses are the card's own.",
+   "why": "Its reverse-card hint named fortissima, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
    "senses": [
     [
      "adjective",
@@ -1255,7 +1255,7 @@
    ]
   },
   "cilsc1/sovrano": {
-   "why": "Its reverse-card hint named sovrana, its own feminine, which was a second card for the same word and is folded away (paradigm-fixes.json, drop). The glosses are the card's own.",
+   "why": "Its reverse-card hint named sovrana, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
    "senses": [
     [
      "adjective",
@@ -1312,7 +1312,12 @@
      "On its own it is a better first deck than any of them.",
      "WHERE IT SITS: the shelf lists it after the six bands, and it is not harder than they are. Measured against the same subtitle frequency list, its first 300 words are about as common as the first 300 of CILS B1 (a median rank of 2,525 against 2,443) and 417 of its words are among the 5,000 commonest forms of spoken Italian, while its last 2,000 are rarer than the middle of C1. So begin it beside CILS A2, when A1 is done, rather than after C2: at a language deck's default of ten new cards a day, which is five words a day, the six bands alone take 1,431 days to reach it, and this deck takes 604. The greetings it used to hold (buongiorno, buonasera, arrivederci, salve) and seven numbers are cards of CILS A1 now."
     ]
-   ]
+   ],
+   "dropForm": {
+    "pazza": "cilsb2/pazzo",
+    "sanitaria": "cilsa2/sanitario",
+    "atomica": "cilsc1/atomico"
+   }
   },
   "itphrase": {
    "dropDup": {
@@ -1408,7 +1413,34 @@
      "while leaving out some they would meet at once, including the greetings.",
      "while leaving out some they would meet at once, including the greetings. (Twenty-five of this band's entries were the feminine of an adjective another card already teaches — patetica beside patetico, stupenda beside stupendo — and are folded into that card, whose Forms row shows the feminine.)"
     ]
-   ]
+   ],
+   "dropForm": {
+    "stupenda": "cilsb2/stupendo",
+    "esperta": "cilsa2/esperto",
+    "divina": "cilsb2/divino",
+    "patetica": "cilsc1/patetico",
+    "sovietica": "cilsc1/sovietico",
+    "sobria": "cilsc1/sobrio",
+    "isterica": "cilsc1/isterico",
+    "defunta": "cilsc1/defunto",
+    "pacifica": "cilsb2/pacifico",
+    "bizzarra": "cilsc1/bizzarro",
+    "impegnativa": "cilsb2/impegnativo",
+    "spietata": "cilsc1/spietato",
+    "primaria": "cilsa2/primario",
+    "clandestina": "cilsb2/clandestino",
+    "perversa": "cilsc1/perverso",
+    "organica": "cilsb1/organico",
+    "leggendaria": "cilsc1/leggendario",
+    "perfida": "cilsc1/perfido",
+    "diabolica": "cilsc1/diabolico",
+    "inappropriata": "cilsc1/inappropriato",
+    "subdola": "cilsc1/subdolo",
+    "eroica": "cilsc1/eroico",
+    "fasulla": "cilsc1/fasullo",
+    "fortissima": "cilsc1/fortissimo",
+    "sovrana": "cilsc1/sovrano"
+   }
   }
  }
 }

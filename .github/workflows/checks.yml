@@ -309,10 +309,10 @@ jobs:
         if: ${{ !cancelled() }}
         run: node .claude/build-whatlang.js --verify
       # The language decks' records and pinned ids (2026-11-16). A deck file in decks/ is edited only through its
-      # record (mandarin-fixes.json, spanish-fixes.json, italian-fixes.json) and its cards are numbered from a pin (mandarin-ids.json,
-      # spanish-ids.json, italian-ids.json, jlpt/ids.json), because the Update press merges a reader's progress by card id: a hand
+      # record (mandarin-fixes.json, spanish-fixes.json) and its cards are numbered from a pin (mandarin-ids.json,
+      # spanish-ids.json, jlpt/ids.json), because the Update press merges a reader's progress by card id: a hand
       # edit, or a rebuild that renumbered, hands every schedule to another word and nothing on the page says so.
-      # All of them read only the repository -- no corpus, no network, no browser.
+      # All five read only the repository -- no corpus, no network, no browser.
       - name: mandarin-fix --check (the Mandarin decks carry their fixes, their order and their pinned ids)
         if: ${{ !cancelled() }}
         run: node .claude/decks/mandarin-fix.js --check
@@ -325,12 +325,9 @@ jobs:
       - name: build-spanish-sounds --check (the Spanish sounds deck is what its table and DELE A1 give)
         if: ${{ !cancelled() }}
         run: node .claude/decks/build-spanish-sounds.js --check
-      # The Italian decks (2026-11-16, the Italian beginner pass): two records, applied in this order after a
-      # rebuild -- paradigm-fixes.json (one card per paradigm, shared with the French and Portuguese decks) and
-      # italian-fixes.json (the cards CILS A1 gains, the order, the pinned ids, the counts a description states).
-      - name: paradigm-fix --check (the French, Italian and Portuguese decks carry their folded paradigms)
-        if: ${{ !cancelled() }}
-        run: node .claude/decks/paradigm-fix.js --check
+      # The Italian decks (2026-11-16, the Italian beginner pass): italian-fixes.json (the cards CILS A1 gains, the
+      # order, the pinned ids, the counts a description states), applied after the shared paradigm-fixes.json.
+      # Both read only the repository, like the five above.
       - name: italian-fix --check (the Italian decks carry their record, their order and their pinned ids)
         if: ${{ !cancelled() }}
         run: node .claude/decks/italian-fix.js --check

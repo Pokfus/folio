@@ -18,7 +18,9 @@
   THE ORDER OF A REBUILD:   run.py --level <x>   →   paradigm-fix.js   →   italian-fix.js   →
   build-italian-sounds.js   →   .claude/build-lang-decks.js.   This file runs AFTER paradigm-fix.js and keys
   every note by the headword that file leaves (`il, la`, not `la`). It never rebuilds a field
-  paradigm-fixes.json rebuilds: the run fails if the two records name one note's field.
+  paradigm-fixes.json rebuilds: the run fails if the two records name one note's field. IT NEVER WRITES
+  paradigm-fixes.json OR paradigm-fix.js, which the French and Portuguese decks share: everything Italian
+  that is not a folded paradigm is in this record.
 
   WHICH DECKS. Every deck in `decks/` whose file name has "Italian" in it and whose card type is `cils`
   — by CARD TYPE, never by a file-name prefix: the six CILS bands, the core vocabulary and the phrases.
@@ -50,6 +52,11 @@
       `dropDup` is `{ headword: lowerDeckId }`: DELETE this deck's card for a word a lower deck now
       carries. The claim is CHECKED — the named deck must hold a card whose headword names that word —
       so this can never delete a word nothing else teaches. A card already gone is normal.
+      `dropForm` is `{ headword: "<deck id>/<headword>" }`: DELETE this deck's card for a word that is only
+      a FORM of the card named, in this deck or a lower one — patetica beside patetico. The claim is
+      CHECKED the way paradigm-fix.js checks its own `drop`: the named card must show the word in its
+      headword or in its Forms row. (It is here, and not a `drop` in paradigm-fixes.json, because that
+      record is shared with the French and Portuguese decks.)
       `subtitle` is set outright. `descSub` is `[find, replace]` pairs over the description, each satisfied
       if its replacement already stands in the text or if it matched; one satisfied by neither is an error.
       To reword a replacement that has shipped, add a pair after it whose `find` is the old replacement,
@@ -71,7 +78,7 @@
       CHECKED: the generator numbers a deck by position and the Update press merges a reader's progress
       by id, so after a rebuild every note is given back the number its headword is pinned to. A note
       with no row takes its insert's `id`, or failing that the next free number, and gains a row (under
-      `--check` that is a failure). A row is never deleted: a note a record removes (`dropDup` here, a
+      `--check` that is a failure). A row is never deleted: a note a record removes (`dropDup` or `dropForm` here, a
       `fold` or `drop` in paradigm-fixes.json) moves to `_retired`, so its number is never dealt to another
       word. A pinned note that is missing for any other reason fails the run.
 */
@@ -244,6 +251,18 @@ for (const id of order) {
     const before = d.cards.length;
     d.cards = d.cards.filter((c) => c.fields.Word !== head);
     if (before === d.cards.length && VERBOSE) said.push(id + " → dropDup " + head + ": already gone");
+  }
+  for (const [head, by] of Object.entries(dm.dropForm || {})) {
+    const i = by.indexOf("/"), tDeck = by.slice(0, i), tHead = by.slice(i + 1), tf = byId.get(tDeck);
+    if (!tf || order.indexOf(tDeck) > order.indexOf(id)) { errors.push(id + " → dropForm " + head + ": " + tDeck + " is not this deck or a lower one"); continue; }
+    const t = tf.d.cards.find((c) => c.fields.Word === tHead);
+    if (!t) { errors.push(id + " → dropForm " + head + ": " + by + " names no note"); continue; }
+    if (!(t.fields.Word + " " + strip(t.fields.Forms)).split(/[\s,;:\/]+/).includes(head)) { errors.push(id + " → dropForm " + head + ": " + by + " does not show it in its headword or Forms"); continue; }
+    if (head === tHead && tDeck === id) { errors.push(id + " → dropForm " + head + ": a note cannot be a form of itself"); continue; }
+    lost.add(head);
+    const before = d.cards.length;
+    d.cards = d.cards.filter((c) => c.fields.Word !== head);
+    if (before === d.cards.length && VERBOSE) said.push(id + " → dropForm " + head + ": already gone");
   }
   dropped.set(id, lost);
   // 3. fields rebuilt on a card the generator wrote

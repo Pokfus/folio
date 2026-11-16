@@ -2566,13 +2566,13 @@ changed was the one that had been wrong all along.
     card id is the note id, plus `~2` for English → Italian. So pinning a note pins both schedules.
   - **AFTER A BUILD, THE RECORDS** (2026-11-16): `run.py` writes a deck numbered by position, with none of
     the hand edits. Then, in this order: `node .claude/decks/paradigm-fix.js` (one card per paradigm:
-    articles, possessives, demonstratives, lui / lei; shared with French and Portuguese; since Nov 2026
-    also the 28 feminine adjectives that were a second card for one word), `node
-    .claude/decks/italian-fix.js` (the Italian record `italian-fixes.json`: the 47 cards CILS A1 gains,
-    the cards other decks lose to it, fields rebuilt on a card, each description; then the order
-    `italian-order.json`, then the pinned ids `italian-ids.json`, APPLIED), `node
-    .claude/decks/build-italian-sounds.js`, `node .claude/build-lang-decks.js`. All three have `--check`
-    and all three are in CI. `words_below` reads the SHIPPED lower decks, so a band rebuilt after this
+    articles, possessives, demonstratives, lui / lei; SHARED with the French and Portuguese decks, and
+    for that reason not edited by the Italian pass), `node .claude/decks/italian-fix.js` (the Italian
+    record `italian-fixes.json`: the 47 cards CILS A1 gains, the cards other decks lose to it, the 28
+    feminine adjectives that were a second card for one word, fields rebuilt on a card, each
+    description; then the order `italian-order.json`, then the pinned ids `italian-ids.json`, APPLIED),
+    `node .claude/decks/build-italian-sounds.js`, `node .claude/build-lang-decks.js`. All three have
+    `--check`; the two Italian ones are in CI. `words_below` reads the SHIPPED lower decks, so a band rebuilt after this
     pass leaves out by itself what CILS A1 now carries, and the record's `dropDup` finds it already gone.
     📖 `.claude/decks/README.md` "The Italian decks" has the table of files; "The Italian beginner pass"
     below has the reasoning.
@@ -4456,7 +4456,7 @@ ten new cards a day with both directions together, which is five words a day. Th
 5. **Five A1 cards were not what they said.** sei, the number six, carried three sentences of (tu) sei;
    grazie three of grazie a, "thanks to"; su was glossed as the adverb over three sentences of the
    preposition; testo was filed as a verb ("past participle of tessere") over three sentences of the noun;
-   and lui, lei named its own answer on the front of the English → Italian card ("lui — he, him").
+   and lui, lei names its own answer on the front of the English → Italian card ("lui — he, him").
 6. **28 adjectives were carded twice**, once as the masculine and once as its own feminine (patetico and
    patetica, stupendo and stupenda): 25 in C1, 3 in the core. 16 of the masculines carried a reverse-card
    hint naming the feminine.
@@ -4501,7 +4501,10 @@ ten new cards a day with both directions together, which is five words a day. Th
 - **An Italian record beside the paradigm one** (`italian-fixes.json`, applied by `italian-fix.js` after
   `paradigm-fix.js`). The paradigm record is shared with the French and Portuguese decks and only folds
   forms into one card; extending it with inserts, an order and a pin would have put two other languages
-  under rules nobody has measured for them.
+  under rules nobody has measured for them. **The pass edits neither `paradigm-fix.js` nor
+  `paradigm-fixes.json`** (a French pass was running beside it): everything Italian is in the Italian
+  record, including the drop of a form that another card teaches (`dropForm`, the same check as the
+  paradigm record's `drop`).
 - **47 notes for A1** (ids 962 to 1008). Five that nothing carded — buonanotte, prego, scusa and scusi,
   diciassette, diciannove — with meanings from the English Wiktionary (kaikki.org, read 2026-11-16) and
   sentences from Tatoeba, each named by id. 42 MOVED, byte for byte, from the core (buongiorno, buonasera,
@@ -4521,15 +4524,15 @@ ten new cards a day with both directions together, which is five words a day. Th
   by hand carries the English Wiktionary's transcription.
 - **The prepositions show their forms**: di, a, da, in and su each gained a Forms row (Wikipedia, "Italian
   grammar", revision 1381706588, "Mandatory contractions").
-- **The five cards repaired** (finding 5), **the 28 feminines folded** into their masculine card
-  (`paradigm-fixes.json`, `drop`), and the 16 stale hints taken off.
+- **Four of the five cards repaired** (finding 5: sei, grazie, su, testo), **the 28 feminines folded** into
+  their masculine card (`italian-fixes.json`, `dropForm`), and the 16 stale hints taken off.
 - **The phrases tiered by reading level** (658 / 189 / 95 / 48 / 39 / 6 / 129 the core, 208 no deck) and
   their subtitle corrected. **The core's description says where it sits** (beside A2), in place of the
   sentence finding 7 quotes.
 - **The pace stated** in the A1, core, phrases and sounds descriptions, and **the counts a description
   states are recounted** by `italian-fix.js` (they were off by one to eleven in seven decks).
-- **CI**: `paradigm-fix.js --check` (it had never been in CI), `italian-fix.js --check`,
-  `build-italian-sounds.js --check`.
+- **CI**: `italian-fix.js --check` and `build-italian-sounds.js --check`. (`paradigm-fix.js --check` is still
+  not in CI: it gates the French and Portuguese decks too, and was left for whoever owns that record.)
 
 ### What was decided against, and why
 
@@ -4566,8 +4569,11 @@ ten new cards a day with both directions together, which is five words a day. Th
 - **That the courtesies, the numbers, the days and the seasons are A1 material is a judgement here**, not a
   citation: CILS publishes a syllabus of functions and no word list, and the A1 description says they are
   supplied.
-- **The French and Portuguese paradigm cards still name their forms in the meaning** ("le — him, it"), which
-  shows the answer on the English → French card. Only the Italian lui, lei was changed.
+- **The paradigm cards still name their forms in the meaning** — the Italian lui, lei ("lui — he, him") and
+  the French and Portuguese ones ("le — him, it") — which shows the answer on the front of the English →
+  Italian card. The card is written by the shared `paradigm-fixes.json`, which this pass does not edit:
+  the repair is one entry there (the meanings without the forms, the forms in the Forms row), for all
+  three languages at once.
 - **`check-cils.js` did not finish**, on `main` or on the branch (the `.claude/cils/` entry says where).
 
 ## The DELE card-by-card audit, beyond A1 — the batch log

@@ -105,14 +105,14 @@ corpora), and **can no longer be rebuilt as they are**: the third party's word l
 **there are two records**, applied in a fixed order, and **a word is ONE NOTE with two card templates**, so
 the pin is of note ids (a card id is the note id, plus `~2` for English → Italian).
 
-    node paradigm-fix.js --check            # the folded paradigms (French, Italian and Portuguese decks)
+    node paradigm-fix.js --check            # the folded paradigms (French, Italian and Portuguese decks; not in CI)
     node italian-fix.js --check             # the Italian record, the order and the pinned ids
     node build-italian-sounds.js --check    # the sounds deck is what its table and CILS A1 give
 
 | file | what it is |
 |---|---|
-| `paradigm-fixes.json` | ONE CARD PER PARADIGM, shared with French and Portuguese and applied FIRST by `paradigm-fix.js`: an article, a possessive, a demonstrative or lui / lei is one card listing its forms (`notes`, `fold`), and a note that is only a form of another card is dropped (`drop`, which checks that the other card names it — the 28 feminine adjectives of Nov 2026). |
-| `italian-fixes.json` | the Italian record, applied SECOND by `italian-fix.js`: `insert` (a card the word list lacks: a moved card's six `fields` byte for byte with `from`, or `senses` / `forms` / `ex` with a source for every sentence), `decks.<id>.dropDup` (the card a lower deck now carries), `notes` (a field rebuilt on a generator card, or a rename with `word`), `decks.<id>.subtitle` and `descSub`. It never rebuilds a field the paradigm record rebuilds: the run fails if both name one. |
+| `paradigm-fixes.json` | ONE CARD PER PARADIGM, **SHARED with the French and Portuguese decks** and applied FIRST by `paradigm-fix.js`: an article, a possessive, a demonstrative or lui / lei is one card listing its forms (`notes`, `fold`, `drop`). The Italian pass of Nov 2026 did not edit it; change it only for a folded paradigm, and never for anything the Italian record can say. |
+| `italian-fixes.json` | the Italian record, applied SECOND by `italian-fix.js`: `insert` (a card the word list lacks: a moved card's six `fields` byte for byte with `from`, or `senses` / `forms` / `ex` with a source for every sentence), `decks.<id>.dropDup` (the card a lower deck now carries), `decks.<id>.dropForm` (a card that is only a form of another card, which must show it in its headword or Forms — the 28 feminine adjectives), `notes` (a field rebuilt on a generator card, or a rename with `word`), `decks.<id>.subtitle` and `descSub`. It never rebuilds a field the paradigm record rebuilds: the run fails if both name one. |
 | `italian-ids.json` | deck id → headword (a sounds row's key) → the number in the note's id. **Never delete or renumber a row.** A removed note's row moves to `_retired` (71 of them); a rename renames the key. APPLIED, so a deck numbered by position is numbered back. |
 | `italian-order.json` | deck id → the full list of headwords in the order the deck is dealt (CILS A1, the phrases). May be edited by hand; a list that is not exactly the deck's headwords is refused. A deck with no entry is dealt in the order of its pinned numbers. |
 | `italian-order.js` | how that file is computed, from the PINNED NUMBER and never from the file's own order: A1's hand-written head, the closed sets (three placed at a note number), look-alikes forty apart; the phrases by reading level. It fails if a description's stated figures (`descSub`) no longer match the order. `--report` prints the measurements. |
