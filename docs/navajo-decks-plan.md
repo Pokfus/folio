@@ -5,8 +5,9 @@ language set in the shape of the ones already shipped (Hausa, Zulu, Lao …).
 `docs/lang-decks.md` records how those were built, and every rule there applies here unless this file says
 otherwise. Asked for on 2026-11-16: "Add a Navajo language collection."
 
-**STATUS (2026-11-16): the alphabet and sounds deck, A1 and A2 are built** (`.claude/navajo/`, §6–§7). A2 has
-579 notes, not 750: the counted words ran out after A1 (§7). B1 and the phrases deck are still to come.
+**STATUS (2026-11-16): the alphabet and sounds deck, A1, A2 and B1 are built** (`.claude/navajo/`, §6–§8). A2
+has 579 notes, not 750, and B1 307, not 1,000: the counted words ran out after A1 (§7, §8). The phrases deck is
+still to come.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck this plan produces. The collection's first commit did carry one line and one bump, because
@@ -28,7 +29,7 @@ These were asked after a survey of the sources (§2): a rich dictionary, almost 
 | Navajo Alphabet and Sounds (built) | `Navajo-Alphabet.folio-deck.json` | 41 |
 | Navajo A1 Beginner (built) | `Navajo-A1.folio-deck.json` | 500 |
 | Navajo A2 Elementary (built) | `Navajo-A2.folio-deck.json` | 579 (planned 750) |
-| Navajo B1 Intermediate | `Navajo-B1.folio-deck.json` | 1,000 |
+| Navajo B1 Intermediate (built) | `Navajo-B1.folio-deck.json` | 307 (planned 1,000) |
 | Navajo Phrases and Expressions | `Navajo-Phrases-and-Expressions.folio-deck.json` | — |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule. "Alphabet" sorts first.
@@ -157,3 +158,27 @@ rebuilds byte-identical.
 nothing to add. The days of the week are Wiktionary's spellings, which mix two systems (`Damóo Biiskání`,
 `Damóo dóó Naakijį́`). Wednesday and Thursday are left out: their entries follow neither of those two patterns
 (`Tágíjį́ Ndaʼanish`, `damóodóó dį́ʼíjį́`), and a set of days in three spellings would teach the inconsistency.
+
+## 8. As built (2026-11-16): B1
+
+`python3 .claude/navajo/run.py --level b1`. **307 notes / 614 cards, against the planned 1,000, all from the
+inventory** (`inventory.B1`, 14 topics scoped to the B1 descriptor). The fill is empty: no word that both
+corpora count is left after A1 and A2's exclusions. 171 have sentences, three apiece for 41. 199 have IPA and
+68 a forms line. A re-run is byte-identical, and A1 and A2 still rebuild byte-identical.
+
+- **WHERE THE WORDS CAME FROM.** Matching concepts to glosses, as for A2, finds few abstract nouns, because
+  Wiktionary's Navajo glosses rarely open on the bare English word. So B1 was chosen mainly from the remaining
+  lemmas English Wiktionary's editors have worked on: those with an IPA line or a usage example of their own
+  (about 530 after the exclusions), read by part of speech, with the everyday and B1-shaped ones kept. They
+  cover knowledge and opinion, belief and ceremony, government and law, work and money, life events, health,
+  feelings, the environment and the modern world. Concept matching added the professions and a few qualities.
+  Most of what was refused is technical (verbs of a particular object's shape or motion, "it forms a
+  meandering yellow line"), exotic animals, or a compound that names one specific thing.
+- **THE DESCRIPTION SAYS SO** (`build_deck.desc`, the `from_inv == n` wording): all its words are the written
+  vocabulary, and the counts order only those they know.
+- **One gloss fixed**: `tʼáá shį́į́`'s second "gloss" in the extract is a citation of Young and Morgan, and the
+  card shows its meaning alone (`GLOSS`).
+
+**Known, left.** B1 is a third of the planned size. Reaching 1,000 would mean about 700 more words chosen with
+no count, from entries no editor has illustrated. Several verbs keep Wiktionary's shape-of-object wording
+("to pick up, lift, choose, find it (a solid roundish object)"), which is how Navajo itself divides them.

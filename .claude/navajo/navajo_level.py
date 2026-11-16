@@ -72,6 +72,18 @@ SCOPE = {
                   'family and people, and the everyday verbs, describing words and adverbs a simple '
                   'account of one\'s day needs',
     },
+    'b1': {
+        'quote': 'Can understand the main points of clear standard input on familiar matters '
+                 'regularly encountered in work, school, leisure, etc.',
+        'gloss': 'able to deal with most situations likely to arise while travelling, to '
+                 'produce simple connected text on topics that are familiar or of personal '
+                 'interest, and to describe experiences and events, dreams, hopes and '
+                 'ambitions and briefly give reasons and explanations for opinions and plans',
+        'topics': 'knowledge and opinions, belief and ceremony, government, law and society, work, '
+                  'money and trade, family and life events, health, feelings and character, the land '
+                  'and the environment, food and drink, the modern world, describing words, and the '
+                  'verbs, adverbs and small words of connected speech',
+    },
 }
 
 def f(name):

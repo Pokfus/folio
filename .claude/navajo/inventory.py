@@ -197,4 +197,61 @@ INVENTORY = {
          'chʼéghááh yidííniid háíghááh haisííd haigééd náltsááh yiníłʼį́ adlą́ yichʼid yiyiigis '
          'táʼádígis hadéébįįd áhályą́ niilníísh naʼídíłkid'),
     ],
+    'b1': [
+        ('knowledge, ideas and opinions',
+         'tʼááʼaaníinii bíhooʼą́ąʼii hódzą́ íhooʼaah nitʼąąʼ_nahaneʼ nahaʼá ádahooníłígíí aseezį́ '
+         'ínsadoobíídiiya yééhósin yééhoosįįh yikʼiʼdiitįįh bééhániih bééhoozįįh nitʼááh niizįįh '
+         'yíhoʼniiłʼaah íhoołʼaah yínítááh yiʼį́'),
+        ('belief, the sacred and ceremony',
+         'chʼį́įdii adiłgąshii naayééʼ yéʼii yee_naaldlooshii kinaaldá alzį́į́h jish iiʼ_sizíinii yáʼąąsh '
+         'chʼį́įdiitah yágháhookáán bąąhági_átʼéii atsʼos_bee_alzhishí dééh'),
+        ('government, law and society',
+         'wááshindoon ahaʼdeetʼaah ałgáádeitʼááh alą́ąjįʼ_dahsidáhígíí iʼiiʼnííł eʼeʼáád ayiinííł '
+         'iʼiiʼnííł_bijį́ áłah_aleeh ínáóltąʼí naabaahii aniʼįįhii aghaʼdiitʼaahii haʼasídí '
+         'akʼídádéestʼį́į́ʼ niyíʼaah Nóódaʼí Bééshbichʼahí Bitsįʼ_yishtłizhii déʼéyóní anaaʼí azází '
+         'Diné_bizaad_yee_naazbaaʼígíí'),
+        ('work, money and trade',
+         'naaltsoos_ííłʼíní adiitsʼaʼii chidíʼánéílʼíní niʼiizhíhí naʼniłkaadí naalzheehii kǫʼ_deiniłtsésí '
+         'naʼałtʼaʼí haʼagééd łeetsoh akʼahkǫʼ_háálínígíí bééshbiiʼkǫǫʼítsoh chidí_naatʼaʼí_ńdinibįįhígi '
+         'óʼoolkąąh inchxǫ́ʼí téʼéʼį́ yeel niyíłtsóós nayiilé íłį́ ílį́įnii ílį́įgo_naalyéhé '
+         'bą́ą́h_ílį́ hashtʼeʼ_nihénil tʼáá_jííkʼe niyíyeeh'),
+        ('family and life events',
+         'iigeh jishchááʼ łeeh_dahoʼdiiʼníiłgi achí ootsą́ naakiishchíín lókʼeeshchąąʼí hazhéʼé_ájíłʼíní '
+         'adáʼi abízhí achó amá_yázhí amá_sání chai análí_hastiin análí_asdzą́ą́ bináhááh diitííh'),
+        ('health and the body',
+         'atéʼélį́ łóód_doo_nádziihii atsʼíístah_áshįįh_łikan_nanitʼąʼ_silį́į́ʼ tsʼííh_niidóóh '
+         'ooshgę́ę́zh achʼííʼ_bitsʼániʼnísą́ tóʼiiłtą́ yikʼęęh álánééz chin náʼálzhééh'),
+        ('feelings and character',
+         'łeʼ joodlá náhádzid tʼáá_hasih yééʼ iłhóyééʼ ahééh nichįʼ yidleeʼ ditsxiz bééhoʼdilzin '
+         'chooʼíní bíiyis bízháneeʼ sizid hashkeeh haachééh iidiʼaah áyóʼní joobaah hasih hasįįh'),
+        ('the land, nature and the environment',
+         'iʼniiyą́ą́ʼ tsʼiilzéí naʼalkid das tsékooh_hatsoh tónteeldę́ę́ʼ_níyoltsoh ooljééʼ_daaztsą́ '
+         'jóhonaaʼéí_daaztsą́ ńchííl yichííł ahoʼniiłtįįh diłkʼáás honeezílí honeezkʼází łeʼdilchʼííł '
+         'adinídíín anitséés tʼeesh akáshtʼóózh atsiin akaz chaaʼ tábąąstíín naʼazísí jádídlǫ́ʼii '
+         'tsísʼná_bighan tsísʼnáłtsooí tsísʼnátsoh tsézhin dinas niłtólí niłtsʼílí dibah diwol'),
+        ('food and drink, more',
+         'jélii daadánígíí wáán tó_łikoní gohwééh_hashtłʼishí bááh_dah_díníilghaazh '
+         'bááh_łikaní_bigháhoodzání bił_éʼélʼíní taaʼniil sęęschʼil chʼilzooł chʼil_łigaii '
+         'naayízítsʼósí jiłtʼoʼí neeshchʼíínímazí yiyiilįh yiyiisą́ niyíkaah yízííd halniih'),
+        ('things and the modern world',
+         'biwooʼ_hólóní chidí_naaʼnaʼí tó_doo_bináká_nílíní atsiniltłʼish_bee_adinídíín golchóón '
+         'níłtsą́ʼééʼ naaltsoos_dildoní hééł gish dziʼizí_bijáád_táʼígíí jooł_nabíznítaałí '
+         'ahąą_honinééh naʼałkǫ́ǫ́ʼ_yee_ałhaʼdikááh dziʼizí_bee_ałhaʼdikááh Hajéí_Béédahaniih'),
+        ('qualities and describing words',
+         'aheełtʼé ahinoolin łaʼígíí shóníłtsxo shóhoníłtsxo názbąs sigan łikon nahateeł hachįįh '
+         'yáʼáhootʼééh ánízáád níłtéél kóníłtso noolin kótʼé chxǫ́ǫ́ʼí ilí'),
+        ('more verbs',
+         'naaʼeeł naaldo yílį́ chʼéélį́ yizǫ́ǫ́s neishood haizǫ́ǫ́s haiłgéésh yibizh hainiłchaad yeʼelééh '
+         'yíyiizóóh yiyiizoh yoozoh yiniłtséés ńʼdíłhį́į́h nahidiłhį́į́h iitłíísh náánádááh ńdízííd '
+         'halzhíísh hanééh atíílééh yisdéíjááh hodilid ajiiłhan néidiiʼaah honiłné adiloh ałkʼiijééʼ'),
+        ('time, manner and place',
+         'yéigo hííłchʼįʼgo tʼáá_shį́į́ yiską́ągo tʼáá_bí kojí jį́į́dą́ą́ʼ tłʼóóʼgóó wóshdę́ę́ʼ haitʼáo '
+         'bineʼdę́ę́ʼ akéeʼdi tʼáá_aaníí wónáásdóó hazhóʼógo hazhóóʼógo doo_ákweʼé biiskání '
+         'tʼóó_báhádzidgo tʼáá_ádzaagóó tʼáá_dzígaidi nízah kóyaa kónaa hahgo díkwíí_łą́ '
+         'doo_asohodéébéézhgóó abíní aakʼee chánah'),
+        ('pronouns, particles and small words',
+         'háíshąʼ díkwííshį́į́ éidí háidísh haʼíí haʼátʼíishąʼ yaʼ lágo shąʼ hanii bilááh bináká '
+         'shinaagóó binaashii bide ndagaʼ shoh átʼahálo tįʼę́ę nila aho dóó_bikʼijįʼ '
+         'tʼááłáʼí_góneʼ naaki_góneʼ tʼááłáhádí_neeznádiin tʼááłáhádí_mííl'),
+    ],
 }

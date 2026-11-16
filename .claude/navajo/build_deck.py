@@ -83,7 +83,9 @@ GLOSS = {
     'óola': {'noun': ['hour, the hour', 'gold']},
     # A2 (2026-11-16)
     'bighaaʼ': {'noun': ['wool, fleece', 'fur']},
-    'náhookǫs': {'noun': ['north', 'the Big Dipper']},  # its third sense, the whirling-log sign, is not A2's
+    'náhookǫs': {'noun': ['north', 'the Big Dipper']},
+    # B1 (2026-11-16)
+    'tʼáá shį́į́': {'adv': ['probably, in all probability']},  # its second "gloss" is a citation  # its third sense, the whirling-log sign, is not A2's
     'tsésǫʼ': {'noun': ['glass, window, pane', 'mica']},
 }
 
@@ -241,14 +243,20 @@ def desc(entries, n):
          if LEVEL != 'a1' else "") +
         "WHERE THESE WORDS COME FROM, since it matters: no exam board publishes a graded word list "
         "for Navajo (Diné bizaad), so this deck is not any examination's vocabulary and does not claim "
-        f"to be. It is assembled from two things that can be stated. {from_inv} of the {n} come from a "
-        f"vocabulary written for the level's scope — {SC['topics']} — and the other {n - from_inv} are "
-        "the commonest remaining words found in BOTH of two small corpora: the Navajo Wikipedia and the "
-        "example sentences of English Wiktionary's Navajo entries. Each word is counted by the WHOLE word "
-        "(a noun's possessed forms and a verb's persons added together), and a word must be in both, "
-        "since the Wikipedia is mostly short articles about animals and plants. The cards are dealt by "
-        "that count, so the words you meet most often come first. "
-        "Every headword is printed in the standard Navajo spelling, which writes what English spelling "
+        + (f"to be. It is assembled from two things that can be stated. {from_inv} of the {n} come from a "
+           f"vocabulary written for the level's scope — {SC['topics']} — and the other {n - from_inv} are "
+           "the commonest remaining words found in BOTH of two small corpora: the Navajo Wikipedia and the "
+           "example sentences of English Wiktionary's Navajo entries. Each word is counted by the WHOLE word "
+           "(a noun's possessed forms and a verb's persons added together), and a word must be in both, "
+           "since the Wikipedia is mostly short articles about animals and plants. The cards are dealt by "
+           "that count, so the words you meet most often come first. " if from_inv < n else
+           # B1: the levels below took every word both corpora count, so all of it is the written
+           # vocabulary, and the corpora only order it where they know it at all
+           f"to be. All {n} of its words come from a vocabulary written for the level's scope — "
+           f"{SC['topics']} — chosen from English Wiktionary's Navajo entries, since the levels below "
+           "already teach every word that both the Navajo Wikipedia and Wiktionary's own example sentences "
+           "use. The cards are dealt by those two counts where a word has one, and the rest follow. ")
+        + "Every headword is printed in the standard Navajo spelling, which writes what English spelling "
         "has no letter for: a high tone with an acute accent (á), a nasal vowel with a hook (ą), a long "
         "vowel doubled (aa), the glottal stop as ʼ, and ł for the sound of Welsh ll. "
         f"{ipa} of the {n} words also show their pronunciation in the International Phonetic Alphabet, "
