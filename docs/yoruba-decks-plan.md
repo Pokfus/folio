@@ -5,8 +5,8 @@
 were built, and every rule there applies here unless this file says otherwise. The owner was not asked:
 the Zulu, Hausa and Amharic owners' answers were taken, the sources being as thin (§2).
 
-**STATUS (2026-11-16): the alphabet deck and all three levels, A1, A2 and B1, are built** (`.claude/yoruba/`,
-§6–§8). A phrases deck is next.
+**STATUS (2026-11-16): the collection is complete** — the alphabet deck, A1, A2, B1 and the phrases deck
+(`.claude/yoruba/`, §6–§9). Asked for a B2, the owner chose the phrases deck instead (§9).
 
 ## 1. The decisions (taken from the Zulu, Hausa and Amharic sets)
 
@@ -27,7 +27,7 @@ the Zulu, Hausa and Amharic owners' answers were taken, the sources being as thi
 | Yoruba A1 Beginner — built | `Yoruba-A1.folio-deck.json` | 500 |
 | Yoruba A2 Elementary — built | `Yoruba-A2.folio-deck.json` | 750 |
 | Yoruba B1 Intermediate — built | `Yoruba-B1.folio-deck.json` | 1,000 |
-| Yoruba Phrases and Expressions | `Yoruba-Phrases-and-Expressions.folio-deck.json` | — |
+| Yoruba Phrases and Expressions — built | `Yoruba-Phrases-and-Expressions.folio-deck.json` | 123 |
 
 ## 2. Sources and licences — and what is missing
 
@@ -94,8 +94,7 @@ noun, jí "to wake up" as a particle). The days of the week keep Wiktionary's ca
 
 **Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2 (done)** — A2 then B1, one level per session: write
 the level's inventory into `inventory.py` and its `SCOPE` into `yoruba_level.py`; read the ranking for new
-exclusions; read every card. **Phase 3** — the phrases deck (Wiktionary's phrase and proverb entries — it has
-17 proverbs — and Tatoeba's sentences). A level must leave the levels below it byte-identical.
+exclusions; read every card. **Phase 3 (done)** — the phrases deck (§9). A level must leave the levels below it byte-identical.
 
 ## 6. As built (2026-11-15): the alphabet and A1
 
@@ -160,3 +159,33 @@ left after A2, unlike the Amharic B1 (494).
 **Known, left.** Much of B1 is traditional culture (drums, Ifá, chieftaincy titles, foods) and natural history,
 because that is what Wiktionary's remaining Yoruba entries are; the government, law and health vocabulary a B1
 usually has is missing from the source. Synonym pairs are labelled by the shelf's de-duplication ("not ẹyẹlé").
+
+## 9. As built (2026-11-16): the phrases deck, and no B2
+
+**No B2.** Asked for "Add B2", Folio measured what English Wiktionary had left after B1: about 280 single words
+the Yoruba Wikipedia uses at all (most once or twice), 228 multi-word entries, and 854 words the Wikipedia never
+uses, many of them dialect spellings (Ọwọ, Ikalẹ, Ondo) and bird and plant species. A 1,500-word B2 would have
+been mostly zero-count words in no meaningful order; the owner chose the phrases deck instead (the Hausa
+precedent).
+
+`python3 .claude/yoruba/phrases.py` (reads the cache; no corpus is counted). 123 notes / 246 cards in five
+subdecks (the card's `sub`): 26 greetings and wishes, 22 everyday phrases, 29 idioms and similes, 16 proverbs, 30
+Tatoeba sentences. A re-run is byte-identical; the levels are unchanged.
+
+- **EVERY ENGLISH SIDE IS WIKTIONARY'S** (no Folio glosses, the collection's rule), and a proverb's or idiom's
+  LITERAL reading — Wiktionary's sense with `qualifier: literal` — is printed beneath under "literally". Wiktionary's
+  usage examples go under "In a sentence".
+- **THE GREETINGS** are the Yoruba system of greeting by the time of day and by what someone is doing (kúuṣẹ́ to
+  someone at work, kúùjókòó to someone sitting, kúùkúnra to a pregnant woman), all Wiktionary's own entries.
+- **LEFT OUT** (`phrases.LEFT_OUT`, each with its reason): spellings of greetings A1 teaches (ẹ ṣé, o ṣeun), dialect
+  greetings (Ekiti, Ìjẹ̀bú), the ritual formulas of Ifá initiates and the Ògbóni society, entries Wiktionary marks
+  offensive or derogatory, one proverb variant, and compound nouns Wiktionary tags "idiomatic" (ìmọ̀ ìjìnlẹ̀
+  "science"). A sense Wiktionary gives as an Ajami (Arabic-script) spelling is not shown.
+- **THE SENTENCES**: of Tatoeba's 60 translated Yoruba sentences, 30 are kept (at most nine words, shortest
+  first). `phrases.DROP` names each other one: written without tone marks (Bawo ni, Mo nifẹẹ rẹ …), misspelt
+  (Onísègùn for oníṣègùn, àna for àná), only a phrase or word already taught, or sharing its English with another.
+  The two Tatoeba proverbs are over nine words. The kept sentences print Tatoeba's spellings, elisions included
+  (Kí l'o fẹ́?).
+
+**Known, left.** No sentence for most greetings: Tatoeba's Yoruba is translated from English sentences. The two
+"you're welcome" phrases are told apart by the shelf's de-duplication label ("not kò tọ́pẹ́").

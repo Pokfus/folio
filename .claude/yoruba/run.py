@@ -6,6 +6,7 @@
     python3 .claude/yoruba/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/yoruba/run.py --re-extract    # rebuild the counts and the lexicon
     python3 .claude/yoruba/alphabet.py            # the alphabet deck (reads lex.json)
+    python3 .claude/yoruba/phrases.py             # the phrases deck (reads the cache; after B1)
 
 ONE LEVEL PER RUN (`yoruba_level` reads the level once, at import).  Downloads
 its sources into `.claude/yoruba-cache/` (gitignored, about 150 MB, Tatoeba's

@@ -3755,7 +3755,10 @@ changed was the one that had been wrong all along.
   frequency) **and A2, `decks/Yoruba-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16: 192 inventory,
   558 frequency; an unmarked spelling with a commoner marked homograph is not dealt) **and B1,
   `decks/Yoruba-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-16: 141 inventory read off the words the
-  fill does not reach, 859 frequency down to a count of one). `python3 .claude/yoruba/run.py [--level a1|a2|b1]`, `python3 .claude/yoruba/alphabet.py`,
+  fill does not reach, 859 frequency down to a count of one) **and the phrases deck,
+  `decks/Yoruba-Phrases-and-Expressions.folio-deck.json`** (123 notes in five subdecks: greetings, everyday phrases,
+  idioms and similes, 16 proverbs with their literal readings, 30 Tatoeba sentences; `python3 .claude/yoruba/phrases.py`;
+  the owner chose it over a B2, Wiktionary being used up). The collection is complete. `python3 .claude/yoruba/run.py [--level a1|a2|b1]`, `python3 .claude/yoruba/alphabet.py`,
   `node .claude/yoruba/check-yoruba.js`; a re-run is byte-identical. Amharic's arrangement: about 4,300 Wiktionary
   words, 60 Tatoeba pairs, no subtitle list, so the frequency is the Yoruba Wikipedia's (its 8,155 articles of 150
   words or more), A1–B1 only, no hand glosses, no speaker. **A card is a TONED spelling**, read off Wiktionary's
