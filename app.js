@@ -25891,8 +25891,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         fig.insertAdjacentHTML("afterend", dailyQuoteHTML());
         const next = fig.nextElementSibling;
         fig.remove();
-        wireDailyQuote(root);
-        homeReadingSwap(root, 1);   // the reading box turns on the quote's minute (homeReadingHTML)
+        wireDailyQuote(root);   // (the reading box no longer turns with it — by hand only since Nov 2026, homeReadingHTML)
         if (!prefersReducedMotion() && next) {
           next.classList.add("dq-in");
           requestAnimationFrame(() => requestAnimationFrame(() => next.classList.remove("dq-in")));
@@ -26193,7 +26192,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      for every reader, Nov 2026), so swiping back and forth shows the same two and a fresh book
      file is not fetched every other minute. The swap is homeReadingSwap: wireDailyQuote's advance calls it as
      the quote moves on (one timer, held while the tab is hidden, as the quote is), and a horizontal swipe or
-     the arrow keys on the box call it by hand. A reader who has opened no book has the Suggested box alone. */
+     the arrow keys on the box call it by hand. A reader who has opened no book has the Suggested box alone.
+     NO LONGER ON A TIMER (Nov 2026, on request: "shouldn't automatically switch between the two"): the
+     quote's advance does not call homeReadingSwap any more; the box stays on its face until the reader
+     swipes or presses an arrow key, and the dots still say there is a second face. */
   let _hrPair = null;   // { cont, sug, mode } — the two books of this build's box; null when it has one face
   /* ONE SUGGESTED READING A DAY, THE SAME FOR EVERY READER (Nov 2026, on request: "there should be one
      suggested reading for the whole website displayed every day and changed to a random new section the
