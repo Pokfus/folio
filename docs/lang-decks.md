@@ -4081,7 +4081,7 @@ changed was the one that had been wrong all along.
   a Czech conjugation is several table boxes (Polish cut at the second), eleven verbs carry another verb's table,
   a qualified gender's labels leak onto every sense (`den`), reflexive verbs read their base verb's reflexive
   senses. The plan and every finding are 📖 `docs/czech-decks-plan.md`. The `LANGS` row is 9.8 / 12 million
-  (Ethnologue via Wikipedia); the hue is measured, `#495A5A` (re-swept at the merge: Navajo had taken a hue 0.1 from the first sweep's `#3C7675`).
+  (Ethnologue via Wikipedia); the hue is measured, `#8F2302` (re-swept at two merges: Navajo took a hue 0.1 from the first sweep's `#3C7675`, Somali 0.4 from the second's `#495A5A`).
 - `.claude/lao/` — the generator behind the Lao decks (Nov 2026, on request: "Add a Lao language collection"; the
   Thai answers taken, the owner not asked). **Built: the alphabet, `decks/Lao-Alphabet.folio-deck.json`** (79 notes:
   the 27 consonants, the six ຫ ligatures, 27 vowels, the tone marks and two signs, the three class rules, the digits,

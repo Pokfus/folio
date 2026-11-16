@@ -101,6 +101,7 @@ const LANGS = [
   { word: "Hausa", name: "Hausa", l1: 58, total: 94 },            // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
   { word: "Yoruba", name: "Yoruba", l1: 48, total: 53 },         // Wikipedia's "List of languages by total number of speakers" (Ethnologue 2026: 48 L1 + 5 L2), read 2026-11-15; the infobox gives 47.9 L1, 49.9 total (Ethnologue 28th ed., 2023)
   { word: "Amharic", name: "Amharic", l1: 35, total: 60 },       // Ethnologue 28th ed. (34.9 L1, 2020; 60.0 total, 2019–2020), via Wikipedia's infobox, read 2026-11-15
+  { word: "Somali", name: "Somali", l1: 24, total: 24 },         // Wikipedia's infobox (Ethnologue, 23.8 million, 2019–2024), read 2026-11-16; no second-language figure, so `total` is its L1
   { word: "Indonesian", name: "Indonesian", l1: 43, total: 255 },
   { word: "Polish", name: "Polish", l1: 40, total: 43 },          // Ethnologue (27th ed., 2021), via Wikipedia's infobox, read 2026-11-09
   { word: "Tagalog", name: "Tagalog", l1: 33, total: 87 },      // Wikipedia's infobox (32.8 million, Ethnologue 28th ed.), read 2026-11-09

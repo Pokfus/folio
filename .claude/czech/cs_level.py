@@ -15,7 +15,7 @@ BANDS = ("a1", "a2", "b1", "b2", "c1")
 SIZE = {"b1": 1000, "b2": 1200, "c1": 1200}          # an assembled level's size, in notes (Polish B1's)
 FILE = "Czech-%s.folio-deck.json"
 PHRASE_FILE = "Czech-Phrases-and-Expressions.folio-deck.json"
-COLOR = "#495A5A"   # the Czech collection's hue, `lang-czech` in app.js COLL_THEME (measured)
+COLOR = "#8F2302"   # the Czech collection's hue, `lang-czech` in app.js COLL_THEME (measured)
 
 
 def deck_id(level):
