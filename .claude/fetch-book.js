@@ -19382,10 +19382,12 @@ const BOOKS = {
     /* The raw-page pass and the marginal notes — see leviathanPrep. No `sections`: the book has no
        numbered divisions below the chapter. */
     prep: "leviathan",
+    /* A template the transcription mistyped (one brace short), which reaches the reader as characters. */
+    fixes: [["{sc|Despoticall}}", "Despoticall", "chapter XX: a {{sc}} template typed one brace short; the word is its own argument, so this repairs markup, not a reading"]],
     // the Introduction's four-part plan of the book is one indented block, an item to a line
     lineBlocks: true,
-    /* The shortest chapter is chapter 23, on public ministers, at about 9 KB of text; a failed
-       extraction returns nothing. */
+    /* The shortest section is chapter I, Of Sense, at 4,186 characters; a failed extraction returns
+       nothing. */
     minChars: 3000,
   },
 };
@@ -22350,15 +22352,9 @@ function leviathanPrep(h, warn) {
     break;
   }
   b = b.slice(0, open) + b.slice(k);
-  /* A chapter with no drop capital opens on its first word in capitals ("BY Consequence"); set in
-     ordinary case like the drop-capital openings. Only the first word of the first paragraph, only a
-     word of two letters or more, and every change is reported. */
-  b = b.slice(0, open) + b.slice(open).replace(/^(\s*<p>(?:<[^>]*>)*)([A-Z])([A-Z]+)(?=[\s,;:])/, (m, pre, c, rest) => {
-    warn("opening word set in ordinary case: " + c + rest);
-    return pre + c + rest.toLowerCase();
-  });
   title = title.replace(/^CHAP\.\s*([IVXLC]+)\.?\s*/, "$1. ").replace(/\s*\.$/, "");
   if (/^THE INTRODUCTION/i.test(title)) title = "The Introduction";
+  if (/^A REVIEW/i.test(title)) title = "A Review, and Conclusion";
   if (!title) warn("no chapter head found");
   return { h: b, t: title, side };
 }
@@ -22370,7 +22366,9 @@ function leviathanPrep(h, warn) {
 function liftSidenotes(html, warn) {
   const clean = (s) => {
     s = s.replace(/\s+/g, " ").trim();
-    if (/^<i>[\s\S]*<\/i>$/.test(s) && s.indexOf("<i>", 1) < 0) s = s.slice(3, -4).trim();
+    /* the margin is italic already, as bk-head is: a note set wholly in italic loses its tags, nested
+       ones included (chapter XXXIX's "Ecclesia properly what." arrives as <i>Ecclesia <i>properly what.</i></i>) */
+    if (/^<i>[\s\S]*<\/i>$/.test(s)) s = s.replace(/<\/?i>/g, "").trim();
     return s;
   };
   let lifted = 0;
@@ -22392,6 +22390,13 @@ function liftSidenotes(html, warn) {
     return '<p class="bk-head">' + clean(note) + "</p>";
   });
   if (/[]/.test(html)) warn("an unmatched marginal-note fence survived");
+  /* A chapter with no drop capital opens on its first word in capitals ("BY Consequence"); it is set in
+     ordinary case like the drop-capital openings. Only the first word of the first paragraph of prose
+     (a lifted note is not one), only a word of two letters or more, and every change is reported. */
+  html = html.replace(/<p>((?:<[^>]*>)*)([A-Z])([A-Z]+)(?=[\s,;:])/, (m, pre, c, rest) => {
+    warn("opening word set in ordinary case: " + c + rest);
+    return "<p>" + pre + c + rest.toLowerCase();
+  });
   return { html, lifted };
 }
 
