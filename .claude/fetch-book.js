@@ -19662,6 +19662,137 @@ const BOOKS = {
        nothing. */
     minChars: 3000,
   },
+  "kant-critique-of-pure-reason": {
+    title: "Critique of Pure Reason",
+    subtitle: "Kritik der reinen Vernunft",
+    author: "Immanuel Kant",
+    translator: "J. M. D. Meiklejohn",
+    edition: "Bohn's Philosophical Library, Henry G. Bohn, London, 1855",
+    written: "1781, revised 1787",
+    year: 1781,
+    /* ---------- THE LICENCE, and it needs no qualification ----------
+       Kant died in 1804. Meiklejohn's translation (of the second edition, 1787) was published by Bohn in
+       London in 1855, and Meiklejohn died more than a hundred years ago, so the English clears the
+       pre-1929 rule, life plus seventy and life plus a hundred alike — Wikisource's own tag on the page
+       says as much. The transcription is Wikisource's, of the Internet Archive's scan of the 1855 printing
+       (`Critique of Pure Reason 1855 Meiklejohn tr.djvu`), proofread page by page (every page fetched
+       carries `data-page-quality="3"`). The modern translations a reader is likeliest to be pointed at —
+       Kemp Smith (1929), Pluhar (1996), Guyer and Wood (1998) — are in copyright and none is used.
+       NO ORIGINAL: no complete proofread German of the second edition was found on de.wikisource (it holds
+       the 1781 first edition, a different text from the one Meiklejohn translates), so a facing column
+       would pair two editions that do not say the same thing. */
+    rights:
+      "Public domain worldwide. Immanuel Kant died in 1804. J. M. D. Meiklejohn's translation was " +
+      "published in London in 1855 and its translator died more than a century ago. The text is the " +
+      "proofread Wikisource transcription of the 1855 printing, from a scan held by the Internet Archive.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Critique_of_Pure_Reason_(Meiklejohn)",
+
+    /* THE FRONT MATTER — chapter 0. Every fact was checked rather than recalled; nothing is said of the
+       book's reception that is a matter of interpretation rather than record. */
+    about: [
+      "<b>The Critique of Pure Reason</b> asks what we can know without experience, and how. Immanuel " +
+        "Kant starts from a puzzle. Some things we seem to know for certain and in advance — that every " +
+        "event has a cause, that the angles of a triangle make two right angles — and yet they are not " +
+        "true merely by definition. Experience cannot be their source, since experience shows only what " +
+        "is, never what must be. Kant's answer is that they hold because the mind itself supplies the " +
+        "forms in which anything can appear to it: space and time as the forms of intuition, and a small " +
+        "set of concepts, the <i>categories</i>, as the forms of thought. We know the world as it appears " +
+        "to beings made as we are; of things as they are in themselves we know nothing.",
+      "Kant called this a revolution like Copernicus's: instead of assuming that our knowledge must " +
+        "conform to objects, he supposed that objects must conform to our knowledge. The second half " +
+        "of the argument turns the result against the old metaphysics. Reason, trying to go beyond any " +
+        "possible experience, entangles itself in illusions — about the soul, about the world as a whole " +
+        "(the four <i>antinomies</i>, pairs of opposite proofs that are each as good as the other), and " +
+        "about God, whose existence, Kant argues, no speculative proof can establish. The book clears " +
+        "the ground, in his phrase, to make room for faith.",
+      "The book is built in Kant's own divisions, and the tabs here follow them. After the two prefaces " +
+        "and the Introduction, the <b>Transcendental Doctrine of Elements</b> has two parts: the " +
+        "<b>Æsthetic</b>, on space and time, and the <b>Logic</b>, which divides into the <b>Analytic</b> " +
+        "(the categories, their deduction and the principles that follow from them) and the " +
+        "<b>Dialectic</b> (the illusions of reason: the paralogisms, the antinomy and the ideal). The " +
+        "much shorter <b>Transcendental Doctrine of Method</b> closes the book. The longest chapters are " +
+        "given whole; a few short heads that introduce a book are joined to the chapter that follows them.",
+      "Kant was born in Königsberg in East Prussia in 1724, studied and taught at its university, and " +
+        "hardly left the town in his life. He was fifty-seven when the Critique appeared in 1781, after " +
+        "more than a decade in which he published almost nothing. It was found obscure, and he answered " +
+        "with the <i>Prolegomena to Any Future Metaphysics</i> (1783) and then a second edition (1787) " +
+        "that rewrote the preface, the deduction of the categories and the paralogisms and added a " +
+        "Refutation of Idealism. The <i>Critique of Practical Reason</i> (1788) and the <i>Critique of " +
+        "Judgment</i> (1790) followed. He died in Königsberg in 1804.",
+      "This English is <b>J. M. D. Meiklejohn's of 1855</b>, made from the second edition, and the first " +
+        "English translation to be widely read. It keeps the vocabulary of its day — <i>cognition</i>, " +
+        "<i>conception</i> for concept, <i>phænomenon</i> — and Kant's long sentences. The notes are Kant's " +
+        "own and, where they end “Tr.”, Meiklejohn's. His translator's preface, the contents table " +
+        "and the errata list are not reproduced. Section headings and the numbered paragraphs (§) are the " +
+        "edition's.",
+    ],
+
+    /* THE TAB IS NOT KANT'S CHAPTER, as Leviathan's is not Hobbes's: the book's chapters are numbered
+       within each Book and the Doctrine of Method, so a single run of them does not exist. Nineteen
+       sections in reading order, each titled as the 1855 contents page titles it; "Section" so that no
+       tab claims a chapter number the book does not give it. Three short heads with no chapter of their
+       own (the Analytic's introduction, Book I's two paragraphs, Book II's introduction to the Analytic of
+       Principles, the Dialectic's Book II head and the Doctrine of Method's opening page) are joined to the
+       chapter they introduce, rather than shipped as tabs a page long. */
+    chapterWord: "Section",
+    chapters: Array.from({ length: 19 }, (_, i) => i + 1),
+    page: (n) => {
+      const B = "Critique of Pure Reason (Meiklejohn)/";
+      const A = B + "Volume 1/Part 2/Division 1/", D = B + "Volume 1/Part 2/Division 2/";
+      return [
+        null,
+        B + "Preface 1", B + "Preface 2", B + "Introduction",
+        B + "Volume 1/Part 1", B + "Volume 1/Part 2",
+        [B + "Volume 1/Part 2/Division 1", A + "Book 1", A + "Book 1/Chapter 1"],
+        A + "Book 1/Chapter 2",
+        [A + "Book 2", A + "Book 2/Chapter 1"],
+        A + "Book 2/Chapter 2", A + "Book 2/Chapter 3",
+        B + "Volume 1/Part 2/Division 2", D + "Book 1",
+        [D + "Book 2", D + "Book 2/Chapter 1"],
+        D + "Book 2/Chapter 2", D + "Book 2/Chapter 3",
+        [B + "Volume 2", B + "Volume 2/Chapter 1"],
+        B + "Volume 2/Chapter 2", B + "Volume 2/Chapter 3", B + "Volume 2/Chapter 4",
+      ][n];
+    },
+    // transcribed from the 1855 contents page, never composed
+    titleOf: (n) => [
+      null,
+      "Preface to the First Edition",
+      "Preface to the Second Edition",
+      "Introduction",
+      "Transcendental Æsthetic",
+      "Transcendental Logic — Introduction",
+      "Analytic of Conceptions — Chap. I. Of the Transcendental Clue to the Discovery of all Pure Conceptions of the Understanding",
+      "Chap. II. Of the Deduction of the Pure Conceptions of the Understanding",
+      "Analytic of Principles — Chap. I. Of the Schematism of the Pure Conceptions of the Understanding",
+      "Chap. II. System of all Principles of the Pure Understanding",
+      "Chap. III. Of the Ground of the Division of all Objects into Phænomena and Noumena",
+      "Transcendental Dialectic — Introduction",
+      "Book I. Of the Conceptions of Pure Reason",
+      "Book II. Of the Dialectical Procedure of Pure Reason — Chap. I. Of the Paralogisms of Pure Reason",
+      "Chap. II. The Antinomy of Pure Reason",
+      "Chap. III. The Ideal of Pure Reason",
+      "Transcendental Doctrine of Method — Chap. I. The Discipline of Pure Reason",
+      "Chap. II. The Canon of Pure Reason",
+      "Chap. III. The Architectonic of Pure Reason",
+      "Chap. IV. The History of Pure Reason",
+    ][n],
+    parts: [
+      { n: 1, label: "Prefaces and Introduction", from: 1, to: 3 },
+      { n: 2, label: "Doctrine of Elements · Transcendental Æsthetic", from: 4, to: 4 },
+      { n: 3, label: "Transcendental Logic · The Analytic", from: 5, to: 10 },
+      { n: 4, label: "Transcendental Logic · The Dialectic", from: 11, to: 15 },
+      { n: 5, label: "Transcendental Doctrine of Method", from: 16, to: 19 },
+    ],
+    /* Meiklejohn's centred headings and his six table diagrams — see kantPrep. No `sections`: the book has
+       no original to pair with, and its § numbers restart and skip (the Analytic's run §1–§27 and then stops),
+       so they stay as printed in the headings rather than becoming citation markers. */
+    prep: "kant",
+    /* A transcription slip: an underscore typed for a space, which no printing has; markup, not a reading. */
+    fixes: [["something_precedes", "something precedes", "System of all Principles, Second Analogy: an underscore typed for a space"]],
+    minChars: 3000,
+  },
 };
 
 /* ---------- args ---------- */
@@ -22552,6 +22683,124 @@ function betweenAnchors(h, span) {
   const refs = h.match(/<ol class="references">[\s\S]*?<\/ol>/);
   return h.slice(i, k > i ? k : j) + (refs ? "\n" + refs[0] : "");
 }
+
+/* ---------- THE CRITIQUE OF PURE REASON: Meiklejohn's headings and tables (Nov 2026) ----------
+   `prep: "kant"`, run on the RAW page (every page of a multi-page section) before the notes are gathered
+   and before cleanBody, then `kantFinish` on the assembled section. Two things the 1855 transcription does
+   that the generic passes get wrong, neither of which throws:
+   · EVERY HEADING IS A CENTRED BLOCK. Division, Book, Chapter, Section and the numbered § lines arrive as
+     `wst-center` divs (189 blocks over the 24 pages, none longer than 240 characters — measured), which
+     the generic div pass turns into BLOCKQUOTES, so each head would be set as an indented quotation. Each
+     block is fenced here and becomes one `bk-head` paragraph, its lines divided by `<br>`. The
+     `wst-block-center` blocks are left alone: those are the centred lists and verse quotations (the
+     categories under their heads, Ovid's "Modo maxima rerum"), which a blockquote renders correctly.
+   · ITS SIX TABLES ARE DIAGRAMS. The table of judgments, of the categories, of the principles, of
+     "nothing", of the cosmological ideas and the two of the paralogisms are laid out as a grid of cells
+     (≤ 400 characters each table). Unwrapped by the tag stripper, their heads land OUTSIDE every paragraph
+     between `<br>`s. Each non-empty cell becomes one paragraph of an indented block, its own line breaks
+     kept, in the source's reading order (row by row).
+   And a row of asterisks (a display:block span, sometimes mid-paragraph) becomes a paragraph of its own. */
+const KANT_HEAD = "@@KNH@@", KANT_STARS = "@@KNA@@";
+function kantPrep(h, warn) {
+  let b = h;
+  const textOf = (s) => s.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<[^>]*>/g, "")
+    .replace(/&#32;|&#160;|&nbsp;|&#8203;|\u200b/g, " ").replace(/\s+/g, " ").trim();
+  let heads = 0, tables = 0;
+  // the tables first, so a centred block inside a cell is unwrapped with it
+  b = b.replace(/<table\b[^>]*>([\s\S]*?)<\/table>/g, (m, inner) => {
+    tables++;
+    const cells = [];
+    for (const c of inner.matchAll(/<td\b[^>]*>([\s\S]*?)<\/td>/g)) {
+      let x = c[1].replace(/<style[\s\S]*?<\/style>|<link\b[^>]*>/g, "")
+        .replace(/<\/?div\b[^>]*>|<\/?p\b[^>]*>/g, "<br>").replace(/<br\s*\/?>/g, "<br>");
+      x = x.replace(/(?:\s*<br>\s*)+/g, "<br>").replace(/^(?:\s*<br>)+|(?:<br>\s*)+$/g, "").trim();
+      if (textOf(x)) cells.push("<p>" + x + "</p>");
+    }
+    if (!cells.length) { warn("an empty table was dropped"); return ""; }
+    return '<div class="kant-table">' + cells.join("\n") + "</div>";
+  });
+  /* a row of asterisks — a display:block span (`{{***}}`) set mid-paragraph or in one of its own — is a break
+     between paragraphs, set as the rest of the shelf sets one: a paragraph of five spaced asterisks */
+  for (let guard = 0; guard < 200; guard++) {
+    const m = /<span class="wst-asterisks\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "span");
+    if (end < 0) { warn("an asterisk row is not closed"); break; }
+    b = b.slice(0, m.index) + "</p><p>" + KANT_STARS + "</p><p>" + b.slice(end);
+    KANT.stars++;
+  }
+  // the centred headings
+  for (let guard = 0, at = 0; guard < 2000; guard++) {
+    const rx = /<div class="wst-center\b[^"]*"[^>]*>/g;
+    rx.lastIndex = at;
+    const m = rx.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) { warn("a centred block is not closed — left as it stands"); break; }
+    const inner = b.slice(m.index + m[0].length, end - "</div>".length);
+    let out;
+    if (textOf(inner).length > 300 || /<table\b/.test(inner)) {
+      warn('a centred block is not a heading and was kept as text: "' + textOf(inner).slice(0, 60) + '"');
+      out = inner;
+    } else {
+      /* ONE heading line per block, its own lines kept as `<br>`: splitting the block into a paragraph per
+         line would cut through the spans the transcription wraps round two lines at once ("<span>…DIALECTIC.
+         <br>INTRODUCTION.</span>"), and the tag stripper's stack would then drop the half it never saw open. */
+      const x = inner.replace(/<style[\s\S]*?<\/style>|<link\b[^>]*>/g, "")
+        .replace(/<\/?(?:p|div)\b[^>]*>/g, "<br>").replace(/<br\s*\/?>/g, "<br>")
+        .replace(/(?:\s*<br>\s*)+/g, "<br>").replace(/^(?:\s*<br>)+|(?:<br>\s*)+$/g, "").trim();
+      heads++;
+      out = "<p>" + KANT_HEAD + x + KANT_HEAD + "</p>";
+    }
+    b = b.slice(0, m.index) + out + b.slice(end);
+    at = m.index + out.length;
+  }
+  KANT.heads += heads; KANT.tables += tables;
+  return b;
+}
+function kantFinish(html, warn) {
+  const rx = new RegExp(KANT_HEAD + "([\\s\\S]*?)" + KANT_HEAD, "g");
+  let out = html.replace(new RegExp("<p>\\s*" + KANT_HEAD + "([\\s\\S]*?)" + KANT_HEAD + "\\s*</p>", "g"),
+    (m, x) => { KANT.lifted++; return '<p class="bk-head">' + x.trim() + "</p>"; });
+  out = out.replace(new RegExp("<p>\\s*" + KANT_STARS + "\\s*</p>", "g"), "<p>* * * * *</p>");
+  if (out.includes(KANT_STARS)) { warn("an asterisk row outside its own paragraph"); out = out.split(KANT_STARS).join(""); }
+  // a heading the paragraph pass did not keep on a line of its own: still a heading, but say so
+  out = out.replace(rx, (m, x) => { warn("a heading fence outside its own paragraph: " + x.slice(0, 60)); return x; });
+  // a § line alone, or a run of lines that are only tags, becomes nothing rather than an empty head
+  // the page's closing `<p><br/></p>` before the note list survives as an empty paragraph at the foot of four sections
+  out = out.replace(/\n?<p>(?:\s|<br>)*<\/p>/g, "");
+  out = out.replace(/<p class="bk-head">\s*(?:<br>\s*)*<\/p>\n?/g, "")
+    .replace(/<p class="bk-head">(?:\s*<br>)+/g, '<p class="bk-head">').replace(/(?:<br>\s*)+<\/p>/g, "</p>");
+  return out;
+}
+/* A NOTE CITED FROM INSIDE A NOTE — twice in the book, Meiklejohn annotating Kant's own note (on "infit" in
+   the Antinomy, and a cross-reference in the Ideal). The child reaches the list as an ordinary note that no
+   marker in the text opens, and its parent carries a bare "[13]". A note cannot contain a note, so the child
+   is spliced into the parent at the point it was cited, in square brackets — the Art of War's rule — dropped
+   from the list, and the text's markers above it renumbered down by one. */
+function kantNestedNotes(html, notes, warn) {
+  for (let guard = 0; guard < 20; guard++) {
+    const cited = new Set([...html.matchAll(/<sup class="fn" data-fn="(\d+)"><\/sup>/g)].map((m) => +m[1]));
+    let done = false;
+    for (let p = 0; p < notes.length && !done; p++) {
+      for (const m of notes[p].matchAll(/&#91;(\d+)&#93;/g)) {
+        const k = +m[1];
+        if (k < 1 || k > notes.length || k === p + 1 || cited.has(k)) continue;
+        notes[p] = notes[p].replace(m[0], " [" + notes[k - 1].trim() + "]");
+        notes.splice(k - 1, 1);
+        html = html.replace(/<sup class="fn" data-fn="(\d+)"><\/sup>/g,
+          (x, d) => (+d > k ? '<sup class="fn" data-fn="' + (+d - 1) + '"></sup>' : x));
+        KANT.nested++; done = true;
+        break;
+      }
+    }
+    if (!done) break;
+  }
+  const cited = new Set([...html.matchAll(/<sup class="fn" data-fn="(\d+)"><\/sup>/g)].map((m) => +m[1]));
+  notes.forEach((n, i) => { if (!cited.has(i + 1)) warn("note " + (i + 1) + " is cited by no marker: " + n.slice(0, 60)); });
+  return { html, notes };
+}
+const KANT = { heads: 0, tables: 0, lifted: 0, stars: 0, nested: 0 };
 
 /* ---------- THE 1651 LEVIATHAN: a printer's page read off its own markup (Nov 2026) ----------
    `prep: "leviathan"`, run on the RAW page before the notes are gathered and before cleanBody, then
@@ -33161,6 +33410,8 @@ async function fetchEnglish() {
       const got = leviathanPrep(h, warn);
       h = got.h; tFromText = got.t; SIDENOTES.fenced += got.side;
     }
+    /* Meiklejohn's headings and tables — see kantPrep. Every page of a section, so the extras below too. */
+    if (BOOK.prep === "kant") h = kantPrep(h, warn);
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
        the RAW page, before the notes are gathered and before cleanBody, because by the time cleanBody
@@ -33252,7 +33503,8 @@ async function fetchEnglish() {
       for (const extra of pageNames.slice(1)) {
         await sleep(700);
         if (BOOK.pageMark) BOOK.expect = BOOK.pageMark(extra);
-        const eh = await api(extra);
+        let eh = await api(extra);
+        if (BOOK.prep === "kant") eh = kantPrep(eh, warn);
         const eg = notesOf(eh);
         const ekeep = endnotes && eg.notes.length ? resolveEndnotes(eg, endnotes, warn) : null;
         let ehtml = cleanBody(eh, eg.ids, BOOK, quiet);
@@ -33266,6 +33518,11 @@ async function fetchEnglish() {
         }
         html += "\n" + ehtml;
         notes = notes.concat(eg.notes);
+      }
+      if (BOOK.prep === "kant") {
+        html = kantFinish(html, warn);
+        const got = kantNestedNotes(html, notes, warn);
+        html = got.html; notes = got.notes;
       }
       if (multi && BOOK.sections && !/class="bk-n"/.test(html))
         warn("no section numbers found — the chapter will pair as one whole block");
@@ -33804,6 +34061,9 @@ function writeEnglish(chapters, warnings) {
       " carrying Caxton's own rubric (" + MALORY.odd + " of them set as a centred block instead), " +
       MALORY.books + " book half-title(s) lifted out, " +
       MALORY.notesOnHeads + " footnote marker(s) carried off a heading");
+  if (KANT.heads || KANT.lifted)
+    console.log("  " + KANT.heads + " heading block(s) fenced, " + KANT.lifted + " lifted, " + KANT.tables + " table(s) read as blocks, " + KANT.stars + " asterisk row(s), " + KANT.nested + " note(s) inside a note spliced" +
+      (KANT.heads === KANT.lifted ? "" : " — MISMATCH, a heading was lost or merged"));
   if (SIDENOTES.fenced || SIDENOTES.lifted)
     console.log("  " + SIDENOTES.fenced + " marginal note(s) fenced, " + SIDENOTES.lifted + " lifted" +
       (SIDENOTES.fenced === SIDENOTES.lifted ? "" : " — MISMATCH, a note was lost or doubled"));
