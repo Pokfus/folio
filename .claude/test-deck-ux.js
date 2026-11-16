@@ -378,6 +378,10 @@ const deck = {
     ok(files.length > 0, "there are Mandarin decks to check", files.length);
     for (const f of files) {
       const types = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8")).meta.types;
+      /* A MANDARIN CARD TYPE is one that declares a Pinyin field — check-decks.js's own test. The sounds
+         deck and the character-parts deck (Nov 2026) are Mandarin FILES whose types have no measure word
+         or component reading to set, so the three runs below are not theirs to carry. */
+      if (!(types[Object.keys(types)[0]].fields || []).includes("Pinyin")) continue;
       const css = types[Object.keys(types)[0]].css;
       const runs = ["uc-pinyin", "uc-mwp", "uc-ptp"];
       const bad = runs.filter((sel) => {
