@@ -75,7 +75,13 @@ const ROWS = (() => { const w = {}; new Function("window", catSrc)(w); return w.
      field of the Mandarin card type — the smallest deck overall is Indonesian, whose notes have no
      such field, so the corruption silently wrote nothing and every assertion after it read `undefined`
      while the code under test was perfectly correct. */
-  const small = ROWS.filter((r) => r.lang === "Mandarin Chinese").sort((a, b) => a.bytes - b.bytes)[0];
+  /* …AND A MANDARIN DECK WHOSE CARD TYPE HAS THAT FIELD (Nov 2026). The two smallest Mandarin files are
+     now the sounds deck and the character-parts deck, whose types declare no `Pinyin`; picked by size
+     alone they reproduce the Indonesian fault exactly. The type is read off the file, as check-decks.js
+     reads it. */
+  const hasPinyin = (r) => Object.values(JSON.parse(fs.readFileSync(path.join(ROOT, "decks", r.file), "utf8")).meta.types || {})
+    .some((t) => (t.fields || []).indexOf("Pinyin") >= 0);
+  const small = ROWS.filter((r) => r.lang === "Mandarin Chinese" && hasPinyin(r)).sort((a, b) => a.bytes - b.bytes)[0];
   check("there is a Mandarin deck to test against", !!small, small && small.id);
   if (!small) { console.log("\n" + pass + " passed, " + (fail + 1) + " failed"); await browser.close(); server.close(); process.exit(1); }
   console.log("\n2) downloading records the revision it was built from   [" + small.id + "]\n");
