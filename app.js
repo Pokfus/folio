@@ -31106,6 +31106,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        out: a deep brick red, 14.3 from its nearest neighbour (#8D2D39), against a tightest existing pair of 4.0;
        10.0:1 against white. Not a flag colour. */
     "lang-khmer-cambodian": { bg: "#76281C" }, // measured brick red
+    /* YORUBA (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 74 hues on the
+       page, the magenta band's standing rejection kept and the greens left out. Two points tied at 13.4: a brick
+       red in the crowded red-brown band (the Viking Age, Russia, Cantonese and Indonesian all within 14.3 of it)
+       and this indigo, 13.4 from its nearest neighbour (China's Geography blue), 13.5 from Hebrew and 13.6 from
+       the United States, against a tightest existing pair of 4.0; 7.2:1 against white. The tie went to the
+       indigo, the subject's own colour (adire, the Yoruba indigo-dyed cloth). Not a flag colour. */
+    "lang-yoruba":     { bg: "#3A5498" }, // measured indigo
     /* LAO (Nov 2026) was not named a colour, so it was MEASURED as Finnish was: swept in CIELAB inside the shelf's
        band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 75 hues on the
        page, the magenta band's standing rejection kept and anything within 15 of the red or blue of the Lao flag
