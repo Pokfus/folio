@@ -28384,8 +28384,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           ${/* ADMIN ONLY (Nov 2026): the way into the games archive, which plays past days and records nothing (PAGES.gamearchive) */""}
           ${isAdmin() ? '<a class="games-archive-link" href="#gamearchive">Games archive <span>— play a past day, not recorded</span></a>' : ""}
         </section>
-        <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}${homeTermHTML()}</div>
+        ${/* ON THIS DAY sits directly under the minigames, above Suggested reading (Nov 2026, on request) */""}
         ${homeOnThisDayHTML()}
+        <div class="home-two">${homeReadingHTML()}${homeWeekHTML()}${homeTermHTML()}</div>
         <footer class="home-foot">${aboutLink}<button class="home-about" id="b-changelog" type="button">Changelog</button><button class="home-about" id="b-credits" type="button">Credits</button>${versionLineHTML()}</footer>
         ${/* ADMIN ONLY (Oct 2026, on request): a small refresh at the bottom left of the home page that brings the page to the latest deploy — it empties Folio's caches and the service worker, then reloads. */""}
         ${isAdmin() ? '<div class="home-admin-row"><button class="home-refresh" id="b-refresh" type="button" title="Refresh to the latest version" aria-label="Refresh to the latest version"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><polyline points="20 4 20 11 13 11"/></svg></button></div>' : ""}
@@ -30921,10 +30922,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        and French's blue), against a tightest existing pair of 4.0; 6.2:1 against white. Not a flag colour (Hungary's is red, white and green).
        THAT STEEL BLUE WAS VIETNAMESE'S (#14659F, taken in a parallel session and credited to it in Dutch's note
        below), so two banners wore one colour and `test-lang-decks.js` ("no two the same") failed on main. Re-swept
-       on 2026-11-16 against the other 74 hues, the greens left out as a flag colour: a deep indigo, 14.3 from its
-       nearest neighbour (China's geography), then Rome's purple at 14.5 and the United States' navy at 14.8;
-       10.0:1 against white. */
-    "lang-hungarian":  { bg: "#333C81" }, // measured indigo
+       on 2026-11-16, the greens left out as a flag colour. Its first sweep found an indigo, #333C81 — and
+       Yoruba's, merged the same day, stood 10.8 from it; re-swept at the merge against all 78 other hues: a
+       dusky plum, 14.3 from its nearest neighbour (the Cold War), then Visual Art at 15.0 and Astronomy at
+       15.7; 9.6:1 against white. Its chroma is 18, far from the hot magenta the shelf rejects. */
+    "lang-hungarian":  { bg: "#573C54" }, // measured dusky plum
     "lang-indonesian": { bg: "#8D2D39" }, // red, the darker of the two
     /* IRISH (Nov 2026) was not named a colour, so it was MEASURED as Greek was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 67 hues on the
@@ -31094,6 +31096,35 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        its nearest neighbour (Ancient Mesopotamia), then 14.3 from World History and 14.5 from Spanish, against a
        tightest existing pair of 4.0; 5.9:1 against white. */
     "lang-finnish":    { bg: "#8D572D" }, // measured sienna
+    /* ICELANDIC (Nov 2026) was not named a colour, so it was MEASURED as Finnish was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) against all 74 other hues, the magenta band's standing
+       rejection kept and the greens left out. The raw winner, a deep indigo (#333C81, 14.3), was REFUSED for standing
+       13.2 from the blue of Iceland's flag; this ultramarine is the runner-up, 14.1 from its nearest neighbour (Urdu),
+       then 14.4 from China (Geography) and 17.9 from Ancient Rome, against a tightest existing pair of 0.0 (Hungarian
+       and Vietnamese share a hue); 23.2 from the flag's blue, 10:1 against white. Re-swept at the merge against all 78
+       other hues (Khmer, Yoruba and Lao had arrived): it is now the winner outright, still 14.1 from Urdu. */
+    "lang-icelandic":  { bg: "#303696" }, // measured ultramarine
+    /* KHMER (Nov 2026, asked for as "a Cambodian language collection") was not named a colour, so it was MEASURED
+       as Hebrew was: swept in CIELAB inside the shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the
+       point farthest from all 73 hues on the page, the magenta band's standing rejection kept and the greens left
+       out: a deep brick red, 14.3 from its nearest neighbour (#8D2D39), against a tightest existing pair of 4.0;
+       10.0:1 against white. Not a flag colour. */
+    "lang-khmer-cambodian": { bg: "#76281C" }, // measured brick red
+    /* YORUBA (Nov 2026) was not named a colour, so it was MEASURED as Hebrew was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 74 hues on the
+       page, the magenta band's standing rejection kept and the greens left out. Two points tied at 13.4: a brick
+       red in the crowded red-brown band (the Viking Age, Russia, Cantonese and Indonesian all within 14.3 of it)
+       and this indigo, 13.4 from its nearest neighbour (China's Geography blue), 13.5 from Hebrew and 13.6 from
+       the United States, against a tightest existing pair of 4.0; 7.2:1 against white. The tie went to the
+       indigo, the subject's own colour (adire, the Yoruba indigo-dyed cloth). Not a flag colour. */
+    "lang-yoruba":     { bg: "#3A5498" }, // measured indigo
+    /* LAO (Nov 2026) was not named a colour, so it was MEASURED as Finnish was: swept in CIELAB inside the shelf's
+       band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 75 hues on the
+       page, the magenta band's standing rejection kept and anything within 15 of the red or blue of the Lao flag
+       refused. The winner is this leaf green, 15.1 from its nearest neighbours (Ancient Egypt's malachite and
+       Korean's dark green, then Old English's deep green at 15.2); with the greens left out, the best was a teal
+       at 13.9. 6.2:1 against white. Not a flag colour. */
+    "lang-lao":        { bg: "#426A43" }, // measured leaf green
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were

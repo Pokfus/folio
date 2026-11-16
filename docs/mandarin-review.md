@@ -403,6 +403,12 @@ this section is the reasoning.
   with Level 1's characters and carded nowhere else, and five whole sentences the Level 1 deck already
   carried with their translations (你叫什么名字？ 这个多少钱？).
 
+- **`Mandarin Chinese — Bopomofo`** (added 2026-11-16, on request; 62 notes, one card each): the five tone
+  marks, the 37 symbols in use and 20 two-symbol combinations. Origins, IPA and pinyin are quoted from the
+  Wikipedia article "Bopomofo" at a named revision; ㄛ and ㄝ have no exact pinyin row and so no sound
+  description; ㄝ alone never occurs in Levels 1 to 3, so its examples are ㄧㄝ / ㄩㄝ words. Three cards have
+  fewer than three examples (ㄛ and ㄦ one, ㄩㄣ and ㄩㄥ two).
+
 ### What was decided against, and why
 
 - **Making "By frequency" the default order in the app.** The audit proposed it for Levels 2 and above.

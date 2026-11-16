@@ -316,7 +316,7 @@ jobs:
       - name: mandarin-fix --check (the Mandarin decks carry their fixes, their order and their pinned ids)
         if: ${{ !cancelled() }}
         run: node .claude/decks/mandarin-fix.js --check
-      - name: build-beginner --check (the three Mandarin beginner decks are what the tables and the decks give)
+      - name: build-beginner --check (the Mandarin beginner decks are what the tables and the decks give)
         if: ${{ !cancelled() }}
         run: node .claude/decks/build-beginner.js --check
       - name: spanish-fix --check (the Spanish decks carry their fixes, their order and their pinned ids)

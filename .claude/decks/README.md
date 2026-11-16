@@ -61,11 +61,12 @@ beginner pass (`docs/mandarin-review.md`) added three things on that model.
 | `mandarin-ids.json` | deck id → headword (or key) → the number in the card's id. **Never delete or renumber a row**: the Update press merges a reader's progress by id. A new note takes the next free number. |
 | `mandarin-order.json` | deck id → the full list of headwords, in the order the deck is dealt. Applied by `mandarin-fix.js`, which moves a note with its id and rewrites `num`. May be edited by hand; a list that is not exactly the deck's headwords is refused. |
 | `mandarin-order.js` | how that file was computed (the rules are in its header): Level 1's hand-written head, then frequency over the nine decks' own sentences, confusable notes forty apart; the phrases by reading level. Re-run it on purpose, never as a side effect. |
-| `build-beginner.js` | writes `Mandarin-Pinyin-and-Tones`, `Mandarin-Level-1-Character-Parts` and `Mandarin-First-Phrases`. **Reads no live source**: only the shipped Level 1 to 3 decks and the two tables below. Re-run it after `mandarin-fix.js` changes Level 1, 2 or 3. |
+| `build-beginner.js` | writes `Mandarin-Pinyin-and-Tones`, `Mandarin-Bopomofo` (2026-11-16), `Mandarin-Level-1-Character-Parts` and `Mandarin-First-Phrases`. **Reads no live source**: only the shipped Level 1 to 3 decks and the three tables below. Re-run it after `mandarin-fix.js` changes Level 1, 2 or 3. |
 | `beginner-pinyin.json` | the sounds: IPA and descriptions quoted from two Wikipedia articles at the revisions it names. A row's `key` is what its id is pinned to. |
+| `beginner-bopomofo.json` | the bopomofo symbols: origin, IPA, pinyin and notes quoted from Wikipedia's "Bopomofo" at the revision it names; `pin` points at the `beginner-pinyin.json` row whose description a card shows. A row's `key` is what its id is pinned to. |
 | `beginner-phrases.json` | the first phrases: hand-chosen CC-CEDICT headwords with the reading as printed and the senses to carry; `trad` and `senses` are captured from CC-CEDICT by `build-beginner.js --capture <cedict file>` and never typed. |
 
-`mandarin-fix.js` leaves the three beginner decks alone (they are not in its record) but still holds them to
+`mandarin-fix.js` leaves the four beginner decks alone (they are not in its record) but still holds them to
 their pinned ids. To add a first phrase: add a row (`w`, `c`, `py`, `pick`), fetch CC-CEDICT, run
 `--capture`, then build — a headword CC-CEDICT lacks, one using a character Level 1 does not, or one
 already carded in the nine decks is refused. After any of this, `node .claude/build-lang-decks.js`.
