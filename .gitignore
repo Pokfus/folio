@@ -311,3 +311,7 @@ countries-info.json
 # the Lao Wikipedia dump and the Tatoeba exports (~140 MB) — plus the intermediate
 # files between its stages. The decks it writes ARE committed.
 .claude/lao-cache/
+# the corpora .claude/somali/run.py builds the Somali decks from — the Wiktionary
+# extract, the Somali Wikipedia dump and the Tatoeba exports (~140 MB) — plus the
+# intermediate files between its stages. The decks it writes ARE committed.
+.claude/somali-cache/

@@ -31372,6 +31372,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Korean's dark green, then Old English's deep green at 15.2); with the greens left out, the best was a teal
        at 13.9. 6.2:1 against white. Not a flag colour. */
     "lang-lao":        { bg: "#426A43" }, // measured leaf green
+    /* SOMALI (Nov 2026) was not named a colour, so it was MEASURED as Yoruba was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 79 hues on the
+       page, the magenta band's standing rejection kept, the greens left out and anything within 15 of the light blue
+       of the Somali flag refused. The winner is this teal, 13.8 from its nearest neighbours (France's slate and
+       Philosophy's petrol), then 14.3 from Economics; the runner-up, a dark amber at 13.4, sat in the crowded
+       ochre band. 5.3:1 against white; 50.8 from the flag's blue. Not a flag colour. */
+    "lang-somali":     { bg: "#3C7575" }, // measured teal
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
