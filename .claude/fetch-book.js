@@ -1242,6 +1242,37 @@ function kjvTitle(n) {
   return (at.book.code === "PSA" ? "Psalm" : at.book.name) + " " + at.ch;
 }
 
+/* THE SOCIAL CONTRACT'S CHAPTERS — Section 1 is the Foreword, then Rousseau's four Books of 9, 12, 18 and 9
+   chapters. The titles are transcribed from Cole's chapter heads; Book I's fifth is set in small capitals
+   with its case lost, so its capitals are the contents page's, as is "Itself" for the head's "It Self"
+   (III. 12) and "the" for II. 3's "The General Will". */
+const SC_BOOKS = [9, 12, 18, 9];
+function scBookOf(n) {
+  let i = n - 2;
+  for (let b = 0; b < SC_BOOKS.length; b++) {
+    if (i < SC_BOOKS[b]) return { book: b + 1, ch: i + 1 };
+    i -= SC_BOOKS[b];
+  }
+  throw new Error("The Social Contract has no section " + n);
+}
+const SC_TITLES = [
+  "Subject of the First Book", "The First Societies", "The Right of the Strongest", "Slavery",
+  "That We Must Always Go Back to a First Convention", "The Social Compact", "The Sovereign",
+  "The Civil State", "Real Property",
+  "That Sovereignty Is Inalienable", "That Sovereignty Is Indivisible", "Whether the General Will Is Fallible",
+  "The Limits of the Sovereign Power", "The Right of Life and Death", "Law", "The Legislator", "The People",
+  "The People (continued)", "The People (continued)", "The Various Systems of Legislation", "The Division of Laws",
+  "Government in General", "The Constituent Principle in the Various Forms of Government",
+  "The Division of Governments", "Democracy", "Aristocracy", "Monarchy", "Mixed Governments",
+  "That All Forms of Government Do Not Suit All Countries", "The Marks of a Good Government",
+  "The Abuse of Government and its Tendency to Degenerate", "The Death of the Body Politic",
+  "How the Sovereign Authority Maintains Itself", "The Same (continued)", "The Same (continued)",
+  "Deputies or Representatives", "That the Institution of Government Is Not a Contract",
+  "The Institution of Government", "How to Check the Usurpations of Government",
+  "That the General Will Is Indestructible", "Voting", "Elections", "The Roman Comitia", "The Tribunate",
+  "The Dictatorship", "The Censorship", "Civil Religion", "Conclusion",
+];
+
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -19584,6 +19615,157 @@ const BOOKS = {
        nothing. */
     minChars: 3000,
   },
+  "rousseau-social-contract": {
+    title: "The Social Contract",
+    // the work's own French title and subtitle, as the first edition's title page sets them
+    subtitle: "Du contrat social, ou Principes du droit politique",
+    author: "Jean-Jacques Rousseau",
+    translator: "G. D. H. Cole",
+    edition: "The Social Contract and Discourses, Everyman's Library, London, 1913",
+    written: "1762",
+    year: 1762,
+
+    /* ---------- THE LICENCE — A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION ----------
+       Rousseau's French was printed in 1762 and he died in 1778. Cole's English was published in London
+       in 1913 (the scan's index page at Wikisource), so it is public domain in the United States on the
+       pre-1929 rule — the ground Wikisource's own licence tag on the work states. George Douglas Howard
+       Cole died in 1959 (the same tag), so his translation is NOT yet out of copyright where the term
+       runs for the author's life plus seventy years: that runs to 1 January 2030. Said in the rights box,
+       as Giles's 2029 and Jacobs's 2039 are. Cole's translation is the only one on English Wikisource;
+       Tozer's of 1895 would clear everywhere, but no transcription of it was found there.
+
+       ---------- WHAT IS TAKEN ----------
+       The four Books, each one wiki page, cut into their forty-eight chapters at the printed heads
+       (`cut` → `cutAtChapterHeads`), and Rousseau's one-paragraph Foreword off the work's front page.
+       Not taken: Cole's introduction, the contents, the title page with its epigraph from the Aeneid
+       (XI. 321, "foederis aequas dicamus leges"), and the two Discourses the volume prints after it.
+
+       THE ORIGINAL is the first edition, Amsterdam, Marc Michel Rey, 1762, as validated on French
+       Wikisource — one page per chapter, so `perChapter` with a `prep` (see the entry's `original`). */
+    rights:
+      "The French text is public domain everywhere: Rousseau published it in 1762 and died in 1778. " +
+      "G. D. H. Cole's English translation was published in London in 1913, so it is in the public " +
+      "domain in the United States. Cole died in 1959, so where copyright runs for the author's life " +
+      "plus seventy years his translation stays in copyright until 1 January 2030.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Social_Contract_(tr._Cole)",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Where the
+       scholarship is divided — above all on what the general will is — it says so. */
+    about: [
+      "<b>The Social Contract</b> asks what could make political authority legitimate. Its first chapter " +
+        "opens on the line it is remembered by — <i>Man is born free; and everywhere he is in chains</i> — " +
+        "and Rousseau's answer is an agreement in which each person gives himself wholly to the whole " +
+        "community, so that in obeying its law he obeys no one but himself. The community so formed is " +
+        "the sovereign, and its will, the <i>general will</i>, aims at the common good rather than at any " +
+        "private interest. Sovereignty on this account belongs to the people and cannot be handed on, " +
+        "divided or represented; a government is only the people's agent, which it may change.",
+      "The book has four parts. Book I sets out the compact and the state it creates. Book II is on the " +
+        "sovereign and the law, and on the figure of the Legislator who gives a people its laws. Book III " +
+        "is on government — democracy, aristocracy, monarchy, and how a government tends to usurp the " +
+        "sovereign. Book IV turns to institutions, much of it drawn from the Roman Republic (the " +
+        "assemblies, the tribunes, the dictator, the censors), and ends with the chapter on civil " +
+        "religion, which argues that a state needs a short public creed and may banish whoever refuses " +
+        "it.",
+      "Jean-Jacques Rousseau was born in Geneva in 1712, the son of a watchmaker, and left the city at " +
+        "fifteen. He became famous in Paris with his <i>Discourse on the Sciences and Arts</i> (1750) and " +
+        "wrote a second discourse, on the origin of inequality, in 1755. The <i>Social Contract</i> was " +
+        "printed by Marc Michel Rey in Amsterdam in 1762, the year of his novel of education, " +
+        "<i>Émile</i>. Both were condemned: <i>Émile</i> was burned in Paris, both books were burned in " +
+        "Geneva, and Rousseau fled to escape arrest. He spent the following years moving between " +
+        "Switzerland, England and France, and died at Ermenonville, near Paris, in 1778.",
+      "The book's later reputation outran its first readers. The men of the French Revolution claimed " +
+        "it, and Rousseau's remains were moved to the Panthéon in 1794. It has since been read both as a " +
+        "foundation of modern democracy and as an early warning of the state that claims to know its " +
+        "citizens' real will better than they do — a reading drawn above all from its line that a man who " +
+        "refuses to obey the general will shall be <i>forced to be free</i>. What the general will is, and " +
+        "how it differs from the will of all, remains argued over.",
+      "G. D. H. Cole's translation was published in 1913 in Everyman's Library, with Rousseau's two " +
+        "Discourses. The text is given in the book's own order: Rousseau's short Foreword, then the " +
+        "forty-eight chapters of the four Books, so a tab's number runs one ahead of the chapter's place " +
+        "in the book; each title opens with its chapter's numeral in its Book. Books I and III open on a " +
+        "few lines of Rousseau's before their first chapter, kept at the head of that chapter. The notes " +
+        "are Rousseau's own with a few of Cole's. Not included: Cole's introduction, the contents and " +
+        "the title page. Beside it stands the French of the first edition, Amsterdam, 1762, in its own " +
+        "spelling (<i>loix</i>, <i>avoit</i>); the two are paired chapter by chapter, and the Foreword " +
+        "has no French here because that edition's transcription does not give it a page of its own. " +
+        "Rousseau's notes in the French are not carried.",
+    ],
+
+    /* ---------- SLIPS IN THE TRANSCRIPTION, each checked against a second witness ----------
+       Every row below was found by a word-by-word diff of the whole import against Project Gutenberg
+       #46333, Cole's translation from another printing (it spells -ise where this one spells -ize and
+       sets double quotation marks where this sets single), and each is taken only where the
+       Wikisource reading cannot be a reading of the printed page: a word that is not one, or a word
+       that breaks the sentence. The printings' own differences — spelling, quotation marks, the odd
+       punctuation and the handful of revised phrases ("As long as a people are compelled to obey") —
+       are left as the scan reads them. BOOK IV IS THE WEAK PART: its 31 scan pages are marked "not
+       proofread" on Wikisource (every other page of the work is proofread), and nine of these rows
+       fall in it. */
+    reFixes: [
+      [/the importance of the subject I shall/g, "the importance of the subject. I shall",
+       "Book I's preamble: the full stop is missing; Gutenberg #46333 prints it"],
+      [/his own master\.\s+The family then/g, "his own master.</p><p>The family then",
+       "I. 2: a paragraph break lost at the page join; Gutenberg #46333 breaks here"],
+      [/the vexations conduct/g, "the vexatious conduct", "I. 4: `vexations` for `vexatious`"],
+      [/by violating its laws be ceases/g, "by violating its laws he ceases", "II. 5: `be` for `he`"],
+      [/the Sovereign; each its right/g, "the Sovereign; even its right", "II. 5: `each` for `even`"],
+      [/all reformation becomes impossible, A people/g, "all reformation becomes impossible. A people",
+       "III. 4: a comma for the full stop before a capital"],
+      [/the more burdensome they become\. The charge/g, "the more burdensome they become.</p><p>The charge",
+       "III. 8: a paragraph break lost at the page join; Gutenberg #46333 breaks here"],
+      [/it is no long free/g, "it is no longer free", "III. 15: `long` for `longer`"],
+      [/(?<=[A-Za-z])\u00AD(?=[a-z])/g, "-", "three compounds (self-sufficient, re-establishment, thirty-five) " +
+       "hyphenated at a line end and transcribed with a soft hyphen, which a browser does not draw"],
+      [/\u00AD/g, "", "two soft hyphens standing where no hyphen belongs: after meeting-'s own hyphen (III. 13) and " +
+       "before a word in I. 9's note (\"only to keep\")"],
+      [/(?<![A-Za-z])curić/g, "curiæ", "IV. 4 (not proofread): `ć` for `æ` in `curiæ`, eight times"],
+      [/(?<![A-Za-z])decurić/g, "decuriæ", "IV. 4 (not proofread): `ć` for `æ` in `decuriæ`"],
+      [/Romulus, when he set up curia,/g, "Romulus, when he set up curiæ,", "IV. 4 (not proofread): the plural's `æ` lost"],
+      [/the urban, arid never/g, "the urban, and never", "IV. 4 (not proofread): `arid` for `and`"],
+      [/(?<=<\/sup>) 40 that as public opinion/g, " that as public opinion",
+       "IV. 7 (not proofread): a stray `40` after the note mark; Gutenberg #46333 has the mark alone"],
+      [/AT first men had no kings/g, "At first men had no kings",
+       "IV. 8 (not proofread): the chapter's small-capital opening word left in capitals"],
+      [/considered in severally fails/g, "considered in severalty fails", "IV. 8 (not proofread): `severally` for `severalty`"],
+      [/(?<![A-Za-z])thenceforce(?![A-Za-z])/g, "thenceforth", "IV. 8 (not proofread): `thenceforce` for `thenceforth`"],
+    ],
+
+    // Section 1 is the Foreword; the four Books' chapters follow in order (9, 12, 18 and 9 of them).
+    page: (n) => (n === 1 ? "The Social Contract (tr. Cole)" : "The Social Contract (tr. Cole)/Book " + scBookOf(n).book),
+    cut: (n) => (n === 1 ? "FOREWORD" : scBookOf(n).ch),
+    chapterWord: "Section",
+    titleOf: (n) => (n === 1 ? "Foreword" : toRoman(scBookOf(n).ch) + ". " + SC_TITLES[n - 2]),
+    chapters: Array.from({ length: 49 }, (_, i) => i + 1),
+    parts: [
+      { n: 1, label: "Book I", from: 1, to: 10 },
+      { n: 2, label: "Book II", from: 11, to: 22 },
+      { n: 3, label: "Book III", from: 23, to: 40 },
+      { n: 4, label: "Book IV", from: 41, to: 49 },
+    ],
+    /* The Foreword is one paragraph of some 340 characters; every chapter is longer. A failed cut
+       returns nothing. */
+    minChars: 250,
+
+    original: {
+      lang: "fr",
+      langName: "French",
+      perChapter: true,
+      wiki: "fr.wikisource.org",
+      // the Foreword (Avertissement) has no page of its own in this transcription
+      page: (n) => (n === 1 ? null : "Du contrat social/Édition 1762/Livre " + toRoman(scBookOf(n).book) +
+        "/Chapitre " + scBookOf(n).ch),
+      prep: "contrat",
+      // the closing chapter's drop capital and the small capitals after it, joined as "APrès"
+      reFixes: [[/APrès avoir posé/g, "Après avoir posé", "IV. 9: a drop capital joined to a small capital"]],
+      edition: "Du contrat social; ou, Principes du droit politique, Marc Michel Rey, Amsterdam, 1762, as validated at French Wikisource",
+      rights:
+        "Public domain worldwide: Rousseau published this in 1762 and died in 1778. The transcription " +
+        "is of the first edition.",
+      sourceName: "Wikisource (French)",
+      sourceUrl: "https://fr.wikisource.org/wiki/Du_contrat_social/%C3%89dition_1762",
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -19626,6 +19808,18 @@ async function api(page, host) {
     try {
       const r = await fetch(url, { headers: { "User-Agent": UA, Accept: "application/json" } });
       const txt = await r.text();
+      /* THE API'S RATE-LIMIT NOTICE IS ANSWERED BY INDEX.PHP (Nov 2026, adding The Social Contract):
+         api.php refused this host on every request for the whole session, while index.php answered.
+         `action=render&useparsoid=0` returns the legacy parser's markup, which is what `action=parse`
+         returns (see the Anglo-Saxon Chronicle's `url`), so the extractors see the same page. */
+      if (/^You are making too many requests/.test(txt)) {
+        const alt = "https://" + (host || "en.wikisource.org") + "/w/index.php?title=" +
+          encodeURIComponent(page) + "&action=render&useparsoid=0";
+        const r2 = await fetch(alt, { headers: { "User-Agent": UA } });
+        const t2 = await r2.text();
+        if (!r2.ok || !/mw-parser-output/.test(t2)) throw new Error("index.php fallback: HTTP " + r2.status);
+        return t2;
+      }
       const d = JSON.parse(txt);
       if (d.error) throw new Error(d.error.info || "api error");
       return d.parse.text;
@@ -22473,6 +22667,90 @@ function betweenAnchors(h, span) {
   const k = h.lastIndexOf("<p>", j);
   const refs = h.match(/<ol class="references">[\s\S]*?<\/ol>/);
   return h.slice(i, k > i ? k : j) + (refs ? "\n" + refs[0] : "");
+}
+
+/* ---------- ONE PAGE PER BOOK, CUT AT ITS CHAPTER HEADS (Nov 2026, The Social Contract) ----------
+   `cut: (n) => k` → `cutAtChapterHeads(h, k, warn)`, applied to the fetched page before anything else
+   reads it, like `between`. Cole's transcription gives each of Rousseau's four Books one wiki page and
+   marks a chapter only by its printed head: a centred block reading "CHAPTER II", "Chapter I." or
+   "Book IV Chapter I. That the General Will Is Indestructible", sometimes with the title in a second
+   centred block under it (Book I sets it so). There is no anchor to cut at, so the cut is at the
+   head itself. The heads are COUNTED and their numerals checked in order — a missing or misread head
+   THROWS, since a fall-back would silently join two chapters. Part k runs from the end of head k (and
+   of any title-only centred block straight after it) to the start of head k+1, or to the end of the
+   transclusion for the last.
+   A BOOK'S OWN PREAMBLE: Book I opens on three paragraphs of Rousseau's ("I mean to inquire …") set
+   between the Book's title and Chapter I, and Book III on one sentence ("Before speaking of …"). They belong to the Book and are kept at the head of its first
+   chapter, followed by a fenced "Chapter I" line that `liftChapterFence` turns into a `bk-head` after
+   cleanBody (whose tag stripper would drop the class), so the reader can see where the chapter begins.
+   The page's reference list is appended, as `betweenAnchors` does, because the markers resolve
+   against it by id; the caller then keeps only the notes the part's own markers open. */
+const CUT_FENCE = ["\uE020", "\uE021"];
+const CUT_PAGES = {};
+function cutAtChapterHeads(h, k, warn) {
+  const start = h.indexOf('<div class="prp-pages-output"');
+  if (start < 0) throw new Error("cut: no transclusion on the page");
+  const refAt = h.search(/<div class="reflist|<ol class="references"/);
+  const end = refAt > start ? refAt : h.length;
+  const text = (x) => x.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<[^>]+>/g, " ")
+    .replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+  const blocks = [];
+  const rx = /<div class="wst-center[^"]*"[^>]*>/g;
+  let m;
+  while ((m = rx.exec(h)) && m.index < end) {
+    if (m.index < start) continue;
+    const e = blockEnd(h, m.index, "div");
+    if (e < 0) throw new Error("cut: an unbalanced centred block at " + m.index);
+    blocks.push({ at: m.index, end: e, t: text(h.slice(m.index, e)) });
+    rx.lastIndex = e;
+  }
+  /* A NAMED PIECE OUTSIDE THE CHAPTERS — Rousseau's one-paragraph Foreword, which stands on the work's
+     front page between its title and Cole's contents table. `k` is then the head's text: the part runs
+     from that centred head to the next centred block or the next transclusion, whichever comes first. */
+  if (typeof k === "string") {
+    const hb = blocks.find((b) => b.t.toUpperCase() === k.toUpperCase());
+    if (!hb) throw new Error("cut: no head reading " + k);
+    const nb = blocks.find((b) => b.at > hb.at);
+    const np = h.indexOf('<div class="prp-pages-output"', hb.end);
+    const stop = Math.min(nb ? nb.at : end, np > 0 ? np : end, end);
+    const refs0 = h.match(/<ol class="references">[\s\S]*?<\/ol>/);
+    return '<div class="prp-pages-output">' + h.slice(hb.end, stop) + "</div>" + (refs0 ? "\n" + refs0[0] : "");
+  }
+  const heads = blocks.filter((b) => /\bchapter\s+[IVXL]+\b/i.test(b.t));
+  heads.forEach((b, i) => {
+    const r = /\bchapter\s+([IVXL]+)\b/i.exec(b.t)[1].toUpperCase();
+    if (r !== toRoman(i + 1)) throw new Error("cut: head " + (i + 1) + " reads CHAPTER " + r);
+  });
+  if (k < 1 || k > heads.length) throw new Error("cut: no chapter " + k + " (" + heads.length + " heads)");
+  const hd = heads[k - 1];
+  let from = hd.end;
+  // a title-only centred block straight after the head (Book I's shape) is part of the head
+  for (const b of blocks) {
+    if (b.at < from) continue;
+    if (/^\s*$/.test(text(h.slice(from, b.at))) && !/\bchapter\s+[IVXL]+\b/i.test(b.t)) from = b.end;
+    break;
+  }
+  const to = k < heads.length ? heads[k].at : end;
+  let body = h.slice(from, to);
+  if (k === 1) {
+    // the Book's own preamble, between its title block and Chapter I
+    const first = blocks.find((b) => b.at >= start);
+    const pre = h.slice(first && first.at < hd.at && !/\bchapter\b/i.test(first.t) ? first.end : start, hd.at);
+    if (text(pre.replace(/<div class="prp-pages-output"[^>]*>/, "")).length > 40) {
+      body = pre.replace(/<div class="prp-pages-output"[^>]*>/, "") +
+        "<p>" + CUT_FENCE[0] + "Chapter I" + CUT_FENCE[1] + "</p>" + body;
+      warn("kept the Book's preamble (" + text(pre).length + " chars) above Chapter I");
+    }
+  }
+  const refs = h.match(/<ol class="references">[\s\S]*?<\/ol>/);
+  return '<div class="prp-pages-output">' + body + "</div>" + (refs ? "\n" + refs[0] : "");
+}
+function liftChapterFence(html) {
+  // the scan pages' spacer lines: a paragraph of nothing but line breaks, and breaks closing a paragraph
+  html = html.replace(/<p>(?:\s*<br>\s*)+<\/p>\s*/g, "").replace(/(?:\s*<br>)+\s*<\/p>/g, "</p>")
+    .replace(/^(?:\s*<br>\s*)+/, "");
+  return html.replace(new RegExp("<p>\\s*" + CUT_FENCE[0] + "([^<]*)" + CUT_FENCE[1] + "\\s*</p>", "g"),
+    (m, t) => '<p class="bk-head">' + t.trim() + "</p>");
 }
 
 /* ---------- THE 1651 LEVIATHAN: a printer's page read off its own markup (Nov 2026) ----------
@@ -26847,6 +27125,54 @@ function originalChapters(h, warn) {
   return out;
 }
 
+/* ---------- THE 1762 DU CONTRAT SOCIAL, one page per chapter on French Wikisource (Nov 2026) ----------
+   `prep: "contrat"` on the original, run on the raw page before originalChapter's generic passes. The
+   page is built with `header=1`, which puts the wiki's own bibliographic header — author, title, the
+   previous and next chapters, a hidden data block — INSIDE the transclusion wrapper as `ws-noexport`
+   divs; they are removed balanced. The chapter's head is a real `<h3>` ("CHAPITRE V.") with the title
+   in a centred italic block under it, both of which Folio already prints above the text, so both go. A
+   Book's first chapter also carries the volume's half-title ("DU CONTRACT SOCIAL; OU, PRINCIPES DU DROIT
+   POLITIQUE."), the Book's `<h2>` and their rules; those go too, and where the Book's preamble stands
+   before the chapter head (Book I's three paragraphs) the head becomes a fenced line, lifted to a
+   `bk-head` as on the English side. The edition's footnote markers go with its notes, which
+   originalChapter does not carry. */
+function contratPrep(h, warn) {
+  let b = h;
+  for (let k = 0; k < 20; k++) {
+    const m = /<div\b[^>]*class="[^"]*\bws-noexport\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const e = blockEnd(b, m.index, "div");
+    if (e < 0) { warn("an unbalanced ws-noexport block was left in place"); break; }
+    b = b.slice(0, m.index) + b.slice(e);
+  }
+  b = b.replace(/<sup\b[^>]*class="reference"[^>]*>[\s\S]*?<\/sup>/g, "");
+  b = b.replace(/<hr\b[^>]*>/g, "");
+  /* The volume's half-title at the head of each Book's first chapter, and the "Fin du Livre …" line at
+     the foot of each Book's last: centred blocks, removed balanced and only on their own words. */
+  for (let k = 0; k < 4; k++) {
+    let hit = false;
+    const rx = /<div style="text-align:center;[^"]*">/g;
+    let m;
+    while ((m = rx.exec(b))) {
+      const e = blockEnd(b, m.index, "div");
+      if (e < 0) break;
+      const t = b.slice(m.index, e).replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+      if (/CONTRACT SOCIAL/.test(t) || /^Fin du Livre\b/i.test(t)) { b = b.slice(0, m.index) + b.slice(e); hit = true; break; }
+      rx.lastIndex = e;
+    }
+    if (!hit) break;
+  }
+  // the Book's own heading — an <h2> on Book I's page, an <h3> on the others'
+  b = b.replace(/<h[23]\b[^>]*>(?:(?!<\/h[23]>)[\s\S])*?LIVRE[\s\S]*?<\/h[23]>/g, "");
+  const i = b.indexOf('<div class="prp-pages-output"');
+  const hm = /<h3\b[^>]*>([\s\S]*?)<\/h3>\s*(?:<div style="text-align:center;clear:both;">\s*<i>[\s\S]*?<\/i>\s*<\/div>)?(?:\s*<br>)*(?:\s*<p>\s*<br>\s*<\/p>)?/.exec(b);
+  if (!hm) { warn("no CHAPITRE head found"); return b; }
+  const before = b.slice(i < 0 ? 0 : i, hm.index).replace(/<[^>]+>/g, "").replace(/&nbsp;|&#160;/g, " ").trim();
+  const num = hm[1].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim().replace(/\.$/, "");
+  const fence = before.length > 40 ? "<p>" + CUT_FENCE[0] + num.charAt(0) + num.slice(1).toLowerCase().replace(/ ([ivxl]+)$/, (x, r) => " " + r.toUpperCase()) + CUT_FENCE[1] + "</p>" : "";
+  return b.slice(0, hm.index) + fence + b.slice(hm.index + hm[0].length);
+}
+
 /* Turn ONE page of another wiki into one chapter's html — the `perChapter` original, added with The
    Prince (Aug 2026) and the simplest of the three wiki shapes rather than a complication of them.
    Seneca's Latin gives one page per BOOK of the collection with the letters as headings inside it, so
@@ -26866,6 +27192,7 @@ function originalChapters(h, warn) {
 let ORIG_TIPS = 0;
 function originalChapter(h, O, warn) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  if (O && O.prep === "contrat") b = contratPrep(b, warn);
   /* A PAGE TYPED ONTO THE WIKI RATHER THAN TRANSCLUDED FROM A SCAN has no `prp-pages-output` wrapper
      at all, so the slice below returns -1 and this throws on a page holding the whole text. Falling
      back automatically would be wrong for the same reason it is wrong on the translation side: a
@@ -33065,9 +33392,13 @@ async function fetchEnglish() {
        string still means exactly what it always did, so no shipped book's config is touched. */
     const pageNames = [].concat(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
-    let h = await api(pageNames[0]);
+    /* A page cut into several parts is fetched once and kept for the run (see `cut`). */
+    let h = BOOK.cut ? (CUT_PAGES[pageNames[0]] = CUT_PAGES[pageNames[0]] || await api(pageNames[0]))
+      : await api(pageNames[0]);
     /* ONE PAGE, SEVERAL PARTS (Nov 2026, the Ninety-five Theses): see `betweenAnchors`. */
     if (BOOK.between) h = betweenAnchors(h, BOOK.between(n));
+    /* ONE PAGE PER BOOK, CUT AT ITS CHAPTER HEADS (Nov 2026, The Social Contract): see `cutAtChapterHeads`. */
+    if (BOOK.cut) h = cutAtChapterHeads(h, BOOK.cut(n), warn);
     let html, notes, orig = "", tFromText = "";
     if (BOOK.prep === "leviathan") {
       const got = leviathanPrep(h, warn);
@@ -33138,7 +33469,8 @@ async function fetchEnglish() {
       /* A PART CUT OUT OF A LONGER PAGE carries the page's WHOLE note list — the Theses' page numbers
          its notes 1–84 straight through the introduction and four documents — so only the notes this
          part's own markers open are kept, renumbered from 1 by pruneNotes. */
-      if (BOOK.between) {
+      if (BOOK.cut) html = liftChapterFence(html);
+      if (BOOK.between || BOOK.cut) {
         const used = [...new Set([...html.matchAll(/<sup class="fn" data-fn="(\d+)"><\/sup>/g)].map((m) => +m[1]))]
           .sort((x, y) => x - y);
         notes = used.map((u) => notes[u - 1]);
@@ -34403,8 +34735,10 @@ async function fetchOriginal() {
       let rec;
       if (!FORCE && fs.existsSync(cf)) rec = JSON.parse(fs.readFileSync(cf, "utf8"));
       else {
+        if (!O.page(n)) continue;   // a chapter this original does not carry (The Social Contract's Foreword)
         const h = await api(O.page(n), O.wiki);
         rec = originalChapter(h, O, (m) => warn(BOOK.chapterWord + " " + n + ": " + m));
+        if (O.prep === "contrat") rec.html = liftChapterFence(rec.html);
         if (rec.html.length < (O.minChars || 200))
           throw new Error(BOOK.chapterWord + " " + n + " came back short (" + rec.html.length + " chars)");
         fs.writeFileSync(cf, JSON.stringify(rec));
