@@ -5,7 +5,7 @@ language set in the shape of the ones already shipped (Ukrainian, Russian TORFL,
 is the record of how those were built, and every rule there applies here unless this file says otherwise.
 Asked for on 2026-11-16: "Add a Bulgarian language collection."
 
-**STATUS (2026-11-16): the alphabet deck, A1, A2 and B1 are built** (`.claude/bulgarian/`, §6–§8). B2, C1 and a
+**STATUS (2026-11-16): the alphabet deck, A1, A2, B1 and B2 are built** (`.claude/bulgarian/`, §6–§9). C1 and a
 phrases deck are next, one per session.
 
 Later decks under `decks/` are community content, not a change to Folio: **no changelog line and no version bump**
@@ -32,7 +32,7 @@ Ukrainian (a Cyrillic Slavic language, assembled to CEFR), and the owner may ove
 | Bulgarian A1 Beginner — built | `Bulgarian-A1.folio-deck.json` | 500 |
 | Bulgarian A2 Elementary — built | `Bulgarian-A2.folio-deck.json` | 750 |
 | Bulgarian B1 Intermediate — built | `Bulgarian-B1.folio-deck.json` | 1,000 |
-| Bulgarian B2 Upper Intermediate | `Bulgarian-B2.folio-deck.json` | 1,500 |
+| Bulgarian B2 Upper Intermediate — built | `Bulgarian-B2.folio-deck.json` | 1,500 |
 | Bulgarian C1 Advanced | `Bulgarian-C1.folio-deck.json` | 1,500 |
 | Bulgarian Phrases and Expressions | `Bulgarian-Phrases-and-Expressions.folio-deck.json` | — |
 
@@ -154,3 +154,27 @@ credits, and `страхувам` (glossed only as a pointer to страхува
 "education", `свобода` "freedom"; `build_deck.english` drops a usage example Wiktionary filed as a sense (`у́мствен
 бага́ж ― …`). **A1, A2 and B1 rebuild byte-identical.** Known, left: the fill carries the subtitles' military and
 fantasy vocabulary (`генерал`, `сержант`, `меч`, `вещица`, `чудовище`) as the levels below do.
+
+## 9. As built (2026-11-16): B2
+
+`python3 .claude/bulgarian/run.py --level b2`. 1,500 notes: 220 from the B2 inventory (the economy and business, the
+workplace, government, law and rights, science and technology, the environment and energy, society and its problems,
+the media, education and the mind, health and medicine, culture, history and identity, the arts and reviews, attitudes
+and character, the words of an argument, the verbs of change and judgement) and 1,280 by frequency, none taught below.
+**The inventory was checked against the extract BEFORE it was written** (B1's lesson): of two drafts' 430 words, about
+120 have no lemma in Wiktionary (`капитал`, `заместник`, `прокурор`, `депутат`, `лаборатория`, `космос`, `журналистика`,
+`логика`, `талант`, `лечение`, `паметник`, `критик`, `следователно`, `критикувам`, `гарантирам` …) and about 90 were
+already taught, so 221 were written. **Sentences for 721, three apiece for 272** — under half the level: Tatoeba's
+Bulgarian is everyday speech and B2's words are past it, and the description gives the figures. New from reading the
+ranking: `select.EXCLUDE` grew by fifty-two — names (`лин`, `брус`, `кен`, `клей`, `тара`, `тор`, `лъка`, `марс`,
+`линкълн`, `форд` …), lemmas whose own forms barely count (`китя`, `опреда`, `начета` none at all; `тоба`, `логик`,
+`лича`, `каля`, `нищ` — the count is нищо —, `околен` — около —, `следен`, `поли` — the plural of пола), forms (`нейния`,
+`техния`, `единия`, `ела`, `таз`), pointers (`оказвам`, `съглася`, `касая`, `наранявания`), `трябвам` (its count is
+трябва's, A1), hesitation noises (`ъъ`, `ъх`), swear words and a slur. `ETYMS` takes `нападам` "to attack", `целя` "to
+aim", `мит` "myth", `повод` "occasion" and `лига` "league"; `LEAD` orders thirteen more (`шах` "chess", `отмяна`
+"abolition", `изследвам` "to investigate", `тръба` "pipe", `волан` "steering wheel" …); `STRESS` supplies sixteen head
+lines whose head and table both lack it (`терапи́я`, `конкуре́нция`, `пенсионе́р` …). **A cross-reference filed as a
+sense is now dropped** ("only used in по́-по́сле", "see съ́рдя се"), and `check-bulgarian.js` fails one: that changed one
+line on five cards of A1, A2 and B1 (`после`, `дълго`, `напред`, `нататък`, `сърдя`), which rebuild otherwise
+byte-identical. Known, left: the fill carries the subtitles' genre vocabulary (`вампир`, `пират`, `гангстер`) and
+adult words (`секс`, `презерватив`), as subtitle-ordered decks on the shelf do.

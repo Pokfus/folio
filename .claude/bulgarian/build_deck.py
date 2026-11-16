@@ -78,6 +78,11 @@ ETYMS = {
     'чест': ['2', '1'],       # the noun "honour" before the rarer adjective "frequent"
     'клас': ['2'],
     'накажа': ['2'],          # "to punish"; etymology 1 is a rare "to say a lot of things"
+    'нападам': ['2'],
+    'целя': ['2'],            # "to aim"; etymology 1 is "to cure"
+    'мит': ['3'],             # "myth"; etymology 1 is the adjective "slant"
+    'повод': ['2'],           # "occasion, reason"; etymology 1 is "leash"
+    'лига': ['2'],            # "league"; etymology 1 is "spittle"         # "to attack"; etymology 1 is "to fall a lot"
     'ранен': ['2', '1'],      # "wounded" before "early": the subtitles' word            # "class (at school)"; etymology 1 is "ear of corn"
 }
 
@@ -115,7 +120,12 @@ LEAD = {
     'кача': ['to go up', 'to take up'],
     'зарежа': ['to abandon'],
     'развивам': ['to develop'], 'партия': ['party (a political'], 'образование': ['education'],
-    'свобода': ['freedom'],                          # not "to prune vines"
+    'свобода': ['freedom'],
+    'шах': ['chess', 'check'], 'отмяна': ['abolition'], 'ненавиждам': ['to hate'],
+    'капсула': ['capsule (soluble'], 'изследвам': ['to explore, to investigate', 'to test'],
+    'тръба': ['pipe, tube'], 'представление': ['performance, show'], 'заключение': ['conclusion'],
+    'стигам': ['to reach', 'to arrive'], 'пряк': ['direct, straight'],
+    'настоящ': ['actual, present'], 'волан': ['steering wheel'], 'слушалка': ['receiver (phone)'],                          # not "to prune vines"
 }
 # A GLOSS LEFT OFF.
 GLOSS_DROP = {}
@@ -125,7 +135,12 @@ PARTNER = {'направя': ['пра́вя'], 'правя': ['напра́вя'
 
 # A HEADWORD'S STRESS WRITTEN HERE, where Wiktionary's head line carries none.
 STRESS = {'наздраве': 'наздра́ве', 'армия': 'а́рмия',
-          'засега': 'засега́', 'отбия': 'отби́я', 'чийто': 'чи́йто', 'предаване': 'предава́не'}
+          'засега': 'засега́', 'отбия': 'отби́я', 'чийто': 'чи́йто', 'предаване': 'предава́не',
+          # B2: Wiktionary's head line and table carry no stress for these
+          'терапия': 'терапи́я', 'годишно': 'годи́шно', 'трагедия': 'траге́дия', 'хумор': 'ху́мор',
+          'скандал': 'сканда́л', 'персонал': 'персона́л', 'впрочем': 'впро́чем', 'терапевт': 'терапе́вт',
+          'конкуренция': 'конкуре́нция', 'заседание': 'заседа́ние', 'терор': 'теро́р', 'хипотеза': 'хипоте́за',
+          'конкурент': 'конкуре́нт', 'пенсионер': 'пенсионе́р', 'дефицит': 'дефици́т', 'обвинител': 'обвини́тел'}
 
 
 # ---- glosses ---------------------------------------------------------------------------
@@ -191,6 +206,10 @@ def english(ents, word=''):
             # "Used other than figuratively or idiomatically: see під" (the phrases deck) names
             # the literal reading's words rather than giving a meaning
             if t.startswith('Used other than figuratively or idiomatically'):
+                continue
+            # a cross-reference filed as a sense ("only used in по́-по́сле", "see съ́рдя се"): it
+            # names another headword rather than giving a meaning
+            if re.match(r'(only used in|see) ', t):
                 continue
             # a usage example filed as a sense (`у́мствен бага́ж ― úmstven bagáž ― intellect`)
             if ' ― ' in t:

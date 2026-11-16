@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 455 MB of decks. The file itself is fetched on Add. */
+   section without fetching 458 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-Pinyin-and-Tones.folio-deck.json", id: "hsk30pin", title: "Mandarin Chinese — Pinyin and tones", sub: "68 sounds, tones and tone changes — start here, beside Level 1", notes: 68, cards: 68, ex: 100, bytes: 70898, rev: "6a1571dc957f" },
   { lang: "Mandarin Chinese", file: "Mandarin-Bopomofo.folio-deck.json", id: "hsk30bpm", title: "Mandarin Chinese — Bopomofo", sub: "62 zhuyin symbols, tone marks and combinations — beside Pinyin and tones", notes: 62, cards: 62, ex: 100, bytes: 72249, rev: "80fd41ebcd21" },
@@ -236,9 +236,10 @@ window.LANG_DECKS = [
   { lang: "Hebrew", file: "Hebrew-C1.folio-deck.json", id: "hebrewc1", title: "Hebrew C1 Advanced", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 89, bytes: 6010613, rev: "7052f4981f48" },
   { lang: "Hebrew", file: "Hebrew-Phrases-and-Expressions.folio-deck.json", id: "hephrase", title: "Hebrew Phrases and Expressions", sub: "161 expressions · 113 everyday, 32 idioms, 16 proverbs · both directions", notes: 161, cards: 322, subs: 3, tree: [{"n":"Phrases","c":226,"x":53},{"n":"Idioms","c":64,"x":28},{"n":"Proverbs","c":32,"x":25}], flat: true, ex: 45, bytes: 144754, rev: "d9b65e3c2eb5" },
   { lang: "Bulgarian", file: "Bulgarian-Alphabet.folio-deck.json", id: "bgabc", title: "Bulgarian Alphabet", sub: "30 letters · both directions, as two cards per letter", notes: 30, cards: 60, ex: 0, bytes: 11869, rev: "d2d98afbc632" },
-  { lang: "Bulgarian", file: "Bulgarian-A1.folio-deck.json", id: "bulgariana1", title: "Bulgarian A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 98, bytes: 1175319, rev: "9b82eb24fc7e" },
-  { lang: "Bulgarian", file: "Bulgarian-A2.folio-deck.json", id: "bulgariana2", title: "Bulgarian A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 93, bytes: 2000437, rev: "9986bf8ff18a" },
-  { lang: "Bulgarian", file: "Bulgarian-B1.folio-deck.json", id: "bulgarianb1", title: "Bulgarian B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 82, bytes: 2570358, rev: "438fd1e8f9b2" },
+  { lang: "Bulgarian", file: "Bulgarian-A1.folio-deck.json", id: "bulgariana1", title: "Bulgarian A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 98, bytes: 1175240, rev: "209dc5c3c116" },
+  { lang: "Bulgarian", file: "Bulgarian-A2.folio-deck.json", id: "bulgariana2", title: "Bulgarian A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 93, bytes: 2000257, rev: "99400a593e6f" },
+  { lang: "Bulgarian", file: "Bulgarian-B1.folio-deck.json", id: "bulgarianb1", title: "Bulgarian B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 82, bytes: 2570358, rev: "73d63528ff67" },
+  { lang: "Bulgarian", file: "Bulgarian-B2.folio-deck.json", id: "bulgarianb2", title: "Bulgarian B2 Upper Intermediate", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 48, bytes: 3243642, rev: "9b3c5021c8b8" },
   { lang: "Danish", file: "Danish-A1.folio-deck.json", id: "danisha1", title: "Danish A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 794235, rev: "9fb7cdaf4751" },
   { lang: "Danish", file: "Danish-A2.folio-deck.json", id: "danisha2", title: "Danish A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 98, bytes: 1346713, rev: "0ed92e8cbd9f" },
   { lang: "Danish", file: "Danish-B1.folio-deck.json", id: "danishb1", title: "Danish B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 91, bytes: 1764865, rev: "732a7cf1e362" },
