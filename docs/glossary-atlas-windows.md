@@ -10,8 +10,8 @@ never the Treaty of Versailles; a battle, a treaty, a person, a fossil or an ins
 
 **What a reader sees.** A glossary popup whose term is a location carries a small map — **below the description (and the Library
 banner), above the Sources fold** — on the card windows' engine: **since 2026-10-24 the card windows' own buttons** (zoom in, zoom out, recentre, and relief where relief can draw — the owner asked for them; still no globe button, the bar's pin is that; `GLOSS_ZOOM_HTML` in `app.js`), a drag and a pinch or the wheel move and zoom
-it (the arrow keys and `+` / `−` when it has focus). The term's place is the only thing marked: a gold square and the name for a
-point (a site, a city, a cave, a mountain), the name alone for a region, a sea or a range, the Atlas's selection gold over the face
+it (the arrow keys and `+` / `−` when it has focus). The term's place is the only thing marked: a gold mark and the name for a
+point (a site, a city, a cave, a mountain; **the square only for a present-day national capital** — registry kind `capital`, less `GLOSS_NOT_CAPITAL` in `app.js` (Johannesburg) — every other point the circle, a mountain or a hill the peak triangle; 2026-11-16, `ownSquare` in `atlas-windows.js`), the name alone for a region, a sea or a range, the Atlas's selection gold over the face
 of a present-day country or province, and a **state, an empire, a people or a culture at the year of its greatest extent** —
 Rome at 117, the Byzantine Empire at 561, the Achaemenids at 480 BCE — with every other state of that year plain. A people is its
 presence stipple alone (no other people's). The bar's Atlas pin stays. No window on the Atlas page itself, none for a community

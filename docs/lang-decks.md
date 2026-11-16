@@ -3790,6 +3790,23 @@ changed was the one that had been wrong all along.
   findings — the Russian in the Ukrainian subtitle list, the apostrophe, the pronouns' shared table, a table without
   its headword, diminutives as form-of entries, reciprocal aspect pairs — are 📖 `docs/ukrainian-decks-plan.md`. The
   `l1` row is Ethnologue's 32 million (via Wikipedia); the hue is measured, `#9F4500` (re-swept at the merge, Arabic having taken its first, `#2A8424`).
+- `.claude/bulgarian/` — the generator behind the Bulgarian decks (Nov 2026, on request: "Add a Bulgarian language
+  collection"; copied from `.claude/ukrainian/`, the word source, sizes and card following the Ukrainian set, and the
+  owner may overrule them). **Built: the alphabet, `decks/Bulgarian-Alphabet.folio-deck.json`** (30 letters) **and A1,
+  `decks/Bulgarian-A1.folio-deck.json`** (500 notes / 1,000 cards, 2026-11-16) **and A2,
+  `decks/Bulgarian-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16) **and B1,
+  `decks/Bulgarian-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-16) **and B2,
+  `decks/Bulgarian-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16) **and C1,
+  `decks/Bulgarian-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16; sentences for only 375, Tatoeba's
+  Bulgarian being spent) — all five levels — **and the phrases deck,
+  `decks/Bulgarian-Phrases-and-Expressions.folio-deck.json`** (143 expressions in four subdecks — phrases, verbs with
+  се, idioms, proverbs — `--level phr`, 2026-11-16): the collection is complete. `python3 .claude/bulgarian/run.py [--level a1]`, `python3 .claude/bulgarian/alphabet.py`,
+  `node .claude/bulgarian/check-bulgarian.js`; a re-run is byte-identical. A verb's headword is its first person
+  singular present (Bulgarian has no infinitive); the card shows a noun's definite form, plural and count form and a
+  verb's ти form, aorist and aspect partner. The findings — the pre-1945 second table, ѝ, the pronouns with no table,
+  verbal nouns and participles in a verb's table, plural-only nouns losing their count — are 📖
+  `docs/bulgarian-decks-plan.md`. The `l1` row is Wikipedia's infobox (6.8 million L1, 7.9 total); the hue is
+  measured, `#813F8D`.
 - `.claude/hausa/` — the generator behind the Hausa decks (Nov 2026, on request: "Add a Hausa language
   collection", then the owner's answers: CEFR A1–B1 at 500 / 750 / 1,000, the toned form as a second line,
   an alphabet (Boko) deck and later a phrases deck). **Built: the alphabet, `decks/Hausa-Alphabet.folio-deck.json`**
@@ -3907,6 +3924,26 @@ changed was the one that had been wrong all along.
   toned ones in the proportions the carefully marked articles show; the findings (one spelling, many words; the
   dialect "alternatives"; the contractions and the bot stubs) are 📖 `docs/yoruba-decks-plan.md`. The `LANGS` row
   is 48 million L1, 53 in all (Ethnologue 2026 via Wikipedia's list); the hue is measured, `#3A5498`.
+- `.claude/mongolian/` — the generator behind the Mongolian decks (Nov 2026, on request: "Add a Mongolian language
+  collection"; the Amharic and Yoruba owners' answers taken, the owner not asked). **Built: the alphabet deck,
+  `decks/Mongolian-Alphabet.folio-deck.json`** (36 notes: the 35 Cyrillic letters with their names, IPA and MNS
+  romanisation read from a pinned revision of Wikipedia's "Mongolian Cyrillic alphabet", then the long vowel) **and A1,
+  `decks/Mongolian-A1.folio-deck.json`** (500 notes / 1,000 cards: 335 inventory, 165 frequency) **and A2,
+  `decks/Mongolian-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16: 153 inventory, 597 frequency) **and B1,
+  `decks/Mongolian-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-16: 71 everyday compounds and words the fill
+  does not reach, 929 frequency; the genitive-twin and strict people's-name rules from B1 on). **and the phrases deck,
+  `decks/Mongolian-Phrases-and-Expressions.folio-deck.json`** (2,357 notes: 29 Wiktionary phrases, a proverb and an idiom
+  among them, and 2,328 Tatoeba sentences of up to eight words, a pair sharing its English labelled familiar or polite by
+  its "you"; `python3 .claude/mongolian/phrases.py`). The collection is complete. `python3
+  .claude/mongolian/run.py [--level a1|a2|b1]`, `python3 .claude/mongolian/alphabet.py`, `node
+  .claude/mongolian/check-mongolian.js`; a re-run is byte-identical. Amharic's arrangement: about 3,100 Cyrillic
+  Wiktionary lemmas, no subtitle list, so the frequency is the Mongolian Wikipedia's (its 14,876 articles of 150 words
+  or more), A1–B1 only, no hand glosses, no speaker, and no romanisation on a level card (the Russian precedent).
+  Wiktionary's untagged form-of pages ("past participle in -сан of байх") are read as pointers, a form no lemma lists
+  is peeled through the case and verb endings to a lemma or a verb's stem, and the card shows only forms Wiktionary
+  prints (a noun's plural and three cases from its table). The findings are 📖 `docs/mongolian-decks-plan.md`. The
+  `LANGS` row is 5.0 million (Ethnologue via Wikipedia, no L2 figure); the hue is measured, `#A16C02` (re-swept at the merge: Navajo had
+  taken the first sweep's `#3C7676`).
 - `.claude/oldenglish/` — the generator behind the Old English decks (Nov 2026, on request: "Add an Old
   English language collection"). **Built: the alphabet and pronunciation deck,
   `decks/Old-English-Alphabet.folio-deck.json`** (41 notes) **and Level 1,
@@ -4068,6 +4105,22 @@ changed was the one that had been wrong all along.
   spelling even where that spelling is a lemma (`er` is vera's). The plan and every finding are
   📖 `docs/icelandic-decks-plan.md`. The `LANGS` row is 0.39 million (Ethnologue via Wikipedia, no L2 figure); the hue
   is measured, `#303696`.
+- `.claude/czech/` — the generator behind the Czech decks (Nov 2026, on request: "Add a Czech language collection";
+  the owner not asked). **Built: A1, `decks/Czech-A1.folio-deck.json`** (1,213 notes / 2,426 cards) **and A2,
+  `decks/Czech-A2.folio-deck.json`** (1,161 notes), **and B1, `decks/Czech-B1.folio-deck.json`** (1,000 notes,
+  assembled: no list exists beyond A2, so a Threshold Level topic inventory plus frequency fill) **and B2,
+  `decks/Czech-B2.folio-deck.json`** (1,200 notes, the same on Vantage's themes) **and C1,
+  `decks/Czech-C1.folio-deck.json`** (1,200 notes, on the CEFR's own description of C1), **and a phrases deck,
+  `decks/Czech-Phrases-and-Expressions.folio-deck.json`** (169 notes in four subdecks — Phrases, Expressions,
+  Idioms, Proverbs — the fourth because Czech Wiktionary tags few senses idiomatic). `python3 .claude/czech/run.py [--level a1|a2|b1|b2|c1|phr]`,
+  `node .claude/czech/check-czech.js`; a re-run is byte-identical. Polish's pipeline adapted. **What is new: an
+  OFFICIAL list** — NPI ČR publishes the permanent-residence exam's whole A1–A2 lexicon (the Soupis lexikálních
+  jednotek) as a search tool, read by `soupis.py`, so A1 and A2 select nothing (the Goethe line); A1 adds 51
+  grammar words the list leaves to its grammar chapters (`ty`, `on`, `můj`), stated in the description. Findings:
+  a Czech conjugation is several table boxes (Polish cut at the second), eleven verbs carry another verb's table,
+  a qualified gender's labels leak onto every sense (`den`), reflexive verbs read their base verb's reflexive
+  senses. The plan and every finding are 📖 `docs/czech-decks-plan.md`. The `LANGS` row is 9.8 / 12 million
+  (Ethnologue via Wikipedia); the hue is measured, `#8F2302` (re-swept at two merges: Navajo took a hue 0.1 from the first sweep's `#3C7675`, Somali 0.4 from the second's `#495A5A`).
 - `.claude/lao/` — the generator behind the Lao decks (Nov 2026, on request: "Add a Lao language collection"; the
   Thai answers taken, the owner not asked). **Built: the alphabet, `decks/Lao-Alphabet.folio-deck.json`** (79 notes:
   the 27 consonants, the six ຫ ligatures, 27 vowels, the tone marks and two signs, the three class rules, the digits,
@@ -4108,6 +4161,29 @@ changed was the one that had been wrong all along.
   subdecks (107 Wiktionary phrases and interjections, 38 Tatoeba sentences); `run.py --level phr`, `phrases.py`.
   The collection is complete. 📖 `docs/navajo-decks-plan.md`. The `LANGS` row is 170,000 (Wikipedia's infobox, no L2 figure); the hue is measured,
   `#3C7676`, a turquoise-teal.
+- `.claude/serbian/` — the generator behind the Serbian decks (Nov 2026, on request: "Add a Serbian language
+  collection"; the Ukrainian answers taken, the owner not asked). **Built: the alphabet,
+  `decks/Serbian-Alphabet.folio-deck.json`** (36 notes: the 30 Cyrillic letters with their Latin twins, the four
+  accent marks and the length mark, the syllabic r, from Wikipedia's "Serbian Cyrillic alphabet" and "Serbo-Croatian
+  phonology" at pinned revisions) **and A1, `decks/Serbian-A1.folio-deck.json`** (500 notes / 1,000 cards: 364 from a
+  hand-written topic inventory, 137 by frequency) **and A2, `decks/Serbian-A2.folio-deck.json`** (750 notes / 1,500
+  cards, 2026-11-16, on request: "Add A2"; `--level a2`; the derived imperfectives Wiktionary files as "imperfective
+  form of …" kept as words from A2 on, A1 unchanged) **and B1, `decks/Serbian-B1.folio-deck.json`** (1,000 notes /
+  2,000 cards, 2026-11-16, on request: "Add B1"; `--level b1`) **and B2, `decks/Serbian-B2.folio-deck.json`** (1,500
+  notes / 3,000 cards, 2026-11-16, on request: "Add B2"; `--level b2`; 88 % by frequency, sentences for 805) **and C1,
+  `decks/Serbian-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16, on request: "Add C1"; `--level c1`; 92 %
+  by frequency, sentences for 532) — all five levels — **and the phrases deck,
+  `decks/Serbian-Phrases-and-Expressions.folio-deck.json`** (88: 35 phrases, 37 idioms, 16 proverbs, every candidate
+  Wiktionary's Serbo-Croatian has; `--level phr`, `phrases.py`, 2026-11-16, on request). The set is complete.
+  `python3 .claude/serbian/run.py [--level a1]`,
+  `python3 .claude/serbian/alphabet.py`, `node .claude/serbian/check-serbian.js`; a re-run is byte-identical.
+  Ukrainian's pipeline re-keyed to English Wiktionary's Serbo-Croatian. **What is new**: the card leads with Cyrillic
+  and prints the Latin beneath the headword and every sentence (everything is compared in Latin, `sr.fold`); the
+  headword carries Wiktionary's tonal accent (`ку̏ћа`), stripped BY NAME so ć keeps its acute; Ekavian only — a sense
+  tagged with countries none of which is Serbia, or dialect, is weak, and an Ijekavian lemma's count goes to its
+  Ekavian partner; the present tense's persons are untagged and read in table order. 📖 `docs/serbian-decks-plan.md`.
+  The `LANGS` row is 8.2 million (Ethnologue 28th ed., via Wikipedia's infobox, no L2 figure); the hue is measured,
+  `#1C4C0E`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/

@@ -288,11 +288,12 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     check("…titled from the catalogue, without the language", row.title === shortTitle(plain.title, plain.lang),
       row.title + " vs " + shortTitle(plain.title, plain.lang));
     check("…and still saying something", row.title.trim().length > 0, row.title);
-    check("…and stating its card count", row.count.replace(/[^\d]/g, "") === String(plain.cards), row.count);
+    /* NO CARD COUNT AND NO "% WITH EXAMPLES" (2026-11-16, on request: "the one line description is sufficient"). */
+    check("…and stating no card count", row.count === "", row.count);
+    check("…and no facts line", !row.meta, String(row.meta));
     /* NO FILE SIZE ON THE ROW (Oct 2026, on request), on either shelf; Daily study's Download button
        still says what a deck will fetch. */
     check("…and not printing a file size", row.size === "", row.size);
-    check("…on a line of its own below the title", row.meta && row.metaHasFigures);
     check("…and not on the title's line", row.titleRowClean);
   }
 

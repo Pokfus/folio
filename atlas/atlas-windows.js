@@ -88,7 +88,7 @@
     const isMembers = host.classList.contains("map-members");   // an organisation's member countries as the targets, its seat as the dot (app.js cardMembers)
     const isWar = warAttr;   // a war window is drawn at a year of the war on the engine's history: its sides tinted in the years they fought, nothing outside them
     /* A GLOSSARY WINDOW (2026-10-23, the owner; docs/glossary-atlas-windows.md): host class `map-gloss`, the card windows' zoom, recentre and relief buttons (the host's markup since 2026-10-24, wired below like any window's; no globe button), a drag, a pinch or the wheel move and zoom it
-       (AtlasEmbed.view's own), and the term's place is THE ONLY thing marked: a gold square and the name for a point, the name alone for an area, and for `data-map-face` — a present-day country or province (as a
+       (AtlasEmbed.view's own), and the term's place is THE ONLY thing marked: a gold mark and the name for a point (the square a present-day capital's, the circle any other's, 2026-11-16), the name alone for an area, and for `data-map-face` — a present-day country or province (as a
        map card's), or a history.bin entity at `data-map-year`, THE YEAR OF ITS GREATEST EXTENT — the selection gold over its face; a people or a culture (`data-map-facekind`) is its presence alone (`peopleOnly`), no
        other people's. A year asks the hub for the WHOLE history (as Find it's area round does); until it lands the window is today's map centred on the place, and it is not settled. No siblings, no home square, no
        "Discovered!" chip and no `placesSeen`: a term is no card and the Personal Atlas is the cards' (Q-P3 c). On the still renderer (no WebGL2) a state of the past cannot be drawn, so the window is `plain` and
@@ -473,7 +473,11 @@
       else if (locSpine) { const mh = Math.max(3, Math.min(9, 3.4 * Math.sqrt(st.zoom / CMAP_ZLOC))), mw = mh * 0.85; for (const q of locSpine) { const p = api.project(q[0], q[1]); if (inView(api, p)) addMark("peak", p[0], p[1] - mh * 0.1, mw + 1, mh * 0.65 + 1); } }
       let ownDotAt = null;
       const isWater = waterName(), noDotWater = isWater && (revealed || !!locArea || !!wr), isPeak = !isWater && peakMark();
-      if (dot && !noDotWater && !(locKind === "river" && !!ownLines) && locKind !== "range" && !isWall && locKind !== "region" && locKind !== "sea" && locKind !== "shelf") { const p = api.project(dot.c[0], dot.c[1]); if (p[2] >= 0) { ownDotAt = p; addMark(locKind === "battle" ? "swords" : isPeak ? "peak" : "dot", p[0], p[1], locKind === "battle" ? 9 : 7, locKind === "battle" ? 9 : 7); } }
+      /* THE SQUARE IS A CAPITAL'S (2026-11-16, the owner: "in gloss popup atlas windows, locations should only ever use square icons if they are currently the capital city of a country"):
+         a glossary window's own point is the gold square only when its registry kind is `capital` (a present-day national capital; app.js glossWindowHTML clears the kind where Natural
+         Earth's flag is not one), every other point the gold circle. A card's window keeps its rule: the square without a sibling, the circle with them. */
+      const ownSquare = isGloss ? placeKind === "capital" : !sibCard;
+      if (dot && !noDotWater && !(locKind === "river" && !!ownLines) && locKind !== "range" && !isWall && locKind !== "region" && locKind !== "sea" && locKind !== "shelf") { const p = api.project(dot.c[0], dot.c[1]); if (p[2] >= 0) { ownDotAt = p; addMark(locKind === "battle" ? "swords" : isPeak ? "peak" : ownSquare ? "square" : "dot", p[0], p[1], locKind === "battle" ? 9 : 7, locKind === "battle" ? 9 : 7); } }
       // ---- the names, in priority order ----
       if (ownLines && revealed) {   // the card's own river: its name on the line, at the first of several stretches that is clear
         const lines = ownLines.filter((l) => l && l.length > 1).sort((p1, p2) => p2.length - p1.length);   // the river's stretches, the longest first
@@ -529,7 +533,7 @@
         else if (isPeak) {   // a mountain: the peak triangle, in the own mark's gold
           ctx.save(); ctx.beginPath(); ctx.moveTo(p[0], p[1] - 7); ctx.lineTo(p[0] + 7, p[1] + 5); ctx.lineTo(p[0] - 7, p[1] + 5); ctx.closePath(); ctx.lineJoin = "round";
           ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.fill(); ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.stroke(); ctx.restore();
-        } else if (!sibCard) { ctx.save(); ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.fillRect(p[0] - 5, p[1] - 5, 10, 10); ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.strokeRect(p[0] - 5, p[1] - 5, 10, 10); ctx.restore(); }
+        } else if (ownSquare) { ctx.save(); ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.fillRect(p[0] - 5, p[1] - 5, 10, 10); ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.strokeRect(p[0] - 5, p[1] - 5, 10, 10); ctx.restore(); }
         else { ctx.save(); ctx.beginPath(); ctx.arc(p[0], p[1], 5.5, 0, Math.PI * 2); ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.fill(); ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.stroke(); ctx.restore(); }
       }
       ctx.beginPath(); ctx.arc(api.cx, api.cy, api.radius, 0, Math.PI * 2); ctx.strokeStyle = "rgba(0,0,0,0.28)"; ctx.lineWidth = 1; ctx.stroke();
