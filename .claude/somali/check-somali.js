@@ -7,12 +7,14 @@
    label the generator does not write, a plural printed with an accent, a speaker button (no device it would
    help has a Somali voice — the Hausa rule), unbalanced HTML, an id out of sequence, and two notes sharing an
    English side (the reverse card would have two answers). The Alphabet deck is checked for its own: a unique
-   sound side. */
+   sound side. The phrases deck for what applies to a phrase or a sentence: its three subdecks, no phrase a
+   level teaches as a word, a Tatoeba number on every sentence, balanced HTML, a unique English side. */
 "use strict";
 const fs = require("fs");
 const path = require("path");
 const DIR = path.join(__dirname, "..", "..", "decks");
 const LABELS = new Set(["plural"]);
+const SUBS = ["Greetings and wishes", "Everyday phrases", "Sentences"];
 const POINTER = /^(?:alternative form of|alternative spelling of|form of|synonym of|contraction of|plural of)\b/i;
 const SO = /^[abcdefghijklmnoqrstuwxy' \-]+$/i;
 const TONE = /^[abcdefghijklmnoqrstuwxy' \-\u0300\u0301]+$/i;
@@ -35,6 +37,7 @@ for (const f of files) {
   const d = JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8"));
   const id = d.meta.id;
   const abc = /Alphabet/.test(d.meta.title);
+  const phr = /Phrases/.test(d.meta.title);
   for (const t of Object.values(d.meta.types))
     for (const c of t.cards) if (/uc-tts/.test(c.front + c.back)) bad(f + ": template " + c.name + " has a speaker button");
   const sides = new Map();
@@ -48,6 +51,16 @@ for (const f of files) {
       return;
     }
     const w = F.Word;
+    if (phr) {
+      if (!SUBS.includes(c.sub)) bad(f + ": " + w + " is in subdeck " + c.sub);
+      if (seen.has(plain(w).toLowerCase())) bad(f + ": " + w + " is already taught in " + seen.get(plain(w).toLowerCase()));
+      if (c.sub === "Sentences" && !/Tatoeba #\d+/.test(F.English)) bad(f + ": sentence " + w + " has no Tatoeba number");
+      if (c.sub !== "Sentences" && !SO.test(w)) bad(f + ": phrase " + w + " is not plain Somali spelling");
+      for (const k of ["Somali", "English"]) balanced(f, w, k, F[k]);
+      if (sides.has(F.English)) bad(f + ": " + w + " shares its English side with " + sides.get(F.English));
+      sides.set(F.English, w);
+      return;
+    }
     if (!SO.test(w || "")) bad(f + ": card " + (i + 1) + " Word is not Somali spelling: " + w);
     if (seen.has(w.toLowerCase())) bad(f + ": " + w + " is already taught in " + seen.get(w.toLowerCase()));
     seen.set(w.toLowerCase(), f);
@@ -67,7 +80,7 @@ for (const f of files) {
     if (sides.has(F.English)) bad(f + ": " + w + " shares its English side with " + sides.get(F.English));
     sides.set(F.English, w);
   });
-  console.log("ok    " + f + ": " + d.cards.length + " notes" + (abc ? "" : ", " +
+  console.log("ok    " + f + ": " + d.cards.length + " notes" + (abc || phr ? "" : ", " +
     d.cards.filter((c) => c.fields.Tone).length + " with a tone line, " +
     d.cards.filter((c) => c.fields.Forms).length + " with plurals, " +
     d.cards.filter((c) => c.fields.Examples).length + " with sentences"));

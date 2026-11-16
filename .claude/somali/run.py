@@ -6,6 +6,7 @@
     python3 .claude/somali/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/somali/run.py --re-extract    # rebuild the counts and the lexicon (after editing hand.py!)
     python3 .claude/somali/alphabet.py            # the alphabet deck (reads lex.json)
+    python3 .claude/somali/phrases.py             # the phrases deck (reads the cache; after A2)
 
 ONE LEVEL PER RUN (`somali_level` reads the level once, at import).  Downloads
 its sources into `.claude/somali-cache/` (gitignored, about 140 MB, Tatoeba's

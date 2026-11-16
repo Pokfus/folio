@@ -5,8 +5,9 @@ language set in the shape of the ones already shipped (Hausa, Zulu, Yoruba …);
 record of how those were built, and every rule there applies here unless this file says otherwise. Asked for
 on 2026-11-16: "Add a Somali language collection."
 
-**STATUS (2026-11-16): the alphabet deck, A1 and A2 are built** (`.claude/somali/`, §6–§7). A2 holds 439
-notes, not 500: what the source has left (§7). The phrases deck is next.
+**STATUS (2026-11-16): the collection is complete** — the alphabet deck, A1, A2 and the phrases deck
+(`.claude/somali/`, §6–§8). A2 holds 439 notes, not 500: what the source has left (§7). Asked for a B1 on
+2026-11-16, the owner chose the phrases deck instead (§8).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck this plan produces. The collection's first commit carried one line and one bump because it
@@ -29,7 +30,7 @@ Asked after a survey of the sources (§2), the thinnest of any language on the s
 | Somali Alphabet — built | `Somali-Alphabet.folio-deck.json` | 33 |
 | Somali A1 Beginner — built | `Somali-A1.folio-deck.json` | 400 |
 | Somali A2 Elementary — built | `Somali-A2.folio-deck.json` | 439 (planned 500) |
-| Somali phrases — planned | (named when built) | — |
+| Somali Phrases and Expressions — built | `Somali-Phrases-and-Expressions.folio-deck.json` | 90 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
 
@@ -98,7 +99,7 @@ page. 40 of A1's 400 words have a sentence.
 
 **Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2 (done, §7)** — A2: write its inventory into `inventory.py`,
 its missing glosses into `hand.py` and its scope into `somali_level.SCOPE`, run with `--re-extract`, read every card. Expect the fill to run thin: after A1
-only about 600 usable Wiktionary words are left. **Phase 3** — the phrases deck.
+only about 600 usable Wiktionary words are left. **Phase 3 (done, §8)** — the phrases deck.
 
 ## 6. As built (2026-11-16): the alphabet and A1
 
@@ -143,4 +144,33 @@ plurals, 7 with sentences. **A re-run is byte-identical, and A1 and the alphabet
 "sad" as an adjective). Seven sentences in all: Tatoeba's Somali is nearly used up by A1. No B1 is planned (the
 owner's choice of A1–A2, §1); after A2, 251 Wiktionary entries remain untaught, nearly
 all of them excluded above or never used in the Somali Wikipedia.
+
+## 8. As built (2026-11-16): the phrases deck, and no B1
+
+**No B1.** Asked for "Add b1", Folio pointed out that the owner had chosen A1–A2 (§1) and that after A2 no usable
+Wiktionary word is left: a B1 would have been almost entirely Folio's own glosses, with no accent lines and almost
+no sentences. The owner chose the phrases deck instead. Revisit only if a new source appears (a graded Somali
+word list, a subtitle frequency list, or an open-licence Somali dictionary).
+
+`python3 .claude/somali/phrases.py` writes `decks/Somali-Phrases-and-Expressions.folio-deck.json` with the level
+decks' card type: **90 notes / 180 cards** in three subdecks — 13 greetings and wishes, 17 everyday phrases, 60
+sentences. A re-run is byte-identical; the levels are unchanged.
+
+- **WHERE A PHRASE COMES FROM.** English Wiktionary files almost no Somali phrases: five of its interjections are
+  used with its own gloss (`WIKT`: miyaa, bisinka, warya, naya, and the formula said after the Prophet's name);
+  its three other multi-word "nouns" are obscenities and are not used; mahadsanid and raali are taught by the
+  levels. The other 25 phrases (`HAND`) are Folio's glosses of the standard formulas, the literal sense in
+  brackets where it helps — the Hausa phrases-deck arrangement. A phrase Tatoeba already has as a sentence
+  (magacaa?, hambalyo!, subax wanaagsan, sidee tahay?, xageed ka timid?) is left to the Sentences, where its
+  source is on the card; the welcome is spelt as Tatoeba spells it (ku soo dhawoow, ku soo dhawaada).
+- **SENTENCES** are Tatoeba's Somali–English pairs of at most nine words, shortest first. Left out: those about
+  Tatoeba's stock characters (`STOCK`: Tom, Mary, Layla …, translation exercises rather than phrases), and `DROP`,
+  ten by number with their reasons (a killing, a dated judgement, Tatoeba welcoming itself, a meme, an idiom
+  rendered word for word, a dated fact twice, a second "What did he say?" that would give the reverse card two
+  answers). `check-somali.js` checks the subdecks, the Tatoeba numbers, no phrase a level teaches as a word,
+  and a unique English side.
+
+**Known, left.** Wiktionary's interjection glosses are kept as written, including miyaa's long one ("indicating
+their reaction at new information, analogous to Really?"). No proverbs: English Wiktionary has no Somali proverb
+entry and Tatoeba none, so a proverb from memory would be a claim with no source.
 
