@@ -17,7 +17,7 @@
   →   node .claude/decks/german-fix.js   →   node .claude/decks/build-german-sounds.js   →
   node .claude/build-lang-decks.js.   `case-order.py` runs FIRST: it moves whole rows of a freshly emitted
   table and knows nothing of this record; this file then never touches a table, so the two cannot fight
-  (`case-order.py --check` is run again after it, by CI). NEVER run `run.py --level a1` or `--level b1` to
+  (run `case-order.py --check` again after it: it is Python and not a CI step). NEVER run `run.py --level a1` or `--level b1` to
   "refresh" a deck: A1 must stay byte for byte what its record expects, and `--level b1` overwrites a deck
   the generator did not make.
 

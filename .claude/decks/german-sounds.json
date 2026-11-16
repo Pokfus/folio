@@ -95,7 +95,7 @@
   { "key": "rule:stress", "show": "ˈ", "kind": "German stress", "name": "where the stress falls",
     "says": "In German words there is always one syllable carrying main stress, with all other syllables either being unstressed or carrying a secondary stress. […] Traditionally, word stress is seen as falling onto the first stem syllable.",
     "words": [["der Name", "/ˈnaːmə/"], ["immer", "/ˈɪmɐ/"], ["das Hotel", "/hoˈtɛl/"], ["die Entschuldigung", "/ɛntˈʃʊldiɡʊŋ/"]] },
-  { "key": "rule:stress-prefix", "show": "be- ver- | ab- auf- ein-", "kind": "German stress", "name": "a verb with a prefix",
+  { "key": "rule:stress-prefix", "show": "be-  ab-", "kind": "German stress", "name": "a verb with a prefix",
     "says": "Words beginning with be-, ge-, er-, ver-, zer-, ent-, emp- and a few other inseparable prefixes are stressed on the root. Words beginning with the separable prefixes ab-, auf-, ein-, vor-, and most prepositional adverbs are stressed on the prefix.",
     "words": [["verstehen", "/fərˈʃteːən/"], ["bezahlen", "/bəˈtsaːlən/"], ["bekommen", "/bəˈkɔmən/"], ["aufstehen", "/ˈʔaufˌʃteːən/"], ["einkaufen", "/ˈaɪ̯nˌkaʊ̯fən/"]] }
  ]

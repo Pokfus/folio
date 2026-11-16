@@ -1663,6 +1663,26 @@ changed was the one that had been wrong all along.
 - `.claude/goethe/` — the generator behind the Goethe decks: `decks/Goethe-A1-German.folio-deck.json`
   (**785 notes / 1,570 cards**), an **A2** built the same way (**1,072 notes / 2,144 cards**, the one deck
   on the shelf DELIBERATELY NOT COMMITTED — see the last sub-bullet) and a **B1**.
+  **READ THIS FIRST (2026-11-16, the German beginner pass — its section is near the foot of this file).**
+  **GOETHE A2 IS SHIPPED, AND IT IS 689 NOTES, NOT 1,072.** The 1,072 above was a deck that carded 342 of
+  A1's headwords over again: `words_below()` read the lower deck's `German` field, which for a noun is
+  markup (`<span class="uc-art uc-f">die</span> Hand`), so no noun was ever recognised as taught. It now
+  reads `Word`. Eight more words were carded twice inside A2 itself (the Wortgruppenliste prints `Musik`,
+  the alphabet `die Musik`), which `.claude/dedupe-glosses.py` refuses, so the deck could not be written
+  at all once that pass existed; `select.py` keeps the alphabet's entry (gated off for A1). `emit.py`'s
+  description was A1's sentences for every level and is now the level's own; the A2 Wortliste's address had
+  moved (404); `build_deck.py` wrote the category `Goethe A1` on every level; and `case-order.py` refused a
+  file straight out of `emit.py`, which is not compact JSON. The run writes 713 notes and the German
+  record takes 24 more out (A1's words spelled another way: gern beside gern(e), jeder beside jed-, the
+  seven reflexives). **EVERY GERMAN DECK IS NOW EDITED THROUGH `.claude/decks/german-fixes.json`, NUMBERED
+  FROM `german-ids.json` AND ORDERED BY `german-order.json`** (📖 `.claude/decks/README.md` "The German
+  decks"). **THE ORDER OF A REBUILD: `run.py --level a2` → `case-order.py` → `german-fix.js` →
+  `build-german-sounds.js` → `build-lang-decks.js`.** A rebuild of A2 refreshes every meaning, form and
+  sentence of that deck from the day's Wiktionary extraction and Tatoeba export (about 1.3 GB fetched) and
+  nothing else; the record is then re-applied and the ids are numbered back. **NEVER RUN `--level a1`**
+  (the deck must stay what the record expects: its inserts, its repairs and its order are keyed to the
+  committed headwords) **OR `--level b1`** (it overwrites a deck this generator did not make). Goethe A1
+  is 797 notes since the pass, twelve of them not the exam board's.
   **THE SHIPPED B1 IS NOT THIS GENERATOR'S OUTPUT AND `run.py --level b1` WOULD OVERWRITE IT** (Aug 2026,
   on the request to add the missing German decks). This entry said 2,525 notes / 5,050 cards, which is what
   the pipeline builds; the file in `decks/` is **1,786 notes / 3,572 cards**, supplied ready-made, and it
@@ -1856,7 +1876,9 @@ changed was the one that had been wrong all along.
     Swiss words the list gives entries of their own (`der Führerausweis`, `die e-card`, `der Zivilstand`) —
     and each is written into `AUTHORED` with its country where the country is the point. `build_deck` still
     REFUSES a card with no meaning, which is what keeps that list honest.
-  · **A1, B1, B2, C1, C2 AND THE PHRASES ARE IN THE REPO AND A2 IS NOT** (Aug 2026), and the reasoning
+  · **A1, B1, B2, C1, C2 AND THE PHRASES ARE IN THE REPO AND A2 IS NOT** (Aug 2026; **A2 WAS BUILT AND
+    COMMITTED ON 2026-11-16**, with the rule below kept: its `.gitignore` line is gone and the file is in
+    the repo, so nothing in `decks/` is present and ignored), and the reasoning
     changed under it. It was A1 alone, on the request that these are files to hand a reader for import
     rather than something the site should carry, and `.gitignore` named the rest so a `git add -A` could
     not sweep one in. **THE LANGUAGES SECTION MADE THAT UNTENABLE FOR ANY DECK THAT IS ON DISK**: the
@@ -4595,6 +4617,147 @@ ten new cards a day with both directions together, which is five words a day. Th
   the repair is one entry there (the meanings without the forms, the forms in the Forms row), for all
   three languages at once.
 - **`check-cils.js` did not finish**, on `main` or on the branch (the `.claude/cils/` entry says where).
+
+## The German beginner pass (2026-11-16)
+
+On request, the audit the Japanese, Mandarin, Spanish and Italian decks had been given: **what does a
+learner with no German meet, in the order the shelf itself recommends** — A1, B1, B2, C1, C2, then the
+phrases? Every figure was measured on the six decks as shipped that morning, at the language default of
+ten new cards a day with both directions together, which is five words a day. The rules are in the
+`.claude/goethe/` entry above and in `.claude/decks/README.md`; this section is the reasoning.
+
+### What the audit found, by what it costs a beginner
+
+1. **There was no A2, and its words were on no deck.** A1 was 785 words and B1 1,786, and B1's own
+   description says "words already taught by the A1 and A2 lists are not repeated". So dass, wenn, als,
+   wieder, weil, ganz, sicher, genau, etwas, die Tür, die Seite and some 680 more were carded nowhere on
+   the shelf. Measured on B1's 4,820 example sentences: a reader who had finished A1 had met 66.3% of
+   their words and could read 51 whole; with A2's cards as well, 73.4% and 139 (Italian's ladder, the same
+   count: 69.2% of B1 with A1 alone, 75.2% with A1 and A2). In the order the cards arrive, B1 went from
+   83% of words met and 1,313 sentences whole to 89% and 2,163. 2,628 word tokens of B1's sentences are
+   forms only A2 shows (dass 202 times, als 131, wenn 74). And 362 of the 976 phrases used a word no deck
+   spelled; 209 of 965 now.
+2. **The courtesies were late, wrong or last on the shelf.** hallo was note 93 (day 19), bitte 58 (the
+   adverb alone), danke 66, tschüss 338 (day 68), Entschuldigung 226 (the noun alone). ja was note 14 and
+   meant "obviously; certainly; of course"; the word for yes was nowhere. guten Morgen, guten Tag, guten
+   Abend, gute Nacht, auf Wiedersehen and wie geht's were in the phrases deck, which the shelf lists after
+   C2: day 2,315 onwards.
+3. **There was no card for du**, in any deck: A1 had dich and dir. Zero (null) was carded only as the
+   adjective, in B2.
+4. **Ten of A1's commonest cards were not what they said.** ja and aber carried the particle's
+   meanings (aber: "rather; quite; unusually") over sentences of the conjunction; Sie had three sentences
+   of sie; ihr/ihm/ihn was glossed "you; ye" over three sentences of her and their; heißen had three
+   sentences of the adjective heiß; nein two of 'ne and na; für one of vor; best- carried gut's meanings;
+   hallo's first meaning was the dictionary's explanation without the word hello; Entschuldigung marked
+   "Entschuldigungen Sie".
+5. **Nothing said how a letter is read.** 453 of A1's 785 headwords contain a spelling that does not have
+   its English value (ä, ö, ü, ß, ei, ie, eu, ch, sch, an initial sp or st, z, w, v, j, s before a vowel)
+   and 88 end in a b, d or g that is read p, t, k. No deck and no description mentioned any of it.
+6. **A1 was dealt by a subtitle frequency list, and the closed sets were scattered.** Day one was ich, sie,
+   Sie, nicht, es. One to ten ran from note 94 to 387, eleven to nineteen from 476 to 760, the days from
+   459 to 757, the months from 527 to 649, the seasons from 433 to 717, the colours from 48 (weiß, ranked
+   by "I know") to 666. sein was note 40, inside five phrases ranked by its count (an sein, auf sein, aus
+   sein, weg sein, zu sein, 37 to 42). A noun stood beside the word spelled like it (bitte 58, die Bitte
+   59), the list being written without capitals.
+7. **The preposition joined to the article was on no card**: im, ins, am, ans, zum, zur, beim, vom. 209 of
+   A1's 2,337 example sentences (9%) contain one.
+8. **The descriptions' counts were stale, and the pace was stated nowhere.** "Three sentences apiece" was
+   overstated in six decks (A1 777 for 743, B1 1,612 for 1,508, B2 2,389 for 2,193, C1 1,788 for 1,595, C2
+   1,020 for 897, the phrases 569 for 464), and the phrases' subtitle said "976 words". A1 was 157 days,
+   B1 began on day 158, and the six decks were 12,547 notes: 2,510 days, 6.9 years.
+9. **The phrases were not ordered by level.** Their order is how often Tatoeba has them. 276 were spelled
+   entirely with A1's words and forms, at a median position of 276 of 976.
+10. **Gender, case and number were sound.** All 391 of A1's nouns carry the article, 373 a plural (the
+    others are der Hunger, das Obst and the like), 389 a declension table, and every case table on the
+    shelf runs Nominativ, Genitiv, Dativ, Akkusativ. The thirteen n-nouns (der Junge, der Herr, der Student)
+    show des Jungen in that table and not in the Forms row. 68 of 91 adjectives carry a comparative.
+11. **Verbs were sound.** A1's 156 verbs carry the infinitive, the participle, the auxiliary (123 haben,
+    17 sein, 16 either), Präsens, Präteritum, Perfekt and the imperative with its Sie form; a separable verb
+    is split (ich rufe an) and the nine reflexives carry their pronouns. Of the 466 verb forms their
+    sentences mark, 8 are on no table (a zu-infinitive, a present participle, möchte). Nothing explains du
+    against Sie, or when sein and when haben, beyond what the cards show.
+12. **The reverse card was mostly sound.** No two notes of a deck share an English field (the generator's
+    `not X` hints). 55 A1 notes share a first gloss, 6 of them hinted; A1 asks English → German with 2.6
+    senses on average. A meaning names another German word on 2, 6, 21, 25, 21 and 12 cards, A1 to the
+    phrases ("synonym of gerne").
+13. **Example sentences are eight words at the median** (fifteen at most) at every level. Over A1's first
+    fifty notes 44% of a card's sentence words had been met on arrival and 2 of 147 sentences could be
+    read whole; 74% over the whole deck.
+14. **B2, C1 and C2 are frequency bands, not graded lists**, as their descriptions say: the commonest words
+    of a newspaper corpus beyond A1, A2 and B1, cut in three. No headword of any deck is also a card of a
+    lower one. Against the subtitle list, the median rank of a deck's first 300 words is 356 (A1), 1,367
+    (B1), 3,003 (B2), 15,089 (C1) and 30,962 (C2); 649 of B2's 3,000 are among the 5,000 commonest forms.
+
+### What was built
+
+- **Note ids pinned** (`german-ids.json`, 13,264 rows with the sounds deck), before anything moved: every
+  German deck was numbered by position. Checked in a browser with the decks as shipped: a reader holding
+  the old A1, B1 and phrases with 21 notes studied in BOTH directions took the three Updates and kept the
+  same 42 ids on the same words with their schedules ("12 new cards"; "5 cards dropped from the list
+  (kept here, with their progress)"; "11 cards dropped…"), the seven dropped notes among them staying on
+  the device.
+- **Goethe A2, built and committed**: 689 words between A1 and B1, with the generator repaired (the
+  `.claude/goethe/` entry says what was wrong). The rule it was withheld under is kept: its `.gitignore`
+  line is gone. Three of its cards were repaired in the record (meinen, weg, der Schweizer).
+- **A German record** (`german-fixes.json`, applied by `german-fix.js` to every deck of card type
+  `goethe`), with an order (`german-order.json`, `german-order.js`) and the pin. It sits beside
+  `case-order.py`, which runs before it after a rebuild and which it never undoes: the record touches no
+  table.
+- **12 notes for A1** (ids 786 to 797): du and null, which nothing carded (meanings from the English
+  Wiktionary via kaikki.org, sentences from Tatoeba, each named by id), and ten MOVED byte for byte from
+  the phrases deck (guten Morgen, guten Tag, guten Abend, gute Nacht, auf Wiedersehen, wie geht's, es tut
+  mir leid, vielen Dank, ich heiße, wie heißt du), each `dropDup`ped there with its row in `_retired`.
+- **18 A1 cards repaired**: the ten of finding 4 (ihr/ihm/ihn is renamed ihr, its id kept), gut and bitte,
+  and a "with the article" row on in, zu, an, bei, von and auf.
+- **29 duplicates dropped**: 24 from A2 (A1's words spelled another way, gewesen as a form of sein) and 5
+  from B1 that A1 or A2 carries ((ein) paar, die Mail, vorn, raus, wie viel(e)).
+- **An order for A1**: 87 notes by hand — the courtesies, a first exchange, the subject pronouns, ten
+  verbs, the question words, zero to ten, function words — then the frequency order with the days from
+  note 151, the colours from 201, the numbers above ten from 251, the five sein phrases from 301, the
+  months and the seasons from 351, and look-alikes forty apart. hallo is day one, danke and bitte day two,
+  ja and nein day three, du and sein day four.
+- **`German — Sounds and spelling`** (32 notes, one card each, card type `desound`): ten vowel spellings,
+  seventeen consonant letters and groups, five rules. English comparisons are cells of Wikipedia's
+  Help:IPA/Standard German (revision 1376653424), contexts and rules cells and sentences of "German
+  orthography" (1381205306), the two stress rules sentences of "Standard German phonology" (1381175677);
+  every example word is an A1 card with its speaker and the English Wiktionary's transcription.
+- **The phrases tiered by reading level** (281 A1, 136 A2, 192 B1, 100 B2, 38 C1, 9 C2, 209 no deck) and
+  their subtitle corrected; **the pace stated** in the A1, A2, phrases and sounds descriptions; **the
+  counts a description states recounted** on every run.
+- **CI**: `german-fix.js --check` and `build-german-sounds.js --check`.
+
+### What was decided against, and why
+
+- **Re-running the generator for A1 or B1.** A1 cannot be rebuilt byte for byte and its record is keyed to
+  the committed headwords; `--level b1` would overwrite a deck the generator did not make.
+- **Re-ordering A2 to C2.** 86% to 90% of a card's example words have been met on arrival.
+- **Subdecks for the sets.** The app deals subdecks in parallel, a day apart.
+- **A grammar deck** (du and Sie, sein or haben, the cases, word order). Nothing on the shelf can be quoted
+  for a rule of grammar beyond what the cards show.
+- **A genitive row on the n-nouns' Forms.** The declension table shows it; a row needs the generator's
+  table read back, for thirteen cards.
+- **Cards for mich, mir, uns, euch, ihm, ihn, ihnen.** They are in the pronoun table of every pronoun's
+  card; du was the one subject pronoun missing.
+- **Repairing the glosses that name another German word** above A1 (finding 12), and **reading every card
+  of A2 to C2**: 85 cards, each wanting its own Wiktionary entry read.
+- **`case-order.py --check` in CI**: it is Python, and the workflow's deck checks are Node steps.
+
+### Limits to know about
+
+- **The head's sentences are still long**: over the first fifty notes 45% of words met and 7 of 149
+  sentences whole, against 44% and 2. Only the repaired cards were given short sentences.
+- **A1 was not read card by card.** The first sixty cards and the head were; a noun or number whose
+  spelling is also another word's form may carry the wrong sentences elsewhere (heißen did).
+- **A2 was not read card by card either**: 24 of its cards have no sentence, and three wrong meanings were
+  found by searching for telltale glosses.
+- **A reader who already holds the phrases deck keeps the ten cards that moved** and meets them again in A1.
+- **That the courtesies, du and null are A1 material is a judgement here**, not a citation; the A1
+  description says the twelve are not the exam board's.
+- **The sounds deck quotes three articles**: it has no card for the plain vowels, gives a final -ig as
+  the article does (ç, or k in the south), and marks stress only through a word's transcription.
+- **`check-goethe.js` does not finish**, on `main` or on the branch: it imports through the Studio and
+  waits for a `.studio-deck` row that the page no longer shows within four minutes.
+- **The whole shelf is now 13,232 notes: 2,647 days at the default pace, 7.3 years.**
 
 ## The DELE card-by-card audit, beyond A1 — the batch log
 
