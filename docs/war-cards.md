@@ -2,6 +2,8 @@
 
 > **PHASE 5 (Oct 2026) — READ THIS FIRST.** v1's war window (`startCardGlobeV1`) and v1's personal-atlas war shading are **deleted**. A war window is drawn by the engine at its timeline's step (the last, unless the card names one year inside the war; 2026-10-19: it was the war's middle year) on the history
 > (`atlas/atlas-windows.js`; sides resolved by `.claude/atlas-build/lib/war-resolve.js` → `atlas/data/wars.js`, `build-wars.js --check`); the card's `war` field is **unchanged and stays** (the windows read it; `test-war-sides.js` pins its hash).
+> **2026-11-15, the old fields' later phase:** the map card's `map.key` was retired in favour of `places`, and the `war` block deliberately was NOT — its sides, outcome, names, authored extents,
+> years and `group` are the question, and the card's `places` (derived from it) say nothing about which side won (`docs/map-cards.md` "The key is the card's places").
 > The era territory names an old `war` field was once checked against (`TIMELINE`) are frozen in `.claude/atlas-build/frozen/v1-names.json` and `card-war.js` reads that. Without WebGL2 a war window draws **no tint** (the
 > still renderer draws no history) and shows its key and a sentence — a stated limitation, tested in `test-window-fallbacks.js`. The Atlas page itself shades wars from `wars.js` too (Phase 2d). Everything below that names
 > `TIMELINE`, an era's `geo`, `warCountry` or v1's legend describes v1.

@@ -23,8 +23,9 @@ say, `gw-audit.js`'s four rules, the date line), and 📖 **`docs/russia-geograp
 recent collection built on both and the closest model — **read the sections each deck below points at before
 writing a card**. This file records only the running orders and the decisions particular to India.
 
-The next card to write is the lowest `gin-NNN` not in `data.js` — since 2026-11-14 every deck can be written (the wait
-below is over), so that is `gin-001`:
+**Written so far (2026-11-15): 34 cards** — the states `gin-001`–`gin-018` and their capitals `gin-501`–`gin-508` and
+`gin-511`–`gin-518`; `gin-509` and `gin-510` are deferred (see "As written" below). The cities, water and mountains decks
+are not begun. The next card to write is the lowest `gin-NNN` not in `data.js` — `gin-019` Delhi:
 
     node .claude/next-cards.js gin- 5
 
@@ -252,6 +253,53 @@ English one does.
 before keying the state (`Punjab,_India` is Wikipedia's title for it). Grep before every `add-glossary.js`,
 which overwrites in silence. *Bengal*, *Kashmir* and *Hyderabad* (the city against the princely state) want
 the same care.
+
+## As written (Nov 2026): the batch log
+
+**Sourcing, measured 2026-11-15** (`check-reach.js` plus probes). Most `*.gov.in` / `*.nic.in` hosts time out from the
+sandbox (knowindia, up.gov.in, ap.gov.in, surveyofindia, data.gov.in); **these answer and carry the decks**:
+- **The Census Digital Library** (`censusindia.gov.in/nada`): A-01 (population, area, rural/urban by state, catalog
+  42526), A-02 (1901–2011 by state on present boundaries, 43333), A-04 Class I (towns and UAs with their 1901–2011 series
+  and areas, 42876), C-16 (mother tongue by state, the corpus's existing citation). Each is an `.xlsx`/`.pdf` opened and
+  read; the catalog page is the cited URL.
+- **The Constitution of India as on 1 May 2024** (the Legislative Department's diglot PDF): the First Schedule, pp. 253–62,
+  with the w.e.f. date of every act that created, renamed or redrew a state — the date lines of the states deck.
+- **The Imperial Gazetteer of India (1907–09)** at the Digital South Asia Library: its search returns volume, page and
+  object number, and the archive.org full text of each volume gives the passage. **Every page cited was confirmed by an
+  exact-phrase DSAL search** (one card shipped with a wrong page and was corrected before commit; read the object number
+  off the search, never by offset).
+- **The 1911 Britannica on Wikisource** (its rendered page carries the printed page numbers; the API is rate-limited,
+  `index.php?action=render` is not), **the WMO World Weather Information Service** (IMD normals for 80 Indian stations),
+  **DOAJ and Europe PMC** for open articles (every DOI resolved; several publishers answer curl with 403 behind a
+  resolving DOI), **Ramsar RSIS** (site name, area, date only), and **the Government of Telangana's state profile**.
+
+**Decisions taken while writing:**
+- **The facts grid** of a state is `Kind | Capital | Population | Area`, of a capital `State | Population | Area | Rank in
+  state`, figures to three digits on Russia's rule. A capital's population and area are its census city line (the
+  municipal corporation, or for Hyderabad the census entry ‘(a) Hyderabad’), never the urban agglomeration, which the
+  prose may give as a separate figure.
+- **Andhra Pradesh's figures are derived** (undivided AP in A-01 less Telangana's own published figures) and the card's
+  `notes` says so; **Telangana's are the state government's** (35,003,674; 112,077 km²), never the map's.
+- **Map cards carry no `why`** (`checkWhy` exempts them); the glossary term of each answer is new and written from the
+  card's own sources.
+
+- **The two Chandigarh capitals** (`gin-516` Punjab, `gin-518` Haryana) ask *"The dot marks ___, capital of the shaded
+  state though it lies in a union territory beside it."* and say so again in the background; the two backgrounds are
+  written separately from the same open sources (Mihkelson et al. 2024 on the master plan, the Constitution on the 1966
+  act), and the glossary term `Chandigarh` is shared with the union territory's own card, `gin-031`, still to be written.
+- **Dispur** (`gin-515`) is a ward of Guwahati, not a census town: its grid gives Guwahati's figures under labelled rows
+  and the ward's own size from the ward table of Basumatary and Anand (2018).
+- **The sentences that failed review, and why** (recorded so a later batch does not repeat them): a claim inferred rather
+  than read (a "Telugu-speaking" region, "hill districts", "snows" feeding a river, a "pesticide factory") was cut every
+  time it appeared; a date already on the date line was taken out of the prose; and every IGI page was re-searched
+  before commit.
+
+**Deferred (written later or never, never renumbered):**
+- **`gin-509` Gandhinagar** — no opened source gives the planned capital's founding and history (the only open study,
+  Purswani et al. 2022, gives one line); five sentences of history cannot be written honestly from it.
+- **`gin-510` Amaravati** — no opened source covers the capital's founding or the 2019–2024 dispute over its status that
+  this plan requires the card to state with dates (the open literature found is stormwater and finance studies). The
+  ancient Buddhist site of the name is told on `gin-010`.
 
 ---
 

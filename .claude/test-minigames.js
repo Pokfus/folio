@@ -148,7 +148,7 @@ function builder() {
     // 'question' is empty) — read off the flag fields; the real specs also demand a usable 'src', which
     // only ever excludes MORE, so this errs towards sweeping a card the page might not deal
     const gameCardIdSet = () => new Set(CARDS.filter((c) => difficultyOK(c) && !cardMapSpec(c) && c.artwork !== true && c.flagCard !== true && c.drawCard !== true).map((c) => c.id));
-    const cardMapSpec = (c) => (c && c.map && c.map.layer && c.map.key ? c.map : null);
+    const cardMapSpec = (c) => (c && c.map && c.map.layer ? c.map : null);   // a map card may carry no key (its places say it, 2026-11-15)
     const CARD_BY_ID = Object.fromEntries(CARDS.map((c) => [c.id, c]));
     const ALL_CARD_IDS = CARDS.map((c) => c.id);
     const quoteLocalized = (x) => x, tfLocalized = (x) => x;

@@ -18,6 +18,8 @@
                                    Wikidata-checked (an item, its coordinate, its class)
      · atlas/data/history.bin    — the entity table (Phase 2a/2b): every polity `pol:<key>` with its span, QID, Wikipedia
                                    title and the cards that link it (polity-spec.json's links, carried by build-history.js)
+     · atlas/data/admin1.bin     — (2026-11-15) the lazy admin-1 layer's present-day states and provinces (India first), ids
+                                   `adm1:<a3>:<iso>`, kind `admin1`, source "admin1" (readAdmin1 below)
    A card's `places` (the heavy field, data-extra/) is an array of these ids. Nothing in the site reads it yet (3b).
 
    NAMES. `byName` folds (diacritics and case stripped) the display name and every alias of every row, so a lookup never
@@ -65,6 +67,20 @@ function readEntities() {
   return (T.header.entities || []).map((e) => ({ id: e.id, name: e.name, kind: e.kind, key: e.key || e.id.replace(/^pol:/, ""), span: e.span || null, qid: e.qid || "", wiki: e.wiki || "", aliases: [], cards: (e.cards || []).slice(), partners: e.partners || null, at: null, within: "" }));
 }
 
+/* the LAZY ADMIN-1 LAYER's units (atlas/data/admin1.bin, docs/atlas-v2-admin1-layer.md §3.3; joined 2026-11-15, step 3): the present-day states and provinces
+   of the countries the core does not carry (India first), ids `adm1:<a3>:<iso>` like the gazetteer's own admin-1 rows, kind `admin1`, anchored at the
+   file's label point (a point inside the unit's face), `within` the core's `adm0:` country. A card's `places` may name them, and studying it discovers
+   the unit on the Personal Atlas exactly as a gazetteer state. `loadRegistry({ admin1: false })` leaves them out. */
+const ADMIN1 = path.join(DATA, "admin1.bin");
+function readAdmin1() {
+  if (!fs.existsSync(ADMIN1)) return [];
+  const F = require(path.join(ROOT, "atlas", "atlas-format.js"));
+  const T = F.read(new Uint8Array(fs.readFileSync(ADMIN1)));
+  const H = T.header, anchors = H.faceAnchor || [], at = new Map();
+  T.faces.forEach((f, i) => { if (!at.has(f.entity) && anchors[i]) at.set(f.entity, anchors[i]); });
+  return (H.entities || []).map((e, i) => ({ id: e.id, name: e.name, kind: "admin1", type: e.type || "", iso: e.iso || "", qid: e.qid || "", wiki: e.wiki || "", aliases: [], at: at.has(i) ? at.get(i).slice() : null, within: e.parent || "" }));
+}
+
 function loadRegistry(opts) {
   opts = opts || {};
   const rows = new Map(), byName = new Map(), from = new Map();
@@ -79,6 +95,7 @@ function loadRegistry(opts) {
     const alias = (places.table && places.table.alias) || {};
     for (const [id, names] of Object.entries(alias)) { const row = rows.get(id); if (!row) throw new Error("places.js: alias overlay for " + id + ", which is not a registry row"); for (const n of names) { if (!row.aliases.includes(n)) row.aliases.push(n); const k = fold(n); let l = byName.get(k); if (!l) byName.set(k, l = []); if (!l.includes(row)) l.push(row); } }
   }
+  if (opts.admin1 !== false) for (const r of readAdmin1()) add(r, "admin1");
   const entities = opts.entities === false ? [] : readEntities();
   for (const e of entities) if (ENTITY_KINDS.includes(e.kind)) add(e, "history");
   const cardsOf = (id) => { const e = rows.get(id); return e && e.cards ? e.cards.slice() : []; };
@@ -89,4 +106,4 @@ function loadRegistry(opts) {
 /* is `id` a place id the registry resolves? (a string check first, so a typo is named as such) */
 function validId(id) { return typeof id === "string" && ID_RE.test(id); }
 
-module.exports = { loadRegistry, readTable, readEntities, fold, km, validId, KINDS, PLACE_KINDS, GAZETTEER_KINDS, ENTITY_KINDS, GAZETTEER, PLACES, HISTORY, DATA };
+module.exports = { loadRegistry, readTable, readEntities, readAdmin1, fold, km, validId, KINDS, PLACE_KINDS, GAZETTEER_KINDS, ENTITY_KINDS, GAZETTEER, PLACES, HISTORY, ADMIN1, DATA };

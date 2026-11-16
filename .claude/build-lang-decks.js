@@ -144,6 +144,14 @@ function levelRank(title) {
   /* AN ALPHABET COMES BEFORE EVERY LEVEL (Oct 2026, Russian): its level decks carry no
      transliteration, so the alphabet is the first thing a learner opens, not a phrase book after them. */
   if (/\bAlphabet\b/.test(title)) return -1;
+  /* MANDARIN'S THREE BEGINNER DECKS (Nov 2026, docs/mandarin-review.md "The beginner pass"). Pinyin and
+     tones is the rung below everything: every card's reading is written in it. The character parts sit
+     between it and Level 1, whose characters they are; the first phrases follow Level 1, whose words they
+     are made of. Tested BEFORE the level rule below, which would read the "Level 1" in a title and file
+     the parts deck beside Level 1 itself. */
+  if (/\bPinyin and tones\b/.test(title)) return -2;
+  if (/\bCharacter parts for Level 1\b/.test(title)) return -1;
+  if (/\bFirst phrases\b/.test(title)) return 0.5;
   /* ZULU'S NOUN CLASSES AND SOUNDS COME BEFORE A1 (Nov 2026): Zulu is written in the Latin alphabet, so its
      first deck is the classes and clicks every word card names, Hindi's alphabet's counterpart. */
   if (/\bNoun Classes\b/.test(title)) return -1;

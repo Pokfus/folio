@@ -15,9 +15,16 @@
                                                 every polity's linked cards carry the polity and the converse; places-spec.json is in step
                                                 with atlas/data/places.js (build-places.js --check). Exit 1 on any failure.
      node .claude/migrate-places.js --dry       resolve and print the report, write nothing
+     node .claude/migrate-places.js --finish    run as above, then retire what `places` now says (2026-11-15, the old fields' later
+                                                phase): every map card's `map.key` whose places give back the same keys through
+                                                atlas/data/card-faces.js is dropped (.claude/map-places.js `finishCard`; `layer`, `dot`
+                                                and `zoom` stay — the question's format). Idempotent: RE-RUN IT after adding any map
+                                                card; --check fails on a key its places already say.
 
-   WHAT IT NEVER DOES. It never deletes or changes `locator`, `war`, `map` or anything else on a card (v1 reads them until Phase
-   5); it never invents a place or a coordinate — a toponym enters the registry only as a Wikidata item whose coordinate agrees
+   WHAT IT NEVER DOES. It never deletes or changes `locator` or `war`, and never changes anything else on a card but `places`
+   and — under --finish only — a map card's `key` (docs/map-cards.md "The key is the card's places"; the locator and the war
+   block are the windows' drawing and question spec, not a place reference: docs/atlas-v2-phase5-plan.md §1, decision 1 as
+   amended 2026-11-15); it never invents a place or a coordinate — a toponym enters the registry only as a Wikidata item whose coordinate agrees
    with the card's own, whose class maps to a kind of the taxonomy; it never chooses between two candidates (an ambiguity is
    listed in the report for the owner); it never touches a glossary term or a book (Q-P2 c, Q-P3 c). It is idempotent: a second
    run derives the same ids and writes the same bytes.
@@ -35,7 +42,8 @@
         AMBIGUOUS;
      5. none of these = UNRESOLVED, with the reason (no item, a disambiguation page, the item too far, a class the taxonomy has no
         kind for — the item's classes are printed so the owner can map or refuse them).
-   A map card's key resolves to the gazetteer's country or admin-1 row of the layer's country; a war side's `keys` to the gazetteer's
+   A map card's key resolves through the card windows' join (atlas/data/card-faces.js: layer → key → entity id, the registry id; by
+   the layer's ISO code, not by name, since 2026-11-15) when that id is a registry row; a war side's `keys` to the gazetteer's
    countries or to a polity entity by name or key; a war side's authored extent to the polity entity polity-spec.json links it to
    (and so does a locator's extent linked there); the polity entity table's own `cards` are carried back onto the cards, so a polity
    and its cards are connected both ways. The 31 glossary places (GLOSSARY_PLACES) are resolved and reported for Phase 3b's "show
@@ -56,6 +64,8 @@ const POLITY_SPEC = path.join(__dirname, "polity-spec.json");
 const argv = process.argv.slice(2);
 const REFETCH_CLASSES = argv.includes("--refetch-classes");   // re-ask the service which of the CURRENT tops every cached class reaches (after a row is added to TOPS)
 const FETCH = argv.includes("--fetch"), CHECK = argv.includes("--check"), DRY = argv.includes("--dry"), VERBOSE = argv.includes("--verbose");
+const FINISH = argv.includes("--finish");   // 2026-11-15: also drop every map card's `map.key` its places now say (map-places.js finishCard)
+const MP = require("./map-places.js");
 const fold = R.fold, km = R.km;
 const log = (...a) => console.log(...a);
 
@@ -670,7 +680,7 @@ function run() {
   const unresolvedWar = new Map(), unresolvedMap = new Map(), unresolvedLinks = new Set(), noPlaceOld = [];
   const derived = new Map();   // card id → Set of ids
   const countryOf = (name) => { const l = (reg.byName.get(fold(name)) || []).filter((r) => r.kind === "country"); return l.length === 1 ? l[0] : null; };
-  const admin1Of = (layer, name) => { const a0 = { "us-states": "adm0:usa", "china-provinces": "adm0:chn", "russia-subjects": "adm0:rus" }[layer]; if (!a0) return null; const variants = [name, name.replace(/\s+(Oblast|Krai|Republic|Autonomous Okrug)$/i, ""), name.replace(/^Republic of\s+/i, "")]; for (const v of variants) { const l = (reg.byName.get(fold(v)) || []).filter((r) => r.kind === "admin1" && r.within === a0); if (l.length === 1) return l[0]; if (l.length > 1) return { ambiguous: l }; } return null; };
+  const mapJoin = MP.loadJoin({ registry: reg });   // a map card's key → registry id (card-faces.js), and the reverse the windows read
   for (const c of cards) {
     const p = c.id.replace(/-\d+$/, ""); bump(p, "cards");
     const ids = new Set(); const had = !!(c.locator || c.war || c.map || linkedCards.has(c.id));
@@ -681,7 +691,9 @@ function run() {
       if (r && r.id) { ids.add(r.id); bump(p, "byLocator"); }
       else { const t = topo.get(k); const w = t ? mapId(withinOf(t)) : ""; if (w) { ids.add(w); withinOnly.push(c.id + " " + L.name + " → within " + t.within + " (" + w + ")"); bump(p, "byLocator"); } }
     }
-    if (c.map) { const keys = Array.isArray(c.map.key) ? c.map.key : [c.map.key]; let any = false; for (const key of keys) { let row = c.map.layer === "world" ? countryOf(key) : admin1Of(c.map.layer, key); if (row && row.ambiguous) { unresolvedMap.set(c.map.layer + ":" + key, "ambiguous: " + row.ambiguous.map((r) => r.id).join(", ")); row = null; } if (row) { ids.add(row.id); any = true; } else if (!unresolvedMap.has(c.map.layer + ":" + key)) unresolvedMap.set(c.map.layer + ":" + key, "no " + (c.map.layer === "world" ? "country" : "admin-1 row of the layer's country") + " of that name in the gazetteer"); } if (any) bump(p, "byMap"); }
+    /* a map card's key → its place through the card windows' own join (atlas/data/card-faces.js: layer → key → entity id, which IS the registry id), not by name (2026-11-15: the name rule left
+       Washington, Shanxi, Moscow and 17 more ambiguous); a card whose key was dropped (--finish) derives nothing here — its places already carry the id, and nothing derived is lost */
+    if (c.map && c.map.key != null) { const got = MP.placeIdsOfKeys(c, mapJoin); if (got) { for (const id of got) ids.add(id); bump(p, "byMap"); } else for (const key of [].concat(c.map.key)) { const t = (mapJoin.F.layers[c.map.layer] || {})[key]; unresolvedMap.set(c.map.layer + ":" + key, t ? "its entity " + t[0] + " is no row of the places registry (a layer of the lazy admin-1 file: docs/atlas-v2-admin1-layer.md step 3)" : "no such key in atlas/data/card-faces.js"); } }
     if (c.war) {
       let any = false; const link = polSpec.links[c.id] || {};
       for (const side of ["victors", "losers"]) {
@@ -710,6 +722,11 @@ function run() {
     const allIds = new Set(reg.rows.keys());
     for (const c of cards) { const have = new Set(Array.isArray(c.places) ? c.places : []); for (const id of have) { if (!R.validId(id)) bad(c.id + ": places carries \"" + id + "\", not a place id"); else if (!allIds.has(id)) bad(c.id + ": places carries " + id + ", which the registry does not resolve"); } const d = derived.get(c.id); if (d) for (const id of d) if (!have.has(id)) bad(c.id + ": the migration derives " + id + " but the card does not carry it (run node .claude/migrate-places.js)"); if (Array.isArray(c.places) && c.places.slice().sort().join() !== c.places.join()) bad(c.id + ": places is not sorted"); if (Array.isArray(c.places) && new Set(c.places).size !== c.places.length) bad(c.id + ": places has a duplicate"); }
     const byId = new Map(cards.map((c) => [c.id, c]));
+    /* 2026-11-15: nothing stored twice — a map card whose places say its key carries no key (map-places.js); a key-less map card's places give it at least one key of its layer */
+    for (const c of cards) if (c.map) {
+      if (c.map.key != null) { const probe = JSON.parse(JSON.stringify(c)); if (MP.finishCard(probe, mapJoin).stripped) bad(c.id + ": map.key " + JSON.stringify(c.map.key) + " is what its places already say — stored twice (run node .claude/migrate-places.js --finish)"); }
+      else if (!MP.mapKeys(c, mapJoin).length) bad(c.id + ": a map card with no map.key whose places name no shape of the " + c.map.layer + " layer — its window would be the plain sentence");
+    }
     for (const e of reg.entities) if (R.ENTITY_KINDS.includes(e.kind)) for (const cid of e.cards || []) { const c = byId.get(cid); if (!c) bad(e.id + " links " + cid + ", which is not a card"); else if (!(c.places || []).includes(e.id)) bad(e.id + " links " + cid + " but the card's places lack it"); }
     for (const c of cards) for (const id of c.places || []) if (id.startsWith("pol:") && !(reg.cardsOf(id) || []).includes(c.id)) { /* a card may point at a polity the spec does not link (an author's addition): allowed, reported */ }
     { const rest = crossMerge([...new Set(cards.flatMap((c) => c.places || []))].filter((id) => !id.startsWith("pol:")).map((id) => ({ id })), reg, spec.rows || {}, spec.merges || {}, cache.links); for (const m of rest.list) bad("two places of one site: " + m.id + " " + m.name + " lies " + m.km + " km from " + m.into + " " + m.intoName + " (run node .claude/migrate-places.js, which folds it in)"); }
@@ -760,7 +777,11 @@ function run() {
     // the cards: additive — the derived ids are added to what a card already carries (an author's additions stay); unchanged cards stay byte-identical
     const reg2 = R.loadRegistry(); let changed = 0;
     for (const c of cards) { const d = derived.get(c.id); const have = Array.isArray(c.places) ? c.places.map(mapId).filter((id) => reg2.rows.has(id)) : []; const next = [...new Set(have.concat(d ? [...d].filter((id) => reg2.rows.has(id)) : []))].sort(); if (!next.length) { if (c.places !== undefined) { delete c.places; changed++; } continue; } if (JSON.stringify(next) !== JSON.stringify(c.places)) { c.places = next; changed++; } }
+    let stripped = 0; const kept = [];
+    if (FINISH) for (const c of cards) if (c.map && c.map.key != null) { if (MP.finishCard(c, mapJoin).stripped) stripped++; else kept.push(c.id + " " + c.map.layer + ":" + [].concat(c.map.key).join("|")); }
     writeCards(cards, tree);
+    require("./atlas-build/build-glossary-places.js").build({ install: true, log: VERBOSE ? log : () => {} });   // again, now the cards' places are written: the glossary's joins read them (one run converges)
+    if (FINISH) log(`--finish: dropped map.key on ${stripped} map cards (their places say it); ${kept.length} keep a key their places cannot say${kept.length ? ": " + kept.slice(0, 12).join(", ") + (kept.length > 12 ? " +" + (kept.length - 12) : "") : ""}`);
     require("./atlas-build/build-card-places.js").build({ cards, install: true, log: VERBOSE ? log : () => {} });   // the light index follows the cards (3b, decision 4)
     require("./atlas-build/build-wars.js").build({ cards, install: true, log: VERBOSE ? log : () => {} });   // 2d: the wars table follows the cards, the specs and the history file
     log(`wrote places on ${changed} cards (${derived.size} carry a derived place); spec ${Object.keys(out.rows).length} rows (${Object.keys(newRows).length} from this migration)`);

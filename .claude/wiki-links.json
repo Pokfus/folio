@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-13T01:39Z",
+ "generated": "2026-11-15T22:34Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8264,
+  "ok": 8300,
   "redirect-broader": 793,
   "redirect-variant": 491,
   "section-redirect": 190,
@@ -89189,6 +89189,258 @@
    "title": "Atamanshchina",
    "url": "https://en.wikipedia.org/wiki/Atamanshchina",
    "via": "glossary",
+   "status": "ok"
+  },
+  "gin-001": {
+   "answer": "Uttar Pradesh",
+   "title": "Uttar Pradesh",
+   "url": "https://en.wikipedia.org/wiki/Uttar_Pradesh",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-501": {
+   "answer": "Lucknow",
+   "title": "Lucknow",
+   "url": "https://en.wikipedia.org/wiki/Lucknow",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-502": {
+   "answer": "Mumbai",
+   "title": "Mumbai",
+   "url": "https://en.wikipedia.org/wiki/Mumbai",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-002": {
+   "answer": "Maharashtra",
+   "title": "Maharashtra",
+   "url": "https://en.wikipedia.org/wiki/Maharashtra",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-503": {
+   "answer": "Patna",
+   "title": "Patna",
+   "url": "https://en.wikipedia.org/wiki/Patna",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-003": {
+   "answer": "Bihar",
+   "title": "Bihar",
+   "url": "https://en.wikipedia.org/wiki/Bihar",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-504": {
+   "answer": "Kolkata",
+   "title": "Kolkata",
+   "url": "https://en.wikipedia.org/wiki/Kolkata",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-004": {
+   "answer": "West Bengal",
+   "title": "West Bengal",
+   "url": "https://en.wikipedia.org/wiki/West_Bengal",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-505": {
+   "answer": "Bhopal",
+   "title": "Bhopal",
+   "url": "https://en.wikipedia.org/wiki/Bhopal",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-005": {
+   "answer": "Madhya Pradesh",
+   "title": "Madhya Pradesh",
+   "url": "https://en.wikipedia.org/wiki/Madhya_Pradesh",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-506": {
+   "answer": "Chennai",
+   "title": "Chennai",
+   "url": "https://en.wikipedia.org/wiki/Chennai",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-006": {
+   "answer": "Tamil Nadu",
+   "title": "Tamil Nadu",
+   "url": "https://en.wikipedia.org/wiki/Tamil_Nadu",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-007": {
+   "answer": "Rajasthan",
+   "title": "Rajasthan",
+   "url": "https://en.wikipedia.org/wiki/Rajasthan",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-507": {
+   "answer": "Jaipur",
+   "title": "Jaipur",
+   "url": "https://en.wikipedia.org/wiki/Jaipur",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-508": {
+   "answer": "Bengaluru",
+   "title": "Bengaluru",
+   "url": "https://en.wikipedia.org/wiki/Bengaluru",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-008": {
+   "answer": "Karnataka",
+   "title": "Karnataka",
+   "url": "https://en.wikipedia.org/wiki/Karnataka",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-009": {
+   "answer": "Gujarat",
+   "title": "Gujarat",
+   "url": "https://en.wikipedia.org/wiki/Gujarat",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-010": {
+   "answer": "Andhra Pradesh",
+   "title": "Andhra Pradesh",
+   "url": "https://en.wikipedia.org/wiki/Andhra_Pradesh",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-511": {
+   "answer": "Bhubaneswar",
+   "title": "Bhubaneswar",
+   "url": "https://en.wikipedia.org/wiki/Bhubaneswar",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-011": {
+   "answer": "Odisha",
+   "title": "Odisha",
+   "url": "https://en.wikipedia.org/wiki/Odisha",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-512": {
+   "answer": "Hyderabad",
+   "title": "Hyderabad",
+   "url": "https://en.wikipedia.org/wiki/Hyderabad",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-012": {
+   "answer": "Telangana",
+   "title": "Telangana",
+   "url": "https://en.wikipedia.org/wiki/Telangana",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-513": {
+   "answer": "Thiruvananthapuram",
+   "title": "Thiruvananthapuram",
+   "url": "https://en.wikipedia.org/wiki/Thiruvananthapuram",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-013": {
+   "answer": "Kerala",
+   "title": "Kerala",
+   "url": "https://en.wikipedia.org/wiki/Kerala",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-514": {
+   "answer": "Ranchi",
+   "title": "Ranchi",
+   "url": "https://en.wikipedia.org/wiki/Ranchi",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-014": {
+   "answer": "Jharkhand",
+   "title": "Jharkhand",
+   "url": "https://en.wikipedia.org/wiki/Jharkhand",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-515": {
+   "answer": "Dispur",
+   "title": "Dispur",
+   "url": "https://en.wikipedia.org/wiki/Dispur",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-015": {
+   "answer": "Assam",
+   "title": "Assam",
+   "url": "https://en.wikipedia.org/wiki/Assam",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-016": {
+   "answer": "Punjab",
+   "title": "Punjab",
+   "url": "https://en.wikipedia.org/wiki/Punjab",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gin-516": {
+   "answer": "Chandigarh",
+   "title": "Chandigarh",
+   "url": "https://en.wikipedia.org/wiki/Chandigarh",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-018": {
+   "answer": "Haryana",
+   "title": "Haryana",
+   "url": "https://en.wikipedia.org/wiki/Haryana",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-518": {
+   "answer": "Chandigarh",
+   "title": "Chandigarh",
+   "url": "https://en.wikipedia.org/wiki/Chandigarh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gin-017": {
+   "answer": "Chhattisgarh",
+   "title": "Chhattisgarh",
+   "url": "https://en.wikipedia.org/wiki/Chhattisgarh",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-517": {
+   "answer": "Raipur",
+   "title": "Raipur",
+   "url": "https://en.wikipedia.org/wiki/Raipur",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-019": {
+   "answer": "Delhi",
+   "title": "Delhi",
+   "url": "https://en.wikipedia.org/wiki/Delhi",
+   "via": "answer",
+   "status": "ok"
+  },
+  "gin-701": {
+   "answer": "Ahmedabad",
+   "title": "Ahmedabad",
+   "url": "https://en.wikipedia.org/wiki/Ahmedabad",
+   "via": "answer",
    "status": "ok"
   }
  }

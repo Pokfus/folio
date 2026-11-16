@@ -14,6 +14,10 @@ The owner's four (made, implemented, not reopened):
 
 1. **The cards' old `locator`, `war` and `map` fields stay.** The card windows still read them (through `CARD_MAP_LAYERS`, `cardLocator`, `cardWar` and the
    card-faces join); `migrate-places.js --finish` is **not** run. Removing them needs the windows to read `places` — a separate later phase.
+   **Amended 2026-11-15 (that later phase):** a map card's `map.key` is retired — its shape is its `places` read through `card-faces.js`, and
+   `migrate-places.js --finish` drops the key wherever the places say it (`layer`, `dot` and `zoom` stay; India's layer and Cyprus's list keep a
+   key). `locator` and `war` stay whole: they are the windows' drawing and question spec, not a place reference. `docs/map-cards.md` "The key is
+   the card's places" has the measurements and the reasons.
 2. **The `file://` twins total at most 12 MB**: the 2b pilot twin (`atlas/data/history.bin.js`, 1,064,707 B) goes and so does every retired v1 data twin
    (there is none besides it). §7 has the arithmetic: deleting it alone leaves 12.19 MB, so the war slice's twin is also shipped gzip-compressed.
 3. **The windows' no-WebGL2 / refused-bundle fallback survives v1's deletion**: `startCardGlobeV1` and v1's Find it are replaced by the engine's Canvas 2D
@@ -304,5 +308,5 @@ So against what the route was before the swap, the page asks for **28 % fewer by
   "First globe" is the first frame with the coarse land on the canvas (the tool's new `firstGlobeMs`); "ready" is the figure this plan's table above printed (every level in, the names laid out), and v1 painted one flat canvas from one file so its "drawn" and its first globe were one instant. The desktop first globe is faster than v1's on the same machine (1,990 against 3,730 ms; the thread's runner read v1 at 2,923); the desktop "ready" is NOT faster than v1's (5,012 against 3,730 ms here): that is the worker building levels 1 and 2 (3 s) and it was not touched. Cost: +5.6 KB of code, one 2.6 MB IndexedDB write at idle on the first visit, and the water file (4.3 MB) starts about 0.1 s after the land on a fast link.
 * The heap gate is an absolute budget read off CI (`docs/atlas.md` §2) and the 54 → 89 MB the sandbox read was V8 holding the idle-loaded prose's compile residue for the seconds after a burst of gestures, not a code change.
 * Per-year sources stay out (a provenance view is a later phase); every polity's, people's, culture's, extent's and front's card names its source (`test-atlas-card.js` §3b opens all 233).
-* The cards' `locator`, `war` and `map` fields stay: they are the windows' drawing spec, and no migration removes them (`docs/atlas.md` §7, `docs/reference.md`).
+* The cards' `locator` and `war` fields stay: they are the windows' drawing spec. A map card's `map.key` was retired on 2026-11-15 (`migrate-places.js --finish`; decision 1 as amended, `docs/map-cards.md` "The key is the card's places").
 * Not verified: a real GPU, a real phone, Safari, Firefox. Two sticky consequences worth knowing: the page now writes `core0` to IndexedDB (an unavailable or blocked IndexedDB changes nothing: the read and the write are both swallowed), and a stored past year's history request made before the worker exists is kept and sent after `load` (it used to be dropped in that state, which only a hub could reach).
