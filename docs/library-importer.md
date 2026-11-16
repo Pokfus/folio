@@ -2787,3 +2787,23 @@ chapter's first prose paragraph is set in ordinary case after the lift, each one
 Re-run after touching: `node .claude/fetch-book.js hobbes-leviathan --force` (49 pages; Wikisource throttles
 hard — expect a page a minute), check "878 marginal note(s) fenced, 878 lifted" and the eight opening-word
 warnings, then `node .claude/book-audit.js`.
+
+## `prep: "kant"` — centred headings, table diagrams and notes on notes (Nov 2026, the Critique of Pure Reason)
+
+`kantPrep(h, warn)` runs on EVERY raw page of a section (the first page and each extra one of a `page(n)` array), before
+`notesOf` and `cleanBody`; `kantFinish` and `kantNestedNotes` run once on the assembled section. Three things Meiklejohn's
+1855 transcription does that the generic passes get silently wrong: **every heading is a `wst-center` div** (189 over 24
+pages, none over 240 characters), which the generic pass turns into a blockquote — each block is fenced with `@@KNH@@` and
+becomes ONE `bk-head` paragraph, its lines kept as `<br>` (splitting per line would cut through spans that wrap two lines,
+and the stripper drops the half it never saw open); a block over 300 characters or holding a table is kept as text and
+warned. `wst-block-center` (the centred lists and verse) is left a blockquote. **Its tables are diagrams** — each non-empty
+cell becomes one paragraph of a blockquote, row by row; unwrapped, the cell heads landed outside every paragraph between
+`<br>`s. **A row of asterisks is a display:block span**, sometimes mid-paragraph — it becomes `<p>* * * * *</p>`, splitting
+its paragraph. And **a note cited from inside a note** (Meiklejohn on Kant's note, twice) reaches the list uncited with a
+bare `&#91;N&#93;` in its parent — spliced into the parent in square brackets, dropped from the list, markers renumbered;
+any note still uncited is warned. The run prints "N heading block(s) fenced, N lifted, …" and MISMATCH if the two differ.
+Gated on `prep === "kant"`, so inert on every other book.
+
+Re-run after touching: `node .claude/fetch-book.js kant-critique-of-pure-reason --force` (24 pages), check "181 heading
+block(s) fenced, 181 lifted, 7 table(s) read as blocks, 5 asterisk row(s), 2 note(s) inside a note spliced", then
+`node .claude/book-audit.js`.

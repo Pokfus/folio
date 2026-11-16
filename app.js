@@ -12679,6 +12679,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Aquinas and a purple 14.7 from Magna Carta and Euripides, and the olive was taken over both for clearing
      every political book by twice the margin. It reads 7.76:1 on the tightest light paper. */
   "Thomas Hobbes": "#263700",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-three colours placed (Nov 2026, adding the Critique of Pure
+     Reason): CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and
+     4.5:1 on every light paper, card and second paper. The band is full, as Hobbes's row found: a sweep at a
+     step of 3, refined to 1 around the best, tops out at 14.8. THE EURIPIDES TEST: this violet's nearest are
+     Euripides 14.8, Snorri Sturluson 14.9, Herodotus 15.0 and the King James Bible 15.1, none a book read
+     beside Kant; the philosophers stand well off — Seneca 19.6, Plato 26.3, Machiavelli 38.8, Aristotle 50.5,
+     Augustine 66.9, Marcus Aurelius 79.3, Boethius 85.8, Hobbes 87.9, Lucretius 97.8, Aquinas 119.3. The
+     sweep's other near-best were refused on the same test: a magenta stood 14.6 from Plato, a green 14.5 from
+     Aquinas, a brown 16.9 from Augustine. It reads 5.83:1 on the tightest light paper. */
+  "Immanuel Kant": "#592F85",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -16595,6 +16605,41 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Somatosensory_system", "Tendon", "Scale_(zoology)", "Solar_eclipse", "Common_Sense_(pamphlet)", "Libertus",
         "Immortals", "Homo", "Lyon", "Apollo", "Titus", "Crispus", "Niger", "Gene", "Battle_of_Lepanto",
         "Tyrannicides"],
+    },
+    {
+      id: "kant-critique-of-pure-reason",
+      title: "Critique of Pure Reason",
+      subtitle: "Kritik der reinen Vernunft",
+      author: "Immanuel Kant",
+      written: "1781, revised 1787",
+      year: 1781,
+      translator: "J. M. D. Meiklejohn",
+      edition: "Bohn's Philosophical Library, Henry G. Bohn, London, 1855",
+      /* No limit to state: Kant died in 1804 and his translator more than a century ago. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Immanuel Kant died in 1804. J. M. D. Meiklejohn's translation was " +
+        "published in London in 1855 and its translator died more than a century ago. The text is the " +
+        "proofread Wikisource transcription of the 1855 printing, from a scan held by the Internet Archive.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Critique_of_Pure_Reason_(Meiklejohn)",
+      /* NO `origLang`: no proofread German of the SECOND edition, the one Meiklejohn translates, was found.
+         Nineteen sections in Kant's own divisions, each titled from the 1855 contents page; the book's
+         chapters restart within each Book, so "Section" rather than "Chapter" (Leviathan's arrangement). */
+      chapterWord: "Section",
+      count: 19,
+      total: 19,
+      parts: [
+        { n: 1, label: "Prefaces and Introduction", note: "The prefaces to the first and second editions, and the Introduction — analytic and synthetic judgments" },
+        { n: 2, label: "Doctrine of Elements · Transcendental Æsthetic", note: "Space and time as the forms of intuition" },
+        { n: 3, label: "Transcendental Logic · The Analytic", note: "The categories, their deduction, the schematism and the principles; phænomena and noumena" },
+        { n: 4, label: "Transcendental Logic · The Dialectic", note: "The illusions of reason — the paralogisms, the antinomy and the ideal" },
+        { n: 5, label: "Transcendental Doctrine of Method", note: "The discipline, canon, architectonic and history of pure reason" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 19 sections (every `.ttip`,
+         Nov 2026). Kant's WOLF is Christian Wolff, the philosopher, not the grey wolf; SUBSISTENCE is the
+         category of "Inherence and Subsistence", not how a society gets its living; PROVIDENCE is divine, not
+         the capital of Rhode Island; and "the Republic of Plato" is the dialogue, not the form of state. */
+      glossOff: ["Wolf", "Subsistence", "Providence", "Republic"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -26113,6 +26158,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "We hold these Truths to be self-evident, that all Men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty, and the Pursuit of Happiness.—That to secure these Rights, Governments are instituted among Men, deriving their just Powers from the Consent of the Governed, that whenever any Form of Government becomes destructive of these Ends, it is the Right of the People to alter or to abolish it, and to institute new Government, laying its Foundation on such Principles, and organizing its Powers in such Form, as to them shall…" },
     { book: "hobbes-leviathan", n: 14, t: "XIII. Of the Naturall Condition of Mankind, as concerning their Felicity, and Misery", p: 12,
       text: "Whatsoever therefore is consequent to a time of Warre, where every man is Enemy to every man; the same is consequent to the time, wherein men live without other security, than what their own strength, and their own invention shall furnish them withall. In such condition, there is no place for Industry; because the fruit thereof is uncertain: and consequently no Culture of the Earth; no Navigation, nor use of the commodities that may be imported by Sea; no commodious Building; no Instruments of moving, and removing such things as require much force; no Knowledge of the face of the Earth; no account of Time; no Arts; no Letters; no Society; and which is worst of all, continuall feare, and danger of violent death; And the life of man, solitary, poore, nasty, brutish, and short." },
+    { book: "kant-critique-of-pure-reason", n: 2, t: "Preface to the Second Edition", p: 11,
+      text: "It appears to me that the examples of mathematics and natural philosophy, which, as we have seen, were brought into their present condition by a sudden revolution, are sufficiently remarkable to fix our attention on the essential circumstances of the change which has proved so advantageous to them, and to induce us to make the experiment of imitating them, so far as the analogy which, as rational sciences, they bear to metaphysics may permit. It has hitherto been assumed that our cognition must conform to the objects; but all attempts to ascertain anything about these objects a priori, by means of conceptions, and thus to extend the range of our knowledge, have been rendered abortive by this assumption. Let us then make the experiment whether we may not be more successful in metaphysics, if we assume that the objects must conform to our cognition. This appears, at all events, to accord better with the possibility of our gaining the end we have in view, that is to say, of arriving at the cognition of objects a priori, of determining something with respect to these objects, before they are given to us. We here propose to do just what Copernicus did in attempting to explain the celestial movements. When he found that he could make no progress by assuming that all the heavenly bodies revolved round the spectator, he reversed the process, and tried the experiment of assuming that the spectator revolved, while the stars remained at rest." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
       text: "Again:—\"Why does not the pope, whose wealth is to-day greater than the riches of the richest, build just this one church of St. Peter with his own money, rather than with the money of poor believers?\"" },
     { book: "kalidasa-shakuntala", n: 6, t: "Act IV", p: 138,
