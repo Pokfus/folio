@@ -4128,6 +4128,17 @@
        Not a bare /Byzanti/: gr-357, a poet's card, cites "the Suda, a Byzantine reference work" beside "his great theme". */
     "Theme_(Byzantine_district)": { roots: [], text: /Byzantine (?:Empire|empire|emperors?|state|army|provinces?)|Byzantium|Eastern Roman Empire/, tags: ["byzantium", "byzantine", "byzantine empire"] },
   };
+  /* A TERM THAT MEANS SOMETHING ELSE INSIDE A COLLECTION (2026-11-16, on request: "in the Ancient Egypt collection,
+     whenever the word Egypt is a gloss link, it should refer to the Ancient Egypt gloss, not the modern country").
+     Collection root id → { the key a surface resolves to: the key it opens instead }. Applied to a card's own
+     auto-links only (pass `cardId`); a hand-written data-k is left as written. */
+  const GLOSS_REDIRECT_IN = {
+    egypt: { Egypt: "Ancient_Egypt" },
+  };
+  function glossRedirectsFor(cardId) {
+    const root = cardId ? cardCollectionRoot(cardId) : null;
+    return (root && GLOSS_REDIRECT_IN[root.id]) || null;
+  }
   function glossScopedOff(cardId, text) {
     const root = cardId ? cardCollectionRoot(cardId) : null, rid = root && root.id;
     return Object.keys(GLOSS_ONLY_IN).filter((k) => {
@@ -4166,13 +4177,15 @@
     });
     let nd;
     while ((nd = walk.nextNode())) nodes.push(nd);
+    const redir = (!scope || scope === GLOSS_SCOPE_SITE) ? glossRedirectsFor(cardId) : null;   // GLOSS_REDIRECT_IN
     for (const tn of nodes) {
       const text = tn.nodeValue;
       idx.re.lastIndex = 0;
       let m, last = 0, frag = null;
       while ((m = idx.re.exec(text))) {
         const surface = m[0];
-        const key = resolveGlossKey(idx, surface);
+        let key = resolveGlossKey(idx, surface);
+        if (key && redir && redir[key] && (redir[key] in (window.GLOSSARY || {}))) key = redir[key];
         if (!key || linked.has(key) || surface.toLowerCase() === answer) continue;
         if (!frag) frag = document.createDocumentFragment();
         if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
