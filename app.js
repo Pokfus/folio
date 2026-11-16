@@ -31513,6 +31513,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        5.2:1 against white. Turquoise is the subject's own argument: dootłʼizh, one of the four sacred colours of
        the Diné, of the sacred mountain of the south. Not a flag colour. */
     "lang-navajo":     { bg: "#3C7676" }, // measured turquoise-teal
+    /* MONGOLIAN (Nov 2026) was not named a colour, so it was MEASURED as Yoruba was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 80 hues on
+       the page, the magenta band's standing rejection kept and the greens left out. Its first sweep found a muted
+       teal, #3C7676 — and Navajo's, run in a parallel session, found the same colour and merged first; re-swept at
+       the merge: this golden ochre, 14.0 from its nearest neighbours (Palaeontology's ochre and India's saffron),
+       then 14.2 from Russia's Geography amber, against a tightest existing pair of 4.0; 4.5:1 against white. Not a
+       flag colour. */
+    "lang-mongolian":  { bg: "#A16C02" }, // measured golden ochre
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
