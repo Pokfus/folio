@@ -2420,6 +2420,10 @@ findings are in `docs/library-books.md`; what is worth carrying to the next play
   tooltip, so it is read only inside a prologue. The cache was primed by hand with a slow curl loop
   (the API rate-limited from the first request), and three printed line numbers the transcription
   mistypes are put right by `fixes`, each witnessed by the scan's page image (Commons `thumb.php`).
+- **A mistyped printed line number goes in `plineFixes`, not `fixes`** (Nov 2026, Julius Caesar, the Yale
+  volume of 1919): `[act, printed, correct, witness]`, applied to the act's cached page BEFORE `extractYale`
+  and required to match exactly once. A gloss finds its line by number during extraction, so a number put
+  right only in the output (`fixes`) leaves every gloss keyed to it "lost" — six on this play's two misprints.
 
 ## The `chajing` layout — a digest read off a scan's OCR, beside a Chinese text read off wikitext (Oct 2026, the Classic of Tea)
 

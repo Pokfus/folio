@@ -42,7 +42,7 @@ before changing the thing it names.
 | `source-footnotes.md` | The citation apparatus on all four surfaces — markers, numbering, the fold. |
 | `study-records.md` | Flags, Set due date, Forget, the card browser, the per-review log and the statistics. |
 | `media.md` | Pictures and clips on cards and terms — the frame, the viewer, the source gate. |
-| `reader-settings.md` | Themes, text size, motion, contrast, units, spelling, i18n, sound, the dormant TTS. |
+| `reader-settings.md` | Themes, text size, motion, contrast, units, spelling, i18n, sound, the dormant TTS; the Settings page as compacted (Nov 2026). |
 | `chrome-navigation.md` | Repaints, page transitions, the phone swipe, the walkthrough and coach marks. |
 | `home-page.md` | The home page's running order, the daily quote, the review banner. |
 | `study-page.md` | The study page's furniture — the grade bar and its fold, undoing a grade, the phone's gloss popup. |

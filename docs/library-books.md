@@ -366,6 +366,13 @@ book added later will meet the same traps.
   numbers are fixed off the scan (IV. i. 124, IV. iv. 13, V. iii. 284). Left as transcribed, unverified
   against the print: "Benvoilo" in the list of characters, and "Uncle to Capulet" standing alone on its
   line there. Shakespeare's existing `BOOK_AUTHOR_COLOR` row colours its tile.
+  `julius-caesar` (~246 KB, all 5 acts, **593 notes**, no original — the Yale Shakespeare of 1919, ed.
+  Lawrence Mason, 1882–1939 (Wikidata Q56478978), so public domain in the US by the pre-1929 rule and under
+  life plus eighty, NOT yet life plus a hundred, and the rights text says so; `layout: "yale"` as it stands,
+  no Chorus). 547 of 593 glosses land on their word, 13 on their text, 33 at a line's end, none lost; all 45
+  end notes reach the page. Two mistyped printed line numbers (III. i. 273, V. i. 52) are put right off the
+  scan by `plineFixes`, BEFORE extraction — put right afterwards by `fixes`, the six glosses keyed to them
+  were lost, "dogs of war" and its end note among them. Shakespeare's `BOOK_AUTHOR_COLOR` row colours it.
   `marco-polo` (~2.77 MB, all 235 chapters, **788 notes**, no original — Sir Henry Yule's
   translation in the third edition of 1903 as revised by Henri Cordier, and **the first book here
   printed in TWO source files**, which costs a second fetch and one loop and matters only because

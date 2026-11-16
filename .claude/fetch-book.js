@@ -17638,6 +17638,84 @@ const BOOKS = {
     titleOf: (n) => "Act " + ["I", "II", "III", "IV", "V"][n - 1],
     chapters: [1, 2, 3, 4, 5],
   },
+  "julius-caesar": {
+    title: "Julius Caesar",
+    subtitle: "The Tragedy of Julius Caesar",
+    author: "William Shakespeare",
+    // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+    edition: "The Yale Shakespeare, ed. Lawrence Mason, Yale University Press, New Haven, 1919",
+    written: "1599",
+    year: 1599,
+
+    /* ---------- THE LICENCE, AND WHY THIS EDITION ----------
+       The play has never been in copyright. The edition is the Yale Shakespeare's of 1919, the same
+       series as Macbeth's and Romeo and Juliet's and transcribed on Wikisource in the same way (proofread
+       scan, glosses as hover tooltips, end notes on their own page), so the `yale` layout reads it as it
+       stands. Mason lived 1882–1939 (Wikidata Q56478978; Wikisource tags the volume PD/US|1939): public
+       domain in the United States under the pre-1929 rule, and everywhere the term is life plus eighty
+       years or less — NOT yet where it is life plus a hundred, which the rights text says. The four
+       appendices and the index are the editor's apparatus and are left behind, as for Macbeth. No
+       Chorus, so no `prePage`. */
+    rights:
+      "Public domain. Shakespeare wrote the play in 1599 and it was first printed in the First Folio of " +
+      "1623, so the work itself has never been in copyright. The text here is the Yale Shakespeare " +
+      "edition edited by Lawrence Mason and published by Yale University Press in 1919; Mason lived from " +
+      "1882 to 1939, so the edition is out of copyright in the United States under the rule for works " +
+      "published before 1929, and everywhere the term is the editor's life plus eighty years or less. " +
+      "What is taken is the play, the edition's list of characters, Mason's glosses from the foot of " +
+      "each page and his end notes, which are set with the glosses that point to them; his appendices " +
+      "and index are not reproduced.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Julius_Caesar_(1919)_Yale",
+
+    about: [
+      "<b>Julius Caesar</b> opens in Rome on a holiday, with Caesar home in triumph from the civil war " +
+        "and the crowd in the streets to cheer him. A soothsayer warns him to beware the ides of March. " +
+        "While Caesar is offered a crown and refuses it, Cassius sets to work on Brutus, Caesar's friend " +
+        "and the most respected man in the city, to persuade him that Caesar means to make himself king " +
+        "and must be stopped. Brutus joins the conspiracy, and on the ides of March the conspirators " +
+        "stab Caesar to death, Brutus among them.",
+      "The title character is dead halfway through, and the second half of the play is what his death " +
+        "sets loose. Brutus explains the killing to the people in plain prose and they cheer him; Mark " +
+        "Antony, allowed to speak at the funeral, begins <i>Friends, Romans, countrymen, lend me your " +
+        "ears</i> and turns them into a mob that drives the conspirators out of Rome. Antony, Caesar's " +
+        "young heir Octavius and Lepidus take power together. Brutus and Cassius quarrel in their camp, " +
+        "Caesar's ghost visits Brutus by night, and at Philippi both men take their own lives as the " +
+        "battle turns against them. Antony speaks Brutus's epitaph: <i>This was the noblest Roman of " +
+        "them all</i>.",
+      "Shakespeare took the story from Plutarch's <i>Lives</i> of Caesar, Brutus and Antony, in Sir " +
+        "Thomas North's English translation of 1579, keeping many of its details and sometimes its " +
+        "phrasing. He compressed it freely: the real Caesar was killed in 44 BC and the battles at " +
+        "Philippi were fought two years later, which the play makes into a few days and one campaign.",
+      "The play was new in 1599: a Swiss traveller, Thomas Platter, saw a play about Julius Caesar " +
+        "acted across the Thames that September, generally taken to be this one at the newly built Globe. " +
+        "It was not printed in Shakespeare's lifetime and first appeared in the First Folio of 1623, " +
+        "on which every edition rests.",
+      "The text here is the <i>Yale Shakespeare</i> edition of 1919, edited by Lawrence Mason, in " +
+        "modernised spelling and divided into acts and scenes. Its line numbers are the edition's, " +
+        "printed every few lines, and can differ by a line or two from another edition's. The numbered " +
+        "notes are Mason's: the short glosses at the foot of each page, and, where a gloss sent the reader " +
+        "to the back of the book, the longer note it pointed to. The notes are in American spelling, and " +
+        "the speakers' names are abbreviated as his page prints them.",
+    ],
+
+    layout: "yale",
+    page: (n) => "Julius Caesar (1919) Yale/Text/Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    notesPage: "Julius Caesar (1919) Yale/Notes",
+    castPage: "Julius Caesar (1919) Yale/Text",
+    /* Two printed line numbers the transcription mistypes, each read off the scan's page image
+       (Commons, the volume's djvu) — the run's "counted line N where the page prints M" warnings.
+       `plineFixes`, not `fixes`: a gloss is placed by its line number DURING extraction, so a number
+       put right only afterwards (as `fixes` does) leaves the glosses on the mistyped line lost —
+       six here, among them "dogs of war" and its end note. [act, printed, correct, witness]. */
+    plineFixes: [
+      [3, 278, 273, "III. i. 273 — p. 53 (djvu 65) prints 273"],
+      [5, 62, 52, "V. i. 52 — p. 85 (djvu 97) prints 52"],
+    ],
+    chapterWord: "Act",
+    titleOf: (n) => "Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    chapters: [1, 2, 3, 4, 5],
+  },
 
   "classic-of-tea": {
     title: "The Classic of Tea",
@@ -32487,7 +32565,17 @@ async function fetchEnglish() {
       await cached("en-prologue.html", BOOK.prePage), 0, endnotes, used, warn)));
     for (const n of BOOK.chapters) {
       if (n < FROM || n > TO) continue;
-      const h = await cached("en-" + String(n).padStart(2, "0") + ".html", BOOK.page(n));
+      let h = await cached("en-" + String(n).padStart(2, "0") + ".html", BOOK.page(n));
+      /* a printed line number the transcription mistypes, put right BEFORE extraction so the glosses
+         keyed to it find their line (Julius Caesar, Nov 2026); each must match exactly once */
+      for (const [act, bad, good, why] of BOOK.plineFixes || []) {
+        if (act !== n) continue;
+        const re = new RegExp('(<span class="wst-pline[^"]*">)' + bad + "(</span>)", "g");
+        const hits = (h.match(re) || []).length;
+        if (hits !== 1) throw new Error("plineFixes: " + why + " matched " + hits + " times in act " + n);
+        h = h.replace(re, "$1" + good + "$2");
+        console.log("  fixed printed line " + bad + " → " + good + " (" + why + ")");
+      }
       const got = correctGot(extractYale(h, n, endnotes, used, warn));
       if (got.html.length < (BOOK.minChars || 200))
         throw new Error(BOOK.chapterWord + " " + n + " came back short (" + got.html.length + " chars)");
