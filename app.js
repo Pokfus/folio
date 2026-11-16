@@ -12636,6 +12636,18 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      greens further down the sweep (15.0 and 14.8) were refused on the Euripides test: one sits 15.3 from
      Gilgamesh, whose flood is Genesis's, the other 14.8 from Aquinas. Keyed by id, the book being anonymous. */
   "king-james-bible": "#410064",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-one colours placed (Nov 2026, adding the Quran): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. THE SHELF IS NOW FULL ENOUGH THAT NOTHING CLEARS ITS OWN
+     TIGHTEST PAIR (15.6): a sweep of the cube at a step of 3, refined to 1 around the best, tops out at
+     15.0, so this row sets the new tightest pair. Of the sweep's top two at 15.0, the olive stood 15.3
+     from Gilgamesh, whose flood the Quran's Noah also tells; this green is taken on the Euripides test —
+     its nearest are the Book of Documents 15.0, Aquinas 15.7 and Chaucer 15.9, none read beside the
+     Quran, and the books that are stand well off (the King James Bible, Augustine, Luther, Dante, all
+     over 30). Green is besides the colour long associated with Islam. Keyed by id, the book being
+     anonymous on the shelf. It reads 4.51:1 on the tightest light paper. Measured the same day as
+     Leviathan's row below, which took the refused olive; the two stand 28.8 apart. */
+  "quran": "#006321",
   /* MEASURED AS EVERY ROW ABOVE, with sixty-one colours placed (Nov 2026, adding Leviathan): CIELAB
      distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
      every light paper, card and second paper. A sweep of the cube at a step of 3, refined to 1 around the
@@ -16463,6 +16475,53 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Noah": [143, 144, 153, 204],
         "Claudius": [1214],
       },
+    },
+    {
+      id: "quran",
+      title: "The Quran",
+      subtitle: "The Meaning of the Glorious Koran",
+      /* Muslims hold it to be God's word revealed to Muhammad, not a book he wrote, and catalogues enter it
+         under its title; so it is shelved as the King James Bible is, and keyed for colour by id. */
+      author: "Anonymous",
+      // the years of the revelation as Islamic tradition dates them; the sort key is the middle of the span
+      written: "c. 610–632 CE",
+      year: 621,
+      translator: "Marmaduke Pickthall",
+      edition:
+        "The Meaning of the Glorious Koran: An Explanatory Translation, London, 1930 — the printed text, " +
+        "restored from scans of it over Project Gutenberg's transcription (eBook #16955)",
+      /* A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION: published 1930 (its United States term ended with
+         2025); Pickthall died in 1936, so life plus a hundred runs to 2037. The e-text is a later revision,
+         put back to the 1930 printing by .claude/quran-readings.js — see .claude/fetch-book.js. */
+      rights:
+        "Public domain, with one limit. The Quran itself is fourteen centuries old; the Arabic is not " +
+        "reproduced here. The only modern layer is the translation: Marmaduke Pickthall lived from 1875 to " +
+        "1936 and The Meaning of the Glorious Koran was published in London in 1930. It is therefore in the " +
+        "public domain in the United States, where the term for a work published in 1930 ended with 2025, " +
+        "and out of copyright wherever the term is the author's life plus seventy years, which expired at " +
+        "the start of 2007. In the few countries where the term is life plus a hundred it remains in " +
+        "copyright until 2037. The text is Pickthall's version from Project Gutenberg's Three Translations of " +
+        "the Koran (eBook #16955), which carries a later revision of his wording by an unnamed hand; it has " +
+        "been put back to the 1930 printing wherever scans of that printing agree. Pickthall's foreword, his " +
+        "introduction, his notes at the head of each sûrah and his footnotes are not reproduced.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/16955",
+      /* NO `origLang`: no Arabic column. A chapter is one sûrah and a section is a verse, so a passage is
+         cited as it always is (2:255); each tab carries Pickthall's own name for the sûrah. */
+      chapterWord: "Sûrah",
+      chapterWordPlural: "Sûrahs",
+      count: 114,
+      total: 114,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered text of all 114 sûrahs (a headless run
+         listing every `.ttip`, 28 keys), as the King James Bible's was. MODERN STATES the Quran's names are
+         not: Israel (the patriarch Jacob and his children, every time) and Egypt (Pharaoh's). NAMESAKES:
+         the Temple of 17:7 is Jerusalem's, not a Greek temple; Shun is a Chinese emperor. And ORDINARY WORDS
+         that met an entry: the Sovereignty of Allah, Truth, Taste, Shout, Earth, Moon, Cattle, Touch, Ant,
+         Coin, Gold, Iron, Inscription, Winnowing, Elephant. What stays is right in place: Muhammad, Noah,
+         Pharaoh, the Jews, the Christians, the Arabs, Islam, Sinai and Sirius (53:49, "the Lord of Sirius"). */
+      glossOff: ["Israel", "Egypt", "Temple", "Shun", "Sovereignty", "Truth", "Taste", "Ring_shout", "Earth",
+        "Moon", "Cattle", "Somatosensory_system", "Ant", "Coinage", "Gold", "Iron", "Inscription", "Winnowing",
+        "Elephant"],
     },
     {
       id: "hobbes-leviathan",
@@ -26040,6 +26099,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "Hear, my daughter—When thou art settled in the mansion of thy husband, show due reverence to him, and to those whom he reveres: though he have other wives, be rather an affectionate handmaid to them than a rival.—Should he displease thee, let not thy resentment lead thee to disobedience.—In thy conduct to thy domesticks be rigidly just and impartial; and seek not eagerly thy own gratifications.—By such behaviour young women become respectable; but perverse wives are the bane of a family.—What thinks Gautamí of this lesson ? Gaut. It is incomparable:—my child, be sure to remember it. Can.…" },
     { book: "king-james-bible", n: 501, t: "Psalm 23", p: 1,
       text: "The LORD is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul: he leadeth me in the paths of righteousness for his name’s sake. Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me. Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over. Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever." },
+    { book: "quran", n: 1, t: "The Opening", p: 1,
+      text: "In the name of Allah, the Beneficent, the Merciful. Praise be to Allah, Lord of the Worlds, The Beneficent, the Merciful. Owner of the Day of Judgment, Thee (alone) we worship; Thee (alone) we ask for help. Show us the straight path, The path of those whom Thou hast favoured; Not (the path) of those who earn Thine anger nor of those who go astray." },
   ];
   function homeDailyExcerpt() {
     const list = HOME_EXCERPTS.filter((e) => BOOK_BY_ID[e.book]);
