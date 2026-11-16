@@ -2792,6 +2792,31 @@ Re-run after touching: `node .claude/fetch-book.js hobbes-leviathan --force` (49
 hard — expect a page a minute), check "878 marginal note(s) fenced, 878 lifted" and the eight opening-word
 warnings, then `node .claude/book-audit.js`.
 
+## `cut` — one page per Book, cut at its printed chapter heads (Nov 2026, The Social Contract)
+
+`cut: (n) => k` → `cutAtChapterHeads(h, k, warn)`, applied to the fetched page before anything else reads it, like
+`between`. Cole's transcription gives each of Rousseau's four Books one wiki page and marks a chapter only by its
+centred head ("CHAPTER II", "Chapter I.", "Book IV Chapter I. That …"), sometimes with the title in a second centred
+block. The heads are counted and their numerals checked in order — a missing or misread head THROWS; part k runs
+from head k (and a title-only block after it) to head k+1. A string `k` cuts a named piece instead (the Foreword:
+from the head reading `FOREWORD` to the next centred block or transclusion). A Book's preamble before Chapter I is
+kept at the head of the first chapter under a fenced "Chapter I" line, which `liftChapterFence` turns into a
+`bk-head` after `cleanBody` (it also drops spacer paragraphs). A page is fetched once per run (`CUT_PAGES`), and only
+the notes a part's own markers open are kept, as for `between`.
+
+- **`api` falls back to index.php on the API's rate-limit notice**: api.php answered every request of the session
+  with "You are making too many requests"; `action=render&useparsoid=0` returns the same legacy markup.
+- **`original.prep: "contrat"`** (`contratPrep`): French Wikisource's `header=1` pages carry the header INSIDE the
+  transclusion as `ws-noexport` divs (removed balanced), each Book's first chapter carries the volume's half-title
+  and the Book's `<h2>`/`<h3>`, and a Book's last chapter a centred "Fin du Livre …"; the chapter's `<h3>` and italic
+  title go. **`original.page(n)` may return null** for a chapter the original does not carry.
+- **Check against a second witness.** Book IV's scan pages are unproofread; a token diff of the whole import
+  against Gutenberg #46333 found every `reFixes` row. That printing differs (-ise, double quotes), so only
+  non-readings are fixed.
+
+Re-run after touching: `node .claude/fetch-book.js rousseau-social-contract --force` (five English and 48 French
+fetches), then check 49 sections, 47 notes, the two preambles' "Chapter I" heads, and `node .claude/book-audit.js`.
+
 ## `prep: "kant"` — centred headings, table diagrams and notes on notes (Nov 2026, the Critique of Pure Reason)
 
 `kantPrep(h, warn)` runs on EVERY raw page of a section (the first page and each extra one of a `page(n)` array), before
