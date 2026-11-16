@@ -3990,6 +3990,17 @@ changed was the one that had been wrong all along.
   spelling even where that spelling is a lemma (`er` is vera's). The plan and every finding are
   📖 `docs/icelandic-decks-plan.md`. The `LANGS` row is 0.39 million (Ethnologue via Wikipedia, no L2 figure); the hue
   is measured, `#303696`.
+- `.claude/czech/` — the generator behind the Czech decks (Nov 2026, on request: "Add a Czech language collection";
+  the owner not asked). **Built: A1, `decks/Czech-A1.folio-deck.json`** (1,213 notes / 2,426 cards) **and A2,
+  `decks/Czech-A2.folio-deck.json`** (1,161 notes). `python3 .claude/czech/run.py [--level a1|a2]`,
+  `node .claude/czech/check-czech.js`; a re-run is byte-identical. Polish's pipeline adapted. **What is new: an
+  OFFICIAL list** — NPI ČR publishes the permanent-residence exam's whole A1–A2 lexicon (the Soupis lexikálních
+  jednotek) as a search tool, read by `soupis.py`, so A1 and A2 select nothing (the Goethe line); A1 adds 51
+  grammar words the list leaves to its grammar chapters (`ty`, `on`, `můj`), stated in the description. Findings:
+  a Czech conjugation is several table boxes (Polish cut at the second), eleven verbs carry another verb's table,
+  a qualified gender's labels leak onto every sense (`den`), reflexive verbs read their base verb's reflexive
+  senses. The plan and every finding are 📖 `docs/czech-decks-plan.md`. The `LANGS` row is 9.8 / 12 million
+  (Ethnologue via Wikipedia); the hue is measured, `#3C7675`.
 - `.claude/lao/` — the generator behind the Lao decks (Nov 2026, on request: "Add a Lao language collection"; the
   Thai answers taken, the owner not asked). **Built: the alphabet, `decks/Lao-Alphabet.folio-deck.json`** (79 notes:
   the 27 consonants, the six ຫ ligatures, 27 vowels, the tone marks and two signs, the three class rules, the digits,

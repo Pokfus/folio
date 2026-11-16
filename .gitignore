@@ -311,3 +311,7 @@ countries-info.json
 # the Lao Wikipedia dump and the Tatoeba exports (~140 MB) — plus the intermediate
 # files between its stages. The decks it writes ARE committed.
 .claude/lao-cache/
+# Working cache for .claude/czech/ (Nov 2026, the Czech decks): the official A1/A2
+# word list as fetched, the Wiktionary extract, the OpenSubtitles frequency list and
+# the Tatoeba exports, plus the stages' intermediate files. The decks it writes ARE committed.
+.claude/czech-cache/

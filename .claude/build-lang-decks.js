@@ -66,8 +66,8 @@ const OUT = path.join(ROOT, "lang-decks.js");
    which follows LANG_DECKS' order). The figures are Ethnologue's 2026 totals as tabled in Wikipedia's "List
    of languages by total number of speakers", read 2026-11-09, except where that table splits a language
    the shelf treats as one: Arabic is all varieties (Ethnologue 28th ed., 411 L1 + 70 L2, Wikipedia's infobox),
-   Persian is Farsi + Dari + Tajik (Ethnologue 28th ed., 127, infobox), Polish and Ukrainian are their infobox
-   totals (43 and 39), and Romanian and Greek, whose infoboxes give no second-language figure, are their L1
+   Persian is Farsi + Dari + Tajik (Ethnologue 28th ed., 127, infobox), Polish, Ukrainian and Czech are their
+   infobox totals (43, 39 and 12), and Romanian and Greek, whose infoboxes give no second-language figure, are their L1
    (22, 13.5). Tagalog is the 2026 table's 87; Dutch, Zulu and Swedish are their infobox totals (30, 28, 13), Irish the census figures in its row (2.1);
    Hungarian, Danish, Finnish, Norwegian and Icelandic, with no second-language figure, are their L1 (12, 5.5, 5, 4.3, 0.39). Hebrew is its infobox total (9, Ethnologue 2018). Latin and Old English stay 0. `l1` is kept beside it, and a language
    added with no `total` falls back to its `l1` (and is reported) rather than sorting as NaN. */
@@ -112,6 +112,9 @@ const LANGS = [
   { word: "Greek", name: "Greek", l1: 13.5, total: 13.5 },          // Wikipedia's infobox (2015 figure), read 2026-11-09
   { word: "Zulu", name: "Zulu", l1: 12, total: 28 },            // Wikipedia's infobox (Ethnologue), 12.1 million, read 2026-11-09
   { word: "Hungarian", name: "Hungarian", l1: 12, total: 12 },    // Wikipedia's infobox (12 million, 2021–2023), read 2026-11-09
+  /* CZECH (Nov 2026): Wikipedia's infobox (read 2026-11-16) gives L1 9.8 million (2021) and a total of 12 million
+     (L1 + L2, 2012–2021), both Ethnologue 28th ed. */
+  { word: "Czech", name: "Czech", l1: 9.8, total: 12 },
   { word: "Swedish", name: "Swedish", l1: 9.9, total: 13 },      // Ethnologue 25th ed. (2012–2021 figures), via Wikipedia's infobox, read 2026-11-09
   { word: "Danish", name: "Danish", l1: 5.5, total: 5.5 },        // Wikipedia's infobox (5.52 million, Ethnologue 18th ed., 2012), read 2026-11-15; no second-language figure
   { word: "Hebrew", name: "Hebrew", l1: 5, total: 9 },         // Wikipedia's infobox (Ethnologue 2018: 9 million speakers of Modern Hebrew, 5 million native), read 2026-11-12
