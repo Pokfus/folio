@@ -120,8 +120,10 @@ for (const r of T.rules) {
     if (!m) fail(r.key + ": the card " + w + " has no example sentence “" + es + "”");
     return sentRow(es, strip(m[2]));
   }).join("");
-  const pairs = !r.pairs ? "" : '<table class="uc-pairs">' + (r.heads ? "<tr>" + r.heads.map((h) => "<th>" + esc(h) + "</th>").join("") + "</tr>" : "")
-    + r.pairs.map((p) => "<tr>" + p.map((x) => "<td>" + esc(x) + "</td>").join("") + "</tr>").join("") + "</table>";
+  /* ROWS OF SPANS, NOT A TABLE: the deck sanitizer (`uDeckNormalize`) drops <table>, <tr> and <td> and keeps
+     their text, so a table arrived as one run-on paragraph — seen on the first screenshot, not in the file. */
+  const pairs = !r.pairs ? "" : '<div class="uc-pairs">' + (r.heads ? '<div class="uc-pair uc-pairh">' + r.heads.map((h) => "<span>" + esc(h) + "</span>").join("") + "</div>" : "")
+    + r.pairs.map((p) => '<div class="uc-pair">' + p.map((x) => "<span>" + esc(x) + "</span>").join("") + "</div>").join("") + "</div>";
   add(r.key, { Letters: r.show, Kind: r.kind, Name: r.name, Says: r.says, Pairs: pairs, Examples: ex });
 }
 
@@ -229,20 +231,27 @@ const CSS = `.card {
   opacity: 0.85;
 }
 .uc-pairs {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
   margin: 12px auto 0;
-  border-collapse: collapse;
   text-align: left;
   font-size: 13.5px;
+  line-height: 1.45;
 }
-.uc-pairs td, .uc-pairs th {
-  padding: 3px 12px;
+.uc-pair {
+  display: flex;
+  gap: 14px;
+  padding: 4px 0;
   border-top: 1px solid var(--rule, rgba(0,0,0,0.10));
-  vertical-align: top;
 }
-.uc-pairs th {
+.uc-pair span {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.uc-pairh {
   border-top: 0;
   font-size: 9.5px;
-  font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   opacity: 0.55;
