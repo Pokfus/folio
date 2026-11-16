@@ -12,7 +12,7 @@
   non, che, di and the article; ciao was note 87 and no other greeting was in the deck; the numbers one to
   ten that the band has stood at notes 25 to 275 (sei at 25, because the list counts "you are"), essere at
   34, avere at 116, potere at 313, dovere at 504 and volere at 572, the list counting the infinitive and
-  not voglio; the twelve months ran from note 665 to 803. Over the first fifty notes 41% of the words in a
+  not voglio; the twelve months ran from note 665 to 803. Over the first fifty notes 42% of the words in a
   card's example sentences had been met when the card arrived and none of the 152 sentences could be read
   whole.
 

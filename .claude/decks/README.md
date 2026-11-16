@@ -96,6 +96,38 @@ sentences each naming where it came from in `why`), `spanish-fix.js`, then add t
 `spanish-order.js` or let it fall where its `after` puts it, `spanish-order.js`, `spanish-fix.js` again,
 `build-spanish-sounds.js` (A1's order decides its example words), and `node .claude/build-lang-decks.js`.
 
+## The Italian decks: two records, the order, the pinned ids and the sounds deck (Nov 2026)
+
+The eight Italian decks of card type `cils` were built by `.claude/cils/` (Python, about a gigabyte of live
+corpora), and **can no longer be rebuilt as they are**: the third party's word list has been revised since
+(`docs/lang-decks.md`, the `.claude/cils/` entry). So every change to them is in a record. The beginner pass
+(`docs/lang-decks.md`, "The Italian beginner pass") added the Spanish model's files, with two differences:
+**there are two records**, applied in a fixed order, and **a word is ONE NOTE with two card templates**, so
+the pin is of note ids (a card id is the note id, plus `~2` for English → Italian).
+
+    node paradigm-fix.js --check            # the folded paradigms (French, Italian and Portuguese decks)
+    node italian-fix.js --check             # the Italian record, the order and the pinned ids
+    node build-italian-sounds.js --check    # the sounds deck is what its table and CILS A1 give
+
+| file | what it is |
+|---|---|
+| `paradigm-fixes.json` | ONE CARD PER PARADIGM, shared with French and Portuguese and applied FIRST by `paradigm-fix.js`: an article, a possessive, a demonstrative or lui / lei is one card listing its forms (`notes`, `fold`), and a note that is only a form of another card is dropped (`drop`, which checks that the other card names it — the 28 feminine adjectives of Nov 2026). |
+| `italian-fixes.json` | the Italian record, applied SECOND by `italian-fix.js`: `insert` (a card the word list lacks: a moved card's six `fields` byte for byte with `from`, or `senses` / `forms` / `ex` with a source for every sentence), `decks.<id>.dropDup` (the card a lower deck now carries), `notes` (a field rebuilt on a generator card, or a rename with `word`), `decks.<id>.subtitle` and `descSub`. It never rebuilds a field the paradigm record rebuilds: the run fails if both name one. |
+| `italian-ids.json` | deck id → headword (a sounds row's key) → the number in the note's id. **Never delete or renumber a row.** A removed note's row moves to `_retired` (71 of them); a rename renames the key. APPLIED, so a deck numbered by position is numbered back. |
+| `italian-order.json` | deck id → the full list of headwords in the order the deck is dealt (CILS A1, the phrases). May be edited by hand; a list that is not exactly the deck's headwords is refused. A deck with no entry is dealt in the order of its pinned numbers. |
+| `italian-order.js` | how that file is computed, from the PINNED NUMBER and never from the file's own order: A1's hand-written head, the closed sets (three placed at a note number), look-alikes forty apart; the phrases by reading level. It fails if a description's stated figures (`descSub`) no longer match the order. `--report` prints the measurements. |
+| `italian-sounds.json` | the sounds table: cells and sentences quoted from three Wikipedia pages at the revisions it names, and the English Wiktionary's transcription of each hand-picked word. A row's `key` is what its id is pinned to. |
+| `build-italian-sounds.js` | writes `Italian-Sounds-and-Spelling` (card type `itsound`). **Reads no live source**: the table and the shipped A1 deck. |
+
+`italian-fix.js` finds its decks by CARD TYPE (`cils`), so the core vocabulary and the phrases are covered and
+the sounds deck is left alone but held to its pin. To add a word to A1: an `insert` entry (the next free id
+above 1008, its senses, three sentences each naming its Tatoeba ids in `src`, a `why`), `italian-fix.js`,
+then name the headword in the head or in a set in `italian-order.js` (an insert with no place fails that
+script), `italian-order.js`, `italian-fix.js` again, `build-italian-sounds.js` (A1's order decides its example
+words), and `node .claude/build-lang-decks.js`. To move a word down from a higher deck: the same, with the
+card's `fields` copied into the entry and a `dropDup` row on the deck it leaves. The counts a description
+states are recounted on every run; a figure typed into a `descSub` is held to the order by `italian-order.js`.
+
 ## Changing the card type's CSS
 
 `deckcore.js` holds it, and every built deck file carries a **copy** — so an edit there does not reach a

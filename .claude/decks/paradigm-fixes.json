@@ -141,11 +141,11 @@
       ]
     },
     "cilsa1/lei": {
-      "why": "lui and lei are the gender pair of one personal pronoun; lei has the lower id. Each card's examples were the other's, plus 'della loro'. The formal Lei, which the deck taught nowhere, is named.",
+      "why": "lui and lei are the gender pair of one personal pronoun; lei has the lower id. Each card's examples were the other's, plus 'della loro'. The formal Lei, which the deck taught nowhere, is named. (Nov 2026: the meanings no longer name the form they belong to — 'lui — he, him' put the answer on the front of the English → Italian card; the Forms row says which is which, and it is shown on the back only.)",
       "head": "lui, lei",
       "fold": ["lui"],
-      "senses": [["pronoun", ["lui — he, him", "lei — she, her"]], ["pronoun", ["Lei — you (formal, to one person)"]]],
-      "forms": [["plural", "loro"]],
+      "senses": [["pronoun", ["he, him", "she, her"]], ["pronoun", ["you (formal, to one person)"]]],
+      "forms": [["he, him", "lui"], ["she, her", "lei"], ["you (formal)", "Lei"], ["plural", "loro"]],
       "bold": ["lui", "lei"],
       "ex": [
         ["Lei mi ha accusato di essere un bugiardo.", "She accused me of being a liar."],

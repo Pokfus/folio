@@ -230,13 +230,13 @@
    {
     "word": "scusa, scusi",
     "id": 969,
-    "why": "A courtesy the A1 band lacks (the list has no greeting but ciao and grazie). A card of no deck: CILS B2 cards the noun la scusa (\"apology, excuse\"), which is another word and stays there. Meanings: English Wiktionary via kaikki.org, read 2026-11-16 (scusa, interjection, informal: \"sorry! (second-person singular)\"; scusi, interjection, formal: \"excuse me, pardon me\"). Sentences: Tatoeba, by the ids in src.",
+    "why": "A courtesy the A1 band lacks (the list has no greeting but ciao and grazie). A card of no deck: CILS B2 cards the noun la scusa (\"apology, excuse\"), which is another word and stays there. Meanings: English Wiktionary via kaikki.org, read 2026-11-16 (scusa, interjection, informal: \"sorry! (second-person singular)\"; scusi, interjection, formal: \"excuse me, pardon me\"). The meanings do not name the form they belong to, since they are the front of the English → Italian card; the Forms row does. Sentences: Tatoeba, by the ids in src.",
     "senses": [
      [
       "interjection",
       [
-       "scusa — sorry! (informal, to one person)",
-       "scusi — excuse me, pardon me (formal)"
+       "sorry! (informal, to one person)",
+       "excuse me, pardon me (formal)"
       ]
      ]
     ],
@@ -255,6 +255,16 @@
       "Oh, scusa.",
       "Oh, sorry.",
       "Tatoeba 4569608 (English 3384687)"
+     ]
+    ],
+    "forms": [
+     [
+      "informal",
+      "scusa"
+     ],
+     [
+      "formal",
+      "scusi"
      ]
     ]
    },
@@ -275,7 +285,8 @@
      [
       "interjection",
       [
-       "may I? may I come in? (said to ask for permission)",
+       "may I? (said to ask for permission)",
+       "may I come in?",
        "excuse me (said as a request to pass)"
       ]
      ],
