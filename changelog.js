@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1353", released: "2026-11-16T23:44Z" };
+window.FOLIO_VERSION = { v: "1.1354", released: "2026-11-16T23:59Z" };
 
 window.CHANGELOG = [
   {
@@ -85,7 +85,8 @@ window.CHANGELOG = [
       "German gains <b>Goethe A2</b> (689 words) and a <b>Sounds and spelling</b> deck, and <b>Goethe A1</b> now opens with hallo, danke and bitte, with numbers, days and months together.",
       "Nineteen more World History cards now have <b>Think it through</b> questions a newcomer would ask, with longer, fully sourced answers.",
       "Lines written with the <b>whiteboard marker</b> on a tablet stay sharp when the answer is revealed, instead of turning slightly blurry.",
-      "Ten new glossary terms, linked from two World History cards, and one World History card gets a new date row and a map window.",
+      "Seventeen new glossary terms, linked from two World History cards and an Ancient Egypt card, and one World History card gets a new date row and a map window.",
+      "In the Ancient Egypt collection, <b>Egypt</b> now opens the glossary entry for ancient Egypt rather than the modern country.",
       "A count of centuries is now written in words (<b>two centuries</b>), while a named century keeps its number (21st century).",
       "The word <i>month</i> no longer opens the glossary entry for the Egyptian god Montu."
     ],

@@ -11853,7 +11853,14 @@ window.GLOSSARY = {
 "Mahayana": "",
 "Vajrayana": "",
 "Dharma": "",
-"Sangha": ""
+"Sangha": "",
+"Stacte": "",
+"Frankincense": "",
+"Cinnamomum_cassia": "",
+"Cinnamon": "",
+"Ebony": "",
+"Leopard": "",
+"Ape": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -25418,7 +25425,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Esarhaddon": ["Ashur-aha-iddina"],
 "Semitic_languages": ["Semitic"],
 "Asceticism": ["ascetic"],
-"Dharma": ["Dhamma"]
+"Dharma": ["Dhamma"],
+"Ape": ["apes"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -37481,7 +37489,14 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Mahayana": ["religion","buddhism","school","india","china","japan"],
 "Vajrayana": ["religion","buddhism","school","tibet","practice"],
 "Dharma": ["concept","religion","philosophy","india","buddhism","hinduism"],
-"Sangha": ["concept","religion","buddhism","monasticism","india"]
+"Sangha": ["concept","religion","buddhism","monasticism","india"],
+"Stacte": ["plant","trade","religion","medicine"],
+"Frankincense": ["plant","trade","religion","medicine"],
+"Cinnamomum_cassia": ["plant","trade","food","medicine","china"],
+"Cinnamon": ["plant","trade","food","medicine"],
+"Ebony": ["plant","trade","nature","africa"],
+"Leopard": ["animal","nature","africa","asia","trade"],
+"Ape": ["animal","evolution","biology","nature"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
