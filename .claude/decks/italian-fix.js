@@ -42,14 +42,18 @@
       boundaries that understand accents, and a sentence in which none is found is an error.
 
   `notes`  `{ "<deck id>/<headword>": { senses?, forms?, ex?, why } }` — the same three fields, rebuilt on
-      a card the generator wrote. A note that matches nothing is an ERROR.
+      a card the generator wrote. A note that matches nothing is an ERROR. `word` (with `italian`, the
+      headword's markup) RENAMES the note: it is then found by its key or by its new headword, and the
+      pin's key is renamed with it, the number staying as it is.
 
   `decks`  `{ <deck id>: { dropDup?, subtitle?, descSub? } }`.
       `dropDup` is `{ headword: lowerDeckId }`: DELETE this deck's card for a word a lower deck now
       carries. The claim is CHECKED — the named deck must hold a card whose headword names that word —
       so this can never delete a word nothing else teaches. A card already gone is normal.
       `subtitle` is set outright. `descSub` is `[find, replace]` pairs over the description, each satisfied
-      if it matched or if its replacement already stands in the text; one satisfied by neither is an error.
+      if its replacement already stands in the text or if it matched; one satisfied by neither is an error.
+      To reword a replacement that has shipped, add a pair after it whose `find` is the old replacement,
+      so the chain still works on a deck freshly rebuilt.
 
   THE COUNTS IN A DESCRIPTION ARE RECOUNTED, not carried: how many words, nouns with an article, plurals,
   feminines, verbs, verbs taking essere, adjectives with their forms and cards with sentences. They are
@@ -244,17 +248,24 @@ for (const id of order) {
   dropped.set(id, lost);
   // 3. fields rebuilt on a card the generator wrote
   for (const [head, fix, key] of noteFix.get(id) || []) {
-    const card = d.cards.find((c) => c.fields.Word === head);
-    if (!card) { errors.push(key + ": no note carries that headword"); continue; }
+    const card = d.cards.find((c) => c.fields.Word === head) || (fix.word && d.cards.find((c) => c.fields.Word === fix.word));
+    if (!card) { errors.push(key + ": no note carries that headword" + (fix.word ? " or " + fix.word : "")); continue; }
     if (!fix.why) errors.push(key + ": no why");
     seenNote.add(key);
+    if (fix.word && card.fields.Word !== fix.word) {   // a RENAME: the pin's key is renamed with it, the number staying as it is
+      const pin0 = PIN[id] || {};
+      if (head in pin0 && fix.word in pin0) { errors.push(key + ": both " + head + " and " + fix.word + " are pinned"); continue; }
+      if (head in pin0) { pin0[fix.word] = pin0[head]; delete pin0[head]; }   // else the pin was renamed on an earlier run
+      card.fields.Word = fix.word;
+    }
     applyFields(card, fix, key);
   }
   // 4. the deck's own words about itself
   if (dm.subtitle !== undefined) d.meta.subtitle = dm.subtitle;
   for (const [find, to] of dm.descSub || []) {
+    if (d.meta.desc.includes(to)) continue;   // first, since a replacement may begin with the text it replaces
     if (d.meta.desc.includes(find)) d.meta.desc = d.meta.desc.split(find).join(to);
-    else if (!d.meta.desc.includes(to)) errors.push(id + " → descSub: neither “" + find.slice(0, 60) + "…” nor its replacement is in the description");
+    else errors.push(id + " → descSub: neither “" + find.slice(0, 60) + "…” nor its replacement is in the description");
   }
   recount(d);
   // 5. the pinned ids
