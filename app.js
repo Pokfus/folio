@@ -31476,6 +31476,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        its nearest neighbour (Ancient Mesopotamia), then 14.3 from World History and 14.5 from Spanish, against a
        tightest existing pair of 4.0; 5.9:1 against white. */
     "lang-finnish":    { bg: "#8D572D" }, // measured sienna
+    /* BULGARIAN (Nov 2026) was not named a colour, so it was MEASURED as Finnish was: swept in CIELAB (ΔE 1976) inside
+       the shelf's band (L 28–55, chroma 7–62, 4.5:1 against white), the magenta band's standing rejection kept, the greens
+       left out, and nothing within 20 of the two colours of Bulgaria's flag. Against all 79 hues on the page: a purple,
+       14.0 from its nearest neighbour (Danish), 14.2 from Ancient Rome and 14.3 from Hindi; 6.9:1 against white. The
+       raw winner was a leaf green 15.1 from Middle-earth, refused as the greens are. Not a flag colour. */
+    "lang-bulgarian":  { bg: "#813F8D" }, // measured purple
     /* ICELANDIC (Nov 2026) was not named a colour, so it was MEASURED as Finnish was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) against all 74 other hues, the magenta band's standing
        rejection kept and the greens left out. The raw winner, a deep indigo (#333C81, 14.3), was REFUSED for standing
@@ -31541,6 +31547,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        pair of 4.0. The tie went to the slate, nearest the collection's first colour. 7.3:1 against white; 52.4 from
        the flag's blue. Not a flag colour. */
     "lang-somali":     { bg: "#485A5A" }, // measured slate teal
+    /* SERBIAN (Nov 2026) was not named a colour, so it was MEASURED as Lao was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 79 hues
+       on the page, the magenta band's standing rejection kept; re-swept at the merge against all 82 others
+       (Navajo, Mongolian and Somali having joined), with the same answer. The winner is this deep forest green, 15.0 from
+       its nearest neighbour (Geography's olive), then 15.3 from World Geography's green and 15.5 from Biology's
+       forest; with the greens left out, the best was a teal at 13.8. 10.0:1 against white. Not a flag colour. */
+    "lang-serbian":    { bg: "#1C4C0E" }, // measured forest green
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
