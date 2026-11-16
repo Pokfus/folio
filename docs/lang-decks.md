@@ -4106,6 +4106,29 @@ changed was the one that had been wrong all along.
   subdecks (107 Wiktionary phrases and interjections, 38 Tatoeba sentences); `run.py --level phr`, `phrases.py`.
   The collection is complete. 📖 `docs/navajo-decks-plan.md`. The `LANGS` row is 170,000 (Wikipedia's infobox, no L2 figure); the hue is measured,
   `#3C7676`, a turquoise-teal.
+- `.claude/serbian/` — the generator behind the Serbian decks (Nov 2026, on request: "Add a Serbian language
+  collection"; the Ukrainian answers taken, the owner not asked). **Built: the alphabet,
+  `decks/Serbian-Alphabet.folio-deck.json`** (36 notes: the 30 Cyrillic letters with their Latin twins, the four
+  accent marks and the length mark, the syllabic r, from Wikipedia's "Serbian Cyrillic alphabet" and "Serbo-Croatian
+  phonology" at pinned revisions) **and A1, `decks/Serbian-A1.folio-deck.json`** (500 notes / 1,000 cards: 364 from a
+  hand-written topic inventory, 137 by frequency) **and A2, `decks/Serbian-A2.folio-deck.json`** (750 notes / 1,500
+  cards, 2026-11-16, on request: "Add A2"; `--level a2`; the derived imperfectives Wiktionary files as "imperfective
+  form of …" kept as words from A2 on, A1 unchanged) **and B1, `decks/Serbian-B1.folio-deck.json`** (1,000 notes /
+  2,000 cards, 2026-11-16, on request: "Add B1"; `--level b1`) **and B2, `decks/Serbian-B2.folio-deck.json`** (1,500
+  notes / 3,000 cards, 2026-11-16, on request: "Add B2"; `--level b2`; 88 % by frequency, sentences for 805) **and C1,
+  `decks/Serbian-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16, on request: "Add C1"; `--level c1`; 92 %
+  by frequency, sentences for 532) — all five levels — **and the phrases deck,
+  `decks/Serbian-Phrases-and-Expressions.folio-deck.json`** (88: 35 phrases, 37 idioms, 16 proverbs, every candidate
+  Wiktionary's Serbo-Croatian has; `--level phr`, `phrases.py`, 2026-11-16, on request). The set is complete.
+  `python3 .claude/serbian/run.py [--level a1]`,
+  `python3 .claude/serbian/alphabet.py`, `node .claude/serbian/check-serbian.js`; a re-run is byte-identical.
+  Ukrainian's pipeline re-keyed to English Wiktionary's Serbo-Croatian. **What is new**: the card leads with Cyrillic
+  and prints the Latin beneath the headword and every sentence (everything is compared in Latin, `sr.fold`); the
+  headword carries Wiktionary's tonal accent (`ку̏ћа`), stripped BY NAME so ć keeps its acute; Ekavian only — a sense
+  tagged with countries none of which is Serbia, or dialect, is weak, and an Ijekavian lemma's count goes to its
+  Ekavian partner; the present tense's persons are untagged and read in table order. 📖 `docs/serbian-decks-plan.md`.
+  The `LANGS` row is 8.2 million (Ethnologue 28th ed., via Wikipedia's infobox, no L2 figure); the hue is measured,
+  `#1C4C0E`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
