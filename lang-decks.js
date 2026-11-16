@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 437 MB of decks. The file itself is fetched on Add. */
+   section without fetching 438 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-Pinyin-and-Tones.folio-deck.json", id: "hsk30pin", title: "Mandarin Chinese — Pinyin and tones", sub: "68 sounds, tones and tone changes — start here, beside Level 1", notes: 68, cards: 68, ex: 100, bytes: 70898, rev: "6a1571dc957f" },
   { lang: "Mandarin Chinese", file: "Mandarin-Level-1-Character-Parts.folio-deck.json", id: "hsk30cmp", title: "Mandarin Chinese — Character parts for Level 1", sub: "The 42 parts Level 1's characters share — beside Level 1", notes: 42, cards: 42, ex: 0, bytes: 56285, rev: "11c8003fd5d5" },
@@ -236,6 +236,11 @@ window.LANG_DECKS = [
   { lang: "Finnish", file: "Finnish-B2.folio-deck.json", id: "finnishb2", title: "Finnish B2 Upper Intermediate", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 93, bytes: 6124260, rev: "09b1fc391230" },
   { lang: "Finnish", file: "Finnish-C1.folio-deck.json", id: "finnishc1", title: "Finnish C1 Advanced", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 83, bytes: 6028943, rev: "70a901e3115b" },
   { lang: "Finnish", file: "Finnish-Phrases-and-Expressions.folio-deck.json", id: "fiphrase", title: "Finnish Phrases and Expressions", sub: "1832 expressions · 492 everyday, 933 idioms, 407 proverbs · both directions", notes: 1832, cards: 3664, subs: 3, tree: [{"n":"Phrases","c":984,"x":43},{"n":"Idioms","c":1866,"x":23},{"n":"Proverbs","c":814,"x":15}], flat: true, ex: 27, bytes: 1231214, rev: "84eeadcff9cf" },
+  { lang: "Lao", file: "Lao-Alphabet.folio-deck.json", id: "laoabc", title: "Lao Alphabet", sub: "79 letters, vowels, tone marks and digits · both directions, as two cards each", notes: 79, cards: 158, ex: 0, bytes: 35953, rev: "45f81762fd4d" },
+  { lang: "Lao", file: "Lao-A1.folio-deck.json", id: "laoa1", title: "Lao A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 21, bytes: 243546, rev: "954ea4401dd2" },
+  { lang: "Lao", file: "Lao-A2.folio-deck.json", id: "laoa2", title: "Lao A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 8, bytes: 284196, rev: "57042be2eabc" },
+  { lang: "Lao", file: "Lao-B1.folio-deck.json", id: "laob1", title: "Lao B1 Intermediate", sub: "471 words · both directions, as two cards per word", notes: 471, cards: 942, ex: 4, bytes: 168745, rev: "d881432d3f0f" },
+  { lang: "Lao", file: "Lao-Phrases-and-Expressions.folio-deck.json", id: "laophrase", title: "Lao Phrases and Expressions", sub: "79 entries · 5 phrases, 72 sentences, 2 proverbs · both directions", notes: 79, cards: 158, subs: 3, tree: [{"n":"Phrases","c":10,"x":0},{"n":"Sentences","c":144,"x":0},{"n":"Proverbs","c":4,"x":0}], flat: true, ex: 0, bytes: 38920, rev: "b050bb10785d" },
   { lang: "Norwegian", file: "Norwegian-A1.folio-deck.json", id: "norwegiana1", title: "Norwegian A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 99, bytes: 795254, rev: "917161928ebd" },
   { lang: "Norwegian", file: "Norwegian-A2.folio-deck.json", id: "norwegiana2", title: "Norwegian A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 95, bytes: 1360806, rev: "89df3b0fbe55" },
   { lang: "Norwegian", file: "Norwegian-B1.folio-deck.json", id: "norwegianb1", title: "Norwegian B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 76, bytes: 1647446, rev: "acdecf1ffdaa" },

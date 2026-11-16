@@ -3908,6 +3908,26 @@ changed was the one that had been wrong all along.
   sentences rank last. The plan and every finding are 📖 `docs/finnish-decks-plan.md`. The `l1` row is Wikipedia's
   5.0 million (no L2 figure, so `total` is the same); the hue is measured, `#8D572D` (re-swept at the merge: Norwegian had
   taken a hue 2.4 from the first sweep's `#907227`).
+- `.claude/lao/` — the generator behind the Lao decks (Nov 2026, on request: "Add a Lao language collection"; the
+  Thai answers taken, the owner not asked). **Built: the alphabet, `decks/Lao-Alphabet.folio-deck.json`** (79 notes:
+  the 27 consonants, the six ຫ ligatures, 27 vowels, the tone marks and two signs, the three class rules, the digits,
+  every fact from Wikipedia's "Lao script" and "Lao language") **and A1, `decks/Lao-A1.folio-deck.json`** (500 notes /
+  1,000 cards: 352 from a hand-written topic inventory, 148 by frequency). `python3 .claude/lao/run.py`,
+  `python3 .claude/lao/alphabet.py`, `node .claude/lao/check-lao.js`; a re-run is byte-identical. Thai's pipeline
+  re-keyed (the same unspaced script, the same maximal-matching cut). **What is new**: Wiktionary's own Lao
+  romanisation is not one system and breaks on ຍ (ໄດ້ຍິນ "dn"), so the card's romanisation is read off the Vientiane
+  IPA (`lo.romanise`, Paiboon-style letters, each syllable's tone in Chao tone letters); no Lao frequency list could be
+  licensed, so the counts are made from the Lao Wikipedia dump, ONLY over runs the dictionary covers whole (otherwise
+  syllables of unknown words took the counts); Wiktionary holds about 2,400 Lao words and lacks ວ່າ, ຍັງ, ເອົາ, ຢາກ, ຄິດ
+  and more, which are left out, not glossed by hand; Tatoeba has about 230 Lao sentences, so 394 of A1's words have
+  none. **A2 built (2026-11-16)**: `decks/Lao-A2.folio-deck.json`, 750 notes / 1,500 cards (389 inventory, 361
+  frequency; bare "abstract noun of" entries skipped). **B1 built (2026-11-16)**: `decks/Lao-B1.folio-deck.json`,
+  471 notes / 942 cards (358 inventory, 113 frequency, capped at 500), the last level Wiktionary's Lao can fill — no
+  B2 or C1 until it grows.
+  **Phrases deck built (2026-11-16)**: `decks/Lao-Phrases-and-Expressions.folio-deck.json`, 79 notes (5 Wiktionary
+  phrases, 72 Tatoeba sentences romanised word by word from Wiktionary's IPA, 2 proverbs); `python3 .claude/lao/phrases.py`.
+  📖 `docs/lao-decks-plan.md`. The `LANGS` row is 3.7 million L1, 4.5 in all
+  (Ethnologue 27th ed., via Wikipedia's infobox); the hue is measured, `#426A43`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
