@@ -29,10 +29,10 @@ TITLES = {k: f'Lao {k.upper()} {v}' for k, v in NAMES.items()}
 DECK_IDS = {k: f'lao{k}' for k in BANDS}
 DECK_FILES = {k: f'Lao-{k.upper()}.folio-deck.json' for k in BANDS}
 
-# Sizes in NOTES.  A1 is the Thai set's 500; the later levels are NOT fixed yet:
-# Wiktionary holds some 2,500 Lao words in all (Thai's 21,000), so the plan
-# (docs/lao-decks-plan.md §5) sizes them once A1 shows what is left.
-TARGET = {'a1': 500}
+# Sizes in NOTES, the Thai set's.  Wiktionary holds some 2,400 Lao words in all
+# (Thai's 21,000): after A1 about 1,530 usable ones were left, enough for A2's
+# 750; B1 onward is sized once A2 shows what remains (docs/lao-decks-plan.md §5).
+TARGET = {'a1': 500, 'a2': 750}
 
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
 
@@ -49,6 +49,20 @@ SCOPE = {
                   'months, food and drink, shopping and money, the home, the town and getting '
                   'about, the body and feeling ill, the weather, colours, and the pronouns, '
                   'question words, prepositions and conjunctions every sentence is built out of',
+    },
+    'a2': {
+        'quote': 'Can understand sentences and frequently used expressions related to areas '
+                 'of most immediate relevance',
+        'gloss': 'able to manage simple, routine exchanges of information on familiar matters '
+                 '— personal and family information, shopping, the local area, work — and to '
+                 'describe in simple terms their background, their surroundings and what they '
+                 'immediately need',
+        'topics': 'relatives and the people around you, jobs, work and study, clothes, more food, '
+                  'cooking and eating out, the things of a home, the town and its buildings, '
+                  'travel and directions, the countryside, nature, weather and animals, the seasons, '
+                  'health and the body, feelings and character, free time, sport and festivals, '
+                  'money, tools, telling what happened and comparing, and the everyday verbs of '
+                  'moving, dressing and doing',
     },
 }
 

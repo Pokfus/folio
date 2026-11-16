@@ -55,6 +55,38 @@ EXCLUDE = {
     'ທິດຕາເວັນຕົກ': 'shares "west" with ຕາເວັນຕົກ, which the fill deals first',
     'ທິດຕາເວັນອອກ': 'shares "east" with ຕາເວັນອອກ, which the fill deals first',
     'ໂອ': 'the card was "bowl"; the count is the syllable of ໂອ- loanwords',
+    'ມຸມ': 'the card was "gray-headed emperor pigeon"; the count is ມຸມ "corner", which Wiktionary lacks',
+    'ອາຟຣິກກາ': 'a variant spelling of ອາຟຣິກາ "African", which A1 teaches',
+    'ພຣະເຈົ້າ': 'the older spelling of ພະເຈົ້າ "god; Buddha", which the fill deals first',
+    'ອັງຕາກຕິກ': '"Antarctican", a demonym nobody needs at A2',
+    'ກີລາ': 'a variant spelling of ກິລາ "sport", which A2\'s inventory teaches',
+    'ນູແວນເຊລັງ': '"New Zealander", a demonym counted from encyclopedia articles',
+    'ລັດຖະ': '"state (in compounds)", a bound form, not a word said alone',
+    'ອານາ': '"authority", a bound form of ອານາເຂດ, ອານາຈັກ and the like',
+    'ຈຳປາ': 'the card was a tree; the count is the name Champasak (ຈຳປາສັກ)',
+    'ກຳ': 'the card was "to fist"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ບຸ': 'the card was "to intrude"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ຄານ': 'the card was "to creep"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ທານ': 'the card was "to protect"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ຊອຍ': 'the card was "to dice"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ໄຂ': 'the card was "fat"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ອັດ': 'the card was "att (a coin)"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ຂ້າ': 'the card was "slave, servant"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ແລນ': 'the card was "Bengal monitor"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ຈຸ': 'the card was "capacity"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ເປ': 'the card was "hammock"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ກົງ': 'the card was "wheel"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ສິງ': 'the card was "lion"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ຫົງ': 'the card was "swan"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ໂພນ': 'the card was "mound"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ຊອງ': 'the card was "bed"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ເກີ': 'the card was "heart"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ຄິງ': 'the card was "king"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ລິງ': 'the card was "sex, gender"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ສາກ': 'the card was "pestle"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ໂສ': 'the card was "to discuss; horse"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ຄຸ': 'the card was "bucket"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
+    'ຫຼາ': 'the card was "spinning wheel"; read off the A2 ranking, the count is most likely a syllable of longer words or names',
 }
 
 # A COMPOUND THE INVENTORY NEEDS AND WIKTIONARY HAS NO ENTRY FOR, composed from
@@ -74,7 +106,10 @@ SWEARS = {'ກູ', 'ມຶງ'}   # the rude "I" and "you"
 
 # A word Wiktionary defines ONLY by pointing at another ("synonym of ...", an
 # old spelling) is not a card -- `check-lao.js` refuses its gloss.  The fill skips it.
-POINTER = re.compile(r'^(?:alternative|obsolete|dated|rare|archaic) (?:form|spelling) of '
+# "abstract noun of ຮັກ (hak)" with no meaning of its own is a pointer too (A2:
+# ຄວາມຮັກ, ການຕາຍ, ຄວາມໄວ -- the card printed the bare pointer).
+POINTER = re.compile(r'^abstract noun of [^\s(]+ \([^(),“”]*\)$|'
+                     r'^(?:alternative|obsolete|dated|rare|archaic) (?:form|spelling) of '
                      r'|^(?:synonym|abbreviation) of [^;]*$', re.I)
 
 

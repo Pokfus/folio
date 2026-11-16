@@ -76,9 +76,12 @@ LEAD = {
     'ໃຊ້': 'to use',             # first is "to order, command"
     'ຈະ': 'indicating future',   # first is "to stop, discontinue"
     'ໄທ': 'Thai',                # first is "inhabitant, resident"
+    'ບອກ': 'to tell',            # first is "to find"
 }
 
-ABS = re.compile(r'^abstract noun of [^\s(]+ \([^()]*?(?:, “([^”]+)”\)$|\): (.+)$)')
+# "abstract noun of ຄຶດ (khưt); idea" shows "idea" -- Lao's entries add the meaning after a
+# semicolon (A2), and the parenthesis is Wiktionary's own romanisation, which the card never shows
+ABS = re.compile(r'^abstract noun of [^\s(]+ \([^()]*?(?:, “([^”]+)”\)$|\)[:;] (.+)$)')
 BARE = re.compile(r'^(?:abstract noun of [^\s(]+ \([^(),]*\)|Used other than figuratively or idiomatically.*)$')
 LISTITEM = re.compile(r'^[\u0e80-\u0eff]+ \(“[^”]*”\)(?:,? and)?[.,;]?$')
 SYN = re.compile(r'^synonym of [^\s(]+ \((?:[^,()]+, )?“([^”]+)”\)$')

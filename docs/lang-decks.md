@@ -3899,7 +3899,9 @@ changed was the one that had been wrong all along.
   licensed, so the counts are made from the Lao Wikipedia dump, ONLY over runs the dictionary covers whole (otherwise
   syllables of unknown words took the counts); Wiktionary holds about 2,400 Lao words and lacks ວ່າ, ຍັງ, ເອົາ, ຢາກ, ຄິດ
   and more, which are left out, not glossed by hand; Tatoeba has about 230 Lao sentences, so 394 of A1's words have
-  none. Later levels are not sized yet. 📖 `docs/lao-decks-plan.md`. The `LANGS` row is 3.7 million L1, 4.5 in all
+  none. **A2 built (2026-11-16)**: `decks/Lao-A2.folio-deck.json`, 750 notes / 1,500 cards (389 inventory, 361
+  frequency; bare "abstract noun of" entries skipped). B1 onward not sized: about 780 usable words remain.
+  📖 `docs/lao-decks-plan.md`. The `LANGS` row is 3.7 million L1, 4.5 in all
   (Ethnologue 27th ed., via Wikipedia's infobox); the hue is measured, `#426A43`.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on

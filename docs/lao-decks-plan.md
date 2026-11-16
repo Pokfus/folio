@@ -5,7 +5,7 @@ the shape of the Thai one (`docs/thai-decks-plan.md`), whose script, word cut an
 `docs/lang-decks.md` is the record of how the sets were built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-15: "Add a Lao language collection."
 
-**STATUS (2026-11-15): the alphabet and A1 are built** (`.claude/lao/`, §6). A2 onward are not sized yet (§5).
+**STATUS (2026-11-16): the alphabet, A1 and A2 are built** (`.claude/lao/`, §6–§7). B1 onward are not sized yet (§5).
 
 A deck under `decks/` is community content, not a change to Folio: no changelog line for any later deck this plan
 produces. The collection's first commit carried one, as Thai's and Finnish's did, because it also changed the APP —
@@ -27,7 +27,8 @@ The request named no word source, script deck or romanisation. The Thai answers 
 |---|---|---|
 | Lao Alphabet — built | `Lao-Alphabet.folio-deck.json` | 79 |
 | Lao A1 Beginner — built | `Lao-A1.folio-deck.json` | 500 |
-| A2 onward | — | not sized (§5) |
+| Lao A2 Elementary — built | `Lao-A2.folio-deck.json` | 750 |
+| B1 onward | — | not sized (§5) |
 
 ## 2. Sources and licences
 
@@ -84,12 +85,13 @@ first sense. The tones are Vientiane's; other dialects differ.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — the later levels. After A1, Wiktionary has
-roughly 1,800 usable Lao words left, much of it names, rare homographs and encyclopedic vocabulary, so Thai's sizes
-(A2 750, B1 1,000, B2 1,500, C1 1,500) cannot be met from it. Size them before building: probably one A2 deck of
-what remains usable, and stop there unless Wiktionary grows. Write the level's inventory into `inventory.py`, its
-`TARGET` and `SCOPE` into `lao_level.py`, run, read every card. **Phase 3** — a phrases deck, if Wiktionary's Lao
-phrases (five entries today) ever make one.
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — the later levels. After A1 about 1,530 usable
+Lao words were left in Wiktionary (some 400 of them with no Wikipedia count, so only an inventory can deal them),
+enough for A2 at Thai's 750 (**done**, §7). After A2 about 780 remain, much of it encyclopedic vocabulary, rare
+homographs and number words, so Thai's B1 of 1,000 cannot be met: size B1 to what reads as usable before building,
+and stop there unless Wiktionary grows. For each level write its inventory into `inventory.py`, its `TARGET` and
+`SCOPE` into `lao_level.py`, run, read every card. **Phase 3** — a phrases deck, if Wiktionary's Lao phrases (five
+entries today) ever make one.
 
 ## 6. As built (2026-11-15): the alphabet and A1
 
@@ -102,3 +104,17 @@ classifier; sentences for 106. The alphabet: 79 notes — 27 consonants (class, 
 6 ligatures, 27 vowels and vowel forms on ◌, 4 tone marks and 2 signs, the 3 class rules, 10 digits; every sound
 side unique (asserted). Two signs (◌໌, ໆ) have no Lao name in the sources, so their speaker reads the example word.
 The shelf's hue is measured: `#426A43`, 15.1 from its nearest of 75 (the comment in `app.js` has the sweep).
+
+## 7. As built (2026-11-16): A2
+
+`python3 .claude/lao/run.py --level a2`. 750 notes, 389 from the A2 inventory (relatives, jobs and study, clothes,
+food and eating out, the home, the town, travel and directions, nature, weather and animals, seasons, health and the
+body, feelings, free time and festivals, money, tools, telling and comparing, everyday verbs, ordinals and tens) and
+361 by frequency; 42 show a classifier; sentences for 61 only (Tatoeba's 230 Lao sentences were mostly used by A1).
+A re-run is byte-identical (with and without `--re-extract`), and A1 is unchanged by A2's fixes. **What reading the
+cards found**: Wiktionary's bare "abstract noun of ຮັກ (hak)" entries (ຄວາມຮັກ, ການຕາຍ, ຄວາມໄວ) printed the pointer
+as the meaning — the fill now skips them (`select.POINTER`), and where Lao adds the meaning after a semicolon
+("abstract noun of ຄຶດ (khưt); idea") the card shows only "idea" (`build_deck.ABS`); ບອກ led with "to find" before
+"to tell" (`LEAD`); and 32 more one-syllable homographs, variant spellings (ກີລາ, ອາຟຣິກກາ, ພຣະເຈົ້າ), bound forms
+(ລັດຖະ, ອານາ) and demonyms were refused, each with its reason in `select.EXCLUDE`. The fill is again written,
+encyclopedic Lao (ministry, constitution, sovereignty, coup d'état).
