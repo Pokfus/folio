@@ -369,7 +369,7 @@
      it is the same id for every reader who downloaded it. Once such a card has `CARD_STATS_MIN` answers
      across all readers, `cardStatsFor` finds it and the stars appear, measured rather than judged. The
      one thing that has never worked for those decks is the "By difficulty" study ORDER, which reads the
-     editorial rating; "By frequency" is what answers that, and lives beside it. The colour is the QUESTION/ANSWER label's own `--indigo`, on request,
+     editorial rating; what answers that is the order the deck FILE is in (see DECK_ORDERS). The colour is the QUESTION/ANSWER label's own `--indigo`, on request,
      so the corner reads as part of the card's own furniture rather than as a second kind of mark.
      THE WORD "Difficulty" IS PRINTED BESIDE THEM (Aug 2026, on request): five small stars in a corner say
      that something is being rated and not what. It is set small and thin so it labels the row rather than
@@ -3193,12 +3193,12 @@
      out therefore also FORGETS that account — its token is dead the moment the request lands, and a
      remembered account that cannot be switched to is worse than none. */
   async function supaSignOut(opts) {
-    const keep = !!(opts && opts.keepToken);
+    const keep = !!(opts && opts.keepToken), gone = !!(opts && opts.gone);   // `gone`: the account was just deleted — nothing to push to, no token left to revoke
     if (supaLoggedIn()) {
-      clearTimeout(_supaPushTimer); _supaPushTimer = null; await supaPush();   // final sync of this device's progress
+      clearTimeout(_supaPushTimer); _supaPushTimer = null; if (!gone) await supaPush();   // final sync of this device's progress
       if (keep) supaRemember(); else supaForget(SUPA.user.id);
     }
-    if (!keep) supaFetch("/auth/v1/logout", { method: "POST" });   // best-effort token revoke
+    if (!keep && !gone) supaFetch("/auth/v1/logout", { method: "POST" });   // best-effort token revoke
     SUPA = null; SUPA_PROFILE = null; supaSaveSession();
     let g = null; try { g = JSON.parse(localStorage.getItem(SUPA_GUEST_KEY) || "null"); } catch (e) {}
     try { localStorage.removeItem(SUPA_GUEST_KEY); } catch (e) {}
@@ -3230,6 +3230,26 @@
     if (SUPA && SUPA.user && uKey(em) === uKey(SUPA.user.email)) return { error: "That is already your address." };
     const r = await supaFetch("/auth/v1/user", { method: "PUT", body: { email: em } });
     return r.ok ? { ok: true } : { error: supaErrMsg(r, "Could not change the email address.") };
+  }
+  /* DELETING THE ACCOUNT (Nov 2026, out of the account-page audit). There was no way to: a reader who
+     wanted their account gone had to write in. `public.delete_my_account(pw)` (section 18 of
+     `.claude/supabase-schema.sql`) is `security definer`, checks the PASSWORD against the caller's own row —
+     a session left open on a shared computer is not enough to destroy an account — and deletes that one
+     `auth.users` row; every table that hangs off it cascades. It answers `true` when the account is gone
+     and `false` for a wrong password.
+     IT DEGRADES TO A SENTENCE on a database that has not run section 18 (a 404), like every later block.
+     Afterwards the device is signed out through the ordinary path, with `gone`: there is no account left
+     to push to and no token left to revoke, and the device goes back to the guest record it held before. */
+  async function supaDeleteAccount(pw) {
+    if (!supaLoggedIn()) return { error: "You are not signed in." };
+    if (!pw) return { error: "Enter your password." };
+    const r = await supaFetch("/rest/v1/rpc/delete_my_account", { method: "POST", body: { pw: pw } });
+    if (r.status === 404) return { error: "Deleting an account from this page isn't set up on this site yet — send a note through Feedback and it will be removed for you." };
+    if (r.status === 0) return { error: "Could not reach the server — check your connection and try again." };
+    if (!r.ok) return { error: supaErrMsg(r, "Could not delete the account.") };
+    if (r.data !== true) return { error: "That password is not right." };
+    await supaSignOut({ gone: true });
+    return { ok: true };
   }
   /* SWITCHING. The order is what keeps the two accounts' progress apart, and every step earns its place:
      the live account's work is pushed and its token kept, the ordinary sign-out path restores the DEVICE's
@@ -7398,33 +7418,38 @@
      arriving here is already in deck order, so five cards all rated 3 stay in the order their deck puts
      them — which is the honest reading of "by difficulty" on a corpus where the rating is five buckets
      rather than a continuum. */
-  /* ---------- A FIFTH ORDER: BY FREQUENCY (Sep 2026, on request) ----------
-     For a LANGUAGE deck, "by difficulty" can say nothing — `cardDifficulty` is an editorial rating on
-     curated cards and a community card has none — and the order those decks actually ship in is the exam
-     list's, which is alphabetical by reading and so teaches nothing. This sorts a deck by how often its
-     own example sentences use each word, commonest first; `uDeckWordFreq` holds what that counts and,
-     more importantly, where it stops working.
-
-     IT IS OFFERED ONLY WHERE IT CAN ACT. `entryCanFreq` asks whether the deck behind the entry has any
-     sentences to count at all, and the cycler steps straight past this order where it has not — a curated
-     deck, or a community deck with no examples. An option that is drawn and does nothing is worse than an
-     option that is not drawn, because a reader who chooses it concludes the ordering is broken. */
-  const DECK_ORDERS = ["ordered", "random", "difficulty", "frequency"];
+  /* ---------- "BY FREQUENCY" WAS A FOURTH ORDER, AND IS WITHDRAWN (Sep 2026 – Nov 2026) ----------
+     It sorted a language deck by how often its own example sentences use each word. Three things were
+     wrong with it, and the third is why it is gone rather than mended.
+     · IT WAS OFFERED OR NOT BY ACCIDENT. `entryCanFreq` counted the deck's notes IN MEMORY, and since the
+       store was split a downloaded deck's notes are stubs until read — so the same deck offered the order
+       after a session and not before one, and `uAdoptNotes` never dropped the count it had cached cold.
+     · IT READ ONE FIELD NAME, `Simplified`, so it had never been offered on any deck but a Mandarin one.
+     · IT NEVER CHOSE WHICH WORDS ARRIVE. `buildSession` slices the day's new cards off the front of the
+       deck and only then calls `orderPile`, so this re-sorted the ten cards already dealt; the commonest
+       word of a deck still arrived on the day its place in the file gave it. Making it act would mean
+       reading a whole deck (up to 9 MB) out of IndexedDB before every session could be built.
+     The count is baked into the FILES instead, where it acts for every reader at no cost: the Mandarin
+     decks ship commonest first behind a hand-written head (`mandarin-order.json`), DELE A1 and the Spanish
+     phrases in a teaching order (`spanish-order.json`), JLPT N5 with its sets together. "Ordered" is that
+     order. A reader who had chosen "By frequency" is read as "Ordered": `setDeckOrderMode` always wrote
+     the old `random` boolean beside the name, and `deckOrderMode` falls back to it. */
+  const DECK_ORDERS = ["ordered", "random", "difficulty"];
   /* …AND THE CONTROL IS A CYCLER, NOT A SWITCH (Aug 2026, on request). Two orders were a switch and three
      will not fit in one: what replaces it is a single row naming the order in force, which steps to the
      next on every press and wraps. Three rows with a tick would say the same thing in three times the
      height, on a sheet a phone already has to scroll — and the switch's own reasoning was that a setting
      with a name for each state reads as a sentence, which a cycler keeps. */
-  const DECK_ORDER_LABEL = { ordered: "Ordered", random: "Random", difficulty: "By difficulty", frequency: "By frequency" };
+  const DECK_ORDER_LABEL = { ordered: "Ordered", random: "Random", difficulty: "By difficulty" };
   const DECK_ORDER_NOTE = {
     ordered: "Cards come up in their deck order, oldest history first",
     random: "The session is shuffled each day",
     difficulty: "The best-known terms first, working outward",
-    frequency: "The words this deck uses most, first",
   };
-  // the orders this entry can actually be given, in cycle order — see DECK_ORDERS' own note
+  // the orders an entry can be given, in cycle order. Every entry is offered all three: the one order that
+  // depended on the deck behind the entry is withdrawn — see DECK_ORDERS' own note
   function deckOrdersFor(id) {
-    return DECK_ORDERS.filter((m) => m !== "frequency" || entryCanFreq(id));
+    return DECK_ORDERS.slice();
   }
   function deckOrderMode(id) {
     if (id === REVIEW_ENTRY) {
@@ -7461,21 +7486,6 @@
   function sortByDifficulty(list) {
     return list.slice().sort((a, b) => (cardDifficultyRank(a) - cardDifficultyRank(b)));
   }
-  /* Commonest first. TIES KEEP THE DECK'S OWN ORDER, which is the whole of why this degrades gracefully
-     at the top of a syllabus: `sort` is stable, so the 3,029 Levels 7–9 words counted exactly once stay
-     exactly where their deck put them and only the words the deck really does lean on move. */
-  function sortByFrequency(id, list) {
-    const deckId = uDeckIdOf(id);
-    if (!deckId) return list;
-    const f = uDeckWordFreq(deckId);
-    if (!f.size) return list;
-    const n = (cid) => {
-      const c = cardById(cid);
-      const w = c && c.fields ? String(c.fields.Simplified || "") : "";
-      return w ? (f.get(w) || 0) : 0;
-    };
-    return list.slice().sort((a, b) => n(b) - n(a));
-  }
   // a card with no rating at all sorts LAST rather than first: an unrated card is unknown, not easy
   function cardDifficultyRank(id) {
     const c = cardById(id);
@@ -7487,7 +7497,6 @@
   function orderPile(id, list) {
     const mode = deckOrderMode(id);
     if (mode === "difficulty") return sortByDifficulty(list);
-    if (mode === "frequency") return sortByFrequency(id, list);
     return list;
   }
   /* AUTOMATIC READ-ALOUD, per entry (Aug 2026, on request — Anki's "read the answer aloud"). A card type
@@ -9511,7 +9520,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* Deliberately NO uCacheBust. Warming cannot change what uDeckStudyIds returns: a lazy cloze note is
        expanded from the `ords` its index carries and a warm one from clozeOrds(), and the two agree by
        construction — the index and the note were written in one transaction from the same card. Busting
-       here would throw the expansion away on every session start for nothing. */
+       here would throw the expansion away on every session start for nothing.
+       THE WORD COUNT IS THE ONE CACHE A WARM DOES CHANGE (Nov 2026): `uDeckWordFreq` counts the sentences
+       of the notes in memory, so a count taken while the deck was cold was empty or partial and was kept
+       for the session — the character panel warms the whole deck and then sorted by it. This deck's
+       count alone is dropped, so the next asker counts what is now here. */
+    if (n) _wordFreq.delete(deckId);
     return n;
   }
   async function uWarm(ids) {
@@ -12642,6 +12656,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      greens further down the sweep (15.0 and 14.8) were refused on the Euripides test: one sits 15.3 from
      Gilgamesh, whose flood is Genesis's, the other 14.8 from Aquinas. Keyed by id, the book being anonymous. */
   "king-james-bible": "#410064",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-one colours placed (Nov 2026, adding the Quran): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. THE SHELF IS NOW FULL ENOUGH THAT NOTHING CLEARS ITS OWN
+     TIGHTEST PAIR (15.6): a sweep of the cube at a step of 3, refined to 1 around the best, tops out at
+     15.0, so this row sets the new tightest pair. Of the sweep's top two at 15.0, the olive stood 15.3
+     from Gilgamesh, whose flood the Quran's Noah also tells; this green is taken on the Euripides test —
+     its nearest are the Book of Documents 15.0, Aquinas 15.7 and Chaucer 15.9, none read beside the
+     Quran, and the books that are stand well off (the King James Bible, Augustine, Luther, Dante, all
+     over 30). Green is besides the colour long associated with Islam. Keyed by id, the book being
+     anonymous on the shelf. It reads 4.51:1 on the tightest light paper. Measured the same day as
+     Leviathan's row below, which took the refused olive; the two stand 28.8 apart. */
+  "quran": "#006321",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-one colours placed (Nov 2026, adding Leviathan): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. A sweep of the cube at a step of 3, refined to 1 around the
+     best, tops out at 15.2 — below the shelf's tightest real pair (15.6), so the band is now FULL and
+     nothing better exists inside it. THE EURIPIDES TEST: this dark olive's nearest are Gilgamesh 15.2, the
+     Book of Documents 15.3 and Boethius 15.4, none a book read beside Hobbes; the ones that are stand well
+     off — Jefferson 29.2, Augustine 34.9, Aquinas 38.4, Aristotle 56.0, Plato 68.4, Machiavelli 79.9 and
+     Thucydides, whom Hobbes translated, 90.0. Of the sweep's other near-best, a green stood 15.7 from
+     Aquinas and a purple 14.7 from Magna Carta and Euripides, and the olive was taken over both for clearing
+     every political book by twice the margin. It reads 7.76:1 on the tightest light paper. */
+  "Thomas Hobbes": "#263700",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -15799,6 +15836,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       glossOff: ["Norway", "Ireland", "Russia", "Gunpowder"],
     },
     {
+      id: "romeo-and-juliet",
+      title: "Romeo and Juliet",
+      subtitle: "The Most Excellent and Lamentable Tragedy of Romeo and Juliet",
+      author: "William Shakespeare",
+      /* "c." because no record names the year of writing: the play was first printed in 1597, and the
+         mid-1590s is where its style and its borrowings point. */
+      written: "c. 1595",
+      year: 1595,
+      // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+      edition: "The Yale Shakespeare, ed. Willard Higley Durham, Yale University Press, New Haven, 1917",
+      /* The play has never been in copyright; the Yale edition was published in 1917 and its editor died
+         in 1955, so it clears the US pre-1929 rule and, since the start of 2026, life plus seventy — not
+         yet life plus a hundred, which is why this text does not borrow Macbeth's wording. */
+      rights:
+        "Public domain. Shakespeare wrote the play in the mid-1590s and it was first printed in 1597, " +
+        "so the work itself has never been in copyright. The text here is the Yale Shakespeare edition " +
+        "edited by Willard Higley Durham and published by Yale University Press in 1917; Durham lived from " +
+        "1883 to 1955, so the edition is out of copyright in the United States under the rule for works " +
+        "published before 1929, and everywhere the term is the editor's life plus seventy years or less. " +
+        "What is taken is the play, the edition's list of characters, Durham's glosses from the foot of " +
+        "each page and his end notes, which are set with the glosses that point to them; his appendices " +
+        "and index are not reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Romeo_and_Juliet_(1917)_Yale",
+      /* NO `origLang`: Shakespeare's English is the original. Five acts, each a tab; the opening Chorus
+         is set at the head of Act I, after the list of characters. */
+      chapterWord: "Act",
+      count: 5,
+      total: 5,
+    },
+    {
       id: "classic-of-tea",
       title: "The Classic of Tea",
       subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -16427,6 +16495,106 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         "Noah": [143, 144, 153, 204],
         "Claudius": [1214],
       },
+    },
+    {
+      id: "quran",
+      title: "The Quran",
+      subtitle: "The Meaning of the Glorious Koran",
+      /* Muslims hold it to be God's word revealed to Muhammad, not a book he wrote, and catalogues enter it
+         under its title; so it is shelved as the King James Bible is, and keyed for colour by id. */
+      author: "Anonymous",
+      // the years of the revelation as Islamic tradition dates them; the sort key is the middle of the span
+      written: "c. 610–632 CE",
+      year: 621,
+      translator: "Marmaduke Pickthall",
+      edition:
+        "The Meaning of the Glorious Koran: An Explanatory Translation, London, 1930 — the printed text, " +
+        "restored from scans of it over Project Gutenberg's transcription (eBook #16955)",
+      /* A LIMIT TO STATE, AND IT FALLS ON THE TRANSLATION: published 1930 (its United States term ended with
+         2025); Pickthall died in 1936, so life plus a hundred runs to 2037. The e-text is a later revision,
+         put back to the 1930 printing by .claude/quran-readings.js — see .claude/fetch-book.js. */
+      rights:
+        "Public domain, with one limit. The Quran itself is fourteen centuries old; the Arabic is not " +
+        "reproduced here. The only modern layer is the translation: Marmaduke Pickthall lived from 1875 to " +
+        "1936 and The Meaning of the Glorious Koran was published in London in 1930. It is therefore in the " +
+        "public domain in the United States, where the term for a work published in 1930 ended with 2025, " +
+        "and out of copyright wherever the term is the author's life plus seventy years, which expired at " +
+        "the start of 2007. In the few countries where the term is life plus a hundred it remains in " +
+        "copyright until 2037. The text is Pickthall's version from Project Gutenberg's Three Translations of " +
+        "the Koran (eBook #16955), which carries a later revision of his wording by an unnamed hand; it has " +
+        "been put back to the 1930 printing wherever scans of that printing agree. Pickthall's foreword, his " +
+        "introduction, his notes at the head of each sûrah and his footnotes are not reproduced.",
+      sourceName: "Project Gutenberg",
+      sourceUrl: "https://www.gutenberg.org/ebooks/16955",
+      /* NO `origLang`: no Arabic column. A chapter is one sûrah and a section is a verse, so a passage is
+         cited as it always is (2:255); each tab carries Pickthall's own name for the sûrah. */
+      chapterWord: "Sûrah",
+      chapterWordPlural: "Sûrahs",
+      count: 114,
+      total: 114,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered text of all 114 sûrahs (a headless run
+         listing every `.ttip`, 28 keys), as the King James Bible's was. MODERN STATES the Quran's names are
+         not: Israel (the patriarch Jacob and his children, every time) and Egypt (Pharaoh's). NAMESAKES:
+         the Temple of 17:7 is Jerusalem's, not a Greek temple; Shun is a Chinese emperor. And ORDINARY WORDS
+         that met an entry: the Sovereignty of Allah, Truth, Taste, Shout, Earth, Moon, Cattle, Touch, Ant,
+         Coin, Gold, Iron, Inscription, Winnowing, Elephant. What stays is right in place: Muhammad, Noah,
+         Pharaoh, the Jews, the Christians, the Arabs, Islam, Sinai and Sirius (53:49, "the Lord of Sirius"). */
+      glossOff: ["Israel", "Egypt", "Temple", "Shun", "Sovereignty", "Truth", "Taste", "Ring_shout", "Earth",
+        "Moon", "Cattle", "Somatosensory_system", "Ant", "Coinage", "Gold", "Iron", "Inscription", "Winnowing",
+        "Elephant"],
+    },
+    {
+      id: "hobbes-leviathan",
+      title: "Leviathan",
+      subtitle: "Or the Matter, Forme, & Power of a Common-wealth Ecclesiasticall and Civill",
+      author: "Thomas Hobbes",
+      written: "1651",
+      year: 1651,
+      /* NO `translator`: written in English, like the Declaration. */
+      edition: "The first edition (the 'Head' issue), printed for Andrew Crooke, London, 1651",
+      /* No limit to state: printed in 1651, its author dead since 1679. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Thomas Hobbes published Leviathan in London in 1651 and died in 1679, " +
+        "so the book has never been in copyright anywhere. The text is the proofread Wikisource " +
+        "transcription of the first edition, from a scan of a copy held by the Internet Archive.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Leviathan_(1651)",
+      /* NO `origLang`: the book is English. Forty-nine sections — Hobbes's Introduction, his forty-seven
+         chapters and his Review and Conclusion — so a tab's number runs one ahead of the chapter's, whose
+         Roman numeral opens each title (Don Quixote's arrangement; the front matter says so). "Section"
+         rather than "Chapter" so that no tab claims to be a chapter it is not. */
+      chapterWord: "Section",
+      count: 49,
+      total: 49,
+      /* Hobbes's own four Parts. */
+      parts: [
+        { n: 1, label: "Part I · Of Man", note: "The Introduction and chapters I–XVI — sense, speech, the passions, the state of nature" },
+        { n: 2, label: "Part II · Of Common-wealth", note: "Chapters XVII–XXXI — the covenant, the sovereign, the liberty of subjects, the laws" },
+        { n: 3, label: "Part III · Of a Christian Common-wealth", note: "Chapters XXXII–XLIII — Scripture read against any church's claim over the sovereign" },
+        { n: 4, label: "Part IV · Of the Kingdome of Darknesse", note: "Chapters XLIV–XLVII and the Review and Conclusion" },
+      ],
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 49 sections (every
+         `.ttip`). Hobbes's COMMON-WEALTH is any state, not the Commonwealth of Nations, and his Dominion,
+         Constitution, Providence and Concord are words, not the British dominions, a state's charter, or the
+         capitals of Rhode Island and New Hampshire; his Trinity is the doctrine, not the nuclear test; his
+         Successors, Commons, Altar, Ecclesia, Principalities, Plantations, Procurator, Overseer, Pastoral and
+         Duces are not the Diadochi, the United Kingdom's House, a Greek altar, the Athenian assembly,
+         medieval principalities, the American South, a Roman official, a slave-driver, herding or Mussolini.
+         The modern countries go where he means the ancient or biblical people (Greece, Israel, Jordan, Egypt,
+         Palestine, Syria, the "Antient Germans"), as they do on the King James Bible's shelf, and so do the
+         ordinary words that meet an entry (Earth, Moon, Water, Sound, Gold, Silver, Truth, Eye, Ear, Touch,
+         Tendons, Scales, Totality, Common Sense, LIBERTAS, Immortals, Homo, Lyons) and the Bible's men who
+         share a name (Apollos, Titus the epistle, Crispus, Simeon called Niger), and "Genes." — Genesis.
+         Chapter XII's "war at Lepanto" is Athens's at Naupactus, not the battle of 1571, and a Tyrannicide
+         is the act, not Harmodius and Aristogeiton. */
+      glossOff: ["Commonwealth_of_Nations", "Dominion", "Constitution", "Providence", "Concord",
+        "Trinity_(nuclear_test)", "Diadochi", "House_of_Commons_of_the_United_Kingdom", "Greek_altar",
+        "Ecclesia_(ancient_Athens)", "Principality", "Plantations_in_the_American_South", "Procurator_(ancient_Rome)",
+        "Overseer", "Pastoralism", "Duce", "Greece", "Israel", "Jordan", "Egypt", "State_of_Palestine", "Syria",
+        "Germany", "Earth", "Moon", "Water", "Sound", "Gold", "Silver", "Truth", "Human_eye", "Ear",
+        "Somatosensory_system", "Tendon", "Scale_(zoology)", "Solar_eclipse", "Common_Sense_(pamphlet)", "Libertus",
+        "Immortals", "Homo", "Lyon", "Apollo", "Titus", "Crispus", "Niger", "Gene", "Battle_of_Lepanto",
+        "Tyrannicides"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -18555,10 +18723,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const cyEl = ov.querySelector('.dm-cycle[data-act="order"]');
       if (cyEl) {
         const step = () => {
-          /* `deckOrdersFor` and not `DECK_ORDERS`: "By frequency" is stepped past on an entry whose deck
-             has no example sentences to count, so the cycler never lands on an order that would do
-             nothing. A mode already stored but not offered here still steps forward correctly, since a
-             missing index is -1 and -1 + 1 is the first. */
+          /* `deckOrdersFor`, the orders this entry is offered. A mode stored but no longer offered
+             ("By frequency", withdrawn Nov 2026) still steps forward correctly, since a missing index is
+             -1 and -1 + 1 is the first. */
           const cyc = deckOrdersFor(id);
           const next = cyc[(cyc.indexOf(deckOrderMode(id)) + 1) % cyc.length];
           setDeckOrderMode(id, next);
@@ -22412,8 +22579,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      the honest shape of what the data supports.
 
      IT IS DERIVED, NEVER STORED. Counting 23,000 sentences in a shipped field would be a figure that goes
-     stale the day a sentence is repaired, and the deck files are 21 MB already; this is one pass over a
-     deck a reader has just asked to study, cached for the session and busted with the other deck caches. */
+     stale the day a sentence is repaired, and the deck files are 21 MB already; this is one pass over the
+     notes in memory, cached for the session, busted with the other deck caches and dropped for a deck
+     whenever `uAdoptNotes` warms more of it.
+
+     ITS ONE READER IS THE CHARACTER PANEL (`charNeighbours`), which warms the whole deck first. The study
+     ORDER that used it, "By frequency", is withdrawn (Nov 2026 — see DECK_ORDERS): it counted whatever
+     happened to be in memory, and it only ever re-sorted the cards a session had already been dealt. */
   function uDeckWordFreq(deckId) {
     const hit = _wordFreq.get(deckId);
     if (hit) return hit;
@@ -22446,15 +22618,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       }
     }
     return out;
-  }
-  /* Whether this entry's deck can be ordered by frequency at all — a deck with no example sentences has
-     no corpus to count, and an order that silently does nothing is the one thing a cycler must not offer.
-     Asked of the DECK behind an entry, so a subdeck and a direction answer for their file. */
-  function entryCanFreq(id) {
-    const deckId = uDeckIdOf(id);
-    if (!deckId) return false;
-    const f = uDeckWordFreq(deckId);
-    return f.size > 0;
   }
   const CHARWIN_MAX = 24;
   let charWinEl = null;
@@ -24186,7 +24349,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         " — " + n + " artefact" + (n === 1 ? "" : "s") + '">See Reliquary</button>'
       : "") + "</div>";
     return head + '<div class="showcase">' + cells + '</div>' +
-      (own ? '<p class="ar-note">Open an artefact below to pin it here — up to ' + SHOWCASE_MAX + ', shown to anyone who visits your profile.</p>' : "");
+      (own ? '<p class="ar-note">Pin an artefact from your Reliquary — up to ' + SHOWCASE_MAX + ', shown to anyone who visits your profile.</p>' : "");
   }
   /* THE WAITING-CHESTS BANNER, at the very top of the account page (Aug 2026, on request, with the chest
      overlay's own "Save for later"). The two halves are one feature: a chest may now be put by, so there
@@ -25928,6 +26091,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "MIDWAY upon the journey of our life I found myself within a forest dark, For the straightforward pathway had been lost. Ah me! how hard a thing it is to say What was this forest savage, rough, and stern, Which in the very thought renews the fear. So bitter is it, death is little more; But of the good to treat, which there I found, Speak will I of the other things I saw there. I cannot well repeat how there I entered, So full was I of slumber at the moment In which I had abandoned the true way. But after I had reached a mountain's foot, At that point where the valley terminated, Which had with…" },
     { book: "macbeth", n: 5, t: "Act V", p: 101,
       text: "She should have died hereafter; There would have been a time for such a word. To-morrow, and to-morrow, and to-morrow, Creeps in this petty pace from day to day, To the last syllable of recorded time; And all our yesterdays have lighted fools The way to dusty death. Out, out, brief candle! Life's but a walking shadow, a poor player That struts and frets his hour upon the stage, And then is heard no more; it is a tale Told by an idiot, full of sound and fury, Signifying nothing. Enter a Messenger. Thou com'st to use thy tongue; thy story quickly. Mess Gracious my lord, I should report that…" },
+    { book: "romeo-and-juliet", n: 2, t: "Act II", p: 23,
+      text: "He jests at scars, that never felt a wound. [Juliet appears above at a window.] But, soft! what light through yonder window breaks? It is the east, and Juliet is the sun! Arise, fair sun, and kill the envious moon, Who is already sick and pale with grief, That thou her maid art far more fair than she: Be not her maid, since she is envious; Her vestal livery is but sick and green, And none but fools do wear it; cast it off. It is my lady; O! it is my love: O! that she knew she were. She speaks, yet she says nothing: what of that? Her eye discourses; I will answer it. I am too bold, 'tis not to…" },
     { book: "classic-of-tea", n: 1, t: "The Origin of Tea", p: 1,
       text: "Tea is a fine tree of the South. Its height is from one to two feet to several tens of feet. The tea plants which grow on the hills and by the streams of Pa Shan [in the province of Szechwan] are sometimes so big that it takes two men to encircle them with their arms. They are cut down and then their leaves are plucked. A tea plant is like kua lu, a tree growing in Canton, the leaves of which are bitter and acrid in taste; its leaves are like those of the gardenia; its flowers are like the white cinnamon roses; its seeds are like those of the palm and coconut palm; its stalks are like those…" },
     { book: "magna-carta", n: 39, t: "Chapter 39", p: 1,
@@ -25946,12 +26111,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "The tributaries of the Varangians drove them back beyond the sea and, refusing them further tribute, set out to govern themselves. There was no law among them, but tribe rose against tribe. Discord thus ensued among them, and they began to war one against another. They said to themselves, “Let us seek a prince who may rule over us, and judge us according to the law.” They accordingly went overseas to the Varangian Russes: these particular Varangians were known as Russes, just as some are called Swedes, and others Normans, Angles, and Goths, for they were thus named. The Chuds, the Slavs, and…" },
     { book: "declaration-of-independence", n: 1, t: "The Unanimous Declaration", p: 6,
       text: "We hold these Truths to be self-evident, that all Men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty, and the Pursuit of Happiness.—That to secure these Rights, Governments are instituted among Men, deriving their just Powers from the Consent of the Governed, that whenever any Form of Government becomes destructive of these Ends, it is the Right of the People to alter or to abolish it, and to institute new Government, laying its Foundation on such Principles, and organizing its Powers in such Form, as to them shall…" },
+    { book: "hobbes-leviathan", n: 14, t: "XIII. Of the Naturall Condition of Mankind, as concerning their Felicity, and Misery", p: 12,
+      text: "Whatsoever therefore is consequent to a time of Warre, where every man is Enemy to every man; the same is consequent to the time, wherein men live without other security, than what their own strength, and their own invention shall furnish them withall. In such condition, there is no place for Industry; because the fruit thereof is uncertain: and consequently no Culture of the Earth; no Navigation, nor use of the commodities that may be imported by Sea; no commodious Building; no Instruments of moving, and removing such things as require much force; no Knowledge of the face of the Earth; no account of Time; no Arts; no Letters; no Society; and which is worst of all, continuall feare, and danger of violent death; And the life of man, solitary, poore, nasty, brutish, and short." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
       text: "Again:—\"Why does not the pope, whose wealth is to-day greater than the riches of the richest, build just this one church of St. Peter with his own money, rather than with the money of poor believers?\"" },
     { book: "kalidasa-shakuntala", n: 6, t: "Act IV", p: 138,
       text: "Hear, my daughter—When thou art settled in the mansion of thy husband, show due reverence to him, and to those whom he reveres: though he have other wives, be rather an affectionate handmaid to them than a rival.—Should he displease thee, let not thy resentment lead thee to disobedience.—In thy conduct to thy domesticks be rigidly just and impartial; and seek not eagerly thy own gratifications.—By such behaviour young women become respectable; but perverse wives are the bane of a family.—What thinks Gautamí of this lesson ? Gaut. It is incomparable:—my child, be sure to remember it. Can.…" },
     { book: "king-james-bible", n: 501, t: "Psalm 23", p: 1,
       text: "The LORD is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul: he leadeth me in the paths of righteousness for his name’s sake. Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me. Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over. Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever." },
+    { book: "quran", n: 1, t: "The Opening", p: 1,
+      text: "In the name of Allah, the Beneficent, the Merciful. Praise be to Allah, Lord of the Worlds, The Beneficent, the Merciful. Owner of the Day of Judgment, Thee (alone) we worship; Thee (alone) we ask for help. Show us the straight path, The path of those whom Thou hast favoured; Not (the path) of those who earn Thine anger nor of those who go astray." },
   ];
   function homeDailyExcerpt() {
     const list = HOME_EXCERPTS.filter((e) => BOOK_BY_ID[e.book]);
@@ -30930,8 +31099,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* HUNGARIAN (Nov 2026) was not named a colour, so it was MEASURED as Greek was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white); re-swept at the merge against all 65 other hues on
        the page, this steel blue is still the winner, 16.9 from its nearest neighbours (Ancient Greece's Aegean blue
-       and French's blue), against a tightest existing pair of 4.0; 6.2:1 against white. Not a flag colour (Hungary's is red, white and green). */
-    "lang-hungarian":  { bg: "#14659F" }, // measured steel blue
+       and French's blue), against a tightest existing pair of 4.0; 6.2:1 against white. Not a flag colour (Hungary's is red, white and green).
+       THAT STEEL BLUE WAS VIETNAMESE'S (#14659F, taken in a parallel session and credited to it in Dutch's note
+       below), so two banners wore one colour and `test-lang-decks.js` ("no two the same") failed on main. Re-swept
+       on 2026-11-16, the greens left out as a flag colour. Its first sweep found an indigo, #333C81 — and
+       Yoruba's, merged the same day, stood 10.8 from it; re-swept at the merge against all 78 other hues: a
+       dusky plum, 14.3 from its nearest neighbour (the Cold War), then Visual Art at 15.0 and Astronomy at
+       15.7; 9.6:1 against white. Its chroma is 18, far from the hot magenta the shelf rejects. */
+    "lang-hungarian":  { bg: "#573C54" }, // measured dusky plum
     "lang-indonesian": { bg: "#8D2D39" }, // red, the darker of the two
     /* IRISH (Nov 2026) was not named a colour, so it was MEASURED as Greek was: swept in CIELAB inside the
        shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest from all 67 hues on the
@@ -31101,6 +31276,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        its nearest neighbour (Ancient Mesopotamia), then 14.3 from World History and 14.5 from Spanish, against a
        tightest existing pair of 4.0; 5.9:1 against white. */
     "lang-finnish":    { bg: "#8D572D" }, // measured sienna
+    /* ICELANDIC (Nov 2026) was not named a colour, so it was MEASURED as Finnish was: swept in CIELAB inside the
+       shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) against all 74 other hues, the magenta band's standing
+       rejection kept and the greens left out. The raw winner, a deep indigo (#333C81, 14.3), was REFUSED for standing
+       13.2 from the blue of Iceland's flag; this ultramarine is the runner-up, 14.1 from its nearest neighbour (Urdu),
+       then 14.4 from China (Geography) and 17.9 from Ancient Rome, against a tightest existing pair of 0.0 (Hungarian
+       and Vietnamese share a hue); 23.2 from the flag's blue, 10:1 against white. Re-swept at the merge against all 78
+       other hues (Khmer, Yoruba and Lao had arrived): it is now the winner outright, still 14.1 from Urdu. */
+    "lang-icelandic":  { bg: "#303696" }, // measured ultramarine
     /* KHMER (Nov 2026, asked for as "a Cambodian language collection") was not named a colour, so it was MEASURED
        as Hebrew was: swept in CIELAB inside the shelf's band (L 28–55, chroma 7–62, 4.5:1 against white) for the
        point farthest from all 73 hues on the page, the magenta band's standing rejection kept and the greens left
@@ -35437,14 +35620,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        because the alternative is a page that throws the day that gap closes: it maps over the orders the
        entry can take and reads each one's copy without checking, so an order in the list and not in this
        table is a blank screen rather than a missing card. */
-    frequency: {
-      lead: "The words this deck uses most in its own example sentences, first.",
-      body: [
-        "A vocabulary deck built from an exam list is in the order of that list, which is alphabetical by reading and has no teaching in it at all — you meet a word you will use every day and a word you may never see again on the same morning, in whatever order their spellings happen to fall.",
-        "This counts how often each of the deck's own headwords turns up in its example sentences and deals the commonest first. It says less the further up the levels you go, where most words appear once and only in their own sentence; there the deck's own order is kept.",
-      ],
-      who: "Best for a language deck you are starting, when you want the useful words first.",
-    },
   };
   const ORDER_PICK_HOWTO =
     "You can change this whenever you like, and nothing you have studied is affected: <b>press and hold the deck's row</b> in Daily study on the home page — or the Daily study banner itself, for your pooled review — and the sheet that opens has a <b>Review order</b> row that steps through these.";
@@ -44828,10 +45003,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const best = (prog.daily && prog.daily.best) || 0;
     const due = dueN != null ? '<div class="statcard"><b>' + dueN + '</b><span>Due now</span></div>' : "";
     return '<div class="statgrid">' +
-      '<div class="statcard"><b>' + seen + '</b><span>Cards seen</span></div>' +
+      '<div class="statcard"><b>' + seen + '</b><span>Cards studied</span></div>' +
       '<div class="statcard zh"><b>' + streak + '</b><span>Day streak</span></div>' + due +
       '<div class="statcard"><b>' + mature + '</b><span>Mature (21d+)</span></div>' +
-      '<div class="statcard"><b>' + wins + '</b><span>Minigame wins</span></div>' +
+      '<div class="statcard"><b>' + wins + '</b><span>Quiz wins</span></div>' +
       '<div class="statcard"><b>' + best + '</b><span>Best score</span></div></div>';
   }
   /* ---------- review statistics: heatmap, forecast, retention ----------
@@ -45114,11 +45289,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           ${retBody}
         </div>
         ${fcCard}
+        ${/* PAIRED BY HEIGHT (Nov 2026): the two bar charts share a row and the two card lists share the
+              next, where a chart beside a twenty-row list left half a card of blank space under it; an odd
+              card out at the end takes the full row (see `.revstats` in styles.css). */""}
+        ${answerButtonsHTML(prog)}
+        ${forgettingCurveHTML(prog)}
         ${leechPanelHTML(prog)}
         ${slowPanelHTML(prog)}
-        ${forgettingCurveHTML(prog)}
         ${seenOnceHTML(prog)}
-        ${answerButtonsHTML(prog)}
       </div>`;
   }
   /* ==========================================================================================
@@ -45376,15 +45554,29 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       prev = t;
       if (run > best) best = run;
     });
-    return best;
+    /* …and never less than the run the reader is ON, or the best one `bumpStreak` recorded: the log is
+       pruned and a streak is not, so a run older than the log read as a "longest streak" shorter than
+       the current one printed two tiles away. */
+    const st = (prog && prog.streak) || {};
+    return Math.max(best, st.best | 0, streakLive(prog));
   }
+  /* THE DAILY LOG IS A WINDOW, AND A TOTAL OVER IT IS ONLY "ALL TIME" UNTIL IT IS PRUNED (Nov 2026).
+     `logReview` drops days older than REVIEW_LOG_DAYS, so after thirteen months "Reviews, all time" was a
+     figure that could go DOWN. Once the log reaches back to the edge of that window the totals are taken
+     over exactly the window and `windowed` tells the tiles to say "past 13 months"; before that every
+     review the reader has given is still in it and "all time" is true. */
   function reviewLogTotals(prog) {
     const log = (prog && prog.reviewLog) || {};
+    const keys = Object.keys(log).filter((k) => ((log[k] || [])[0] || 0) > 0).sort();
+    const cut = dayKey(Date.now() - REVIEW_LOG_DAYS * DAY), edge = dayKey(Date.now() - (REVIEW_LOG_DAYS - 31) * DAY);
+    const windowed = !!keys.length && keys[0] <= edge;
     let reviews = 0, days = 0;
-    Object.keys(log).forEach((k) => { const n = (log[k] || [])[0] || 0; reviews += n; if (n > 0) days++; });
-    return { reviews, days };
+    keys.forEach((k) => { if (windowed && k < cut) return; reviews += log[k][0]; days++; });
+    return { reviews, days, windowed };
   }
-  const GAME_TITLES = { challenge: "Multiple choice", chrono: "Timeline", truefalse: "True or False", whosaid: "Who said it?", findit: "Find it", thread: "Common Thread" };
+  /* A game's name comes from GAME_NAMES, the table the home tiles and the archive read (Nov 2026): this had
+     a copy of its own that stopped at six games, so the four added since were printed as their ids. */
+  function gameTitle(k) { return (GAME_NAMES[k] && GAME_NAMES[k][0]) || k; }
   function exploreStatsHTML(prog) {
     const gloss = glossSeenCount(prog);   // only the curated glossary, and only terms that still exist
     const glossTotal = glossTotalCount();
@@ -45423,9 +45615,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         ? '<button type="button" class="rs-card ex-meter ex-meter-link" data-exgo="' + esc(go) + '">' + body + '<span class="ex-go" aria-hidden="true">→</span></button>'
         : '<div class="rs-card ex-meter">' + body + "</div>";
     };
-    const gameRows = DAILY_GAMES.map((k) => {
-      const g = gl[k] || { plays: 0, wins: 0 };
-      return '<div class="ex-grow"><span class="exg-name">' + esc(t(GAME_TITLES[k] || k)) + "</span>" +
+    // …and only the games that have been played: nine rows of "0 plays · 0 perfect" say nothing nine times
+    const gameRows = DAILY_GAMES.filter((k) => gl[k] && (gl[k].plays | 0) > 0).map((k) => {
+      const g = gl[k];
+      return '<div class="ex-grow"><span class="exg-name">' + esc(t(gameTitle(k))) + "</span>" +
         '<span class="exg-n">' + g.plays + (g.plays === 1 ? " play" : " plays") + "</span>" +
         '<span class="exg-w">' + g.wins + " perfect</span></div>";
     }).join("");
@@ -45450,14 +45643,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         tile(fmtStudyTime(lifeMs), "Time studied", "Every minute a card has been on your screen since this counter began — the minigames are not counted") +
         (readMs ? tile(fmtStudyTime(readMs), "Time reading", "Every minute spent in a book in the Library") : "") +
         (geoLoaded ? tile(histPlaces, "Historical territories", "Territories from the Atlas's historical maps, and the UK's home nations — places you have opened that are not present-day countries") : "") +
-        tile(tot.reviews, "Reviews, all time", "Every grade you have given, from the day-by-day log") +
-        tile(tot.days, "Days studied", "Days with at least one review") +
+        tile(tot.reviews, tot.windowed ? "Reviews, past 13 months" : "Reviews, all time", tot.windowed ? "Every grade you have given in the past 13 months — the day-by-day log keeps no more than that" : "Every grade you have given, from the day-by-day log") +
+        tile(tot.days, tot.windowed ? "Days studied, past 13 months" : "Days studied", "Days with at least one review") +
         tile("🔥 " + best, "Longest streak", "The longest run of consecutive days with a review") +
         tile(cotd, "Card-of-the-day picks", "Cards you added to your review from the home page's card of the day") +
         tile(plays, "Games played", "Every daily minigame you have finished") +
         tile(wins, "Perfect runs", "Games finished without a single mistake") +
       "</div>" +
-      '<div class="ex-games">' + gameRows + "</div>";
+      (gameRows ? '<div class="ex-games">' + gameRows + "</div>" : "");
   }
 
   // the root collection an item belongs to (walk up the tree) — used to tint profile rows in the collection's hue
@@ -45489,17 +45682,33 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function renderCollectionLevels(container, cards, compareCards) {
     const cols = TREE.collections.filter((c) => subtreeCardIds(c).length > 0 && !isComingSoon(c));
     if (!cols.length) { container.innerHTML = '<div class="cl-empty">No collections studied yet — your progress in each appears here as you study.</div>'; return 0; }
-    container.innerHTML = cols.map((c) => {
+    /* ONLY THE COLLECTIONS THAT HAVE BEEN STARTED, THE REST BEHIND ONE BUTTON (Nov 2026). Every collection
+       on the site was listed, so a reader three collections in scrolled past thirty rows of "0 / 1,000" —
+       a third of the page saying nothing. A row is drawn when the reader (or, on a friend's profile, either
+       of you) has studied a card in it.
+       …AND TWO COLLECTIONS OF ONE NAME SAY WHICH THEY ARE: the United States, China, Russia and India are
+       each a history collection and a geography one, and the list printed the same word twice. The shelf's
+       own section name (COLLECTION_SECTION) is added only where a title is shared. */
+    const titles = {}; cols.forEach((c) => { const k = nodeTitle(c); titles[k] = (titles[k] || 0) + 1; });
+    const rowOf = (c) => {
       const total = subtreeCardIds(c).length, studied = collectionStudiedFrom(c, cards);
       const hue = COLL_THEME[c.id] ? ' style="--coll-bg:' + COLL_THEME[c.id].bg + '"' : "";
       const you = compareCards ? '<span class="cl-you" title="Your own progress in this collection">You: ' + collectionStudiedFrom(c, compareCards) + " / " + total + "</span>" : "";
+      const sec = titles[nodeTitle(c)] > 1 && COLLECTION_SECTION[c.id] ? '<span class="cl-sec">' + esc(COLLECTION_SECTION[c.id]) + "</span>" : "";
       return '<div class="cl-row"' + hue + '>' + collectionIconMarkup(c.id) +
-        '<div class="cl-main"><div class="cl-name">' + esc(nodeTitle(c)) + you + '</div>' + deckProgMarkup(studied, total) + '</div></div>';
-    }).join("");
+        '<div class="cl-main"><div class="cl-name">' + esc(nodeTitle(c)) + sec + you + '</div>' + deckProgMarkup(studied, total) + '</div></div>';
+    };
+    const begun = (c) => collectionStudiedFrom(c, cards) > 0 || (!!compareCards && collectionStudiedFrom(c, compareCards) > 0);
+    const on = cols.filter(begun), off = cols.filter((c) => !begun(c));
+    container.innerHTML = (on.length ? on.map(rowOf).join("") : '<div class="cl-empty">No collections studied yet — your progress in each appears here as you study.</div>') +
+      (off.length ? moreBtnHTML("Show the " + off.length + " not started", "Hide the ones not started") + '<div class="coll-levels cl-rest" hidden>' + off.map(rowOf).join("") + "</div>" : "");
     animateProgs(container);
     return cols.length;
   }
-  function roleBadge(role) { return '<span class="role-badge ' + (role === "admin" ? "role-admin" : "role-user") + '">' + (role === "admin" ? "Admin" : "User") + '</span>'; }
+  /* Only a role worth saying (Nov 2026): every ordinary account wore a "User" chip, which told a reader
+     nothing about themselves or a friend. An admin's is still drawn; `sep` is the separator the caller
+     wants in front of it, so a line with no badge has no stray dot either. */
+  function roleBadge(role, sep) { return role === "admin" ? (sep || "") + '<span class="role-badge role-admin">Admin</span>' : ""; }
   function afterAuthChange() { applyMode(); route("account"); }
 
   /* ---------- achievements ---------- */
@@ -45814,8 +46023,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function badgesHTML(achObj, stats) {
     const got = (id) => achObj && achObj[id];
     const earned = ACHIEVEMENTS.filter((a) => got(a.id)).length;
-    return '<div class="badges-head"><span class="badges-count">' + earned + ' of ' + ACHIEVEMENTS.length + ' unlocked</span></div>' +
-      '<div class="badges">' + ACHIEVEMENTS.map((a) => {
+    /* THE EARNED ONES, THE NEAREST FEW, AND THE REST BEHIND ONE BUTTON (Nov 2026). All fifty were drawn
+       at once, which on a phone was three and a half screens of grey tiles under a handful of gold ones.
+       What a reader looks at is what they HAVE and what they are closest to: so the earned badges come
+       first, then the BADGE_NEXT locked ones furthest along (a badge with no countable goal counts as not
+       begun), and the remainder is folded under "Show the other N" — the delegated [data-more] listener
+       at the foot of this file opens it. Nothing is dropped: every badge is still one press away. */
+    const frac = (a) => { if (!a.prog || !stats) return 0; const pr = a.prog(stats); return pr[1] > 0 ? Math.min(1, pr[0] / pr[1]) : 0; };
+    const locked = ACHIEVEMENTS.filter((a) => !got(a.id)).map((a, i) => ({ a, f: frac(a), i })).sort((x, y) => y.f - x.f || x.i - y.i).map((x) => x.a);
+    const shown = ACHIEVEMENTS.filter((a) => got(a.id)).concat(locked.slice(0, BADGE_NEXT)), rest = locked.slice(BADGE_NEXT);
+    const tileOf = (a) => {
         const has = got(a.id);
         // earned → its unlock date; locked with a countable goal → a "6/10" progress hint
         let sub = "";
@@ -45828,7 +46045,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             '<span class="badge-face badge-front"><span class="badge-ic">' + a.icon + '</span><span class="badge-name">' + esc(a.name) + '</span>' + (sub ? '<span class="badge-sub">' + esc(sub) + '</span>' : "") + '</span>' +
             '<span class="badge-face badge-back"><span class="badge-back-h">How to earn</span><span class="badge-how">' + esc(a.desc) + '</span></span>' +
           '</span></button>';
-      }).join("") + '</div>';
+    };
+    return '<div class="badges-head"><span class="badges-count">' + earned + ' of ' + ACHIEVEMENTS.length + ' unlocked</span></div>' +
+      '<div class="badges">' + shown.map(tileOf).join("") + '</div>' +
+      (rest.length ? moreBtnHTML("Show the other " + rest.length + " badges", "Show fewer badges") + '<div class="badges badges-rest" hidden>' + rest.map(tileOf).join("") + '</div>' : "");
+  }
+  const BADGE_NEXT = 6;
+  /* ONE FOLD, WHEREVER A LIST IS LONGER THAN WHAT A READER CAME FOR. The button opens the element that
+     FOLLOWS it and says the other thing; the listener is delegated (foot of this file), so the HTML can
+     be set by any renderer — your own page, a friend's — without each of them wiring it. */
+  function moreBtnHTML(openLbl, shutLbl) {
+    return '<button type="button" class="more-btn" data-more="1" aria-expanded="false" data-open="' + esc(openLbl) + '" data-shut="' + esc(shutLbl) + '">' + esc(openLbl) + "</button>";
   }
 
   PAGES.account = function (root, params) {
@@ -45903,10 +46130,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       ${supaOtherAccounts().length ? '<div class="section-label">Pick up where you left off</div>' + acctSwitchListHTML() : ""}
       <div class="auth-split">
       <div class="auth-card">
-        <div class="auth-tabs">
-          <button class="auth-tab active" data-av="signin" type="button">Sign in</button>
-          <button class="auth-tab" data-av="register" type="button">Create account</button>
-          <button class="auth-tab" data-av="forgot" type="button">Forgot password</button>
+        ${/* TWO TABS, AND "FORGOT PASSWORD?" WHERE IT IS WANTED (Nov 2026). It was a third tab, which on a
+              phone wrapped all three onto two lines each — and it is not a third thing to do here: it is
+              what a reader reaches for at the password field, so it is a link under that field, and its
+              form carries the way back. The tabs say which is selected to a screen reader as well. */""}
+        <div class="auth-tabs" role="tablist" aria-label="Sign in or create an account">
+          <button class="auth-tab active" data-av="signin" type="button" role="tab" aria-selected="true">Sign in</button>
+          <button class="auth-tab" data-av="register" type="button" role="tab" aria-selected="false">Create account</button>
         </div>
         <form class="auth-form" data-form="signin">
           ${/* "Email or username" (Aug 2026, on request), which is also why the type is `text` rather than
@@ -45915,6 +46145,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 the right token for a field that takes either, and password managers fill it as happily. */""}
           <label>Email or username<input class="auth-in" name="u" type="text" autocomplete="username" required></label>
           <label>Password<input class="auth-in" name="p" type="password" autocomplete="current-password" required></label>
+          <button type="button" class="link-btn auth-forgot" data-av="forgot">Forgot password?</button>
           <div class="auth-msg" data-msg></div>
           <button class="auth-btn" type="submit">Sign in</button>
         </form>
@@ -45931,6 +46162,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           <label>Email<input class="auth-in" name="u" type="email" autocomplete="email" required></label>
           <div class="auth-msg" data-msg></div>
           <button class="auth-btn" type="submit">Send reset link</button>
+          <button type="button" class="link-btn auth-forgot" data-av="signin">&larr; Back to sign in</button>
         </form>
       </div>
         <div class="auth-perks">
@@ -45957,23 +46189,31 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             anybody else, and walling the only way to look at them behind a sign-in would make the browser
             unreachable for exactly the reader who has no other record of their studying. It appears only
             once something has been studied — on a first visit there is nothing to browse. */""}
+      ${/* …AND SO IS THE REST OF THE DEVICE'S RECORD (Nov 2026, out of the page audit). A guest with five
+            hundred cards studied was shown the browser and nothing else: no figures, no review statistics,
+            no weak spots, no list of the cards they had suspended — all of it computed from this device and
+            none of it needing an account. The same tiles, links and statistics the signed-in page draws. */""}
       ${Object.keys(S.cards || {}).length ? `
+      <div class="section-label">On this device</div>
+      ${acctTilesHTML(S, false)}
       <div class="section-label">Your cards</div>
-      <button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="browse">
-        <div class="rs-head"><h3>Card browser</h3><span class="rs-meta">search &amp; act</span></div>
-        <span class="rs-sub">Every card you could study — its state, when it is due, how often you have forgotten it. Flag them, push them to a date, or put one back to new.</span>
-        <span class="ex-go" aria-hidden="true">&rarr;</span>
-      </button>` : ""}`;
-    root.querySelectorAll("[data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
+      ${acctLinksHTML()}
+      ${acctStatsHTML()}` : ""}`;
+    root.querySelectorAll(".acct-links [data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
+    if (root.querySelector("#reviewStats")) wireAcctStats(root);
     { const rel = root.querySelector("#reliquary"); if (rel) { rel.innerHTML = reliquaryHTML(S, true, { entry: true }); wireReliquary(rel); } }
     // the tiles carry the artefacts' own pictures, which are lazy — fill them in when the bundle lands
     // rather than holding a page full of other things the reader came for. See refreshReliquary.
     if (!dataReady("artefactExtra")) ensureData("artefactExtra").then(() => { if (current && current.name === "account") refreshReliquary(); });
     wireAcctSwitch(root);
+    // the reset form belongs to the Sign-in tab: it is reached from that form and goes back to it
     const tabs = root.querySelectorAll(".auth-tab"), forms = root.querySelectorAll(".auth-form");
-    tabs.forEach((t) => t.addEventListener("click", () => {
-      tabs.forEach((x) => x.classList.toggle("active", x === t));
-      forms.forEach((f) => { f.hidden = f.dataset.form !== t.dataset.av; });
+    root.querySelectorAll("[data-av]").forEach((t) => t.addEventListener("click", () => {
+      const want = t.dataset.av, tabOf = want === "forgot" ? "signin" : want;
+      tabs.forEach((x) => { const on = x.dataset.av === tabOf; x.classList.toggle("active", on); x.setAttribute("aria-selected", on ? "true" : "false"); });
+      forms.forEach((f) => { f.hidden = f.dataset.form !== want; });
+      const first = root.querySelector('.auth-form[data-form="' + want + '"] input');
+      if (first && !t.classList.contains("auth-tab")) first.focus();
     }));
     const msg = (form, text, ok) => { const m = form.querySelector("[data-msg]"); m.textContent = text || ""; m.className = "auth-msg" + (text ? (ok ? " ok" : " err") : ""); };
     /* THE LABEL IS STASHED BEFORE IT IS OVERWRITTEN, WHICH IT WAS NOT (Sep 2026, on a bug report about
@@ -46021,158 +46261,57 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     });
   }
 
-  function acctSelfView(root) {
-    const me = SUPA_PROFILE || { username: ((SUPA.user && SUPA.user.email) || "account").split("@")[0], role: "user" };   // profile may still be loading right after boot
-    const joined = new Date(S.user.joined).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
-    // profile hero: a level-progress ring around the avatar + a row of headline stat tiles
-    const info = levelFromXP(folioXP());
-    const ringC = 2 * Math.PI * 34;   // r=34 in a 76×76 viewBox
-    const frac = info.need > 0 ? Math.min(1, info.into / info.need) : 1;
-    const st = progStats(S, 0);
-    const earnedBadges = Object.keys(S.achievements || {}).filter((k) => S.achievements[k]).length;
-    const statTile = (cls, val, label) => `<div class="ph-stat ${cls}"><b>${val}</b><span>${label}</span></div>`;
-    root.innerHTML = `
-      <div class="page-head"><span class="eyebrow">Your record</span><h1>Account</h1></div>
-      ${/* Waiting chests were announced here and are now above the Daily-study banner on the home page
-            (Aug 2026, on request), which is where a reader who deferred one lands. */""}
-      <div class="profile">
-        <div class="ph-ava">
-          <svg class="ph-ring" viewBox="0 0 76 76" aria-hidden="true">
-            <circle cx="38" cy="38" r="34" fill="none" stroke="color-mix(in srgb, var(--indigo) 16%, transparent)" stroke-width="4"/>
-            <circle cx="38" cy="38" r="34" fill="none" stroke="#C39A2E" stroke-width="4" stroke-linecap="round" stroke-dasharray="${ringC.toFixed(1)}" stroke-dashoffset="${(ringC * (1 - frac)).toFixed(1)}" transform="rotate(-90 38 38)"/>
-          </svg>
-          <button class="mono-btn" id="monoBtn" type="button" title="${me.avatar ? "Change or remove your profile photo" : "Add a profile photo"}" aria-haspopup="${me.avatar ? "menu" : "false"}" aria-label="${me.avatar ? "Change or remove your profile photo" : "Add a profile photo"}">
-            <span id="mono">${monogramHTML(me.avatar, S.user.name)}</span>
-            <span class="mono-cam" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
-          </button>
-          <span class="ph-lvl" title="Folio level — the ring fills toward the next level">Lv ${info.level}</span>
-        </div>
-        <input type="file" id="avatarFile" accept="image/*" hidden>
-        <div class="who">
-          <input class="namefield" id="name" value="${esc(S.user.name)}" maxlength="28" aria-label="Display name" />
-          <div class="since"><span id="unShown">@${esc(me.username)}</span> · ${roleBadge(me.role)} · since ${joined}${/* THE ADDRESS OF YOUR OWN PROFILE, so the thing to share is on the page rather than something a reader has to know the shape of. It copies rather than opening: pressing it would take you to your own account page, which is where you already are. */""} · <button type="button" class="link-btn" id="unCopy" title="Copy the link to your profile">copy link</button></div>
-        </div>
-        ${/* Aug 2026, on request: Change password moved up here beside Sign out. The two are the same kind
-              of thing — what you do to the ACCOUNT — and it had been sitting a section lower among the
-              photo controls, where it read as one of them. */""}
-        <div class="acct-idacts">
-          <button class="ghost-btn" id="unToggle" type="button">Username</button>
-          <button class="ghost-btn" id="emToggle" type="button">Email address</button>
-          <button class="ghost-btn" id="pwToggle" type="button">Change password</button>
-          <button class="ghost-btn" id="swToggle" type="button">Switch account</button>
-          <button class="ghost-btn" id="signout" type="button">Sign out</button>
-        </div>
-      </div>
-      ${/* …and the sync line moved with them: it says what happens to the thing those two buttons act on,
-            so it belongs directly under them rather than beside a Remove-photo button. */""}
-      <div class="acct-syncnote"><span class="auth-note">${S._supaTs ? "Progress synced to your account ✓" : "Progress will sync automatically as you study"}</span></div>
-      ${/* CHANGING THE HANDLE (Sep 2026, on a bug report about creating an account). Sign-up does not always
-            grant the username asked for — a taken one is answered with `scholar_<8 hex>` so that the account
-            is still made — and until now there was no way back from that: the field above edits the display
-            name, and the handle was write-once. The panel says what the handle IS as well as changing it,
-            since it is what the reader signs in with and what a friend searches for. */""}
-      <div class="acct-panel" id="unPanel" hidden>
-        <div class="acct-current">Your username is <b>@${esc(me.username)}</b></div>
-        <label>New username<input class="auth-in" id="unNew" autocomplete="username" placeholder="letters, numbers, underscore" maxlength="24"></label>
-        <div class="auth-msg" id="unMsg"></div>
-        <button class="auth-btn sm" id="unSave" type="button">Change username</button>
-        <p class="auth-note">This is the handle you can sign in with and the one friends add you by. Your display name above is separate.</p>
-      </div>
-      ${/* SEEING AND CHANGING THE ADDRESS (Aug 2026, on request). The address a reader signs in with was
-            nowhere on this page, which on an account that also has a username is the one fact they cannot
-            look up anywhere else. It is shown plainly and changed in the same panel, and the note says the
-            change is not immediate — GoTrue emails a link and the swap happens when it is followed. */""}
-      <div class="acct-panel" id="emPanel" hidden>
-        <div class="acct-current">Signed in as <b>${esc((SUPA.user && SUPA.user.email) || "—")}</b></div>
-        <label>New email address<input class="auth-in" id="emNew" type="email" autocomplete="email" placeholder="${esc((SUPA.user && SUPA.user.email) || "you@example.com")}"></label>
-        <div class="auth-msg" id="emMsg"></div>
-        <button class="auth-btn sm" id="emSave" type="button">Send confirmation link</button>
-        <p class="auth-note">Your address changes once you follow the link we send to the new one. Until then, keep signing in with the old address — or with your username.</p>
-      </div>
-      <div class="acct-panel" id="pwPanel" hidden>
-        <label>New password<input class="auth-in" id="pwNew" type="password" autocomplete="new-password"></label>
-        <label>Confirm<input class="auth-in" id="pwNew2" type="password" autocomplete="new-password"></label>
-        <div class="auth-msg" id="pwMsg"></div>
-        <button class="auth-btn sm" id="pwSave" type="button">Update password</button>
-      </div>
-      ${/* The switcher, and the way to add one more to it. "Sign in to another account" signs THIS one out
-            while keeping its token, which is what lands the reader on the ordinary sign-in form with both
-            accounts remembered — rather than a second copy of that form living inside this page. */""}
-      <div class="acct-panel" id="swPanel" hidden>
-        ${supaOtherAccounts().length ? acctSwitchListHTML() : '<p class="auth-note">No other account is remembered on this device yet.</p>'}
-        <button class="auth-btn sm ghost" id="swAdd" type="button">Sign in to another account</button>
-        <p class="auth-note">Switching keeps you signed in to both — your work on each stays its own. Signing out forgets the account you sign out of.</p>
-      </div>
-      <div class="ph-stats">
-        ${statTile("st-seen", st.seen, "Cards studied")}
-        ${statTile("st-streak", "🔥 " + st.streak, "Day streak")}
-        ${statTile("st-badges", earnedBadges, "Badges")}
-        ${statTile("st-wins", st.wins, "Quiz wins")}
-      </div>
-      ${/* HOW FAR TO THE NEXT STREAK CHEST (Aug 2026, on request). It sits under the stat tiles, beside the
-            streak figure it counts from — the tile says how long the run is and this says what the run is
-            worth, which are two halves of one fact and read badly a section apart. */""}
-      ${/* THE REMOVE-PHOTO ROW STOOD HERE AND IS GONE (Sep 2026, on request: "instead, make it so that
-            clicking your own profile picture offers two options: edit photo and remove photo"). It was a
-            button in a section of its own, a screen away from the picture it acted on, and it existed only
-            while there WAS a photo — so the row appeared and disappeared as the reader changed it. Both
-            actions are on the picture now; see the menu in the wiring below. */""}
-      ${/* THE RELIQUARY (Aug 2026, on request). The showcase sits directly under the profile hero because
-            it IS part of the profile — the four artefacts a reader has chosen to be seen holding — while
-            the inventory itself is a section of its own further down, beside the badges it belongs with. */""}
-      <div id="showcase"></div>
-      <div class="section-label">Friends</div>
-      <div class="friends-box" id="friendsBox"></div>
-      <div class="section-label">Badges</div>
-      <div class="badges-box" id="badgesBox"></div>
-      ${/* THE INVENTORY STOOD HERE AND IS GONE (Aug 2026, on request). This page carried the artefacts
-            TWICE — four of them in the showcase above, all of them in a section here — under two names, so
-            a reader met the same collection at two points on one page and had no way to tell what the
-            difference between them was meant to be. The showcase keeps its four (they are a CHOICE, and
-            part of the profile) and its "See Reliquary" button is now the one way to the whole thing.
-            The SIGNED-OUT page keeps its own copy of this section, which is not a duplicate there: that
-            page has no showcase at all, so without it a guest's collection would be unreachable. */""}
-      <div class="section-label">Collection progress</div>
-      <div class="coll-levels" id="collLevels"></div>
-      <div id="statWrap"></div>
-      <div class="section-label">Your cards</div>
-      ${/* THE WAY INTO THE BROWSER. It sits at the head of the statistics rather than among them, because
-            everything below is a summary and this is the thing that lets a reader ask their own question of
-            it — "what do I keep failing" is one search and no chart. It is a link on your OWN record only,
-            like the glossary meter beside it: a friend's cards are not yours to act on. */""}
-      <button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="browse">
-        <div class="rs-head"><h3>Card browser</h3><span class="rs-meta">search &amp; act</span></div>
-        <span class="rs-sub">Every card you could study — its state, when it is due, how often you have forgotten it. Flag them, push them to a date, or put one back to new.</span>
-        <span class="ex-go" aria-hidden="true">&rarr;</span>
-      </button>
-      ${/* Weak spots and Year in review (Nov 2026, on request): two more ways into the reader's own record */""}
-      <button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="weak">
-        <div class="rs-head"><h3>Weak spots</h3><span class="rs-meta">by deck, period &amp; tag</span></div>
-        <span class="rs-sub">Where your memory slips most, and your weakest cards to study in one tap.</span>
-        <span class="ex-go" aria-hidden="true">&rarr;</span>
-      </button>
-      <button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="year">
-        <div class="rs-head"><h3>Year in review</h3><span class="rs-meta">${new Date().getFullYear()}</span></div>
-        <span class="rs-sub">Your year in Folio: answers, days, time, discoveries and the collections you studied most.</span>
-        <span class="ex-go" aria-hidden="true">&rarr;</span>
-      </button>
-      <div class="section-label">Review statistics</div>
-      <div id="reviewStats"></div>
-      <div class="section-label">Deck statistics</div>
-      <div id="deckStats"></div>
-      <div class="section-label">Beyond the cards</div>
-      <div id="exploreStats"></div>
-      <div class="section-label">Progress by deck</div>
-      <div class="suspbox">
-        <button class="suspbox-head open" id="dpHead" type="button" aria-expanded="true"><span class="suspbox-title">By deck <span class="suspbox-count" id="dpCount"></span></span><span class="suspbox-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
-        <div class="suspbox-collapse" id="dpCollapse"><div class="suspbox-collapse-inner"><div class="deckprog" id="deckprog"></div></div></div>
-      </div>
-      <div class="section-label">Suspended cards</div>
-      <div class="suspbox">
-        <button class="suspbox-head" id="suspHead" type="button" aria-expanded="false"><span class="suspbox-title">Set-aside cards <span class="suspbox-count" id="suspCount"></span></span><span class="suspbox-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
-        <div class="suspbox-collapse collapsed" id="suspCollapse"><div class="suspbox-collapse-inner"><div class="susplist" id="susplist"></div></div></div>
-      </div>`;
-    root.querySelector("#statWrap").innerHTML = statGridHTML(S, dueCountNow());
+  /* ---------- THE PIECES BOTH HALVES OF THIS PAGE DRAW (Nov 2026, out of the page audit) ----------
+     The signed-in page and the signed-out one used to share nothing but a Card browser button, written
+     twice. A guest studies on this device exactly as an account does, so the tiles, the three ways into
+     their own cards and the whole statistics block are about the DEVICE'S record and not about an account:
+     they are built here once and drawn on both. What stays behind the sign-in is what needs one — the
+     profile, the showcase, friends, badges, sync. */
+  function acctTilesHTML(prog, withBadges) {
+    const st = progStats(prog, 0), cards = prog.cards || {};
+    const mature = Object.keys(cards).filter((id) => cards[id] && cards[id].interval >= MATURE_DAYS).length;
+    const earned = Object.keys(prog.achievements || {}).filter((k) => prog.achievements[k]).length;
+    const best = (prog.daily && prog.daily.best) || 0;
+    const tile = (cls, val, label, hint) => '<div class="ph-stat ' + cls + '"' + (hint ? ' title="' + esc(hint) + '"' : "") + "><b>" + val + "</b><span>" + label + "</span></div>";
+    /* ONE ROW OF FIGURES, NOT TWO. A second grid further down the page repeated three of these under
+       other names ("Cards seen", "Minigame wins") and added Due now and Mature; those two moved up here
+       and the grid is gone. The best quiz score rides in the wins tile's title rather than a tile. */
+    return '<div class="ph-stats' + (withBadges ? "" : " ph-five") + '">' +
+      tile("st-seen", st.seen, "Cards studied") +
+      tile("st-streak", "🔥 " + st.streak, "Day streak") +
+      tile("st-due", dueCountNow(), "Due now") +
+      tile("st-mature", mature, "Mature", "Cards on an interval of " + MATURE_DAYS + " days or more") +
+      (withBadges ? tile("st-badges", earned, "Badges") : "") +
+      tile("st-wins", st.wins, "Quiz wins", best ? "Best score: " + best : "") +
+      "</div>";
+  }
+  /* The three ways into the reader's own cards. They were shrink-to-fit buttons stacked in a column, each a
+     different width; they are one row of three (one column on a phone), with a sentence short enough to
+     stand in a third of the page. */
+  function acctLinksHTML() {
+    const link = (go, h, meta, sub) => '<button type="button" class="rs-card ex-meter ex-meter-link bw-entry" data-exgo="' + go + '">' +
+      '<div class="rs-head"><h3>' + h + '</h3><span class="rs-meta">' + meta + "</span></div>" +
+      '<span class="rs-sub">' + sub + '</span><span class="ex-go" aria-hidden="true">&rarr;</span></button>';
+    return '<div class="acct-links">' +
+      link("browse", "Card browser", "search &amp; act", "Every card you could study: its state, when it is due, how often you have forgotten it. Flag, reschedule or reset.") +
+      link("weak", "Weak spots", "by deck &amp; tag", "Where your memory slips most, and your weakest cards to study in one tap.") +
+      link("year", "Year in review", String(new Date().getFullYear()), "Your year in Folio: answers, days, time, discoveries and the collections you studied most.") +
+      "</div>";
+  }
+  /* The statistics block. "Progress by deck" sits under the deck statistics it is the long form of, folded
+     shut; each fold carries ONE name (the section labels that repeated them in other words are gone). */
+  function acctStatsHTML() {
+    const chev = '<span class="suspbox-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>';
+    const fold = (id, title) => '<div class="suspbox acct-fold">' +
+      '<button class="suspbox-head" id="' + id + 'Head" type="button" aria-expanded="false"><span class="suspbox-title">' + title + ' <span class="suspbox-count" id="' + id + 'Count"></span></span>' + chev + "</button>" +
+      '<div class="suspbox-collapse collapsed" id="' + id + 'Collapse"><div class="suspbox-collapse-inner">';
+    return '<div class="section-label">Review statistics</div><div id="reviewStats"></div>' +
+      '<div class="section-label">Deck statistics</div><div id="deckStats"></div>' +
+      fold("dp", "Progress by deck") + '<div class="deckprog" id="deckprog"></div></div></div></div>' +
+      '<div class="section-label">Beyond the cards</div><div id="exploreStats"></div>' +
+      fold("susp", "Suspended cards") + '<div class="susplist" id="susplist"></div></div></div></div>';
+  }
+  function wireAcctStats(root) {
     root.querySelector("#reviewStats").innerHTML = reviewStatsHTML(S, S.user && S.user.joined);   // the heatmap opens on the day the account was created
     wireReviewStats(root.querySelector("#reviewStats"), S);
     /* "Study these" on the recalled-once card. Drawn only on the reader's OWN page (see seenOnceHTML) —
@@ -46187,14 +46326,203 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     renderDeckStats(root.querySelector("#deckStats"), S, true);   // your own community decks belong in your picker
     root.querySelector("#exploreStats").innerHTML = exploreStatsHTML(S);
     // the glossary meter is a way IN to what it counts (a friend's copy carries no link — see exploreStatsHTML)
-    root.querySelectorAll("[data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
+    root.querySelectorAll("#exploreStats [data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
+    const foldWire = (id) => {
+      const head = root.querySelector("#" + id + "Head"), col = root.querySelector("#" + id + "Collapse");
+      head.addEventListener("click", () => { const c = col.classList.toggle("collapsed"); head.setAttribute("aria-expanded", c ? "false" : "true"); head.classList.toggle("open", !c); });
+    };
+    root.querySelector("#dpCount").textContent = "(" + renderDeckProgress(root.querySelector("#deckprog"), S.cards) + ")";
+    foldWire("dp");
+    const suspList = root.querySelector("#susplist"), suspCount = root.querySelector("#suspCount");
+    function renderSuspended() {
+      const ids = Object.keys(S.suspended || {}).filter((id) => S.suspended[id] && cardById(id));
+      ids.sort((a, b) => (Number(S.suspended[b]) || 0) - (Number(S.suspended[a]) || 0));
+      suspCount.textContent = "(" + ids.length + ")";
+      if (!ids.length) { suspList.innerHTML = '<div class="susp-empty">No cards are suspended. Cards you suspend during review will appear here.</div>'; return; }
+      suspList.innerHTML = ids.map((id) => {
+        const c = cardById(id), ts = S.suspended[id];
+        const when = (typeof ts === "number") ? new Date(ts).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }) : "date unknown";
+        return '<div class="susp-row" data-id="' + esc(id) + '"><div class="susp-info"><span class="susp-name">' + esc(c.answer || "(untitled)") + '</span><span class="susp-meta">' + esc(id) + ' &middot; suspended ' + esc(when) + '</span></div><button class="susp-restore" type="button" data-id="' + esc(id) + '" aria-label="Remove from suspension">Unsuspend</button></div>';
+      }).join("");
+      suspList.querySelectorAll(".susp-restore").forEach((b) => b.addEventListener("click", () => { delete S.suspended[b.dataset.id]; save(); toast("Card returned to your reviews"); renderSuspended(); }));
+    }
+    renderSuspended();
+    foldWire("susp");
+  }
+
+  /* ---------- THE SIGNED-IN PAGE, IN FOUR TABS (Nov 2026, out of the page audit) ----------
+     It was one column ten screens long on a laptop and fifteen on a phone, in an order that put what a
+     reader studies WITH — their cards, their review statistics — five thousand pixels down, under the
+     friends list, fifty badges and every collection on the site. It is now a hero, one row of figures and
+     four tabs:
+       Overview    the three ways into your cards, the showcase, the collections you have started
+       Statistics  review statistics, deck statistics, beyond the cards, suspended cards
+       Badges      what you have earned and the few you are nearest to
+       Friends     the friends list (the tab carries a count while a request is waiting)
+     EVERY PANEL IS IN THE DOCUMENT; the tab only shows one. So nothing that looks an element up by id —
+     `refreshReliquary`, the badge tour, a test — has to know which tab is open. The exception is the
+     Statistics panel's CONTENT, which is filled the first time that tab is shown: it is the expensive half
+     of the page (a year of heatmap, the per-review log read four ways) and most visits never open it.
+     `_acctTab` is the tab to draw: a re-render (a new photo, a name, a friend accepted) keeps the reader
+     where they were, and leaving the page does not forget it for the visit.
+     THE ACCOUNT'S OWN CONTROLS ARE BEHIND ONE BUTTON. Username, Email address, Change password, Switch
+     account and Sign out were five buttons in the hero — a third of it on a phone, for things a reader
+     does a few times a year. "Manage account" opens them, with the sync line and the panel each of them
+     owns; Delete account joins them there. */
+  const ACCT_TABS = [["overview", "Overview"], ["stats", "Statistics"], ["badges", "Badges"], ["friends", "Friends"]];
+  let _acctTab = "overview";
+  function acctSelfView(root) {
+    const me = SUPA_PROFILE || { username: ((SUPA.user && SUPA.user.email) || "account").split("@")[0], role: "user" };   // profile may still be loading right after boot
+    const joined = new Date(S.user.joined).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+    // profile hero: a level-progress ring around the avatar
+    const info = levelFromXP(folioXP());
+    const ringC = 2 * Math.PI * 34;   // r=34 in a 76×76 viewBox
+    const frac = info.need > 0 ? Math.min(1, info.into / info.need) : 1;
+    if (!ACCT_TABS.some((t) => t[0] === _acctTab)) _acctTab = "overview";
+    const tabBtn = (t) => `<button type="button" role="tab" class="acct-tab${t[0] === _acctTab ? " active" : ""}" id="atab-${t[0]}" data-atab="${t[0]}" aria-selected="${t[0] === _acctTab}" aria-controls="apanel-${t[0]}" tabindex="${t[0] === _acctTab ? 0 : -1}">${t[1]}${t[0] === "friends" ? '<span class="acct-tabn" id="frTabN" hidden></span>' : ""}</button>`;
+    const panel = (id, body) => `<div class="acct-tabpanel" role="tabpanel" id="apanel-${id}" data-apanel="${id}" aria-labelledby="atab-${id}"${id === _acctTab ? "" : " hidden"}>${body}</div>`;
+    root.innerHTML = `
+      <div class="page-head"><span class="eyebrow">Your record</span><h1>Account</h1></div>
+      <div class="profile">
+        <div class="ph-ava">
+          <svg class="ph-ring" viewBox="0 0 76 76" aria-hidden="true">
+            <circle cx="38" cy="38" r="34" fill="none" stroke="color-mix(in srgb, var(--indigo) 16%, transparent)" stroke-width="4"/>
+            <circle cx="38" cy="38" r="34" fill="none" stroke="#C39A2E" stroke-width="4" stroke-linecap="round" stroke-dasharray="${ringC.toFixed(1)}" stroke-dashoffset="${(ringC * (1 - frac)).toFixed(1)}" transform="rotate(-90 38 38)"/>
+          </svg>
+          <button class="mono-btn" id="monoBtn" type="button" title="${me.avatar ? "Change or remove your profile photo" : "Add a profile photo"}"${me.avatar ? ' aria-haspopup="menu"' : ""} aria-label="${me.avatar ? "Change or remove your profile photo" : "Add a profile photo"}">
+            <span id="mono">${monogramHTML(me.avatar, S.user.name)}</span>
+            <span class="mono-cam" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
+          </button>
+          <span class="ph-lvl" title="Folio level — the ring fills toward the next level">Lv ${info.level}</span>
+        </div>
+        <input type="file" id="avatarFile" accept="image/*" hidden>
+        <div class="who">
+          ${/* THE NAME SAYS IT CAN BE EDITED (Nov 2026). It is an input dressed as a heading, and the only
+                sign of that was an underline on hover — which a phone never shows. The pencil is inside the
+                label, so pressing it puts the cursor in the field. */""}
+          <label class="name-wrap" title="Edit your display name">
+            <input class="namefield" id="name" value="${esc(S.user.name)}" maxlength="28" size="${Math.max(4, String(S.user.name || "").length)}" aria-label="Display name" />
+            <span class="name-pen" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>
+          </label>
+          <div class="since"><span id="unShown">@${esc(me.username)}</span>${roleBadge(me.role, " · ")} · since ${joined}${/* THE ADDRESS OF YOUR OWN PROFILE, so the thing to share is on the page rather than something a reader has to know the shape of. It copies rather than opening: pressing it would take you to your own account page, which is where you already are. */""} · <button type="button" class="link-btn" id="unCopy" title="Copy the link to your profile">copy link</button></div>
+        </div>
+        <button class="ghost-btn acct-manage" id="mgToggle" type="button" aria-expanded="false" aria-controls="mgPanel">Manage account</button>
+      </div>
+      <div class="acct-mg" id="mgPanel" hidden>
+        <div class="acct-idacts">
+          <button class="ghost-btn" id="unToggle" type="button">Username</button>
+          <button class="ghost-btn" id="emToggle" type="button">Email address</button>
+          <button class="ghost-btn" id="pwToggle" type="button">Change password</button>
+          <button class="ghost-btn" id="swToggle" type="button">Switch account</button>
+          <button class="ghost-btn" id="signout" type="button">Sign out</button>
+          <button class="ghost-btn danger" id="delToggle" type="button">Delete account</button>
+        </div>
+        <div class="acct-syncnote"><span class="auth-note">${S._supaTs ? "Progress synced to your account ✓" : "Progress will sync automatically as you study"}</span></div>
+        ${/* CHANGING THE HANDLE (Sep 2026, on a bug report about creating an account). Sign-up does not always
+              grant the username asked for — a taken one is answered with `scholar_<8 hex>` so that the account
+              is still made — and until now there was no way back from that: the field above edits the display
+              name, and the handle was write-once. The panel says what the handle IS as well as changing it,
+              since it is what the reader signs in with and what a friend searches for. */""}
+        <div class="acct-panel" id="unPanel" hidden>
+          <div class="acct-current">Your username is <b>@${esc(me.username)}</b></div>
+          <label>New username<input class="auth-in" id="unNew" autocomplete="username" placeholder="letters, numbers, underscore" maxlength="24"></label>
+          <div class="auth-msg" id="unMsg"></div>
+          <button class="auth-btn sm" id="unSave" type="button">Change username</button>
+          <p class="auth-note">This is the handle you can sign in with and the one friends add you by. Your display name above is separate.</p>
+        </div>
+        ${/* SEEING AND CHANGING THE ADDRESS (Aug 2026, on request). The address a reader signs in with was
+              nowhere on this page, which on an account that also has a username is the one fact they cannot
+              look up anywhere else. It is shown plainly and changed in the same panel, and the note says the
+              change is not immediate — GoTrue emails a link and the swap happens when it is followed. */""}
+        <div class="acct-panel" id="emPanel" hidden>
+          <div class="acct-current">Signed in as <b>${esc((SUPA.user && SUPA.user.email) || "—")}</b></div>
+          <label>New email address<input class="auth-in" id="emNew" type="email" autocomplete="email" placeholder="${esc((SUPA.user && SUPA.user.email) || "you@example.com")}"></label>
+          <div class="auth-msg" id="emMsg"></div>
+          <button class="auth-btn sm" id="emSave" type="button">Send confirmation link</button>
+          <p class="auth-note">Your address changes once you follow the link we send to the new one. Until then, keep signing in with the old address — or with your username.</p>
+        </div>
+        <div class="acct-panel" id="pwPanel" hidden>
+          <label>New password<input class="auth-in" id="pwNew" type="password" autocomplete="new-password"></label>
+          <label>Confirm<input class="auth-in" id="pwNew2" type="password" autocomplete="new-password"></label>
+          <div class="auth-msg" id="pwMsg"></div>
+          <button class="auth-btn sm" id="pwSave" type="button">Update password</button>
+        </div>
+        ${/* The switcher, and the way to add one more to it. "Sign in to another account" signs THIS one out
+              while keeping its token, which is what lands the reader on the ordinary sign-in form with both
+              accounts remembered — rather than a second copy of that form living inside this page. */""}
+        <div class="acct-panel" id="swPanel" hidden>
+          ${supaOtherAccounts().length ? acctSwitchListHTML() : '<p class="auth-note">No other account is remembered on this device yet.</p>'}
+          <button class="auth-btn sm ghost" id="swAdd" type="button">Sign in to another account</button>
+          <p class="auth-note">Switching keeps you signed in to both — your work on each stays its own. Signing out forgets the account you sign out of.</p>
+        </div>
+        ${/* DELETING THE ACCOUNT (Nov 2026, out of the page audit: there was no way to). It asks for the
+              password AND the username: the password because a session left open on a shared computer must
+              not be enough to destroy an account, the username because the button is one row away from
+              Sign out. What it removes is said before the fields, not after. See supaDeleteAccount. */""}
+        <div class="acct-panel" id="delPanel" hidden>
+          <div class="acct-current">Delete <b>@${esc(me.username)}</b> for good</div>
+          <p class="auth-note">This removes your account, your synced progress, your friends and any decks you have shared, on every device. It cannot be undone. This device goes back to how it was before you signed in.</p>
+          <label>Your password<input class="auth-in" id="delPw" type="password" autocomplete="current-password"></label>
+          <label>Type your username to confirm<input class="auth-in" id="delName" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${esc(me.username)}"></label>
+          <div class="auth-msg" id="delMsg"></div>
+          <button class="auth-btn sm danger" id="delSave" type="button">Delete my account</button>
+        </div>
+      </div>
+      ${acctTilesHTML(S, true)}
+      <div class="acct-tabs" role="tablist" aria-label="Account sections">${ACCT_TABS.map(tabBtn).join("")}</div>
+      ${panel("overview", `
+        <div class="section-label">Your cards</div>
+        ${acctLinksHTML()}
+        ${/* THE RELIQUARY (Aug 2026, on request). The showcase is part of the profile — the four artefacts
+              a reader has chosen to be seen holding — and its "See Reliquary" button is the one way to the
+              whole collection from here (the inventory section this page once carried as well is gone). */""}
+        <div id="showcase"></div>
+        <div class="section-label">Collection progress</div>
+        <div class="coll-levels" id="collLevels"></div>`)}
+      ${panel("stats", acctStatsHTML())}
+      ${panel("badges", `<div class="badges-box" id="badgesBox"></div>`)}
+      ${panel("friends", `<div class="friends-box" id="friendsBox"></div>`)}`;
+
+    /* THE TABS. Arrow keys move between them (the tablist pattern: one tab stop, the arrows inside it). */
+    let statsDrawn = false;
+    const tabs = [...root.querySelectorAll("[data-atab]")];
+    const showTab = (id, focus) => {
+      _acctTab = id;
+      tabs.forEach((t) => { const on = t.dataset.atab === id; t.classList.toggle("active", on); t.setAttribute("aria-selected", on ? "true" : "false"); t.tabIndex = on ? 0 : -1; if (on && focus) t.focus(); });
+      root.querySelectorAll("[data-apanel]").forEach((p) => { p.hidden = p.dataset.apanel !== id; });
+      if (id === "stats" && !statsDrawn) { statsDrawn = true; wireAcctStats(root); }
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener("click", () => showTab(t.dataset.atab));
+      t.addEventListener("keydown", (e) => {
+        const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        showTab(tabs[(i + d + tabs.length) % tabs.length].dataset.atab, true);
+      });
+    });
+    showTab(_acctTab);
+    root.querySelectorAll(".acct-links [data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
 
     const nameInput = root.querySelector("#name");
     const monoInitial = (v) => { const m = root.querySelector("#mono .monogram:not(.has-img)"); if (m) m.textContent = initialOf(v); };   // only when no photo is set
-    const sync = () => { const v = (nameInput.value.trim().replace(/[^a-z0-9_.\- ]/gi, "") || "Scholar").slice(0, 28); nameInput.value = v; S.user.name = v; monoInitial(v); save(); supaSetName(v); };
-    nameInput.addEventListener("input", () => monoInitial(nameInput.value || "S"));
-    nameInput.addEventListener("change", () => { sync(); toast("Name saved"); });
+    /* A NAME IN ANY ALPHABET, SAVED ONCE (Nov 2026). The filter kept a-z and 0-9 and dropped everything
+       else, so "José" was saved as "Jos" and a name in Greek, Cyrillic or Chinese as "Scholar", without a
+       word. It keeps letters, marks and digits of every script now, with the same handful of punctuation.
+       And it wrote — to the device and to the account — on `change` AND again on the `blur` that follows
+       it, and on every blur whether or not anything had been typed; it writes when the name is different. */
+    const cleanName = (v) => (String(v || "").replace(/[^\p{L}\p{M}\p{N}_.\-' ]/gu, "").replace(/\s+/g, " ").trim() || "Scholar").slice(0, 28);
+    const sizeName = () => { nameInput.size = Math.max(4, nameInput.value.length); };
+    const sync = () => {
+      const v = cleanName(nameInput.value);
+      nameInput.value = v; sizeName(); monoInitial(v);
+      if (v === S.user.name) return;
+      S.user.name = v; save(); supaSetName(v); toast("Name saved");
+    };
+    nameInput.addEventListener("input", () => { monoInitial(nameInput.value || "S"); sizeName(); });
+    nameInput.addEventListener("change", sync);
     nameInput.addEventListener("blur", sync);
+    nameInput.addEventListener("keydown", (e) => { if (e.key === "Enter") nameInput.blur(); });
 
     // profile photo: click the monogram to pick an image (resized client-side), Remove photo to clear it
     const avatarInput = root.querySelector("#avatarFile");
@@ -46235,10 +46563,28 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // …or the same file will not fire `change` again if it is picked a second time after a cancel
       avatarInput.value = "";
     });
-    root.querySelector("#signout").addEventListener("click", async (e) => { e.target.disabled = true; await supaSignOut(); toast("Signed out"); afterAuthChange(); });
-    /* One panel open at a time. They are three answers to "what about this account", and two of them
-       showing at once pushes the third off the screen on a phone for no reason. */
-    const panels = ["unPanel", "emPanel", "pwPanel", "swPanel"];
+
+    /* EVERY ACCOUNT ACTION RESTORES ITS BUTTON AND SAYS WHAT WENT WRONG (Nov 2026). Sign out and the email
+       and password saves awaited the network with no `try`: a throw left the button disabled for the rest
+       of the visit with nothing said, and the password save was not disabled at all, so two presses sent
+       two requests. `acting` is the one wrapper: the button is off while the call runs, back on however it
+       ends, and a throw becomes the message `authThrewMsg` gives the sign-in forms. */
+    const acting = async (btn, fn) => {
+      if (btn.disabled) return { error: "" };
+      btn.disabled = true;
+      try { return (await fn()) || {}; } catch (err) { return { error: authThrewMsg(err) }; } finally { btn.disabled = false; }
+    };
+    const say = (id, text, ok) => { const m = root.querySelector(id); m.textContent = text || ""; m.className = "auth-msg" + (text ? (ok ? " ok" : " err") : ""); };
+    const mgToggle = root.querySelector("#mgToggle"), mgPanel = root.querySelector("#mgPanel");
+    mgToggle.addEventListener("click", () => { mgPanel.hidden = !mgPanel.hidden; mgToggle.setAttribute("aria-expanded", mgPanel.hidden ? "false" : "true"); mgToggle.classList.toggle("open", !mgPanel.hidden); });
+    root.querySelector("#signout").addEventListener("click", async (e) => {
+      const r = await acting(e.currentTarget, async () => { await supaSignOut(); return { ok: true }; });
+      if (r.error) return toast(r.error);
+      if (r.ok) { toast("Signed out"); afterAuthChange(); }
+    });
+    /* One panel open at a time. They are answers to "what about this account", and two of them showing at
+       once pushes the rest off the screen on a phone for no reason. */
+    const panels = ["unPanel", "emPanel", "pwPanel", "swPanel", "delPanel"];
     const openPanel = (want) => panels.forEach((p) => {
       const el = root.querySelector("#" + p);
       if (el) el.hidden = p === want ? !el.hidden : true;
@@ -46257,41 +46603,53 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     root.querySelector("#emToggle").addEventListener("click", () => openPanel("emPanel"));
     root.querySelector("#swToggle").addEventListener("click", () => openPanel("swPanel"));
     root.querySelector("#pwToggle").addEventListener("click", () => openPanel("pwPanel"));
+    root.querySelector("#delToggle").addEventListener("click", () => openPanel("delPanel"));
     root.querySelector("#unSave").addEventListener("click", async (e) => {
-      const m = root.querySelector("#unMsg"), inp = root.querySelector("#unNew");
-      e.target.disabled = true;
-      let r; try { r = await supaSetUsername(inp.value); } catch (err) { r = { error: authThrewMsg(err) }; } finally { e.target.disabled = false; }
-      if (r.error) { m.textContent = r.error; m.className = "auth-msg err"; return; }
-      m.textContent = "Username changed to @" + r.username + "."; m.className = "auth-msg ok";
+      const inp = root.querySelector("#unNew");
+      const r = await acting(e.currentTarget, () => supaSetUsername(inp.value));
+      if (r.error) return say("#unMsg", r.error);
+      if (!r.username) return;
+      say("#unMsg", "Username changed to @" + r.username + ".", true);
       inp.value = "";
-      // the handle is printed twice on this page — the identity line and this panel's own current-value line
-      const shown = root.querySelector("#unShown"), cur = root.querySelector("#unPanel .acct-current b");
+      me.username = r.username;
+      // the handle is printed on this page three times — the identity line, this panel and the delete panel
+      const shown = root.querySelector("#unShown");
       if (shown) shown.textContent = "@" + r.username;
-      if (cur) cur.textContent = "@" + r.username;
+      root.querySelectorAll("#unPanel .acct-current b, #delPanel .acct-current b").forEach((b) => { b.textContent = "@" + r.username; });
+      root.querySelector("#delName").placeholder = r.username;
     });
     root.querySelector("#emSave").addEventListener("click", async (e) => {
-      const m = root.querySelector("#emMsg"), inp = root.querySelector("#emNew");
-      e.target.disabled = true;
-      const r = await supaSetEmail(inp.value);
-      e.target.disabled = false;
-      if (r.error) { m.textContent = r.error; m.className = "auth-msg err"; return; }
-      m.textContent = "Check " + inp.value.trim() + " for the confirmation link."; m.className = "auth-msg ok";
+      const inp = root.querySelector("#emNew"), to = inp.value.trim();
+      const r = await acting(e.currentTarget, () => supaSetEmail(inp.value));
+      if (r.error) return say("#emMsg", r.error);
+      if (!r.ok) return;
+      say("#emMsg", "Check " + to + " for the confirmation link.", true);
       inp.value = "";
     });
     wireAcctSwitch(root);
     root.querySelector("#swAdd").addEventListener("click", async (e) => {
-      e.target.disabled = true;
-      await supaSignOut({ keepToken: true });   // …keeping the token, which is what makes this a switch
-      toast("Sign in with the other account — this one is remembered");
-      afterAuthChange();
+      const r = await acting(e.currentTarget, async () => { await supaSignOut({ keepToken: true }); return { ok: true }; });   // …keeping the token, which is what makes this a switch
+      if (r.error) return toast(r.error);
+      if (r.ok) { toast("Sign in with the other account — this one is remembered"); afterAuthChange(); }
     });
-    root.querySelector("#pwSave").addEventListener("click", async () => {
-      const a = root.querySelector("#pwNew").value, b = root.querySelector("#pwNew2").value, m = root.querySelector("#pwMsg");
-      if (a !== b) { m.textContent = "Passwords don't match."; m.className = "auth-msg err"; return; }
-      const r = await supaSetPassword(a);
-      if (r.error) { m.textContent = r.error; m.className = "auth-msg err"; return; }
-      m.textContent = "Password updated."; m.className = "auth-msg ok";
+    root.querySelector("#pwSave").addEventListener("click", async (e) => {
+      const a = root.querySelector("#pwNew").value, b = root.querySelector("#pwNew2").value;
+      if (a !== b) return say("#pwMsg", "Passwords don't match.");
+      const r = await acting(e.currentTarget, () => supaSetPassword(a));
+      if (r.error) return say("#pwMsg", r.error);
+      if (!r.ok) return;
+      say("#pwMsg", "Password updated.", true);
       root.querySelector("#pwNew").value = ""; root.querySelector("#pwNew2").value = "";
+    });
+    root.querySelector("#delSave").addEventListener("click", async (e) => {
+      const pw = root.querySelector("#delPw").value, typed = uKey(root.querySelector("#delName").value.replace(/^@/, ""));
+      if (!pw) return say("#delMsg", "Enter your password.");
+      if (typed !== uKey(me.username || "")) return say("#delMsg", "Type your username, " + (me.username || "") + ", to confirm.");
+      const r = await acting(e.currentTarget, () => supaDeleteAccount(pw));
+      if (r.error) return say("#delMsg", r.error);
+      if (!r.ok) return;
+      toast("Your account has been deleted.", 6000);
+      afterAuthChange();
     });
 
     renderFriends(root.querySelector("#friendsBox"));
@@ -46300,27 +46658,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     root.querySelector("#showcase").innerHTML = showcaseHTML(S, true);
     wireReliquary(root.querySelector("#showcase"));
     renderCollectionLevels(root.querySelector("#collLevels"), S.cards);
-
-    const dp = root.querySelector("#deckprog");
-    root.querySelector("#dpCount").textContent = "(" + renderDeckProgress(dp, S.cards) + ")";
-    const dpHead = root.querySelector("#dpHead"), dpCollapse = root.querySelector("#dpCollapse");
-    dpHead.addEventListener("click", () => { const c = dpCollapse.classList.toggle("collapsed"); dpHead.setAttribute("aria-expanded", c ? "false" : "true"); dpHead.classList.toggle("open", !c); });
-
-    const suspHead = root.querySelector("#suspHead"), suspCollapse = root.querySelector("#suspCollapse"), suspList = root.querySelector("#susplist"), suspCount = root.querySelector("#suspCount");
-    function renderSuspended() {
-      const ids = Object.keys(S.suspended || {}).filter((id) => S.suspended[id] && cardById(id));
-      ids.sort((a, b) => (Number(S.suspended[b]) || 0) - (Number(S.suspended[a]) || 0));
-      suspCount.textContent = "(" + ids.length + ")";
-      if (!ids.length) { suspList.innerHTML = '<div class="susp-empty">No cards are set aside. Cards you suspend during review will appear here.</div>'; return; }
-      suspList.innerHTML = ids.map((id) => {
-        const c = cardById(id), ts = S.suspended[id];
-        const when = (typeof ts === "number") ? new Date(ts).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }) : "date unknown";
-        return '<div class="susp-row" data-id="' + esc(id) + '"><div class="susp-info"><span class="susp-name">' + esc(c.answer || "(untitled)") + '</span><span class="susp-meta">' + esc(id) + ' &middot; suspended ' + esc(when) + '</span></div><button class="susp-restore" type="button" data-id="' + esc(id) + '" aria-label="Remove from suspension">Unsuspend</button></div>';
-      }).join("");
-      suspList.querySelectorAll(".susp-restore").forEach((b) => b.addEventListener("click", () => { delete S.suspended[b.dataset.id]; save(); toast("Card returned to your reviews"); renderSuspended(); }));
-    }
-    renderSuspended();
-    suspHead.addEventListener("click", () => { const open = suspCollapse.classList.toggle("collapsed"); suspHead.setAttribute("aria-expanded", open ? "false" : "true"); suspHead.classList.toggle("open", !open); });
   }
 
   function renderFriends(box) {
@@ -46362,6 +46699,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          handlers used to call `checkAchievements()` themselves, BEFORE anything had recorded the new
          count, which is a second reason the friend badges never fired. */
       setFriendCount(accepted.length);
+      // a request waiting is said on the Friends TAB, which is otherwise the only place it would show
+      { const tn = document.querySelector("#frTabN"); if (tn) { tn.hidden = !incoming.length; tn.textContent = incoming.length ? String(incoming.length) : ""; tn.setAttribute("aria-label", incoming.length + (incoming.length === 1 ? " request waiting" : " requests waiting")); } }
       let html = '<div class="friend-add"><input class="auth-in" id="friendAdd" placeholder="Add a friend by username" autocomplete="off"><button class="auth-btn sm" id="friendAddBtn" type="button">Add</button></div><div class="friend-msg" id="friendMsg"></div>';
       if (incoming.length) html += '<div class="friend-sub">Requests</div>' + incoming.map((k) => userRow(k, profs, '<span class="friend-acts"><button class="mini-btn ok" data-accept="' + esc(k) + '">Accept</button><button class="mini-btn" data-decline="' + esc(k) + '">Decline</button></span>', false)).join("");
       if (outgoing.length) html += '<div class="friend-sub">Pending</div>' + outgoing.map((k) => userRow(k, profs, '<span class="friend-acts"><button class="mini-btn" data-cancel="' + esc(k) + '">Cancel</button></span>', false)).join("");
@@ -46509,7 +46848,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <button class="back-link" id="uBack" type="button">← Back to your account</button>
         <div class="profile friend-profile"${skin}>
           ${monogramHTML(u.avatar, u.name)}
-          <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)} · ${roleBadge(u.role)}${u.theme && u.theme !== "folio" ? ' · <span class="ft-wearing">wearing ' + esc(themeName(u.theme)) + "</span>" : ""}</div></div>
+          <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)}${roleBadge(u.role, " · ")}${u.theme && u.theme !== "folio" ? ' · <span class="ft-wearing">wearing ' + esc(themeName(u.theme)) + "</span>" : ""}</div></div>
           ${pending
             ? '<span class="mini-btn static">' + (mine ? "Request sent" : "Wants to be friends") + "</span>"
             : '<button class="auth-btn sm" id="uAdd" type="button">Add friend</button>'}
@@ -46556,7 +46895,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           ${u.avatar
             ? `<button class="mono-view" type="button" id="fAvatar" aria-label="View ${esc(u.name)}'s profile photo">${monogramHTML(u.avatar, u.name)}</button>`
             : monogramHTML(u.avatar, u.name)}
-          <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)} · ${roleBadge(u.role)}${u.theme && u.theme !== "folio" ? ' · <span class="ft-wearing">wearing ' + esc(themeName(u.theme)) + '</span>' : ""}</div></div>
+          <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)}${roleBadge(u.role, " · ")}${u.theme && u.theme !== "folio" ? ' · <span class="ft-wearing">wearing ' + esc(themeName(u.theme)) + '</span>' : ""}</div></div>
           <button class="ghost-btn" id="rmFriend" type="button">Remove friend</button>
         </div>
         ${/* the four artefacts they chose to be seen holding — the whole point of the showcase is that
@@ -51944,6 +52283,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   // badges: one delegated listener flips a badge over to its "how to earn it" back, and back again on a
   // second click (covers both the profile and a friend's badge grid, which render the same markup)
   document.addEventListener("click", (e) => {
+    {
+      const m = e.target.closest("[data-more]");
+      if (m) {
+        const box = m.nextElementSibling; if (!box) return;
+        box.hidden = !box.hidden;
+        m.setAttribute("aria-expanded", box.hidden ? "false" : "true");
+        m.textContent = box.hidden ? m.dataset.open : m.dataset.shut;
+        if (!box.hidden) animateProgs(box);
+        return;
+      }
+    }
     const b = e.target.closest(".badge"); if (!b || b.classList.contains("ach-tile")) return;   // openAchPop turns its own
     b.setAttribute("aria-pressed", b.classList.toggle("flipped") ? "true" : "false");
   });

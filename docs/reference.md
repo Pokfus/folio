@@ -3102,6 +3102,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     tells a reader choosing between two of them nothing, and audio is the norm so only its ABSENCE is
     printed. **A tree node carries its OWN example coverage rather than its file's**, because on an
     unwrapped deck those nodes are the rows a reader chooses between.
+  · **"BY FREQUENCY" IS WITHDRAWN (Nov 2026)**: `entryCanFreq` and `sortByFrequency` are gone and
+    `DECK_ORDERS` is three. It was offered only while a deck's notes were in memory, read `Simplified`
+    alone, and only re-sorted the cards `buildSession` had already dealt. The order lives in the deck
+    files (`mandarin-order.json`, `spanish-order.json`); a stored `order: "frequency"` reads as Ordered
+    through the `random` boolean written beside it. `uDeckWordFreq` stays for the character panel and
+    `uAdoptNotes` drops a deck's count when it warms more of it. Re-run after touching:
+    `test-learning.js`, `test-review-decks.js`, `test-char-network.js`. The entry as it stood:
   · **A LANGUAGE DECK CAN BE STUDIED BY FREQUENCY** (`DECK_ORDERS`'s fourth entry, `uDeckWordFreq` /
     `sortByFrequency` / `deckOrdersFor` / `entryCanFreq`; Sep 2026, on request). The exam lists these
     decks are built from are alphabetical by reading, an ordering with no teaching in it, and "By
@@ -9586,7 +9593,10 @@ division-capital city tier are inert dead code.
     `fetch-book.js`, after changing a book's `about`, or after renaming anything on the Collections
     page.**
   · `node .claude/test-account-page.js` — the SIGNED-IN account page and the Edit dashboard's account
-    figures (Aug 2026). **Re-run after touching `acctSelfView` / `showcaseHTML` / `openCollectionWin` /
+    figures (Aug 2026; the tabs, Manage account, the folds and Delete account since Nov 2026 —
+    `docs/accounts-sync.md` "The account page, compacted"). **Re-run after touching `acctSelfView` /
+    `acctAuthView` / `acctTilesHTML` / `acctStatsHTML` / `wireAcctStats` / `badgesHTML` /
+    `renderCollectionLevels` / `supaDeleteAccount` / `showcaseHTML` / `openCollectionWin` /
     `adminRenderDashboard` / `dashLoadRemote` / `supaFetch`'s count parsing.**
   · `node .claude/test-card-types.js` — the XP curve, community-deck **card types**, reverse cards,
     **bury siblings** and **one card per cloze**, 229 assertions in five parts. **Re-run after touching

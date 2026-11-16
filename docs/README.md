@@ -55,7 +55,7 @@ before changing the thing it names.
 | `card-difficulty.md` | The 1–5 rating, the community rating, and `undatable`. |
 | `map-cards.md` | The geography format — a shape on a globe as the question. |
 | `war-cards.md` | `card.war` — the two sides of a war shaded on a card's globe and on the reader's own atlas. |
-| `library-books.md` | Per-book findings for all 64 — how each edition is set, what pairs, the licence ground. |
+| `library-books.md` | Per-book findings for all 65 — how each edition is set, what pairs, the licence ground. |
 | `library-importer.md` | `.claude/fetch-book.js` — the 23 layouts, the extraction faults, the per-book options. |
 | `lang-decks.md` | The community and language decks' generators, and every pipeline's findings. |
 | `russian-decks-plan.md` | The plan for the Russian language decks (TORFL A1–C2 + phrases): word source, lemma order, stress, aspect pairs, the as-built findings per level. Alphabet, A1–C2 and phrases are built. |
@@ -91,6 +91,7 @@ before changing the thing it names.
 | `tagalog-decks-plan.md` | The plan for the Tagalog language decks (A1–C1 assembled to CEFR, phrases): decisions, sources, the card (marked spelling, verb aspects, root), the findings (pointers written as prose, linker forms, two frequency lists). A1 to C1 and phrases are built. |
 | `hebrew-decks-plan.md` | The plan for the Hebrew language decks (alphabet with the vowel points, A1–C1 assembled to CEFR): decisions, sources, the card (unpointed and pointed, binyan), the findings (two spellings of every form, one pointed word per card, the prefixes). Complete: alphabet, A1–C1 and phrases are built. |
 | `finnish-decks-plan.md` | The plan for the Finnish language decks (alphabet of sounds, A1–C1 assembled to CEFR): the decisions taken from the Hungarian precedent, sources, the card, the findings (clean table tags, the participle read off the perfect, case notes inside glosses, spoken-Finnish sentences). Complete: alphabet, A1–C1 and phrases. |
+| `icelandic-decks-plan.md` | The plan for the Icelandic language decks (alphabet of sounds, A1–C1 assembled to CEFR), Norwegian's pipeline adapted: the decisions, sources (BÍN for the verbs' present), the card, the findings (the mis-encoded subtitle list, the pronoun tables). Complete: the alphabet, all five levels and the phrases deck. |
 | `lao-decks-plan.md` | The plan for the Lao language decks (Lao alphabet, A1–B1 assembled to CEFR, phrases): the decisions taken from Thai, sources, the card, the romanisation read off the IPA, the Wikipedia frequency count, the words Wiktionary lacks. Alphabet, A1–B1 and phrases are built; B1 used up Wiktionary's Lao. |
 | `japanese-decks-plan.md` | The plan for the Japanese language decks (JLPT N5–N1, kana, phrases, idioms — built Oct 2026): sources, deck design, app changes, the owner's answers, what building it changed, and §11, the Nov 2026 beginner pass (first words, N5 kanji, kana fronts, verb forms, N5's order, pinned card ids). |
 | `tests.md` | What each of the regression suites guards, and the silence it was written for. |

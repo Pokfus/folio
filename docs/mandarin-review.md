@@ -403,6 +403,12 @@ this section is the reasoning.
   with Level 1's characters and carded nowhere else, and five whole sentences the Level 1 deck already
   carried with their translations (你叫什么名字？ 这个多少钱？).
 
+- **`Mandarin Chinese — Bopomofo`** (added 2026-11-16, on request; 62 notes, one card each): the five tone
+  marks, the 37 symbols in use and 20 two-symbol combinations. Origins, IPA and pinyin are quoted from the
+  Wikipedia article "Bopomofo" at a named revision; ㄛ and ㄝ have no exact pinyin row and so no sound
+  description; ㄝ alone never occurs in Levels 1 to 3, so its examples are ㄧㄝ / ㄩㄝ words. Three cards have
+  fewer than three examples (ㄛ and ㄦ one, ㄩㄣ and ㄩㄥ two).
+
 ### What was decided against, and why
 
 - **Making "By frequency" the default order in the app.** The audit proposed it for Levels 2 and above.
@@ -410,6 +416,9 @@ this section is the reasoning.
   are stubs until read, so the order acts only after something has loaded the whole deck. A default that
   silently did nothing, or one that loaded 12 MB at boot, was worse than baking the same count into the
   files — which is what the `order` does, for every reader and at no cost.
+  *(2026-11-16: the order is withdrawn from the app altogether. Read closely it also never chose which
+  words arrive — `buildSession` slices the day's new cards off the front of the deck before `orderPile`
+  runs — so the 57% and 83% above describe a deck FILE in that order, not what the option gave a reader.)*
 - **Pinyin on the example sentences.** 569 of the 851 Level 1 sentences that segment into deck headwords
   contain a word CC-CEDICT gives more than one reading. It would be a hand pass; the speaker covers it.
 - **A grammar deck.** The only source that could be named is the standard's own grammar outline, and the

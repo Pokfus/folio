@@ -2,24 +2,24 @@
  "why": "The record of every hand edit to the DELE Spanish decks. Applied by spanish-fix.js; see that file's header for what an entry may carry and why the record exists at all. DELE A1 WAS READ IN FULL in Sep 2026, one card at a time in batches of ten - all 493 of them - and this is what that pass changed: 486 cards carry a correction and 8 were read and left alone. The counts in the deck's own description (220 nouns with their article, 63 feminine pairs) are the GENERATOR's and were deliberately not recomputed: they use categories run.py knows and this record cannot reproduce, and a figure quietly rewritten to a different rule is worse than one left as it was. The word count IS maintained, through the descSub chain.",
  "decks": {
   "delea1": {
-   "why": "Folding the eight article cards into two and adding the three third-person object pronouns the generator's word list has no entry for changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before any of this - the subtitle said 500 against 496 cards - so both figures are set to what is actually there. Both the 500 and the 490 pair are kept, so the chain still works on a deck freshly rebuilt from the generator. The figure was 493 for one commit, written when the plan was three inserted pronouns and left when it turned out to be two: les is a form on the le card rather than a card. A count in prose is wrong the moment the thing it counts moves, which is why check-claims.js exists one directory over — check it against the file rather than against the intention. It moved again when la tercera turned out to be a duplicate of tercero, tercera and was folded away: every count in the chain is kept so it still works on a deck freshly rebuilt from the generator. It moved once more when the DEFINITE and INDEFINITE article cards were folded together into one: 493 to 492. Every figure in the chain is kept, so the record still works on a deck freshly rebuilt from the generator. NAME TABLE WIDENED (Sep 2026, DELE A2 batch S2): Tatoeba's Spanish side often renders Mary and John as María and Juan, so a table renaming only the English names split a sentence in two - 'Quizá Carlos no quiere que encontremos a María' over 'Maybe Carlos doesn't want us to find Ana'. María, Maria, Marie and Juan are now renamed on both sides.",
-   "subtitle": "492 words · both directions, as two cards per word",
+   "why": "Folding the eight article cards into two and adding the three third-person object pronouns the generator's word list has no entry for changes what the deck holds, and a subtitle that goes on counting the old number is a claim the file itself refutes. The count was already wrong before any of this - the subtitle said 500 against 496 cards - so both figures are set to what is actually there. Both the 500 and the 490 pair are kept, so the chain still works on a deck freshly rebuilt from the generator. The figure was 493 for one commit, written when the plan was three inserted pronouns and left when it turned out to be two: les is a form on the le card rather than a card. A count in prose is wrong the moment the thing it counts moves, which is why check-claims.js exists one directory over — check it against the file rather than against the intention. It moved again when la tercera turned out to be a duplicate of tercero, tercera and was folded away: every count in the chain is kept so it still works on a deck freshly rebuilt from the generator. It moved once more when the DEFINITE and INDEFINITE article cards were folded together into one: 493 to 492. Every figure in the chain is kept, so the record still works on a deck freshly rebuilt from the generator. NAME TABLE WIDENED (Sep 2026, DELE A2 batch S2): Tatoeba's Spanish side often renders Mary and John as María and Juan, so a table renaming only the English names split a sentence in two - 'Quizá Carlos no quiere que encontremos a María' over 'Maybe Carlos doesn't want us to find Ana'. María, Maria, Marie and Juan are now renamed on both sides. THE BEGINNER PASS (Nov 2026): thirteen inserts take the deck to 505 (hola, adiós, de nada and the preposition a were cards of no Spanish deck; nine more were moved down from B1, B2 and the phrases deck), the deck is dealt in the order spanish-order.json gives, and the description says so: which words were supplied and from where, what the order is, and what the default pace comes to, since a deck cannot set its own daily limit.",
+   "subtitle": "505 words · both directions, as two cards per word",
    "descSub": [
     [
      "500 words for level A1 of the DELE",
-     "492 words for level A1 of the DELE"
+     "505 words for level A1 of the DELE"
     ],
     [
      "490 words for level A1 of the DELE",
-     "492 words for level A1 of the DELE"
+     "505 words for level A1 of the DELE"
     ],
     [
      "494 words for level A1 of the DELE",
-     "492 words for level A1 of the DELE"
+     "505 words for level A1 of the DELE"
     ],
     [
      "495 words for level A1 of the DELE",
-     "492 words for level A1 of the DELE"
+     "505 words for level A1 of the DELE"
     ],
     [
      "the rest of the 500 is filled from the A1 column in order of frequency",
@@ -35,7 +35,15 @@
     ],
     [
      "493 words for level A1 of the DELE",
-     "492 words for level A1 of the DELE"
+     "505 words for level A1 of the DELE"
+    ],
+    [
+     "492 words for level A1 of the DELE",
+     "505 words for level A1 of the DELE"
+    ],
+    [
+     "and the rest is filled from the A1 column in order of frequency. The cards are ordered roughly by how common the word is in everyday Spanish, so the words you will meet most often come first: the order is taken from a frequency list built from film and television subtitles, with a reflexive verb placed by the verb it is formed from and a phrase, which a list of single words cannot see, placed by how often it turns up in a corpus of everyday sentences.",
+     "and the rest is filled from the A1 column in order of frequency. Thirteen words those inventories do not list are supplied as well, because nothing can be said without them: the preposition a, the number cero and eleven courtesies (hola, adiós, gracias, de nada, por favor, perdón, lo siento, buenos días, buenas tardes, buenas noches, hasta luego). Their meanings are the English Wiktionary's and their sentences Tatoeba's, the Wiktionary entries' own usage examples, or the ones they had as cards of the B1, B2 and phrases decks, where nine of them used to be. THE ORDER is a teaching order. The first 66 words are set by hand: the courtesies, the words of a first exchange (yo, ser, tú, llamarse, cómo, qué), the other subject pronouns, eight verbs (tener, ir, hacer, querer, poder, gustar, hablar, vivir), the question words, zero to ten and a few function words. After them the words come roughly by how common they are in everyday Spanish — the order is taken from a frequency list built from film and television subtitles, with a reflexive verb placed by the verb it is formed from — except that each closed set is dealt together (the numbers above ten, the ordinals, the days, the months, the seasons) and two words easily taken for each other (ser and estar, por and para, qué and que) arrive at least forty words apart. At the default of ten new cards a day, both directions together, that is five words a day: the courtesies take three days, the first 66 words fourteen and the deck 101. How the letters are read is a deck of its own, Spanish — Sounds and spelling, meant to be studied beside this one."
     ]
    ],
    "exNames": [
@@ -583,7 +591,7 @@
    ]
   },
   "deleb1": {
-   "why": "The B1 read began in Sep 2026, in batches of twenty to thirty cards in deck order, as A1's and A2's did. The deck-level passes those decks carry are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast, its American spellings and its American usage. Ten names B1's sentences carry and A2's did not are added to the name table (Alice, Dan, Mike, Dick, Peter, Yoko, Tommy, Dave, Anna, Caroline); Joe is deliberately not, B1 carrying Joe Biden. No dropDup is needed: measured at the start of the read, no B1 headword is also an A1 or A2 headword. The description said 1,000 words (the deck holds 999, as its own example sentence says two sentences later) and three examples for 977 of them, where the file had 946 before the read began; both are corrected, and the combined figure for the three levels is taken out on A2's reasoning. The counts of nouns, pairs, verbs and reflexives are the GENERATOR's and are deliberately not recomputed, on A1's. Batch S20 gave asesino, which had none, three: 995 of 999 with examples and 947 with three. Batch S23 folded away el repente, a card the generator made out of the second word of de repente (998 words), and its three examples went with it: 994 of 998 with examples, 948 with three. Batch S28 brought la presencia and la pelota up to three: 950 with three. Batch S29 brought el personaje and súper up to three: 952 with three.",
+   "why": "The B1 read began in Sep 2026, in batches of twenty to thirty cards in deck order, as A1's and A2's did. The deck-level passes those decks carry are switched on here with the same tables, since the corpus and its faults are the same: Tatoeba's English cast, its American spellings and its American usage. Ten names B1's sentences carry and A2's did not are added to the name table (Alice, Dan, Mike, Dick, Peter, Yoko, Tommy, Dave, Anna, Caroline); Joe is deliberately not, B1 carrying Joe Biden. No dropDup is needed: measured at the start of the read, no B1 headword is also an A1 or A2 headword. The description said 1,000 words (the deck holds 999, as its own example sentence says two sentences later) and three examples for 977 of them, where the file had 946 before the read began; both are corrected, and the combined figure for the three levels is taken out on A2's reasoning. The counts of nouns, pairs, verbs and reflexives are the GENERATOR's and are deliberately not recomputed, on A1's. Batch S20 gave asesino, which had none, three: 995 of 999 with examples and 947 with three. Batch S23 folded away el repente, a card the generator made out of the second word of de repente (998 words), and its three examples went with it: 994 of 998 with examples, 948 with three. Batch S28 brought la presencia and la pelota up to three: 950 with three. Batch S29 brought el personaje and súper up to three: 952 with three. THE BEGINNER PASS (Nov 2026): gracias and cero are now cards of DELE A1 (its record's inserts say why), so dropDup takes them out of this deck and the two counts follow: 996. The record's own entries for gracias and cero went with the cards: what they corrected is carried by the A1 inserts.",
    "exNames": [
     [
      "Tom",
@@ -837,11 +845,11 @@
      "mum"
     ]
    ],
-   "subtitle": "998 more words, none of them in A1 or A2 · both directions, as two cards per word",
+   "subtitle": "996 more words, none of them in A1 or A2 · both directions, as two cards per word",
    "descSub": [
     [
      "1,000 words for level B1 of the DELE",
-     "998 words for level B1 of the DELE"
+     "996 words for level B1 of the DELE"
     ],
     [
      "None of them appears in the A1 or A2 deck, so the three together come to 2,000 words.",
@@ -861,21 +869,93 @@
     ],
     [
      "999 words for level B1 of the DELE",
-     "998 words for level B1 of the DELE"
+     "996 words for level B1 of the DELE"
     ],
     [
      "Real example sentences come with 994 of the 999 words, three apiece for 977 of them and one or two for the rest; the sentence corpus has nothing at all for the remaining 5, which are kept because the word list is set by the exam board and not by the corpus,",
-     "Example sentences come with every one of the 998 words, three apiece,"
+     "Example sentences come with every one of the 996 words, three apiece,"
     ],
     [
      "Example sentences come with 994 of the 999 words, three apiece for 946 of them and one or two for the rest; the sentence corpus has nothing at all for the remaining 5, which are kept because the word list is set by the exam board and not by the corpus,",
-     "Example sentences come with every one of the 998 words, three apiece,"
+     "Example sentences come with every one of the 996 words, three apiece,"
     ],
     [
      "Example sentences come with 997 of the 998 words, three apiece for 994 of them and one or two for the rest; there are none at all for the remaining one, which is kept because the word list is set by the exam board and not by the corpus,",
-     "Example sentences come with every one of the 998 words, three apiece,"
+     "Example sentences come with every one of the 996 words, three apiece,"
+    ],
+    [
+     "998 words for level B1 of the DELE",
+     "996 words for level B1 of the DELE"
+    ],
+    [
+     "Example sentences come with every one of the 998 words, three apiece,",
+     "Example sentences come with every one of the 996 words, three apiece,"
+    ]
+   ],
+   "dropDup": {
+    "gracias": "delea1",
+    "cero": "delea1"
+   }
+  },
+  "deleb2": {
+   "why": "THE BEGINNER PASS (Nov 2026). perdón is now a card of DELE A1 — a courtesy a beginner needs in the first week was 401 days in — so dropDup takes it out of this deck. The description called the deck 2,000 words where the file held 1,999 notes and said the four levels 'come to 4,000 words', which no longer adds up for any of them: the count is set to the 1,998 notes there now are and the sum is taken out, a combined figure being one that goes wrong whenever either deck moves (the A2 record's reasoning). The example-sentence claim follows: perdón had three.",
+   "dropDup": {
+    "perdón": "delea1"
+   },
+   "subtitle": "1,998 more words, none of them in A1, A2 or B1 · both directions, as two cards per word",
+   "descSub": [
+    [
+     "2,000 words for level B2 of the DELE",
+     "1,998 words for level B2 of the DELE"
+    ],
+    [
+     "None of them appears in the A1, A2 or B1 deck, so the four together come to 4,000 words.",
+     "None of them appears in the A1, A2 or B1 deck."
+    ],
+    [
+     "the rest of the 2,000 is filled from the B2 column",
+     "the rest is filled from the B2 column"
+    ],
+    [
+     "Real example sentences come with 1879 of the 1999 words, three apiece for 1660 of them",
+     "Real example sentences come with 1878 of the 1998 words, three apiece for 1659 of them"
     ]
    ]
+  },
+  "delec2": {
+   "why": "THE BEGINNER PASS (Nov 2026). The description said 'the six level decks together teach 7,991 words'. The six files held 7,982 notes before this pass and hold 7,992 after it; a sum across decks is wrong whenever any one of them moves, so it is taken out, as A2's and B2's were.",
+   "descSub": [
+    [
+     "Not one of them appears in the A1, A2, B1, B2 or C1 deck, so the six level decks together teach 7,991 words.",
+     "Not one of them appears in the A1, A2, B1, B2 or C1 deck."
+    ]
+   ]
+  },
+  "esphrases": {
+   "why": "THE BEGINNER PASS (Nov 2026). The phrases deck was supplied ready-made and had never been in this record; spanish-fix.js selected its decks by the DELE- file name. Six courtesies it carried — por favor (its first card), lo siento, buenos días, buenas tardes, buenas noches, hasta luego — are now cards of DELE A1, the first deck on the shelf, where this deck is the last; dropDup takes them out. The description is corrected in three places: the count; the order, which it described in the level decks' words (a subtitle frequency list) and which is now by reading level (spanish-order.json); and the sentence about the two expressions without an example, which said they were kept 'because the word list is set by the exam board', there being no exam board's list behind this deck.",
+   "dropDup": {
+    "por favor": "delea1",
+    "lo siento": "delea1",
+    "buenos días": "delea1",
+    "buenas tardes": "delea1",
+    "buenas noches": "delea1",
+    "hasta luego": "delea1"
+   },
+   "descSub": [
+    [
+     "400 set expressions of Spanish",
+     "394 set expressions of Spanish"
+    ],
+    [
+     "The cards are ordered roughly by how common the word is in everyday Spanish, so the words you will meet most often come first: the order is taken from a frequency list built from film and television subtitles, with a reflexive verb placed by the verb it is formed from and a phrase, which a list of single words cannot see, placed by how often it turns up in a corpus of everyday sentences.",
+     "THE ORDER is by reading level: first the 191 expressions spelled entirely with words the DELE A1 deck teaches, in the forms its cards show, then the 74 that need A2's words as well, B1's (62), B2's (35), C1's and C2's (13), and last the 19 that use a word no level deck cards; inside each group the expression a corpus of everyday sentences has most often comes first. So the deck can be begun beside DELE A1 rather than after C2, where the shelf lists it. Six courtesies it used to carry — por favor, lo siento, buenos días, buenas tardes, buenas noches, hasta luego — are now cards of DELE A1 and are not repeated here. At the default of ten new cards a day, both directions together, that is five expressions a day: 39 days for the A1 group and 79 for the deck."
+    ],
+    [
+     "Real example sentences come with 398 of the 400 words, up to three apiece, chosen where possible to show three different inflected forms rather than the same one three times, with the word picked out in colour and a speaker beside it; the sentence corpus has nothing at all for the remaining 2, which are kept because the word list is set by the exam board and not by the corpus.",
+     "Real example sentences come with 392 of the 394 expressions, up to three apiece, with the expression picked out in colour and a speaker beside it; the sentence corpus has nothing at all for the remaining 2."
+    ]
+   ],
+   "subtitle": "394 expressions, the 191 that DELE A1's words spell first · both directions, as two cards each"
   }
  },
  "hints": {
@@ -892,11 +972,31 @@
   "delea1/entender": "comprender",
   "delea1/comprender": "entender",
   "delea2/salvo": "excepto",
-  "delea2/excepto": "salvo"
+  "delea2/excepto": "salvo",
+  "delea1/cuándo": "cuando",
+  "delea1/cuando": "cuándo",
+  "delea2/enviar": "mandar",
+  "delea2/mandar": "enviar",
+  "deleb1/otra vez": "de nuevo",
+  "deleb1/de nuevo": "otra vez",
+  "deleb1/al menos": "por lo menos",
+  "deleb1/por lo menos": "al menos",
+  "deleb1/sin embargo": "no obstante",
+  "deleb1/no obstante": "sin embargo",
+  "deleb1/de repente": "de pronto",
+  "deleb1/de pronto": "de repente",
+  "deleb1/por supuesto": "desde luego",
+  "deleb1/desde luego": "por supuesto",
+  "deleb1/puesto que": "dado que",
+  "deleb1/dado que": "puesto que",
+  "delec2/la defunción": "el deceso",
+  "delec2/el deceso": "la defunción",
+  "esphrases/hoy día": "el día de hoy",
+  "esphrases/el día de hoy": "hoy día"
  },
  "notes": {
   "delea1/de": {
-   "why": "The third bullet - 'used after the thing owned and before the owner' - was a usage NOTE standing in the list of translations, where the card renders it as though it were an English equivalent of the word. It moves into the gloss it qualifies. The list also left out three senses an A1 reader meets in the first week: origin (soy de Madrid), material (de madera) and topic (un libro de historia). Examples 2 and 3 were the same sentence with its two halves swapped - 'La esencia de las matematicas es la libertad' and 'La esencia de la libertad son las matematicas' - so the card showed one example twice; the second is dropped for a sentence that shows the origin sense.",
+   "why": "The third bullet - 'used after the thing owned and before the owner' - was a usage NOTE standing in the list of translations, where the card renders it as though it were an English equivalent of the word. It moves into the gloss it qualifies. The list also left out three senses an A1 reader meets in the first week: origin (soy de Madrid), material (de madera) and topic (un libro de historia). Examples 2 and 3 were the same sentence with its two halves swapped - 'La esencia de las matematicas es la libertad' and 'La esencia de la libertad son las matematicas' - so the card showed one example twice; the second is dropped for a sentence that shows the origin sense. THE BEGINNER PASS (Nov 2026): del was shown nowhere in the Spanish decks. It is a Forms row here — the English Wiktionary's entry del, 'of the, from the (+ a masculine noun in singular)', a contraction of de + el — and since that row is a cross-reference the card names what may be bolded.",
    "senses": [
     [
      "preposition",
@@ -918,7 +1018,16 @@
      "Where are you from?"
     ]
    ],
-   "rebold": true
+   "rebold": true,
+   "forms": [
+    [
+     "de + el",
+     "del"
+    ]
+   ],
+   "bold": [
+    "de"
+   ]
   },
   "delea1/que": {
    "why": "Glossed as a conjunction only, so the RELATIVE PRONOUN - which is what its own first example shows, and one of the two commonest uses of the commonest word in Spanish - was missing. That example made the loss invisible: 'El color que me encanta es el rojo' was translated 'My favorite color is red', which translates the que away, so the card asked a reader to learn a word from a sentence whose English does not contain it. It is dropped for a sentence whose translation carries the relative through. DEDUPLICATION PASS (Sep 2026, on request). 181 example sentences were serving two or more cards each — 424 of the deck's 1,477 slots — because the corpus a function word draws from is small and one sentence legitimately contains de, que and antes at once. A reader working through the deck in order met the same sentence up to three times as though it were new. The sentence is KEPT on the commonest of the words that share it, by the deck's own frequency order, and authored afresh on the rest.",
@@ -27785,37 +27894,6 @@
     ]
    ]
   },
-  "deleb1/gracias": {
-   "why": "The gloss did not give dar las gracias. The first example is also an A1 sentence, and the second was gracias a, 'thanks to', which is its own card later in B1 and which lost its meaning in the English ('The storm knocked out power'). SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
-   "senses": [
-    [
-     "interjection",
-     [
-      "thank you, thanks"
-     ]
-    ],
-    [
-     "phrase",
-     [
-      "dar las gracias — to thank"
-     ]
-    ]
-   ],
-   "dropEx": [
-    "Daniel les dio las gracias a los policías.",
-    "gracias a la tormenta"
-   ],
-   "ex": [
-    [
-     "Muchas gracias por venir.",
-     "Thank you very much for coming."
-    ],
-    [
-     "Dale las gracias a tu madre de mi parte.",
-     "Thank your mother for me."
-    ]
-   ]
-  },
   "deleb1/el hecho": {
    "why": "NONE OF THE THREE EXAMPLES WAS THE NOUN. Each was the participle hecho, hecha, 'made', of hacer, A1's card: 'la tarta que ha hecho ella', 'hechas de vidrio', 'hecha de plástico'. De hecho, 'in fact', is its own card later in B1.",
    "senses": [
@@ -33442,37 +33520,6 @@
     [
      "Vivo en la Comunidad de Madrid.",
      "I live in the Community of Madrid."
-    ]
-   ]
-  },
-  "deleb1/cero": {
-   "why": "The gloss did not give desde cero. The first and third examples were one construction, below zero, and are shared with cuarenta in A1 and anoche in A2. SHARED WITH A LOWER DECK: the lower deck, which a reader meets first, keeps the sentence and this card is given a fresh one (see batch S1).",
-   "senses": [
-    [
-     "numeral",
-     [
-      "zero, nought"
-     ]
-    ],
-    [
-     "phrase",
-     [
-      "desde cero — from scratch"
-     ]
-    ]
-   ],
-   "dropEx": [
-    "cuarenta grados bajo cero",
-    "cayó por debajo de cero anoche"
-   ],
-   "ex": [
-    [
-     "Empezamos desde cero.",
-     "We started from scratch."
-    ],
-    [
-     "Mi número de teléfono empieza por cero.",
-     "My phone number starts with a zero."
     ]
    ]
   },
@@ -47993,6 +48040,444 @@
       "The village where he was born is very small."
      ]
     ]
+   },
+   {
+    "id": "u_delea1_507",
+    "after": "sí",
+    "spanish": "hola",
+    "senses": [
+     [
+      "interjection",
+      [
+       "hello, hi, hey"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "¡Hola!",
+      "Hello!"
+     ],
+     [
+      "¡Hola! ¿Cómo estás?",
+      "Hey! How are you doing?"
+     ],
+     [
+      "¡Hola, mundo!",
+      "Hello, world!"
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): hola was a card of NO Spanish deck. Sense: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry hola, interjection. Sentences: Tatoeba 1502706 / 373330; the Wiktionary entry's own usage example; Tatoeba 11705041 / 398746.",
+    "word": "hola"
+   },
+   {
+    "id": "u_delea1_508",
+    "after": "hola",
+    "spanish": "adiós",
+    "senses": [
+     [
+      "interjection",
+      [
+       "goodbye, farewell"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "¡Adiós!",
+      "Goodbye!"
+     ],
+     [
+      "¡Adiós! ¡Cuídate!",
+      "Bye! Take care!"
+     ],
+     [
+      "Adiós, buenas noches.",
+      "Bye, good night."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): adiós was a card of no Spanish deck. Sense: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry adiós, interjection. Sentences: Tatoeba 853351 / 516745; Tatoeba 4464725 / 3847237; Tatoeba 9083368 / 9083365.",
+    "word": "adiós"
+   },
+   {
+    "id": "u_delea1_509",
+    "after": "adiós",
+    "spanish": "gracias",
+    "senses": [
+     [
+      "interjection",
+      [
+       "thank you, thanks"
+      ]
+     ],
+     [
+      "phrase",
+      [
+       "dar las gracias — to thank"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "¡Gracias!",
+      "Thank you!"
+     ],
+     [
+      "Muchas gracias por venir.",
+      "Thank you very much for coming."
+     ],
+     [
+      "Dale las gracias a tu madre de mi parte.",
+      "Thank your mother for me."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): gracias was the second card of DELE B1, 198 days in at five words a day, and is MOVED here (decks.deleb1.dropDup takes it out of B1). The senses and the second and third sentences are the B1 card's own; the first sentence is Tatoeba 382058 / 374827, in place of a B1 sentence with a perfect infinitive.",
+    "word": "gracias"
+   },
+   {
+    "id": "u_delea1_510",
+    "after": "gracias",
+    "spanish": "de nada",
+    "bold": [
+     "de nada"
+    ],
+    "senses": [
+     [
+      "interjection",
+      [
+       "you're welcome",
+       "don't mention it",
+       "it's nothing"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "De nada.",
+      "You're welcome."
+     ],
+     [
+      "\"Gracias.\" \"De nada.\"",
+      "\"Thank you.\" \"You're welcome.\""
+     ],
+     [
+      "¡De nada!",
+      "Don't mention it!"
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): de nada was a card of no Spanish deck. Senses: three of the glosses of English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry de nada, interjection ('it's nothing, think nothing of it, you're welcome, don't mention it, no worries (informal), my pleasure'). Sentences: Tatoeba 332228 / 403068; Tatoeba 2965 / 2077; Tatoeba 1179060 / 2161779.",
+    "word": "de nada"
+   },
+   {
+    "id": "u_delea1_511",
+    "after": "de nada",
+    "spanish": "por favor",
+    "bold": [
+     "por favor"
+    ],
+    "senses": [
+     [
+      "interjection",
+      [
+       "please"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Por favor.",
+      "Please."
+     ],
+     [
+      "Un vaso de agua con gas, por favor.",
+      "A glass of sparkling water, please."
+     ],
+     [
+      "Quisiera una mesa por favor.",
+      "I would like a table, please."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): por favor was the first card of the phrases deck, which the shelf lists after C2, and is MOVED here (decks.esphrases.dropDup). The sense and the second sentence are that card's own; the first is Tatoeba 13961138 / 393357 and the third the usage example of English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry por favor.",
+    "word": "por favor"
+   },
+   {
+    "id": "u_delea1_512",
+    "after": "por favor",
+    "spanish": "perdón",
+    "senses": [
+     [
+      "interjection",
+      [
+       "sorry",
+       "pardon me (excuse me)",
+       "sorry, pardon (I didn't hear you)"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "¿Perdón?",
+      "Pardon me?"
+     ],
+     [
+      "Perdón.",
+      "Sorry."
+     ],
+     [
+      "Perdón, ¿dijiste algo?",
+      "I'm sorry, did you say something?"
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): perdón was the twentieth card of DELE B2, 401 days in, and is MOVED here (decks.deleb2.dropDup). The senses are the B2 card's own. Its three sentences showed perdones and pedir perdón, so they are replaced by Tatoeba 5083632 / 31477; Tatoeba 4708420 / 3378159; Tatoeba 10014448 / 2540889.",
+    "word": "perdón"
+   },
+   {
+    "id": "u_delea1_513",
+    "after": "perdón",
+    "spanish": "lo siento",
+    "bold": [
+     "lo siento"
+    ],
+    "senses": [
+     [
+      "interjection",
+      [
+       "I'm sorry"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Lo siento.",
+      "I'm sorry."
+     ],
+     [
+      "Lo siento mucho.",
+      "I'm really sorry."
+     ],
+     [
+      "Lo siento, señor.",
+      "I'm sorry, sir."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): lo siento was a card of the phrases deck and is MOVED here (decks.esphrases.dropDup). The sense is that card's own; the sentences are Tatoeba 942156 / 38387; the usage example of English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry lo siento; Tatoeba 5127955 / 10040042.",
+    "word": "lo siento"
+   },
+   {
+    "id": "u_delea1_514",
+    "after": "lo siento",
+    "spanish": "buenos días",
+    "bold": [
+     "buenos días"
+    ],
+    "senses": [
+     [
+      "interjection",
+      [
+       "good morning"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "¡Buenos días!",
+      "Good morning!"
+     ],
+     [
+      "Buenos días, mamá.",
+      "Good morning, Mother."
+     ],
+     [
+      "Buenos días, ¿es usted mi nuevo vecino?",
+      "Good morning, are you my new neighbour?"
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): buenos días was a card of the phrases deck and is MOVED here (decks.esphrases.dropDup). The sense and the third sentence are that card's own; the others are Tatoeba 403913 / 329713 and Tatoeba 10728975 / 7265251.",
+    "word": "buenos días"
+   },
+   {
+    "id": "u_delea1_515",
+    "after": "buenos días",
+    "spanish": "buenas tardes",
+    "bold": [
+     "buenas tardes"
+    ],
+    "senses": [
+     [
+      "interjection",
+      [
+       "good afternoon",
+       "good evening (in Spain, until night falls)"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "¡Buenas tardes!",
+      "Good afternoon."
+     ],
+     [
+      "Buenas tardes, ¿cómo estás?",
+      "Good evening, how are you?"
+     ],
+     [
+      "Buenas tardes, profesor Pérez.",
+      "Good afternoon, Professor Pérez."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): buenas tardes was a card of the phrases deck, glossed 'good evening)' with a stray bracket and nothing else, and is MOVED here (decks.esphrases.dropDup). Senses: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry buenas tardes, which gives 'good afternoon (used as a greeting in the afternoon …)' and, labelled Spain, 'good evening (used as a greeting in the evening …)'; the definitions in brackets are cut and the Spain label kept. Sentences: Tatoeba 778583 / 499689; Tatoeba 745023 / 413820; Tatoeba 871352 / 871351.",
+    "word": "buenas tardes"
+   },
+   {
+    "id": "u_delea1_516",
+    "after": "buenas tardes",
+    "spanish": "buenas noches",
+    "bold": [
+     "buenas noches"
+    ],
+    "senses": [
+     [
+      "interjection",
+      [
+       "good evening (a greeting used after sunset)",
+       "good night (a farewell in the late evening, or said to someone going to sleep)"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "¡Buenas noches!",
+      "Good night!"
+     ],
+     [
+      "Buenas noches, mamá.",
+      "Goodnight, Mother."
+     ],
+     [
+      "Ahora es el momento de decir buenas noches.",
+      "Now it's time to say good night."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): buenas noches was a card of the phrases deck with one of its two senses, and is MOVED here (decks.esphrases.dropDup). Senses: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry buenas noches — 'greeting used after sunset (roughly after 6 PM), good evening' and 'used as a farewell in the late evening or night or said to someone going to sleep, good night' — with the English equivalent put first. The third sentence is the phrases card's own; the others are Tatoeba 528431 / 426950 and Tatoeba 851029 / 869217.",
+    "word": "buenas noches"
+   },
+   {
+    "id": "u_delea1_517",
+    "after": "buenas noches",
+    "spanish": "hasta luego",
+    "bold": [
+     "hasta luego"
+    ],
+    "senses": [
+     [
+      "phrase",
+      [
+       "see you later",
+       "goodbye, bye",
+       "so long"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "¡Hasta luego!",
+      "See you later!"
+     ],
+     [
+      "Bueno, hasta luego.",
+      "OK, see you later."
+     ],
+     [
+      "¡Nos vemos esta tarde! ¡Hasta luego!",
+      "See you tonight! See you soon!"
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): hasta luego was a card of the phrases deck and is MOVED here (decks.esphrases.dropDup). The senses are that card's ('see you later, goodbye, bye, take care, so long, later', from the English Wiktionary), set out as a list with two left off; the third sentence is its own, the others Tatoeba 427036 / 360558 and Tatoeba 7305893 / 9026067.",
+    "word": "hasta luego"
+   },
+   {
+    "id": "u_delea1_518",
+    "after": "uno",
+    "spanish": "cero",
+    "boldAlso": [
+     "ceros"
+    ],
+    "senses": [
+     [
+      "numeral",
+      [
+       "zero, nought"
+      ]
+     ],
+     [
+      "phrase",
+      [
+       "desde cero — from scratch"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Mi número de teléfono empieza por cero.",
+      "My phone number starts with a zero."
+     ],
+     [
+      "El número 2010 tiene dos ceros.",
+      "There are two zeros in the number \"2010.\""
+     ],
+     [
+      "Empezamos desde cero.",
+      "We started from scratch."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): the deck counted from uno, cero being a card of DELE B1 (note 256), and it is MOVED here (decks.deleb1.dropDup) so that zero to ten are dealt together. Senses and sentences are the B1 card's own, the shortest sentence first.",
+    "word": "cero"
+   },
+   {
+    "id": "u_delea1_519",
+    "after": "de",
+    "spanish": "a",
+    "senses": [
+     [
+      "preposition",
+      [
+       "to",
+       "at",
+       "by"
+      ]
+     ],
+     [
+      "note",
+      [
+       "used before a person who is the direct object, the personal a: lo busca a usted"
+      ]
+     ]
+    ],
+    "forms": [
+     [
+      "a + el",
+      "al"
+     ]
+    ],
+    "bold": [
+     "a"
+    ],
+    "ex": [
+     [
+      "¡Ve a tu habitación!",
+      "Go to your room!"
+     ],
+     [
+      "Siéntate a la mesa.",
+      "Sit at the table."
+     ],
+     [
+      "Lo busca a usted.",
+      "He is looking for you."
+     ]
+    ],
+    "why": "THE BEGINNER PASS (Nov 2026): THE PREPOSITION a WAS A CARD OF NO SPANISH DECK, and neither al nor del was shown anywhere, though 398 of DELE A1's 1,478 example sentences use one of the three. Senses: English Wiktionary via kaikki.org, read 2026-11-16 (CC BY-SA 4.0), entry a, preposition — 'to', 'by', 'at', and 'Used before words referring to people, pets, or personified objects or places that function as direct objects: personal a', which is shortened into the note. The contraction is the same dictionary's entry al, 'contraction of a + el'. The three sentences are that entry's own usage examples. A Forms row is a cross-reference here, so the card names what may be bolded.",
+    "word": "a"
    }
   ]
  },

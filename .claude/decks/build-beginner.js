@@ -1,16 +1,17 @@
 #!/usr/bin/env node
 "use strict";
 /*
-  build-beginner.js — THE THREE MANDARIN DECKS A BEGINNER STARTS WITH (Nov 2026, the beginner pass).
+  build-beginner.js — THE FOUR MANDARIN DECKS A BEGINNER STARTS WITH (Nov 2026, the beginner pass).
   Standalone Node helper, zero deps. Not part of the site.
 
-    node .claude/decks/build-beginner.js                    # write the three decks
+    node .claude/decks/build-beginner.js                    # write the four decks
     node .claude/decks/build-beginner.js --check            # build in memory, fail if a file differs
     node .claude/decks/build-beginner.js --report           # print what each deck holds, write nothing
     node .claude/decks/build-beginner.js --capture <cedict> # refill beginner-phrases.json from CC-CEDICT
 
   WHAT IT WRITES, and why each exists (the measurements are in docs/mandarin-review.md, "The beginner pass"):
     decks/Mandarin-Pinyin-and-Tones.folio-deck.json         hsk30pin  the sounds, the tones, the tone changes
+    decks/Mandarin-Bopomofo.folio-deck.json                 hsk30bpm  the zhuyin symbols, tone marks, combinations (2026-11-16)
     decks/Mandarin-Level-1-Character-Parts.folio-deck.json  hsk30cmp  the parts Level 1's characters share
     decks/Mandarin-First-Phrases.folio-deck.json            hsk30fst  what Level 1's words already spell
 
@@ -21,6 +22,8 @@
       and example sentence on these cards is one a shipped card already carries;
     · beginner-pinyin.json — IPA values and descriptions, quoted from two Wikipedia articles at named
       revisions;
+    · beginner-bopomofo.json — each symbol's origin, IPA and pinyin, quoted from the Wikipedia article
+      "Bopomofo" at a named revision (2026-11-16);
     · beginner-phrases.json — the First phrases rows, whose traditional forms and senses were CAPTURED from
       CC-CEDICT once (`--capture`) and are that dictionary's text unaltered.
   A run is therefore a pure function of the repo, and `--check` can say whether the files are current.
@@ -37,7 +40,7 @@
 const fs = require("fs"), path = require("path");
 const HERE = __dirname, DIR = path.join(HERE, "..", "..", "decks");
 const IDS = path.join(HERE, "mandarin-ids.json");
-const PIN_TABLE = path.join(HERE, "beginner-pinyin.json"), PHR_TABLE = path.join(HERE, "beginner-phrases.json");
+const PIN_TABLE = path.join(HERE, "beginner-pinyin.json"), BPMF_TABLE = path.join(HERE, "beginner-bopomofo.json"), PHR_TABLE = path.join(HERE, "beginner-phrases.json");
 const argv = process.argv.slice(2);
 const CHECK = argv.includes("--check"), REPORT = argv.includes("--report");
 const CAPTURE = argv.includes("--capture") ? argv[argv.indexOf("--capture") + 1] : null;
@@ -362,6 +365,124 @@ function buildPinyin() {
     deck: deckFile({ id, title: "Mandarin Chinese — Pinyin and tones",
       subtitle: n + " sounds, tones and tone changes — start here, beside Level 1", desc,
       tags: ["chinese", "mandarin", "pinyin", "tones", "pronunciation"], types: { pinyin: type } }, cards) };
+}
+
+/* =====================================================================================================
+   1b. BOPOMOFO (zhuyin) — added 2026-11-16 on request ("add another deck to learn bopomofo")
+   ===================================================================================================== */
+function buildBopomofo() {
+  const T = JSON.parse(fs.readFileSync(BPMF_TABLE, "utf8")), P = JSON.parse(fs.readFileSync(PIN_TABLE, "utf8"));
+  const pinRow = new Map([].concat(P.tones, P.initials, P.finals).map((r) => [r.key, r]));
+  const id = "hsk30bpm", cards = [], thin = [], left = [];
+  /* a card whose Bopomofo field teaches ONE reading, split into its syllables as the card spells them */
+  const zyOf = (c) => String(c.fields.Bopomofo || "").trim();
+  const usable = (c) => single(c) && zyOf(c) && !/[\/,;]/.test(zyOf(c));
+  const zySyls = (c) => zyOf(c).split(/\s+/);
+  const MARK = /[ˊˇˋ˙]/;
+  /* up to n words, each showing the sound in a DIFFERENT syllable; `tests` are tried in order, so a
+     stricter test (ㄧ as the whole vowel, as in ㄋㄧˇ) is preferred to a looser one (ㄧ inside ㄧㄢ) */
+  const pick = (tests, n, oneChar) => {
+    const out = [], heard = new Set();
+    for (const test of tests) for (const c of pool) {
+      if (out.length >= n) break;
+      if (!usable(c) || out.includes(c) || (oneChar && hanOf(c.hanzi).length !== 1)) continue;
+      const hit = zySyls(c).find(test);
+      if (!hit || heard.has(hit.replace(MARK, ""))) continue;
+      heard.add(hit.replace(MARK, "")); out.push(c);
+    }
+    return out;
+  };
+  const zyRow = (c, test, hi) => {
+    const zy = zySyls(c).map((s) => (test(s) ? (hi ? esc(s).split(hi).join("<b>" + hi + "</b>") : "<b>" + esc(s) + "</b>") : esc(s))).join(" ");
+    return '<div class="uc-row"><span class="uc-rz"><span class="uc-tts uc-exsay" data-say="' + esc(c.hanzi) + '"></span>' + esc(c.hanzi) + "</span>"
+      + '<span class="uc-rb">' + zy + '<span class="uc-rs">' + esc(c.pinyin) + "</span></span>"
+      + '<span class="uc-rg">' + esc(glossOf(c)) + "</span></div>";
+  };
+  const add = (key, f) => cards.push({ id: idFor(id, key), num: String(cards.length + 1), key, type: "bopomofo",
+    fields: Object.assign({ Symbol: "", Kind: "", "In pinyin": "", IPA: "", Says: "", Note: "", Origin: "", Examples: "" }, f) });
+  const saysOf = (key) => { const r = pinRow.get(key); if (!r) fail("beginner-bopomofo.json names " + key + ", which beginner-pinyin.json has no row for"); return r.like || r.says; };
+
+  for (const t of T.tones) {
+    const p = pinRow.get("tone:" + t.tone);
+    const test = t.tone === 1 ? (s) => !MARK.test(s) : (s) => s.includes(t.show);
+    const ws = pick([test], 3, true);
+    if (ws.length < 3) thin.push(t.key);
+    add(t.key, { Symbol: t.show, Kind: "tone mark", "In pinyin": p.show + " · " + t.name, IPA: p.contour ? "pitch " + p.contour : "",
+      Says: p.says, Note: t.note + (t.house ? " " + t.house : ""),
+      Examples: rows("as in", ws.map((c) => zyRow(c, test, t.tone === 1 ? "" : t.show))) });
+  }
+  const ALL = T.combinations.map((r) => r.show);
+  for (const r of T.symbols.concat(T.combinations)) {
+    const s = r.show, alone = (x) => x.replace(MARK, "").replace(/^[ㄅ-ㄙ]/, "") === s, inside = (x) => x.includes(s);
+    /* a lone medial is best heard as the whole vowel (ㄋㄧˇ), and a lone vowel outside a combination (ㄉㄚˋ, not ㄧㄚ) */
+    const bareVowel = (x) => x.includes(s) && !ALL.some((k) => k !== s && x.includes(k));
+    /* ㄝ never stands alone in Levels 1 to 3, only inside ㄧㄝ and ㄩㄝ: there, and only there, a vowel takes its combinations */
+    let ws = r.kind === "consonant" || r.kind === "combination" ? pick([inside], 3) : pick([alone, bareVowel], 3);
+    if (!ws.length) ws = pick([inside], 3);
+    if (!ws.length) { left.push(s); continue; }
+    if (ws.length < 3) thin.push(r.key + " (" + ws.length + ")");
+    add(r.key, { Symbol: s, Kind: r.kind === "combination" ? "two symbols together" : "bopomofo " + (r.kind === "rhyme" ? "vowel" : r.kind),
+      "In pinyin": r.pinyin, IPA: r.ipa, Says: r.pin ? saysOf(r.pin) : "", Note: r.note || "",
+      Origin: r.origin ? r.origin.replace(/"([^"]*)"/g, "“$1”") : "",
+      Examples: rows("as in", ws.map((c) => zyRow(c, inside, s))) });
+  }
+  const n = cards.length, nS = T.symbols.length, nC = T.combinations.length - left.length;
+  const type = { id: "bopomofo", name: "Mandarin bopomofo", speechLang: "zh-CN",
+    fields: ["Symbol", "Kind", "In pinyin", "IPA", "Says", "Note", "Origin", "Examples"],
+    cards: [{ name: "Bopomofo → sound",
+      front: '<div class="uc-ask">{{Kind}}</div><div class="uc-bpmf">{{Symbol}}</div>',
+      back: '{{FrontSide}}<hr><div class="uc-pinyin">{{In pinyin}}</div>{{#IPA}}<div class="uc-cls">{{IPA}}</div>{{/IPA}}'
+        + '{{#Says}}<div class="uc-field">{{Says}}</div>{{/Says}}{{#Note}}<div class="uc-note">{{Note}}</div>{{/Note}}'
+        + '{{#Origin}}<div class="uc-note"><span class="uc-lab">the shape</span>{{Origin}}</div>{{/Origin}}'
+        + '{{#Examples}}<div class="uc-rows">{{Examples}}</div>{{/Examples}}' }],
+    css: BASE_CSS + `.uc-bpmf {
+  font-family: ${HAN};
+  font-size: 58px;
+  font-weight: 400;
+  line-height: 1.15;
+}
+.uc-cls {
+  margin-top: 4px;
+  font-family: ${PINYIN_FONT};
+  font-size: 17px;
+  opacity: 0.75;
+}
+.uc-note {
+  max-width: 30em;
+  margin: 10px auto 0;
+  font-size: 13.5px;
+  opacity: 0.8;
+}
+.uc-rb {
+  font-family: ${HAN};
+  font-size: 15px;
+  min-width: 6em;
+}
+.uc-rb b {
+  font-weight: 400;
+  color: var(--zh, #C8453C);
+}
+.uc-rb .uc-rs {
+  font-family: ${PINYIN_FONT};
+}
+` };
+  const desc = "Bopomofo (zhuyin), the phonetic script taught in Taiwan and printed on every vocabulary card on this shelf beside the pinyin: "
+    + n + " notes, one card each — the five tone marks, the " + nS + " symbols (21 consonants, 13 vowels and the three medials ㄧ ㄨ ㄩ) and the "
+    + nC + " two-symbol combinations, several of which pinyin spells in a way the symbols do not suggest (ㄧㄡ is <i>-iu</i>, ㄨㄥ is <i>-ong</i>, ㄩㄥ is <i>-iong</i>). The front shows the "
+    + "symbol; the back gives its pinyin, its sound in the International Phonetic Alphabet, how the sound is made, the character the shape comes from, "
+    + "and up to three words from the Level 1 to 3 decks written in bopomofo, with a speaker beside each and the symbol picked out. THE ORDER is "
+    + "the article's: tones, consonants (ㄅ ㄆ ㄇ ㄈ …), vowels, medials, combinations. Pinyin and tones is the deck to start with; this one is for a learner who "
+    + "reads Taiwanese materials or types with a zhuyin keyboard. At the default of ten new cards a day it takes " + Math.ceil(n / 10) + " days. — WHAT IS NOT HERE: "
+    + "ㄪ, ㄫ, ㄬ and ㄭ, which the article says are no longer used for Mandarin, and handwriting or stroke order. No description is written for this deck: "
+    + "each is quoted, with a cut marked […]; a symbol with no exact pinyin counterpart (ㄛ, ㄝ) has no sound description, and a seal-script picture "
+    + "in an origin is left out." + (left.length ? " " + left.join(", ") + " is left out: no word of Levels 1 to 3 has it." : "")
+    + " — Symbols, origins, IPA, pinyin equivalents and tone notes: " + sourceLine(T.sources.bopomofo) + ". How each sound is made: "
+    + sourceLine(P.sources.pinyin) + " (both CC BY-SA 4.0). Example words, bopomofo, readings and meanings: the HSK 3.0 Level 1 to 3 decks on this "
+    + "shelf (the official HSK 3.0 vocabulary lists, and CC-CEDICT, CC BY-SA 4.0).";
+  return { file: "Mandarin-Bopomofo.folio-deck.json", thin, left,
+    deck: deckFile({ id, title: "Mandarin Chinese — Bopomofo",
+      subtitle: n + " zhuyin symbols, tone marks and combinations — beside Pinyin and tones", desc,
+      tags: ["chinese", "mandarin", "bopomofo", "zhuyin", "pronunciation"], types: { bopomofo: type } }, cards) };
 }
 
 /* =====================================================================================================
@@ -693,12 +814,13 @@ function buildPhrases() {
 
 /* ===================================================================================================== */
 if (CAPTURE) { capture(CAPTURE); process.exit(0); }
-const built = [buildPinyin(), buildParts(), buildPhrases()];
+const built = [buildPinyin(), buildBopomofo(), buildParts(), buildPhrases()];
 if (REPORT) {
   for (const b of built) {
     console.log("\n" + b.file + "  (" + b.deck.cards.length + " notes)\n  " + b.deck.meta.subtitle);
     console.log("  " + b.deck.cards.map((c) => c.key).join(" "));
     if (b.thin && b.thin.length) console.log("  fewer than three example words: " + b.thin.join(", "));
+    if (b.left && b.left.length) console.log("  left out, no example word: " + b.left.join(", "));
     if (b.stats) console.log("  phrases with examples " + b.stats.ex + ", without " + b.stats.ex0);
     if (b.covered) console.log("  " + b.covered + " of Level 1's " + b.chars + " characters contain one of these parts");
   }
@@ -715,5 +837,5 @@ for (const b of built) {
 }
 if (CHECK) {
   if (stale || pinChanged) { console.log("\n  FAIL  the beginner decks are not what the tables and the shipped decks give — run without --check"); process.exit(1); }
-  console.log("  ok    the three beginner decks are current");
+  console.log("  ok    the four beginner decks are current");
 } else if (pinChanged) { writePin(); console.log("  mandarin-ids.json: new rows written"); }
