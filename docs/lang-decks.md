@@ -3943,6 +3943,28 @@ changed was the one that had been wrong all along.
   sentences rank last. The plan and every finding are 📖 `docs/finnish-decks-plan.md`. The `l1` row is Wikipedia's
   5.0 million (no L2 figure, so `total` is the same); the hue is measured, `#8D572D` (re-swept at the merge: Norwegian had
   taken a hue 2.4 from the first sweep's `#907227`).
+- `.claude/icelandic/` — the generator behind the Icelandic decks (Nov 2026, on request: "Add an Icelandic language
+  collection"; the Norwegian and Finnish owners' decisions taken, the owner not asked). **Built: the alphabet,
+  `decks/Icelandic-Alphabet.folio-deck.json`** (39 notes: the 32 letters' sounds, then ei/ey, au, hv, ll,
+  pre-aspiration, the stress and vowel length) **and A1, `decks/Icelandic-A1.folio-deck.json`** (500 notes / 1,000
+  cards) **and A2, `decks/Icelandic-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16, on request: "Add A2";
+  `--level a2`) **and B1, `decks/Icelandic-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-16, on request:
+  "Add B1"; `--level b1`) **and B2, `decks/Icelandic-B2.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16, on
+  request: "Add B2"; `--level b2`; 95 % by frequency, English Wiktionary lacking much of its inventory) **and C1,
+  `decks/Icelandic-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16, on request: "Add C1"; `--level c1`;
+  96 % by frequency, nearly three cards in four with no sentence) — all five levels — **and the phrases deck,
+  `decks/Icelandic-Phrases-and-Expressions.folio-deck.json`** (734 in Phrases / Fixed expressions / Particle verbs /
+  Idioms / Proverbs, every candidate English Wiktionary has; `--level phr`, `phrases.py`, 2026-11-16). The plan is
+  complete. `python3 .claude/icelandic/run.py [--level a1]`, `python3 .claude/icelandic/alphabet.py`,
+  `node .claude/icelandic/check-icelandic.js`; a re-run is byte-identical. Norwegian's pipeline adapted, no
+  romanisation, nouns with their gender as a label (Icelandic has no indefinite article) and their four cases in
+  both numbers, verbs by their present "he" form, past and supine. **What is new**: the subtitle list is
+  mis-encoded (đ for ð, ū for þ …) and mapped back before counting (`isl.subs_fold`); Wiktionary's extraction has no
+  Icelandic present tense, so a verb's present and imperative come from **BÍN** (the Database of Icelandic
+  Morphology, CC BY-SA 4.0, credited in every deck's description as its terms ask); a form-of entry claims its
+  spelling even where that spelling is a lemma (`er` is vera's). The plan and every finding are
+  📖 `docs/icelandic-decks-plan.md`. The `LANGS` row is 0.39 million (Ethnologue via Wikipedia, no L2 figure); the hue
+  is measured, `#303696`.
 - `.claude/lao/` — the generator behind the Lao decks (Nov 2026, on request: "Add a Lao language collection"; the
   Thai answers taken, the owner not asked). **Built: the alphabet, `decks/Lao-Alphabet.folio-deck.json`** (79 notes:
   the 27 consonants, the six ຫ ligatures, 27 vowels, the tone marks and two signs, the three class rules, the digits,

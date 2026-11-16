@@ -69,7 +69,7 @@ const OUT = path.join(ROOT, "lang-decks.js");
    Persian is Farsi + Dari + Tajik (Ethnologue 28th ed., 127, infobox), Polish and Ukrainian are their infobox
    totals (43 and 39), and Romanian and Greek, whose infoboxes give no second-language figure, are their L1
    (22, 13.5). Tagalog is the 2026 table's 87; Dutch, Zulu and Swedish are their infobox totals (30, 28, 13), Irish the census figures in its row (2.1);
-   Hungarian, Danish, Finnish and Norwegian, with no second-language figure, are their L1 (12, 5.5, 5, 4.3). Hebrew is its infobox total (9, Ethnologue 2018). Latin and Old English stay 0. `l1` is kept beside it, and a language
+   Hungarian, Danish, Finnish, Norwegian and Icelandic, with no second-language figure, are their L1 (12, 5.5, 5, 4.3, 0.39). Hebrew is its infobox total (9, Ethnologue 2018). Latin and Old English stay 0. `l1` is kept beside it, and a language
    added with no `total` falls back to its `l1` (and is reported) rather than sorting as NaN. */
 const LANGS = [
   { word: "Mandarin", name: "Mandarin Chinese", l1: 941, total: 1183 },
@@ -125,6 +125,9 @@ const LANGS = [
      its daily speakers outside the education system, 71,968 (Republic, census 2022) + 43,557 (Northern Ireland,
      census 2021), and `total` those stating they can speak it, 1,873,997 (Republic, 2022) + 228,600 (NI, 2021). */
   { word: "Irish", name: "Irish", l1: 0.12, total: 2.1 },
+  /* ICELANDIC (Nov 2026): Wikipedia's infobox (read 2026-11-15) gives 388,720 speakers (Ethnologue 26th ed.) and no
+     second-language figure, so `total` is its L1, as Norwegian's. */
+  { word: "Icelandic", name: "Icelandic", l1: 0.39, total: 0.39 },
   /* LATIN HAS NO NATIVE SPEAKERS, so its l1 is 0 and it sorts last — the honest place for a language
      nobody grows up with, and the one a figure cannot argue with. Not a guess at a number. */
   { word: "Latin", name: "Latin", l1: 0, total: 0 },
