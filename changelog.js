@@ -40,9 +40,10 @@ window.FOLIO_VERSION = { v: "1.1322", released: "2026-11-16T01:31Z" };
 window.CHANGELOG = [
   {
     d: "2026-11-16",
-    t: "Khmer A2 and B1",
+    t: "Lao and Khmer language decks",
     items: [
-      "<b>Khmer A2</b> and <b>B1</b> decks, 1,750 more words, join the Khmer (Cambodian) collection, in both directions with romanisation.",
+      "A <b>Lao</b> collection joins the Languages section: an alphabet deck, A1 to B1 (1,721 words) and 79 phrases and sentences, all in both directions.",
+      "<b>Khmer A2</b> and <b>B1</b> decks (1,750 more words) join the Khmer (Cambodian) collection.",
     ],
   },
   {
