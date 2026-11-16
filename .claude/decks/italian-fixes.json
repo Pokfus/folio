@@ -1,0 +1,1446 @@
+{
+ "why": "THE ITALIAN RECORD (Nov 2026, the Italian beginner pass — docs/lang-decks.md). Applied by .claude/decks/italian-fix.js AFTER paradigm-fix.js; read its header first. What is here: the cards CILS A1 gains (`insert`), the cards another deck loses to it (`decks.<id>.dropDup`), the feminine adjectives that were a second card for one word (`decks.<id>.dropForm`), fields rebuilt on a card the generator wrote (`notes`), and each deck's words about itself (`decks.<id>.subtitle`, `descSub`). The folded paradigms stay in paradigm-fixes.json. NOTHING HERE IS COMPOSED: a moved card's `fields` are the card as it stood in the deck named by `from`, byte for byte; a new card's meanings are the English Wiktionary's (kaikki.org, read 2026-11-16), its forms the Wikipedia table its `why` names, and each of its sentences a Tatoeba sentence named by id in `src` (CC BY 2.0 FR).",
+ "insert": {
+  "cilsa1": [
+   {
+    "word": "buongiorno",
+    "id": 962,
+    "from": "itcore/buongiorno",
+    "why": "A courtesy the A1 band lacks (the list has no greeting but ciao and grazie). MOVED from the core vocabulary, where it was note 18 and reached a reader on day 1,436; the card is that card, but for one sentence. Its first sentence is replaced by a short one a beginner can read on day one (Tatoeba, by the ids in src); the other two are its own.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">buongiorno</div>",
+     "Word": "buongiorno",
+     "English": "<div class=\"uc-pos\">interjection</div><ul class=\"uc-gls\"><li>good day</li><li>good morning</li><li>good afternoon</li></ul>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Amo mandare messaggi di buongiorno ai miei amici.\"></span>Amo mandare messaggi di <b>buongiorno</b> ai miei amici.</div><div class=\"uc-exe\">I love sending good morning messages to my friends.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Buongiorno, il mio nome è Tina.\"></span><b>Buongiorno</b>, il mio nome è Tina.</div><div class=\"uc-exe\">Hello, my name is Tina.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Tom mi ha dato il buongiorno.\"></span>Tom mi ha dato il <b>buongiorno</b>.</div><div class=\"uc-exe\">Tom said good morning to me.</div></div>"
+    },
+    "ex": [
+     [
+      "Buongiorno!",
+      "Good morning!",
+      "Tatoeba 411945 (English 329713)"
+     ],
+     [
+      "Buongiorno, il mio nome è Tina.",
+      "Hello, my name is Tina.",
+      "the moved card's own sentence"
+     ],
+     [
+      "Tom mi ha dato il buongiorno.",
+      "Tom said good morning to me.",
+      "the moved card's own sentence"
+     ]
+    ]
+   },
+   {
+    "word": "buonasera",
+    "id": 963,
+    "from": "itcore/buonasera",
+    "why": "A courtesy the A1 band lacks (the list has no greeting but ciao and grazie). MOVED from the core vocabulary (note 102); the card is that card, but for one sentence. Its first sentence is replaced by a short one a beginner can read on day one (Tatoeba, by the ids in src); the other two are its own.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">buonasera</div>",
+     "Word": "buonasera",
+     "English": "<div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">good evening</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Buonasera. Vorrei un bicchiere di latte intero.\"></span><b>Buonasera</b>. Vorrei un bicchiere di latte intero.</div><div class=\"uc-exe\">Good evening. I&#x27;d like a glass of whole milk.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Buonasera. Vorrei un bicchiere di latte.\"></span><b>Buonasera</b>. Vorrei un bicchiere di latte.</div><div class=\"uc-exe\">Good evening. I&#x27;d like a glass of milk.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Buonasera, Signore e Signori.\"></span><b>Buonasera</b>, Signore e Signori.</div><div class=\"uc-exe\">Good evening, ladies and gentlemen.</div></div>"
+    },
+    "ex": [
+     [
+      "Buonasera!",
+      "Good evening!",
+      "Tatoeba 443808 (English 2265983)"
+     ],
+     [
+      "Buonasera, come stai?",
+      "Good evening, how are you?",
+      "Tatoeba 3816202 (English 413820)"
+     ],
+     [
+      "Buonasera. Vorrei un bicchiere di latte intero.",
+      "Good evening. I'd like a glass of whole milk.",
+      "the moved card's own sentence"
+     ]
+    ]
+   },
+   {
+    "word": "buonanotte",
+    "id": 964,
+    "why": "A courtesy the A1 band lacks (the list has no greeting but ciao and grazie). A card of no deck. Meaning: English Wiktionary via kaikki.org, read 2026-11-16 (buonanotte, interjection). Sentences: Tatoeba, by the ids in src.",
+    "senses": [
+     [
+      "interjection",
+      [
+       "good night"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Buonanotte a tutti!",
+      "Good night, everyone!",
+      "Tatoeba 1155647 (English 1082672)"
+     ],
+     [
+      "Vado a letto, buonanotte!",
+      "I’m off to bed, goodnight!",
+      "Tatoeba 4615809 (English 12838390)"
+     ],
+     [
+      "Buonanotte, sogni d'oro.",
+      "Good night, sweet dreams.",
+      "Tatoeba 13430444 (English 11204573)"
+     ]
+    ]
+   },
+   {
+    "word": "arrivederci",
+    "id": 965,
+    "from": "itcore/arrivederci",
+    "why": "A courtesy the A1 band lacks (the list has no greeting but ciao and grazie). MOVED from the core vocabulary (note 60); the card is that card, but for one sentence. Its first sentence is replaced by a short one a beginner can read on day one (Tatoeba, by the ids in src); the other two are its own.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">arrivederci</div>",
+     "Word": "arrivederci",
+     "English": "<div class=\"uc-pos\">interjection</div><ul class=\"uc-gls\"><li>goodbye</li><li>so long</li><li>see you soon</li><li>see you</li></ul>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Lei ha sorriso e ha detto arrivederci.\"></span>Lei ha sorriso e ha detto <b>arrivederci</b>.</div><div class=\"uc-exe\">She smiled and said goodbye.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Tom non ha mai detto arrivederci.\"></span>Tom non ha mai detto <b>arrivederci</b>.</div><div class=\"uc-exe\">Tom never said goodbye.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Io sto andando a letto, arrivederci.\"></span>Io sto andando a letto, <b>arrivederci</b>.</div><div class=\"uc-exe\">I&#x27;m going to bed, bye.</div></div>"
+    },
+    "ex": [
+     [
+      "Arrivederci!",
+      "Goodbye!",
+      "Tatoeba 7032040 (English 516745)"
+     ],
+     [
+      "Lei ha sorriso e ha detto arrivederci.",
+      "She smiled and said goodbye.",
+      "the moved card's own sentence"
+     ],
+     [
+      "Tom non ha mai detto arrivederci.",
+      "Tom never said goodbye.",
+      "the moved card's own sentence"
+     ]
+    ]
+   },
+   {
+    "word": "salve",
+    "id": 966,
+    "from": "itcore/salve",
+    "why": "A courtesy the A1 band lacks (the list has no greeting but ciao and grazie). MOVED from the core vocabulary (note 15); the card is that card, but for one sentence. Its first sentence is replaced by a short one a beginner can read on day one (Tatoeba, by the ids in src); the other two are its own.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">salve</div>",
+     "Word": "salve",
+     "English": "<div class=\"uc-pos\">interjection</div><ul class=\"uc-gls\"><li>hello!</li><li>hi!</li><li>hail!</li><li>greetings</li></ul>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Salve, questa è la Biblioteca Pubblica di Boston?\"></span><b>Salve</b>, questa è la Biblioteca Pubblica di Boston?</div><div class=\"uc-exe\">Hi, is this the Boston Public Library?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Salve, il mio nome è Tina.\"></span><b>Salve</b>, il mio nome è Tina.</div><div class=\"uc-exe\">Hello, my name is Tina.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Salve, c&#x27;è qualcuno lì?\"></span><b>Salve</b>, c&#x27;è qualcuno lì?</div><div class=\"uc-exe\">Hello, is there anybody there?</div></div>"
+    },
+    "ex": [
+     [
+      "Salve.",
+      "Hello.",
+      "Tatoeba 836291 (English 1858850)"
+     ],
+     [
+      "Salve, il mio nome è Tina.",
+      "Hello, my name is Tina.",
+      "the moved card's own sentence"
+     ],
+     [
+      "Salve, c'è qualcuno lì?",
+      "Hello, is there anybody there?",
+      "the moved card's own sentence"
+     ]
+    ]
+   },
+   {
+    "word": "prego",
+    "id": 967,
+    "why": "A courtesy the A1 band lacks (the list has no greeting but ciao and grazie). The interjection was a card of no deck: the core vocabulary carded prego as the noun il prego, \"prayer\", at note 9 — a place it owed to the interjection and to the verb form (io) prego, all three of its sentences being the verb — and that card is taken out there (dropDup). Meanings: English Wiktionary via kaikki.org, read 2026-11-16 (prego, interjection, all three senses). Sentences: Tatoeba, by the ids in src.",
+    "senses": [
+     [
+      "interjection",
+      [
+       "you're welcome, don't mention it",
+       "yes, of course",
+       "after you, please, you first"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "\"Grazie!\" \"Prego!\"",
+      "\"Thank you!\" \"You're welcome!\"",
+      "Tatoeba 11136863 (English 11136841)"
+     ],
+     [
+      "Prego, si sieda.",
+      "Please sit down.",
+      "Tatoeba 1717345 (English 415594)"
+     ],
+     [
+      "Biglietto, prego.",
+      "Ticket, please.",
+      "Tatoeba 3850025 (English 272486)"
+     ]
+    ]
+   },
+   {
+    "word": "per favore",
+    "id": 968,
+    "from": "itphrase/per favore",
+    "why": "A courtesy the A1 band lacks (the list has no greeting but ciao and grazie). MOVED from the phrases deck, where it was note 3 and reached a reader on day 2,040; the card is that card, less its reverse-card hint \"not per piacere\" (per piacere stays in the phrases and goes on naming this one). Its first sentence is replaced by a short one a beginner can read on day one (Tatoeba, by the ids in src); the other two are its own.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">per favore</div>",
+     "Word": "per favore",
+     "English": "<div class=\"uc-pos\">adverb, not per piacere</div><div class=\"uc-gl\">please</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Posso avere un po&#x27; d&#x27;acqua, per favore?\"></span>Posso avere un po&#x27; d&#x27;acqua, <b>per favore</b>?</div><div class=\"uc-exe\">Can I have some water, please?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Per favore, dica a Tom che ho chiamato.\"></span><b>Per favore</b>, dica a Tom che ho chiamato.</div><div class=\"uc-exe\">Please tell Tom that I called.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Dai un&#x27;occhiata a questa foto, per favore.\"></span>Dai un&#x27;occhiata a questa foto, <b>per favore</b>.</div><div class=\"uc-exe\">Please take a look at that picture.</div></div>"
+    },
+    "senses": [
+     [
+      "adverb",
+      [
+       "please"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Per favore, aspetta!",
+      "Please wait!",
+      "Tatoeba 13733395 (English 13725307)"
+     ],
+     [
+      "Posso avere un po' d'acqua, per favore?",
+      "Can I have some water, please?",
+      "the moved card's own sentence"
+     ],
+     [
+      "Per favore, dica a Tom che ho chiamato.",
+      "Please tell Tom that I called.",
+      "the moved card's own sentence"
+     ]
+    ]
+   },
+   {
+    "word": "scusa, scusi",
+    "id": 969,
+    "why": "A courtesy the A1 band lacks (the list has no greeting but ciao and grazie). A card of no deck: CILS B2 cards the noun la scusa (\"apology, excuse\"), which is another word and stays there. Meanings: English Wiktionary via kaikki.org, read 2026-11-16 (scusa, interjection, informal: \"sorry! (second-person singular)\"; scusi, interjection, formal: \"excuse me, pardon me\"). The meanings do not name the form they belong to, since they are the front of the English → Italian card; the Forms row does. Sentences: Tatoeba, by the ids in src.",
+    "senses": [
+     [
+      "interjection",
+      [
+       "sorry! (informal, to one person)",
+       "excuse me, pardon me (formal)"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Scusa il ritardo.",
+      "Sorry for being late.",
+      "Tatoeba 7745341 (English 1528604)"
+     ],
+     [
+      "Mi scusi, può aiutarmi?",
+      "Excuse me, can you help me?",
+      "Tatoeba 11941289 (English 4014500)"
+     ],
+     [
+      "Oh, scusa.",
+      "Oh, sorry.",
+      "Tatoeba 4569608 (English 3384687)"
+     ]
+    ],
+    "forms": [
+     [
+      "informal",
+      "scusa"
+     ],
+     [
+      "formal",
+      "scusi"
+     ]
+    ]
+   },
+   {
+    "word": "permesso",
+    "id": 970,
+    "from": "cilsb1/permesso",
+    "why": "A courtesy the A1 band lacks (the list has no greeting but ciao and grazie). MOVED from CILS B1 (note 39), where the card taught the adjective \"allowed, permitted\" alone. The interjection is added in front of it: English Wiktionary via kaikki.org, read 2026-11-16 (permesso, interjection, both senses). The forms and the three sentences are the moved card's; Tatoeba has no short sentence for the interjection, so it has none.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">permesso</div>",
+     "Word": "permesso",
+     "English": "<div class=\"uc-pos\">adjective</div><ul class=\"uc-gls\"><li>allowed</li><li>permitted</li></ul>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">feminine</span>permessa</span><span class=\"uc-fi\"><span class=\"uc-fl\">plural</span>permessi / permesse</span></div>",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Io non ho bisogno del permesso di nessuno.\"></span>Io non ho bisogno del <b>permesso</b> di nessuno.</div><div class=\"uc-exe\">I don&#x27;t need anybody&#x27;s permission.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Tom non pensava che Mary l&#x27;avrebbe permessa.\"></span>Tom non pensava che Mary l&#x27;avrebbe <b>permessa</b>.</div><div class=\"uc-exe\">Tom didn&#x27;t think Mary would allow it.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"I cani non sono permessi.\"></span>I cani non sono <b>permessi</b>.</div><div class=\"uc-exe\">No dogs are allowed.</div></div>"
+    },
+    "senses": [
+     [
+      "interjection",
+      [
+       "may I? (said to ask for permission)",
+       "may I come in?",
+       "excuse me (said as a request to pass)"
+      ]
+     ],
+     [
+      "adjective",
+      [
+       "allowed",
+       "permitted"
+      ]
+     ]
+    ]
+   },
+   {
+    "word": "mi chiamo",
+    "id": 971,
+    "from": "itphrase/mi chiamo",
+    "why": "A phrase of a first exchange. MOVED from the phrases deck, which the shelf lists last (note 84); the card is that card, but for one sentence. Its first sentence is replaced by a short one a beginner can read on day one (Tatoeba, by the ids in src); the other two are its own.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">mi chiamo</div>",
+     "Word": "mi chiamo",
+     "English": "<div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">my name is</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Io non mi chiamo Tom. Mi chiamo John.\"></span>Io non <b>mi chiamo</b> Tom. Mi chiamo John.</div><div class=\"uc-exe\">My name&#x27;s not Tom. It&#x27;s John.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Io mi chiamo Tom, e questa è Mary.\"></span>Io <b>mi chiamo</b> Tom, e questa è Mary.</div><div class=\"uc-exe\">My name is Tom and this is Mary.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"No, non mi chiamo Maria, mi chiamo Teresa.\"></span>No, non <b>mi chiamo</b> Maria, mi chiamo Teresa.</div><div class=\"uc-exe\">No, my name is not Maria. My name is Teresa.</div></div>"
+    },
+    "ex": [
+     [
+      "Mi chiamo Laura.",
+      "My name is Laura.",
+      "Tatoeba 13373122 (English 13371801)"
+     ],
+     [
+      "Io mi chiamo Tom, e questa è Mary.",
+      "My name is Tom and this is Mary.",
+      "the moved card's own sentence"
+     ],
+     [
+      "Io non mi chiamo Tom. Mi chiamo John.",
+      "My name's not Tom. It's John.",
+      "the moved card's own sentence"
+     ]
+    ]
+   },
+   {
+    "word": "come stai",
+    "id": 972,
+    "from": "itphrase/come stai",
+    "why": "A phrase of a first exchange. MOVED from the phrases deck, which the shelf lists last (note 178); the card is that card, but for one sentence. Its first sentence is replaced by a short one a beginner can read on day one (Tatoeba, by the ids in src); the other two are its own.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">come stai</div>",
+     "Word": "come stai",
+     "English": "<div class=\"uc-pos\">phrase</div><ul class=\"uc-gls\"><li>how are you</li><li>how are you getting along</li></ul>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Come stai? Non ti vedo da una vita!\"></span><b>Come stai</b>? Non ti vedo da una vita!</div><div class=\"uc-exe\">How are you doing? I haven&#x27;t seen you for an age!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ne è passato di tempo. Come stai?\"></span>Ne è passato di tempo. <b>Come stai</b>?</div><div class=\"uc-exe\">It&#x27;s been a while. How are you?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Come stai? Hai fatto un buon viaggio?\"></span><b>Come stai</b>? Hai fatto un buon viaggio?</div><div class=\"uc-exe\">How are you? Did you have a good trip?</div></div>"
+    },
+    "ex": [
+     [
+      "Come stai?",
+      "How are you?",
+      "Tatoeba 921297 (English 373320)"
+     ],
+     [
+      "Ne è passato di tempo. Come stai?",
+      "It's been a while. How are you?",
+      "the moved card's own sentence"
+     ],
+     [
+      "Come stai? Hai fatto un buon viaggio?",
+      "How are you? Did you have a good trip?",
+      "the moved card's own sentence"
+     ]
+    ]
+   },
+   {
+    "word": "va bene",
+    "id": 973,
+    "from": "itphrase/va bene",
+    "why": "A phrase of a first exchange. MOVED from the phrases deck, which the shelf lists last (note 31); the card is that card, but for one sentence. Its first sentence is replaced by a short one a beginner can read on day one (Tatoeba, by the ids in src); the other two are its own.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">va bene</div>",
+     "Word": "va bene",
+     "English": "<div class=\"uc-pos\">interjection</div><ul class=\"uc-gls\"><li>ok!</li><li>okay!</li><li>all right!</li><li>whatever</li></ul>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Va bene vedere le cose in maniera diversa.\"></span><b>Va bene</b> vedere le cose in maniera diversa.</div><div class=\"uc-exe\">It&#x27;s fine to see things differently.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Sei vicino a me, adesso tutto va bene.\"></span>Sei vicino a me, adesso tutto <b>va bene</b>.</div><div class=\"uc-exe\">You&#x27;re by my side; everything&#x27;s fine now.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"A Tom va bene qualsiasi cosa Mary dica.\"></span>A Tom <b>va bene</b> qualsiasi cosa Mary dica.</div><div class=\"uc-exe\">Tom goes along with whatever Mary says.</div></div>"
+    },
+    "ex": [
+     [
+      "Va bene.",
+      "It's OK.",
+      "Tatoeba 2137204 (English 413756)"
+     ],
+     [
+      "Domani va bene.",
+      "Tomorrow is fine.",
+      "Tatoeba 5164774 (English 2253779)"
+     ],
+     [
+      "Sei vicino a me, adesso tutto va bene.",
+      "You're by my side; everything's fine now.",
+      "the moved card's own sentence"
+     ]
+    ]
+   },
+   {
+    "word": "voi",
+    "id": 974,
+    "from": "cilsa2/voi",
+    "why": "The one subject pronoun the A1 band lacks (io, tu, lui, lei, noi and loro are A1). MOVED from CILS A2, where it was note 1; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">voi</div>",
+     "Word": "voi",
+     "English": "<div class=\"uc-pos\">pronoun</div><div class=\"uc-gl\">you</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"La vita è una rovina senza di voi.\"></span>La vita è una rovina senza di <b>voi</b>.</div><div class=\"uc-exe\">Life&#x27;s a ruin without you.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Io non posso essere d&#x27;accordo con voi.\"></span>Io non posso essere d&#x27;accordo con <b>voi</b>.</div><div class=\"uc-exe\">I can&#x27;t agree with you.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Io non riesco a vivere senza di voi.\"></span>Io non riesco a vivere senza di <b>voi</b>.</div><div class=\"uc-exe\">I can&#x27;t live without you.</div></div>"
+    }
+   },
+   {
+    "word": "zero",
+    "id": 975,
+    "from": "cilsb1/zero",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from CILS B1; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">zero</div>",
+     "Word": "zero",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">zero</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Anche oggi la temperatura è sotto lo zero.\"></span>Anche oggi la temperatura è sotto lo <b>zero</b>.</div><div class=\"uc-exe\">Even today, the temperature is below zero.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ho imparato lo spagnolo da zero all&#x27;università.\"></span>Ho imparato lo spagnolo da <b>zero</b> all&#x27;università.</div><div class=\"uc-exe\">I learned Spanish from scratch at university.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Un argomento della funzione si avvicina a zero.\"></span>Un argomento della funzione si avvicina a <b>zero</b>.</div><div class=\"uc-exe\">An argument of the function approaches zero.</div></div>"
+    }
+   },
+   {
+    "word": "quattro",
+    "id": 976,
+    "from": "cilsb1/quattro",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from CILS B1; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">quattro</div>",
+     "Word": "quattro",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">four</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Tom è andato in pensione quattro anni fa.\"></span>Tom è andato in pensione <b>quattro</b> anni fa.</div><div class=\"uc-exe\">Tom retired four years ago.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Io di solito vado a casa alle quattro.\"></span>Io di solito vado a casa alle <b>quattro</b>.</div><div class=\"uc-exe\">I usually go home at four.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"La classe è stata divisa in quattro gruppi.\"></span>La classe è stata divisa in <b>quattro</b> gruppi.</div><div class=\"uc-exe\">The class was divided into four groups.</div></div>"
+    }
+   },
+   {
+    "word": "sette",
+    "id": 977,
+    "from": "cilsa2/sette",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from CILS A2; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">sette</div>",
+     "Word": "sette",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">seven</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Il numero preferito di Tom è il sette.\"></span>Il numero preferito di Tom è il <b>sette</b>.</div><div class=\"uc-exe\">Tom&#x27;s favorite number is 7.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Lui è venuto in Giappone sette anni fa.\"></span>Lui è venuto in Giappone <b>sette</b> anni fa.</div><div class=\"uc-exe\">He came to Japan seven years ago.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Un milione è un numero a sette cifre.\"></span>Un milione è un numero a <b>sette</b> cifre.</div><div class=\"uc-exe\">One million is a seven digit number.</div></div>"
+    }
+   },
+   {
+    "word": "otto",
+    "id": 978,
+    "from": "cilsa2/otto",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from CILS A2; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">otto</div>",
+     "Word": "otto",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">eight</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Il nostro treno parte alle otto e mezza.\"></span>Il nostro treno parte alle <b>otto</b> e mezza.</div><div class=\"uc-exe\">Our train leaves at eight-thirty.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Siamo arrivati a scuola alle otto e mezza.\"></span>Siamo arrivati a scuola alle <b>otto</b> e mezza.</div><div class=\"uc-exe\">We reached school at eight-thirty.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"La nostra scuola inizia alle otto e mezza.\"></span>La nostra scuola inizia alle <b>otto</b> e mezza.</div><div class=\"uc-exe\">Our school begins at eight-thirty.</div></div>"
+    }
+   },
+   {
+    "word": "nove",
+    "id": 979,
+    "from": "cilsb1/nove",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from CILS B1; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">nove</div>",
+     "Word": "nove",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">nine</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mio padre è venuto a casa alle nove.\"></span>Mio padre è venuto a casa alle <b>nove</b>.</div><div class=\"uc-exe\">My father came home at nine.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Hanno votato nove milioni di persone alle elezioni.\"></span>Hanno votato <b>nove</b> milioni di persone alle elezioni.</div><div class=\"uc-exe\">Nine million people voted in the election.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Saresti così gentile da venire qui alle nove?\"></span>Saresti così gentile da venire qui alle <b>nove</b>?</div><div class=\"uc-exe\">Will you kindly come here at nine?</div></div>"
+    }
+   },
+   {
+    "word": "undici",
+    "id": 980,
+    "from": "itcore/undici",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from the core vocabulary; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">undici</div>",
+     "Word": "undici",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">eleven</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Il nostro aereo è arrivato alle undici stamattina.\"></span>Il nostro aereo è arrivato alle <b>undici</b> stamattina.</div><div class=\"uc-exe\">Our plane arrived at 11 this morning.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Lui ha spento tutte le luci alle undici.\"></span>Lui ha spento tutte le luci alle <b>undici</b>.</div><div class=\"uc-exe\">He turned off all the lights at eleven.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"È andato a letto alle undici ieri sera.\"></span>È andato a letto alle <b>undici</b> ieri sera.</div><div class=\"uc-exe\">He went to bed at eleven last night.</div></div>"
+    }
+   },
+   {
+    "word": "dodici",
+    "id": 981,
+    "from": "cilsb1/dodici",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from CILS B1; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">dodici</div>",
+     "Word": "dodici",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">twelve</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Io sono nato con dodici dita nelle mani.\"></span>Io sono nato con <b>dodici</b> dita nelle mani.</div><div class=\"uc-exe\">I was born with twelve fingers.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ho iniziato a lavorare quando avevo dodici anni.\"></span>Ho iniziato a lavorare quando avevo <b>dodici</b> anni.</div><div class=\"uc-exe\">I started working when I was twelve.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Riesce a correre cento metri in dodici secondi.\"></span>Riesce a correre cento metri in <b>dodici</b> secondi.</div><div class=\"uc-exe\">He can run 100 meters within twelve seconds.</div></div>"
+    }
+   },
+   {
+    "word": "tredici",
+    "id": 982,
+    "from": "itcore/tredici",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from the core vocabulary; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">tredici</div>",
+     "Word": "tredici",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">thirteen</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"La figlia di Tom ora ha tredici anni.\"></span>La figlia di Tom ora ha <b>tredici</b> anni.</div><div class=\"uc-exe\">Tom&#x27;s daughter is now thirteen.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Io lo so che Tom ha tredici anni.\"></span>Io lo so che Tom ha <b>tredici</b> anni.</div><div class=\"uc-exe\">I know Tom is thirteen years old.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Tom è stato un poliziotto per tredici anni.\"></span>Tom è stato un poliziotto per <b>tredici</b> anni.</div><div class=\"uc-exe\">Tom was a cop for 13 years.</div></div>"
+    }
+   },
+   {
+    "word": "quattordici",
+    "id": 983,
+    "from": "itcore/quattordici",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from the core vocabulary; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">quattordici</div>",
+     "Word": "quattordici",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">fourteen</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Il quattordici luglio è la festa nazionale francese.\"></span>Il <b>quattordici</b> luglio è la festa nazionale francese.</div><div class=\"uc-exe\">July Fourteenth is the French national holiday.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Io avevo tredici o quattordici anni all&#x27;epoca.\"></span>Io avevo tredici o <b>quattordici</b> anni all&#x27;epoca.</div><div class=\"uc-exe\">I was thirteen or fourteen at the time.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Il doppio di sette è quattordici.\"></span>Il doppio di sette è <b>quattordici</b>.</div><div class=\"uc-exe\">Two times seven is fourteen.</div></div>"
+    }
+   },
+   {
+    "word": "quindici",
+    "id": 984,
+    "from": "cilsb1/quindici",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from CILS B1; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">quindici</div>",
+     "Word": "quindici",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">fifteen</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ho imparato a guidare quando avevo quindici anni.\"></span>Ho imparato a guidare quando avevo <b>quindici</b> anni.</div><div class=\"uc-exe\">I learned to drive when I was fifteen.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Lei divenne una madre quando aveva quindici anni.\"></span>Lei divenne una madre quando aveva <b>quindici</b> anni.</div><div class=\"uc-exe\">She became a mother when she was fifteen years old.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Tom si è presentato con quindici minuti di ritardo.\"></span>Tom si è presentato con <b>quindici</b> minuti di ritardo.</div><div class=\"uc-exe\">Tom showed up 15 minutes late.</div></div>"
+    }
+   },
+   {
+    "word": "sedici",
+    "id": 985,
+    "from": "itcore/sedici",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from the core vocabulary; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">sedici</div>",
+     "Word": "sedici",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">sixteen</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Emily ha abbandonato la scuola a sedici anni.\"></span>Emily ha abbandonato la scuola a <b>sedici</b> anni.</div><div class=\"uc-exe\">Emily left school at sixteen.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Io avevo sedici anni in meno di lui.\"></span>Io avevo <b>sedici</b> anni in meno di lui.</div><div class=\"uc-exe\">I was sixteen years younger than him.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Si sono sposati all&#x27;età di sedici anni.\"></span>Si sono sposati all&#x27;età di <b>sedici</b> anni.</div><div class=\"uc-exe\">They got married at the age of sixteen.</div></div>"
+    }
+   },
+   {
+    "word": "diciassette",
+    "id": 986,
+    "why": "Seventeen was a card of no deck. Meaning: English Wiktionary via kaikki.org, read 2026-11-16 (diciassette, numeral). Sentences: Tatoeba, by the ids in src.",
+    "senses": [
+     [
+      "number",
+      [
+       "seventeen"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Ha diciassette anni.",
+      "She's seventeen.",
+      "Tatoeba 5030703 (English 2765315)"
+     ],
+     [
+      "Hai detto settanta o diciassette?",
+      "Did you say seventy or seventeen?",
+      "Tatoeba 8923103 (English 8923096)"
+     ],
+     [
+      "Ho appena compiuto diciassette anni.",
+      "I just turned seventeen.",
+      "Tatoeba 11721446 (English 11721445)"
+     ]
+    ]
+   },
+   {
+    "word": "diciotto",
+    "id": 987,
+    "from": "itcore/diciotto",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from the core vocabulary; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">diciotto</div>",
+     "Word": "diciotto",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">eighteen</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Venne a Tokyo all&#x27;età di diciotto anni.\"></span>Venne a Tokyo all&#x27;età di <b>diciotto</b> anni.</div><div class=\"uc-exe\">She came to Tokyo at the age of eighteen.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Oggi è il mio compleanno. Ho già diciotto anni.\"></span>Oggi è il mio compleanno. Ho già <b>diciotto</b> anni.</div><div class=\"uc-exe\">It&#x27;s my birthday today. I&#x27;m already eighteen.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Lei ha diciotto anni al massimo.\"></span>Lei ha <b>diciotto</b> anni al massimo.</div><div class=\"uc-exe\">She is eighteen at most.</div></div>"
+    }
+   },
+   {
+    "word": "diciannove",
+    "id": 988,
+    "why": "Nineteen was a card of no deck. Meaning: English Wiktionary via kaikki.org, read 2026-11-16 (diciannove, numeral). Sentences: Tatoeba, by the ids in src.",
+    "senses": [
+     [
+      "number",
+      [
+       "nineteen"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Ho diciannove anni.",
+      "I am nineteen years old.",
+      "Tatoeba 374685 (English 2157394)"
+     ],
+     [
+      "Hai detto novanta o diciannove?",
+      "Did you say ninety or nineteen?",
+      "Tatoeba 8923538 (English 8923520)"
+     ],
+     [
+      "Il calendario Maya ha diciannove mesi.",
+      "The Mayan calendar has 19 months.",
+      "Tatoeba 10585912 (English 10020580)"
+     ]
+    ]
+   },
+   {
+    "word": "venti",
+    "id": 989,
+    "from": "cilsb2/venti",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from CILS B2; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">venti</div>",
+     "Word": "venti",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">twenty</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Lui ha pagato venti dollari per il rossetto.\"></span>Lui ha pagato <b>venti</b> dollari per il rossetto.</div><div class=\"uc-exe\">He paid $20 for the lipstick.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Qualcosa di terribile è successo il venti ottobre.\"></span>Qualcosa di terribile è successo il <b>venti</b> ottobre.</div><div class=\"uc-exe\">Something terrible happened on October 20.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"La nostra classe ha più di venti studenti.\"></span>La nostra classe ha più di <b>venti</b> studenti.</div><div class=\"uc-exe\">Our class has more than twenty students.</div></div>"
+    }
+   },
+   {
+    "word": "trenta",
+    "id": 990,
+    "from": "cilsa2/trenta",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from CILS A2; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">trenta</div>",
+     "Word": "trenta",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">thirty</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Io vengo a casa alle due e trenta.\"></span>Io vengo a casa alle due e <b>trenta</b>.</div><div class=\"uc-exe\">I come home at two thirty.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Io ho appena dato a Tom trenta dollari.\"></span>Io ho appena dato a Tom <b>trenta</b> dollari.</div><div class=\"uc-exe\">I just gave Tom 30 dollars.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Tom è stato pugnalato più di trenta volte.\"></span>Tom è stato pugnalato più di <b>trenta</b> volte.</div><div class=\"uc-exe\">Tom was stabbed over thirty times.</div></div>"
+    }
+   },
+   {
+    "word": "quaranta",
+    "id": 991,
+    "from": "cilsb2/quaranta",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from CILS B2; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">quaranta</div>",
+     "Word": "quaranta",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">forty</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Deve avere quaranta anni o giù di lì.\"></span>Deve avere <b>quaranta</b> anni o giù di lì.</div><div class=\"uc-exe\">She must be forty or so.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"L&#x27;aeroporto è a quaranta minuti dal centro.\"></span>L&#x27;aeroporto è a <b>quaranta</b> minuti dal centro.</div><div class=\"uc-exe\">The airport is forty minutes away from the center.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"La scuola comincia alle otto e quaranta.\"></span>La scuola comincia alle otto e <b>quaranta</b>.</div><div class=\"uc-exe\">School starts at 8:40.</div></div>"
+    }
+   },
+   {
+    "word": "cinquanta",
+    "id": 992,
+    "from": "cilsb1/cinquanta",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from CILS B1; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">cinquanta</div>",
+     "Word": "cinquanta",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">fifty</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Vorrei prendere in prestito cinquanta dollari da te.\"></span>Vorrei prendere in prestito <b>cinquanta</b> dollari da te.</div><div class=\"uc-exe\">I&#x27;d like to borrow fifty dollars from you.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"L&#x27;anno scorso ho visto almeno cinquanta film.\"></span>L&#x27;anno scorso ho visto almeno <b>cinquanta</b> film.</div><div class=\"uc-exe\">Last year, I saw at least fifty films.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"In questa scuola, una lezione dura cinquanta minuti.\"></span>In questa scuola, una lezione dura <b>cinquanta</b> minuti.</div><div class=\"uc-exe\">In this school, a period is fifty minutes long.</div></div>"
+    }
+   },
+   {
+    "word": "sessanta",
+    "id": 993,
+    "from": "cilsb1/sessanta",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from CILS B1; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">sessanta</div>",
+     "Word": "sessanta",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">sixty</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Siamo della stessa altezza: un metro e sessanta.\"></span>Siamo della stessa altezza: un metro e <b>sessanta</b>.</div><div class=\"uc-exe\">We are the same height: one meter sixty.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"In un minuto ci sono sessanta secondi.\"></span>In un minuto ci sono <b>sessanta</b> secondi.</div><div class=\"uc-exe\">One minute has sixty seconds.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ci sono sessanta secondi in un minuto.\"></span>Ci sono <b>sessanta</b> secondi in un minuto.</div><div class=\"uc-exe\">There are sixty seconds in a minute.</div></div>"
+    }
+   },
+   {
+    "word": "settanta",
+    "id": 994,
+    "from": "cilsb2/settanta",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from CILS B2; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">settanta</div>",
+     "Word": "settanta",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">seventy</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"George pesa almeno settanta chili.\"></span>George pesa almeno <b>settanta</b> chili.</div><div class=\"uc-exe\">George weighs at least 70 kilograms.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Macramé era popolare durante gli anni Settanta.\"></span>Macramé era popolare durante gli anni <b>Settanta</b>.</div><div class=\"uc-exe\">Macramé was popular during the seventies.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Lui pesa settanta chili.\"></span>Lui pesa <b>settanta</b> chili.</div><div class=\"uc-exe\">He weighs 70 kilos.</div></div>"
+    }
+   },
+   {
+    "word": "ottanta",
+    "id": 995,
+    "from": "itcore/ottanta",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from the core vocabulary; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">ottanta</div>",
+     "Word": "ottanta",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">eighty</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"L&#x27;ottanta percento della popolazione vive nelle città.\"></span>L&#x27;<b>ottanta</b> percento della popolazione vive nelle città.</div><div class=\"uc-exe\">Eighty percent of people live in cities.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Questo libro ha più di ottanta pagine.\"></span>Questo libro ha più di <b>ottanta</b> pagine.</div><div class=\"uc-exe\">This book has more than eighty pages.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"A Tom piace ascoltare la musica degli anni ottanta.\"></span>A Tom piace ascoltare la musica degli anni <b>ottanta</b>.</div><div class=\"uc-exe\">Tom likes to listen to music from the eighties.</div></div>"
+    }
+   },
+   {
+    "word": "novanta",
+    "id": 996,
+    "from": "itcore/novanta",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from the core vocabulary; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">novanta</div>",
+     "Word": "novanta",
+     "English": "<div class=\"uc-pos\">number</div><div class=\"uc-gl\">ninety</div>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"La vita era migliore negli anni Novanta.\"></span>La vita era migliore negli anni <b>Novanta</b>.</div><div class=\"uc-exe\">Life was better in the nineties.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Una partita di calcio dura novanta minuti.\"></span>Una partita di calcio dura <b>novanta</b> minuti.</div><div class=\"uc-exe\">A soccer match lasts 90 minutes.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Mia mamma ha sposato il mio papà negli anni novanta.\"></span>Mia mamma ha sposato il mio papà negli anni <b>novanta</b>.</div><div class=\"uc-exe\">My mom married my dad in the 90s.</div></div>"
+    }
+   },
+   {
+    "word": "cento",
+    "id": 997,
+    "from": "cilsb2/cento",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from CILS B2; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">cento</div>",
+     "Word": "cento",
+     "English": "<div class=\"uc-pos\">number</div><ul class=\"uc-gls\"><li>hundred</li><li>one hundred</li></ul>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"La stazione è a cento metri di distanza.\"></span>La stazione è a <b>cento</b> metri di distanza.</div><div class=\"uc-exe\">The station is 100 meters away.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Lei ha vinto la corsa dei cento metri.\"></span>Lei ha vinto la corsa dei <b>cento</b> metri.</div><div class=\"uc-exe\">She won the one hundred meter race.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ha preso in prestito da me cento dollari.\"></span>Ha preso in prestito da me <b>cento</b> dollari.</div><div class=\"uc-exe\">He borrowed one hundred bucks from me.</div></div>"
+    }
+   },
+   {
+    "word": "mille",
+    "id": 998,
+    "from": "cilsa2/mille",
+    "why": "A number the A1 band lacks: it has uno, due, tre, cinque, sei and dieci, and the others were spread over A2, B1, B2 and the core vocabulary. MOVED from CILS A2; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\">mille</div>",
+     "Word": "mille",
+     "English": "<div class=\"uc-pos\">number</div><ul class=\"uc-gls\"><li>thousand</li><li>one thousand</li></ul>",
+     "Forms": "",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Lei ha strappato la lettera in mille pezzi.\"></span>Lei ha strappato la lettera in <b>mille</b> pezzi.</div><div class=\"uc-exe\">She tore the letter into pieces.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Il suo stipendio è di 250mila yen al mese.\"></span>Il suo stipendio è di 250<b>mila</b> yen al mese.</div><div class=\"uc-exe\">His salary is 250 thousand yen per month.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Spesso un gesto vale più di mille parole.\"></span>Spesso un gesto vale più di <b>mille</b> parole.</div><div class=\"uc-exe\">One gesture is often worth more than a thousand words.</div></div>"
+    }
+   },
+   {
+    "word": "il lunedì",
+    "id": 999,
+    "from": "cilsa2/il lunedì",
+    "why": "A day of the week: the A1 band has la domenica alone and the other six were in CILS A2. MOVED from there; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\"><span class=\"uc-art uc-m\">il</span> lunedì</div>",
+     "Word": "il lunedì",
+     "English": "<div class=\"uc-pos\">noun, masculine</div><div class=\"uc-gl\">Monday</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">plural</span>i lunedì (invariable)</span><span class=\"uc-fi\"><span class=\"uc-fl\">a, an</span>un lunedì</span></div>",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Io non riesco ad aspettare fino a lunedì.\"></span>Io non riesco ad aspettare fino a <b>lunedì</b>.</div><div class=\"uc-exe\">I can&#x27;t wait until Monday.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Tom non tornerà a casa fino a lunedì.\"></span>Tom non tornerà a casa fino a <b>lunedì</b>.</div><div class=\"uc-exe\">Tom won&#x27;t get home until Monday.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Il supermercato è aperto dal lunedì al sabato.\"></span>Il supermercato è aperto dal <b>lunedì</b> al sabato.</div><div class=\"uc-exe\">The supermarket is open Monday through Saturday.</div></div>"
+    }
+   },
+   {
+    "word": "il martedì",
+    "id": 1000,
+    "from": "cilsa2/il martedì",
+    "why": "A day of the week: the A1 band has la domenica alone and the other six were in CILS A2. MOVED from there; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\"><span class=\"uc-art uc-m\">il</span> martedì</div>",
+     "Word": "il martedì",
+     "English": "<div class=\"uc-pos\">noun, masculine</div><div class=\"uc-gl\">Tuesday</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">plural</span>i martedì (invariable)</span><span class=\"uc-fi\"><span class=\"uc-fl\">a, an</span>un martedì</span></div>",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Sono qui sia il lunedì che il martedì.\"></span>Sono qui sia il lunedì che il <b>martedì</b>.</div><div class=\"uc-exe\">I&#x27;m here on both Mondays and Tuesdays.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Dobbiamo finire tutto prima di martedì mattina.\"></span>Dobbiamo finire tutto prima di <b>martedì</b> mattina.</div><div class=\"uc-exe\">We must finish everything before Tuesday morning.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Noi andiamo al mercato il martedì.\"></span>Noi andiamo al mercato il <b>martedì</b>.</div><div class=\"uc-exe\">We go to the market on Tuesdays.</div></div>"
+    }
+   },
+   {
+    "word": "il mercoledì",
+    "id": 1001,
+    "from": "cilsa2/il mercoledì",
+    "why": "A day of the week: the A1 band has la domenica alone and the other six were in CILS A2. MOVED from there; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\"><span class=\"uc-art uc-m\">il</span> mercoledì</div>",
+     "Word": "il mercoledì",
+     "English": "<div class=\"uc-pos\">noun, masculine</div><div class=\"uc-gl\">Wednesday</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">plural</span>i mercoledì (invariable)</span><span class=\"uc-fi\"><span class=\"uc-fl\">a, an</span>un mercoledì</span></div>",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Il mercoledì è il terzo giorno della settimana.\"></span>Il <b>mercoledì</b> è il terzo giorno della settimana.</div><div class=\"uc-exe\">Wednesday is the third day of the week.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Di solito andavamo allo zoo il mercoledì.\"></span>Di solito andavamo allo zoo il <b>mercoledì</b>.</div><div class=\"uc-exe\">We usually went to the zoo on Wednesday.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Il mercoledì è un piccolo venerdì.\"></span>Il <b>mercoledì</b> è un piccolo venerdì.</div><div class=\"uc-exe\">Wednesday is a little Friday.</div></div>"
+    }
+   },
+   {
+    "word": "il giovedì",
+    "id": 1002,
+    "from": "cilsa2/il giovedì",
+    "why": "A day of the week: the A1 band has la domenica alone and the other six were in CILS A2. MOVED from there; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\"><span class=\"uc-art uc-m\">il</span> giovedì</div>",
+     "Word": "il giovedì",
+     "English": "<div class=\"uc-pos\">noun, masculine</div><div class=\"uc-gl\">Thursday</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">plural</span>i giovedì (invariable)</span><span class=\"uc-fi\"><span class=\"uc-fl\">a, an</span>un giovedì</span></div>",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Noi dovremmo imparare il risultato per giovedì.\"></span>Noi dovremmo imparare il risultato per <b>giovedì</b>.</div><div class=\"uc-exe\">We should know the result by Thursday.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Io sarò qui da lunedì a giovedì.\"></span>Io sarò qui da lunedì a <b>giovedì</b>.</div><div class=\"uc-exe\">I will be here from Monday to Thursday.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Il giovedì è un giorno inutile.\"></span>Il <b>giovedì</b> è un giorno inutile.</div><div class=\"uc-exe\">Thursday is a useless day.</div></div>"
+    }
+   },
+   {
+    "word": "il venerdì",
+    "id": 1003,
+    "from": "cilsa2/il venerdì",
+    "why": "A day of the week: the A1 band has la domenica alone and the other six were in CILS A2. MOVED from there; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\"><span class=\"uc-art uc-m\">il</span> venerdì</div>",
+     "Word": "il venerdì",
+     "English": "<div class=\"uc-pos\">noun, masculine</div><div class=\"uc-gl\">Friday</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">plural</span>i venerdì (invariable)</span><span class=\"uc-fi\"><span class=\"uc-fl\">a, an</span>un venerdì</span></div>",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Il venerdì sera è la serata della pizza.\"></span>Il <b>venerdì</b> sera è la serata della pizza.</div><div class=\"uc-exe\">Friday night is pizza night.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Tom odia lavorare fino a tardi il venerdì.\"></span>Tom odia lavorare fino a tardi il <b>venerdì</b>.</div><div class=\"uc-exe\">Tom hates to work late on Friday.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Studio l&#x27;inglese il lunedì e il venerdì.\"></span>Studio l&#x27;inglese il lunedì e il <b>venerdì</b>.</div><div class=\"uc-exe\">I study English on Monday and Friday.</div></div>"
+    }
+   },
+   {
+    "word": "il sabato",
+    "id": 1004,
+    "from": "cilsa2/il sabato",
+    "why": "A day of the week: the A1 band has la domenica alone and the other six were in CILS A2. MOVED from there; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\"><span class=\"uc-art uc-m\">il</span> sabato</div>",
+     "Word": "il sabato",
+     "English": "<div class=\"uc-pos\">noun, masculine</div><div class=\"uc-gl\">Saturday</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">plural</span>i sabati</span><span class=\"uc-fi\"><span class=\"uc-fl\">a, an</span>un sabato</span></div>",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"La scuola finisce prima di mezzogiorno di sabato.\"></span>La scuola finisce prima di mezzogiorno di <b>sabato</b>.</div><div class=\"uc-exe\">School finishes before noon on Saturdays.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Le strade di Tokyo sono piene di persone tutti i sabati.\"></span>Le strade di Tokyo sono piene di persone tutti i <b>sabati</b>.</div><div class=\"uc-exe\">The streets in Tokyo are full on Saturdays.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Il supermercato è aperto dal lunedì al sabato.\"></span>Il supermercato è aperto dal lunedì al <b>sabato</b>.</div><div class=\"uc-exe\">The supermarket is open Monday through Saturday.</div></div>"
+    }
+   },
+   {
+    "word": "la primavera",
+    "id": 1005,
+    "from": "cilsb1/la primavera",
+    "why": "A season: the A1 band has the twelve months and no season. MOVED from CILS B1; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\"><span class=\"uc-art uc-f\">la</span> primavera</div>",
+     "Word": "la primavera",
+     "English": "<div class=\"uc-pos\">noun, feminine</div><ul class=\"uc-gls\"><li>spring</li><li>years</li><li>winters</li><li>primrose</li></ul>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">plural</span>le primavere</span><span class=\"uc-fi\"><span class=\"uc-fl\">a, an</span>una primavera</span></div>",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Qual è il tuo fiore di primavera preferito?\"></span>Qual è il tuo fiore di <b>primavera</b> preferito?</div><div class=\"uc-exe\">What&#x27;s your favorite spring flower?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ci sono quattro stagioni in un anno: primavere, estate, autunno e inverno.\"></span>Ci sono quattro stagioni in un anno: <b>primavere</b>, estate, autunno e inverno.</div><div class=\"uc-exe\">There are four seasons in a year: spring, summer, fall and winter.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"La primavera è passata e comincia l&#x27;estate.\"></span>La <b>primavera</b> è passata e comincia l&#x27;estate.</div><div class=\"uc-exe\">Spring has passed and summer is starting.</div></div>"
+    }
+   },
+   {
+    "word": "l'estate",
+    "id": 1006,
+    "from": "cilsa2/l'estate",
+    "why": "A season: the A1 band has the twelve months and no season. MOVED from CILS A2; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\"><span class=\"uc-art uc-f\">l&#x27;</span>estate</div>",
+     "Word": "l'estate",
+     "English": "<div class=\"uc-pos\">noun, feminine</div><div class=\"uc-gl\">summer</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">plural</span>le estati</span><span class=\"uc-fi\"><span class=\"uc-fl\">a, an</span>un&#x27;estate</span></div>",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Lei va da qualche parte questa estate?\"></span>Lei va da qualche parte questa <b>estate</b>?</div><div class=\"uc-exe\">Are you going to go anywhere this summer?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Le estati sono molto calde a Kyoto.\"></span>Le <b>estati</b> sono molto calde a Kyoto.</div><div class=\"uc-exe\">Summers are very hot in Kyoto.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Abbiamo avuto poca pioggia questa estate.\"></span>Abbiamo avuto poca pioggia questa <b>estate</b>.</div><div class=\"uc-exe\">We have had little rain this summer.</div></div>"
+    }
+   },
+   {
+    "word": "l'autunno",
+    "id": 1007,
+    "from": "cilsb2/l'autunno",
+    "why": "A season: the A1 band has the twelve months and no season. MOVED from CILS B2; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\"><span class=\"uc-art uc-m\">l&#x27;</span>autunno</div>",
+     "Word": "l'autunno",
+     "English": "<div class=\"uc-pos\">noun, masculine</div><div class=\"uc-gl\">autumn, (US) fall</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">plural</span>gli autunni</span><span class=\"uc-fi\"><span class=\"uc-fl\">a, an</span>un autunno</span></div>",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Di regola, noi abbiamo molta pioggia in autunno.\"></span>Di regola, noi abbiamo molta pioggia in <b>autunno</b>.</div><div class=\"uc-exe\">As a rule, we have a lot of rain in the fall.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"L&#x27;intera montagna diventa rossa in autunno.\"></span>L&#x27;intera montagna diventa rossa in <b>autunno</b>.</div><div class=\"uc-exe\">The whole mountain turns red in autumn.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"In autunno la luna è davvero bella.\"></span>In <b>autunno</b> la luna è davvero bella.</div><div class=\"uc-exe\">In autumn, the moon is really beautiful.</div></div>"
+    }
+   },
+   {
+    "word": "l'inverno",
+    "id": 1008,
+    "from": "cilsb1/l'inverno",
+    "why": "A season: the A1 band has the twelve months and no season. MOVED from CILS B1; the card is that card, unchanged.",
+    "fields": {
+     "Italian": "<div class=\"uc-word\"><span class=\"uc-art uc-m\">l&#x27;</span>inverno</div>",
+     "Word": "l'inverno",
+     "English": "<div class=\"uc-pos\">noun, masculine</div><div class=\"uc-gl\">winter</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">plural</span>gli inverni</span><span class=\"uc-fi\"><span class=\"uc-fl\">a, an</span>un inverno</span></div>",
+     "Conjugation": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ci sono molti casi di raffreddore questo inverno.\"></span>Ci sono molti casi di raffreddore questo <b>inverno</b>.</div><div class=\"uc-exe\">Colds are prevalent this winter.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"A me non piacciono gli inverni caldi.\"></span>A me non piacciono gli <b>inverni</b> caldi.</div><div class=\"uc-exe\">I don&#x27;t like warm winters.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Faresti la doccia con acqua fredda in inverno?\"></span>Faresti la doccia con acqua fredda in <b>inverno</b>?</div><div class=\"uc-exe\">Would you shower with cold water in winter?</div></div>"
+    }
+   }
+  ]
+ },
+ "notes": {
+  "cilsa1/di": {
+   "why": "The preposition joined to the article was shown on no card of any deck, though a quarter of A1's example sentences use one. Forms: Wikipedia, \"Italian grammar\", revision 1381706588 of 2026-10-24, the table \"Mandatory contractions\" under \"Prepositions\".",
+   "forms": [
+    [
+     "with the article (il, lo, la, l', i, gli, le)",
+     "del, dello, della, dell', dei, degli, delle"
+    ]
+   ]
+  },
+  "cilsa1/a": {
+   "why": "As for di. Forms: Wikipedia, \"Italian grammar\", revision 1381706588 of 2026-10-24, the table \"Mandatory contractions\" under \"Prepositions\".",
+   "forms": [
+    [
+     "with the article (il, lo, la, l', i, gli, le)",
+     "al, allo, alla, all', ai, agli, alle"
+    ]
+   ]
+  },
+  "cilsa1/da": {
+   "why": "As for di. Forms: Wikipedia, \"Italian grammar\", revision 1381706588 of 2026-10-24, the table \"Mandatory contractions\" under \"Prepositions\".",
+   "forms": [
+    [
+     "with the article (il, lo, la, l', i, gli, le)",
+     "dal, dallo, dalla, dall', dai, dagli, dalle"
+    ]
+   ]
+  },
+  "cilsa1/in": {
+   "why": "As for di. Forms: Wikipedia, \"Italian grammar\", revision 1381706588 of 2026-10-24, the table \"Mandatory contractions\" under \"Prepositions\".",
+   "forms": [
+    [
+     "with the article (il, lo, la, l', i, gli, le)",
+     "nel, nello, nella, nell', nei, negli, nelle"
+    ]
+   ]
+  },
+  "cilsa1/su": {
+   "why": "The card taught the adverb (\"up, upstairs\") and all three of its sentences are the preposition. The preposition is added in front: English Wiktionary via kaikki.org, read 2026-11-16 (su, preposition, its first three senses); the adverb's glosses are the card's own. Forms: Wikipedia, \"Italian grammar\", revision 1381706588 of 2026-10-24, the table \"Mandatory contractions\" under \"Prepositions\".",
+   "senses": [
+    [
+     "preposition",
+     [
+      "on, upon, onto",
+      "over",
+      "about, on"
+     ]
+    ],
+    [
+     "adverb",
+     [
+      "up",
+      "upstairs"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "with the article (il, lo, la, l', i, gli, le)",
+     "sul, sullo, sulla, sull', sui, sugli, sulle"
+    ]
+   ]
+  },
+  "cilsa1/sei": {
+   "why": "The card is the number six and all three of its sentences were (tu) sei, \"you are\": the generator matched the spelling. Sentences replaced: Tatoeba, by the ids in src.",
+   "ex": [
+    [
+     "Tornerò alle sei.",
+     "I'll be back at six.",
+     "Tatoeba 1265994 (English 1085017)"
+    ],
+    [
+     "Ho solo sei mesi da vivere.",
+     "I only have six months to live.",
+     "Tatoeba 2510662 (English 2185394)"
+    ],
+    [
+     "Ho vissuto a Osaka fino ai sei anni.",
+     "I lived in Osaka until I was six.",
+     "Tatoeba 388037 (English 252608)"
+    ]
+   ]
+  },
+  "cilsa1/grazie": {
+   "why": "The card is \"thank you\" and all three of its sentences were grazie a, \"thanks to\". Sentences replaced: Tatoeba, by the ids in src.",
+   "ex": [
+    [
+     "Grazie mille!",
+     "Thank you very much!",
+     "Tatoeba 382975 (English 1564)"
+    ],
+    [
+     "Grazie per tutto.",
+     "Thanks for everything.",
+     "Tatoeba 999248 (English 2107841)"
+    ],
+    [
+     "Sì. Grazie.",
+     "Yes. Thanks.",
+     "Tatoeba 6586570 (English 6586565)"
+    ]
+   ]
+  },
+  "cilsa1/piacere": {
+   "why": "The greeting sense is added after the verb: English Wiktionary via kaikki.org, read 2026-11-16 (piacere, interjection). The verb's line and glosses are the card's own.",
+   "senses": [
+    [
+     "verb (essere / avere)",
+     [
+      "(followed by a or preceded by an indirect object) to be pleasing to",
+      "to be fond of"
+     ]
+    ],
+    [
+     "interjection",
+     [
+      "pleased to meet you"
+     ]
+    ]
+   ]
+  },
+  "cilsa1/testo": {
+   "why": "The card was filed as a verb (\"synonym of tessuto; past participle of tessere\", an archaic participle) while its three sentences are all the noun, \"text\". Recast as the noun: English Wiktionary via kaikki.org, read 2026-11-16 (testo, noun, masculine, the entry whose first sense is \"text (writing)\": its first, second, fourth and sixth senses; plural testi). The sentences are the card's own.",
+   "word": "il testo",
+   "italian": "<div class=\"uc-word\"><span class=\"uc-art uc-m\">il</span> testo</div>",
+   "senses": [
+    [
+     "noun, masculine",
+     [
+      "text (writing)",
+      "wording",
+      "textbook",
+      "lyrics (the words of a song or poem)"
+     ]
+    ]
+   ],
+   "forms": [
+    [
+     "plural",
+     "i testi"
+    ],
+    [
+     "a, an",
+     "un testo"
+    ]
+   ]
+  },
+  "cilsc1/patetico": {
+   "why": "Its reverse-card hint named patetica, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "pathetic",
+      "pitiful",
+      "moving"
+     ]
+    ]
+   ]
+  },
+  "cilsc1/sovietico": {
+   "why": "Its reverse-card hint named sovietica, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "Soviet"
+     ]
+    ]
+   ]
+  },
+  "cilsc1/sobrio": {
+   "why": "Its reverse-card hint named sobria, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "sober",
+      "moderate",
+      "unpretentious"
+     ]
+    ]
+   ]
+  },
+  "cilsc1/defunto": {
+   "why": "Its reverse-card hint named defunta, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "dead",
+      "defunct",
+      "past"
+     ]
+    ]
+   ]
+  },
+  "cilsc1/bizzarro": {
+   "why": "Its reverse-card hint named bizzarra, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "odd",
+      "queer",
+      "eccentric",
+      "frisky"
+     ]
+    ]
+   ]
+  },
+  "cilsc1/spietato": {
+   "why": "Its reverse-card hint named spietata, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "merciless",
+      "ruthless",
+      "pitiless",
+      "cruel"
+     ]
+    ]
+   ]
+  },
+  "cilsc1/perverso": {
+   "why": "Its reverse-card hint named perversa, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "perverted",
+      "perverse",
+      "wicked"
+     ]
+    ]
+   ]
+  },
+  "cilsc1/leggendario": {
+   "why": "Its reverse-card hint named leggendaria, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "legendary"
+     ]
+    ]
+   ]
+  },
+  "cilsc1/perfido": {
+   "why": "Its reverse-card hint named perfida, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "perfidious"
+     ]
+    ]
+   ]
+  },
+  "cilsc1/diabolico": {
+   "why": "Its reverse-card hint named diabolica, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "diabolic",
+      "diabolical",
+      "wicked"
+     ]
+    ]
+   ]
+  },
+  "cilsc1/inappropriato": {
+   "why": "Its reverse-card hint named inappropriata, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "inappropriate",
+      "unfitting",
+      "inapt"
+     ]
+    ]
+   ]
+  },
+  "cilsc1/subdolo": {
+   "why": "Its reverse-card hint named subdola, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "underhand",
+      "sneaky",
+      "insidious"
+     ]
+    ]
+   ]
+  },
+  "cilsc1/eroico": {
+   "why": "Its reverse-card hint named eroica, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "heroic"
+     ]
+    ]
+   ]
+  },
+  "cilsc1/fasullo": {
+   "why": "Its reverse-card hint named fasulla, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "fake",
+      "sham",
+      "false",
+      "bogus"
+     ]
+    ]
+   ]
+  },
+  "cilsc1/fortissimo": {
+   "why": "Its reverse-card hint named fortissima, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "Very loud",
+      "very strong",
+      "bright",
+      "tough or severe"
+     ]
+    ]
+   ]
+  },
+  "cilsc1/sovrano": {
+   "why": "Its reverse-card hint named sovrana, its own feminine, which was a second card for the same word and is folded away (this record, `dropForm`). The glosses are the card's own.",
+   "senses": [
+    [
+     "adjective",
+     [
+      "sovereign",
+      "supreme"
+     ]
+    ]
+   ]
+  },
+  "cilsa1/ciao": {
+   "why": "The first greeting of the deck, and its three sentences were eight words long. Its first sentence is replaced by a short one a beginner can read on day one (Tatoeba, by the ids in src); the other two are its own.",
+   "ex": [
+    [
+     "Ciao!",
+     "Hello!",
+     "Tatoeba 607364 (English 373330)"
+    ],
+    [
+     "Ciao a tutti! Il mio nome è Tom.",
+     "Hello everyone! My name is Tom.",
+     "the card's own sentence"
+    ],
+    [
+     "Ciao, mi chiamo Mary. Come ti posso aiutare?",
+     "Hi, my name is Mary. How can I help you?",
+     "the card's own sentence"
+    ]
+   ]
+  }
+ },
+ "decks": {
+  "itcore": {
+   "dropDup": {
+    "buongiorno": "cilsa1",
+    "buonasera": "cilsa1",
+    "arrivederci": "cilsa1",
+    "salve": "cilsa1",
+    "il prego": "cilsa1",
+    "undici": "cilsa1",
+    "tredici": "cilsa1",
+    "quattordici": "cilsa1",
+    "sedici": "cilsa1",
+    "diciotto": "cilsa1",
+    "ottanta": "cilsa1",
+    "novanta": "cilsa1"
+   },
+   "descSub": [
+    [
+     "3039 of them, built by the same pipeline",
+     "3039 of them less the 19 that a CILS deck now carries or that were a second card for one word, built by the same pipeline"
+    ],
+    [
+     "On its own it is a better first deck than any of them.",
+     "WHERE IT SITS: the shelf lists it after the six bands, and it is not harder than they are. Measured against the same subtitle frequency list, its first 300 words are about as common as the first 300 of CILS B1 (a median rank of 2,525 against 2,443) and 417 of its words are among the 5,000 commonest forms of spoken Italian, while its last 2,000 are rarer than the middle of C1. So begin it beside CILS A2, when A1 is done, rather than after C2: at a language deck's default of ten new cards a day, which is five words a day, the six bands alone take 1,431 days to reach it, and this deck takes 604. The greetings it used to hold (buongiorno, buonasera, arrivederci, salve) and seven numbers are cards of CILS A1 now."
+    ]
+   ],
+   "dropForm": {
+    "pazza": "cilsb2/pazzo",
+    "sanitaria": "cilsa2/sanitario",
+    "atomica": "cilsc1/atomico"
+   }
+  },
+  "itphrase": {
+   "dropDup": {
+    "per favore": "cilsa1",
+    "mi chiamo": "cilsa1",
+    "come stai": "cilsa1",
+    "va bene": "cilsa1"
+   },
+   "subtitle": "1372 expressions · both directions, as two cards per expression",
+   "descSub": [
+    [
+     "So read the order as a rough guide rather than a ranking — the commonest expressions really are at the front, but a few further down deserve to be nearer it.",
+     "So read the order as a rough guide rather than a ranking — the commonest expressions really are at the front, but a few further down deserve to be nearer it. THE DECK IS ALSO TIERED BY WHAT YOU CAN ALREADY READ: first the 658 expressions spelled entirely with words and forms CILS A1 shows, then those that need A2 (189), B1 (95), B2 (48), C1 (39), C2 (6) and the core vocabulary (129), and last the 208 that use a word no deck cards; inside a tier the order is still the corpus count. So this deck need not wait for the others, though the shelf lists it last: its first 658 cards can be studied beside CILS A1. At a language deck's default of ten new cards a day, which is five expressions a day, they take 132 days and the whole deck 275. Four expressions a beginner needs on the first day — per favore, mi chiamo, come stai, va bene — are cards of CILS A1 and are not here."
+    ]
+   ]
+  },
+  "cilsb1": {
+   "dropDup": {
+    "permesso": "cilsa1",
+    "zero": "cilsa1",
+    "quattro": "cilsa1",
+    "nove": "cilsa1",
+    "dodici": "cilsa1",
+    "quindici": "cilsa1",
+    "cinquanta": "cilsa1",
+    "sessanta": "cilsa1",
+    "la primavera": "cilsa1",
+    "l'inverno": "cilsa1"
+   },
+   "descSub": [
+    [
+     "while leaving out some they would meet at once, including the greetings.",
+     "while leaving out some they would meet at once, including the greetings. (Ten of this band's words — zero, quattro, nove, dodici, quindici, cinquanta, sessanta, la primavera, l'inverno and permesso — are cards of CILS A1, where a beginner needs them, and are not here.)"
+    ]
+   ]
+  },
+  "cilsa2": {
+   "dropDup": {
+    "voi": "cilsa1",
+    "sette": "cilsa1",
+    "otto": "cilsa1",
+    "trenta": "cilsa1",
+    "mille": "cilsa1",
+    "il lunedì": "cilsa1",
+    "il martedì": "cilsa1",
+    "il mercoledì": "cilsa1",
+    "il giovedì": "cilsa1",
+    "il venerdì": "cilsa1",
+    "il sabato": "cilsa1",
+    "l'estate": "cilsa1"
+   },
+   "descSub": [
+    [
+     "while leaving out some they would meet at once, including the greetings.",
+     "while leaving out some they would meet at once, including the greetings. (Twelve of this band's words — voi, sette, otto, trenta, mille, the days from lunedì to sabato and l'estate — are cards of CILS A1, where a beginner needs them, and are not here.)"
+    ]
+   ]
+  },
+  "cilsb2": {
+   "dropDup": {
+    "venti": "cilsa1",
+    "quaranta": "cilsa1",
+    "settanta": "cilsa1",
+    "cento": "cilsa1",
+    "l'autunno": "cilsa1"
+   },
+   "descSub": [
+    [
+     "while leaving out some they would meet at once, including the greetings.",
+     "while leaving out some they would meet at once, including the greetings. (Five of this band's words — venti, quaranta, settanta, cento and l'autunno — are cards of CILS A1, where a beginner needs them, and are not here.)"
+    ]
+   ]
+  },
+  "cilsa1": {
+   "descSub": [
+    [
+     "while leaving out some they would meet at once, including the greetings.",
+     "while leaving out some they would meet at once, including the greetings. THOSE ARE SUPPLIED HERE: 47 of this deck's cards are not the band's. Five were cards of no Italian deck (buonanotte, prego, scusa and scusi, diciassette, diciannove): their meanings are English Wiktionary's and their sentences Tatoeba's. The other 42 were cards of the higher decks, the core vocabulary and the phrases, moved here as they stood but for a short first sentence on nine of them: the greetings and courtesies, mi chiamo, come stai and va bene, voi, the numbers the band lacks from zero to a thousand, six days of the week and the four seasons."
+    ],
+    [
+     "934 of the 961 are in De Mauro's",
+     "934 of the band's 961 are in De Mauro's"
+    ],
+    [
+     "SO THE ORDER IS DOING THE WORK. The cards are dealt by how common the word actually is in everyday spoken Italian, taken from a frequency list built from film and television subtitles, so you meet e, non, che, di, la in the first handful and the rarest of the band at the end.",
+     "SO THE ORDER IS DOING THE WORK, and it begins by hand. The first 76 cards are the courtesies (ciao, buongiorno, grazie, prego, per favore, scusa), the words of a first exchange (io, essere, tu, mi chiamo, come stai) with the commonest function words, the other subject pronouns, ten verbs, the question words and zero to ten. After them the cards are dealt by how common the word actually is in everyday spoken Italian, taken from a frequency list built from film and television subtitles, with each closed set kept together — the days of the week from card 151, the numbers above ten from 251, the months and the seasons from 351 — look-alikes forty cards apart, and the rarest of the band at the end. The prepositions di, a, da, in and su show the forms they take with the article (del, alla, nei). THE PACE: a deck cannot set its own daily limit, and a language deck's default is ten new cards a day with both directions together, which is five words a day. At that pace the courtesies take three days, the first 76 cards sixteen, the days of the week arrive on day 31 and the whole deck takes 201 days. It is a large first deck — the band is a frequency band of about a thousand words, not a beginner's syllabus — so raise New cards a day in the deck's options to finish sooner, and study Italian — Sounds and spelling beside it from the first day."
+    ]
+   ]
+  },
+  "cilsc1": {
+   "descSub": [
+    [
+     "while leaving out some they would meet at once, including the greetings.",
+     "while leaving out some they would meet at once, including the greetings. (Twenty-five of this band's entries were the feminine of an adjective another card already teaches — patetica beside patetico, stupenda beside stupendo — and are folded into that card, whose Forms row shows the feminine.)"
+    ]
+   ],
+   "dropForm": {
+    "stupenda": "cilsb2/stupendo",
+    "esperta": "cilsa2/esperto",
+    "divina": "cilsb2/divino",
+    "patetica": "cilsc1/patetico",
+    "sovietica": "cilsc1/sovietico",
+    "sobria": "cilsc1/sobrio",
+    "isterica": "cilsc1/isterico",
+    "defunta": "cilsc1/defunto",
+    "pacifica": "cilsb2/pacifico",
+    "bizzarra": "cilsc1/bizzarro",
+    "impegnativa": "cilsb2/impegnativo",
+    "spietata": "cilsc1/spietato",
+    "primaria": "cilsa2/primario",
+    "clandestina": "cilsb2/clandestino",
+    "perversa": "cilsc1/perverso",
+    "organica": "cilsb1/organico",
+    "leggendaria": "cilsc1/leggendario",
+    "perfida": "cilsc1/perfido",
+    "diabolica": "cilsc1/diabolico",
+    "inappropriata": "cilsc1/inappropriato",
+    "subdola": "cilsc1/subdolo",
+    "eroica": "cilsc1/eroico",
+    "fasulla": "cilsc1/fasullo",
+    "fortissima": "cilsc1/fortissimo",
+    "sovrana": "cilsc1/sovrano"
+   }
+  }
+ }
+}
