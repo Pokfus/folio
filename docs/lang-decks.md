@@ -3836,7 +3836,10 @@ changed was the one that had been wrong all along.
   `decks/Mongolian-A1.folio-deck.json`** (500 notes / 1,000 cards: 335 inventory, 165 frequency) **and A2,
   `decks/Mongolian-A2.folio-deck.json`** (750 notes / 1,500 cards, 2026-11-16: 153 inventory, 597 frequency) **and B1,
   `decks/Mongolian-B1.folio-deck.json`** (1,000 notes / 2,000 cards, 2026-11-16: 71 everyday compounds and words the fill
-  does not reach, 929 frequency; the genitive-twin and strict people's-name rules from B1 on). `python3
+  does not reach, 929 frequency; the genitive-twin and strict people's-name rules from B1 on). **and the phrases deck,
+  `decks/Mongolian-Phrases-and-Expressions.folio-deck.json`** (2,357 notes: 29 Wiktionary phrases, a proverb and an idiom
+  among them, and 2,328 Tatoeba sentences of up to eight words, a pair sharing its English labelled familiar or polite by
+  its "you"; `python3 .claude/mongolian/phrases.py`). The collection is complete. `python3
   .claude/mongolian/run.py [--level a1|a2|b1]`, `python3 .claude/mongolian/alphabet.py`, `node
   .claude/mongolian/check-mongolian.js`; a re-run is byte-identical. Amharic's arrangement: about 3,100 Cyrillic
   Wiktionary lemmas, no subtitle list, so the frequency is the Mongolian Wikipedia's (its 14,876 articles of 150 words

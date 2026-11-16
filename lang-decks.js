@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 451 MB of decks. The file itself is fetched on Add. */
+   section without fetching 452 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-Pinyin-and-Tones.folio-deck.json", id: "hsk30pin", title: "Mandarin Chinese — Pinyin and tones", sub: "68 sounds, tones and tone changes — start here, beside Level 1", notes: 68, cards: 68, ex: 100, bytes: 70898, rev: "6a1571dc957f" },
   { lang: "Mandarin Chinese", file: "Mandarin-Bopomofo.folio-deck.json", id: "hsk30bpm", title: "Mandarin Chinese — Bopomofo", sub: "62 zhuyin symbols, tone marks and combinations — beside Pinyin and tones", notes: 62, cards: 62, ex: 100, bytes: 72249, rev: "80fd41ebcd21" },
@@ -252,6 +252,7 @@ window.LANG_DECKS = [
   { lang: "Mongolian", file: "Mongolian-A1.folio-deck.json", id: "mongoliana1", title: "Mongolian A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 75, say: false, bytes: 375018, rev: "d2c0d5d0ccaa" },
   { lang: "Mongolian", file: "Mongolian-A2.folio-deck.json", id: "mongoliana2", title: "Mongolian A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 35, say: false, bytes: 385901, rev: "17d3e38f770c" },
   { lang: "Mongolian", file: "Mongolian-B1.folio-deck.json", id: "mongolianb1", title: "Mongolian B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 10, say: false, bytes: 389245, rev: "b678d5571b07" },
+  { lang: "Mongolian", file: "Mongolian-Phrases-and-Expressions.folio-deck.json", id: "mnphrase", title: "Mongolian Phrases and Expressions", sub: "2357 phrases and sentences · 29 phrases, 2328 sentences · both directions", notes: 2357, cards: 4714, subs: 2, tree: [{"n":"Phrases","c":58,"x":0},{"n":"Sentences","c":4656,"x":0}], flat: true, ex: 0, say: false, bytes: 1017197, rev: "7332cf2e3053" },
   { lang: "Lao", file: "Lao-Alphabet.folio-deck.json", id: "laoabc", title: "Lao Alphabet", sub: "79 letters, vowels, tone marks and digits · both directions, as two cards each", notes: 79, cards: 158, ex: 0, bytes: 35953, rev: "45f81762fd4d" },
   { lang: "Lao", file: "Lao-A1.folio-deck.json", id: "laoa1", title: "Lao A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 21, bytes: 243546, rev: "954ea4401dd2" },
   { lang: "Lao", file: "Lao-A2.folio-deck.json", id: "laoa2", title: "Lao A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 8, bytes: 284196, rev: "57042be2eabc" },

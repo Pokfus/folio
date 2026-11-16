@@ -7,7 +7,9 @@
    voice — the Hausa rule), a romanisation line (the level decks carry none: the Russian precedent), an example
    with no word picked out, unbalanced HTML, an id out of sequence, and two notes sharing an English side (the
    reverse card would have two answers). The alphabet deck is checked for its own: 36 notes, a unique sound
-   side, every letter of the 35. */
+   side, every letter of the 35. The phrases deck for what applies to a phrase or a sentence: its two subdecks,
+   Cyrillic on the front, no phrase a level teaches, a Tatoeba number on every sentence, balanced HTML, a unique
+   English side. */
 "use strict";
 const fs = require("fs");
 const path = require("path");
@@ -33,6 +35,7 @@ for (const f of files) {
   const d = JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8"));
   const id = d.meta.id;
   const abc = /Alphabet/.test(d.meta.title);
+  const phr = /Phrases/.test(d.meta.title);
   for (const t of Object.values(d.meta.types))
     for (const c of t.cards) {
       if (/uc-tts/.test(c.front + c.back)) bad(f + ": template " + c.name + " has a speaker button");
@@ -49,6 +52,17 @@ for (const f of files) {
       return;
     }
     const w = F.Word;
+    if (phr) {
+      if (!["Phrases", "Sentences"].includes(c.sub)) bad(f + ": " + w + " is in subdeck " + c.sub);
+      if (!/[А-Яа-яЁёӨөҮү]/.test(w || "")) bad(f + ": card " + (i + 1) + " has no Cyrillic: " + w);
+      const k = (w || "").toLowerCase().replace(/[^а-яёөү ]/g, "").trim();
+      if (seen.has(k)) bad(f + ": " + w + " is already taught in " + seen.get(k));
+      if (c.sub === "Sentences" && !/Tatoeba #\d+/.test(F.English)) bad(f + ": sentence " + w + " has no Tatoeba number");
+      for (const k2 of ["Mongolian", "English"]) balanced(f, w, k2, F[k2]);
+      if (sides.has(F.English)) bad(f + ": " + w + " shares its English side with " + sides.get(F.English));
+      sides.set(F.English, w);
+      return;
+    }
     if (!CYR.test(w || "")) bad(f + ": card " + (i + 1) + " Word is not plain Cyrillic: " + w);
     if (seen.has(w)) bad(f + ": " + w + " is already taught in " + seen.get(w));
     seen.set(w, f);
@@ -68,7 +82,7 @@ for (const f of files) {
     const got = new Set(d.cards.map((c) => c.fields.Letter[0]));
     for (const ch of ABC) if (!got.has(ch)) bad(f + ": no note for " + ch);
   }
-  console.log("ok    " + f + ": " + d.cards.length + " notes" + (abc ? "" : ", " +
+  console.log("ok    " + f + ": " + d.cards.length + " notes" + (abc || phr ? "" : ", " +
     d.cards.filter((c) => c.fields.Forms).length + " with forms, " +
     d.cards.filter((c) => c.fields.Examples).length + " with sentences"));
 }

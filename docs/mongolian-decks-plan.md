@@ -5,8 +5,8 @@
 were built, and every rule there applies here unless this file says otherwise. The owner was not asked: the
 Amharic and Yoruba owners' answers were taken, the sources being as thin (§2).
 
-**STATUS (2026-11-16): the alphabet, A1, A2 and B1 are built** (`.claude/mongolian/`, §6–§8). A phrases deck
-is the next phase (§5).
+**STATUS (2026-11-16): the collection is complete** — the alphabet, A1, A2, B1 and the phrases deck
+(`.claude/mongolian/`, §6–§9). No B2: Wiktionary is used up (§8).
 
 ## 1. The decisions (taken from the Amharic, Yoruba, Russian and Ukrainian sets)
 
@@ -29,7 +29,7 @@ is the next phase (§5).
 | Mongolian A1 Beginner — built | `Mongolian-A1.folio-deck.json` | 500 |
 | Mongolian A2 Elementary — built | `Mongolian-A2.folio-deck.json` | 750 |
 | Mongolian B1 Intermediate — built | `Mongolian-B1.folio-deck.json` | 1,000 |
-| Mongolian Phrases and Expressions | `Mongolian-Phrases-and-Expressions.folio-deck.json` | — |
+| Mongolian Phrases and Expressions — built | `Mongolian-Phrases-and-Expressions.folio-deck.json` | 2,357 |
 
 ## 2. Sources and licences — and what is missing
 
@@ -103,8 +103,8 @@ they are shown as Wiktionary prints them. A quarter of the cards have no sentenc
 
 **Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2 (done)** — A2, then B1, one level per session: write the
 level's inventory into `inventory.py` and its `SCOPE` into `mongolian_level.py`; read the ranking for new
-exclusions; read every card. **Phase 3** — the phrases deck. A level must leave the levels below it
-byte-identical.
+exclusions; read every card. A level must leave the levels below it
+byte-identical. **Phase 3 (done)** — the phrases deck (§9).
 
 ## 6. As built (2026-11-16): the alphabet and A1
 
@@ -172,3 +172,29 @@ correct загалмай's "eurasian hobby" to "Eurasian hobby".
 **Known, left.** B1 is broad and concrete — tools, animals, plants, food, trades — with some science and history
 from the encyclopaedia, and the last words' order means little (counts of 6 to 20). Tatoeba is used up: only 96
 cards have a sentence. Synonym pairs are labelled by the shelf's de-duplication ("not хулчгар").
+
+## 9. As built (2026-11-16): the phrases deck
+
+`python3 .claude/mongolian/phrases.py` (reads the cache; no corpus is counted). 2,357 notes / 4,714 cards in two
+subdecks (the card's `sub`): 29 phrases and 2,328 Tatoeba sentences. A re-run is byte-identical; the levels are
+unchanged. It was built after merging `main`, and the release is 1.1337.
+
+- **THE PHRASES** are every Cyrillic phrase, interjection and proverb entry English Wiktionary has that the levels
+  do not teach, in a hand order (`PHRASES`: greetings — сайн уу, the informal "hello"; A1 teaches the formal сайн
+  байна уу —, courtesies, the phrasebook, the weather, exclamations, the slogan, the proverb, the idiom нэг сумаар
+  хоёр туулай буудах and the simile цас шиг цагаан, then the herders' calls to horses, cattle, camels and goats).
+  Wiktionary's gloss and its "formal" / "informal" are printed. `LEFT_OUT` names the rest: three vulgar entries,
+  "only used in" fragments, a pronunciation spelling, sounds (a cow's, a swan's, an impact), and би ойлгохгүй
+  байна, which Wiktionary glosses "I don't know" although the words say "I do not understand". A new Wiktionary
+  entry stops the build until it is placed in one list or the other.
+- **THE SENTENCES** are Tatoeba's Mongolian sentences of at most eight words with their lowest-numbered English
+  translation, printed as Tatoeba has them, shortest first. Left out: a sentence with a Latin letter, one Tatoeba
+  holds twice, one that is only a phrase above or a word a level teaches, one with a word Wiktionary marks vulgar.
+  **Two sentences with one English** are told apart by the "you" each uses (`address`: чи and its forms
+  "familiar", та "polite", та нар "to several people"); a pair still alike keeps the shorter.
+- **NOT READ ONE BY ONE.** 2,328 sentences are more than Amharic's 187 or Khmer's 825; a sample of 45 was read and
+  found sound (natural sentences, faithful translations, Tatoeba's own spellings, сургуульруугаа written
+  together). `DROP` is empty and ready for any sentence a reader reports.
+
+**Known, left.** Tatoeba's stock name Том (Tom) is in many sentences. A few Tatoeba spellings are non-standard
+(Нью Уоркд). The deck is large (1.0 MB) because the source is.
