@@ -78,6 +78,8 @@ ETYMS = {
     'spasti': ['2'],          # "to save, rescue"; etymology 1 is "to fall down"
     'desni': ['2'],           # "right"; etymology 1 is the noun "gums"
     'izvesti': ['3', '1'],    # "to carry out, perform" first, then "to export"; 2 is "to embroider"
+    # B2 (2026-11-16)
+    'žica': ['2'],            # "wire"; etymology 1 is a plant, Acanthus spinosissimus
 }
 # A PART OF SPEECH TO LEAD WITH, where Wiktionary's first is not the everyday word.
 POS_FIRST = {'da': 'particle', 'zdravo': 'intj', 'dobro': 'adv', 'hvala': 'intj',
@@ -96,7 +98,10 @@ LEAD = {'razgovarati': 'to talk',
         'zanimanje': 'job', 'prevesti': 'to translate', 'uz': 'next to',
         # B1
         'gomila': 'pile, heap', 'savet': 'advice', 'kukavica': 'coward', 'pamet': 'mind',
-        'obratiti': 'to approach'}
+        'obratiti': 'to approach',
+        # B2
+        'junak': 'hero', 'nastup': 'appearance', 'preterivati': 'to exaggerate',
+        'preterati': 'to exaggerate', 'prostitutka': 'prostitute'}
 
 # A GLOSS THAT IS A USAGE NOTE, NOT A MEANING ("Used to connect a noun to an adjective ...",
 # "Intensity amplifier, used exclusively in phrases"): dropped wherever the entry has a

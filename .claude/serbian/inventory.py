@@ -185,4 +185,61 @@ INVENTORY = {
          'proizvoditi pripremiti organizovati planirati ostvariti postići uporediti '
          'opisati predložiti preporučiti zahtevati sprečiti uticati'),
     ],
+    'b2': [
+        ('the economy and business',
+         'ekonomija privreda tržište trgovina potrošač proizvod usluga cena inflacija kriza '
+         'investicija profit dobit gubitak budžet izvoz uvoz rast pad konkurencija '
+         'akcionar deonica banka berza menadžer marketing investirati'),
+        ('the workplace',
+         'zaposlenik kolektiv smena ostavka odgovornost iskustvo '
+         'kvalifikacija sposobnost rukovodilac direktor saradnja kandidat prijava '
+         'biografija'),
+        ('government, law and rights',
+         'vlada ministarstvo skupština poslanik ustav zakon propis odluka reforma uprava '
+         'korupcija građanin državljanstvo izbor glas kampanja '
+         'opozicija koalicija referendum sankcija diplomacija ambasada ambasador rat mir '
+         'sporazum ugovor'),
+        ('science and technology',
+         'nauka naučnik istraživanje eksperiment otkriće pronalazak izum teorija hipoteza '
+         'tehnologija računar softver program podatak mreža digitalni robot '
+         'satelit svemir planeta hemija fizika biologija matematika'),
+        ('the environment and energy',
+         'klima ekologija priroda resurs energija gorivo struja elektrana vetar '
+         'emisija otpad smeće zaštita poplava suša katastrofa'),
+        ('society and its problems',
+         'siromaštvo nejednakost diskriminacija predrasuda nasilje zavisnost droga beskućnik '
+         'izbeglica imigrant emigracija nezaposlenost penzija socijalan pomoć '
+         'dobrotvoran zajednica generacija omladina starost'),
+        ('the media',
+         'medij štampa televizija radio novinar urednik intervju izveštaj vest naslov '
+         'cenzura propaganda gledalac čitalac slušalac publika'),
+        ('education and the mind',
+         'obrazovanje nastavnik predavač doktorat magistar teza '
+         'pamćenje inteligencija talenat sposobnost logika mašta kreativnost '
+         'koncentracija'),
+        ('health and medicine',
+         'medicina terapija dijagnoza simptom infekcija virus bakterija vakcina '
+         'epidemija bolest rak pritisak bolničar oporavak '
+         ''),
+        ('culture, history and identity',
+         'istorija prošlost nasleđe tradicija običaj vera religija crkva manastir identitet '
+         'nacija narod jezik dijalekat kultura civilizacija carstvo kraljevina revolucija '
+         'ustanak spomenik'),
+        ('the arts and reviews',
+         'književnost roman pripovetka poezija stih pozorište drama komedija tragedija '
+         'opera balet skulptura arhitektura galerija izložba kritika '
+         'kritičar'),
+        ('attitudes and character',
+         'stav ponos sujeta zavist sram krivica savest poštenje hrabrost kukavičluk '
+         'velikodušnost strpljenje tolerancija ambicija samopouzdanje nepoverenje '
+         'arogantan skroman tvrdoglavost odlučan nestrpljiv optimizam'),
+        ('the words of an argument',
+         'argument dokaz tvrdnja zaključak pretpostavka posledica uzrok aspekt činjenica '
+         'mišljenje ipak naprotiv štaviše dakle uprkos premda ukoliko odnosno '
+         'naime ukratko uglavnom'),
+        ('the verbs of change and judgement',
+         'smanjiti povećati razvijati uticati zavisiti zahtevati podržati '
+         'protiviti osuditi oceniti proceniti analizirati utvrditi dokazati '
+         'opovrgnuti naglasiti tvrditi braniti zastupati odbaciti prihvatiti'),
+    ],
 }
