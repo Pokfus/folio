@@ -124,7 +124,7 @@ exists).
   facts ("scholars still disagree about…").
 - **British spelling** (colour, civilisation, centre, defence, practise as a verb).
 - **BCE / CE, never BC / AD**; the numeral leads ("301 CE").
-- **Centuries are numerals**: "11th century", "2nd millennium BCE".
+- **A century named is a numeral ordinal**: "11th century", "2nd millennium BCE" (a COUNT of centuries is in words, below).
 - **Non-round numbers above 20 are numerals** ("27 chapters"); round ones may be words ("thirty
   kings"). Write "32,000", never "32 thousand".
 - **Troop numbers and army sizes are always numerals** (2026-11-13, on request): "10,000 men", "300 hoplites",
@@ -133,6 +133,10 @@ exists).
   "8 metres", "3 years", "a 5-day battle", "100 years", never "fourteen miles" or "three years". The one
   exception is a span of ONE, which stays a word ("one day", "one year"). Proper names keep their words
   (the Seven Years' War, the Hundred Days), and so do quotations and translations.
+- **A count of centuries is in words** (2026-11-16, on request): "two centuries", "twelve to fifteen
+  centuries", never "2 centuries". The singular stays a numeral ordinal: "21st century", "the 5th century
+  BCE". A Roman century the voting or army UNIT keeps its numeral ("the 80 centuries of the first class").
+  `check-style.js` rule 6 enforces it; `--fix --only=6` converts.
 - **A span counted back from today runs from old to new** (2026-11-13, on request): "16,000 to 11,000 years
   ago", "between 50 and 40 million years ago", never the larger number second.
 - **Times of day are numerals with a colon and AM / PM** (2026-11-13, on request): "11:15 AM", "5:00 PM",

@@ -11843,7 +11843,10 @@ window.GLOSSARY = {
 "Nubian_pyramids": "",
 "Sphinx_of_Taharqo": "",
 "Eltekeh": "",
-"Esarhaddon": ""
+"Esarhaddon": "",
+"Semitic_languages": "",
+"Alphabet": "",
+"Cadmus": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -25404,11 +25407,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Nubian_pyramids": ["Kushite pyramids","Pyramids of Kush"],
 "Sphinx_of_Taharqo": ["Sphinx of Taharqa"],
 "Eltekeh": ["Battle of Eltekeh","Elteqeh","Altaqu"],
-"Esarhaddon": ["Ashur-aha-iddina"]
+"Esarhaddon": ["Ashur-aha-iddina"],
+"Semitic_languages": ["Semitic"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
+"Montu": true,
 "Operation_Overlord": true,
 "Diadochi": true,
 "House_of_Commons_of_the_United_Kingdom": true,
@@ -37456,7 +37461,10 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Nubian_pyramids": ["building","history","kush","nubia","sudan"],
 "Sphinx_of_Taharqo": ["object","art","kush","nubia","egypt"],
 "Eltekeh": ["place","battle","history","assyria","levant"],
-"Esarhaddon": ["ruler","history","assyria","egypt","warfare"]
+"Esarhaddon": ["ruler","history","assyria","egypt","warfare"],
+"Semitic_languages": ["language","linguistics","near east"],
+"Alphabet": ["writing","language","linguistics"],
+"Cadmus": ["mythology","greece","thebes","phoenicia"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

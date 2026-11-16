@@ -21336,7 +21336,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* …and the card's canvas has a pixel budget (8.4M backing pixels, 32 MB): past it the ink is drawn at a
      little under devicePixelRatio rather than at it. iOS refuses a canvas over 16.7M pixels outright — it
      stops drawing without an error — and a long card at 2× or 3× reaches that. The book's canvas is the
-     viewport's size and is not affected. */
+     viewport's size and is not affected. SINCE 2026-11-16 THE CARD IS NOT EITHER: it uses the book's
+     screen-sized canvas and vector strokes (see CARD INK), because the budget resampled a revealed card's
+     ink below devicePixelRatio and blurred it. The raster path below stays for a caller with no vector
+     backend; no page uses it now. */
   const WB_MAX_PX = 8388608;
   function wbFreeCanvas(c) { if (c) { c.width = 0; c.height = 0; } }
   function wbFreeHist(list) { list.forEach((e) => { wbFreeCanvas(e.before); wbFreeCanvas(e.after); }); list.length = 0; }
@@ -32906,7 +32909,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      be raised above a canvas that is a child of the stage — no z-index settles this. Clipping does: the
      bar is pinned to the viewport and so is the canvas, so its band is simply excluded, and a stroke
      that runs under it is cut off at its edge exactly as one under a real bookmark would be. */
-  function inkReplay(strokes, frame) {
+  function inkReplay(strokes, frame, clipTop) {
     const c = WB.canvas, ctx = WB.ctx;
     if (!c || !ctx || !frame) return;
     const dpr = window.devicePixelRatio || 1;
@@ -32918,8 +32921,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     ctx.clearRect(0, 0, c.width, c.height);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.lineCap = "round"; ctx.lineJoin = "round";
-    const bar = document.querySelector(".bk-barwrap");
-    const top = bar ? Math.max(0, bar.getBoundingClientRect().bottom) : 0;
+    // the book clips under its chapter bar; a study card passes its own top (CARD INK)
+    const bar = clipTop == null ? document.querySelector(".bk-barwrap") : null;
+    const top = clipTop != null ? Math.max(0, clipTop) : bar ? Math.max(0, bar.getBoundingClientRect().bottom) : 0;
     if (top > 0) { ctx.beginPath(); ctx.rect(0, top, vw, Math.max(0, vh - top)); ctx.clip(); }
     (strokes || []).forEach((s) => {
       const pts = s.p || [];
@@ -32996,6 +33000,63 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       paint();
       wbUpdateHistBtns();
     };
+  }
+
+  /* ============================================================
+     CARD INK — the study card's marker is vectors too (Nov 2026, on a report: "on my tablet, when I write
+     on the empty space below the question, as soon as the answer is revealed all of the lines I've drawn
+     become slightly blurry").
+
+     The card's ink used to be a RASTER canvas the height of the whole card, with a pixel budget
+     (WB_MAX_PX) because iOS refuses a canvas over 16.7M pixels. A question-only card fitted at
+     devicePixelRatio; the revealed card is ~3,100px tall, which on an iPad (834 or 1194 wide at 2×) is
+     past the budget, so the canvas was rebuilt at 1.5–1.8× and the strokes already on it were RESAMPLED
+     into it — measured: 2.0 → 1.80 portrait, 2.0 → 1.50 landscape. No budget fixes that for every card,
+     so the card now uses the book's arrangement: a canvas the size of the SCREEN at devicePixelRatio
+     (wbResize's `fixed` branch) and a list of strokes re-drawn from scratch on a resize, a reveal or a
+     scroll. Nothing is ever resampled, at any card length, and the memory is the screen's, not the card's.
+
+     A point is kept in CSS pixels from the STAGE's top-left corner (the frame is a constant 1000 so
+     inkRecord's fractions are pixels / 1000), which is where the raster canvas had its origin: a stroke
+     stays on the words it was drawn over when the answer opens beneath them, as before. The ink is
+     clipped at the stage's top, which is where the old canvas began. Nothing is stored — a card's ink
+     dies with the card, as it always has. */
+  const CARD_INK_FRAME = 1000;
+  function cardInkMount() {
+    let strokes = [], past = [], future = [];
+    const stageOf = () => (WB.canvas && WB.canvas.parentElement) || document.querySelector(".stage");
+    const frameOf = () => {
+      const st = stageOf(), r = st ? st.getBoundingClientRect() : { left: 0, top: 0 };
+      return { x: r.left + window.scrollX, y: r.top + window.scrollY, w: CARD_INK_FRAME, h: CARD_INK_FRAME };
+    };
+    const clipTop = () => { const st = stageOf(); return st ? st.getBoundingClientRect().top : 0; };
+    const paint = () => inkReplay(strokes, frameOf(), clipTop());
+    const step = (next) => { past.push(strokes.slice()); while (past.length > WB_HIST_MAX) past.shift(); strokes = next; future.length = 0; };
+    const settle = () => { paint(); wbUpdateHistBtns(); };
+    WB.onInk = (s) => {
+      const rec = inkRecord(s, frameOf());
+      if (!rec.p.length) return;
+      const next = strokes.concat([rec]);
+      while (next.length > INK_MAX_STROKES) next.shift();
+      step(next);
+      settle();   // repainted so a stroke begun above the stage is clipped like the rest
+    };
+    WB.onRedraw = paint;
+    WB.onScroll = paint;
+    WB.onUndo = () => { if (!past.length) return; future.push(strokes.slice()); strokes = past.pop(); settle(); };
+    WB.onRedo = () => { if (!future.length) return; past.push(strokes.slice()); strokes = future.pop(); settle(); };
+    WB.onCanUndo = () => past.length > 0;
+    WB.onCanRedo = () => future.length > 0;
+    WB.onClear = () => { if (!strokes.length) return; step([]); settle(); };
+    /* the ink is fixed to the screen and the card is not, so a scroll moves the marks — one repaint per
+       frame; the listener takes itself off once a later card (or another page) has replaced this paint */
+    let raf = 0;
+    const onScroll = () => {
+      if (WB.onScroll !== paint) { window.removeEventListener("scroll", onScroll); return; }
+      if (raf) return;
+      raf = requestAnimationFrame(() => { raf = 0; if (WB.onScroll === paint) paint(); });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
   }
 
   /* ============================================================
@@ -37717,7 +37778,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         if (Number.isInteger(wantQi) && wantQi > 0 && wantQi < pool.length && !revealed) stepQ(wantQi - qIdx);
       };
       if (poolPending) ensureCardExtra(id).then(growPool);
-      setupWhiteboard();
+      cardInkMount();   // the vector backend first, as the book does (see CARD INK)
+      setupWhiteboard({ fixed: true });
       showWBTools();
       mountDrawCard(cardRoot, c);   // a draw card puts the pen down and pins the marker to its pad
       showAdminEditBtn(id);

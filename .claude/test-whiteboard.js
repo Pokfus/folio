@@ -269,6 +269,42 @@ async function installInk(page) {
   check("two thumbs draw one line, not a zigzag between them", oneLine > 0 && zigzag === 0,
     JSON.stringify({ onTheLine: oneLine, upWhereTheOtherThumbIs: zigzag }));
 
+  /* ================= 5. the ink stays sharp when the answer opens (2026-11-16) =================
+     On a report: lines written below the question "become slightly blurry" the moment the answer is
+     revealed. The card's canvas used to cover the whole card under a pixel budget, so the taller revealed
+     card was rebuilt at 1.5–1.8 device pixels per CSS pixel and the strokes resampled into it. Measured at
+     an iPad's width at 2×, in both orientations: the canvas must stay at devicePixelRatio through the
+     reveal, and a pen line's rows must still be fully opaque (a resampled line goes soft at its edges). */
+  console.log("\n5. The ink stays sharp when the answer opens");
+  for (const vp of [{ width: 834, height: 1194 }, { width: 1194, height: 834 }]) {
+    const tab = await browser.newPage({ viewport: vp, deviceScaleFactor: 2, hasTouch: true });
+    watch(tab);
+    await penDownOnACard(tab, base);
+    const sy = await tab.evaluate(() => { const s = document.querySelector(".scratch"); return Math.round(s.getBoundingClientRect().top + 30); });
+    const send = (t, x) => tab.evaluate(([t, x, y]) => document.querySelector(".draw-canvas").dispatchEvent(new PointerEvent(t, {
+      pointerId: 1, pointerType: "pen", isPrimary: true, bubbles: true, cancelable: true, clientX: x, clientY: y,
+      buttons: t === "pointerup" ? 0 : 1 })), [t, x, sy]);
+    await send("pointerdown", 300);
+    for (let x = 310; x <= 600; x += 10) await send("pointermove", x);
+    await send("pointerup", 600);
+    const profile = () => tab.evaluate(() => {
+      const c = document.querySelector(".draw-canvas"), s = c.width / c.offsetWidth, r = c.getBoundingClientRect();
+      const d = c.getContext("2d").getImageData(Math.round((450 - r.left) * s), 0, 1, c.height).data;
+      let rows = 0, soft = 0;
+      for (let y = 0; y < c.height; y++) { const a = d[y * 4 + 3]; if (a > 0) { rows++; if (a < 250) soft++; } }
+      return { scale: +s.toFixed(3), rows, soft };
+    });
+    const before = await profile();
+    await tab.evaluate(() => { const b = [...document.querySelectorAll("button")].find((x) => /show answer|reveal/i.test(x.textContent)); if (b) b.click(); });
+    await tab.waitForTimeout(1200);
+    const after = await profile(), grew = await tab.evaluate(() => document.documentElement.scrollHeight > innerHeight * 1.5);
+    check(`[${vp.width}×${vp.height}] the canvas stays at devicePixelRatio when the answer opens`, grew && after.scale === 2 && before.scale === 2,
+      JSON.stringify({ before, after, cardGrew: grew }));
+    check(`[${vp.width}×${vp.height}] …and the line drawn before it is not resampled`, after.rows === before.rows && after.soft === before.soft && after.rows > 0,
+      JSON.stringify({ before, after }));
+    await tab.close();
+  }
+
   check("no console errors anywhere", errs.length === 0, errs.slice(0, 4).join(" | "));
 
   await page.close();
