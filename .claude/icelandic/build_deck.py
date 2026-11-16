@@ -42,7 +42,7 @@ from isl import fold, WORD as ISWORD
 from icelandic_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 # a level's stamp is the day it was first built, so a re-run of a shipped level is byte-identical
-STAMP = {'a1': '2026-11-15T00:00:00.000Z'}.get(LEVEL, '')
+STAMP = {'a1': '2026-11-15T00:00:00.000Z', 'a2': '2026-11-16T00:00:00.000Z'}.get(LEVEL, '')
 if not STAMP:
     raise SystemExit(f'no STAMP for {LEVEL}: write the day the level is first built into build_deck.py')
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
@@ -102,6 +102,9 @@ ETYMS = {
     'við': ['1', '2'],        # the pronoun "we", and the preposition "by, at, with"
     'bjór': ['2'],            # "beer"; etymology 1 is "a beaver"
     'dalur': ['1', '2'],      # "a valley", and "a dollar" -- the subtitles' commoner sense
+    # A2 (2026-11-16)
+    'kokkur': ['2'],          # "a cook"; etymology 1 is "a cock"
+    'lok': ['2', '1'],        # "an end" (að lokum, "finally") first, then "a lid"
 }
 
 # A GLOSS WRITTEN HERE, replacing Wiktionary's for one part of speech, where Wiktionary's
@@ -122,6 +125,13 @@ GLOSS = {
     'hrísgrjón': {'noun': ['rice', 'a grain of rice']},      # its third is a slur
     'langa': {'verb': ['to want, to long for (with the person in the accusative: mig langar í kaffi, '
                        '"I want some coffee"; mig langar að fara, "I would like to go")']},
+    # A2 (2026-11-16)
+    'gras': {'noun': ['grass']},                              # its third is drug slang
+    'hæna': {'noun': ['hen, chicken']},
+    'óþarfi': {'noun': ['something unnecessary (það er óþarfi, "there is no need")']},
+    'dreyma': {'verb': ['to dream (with the dreamer in the accusative: mig dreymdi, "I dreamt")']},
+    'drífa': {'verb': ['to hurry (drífa sig: drífðu þig!, "hurry up!")', 'to drive, to push on']},
+    'ríða': {'verb': ['to ride (a horse)']},                  # its slang sense is sexual
     'króna': {'noun': ['króna (the Icelandic currency)', 'crown']},
     'gjörðu svo vel': {'phrase': ['here you are, there you go (handing something over)',
                                   'please (inviting someone to come in, sit down or help themselves)']},
@@ -156,7 +166,7 @@ GENDER_FIX = {}
 
 # A PART OF SPEECH NOT SHOWN for one word: a block that is noise beside the word a beginner meets.
 DROP_POS = {('um', 'adv'), ('en', 'adv'), ('enn', 'noun'), ('langur', 'noun'), ('átta', 'noun'),
-            ('milli', 'adv')}
+            ('milli', 'adv'), ('gegn', 'adv'), ('megin', 'noun')}
 
 # A FORM WIKTIONARY MIS-TAGS, not shown.
 FORM_DROP = set()

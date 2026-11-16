@@ -34,17 +34,33 @@ EXCLUDE = {
     # A COUNT THAT IS ANOTHER WORD'S
     'ger': 'its count is gera "to do" (A1)\'s forms (ger, gert); its entry is "yeast"',
     'sama': 'its count is sami "the same"\'s forms; its entry is a rare adverb "indifferently"',
+    # Read off the A2 ranking (2026-11-16).
+    'hey': 'its count is the English interjection; its entry is "hay"',
+    'næsta': 'the feminine and neuter of næstur "next", taught in A2',
+    'betra': 'its count is betra "better", the neuter of betri (góður, A1); its entry is "to improve"',
+    'gær': 'met only in í gær "yesterday" (A1)',
+    'aftann': 'its count is aftan "from behind"; its entry is a poetic "evening"',
+    'reiða': 'its count is reiða, a form of reiður "angry" (A2); its entry is "to carry on horseback"',
+    'minna': 'its count is minna "less", the comparative of lítill (A1); its entry is "to remind"',
+    'ber': 'its count is ber, the present of bera "to carry" (A2), and ber "a berry"; its entry is "bare"',
+    'síður': 'its count is síður "less, rather" (the comparative adverb) and síða "a page"; its entry is "long, low-hanging"',
 }
 EXCLUDE = {k: v for k, v in EXCLUDE.items() if v}
 
 # Swearing and insults are never in a level deck.
-SWEARS = {'fjandi', 'andskoti', 'helvíti', 'djöfull', 'fokk', 'skítur', 'tík', 'hóra', 'drulla'}
+SWEARS = {'fjandi', 'andskoti', 'helvíti', 'djöfull', 'fokk', 'skítur', 'tík', 'hóra', 'drulla',
+          # A2 (2026-11-16): curses and insults
+          'fjandans', 'fjári', 'fífl', 'hálfviti', 'auli', 'rass', 'kjaftæði', 'bjáni'}
 
 # A FILL WORD'S READING: the part of speech its count is for, where Wiktionary lists
 # another first.
 FILL_POS = {'sá': 'pron',       # "that (one)", not "to sow"
             'rétt': 'adv',      # "right, correctly", not "a sheep fold"
-            'hætta': 'verb', 'horfa': 'verb', 'ræða': 'verb'}   # the verb, not a noun spelt like it
+            'hætta': 'verb', 'horfa': 'verb', 'ræða': 'verb',   # the verb, not a noun spelt like it
+            # A2 (2026-11-16): the verb, not a noun spelt like it
+            'renna': 'verb', 'velta': 'verb', 'kanna': 'verb', 'kveðja': 'verb', 'vísa': 'verb',
+            'skella': 'verb', 'hrífa': 'verb', 'greiða': 'verb', 'enda': 'verb',
+            'meðal': 'prep'}     # "among", not "a medicine"
 
 # A WORD DEALT BY ANOTHER'S COUNT.
 SAME_AS = {}

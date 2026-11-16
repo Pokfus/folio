@@ -6,8 +6,8 @@ Icelandic set, built in the Norwegian decks' shape (`docs/norwegian-decks-plan.m
 `docs/lang-decks.md` is the record of how every set was built, and every rule there applies here unless this file
 says otherwise. Asked for on 2026-11-15: "Add an Icelandic language collection."
 
-**STATUS (2026-11-15): Phase 1 done** — the pipeline, the alphabet deck and A1 (§6). A2 to C1 and a phrases deck are
-the later phases (§5), one per request.
+**STATUS (2026-11-16): Phase 1 done and Phase 2 begun** — the pipeline, the alphabet deck and A1 (§6), and A2 (§7).
+B1 to C1 and a phrases deck are the later phases (§5), one per request.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one because it also changed the APP —
@@ -33,7 +33,7 @@ these is the owner's to overrule.**
 |---|---|---|
 | Icelandic Alphabet — built | `Icelandic-Alphabet.folio-deck.json` | 39 |
 | Icelandic A1 Beginner — built | `Icelandic-A1.folio-deck.json` | 500 |
-| Icelandic A2 Elementary | `Icelandic-A2.folio-deck.json` | 750 |
+| Icelandic A2 Elementary — built | `Icelandic-A2.folio-deck.json` | 750 |
 | Icelandic B1 Intermediate | `Icelandic-B1.folio-deck.json` | 1,000 |
 | Icelandic B2 Upper Intermediate | `Icelandic-B2.folio-deck.json` | 1,500 |
 | Icelandic C1 Advanced | `Icelandic-C1.folio-deck.json` | 1,500 |
@@ -109,8 +109,8 @@ higher levels will have markedly fewer.
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet and A1. **Phase 2** — A2 to C1, one level per request: write the
-level's inventory into `inventory.py` (A2–C1 are empty lists), its `SCOPE` is already in `icelandic_level.py`, its
+**Phase 1 (done)** — the pipeline, the alphabet and A1. **Phase 2** — A2 (done) to C1, one level per request: write
+the level's inventory into `inventory.py` (B1–C1 are empty lists), its `SCOPE` is already in `icelandic_level.py`, its
 `STAMP` into `build_deck.py` (a level with none refuses to build), run, read every card, and widen the deck's
 description where a level needs it. **Phase 3** — a phrases deck (Norwegian's `phrases.py`, not copied yet;
 `build_deck.py` refuses `--level phr` until then).
@@ -127,3 +127,32 @@ The shelf's hue is measured (`lang-icelandic` in `app.js`): swept against all 74
 the magenta band's standing rejection kept and the greens left out. The raw winner, a deep indigo (`#333C81`), stood
 13.2 from the blue of Iceland's flag and was refused, as Finnish refused its flag's blue; the runner-up, `#303696`, an
 ultramarine, is 14.1 from its nearest (Urdu) and 23.2 from the flag.
+
+## 7. As built (2026-11-16): A2
+
+Asked for on 2026-11-16: "Add A2." `python3 .claude/icelandic/run.py --level a2`; the same stages, no new source.
+**750 notes: 271 from a 19-topic inventory** (`inventory.py` `A2`, Norwegian's A2 topics in Icelandic: seasons and
+dates, numbers to a million, the land and nature — glacier, volcano, waterfall and fjord among them —, weather,
+animals, clothes, the home and kitchen, food and cooking, work, school, travel, the town, health, feelings, free
+time, verbs, describing, time words, connectors — `SCOPE['a2']`) **and 479 by frequency**; three sentences for 561,
+none for 74. Every card was read. A1 re-runs byte-identical after every change below, and A2 re-runs byte-identical
+with the extract rebuilt. Twelve inventory words are not Icelandic headwords in the extract and were replaced or
+dropped (`útlönd` → `útland`, `frítími` → `skemmtun`, `áhugaverður` → `áhugi` and `áhugasamur`, `þó að` → `þó`;
+`korter`, `hitastig`, `samstarfsmaður`, `seinkun`, `áhyggjufullur`, the participle `lokaður`, `sem sagt` and
+`annaðhvort` dropped).
+
+**What the A2 ranking turned up**, each fixed with its reason beside it:
+- **Noun before verb, again** (`select.FILL_POS`, or a part of speech in the inventory): `breyta` (not "a variable"),
+  `renna`, `velta`, `kanna`, `kveðja`, `vísa`, `skella`, `hrífa`, `greiða` (not "a comb"), `enda` (not the
+  conjunction); `meðal` is the preposition "among", not "a medicine". `ETYMS` takes `kokkur` "a cook" (not "a cock")
+  and puts `lok` "an end" before "a lid".
+- **A count that is another word's** (`select.EXCLUDE`): `betra` and `minna` (the comparatives "better", "less",
+  whose entries are rare verbs), `ber` (bera's present), `reiða` (a form of reiður), `síður` (the adverb "less,
+  rather"), `næsta` (næstur's feminine), `aftann` (aftan "from behind"), `gær` (met only in í gær), and `hey`, the
+  English interjection.
+- **Curses and insults** to `SWEARS`: `fjandans`, `fjári`, `fífl`, `hálfviti`, `auli`, `bjáni`, `rass`, `kjaftæði`.
+  A drug or sexual sense cut by `GLOSS` (`gras`, `ríða`, `hæna`'s slang); `dreyma` and `drífa` written with how
+  they are used (mig dreymdi; drífðu þig!); `óþarfi` written as "something unnecessary".
+
+**Known, left.** The fill carries the subtitles' crime and war vocabulary (`myrða`, `morðingi`, `vopn`, `fangelsi`,
+`hershöfðingi`) on frequency, as A1 does and every subtitle-ordered deck on the shelf does.

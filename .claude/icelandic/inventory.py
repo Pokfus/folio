@@ -60,8 +60,48 @@ A1 = [
                        'gefa keyra ferðast hjálpa finna þurfa geta eiga'),
 ]
 
-# The levels above A1 are written one per session, on request (the plan, §5).
-A2 = []
+A2 = [
+    ('seasons and dates', 'árstíð vor:noun sumar haust vetur helgi frí jól páskar afmæli dagatal '
+                          'dagsetning sekúnda'),
+    ('more numbers', 'þrettán fjórtán fimmtán sextán sautján átján nítján fjörutíu sextíu sjötíu '
+                     'áttatíu níutíu milljón fjórði fimmti tvöfaldur'),
+    ('the land and nature', 'náttúra skógur fjall stöðuvatn fljót strönd eyja tré blóm gras steinn '
+                            'himinn stjarna tungl jörð sveit garður fjörður jökull eldfjall foss'),
+    ('weather', 'ský skýjaður blása stormur gráða kuldi þoka þruma blautur þurr'),
+    ('animals', 'dýr:noun hundur köttur hestur kýr svín kind fugl mús kanína björn refur hæna '
+                'hvalur'),
+    ('clothes', 'föt peysa buxur pils kjóll skyrta jakki frakki húfa skór sokkur hattur taska '
+                'hanski gleraugu stærð klæða'),
+    ('the home and the kitchen', 'veggur gólf þak stigi sófi lampi skápur hilla teppi eldavél '
+                                 'ísskápur ofn diskur bolli glas hnífur gaffall pottur þvo leigja '
+                                 'nágranni'),
+    ('food and cooking', 'grænmeti gulrót laukur kjúklingur pylsa skinka gúrka banani jarðarber '
+                         'kaka safi nammi sósa pipar olía hveiti samloka elda steikja baka:verb '
+                         'sætur súr'),
+    ('work and jobs', 'yfirmaður fyrirtæki laun hjúkrunarfræðingur bóndi kokkur '
+                      'verkfræðingur atvinnulaus umsókn'),
+    ('school and learning', 'bekkur heimavinna námskeið háskóli svar orð setning æfing einkunn '
+                            'pappír tölva stærðfræði'),
+    ('travel and transport', 'ferð bátur skip stoppistöð vegabréf ferðataska kort ferðamaður '
+                             'útland brottför lenda flug flugvél'),
+    ('the town', 'miðbær torg kirkja safn bókasafn bíó leikhús pósthús lögreglustöð bensínstöð '
+                 'bílastæði horn brú gatnamót hverfi'),
+    ('health', 'líkami hjarta háls fingur hné blóð tannlæknir lyfseðill kvef hósti sársauki hvíla '
+               'meiða'),
+    ('feelings', 'tilfinning reiður stressaður hamingjusamur hræddur ótti ást hlæja '
+                 'gráta sakna hata undrandi'),
+    ('free time', 'skemmtun íþrótt fótbolti leikur tónlist kvikmynd ljósmynd list spil synda dansa '
+                  'syngja mála æfa veiða gönguferð'),
+    ('everyday verbs', 'bera snúa tapa velja ákveða lána breyta:verb útskýra lýsa panta klifra vona '
+                       'reikna mæta'),
+    ('describing things and people', 'lágur breiður mjór þykkur þunnur þungur mjúkur harður '
+                                     'fljótur hægur hreinn skítugur ljótur skemmtilegur '
+                                     'leiðinlegur áhugasamur áhugi venjulegur skrýtinn einfaldur '
+                                     'dimmur bjartur fullur tómur opinn vingjarnlegur'),
+    ('time words', 'sjaldan seinna nýlega meðan ennþá daglega næstum'),
+    ('connectors', 'þess_vegna þó samt auk_þess hvorki'),
+]
+# The levels above A2 are written one per session, on request (the plan, §5).
 B1 = []
 B2 = []
 C1 = []
