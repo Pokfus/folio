@@ -1,0 +1,114 @@
+# The Bulgarian language decks — the plan (Nov 2026)
+
+**Read this before building, or changing the plan for, any Bulgarian deck in `decks/`.** It is the plan for a
+language set in the shape of the ones already shipped (Ukrainian, Russian TORFL, Hindi …); `docs/lang-decks.md`
+is the record of how those were built, and every rule there applies here unless this file says otherwise.
+Asked for on 2026-11-16: "Add a Bulgarian language collection."
+
+**STATUS (2026-11-16): Phase 1 built — the alphabet deck and A1** (`.claude/bulgarian/`, §6). A2 to C1 and a
+phrases deck are next, one per session.
+
+Later decks under `decks/` are community content, not a change to Folio: **no changelog line and no version bump**
+for them. The collection's first commit carried one line and one bump, because it also changed the APP (the
+shelf's hue in `app.js`) — the Ukrainian precedent.
+
+## 1. The decisions (2026-11-16)
+
+The request named no word source, size or script deck, so the session took the arrangement of the nearest set,
+Ukrainian (a Cyrillic Slavic language, assembled to CEFR), and the owner may overrule any of it:
+
+1. **Word source: CEFR A1–C1, assembled.** Bulgarian as a foreign language is taught and examined on the CEFR's
+   levels, but no graded word list is published that a deck could take whole, so each level is a hand-written
+   topic inventory (`inventory.py`) scoped to the CEFR global descriptor for its band, topped up with the
+   commonest remaining lemmas. Each deck's description says so. Sizes, Ukrainian's: **A1 500 · A2 750 ·
+   B1 1,000 · B2 1,500 · C1 1,500 notes**.
+2. **A Cyrillic alphabet deck, first** — the level decks carry no transliteration.
+3. **Stress marked on every headword and form, no transliteration** — the Russian and Ukrainian card.
+4. **This session: plan + alphabet + A1**; later levels one per session, then a phrases deck.
+
+| deck | file | notes |
+|---|---|---|
+| Bulgarian Alphabet — built | `Bulgarian-Alphabet.folio-deck.json` | 30 |
+| Bulgarian A1 Beginner — built | `Bulgarian-A1.folio-deck.json` | 500 |
+| Bulgarian A2 Elementary | `Bulgarian-A2.folio-deck.json` | 750 |
+| Bulgarian B1 Intermediate | `Bulgarian-B1.folio-deck.json` | 1,000 |
+| Bulgarian B2 Upper Intermediate | `Bulgarian-B2.folio-deck.json` | 1,500 |
+| Bulgarian C1 Advanced | `Bulgarian-C1.folio-deck.json` | 1,500 |
+| Bulgarian Phrases and Expressions | `Bulgarian-Phrases-and-Expressions.folio-deck.json` | — |
+
+## 2. Sources and licences
+
+| what | source | licence |
+|---|---|---|
+| meanings, gender, aspect, stress, forms | English Wiktionary via kaikki.org (`kaikki.org-dictionary-Bulgarian.jsonl`, 192 MB) | CC BY-SA 4.0 |
+| frequency | hermitdave/FrequencyWords, OpenSubtitles 2018, `bg_full.txt` | CC BY-SA 4.0 |
+| example sentences | Tatoeba `bul` exports (19,258 Bulgarian–English pairs used) | CC BY 2.0 FR |
+| level scope | CEFR global scale (Council of Europe), quoted | — |
+| speakers (`LANGS`) | 6.8 million L1, 7.9 million total (Ethnologue 28th ed. and the 2021 census, 2019–2023), Wikipedia's infobox, read 2026-11-16 | — |
+
+## 3. The card
+
+One note, two templates (Bulgarian → English, English → Bulgarian), `speechLang: 'bg-BG'`. Fields: `Bulgarian` (the
+stressed headword, `кни́га`), `Word` (the same without the mark, what the speaker reads), `English` (meanings by part
+of speech; a noun's gender, a verb's aspect in its label), `Forms` (a noun's DEFINITE form — "the" is a suffix in
+Bulgarian, `кни́гата`, the full `-ът` article of a masculine — its plural and, where it differs, the COUNT FORM used
+after a number, `два гра́да`; an adjective's feminine, neuter and plural; a verb's ти form and its past, the aorist;
+and the verb's ASPECT PARTNER), `Table` (behind a fold: a noun's indefinite, definite — subject and object for a
+masculine — count and vocative forms; an adjective's or determiner's by gender; a verb's present, aorist and imperfect
+by person, its imperative and the past participle that builds the perfect; the personal pronouns' full and short
+forms), `Examples` (up to three Tatoeba sentences, the word in bold, with a speaker). The type's CSS is
+`.claude/bulgarian/card.css` (Ukrainian's). **A verb's headword is its first person singular present** (`чета́`),
+the Bulgarian dictionary form, since the language has no infinitive; the gloss reads "to read", as Bulgarian–English
+dictionaries give it, and the description says so.
+
+## 4. What Bulgarian needs — the findings
+
+- **WIKTIONARY PRINTS A SECOND, PRE-1945 TABLE** (`кни́гитѣ`) after a `…-pre1945` template; every form after such a
+  template is skipped (`extract.py`), and ѣ ѫ never pass `bg.is_bulgarian`.
+- **Ѝ IS A WORD** (the dative clitic "her"), spelt with a grave to keep it apart from и "and": `bg.bare` keeps it as
+  a word of its own and `bg.fold` compares it as и; the check allows it.
+- **Ъ IS A VOWEL**, not Russian's hard sign, so the "not Bulgarian" letters are ы э ё є і ї ґ ў, the Serbian and
+  Macedonian ђ ј љ њ ћ џ ѓ ќ ѕ, and the pre-1945 ѣ ѫ ѭ.
+- **THE PERSONAL PRONOUNS HAVE NO TABLE** in Wiktionary, and each short form (`ме`, `го`, `ѝ`, `ги` …) is an entry of
+  its own; they get written-out paradigms (`bg.PRONOUN_CASES`: nominative, accusative and dative, full and short),
+  and the separate entries are cut from the fill (`select.EXCLUDE`) as forms on those cards.
+- **A VERB'S TABLE HOLDS ITS VERBAL NOUN AND PARTICIPLES** (`че́тене`, `че́тен`), words a learner meets on their own;
+  they are left out of the table (and its counts), except the past active participle (`чел`), which builds the perfect.
+- **A PLURAL-ONLY NOUN OWNS ITS FORMS** (`extract.py`): `пари́` "money" had lost its count to `паря́` "to scald"
+  (whose он-form is пари), and `хо́ра` "people" to човек, whose plural it is.
+- **`NO_CLAIM`** keeps a rarer twin's table from claiming the common word's forms: `трябвам` (personal "to be
+  needed") had taken nearly all of `трябва` "must", and `пара` "steam" part of `пари́`.
+- **A COMPARATIVE OR A FEMININE FILED AS A FORM** keeps its sense (`extract.comparative_sense`): `по́вече` "more"
+  (filed as the comparative of много) and `ко́тка` "cat" (filed as the feminine of кот — the card had opened on
+  "cunning person").
+- **A WEAK SENSE NEVER LEADS** (`build_deck.english`): `тъ́рся` opened on a rare "to ransack", `стру́вам` on "to
+  devote". `LEAD` orders a gloss where Wiktionary's first is not the everyday one (`изгле́ждам` "to seem", `прав`
+  "right, correct", `път` "road" and "time, occasion").
+- **One etymology per card** (`ETYMS`): `да` is "yes" AND the particle of every subordinate verb; `ка́рам` "to drive",
+  not a rare "to rebuke". `PARTNER` replaces Wiktionary's `напра́вя` / `напра́вям` with `пра́вя`.
+- **The euro.** Bulgaria adopted the euro on 1 January 2026, and Wiktionary already glosses `лев` as the former
+  currency, so the A1 inventory teaches `е́вро`.
+- **Known, left.** The fill carries the subtitles' drama vocabulary (`бог`, `дя́вол`, `уби́я`, `мъ́ртъв`, `сър`) on
+  frequency, as every subtitle-ordered deck on the shelf does. Some closed-class glosses are long (Wiktionary's
+  `се`, `си`); they are the source's words.
+
+## 5. Phases
+
+**Phase 1 (done)** — the pipeline, the alphabet, A1. **Phase 2** — A2 to C1, one level per session: write the
+level's inventory into `inventory.py` (its `SCOPE` is already in `bulgarian_level.py`), run, read every card, extend
+`select.EXCLUDE` with what the ranking shows. **Phase 3** — a phrases deck (Ukrainian's `phrases.py` is the model;
+it was not copied here).
+
+## 6. As built (2026-11-16): the alphabet and A1
+
+`python3 .claude/bulgarian/run.py [--level a1] [--no-fetch] [--re-extract]`; stages `extract.py` → `select.py` →
+`examples.py` → `build_deck.py`, caching in `.claude/bulgarian-cache/` (gitignored, ~330 MB);
+`python3 .claude/bulgarian/alphabet.py` writes the alphabet deck and reads nothing.
+`node .claude/bulgarian/check-bulgarian.js` is the check (a word on two levels, a pointer gloss, a letter Bulgarian
+lacks, a missing or doubled stress mark, a stressed speaker field, unbalanced HTML, a shared English side). **A
+re-run is byte-identical** (verified). A1: 500 notes, 388 from the inventory and 112 by frequency; sentences for
+488, three apiece for 471. Inventory words Wiktionary lacks as lemmas were dropped or replaced (`фамилия`, `метро`,
+`всичко`, `казвам се`; `извинете` → `извиня́вам`, `боли` → `боля́`, `себе` → `се́бе си`). The alphabet: 30 letters
+with their Bulgarian names (бъ, въ, гъ …; и кратко, ер голям, ер малък), the sounds for an English speaker, and the
+five places a Russian reader parts company (щ, ъ, ь, е, no ы э ё). The shelf's hue is measured: `#813F8D`, a purple
+14.0 from its nearest of 79 (Danish), the greens and the magenta band left out and nothing within 20 of the flag.

@@ -113,6 +113,7 @@ const LANGS = [
   { word: "Zulu", name: "Zulu", l1: 12, total: 28 },            // Wikipedia's infobox (Ethnologue), 12.1 million, read 2026-11-09
   { word: "Hungarian", name: "Hungarian", l1: 12, total: 12 },    // Wikipedia's infobox (12 million, 2021–2023), read 2026-11-09
   { word: "Swedish", name: "Swedish", l1: 9.9, total: 13 },      // Ethnologue 25th ed. (2012–2021 figures), via Wikipedia's infobox, read 2026-11-09
+  { word: "Bulgarian", name: "Bulgarian", l1: 6.8, total: 7.9 },   // Wikipedia's infobox (Ethnologue 28th ed. and the 2021 census, 2019–2023: 6.76 L1, 1.16 L2, 7.92 total), read 2026-11-16
   { word: "Danish", name: "Danish", l1: 5.5, total: 5.5 },        // Wikipedia's infobox (5.52 million, Ethnologue 18th ed., 2012), read 2026-11-15; no second-language figure
   { word: "Hebrew", name: "Hebrew", l1: 5, total: 9 },         // Wikipedia's infobox (Ethnologue 2018: 9 million speakers of Modern Hebrew, 5 million native), read 2026-11-12
   { word: "Swahili", name: "Swahili", l1: 5, total: 95 },       // Wikipedia's infobox, 5.3 million L1 (Ethnologue 27th ed.; 92 million L2), read 2026-11-09
