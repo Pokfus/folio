@@ -31511,6 +31511,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        Korean's dark green, then Old English's deep green at 15.2); with the greens left out, the best was a teal
        at 13.9. 6.2:1 against white. Not a flag colour. */
     "lang-lao":        { bg: "#426A43" }, // measured leaf green
+    /* CZECH (Nov 2026) was not named a colour, so it was MEASURED as Lao was: swept in CIELAB inside the shelf's
+       band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all the hues on the
+       page, the magenta band's standing rejection kept, the greens left out and anything within 15 of the red or
+       blue of the Czech flag refused. Twice a parallel session merged first onto Czech's sweep: Navajo took
+       #3C7676 (0.1 from Czech's #3C7675), then Somali #485A5A (0.4 from Czech's re-swept #495A5A). Re-swept again
+       at the merge against all 82 other hues: two points tied at 13.1, a warm taupe at exactly 4.5:1 against white
+       and this rust red, 13.1 from its nearest neighbour (Russia's lacquer), then 13.3 from the Viking Age and
+       14.7 from Ukrainian, against a tightest existing pair of 0.4. The tie went to the rust for its contrast,
+       8.7:1 against white; 29.1 from the flag's red. Not a flag colour. */
+    "lang-czech":      { bg: "#8F2302" }, // measured rust red
     /* NAVAJO (Nov 2026) was not named a colour, so it was MEASURED as Lao was: swept in CIELAB inside the shelf's
        band (L 28–55, chroma 7–62, 4.5:1 against white) for the point farthest (CIE76) from all 79 hues on the page.
        The outright winner was a yellow-green (#4E7E00, 15.1), refused as a fourth green beside Middle-earth, Arabic
