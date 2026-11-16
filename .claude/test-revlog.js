@@ -367,8 +367,13 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "user", j
   }, UID);
   await page.reload({ waitUntil: "load" });
   await page.waitForTimeout(1100);
+  /* The statistics are a TAB of the account page since Nov 2026, and its contents are drawn the first time
+     it is opened — so the tab is pressed, as a reader presses it, before anything is read off the card. */
+  const openStats = async () => { await page.evaluate(() => { const t = document.querySelector('[data-atab="stats"]'); if (t) t.click(); }); await page.waitForTimeout(300); };
   await page.evaluate(() => { location.hash = "#account"; });
   await page.waitForTimeout(1100);
+  await openStats();
+  check("the Statistics tab draws its panel", await page.evaluate(() => !!document.querySelector("#reviewStats .rs-heat")));
   check("with an empty log the card renders NOTHING", await page.evaluate(() => !document.querySelector(".rs-ab")));
 
   await page.evaluate(() => {
@@ -385,6 +390,7 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "user", j
   await page.waitForTimeout(1100);
   await page.evaluate(() => { location.hash = "#account"; });
   await page.waitForTimeout(1200);
+  await openStats();
   const ab = await page.evaluate(() => {
     const card = document.querySelector(".rs-ab");
     if (!card) return null;

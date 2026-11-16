@@ -1263,8 +1263,12 @@ the whole reason the suites exist and the reason their narratives are worth keep
     figures (Aug 2026). Neither is reachable without a session, so Supabase is a `page.route` stand-in —
     deliberately, and for the same reason as `test-publish.js`'s mock: the publishable key in app.js points
     at the REAL project. Like that mock it is a stand-in for the policies, never a proof they are right.
-    It asserts the four account actions as a **2×2 grid** inside the profile card with the sync line under
-    them, that the glossary meter is a link on your own record, and that the dashboard's People panel fills
+    It asserts (since the Nov 2026 compaction) that the hero carries ONE account button, **Manage account**,
+    whose fold holds the six actions as a grid of equal buttons with the sync line under them; the one row
+    of six figures; the **four tabs** (Overview first, the Statistics panel drawn only when first opened,
+    arrow keys moving between them); the folds over the locked badges and the collections not started; a
+    display name in any script, sent once; **Delete account** degrading to a sentence on a 404 and, last,
+    ending at the sign-in form without a push or a logout; that the glossary meter is a link on your own record, and that the dashboard's People panel fills
     from the database and still says in prose what RLS will not let it count. **The mock sends
     `Access-Control-Expose-Headers: Content-Range` on purpose** — that header is not CORS-safelisted, and a
     mock that forgets it reports a connection failure that is really a CORS one. It also owns the **Profile
@@ -1279,8 +1283,9 @@ the whole reason the suites exist and the reason their narratives are worth keep
     not run against**, and rewriting one to the current rule is not weakening it: what replaced the row test
     is a stronger claim (two columns, four buttons of ONE width, which is what the `1fr` columns are for),
     and what replaced the label test reads the count where the count now is. **Re-run after touching
-    `acctSelfView` / `showcaseHTML` / `openCollectionWin` / `adminRenderDashboard` / `dashLoadRemote` /
-    `supaFetch`'s count parsing.**
+    `acctSelfView` / `acctAuthView` / `acctTilesHTML` / `acctStatsHTML` / `wireAcctStats` / `badgesHTML` /
+    `renderCollectionLevels` / `supaDeleteAccount` / `showcaseHTML` / `openCollectionWin` /
+    `adminRenderDashboard` / `dashLoadRemote` / `supaFetch`'s count parsing.**
   · `node .claude/test-card-types.js` — the XP curve, community-deck **card types**, reverse cards,
     **bury siblings** and **one card per cloze** (Aug 2026), 228 assertions in five parts.
     **⚠ IT RAN 87 OF THEM FOR A FORTNIGHT AND SAID "82 passed"** (found and fixed Aug 2026): a `deckSheet`

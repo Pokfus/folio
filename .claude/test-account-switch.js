@@ -209,7 +209,10 @@ async function signIn(page, email, pw) {
   await page.click('[data-form="signin"] .auth-btn');
   await page.waitForTimeout(900);
 }
-async function signOut(page) { await page.click("#signout"); await page.waitForTimeout(900); }
+// Sign out is behind "Manage account" since Nov 2026 (the account's controls are one fold, not five buttons
+// in the hero) — so the fold is opened first, exactly as a reader has to
+async function openManage(page) { await page.evaluate(() => { const p = document.querySelector("#mgPanel"); if (p && p.hidden) document.querySelector("#mgToggle").click(); }); }
+async function signOut(page) { await openManage(page); await page.click("#signout"); await page.waitForTimeout(900); }
 
 const local = (page) => page.evaluate(() => {
   const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
@@ -470,6 +473,7 @@ const homeState = async (page, base) => {
   /* …and the way back from that fallback. Until Sep 2026 there was none: the account page's field edits
      the DISPLAY NAME, and the handle a reader signs in with was written once by the signup trigger. */
   const uname = () => E.page.textContent("#unShown");
+  await openManage(E.page);
   await E.page.click("#unToggle");
   await E.page.waitForTimeout(150);
   check("the username panel opens", !(await E.page.isHidden("#unPanel")));

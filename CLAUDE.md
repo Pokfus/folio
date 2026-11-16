@@ -298,6 +298,8 @@ editing a plan, the tree, or this table.
   phone (merge = deploy). This file is the only memory a cloud session has.
 - Outbound HTTPS goes through a proxy; Node's `fetch` needs `NODE_USE_ENV_PROXY=1` (curl does not).
   `node .claude/check-reach.js` says which scholarly hosts answer — never assume a host is shut.
-- Supabase: schema in `.claude/supabase-schema.sql`; the live project has every block. Every feature
+- Supabase: schema in `.claude/supabase-schema.sql`; the live project has every block up to section 17 —
+  **section 18 (`delete_my_account`, Nov 2026) is the owner's to run**; until then the account page's
+  Delete account says it is not set up (📖 `docs/accounts-sync.md` "The account page, compacted"). Every feature
   must degrade to a sentence on a database missing a later block.
 - Never rewrite git history; the repo is ~0.5 GB and that is expected.

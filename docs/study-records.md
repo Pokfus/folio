@@ -244,6 +244,11 @@ Four bullets, in the order they appeared in CLAUDE.md:
     days studied, **longest streak** — `longestStreakDays`, computable from `reviewLog` where `S.streak`
     only holds the current one — card-of-the-day picks, games played, perfect runs) and a per-game row
     from the lifetime log.
+    **Since Nov 2026** the longest streak is never less than the live one or `S.streak.best` (the log is
+    pruned at `REVIEW_LOG_DAYS`, a streak is not); "Reviews, all time" and "Days studied" become "…, past
+    13 months", summed over exactly that window, once the log reaches back to its edge
+    (`reviewLogTotals().windowed`); the per-game rows read their names from `GAME_NAMES` and list only
+    games that have been played.
     **Both meters count against the set they are measured by, which is NOT the whole register**, and each
     was wrong once in the same way. `placesSeen` records every place opened — 258 present-day countries
     *and* 1,194 historical era territories — so counting the register against `WORLD_GEO.length` read
