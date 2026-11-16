@@ -98,8 +98,7 @@ B2 or C1 until Wiktionary's Lao grows; a later session should re-download `kaikk
 cache) and count again before planning one. **B2 was asked for on 2026-11-16**: the extraction was re-downloaded, found byte-identical (2,751 entries), and what
 remained after B1 was about 240 words — 73 compound numbers, 10 lunar months, 11 species names, 10 empty "abstract noun
 of" entries and 136 others, mostly second spellings or synonyms of taught words — so the owner chose to stop at B1. For each level write its inventory into `inventory.py`, its `TARGET` and
-`SCOPE` into `lao_level.py`, run, read every card. **Phase 3** — a phrases deck, if Wiktionary's Lao phrases (five
-entries today) ever make one.
+`SCOPE` into `lao_level.py`, run, read every card. **Phase 3 (done)** — the phrases deck (§9).
 
 ## 6. As built (2026-11-15): the alphabet and A1
 
