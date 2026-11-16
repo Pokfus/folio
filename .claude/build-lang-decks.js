@@ -69,7 +69,7 @@ const OUT = path.join(ROOT, "lang-decks.js");
    Persian is Farsi + Dari + Tajik (Ethnologue 28th ed., 127, infobox), Polish and Ukrainian are their infobox
    totals (43 and 39), and Romanian and Greek, whose infoboxes give no second-language figure, are their L1
    (22, 13.5). Tagalog is the 2026 table's 87; Dutch, Zulu and Swedish are their infobox totals (30, 28, 13), Irish the census figures in its row (2.1);
-   Hungarian, Danish, Finnish and Norwegian, with no second-language figure, are their L1 (12, 5.5, 5, 4.3). Hebrew is its infobox total (9, Ethnologue 2018). Latin and Old English stay 0. `l1` is kept beside it, and a language
+   Hungarian, Danish, Finnish, Norwegian and Icelandic, with no second-language figure, are their L1 (12, 5.5, 5, 4.3, 0.39). Hebrew is its infobox total (9, Ethnologue 2018). Latin and Old English stay 0. `l1` is kept beside it, and a language
    added with no `total` falls back to its `l1` (and is reported) rather than sorting as NaN. */
 const LANGS = [
   { word: "Mandarin", name: "Mandarin Chinese", l1: 941, total: 1183 },
@@ -99,6 +99,7 @@ const LANGS = [
   { word: "French", name: "French", l1: 74, total: 334 },
   { word: "Italian", name: "Italian", l1: 65, total: 66 },
   { word: "Hausa", name: "Hausa", l1: 58, total: 94 },            // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
+  { word: "Yoruba", name: "Yoruba", l1: 48, total: 53 },         // Wikipedia's "List of languages by total number of speakers" (Ethnologue 2026: 48 L1 + 5 L2), read 2026-11-15; the infobox gives 47.9 L1, 49.9 total (Ethnologue 28th ed., 2023)
   { word: "Amharic", name: "Amharic", l1: 35, total: 60 },       // Ethnologue 28th ed. (34.9 L1, 2020; 60.0 total, 2019–2020), via Wikipedia's infobox, read 2026-11-15
   { word: "Indonesian", name: "Indonesian", l1: 43, total: 255 },
   { word: "Polish", name: "Polish", l1: 40, total: 43 },          // Ethnologue (27th ed., 2021), via Wikipedia's infobox, read 2026-11-09
@@ -107,6 +108,7 @@ const LANGS = [
   { word: "Dutch", name: "Dutch", l1: 25, total: 30 },              // Wikipedia's infobox (2021 figure), read 2026-11-09
   { word: "Thai", name: "Thai", l1: 27, total: 71 },              // Ethnologue 28th ed., via Wikipedia's infobox, read 2026-11-09
   { word: "Romanian", name: "Romanian", l1: 22, total: 22 },    // Wikipedia's infobox (22.2 million, Ethnologue 27th ed., 2020), read 2026-11-09
+  { word: "Khmer", name: "Khmer (Cambodian)", l1: 19, total: 21 }, // Ethnologue 28th ed. (19.5 L1, 2019; 20.5 total, 2019–2024), via Wikipedia's infobox, read 2026-11-15
   { word: "Greek", name: "Greek", l1: 13.5, total: 13.5 },          // Wikipedia's infobox (2015 figure), read 2026-11-09
   { word: "Zulu", name: "Zulu", l1: 12, total: 28 },            // Wikipedia's infobox (Ethnologue), 12.1 million, read 2026-11-09
   { word: "Hungarian", name: "Hungarian", l1: 12, total: 12 },    // Wikipedia's infobox (12 million, 2021–2023), read 2026-11-09
@@ -115,6 +117,7 @@ const LANGS = [
   { word: "Hebrew", name: "Hebrew", l1: 5, total: 9 },         // Wikipedia's infobox (Ethnologue 2018: 9 million speakers of Modern Hebrew, 5 million native), read 2026-11-12
   { word: "Swahili", name: "Swahili", l1: 5, total: 95 },       // Wikipedia's infobox, 5.3 million L1 (Ethnologue 27th ed.; 92 million L2), read 2026-11-09
   { word: "Finnish", name: "Finnish", l1: 5, total: 5 },        // Wikipedia's infobox ("5.0 million", Finland 4.75 million in 2023), read 2026-11-15
+  { word: "Lao", name: "Lao", l1: 3.7, total: 4.5 },          // Wikipedia's infobox (Ethnologue 27th ed.: 3.69 million L1, 2015; 0.80 million L2), read 2026-11-15
   /* NORWEGIAN (Nov 2026): Wikipedia's infobox (read 2026-11-15) gives 4.32 million native speakers (2012, De Smedt et
      al., The Norwegian Language in the Digital Age) and no second-language figure, so `total` is its L1, as Hungarian's. */
   { word: "Norwegian", name: "Norwegian", l1: 4.3, total: 4.3 },
@@ -122,6 +125,9 @@ const LANGS = [
      its daily speakers outside the education system, 71,968 (Republic, census 2022) + 43,557 (Northern Ireland,
      census 2021), and `total` those stating they can speak it, 1,873,997 (Republic, 2022) + 228,600 (NI, 2021). */
   { word: "Irish", name: "Irish", l1: 0.12, total: 2.1 },
+  /* ICELANDIC (Nov 2026): Wikipedia's infobox (read 2026-11-15) gives 388,720 speakers (Ethnologue 26th ed.) and no
+     second-language figure, so `total` is its L1, as Norwegian's. */
+  { word: "Icelandic", name: "Icelandic", l1: 0.39, total: 0.39 },
   /* LATIN HAS NO NATIVE SPEAKERS, so its l1 is 0 and it sorts last — the honest place for a language
      nobody grows up with, and the one a figure cannot argue with. Not a guess at a number. */
   { word: "Latin", name: "Latin", l1: 0, total: 0 },
