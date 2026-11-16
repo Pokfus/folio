@@ -48102,7 +48102,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         <div class="set-card danger">
           ${setHead("var(--zh)", '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/>', "Danger zone")}
           <div class="set-row">
-            ${info("Reset progress", "Clears your study history, streak, badges and artefacts. It can't be undone.", "Your decks, your place in the Library and your settings are kept." + (guestNow() ? "" : ' You are signed in, so the reset also reaches your account and every device signed in to it. To close the account itself, use Delete account on the <a href="#account">Account</a> page.'))}
+            ${info("Reset progress", "Clears your study history, streak, badges and artefacts. It can't be undone.", "Your decks, your place in the Library and your settings are kept." + (guestNow() ? "" : ' You are signed in, so the reset also reaches your account, and your other devices take it up when they next sync. To close the account itself, use Delete account on the <a href="#account">Account</a> page.'))}
             <div class="ctl"><button class="btn ghost danger-btn" id="reset" type="button" aria-label="Reset… your study progress">Reset…</button></div>
           </div>
         </div>
