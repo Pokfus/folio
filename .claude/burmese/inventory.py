@@ -225,4 +225,25 @@ INVENTORY = {
         ('describing',
          'သင့်တော် မှား အခမဲ့ ဖြည်းဖြည်း'),
     ],
+    'b2': [
+        ('the everyday verbs a count cannot reach: taking, putting and moving',
+         'ထုတ်:verb သွင်း:verb ထပ်:adv+verb ကျန်:verb ရော:verb ကူး:verb ထိုး:verb ထိ:verb ကပ်:verb '
+         'ရိုက်:verb ချီ:verb ရွှေ့:verb ရွေ့:verb ဖမ်း:verb တူး:verb လောင်:verb ကယ်:verb '
+         'ရှောင်:verb ခင်း:verb ထောက်:verb မှီ:verb တား:verb ထု:verb တပ်:verb ဖက်:verb လည်:verb '
+         'ကန်:verb တွဲ:verb ချုပ်:verb သီ:verb ယို:verb ဖောက်:verb လန်:verb နင်း:verb ချွန်:verb'),
+        ('the everyday verbs: being, changing and dealing with people',
+         'ကုန်:verb ပျက်:verb ပြတ်:verb ပွား:verb ရှင်း:verb လွဲ:verb နှိုင်း ယှဉ် ဆုံ:verb '
+         'ကြုံ:verb ပိုင်:verb မှတ်:verb မြတ်:verb စော:verb ဆန်း:verb ရှား:adj ချဲ့ ပြိုင်:verb '
+         'တင်း:verb ညွှန် တု ခဲ:verb ချေ:verb မော်:verb ရောင်:verb ကု သတ် ဟော ဆဲ ဝါး:verb '
+         'သုတ်:verb လှူ ဖူး:verb'),
+        ('describing',
+         'ညို လတ် ပြင်း:adj အို:adj ရိုး:adj လောက်:adj'),
+        ('the house, the workshop and materials',
+         'အပ်:noun ကော်:noun အုတ် ဖန်:noun သံ:noun စိန်:noun မြ:noun ဇာ ကွန် လိုင်း ဘား တဲ:noun '
+         'မြား စုံ:noun ပစ္စည်း'),
+        ('the body and the land',
+         'ဝမ်း ထိပ် ဂူ ညောင် ကြံ:noun မိုင် နှုန်း'),
+        ('the mind, the law and the faith',
+         'ဉာဏ် ဒဏ် စံ:noun ရှေး:noun ရုပ်:noun သိပ္ပံ ဗုဒ္ဓ'),
+    ],
 }

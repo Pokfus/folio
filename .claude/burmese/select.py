@@ -19,6 +19,7 @@ THE FILL'S EXCLUSIONS, each for a fault it produced on reading the ranking:
     one-syllable token, so အ "to be mute", တ "to yearn" and ပ "to shine" ranked
     among the commonest words.  The everyday one-syllable words (most of Burmese's
     verbs) come through the inventory, which carries them by name;
+  · from B2 on, a lemma whose every gloss only points at another word (it would get no card);
   · the hand list `EXCLUDE`, each line with its reason -- above all the formulae of
     the Wikipedia's bot-written village stubs (ကိုးကား "References", the census
     lines, "village tract", "township"), which are most of its articles, and the
@@ -74,8 +75,25 @@ EXCLUDE = {
     'ဓနု': 'a sign of the zodiac (Sagittarius), from the encyclopaedia',
     'ပုဒ်မ': 'glossed only as the name of the full stop ။, which the Alphabet deck teaches',
     'အသတ်': 'glossed only as the name of the asat ်, which the Alphabet deck teaches',
-    'တံခွန်': 'glossed as the name of the asat ်, which the Alphabet deck teaches', 'ကာ': LITERARY, 'လျှင်': LITERARY,
+    'တံခွန်': 'glossed as the name of the asat ်, which the Alphabet deck teaches',
+    # Read off the B2 ranking (2026-11-16).
+    'ရော်ဘာ': 'a second spelling of ရာဘာ "rubber", which B2 teaches (the two pages name each other)',
+    'ကြီးကြီး': 'Wiktionary glosses only a Myeik dialect form; its count is the doubled ကြီး "very big"',
+    'ဗညား': 'a given name and a title of Mon nobles, from the history articles',
+    'ရာမည': 'a historic name of the Mon people, from the encyclopaedia',
+    'မိဿ': 'a sign of the zodiac (Aries), from the encyclopaedia',
+    'မေထုန်': 'a sign of the zodiac (Gemini) first, then sexual relations; not a level\'s word',
+    'ယောနိ': 'anatomical vocabulary the level does not need (the Amharic precedent)',
+    'လိင်အင်္ဂါ': 'anatomical vocabulary the level does not need (the Amharic precedent)',
+    'အသျှင်': 'a spelling of အရှင် "lord, master", taught at A2',
+    'အကို': 'a spelling of အစ်ကို "elder brother", taught at A1', 'ကာ': LITERARY, 'လျှင်': LITERARY,
 }
+
+
+import re
+POINTER_ONLY = re.compile(r'^(alternative form of|alternative spelling of|form of|synonym of|'
+                          r'abbreviation of|short for|contraction of|induced creaky tone form of)\b', re.I)
+QUOTED = re.compile(r'“[^”]+”\)$')
 
 
 def usable(L):
@@ -125,6 +143,12 @@ def main():
         if all(e['pos'] in ('phrase', 'intj', 'num') for e in L['entries']):
             continue
         if len(syllables(k)) < 2:
+            continue
+        # from B2 on: a lemma whose every gloss only points at another word ("Induced creaky
+        # tone form of ...", "synonym of X" with no quoted gloss) gets no card, so is not dealt
+        if LEVEL not in ('a1', 'a2', 'b1') and all(
+                POINTER_ONLY.match(g['g']) and not QUOTED.search(g['g'])
+                for e in L['entries'] for g in e['glosses']):
             continue
         seen.add(k)
         fill.append({'key': k, 'word': L['word'], 'freq': L['freq'], 'pos': [],

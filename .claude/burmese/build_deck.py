@@ -117,6 +117,15 @@ ONLY = {
     'ကျိုး': (r'^to break',),              # also a cripple and a consequence
     'သော': (r'particle',),                # the verb is "to joke"
     'အိမ်စာ': (r'homework',),             # also the house sparrow
+    # B2 (2026-11-16)
+    'ကန်': (r'^to kick',),                # the first verb is "to designate"; also a lake
+    'သံ': (r'^iron',),                    # also an envoy and a voice
+    'ချေ': (r'^to sneeze',),              # also "to rebut" and a barking deer
+    'တူး': (r'^to dig',),                 # also "to be burnt"
+    'စိန်': (r'diamond',),                # also arsenic
+    'ကယ်': (r'^to save',),                # also "to be distended"
+    'ခဲ': (r'^to freeze',),               # also a stone and lead
+    'ဝါး': (r'^to chew',),                # also "to bluff"
 }
 
 # A GLOSS TO LEAD WITH inside an entry, where Wiktionary's first is not the everyday one.
@@ -141,7 +150,7 @@ KEEP_CAP = re.compile(r"^(I|Buddha|Buddhist|Burmese|Myanmar|Burma|Monday|Tuesday
 # Wiktionary writes the Burmese months in lower case ("waso, the fourth month ..."), and the
 # extraction "latin", "soviet": capitalised
 BURMESE_MONTH = re.compile(r"^(tagu|kason|nayon|waso|wagaung|tawthalin|thadingyut|tazaungmon|nadaw|"
-                           r"pyatho|tabodwe|tabaung|latin|soviet)\b", re.I)   # and two proper adjectives (B1)
+                           r"pyatho|tabodwe|tabaung|latin|soviet|islam|spanish)\b", re.I)   # and proper words (B1, B2)
 
 
 def lower_first(g):
@@ -337,6 +346,10 @@ def desc(entries, n):
          "encyclopaedic in places (government, history, religion). English Wiktionary has fewer "
          "of this level's everyday words, so the vocabulary written for the level is short and "
          "the commonest remaining words are most of it. " if LEVEL == 'b1' else
+         ". The literary particles were taught at B1; this level goes on with the written "
+         "vocabulary of the Burmese Wikipedia, encyclopaedic in places (government, history, "
+         "religion, science), and its own short list carries the everyday one-syllable verbs and "
+         "nouns that a count of written text cannot reach. " if LEVEL == 'b2' else
          "; this deck teaches the SPOKEN one (တယ်, ရဲ့, နဲ့, ဒီ), while Wikipedia is written in "
          "the literary one (သည်, ၏, နှင့်, ဤ), whose particles are left for a later level — and "
          "its fill is encyclopaedic in places (government, history, religion). ") +

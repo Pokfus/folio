@@ -6,8 +6,8 @@ record of how those were built, and every rule there applies here unless this fi
 on 2026-11-15: "Add a Burmese language collection." The owner was not asked: the Thai and Amharic owners'
 answers to the same questions were taken — **they are the owner's to overturn**.
 
-**STATUS (2026-11-16): the collection is complete as planned** — the alphabet deck, A1, A2 and B1
-(`.claude/burmese/`, §6–§8). A B2 is possible (§1) and is the owner's to ask for.
+**STATUS (2026-11-16): the collection is complete** — the alphabet deck, A1, A2, B1 and, asked for afterwards,
+B2 (`.claude/burmese/`, §6–§9).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck this plan produces. The collection's first commit carried a line and a bump because it also
@@ -17,8 +17,8 @@ changed the APP (the shelf's hue in `app.js`) — the Hebrew, Zulu and Amharic p
 
 1. **Levels: CEFR A1–B1, assembled, at 500 / 750 / 1,000 notes** — the Thai sizes. No exam board publishes a
    graded Burmese word list, so each level is a hand-written topic inventory (`inventory.py`) scoped to the
-   CEFR global descriptor, topped up by frequency. English Wiktionary has 7,629 Burmese lemmas (§4), so a B2
-   is possible and is the owner's to ask for.
+   CEFR global descriptor, topped up by frequency. English Wiktionary has 7,629 Burmese lemmas (§4), enough
+   for a B2 as well, which was asked for on 2026-11-16 (1,500 notes, the Thai size; §9).
 2. **An alphabet deck first** (Thai, Amharic): Burmese is written in the Myanmar script.
 3. **A reading on every card: Wiktionary's IPA**, which marks the four tones. Wiktionary's other romanisation,
    MLCTS, spells the letters (စား "ca:" for /sá/) and is not printed (§3).
@@ -33,6 +33,7 @@ changed the APP (the shelf's hue in `app.js`) — the Hebrew, Zulu and Amharic p
 | Burmese A1 Beginner — built | `Burmese-A1.folio-deck.json` | 500 |
 | Burmese A2 Elementary — built | `Burmese-A2.folio-deck.json` | 750 |
 | Burmese B1 Intermediate — built | `Burmese-B1.folio-deck.json` | 1,000 |
+| Burmese B2 Upper Intermediate — built, asked for 2026-11-16 | `Burmese-B2.folio-deck.json` | 1,500 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule; "Alphabet" sorts first.
 
@@ -103,7 +104,7 @@ first glosses keep Wiktionary's wording (မျက်လုံး "eyeball").
 
 ## 5. Phases
 
-**Phase 1 (done)** — the pipeline, the alphabet deck, A1. **Phase 2 (done)** — A2, then B1: write the
+**Phase 1 (done)** — the pipeline, the alphabet deck, A1. **Phase 2 (done)** — A2, then B1, then B2 (asked for afterwards): write the
 level's inventory into `inventory.py` and its topics into `burmese_level.SCOPE`, run, read every card, extend
 `EXCLUDE`, `ONLY` and `LEAD`. A level from A2 on may teach the literary particles A1 leaves out.
 
@@ -175,3 +176,28 @@ is byte-identical, and A1, A2 and the alphabet deck rebuild byte-identical along
   အသတ်, တံခွန် (glossed only as names of marks the Alphabet deck teaches).
 - **Left out of the inventory**: မီးပူတိုက် "to iron" (Wiktionary's IPA covers two of its three syllables), and
   မည်, ကာ, မဲ, ဝတ္ထု, သဒ္ဒါ for their entries.
+
+## 9. As built (2026-11-16): B2
+
+On request ("Add B2"). `burmese_level` gained the band (`b2`, "Upper Intermediate", 1,500 notes, the CEFR B2
+descriptor). `python3 .claude/burmese/run.py --level b2`: 1,500 notes, 103 from the B2 inventory (6 topics) and
+1,397 by frequency (the fill reaches down to an article count of about 40); A1's, A2's and B1's words are not
+repeated. 64 with forms, 76 with sentences. A re-run is byte-identical, and A1, A2, B1 and the alphabet deck
+rebuild byte-identical alongside (verified).
+- **THE INVENTORY IS THE ONE-SYLLABLE WORDS** the fill can never take (§4): about 1,000 one-syllable lemmas were
+  left after B1, many of them everyday verbs — ထုတ် "to take out", ရော "to mix", ကူး "to cross", ထိ "to touch",
+  ရိုက် "to hit", ဖမ်း "to catch", တူး "to dig", ကယ် "to save", ရှောင် "to avoid", ပိုင် "to own", ချုပ် "to sew",
+  ကန် "to kick" — and nouns of the house and the workshop (အပ် "needle", အုတ် "brick", သံ "iron", ဖန် "glass").
+  The deck's description says so.
+- **A LEMMA WHOSE EVERY GLOSS ONLY POINTS AT ANOTHER WORD IS NOT DEALT** (`select.POINTER_ONLY`, from B2 on): the
+  induced creaky forms (ရှင့်, ကျွန်တော့်, ဘယ်သူ့) and "synonym of X" with no quoted gloss reached the fill and
+  got no card, so the deck came out five short. A1 to B1 named such words in `EXCLUDE` instead and stand.
+- **`ONLY` grew by 8** (ကန် "to kick", not "to designate"; သံ iron, not an envoy; ချေ "to sneeze"; တူး "to dig";
+  စိန် diamond, not arsenic; ကယ် "to save"; ခဲ "to freeze"; ဝါး "to chew"); "Islam" and "Spanish" get their
+  capitals back.
+- **`EXCLUDE` grew by 10**: second spellings of words taught (ရော်ဘာ of ရာဘာ "rubber" — the two would have shared
+  an English side the uniqueness pass cannot separate; အသျှင် of A2's အရှင်; အကို of A1's အစ်ကို), a dialect form
+  (ကြီးကြီး), a name and a title (ဗညား), a people's name (ရာမည), two signs of the zodiac (မိဿ, မေထုန်), and two
+  anatomical words (the Amharic precedent).
+- **The description** says the literary particles were taught at B1 and that this level's list is the
+  one-syllable words (A1's, A2's and B1's descriptions are unchanged).

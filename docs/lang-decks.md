@@ -3753,9 +3753,11 @@ changed was the one that had been wrong all along.
   `decks/Burmese-Alphabet.folio-deck.json`** (79 notes: the 33 consonants, the four tones, the vowels, medials,
   rhymes, signs, digits and punctuation), **A1, `decks/Burmese-A1.folio-deck.json`** (500 notes / 1,000 cards),
   **A2, `decks/Burmese-A2.folio-deck.json`** (750 notes, 2026-11-16: both calendars' months, "synonym of"
-  glosses resolved from A2 on — `docs/burmese-decks-plan.md` §7) **and B1, `decks/Burmese-B1.folio-deck.json`**
-  (1,000 notes, 2026-11-16: it opens with the literary particles A1 and A2 leave out — §8).
-  `python3 .claude/burmese/run.py [--level a1|a2|b1]`, `python3 .claude/burmese/alphabet.py`,
+  glosses resolved from A2 on — `docs/burmese-decks-plan.md` §7), **B1, `decks/Burmese-B1.folio-deck.json`**
+  (1,000 notes, 2026-11-16: it opens with the literary particles A1 and A2 leave out — §8), and **B2,
+  `decks/Burmese-B2.folio-deck.json`** (1,500 notes, asked for afterwards: its own list is the everyday
+  one-syllable words the fill cannot take — §9).
+  `python3 .claude/burmese/run.py [--level a1|a2|b1|b2]`, `python3 .claude/burmese/alphabet.py`,
   `node .claude/burmese/check-burmese.js`; a re-run is byte-identical. About 7,600 Wiktionary lemmas and 590
   Tatoeba sentences, no subtitle list, so the frequency is the Burmese Wikipedia's (115,477 articles), cut into
   words by syllable and dictionary maximal matching (Burmese writes no spaces between words); the fill takes only

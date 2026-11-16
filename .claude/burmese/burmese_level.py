@@ -12,8 +12,8 @@ of each level's topics (`inventory.py`), then the commonest remaining words by
 their frequency in the Burmese Wikipedia (`select.py`).  Each level is scoped to the
 Council of Europe's CEFR global descriptor for its band, and the deck's description
 says both things in plain words.  PLANNED: A1 500, A2 750, B1 1,000 notes (the Thai
-sizes); English Wiktionary has about 7,600 Burmese lemmas, so a B2 is possible and
-is the owner's to ask for.  The plan is `docs/burmese-decks-plan.md`.
+sizes), and B2 1,500, asked for on 2026-11-16; English Wiktionary has about 7,600
+Burmese lemmas, enough for all four.  The plan is `docs/burmese-decks-plan.md`.
 
 THE TITLES ARE ENGLISH and carry the CEFR band, so `levelRank` in
 `.claude/build-lang-decks.js` sorts them with no new rule.
@@ -22,15 +22,15 @@ import json, os
 
 LEVEL = os.environ.get('BURMESE_LEVEL', 'a1').lower()
 
-BANDS = ('a1', 'a2', 'b1')
-NAMES = {'a1': 'Beginner', 'a2': 'Elementary', 'b1': 'Intermediate'}
+BANDS = ('a1', 'a2', 'b1', 'b2')
+NAMES = {'a1': 'Beginner', 'a2': 'Elementary', 'b1': 'Intermediate', 'b2': 'Upper Intermediate'}
 
 TITLES = {k: f'Burmese {k.upper()} {v}' for k, v in NAMES.items()}
 DECK_IDS = {k: f'burmese{k}' for k in BANDS}
 DECK_FILES = {k: f'Burmese-{k.upper()}.folio-deck.json' for k in BANDS}
 
 # In NOTES (the Thai sizes).
-TARGET = {'a1': 500, 'a2': 750, 'b1': 1000}
+TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500}
 
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
 
@@ -74,9 +74,22 @@ SCOPE = {
                   'conflict, opinions, feelings, travel, the home and the neighbours, change and '
                   'doing things, and describing',
     },
+    'b2': {
+        'quote': 'Can understand the main ideas of complex text on both concrete and abstract topics, '
+                 'including technical discussions in his/her field of specialisation',
+        'gloss': 'able to interact with a degree of fluency and spontaneity that makes regular '
+                 'interaction with native speakers quite possible without strain for either party, '
+                 'and to produce clear, detailed text on a wide range of subjects and explain a '
+                 'viewpoint on a topical issue giving the advantages and disadvantages of various options',
+        'topics': 'the everyday one-syllable verbs a frequency count cannot reach (taking, mixing, '
+                  'crossing, touching, hitting, catching, digging, burning, saving, avoiding, owning, '
+                  'leaning, sewing, kicking ...), the things of the house and the workshop, the body, '
+                  'materials and measures, and the faith',
+    },
 }
 
-WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner'}
+WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
+       'b2': 'an upper-intermediate learner'}
 
 
 def f(name):
