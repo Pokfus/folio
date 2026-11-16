@@ -11,8 +11,8 @@ THE NAMES ARE ENGLISH, as for Polish and Turkish: the collection is "Czech" and 
 import html, json, os, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-BANDS = ("a1", "a2", "b1")
-SIZE = {"b1": 1000}          # an assembled level's size, in notes (Polish B1's)
+BANDS = ("a1", "a2", "b1", "b2")
+SIZE = {"b1": 1000, "b2": 1200}          # an assembled level's size, in notes (Polish B1's)
 FILE = "Czech-%s.folio-deck.json"
 COLOR = "#3C7675"   # the Czech collection's hue, `lang-czech` in app.js COLL_THEME (measured)
 
@@ -83,18 +83,21 @@ def _morph(stats, cards):
 
 
 def describe_assembled(level, n, stats, cards, s):
-    """A level with no official list (B1): the inventory and the fill, said as what they are."""
+    """A level with no official list (B1, B2): the inventory and the fill, said as what they are."""
     lv, fill = level.upper(), n - stats["inventory"]
+    lower = [b.upper() for b in BANDS[:BANDS.index(level)]]
+    span = " and ".join(lower) if len(lower) == 2 else "%s to %s" % (lower[0], lower[-1])
+    span_or = " or ".join(lower) if len(lower) == 2 else ", ".join(lower[:-1]) + " or " + lower[-1]
     s.append("WHERE THESE WORDS COME FROM, since it matters: no Czech exam board publishes a word list beyond A2 — "
              "the A1 and A2 decks follow the official list of the permanent-residence exam, but the B1 citizenship "
              "exam and Charles University's CCE exams publish none. So %s of the %s words were written for Folio, "
-             "a topic at a time, for %s — the next layer of vocabulary beyond A1 and A2 — together with the words "
+             "a topic at a time, for %s — the next layer of vocabulary beyond %s — together with the words "
              "of opinion and argument the level needs. They are Folio's choice, not an exam board's, and this is "
-             "not an official word list." % (C(stats["inventory"]), C(n), SCOPE[level]))
+             "not an official word list." % (C(stats["inventory"]), C(n), SCOPE[level], span))
     if fill:
         s.append("The other %s are the commonest words of everyday Czech not already chosen, from a frequency list "
                  "built from film and television subtitles, each word counted over all its forms." % C(fill))
-    s.append("No word taught in A1 or A2 is repeated.")
+    s.append("No word taught in %s is repeated." % span_or)
     s.append("The cards are ordered by that frequency, so the words met most often come first%s." % (
         "; the %s multi-word expressions, which a list of single words cannot count, come last" % C(stats["phrases"])
         if stats["phrases"] > 1 else ""))
@@ -110,6 +113,10 @@ def describe_assembled(level, n, stats, cards, s):
 
 
 SCOPE = {
+    "b2": "the themes of the Council of Europe's B2 specification, Vantage (van Ek and Trim, 2001), which carries "
+          "the Threshold Level's themes a level further: work and careers, the economy and money, the state, "
+          "politics and society, law and crime, the media and technology, science and research, health care, the "
+          "environment, culture and the arts, education and relationships",
     "b1": "the fourteen themes of the Council of Europe's Threshold Level (van Ek and Trim, 1990), the "
           "specification the CEFR's level B1 descends from: personal identification, house and home and the "
           "environment, daily life, free time and entertainment, travel, relations with other people, health and "

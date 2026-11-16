@@ -4,6 +4,7 @@
     python3 .claude/czech/run.py                 # A1
     python3 .claude/czech/run.py --level a2      # on top of the shipped A1
     python3 .claude/czech/run.py --level b1      # assembled (inventory.py + frequency), on A1 and A2
+    python3 .claude/czech/run.py --level b2      # assembled, on A1 to B1
     python3 .claude/czech/run.py --no-fetch      # reuse whatever is cached
 
 ONE LEVEL PER RUN, built on top of the SHIPPED decks below it
@@ -14,7 +15,7 @@ THE STAGES, in order, each writing into the cache for the next:
 
     soupis.py       the official A1/A2 word list (NPI ČR), from its search tool
     extract.py      the whole Czech Wiktionary, reduced
-    select.py       the level's words: the list resolved (A1, A2) or the inventory and fill (B1), in frequency order
+    select.py       the level's words: the list resolved (A1, A2) or the inventory and fill (B1, B2), in frequency order
     examples.py     three Tatoeba sentences each
     build_deck.py   meanings, forms rows, sentence markup, the deck file
 """

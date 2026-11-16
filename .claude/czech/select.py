@@ -221,6 +221,16 @@ FILL_EXCLUDE = {
     "dan", "don", "marka",     # judo's "dan", the Spanish title, "mark": their counts are the names Dan, Don, Mark
     "korekce", "titulek",      # "correction", "caption": their counts are subtitle credits (Polish's `korekta`)
     "vteřina",                 # "second" of time; Wiktionary's only sense is the arcsecond
+    # Found by B2 (2026-11-16).
+    "ježit",                   # "to bristle": its count is Ježíš typed without its accents
+    "můra",                    # "owlet moth": its count is "noční můra", "nightmare"
+    "lado", "liz", "mana", "nora",   # "wild land", "salt lick", "manna", "burrow": the names Láďa, Liz, Mana, Nora
+    "čína",                    # lowercase "Chinese (food)": its count is the country, Čína
+    "go", "re", "house", "sorry", "st", "francium",   # English words and an abbreviation in the subtitles
+    "slez",                    # "abomasum": its count is slézt's imperative, "get down"
+    "doprdele", "svině",       # swearing, as above
+    "party",                   # a variant of párty (B1)
+    "chléb", "benzín",         # A1 teaches them as chleba and benzin, read through these entries
 }
 # A fill word glossed only as a fused or negated form of another is not a word: `te` "Combined form of to + je",
 # `nehýbat` "negative form of hýbat".

@@ -95,7 +95,87 @@ B1 = [
                              "zatímco kromě navíc dokonce například zkrátka nakonec především"),
 ]
 
-INVENTORY = {"b1": B1}
+# B2's TOPICS: the Council of Europe's B2 specification, *Vantage* (J. A. van Ek and J. L. M. Trim, 2001), carries
+# the Threshold Level's themes a level further -- from the speaker's own life to the society around it.  The
+# inventory takes them into work and the economy, the state, law and politics, the media and technology, science,
+# health care, the environment, culture and the arts, education, relationships, and the language of discussion
+# and formal writing.  Words already taught at A1-B1 are skipped by `select.py`.
+B2 = [
+    ("work and careers", "kariéra profese zaměstnanec zaměstnavatel pracovník vedení vedoucí manažer ředitel "
+                         "odborník specialista kvalifikace praxe zkušenost životopis pohovor uchazeč nabídka "
+                         "pracovní_smlouva výpověď propustit propouštění nezaměstnanost podnikání podnikatel "
+                         "živnost samostatný odbory stávka mzda příjem odměna prémie benefit povýšení "
+                         "pracovní_doba úvazek kolektiv porada jednání projekt termín úkol zodpovědnost "
+                         "pravomoc kompetence výkon produktivita"),
+    ("the economy and money", "ekonomika hospodářství trh poptávka nabídka konkurence firma podnik společnost "
+                              "akcie akciový burza investice investovat investor zisk ztráta obrat rozpočet "
+                              "náklady výdaj příjmy daň daňový inflace deflace krize recese růst pokles "
+                              "úvěr dluh zadlužit splátka úrok banka spoření úspory pojištění dotace "
+                              "export import obchod obchodní cla měna kurz hodnota cenový zdražit zlevnit "
+                              "spotřebitel výroba průmysl zemědělství služby"),
+    ("the state, politics and society", "stát vláda parlament sněmovna senát poslanec senátor ministr "
+                                        "premiér prezident volby volit volič kandidát kampaň strana "
+                                        "opozice koalice demokracie diktatura režim ústava zákon právo "
+                                        "svoboda občan občanský společnost obyvatelstvo menšina většina "
+                                        "přistěhovalec uprchlík migrace integrace diskriminace rovnost "
+                                        "nerovnost chudoba bohatství sociální dávka důchod reforma "
+                                        "politika politický politik veřejný úřad úředník byrokracie "
+                                        "korupce protest demonstrace referendum hlasování mezinárodní "
+                                        "zahraniční vztahy diplomacie velvyslanectví válka mír konflikt "
+                                        "armáda obrana bezpečnost terorismus"),
+    ("law and crime", "právo zákon soud soudce soudní advokát právník obžaloba žaloba žalovat obvinit "
+                      "obviněný obžalovaný svědek svědectví důkaz vyšetřování vyšetřovat policie "
+                      "zločin trestný_čin pachatel oběť krádež loupež podvod vražda násilí vězení "
+                      "trest pokuta rozsudek odsoudit osvobodit odvolání spravedlnost nespravedlnost "
+                      "porušit dodržovat povinnost práva lidská_práva"),
+    ("the media and technology", "média tisk zpravodajství novinář redakce redaktor reportáž rozhovor "
+                                 "článek zpráva vysílání vysílat rozhlas televize stanice "
+                                 "internet web stránka sociální_sítě příspěvek sdílet komentář "
+                                 "informace dezinformace cenzura reklama propagace kampaň technologie "
+                                 "technika přístroj zařízení počítač software program aplikace data "
+                                 "databáze síť připojení heslo zabezpečení soukromí digitální "
+                                 "elektronický stáhnout nahrát vyhledat"),
+    ("science and research", "věda vědec vědecký výzkum výzkumník pokus experiment teorie hypotéza "
+                             "důkaz objev objevit vynález vynálezce metoda analýza výsledek závěr "
+                             "měření laboratoř přírodní_vědy fyzika chemie biologie matematika "
+                             "medicína genetika vesmír planeta přírodní jev proces vývoj evoluce"),
+    ("health and health care", "zdravotnictví zdravotní péče pojišťovna prevence očkování vakcína "
+                               "diagnóza příznak léčba terapie chronický akutní nemocný postižení "
+                               "invalidita rehabilitace chirurg chirurgie operace transplantace "
+                               "psychický duševní deprese úzkost závislost drogy alkoholismus kouření "
+                               "výživa obezita životní_styl pohyb stres vyčerpání"),
+    ("the environment", "životní_prostředí ekologie ekologický příroda klima klimatický oteplování "
+                        "skleníkový emise znečištění znečistit odpad skládka recyklovat obnovitelný "
+                        "zdroj energie elektrárna jaderný uhlí ropa plyn sluneční větrný úspora "
+                        "chránit ochrana druh vyhynout vymírání deštný_prales sucho povodeň katastrofa "
+                        "zemětřesení požár udržitelný"),
+    ("culture and the arts", "kultura kulturní umění umělec umělecký dílo literatura spisovatel autor "
+                             "román poezie básník próza divadlo inscenace premiéra hra herec "
+                             "režie film kino festival výstava galerie muzeum sbírka malířství "
+                             "sochařství architektura stavba památka dědictví tradice zvyk svátek "
+                             "náboženství církev víra kritik recenze publikum obecenstvo talent "
+                             "tvořit tvorba inspirace styl"),
+    ("education", "vzdělávání vzdělaný školství základní střední vysokoškolský student studijní obor "
+                  "přijímací zkouška maturita bakalář magistr doktorát titul stipendium "
+                  "přednášet přednášející pedagog výchova vychovávat kázeň dovednost znalosti "
+                  "celoživotní kurz školení certifikát"),
+    ("relationships and society", "vztah partnerský manželství rozvod svobodný nevěra důvěra respekt "
+                                  "tolerance předsudek stereotyp generace dospívání dospívající "
+                                  "výchova rodičovství mateřská otcovství adopce sousedský komunita "
+                                  "dobrovolník charita solidarita osamělost samota"),
+    ("discussion and formal writing", "názor stanovisko postoj přesvědčení argument argumentovat tvrzení "
+                                      "důvod důsledek příčina souvislost vliv dopad účinek výhoda "
+                                      "nevýhoda přínos riziko hrozba výzva problém otázka řešení "
+                                      "zdůraznit zdůvodnit vysvětlit objasnit uvést zmínit shrnout "
+                                      "porovnat srovnat rozlišit hodnotit posoudit přiznat připustit "
+                                      "popřít odmítnout podpořit prosadit ovlivnit způsobit "
+                                      "nicméně avšak naopak tudíž proto jelikož poněvadž ačkoli "
+                                      "přestože třebaže zatímco pokud kdežto mimoto navíc rovněž "
+                                      "zejména především zkrátka celkově obecně údajně skutečně "
+                                      "pravděpodobně zřejmě nepochybně bezpochyby"),
+]
+
+INVENTORY = {"b1": B1, "b2": B2}
 
 
 def headwords(level):

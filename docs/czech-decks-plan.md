@@ -5,7 +5,7 @@ Czech set, in the shape of the Polish one (`docs/polish-decks-plan.md`), whose p
 `docs/lang-decks.md` is the record of how the shelf was built, and every rule there applies here unless this
 file says otherwise. Asked for on 2026-11-16: "Add a Czech language collection."
 
-**STATUS (2026-11-16): A1, A2 and B1 are built** (`.claude/czech/`, §5). B2, C1 and a phrases deck are not.
+**STATUS (2026-11-16): A1, A2, B1 and B2 are built** (`.claude/czech/`, §5). C1 and a phrases deck are not.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any further deck this plan produces. The collection's first commit carried one line and one bump, because
@@ -20,7 +20,8 @@ The request named no level, source or size; each is one line to change.
    whole A1–A2 lexicon (§2), so those two levels are the Goethe kind: nothing to select, the list resolved
    against Wiktionary and ordered by frequency. Sizes are what the list yields (A1 1,213, A2 1,161 notes).
 2. **B1 to C2 have no list** (§2), so they are assembled the Polish way: a topic inventory plus frequency fill.
-   **B1 is built** (§4b), 1,000 notes (Polish B1's size, `cs_level.SIZE`), its topics the Threshold Level's.
+   **B1 is built** (§4b), 1,000 notes (Polish B1's size, `cs_level.SIZE`), its topics the Threshold Level's;
+   **B2 is built** (§4c), 1,200 notes (Polish B2's size), its topics Vantage's.
 3. **Names: English** — the collection "Czech", decks "Czech A1", "Czech A2" in `Czech-<LEVEL>.folio-deck.json`.
 4. **No alphabet deck.** Czech is written in the Latin script; its háček and čárka letters are a pronunciation
    lesson, and a speaker sits beside every headword and sentence (Polish's decision).
@@ -31,6 +32,7 @@ The request named no level, source or size; each is one line to change.
 | Czech A1 — built | `Czech-A1.folio-deck.json` | 1,213 (1,162 from the list, 51 supplement) |
 | Czech A2 — built | `Czech-A2.folio-deck.json` | 1,161 |
 | Czech B1 — built | `Czech-B1.folio-deck.json` | 1,000 (294 inventory, 706 frequency) |
+| Czech B2 — built | `Czech-B2.folio-deck.json` | 1,200 (263 inventory, 937 frequency) |
 
 ## 2. Where the words come from — checked before anything was built
 
@@ -132,15 +134,35 @@ Every card of A1 and A2 was read (2026-11-16).
 
 Every card of B1 was read (2026-11-16).
 
+## 4c. The findings (B2, 2026-11-16)
+
+**B2's scope** is the Council of Europe's B2 specification, *Vantage* (van Ek and Trim, 2001), which carries the
+Threshold Level's themes a level further; `inventory.py` `B2` takes them into work and careers, the economy, the
+state, politics and society, law and crime, the media and technology, science, health care, the environment,
+culture and the arts, education, relationships, and the language of discussion and formal writing
+(`cs_level.SCOPE["b2"]`). No pipeline change was needed beyond the description's level-aware wording (B1's text
+stays byte-identical).
+
+1. **263 inventory words were new**; 29 are not in the dump (`živnost`, `prémie`, `úvazek`, `inscenace`, plurals
+   such as `média`, `služby`, `znalosti`; reported by `select.py`).
+2. **The fill's exclusions grew** (`FILL_EXCLUDE`, "Found by B2"): counts that belong to another word (`ježit` ←
+   Ježíš unaccented, `můra` ← "noční můra", `slez` ← slézt's imperative, lowercase `čína` ← Čína), names (`lado`,
+   `liz`, `mana`, `nora`), English in the subtitles (`go`, `re`, `house`, `sorry`) and `st`, `francium`; swearing;
+   `party` (B1 has `párty`); `chléb` and `benzín`, the entries A1's `chleba` and `benzin` are read through.
+3. `titulek` was taken out of the B2 inventory: the fill excludes it at B1 for its subtitle-credit count, and the
+   inventory had let it in at rank 2.
+
+Every card of B2 was read (2026-11-16).
+
 ## 5. How to build, and what to run
 
-    python3 .claude/czech/run.py [--level a1|a2|b1] [--no-fetch]
+    python3 .claude/czech/run.py [--level a1|a2|b1|b2] [--no-fetch]
     node .claude/czech/check-czech.js
     node .claude/build-lang-decks.js
 
 A re-run reproduces the shipped deck byte for byte (checked 2026-11-16). A2 is built on the shipped A1
-(`cs_level.taught_below`), B1 on both. For B2: find a scope (§2), add it to `cs_level.BANDS`, `SIZE` and
-`SCOPE` and a `B2` list in `inventory.py`, and re-run A1–B1 to confirm they are unchanged.
+(`cs_level.taught_below`), each level on all those below. For C1: find a scope (§2), add it to `cs_level.BANDS`,
+`SIZE` and `SCOPE` and a `C1` list in `inventory.py`, and re-run A1–B2 to confirm they are unchanged.
 
 The shelf: the `LANGS` row in `.claude/build-lang-decks.js` (`l1: 9.8`, `total: 12`, Ethnologue 28th ed. via
 Wikipedia's infobox, read 2026-11-16) and the hue `lang-czech` `#3C7675` in `app.js` `COLL_THEME` (measured:
