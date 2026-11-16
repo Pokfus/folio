@@ -7071,9 +7071,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   broken the left edge's alignment with the heading, which is why it isn't done that way. **The pairing is two
   explicit `.set-col` stacks, not auto-placement** (Oct 2026, on a report of "big empty spaces" on desktop):
   auto-placed cards pair by row, so a one-row card beside the ten-row Study card left ~1900px blank; Study
-  now fills the left column with Audio under it, and Reading (units and spelling, moved out of Appearance), Atlas, Data
-  and a Guides card (the tour and "How Folio studies you", moved out of Study) stack on the right. Re-run
-  `test-layout.js` §6 after touching it. The signed-out
+  filled the left column with Audio under it, and Reading (units and spelling, moved out of Appearance), Atlas, Data
+  and a Guides card (the tour and "How Folio studies you", moved out of Study) stacked on the right. **Regrouped
+  Nov 2026, out of the page audit** (`docs/reader-settings.md` "The Settings page, compacted"): Study and Data on
+  the left; Accessibility, Reading, Audio and Atlas on the right; Guides and the credits row are one "Help and
+  about" strip of links spanning both, above the danger zone; and the stage is 1120px wide for this page alone
+  from 1200px (`.stage:has(.settings)`). Re-run `test-layout.js` §6 and `test-settings-page.js` after touching it. The signed-out
   account page splits into `.auth-split`: the form on the left and the three `.auth-perks` bullets — already
   written, previously stacked under it — in a column beside it at ≥820px, saying what an account is for at the
   moment a reader is deciding whether to make one.
