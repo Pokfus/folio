@@ -114,10 +114,17 @@ function baseOrder(id) {
   const lack = heads.filter((h) => !(h in pin));
   if (lack.length) fail(id + ": not pinned — run spanish-fix.js first: " + lack.slice(0, 6).join(", "));
   const out = heads.filter((h) => !ins.has(h)).sort((a, b) => pin[a] - pin[b]);
+  // a card the record has renamed since (el → el, la → el, la, un, una) is found under any name it has had
+  const alias = new Map();
+  for (const [k, fix] of Object.entries(REC.notes || {})) {
+    const i = k.indexOf("/");
+    if (k.slice(0, i) !== id || fix.spanish === undefined) continue;
+    [k.slice(i + 1)].concat(fix.was || []).forEach((w) => alias.set(w, fix.spanish));
+  }
   // inserts in the order the record lists them, so one may name another
   for (const x of (REC.insert || {})[id] || []) {
     if (!heads.includes(x.spanish)) continue;
-    const at = out.indexOf(x.after);
+    const at = out.indexOf(out.includes(x.after) ? x.after : alias.get(x.after));
     if (at < 0) fail(id + ": insert " + x.spanish + " names " + x.after + ", which is not in the deck");
     out.splice(at + 1, 0, x.spanish);
   }

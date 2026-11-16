@@ -157,6 +157,10 @@ function levelRank(title) {
   /* CANTONESE'S JYUTPING AND TONES COME BEFORE A1 (Nov 2026): Chinese characters are not an alphabet, so the
      collection's first deck is the romanisation and the six tones every word card prints. */
   if (/\bJyutping\b/.test(title)) return -1;
+  /* SPANISH'S SOUNDS AND SPELLING COME BEFORE A1 (Nov 2026, docs/lang-decks.md "The Spanish beginner pass"):
+     the alphabet is the reader's own, but ñ, ll, rr, j, the silent h, c and g before e and i, and the
+     written accent are not, and no word card says how they are read. */
+  if (/\bSounds and spelling\b/.test(title)) return -1;
   const m = /\b([ABC][12])\b/.exec(title);
   if (m) return LEVELS.indexOf(m[1]);
   /* THE KANA COME BEFORE EVERY LEVEL: Japanese cannot be read at all until hiragana and katakana are learnt, so

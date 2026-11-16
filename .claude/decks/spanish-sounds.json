@@ -1,0 +1,89 @@
+{
+"_": "spanish-sounds.json — the table behind decks/Spanish-Alphabet-and-Pronunciation.folio-deck.json, read by build-spanish-sounds.js. Every IPA value, every `when` and every sentence in `like` and `says` is taken from the Wikipedia article named in `source` at the revision given (CC BY-SA 4.0): the tables 'Consonants', 'Vowels' and 'Semivowels' under 'Letter-to-sound correspondences', and the sections 'Stress and accentuation', 'Differential accents' and 'Punctuation'. Wiki markup is turned into <b> and <i> and ⟨ ⟩, a link becomes its text, a footnote is dropped, a cut inside a passage is marked […], and nothing is reworded. `rx` is NOT from the article: it is how the builder finds, among the DELE A1 deck's headwords (each tested as it is said, lower case with the space after an article taken out), the words that show a row; a row no A1 headword shows is not carded, and a letter none of whose rows is shown has no card. `words` and `sentences` name DELE A1 cards and their example sentences; the builder refuses one the deck does not carry. Example words are NOT in this file: each is a shipped A1 card, with that card's meaning and speaker. A row's `key` is what spanish-ids.json pins its card id to — never rename one.",
+"source": { "title": "Spanish orthography", "url": "https://en.wikipedia.org/wiki/Spanish_orthography", "revid": 1385920118, "timestamp": "2026-11-15T23:43:00Z" },
+"vowels": [
+  { "key": "vowel:a", "show": "a", "rows": [ { "when": "", "ipa": "[a]", "like": "between tr<b>a</b>p and sp<b>a</b>", "rx": "a" } ] },
+  { "key": "vowel:e", "show": "e", "rows": [ { "when": "", "ipa": "[e]", "like": "between <i>b<b>e</b>t</i> and <i>b<b>ai</b>t</i>", "rx": "e" } ] },
+  { "key": "vowel:i", "show": "i", "rows": [
+    { "when": "", "ipa": "[i]", "like": "sk<b>i</b>; cit<b>y</b>", "rx": "i(?![aeoáéó])|í" },
+    { "when": "⟨i⟩ before a vowel", "ipa": "[j]", "like": "<b>y</b>ou", "rx": "(?<![qg]u)i[aeoáéó]" } ] },
+  { "key": "vowel:o", "show": "o", "rows": [ { "when": "", "ipa": "[o]", "like": "between <i>c<b>oa</b>t</i> (American more than British) and <i>c<b>augh</b>t</i>", "rx": "o" } ] },
+  { "key": "vowel:u", "show": "u", "rows": [
+    { "when": "", "ipa": "[u]", "like": "r<b>u</b>le", "rx": "(?<![qg])u(?![aeioáéíó])|ú" },
+    { "when": "⟨u⟩ before a vowel (but silent in ⟨qu⟩ and ⟨gu⟩ before ⟨e⟩ or ⟨i⟩)", "ipa": "[w]", "like": "<b>w</b>ine", "rx": "(?<![qg])u[aeioáéíó]" } ] }
+],
+"consonants": [
+  { "key": "letter:b-v", "show": "b · v", "name": "b or v", "rows": [
+    { "when": "word-initial after a pause, or after ⟨m⟩ or ⟨n⟩", "ipa": "[b]", "like": "practically the same as the typical English ⟨b⟩, except that it is fully voiced; e.g. <i>a<b>b</b>out</i>", "rx": "^[bv]|(?<=[mn])[bv]" },
+    { "when": "elsewhere (i.e. after a vowel, even across a word boundary, or after any consonant other than ⟨m⟩ or ⟨n⟩)", "ipa": "[β]", "like": "between <i>ba<b>b</b>y</i> and <i>be<b>v</b>y</i> (like the typical English ⟨v⟩, but with both lips instead of with the upper teeth)", "rx": "(?<=[^mn])[bv]" } ] },
+  { "key": "letter:c", "show": "c", "rows": [
+    { "when": "before ⟨e⟩ or ⟨i⟩", "ipa": "[θ] (central and northern Spain) or [s] (most other regions)", "like": "same as the English voiceless ⟨th⟩ (as in <i><b>th</b>ing</i>) in central and northern Spain, or the typical English ⟨s⟩ (as in <i><b>s</b>a<b>ss</b></i>) in all other regions", "rx": "c(?=[eiéí])" },
+    { "when": "before voiced consonants", "ipa": "[ɣ]", "like": "a sound between a light English ⟨g⟩ and the typical English ⟨h⟩ (between <i><b>g</b>old</i> and <i>a<b>h</b>old</i>)", "rx": "c(?=[bdgmn])" },
+    { "when": "elsewhere", "ipa": "[k]", "like": "same as certain instances of English ⟨k⟩ or ⟨c⟩; e.g. <i>s<b>k</b>ull</i>, <i>s<b>c</b>an</i>, or <i>pi<b>ck</b>ing</i> (unaspirated, i.e. without the puff of air that accompanies English /k/ at the beginning of a word, e.g. in <i><b>c</b>an</i>)", "rx": "c(?![eiéíhbdgmn])" } ] },
+  { "key": "letter:ch", "show": "ch", "rows": [
+    { "when": "everywhere", "ipa": "[tʃ] or [ʃ] (depending upon the dialect)", "like": "same as the typical English ⟨ch⟩; <i><b>ch</b>ur<b>ch</b></i>", "rx": "ch" } ] },
+  { "key": "letter:d", "show": "d", "rows": [
+    { "when": "word-initial after a pause, or after ⟨l⟩ or ⟨n⟩", "ipa": "[d]", "like": "practically the same as the typical English ⟨d⟩, except that it is fully voiced and the tip of the tongue touches the upper teeth; e.g. <i>a<b>d</b>ore</i>", "rx": "^d|(?<=[ln])d" },
+    { "when": "elsewhere", "ipa": "[ð]", "like": "same as the typical English voiced ⟨th⟩; e.g. <i><b>th</b>is</i>", "rx": "(?<=[^ln])d" } ] },
+  { "key": "letter:g", "show": "g", "rows": [
+    { "when": "before ⟨e⟩ or ⟨i⟩", "ipa": "[x] or [h]", "like": "similar to a \"strong\" English ⟨h⟩-sound (e.g. the ⟨ch⟩ in Scottish <i>lo<b>ch</b></i>) or glottal ⟨h⟩ (as in <i><b>h</b>eaven</i>)", "rx": "g(?=[eiéí])" },
+    { "when": "not before ⟨e⟩ or ⟨i⟩, and either word-initial after a pause, or after ⟨n⟩", "ipa": "[ɡ]", "like": "practically the same as the typical English ⟨g⟩ sound, except that it is fully voiced; e.g. <i>a<b>g</b>o</i>", "rx": "(?:^|(?<=n))g(?![eiéíü])(?!u[aeioáéíó])" },
+    { "when": "not before ⟨e⟩ or ⟨i⟩, and not in the above contexts", "ipa": "[ɣ]", "like": "a sound between a light English ⟨g⟩ and the typical English ⟨h⟩ (between <i><b>g</b>old</i> and <i>a<b>h</b>old</i>)", "rx": "(?<=[^n])g(?![eiéíü])(?!u[aeioáéíó])" } ] },
+  { "key": "letter:gu", "show": "gu", "rows": [
+    { "when": "before ⟨a⟩ or ⟨o⟩, and either word-initial after a pause, or after ⟨n⟩", "ipa": "[ɡw]", "like": "a sound like the ⟨gu⟩ in English <i>lan<b>gu</b>age</i>", "rx": "(?:^|(?<=n))gu(?=[aoáó])" },
+    { "when": "before ⟨a⟩ or ⟨o⟩, and not in the above contexts", "ipa": "[ɣw]", "like": "similar to the typical English ⟨w⟩, but preceded by a soft velar sound", "rx": "(?<=[^n])gu(?=[aoáó])" },
+    { "when": "before ⟨e⟩ or ⟨i⟩, and either word-initial after a pause, or after ⟨n⟩", "ipa": "[ɡ]", "like": "practically the same as the typical English ⟨g⟩ sound, except that it is fully voiced; e.g. <i>a<b>g</b>o</i>", "rx": "(?:^|(?<=n))gu(?=[eiéí])" },
+    { "when": "before ⟨e⟩ or ⟨i⟩, and not in the above contexts", "ipa": "[ɣ]", "like": "a sound between a light English ⟨g⟩ and the typical English ⟨h⟩ (between <i><b>g</b>old</i> and <i>a<b>h</b>old</i>)", "rx": "(?<=[^n])gu(?=[eiéí])" } ] },
+  { "key": "letter:gü", "show": "gü", "rows": [
+    { "when": "before ⟨e⟩ or ⟨i⟩, and either word-initial after a pause, or after ⟨n⟩", "ipa": "[ɡw]", "like": "a sound like the ⟨gu⟩ in English <i>pen<b>gu</b>in</i>", "rx": "(?:^|(?<=n))gü" },
+    { "when": "before ⟨e⟩ or ⟨i⟩, and not in the above contexts", "ipa": "[ɣw]", "like": "similar to the typical English ⟨w⟩, but preceded by a soft velar sound", "rx": "(?<=[^n])gü" } ] },
+  { "key": "letter:h", "show": "h", "rows": [
+    { "when": "everywhere", "ipa": "(<i>silent</i>)", "like": "silent (like English ⟨h⟩ in English <i><b>h</b>onor</i> or <i><b>h</b>our</i>)", "rx": "(?<!c)h" } ] },
+  { "key": "letter:j", "show": "j", "rows": [
+    { "when": "everywhere", "ipa": "[x] or [h]", "like": "similar to a \"strong\" English ⟨h⟩-sound (e.g. the ⟨ch⟩ in Scottish <i>lo<b>ch</b></i>) or glottal ⟨h⟩ (as in <i><b>h</b>eaven</i>)", "rx": "j" } ] },
+  { "key": "letter:ll", "show": "ll", "rows": [
+    { "when": "everywhere", "ipa": "[ʎ], [ʝ], [ʒ] or [ʃ] (depending upon the dialect)", "like": "similar to the ⟨lli⟩ in English <i>mi<b>lli</b>on</i> (in some dialects simplified to a sound between the typical English ⟨y⟩ and ⟨j⟩, e.g. between <i><b>y</b>es</i> and <i><b>J</b>ess</i>)", "rx": "ll" } ] },
+  { "key": "letter:ñ", "show": "ñ", "rows": [
+    { "when": "everywhere", "ipa": "[ɲ] or [nj] (depending upon the dialect)", "like": "roughly like <i>mi<b>n</b>ion</i>", "rx": "ñ" } ] },
+  { "key": "letter:qu", "show": "qu", "rows": [
+    { "when": "before ⟨e⟩ or ⟨i⟩", "ipa": "[k]", "like": "same as certain instances of English ⟨k⟩ ⟨c⟩ or ⟨q⟩; e.g. <i>s<b>k</b>ull</i>, <i>s<b>c</b>an</i>, or <i>uni<b>q</b>ue</i> (unaspirated, i.e. without the puff of air that accompanies English /k/ at the beginning of a word, e.g. in <i><b>k</b>ey</i>)", "rx": "qu(?=[eiéí])" } ] },
+  { "key": "letter:r", "show": "r", "rows": [
+    { "when": "word-initial, morpheme-initial, or after ⟨l⟩, ⟨n⟩, ⟨s⟩, or ⟨z⟩ […]", "ipa": "[r]", "like": "trilled or rolled ⟨r⟩", "rx": "^r|(?<=[lnsz])r" },
+    { "when": "elsewhere", "ipa": "[ɾ]", "like": "flapped ⟨r⟩; e.g. similar to ⟨t⟩ of <i>la<b>t</b>er</i> in American English", "rx": "(?<=[^lnszr])r(?!r)" } ] },
+  { "key": "letter:rr", "show": "rr", "rows": [
+    { "when": "only occurs between vowels", "ipa": "[r]", "like": "trilled or rolled ⟨r⟩", "rx": "rr" } ] },
+  { "key": "letter:x", "show": "x", "rows": [
+    { "when": "between vowels and word-finally", "ipa": "[ks] (sometimes [gz])", "like": "same as the typical English ⟨x⟩; e.g. <i>ta<b>x</b>i</i> or <i>e<b>x</b>actly</i>", "rx": "(?<=[aeiouáéíóú])x(?=[aeiouáéíóú]|$)" },
+    { "when": "word-initially", "ipa": "[s]", "like": "same as the typical English ⟨s⟩; <i><b>s</b>a<b>ss</b></i> […]", "rx": "^x" },
+    { "when": "before a consonant", "ipa": "[ks] or [s]", "like": "same as the typical English ⟨x⟩ or ⟨s⟩; e.g. <i>ma<b>x</b></i> or <i>ma<b>ss</b></i>", "rx": "x(?=[^aeiouáéíóú])" } ] },
+  { "key": "letter:y", "show": "y", "rows": [
+    { "when": "as a semivowel (almost always in a diphthong)", "ipa": "[i] or [j]", "like": "same as the typical English ⟨y⟩ (but joined in a single syllable with another vowel sound); <i>a<b>ye</b></i>, <i>bo<b>y</b></i>", "rx": "(?<=[aeiou])y$" },
+    { "when": "as a consonant", "ipa": "[ʝ], [ʒ] or [ʃ] (depending upon the dialect)", "like": "similar to the typical English ⟨y⟩, or ⟨j⟩ but softer; e.g. similar to <i><b>y</b>es</i>, <i><b>J</b>ess</i> or <i><b>y</b>east</i>", "rx": "y(?=[aeiouáéíóú])" } ] },
+  { "key": "letter:z", "show": "z", "rows": [
+    { "when": "usually does not occur before ⟨e⟩ or ⟨i⟩", "ipa": "[θ] (central and northern Spain) or [s] (most other regions)", "like": "same as the English voiceless ⟨th⟩ (as in <i><b>th</b>ing</i>) in central and northern Spain, or the typical English ⟨s⟩ (as in <i><b>s</b>a<b>ss</b></i>) in all other regions", "rx": "z(?![bdgmnlrv])" },
+    { "when": "before voiced consonants", "ipa": "[ð] (central and northern Spain) or [z] (most other regions)", "like": "same as the typical English voiced ⟨th⟩; e.g. <i><b>th</b>is</i> in central and northern Spain, or the typical English ⟨z⟩; e.g. the ⟨s⟩ in <i>i<b>s</b></i> or <i>bu<b>s</b>y</i>", "rx": "z(?=[bdgmnlrv])" } ] }
+],
+"rules": [
+  { "key": "rule:stress-vowel", "show": "hola · gracias · ahora", "kind": "stress", "name": "a word ending in a vowel, n or s",
+    "says": "The default stress is on the penultimate (next-to-last) syllable on words that end in a vowel, ⟨n⟩ or ⟨s⟩ (not preceded by another consonant) […].",
+    "words": ["hola", "gracias", "ahora"] },
+  { "key": "rule:stress-consonant", "show": "hablar · usted · ciudad", "kind": "stress", "name": "a word ending in another consonant",
+    "says": "The default stress is […] on the final syllable when the word ends in any consonant other than ⟨n⟩ or ⟨s⟩ or in a consonant group.",
+    "words": ["hablar", "usted", "la ciudad"] },
+  { "key": "rule:accent", "show": "á · é · í · ó · ú", "kind": "written accent", "name": "the acute accent",
+    "says": "Words that do not follow the default stress have an acute accent over the stressed vowel. In many cases, the accent is essential to understanding what a word means, for example hablo ‘I speak’ contrasts with habló ‘he/she/you spoke’.",
+    "words": ["adiós", "también", "el teléfono"] },
+  { "key": "rule:accent-pairs", "show": "el · él", "kind": "written accent", "name": "one-syllable words told apart by the accent",
+    "says": "In eight cases, the written accent is used to distinguish stressed monosyllabic words from clitics:",
+    "pairs": [["de ('of')", "dé ('give' or present subjunctive and imperative of 'dar')"], ["el ('the', masculine definite article)", "él ('he, it' for masculine nouns)"], ["mas ('but', archaic)", "más ('more')"], ["mi ('my')", "mí ('me' after prepositions)"], ["se (third person reflexive)", "sé ('I know' or imperative 'be')"], ["si ('if')", "sí ('yes' or 'himself' after prepositions)"], ["te (informal object case of 'you')", "té ('tea')"], ["tu (informal 'your')", "tú (informal subject case of 'you')"]],
+    "words": ["él", "sí", "tú"] },
+  { "key": "rule:accent-questions", "show": "que · qué", "kind": "written accent", "name": "question words",
+    "says": "The written accent is also used in the interrogative pronouns to distinguish them from relative pronouns (which are pronounced the same but unstressed):",
+    "pairs": [["como", "cómo"], ["cual(es)", "cuál(es)"], ["cuan", "cuán"], ["cuando", "cuándo"], ["cuanto(s) cuanta(s)", "cuánto(s) cuánta(s)"], ["cuyo(s) cuya(s)", "cúyo(s) cúya(s)"], ["(a)donde", "(a)dónde"], ["que", "qué"], ["quien(es)", "quién(es)"]],
+    "heads": ["Relative", "Interrogative"],
+    "words": ["qué", "cómo", "dónde"] },
+  { "key": "rule:marks", "show": "¿ ? · ¡ !", "kind": "punctuation", "name": "the inverted marks",
+    "says": "Spanish has the unusual feature of indicating the beginning of an interrogative or exclamatory sentence or phrase with inverted variants of the question mark and exclamation mark (¿ and ¡), respectively. […] These inverted forms appear additionally at the beginning of these sentences or clauses. For example, the English phrase \"How old are you?\" has just the final question mark, while the Spanish equivalent, ¿Cuántos años tienes? begins with an inverted question mark.",
+    "sentences": [["hola", "¡Hola! ¿Cómo estás?"], ["perdón", "¿Perdón?"], ["buenos días", "¡Buenos días!"]] }
+]
+}

@@ -603,15 +603,17 @@ for (const f of DELE_FILES) {
       else badPin.push(id + "/" + k + ": pinned as " + pin[k] + ", not in the deck");
     }
     const used = () => Math.max(0, ...Object.values(pin), ...Object.values(ret[id] || {}));
-    const seenN = new Map();
+    const floor = used(), seenN = new Map();   // the highest number the deck had used before this run
     for (const c of d.cards) {
       const k = c.fields.Spanish;
       if (!(k in pin)) {
         const own = /^u_[a-z0-9]+_(\d+)$/.exec(String(c.id)), n = own ? Number(own[1]) : 0;
-        /* an `insert` carries its own id, above every number the deck has used; anything else unpinned
+        /* an `insert` carries its own id, above every number the deck had used; anything else unpinned
            takes the next free one. A LOWER free number is never taken: it was a folded card's once, and
-           a reader may still hold that card. */
-        pin[k] = n > used() ? n : used() + 1;
+           a reader may still hold that card. The floor is fixed before the loop, since the notes are
+           met in deck order and not in the order of their numbers. */
+        const taken = new Set(Object.values(pin));
+        pin[k] = n > floor && !taken.has(n) ? n : used() + 1;
       }
       const wantId = "u_" + id + "_" + pin[k];
       if (seenN.has(pin[k])) badPin.push(id + ": " + k + " and " + seenN.get(pin[k]) + " are both pinned to " + pin[k]);
