@@ -5,7 +5,8 @@ language set in the shape of the ones already shipped (Ukrainian, Polish, Hindi 
 record of how those were built, and every rule there applies here unless this file says otherwise. Asked for on
 2026-11-16: "Add a Serbian language collection."
 
-**STATUS (2026-11-16): the alphabet deck and A1 to B2 are built** (`.claude/serbian/`, §6–§9). C1 is planned.
+**STATUS (2026-11-16): COMPLETE to the plan — the alphabet deck and all five levels, A1 to C1, are built**
+(`.claude/serbian/`, §6–§10). A phrases deck (§5, Phase 3) is not begun.
 
 Later decks under `decks/` are community content, not a change to Folio: **no changelog line and no version bump**
 for them. The collection's first commit carried one line and one bump, because it also changed the APP (the
@@ -38,7 +39,7 @@ The request named no word source, size or script, so the session took the arrang
 | Serbian A2 Elementary — built | `Serbian-A2.folio-deck.json` | 750 |
 | Serbian B1 Intermediate — built | `Serbian-B1.folio-deck.json` | 1,000 |
 | Serbian B2 Upper Intermediate — built | `Serbian-B2.folio-deck.json` | 1,500 |
-| Serbian C1 Advanced | `Serbian-C1.folio-deck.json` | 1,500 |
+| Serbian C1 Advanced — built | `Serbian-C1.folio-deck.json` | 1,500 |
 
 ## 2. Sources and licences
 
@@ -190,3 +191,26 @@ Croatian "August"), an Ijekavian `vijesti` and `nevjerojatno`, Greek letters, ab
 `preterati` / `preterivati` "to exaggerate" and `prostitutka` "prostitute" first. **A1 to B2 rebuild byte-identical.**
 Known, left: the fill carries the subtitles' crime, war and fantasy words (`municija`, `pucnjava`, `čarobnjak`,
 `zmaj`) and some slang (`ćale`, `keš`, `frajer`), as every level does.
+
+## 10. As built (2026-11-16): C1
+
+`python3 .claude/serbian/run.py --level c1`. 1,500 notes: 120 from the C1 inventory (politics, power and the state,
+law and justice, the economy and finance, science and research, philosophy and belief, language, literature and
+style, the arts and taste, the mind and emotion, society and change, the land and the planet, the small words of
+nuance, the verbs of arguing and shading a meaning) and 1,380 by frequency, none taught below; sentences for 532, three apiece for 164 — the thinnest level, as
+Tatoeba's Serbian is everyday speech. The inventory share is
+the smallest of the five because C1's abstract and learned words are where Wiktionary's Serbo-Croatian is thinnest:
+about forty have no lemma there (`legitimitet`, `uredba`, `parnica`, `subvencija`, `zaplet`, `satira`, `poluostrvo`,
+`fauna`, `precizirati`, `umanjiti` …, printed by `select.py`).
+
+**At C1 the fill's counts are a few thousand per lemma, so the faults of B2 come in greater number**: `select.EXCLUDE`
+grew by sixty-five — Croatian words (`obiteljski`, `scenarij`, `krivnja`, `navečer`, `postaja`, `isprika`, `utrka`,
+`dućan`, `zločest`, `kaniti`, `izvešće`, `div`, `stupanj`, `Židov`, `skupina`, `kut`, `umak`, `tulum`, `komu`, `kabel`,
+`hladnjak`, `užitak`, `proračun`, `pozornost`, `golem`, `natecanje`, and `zahod`, whose count is the Croatian
+"toilet"), an Ijekavian `bijeg`, names (Khan, Pat, Thor, Cindy, Pasha, Amber, Texas), English words in the subtitles
+("as", "at", "got", "hot", "final", "lane", "K"), lemmas counted from another word's forms (`mora` "must", `prima`
+"receives", `poznati` the adjective, `beliti` and `beleti` from beli, `siriti` from sir, `svesti` the genitive of svest,
+`leniti`, `platac`, `trak`, `tak`, `tel`), the subtitle files' own credit word `titl`, a variant (`orman`), a pronoun
+form (`kime`) and a crude word. `ETYMS` takes `konac` "thread" over a bookish "end"; `LEAD` puts `tečnost` "liquid",
+`šah` "chess", `prilog` "contribution", `nastavak` "continuation", `kasa` "cash register", `dužina` "length" and
+`snalaziti` "to get by" first. **All five levels rebuild byte-identical.**

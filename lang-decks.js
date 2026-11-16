@@ -2,7 +2,7 @@
    .claude/build-lang-decks.js. Never hand-edited: every figure is read off the deck file it
    describes, so a rebuilt deck cannot come to disagree with the row that offers it.
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
-   section without fetching 460 MB of decks. The file itself is fetched on Add. */
+   section without fetching 464 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
   { lang: "Mandarin Chinese", file: "Mandarin-Pinyin-and-Tones.folio-deck.json", id: "hsk30pin", title: "Mandarin Chinese — Pinyin and tones", sub: "68 sounds, tones and tone changes — start here, beside Level 1", notes: 68, cards: 68, ex: 100, bytes: 70898, rev: "6a1571dc957f" },
   { lang: "Mandarin Chinese", file: "Mandarin-Bopomofo.folio-deck.json", id: "hsk30bpm", title: "Mandarin Chinese — Bopomofo", sub: "62 zhuyin symbols, tone marks and combinations — beside Pinyin and tones", notes: 62, cards: 62, ex: 100, bytes: 72249, rev: "80fd41ebcd21" },
@@ -240,6 +240,7 @@ window.LANG_DECKS = [
   { lang: "Serbian", file: "Serbian-A2.folio-deck.json", id: "serbiana2", title: "Serbian A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 88, bytes: 2292127, rev: "64373c22186b" },
   { lang: "Serbian", file: "Serbian-B1.folio-deck.json", id: "serbianb1", title: "Serbian B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 80, bytes: 3178041, rev: "0e101dd1aa0f" },
   { lang: "Serbian", file: "Serbian-B2.folio-deck.json", id: "serbianb2", title: "Serbian B2 Upper Intermediate", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 54, bytes: 4407036, rev: "f8c5beaeafe5" },
+  { lang: "Serbian", file: "Serbian-C1.folio-deck.json", id: "serbianc1", title: "Serbian C1 Advanced", sub: "1500 words · both directions, as two cards per word", notes: 1500, cards: 3000, ex: 35, bytes: 4238543, rev: "fa7fc6988db4" },
   { lang: "Danish", file: "Danish-A1.folio-deck.json", id: "danisha1", title: "Danish A1 Beginner", sub: "500 words · both directions, as two cards per word", notes: 500, cards: 1000, ex: 100, bytes: 794235, rev: "9fb7cdaf4751" },
   { lang: "Danish", file: "Danish-A2.folio-deck.json", id: "danisha2", title: "Danish A2 Elementary", sub: "750 words · both directions, as two cards per word", notes: 750, cards: 1500, ex: 98, bytes: 1346713, rev: "0ed92e8cbd9f" },
   { lang: "Danish", file: "Danish-B1.folio-deck.json", id: "danishb1", title: "Danish B1 Intermediate", sub: "1000 words · both directions, as two cards per word", notes: 1000, cards: 2000, ex: 91, bytes: 1764865, rev: "732a7cf1e362" },

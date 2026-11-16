@@ -4019,7 +4019,9 @@ changed was the one that had been wrong all along.
   cards, 2026-11-16, on request: "Add A2"; `--level a2`; the derived imperfectives Wiktionary files as "imperfective
   form of …" kept as words from A2 on, A1 unchanged) **and B1, `decks/Serbian-B1.folio-deck.json`** (1,000 notes /
   2,000 cards, 2026-11-16, on request: "Add B1"; `--level b1`) **and B2, `decks/Serbian-B2.folio-deck.json`** (1,500
-  notes / 3,000 cards, 2026-11-16, on request: "Add B2"; `--level b2`; 88 % by frequency, sentences for 805).
+  notes / 3,000 cards, 2026-11-16, on request: "Add B2"; `--level b2`; 88 % by frequency, sentences for 805) **and C1,
+  `decks/Serbian-C1.folio-deck.json`** (1,500 notes / 3,000 cards, 2026-11-16, on request: "Add C1"; `--level c1`; 92 %
+  by frequency, sentences for 532) — all five levels.
   `python3 .claude/serbian/run.py [--level a1]`,
   `python3 .claude/serbian/alphabet.py`, `node .claude/serbian/check-serbian.js`; a re-run is byte-identical.
   Ukrainian's pipeline re-keyed to English Wiktionary's Serbo-Croatian. **What is new**: the card leads with Cyrillic

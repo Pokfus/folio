@@ -242,4 +242,51 @@ INVENTORY = {
          'protiviti osuditi oceniti proceniti analizirati utvrditi dokazati '
          'opovrgnuti naglasiti tvrditi braniti zastupati odbaciti prihvatiti'),
     ],
+    'c1': [
+        ('politics, power and the state',
+         'suverenitet autonomija federacija nacionalizam ideologija liberalizam socijalizam '
+         'komunizam fašizam totalitarizam diktatura režim tiranija vlast hegemonija imperija '
+         'kolonijalizam separatizam legitimitet mandat ostavka imenovanje vlast'),
+        ('law and justice',
+         'pravosuđe tužilaštvo optuženi okrivljeni odbrana žalba presuda oslobađajući '
+         'zastarelost nadležnost propis uredba amandman ratifikacija parnica nasledstvo '
+         'svedočenje'),
+        ('the economy and finance',
+         'recesija deficit suficit dug kapital investitor dividenda akcija obveznica '
+         'monopol tržišni privatizacija subvencija tarifa carina valuta devalvacija '
+         'štednja zarada prihod rashod'),
+        ('science and research',
+         'metodologija analiza sinteza uzorak merenje podatak varijabla zakonitost '
+         'evolucija genetika ćelija molekul atom čestica teleskop mikroskop astronomija '
+         'fenomen'),
+        ('philosophy and belief',
+         'filozofija etika moral vrlina greh savest duša duh smisao suština postojanje '
+         'istina sloboda volja sudbina ateizam vernik sveštenik obred'),
+        ('language, literature and style',
+         'jezik govor reč izraz značenje metafora poređenje ironija satira alegorija '
+         'pripovedač junakinja zaplet rasplet motiv stil žanr prevodilac izdavač rukopis '
+         'citat'),
+        ('the arts and taste',
+         'estetika ukus lepota stvaralaštvo umetnost delo remek kompozicija perspektiva '
+         'portret pejzaž freska ikona mozaik koreografija dirigent orkestar simfonija'),
+        ('the mind, emotion and behaviour',
+         'svest podsvest nagon emocija raspoloženje strepnja tuga čežnja nostalgija '
+         'očaj gorčina kajanje zbunjenost ravnodušnost radoznalost samoća sumnjičav '
+         'naklonost odbojnost'),
+        ('society and change',
+         'napredak razvoj modernizacija globalizacija urbanizacija industrijalizacija '
+         'tradicija običaj vrednost norma pokret protest pobuna reforma tranzicija '
+         'emancipacija ravnopravnost solidarnost'),
+        ('the land and the planet',
+         'kontinent poluostrvo ravnica visoravan reljef klisura kanjon vodopad delta '
+         'ušće pritoka erozija vegetacija fauna flora atmosfera ekosistem'),
+        ('the small words of nuance',
+         'doduše svakako navodno donekle prilično poprilično zaista doista uglavnom '
+         'pretežno istovremeno naknadno prethodno međutim ukoliko premda iako ionako '
+         'naprotiv dapače štaviše'),
+        ('the verbs of arguing and shading a meaning',
+         'ukazati istaći naglasiti osporiti opovrći pobiti nagovestiti sugerisati '
+         'podrazumevati implicirati tumačiti protumačiti precizirati razjasniti '
+         'uopštiti preuveličati umanjiti relativizovati dovesti_u_pitanje'),
+    ],
 }
