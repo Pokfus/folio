@@ -70,18 +70,26 @@ ETYMS = {
     'po': ['2'],              # the preposition; etymology 1 is a noun-like "half"
     'pod': ['2'],             # the preposition "under"; etymology 1 is "floor"
     'postajati': ['2'],       # "to become"; etymology 1 is "to retain a position"
+    # A2 (2026-11-16)
+    'rad': ['2'],             # "work"; etymology 1 is the adjective "willing"
+    'halo': ['2'],            # "hello" (on the phone); etymology 1 is the halo round the sun
+    'tuš': ['2'],             # "shower"; etymology 1 is "India ink"
 }
 # A PART OF SPEECH TO LEAD WITH, where Wiktionary's first is not the everyday word.
 POS_FIRST = {'da': 'particle', 'zdravo': 'intj', 'dobro': 'adv', 'hvala': 'intj',
-             'do': 'prep', 'više': 'adv'}
+             'do': 'prep', 'više': 'adv', 'čim': 'conj', 'van': 'adv'}
 # A PART OF SPEECH LEFT OFF, where it is a different, rarer word spelt the same.
-DROP_POS = {}
+DROP_POS = {'čim': {'pron'}}   # "the, as" (the instrumental of šta) beside the conjunction "as soon as"
 # ONE ENTRY BY ITS GLOSS, where two etymologies share Wiktionary's blank etymology number.
 ENTRY_WITH = {}
 NOT_WEAK = set()
 GLOSS_DROP = {'ona': {'they (nominative plural of òno (“it”))'},
               'riba': {'(ribica, diminutive) vagina'}}
-LEAD = {'razgovarati': 'to talk'}
+LEAD = {'razgovarati': 'to talk',
+        # A2: Wiktionary's first sense is the rarer one
+        'pismo': 'letter', 'pucati': 'to shoot', 'sastanak': 'meeting', 'predsednik': 'president',
+        'miran': 'calm', 'vodič': 'guide', 'pečurka': 'mushroom', 'semafor': 'traffic light',
+        'zanimanje': 'job', 'prevesti': 'to translate', 'uz': 'next to'}
 
 # A GLOSS THAT IS A USAGE NOTE, NOT A MEANING ("Used to connect a noun to an adjective ...",
 # "Intensity amplifier, used exclusively in phrases"): dropped wherever the entry has a
@@ -267,6 +275,13 @@ def forms_line(e, word, lex):
             bits.append(fi('ја', pr[0]))
             bits.append(fi('он', pr[2]))
         bits.append(fi('past', cells(tb, 'l-participle', 'masculine', 'singular')))
+    if e.get('aspect_of'):
+        # the verb Wiktionary files this one as the aspect partner of ("imperfective form of
+        # báciti"), whose meanings the card carries
+        B = [x for x in lex.get(e['aspect_of'], {}).get('entries', []) if x['pos'] == 'verb']
+        if B:
+            other = {'imperfective': 'perfective', 'perfective': 'imperfective'}.get(e['aspect'], 'pair')
+            bits.append(fi(other, disp(B[0].get('cyr') or B[0]['head'])))
     bits = [b for b in bits if b]
     return f'<div class="uc-forms">{"".join(bits)}</div>' if bits else ''
 

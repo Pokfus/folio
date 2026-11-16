@@ -4015,7 +4015,9 @@ changed was the one that had been wrong all along.
   `decks/Serbian-Alphabet.folio-deck.json`** (36 notes: the 30 Cyrillic letters with their Latin twins, the four
   accent marks and the length mark, the syllabic r, from Wikipedia's "Serbian Cyrillic alphabet" and "Serbo-Croatian
   phonology" at pinned revisions) **and A1, `decks/Serbian-A1.folio-deck.json`** (500 notes / 1,000 cards: 364 from a
-  hand-written topic inventory, 136 by frequency). `python3 .claude/serbian/run.py [--level a1]`,
+  hand-written topic inventory, 137 by frequency) **and A2, `decks/Serbian-A2.folio-deck.json`** (750 notes / 1,500
+  cards, 2026-11-16, on request: "Add A2"; `--level a2`; the derived imperfectives Wiktionary files as "imperfective
+  form of …" kept as words from A2 on, A1 unchanged). `python3 .claude/serbian/run.py [--level a1]`,
   `python3 .claude/serbian/alphabet.py`, `node .claude/serbian/check-serbian.js`; a re-run is byte-identical.
   Ukrainian's pipeline re-keyed to English Wiktionary's Serbo-Croatian. **What is new**: the card leads with Cyrillic
   and prints the Latin beneath the headword and every sentence (everything is compared in Latin, `sr.fold`); the

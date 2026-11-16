@@ -51,6 +51,23 @@ EXCLUDE = {
     'treba': "'girl, chick', whose count is treba 'it is needed', the third person of trebati (on A1)",
     'kada': "'bathtub', whose count is kada 'when', the long form of kad (on A1)",
     'drago': "the neuter of drag, counted from drago mi je 'I'm glad', on drag's card",
+    # Read off the A2 ranking (2026-11-16).
+    'sama': "the feminine of sam, counted from sama 'alone'",
+    'čega': "the genitive of šta, on šta's card",
+    'kome': "the dative of ko, on ko's card",
+    'nitko': "the Croatian 'nobody'; Serbian says niko, on A1",
+    'ured': "the Croatian 'office'; Serbian says kancelarija, which the fill takes",
+    'bok': "'side', whose count is the Croatian greeting bok 'hi'",
+    'no': "a dated 'than', whose count is no 'but' (Croatian) and English 'no'",
+    'ran': "'early', whose count is rana 'wound' (A2) and rano 'early' (A2)",
+    'vod': "'conduit', whose own forms count little: the rest are voda's (A1)",
+    'kos': "'slanting', whose count is kosa 'hair' (A2)",
+    'kim': "'caraway', whose count is the name Kim",
+    'vesti': "'to embroider', whose count is vesti 'news', the plural of vest",
+    'bit': "'essence', whose count is bit, the short infinitive of biti in bit će",
+    'ded': "a variant of deda 'grandfather', on A1",
+    'prav': "'straight', whose count is pravo (A1) and prava 'rights'",
+    'cura': "a Croatian and Bosnian colloquial 'girl'; Serbian says devojka, on A1",
 }
 
 SWEARS = {'sranje', 'jebati', 'kurac', 'pička', 'govno', 'kurva', 'pizda', 'drkati', 'jebeni',
@@ -89,6 +106,8 @@ def main():
                 tgt = lex.get(via)
                 L = dict(tgt, word=L['word'], freq=max(L['freq'], tgt['freq'])) \
                     if tgt and 'entries' in tgt else None
+            if L and L.get('aspect_of') and LEVEL == 'a1':
+                L = None              # (A1 was built before the aspect partners: see extract.py)
             if not L or (pos and not any(e['pos'] == pos for e in L['entries'])) \
                     or not usable(L):
                 missing.append(item)
@@ -104,6 +123,9 @@ def main():
         if len(rows) + len(fill) >= TARGET[LEVEL]:
             break
         if 'entries' not in L or L.get('formonly'):
+            continue
+        # THE ASPECT PARTNERS (`bacati`, `vraćati`) joined at A2, so A1 rebuilds as it shipped
+        if L.get('aspect_of') and LEVEL == 'a1':
             continue
         if k in seen or k in below or k in swears or k in excl or k in pron:
             continue

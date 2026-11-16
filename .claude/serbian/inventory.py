@@ -67,4 +67,69 @@ INVENTORY = {
          'početi završiti otvoriti zatvoriti sedeti stajati igrati pevati kuvati zvati '
          'sviđati'),
     ],
+    'a2': [
+        ('people and relatives',
+         'unuk unuka sestrić ujak stric tetka rođak rođaka supruga suprug verenik '
+         'beba tinejdžer penzioner kolega šef klijent gost stranac građanin '
+         'poznanik'),
+        ('jobs and study',
+         'zanimanje inženjer pravnik advokat policajac prodavač kuvar vozač medicinska_sestra '
+         'radnik seljak direktor sekretarica računovođa plata firma preduzeće '
+         'fabrika nezaposlen gimnazija fakultet razred predavanje ispit ocena sveska rečnik '
+         'kurs diploma učenik'),
+        ('clothes',
+         'odeća haljina suknja pantalone košulja bluza majica džemper jakna kaput cipela '
+         'čizma čarapa šešir kapa rukavica šal odelo kaiš džep veličina obuća naočare '
+         'obući skinuti nositi'),
+        ('food and cooking',
+         'svinjetina govedina luk beli_luk šargarepa kupus krastavac salata paprika pasulj '
+         'grašak pečurka pomorandža limun grožđe kruška jagoda trešnja banana torta kolač '
+         'čokolada sladoled keks ulje med jogurt brašno sos kobasica testenina pirinač '
+         'tanjir čaša kašika viljuška nož šerpa kuvati pržiti seći ukus glad '
+         'sladak slan gorak kiseo svež sit'),
+        ('the home',
+         'sprat stepenište terasa balkon dvorište bašta zid pod plafon krov hodnik '
+         'nameštaj ormar polica kauč fotelja tepih zavesa ogledalo lampa '
+         'frižider tuš lavabo peškir sapun jastuk ćebe preseliti čistiti '
+         'prati'),
+        ('the town and its services',
+         'centar kraj muzej pozorište bioskop biblioteka crkva policija most ugao semafor '
+         'raskrsnica trotoar pumpa knjižara pekara bar hotel stadion mapa '
+         'adresa'),
+        ('travel and holidays',
+         'putovanje odmor raspust izlet prtljag kofer pasoš viza carina granica rezervacija '
+         'turist vodič plaža jezero ostrvo šuma polje brdo dolina trolejbus bicikl motor '
+         'brod avion luka dolazak polazak let putovati posetiti '
+         'odmarati'),
+        ('nature, seasons and the compass',
+         'sever jug istok zapad nebo oblak zvezda priroda trava lišće list '
+         'temperatura stepen oluja magla led oblačan sunčan vlažan suv mraz'),
+        ('animals',
+         'životinja konj krava ovca svinja ptica patka medved vuk lisica zec miš zmija insekt '
+         'pčela muva kokoška'),
+        ('health and the body',
+         'telo lice kosa vrat rame prst koleno leđa krv kost koža bolest prehlada kašalj grip '
+         'rana alergija tableta lek recept zubar lečiti kašljati'),
+        ('feelings and character',
+         'radost tuga strah bes nada iznenađenje ljut miran veseo smeo lenj vredan pametan '
+         'ljubazan iskren darežljiv strpljiv ponosan dosadan plašiti nervirati smejati '
+         'plakati sekirati'),
+        ('free time and sport',
+         'hobi tenis košarka fudbal plivanje utakmica tim igrač lopta koncert '
+         'predstava izložba fotografija crtež žurka pozivnica rođendan venčanje '
+         'svadba plivati trčati crtati pozvati slaviti'),
+        ('time and sequence',
+         'prošlost budućnost savremen vek datum kalendar prekjuče prekosutra uskoro nedavno '
+         'kasnije prvo konačno obično retko nekad dok'),
+        ('numbers and quantity',
+         'trideset četrdeset pedeset šezdeset sedamdeset osamdeset devedeset dvesto milion '
+         'četvrtina kilogram gram litar metar kilometar centimetar komad paket flaša kutija '
+         'grupa količina'),
+        ('everyday verbs',
+         'uključiti isključiti popeti spustiti ulaziti izlaziti vraćati zaustaviti parkirati '
+         'gubiti pobediti izgubiti pozajmiti dobijati zvoniti objasniti ponoviti prevesti '
+         'izabrati odlučiti obećati sećati zapamtiti sanjati rasti roditi umirati čestitati '
+         'upoznati deliti menjati popraviti graditi slomiti čuvati sakriti bacati naručiti '
+         'probati šetati žuriti zakasniti navići obući'),
+    ],
 }

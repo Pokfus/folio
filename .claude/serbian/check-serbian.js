@@ -10,7 +10,7 @@
 const fs = require("fs");
 const path = require("path");
 const DIR = path.join(__dirname, "..", "..", "decks");
-const LABELS = new Set(["genitive", "plural", "feminine", "neuter", "ја", "он", "past"]);
+const LABELS = new Set(["genitive", "plural", "feminine", "neuter", "ја", "он", "past", "perfective", "imperfective"]);
 const POINTER = /^(?:alternative|obsolete|dated|rare) (?:form|spelling) of |^(?:inflection|synonym) of |^The name of the |letter of the .* alphabet/i;
 const SR = /^[абвгдђежзијклљмнњопрстћуфхцчџшАБВГДЂЕЖЗИЈКЛЉМНЊОПРСТЋУФХЦЧЏШ \-]+$/;
 const ACC = /[̏́̀̑̄]/g;

@@ -59,6 +59,7 @@ KEEP_TAGS = {'formal', 'informal', 'colloquial', 'figuratively', 'transitive', '
 SKIP_FORM_TAGS = {'table-tags', 'inflection-template', 'class', 'romanization',
                   'error-unrecognized-form', 'noun-from-verb'}
 
+ASPECT_OF = re.compile(r'^(im)?perfective form of \S+$')
 POINTER = re.compile(r'^(alternative|obsolete|archaic|dated|rare|nonstandard|'
                      r'eye dialect|misspelling)\b.*\b(form|spelling) of\b')
 
@@ -218,7 +219,7 @@ def main():
             k = fold(p[0])
             counts[k] = counts.get(k, 0) + int(p[1])
 
-    lemmas, pointers, formonly, ijek, cyr_only = {}, [], {}, {}, {}
+    lemmas, pointers, formonly, ijek, cyr_only, aspectual = {}, [], {}, {}, {}, {}
 
     def entries():
         for line in open(DUMP, encoding='utf-8'):
@@ -269,6 +270,16 @@ def main():
                     tw = nfc(t.get('word', ''))
                     if is_serbian(tw):
                         pointers.append((fold(w), fold(tw)))
+        # AN ASPECT PARTNER FILED AS A FORM ("imperfective form of báciti"): Wiktionary gives
+        # most derived imperfectives no senses of their own (`bacati`, `vraćati`), so read
+        # strictly they are not lemmas.  They are words a learner learns, so they are kept
+        # aside and added AFTER the counts are split (`aspectual` below), which leaves every
+        # other lemma's frequency -- and so the shipped A1 -- exactly as it was.
+        if not real and pos == 'verb' and senses and all(
+                ASPECT_OF.match((s.get('glosses') or [''])[-1]) for s in senses):
+            base = fold((senses[0].get('form_of') or [{}])[0].get('word', ''))
+            if base:
+                aspectual.setdefault(fold(w), (e, w, base))
         if not real:
             alts = [nfc(t.get('word', '')) for s in senses for t in s.get('alt_of') or []]
             if alts and all('alt_of' in s for s in senses) and is_serbian(alts[0]):
@@ -331,6 +342,28 @@ def main():
     for (k, _f), c in ij_forms.items():
         freq[k] += c
 
+    # THE ASPECT PARTNERS: meanings from the verb they partner, a count from the forms of
+    # their own table no other lemma claims (and their own spelling).
+    n_asp = 0
+    for k, (e, w, base) in sorted(aspectual.items()):
+        B = lemmas.get(base)
+        if k in lemmas or not B:
+            continue
+        bents = [x for x in B['entries'] if x['pos'] == 'verb']
+        if not bents:
+            continue
+        glosses = [dict(g) for g in bents[0]['glosses']]
+        tmp = {}
+        add_lemma(e, w, 'verb', [{'glosses': ['x']}], tmp)
+        ent = tmp[fold(w)]['entries'][0]
+        ent['glosses'] = glosses
+        ent['aspect_of'] = base
+        own = {fold(r['f']) for r in ent['table'] if ' ' not in r['f']} | {k}
+        f_ = sum(counts.get(x, 0) for x in own if x not in claims or x == k)
+        lemmas[k] = {'word': lat(w), 'entries': [ent], 'aspect_of': base, 'multi': 0}
+        freq[k] = f_
+        n_asp += 1
+
     out = {}
     for k, L in formonly.items():
         if k not in lemmas:
@@ -346,7 +379,7 @@ def main():
     ijf = sorted({f for (_k, f) in ij_forms} | {f for f in ijek})
     json.dump(ijf, open('ijekavian-forms.json', 'w', encoding='utf-8'), ensure_ascii=False)
     top = sorted(out.values(), key=lambda L: -L['freq'])[:80]
-    print(f'  {len(out)} lemmas ({len(ijek)} Ijekavian folded in); commonest:',
+    print(f'  {len(out)} lemmas ({len(ijek)} Ijekavian folded in, {n_asp} aspect partners); commonest:',
           ' '.join(L['word'] for L in top))
 
 

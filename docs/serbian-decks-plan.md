@@ -5,8 +5,8 @@ language set in the shape of the ones already shipped (Ukrainian, Polish, Hindi 
 record of how those were built, and every rule there applies here unless this file says otherwise. Asked for on
 2026-11-16: "Add a Serbian language collection."
 
-**STATUS (2026-11-16): the alphabet deck and A1 are built** (`.claude/serbian/`, §6). A2 to C1 are planned, one
-level per session.
+**STATUS (2026-11-16): the alphabet deck, A1 and A2 are built** (`.claude/serbian/`, §6–§7). B1 to C1 are planned,
+one level per session.
 
 Later decks under `decks/` are community content, not a change to Folio: **no changelog line and no version bump**
 for them. The collection's first commit carried one line and one bump, because it also changed the APP (the
@@ -36,7 +36,7 @@ The request named no word source, size or script, so the session took the arrang
 |---|---|---|
 | Serbian Alphabet — built | `Serbian-Alphabet.folio-deck.json` | 36 (30 letters, 5 marks, syllabic r) |
 | Serbian A1 Beginner — built | `Serbian-A1.folio-deck.json` | 500 |
-| Serbian A2 Elementary | `Serbian-A2.folio-deck.json` | 750 |
+| Serbian A2 Elementary — built | `Serbian-A2.folio-deck.json` | 750 |
 | Serbian B1 Intermediate | `Serbian-B1.folio-deck.json` | 1,000 |
 | Serbian B2 Upper Intermediate | `Serbian-B2.folio-deck.json` | 1,500 |
 | Serbian C1 Advanced | `Serbian-C1.folio-deck.json` | 1,500 |
@@ -116,5 +116,31 @@ the page, the magenta band refused — `#1C4C0E`, a deep forest green, 15.0 from
 `node .claude/serbian/check-serbian.js` is the check (a word on two levels, a pointer gloss, a speaker field that is
 not Serbian Cyrillic or carries a mark, a Latin field that is not the Cyrillic letter for letter, an accented head
 that is not the speaker field with marks, a Latin letter in the forms, unbalanced HTML, a shared English side).
-**A re-run is byte-identical** (verified, extraction included). A1: 500 notes, 364 from the inventory and 136 by
+**A re-run is byte-identical** (verified, extraction included). A1: 500 notes, 363 from the inventory and 137 by
 frequency; sentences for 482, three apiece for 457.
+
+## 7. As built (2026-11-16): A2
+
+`python3 .claude/serbian/run.py --level a2`. 750 notes: 389 from the A2 inventory (`inventory.py`: relatives, jobs
+and study, clothes, food and cooking, the home, the town, travel, nature and the compass, animals, health, feelings,
+free time and sport, time words, the higher numbers and measures, everyday verbs) and 361 by frequency, none taught
+in A1; sentences for 662, three apiece for 538. Inventory words Wiktionary lacks as lemmas were dropped (`bratanac`,
+`verenica`, `programer`, `pavlaka`, `stepenice`, `parking`, `supermarket`, `peron`, `kašnjenje`, `Božić` and `Uskrs`
+(filed as names), `ranije`, `odložiti` …); `šolja`, `tiganj`, `šporet` and `kirija` are tagged only "regional" there
+and `plesati` "Croatia", so they are out by the rule of §4; `prodavac` → `prodavač`, `dvesta` → `dvesto`, `stepenice` →
+`stepenište`.
+
+**New: THE ASPECT PARTNERS.** Wiktionary gives most derived imperfectives no senses of their own — `bacati` is only
+"imperfective form of báciti", `vraćati` "imperfective form of vrátiti" — so the extraction dropped them as forms.
+They are now kept (`extract.py`, `aspectual`): their meanings are the partner verb's, their count the forms of their
+own table no other lemma claims, and the card's forms line names the partner (`perfective бацити`), the one aspect
+pair the source does state. They are added AFTER the counts are split, so no other lemma's frequency moves, and
+`select.py` keeps them off A1 — **A1 rebuilds byte-identical**, and so does A2.
+
+New from reading the ranking: `select.EXCLUDE` grew by sixteen — pronoun forms (`čega`, `kome`, `sama`), Croatian
+words (`nitko`, `ured`, `cura`), lemmas whose count is another word's (`bok` the Croatian "hi", `kim` the name, `vesti`
+"news", `bit` from bit će, `ran`, `kos`, `vod`, `prav`, `no`) and a variant (`ded`). `ETYMS` takes `rad` "work",
+`halo` "hello" and `tuš` "shower"; `LEAD` puts the everyday sense first where Wiktionary's first is rarer (`pismo`
+"letter" not "alphabet", `semafor` "traffic light", `pečurka` "mushroom", `predsednik` "president" …); `čim` drops
+its pronoun sense. Known, left: the fill carries the subtitles' crime-drama words (`ubica`, `pištolj`, `zločin`,
+`detektiv`) as every subtitle-ordered level does; `glupost` lists "one's stuff" among its senses, Wiktionary's own.
