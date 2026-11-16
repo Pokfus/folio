@@ -3,6 +3,7 @@
 
     python3 .claude/navajo/run.py                 # A1
     python3 .claude/navajo/run.py --level a2      # another level (inventory first: inventory.py)
+    python3 .claude/navajo/run.py --level phr     # the phrases deck (its list: phrases.py)
     python3 .claude/navajo/run.py --no-fetch      # reuse whatever is cached
     python3 .claude/navajo/run.py --re-extract    # rebuild the lexicon (after editing extract.py)
     python3 .claude/navajo/alphabet.py            # the alphabet deck (reads lex.json)
@@ -77,7 +78,8 @@ def main():
         print('sources:')
         fetch()
     os.chdir(CACHE)
-    stages = ['select.py', 'examples.py', 'build_deck.py']
+    # the phrases deck deals a hand-chosen list (phrases.py) in place of the level's selection
+    stages = ['phrases.py' if level == 'phr' else 'select.py', 'examples.py', 'build_deck.py']
     if not os.path.exists('lex.json') or '--re-extract' in sys.argv:
         stages.insert(0, 'extract.py')
     if not os.path.exists('nv_counts.json'):

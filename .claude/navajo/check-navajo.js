@@ -6,7 +6,8 @@
    meaning ("simple passive form of …", "first-person singular imperfective of …"), a forms label the
    generator does not write, a speaker button (no device has a Navajo voice), unbalanced HTML, an id out of
    sequence, two notes sharing an English side (the reverse card would have two answers). The alphabet deck
-   is checked for a unique sound side and an example word on every card. */
+   is checked for a unique sound side and an example word on every card; the phrases deck for its five
+   subdecks, no expression a level teaches, a ʼ never typed as ', balanced HTML and a unique English side. */
 "use strict";
 const fs = require("fs");
 const path = require("path");
@@ -32,6 +33,7 @@ for (const f of files) {
   const d = JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8"));
   const id = d.meta.id;
   const abc = /Alphabet/.test(d.meta.title);
+  const phr = /Phrases/.test(d.meta.title);
   const sides = new Map();
   for (const ty of Object.values(d.meta.types))
     for (const c of ty.cards) if (/speak|uc-say|\{\{tts/i.test(c.front + c.back)) bad(f + ": template " + c.name + " has a speaker button");
@@ -42,6 +44,19 @@ for (const f of files) {
       if (sides.has(F.Sound)) bad(f + ": " + w + " shares its sound side with " + sides.get(F.Sound));
       sides.set(F.Sound, w);
       if (!F.Example) bad(f + ": " + w + " has no example word");
+      return;
+    }
+    if (phr) {
+      // an expression or a sentence: not one plain word, so only what still applies (the file sorts after the levels)
+      const SUBS = ["Greetings and wishes", "Everyday phrases", "Exclamations", "Set expressions", "Sentences"];
+      if (!SUBS.includes(c.sub)) bad(f + ": " + w + " is in subdeck " + c.sub);
+      if (seen.has((w || "").normalize("NFC").toLowerCase())) bad(f + ": " + w + " is already taught in " + seen.get(w.normalize("NFC").toLowerCase()));
+      if (!text(F.English).trim() || !F.Navajo) bad(f + ": " + w + " has an empty side");
+      if (/['’]/.test(F.Navajo)) bad(f + ": " + w + " prints a straight apostrophe for the glottal stop");
+      for (const g of text(F.English).split("\n")) if (POINTER.test(g.trim())) bad(f + ": " + w + " is defined by a pointer: " + g.trim());
+      for (const k of ["Navajo", "English", "Examples"]) balanced(f, w, k, F[k]);
+      if (sides.has(F.English)) bad(f + ": " + w + " shares its English side with " + sides.get(F.English));
+      sides.set(F.English, w);
       return;
     }
     const nw = (w || "").normalize("NFD");
@@ -57,7 +72,7 @@ for (const f of files) {
     if (sides.has(F.English)) bad(f + ": " + w + " shares its English side with " + sides.get(F.English));
     sides.set(F.English, w);
   });
-  console.log("ok    " + f + ": " + d.cards.length + " notes" + (abc ? "" : ", " +
+  console.log("ok    " + f + ": " + d.cards.length + " notes" + (abc || phr ? "" : ", " +
     d.cards.filter((c) => c.fields.Say).length + " with IPA, " +
     d.cards.filter((c) => c.fields.Forms).length + " with forms, " +
     d.cards.filter((c) => c.fields.Examples).length + " with sentences"));

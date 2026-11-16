@@ -5,9 +5,9 @@ language set in the shape of the ones already shipped (Hausa, Zulu, Lao …).
 `docs/lang-decks.md` records how those were built, and every rule there applies here unless this file says
 otherwise. Asked for on 2026-11-16: "Add a Navajo language collection."
 
-**STATUS (2026-11-16): the alphabet and sounds deck, A1, A2 and B1 are built** (`.claude/navajo/`, §6–§8). A2
-has 579 notes, not 750, and B1 307, not 1,000: the counted words ran out after A1 (§7, §8). The phrases deck is
-still to come.
+**STATUS (2026-11-16): the collection is complete**: the alphabet and sounds deck, A1, A2, B1 and the phrases
+deck (`.claude/navajo/`, §6–§9). A2 has 579 notes, not 750, and B1 307, not 1,000: the counted words ran out
+after A1 (§7, §8).
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for a later deck this plan produces. The collection's first commit did carry one line and one bump, because
@@ -30,7 +30,7 @@ These were asked after a survey of the sources (§2): a rich dictionary, almost 
 | Navajo A1 Beginner (built) | `Navajo-A1.folio-deck.json` | 500 |
 | Navajo A2 Elementary (built) | `Navajo-A2.folio-deck.json` | 579 (planned 750) |
 | Navajo B1 Intermediate (built) | `Navajo-B1.folio-deck.json` | 307 (planned 1,000) |
-| Navajo Phrases and Expressions | `Navajo-Phrases-and-Expressions.folio-deck.json` | — |
+| Navajo Phrases and Expressions (built) | `Navajo-Phrases-and-Expressions.folio-deck.json` | 145 |
 
 The titles carry the CEFR band, so `levelRank` sorts them with no new rule. "Alphabet" sorts first.
 
@@ -182,3 +182,30 @@ corpora count is left after A1 and A2's exclusions. 171 have sentences, three ap
 **Known, left.** B1 is a third of the planned size. Reaching 1,000 would mean about 700 more words chosen with
 no count, from entries no editor has illustrated. Several verbs keep Wiktionary's shape-of-object wording
 ("to pick up, lift, choose, find it (a solid roundish object)"), which is how Navajo itself divides them.
+
+## 9. As built (2026-11-16): the phrases deck
+
+`python3 .claude/navajo/run.py --level phr` runs `phrases.py` in place of `select.py`. **145 expressions / 290
+cards in five subdecks** (the card's `sub`): 19 greetings and wishes, 36 everyday phrases, 25 exclamations, 27
+set expressions and 38 sentences. A re-run is byte-identical, and the levels are unchanged.
+
+- **THE FIRST FOUR SUBDECKS ARE WIKTIONARY'S OWN ENTRIES**: its Navajo `phrase` and `intj` headwords not
+  taught by a level, with its meanings (107 in all). There is no hand gloss anywhere in the collection.
+  The set expressions are the `tʼáá …` and `tʼáadoo …` phrases ("anywhere", "without a single exception",
+  "just do it") that Navajo uses where English has one word.
+- **THE SENTENCES ARE TATOEBA'S**, 38 of its 66 Navajo sentences, each with its contributor's English.
+  The card has one sentence per meaning, none built round a foreign name or place (Tom, Ken, Washington),
+  and none whose apostrophes cannot be read as glottal stops: `ahé’hee’` has an apostrophe misplaced, and
+  normalising it would invent a sound. Each is printed as written, the glottal stop normalised to ʼ.
+  A Tatoeba row carries its English itself (`en`), and the builder prints it as the card's English
+  (`build_deck.build`).
+- **SHOWN WITH ITS PUNCTUATION, KEYED WITHOUT IT** (Hausa's arrangement): `Haash yinílyé?` is the card's
+  `Navajo`, `haash yinílyé` its `Word`, and that is the Wiktionary key and the level check's key.
+- **NO PROVERBS**: English Wiktionary has no Navajo proverb entry and Tatoeba none either.
+- **Synonyms trimmed**: four phrasings of "how are you?" and three of "where are you from?" made the reverse
+  cards' labels lists of siblings; two and two are kept. `yáadilá`'s gloss keeps its non-crude senses
+  (`GLOSS`).
+
+**Known, left.** Only 8 expressions have an example sentence: Wiktionary illustrates few of its phrase
+entries. The two Happy New Year phrases share a gloss, and the deck names each as "not" the other, as the
+shelf-wide de-duplication pass does.

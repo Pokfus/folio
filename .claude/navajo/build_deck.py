@@ -85,7 +85,9 @@ GLOSS = {
     'bighaaʼ': {'noun': ['wool, fleece', 'fur']},
     'náhookǫs': {'noun': ['north', 'the Big Dipper']},
     # B1 (2026-11-16)
-    'tʼáá shį́į́': {'adv': ['probably, in all probability']},  # its second "gloss" is a citation  # its third sense, the whirling-log sign, is not A2's
+    'tʼáá shį́į́': {'adv': ['probably, in all probability']},  # its second "gloss" is a citation
+    # the phrases deck (2026-11-16)
+    'yáadilá': {'intj': ['good grief, man alive, wow (expresses exasperation, frustration)']},  # its third sense, the whirling-log sign, is not A2's
     'tsésǫʼ': {'noun': ['glass, window, pane', 'mica']},
 }
 
@@ -207,6 +209,17 @@ def examples_html(exs):
 def build(rows, lex, exs, back):
     cards, entries = [], []
     for r in rows:
+        if r.get('en'):
+            # A TATOEBA SENTENCE (the phrases deck): its English is its contributor's translation
+            cards.append({'sub': r['sub'], 'fields': {
+                'Navajo': E(r['show']), 'Say': '', 'Word': r['word'],
+                'English': (f'<div class="uc-sense"><div class="uc-pos">sentence</div>'
+                            f'<div class="uc-gl">{E(r["en"])}</div></div>'),
+                'Forms': '', 'Examples': '',
+            }})
+            entries.append({'word': r['word'], 'pos': 'sentence', 'source': r['source'], 'sub': r['sub'],
+                            'examples': 0, 'ipa': False})
+            continue
         ents = entries_for(r, lex)
         if not ents:
             continue
@@ -277,6 +290,39 @@ def desc(entries, n):
     )
 
 
+PHR_SUBS = ('Greetings and wishes', 'Everyday phrases', 'Exclamations', 'Set expressions', 'Sentences')
+
+
+def desc_phr(entries, n):
+    """The phrases deck's description: no CEFR band, the five subdecks, what is sourced how."""
+    by = {k: sum(1 for e in entries if e['sub'] == k) for k in PHR_SUBS}
+    ipa = sum(1 for e in entries if e['ipa'])
+    ex = sum(1 for e in entries if e['examples'])
+    wk = n - by['Sentences']
+    return (
+        f"{n} Navajo expressions in five subdecks: {by['Greetings and wishes']} greetings and wishes, "
+        f"{by['Everyday phrases']} everyday phrases, {by['Exclamations']} exclamations, "
+        f"{by['Set expressions']} set expressions and {by['Sentences']} short sentences. Both study "
+        "directions come as cards of their own: Navajo → English (see the expression, recall its "
+        "meaning) and English → Navajo (see the meaning, recall the expression). This is not a CEFR "
+        "level; it is the set phrases a learner needs whole, which a word list cannot teach, and "
+        "nothing here is taught by any of the level decks. The greetings are the everyday openings "
+        "(yáʼátʼééh abíní 'good morning', haash yinílyé? 'what is your name?'), the thanks and the "
+        "wishes for a birthday, Christmas and the New Year; the everyday phrases ask and answer where "
+        "you are from, your clan, your age and the time, and say you are hungry, tired or ill; the set "
+        "expressions are the many phrases built on tʼáá ('just, only') and tʼáadoo ('without') that "
+        "Navajo uses where English has one word. WHERE THEY COME FROM: the "
+        f"{wk} expressions of the first four subdecks are English Wiktionary's own Navajo entries, "
+        f"with its meanings, and {ipa} of them its pronunciation in the International Phonetic "
+        f"Alphabet; {ex} come with an example sentence. The {by['Sentences']} sentences are Tatoeba's, "
+        "each with its contributor's English, written as they wrote them except that the glottal stop "
+        "is printed ʼ throughout. THERE ARE NO PROVERBS: neither English Wiktionary nor Tatoeba holds "
+        "a Navajo proverb, and one written from memory would have no source. There is no read-aloud "
+        "button: no device carries a Navajo voice. Sources. English Wiktionary, via the kaikki.org "
+        "extraction (CC BY-SA 4.0). Sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR."
+    )
+
+
 def main():
     rows = json.load(open(f('selected.json'), encoding='utf-8'))
     D = json.load(open('lex.json', encoding='utf-8'))
@@ -294,10 +340,15 @@ def main():
     n = len(cards)
     meta = {
         'id': DECK, 'title': TITLES[LEVEL],
-        'subtitle': f'{n} words · both directions, as two cards per word',
-        'desc': desc(entries, n),
+        'subtitle': (f'{n} words · both directions, as two cards per word' if LEVEL != 'phr' else
+                     f'{n} expressions · ' + ', '.join(
+                         f"{sum(1 for e in entries if e['sub'] == k)} {w}" for k, w in zip(
+                             PHR_SUBS, ('greetings', 'everyday', 'exclamations', 'set expressions',
+                                        'sentences'))) + ' · both directions'),
+        'desc': desc(entries, n) if LEVEL != 'phr' else desc_phr(entries, n),
         'author': '', 'language': 'en', 'color': COLOR,
-        'tags': ['navajo', 'vocabulary', LEVEL, NAMES[LEVEL].lower()],
+        'tags': (['navajo', 'vocabulary', LEVEL, NAMES[LEVEL].lower()] if LEVEL != 'phr' else
+                 ['navajo', 'phrases', 'greetings', 'expressions']),
         'glossMode': 'site',
         'types': {TYPE_ID: {
             'id': TYPE_ID, 'name': 'Navajo vocabulary', 'speechLang': 'nv',

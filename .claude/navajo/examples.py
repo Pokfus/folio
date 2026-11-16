@@ -92,6 +92,8 @@ def main():
     borrowed += [(tx, en, None, set(tokens(tx))) for tx, en in tatoeba()]
     used, out = set(), {}
     for row in rows:
+        if row['key'] not in lex:          # a Tatoeba sentence of the phrases deck: it IS the example
+            continue
         k, L = row['key'], lex[row['key']]
         forms = forms_of(k, L, back)
         got, seen = [], set()
