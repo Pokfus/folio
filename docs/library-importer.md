@@ -2413,6 +2413,13 @@ findings are in `docs/library-books.md`; what is worth carrying to the next play
 - Fetching: the API rate-limited a fresh walk hard (Oct 2026). The cache was primed by a slow loop
   with long backoff; `action=render` answers when `api.php` will not, but returns Parsoid markup,
   which this extractor was not written against.
+- **A Chorus's prologue is scene 0** (Nov 2026, Romeo and Juliet, the Yale volume of 1917): a centred
+  `PROLOGUE` opens a scene with `k: 0` headed "Prologue"; its glosses sit under the anchor `A2Prol`, or —
+  for the prologue on a page of its own, which the entry names as `prePage` and which is set after the
+  cast at the head of Act I — under no anchor at all. The Chorus's speaker is set in roman or inside a
+  tooltip, so it is read only inside a prologue. The cache was primed by hand with a slow curl loop
+  (the API rate-limited from the first request), and three printed line numbers the transcription
+  mistypes are put right by `fixes`, each witnessed by the scan's page image (Commons `thumb.php`).
 
 ## The `chajing` layout — a digest read off a scan's OCR, beside a Chinese text read off wikitext (Oct 2026, the Classic of Tea)
 
@@ -2720,3 +2727,22 @@ count — 80 books in the 1611 order, Apocrypha between the Testaments). Source:
 
 Re-run after touching: `node .claude/fetch-book.js king-james-bible` (reads the cache; `--force` refetches the
 zip), then `node .claude/test-library.js`.
+
+## `prep: "leviathan"` — a printer's page read off its own markup (Nov 2026, Leviathan)
+
+`leviathanPrep(h, warn)` runs on the RAW page (right after `between`, before `notesOf` and `cleanBody`) and
+returns `{ h, t, side }`; `liftSidenotes(html, warn)` runs on what `cleanBody` returns. Four things the 1651
+transcription does that the generic passes get silently wrong: **italic as a class** (`wst-italic-body`, styled by
+a stylesheet the extractor discards — every italic word would ship roman, nothing throws); **marginal notes
+inline** (`wst-sidenote`, at the printed LINE, mid-sentence — fenced with U+E000/U+E001, which survive
+`cleanBody` as text, then lifted to `<p class="bk-head">` above the paragraph, which is never split; a fenced note
+outside any paragraph becomes its own line and is warned; the run prints "N fenced, N lifted" and MISMATCH if
+they differ); **drop capitals** as an image (`alt`) or span, followed by "Ature" or `wst-uppercase` + smallcaps —
+rejoined in ordinary case; and **the chapter head** as a run of centred blocks, cut, with the title read off the
+"CHAP." block (returned as `tFromText`, so a `titles[n]` would still win). An all-capitals first word of a
+chapter's first prose paragraph is set in ordinary case after the lift, each one warned. Every rewrite uses
+`blockEnd` for balanced spans. Gated on `prep === "leviathan"`, so inert on every other book.
+
+Re-run after touching: `node .claude/fetch-book.js hobbes-leviathan --force` (49 pages; Wikisource throttles
+hard — expect a page a minute), check "878 marginal note(s) fenced, 878 lifted" and the eight opening-word
+warnings, then `node .claude/book-audit.js`.

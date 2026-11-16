@@ -17554,6 +17554,91 @@ const BOOKS = {
     chapters: [1, 2, 3, 4, 5],
   },
 
+  "romeo-and-juliet": {
+    title: "Romeo and Juliet",
+    subtitle: "The Most Excellent and Lamentable Tragedy of Romeo and Juliet",
+    author: "William Shakespeare",
+    // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+    edition: "The Yale Shakespeare, ed. Willard Higley Durham, Yale University Press, New Haven, 1917",
+    written: "c. 1595",
+    year: 1595,
+
+    /* ---------- THE LICENCE, AND WHY THIS EDITION ----------
+       The play has never been in copyright. The edition is the Yale Shakespeare's of 1917, the same
+       series as Macbeth's and transcribed on Wikisource in the same way (proofread scan, glosses as
+       hover tooltips, end notes on their own page), so the `yale` layout reads it. Durham lived
+       1883–1955 (Wikidata Q61749309; Wikisource tags the volume PD/US|1955): public domain in the
+       United States under the pre-1929 rule, and everywhere the term is life plus seventy years or
+       less since the start of 2026 — NOT yet where it is life plus a hundred, which the rights text
+       says rather than claiming Macbeth's wording. The 1917 volume's appendices and index are the
+       editor's apparatus and are left behind, as for Macbeth.
+
+       ONE DIFFERENCE FROM MACBETH: the play opens with a Chorus's sonnet on a page of its own
+       ("Text/Prologue"), set ahead of Act I as `prePage`; Act II's own Chorus sits on that act's page. */
+    rights:
+      "Public domain. Shakespeare wrote the play in the mid-1590s and it was first printed in 1597, " +
+      "so the work itself has never been in copyright. The text here is the Yale Shakespeare edition " +
+      "edited by Willard Higley Durham and published by Yale University Press in 1917; Durham lived from " +
+      "1883 to 1955, so the edition is out of copyright in the United States under the rule for works " +
+      "published before 1929, and everywhere the term is the editor's life plus seventy years or less. " +
+      "What is taken is the play, the edition's list of characters, Durham's glosses from the foot of " +
+      "each page and his end notes, which are set with the glosses that point to them; his appendices " +
+      "and index are not reproduced.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Romeo_and_Juliet_(1917)_Yale",
+
+    about: [
+      "<b>Romeo and Juliet</b> is set in Verona, where the houses of Montague and Capulet have kept up " +
+        "a feud so old that nobody in the play remembers its cause. Romeo, Montague's son, slips into a " +
+        "Capulet feast and falls in love with Juliet, Capulet's daughter, who is not yet fourteen; that " +
+        "night, under her window, they agree to marry, and the next day Friar Laurence marries them in " +
+        "secret. That same afternoon Juliet's cousin Tybalt kills Romeo's friend Mercutio in a street fight, " +
+        "Romeo kills Tybalt, and the Prince banishes him to Mantua.",
+      "Everything after that is a race against time that the lovers lose. Juliet's father, knowing " +
+        "nothing of the marriage, hurries on her wedding to the County Paris; the Friar gives her a " +
+        "drug that will make her seem dead, and sends a letter to tell Romeo. The letter never arrives. " +
+        "Romeo hears only that Juliet is dead, buys poison, and goes to her tomb, where he kills Paris " +
+        "and drinks it; Juliet wakes beside him and stabs herself with his dagger. Over their bodies " +
+        "the two fathers are reconciled.",
+      "The play opens with a Chorus who tells the audience the ending in a sonnet — the <i>pair of " +
+        "star-cross'd lovers</i> who <i>with their death bury their parents' strife</i> — and the " +
+        "lovers' first words to each other at the feast make another sonnet between them. It is a " +
+        "tragedy that keeps turning towards comedy: the bawdy Nurse, Mercutio's fantasy of Queen Mab, " +
+        "the servants' brawl that opens the first scene. The whole action is crowded into a few days " +
+        "of high summer.",
+      "The story was already old. Shakespeare took it from Arthur Brooke's English poem <i>The " +
+        "Tragicall Historye of Romeus and Juliet</i> (1562), which came through French from an Italian " +
+        "novella of Matteo Bandello; Luigi da Porto had told it earlier and first set it in Verona. " +
+        "Brooke's lovers take months over what Shakespeare's do in days, and his Juliet is sixteen.",
+      "The play was written in the mid-1590s and printed in Shakespeare's lifetime: a short first " +
+        "quarto in 1597, and in 1599 a much fuller second quarto, “newly corrected, augmented, and " +
+        "amended”, on which modern editions mostly rest. The text here is the <i>Yale Shakespeare</i> " +
+        "edition of 1917, edited by Willard Higley Durham of Yale University, in modernised spelling. " +
+        "The early printings do not divide the play into acts and scenes; the divisions here are the " +
+        "ones modern editors have settled on, as Durham's own note says. Its line numbers are the " +
+        "edition's, printed every few lines, and can differ by a line or two from another edition's. " +
+        "The numbered notes are Durham's: the short glosses at the foot of each page, and, where a gloss " +
+        "sent the reader to the back of the book, the longer note it pointed to. The notes are in " +
+        "American spelling, and the speakers' names are abbreviated as his page prints them.",
+    ],
+
+    layout: "yale",
+    page: (n) => "Romeo and Juliet (1917) Yale/Text/Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    notesPage: "Romeo and Juliet (1917) Yale/Notes",
+    castPage: "Romeo and Juliet (1917) Yale/Text",
+    prePage: "Romeo and Juliet (1917) Yale/Text/Prologue",
+    /* Three printed line numbers the transcription mistypes, each read off the scan's page image
+       (Commons, the volume's djvu) — the run's "counted line N where the page prints M" warnings. */
+    fixes: [
+      ['<span class="bk-n">14</span>To Mantua', '<span class="bk-n">124</span>To Mantua', "IV. i. 124 — p. 90 (djvu 102) prints 124"],
+      ['<span class="bk-n">17</span>Now, fellow,', '<span class="bk-n">13</span>Now, fellow,', "IV. iv. 13 — p. 95 (djvu 107) prints 13"],
+      ['<span class="bk-n">184</span>And by and by', '<span class="bk-n">284</span>And by and by', "V. iii. 284 — p. 117 (djvu 129) prints 284"],
+    ],
+    chapterWord: "Act",
+    titleOf: (n) => "Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    chapters: [1, 2, 3, 4, 5],
+  },
+
   "classic-of-tea": {
     title: "The Classic of Tea",
     subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -19294,6 +19379,102 @@ const BOOKS = {
        a failed extraction yields nothing at all. */
     minChars: 150,
   },
+  "hobbes-leviathan": {
+    title: "Leviathan",
+    subtitle: "Or the Matter, Forme, & Power of a Common-wealth Ecclesiasticall and Civill",
+    author: "Thomas Hobbes",
+    /* NO `translator`: written in English, as the Declaration and Macbeth were, so the run header names
+       the printing. */
+    edition: "The first edition (the 'Head' issue), printed for Andrew Crooke, London, 1651",
+    written: "1651",
+    year: 1651,
+    /* ---------- THE LICENCE, and it needs no qualification at all ----------
+       Hobbes died in 1679 and the book was printed in 1651, so there has never been a copyright in it
+       anywhere that copyright has existed. The transcription is Wikisource's, of the Internet Archive's
+       scan of a copy of the first issue, proofread page by page (every page fetched carries
+       `data-page-quality="3"`, Proofread). There is no translator and no editor's apparatus to clear: the
+       pages carry no footnotes at all, and the marginal notes are Hobbes's own. */
+    rights:
+      "Public domain worldwide. Thomas Hobbes published Leviathan in London in 1651 and died in 1679, " +
+      "so the book has never been in copyright anywhere. The text is the proofread Wikisource " +
+      "transcription of the first edition, from a scan of a copy held by the Internet Archive.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Leviathan_(1651)",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Every fact
+       in it was checked rather than recalled; where the record is a matter of attribution (the
+       frontispiece) it says "usually". */
+    about: [
+      "<b>Leviathan</b> is an argument about why people should obey a government, and how much. Thomas " +
+        "Hobbes begins with human nature — how we perceive, think, speak and want — and works up from it " +
+        "to the state. Without a power over them all, he says, people live in a condition of war, " +
+        "<i>of every man, against every man</i>, in which there is no industry, no knowledge, no society, " +
+        "and the life of man is <i>solitary, poore, nasty, brutish, and short</i>. To escape it they " +
+        "agree to hand their right of governing themselves to one person or assembly, the sovereign, " +
+        "whose power must then be undivided, and whom no subject may resist except to save his own life. " +
+        "That artificial person is the Leviathan of the title, the sea-monster of the Book of Job — " +
+        "<i>a Mortall God</i>, as Hobbes calls it.",
+      "The book has four parts. <i>Of Man</i> (chapters 1–16) is the psychology and the theory of " +
+        "language the rest is built on. <i>Of Common-wealth</i> (17–31) is the political argument " +
+        "proper: the covenant, the rights of sovereigns, the liberty of subjects, the laws. The second " +
+        "half of the book is often skipped and should not be: <i>Of a Christian Common-wealth</i> " +
+        "(32–43) reads the Bible to show that it gives no church a power over the sovereign, and " +
+        "<i>Of the Kingdome of Darknesse</i> (44–47) is an attack on the clergy, above all the papacy, " +
+        "for having claimed one.",
+      "Hobbes was born at Westport, beside Malmesbury in Wiltshire, in 1588, and spent most of his life " +
+        "in the service of the Cavendish family, the Earls of Devonshire. His first published book was a " +
+        "translation of Thucydides (1629). In 1640, as Parliament turned on the king's ministers, he " +
+        "left for Paris, where he wrote <i>De Cive</i> and for a time taught mathematics to the exiled " +
+        "Prince of Wales, the future Charles II. Leviathan was written there and printed in London in " +
+        "1651, two years after the execution of Charles I; at the end of that year Hobbes came home and " +
+        "made his peace with the new regime. He published a Latin version, revised, in 1668, and died " +
+        "at Hardwick Hall in Derbyshire in 1679, aged ninety-one.",
+      "The book made him notorious. Royalists read its account of when a subject may change allegiance " +
+        "as a defence of submitting to Cromwell, and churchmen of every party read its theology as " +
+        "atheism. In 1666 a committee of the House of Commons was empowered to look into it, among other " +
+        "books, for atheism and profaneness, and in 1683, four years after his death, the University of " +
+        "Oxford condemned propositions from it and had the condemned books burned. It has since become one of the founding works " +
+        "of modern political philosophy, read alike by those who share none of its conclusions.",
+      "The text here is the first edition, as it was printed in 1651 — the issue known as the 'Head' " +
+        "from the ornament on its title page; two later printings carry the same date. The spelling, " +
+        "capitals and italics are the printer's (<i>Common-wealth</i>, <i>Warre</i>, <i>Ioynts</i> for " +
+        "joints), and only the long s is shown as an ordinary s. The italic lines set above a paragraph " +
+        "are Hobbes's own marginal notes, printed in the outer margin beside the lines they summarise; " +
+        "they stand here above the paragraph they were printed beside. The book is given in its own " +
+        "order — the Introduction, the forty-seven chapters, and the closing Review and Conclusion — so " +
+        "a tab's number runs one ahead of Hobbes's chapter number, which opens each title. The " +
+        "dedication to Francis Godolphin, the contents table and the engraved title page are not " +
+        "included.",
+    ],
+
+    /* THE SECTION IS NOT THE CHAPTER, on purpose and as Don Quixote's tab is not its citation: the
+       book opens on Hobbes's own Introduction and closes on his Review and Conclusion, neither of which
+       has a chapter number, so `n` runs 1..49 and each title opens on the chapter's own Roman numeral
+       as the edition prints it ("XIII. Of the Naturall Condition of Mankind…"). The tab word is
+       "Section" rather than "Chapter" so that no tab claims to be a chapter it is not. */
+    chapterWord: "Section",
+    chapters: Array.from({ length: 49 }, (_, i) => i + 1),
+    page: (n) => "Leviathan (1651)/" + (n === 1 ? "Introduction" : n === 49 ? "A Review and Conclusion" : "Chapter " + (n - 1)),
+    // the title is read off each chapter's own head by leviathanPrep; this is only the fallback
+    titleOf: (n) => (n === 1 ? "The Introduction" : n === 49 ? "A Review, and Conclusion" : toRoman(n - 1) + "."),
+    // Hobbes's four Parts, with the Introduction before the first and the Review after the last
+    parts: [
+      { n: 1, label: "Part I · Of Man", from: 1, to: 17 },
+      { n: 2, label: "Part II · Of Common-wealth", from: 18, to: 32 },
+      { n: 3, label: "Part III · Of a Christian Common-wealth", from: 33, to: 44 },
+      { n: 4, label: "Part IV · Of the Kingdome of Darknesse", from: 45, to: 49 },
+    ],
+    /* The raw-page pass and the marginal notes — see leviathanPrep. No `sections`: the book has no
+       numbered divisions below the chapter. */
+    prep: "leviathan",
+    /* A template the transcription mistyped (one brace short), which reaches the reader as characters. */
+    fixes: [["{sc|Despoticall}}", "Despoticall", "chapter XX: a {{sc}} template typed one brace short; the word is its own argument, so this repairs markup, not a reading"]],
+    // the Introduction's four-part plan of the book is one indented block, an item to a line
+    lineBlocks: true,
+    /* The shortest section is chapter I, Of Sense, at 4,186 characters; a failed extraction returns
+       nothing. */
+    minChars: 3000,
+  },
 };
 
 /* ---------- args ---------- */
@@ -20186,6 +20367,9 @@ const MALORY_RUBRIC = [
 let MALORY = { chapters: 0, books: 0, rubrics: 0, odd: 0, notesOnHeads: 0 };
 /* How many notes `dropNotes` took, counted rather than assumed inert — see the block that sets it. */
 let DROPPED_NOTES = 0;
+/* The 1651 Leviathan's marginal notes, fenced on the raw page and lifted after cleanBody — the two counts
+   must agree, or a note was lost between them (see leviathanPrep). */
+let SIDENOTES = { fenced: 0, lifted: 0 };
 function markMaloryHeads(b, book, warn) {
   const expect = book.expect;
   const plain = (s) =>
@@ -22180,6 +22364,125 @@ function betweenAnchors(h, span) {
   const k = h.lastIndexOf("<p>", j);
   const refs = h.match(/<ol class="references">[\s\S]*?<\/ol>/);
   return h.slice(i, k > i ? k : j) + (refs ? "\n" + refs[0] : "");
+}
+
+/* ---------- THE 1651 LEVIATHAN: a printer's page read off its own markup (Nov 2026) ----------
+   `prep: "leviathan"`, run on the RAW page before the notes are gathered and before cleanBody, then
+   `liftSidenotes` on what cleanBody returns. Four things the 'Head' edition's transcription does that no
+   earlier book did, each of which the generic passes get silently wrong:
+   · ITS ITALIC IS A CLASS, NOT A TAG. Wikisource sets the edition's italic with {{italic}}, which renders
+     `<span class="wst-italic-body">` and leaves the styling to a stylesheet the extractor throws away —
+     so every italic word in the book (a few thousand: Hobbes italicises his defined terms, his Latin and
+     every proper name) would arrive in roman with nothing to say so. Rewritten to `<i>`.
+   · ITS MARGINAL NOTES ARE INLINE. Each is a `wst-sidenote` span standing at the LINE of the page it was
+     printed beside, which is usually mid-sentence ("in the faculties of body, and Men by nature Equall.
+     mind"). Fenced here with two private-use characters, which survive cleanBody as text, and lifted by
+     `liftSidenotes` to a `bk-head` line above the paragraph that holds it — the paragraph is never split,
+     since that would print a break Hobbes did not.
+   · ITS DROP CAPITALS ARE PICTURES OR SPANS, and the word after one is set in capitals: the image's alt
+     letter (or the span's text), then "Ature" or `wst-uppercase`"a" + smallcaps "ture". Joined into one
+     word in ordinary case — "Nature", "Concerning" — as every reading edition prints it.
+   · THE HEAD OF A CHAPTER IS A RUN OF CENTRED BLOCKS — a Part title over the chapters that open a Part, a
+     decorative band, rules, "CHAP. XIII." and the chapter's own title. All of it is cut (Folio prints the
+     title above the text), and the title is READ OFF it, never composed: it is returned for the tab. */
+function leviathanPrep(h, warn) {
+  let b = h;
+  // balanced span rewrite, innermost-last: each opener found is replaced together with its own closer
+  const eachSpan = (rx, fn) => {
+    for (let guard = 0; guard < 20000; guard++) {
+      rx.lastIndex = 0;
+      const m = rx.exec(b);
+      if (!m) return;
+      const end = blockEnd(b, m.index, "span");
+      if (end < 0) { warn("unbalanced span: " + m[0]); return; }
+      const inner = b.slice(m.index + m[0].length, end - "</span>".length);
+      b = b.slice(0, m.index) + fn(inner, m) + b.slice(end);
+    }
+  };
+  const textOf = (s) => s.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<[^>]*>/g, "").replace(/&#32;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+  // the marginal notes first, so the italic inside one is rewritten along with the rest
+  let side = 0;
+  eachSpan(/<span class="wst-sidenote(?:-inner)?\b[^"]*"[^>]*>/g, (inner, m) => {
+    if (/wst-sidenote-inner/.test(m[0])) return inner;
+    side++;
+    return "" + inner + "";
+  });
+  eachSpan(/<span class="wst-italic-body"[^>]*>/g, (inner) => "<i>" + inner + "</i>");
+  // the drop capital and the capitals after it
+  eachSpan(/<span class="dropinitial\b[^"]*"[^>]*>/g, (inner) => {
+    const alt = /<img[^>]*\balt="([A-Za-z])"/.exec(inner);
+    const letter = alt ? alt[1] : textOf(inner);
+    if (!/^[A-Z]$/.test(letter)) warn("drop capital not read: " + JSON.stringify(letter));
+    return "" + letter;
+  });
+  eachSpan(/<span class="wst-uppercase"[^>]*>/g, (inner) => inner);
+  b = b.replace(/([A-Z])((?:<[^>]*>)*)([A-Z])(?=[a-z])/g, (m, l, tags, c) => l + tags + c.toLowerCase())
+       .replace(//g, "");
+  // the head: everything in the transclusion before the first paragraph of prose
+  const i = b.indexOf('<div class="prp-pages-output"');
+  if (i < 0) throw new Error("no body");
+  const open = b.indexOf(">", i) + 1;
+  let k = open, title = "";
+  for (let guard = 0; guard < 40; guard++) {
+    const rest = b.slice(k);
+    const m = /^(?:\s+|<link[^>]*>|<style[\s\S]*?<\/style>|<hr[^>]*>|<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>|<figure[\s\S]*?<\/figure>)/.exec(rest);
+    if (m) { k += m[0].length; continue; }
+    if (/^<div class="wst-center/.test(rest)) {
+      const end = blockEnd(b, k, "div");
+      const t = textOf(b.slice(k, end));
+      if (/^CHAP\.|INTRODUCTION|REVIEW/i.test(t)) title = t;
+      k = end;
+      continue;
+    }
+    break;
+  }
+  b = b.slice(0, open) + b.slice(k);
+  title = title.replace(/^CHAP\.\s*([IVXLC]+)\.?\s*/, "$1. ").replace(/\s*\.$/, "");
+  if (/^THE INTRODUCTION/i.test(title)) title = "The Introduction";
+  if (/^A REVIEW/i.test(title)) title = "A Review, and Conclusion";
+  if (!title) warn("no chapter head found");
+  return { h: b, t: title, side };
+}
+
+/* The second half of the marginal notes: each fenced note becomes a `bk-head` line ABOVE the paragraph
+   it stood beside, in the order they were printed (Project Gutenberg's text of this edition sets them the
+   same way, as lines in the flow). bk-head is written after cleanBody, whose tag stripper drops every
+   attribute. A note left outside any paragraph is still set as its own line, and said. */
+function liftSidenotes(html, warn) {
+  const clean = (s) => {
+    s = s.replace(/\s+/g, " ").trim();
+    /* the margin is italic already, as bk-head is: a note set wholly in italic loses its tags, nested
+       ones included (chapter XXXIX's "Ecclesia properly what." arrives as <i>Ecclesia <i>properly what.</i></i>) */
+    if (/^<i>[\s\S]*<\/i>$/.test(s)) s = s.replace(/<\/?i>/g, "").trim();
+    return s;
+  };
+  let lifted = 0;
+  html = html.replace(/<p>([\s\S]*?)<\/p>/g, (m, body) => {
+    if (body.indexOf("") < 0) return m;
+    const heads = [];
+    body = body.replace(/\s*([\s\S]*?)\s*/g, (x, note, at, all) => {
+      const t = clean(note);
+      if (t) heads.push('<p class="bk-head">' + t + "</p>");
+      lifted++;
+      // keep one space where the note stood between two words, none at the edges of the paragraph
+      return at === 0 || at + x.length === all.length ? "" : " ";
+    });
+    return heads.join("\n") + "\n<p>" + body.trim() + "</p>";
+  });
+  html = html.replace(/([\s\S]*?)/g, (x, note) => {
+    warn("a marginal note outside a paragraph: " + clean(note).slice(0, 60));
+    lifted++;
+    return '<p class="bk-head">' + clean(note) + "</p>";
+  });
+  if (/[]/.test(html)) warn("an unmatched marginal-note fence survived");
+  /* A chapter with no drop capital opens on its first word in capitals ("BY Consequence"); it is set in
+     ordinary case like the drop-capital openings. Only the first word of the first paragraph of prose
+     (a lifted note is not one), only a word of two letters or more, and every change is reported. */
+  html = html.replace(/<p>((?:<[^>]*>)*)([A-Z])([A-Z]+)(?=[\s,;:])/, (m, pre, c, rest) => {
+    warn("opening word set in ordinary case: " + c + rest);
+    return "<p>" + pre + c + rest.toLowerCase();
+  });
+  return { html, lifted };
 }
 
 function notesOf(h) {
@@ -24649,10 +24952,20 @@ function extractYale(h, act, endnotes, used, warn) {
   for (const p of paras) {
     const plain = p.html.replace(/<[^>]+>/g, "").replace(/[\u0001-\u0005]/g, "").trim();
     if (p.kind === "center" && /^ACT\b/.test(plain)) continue;   // the act's own head: the tab says it
+    /* A Chorus's PROLOGUE (Romeo and Juliet, Nov 2026: one on a page of its own ahead of Act I, one at
+       the head of Act II) is a scene numbered 0 — its glosses sit under the anchor `A2Prol`, or, on the
+       prologue's own page, under no anchor at all. */
+    if (p.kind === "center" && /^PROLOGUE$/i.test(plain)) {
+      if (scenes.length) warn("a prologue after the first scene");
+      sc = { k: 0, head: "Prologue", items: [], lines: [] };
+      scenes.push(sc);
+      n = 0; last = null;
+      continue;
+    }
     const sm = p.kind === "center" && plain.match(/^Scene (\w+)$/);
     if (sm) {
       const k = YALE_SCENE.indexOf(sm[1]);
-      if (k !== scenes.length + 1) warn("scene '" + sm[1] + "' out of sequence");
+      if (k !== scenes.filter((x) => x.k).length + 1) warn("scene '" + sm[1] + "' out of sequence");
       sc = { k: k, head: "Scene " + sm[1], items: [], lines: [] };
       scenes.push(sc);
       n = 0; last = null;
@@ -24670,6 +24983,10 @@ function extractYale(h, act, endnotes, used, warn) {
       const name = sp[2].trim().replace(/\.$/, "");
       who = sp[4] ? sp[1] + name + sp[3] + " " + sp[4].trim() + sp[5] : sp[1] + name + sp[3] + sp[5];
       rest = p.html.slice(sp[0].length);
+    } else if (!sc.k) {
+      // the Chorus is set in roman ("Chor.") or inside a gloss tooltip, not in the italic SPEAKER reads
+      const cm = p.html.match(/^\u0001?(Chor)\.\u0002?\s*/);
+      if (cm) { who = cm[1]; rest = p.html.slice(cm[0].length); }
     }
     const item = { who: who, cont: !who, lines: [] };
     rest.split(/<br\s*\/?>/).forEach((seg, j) => {
@@ -24695,10 +25012,12 @@ function extractYale(h, act, endnotes, used, warn) {
   }
 
   /* ---- the glosses, per scene, off the foot of the page ---- */
-  const footScenes = foot.split(/<span id="A\d+S(\d+)" title="Anchor:[^"]*" class="wst-anchor">/).slice(1);
+  let footScenes = foot.split(/<span id="A\d+(S\d+|Prol)" title="Anchor:[^"]*" class="wst-anchor">/).slice(1);
+  // a prologue on a page of its own: its glosses carry no scene anchor
+  if (!footScenes.length && scenes.length && scenes[0].k === 0) footScenes = ["Prol", foot];
   const gloss = {};
   for (let k = 0; k + 1 < footScenes.length; k += 2) {
-    const num = +footScenes[k];
+    const num = footScenes[k] === "Prol" ? 0 : +footScenes[k].replace(/^S/, "");
     const txt = footScenes[k + 1]
       .replace(/<style[\s\S]*?<\/style>/g, "").replace(/<link [^>]*>/g, "")
       .replace(/<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>/g, "")
@@ -31542,15 +31861,25 @@ async function fetchEnglish() {
     };
     const endnotes = yaleEndnotes(await cached("en-notes.html", BOOK.notesPage), warn);
     const cast = BOOK.castPage ? yaleCast(await cached("en-cast.html", BOOK.castPage), warn) : "";
+    // a prologue on a page of its own (Romeo and Juliet's Chorus), set after the cast at the head of Act I
     const used = new Set();
+    const pre = { html: "", notes: [] };
+    if (BOOK.prePage && FROM <= BOOK.chapters[0]) Object.assign(pre, correctGot(extractYale(
+      await cached("en-prologue.html", BOOK.prePage), 0, endnotes, used, warn)));
     for (const n of BOOK.chapters) {
       if (n < FROM || n > TO) continue;
       const h = await cached("en-" + String(n).padStart(2, "0") + ".html", BOOK.page(n));
       const got = correctGot(extractYale(h, n, endnotes, used, warn));
       if (got.html.length < (BOOK.minChars || 200))
         throw new Error(BOOK.chapterWord + " " + n + " came back short (" + got.html.length + " chars)");
+      /* the prologue's own notes come first, so its markers are renumbered past none and the act's
+         past the prologue's */
+      const first = n === BOOK.chapters[0];
+      const off = first ? pre.notes.length : 0;
+      const body = off ? got.html.replace(/data-fn="(\d+)"/g, (a, d) => 'data-fn="' + (+d + off) + '"') : got.html;
       chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n),
-        html: (n === 1 && cast ? cast + "\n" : "") + got.html, notes: got.notes });
+        html: (first && cast ? cast + "\n" : "") + (first && pre.html ? pre.html + "\n" : "") + body,
+        notes: (first ? pre.notes : []).concat(got.notes) });
     }
     // every end note reaches the page, through a gloss or on its own line — checked, not assumed
     if (FROM <= BOOK.chapters[0] && TO >= BOOK.chapters[BOOK.chapters.length - 1]) {
@@ -32349,6 +32678,10 @@ async function fetchEnglish() {
     /* ONE PAGE, SEVERAL PARTS (Nov 2026, the Ninety-five Theses): see `betweenAnchors`. */
     if (BOOK.between) h = betweenAnchors(h, BOOK.between(n));
     let html, notes, orig = "", tFromText = "";
+    if (BOOK.prep === "leviathan") {
+      const got = leviathanPrep(h, warn);
+      h = got.h; tFromText = got.t; SIDENOTES.fenced += got.side;
+    }
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
        the RAW page, before the notes are gathered and before cleanBody, because by the time cleanBody
@@ -32407,6 +32740,10 @@ async function fetchEnglish() {
       const multi = pageNames.length > 1;
       html = cleanBody(h, got.ids, BOOK, multi ? (m) => { if (!/^no section numbers found/.test(m)) warn(m); } : warn);
       if (keep) html = pruneNotes(html, keep);
+      if (BOOK.prep === "leviathan") {
+        const got = liftSidenotes(html, warn);
+        html = got.html; SIDENOTES.lifted += got.lifted;
+      }
       /* A PART CUT OUT OF A LONGER PAGE carries the page's WHOLE note list — the Theses' page numbers
          its notes 1–84 straight through the introduction and four documents — so only the notes this
          part's own markers open are kept, renumbered from 1 by pruneNotes. */
@@ -32988,6 +33325,9 @@ function writeEnglish(chapters, warnings) {
       " carrying Caxton's own rubric (" + MALORY.odd + " of them set as a centred block instead), " +
       MALORY.books + " book half-title(s) lifted out, " +
       MALORY.notesOnHeads + " footnote marker(s) carried off a heading");
+  if (SIDENOTES.fenced || SIDENOTES.lifted)
+    console.log("  " + SIDENOTES.fenced + " marginal note(s) fenced, " + SIDENOTES.lifted + " lifted" +
+      (SIDENOTES.fenced === SIDENOTES.lifted ? "" : " — MISMATCH, a note was lost or doubled"));
   if (DROPPED_NOTES)
     console.log("  " + DROPPED_NOTES + " transcriber's note(s) dropped — an apparatus this edition " +
       "does not print; see `dropNotes`");
