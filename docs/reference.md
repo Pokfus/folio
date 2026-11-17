@@ -7901,6 +7901,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   follow it into numerals. The tool deliberately leaves that to the eye.
 - **Centuries and millennia are always numbered** ("11th century", "2nd millennium BCE" — never "eleventh century"),
   whatever the ordinal.
+- **A COUNT of centuries is in words** (2026-11-16, on request: "before the word centuries … two centuries should
+  always be written in words rather than numbers; before the singular century it should still be numbers, 21st
+  century"). The one exception to the numerals-for-time-spans rule of 2026-11-13. `check-style.js` rule 6 reports
+  "N centuries", "N or M", "N to M", "N–M", and `--fix --only=6` converts (367 at once on the day; rule 1 no longer
+  turns "twenty-five centuries" back). The Roman voting and army units are a count of UNITS and keep their numerals:
+  `CENT_UNIT_EXCLUDE` masks those phrases by name, because context words ("legion", "cohort", "Servius") also stand
+  beside real spans.
 - **Eras are BCE and CE, and NEVER BC or AD** (Aug 2026, on request: "ensure the use of BCE and CE always … across
   the whole website"). It reaches everywhere a reader can see one — a card's question, its background and its date
   line, a glossary description and its date line, an artefact, an Atlas country description, **and the text a

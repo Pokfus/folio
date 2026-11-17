@@ -11843,7 +11843,24 @@ window.GLOSSARY = {
 "Nubian_pyramids": "",
 "Sphinx_of_Taharqo": "",
 "Eltekeh": "",
-"Esarhaddon": ""
+"Esarhaddon": "",
+"Semitic_languages": "",
+"Alphabet": "",
+"Cadmus": "",
+"Nirvana": "",
+"Asceticism": "",
+"Theravada": "",
+"Mahayana": "",
+"Vajrayana": "",
+"Dharma": "",
+"Sangha": "",
+"Stacte": "",
+"Frankincense": "",
+"Cinnamomum_cassia": "",
+"Cinnamon": "",
+"Ebony": "",
+"Leopard": "",
+"Ape": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17766,7 +17783,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Kashta": "c. 770 – 747 BCE",
 "Piye": "c. 747 – 716 BCE",
 "Victory_Stele_of_Piye": "c. 727 – 716 BCE",
-"Bakenranef": "c. 718 – 712 BCE"
+"Bakenranef": "c. 718 – 712 BCE",
+"Mahayana": "from the 1st century BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -25404,11 +25422,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Nubian_pyramids": ["Kushite pyramids","Pyramids of Kush"],
 "Sphinx_of_Taharqo": ["Sphinx of Taharqa"],
 "Eltekeh": ["Battle of Eltekeh","Elteqeh","Altaqu"],
-"Esarhaddon": ["Ashur-aha-iddina"]
+"Esarhaddon": ["Ashur-aha-iddina"],
+"Semitic_languages": ["Semitic"],
+"Asceticism": ["ascetic"],
+"Dharma": ["Dhamma"],
+"Ape": ["apes"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
+"Montu": true,
 "Operation_Overlord": true,
 "Diadochi": true,
 "House_of_Commons_of_the_United_Kingdom": true,
@@ -37456,7 +37479,24 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Nubian_pyramids": ["building","history","kush","nubia","sudan"],
 "Sphinx_of_Taharqo": ["object","art","kush","nubia","egypt"],
 "Eltekeh": ["place","battle","history","assyria","levant"],
-"Esarhaddon": ["ruler","history","assyria","egypt","warfare"]
+"Esarhaddon": ["ruler","history","assyria","egypt","warfare"],
+"Semitic_languages": ["language","linguistics","near east"],
+"Alphabet": ["writing","language","linguistics"],
+"Cadmus": ["mythology","greece","thebes","phoenicia"],
+"Nirvana": ["concept","religion","buddhism","india","philosophy"],
+"Asceticism": ["concept","religion","practice","philosophy","india"],
+"Theravada": ["religion","buddhism","school","sri lanka","southeast asia"],
+"Mahayana": ["religion","buddhism","school","india","china","japan"],
+"Vajrayana": ["religion","buddhism","school","tibet","practice"],
+"Dharma": ["concept","religion","philosophy","india","buddhism","hinduism"],
+"Sangha": ["concept","religion","buddhism","monasticism","india"],
+"Stacte": ["plant","trade","religion","medicine"],
+"Frankincense": ["plant","trade","religion","medicine"],
+"Cinnamomum_cassia": ["plant","trade","food","medicine","china"],
+"Cinnamon": ["plant","trade","food","medicine"],
+"Ebony": ["plant","trade","nature","africa"],
+"Leopard": ["animal","nature","africa","asia","trade"],
+"Ape": ["animal","evolution","biology","nature"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

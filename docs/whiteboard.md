@@ -325,6 +325,24 @@ real resize still starts the history again. After: twenty strokes hold the canva
 patches. Re-run `test-whiteboard.js` and `test-draw-cards.js` after touching any of it.
 
 
+## The card's ink is vectors on a screen-sized canvas (2026-11-16)
+
+On a report: "on my tablet, when I write on the empty space below the question, as soon as the answer is
+revealed, all of the lines I've drawn become slightly blurry". Measured in headless Chromium at dpr 2: the
+card's raster canvas covered the whole card, and the pixel budget above (`WB_MAX_PX`) cut a revealed card
+(~3,100 CSS px tall) to 1.80 device pixels per CSS pixel on an iPad in portrait and 1.50 in landscape, so
+`wbResize` resampled the strokes already drawn into the smaller canvas. No budget fixes every card (iOS's
+16.7M-pixel ceiling is ~3,500 px of card at 1194 wide), so the card now uses the book's arrangement
+(`cardInkMount` in `app.js`, the CARD INK block): `setupWhiteboard({ fixed: true })`, a canvas the size of
+the screen at devicePixelRatio, and the strokes kept as a list (`inkRecord`) and repainted by `inkReplay` on
+a resize, a reveal and every scroll frame. A point is kept in CSS pixels from the stage's top-left corner
+(the frame is a constant 1000), where the raster canvas had its origin, so a stroke stays over the words it
+was drawn on when the answer opens; the ink is clipped at the stage's top (`inkReplay`'s `clipTop`), where
+the old canvas began. Undo, redo and Clear are the stroke-list snapshots the book uses, and they now
+survive a resize. Nothing is stored. The raster path (`wbRecord`, `wbCommitted`, the patches) is kept for a
+caller with no vector backend; no page uses it now. Re-run `test-whiteboard.js` and `test-draw-cards.js`
+after touching it.
+
 ---
 
 # The marker's rules in full, moved out of `CLAUDE.md` (2026-09-11)
