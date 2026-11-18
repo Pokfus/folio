@@ -50,7 +50,7 @@ window.CHANGELOG = [
       "A new <b>Dates</b> setting shows years as BC / AD instead of BCE / CE across the whole site.",
       "Map windows with a legend now show it <b>above</b> the map, and windows of past borders name every state on them.",
       "A switch at the top left of map windows shows this collection's places or <b>every place you have studied</b> in History, Science and Philosophy.",
-      "A person's map window can now mark their birthplace, place of death and capital, framed together.",
+      "Map windows on 892 cards about people now mark where they were born and died, and 164 rulers' cards shade the state they ruled with its capital as a square.",
       "One Ancient Rome region's name now appears only on its own card's map window, not on every other card in the collection."
     ],
   },
