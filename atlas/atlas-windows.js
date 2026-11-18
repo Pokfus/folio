@@ -21,7 +21,7 @@
      on file:// through its twin) instead of the war slice (1.8 MB) — and never the whole history (9.1 MB; it did until 2026-10-19). `.claude/test-war-timeline.js` proves the list equals the front entities' `cards` in history.bin. */
   const WAR_FRONT_CARDS = new Set(["ww2-001"]);
   const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const yearText = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : y < 1000 ? y + " CE" : String(y));   // a CE year is bare from 1000 on; a short one keeps its era so "632" is never a number
+  const yearText = (y) => { const ad = W.FolioEra && W.FolioEra() === "ad"; return y <= 0 ? (y < 0 ? -y : 1) + (ad ? " BC" : " BCE") : y < 1000 ? (ad ? "AD " + y : y + " CE") : String(y); };   // the reader's era labels (Settings → Dates, 2026-11-18)   // a CE year is bare from 1000 on; a short one keeps its era so "632" is never a number
   const dateFrac = (d) => { const y = Math.floor(d / 10000), m = Math.floor(d / 100) % 100, dd = d % 100; return y + (Date.UTC(y, m - 1, dd) - Date.UTC(y, 0, 1)) / (365.25 * 86400000); };
   const stepText = (st) => (st.month ? MONTHS[st.month - 1] + " " + yearText(st.year) : yearText(st.year));
   /* the steps of a timeline from the engine's answer: the front's plates (each with a month) when the war owns them, else the change years; fewer than two is no timeline */
@@ -870,7 +870,7 @@
     "cook is.": "Cook Islands", "pitcairn is.": "Pitcairn Islands", "coral sea is.": "Coral Sea Islands", "spratly is.": "Spratly Islands",
   };
   const fi2Name = (n) => FI2_NAMES[String(n || "").trim().toLowerCase()] || n;
-  const fi2Year = (y) => (y >= new Date().getFullYear() ? "today" : y < 0 ? -y + " BCE" : String(y));
+  const fi2Year = (y) => (y >= new Date().getFullYear() ? "today" : y < 0 ? -y + (W.FolioEra && W.FolioEra() === "ad" ? " BC" : " BCE") : String(y));
   function run(root) {
     const GREEN = "rgba(46,164,90,1)", RED = "rgba(224,68,56,1)", GOLD = "rgba(255,178,46,1)";
     /* THE PICK is the card windows' own selection: the gold tint (TINT_SEL), its outline and its glow, on a country or a state of the year alike (Oct 2026, the owner's phone: a pick was a blue wash that, on an area round, was one more colour among the states' own) */
