@@ -814,9 +814,10 @@
       // a level the bias chose is the gesture's, not the labels': nothing is added or dropped while the globe moves (§2.9),
       // and the wanted level's layout comes with the release frame, when the bias lifts
       if (level !== view.level) { view.level = level; if (!bias) requestLayout("level"); }
-      view.admin1 = layers.provinces && k < (EMBED && layers.admin1Max ? layers.admin1Max : ADMIN1_KM_PER_PX) && time.present;   // a card window shows a state's neighbours at its opening zoom (atlas-embed.js sets admin1Max)
+      view.admin1Box = EMBED && layers.admin1Box ? layers.admin1Box : null;   // a window's admin-1 box (atlas-embed.js): its lines only, in any year
+      view.admin1 = layers.provinces && k < (EMBED && layers.admin1Max ? layers.admin1Max : ADMIN1_KM_PER_PX) && (time.present || !!view.admin1Box);   // a card window shows a state's neighbours at its opening zoom (atlas-embed.js sets admin1Max)
       if (!EMBED && view.admin1 && !adm1.started && overAdmin1File()) ensureAdmin1();   // step 3: the page's Provinces lines over a country of admin1.bin fetch it (once)
-      view.admin1Layer = adm1Draw(k);   // the lazy admin-1 slot (docs/atlas-v2-admin1-layer.md §3.2): null until a window, the Provinces lines or the Personal Atlas ask for it
+      view.admin1Layer = view.admin1Box ? null : adm1Draw(k);   // the lazy admin-1 slot (none under a window's admin-1 box: its lines are the box's alone) (docs/atlas-v2-admin1-layer.md §3.2): null until a window, the Provinces lines or the Personal Atlas ask for it
       view.history = time.view; view.historyLevel = histLevelNow(); if (view.history) { view.history.strokePx = view.level >= 3 ? (LOD_M_RESIDENT[2] / 1000) / k * 2 : 0; view.history.dim = !EMBED && !STATIC2D && !time.present && time.hist && time.hist.ready && personalOnly() ? HIST_DIM : 0; }   // 2026-10-25: Personal only — on Map and Full the empty land was mostly the source's gaps (Tibet and Indochina in 1943, notches in Italy), read as missing patches
       view.landDim = !EMBED && time.present && ppKey ? HIST_DIM : 0;   // the Personal Atlas's present day: the countries the reader has not met, darker (refreshPersonalPresent)   // the coast stroke at the tile zooms: the resident level's tolerance, both sides; the empty-land darkening in a past year, the Atlas page only (atlas-gl.js drawHistoryDim)
       view.borders = layers.borders;

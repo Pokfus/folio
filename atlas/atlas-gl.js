@@ -399,6 +399,7 @@
     uniform mat3 uRot; uniform vec2 uCenter, uSize; uniform float uRadius;
     uniform float uWidth[8];         // device px, per kind: coast, border, river, lake shore, soft, admin-1
     uniform float uAdmin1;           // 1 = draw admin-1 arcs
+    uniform vec4 uA1Box; uniform float uA1BoxOn;   // a window's admin-1 box (2026-11-18): lon0, lat0, lon1, lat1 in degrees — admin-1 arcs outside it are not drawn, inside it they are drawn in a past year too
     uniform float uBorders;          // 1 = draw the present-day borders and admin-1 lines (0 in a year before the present, Phase 2a)
     uniform float uIdPad;            // device px added to every line's reach in an ID pass (a river is picked within 8 CSS px, Phase 1c)
     flat out vec2 vA; flat out vec2 vB; flat out float vHw; flat out float vKind; flat out float vFlags; flat out float vArc; flat out vec2 vZ;
@@ -421,7 +422,8 @@
       vec2 p = k == 0 ? base - nrm * 2.0 * hw : k == 1 ? base + nrm * 2.0 * hw : base + dir * 2.0 * Lt;
       if (pa.z < -0.01 && pb.z < -0.01) p = vec2(-1.0e5);  // wholly behind the horizon: off screen, nothing rasterised
       if (kind > 4.5 && kind < 5.5 && uAdmin1 < 0.5) p = vec2(-1.0e5);   // admin-1 below its zoom threshold: not drawn
-      if (uBorders < 0.5 && ((kind > 0.5 && kind < 1.5) || (kind > 4.5 && kind < 5.5))) p = vec2(-1.0e5);   // a present-day line in a past year
+      if (kind > 4.5 && kind < 5.5 && uA1BoxOn > 0.5) { float lon = degrees(atan(A.y, A.x)), lat = degrees(asin(clamp(A.z, -1.0, 1.0))); if (lon < uA1Box.x || lon > uA1Box.z || lat < uA1Box.y || lat > uA1Box.w) p = vec2(-1.0e5); }
+      if (uBorders < 0.5 && ((kind > 0.5 && kind < 1.5) || (kind > 4.5 && kind < 5.5 && uA1BoxOn < 0.5))) p = vec2(-1.0e5);   // a present-day line in a past year (a box's admin-1 lines excepted)
       gl_Position = vec4(p.x / uSize.x * 2.0 - 1.0, 1.0 - p.y / uSize.y * 2.0, 0.0, 1.0);
       vA = sa; vB = sb; vHw = w * 0.5; vKind = kind; vFlags = flags; vArc = floor(tag / 64.0); vZ = vec2(pa.z, pb.z);
     }`;
@@ -817,6 +819,7 @@
       for (let i = 0; i < 8; i++) { colors[3 * i] = C[i][0]; colors[3 * i + 1] = C[i][1]; colors[3 * i + 2] = C[i][2]; }
       gl.uniform3fv(P.u.uColor, colors);
       gl.uniform1f(P.u.uAdmin1, view.admin1 ? 1 : 0);
+      const a1b = view.admin1Box; gl.uniform1f(P.u.uA1BoxOn, a1b ? 1 : 0); if (a1b) gl.uniform4f(P.u.uA1Box, a1b[0], a1b[1], a1b[2], a1b[3]);
       const masked = !flat && !idPass && personal && view.landDim > 0;
       if (masked) { gl.activeTexture(gl.TEXTURE4); gl.bindTexture(gl.TEXTURE_2D, maskTex); gl.uniform1i(P.u.uMask, 4); gl.activeTexture(gl.TEXTURE0); }
       gl.uniform1f(P.u.uMaskOn, masked ? 1 : 0);

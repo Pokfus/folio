@@ -13,6 +13,7 @@
      siblings and the collection's home square with their names, and the place's name after the reveal. Nothing about the card's content moved. */
 (function (W) {
   "use strict";
+  const US_STATES_BOX = [-125.5, 24, -66.5, 49.5];   // lon0, lat0, lon1, lat1: the contiguous United States (the WWII windows' state lines; no other core admin-1 country reaches it)
   /* THE WAR WINDOW'S TIMELINE (2026-10-19; docs/atlas-v2-card-windows.md "The war window's timeline"). A war whose data has a front line or a picture that changes in two or more dated steps gets a slim rail under its
      window: a pin, play and pause, step buttons, the war's own years at its two ends and, under the pin, the step's month and year ("Mar 1943") where the step's date has a month, else the year. The steps come from the
      engine (`hub.warTimeline`): the years in which the faces of the war's two sides change, or — for the war that owns the front line — the front's plate dates. THE WAR SLICE CARRIES NO FRONT LINE (40 % of history.bin's
@@ -83,6 +84,10 @@
     };
     host.classList.add("mc-loading");
     const sibCard = host.getAttribute("data-map-card") || "";
+    /* THE SECOND WORLD WAR'S WINDOWS DRAW THE US STATES (2026-11-18, on request: "all atlas windows within the World War II collection should also show US state borders"):
+       the core's admin-1 lines inside the contiguous states' box only (atlas-embed.js `admin1Box`) — never China's, Russia's or Britain's — in a war window's year too (the 48
+       states' borders were settled by 1912). Alaska and Hawaii have no inner admin-1 line to draw. */
+    const usStates = /^ww2-/.test(sibCard);
     const warAttr = host.classList.contains("map-war");
     const locKind = host.getAttribute("data-map-kind") || "point";
     const isMembers = host.classList.contains("map-members");   // an organisation's member countries as the targets, its seat as the dot (app.js cardMembers)
@@ -695,7 +700,7 @@
         win = window.AtlasEmbed.view(cv, {
           zmin: CMAP_ZMIN, zmax: CMAP_ZMAX,
           spec: () => ({
-            layers: Object.assign({ borders: true, provinces: !isWar && (layerName !== "world" || !!subdiv), admin1Max: 60, neutral: isWar || glossYear != null || memHist, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject(), peoples: glossPeople ? "all" : undefined, peopleOnly: glossPeople ? glossFace : undefined }, reliefNow()),
+            layers: Object.assign({ borders: true, provinces: usStates || (!isWar && (layerName !== "world" || !!subdiv)), admin1Box: usStates ? US_STATES_BOX : undefined, admin1Max: 60, neutral: isWar || glossYear != null || memHist, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject(), peoples: glossPeople ? "all" : undefined, peopleOnly: glossPeople ? glossFace : undefined }, reliefNow()),
             year: glossYear != null ? glossYear : memHist ? (tlStep() ? tlStep().year : memYear) : tlStep() ? tlStep().year : warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined, history: wantsFront ? "ww2" : undefined, front: !!(tlStep() && tlStep().front), frontDate: tlStep() && tlStep().front ? tlStep().date : null,
             highlights: memHist ? memGroups.map((ids, i) => { const t = i === 0 ? TINT_SEL : i === 1 ? (X.TINT_LATE || TINT_SEL) : (X.TINT_THIRD || X.TINT_LATE || TINT_SEL); return { ids, rgb: t.rgb.split(",").map(Number), a: t.fillA, line: t.line, lineWidth: 2.2, glow: t.glow, glowBlur: 7, exact: true }; }) : targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9, exact: glossYear != null }] : [],
           }),

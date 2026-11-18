@@ -10431,7 +10431,7 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
      of its own so its two children join `.banners`' flex column and `order` can place them — the week box first (order 1, after everything
      at the default 0), then the games, then Continue reading and the foot, which keep their old place at the end. */
   .home-two{display:contents;}
-  .home-trio{display:none;}   /* the Term of the day stays on a phone too, directly below Suggested reading (2026-11-16, on request) */
+  .home-trio{display:none;}   /* the Term of the day stays on a phone too, directly ABOVE Suggested reading since 2026-11-18 (source order in .home-two; below it 2026-11-16) */
   .home-two > .home-week{display:flex;}
   .home-two > .home-week{order:1;}
   .games-sec{order:2;}

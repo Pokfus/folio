@@ -68,7 +68,7 @@
       ctx.beginPath();
       for (let i = 0; i < S.length; i += 8) {
         const tag = S[i + 3], kind = tag % 8, flags = Math.floor(tag / 8) % 8;
-        if (!want(kind, flags, Math.floor(tag / 64))) continue;
+        if (!want(kind, flags, Math.floor(tag / 64), S[i], S[i + 1], S[i + 2])) continue;
         const za = m6 * S[i] + m7 * S[i + 1] + m8 * S[i + 2]; if (za < 0.002) continue;
         const zb = m6 * S[i + 4] + m7 * S[i + 5] + m8 * S[i + 6]; if (zb < 0.002) continue;
         ctx.moveTo(cx + (m0 * S[i] + m1 * S[i + 1] + m2 * S[i + 2]) * r, cy - (m3 * S[i] + m4 * S[i + 1] + m5 * S[i + 2]) * r);
@@ -128,7 +128,7 @@
           ctx.setLineDash([3, 3]);
           stats.segmentsDrawn += strokeSegments(D.segs, rot, cx, cy, r, (k, f, a) => (k === KIND_BORDER || k === 4) && !!(f & FLAG_DISPUTED) && drawnArc(view, k, a));
           ctx.setLineDash([]);
-          if (view.admin1) { ctx.lineWidth = 0.6; ctx.strokeStyle = css(palette.admin1); stats.segmentsDrawn += strokeSegments(D.segs, rot, cx, cy, r, (k, f, a) => k === KIND_ADMIN1 && drawnArc(view, k, a)); }
+          if (view.admin1) { ctx.lineWidth = 0.6; ctx.strokeStyle = css(palette.admin1); const b = view.admin1Box, inBox = (x, y, z) => { if (!b) return true; const lon = Math.atan2(y, x) * 180 / Math.PI, lat = Math.asin(Math.max(-1, Math.min(1, z))) * 180 / Math.PI; return lon >= b[0] && lon <= b[2] && lat >= b[1] && lat <= b[3]; }; stats.segmentsDrawn += strokeSegments(D.segs, rot, cx, cy, r, (k, f, a, x, y, z) => k === KIND_ADMIN1 && drawnArc(view, k, a) && inBox(x, y, z)); }   // a window's admin-1 box (2026-11-18): its lines only
         }
       }
       if (Wl) {
