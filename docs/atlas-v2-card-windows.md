@@ -378,3 +378,23 @@ The owner's four requests, all in `atlas/atlas-windows.js` (`marks`, `scaleBar`,
 - **A water place draws no dot** — its name is blue (`waterInk`, the Atlas page's water-name ink from `atlas.js` `readPalette`) and italic, on its point; a river's own name on its line is the same. Which cards: `ATLAS_CARD_FACES.marks.water` (`build-card-faces.js`: the registry kind of the locator's place is river, lake, sea, ocean, strait or gulf; of the name fallback only a name that begins or ends with the water word), plus every `sea` and `river` locator; a glossary window by its registry kind (`data-map-placekind`; a lake is no longer drawn as the gold square). Where the outline is known — the locator's own `area`, or Find it's Natural Earth marine outline of the same name (`findit-waters.js`, bundle `atlas2waters`, fetched only for the cards in `marks.rings` and glossary seas, gulfs and straits) — the water is shaded (an outline borrowed from Find it is filled only: Natural Earth splits a sea into polygons whose shared edges would show as seams). **A water card asked as a question whose outline is not known keeps its gold dot until the reveal**: without it the window would mark nothing.
 - **A mountain or a hill is the peak triangle** (study.js `markClass` "peak"), in the own mark's gold: `marks.peak` for a card, the registry kind for a glossary window.
 - **The scale bar**, bottom-left (the zoom column is top-right): a thin line with end ticks, a round 1, 2 or 5 × 10ⁿ in the reader's units (km or mi; m or ft below one), at most 110 px or 30 % of the width, measured at the window's centre at every frame; not drawn while the globe's rim is in the window. It is ground no name may cover; `boxes().scale` is `{ text, px, box }`. Find it's board draws none.
+
+## The legend above, every state named, and the scope switch (2026-11-18)
+
+The owner's requests: "in atlas windows depicting states with timelines and/or a legend, the legend should be above the atlas window (below
+the section header) and on the atlas, states (both highlighted and other states on the map) should have name labels", and "in the top left of
+every atlas window should be a switch to depict either all the locations within the collection (current system) or all unlocked locations in
+all history/science/philosophy collections".
+
+- **The key is inside `.card-loc`, between the heading and the window** (`cardLocatorHTML`; `.card-loc > .war-key` in `styles.css`). The Atlas
+  popup's `noLocator` lifts it out before removing the window (`mountCardBack`), so it still survives there. The still renderer's sentence
+  now says "The key above". `test-war-cards.js`, `test-window-fallbacks.js` and `test-atlas-windows.js` assert the new place.
+- **Every state is named on a war window and a members window on a past year** (`otherStateNames` in `atlas-windows.js`): the hub's
+  `statesAt(year)` at the window's year (the timeline pin's), each name on a point inside its own face (`faceAnchors`, asked at rest), biggest
+  faces first, drawn LAST so it yields to every mark, every own name, a war side's label, the zoom column, the scale bar and the scope switch;
+  a war side's principal keeps its own label. `host._folioMap.stateNames()` lists them.
+- **The scope switch** (`mountScope`, `.mc-scope`): every card window that draws siblings (not a war window, not a glossary window, not Find it).
+  "Collection" is `locatorSiblings` as before; "All" is `locatorSiblingsAll` in `app.js` — the union of the sibling lists of every collection
+  whose `sectionOf` is History, Science or Philosophy — and the window still keeps only the studied ones. Remembered per viewer in localStorage
+  (`folio.atlasWinScope`); a change repaints every window on the page (`folio:winscope`). Its box is ground no name may cover.
+  `test-atlas-scope.js` guards it, and a person's role'd `also` places (`docs/map-cards.md`).

@@ -1364,7 +1364,7 @@
        (4.7 MB of the 9.1; it was the whole file). Like "wars" it is a SLICE: a hub that began on one cannot answer a window of the other, nor an area round (any year). */
     function ensureHistory(kind) { if (!histWanted && !histStarted) histKind = kind === "wars" || kind === "ww2" ? kind : "full"; histWanted = true; if (!histStarted && coreIn) startHistory(); }
     const reducedNow = () => reduced();
-    const fmtYear = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : y + " CE");   // every year with its era ("1 CE", "300 BCE", "2026 CE"): a bare "1" in the year box read as nothing (the 2a phone review)
+    const fmtYear = (y) => { const ad = typeof window !== "undefined" && window.FolioEra && window.FolioEra() === "ad"; return y <= 0 ? (y < 0 ? -y : 1) + (ad ? " BC" : " BCE") : ad ? "AD " + y : y + " CE"; };   // the reader's era labels (Settings → Dates, 2026-11-18)   // every year with its era ("1 CE", "300 BCE", "2026 CE"): a bare "1" in the year box read as nothing (the 2a phone review)
     // "500 BCE", "500 BC", "-44", "44", "44 CE", "AD 70", "1066": null when it is none of these
     function parseYear(text) {
       const t = String(text || "").trim().replace(/[,\.]/g, "").toUpperCase();
@@ -3314,7 +3314,7 @@
       const L0 = TOUR.list; if (!L0 || !L0.length) return;
       TOUR.i = Math.max(0, Math.min(L0.length - 1, i));
       const c = L0[TOUR.i];
-      tourYear.textContent = c.year < 0 ? (-c.year).toLocaleString("en-GB") + " BCE" : c.year + " CE"; tourTitle.textContent = c.title; tourN.textContent = (TOUR.i + 1) + " of " + L0.length;
+      tourYear.textContent = c.year < 0 ? (-c.year).toLocaleString("en-GB") + " BCE" : c.year + " CE";   // the page-wide era pass (app.js eraTree) relabels it for a BC / AD reader tourTitle.textContent = c.title; tourN.textContent = (TOUR.i + 1) + " of " + L0.length;
       applyYear(clampYear(c.year), { why: "tour", noStore: true });
       if (c.row) { const row = c.row; flyTo(row.at[0], row.at[1], Math.max(2.5, kmppFor(row)), () => { if (TOUR.list && TOUR.list[TOUR.i] === c) selectRow(row, { push: false }); }); }
       tourArm();

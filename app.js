@@ -1581,7 +1581,7 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "large", dayEnd: 0, animations: true, contrast: false, newPerDay: 2, limitsCustom: false, bgCollapsed: false, kinCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
+      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", era: "ce", theme: "folio", fontSize: "large", dayEnd: 0, animations: true, contrast: false, newPerDay: 2, limitsCustom: false, bgCollapsed: false, kinCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true, attemptFirst: false, recallFirst: false, saveData: false, mapAlt: false },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last,seen}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
@@ -17552,6 +17552,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // `kilometers` here, and doing it the other way round would hand U_METRIC a word it still lists but
     // that the bracket test was written against in its British form.
     spellTree(root);
+    // …and the reader's era labels (BC / AD or BCE / CE), after both — see eraTree
+    eraTree(root);
     // a community card type's read-aloud spans, wherever a page painted one (the Studio's previews, a
     // shared deck's sample card). The study card's own reveal paints after this and wires its own.
     wireSpeakControls(root);
@@ -18654,6 +18656,64 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     S.settings.spelling = sys;
     save();
     render();   // the transform is one-way per render, so the other system comes back with a fresh paint
+  }
+
+  /* ---------- THE ERA LABELS (2026-11-18, on request: "add the option to switch between BC/AD and BCE/CE. This should
+     automatically apply across the entire website") ----------
+     Content is authored BCE / CE; a reader who chooses BC / AD gets a text-node pass, exactly as the spelling and units
+     switches do it — nothing stored changes. BCE becomes BC wherever it stands; a CE year becomes AD placed BEFORE it, as
+     the convention has it ("c. 200 – 900 CE" → "c. AD 200 – 900", "43 CE" → "AD 43"), and "1st century CE" → "1st
+     century AD". A bare "CE" with no number or century before it is left alone (it is too often something else). The
+     same skips as spelling: citations (`.notranslate`), quotations (`.verbatim`), the Library's books, a foreign card.
+     The Atlas's own year box and timeline labels ask `window.FolioEra()` (atlas.js, atlas-windows.js). */
+  const ERAS = ["ce", "ad"];
+  function eraSystem() { return ERAS.includes(S.settings && S.settings.era) ? S.settings.era : "ce"; }
+  window.FolioEra = () => eraSystem();
+  const ERA_BCE_RX = /\bBCE\b/g;
+  const ERA_CE_RX = /((?:\bc\.|\bca\.|\bcirca)\s*)?(\b\d[\d,]*)((?:\s*(?:–|—|-|\/|to|and|or)\s*(?:c\.\s*)?\d[\d,]*)*)\s+CE\b/g;
+  const ERA_CENT_RX = /\b(centur(?:y|ies)|millenni(?:um|a))\s+CE\b/g;
+  function eraText(t) {
+    if (!t || t.indexOf("CE") < 0) return t;
+    return t.replace(ERA_BCE_RX, "BC").replace(ERA_CE_RX, (m, c, a, rest) => (c || "") + "AD " + a + rest).replace(ERA_CENT_RX, "$1 AD");
+  }
+  window.FolioEraText = (t) => (eraSystem() === "ad" ? eraText(t) : t);
+  function eraTree(root) {
+    if (!root || eraSystem() !== "ad") return;
+    const foreign = !!(document.querySelector(SPELL_FOREIGN_SEL));
+    if (root.nodeType === 3) {
+      if (spellSkip(root.parentNode, foreign)) return;
+      const v = eraText(root.nodeValue); if (v !== root.nodeValue) root.nodeValue = v;
+      return;
+    }
+    if (!root.querySelectorAll) return;
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    const nodes = []; let n;
+    while ((n = w.nextNode())) if (n.nodeValue && n.nodeValue.indexOf("CE") >= 0) nodes.push(n);
+    nodes.forEach((node) => {
+      if (spellSkip(node.parentNode, foreign)) return;
+      const v = eraText(node.nodeValue);
+      if (v !== node.nodeValue) node.nodeValue = v;
+    });
+  }
+  let _eraObserver = null;
+  function applyEra() {
+    if (_eraObserver) { _eraObserver.disconnect(); _eraObserver = null; }
+    if (eraSystem() !== "ad") return;   // the authored labels: no pass, no observer
+    eraTree(document.body);
+    _eraObserver = new MutationObserver((muts) => {
+      muts.forEach((m) => {
+        if (m.type === "characterData") { eraTree(m.target); return; }
+        m.addedNodes && m.addedNodes.forEach((nd) => eraTree(nd));
+      });
+    });
+    _eraObserver.observe(document.body, { childList: true, subtree: true, characterData: true });
+  }
+  function setEra(sys) {
+    if (!ERAS.includes(sys) || sys === eraSystem()) return;
+    S.settings.era = sys;
+    save();
+    applyEra();
+    render();   // one-way per render, like the spelling: the other labels come back with a fresh paint
   }
 
   // Reflect the current admin / first-time-visitor mode in the top bar and body class.
@@ -39768,7 +39828,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* the one object the lazy file reaches app.js through */
   function atlas2Ctx() {
     return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARDS, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, TINT_LATE, TINT_THIRD, GAME_MAX_DIFFICULTY,
-      cardCollectionRoot, cardLocator, cardMapSpec, cardMapKeys, cardSpanYears, cardWar, cardWarYears, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon,
+      cardCollectionRoot, cardLocator, cardMapSpec, cardMapKeys, cardSpanYears, cardWar, cardWarYears, ensureData, gameCapFirst, locatorSiblings, locatorSiblingsAll, paintSwords, ringsBBox, wrapLon,
       availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, esc, hashStr, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, unitSystem, gameProgress, setGameProgress,
       todayStr: gameDayStr, gameArchiveOn, gameShareHTML, gameNextLine };   // the games' draws seed on the archive's day while one is played (THE GAMES ARCHIVE); nothing else in the lazy file reads the date
   }
@@ -41118,13 +41178,17 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        drawn as a named dot beside the card's own — for a card that is about two sites at once. The coordinates are fetched like `at`, never typed. */
     const also = Array.isArray(l.also) ? l.also.map((a) => {
       const p = a && Array.isArray(a.at) ? [Number(a.at[0]), Number(a.at[1])] : null;
-      return p && isFinite(p[0]) && isFinite(p[1]) && Math.abs(p[0]) <= 180 && Math.abs(p[1]) <= 90 && String(a.name || "").trim() ? { name: String(a.name).trim(), at: p } : null;
+      /* `role` (2026-11-18, on request: "all cards about specific individuals should have at least two locations highlighted: their birth location and death location … the state they
+         ruled … including its capital with a square icon"): "birth" | "death" | "capital" draws the place in the card's own gold — a capital as the square; an entry with no role keeps the
+         red sibling dot it always had. `label: true` (eg-004's Two Lands) is a region's NAME alone, italic, with no mark. */
+      const role = /^(birth|death|capital)$/.test(String(a && a.role || "")) ? a.role : "";
+      return p && isFinite(p[0]) && isFinite(p[1]) && Math.abs(p[0]) <= 180 && Math.abs(p[1]) <= 90 && String(a.name || "").trim() ? { name: String(a.name).trim(), at: p, role: role, label: a.label === true } : null;
     }).filter(Boolean) : [];
     /* `ask` (Oct 2026, on request: the rivers-and-mountains decks "should work the same way as the state or country cards"): the window IS the card's question —
        drawn on the FRONT, unnamed until the answer is shown, and not again on the back (see cardLocatorFront). */
     /* `alone` (2026-11-18, on request: "the atlas tag 'Italian peninsula' should not be displayed in the atlas windows of other cards"): this card's
        place is drawn on its OWN window only — never as a sibling on another card's (locatorSiblings). `hide` is the viewing card's choice; this is the place's. */
-    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, within: within, label: lab, hide: hide, also: also, ask: l.ask === true, alone: l.alone === true };
+    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, within: within, label: lab, hide: hide, also: also, ask: l.ask === true, alone: l.alone === true, role: /^(birth|death|capital)$/.test(String(l.role || "")) ? l.role : "" };   // `role` "capital": the card's own dot IS the ruler's capital, drawn as the square (2026-11-18)
   }
   /* ---------- WHO FOUGHT, AND WHO WON (`card.war`; Sep 2026, on request) ----------
      A war card's atlas window shades the two sides in two colours — the victors green, the defeated red
@@ -41309,8 +41373,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      held session below: it is a fact about this sitting. */
   const _atlasHeard = new Set();
   const LOC_SIB_POLITY = new Set(["state", "empire", "dynasty", "civilisation", "culture", "people", "ruler"]);
-  function locatorSiblings(id) {
-    const root = cardCollectionRoot(id);
+  /* EVERY UNLOCKED PLACE, NOT ONLY THE COLLECTION'S (2026-11-18, on request: "in the top left of every atlas window should be a switch to depict
+     either all the locations within the collection (current system) or all unlocked locations in all history/science/philosophy collections").
+     The union of every History, Science and Philosophy collection's sibling list (`COLLECTION_SECTION` / `sectionOf`), the viewing card left out;
+     the window keeps only the ones the reader has studied, exactly as it does for its own collection. Built on locatorSiblings' per-root cache. */
+  const LOC_ALL_SECTIONS = new Set(["History", "Science", "Philosophy"]);
+  function locatorSiblingsAll(id) {
+    const own = locatorSiblings(id), dots = [];
+    ((window.COLLECTION_TREE || {}).collections || []).forEach((r) => {
+      if (!LOC_ALL_SECTIONS.has(sectionOf(r.id)) || NODE_BY_ID[r.id] == null) return;
+      locatorSiblings(id, NODE_BY_ID[r.id]).dots.forEach((d) => dots.push(d));
+    });
+    return { dots: dots, termName: own.termName, own: own.own };
+  }
+  function locatorSiblings(id, rootOver) {
+    const root = rootOver || cardCollectionRoot(id);
     if (!root) return { dots: [], termName: new Map(), own: new Set() };
     if (!_locSibCache) _locSibCache = new Map();
     const hit = _locSibCache.get(root.id);
@@ -41435,9 +41512,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       : m ? m.name + " shaded in gold on an interactive globe of today's " + (m.layer === "world" ? "countries" : "borders") + (m.note ? ": " + m.note : "") + (atName ? "; " + atName + " marked" : "") + ". "
       : l.name ? l.name + " marked on an interactive globe. " : "The place marked on an interactive globe. ") +
       "Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom.";
+    /* THE LEGEND STANDS ABOVE THE WINDOW, under the section's heading (2026-11-18, on request: "in atlas windows depicting states with
+       timelines and/or a legend, the legend should be above the atlas window (below the section header)"). It is inside `.card-loc` now;
+       the Atlas popup's `noLocator` lifts it out before it removes the window (mountCardBack), so it still survives there. */
     return '<div class="card-loc"><span class="label">' + (w ? "Who fought" : m ? esc(m.label || "Members") : "Location") + "</span>" +
+      cardWarKeyHTML(w) + cardMembersKeyHTML(m) +
       cardLocatorWindowHTML(c, l, w, m, "map-loc" + (w ? " map-war" : m ? " map-members" : ""), said, true) +
-      "</div>" + cardWarKeyHTML(w) + cardMembersKeyHTML(m);
+      "</div>";
   }
   // the window itself: on the back (`named`, with the globe button) or, for a card whose locator asks (cardLocatorFront), as the question on the front
   function cardLocatorWindowHTML(c, l, w, m, cls, said, named) {
@@ -42694,7 +42775,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        IT IS REMOVED RATHER THAN HIDDEN, and that is the point of doing it here rather than in the
        stylesheet: `display:none` would still have built the canvas and started the globe. It runs BEFORE
        `mountCardMaps`, which is what would start it. */
-    if (opts.noLocator) inner.querySelectorAll(".card-loc").forEach((el) => el.remove());
+    if (opts.noLocator) inner.querySelectorAll(".card-loc").forEach((el) => { el.querySelectorAll(".war-key").forEach((k) => el.parentNode.insertBefore(k, el)); el.remove(); });   // the legend (above the window since 2026-11-18) is kept
     // a locator's globe, already naming its place: the answer is on screen, so there is nothing to hold back
     mountCardMaps(inner); cardMapReveal(inner); mountCardTimelines(inner);
   }
@@ -48997,7 +49078,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const homeName = atlasCountryV2((S.settings.home && S.settings.home.name) || "Netherlands");   // a home stored under v1's spelling is selected under the new one
     const fsNow = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "large" : S.settings.fontSize;
     const unitsNow = unitSystem();
-    const spellNow = spellSystem();
+    const spellNow = spellSystem(), eraNow = eraSystem();
     // atlas/data/country-names.js is lazy (see DATA_BUNDLES) — until it lands the picker holds just the current home,
     // and fillHomeOpts() below swaps in the full country list once it arrives
     // The option VALUE stays the English name — it keys countryCenter() and is stored in S.settings.home
@@ -49344,6 +49425,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               [["en-GB", "British", "colour"], ["en-US", "American", "color"]].map((u) => `<button type="button" data-spelling="${u[0]}" class="${spellNow === u[0] ? "on" : ""}" aria-pressed="${spellNow === u[0]}"><span class="fs-a notranslate" aria-hidden="true">${u[2]}</span>${u[1]}</button>`).join("")
             }</div></div>
           </div>
+          <div class="set-row set-row-block">
+            ${/* Era labels (2026-11-18, on request): BCE / CE as authored, or BC / AD — a rendering pass like the two above (eraTree). */""}
+            ${info("Dates", "How years before and after year 1 are labelled, across the cards, the glossary, the Atlas and the site.", "Quoted sources and citations keep the labels their author used.")}
+            <div class="ctl"><div class="fs-pick units-pick" id="eraPick" role="group" aria-label="Date labels">${
+              [["ce", "BCE / CE", "500 BCE"], ["ad", "BC / AD", "500 BC"]].map((u) => `<button type="button" data-era="${u[0]}" class="${eraNow === u[0] ? "on" : ""}" aria-pressed="${eraNow === u[0]}"><span class="fs-a notranslate" aria-hidden="true">${u[2]}</span><span class="notranslate">${u[1]}</span></button>`).join("")
+            }</div></div>
+          </div>
         </div>
         <div class="set-card">
           ${setHead("#8257C2", '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>', "Audio")}
@@ -49450,6 +49538,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (spellPick) spellPick.addEventListener("click", (e) => {
       const b = e.target.closest("[data-spelling]");
       if (b) setSpelling(b.dataset.spelling);
+    });
+    // date labels — likewise
+    const eraPick = root.querySelector("#eraPick");
+    if (eraPick) eraPick.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-era]");
+      if (b) setEra(b.dataset.era);
     });
 
     // sound effects toggle — turning it ON plays the toggle chirp as confirmation (the delegated
@@ -53618,6 +53712,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   render();
   applyLang();   // localize the freshly rendered page + static chrome, set dir/lang, install the i18n observer
   applyUnits();  // …and put every measurement into the one system this reader has chosen, popups included
+  applyEra();   // BC / AD for a reader who chose it; nothing at all for BCE / CE
   applySpelling();   // …and every spelling likewise; a British reader pays neither a pass nor an observer
   // A non-English reader paints in English for the moment it takes the lazy translation tables to
   // arrive, then repaints translated. English readers never fetch them, and never pay a second render.

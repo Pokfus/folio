@@ -21,7 +21,7 @@
      on file:// through its twin) instead of the war slice (1.8 MB) — and never the whole history (9.1 MB; it did until 2026-10-19). `.claude/test-war-timeline.js` proves the list equals the front entities' `cards` in history.bin. */
   const WAR_FRONT_CARDS = new Set(["ww2-001"]);
   const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const yearText = (y) => (y < 0 ? (-y) + " BCE" : y === 0 ? "1 BCE" : y < 1000 ? y + " CE" : String(y));   // a CE year is bare from 1000 on; a short one keeps its era so "632" is never a number
+  const yearText = (y) => { const ad = W.FolioEra && W.FolioEra() === "ad"; return y <= 0 ? (y < 0 ? -y : 1) + (ad ? " BC" : " BCE") : y < 1000 ? (ad ? "AD " + y : y + " CE") : String(y); };   // the reader's era labels (Settings → Dates, 2026-11-18)   // a CE year is bare from 1000 on; a short one keeps its era so "632" is never a number
   const dateFrac = (d) => { const y = Math.floor(d / 10000), m = Math.floor(d / 100) % 100, dd = d % 100; return y + (Date.UTC(y, m - 1, dd) - Date.UTC(y, 0, 1)) / (365.25 * 86400000); };
   const stepText = (st) => (st.month ? MONTHS[st.month - 1] + " " + yearText(st.year) : yearText(st.year));
   /* the steps of a timeline from the engine's answer: the front's plates (each with a month) when the war owns them, else the change years; fewer than two is no timeline */
@@ -76,6 +76,7 @@
       ready() { return isReady; },
       settled() { return !!(win && win.isSettled()); },
       names() { return lastNames.slice(); },
+      stateNames() { return stN.out.map((o) => Object.assign({}, o)); },   // the other states named on a history window (otherStateNames)
       boxes() { return JSON.parse(JSON.stringify(lastBoxes)); },   // every name drawn and every mark standing in the last frame, as boxes in the window's CSS px, the names dropped for want of room, the controls' box — for the suites
       labels() { return lastLabels.map((l) => Object.assign({}, l)); },   // the war window's two names as drawn: { k: "v" | "l", n, x, y (the LABEL'S POINT, CSS px of the window: inside a face of the side when `ground`), tx, ty (the text's centre: the point itself, or beside it when `beside`), w (its width), ground, beside } — for the suites
       probe() { return win && win.api ? { spec: win.api.spec, dpr: win.api.dpr, cw: win.api.cw, ch: win.api.ch } : null; },   // the frame the window last drew: its engine spec and size — for the suites   // Phase 4b: the war window's two sides as drawn on it ("Rome", "Carthage"), for the suites   // Phase 4b: the engine's levels, tiles and water for THIS view are all in (ready() is the window being mounted)
@@ -154,7 +155,13 @@
     const subdiv = sibCard ? (CMAP_SUBDIV[(root0 || {}).id] || null) : null;
     /* a map card's window draws the collection's studied places too (app.js cardMapHTML `data-map-sib`, 2026-11-07); it stays a map card in everything else */
     const sibOf = sibCard || (!isGloss && !isWar ? host.getAttribute("data-map-sib") || "" : "");
-    const sib = sibOf ? locatorSiblings(sibOf) : { dots: [], termName: new Map(), own: new Set() };
+    /* THE SCOPE SWITCH (2026-11-18, on request: "in the top left of every atlas window should be a switch to depict either all the locations within the collection (current system) or all
+       unlocked locations in all history/science/philosophy collections"): "col" draws this collection's studied places (locatorSiblings), "all" every studied place of every History, Science and
+       Philosophy collection (app.js locatorSiblingsAll). A per-viewer convenience in localStorage (`folio.atlasWinScope`), shared by every window on the page through `folio:winscope`. */
+    const SCOPE_KEY = "folio.atlasWinScope";
+    const scopeNow = () => { try { return localStorage.getItem(SCOPE_KEY) === "all" ? "all" : "col"; } catch (e) { return "col"; } };
+    const sibFor = () => (!sibOf ? { dots: [], termName: new Map(), own: new Set() } : scopeNow() === "all" && X.locatorSiblingsAll ? X.locatorSiblingsAll(sibOf) : locatorSiblings(sibOf));
+    let sib = sibFor();
     /* A MAP CARD WHOSE KEY IS ITS PLACES (2026-11-15, docs/map-cards.md "The key is the card's places"): no `data-map-key`, so the shaded shape is the card's places read through card-faces.js
        (cardMapKeys) once `atlas2cards` and the light card → places index `atlas2places` are in; a sibling map card drawn on this window is resolved the same way */
     const keyCard = !key && !sibCard && !isGloss && !isWar && !isMembers ? host.getAttribute("data-map-sib") || "" : "";
@@ -215,6 +222,15 @@
         const b = ringsBox(ext); lon = wrapLon((b[0] + b[2]) / 2); lat = (b[1] + b[3]) / 2;
         const span = Math.max(b[3] - b[1], (b[2] - b[0]) * Math.cos(lat * DEG), 0.2); z = 0.85 / (0.46 * DEG * span);
       }
+      /* A PERSON'S PLACES ARE FRAMED TOGETHER (2026-11-18): a locator whose `also` entries carry a role (birth, death, capital) opens on all of them, not on its first dot alone */
+      if (!targets.length && !(ext && ext.length) && dot && sibOf && !isMembers) {
+        const ml = cardLocator(CARD_BY_ID[sibOf]), pts = ((ml && ml.also) || []).filter((a) => a.role).map((a) => a.at);
+        if (pts.length) {
+          const all = [dot.c].concat(pts), xs = all.map((q) => q[0]), ys = all.map((q) => q[1]);
+          const x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs), y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
+          if (x1 - x0 < 180) { lon = (x0 + x1) / 2; lat = (y0 + y1) / 2; const span = Math.max(y1 - y0, (x1 - x0) * Math.cos(lat * DEG), 0.2); z = Math.max(CMAP_ZLOC, Math.min(10, 0.5 / (0.46 * DEG * span))); }
+        }
+      }
       if (targets.length) {
         let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const t of targets) { if (t.b[0] < x0) x0 = t.b[0]; if (t.b[1] < y0) y0 = t.b[1]; if (t.b[2] > x1) x1 = t.b[2]; if (t.b[3] > y1) y1 = t.b[3]; }
         if (targets.length > 1) { lon = (x0 + x1) / 2; lat = (y0 + y1) / 2; }
@@ -273,6 +289,45 @@
        it is inside, else the nearest inside point along its axes) — on the side's biggest face on screen that has room: the name's box wholly inside the frame, clear of the zoom controls and of the other side's name; the next face when it has
        not; and only when no face of the side has room the best face's point pushed in (and `ground: false` in `labels()`). The point is kept as a point on the sphere, so a pan or a pinch carries it with the map and the next rest asks again.
        Until the first answer (a worker round trip after the first full frame) the window is not settled and draws no names; if the worker never answers the old centroid stands. `labels()` is what the suites read. */
+    let winHub = null;   // the hub this window is drawn by (mountWindow)
+    /* EVERY STATE ON A HISTORY WINDOW IS NAMED (2026-11-18, on request: "in atlas windows depicting states with timelines and/or a legend … on the atlas, states (both highlighted and
+       other states on the map) should have name labels"). A war window and a members window on a past year's borders: the hub's `statesAt(year)` (each polity alive then, with the name
+       the Atlas shows for it that year), each name on a point inside its own face (`faceAnchors`, asked at rest, the war sides' and Find it's anchor), the biggest faces on screen first;
+       a name whose box would leave the frame, cover the zoom controls or the scale bar, or meet a mark or a name already placed is left out. A war side's principal keeps its own label
+       (warMarks) and is not named twice. `host._folioMap.stateNames()` is what a suite reads. */
+    const stN = { key: "", asked: "", rows: null, states: null, byFace: null, year: null, out: [] };
+    function otherStateNames(st, api, ctx, taken, yearNow) {
+      if (!winHub || winHub.canvas2d || !winHub.statesAt || !winHub.faceAnchors || yearNow == null) return;
+      const W = api.cw, H = api.ch;
+      if (stN.year !== yearNow || !stN.states || !stN.states.length) { stN.year = yearNow; stN.rows = null; stN.asked = ""; stN.states = (winHub.statesAt(yearNow) || []).filter((x) => String(x.n || "").trim()); stN.byFace = new Map(stN.states.map((x) => [x.face, x])); }
+      if (!stN.states.length) return;
+      const key = [st.lon.toFixed(3), st.lat.toFixed(3), st.zoom.toFixed(3), W, H, api.level, yearNow].join();
+      if (!api.fast && stN.asked !== key) {
+        stN.asked = key; const y0 = yearNow;
+        winHub.faceAnchors(stN.states.map((x) => x.face)).then((rows) => { if (stopped || stN.asked !== key || stN.year !== y0) return; stN.rows = rows; if (win) win.schedule(); }, () => {});
+      }
+      if (!stN.rows) return;
+      const skipFaces = new Set((lastLabels || []).filter((l) => l.principal || l.ground).map((l) => l.face));
+      const skipNames = new Set((lastLabels || []).map((l) => String(l.n || "").trim().toLowerCase()));
+      ctx.save(); ctx.font = "500 11px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.lineJoin = "round"; ctx.lineWidth = 3;
+      const hit = (b, o) => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1], placed = taken.slice(), out = [];
+      const rows = stN.rows.filter((r) => r.v && stN.byFace.has(r.face) && !skipFaces.has(r.face)).sort((a, b) => (b.km2 || 1) * Math.max(0.02, b.vis) - (a.km2 || 1) * Math.max(0.02, a.vis));
+      const seen = new Set();
+      for (const r of rows) {
+        const sx = stN.byFace.get(r.face), text = String(sx.n).trim(), lk = text.toLowerCase(); if (seen.has(lk) || skipNames.has(lk)) continue;
+        const bw = ctx.measureText(text).width / 2 + 3, bh = 8; let at = null;
+        for (const q of r.pts && r.pts.length ? r.pts : [{ v: r.v }]) {
+          const p = api.projectV(q.v[0], q.v[1], q.v[2]); if (p[2] <= 0.02) continue;
+          const b = [p[0] - bw, p[1] - bh, p[0] + bw, p[1] + bh];
+          if (b[0] < 3 || b[2] > W - 3 || b[1] < 3 || b[3] > H - 3 || placed.some((o) => hit(b, o))) continue;
+          at = p; placed.push(b); break;
+        }
+        if (!at) continue;
+        seen.add(lk); ctx.strokeStyle = halo; ctx.strokeText(text, at[0], at[1]); ctx.fillStyle = ink; ctx.fillText(text, at[0], at[1]); out.push({ id: sx.id, n: text, x: at[0], y: at[1] });
+      }
+      stN.out = out;
+      ctx.restore();
+    }
     let warSides = null, lastNames = [], lastLabels = [], warHub = null, lastBoxes = { names: [], marks: [], dropped: [], ctl: null };
     const anch = { asked: "", key: "", rows: null, state: "none", timer: 0 };   // state: none | wait | have | failed
     const viewKey = (st, cw, ch, level) => [st.lon.toFixed(4), st.lat.toFixed(4), st.zoom.toFixed(4), cw, ch, level, tlStep() ? tlStep().date || tlStep().year : ""].join();   // the level is in it: the faces are asked for at the level the view draws
@@ -404,11 +459,13 @@
       const cvR = cv.getBoundingClientRect(), zc = host.querySelector(".mc-zoom");
       if (!api.fast || !marks.ctl) { const zr = zc ? zc.getBoundingClientRect() : null; marks.ctl = zr && zr.width ? [zr.left - cvR.left - 4, zr.top - cvR.top - 4, zr.right - cvR.left + 4, zr.bottom - cvR.top + 4] : null; }
       const ctlR = marks.ctl;
+      if (!api.fast || !marks.scopeBox) { const se = host.querySelector(".mc-scope"), sr = se ? se.getBoundingClientRect() : null; marks.scopeBox = sr && sr.width ? [sr.left - cvR.left - 4, sr.top - cvR.top - 4, sr.right - cvR.left + 4, sr.bottom - cvR.top + 4] : null; }
+      const scopeR = marks.scopeBox;
       const addMark = (kind, x, y, hw, hh) => markBoxes.push({ kind, box: [x - hw, y - hh, x + hw, y + hh] });
       const widths = marks.widths || (marks.widths = new Map());
       const wOf = (font2, text) => { const k = font2 + "|" + text; let w = widths.get(k); if (w == null) { ctx.font = font2; w = ctx.measureText(text).width; widths.set(k, w); } return w; };
       const sb = scaleBar(api, st), sbR = sb ? sb.box : null;   // the scale bar's corner is ground too
-      const clear = (b) => b[0] >= 2 && b[1] >= 2 && b[2] <= W - 2 && b[3] <= H - 2 && !(ctlR && hit(b, ctlR)) && !(sbR && hit(b, sbR)) && !markBoxes.some((m) => hit(b, m.box)) && !nameBoxes.some((q) => hit(b, q.box));
+      const clear = (b) => b[0] >= 2 && b[1] >= 2 && b[2] <= W - 2 && b[3] <= H - 2 && !(ctlR && hit(b, ctlR)) && !(scopeR && hit(b, scopeR)) && !(sbR && hit(b, sbR)) && !markBoxes.some((m) => hit(b, m.box)) && !nameBoxes.some((q) => hit(b, q.box));
       /* the places a name may take round a point mark of half-size r: right, left, above, below, then the four corners (the text's box is its width plus 2 px each side, `half` high) */
       const around = (x, y, r, w, half) => [0, 9].reduce((all, ring) => all.concat(ring1(x, y, r + ring, w, half)), []);   // the near ring, then one 9 px further out (a name beside a crowd of dots rather than none)
       const ring1 = (x, y, r, w, half) => {
@@ -439,7 +496,7 @@
       const droppedNames = [];
       const nm0 = gameCapFirst(dot ? dot.n : isMembers && host.getAttribute("data-map-name") ? host.getAttribute("data-map-name") : targets.length ? targets[0].n : "");   // a seatless members window: its group's name (app.js cardLocatorWindowHTML)
       // ---- the marks ----
-      let sibAt = [], anchorAt = null, faceAt = [];
+      let sibAt = [], anchorAt = null, faceAt = [], alsoAt = [];
       if (sibOf && !isWar) {
         const groups = new Map();
         const meLoc = cardLocator(CARD_BY_ID[sibOf]), hideSet = new Set((meLoc && meLoc.hide) || []);   // places this card's window leaves off (`locator.hide`)
@@ -468,7 +525,10 @@
         // a region's name that a studied DOT of the same name already carries (Uruk: the city's card and the Uruk period's region, 2026-11-15) is named once, at the dot
         if (faceAt.length && sibAt.length) { const dotNames = new Set(sibAt.map((sa) => String(sa[2] || "").trim().toLowerCase())); faceAt = faceAt.filter((fa) => !(fa[3] && dotNames.has(String(fa[2] || "").trim().toLowerCase()))); }
         // the card's own further places (`locator.also`): drawn whether or not anything has been studied, as named dots beside its own
-        for (const a of (meLoc && meLoc.also) || []) { const p = api.project(a.at[0], a.at[1]); if (inView(api, p)) sibAt.push([p[0], p[1], a.name, "point"]); }
+        /* …in the card's own gold when the entry has a role (a person's birth and death places, a ruler's capital as the square; 2026-11-18), as a region's italic name alone when it is a `label`,
+           else the red sibling dot it always was */
+        for (const a of (meLoc && meLoc.also) || []) { const p = api.project(a.at[0], a.at[1]); if (!inView(api, p)) continue; if (a.label) faceAt.push([p[0], p[1], a.name, true]); else if (a.role) alsoAt.push([p[0], p[1], a.name, a.role]); else sibAt.push([p[0], p[1], a.name, "point"]); }
+        for (const aa of alsoAt) addMark(aa[3] === "capital" ? "square" : "dot", aa[0], aa[1], 6, 6);
         if (anchor) { const p = api.project(anchor.c[0], anchor.c[1]); if (inView(api, p)) anchorAt = [p[0], p[1]]; }
         for (const sa of sibAt) addMark(sa[3] === "battle" ? "swords" : "dot", sa[0], sa[1], sa[3] === "battle" ? 8 : 4.6, sa[3] === "battle" ? 8 : 4.6);
         if (anchorAt) addMark("home", anchorAt[0], anchorAt[1], 5.6, 5.6);
@@ -481,7 +541,7 @@
       /* THE SQUARE IS A CAPITAL'S (2026-11-16, the owner: "in gloss popup atlas windows, locations should only ever use square icons if they are currently the capital city of a country"):
          a glossary window's own point is the gold square only when its registry kind is `capital` (a present-day national capital; app.js glossWindowHTML clears the kind where Natural
          Earth's flag is not one), every other point the gold circle. A card's window keeps its rule: the square without a sibling, the circle with them. */
-      const ownSquare = isGloss ? placeKind === "capital" : !sibCard;
+      const ownSquare = isGloss ? placeKind === "capital" : (!sibCard || (isMembers && memYear != null) || ((cardLocator(CARD_BY_ID[sibCard]) || {}).role === "capital"));   // a ruler's capital at the card's own dot (`locator.role`, 2026-11-18)   // a state's seat on its own year's borders is its capital: the square (2026-11-18)
       if (dot && !noDotWater && !(locKind === "river" && !!ownLines) && locKind !== "range" && !isWall && locKind !== "region" && locKind !== "sea" && locKind !== "shelf") { const p = api.project(dot.c[0], dot.c[1]); if (p[2] >= 0) { ownDotAt = p; addMark(locKind === "battle" ? "swords" : isPeak ? "peak" : ownSquare ? "square" : "dot", p[0], p[1], locKind === "battle" ? 9 : 7, locKind === "battle" ? 9 : 7); } }
       // ---- the names, in priority order ----
       if (ownLines && revealed) {   // the card's own river: its name on the line, at the first of several stretches that is clear
@@ -507,6 +567,7 @@
         }
       }
       if (anchorAt) placeName(anchor.n, "600 11.5px " + font, (w) => around(anchorAt[0], anchorAt[1], 5.6, w, 8), {});
+      for (const aa of alsoAt) { const nm = gameCapFirst(aa[2]); if (nm) placeName(nm, "600 12px " + font, (w) => around(aa[0], aa[1], 6, w, 8), { own: true }); }   // the card's own further places (a person's birth and death, a ruler's capital) outrank the siblings
       sibAt.sort((a, b) => Math.hypot(a[0] - api.cw / 2, a[1] - api.ch / 2) - Math.hypot(b[0] - api.cw / 2, b[1] - api.ch / 2));   // the nearest to the window's centre first: they are the places the card is about
       for (const sa of sibAt) { const nm = gameCapFirst(sa[2]); if (nm) placeName(nm, "500 11px " + font, (w) => around(sa[0], sa[1], 4.6, w, 7), {}); }
       // a studied state's or country's name (a geography map card): centred on its label point, else just above or below it — never far from its own ground
@@ -518,6 +579,12 @@
         for (const sa of sibAt) {
           if (sa[3] === "battle") paintSwords(ctx, sa[0], sa[1], 6.5);
           else { ctx.beginPath(); ctx.arc(sa[0], sa[1], 3.4, 0, Math.PI * 2); ctx.fillStyle = "rgba(200,69,60,.9)"; ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.75)"; ctx.stroke(); }
+        }
+        for (const aa of alsoAt) {
+          ctx.save(); ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.lineWidth = 1.4; ctx.strokeStyle = "rgba(60,40,0,.75)";
+          if (aa[3] === "capital") { ctx.fillRect(aa[0] - 4.5, aa[1] - 4.5, 9, 9); ctx.strokeRect(aa[0] - 4.5, aa[1] - 4.5, 9, 9); }
+          else { ctx.beginPath(); ctx.arc(aa[0], aa[1], 4.6, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); }
+          ctx.restore();
         }
         if (anchorAt) { const q = 4.4; ctx.fillStyle = "rgba(200,69,60,.92)"; ctx.fillRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2); ctx.lineWidth = 1.2; ctx.strokeStyle = "rgba(255,255,255,0.8)"; ctx.strokeRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2); }
       }
@@ -546,6 +613,11 @@
       if (isWar) warMarks(st, ctx, api);
       ctx.textBaseline = "middle"; ctx.lineJoin = "round";
       for (const n of plan) { ctx.font = n.font; ctx.textAlign = n.align; ctx.lineWidth = n.lw; ctx.strokeStyle = halo; ctx.strokeText(n.text, n.x, n.y); ctx.fillStyle = n.color; ctx.fillText(n.text, n.x, n.y); }
+      if (isWar || memHist) {   // the other states' names, last: they give way to every mark and every name above (otherStateNames)
+        const taken = markBoxes.map((m) => m.box).concat(nameBoxes.map((q) => q.box), (lastLabels || []).map((l) => [l.tx - l.w / 2 - 3, l.ty - 9, l.tx + l.w / 2 + 3, l.ty + 9]));
+        if (ctlR) taken.push(ctlR); if (sbR) taken.push(sbR); if (scopeR) taken.push(scopeR);
+        otherStateNames(st, api, ctx, taken, memHist ? (tlStep() ? tlStep().year : memYear) : tlStep() ? tlStep().year : Number(host.getAttribute("data-map-year")));
+      }
       ctx.restore();
     }
     /* THE TIMELINE UNDER A WAR WINDOW (2026-10-19): a slim rail spanning only the war's own years, a pin that snaps to the steps, play and pause, step buttons; the label under the pin is the step's month and year, else its year.
@@ -631,7 +703,7 @@
         if (!hub) { plain(SORRY); return; }
         let warYear = null;
         if (isWar) {
-          if (hub.canvas2d) { plain("This browser cannot draw a war’s sides on the map (it needs WebGL2). The key below says who fought whom."); return; }   // the still renderer draws no history
+          if (hub.canvas2d) { plain("This browser cannot draw a war’s sides on the map (it needs WebGL2). The key above says who fought whom."); return; }   // the still renderer draws no history
           const WT = window.ATLAS_WARS && window.ATLAS_WARS.wars && window.ATLAS_WARS.wars[sibCard];
           if (!WT) { plain(SORRY); return; }   // a war the table does not carry
           warYear = Math.round((WT.y[0] + WT.y[1]) / 2); host.setAttribute("data-map-year", String(warYear));
@@ -688,7 +760,24 @@
       slot.textContent = nb.length ? "The shaded " + one + " borders, among the " + many + " on this map: " + andList(nb) + "." : "The shaded " + one + " borders no other " + one + " on this map.";
       slot.hidden = false;
     }
+    function mountScope() {
+      if (!sibOf || isWar || isGloss || host.querySelector(".mc-scope")) return;
+      const el = document.createElement("div"); el.className = "mc-scope"; el.setAttribute("role", "group"); el.setAttribute("aria-label", "Places shown on this map");
+      el.innerHTML = '<button type="button" data-scope="col" title="The places you have studied in this collection">Collection</button><button type="button" data-scope="all" title="Every place you have studied in the History, Science and Philosophy collections">All</button>';
+      const paint = () => el.querySelectorAll("button").forEach((b) => { const on = b.dataset.scope === scopeNow(); b.classList.toggle("on", on); b.setAttribute("aria-pressed", on ? "true" : "false"); });
+      el.addEventListener("click", (e) => {
+        const b = e.target.closest("[data-scope]"); if (!b) return; e.stopPropagation();
+        try { localStorage.setItem(SCOPE_KEY, b.dataset.scope); } catch (er) {}
+        window.dispatchEvent(new CustomEvent("folio:winscope"));
+      });
+      ["pointerdown", "mousedown", "touchstart", "wheel"].forEach((t) => el.addEventListener(t, (e) => e.stopPropagation(), { passive: true }));   // a press on the switch is not a drag of the map
+      const onScope = () => { if (stopped) { window.removeEventListener("folio:winscope", onScope); return; } paint(); sib = sibFor(); marks.scopeBox = null; if (win) win.schedule(); };
+      window.addEventListener("folio:winscope", onScope);
+      paint(); host.appendChild(el);
+    }
     function mountWindow(hub, warYear) {
+        winHub = hub;
+        mountScope();
         host.classList.remove("mc-loading"); host.setAttribute("data-map-engine", hub.canvas2d ? "v2-2d" : "v2");
         if (wantsAlt) describeMap();
         if (isWar) { try { warHub = hub; warSides = hub.warSides(sibCard, warYear); } catch (e) { warSides = null; } }
@@ -860,7 +949,7 @@
     "cook is.": "Cook Islands", "pitcairn is.": "Pitcairn Islands", "coral sea is.": "Coral Sea Islands", "spratly is.": "Spratly Islands",
   };
   const fi2Name = (n) => FI2_NAMES[String(n || "").trim().toLowerCase()] || n;
-  const fi2Year = (y) => (y >= new Date().getFullYear() ? "today" : y < 0 ? -y + " BCE" : String(y));
+  const fi2Year = (y) => (y >= new Date().getFullYear() ? "today" : y < 0 ? -y + (W.FolioEra && W.FolioEra() === "ad" ? " BC" : " BCE") : String(y));
   function run(root) {
     const GREEN = "rgba(46,164,90,1)", RED = "rgba(224,68,56,1)", GOLD = "rgba(255,178,46,1)";
     /* THE PICK is the card windows' own selection: the gold tint (TINT_SEL), its outline and its glow, on a country or a state of the year alike (Oct 2026, the owner's phone: a pick was a blue wash that, on an area round, was one more colour among the states' own) */
