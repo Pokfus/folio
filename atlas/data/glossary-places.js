@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"b3c40ce049da5635","counts":{"terms":991,"points":754,"countries":237,"windows":1653,"faces":398,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"0fe5fb1a9106204b","counts":{"terms":990,"points":753,"countries":237,"windows":1652,"faces":398,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -111,6 +111,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"b3c40ce049da5635","counts":
 "Bihar":"adm1:ind:in-br",
 "Bir_Kiseiba":"pl:q28162746",
 "Black_Hills":"reg:1159103131",
+"Bletchley_Park":"pl:q155921",
 "Blombos_Cave":"pl:q884971",
 "Blue_Ridge_Mountains":"reg:1159103123",
 "Bohai_Sea":"sea:1159117171",
@@ -147,7 +148,6 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"b3c40ce049da5635","counts":
 "Cameroon":"adm0:cmr",
 "Camulodunum":"pl:q630604",
 "Canada":"adm0:can",
-"Cape_Sounion":"pl:q1136637",
 "Cape_Verde":"adm0:cpv",
 "Capitoline_Hill":"pl:q34925",
 "Capri":"pl:q173292",
@@ -185,7 +185,6 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"b3c40ce049da5635","counts":
 "Colombia":"adm0:col",
 "Colonus":"pl:q1235930",
 "Colorado_(state)":"adm1:usa:us-co",
-"Colosseum":"pl:q10285",
 "Comoros":"adm0:com",
 "Compiègne":"pl:q180871",
 "Connecticut":"adm1:usa:us-ct",
@@ -1176,7 +1175,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"b3c40ce049da5635","counts":
 "Bir_Kiseiba":[29.917,22.683,"site",0,0,0],
 "Bithynia_and_Pontus":[29.918,40.763,"coord",0,0,0],
 "Black_Hills":[-103.875,44.153,"range",0,0,0],
-"Bletchley_Park":[-0.741,51.998,"coord",0,0,0],
+"Bletchley_Park":[-0.741,51.998,"site",0,0,0],
 "Blombos_Cave":[21.223,-34.414,"site",0,0,0],
 "Blue_Ridge_Mountains":[-83.452,35.392,"range",0,0,0],
 "Bohai_Sea":[119.913,38.603,"sea",0,0,0],
@@ -1225,7 +1224,6 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"b3c40ce049da5635","counts":
 "Camulodunum":[0.898,51.892,"site",0,0,0],
 "Canada":[-101.91,60.32,"country","adm0:can",0,1.68],
 "Cao_Wei":[103.431,34.133,"polity","pol:cao_wei",263,1.51],
-"Cape_Sounion":[24.03,37.649,"cape",0,0,0],
 "Cape_Verde":[-23.64,15.07,"country","adm0:cpv",0,26.59],
 "Capitoline_Hill":[12.483,41.893,"hill",0,0,0],
 "Capri":[14.233,40.55,"island",0,0,0],
@@ -1291,7 +1289,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"b3c40ce049da5635","counts":
 "Colonus":[23.715,37.996,"town",0,0,0],
 "Colorado_(state)":[-105.543,39,"admin1","adm1:usa:us-co",0,12.58],
 "Colorado_River":[-114.8,31.815,"coord",0,0,0],
-"Colosseum":[12.492,41.89,"site",0,0,0],
+"Colosseum":[12.492,41.89,"coord",0,0,0],
 "Columbia_River":[-124.058,46.244,"coord",0,0,0],
 "Column_of_Antoninus_Pius":[12.476,41.902,"coord",0,0,0],
 "Column_of_Marcus_Aurelius":[12.48,41.901,"coord",0,0,0],

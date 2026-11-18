@@ -49,7 +49,7 @@ entity ids — measured). So the key is retired and the windows read the places 
   back). A locator's `name` and `at` are the card's own label and point — the registry's point is Wikidata's and
   differs on most cards (452 of 1,899 resolved locators within a metre, median 0.56 km, 90th percentile 8.8 km; the
   name differs on 334) — and 1,412 cards with an old field have no place at all; its `kind`, `area`, `spine`,
-  `within`, `label`, `hide`, `also`, `rivers`, `ask` and `zoom` are the drawing and the question. The sibling dots
+  `within`, `label`, `hide`, `alone` (2026-11-18: the place is drawn on its own card's window only, never as a sibling), `also`, `rivers`, `ask` and `zoom` are the drawing and the question. The sibling dots
   read every locator of a collection on the eager path, where `places` and the registry are lazy and the windows'
   hub deliberately loads no gazetteer. A war block's sides, outcome, names (the legend), authored extents, years and
   `group` are the question; its places are derived from it (`wars.js`, `test-war-sides.js`'s pinned hash) and say

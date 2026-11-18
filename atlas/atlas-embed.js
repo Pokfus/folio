@@ -142,6 +142,9 @@
     fit(h, spec);
     const lay = spec.layers || {};
     L.borders = lay.borders !== false; L.provinces = !!lay.provinces; L.admin1Max = lay.admin1Max || 0; L.neutral = !!lay.neutral;
+    /* `admin1Box` (2026-11-18, on request: "all atlas windows within the World War II collection should also show US state borders"): [lon0, lat0, lon1, lat1] — the core admin-1
+       lines are drawn only inside it (the core carries the USA's, China's, Russia's and Britain's), and in a past year too, since a box's lines are the caller's claim for its years */
+    L.admin1Box = Array.isArray(lay.admin1Box) && lay.admin1Box.length === 4 && lay.admin1Box.every((x) => isFinite(Number(x))) ? lay.admin1Box.map(Number) : null;
     { const pw = lay.peoples || "off", po = lay.peopleOnly || ""; if (L.peoples !== pw || (L.peopleOnly || "") !== po) { L.peoples = pw; L.peopleOnly = po; h.E.refreshPresence(); } }   // Find-it's area round draws the year's peoples too; a glossary window (2026-10-23) ONE people's presence and no other (`peopleOnly`: the entity id; atlas.js presShown)
     if (!h.canvas2d && h.E.setFlat) h.E.setFlat(!!lay.flat);   // Find-it's area round: every state of the year in the land colour, borders as a modern country's
     L.rivers = !!lay.rivers; L.lakes = !!lay.lakes; L.graticule = false;   // (Phase 4b: these four sat at the end of the comment line above in Phase 4, so no window ever drew a river or a lake)

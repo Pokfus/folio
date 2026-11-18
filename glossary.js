@@ -11860,7 +11860,32 @@ window.GLOSSARY = {
 "Cinnamon": "",
 "Ebony": "",
 "Leopard": "",
-"Ape": ""
+"Ape": "",
+"A_Defence_of_Common_Sense": "",
+"Bertrand_Russell": "",
+"Colossus_of_Nero": "",
+"David_Lewis_(philosopher)": "",
+"G._E._Moore": "",
+"P._F._Strawson": "",
+"Palazzo_della_Cancelleria": "",
+"Thomas_Reid": "",
+"Truism": "",
+"Velia": "",
+"Willard_Van_Orman_Quine": "",
+"On_Computable_Numbers,_with_an_Application_to_the_Entscheidungsproblem": "",
+"Computer_science": "",
+"King's_College,_Cambridge": "",
+"Cambridge": "",
+"Princeton_University": "",
+"Government_Code_and_Cypher_School": "",
+"Dilly_Knox": "",
+"Gordon_Welchman": "",
+"Bombe": "",
+"Banburismus": "",
+"Automatic_Computing_Engine": "",
+"National_Physical_Laboratory_(United_Kingdom)": "",
+"Manchester": "",
+"Wilmslow": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17784,7 +17809,23 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Piye": "c. 747 – 716 BCE",
 "Victory_Stele_of_Piye": "c. 727 – 716 BCE",
 "Bakenranef": "c. 718 – 712 BCE",
-"Mahayana": "from the 1st century BCE"
+"Mahayana": "from the 1st century BCE",
+"A_Defence_of_Common_Sense": "1925",
+"Bertrand_Russell": "1872–1970",
+"David_Lewis_(philosopher)": "1941–2001",
+"G._E._Moore": "1873–1958",
+"P._F._Strawson": "1919–2006",
+"Thomas_Reid": "1710–1796",
+"Willard_Van_Orman_Quine": "1908–2000",
+"On_Computable_Numbers,_with_an_Application_to_the_Entscheidungsproblem": "1936",
+"King's_College,_Cambridge": "1441",
+"Princeton_University": "1746",
+"Government_Code_and_Cypher_School": "1919–1946",
+"Dilly_Knox": "1884–1943",
+"Gordon_Welchman": "1906–1985",
+"Bombe": "1940–1945",
+"Automatic_Computing_Engine": "1946",
+"National_Physical_Laboratory_(United_Kingdom)": "1900"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -20208,7 +20249,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Pisonian_conspiracy": ["conspiracy of Piso"],
 "Treaty_of_Rhandeia": ["Rhandeia","Rhandea"],
 "First_Battle_of_Bedriacum": ["Battle of Bedriacum","Bedriacum"],
-"First_Jewish–Roman_War": ["First Jewish-Roman War","Great Jewish Revolt","Jewish revolt of 66"],
+"First_Jewish–Roman_War": ["First Jewish-Roman War","Great Jewish Revolt","Jewish revolt of 66","Jewish War"],
 "Gaius_Julius_Vindex": ["Vindex","Julius Vindex"],
 "Galba": ["Servius Sulpicius Galba"],
 "Hostis": ["public enemy"],
@@ -25426,7 +25467,25 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Semitic_languages": ["Semitic"],
 "Asceticism": ["ascetic"],
 "Dharma": ["Dhamma"],
-"Ape": ["apes"]
+"Ape": ["apes"],
+"A_Defence_of_Common_Sense": ["A Defence of Common Sense"],
+"Colossus_of_Nero": ["colossal statue of Nero","Colossus of Nero"],
+"David_Lewis_(philosopher)": ["David Lewis"],
+"G._E._Moore": ["George Edward Moore","G. E. Moore"],
+"P._F._Strawson": ["Peter Strawson","P. F. Strawson"],
+"Palazzo_della_Cancelleria": ["Cancelleria"],
+"Truism": ["truisms"],
+"Willard_Van_Orman_Quine": ["Quine","W. V. O. Quine"],
+"On_Computable_Numbers,_with_an_Application_to_the_Entscheidungsproblem": ["On Computable Numbers","On computable numbers"],
+"Computer_science": ["computer science"],
+"King's_College,_Cambridge": ["King's College","King’s College"],
+"Princeton_University": ["Princeton"],
+"Government_Code_and_Cypher_School": ["GC&CS","Government Code and Cypher School"],
+"Dilly_Knox": ["Dilly Knox","Alfred Dillwyn Knox","Dillwyn Knox"],
+"Gordon_Welchman": ["Welchman","W. Gordon Welchman"],
+"Bombe": ["British Bombe","Bombes","Turing–Welchman Bombe","Turing-Welchman Bombe"],
+"Automatic_Computing_Engine": ["ACE computer","Pilot ACE"],
+"National_Physical_Laboratory_(United_Kingdom)": ["National Physical Laboratory"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -37496,7 +37555,32 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Cinnamon": ["plant","trade","food","medicine"],
 "Ebony": ["plant","trade","nature","africa"],
 "Leopard": ["animal","nature","africa","asia","trade"],
-"Ape": ["animal","evolution","biology","nature"]
+"Ape": ["animal","evolution","biology","nature"],
+"A_Defence_of_Common_Sense": ["text","philosophy","epistemology","20th century","britain"],
+"Bertrand_Russell": ["person","philosophy","logic","mathematics","20th century","britain"],
+"Colossus_of_Nero": ["object","sculpture","rome","classical","art"],
+"David_Lewis_(philosopher)": ["person","philosophy","metaphysics","logic","20th century","united states"],
+"G._E._Moore": ["person","philosophy","ethics","epistemology","20th century","britain"],
+"P._F._Strawson": ["person","philosophy","metaphysics","language","20th century","britain"],
+"Palazzo_della_Cancelleria": ["building","architecture","renaissance","rome","italy","place"],
+"Thomas_Reid": ["person","philosophy","epistemology","scotland","18th century"],
+"Truism": ["concept","philosophy","language","epistemology","logic"],
+"Velia": ["place","rome","classical","geography","history"],
+"Willard_Van_Orman_Quine": ["person","philosophy","logic","language","20th century","united states"],
+"On_Computable_Numbers,_with_an_Application_to_the_Entscheidungsproblem": ["text","mathematics","logic","computing","20th century"],
+"Computer_science": ["concept","science","computing","mathematics","technology"],
+"King's_College,_Cambridge": ["institution","education","britain","england","building"],
+"Cambridge": ["place","city","england","britain","education"],
+"Princeton_University": ["institution","education","united states","new jersey","colonial america"],
+"Government_Code_and_Cypher_School": ["institution","intelligence","britain","second world war","cryptography"],
+"Dilly_Knox": ["person","intelligence","cryptography","second world war","britain"],
+"Gordon_Welchman": ["person","mathematics","intelligence","cryptography","second world war"],
+"Bombe": ["object","technology","cryptography","second world war","computing"],
+"Banburismus": ["concept","cryptography","statistics","second world war","mathematics"],
+"Automatic_Computing_Engine": ["object","technology","computing","britain","20th century"],
+"National_Physical_Laboratory_(United_Kingdom)": ["institution","science","technology","britain","computing"],
+"Manchester": ["place","city","england","britain","industry"],
+"Wilmslow": ["place","england","britain","geography","computing"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
