@@ -375,7 +375,7 @@ Filled batch by batch, from the source each row names.
 | fall of the Western Roman Empire | 476 CE (a convention; Nepos lived to 480) | Mathisen and Nathan; O'Donnell (`wh-375`) |
 | mahajanapadas (one estimate) | c. 550 – 322 BCE (the source's 2500 – 2272 BP) | Kathayat et al. (`wh-376`) |
 | Upanishads: older group / later group | c. 700 – 500 BCE / c. 300 – 100 BCE (Olivelle; Macdonell 1900: earliest by c. 600) | Black; Macdonell (`wh-377`) |
-| Gautama Buddha: older dating / newer death | c. 563 – 483 BCE / c. 405 BCE (Gombrich c. 404) | Rapson; Siderits (`wh-380`) |
+| Gautama Buddha: older dating / newer death | c. 563 – 483 BCE / c. 400 BCE (Gombrich c. 404; `in-097` also c. 400) | Rapson; Siderits (`wh-380`) |
 | Buddhism emerges / Mahayana doctrines | c. 600 – 400 BCE / roughly the 1st century BCE | Velez; Siderits; Ronkin (`wh-381`) |
 | Mahavira: traditional dates / scholars' death | 599 – 527 BCE / c. 468 BCE (`wh-382` is `undatable`) | Gorisse; Charpentier (`wh-382`) |
 | Maurya Empire | c. 321 – 184 BCE (both ends reconstructed) | Hopkins; Rapson (`wh-383`) |
@@ -1250,7 +1250,7 @@ wh-374: 325
 wh-375: 476
 wh-376: 550; 322
 wh-377: 700; 500; 300; 100
-wh-380: 563; 483; 405
+wh-380: 563; 483; 400
 wh-381: 600; 400
 wh-383: 321; 184
 wh-384: 321; 297; 305; 303

@@ -11885,7 +11885,12 @@ window.GLOSSARY = {
 "Automatic_Computing_Engine": "",
 "National_Physical_Laboratory_(United_Kingdom)": "",
 "Manchester": "",
-"Wilmslow": ""
+"Wilmslow": "",
+"Mencius": "",
+"Xunzi": "",
+"Ren_(philosophy)": "",
+"Li_(Confucianism)": "",
+"Yin_and_yang": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17825,7 +17830,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Gordon_Welchman": "1906–1985",
 "Bombe": "1940–1945",
 "Automatic_Computing_Engine": "1946",
-"National_Physical_Laboratory_(United_Kingdom)": "1900"
+"National_Physical_Laboratory_(United_Kingdom)": "1900",
+"Mencius": "4th century BCE",
+"Xunzi": "c. 310 – after 238 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -25485,7 +25492,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Gordon_Welchman": ["Welchman","W. Gordon Welchman"],
 "Bombe": ["British Bombe","Bombes","Turing–Welchman Bombe","Turing-Welchman Bombe"],
 "Automatic_Computing_Engine": ["ACE computer","Pilot ACE"],
-"National_Physical_Laboratory_(United_Kingdom)": ["National Physical Laboratory"]
+"National_Physical_Laboratory_(United_Kingdom)": ["National Physical Laboratory"],
+"Mencius": ["Mengzi"],
+"Xunzi": ["Xun Kuang"],
+"Yin_and_yang": ["yin-yang","yinyang"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -37580,7 +37590,12 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Automatic_Computing_Engine": ["object","technology","computing","britain","20th century"],
 "National_Physical_Laboratory_(United_Kingdom)": ["institution","science","technology","britain","computing"],
 "Manchester": ["place","city","england","britain","industry"],
-"Wilmslow": ["place","england","britain","geography","computing"]
+"Wilmslow": ["place","england","britain","geography","computing"],
+"Mencius": ["person","philosopher","confucianism","philosophy","warring states"],
+"Xunzi": ["person","philosopher","confucianism","philosophy","warring states"],
+"Ren_(philosophy)": ["concept","philosophy","confucianism","ethics"],
+"Li_(Confucianism)": ["concept","philosophy","confucianism","religion","ethics"],
+"Yin_and_yang": ["concept","philosophy","religion","daoism","confucianism"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

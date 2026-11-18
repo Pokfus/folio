@@ -439,7 +439,7 @@
       const droppedNames = [];
       const nm0 = gameCapFirst(dot ? dot.n : isMembers && host.getAttribute("data-map-name") ? host.getAttribute("data-map-name") : targets.length ? targets[0].n : "");   // a seatless members window: its group's name (app.js cardLocatorWindowHTML)
       // ---- the marks ----
-      let sibAt = [], anchorAt = null, faceAt = [];
+      let sibAt = [], anchorAt = null, faceAt = [], alsoAt = [];
       if (sibOf && !isWar) {
         const groups = new Map();
         const meLoc = cardLocator(CARD_BY_ID[sibOf]), hideSet = new Set((meLoc && meLoc.hide) || []);   // places this card's window leaves off (`locator.hide`)
@@ -468,7 +468,10 @@
         // a region's name that a studied DOT of the same name already carries (Uruk: the city's card and the Uruk period's region, 2026-11-15) is named once, at the dot
         if (faceAt.length && sibAt.length) { const dotNames = new Set(sibAt.map((sa) => String(sa[2] || "").trim().toLowerCase())); faceAt = faceAt.filter((fa) => !(fa[3] && dotNames.has(String(fa[2] || "").trim().toLowerCase()))); }
         // the card's own further places (`locator.also`): drawn whether or not anything has been studied, as named dots beside its own
-        for (const a of (meLoc && meLoc.also) || []) { const p = api.project(a.at[0], a.at[1]); if (inView(api, p)) sibAt.push([p[0], p[1], a.name, "point"]); }
+        /* …in the card's own gold when the entry has a role (a person's birth and death places, a ruler's capital as the square; 2026-11-18), as a region's italic name alone when it is a `label`,
+           else the red sibling dot it always was */
+        for (const a of (meLoc && meLoc.also) || []) { const p = api.project(a.at[0], a.at[1]); if (!inView(api, p)) continue; if (a.label) faceAt.push([p[0], p[1], a.name, true]); else if (a.role) alsoAt.push([p[0], p[1], a.name, a.role]); else sibAt.push([p[0], p[1], a.name, "point"]); }
+        for (const aa of alsoAt) addMark(aa[3] === "capital" ? "square" : "dot", aa[0], aa[1], 6, 6);
         if (anchor) { const p = api.project(anchor.c[0], anchor.c[1]); if (inView(api, p)) anchorAt = [p[0], p[1]]; }
         for (const sa of sibAt) addMark(sa[3] === "battle" ? "swords" : "dot", sa[0], sa[1], sa[3] === "battle" ? 8 : 4.6, sa[3] === "battle" ? 8 : 4.6);
         if (anchorAt) addMark("home", anchorAt[0], anchorAt[1], 5.6, 5.6);
@@ -481,7 +484,7 @@
       /* THE SQUARE IS A CAPITAL'S (2026-11-16, the owner: "in gloss popup atlas windows, locations should only ever use square icons if they are currently the capital city of a country"):
          a glossary window's own point is the gold square only when its registry kind is `capital` (a present-day national capital; app.js glossWindowHTML clears the kind where Natural
          Earth's flag is not one), every other point the gold circle. A card's window keeps its rule: the square without a sibling, the circle with them. */
-      const ownSquare = isGloss ? placeKind === "capital" : !sibCard;
+      const ownSquare = isGloss ? placeKind === "capital" : (!sibCard || (isMembers && memYear != null));   // a state's seat on its own year's borders is its capital: the square (2026-11-18)
       if (dot && !noDotWater && !(locKind === "river" && !!ownLines) && locKind !== "range" && !isWall && locKind !== "region" && locKind !== "sea" && locKind !== "shelf") { const p = api.project(dot.c[0], dot.c[1]); if (p[2] >= 0) { ownDotAt = p; addMark(locKind === "battle" ? "swords" : isPeak ? "peak" : ownSquare ? "square" : "dot", p[0], p[1], locKind === "battle" ? 9 : 7, locKind === "battle" ? 9 : 7); } }
       // ---- the names, in priority order ----
       if (ownLines && revealed) {   // the card's own river: its name on the line, at the first of several stretches that is clear
@@ -507,6 +510,7 @@
         }
       }
       if (anchorAt) placeName(anchor.n, "600 11.5px " + font, (w) => around(anchorAt[0], anchorAt[1], 5.6, w, 8), {});
+      for (const aa of alsoAt) { const nm = gameCapFirst(aa[2]); if (nm) placeName(nm, "600 12px " + font, (w) => around(aa[0], aa[1], 6, w, 8), { own: true }); }   // the card's own further places (a person's birth and death, a ruler's capital) outrank the siblings
       sibAt.sort((a, b) => Math.hypot(a[0] - api.cw / 2, a[1] - api.ch / 2) - Math.hypot(b[0] - api.cw / 2, b[1] - api.ch / 2));   // the nearest to the window's centre first: they are the places the card is about
       for (const sa of sibAt) { const nm = gameCapFirst(sa[2]); if (nm) placeName(nm, "500 11px " + font, (w) => around(sa[0], sa[1], 4.6, w, 7), {}); }
       // a studied state's or country's name (a geography map card): centred on its label point, else just above or below it — never far from its own ground
@@ -518,6 +522,12 @@
         for (const sa of sibAt) {
           if (sa[3] === "battle") paintSwords(ctx, sa[0], sa[1], 6.5);
           else { ctx.beginPath(); ctx.arc(sa[0], sa[1], 3.4, 0, Math.PI * 2); ctx.fillStyle = "rgba(200,69,60,.9)"; ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.75)"; ctx.stroke(); }
+        }
+        for (const aa of alsoAt) {
+          ctx.save(); ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.lineWidth = 1.4; ctx.strokeStyle = "rgba(60,40,0,.75)";
+          if (aa[3] === "capital") { ctx.fillRect(aa[0] - 4.5, aa[1] - 4.5, 9, 9); ctx.strokeRect(aa[0] - 4.5, aa[1] - 4.5, 9, 9); }
+          else { ctx.beginPath(); ctx.arc(aa[0], aa[1], 4.6, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); }
+          ctx.restore();
         }
         if (anchorAt) { const q = 4.4; ctx.fillStyle = "rgba(200,69,60,.92)"; ctx.fillRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2); ctx.lineWidth = 1.2; ctx.strokeStyle = "rgba(255,255,255,0.8)"; ctx.strokeRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2); }
       }

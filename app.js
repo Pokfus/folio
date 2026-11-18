@@ -41118,7 +41118,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        drawn as a named dot beside the card's own — for a card that is about two sites at once. The coordinates are fetched like `at`, never typed. */
     const also = Array.isArray(l.also) ? l.also.map((a) => {
       const p = a && Array.isArray(a.at) ? [Number(a.at[0]), Number(a.at[1])] : null;
-      return p && isFinite(p[0]) && isFinite(p[1]) && Math.abs(p[0]) <= 180 && Math.abs(p[1]) <= 90 && String(a.name || "").trim() ? { name: String(a.name).trim(), at: p } : null;
+      /* `role` (2026-11-18, on request: "all cards about specific individuals should have at least two locations highlighted: their birth location and death location … the state they
+         ruled … including its capital with a square icon"): "birth" | "death" | "capital" draws the place in the card's own gold — a capital as the square; an entry with no role keeps the
+         red sibling dot it always had. `label: true` (eg-004's Two Lands) is a region's NAME alone, italic, with no mark. */
+      const role = /^(birth|death|capital)$/.test(String(a && a.role || "")) ? a.role : "";
+      return p && isFinite(p[0]) && isFinite(p[1]) && Math.abs(p[0]) <= 180 && Math.abs(p[1]) <= 90 && String(a.name || "").trim() ? { name: String(a.name).trim(), at: p, role: role, label: a.label === true } : null;
     }).filter(Boolean) : [];
     /* `ask` (Oct 2026, on request: the rivers-and-mountains decks "should work the same way as the state or country cards"): the window IS the card's question —
        drawn on the FRONT, unnamed until the answer is shown, and not again on the back (see cardLocatorFront). */
