@@ -39828,7 +39828,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   /* the one object the lazy file reaches app.js through */
   function atlas2Ctx() {
     return { get S() { return S; }, study: atlas2StudyHost(), sanitizeHTML, PAGES, CARDS, CARD_BY_ID, CARD_MAP_LAYERS, CMAP_ANCHOR, CMAP_DEG, CMAP_HIRES, CMAP_LAYER_HIRES, CMAP_SEG, CMAP_SUBDIV, CMAP_ZLOC, CMAP_ZMAX, CMAP_ZMIN, DATA_BUNDLES, TINT_SEL, TINT_LATE, TINT_THIRD, GAME_MAX_DIFFICULTY,
-      cardCollectionRoot, cardLocator, cardMapSpec, cardMapKeys, cardSpanYears, cardWar, cardWarYears, ensureData, gameCapFirst, locatorSiblings, paintSwords, ringsBBox, wrapLon,
+      cardCollectionRoot, cardLocator, cardMapSpec, cardMapKeys, cardSpanYears, cardWar, cardWarYears, ensureData, gameCapFirst, locatorSiblings, locatorSiblingsAll, paintSwords, ringsBBox, wrapLon,
       availableCardIdSet, cardDifficulty, cardDifficultyRank, checkAchievements, esc, hashStr, markGamePlayed, mulberry32, prefersReducedMotion, route, save, seededShuffle, sfx, unitSystem, gameProgress, setGameProgress,
       todayStr: gameDayStr, gameArchiveOn, gameShareHTML, gameNextLine };   // the games' draws seed on the archive's day while one is played (THE GAMES ARCHIVE); nothing else in the lazy file reads the date
   }
@@ -41373,8 +41373,21 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      held session below: it is a fact about this sitting. */
   const _atlasHeard = new Set();
   const LOC_SIB_POLITY = new Set(["state", "empire", "dynasty", "civilisation", "culture", "people", "ruler"]);
-  function locatorSiblings(id) {
-    const root = cardCollectionRoot(id);
+  /* EVERY UNLOCKED PLACE, NOT ONLY THE COLLECTION'S (2026-11-18, on request: "in the top left of every atlas window should be a switch to depict
+     either all the locations within the collection (current system) or all unlocked locations in all history/science/philosophy collections").
+     The union of every History, Science and Philosophy collection's sibling list (`COLLECTION_SECTION` / `sectionOf`), the viewing card left out;
+     the window keeps only the ones the reader has studied, exactly as it does for its own collection. Built on locatorSiblings' per-root cache. */
+  const LOC_ALL_SECTIONS = new Set(["History", "Science", "Philosophy"]);
+  function locatorSiblingsAll(id) {
+    const own = locatorSiblings(id), dots = [];
+    ((window.COLLECTION_TREE || {}).collections || []).forEach((r) => {
+      if (!LOC_ALL_SECTIONS.has(sectionOf(r.id)) || NODE_BY_ID[r.id] == null) return;
+      locatorSiblings(id, NODE_BY_ID[r.id]).dots.forEach((d) => dots.push(d));
+    });
+    return { dots: dots, termName: own.termName, own: own.own };
+  }
+  function locatorSiblings(id, rootOver) {
+    const root = rootOver || cardCollectionRoot(id);
     if (!root) return { dots: [], termName: new Map(), own: new Set() };
     if (!_locSibCache) _locSibCache = new Map();
     const hit = _locSibCache.get(root.id);
@@ -41499,9 +41512,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       : m ? m.name + " shaded in gold on an interactive globe of today's " + (m.layer === "world" ? "countries" : "borders") + (m.note ? ": " + m.note : "") + (atName ? "; " + atName + " marked" : "") + ". "
       : l.name ? l.name + " marked on an interactive globe. " : "The place marked on an interactive globe. ") +
       "Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom.";
+    /* THE LEGEND STANDS ABOVE THE WINDOW, under the section's heading (2026-11-18, on request: "in atlas windows depicting states with
+       timelines and/or a legend, the legend should be above the atlas window (below the section header)"). It is inside `.card-loc` now;
+       the Atlas popup's `noLocator` lifts it out before it removes the window (mountCardBack), so it still survives there. */
     return '<div class="card-loc"><span class="label">' + (w ? "Who fought" : m ? esc(m.label || "Members") : "Location") + "</span>" +
+      cardWarKeyHTML(w) + cardMembersKeyHTML(m) +
       cardLocatorWindowHTML(c, l, w, m, "map-loc" + (w ? " map-war" : m ? " map-members" : ""), said, true) +
-      "</div>" + cardWarKeyHTML(w) + cardMembersKeyHTML(m);
+      "</div>";
   }
   // the window itself: on the back (`named`, with the globe button) or, for a card whose locator asks (cardLocatorFront), as the question on the front
   function cardLocatorWindowHTML(c, l, w, m, cls, said, named) {
@@ -42758,7 +42775,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        IT IS REMOVED RATHER THAN HIDDEN, and that is the point of doing it here rather than in the
        stylesheet: `display:none` would still have built the canvas and started the globe. It runs BEFORE
        `mountCardMaps`, which is what would start it. */
-    if (opts.noLocator) inner.querySelectorAll(".card-loc").forEach((el) => el.remove());
+    if (opts.noLocator) inner.querySelectorAll(".card-loc").forEach((el) => { el.querySelectorAll(".war-key").forEach((k) => el.parentNode.insertBefore(k, el)); el.remove(); });   // the legend (above the window since 2026-11-18) is kept
     // a locator's globe, already naming its place: the answer is on screen, so there is nothing to hold back
     mountCardMaps(inner); cardMapReveal(inner); mountCardTimelines(inner);
   }

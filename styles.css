@@ -2004,6 +2004,13 @@ body.no-tts .ans-cn .ac-say{display:none;}
 .mc-canvas:active{cursor:grabbing;}
 .mc-canvas:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
 .mc-zoom{position:absolute; right:9px; top:9px; display:flex; flex-direction:column; gap:5px;}
+/* the scope switch, top-left (2026-11-18): this collection's studied places, or every studied place in History, Science and Philosophy (atlas-windows.js mountScope) */
+.mc-scope{position:absolute; left:9px; top:9px; display:flex; border:1px solid var(--rule); border-radius:8px; overflow:hidden; background:color-mix(in srgb, var(--card) 88%, transparent);}
+.mc-scope button{border:0; background:transparent; color:var(--ink-soft); font:600 calc(11px * var(--fs, 1))/1 var(--sans); padding:7px 9px; min-height:29px; cursor:pointer;}
+.mc-scope button + button{border-left:1px solid var(--rule);}
+.mc-scope button.on{background:var(--ink); color:var(--card);}
+.mc-scope button:focus-visible{outline:2px solid var(--accent, #b8862b); outline-offset:-2px;}
+.map-card.mc-loading .mc-scope, .map-card.mc-failed .mc-scope, .map-card.mc-plain .mc-scope{display:none;}
 .mc-btn{
   width:29px; height:29px; border-radius:8px; border:1px solid var(--rule); cursor:pointer;
   background:color-mix(in srgb, var(--card) 88%, transparent); color:var(--ink-soft);
@@ -2326,6 +2333,8 @@ body.wb-down .study-card.draw-card .scratch{display:none;}
 /* …tucked up under the map when the map is there, and standing on its own when the Atlas popup has
    taken the globe away (see mountCardBack's `noLocator`). */
 .card-loc + .war-key{margin-top:8px;}
+/* above the window, under the section's heading (2026-11-18): a little air below it, none above */
+.card-loc > .war-key{margin:4px 0 10px;}
 .war-key .wk-side{display:inline-flex; align-items:baseline; gap:6px; font:400 calc(12px * var(--fs))/1.5 var(--sans); color:var(--ink-soft);}
 .war-key .wk-sw{
   flex:none; width:calc(11px * var(--fs)); height:calc(11px * var(--fs)); border-radius:3px;
