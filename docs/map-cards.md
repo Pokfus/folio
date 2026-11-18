@@ -798,7 +798,8 @@ of its own — its present-day `keys` are only the fallback and the frame.
   location and death location … the state they ruled … including its capital with a square icon"): `"birth"`, `"death"` or `"capital"` draws the
   place in the card's own gold — a capital as the square — and names it before any sibling; the window then opens framed on the locator's dot and
   every role'd place together (`fit`, at most zoom 10). An entry with no role keeps its red sibling dot. `also[].label: true` is a region's name
-  alone, italic, with no mark (`eg-004`'s Upper and Lower Egypt). A members window on a past year's borders draws its seat (`at`) as the square.
+  alone, italic, with no mark (`eg-004`'s Upper and Lower Egypt). A members window on a past year's borders draws its seat (`at`) as the square. `locator.role: "capital"` marks the card's own dot as a ruler's capital and draws it as the square (61 ruler cards whose capital is
+  their own dot, written by the person-places pass of 2026-11-18).
 - `hide: ["Burkhan Khaldun"]` — names of other cards' places this card's window leaves off even when the reader has
   studied them (`ru-001`, the Eurasian Steppe). A studied sibling at the card's own place (same name, or within
   0.03°) is never drawn a second time.

@@ -41188,7 +41188,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        drawn on the FRONT, unnamed until the answer is shown, and not again on the back (see cardLocatorFront). */
     /* `alone` (2026-11-18, on request: "the atlas tag 'Italian peninsula' should not be displayed in the atlas windows of other cards"): this card's
        place is drawn on its OWN window only — never as a sibling on another card's (locatorSiblings). `hide` is the viewing card's choice; this is the place's. */
-    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, within: within, label: lab, hide: hide, also: also, ask: l.ask === true, alone: l.alone === true };
+    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, within: within, label: lab, hide: hide, also: also, ask: l.ask === true, alone: l.alone === true, role: /^(birth|death|capital)$/.test(String(l.role || "")) ? l.role : "" };   // `role` "capital": the card's own dot IS the ruler's capital, drawn as the square (2026-11-18)
   }
   /* ---------- WHO FOUGHT, AND WHO WON (`card.war`; Sep 2026, on request) ----------
      A war card's atlas window shades the two sides in two colours — the victors green, the defeated red
