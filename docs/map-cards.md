@@ -794,6 +794,11 @@ of its own — its present-day `keys` are only the fallback and the frame.
 
 - `also: [{ name, at: [lon, lat] }]` — further places of the card's OWN subject, drawn as named dots beside its own
   (`jp-018`: Ōyu and Isedotai). The coordinates are fetched (Wikidata P625 or the article), never typed.
+- `also[].role` (2026-11-18, on request: "all cards about specific individuals should have at least two locations highlighted: their birth
+  location and death location … the state they ruled … including its capital with a square icon"): `"birth"`, `"death"` or `"capital"` draws the
+  place in the card's own gold — a capital as the square — and names it before any sibling; the window then opens framed on the locator's dot and
+  every role'd place together (`fit`, at most zoom 10). An entry with no role keeps its red sibling dot. `also[].label: true` is a region's name
+  alone, italic, with no mark (`eg-004`'s Upper and Lower Egypt). A members window on a past year's borders draws its seat (`at`) as the square.
 - `hide: ["Burkhan Khaldun"]` — names of other cards' places this card's window leaves off even when the reader has
   studied them (`ru-001`, the Eurasian Steppe). A studied sibling at the card's own place (same name, or within
   0.03°) is never drawn a second time.

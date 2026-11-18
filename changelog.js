@@ -35,17 +35,22 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1355", released: "2026-11-18T01:15Z" };
+window.FOLIO_VERSION = { v: "1.1356", released: "2026-11-18T02:23Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-18",
-    t: "Term of the day moves, US state borders and 25 glossary terms",
+    t: "BC or AD dates, map window labels, US state lines, 30 glossary terms",
     items: [
       "On the home page the <b>Term of the day</b> and <b>Suggested reading</b> boxes have swapped places.",
       "Map windows in the Second World War collection now draw the <b>US state borders</b>.",
-      "Twenty-five new glossary terms, linked from an Ancient Rome card, a Second World War card and a Philosophy card.",
-      "Three Ancient Rome cards get new date rows, and five cards get a new, changed or removed map window, or a new picture.",
+      "Thirty new glossary terms, linked from an Ancient Rome card, a Second World War card, a Philosophy card and a World History card.",
+      "Seven cards get new or corrected date rows, and nine get a new, changed or removed map window, or a new picture.",
+      "One World History card gets a new question, and two get new glossary links.",
+      "A new <b>Dates</b> setting shows years as BC / AD instead of BCE / CE across the whole site.",
+      "Map windows with a legend now show it <b>above</b> the map, and windows of past borders name every state on them.",
+      "A switch at the top left of map windows shows this collection's places or <b>every place you have studied</b> in History, Science and Philosophy.",
+      "A person's map window can now mark their birthplace, place of death and capital, framed together.",
       "One Ancient Rome region's name now appears only on its own card's map window, not on every other card in the collection."
     ],
   },
