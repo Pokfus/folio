@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"b03369d21e730893","counts":{"terms":1006,"points":770,"countries":236,"windows":1704,"faces":394,"years":107},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"786153021da38aba","counts":{"terms":1006,"points":770,"countries":236,"windows":1710,"faces":394,"years":107},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1489,6 +1489,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"b03369d21e730893","counts":
 "Gedrosia":[62.5,26.5,"coord",0,0,0],
 "Gela":[14.25,37.067,"town",0,0,0],
 "Geneva":[6.14,46.21,"city",0,0,0],
+"Genkō_Bōrui":[130.308,33.586,"coord",0,0,0],
 "Georgia_(country)":[43.74,41.87,"country","adm0:geo",0,13.83],
 "Germania_Superior":[8.274,49.999,"coord",0,0,0],
 "Germany":[9.68,50.96,"country","adm0:deu",0,8.78],
@@ -1497,6 +1498,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"b03369d21e730893","counts":
 "Giant_Wild_Goose_Pagoda":[108.959,34.22,"site",0,0,0],
 "Gibraltar":[-5.35,36.13,"country","adm0:gib",0,40],
 "Gimhae":[128.881,35.234,"coord",0,0,0],
+"Ginkaku-ji":[135.798,35.027,"coord",0,0,0],
 "Gisr_el-Mudir":[31.206,29.867,"site",0,0,0],
 "Giza":[31.19,30.01,"city",0,0,0],
 "Giza_West_Field":[31.133,29.976,"coord",0,0,0],
@@ -1593,6 +1595,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"b03369d21e730893","counts":
 "Hierakonpolis":[32.779,25.097,"site",0,0,0],
 "Himalayas":[89.984,28.037,"range",0,0,0],
 "Hindu_Kush":[73.702,35.864,"range",0,0,0],
+"Hine-no-shō":[135.328,34.407,"coord",0,0,0],
 "Hiraizumi":[141.114,38.987,"coord",0,0,0],
 "Hohlenstein-Stadel":[10.173,48.549,"coord",0,0,0],
 "Home_Insurance_Building":[-87.632,41.88,"coord",0,0,0],
@@ -1707,6 +1710,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"b03369d21e730893","counts":
 "Kazakhstan":[68.69,49.05,"country","adm0:kaz",0,2.51],
 "Kazan":[49.124,55.752,"city",0,0,0],
 "Kemerovo":[87.168,54.646,"admin1","adm1:rus:ru-kem",0,14.69],
+"Kenchō-ji":[139.555,35.332,"coord",0,0,0],
 "Kentucky":[-85.573,37.399,"admin1","adm1:usa:us-ky",0,11.39],
 "Kenya":[37.91,0.55,"country","adm0:ken",0,7.06],
 "Kerala":[76.805,9.826,"admin1","adm1:ind:in-kl",0,15.24],
@@ -1733,6 +1737,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"b03369d21e730893","counts":
 "Kingdom_of_Kongo":[14.703,-6.624,"polity","pol:kongo",1440,16.03],
 "Kingdom_of_Kush":[31.655,22.376,"polity","pol:kush",-700,4.18],
 "Kingston":[-76.767,17.977,"capital",0,0,0],
+"Kinkaku-ji":[135.729,35.04,"coord",0,0,0],
 "Kiribati":[-157.38,1.82,"country","adm0:kir",0,3.36],
 "Kirov,_Kirov_Oblast":[50.111,58.193,"admin1","adm1:rus:ru-kir",0,13.74],
 "Kivach_Falls":[33.98,62.275,"coord",0,0,0],
@@ -2274,6 +2279,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"b03369d21e730893","counts":
 "Rwanda":[30.1,-1.9,"country","adm0:rwa",0,33.77],
 "Ryazan":[39.72,54.62,"town",0,0,0],
 "Rybinsk_Reservoir":[38.433,58.367,"coord",0,0,0],
+"Ryōan-ji":[135.718,35.034,"coord",0,0,0],
 "Sabi_(Korea)":[126.913,36.282,"coord",0,0,0],
 "Sacramento_River":[-121.853,38.063,"coord",0,0,0],
 "Sacred_lake":[32.659,25.719,"coord",0,0,0],

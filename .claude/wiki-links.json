@@ -2,16 +2,16 @@
  "generated": "2026-11-19T04:57Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8481,
-  "redirect-broader": 811,
-  "redirect-variant": 496,
-  "section-redirect": 190,
-  "disambiguation": 154,
-  "none": 1191,
+  "ok": 8557,
+  "redirect-broader": 816,
+  "redirect-variant": 500,
+  "section-redirect": 194,
+  "disambiguation": 158,
+  "none": 1197,
   "disambig-resolved": 111,
   "list-page": 6,
   "search-match": 10,
-  "no-article": 20
+  "no-article": 21
  },
  "cards": {
   "wh-001": {
@@ -91012,6 +91012,778 @@
    "answer": "Tang dynasty",
    "title": "Tang dynasty",
    "url": "https://en.wikipedia.org/wiki/Tang_dynasty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-281": {
+   "answer": "gekokujo",
+   "title": "Gekokujō",
+   "url": "https://en.wikipedia.org/wiki/Gekokuj%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-282": {
+   "answer": "shugodai",
+   "title": "Shugodai",
+   "url": "https://en.wikipedia.org/wiki/Shugodai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-283": {
+   "answer": "ashigaru",
+   "title": "Ashigaru",
+   "url": "https://en.wikipedia.org/wiki/Ashigaru",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-284": {
+   "answer": "yamajiro",
+   "title": null,
+   "url": null,
+   "via": "manual",
+   "status": "no-article",
+   "manual": true
+  },
+  "jp-285": {
+   "answer": "Go-Kashiwabara",
+   "title": "Emperor Go-Kashiwabara",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Go-Kashiwabara",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Go-Kashiwabara"
+  },
+  "jp-286": {
+   "answer": "doboshu",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Taikomochi",
+    "Hon'ami Kōetsu",
+    "Nōami",
+    "Maeda Toshiie",
+    "Shingei"
+   ]
+  },
+  "jp-287": {
+   "answer": "Higashiyama culture",
+   "title": "Higashiyama culture",
+   "url": "https://en.wikipedia.org/wiki/Higashiyama_culture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-288": {
+   "answer": "Gozan",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Gozan",
+   "suggestions": []
+  },
+  "jp-289": {
+   "answer": "Noh",
+   "title": "Noh",
+   "url": "https://en.wikipedia.org/wiki/Noh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-290": {
+   "answer": "Zeami",
+   "title": "Zeami Motokiyo",
+   "url": "https://en.wikipedia.org/wiki/Zeami_Motokiyo",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Zeami"
+  },
+  "jp-201": {
+   "answer": "Kamakura shogunate",
+   "title": "Kamakura shogunate",
+   "url": "https://en.wikipedia.org/wiki/Kamakura_shogunate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-202": {
+   "answer": "Minamoto no Yoritomo",
+   "title": "Minamoto no Yoritomo",
+   "url": "https://en.wikipedia.org/wiki/Minamoto_no_Yoritomo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-203": {
+   "answer": "samurai-dokoro",
+   "title": "Samurai-dokoro",
+   "url": "https://en.wikipedia.org/wiki/Samurai-dokoro",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-204": {
+   "answer": "shogun",
+   "title": "Shogun",
+   "url": "https://en.wikipedia.org/wiki/Shogun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-205": {
+   "answer": "jito",
+   "title": "Jitō",
+   "url": "https://en.wikipedia.org/wiki/Jit%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-206": {
+   "answer": "Minamoto no Yoshitsune",
+   "title": "Minamoto no Yoshitsune",
+   "url": "https://en.wikipedia.org/wiki/Minamoto_no_Yoshitsune",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-207": {
+   "answer": "Gikeiki",
+   "title": "Gikeiki",
+   "url": "https://en.wikipedia.org/wiki/Gikeiki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-208": {
+   "answer": "Minamoto no Sanetomo",
+   "title": "Minamoto no Sanetomo",
+   "url": "https://en.wikipedia.org/wiki/Minamoto_no_Sanetomo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-209": {
+   "answer": "Hojo clan",
+   "title": "Hōjō clan",
+   "url": "https://en.wikipedia.org/wiki/H%C5%8Dj%C5%8D_clan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-210": {
+   "answer": "shikken",
+   "title": "Shikken",
+   "url": "https://en.wikipedia.org/wiki/Shikken",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-211": {
+   "answer": "Hojo Masako",
+   "title": "Hōjō Masako",
+   "url": "https://en.wikipedia.org/wiki/H%C5%8Dj%C5%8D_Masako",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-212": {
+   "answer": "Jokyu War",
+   "title": "Jōkyū War",
+   "url": "https://en.wikipedia.org/wiki/J%C5%8Dky%C5%AB_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-213": {
+   "answer": "Rokuhara Tandai",
+   "title": "Rokuhara Tandai",
+   "url": "https://en.wikipedia.org/wiki/Rokuhara_Tandai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-214": {
+   "answer": "Goseibai Shikimoku",
+   "title": "Goseibai Shikimoku",
+   "url": "https://en.wikipedia.org/wiki/Goseibai_Shikimoku",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-215": {
+   "answer": "shitaji chubun",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Jisha-ryō",
+    "Nanboku-chō period"
+   ]
+  },
+  "jp-216": {
+   "answer": "soryo",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Soryo",
+   "suggestions": [
+    "Fuyumi Soryo",
+    "Sōryō, Hiroshima",
+    "Soryo, Republic of Karelia"
+   ]
+  },
+  "jp-217": {
+   "answer": "ichigobun",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "jp-218": {
+   "answer": "Kamakura Buddhism",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Kamakura Buddhism",
+   "target": "Buddhism in Japan#Kamakura Buddhism (1185–1333) - new schools of Buddhism"
+  },
+  "jp-219": {
+   "answer": "Honen",
+   "title": "Hōnen",
+   "url": "https://en.wikipedia.org/wiki/H%C5%8Dnen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-220": {
+   "answer": "Jodo-shu",
+   "title": "Jōdo-shū",
+   "url": "https://en.wikipedia.org/wiki/J%C5%8Ddo-sh%C5%AB",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-231": {
+   "answer": "Great Buddha of Kamakura",
+   "title": "Kōtoku-in",
+   "url": "https://en.wikipedia.org/wiki/K%C5%8Dtoku-in",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Great Buddha of Kamakura"
+  },
+  "jp-232": {
+   "answer": "Shin Kokin Wakashu",
+   "title": "Shin Kokin Wakashū",
+   "url": "https://en.wikipedia.org/wiki/Shin_Kokin_Wakash%C5%AB",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-233": {
+   "answer": "Hojoki",
+   "title": "Hōjōki",
+   "url": "https://en.wikipedia.org/wiki/H%C5%8Dj%C5%8Dki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-234": {
+   "answer": "tokuso",
+   "title": "Tokusō",
+   "url": "https://en.wikipedia.org/wiki/Tokus%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-235": {
+   "answer": "Genko War",
+   "title": "Genkō War",
+   "url": "https://en.wikipedia.org/wiki/Genk%C5%8D_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-236": {
+   "answer": "Mongol invasions of Japan",
+   "title": "Mongol invasions of Japan",
+   "url": "https://en.wikipedia.org/wiki/Mongol_invasions_of_Japan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-237": {
+   "answer": "Hojo Tokimune",
+   "title": "Hōjō Tokimune",
+   "url": "https://en.wikipedia.org/wiki/H%C5%8Dj%C5%8D_Tokimune",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-238": {
+   "answer": "Dazaifu",
+   "title": "Dazaifu (government)",
+   "url": "https://en.wikipedia.org/wiki/Dazaifu_(government)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-239": {
+   "answer": "Battle of Bun'ei",
+   "title": "Battle of Bun'ei",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Bun'ei",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-240": {
+   "answer": "Genko Borui",
+   "title": "Genkō Bōrui",
+   "url": "https://en.wikipedia.org/wiki/Genk%C5%8D_B%C5%8Drui",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-251": {
+   "answer": "Kenmu Restoration",
+   "title": "Kenmu Restoration",
+   "url": "https://en.wikipedia.org/wiki/Kenmu_Restoration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-252": {
+   "answer": "Go-Daigo",
+   "title": "Emperor Go-Daigo",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Go-Daigo",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Go-Daigo"
+  },
+  "jp-253": {
+   "answer": "Ashikaga Takauji",
+   "title": "Ashikaga Takauji",
+   "url": "https://en.wikipedia.org/wiki/Ashikaga_Takauji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-254": {
+   "answer": "Nanboku-cho period",
+   "title": "Nanboku-chō period",
+   "url": "https://en.wikipedia.org/wiki/Nanboku-ch%C5%8D_period",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-255": {
+   "answer": "Southern Court",
+   "title": "Southern Court",
+   "url": "https://en.wikipedia.org/wiki/Southern_Court",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-256": {
+   "answer": "Kusunoki Masashige",
+   "title": "Kusunoki Masashige",
+   "url": "https://en.wikipedia.org/wiki/Kusunoki_Masashige",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-257": {
+   "answer": "Taiheiki",
+   "title": "Taiheiki",
+   "url": "https://en.wikipedia.org/wiki/Taiheiki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-258": {
+   "answer": "Ashikaga shogunate",
+   "title": "Ashikaga shogunate",
+   "url": "https://en.wikipedia.org/wiki/Ashikaga_shogunate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-259": {
+   "answer": "Muromachi period",
+   "title": "Muromachi period",
+   "url": "https://en.wikipedia.org/wiki/Muromachi_period",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-260": {
+   "answer": "Ashikaga Yoshimitsu",
+   "title": "Ashikaga Yoshimitsu",
+   "url": "https://en.wikipedia.org/wiki/Ashikaga_Yoshimitsu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-261": {
+   "answer": "Go-Kameyama",
+   "title": "Emperor Go-Kameyama",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Go-Kameyama",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Go-Kameyama"
+  },
+  "jp-262": {
+   "answer": "Kinkaku-ji",
+   "title": "Kinkaku-ji",
+   "url": "https://en.wikipedia.org/wiki/Kinkaku-ji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-263": {
+   "answer": "Ningbo incident",
+   "title": "Ningbo incident",
+   "url": "https://en.wikipedia.org/wiki/Ningbo_incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-264": {
+   "answer": "tally trade",
+   "title": "Japanese missions to Ming China",
+   "url": "https://en.wikipedia.org/wiki/Japanese_missions_to_Ming_China",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "jp-265": {
+   "answer": "Ashikaga Yoshimasa",
+   "title": "Ashikaga Yoshimasa",
+   "url": "https://en.wikipedia.org/wiki/Ashikaga_Yoshimasa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-266": {
+   "answer": "Ginkaku-ji",
+   "title": "Ginkaku-ji",
+   "url": "https://en.wikipedia.org/wiki/Ginkaku-ji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-267": {
+   "answer": "shugo daimyo",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Shugo daimyō",
+   "target": "Daimyo#Shugo-daimyō"
+  },
+  "jp-268": {
+   "answer": "Kanto kubo",
+   "title": "Kantō kubō",
+   "url": "https://en.wikipedia.org/wiki/Kant%C5%8D_kub%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-269": {
+   "answer": "wako",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Wako",
+   "suggestions": [
+    "Amos Wako",
+    "Haruo Wakō",
+    "Naoki Wako",
+    "WAKO (AM)",
+    "Wako (retailer)",
+    "Wako Matsumoto"
+   ]
+  },
+  "jp-270": {
+   "answer": "Oei Invasion",
+   "title": "Ōei Invasion",
+   "url": "https://en.wikipedia.org/wiki/%C5%8Cei_Invasion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-221": {
+   "answer": "Shinran",
+   "title": "Shinran",
+   "url": "https://en.wikipedia.org/wiki/Shinran",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-222": {
+   "answer": "Jodo Shinshu",
+   "title": "Jōdo Shinshū",
+   "url": "https://en.wikipedia.org/wiki/J%C5%8Ddo_Shinsh%C5%AB",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-223": {
+   "answer": "Nichiren",
+   "title": "Nichiren",
+   "url": "https://en.wikipedia.org/wiki/Nichiren",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-224": {
+   "answer": "Nichiren Buddhism",
+   "title": "Nichiren Buddhism",
+   "url": "https://en.wikipedia.org/wiki/Nichiren_Buddhism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-225": {
+   "answer": "Eisai",
+   "title": "Eisai",
+   "url": "https://en.wikipedia.org/wiki/Eisai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-226": {
+   "answer": "Dogen",
+   "title": "Dōgen",
+   "url": "https://en.wikipedia.org/wiki/D%C5%8Dgen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-227": {
+   "answer": "Soto",
+   "title": "Sōtō",
+   "url": "https://en.wikipedia.org/wiki/S%C5%8Dt%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-228": {
+   "answer": "Kencho-ji",
+   "title": "Kenchō-ji",
+   "url": "https://en.wikipedia.org/wiki/Kench%C5%8D-ji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-229": {
+   "answer": "Kei school",
+   "title": "Kei school",
+   "url": "https://en.wikipedia.org/wiki/Kei_school",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-230": {
+   "answer": "Unkei",
+   "title": "Unkei",
+   "url": "https://en.wikipedia.org/wiki/Unkei",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-241": {
+   "answer": "Southern Route Army",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Eighth Route Army",
+    "Route Army",
+    "New Fourth Army",
+    "Eighteenth Army (Japan)",
+    "New Fourth Army Incident"
+   ]
+  },
+  "jp-242": {
+   "answer": "Battle of Koan",
+   "title": "Battle of Kōan",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_K%C5%8Dan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-243": {
+   "answer": "shinkoku",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Shinkoku",
+   "target": "History of Shinto#Shinto-Buddhist doctrine and Shinkoku thought"
+  },
+  "jp-244": {
+   "answer": "typhoon",
+   "title": "Typhoon",
+   "url": "https://en.wikipedia.org/wiki/Typhoon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-245": {
+   "answer": "Moko Shurai Ekotoba",
+   "title": "Mōko Shūrai Ekotoba",
+   "url": "https://en.wikipedia.org/wiki/M%C5%8Dko_Sh%C5%ABrai_Ekotoba",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-246": {
+   "answer": "ikoku keigo banyaku",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "jp-247": {
+   "answer": "Takezaki Suenaga",
+   "title": "Takezaki Suenaga",
+   "url": "https://en.wikipedia.org/wiki/Takezaki_Suenaga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-248": {
+   "answer": "Hachiman Gudokun",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mongol invasions of Japan",
+    "Empress Jingū",
+    "Azumi-no-isora",
+    "Ushi-oni",
+    "History of Shinto"
+   ]
+  },
+  "jp-249": {
+   "answer": "Takashima Kozaki Site",
+   "title": "Takashima Kōzaki Site",
+   "url": "https://en.wikipedia.org/wiki/Takashima_K%C5%8Dzaki_Site",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-250": {
+   "answer": "Issan Ichinei",
+   "title": "Yishan Yining",
+   "url": "https://en.wikipedia.org/wiki/Yishan_Yining",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Issan Ichinei"
+  },
+  "jp-271": {
+   "answer": "ikki",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Ikki",
+   "suggestions": [
+    "Iga ikki",
+    "Ikki Twins",
+    "Kaga ikki",
+    "Kōka ikki",
+    "Monthly Ikki",
+    "Saika Ikki"
+   ]
+  },
+  "jp-272": {
+   "answer": "Ikko-ikki",
+   "title": "Ikkō-ikki",
+   "url": "https://en.wikipedia.org/wiki/Ikk%C5%8D-ikki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-273": {
+   "answer": "Yamashiro ikki",
+   "title": "Yamashiro ikki",
+   "url": "https://en.wikipedia.org/wiki/Yamashiro_ikki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-274": {
+   "answer": "Hine-no-sho",
+   "title": "Hine-no-shō",
+   "url": "https://en.wikipedia.org/wiki/Hine-no-sh%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-275": {
+   "answer": "bashaku",
+   "title": "Bashaku",
+   "url": "https://en.wikipedia.org/wiki/Bashaku",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-276": {
+   "answer": "za",
+   "title": "Za (guilds)",
+   "url": "https://en.wikipedia.org/wiki/Za_(guilds)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-277": {
+   "answer": "Eiraku Tsuho",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Eiraku Tsuho",
+   "target": "Yongle Tongbao#In Japan"
+  },
+  "jp-278": {
+   "answer": "Onin War",
+   "title": "Ōnin War",
+   "url": "https://en.wikipedia.org/wiki/%C5%8Cnin_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-279": {
+   "answer": "Nishijin",
+   "title": "Nishijin",
+   "url": "https://en.wikipedia.org/wiki/Nishijin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-280": {
+   "answer": "Meio incident",
+   "title": "Meiō incident",
+   "url": "https://en.wikipedia.org/wiki/Mei%C5%8D_incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-291": {
+   "answer": "kyogen",
+   "title": "Kyōgen",
+   "url": "https://en.wikipedia.org/wiki/Ky%C5%8Dgen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-292": {
+   "answer": "chanoyu",
+   "title": "Japanese tea ceremony",
+   "url": "https://en.wikipedia.org/wiki/Japanese_tea_ceremony",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Chanoyu"
+  },
+  "jp-293": {
+   "answer": "wabi-cha",
+   "title": "Wabi-cha",
+   "url": "https://en.wikipedia.org/wiki/Wabi-cha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-294": {
+   "answer": "wabi-sabi",
+   "title": "Wabi-sabi",
+   "url": "https://en.wikipedia.org/wiki/Wabi-sabi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-295": {
+   "answer": "ikebana",
+   "title": "Ikebana",
+   "url": "https://en.wikipedia.org/wiki/Ikebana",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-296": {
+   "answer": "karesansui",
+   "title": "Japanese dry garden",
+   "url": "https://en.wikipedia.org/wiki/Japanese_dry_garden",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Karesansui"
+  },
+  "jp-297": {
+   "answer": "Ryoan-ji",
+   "title": "Ryōan-ji",
+   "url": "https://en.wikipedia.org/wiki/Ry%C5%8Dan-ji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-298": {
+   "answer": "suibokuga",
+   "title": "Ink wash painting",
+   "url": "https://en.wikipedia.org/wiki/Ink_wash_painting",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Suibokuga"
+  },
+  "jp-299": {
+   "answer": "Sesshu Toyo",
+   "title": "Sesshū Tōyō",
+   "url": "https://en.wikipedia.org/wiki/Sessh%C5%AB_T%C5%8Dy%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-300": {
+   "answer": "Kano school",
+   "title": "Kanō school",
+   "url": "https://en.wikipedia.org/wiki/Kan%C5%8D_school",
    "via": "glossary",
    "status": "ok"
   }
