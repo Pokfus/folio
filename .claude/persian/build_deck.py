@@ -226,7 +226,10 @@ def english(ents, word=''):
 # A2's are Wiktionary's own Iranian reading, from the entry's headword line
 # (`نوع • (naw' / now')`, `دی • (day /dey)`, `پست • (post)`, `آرزو • (âr(e)zu …)`
 # with its plural `ârezu-hâ`), which the extraction does not tag.
-ROMAN_BY_HAND = {'حس': 'hess', 'نوع': "now'", 'دی': 'dey', 'پست': 'post', 'آرزو': 'ârezu',
+ROMAN_BY_HAND = {# A1 (2026-11-19): بله printed "bali", the reading of بلی, the word its one gloss
+                 # points to; its own headword line is `بله • (bale)`
+                 'بله': 'bale',
+                 'حس': 'hess', 'نوع': "now'", 'دی': 'dey', 'پست': 'post', 'آرزو': 'ârezu',
                  # B1: the extraction took a Classical or Dari reading (čiguna, tillâ'i,
                  # kôbidan, jârub) or the headword line's optional vowel (pir(e)-mard);
                  # the Iranian reading, as A1's cards print these words' relatives
@@ -258,7 +261,19 @@ def iran(r):
     return '' if CLASSICAL.search(r) else r
 
 
+def rom(r):
+    """ONE LETTER FOR ق AND غ (2026-11-19).  Wiktionary's Persian entries are romanised in two
+    ways its own policy page names ("Wiktionary:Persian transliteration", revision 90073461): the
+    Iranian transliteration, and "a modified Iranian transliteration, with q and ġ
+    distinguished", "the most common practice" on headword lines.  So one deck printed `vaġt`
+    for وقت and `qabl` for قبل -- the same letter, and in Iran the same sound as غ, which is
+    what the alphabet deck teaches.  A1 had 7 headwords with q and 31 with ġ for ق; the five
+    levels 164 and 258.  Every romanisation a card prints goes through here."""
+    return (r or '').replace('q', 'ġ').replace('Q', 'Ġ')
+
+
 def fi(label, form, roman=''):
+    roman = rom(roman)
     return (f'<span class="uc-fi"><span class="uc-fl">{E(label)}</span>{fa(form)}'
             + (f'<span class="uc-fr">{E(roman)}</span>' if roman else '') + '</span>')
 
@@ -271,18 +286,69 @@ def plural_roman(p, word, wr):
     return ''
 
 
+def standard(table):
+    """The rows of the table headed "literary Iranian Persian" where `extract.py` could tell the
+    tables apart (`l`), else every row, as before."""
+    ir = [t for t in table if t.get('l') == 'ir']
+    if ir or not any(t.get('l') for t in table):
+        return ir or table
+    # tables told apart, and none of them is the literary Iranian one (دادن, whose literary
+    # table the extraction lost): the rows of a table with no header, never the colloquial ones
+    return [t for t in table if t.get('l') == '?']
+
+
 def cell(table, *need, skip=()):
     """The first cell with these tags.  Wiktionary's tables come in an Iranian reading and, for
     some verbs, only a Classical one (dāštam); a Classical cell is shown WITHOUT its romanisation
     rather than with one a learner of Iranian Persian would mispronounce.  A cell with no
     romanisation at all is the extraction's stray header row (`باش` tagged a past stem) and is
     skipped."""
-    hit = [t for t in table if all(n in t['t'] for n in need) and not set(t['t']) & set(skip)
-           and t['r']]
+    hit = [t for t in standard(table) if all(n in t['t'] for n in need)
+           and not set(t['t']) & set(skip) and t['r']]
     for t in hit:
         if not CLASSICAL.search(t['r']):
             return t
-    return dict(hit[0], r='') if hit else None
+    return same_spelling(table, hit[0]) if hit else None
+
+
+def same_spelling(table, t):
+    """A cell of the literary table that Wiktionary romanised the Classical way (انداخت andāxt)
+    is shown without that reading -- unless the colloquial Tehrani table has the SAME cell spelt
+    the same, whose reading is then the Iranian one of that spelling (andâxt)."""
+    for u in table:
+        if u.get('l') == 'teh' and u['f'] == t['f'] and sorted(u['t']) == sorted(t['t']) \
+                and u['r'] and not CLASSICAL.search(u['r']):
+            return dict(t, r=u['r'])
+    return dict(t, r='')
+
+
+def spoken_verb(table):
+    """WHAT IS SAID FOR WHAT IS WRITTEN (2026-11-19).  A learner reads می‌خواهم and hears mixâm,
+    می‌رود and hears mire: the present of every verb is shortened in speech, the third person
+    always (-ad is said -e) and the commonest verbs in the stem too.  Wiktionary prints a second
+    table, "colloquial Tehrani", beside the literary one; its "I" and "he, she" present forms are
+    shown on the card's forms line where they differ from the written ones.  Quoted from that
+    table, never derived here."""
+    teh = [t for t in table if t.get('l') == 'teh']
+    if not teh:
+        return ''
+    out = []
+    for need in (('first-person', 'singular'), ('third-person', 'singular')):
+        want = ('indicative', 'present') + need
+        skip = {'progressive', 'perfect', 'aorist', 'past'}
+        pick = lambda rows: next((t for t in rows if all(n in t['t'] for n in want)
+                                  and not set(t['t']) & skip and t['r']), None)
+        sp, st = pick(teh), pick(standard(table))
+        # a cell whose words and romanisation do not count the same is the extraction's (a
+        # compound verb's colloquial cell without its first word): not shown
+        if sp and (not st or fold(sp['f']) != fold(st['f'])) and ' / ' not in sp['f'] \
+                and not CLASSICAL.search(sp['r']) \
+                and len(sp['f'].split()) == len(sp['r'].split()) \
+                and (not st or len(sp['f'].split()) == len(st['f'].split())):
+            out.append(sp)
+    if not out:
+        return ''
+    return fi('spoken', '، '.join(t['f'] for t in out), ', '.join(unstress(t['r']) for t in out))
 
 
 def forms_line(e, word, wr):
@@ -293,6 +359,12 @@ def forms_line(e, word, wr):
     elif e['pos'] == 'verb':
         pr = cell(e['table'], 'present', 'stem')
         pa = cell(e['table'], 'past', 'stem')
+        if not pa:
+            # no literary table (دادن): the past stem is the infinitive without its ن, so the
+            # colloquial table's cell is the same word when it is spelt that way (داد)
+            pa = next((t for t in e['table'] if t.get('l') == 'teh' and 'past' in t['t']
+                       and 'stem' in t['t'] and t['r'] and not CLASSICAL.search(t['r'])
+                       and word.endswith(t['f'] + 'ن')), None)
         for t, c in (('present', pr), ('past', pa)):
             h = next((s for s in e['stems'] if s['t'] == t and s['r']), None) \
                 or next((s for s in e['stems'] if s['t'] == t), None)
@@ -310,6 +382,8 @@ def forms_line(e, word, wr):
     for c in e['colloq'][:1]:
         if fold(c['f']) != fold(word):
             bits.append(fi('spoken', c['f'], iran(c['r'])))
+    if e['pos'] == 'verb':
+        bits.append(spoken_verb(e['table']))
     bits = [b for b in bits if b]
     return f'<div class="uc-forms">{"".join(bits)}</div>' if bits else ''
 
@@ -319,7 +393,7 @@ def row(label, t, latin=False):
         return ''
     lab = E(label) if latin else fa(label)
     return (f'<div class="uc-cjr"><span class="uc-cj-p">{lab}</span>'
-            f'<span class="uc-cj-f">{fa(t["f"])}<span class="uc-fr">{E(unstress(t["r"]))}</span></span></div>')
+            f'<span class="uc-cj-f">{fa(t["f"])}<span class="uc-fr">{E(rom(unstress(t["r"])))}</span></span></div>')
 
 
 def block(head, rows):
@@ -337,7 +411,7 @@ PERSONS = [('من', ('first-person', 'singular')), ('تو', ('second-person', 's
 def by_person(tb, base, skip=(), only=None):
     out = []
     for p, need in PERSONS:
-        cands = [t for t in tb if all(n in t['t'] for n in base + need)
+        cands = [t for t in standard(tb) if all(n in t['t'] for n in base + need)
                  and not set(t['t']) & set(skip) and t['r']]
         if only:
             cands = [t for t in cands if only(t)]
@@ -346,13 +420,43 @@ def by_person(tb, base, skip=(), only=None):
     return out
 
 
+def negative(tb):
+    """THE NEGATIVE, which Wiktionary's tables do not print and every other sentence uses.  It is
+    one prefix, and the rule is quoted from Wikipedia, "Persian verbs" (revision 1375231292):
+    present, "The negative is made with the prefix ne-, which is stressed: man nemikonam";
+    simple past, "The negative is made with na- (stressed): man nákardam"; subjunctive, "The
+    negative also lacks the prefix be-: nakonam".  So ن goes before the table's own "I" forms --
+    the می‌ present, the simple past, and the bare present (the table's aorist row, which is the
+    subjunctive without its be-) -- on the LAST word of a compound verb.  A form that begins
+    with a vowel letter (آمدم, افتادم) takes a glide the rule above does not state (نیامدم), so
+    no negative is written for it."""
+    def one(label, need, skip, prefix, ok):
+        t = next((t for t in standard(tb) if all(n in t['t'] for n in need)
+                  and not set(t['t']) & set(skip) and t['r'] and ok(t)), None)
+        if not t or CLASSICAL.search(t['r']):
+            return ''
+        f, r = t['f'].rsplit(' ', 1), unstress(t['r']).rsplit(' ', 1)
+        if len(f) != len(r) or f[-1][:1] in 'اآإأ' or not r[-1][:1].isalpha() or r[-1][:1] in 'aeiouâ':
+            return ''
+        f[-1], r[-1] = 'ن' + f[-1], prefix + r[-1]
+        return row(label, {'f': ' '.join(f), 'r': ' '.join(r)}, True)
+    me = ('first-person', 'singular')
+    mi = lambda t: re.search(r'(^| )می‌', t['f'])
+    return [one('present', ('indicative', 'present') + me, ('progressive', 'perfect', 'aorist', 'past'),
+                'ne', mi),
+            one('past', ('indicative', 'past') + me, ('progressive', 'perfect'), 'na',
+                lambda t: not mi(t)),
+            one('subjunctive', ('aorist',) + me, (), 'na', lambda t: True)]
+
+
 def table_html(e):
     tb = e['table']
     # A TABLE WITH NO IRANIAN READING IS NOT SHOWN.  For some verbs Wiktionary's only table is
     # the Classical / Dari one (mē-aftam, dar hāl-i aftādan astam); printed without its
     # romanisation it would still teach another variety's forms as this deck's.
-    if not tb or not any(t['r'] and not CLASSICAL.search(t['r']) for t in tb):
+    if not tb or not any(t['r'] and not CLASSICAL.search(t['r']) for t in standard(tb)):
         return ''
+    lects = any(t.get('l') == 'ir' for t in tb)
     if e['pos'] == 'verb':
         imp = lambda t: not re.search(r'(^| )ن?می‌', t['f'])
         blocks = [
@@ -364,10 +468,13 @@ def table_html(e):
                                        skip=('progressive', 'perfect', 'aorist', 'past'))),
             block('past', by_person(tb, ('indicative', 'past'), skip=('progressive', 'perfect'),
                                     only=imp)),
+            block('present perfect', by_person(tb, ('indicative', 'perfect', 'present'),
+                                               skip=('progressive',)) if lects else []),
             block('future', by_person(tb, ('future', 'indicative'))),
             block('subjunctive', by_person(tb, ('present', 'subjunctive'))),
             block('imperative', [row('تو', cell(tb, 'imperative', 'singular')),
                                  row('شما', cell(tb, 'imperative', 'plural'))]),
+            block('negative', negative(tb) if lects else []),
         ]
     elif e['pos'] == 'noun':
         blocks = [
@@ -450,7 +557,7 @@ def build(rows, lex, exs):
         ex = exs.get(r['key'], [])
         cards.append({'sub': r.get('sub', ''), 'fields': {
             'Persian': fa(word),
-            'Roman': E(roman),
+            'Roman': E(rom(roman)),
             'Word': word,
             'English': english(ents, word),
             'Forms': forms_line(main, word, roman),

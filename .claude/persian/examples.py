@@ -20,7 +20,7 @@ the shorter, then the lower sentence id -- so a re-run is byte-identical.  A
 Persian sentence with several English translations takes the shortest.  Each
 sentence is used at most once per deck.
 """
-import csv, json, os, sys
+import csv, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fa import fold, nfc, tokens
@@ -37,6 +37,12 @@ csv.field_size_limit(10 ** 8)
 # or rewrites: `persian-fix.js --check` (the committed decks) is what CI holds, not a rebuild.
 PINNED = '2026-11-07 23:59:59'
 
+# A SENTENCE FILED UNDER PERSIAN THAT IS NOT PERSIAN (2026-11-19).  Three of the cards' sentences
+# were Sorani Kurdish, tagged `pes` on Tatoeba (`بۆچی منت وەستاند؟` on A1's و, the letter و
+# bolded inside a word): the Kurdish letters ۆ ە ێ ڕ ڵ ھ ڤ are in no Persian word, so a sentence
+# holding one is not read.
+NOT_PERSIAN = re.compile('[ۆەێڕڵھڤ]')
+
 
 def load():
     fa = {}
@@ -44,6 +50,8 @@ def load():
                           quoting=csv.QUOTE_NONE):
         if len(row) >= 3:
             if len(row) >= 5 and row[4][:1].isdigit() and row[4] > PINNED:
+                continue
+            if NOT_PERSIAN.search(row[2]):
                 continue
             fa[row[0]] = nfc(row[2]).strip()
     links = {}
