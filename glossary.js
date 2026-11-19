@@ -15081,7 +15081,6 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "February_28_incident": "1947",
 "White_Terror_(Taiwan)": "1949–1987",
 "Martial_law_in_Taiwan": "1949–1987",
-"Taiwan_Miracle": "1950s–1990s",
 "Wild_Lily_student_movement": "1990",
 "Chinese_Empire": "221 BCE – 1912 CE",
 "Expulsion_of_the_kings": "traditionally 509 BCE",

@@ -849,6 +849,16 @@ and is audited as an ordinary card. Dates already set elsewhere that this hundre
 | the hukou: urban rules / national rules / reformed | 1951 / January 1958 / 24 July 2014 | Chan; the State Council (`cnh-688`) |
 | the Joint Declaration / the handover | 19 December 1984 / 1 July 1997 | the Joint Declaration (`cnh-689`) |
 | the Belt and Road announced / the official plan | September – October 2013 / 28 March 2015 | the NDRC (`cnh-690`) |
+| Taiwan ceded / the decree powers / the first civilian governor-general / Japanese rule ended | 17 April 1895 / March 1896 / October 1919 / 1945 | the NDL; Takekoshi; Goto (`cnh-691`) |
+| the surrender at Taipei / Retrocession Day restored | 25 October 1945 / 28 May 2025 | Yang; the Ministry of Justice (`cnh-692`) |
+| February 28: the spark / the rising / troops landed / the purge ended | 27 February / 28 February / 8 March / 16 May 1947 | the 228 Foundation (`cnh-693`) |
+| the White Terror (two countings) / the rebellion act / the compensation act | 1949 – 1987, or 1949 – 1992 / 21 June 1949 / 17 June 1998 | Li; the National Human Rights Museum (`cnh-694`) |
+| martial law declared / lifted | 20 May 1949 / 15 July 1987 | CNA (`cnh-695`) |
+| land reform / American aid | 1949 – 1953 / 1951 – 1965 | Duan; Jacoby (`cnh-696`) |
+| the Wild Lily sit-in / the conference / the seniors retired / the direct vote | 16 – 22 March 1990 / 28 June – 4 July 1990 / 31 December 1991 / March 1996 | the ICFT; Kuo and Chen; the CRS (`cnh-697`) |
+| cross-Strait: divided / the first summit / talks resumed / links cut | December 1949 / April 1993 / June 2008 / June 2016 | the CRS; the Taiwan Affairs Office (`cnh-698`) |
+| the identity survey began / the latest reading | 1992 / June 2026 | the Election Study Center (`cnh-699`) |
+| the Cairo declaration / the peace treaty signed / in force / the UN seat | 1943 / 8 September 1951 / 28 April 1952 / 25 October 1971 | the Cairo text; the treaty; the CRS (`cnh-700`) |
 
 ## Later periods
 
@@ -1540,4 +1550,14 @@ cnh-687: 1984; 2003; 2020
 cnh-688: 1951; 1958; 2014
 cnh-689: 1984; 1997
 cnh-690: 2013; 2015
+cnh-691: 1895; 1896; 1919; 1945
+cnh-692: 1945; 2025
+cnh-693: 1947
+cnh-694: 1949; 1987; 1992; 1998
+cnh-695: 1949; 1987
+cnh-696: 1949; 1953; 1951; 1965
+cnh-697: 1990; 1991; 1996
+cnh-698: 1949; 1993; 2008; 2016
+cnh-699: 1992; 2026
+cnh-700: 1943; 1951; 1952; 1971
 ```
