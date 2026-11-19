@@ -12,7 +12,23 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently sixty-seven:
+  matter (chapter 0 — see the Library bullet). Currently sixty-eight:
+  `jerome-letters` (~1.8 MB, **150 letters**, one to a tab, Vallarsi's numbering — `chapterWord: "Letter"`, **~4,000
+  notes**, the edition's; **no original**). W. H. Fremantle's translation, with G. Lewis and W. G. Martley, Nicene and
+  Post-Nicene Fathers, Second Series, vol. VI, 1893, typed onto Wikisource one page per letter (`body: "plain"`, the
+  Confessions' page shape). **Titled from each letter's own printed heading** ("Letter XIV. To Heliodorus, Monk.") by
+  `head: "letter"` → `letterHead`, which checks the numeral against the page and is then dropped by `dropLeadParas`;
+  the contents page names no addressee. **Letter 148's page has no heading**; it is supplied (`headSupplied`) from
+  CCEL's transcription of the same edition, "To the Matron Celantia". Sections are the plain leading figures
+  (`sections: "leading"`), 648 over 79 letters, every one matching the raw page's count and running 1..N. **About
+  fifty letters are summaries only in this edition** (19–21, 25–30, most of the Augustine exchange, the Easter letters
+  of Theophilus…), so 71 letters carry no section number and `minChars` is 100 (Letter 19 is the shortest page).
+  Fremantle's headnote over each letter stands as the unnumbered first block. Parts are Vallarsi's five classes as
+  Migne heads them in PL 22 (first letters XIX, XLVI, XCVI, CXLV). **No Latin**: Migne's text on la.wikisource
+  (`Epistolae (Hieronymus)`, five class pages) runs sections together and keeps column numbers in the prose; the
+  other copy names no edition. Licence: published 1893 (US public domain); Fremantle 1831–1916, but Martley "c. 1860
+  – c. 1920" and Lewis undated on Wikisource, so the rights box makes no life-plus-seventy claim for them. Colour
+  `#832D78` (14.9 by CIE76; the band is full). Not included: the Prolegomena, the treatises, the prefaces.
   `rousseau-social-contract` (~260 KB, **49 sections** — Rousseau's Foreword and the 48 chapters of the four Books, so a
   tab runs one ahead of the chapter's place; each title opens with its numeral in its Book, the Books are the `parts`;
   `chapterWord: "Section"` — **47 notes**, Rousseau's with a few of Cole's; original **French**, paired on the CHAPTER as

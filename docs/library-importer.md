@@ -2836,3 +2836,21 @@ Gated on `prep === "kant"`, so inert on every other book.
 Re-run after touching: `node .claude/fetch-book.js kant-critique-of-pure-reason --force` (24 pages), check "181 heading
 block(s) fenced, 181 lifted, 7 table(s) read as blocks, 5 asterisk row(s), 2 note(s) inside a note spliced", then
 `node .claude/book-audit.js`.
+
+## `head: "letter"` — a letter titled from its own printed heading (Nov 2026, Jerome's Letters)
+
+Fremantle's edition (NPNF II/6) heads every letter with one plain paragraph — "Letter XIV. To Heliodorus, Monk." —
+and Wikisource's contents page lists only "Letter 1" … "Letter 150", so the heading is the one place the
+addressee is named. `letterHead` reads it off the RAW page before cleanBody (reference `<sup>`s stripped first,
+numeric entities decoded so "Æmona" is stored as the character), **checks the numeral against the page asked for**
+and warns on a mismatch, and returns the rest as the title; the paragraph itself is then peeled by the book's
+`dropLeadParas` (capped at 100 characters after the numeral, so prose cannot match), with `dropHeadMarkers`
+carrying any footnote marker down. A page with NO heading is not guessed at: only `headSupplied[n]` is used, each
+with its source in a comment (Letter 148, from CCEL's copy of the same edition), and the run prints how many
+titles were read and how many supplied. One trap met on the way: the rule under the volume's half-title arrives as
+twelve `&#8212;` entities, and `dropLeadParas` flattens entities to spaces, so `/^[—–-]{3,}$/` cannot see it — the
+entry declares `/^$/` for a block of nothing but entities.
+
+Re-run after touching: `node .claude/fetch-book.js jerome-letters --force` (150 pages), check "149 letters titled
+from their own printed heading, 1 from a heading the entry supplies" and "648 section numbers across 150 chapters
+— 71 chapter(s) with NONE" (the summaries), then `node .claude/book-audit.js`.
