@@ -539,6 +539,11 @@ const SAME_LANGUAGE_OK = new Map([
   /* The École française d'Athènes case again, one language over: only ONE of the two is a Spanish
      WORK. The other is the WMO's Tegucigalpa record, whose author field is the Honduran meteorological
      agency's own Spanish name on a page published in English. Read Sep 2026. */
+  /* The same signal on a Portuguese article: Pinto's "Narrar tudo aquilo que está abaixo do Céu" is in
+     Portuguese (chipped so) and only the journal it sits in, História da Historiografia, trips the Spanish
+     signal; the one Spanish work beside it is Ramírez Ruiz. Read Nov 2026, the China refinement. */
+  ["cnh-737|Spanish|2", "one Portuguese article (Pinto) read as Spanish by its journal, beside one Spanish article (Ramírez Ruiz)"],
+  ["cnh-738|Spanish|2", "one Portuguese article (Pinto) read as Spanish by its journal, beside one Spanish article (Ramírez Ruiz)"],
   ["gw-589|Spanish|2", "the WMO's own record, credited to the Honduran agency in Spanish, beside one genuinely Spanish paper on the Guacerique sub-basin"],
   /* The Ecole francaise d'Athenes case a third time, in another discipline. The `revue` signal
      names a French JOURNAL, not a French work: the Revue d'histoire des mathematiques is
