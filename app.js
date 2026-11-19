@@ -16247,6 +16247,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       total: 5,
     },
     {
+      id: "hamlet",
+      title: "Hamlet",
+      subtitle: "The Tragedy of Hamlet, Prince of Denmark",
+      author: "William Shakespeare",
+      /* "c.": written around 1599–1601; first printed in the quarto of 1603. */
+      written: "c. 1600",
+      year: 1600,
+      // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+      edition: "The Yale Shakespeare, ed. Jack Randall Crawford, Yale University Press, New Haven, 1917",
+      /* The play has never been in copyright; the Yale edition was published in 1917 and its editor died
+         in 1968 (Wikidata Q19560296), so it clears the US pre-1929 rule but NOT life plus seventy until
+         2039 — public domain in the United States only, which the rights text says. */
+      rights:
+        "Public domain in the United States. Shakespeare wrote the play around 1600 and it was first " +
+        "printed in 1603, so the work itself has never been in copyright. The text here is the Yale " +
+        "Shakespeare edition edited by Jack Randall Crawford and published by Yale University Press in " +
+        "1917, before 1929, so its copyright has expired in the United States. Crawford died in 1968, so " +
+        "his edition remains in copyright in countries whose term is the editor's life plus seventy " +
+        "years, including the United Kingdom and the European Union, until 2039. What is taken is the " +
+        "play, the edition's list of characters, Crawford's glosses from the foot of each page and his " +
+        "end notes, which are set with the glosses that point to them; his appendices and index are not " +
+        "reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Hamlet_(1917)_Yale",
+      /* NO `origLang`: Shakespeare's English is the original. Five acts, each a tab; the list of
+         characters at the head of Act I. */
+      chapterWord: "Act",
+      count: 5,
+      total: 5,
+    },
+    {
       id: "classic-of-tea",
       title: "The Classic of Tea",
       subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -26759,6 +26790,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "He jests at scars, that never felt a wound. [Juliet appears above at a window.] But, soft! what light through yonder window breaks? It is the east, and Juliet is the sun! Arise, fair sun, and kill the envious moon, Who is already sick and pale with grief, That thou her maid art far more fair than she: Be not her maid, since she is envious; Her vestal livery is but sick and green, And none but fools do wear it; cast it off. It is my lady; O! it is my love: O! that she knew she were. She speaks, yet she says nothing: what of that? Her eye discourses; I will answer it. I am too bold, 'tis not to…" },
     { book: "julius-caesar", n: 3, t: "Act III", p: 142,
       text: "Friends, Romans, countrymen, lend me your ears; I come to bury Cæsar, not to praise him. The evil that men do lives after them, The good is oft interred with their bones; So let it be with Cæsar. The noble Brutus Hath told you Cæsar was ambitious; If it were so, it was a grievous fault, And grievously hath Cæsar answer'd it. Here, under leave of Brutus and the rest,— For Brutus is an honourable man; So are they all, all honourable men,— Come I to speak in Cæsar's funeral. He was my friend, faithful and just to me: But Brutus says he was ambitious; And Brutus is…" },
+    { book: "hamlet", n: 3, t: "Act III", p: 25,
+      text: "To be, or not to be: that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and, by a sleep to say we end The heart-ache and the thousand natural shocks That flesh is heir to, 'tis a consummation Devoutly to be wish'd. To die, to sleep; To sleep: perchance to dream: ay, there's the rub; For in that sleep of death what dreams may come When we have shuffled off this mortal coil, Must give us pause. There's the respect That makes calamity of so…" },
     { book: "classic-of-tea", n: 1, t: "The Origin of Tea", p: 1,
       text: "Tea is a fine tree of the South. Its height is from one to two feet to several tens of feet. The tea plants which grow on the hills and by the streams of Pa Shan [in the province of Szechwan] are sometimes so big that it takes two men to encircle them with their arms. They are cut down and then their leaves are plucked. A tea plant is like kua lu, a tree growing in Canton, the leaves of which are bitter and acrid in taste; its leaves are like those of the gardenia; its flowers are like the white cinnamon roses; its seeds are like those of the palm and coconut palm; its stalks are like those…" },
     { book: "magna-carta", n: 39, t: "Chapter 39", p: 1,
