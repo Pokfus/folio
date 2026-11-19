@@ -14919,7 +14919,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Roman_roads": "from 312 BCE",
 "Greco-Buddhist_art": "c. 50 – 500 CE",
 "Rural_Reconstruction_Movement": "1926–1940",
-"Diligent_Work–Frugal_Study_Movement": "1912–1921",
+"Diligent_Work–Frugal_Study_Movement": "1916–1921",
 "Women's_suffrage_in_China": "1911–1947",
 "Cai_Yuanpei": "1868–1940",
 "Chinese_Civil_War": "1927–1949",

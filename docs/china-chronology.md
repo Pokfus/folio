@@ -767,6 +767,14 @@ and is audited as an ordinary card. Dates already set elsewhere that this hundre
 
 | event | the collection says | source |
 |---|---|---|
+| China's first cotton-mill project / work began | 1878 / 1889 | Couling (`cnh-601`) |
+| the Rural Reconstruction Movement began (Ding County chosen) | 1926 | Price (`cnh-602`) |
+| the work-study scheme relaunched / its main wave / the students deported | 1916 / 1919 – 1921 / October 1921 | Miranda; Luo; Xinhua (`cnh-603`) |
+| the suffrage groups / the Nanjing protest / the quota clause / in force | November 1911 / 19 March 1912 / 1 January 1947 / March 1947 | Carter; the Ministry of Justice; Liu (`cnh-604`) |
+| the Civil War began / resumed / ended | 1927 / 1946 / 1949 | the Office of the Historian; Rummel (`cnh-606`) |
+| the Chinese Soviet Republic proclaimed at Ruijin / the base abandoned | 7 November 1931 / October 1934 | the party chronology; Mao (`cnh-607`) |
+| the encirclement campaigns began / the fifth began / ended | 1930 / September 1933 / 1934 | Mao; the party chronology; Averill (`cnh-609`) |
+| the Long March set out / arrived / the armies united | October 1934 / October 1935 / October 1936 | FRUS; Mao; the party chronology (`cnh-610`) |
 
 ## Later periods
 
@@ -1376,4 +1384,12 @@ cnh-597: 1925; 1928; 1947
 cnh-598: 1912; 1919; 1924; 1928
 cnh-599: 1842; 1895; 1943
 cnh-600: 1863; 1943
+cnh-601: 1878; 1889
+cnh-602: 1926
+cnh-603: 1916; 1919; 1921
+cnh-604: 1911; 1912; 1947
+cnh-606: 1927; 1946; 1949
+cnh-607: 1931; 1934
+cnh-609: 1930; 1933; 1934
+cnh-610: 1934; 1935; 1936
 ```

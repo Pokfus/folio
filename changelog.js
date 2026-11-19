@@ -40,7 +40,7 @@ window.FOLIO_VERSION = { v: "1.1370", released: "2026-11-19T04:12Z" };
 window.CHANGELOG = [
   {
     d: "2026-11-19",
-    t: "Seven new books in the Library, from Hamlet and Darwin to Jerome",
+    t: "Seven new books in the Library, and more China cards are rewritten",
     items: [
       "Shakespeare's <b>Hamlet</b> is in the Library, in the Yale edition of 1917, with its list of characters and every gloss.",
       "New in the Library: Thomas More's <b>Utopia</b> (1516), complete in Gilbert Burnet's English translation.",
@@ -56,6 +56,7 @@ window.CHANGELOG = [
       "<b>Persian A1</b> now opens with the greetings, numbers and weekdays come together, and verbs show their spoken, perfect and negative forms.",
       "Russian gains a <b>Sounds and spelling</b> deck, and <b>TORFL A1</b> now opens with hello, thank you and please, with numbers, days and months together and 49 more words.",
       "<b>Urdu A1</b> now opens with the greetings, with numbers, days and months together; Urdu cards show a word's vowel marks, and the alphabet deck cites its sounds.",
+      "<b>10 more China cards are rewritten</b>, from the cotton mill to the Long March, with new sources and dates.",
     ],
   },
   {

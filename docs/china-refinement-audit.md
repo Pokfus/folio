@@ -558,7 +558,7 @@ otherwise.
 | B58 | Qing (`col-33`) / Early Republic (`col-35`) | `cnh-571`–`cnh-580` | 10 | 117 | **done 2026-11-14** |
 | B59 | Early Republic (`col-35`) | `cnh-581`–`cnh-590` | 10 | 110 | **done 2026-11-14** |
 | B60 | Early Republic (`col-35`) | `cnh-591`–`cnh-600` | 10 | 118 | **done 2026-11-14** |
-| B61 | Early Republic (`col-35`) / Civil War (`col-36`) | `cnh-601`–`cnh-610` | 10 | 116 | to do |
+| B61 | Early Republic (`col-35`) / Civil War (`col-36`) | `cnh-601`–`cnh-610` | 10 | 116 | **done 2026-11-19** |
 | B62 | Civil War (`col-36`) | `cnh-611`–`cnh-620` | 10 | 105 | to do |
 | B63 | Civil War (`col-36`) | `cnh-621`–`cnh-630` | 10 | 103 | to do |
 | B64 | World War II (`col-37`) | `cnh-631`–`cnh-640` | 10 | 97 | to do |
@@ -1240,6 +1240,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-598` | none | not re-checked (pictures paused): wanted — the party flag |
 | `cnh-599` | none | not re-checked (pictures paused): wanted |
 | `cnh-600` | none | not re-checked (pictures paused): wanted — the Bund |
+| `cnh-601` | none | not re-checked (pictures paused): wanted |
+| `cnh-602` | none | not re-checked (pictures paused): wanted |
+| `cnh-603` | none | not re-checked (pictures paused): wanted |
+| `cnh-604` | none | not re-checked (pictures paused): wanted |
+| `cnh-605` | none | not re-checked (pictures paused): wanted |
+| `cnh-606` | none | not re-checked (pictures paused): wanted |
+| `cnh-607` | none | not re-checked (pictures paused): wanted |
+| `cnh-608` | none | not re-checked (pictures paused): wanted |
+| `cnh-609` | none | not re-checked (pictures paused): wanted |
+| `cnh-610` | none | not re-checked (pictures paused): wanted |
 
 ## Glossary candidates
 
@@ -3960,3 +3970,43 @@ Whampoa points at central Guangzhou, not the academy on Changzhou Island; `cnh-5
 `cnh-526` the Jesuit missions is Zhaoqing (the first residence); `cnh-582` the Labour Corps is the Chinese cemetery at Nolette;
 `cnh-515` the treasure voyages is Changle. `migrate-places.js --check` and `build-wars.js --check` were not re-run; on main they already
 report known failures.
+
+### B61 — `cnh-601`–`cnh-610`, the early Republic and the Civil War: the cotton mill to the Long March (2026-11-19)
+
+The seventh hundred's first batch, run as the sixth's were (`AGENT.md`, the notes file, two cards an agent, at most ten at once);
+every draft read by eye and prechecked before `batch.sh` applied it. Every cited URL answered at the batch's own curl but one,
+`cnh-604`'s loc.gov newspaper page, which answers 403 to curl and was read through its `?fo=json` and text service. **Pictures were
+not touched.** **The old cards cited Chinese Wikisource (resolutions, constitutions, Cai Yuanpei's essays, Zhao Shiyan's articles —
+up to six a card) and Digital Library of India uploads of in-copyright books on archive.org (Snow's *Red Star over China*,
+Guillermaz, Tawney, Peck, Belden); carried the war template with casualty totals ("c. 2,800,000 – 3,000,000", "(22 years, 4
+months)") and places and counts in labels ("Cromford 1771", "Ding County 1926", "Lyon expulsion", "Reached Shaanxi", "Mills in China
+122").** Each card now reads at most one Chinese text (the party's own chronology on cpc.people.com.cn, Xinhua, the People's Daily, a
+scholar's article), beside the Office of the Historian, FRUS, the Marxists Internet Archive and modern scholarship.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-601` cotton mill | 8 | 8 → 8 | **Cromford 1771 (an English mill), "1889, Shanghai" (a place) and "122 by the end of 1926" (a count) off: `First project 1878` / `Work began 1889` (Couling); Zhang Zhidong's Wuchang mill, imports' 70 per cent, the *China Year Book*'s 1926 figures as its own; the 1925 shooting's dead as the CCP circular's two and Pott's one; Kubo [in Japanese], Chevrier on Bergère [in French]**; the British sentences, Rong Zongjing's mills and the 20,000 strikers (on no page) dropped. `G.date` stands: the glossary's `Cotton_mill` is the general type ("1771 – present"), for the owner. |
+| `cnh-602` Rural Reconstruction Movement | 6 | 6 → 6 | **"Ding County 1926", "Zouping school 1931" and "Moved to Sichuan institute, 1940" (places and words) off: `Began 1926` (Price 1934; Paulston's 1929 for concentrating on the county in notes); the four diseases, Liang Shuming's Shandong wing, the move west; Lynch and a Xinhua page for Tawney and the Yen primer (in-copyright scans)**. |
+| `cnh-603` Diligent Work–Frugal Study Movement | 6 | 7 → 7 | **"Founded 1912" (on no page) and "Lyon expulsion" (a place) off: `Relaunched 1916` / `Main wave 1919 – 1921` / `Deported October 1921`; the Sino-French Institute occupied, about forty young women, the founders' Paris circle and soybean factory; Barman and Dulioust [in French], Zhao Shiyan on the Marxists Internet Archive**; three Wikisource texts and two OpenEdition pages (Anubis wall) replaced. Timeline 1916 – 1921; the glossary's 1912 – 1921 now 1916 – 1921. |
+| `cnh-604` Chinese women's suffrage movement | 6 | 6 → 6 | **`Began November 1911` / `Protest 19 March 1912` / `Quota clause 1 January 1947` / `Quotas enacted March 1947` for "Assembly stormed" and "Draft charter 1936"; Tang Qunying's pistols, Shen Peizhen's slap at the Kuomintang congress, the 1947 constitution's reserved seats (the Ministry of Justice text), an American wire report of March 1912 on loc.gov (read through `?fo=json`)**; four Wikisource texts, Peck's Catt biography (a scan) and the Guangdong seats (on no page) dropped. Timeline 1911 – 1947. |
+| `cnh-605` Cai Yuanpei | 6 | 6 → 6 | **The three Wikisource texts replaced: the Lin Shu exchange and Gu Hongming's queue from Cai Suiang's article [in Chinese], the five parts of schooling from Luo 2021; the 1923 resignation and its cause new; the May Fourth phrasing replaced**; the 1912 ban on the classics (on no other page) dropped. Protected: the line stays (flagged below). |
+| `cnh-606` Chinese Civil War | 8 | 8 → 8 | **The war template off: `Began 1927` / `Resumed 1946` / `Ended 1949` (the Office of the Historian, Rummel); each side's name for the war (Mao's "People's War of Liberation", the Nationalists' "rebels") and the ROC's mobilisation ended from 1 May 1991; the toll said to be unagreed, Rummel's figures folding it into all China's wars to 1949**; six Wikisource texts replaced; the campaigns, truces and retreat off the phrasings. Name 国共内战 kept; 解放战争 and 戡乱 in notes. |
+| `cnh-607` Jiangxi Soviet | 6 | 8 → 7 | **The Guillermaz scan and the Wikisource constitution dropped, and with them the constitution's clauses, Mao's "3 million" and the death tolls; the party chronology's Central Soviet Area, Mao chosen at Ruijin weeks after the Gannan conference's attack, the salt from nitre under the blockade, the Nationalists' morality slogans; Averill, Griffin, Dillon**. The line stands (`Proclaimed 7 November 1931` / `Abandoned October 1934`). |
+| `cnh-608` Mao Zedong | 9 | 10 → 9 | **The Snow and Guillermaz scans and two Wikisource resolutions replaced: the Hunan report, the 1920 self-government articles, the 1981 verdict "merits primary, errors secondary" (the party's own); the party chronology's 1943 Politburo chairmanship**; the "stood up" speech left to `cnh-628`. Protected: the line stays (flagged below). |
+| `cnh-609` encirclement campaigns | 6 | 7 → 6 | **The war template off: `Began 1930` / `Fifth began September 1933` / `Ended 1934`; the blockhouse "anaconda", the "bandit suppression" provinces under military headquarters, the first campaign's lure-in-deep; 围剿 the Communists' word (the Nationalists said 剿匪)**; the Guillermaz and Snow scans, the beheaded commander and "70 per cent political" (on no page) dropped. Timeline 1930 – 1934. |
+| `cnh-610` Long March | 8 | 8 → 8 | **"Reached Shaanxi" (a place) → `Arrived October 1935`; the register row confirmed: the 25,000 li the party figure (the *Selected Works* note), Snow's thirty volunteers at Luding (1937), the walkers' 3,700 miles; a little over three thousand women; Koo [in Korean]**; the Guillermaz and Snow scans dropped (Snow read through Columbia's excerpt). |
+
+Read by eye. **Confusability**: the war's two phases and names `cnh-606`'s, the soviet's capital and blockade `cnh-607`'s, the
+blockhouses `cnh-609`'s, the bridge and the distance `cnh-610`'s; Mao's own life `cnh-608`'s (the "stood up" speech left to `cnh-628`,
+the Thought to `cnh-614`); the work-study students' France `cnh-603`'s, Deng's and Zhou's lives their own cards'. **Legend**: the Long
+March's distance and the Luding crossing (the party's figure, Snow's telling, the walkers' measure) and the 1981 verdict on Mao are each
+said whose. **Chinese names**: none corrected; 围剿 found to be the Communists' word for the campaigns (the Nationalists said 剿匪).
+Kept: 国共内战 (解放战争 the PRC's name for 1946 – 1949, 戡乱 the ROC's), 中央苏区 (the base; the state was 中华苏维埃共和国); the
+capitalisation of 乡村建设运动's pinyin left open. **Spellings**: "Peiping" in two FRUS titles (`cnh-609`, `cnh-610`), cited as printed.
+**Myth register**: the Long March's distance and the Luding Bridge confirmed (the *Selected Works* note's 25,000 li; Snow 1937; the AP's
+report of the walkers' 3,700 miles). **check-citations**: one false alarm (`cnh-610`'s Korean author in Korean order). **Protected lines:
+unchanged** (diffed after the apply). For the owner: `cnh-608`'s "Party chairman 20 March 1943" is the Politburo and Secretariat
+chairmanship (the party chronology); the Central Committee's chairmanship dates from 19 June 1945; its birth and death days on no page
+read; `cnh-605`'s 1868 against *Who's Who* 1925's 1867 (the Chinese year straddling), its 11 January and 5 March on no page read, and two
+pages count his presidency of Peking University to 1927. `cnh-601`'s `G.date` is the general `Cotton_mill` entry's date. Timelines set
+with `set-timeline.js`: `cnh-603` (1916 – 1921), `cnh-604` (1911 – 1947), `cnh-609` (1930 – 1934).
