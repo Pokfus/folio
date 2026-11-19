@@ -56,7 +56,7 @@ window.CHANGELOG = [
       "<b>Persian A1</b> now opens with the greetings, numbers and weekdays come together, and verbs show their spoken, perfect and negative forms.",
       "Russian gains a <b>Sounds and spelling</b> deck, and <b>TORFL A1</b> now opens with hello, thank you and please, with numbers, days and months together and 49 more words.",
       "<b>Urdu A1</b> now opens with the greetings, with numbers, days and months together; Urdu cards show a word's vowel marks, and the alphabet deck cites its sounds.",
-      "<b>30 more China cards are rewritten</b>, from the cotton mill to the Siege of Changchun, with new sources and dates.",
+      "<b>40 more China cards are rewritten</b>, from the cotton mill to the Bombing of Chongqing, with new sources and dates.",
     ],
   },
   {

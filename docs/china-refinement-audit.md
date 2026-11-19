@@ -561,7 +561,7 @@ otherwise.
 | B61 | Early Republic (`col-35`) / Civil War (`col-36`) | `cnh-601`–`cnh-610` | 10 | 116 | **done 2026-11-19** |
 | B62 | Civil War (`col-36`) | `cnh-611`–`cnh-620` | 10 | 105 | **done 2026-11-19** |
 | B63 | Civil War (`col-36`) | `cnh-621`–`cnh-630` | 10 | 103 | **done 2026-11-19** |
-| B64 | World War II (`col-37`) | `cnh-631`–`cnh-640` | 10 | 97 | to do |
+| B64 | World War II (`col-37`) | `cnh-631`–`cnh-640` | 10 | 97 | **done 2026-11-19** |
 | B65 | World War II (`col-37`) | `cnh-641`–`cnh-650` | 10 | 117 | to do |
 | B66 | World War II (`col-37`) / People's Republic of China (`col-38`) | `cnh-651`–`cnh-660` | 10 | 99 | to do |
 | B67 | People's Republic of China (`col-38`) | `cnh-661`–`cnh-670` | 10 | 103 | to do |
@@ -1270,6 +1270,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-628` | none | not re-checked (pictures paused): wanted |
 | `cnh-629` | none | not re-checked (pictures paused): wanted |
 | `cnh-630` | none | not re-checked (pictures paused): wanted |
+| `cnh-631` | none | not re-checked (pictures paused): wanted |
+| `cnh-632` | none | not re-checked (pictures paused): wanted |
+| `cnh-633` | none | not re-checked (pictures paused): wanted |
+| `cnh-634` | none | not re-checked (pictures paused): wanted |
+| `cnh-635` | none | not re-checked (pictures paused): wanted |
+| `cnh-636` | none | not re-checked (pictures paused): wanted |
+| `cnh-637` | none | not re-checked (pictures paused): wanted |
+| `cnh-638` | none | not re-checked (pictures paused): wanted |
+| `cnh-639` | none | not re-checked (pictures paused): wanted |
+| `cnh-640` | none | not re-checked (pictures paused): wanted |
 
 ## Glossary candidates
 
@@ -4098,3 +4108,37 @@ gate), Pingjin's "peaceful liberation" (three tellings), the Changchun dead (two
 register**: no row touched. **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the apply). For the owner:
 `cnh-627` resolves to the glossary's `Great_Retreat_(Russia)` (`G.date`), `cnh-622`'s "yuan" to `Yuan_dynasty`; `cnh-623` (Jinzhou) and
 `cnh-630` (Changchun) want locators (`L.missing`). Timeline reset: `cnh-626` (20 April – 2 June 1949).
+
+### B64 — `cnh-631`–`cnh-640`, World War II: the Second Sino-Japanese War to the Bombing of Chongqing (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl but two: `cnh-640`'s loc.gov page (403 to curl; read through `?fo=json`)
+and `cnh-634`'s Hao article on pdv.jes.su, which did not answer three tries at the batch but answered the agent, whose saved copy (the
+whole article) stands. **Pictures were not touched.** **The old cards carried the war and battle templates with tolls no page prints
+("c. 14,000,000 – 22,000,000 dead", "c. 234,000 – 347,000", "c. 286,000 – 536,000"), men, treaties, places and institutions in labels
+("Puyi installed", "Tangku Truce", "Yang Jingyu dies", "CCP manifesto", "Lushan speech", "Appeal to League"), and two dates belonging to
+other events ("War redated 2017" on the Mukden card, "Memorial law 2014" on the massacre's); and cited Wikisource, Gutenberg and
+in-copyright scans (Carlson, Utley, White and Jacoby, Han Suyin).** The Tokyo tribunal's judgment, the Lytton report, FRUS and the
+*China Handbook* are now the period's voices, each said whose.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-631` Second Sino-Japanese War | 8 | 8 → 9 | **The war template off ("(8 years, 1 month)", "c. 14,000,000 – 22,000,000 dead" on no page): `Began 7 July 1937` / `Ended 2 September 1945` / `Start redated 2017` (the PRC's fourteen-year war, now on this card only, with Taiwan's answer through CNA [in Chinese]); the "China Incident", Mao's three stages; the toll as Beijing's over 35 million killed or wounded, Eastman's 15 – 20 million dead, Mitter's over 14 million**; the united front (`cnh-618`'s) and Cairo sentences cut. |
+| `cnh-632` Mukden Incident | 7 | 7 → 7 | **"Appeal to League" (an institution) → `Appeal lodged 21 September 1931`; "War redated 2017" moved to `cnh-631`; the dummy rifles at the North Barracks, the American consul on Japan's losses, Ishiwara Kanji and Itagaki Seishirō (Kawada 2018 [in Japanese])**; a China Daily piece [in Chinese] blaming non-resistance, its figures beside Lytton's and the consul's. |
+| `cnh-633` Manchukuo | 7 | 7 → 8 | **"Puyi installed", "Tangku Truce" and "Puyi pardoned 1959" (a man, a treaty and `cnh-576`'s) off: `Declared 18 February 1932` / `Inaugurated 9 March 1932` / `Made an empire 1 March 1934` / `Collapsed 1945`; the Japanese deputies and the Tuesday Meeting, wangdao rendered as "love" to the Lytton commission, Tokyo's first peace condition; Moedict for the name**; the Wikisource 1960 report and an archive.org organic law dropped. |
+| `cnh-634` Northeast Anti-Japanese United Army | 6 | 8 → 7 | **"Yang Jingyu dies" (a man) and "Retreat to USSR" (a state) off: `Declared 20 February 1936` / `Retreated c. 1940` / `Reorganised August 1942` / `Returned September 1945`; the marching songs and the court case, fewer than a thousand into the Soviet training brigade, the Koreans nearly nine in ten; Heward 2023, Hao 2020 [in Russian], Guan 2023 [in Japanese]**; three Chinese sources cut to one; Choe Yong-gon, "11 armies" and "30,000 men" (on no page) dropped, in the glossary too. Hao's host did not answer the batch's curl; the agent's saved copy stands. |
+| `cnh-635` Marco Polo Bridge Incident | 7 | 7 → 7 | **"CCP manifesto" and "Lushan speech" (an institution, a place) off: `Clash 7 July 1937`; Chiang's three conditions, his no-withdrawal order, the unannounced manoeuvre and the disclaimed missing soldier; who fired first each side's; Zakurdaev [in Russian] on the bridge**; Wikisource and Gutenberg replaced; the bridge's building years and Shimura's name (on no page) dropped. The glossary's "Beijing" for 1937 (house Beiping) for the owner. |
+| `cnh-636` Battle of Shanghai | 7 | 7 → 7 | **The battle template off: `Began 13 August 1937` / `Ended 12 November 1937` (the Tokyo judgment; `ww2-097`'s 26 November noted); the "eight hundred heroes" about four hundred (Yang Tianshi), the howitzers that failed, the Chinese bombs on the settlements; casualties each side's**; the "Bloody Saturday" photograph (on no page) dropped. |
+| `cnh-637` Nanjing Massacre | 8 | 8 → 8 | **"Memorial law 27 February 2014" (`cnh-655`'s) and "Tokyo judgment 4 November 1948" (the day the reading began) off: `City fell 13 December 1937` / `Verdict 10 March 1947` / `Judgment 12 November 1948`; the register row confirmed: the Nanjing court's over 300,000 (the PRC's account through CSSN), the Tokyo tribunal's over 200,000, Japanese scholars' range (Askew), the "illusion" school and the "fabrication" claim named as denials; the killing contest, the Safety Zone's rice**; the Wikisource Tani verdict replaced; the glossary's "early February 1938" end cleared by hand. |
+| `cnh-638` Battle of Wuhan | 6 | 6 → 6 | **The battle template off: `Began 12 June 1938` / `Ended 25 October 1938` (the government's *China Handbook*; Yang's 6 June – 26 October in prose); the spokesman's shield for the move inland, gas at Matang, the Military Council's 256,000 against Japan's official 31,486**; Carlson, White and Jacoby and Han Suyin (scans) and Chiang's message (Wikisource) dropped; the Soviet pilots (on no page for the campaign) left out. |
+| `cnh-639` Free China | 6 | 6 → 7 | **The line stands (`Move proclaimed 20 November 1937` / `Capital decree 6 September 1940`, now on FRUS and Zhou and Wang); "Free China" said whose (the American reports' English name; the Great Rear at home); Sichuan's men and grain, the universities and the inflation, the auxiliary capital**; two Wikisource texts and two scans dropped. |
+| `cnh-640` Bombing of Chongqing | 7 | 7 → 7 | **`Began February 1938` / `Centre burned 4 May 1939` / `Tunnel disaster 5 June 1941` / `Ended August 1943`; the shelters of the rich and the poor, the tunnel's dead each count's (461, 992, up to 12,000, about 15,000, the AP's 2,000 dead or injured), the American diplomat on the unguarded centre; a 1939 AP report on loc.gov (read through `?fo=json`)**; White, Han Suyin and the old FRUS 1941 document dropped. |
+
+Read by eye. **Confusability**: the "China Incident" and Mao's three stages `cnh-631`'s; the dummy rifles `cnh-632`'s; the Tuesday
+Meeting `cnh-633`'s (Puyi's life `cnh-576`'s); the songs and the training brigade `cnh-634`'s; Chiang's conditions `cnh-635`'s; the
+warehouse `cnh-636`'s; the court's 300,000 and the killing contest `cnh-637`'s (the Hall `cnh-655`'s); the shield for the move inland
+`cnh-638`'s; the Great Rear `cnh-639`'s; the tunnel `cnh-640`'s. **Legend**: the "eight hundred heroes" (about four hundred), who fired
+first at the bridge (each side's), the Nanjing toll (three counts, the denials named as such) are each said so. **Chinese names**: none
+corrected; 抗日战争 kept (the standard term on both sides; 第二次中日战争 in notes). **Spellings**: 0 hits on the drafts. **Myth register**:
+the Nanjing toll confirmed (with the killing-contest verdict of 18 December 1947 also giving over 300,000). **check-citations**: one false
+alarm (`cnh-635`'s Russian title transliterated). **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-633`
+(Hsinking) and `cnh-639` want locators (`L.missing`). Timelines unchanged.

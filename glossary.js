@@ -12987,7 +12987,6 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Greater_East_Asia_Co-Prosperity_Sphere": "1940–1945",
 "Japanese_withdrawal_from_the_League_of_Nations": "1933–1935",
 "Marco_Polo_Bridge_Incident": "7 July 1937",
-"Nanjing_Massacre": "13 December 1937 – early February 1938",
 "Second_Sino-Japanese_War": "7 July 1937 – 2 September 1945",
 "Second_United_Front": "1937",
 "Soviet-Japanese_border_conflicts": "1932–1939",

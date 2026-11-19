@@ -793,6 +793,16 @@ and is audited as an ordinary card. Dates already set elsewhere that this hundre
 | the CPPCC opened / the People's Republic proclaimed | 21 September 1949 / 1 October 1949 | Mao; FRUS (`cnh-628`) |
 | Johnson's *Peasant Nationalism* / the years it studies | 1962 / 1937 – 1945 | Bernal; Chen and Kung (`cnh-629`) |
 | the Siege of Changchun | May – 19 October 1948 | Sautin; Li and Zhang (`cnh-630`) |
+| the Second Sino-Japanese War / its start redated by the PRC | 7 July 1937 – 2 September 1945 / 2017 | Eastman; Xinhua (`cnh-631`) |
+| the Mukden explosion / China's appeal to the League | 18 September 1931 / 21 September 1931 | the National Diet Library; Lytton (`cnh-632`) |
+| Manchukuo declared / inaugurated / an empire / collapsed | 18 February 1932 / 9 March 1932 / 1 March 1934 / 1945 | the Tokyo judgment; Lytton (`cnh-633`) |
+| the Northeast United Army declared / retreated / reorganised / returned | 20 February 1936 / c. 1940 / August 1942 / September 1945 | 12371.cn; Hao (`cnh-634`) |
+| the Marco Polo Bridge clash | 7 July 1937 | the Tokyo judgment (`cnh-635`) |
+| the Battle of Shanghai | 13 August – 12 November 1937 | the Tokyo judgment (`cnh-636`) |
+| Nanjing fell / the Nanjing verdict / the Tokyo judgment | 13 December 1937 / 10 March 1947 / 12 November 1948 | the Tokyo judgment; CSSN (`cnh-637`) |
+| the Battle of Wuhan (the government's dates) | 12 June – 25 October 1938 | the *China Handbook* (`cnh-638`) |
+| the move inland proclaimed / Chongqing made the auxiliary capital | 20 November 1937 / 6 September 1940 | FRUS; Zhou and Wang (`cnh-639`) |
+| the bombing of Chongqing / the centre burned / the tunnel | February 1938 – August 1943 / 4 May 1939 / 5 June 1941 | Chan; the AP; Hu and Huang (`cnh-640`) |
 
 ## Later periods
 
@@ -1428,4 +1438,14 @@ cnh-627: 1949
 cnh-628: 1949
 cnh-629: 1962; 1937; 1945
 cnh-630: 1948
+cnh-631: 1937; 1945; 2017
+cnh-632: 1931
+cnh-633: 1932; 1934; 1945
+cnh-634: 1936; 1940; 1942; 1945
+cnh-635: 1937
+cnh-636: 1937
+cnh-637: 1937; 1947; 1948
+cnh-638: 1938
+cnh-639: 1937; 1940
+cnh-640: 1938; 1939; 1941; 1943
 ```
