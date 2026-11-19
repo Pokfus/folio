@@ -5202,7 +5202,9 @@ this section is the reasoning.
   the page's (one is "RP dawn"); ة and the sukūn have a description and no English comparison.
 - **A reader who already holds the phrases deck keeps the five cards that moved** and meets them again in A1.
 - **`alphabet_table.py --check` and `arabic_insert.py` need the cache** and are not CI steps.
-- **`render-arabic.js` was not run to completion** (see the PR); `check-arabic.js` passes.
+- **`render-arabic.js` does run** (the Studio import other languages' checkers stall on finishes here): `a1`
+  and `alphabet` pass, the second after its loop was taught that the alphabet now opens with cards that have
+  no shapes row. `b1` to `c1` were not rendered; their only change is the imperative block A1's card shows.
 - **The whole shelf is 3,744 notes: 732 days at the default pace, about two years**; A1 ends on day 115 and
   B1 begins on day 239.
 
