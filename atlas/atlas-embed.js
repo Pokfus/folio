@@ -74,9 +74,13 @@
         startHistory: (kind) => E.startHistory(kind),
         historyKind: () => E.historyKind(),   // null (not started), "wars" (the war-window slice), "ww2" (the Second World War window's) or "full"
         historyOK: () => E.historyOK(),
+        historyFailed: () => !!(E.historyFailed && E.historyFailed()),   // the history file did not arrive: a window whose question is a state of the past prints the plain sentence (atlas-windows.js `pastLayer`)
         warView: (id, short, share) => E.warFrame(id, short, share),
         warSides: (id, year) => E.warSides(id, year),
         statesAt: (year) => (E.statesAt ? E.statesAt(year) : []),   // the polities alive in a year, their faces and their names in it (Find it's reveal, Nov 2026)
+        /* the rings of the faces some entities have in a year, as unit vectors (2026-11-19: an extent named by a members group, which the engine draws only for a war): Promise of
+           { faces, rings: [Float32Array xyz …] }, or null while the history is not in */
+        entityRings: (ids, year, level) => new Promise((res) => { if (!E.entityRings) { res(null); return; } E.entityRings(ids, year, level, res); }),
         warTimeline: (id) => E.warTimeline(id),
         entsTimeline: (ids, span) => (E.entsTimeline ? E.entsTimeline(ids, span) : null),   // a members window's steps: the years its states change inside its span (2026-10-29)   // the war's dated steps (years of change; the front's plate dates when the file has them): a war window's timeline
         /* a point inside each of the faces, on the visible part of the view the hub is in now (the worker's label anchor; `near`, [{ face, lon, lat }], searches a face in the piece nearest that point — a war window passes each side's principal's capital): Promise of [{ face, v: unit vector | null (the best point), pts: [{ v, clear }] (up to twelve, best first), clear (px of the view it was asked in), vis, km2 }] — a point on the sphere, not a screen

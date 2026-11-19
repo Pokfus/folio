@@ -616,21 +616,21 @@ that comes to hand.
 
     jp-201  Kamakura shogunate
     jp-202  Minamoto no Yoritomo
-    jp-203  The founding of the Kamakura government
+    jp-203  Samurai-dokoro
     jp-204  Shogun
-    jp-205  Shugo and jitō
+    jp-205  Jitō
     jp-206  Minamoto no Yoshitsune
-    jp-207  The Yoshitsune legend
-    jp-208  The end of the Minamoto line
+    jp-207  Gikeiki
+    jp-208  Minamoto no Sanetomo
     jp-209  Hōjō clan
     jp-210  Shikken
     jp-211  Hōjō Masako
     jp-212  Jōkyū War
-    jp-213  The shogunate after the Jōkyū War
+    jp-213  Rokuhara Tandai
     jp-214  Goseibai Shikimoku
-    jp-215  Kamakura law and the warrior estate
-    jp-216  The Kamakura warrior household
-    jp-217  Inheritance and warrior women in Kamakura Japan
+    jp-215  Shitaji chūbun
+    jp-216  Sōryō
+    jp-217  Ichigobun
     jp-218  Kamakura Buddhism
     jp-219  Hōnen
     jp-220  Jōdo-shū
@@ -641,32 +641,32 @@ that comes to hand.
     jp-225  Eisai and the arrival of Zen
     jp-226  Dōgen
     jp-227  Sōtō
-    jp-228  Zen and the warrior class
-    jp-229  Kamakura sculpture
+    jp-228  Kenchō-ji
+    jp-229  Kei school
     jp-230  Unkei
     jp-231  Great Buddha of Kamakura
-    jp-232  Kamakura literature
+    jp-232  Shin Kokin Wakashū
     jp-233  Hōjōki
-    jp-234  The decline of the Hōjō
-    jp-235  The fall of the Kamakura shogunate
+    jp-234  Tokusō
+    jp-235  Genkō War
 
 ### The Mongol invasions — `jp-mongol`
 
     jp-236  Mongol invasions of Japan
-    jp-237  The Mongol embassies and Japan's refusal
-    jp-238  The invasion of 1274
+    jp-237  Hōjō Tokimune
+    jp-238  Dazaifu
     jp-239  Battle of Bun'ei
-    jp-240  The defensive wall of Hakata Bay
-    jp-241  The invasion of 1281
+    jp-240  Genkō Bōrui
+    jp-241  Southern Route Army
     jp-242  Battle of Kōan
-    jp-243  The divine wind
-    jp-244  What actually destroyed the Mongol fleets
+    jp-243  Shinkoku
+    jp-244  Typhoon
     jp-245  Mōko Shūrai Ekotoba
-    jp-246  The cost of victory to the shogunate
-    jp-247  The rewards problem and warrior discontent
-    jp-248  The Mongol invasions in Japanese memory
-    jp-249  The underwater archaeology of the invasion fleets
-    jp-250  Japan and the Yuan after 1281
+    jp-246  Ikoku keigo banyaku
+    jp-247  Takezaki Suenaga
+    jp-248  Hachiman Gudōkun
+    jp-249  Takashima Kōzaki Site
+    jp-250  Issan Ichinei
 
 ### The Muromachi shogunate — `jp-muromachi`
 
@@ -674,43 +674,43 @@ that comes to hand.
     jp-252  Emperor Go-Daigo
     jp-253  Ashikaga Takauji
     jp-254  Nanboku-chō period
-    jp-255  The Southern and Northern Courts
+    jp-255  Southern Court
     jp-256  Kusunoki Masashige
     jp-257  Taiheiki
     jp-258  Ashikaga shogunate
     jp-259  Muromachi period
     jp-260  Ashikaga Yoshimitsu
-    jp-261  The reunification of the courts
+    jp-261  Emperor Go-Kameyama
     jp-262  Kinkaku-ji
-    jp-263  Japan and Ming China
+    jp-263  Ningbo incident
     jp-264  The tally trade
     jp-265  Ashikaga Yoshimasa
     jp-266  Ginkaku-ji
     jp-267  Shugo daimyō
-    jp-268  The Muromachi provincial order
-    jp-269  Wokou
-    jp-270  Piracy in East Asian waters
+    jp-268  Kantō kubō
+    jp-269  Wakō
+    jp-270  Ōei Invasion
     jp-271  Ikki
     jp-272  Ikkō-ikki
-    jp-273  Peasant leagues and village self-rule
-    jp-274  The medieval Japanese village
-    jp-275  The medieval Japanese economy
-    jp-276  Za and the merchant guilds
-    jp-277  Coinage in medieval Japan
+    jp-273  Yamashiro ikki
+    jp-274  Hine-no-shō
+    jp-275  Bashaku
+    jp-276  Za
+    jp-277  Eiraku Tsūhō
     jp-278  Ōnin War
-    jp-279  The destruction of Kyoto
-    jp-280  The collapse of shogunal authority
+    jp-279  Nishijin
+    jp-280  Meiō incident
     jp-281  Gekokujō
-    jp-282  The collapse of shugo authority in the provinces
+    jp-282  Shugodai
     jp-283  Ashigaru
-    jp-284  Castles in medieval Japan
-    jp-285  Japan at 1500
+    jp-284  Yamajiro
+    jp-285  Emperor Go-Kashiwabara
 
 ### Medieval religion and culture — `jp-medieval-culture`
 
-    jp-286  Muromachi culture
-    jp-287  Kitayama and Higashiyama culture
-    jp-288  Zen and Muromachi taste
+    jp-286  Dōbōshū
+    jp-287  Higashiyama culture
+    jp-288  Gozan
     jp-289  Noh
     jp-290  Zeami
     jp-291  Kyōgen

@@ -122,6 +122,8 @@ function poolBody(name, endAt) {
 const FED = [
   ["buildChallengeQuestions", "return chosen.map", "Multiple Choice"],
   ["chronoPool", "function hashStr", "Timeline"],
+  ["whoIsThisPool", "function whoIsThisPeople", "Who is this? (answers)"],
+  ["whoIsThisPeople", "function whoIsThisDecoys", "Who is this? (decoys)"],
 ];
 for (const [fn, end, label] of FED) {
   const body = poolBody(fn, end);
