@@ -438,7 +438,7 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Tai chi's origin | Zhang Sanfeng, the Daoist of Wudang, as its founder — a story of the 19th century (the Wu and Yang lineages' texts), built on Huang Zongxi's epitaph for Wang Zhengnan (1669), which credits him with the "internal school" of boxing; Chen Wangting of Chenjiagou (17th century) as the founder, Tang Hao's case of the 1930s; each told as whose — confirmed B77 (`cnh-770`: the legend attested 1669, Tang Hao's case dated 1931 by Wile) | `cnh-770` | — | — |
 | The Great Mosque of Xi'an's founding | the stele dated 742 CE claiming a Tang foundation, held by historians a later work; the buildings standing from the Ming (a rebuilding of 1392 claimed) — confirmed B79 (`cnh-788`: the stele held a later work; 1392 the open 2026 study's date for the rebuilding) | `cnh-788` | `cnh-787` | — |
 | Chiyou as the Miao's ancestor | the identification of the Miao with the Sanmiao of the late texts and of Chiyou as their forebear — a modern and in part 20th-century reading, never ancient fact; the Sanmiao in the *Shangshu* and the *Shiji* as Shun's banished enemies — confirmed B79 (`cnh-790`: told as a modern identification, Legge 1879 for the Sanmiao) | `cnh-790` | — | `cnh-008`, `cnh-009` |
-| The King of Na seal | the gold seal the *Hou Hanshu* says Emperor Guangwu gave the envoy of Nu of Wa in 57 CE, held to be the seal a farmer found on Shikanoshima in 1784; the doubts of forgery and the tests that answer them, each said whose — PROVISIONAL | `cnh-799` | — | `jp-` (read, never edited) |
+| The King of Na seal | the gold seal the *Hou Hanshu* says Emperor Guangwu gave the envoy of Nu of Wa in 57 CE, held to be the seal a farmer found on Shikanoshima in 1784; the doubts of forgery and the tests that answer them, each said whose — confirmed B80 (`cnh-799`: found 23 February 1784, the Fukuoka museum; the doubts and the measurement, knob and lettering studies each whose) | `cnh-799` | — | `jp-` (read, never edited) |
 
 ## Working a card
 
@@ -591,7 +591,7 @@ otherwise.
 | B77 | Society and everyday life (`cn-society`) | `cnh-761`–`cnh-770` | 10 | 100 | **done 2026-11-19** |
 | B78 | Society and everyday life (`cn-society`) / The peoples and frontiers of China (`cn-peoples`) | `cnh-771`–`cnh-780` | 10 | 99 | **done 2026-11-19** |
 | B79 | The peoples and frontiers of China (`cn-peoples`) | `cnh-781`–`cnh-790` | 10 | 106 | **done 2026-11-19** |
-| B80 | The peoples and frontiers of China (`cn-peoples`) | `cnh-791`–`cnh-800` | 10 | 111 | to do |
+| B80 | The peoples and frontiers of China (`cn-peoples`) | `cnh-791`–`cnh-800` | 10 | 111 | **done 2026-11-19** |
 | B81 | Land, trade and money (`cn-economy`) | `cnh-801`–`cnh-810` | 10 | 104 | to do |
 | B82 | Land, trade and money (`cn-economy`) | `cnh-811`–`cnh-820` | 10 | 101 | to do |
 | B83 | Land, trade and money (`cn-economy`) / Chinese philosophy (`cn-thought`) | `cnh-821`–`cnh-830` | 10 | 100 | to do |
@@ -4725,3 +4725,80 @@ never in the card's own voice (read in full before the apply).
 **Legend (register)**: the Great Mosque's 742 stele confirmed as held a later work (the 1392 rebuilding the study's date); Chiyou as the Miao's ancestor confirmed as a modern
 reading. **Protected**: `cnh-781`'s line unchanged (diffed after the apply). **Chinese names corrected**: `cnh-789`. **Spellings**: no hit. **check-citations**: no mismatch. **Glossary**:
 all ten rewritten. **Locators**: `cnh-789` (a state) has none and wants none.
+
+### B80 — `cnh-791`–`cnh-800`, the peoples and frontiers: the Zhuang to regional ethnic autonomy (2026-11-19)
+
+Run as B71. Every cited URL answered (89 citations, 54 distinct). **Pictures were not touched.** **The old cards cited Chinese Wikisource some twenty-five times, census
+images, a podcast page now 500, a walled SAGE DOI and a user-uploaded 1951 translation; carried men, peoples and states in labels ("Nong rising", "Dong'ou moved",
+"Qin commanderies"), three regnal conversions of their own (1530, 1726 – 1731, 138 BCE) and the war template on `cnh-798` ("(1 year, 1 month)", "Capture of the Hồ family",
+"Result Ming victory").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-791` Zhuang people | 7 | 7 → 7 | **"Nong rising 1052 – 1053" (a man) → `Revolt 1052` / `First region December 1952` / `Region founded 5 March 1958` / `Name changed 12 October 1965`**; three Wikisource histories, the census JPEG and a second Chinese source dropped; Wa Shi, the wolf troops and the 49 offices (no open page) dropped; the state's account said whose. |
+| `cnh-792` Yi people | 6 | 6 → 6 | **"Chiefs replaced 1726 – 1731" (unsourced) → `Chiefs replaced 1722 – 1736` (the Yongzheng reign: no page gives the replacement's own years — a soft range) / `Region founded 1 October 1952` / `Reforms 1956` / `Script approved 1 October 1980`**; She Xiang and the 1909 campaign dropped; the "slave society" the state's account, scholars' views beside it. |
+| `cnh-793` Baiyue | 6 | 7 → 6 | **"Dong'ou moved 138 BCE" (a regnal conversion) off: `Attested 239 BCE` / `Commanderies 214 BCE`**; five Wikisource texts replaced (Allard twice, Brindley, Zhang 2020, Chavannes [in French], the *Shiji* 114 [in Chinese]); the *Huainanzi*'s 500,000 soldiers dropped; the glossary's "c. 300 – 100 BCE" replaced by 239 BCE. |
+| `cnh-794` tusi | 6 | 6 → 6 | **"Titles divided 1530" (a conversion) off; "Mass abolition 1726 – 1731" → `Abolitions 1723 – 1735` / `Late grants 1886`**; the *Mingshi* on the Kanseki text, the *Qingshi gao* dropped. The line has no start row, so the card sorts at 1723 (no page dates the system's beginning; for the owner). |
+| `cnh-795` Willow Palisade | 5 | 6 → 5 | **"Built after 1644" (a "from" value) → `Built 1644 – 1681` / `New line 1670 – 1681` / `Migration ban 1740`** (Bulag's open chapter, Sepe); Yang Bin's gate counts, the 1687 statutes and Faku (Wikisource) dropped; the alliance-wedge view, the Soviet claim of 1969 and its rejection, the Mongol nationalists' view. No locator (a line). |
+| `cnh-796` Lifan Yuan | 6 | 6 → 6 | **the Russian role ended 1861 (the Zongli Yamen), not 1858: `Founded 1636` / `Renamed 1638` / `Diplomacy ceded 1861` / `Became ministry 1906`** (Hu's dissertation; reference works give 1907, in notes); the six bureaus and the regulations. Pinyin Lǐfànyuàn → Lǐfānyuàn (a dictionary reading; no saved page prints the tones). check-citations reads "Chia Ning" against Crossref's "Ning CHIA" (name order) — the same editor. |
+| `cnh-797` yeonhaengsa | 6 | 6 → 6 | **"Sent 1637 – 1894" / "Last mission 1894 – 1895" → `Imposed 1637` / `Merged 1645` / `Last sent 12 July 1894` / `Last returned 25 May 1895`**; two Wikisource texts dropped, the Korean sources cut to one (the National Institute of Korean History); Kim's *Ginseng and Borderland*, two *Acta Koreana* articles, *The Jehol Diary*, FRUS 1895; the tribute figures and mission counts dropped. Pinyin lower-cased yānxíngshǐ. |
+| `cnh-798` Ming–Hồ War | 6 | 6 → 7 | **the war template off: `War decided 29 April 1406` / `Invaded 19 November 1406` / `Capitals fell January 1407` / `Ended 16 – 17 June 1407`, nothing after the end**; two Ming Shi-lu entries (Wade), Sun, Anderson, Baldanza, O'Harrow, Nguyen Thi My Hanh; the administrative counts and the 1,100 elders dropped. Name 明胡战争 kept, unconfirmed (the Shi-lu's own phrase is 征讨安南). `build-wars.js --check` in step (the card carries no `war` field). |
+| `cnh-799` King of Na gold seal | 6 | 8 → 6 | **`Found 1784` → `Found 23 February 1784`**; three Wikisource histories, a user upload and two dead or walled pages replaced (the Fukuoka museum [in Japanese], Ishikawa, Arima, Fogel, Chiou-Peng, the *Wei zhi* on Columbia's site); the 109 BCE Dian grant and a 1930s doubter dropped; the forgery doubts and the measurement, knob and lettering studies each said whose. |
+| `cnh-800` regional ethnic autonomy | 6 | 8 → 6 | **`First region 1947` / `Promised 1949` / `Enacted 31 May 1984` / `Amended 28 February 2001`**; four Wikisource texts replaced by the NPC's English text of the law and a 2010 St Antony's article; Tibet and Xinjiang each with its claims' owners; name checked on the CECC's bilingual text. |
+
+**Legend (register)**: the King of Na seal confirmed (the *Hou Hanshu*'s grant, the doubts and their answers each whose). **Chinese names**: pinyin `cnh-796`, `cnh-797`; kept
+unconfirmed 明胡战争. **Spellings**: no hit. **check-citations**: one false mismatch (`cnh-796`). **Glossary**: all ten rewritten.
+
+### The eighth hundred, in sum
+
+`cnh-701`–`cnh-800` (the imperial state, society and everyday life, the peoples and frontiers) are done: 661 sources became 662 and 95 glossary entries were rewritten.
+`cnh-audit.js --range=cnh-701:cnh-800` reads every card with nothing but a missing picture except these: 100 cards with no picture (pictures stayed paused), 5 advisory
+`W.not-why`, 4 `L.missing` (`cnh-766` siheyuan, a building type; `cnh-777` the Ordos Loop, a region; `cnh-789` the Dian kingdom, a state; `cnh-795` the Willow Palisade, a
+line), 2 advisory `Q.sibling` (`cnh-702` with the Forbidden City, `cnh-714` with the Tang Code), 3 `Z.reading?` that are readings (`cnh-712` yámen, `cnh-765` bǔzi,
+`cnh-797` yānxíngshǐ) and 1 `Z.trad` that is OpenCC's error (`cnh-716` 釐金). `check-cnh-spellings.js` reads no hit in the hundred's own voice ("Peiping" twice in FRUS titles on
+`cnh-722`, "Chieh" twice in an author's name on `cnh-762`, as printed). Fifty agents worked two cards each, never more than about ten at once; their clues went into a shared
+list. Each batch was applied alone (B77 and B78 in one run and one commit), verified against its drafts, diffed for the protected lines and committed with its docs.
+
+What the hundred found, again and again:
+- **Chinese Wikisource for the standard histories, everywhere.** Some two hundred citations of the *Shiji*, *Hanshu*, *Mingshi*, *Qingshi gao*, the codes and the white papers
+  on Wikisource, and Hucker's *Dictionary*, Hummel's *Eminent Chinese*, Lattimore, Burgess, Twitchett and Watson through Digital Library of India or user uploads of books in
+  copyright. The histories are now read in the Kanseki Repository's Siku texts or on zggdwx.com, one Chinese source a card; the period through Legge, Chavannes, Staunton,
+  Mayers, Giles, Couling, Doolittle and FRUS; the state through gov.cn, the NPC's texts and its census spreadsheets.
+- **Figures only Wikisource carried.** County counts, quotas, chapter counts, mission counts, tribute figures, troop numbers, tablet prices and "ten thousand women" are off;
+  every figure a source prints is now that source's (the census communiqués, Gamble, Orleans, the 1953 rules, the *Shiji*'s two figures for Meng Tian's army).
+- **Regnal years converted by the old cards or by the drafts themselves.** 736 (Kaiyuan 24), 1382 (Hongwu 15), 1285, 1530, 1726 – 1731, 138 BCE and others: dropped wherever no
+  page prints the Western year; the source's own reckoning told in prose.
+- **Labels naming men, places, laws, texts and states.** "Yongzheng edict", "Ming code", "Tang code", "Dadu plots", "Joined Zhouli", "Amherst refuses", "Chen Wangting",
+  "Nong rising", "Raid on Beijing" (the protected line, kept), "Yunnan survey", "Turks settled": dates only now. Two drafts were caught carrying two values in one row ("1761 or
+  1762") and a modern translation's year as the text's date, and corrected by hand before the apply.
+- **The peoples and Xinjiang and Tibet today.** Every claim is said whose — the state's classification, white papers and census, the Dalai Lama's office, the UN human rights
+  office, rights groups, governments — with each side's answer beside it; the PRC's 56 nationalities as the state's classification; Chiyou as the Miao's ancestor a modern
+  reading.
+
+**The Chinese name.** Corrected: `cnh-703` 王朝循环, `cnh-712` 衙门, `cnh-715` 黄册, `cnh-716` líjīn, `cnh-718` 开中法, `cnh-732` 秘密建储, `cnh-733` 冯太后, `cnh-734` 大泽乡起义,
+`cnh-735` 天地会, `cnh-740` 清史编纂工程, `cnh-744` 义庄, `cnh-745` 绅士, `cnh-746` 一田二主, `cnh-767` 南京城墙, `cnh-770` 太极拳, `cnh-778` 羁縻, `cnh-789` 滇国; pinyin on
+`cnh-717`, `cnh-751`, `cnh-754`, `cnh-758`, `cnh-796`, `cnh-797`. Nine cards carried the traditional form in the simplified field. Kept unconfirmed for want of a page printing
+the compound, for the owner: 中华帝国, 回避, 卫所制, 守节, 亲属称谓, 华夷之辨, 明胡战争; `cnh-710`'s 御史台 (都察院 the Ming–Qing office) and `cnh-740`'s 编纂 / 纂修 for the owner. The house
+word division of a split compound's pinyin (Chángpíng cāng, Wèisuǒ zhì, Xiānnóng tán, Yǔ jì tú, Zhànchéng dào) remains open. **Spellings**: eight rows added at the start;
+no variant was caught in the cards' own voice.
+
+**The myth register** gained twelve rows at the start; each was confirmed, corrected or left unconfirmed by the batch that drafted its card: Empress Dowager Feng's poisoning
+corrected (a report in the *Wei shu*, never fact); Chen Sheng's portents confirmed in part (the statute's lighter penalties; the portents untold); the Tiandihui's legend
+refined; Qu Yuan and the festival confirmed in outline; Shennong and tea, tai chi's origin, the Great Mosque's stele, Chiyou as the Miao's ancestor and the King of Na seal
+confirmed; xiangqi's origin refined; foot binding's origin and Nian not confirmed (no page read; the dancer unnamed, Nian untold).
+
+**The protected cards** (`cnh-733` Empress Dowager Feng, `cnh-781` Altan Khan) kept their `answerDate`, `undatable` and `timeline` byte for byte through every apply; both
+backgrounds carry their lines' years. Flagged for the owner, left as it stands: `cnh-733`'s "Birth 442 CE" (the exhibition and Wenley's arithmetic agree; the scan's subject
+heading gives 443).
+
+**For the owner, outside the hundred**: two tools read false positives — `check-cards.js`'s scholar-in-question rule reads historical figures ("Prince Chun", "Yongzheng
+Emperor", "Li Shizhen") as modern scholars, and `check-citations.js` reads a Crossref name with an order suffix ("SVD") or in reversed order as a different author; the
+Taiwan Ministry of Education dictionary serves real entries with a 404 status (the urlcheck reports them). `cnh-731` and `cnh-749`'s old text differ on the restaffing (1661
+against 1662). `cnh-709` and `cnh-794` sort late for want of a sourced start.
+
+### Locators (2026-11-19, the eighth hundred)
+
+**No locator was added**: the Wikipedia API answered the session's test call with 429, so `add-locators.js` was not run. Wanted: `cnh-777` the Ordos Loop (a region; no single
+point), `cnh-789` the Dian kingdom (Shizhaishan would be the point), `cnh-795` the Willow Palisade (a line; none), `cnh-766` siheyuan (a building type; none). Points to review:
+`cnh-704` the Jiangnan Examination Hall's label repeats the answer term ("Nanjing Imperial Examination Museum" would be a place); `cnh-788` the Great Mosque's label repeats the
+answer term; `cnh-715` kept (Xuanwu Lake, the archive's site). Still waiting from earlier hundreds: the list in the seventh hundred's note.

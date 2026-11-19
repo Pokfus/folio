@@ -945,6 +945,16 @@ BCE and the empire's end, the abdication of 12 February 1912 (`cnh-191`, `cnh-57
 | the Great Mosque: the claimed founding / the rebuilding / protected | 742 CE (traditional) / 1392 / 1988 | the 2026 study (`cnh-788`) |
 | the Dian culture / the kingdom active / submitted | c. 700 BCE – 100 CE / c. 500 – 109 BCE / 109 BCE | Allard; Yao (`cnh-789`) |
 | the Miao revolt | 1795 – 1797 | the National Palace Museum (`cnh-790`) |
+| the Zhuang: the revolt / the first region / the region founded / renamed | 1052 / December 1952 / 5 March 1958 / 12 October 1965 | the cited studies (`cnh-791`) |
+| the Yi: chiefs replaced / the region / the reforms / the script approved | 1722 – 1736 (the reign) / 1 October 1952 / 1956 / 1 October 1980 | the cited studies (`cnh-792`) |
+| the Yue first named / the southern commanderies | 239 BCE / 214 BCE | Chavannes; Brindley (`cnh-793`) |
+| the tusi abolitions / the late grants | 1723 – 1735 / 1886 | the *Mingshi*; the cited studies (`cnh-794`) |
+| the Willow Palisade built / the new line / the migration ban | 1644 – 1681 / 1670 – 1681 / 1740 | Bulag; Sepe (`cnh-795`) |
+| the Lifan Yuan founded / renamed / diplomacy ceded / a ministry | 1636 / 1638 / 1861 / 1906 (reference works 1907) | Hu (`cnh-796`) |
+| the yeonhaengsa imposed / merged / the last sent / returned | 1637 / 1645 / 12 July 1894 / 25 May 1895 | the NIKH; FRUS 1895 (`cnh-797`) |
+| the Ming–Hồ War decided / invaded / the capitals fell / ended | 29 April 1406 / 19 November 1406 / January 1407 / 16 – 17 June 1407 | the Ming Shi-lu (`cnh-798`) |
+| the King of Na seal granted / found | 57 CE / 23 February 1784 | the Fukuoka museum (`cnh-799`) |
+| regional ethnic autonomy: the first region / promised / enacted / amended | 1947 / 1949 / 31 May 1984 / 28 February 2001 | the NPC (`cnh-800`) |
 
 ## Later periods
 
@@ -1718,4 +1728,14 @@ cnh-787: 1856; 1873; 1862; 1958
 cnh-788: 742; 1392; 1988
 cnh-789: 700; 100; 500; 109
 cnh-790: 1795; 1797
+cnh-791: 1052; 1952; 1958; 1965
+cnh-792: 1722; 1736; 1952; 1956; 1980
+cnh-793: 239; 214
+cnh-794: 1723; 1735; 1886
+cnh-795: 1644; 1681; 1670; 1740
+cnh-796: 1636; 1638; 1861; 1906
+cnh-797: 1637; 1645; 1894; 1895
+cnh-798: 1406; 1407
+cnh-799: 57; 1784
+cnh-800: 1947; 1949; 1984; 2001
 ```
