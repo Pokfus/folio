@@ -230,6 +230,8 @@ a year or a dynasty's "of Egypt"), and the list below shows the term each card a
 
 Two answer terms collided between batches before import and were moved: the Demotic Chronicle stays at `eg-536`,
 so `eg-557` took Khabash; Rhakotis stays at `eg-564`, so `eg-574` took Agathocles of Egypt.
+`eg-597` took the House of Life, which was also the unwritten line `eg-924`; that line now reads the House of
+Books at Edfu, the temple library room whose wall lists its books, a subject to research when it is written.
 
 ## Making the collection
 
@@ -1529,7 +1531,7 @@ safe.
     eg-921  Egyptian letters as a form
     eg-922  Egyptian technical texts
     eg-923  Egyptian onomastica
-    eg-924  House of Life
+    eg-924  The House of Books at Edfu
     eg-925  The copying and transmission of Egyptian texts
     eg-926  The Egyptian book
     eg-927  Demotic literature
