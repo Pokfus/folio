@@ -812,6 +812,16 @@ and is audited as an ordinary card. Dates already set elsewhere that this hundre
 | the Burma Road built / closed / cut / the first convoy | 1937 – 1938 / July – October 1940 / 1942 / 4 February 1945 | Khine; Heck; Romanus and Sunderland (`cnh-647`) |
 | Operation Ichi-Go | 17 April – 10 December 1944 | JM-72 (`cnh-649`) |
 | Unit 731's experiments / established | 1933 – 1945 / 1936 | Tsuneishi (`cnh-650`) |
+| the Henan famine / the press report / relief by rail | autumn 1942 – spring 1943 / 1 February 1943 / April 1943 | Baker; FRUS (`cnh-651`) |
+| the refugee flight began / the relief body / the postwar count | 13 August 1937 / 27 April 1938 / end of 1946 | Polit; the *China Handbook*; Fu (`cnh-652`) |
+| the terms handed at Zhijiang / the Nanjing surrender signed | 21 – 23 August 1945 / 9 September 1945 | the *China Handbook* (`cnh-653`) |
+| the Four Policemen proposed / set out / the Chinese talks / the Charter in force | 29 May 1942 / 29 November 1943 / 29 September 1944 / 24 October 1945 | FRUS; the Office of the Historian (`cnh-654`) |
+| the Memorial Hall opened / rebuilt / the first state rite | 15 August 1985 / 13 December 2007 / 13 December 2014 | the Memorial Hall (`cnh-655`) |
+| the People's Republic proclaimed / its constitution / amended | 1 October 1949 / 4 December 1982 / 11 March 2018 | the Office of the Historian; the constitution (`cnh-656`) |
+| the Agrarian Reform Law / the campaign | 30 June 1950 / 1950 – 1952 | Liu Shaoqi (`cnh-657`) |
+| the Double Ten Directive / the campaign against counter-revolutionaries | 10 October 1950 / 1950 – 1953 | Yang Kuisong (`cnh-658`) |
+| the Volunteers ordered in / the armistice / withdrawn | 8 October 1950 / 27 July 1953 / October 1958 | Mao; Shen and Xia (`cnh-659`) |
+| the First Five-Year Plan / adopted | 1953 – 1957 / 30 July 1955 | the plan (`cnh-660`) |
 
 ## Later periods
 
@@ -1466,4 +1476,14 @@ cnh-646: 1941
 cnh-647: 1937; 1938; 1940; 1942; 1945
 cnh-649: 1944
 cnh-650: 1933; 1945; 1936
+cnh-651: 1942; 1943
+cnh-652: 1937; 1938; 1946
+cnh-653: 1945
+cnh-654: 1942; 1943; 1944; 1945
+cnh-655: 1985; 2007; 2014
+cnh-656: 1949; 1982; 2018
+cnh-657: 1950; 1952
+cnh-658: 1950; 1953
+cnh-659: 1950; 1953; 1958
+cnh-660: 1953; 1957; 1955
 ```

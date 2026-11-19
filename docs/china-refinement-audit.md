@@ -563,7 +563,7 @@ otherwise.
 | B63 | Civil War (`col-36`) | `cnh-621`–`cnh-630` | 10 | 103 | **done 2026-11-19** |
 | B64 | World War II (`col-37`) | `cnh-631`–`cnh-640` | 10 | 97 | **done 2026-11-19** |
 | B65 | World War II (`col-37`) | `cnh-641`–`cnh-650` | 10 | 117 | **done 2026-11-19** |
-| B66 | World War II (`col-37`) / People's Republic of China (`col-38`) | `cnh-651`–`cnh-660` | 10 | 99 | to do |
+| B66 | World War II (`col-37`) / People's Republic of China (`col-38`) | `cnh-651`–`cnh-660` | 10 | 99 | **done 2026-11-19** |
 | B67 | People's Republic of China (`col-38`) | `cnh-661`–`cnh-670` | 10 | 103 | to do |
 | B68 | People's Republic of China (`col-38`) | `cnh-671`–`cnh-680` | 10 | 104 | to do |
 | B69 | People's Republic of China (`col-38`) | `cnh-681`–`cnh-690` | 10 | 104 | to do |
@@ -1290,6 +1290,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-648` | none | not re-checked (pictures paused): wanted |
 | `cnh-649` | none | not re-checked (pictures paused): wanted |
 | `cnh-650` | none | not re-checked (pictures paused): wanted |
+| `cnh-651` | none | not re-checked (pictures paused): wanted |
+| `cnh-652` | none | not re-checked (pictures paused): wanted |
+| `cnh-653` | none | not re-checked (pictures paused): wanted |
+| `cnh-654` | none | not re-checked (pictures paused): wanted |
+| `cnh-655` | none | not re-checked (pictures paused): wanted |
+| `cnh-656` | none | not re-checked (pictures paused): wanted |
+| `cnh-657` | none | not re-checked (pictures paused): wanted |
+| `cnh-658` | none | not re-checked (pictures paused): wanted |
+| `cnh-659` | none | not re-checked (pictures paused): wanted |
+| `cnh-660` | none | not re-checked (pictures paused): wanted |
 
 ## Glossary candidates
 
@@ -4184,3 +4194,37 @@ corrected**: `cnh-642` 花园口决堤, `cnh-646` 新四军事件 (the ROC's ter
 sum). **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the apply and the `cnh-648` phrasing fix). For the
 owner: `cnh-641`, `643`, `644`, `645` and `647` want locators (`L.missing`; Taierzhuang District, Fuping); `cnh-650`'s pinyin yāo or yī.
 Timelines set: `cnh-641` (23 March – 7 April 1938), `cnh-649` (17 April – 10 December 1944).
+
+### B66 — `cnh-651`–`cnh-660`, World War II and the People's Republic: the famine of 1942–1943 to the First Five-Year Plan (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl but four: two loc.gov country-study item pages (`cnh-657`, `658`; 403 to
+curl, `?fo=json` answers), the Memorial Hall's English page (`cnh-655`; it answered a second try) and `cnh-651`'s Ca' Foscari chapter
+PDF (no answer at the batch; the agent's saved copy stands). **Pictures were not touched.** **The old cards cited White's *Time*
+article, Hsueh, Kuan Ta-tung and other user uploads, the 1950 law and the 1982 constitution on Wikisource, and FRUS for claims its
+documents do not make; carried places, men, institutions and words in labels ("Zhijiang talks", "Okamura cleared", "Put to Stalin",
+"UN founded", "Wuhan count", "Memorial day 13 December, from 2014"); and gave the famine, Land Reform and the counter-revolutionary
+campaign their tolls as fact.** Every toll is now whose (Garnaut, Muscolino, Ray Huang, the 1954 public security report through Yang
+Kuisong, the CIA), and the party's own pages are said to be its account.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-651` Chinese famine of 1942–1943 | 6 | 7 → 7 | **"In Time 22 March 1943" (a publication) → `Relief by rail April 1943` (FRUS); `Press report 1 February 1943`; the register row confirmed with an addition: White reported already in October 1942; the *Ta Kung Pao*'s three-day suspension, the tax in kind, the grain trains after the correspondents saw Chiang; the dead as Garnaut's a little under a million (through Baker), Muscolino's some two million and the common three million (Ma Yong [in Chinese] doubting it)**; White's *Time* article (406 to curl) and his five-million projection dropped. |
+| `cnh-652` refugee crisis | 6 | 7 → 7 | **"Wuhan count 1938" (a place, not a date) and "War ended" off: `Began 13 August 1937` / `Relief body 27 April 1938` / `Postwar report end of 1946` (the relief administration's 82,210,158, Fu 2024 [in Chinese]); the sixteen million from the Shanghai triangle, Wuhan's newcomers, the relief stations; Polit [in Polish], Schoppa, MacKinnon, Mitter, the *China Handbook***; half the old background (the war's total dead, `cnh-631`'s) and its three sources cut. The glossary's `Refugee_crisis` is a general entry, and the card's wiki link points at the general article (for the owner). |
+| `cnh-653` Nanjing surrender ceremony | 6 | 6 → 7 | **"Zhijiang talks" (a place) and "Okamura cleared 26 January 1949" (a man; another event) off: `Terms handed 21 – 23 August 1945` / `Signed 9 September 1945`; nine in the morning on the ninth of the ninth in the Central Military Academy's hall, the envoy at Zhijiang, Okamura's acquittal in prose (Yang Lijun and Kushner)**; Lary (a landing page with no text) and Mao's re-arrest statement dropped; the Missouri left to `cnh-631`. |
+| `cnh-654` Four Policemen | 6 | 7 → 6 | **"Put to Stalin" (a man), "UN founded" and "PRC seated" (institutions; `cnh-700`'s) off: `Proposed 29 May 1942` (to Molotov, FRUS) / `Set out 29 November 1943` / `Chinese talks 29 September 1944` / `In force 24 October 1945`; Stalin's warning at Tehran, the White House cocktails, China as a junior partner and Brazil at Dumbarton Oaks (Takahashi 2021)**. Pinyin Sì Jǐngchá (a number and a noun, split) flagged; the glossary's 1943 – 1945 against the card's 1942 left for the owner. |
+| `cnh-655` Nanjing Massacre Memorial Hall | 7 | 7 → 8 | **"Expanded 1997 and 2007" and "Memorial day 13 December, from 2014" ("and", "from") off: `Opened 15 August 1985` / `Rebuilt 13 December 2007` / `First state rite 13 December 2014`; the drab tomb-like design against Yuhuatai, the opening on the day of a Yasukuni visit, the ceremonial courtyard; the wall's 300,000 as the Chinese government's figure beside the Tokyo tribunal's and Japanese specialists'**; the NPC's 2014 decision on no host that opens, so the first state rite (the museum's history page) dates it. |
+| `cnh-656` People's Republic of China | 9 | 9 → 9 | **`Proclaimed 1 October 1949` / `Constitution 4 December 1982` / `Amended 11 March 2018` (the constitution's text); Article 1's leading role of the party as the state's account, the cadre system and "regionally decentralised authoritarianism" as scholars' (Lary, Weng, Miller, Lu and Tsai)**; "stood up" (`cnh-628`'s) and "merits primary" (`cnh-608`'s) off; Taiwan only as where the Nationalists fled. The glossary's `China` (a country entry) does not contradict the card and stays. |
+| `cnh-657` Land Reform Movement | 7 | 7 → 7 | **`Law promulgated 30 June 1950` / `Campaign 1950 – 1952` (the 1952 end the PRC editors', not Mao's 1951 forecast); the rich peasants' fields kept, "speaking bitterness" and the hereditary class labels, Liu Shaoqi's "abolished but not physically eliminated"; Ray Huang's three to five million dead as Gao and Liu cite it [in Chinese], a scholar's figure; Javed (ANU Press)**; an archive.org upload, the *Études rurales* article (a bot wall) and a mirror dropped. |
+| `cnh-658` Campaign to Suppress Counterrevolutionaries | 6 | 7 → 7 | **`Directive 10 October 1950` / `Campaign 1950 – 1953`; "strike surely, accurately and relentlessly", the 1954 public security report's 2.62 million arrests and 712,000 executions as Yang Kuisong cites them [in Chinese] (he thinks them low), Mao's one per thousand and Fujian's 2.4, a 1969 CIA study's two to three million — each whose**; the Korean War cut to a clause. |
+| `cnh-659` People's Volunteer Army | 7 | 8 → 8 | **"Ordered in" → `Ordered 8 October 1950`; `Withdrawn October 1958`; Mao Anying killed at Peng Dehuai's headquarters, the divisions rebuilding after the armistice, the Soviet copy of Mao's refusal to Stalin (Shen and Xia, NKIDP; Leitenberg, CWIHP); every casualty figure whose, the martyrs' register including deaths after the armistice**; the glossary's "about 114,000 killed in action" now 114,084 killed in action or accidents. |
+| `cnh-660` First Five-Year Plan | 7 | 7 → 7 | **`Plan period 1953 – 1957` / `Adopted 30 July 1955`; Li Fuchun's report and the late adoption, the Soviet-aided core projects by province, the 1953 census's half a billion; Lardy (Cambridge), Jiang Pu [in Russian]**; Mao's 1956 "lop-sided stress" corrected (said of some East European countries); Hsueh 1960 (an upload) and the "yuan" sums dropped. The words "First Five-Year Plan" are an alias of the glossary's Soviet plans (for the owner); the plan's own text is an archive.org copy of a state document. |
+
+Read by eye. **Confusability**: the *Ta Kung Pao* and the grain trains `cnh-651`'s (the flood's dead `cnh-642`'s); the relief stations
+`cnh-652`'s; the ninth of the ninth `cnh-653`'s (the Missouri `cnh-631`'s); the Molotov cocktails `cnh-654`'s (the UN seat `cnh-700`'s); the
+tomb design `cnh-655`'s (the massacre's tolls `cnh-637`'s); Article 1 `cnh-656`'s (the ceremony `cnh-628`'s); the class labels `cnh-657`'s
+(the 1947 law `cnh-619`'s); the quotas `cnh-658`'s; Mao Anying `cnh-659`'s; the census `cnh-660`'s. **Legend**: the famine's dead
+(estimates), the land reform's dead (a scholar's estimate), the executions (a report's figure thought low) are each said so. **Chinese
+names**: none corrected; kept unconfirmed 难民危机 (scholarship writes 难民问题 or 难民潮). **Spellings**: 0 hits on the drafts. **Myth
+register**: the Henan famine confirmed (White's reporting began in October 1942). **check-citations**: no mismatch. **Protected lines:
+unchanged** (diffed after the apply). For the owner: `cnh-652`'s general glossary entry and wiki link; `cnh-660`'s glossary alias trap;
+`cnh-654`'s glossary date; `cnh-656` wants no locator (`L.missing` on a state). Timelines unchanged.
