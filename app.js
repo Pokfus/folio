@@ -13038,6 +13038,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Aristotle 68.9, Seneca 73.7, Lucretius 74.0, Aquinas 93.5. (The dark crimson first measured for this row,
      #5A0009, was taken by More's the same day.) It reads 4.74:1 on the tightest light paper. */
   "René Descartes": "#962A30",
+  /* Nov 2026, adding Apollodorus's Library, the band still full. Measured as the rows above: CIE76 distance,
+     L 12.3–47.8 and chroma 18–85, 22 or more from the fifteen light inks and 4.5:1 on all forty-five light
+     papers, cards and second papers; a sweep of the cube at a step of 3, refined to 1 around the best, tops
+     out at 14.9. THE EURIPIDES TEST refused that best, a magenta 14.9 from EURIPIDES, whose plays are among
+     the Library's sources, so this dark green was taken at 14.7: its nearest are Aquinas 14.7, the Quran 14.9
+     and the Rigveda 14.9, none read beside a handbook of Greek myth, and the books that are stand well off —
+     Diodorus 37.4, Sophocles 69.6, Pausanias 75.3, Ovid 86.6, Euripides 115.0, Homer 118.5. It reads 4.59:1
+     on the tightest light paper. */
+  "Apollodorus": "#2F5F00",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -16572,6 +16581,42 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 2, label: "From the Trojan War to the death of Alexander", note: "Books 11–17" },
         { n: 3, label: "After Alexander", note: "Books 18–20" },
       ],
+    },
+    {
+      id: "apollodorus-library",
+      title: "The Library",
+      // the work's own Greek title, as the Perseus Greek column gives it
+      subtitle: "Βιβλιοθήκη",
+      author: "Apollodorus",
+      /* "Generally dated to the first or second century AD" (Wikipedia); Frazer's introduction puts the
+         earliest possible date at the middle of the first century BCE, since the book quotes Castor. The
+         key is a single year inside the span. */
+      written: "1st–2nd century CE",
+      year: 100,
+      translator: "Sir James George Frazer",
+      edition: "Loeb Classical Library, 1921",
+      /* Expired on every ground: the Loeb of 1921 is pre-1929 and Frazer died in 1941. Perseus's digital
+         editions are CC BY-SA 4.0. See .claude/fetch-book.js. */
+      rights:
+        "Public domain on every ground, in both columns. The English is Sir James George Frazer's " +
+        "translation, published with his Greek text in two volumes of the Loeb Classical Library by " +
+        "William Heinemann in London and Harvard University Press in Cambridge, Massachusetts, in 1921, so " +
+        "it is public domain in the United States as a pre-1929 publication; Frazer died in 1941, so it is " +
+        "also public domain wherever copyright lasts for the author's life plus seventy years. The notes " +
+        "are his, from the same edition. The digital editions of both texts are prepared by the Perseus " +
+        "Digital Library at Tufts University and are released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence. The Library was written in Greek in the first " +
+        "or second century CE. (Robin Hard's translation of 1997 is still in copyright and is not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0548.tlg001/",
+      /* Paired on the SECTION, Strabo's way — "Apollodorus 2.5.11" is book, chapter, section, and a marker
+         reads "5.11" inside book 2 — and the two columns agree on all 386 sections. The fourth tab is the
+         Epitome, the abridgement that carries the lost end of the work. */
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Book",
+      count: 4,
+      total: 4,
     },
     {
       id: "anglo-saxon-chronicle",
@@ -26841,6 +26886,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "Their ritual, then, is such as I have described. As you enter the temple that they name the Parthenon, all the sculptures you see on what is called the pediment refer to the birth of Athena, those on the rear pediment represent the contest for the land between Athena and Poseidon. The statue itself is made of ivory and gold. On the middle of her helmet is placed a likeness of the Sphinx—the tale of the Sphinx I will give when I come to my description of Boeotia—and on either side of the helmet are griffins in relief. These griffins, Aristeas of Proconnesus says in his poem, fight for the gold…" },
     { book: "strabo-geography", n: 1, t: "Book 1", p: 0,
       text: "IF the scientific investigation of any subject be the proper avocation of the philosopher, Geography, the science of which we propose to treat, is certainly entitled to a high place; and this is evident from many considerations. They who first ventured to handle the matter were distinguished men. Homer, Anaximander the Milesian, and Hecataeus, (his fellow-citizen according to Eratosthenes,) Democritus, Eudoxus, Dicaearchus, Ephorus, with many others, and after these Erastosthenes, Polybius, and Posidonius, all of them philosophers. Nor is the great learning, through which alone this subject…" },
+    { book: "apollodorus-library", n: 1, t: "Book I", p: 31,
+      text: "Prometheus moulded men out of water and earth and gave them also fire, which, unknown to Zeus, he had hidden in a stalk of fennel. But when Zeus learned of it, he ordered Hephaestus to nail his body to Mount Caucasus, which is a Scythian mountain. On it Prometheus was nailed and kept bound for many years. Every day an eagle swooped on him and devoured the lobes of his liver, which grew by night. That was the penalty that Prometheus paid for the theft of fire until Hercules afterwards released him, as we shall show in dealing with Hercules." },
     { book: "diodorus-library", n: 2, t: "Book 2", p: 5,
       text: "Since after the founding of this city Ninus made a campaign against Bactriana, where he married Semiramis, the most renowned of all women of whom we have any record, it is necessary first of all to tell how she rose from a lowly fortune to such fame. Now there is in Syria a city known as Ascalon, and not far from it a large and deep lake, full of fish. On its shore is a precinct of a famous goddess whom the Syrians call Derceto; and this goddess has the head of a woman but all the rest of her body is that of a fish, the reason being something like this. The story as given by the most learned…" },
     { book: "anglo-saxon-chronicle", n: 1, t: "To 599", p: 0,
