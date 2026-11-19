@@ -398,3 +398,39 @@ all history/science/philosophy collections".
   whose `sectionOf` is History, Science or Philosophy — and the window still keeps only the studied ones. Remembered per viewer in localStorage
   (`folio.atlasWinScope`); a change repaints every window on the page (`folio:winscope`). Its box is ground no name may cover.
   `test-atlas-scope.js` guards it, and a person's role'd `also` places (`docs/map-cards.md`).
+
+## The chip after the heading, areas never a dot, the areas' serif (2026-11-19)
+
+- **"Discovered!" stands after the section's heading** (`.card-loc .loc-head`, `mcNewHTML` in `app.js`): over the window's top left it covered the
+  scope switch. A front window (a locator that asks) has no heading and keeps the chip in the window, under the switch.
+- **At night the chosen half of the scope switch** wears the relief button's pressed look (card ground, indigo ink and edge), not near-white ink.
+- **No source line above a window**: a members note that only credits the dataset ("borders as the Cliopatria dataset maps them") is dropped at
+  render (`membersNote`); a note that begins with it keeps what follows. The dataset stays on `#credits`.
+- **A sibling's mark by its kind**: a studied sibling whose place is water (`marks.water`, locator kind `sea` / `shelf`) or a desert
+  (`study.js areaOf`) is its NAME alone — a water name blue — laid before the siblings' point names; one whose place is a mountain or a hill
+  (`marks.peak`) is the red peak triangle (Mount Olympus on every Greek card). A card's own desert draws no dot once named, as a water.
+  `study.js markClass` returns null for every area kind, desert and shelf included. `test-study.js` and `test-atlas-scope.js` guard it.
+- **Areas in the serif, points in the sans** (`study.js areaSerif`: the theme's `--serif` when it is a serif, else `--display`, else Lora):
+  on the Atlas page every territory, region, range, island, people and water style is face `area`; in a window a state's, a war side's, a
+  sibling area's and the own area's name. A city's, a site's, a battle's, a building's and a peak's name keeps the sans.
+
+## An extent as a members group (2026-11-19, on request)
+
+> "gr-231's Atlas window must show the borders of the whole Spartan state." The owner approved changing how card windows draw areas for it.
+
+- **No Spartan polity exists in `history.bin`.** The only Spartan ground is the two derived war extents `pol:ext_sparta` and `pol:ext_messenia`
+  (OpenHistoricalMap's Lacedaemon, relation 2849727, CC0, split at a Taygetos line Folio drew; `build-war-extents.js`), alive 743–600 and
+  464–455 BCE only, and the engine draws an extent only where a war gives it a role (`presShown` / `presAliveShown` in `atlas.js`), so a members
+  group naming them used to draw nothing. `pol:peloponnesian_league` is another entity and is not used.
+- **A members group may now name extents** (`pol:ext_…`). They are NOT engine highlights: the window asks the hub for their rings at the window's
+  year (`hub.entityRings(ids, year, level)` → atlas.js `entityRings`, the worker's existing `face-rings` message, the page selection's walk; no worker
+  change) and paints them itself in `paintExtents` (`atlas-windows.js`): the group's tint over the land (cut by the land mask), and ONE outline round
+  the union of the group's faces — a band outside the union, so the line two extents share is not drawn — with the glow on a settled frame.
+  `extraSettled` waits for the rings. Ids that are not extents in the same group stay engine highlights as before. On the still renderer (no WebGL2,
+  no history) a window whose group names an extent does NOT tint its present-day `keys` (Greece would claim far more); it shows its dot alone.
+- **gr-231**: `members.year` −464 (the owner's choice, 2026-11-19: the extents' second span, 464–455 BCE; first drawn at −600), `locator.role` "capital" (Sparta's square), one group "Sparta" (Laconia and Messenia) = both extents, `label: "Territory"`, `keys: ["Greece"]` (the fallback's
+  frame only), `locator.zoom` 26. 600 BCE is the extents' last alive year before the Third Messenian War, after the Second Messenian War (668 BCE by
+  tradition, gr-237) and before Messenia was freed (370–369 BCE, gr-235), so the union is the whole state; the card's own "peak c. 500 BCE" falls
+  between the two alive spans, and no geometry was extended to reach it. The key's note gives Sparta's hold on Messenia only — no source line above a
+  window, on request; OpenHistoricalMap is credited on `#credits` through the extent's `sources` header. Every other window is unchanged (no other members group names an extent; the Peloponnesian War window `gr-521` and the Lydia members
+  window `gr-226` were screenshotted before and after: identical, and pixel-equal within the renderer's own run-to-run noise).

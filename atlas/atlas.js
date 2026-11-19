@@ -137,29 +137,31 @@
   const KIND_LABEL = { country: "Country", admin1: "Province or state", capital: "Capital", city: "City", town: "Town", sea: "Sea", ocean: "Ocean", strait: "Strait", gulf: "Gulf or bay", lake: "Lake", river: "River", island: "Island", "island-group": "Island group", range: "Mountain range", region: "Region", site: "Site", mountain: "Mountain", hill: "Hill", cape: "Cape", polity: "Polity", people: "People", culture: "Culture", extent: "Authored extent" };
   /* THE LABEL STYLES (Q-L2 a): small capitals for territories and regions, italic for water, upright for
      cities, in the site's own font tokens — the display face for names of places, the serif for water.
+     AN AREA'S NAME IS IN THE SERIF (2026-11-19, on request): every territory, region, range, island, people and water style is face "area" — study.js areaSerif (the
+     theme's serif, else its display face when that is a serif, else Lora; no webfont added) — and a point's (capital, city, town) keeps the sans.
      `size` is CSS px; `track` the letter spacing in px (ours, drawn glyph by glyph — never the canvas's
      letterSpacing); `caps` draws lower-case letters as capitals at `smallScale` of the size. */
   const STYLES = [
-    { id: "country-l", face: "display", size: 17, weight: 700, caps: true, track: 2.4 },
-    { id: "country-m", face: "display", size: 13.5, weight: 700, caps: true, track: 1.8 },
-    { id: "country-s", face: "display", size: 11, weight: 700, caps: true, track: 1.1 },
-    { id: "admin1", face: "display", size: 10.5, weight: 600, caps: true, track: 1.0 },
+    { id: "country-l", face: "area", size: 17, weight: 700, caps: true, track: 2.4 },
+    { id: "country-m", face: "area", size: 13.5, weight: 700, caps: true, track: 1.8 },
+    { id: "country-s", face: "area", size: 11, weight: 700, caps: true, track: 1.1 },
+    { id: "admin1", face: "area", size: 10.5, weight: 600, caps: true, track: 1.0 },
     { id: "capital", face: "sans", size: 12.5, weight: 700, caps: false, track: 0 },
     { id: "city", face: "sans", size: 11.5, weight: 600, caps: false, track: 0 },
     { id: "town", face: "sans", size: 10, weight: 500, caps: false, track: 0 },
-    { id: "water-l", face: "serif", size: 15, weight: 400, italic: true, caps: false, track: 1.6 },
-    { id: "water-m", face: "serif", size: 12.5, weight: 400, italic: true, caps: false, track: 0.8 },
-    { id: "water-s", face: "serif", size: 11, weight: 400, italic: true, caps: false, track: 0.3 },
-    { id: "river", face: "serif", size: 11, weight: 400, italic: true, caps: false, track: 0.2 },
-    { id: "region-l", face: "display", size: 13, weight: 600, caps: true, track: 3.0 },
-    { id: "region", face: "display", size: 10.5, weight: 600, caps: true, track: 1.8 },
-    { id: "range", face: "display", size: 10.5, weight: 600, caps: true, track: 1.6 },
-    { id: "island", face: "sans", size: 10, weight: 500, caps: false, track: 0.8 },
+    { id: "water-l", face: "area", size: 15, weight: 400, italic: true, caps: false, track: 1.6 },
+    { id: "water-m", face: "area", size: 12.5, weight: 400, italic: true, caps: false, track: 0.8 },
+    { id: "water-s", face: "area", size: 11, weight: 400, italic: true, caps: false, track: 0.3 },
+    { id: "river", face: "area", size: 11, weight: 400, italic: true, caps: false, track: 0.2 },
+    { id: "region-l", face: "area", size: 13, weight: 600, caps: true, track: 3.0 },
+    { id: "region", face: "area", size: 10.5, weight: 600, caps: true, track: 1.8 },
+    { id: "range", face: "area", size: 10.5, weight: 600, caps: true, track: 1.6 },
+    { id: "island", face: "area", size: 10, weight: 500, caps: false, track: 0.8 },
     // a people's or a culture's name (2c, design §2.5): SPACED ITALIC, mixed case — the territory's small capitals' opposite; the same face as water's italic
     // but tracked wide and in ink, so an italic name is told from a sea's by its spacing and its colour as well as by where it lies
-    { id: "people-l", face: "serif", size: 16, weight: 400, italic: true, caps: false, track: 4.2 },
-    { id: "people-m", face: "serif", size: 13.5, weight: 400, italic: true, caps: false, track: 3.2 },
-    { id: "people-s", face: "serif", size: 11.5, weight: 400, italic: true, caps: false, track: 2.4 },
+    { id: "people-l", face: "area", size: 16, weight: 400, italic: true, caps: false, track: 4.2 },
+    { id: "people-m", face: "area", size: 13.5, weight: 400, italic: true, caps: false, track: 3.2 },
+    { id: "people-s", face: "area", size: 11.5, weight: 400, italic: true, caps: false, track: 2.4 },
   ];
   const SMALL_SCALE = 0.78;
   /* TEXT SIZE REACHES THE NAMES (Oct 2026, owner decision; v1's canvas labels followed it, v2's did not until now). Settings → Text size sets `--fs` on <body> (styles.css `body[data-fs]`: .8 … 1.32, one stop lower on a
@@ -1173,7 +1175,7 @@
         invalidate(); return;
       }
       if (m.type === "face-anchors") { const r = faceAnchorWait.get(m.seq); faceAnchorWait.delete(m.seq); if (r) r.cb(m.rows, r.q); return; }
-      if (m.type === "face-rings") { if (selRingsPending === m.seq) { selRingsPending = null; selRings = { key: m.seq, faces: m.faces, rings: m.rings, level: Number(String(m.seq).split("@")[1]) }; invalidateLabels(); } return; }
+      if (m.type === "face-rings") { const er = entRingWait.get(m.seq); if (er) { entRingWait.delete(m.seq); er({ faces: m.faces, rings: m.rings }); return; } if (selRingsPending === m.seq) { selRingsPending = null; selRings = { key: m.seq, faces: m.faces, rings: m.rings, level: Number(String(m.seq).split("@")[1]) }; invalidateLabels(); } return; }
       if (m.slot === "adm1") { onAdmin1Message(m); return; }
       if (m.type === "history-meta") { onHistoryMeta(m); return; }
       if (m.type === "history-segs") { bracket(() => R.setHistorySegs(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap }), "histSegs"); if (time.hist) time.hist.segLevels++; invalidate(); return; }
@@ -1952,7 +1954,8 @@
     function themeFaces() {
       const cs = getComputedStyle(document.body);
       const g = (n, d) => cs.getPropertyValue(n).trim() || d;
-      return { display: g("--display", "system-ui, sans-serif"), sans: g("--sans", "system-ui, sans-serif"), serif: g("--serif", "Georgia, serif") };
+      const serif = g("--serif", "Georgia, serif"), display = g("--display", "system-ui, sans-serif");
+      return { display: display, sans: g("--sans", "system-ui, sans-serif"), serif: serif, area: root.AtlasStudy && root.AtlasStudy.areaSerif ? root.AtlasStudy.areaSerif(serif, display) : serif };
     }
     const fontOf = (st, px) => `${st.italic ? "italic " : ""}${st.weight} ${px}px ${faces[st.face]}`;   // ctx.font must carry a pixel size
     function measureMetrics() {
@@ -2798,6 +2801,19 @@
     /* PHASE 4 PHONE FIXES: a point inside each of the given history faces, on the visible part of the CURRENT view, from the worker (`face-anchors`; the label path's own anchor). The reply is `cb(rows, view)` with the view the
        question was asked in (rot, radius, cx, cy, W, H), because the anchors are screen points of THAT view and the window turns them into points on the sphere to carry them through the next gesture. */
     let faceAnchorSeq = 0; const faceAnchorWait = new Map();
+    /* AN EXTENT AS A CARD WINDOW'S AREA (2026-11-19, gr-231's whole Spartan state; docs/atlas-v2-card-windows.md "An extent as a members group"): the rings of the faces the
+       given entities have in year `y`, as unit vectors (the worker's `face-rings`, the selection outline's walk), for a window to fill and outline on its own canvas. The
+       engine draws an extent only where a war gives it a role (`presShown`); this hands the window the geometry instead and changes nothing the engine draws. cb(null) until
+       the history is in; cb({ faces: [], rings: [] }) when none of the entities is alive in `y`. */
+    let entRingSeq = 0; const entRingWait = new Map();
+    function entityRings(ids, y, level, cb) {
+      if (!time.hist || !time.hist.ready || !time.stepsOf || disposed) { cb(null); return; }
+      const faces = [];
+      for (const id of ids || []) { const i = entityIndexOfId(id); const l = i >= 0 ? time.stepsOf.get(i) : null; if (l) for (const st of l) if (st[0] <= y && st[1] >= y && faces.indexOf(st[2]) < 0) faces.push(st[2]); }
+      if (!faces.length) { cb({ faces: [], rings: [] }); return; }
+      const seq = "ent-rings:" + (++entRingSeq); entRingWait.set(seq, cb);
+      postToWorker({ type: "face-rings", seq, faces, level: Math.max(0, Math.min(2, level | 0)) });
+    }
     /* THE STATES OF A YEAR, NAMED (Nov 2026, on request: Find it's area round names "all the other states on the map of that year" once the answer is revealed). Every polity alive in `y` (never a people, a
        culture, an authored extent or the front: `aliveAt` already leaves those out) with the face it has then and the name the Atlas shows for it in that year (`nameIn`: the dated display-name overrides). [] before the history is in. */
     function statesAt(y) {
@@ -3428,7 +3444,7 @@
       && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0
         && view.relief.detail.every((k) => R.reliefDetailLoaded(k)) && detailTiles.pending.size === 0));
     const waterSettled = () => (!waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2))) && landChangesSettled();
-    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, startAdmin1: () => ensureAdmin1(), admin1FacesOf: (id) => admin1FacesOf(id), setAdmin1Tints: (map) => setAdmin1Tints(map), setAdmin1Mask: (set) => setAdmin1Mask(set), admin1Settled: (level) => admin1Settled(level), admin1Failed: () => adm1.failed, admin1Ready: () => !!(adm1.ready && adm1.faceEntity), webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), historyFailed: () => !!time.failed /* the history file did not arrive (a refused fetch; the file copy of the site has no twin of the whole history): a window that cannot be drawn without it says so (atlas-windows.js `pastLayer`, 2026-11-19) */, warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), statesAt: (y) => statesAt(y), faceAnchors: (faces, cb, near) => faceAnchors(faces, cb, near), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } }, kindOfId: (id) => { const i = time.hist ? entityIndexOfId(id) : -1; const e = i >= 0 && time.ents[i]; return e ? e.kind : null; }, setFlat: (on) => { on = !!on; if (!!layers.flat !== on || flatBorderOn !== on) { layers.flat = on; flatBorderOn = on; histBorderStyle(); if (time.hist) { restyleHist(); invalidate(); } } }, setMask: (map) => { if (map) { if (!time.gameMask) time.gameStash = time.gameTints; time.gameTints = map; time.gameMask = true; } else if (time.gameMask) { time.gameTints = time.gameStash; time.gameStash = null; time.gameMask = false; } histBorderStyle(); restyleHist(); },
+    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, startAdmin1: () => ensureAdmin1(), admin1FacesOf: (id) => admin1FacesOf(id), setAdmin1Tints: (map) => setAdmin1Tints(map), setAdmin1Mask: (set) => setAdmin1Mask(set), admin1Settled: (level) => admin1Settled(level), admin1Failed: () => adm1.failed, admin1Ready: () => !!(adm1.ready && adm1.faceEntity), webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), historyFailed: () => !!time.failed /* the history file did not arrive (a refused fetch; the file copy of the site has no twin of the whole history): a window that cannot be drawn without it says so (atlas-windows.js `pastLayer`, 2026-11-19) */, warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), statesAt: (y) => statesAt(y), entityRings: (ids, y, level, cb) => entityRings(ids, y, level, cb), faceAnchors: (faces, cb, near) => faceAnchors(faces, cb, near), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.hist) { uploadStyle(); invalidate(); } }, kindOfId: (id) => { const i = time.hist ? entityIndexOfId(id) : -1; const e = i >= 0 && time.ents[i]; return e ? e.kind : null; }, setFlat: (on) => { on = !!on; if (!!layers.flat !== on || flatBorderOn !== on) { layers.flat = on; flatBorderOn = on; histBorderStyle(); if (time.hist) { restyleHist(); invalidate(); } } }, setMask: (map) => { if (map) { if (!time.gameMask) time.gameStash = time.gameTints; time.gameTints = map; time.gameMask = true; } else if (time.gameMask) { time.gameTints = time.gameStash; time.gameStash = null; time.gameMask = false; } histBorderStyle(); restyleHist(); },
         lonLatAt: (x, y) => { const p = unproject(x, y); return p ? [p.lon, p.lat] : null; },
         /* the entity ids under a point in the year the controller is at — Find-it's ID-pass scoring: the states (a contested face's two claimants too) in a past year, the country or admin-1 unit in a present one */
         idsAt: (x, y) => {
