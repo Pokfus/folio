@@ -1032,6 +1032,13 @@ Wang Yangming (`cnh-528`); the Treaty of Nanking 29 August 1842 (`cnh-562`); the
 | the Daozang: the first canon / first printed / burned / completed | c. 740 CE / 1119 / 1281 / 1445 | the cited studies (`cnh-879`) |
 | the White Cloud Temple founded / the canon reprinted | 1228 / 1923 – 1926 | Bretschneider; Pregadio (`cnh-880`) |
 | the *Platform Sutra*: the earliest text / revised / the standard text | c. 780 CE / 967 CE / 1291 | Schlütter (`cnh-890`) |
+| the Dazu carvings: the earliest / the main phase / resumed / World Heritage | c. 650 CE / 892 – 1252 CE / 1078 / 1999 | the ICOMOS evaluation; Chen (`cnh-892`) |
+| the Mogao Caves: the traditional first cave / the oldest caves / the dated cave / World Heritage | 366 CE / c. 420 – 429 CE / 538 CE / 1987 | Chavannes; the cited studies (`cnh-893`) |
+| Mount Wutai: the court envoys / the first record | 661 – 662 CE / c. 679 – 684 CE | the cited studies (`cnh-894`) |
+| the Great Cloud Sutra commentary presented | 690 CE | the *Jiu Tangshu*; Rothschild (`cnh-896`; with `cnh-371`) |
+| the *Tianzhu shiyi* drafted / printed / the second edition | 1596 / 1603 / 1607 | the cited studies (`cnh-898`) |
+| the Nestorian Stele erected / found / also dated / moved | 781 CE / 1623 / 1625 / 1907 | Deeg; Saeki (`cnh-899`) |
+| the Eternal Venerable Mother attested / the scripture / the temples razed | 1629 / 1652 / 1839 | Pu; de Groot (`cnh-900`) |
 
 ## Later periods
 
@@ -1899,4 +1906,11 @@ cnh-878: 320
 cnh-879: 740; 1119; 1281; 1445
 cnh-880: 1228; 1923; 1926
 cnh-890: 780; 967; 1291
+cnh-892: 650; 892; 1252; 1078; 1999
+cnh-893: 366; 420; 429; 538; 1987
+cnh-894: 661; 662; 679; 684
+cnh-896: 690
+cnh-898: 1596; 1603; 1607
+cnh-899: 781; 1623; 1625; 1907
+cnh-900: 1629; 1652; 1839
 ```

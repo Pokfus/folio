@@ -15674,7 +15674,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Baizhang_Huaihai": "died 814 CE",
 "Dazu_Rock_Carvings": "from c. 650 CE",
 "Mogao_Caves": "traditionally 366 CE",
-"Emperor_Taiwu_of_Northern_Wei": "d. 452 CE",
+"Emperor_Taiwu_of_Northern_Wei": "408 – 452 CE",
 "Great_Cloud_Sutra": "690 CE",
 "Xi'an_Stele": "781 CE",
 "Three-Self_Patriotic_Movement": "from 1950",
