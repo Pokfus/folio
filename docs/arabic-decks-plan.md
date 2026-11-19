@@ -10,6 +10,15 @@ file says otherwise).
 (700 notes / 1,400 cards) — and Arabic Phrases and Expressions (164 notes / 328 cards, three subdecks).** C2 is
 not built; §6 says why.
 
+**THE BEGINNER PASS (2026-11-19) changed what follows in five ways; §7 is the record and
+`docs/lang-decks.md` "The Arabic beginner pass" the reasoning.** (1) Every note id is PINNED
+(`arabic-ids.json`) and applied by `arabic-fix.js`, so nothing below about "frozen because its ids are
+positions" binds any longer. (2) A deck's hand edits are a RECORD (`arabic-fixes.json`), applied after the
+generator. (3) A1 and the phrases are dealt in a recorded ORDER (`arabic-order.json`). (4) The alphabet deck
+is built from quotations (`alphabet_table.py`, `build-arabic-alphabet.js`); `alphabet.py` is gone. (5) The
+sentence corpus is pinned by id (`examples.TATOEBA_MAX`). The counts in §1 are the generator's; the shipped
+decks are 54 / 519 / 612 / 800 / 900 / 700 / 159 notes.
+
 ## 1. What the set is
 
 | deck | file | notes |
@@ -177,3 +186,31 @@ already run dry — Wiktionary lacks a sixth of the single words written, and Ta
 two words in five. A C2 deck would need another sentence source (a licensed corpus) before it is worth
 building. A phrases deck would start from
 kaikki's `phrase` / `intj` entries and Tatoeba counts, the Turkish `phrases.py` shape.
+
+## 7. The beginner pass (2026-11-19): the record, the pin, the order
+
+**The rule of a rebuild**: `run.py --level <lv>` for every level and `phrases.py`, THEN
+`node .claude/arabic/arabic-fix.js`, `node .claude/arabic/build-arabic-alphabet.js`,
+`node .claude/build-lang-decks.js`. `git status` is then clean — proved from a fresh fetch (936 MB) on
+2026-11-19. The generator's output alone is NOT the shipped deck: it numbers by position, writes
+non-compact JSON, and knows nothing of the 31 notes the record adds or the 5 it moves.
+
+| file (`.claude/arabic/`) | what it is |
+|---|---|
+| `arabic-ids.json` | deck id → vowelled headword (the alphabet: the row's key) → the number in the note's id. **Never delete or renumber a row**; a removed note's row moves to `_retired`. Seeded from the decks as shipped on 2026-11-19, applied on every run. |
+| `arabic-fixes.json` | `insert` (written by `arabic_insert.py`, never by hand: a moved card's fields byte for byte, or a card rendered from Wiktionary and Tatoeba ids), `notes`, and per deck `dropDup`, `subtitle`, `descSub`. A figure in a `descSub` is written 0 and recounted. |
+| `arabic-fix.js` | applies all three, by card type `arabic`; holds the alphabet deck (`ar-abc`, `ar-rule`) to its pin. `--check` in CI. |
+| `arabic-order.js` → `arabic-order.json` | A1's head (79 notes, named by PINNED NUMBER, never by typed Arabic), its four closed sets, look-alikes forty apart; the phrases' subdecks by the level that reads them. `--check` in CI. |
+| `arabic_insert.py` | renders the inserts with `build_deck.py`'s own functions. Needs the cache. |
+| `alphabet_table.py` → `arabic-alphabet.json` | the alphabet's table: every sound, comparison and rule read out of three Wikipedia revisions and refused unless it stands there word for word. Needs the cache (and the network once). `--check` is not in CI. |
+| `build-arabic-alphabet.js` | the alphabet deck from that table and the shipped A1. `--check` in CI. |
+
+**Why a new card is a record and not an inventory line**: an A1 inventory line competes in every level
+above it — `مارس` "March" would split its spelling's count with B1's مَارَسَ and, by the homograph rule, take
+that card's bare sentences away.
+
+**What the generator itself gained** (all levels still reproduce): the imperative as a third block of every
+verb table (`extract_kaikki.imperative`), a numeral's other gender, a pronoun's suffix form (`encl`), the
+form said to a woman where Wiktionary lists it as a second headword (`alt`, `said_to_a_woman`),
+`ROMAN_BY_RULE` (six headwords romanised from the printed vowels by `ar.translit`), ten refusals in
+`REFUSE`, and `TATOEBA_MAX`. `check-arabic.js` checks ids against the pin, not against position.

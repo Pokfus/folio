@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1363", released: "2026-11-19T03:56Z" };
+window.FOLIO_VERSION = { v: "1.1369", released: "2026-11-19T04:10Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-19",
-    t: "Hamlet, Utopia, Descartes, Apollodorus, Augustus, Darwin in the Library",
+    t: "Seven new books in the Library, from Hamlet and Darwin to Jerome",
     items: [
       "Shakespeare's <b>Hamlet</b> is in the Library, in the Yale edition of 1917, with its list of characters and every gloss.",
       "New in the Library: Thomas More's <b>Utopia</b> (1516), complete in Gilbert Burnet's English translation.",
@@ -48,6 +48,12 @@ window.CHANGELOG = [
       "New in the Library: <b>The Library</b> of Apollodorus, the ancient handbook of Greek myth, in Frazer's translation with his notes and the Greek beside it.",
       "New in the Library: the <b>Res Gestae Divi Augusti</b>, Augustus's own account of his deeds, in Shipley's 1924 translation with the Latin beside it.",
       "Charles Darwin's <b>On the Origin of Species</b> is in the Library, complete in its first edition of 1859.",
+      "New in the Library: <b>The Letters of St. Jerome</b>, all 150 in W. H. Fremantle's 1893 translation, one letter to a tab.",
+      "The <b>Arabic Alphabet</b> deck now teaches the vowel signs and the article from cited sources, and <b>Arabic A1</b> opens with the greetings and gains the months.",
+      "Bengali cards now show each word's <b>pronunciation</b>, <b>Bengali A1</b> opens with greetings (nomoskar, dhonnobad), and the Alphabet deck adds conjuncts and reading rules.",
+      "The Hindi alphabet deck gains <b>eleven reading rules</b>, and <b>Hindi A1</b> now opens with namaste, thank you and please, with numbers, days and colours together.",
+      "Indonesian gains a <b>Sounds and spelling</b> deck, and <b>UKBI 1</b> now opens with halo, terima kasih and selamat pagi, with numbers, days and months together.",
+      "<b>Persian A1</b> now opens with the greetings, numbers and weekdays come together, and verbs show their spoken, perfect and negative forms.",
       "Russian gains a <b>Sounds and spelling</b> deck, and <b>TORFL A1</b> now opens with hello, thank you and please, with numbers, days and months together and 49 more words.",
     ],
   },

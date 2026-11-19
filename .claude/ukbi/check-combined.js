@@ -21,10 +21,13 @@ const path = require("path"), http = require("http"), fs = require("fs");
 const { execFileSync } = require("child_process");
 const ROOT = path.resolve(__dirname, "..", "..");
 const OUT = path.join(ROOT, "decks", "Indonesian-UKBI-1-7-and-Expressions.folio-deck.json");
-const LEVELS = [["1 Terbatas", 500], ["2 Marginal", 750], ["3 Semenjana", 1000],
+/* 506, 748, 999 and 82, not the generator's 500, 750, 1,000 and 84: since Nov 2026 the Indonesian record
+   (.claude/decks/indonesian-fixes.json) gives UKBI 1 six notes, five of them moved down from UKBI 2,
+   UKBI 3 and the phrases. */
+const LEVELS = [["1 Terbatas", 506], ["2 Marginal", 748], ["3 Semenjana", 999],
                 ["4 Madya", 1500], ["5 Unggul", 2000], ["6 Sangat Unggul", 2500],
                 ["7 Istimewa", 1500],
-                ["Phrases and expressions::Phrases", 84],
+                ["Phrases and expressions::Phrases", 82],
                 ["Phrases and expressions::Idioms", 111],
                 ["Phrases and expressions::Proverbs", 33]];
 const NOTES = LEVELS.reduce((a, l) => a + l[1], 0);
@@ -131,8 +134,8 @@ const ok = (c, m, extra) => {
   /* A LEVEL COUNTS BOTH DIRECTIONS AND EACH DIRECTION COUNTS ONE — the file holds notes and the
      review deals cards, and a level reading 500 rather than 1,000 is the shape of a count that
      has forgotten the second template. */
-  ok(/^1,?000 cards/.test(rows[0].count) && /^500 cards/.test(rows[1].count)
-     && /^500 cards/.test(rows[2].count),
+  ok(/^1,?012 cards/.test(rows[0].count) && /^506 cards/.test(rows[1].count)
+     && /^506 cards/.test(rows[2].count),
      "a level counts both directions and a direction counts one",
      [rows[0].count, rows[1].count, rows[2].count].join(" / "));
 

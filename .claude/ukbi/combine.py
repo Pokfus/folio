@@ -75,6 +75,8 @@ DECKS = os.path.abspath(os.path.join(HERE, '..', '..', 'decks'))
 
 from ukbi_level import PREDICATES, TARGET, DECK_FILES, SCOPE
 
+SIZES = {}   # level -> notes in its shipped deck; filled by main() before anything is written
+
 LEVELS = ['1', '2', '3', '4', '5', '6', '7']
 PHRASES = 'Indonesian-Phrases-and-Expressions.folio-deck.json'
 PHRASES_SUB = 'Phrases and expressions'
@@ -108,7 +110,7 @@ def stats(cards):
 
 
 def desc(s, nphrase):
-    n, sizes = s['notes'], [TARGET[l] for l in LEVELS]
+    n, sizes = s['notes'], [SIZES[l] for l in LEVELS]
     return (
         'All seven UKBI levels in one deck, a subdeck per level, and a '
         'companion subdeck of phrases, idioms and proverbs beside them. Each '
@@ -208,6 +210,12 @@ def main():
         DECKS, 'Indonesian-UKBI-1-7-and-Expressions.folio-deck.json')
 
     decks = [(lv, load(DECK_FILES[lv])) for lv in LEVELS] + [('P', load(PHRASES))]
+    # A LEVEL'S SIZE IS COUNTED OFF ITS SHIPPED FILE (Nov 2026).  It used to be read
+    # from `TARGET`, on the reasoning that a size is a decision the file cannot
+    # report; since the Indonesian record (`.claude/decks/indonesian-fixes.json`)
+    # a shipped level is no longer its target -- UKBI 1 is 506 notes, UKBI 2 748 and
+    # UKBI 3 999 -- and a description quoting 500, 750 and 1,000 would be wrong.
+    SIZES.update({lv: len(d['cards']) for lv, d in decks if lv != 'P'})
 
     # the type block is shared, and that is asserted rather than assumed
     sigs = {lv: hashlib.sha1(json.dumps(d['meta']['types'], sort_keys=True,
@@ -266,7 +274,7 @@ def main():
         'meta': {
             'id': DECK_ID,
             'title': TITLE,
-            'subtitle': f'{sum(TARGET[l] for l in LEVELS):,} words across all '
+            'subtitle': f'{sum(SIZES[l] for l in LEVELS):,} words across all '
                         f'seven levels, plus {nphrase} phrases and proverbs · '
                         'a subdeck each, both directions inside',
             'desc': desc(s, nphrase),

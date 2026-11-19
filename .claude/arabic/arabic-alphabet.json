@@ -1,0 +1,1469 @@
+{
+ "_": "arabic-alphabet.json — the Arabic Alphabet deck's table, written by .claude/arabic/alphabet_table.py and read by build-arabic-alphabet.js. Every `like` is the English-approximation cell of Help:IPA/Arabic for that IPA value; every note and rule is a sentence of the page its `src` names, checked word for word against the revision below; a letter's shapes and name are its row of the table of basic letters. `roman` is ar.translit of the name. Do not edit by hand: change alphabet_table.py and re-run it.",
+ "sources": {
+  "ipa": {
+   "title": "Help:IPA/Arabic",
+   "revision": 1380899154,
+   "url": "https://en.wikipedia.org/w/index.php?title=Help:IPA/Arabic&oldid=1380899154"
+  },
+  "abc": {
+   "title": "Arabic alphabet",
+   "revision": 1386233872,
+   "url": "https://en.wikipedia.org/w/index.php?title=Arabic_alphabet&oldid=1386233872"
+  },
+  "sun": {
+   "title": "Sun and moon letters",
+   "revision": 1378024909,
+   "url": "https://en.wikipedia.org/w/index.php?title=Sun_and_moon_letters&oldid=1378024909"
+  }
+ },
+ "rows": [
+  {
+   "key": "rule:direction",
+   "kind": "rule",
+   "show": "ا ب ت",
+   "ask": "Which way is Arabic written, and how many letters has it?",
+   "says": [
+    {
+     "text": "written from right-to-left in a cursive style, and includes 28 letters",
+     "src": "abc"
+    },
+    {
+     "text": "The Arabic alphabet is always cursive and letters vary in shape depending on their position within a word.",
+     "src": "abc"
+    }
+   ],
+   "pick": null
+  },
+  {
+   "key": "sign:fatha",
+   "kind": "sign",
+   "show": "ـَ",
+   "name": "فَتْحَة",
+   "value": "a",
+   "ipa": "a",
+   "like": "c<b>a</b>t in British English, only approx. in American English",
+   "notes": [
+    {
+     "text": "Short vowels may be written with diacritics placed above or below the consonant that precedes them in the syllable, called ḥarakāt.",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "^[^َُِ]َ[^َُِا]َ[^َُِا]َ?$",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "shapes": [],
+   "nameSrc": "wiktionary",
+   "roman": "fatḥa"
+  },
+  {
+   "key": "sign:kasra",
+   "kind": "sign",
+   "show": "ـِ",
+   "name": "كَسْرَة",
+   "value": "i",
+   "ipa": "i",
+   "like": "happ<b>y</b>",
+   "notes": [
+    {
+     "text": "Approximated to English \"I\" (as in \"pick\")",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "ِ(?!ي)",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "shapes": [],
+   "nameSrc": "wiktionary",
+   "roman": "kasra"
+  },
+  {
+   "key": "sign:damma",
+   "kind": "sign",
+   "show": "ـُ",
+   "name": "ضَمَّة",
+   "value": "u",
+   "ipa": "u",
+   "like": "fr<b>u</b>ition",
+   "notes": [
+    {
+     "text": "Approximated to English \"U\" (as in \"put\")",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "ُ(?!و)",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "shapes": [],
+   "nameSrc": "wiktionary",
+   "roman": "ḍamma"
+  },
+  {
+   "key": "sign:sukun",
+   "kind": "sign",
+   "show": "ـْ",
+   "name": "سُكُون",
+   "value": "no vowel with this consonant letter",
+   "ipa": "∅",
+   "like": "",
+   "notes": [
+    {
+     "text": "we would instead indicate that the l is followed by no vowel by marking it with a diacritic called sukūn",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "^[^ْ]{2,3}ْ[^ْ]{1,2}$",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "shapes": [],
+   "nameSrc": "wiktionary",
+   "roman": "sukūn"
+  },
+  {
+   "key": "ا",
+   "kind": "letter",
+   "show": "ا",
+   "shapes": [
+    "ا",
+    "ا",
+    "ـا",
+    "ـا"
+   ],
+   "name": "أَلِف",
+   "value": "ā",
+   "ipa": "aː",
+   "like": "not exact, longer f<b>a</b>r",
+   "notes": [
+    {
+     "text": "a long ā following a consonant other than a hamza is written with a short a sign (fatḥah) on the consonant plus an ʾalif after it",
+     "src": "abc"
+    },
+    {
+     "text": "six letters (و ,ز ,ر ,ذ ,د ,ا) can only be linked to their preceding letter",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "َا",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "ʔalif"
+  },
+  {
+   "key": "rule:joining",
+   "kind": "rule",
+   "show": "ا د ذ ر ز و",
+   "ask": "What do these six letters never do?",
+   "says": [
+    {
+     "text": "Generally, letters in the same word are linked together on both sides by short horizontal lines, but six letters (و ,ز ,ر ,ذ ,د ,ا) can only be linked to their preceding letter.",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "^[^ادذرزو]َ?[ادذرزو][َُِْ]?[^ادذرزو ]",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   }
+  },
+  {
+   "key": "ب",
+   "kind": "letter",
+   "show": "ب",
+   "shapes": [
+    "ب",
+    "بـ",
+    "ـبـ",
+    "ـب"
+   ],
+   "name": "بَاء",
+   "value": "b",
+   "ipa": "b",
+   "like": "<b>b</b>ee",
+   "notes": [],
+   "pick": {
+    "re": "^ب",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "bāʔ"
+  },
+  {
+   "key": "ت",
+   "kind": "letter",
+   "show": "ت",
+   "shapes": [
+    "ت",
+    "تـ",
+    "ـتـ",
+    "ـت"
+   ],
+   "name": "تَاء",
+   "value": "t",
+   "ipa": "t",
+   "like": "s<b>t</b>op",
+   "notes": [],
+   "pick": {
+    "re": "^ت",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "tāʔ"
+  },
+  {
+   "key": "ث",
+   "kind": "letter",
+   "show": "ث",
+   "shapes": [
+    "ث",
+    "ثـ",
+    "ـثـ",
+    "ـث"
+   ],
+   "name": "ثَاء",
+   "value": "ṯ",
+   "ipa": "θ",
+   "like": "<b>th</b>ink",
+   "notes": [],
+   "pick": {
+    "re": "^ث",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "ṯāʔ"
+  },
+  {
+   "key": "ج",
+   "kind": "letter",
+   "show": "ج",
+   "shapes": [
+    "ج",
+    "جـ",
+    "ـجـ",
+    "ـج"
+   ],
+   "name": "جِيم",
+   "value": "j",
+   "ipa": "dʒ",
+   "like": "<b>j</b>am",
+   "notes": [
+    {
+     "text": "The letter ج represents [ɡ] in Egypt and [ʒ] in the Levant and the Maghreb",
+     "src": "ipa"
+    }
+   ],
+   "pick": {
+    "re": "^ج",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "jīm"
+  },
+  {
+   "key": "ح",
+   "kind": "letter",
+   "show": "ح",
+   "shapes": [
+    "ح",
+    "حـ",
+    "ـحـ",
+    "ـح"
+   ],
+   "name": "حَاء",
+   "value": "ḥ",
+   "ipa": "ħ",
+   "like": "<b>h</b>ello, but pronounced in the back of the throat (pharyngeal)",
+   "notes": [],
+   "pick": {
+    "re": "^ح",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "ḥāʔ"
+  },
+  {
+   "key": "خ",
+   "kind": "letter",
+   "show": "خ",
+   "shapes": [
+    "خ",
+    "خـ",
+    "ـخـ",
+    "ـخ"
+   ],
+   "name": "خَاء",
+   "value": "ḵ",
+   "ipa": "x",
+   "like": "Scottish lo<b>ch</b>",
+   "notes": [],
+   "pick": {
+    "re": "^خ",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "ḵāʔ"
+  },
+  {
+   "key": "د",
+   "kind": "letter",
+   "show": "د",
+   "shapes": [
+    "د",
+    "د",
+    "ـد",
+    "ـد"
+   ],
+   "name": "دَال",
+   "value": "d",
+   "ipa": "d",
+   "like": "<b>d</b>ash",
+   "notes": [
+    {
+     "text": "six letters (و ,ز ,ر ,ذ ,د ,ا) can only be linked to their preceding letter",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "^د",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "dāl"
+  },
+  {
+   "key": "ذ",
+   "kind": "letter",
+   "show": "ذ",
+   "shapes": [
+    "ذ",
+    "ذ",
+    "ـذ",
+    "ـذ"
+   ],
+   "name": "ذَال",
+   "value": "ḏ",
+   "ipa": "ð",
+   "like": "<b>th</b>ese",
+   "notes": [
+    {
+     "text": "six letters (و ,ز ,ر ,ذ ,د ,ا) can only be linked to their preceding letter",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "^ذ",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "ḏāl"
+  },
+  {
+   "key": "ر",
+   "kind": "letter",
+   "show": "ر",
+   "shapes": [
+    "ر",
+    "ر",
+    "ـر",
+    "ـر"
+   ],
+   "name": "رَاء",
+   "value": "r",
+   "ipa": "r",
+   "like": "\"tapped\" or \"trilled\" r; Spanish pe<b>rr</b>o",
+   "notes": [
+    {
+     "text": "six letters (و ,ز ,ر ,ذ ,د ,ا) can only be linked to their preceding letter",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "^ر",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "rāʔ"
+  },
+  {
+   "key": "ز",
+   "kind": "letter",
+   "show": "ز",
+   "shapes": [
+    "ز",
+    "ز",
+    "ـز",
+    "ـز"
+   ],
+   "name": "زَاي",
+   "value": "z",
+   "ipa": "z",
+   "like": "<b>z</b>oo",
+   "notes": [
+    {
+     "text": "six letters (و ,ز ,ر ,ذ ,د ,ا) can only be linked to their preceding letter",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "^ز",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "zāy"
+  },
+  {
+   "key": "س",
+   "kind": "letter",
+   "show": "س",
+   "shapes": [
+    "س",
+    "سـ",
+    "ـسـ",
+    "ـس"
+   ],
+   "name": "سِين",
+   "value": "s",
+   "ipa": "s",
+   "like": "<b>s</b>nake",
+   "notes": [],
+   "pick": {
+    "re": "^س",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "sīn"
+  },
+  {
+   "key": "ش",
+   "kind": "letter",
+   "show": "ش",
+   "shapes": [
+    "ش",
+    "شـ",
+    "ـشـ",
+    "ـش"
+   ],
+   "name": "شِين",
+   "value": "š",
+   "ipa": "ʃ",
+   "like": "<b>sh</b>eep",
+   "notes": [],
+   "pick": {
+    "re": "^ش",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "šīn"
+  },
+  {
+   "key": "ص",
+   "kind": "letter",
+   "show": "ص",
+   "shapes": [
+    "ص",
+    "صـ",
+    "ـصـ",
+    "ـص"
+   ],
+   "name": "صَاد",
+   "value": "ṣ",
+   "ipa": "sˤ",
+   "like": "close to <b>s</b>aw, emphatic and pharyngealized /s/",
+   "notes": [],
+   "pick": {
+    "re": "^ص",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "ṣād"
+  },
+  {
+   "key": "ض",
+   "kind": "letter",
+   "show": "ض",
+   "shapes": [
+    "ض",
+    "ضـ",
+    "ـضـ",
+    "ـض"
+   ],
+   "name": "ضَاد",
+   "value": "ḍ",
+   "ipa": "dˤ",
+   "like": "emphatic and pharyngealized /d/, no equivalent, can be approximated to RP <b>d</b>awn",
+   "notes": [],
+   "pick": {
+    "re": "^ض",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "ḍād"
+  },
+  {
+   "key": "ط",
+   "kind": "letter",
+   "show": "ط",
+   "shapes": [
+    "ط",
+    "طـ",
+    "ـطـ",
+    "ـط"
+   ],
+   "name": "طَاء",
+   "value": "ṭ",
+   "ipa": "tˤ",
+   "like": "emphatic and pharyngealized /t/, no equivalent",
+   "notes": [],
+   "pick": {
+    "re": "^ط",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "ṭāʔ"
+  },
+  {
+   "key": "ظ",
+   "kind": "letter",
+   "show": "ظ",
+   "shapes": [
+    "ظ",
+    "ظـ",
+    "ـظـ",
+    "ـظ"
+   ],
+   "name": "ظَاء",
+   "value": "ẓ",
+   "ipa": "ðˤ",
+   "like": "emphatic and pharyngealized [ð]",
+   "notes": [
+    {
+     "text": "The letter ظ represents either [ðˤ] or [zˤ], depending on the speaker's dialect",
+     "src": "ipa"
+    }
+   ],
+   "pick": {
+    "re": "^ظ",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "ẓāʔ"
+  },
+  {
+   "key": "ع",
+   "kind": "letter",
+   "show": "ع",
+   "shapes": [
+    "ع",
+    "عـ",
+    "ـعـ",
+    "ـع"
+   ],
+   "name": "عَيْن",
+   "value": "ʕ",
+   "ipa": "ʕ",
+   "like": "no equivalent in English (voiced pharyngeal fricative or voiced creaky-voiced pharyngeal approximant)",
+   "notes": [],
+   "pick": {
+    "re": "^ع",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "ʕayn"
+  },
+  {
+   "key": "غ",
+   "kind": "letter",
+   "show": "غ",
+   "shapes": [
+    "غ",
+    "غـ",
+    "ـغـ",
+    "ـغ"
+   ],
+   "name": "غَيْن",
+   "value": "ḡ",
+   "ipa": "ɣ",
+   "like": "like <b>g</b>allon, but with a guttural sound further back in the mouth (uvular). Alternatively like French pa<b>r</b>is",
+   "notes": [],
+   "pick": {
+    "re": "^غ",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "ḡayn"
+  },
+  {
+   "key": "ف",
+   "kind": "letter",
+   "show": "ف",
+   "shapes": [
+    "ف",
+    "فـ",
+    "ـفـ",
+    "ـف"
+   ],
+   "name": "فَاء",
+   "value": "f",
+   "ipa": "f",
+   "like": "<b>f</b>ather",
+   "notes": [],
+   "pick": {
+    "re": "^ف",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "fāʔ"
+  },
+  {
+   "key": "ق",
+   "kind": "letter",
+   "show": "ق",
+   "shapes": [
+    "ق",
+    "قـ",
+    "ـقـ",
+    "ـق"
+   ],
+   "name": "قَاف",
+   "value": "q",
+   "ipa": "q",
+   "like": "like s<b>k</b>it, but further back in the mouth (uvular)",
+   "notes": [],
+   "pick": {
+    "re": "^ق",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "qāf"
+  },
+  {
+   "key": "ك",
+   "kind": "letter",
+   "show": "ك",
+   "shapes": [
+    "ك",
+    "كـ",
+    "ـكـ",
+    "ـك"
+   ],
+   "name": "كَاف",
+   "value": "k",
+   "ipa": "k",
+   "like": "s<b>c</b>ape",
+   "notes": [],
+   "pick": {
+    "re": "^ك",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "kāf"
+  },
+  {
+   "key": "ل",
+   "kind": "letter",
+   "show": "ل",
+   "shapes": [
+    "ل",
+    "لـ",
+    "ـلـ",
+    "ـل"
+   ],
+   "name": "لَام",
+   "value": "l",
+   "ipa": "l",
+   "like": "<b>l</b>ease (Received Pronunciation)",
+   "notes": [
+    {
+     "text": "[ɫ] (tool)",
+     "html": "[ɫ] (too<b>l</b>)",
+     "src": "ipa"
+    },
+    {
+     "text": "[ɫ] occurs only in the word Allah",
+     "src": "ipa"
+    }
+   ],
+   "pick": {
+    "re": "^ل",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "lām"
+  },
+  {
+   "key": "م",
+   "kind": "letter",
+   "show": "م",
+   "shapes": [
+    "م",
+    "مـ",
+    "ـمـ",
+    "ـم"
+   ],
+   "name": "مِيم",
+   "value": "m",
+   "ipa": "m",
+   "like": "<b>m</b>e",
+   "notes": [],
+   "pick": {
+    "re": "^م",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "mīm"
+  },
+  {
+   "key": "ن",
+   "kind": "letter",
+   "show": "ن",
+   "shapes": [
+    "ن",
+    "نـ",
+    "ـنـ",
+    "ـن"
+   ],
+   "name": "نُون",
+   "value": "n",
+   "ipa": "n",
+   "like": "<b>n</b>o",
+   "notes": [],
+   "pick": {
+    "re": "^ن",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "nūn"
+  },
+  {
+   "key": "ه",
+   "kind": "letter",
+   "show": "ه",
+   "shapes": [
+    "ه",
+    "هـ",
+    "ـهـ",
+    "ـه"
+   ],
+   "name": "هَاء",
+   "value": "h",
+   "ipa": "h",
+   "like": "<b>h</b>i",
+   "notes": [],
+   "pick": {
+    "re": "^ه",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "hāʔ"
+  },
+  {
+   "key": "و",
+   "kind": "letter",
+   "show": "و",
+   "shapes": [
+    "و",
+    "و",
+    "ـو",
+    "ـو"
+   ],
+   "name": "وَاو",
+   "value": "w",
+   "ipa": "w",
+   "like": "<b>w</b>e",
+   "notes": [
+    {
+     "text": "/uː/: cool",
+     "html": "/uː/ c<b>oo</b>l",
+     "src": "ipa"
+    },
+    {
+     "text": "long ū as a sign for short u (ḍammah) plus a wāw",
+     "src": "abc"
+    },
+    {
+     "text": "six letters (و ,ز ,ر ,ذ ,د ,ا) can only be linked to their preceding letter",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "^و",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "wāw"
+  },
+  {
+   "key": "ي",
+   "kind": "letter",
+   "show": "ي",
+   "shapes": [
+    "ي",
+    "يـ",
+    "ـيـ",
+    "ـي"
+   ],
+   "name": "يَاء",
+   "value": "y",
+   "ipa": "j",
+   "like": "<b>y</b>es",
+   "notes": [
+    {
+     "text": "/iː/: machine",
+     "html": "/iː/ mach<b>i</b>ne",
+     "src": "ipa"
+    },
+    {
+     "text": "long ī is written as a sign for short i (kasrah) plus a yāʾ",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "^ي",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "yāʔ"
+  },
+  {
+   "key": "sign:long-a",
+   "kind": "sign",
+   "show": "ـَا",
+   "value": "ā",
+   "ipa": "aː",
+   "like": "not exact, longer f<b>a</b>r",
+   "notes": [
+    {
+     "text": "a long ā following a consonant other than a hamza is written with a short a sign (fatḥah) on the consonant plus an ʾalif after it",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "َا",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "shapes": []
+  },
+  {
+   "key": "sign:long-u",
+   "kind": "sign",
+   "show": "ـُو",
+   "value": "ū",
+   "ipa": "uː",
+   "like": "c<b>oo</b>l",
+   "notes": [
+    {
+     "text": "long ū as a sign for short u (ḍammah) plus a wāw",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "ُو(?![َُِّْ])",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "shapes": []
+  },
+  {
+   "key": "sign:long-i",
+   "kind": "sign",
+   "show": "ـِي",
+   "value": "ī",
+   "ipa": "iː",
+   "like": "mach<b>i</b>ne",
+   "notes": [
+    {
+     "text": "long ī is written as a sign for short i (kasrah) plus a yāʾ",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "ِي(?![َُِّْ])",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "shapes": []
+  },
+  {
+   "key": "sign:ay",
+   "kind": "sign",
+   "show": "ـَيْ",
+   "value": "ay",
+   "ipa": "aj",
+   "like": "/a/+/j/, m<b>y</b> or n<b>i</b>ght",
+   "notes": [
+    {
+     "text": "y with sukūn will be unambiguously read as the diphthong /aj/, and w with sukūn will be read /aw/",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "َيْ",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "shapes": []
+  },
+  {
+   "key": "sign:aw",
+   "kind": "sign",
+   "show": "ـَوْ",
+   "value": "aw",
+   "ipa": "aw",
+   "like": "/a/+/w/, n<b>ou</b>n",
+   "notes": [
+    {
+     "text": "y with sukūn will be unambiguously read as the diphthong /aj/, and w with sukūn will be read /aw/",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "َوْ",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "shapes": []
+  },
+  {
+   "key": "sign:shadda",
+   "kind": "sign",
+   "show": "ـّ",
+   "name": "شَدَّة",
+   "value": "consonant doubled/geminated",
+   "ipa": "ː",
+   "like": "",
+   "notes": [
+    {
+     "text": "Gemination is the doubling of a consonant. Instead of writing the letter twice, Arabic places a W-shaped sign called shaddah above it.",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "^(?!ال)(?!اَل).*ّ",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "shapes": [],
+   "nameSrc": "wiktionary",
+   "roman": "šadda"
+  },
+  {
+   "key": "ء",
+   "kind": "letter",
+   "show": "ء",
+   "name": "هَمْزَة",
+   "value": "ʔ",
+   "ipa": "ʔ",
+   "like": "The pause in uh-oh!",
+   "notes": [
+    {
+     "text": "The hamza /ʔ/ (glottal stop) can be written either alone, as if it were a letter, or with a carrier, when it becomes a diacritic.",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "ء",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "shapes": [],
+   "nameSrc": "wiktionary",
+   "roman": "hamza"
+  },
+  {
+   "key": "rule:hamza",
+   "kind": "rule",
+   "show": "أ إ ؤ ئ",
+   "ask": "What do these four have in common?",
+   "says": [
+    {
+     "text": "The hamza /ʔ/ (glottal stop) can be written either alone, as if it were a letter, or with a carrier, when it becomes a diacritic.",
+     "src": "abc"
+    }
+   ],
+   "picks": [
+    {
+     "re": "أ",
+     "pos": null
+    },
+    {
+     "re": "إ",
+     "pos": null
+    },
+    {
+     "re": "ؤ",
+     "pos": null
+    },
+    {
+     "re": "ئ",
+     "pos": null
+    }
+   ]
+  },
+  {
+   "key": "sign:madda",
+   "kind": "sign",
+   "show": "آ",
+   "name": "مَدَّة",
+   "value": "ʔā",
+   "ipa": "ʔaː",
+   "like": "",
+   "notes": [
+    {
+     "text": "Hamzat al-madd (آ) indicates a long /ʔ/ + /aː/ sound as in آسف ʾāsif /ʔaː.sif/ \"sorry\"",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "آ",
+    "pos": null
+   },
+   "shapes": [],
+   "nameSrc": "wiktionary",
+   "roman": "madda"
+  },
+  {
+   "key": "ة",
+   "kind": "letter",
+   "show": "ة",
+   "shapes": [
+    "ة",
+    "",
+    "",
+    "ـة"
+   ],
+   "name": "تَاء مَرْبُوطَة",
+   "value": "-a / -at",
+   "ipa": "",
+   "like": "",
+   "notes": [
+    {
+     "text": "Used in final position only as a marker of feminine gender for nouns and adjectives.",
+     "src": "abc"
+    },
+    {
+     "text": "in Modern Standard Arabic it is only pronounced as such if the word is suffixed with a case ending or it is in the construct state, otherwise it is unpronounced or pronounced as /h/",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "ة$",
+    "pos": [
+     "noun",
+     "adjective",
+     "verb"
+    ]
+   },
+   "nameSrc": "wiktionary",
+   "roman": "tāʔ marbūṭa"
+  },
+  {
+   "key": "ى",
+   "kind": "letter",
+   "show": "ى",
+   "shapes": [
+    "ى",
+    "",
+    "",
+    "ـى"
+   ],
+   "name": "أَلِف مَقْصُورَة",
+   "value": "ā",
+   "ipa": "aː",
+   "like": "not exact, longer f<b>a</b>r",
+   "notes": [
+    {
+     "text": "Used only at the end of some words as a spelling convention for etymological reasons.",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "ى$",
+    "pos": null
+   },
+   "nameSrc": "wiktionary",
+   "roman": "ʔalif maqṣūra"
+  },
+  {
+   "key": "sign:tanwin-an",
+   "kind": "sign",
+   "show": "ـً",
+   "name": "تَنْوِين",
+   "value": "-an",
+   "ipa": "an",
+   "like": "",
+   "notes": [
+    {
+     "text": "In written Arabic, nunation is indicated by doubling the vowel diacritic at the end of the word, e.g. شُكْرًا šukran [ʃukran] 'thank you'.",
+     "src": "abc"
+    },
+    {
+     "text": "is the addition of a final -n to a noun or adjective. The vowel before it indicates grammatical case.",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "ً",
+    "pos": null
+   },
+   "shapes": [],
+   "nameSrc": "wiktionary",
+   "roman": "tanwīn"
+  },
+  {
+   "key": "sign:tanwin-in",
+   "kind": "sign",
+   "show": "ـٍ",
+   "name": "تَنْوِين",
+   "value": "-in",
+   "ipa": "in",
+   "like": "",
+   "notes": [
+    {
+     "text": "is the addition of a final -n to a noun or adjective. The vowel before it indicates grammatical case.",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "ٍ$",
+    "pos": null
+   },
+   "shapes": [],
+   "nameSrc": "wiktionary",
+   "roman": "tanwīn"
+  },
+  {
+   "key": "sign:tanwin-un",
+   "kind": "sign",
+   "show": "ـٌ",
+   "name": "تَنْوِين",
+   "value": "-un",
+   "ipa": "un",
+   "like": "",
+   "notes": [
+    {
+     "text": "is the addition of a final -n to a noun or adjective. The vowel before it indicates grammatical case.",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "ٌ$",
+    "pos": null
+   },
+   "shapes": [],
+   "nameSrc": "wiktionary",
+   "roman": "tanwīn"
+  },
+  {
+   "key": "sign:lam-alif",
+   "kind": "sign",
+   "show": "لا",
+   "value": "lā",
+   "ipa": "laː",
+   "like": "",
+   "notes": [
+    {
+     "text": "some letter combinations are written as ligatures (special shapes), notably lām-alif لا",
+     "src": "abc"
+    },
+    {
+     "text": "which is the only mandatory ligature",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "لَا",
+    "pos": null
+   },
+   "shapes": []
+  },
+  {
+   "key": "sign:dagger",
+   "kind": "sign",
+   "show": "ـٰ",
+   "name": "أَلِف خَنْجَرِيَّة",
+   "value": "ā",
+   "ipa": "aː",
+   "like": "",
+   "notes": [
+    {
+     "text": "It indicates a long /aː/ sound for which alif is normally not written.",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "ٰ",
+    "pos": null
+   },
+   "shapes": [],
+   "nameSrc": "abc",
+   "roman": "ʔalif ḵanjariyya"
+  },
+  {
+   "key": "rule:moon",
+   "kind": "rule",
+   "show": "الْـ",
+   "ask": "How is the article read before a moon letter?",
+   "letters": [
+    "ا",
+    "ب",
+    "ج",
+    "ح",
+    "خ",
+    "ع",
+    "غ",
+    "ف",
+    "ق",
+    "ك",
+    "م",
+    "ه",
+    "و",
+    "ي"
+   ],
+   "says": [
+    {
+     "text": "When the Arabic definite article (الْـ) is followed by a moon letter, no assimilation takes place.",
+     "src": "sun"
+    }
+   ],
+   "pick": {
+    "re": "^الْ",
+    "pos": null,
+    "single": true
+   }
+  },
+  {
+   "key": "rule:sun",
+   "kind": "rule",
+   "show": "الشَّـ",
+   "ask": "How is the article read before a sun letter?",
+   "letters": [
+    "ت",
+    "ث",
+    "د",
+    "ذ",
+    "ر",
+    "ز",
+    "س",
+    "ش",
+    "ص",
+    "ض",
+    "ط",
+    "ظ",
+    "ل",
+    "ن"
+   ],
+   "says": [
+    {
+     "text": "When followed by a sun letter, the /l/ of the Arabic definite article al- assimilates to the initial consonant of the following noun, resulting in a doubled consonant.",
+     "src": "sun"
+    },
+    {
+     "text": "al-shams ('the Sun') becomes ash-shams (assimilating the lām), while al-qamar ('the Moon') remains unchanged",
+     "src": "sun"
+    }
+   ],
+   "pick": {
+    "re": "^ال[تثدذرزسشصضطظلن][ًٌٍَُِ]?ّ",
+    "pos": null,
+    "single": true
+   }
+  },
+  {
+   "key": "rule:wasl",
+   "kind": "rule",
+   "show": "ٱ",
+   "ask": "What does this sign over an alif say, and where is it written?",
+   "says": [
+    {
+     "text": "It indicates that the ʾalif is not pronounced as a glottal stop (written as the hamza), but that the word is connected to the previous word (like liaison in French). Outside of vocalised liturgical texts, the waṣla is usually not written.",
+     "src": "abc"
+    }
+   ],
+   "pick": {
+    "re": "^اِ",
+    "pos": [
+     "noun"
+    ]
+   }
+  },
+  {
+   "key": "rule:unvowelled",
+   "kind": "rule",
+   "show": "قلب",
+   "ask": "Why can this be read in more than one way?",
+   "says": [
+    {
+     "text": "Users of Arabic usually write long vowels but omit short ones, so readers must utilize their knowledge of the language in order to supply the missing vowels.",
+     "src": "abc"
+    },
+    {
+     "text": "the word qalb, \"heart\", is written qlb, and the word qalaba \"he turned around\", is also written qlb",
+     "src": "abc"
+    },
+    {
+     "text": "In the Arabic handwriting of everyday use, in general publications, and on street signs, short vowels are typically not written.",
+     "src": "abc"
+    }
+   ],
+   "pick": null
+  }
+ ]
+}

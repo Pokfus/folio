@@ -20676,6 +20676,146 @@ const BOOKS = {
     ],
     minChars: 3000,
   },
+  "jerome-letters": {
+    title: "The Letters of St. Jerome",
+    subtitle: "Epistulae",
+    author: "Jerome",
+    translator: "W. H. Fremantle",
+    edition:
+      "A Select Library of the Nicene and Post-Nicene Fathers of the Christian Church, Second Series, " +
+      "Volume VI, ed. Philip Schaff and Henry Wace, 1893",
+    written: "c. 370–419",
+    year: 370,
+
+    /* ---------- THE LICENCE ----------
+       Jerome died in 420. The translation is the Hon. W. H. Fremantle's, "with the assistance of" the Rev.
+       G. Lewis and the Rev. W. G. Martley (the volume's second title page, read off Wikisource), printed in
+       the second series of Schaff and Wace's Nicene and Post-Nicene Fathers in 1893 — before 1929, so it is
+       public domain in the United States. Fremantle lived 1831–1916 (his Wikisource author page, read rather
+       than recalled: the first guess here was 1919). His assistants are the gap: Wikisource gives Martley
+       only as "c. 1860 – c. 1920" and Lewis no dates at all, so a life-plus-seventy claim is made for
+       Fremantle and NOT for the translation as a whole, and the rights box says exactly that. Wikisource
+       tags the volume as public domain worldwide.
+
+       WHAT IS AND IS NOT TAKEN. The 150 letters and the edition's notes on them, including Fremantle's
+       headnote over each letter. The volume's Prolegomena, the treatises (the Lives of Paul, Hilarion and
+       Malchus, Against Jovinianus and the rest) and the prefaces are not imported. Modern translations — the
+       Ancient Christian Writers volumes, Carolinne White's selection (Penguin) — are in copyright and are
+       not used.
+
+       NO LATIN, AND WHY. Latin Wikisource has Migne's text (Patrologia Latina 22, 1845, from the Corpus
+       Corporum) as `Epistolae (Hieronymus)` — five pages, one per Vallarsi class — and it numbers the
+       letters as this edition does. It was inspected and not taken: the section numbers run together
+       (Letter XIV goes from its argument to "2." to "6." in three paragraphs), Migne's column numbers sit
+       inline in the prose ("Quod ne falsum 17 putes"), and the summaries are not marked off, so a section
+       pairing would be mostly empty rows and a cut of the five pages would rest on guesswork. The other
+       copy there, `Epistulae (Hieronymus)`, names no edition ("editio: incognita") — the City of God's
+       first ground for refusing a Latin. Said on the book's first page. */
+    rights:
+      "Jerome died in 420. W. H. Fremantle's translation, made with the Rev. G. Lewis and the Rev. W. G. " +
+      "Martley, was published in 1893 in the Nicene and Post-Nicene Fathers, Second Series, Volume VI, " +
+      "so it is in the public domain in the United States. Fremantle died in 1916, so his share is out of " +
+      "copyright wherever the term runs for the author's life plus seventy years; the dates of his two " +
+      "assistants are not established, so no such claim is made for theirs. The volume's Prolegomena, " +
+      "the treatises and the prefaces printed with the letters are not reproduced.",
+    sourceName: "Wikisource",
+    sourceUrl:
+      "https://en.wikisource.org/wiki/Nicene_and_Post-Nicene_Fathers:_Series_II/Volume_VI/The_Letters_of_St._Jerome",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       Who Jerome was, what the letters are and why they were kept, the ones worth knowing before you
+       meet them, what this edition does with a third of them, how it is set out, and why there is no
+       Latin. Every letter named is checked against the edition's own headnote over it. */
+    about: [
+      "<b>Jerome</b> — Eusebius Hieronymus — was born at Stridon, near Aquileia, in the 340s, and died at " +
+        "Bethlehem in <b>420</b>. He is remembered above all as the translator of the Bible into Latin: " +
+        "the version that became the Vulgate, the Bible of the Western Church for a thousand years, is " +
+        "mostly his. He was also the sharpest letter-writer of the Latin Church, and his letters were " +
+        "copied, collected and read as literature almost from the moment they were sent.",
+      "They run from about <b>370</b>, when he was a young man among a circle of ascetic friends at " +
+        "Aquileia, to the last years of his life, and they follow him from place to place: the desert " +
+        "of Chalcis in Syria, where he tried the hermit's life; <b>Rome</b>, where for three years he " +
+        "was secretary to Pope Damasus and teacher of a group of aristocratic women who were taking up " +
+        "the religious life; and <b>Bethlehem</b>, where he settled in 386 and spent the rest of his " +
+        "life, running a monastery while Paula ran a convent beside it. Rome fell to Alaric's Goths in " +
+        "410, and the news reaches these pages.",
+      "Several of them are famous in their own right. <b>Letter 22</b>, to Eustochium, on the life of a " +
+        "consecrated virgin, is a merciless picture of Roman society and contains the dream in which " +
+        "Jerome stands before the judgment seat and is told he is a follower of Cicero, not of Christ. " +
+        "<b>Letter 52</b>, to Nepotian, sets out how a clergyman should live; <b>Letter 57</b>, to " +
+        "Pammachius, defends translating “sense for sense and not word for word”; " +
+        "<b>Letter 107</b>, to Laeta, plans a small girl's education; <b>Letter 108</b>, the longest, is " +
+        "his life of Paula, written for her daughter after her death; and <b>Letter 127</b> tells of " +
+        "Marcella's death after the sack of Rome. Running through the later letters is a long and often " +
+        "prickly exchange with <b>Augustine</b>.",
+      "Not every letter is Jerome's. The collection keeps the letters he received alongside the ones he " +
+        "sent — from Pope Damasus, from Augustine, from Epiphanius of Salamis, from Theophilus of " +
+        "Alexandria and others. Its last three do not belong to it at all, and the edition says so at " +
+        "the head of each: two are not Jerome's work, and the third is a letter of Procopius of Gaza, " +
+        "who lived a century after him.",
+      "This translation is <b>W. H. Fremantle's</b>, made with G. Lewis and W. G. Martley for the Nicene " +
+        "and Post-Nicene Fathers and published in 1893. It keeps the standard numbering of the letters, " +
+        "Vallarsi's, and the numbered sections inside them. Each letter opens with Fremantle's own short " +
+        "headnote — who the correspondent was, when it was written, what it is about — set above the " +
+        "first section. The numbered notes folded under each letter are the edition's, and most of " +
+        "them identify the scriptural and classical quotations Jerome packs into nearly every sentence.",
+      "One thing to know before you start: the edition does not translate every letter in full. For " +
+        "about fifty of them — technical answers on Hebrew words, most of the letters exchanged with " +
+        "Augustine, the translations of Theophilus's Easter letters — it prints only a short summary of " +
+        "what the letter says, and those tabs hold that summary and nothing else. The letters are " +
+        "grouped as Vallarsi grouped them, by period, and the groups are the parts on the shelf.",
+      "There is no Latin beside this text. The only copy on Latin Wikisource that names its edition is " +
+        "Migne's, and in that transcription the section numbers run together and the printed column " +
+        "numbers stand in the middle of the prose, so the two columns could not be paired faithfully.",
+    ],
+
+    /* ---------- ONE PAGE PER LETTER ----------
+       Seneca's shape: the wiki gives each letter a page, and a letter is a chapter — 150 tabs, as Seneca's
+       124. Typed onto the wiki rather than transcluded, so `body: "plain"` (the Confessions' rule, same
+       series, same page shape). */
+    source: "wiki",
+    chapterWord: "Letter",
+    chapters: Array.from({ length: 150 }, (_, i) => i + 1),
+    page: (n) => "Nicene and Post-Nicene Fathers: Series II/Volume VI/The Letters of St. Jerome/Letter " + n,
+    /* The contents page lists "Letter 1" … "Letter 150" and nothing else; the addressee is named only in the
+       heading on the letter's own page — see letterHead. */
+    head: "letter",
+    /* ONE PAGE OF 150 CARRIES NO HEADING: Letter 148's transcription opens on its summary. The heading is
+       supplied from CCEL's transcription of the same edition (ccel.org/ccel/schaff/npnf206.v.CXLVIII.html,
+       read 2026-11-19: "Letter CXLVIII. To the Matron Celantia."), which also matches Migne's "AD CELANTIAM
+       MATRONAM". */
+    headSupplied: { 148: "To the Matron Celantia" },
+    /* The volume's half-title and rule over Letter 1, and every letter's own heading line once letterHead has
+       read it. Capped at 100 characters after the numeral so a prose paragraph can never match; the longest
+       heading in the book is Letter 51's, at 78. */
+    dropLeadParas: [
+      /^The Letters of St\. Jerome\.?$/,
+      /* The rule under the half-title arrives as twelve `&#8212;` entities, which the test flattens to
+         spaces: a block of nothing but entities reads as empty. */
+      /^$/,
+      /^Letter\s+[IVXLC]+\.?\s+.{1,100}$/,
+    ],
+    dropHeadMarkers: true,
+    body: "plain",
+    /* "1. You have frequently asked me…" — a plain figure at the head of a paragraph, the Meditations' form. */
+    sections: "leading",
+    dropBlankParas: true,
+    dropLinkLists: true,
+    /* The vandal check is per book: Letter 19, a two-line summary, is the shortest page at ~130 characters
+       of text — measured over all 150, not assumed. */
+    minChars: 100,
+    /* Vallarsi's five classes, as Migne prints their heads in Patrologia Latina 22 (read off Latin
+       Wikisource's contents of `Epistolae (Hieronymus)`): I from 370 to 380, mostly from the desert of
+       Chalcis; II the nearly three years at Rome; III from 386 at Bethlehem; IV from the beginning of 401;
+       V letters whose date is less certain. Migne's first letters of II–V are XIX, XLVI, XCVI and CXLV. */
+    parts: [
+      { n: 1, label: "The desert", from: 1, to: 18 },
+      { n: 2, label: "Rome", from: 19, to: 45 },
+      { n: 3, label: "Bethlehem, to 400", from: 46, to: 95 },
+      { n: 4, label: "Bethlehem, from 401", from: 96, to: 144 },
+      { n: 5, label: "Of uncertain date", from: 145, to: 150 },
+    ],
+  },
 };
 
 /* ---------- args ---------- */
@@ -31763,6 +31903,38 @@ function sanKuoHead(h, n, warn, counts) {
   });
   return { h: h, t: title };
 }
+/* A LETTER'S OWN PRINTED HEADING, read as its title (Nov 2026, adding Jerome's Letters — `head: "letter"`).
+   Fremantle's edition heads every letter with one plain paragraph, "Letter XIV. To Heliodorus, Monk.", and
+   the contents page lists nothing but "Letter 1" … "Letter 150", so the heading on the letter's own page is
+   the only place its addressee is named. Read off the RAW page, with the footnote markers stripped first
+   (four headings carry one, and the cite bracket would otherwise end the title in "[1]") and its numeric
+   entities decoded, as every other title on the shelf stores "Æ" as the character ("Æmona", "Præsidius"); the paragraph
+   itself is removed later by `dropLeadParas`, which carries any marker down to the next block.
+
+   THE NUMERAL IS CHECKED against the page asked for — the City of God's rule — so a page filed under the
+   wrong number is reported rather than titled. A page that carries NO heading is not guessed at: only a
+   title the entry SUPPLIES (`headSupplied`, each with its source in a comment) is used, and the count of
+   those is printed on every run, so a transcription that later gains the line can be noticed. */
+function letterHead(h, n, book, warn) {
+  const flat = (x) => stripWikiCSS(x).replace(/<sup[^>]*class="reference"[\s\S]*?<\/sup>/g, "")
+    .replace(/<br\s*\/?>/g, " ").replace(/<[^>]*>/g, "").replace(/&#160;|&nbsp;/g, " ")
+    .replace(/&#(\d+);/g, (m, d) => String.fromCodePoint(+d)).replace(/&amp;/g, "&")
+    .replace(/\s+/g, " ").trim();
+  const paras = (h.match(/<p\b[^>]*>[\s\S]*?<\/p>/g) || []).map(flat).filter(Boolean).slice(0, 4);
+  for (const t of paras) {
+    const m = /^Letter\s+([IVXLC]+)\.?\s+(.+?)\.?$/.exec(t);
+    if (!m) continue;
+    const v = romanValue(m[1]);
+    if (v !== n) warn("the page is headed Letter " + m[1] + " (" + v + "), not " + n);
+    LETTERHEAD.read++;
+    return { t: m[2] };
+  }
+  const sup = book.headSupplied && book.headSupplied[n];
+  if (sup) { LETTERHEAD.supplied++; return { t: sup }; }
+  warn("no printed heading \"Letter " + toRoman(n) + ". …\" found and none supplied");
+  return { t: "" };
+}
+let LETTERHEAD = { read: 0, supplied: 0 };
 /* This printing's own numerals, which are standard everywhere but the nineties — see the inventory
    above. A group before C is subtracted from it, which is what XC already means and what IXC, VIIC
    and IVC mean here; anything else is read the ordinary way. */
@@ -34663,6 +34835,8 @@ async function fetchEnglish() {
       tFromText = got.t;
       if (got.t) SANKUO.titled++;
     }
+    /* "Letter XIV. To Heliodorus, Monk." — see letterHead. The paragraph is dropped by `dropLeadParas`. */
+    if (BOOK.head === "letter") tFromText = letterHead(h, n, BOOK, warn).t;
     if (BOOK.layout === "parallel" || BOOK.layout === "interleaved" || BOOK.layout === "shloka") {
       /* Both columns come off this one page, so the original is extracted here too and cached beside
          the translation — fetchOriginal then costs no requests at all. The two shapes a facing-page
@@ -35279,6 +35453,9 @@ function writeEnglish(chapters, warnings) {
   const secs = got.chapters.map((c) => (c.html.match(/class="bk-n"/g) || []).length);
   console.log("  " + secs.reduce((a, b) => a + b, 0) + " section numbers across " + secs.length + " chapters" +
     (secs.some((s) => !s) ? "  — " + secs.filter((s) => !s).length + " chapter(s) with NONE" : ""));
+  if (LETTERHEAD.read || LETTERHEAD.supplied)
+    console.log("  " + LETTERHEAD.read + " letters titled from their own printed heading, " +
+      LETTERHEAD.supplied + " from a heading the entry supplies (`headSupplied`)");
   if (SANKUO.titled || SANKUO.odd || SANKUO.half)
     console.log("  " + SANKUO.titled + " chapters titled from their own printed head, " +
       SANKUO.odd + " headed in this printing's hundred-less-n numerals, " +
