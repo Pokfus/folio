@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"93a0906d66a4afdf","counts":{"terms":1005,"points":769,"countries":236,"windows":1682,"faces":394,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"0505fa5ec1460963","counts":{"terms":1005,"points":769,"countries":236,"windows":1688,"faces":394,"years":105},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1013,6 +1013,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"93a0906d66a4afdf","counts":
 "Ōyu_Stone_Circles":"pl:q11437550"
 },"windows":{
 "'Ain_Ghazal":[35.976,31.988,"coord",0,0,0],
+"ALSIB":[-147.723,64.844,"coord",0,0,0],
 "Abbasid_Caliphate":[50.462,30.073,"polity","pol:abbasid",778,1.07],
 "Abu_Gorab":[31.194,29.904,"site",0,0,0],
 "Abu_Rawash":[31.075,30.032,"site",0,0,0],
@@ -1378,6 +1379,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"93a0906d66a4afdf","counts":
 "Djibouti":[42.5,11.98,"country","adm0:dji",0,38.49],
 "Djibouti_(city)":[42.5,11.98,"country","adm0:dji",0,38.49],
 "Dmanisi":[44.204,41.332,"city",0,0,0],
+"Dnieper_Hydroelectric_Station":[35.087,47.869,"coord",0,0,0],
 "Dodona":[20.788,39.546,"site",0,0,0],
 "Doggerland":[3,52,"region",0,0,0],
 "Dominica":[-61.34,15.46,"country","adm0:dma",0,40],
@@ -1502,6 +1504,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"93a0906d66a4afdf","counts":
 "Gobi_Desert":[102.259,41.698,"region",0,0,0],
 "Golden_Horde":[59.078,48.812,"polity","pol:golden_horde",1294,1.67],
 "Gona,_Ethiopia":[39.233,12.233,"site",0,0,0],
+"Gorki_Leninskiye":[37.765,55.505,"coord",0,0,0],
 "Goryeo":[127.401,38.414,"polity","pol:goryeo",1375,8.19],
 "Gothic_architecture":[2.36,48.936,"coord",0,0,0],
 "Gournia":[25.793,35.109,"site",0,0,0],
@@ -1801,6 +1804,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"93a0906d66a4afdf","counts":
 "Legionary_fortress":[6.454,51.662,"coord",0,0,0],
 "Lena_Pillars":[127.585,61.146,"coord",0,0,0],
 "Lena_River":[126.685,72.409,"coord",0,0,0],
+"Lenin's_Mausoleum":[37.62,55.754,"coord",0,0,0],
 "Leptis_Magna":[14.291,32.638,"site",0,0,0],
 "Lesbos":[26.036,39.199,"island",0,0,0],
 "Lesotho":[28.25,-29.48,"country","adm0:lso",0,32.29],
@@ -1862,6 +1866,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"93a0906d66a4afdf","counts":
 "Magadan":[153.797,62.626,"admin1","adm1:rus:ru-mag",0,7.94],
 "Maginot_Line":[6.169,49.359,"coord",0,0,0],
 "Magna_Graecia":[17.277,39.885,"coord",0,0,0],
+"Magnitogorsk":[59.033,53.383,"coord",0,0,0],
 "Magyars":[25.683,47.52,"people","pol:magyars",896,6.82],
 "Maharashtra":[75.356,19.37,"admin1","adm1:ind:in-mh",0,8.77],
 "Maine":[-69.197,45.148,"admin1","adm1:usa:us-me",0,15.65],
@@ -2629,6 +2634,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"93a0906d66a4afdf","counts":
 "White_Horse_Temple":[112.6,34.724,"site",0,0,0],
 "White_Mountains_(New_England)":[-71.31,44.27,"range",0,0,0],
 "White_Sea":[37.5,65.5,"coord",0,0,0],
+"White_Sea–Baltic_Canal":[34.766,64.525,"coord",0,0,0],
 "Wilusa":[26.239,39.958,"coord",0,0,0],
 "Wiman_Joseon":[126.215,39.743,"polity","pol:wiman_joseon",-197,18.67],
 "Wind_Cave_National_Park":[-103.479,43.558,"site",0,0,0],

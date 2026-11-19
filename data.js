@@ -19446,7 +19446,10 @@ window.COLLECTION_TREE = {
               "id": "ru-peoples",
               "title": "The peoples of Russia",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [
+                "ru-638",
+                "ru-674"
+              ]
             },
             {
               "id": "ru-church",
