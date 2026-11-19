@@ -154,6 +154,29 @@
      All three are pure, shared by the worker (the sizes), the page (the drawing, the picking) and the Node tests. */
   const MARK_WIDE_KMPP = 16, MARK_NEAR_KMPP = 1.5, MARK_WIDE_PX = 2, MARK_NEAR_PX = 8;
   const POLITY_KIND = /^(polity|people|culture|extent|front|contested|nested)$/;
+  /* AN AREA IS NEVER A MARK (2026-11-19, on request: "the Aegean Sea must never be a dot: no body of water or desert should EVER get a red dot"). Stated, not left to markClass's
+     fall-through: a body of water (river, lake, sea, ocean, strait, gulf, a card's `shelf`), a desert, an island, a range, a region, a country or a province is a NAME, on every map —
+     the Atlas page, a card window's own place and its siblings, a glossary window. `areaOf(kind, name)` is the windows' test for a card's locator, whose kind may be unset: a water
+     or area kind, else a desert by its name ("Gobi Desert", "Sahara"); it returns "water", "desert", "area" or null. A water card with no registry place is told by its name in
+     build-card-faces.js (`marks.water`), never here, so a town called "Montego Bay" keeps its disc. */
+  const AREA_KIND = /^(river|lake|sea|ocean|strait|gulf|shelf|desert|island|island-group|range|region|country|admin1)$/;
+  const WATER_AREA = /^(river|lake|sea|ocean|strait|gulf|shelf)$/;
+  const DESERT_NAME = /\bdeserts?\b|^sahara$/i;
+  /* THE AREAS' FACE (2026-11-19, on request: an area's name — a state, a region, a people, a water, a desert, a range — "in a different font from specific point locations — a serif"): the
+     theme's --serif when that stack ends in the generic `serif`, else its --display when that does, else Lora (the default theme's serif, shipped in fonts/); no webfont is added.
+     Pure, so the page, the windows and the Node tests agree. */
+  const SERIF_TAIL = /(^|,)\s*serif\s*$/i;
+  function areaSerif(serifVar, displayVar) {
+    const a = String(serifVar || "").trim(), b = String(displayVar || "").trim();
+    return SERIF_TAIL.test(a) ? a : SERIF_TAIL.test(b) ? b : '"Lora", Georgia, "Times New Roman", serif';
+  }
+  function areaOf(kind, name) {
+    kind = String(kind || "");
+    if (WATER_AREA.test(kind)) return "water";
+    if (kind === "desert" || DESERT_NAME.test(String(name || "").split(",")[0].trim())) return "desert";
+    if (AREA_KIND.test(kind)) return "area";
+    return null;
+  }
   function markHalf(kmpp) {
     const k = Math.max(0.001, kmpp || MARK_WIDE_KMPP);
     const t = Math.max(0, Math.min(1, (Math.log(MARK_WIDE_KMPP) - Math.log(k)) / (Math.log(MARK_WIDE_KMPP) - Math.log(MARK_NEAR_KMPP))));
@@ -193,6 +216,7 @@
   function markClass(kind, sub, cap) {
     kind = kind || "";
     if (POLITY_KIND.test(kind)) return null;   // no mark for a state, a people, a culture or an extent (decision b, 2026-10-18): a name, a face
+    if (AREA_KIND.test(kind)) return null;     // no mark for a body of water, a desert or any other area (2026-11-19): a name only
     if (kind === "stack") return "stack";
     if (kind === "capital") return "capital";
     if (kind === "city" || kind === "town") return cap ? "capital" : "settlement";
@@ -517,7 +541,7 @@
     }
     return out;
   }
-  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, capitalIds, LABEL_WRAP, LABEL_SHORT, labelText, bareName, shortName, summary, cardsFor, markHalf, markShape, markScale, markLine, ringHalf, squareHalf, MARK_SMALL, MARK_LINE_MIN, RING_MIN_PX, SQUARE_STACK_PX, STACK_FONT_PX, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, ROLE, warRoles };
+  const api = { fmtN, LIST_CAP, parse, studied, collections, flags, tappableSet, STACK_PX, cityMembership, stackGroups, MARK_CLASSES, markClass, areaOf, areaSerif, capitalIds, LABEL_WRAP, LABEL_SHORT, labelText, bareName, shortName, summary, cardsFor, markHalf, markShape, markScale, markLine, ringHalf, squareHalf, MARK_SMALL, MARK_LINE_MIN, RING_MIN_PX, SQUARE_STACK_PX, STACK_FONT_PX, markLayer, nearMarks, fanOut, yearsNote, framing, isNewDiscovery, isPresence, layerOf, kindWord, PEOPLES_POSITIONS, PEOPLES_DEFAULT, PEOPLES_LABEL, normalizePeoples, peoplesShown, linkedPolities, peoplesNote, splitAlive, isExtent, isFront, fmtDate, dateInt, dateOf, autoFrontDate, platesAt, plateDates, stepPlate, ROLE, warRoles };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.AtlasStudy = api;
 })(typeof window !== "undefined" ? window : globalThis);

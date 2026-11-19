@@ -50,6 +50,7 @@ const ROUTES = ["", "decks", "map", "map2", "account", "settings", "challenge", 
   "howfar",   // How far? (2026-10-30): the engine board, as findit
   "pie",      // What share? (2026-10-31): an inline SVG slider and a lazily injected pool
   "whatlang", // What language? (2026-11-09): a lazily injected pool of passages
+  "whoisthis", // Who is this? (2026-11-19): a lazily injected list, the dealt cards' heavy halves, and a picture from whatever host credited it
   "mission", "studio", "community", "deck/does-not-exist",
   // the Library: the shelf, a real book (its text arrives as a lazily injected <script>, which is
   // exactly the kind of thing script-src 'self' is there to police) and a book that does not exist
