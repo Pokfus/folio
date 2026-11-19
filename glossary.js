@@ -22424,14 +22424,14 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Bamboo_Texts_of_Guodian": ["Guodian Chu Slips","Guodian slips"],
 "Heshang_Gong": ["Heshanggong"],
 "Cook_Ding": ["Butcher Ding","Paoding"],
-"Liezi": ["Lie Zi","Lieh-tzu"],
+"Liezi": ["Lie Zi","Lieh-tzu","Lieh Tzu","Book of Lieh-tzu"],
 "Qiwulun": ["Qi wu lun","Adjustment of Controversies"],
 "Mozi": ["Mo Di","Mo Tzu"],
 "Lu_Ban": ["Gongshu Ban"],
 "Shen_Buhai": ["Shen Pu-hai"],
-"Two_Handles": ["Er bing"],
+"Two_Handles": ["Er bing","Erbing"],
 "He_Tu_and_Luo_Shu": ["Hetu","Luoshu"],
-"Wuxing_(Chinese_philosophy)": ["Wu Xing"],
+"Wuxing_(Chinese_philosophy)": ["Wu Xing","five phases","five elements"],
 "Great_Learning": ["Daxue"],
 "Bai_Hu_Tong": ["White Tiger Discussions","Baihutong"],
 "Liu_Xin_(scholar)": ["Liu Xin"],
@@ -26381,7 +26381,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Birth_tusk": ["apotropaic wand","apotropaic wands","birth tusks","magic wand","magic ivories"],
 "Heka_(god)": ["Heka","Heke"],
 "Caoyun": ["Grain transport","Tribute grain","Ts'ao-yün"],
-"Gaozi": ["Kao Tzu","Kao-tzu"]
+"Gaozi": ["Kao Tzu","Kao-tzu"],
+"Hui_Shi": ["Huizi","Hui Shih"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */

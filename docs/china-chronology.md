@@ -1009,6 +1009,9 @@ Wang Yangming (`cnh-528`); the Treaty of Nanking 29 August 1842 (`cnh-562`); the
 | the Confucius temple: the imperial rite / the sole sage / the images removed | 195 BCE / 628 CE / 1530 | Legge; Murray (`cnh-833`) |
 | the "Discourse on Heaven" written | c. 300 – 200 BCE | Goldin; Elstein (`cnh-835`) |
 | the Guodian slips buried / excavated | c. 300 BCE / 1993 | Kirkland; the SEP (`cnh-838`) |
+| the *Liezi*'s received text (Zhang Zhan's edition) | c. 370 CE | the IEP (`cnh-841`) |
+| the "Qiwulun" dated | c. 400 – 300 BCE | the SEP; Chen Guying (`cnh-842`) |
+| the *Han Feizi* completed | c. 230 BCE | Schlager (`cnh-846`; Han Fei's death 233 BCE in prose) |
 
 ## Later periods
 
@@ -1853,4 +1856,7 @@ cnh-832: 300; 200; 100; 1313
 cnh-833: 195; 628; 1530
 cnh-835: 300; 200
 cnh-838: 300; 1993
+cnh-841: 370
+cnh-842: 400; 300
+cnh-846: 230
 ```
