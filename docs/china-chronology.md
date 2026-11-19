@@ -887,6 +887,14 @@ BCE and the empire's end, the abdication of 12 February 1912 (`cnh-191`, `cnh-57
 | the rule of avoidance: the Ming general rule / the Qing province ban / the lots reform | 1393 / 1655 / 1824 | Ho Ping-ti; Koss (`cnh-707`) |
 | the palace memorials: the earliest and latest kept | 1673 / 1911 | Qin and Gao (`cnh-708`) |
 | the Qing Ministry of Rites founded | 1631 | Keliher (`cnh-709`) |
+| the Great Qing code issued / recast / last revised | 1646 / 1740 / 1905 | Weimar; Ng and Palmer (`cnh-713`) |
+| mutilating punishments ended / the five reformed | 167 BCE / 24 April 1905 | Chavannes; Bourgon (`cnh-714`) |
+| the Yellow Registers compiled / the archive lost | 1381 – 1642 / 1645 | Zhang (`cnh-715`) |
+| lijin first collected / abolished | 3 October 1853 / 1 January 1931 | Beal; FRUS 1931 (`cnh-716`) |
+| the ting quota frozen | 1712 | Liu and Fei (`cnh-717`) |
+| the kaizhong proposed / silver accepted | 1370 / 1492 | An (`cnh-718`) |
+| the ever-normal granaries / Wang Anshi's loans proposed / the price debate | c. 54 BCE / 1069 / 1748 | the *Hanshu*; Will and Wong (`cnh-719`) |
+| the weisuo: the commands split / the army counted | 1380 / 1392 | the *Mingshi* (`cnh-720`) |
 
 ## Later periods
 
@@ -1599,4 +1607,12 @@ cnh-707: 202; 220; 1393; 1655; 1824
 cnh-708: 1673; 1911
 cnh-709: 1631; 1905
 cnh-710: 221; 1912
+cnh-713: 1646; 1740; 1905
+cnh-714: 167; 1905
+cnh-715: 1381; 1642; 1645
+cnh-716: 1853; 1931
+cnh-717: 209; 1712
+cnh-718: 1370; 1492
+cnh-719: 54; 1069; 1748
+cnh-720: 1368; 1644; 1380; 1392
 ```

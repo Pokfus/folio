@@ -583,7 +583,7 @@ otherwise.
 | B69 | People's Republic of China (`col-38`) | `cnh-681`–`cnh-690` | 10 | 104 | **done 2026-11-19** |
 | B70 | Republic of China (Taiwan) (`col-39`) | `cnh-691`–`cnh-700` | 10 | 99 | **done 2026-11-19** |
 | B71 | The imperial state (`cn-government`) | `cnh-701`–`cnh-710` | 10 | 102 | **done 2026-11-19** |
-| B72 | The imperial state (`cn-government`) | `cnh-711`–`cnh-720` | 10 | 111 | to do |
+| B72 | The imperial state (`cn-government`) | `cnh-711`–`cnh-720` | 10 | 111 | **done 2026-11-19** |
 | B73 | The imperial state (`cn-government`) | `cnh-721`–`cnh-730` | 10 | 105 | to do |
 | B74 | The imperial state (`cn-government`) | `cnh-731`–`cnh-740` | 10 | 104 | to do |
 | B75 | Society and everyday life (`cn-society`) | `cnh-741`–`cnh-750` | 10 | 101 | to do |
@@ -4517,3 +4517,29 @@ lots `cnh-707`'s, the rescripts `cnh-708`'s, the tribute entries `cnh-709`'s, th
 **Chinese names corrected**: `cnh-703` 王朝循环. Kept unconfirmed: 中华帝国, `cnh-702` 皇帝 (the title, shared with `cnh-194`), `cnh-707` 回避 (回避制度 the modern compound).
 **Spellings**: no hit. **check-citations**: no mismatch. **Glossary**: all ten rewritten; `Eight-legged_essay` now dates 1663 – 1901 (the suspension to the abolition), for the owner.
 **Locator**: `cnh-704`'s label repeats the answer term ("Nanjing Imperial Examination Museum" would be a place). No protected card in the batch.
+
+### B72 — `cnh-711`–`cnh-720`, the imperial state: the county magistrate to the weisuo system (2026-11-19)
+
+Run as B71. Every cited URL answered. **Pictures were not touched.** **The old cards cited Chinese Wikisource twenty-four times (the *Hanshu*, *Mingshi*, *Qingshi
+gao*, *Sui shu*, *Xin Tangshu*, *Shiji*, Feng Yan), chinaknowledge.de twice, Hummel's *Eminent Chinese* through English Wikisource and a Hucker upload; all gone.** The
+standard histories are now read in the Kanseki Repository's Siku text or on zggdwx.com, one Chinese source a card.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-711` county magistrate | 7 | 7 → 7 | line empty (kept); the *Hanshu*'s 1,587 counties re-read on the Kanseki text; the Liye Qin archive, rank 7A (Brown; Mayers and Brunnert print 7b in their notation), "father and mother" officials, the spring ox rite, Changtai's short postings and the anti-extortion allowance added; the Song origin of *zhixian*, the Ming and Qing county counts (the Siku *Mingshi* reads 1,171 differently) and the 1690 Shao Siyao story dropped. |
+| `cnh-712` yamen | 7 | 7 → 7 | Feng Yan's tooth-banner entry on the Kanseki text ("slowly corrupted", not "the same sound"); Giles on the seal and the screen wall, Ba County's runners and archive (Kim 2023); the "300 – 400 runners" and Wang Huizu's figures dropped. **Name 衙門 in the simplified field → 衙门** (traditional 衙門, yámen). |
+| `cnh-713` Great Qing Legal Code | 6 | 6 → 6 | **the 1646 code did not carry 436 statutes: the Yongzheng revision of 1723 – 25 cut 459 to 436 (Weimar, after Qin 1995) — the old question built on it rewritten; "Replaced 1910" (on no page) → `Issued 1646` / `Recast 1740` / `Last revised 1905`**; the *Qingshi gao* (Wikisource) and Morse dropped; Staunton's "A.D. 1647" for Shunzhi 3 in notes. |
+| `cnh-714` Five Punishments | 6 | 6 → 8 | **"New five fixed 581 CE" (on no page) off: `Mutilation ended 167 BCE` (Chavannes) / `Reformed 24 April 1905`** (Bourgon); Emperor Wen's edict with Meng Kang's count, Jing's cut in strokes, the Tang five (Ho 2015); King Mu's code told as tradition, undated. One phrasing shares 56 per cent of its words with `cnh-360` (the Tang Code; advisory). |
+| `cnh-715` Yellow Registers | 6 | 6 → 6 | line kept (`Compiled 1381 – 1642` / `Archive lost 1645`); the Ming code's 100 blows, "from 1433" and the Qing's annual totals (no permitted page) dropped; the yearly checking panel from the *Mingshi*. **Name: the traditional form in the simplified field → 黄册** (黃冊 on Yue 2012's IHP page). |
+| `cnh-716` lijin | 6 | 6 → 6 | **`Introduced 1853` → `First collected 3 October 1853`** (Beal); Luo Bingzhang's Hunan scheme and the 1889 gentry count (Hummel only) dropped; the 1931 abolition through FRUS. **Pinyin lìjīn → líjīn**, 厘金 / 釐金; `Z.trad` is OpenCC's error (釐金 the standard traditional form, the *Qingshi gao*'s; as on `cnh-494`). |
+| `cnh-717` corvée | 7 | 8 → 7 | **"Dazexiang levy" (a place) and "Single Whip" (a law) → `Levy delayed 209 BCE` / `Quota frozen 1712`**; the Yuelu Qin statutes (the contract three chi long), the Shuihudi lateness penalties against Chen Sheng's "beheading" (Guo [in Chinese]), the Tang levy as 21 days (that study's figure), the single whip and the 1712 freeze (Liu and Fei); Dong Zhongshu's "thirty times" and the Tang day rules (Wikisource) dropped. Pinyin lower-cased, yáoyì. |
+| `cnh-718` kaizhong system | 5 | 5 → 5 | line kept (`Proposed 1370` / `Silver accepted 1492`); the *Ming shi* through An Jiesheng's article [in Chinese]; the 1451 cut (Robinson), the certificates as bearer bonds and the backlog (Theobald on Puk); the "five shi down to one" rates dropped; the old Datong question left to `cnh-747`. **Name 开中 → 开中法 kāizhōngfǎ** (An). |
+| `cnh-719` ever-normal granary | 6 | 7 → 6 | **`Established c. 54 BCE` / `Loans proposed 1069` / `Price debate 1748`; the old "general rule of 1695" was a 1695 order to Jiangnan's granaries to sell 30 per cent** (Will and Wong); the 1748 quotas (33.7 / 44 million shi) and the 1790s reserves dropped; Wallace's 1937 pamphlet; Bodde. 54 BCE is a scholar's conversion of the *Hanshu*'s Wufeng era, hence `c.` |
+| `cnh-720` weisuo system | 6 | 6 → 6 | **"In use 1368 – 1644" ended the system with the Ming, but Mayers shows guards surviving as grain-transport stations: `Dynasty 1368 – 1644` / `Commands split 1380` / `Army counted 1392`**; juan 89's muster figures and the *Qingshi gao* dropped; Szonyi, Ma 2023 (Liaodong). Name 卫所制 kept (no page prints the compound). |
+
+Read by eye. **Confusability**: the household rule and the ox rite `cnh-711`'s, the tooth banner `cnh-712`'s, the 1723 cut `cnh-713`'s, Emperor Wen's edict `cnh-714`'s, the
+lake archive `cnh-715`'s, the transit stations `cnh-716`'s, the contract and the beacons `cnh-717`'s, the bearer certificates `cnh-718`'s, the 30 per cent `cnh-719`'s, the
+hereditary households `cnh-720`'s. **Legend**: Chen Sheng's "lateness means death" (register row `cnh-734`, confirmed in part: the Shuihudi statute's lighter penalties,
+Guo's reading of it as a pretext). **Chinese names corrected**: `cnh-712` 衙门, `cnh-715` 黄册, `cnh-716` líjīn, `cnh-718` 开中法, `cnh-717` yáoyì. Kept unconfirmed: 卫所制;
+`cnh-719`'s split Chángpíng cāng and `cnh-720`'s Wèisuǒ zhì (the orthography would join them; house practice mixed — for the owner). **Spellings**: no hit.
+**check-citations**: no mismatch. **Glossary**: all ten rewritten. **Locator**: `cnh-715` kept (Xuanwu Lake, the archive's site). No protected card in the batch.

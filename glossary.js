@@ -15278,7 +15278,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Emperor_of_China": "221 BCE – 1912 CE",
 "Jiangnan_Examination_Hall": "1168",
 "Eight-legged_essay": "1663–1901",
-"Great_Qing_Legal_Code": "1646–1910",
+"Great_Qing_Legal_Code": "1646–1905",
 "Yellow_Registers": "1381–1645",
 "Likin_(taxation)": "1853–1931",
 "Weisuo_system": "1368–1644",
