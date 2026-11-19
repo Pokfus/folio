@@ -560,7 +560,7 @@ otherwise.
 | B60 | Early Republic (`col-35`) | `cnh-591`–`cnh-600` | 10 | 118 | **done 2026-11-14** |
 | B61 | Early Republic (`col-35`) / Civil War (`col-36`) | `cnh-601`–`cnh-610` | 10 | 116 | **done 2026-11-19** |
 | B62 | Civil War (`col-36`) | `cnh-611`–`cnh-620` | 10 | 105 | **done 2026-11-19** |
-| B63 | Civil War (`col-36`) | `cnh-621`–`cnh-630` | 10 | 103 | to do |
+| B63 | Civil War (`col-36`) | `cnh-621`–`cnh-630` | 10 | 103 | **done 2026-11-19** |
 | B64 | World War II (`col-37`) | `cnh-631`–`cnh-640` | 10 | 97 | to do |
 | B65 | World War II (`col-37`) | `cnh-641`–`cnh-650` | 10 | 117 | to do |
 | B66 | World War II (`col-37`) / People's Republic of China (`col-38`) | `cnh-651`–`cnh-660` | 10 | 99 | to do |
@@ -1260,6 +1260,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-618` | none | not re-checked (pictures paused): wanted |
 | `cnh-619` | none | not re-checked (pictures paused): wanted |
 | `cnh-620` | none | not re-checked (pictures paused): wanted |
+| `cnh-621` | none | not re-checked (pictures paused): wanted |
+| `cnh-622` | none | not re-checked (pictures paused): wanted |
+| `cnh-623` | none | not re-checked (pictures paused): wanted |
+| `cnh-624` | none | not re-checked (pictures paused): wanted |
+| `cnh-625` | none | not re-checked (pictures paused): wanted |
+| `cnh-626` | none | not re-checked (pictures paused): wanted |
+| `cnh-627` | none | not re-checked (pictures paused): wanted |
+| `cnh-628` | none | not re-checked (pictures paused): wanted |
+| `cnh-629` | none | not re-checked (pictures paused): wanted |
+| `cnh-630` | none | not re-checked (pictures paused): wanted |
 
 ## Glossary candidates
 
@@ -4055,3 +4065,36 @@ Huaqing Pool and the spoken promise `cnh-617`'s, the manifesto in the Nationalis
 unchanged** (diffed after the apply). For the owner: `cnh-616`'s "(age 89)" is Western count (a 1976 memorandum's "90-year old" Chinese
 reckoning), its days on no page read; `cnh-615`'s Huai'an against a 1971 CIA report's Shaoxing (the ancestral home). Timelines set:
 `cnh-613` (1942 – 1944), `cnh-618` (22 September 1937, its old end in 1941 being on no page).
+
+### B63 — `cnh-621`–`cnh-630`, the Civil War: the Marshall Mission to the Siege of Changchun (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl. **Pictures were not touched.** **The old cards carried the battle
+template on all five campaigns with casualty totals no page prints ("c. 541,000", "689,099 casualties, incl. 327,000 Nationalists
+captured", "c. 559,000", "490,000", "31,078 military casualties, 150,000 – 200,000 civilians starved") and "Location" rows; cited
+Wikisource and five FRUS telegrams a card; and named institutions and states in labels ("CPPCC opened", "USSR recognised", "Taipei
+seat").** The campaigns' figures are now each side's (the Communists', Taiwan's National Archives, the US consuls', Zhang Zhenglu's,
+the state media's), and the "peaceful liberation" of Beiping and the "stood up" speech are told as whose.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-621` Marshall Mission | 7 | 7 → 8 | **The line stands (`Mission December 1945 – January 1947` / `Ceasefire 10 January 1946` / `Army agreement 25 February 1946`, agreeing with `cnh-615`'s protected row); the Committee of Three, Marshall's statement of 7 January 1947 on "almost overwhelming suspicion", Mao's "smoke-screen"; Yang 2022, the Marshall Foundation, the ROC National Archives**; five primary texts cut to two, the 108 and 60 divisions dropped with their FRUS document. **Name 马歇尔使华 (on no page) → 马歇尔调处 Mǎxiē'ěr Tiáochǔ** (the ROC archive's term). |
+| `cnh-622` gold yuan | 6 | 8 → 6 | **"Replaced July 1949" (its FRUS document does not say it) → `Replaced 2 July 1949` (Lin [in Japanese]); `Controls ended November 1948` (Coble); Chiang Ching-kuo's economic police in Shanghai, one note for three million fabi, the British diplomat on the spared hoarders**; the Wikisource text of Wang Yunwu's statement and three FRUS telegrams dropped. The glossary's "yuan" links to `Yuan_dynasty` (for the owner). |
+| `cnh-623` Liaoshen campaign | 6 | 8 → 6 | **The battle template off, "c. 541,000 casualties" (on no page) with it: `Began 12 September 1948` / `Ended 2 November 1948`; Mao's Jinzhou order, Tashan and the column from Shenyang, the two sides' tallies of nearly half a million (the Communists' 470,000, Taiwan's 472,000); Shenyang entered 1 November (the US consul)**; Changchun cut to a clause, Lin Biao to his command. |
+| `cnh-624` Huaihai campaign | 7 | 7 → 7 | **The battle template off, the 689,099 and 327,000 (on no page) with it: `Began 6 November 1948` / `Ended 10 January 1949`; the wheelbarrow saying "credited to" Chen Yi (a 2021 party journal only), Huang Wei at Shuangduiji, Du Yuming at Chenguanzhuang; Huang Baitao killed (Mao's editors) or a suicide (Bjorge)**. |
+| `cnh-625` Pingjin campaign | 6 | 7 → 6 | **The battle template off, "Location Hebei" and the 559,000 (unsourced) with it: `Began 29 November 1948` / `Ended 31 January 1949` (the ROC National Archives [in Chinese]); Fu Zuoyi's terms as the American consul heard them, Xinbao'an, Tianjin in a day; the "peaceful liberation" told as the PRC's, the ROC's and Dai Qing's**; "Pingjin" said to join Beiping's second syllable and Tianjin's first. |
+| `cnh-626` Yangtze River Crossing campaign | 6 | 8 → 6 | **The battle template off: `Began 20 April 1949` / `Ended 2 June 1949`; the *Amethyst* (who fired first each side's), the wooden boats from Hukou to Jiangyin, the rejected Agreement on Internal Peace; Nanjing taken on 23 April (the PRC's) or the 24th (the US embassy's)**; the glossary's "launched on 21 April" corrected (`cnh-616`'s order day kept apart). Timeline set to 20 April – 2 June 1949. |
+| `cnh-627` Great Retreat | 7 | 7 → 7 | **"Taipei seat" (a place) → `Move announced 8 December 1949` (Lin Tongfa) / `Cabinet moved 9 December 1949` (Ambassador Koo, FRUS); Lin's figures (about 500,000 troops, more than 600,000 officials and civilians) for "1.2 million in all"; the American estimate of the bullion, the census's nine hundred thousand mainlanders, the three waves**; 7 and 10 December (on no page that would open) left out. `G.date` stands: "Great Retreat" resolves to `Great_Retreat_(Russia)` (for the owner). |
+| `cnh-628` Proclamation of the People's Republic of China | 8 | 8 → 9 | **"CPPCC opened" (an institution) → `Assembly opened 21 September 1949`; "USSR recognised" (a state) off; the proclamation from the US consul's same-day translation (FRUS); "stood up" told as the CPPCC speech's, not the gate's, the misattribution named; Dong Xiwen's painting altered (Gao Gang 1954, Liu Shaoqi 1967 — not 1972 — both restored 1979, Hung 2007)**; two Wikisource texts and the 1954 constitution (`cnh-656`'s) dropped. |
+| `cnh-629` peasant nationalism | 6 | 7 → 7 | **`Published 1962` / `Period studied 1937 – 1945`; told as Chalmers Johnson's thesis and coinage, his 1977 reply, Bernal's 1970 review, Chen and Kung 2020, Li Jinzheng 2012 [in Chinese]**; FRUS, Acheson, Pepper (a reference list only) and the "1989 survey" (on no page) dropped from the card and the glossary. |
+| `cnh-630` Siege of Changchun | 6 | 7 → 6 | **The battle template off, the 31,078 (unsourced) with it, and "23 May" (on no page): `Began May 1948` / `Ended 19 October 1948`; the soybean shells kept out, the state media blaming the garrison's general, Zhang Zhenglu's banned history (about 150,000 starved, through the AP 1990) against the 2018 state-media count (58,063), each said whose; Sautin's Cambridge thesis**. |
+
+Read by eye. **Confusability**: the Committee of Three `cnh-621`'s (Zhou's own life `cnh-615`'s); Chiang Ching-kuo's Shanghai police
+`cnh-622`'s; Jinzhou and Tashan `cnh-623`'s, the wheelbarrows and Shuangduiji `cnh-624`'s, Fu Zuoyi and Xinbao'an `cnh-625`'s, the
+*Amethyst* and the wooden boats `cnh-626`'s, the bullion and the census `cnh-627`'s, the painting `cnh-628`'s, the soybean shells
+`cnh-630`'s (Liaoshen keeps Changchun to a clause). **Legend**: the wheelbarrow saying (credited), "stood up" (misattributed to the
+gate), Pingjin's "peaceful liberation" (three tellings), the Changchun dead (two counts) are each said so. **Chinese names corrected**:
+`cnh-621` 马歇尔使华 → 马歇尔调处 Mǎxiē'ěr Tiáochǔ (the ROC archive's term; the old form on no page). Kept: 大撤退 (the ROC says 政府遷臺),
+开国大典 (the text itself is titled 中央人民政府公告). **Spellings**: "Peiping" in two FRUS titles (`cnh-628`), cited as printed. **Myth
+register**: no row touched. **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the apply). For the owner:
+`cnh-627` resolves to the glossary's `Great_Retreat_(Russia)` (`G.date`), `cnh-622`'s "yuan" to `Yuan_dynasty`; `cnh-623` (Jinzhou) and
+`cnh-630` (Changchun) want locators (`L.missing`). Timeline reset: `cnh-626` (20 April – 2 June 1949).

@@ -783,6 +783,16 @@ and is audited as an ordinary card. Dates already set elsewhere that this hundre
 | the Second United Front proclaimed | 22 – 23 September 1937 | Xinhua (`cnh-618`) |
 | the Outline Land Law adopted / published | 13 September 1947 / 10 October 1947 | Mao (`cnh-619`) |
 | the Chongqing talks began / the Double Tenth Agreement signed | 28 August 1945 / 10 October 1945 | Mao; Cheng (`cnh-620`) |
+| the Marshall Mission / the ceasefire / the army agreement | December 1945 – January 1947 / 10 January 1946 / 25 February 1946 | Yang; the ROC National Archives (`cnh-621`) |
+| the gold yuan issued / controls ended / replaced | 19 August 1948 / November 1948 / 2 July 1949 | Lin; Coble (`cnh-622`) |
+| the Liaoshen campaign | 12 September – 2 November 1948 | Mao; the ROC National Archives (`cnh-623`) |
+| the Huaihai campaign | 6 November 1948 – 10 January 1949 | Mao (`cnh-624`) |
+| the Pingjin campaign | 29 November 1948 – 31 January 1949 | the ROC National Archives (`cnh-625`) |
+| the Yangtze crossing campaign | 20 April – 2 June 1949 | Zhang Jingjing (`cnh-626`) |
+| the retreat to Taiwan: peak / the move announced / the cabinet moved | June – December 1949 / 8 December 1949 / 9 December 1949 | Lin Tongfa; FRUS (`cnh-627`) |
+| the CPPCC opened / the People's Republic proclaimed | 21 September 1949 / 1 October 1949 | Mao; FRUS (`cnh-628`) |
+| Johnson's *Peasant Nationalism* / the years it studies | 1962 / 1937 – 1945 | Bernal; Chen and Kung (`cnh-629`) |
+| the Siege of Changchun | May – 19 October 1948 | Sautin; Li and Zhang (`cnh-630`) |
 
 ## Later periods
 
@@ -1408,4 +1418,14 @@ cnh-617: 1936
 cnh-618: 1937
 cnh-619: 1947
 cnh-620: 1945
+cnh-621: 1945; 1947; 1946
+cnh-622: 1948; 1949
+cnh-623: 1948
+cnh-624: 1948; 1949
+cnh-625: 1948; 1949
+cnh-626: 1949
+cnh-627: 1949
+cnh-628: 1949
+cnh-629: 1962; 1937; 1945
+cnh-630: 1948
 ```
