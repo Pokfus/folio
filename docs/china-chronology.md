@@ -1004,6 +1004,11 @@ Wang Yangming (`cnh-528`); the Treaty of Nanking 29 August 1842 (`cnh-562`); the
 | the Great Divergence dated / also dated | 1700 – 1750 / 1800 | Broadberry, Guan and Li; Goldstone (`cnh-825`) |
 | Huang–Lao flourished / the Mawangdui copies buried | c. 300 – 100 BCE / 168 BCE | the cited studies (`cnh-826`) |
 | the *Lüshi Chunqiu* compiled | c. 239 BCE | Knoblock and Riegel, through the SEP (`cnh-827`) |
+| the *Liji* compiled | c. 200 BCE – 200 CE | Legge; Eno (`cnh-831`) |
+| the *Zhongyong* composed / attested / the exam decree | c. 300 – 200 BCE / c. 100 BCE / 1313 | Eno; Legge; Mailla (`cnh-832`, `cnh-853`; with `cnh-491`) |
+| the Confucius temple: the imperial rite / the sole sage / the images removed | 195 BCE / 628 CE / 1530 | Legge; Murray (`cnh-833`) |
+| the "Discourse on Heaven" written | c. 300 – 200 BCE | Goldin; Elstein (`cnh-835`) |
+| the Guodian slips buried / excavated | c. 300 BCE / 1993 | Kirkland; the SEP (`cnh-838`) |
 
 ## Later periods
 
@@ -1843,4 +1848,9 @@ cnh-823: 1682; 1705; 1738; 1764
 cnh-825: 1700; 1750; 1800
 cnh-826: 300; 100; 168
 cnh-827: 239
+cnh-831: 200
+cnh-832: 300; 200; 100; 1313
+cnh-833: 195; 628; 1530
+cnh-835: 300; 200
+cnh-838: 300; 1993
 ```

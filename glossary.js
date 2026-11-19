@@ -15638,7 +15638,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Lüshi_Chunqiu": "c. 239 BCE",
 "Yan_Hui": "c. 521 – 481 BCE",
 "Zhong_You": "d. 480 BCE",
-"Book_of_Rites": "Han dynasty",
+"Book_of_Rites": "c. 200 BCE – 200 CE",
 "Bamboo_Texts_of_Guodian": "c. 300 BCE",
 "Mozi": "c. 430 BCE",
 "Shen_Buhai": "d. 337 BCE",
@@ -22419,7 +22419,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Doctrine_of_the_Mean": ["Zhongyong"],
 "Temple_of_Confucius": ["Wenmiao","Kongmiao"],
 "Four_Beginnings": ["Four sprouts"],
-"Discourse_on_Heaven": ["Tian lun"],
+"Discourse_on_Heaven": ["Tian lun","Tianlun"],
 "Hangu_Pass": ["Hanguan","Hanguguan"],
 "Bamboo_Texts_of_Guodian": ["Guodian Chu Slips","Guodian slips"],
 "Heshang_Gong": ["Heshanggong"],
@@ -26380,7 +26380,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Scarab_(artifact)": ["scarab","scarabs","heart scarab","heart scarabs","scarab seal"],
 "Birth_tusk": ["apotropaic wand","apotropaic wands","birth tusks","magic wand","magic ivories"],
 "Heka_(god)": ["Heka","Heke"],
-"Caoyun": ["Grain transport","Tribute grain","Ts'ao-yün"]
+"Caoyun": ["Grain transport","Tribute grain","Ts'ao-yün"],
+"Gaozi": ["Kao Tzu","Kao-tzu"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
