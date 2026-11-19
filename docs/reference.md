@@ -5691,7 +5691,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   a period from an event among them — the first draft tried "the basis row holds a range" and called the Second
   World War a single event. So the span is authored, with `.claude/set-timeline.js`, from the card's own rows
   wherever they give one, and the helper refuses a card whose kind (first tag) is not `event`, `era`, `battle` or
-  `war` (`--force` overrides and says so). The neighbours are the two before and the two after among the field-
+  `war` (`--force` overrides and says so). The neighbours (2026-11-19, on request) are the THREE before and the THREE after on a desktop and a tablet, TWO and two on a phone (the outer pair is drawn as `.tl-it.outer`, hidden at ≤ 640 px and left out of `tlLayout`'s window there), among the field-
   carrying cards of `cardCollectionRoot`, by start date then id (`cardTimelineItems`); a card with no neighbour
   draws nothing. Two designs, chosen by the 640 px phone query at layout: the RAIL (one axis, marks packed into
   lanes, each name with its date behind it on a desktop and UNDER it on a tablet, 641 – 1024 px, the `.two` class the layout sets) and the LEDGER (time down a spine, a bar a column, names
@@ -5711,7 +5711,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   way out; a date that does not parse is marked `aria-invalid` and not written. The key is `cardTimeline`, never
   `timeline`: that name was v1's map delta and `normalizeAdminEdits` drops it on read. The rollout began with
   the first 20 cards of The Second World War (11 carry the field). By 24 Oct 2026 it covers the event, era, battle and war cards of WW2, China, the United States, Russia, Korea, World History, Ancient Greece, Ancient Rome, Japan and Ancient Egypt — left off are myths, festivals, cards marked undatable, open-ended eras and dates beyond the six-digit year (the Mya cards). The axis ladder runs to 500,000-year steps and a BCE month tick reads "480 BCE", both for those collections.
-  Re-run after touching `cardTimelineSpan` / `cardTimelineItems` / `cardTimelineHTML` / `tlLayout` /
+  THE WAY BACK FROM THE WHOLE TIMELINE (2026-11-19, on request): the section's "whole timeline" link (`.tl-all`, one delegated listener) opens `#timeline/<collection>` and fills `tlHold` (`{ card, rec }`, the study record captured before routing, as `bookHold` does); PAGES.timeline then shows the book reader's "Back to card" pill (`#tlpToCard`), which resumes the study session on the same card with its answer showing, else opens `#card/<id>`; it survives moves within the timeline page and route() drops it on any other.
+  Re-run after touching `cardTimelineSpan` / `cardTimelineItems` / `cardTimelineHTML` / `tlLayout` / `tlHold` /
   `mountCardTimelines` / `set-timeline.js` / the `.tl-` rules: `node .claude/test-card-timeline.js`.
 - **Card image (optional):** `card.image = { src, title, desc, credit, alt }` — rendered by `buildBack` as
   a **16:9 frame** (`.card-img`, `cardImageHTML`) at the top of the Background section. Clicking it opens
