@@ -32,13 +32,13 @@ import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fa import fold, nfc, WORD as WORD_RE
-from persian_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
+from persian_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE, EXTRA
 
 STAMP = '2026-11-09T00:00:00.000Z'
 
 # who a level is for, in the description (Hindi's wording)
 WHO = {'a1': 'a beginner', 'a2': 'an elementary learner', 'b1': 'an intermediate learner',
-       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner'}
+       'b2': 'an upper-intermediate learner', 'c1': 'an advanced learner', 'x1': 'a beginner'}
 TYPE_ID = 'persian'
 COLOR = '#008763'
 FIELDS = ['Persian', 'Roman', 'Word', 'English', 'Forms', 'Table', 'Examples']
@@ -83,6 +83,10 @@ TRAIL = re.compile(r'\s*[:;,]\s*$')
 # offers all of them teaches the noise.
 ETYMS = {
     'شیر': ['1'],
+    # A1 (2026-11-19): نه is na "not; no" and noh "nine", two words in one spelling.  The card
+    # was the first alone, with a sentence of the second (ساعت نه "at nine o'clock") under it,
+    # and no deck taught nine.  Both are on the card; `GLOSS` says how the second is read.
+    'نه': ['1', '2'],
     'زنگ': ['2'],             # "bell, ring, call"; etymology 1 is "rust"
     # A2's months (2026-11-12): the etymology that holds the month, not "arrow", "dowry", "yester"
     'تیر': ['2'],
@@ -115,6 +119,8 @@ ETYMS = {
 # entry is a grammar note rather than a meaning a card can be answered with.
 GLOSS = {
     'را': {'particle': ['marks the definite direct object (placed after it)']},
+    # Wiktionary's numeral entry is romanised noh; the card's one romanisation is na
+    'نه': {'num': ['nine (then read noh)']},
     'باید': {'verb': ['must, have to, should']},
     # Wiktionary files the everyday spelling as "unhamzated form of الآن", with "now" beneath
     'الان': {'adv': ['now']},
@@ -188,6 +194,19 @@ def entries_for(row, lex):
     return out[:3]
 
 
+def register(tags):
+    """WHO SAYS IT TO WHOM (2026-11-19).  Wiktionary tags a sense formal, informal, colloquial,
+    slang, familiar or honorific, and the cards printed none of it: مرسی "thanks" and ببخشید
+    "excuse me" stood with no word of which is said to a friend and which to a stranger, in a
+    language whose politeness is half its grammar.  The tag is printed after the gloss, in
+    brackets, one word."""
+    for tag, word in (('formal', 'formal'), ('honorific', 'honorific'), ('slang', 'slang'),
+                      ('informal', 'informal'), ('colloquial', 'informal'), ('familiar', 'familiar')):
+        if tag in tags:
+            return word
+    return ''
+
+
 def english(ents, word=''):
     parts, shown = [], set()
     for e in ents:
@@ -203,6 +222,9 @@ def english(ents, word=''):
             if g['weak'] and gl:
                 continue
             t = TRAIL.sub('', g['g'])
+            reg = register(g['tags'])
+            if t and reg and reg not in t.lower():
+                t += f' ({reg})'
             if t and t not in seen:
                 seen.add(t)
                 gl.append(t)
@@ -229,6 +251,8 @@ def english(ents, word=''):
 ROMAN_BY_HAND = {# A1 (2026-11-19): بله printed "bali", the reading of بلی, the word its one gloss
                  # points to; its own headword line is `بله • (bale)`
                  'بله': 'bale',
+                 # متشکرم's line reads "motšakkeram", a slip: متشکر's own line is motašakker
+                 'متشکرم': 'motašakkeram',
                  'حس': 'hess', 'نوع': "now'", 'دی': 'dey', 'پست': 'post', 'آرزو': 'ârezu',
                  # B1: the extraction took a Classical or Dari reading (čiguna, tillâ'i,
                  # kôbidan, jârub) or the headword line's optional vowel (pir(e)-mard);
@@ -604,8 +628,9 @@ def desc(entries, n):
         "script writes no short vowels; the Persian Alphabet deck, the first in this collection, "
         f"teaches the script itself. The {nouns} nouns show their plural; the {verbs} verbs show "
         "their present stem, which no rule derives from the infinitive and on which every present "
-        "tense is built, and behind the All forms fold their present, past, future, subjunctive "
-        "and imperative by person. "
+        "tense is built, with the forms Tehran speech says for 'I' and 'he, she' beside it "
+        "(می‌خواهم is said mixâm), and behind the All forms fold their present, past, present "
+        "perfect, future, subjunctive and imperative by person and their negative. "
         + EX_NOTE + ", with the word picked out in colour and a speaker beside the sentence and the "
         "headword. Sources. Level: the Common European Framework of Reference (Council of Europe), "
         "global scale. Meanings, forms and romanisation: English Wiktionary, via the "
@@ -701,6 +726,8 @@ def main():
 
     out = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                        '..', '..', 'decks', DECK_FILES[LEVEL]))
+    if LEVEL in EXTRA:
+        out = os.path.abspath(DECK_FILES[LEVEL])      # the cache: never a deck of its own
     with open(out, 'w', encoding='utf-8') as fh:
         json.dump(deck, fh, ensure_ascii=False)
     print('  wrote', out)

@@ -108,7 +108,7 @@ def main():
     for i, (_, _, _, ft) in enumerate(toks):
         for t in set(ft):
             index.setdefault(t, []).append(i)
-    used, out = set(), {}
+    used, out, ids = set(), {}, {}
     for row in rows:
         L = lex[row['via']] if row.get('via') else lex[row['key']]
         words = fold(row['word']).split()
@@ -146,10 +146,14 @@ def main():
             used.add(c[0])
             _, s, en, _ = toks[c[0]]
             picked.append([s, en, sorted(set(c[2]))])
+            ids.setdefault(row['key'], []).append(toks[c[0]][0])
             if len(picked) == 3:
                 break
         out[row['key']] = picked
     json.dump(out, open(f('examples.json'), 'w', encoding='utf-8'), ensure_ascii=False)
+    # which Tatoeba sentence each one is (the Persian sentence's id), for a record that must
+    # name its sources (`persian-fixes.json`); no deck reads it
+    json.dump(ids, open(f('example-ids.json'), 'w', encoding='utf-8'), ensure_ascii=False)
     n3 = sum(1 for v in out.values() if len(v) == 3)
     n0 = sum(1 for v in out.values() if not v)
     print(f'  {len(pairs)} sentence pairs; three sentences for {n3} words, none for {n0}')

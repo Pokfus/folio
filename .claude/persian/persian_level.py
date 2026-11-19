@@ -40,6 +40,21 @@ TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500, 'c1': 1500}
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
 BELOW['phr'] = list(BANDS)
 
+# A1'S ADDITIONS (`--level x1`, 2026-11-19, the beginner pass).  Not a deck: the handful of words
+# a beginner needs that A1's five hundred do not hold and no other deck cards (`inventory.X1`),
+# built by the same stages so that their meanings, forms and sentences are the pipeline's own,
+# and written into the CACHE (`additions-x1.folio-deck.json`, with the Tatoeba ids of their
+# sentences beside it), never into `decks/`.  `persian-fix.js` copies each into A1 as an `insert`
+# of its record (`--refresh`).  Adding them to `inventory.A1` instead would push A1's last words
+# into A2 and so on up: every level would change.
+EXTRA = ('x1',)
+TITLES['x1'] = 'Persian A1 additions'
+DECK_IDS['x1'] = 'persiana1'
+DECK_FILES['x1'] = 'additions-x1.folio-deck.json'
+TARGET['x1'] = 0
+BELOW['x1'] = []
+NAMES['x1'] = 'Beginner'
+
 SCOPE = {
     'a1': {
         'quote': 'Can understand and use familiar everyday expressions and very basic '
@@ -113,6 +128,9 @@ SCOPE = {
 }
 
 
+SCOPE['x1'] = SCOPE['a1']
+
+
 def f(name):
     """An intermediate file's name for this level."""
     base, ext = os.path.splitext(name)
@@ -123,8 +141,25 @@ _DECKS = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'd
 
 
 def words_below():
-    """Every lemma a lower level teaches, read off its SHIPPED deck file (`Word`)."""
+    """Every lemma a lower level teaches, read off its SHIPPED deck file (`Word`).
+
+    BUT NOT A WORD THE RECORD MOVED DOWN FROM THIS LEVEL OR ABOVE (2026-11-19).  `persian-fix.js`
+    moves cards into A1 from higher decks (سیزده from A2, صفر from B1, a phrase from the phrases
+    deck) and drops them where they came from.  Read naively, the shipped A1 would then tell a
+    rebuild of A2 that سیزده is already taught, A2 would fill the gap with its 751st word, and no
+    level could reproduce itself.  So a moved word still counts as this level's own: the level
+    rebuilds as it always did, and the record drops the card again."""
     from fa import fold
+    order = list(BANDS) + ['phr']
+    moved = {}
+    rec = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'persian-fixes.json')
+    if os.path.exists(rec) and LEVEL in order:
+        ids = {v: k for k, v in DECK_IDS.items() if k in order}
+        for deck, entries in (json.load(open(rec, encoding='utf-8')).get('insert') or {}).items():
+            for e in entries:
+                src = ids.get((e.get('from') or '').split('/')[0])
+                if src and order.index(src) >= order.index(LEVEL):
+                    moved.setdefault(ids.get(deck), set()).add(fold(e['word']))
     out = set()
     for lvl in BELOW.get(LEVEL, []):
         p = os.path.join(_DECKS, DECK_FILES[lvl])
@@ -132,6 +167,6 @@ def words_below():
             raise SystemExit(f'{LEVEL} is built on {lvl}, but {p} is missing')
         for c in json.load(open(p, encoding='utf-8'))['cards']:
             w = (c.get('fields') or {}).get('Word', '')
-            if w:
+            if w and fold(w) not in moved.get(lvl, ()):
                 out.add(fold(w))
     return out
