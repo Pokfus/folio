@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-16T02:38Z",
+ "generated": "2026-11-19T05:15Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8386,
-  "redirect-broader": 802,
-  "redirect-variant": 492,
-  "section-redirect": 190,
+  "ok": 8459,
+  "redirect-broader": 813,
+  "redirect-variant": 500,
+  "section-redirect": 191,
   "disambiguation": 154,
-  "none": 1187,
-  "disambig-resolved": 109,
+  "none": 1193,
+  "disambig-resolved": 110,
   "list-page": 6,
   "search-match": 10,
   "no-article": 20
@@ -90177,6 +90177,766 @@
    "answer": "Esarhaddon",
    "title": "Esarhaddon",
    "url": "https://en.wikipedia.org/wiki/Esarhaddon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-601": {
+   "answer": "pogroms of 1918–1921",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Pogroms during the Russian Civil War",
+    "Pogrom",
+    "Lwów pogrom (1918)",
+    "Odessa pogroms",
+    "Pogroms in the Russian Empire"
+   ]
+  },
+  "ru-602": {
+   "answer": "Russian famine of 1921–1922",
+   "title": "Russian famine of 1921–1922",
+   "url": "https://en.wikipedia.org/wiki/Russian_famine_of_1921%E2%80%931922",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-603": {
+   "answer": "White émigrés",
+   "title": "White émigré",
+   "url": "https://en.wikipedia.org/wiki/White_%C3%A9migr%C3%A9",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "White émigrés"
+  },
+  "ru-604": {
+   "answer": "Treaty of Tartu",
+   "title": "Treaty of Tartu (Estonia–Russia)",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Tartu_(Estonia%E2%80%93Russia)",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Treaty of Tartu (Russian–Estonian)"
+  },
+  "ru-605": {
+   "answer": "Polish–Soviet War",
+   "title": "Polish–Soviet War",
+   "url": "https://en.wikipedia.org/wiki/Polish%E2%80%93Soviet_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-606": {
+   "answer": "Battle of Warsaw",
+   "title": "Battle of Warsaw (1920)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Warsaw_(1920)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-607": {
+   "answer": "Peace of Riga",
+   "title": "Treaty of Riga",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Riga",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Peace of Riga"
+  },
+  "ru-608": {
+   "answer": "Red Army invasion of Georgia",
+   "title": "Soviet invasion of Georgia",
+   "url": "https://en.wikipedia.org/wiki/Soviet_invasion_of_Georgia",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Red Army invasion of Georgia"
+  },
+  "ru-609": {
+   "answer": "Basmachi movement",
+   "title": "Basmachi movement",
+   "url": "https://en.wikipedia.org/wiki/Basmachi_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-610": {
+   "answer": "Kronstadt rebellion",
+   "title": "Kronstadt rebellion",
+   "url": "https://en.wikipedia.org/wiki/Kronstadt_rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-611": {
+   "answer": "Tambov Rebellion",
+   "title": "Tambov Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Tambov_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-612": {
+   "answer": "New Economic Policy",
+   "title": "New Economic Policy",
+   "url": "https://en.wikipedia.org/wiki/New_Economic_Policy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-613": {
+   "answer": "Treaty on the Creation of the USSR",
+   "title": "Treaty on the Creation of the Union of Soviet Socialist Republics",
+   "url": "https://en.wikipedia.org/wiki/Treaty_on_the_Creation_of_the_Union_of_Soviet_Socialist_Republics",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Treaty on the Creation of the USSR"
+  },
+  "ru-614": {
+   "answer": "1924 Constitution of the Soviet Union",
+   "title": "1924 Constitution of the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/1924_Constitution_of_the_Soviet_Union",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-615": {
+   "answer": "Korenizatsiya",
+   "title": "Korenizatsiia",
+   "url": "https://en.wikipedia.org/wiki/Korenizatsiia",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Korenizatsiya"
+  },
+  "ru-616": {
+   "answer": "Joseph Stalin",
+   "title": "Joseph Stalin",
+   "url": "https://en.wikipedia.org/wiki/Joseph_Stalin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-617": {
+   "answer": "Georgian affair",
+   "title": "Georgian affair",
+   "url": "https://en.wikipedia.org/wiki/Georgian_affair",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-618": {
+   "answer": "Lenin's Testament",
+   "title": "Lenin's Testament",
+   "url": "https://en.wikipedia.org/wiki/Lenin's_Testament",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-619": {
+   "answer": "Gorki Leninskiye",
+   "title": "Gorki Leninskiye",
+   "url": "https://en.wikipedia.org/wiki/Gorki_Leninskiye",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-620": {
+   "answer": "Lenin's Mausoleum",
+   "title": "Lenin's Mausoleum",
+   "url": "https://en.wikipedia.org/wiki/Lenin's_Mausoleum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-621": {
+   "answer": "Lenin Enrolment",
+   "title": "Lenin Enrollment",
+   "url": "https://en.wikipedia.org/wiki/Lenin_Enrollment",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Lenin Enrolment"
+  },
+  "ru-622": {
+   "answer": "Left Opposition",
+   "title": "Left Opposition",
+   "url": "https://en.wikipedia.org/wiki/Left_Opposition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-623": {
+   "answer": "Socialism in one country",
+   "title": "Socialism in one country",
+   "url": "https://en.wikipedia.org/wiki/Socialism_in_one_country",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-624": {
+   "answer": "United Opposition",
+   "title": "United Opposition (Soviet Union)",
+   "url": "https://en.wikipedia.org/wiki/United_Opposition_(Soviet_Union)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-625": {
+   "answer": "Ramón Mercader",
+   "title": "Ramón Mercader",
+   "url": "https://en.wikipedia.org/wiki/Ram%C3%B3n_Mercader",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-626": {
+   "answer": "Right Opposition",
+   "title": "Right Opposition",
+   "url": "https://en.wikipedia.org/wiki/Right_Opposition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-627": {
+   "answer": "Nikolai Bukharin",
+   "title": "Nikolai Bukharin",
+   "url": "https://en.wikipedia.org/wiki/Nikolai_Bukharin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-628": {
+   "answer": "Great Break",
+   "title": "Great Break (Soviet Union)",
+   "url": "https://en.wikipedia.org/wiki/Great_Break_(Soviet_Union)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-629": {
+   "answer": "Material balance planning",
+   "title": "Material balance planning",
+   "url": "https://en.wikipedia.org/wiki/Material_balance_planning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-630": {
+   "answer": "Gosplan",
+   "title": "Gosplan",
+   "url": "https://en.wikipedia.org/wiki/Gosplan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-631": {
+   "answer": "Soviet industrialisation",
+   "title": "Industrialization in the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Industrialization_in_the_Soviet_Union",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Soviet industrialisation"
+  },
+  "ru-632": {
+   "answer": "Magnitogorsk",
+   "title": "Magnitogorsk",
+   "url": "https://en.wikipedia.org/wiki/Magnitogorsk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-633": {
+   "answer": "Dnieper Hydroelectric Station",
+   "title": "Dnieper Hydroelectric Station",
+   "url": "https://en.wikipedia.org/wiki/Dnieper_Hydroelectric_Station",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-634": {
+   "answer": "Soviet collectivisation",
+   "title": "Collectivization in the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Collectivization_in_the_Soviet_Union",
+   "via": "variant",
+   "status": "redirect-broader",
+   "from": "Soviet collectivization"
+  },
+  "ru-635": {
+   "answer": "Dekulakisation",
+   "title": "Dekulakization",
+   "url": "https://en.wikipedia.org/wiki/Dekulakization",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Dekulakisation"
+  },
+  "ru-636": {
+   "answer": "Kolkhoz",
+   "title": "Kolkhoz",
+   "url": "https://en.wikipedia.org/wiki/Kolkhoz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-637": {
+   "answer": "Soviet famine of 1930–1933",
+   "title": "Soviet famine of 1930–1933",
+   "url": "https://en.wikipedia.org/wiki/Soviet_famine_of_1930%E2%80%931933",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-638": {
+   "answer": "Holodomor",
+   "title": "Holodomor",
+   "url": "https://en.wikipedia.org/wiki/Holodomor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-639": {
+   "answer": "Kazakh famine of 1930–1933",
+   "title": "Kazakh famine of 1930–1933",
+   "url": "https://en.wikipedia.org/wiki/Kazakh_famine_of_1930%E2%80%931933",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-640": {
+   "answer": "Internal passport",
+   "title": "Internal passport",
+   "url": "https://en.wikipedia.org/wiki/Internal_passport",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-641": {
+   "answer": "Stakhanovite movement",
+   "title": "Stakhanovite movement",
+   "url": "https://en.wikipedia.org/wiki/Stakhanovite_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-642": {
+   "answer": "Gulag",
+   "title": "Gulag",
+   "url": "https://en.wikipedia.org/wiki/Gulag",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-643": {
+   "answer": "White Sea–Baltic Canal",
+   "title": "White Sea–Baltic Canal",
+   "url": "https://en.wikipedia.org/wiki/White_Sea%E2%80%93Baltic_Canal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-644": {
+   "answer": "special settlements",
+   "title": "Special settlements in the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Special_settlements_in_the_Soviet_Union",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Special settlement"
+  },
+  "ru-645": {
+   "answer": "Great Purge",
+   "title": "Great Purge",
+   "url": "https://en.wikipedia.org/wiki/Great_Purge",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-646": {
+   "answer": "Moscow trials",
+   "title": "Moscow trials",
+   "url": "https://en.wikipedia.org/wiki/Moscow_trials",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-647": {
+   "answer": "assassination of Sergei Kirov",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Assassination of Sergei Kirov",
+   "target": "Sergei Kirov#Assassination"
+  },
+  "ru-648": {
+   "answer": "NKVD Order No. 00447",
+   "title": "NKVD Order No. 00447",
+   "url": "https://en.wikipedia.org/wiki/NKVD_Order_No._00447",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-649": {
+   "answer": "Nikolai Yezhov",
+   "title": "Nikolai Yezhov",
+   "url": "https://en.wikipedia.org/wiki/Nikolai_Yezhov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-650": {
+   "answer": "Tukhachevsky affair",
+   "title": "Case of the Trotskyist Anti-Soviet Military Organization",
+   "url": "https://en.wikipedia.org/wiki/Case_of_the_Trotskyist_Anti-Soviet_Military_Organization",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Tukhachevsky affair"
+  },
+  "ru-651": {
+   "answer": "Lavrentiy Beria",
+   "title": "Lavrentiy Beria",
+   "url": "https://en.wikipedia.org/wiki/Lavrentiy_Beria",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-652": {
+   "answer": "Stalin’s cult of personality",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Joseph Stalin's cult of personality",
+    "On the Cult of Personality and Its Consequences",
+    "Cult of personality",
+    "North Korean cult of personality",
+    "List of cults of personality"
+   ]
+  },
+  "ru-653": {
+   "answer": "Stalin Constitution",
+   "title": "1936 Constitution of the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/1936_Constitution_of_the_Soviet_Union",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Stalin Constitution"
+  },
+  "ru-654": {
+   "answer": "Franco-Soviet Treaty of Mutual Assistance",
+   "title": "Franco-Soviet Treaty of Mutual Assistance",
+   "url": "https://en.wikipedia.org/wiki/Franco-Soviet_Treaty_of_Mutual_Assistance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-655": {
+   "answer": "Molotov-Ribbentrop Pact",
+   "title": "Molotov–Ribbentrop Pact",
+   "url": "https://en.wikipedia.org/wiki/Molotov%E2%80%93Ribbentrop_Pact",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Molotov-Ribbentrop Pact"
+  },
+  "ru-656": {
+   "answer": "Great Patriotic War",
+   "title": "Great Patriotic War (term)",
+   "url": "https://en.wikipedia.org/wiki/Great_Patriotic_War_(term)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-657": {
+   "answer": "Soviet invasion of Poland",
+   "title": "Soviet invasion of Poland",
+   "url": "https://en.wikipedia.org/wiki/Soviet_invasion_of_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-658": {
+   "answer": "Katyn massacre",
+   "title": "Katyn massacre",
+   "url": "https://en.wikipedia.org/wiki/Katyn_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-659": {
+   "answer": "Winter War",
+   "title": "Winter War",
+   "url": "https://en.wikipedia.org/wiki/Winter_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-660": {
+   "answer": "State continuity of the Baltic states",
+   "title": "State continuity of the Baltic states",
+   "url": "https://en.wikipedia.org/wiki/State_continuity_of_the_Baltic_states",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-661": {
+   "answer": "Operation Barbarossa",
+   "title": "Operation Barbarossa",
+   "url": "https://en.wikipedia.org/wiki/Operation_Barbarossa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-662": {
+   "answer": "Defence of Brest Fortress",
+   "title": "Defense of Brest Fortress",
+   "url": "https://en.wikipedia.org/wiki/Defense_of_Brest_Fortress",
+   "via": "variant",
+   "status": "ok"
+  },
+  "ru-663": {
+   "answer": "Yelnya offensive",
+   "title": "Yelnya offensive",
+   "url": "https://en.wikipedia.org/wiki/Yelnya_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-664": {
+   "answer": "First Battle of Kiev",
+   "title": "Battle of Kiev (1941)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kiev_(1941)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "First Battle of Kiev"
+  },
+  "ru-665": {
+   "answer": "evacuation of Soviet industry",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Evacuation in the Soviet Union",
+    "Evacuation of East Prussia",
+    "North Korea–Russia relations",
+    "Soviet industry in World War II",
+    "Evacuation of Manchukuo"
+   ]
+  },
+  "ru-666": {
+   "answer": "Battle of Moscow",
+   "title": "Battle of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Moscow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-667": {
+   "answer": "Siege of Leningrad",
+   "title": "Siege of Leningrad",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Leningrad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-668": {
+   "answer": "Road of Life",
+   "title": "Road of Life",
+   "url": "https://en.wikipedia.org/wiki/Road_of_Life",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-669": {
+   "answer": "Central Headquarters of the Partisan Movement",
+   "title": "Central Headquarters of the Partisan Movement",
+   "url": "https://en.wikipedia.org/wiki/Central_Headquarters_of_the_Partisan_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-670": {
+   "answer": "Reichskommissariat Ostland",
+   "title": "Reichskommissariat Ostland",
+   "url": "https://en.wikipedia.org/wiki/Reichskommissariat_Ostland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-671": {
+   "answer": "Black Book of Soviet Jewry",
+   "title": "The Black Book of Soviet Jewry",
+   "url": "https://en.wikipedia.org/wiki/The_Black_Book_of_Soviet_Jewry",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-672": {
+   "answer": "Babi Yar",
+   "title": "Babi Yar",
+   "url": "https://en.wikipedia.org/wiki/Babi_Yar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-673": {
+   "answer": "German mistreatment of Soviet prisoners of war",
+   "title": "German atrocities committed against Soviet prisoners of war",
+   "url": "https://en.wikipedia.org/wiki/German_atrocities_committed_against_Soviet_prisoners_of_war",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "German mistreatment of Soviet prisoners of war"
+  },
+  "ru-674": {
+   "answer": "Punished peoples",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Punisher",
+    "Russian citizenship law",
+    "The Punisher (TV series)",
+    "Punisher (disambiguation)",
+    "The Punisher (2004 film)"
+   ]
+  },
+  "ru-675": {
+   "answer": "Deportation of the Crimean Tatars",
+   "title": "Deportation of the Crimean Tatars",
+   "url": "https://en.wikipedia.org/wiki/Deportation_of_the_Crimean_Tatars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-676": {
+   "answer": "Battle of Stalingrad",
+   "title": "Battle of Stalingrad",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Stalingrad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-677": {
+   "answer": "Operation Uranus",
+   "title": "Operation Uranus",
+   "url": "https://en.wikipedia.org/wiki/Operation_Uranus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-678": {
+   "answer": "Battle of Kursk",
+   "title": "Battle of Kursk",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kursk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-679": {
+   "answer": "ALSIB",
+   "title": "ALSIB",
+   "url": "https://en.wikipedia.org/wiki/ALSIB",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-680": {
+   "answer": "Arctic convoys",
+   "title": "Arctic convoys of World War II",
+   "url": "https://en.wikipedia.org/wiki/Arctic_convoys_of_World_War_II",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Arctic convoys"
+  },
+  "ru-681": {
+   "answer": "Operation Bagration",
+   "title": "Operation Bagration",
+   "url": "https://en.wikipedia.org/wiki/Operation_Bagration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-682": {
+   "answer": "Battle of Radzymin",
+   "title": "Battle of Radzymin (1944)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Radzymin_(1944)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-683": {
+   "answer": "Prague offensive",
+   "title": "Prague offensive",
+   "url": "https://en.wikipedia.org/wiki/Prague_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-684": {
+   "answer": "Battle of Berlin",
+   "title": "Battle of Berlin",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Berlin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-685": {
+   "answer": "rape during the occupation of Germany",
+   "title": "Rape during the occupation of Germany",
+   "url": "https://en.wikipedia.org/wiki/Rape_during_the_occupation_of_Germany",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-686": {
+   "answer": "Soviet–Japanese War",
+   "title": "Soviet–Japanese War",
+   "url": "https://en.wikipedia.org/wiki/Soviet%E2%80%93Japanese_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-687": {
+   "answer": "Soviet war dead",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "World War II casualties of the Soviet Union",
+    "Soviet War Memorial (Vienna)",
+    "Polish–Soviet War",
+    "Soviet War Memorial (Tiergarten)",
+    "Dead Hand"
+   ]
+  },
+  "ru-688": {
+   "answer": "Trudarmiya",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Nikolai Yudin"
+   ]
+  },
+  "ru-689": {
+   "answer": "Soviet women in World War II",
+   "title": "Soviet women in World War II",
+   "url": "https://en.wikipedia.org/wiki/Soviet_women_in_World_War_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-690": {
+   "answer": "Immortal Regiment",
+   "title": "Immortal Regiment",
+   "url": "https://en.wikipedia.org/wiki/Immortal_Regiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-691": {
+   "answer": "Soviet famine of 1946–1947",
+   "title": "Soviet famine of 1946–1947",
+   "url": "https://en.wikipedia.org/wiki/Soviet_famine_of_1946%E2%80%931947",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-692": {
+   "answer": "Eastern Bloc",
+   "title": "Eastern Bloc",
+   "url": "https://en.wikipedia.org/wiki/Eastern_Bloc",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-693": {
+   "answer": "Soviet atomic bomb project",
+   "title": "Soviet atomic bomb project",
+   "url": "https://en.wikipedia.org/wiki/Soviet_atomic_bomb_project",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-694": {
+   "answer": "Zhdanovshchina",
+   "title": "Zhdanov Doctrine",
+   "url": "https://en.wikipedia.org/wiki/Zhdanov_Doctrine",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Zhdanovshchina"
+  },
+  "ru-695": {
+   "answer": "Doctors' plot",
+   "title": "Doctors' plot",
+   "url": "https://en.wikipedia.org/wiki/Doctors'_plot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-696": {
+   "answer": "death of Stalin",
+   "title": "Death and state funeral of Joseph Stalin",
+   "url": "https://en.wikipedia.org/wiki/Death_and_state_funeral_of_Joseph_Stalin",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Death of Stalin"
+  },
+  "ru-697": {
+   "answer": "Nikita Khrushchev",
+   "title": "Nikita Khrushchev",
+   "url": "https://en.wikipedia.org/wiki/Nikita_Khrushchev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-698": {
+   "answer": "On the Cult of Personality and Its Consequences",
+   "title": "On the Cult of Personality and Its Consequences",
+   "url": "https://en.wikipedia.org/wiki/On_the_Cult_of_Personality_and_Its_Consequences",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-699": {
+   "answer": "de-Stalinisation",
+   "title": "De-Stalinization",
+   "url": "https://en.wikipedia.org/wiki/De-Stalinization",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "De-Stalinisation"
+  },
+  "ru-700": {
+   "answer": "Khrushchev Thaw",
+   "title": "Khrushchev thaw",
+   "url": "https://en.wikipedia.org/wiki/Khrushchev_thaw",
    "via": "glossary",
    "status": "ok"
   }
