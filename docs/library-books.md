@@ -12,7 +12,25 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently seventy-six:
+  matter (chapter 0 — see the Library bullet). Currently seventy-seven:
+  `darwin-origin-of-species` (~880 KB, **15 sections** — Darwin's Introduction and his fourteen chapters, so a tab runs
+  one ahead of the chapter; `chapterWord: "Section"`, titles from the 1859 contents page via `titleOf` — **no notes**:
+  the first edition has none, and no original, the book being English). The first edition, John Murray, London, 1859,
+  **validated** on Wikisource (every page `data-page-quality="4"`) from the facsimile scan; one page per chapter,
+  through the generic extractor with no `prep`. `dropHeads` takes the half-title, the rule and each centred
+  "CHAPTER N." head; `reFixes` (all on the cleaned page, which is what the cache holds) set **Darwin's argument
+  under each chapter head** — a small-type list of topics, an indented block that would read as a quotation — as a
+  `bk-head` line (two rows: open where the block holds one dashed run, then close), strip the `<br>` the
+  transcription opens 55 paragraphs with, and repair the one illustration: **the folding diagram of divergence**
+  (to face p. 117) is transcribed as a picture plus a bracketed caption standing mid-sentence, with the page wrapper
+  closed and reopened round it, so the caption goes, two broken sentences are joined and the bare run left behind
+  is closed. The Library sets no pictures, and the front matter says the diagram is not reproduced. Chapter IX's one
+  table (Ramsay's thicknesses of the British strata) becomes a block of one row to a line. Licence: printed 1859,
+  Darwin d. 1882 — no limit to state. Colour `#573006` (14.2: the band is full; Hobbes 30.9, Lucretius 47.7, Plato
+  52.2 and more off). `glossOff` (swept over all 15 sections, 93 keys → 82): Pallas (P. S. Pallas),
+  Philippi (R. A. Philippi), Silla (the mountain at Caracas), Rhea (the bird), the Hydra (the polyp), Sound,
+  Jerusalem (artichoke), Jordan (Hill), Arab/Arabian (the horse) and Iran (Iran and Turan). Excerpt: the closing
+  "entangled bank" paragraph. Not included: the title page and its epigraphs, the contents and the index.
   `augustus-res-gestae` (~64 KB, **7 chapters** — the Loeb's Parts I–VI and its third-person Summary — **150 notes**,
   Latin original ~25 KB; Frederick W. Shipley's Loeb, 1924, in Bill Thayer's transcription on LacusCurtius). `layout:
   "monumentum"` (and the same on `original`): Thayer sets each chapter as a row of Latin, Greek and English cells, so
