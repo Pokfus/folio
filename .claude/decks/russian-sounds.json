@@ -1,0 +1,1326 @@
+{
+ "_": "russian-sounds.json — the table behind decks/Russian-Sounds-and-Spelling.folio-deck.json AND decks/Russian-Alphabet.folio-deck.json, read by build-russian-sounds.js. NOTHING IN IT IS COMPOSED. `letters`: each letter's `name`, `ipa` and `like` are the Name, IPA and \"Approximate English equivalent\" cells of the Letters table of Wikipedia's \"Russian alphabet\" at the revision named under `sources.alphabet`. `sounds`: every `like` and `ipa` is a cell of Help:IPA/Russian (`sources.ipa`; the й row and the look-alike rows are the alphabet table's), every `says` a sentence or note of the page its `src` names (ipa = the notes of Help:IPA/Russian; alphabet = \"Russian alphabet\", its Consonants, Vowels, Hard sign, Soft sign and Diacritics sections; phonology = \"Russian phonology\"), a cut marked […] and two passages joined by —. `name` and `kind` are labels, and so is `when`: it says where the letter stands in the words listed under it, each of which carries the transcription that shows the sound. Every word is a headword of TORFL A1 (one word of an aspect pair may be named), and the transcription beside it (`wipa`, the second item of a `words` pair) is the first one the English Wiktionary gives that word, copied by machine from the kaikki.org extract on 2026-11-19. A row's `key` is what its note id is pinned to in russian-ids.json.",
+ "sources": {
+  "ipa": {
+   "title": "Help:IPA/Russian",
+   "url": "https://en.wikipedia.org/wiki/Help:IPA/Russian",
+   "revid": 1383914368,
+   "timestamp": "2026-11-05T15:29:52Z"
+  },
+  "alphabet": {
+   "title": "Russian alphabet",
+   "url": "https://en.wikipedia.org/wiki/Russian_alphabet",
+   "revid": 1381885718,
+   "timestamp": "2026-10-25T12:00:25Z"
+  },
+  "phonology": {
+   "title": "Russian phonology",
+   "url": "https://en.wikipedia.org/wiki/Russian_phonology",
+   "revid": 1385867680,
+   "timestamp": "2026-11-15T17:58:54Z"
+  }
+ },
+ "letters": [
+  {
+   "key": "А а",
+   "name": "а",
+   "ipa": "[a], [ɐ]",
+   "like": "f<b>a</b>ther",
+   "word": "мама",
+   "wipa": "[ˈmamə]"
+  },
+  {
+   "key": "Б б",
+   "name": "бэ",
+   "ipa": "[b] or [bʲ]",
+   "like": "<b>b</b>ad",
+   "word": "брат",
+   "wipa": "[brat]"
+  },
+  {
+   "key": "В в",
+   "name": "вэ",
+   "ipa": "[v] or [vʲ]",
+   "like": "<b>v</b>ine",
+   "word": "вода",
+   "wipa": "[vɐˈda]"
+  },
+  {
+   "key": "Г г",
+   "name": "гэ",
+   "ipa": "[ɡ] or [gʲ]",
+   "like": "<b>g</b>o",
+   "word": "город",
+   "wipa": "[ˈɡorət]"
+  },
+  {
+   "key": "Д д",
+   "name": "дэ",
+   "ipa": "[d] or [dʲ]",
+   "like": "<b>d</b>o",
+   "word": "дом",
+   "wipa": "[dom]"
+  },
+  {
+   "key": "Е е",
+   "name": "е",
+   "ipa": "[je], [ʲe] or [e]",
+   "like": "<b>ye</b>s",
+   "word": "есть",
+   "wipa": "[jesʲtʲ]"
+  },
+  {
+   "key": "Ё ё",
+   "name": "ё",
+   "ipa": "[jo] or [ʲo]",
+   "like": "<b>yo</b>gurt",
+   "word": "её",
+   "wipa": "[(j)ɪˈjɵ]"
+  },
+  {
+   "key": "Ж ж",
+   "name": "жэ",
+   "ipa": "[ʐ]",
+   "like": "mea<b>s</b>ure",
+   "word": "жена",
+   "wipa": "[ʐɨˈna]"
+  },
+  {
+   "key": "З з",
+   "name": "зэ",
+   "ipa": "[z] or [zʲ]",
+   "like": "<b>z</b>oo",
+   "word": "зима",
+   "wipa": "[zʲɪˈma]"
+  },
+  {
+   "key": "И и",
+   "name": "и",
+   "ipa": "[i], [ʲi], or [ɨ]",
+   "like": "pol<b>i</b>ce",
+   "word": "имя",
+   "wipa": "[ˈimʲə]"
+  },
+  {
+   "key": "Й й",
+   "name": "и краткое",
+   "ipa": "[j]",
+   "like": "<b>y</b>ou or to<b>y</b>",
+   "word": "мой",
+   "wipa": "[moj]"
+  },
+  {
+   "key": "К к",
+   "name": "ка",
+   "ipa": "[k] or [kʲ]",
+   "like": "<b>k</b>ept",
+   "word": "книга",
+   "wipa": "[ˈknʲiɡə]"
+  },
+  {
+   "key": "Л л",
+   "name": "эль",
+   "ipa": "[ɫ] or [lʲ]",
+   "like": "fee<b>l</b> or <b>l</b>amp",
+   "word": "лето",
+   "wipa": "[ˈlʲetə]"
+  },
+  {
+   "key": "М м",
+   "name": "эм",
+   "ipa": "[m] or [mʲ]",
+   "like": "<b>m</b>ap",
+   "word": "молоко",
+   "wipa": "[məɫɐˈko]"
+  },
+  {
+   "key": "Н н",
+   "name": "эн",
+   "ipa": "[n] or [nʲ]",
+   "like": "<b>n</b>ot",
+   "word": "нет",
+   "wipa": "[nʲet]"
+  },
+  {
+   "key": "О о",
+   "name": "о",
+   "ipa": "[o]",
+   "like": "m<b>o</b>re",
+   "word": "окно",
+   "wipa": "[ɐkˈno]"
+  },
+  {
+   "key": "П п",
+   "name": "пэ",
+   "ipa": "[p] or [pʲ]",
+   "like": "<b>p</b>et",
+   "word": "папа",
+   "wipa": "[ˈpapə]"
+  },
+  {
+   "key": "Р р",
+   "name": "эр",
+   "ipa": "[r] or [rʲ]",
+   "like": "rolled <b>r</b>",
+   "word": "рыба",
+   "wipa": "[ˈrɨbə]"
+  },
+  {
+   "key": "С с",
+   "name": "эс",
+   "ipa": "[s] or [sʲ]",
+   "like": "<b>s</b>et",
+   "word": "сок",
+   "wipa": "[sok]"
+  },
+  {
+   "key": "Т т",
+   "name": "тэ",
+   "ipa": "[t] or [tʲ]",
+   "like": "<b>t</b>op",
+   "word": "там",
+   "wipa": "[tam]"
+  },
+  {
+   "key": "У у",
+   "name": "у",
+   "ipa": "[u]",
+   "like": "t<b>oo</b>l",
+   "word": "утро",
+   "wipa": "[ˈutrə]"
+  },
+  {
+   "key": "Ф ф",
+   "name": "эф",
+   "ipa": "[f] or [fʲ]",
+   "like": "<b>f</b>ace",
+   "word": "фамилия",
+   "wipa": "[fɐˈmʲilʲɪjə]"
+  },
+  {
+   "key": "Х х",
+   "name": "ха",
+   "ipa": "[x] or [xʲ]",
+   "like": "like Scottish \"lo<b>ch</b>\", u<b>gh</b>",
+   "word": "хлеб",
+   "wipa": "[xlʲep]"
+  },
+  {
+   "key": "Ц ц",
+   "name": "цэ",
+   "ipa": "[t͡s]",
+   "like": "si<b>ts</b>",
+   "word": "центр",
+   "wipa": "[t͡sɛntr]"
+  },
+  {
+   "key": "Ч ч",
+   "name": "че",
+   "ipa": "[t͡ɕ] or [tʃ]",
+   "like": "<b>ch</b>eck",
+   "word": "чай",
+   "wipa": "[t͡ɕæj]"
+  },
+  {
+   "key": "Ш ш",
+   "name": "ша",
+   "ipa": "[ʂ] or [ʃ]",
+   "like": "similar to \"sh\" in hu<b>sh</b>",
+   "word": "школа",
+   "wipa": "[ˈʂkoɫə]"
+  },
+  {
+   "key": "Щ щ",
+   "name": "ща",
+   "ipa": "[ɕː], [ɕ]",
+   "like": "similar to a long \"sh\" as in pu<b>sh sh</b>ips or a short \"sh\" as in sheep",
+   "word": "ещё",
+   "wipa": "[(j)ɪˈɕːɵ]"
+  },
+  {
+   "key": "Ъ ъ",
+   "name": "твёрдый знак",
+   "ipa": "[∅]",
+   "like": "silent, prevents palatalization of the preceding consonant",
+   "word": "съесть",
+   "wipa": "[sjesʲtʲ]"
+  },
+  {
+   "key": "Ы ы",
+   "name": "ы",
+   "ipa": "[ɨ] or [i]",
+   "like": "General American ros<b>e</b>s (rough equivalent)",
+   "word": "мы",
+   "wipa": "[mɨ]"
+  },
+  {
+   "key": "Ь ь",
+   "name": "мягкий знак",
+   "ipa": "[ʲ]",
+   "like": "silent, palatalizes the preceding consonant (if phonologically possible)",
+   "word": "день",
+   "wipa": "[dʲenʲ]"
+  },
+  {
+   "key": "Э э",
+   "name": "э",
+   "ipa": "[ɛ] or [e]",
+   "like": "m<b>e</b>t",
+   "word": "это",
+   "wipa": "[ˈɛtə]"
+  },
+  {
+   "key": "Ю ю",
+   "name": "ю",
+   "ipa": "[ju] or [ʲu]",
+   "like": "<b>u</b>se or <b>you</b>th",
+   "word": "июнь",
+   "wipa": "[ɪˈjʉnʲ]"
+  },
+  {
+   "key": "Я я",
+   "name": "я",
+   "ipa": "[ja] or [ʲa]",
+   "like": "<b>ya</b>rd",
+   "word": "я",
+   "wipa": "[ja]"
+  }
+ ],
+ "sounds": [
+  {
+   "key": "rule:lookalike",
+   "show": "В Н Р С У Х",
+   "kind": "Russian letters",
+   "name": "six letters that look Latin and are not",
+   "heads": [
+    "letter",
+    "sound",
+    "as in"
+   ],
+   "pairs": [
+    [
+     "В в",
+     "[v] or [vʲ]",
+     "vine"
+    ],
+    [
+     "Н н",
+     "[n] or [nʲ]",
+     "not"
+    ],
+    [
+     "Р р",
+     "[r] or [rʲ]",
+     "rolled r"
+    ],
+    [
+     "С с",
+     "[s] or [sʲ]",
+     "set"
+    ],
+    [
+     "У у",
+     "[u]",
+     "tool"
+    ],
+    [
+     "Х х",
+     "[x] or [xʲ]",
+     "like Scottish \"loch\", ugh"
+    ]
+   ],
+   "src": "alphabet",
+   "words": [
+    [
+     "вы",
+     "[vɨ]"
+    ],
+    [
+     "нет",
+     "[nʲet]"
+    ],
+    [
+     "рыба",
+     "[ˈrɨbə]"
+    ],
+    [
+     "сок",
+     "[sok]"
+    ],
+    [
+     "утро",
+     "[ˈutrə]"
+    ],
+    [
+     "хлеб",
+     "[xlʲep]"
+    ]
+   ]
+  },
+  {
+   "key": "rule:stress",
+   "show": "◌́",
+   "kind": "Russian spelling",
+   "name": "the stress mark",
+   "src": "alphabet+phonology",
+   "says": "The only diacritic, in the proper sense, is the acute accent ⟨◌́⟩ […], which marks stress on a vowel […]. Although Russian word stress is often unpredictable and can fall on different syllables in different forms of the same word, the diacritic accent is used only in dictionaries, children's books, resources for foreign-language learners […]. — Stress in Russian is phonemic and therefore unpredictable. It may fall on any syllable, and can vary drastically in similar or related words.",
+   "words": [
+    [
+     "молоко",
+     "[məɫɐˈko]"
+    ],
+    [
+     "хорошо",
+     "[xərɐˈʂo]"
+    ],
+    [
+     "спасибо",
+     "[spɐˈsʲibə]"
+    ],
+    [
+     "рука",
+     "[rʊˈka]"
+    ]
+   ]
+  },
+  {
+   "key": "vowel:о",
+   "show": "о",
+   "kind": "Russian vowel",
+   "says": "Unstressed /a/ and /o/ regularly lose their contrast, being pronounced [ɐ] in word-initial position, as well as when in a sequence, and [ə] in posttonic position (i.e. after the stress); in non-initial pretonic position (i.e. before the stress) they are reduced to [ɐ] only immediately before the stress, being realized [ə] otherwise.",
+   "src": "ipa",
+   "rows": [
+    {
+     "when": "stressed",
+     "ipa": "[o]",
+     "like": "ch<b>o</b>re",
+     "words": [
+      [
+       "дом",
+       "[dom]"
+      ],
+      [
+       "он",
+       "[on]"
+      ],
+      [
+       "сок",
+       "[sok]"
+      ]
+     ],
+     "mark": "о"
+    },
+    {
+     "when": "unstressed: at the start of a word, or just before the stress",
+     "ipa": "[ɐ]",
+     "like": "b<b>u</b>d",
+     "words": [
+      [
+       "она",
+       "[ɐˈna]"
+      ],
+      [
+       "вода",
+       "[vɐˈda]"
+      ],
+      [
+       "когда",
+       "[kɐɡˈda]"
+      ]
+     ],
+     "mark": "о"
+    },
+    {
+     "when": "unstressed: anywhere else",
+     "ipa": "[ə]",
+     "like": "<b>a</b>bout",
+     "words": [
+      [
+       "это",
+       "[ˈɛtə]"
+      ],
+      [
+       "спасибо",
+       "[spɐˈsʲibə]"
+      ],
+      [
+       "утро",
+       "[ˈutrə]"
+      ]
+     ],
+     "mark": "о"
+    }
+   ]
+  },
+  {
+   "key": "vowel:а",
+   "show": "а",
+   "kind": "Russian vowel",
+   "says": "Unstressed /a/ and /o/ regularly lose their contrast, being pronounced [ɐ] in word-initial position, as well as when in a sequence, and [ə] in posttonic position (i.e. after the stress); in non-initial pretonic position (i.e. before the stress) they are reduced to [ɐ] only immediately before the stress, being realized [ə] otherwise.",
+   "src": "ipa",
+   "rows": [
+    {
+     "when": "stressed",
+     "ipa": "[a]",
+     "like": "f<b>a</b>ther (Australian English)",
+     "words": [
+      [
+       "да",
+       "[ˈda]"
+      ],
+      [
+       "там",
+       "[tam]"
+      ],
+      [
+       "час",
+       "[t͡ɕas]"
+      ]
+     ],
+     "mark": "а"
+    },
+    {
+     "when": "unstressed: at the start of a word, or just before the stress",
+     "ipa": "[ɐ]",
+     "like": "b<b>u</b>d",
+     "words": [
+      [
+       "какой",
+       "[kɐˈkoj]"
+      ],
+      [
+       "такой",
+       "[tɐˈkoj]"
+      ],
+      [
+       "зачем",
+       "[zɐˈt͡ɕem]"
+      ]
+     ],
+     "mark": "а"
+    },
+    {
+     "when": "unstressed: anywhere else",
+     "ipa": "[ə]",
+     "like": "<b>a</b>bout",
+     "words": [
+      [
+       "мама",
+       "[ˈmamə]"
+      ],
+      [
+       "книга",
+       "[ˈknʲiɡə]"
+      ],
+      [
+       "рыба",
+       "[ˈrɨbə]"
+      ]
+     ],
+     "mark": "а$"
+    }
+   ]
+  },
+  {
+   "key": "vowel:е",
+   "show": "е",
+   "kind": "Russian vowel",
+   "src": "ipa",
+   "says": "The soft vowels, ⟨е, ё, и, ю, я⟩, either indicate a preceding palatalized consonant, or (with the exception of ⟨и⟩) are iotated (pronounced with a preceding /j/) in all other cases. The IPA vowels shown are a guideline only and sometimes are realized as different sounds, particularly when unstressed.",
+   "rows": [
+    {
+     "when": "stressed",
+     "ipa": "[e]",
+     "like": "m<b>a</b>ce",
+     "words": [
+      [
+       "нет",
+       "[nʲet]"
+      ],
+      [
+       "день",
+       "[dʲenʲ]"
+      ],
+      [
+       "лето",
+       "[ˈlʲetə]"
+      ]
+     ],
+     "mark": "е"
+    },
+    {
+     "when": "unstressed",
+     "ipa": "[ɪ]",
+     "like": "b<b>i</b>t",
+     "words": [
+      [
+       "сестра",
+       "[sʲɪˈstra]"
+      ],
+      [
+       "телефон",
+       "[tʲɪlʲɪˈfon]"
+      ],
+      [
+       "земля",
+       "[zʲɪˈmlʲa]"
+      ]
+     ],
+     "mark": "е"
+    }
+   ]
+  },
+  {
+   "key": "vowel:я",
+   "show": "я",
+   "kind": "Russian vowel",
+   "src": "ipa",
+   "rows": [
+    {
+     "when": "stressed, between soft consonants",
+     "ipa": "[æ]",
+     "like": "p<b>a</b>t",
+     "words": [
+      [
+       "пять",
+       "[pʲætʲ]"
+      ]
+     ],
+     "mark": "я"
+    },
+    {
+     "when": "unstressed",
+     "ipa": "[ɪ]",
+     "like": "b<b>i</b>t",
+     "words": [
+      [
+       "язык",
+       "[(j)ɪˈzɨk]"
+      ],
+      [
+       "девять",
+       "[ˈdʲevʲɪtʲ]"
+      ],
+      [
+       "десять",
+       "[ˈdʲesʲɪtʲ]"
+      ]
+     ],
+     "mark": "я"
+    },
+    {
+     "when": "unstressed, last in the word",
+     "ipa": "[ə]",
+     "like": "lasagn<b>a</b>",
+     "words": [
+      [
+       "время",
+       "[ˈvrʲemʲə]"
+      ],
+      [
+       "имя",
+       "[ˈimʲə]"
+      ],
+      [
+       "неделя",
+       "[nʲɪˈdʲelʲə]"
+      ]
+     ],
+     "mark": "я$"
+    }
+   ]
+  },
+  {
+   "key": "vowel:ё",
+   "show": "ё",
+   "kind": "Russian vowel",
+   "src": "ipa+alphabet",
+   "says": "The written letter ⟨ё⟩ is optional; it is formally correct to write ⟨e⟩ for both /je/ and /jo/. […] Stress on this letter is never marked with a diacritic, as it is always stressed (except in some compounds and loanwords).",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "[ɵ]",
+     "like": "f<b>oo</b>t",
+     "words": [
+      [
+       "её",
+       "[(j)ɪˈjɵ]"
+      ],
+      [
+       "ещё",
+       "[(j)ɪˈɕːɵ]"
+      ],
+      [
+       "зелёный",
+       "[zʲɪˈlʲɵnɨj]"
+      ]
+     ],
+     "mark": "ё"
+    }
+   ]
+  },
+  {
+   "key": "vowel:ю",
+   "show": "ю",
+   "kind": "Russian vowel",
+   "src": "ipa",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "[ʉ]",
+     "like": "ch<b>oo</b>se",
+     "words": [
+      [
+       "люди",
+       "[ˈlʲʉdʲɪ]"
+      ],
+      [
+       "июнь",
+       "[ɪˈjʉnʲ]"
+      ],
+      [
+       "любить",
+       "[lʲʉˈbʲitʲ]"
+      ]
+     ],
+     "mark": "ю"
+    }
+   ]
+  },
+  {
+   "key": "vowel:ы",
+   "show": "ы",
+   "kind": "Russian vowel",
+   "src": "ipa",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "[ɨ]",
+     "like": "ros<b>e</b>s (<i>for some dialects</i>)",
+     "words": [
+      [
+       "ты",
+       "[tɨ]"
+      ],
+      [
+       "мы",
+       "[mɨ]"
+      ],
+      [
+       "сын",
+       "[sɨn]"
+      ]
+     ],
+     "mark": "ы"
+    }
+   ]
+  },
+  {
+   "key": "vowel:жи-ши",
+   "show": "жи, ши, же",
+   "kind": "Russian letters",
+   "name": "и and е after ж, ш, ц",
+   "src": "ipa+alphabet",
+   "says": "In modern Russian, six consonant phonemes do not have phonemically distinct \"soft\" and \"hard\" variants […] and do not change \"softness\" in the presence of other letters: /ʐ/, /ʂ/ and /ts/ are always hard; /j/, /tɕ/ and /ɕː/ are always soft.",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "[ɨ]",
+     "like": "ros<b>e</b>s (<i>for some dialects</i>)",
+     "words": [
+      [
+       "жить",
+       "[ʐɨtʲ]"
+      ],
+      [
+       "машина",
+       "[mɐˈʂɨnə]"
+      ],
+      [
+       "жена",
+       "[ʐɨˈna]"
+      ]
+     ],
+     "mark": "(?<=[жшц])[ие]"
+    }
+   ]
+  },
+  {
+   "key": "vowel:у",
+   "show": "у",
+   "kind": "Russian vowel",
+   "src": "ipa",
+   "rows": [
+    {
+     "when": "stressed",
+     "ipa": "[u]",
+     "like": "c<b>oo</b>l",
+     "words": [
+      [
+       "утро",
+       "[ˈutrə]"
+      ],
+      [
+       "друг",
+       "[druk]"
+      ],
+      [
+       "муж",
+       "[muʂ]"
+      ]
+     ],
+     "mark": "у"
+    },
+    {
+     "when": "unstressed",
+     "ipa": "[ʊ]",
+     "like": "p<b>u</b>ll",
+     "words": [
+      [
+       "мужчина",
+       "[mʊˈɕːinə]"
+      ],
+      [
+       "музей",
+       "[mʊˈzʲej]"
+      ],
+      [
+       "другой",
+       "[drʊˈɡoj]"
+      ]
+     ],
+     "mark": "у"
+    }
+   ]
+  },
+  {
+   "key": "rule:hard-soft",
+   "show": "а я · э е · ы и · о ё · у ю",
+   "kind": "Russian spelling",
+   "name": "hard and soft consonants",
+   "src": "alphabet",
+   "says": "Most consonants can represent both \"soft\" (palatalized, represented in the IPA with a ⟨ʲ⟩) and \"hard\" consonant phonemes. If consonant letters are followed by vowel letters, the soft/hard quality of the consonant depends on whether the vowel is meant to follow \"hard\" consonants ⟨а, о, э, у, ы⟩ or \"soft\" consonants ⟨я, ё, е, ю, и⟩. A soft sign ⟨ь⟩ indicates palatalization of the preceding consonant without adding a vowel.",
+   "heads": [
+    "after a hard consonant",
+    "after a soft consonant"
+   ],
+   "pairs": [
+    [
+     "а",
+     "я"
+    ],
+    [
+     "э",
+     "е"
+    ],
+    [
+     "ы",
+     "и"
+    ],
+    [
+     "о",
+     "ё"
+    ],
+    [
+     "у",
+     "ю"
+    ]
+   ],
+   "words": [
+    [
+     "да",
+     "[ˈda]"
+    ],
+    [
+     "день",
+     "[dʲenʲ]"
+    ],
+    [
+     "ты",
+     "[tɨ]"
+    ],
+    [
+     "люди",
+     "[ˈlʲʉdʲɪ]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:ь",
+   "show": "ь",
+   "kind": "Russian letter",
+   "name": "мягкий знак, the soft sign",
+   "src": "alphabet",
+   "says": "The soft sign, ⟨ь⟩, in most positions acts like a \"silent front vowel\" and indicates that the preceding consonant is palatalized (except for always-hard ж, ш, ц) and the following vowel (if present) is iotated […]. This is important as palatalization is phonemic in Russian. For example, брат [brat] ('brother') contrasts with брать [bratʲ] ('to take').",
+   "words": [
+    [
+     "брат",
+     "[brat]"
+    ],
+    [
+     "брать",
+     "[bratʲ]"
+    ],
+    [
+     "день",
+     "[dʲenʲ]"
+    ],
+    [
+     "семь",
+     "[sʲemʲ]"
+    ],
+    [
+     "семья",
+     "[sʲɪˈm⁽ʲ⁾ja]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:ъ",
+   "show": "ъ",
+   "kind": "Russian letter",
+   "name": "твёрдый знак, the hard sign",
+   "src": "alphabet",
+   "says": "The hard sign, ⟨ъ⟩, acts like a \"silent back vowel\" that separates a succeeding \"soft vowel\" (⟨е, ё, ю, я⟩, but not ⟨и⟩) from a preceding consonant, invoking implicit iotation of the vowel with a distinct /j/ glide. Today it is used mostly to separate a prefix ending with a hard consonant from the following root.",
+   "words": [
+    [
+     "есть",
+     "[jesʲtʲ]"
+    ],
+    [
+     "съесть",
+     "[sjesʲtʲ]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:j",
+   "show": "е ё ю я",
+   "kind": "Russian letters",
+   "name": "at the start of a word, after a vowel, after ь or ъ",
+   "src": "ipa",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "[j]",
+     "like": "<b>y</b>es",
+     "words": [
+      [
+       "я",
+       "[ja]"
+      ],
+      [
+       "есть",
+       "[jesʲtʲ]"
+      ],
+      [
+       "её",
+       "[(j)ɪˈjɵ]"
+      ],
+      [
+       "июнь",
+       "[ɪˈjʉnʲ]"
+      ]
+     ],
+     "mark": "(?:^|(?<=[аеёиоуыэюяьъ]))[еёюя]"
+    }
+   ]
+  },
+  {
+   "key": "letter:й",
+   "show": "й",
+   "kind": "Russian letter",
+   "name": "и краткое, short i",
+   "src": "alphabet",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "[j]",
+     "like": "<b>y</b>ou or to<b>y</b>",
+     "words": [
+      [
+       "мой",
+       "[moj]"
+      ],
+      [
+       "чай",
+       "[t͡ɕæj]"
+      ],
+      [
+       "музей",
+       "[mʊˈzʲej]"
+      ]
+     ],
+     "mark": "й"
+    }
+   ]
+  },
+  {
+   "key": "rule:devoice",
+   "show": "б в г д ж з",
+   "kind": "Russian spelling",
+   "name": "at the end of a word",
+   "src": "ipa",
+   "says": "The voiced obstruents /b, bʲ, d, dʲ, ɡ, v, vʲ, z, zʲ, ʐ/ are devoiced word-finally unless the next word begins with a voiced obstruent.",
+   "words": [
+    [
+     "хлеб",
+     "[xlʲep]"
+    ],
+    [
+     "год",
+     "[ɡot]"
+    ],
+    [
+     "друг",
+     "[druk]"
+    ],
+    [
+     "муж",
+     "[muʂ]"
+    ],
+    [
+     "глаз",
+     "[ɡɫas]"
+    ],
+    [
+     "зуб",
+     "[zup]"
+    ]
+   ]
+  },
+  {
+   "key": "rule:voice",
+   "show": "вт · кз · сд",
+   "kind": "Russian spelling",
+   "name": "two consonants together",
+   "src": "ipa",
+   "says": "Consonants in consonant clusters are assimilated in voicing if the final consonant in the sequence is an obstruent (except [v, vʲ]). All consonants become voiceless if the final consonant is voiceless or voiced if the final consonant is voiced.",
+   "words": [
+    [
+     "завтра",
+     "[ˈzaftrə]"
+    ],
+    [
+     "всегда",
+     "[fsʲɪɡˈda]"
+    ],
+    [
+     "вокзал",
+     "[vɐɡˈzaɫ]"
+    ],
+    [
+     "сделать",
+     "[ˈzʲdʲeɫətʲ]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:г-v",
+   "show": "-ого, -его",
+   "kind": "Russian letters",
+   "name": "г read as в",
+   "src": "ipa",
+   "says": "Intervocalic ⟨г⟩ represents /v/ in certain words (сего́дня, сего́дняшний, итого́), and in the genitive suffix -ого/-его.",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "[v]",
+     "like": "<b>v</b>oodoo",
+     "words": [
+      [
+       "его",
+       "[(j)ɪˈvo]"
+      ],
+      [
+       "сегодня",
+       "[sʲɪˈvodʲnʲə]"
+      ],
+      [
+       "ничего",
+       "[nʲɪt͡ɕɪˈvo]"
+      ]
+     ],
+     "mark": "г(?=о$|одня)"
+    }
+   ]
+  },
+  {
+   "key": "letter:ч",
+   "show": "ч",
+   "kind": "Russian letter",
+   "src": "ipa",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "[tɕ]",
+     "like": "<b>ch</b>ip",
+     "words": [
+      [
+       "чай",
+       "[t͡ɕæj]"
+      ],
+      [
+       "час",
+       "[t͡ɕas]"
+      ],
+      [
+       "очень",
+       "[ˈot͡ɕɪnʲ]"
+      ]
+     ],
+     "mark": "ч"
+    },
+    {
+     "when": "in these words",
+     "ipa": "[ʂ]",
+     "like": "ru<b>sh</b>",
+     "words": [
+      [
+       "что",
+       "[ʂto]"
+      ],
+      [
+       "чтобы",
+       "[ˈʂtobɨ]"
+      ],
+      [
+       "конечно",
+       "[kɐˈnʲeʂnə]"
+      ]
+     ],
+     "mark": "ч"
+    }
+   ]
+  },
+  {
+   "key": "rule:silent",
+   "show": "вств · лнц · рдц · здн",
+   "kind": "Russian spelling",
+   "name": "a consonant that is written and not said",
+   "src": "phonology",
+   "says": "Clusters of three or more consonants are frequently simplified, usually through syncope of one of them, especially in casual pronunciation. […] The orthographic combination ⟨вств⟩ is pronounced [stv] in the words здра́вствуй(те) [ˈzdrastvʊj(tʲe)] 'hello', чу́вство [ˈt͡ɕustvə] 'feeling' […]. — There are a handful of words in which consonants which have long since ceased to be pronounced even in careful pronunciation are still spelled, e.g., the 'l' in солнце [ˈsontsɨ] ('sun').",
+   "words": [
+    [
+     "здравствуйте",
+     "[ˈzdrastvʊjtʲe]"
+    ],
+    [
+     "чувствовать",
+     "[ˈt͡ɕustvəvətʲ]"
+    ],
+    [
+     "солнце",
+     "[ˈsont͡sə]"
+    ],
+    [
+     "сердце",
+     "[ˈsʲert͡s(ː)ə]"
+    ],
+    [
+     "поздно",
+     "[ˈpoz(d)nə]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:щ",
+   "show": "щ",
+   "kind": "Russian letter",
+   "src": "ipa",
+   "says": "⟨щ⟩ is sometimes pronounced as [ɕː] or [ɕɕ] and sometimes as [ɕtɕ], but no speakers contrast the two pronunciations. This generally includes the other spellings of the sound […].",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "[ɕː]",
+     "like": "wi<b>sh sh</b>eep",
+     "words": [
+      [
+       "ещё",
+       "[(j)ɪˈɕːɵ]"
+      ],
+      [
+       "женщина",
+       "[ˈʐɛnʲɕːɪnə]"
+      ],
+      [
+       "вещь",
+       "[vʲeɕː]"
+      ]
+     ],
+     "mark": "щ"
+    },
+    {
+     "when": "also written сч, жч",
+     "ipa": "[ɕː]",
+     "like": "wi<b>sh sh</b>eep",
+     "words": [
+      [
+       "мужчина",
+       "[mʊˈɕːinə]"
+      ],
+      [
+       "счастливый",
+       "[ɕːɪs(t)ˈlʲivɨj]"
+      ]
+     ],
+     "mark": "жч|сч"
+    }
+   ]
+  },
+  {
+   "key": "letter:ж-ш",
+   "show": "ж, ш",
+   "kind": "Russian letters",
+   "src": "ipa",
+   "rows": [
+    {
+     "when": "ж",
+     "ipa": "[ʐ]",
+     "like": "plea<b>s</b>ure",
+     "words": [
+      [
+       "жена",
+       "[ʐɨˈna]"
+      ],
+      [
+       "жить",
+       "[ʐɨtʲ]"
+      ],
+      [
+       "уже",
+       "[ʊˈʐɛ]"
+      ]
+     ],
+     "mark": "ж"
+    },
+    {
+     "when": "ш",
+     "ipa": "[ʂ]",
+     "like": "ru<b>sh</b>",
+     "words": [
+      [
+       "школа",
+       "[ˈʂkoɫə]"
+      ],
+      [
+       "хорошо",
+       "[xərɐˈʂo]"
+      ],
+      [
+       "наш",
+       "[naʂ]"
+      ]
+     ],
+     "mark": "ш"
+    }
+   ]
+  },
+  {
+   "key": "letter:ц",
+   "show": "ц",
+   "kind": "Russian letter",
+   "src": "ipa",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "[ts]",
+     "like": "ca<b>ts</b>",
+     "words": [
+      [
+       "центр",
+       "[t͡sɛntr]"
+      ],
+      [
+       "отец",
+       "[ɐˈtʲet͡s]"
+      ],
+      [
+       "улица",
+       "[ˈulʲɪt͡sə]"
+      ]
+     ],
+     "mark": "ц"
+    }
+   ]
+  },
+  {
+   "key": "letter:ться",
+   "show": "-ться, -тся",
+   "kind": "Russian letters",
+   "name": "the ending of a reflexive verb",
+   "src": "phonology",
+   "says": "Note a spelling irregularity in /s/ of the reflexive suffix -ся: with a preceding -т- in third-person present and a -ть- in infinitive, it is pronounced as [tsə], i.e. hard instead of with its soft counterpart, since [ts], normally spelled with ⟨ц⟩, is traditionally always hard.",
+   "words": [
+    [
+     "нравиться",
+     "[ˈnravʲɪt͡sə]"
+    ],
+    [
+     "учиться",
+     "[ʊˈt͡ɕit͡sːə]"
+    ],
+    [
+     "заниматься",
+     "[zənʲɪˈmat͡sːə]"
+    ]
+   ]
+  },
+  {
+   "key": "letter:х",
+   "show": "х",
+   "kind": "Russian letter",
+   "src": "ipa",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "[x]",
+     "like": "lo<b>ch</b> (<i>Scottish</i>); u<b>gh</b>",
+     "words": [
+      [
+       "хорошо",
+       "[xərɐˈʂo]"
+      ],
+      [
+       "хлеб",
+       "[xlʲep]"
+      ],
+      [
+       "ехать",
+       "[ˈjexətʲ]"
+      ]
+     ],
+     "mark": "х"
+    }
+   ]
+  },
+  {
+   "key": "letter:р",
+   "show": "р",
+   "kind": "Russian letter",
+   "src": "alphabet",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "[r]",
+     "like": "rolled <b>r</b>",
+     "words": [
+      [
+       "рыба",
+       "[ˈrɨbə]"
+      ],
+      [
+       "брат",
+       "[brat]"
+      ],
+      [
+       "работа",
+       "[rɐˈbotə]"
+      ]
+     ],
+     "mark": "р"
+    }
+   ]
+  }
+ ]
+}

@@ -47,6 +47,16 @@
         `ex`      `[[russian, english, src, [bold, …]], …]` — every sentence names its source (a Tatoeba
                   id); each word of the bold list is bolded on letter boundaries, and a sentence in which
                   none is found is an error.
+        `glossAdd`  one more line of meaning, put last in the card's first block and never twice (the
+                  verbs of motion: which of the pair this is, and what the other one is).
+
+  THE ANSWER IS NOT PRINTED ON ITS OWN QUESTION. The English side is the FRONT of the English → Russian
+  card, and 21 of A1's cards printed their own Russian word in it, inside an example in brackets ("that (я
+  знаю, что…, I know that…)", "since (+ genitive: с утра, since the morning)"). Every bracket of an English
+  side that holds a form the card itself shows is wrapped in `<span class="uc-eg">`, and the card type's
+  CSS (`EG_CSS`, appended once) hides that span on the question and shows it again on the answer; the
+  Russian → English card, where the bracket is the lesson, is untouched. Done on every run, to every
+  `torfl` deck, and never twice.
 
   `decks`  `{ <deck id>: { dropDup?, subtitle?, descSub? } }`.
       `dropDup` is `{ Word: "<lower deck id>/<its Word>" }`: DELETE this deck's card for a word a lower deck
@@ -162,6 +172,28 @@ function applyFields(card, e, key) {
   if (e.table) f.Table = renderTable(e.table);
   if (e.tableFrom) { const src = findNote(e.tableFrom); if (!src) errors.push(key + ": tableFrom names no note: " + e.tableFrom); else f.Table = src.fields.Table; }
   if (e.ex) f.Examples = renderEx(e.ex, f.Word, key);
+  if (e.glossAdd && !f.English.includes(esc(e.glossAdd))) {
+    const li = "<li>" + esc(e.glossAdd) + "</li>";
+    const one = /<div class="uc-gl">([\s\S]*?)<\/div>/.exec(f.English), many = f.English.indexOf("</ul>");
+    if (many >= 0 && (!one || many < one.index)) f.English = f.English.slice(0, many) + li + f.English.slice(many);
+    else if (one) f.English = f.English.slice(0, one.index) + '<ul class="uc-gls"><li>' + one[1] + "</li>" + li + "</ul>" + f.English.slice(one.index + one[0].length);
+    else errors.push(key + ": glossAdd found no meaning to follow");
+  }
+}
+/* every written form a card shows: its headword, its Forms row, every cell of its All-forms panel */
+const fold = (s) => bare(s).toLowerCase().replace(/ё/g, "е");
+const ruToks = (s) => fold(s).match(/[а-я]+(?:-[а-я]+)*/g) || [];
+function formsOf(c) {
+  const out = new Set();
+  for (const t of ruToks(c.fields.Word)) out.add(t);
+  for (const m of (c.fields.Russian + c.fields.Forms + c.fields.Table).matchAll(/>([^<>]+)</g)) for (const t of ruToks(m[1])) out.add(t);
+  return out;
+}
+const EG_CSS = "\n/* a bracket that prints the card's own Russian word is not shown on the English → Russian question */\n.uc-ask + .uc-field .uc-eg {\n  display: none;\n}\n.uc-ask + .uc-field:has(~ hr) .uc-eg {\n  display: inline;\n}\n";
+function wrapOwn(c) {
+  const own = formsOf(c);
+  c.fields.English = c.fields.English.replace(/(<span class="uc-eg">)?\(([^()<>]*)\)/g, (all, done, inner) =>
+    done || !ruToks(unesc(inner)).some((t) => own.has(t)) ? all : '<span class="uc-eg">(' + inner + ")</span>");
 }
 
 /* ---------- the counts a description states, by emit.py's formulas ---------- */
@@ -243,6 +275,8 @@ for (const id of order) {
     else errors.push(id + " → descSub: neither “" + find.slice(0, 60) + "…” nor its replacement is in the description");
   }
   recount(d);
+  for (const c of d.cards) wrapOwn(c);
+  if (!d.meta.types.torfl.css.includes(".uc-eg")) d.meta.types.torfl.css += EG_CSS;
   // 5. the pinned ids
   const pin = PIN[id] || (PIN[id] = {}), ret = (PIN._retired = PIN._retired || {}), retired = ret[id] || {};
   const have = new Set(d.cards.map((c) => c.fields.Word));
