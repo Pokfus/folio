@@ -3,16 +3,19 @@
    Reads every decks/Hindi-*.folio-deck.json and fails on the faults this pipeline has had or could have:
    a word taught on two levels, a card defined by a pointer rather than English ("nuqtaless form of …",
    "inflection of …"), a headword that is not Devanagari, a level card with no romanisation, a forms label
-   the generator does not write, unbalanced HTML, an id out of sequence, two notes sharing an English side
-   (the reverse card would have two answers). */
+   the generator does not write, unbalanced HTML, an id that is not the note's pinned number (hindi-ids.json;
+   until Nov 2026 the check was "an id out of sequence", which a teaching order cannot satisfy), two notes
+   sharing an English side (the reverse card would have two answers). The alphabet deck's reading rules
+   (card type `hi-read`) must each carry a quote and the source it is quoted from. */
 "use strict";
 const fs = require("fs");
 const path = require("path");
 const DIR = path.join(__dirname, "..", "..", "decks");
-const LABELS = new Set(["plural", "oblique plural", "feminine", "past"]);
+const LABELS = new Set(["plural", "oblique plural", "feminine", "past", "plural, oblique", "invariable", "also written"]);
+const PIN = JSON.parse(fs.readFileSync(path.join(__dirname, "hindi-ids.json"), "utf8"));
 // a gloss that IS a pointer, anchored at its start: "genitive of मैं (ma͠i); my, mine" carries its meaning
 const POINTER = /^(?:nuqtaless|alternative|obsolete|dated|rare) (?:form|spelling) of |^(?:inflection|synonym) of [^;]*$|^(?:direct|oblique|dative|genitive|ergative)[^;]* of \S+(?: \([^)]*\))?$/i;
-const DEVA = /^[ऀ-ॿ‌‍ ]+(?:-[ऀ-ॿ‌‍ ]+)*$/;  // माता-पिता "parents" is one headword
+const DEVA = /^[ऀ-ॿ‌‍ ]+(?:(?:-| \.\.\. )[ऀ-ॿ‌‍ ]+)*$/;  // माता-पिता "parents" is one headword; मेरा नाम ... है has Wiktionary's gap
 let fail = 0;
 const bad = (m) => { fail++; console.log("FAIL  " + m); };
 const files = fs.readdirSync(DIR).filter((f) => /^Hindi-.*\.folio-deck\.json$/.test(f)).sort();
@@ -22,11 +25,19 @@ for (const f of files) {
   const d = JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8"));
   const id = d.meta.id;
   const alphabet = /Alphabet/.test(d.meta.title);
-  const sides = new Map();
+  const sides = new Map(), ids = new Set();
   d.cards.forEach((c, i) => {
     const F = c.fields, w = F.Word;
-    if (c.id !== "u_" + id + "_" + (i + 1)) bad(f + ": card " + (i + 1) + " has id " + c.id);
+    const key = c.type === "hindi" ? w : F.Key || F.Letter, n = (PIN[id] || {})[key];
+    if (n === undefined || c.id !== "u_" + id + "_" + n) bad(f + ": " + key + " has id " + c.id + ", its pinned number is " + n);
+    if (ids.has(c.id)) bad(f + ": the id " + c.id + " is dealt twice");
+    ids.add(c.id);
     if (!DEVA.test(w || "")) bad(f + ": card " + (i + 1) + " Word is not Devanagari: " + w);
+    if (c.type === "hi-read") {
+      if (!F.Quote || !/^Wikipedia, &quot;[^&]+&quot;, revision \d+$/.test(F.Source || "")) bad(f + ": the rule " + F.Key + " has no quote or no source and revision");
+      if (!/uc-exr">[^<]+</.test(F.Example || "")) bad(f + ": the rule " + F.Key + " has an example with no romanisation");
+      return;
+    }
     if (alphabet) {
       if (sides.has(F.Sound)) bad(f + ": " + w + " shares its sound side with " + sides.get(F.Sound));
       sides.set(F.Sound, w);

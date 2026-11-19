@@ -122,15 +122,30 @@ _DECKS = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'd
 
 
 def words_below():
-    """Every lemma a lower level teaches, read off its SHIPPED deck file (`Word`)."""
+    """Every lemma a lower level teaches, read off its SHIPPED deck file (`Word`).
+
+    THE RECORD IS UNDONE FIRST (Nov 2026).  `hindi-fix.js` moves cards between decks after the
+    generator has run -- नमस्कार and thirteen numbers from A2 into A1, seven formulas from the
+    phrases into A1 -- and drops a few a lower deck carries in another spelling.  Read naively, a
+    rebuild of A2 on top of the committed decks would find नमस्कार "already taught" by A1, leave it
+    out and deal a B1 word in its place.  So a word the record INSERTED into a lower deck is not
+    counted as that deck's, and a word the record DROPPED from one still is: what this returns is
+    what it returned for the decks as the generator wrote them, and any level rebuilds alone.
+    """
     from hi import fold
+    rec = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'hindi-fixes.json')
+    fixes = json.load(open(rec, encoding='utf-8')) if os.path.exists(rec) else {}
     out = set()
     for lvl in BELOW.get(LEVEL, []):
         p = os.path.join(_DECKS, DECK_FILES[lvl])
         if not os.path.exists(p):
             raise SystemExit(f'{LEVEL} is built on {lvl}, but {p} is missing')
+        did = DECK_IDS[lvl]
+        put_in = {fold(e['word']) for e in (fixes.get('insert') or {}).get(did, [])}
+        taken_out = {fold(w) for w in ((fixes.get('decks') or {}).get(did) or {}).get('dropDup', {})}
         for c in json.load(open(p, encoding='utf-8'))['cards']:
             w = (c.get('fields') or {}).get('Word', '')
-            if w:
+            if w and fold(w) not in put_in:
                 out.add(fold(w))
+        out |= taken_out
     return out

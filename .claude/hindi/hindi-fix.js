@@ -52,10 +52,14 @@
       lower deck carries. CHECKED — the named note must exist in a deck lower on the shelf — so it can
       never delete a word nothing else teaches. A card already gone is normal.
       `descSub` is `[find, replace]` pairs over the description, each satisfied if its replacement already
-      stands in the text or if it matched; one satisfied by neither is an error.
+      stands in the text or if it matched; one satisfied by neither is an error. A replacement may name
+      `{n}` (the deck's size), `{added}` (its inserts) and any of the order's `facts` (`{head}`, `{days}` …),
+      so no figure a description states is typed. To reword a replacement that has shipped, add a pair
+      after it whose `find` is the old replacement.
 
   THE COUNTS A DESCRIPTION STATES ARE RECOUNTED on every run, by the formulas build_deck.py uses: how many
-  words, nouns, verbs, cards with sentences and with three; the alphabet's and the phrases' own figures.
+  words, nouns, verbs, cards with sentences and with three; the phrases' own figures. (The alphabet's
+  subtitle and description are alphabet.py's, whole.)
 
   `hindi-order.json`  `{ <deck id>: { why, order: [key, …] } }`, written by hindi-order.js (its header has the
       rules) and applied LAST: the notes are put in that order and nothing else about them moves. A list
@@ -224,13 +228,14 @@ for (const [id, spec] of Object.entries(R.decks || {})) {
 /* ---- 4. the pin ------------------------------------------------------------------------------------- */
 let pinChanged = false;
 for (const x of DECKS) {
-  const id = x.d.meta.id, pin = PIN[id] || (PIN[id] = {}), ret = PIN._retired[id] || {};
+  const id = x.d.meta.id, ret = PIN._retired[id] || {};
+  if (!PIN[id]) PIN[id] = {};
   const keys = new Set(x.d.cards.map(keyOf));
   if (keys.size !== x.d.cards.length) fail(id + ": two notes share a key");
   // a respelling: the row whose key is the same word through the fold
-  for (const k of keys) if (!(k in pin)) {
-    const old = Object.keys(pin).find((o) => !keys.has(o) && fold(o) === fold(k));
-    if (old) { const fresh = {}; for (const o of Object.keys(pin)) fresh[o === old ? k : o] = pin[o]; PIN[id] = fresh; pinChanged = true; say(id + ": pin key " + old + " → " + k); }
+  for (const k of keys) if (!(k in PIN[id])) {
+    const cur = PIN[id], old = Object.keys(cur).find((o) => !keys.has(o) && fold(o) === fold(k));
+    if (old) { const fresh = {}; for (const o of Object.keys(cur)) fresh[o === old ? k : o] = cur[o]; PIN[id] = fresh; pinChanged = true; say(id + ": pin key " + old + " → " + k); }
   }
   const p = PIN[id];
   // a row whose note the record removed goes to _retired; any other missing note is a failure
@@ -244,12 +249,10 @@ for (const x of DECKS) {
     const k = keyOf(c);
     if (!(k in p)) {
       let n = (inserted.get(id) || new Map()).get(k);
-      if (n === undefined && c.fields.Key && Number.isInteger(c.pin)) n = c.pin;
       if (n === undefined) n = next;
       if (used.has(n)) fail(id + ": " + k + " wants the number " + n + ", which is taken");
       p[k] = n; used.add(n); next = Math.max(next, n + 1); pinChanged = true; say(id + ": new row " + k + " = " + n);
     }
-    delete c.pin;
     c.id = "u_" + id + "_" + p[k];
   }
   const seen = new Set(); for (const c of x.d.cards) { if (seen.has(c.id)) fail(id + ": the id " + c.id + " is dealt twice"); seen.add(c.id); }
@@ -272,16 +275,17 @@ for (const x of DECKS) {
 const count = (cards, re) => cards.filter((c) => re.test(c.fields.English)).length;
 for (const x of DECKS) {
   const id = x.d.meta.id, m = x.d.meta, cards = x.d.cards, n = cards.length;
-  for (const [find, rep] of ((R.decks || {})[id] || {}).descSub || []) {
+  // `{n}`, `{added}` and the order's `facts` ({head}, {days} …) are written into a replacement: no figure is typed
+  const facts = Object.assign({ n, added: ((R.insert || {})[id] || []).length }, (ORDER[id] || {}).facts || {});
+  for (const [find, rep0] of ((R.decks || {})[id] || {}).descSub || []) {
+    const rep = rep0.replace(/\{([A-Za-z0-9]+)\}/g, (s, k) => (k in facts ? facts[k] : fail(id + ": descSub names the fact {" + k + "}, which hindi-order.json does not give")));
     if (m.desc.includes(rep)) continue;
     if (!m.desc.includes(find)) fail(id + ": descSub finds neither its text nor its replacement: " + find.slice(0, 70));
     m.desc = m.desc.replace(find, rep);
   }
   const sub = (re, fn, what) => { if (!re.test(m.desc)) fail(id + ": the description no longer states " + what); m.desc = m.desc.replace(re, fn); };
   if (id === "hiabc") {
-    const letters = cards.filter((c) => c.type === "hi-abc").length, rules = n - letters;
-    m.subtitle = letters + " letters and signs" + (rules ? ", " + rules + " reading rules" : "") + " · both directions, as two cards per letter";
-    sub(/^The Devanagari script in which Hindi is written: \d+ notes/, "The Devanagari script in which Hindi is written: " + n + " notes", "its notes");
+    // alphabet.py writes this deck's subtitle and description whole, counts and pace included
   } else if (id === "hiphrase") {
     const by = (s) => cards.filter((c) => c.sub === s).length, ex = (k) => cards.filter((c) => (c.fields.Examples.match(EX_ITEM) || []).length >= k).length;
     m.subtitle = n + " expressions · " + by("Phrases") + " everyday, " + by("Idioms") + " idioms, " + by("Proverbs") + " proverbs · both directions";
