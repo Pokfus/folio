@@ -96,7 +96,8 @@ def composed_roman(w, lex):
     """A ROMANISATION BUILT FROM THE PARTS', where Wiktionary gives the expression none (বার বার:
     bar bar) -- a concatenation of each word's own, never a guess (`build_deck.SUFFIX_ROMAN` is the
     same rule).  Empty when any part has none: that expression is dropped, not romanised by hand
-    (আসসালামু আলাইকুম, খয়ের খাঁ, দুর্ভাগ্য অনেক স্থলে সৌভাগ্যের কারণ হয় on 2026-11-12)."""
+    (খয়ের খাঁ, দুর্ভাগ্য অনেক স্থলে সৌভাগ্যের কারণ হয় on 2026-11-12) -- unless Wiktionary gives
+    its pronunciation, which the card prints instead (আসসালামু আলাইকুম, now on A1)."""
     parts = [own_roman(lex.get(fold(p))) for p in w.split()]
     return ' '.join(parts) if all(parts) else ''
 
@@ -123,7 +124,10 @@ def main():
             roman = ''
             if not own_roman(L):
                 roman = composed_roman(w, lex)
-                if not roman:
+                # an expression with no romanisation is still kept where Wiktionary gives its
+                # PRONUNCIATION (the card's IPA line, 2026-11-19): the reader is not left
+                # without a reading, and nothing is romanised by hand
+                if not roman and not any(e.get('ipa') for e in L['entries']):
                     noroman.append(w)
                     continue
             seen.add(k)
