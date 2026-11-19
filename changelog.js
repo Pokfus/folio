@@ -71,7 +71,7 @@ window.CHANGELOG = [
       "Timelines added to 4 more cards, and date lines or map points improved on 3 cards.",
       "100 new cards in <b>Ancient Egypt</b>, from the end of Kushite rule through the Saite and Persian periods to Ptolemaic Egypt, with 83 new glossary terms.",
       "New Geography collection, <b>Historical States</b>: a past state is highlighted on the map at its greatest extent and you name it; 14 cards so far, in seven period decks.",
-      "<b>150 more China cards are rewritten</b>, from the cotton mill to widow chastity, with new sources and dates.",
+      "<b>160 more China cards are rewritten</b>, from the cotton mill to the Chinese calendar, with new sources and dates.",
     ],
   },
   {

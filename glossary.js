@@ -15301,7 +15301,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Booi_Aha": "1644–1912",
 "New_Marriage_Law": "1950–1981",
 "Foot_binding": "c. 900 – 1950",
-"Chen_Clan_Ancestral_Hall": "1888–1893 or 1894",
+"Chen_Clan_Ancestral_Hall": "1888–1894",
 "Recipes_from_the_Garden_of_Contentment": "1792",
 "Champa_rice": "1012",
 "The_Classic_of_Tea": "c. 780 CE",

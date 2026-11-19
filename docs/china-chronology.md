@@ -917,6 +917,12 @@ BCE and the empire's end, the abdication of 12 February 1912 (`cnh-191`, `cnh-57
 | the Shanxi merchants: grain for salt / the banks begin / heavy losses | 1370 / c. 1820 / 1911 | An; Morck and Yang (`cnh-747`; 1370 with `cnh-718`) |
 | the huiguan: firm evidence / the Beijing survey published | 1573 – 1619 / 1921 | Ho; Gamble (`cnh-748`) |
 | widow chastity: the honoured suicide / the shrine | 1435 / 1498 | Carlitz (`cnh-750`) |
+| the Marriage Law promulgated / the campaign / replaced | 1 May 1950 / March 1953 / 1 January 1981 | Hsi; the Library of Congress (`cnh-751`) |
+| foot binding began / banned / banned again / died out | c. 900 CE / 1898 / 1912 / c. 1850 – 1950 | Yodo; Gavrilets (`cnh-753`) |
+| the Three Character Classic's attributed author / its first record | 1223 – 1296 / 1508 | Kang and Lian (`cnh-754`) |
+| the mourning grades charted / in law | 168 BCE / 267 CE, or 196 CE | Goldin; Chen (`cnh-756`) |
+| the Chen Clan Hall built / the museum / protected | 1888 – 1894, or 1890 – 1894 / 1959 / 1988 | Bao and Huang (`cnh-757`) |
+| the calendar: the leap cycle / the year start fixed / reformed / the solar calendar | c. 600 – 400 BCE / 104 BCE / 1644 / 1912 | Chavannes; the Palace Museum (`cnh-760`) |
 
 ## Later periods
 
@@ -1660,4 +1666,10 @@ cnh-746: 1500; 1949
 cnh-747: 1370; 1820; 1911
 cnh-748: 1573; 1619; 1921
 cnh-750: 1435; 1498
+cnh-751: 1950; 1953; 1981
+cnh-753: 900; 1898; 1912; 1850; 1950
+cnh-754: 1223; 1296; 1508
+cnh-756: 168; 267; 196
+cnh-757: 1888; 1890; 1894; 1959; 1988
+cnh-760: 600; 400; 104; 1644; 1912
 ```
