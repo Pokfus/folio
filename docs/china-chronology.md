@@ -1031,6 +1031,7 @@ Wang Yangming (`cnh-528`); the Treaty of Nanking 29 August 1842 (`cnh-562`); the
 | the *Baopuzi* written | c. 320 CE | Pregadio; the cited studies (`cnh-878`) |
 | the Daozang: the first canon / first printed / burned / completed | c. 740 CE / 1119 / 1281 / 1445 | the cited studies (`cnh-879`) |
 | the White Cloud Temple founded / the canon reprinted | 1228 / 1923 – 1926 | Bretschneider; Pregadio (`cnh-880`) |
+| the *Platform Sutra*: the earliest text / revised / the standard text | c. 780 CE / 967 CE / 1291 | Schlütter (`cnh-890`) |
 
 ## Later periods
 
@@ -1897,4 +1898,5 @@ cnh-876: 400; 437; 471
 cnh-878: 320
 cnh-879: 740; 1119; 1281; 1445
 cnh-880: 1228; 1923; 1926
+cnh-890: 780; 967; 1291
 ```
