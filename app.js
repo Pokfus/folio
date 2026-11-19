@@ -13020,6 +13020,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      sweep's other near-best were refused on the same test: a magenta stood 14.6 from Plato, a green 14.5 from
      Aquinas, a brown 16.9 from Augustine. It reads 5.83:1 on the tightest light paper. */
   "Immanuel Kant": "#592F85",
+  /* Nov 2026, adding Utopia; the band is still full. Measured as the rows above (CIE76 over L 12.3–47.8,
+     chroma 18–85, 4.5:1 on all forty-five light papers, cards and second papers, 22 or more from the fifteen
+     light inks), a sweep of the cube at a step of 3 tops out at 14.6. THE EURIPIDES TEST: the sweep's best
+     were magentas 14.6–14.9 from Plato, whose Republic is the book Utopia is read beside, and a green 14.5
+     from Aquinas, so this dark claret was taken: its nearest are Livy 14.3, the Poetic Edda 14.7 and Virgil
+     14.8, none read beside More, and the books that are stand off — Augustine 20.5, Rousseau 24.1, Plato
+     41.8, Hobbes 54.4, Luther 61.4, Machiavelli 80.9. It reads 8.79:1 on the tightest light paper. */
+  "Thomas More": "#5A0009",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -17077,6 +17085,36 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          category of "Inherence and Subsistence", not how a society gets its living; PROVIDENCE is divine, not
          the capital of Rhode Island; and "the Republic of Plato" is the dialogue, not the form of state. */
       glossOff: ["Wolf", "Subsistence", "Providence", "Republic"],
+    },
+    {
+      id: "more-utopia",
+      title: "Utopia",
+      subtitle: "De optimo rei publicae statu deque nova insula Utopia",
+      author: "Thomas More",
+      written: "1516",
+      year: 1516,
+      translator: "Gilbert Burnet",
+      edition: "Utopia, translated by Gilbert Burnet, edited by Henry Morley, Cassell & Company, London, 1901",
+      /* No limit to state: More died in 1535, Burnet in 1715, Morley in 1894. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Thomas More published Utopia in Latin in 1516 and died in 1535. " +
+        "Gilbert Burnet's English translation was first printed in 1684 and Burnet died in 1715; Henry " +
+        "Morley, who edited this printing of 1901, died in 1894.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Utopia_(1901)",
+      /* NO `origLang`: the Latin on la.wikisource is in two Books, and Morley's first chapter holds Book I
+         and the opening of Book II, so the two cannot be paired without cutting a page. Nine chapters,
+         Morley's, titled from the work page's contents; no parts, for the same reason. */
+      chapterWord: "Chapter",
+      count: 9,
+      total: 9,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 9 chapters (every `.ttip`,
+         Nov 2026). Plato's 'Commonwealth' is the Republic, not the Commonwealth of Nations; Providence is
+         divine, not the capital of Rhode Island; the monstrous Colossus is a figure of speech, not the statue
+         at Rhodes; the Germans are the mercenaries of More's day and "the Greek" Hythloday knows is the
+         language, not the modern states; the Syrians beside the Romans and Carthaginians are the ancient
+         kingdom's, as on Leviathan's shelf. */
+      glossOff: ["Commonwealth_of_Nations", "Providence", "Colossus_of_Rhodes", "Germany", "Greece", "Syria"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -26774,6 +26812,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "We hold these Truths to be self-evident, that all Men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty, and the Pursuit of Happiness.—That to secure these Rights, Governments are instituted among Men, deriving their just Powers from the Consent of the Governed, that whenever any Form of Government becomes destructive of these Ends, it is the Right of the People to alter or to abolish it, and to institute new Government, laying its Foundation on such Principles, and organizing its Powers in such Form, as to them shall…" },
     { book: "hobbes-leviathan", n: 14, t: "XIII. Of the Naturall Condition of Mankind, as concerning their Felicity, and Misery", p: 12,
       text: "Whatsoever therefore is consequent to a time of Warre, where every man is Enemy to every man; the same is consequent to the time, wherein men live without other security, than what their own strength, and their own invention shall furnish them withall. In such condition, there is no place for Industry; because the fruit thereof is uncertain: and consequently no Culture of the Earth; no Navigation, nor use of the commodities that may be imported by Sea; no commodious Building; no Instruments of moving, and removing such things as require much force; no Knowledge of the face of the Earth; no account of Time; no Arts; no Letters; no Society; and which is worst of all, continuall feare, and danger of violent death; And the life of man, solitary, poore, nasty, brutish, and short." },
+    { book: "more-utopia", n: 1, t: "Discourses of Raphael Hythloday, of the Best State of a Commonwealth", p: 2,
+      text: "'The increase of pasture,' said I, 'by which your sheep, which are naturally mild, and easily kept in order, may be said now to devour men and unpeople, not only villages, but towns; for wherever it is found that the sheep of any soil yield a softer and richer wool than ordinary, there the nobility and gentry, and even those holy men, the abbots! not contented with the old rents which their farms yielded, nor thinking it enough that they, living at their ease, do no good to the public, resolve to do it hurt instead of good. They stop the course of agriculture, destroying houses and towns, reserving only the churches, and enclose grounds that they may lodge their sheep in them." },
     { book: "kant-critique-of-pure-reason", n: 2, t: "Preface to the Second Edition", p: 11,
       text: "It appears to me that the examples of mathematics and natural philosophy, which, as we have seen, were brought into their present condition by a sudden revolution, are sufficiently remarkable to fix our attention on the essential circumstances of the change which has proved so advantageous to them, and to induce us to make the experiment of imitating them, so far as the analogy which, as rational sciences, they bear to metaphysics may permit. It has hitherto been assumed that our cognition must conform to the objects; but all attempts to ascertain anything about these objects a priori, by means of conceptions, and thus to extend the range of our knowledge, have been rendered abortive by this assumption. Let us then make the experiment whether we may not be more successful in metaphysics, if we assume that the objects must conform to our cognition. This appears, at all events, to accord better with the possibility of our gaining the end we have in view, that is to say, of arriving at the cognition of objects a priori, of determining something with respect to these objects, before they are given to us. We here propose to do just what Copernicus did in attempting to explain the celestial movements. When he found that he could make no progress by assuming that all the heavenly bodies revolved round the spectator, he reversed the process, and tried the experiment of assuming that the spectator revolved, while the stars remained at rest." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
