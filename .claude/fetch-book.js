@@ -19975,6 +19975,134 @@ const BOOKS = {
     fixes: [["something_precedes", "something precedes", "System of all Principles, Second Analogy: an underscore typed for a space"]],
     minChars: 3000,
   },
+  "darwin-origin-of-species": {
+    title: "On the Origin of Species",
+    // the title page's full title, after the short one every reader knows it by
+    subtitle: "By Means of Natural Selection, or the Preservation of Favoured Races in the Struggle for Life",
+    author: "Charles Darwin",
+    /* NO `translator`: written in English, as Leviathan was. */
+    edition: "The first edition, John Murray, London, 1859",
+    written: "1859",
+    year: 1859,
+    /* ---------- THE LICENCE, and it needs no qualification ----------
+       Darwin died in 1882 and the book was printed in 1859, so there is no copyright in it anywhere. The
+       transcription is Wikisource's, of the facsimile scan `Origin of Species 1859 facsimile.djvu`, and
+       VALIDATED page by page (every page fetched carries `data-page-quality="4"`, the highest grade —
+       proofread and then checked by a second contributor). The pages carry no footnotes: the first edition
+       has none, Darwin saying in his Introduction that this "Abstract" cannot give references and
+       authorities. THE LATER EDITIONS ARE NOT USED: Darwin revised the book five times (1860, 1861, 1866,
+       1869, 1872), and the first edition is the text of 1859, the one a reader is usually pointed at. */
+    rights:
+      "Public domain worldwide. Charles Darwin published On the Origin of Species in London in 1859 " +
+      "and died in 1882, so the book has never been in copyright anywhere since. The text is the " +
+      "validated Wikisource transcription of the first edition, from a facsimile scan.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/On_the_Origin_of_Species_(1859)",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Every fact in
+       it was checked against the record or against this text (the one "evolved", the absent "evolution",
+       the line on the origin of man, the Abstract, Wallace); the later editions' changes are the ones every
+       account of the book's history agrees on. */
+    about: [
+      "<b>On the Origin of Species</b> argues that species are not fixed, each created separately, but " +
+        "descended from earlier species and changed over very long periods of time. Charles Darwin's " +
+        "mechanism for the change is <i>natural selection</i>. Living things vary; more are born than can " +
+        "survive; in the struggle for existence that follows, any variation that gives an advantage, " +
+        "however slight, tends to be preserved and passed on, and any that does harm tends to be " +
+        "destroyed. Over thousands of generations, Darwin argues, small differences add up to new " +
+        "varieties, and varieties to new species, so that all living things are related, like the " +
+        "branches of one great tree.",
+      "Darwin called the book <i>one long argument</i>, and it is built like one. It opens on what " +
+        "breeders do with pigeons, dogs and crops (chapter I), and moves from selection by man to " +
+        "variation in the wild, the struggle for existence and natural selection itself (II–IV), with " +
+        "the laws of variation after them (V). Then he turns to the objections — the difficulties of the " +
+        "theory, instinct, the sterility of hybrids, and the gaps in the fossil record (VI–IX). The rest " +
+        "shows what the theory explains: the succession of fossils, the geographical distribution of " +
+        "plants and animals, and the facts of classification, embryology and rudimentary organs " +
+        "(X–XIII). The last chapter recapitulates the whole, and ends on the book's most famous sentence.",
+      "Darwin was born in Shrewsbury in 1809. From 1831 to 1836 he sailed round the world as naturalist " +
+        "on HMS <i>Beagle</i>, and what he saw in South America and the Galápagos Islands set him on the " +
+        "question. He opened his first notebook on the transmutation of species in 1837, wrote a sketch " +
+        "of his theory in 1842 and a longer essay in 1844, and then worked on it for years without " +
+        "publishing. In 1858 Alfred Russel Wallace, collecting in the Malay Archipelago, sent him an " +
+        "essay that reached almost the same conclusion; papers by both men were read together at the " +
+        "Linnean Society in London that July. Darwin then wrote the <i>Origin</i> in about thirteen " +
+        "months, as what he called an abstract of the larger book he had planned. John Murray published " +
+        "it on 24 November 1859. Darwin died at his home, Down House in Kent, in 1882 and was buried in " +
+        "Westminster Abbey.",
+      "The book was argued over at once, and it changed biology. Darwin revised it five times; in the " +
+        "second edition the closing sentence gained the words <i>by the Creator</i>, and the fifth " +
+        "adopted Herbert Spencer's phrase <i>survival of the fittest</i>. The word <i>evolution</i> does " +
+        "not appear in this first edition — the only form of it is <i>evolved</i>, the book's last " +
+        "word. Darwin could not say how variations arise or how they are inherited (<i>the laws " +
+        "governing inheritance are quite unknown</i>, he writes); that was answered only in the " +
+        "twentieth century, when genetics joined his theory. Of human beings the book says one sentence: " +
+        "<i>Light will be thrown on the origin of man and his history.</i> He took up the subject in " +
+        "<i>The Descent of Man</i> (1871).",
+      "The text here is the first edition of 1859, in its own spelling (<i>palæontology</i>, " +
+        "<i>organisation</i>). It is given in the book's own order: the Introduction and the fourteen " +
+        "chapters, so a tab's number runs one ahead of the chapter's, whose Roman numeral opens each " +
+        "title. The italic lines that open each chapter are Darwin's own summary of its contents, " +
+        "printed under the chapter heading; the italic words that open some paragraphs are his " +
+        "headings within the chapter. The book's one illustration, the folding diagram of branching " +
+        "descent described in chapter IV, is not reproduced here. Not included: the title page with " +
+        "its two epigraphs (from William Whewell and Francis Bacon), the contents and the index.",
+    ],
+    chapterWord: "Section",
+    chapters: Array.from({ length: 15 }, (_, i) => i + 1),
+    page: (n) => "On the Origin of Species (1859)/" + (n === 1 ? "Introduction" : "Chapter " + toRoman(n - 1)),
+    titleOf: (n) => [null, "Introduction",
+      "I. Variation under Domestication",
+      "II. Variation under Nature",
+      "III. Struggle for Existence",
+      "IV. Natural Selection",
+      "V. Laws of Variation",
+      "VI. Difficulties on Theory",
+      "VII. Instinct",
+      "VIII. Hybridism",
+      "IX. On the Imperfection of the Geological Record",
+      "X. On the Geological Succession of Organic Beings",
+      "XI. Geographical Distribution",
+      "XII. Geographical Distribution — continued",
+      "XIII. Mutual Affinities of Organic Beings: Morphology: Embryology: Rudimentary Organs",
+      "XIV. Recapitulation and Conclusion",
+    ][n],
+    /* The printed heads: the half-title and rule over the Introduction, and each chapter's centred
+       "CHAPTER IV." with its small-capital title, which the tab already says. */
+    dropHeads: [/^ON THE ORIGIN OF SPECIES\.$/, /^═+$/, /^INTRODUCTION\.$/, /^CHAPTER [IVXL]+\.(?:\s|$)/],
+    reFixes: [
+      /* DARWIN'S ARGUMENT OF EACH CHAPTER, the small-type list of its topics printed under the head (and
+         repeated in his contents), arrives as an indented block — a blockquote, which would read as a
+         quotation. Set as the italic head line the reader already has for a printed rubric. Two rows,
+         in this order: the opening tag where its block holds an argument (one run of text with a dash),
+         then the closing tag of the block the first row opened. */
+      [/<blockquote>(?=[^<]*—[^<]*<\/blockquote>)/g, '<p class="bk-head">',
+       "each chapter's argument: open it as a head line rather than a quotation"],
+      [/(?<=<p class="bk-head">[^<]*)<\/blockquote>/g, "</p>", "each chapter's argument: close it"],
+      /* The blank line the transcription keeps before a paragraph (a section break before Darwin's run-in
+         italic heads, and the space under each chapter head) arrives as a <br> opening the paragraph. */
+      [/<p><br>\n(?=[^<\s]|<i>)/g, "<p>", "a <br> opening a paragraph: the transcription's blank line"],
+      /* THE ONE ILLUSTRATION. Darwin's folding diagram of divergence (the binder's instruction: "to front
+         page 117") is transcribed as a picture and a bracketed caption that stand in the middle of a
+         sentence on p. 116–117, and the transcription closes and reopens its page wrapper around it, which
+         breaks a second sentence on p. 117–118. The Library sets no pictures (as the Classic of Tea's
+         utensils), so the caption goes and both sentences are joined as printed; the front matter says the
+         diagram is not reproduced. */
+      [/in the second chapter,<\/p>\s*<blockquote>\s*<p>\[DIAGRAM OF DIVERGENCE OF TAXA\]<\/p>\s*<\/blockquote> that on an average/g,
+       "in the second chapter, that on an average", "IV: the diagram's caption, mid-sentence on p. 116–117"],
+      [/worthy of record in a systematic work\.\n<p>The intervals between/g,
+       "worthy of record in a systematic work.</p>\n<p>The intervals between",
+       "IV: the close of the paragraph the diagram interrupted, which the transcription leaves as a bare run"],
+      [/made their parents variable,<\/p>\s*<p>and the tendency/g, "made their parents variable, and the tendency",
+       "IV: a sentence broken where the transcription reopens its page wrapper after the diagram (p. 117–118)"],
+      /* The one table, Ramsay's thicknesses of the British strata in chapter IX, flattened by the tag strip
+         into loose lines with each figure on its own; set one stratum to a line. */
+      [/<\/p>\nFeet\.\nPalæozoic strata \(not including igneous beds\)\n57,154\nSecondary strata\n13,190\nTertiary strata\n2,240\n/g,
+       "</p>\n<blockquote><p>Feet.<br>Palæozoic strata (not including igneous beds): 57,154<br>Secondary strata: 13,190<br>Tertiary strata: 2,240</p></blockquote>\n",
+       "IX: the table of the strata's thicknesses, one row to a line"],
+    ],
+    minChars: 3000,
+  },
 };
 
 /* ---------- args ---------- */

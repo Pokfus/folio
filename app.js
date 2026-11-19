@@ -13020,6 +13020,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      sweep's other near-best were refused on the same test: a magenta stood 14.6 from Plato, a green 14.5 from
      Aquinas, a brown 16.9 from Augustine. It reads 5.83:1 on the tightest light paper. */
   "Immanuel Kant": "#592F85",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-five colours placed (Nov 2026, adding On the Origin of Species):
+     CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     all forty-five light papers, cards and second papers. The band is full: a sweep at a step of 3 tops out at
+     14.6. THE EURIPIDES TEST: the sweep's best, a magenta, stood 14.9 from Plato and a green 16.7 from
+     Lucretius, whose poem on nature is the shelf's nearest kin to Darwin, so this deep oxblood was taken: its
+     nearest are Livy 14.3, the Poetic Edda 14.7 and Virgil 14.8, none read beside Darwin, and the books that
+     might be stand well off — Lucretius, Aristotle, Kant, Hobbes and Plato all 41.8 or more. It reads 8.79:1
+     on the tightest light paper. */
+  "Charles Darwin": "#5A0009",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -17046,6 +17055,40 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          category of "Inherence and Subsistence", not how a society gets its living; PROVIDENCE is divine, not
          the capital of Rhode Island; and "the Republic of Plato" is the dialogue, not the form of state. */
       glossOff: ["Wolf", "Subsistence", "Providence", "Republic"],
+    },
+    {
+      id: "darwin-origin-of-species",
+      title: "On the Origin of Species",
+      subtitle: "By Means of Natural Selection, or the Preservation of Favoured Races in the Struggle for Life",
+      author: "Charles Darwin",
+      written: "1859",
+      year: 1859,
+      /* NO `translator`: written in English, like Leviathan. */
+      edition: "The first edition, John Murray, London, 1859",
+      /* No limit to state: printed in 1859, its author dead since 1882. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Charles Darwin published On the Origin of Species in London in 1859 " +
+        "and died in 1882, so the book has never been in copyright anywhere since. The text is the " +
+        "validated Wikisource transcription of the first edition, from a facsimile scan.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/On_the_Origin_of_Species_(1859)",
+      /* NO `origLang`: the book is English. Fifteen sections — Darwin's Introduction and his fourteen
+         chapters — so a tab's number runs one ahead of the chapter's, whose Roman numeral opens each title
+         (Leviathan's arrangement; the front matter says so). No `parts`: the book has none. */
+      chapterWord: "Section",
+      count: 15,
+      total: 15,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 15 sections (every `.ttip`,
+         93 keys, Nov 2026). NAMESAKES: Darwin's Pallas is Peter Simon Pallas the naturalist, not Mark Antony's
+         freedman; his Philippi is the naturalist R. A. Philippi, not the Macedonian city; the Silla of Caracas
+         is a mountain, not the Korean kingdom; his Rhea is the American ostrich, not the Titaness; his Hydra is
+         the freshwater polyp, not the Lernaean monster. ORDINARY WORDS and names inside names: the Sounds of
+         Tierra del Fuego (inlets, not acoustics), the Jerusalem artichoke, Mr. Smith of Jordan Hill, and an
+         Arab or Arabian horse (a breed, not the people or the peninsula). Iran is the legendary "Iran and
+         Turan" of a quotation, not the modern state. What stays is right in place: Agassiz, Lubbock, the
+         Glacial period, natural and sexual selection, and the countries and seas of Darwin's own world. */
+      glossOff: ["Marcus_Antonius_Pallas", "Philippi", "Silla", "Rhea_(mythology)", "Lernaean_Hydra", "Sound",
+        "Jerusalem", "Jordan", "Arabs", "Arabian_Peninsula", "Iran"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -26751,6 +26794,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "The LORD is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul: he leadeth me in the paths of righteousness for his name’s sake. Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me. Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over. Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever." },
     { book: "quran", n: 1, t: "The Opening", p: 1,
       text: "In the name of Allah, the Beneficent, the Merciful. Praise be to Allah, Lord of the Worlds, The Beneficent, the Merciful. Owner of the Day of Judgment, Thee (alone) we worship; Thee (alone) we ask for help. Show us the straight path, The path of those whom Thou hast favoured; Not (the path) of those who earn Thine anger nor of those who go astray." },
+    { book: "darwin-origin-of-species", n: 15, t: "XIV. Recapitulation and Conclusion", p: 48,
+      text: "It is interesting to contemplate an entangled bank, clothed with many plants of many kinds, with birds singing on the bushes, with various insects flitting about, and with worms crawling through the damp earth, and to reflect that these elaborately constructed forms, so different from each other, and dependent on each other in so complex a manner, have all been produced by laws acting around us. These laws, taken in the largest sense, being Growth with Reproduction; Inheritance which is almost implied by reproduction; Variability from the indirect and direct action of the external conditions of life, and from use and disuse; a Ratio of Increase so high as to lead to a Struggle for Life, and as a consequence to Natural Selection, entailing Divergence of Character and the Extinction of less-improved forms. Thus, from the war of nature, from famine and death, the most exalted object which we are capable of conceiving, namely, the production of the higher animals, directly follows. There is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved." },
   ];
   function homeDailyExcerpt() {
     const list = HOME_EXCERPTS.filter((e) => BOOK_BY_ID[e.book]);
