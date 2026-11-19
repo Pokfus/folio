@@ -15277,7 +15277,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Rex_Sacrorum": "traditionally 509 BCE",
 "Emperor_of_China": "221 BCE – 1912 CE",
 "Jiangnan_Examination_Hall": "1168",
-"Eight-legged_essay": "1487–1901",
+"Eight-legged_essay": "1663–1901",
 "Great_Qing_Legal_Code": "1646–1910",
 "Yellow_Registers": "1381–1645",
 "Likin_(taxation)": "1853–1931",
@@ -18268,7 +18268,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "De-Stalinization": "1953–1964",
 "Khrushchev_thaw": "1953–1964",
 "Basmachi_movement": "1918–1932",
-"Kronstadt_rebellion": "1921"
+"Kronstadt_rebellion": "1921",
+"Juren": "1368–1905"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -21840,11 +21841,11 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Emperor_of_China": ["Chinese emperor"],
 "Dynastic_cycle": ["dynastic cycles"],
 "Jiangnan_Examination_Hall": ["Jiangnan Gongyuan"],
-"Eight-legged_essay": ["baguwen","bagu wen"],
+"Eight-legged_essay": ["baguwen","bagu wen","shiwen"],
 "Juren": ["chü-jen","provincial graduate"],
 "Rule_of_avoidance": ["law of avoidance","huibi"],
 "Memorial_to_the_throne": ["palace memorial","palace memorials","zouzhe"],
-"Ministry_of_Rites": ["Board of Ceremonies"],
+"Ministry_of_Rites": ["Board of Ceremonies","Board of Rites"],
 "Censorate": ["Yushitai","Duchayuan"],
 "County_magistrate": ["zhixian"],
 "Great_Qing_Legal_Code": ["Great Qing Code","Qing Code","Da Qing lüli"],

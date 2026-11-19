@@ -582,7 +582,7 @@ otherwise.
 | B68 | People's Republic of China (`col-38`) | `cnh-671`–`cnh-680` | 10 | 104 | **done 2026-11-19** |
 | B69 | People's Republic of China (`col-38`) | `cnh-681`–`cnh-690` | 10 | 104 | **done 2026-11-19** |
 | B70 | Republic of China (Taiwan) (`col-39`) | `cnh-691`–`cnh-700` | 10 | 99 | **done 2026-11-19** |
-| B71 | The imperial state (`cn-government`) | `cnh-701`–`cnh-710` | 10 | 102 | to do |
+| B71 | The imperial state (`cn-government`) | `cnh-701`–`cnh-710` | 10 | 102 | **done 2026-11-19** |
 | B72 | The imperial state (`cn-government`) | `cnh-711`–`cnh-720` | 10 | 111 | to do |
 | B73 | The imperial state (`cn-government`) | `cnh-721`–`cnh-730` | 10 | 105 | to do |
 | B74 | The imperial state (`cn-government`) | `cnh-731`–`cnh-740` | 10 | 104 | to do |
@@ -4488,3 +4488,32 @@ the Hundred Regiments (the Zhengtai railway; no single point), `cnh-645` Jin-Cha
 `cnh-689` the handover's label names the term (Hong Kong), `cnh-620` the Double Tenth's label (Chongqing), `cnh-617` the Xi'an Incident's point
 at Huaqing Pool, `cnh-646`'s at Jing County (not Maolin), `cnh-681`'s Xiaogang (a village for a concept). Still waiting from earlier hundreds:
 the list in the sixth hundred's note.
+
+### B71 — `cnh-701`–`cnh-710`, the imperial state: the Chinese Empire to the Censorate (2026-11-19)
+
+Run as B61, with `REFINE_PREFIX=cnh-`; ten cards in five agents. Every cited URL answered at the batch's own curl (108 citations, 62 distinct). **Pictures were not touched**
+(Wikimedia answered 429); **ctext.org answered 403** all day, so the classical texts came from the Kanseki Repository, zggdwx.com and Legge or Chavannes on archive.org.
+**The old cards leaned on Chinese Wikisource (thirty-one citations over the ten), chinaknowledge.de, princeton.edu and archive.org uploads of Hucker's *Dictionary of
+Official Titles* (in copyright); every one is gone, and with it every figure only they carried** (the *Hanshu*'s 1,587 counties, Wang Ao's 2,300 candidates, the 1732
+edict's "six years by lamplight", the Qing quota "more than 160", "twenty circuits 1906").
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-701` Chinese Empire | 8 | 8 → 8 | line kept (`Founded 221 BCE` / `Ended 12 February 1912`); the edict through FRUS 1912 and the *Qingshi gao* [in Chinese], the founding through Chavannes [in French]; the counties' magistrates and staff (Eno); the 18th-century county's "300 – 400 runners" (an unreachable PDF) dropped. Name 中华帝国 kept, unconfirmed. |
+| `cnh-702` Emperor of China | 8 | 9 → 10 | **"Title abolished 5 November 1924" → `Palace vacated 5 November 1924`** (no page opened says the title was abolished); the Qin title through Chavannes, the sacrifices through Legge's *Li Ki*, the 1912 terms through Couling, the expulsion through Sixth Tone and the Durham–Palace Museum exhibition; "Lord of Ten Thousand Years" dropped. |
+| `cnh-703` dynastic cycle | 7 | 8 → 7 | **said in the card's voice to be a modern scholars' name**; the "Duo shi" speech and Mencius through Legge; Rogacz on Mencius and Xunzi, Zou Yan's Five Powers (Raphals), Huang Yanpei and Mao in 1945 as the party press tells it; "its oldest statement" softened; the Ming verdict on Wanli and the *Sanguo yanyi*'s opening (Wikisource only) dropped. **Name 朝代循环 → 王朝循环 wángcháo xúnhuán** (theory.people.com.cn). |
+| `cnh-704` Jiangnan Examination Hall | 6 | 6 → 6 | line kept; three Chinese sources cut to one (the museum's own page), the cell counts each source's (20,644 the museum's); Chen Duxiu's memory, the 1657 executions and Wang Ao dropped (Wikisource, princeton.edu). |
+| `cnh-705` eight-legged essay | 6 | 6 → 6 | **"Made official 1487" (an unreachable entry) off: `Widely written c. 1450 – 1850` (Des Forges's span) / `Suspended 1663` / `Dropped 1901`**; the restoration "six years later" in prose (the page's Kangxi 8 not converted, the old 1668 dropped); Moule's report (a DLI upload) replaced. |
+| `cnh-706` juren | 6 | 6 → 6 | **"System fixed 1384" (on no page) → `Lifelong title c. 1368 – 1905` / `Abolished 2 September 1905`** (the 1368 start the Ming's founding joined to Guo's statement that Ming degrees were held for life — a soft start); Fan Jin's age and seventh place (the Academia Sinica page puts 54 at his first degree) dropped. |
+| `cnh-707` rule of avoidance | 6 | 6 → 6 | **"Native-place ban c. 200 – 100 BCE" (no source) → `Earliest rules 202 BCE – 220 CE` / `General rule 1393` / `Province ban 1655` / `Lots reform 1824`**; Ho Ping-ti [in Chinese] on the bans' history, the 1777 Shaoxing-accent case; Cai Yong's memorial (Wikisource only) dropped. |
+| `cnh-708` palace memorial | 6 | 7 → 8 | **"Introduced Kangxi reign, 1661 – 1722" (a reign), "Yongzheng edict 1732" (a man) and "Routine ended 1901" (on no page) → `Earliest kept 1673` / `Latest kept 1911`** (the First Historical Archives' staff, Qin and Gao [in Chinese]); the lamplight, 10,000 memorials, 360 juan and 223 officials dropped. |
+| `cnh-709` Ministry of Rites | 7 | 7 → 8 | **"Took exams 736 CE" off (the *Xin Tangshu* gives Kaiyuan 24, no page converts it); "Qing board 1631" → `Refounded 1631` / `Exams ended 1905`**; the 1423 and 1543 tribute entries through Wade's *Ming Shi-lu*, FRUS 1898 and 1905. The line now starts at 1631, which sorts a Sui–Tang ministry into the Qing: no saved page dates its beginning (for the owner). |
+| `cnh-710` Censorate | 7 | 7 → 7 | **"Ming reform 1382" (Hongwu 15, not converted) and "Twenty circuits 1906" (Mayers 1886 gives fifteen) → `In use 221 BCE – 1912`** (Chan); the hearsay rule dated 1688, not 1644 (Guy 2021). Name 御史台 kept: Chan renders 都察院 as "Censorate" and 御史臺 as "Censorial Bureau", so the owner may prefer 都察院 for the Ming–Qing office. |
+
+Read by eye. **Confusability**: the counties' magistrates `cnh-701`'s, the title and the expulsion `cnh-702`'s (one phrasing shares 44 per cent of its words with `cnh-512`, the
+Forbidden City; advisory, a different answer), the 1945 cave talk `cnh-703`'s, the cells and the tower `cnh-704`'s, the suspension `cnh-705`'s, the lifelong title `cnh-706`'s, the
+lots `cnh-707`'s, the rescripts `cnh-708`'s, the tribute entries `cnh-709`'s, the hearsay rule `cnh-710`'s (the county magistrate `cnh-711`, the Shiji's founding `cnh-194` and
+`cnh-197` kept apart). **Legend**: the dynastic cycle (a model), the Mandate of Heaven's Duo shi argument (register row `cnh-117` confirmed on Legge's text) are each said so.
+**Chinese names corrected**: `cnh-703` 王朝循环. Kept unconfirmed: 中华帝国, `cnh-702` 皇帝 (the title, shared with `cnh-194`), `cnh-707` 回避 (回避制度 the modern compound).
+**Spellings**: no hit. **check-citations**: no mismatch. **Glossary**: all ten rewritten; `Eight-legged_essay` now dates 1663 – 1901 (the suspension to the abolition), for the owner.
+**Locator**: `cnh-704`'s label repeats the answer term ("Nanjing Imperial Examination Museum" would be a place). No protected card in the batch.

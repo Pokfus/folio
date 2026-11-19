@@ -880,6 +880,13 @@ BCE and the empire's end, the abdication of 12 February 1912 (`cnh-191`, `cnh-57
 
 | event | the collection says | source |
 |---|---|---|
+| the imperial state founded / ended | 221 BCE / 12 February 1912 | Chavannes; FRUS 1912 (`cnh-701`, `cnh-702`) |
+| Puyi expelled from the palace | 5 November 1924 | Sixth Tone; the Palace Museum (`cnh-702`) |
+| the eight-legged essay most widely written / suspended / dropped | c. 1450 – 1850 / 1663 / 1901 | Des Forges; Guo (`cnh-705`) |
+| the examinations abolished | 2 September 1905 | Bai and Jia (`cnh-706`; the year 1905 with `cnh-348`, `cnh-427`) |
+| the rule of avoidance: the Ming general rule / the Qing province ban / the lots reform | 1393 / 1655 / 1824 | Ho Ping-ti; Koss (`cnh-707`) |
+| the palace memorials: the earliest and latest kept | 1673 / 1911 | Qin and Gao (`cnh-708`) |
+| the Qing Ministry of Rites founded | 1631 | Keliher (`cnh-709`) |
 
 ## Later periods
 
@@ -1583,4 +1590,13 @@ cnh-697: 1990; 1991; 1996
 cnh-698: 1949; 1993; 2008; 2016
 cnh-699: 1992; 2026
 cnh-700: 1943; 1951; 1952; 1971
+cnh-701: 221; 1912
+cnh-702: 221; 1912; 1924
+cnh-704: 1168; 1534; 1903; 1905
+cnh-705: 1450; 1850; 1663; 1901
+cnh-706: 1368; 1905
+cnh-707: 202; 220; 1393; 1655; 1824
+cnh-708: 1673; 1911
+cnh-709: 1631; 1905
+cnh-710: 221; 1912
 ```
