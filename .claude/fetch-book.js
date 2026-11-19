@@ -19975,6 +19975,114 @@ const BOOKS = {
     fixes: [["something_precedes", "something precedes", "System of all Principles, Second Analogy: an underscore typed for a space"]],
     minChars: 3000,
   },
+  "more-utopia": {
+    title: "Utopia",
+    // the short form of the title the first edition (Louvain, 1516) prints in Latin
+    subtitle: "De optimo rei publicae statu deque nova insula Utopia",
+    author: "Thomas More",
+    translator: "Gilbert Burnet",
+    edition: "Utopia, translated by Gilbert Burnet, edited by Henry Morley, Cassell & Company, London, 1901",
+    written: "1516",
+    year: 1516,
+    /* ---------- THE LICENCE, and it needs no qualification ----------
+       More's Latin was printed at Louvain in 1516 and he died in 1535. Burnet's English was first printed
+       in 1684 and Burnet died in 1715; Henry Morley, whose edition this is, died in 1894 (his Wikisource
+       author page). The printing transcribed is Cassell's of 1901, before 1929. Wikisource's own tag on the
+       work is PD-old for the original and the translation alike. The transcription is a plain one, typed
+       onto the wiki with no scan behind it (no `prp-pages-output`), so `body: "plain"`, as Thucydides.
+
+       ---------- WHAT IS TAKEN ----------
+       Morley's nine chapters, one wiki page each. Not taken: Morley's introduction (an editor's essay, as
+       Marriott's and Cole's are left out), and the letters of Peter Giles and Paludanus that Wikisource
+       attaches to the work page from another source. MORLEY'S CHAPTER 1 IS MORE'S BOOK I AND THE OPENING
+       OF BOOK II: Book II begins with no heading, mid-chapter, on "The island of Utopia is in the middle
+       two hundred miles broad", and his chapters 2–9 are Book II's own eight sections (De urbibus …
+       De religionibus). So no `parts`: a Book I / Book II split would cut a page. The front matter says so.
+
+       NO ORIGINAL: la.wikisource has the Latin in two Books with Book II's sections, which cannot be
+       paired with chapter 1 here without cutting it. The Robinson translation of 1551 has no page on
+       English Wikisource (the translations page links one that does not exist). */
+    rights:
+      "Public domain worldwide. Thomas More published Utopia in Latin in 1516 and died in 1535. " +
+      "Gilbert Burnet's English translation was first printed in 1684 and Burnet died in 1715; Henry " +
+      "Morley, who edited this printing of 1901, died in 1894.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Utopia_(1901)",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Where the
+       reading is divided — above all on how far More meant the island seriously — it says so. */
+    about: [
+      "<b>Utopia</b> is a dialogue about the best state of a commonwealth, and the book that gave the " +
+        "word to every language. Thomas More tells how, on an embassy to Flanders, he was introduced by " +
+        "his friend Peter Giles to Raphael Hythloday, a Portuguese traveller who had sailed with Amerigo " +
+        "Vespucci and gone on alone. The first part is their conversation in a garden at Antwerp: why " +
+        "Raphael will not serve a king, and what is wrong with England — thieves hanged for stealing " +
+        "bread they had no other way to get, and farmland enclosed for pasture until, as he puts it, " +
+        "the sheep devour the men. The second is Raphael's description of the island of Utopia, where " +
+        "there is no private property and no money, everyone works six hours a day, and the citizens " +
+        "choose their magistrates and tolerate one another's religions.",
+      "The name is a Greek joke: <i>ou-topos</i>, no place, with an echo of <i>eu-topos</i>, a good place. " +
+        "Raphael's surname is put together from Greek words for nonsense, and the island's capital, " +
+        "Amaurot, is the dim or shadowy city. How seriously More meant the island has been argued over " +
+        "ever since — as a programme, as a satire on the Europe of his day, as a learned game in the " +
+        "manner of Plato's <i>Republic</i>, or as all three — and the book ends with More himself " +
+        "declining to agree with everything Raphael has said, while wishing rather than hoping to see " +
+        "many of the island's customs followed at home.",
+      "More was born in London in 1478, the son of a judge, trained as a lawyer, and was a close friend " +
+        "of Erasmus. He wrote the description of the island first, in the Low Countries in 1515, and the " +
+        "dialogue of the first part after his return. The book was printed in Latin at Louvain in 1516, " +
+        "with Erasmus and Giles seeing it through the press. More rose in Henry VIII's service to become " +
+        "Lord Chancellor in 1529, resigned in 1532, and was beheaded in 1535 for refusing the oath that " +
+        "acknowledged the king as head of the Church in England. The Catholic Church canonised him in " +
+        "1935.",
+      "The first English translation, Ralph Robinson's, appeared in 1551. The one given here is Gilbert " +
+        "Burnet's of 1684 — the work of the churchman and historian who later became Bishop of Salisbury — " +
+        "in Henry Morley's edition, as Cassell printed it in 1901. Morley divides the book into nine " +
+        "chapters. The first holds the whole of More's first book and the opening of the second, where " +
+        "Raphael begins on the island's shape, its cities and its farms; the island part begins without " +
+        "a heading, on the paragraph <i>The island of Utopia is in the middle two hundred miles " +
+        "broad</i>. The other eight chapters are the sections of the second book, under their own " +
+        "titles. Not included: Morley's introduction, the prefatory letters and the verses printed with " +
+        "the first editions.",
+    ],
+
+    source: "wiki",
+    body: "plain",
+    dropHeadings: true,
+    /* Each page opens on its title in capitals in a centred block ({{c|<h3>…</h3>}}), which reaches the
+       reader as a quotation of the tab's own title. Measured: the nine pages carry no other centred block. */
+    dropHeads: [/^(?:DISCOURSES OF RAPHAEL HYTHLODAY|OF (?:THEIR|THE) [A-Z ,]+)/],
+    chapterWord: "Chapter",
+    chapters: Array.from({ length: 9 }, (_, i) => i + 1),
+    page: (n) => "Utopia (1901)/Chapter " + n,
+    /* ---------- SLIPS IN THE TRANSCRIPTION, each checked against a second witness ----------
+       A word-by-word diff of the whole import against Project Gutenberg #2130 — the same Morley edition of
+       Burnet, typed separately — found seven differences besides the chapter titles. Five are taken: a
+       Wikisource reading that is not a word or that breaks its sentence, where Gutenberg's is the plain
+       sense. Two are left: "a mean of the public safety" (a period form, possibly the page's), and
+       "work so much on them", where Gutenberg's "on there" is the slip. */
+    fixes: [
+      ["when they trained over land", "when they travelled over land", "chapter 1: 'trained' for 'travelled' (beside 'when they went by water'); Gutenberg #2130"],
+      ["the dobots", "the abbots", "chapter 1: 'dobots' is not a word; Gutenberg #2130 reads 'abbots'"],
+      ["if I speak with, I must repeat", "if I speak truth, I must repeat", "chapter 1: 'speak with' breaks the sentence (set against 'as for lying'); Gutenberg #2130"],
+      ["to their case or health", "to their ease or health", "a c for an e; Gutenberg #2130"],
+      ["by the seventies of law", "by the severities of law", "'seventies' for 'severities'; Gutenberg #2130"],
+    ],
+    // transcribed from the work page's contents list
+    titleOf: (n) => [
+      "Discourses of Raphael Hythloday, of the Best State of a Commonwealth",
+      "Of Their Towns, Particularly of Amaurot",
+      "Of Their Magistrates",
+      "Of Their Trades, and Manner of Life",
+      "Of Their Traffic",
+      "Of the Travelling of the Utopians",
+      "Of Their Slaves, and of Their Marriages",
+      "Of Their Military Discipline",
+      "Of the Religions of the Utopians",
+    ][n - 1],
+    // the shortest, chapter 3, Of Their Magistrates, is about 3,000 characters of wikitext
+    minChars: 2000,
+  },
 };
 
 /* ---------- args ---------- */

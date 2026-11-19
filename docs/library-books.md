@@ -49,6 +49,18 @@ book added later will meet the same traps.
   Colour `#592F85` (14.8: the band is full; the philosophers stand 19.6 or more off). `glossOff`: Wolf (Christian
   Wolff), Subsistence (the category), Providence, Republic (Plato's) — swept over all 19 sections. Excerpt: the
   Copernican passage of the second preface. Not included: the translator's preface, the contents and the errata.
+  `more-utopia` (~230 KB, **9 chapters**, no notes, no original; Gilbert Burnet's translation of 1684 in Henry
+  Morley's edition, Cassell, London, 1901 — a PLAIN transcription with no scan behind it, so `body: "plain"`, as
+  Thucydides). Morley's chapter 1 is More's Book I AND the opening of Book II (the island begins headless on "The
+  island of Utopia is in the middle two hundred miles broad"); chapters 2–9 are Book II's own eight sections, so no
+  `parts`, and the front matter says where Book II begins. Each page's centred capital title goes by `dropHeads`.
+  Titles transcribed from the work page's contents (`titleOf`). **No original**: la.wikisource's Latin is in two
+  Books and cannot be paired with chapter 1 uncut; Robinson's 1551 translation has no page on en.wikisource.
+  Public domain worldwide (More d. 1535, Burnet d. 1715, Morley d. 1894). 5 `fixes`, each from a word diff against
+  Gutenberg #2130 (the same Morley edition): trained → travelled, dobots → abbots, speak with → speak truth,
+  case → ease, seventies → severities; "a mean of the public safety" and "work so much on them" are left. Colour
+  `#5A0009` (14.3: the band is full; Plato, whose Republic it is read beside, 41.8 off). `glossOff`: 6 keys — see the comment on the app.js entry. Excerpt: the sheep that
+  devour men. Not included: Morley's introduction, the prefatory letters and verses.
   `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
   Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
   **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on
