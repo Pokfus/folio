@@ -564,7 +564,7 @@ otherwise.
 | B64 | World War II (`col-37`) | `cnh-631`–`cnh-640` | 10 | 97 | **done 2026-11-19** |
 | B65 | World War II (`col-37`) | `cnh-641`–`cnh-650` | 10 | 117 | **done 2026-11-19** |
 | B66 | World War II (`col-37`) / People's Republic of China (`col-38`) | `cnh-651`–`cnh-660` | 10 | 99 | **done 2026-11-19** |
-| B67 | People's Republic of China (`col-38`) | `cnh-661`–`cnh-670` | 10 | 103 | to do |
+| B67 | People's Republic of China (`col-38`) | `cnh-661`–`cnh-670` | 10 | 103 | **done 2026-11-19** |
 | B68 | People's Republic of China (`col-38`) | `cnh-671`–`cnh-680` | 10 | 104 | to do |
 | B69 | People's Republic of China (`col-38`) | `cnh-681`–`cnh-690` | 10 | 104 | to do |
 | B70 | Republic of China (Taiwan) (`col-39`) | `cnh-691`–`cnh-700` | 10 | 99 | to do |
@@ -1300,6 +1300,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-658` | none | not re-checked (pictures paused): wanted |
 | `cnh-659` | none | not re-checked (pictures paused): wanted |
 | `cnh-660` | none | not re-checked (pictures paused): wanted |
+| `cnh-661` | none | not re-checked (pictures paused): wanted |
+| `cnh-662` | none | not re-checked (pictures paused): wanted |
+| `cnh-663` | none | not re-checked (pictures paused): wanted |
+| `cnh-664` | none | not re-checked (pictures paused): wanted |
+| `cnh-665` | none | not re-checked (pictures paused): wanted |
+| `cnh-666` | none | not re-checked (pictures paused): wanted |
+| `cnh-667` | none | not re-checked (pictures paused): wanted |
+| `cnh-668` | none | not re-checked (pictures paused): wanted |
+| `cnh-669` | none | not re-checked (pictures paused): wanted |
+| `cnh-670` | none | not re-checked (pictures paused): wanted |
 
 ## Glossary candidates
 
@@ -4228,3 +4238,36 @@ names**: none corrected; kept unconfirmed 难民危机 (scholarship writes 难�
 register**: the Henan famine confirmed (White's reporting began in October 1942). **check-citations**: no mismatch. **Protected lines:
 unchanged** (diffed after the apply). For the owner: `cnh-652`'s general glossary entry and wiki link; `cnh-660`'s glossary alias trap;
 `cnh-654`'s glossary date; `cnh-656` wants no locator (`L.missing` on a state). Timelines unchanged.
+
+### B67 — `cnh-661`–`cnh-670`, the People's Republic: socialist transformation to the Cultural Revolution (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl. **Pictures were not touched.** **The old cards cited Wikisource for the
+party's resolutions, the commune regulations and the 1982 constitution, user uploads (Kuan Ta-tung), bot-walled articles (Chen Ziming,
+Smil) for rightist and famine counts, and a Red Guard text for Mao's Lushan talk; carried men and institutions in labels ("Mao's speech",
+"Peng's letter", "Liu's speech", "Ninth Congress", "Party verdict", "Beidaihe ruling"), "From 1956" as a value, a census as a famine's date
+and "Exams scrapped" for a postponement.** The party's own histories (cpc.people.com.cn, the 1981 resolution, its chronicles) are now
+each said to be the party's, and every rightist count, famine toll and death estimate whose.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-661` Socialist transformation | 6 | 6 → 7 | **"Fixed interest From 1956" (words, "From") → `Interest ended September 1966`; `General line 1953` / `Upsurge 1955 – 1956`; the joint state–private firms, Mao's "woman with bound feet" (31 July 1955), Walker's 14.2 and 91.2 per cent, the party's "peaceful buying-out" as its own account; Saitō [in Japanese]**; Kuan Ta-tung (an upload) and every figure only it carried (99 per cent, 400,000 shops, "5 per cent for 7 years") dropped. **Pinyin → shèhuì zhǔyì gǎizào** (split; reversible). |
+| `cnh-662` Hundred Flowers Campaign | 7 | 7 → 7 | **"Mao's speech" (a man) → `Speech 27 February 1957`; `Proposed 28 April 1956` / `Views aired 8 May – 7 June 1957`; the 8 June counter-attack left to `cnh-663`; Li Ruzhen's phrase, the six tests, the blossom imagery; the trap reading as Mao's own 1 July "overt scheme" against the Library of Congress study and the party page**; the Zhang Bojun and Luo Longji proposals (a bot-walled source) dropped from the card and the glossary. Timeline set to 28 April 1956 – 7 June 1957. Name 百花运动 kept, unconfirmed. |
+| `cnh-663` Anti-Rightist Campaign | 7 | 8 → 7 | **"Largely over summer 1958" (only a second Chinese page prints it) off: `Began 8 June 1957` (Mao's directive) / `Labels removed 1978` / `Review completed 1981`; "spew out their venom", the party's own more than 550,000 labelled and some 3,000 verdicts standing, Jiabiangou; Shen Zhihua, Teiwes**; Chen Ziming (a bot wall) and the higher counts resting on him dropped, in the glossary too. **Pinyin → Fǎnyòu Yùndòng** (反右派斗争 the party's own term). Timeline set to 8 June 1957. |
+| `cnh-664` Great Leap Forward | 8 | 8 → 8 | **"General line May 1958" and "Communes August 1958" (`cnh-665`'s) → `Began May 1958` / `Ended winter 1960`; the Beidaihe steel target of 10.7 million tonnes and "overtake Britain within 15 years or less" from the party's own history, the "sputniks" and Anhui's irrigation drive, the party's verdict; the famine's toll as Yang Jisheng's 16.2 million to Dikötter's minimum of 45 million**; Lushan and Smil (a bot wall) dropped; the backyard furnaces (on no page cited) not named. |
+| `cnh-665` people's commune | 7 | 7 → 7 | **"Prototype April 1958" and "Revised rules 27 September 1962" (on no page that opens) and "Beidaihe ruling" (a place) off: `Resolution 29 August 1958` (*Peking Review*) / `Townships back 4 December 1982` (*Beijing Review*) / `Dissolved winter 1982 – 1983` (Dikötter); the canteens' free food turned to punishment, Da Fo's nineteen villages (Thaxton); Rothschild 2026, Bramall, Ó Gráda**; three Wikisource texts replaced. |
+| `cnh-666` Great Chinese Famine | 7 | 7 → 7 | **"Worst year 1960" and "Census 1982" (another event) off: `Famine 1959 – 1961`; the register row refined: every toll whose and how made, from Yang Jisheng's 16.2 million to at least 45 million (Dikötter), the institutional study of the food-rich regions, the party journal's dismissal as the state's account; 三年大饥荒 the critics' name, 三年困难时期 the party's**; Smil replaced by Rothschild. |
+| `cnh-667` Lushan Conference | 6 | 8 → 6 | **"Peng's letter" and "Mao's reply" (men) → `Opened 2 July 1959` / `Letter 14 July 1959` / `Rebuttal 23 July 1959` / `Plenum 2 – 16 August 1959`; the register row confirmed in outline; Mao's threat to lead the peasants in the speech's own words, the "anti-Party group" resolution later declared wrong; the party news site [in Chinese], Bernstein 2006, Schoenhals and Stone 1990, Charles 1961**; two Wikisource texts and a Red Guard text dropped; "petty-bourgeois fanaticism" as Peng's words, the "private" letter and the canteens' 400 million (on no page) dropped. Timeline set to 2 July – 16 August 1959. |
+| `cnh-668` Sino-Soviet split | 7 | 7 → 7 | **"Alliance signed 14 February 1950" (the treaty, through FRUS's note, now in prose) → `Rift opened February 1956` / `Experts recalled 16 July 1960` (Luan Jinghe [in Chinese]: 1,390 experts) / `Border clashes 2 – 15 March 1969`; Zhenbao's dead as the Soviet count (Ostermann) and "some 50" (Burr); Lüthi 2012**. **Name 中苏交恶 (a description) → 中苏分裂 Zhōng-Sū fēnliè** (the CASS page). Timeline set to February 1956 – March 1969. |
+| `cnh-669` Seven Thousand Cadres Conference | 6 | 7 → 6 | **"Liu's speech" and "Mao's talk" (men) → `Speech 27 January 1962` / `Self-criticism 30 January 1962`; Mao's own responsibility, the Hunan peasants' natural and man-made disasters as Liu reported them, the ponds that never dried, the cuts to the towns; Wemheuer 2010, 許楽 2024 [in Japanese], the party chronicle [in Chinese]**; the rift sentences (Bianco and Nakagane behind bot walls) replaced by the chronicle's own admission of disagreement unresolved. |
+| `cnh-670` Cultural Revolution | 9 | 9 → 9 | **"Dated by Party", "Ninth Congress" and "Party verdict" (institutions) and "Exams scrapped 13 June 1966" (wrong: enrolment was postponed; the exams abolished 24 July) → `Began May 1966` / `Enrolment halted 13 June 1966` / `Ended October 1976` / `Verdict 27 June 1981`; the county-annals scholars' million or more dead, mostly victims of the authorities; the 1981 resolution as the party's verdict; the Cultural Revolution Group**; the 8 August Decision (an unquotable PDF) replaced by the party chronicle [in Chinese]. |
+
+Read by eye. **Confusability**: the fixed interest and bound feet `cnh-661`'s; Li Ruzhen's phrase and the blossoms `cnh-662`'s (the 8 June
+editorial `cnh-663`'s); Jiabiangou `cnh-663`'s; the steel target and the sputniks `cnh-664`'s; the canteens and Da Fo `cnh-665`'s; the
+food-rich regions `cnh-666`'s; Mao's threat at Mount Lu `cnh-667`'s; Zhenbao and the experts' recall `cnh-668`'s; Mao's self-criticism and
+the ponds `cnh-669`'s; the county annals and the Cultural Revolution Group `cnh-670`'s. **Legend**: the trap reading of the Hundred Flowers
+(Mao's own claim), "three parts natural, seven parts man-made" (the peasants' words as Liu reported them), the famine's toll (estimates)
+are each said so. **Chinese names corrected**: `cnh-668` 中苏分裂; pinyin `cnh-661` shèhuì zhǔyì gǎizào, `cnh-663` Fǎnyòu Yùndòng. Kept
+unconfirmed: 百花运动. **Spellings**: 0 hits on the drafts. **Myth register**: the Great Famine's toll refined (from Yang Jisheng's 16.2
+million), Lushan and Peng's letter confirmed in outline. **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after
+the apply). Timelines set: `cnh-662` (28 April 1956 – 7 June 1957), `cnh-663` (8 June 1957), `cnh-667` (2 July – 16 August 1959),
+`cnh-668` (February 1956 – March 1969).

@@ -822,6 +822,16 @@ and is audited as an ordinary card. Dates already set elsewhere that this hundre
 | the Double Ten Directive / the campaign against counter-revolutionaries | 10 October 1950 / 1950 – 1953 | Yang Kuisong (`cnh-658`) |
 | the Volunteers ordered in / the armistice / withdrawn | 8 October 1950 / 27 July 1953 / October 1958 | Mao; Shen and Xia (`cnh-659`) |
 | the First Five-Year Plan / adopted | 1953 – 1957 / 30 July 1955 | the plan (`cnh-660`) |
+| the general line / the upsurge / the fixed interest ended | 1953 / 1955 – 1956 / September 1966 | Saitō; Walker (`cnh-661`) |
+| "a hundred flowers" proposed / the contradictions speech / the views aired | 28 April 1956 / 27 February 1957 / 8 May – 7 June 1957 | the party; Mao (`cnh-662`) |
+| the Anti-Rightist Campaign began / labels removed / review completed | 8 June 1957 / 1978 / 1981 | Mao; the party history office (`cnh-663`) |
+| the Great Leap Forward | May 1958 – winter 1960 | the party (`cnh-664`) |
+| the commune resolution / townships restored / the communes dissolved | 29 August 1958 / 4 December 1982 / winter 1982 – 1983 | the Central Committee; the NPC; Dikötter (`cnh-665`) |
+| the Great Chinese Famine | 1959 – 1961 | Ó Gráda (`cnh-666`) |
+| the Lushan Conference opened / Peng's letter / Mao's rebuttal / the plenum | 2 July / 14 July / 23 July / 2 – 16 August 1959 | the party news site (`cnh-667`) |
+| the Sino-Soviet rift opened / the experts recalled / the border clashes | February 1956 / 16 July 1960 / 2 – 15 March 1969 | the NSC; Luan; Lüthi (`cnh-668`) |
+| the Seven Thousand Cadres Conference / Liu's speech / Mao's self-criticism | 11 January – 7 February 1962 / 27 January / 30 January 1962 | Liu; Mao (`cnh-669`) |
+| the Cultural Revolution / enrolment halted / the party's verdict | May 1966 – October 1976 / 13 June 1966 / 27 June 1981 | the party (`cnh-670`) |
 
 ## Later periods
 
@@ -1486,4 +1496,14 @@ cnh-657: 1950; 1952
 cnh-658: 1950; 1953
 cnh-659: 1950; 1953; 1958
 cnh-660: 1953; 1957; 1955
+cnh-661: 1953; 1955; 1956; 1966
+cnh-662: 1956; 1957
+cnh-663: 1957; 1978; 1981
+cnh-664: 1958; 1960
+cnh-665: 1958; 1982; 1983
+cnh-666: 1959; 1961
+cnh-667: 1959
+cnh-668: 1956; 1960; 1969
+cnh-669: 1962
+cnh-670: 1966; 1976; 1981
 ```
