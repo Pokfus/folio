@@ -13020,6 +13020,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      sweep's other near-best were refused on the same test: a magenta stood 14.6 from Plato, a green 14.5 from
      Aquinas, a brown 16.9 from Augustine. It reads 5.83:1 on the tightest light paper. */
   "Immanuel Kant": "#592F85",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-five colours placed (Nov 2026, adding the Res Gestae): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on all
+     forty-five light papers, cards and second papers. A sweep of the cube at a step of 3 tops out at 14.6, and
+     this purple is that best. THE EURIPIDES TEST: its nearest are Valmiki 14.6, Plato 14.9, Euripides 14.9
+     and Thucydides 15.0, none a book read beside Augustus; the Romans who are stand off — Polybius 16.0,
+     Tacitus 27.1, Seneca 27.6, Ovid 28.6, Cassius Dio 35.6, Virgil 42.1, Livy 59.8, Suetonius 83.0 and
+     Julius Caesar 83.4. It reads 4.70:1 on the tightest light paper. */
+  "Augustus": "#84307B",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -17046,6 +17054,49 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          category of "Inherence and Subsistence", not how a society gets its living; PROVIDENCE is divine, not
          the capital of Rhode Island; and "the Republic of Plato" is the dialogue, not the form of state. */
       glossOff: ["Wolf", "Subsistence", "Providence", "Republic"],
+    },
+    {
+      id: "augustus-res-gestae",
+      title: "Res Gestae Divi Augusti",
+      subtitle: "The Deeds of the Divine Augustus",
+      author: "Augustus",
+      // the last chapter: "At the time of writing this I was in my seventy-sixth year" — 14 CE
+      written: "14 CE",
+      year: 14,
+      translator: "Frederick W. Shipley",
+      edition: "Velleius Paterculus and Res Gestae Divi Augusti, Loeb Classical Library, William Heinemann and G. P. Putnam's Sons, 1924",
+      /* The Cassius Dio ground: a 1924 Loeb, public domain in the United States as a pre-1929 publication, in
+         Bill Thayer's public-domain transcription. Shipley's death year was not established, so no
+         life-plus term is claimed. See .claude/fetch-book.js. */
+      rights:
+        "Two layers, both stated. Frederick W. Shipley's translation and his text of the Latin were " +
+        "published in the Loeb Classical Library in 1924, before 1929, so their copyright has expired in " +
+        "the United States. The text is taken from Bill Thayer's transcription on LacusCurtius, which " +
+        "states that its pages of this kind are in the public domain; Thayer's own notes are not " +
+        "reproduced. (Thomas Bushnell's translation of 1998, often found online, is in copyright and is " +
+        "not used.)",
+      sourceName: "LacusCurtius",
+      sourceUrl: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Augustus/Res_Gestae/home.html",
+      /* Paired on Augustus's CHAPTER, both columns read off the same LacusCurtius pages (the Loeb prints
+         them a row at a time) — see `layout: "monumentum"` in the importer. The Greek version is not set. */
+      origLang: "la",
+      origName: "Latin",
+      /* The Loeb's six Parts and its Summary; the thirty-five chapters are the section numbers inside them. */
+      chapterWord: "Part",
+      count: 7,
+      total: 7,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all seven Parts (every `.ttip`,
+         Nov 2026). The MODERN COUNTRIES and CONTINENTS go where Augustus means a Roman province or an ancient
+         land, as on the Primary Chronicle's and the King James Bible's shelves: the Spains, the Gauls and
+         Germany as provinces, Egypt, Syria, Asia and Africa as provinces, Greater Armenia, all Italy, the kings
+         of India, and Ethiopia, which here is the kingdom of Meroë. NAMESAKES: Caesar is Tiberius, Gaius or
+         Lucius Caesar and "the grove of the Caesars", never the dictator; Tiberius Nero is Tiberius, not the
+         emperor Nero; Quintus Lucretius, Marcus Crassus and Paullus Fabius Maximus are the consuls of 19, 14 and
+         11 BCE, not the poet, the triumvir or the Delayer; Jupiter Libertas is not a freedman; Pax Augusta is
+         not the capital of Maine; and the embassies of chapter 31 are envoys, not a modern permanent mission. */
+      glossOff: ["Germany", "Spain", "Italy", "Egypt", "Syria", "Armenia", "India", "Ethiopia", "Asia", "Africa",
+        "Julius_Caesar", "Nero", "Lucretius", "Marcus_Licinius_Crassus", "Quintus_Fabius_Maximus", "Libertus",
+        "Augusta", "Embassy"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -26743,6 +26794,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "Whatsoever therefore is consequent to a time of Warre, where every man is Enemy to every man; the same is consequent to the time, wherein men live without other security, than what their own strength, and their own invention shall furnish them withall. In such condition, there is no place for Industry; because the fruit thereof is uncertain: and consequently no Culture of the Earth; no Navigation, nor use of the commodities that may be imported by Sea; no commodious Building; no Instruments of moving, and removing such things as require much force; no Knowledge of the face of the Earth; no account of Time; no Arts; no Letters; no Society; and which is worst of all, continuall feare, and danger of violent death; And the life of man, solitary, poore, nasty, brutish, and short." },
     { book: "kant-critique-of-pure-reason", n: 2, t: "Preface to the Second Edition", p: 11,
       text: "It appears to me that the examples of mathematics and natural philosophy, which, as we have seen, were brought into their present condition by a sudden revolution, are sufficiently remarkable to fix our attention on the essential circumstances of the change which has proved so advantageous to them, and to induce us to make the experiment of imitating them, so far as the analogy which, as rational sciences, they bear to metaphysics may permit. It has hitherto been assumed that our cognition must conform to the objects; but all attempts to ascertain anything about these objects a priori, by means of conceptions, and thus to extend the range of our knowledge, have been rendered abortive by this assumption. Let us then make the experiment whether we may not be more successful in metaphysics, if we assume that the objects must conform to our cognition. This appears, at all events, to accord better with the possibility of our gaining the end we have in view, that is to say, of arriving at the cognition of objects a priori, of determining something with respect to these objects, before they are given to us. We here propose to do just what Copernicus did in attempting to explain the celestial movements. When he found that he could make no progress by assuming that all the heavenly bodies revolved round the spectator, he reversed the process, and tried the experiment of assuming that the spectator revolved, while the stars remained at rest." },
+    { book: "augustus-res-gestae", n: 6, t: "Part VI", p: 2,
+      text: "In my sixth and seventh consulships, when I had extinguished the flames of civil war, after receiving by universal consent the absolute control of affairs, I transferred the republic from my own control to the will of the senate and the Roman people. For this service on my part I was given the title of Augustus by decree of the senate, and the doorposts of my house were covered with laurels by public act, and a civic crown was fixed above my door, and a golden shield was placed in the Curia Julia whose inscription testified that the senate and the Roman people gave me this in recognition of my valour, my clemency, my justice, and my piety. After that time I took precedence of all in rank, but of power I possessed no more than those who were my colleagues in any magistracy." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
       text: "Again:—\"Why does not the pope, whose wealth is to-day greater than the riches of the richest, build just this one church of St. Peter with his own money, rather than with the money of poor believers?\"" },
     { book: "kalidasa-shakuntala", n: 6, t: "Act IV", p: 138,

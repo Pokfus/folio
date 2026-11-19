@@ -19975,6 +19975,100 @@ const BOOKS = {
     fixes: [["something_precedes", "something precedes", "System of all Principles, Second Analogy: an underscore typed for a space"]],
     minChars: 3000,
   },
+  "augustus-res-gestae": {
+    title: "Res Gestae Divi Augusti",
+    subtitle: "The Deeds of the Divine Augustus",
+    author: "Augustus",
+    translator: "Frederick W. Shipley",
+    edition: "Velleius Paterculus and Res Gestae Divi Augusti, with an English translation by Frederick W. Shipley, Loeb Classical Library, William Heinemann and G. P. Putnam's Sons, 1924",
+    // the last chapter: "At the time of writing this I was in my seventy-sixth year" — 14 CE; begun much earlier
+    written: "14 CE",
+    year: 14,
+
+    /* ---------- THE LICENCE: the Cassius Dio ground, two layers ----------
+       Shipley's Loeb was published in 1924 — before 1929 — so it is public domain in the United
+       States; LacusCurtius's home page for the work names "the Loeb edition, 1924" as the source of all
+       three texts. WHAT IS NOT CLAIMED is a life-plus-seventy term: Shipley's death year was not
+       established this session (Wikimedia's API refused the lookup), so none is asserted — the Ovid
+       discipline. The Latin is the inscription, two thousand years old, as Shipley printed it from
+       Mommsen (1883) and Diehl (1918). The SECOND layer is the transcription, Bill Thayer's: every page
+       taken is a one-asterisk page, which his site states is in the public domain. His own notes, his
+       `º` marks and his links are not taken.
+       WHAT WAS LOOKED AT AND NOT USED: Thomas Bushnell's translation of 1998 on Wikisource ("The Deeds
+       of the Divine Augustus") is under the translator's copyright with a permissive licence that
+       requires its notice to be kept — not public domain, so not on this shelf. */
+    rights:
+      "Two layers, both stated. Frederick W. Shipley's translation and his text of the Latin were " +
+      "published in the Loeb Classical Library in 1924, before 1929, so their copyright has expired in " +
+      "the United States. The text is taken from Bill Thayer's transcription on LacusCurtius, which " +
+      "states that its pages of this kind are in the public domain; Thayer's own notes are not " +
+      "reproduced. (Thomas Bushnell's translation of 1998, often found online, is in copyright and is " +
+      "not used.)",
+    sourceName: "LacusCurtius",
+    sourceUrl: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Augustus/Res_Gestae/home.html",
+
+    /* THE FRONT MATTER — chapter 0. Every fact is the text's own or Shipley's Introduction to the Loeb
+       (pp. 332–340 of the volume, on LacusCurtius), and is said as his where it is a judgment. */
+    about: [
+      "<b>The Res Gestae</b> is the account of his own life that the first Roman emperor left to be read " +
+        "after his death. Suetonius (<i>Augustus</i> 101) records that Augustus deposited it with the " +
+        "Vestal Virgins along with his will, as “a résumé of his acts which he wished to have " +
+        "engraved upon bronze tablets to be set up before his mausoleum.” The mausoleum still stands in " +
+        "Rome; the bronze tablets are long gone.",
+      "What survives is the copies the cities of the empire cut into the walls of their temples of " +
+        "Augustus. The fullest is at Ancyra, the modern Ankara, on the Temple of Rome and Augustus: the " +
+        "Latin on the inner walls of the porch, in six columns, and a Greek version on an outer wall. " +
+        "Fragments of the same Greek were found at Apollonia, and pieces of a Latin copy at Antioch in " +
+        "Pisidia in 1914. The Ancyra copy is so much the most complete that the document is often called " +
+        "after it, the <i>Monumentum Ancyranum</i>; Mommsen called it the “Queen of Inscriptions.”",
+      "Shipley divides its thirty-five chapters into three groups: the honours the Senate and people " +
+        "gave Augustus and the services they rewarded (chapters 1–14), the money he spent from his " +
+        "own purse on the state, the veterans, the people of Rome and their games (15–24), and his " +
+        "deeds in peace and war (25–35). It is written in the first person, plainly, and almost as a " +
+        "list. It names none of his enemies — not Antony, Brutus and Cassius, Lepidus or Sextus " +
+        "Pompey — and of his family only Agrippa, Tiberius, Gaius and Lucius, where their names were " +
+        "joined to his in public honours.",
+      "The last chapter says it was written in his seventy-sixth year, which is 14 CE, the year he died. " +
+        "Shipley judges that it was begun much earlier: a draft was probably complete by 2 BCE, and " +
+        "passages were added or changed later. After the thirty-five chapters stands a short " +
+        "<b>Summary</b> in the third person, written after his death; the Loeb's note, after Mommsen, " +
+        "says it is not by Tiberius but apparently by a local magistrate of Ancyra.",
+      "The translation and the Latin are <b>Frederick W. Shipley's</b>, from the Loeb Classical Library " +
+        "volume of 1924, and the numbered notes are his historical notes. His Latin is based on Mommsen's " +
+        "edition of 1883, supplemented by Diehl's of 1918. Where the stone is lost and the words have " +
+        "been supplied, from the Greek or by conjecture, the Latin is printed in <i>italics</i>, as the " +
+        "Loeb prints it. The accents mark the long vowels the stone itself marks, and § stands for " +
+        "the sign the stone uses to end a sentence. The six Parts are the Loeb's division. The text is " +
+        "Bill Thayer's transcription on LacusCurtius, where the Greek version can be read too; it is not " +
+        "set beside this one.",
+    ],
+
+    source: "html",
+    layout: "monumentum",
+    pageUrl: (p) => "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Augustus/Res_Gestae/" + p + "*.html",
+    // Thayer's six pages are the Loeb's six Parts; the sixth also holds the Summary, Folio's seventh tab
+    pages: [1, 2, 3, 4, 5, 6].map((i) => (i === 6 ? { page: "6", n: 6, summary: 7 } : { page: String(i), n: i })),
+    chapterWord: "Part",
+    chapters: [1, 2, 3, 4, 5, 6, 7],
+    // transcribed: the Loeb heads them "Part I" … "Part VI" and "Summary"
+    titleOf: (n) => (n === 7 ? "Summary" : "Part " + ["I", "II", "III", "IV", "V", "VI"][n - 1]),
+    // the Summary is four short paragraphs
+    minChars: 300,
+
+    original: {
+      lang: "la",
+      langName: "Latin",
+      layout: "monumentum",
+      edition: "The Latin of the Monumentum Ancyranum as printed in F. W. Shipley's Loeb (1924), after Mommsen (1883) and Diehl (1918)",
+      rights:
+        "Public domain. Augustus wrote the text before 14 CE; this is the Latin as Shipley printed it in " +
+        "1924, public domain in the United States as a pre-1929 publication, in Bill Thayer's " +
+        "public-domain transcription on LacusCurtius.",
+      sourceName: "LacusCurtius",
+      sourceUrl: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Augustus/Res_Gestae/home.html",
+      minChars: 300,
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -27191,6 +27285,119 @@ function extractThayer(pages, book, warn) {
   return { chapters: out, counts: c };
 }
 
+/* ============================================================
+   THE RES GESTAE ON LACUSCURTIUS — three columns per chapter, six pages     (layout: "monumentum")
+   ============================================================
+   Nov 2026, adding the Res Gestae Divi Augusti. Bill Thayer sets Shipley's Loeb of 1924 as the Loeb
+   printed it: a table, one row per chapter, the Latin of the inscription, the ancient Greek version
+   and Shipley's English side by side (`<TD CLASS="Latin">`, `"Greek"`, `"English"`), on six pages that
+   are the Loeb's Parts I–VI; the sixth also carries the third-person Summary, its four paragraphs
+   numbered S1–S4. So the English and the Latin come out of ONE fetch, as the Magna Carta's do.
+   The English cells are joined into a page of their own and handed to `thayerPage` with the page's
+   EXPLANATORY notes only — the same reader as Diodorus, so Thayer's notes, his `º` marks and his
+   line numbers leave by the same rules. The Latin cells are read here. What is worth carrying:
+   · THE LATIN'S CRITICAL NOTES (`#cnoteN`, Shipley's notes on the text) go with their markers: an
+     original column has no note fold (see `writeOriginal`).
+   · THE LOEB PRINTS ITS SUPPLEMENTS IN ITALICS — the words restored where the stone is lost
+     (Introduction, "The Text"). Thayer sets them as `<SPAN CLASS="emend">` in a brighter colour; here
+     they become italic again, which is the edition's own convention. On the English side the same
+     span is ordinary text, as on every other LacusCurtius book.
+   · A CHAPTER IS NUMBERED BY ITS VISIBLE FIGURE, NEVER BY ITS ANCHOR: the Latin of chapter 34 is
+     anchored `NAME="34G"`, a slip for "34L".
+   · Greek is not taken: Folio's reader sets one original beside a translation, and Augustus wrote
+     in Latin.
+   · The apices (´) and the § marks are the stone's, as the Loeb prints them, and stay. */
+function monumentumGroups(h, page) {
+  let s = h.replace(/\r/g, "").replace(/<!--[\s\S]*?-->/g, "").replace(/\s*on[A-Za-z]+="[^"]*"/g, "");
+  // Thayer's conversion and glossary bullets (`•`, a pop-up of metres or a definition) are his, not the Loeb's
+  s = s.replace(/<A CLASS="(?:conversion|glossary)"[^>]*>[^<]*<\/A>/gi, "");
+  const cells = [...s.matchAll(/<TD CLASS="(Latin|Greek|English)">([\s\S]*?)<\/TD>/gi)];
+  if (!cells.length) throw new Error("page " + page + ": no Latin / Greek / English cells");
+  const groups = {};
+  const summary = (c) => /<A CLASS="chapter" NAME="S\d/i.test(c);
+  cells.forEach((m) => {
+    const lang = m[1].toLowerCase();
+    if (lang === "greek") return;
+    const k = summary(m[2]) ? "S" : "P";
+    (groups[k] = groups[k] || { en: [], la: [] })[lang === "english" ? "en" : "la"].push(m[2]);
+  });
+  /* The Summary's heading carries a Loeb note (145: who wrote it), and the heading is not a cell. Its
+     marker is moved to just after the first chapter number of the Summary's English, so the note keeps
+     a marker rather than being reported uncited. */
+  const head = s.match(/<H2[^>]*>\s*Summary[^<]*(<A CLASS="ref"[^>]*>[^<]*<\/A>)/i);
+  if (head && groups.S) groups.S.en[0] = groups.S.en[0].replace(/(<A CLASS="chapter"[^>]*>[^<]*<\/A>)/i, "$1" + head[1]);
+  return { s: s, groups: groups };
+}
+function monumentumEnglish(s, cells) {
+  // the page's own header and footer stay so `thayerPage` finds its landmarks; the body is the English
+  const ex = s.search(/<A ID="endnotes_explanatory"><\/A>/i);
+  if (ex < 0) throw new Error("no explanatory notes on the page");
+  const foot = s.search(/<TABLE CLASS="footer"/i);
+  const body = cells.join("\n").replace(/<A CLASS="chapter" NAME="S(\d+)">/gi, '<A CLASS="chapter" NAME="$1">');
+  return "<BODY>\n" + body + '\n<A ID="endnotes"></A>' + s.slice(ex + '<A ID="endnotes_explanatory"></A>'.length, foot) +
+    s.slice(foot);
+}
+function monumentumLatin(cells, where, c, warn) {
+  const out = [], chs = [];
+  cells.forEach((t) => {
+    t = t.replace(/<A CLASS="(correction|comment)"[^>]*>[^<]*<\/A>/gi, () => { c.thayerMarks++; return ""; });
+    t = t.replace(/<A CLASS="ref"[^>]*HREF="[^"#]*#(c?note)([^"\s]*)\s*"[^>]*>[^<]*<\/A>/gi, (w, k) => {
+      if (k === "cnote") c.critical++; else c.otherRefs++;
+      return "";
+    });
+    t = t.replace(/<A CLASS="sec" NAME="?[^">]*"?>[^<]*<\/A>\s*/gi, () => { c.lines++; return ""; });
+    t = t.replace(/<A CLASS="chapter" NAME="?[^">]*"?>([^<]*)<\/A>/gi, (w, shown) => {
+      const k = parseInt(shown, 10);
+      if (!(k >= 1)) { warn(where + ": a Latin chapter mark reads " + JSON.stringify(shown)); return ""; }
+      chs.push(k);
+      return '<span class="bk-n" data-n="' + k * 100 + '">' + k + "</span> ";
+    });
+    // the Loeb's italic supplements: `thayerSpans` makes a `source` span italic
+    c.supplied += (t.match(/<SPAN CLASS="emend">/gi) || []).length;
+    t = t.replace(/<SPAN CLASS="emend">/gi, '<SPAN CLASS="source">');
+    out.push(...thayerParas(thayerClean(t, false)));
+  });
+  for (let i = 1; i < chs.length; i++)
+    if (chs[i] !== chs[i - 1] + 1) warn(where + ": Latin chapter " + chs[i] + " follows " + chs[i - 1]);
+  return { html: out.join("\n").replace(/<i>\s*<\/i>/g, "").replace(/<\/i>(\s*)<i>/g, "$1"), chapters: chs };
+}
+function extractMonumentum(pages, book, warn) {
+  const tc = { correction: 0, comment: 0, emend: 0, contents: 0, thayerLists: 0, myNotes: 0, myRefs: 0,
+    secs: 0, carried: 0, unused: [] };
+  const lc = { thayerMarks: 0, critical: 0, otherRefs: 0, lines: 0, supplied: 0 };
+  const out = [];
+  const unusedByPage = {};
+  book.pages.forEach((pg) => {
+    const g = monumentumGroups(pages[pg.page], pg.page);
+    [["P", pg.n], ["S", pg.summary]].forEach(([k, n]) => {
+      const grp = g.groups[k];
+      if (!grp) return;
+      if (!n) throw new Error("page " + pg.page + ": rows of kind " + k + " and no chapter to put them in");
+      const en = extractThayer({ [n]: [{ id: pg.page, html: monumentumEnglish(g.s, grp.en) }] },
+        { chapters: [n], chapterWord: book.chapterWord }, warn);
+      const ch = en.chapters[0];
+      for (const k in en.counts) if (k !== "unused") tc[k] += en.counts[k];
+      tc.unused.push(...en.counts.unused);
+      const la = monumentumLatin(grp.la, book.chapterWord + " " + n, lc, warn);
+      const enN = (ch.html.match(/data-n="(\d+)"/g) || []).join();
+      const laN = (la.html.match(/data-n="(\d+)"/g) || []).join();
+      if (enN !== laN) warn(book.chapterWord + " " + n + ": the columns' chapter numbers differ — " + enN + " / " + laN);
+      out.push({ n: n, html: ch.html, notes: ch.notes, latin: la.html, count: ch.count, first: la.chapters[0], last: ch.last });
+    });
+    // a note is unused only if NEITHER group on the page cited it
+    const used = new Set();
+    tc.unused.forEach((u) => { const [w, id] = [u.slice(0, u.lastIndexOf(" ")), u.slice(u.lastIndexOf(" ") + 1)];
+      if (w.endsWith("(" + pg.page + ")")) unusedByPage[pg.page + "#" + id] = (unusedByPage[pg.page + "#" + id] || 0) + 1; });
+    tc.unused = [];
+    const groupsOnPage = Object.keys(g.groups).length;
+    Object.keys(unusedByPage).forEach((key) => {
+      if (key.startsWith(pg.page + "#") && unusedByPage[key] < groupsOnPage) used.add(key);
+    });
+    used.forEach((key) => delete unusedByPage[key]);
+  });
+  return { chapters: out, counts: tc, latinCounts: lc, unused: Object.keys(unusedByPage) };
+}
+
 function extractTablets(h, book, warn) {
   /* CRLF, NORMALISED AT THE DOOR, and it is worth a line because of how it fails. This host serves
      the page with Windows line endings; every other source on the shelf does not, so `esc` — which
@@ -32592,6 +32799,26 @@ function chajingZhPart(json, n, warn, c) {
   return '<p><span class="bk-n" data-n="' + n + '">' + n + "</span></p>\n" + ps.join("\n");
 }
 
+/* The six pages of a `monumentum` book, each cached as served and accepted only WHOLE — the LacusCurtius
+   host drops connections mid-page, and a cut page is well-formed up to where it stops. Both halves read
+   this, so an --only-original run on a clean checkout fetches what it needs. */
+async function monumentumPages() {
+  const pages = {};
+  for (const pg of BOOK.pages) {
+    const cf = path.join(CACHE, "en-" + pg.page + ".html");
+    let h = !FORCE && fs.existsSync(cf) ? fs.readFileSync(cf, "utf8") : "";
+    for (let a = 0; !/<\/HTML>\s*$/i.test(h); a++) {
+      if (a === 6) throw new Error("could not fetch a whole page " + pg.page + " from " + BOOK.sourceName);
+      if (a) await sleep(4000 * a);
+      try { h = await fetchText(BOOK.pageUrl(pg.page)); } catch (e) { h = ""; }
+    }
+    fs.mkdirSync(CACHE, { recursive: true });
+    fs.writeFileSync(cf, h);
+    pages[pg.page] = h;
+  }
+  return pages;
+}
+
 async function fetchEnglish() {
   /* A book with no `translator` is not a gap in its entry — it is a book that was written in English
      and has nobody standing between the reader and the author. Le Morte d'Arthur is the first, so the
@@ -33622,6 +33849,23 @@ async function fetchEnglish() {
     return writeEnglish(chapters, warnings);
   }
 
+  if (BOOK.layout === "monumentum") {
+    const warn = (m) => warnings.push(m);
+    const g = extractMonumentum(await monumentumPages(), BOOK, warn);
+    g.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200)) throw new Error(BOOK.chapterWord + " " + ch.n + " came back short");
+      chapters.push({ n: ch.n, t: titles[ch.n] || chapterTitle(ch.n), p: partOf(ch.n), html: ch.html, notes: ch.notes });
+      console.log("  " + chapterTitle(ch.n) + " — chapters " + ch.first + "–" + ch.last + " (" + ch.count + "), " +
+        ch.notes.length + " notes (" + (ch.html.length / 1024).toFixed(0) + " KB)");
+    });
+    const c = g.counts;
+    console.log("  " + c.secs + " line numbers dropped; " + (c.correction + c.comment) + " of Thayer's tooltip marks, " +
+      c.myNotes + " of his notes inside Loeb notes and " + c.myRefs + " marker(s) citing his own notes dropped");
+    if (g.unused.length) console.log("  Loeb note(s) no marker cites: " + g.unused.join(", "));
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.layout === "tablets") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-page.html");
@@ -34521,6 +34765,21 @@ async function fetchOriginal() {
   /* MAGNA CARTA'S LATIN — printed above each chapter's English on the same page, so it is read back
      out of the English side's own cache (fetched if a clean checkout has none). Both columns carry the
      same single marker per chapter, written by the extractor. */
+  if (O.layout === "monumentum") {
+    console.log("\nReading the " + O.langName + " original out of the same pages — " + O.edition);
+    const g = extractMonumentum(await monumentumPages(), BOOK, warn);
+    g.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.latin.length < (O.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.latin.length + " chars)");
+      byNum[ch.n] = ch.latin;
+    });
+    const c = g.latinCounts;
+    console.log("  " + Object.keys(byNum).length + " parts; " + c.supplied + " supplements set in italics, as the Loeb " +
+      "prints them; " + c.critical + " critical-note markers and " + c.lines + " line numbers dropped; " +
+      c.thayerMarks + " of Thayer's tooltip marks removed");
+    return writeOriginal(byNum, warnings);
+  }
   if (O.layout === "mckechnie") {
     console.log("\nReading the " + O.langName + " original out of the same page — " + O.edition);
     const cf = path.join(CACHE, "en-page.html");

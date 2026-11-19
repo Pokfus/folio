@@ -12,7 +12,18 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently sixty-seven:
+  matter (chapter 0 — see the Library bullet). Currently sixty-eight:
+  `augustus-res-gestae` (~64 KB, **7 chapters** — the Loeb's Parts I–VI and its third-person Summary — **150 notes**,
+  Latin original ~25 KB; Frederick W. Shipley's Loeb, 1924, in Bill Thayer's transcription on LacusCurtius). `layout:
+  "monumentum"` (and the same on `original`): Thayer sets each chapter as a row of Latin, Greek and English cells, so
+  both columns come out of the six pages; the English goes through `thayerPage`, the Latin is read by
+  `monumentumLatin`, the Greek is not taken. **Checked: 35 chapters and the Summary's 4, on both sides, paired 39 of
+  39**; all 150 explanatory notes cited (the Summary heading's note 145 is moved onto its first paragraph). The Latin's
+  supplements (Thayer's `emend`) are italic, as the Loeb prints them; its critical notes go. Licence: pre-1929 US only —
+  Shipley's death year was not established, so no life-plus term is claimed. Bushnell's 1998 Wikisource translation is
+  in copyright and is named as not used. Colour `#84307B` (14.6, the sweep's best). `glossOff`: the modern countries and
+  continents where Augustus means provinces or ancient lands, and the namesakes (Caesar, Nero, Lucretius, Crassus,
+  Fabius Maximus, Libertas, Augusta, Embassy).
   `rousseau-social-contract` (~260 KB, **49 sections** — Rousseau's Foreword and the 48 chapters of the four Books, so a
   tab runs one ahead of the chapter's place; each title opens with its numeral in its Book, the Books are the `parts`;
   `chapterWord: "Section"` — **47 notes**, Rousseau's with a few of Cole's; original **French**, paired on the CHAPTER as
