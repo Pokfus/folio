@@ -3,8 +3,12 @@
      FOLIO_CHROMIUM=/path/to/chrome NODE_PATH=/tmp/pw/node_modules \
        node .claude/ukbi/check-phrases.js
 
-   It runs `run.py --phrases` first, so it needs no committed artefact and works on a fresh
-   clone.
+   IT READS THE SHIPPED DECK (Nov 2026, the Indonesian beginner pass). It used to run
+   `run.py --phrases` first, which since that pass would overwrite a deck that carries a record
+   (`.claude/decks/indonesian-fixes.json`: two expressions moved to UKBI 1, the order by reading
+   level, the pinned ids) with one that does not — and a re-run is not byte for byte the shipped
+   deck in any case. `--rebuild` still does it, and then applies the record
+   (`node .claude/decks/indonesian-fix.js`), which is the only order a rebuild is safe in.
 
    EVERY CONTENT RULE IN THIS DECK FAILS SILENTLY, which is why it has a checker of its own.
    Wiktionary's Indonesian holds French and Latin phrases, misspellings, inflected forms and
@@ -18,7 +22,8 @@ const path = require("path"), http = require("http"), fs = require("fs");
 const { execFileSync } = require("child_process");
 const ROOT = path.resolve(__dirname, "..", "..");
 const OUT = path.join(ROOT, "decks", "Indonesian-Phrases-and-Expressions.folio-deck.json");
-const SUBS = [["Phrases", 84], ["Idioms", 111], ["Proverbs", 33]];
+/* 82, not the generator's 84: selamat jalan and selamat makan are UKBI 1 cards since Nov 2026. */
+const SUBS = [["Phrases", 82], ["Idioms", 111], ["Proverbs", 33]];
 /* Named one by one rather than re-derived, because each is a DIFFERENT rule's work and a
    rule that has stopped firing must not be covered for by another that still is. */
 const FOREIGN = ["de facto", "s'il vous plaît", "en route", "in situ", "ad hominem",
@@ -45,10 +50,14 @@ const strip = (h) => (h || "").replace(/<[^>]+>/g, " ").replace(/&quot;/g, '"')
                               .replace(/\s+/g, " ").trim();
 
 (async () => {
-  console.log("-- build");
-  console.log(execFileSync("python3", [path.join(ROOT, ".claude", "ukbi", "run.py"),
-                                       "--phrases", "--no-fetch"],
-                           { encoding: "utf8" }).split("\n").slice(-6).join("\n"));
+  if (process.argv.includes("--rebuild")) {
+    console.log("-- build, then the record");
+    console.log(execFileSync("python3", [path.join(ROOT, ".claude", "ukbi", "run.py"),
+                                         "--phrases", "--no-fetch"],
+                             { encoding: "utf8" }).split("\n").slice(-6).join("\n"));
+    console.log(execFileSync("node", [path.join(ROOT, ".claude", "decks", "indonesian-fix.js")],
+                             { encoding: "utf8" }).split("\n").slice(-3).join("\n"));
+  }
 
   await new Promise((r) => server.listen(0, r));
   const base = "http://127.0.0.1:" + server.address().port + "/index.html";

@@ -701,9 +701,9 @@
   },
   {
    "key": "rule:enclitics",
-   "show": "-ku · -mu · -nya",
+   "show": "-nya",
    "kind": "Indonesian spelling",
-   "name": "my, your, his, her, its: written onto the word",
+   "name": "-ku, -mu, -nya (my, your, his, her, its): written onto the word",
    "says": "[…] as a possessive adjective […] as a direct or indirect object […] as an object of a preposition […]",
    "heads": [
     "",

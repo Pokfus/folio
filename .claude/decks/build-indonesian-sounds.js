@@ -9,7 +9,7 @@
   WHY. Indonesian spelling is close to its sound, and an English reader still misreads it: c is the ch of
   itchy, a final k is a glottal stop, ng and ngg differ, ny is one sound, the letter e is three vowels with
   nothing to say which, every vowel has one value, the stress moves off a syllable with /ə/, and the prefix
-  meng- changes with the first sound of its root. Of UKBI 1's 506 headwords 263 contain c, ng, ny, kh, e or a
+  meng- changes with the first sound of its root. Of UKBI 1's 506 headwords 258 contain c, ng, ny, kh, e or a
   final k, and no deck or description said how any of them is read.
 
   IT READS NO LIVE SOURCE: the table indonesian-sounds.json (its `_` says where every cell came from, at
@@ -260,7 +260,7 @@ const desc = "How Indonesian is read and spelled, before or beside the first wor
   + nC + " consonant letters and pairs of letters whose sound is not the one an English reader gives them (c, g, h, k, kh, ng, ny, r, v), and "
   + nR + " rules: where the stress falls, di and ke written apart or joined, the word written twice, how the prefix meng- changes with its root, and -ku, -mu and -nya written onto the word. "
   + "Indonesian is spelled close to its sound, so the deck is short; what it holds is what the spelling does not tell an English reader. The letter e is three vowels and nothing on the page says which ("
-  + cnt(/e/) + " of UKBI 1's " + heads.length + " headwords contain it: besar and enak begin differently), c is never k or s (" + cnt(/c/) + " headwords), a final k is cut off in the throat (" + cnt(/k$/)
+  + cnt(/e/) + " of UKBI 1's " + heads.length + " headwords contain it, and the e of besar is not the e of enak), c is never k or s (" + cnt(/c/) + " headwords), a final k is a glottal stop (" + cnt(/k$/)
   + "), ng is one sound and ngg is that sound and a g (" + cnt(/ng(?!g)/) + " and " + cnt(/ngg/) + "), ny is one sound (" + cnt(/ny/) + "); " + odd + " of the " + heads.length + " contain at least one of these. "
   + "The front shows the letters. The back gives the sound in the International Phonetic Alphabet and the English sound it resembles, then words of the UKBI 1 deck with a speaker beside each, the letters picked out, "
   + "and the word's own transcription from the dictionary (ˈ stands before the stressed syllable). Say the word, then press the speaker and compare. "

@@ -352,6 +352,19 @@ jobs:
       - name: build-portuguese-sounds --check (the Portuguese sounds deck is what its table and CAPLE A1 give)
         if: ${{ !cancelled() }}
         run: node .claude/decks/build-portuguese-sounds.js --check
+      # The Indonesian decks (2026-11-19, the Indonesian beginner pass): indonesian-fixes.json (the cards UKBI 1
+      # gains, the cards UKBI 2, UKBI 3 and the phrases lose to it, the repairs, each description's lead and
+      # counts), the order and the pinned ids over the eight decks of card type `ukbi`. All three read only
+      # the repository.
+      - name: indonesian-fix --check (the Indonesian decks carry their record, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/indonesian-fix.js --check
+      - name: indonesian-order --check (the order of UKBI 1 and the phrases is what its rules give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/indonesian-order.js --check
+      - name: build-indonesian-sounds --check (the Indonesian sounds deck is what its table and UKBI 1 give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/build-indonesian-sounds.js --check
       - name: jlpt check-ids (every Japanese card id is the one ids.json pins)
         if: ${{ !cancelled() }}
         run: node .claude/jlpt/check-ids.js
