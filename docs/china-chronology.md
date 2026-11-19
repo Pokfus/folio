@@ -981,6 +981,13 @@ Wang Yangming (`cnh-528`); the Treaty of Nanking 29 August 1842 (`cnh-562`); the
 
 | event | the collection says | source |
 |---|---|---|
+| the Song economic revolution dated / also dated (the Northern Song) | c. 750 – 1100 CE / 960 – 1127 CE | von Glahn; the cited studies (`cnh-801`; 960 with `cnh-421`) |
+| the *Qimin yaoshu* completed | c. 533 – 544 CE | the cited studies (`cnh-802`) |
+| the Hemudu culture dated / also dated | c. 7000 – 5300 BP / c. 7000 – 5000 BP | Eda; Xie (`cnh-803`) |
+| the Zhengguo Canal dated / restored / rebuilt | 246 BCE / 95 BCE / 1932 | the ICID (`cnh-804`) |
+| the fish-scale registers: the survey / the later survey | 1379 / 1581 | Yee; Ray Huang (`cnh-807`) |
+| the ban liang first cast / the standard coin / the four-zhu coin / last issued | c. 340 BCE / 221 BCE / 175 BCE / 118 BCE | Thierry; Pollard and Liu (`cnh-809`; 221 with `cnh-191`) |
+| the Great Ming Treasure Note: the office / first issued / the silver tax | 1374 / 1375 / 1436 | Theobald; Horesh (`cnh-810`; 1436 with `cnh-523`) |
 
 ## Later periods
 
@@ -1797,4 +1804,11 @@ cnh-797: 1637; 1645; 1894; 1895
 cnh-798: 1406; 1407
 cnh-799: 57; 1784
 cnh-800: 1947; 1949; 1984; 2001
+cnh-801: 750; 1100; 960; 1127
+cnh-802: 533; 544
+cnh-803: 7000; 5300; 5000
+cnh-804: 246; 95; 1932
+cnh-807: 1379; 1581
+cnh-809: 340; 221; 175; 118
+cnh-810: 1374; 1375; 1436
 ```

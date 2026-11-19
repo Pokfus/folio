@@ -4866,3 +4866,32 @@ against 1662). `cnh-709` and `cnh-794` sort late for want of a sourced start.
 point), `cnh-789` the Dian kingdom (Shizhaishan would be the point), `cnh-795` the Willow Palisade (a line; none), `cnh-766` siheyuan (a building type; none). Points to review:
 `cnh-704` the Jiangnan Examination Hall's label repeats the answer term ("Nanjing Imperial Examination Museum" would be a place); `cnh-788` the Great Mosque's label repeats the
 answer term; `cnh-715` kept (Xuanwu Lake, the archive's site). Still waiting from earlier hundreds: the list in the seventh hundred's note.
+
+### B81 — `cnh-801`–`cnh-810`, land, trade and money: the Song economic revolution to the Great Ming Treasure Note (2026-11-19)
+
+The ninth hundred's first batch, run as the eighth's were (`AGENT.md`, the notes file, two cards an agent, at most ten at once, `REFINE_PREFIX=cnh-`);
+every draft read by eye and prechecked before `batch.sh` applied it. Every cited URL answered (88 citations, 56 distinct). **Pictures were not touched**
+(Wikimedia answered 429; none of the ten has one); **ctext.org answered 403** for text pages, so the classics came from the Kanseki Repository's GitHub
+texts and zggdwx.com. **The old cards cited Chinese Wikisource some thirty times (the *Shiji*, *Hanshu*, *Songshi*, *Mingshi*, *Qingshi gao*, the
+*Hefang yilan*, the *Dongjing menghua lu*, the *Shuijing zhu*), carried two to five Chinese sources a card, and three regnal years of their own
+conversion (1020, 1387, 1578)**; every one is gone, and with it every figure only they carried.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-801` Song economic revolution | 6 | 6 → 7 | **"Song dynasty 960 – 1279 CE" (a dynasty, not the change) → `Dated c. 750 – 1100 CE` / `Also dated 960 – 1127 CE`** (the Northern Song as the heart of it); von Glahn, Walton, Deng, Horesh, and Li Bozhong [in Chinese] doubting it was a revolution at all; the iron output as disputed estimates; Hartwell 1962 (a script wall) not cited. |
+| `cnh-802` Qimin yaoshu | 5 | 5 → 5 | **"Court printing 1020 CE" off** (Li Tao's Tianxi 4, converted by the old card, only on Wikisource); the Song printing told in the source's own reign; four Wikisource texts replaced (the Kanseki title page, eLife on the mung bean, the pastoral dairy recipes); Bretschneider's outdated 5th-century date not used. |
+| `cnh-803` Hemudu culture | 6 | 6 → 6 | **"Occupied c. 5000 – 3400 BCE" (resting on an image-only scan no one can read) → `Dated c. 7000 – 5300 BP` / `Also dated c. 7000 – 5000 BP`** (each study's own BP range, as `cnh-043` and `cnh-047`); the four layers, the 23-metre house and the rice-layer depth dropped with the scan; the domestication and farming-society debates each said whose. Locator: Yuyao the city, not the site. |
+| `cnh-804` Zhengguo Canal | 5 | 5 → 5 | `Built c. 246 BCE` → **`Dated 246 BCE` / `Restored 95 BCE` / `Rebuilt 1932`** (the ICID); the *Shiji* 29 on the Kanseki text for the spy-engineer and "never a year of famine"; Li Si and the Bai Canal (Wikisource) dropped. Name 郑国渠: the simplified compound on no saved page. |
+| `cnh-805` Pan Jixun | 5 | 5 → 5 | **protected line kept**; four Wikisource texts replaced by the *Mingshi* 223 (Kanseki), Chen et al. 2012, the China Biographical Database and Kinoshita; the 1580 figures, the 1590 flood and "died aged 75" dropped. For the owner: the Mostern interview prints 1511 for his birth; the days and months on no page read; the *Mingshi*'s 75 sui against the line's "age 73"; the CBDB cited as a bilingual database (counted Chinese, the card falls one under its bar). |
+| `cnh-806` Jiangnan | 6 | 6 → 6 | line empty (kept); five Wikisource texts replaced by Han Yu's preface (Kanseki; its Zhenyuan 18 not converted), Couling 1917, Hamashima and two Cleveland silk and porcelain records; the old Jiangnan circuit and the Qing split into Jiangsu and Anhui; the Ming grain quotas and Fan Chengda's proverbs dropped. |
+| `cnh-807` Fish-scale registers | 5 | 5 → 6 | **"Hongwu survey 1387 CE" and "Wanli survey 1578 CE" (the old card's conversions, a reign in each label) → `Survey 1379` / `Later survey 1581`** (Yee's bracketed Hongwu 12; Ray Huang's land survey of 1581); the *Mingshi* 77 (Kanseki), Tsurumi [in Japanese], Heijdra. The usual 1387 is on no saved page (for the owner; `cnh-505`'s ledger took it off too). Pinyin lower-cased, yúlín túcè. |
+| `cnh-808` Rent resistance | 5 | 5 → 5 | line empty (kept); three Wikisource texts and a second Chinese source replaced by Bianco 1998 [in French] and 1986, Miki [in Japanese], the *Mingshi* 165 (Kanseki); Deng Maoqi's "1449" (no page prints it) dropped, the rising told as the *Mingshi*'s quarrel over customary gifts; Bianco's "too celebrated" thesis. Pinyin lower-cased, kàngzū. |
+| `cnh-809` Ban liang | 6 | 6 → 6 | **"Qin unification 221 BCE" as the coin's start (the old tradition) → `First cast c. 340 BCE` / `Standard coin 221 BCE` / `Four-zhu coin 175 BCE` / `Last issued 118 BCE`** (hoards and bamboo statutes, Thierry [in French], Pollard and Liu); the National Museum specimen (the site resets) dropped. Pinyin lower-cased, bànliǎng. |
+| `cnh-810` Great Ming Treasure Note | 6 | 6 → 6 | `Office founded 1374` / **`First issued 1375` / `Silver tax 1436`** (with `cnh-523`); three Wikisource histories cut to the *Mingshi* 81 (Kanseki); the 160 cash a note, the 1376 and 1397 grain rates and the 3 cash of 1448 (no cited text) dropped; the informers' reward (Vissering's 250 taels against the *Mingshi*'s 25) left out. |
+
+Read by eye. **Confusability**: the guilds and the "Medieval Revolution" label `cnh-801`'s, the dairy recipes `cnh-802`'s, the geese and the spades `cnh-803`'s, the
+spy-engineer `cnh-804`'s, the scouring levees `cnh-805`'s, Han Yu's nine parts in ten `cnh-806`'s, the warp and weft `cnh-807`'s, the gifts quarrel `cnh-808`'s, the upper and
+lower money `cnh-809`'s, the rice price in notes `cnh-810`'s (the jiaozi `cnh-436` and the kaizhong `cnh-718` kept apart). **Legend**: none told as fact. **Chinese names**:
+pinyin `cnh-807`, `cnh-808`, `cnh-809`; kept unconfirmed 郑国渠 (simplified). **Spellings**: no hit in the drafts. **check-citations**: no mismatch. **Glossary**: all ten
+rewritten (`Fish-scale_registers` now 1379). **Two advisory `W.not-why`** (`cnh-801`, `cnh-802`). The apply stopped on `cnh-810` once (a transient error) and was re-run for it
+alone, then verified. Protected line (`cnh-805`): unchanged.
