@@ -30,7 +30,7 @@ The speaker reads the `Word` field, the bare Urdu.
 import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from ur import fold, nfc, plain, WORD as URWORD
+from ur import fold, nfc, plain, roman as RM, roman_norm, WORD as URWORD
 from urdu_level import LEVEL, f, TITLES, DECK_IDS, DECK_FILES, NAMES, SCOPE
 
 STAMP = '2026-11-09T00:00:00.000Z'
@@ -83,6 +83,9 @@ def gloss_text(g):
 # offers every homograph teaches the noise.  Where the first etymology is NOT the
 # everyday word, or two are, the card names which:
 ETYMS = {
+    # `میں` is "I" (ma͠i) AND "in" (mẽ), the second commonest word of the language, which had
+    # no card on any level until the beginner pass (2026-11-19): the card gives both readings
+    'میں': ['1', '2'],
     'اگر': ['2'],             # "if"; 1 is agarwood
     'سر': ['4'],              # sar "head"; 1 is "arrow", and seven more homographs follow
     'کل': ['2'],              # "yesterday; tomorrow"; 1 is "dumb, hoarse"
@@ -91,7 +94,8 @@ ETYMS = {
     'بدھ': ['1'],             # "Wednesday" (a proper noun); 2 is "Buddha"
     'پیر': ['2'],             # pīr "Monday" (and "saint"); 1 is pair "foot", which is پاؤں here
     'طور': ['2'],             # "manner, way" (طور پر); 1 is "hill, mount" (Sinai)
-    'بہتر': ['2'],            # "better"; 1 is the number seventy-two
+    'بہتر': ['2', '1'],       # behtar "better" AND bahattar "seventy-two" (the beginner pass: the
+                              # compound numbers are a set of A2's, and this one is A1's spelling)
     'اہم': ['2'],             # "important"; 1 is "ego"
     'ٹیم': ['2'],             # "team"; 1 is a lamp's flame
     'کھانا': ['1', '2'],      # "to eat" AND "food"
@@ -190,8 +194,19 @@ def entries_for(row, lex):
     return out[:3]
 
 
+def readings(ents, word):
+    """The distinct romanisations of a card's entries, in the order of its senses."""
+    out = []
+    for e in ents:
+        r = RM(word, e['roman'])
+        if r and r not in out:
+            out.append(r)
+    return out
+
+
 def english(ents, word=''):
     parts, shown = [], set()
+    two = len(readings(ents, plain(word))) > 1
     for e in ents:
         label = POS_NAME.get(e['pos'], e['pos'])
         if e['pos'] == 'noun' and e['gender'] in GENDER:
@@ -202,6 +217,9 @@ def english(ents, word=''):
                 label += ', transitive'
             elif 'intransitive' in tv and 'transitive' not in tv:
                 label += ', intransitive'
+        if two and e['roman']:
+            # a spelling read two ways (میں ma͠i "I", mẽ "in"): each sense names its reading
+            label += ' · ' + RM(plain(word), e['roman'])
         gl, seen = [], set()
         for g in e['glosses']:
             if g['weak'] and gl:
@@ -290,21 +308,54 @@ def fi(label, t):
     if not t:
         return ''
     return (f'<span class="uc-fi"><span class="uc-fl">{E(label)}</span>{ur(plain(t["f"]))}'
-            f'<span class="uc-fr">{E(t["r"])}</span></span>')
+            f'<span class="uc-fr">{E(roman_norm(t["r"]))}</span></span>')
+
+
+# THE WORD WITH ITS VOWEL MARKS, first on the forms line (the beginner pass, 2026-11-19).
+# Urdu leaves the short vowels unwritten and the card prints the word as it is written;
+# Wiktionary's headword line writes the marks (`extract.marked_of`), and showing that
+# spelling beneath is where the zabar, zer, pesh, jazm and tashdid the alphabet deck teaches
+# are met on real words.  It has no romanisation of its own: the card's is beside it.
+MARKS_LABEL = 'with its marks'
+
+
+def marks_item(e):
+    m = e.get('marked', '')
+    if not m:
+        return ''
+    return f'<span class="uc-fi"><span class="uc-fl">{E(MARKS_LABEL)}</span>{ur(m)}</span>'
+
+
+def gendered(tb):
+    return any('feminine' in t['t'] for t in tb) and any('masculine' in t['t'] for t in tb)
+
+
+def table_entry(main, ents):
+    """The entry whose table a card prints.  A possessive or a demonstrative is filed twice,
+    as a pronoun with no table and as a determiner with one (`میرا`, `وہ`): the card took the
+    first and showed no form, so `میرے` and `میری` -- 62 uses in A1's sentences -- were on no
+    card.  The table of the same word's other pronoun / determiner entry is used."""
+    if main['table'] or main['pos'] not in ('pron', 'det'):
+        return main
+    for e in ents:
+        if e['table'] and e['pos'] in ('pron', 'det') and roman_norm(e['roman']) == roman_norm(main['roman']):
+            return dict(e, marked=main.get('marked') or e.get('marked', ''))
+    return main
 
 
 def forms_line(e, word):
     tb = e['table']
+    bits = [marks_item(e)]
     if not tb:
-        return ''
-    bits = []
-    if e['pos'] == 'noun':
+        pass
+    elif e['pos'] == 'noun':
         dp = cell(tb, 'direct', 'plural')
         op = cell(tb, 'oblique', 'plural')
         if dp and fold(dp['f']) != fold(word):
             bits.append(fi('plural', dp))
         bits.append(fi('oblique plural', op))
-    elif e['pos'] == 'adj':
+    elif e['pos'] == 'adj' or (e['pos'] in ('pron', 'det', 'particle') and gendered(tb)):
+        # a possessive and `کا` agree as an adjective does: میرا / میری / میرے, کا / کی / کے
         fe = cell(tb, 'feminine', 'singular', 'direct') or cell(tb, 'feminine', 'singular')
         if fe and fold(fe['f']) != fold(word):
             bits.append(fi('feminine', fe))
@@ -321,7 +372,7 @@ def row(label, t):
     if not t:
         return ''
     return (f'<div class="uc-cjr"><span class="uc-cj-p">{label}</span>'
-            f'<span class="uc-cj-f">{ur(plain(t["f"]))}<span class="uc-fr">{E(t["r"])}</span></span></div>')
+            f'<span class="uc-cj-f">{ur(plain(t["f"]))}<span class="uc-fr">{E(roman_norm(t["r"]))}</span></span></div>')
 
 
 def lab(en, u=''):
@@ -342,9 +393,39 @@ FULL_PERSONS = [('I', 'میں', ('first-person', 'singular')),
                 ('we; you, polite; they', 'ہم، آپ، وہ', ('third-person', 'plural'))]
 
 
-def by_person(tb, *aspect):
-    return [row(lab(en, u), cell(tb, *(aspect + need), person=True))
+def by_person(tb, *aspect, nth=0):
+    return [row(lab(en, u), cell(tb, *(aspect + need), person=True, nth=nth))
             for en, u, need in FULL_PERSONS]
+
+
+# THE FULL TABLE'S FUTURE (the beginner pass, 2026-11-19).  Its cells carry the pronoun
+# ("مَیں کَرُوں گا") and no tense tag, so the table printed here skipped them, and the 24
+# commonest verbs of A1 -- کرنا, جانا, دینا, لینا -- showed no future at all while the rarer
+# verbs, on Wiktionary's generated table, did.  The pronoun is taken off both the Urdu and
+# the romanisation and the cell is printed beside the same labels as the other tenses.
+PRONOUNS = [('یہ، وہ', 'ye, vo'), ('میں', 'ma͠i'), ('ہم', 'ham'), ('تو', 'tū'), ('تم', 'tum')]
+
+
+def no_pronoun(t):
+    f_, r_ = nfc(t['f']), nfc(t['r'])
+    parts = f_.split(' ')
+    for p, rp in PRONOUNS:
+        n = len(p.split(' '))
+        if fold(' '.join(parts[:n])) == p and r_.startswith(nfc(rp) + ' '):
+            return {'f': ' '.join(parts[n:]), 'r': r_[len(nfc(rp)) + 1:], 't': t['t']}
+    return None
+
+
+def full_future(tb):
+    def pick(person, number):
+        for t in tb:
+            if set(t['t']) == {person, 'masculine', number} and re.search('گ[اے]$', nfc(t['f'])):
+                return no_pronoun(t)
+        return None
+    return [row(lab('I', 'میں'), pick('first-person', 'singular')),
+            row(lab('you, intimate; he, she, it', 'تو، وہ'), pick('third-person', 'singular')),
+            row(lab('you, familiar', 'تم'), pick('second-person', 'plural')),
+            row(lab('we; you, polite; they', 'ہم، آپ، وہ'), pick('third-person', 'plural'))]
 
 
 def verb_table(tb):
@@ -356,6 +437,8 @@ def verb_table(tb):
                                 row('became, m. sg.', cell(tb, 'preterite', 'third-person', 'singular', person=True))]),
             block('present', by_person(tb, 'indicative', 'present')),
             block('past (masculine)', by_person(tb, 'imperfect', 'past')),
+            # تھی and تھیں: the feminine cells share the masculine's tags and come second
+            block('past (feminine)', by_person(tb, 'imperfect', 'past', nth=1)),
             block('future (masculine)', by_person(tb, 'future', 'indicative')),
             block('imperative', [row(lab('you, familiar', 'تم'), imp[0] if imp else None)]),
         ]
@@ -364,12 +447,14 @@ def verb_table(tb):
         imp = [t for t in tb if set(t['t']) == {'error-unrecognized-form', 'infinitive'}]
         return [
             block('key forms', [row('infinitive', cell(tb, 'direct', 'infinitive')),
+                                row('infinitive, oblique', cell(tb, 'indirect', 'infinitive')),
                                 row('having …-ed', cell(tb, 'conjunctive')),
                                 row('habitual, m. sg.', next((t for t in tb if set(t['t']) == {'masculine', 'singular'}), None)),
                                 row('past, m. sg.', m),
                                 row('past, f. sg.', fe)]),
             block('present (masculine)', by_person(tb, 'habitual', 'present')),
             block('present continuous (masculine)', by_person(tb, 'continuative', 'present')),
+            block('future (masculine)', full_future(tb)),
             # NOT the table's present perfect ("میں کیا ہوں"): a transitive verb's is
             # ergative (میں نے کیا ہے), and the table's cells would teach the wrong sentence
             # the full table's imperative cells are, in order, the intimate, the familiar
@@ -381,6 +466,7 @@ def verb_table(tb):
     return [
         block('key forms', [row('stem', cell(tb, 'stem')),
                             row('infinitive', cell(tb, 'infinitive', skip=('oblique', 'masculine', 'feminine'))),
+                            row('infinitive, oblique', cell(tb, 'infinitive', 'oblique')),
                             row('having …-ed', cell(tb, 'conjunctive')),
                             row('habitual', cell(tb, 'habitual', 'masculine', 'singular')),
                             row('past, m. sg.', cell(tb, 'masculine', 'perfective', 'singular',
@@ -412,7 +498,7 @@ def table_html(e):
                   block('plural', [row('direct', cell(tb, 'direct', 'plural')),
                                    row('oblique', cell(tb, 'oblique', 'plural')),
                                    row('vocative', cell(tb, 'vocative', 'plural'))])]
-    elif e['pos'] == 'adj':
+    elif e['pos'] == 'adj' or (e['pos'] in ('pron', 'det', 'particle') and gendered(tb)):
         blocks = [block('masculine', [row('direct singular', cell(tb, 'direct', 'masculine', 'singular')),
                                       row('plural, oblique', cell(tb, 'masculine', 'plural', skip=('vocative',)))]),
                   block('feminine', [row('every form', cell(tb, 'feminine', 'singular', 'direct'))])]
@@ -459,16 +545,18 @@ def build(rows, lex, exs):
             continue
         main = ents[0]
         word = plain(r['word'])
-        roman = ROMAN_HEAD.get(word) or main['roman'] \
-            or next((e['roman'] for e in ents if e['roman']), '') or ROMAN_BY_HAND.get(r['word'], '')
+        # every reading the card's senses have, in their order (the beginner pass, 2026-11-19:
+        # a card of two readings showed only the first -- شکر śukr "thanks", śakar "sugar")
+        roman = roman_norm(ROMAN_HEAD.get(word, '')) or ' · '.join(readings(ents, word)) \
+            or ROMAN_BY_HAND.get(r['word'], '')
         ex = exs.get(r['key'], [])
         cards.append({'sub': r.get('sub', ''), 'fields': {
             'Urdu': ur(word),
             'Roman': E(roman),
             'Word': word,
             'English': english(ents, r['word']),
-            'Forms': forms_line(main, word),
-            'Table': table_html(main),
+            'Forms': forms_line(table_entry(main, ents), word),
+            'Table': table_html(table_entry(main, ents)),
             'Examples': examples_html(ex),
         }})
         entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],
