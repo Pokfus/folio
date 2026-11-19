@@ -1022,6 +1022,15 @@ Wang Yangming (`cnh-528`); the Treaty of Nanking 29 August 1842 (`cnh-562`); the
 | Wenchang: the cult formed / made thearch / struck off / restored | c. 1100 – 1200 / 1316 / 1370 / 1801 | Burton-Rose (`cnh-868`) |
 | Qingming: described / a public holiday | 1147 / 2008 | Meng Yuanlao; the cited studies (`cnh-869`) |
 | the god of Mount Tai: made king / the title extended / lengthened / removed | 725 CE / 1008 / 1291 / 1370 | Chavannes (`cnh-870`; 1008 with `cnh-874`) |
+| the City God cult dated / also dated / the Ming titles granted / removed | c. 479 – 557 CE / c. 220 – 589 CE / 1369 / 1370 | Zou and Yang (`cnh-871`) |
+| the compass needle attested / its deviation noted | c. 1000 – 1100 / 1111 – 1117 | the cited studies (`cnh-872`) |
+| the almanac: the printing ban / the dated copy / the guide printed / revised | 835 CE / 877 CE / 1683 / 1741 | Whitfield; Foster (`cnh-873`) |
+| the Fengshan first certain / last held | 110 BCE / 1008 | Chavannes (`cnh-874`; the *Shiji*'s 219 BCE for the First Emperor in prose) |
+| the Mingtang: the rites held / built / rebuilt / cut down | 106 BCE / 688 CE / 696 CE / 737 CE | Chavannes; Zhang (`cnh-875`) |
+| Lingbao released / catalogued / the canon listed | c. 400 CE / 437 CE / 471 CE | the *Encyclopedia of Taoism* (`cnh-876`) |
+| the *Baopuzi* written | c. 320 CE | Pregadio; the cited studies (`cnh-878`) |
+| the Daozang: the first canon / first printed / burned / completed | c. 740 CE / 1119 / 1281 / 1445 | the cited studies (`cnh-879`) |
+| the White Cloud Temple founded / the canon reprinted | 1228 / 1923 – 1926 | Bretschneider; Pregadio (`cnh-880`) |
 
 ## Later periods
 
@@ -1879,4 +1888,13 @@ cnh-867: 1923
 cnh-868: 1100; 1200; 1316; 1370; 1801
 cnh-869: 1147; 2008
 cnh-870: 725; 1008; 1291; 1370
+cnh-871: 479; 557; 220; 589; 1369; 1370
+cnh-872: 1000; 1100; 1111; 1117
+cnh-873: 835; 877; 1683; 1741
+cnh-874: 110; 1008
+cnh-875: 106; 688; 696; 737
+cnh-876: 400; 437; 471
+cnh-878: 320
+cnh-879: 740; 1119; 1281; 1445
+cnh-880: 1228; 1923; 1926
 ```
