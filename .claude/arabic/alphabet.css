@@ -1,0 +1,143 @@
+.card {
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.6;
+}
+[dir="rtl"] {
+  font-family: "Noto Naskh Arabic", "Geeza Pro", "Arabic Typesetting", "Traditional Arabic", "Amiri", serif;
+}
+.uc-ask {
+  margin-bottom: 14px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.uc-letter {
+  font-size: 76px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.uc-say {
+  margin-right: 14px;
+  vertical-align: middle;
+  font-size: 15px;
+}
+/* the four shapes, read right to left as the script is: alone, first, middle, last */
+.uc-shapes {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 6px;
+}
+.uc-sh {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.uc-shf {
+  font-size: 34px;
+  line-height: 1.5;
+}
+.uc-shl {
+  font-family: system-ui, sans-serif;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+.uc-field {
+  display: block;
+  width: fit-content;
+  min-width: min(300px, 100%);
+  max-width: 100%;
+  margin: 14px auto 0;
+  padding: 11px 15px;
+  border: 1px solid var(--rule, rgba(0,0,0,0.12));
+  border-radius: 11px;
+  text-align: left;
+  background: color-mix(in srgb, var(--paper-2, #EFEDE6) 58%, var(--card, #FFFFFF));
+}
+.uc-pos {
+  margin-bottom: 3px;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint, #6C6A63);
+}
+.uc-gap {
+  margin-top: 10px;
+}
+.uc-gl {
+  line-height: 1.5;
+}
+.uc-gl [dir="rtl"] {
+  font-size: 22px;
+}
+.uc-rom {
+  font-style: italic;
+  opacity: 0.75;
+}
+.uc-gl .uc-say {
+  margin-right: 0;
+  margin-left: 10px;
+}
+/* the sound: its IPA value, then the page's English approximation, the letter it turns on in bold */
+.uc-ipa {
+  margin-right: 6px;
+  font-family: "Charis SIL", "Doulos SIL", "Gentium Plus", "Noto Serif", serif;
+  opacity: 0.75;
+}
+.uc-like b {
+  color: var(--accent, #2A8424);
+}
+/* what the source says beyond the sound: one quoted sentence a line */
+.uc-notes {
+  margin-top: 10px;
+}
+.uc-note {
+  margin-top: 6px;
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+.uc-says .uc-note:first-child {
+  margin-top: 0;
+}
+.uc-says {
+  margin-top: 0;
+}
+/* an example: the A1 word, its speaker, its romanisation and its meaning, one a line */
+.uc-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.uc-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+}
+.uc-ex {
+  font-size: 24px;
+}
+.uc-exsay {
+  font-size: 13px;
+}
+.uc-exe {
+  opacity: 0.62;
+}
+/* a rule: the spelling it is about, smaller than a letter, and the question in plain words */
+.uc-rule {
+  font-size: 46px;
+}
+.uc-q {
+  margin-top: 8px;
+  font-size: 16.5px;
+}
+.uc-set {
+  margin-top: 10px;
+  font-size: 22px;
+  line-height: 1.7;
+  word-spacing: 4px;
+}

@@ -3460,11 +3460,15 @@ changed was the one that had been wrong all along.
   matching only. **📖 `docs/russian-decks-plan.md` — READ BEFORE TOUCHING ANY RUSSIAN DECK**: the plan, the owner's
   decisions and §10's as-built findings (the homograph rules, the pronouns' shared table, the refused film words).
 - `.claude/arabic/` — the generator behind the **Arabic** decks (Nov 2026, on request: "Add an Arabic language
-  collection."): `decks/Arabic-Alphabet.folio-deck.json` (31 notes — the 28 letters with their four shapes, then
-  ء ة ى — `alphabet.py`, hand-written, no sources) and `decks/Arabic-A1.folio-deck.json` (500 notes / 1,000 cards,
-  Modern Standard Arabic). `python3 .claude/arabic/run.py [--no-fetch]`, cache `.claude/arabic-cache/` (gitignored,
+  collection."): `decks/Arabic-Alphabet.folio-deck.json` (54 notes since the beginner pass of 2026-11-19 — 31
+  letters, 16 signs, 7 rules, every sound a quotation: `alphabet_table.py`, `build-arabic-alphabet.js`; it was
+  31 notes from a hand-written `alphabet.py`) and `decks/Arabic-A1.folio-deck.json` (519 notes, Modern Standard
+  Arabic). **EVERY NOTE ID IS PINNED AND THE GENERATOR'S OUTPUT IS THE INPUT OF A RECORD** (`arabic-ids.json`,
+  `arabic-fixes.json`, `arabic-order.json`, applied by `node .claude/arabic/arabic-fix.js` after any rebuild; "The
+  Arabic beginner pass" below and `docs/arabic-decks-plan.md` §7). `python3 .claude/arabic/run.py [--no-fetch]`, cache `.claude/arabic-cache/` (gitignored,
   ~1.4 GB), checks `node .claude/arabic/check-arabic.js` and `node .claude/arabic/render-arabic.js a1|alphabet`
-  (imports through the Studio and asserts the rendered direction is `rtl`); a re-run is byte-identical. ASSEMBLED:
+  (imports through the Studio and asserts the rendered direction is `rtl`); a re-run followed by `arabic-fix.js` is
+  byte-identical, from a fresh fetch too, the sentence corpus being pinned by id (`examples.TATOEBA_MAX`). ASSEMBLED:
   no Arabic exam publishes a word list, so the inventory is written for the A1 topics (`inventory.py`, with
   hand-written English glosses) and dealt by subtitle frequency. Headwords fully vowelled, sentences as written,
   romanisation on the back, every Arabic run `dir="rtl"` — and the deck CSS hooks on `[dir="rtl"]`, never
@@ -3657,6 +3661,15 @@ changed was the one that had been wrong all along.
   consonants are described phonetically in one line, not taught.
 - `.claude/hindi/` — the generator behind the Hindi decks (Nov 2026, on request: "Add a Hindi language
   collection", then the owner's answers: CEFR A1–C1 assembled, a Devanagari deck, romanisation on every card).
+  **READ THIS FIRST (2026-11-19, the Hindi beginner pass — its section is near the foot of this file).** The
+  counts below are the generator's; the shipped decks are the generator's output WITH A RECORD APPLIED
+  (`hindi-fixes.json` → `node .claude/hindi/hindi-fix.js`, the order `hindi-order.json` ←
+  `hindi-order.js`, the pin `hindi-ids.json`): A1 524, A2 733, B1 999, B2 1,497, the phrases 281, the alphabet
+  71 (60 letters, 11 reading rules of card type `hi-read`). **Every note id is pinned to its headword and
+  applied**, so a rebuild, which numbers by position, is numbered back. A rebuild is `run.py --level <x>`
+  (any level alone: `hindi_level.words_below` undoes the record's moves) → `alphabet.py` → `hindi-fix.js` →
+  `build-lang-decks.js`, and reproduces the committed files byte for byte (proved 2026-11-19, 280 MB
+  fetched). A fault that is the generator's goes in the generator; a hand judgement goes in the record.
   **Built: the alphabet, `decks/Hindi-Alphabet.folio-deck.json`** (59 notes) **and A1,
   `decks/Hindi-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Hindi-A2.folio-deck.json`**
   (750 notes) **and B1, `decks/Hindi-B1.folio-deck.json`** (1,000 notes)
@@ -3671,7 +3684,17 @@ changed was the one that had been wrong all along.
   "nuqtaless form of" senses) are 📖 `docs/hindi-decks-plan.md`. The `l1` row is the 2011 census's 345 million
   (via Wikipedia); the hue is measured, `#9F51B4`.
 - `.claude/bengali/` — the generator behind the Bengali decks (Nov 2026, on request: "Add a Bengali language
-  collection"; the Hindi set's decisions taken for its sister). **Built: the alphabet,
+  collection"; the Hindi set's decisions taken for its sister).
+  **READ THIS FIRST (2026-11-19, the Bengali beginner pass — its section is below, after the Arabic
+  one).** The figures in this entry are the decks as first built; they are now A1 511, A2 751, B1 998,
+  the phrases 101 and the alphabet 80 notes. **A CARD ID IS PINNED TO ITS NOTE**
+  (`.claude/decks/bengali-ids.json`) and no longer a position; **the generator's output is not what
+  ships**: after any `run.py`, `node .claude/decks/bengali-fix.js --pin`, `bengali-order.js`,
+  `bengali-fix.js`, `build-bengali-alphabet.js` (which REPLACED `alphabet.py`), then
+  `node .claude/build-lang-decks.js`. A card's content is changed in the generator, which still rebuilds
+  every level byte for byte; its number, its place and the sentences of a description that state an order
+  or a pace are the record's. Every card carries Wiktionary's pronunciation (the field `IPA`) under the
+  romanisation. 📖 `.claude/decks/README.md` "The Bengali decks" has the table of files. **Built: the alphabet,
   `decks/Bengali-Alphabet.folio-deck.json`** (56 notes) **and A1, `decks/Bengali-A1.folio-deck.json`** (500
   notes / 1,000 cards) **and A2, `decks/Bengali-A2.folio-deck.json`** (750 notes) **and B1, `decks/Bengali-B1.folio-deck.json`** (1,000 notes) **and B2, `decks/Bengali-B2.folio-deck.json`** (1,500 notes) **and C1, `decks/Bengali-C1.folio-deck.json`** (622 notes — the sources ran out, the owner chose small over padded) **and the phrases deck, `decks/Bengali-Phrases-and-Expressions.folio-deck.json`** (107 expressions in three subdecks, a hand-chosen list in `phrases.py`). `python3 .claude/bengali/run.py [--level a1|a2|b1|b2|c1|phr]`, `python3 .claude/bengali/alphabet.py`,
   `node .claude/bengali/check-bengali.js`; a re-run is byte-identical. `.claude/hindi/` adapted: no gender, the
@@ -5210,6 +5233,526 @@ the `.claude/ukbi/` entry above and in `.claude/decks/README.md`; this section i
 - **`check-ukbi.js`, `check-phrases.js` and `check-combined.js` import through the Studio** and are not
   CI steps; what was run of them, and what was not, is in the pull request.
 - **The whole shelf is now 9,979 notes: 1,998 days at the default pace, 5.5 years.**
+
+## The Arabic beginner pass (2026-11-19)
+
+On request, the audit the Japanese, Mandarin, Spanish, Italian, German and Portuguese decks had been given:
+**what does a learner with no Arabic and no Arabic script meet, in the order the shelf itself recommends** —
+Alphabet, A1, A2, B1, B2, C1, then the phrases? Every figure was measured on the seven decks as shipped that
+morning, at the language default of ten new cards a day with both directions together, which is five words a
+day. The rules are in `docs/arabic-decks-plan.md` §7 and the headers of the scripts in `.claude/arabic/`;
+this section is the reasoning.
+
+### What the audit found, by what it costs a beginner
+
+1. **The alphabet deck stopped at the letters, and A1 cannot be read with letters alone.** Its 31 notes
+   were the 28 letters and ء ة ى; its description said the short vowels "are not cards here". Every A1
+   headword is fully vowelled: of the 500, 453 carry a fatḥa, 199 a sukūn, 183 a kasra, 74 a ḍamma, 64 a
+   shadda and 20 a tanwīn (17 ـً, 3 ـٍ); 126 spell a long ā, 53 a long ī, 17 a long ū; 74 write a hamza on
+   a carrier (أ 59, إ 4, ؤ 2, ئ 9) and 3 a madda; 20 carry the article, before a sun letter (السَّبْت) or a moon
+   letter (الْيَوْمَ), 18 begin with a hamzat al-waṣl, 15 hold a lām-alif, 8 a
+   dagger alif, and 312 have one of the six one-sided letters inside the word. None of it had a card.
+   261 headwords contain ع ح خ غ ق or an emphatic.
+2. **Nothing on an alphabet card was sourced** (`alphabet.py`: "hand-written, no sources read"). What it
+   claimed that no page here supports: ض as "the sound Arabic is named for, 'the language of the ḍād'"; ع as
+   "a voiced squeeze of the throat muscles" and ح as "pushed from deep in the throat" (Help:IPA/Arabic says
+   "no equivalent in English" and "hello, but pronounced in the back of the throat"); ص "darkens the vowels
+   beside it"; ه "said even at the end of a word"; ى "a yāʔ that has lost its dots"; ة said t "when a word
+   follows it closely" (the page: only with a case ending or in the construct state); ر "as in Spanish pero"
+   (the page has perro); and every English key word (bed, ten, dog, kite, lamp, moon …), which were not the
+   page's (bee, stop, dash, scape, lease, me).
+3. **The courtesies were scattered through A1 by a subtitle count, or last on the shelf.** السلام عليكم was
+   note 2, but مَرْحَبًا was note 83 (day 17), شُكْرًا 78 (day 16), نَعَمْ 46, آسِف 92, أَهْلًا 240 (day 48) and
+   عَفْوًا 399 (day 80). The replies to good morning and good evening, شكرا جزيلا, إلى اللقاء and تشرفنا were in
+   the phrases deck: day 708 at the earliest. "My name is" and "what is your name?" were cards of no deck;
+   neither are لو سمحت, بخير or تفضل, which the English Wiktionary does not have as entries. من فضلك and
+   كيف حالك gave the form said to a man and no other.
+4. **A1's order after its eleven greetings was the frequency list**: note 12 was أَنَّ "that", then لَا,
+   كَانَ, هٰذَا, فِي. One to ten ran from note 86 to 422 and zero was 475; the days from 352 to 488; the
+   colours from 276 to 448; the eight subject pronouns from 18 to 224; the ten question words from 20 to 203;
+   the twelve commonest verbs lay between 14 and 261 (ate, drank, wrote and read at 181 to 261). **No deck carded a month**, though A1's description lists "time, days and months".
+5. **The example sentences are short and almost all unvowelled, and nothing said so.** Three tokens at the
+   median in A1 and A2, four above; 50 of A1's 1,449 are fully vowelled (3.5%) and 361 carry any mark.
+   Counted the generator's way with the pronoun suffixes also split off: 67.3% of the words in a card's
+   sentences had been met on arrival in A1 (394 sentences whole; 51.5% and 13 of 126 over the first fifty
+   notes); a reader who has finished A1 has met 48.0% of A2's sentence words, and in the order the cards
+   arrive 81% to 87% from A2 to C1. 9% to 13% of tokens are a form of no card of any level (توم 25 times).
+6. **Verbs lacked the imperative; numbers showed nothing.** All 82 A1 verbs carry the past and present of
+   eight persons, and 81 the present stem (so كَتَبَ يَكْتُبُ against جَلَسَ يَجْلِسُ is on the card), the verbal
+   noun and the form I–X. No root, no participle, no jussive or subjunctive, no dual or feminine plural
+   person. Of the 244 verb forms A1's sentences mark, 36 were not on the card: imperatives and jussives
+   (قُمْ, خُذْ, لَا تَنْسَ), verbal nouns with the article, and seven that were another word. The twenty
+   numbers had an empty Forms row; the rule that three to ten take the opposite gender was nowhere.
+7. **Ten A1 sentences were wrong or unsuited.** Under أَنَّ: an insult, a sentence of أَنْ and one of
+   كَأَنَّ. A suicide, an insult and a sexual line on three more cards. نَسِيَ "to forget" showed tennis
+   (التنس), صَارَ victory (النصر), بَاعَ "he followed" (تَبِعَ).
+8. **Six romanisations disagreed with their card.** The scheme itself is one scheme (Wiktionary's) in the
+   alphabet and all six word decks: 55 of 3,664 Roman fields differ from what the pipeline's own rules give
+   for the printed vowels, and 49 of those are a loanword's o or e (dōlār) or a hyphen. The six: three
+   greetings romanised at a pause (ṣabāḥ al-ḵayr) under a headword printed with its endings (صَبَاحُ
+   الْخَيْرِ); kayfa ḥāluka? with the entry's question mark; دَجَاج reading "basilectal" and وِلَادَة قَيْصَرِيَّة
+   "t". Single words are printed and romanised at a pause throughout; only the greetings carry endings.
+9. **"A re-run is byte-identical" was not true of a fresh fetch.** Rebuilt on 2026-11-19 from 936 MB of
+   newly fetched sources, five decks reproduced and A2 (two cards) and B1 (one) did not: Tatoeba's weekly
+   export had gained three sentences.
+10. **Every id was positional and nothing was pinned**, in all seven decks.
+11. **The phrases were ordered by a count that is mostly zero.** Their order was how many Tatoeba sentences
+    contain the expression; 138 of the 164 have none, so most of each subdeck was alphabetical. 20 are
+    spelled with A1's words and forms alone. No expression is carded twice between a level and the
+    phrases: 14 phrases name God, three A1 cards and one A2 card do, and none is the same formula.
+12. **The reverse card was sound.** No two notes of a deck share an English field; 17 groups (36 notes) in
+    A1 share a first gloss and every one is told apart in brackets ("this (masculine)", "uncle (father's
+    brother)"); A1 asks with 1.09 senses on average; no English field names its own answer (five across the
+    shelf name ANOTHER Arabic word).
+13. **Gender and number were mostly sound**: 226 of A1's 247 nouns show a gender and 196 a plural (the
+    others are mass nouns and names of days); 59 of 61 adjectives a feminine, 57 a plural, 39 an elative.
+    No card shows a dual or a definite form, and neither the feminine-singular agreement of non-human
+    plurals nor the construct state is explained anywhere.
+14. **The levels are what their descriptions say**, a written inventory dealt by subtitle count. No
+    headword is a card of a lower deck; 15, 25, 40 and 15 (A2 to C1) are the same letters as a lower
+    headword and a different word (عَلِمَ, عَلَّمَ), and 43, 102, 148 and 100 stand in a lower word's Wiktionary
+    table as its verbal noun or participle — derived words, not duplicates. The median subtitle rank of a
+    level's first 300 words is 443, 1,249, 3,598, 7,051 and 17,809. The steps are 500, 600, 800, 900, 700,
+    and C1 does end the shelf: 430 of its 700 cards have no sentence. No dialect word was found: the
+    inventories are written MSA and the subtitle list only orders them.
+15. **The pace was stated nowhere**: the alphabet 7 days, A1 100, B1 reached on day 228, the shelf 721.
+
+### What was built
+
+- **Note ids pinned** (`arabic-ids.json`, 3,695 rows seeded; 3,744 now, and 5 retired), before anything
+  moved, and APPLIED. Checked in a browser with the decks as shipped: a reader holding the old Alphabet, A1
+  and phrases with 20 notes studied in BOTH directions took the three Updates ("23 new cards · 31 cards
+  corrected"; "19 new cards · 106 cards corrected"; "5 cards dropped from the list (kept here, with their
+  progress)"); all 695 old note ids carry the same letter or word, all 40 schedules are untouched, and the
+  five notes the phrases lost are still on the device.
+- **The corpus pinned** (`examples.TATOEBA_MAX`): no Arabic sentence above id 14111746 is read, and all seven
+  decks rebuild byte for byte from a fresh fetch. Proved again after every generator change: the generator,
+  then `arabic-fix.js` and `build-arabic-alphabet.js`, leave `git status` clean.
+- **Generator fixes** (they belong to every level and every level reproduces): the imperative as a third
+  block of all 778 verb tables; three to ten show both genders (Wiktionary's "masculine" beside the
+  headword); nine pronouns show their suffix (أَنَا: ـِي، ـنِي); من فضلك and كيف حالك show the form said to a
+  woman (Wiktionary's second headword); the six romanisations, by `ar.translit`; ten refusals, which the
+  generator replaced with its next sentence.
+- **An Arabic record** (`arabic-fixes.json`, `arabic-fix.js`, by card type `arabic`): 31 inserts, 5 drops,
+  the descriptions. **A1 gains 19 notes** (ids 501–519): five MOVED byte for byte from the phrases (the two
+  replies, شكرا جزيلا, إلى اللقاء, تشرفنا; `dropDup` there, their rows in `_retired`), اِسْمِي and مَا اسْمُكَ
+  (Wiktionary's phrase entries, sentences from Tatoeba by id), and the twelve months in the names used in
+  Egypt, Sudan and Yemen. **A2 gains the twelve used in Iraq and the Levant** (601–612; Tatoeba has a
+  sentence for four). A new card is a record and not an inventory line because an A1 line competes in every
+  level above it: `مارس` would have split B1's مَارَسَ and taken its sentences.
+- **An order for A1** (`arabic-order.js`): 79 notes by hand, named by pinned number — greetings and replies,
+  thanks, please, sorry, yes and no, a first exchange of names, the pronouns, this and that, the question
+  words, seven little words, twelve verbs, zero to ten — then the frequency order with the numbers above
+  ten, the days after يَوْم, the months after شَهْر and the colours each together, and look-alikes forty
+  apart. مَرْحَبًا is day one, شُكْرًا day two, please, sorry and yes day three, "my name is" day five; أَنَّ is
+  note 80.
+- **The alphabet deck rebuilt from quotations** (`alphabet_table.py`, `build-arabic-alphabet.js`): 54 notes,
+  101 cards — the 31 letters (each keeps its id), 16 signs (two cards each) and 7 rules (one card each, card
+  type `ar-rule`). Every sound is the IPA value and "English approximation" cell of Help:IPA/Arabic
+  (revision 1380899154); shapes, names' spellings, joining, hamza, vowel signs, nunation, gemination, sukūn
+  and dagger alif are cells and sentences of "Arabic alphabet" (1386233872); the article's rule and lists
+  are "Sun and moon letters" (1378024909). The script refuses a sentence that is not in the revision word
+  for word. Names are vowelled as Wiktionary vowels them and romanised by `ar.translit`; every example is an
+  A1 card. It is dealt signs-first: direction, the three short vowels and the sukūn, then the letters.
+- **The phrases by reading level**, each subdeck: 14 that an A1 card spells, then 9, 10, 6, 5, and 115 that
+  use a word no level cards; its description said the old order and now says this one.
+- **The pace stated** in all seven descriptions and recounted on every run, with every other figure a
+  description states. **CI**: `arabic-fix.js --check`, `arabic-order.js --check`,
+  `build-arabic-alphabet.js --check`.
+
+### What was decided against, and why
+
+- **Adding words through the inventory.** It re-deals the levels above (see the record, above).
+- **Re-ordering A2 to C1.** 81% to 87% of a card's sentence words have been met on arrival.
+- **The root on a card.** Wiktionary names one for 43 of A1's 82 verbs and 66 of 240 nouns: a row on half
+  the cards.
+- **The jussive and subjunctive, the participles, the dual and feminine plural persons.** The table would
+  double; the imperative was the form the sentences used and the card lacked.
+- **A dual or a definite form on every noun.** Both are regular, and the article has two rule cards.
+- **A grammar deck** (the construct state, agreement of non-human plurals, negation with لم and لن). One
+  rule could be quoted where a card shows the forms it is about — the polarity of three to ten, in A1's
+  description — and the rest would be explanation with no card under it.
+- **Cards for the attached pronouns.** They are a Forms row on the pronoun they belong to.
+- **أَنْتُمَا and أَنْتُنَّ.** A2 has هُمَا and B1 هُنَّ; the verb tables show eight persons and these are not
+  among them.
+- **Vowelling the sentences.** No source here vowels a Tatoeba sentence, and a vowelling is never typed. The
+  alphabet's last card says, in Wikipedia's words, why bare text can be read more than one way.
+- **Subdecks for the sets.** The app deals subdecks in parallel, a day apart.
+- **A C2 deck.** The plan's §6 stands: Wiktionary and Tatoeba run dry at C1.
+
+### Limits to know about
+
+- **The new order costs the first sentences.** Over A1's first fifty notes 44.4% of a sentence's words have
+  been met on arrival and 6 of 114 sentences can be read whole, against 51.5% and 13 of 126: the frequency
+  list put the commonest little words first, and those are what a sentence is made of. Over the whole deck
+  65.9% against 67.3%. The courtesies arrive on days 1 to 5 instead of 16 to 80; that was the trade.
+- **That the courtesies, the two name phrases and the months are A1 material is a judgement here**; A1's
+  description names the nineteen.
+- **لو سمحت, بخير, تفضل and "I am fine" are still on no card**: Wiktionary has no usable entry and nothing
+  is vowelled by hand.
+- **Wikipedia's "widely regarded as standard" for the Egyptian month names carries a citation-needed tag**
+  in the revision quoted (1351495669); the description quotes it as Wikipedia's.
+- **The moved replies are printed without case endings** (صَبَاح النُّور beside A1's صَبَاحُ الْخَيْرِ): they
+  moved byte for byte. كُرَة الْقَدَمِ keeps Wiktionary's kurat al-qadam.
+- **ثَمَانِيَة shows no second gender** (Wiktionary lists none), nor do one and two, which agree normally.
+- **A1 was not read card by card.** The ten sentences were found by searching for telltale English and for
+  marked forms that were not on the card; a homograph with a word outside the deck may stand elsewhere.
+- **The alphabet quotes three pages**: a quoted sentence keeps their ALA-LC romanisation (fatḥah, ʾalif)
+  beside the decks' own (fatḥa, ʔalif); ـٌ has no example, no A1 headword carrying one; the comparisons are
+  the page's (one is "RP dawn"); ة and the sukūn have a description and no English comparison.
+- **A reader who already holds the phrases deck keeps the five cards that moved** and meets them again in A1.
+- **`alphabet_table.py --check` and `arabic_insert.py` need the cache** and are not CI steps.
+- **`render-arabic.js` does run** (the Studio import other languages' checkers stall on finishes here): `a1`
+  and `alphabet` pass, the second after its loop was taught that the alphabet now opens with cards that have
+  no shapes row. `b1` to `c1` were not rendered; their only change is the imperative block A1's card shows.
+- **The whole shelf is 3,744 notes: 732 days at the default pace, about two years**; A1 ends on day 115 and
+  B1 begins on day 239.
+
+## The Bengali beginner pass (2026-11-19)
+
+On request, the audit the Japanese, Mandarin, Spanish, Italian, German and Portuguese decks had been given:
+**what does a learner with no Bengali and no Bengali script meet, in the order the shelf itself
+recommends** — the Alphabet, A1, A2, B1, B2, C1, then the phrases? Every figure was measured on the seven
+decks as shipped at commit `2b3cf5c`, at the language default of ten new cards a day with both directions
+together, which is five words a day. The rules are in the `.claude/bengali/` entry above and in
+`.claude/decks/README.md`; this section is the reasoning.
+
+**The generator was proved first.** One fetch (five files, about 68 MB over the wire, 156 MB unpacked:
+kaikki's Bengali, the subtitle list, three Tatoeba exports) and then all six levels and the alphabet
+rebuilt: all seven files came back byte for byte. So a change to a card's content went into the generator,
+and after every change the whole rebuild was run twice and compared. `.claude/bengali/` imports nothing
+from `.claude/hindi/` and the reverse; the one shared file it calls, `.claude/dedupe-glosses.py`, was not
+touched.
+
+### What the audit found, by what it costs a beginner
+
+1. **The romanisation under every word is a transliteration, and a third of the time it does not give the
+   sound.** It is Wiktionary's own scheme (neither ISO 15919, which would write করা `karā`, nor the Library
+   of Congress table), mixed with its editors' phonetic respellings. Wiktionary also gives an IPA
+   transcription for 477 of A1's 500 headwords, so the two could be compared: on 157 of the 477 (33%) the
+   Roman field does not say what the IPA says — 121 write [ɔ] as a plain o (বলা `bola` /bɔla/, কথা `kotha`
+   /kɔt̪ʰa/, while করা is `kôra`), 37 carry the glide letters ẇ or ẏ (হওয়া `hoōẇa` /hɔo̯a/), 17 write [æ]
+   as e (এক `ek`, কেমন `kemon`). 245 of the 500 carry a diacritic and 276 a spelling that is not its
+   English value (a diacritic, th, ph, a bare c). The sibilants were sound: 126 headwords hold শ, ষ or স,
+   said [ʃ] far more often than [s] (109 against 14), and the romanisation marks which (ś against s) on
+   all but one (নমস্কার `nomoskar`, /nɔmoʃkaɾ/). Nothing told a reader that ś is "sh".
+2. **The alphabet deck's sounds were written by hand, from no named source.** 56 notes; "k as in skin",
+   "the o of British hot", "the middle of doghouse" were the generator's own. It did say that a consonant
+   carries a vowel, that the i-sign is written before its consonant and which letters sound alike, each on
+   a letter's card. A1's 500 headwords use 57 different conjuncts, in 106 words (21%): the deck taught
+   two (ক্ষ, জ্ঞ) and the three phala signs, which cover 22; reph (4) and the other 29 were on no card.
+3. **A1 was dealt by a subtitle frequency list, and the closed sets were scattered.** Day one was আমি ·
+   করা · তুমি · না · আছে. One to ten ran from note 56 to 446, the days from 470 to 495, the colours from
+   399 to 469; thirteen to nineteen and the tens were at the end of A2 (notes 690 to 744), thirty (ত্রিশ)
+   and zero (শূন্য) in B1. The Gregorian months stood at 631 to 743 of A2. Of the twelve months of the
+   Bengali calendar Wiktionary has an entry for two, and none is carded.
+4. **The courtesies were late or last on the shelf.** ধন্যবাদ was note 80 (day 28 of the shelf), দুঃখিত
+   117, সালাম 471 and নমস্কার 474 (day 107). শুভ সকাল, আপনি কেমন আছেন, তুমি কেমন আছো, আপনার নাম কি, আমি
+   জানি না and আমি বুঝি না were in the phrases deck, which the shelf lists after C1: day 888 onwards.
+   আসসালামু আলাইকুম was on no deck at all — Wiktionary has it, with a pronunciation and no romanisation,
+   and the pipeline dropped an expression it could not romanise. জ্বী, the polite yes, was on no deck.
+   Neither greeting said whose it is: Wiktionary labels নমস্কার "(Hinduism)" and সালাম "(chiefly Islam)",
+   and the generator dropped the labels.
+5. **137 of the shelf's 209 verb tables printed তুই's form in তুমি's row.** Wiktionary gives the habitual
+   past three familiar forms (করতিস and করতি for তুই, then করতে for তুমি); the generator took the second.
+   The tables are otherwise the colloquial ones, at five persons (আমি, তুই, তুমি, সে, আপনি) and six tenses:
+   present, present continuous, present perfect, past, habitual past, future. No sadhu form is printed.
+   Wiktionary's table has **no imperative and no negative**, so neither is on a card; A1's sentences use
+   করো 17 times and করুন 15. Its irregulars are the table's own: আসা is আসল / আসলাম (not এল), দেওয়া
+   is আমি দেই and সে দিবে. 15 of the 1,385 words A1's sentences mark are a form the card does not show.
+6. **The noun figures a description stated were wrong.** "The 203 nouns show their definite form": 103 of
+   them do; the rest have no table in the dictionary. Of thirty nouns spot-checked, fifteen had forms, all
+   regular (-টা; -গুলো on 42 of A1's plurals, -রা or -েরা on 7; -এর / -র), and every form carried a
+   romanisation; one genitive was romanised from the other accent (সকালের `sokaler` beside `śokal`).
+7. **Classifiers, case endings, একটা and নি are on no card**, and cannot be: Wiktionary has no entry for
+   একটা, একটি or the past negative নি, and its entries for the endings are not fit to print (-টা is
+   glossed "definite article for plural inanimate and animate nouns"; -কে is labelled Varendra). A reader
+   meets -টা, -গুলো, -এর, -কে and -তে in a noun's Forms row and table. একটা and একটি are the commonest
+   words of A1's sentences that no card shows after the name টম (66 uses).
+8. **The reverse card was mostly sound.** No two notes of a deck share an English side. 47 A1 notes share
+   a first gloss, in 20 groups, 27 of them carrying the generator's `not X` hint; A1 asks English →
+   Bengali with 1.7 senses on average. Six A1 cards name a Bengali word in the English field ("genitive of
+   আমি"). জল and পানি are both carded and told apart ("not পানি"), but not labelled: Wiktionary marks
+   neither. নিমন্ত্রণ is B2's and দাওয়াত B1's.
+9. **Example sentences are short**: four words at the median in A1 (33 at most), five above it. In the
+   order the cards arrive 64% of a sentence's words had been met in A1 (52% over the first fifty notes)
+   and 67% to 70% above it, counting a form as met only where a card shows it. Five of A1's 1,369
+   sentences look sadhu, 32 on the shelf.
+10. **The levels are what they say.** No headword is carded twice; 19 are also a form a lower card shows
+    (গান beside গাওয়া: homographs). Against the subtitle list the median rank of a deck's first 300 words
+    is 286 (A1), 1,371 (A2), 3,954 (B1), 11,334 (B2) and 68,463 (C1), and 185 of C1's 622 are not in the
+    list at all — which its description says, and the owner's decision to keep C1 small stands.
+11. **The phrases were in frequency order, as described, and last.** 29 of the 107 were spelled entirely
+    with A1's words and forms (26 phrases, 3 idioms, no proverb).
+12. **The pace was stated nowhere.** The alphabet was 12 days, A1 days 13 to 112, B1 began on day 263, and
+    the shelf was 4,535 notes: 909 days, 2.5 years.
+
+### What was built
+
+- **Note ids pinned** (`bengali-ids.json`, 4,535 rows at the seed), before anything moved: every Bengali
+  deck was numbered by position. APPLIED by `bengali-fix.js` and `build-bengali-alphabet.js`, with
+  `_retired`. Checked in a browser with the decks as shipped (`.claude/bengali/check-update.js`): a reader
+  holding the old Alphabet, A1 and phrases with 39 notes studied in BOTH directions took the three Updates
+  and kept the same 78 ids on the same words and letters with their schedules ("24 new cards"; "11 new
+  cards"; "8 cards dropped from the list (kept here, with their progress)"), the eight dropped notes
+  among them staying on the device. Over the whole shelf, 4,525 of the 4,535 old ids name the same note,
+  ten are retired, none moved.
+- **A pronunciation on the card** (GENERATOR; the field `IPA`, under the romanisation): Wiktionary's own
+  transcription, on 3,696 of the 4,483 word and phrase cards (484 of A1's 511). Where it gives one for
+  each of two accents the one it labels Rarh is printed; none is composed. **Beside the romanisation, not
+  instead of it**: the romanisation is on every card and follows the spelling a reader is learning; the
+  transcription is on five in six and gives the sound; and an expression with a transcription and no
+  romanisation is no longer dropped.
+- **The তুমি row repaired** (GENERATOR): 137 cells, in five decks.
+- **Wiktionary's community and country labels kept** (GENERATOR): "(Hinduism)", "(chiefly Islam)",
+  "(chiefly India)", "(Bangladesh)" in front of a meaning, on 83 cards.
+- **Twelve words down the shelf** (GENERATOR, the inventory): A1 gained আসসালামু আলাইকুম and জ্বী, which
+  nothing carded, eight expressions from the phrases deck (শুভ সকাল, খোদা হাফেজ, আপনি কেমন আছেন, তুমি কেমন
+  আছো, আপনার নাম কি, তোমার নাম কি, আমি জানি না, আমি বুঝি না) and শূন্য from B1; A2 gained ত্রিশ from B1.
+  Each target moved by exactly that many (A1 511, A2 751, B1 998), so no other word changed level; a word
+  that moved is carded once, and its old row is in `_retired`. The phrases deck is 101: it lost the
+  eight and gained two expressions that have a transcription and no romanisation (খয়ের খাঁ and a proverb).
+- **An order** (RECORD: `bengali-order.js`, `bengali-order.json`): A1 opens with 99 notes by hand — the
+  courtesies of both communities, a first exchange, the pronouns, sixteen verbs, the question words, zero
+  to ten, the joining words — then the frequency order with the days from note 151, the colours from 204,
+  the numbers above ten from 251, and the parts of the day, the words for where a thing is and the family
+  together. নমস্কার and আসসালামু আলাইকুম are day one, ধন্যবাদ day two. A2 keeps its numbers (notes 51 to
+  66), months (101 to 112) and seasons together. The phrases are tiered by reading level inside each
+  subdeck (24 at A1, 9 at A2, 9 at B1, 7 at B2, 1 at C1, 51 with a word no level teaches).
+- **The alphabet deck rebuilt from sources** (`build-bengali-alphabet.js`, replacing `alphabet.py`): 80
+  notes, 149 cards. Every sound, comparison and rule is a cell or a sentence of Wikipedia's Help:IPA/Bengali
+  (revision 1369348573) or "Bengali alphabet" (1379877198), cut by `bengali-alphabet-quote.js`. The 56
+  notes keep their ids; new are reph, the twelve other conjuncts that stand in two or more of A1's words,
+  and eleven rule cards (card type `bn-rule`, one card each): the vowel no sign writes, the vowel signs,
+  the letters that sound alike, the vowel æ, aspirated against unaspirated, the two kinds of t and d, the
+  headstroke, how consonants join. Each letter's card now shows the IPA symbol the word cards use.
+- **The descriptions**: the pace and the order are computed by `bengali-fix.js` on every run; the
+  pronunciation line, the labels and the true noun counts are the generator's.
+- **CI**: `bengali-fix.js --check`, `build-bengali-alphabet.js --check`, and `check-bengali.js`, which was
+  on no workflow.
+
+### What the old alphabet deck claimed that its sources do not
+
+Neither page says that the inherent vowel is usually silent at the end of a word, nor on which side of its
+consonant each vowel sign is written (only that a sign "can appear above, below, before or after the
+consonant"). The old cards said both; the new ones say neither and show both in the example words (নাম
+/nam/, কি). Also dropped for want of a sentence: স as "a true s before ত, থ, ন, র, ল", ক্ষ as "kh at the
+start of a word and kkh inside one", ঙ and ড় "never start a word", every description of what the tongue or
+the breath does, and every English comparison of the generator's own. The aspiration card is the two
+header cells of the consonant table and the approximation cells side by side: neither page has a sentence
+on aspiration.
+
+### What was decided against, and why
+
+- **A pronunciation instead of the romanisation.** 787 cards have no transcription, and the romanisation
+  is what ties a sound to its letters.
+- **A romanisation generated from the IPA, or the two accents side by side.** The first is a new scheme
+  nobody else uses; the second is two lines that differ in notation more than in sound (150 of 423 A1
+  pairs differ beyond r, mostly t͡ʃ against tɕ).
+- **Cards for the case endings, the classifiers, একটা and নি** (finding 7), **for the imperative and the
+  negative** (finding 5), **for the Bengali months, ভালো আছি, আবার দেখা হবে, আমার নাম … and মাফ করবেন**:
+  Wiktionary has no entry, or not one fit to print. Nothing was written by hand.
+- **A label on জল and পানি.** Wiktionary gives neither one; the description names the pair.
+- **Subdecks for the sets.** The app deals subdecks in parallel, a day apart.
+- **Re-ordering B1 to C1**, and **look-alikes forty apart** in A1: 67% to 70% of a sentence's words have
+  been met on arrival above A1, and Bengali's look-alikes are the pairs the `not X` hints already separate.
+- **Raising C1.** The owner chose small over padded; the sources are the same.
+- **`check-update.js` in CI**: it needs a browser and the seed commit's objects.
+
+### Limits to know about
+
+- **The head's sentences got harder, not easier**: over A1's first fifty notes 30% of a sentence's words
+  have been met on arrival (52% before), and 62.4% over the deck (64.4%). The courtesies come before the
+  words their sentences are made of; the pipeline picks sentences by length, not by what has been taught.
+- **Wiktionary's transcriptions are not all by hand** and are not consistent: [æ] is written æ or ɛ, the
+  open a is a, ɑ or ä, and a few differ from the common pronunciation (দেওয়া /d̪æo̯ɑ/). They are printed as
+  given. 27 A1 cards have none.
+- **The alphabet's example words are chosen by rule** (the first card dealt that shows the letter), so a
+  word may show its letter in a conjunct or in an unusual value; and a conjunct card says what the
+  conjunct is made of, not how it sounds — the example's transcription shows that.
+- **The alphabet deck is 15 days where it was 12**, so A1 starts on day 16; the shelf is 4,563 notes,
+  **915 days at the default pace, 2.5 years**.
+- **A reader who already holds the phrases deck keeps the eight cards that moved** and meets them again in
+  A1.
+- **That the twelve words are A1 and A2 material is a judgement here**, not a citation.
+- **No card was read one by one.** The diff against the shipped decks was: the new field, 137 table rows,
+  83 labelled meanings, two sentences re-dealt, the moved words.
+
+## The Hindi beginner pass (2026-11-19)
+
+On request, the audit the Mandarin, Spanish, Italian, German and Portuguese decks had been given: **what
+does a learner with no Hindi and no Devanagari meet, in the order the shelf itself recommends** — the
+alphabet, A1 to C1, then the phrases? Every figure was measured on the seven decks as shipped that
+morning, at the language default of ten new cards a day with both directions together, which is five words
+a day. The rules are in the `.claude/hindi/` entry above and in `.claude/decks/README.md` "The Hindi
+decks"; this section is the reasoning.
+
+### What the audit found, by what it costs a beginner
+
+1. **The alphabet deck did not get a reader to A1's first words.** It taught the letters well (eleven
+   vowels each with its sign, anusvara against chandrabindu, the halant, the five nukta letters, and an
+   English comparison or a tongue position for every retroflex, dental and aspirate) and said nothing of
+   how they are read together. Its first card said "every consonant carries [a] unless a sign says
+   otherwise": 218 of A1's 491 one-word headwords end in a consonant whose a is silent and 105 drop one
+   inside the word (कमरा kamrā). 68 A1 headwords hold a joined consonant, 50 different ones (71
+   occurrences); the deck taught four as letters (8 of the 71) and no rule, and र, which takes three
+   shapes, is in 17. Of A1's first 100 headwords 60 needed a rule the deck never stated. ॉ (डॉक्टर,
+   कॉफ़ी) was on no note; nothing spoke of vowel length as a contrast or of stress.
+2. **The courtesies were late or last on the shelf.** नमस्ते was note 372 of A1 (day 87 with the alphabet
+   first), अलविदा 371, शुक्रिया 322, धन्यवाद and कृपया 110 and 109 (day 34), हाँ 38. आप कैसे हैं, मैं ठीक हूँ,
+   आपका नाम क्या है, माफ़ कीजिए, जी हाँ, जी नहीं and कोई बात नहीं were in the phrases deck, which the shelf
+   lists after C1: day 1,063 onwards. नमस्कार and zero were A2's. चाहिए, in 21 of A1's sentences, and
+   मेरा नाम … है were cards of no deck (फिर मिलेंगे and ठीक है still are: finding under Limits).
+3. **The verb "to be" showed none of its commonest forms.** होना's table gave होता है and Wiktionary's
+   definite future होएगा. है stands in 578 of A1's 1,450 sentences, हैं in 135, हूँ in 82, था / थे / थी in
+   120, होगा / होगी in 28; none of the seven was a cell of any card.
+4. **Nothing showed agreement on the possessives or on का.** मेरा, तुम्हारा, आपका, उसका, इसका, हमारा, उनका,
+   अपना and का carried no Forms row: मेरे and मेरी are in 73 A1 sentences, के and की in 127. 44 of A1's 74
+   adjectives are invariable and showed an empty row, which reads the same as a row nobody filled.
+5. **A1 was dealt by a subtitle frequency list.** Day one was होना · मैं · करना · कि · नहीं. One to ten ran
+   from note 12 to 462, eleven and twelve were 494 and 482 with thirteen to nineteen in A2 (709 to 750),
+   the tens were split the same way, the days ran 454 to 495, the colours 419 to 469, the question words
+   18 to 499, the pronouns 2 to 425. The months were all A2's, notes 609 to 743.
+6. **The progressive and the compound verbs were explained nowhere.** 85 A1 sentences hold a progressive
+   (कर रहा है) and रहना's card stopped at Wiktionary's third sense, the fourth being "an aspectual
+   auxiliary, marking the continuous aspect"; the same for जाना (the passive), लेना, देना, लगना. ने, in
+   96 sentences, is glossed "marker of the ergative case with perfective-aspect transitive verbs" and
+   nothing more; तू / तुम / आप are told apart only by their glosses and the pronoun tables.
+7. **Card faults.** 27 headwords were printed without the nukta their own romanisation had (सफेद over
+   safed, काफी over kāfī: the dump's first entry, a nuqtaless pointer, named the lemma); nine inventory
+   words reached through a pointer printed the OTHER spelling's romanisation (वसंत over basant, गरम over
+   garm); करना's "having done" was करकर; six words were carded twice in two spellings (कुर्सी A1 / कुरसी
+   B2, गरम / गर्म, बिल्कुल / बिलकुल, वसंत / बसंत, दुख / दुःख, महत्व / महत्त्व); कि's third sentence was a
+   misspelt की, जी's second the verb जीना, जी नहीं's three all "cannot live"; and eighteen sentences on
+   fourteen cards whose word is not obscene were (मेरा, छोटा, लंबा and सिर in A1), found on a screenshot.
+8. **The romanisation was sound.** One scheme on every card of all seven decks, Wiktionary's (ISO-like
+   with c / ch, ś / ṣ, ṛ for the flap, x ġ q z f, a tilde for a nasal vowel, anusvara resolved to its
+   nasal), which marks length, retroflexes, nasalisation and schwa deletion; 55 of the alphabet's 59
+   example words are level cards and all 55 agree. Beyond finding 7 the Roman field and the spelling
+   disagree nowhere; 62 form romanisations of 39,553 are empty (irregular pasts, होइये).
+9. **Gender and number were sound**: 241 of A1's 243 noun senses carry a gender, 207 an oblique plural,
+   the direct plural where it differs, and the full direct / oblique / vocative table behind the fold; 26
+   of the 30 adjectives in -ā show feminine and plural. **Verbs were otherwise sound**: all 77 carry the
+   past, its feminine, stem, habitual, present, future, subjunctive and the imperative at three levels
+   (कर / करो / कीजिये); of 233 verb forms A1's sentences mark, 10 are on no table.
+10. **The reverse card was mostly sound.** No two notes of a deck share an English side (the generator's
+    `not X` labels); A1 asks with 2.0 senses a note. 30 groups of A1 notes share a first gloss, four notes
+    hinted; the fronts that truly could not be told apart were धन्यवाद / शुक्रिया, नमस्ते / नमस्कार, अगर
+    / यदि, कार / गाड़ी, सड़क / रास्ता. Sanskrit- and Persian-derived pairs sit a deck apart unhinted (किताब
+    A1 / पुस्तक B1, मदद / सहायता A2, दोस्त / मित्र, साल / वर्ष).
+11. **Sentences are five words at the median** (six or seven above A1). In the order the cards arrived,
+    counting a form as met only if a card shows it: A1 72.8% of words met and 289 of 1,450 sentences
+    whole (57.4% and 12 of 150 over the first fifty notes); A2 77%, B1 80%, B2 82%, C1 83%.
+12. **The levels are what their descriptions say**: a topic inventory plus lemma frequency. No headword is
+    also a lower card; 4, 9, 12 and 25 are a form a lower card shows, mostly a noun spelled like a verb
+    stem (डर / डरना), six of them the true duplicates of finding 7. Median lemma count of a level's first
+    300 words: 505, 89, 32, 12, 4 (median rank in the form list 275, 847, 1,885, 3,752, 7,550). C1's fill
+    is close to noise, as the plan already says.
+13. **The phrases were roughly in a usable order and their description did not say so**: 32 of the 97
+    everyday phrases are spelled with A1's words and forms, at a median position of 20; 18 of 157 idioms;
+    no proverb. 128 of the deck's expressions use a word no level cards.
+14. **The pace was stated nowhere**: the alphabet 12 days, A1 100, B1 reached on day 263, the shelf 1,120
+    days, 3.1 years.
+
+### The generator was proved first
+
+`run.py` and `alphabet.py` were run for all seven decks into a scratch copy before anything was changed:
+five files fetched (kaikki's Hindi extract 168 MB, Tatoeba's English sentences 109 MB, three small ones;
+280 MB), **all seven sha256 sums equal to the committed files**. So a generator fault was repaired in the
+generator and every level rebuilt: only the intended fields moved (Forms on 916 notes, 901 of them the
+word "invariable"; Hindi and Word on 27; Table on 16; Roman on 9; English on 7), no id, no order, no
+sentence. After the record was written the whole pipeline was run again three ways (B1 alone, A2 alone,
+the phrases alone, then all levels and the alphabet) on top of the committed decks: generator plus record
+gave the committed bytes each time.
+
+### What was built
+
+- **Note ids pinned** (`hindi-ids.json`, 5,597 rows seeded from the decks as shipped, before anything
+  moved; now 5,605 and 28 retired). From the files: of the 5,597 old ids 5,542 name the same word, 27 the
+  same word respelled with its nukta, 28 are retired, none is reused. In a browser, with the decks as
+  shipped: a reader holding the old Alphabet, A1 and phrases with 29 notes scheduled in BOTH directions
+  pressed the three Updates ("12 new cards"; "24 new cards · 74 cards corrected"; "7 cards dropped from
+  the list (kept here, with their progress)") and kept all 58 schedules on the same words, the seven
+  notes the phrases lost staying on the device.
+- **In the generator** (every level reproduces): होना's own blocks (is, am, are · was, were · will be,
+  must be); a Forms row on the possessives and का (feminine, plural / oblique: sixteen A1 cards) and
+  "invariable" on an adjective Wiktionary marks indeclinable; an "as an auxiliary, after another verb"
+  block from the senses Wiktionary lists after the third (रहना, जाना, लेना, देना, लगना, डालना, होना);
+  करके; the 27 headwords and the nine romanisations of finding 7.
+- **In `alphabet.py`**: ऑ, and **eleven reading rules** (card type `hi-read`, one card each): the silent
+  final a, the a dropped inside a word, vowel length, the half letter, the letter joined to क, the doubled
+  letter, र before and र after, रु and रू, the plain dot that nasalises, the stress. Each shows the rule
+  on an A1 card with the generator's romanisation and quotes one sentence of Wikipedia at a revision
+  ("Schwa deletion in Indo-Aryan languages" 1381118256, "Devanagari" 1385113141, "Hindustani phonology"
+  1386279681); the plain-words line above the quote claims nothing the quote does not. The first card now
+  says where the a is silent.
+- **A Hindi record** (`hindi-fixes.json`, applied by `hindi-fix.js` to every deck of card type `hindi` or
+  `hi-abc`): **24 notes for A1** (ids 501 to 524) — 22 MOVED byte for byte (नमस्कार, zero, thirteen to
+  nineteen and six tens from A2; the seven formulas of finding 2 from the phrases), each `dropDup`ped
+  where it was with its row in `_retired`, and चाहिए and मेरा नाम … है NEW (Wiktionary via kaikki, read
+  2026-11-19; sentences Tatoeba, named by id); **six spelling duplicates dropped** from A2, B1 and B2;
+  **21 sentences taken off 16 cards**; **fourteen reverse-card hints** (the five pairs of finding 10,
+  and पुस्तक, प्रश्न, सहायता, मित्र, वर्ष, प्रतीक्षा, प्रयास on the HIGHER card, so the hint names a word
+  already learnt).
+- **An order** (`hindi-order.json`, computed by `hindi-order.js` from the pinned number, which is the
+  generator's frequency rank). A1: 94 notes by hand — the courtesies (three days), a first exchange, the
+  pronouns and possessives, nine postpositions, twelve verbs, the question words, zero to ten, twelve
+  function words — then frequency with the days from note 151, the colours from 201 and the numbers above
+  ten from 251. नमस्ते is the first card; आप कैसे हैं is day four of the deck. A2: the twelve months
+  together from note 605. The phrases: by reading level inside each subdeck (49 / 33 / 30 / 21 / 20 and
+  128 no level; 30 of the 90 everyday phrases with A1 alone).
+- **The pace stated** in the alphabet, A1 and phrases descriptions, every figure written in from the
+  order's `facts` or recounted, none typed: the alphabet's 131 cards 14 days, A1 105 days.
+- **CI**: `hindi-fix.js --check`, `hindi-order.js --check` and `check-hindi.js` (which had never been a
+  step; its "id out of sequence" test is now "the id is the note's pinned number").
+
+### What was decided against, and why
+
+- **Moving words by editing the inventory.** A1 is cut at 500, so one word added to its inventory pushes
+  a fill word into A2, and so on up: every boundary would trade notes, each a retired id and a second
+  copy for a reader who holds both decks. The record moves 22 cards and nothing else shifts.
+- **Dropping the six duplicates in `select.py`.** The same cascade, from B1 upwards; `dropDup` leaves
+  B1 at 999 and B2 at 1,497.
+- **A progressive row, and a feminine set, in every verb's table.** Wiktionary's conjugation table has no
+  कर रहा है cell (its one "progressive" cell is करते-करते), and a form is never typed by hand. The
+  auxiliary's own card now says what it does.
+- **A grammar deck** (ने and the ergative, तू / तुम / आप, the oblique case, compound verbs). Only a
+  script rule could be quoted cleanly; what could be shown on a card was put on the card.
+- **A teaching order for the alphabet's letters.** The traditional order is the order of every primer and
+  dictionary, the deck is finished before A1 on the shelf, and every example word needs later letters in
+  any order. The rules were placed after the block they need.
+- **Re-ordering B1 to C1**: 80% to 83% of a card's sentence words have been met on arrival.
+- **Removing obscene sentences in `examples.py`.** A sentence is used once per deck, so a stoplist there
+  re-deals other cards' sentences. The record takes off the eighteen; a rebuild keeps them off.
+- **Respelling कीजिये as कीजिए, गए for गये.** Both spellings are current, the table is Wiktionary's, and
+  Tatoeba's sentences use both (कीजिए six times in A1 on cards showing कीजिये).
+- **Cards for फिर मिलेंगे and ठीक है**: neither is an entry of the English Wiktionary. क्षमा कीजिए stands
+  as a sentence on क्षमा's card.
+- **Look-alikes forty notes apart** (the German rule). Hindi's pairs are a postposition and its adverb
+  (पीछे / के पीछे), which the part-of-speech label already tells apart on the reverse card.
+
+### Limits to know about
+
+- **The head's sentences still lean on words that arrive later.** Over A1's first fifty notes 49.7% of
+  sentence words have been met on arrival and 14 of 135 sentences can be read whole, against 57.4% and 12
+  of 150 by frequency: a greeting's sentence uses function words the frequency order had already dealt.
+  Over the whole deck 75.8% and 382 of 1,482, against 72.8% and 289, which is the forms now shown.
+- **The reading rules quote three articles** and were chosen by what A1's headwords need: no rule for
+  द्ध-style stacked letters, for यह and वह as they are spoken, or for the a before ह. The plain-words
+  line of each is this pass's paraphrase of its quote.
+- **A reader who already holds A2 or the phrases keeps the cards that moved** and meets them again in A1.
+- **That the courtesies, the numbers and चाहिए are A1 material is a judgement here**; the A1 description
+  says which 24 were added and from where.
+- **The decks were not read card by card.** The head of A1 was; the faults of finding 7 were found by
+  measurement, by one screenshot and by a search of the English sides. A sentence filed under the wrong
+  word may stand elsewhere (कि's did).
+- **Byte-identity depends on live sources.** kaikki regenerates its extract and Tatoeba its exports; on
+  2026-11-19 both still gave the committed files. A later rebuild that differs is the sources moving, and
+  the pin and the record are what keep the ids and the order when it does.
+- **`check-hindi.js` reads files only**; the browser checks of this pass (the Update press, the card
+  screenshots at 390 px) were scratch scripts, not suites.
+- **The whole shelf is now 5,605 notes, 11,199 cards: 1,123 days at the default pace, 3.1 years**; B1
+  begins on day 267.
 
 ## The DELE card-by-card audit, beyond A1 — the batch log
 

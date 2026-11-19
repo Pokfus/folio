@@ -1,0 +1,1975 @@
+{
+ "_": "bengali-alphabet.json — the table behind decks/Bengali-Alphabet.folio-deck.json, read by build-bengali-alphabet.js and WRITTEN BY bengali-alphabet-quote.js: do not edit it by hand, edit that script's ROWS, RULES or PASSAGES and re-run it over the two pages at the revisions in `sources`. NOTHING IN IT IS COMPOSED. `letters` is a cell of the vowel or consonant table of Wikipedia's 'Bengali alphabet' per letter: its name in romanisation (`tr`), that name in IPA (`ipa`) and the cell's own footnote (`note`). `sounds` is Help:IPA/Bengali row by row: the symbol, the letters that write it, the 'English approximation' cell (`like`) and the names of the notes on the row (`notes`, their text in `ipaNotes`). `signs` is a row of the 'Diacritics and other symbols' table of 'Bengali alphabet': name, function, romanisation, IPA. `passages` are whole sentences of 'Bengali alphabet' cut by their first and last words; `conjuncts` every bullet of its sections on how conjuncts are built that names one. Wiki markup is turned into <b>, <i> and ⟨ ⟩, a link becomes its text, a footnote or citation is dropped, and no word is changed. `rows` and `rules` say which letters, signs and rules have a card, in what order, and which passages stand on each; a row's `key` is what its id is pinned to (bengali-ids.json). A rule's `title` is a heading written for the card, not a quotation — except the aspiration card's, which is the two header cells of the consonant table.",
+ "sources": {
+  "ipa": {
+   "title": "Help:IPA/Bengali",
+   "site": "en.wikipedia.org",
+   "rev": 1369348573,
+   "date": "2026-08-14"
+  },
+  "alphabet": {
+   "title": "Bengali alphabet",
+   "site": "en.wikipedia.org",
+   "rev": 1379877198,
+   "date": "2026-10-12"
+  }
+ },
+ "letters": {
+  "অ": {
+   "tr": "ô",
+   "ipa": "/ɔ~o/",
+   "note": "The underlying form of অ is /ɔ/. It is raised to [o] in the following contexts: · if অ is in the first syllable and there are high vowels (e.g. ই /i/ and উ /u/) in the following syllable, e.g., অতি <i>ôti</i> [ˈot̪iˑ] 'much', বলছি <i>bôlchi</i> [ˈboltʃʰiˑ] '(I am) speaking' · if অ is the inherent vowel in a word-initial consonant cluster ending in <i>rôphôla</i>, e.g., প্রথম <i>prôthôm</i> [ˈpɾot̪ʰɔm] 'first' · if the next consonant cluster contains a <i>yôphôla</i> (which geminates the preceding consonant), e.g., অন্য <i>ônyô</i> [ˈonːoˑ] 'other', জন্য <i>jônyô</i> [ˈdʒɔnːoˑ] 'for'"
+  },
+  "আ": {
+   "tr": "a",
+   "ipa": "/ɐ/",
+   "note": "In onomatopoeias and polysyllabic words, /a/ (represented by আ), is phonetically realised as the vowel [ɐ]. In monosyllabic words, /a/ is realised as the more opened vowel [ä~äː]."
+  },
+  "ই": {
+   "tr": "i",
+   "ipa": "/i/",
+   "note": ""
+  },
+  "ঈ": {
+   "tr": "ī",
+   "ipa": "/i/",
+   "note": ""
+  },
+  "উ": {
+   "tr": "u",
+   "ipa": "/u/",
+   "note": "Although উ and ও represent the vowels /u/ and /o/ respectively, they may also represent the voiced labial–velar approximant /w/ which can occur as an allophone of their semivowel equivalents /u̯/ and /o̯/ under fortition (especially in loanwords), e.g., ওয়াদা [ˈwad̪aˑ~ˈo̯ad̪aˑ] 'promise', উইলিয়াম [ˈwiliam~ˈu̯ili̯am] 'William'."
+  },
+  "ঊ": {
+   "tr": "ū",
+   "ipa": "/u/",
+   "note": ""
+  },
+  "ঋ": {
+   "tr": "ṛ",
+   "ipa": "/ri/",
+   "note": ""
+  },
+  "ঌ": {
+   "tr": "ḷ",
+   "ipa": "/li/",
+   "note": ""
+  },
+  "এ": {
+   "tr": "e",
+   "ipa": "/e/",
+   "note": "Even though the near-open front unrounded vowel /æ/ is one of the seven main vowel sounds in the standard Bengali language, no distinct vowel symbol has been allotted for it in the script, though এ is used. /æ/ may also be transcribed in IPA and pronounced as an open-mid front unrounded vowel /ɛ/."
+  },
+  "ঐ": {
+   "tr": "oi",
+   "ipa": "/oi/",
+   "note": ""
+  },
+  "ও": {
+   "tr": "o",
+   "ipa": "/o~w/",
+   "note": "/ʊ/ is the original pronunciation of the vowel ও, though a secondary pronunciation /o/ entered the Bengali phonology by Sanskrit influence. In modern Bengali, both the ancient and adopted pronunciation of ও can be heard in spoken, e.g., নোংরা <i>noṅra</i> 'foul' is pronounced as either [ˈnoŋɾaˑ] or [ˈnʊŋɾaˑ]."
+  },
+  "ঔ": {
+   "tr": "ou",
+   "ipa": "/ou/",
+   "note": ""
+  },
+  "ক": {
+   "tr": "kô",
+   "ipa": "/kɔ/",
+   "note": ""
+  },
+  "খ": {
+   "tr": "khô",
+   "ipa": "/kʰɔ/",
+   "note": ""
+  },
+  "গ": {
+   "tr": "gô",
+   "ipa": "/ɡɔ/",
+   "note": ""
+  },
+  "ঘ": {
+   "tr": "ghô",
+   "ipa": "/ɡʱɔ/",
+   "note": ""
+  },
+  "ঙ": {
+   "tr": "ṅô",
+   "ipa": "/ŋɔ/",
+   "note": ""
+  },
+  "হ": {
+   "tr": "hô",
+   "ipa": "/ɦɔ~hɔ/",
+   "note": "When used at the beginning or end of a word, হ is pronounced voiceless /hɔ/ but when used in the middle, it is sounded voiced as /ɦɔ/."
+  },
+  "চ": {
+   "tr": "cô",
+   "ipa": "/tʃɔ~tɕɔ/",
+   "note": ""
+  },
+  "ছ": {
+   "tr": "chô",
+   "ipa": "/tʃʰɔ~tɕʰɔ/",
+   "note": ""
+  },
+  "জ": {
+   "tr": "jô",
+   "ipa": "/dʒɔ~dʑɔ/",
+   "note": ""
+  },
+  "ঝ": {
+   "tr": "jhô",
+   "ipa": "/dʒʱɔ~dʑʱɔ/",
+   "note": ""
+  },
+  "ঞ": {
+   "tr": "ñô",
+   "ipa": "/nɔ/",
+   "note": "Original sound for ঞ was /ɲɔ/ but in modern Bengali, it represents /ẽɔ/ and in consonant conjuncts is pronounced /nɔ/ same as ন."
+  },
+  "য": {
+   "tr": "yô",
+   "ipa": "/dʒɔ~dzɔ~zɔ/",
+   "note": "In Sanskrit, য represented the voiced palatal approximant /j/. In Bengali, it developed two allophones: voiced palato-alveolar affricate /dʒɔ/ (same as জ) at the beginning of a word, and the palatal approximant in other cases. When reforming the script, Ishwar Chandra Vidyasagar introduced য়, representing /e̯ɔ/, to indicate the palatal approximant in the pronunciation of য in the middle or end of a word. In modern Bengali, য represents /dʒɔ/ and the near-open front unrounded vowel /æ/ as the diacritic <i>jôphôla</i>. It falls into voiced alveolar sibilant affricate /dzɔ/ in Eastern dialects and is also used to represent voiced alveolar sibilant /zɔ/ for Perso-Arabic loanwords."
+  },
+  "শ": {
+   "tr": "śô",
+   "ipa": "/ʃɔ~ɕɔ~sɔ/",
+   "note": "In Bengali, there are three letters for sibilants: শ, ষ, স. Originally all three had distinctive sounds. In modern Bengali, the most common sibilant varies between /ʃ~ɕ/ – originally represented by শ, but today, স and ষ in words are often pronounced as /ɕ~ʃ/. The other sibilant in Bengali is /s/, originally represented by স, but today, শ and ষ, in words, can sometimes be pronounced as /s/. Another sibilant was /ʂ/, originally represented by ষ. ষ is mostly pronounced as /ɕ~ʃ/, but in conjunction with apical alveolar consonants, the allophonic /ʂ/ sound can sometimes be found."
+  },
+  "ট": {
+   "tr": "ṭô",
+   "ipa": "/ʈɔ/",
+   "note": ""
+  },
+  "ঠ": {
+   "tr": "ṭhô",
+   "ipa": "/ʈʰɔ/",
+   "note": ""
+  },
+  "ড": {
+   "tr": "ḍô",
+   "ipa": "/ɖɔ/",
+   "note": ""
+  },
+  "ঢ": {
+   "tr": "ḍhô",
+   "ipa": "/ɖʱɔ/",
+   "note": ""
+  },
+  "ণ": {
+   "tr": "ṇô",
+   "ipa": "/nɔ/",
+   "note": "The original sound for ণ was /ɳɔ/ but in modern Bengali it is almost always pronounced /nɔ/, the same as ন. An exception is in conjuncts with other retroflex letters, where the original sound for ণ can occasionally be found."
+  },
+  "র": {
+   "tr": "rô",
+   "ipa": "/ɾɔ/",
+   "note": "The /r/ phoneme, represented by র, is pronounced either as a voiced alveolar tap [ɾ], voiced alveolar approximant [ɹ] or voiced alveolar trill [r]. Most speakers colloquially pronounce /r/ as a tap [ɾ], although it may also very rarely be a trill [r], especially in some word-initial positions. /r/ can also occur as an approximant [ɹ], especially in some eastern dialects and sometimes in conjuncts before consonants."
+  },
+  "ষ": {
+   "tr": "ṣô",
+   "ipa": "/ɕɔ~ʃɔ~ʂɔ/",
+   "note": ""
+  },
+  "ত": {
+   "tr": "tô",
+   "ipa": "/t̪ɔ/",
+   "note": ""
+  },
+  "থ": {
+   "tr": "thô",
+   "ipa": "/t̪ʰɔ/",
+   "note": ""
+  },
+  "দ": {
+   "tr": "dô",
+   "ipa": "/d̪ɔ/",
+   "note": ""
+  },
+  "ধ": {
+   "tr": "dhô",
+   "ipa": "/d̪ʱɔ/",
+   "note": ""
+  },
+  "ন": {
+   "tr": "nô",
+   "ipa": "/nɔ/",
+   "note": ""
+  },
+  "ল": {
+   "tr": "lô",
+   "ipa": "/lɔ/",
+   "note": ""
+  },
+  "স": {
+   "tr": "sô",
+   "ipa": "/sɔ~ɕɔ~ʃɔ/",
+   "note": ""
+  },
+  "প": {
+   "tr": "pô",
+   "ipa": "/pɔ/",
+   "note": ""
+  },
+  "ফ": {
+   "tr": "phô",
+   "ipa": "/pʰɔ/",
+   "note": "Although ফ represents the aspirated form of the voiceless bilabial stop /pʰɔ/ it is pronounced either voiceless labial fricative /ɸɔ/ (in Eastern dialects) or voiceless labiodental fricative /fɔ/ in ordinary speech."
+  },
+  "ব": {
+   "tr": "bô",
+   "ipa": "/bɔ/",
+   "note": ""
+  },
+  "ভ": {
+   "tr": "bhô",
+   "ipa": "/bʱɔ/",
+   "note": "Although ভ represents the aspirated form of the voiced bilabial stop /bʱɔ/ it is pronounced either voiced labial fricative /βɔ/ (in Eastern dialects) or voiced labiodental fricative /vɔ/ in ordinary speech."
+  },
+  "ম": {
+   "tr": "mô",
+   "ipa": "/mɔ/",
+   "note": ""
+  },
+  "ৱ": {
+   "tr": "wô",
+   "ipa": "/wɔ/",
+   "note": ""
+  },
+  "ড়": {
+   "tr": "ṛô",
+   "ipa": "/ɽɔ/",
+   "note": ""
+  },
+  "ঢ়": {
+   "tr": "ṛhô",
+   "ipa": "/ɽʱɔ~ɽ/",
+   "note": ""
+  },
+  "য়": {
+   "tr": "ẏô",
+   "ipa": "/jɔ~e̯ɔ/",
+   "note": ""
+  }
+ },
+ "sounds": [
+  {
+   "ipa": "b",
+   "letters": [
+    "ব"
+   ],
+   "like": "a<b>b</b>ash",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "bʱ",
+   "letters": [
+    "ভ"
+   ],
+   "like": "clu<b>bh</b>ouse",
+   "section": "Consonant",
+   "notes": [
+    "Voiced bilabial stop"
+   ]
+  },
+  {
+   "ipa": "d",
+   "letters": [
+    "দ"
+   ],
+   "like": "<b>d</b>eal (dental), Indian <b>th</b>e",
+   "section": "Consonant",
+   "notes": [
+    "coronalstops"
+   ]
+  },
+  {
+   "ipa": "dʱ",
+   "letters": [
+    "ধ"
+   ],
+   "like": "re<b>dh</b>ead (dental), Indian <b>th</b>at",
+   "section": "Consonant",
+   "notes": [
+    "coronalstops"
+   ]
+  },
+  {
+   "ipa": "ɖ",
+   "letters": [
+    "ড"
+   ],
+   "like": "American bir<b>d</b>",
+   "section": "Consonant",
+   "notes": [
+    "coronalstops"
+   ]
+  },
+  {
+   "ipa": "ɖʱ",
+   "letters": [
+    "ঢ"
+   ],
+   "like": "American bir<b>dh</b>ouse",
+   "section": "Consonant",
+   "notes": [
+    "coronalstops"
+   ]
+  },
+  {
+   "ipa": "d͡ʒ",
+   "letters": [
+    "জ",
+    "য"
+   ],
+   "like": "he<b>dg</b>e",
+   "section": "Consonant",
+   "notes": [
+    "Voiced alveolar sibilant"
+   ]
+  },
+  {
+   "ipa": "d͡ʒʱ",
+   "letters": [
+    "ঝ"
+   ],
+   "like": "he<b>dgeh</b>og",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "ɡ",
+   "letters": [
+    "গ"
+   ],
+   "like": "a<b>g</b>ate",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "ɡʱ",
+   "letters": [
+    "ঘ"
+   ],
+   "like": "lo<b>gh</b>ouse",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "ɦ",
+   "letters": [
+    "হ",
+    "ঃ"
+   ],
+   "like": "be<b>h</b>ind",
+   "section": "Consonant",
+   "notes": [
+    "glottal fricative"
+   ]
+  },
+  {
+   "ipa": "h",
+   "letters": [
+    "হ",
+    "ঃ"
+   ],
+   "like": "<b>h</b>ead",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "k",
+   "letters": [
+    "ক"
+   ],
+   "like": "s<b>c</b>an",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "kʰ",
+   "letters": [
+    "খ",
+    "ক্ষ"
+   ],
+   "like": "<b>c</b>an",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "l",
+   "letters": [
+    "ল"
+   ],
+   "like": "<b>l</b>eaf",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "m",
+   "letters": [
+    "ম"
+   ],
+   "like": "<b>m</b>uch",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "n",
+   "letters": [
+    "ন",
+    "ণ"
+   ],
+   "like": "<b>n</b>ot",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "ŋ",
+   "letters": [
+    "ঙ",
+    "ং"
+   ],
+   "like": "si<b>ng</b>",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "p",
+   "letters": [
+    "প"
+   ],
+   "like": "s<b>p</b>an",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "pʰ",
+   "letters": [
+    "ফ"
+   ],
+   "like": "<b>p</b>in",
+   "section": "Consonant",
+   "notes": [
+    "Voiceless bilabial stop"
+   ]
+  },
+  {
+   "ipa": "r",
+   "letters": [
+    "র",
+    "র্ক",
+    "র্",
+    "্র"
+   ],
+   "like": "American a<b>t</b>om or <b>r</b>ing (<i>tapped or trilled</i>)",
+   "section": "Consonant",
+   "notes": [
+    "rhotic r"
+   ]
+  },
+  {
+   "ipa": "ɽ",
+   "letters": [
+    "ড়",
+    "ঢ়"
+   ],
+   "like": "American la<b>rd</b>er",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "s",
+   "letters": [
+    "স"
+   ],
+   "like": "<b>s</b>ue",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "ʃ",
+   "letters": [
+    "শ",
+    "ষ",
+    "স"
+   ],
+   "like": "<b>sh</b>oe",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "t",
+   "letters": [
+    "ত",
+    "ৎ"
+   ],
+   "like": "ge<b>t</b> (dental), Indian <b>th</b>ink",
+   "section": "Consonant",
+   "notes": [
+    "coronalstops"
+   ]
+  },
+  {
+   "ipa": "tʰ",
+   "letters": [
+    "থ"
+   ],
+   "like": "<b>t</b>ub (dental), Indian <b>th</b>ought",
+   "section": "Consonant",
+   "notes": [
+    "coronalstops"
+   ]
+  },
+  {
+   "ipa": "ʈ",
+   "letters": [
+    "ট"
+   ],
+   "like": "American par<b>t</b>",
+   "section": "Consonant",
+   "notes": [
+    "coronalstops"
+   ]
+  },
+  {
+   "ipa": "ʈʰ",
+   "letters": [
+    "ঠ"
+   ],
+   "like": "American par<b>t</b>ake",
+   "section": "Consonant",
+   "notes": [
+    "coronalstops"
+   ]
+  },
+  {
+   "ipa": "t͡ʃ",
+   "letters": [
+    "চ"
+   ],
+   "like": "ca<b>tch</b>",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "t͡ʃʰ",
+   "letters": [
+    "ছ"
+   ],
+   "like": "<b>ch</b>oose",
+   "section": "Consonant",
+   "notes": []
+  },
+  {
+   "ipa": "β",
+   "letters": [
+    "ভ"
+   ],
+   "like": "<b>v</b>ery",
+   "section": "Marginal consonant",
+   "notes": [
+    "Voiced bilabial stop"
+   ]
+  },
+  {
+   "ipa": "j",
+   "letters": [
+    "য়"
+   ],
+   "like": "<b>y</b>es",
+   "section": "Marginal consonant",
+   "notes": [
+    "palatalapproximant"
+   ]
+  },
+  {
+   "ipa": "ɸ",
+   "letters": [
+    "ফ"
+   ],
+   "like": "<b>f</b>ind",
+   "section": "Marginal consonant",
+   "notes": [
+    "Voiceless bilabial stop"
+   ]
+  },
+  {
+   "ipa": "w",
+   "letters": [
+    "ও",
+    "উ"
+   ],
+   "like": "<b>w</b>ill",
+   "section": "Marginal consonant",
+   "notes": [
+    "Voiced labial–velar approximant"
+   ]
+  },
+  {
+   "ipa": "z",
+   "letters": [
+    "জ",
+    "য"
+   ],
+   "like": "<b>z</b>ip",
+   "section": "Marginal consonant",
+   "notes": [
+    "Voiced alveolar sibilant"
+   ]
+  },
+  {
+   "ipa": "ɳ",
+   "letters": [
+    "ণ"
+   ],
+   "like": "American bur<b>n</b>",
+   "section": "Marginal consonant",
+   "notes": []
+  },
+  {
+   "ipa": "ɔ",
+   "letters": [
+    "অ",
+    "প"
+   ],
+   "like": "<b>o</b>ff",
+   "section": "Monophthong",
+   "notes": []
+  },
+  {
+   "ipa": "a",
+   "letters": [
+    "আ",
+    "পা"
+   ],
+   "like": "Australian f<b>a</b>ther, RP c<b>u</b>t",
+   "section": "Monophthong",
+   "notes": []
+  },
+  {
+   "ipa": "æ",
+   "letters": [
+    "অ্যা",
+    "প্যা",
+    "এ",
+    "পে"
+   ],
+   "like": "tr<b>a</b>p",
+   "section": "Monophthong",
+   "notes": []
+  },
+  {
+   "ipa": "i",
+   "letters": [
+    "ই",
+    "পি",
+    "ঈ",
+    "পী"
+   ],
+   "like": "b<b>ea</b>t",
+   "section": "Monophthong",
+   "notes": []
+  },
+  {
+   "ipa": "u",
+   "letters": [
+    "উ",
+    "পু",
+    "ঊ",
+    "পূ"
+   ],
+   "like": "c<b>oo</b>l",
+   "section": "Monophthong",
+   "notes": []
+  },
+  {
+   "ipa": "e",
+   "letters": [
+    "এ",
+    "পে"
+   ],
+   "like": "Scottish m<b>ay</b>",
+   "section": "Monophthong",
+   "notes": []
+  },
+  {
+   "ipa": "o",
+   "letters": [
+    "ও",
+    "পো",
+    "অ",
+    "প"
+   ],
+   "like": "st<b>o</b>ry",
+   "section": "Monophthong",
+   "notes": []
+  },
+  {
+   "ipa": "◌̃",
+   "letters": [
+    "ঁ"
+   ],
+   "like": "nasal vowel ([ã], [õ], etc.)",
+   "section": "Monophthong",
+   "notes": []
+  },
+  {
+   "ipa": "e̯",
+   "letters": [
+    "য়"
+   ],
+   "like": "Similar to ver<b>y</b>",
+   "section": "Semivowel",
+   "notes": [
+    "palatalapproximant"
+   ]
+  },
+  {
+   "ipa": "i̯",
+   "letters": [
+    "ই"
+   ],
+   "like": "happ<b>y</b>",
+   "section": "Semivowel",
+   "notes": [
+    "palatalapproximant"
+   ]
+  },
+  {
+   "ipa": "o̯",
+   "letters": [
+    "ও"
+   ],
+   "like": "Similar to l<b>oo</b>k",
+   "section": "Semivowel",
+   "notes": [
+    "Voiced labial–velar approximant"
+   ]
+  },
+  {
+   "ipa": "u̯",
+   "letters": [
+    "উ"
+   ],
+   "like": "t<b>oo</b>",
+   "section": "Semivowel",
+   "notes": [
+    "Voiced labial–velar approximant"
+   ]
+  },
+  {
+   "ipa": "ii̯",
+   "letters": [
+    "িই"
+   ],
+   "like": "t<b>ea</b>",
+   "section": "Diphthong",
+   "notes": []
+  },
+  {
+   "ipa": "iu̯",
+   "letters": [
+    "িউ"
+   ],
+   "like": "<b>ew</b>",
+   "section": "Diphthong",
+   "notes": []
+  },
+  {
+   "ipa": "ei̯",
+   "letters": [
+    "েয়"
+   ],
+   "like": "RP b<b>ay</b>",
+   "section": "Diphthong",
+   "notes": []
+  },
+  {
+   "ipa": "eu̯",
+   "letters": [
+    "েও"
+   ],
+   "like": "Roughly like g<b>o</b> in some dialects of English",
+   "section": "Diphthong",
+   "notes": []
+  },
+  {
+   "ipa": "æe̯",
+   "letters": [
+    "্যায়"
+   ],
+   "like": "No English equivalent",
+   "section": "Diphthong",
+   "notes": []
+  },
+  {
+   "ipa": "ai̯",
+   "letters": [
+    "াই"
+   ],
+   "like": "B<b>uy</b>",
+   "section": "Diphthong",
+   "notes": []
+  },
+  {
+   "ipa": "ae̯",
+   "letters": [
+    "ায়"
+   ],
+   "like": "Similar to H<b>i</b>",
+   "section": "Diphthong",
+   "notes": []
+  },
+  {
+   "ipa": "au̯",
+   "letters": [
+    "াউ"
+   ],
+   "like": "H<b>ow</b>",
+   "section": "Diphthong",
+   "notes": []
+  },
+  {
+   "ipa": "ao̯",
+   "letters": [
+    "াও"
+   ],
+   "like": "Similar to H<b>ow</b>",
+   "section": "Diphthong",
+   "notes": []
+  },
+  {
+   "ipa": "ɔe̯",
+   "letters": [
+    "◌য়"
+   ],
+   "like": "No English equivalent",
+   "section": "Diphthong",
+   "notes": []
+  },
+  {
+   "ipa": "ɔo̯",
+   "letters": [
+    "◌ও"
+   ],
+   "like": "No English equivalent",
+   "section": "Diphthong",
+   "notes": []
+  },
+  {
+   "ipa": "oi̯",
+   "letters": [
+    "োই"
+   ],
+   "like": "Similar to b<b>oy</b>",
+   "section": "Diphthong",
+   "notes": []
+  },
+  {
+   "ipa": "oo̯",
+   "letters": [
+    "োও"
+   ],
+   "like": "American n<b>o</b>",
+   "section": "Diphthong",
+   "notes": []
+  },
+  {
+   "ipa": "ou̯",
+   "letters": [
+    "ৌ"
+   ],
+   "like": "g<b>oa</b>l",
+   "section": "Diphthong",
+   "notes": []
+  },
+  {
+   "ipa": "ui̯",
+   "letters": [
+    "ুই",
+    "ূই"
+   ],
+   "like": "b<b>ooy</b>ah; Gr<b>uy</b>ère",
+   "section": "Diphthong",
+   "notes": []
+  },
+  {
+   "ipa": "ˈ",
+   "letters": [],
+   "like": "primary stress (placed before stressed syllable)",
+   "section": "Suprasegmental",
+   "notes": [
+    "Stress"
+   ]
+  },
+  {
+   "ipa": "ˌ",
+   "letters": [],
+   "like": "secondary stress (placed before stressed syllable)",
+   "section": "Suprasegmental",
+   "notes": [
+    "Stress"
+   ]
+  },
+  {
+   "ipa": "ː",
+   "letters": [],
+   "like": "doubled consonant",
+   "section": "Suprasegmental",
+   "notes": []
+  }
+ ],
+ "ipaNotes": {
+  "Voiced bilabial stop": "/bʱ/ is phonetically realised either as [bʱ] or /β/ (phonetically [v~β]) depending on the speaker and variety. /β/ can additionally occur as an allophone of /bʱ/ in foreign loan words e.g. ভিসা [βisa] 'visa'.",
+  "coronalstops": "Bengali contrasts dental [t] and [d] with apical postalveolar [ʈ] and [ɖ] (as well as aspirated variants). Both sets sound like /t/ and /d/ to most English speakers although the dental [t] and [d] are used in place of the English /θ/ and /ð/ for some speakers with th-stopping.",
+  "Voiced alveolar sibilant": "⟨জ⟩ and ⟨য⟩ may represent a voiced affricate /dʒ/ in Standard Bengali words of native origin, but they can also represent /z/ in foreign words and names (জাকাত [zakat] 'zakah charity', আজিজ [aziz] 'Aziz'). However, many speakers usually replace /z/ with /dʒ/.",
+  "glottal fricative": "/ɦ/ may be devoiced to [h] in word-initial or final positions, with [ɦ] occurring medially.",
+  "Voiceless bilabial stop": "/pʰ/ is phonetically realised either as [pʰ] or /ɸ/ (phonetically [f~ɸ]) depending on the speaker and variety. /ɸ/ can additionally occur as an allophone of /pʰ/ in foreign loan words e.g. ফ্যান [ɸæn] 'fan'.",
+  "rhotic r": "The phonetic realisation of /r/ is usually an alveolar tap [ɾ] but can also be an alveolar approximant [ɹ] or, very rarely, an alveolar trill [r] depending on the variety and speaker.",
+  "palatalapproximant": "/j/ occurs in some pronunciations of Bengali vowel clusters as a result of the semivowels /e̯ i̯/ undergoing fortitional merging, such as নয়ন [nɔjon].",
+  "Voiced labial–velar approximant": "/w/ may occur as a fortitional allophone of the semivowels /o̯/ and /u̯/, especially in loan words e.g. ওয়াদা [wada] 'promise', উইলিয়াম [wiliam] 'William'.",
+  "Stress": "Primary stress usually occurs in word-initial positions with secondary stress occurring afterwards."
+ },
+ "signs": {
+  "ৎ": {
+   "name": "খণ্ড ত <i>khôndô tô</i>",
+   "does": "Special character. Final unaspirated dental [t̪]",
+   "tr": "t",
+   "ipa": "/t̪/"
+  },
+  "ং": {
+   "name": "অনুস্বার <i>ônusshar</i>",
+   "does": "Diacritic. Final velar nasal [ŋ]",
+   "tr": "ṅ",
+   "ipa": "/ŋ/"
+  },
+  "ঃ": {
+   "name": "বিসর্গ <i>bisôrgô</i>",
+   "does": "Diacritic. 1. Doubles the next consonant sound without the vowel (spelling feature) in দুঃখ <i>duḥkhô</i> [ˈd̪uɦkʰoˑ] &gt; [ˈd̪uʔkʰoˑ] &gt; [ˈd̪uk̚kʰoˑ] 'sorrow' 2. Final <i>-ḥ</i> examples: এঃ <i>eḥ</i>, উঃ <i>uḥ</i> 3. Silent in spellings like আন্তঃনগর <i>antôḥnôgôr</i> [ˈant̪ɔɦˌnoɡɔɾ] &gt; [ˈant̪ɔˌnoɡɔɾ] 'intercity' […]",
+   "tr": "ḥ",
+   "ipa": "/h/"
+  },
+  "ঁ": {
+   "name": "চন্দ্রবিন্দু <i>côndrôbindu</i>",
+   "does": "Diacritic. Vowel nasalisation",
+   "tr": "◌̃ / ṃ",
+   "ipa": "/◌̃/"
+  },
+  "্": {
+   "name": "হসন্ত <i>hôsôntô</i>",
+   "does": "Diacritic. Suppresses the inherent vowel [ɔ]",
+   "tr": "–",
+   "ipa": "–"
+  },
+  "ঽ": {
+   "name": "অবগ্রহ <i>ôbôgrôhô</i>",
+   "does": "Special character or sign. Used for prolonging vowel sounds E.g., শোনঽঽঽ... <i>śônôôô...</i> 'listennn...' (This is where the default inherited vowel sound <i>ô</i> in ন <i>nô</i> is prolonged.) E.g., কিঽঽঽ? <i>kiii?</i> 'whaaat?' (This is where the vowel sound <i>i</i> which is attached with the consonant ক <i>kô</i> is prolonged.)",
+   "tr": "-",
+   "ipa": "–"
+  },
+  "্য": {
+   "name": "যফলা <i>yôphôla</i>",
+   "does": "Diacritic. Used with two types of pronunciation in modern Bengali depending on the location of the consonant it is used with within a syllable E.g., when the consonant it is used with is syllable-initial, it acts as the vowel /æ/, and thus, ত্যাগ is pronounced /t̪æɡ/ E.g., when the consonant with which it is used l is syllable-final, it doubles the consonant, and thus, মুখ্য is pronounced /ˈmukʰːɔ/ […]",
+   "tr": "ê / yô",
+   "ipa": "/æ/ or /ː/"
+  },
+  "্র": {
+   "name": "রফলা <i>rôphôla</i>",
+   "does": "Diacritic. [r] pronounced following a consonant phoneme.",
+   "tr": "r",
+   "ipa": "/r/"
+  },
+  "র্": {
+   "name": "রেফ <i>reph</i>",
+   "does": "Diacritic. [ɾ] pronounced preceding a consonant phoneme.",
+   "tr": "r",
+   "ipa": "/r/"
+  },
+  "্ব": {
+   "name": "বফলা <i>bôphôla</i>",
+   "does": "Diacritic. Used in spellings only, if they were adopted from Sanskrit and has two different pronunciations depending on the location of the consonant with which it is used. E.g., when the consonant with which it is used is syllable-initial, it remains silent, and thus, স্বাধীন is pronounced /ˈʃad̪ʱin/ (and not /*ˈʃbad̪ʱin/ or *ˈʃʋad̪ʱin/). E.g., when the consonant with which it is used is syllable-final, it doubles the consonant, and thus, বিদ্বান is pronounced /ˈbid̪ːan/ and বিশ্ব is pronounced /ˈbiʃːɔ/. […]",
+   "tr": "-",
+   "ipa": "/ː/"
+  },
+  "৺": {
+   "name": "ঈশ্বর <i>iśbôr</i>",
+   "does": "Sign. Represents the name of the deity and also written before the name of a deceased person.",
+   "tr": "–",
+   "ipa": "–"
+  },
+  "ঀ": {
+   "name": "আঞ্জী/সিদ্ধিরস্তু <i>añji/siddhirôstu</i>",
+   "does": "Sign. Used at the beginning of texts as an invocation.",
+   "tr": "–",
+   "ipa": "–"
+  }
+ },
+ "passages": {
+  "@coronal": "Bengali contrasts dental [t] and [d] with apical postalveolar [ʈ] and [ɖ] (as well as aspirated variants). Both sets sound like /t/ and /d/ to most English speakers although the dental [t] and [d] are used in place of the English /θ/ and /ð/ for some speakers with th-stopping.",
+  "inherent": "An exception to the above system is the vowel /ɔ/, which has no vowel mark but is considered inherent in every consonant letter. To denote the absence of the inherent vowel /ɔ/ following a consonant, a diacritic known as the virama (হসন্ত <i>hôsôntô</i>) may be written underneath the consonant.",
+  "inherentIs": "[…] represents the default inherent vowel for the entire Bengali script.",
+  "kar": "When a vowel sound occurs syllable-initially or when it follows another vowel, it is written using a distinct letter. When a vowel sound follows a consonant (or a consonant cluster), it is written with a diacritic which, depending on the vowel, can appear above, below, before or after the consonant. These vowel marks cannot appear without a consonant and are called <i>kar</i> (কার 'vowel sign').",
+  "ae": "Even though the near-open front unrounded vowel /æ/ is one of the seven main vowel sounds in standard Bengali, no distinct vowel symbol has been allotted for it in the script since there is no /æ/ sound in Sanskrit—the primary written language when the script was conceived.",
+  "length": "There are two graphemes for the vowel sound /i/, and two graphemes for the vowel sound /u/. The redundancy stems from the time when this script was used to write Sanskrit, which had contrastive short and long vowels. Bengali lost phonemic long vowels and merged short and long /i/ and /u/: ই (হ্রস্ব ই <i>hrôsbô i</i> 'short i') and ঈ (দীর্ঘ ঈ <i>dirghô i</i> 'long i') are both pronounced /i/; and উ (হ্রস্ব উ 'short u') and ঊ (দীর্ঘ ঊ 'long u') are both pronounced /u/ in modern Bengali.",
+  "ri": "[…] does not actually represent a vowel phoneme in Bengali, but instead represents the consonant-vowel combination রি /ri/.",
+  "names": "The names of the letters are typically just the consonant sound plus the inherent vowel অ <i>ô</i>. Since the inherent vowel is assumed and not written, most letters' names look identical to the letter itself (e.g., the name of the letter ঘ is itself <i>ghô</i>, not <i>gh</i>).",
+  "n": "[…] since the consonant phoneme /n/ is written as both ন and ণ, the letters are not called simply <i>nô</i>; instead, they are called দন্ত্য ন <i>dôntyô nô</i> ('dental <i>nô</i>') and মূর্ধন্য ণ <i>murdhônyô nô</i> ('retroflex <i>nô</i>'). What was once pronounced and written as a retroflex nasal ণ /ɳ/ is now pronounced as an alveolar /n/ (unless conjoined with another retroflex consonant such as ট, ঠ, ড and ঢ).",
+  "sh": "The voiceless palato-alveolar sibilant phoneme /ʃ/ can be written as শ (তালব্য শ <i>talôbyô śô</i> 'palatal <i>śô</i>'), ষ (মূর্ধন্য ষ <i>murdhônyô ṣô</i> 'retroflex <i>ṣô</i>') or স (দন্ত্য স <i>dôntyô sô</i> 'dental <i>sô</i>'). These graphemes once represented the alveolo-palatal /ɕ/, the retroflex /ʂ/, and the alveolar /s/ in Sanskrit, respectively, but have all merged into the palato-alveolar /ʃ/ (or /ɕ/, depending on dialect) in modern standard Bengali.",
+  "j": "The voiced palato-alveolar affricate /dʒ/ can be written in two ways: as য (অন্তঃস্থ য <i>ôntôḥsthô yô</i> 'semivocalic <i>yô</i>') or as জ (বর্গীয় জ <i>bôrgiẏô jô</i> 'plosive <i>jô</i>').",
+  "y": "The semivowel য় <i>ẏô</i> /e̯ɔ/ cannot occur at the beginning of a word.",
+  "yGlide": "The pronunciation of য় <i>ẏô</i> /e̯ɔ/ varies between the glides /w/ and /j/.",
+  "ja": "[…] whose onset was originally pronounced as a glide /j/ but became an affricate /dʒ/ in modern Bengali. It is found almost entirely at the beginning of words.",
+  "yaphala": "When present in the middle of words, in conjuncts, য is represented as a distinct letter: ্য (যফলা <i>yôphôla</i>), which is mostly silent or semi-silent. The <i>yôphôla</i> may either alter the pronunciation of the surrounding vowel, genimate the preceding consonant, or be completely silent.",
+  "flap": "[…] ড় and ঢ় were introduced to the inventory during the Vidyasagarian reform to indicate the retroflex flap in the pronunciation of ড <i>ḍô</i> and ঢ <i>ḍhô</i> in the middle or end of a word. It is an allophonic development in some Indic languages not present in Sanskrit. In ordinary speech these letters are pronounced the same as র in modern Bengali.",
+  "conjunct": "Clusters of up to four consonants can be orthographically represented as a typographic ligature, called a consonant conjunct (যুক্তাক্ষর/যুক্তবর্ণ <i>yuktakṣôr/yuktôbôrṇô</i>, or more precisely, যুক্তব্যঞ্জন <i>yuktôbêñjôn</i>). Typically, the first consonant in the conjunct is shown above or to the left of the following consonants. Many consonants appear in an abbreviated or compressed form when serving as part of a conjunct. Others simply take exceptional forms in conjuncts, bearing little or no resemblance to the base character.",
+  "conjunctSaid": "Often, consonant conjuncts are not actually pronounced as would be implied by the pronunciation of the individual components. For example, adding ল <i>lô</i> underneath শ <i>śô</i> in Bengali creates the conjunct শ্ল, which is pronounced /slɔ/ (and not /ʃlɔ/) in Bengali.",
+  "gya": "[…] জ্ঞ <i>jñô</i>, which is a combination of জ <i>jô</i> and ঞ <i>ñô</i>, is pronounced <i>ggô</i> /gːɔ/ in modern Bengali […]",
+  "ksha": "Certain combinations must be memorised: ক্ষ (ক+ষ) <i>kṣô</i> […]",
+  "khanda": "As the first member of a conjunct, or when at the end of a word and followed by no vowel, ত <i>tô</i> can appear as ৎ […]",
+  "matra": "[…] the Bengali letter-forms instead hang from a visible horizontal left-to-right headstroke called মাত্রা <i>matra</i>. The presence and absence of this matra can be important. For example, the letter ত <i>tô</i> and the numeral ৩ (3) are distinguishable only by the presence or absence of the <i>matra</i>, as is the case between the consonant cluster ত্র <i>trô</i> and the independent vowel এ <i>e</i>."
+ },
+ "conjuncts": [
+  {
+   "html": "The consonants can be placed on top of one another, sharing the same vertical line, e.g., ক্ক <i>kkô</i>, গ্ন <i>gnô</i>, গ্ল <i>glô</i>, ন্ন <i>nnô</i>, প্ন <i>pnô</i>, প্প <i>ppô</i>, ল্ল <i>llô</i>, etc.",
+   "named": [
+    "ক্ক",
+    "গ্ন",
+    "গ্ল",
+    "ন্ন",
+    "প্ন",
+    "প্প",
+    "ল্ল"
+   ]
+  },
+  {
+   "html": "As the last member of a conjunct, ব <i>bô</i> can hang on the vertical line under the preceding consonants, taking the shape of ব <i>bô</i> (including বফলা <i>bôphôla</i>), e.g. গ্ব <i>gbô</i>, ণ্ব <i>ṇbô</i>, দ্ব <i>dbô</i>, ল্ব <i>lbô</i>, শ্ব <i>śbô</i>.",
+   "named": [
+    "গ্ব",
+    "ণ্ব",
+    "দ্ব",
+    "ল্ব",
+    "শ্ব"
+   ]
+  },
+  {
+   "html": "The consonants can also be placed side-by-side, sharing their vertical line, e.g., দ্দ <i>ddô</i>, ন্দ <i>ndô</i>, ব্দ <i>bdô</i>, ব্জ <i>bjô</i> প্ট, <i>pṭô</i>, স্ট <i>sṭô</i>, শ্চ <i>ścô</i>, শ্ছ <i>śchô</i>, etc.",
+   "named": [
+    "দ্দ",
+    "ন্দ",
+    "ব্দ",
+    "ব্জ",
+    "প্ট",
+    "স্ট",
+    "শ্চ",
+    "শ্ছ"
+   ]
+  },
+  {
+   "html": "The consonants can be placed side-by-side, appearing unaltered, e.g., দ্গ <i>dgô</i>, দ্ঘ <i>dghô</i>, ড্ড <i>ḍḍô</i>.",
+   "named": [
+    "দ্গ",
+    "দ্ঘ",
+    "ড্ড"
+   ]
+  },
+  {
+   "html": "As the last member of a conjunct, ব <i>bô</i> can appear immediately to the right of the preceding consonant, taking the shape of ব <i>bô</i> (including বফলা <i>bôphôla</i>), e.g., ধ্ব <i>dhbô</i>, ব্ব <i>bbô</i>, হ্ব <i>hbô</i>.",
+   "named": [
+    "ধ্ব",
+    "ব্ব",
+    "হ্ব"
+   ]
+  },
+  {
+   "html": "As the first member of a conjunct, the consonants ঙ <i>ṅô</i>, চ <i>cô</i>, ড <i>ḍô</i>, and ব <i>bô</i> are often compressed and placed at the top-left of the following consonant with little or no change to the basic shape, e.g., ঙ্ক্ষ <i>ṅkṣô</i>, ঙ্খ <i>ṅkhô</i>, ঙ্ঘ <i>ṅghô</i>, ঙ্ম <i>ṅmô</i>, চ্চ <i>ccô</i>, চ্ছ <i>cchô</i>, চ্ঞ <i>cñô</i>, ড্ঢ <i>ḍḍhô</i>, ব্ব <i>bbô</i>.",
+   "named": [
+    "ঙ্ক্ষ",
+    "ঙ্খ",
+    "ঙ্ঘ",
+    "ঙ্ম",
+    "চ্চ",
+    "চ্ছ",
+    "চ্ঞ",
+    "ড্ঢ",
+    "ব্ব"
+   ]
+  },
+  {
+   "html": "As the first member of a conjunct, ত <i>tô</i> is compressed and placed above the following consonant, with little or no change to the basic shape, e.g., ত্ন <i>tnô</i>, ত্ম <i>tmô</i>, ত্ব <i>tbô</i>.",
+   "named": [
+    "ত্ন",
+    "ত্ম",
+    "ত্ব"
+   ]
+  },
+  {
+   "html": "As the first member of a conjunct, ম <i>mô</i> is compressed and simplified to a curved shape. It is placed above or to the top-left of the following consonant, e.g., ম্ন <i>mnô</i>, ম্প <i>mpô</i>, ম্ফ <i>mphô</i>, ম্ব <i>mbô</i>, ম্ভ <i>mbhô</i>, ম্ম <i>mmô</i>, ম্ল <i>mlô</i>.",
+   "named": [
+    "ম্ন",
+    "ম্প",
+    "ম্ফ",
+    "ম্ব",
+    "ম্ভ",
+    "ম্ম",
+    "ম্ল"
+   ]
+  },
+  {
+   "html": "As the first member of a conjunct, ষ <i>ṣô</i> is compressed and simplified to an oval shape with a diagonal stroke through it. It is placed to the top-left of the following consonants, e.g., ষ্ক <i>ṣkô</i>, ষ্ট <i>ṣṭô</i>, ষ্ঠ <i>ṣṭhô</i>, ষ্প <i>ṣpô</i>, ষ্ফ <i>ṣphô</i>, ষ্ম <i>ṣmô</i>.",
+   "named": [
+    "ষ্ক",
+    "ষ্ট",
+    "ষ্ঠ",
+    "ষ্প",
+    "ষ্ফ",
+    "ষ্ম"
+   ]
+  },
+  {
+   "html": "As the first member of a conjunct, স <i>sô</i> is compressed and simplified to a ribbon shape. It is placed above or to the top-left of the following consonant, e.g., স্ক <i>skô</i>, স্খ <i>skhô</i>, স্ত <i>stô</i>, স্থ <i>sthô</i>, স্ন <i>snô</i>, স্প <i>spô</i>, স্ফ <i>sphô</i>, স্ব <i>sbô</i>, স্ম <i>smô</i>, স্ল <i>slô</i>.",
+   "named": [
+    "স্ক",
+    "স্খ",
+    "স্ত",
+    "স্থ",
+    "স্ন",
+    "স্প",
+    "স্ফ",
+    "স্ব",
+    "স্ম",
+    "স্ল"
+   ]
+  },
+  {
+   "html": "As the first member of a conjunct, জ <i>jô</i> can lose its final down-stroke, e.g., জ্জ <i>jjô</i>, জ্ঞ <i>jñô</i>, জ্ব <i>jbô</i>.",
+   "named": [
+    "জ্জ",
+    "জ্ঞ",
+    "জ্ব"
+   ]
+  },
+  {
+   "html": "As the first member of a conjunct, ঞ <i>ñô</i> can lose its bottom half, e.g., ঞ্চ <i>ñcô</i>, ঞ্ছ <i>ñchô</i>, ঞ্জ <i>ñjô</i>, ঞ্ঝ <i>ñjhô</i>.",
+   "named": [
+    "ঞ্চ",
+    "ঞ্ছ",
+    "ঞ্জ",
+    "ঞ্ঝ"
+   ]
+  },
+  {
+   "html": "As the last member of a conjunct, ঞ <i>ñô</i> can lose its left half (the এ part), e.g., জ্ঞ <i>jñô</i>.",
+   "named": [
+    "জ্ঞ"
+   ]
+  },
+  {
+   "html": "As first members of a conjunct, ণ <i>ṇô</i> and প <i>pô</i> can lose their respective down-strokes, e.g., ণ্ঠ <i>ṇṭhô</i>, ণ্ড <i>ṇḍô</i>, প্ত <i>ptô</i>, প্স <i>psô</i>.",
+   "named": [
+    "ণ্ঠ",
+    "ণ্ড",
+    "প্ত",
+    "প্স"
+   ]
+  },
+  {
+   "html": "As first members of a conjunct, ত <i>tô</i> and ভ <i>bhô</i> can lose their final upward tails, e.g., ত্ত <i>ttô</i>, ত্থ <i>tthô</i>, ত্র <i>trô</i>, ভ্র <i>bhrô</i>.",
+   "named": [
+    "ত্ত",
+    "ত্থ",
+    "ত্র",
+    "ভ্র"
+   ]
+  },
+  {
+   "html": "As the last member of a conjunct, থ <i>thô</i> can lose its final upstroke, taking the form of হ <i>hô</i> instead, e.g., ন্থ <i>nthô</i> স্থ, <i>sthô</i>, ম্থ <i>mthô</i>.",
+   "named": [
+    "ন্থ",
+    "স্থ",
+    "ম্থ"
+   ]
+  },
+  {
+   "html": "As the last member of a conjunct, ম <i>mô</i> can lose its initial down-stroke, e.g., ক্ম <i>kmô</i>, গ্ম <i>gmô</i>, ঙ্ম <i>ṅmô</i>, ট্ম <i>ṭmô</i>, ণ্ম <i>ṇmô</i>, ত্ম <i>tmô</i>, দ্ম <i>dmô</i>, ন্ম <i>nmô</i>, ম্ম <i>mmô</i>, শ্ম <i>śmô</i>, ষ্ম <i>ṣmô</i>, স্ম <i>smô</i>.",
+   "named": [
+    "ক্ম",
+    "গ্ম",
+    "ঙ্ম",
+    "ট্ম",
+    "ণ্ম",
+    "ত্ম",
+    "দ্ম",
+    "ন্ম",
+    "ম্ম",
+    "শ্ম",
+    "ষ্ম",
+    "স্ম"
+   ]
+  },
+  {
+   "html": "As the last member of a conjunct, স <i>sô</i> can lose its top half, e.g., ক্স <i>ksô</i>.",
+   "named": [
+    "ক্স"
+   ]
+  },
+  {
+   "html": "As last members of a conjunct, ট <i>ṭô</i>, ড <i>ḍô</i>, and ঢ <i>ḍhô</i> can lose their respective <i>matra</i>, e.g., প্ট <i>pṭô</i>, ণ্ড <i>ṇḍô</i>, ণ্ট <i>ṇṭô</i>, ণ্ঢ <i>ṇḍhô</i>.",
+   "named": [
+    "প্ট",
+    "ণ্ড",
+    "ণ্ট",
+    "ণ্ঢ"
+   ]
+  },
+  {
+   "html": "As the last member of a conjunct ড <i>ḍô</i> can change its shape, e.g., ণ্ড <i>ṇḍô</i>.",
+   "named": [
+    "ণ্ড"
+   ]
+  },
+  {
+   "html": "As the first member of a conjunct, ঙ <i>ṅô</i> can appear as a loop and curl, e.g., ঙ্ক <i>ṅkô</i>, ঙ্গ <i>ṅgô</i>.",
+   "named": [
+    "ঙ্ক",
+    "ঙ্গ"
+   ]
+  },
+  {
+   "html": "As the last member of a conjunct, the curled top of ধ <i>dhô</i> is replaced by a straight downstroke to the right, taking the form of ঝ <i>jhô</i> instead, e.g., গ্ধ <i>gdhô</i>, দ্ধ <i>ddhô</i>, ন্ধ <i>ndhô</i>, ব্ধ <i>bdhô</i>.",
+   "named": [
+    "গ্ধ",
+    "দ্ধ",
+    "ন্ধ",
+    "ব্ধ"
+   ]
+  },
+  {
+   "html": "As the first member of a conjunct, র <i>rô</i> appears as a diagonal stroke (called রেফ <i>reph</i>) above the following member, e.g., র্ক <i>rkô</i>, র্খ <i>rkhô</i>, র্গ <i>rgô</i>, র্ঘ <i>rghô</i>, etc.",
+   "named": [
+    "র্ক",
+    "র্খ",
+    "র্গ",
+    "র্ঘ"
+   ]
+  },
+  {
+   "html": "As the last member of a conjunct, র <i>rô</i> appears as a wavy horizontal line (called রফলা <i>rôphôla</i>) under the previous member, e.g., খ্র <i>khrô</i>, গ্র <i>grô</i>, ঘ্র <i>ghrô</i>, ব্র <i>brô</i>, etc.",
+   "named": [
+    "খ্র",
+    "গ্র",
+    "ঘ্র",
+    "ব্র"
+   ]
+  },
+  {
+   "html": "In some fonts, certain conjuncts with রফলা <i>rôphôla</i> appear using the compressed (and often simplified) form of the previous consonant, e.g., জ্র <i>jrô</i>, ট্র <i>ṭrô</i>, ঠ্র <i>ṭhrô</i>, ড্র <i>ḍrô</i>, ম্র <i>mrô</i>, স্র <i>srô</i>.",
+   "named": [
+    "জ্র",
+    "ট্র",
+    "ঠ্র",
+    "ড্র",
+    "ম্র",
+    "স্র"
+   ]
+  },
+  {
+   "html": "In some fonts, certain conjuncts with রফলা <i>rôphôla</i> appear using the abbreviated form of the previous consonant, e.g., ক্র <i>krô</i>, ত্র <i>trô</i>, ভ্র <i>bhrô</i>.",
+   "named": [
+    "ক্র",
+    "ত্র",
+    "ভ্র"
+   ]
+  },
+  {
+   "html": "As the last member of a conjunct, য <i>yô</i> appears as a wavy vertical line (called যফলা <i>yôphôla</i>) to the right of the previous member, e.g., ক্য <i>kyô</i>, খ্য <i>khyô</i>, গ্য <i>gyô</i>, ঘ্য <i>ghyô</i>, etc.",
+   "named": [
+    "ক্য",
+    "খ্য",
+    "গ্য",
+    "ঘ্য"
+   ]
+  },
+  {
+   "html": "In some fonts, certain conjuncts with যফলা <i>yôphôla</i> appear using special fused forms, e.g., দ্য <i>dyô</i>, ন্য <i>nyô</i>, শ্য <i>śyô</i>, ষ্য <i>ṣyô</i>, স্য <i>syô</i>, হ্য <i>hyô</i>.",
+   "named": [
+    "দ্য",
+    "ন্য",
+    "শ্য",
+    "ষ্য",
+    "স্য",
+    "হ্য"
+   ]
+  },
+  {
+   "html": "When followed by র <i>rô</i> or ত <i>tô</i>, ক <i>kô</i> takes on the same form as ত <i>tô</i> would with the addition of a curl to the right, e.g., ক্র <i>krô</i>, ক্ত <i>ktô</i>.",
+   "named": [
+    "ক্র",
+    "ক্ত"
+   ]
+  },
+  {
+   "html": "When preceded by the abbreviated form of ঞ <i>ñô</i>, চ <i>cô</i> takes the shape of ব <i>bô</i>, e.g., ঞ্চ <i>ñcô</i>.",
+   "named": [
+    "ঞ্চ"
+   ]
+  },
+  {
+   "html": "When preceded by another ট <i>ṭô</i>, ট is reduced to a leftward curl, e.g., ট্ট <i>ṭṭô</i>.",
+   "named": [
+    "ট্ট"
+   ]
+  },
+  {
+   "html": "When preceded by ষ <i>ṣô</i>, ণ <i>ṇô</i> appears as two loops to the right, e.g., ষ্ণ <i>ṣṇô</i>.",
+   "named": [
+    "ষ্ণ"
+   ]
+  },
+  {
+   "html": "As the first member of a conjunct, or when at the end of a word and followed by no vowel, ত <i>tô</i> can appear as ৎ, e.g., ৎস <i>tsô</i>, ৎপ <i>tpô</i>, ৎক <i>tkô</i>, etc.",
+   "named": []
+  },
+  {
+   "html": "When preceded by হ <i>hô</i>, ন <i>nô</i> appears as a curl to the right, e.g., হ্ন <i>hnô</i>.",
+   "named": [
+    "হ্ন"
+   ]
+  }
+ ],
+ "rows": [
+  {
+   "key": "অ",
+   "kind": "vowel",
+   "letter": "অ",
+   "sign": "",
+   "shown": "অ",
+   "says": [
+    "inherentIs",
+    "note"
+   ]
+  },
+  {
+   "key": "আ · কা",
+   "kind": "vowel",
+   "letter": "আ",
+   "sign": "া",
+   "shown": "আ · কা",
+   "says": []
+  },
+  {
+   "key": "ই · কি",
+   "kind": "vowel",
+   "letter": "ই",
+   "sign": "ি",
+   "shown": "ই · কি",
+   "says": []
+  },
+  {
+   "key": "ঈ · কী",
+   "kind": "vowel",
+   "letter": "ঈ",
+   "sign": "ী",
+   "shown": "ঈ · কী",
+   "says": []
+  },
+  {
+   "key": "উ · কু",
+   "kind": "vowel",
+   "letter": "উ",
+   "sign": "ু",
+   "shown": "উ · কু",
+   "says": []
+  },
+  {
+   "key": "ঊ · কূ",
+   "kind": "vowel",
+   "letter": "ঊ",
+   "sign": "ূ",
+   "shown": "ঊ · কূ",
+   "says": []
+  },
+  {
+   "key": "ঋ · কৃ",
+   "kind": "vowel",
+   "letter": "ঋ",
+   "sign": "ৃ",
+   "shown": "ঋ · কৃ",
+   "says": [
+    "ri"
+   ]
+  },
+  {
+   "key": "এ · কে",
+   "kind": "vowel",
+   "letter": "এ",
+   "sign": "ে",
+   "shown": "এ · কে",
+   "says": [
+    "note"
+   ]
+  },
+  {
+   "key": "ঐ · কৈ",
+   "kind": "vowel",
+   "letter": "ঐ",
+   "sign": "ৈ",
+   "shown": "ঐ · কৈ",
+   "says": []
+  },
+  {
+   "key": "ও · কো",
+   "kind": "vowel",
+   "letter": "ও",
+   "sign": "ো",
+   "shown": "ও · কো",
+   "says": []
+  },
+  {
+   "key": "ঔ · কৌ",
+   "kind": "vowel",
+   "letter": "ঔ",
+   "sign": "ৌ",
+   "shown": "ঔ · কৌ",
+   "says": []
+  },
+  {
+   "key": "কং",
+   "kind": "sign",
+   "letter": "ং",
+   "shown": "কং",
+   "name": "অনুস্বার",
+   "says": []
+  },
+  {
+   "key": "কঃ",
+   "kind": "sign",
+   "letter": "ঃ",
+   "shown": "কঃ",
+   "name": "বিসর্গ",
+   "says": []
+  },
+  {
+   "key": "কঁ",
+   "kind": "sign",
+   "letter": "ঁ",
+   "shown": "কঁ",
+   "name": "চন্দ্রবিন্দু",
+   "says": []
+  },
+  {
+   "key": "ক্",
+   "kind": "sign",
+   "letter": "্",
+   "shown": "ক্",
+   "name": "হসন্ত",
+   "says": []
+  },
+  {
+   "key": "ৎ",
+   "kind": "sign",
+   "letter": "ৎ",
+   "shown": "ৎ",
+   "name": "খণ্ড ত",
+   "says": [
+    "khanda"
+   ]
+  },
+  {
+   "key": "ক",
+   "kind": "consonant",
+   "letter": "ক",
+   "shown": "ক",
+   "says": []
+  },
+  {
+   "key": "খ",
+   "kind": "consonant",
+   "letter": "খ",
+   "shown": "খ",
+   "says": []
+  },
+  {
+   "key": "গ",
+   "kind": "consonant",
+   "letter": "গ",
+   "shown": "গ",
+   "says": []
+  },
+  {
+   "key": "ঘ",
+   "kind": "consonant",
+   "letter": "ঘ",
+   "shown": "ঘ",
+   "says": []
+  },
+  {
+   "key": "ঙ",
+   "kind": "consonant",
+   "letter": "ঙ",
+   "shown": "ঙ",
+   "says": []
+  },
+  {
+   "key": "চ",
+   "kind": "consonant",
+   "letter": "চ",
+   "shown": "চ",
+   "says": []
+  },
+  {
+   "key": "ছ",
+   "kind": "consonant",
+   "letter": "ছ",
+   "shown": "ছ",
+   "says": []
+  },
+  {
+   "key": "জ",
+   "kind": "consonant",
+   "letter": "জ",
+   "shown": "জ",
+   "says": []
+  },
+  {
+   "key": "ঝ",
+   "kind": "consonant",
+   "letter": "ঝ",
+   "shown": "ঝ",
+   "says": []
+  },
+  {
+   "key": "ঞ",
+   "kind": "consonant",
+   "letter": "ঞ",
+   "shown": "ঞ",
+   "says": [
+    "note"
+   ]
+  },
+  {
+   "key": "ট",
+   "kind": "consonant",
+   "letter": "ট",
+   "shown": "ট",
+   "says": []
+  },
+  {
+   "key": "ঠ",
+   "kind": "consonant",
+   "letter": "ঠ",
+   "shown": "ঠ",
+   "says": []
+  },
+  {
+   "key": "ড",
+   "kind": "consonant",
+   "letter": "ড",
+   "shown": "ড",
+   "says": []
+  },
+  {
+   "key": "ঢ",
+   "kind": "consonant",
+   "letter": "ঢ",
+   "shown": "ঢ",
+   "says": []
+  },
+  {
+   "key": "ণ",
+   "kind": "consonant",
+   "letter": "ণ",
+   "shown": "ণ",
+   "says": [
+    "note"
+   ]
+  },
+  {
+   "key": "ত",
+   "kind": "consonant",
+   "letter": "ত",
+   "shown": "ত",
+   "says": []
+  },
+  {
+   "key": "থ",
+   "kind": "consonant",
+   "letter": "থ",
+   "shown": "থ",
+   "says": []
+  },
+  {
+   "key": "দ",
+   "kind": "consonant",
+   "letter": "দ",
+   "shown": "দ",
+   "says": []
+  },
+  {
+   "key": "ধ",
+   "kind": "consonant",
+   "letter": "ধ",
+   "shown": "ধ",
+   "says": []
+  },
+  {
+   "key": "ন",
+   "kind": "consonant",
+   "letter": "ন",
+   "shown": "ন",
+   "says": []
+  },
+  {
+   "key": "প",
+   "kind": "consonant",
+   "letter": "প",
+   "shown": "প",
+   "says": []
+  },
+  {
+   "key": "ফ",
+   "kind": "consonant",
+   "letter": "ফ",
+   "shown": "ফ",
+   "says": [
+    "note"
+   ]
+  },
+  {
+   "key": "ব",
+   "kind": "consonant",
+   "letter": "ব",
+   "shown": "ব",
+   "says": []
+  },
+  {
+   "key": "ভ",
+   "kind": "consonant",
+   "letter": "ভ",
+   "shown": "ভ",
+   "says": [
+    "note"
+   ]
+  },
+  {
+   "key": "ম",
+   "kind": "consonant",
+   "letter": "ম",
+   "shown": "ম",
+   "says": []
+  },
+  {
+   "key": "য",
+   "kind": "consonant",
+   "letter": "য",
+   "shown": "য",
+   "says": [
+    "ja"
+   ]
+  },
+  {
+   "key": "র",
+   "kind": "consonant",
+   "letter": "র",
+   "shown": "র",
+   "says": [
+    "ipa-note"
+   ]
+  },
+  {
+   "key": "ল",
+   "kind": "consonant",
+   "letter": "ল",
+   "shown": "ল",
+   "says": []
+  },
+  {
+   "key": "শ",
+   "kind": "consonant",
+   "letter": "শ",
+   "shown": "শ",
+   "says": []
+  },
+  {
+   "key": "ষ",
+   "kind": "consonant",
+   "letter": "ষ",
+   "shown": "ষ",
+   "says": []
+  },
+  {
+   "key": "স",
+   "kind": "consonant",
+   "letter": "স",
+   "shown": "স",
+   "says": []
+  },
+  {
+   "key": "হ",
+   "kind": "consonant",
+   "letter": "হ",
+   "shown": "হ",
+   "says": [
+    "note"
+   ]
+  },
+  {
+   "key": "ড়",
+   "kind": "dotted",
+   "letter": "ড়",
+   "shown": "ড়",
+   "says": [
+    "flap"
+   ]
+  },
+  {
+   "key": "ঢ়",
+   "kind": "dotted",
+   "letter": "ঢ়",
+   "shown": "ঢ়",
+   "says": []
+  },
+  {
+   "key": "য়",
+   "kind": "dotted",
+   "letter": "য়",
+   "shown": "য়",
+   "says": [
+    "y",
+    "yGlide"
+   ]
+  },
+  {
+   "key": "ক্ষ",
+   "kind": "joined",
+   "letter": "ক্ষ",
+   "shown": "ক্ষ",
+   "says": [
+    "ksha"
+   ]
+  },
+  {
+   "key": "জ্ঞ",
+   "kind": "joined",
+   "letter": "জ্ঞ",
+   "shown": "জ্ঞ",
+   "says": [
+    "gya"
+   ]
+  },
+  {
+   "key": "ক্য",
+   "kind": "phala",
+   "letter": "্য",
+   "shown": "ক্য",
+   "name": "য-ফলা",
+   "says": [
+    "yaphala"
+   ]
+  },
+  {
+   "key": "ক্র",
+   "kind": "phala",
+   "letter": "্র",
+   "shown": "ক্র",
+   "name": "র-ফলা",
+   "says": []
+  },
+  {
+   "key": "ক্ব",
+   "kind": "phala",
+   "letter": "্ব",
+   "shown": "ক্ব",
+   "name": "ব-ফলা",
+   "says": []
+  },
+  {
+   "key": "র্ক",
+   "kind": "phala",
+   "letter": "র্",
+   "shown": "র্ক",
+   "name": "রেফ",
+   "says": []
+  }
+ ],
+ "rules": [
+  {
+   "key": "rule:inherent",
+   "after": "vowel",
+   "title": "The vowel no sign writes",
+   "shown": "ক = ক + অ",
+   "says": [
+    "inherent",
+    "names"
+   ],
+   "pick": "bare"
+  },
+  {
+   "key": "rule:kar",
+   "after": "vowel",
+   "title": "A vowel after a consonant is a sign",
+   "shown": "কা কি কী কু কূ কৃ কে কৈ কো কৌ",
+   "says": [
+    "kar"
+   ],
+   "pick": [
+    "ি",
+    "ে",
+    "ো"
+   ]
+  },
+  {
+   "key": "rule:length",
+   "after": "vowel",
+   "title": "Two letters, one vowel",
+   "shown": "ই ঈ · উ ঊ",
+   "says": [
+    "length"
+   ],
+   "pick": [
+    "ি",
+    "ী",
+    "ু",
+    "ূ"
+   ]
+  },
+  {
+   "key": "rule:ae",
+   "after": "vowel",
+   "title": "A vowel with no letter of its own",
+   "shown": "æ",
+   "says": [
+    "ae"
+   ],
+   "pick": "ae"
+  },
+  {
+   "key": "rule:aspirate",
+   "after": "consonant",
+   "title": "অল্পপ্রাণ (Unaspirated) · মহাপ্রাণ (Aspirated)",
+   "shown": "ক খ · গ ঘ · চ ছ · জ ঝ · প ফ · ব ভ",
+   "says": [],
+   "pairs": [
+    [
+     "ক",
+     "খ"
+    ],
+    [
+     "গ",
+     "ঘ"
+    ],
+    [
+     "চ",
+     "ছ"
+    ],
+    [
+     "জ",
+     "ঝ"
+    ],
+    [
+     "ট",
+     "ঠ"
+    ],
+    [
+     "ড",
+     "ঢ"
+    ],
+    [
+     "ত",
+     "থ"
+    ],
+    [
+     "দ",
+     "ধ"
+    ],
+    [
+     "প",
+     "ফ"
+    ],
+    [
+     "ব",
+     "ভ"
+    ]
+   ]
+  },
+  {
+   "key": "rule:dental",
+   "after": "consonant",
+   "title": "Two kinds of t and d",
+   "shown": "ত থ দ ধ · ট ঠ ড ঢ",
+   "says": [
+    "@coronal"
+   ],
+   "pick": [
+    "ত",
+    "ট",
+    "দ",
+    "ড"
+   ]
+  },
+  {
+   "key": "rule:sh",
+   "after": "consonant",
+   "title": "Three letters, one sound",
+   "shown": "শ ষ স",
+   "says": [
+    "sh"
+   ],
+   "pick": [
+    "শ",
+    "ষ",
+    "স"
+   ]
+  },
+  {
+   "key": "rule:j",
+   "after": "consonant",
+   "title": "Two letters, one sound",
+   "shown": "জ য",
+   "says": [
+    "j"
+   ],
+   "pick": [
+    "জ",
+    "য"
+   ]
+  },
+  {
+   "key": "rule:n",
+   "after": "consonant",
+   "title": "Two letters for n",
+   "shown": "ন ণ",
+   "says": [
+    "n"
+   ],
+   "pick": [
+    "ন",
+    "ণ"
+   ]
+  },
+  {
+   "key": "rule:matra",
+   "after": "dotted",
+   "title": "The line the letters hang from",
+   "shown": "ত ৩ · ত্র এ",
+   "says": [
+    "matra"
+   ]
+  },
+  {
+   "key": "rule:conjunct",
+   "after": "phala",
+   "title": "Consonants written as one",
+   "shown": "ক + ত = ক্ত",
+   "says": [
+    "conjunct",
+    "conjunctSaid"
+   ]
+  }
+ ]
+}

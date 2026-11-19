@@ -225,9 +225,9 @@ def main():
             if k in seen or k in below:
                 continue
             L = lex.get(k)
-            via, roman = '', ''
+            via, roman, ipa = '', '', ''
             if L and 'alt_of' in L:
-                roman = L.get('roman', '')
+                roman, ipa = L.get('roman', ''), L.get('ipa', '')
                 # the common spelling of a word Wiktionary files under another (নেই):
                 # the card prints the spelling written here and the target's meanings
                 via = L['alt_of']
@@ -240,7 +240,7 @@ def main():
             seen.add(k)
             # the spelling the inventory wrote is the one printed (কী, not the fold's কি)
             rows.append({'key': k, 'via': via, 'word': w if fold(w) == fold(L['word']) else L['word'],
-                         'roman': roman, 'freq': L['freq'], 'pos': pos or '',
+                         'roman': roman, 'ipa': ipa, 'freq': L['freq'], 'pos': pos or '',
                          'source': 'inventory', 'topic': topic})
     n_inv = len(rows)
     vseen = {vkey(k) for k in seen | below}

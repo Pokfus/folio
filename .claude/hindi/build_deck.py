@@ -168,6 +168,29 @@ def entries_for(row, lex):
     return out[:3]
 
 
+# A VERB'S AUXILIARY SENSES (Nov 2026, the beginner pass).  Hindi builds its progressive, its
+# passive and its compound verbs out of a handful of everyday verbs -- रहना, जाना, लेना, देना, लगना,
+# चुकना, पाना -- and Wiktionary lists that use AFTER the three senses a card shows ("an aspectual
+# auxiliary, marking the continuous aspect", "marks the passive voice", "indicates completion"),
+# so 85 of A1's sentences had a progressive no card explained.  Such senses get a block of their
+# own, Wiktionary's wording, at most three.
+AUX = re.compile(r'^(marks the |indicates |an? (aspectual )?auxiliary\b|auxiliary verb\b)', re.I)
+
+
+def aux_block(e, shown):
+    gl = []
+    for g in e['glosses']:
+        t = gloss_text(g['g'])
+        if t and not g['weak'] and AUX.match(t) and t not in shown and t not in gl:
+            gl.append(t)
+    gl = gl[:3]
+    if not gl:
+        return ''
+    body = (f'<div class="uc-gl">{E(gl[0])}</div>' if len(gl) == 1 else
+            '<ol class="uc-gls">' + ''.join(f'<li>{E(x)}</li>' for x in gl) + '</ol>')
+    return f'<div class="uc-sense"><div class="uc-pos">as an auxiliary, after another verb</div>{body}</div>'
+
+
 def english(ents, word=''):
     parts, shown = [], set()
     for e in ents:
@@ -202,6 +225,10 @@ def english(ents, word=''):
         body = (f'<div class="uc-gl">{E(gl[0])}</div>' if len(gl) == 1 else
                 '<ol class="uc-gls">' + ''.join(f'<li>{E(x)}</li>' for x in gl) + '</ol>')
         parts.append(f'<div class="uc-sense"><div class="uc-pos">{E(label)}</div>{body}</div>')
+        if e['pos'] == 'verb' and ' ' not in word and len(parts) < 3:
+            ab = aux_block(e, shown)
+            if ab:
+                parts.append(ab)
     return ''.join(parts)
 
 
@@ -222,8 +249,13 @@ def fi(label, t):
 
 
 def forms_line(e, word):
-    tb = e['table']
+    tb = e['table'] or e.get('decl') or []
     if not tb:
+        # AN ADJECTIVE THAT NEVER CHANGES SAYS SO (Wiktionary's "indeclinable"): with nothing in
+        # the Forms row a learner could not tell सुंदर, which has one form, from a card that
+        # merely showed none.
+        if e['pos'] == 'adj' and e.get('indecl'):
+            return '<div class="uc-forms"><span class="uc-fi"><span class="uc-fl">invariable</span></span></div>'
         return ''
     bits = []
     if e['pos'] == 'noun':
@@ -237,6 +269,14 @@ def forms_line(e, word):
         if fe and fold(fe['f']) != fold(word):
             bits.append(fi('feminine', fe))
             bits.append(fi('plural', cell(tb, 'direct', 'masculine', 'plural')))
+    elif e['pos'] in ('pron', 'det', 'postp'):
+        # THE POSSESSIVES AND का AGREE LIKE AN ADJECTIVE (मेरा / मेरे / मेरी, का / के / की), and until
+        # Nov 2026 no card showed it: मेरे and मेरी stand in 73 of A1's sentences, के and की in 127.
+        fe = cell(tb, 'feminine', 'singular', 'direct')
+        mp = cell(tb, 'masculine', 'oblique', 'singular')
+        if fe and mp and fold(fe['f']) != fold(word):
+            bits.append(fi('feminine', fe))
+            bits.append(fi('plural, oblique', mp))
     elif e['pos'] == 'verb':
         bits.append(fi('past', cell(tb, 'direct', 'masculine', 'perfective', 'singular',
                                     skip=('adjectival',))))
@@ -271,15 +311,35 @@ def by_person(tb, base, skip=()):
     return [row(p, cell(tb, *(base + need), skip=skip + sk)) for p, need, sk in PERSONS]
 
 
-def table_html(e):
+def table_html(e, word=''):
     tb = e['table']
     if not tb:
         return ''
     if e['pos'] == 'verb':
+        # करना'S "having done" IS करके.  Wiktionary's table lists करकर first, the regular
+        # stem + कर that every other verb uses, and करके second; only the second is in use.
+        conj = cell(tb, 'conjunctive')
+        if word == 'करना' or word.endswith(' करना'):
+            conj = next((t for t in tb if 'conjunctive' in t['t'] and t['f'].endswith('के')), conj)
+        # होना IS THE VERB "TO BE", and its commonest forms were on no card (Nov 2026): है stands
+        # in 578 of A1's 1,450 sentences, था / थे / थी in 120, होगा / होगी in 28.  The general
+        # blocks below show its habitual (होता है) and Wiktionary's definite future (होएगा).
+        be = []
+        if word == 'होना':
+            pres = ('indicative', 'present', 'masculine', 'feminine')
+            be = [
+                block('is, am, are', [row(p, cell(tb, *(pres + need), skip=sk + ('habitual', 'perfective', 'progressive')))
+                                      for p, need, sk in PERSONS]),
+                block('was, were', [row('masculine', cell(tb, 'imperfect', 'masculine', 'singular')),
+                                    row('masculine plural', cell(tb, 'imperfect', 'masculine', 'plural', skip=('formal',))),
+                                    row('feminine', cell(tb, 'imperfect', 'feminine', 'singular')),
+                                    row('feminine plural', cell(tb, 'imperfect', 'feminine', 'plural', skip=('formal',)))]),
+                block('will be, must be (masculine)', by_person(tb, ('presumptive', 'future', 'masculine'))),
+            ]
         blocks = [
             block('key forms', [row('stem', cell(tb, 'stem')),
                                 row('infinitive', cell(tb, 'infinitive')),
-                                row('having …-ed', cell(tb, 'conjunctive')),
+                                row('having …-ed', conj),
                                 row('habitual', cell(tb, 'direct', 'habitual', 'masculine', 'singular',
                                                      skip=('adjectival',))),
                                 row('past, m. sg.', cell(tb, 'direct', 'masculine', 'perfective', 'singular',
@@ -288,6 +348,7 @@ def table_html(e):
                                                          skip=('adjectival', 'indicative', 'oblique'))),
                                 row('past, f. sg.', cell(tb, 'feminine', 'perfective', 'singular',
                                                          skip=('adjectival', 'indicative')))]),
+            *be,
             block('present (masculine)', by_person(tb, ('indicative', 'present', 'masculine'),
                                                    skip=('feminine', 'perfect', 'past'))),
             block('future (masculine)', by_person(tb, ('future', 'indicative', 'masculine'),
@@ -359,14 +420,26 @@ def build(rows, lex, exs):
         word = r['word']
         roman = main['roman'] or next((e['roman'] for e in ents if e['roman']), '') \
             or ROMAN.get(word, '')
+        # AN INVENTORY WORD RESOLVED THROUGH A POINTER (वसंत, an alternative form of बसंत) is
+        # printed in the inventory's spelling, so it takes that spelling's own romanisation.
+        if r.get('via') and (lex.get(r['key']) or {}).get('roman'):
+            roman = lex[r['key']]['roman']
         ex = exs.get(r['key'], [])
+        # THE HEADWORD IS THE SPELLING OF THE ENTRY THE CARD SHOWS (Nov 2026).  A lemma's `word`
+        # is whichever spelling the dump listed first, and for 27 cards that was the nuqtaless
+        # pointer entry: सफेद over the romanisation safed, काफी over kāfī.  Everything keyed on
+        # the word (ROMAN, GLOSS, the sentences) goes on using `word`; only what is printed and
+        # spoken changes, and through the fold it is the same word to every other stage.
+        shown = main.get('w') or word
+        if fold(shown) != fold(word) or r.get('via'):
+            shown = word
         cards.append({'sub': r.get('sub', ''), 'fields': {
-            'Hindi': f'<div class="uc-word">{E(word)}</div>',
+            'Hindi': f'<div class="uc-word">{E(shown)}</div>',
             'Roman': E(roman),
-            'Word': word,
+            'Word': shown,
             'English': english(ents, word),
-            'Forms': forms_line(main, word),
-            'Table': table_html(main),
+            'Forms': forms_line(main, shown),
+            'Table': table_html(main, word),
             'Examples': examples_html(ex, ' ' in word),
         }})
         entries.append({'word': word, 'pos': main['pos'], 'source': r['source'],

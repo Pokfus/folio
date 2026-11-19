@@ -39,10 +39,17 @@ A1 = [
     ('weather', 'আবহাওয়া গরম ঠান্ডা বৃষ্টি রোদ বাতাস শীত'),
     ('colours', 'রং লাল নীল হলুদ সবুজ কালো সাদা'),
     ('describing', 'বড় ছোট নতুন পুরানো সুন্দর খারাপ খুশি লম্বা মোটা সহজ কঠিন বেশী কম অনেক সব কিছু কেউ'),
-    ('everyday verbs', 'হওয়া আছে করা যাওয়া আসা খাওয়া:verb ঘুমানো ওঠা বসা দেখা শোনা বলা পড়া লেখা বোঝা জানা চাওয়া পারা থাকা চলা পাওয়া দাঁড়ানো খোলা বন্ধ জিজ্ঞাসা ভাবা কথা'),
+    ('everyday verbs', 'হওয়া আছে করা যাওয়া আসা খাওয়া:verb ঘুমানো ওঠা বসা দেখা শোনা বলা পড়া লেখা বোঝা জানা চাওয়া পারা থাকা চলা পাওয়া দাঁড়ানো খোলা বন্ধ জিজ্ঞাসা ভাবা কথা'),    # THE BEGINNER PASS (2026-11-19): what a first conversation needs and no level carded.
+    # Seven were in the phrases deck, the last on the shelf (day 888 at the default pace), and
+    # leave it by `words_below`; আসসালামু আলাইকুম was dropped there for want of a romanisation
+    # and now prints Wiktionary's pronunciation; জ্বী "yes" (polite) was on no deck; শূন্য
+    # "zero" was B1's.  `bengali_level.TARGET` grows by these eleven, so the fill is the same.
+    ('a first exchange', 'আসসালামু_আলাইকুম খোদা_হাফেজ শুভ_সকাল জ্বী আপনি_কেমন_আছেন তুমি_কেমন_আছো আপনার_নাম_কি তোমার_নাম_কি আমি_জানি_না আমি_বুঝি_না শূন্য'),
 ]
 
 A2 = [
+    # the beginner pass (2026-11-19): thirty was B1's fill, apart from the other tens
+    ('numbers', 'ত্রিশ'),
     ('relatives and people', 'আত্মীয় চাচা কাকা মামা খালা ফুফু নানা ঠাকুরমা দাদু নাতি নাতনী শ্বশুর শাশুড়ি জামাই বউ যমজ অতিথি'),
     ('work and study', 'চাকরি অফিস কর্মচারী মালিক ছুটি কলেজ বিশ্ববিদ্যালয় ক্লাস পরীক্ষা খাতা ছাত্রী পাঠ বিষয় উত্তর প্রশ্ন'),
     ('jobs', 'পুলিশ কৃষক ব্যবসায়ী দোকানদার রাঁধুনি উকিল'),

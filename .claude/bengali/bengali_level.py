@@ -33,7 +33,11 @@ DECK_IDS['phr'] = 'bnphrase'
 DECK_FILES['phr'] = 'Bengali-Phrases-and-Expressions.folio-deck.json'
 
 # The Hindi set's sizes (the owner's, 2026-11-09), kept for the sister collection.
-TARGET = {'a1': 500, 'a2': 750, 'b1': 1000, 'b2': 1500, 'c1': 1500}
+# THE BEGINNER PASS (2026-11-19) added eleven words to A1's inventory and one to A2's
+# (`inventory.py`), two of them B1's fill (শূন্য, ত্রিশ).  Each target moves by exactly that
+# many, so that NO OTHER WORD CHANGES LEVEL: a target left alone would push A1's last
+# eleven fill words into A2, A2's into B1, and so on down the shelf.
+TARGET = {'a1': 511, 'a2': 751, 'b1': 998, 'b2': 1500, 'c1': 1500}
 
 BELOW = {k: list(BANDS[:i]) for i, k in enumerate(BANDS)}
 BELOW['phr'] = list(BANDS)

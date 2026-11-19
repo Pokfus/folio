@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* The Arabic decks' own check: node .claude/arabic/check-arabic.js
    Reads every decks/Arabic-*.folio-deck.json and fails on the faults this pipeline has had or could have:
-   an id out of sequence, a word taught twice, two notes sharing an English side (the reverse card would have
+   an id that is not the one its headword is pinned to (arabic-ids.json), a word taught twice, two notes sharing an English side (the reverse card would have
    two answers), an Arabic run without dir="rtl" (it would lay out left to right among the English), a
    headword with anything but Arabic letters and marks in it (kaikki carries `قَبْلَ Audio:`), a headword
    printed without its short vowels, a forms label the generator does not write, unbalanced HTML, and an
@@ -10,9 +10,11 @@
 const fs = require("fs");
 const path = require("path");
 const DIR = path.join(__dirname, "..", "..", "decks");
-const LABELS = new Set(["gender", "plural", "feminine", "more", "present", "verbal noun", "form"]);
+const LABELS = new Set(["gender", "plural", "feminine", "more", "present", "verbal noun", "form", "masculine", "as a suffix", "to a woman"]);
 const ARABIC = /^[ء-ٰٟٱـ ]+$/;
 const MARK = /[ً-ْ]/;
+const NO_MARK = new Set(["آب"]);   // August in the Levant: a madda and a final consonant, nothing left to mark
+const PIN = JSON.parse(fs.readFileSync(path.join(__dirname, "arabic-ids.json"), "utf8"));
 let fail = 0;
 const bad = (m) => { fail++; console.log("FAIL  " + m); };
 const balanced = (where, h) => {
@@ -46,20 +48,22 @@ for (const f of files) {
   const eng = new Map();
   d.cards.forEach((c, i) => {
     const F = c.fields;
-    if (c.id !== "u_" + id + "_" + (i + 1)) bad(f + ": card " + (i + 1) + " has id " + c.id);
+    const key = abc ? c.key : F.Word;
+    if (!PIN[id] || c.id !== "u_" + id + "_" + PIN[id][key]) bad(f + ": card " + (i + 1) + " (" + key + ") has id " + c.id + ", not the one it is pinned to");
     for (const k of Object.keys(F)) if (k !== "Word") balanced(f + ": " + (F.Word || i) + " " + k, F[k]);
     if (abc) {
-      if (!F.Letter || !F.Name || !F.Sound || !F.Example) bad(f + ": letter " + (i + 1) + " is missing a field");
-      // Name goes into the speaker's data-say attribute as well as onto the card, so it must be plain text
-      if (/[<>"]/.test(F.Name)) bad(f + ": letter " + (i + 1) + " has markup in its Name");
-      for (const k of ["Example", "Shapes"]) rtlRuns(f + ": " + F.Word + " " + k, F[k]);
+      const need = c.type === "ar-rule" ? ["Shows", "Ask", "Says"] : ["Letter", "Kind", "Named", "Value", "Sound"];
+      for (const k of need) if (!F[k]) bad(f + ": " + key + " has no " + k);
+      // Value is the reverse card's question and Ask a rule's: plain text, and no Arabic letter that would name the answer
+      if (c.type === "ar-abc" && /[<>"\u0621-\u064A]/.test(F.Value)) bad(f + ": " + key + " has markup or Arabic in its Value");
+      for (const k of ["Example", "Shapes", "Named", "Notes", "Says"]) if (F[k]) rtlRuns(f + ": " + key + " " + k, F[k]);
       return;
     }
     const w = F.Word;
     if (seen.has(w)) bad(f + ": " + w + " is already taught in " + seen.get(w));
     seen.set(w, f);
     if (!ARABIC.test(w)) bad(f + ": headword " + JSON.stringify(w) + " is not clean Arabic");
-    if (!MARK.test(w)) bad(f + ": headword " + w + " has no short vowels");
+    if (!MARK.test(w) && !NO_MARK.has(w)) bad(f + ": headword " + w + " has no short vowels");
     if (!F.Roman) bad(f + ": " + w + " has no romanisation");
     if (!F.English) bad(f + ": " + w + " has no English");
     if (eng.has(F.English)) bad(f + ": " + w + " shares its English side with " + eng.get(F.English));
