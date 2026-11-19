@@ -12,7 +12,7 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently sixty-eight:
+  matter (chapter 0 — see the Library bullet). Currently seventy-seven:
   `darwin-origin-of-species` (~880 KB, **15 sections** — Darwin's Introduction and his fourteen chapters, so a tab runs
   one ahead of the chapter; `chapterWord: "Section"`, titles from the 1859 contents page via `titleOf` — **no notes**:
   the first edition has none, and no original, the book being English). The first edition, John Murray, London, 1859,
@@ -26,11 +26,47 @@ book added later will meet the same traps.
   closed and reopened round it, so the caption goes, two broken sentences are joined and the bare run left behind
   is closed. The Library sets no pictures, and the front matter says the diagram is not reproduced. Chapter IX's one
   table (Ramsay's thicknesses of the British strata) becomes a block of one row to a line. Licence: printed 1859,
-  Darwin d. 1882 — no limit to state. Colour `#5A0009` (14.3: the band is full; Lucretius, Aristotle, Kant, Hobbes
-  and Plato 41.8 or more off). `glossOff` (swept over all 15 sections, 93 keys → 82): Pallas (P. S. Pallas),
+  Darwin d. 1882 — no limit to state. Colour `#573006` (14.2: the band is full; Hobbes 30.9, Lucretius 47.7, Plato
+  52.2 and more off). `glossOff` (swept over all 15 sections, 93 keys → 82): Pallas (P. S. Pallas),
   Philippi (R. A. Philippi), Silla (the mountain at Caracas), Rhea (the bird), the Hydra (the polyp), Sound,
   Jerusalem (artichoke), Jordan (Hill), Arab/Arabian (the horse) and Iran (Iran and Turan). Excerpt: the closing
   "entangled bank" paragraph. Not included: the title page and its epigraphs, the contents and the index.
+  `augustus-res-gestae` (~64 KB, **7 chapters** — the Loeb's Parts I–VI and its third-person Summary — **150 notes**,
+  Latin original ~25 KB; Frederick W. Shipley's Loeb, 1924, in Bill Thayer's transcription on LacusCurtius). `layout:
+  "monumentum"` (and the same on `original`): Thayer sets each chapter as a row of Latin, Greek and English cells, so
+  both columns come out of the six pages; the English goes through `thayerPage`, the Latin is read by
+  `monumentumLatin`, the Greek is not taken. **Checked: 35 chapters and the Summary's 4, on both sides, paired 39 of
+  39**; all 150 explanatory notes cited (the Summary heading's note 145 is moved onto its first paragraph). The Latin's
+  supplements (Thayer's `emend`) are italic, as the Loeb prints them; its critical notes go. Licence: pre-1929 US only —
+  Shipley's death year was not established, so no life-plus term is claimed. Bushnell's 1998 Wikisource translation is
+  in copyright and is named as not used. Colour `#84307B` (14.6, the sweep's best). `glossOff`: the modern countries and
+  continents where Augustus means provinces or ancient lands, and the namesakes (Caesar, Nero, Lucretius, Crassus,
+  Fabius Maximus, Libertas, Augusta, Embassy).
+  `apollodorus-library` (~975 KB English, ~250 KB Greek, **4 tabs** — Books I–III and the **Epitome**, **1,066 notes**,
+  Frazer's own; original **Greek**, paired on the SECTION as Strabo is, 386 of 386). Sir James George Frazer's Loeb of
+  1921, translation and Greek text (after Wagner's Teubner, 1894), from Perseus (`tlg0548.tlg001` and `.tlg002`, CC
+  BY-SA 4.0); public domain worldwide (pre-1929, Frazer d. 1941). **The first English side read from several TEI
+  files** — `urls` on the chaptered branch (`enTeiFiles`), the original side's Diodorus rule, with `teiRaw(xml, k)` told
+  which file it reads. The Epitome's file has no book division, so `apoTei` puts one round it (n 4); it also drops the
+  Greek's 1,075 bare `<NOTE>` figures, decodes five beta-code runs in the English notes (a capital's marks stand before
+  its letter there, which `betaGreek` does not read), sets a `<speaker>` at the head of its line, turns six citations in
+  the prose into notes and moves the edition's spaces out of brackets. Frazer's Appendix essays are not carried. Two
+  `fixes`, read against the Internet Archive scan.
+  `descartes-discourse-on-method` (~131 KB, **7 sections** — Descartes's prefatory note and the six Parts, so a tab runs
+  one ahead of the Part; `chapterWord: "Section"` — **7 notes**, all Veitch's; original **French**, paired on the PART
+  as The Prince is on the chapter). John Veitch's translation, second edition, Sutherland and Knox, Edinburgh, 1853
+  (preface dated October 1850), proofread on Wikisource; one wiki page per Part, plain prose, so the generic extractor
+  reads it. `dropHeads` takes the edition's "DISCOURSE ON METHOD." / "PART I." / "[PREFATORY NOTE BY THE AUTHOR.]" —
+  **Part VI's head is typed with three Cyrillic letters ("РАRТ VI.")**, so its pattern accepts both alphabets. Three
+  `reFixes`, each found by a word diff of the whole import against Gutenberg #59 (Veitch from another printing: -or,
+  -ize, no comma before a parenthesis — those left): `exibited`, a stray `. '` in Part IV's last sentence, a stray
+  comma in Part V. Veitch says in his preface he compared the French with the 1644 Latin and sometimes followed the
+  Latin; the front matter says so. The French is Victor Cousin's edition (Œuvres I, Levrault, Paris, 1824), validated
+  on fr.wikisource, one page per Part (`perChapter`, **`prep: "cousin"`** — see `docs/library-importer.md`); the
+  prefatory note is cut off the work page. Adam–Tannery (1902) was rejected: one page, and 1637's long s and u-for-v.
+  Public domain worldwide: Descartes d. 1650, Veitch d. 1894, Cousin d. 1867. Colour `#962A30` (13.9: the band is
+  full; every philosopher stands 19.7 or more off — More took `#5A0009` the same day). `glossOff`: Meditations (Descartes's, not Marcus Aurelius's),
+  Germany. Excerpt: the cogito, Part IV. Not included: Veitch's preface and introduction, the title page.
   `rousseau-social-contract` (~260 KB, **49 sections** — Rousseau's Foreword and the 48 chapters of the four Books, so a
   tab runs one ahead of the chapter's place; each title opens with its numeral in its Book, the Books are the `parts`;
   `chapterWord: "Section"` — **47 notes**, Rousseau's with a few of Cole's; original **French**, paired on the CHAPTER as
@@ -67,6 +103,18 @@ book added later will meet the same traps.
   Colour `#592F85` (14.8: the band is full; the philosophers stand 19.6 or more off). `glossOff`: Wolf (Christian
   Wolff), Subsistence (the category), Providence, Republic (Plato's) — swept over all 19 sections. Excerpt: the
   Copernican passage of the second preface. Not included: the translator's preface, the contents and the errata.
+  `more-utopia` (~230 KB, **9 chapters**, no notes, no original; Gilbert Burnet's translation of 1684 in Henry
+  Morley's edition, Cassell, London, 1901 — a PLAIN transcription with no scan behind it, so `body: "plain"`, as
+  Thucydides). Morley's chapter 1 is More's Book I AND the opening of Book II (the island begins headless on "The
+  island of Utopia is in the middle two hundred miles broad"); chapters 2–9 are Book II's own eight sections, so no
+  `parts`, and the front matter says where Book II begins. Each page's centred capital title goes by `dropHeads`.
+  Titles transcribed from the work page's contents (`titleOf`). **No original**: la.wikisource's Latin is in two
+  Books and cannot be paired with chapter 1 uncut; Robinson's 1551 translation has no page on en.wikisource.
+  Public domain worldwide (More d. 1535, Burnet d. 1715, Morley d. 1894). 5 `fixes`, each from a word diff against
+  Gutenberg #2130 (the same Morley edition): trained → travelled, dobots → abbots, speak with → speak truth,
+  case → ease, seventies → severities; "a mean of the public safety" and "work so much on them" are left. Colour
+  `#5A0009` (14.3: the band is full; Plato, whose Republic it is read beside, 41.8 off). `glossOff`: 6 keys — see the comment on the app.js entry. Excerpt: the sheep that
+  devour men. Not included: Morley's introduction, the prefatory letters and verses.
   `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
   Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
   **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on
@@ -409,6 +457,14 @@ book added later will meet the same traps.
   end notes reach the page. Two mistyped printed line numbers (III. i. 273, V. i. 52) are put right off the
   scan by `plineFixes`, BEFORE extraction — put right afterwards by `fixes`, the six glosses keyed to them
   were lost, "dogs of war" and its end note among them. Shakespeare's `BOOK_AUTHOR_COLOR` row colours it.
+  `hamlet` (~388 KB, all 5 acts, **1,278 notes**, no original — the Yale Shakespeare of 1917, ed. Jack
+  Randall Crawford, 1878–1968 (Wikisource author page; Wikidata Q19560296), so public domain in the US by the
+  pre-1929 rule ONLY: in copyright under life plus seventy until 2039, and the rights text says so, in the
+  Nicomachean Ethics' form; `layout: "yale"` as it stands, no Chorus, no `plineFixes` — the run printed no
+  "counted line N where the page prints M" warning). 1,253 glosses land on their word, 5 on their text, 19 at
+  a line's end (15 warned: the lemma's spelling differs from the line's, e.g. "sulllies"), none lost; all 222
+  end notes reach the page. Fetched through `api`'s index.php fallback (api.php rate-limited from the first
+  request). Its home excerpt is "To be, or not to be" (Act III, `p: 25`). Shakespeare's row colours it.
   `marco-polo` (~2.77 MB, all 235 chapters, **788 notes**, no original — Sir Henry Yule's
   translation in the third edition of 1903 as revised by Henri Cordier, and **the first book here
   printed in TWO source files**, which costs a second fetch and one loop and matters only because
@@ -1681,6 +1737,9 @@ book added later will meet the same traps.
 - `books/<id>.<lang>.js` — the same book in the language it was WRITTEN in
   (`window.FOLIO_BOOK_ORIG_IN.push({ id, lang, langName, edition, rights, sourceName, sourceUrl, chapters:[{ n, html }] })`).
   Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently thirty-nine:
+  `augustus-res-gestae.la.js` (~25 KB, **7 chapters**, the 35 chapters and the Summary's 4 paragraphs — the Latin of
+  the Monumentum Ancyranum as Shipley printed it in the 1924 Loeb, after Mommsen and Diehl, read off the same
+  LacusCurtius rows as the English; supplements in italics, critical notes dropped; see the English entry above).
   `polybius-histories.grc.js` (~900 KB, **books 1–5 only** — `original.only`; the fragment books are
   numbered differently in the two editions and ship without a Greek column; see the English entry above).
   `bede-history.la.js` (~560 KB, all five books, **140 chapters**, the Praefatio joined in front of
