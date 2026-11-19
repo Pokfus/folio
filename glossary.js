@@ -12348,7 +12348,17 @@ window.GLOSSARY = {
 "Uraeus": "",
 "Presentation_of_Maat": "",
 "Smiting_scene": "",
-"Great_Royal_Wife": ""
+"Great_Royal_Wife": "",
+"Slab_stela": "",
+"Djefaihapi": "",
+"Offering_list": "",
+"Raemkai": "",
+"Senebtisi": "",
+"Overseer_shabti": "",
+"Servant_statue": "",
+"Abutiu": "",
+"Soul_house": "",
+"Memphite_Necropolis": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -18485,7 +18495,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Papyrus_Leopold_II": "c. 1100 BCE",
 "Coffin_reuse": "c. 1069 – 900 BCE",
 "Letters_to_the_dead": "c. 2400 – 600 BCE",
-"Books_of_Breathing": "c. 325 BCE – 175 CE"
+"Books_of_Breathing": "c. 325 BCE – 175 CE",
+"Slab_stela": "c. 2600–2530 BCE",
+"Djefaihapi": "fl. c. 1956–1910 BCE",
+"Raemkai": "fl. c. 2400 BCE",
+"Senebtisi": "c. 1850–1775 BCE",
+"Overseer_shabti": "c. 1290–700 BCE",
+"Servant_statue": "c. 2500–1850 BCE",
+"Abutiu": "c. 2490–2180 BCE",
+"Soul_house": "c. 2200–1700 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -26561,7 +26579,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Uraeus": ["uraeus","uraei","serpent-diadem","uraeus serpent"],
 "Presentation_of_Maat": ["presentation of Maat","offering of Maat","Maat offering"],
 "Smiting_scene": ["smiting scene","smiting scenes","smiting the enemies","smiting of the enemy"],
-"Great_Royal_Wife": ["Great Royal Wife","great royal wife","Great King's Wife","hemet nesu weret"]
+"Great_Royal_Wife": ["Great Royal Wife","great royal wife","Great King's Wife","hemet nesu weret"],
+"Slab_stela": ["slab stelae","slab-stela"],
+"Djefaihapi": ["Djefai-Hapi","Djefaihapi I","Hapdjefai","Hepzefa","Hepzefi"],
+"Offering_list": ["offering lists","list of offerings"],
+"Raemkai": ["Ra-em-kai","Raemka","Tomb of Raemkai","Tomb chapel of Raemkai"],
+"Senebtisi": ["Senebtisy","Sithapi","Sit-Hapi"],
+"Overseer_shabti": ["overseer shabtis","reis shabti","overseer ushabti","overseer shawabti"],
+"Servant_statue": ["servant statues","servant figure","servant figures","servant statuette"],
+"Abutiu": ["Abuwtiyuw","Abutiyu"],
+"Soul_house": ["soul houses","soul-house"],
+"Memphite_Necropolis": ["Memphis necropolis","necropolis of Memphis"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -39131,7 +39159,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Uraeus": ["object","religion","politics","history","egypt"],
 "Presentation_of_Maat": ["practice","religion","politics","history","egypt"],
 "Smiting_scene": ["practice","art","religion","politics","history","egypt"],
-"Great_Royal_Wife": ["title","politics","history","egypt","women"]
+"Great_Royal_Wife": ["title","politics","history","egypt","women"],
+"Slab_stela": ["object","art","religion","egypt","old kingdom"],
+"Djefaihapi": ["person","history","religion","egypt","middle kingdom"],
+"Offering_list": ["text","religion","egypt","funerary"],
+"Raemkai": ["person","art","history","egypt","old kingdom"],
+"Senebtisi": ["person","history","religion","egypt","middle kingdom"],
+"Overseer_shabti": ["object","religion","egypt","funerary"],
+"Servant_statue": ["object","art","religion","egypt"],
+"Abutiu": ["animal","history","egypt","old kingdom"],
+"Soul_house": ["object","religion","egypt","middle kingdom"],
+"Memphite_Necropolis": ["place","history","religion","egypt","old kingdom"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

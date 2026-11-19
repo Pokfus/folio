@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-19T22:50Z",
+ "generated": "2026-11-19T22:53Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8779,
+  "ok": 8785,
   "redirect-broader": 838,
   "redirect-variant": 515,
   "section-redirect": 199,
   "disambiguation": 161,
-  "none": 1247,
+  "none": 1251,
   "disambig-resolved": 114,
   "list-page": 6,
   "search-match": 10,
@@ -94395,6 +94395,101 @@
    "answer": "Great Royal Wife",
    "title": "Great Royal Wife",
    "url": "https://en.wikipedia.org/wiki/Great_Royal_Wife",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-771": {
+   "answer": "slab stela",
+   "title": "Slab stela",
+   "url": "https://en.wikipedia.org/wiki/Slab_stela",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-772": {
+   "answer": "Djefaihapi",
+   "title": "Djefaihapi",
+   "url": "https://en.wikipedia.org/wiki/Djefaihapi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-773": {
+   "answer": "offering list",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ancient Egyptian offering formula",
+    "List of Egyptian hieroglyphs",
+    "List of Egyptian deities",
+    "List of portraiture offerings with Ancient Egyptian hieroglyphs",
+    "Egypt"
+   ]
+  },
+  "eg-774": {
+   "answer": "Raemkai",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Raemka",
+    "Djedkare Isesi"
+   ]
+  },
+  "eg-775": {
+   "answer": "Senebtisi",
+   "title": "Senebtisi",
+   "url": "https://en.wikipedia.org/wiki/Senebtisi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-776": {
+   "answer": "overseer shabti",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ushabti",
+    "Ancient Egypt",
+    "Art of ancient Egypt",
+    "Egyptian faience",
+    "Webensenu"
+   ]
+  },
+  "eg-777": {
+   "answer": "servant statue",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Colossal statue of Amenhotep III and Tiye",
+    "Abu Simbel",
+    "List of ancient Egyptian statuary with amulet necklaces",
+    "Cleopatra",
+    "Department of Egyptian Antiquities of the Louvre"
+   ]
+  },
+  "eg-778": {
+   "answer": "Abutiu",
+   "title": "Abutiu",
+   "url": "https://en.wikipedia.org/wiki/Abutiu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-779": {
+   "answer": "soul house",
+   "title": "Soul house",
+   "url": "https://en.wikipedia.org/wiki/Soul_house",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-780": {
+   "answer": "Memphite Necropolis",
+   "title": "Memphite Necropolis",
+   "url": "https://en.wikipedia.org/wiki/Memphite_Necropolis",
    "via": "glossary",
    "status": "ok"
   }

@@ -26,7 +26,7 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 8779 | the title is the article |
+| `ok` | 8785 | the title is the article |
 | `redirect-variant` | 515 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 114 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 10 | a search hit with the answer's words in another order — listed below |
@@ -34,9 +34,9 @@ accepted only when the title IS the answer. Nothing is guessed.
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 199 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 161 | only a disambiguation page; no link could be chosen |
-| `none` | 1247 | nothing matched; no link |
+| `none` | 1251 | nothing matched; no link |
 
-**10263 of 11890 cards get a link.** The three "no link" rows are the honest state: a card whose
+**10269 of 11900 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
@@ -1398,7 +1398,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1247)
+## No article found (1251)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1840,6 +1840,10 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-763` **mummy mask** — search suggests `Mask of Tutankhamun`, `Tutankhamun's mummy`, `317a and 317b mummies`, `Fayum mummy portraits`, `List of Egyptian mummies (royalty)`
 - `eg-766` **Books of the Netherworld** — search suggests `Ancient Egyptian afterlife beliefs`, `Qed-her`, `Tomb of Tutankhamun`, `Ancient Egyptian funerary texts`, `Ancient Egyptian religion`
 - `eg-768` **pyramid complex** — search suggests `Giza pyramid complex`, `Egyptian pyramids`, `Pyramid of Djoser`, `List of Egyptian pyramids`, `Construction of the Egyptian pyramids`
+- `eg-773` **offering list** — search suggests `Ancient Egyptian offering formula`, `List of Egyptian hieroglyphs`, `List of Egyptian deities`, `List of portraiture offerings with Ancient Egyptian hieroglyphs`, `Egypt`
+- `eg-774` **Raemkai** — search suggests `Raemka`, `Djedkare Isesi`
+- `eg-776` **overseer shabti** — search suggests `Ushabti`, `Ancient Egypt`, `Art of ancient Egypt`, `Egyptian faience`, `Webensenu`
+- `eg-777` **servant statue** — search suggests `Colossal statue of Amenhotep III and Tiye`, `Abu Simbel`, `List of ancient Egyptian statuary with amulet necklaces`, `Cleopatra`, `Department of Egyptian Antiquities of the Louvre`
 - `eg-781` **Leopold-Amherst Papyrus** — search suggests `Papyrus Leopold II`, `Amherst papyri`, `List of papyri from ancient Egypt`, `Elephantine papyri and ostraca`, `William Tyssen-Amherst, 1st Baron Amherst of Hackney`
 - `eg-782` **coffin reuse** — search suggests `Ancient Egyptian coffins`, `Katebet`, `Ancient Egyptian funerary practices`, `Nehmes Bastet`, `TT1`
 - `eg-785` **djeret** — search suggests `Pabasa`, `Arqamani`
