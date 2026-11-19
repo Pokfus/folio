@@ -252,6 +252,14 @@ the form English-language scholarship and the reference works use; the decision 
 | Chinese Communist Party (CCP), People's Liberation Army (PLA), Red Army, Eighth Route Army, New Fourth Army | Pa-lu chün, Hsin-ssu chün, New 4th Army | CPC, Communist Party of China, Balujun, Xinsijun | the party and its armies, the abbreviation after the full name once; *CPC*, the party's own English, an alias for cited titles; the glossary's `Red_Army` is the Soviet army, so a "Red Army" in a China card mislinks (for the owner) |
 | Manchukuo, Mukden, Shenyang, Kwantung Army, Hong Kong | Manchoukuo, Man-chou-kuo, Hongkong, Hong-Kong | Manzhouguo, Xinjing, Hsinking, Fengtian, Guandong Army | *Manchukuo* the English name (*Manzhouguo* the pinyin an alias); *Mukden* the period name of Shenyang in the incident's name and the period's sentences, *Shenyang* the city otherwise; the *Kwantung Army* the English name of the Japanese army in Manchuria |
 | Nanjing Massacre, Marco Polo Bridge, Taierzhuang | Nanking Massacre, Lukouchiao, Taierhchwang, T'ai-erh-chuang | Rape of Nanking, Lugou Bridge, Tai'erzhuang | the war's events by the slugs' forms; *Rape of Nanking* stands in cited titles (Iris Chang) and an "also known as" sentence |
+| Xinjiang, Uyghurs, Kashgar, Xinjiang Production and Construction Corps | Sinkiang, Hsin-chiang, Kashghar | East Turkestan, Eastern Turkestan, Kashi, Bingtuan | the peoples and frontiers (added for the eighth hundred, Nov 2026); *East Turkestan* the name of the two short-lived republics and of the exiles' usage, said whose |
+| Tibet, Lhasa, Dalai Lama, Panchen Lama, Golden Urn | Thibet, Lassa | Xizang, Tubo, Panchen Erdeni | *Xizang* the PRC's Chinese name, an alias |
+| Altan Khan, Tümed, Hohhot, Rouran, Shatuo, Li Keyong | Juan-juan, Jou-jan, Sha-t'o, Li K'o-yung | Anda, Altan Qan, Guihua, Ruanruan, Ruru | the steppe peoples; *Guihua* the Ming name of Hohhot, kept for that time |
+| Lifan Yuan, booi, Willow Palisade, Imperial Household Department | Li-fan yüan, Li-fan Yuan, boo-i | Court of Colonial Affairs, Neiwufu, booi aha | the Qing's Inner Asian offices by the slugs' forms |
+| Tiandihui, tusi, gaitu guiliu, jimi, yamen, kowtow, lijin | T'ien-ti hui, t'u-ssu, kai-t'u kuei-liu, chi-mi, ya-men, kotow | Heaven and Earth Society, Hongmen, Triads, native chieftain, koutou, likin | *likin*, the period's English (the glossary's `Likin_(taxation)`), stands in cited titles and an "also called" sentence; *lijin* in the card's voice |
+| Zhuang, Nong Zhigao, Miao, Yi, Baiyue, Dian | Nung Chih-kao, Pai-yüeh | Nùng Trí Cao, Hmong, Nuosu, Lolo, Hundred Yue | *Lolo* an old exonym, used only as a quoted or historical name; *Hmong* the self-name of one Miao group, never a synonym for all |
+| xiangqi, tai chi, siheyuan, baijiu, Lu Yu, Yuan Mei, Fan Zhongyan, Liu Zhiji | hsiang-ch'i, t'ai chi, T'ai chi ch'üan, Lu Yü, Yüan Mei, Fan Chung-yen, Liu Chih-chi | Chinese chess, taijiquan, tai chi chuan, shaojiu | *tai chi* the English name and the live answer; *taijiquan* the pinyin, an alias |
+| Shanxi merchants, Huguang, huiguan | Shansi merchants, Hukuang, hui-kuan | Jin merchants, Jinshang | *Shanxi*, never confused with *Shaanxi* |
 
 ## Mythology and legend
 
@@ -860,9 +868,22 @@ and is audited as an ordinary card. Dates already set elsewhere that this hundre
 | the identity survey began / the latest reading | 1992 / June 2026 | the Election Study Center (`cnh-699`) |
 | the Cairo declaration / the peace treaty signed / in force / the UN seat | 1943 / 8 September 1951 / 28 April 1952 / 25 October 1971 | the Cairo text; the treaty; the CRS (`cnh-700`) |
 
+## The imperial state, society and the peoples (the eighth hundred)
+
+Filled batch by batch from `cnh-701` (B71 on). The eighth hundred leaves the dynastic order: it is the themed decks on the imperial
+state (`cn-government`), society and everyday life (`cn-society`) and the peoples and frontiers (`cn-peoples`), so a card here often
+dates an institution across several dynasties. **The protected lines** of its two individuals (`cnh-733` Empress Dowager Feng,
+`cnh-781` Altan Khan) are pinned below to their lines as they stood on main on 2026-11-19 (the years only; ages, days and months
+left out), and are not rows of this table. Dates already set elsewhere that this hundred must agree with: the Qin unification 221
+BCE and the empire's end, the abdication of 12 February 1912 (`cnh-191`, `cnh-575`); the examinations ended 1905 (`cnh-348`,
+`cnh-427`); the Grand Council c. 1729 (`cnh-550`); the Macartney embassy 1793 (`cnh-556`).
+
+| event | the collection says | source |
+|---|---|---|
+
 ## Later periods
 
-To be filled from `cnh-701` on.
+To be filled from `cnh-801` on.
 
 ## Chronology pins
 
@@ -1120,6 +1141,8 @@ cnh-648: 1883; 1942; 1944; 1946
 cnh-674: 1907; 1959; 1969; 1971
 cnh-677: 1921; 1976; 1981; 2008
 cnh-678: 1904; 1920; 1926; 1978; 1997
+cnh-733: 442; 466; 476; 490
+cnh-781: 1550; 1571; 1578
 cnh-101: 1250; 1046
 cnh-103: 1046; 1040; 1122
 cnh-104: 1046; 1044; 1122
