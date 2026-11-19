@@ -145,8 +145,9 @@ const PLANS = {
   "india-geography": ["geo-india", "gin-", [[1, 36], [501, 518], [520, 530], [532, 536], [701, 740], [801, 840], [901, 940]]],
   "russia-geography": ["geo-russia", "gru-", [[1, 83], [502, 503], [505, 569], [571, 583], [801, 840], [901, 940]]],
   /* 801-850 and 901-950 are the world's two PHYSICAL decks (2026-10-29), the US and China pattern: rivers,
-     lakes and seas, then mountains, deserts and caves — map questions on a locator. */
-  "world-geography": ["geo-world", "gw-", [[1, 233], [501, 603], [605, 613], [615, 666], [668, 670], [672, 712], [715, 731], [733, 733], [751, 762], [801, 850], [901, 950]]],
+     lakes and seas, then mountains, deserts and caves — map questions on a locator. 301-330 is the largest
+     islands deck (2026-11-19), in the free band between the countries and the capitals. */
+  "world-geography": ["geo-world", "gw-", [[1, 233], [501, 603], [605, 613], [615, 666], [668, 670], [672, 712], [715, 731], [733, 733], [751, 762], [301, 330], [801, 850], [901, 950]]],
   /* China: 31 provincial-level divisions and 27 capitals rather than 31. The four missing numbers are
      not gaps to be filled — 519 Chongqing, 523 Shanghai, 526 Beijing and 527 Tianjin are municipalities,
      cities that are themselves divisions, so a capital card there would shade its own answer. Written
