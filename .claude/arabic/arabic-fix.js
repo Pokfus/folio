@@ -48,8 +48,10 @@
       reword a replacement that has shipped, add a pair after it whose `find` is the old replacement.
 
   THE COUNTS IN A DESCRIPTION ARE RECOUNTED, not carried (`recount`): how many words, nouns with a plural,
-  adjectives, verbs, cards with sentences, the phrases' three subdecks, and the days a deck takes at the
-  default pace (ten new cards a day, both directions together: five notes a day).
+  adjectives, verbs, cards with sentences, the phrases' three subdecks and how many of them each level
+  reads (arabic-order.js counts those into the order file), and the days a deck takes at the default pace
+  (ten new cards a day, both directions together: five notes a day). So a figure in a `descSub` replacement
+  is written 0 and filled in here, and a replacement is looked for with its figures masked.
 
   `arabic-order.json`  `{ <deck id>: { why, order: [headword, …] } }`, written by arabic-order.js (its header
       has the rules) and applied LAST: the notes are put in that order and nothing else about them moves. A
@@ -113,6 +115,7 @@ const FIELDS = ["Arabic", "Word", "Roman", "English", "Forms", "Table", "Example
 const findNote = (ref) => { const i = String(ref).indexOf("/"), x = byId.get(String(ref).slice(0, i)); return x && x.d.cards.find((c) => c.fields.Word === String(ref).slice(i + 1)); };
 const posOf = (c) => (/class="uc-pos">([^<]*)</.exec(c.fields.English) || [])[1] || "";
 const C = (n) => n.toLocaleString("en-US");
+const mask = (t) => t.replace(/\d[\d,]*/g, "#");
 
 /* ---------- the counts a description states, by ar_level.py's and phrases.py's formulas ---------- */
 const PACE = 5;   // notes a day: LIMIT_DEFAULTS.lang.newPerDay is ten cards, and a note is two cards
@@ -129,9 +132,16 @@ function recount(d) {
     sub(/Real example sentences come with \d+ of the [\d,]+,/, "Real example sentences come with " + withEx + " of the " + C(n) + ",");
     // three subdecks are dealt side by side, so the deck lasts as long as its longest subdeck
     sub(/(the deck takes about )\d+( days)/, "$1" + Math.ceil(Math.max(p, i, v) / PACE) + "$2");
+    // how many expressions each level reads: arabic-order.js counts them into the order file
+    const t = (ORD[m.id] || {}).counts;
+    if (t) {
+      if (t.reduce((a, b) => a + b, 0) !== n) errors.push(m.id + ": arabic-order.json counts " + t.reduce((a, b) => a + b, 0) + " expressions for a deck of " + n + " — run arabic-order.js");
+      sub(/(an Arabic A1 card shows \()\d+ of the \d+(\))/, "$1" + t[0] + " of the " + n + "$2");
+      sub(/(no level deck cards \()\d+(\))/, "$1" + t[5] + "$2");
+    }
   } else {
     const nounPl = cards.filter((c) => posOf(c) === "noun" && c.fields.Forms.includes('uc-fl">plural')).length;
-    const adjs = cards.filter((c) => posOf(c) === "adjective").length, verbs = cards.filter((c) => c.fields.Table).length;
+    const adjs = cards.filter((c) => posOf(c) === "adjective").length, verbs = cards.filter((c) => posOf(c) === "verb").length;
     m.subtitle = m.subtitle.replace(/^[\d,]+(?= words\b)/, C(n));
     sub(/\b[\d,]+(?= words of Modern Standard Arabic — the written)/, C(n));
     sub(/\b\d+(?= of the nouns show their plural)/, String(nounPl));
@@ -197,7 +207,9 @@ for (const id of order) {
   // 4. the deck's own words about itself
   if (dm.subtitle !== undefined) d.meta.subtitle = dm.subtitle;
   for (const [find, to] of dm.descSub || []) {
-    if (d.meta.desc.includes(to)) continue;   // first, since a replacement may begin with the text it replaces
+    // first, since a replacement may begin with the text it replaces; and with every figure masked, since a
+    // figure a replacement states (written 0 in the record) is recounted below on every run
+    if (mask(d.meta.desc).includes(mask(to))) continue;
     if (d.meta.desc.includes(find)) d.meta.desc = d.meta.desc.split(find).join(to);
     else errors.push(id + " → descSub: neither “" + find.slice(0, 60) + "…” nor its replacement is in the description");
   }

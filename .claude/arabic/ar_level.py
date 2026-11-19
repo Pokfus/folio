@@ -90,7 +90,7 @@ def describe(level, cards, wl, stats):
         "learnt with the noun, and their gender; the %s adjectives show their feminine, their plural and their "
         "comparative; the %s verbs are named, as every Arabic dictionary names them, by the past tense "
         "'he did' (كَتَبَ, 'to write'), with the present, the verbal noun and the verb's form (I–X) beside it, and "
-        "a past and present table of eight persons behind the All forms fold." % (
+        "a past and present table of eight persons, and the imperative, behind the All forms fold." % (
             C(stats["nouns_pl"]), C(stats["adjs"]), C(stats["verbs"])),
     ]
     if have:
