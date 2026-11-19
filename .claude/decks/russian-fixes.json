@@ -1,0 +1,1610 @@
+{
+ "_": "russian-fixes.json — the record of every hand edit to the Russian (torfl) decks, applied by russian-fix.js (its header has the format). Inserts with `from` were MOVED from another deck byte for byte; inserts with `src` were built by .claude/torfl/extra.py (the generator's own stages) and copied here by russian-merge-extra.js. Every meaning is the English Wiktionary's (kaikki.org), every sentence a Tatoeba sentence named by id, every rule of grammar a sentence or cell of the Wikipedia revision its `why` names.",
+ "insert": {
+  "torfla1": [
+   {
+    "word": "тринадцать",
+    "id": 501,
+    "from": "torfla2/тринадцать",
+    "why": "MOVED from TORFL A2 on 2026-11-19, its six fields byte for byte: the numbers from thirteen to ninety were the last cards of A2 (notes 687 to 750), a year after one to twelve. The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\"",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">трина́дцать</div>",
+     "Word": "тринадцать",
+     "English": "<div class=\"uc-pos\">numeral</div><div class=\"uc-gl\">thirteen</div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">cases</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">трина́дцать</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">трина́дцати</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">трина́дцати</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">трина́дцать</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">трина́дцатью</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">трина́дцати</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Мне было тринадцать, когда это случилось.\"></span>Мне было <b>тринадцать</b>, когда это случилось.</div><div class=\"uc-exe\">I was thirteen when it happened.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"У меня есть дочь тринадцати лет.\"></span>У меня есть дочь <b>тринадцати</b> лет.</div><div class=\"uc-exe\">I have a daughter who&#x27;s 13 years old.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Мне тогда было всего тринадцать лет.\"></span>Мне тогда было всего <b>тринадцать</b> лет.</div><div class=\"uc-exe\">I was only thirteen years old at the time.</div></div>"
+    },
+    "forms": [
+     [
+      "noun after it",
+      "genitive plural"
+     ]
+    ]
+   },
+   {
+    "word": "четырнадцать",
+    "id": 502,
+    "from": "torfla2/четырнадцать",
+    "why": "MOVED from TORFL A2 on 2026-11-19, its six fields byte for byte: the numbers from thirteen to ninety were the last cards of A2 (notes 687 to 750), a year after one to twelve. The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\"",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">четы́рнадцать</div>",
+     "Word": "четырнадцать",
+     "English": "<div class=\"uc-pos\">numeral</div><div class=\"uc-gl\">fourteen</div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">cases</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">четы́рнадцать</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">четы́рнадцати</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">четы́рнадцати</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">четы́рнадцать</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">четы́рнадцатью</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">четы́рнадцати</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ему было всего четырнадцать.\"></span>Ему было всего <b>четырнадцать</b>.</div><div class=\"uc-exe\">He was only fourteen.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я работаю с четырнадцати лет.\"></span>Я работаю с <b>четырнадцати</b> лет.</div><div class=\"uc-exe\">I&#x27;ve been working since I was fourteen years old.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Мне будет четырнадцать.\"></span>Мне будет <b>четырнадцать</b>.</div><div class=\"uc-exe\">I am going to be fourteen.</div></div>"
+    },
+    "forms": [
+     [
+      "noun after it",
+      "genitive plural"
+     ]
+    ]
+   },
+   {
+    "word": "пятнадцать",
+    "id": 503,
+    "from": "torfla2/пятнадцать",
+    "why": "MOVED from TORFL A2 on 2026-11-19, its six fields byte for byte: the numbers from thirteen to ninety were the last cards of A2 (notes 687 to 750), a year after one to twelve. The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\"",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">пятна́дцать</div>",
+     "Word": "пятнадцать",
+     "English": "<div class=\"uc-pos\">numeral</div><div class=\"uc-gl\">fifteen</div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">cases</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">пятна́дцать</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">пятна́дцати</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">пятна́дцати</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">пятна́дцать</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">пятна́дцатью</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">пятна́дцати</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я буду там через пятнадцать минут.\"></span>Я буду там через <b>пятнадцать</b> минут.</div><div class=\"uc-exe\">I&#x27;ll be there in fifteen minutes.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Чтобы было пятнадцать, нужно ещё четыре.\"></span>Чтобы было <b>пятнадцать</b>, нужно ещё четыре.</div><div class=\"uc-exe\">Four more are needed to make fifty.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ему тогда было всего пятнадцать лет.\"></span>Ему тогда было всего <b>пятнадцать</b> лет.</div><div class=\"uc-exe\">He was only fifteen years old back then.</div></div>"
+    },
+    "forms": [
+     [
+      "noun after it",
+      "genitive plural"
+     ]
+    ]
+   },
+   {
+    "word": "шестнадцать",
+    "id": 504,
+    "from": "torfla2/шестнадцать",
+    "why": "MOVED from TORFL A2 on 2026-11-19, its six fields byte for byte: the numbers from thirteen to ninety were the last cards of A2 (notes 687 to 750), a year after one to twelve. The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\"",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">шестна́дцать</div>",
+     "Word": "шестнадцать",
+     "English": "<div class=\"uc-pos\">numeral</div><div class=\"uc-gl\">sixteen</div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">cases</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">шестна́дцать</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">шестна́дцати</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">шестна́дцати</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">шестна́дцать</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">шестна́дцатью</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">шестна́дцати</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"«Сколько тебе лет?» — «Шестнадцать лет».\"></span>«Сколько тебе лет?» — «<b>Шестнадцать</b> лет».</div><div class=\"uc-exe\">&quot;How old are you?&quot; &quot;Sixteen years old&quot;.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Сейчас тебе шестнадцать, ты должен лучше знать.\"></span>Сейчас тебе <b>шестнадцать</b>, ты должен лучше знать.</div><div class=\"uc-exe\">Now you are sixteen, you should know better.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"В следующем году мне будет шестнадцать.\"></span>В следующем году мне будет <b>шестнадцать</b>.</div><div class=\"uc-exe\">I&#x27;ll be 16 next year.</div></div>"
+    },
+    "forms": [
+     [
+      "noun after it",
+      "genitive plural"
+     ]
+    ]
+   },
+   {
+    "word": "семнадцать",
+    "id": 505,
+    "from": "torfla2/семнадцать",
+    "why": "MOVED from TORFL A2 on 2026-11-19, its six fields byte for byte: the numbers from thirteen to ninety were the last cards of A2 (notes 687 to 750), a year after one to twelve. The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\"",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">семна́дцать</div>",
+     "Word": "семнадцать",
+     "English": "<div class=\"uc-pos\">numeral</div><div class=\"uc-gl\">seventeen</div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">cases</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">семна́дцать</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">семна́дцати</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">семна́дцати</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">семна́дцать</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">семна́дцатью</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">семна́дцати</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"&quot;Сколько тебе лет?&quot; - &quot;Мне уже семнадцать&quot;.\"></span>&quot;Сколько тебе лет?&quot; - &quot;Мне уже <b>семнадцать</b>&quot;.</div><div class=\"uc-exe\">&quot;How old are you?&quot; &quot;I&#x27;m already 17 years old.&quot;</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Мне будет семнадцать в следующем году.\"></span>Мне будет <b>семнадцать</b> в следующем году.</div><div class=\"uc-exe\">I&#x27;ll be seventeen next year.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Он женился в семнадцать лет.\"></span>Он женился в <b>семнадцать</b> лет.</div><div class=\"uc-exe\">He got married at seventeen.</div></div>"
+    },
+    "forms": [
+     [
+      "noun after it",
+      "genitive plural"
+     ]
+    ]
+   },
+   {
+    "word": "восемнадцать",
+    "id": 506,
+    "from": "torfla2/восемнадцать",
+    "why": "MOVED from TORFL A2 on 2026-11-19, its six fields byte for byte: the numbers from thirteen to ninety were the last cards of A2 (notes 687 to 750), a year after one to twelve. The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\"",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">восемна́дцать</div>",
+     "Word": "восемнадцать",
+     "English": "<div class=\"uc-pos\">numeral</div><div class=\"uc-gl\">eighteen</div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">cases</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">восемна́дцать</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">восемна́дцати</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">восемна́дцати</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">восемна́дцать</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">восемна́дцатью</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">восемна́дцати</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Нам тогда было по восемнадцать лет.\"></span>Нам тогда было по <b>восемнадцать</b> лет.</div><div class=\"uc-exe\">We were eighteen at that time.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Она сказала, что ей больше восемнадцати.\"></span>Она сказала, что ей больше <b>восемнадцати</b>.</div><div class=\"uc-exe\">She said she was over eighteen.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Мне всего лишь восемнадцать лет.\"></span>Мне всего лишь <b>восемнадцать</b> лет.</div><div class=\"uc-exe\">I&#x27;m only eighteen.</div></div>"
+    },
+    "forms": [
+     [
+      "noun after it",
+      "genitive plural"
+     ]
+    ]
+   },
+   {
+    "word": "девятнадцать",
+    "id": 507,
+    "from": "torfla2/девятнадцать",
+    "why": "MOVED from TORFL A2 on 2026-11-19, its six fields byte for byte: the numbers from thirteen to ninety were the last cards of A2 (notes 687 to 750), a year after one to twelve. The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\"",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">девятна́дцать</div>",
+     "Word": "девятнадцать",
+     "English": "<div class=\"uc-pos\">numeral</div><div class=\"uc-gl\">nineteen</div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">cases</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">девятна́дцать</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">девятна́дцати</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">девятна́дцати</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">девятна́дцать</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">девятна́дцатью</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">девятна́дцати</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ей было девятнадцать в то время.\"></span>Ей было <b>девятнадцать</b> в то время.</div><div class=\"uc-exe\">She was 19 at the time.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ему тогда было девятнадцать.\"></span>Ему тогда было <b>девятнадцать</b>.</div><div class=\"uc-exe\">He was 19 at the time.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я женился, когда мне было девятнадцать лет.\"></span>Я женился, когда мне было <b>девятнадцать</b> лет.</div><div class=\"uc-exe\">I married when I was 19 years old.</div></div>"
+    },
+    "forms": [
+     [
+      "noun after it",
+      "genitive plural"
+     ]
+    ]
+   },
+   {
+    "word": "сорок",
+    "id": 508,
+    "from": "torfla2/сорок",
+    "why": "MOVED from TORFL A2 on 2026-11-19, its six fields byte for byte: the numbers from thirteen to ninety were the last cards of A2 (notes 687 to 750), a year after one to twelve. The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\"",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">со́рок</div>",
+     "Word": "сорок",
+     "English": "<div class=\"uc-pos\">numeral</div><div class=\"uc-gl\">forty</div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">cases</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">со́рок</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">сорока́</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">сорока́</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">со́рок</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">сорока́</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">сорока́</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"От дома до работы сорок минут.\"></span>От дома до работы <b>сорок</b> минут.</div><div class=\"uc-exe\">From home to work, it takes 40 minutes.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я бы сказал, ей за сорок.\"></span>Я бы сказал, ей за <b>сорок</b>.</div><div class=\"uc-exe\">I&#x27;d say she is over forty.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Нам всем вместе сорок три.\"></span>Нам всем вместе <b>сорок</b> три.</div><div class=\"uc-exe\">We are forty-three put together.</div></div>"
+    },
+    "forms": [
+     [
+      "noun after it",
+      "genitive plural"
+     ]
+    ]
+   },
+   {
+    "word": "пятьдесят",
+    "id": 509,
+    "from": "torfla2/пятьдесят",
+    "why": "MOVED from TORFL A2 on 2026-11-19, its six fields byte for byte: the numbers from thirteen to ninety were the last cards of A2 (notes 687 to 750), a year after one to twelve. The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\"",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">пятьдеся́т</div>",
+     "Word": "пятьдесят",
+     "English": "<div class=\"uc-pos\">numeral</div><div class=\"uc-gl\">fifty</div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">cases</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">пятьдеся́т</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">пяти́десяти</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">пяти́десяти</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">пятьдеся́т</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">пятью́десятью</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">пяти́десяти</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я слышал, что ему пятьдесят пять.\"></span>Я слышал, что ему <b>пятьдесят</b> пять.</div><div class=\"uc-exe\">I heard that he was 55 years old.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ему, должно быть, за пятьдесят.\"></span>Ему, должно быть, за <b>пятьдесят</b>.</div><div class=\"uc-exe\">He must be over fifty.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Телефон звонит раз пятьдесят в час.\"></span>Телефон звонит раз <b>пятьдесят</b> в час.</div><div class=\"uc-exe\">The phone rings approximately fifty times an hour.</div></div>"
+    },
+    "forms": [
+     [
+      "noun after it",
+      "genitive plural"
+     ]
+    ]
+   },
+   {
+    "word": "шестьдесят",
+    "id": 510,
+    "from": "torfla2/шестьдесят",
+    "why": "MOVED from TORFL A2 on 2026-11-19, its six fields byte for byte: the numbers from thirteen to ninety were the last cards of A2 (notes 687 to 750), a year after one to twelve. The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\"",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">шестьдеся́т</div>",
+     "Word": "шестьдесят",
+     "English": "<div class=\"uc-pos\">numeral</div><div class=\"uc-gl\">sixty</div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">cases</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">шестьдеся́т</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">шести́десяти</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">шести́десяти</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">шестьдеся́т</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">шестью́десятью</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">шести́десяти</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ему, должно быть, за шестьдесят.\"></span>Ему, должно быть, за <b>шестьдесят</b>.</div><div class=\"uc-exe\">He must be over sixty.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ей почти шестьдесят лет.\"></span>Ей почти <b>шестьдесят</b> лет.</div><div class=\"uc-exe\">She is almost sixty years old.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Мне шестьдесят один год.\"></span>Мне <b>шестьдесят</b> один год.</div><div class=\"uc-exe\">I&#x27;m sixty-one.</div></div>"
+    },
+    "forms": [
+     [
+      "noun after it",
+      "genitive plural"
+     ]
+    ]
+   },
+   {
+    "word": "семьдесят",
+    "id": 511,
+    "from": "torfla2/семьдесят",
+    "why": "MOVED from TORFL A2 on 2026-11-19, its six fields byte for byte: the numbers from thirteen to ninety were the last cards of A2 (notes 687 to 750), a year after one to twelve. The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\"",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">се́мьдесят</div>",
+     "Word": "семьдесят",
+     "English": "<div class=\"uc-pos\">numeral</div><div class=\"uc-gl\">seventy</div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">cases</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">се́мьдесят</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">семи́десяти</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">семи́десяти</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">се́мьдесят</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">семью́десятью</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">семи́десяти</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Это правда, что ему за семьдесят.\"></span>Это правда, что ему за <b>семьдесят</b>.</div><div class=\"uc-exe\">It is true that he is over seventy.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ему уже больше семидесяти.\"></span>Ему уже больше <b>семидесяти</b>.</div><div class=\"uc-exe\">He is already over 70.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Мне семьдесят три года.\"></span>Мне <b>семьдесят</b> три года.</div><div class=\"uc-exe\">I&#x27;m 73 years old.</div></div>"
+    },
+    "forms": [
+     [
+      "noun after it",
+      "genitive plural"
+     ]
+    ]
+   },
+   {
+    "word": "восемьдесят",
+    "id": 512,
+    "from": "torfla2/восемьдесят",
+    "why": "MOVED from TORFL A2 on 2026-11-19, its six fields byte for byte: the numbers from thirteen to ninety were the last cards of A2 (notes 687 to 750), a year after one to twelve. The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\"",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">во́семьдесят</div>",
+     "Word": "восемьдесят",
+     "English": "<div class=\"uc-pos\">numeral</div><div class=\"uc-gl\">eighty</div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">cases</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">во́семьдесят</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">восьми́десяти</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">восьми́десяти</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">во́семьдесят</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">восемью́десятью, восьмью́десятью</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">восьми́десяти</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ей сейчас восемьдесят один год.\"></span>Ей сейчас <b>восемьдесят</b> один год.</div><div class=\"uc-exe\">She is now eighty-one years old.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"&quot;Сколько вам лет?&quot; - &quot;Мне восемьдесят девять&quot;.\"></span>&quot;Сколько вам лет?&quot; - &quot;Мне <b>восемьдесят</b> девять&quot;.</div><div class=\"uc-exe\">&quot;How old are you?&quot; &quot;I am eighty-nine years old.&quot;</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Мне восемьдесят три года.\"></span>Мне <b>восемьдесят</b> три года.</div><div class=\"uc-exe\">I&#x27;m eighty-three years old.</div></div>"
+    },
+    "forms": [
+     [
+      "noun after it",
+      "genitive plural"
+     ]
+    ]
+   },
+   {
+    "word": "девяносто",
+    "id": 513,
+    "from": "torfla2/девяносто",
+    "why": "MOVED from TORFL A2 on 2026-11-19, its six fields byte for byte: the numbers from thirteen to ninety were the last cards of A2 (notes 687 to 750), a year after one to twelve. The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\"",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">девяно́сто</div>",
+     "Word": "девяносто",
+     "English": "<div class=\"uc-pos\">numeral</div><div class=\"uc-gl\">ninety</div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">cases</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">девяно́сто</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">девяно́ста</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">девяно́ста</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">девяно́сто</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">девяно́ста</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">девяно́ста</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Мне ещё нет девяноста лет.\"></span>Мне ещё нет <b>девяноста</b> лет.</div><div class=\"uc-exe\">I am not ninety years old yet.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ему девяносто лет.\"></span>Ему <b>девяносто</b> лет.</div><div class=\"uc-exe\">He&#x27;s ninety years old.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я уверен на девяносто девять процентов.\"></span>Я уверен на <b>девяносто</b> девять процентов.</div><div class=\"uc-exe\">I&#x27;m 99% sure.</div></div>"
+    },
+    "forms": [
+     [
+      "noun after it",
+      "genitive plural"
+     ]
+    ]
+   },
+   {
+    "word": "как вас зовут",
+    "id": 514,
+    "from": "ruphrase/как вас зовут",
+    "why": "MOVED from Russian Phrases and Expressions on 2026-11-19, its six fields byte for byte: a first exchange belongs in the first hundred words, and the phrases deck is the last on the shelf.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">как вас зову́т</div>",
+     "Word": "как вас зовут",
+     "English": "<div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">what is your name? (formal)</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я не знаю, как Вас зовут.\"></span>Я не знаю, <b>как Вас зовут</b>.</div><div class=\"uc-exe\">I don&#x27;t know your name.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Вы не знаете, как Вас зовут?\"></span>Вы не знаете, <b>как Вас зовут</b>?</div><div class=\"uc-exe\">Don&#x27;t you know your name?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Скажите мне, пожалуйста, как вас зовут.\"></span>Скажите мне, пожалуйста, <b>как вас зовут</b>.</div><div class=\"uc-exe\">Please tell me your name.</div></div>"
+    }
+   },
+   {
+    "word": "как тебя зовут",
+    "id": 515,
+    "from": "ruphrase/как тебя зовут",
+    "why": "MOVED from Russian Phrases and Expressions on 2026-11-19, its six fields byte for byte: a first exchange belongs in the first hundred words, and the phrases deck is the last on the shelf.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">как тебя́ зову́т</div>",
+     "Word": "как тебя зовут",
+     "English": "<div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">what is your name? (familiar)</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я не знаю, как тебя зовут.\"></span>Я не знаю, <b>как тебя зовут</b>.</div><div class=\"uc-exe\">I don&#x27;t know your name.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Можешь сказать мне, как тебя зовут?\"></span>Можешь сказать мне, <b>как тебя зовут</b>?</div><div class=\"uc-exe\">Can you tell me your name?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я хочу знать, как тебя зовут.\"></span>Я хочу знать, <b>как тебя зовут</b>.</div><div class=\"uc-exe\">I want to know your name.</div></div>"
+    }
+   },
+   {
+    "word": "я не понимаю",
+    "id": 516,
+    "from": "ruphrase/я не понимаю",
+    "why": "MOVED from Russian Phrases and Expressions on 2026-11-19, its six fields byte for byte: a first exchange belongs in the first hundred words, and the phrases deck is the last on the shelf.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">я не понима́ю</div>",
+     "Word": "я не понимаю",
+     "English": "<div class=\"uc-pos\">phrase, not не понима́ю</div><div class=\"uc-gl\">I don&#x27;t understand</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я не понимаю, что вы говорите.\"></span><b>Я не понимаю</b>, что вы говорите.</div><div class=\"uc-exe\">I don&#x27;t understand what you are saying.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я не понимаю, как это работает.\"></span><b>Я не понимаю</b>, как это работает.</div><div class=\"uc-exe\">I don&#x27;t understand how this works.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я не понимаю, что она говорит.\"></span><b>Я не понимаю</b>, что она говорит.</div><div class=\"uc-exe\">I can&#x27;t understand what she says.</div></div>"
+    }
+   },
+   {
+    "word": "сколько это стоит",
+    "id": 517,
+    "from": "ruphrase/сколько это стоит",
+    "why": "MOVED from Russian Phrases and Expressions on 2026-11-19, its six fields byte for byte: a first exchange belongs in the first hundred words, and the phrases deck is the last on the shelf.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">ско́лько э́то сто́ит</div>",
+     "Word": "сколько это стоит",
+     "English": "<div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">how much does this/that/it cost?, how much is this/that/it?</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ты не сказал, сколько это стоит.\"></span>Ты не сказал, <b>сколько это стоит</b>.</div><div class=\"uc-exe\">You didn&#x27;t say how much it cost.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Вы не сказали, сколько это стоит.\"></span>Вы не сказали, <b>сколько это стоит</b>.</div><div class=\"uc-exe\">You didn&#x27;t say how much it cost.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Сколько это стоит для одного человека?\"></span><b>Сколько это стоит</b> для одного человека?</div><div class=\"uc-exe\">How much does it cost for one person?</div></div>"
+    }
+   },
+   {
+    "word": "вы говорите по-английски",
+    "id": 518,
+    "from": "ruphrase/вы говорите по-английски",
+    "why": "MOVED from Russian Phrases and Expressions on 2026-11-19, its six fields byte for byte: a first exchange belongs in the first hundred words, and the phrases deck is the last on the shelf.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">вы говори́те по-англи́йски</div>",
+     "Word": "вы говорите по-английски",
+     "English": "<div class=\"uc-pos\">phrase, not ты говори́шь по-англи́йски</div><div class=\"uc-gl\">do you speak English?</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"«Простите, вы говорите по-английски?» — «Да, немного».\"></span>«Простите, <b>вы говорите по-английски</b>?» — «Да, немного».</div><div class=\"uc-exe\">&quot;Excuse me, do you speak English?&quot; &quot;Yes. A little.&quot;</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я не знал, что вы говорите по-английски.\"></span>Я не знал, что <b>вы говорите по-английски</b>.</div><div class=\"uc-exe\">I didn&#x27;t know you spoke English.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Извините, вы говорите по-английски?\"></span>Извините, <b>вы говорите по-английски</b>?</div><div class=\"uc-exe\">Excuse me. Do you speak English?</div></div>"
+    }
+   },
+   {
+    "word": "я не говорю по-русски",
+    "id": 519,
+    "from": "ruphrase/я не говорю по-русски",
+    "why": "MOVED from Russian Phrases and Expressions on 2026-11-19, its six fields byte for byte: a first exchange belongs in the first hundred words, and the phrases deck is the last on the shelf.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">я не говорю́ по-ру́сски</div>",
+     "Word": "я не говорю по-русски",
+     "English": "<div class=\"uc-pos\">phrase, not я не разгова́риваю по-ру́сски</div><div class=\"uc-gl\">I don&#x27;t speak Russian</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я не говорю по-русски, и ты тоже.\"></span><b>Я не говорю по-русски</b>, и ты тоже.</div><div class=\"uc-exe\">I don&#x27;t speak Russian, and neither do you.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Простите, я не говорю по-русски.\"></span>Простите, <b>я не говорю по-русски</b>.</div><div class=\"uc-exe\">Sorry, I don&#x27;t speak Russian.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я не говорю по-русски.\"></span><b>Я не говорю по-русски</b>.</div><div class=\"uc-exe\">I don&#x27;t speak Russian.</div></div>"
+    }
+   },
+   {
+    "word": "до завтра",
+    "id": 520,
+    "from": "ruphrase/до завтра",
+    "why": "MOVED from Russian Phrases and Expressions on 2026-11-19, its six fields byte for byte: a first exchange belongs in the first hundred words, and the phrases deck is the last on the shelf.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">до за́втра</div>",
+     "Word": "до завтра",
+     "English": "<div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">until tomorrow; see you tomorrow</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я не могу ждать до завтра.\"></span>Я не могу ждать <b>до завтра</b>.</div><div class=\"uc-exe\">I can&#x27;t wait until tomorrow.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Это не может ждать до завтра.\"></span>Это не может ждать <b>до завтра</b>.</div><div class=\"uc-exe\">This can&#x27;t wait until morning.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я могу остаться здесь до завтра.\"></span>Я могу остаться здесь <b>до завтра</b>.</div><div class=\"uc-exe\">I can stay here until tomorrow.</div></div>"
+    }
+   },
+   {
+    "word": "где туалет",
+    "id": 521,
+    "from": "ruphrase/где туалет",
+    "why": "MOVED from Russian Phrases and Expressions on 2026-11-19, its six fields byte for byte: a first exchange belongs in the first hundred words, and the phrases deck is the last on the shelf.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">где туале́т</div>",
+     "Word": "где туалет",
+     "English": "<div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">where is the toilet?</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Сами не знал, где туалет.\"></span>Сами не знал, <b>где туалет</b>.</div><div class=\"uc-exe\">Sami didn&#x27;t know where the restroom was.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Скажите, пожалуйста, где туалет?\"></span>Скажите, пожалуйста, <b>где туалет</b>?</div><div class=\"uc-exe\">Where are the toilets, please?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Вы знаете, где туалет?\"></span>Вы знаете, <b>где туалет</b>?</div><div class=\"uc-exe\">Do you know where the bathroom is?</div></div>"
+    }
+   },
+   {
+    "word": "себя",
+    "id": 522,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">себя́</div>",
+     "Word": "себя",
+     "English": "<div class=\"uc-pos\">pronoun</div><div class=\"uc-gl\">oneself: myself, yourself, himself … (refers back to the subject)</div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">cases</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">—</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">себя́</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">себя́</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">себе́</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">собо́й, собо́ю</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">себе́</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Сколько денег мне взять с собой?\"></span>Сколько денег мне взять с <b>собой</b>?</div><div class=\"uc-exe\">How much money should I take along with me?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я не очень хорошо себя чувствую.\"></span>Я не очень хорошо <b>себя</b> чувствую.</div><div class=\"uc-exe\">I don&#x27;t feel well.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ты даже не можешь помочь себе.\"></span>Ты даже не можешь помочь <b>себе</b>.</div><div class=\"uc-exe\">You can&#x27;t even help yourself.</div></div>"
+    },
+    "src": "Tatoeba 2450012, Tatoeba 2482164, Tatoeba 2589163"
+   },
+   {
+    "word": "весь",
+    "id": 523,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">весь</div>",
+     "Word": "весь",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">determiner</div><div class=\"uc-gl\">all, the whole</div></div><div class=\"uc-sense\"><div class=\"uc-pos\">pronoun</div><ul class=\"uc-gls\"><li>everything (the neuter, всё)</li><li>everyone, everybody (the plural, все)</li></ul></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">masculine</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">весь</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">всего́</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">всему́</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">весь / всего́</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">всем</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">всём</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">neuter</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">всё</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">всего́</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">всему́</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">всё</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">всем</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">всём</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">feminine</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">вся</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">всей, всея́</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">всей</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">всю</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">всей, все́ю</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">всей</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">все</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">всех</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">всем</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">все / всех</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">все́ми</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">всех</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Вчера я весь день был дома.\"></span>Вчера я <b>весь</b> день был дома.</div><div class=\"uc-exe\">I was home all day yesterday.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я сделаю всё, чтобы получить работу.\"></span>Я сделаю <b>всё</b>, чтобы получить работу.</div><div class=\"uc-exe\">I will do anything to get a job.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Все хотели, чтобы я это сделал.\"></span><b>Все</b> хотели, чтобы я это сделал.</div><div class=\"uc-exe\">Everybody wanted me to do it.</div></div>"
+    },
+    "src": "Tatoeba 2908134, Tatoeba 1718654, Tatoeba 1870701"
+   },
+   {
+    "word": "так",
+    "id": 524,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">так</div>",
+     "Word": "так",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adverb</div><ul class=\"uc-gls\"><li>so, like this, this way</li><li>so, so much (to a high degree)</li></ul></div><div class=\"uc-sense\"><div class=\"uc-pos\">conjunction</div><div class=\"uc-gl\">so, then (therefore)</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Почему ты так поздно пришла домой?\"></span>Почему ты <b>так</b> поздно пришла домой?</div><div class=\"uc-exe\">Why did you come home so late?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ты не можешь больше так жить.\"></span>Ты не можешь больше <b>так</b> жить.</div><div class=\"uc-exe\">You can&#x27;t live like that anymore.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Она знала, что что-то не так.\"></span>Она знала, что что-то не <b>так</b>.</div><div class=\"uc-exe\">She knew something was wrong.</div></div>"
+    },
+    "src": "Tatoeba 2561494, Tatoeba 2533478, Tatoeba 1915359"
+   },
+   {
+    "word": "такой",
+    "id": 525,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">тако́й</div>",
+     "Word": "такой",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">determiner</div><div class=\"uc-gl\">such, such a, like this, that kind of</div></div><div class=\"uc-sense\"><div class=\"uc-pos\">adverb</div><div class=\"uc-gl\">so (to a high degree, before an adjective)</div></div>",
+     "Forms": "",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">masculine</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">тако́й</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">тако́го</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">тако́му</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">тако́й / тако́го</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">таки́м</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">тако́м</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">neuter</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">тако́е</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">тако́го</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">тако́му</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">тако́е</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">таки́м</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">тако́м</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">feminine</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">така́я</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">тако́й</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">тако́й</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">таку́ю</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">тако́й, тако́ю</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">тако́й</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">таки́е</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">таки́х</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">таки́м</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">таки́е / таки́х</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">таки́ми</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">таки́х</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я был таким же, как Вы.\"></span>Я был <b>таким</b> же, как Вы.</div><div class=\"uc-exe\">I used to be like you.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Никогда не думал, что скажу такое.\"></span>Никогда не думал, что скажу <b>такое</b>.</div><div class=\"uc-exe\">I never thought I&#x27;d say that.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я никогда о таком не слышал.\"></span>Я никогда о <b>таком</b> не слышал.</div><div class=\"uc-exe\">I&#x27;ve never heard of such a thing.</div></div>"
+    },
+    "src": "Tatoeba 2484420, Tatoeba 2498032, Tatoeba 2513451"
+   },
+   {
+    "word": "чем",
+    "id": 526,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">чем</div>",
+     "Word": "чем",
+     "English": "<div class=\"uc-pos\">conjunction</div><ul class=\"uc-gls\"><li>than</li><li>instead of, rather</li></ul>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ты знаешь его лучше, чем я.\"></span>Ты знаешь его лучше, <b>чем</b> я.</div><div class=\"uc-exe\">You know him better than I do.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я чувствую себя лучше, чем раньше.\"></span>Я чувствую себя лучше, <b>чем</b> раньше.</div><div class=\"uc-exe\">I feel better than before.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я знаю не больше, чем ты.\"></span>Я знаю не больше, <b>чем</b> ты.</div><div class=\"uc-exe\">I don&#x27;t know any more than you do.</div></div>"
+    },
+    "src": "Tatoeba 2518190, Tatoeba 2729306, Tatoeba 2897091"
+   },
+   {
+    "word": "просто",
+    "id": 527,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">про́сто</div>",
+     "Word": "просто",
+     "English": "<div class=\"uc-pos\">adverb</div><div class=\"uc-gl\">simply, plainly, just</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ты просто смотри, что я делаю.\"></span>Ты <b>просто</b> смотри, что я делаю.</div><div class=\"uc-exe\">You have only to watch what I do.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я просто хочу, чтобы ты пришёл.\"></span>Я <b>просто</b> хочу, чтобы ты пришёл.</div><div class=\"uc-exe\">I just want you to come.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я просто хотел посмотреть, что будет.\"></span>Я <b>просто</b> хотел посмотреть, что будет.</div><div class=\"uc-exe\">I just wanted to see what would happen.</div></div>"
+    },
+    "src": "Tatoeba 1862062, Tatoeba 1944691, Tatoeba 2076301"
+   },
+   {
+    "word": "конечно",
+    "id": 528,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">коне́чно</div>",
+     "Word": "конечно",
+     "English": "<div class=\"uc-pos\">adverb</div><div class=\"uc-gl\">of course, certainly</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Конечно, можешь взять его, если хочешь.\"></span><b>Конечно</b>, можешь взять его, если хочешь.</div><div class=\"uc-exe\">Of course you can take it if you want.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Конечно, я бы хотел помочь ему.\"></span><b>Конечно</b>, я бы хотел помочь ему.</div><div class=\"uc-exe\">I&#x27;d sure like to help him.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Конечно, я не могу им сказать.\"></span><b>Конечно</b>, я не могу им сказать.</div><div class=\"uc-exe\">Of course, I can&#x27;t tell them.</div></div>"
+    },
+    "src": "Tatoeba 3036789, Tatoeba 4141428, Tatoeba 4542730"
+   },
+   {
+    "word": "ладно",
+    "id": 529,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">ла́дно</div>",
+     "Word": "ладно",
+     "English": "<div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">well, all right, okay</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Не будем говорить о работе, ладно?\"></span>Не будем говорить о работе, <b>ладно</b>?</div><div class=\"uc-exe\">Let&#x27;s not talk shop, OK?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ну, ладно тебе! Дай мне шанс.\"></span>Ну, <b>ладно</b> тебе! Дай мне шанс.</div><div class=\"uc-exe\">Come on! Give me a chance.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ладно, мне тут надо кое-что сделать.\"></span><b>Ладно</b>, мне тут надо кое-что сделать.</div><div class=\"uc-exe\">Well, I have to do something.</div></div>"
+    },
+    "src": "Tatoeba 3182811, Tatoeba 8400004, Tatoeba 8622092"
+   },
+   {
+    "word": "ну",
+    "id": 530,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">ну</div>",
+     "Word": "ну",
+     "English": "<div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">well</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ну что, ты им уже сказал?\"></span><b>Ну</b> что, ты им уже сказал?</div><div class=\"uc-exe\">So, have you told them yet?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ну так что? Идём или нет?\"></span><b>Ну</b> так что? Идём или нет?</div><div class=\"uc-exe\">What now? Are we going or not?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ну, что же я буду делать?\"></span><b>Ну</b>, что же я буду делать?</div><div class=\"uc-exe\">Well, what am I going to do?</div></div>"
+    },
+    "src": "Tatoeba 4037203, Tatoeba 4691115, Tatoeba 4955775"
+   },
+   {
+    "word": "раз",
+    "id": 531,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">раз</div>",
+     "Word": "раз",
+     "English": "<div class=\"uc-pos\">noun, masculine</div><ul class=\"uc-gls\"><li>time (an instance or occurrence)</li><li>one (in counting)</li></ul>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">genitive</span>ра́за</span><span class=\"uc-fi\"><span class=\"uc-fl\">plural</span>разы́</span></div>",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">раз</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">ра́за</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">ра́зу</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">раз</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">ра́зом</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">ра́зе</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">разы́</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">раз</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">раза́м</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">разы́</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">раза́ми</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">раза́х</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я видел её только один раз.\"></span>Я видел её только один <b>раз</b>.</div><div class=\"uc-exe\">I only saw her once.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Сколько раз мне нужно тебе говорить?\"></span>Сколько <b>раз</b> мне нужно тебе говорить?</div><div class=\"uc-exe\">How many times do I have to tell you?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я хочу пойти туда ещё раз.\"></span>Я хочу пойти туда ещё <b>раз</b>.</div><div class=\"uc-exe\">I want to go there once again.</div></div>"
+    },
+    "src": "Tatoeba 2159113, Tatoeba 2652013, Tatoeba 3781173"
+   },
+   {
+    "word": "правда",
+    "id": 532,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">пра́вда</div>",
+     "Word": "правда",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">noun, feminine</div><div class=\"uc-gl\">truth</div></div><div class=\"uc-sense\"><div class=\"uc-pos\">interjection</div><ul class=\"uc-gls\"><li>is that so? really?</li><li>indeed, as a matter of fact</li></ul></div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">genitive</span>пра́вды</span><span class=\"uc-fi\"><span class=\"uc-fl\">plural</span>пра́вды</span></div>",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">пра́вда</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">пра́вды</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">пра́вде</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">пра́вду</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">пра́вдой, пра́вдою</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">пра́вде</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">пра́вды</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">правд</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">пра́вдам</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">пра́вды</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">пра́вдами</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">пра́вдах</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я не знаю, что такое правда.\"></span>Я не знаю, что такое <b>правда</b>.</div><div class=\"uc-exe\">I don&#x27;t know what the truth is.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я должен знать, правда ли это.\"></span>Я должен знать, <b>правда</b> ли это.</div><div class=\"uc-exe\">I have to know if it is true.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Сказать по правде, он не человек.\"></span>Сказать по <b>правде</b>, он не человек.</div><div class=\"uc-exe\">To tell the truth, he is not a human being.</div></div>"
+    },
+    "src": "Tatoeba 3640389, Tatoeba 2282968, Tatoeba 443425"
+   },
+   {
+    "word": "больше",
+    "id": 533,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">бо́льше</div>",
+     "Word": "больше",
+     "English": "<div class=\"uc-pos\">adverb</div><ul class=\"uc-gls\"><li>more (the comparative of много)</li><li>bigger, larger (the comparative of большой)</li><li>any more (after не: no longer)</li></ul>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я больше не хочу ничего знать.\"></span>Я <b>больше</b> не хочу ничего знать.</div><div class=\"uc-exe\">I don&#x27;t want to know any more.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Дом моего отца больше, чем мой.\"></span>Дом моего отца <b>больше</b>, чем мой.</div><div class=\"uc-exe\">My father&#x27;s house is larger than mine.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Больше я его никогда не видел.\"></span><b>Больше</b> я его никогда не видел.</div><div class=\"uc-exe\">Never did I see him again.</div></div>"
+    },
+    "src": "Tatoeba 2653830, Tatoeba 5271146, Tatoeba 1883724"
+   },
+   {
+    "word": "лучше",
+    "id": 534,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">лу́чше</div>",
+     "Word": "лучше",
+     "English": "<div class=\"uc-pos\">adverb</div><ul class=\"uc-gls\"><li>better (the comparative of хороший and хорошо)</li><li>rather, had better</li></ul>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я думаю, что тебе лучше уйти.\"></span>Я думаю, что тебе <b>лучше</b> уйти.</div><div class=\"uc-exe\">I think you&#x27;d better leave.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Он может сделать это лучше меня.\"></span>Он может сделать это <b>лучше</b> меня.</div><div class=\"uc-exe\">He can do it better than me.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я бы лучше был с тобой.\"></span>Я бы <b>лучше</b> был с тобой.</div><div class=\"uc-exe\">I&#x27;d rather be with you.</div></div>"
+    },
+    "src": "Tatoeba 2452963, Tatoeba 2584935, Tatoeba 2633032"
+   },
+   {
+    "word": "раньше",
+    "id": 535,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">ра́ньше</div>",
+     "Word": "раньше",
+     "English": "<div class=\"uc-pos\">adverb</div><div class=\"uc-gl\">earlier, before, in the past</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я раньше никогда такого не видел.\"></span>Я <b>раньше</b> никогда такого не видел.</div><div class=\"uc-exe\">I&#x27;ve never seen that before.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Она никогда раньше этого не видела.\"></span>Она никогда <b>раньше</b> этого не видела.</div><div class=\"uc-exe\">She has never seen it before.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я пытался рассказать тебе это раньше.\"></span>Я пытался рассказать тебе это <b>раньше</b>.</div><div class=\"uc-exe\">I tried to tell you this before.</div></div>"
+    },
+    "src": "Tatoeba 2038595, Tatoeba 2552153, Tatoeba 2618369"
+   },
+   {
+    "word": "более",
+    "id": 536,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">бо́лее</div>",
+     "Word": "более",
+     "English": "<div class=\"uc-pos\">adverb</div><ul class=\"uc-gls\"><li>more</li><li>more than</li></ul>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Мне не нужна более дорогая машина.\"></span>Мне не нужна <b>более</b> дорогая машина.</div><div class=\"uc-exe\">I don&#x27;t need a more expensive car.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я буду более чем рада помочь.\"></span>Я буду <b>более</b> чем рада помочь.</div><div class=\"uc-exe\">I&#x27;ll be more than happy to help.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Он был более чем рад сделать это.\"></span>Он был <b>более</b> чем рад сделать это.</div><div class=\"uc-exe\">He was more than happy to do it.</div></div>"
+    },
+    "src": "Tatoeba 13920218, Tatoeba 14091433, Tatoeba 12463856"
+   },
+   {
+    "word": "возможно",
+    "id": 537,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">возмо́жно</div>",
+     "Word": "возможно",
+     "English": "<div class=\"uc-pos\">adverb</div><div class=\"uc-gl\">perhaps, possibly</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я не понимаю, как это возможно.\"></span>Я не понимаю, как это <b>возможно</b>.</div><div class=\"uc-exe\">I don&#x27;t see how that can be true.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Это же возможно, не так ли?\"></span>Это же <b>возможно</b>, не так ли?</div><div class=\"uc-exe\">It&#x27;s possible, isn&#x27;t it?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Теперь я знаю, что это возможно.\"></span>Теперь я знаю, что это <b>возможно</b>.</div><div class=\"uc-exe\">I now know it&#x27;s possible.</div></div>"
+    },
+    "src": "Tatoeba 2480020, Tatoeba 2556684, Tatoeba 3505257"
+   },
+   {
+    "word": "может быть",
+    "id": 538,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">мо́жет быть</div>",
+     "Word": "может быть",
+     "English": "<div class=\"uc-pos\">adverb</div><div class=\"uc-gl\">maybe, perhaps, possibly</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Да. Нет. Может быть. Не знаю.\"></span>Да. Нет. <b>Может быть</b>. Не знаю.</div><div class=\"uc-exe\">Yes. No. Maybe. I don&#x27;t know.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Может быть, они мне не нужны.\"></span><b>Может быть</b>, они мне не нужны.</div><div class=\"uc-exe\">Maybe I don&#x27;t need them.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Может быть, мы можем помочь ему.\"></span><b>Может быть</b>, мы можем помочь ему.</div><div class=\"uc-exe\">Maybe we can help him.</div></div>"
+    },
+    "src": "Tatoeba 4576207, Tatoeba 4802892, Tatoeba 4844326"
+   },
+   {
+    "word": "жаль",
+    "id": 539,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">жаль</div>",
+     "Word": "жаль",
+     "English": "<div class=\"uc-pos\">predicative</div><ul class=\"uc-gls\"><li>it&#x27;s a pity</li><li>one pities, one is sorry</li></ul>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Мне очень жаль, отца здесь нет.\"></span>Мне очень <b>жаль</b>, отца здесь нет.</div><div class=\"uc-exe\">I&#x27;m sorry, my father&#x27;s not here.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Мне жаль, что я туда пошёл.\"></span>Мне <b>жаль</b>, что я туда пошёл.</div><div class=\"uc-exe\">I regret going there.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Жаль, что я не знал правду.\"></span><b>Жаль</b>, что я не знал правду.</div><div class=\"uc-exe\">I wish I had known the truth.</div></div>"
+    },
+    "src": "Tatoeba 2507617, Tatoeba 3306748, Tatoeba 4271209"
+   },
+   {
+    "word": "действительно",
+    "id": 540,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">действи́тельно</div>",
+     "Word": "действительно",
+     "English": "<div class=\"uc-pos\">adverb</div><div class=\"uc-gl\">really, actually, truly, indeed</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Что?! Ты действительно этого не делал?\"></span>Что?! Ты <b>действительно</b> этого не делал?</div><div class=\"uc-exe\">What! You didn&#x27;t really do that?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"У меня действительно не было времени.\"></span>У меня <b>действительно</b> не было времени.</div><div class=\"uc-exe\">I really didn&#x27;t have time.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я действительно хочу пойти с тобой.\"></span>Я <b>действительно</b> хочу пойти с тобой.</div><div class=\"uc-exe\">I do want to go with you.</div></div>"
+    },
+    "src": "Tatoeba 2181743, Tatoeba 2497778, Tatoeba 2785683"
+   },
+   {
+    "word": "плохо",
+    "id": 541,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">пло́хо</div>",
+     "Word": "плохо",
+     "English": "<div class=\"uc-pos\">adverb</div><ul class=\"uc-gls\"><li>badly, bad</li><li>unwell</li></ul>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я знаю, что это очень плохо.\"></span>Я знаю, что это очень <b>плохо</b>.</div><div class=\"uc-exe\">I know it&#x27;s very bad.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Это хорошо или плохо для нас?\"></span>Это хорошо или <b>плохо</b> для нас?</div><div class=\"uc-exe\">Is that good or bad for us?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Это не хорошо и не плохо.\"></span>Это не хорошо и не <b>плохо</b>.</div><div class=\"uc-exe\">It is neither good nor bad.</div></div>"
+    },
+    "src": "Tatoeba 3995140, Tatoeba 4810010, Tatoeba 6088707"
+   },
+   {
+    "word": "быстро",
+    "id": 542,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">бы́стро</div>",
+     "Word": "быстро",
+     "English": "<div class=\"uc-pos\">adverb</div><div class=\"uc-gl\">fast, quickly, rapidly</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я не могу говорить так быстро.\"></span>Я не могу говорить так <b>быстро</b>.</div><div class=\"uc-exe\">I&#x27;m not able to speak so fast.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Не знаю. Всё так быстро произошло.\"></span>Не знаю. Всё так <b>быстро</b> произошло.</div><div class=\"uc-exe\">I don&#x27;t know. It all happened so fast.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Мы должны будем сделать это быстро.\"></span>Мы должны будем сделать это <b>быстро</b>.</div><div class=\"uc-exe\">We&#x27;ll have to do this quickly.</div></div>"
+    },
+    "src": "Tatoeba 1751097, Tatoeba 2836399, Tatoeba 3163075"
+   },
+   {
+    "word": "при",
+    "id": 543,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">при</div>",
+     "Word": "при",
+     "English": "<div class=\"uc-pos\">preposition</div><ul class=\"uc-gls\"><li>in the time of, in the presence of, with, during (+ prepositional)</li><li>at, by (+ prepositional)</li></ul>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"У неё нет при себе денег.\"></span>У неё нет <b>при</b> себе денег.</div><div class=\"uc-exe\">She has no money about her.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Я был весь день при ней.\"></span>Я был весь день <b>при</b> ней.</div><div class=\"uc-exe\">I was with her all day.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Он тут ни при чём.\"></span>Он тут ни <b>при</b> чём.</div><div class=\"uc-exe\">He has nothing to do with it.</div></div>"
+    },
+    "src": "Tatoeba 4282384, Tatoeba 13798500, Tatoeba 3296546"
+   },
+   {
+    "word": "парень",
+    "id": 544,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">па́рень</div>",
+     "Word": "парень",
+     "English": "<div class=\"uc-pos\">noun, masculine</div><ul class=\"uc-gls\"><li>guy, lad, boy</li><li>boyfriend</li></ul>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">genitive</span>па́рня</span><span class=\"uc-fi\"><span class=\"uc-fl\">plural</span>па́рни</span></div>",
+     "Table": "<div class=\"uc-cjg\"><div class=\"uc-cj\"><div class=\"uc-cjh\">singular</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">па́рень</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">па́рня</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">па́рню</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">па́рня</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">па́рнем</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">па́рне</span></div></div><div class=\"uc-cj\"><div class=\"uc-cjh\">plural</div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">nominative</span><span class=\"uc-cj-f\">па́рни</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">genitive</span><span class=\"uc-cj-f\">парне́й</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">dative</span><span class=\"uc-cj-f\">парня́м</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">accusative</span><span class=\"uc-cj-f\">парне́й</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">instrumental</span><span class=\"uc-cj-f\">парня́ми</span></div><div class=\"uc-cjr\"><span class=\"uc-cj-p\">prepositional</span><span class=\"uc-cj-f\">парня́х</span></div></div></div>",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Её парень сделал это для неё.\"></span>Её <b>парень</b> сделал это для неё.</div><div class=\"uc-exe\">Her boyfriend did it for her.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"С ней был ещё один парень.\"></span>С ней был ещё один <b>парень</b>.</div><div class=\"uc-exe\">There was another guy with her.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Вот почему у меня нет парня.\"></span>Вот почему у меня нет <b>парня</b>.</div><div class=\"uc-exe\">This is why I don&#x27;t have a boyfriend.</div></div>"
+    },
+    "src": "Tatoeba 3689173, Tatoeba 4817501, Tatoeba 4929573"
+   },
+   {
+    "word": "не за что",
+    "id": 545,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">не́ за что</div>",
+     "Word": "не за что",
+     "English": "<div class=\"uc-pos\">interjection</div><ul class=\"uc-gls\"><li>you&#x27;re welcome, not at all, don&#x27;t mention it</li><li>not worth mentioning, nothing to speak of</li><li>no problem</li></ul>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"&quot;Спасибо за всё&quot;. - &quot;Не за что&quot;.\"></span>&quot;Спасибо за всё&quot;. - &quot;<b>Не за что</b>&quot;.</div><div class=\"uc-exe\">&quot;Thank you for everything.&quot; &quot;You&#x27;re welcome.&quot;</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"«Большое спасибо!» — «Не за что».\"></span>«Большое спасибо!» — «<b>Не за что</b>».</div><div class=\"uc-exe\">&quot;Thank you very much!&quot; &quot;You&#x27;re welcome.&quot;</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Да не за что.\"></span>Да <b>не за что</b>.</div><div class=\"uc-exe\">No problem.</div></div>"
+    },
+    "src": "Tatoeba 11255719, Tatoeba 2793556, Tatoeba 5409688"
+   },
+   {
+    "word": "до встречи",
+    "id": 546,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">до встре́чи</div>",
+     "Word": "до встречи",
+     "English": "<div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">see you (later), goodbye (farewell)</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Увидимся вечером! До встречи!\"></span>Увидимся вечером! <b>До встречи</b>!</div><div class=\"uc-exe\">See you tonight! See you soon!</div></div>"
+    },
+    "src": "Tatoeba 2070240"
+   },
+   {
+    "word": "большое спасибо",
+    "id": 547,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">большо́е спаси́бо</div>",
+     "Word": "большое спасибо",
+     "English": "<div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">many thanks, thank you very much</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Да, я понимаю. Большое спасибо.\"></span>Да, я понимаю. <b>Большое спасибо</b>.</div><div class=\"uc-exe\">Yep, I understand. Thanks a bunch.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Большое спасибо за вашу помощь.\"></span><b>Большое спасибо</b> за вашу помощь.</div><div class=\"uc-exe\">A big thanks for your help.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"&quot;Большое спасибо за всё&quot;. - &quot;Пожалуйста&quot;.\"></span>&quot;<b>Большое спасибо</b> за всё&quot;. - &quot;Пожалуйста&quot;.</div><div class=\"uc-exe\">&quot;Thank you very much for everything.&quot; &quot;You are welcome.&quot;</div></div>"
+    },
+    "src": "Tatoeba 407831, Tatoeba 412368, Tatoeba 2783777"
+   },
+   {
+    "word": "добро пожаловать",
+    "id": 548,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">добро́ пожа́ловать</div>",
+     "Word": "добро пожаловать",
+     "English": "<div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">welcome!</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Добро пожаловать в твой новый дом!\"></span><b>Добро пожаловать</b> в твой новый дом!</div><div class=\"uc-exe\">Welcome to your new home.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Добро пожаловать к нам в город!\"></span><b>Добро пожаловать</b> к нам в город!</div><div class=\"uc-exe\">Welcome to our city!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"&quot;Я вернулся&quot;. - &quot;Добро пожаловать домой&quot;.\"></span>&quot;Я вернулся&quot;. - &quot;<b>Добро пожаловать</b> домой&quot;.</div><div class=\"uc-exe\">&quot;I&#x27;m back.&quot; &quot;Welcome home.&quot;</div></div>"
+    },
+    "src": "Tatoeba 5196131, Tatoeba 6464751, Tatoeba 3093163"
+   },
+   {
+    "word": "приятного аппетита",
+    "id": 549,
+    "why": "Built by .claude/torfl/extra.py (the generator's own stages) on 2026-11-19: meanings, forms and stress from the English Wiktionary via kaikki.org, each sentence the Tatoeba sentence `src` names, in order.",
+    "fields": {
+     "Russian": "<div class=\"uc-word\">прия́тного аппети́та</div>",
+     "Word": "приятного аппетита",
+     "English": "<div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">bon appétit</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Приятного аппетита! Вы уже начали?\"></span><b>Приятного аппетита</b>! Вы уже начали?</div><div class=\"uc-exe\">Enjoy your meal! Did you already start?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Всем приятного аппетита!\"></span>Всем <b>приятного аппетита</b>!</div><div class=\"uc-exe\">Enjoy your meal, everyone!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Угощайтесь, приятного аппетита!\"></span>Угощайтесь, <b>приятного аппетита</b>!</div><div class=\"uc-exe\">Please help yourself. Enjoy your meal!</div></div>"
+    },
+    "src": "Tatoeba 6935149, Tatoeba 6165517, Tatoeba 2844437"
+   }
+  ]
+ },
+ "notes": {
+  "torfla1/идти, пойти": {
+   "glossAdd": "motion in progress in one direction (unidirectional; its multidirectional partner is ходи́ть)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torfla1/ходить": {
+   "glossAdd": "general or habitual motion, in various directions, repeated trips, a round trip (multidirectional; its unidirectional partner is идти́)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torfla1/ехать, поехать": {
+   "glossAdd": "motion in progress in one direction (unidirectional; its multidirectional partner is е́здить)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torfla1/ездить": {
+   "glossAdd": "general or habitual motion, in various directions, repeated trips, a round trip (multidirectional; its unidirectional partner is е́хать)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torfla1/вести, повести": {
+   "glossAdd": "motion in progress in one direction (unidirectional; its multidirectional partner is води́ть)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torflb1/водить": {
+   "glossAdd": "general or habitual motion, in various directions, repeated trips, a round trip (multidirectional; its unidirectional partner is вести́)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torfla2/бежать": {
+   "glossAdd": "motion in progress in one direction (unidirectional; its multidirectional partner is бе́гать)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torfla2/бегать": {
+   "glossAdd": "general or habitual motion, in various directions, repeated trips, a round trip (multidirectional; its unidirectional partner is бежа́ть)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torfla2/лететь, полететь": {
+   "glossAdd": "motion in progress in one direction (unidirectional; its multidirectional partner is лета́ть)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torfla2/летать": {
+   "glossAdd": "general or habitual motion, in various directions, repeated trips, a round trip (multidirectional; its unidirectional partner is лете́ть)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torfla2/нести, понести": {
+   "glossAdd": "motion in progress in one direction (unidirectional; its multidirectional partner is носи́ть)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torfla2/носить": {
+   "glossAdd": "general or habitual motion, in various directions, repeated trips, a round trip (multidirectional; its unidirectional partner is нести́)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torflb2/плыть, поплыть": {
+   "glossAdd": "motion in progress in one direction (unidirectional; its multidirectional partner is пла́вать)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torfla2/плавать": {
+   "glossAdd": "general or habitual motion, in various directions, repeated trips, a round trip (multidirectional; its unidirectional partner is плыть)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torflb1/везти, повезти": {
+   "glossAdd": "motion in progress in one direction (unidirectional; its multidirectional partner is вози́ть)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torflc1/возить": {
+   "glossAdd": "general or habitual motion, in various directions, repeated trips, a round trip (multidirectional; its unidirectional partner is везти́)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torflc2/брести": {
+   "glossAdd": "motion in progress in one direction (unidirectional; its multidirectional partner is броди́ть)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torflb2/бродить": {
+   "glossAdd": "general or habitual motion, in various directions, repeated trips, a round trip (multidirectional; its unidirectional partner is брести́)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torflb1/лезть, залезть": {
+   "glossAdd": "motion in progress in one direction (unidirectional; its multidirectional partner is ла́зить)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torflb2/гнать, погнать": {
+   "glossAdd": "motion in progress in one direction (unidirectional; its multidirectional partner is гоня́ть)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torflc1/катить, покатить": {
+   "glossAdd": "motion in progress in one direction (unidirectional; its multidirectional partner is ката́ть)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torflc1/таскать": {
+   "glossAdd": "general or habitual motion, in various directions, repeated trips, a round trip (multidirectional; its unidirectional partner is тащи́ть)",
+   "why": "The line is Wikipedia, \"Russian grammar\" (revision 1382046455), \"Verbs of motion\": the pair from its table \"Pairs of Russian verbs of motion\" (stress as printed there), the wording from \"Unidirectional verbs describe motion in progress in one direction\" and \"Multidirectional verbs describe: General motion, referring to ability or habitual motion … Movement in various directions … Repetition of completed trips … In the past tense, a single completed round trip\". The plan (docs/russian-decks-plan.md §4) promised cards that point at each other; they did not, and the two cards of a pair shared their meanings."
+  },
+  "torfla1/этот": {
+   "why": "The All-forms panel, which this card shipped without: Wiktionary keeps one declension table per spelling and the note was built from the entry that does not hold it. Built by .claude/torfl/extra.py from the same entry's sibling (English Wiktionary via kaikki.org).",
+   "table": [
+    [
+     "masculine",
+     [
+      [
+       "nominative",
+       "э́тот"
+      ],
+      [
+       "genitive",
+       "э́того"
+      ],
+      [
+       "dative",
+       "э́тому"
+      ],
+      [
+       "accusative",
+       "э́тот / э́того"
+      ],
+      [
+       "instrumental",
+       "э́тим"
+      ],
+      [
+       "prepositional",
+       "э́том"
+      ]
+     ]
+    ],
+    [
+     "neuter",
+     [
+      [
+       "nominative",
+       "э́то"
+      ],
+      [
+       "genitive",
+       "э́того"
+      ],
+      [
+       "dative",
+       "э́тому"
+      ],
+      [
+       "accusative",
+       "э́то"
+      ],
+      [
+       "instrumental",
+       "э́тим"
+      ],
+      [
+       "prepositional",
+       "э́том"
+      ]
+     ]
+    ],
+    [
+     "feminine",
+     [
+      [
+       "nominative",
+       "э́та"
+      ],
+      [
+       "genitive",
+       "э́той"
+      ],
+      [
+       "dative",
+       "э́той"
+      ],
+      [
+       "accusative",
+       "э́ту"
+      ],
+      [
+       "instrumental",
+       "э́той, э́тою"
+      ],
+      [
+       "prepositional",
+       "э́той"
+      ]
+     ]
+    ],
+    [
+     "plural",
+     [
+      [
+       "nominative",
+       "э́ти"
+      ],
+      [
+       "genitive",
+       "э́тих"
+      ],
+      [
+       "dative",
+       "э́тим"
+      ],
+      [
+       "accusative",
+       "э́ти / э́тих"
+      ],
+      [
+       "instrumental",
+       "э́тими"
+      ],
+      [
+       "prepositional",
+       "э́тих"
+      ]
+     ]
+    ]
+   ]
+  },
+  "torfla1/тот": {
+   "why": "The All-forms panel, which this card shipped without: Wiktionary keeps one declension table per spelling and the note was built from the entry that does not hold it. Built by .claude/torfl/extra.py from the same entry's sibling (English Wiktionary via kaikki.org).",
+   "table": [
+    [
+     "masculine",
+     [
+      [
+       "nominative",
+       "тот"
+      ],
+      [
+       "genitive",
+       "того́"
+      ],
+      [
+       "dative",
+       "тому́"
+      ],
+      [
+       "accusative",
+       "тот / того́"
+      ],
+      [
+       "instrumental",
+       "тем"
+      ],
+      [
+       "prepositional",
+       "том"
+      ]
+     ]
+    ],
+    [
+     "neuter",
+     [
+      [
+       "nominative",
+       "то"
+      ],
+      [
+       "genitive",
+       "того́"
+      ],
+      [
+       "dative",
+       "тому́"
+      ],
+      [
+       "accusative",
+       "то"
+      ],
+      [
+       "instrumental",
+       "тем"
+      ],
+      [
+       "prepositional",
+       "том"
+      ]
+     ]
+    ],
+    [
+     "feminine",
+     [
+      [
+       "nominative",
+       "та"
+      ],
+      [
+       "genitive",
+       "той"
+      ],
+      [
+       "dative",
+       "той"
+      ],
+      [
+       "accusative",
+       "ту"
+      ],
+      [
+       "instrumental",
+       "той, то́ю"
+      ],
+      [
+       "prepositional",
+       "той"
+      ]
+     ]
+    ],
+    [
+     "plural",
+     [
+      [
+       "nominative",
+       "те"
+      ],
+      [
+       "genitive",
+       "тех"
+      ],
+      [
+       "dative",
+       "тем"
+      ],
+      [
+       "accusative",
+       "те / тех"
+      ],
+      [
+       "instrumental",
+       "те́ми"
+      ],
+      [
+       "prepositional",
+       "тех"
+      ]
+     ]
+    ]
+   ]
+  },
+  "torfla1/какой": {
+   "why": "The All-forms panel, which this card shipped without: Wiktionary keeps one declension table per spelling and the note was built from the entry that does not hold it. Built by .claude/torfl/extra.py from the same entry's sibling (English Wiktionary via kaikki.org).",
+   "table": [
+    [
+     "masculine",
+     [
+      [
+       "nominative",
+       "како́й"
+      ],
+      [
+       "genitive",
+       "како́го"
+      ],
+      [
+       "dative",
+       "како́му"
+      ],
+      [
+       "accusative",
+       "како́й / како́го"
+      ],
+      [
+       "instrumental",
+       "каки́м"
+      ],
+      [
+       "prepositional",
+       "како́м"
+      ]
+     ]
+    ],
+    [
+     "neuter",
+     [
+      [
+       "nominative",
+       "како́е"
+      ],
+      [
+       "genitive",
+       "како́го"
+      ],
+      [
+       "dative",
+       "како́му"
+      ],
+      [
+       "accusative",
+       "како́е"
+      ],
+      [
+       "instrumental",
+       "каки́м"
+      ],
+      [
+       "prepositional",
+       "како́м"
+      ]
+     ]
+    ],
+    [
+     "feminine",
+     [
+      [
+       "nominative",
+       "кака́я"
+      ],
+      [
+       "genitive",
+       "како́й"
+      ],
+      [
+       "dative",
+       "како́й"
+      ],
+      [
+       "accusative",
+       "каку́ю"
+      ],
+      [
+       "instrumental",
+       "како́й, како́ю"
+      ],
+      [
+       "prepositional",
+       "како́й"
+      ]
+     ]
+    ],
+    [
+     "plural",
+     [
+      [
+       "nominative",
+       "каки́е"
+      ],
+      [
+       "genitive",
+       "каки́х"
+      ],
+      [
+       "dative",
+       "каки́м"
+      ],
+      [
+       "accusative",
+       "каки́е / каки́х"
+      ],
+      [
+       "instrumental",
+       "каки́ми"
+      ],
+      [
+       "prepositional",
+       "каки́х"
+      ]
+     ]
+    ]
+   ]
+  },
+  "torfla1/его": {
+   "why": "The card says \"his, its\" and its three sentences showed the accusative of the personal pronoun, which that pronoun's own card teaches. Three Tatoeba sentences of the possessive, chosen by .claude/torfl/extra.py (English holds the possessive, the next word is a noun A1 teaches), each named by id.",
+   "ex": [
+    [
+     "Я просто хочу быть его другом.",
+     "I just want to be his friend.",
+     "Tatoeba 2078748",
+     [
+      "его"
+     ]
+    ],
+    [
+     "Это его проблема, а не моя.",
+     "It's his problem, not mine.",
+     "Tatoeba 3543315",
+     [
+      "его"
+     ]
+    ],
+    [
+     "Я не хочу знать его имя.",
+     "I don't want to know his name.",
+     "Tatoeba 3627843",
+     [
+      "его"
+     ]
+    ]
+   ]
+  },
+  "torfla1/её": {
+   "why": "The card says \"her, its\" and its three sentences showed the accusative of the personal pronoun, which that pronoun's own card teaches. Three Tatoeba sentences of the possessive, chosen by .claude/torfl/extra.py (English holds the possessive, the next word is a noun A1 teaches), each named by id.",
+   "ex": [
+    [
+     "Я просто хочу быть её другом.",
+     "I just want to be her friend.",
+     "Tatoeba 2078752",
+     [
+      "её"
+     ]
+    ],
+    [
+     "Её тело так и не нашли.",
+     "Her body was never found.",
+     "Tatoeba 3002592",
+     [
+      "Её"
+     ]
+    ],
+    [
+     "Это её проблема, а не моя.",
+     "It's her problem, not mine.",
+     "Tatoeba 3543316",
+     [
+      "её"
+     ]
+    ]
+   ]
+  },
+  "torfla1/их": {
+   "why": "The card says \"their\" and its three sentences showed the accusative of the personal pronoun, which that pronoun's own card teaches. Three Tatoeba sentences of the possessive, chosen by .claude/torfl/extra.py (English holds the possessive, the next word is a noun A1 teaches), each named by id.",
+   "ex": [
+    [
+     "Они не знали, где их машина.",
+     "They didn't know where their car was.",
+     "Tatoeba 8751013",
+     [
+      "их"
+     ]
+    ],
+    [
+     "Это их проблема, а не наша.",
+     "It is their problem, not ours.",
+     "Tatoeba 14068968",
+     [
+      "их"
+     ]
+    ],
+    [
+     "Мне нужна будет их помощь.",
+     "I will need their help.",
+     "Tatoeba 3161044",
+     [
+      "их"
+     ]
+    ]
+   ]
+  },
+  "torfla1/здравствуйте": {
+   "senses": [
+    [
+     "interjection, not здра́вствуй",
+     [
+      "hello (formal, or to more than one person)"
+     ]
+    ]
+   ],
+   "why": "English Wiktionary (kaikki.org) labels this sense \"(formal or plural form) hello\" for здравствуйте and \"(informal) hello\" for здравствуй; the generator dropped the label, so the two cards said the same thing and nothing on the shelf said which hello is for whom."
+  },
+  "torfla1/здравствуй": {
+   "senses": [
+    [
+     "interjection, not здра́вствуйте",
+     [
+      "hello (informal, to one person)"
+     ]
+    ]
+   ],
+   "why": "English Wiktionary (kaikki.org) labels this sense \"(formal or plural form) hello\" for здравствуйте and \"(informal) hello\" for здравствуй; the generator dropped the label, so the two cards said the same thing and nothing on the shelf said which hello is for whom."
+  },
+  "torfla1/из-за": {
+   "senses": [
+    [
+     "preposition",
+     [
+      "from behind (+ genitive)",
+      "because of, due to, over (+ genitive)"
+     ]
+    ]
+   ],
+   "why": "The case is Wikipedia, \"Russian grammar\" (revision 1382046455), the list of prepositions under each case: genitive \"из-за 'because of, from behind' … против 'against, opposite'\", instrumental \"над 'above' … между 'between'\". The meanings are the card's own (English Wiktionary). Every other preposition of A1 names its case; these did not (насчёт still does not: the article does not list it)."
+  },
+  "torfla1/против": {
+   "senses": [
+    [
+     "preposition",
+     [
+      "against (+ genitive)",
+      "opposite (+ genitive)"
+     ]
+    ]
+   ],
+   "why": "The case is Wikipedia, \"Russian grammar\" (revision 1382046455), the list of prepositions under each case: genitive \"из-за 'because of, from behind' … против 'against, opposite'\", instrumental \"над 'above' … между 'between'\". The meanings are the card's own (English Wiktionary). Every other preposition of A1 names its case; these did not (насчёт still does not: the article does not list it)."
+  },
+  "torfla1/над": {
+   "senses": [
+    [
+     "preposition",
+     [
+      "above, over (+ instrumental)"
+     ]
+    ]
+   ],
+   "why": "The case is Wikipedia, \"Russian grammar\" (revision 1382046455), the list of prepositions under each case: genitive \"из-за 'because of, from behind' … против 'against, opposite'\", instrumental \"над 'above' … между 'between'\". The meanings are the card's own (English Wiktionary). Every other preposition of A1 names its case; these did not (насчёт still does not: the article does not list it)."
+  },
+  "torfla1/между": {
+   "senses": [
+    [
+     "preposition",
+     [
+      "between, among (+ instrumental)"
+     ]
+    ]
+   ],
+   "why": "The case is Wikipedia, \"Russian grammar\" (revision 1382046455), the list of prepositions under each case: genitive \"из-за 'because of, from behind' … против 'against, opposite'\", instrumental \"над 'above' … между 'between'\". The meanings are the card's own (English Wiktionary). Every other preposition of A1 names its case; these did not (насчёт still does not: the article does not list it)."
+  },
+  "torfla1/о": {
+   "forms": [
+    [
+     "also",
+     "об, обо"
+    ]
+   ],
+   "why": "English Wiktionary (kaikki.org) has об as a preposition \"about, of, on\" [with prepositional] and обо as an \"alternative form of об\"; A1's sentences use об 17 times and обо twice and no card showed either."
+  },
+  "torfla1/у": {
+   "senses": [
+    [
+     "preposition",
+     [
+      "by, at (+ genitive)",
+      "I have… (у меня есть…, literally \"by me there is\")"
+     ]
+    ]
+   ],
+   "why": "The same two meanings; the second began with the Russian phrase, which printed the answer on the front of the English → Russian card. In brackets it is hidden there (russian-fix.js, \"THE ANSWER IS NOT PRINTED ON ITS OWN QUESTION\")."
+  },
+  "torfla1/один": {
+   "forms": [
+    [
+     "noun after it",
+     "nominative singular"
+    ]
+   ],
+   "why": "The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\""
+  },
+  "torfla1/два": {
+   "forms": [
+    [
+     "noun after it",
+     "genitive singular"
+    ]
+   ],
+   "why": "The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\""
+  },
+  "torfla1/три": {
+   "forms": [
+    [
+     "noun after it",
+     "genitive singular"
+    ]
+   ],
+   "why": "The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\""
+  },
+  "torfla1/четыре": {
+   "forms": [
+    [
+     "noun after it",
+     "genitive singular"
+    ]
+   ],
+   "why": "The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\""
+  },
+  "torfla1/пять": {
+   "forms": [
+    [
+     "noun after it",
+     "genitive plural"
+    ]
+   ],
+   "why": "The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\""
+  },
+  "torfla1/шесть": {
+   "forms": [
+    [
+     "noun after it",
+     "genitive plural"
+    ]
+   ],
+   "why": "The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\""
+  },
+  "torfla1/семь": {
+   "forms": [
+    [
+     "noun after it",
+     "genitive plural"
+    ]
+   ],
+   "why": "The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\""
+  },
+  "torfla1/восемь": {
+   "forms": [
+    [
+     "noun after it",
+     "genitive plural"
+    ]
+   ],
+   "why": "The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\""
+  },
+  "torfla1/девять": {
+   "forms": [
+    [
+     "noun after it",
+     "genitive plural"
+    ]
+   ],
+   "why": "The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\""
+  },
+  "torfla1/десять": {
+   "forms": [
+    [
+     "noun after it",
+     "genitive plural"
+    ]
+   ],
+   "why": "The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\""
+  },
+  "torfla1/одиннадцать": {
+   "forms": [
+    [
+     "noun after it",
+     "genitive plural"
+    ]
+   ],
+   "why": "The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\""
+  },
+  "torfla1/двенадцать": {
+   "forms": [
+    [
+     "noun after it",
+     "genitive plural"
+    ]
+   ],
+   "why": "The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\""
+  },
+  "torfla1/двадцать": {
+   "forms": [
+    [
+     "noun after it",
+     "genitive plural"
+    ]
+   ],
+   "why": "The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\""
+  },
+  "torfla1/тридцать": {
+   "forms": [
+    [
+     "noun after it",
+     "genitive plural"
+    ]
+   ],
+   "why": "The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\""
+  },
+  "torfla1/сто": {
+   "forms": [
+    [
+     "noun after it",
+     "genitive plural"
+    ]
+   ],
+   "why": "The row \"noun after it\" is Wikipedia, \"Russian declension\" (revision 1378080150): \"Most numbers ending with 1 … require Nominative singular for a noun … Most numbers ending with 2, 3, 4 … require Genitive singular … All other numbers (including 0 and those ending with it) require Genitive plural.\""
+  }
+ },
+ "decks": {
+  "torfla2": {
+   "dropDup": {
+    "тринадцать": "torfla1/тринадцать",
+    "четырнадцать": "torfla1/четырнадцать",
+    "пятнадцать": "torfla1/пятнадцать",
+    "шестнадцать": "torfla1/шестнадцать",
+    "семнадцать": "torfla1/семнадцать",
+    "восемнадцать": "torfla1/восемнадцать",
+    "девятнадцать": "torfla1/девятнадцать",
+    "сорок": "torfla1/сорок",
+    "пятьдесят": "torfla1/пятьдесят",
+    "шестьдесят": "torfla1/шестьдесят",
+    "семьдесят": "torfla1/семьдесят",
+    "восемьдесят": "torfla1/восемьдесят",
+    "девяносто": "torfla1/девяносто"
+   },
+   "descSub": [
+    [
+     "295 of the 750 come from a vocabulary written",
+     "282 of the 737 come from a vocabulary written"
+    ],
+    [
+     "the numbers to a million,",
+     "the numbers above a hundred (thirteen to ninety were moved to A1 in November 2026, to stand with one to twelve),"
+    ]
+   ]
+  },
+  "ruphrase": {
+   "dropDup": {
+    "как вас зовут": "torfla1/как вас зовут",
+    "как тебя зовут": "torfla1/как тебя зовут",
+    "я не понимаю": "torfla1/я не понимаю",
+    "сколько это стоит": "torfla1/сколько это стоит",
+    "вы говорите по-английски": "torfla1/вы говорите по-английски",
+    "я не говорю по-русски": "torfla1/я не говорю по-русски",
+    "до завтра": "torfla1/до завтра",
+    "где туалет": "torfla1/где туалет"
+   },
+   "descSub": [
+    [
+     "The commonest come first: что это, не знаю, я не знаю, не думаю. ",
+     "Eight expressions of a first exchange (как вас зовут, я не понимаю, сколько это стоит) were moved to TORFL A1 in November 2026. "
+    ],
+    [
+     "THE ORDER is how many sentences of the Tatoeba corpus use each expression, counted on whole words. 114 of the 482 appear in no sentence there at all, and they are kept and dealt last rather than dropped:",
+     "THE ORDER is by what you can already read: first the 97 expressions spelled entirely with words and forms the TORFL A1 deck shows, then 42 that need A2 as well, 45 B1, 25 B2, 17 C1 and 18 C2, and last the 230 that hold a word or a form no deck shows. So this deck can be begun beside A1 — its first 97 notes need nothing else — and not only after C2, where the shelf lists it. Inside each group the order is how many sentences of the Tatoeba corpus use the expression, counted on whole words. 114 of the 474 appear in no sentence there at all, and they are kept, last in their group, rather than dropped:"
+    ],
+    [
+     "Every Russian word is printed with its stress mark; the sentences are printed as they were written. ",
+     "Every expression is printed with the stress marks Wiktionary's own headword carries (23 of the 474 have a word it leaves unmarked); the sentences are printed as they were written. At the default of ten new cards a day, both directions together, the deck takes 95 days. "
+    ]
+   ]
+  },
+  "torfla1": {
+   "descSub": [
+    [
+     "345 of the 500 come from a vocabulary written",
+     "Of the 500 words the generator chose, 345 come from a vocabulary written"
+    ],
+    [
+     "since a list of word forms ranks книгу above книга. The cards are dealt by that frequency, so the words you meet most often come first. ",
+     "since a list of word forms ranks книгу above книга. 49 more were added by hand in November 2026, after a beginner's audit of the shelf: 28 words no deck taught — весь, так, такой, себя, чем, просто, конечно and others that the frequency rule had turned away as forms of other words, and five courtesies — each built from the same sources, 13 numbers from thirteen to ninety moved up from A2, and 8 phrases of a first exchange (как вас зовут, я не понимаю, сколько это стоит) moved up from the phrases deck. That these 49 are Elementary material is a judgement, not a citation. THE ORDER is a teaching one: the first 136 notes are laid out by hand — the courtesies, a first exchange, the pronouns, ten verbs, the question words, zero to ten, the commonest function words — and after them the words come by frequency, with the days of the week together from note 151, the numbers above ten from note 201, the colours from note 251 and the months and the seasons from note 301. At the default of ten new cards a day, both directions together, that is five words a day: привет on day one, the pronouns by day 6, and the whole deck in 110 days. "
+    ],
+    [
+     "are cards of their own beside идти́ and е́хать, because the difference is the lesson. ",
+     "are cards of their own beside идти́ and е́хать, because the difference is the lesson, and each card of such a pair says which of the two it is and names the other. "
+    ],
+    [
+     "learn the alphabet first with the Russian alphabet deck, which is the first deck in this collection. ",
+     "learn the alphabet first with the Russian alphabet deck, the first deck in this collection, and keep Russian — Sounds and spelling beside this one: it says what the spelling does not (an unstressed о, a final д, the г of его). "
+    ]
+   ]
+  }
+ }
+}
