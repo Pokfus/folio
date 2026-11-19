@@ -206,7 +206,6 @@ def readings(ents, word):
 
 def english(ents, word=''):
     parts, shown = [], set()
-    two = len(readings(ents, plain(word))) > 1
     for e in ents:
         label = POS_NAME.get(e['pos'], e['pos'])
         if e['pos'] == 'noun' and e['gender'] in GENDER:
@@ -217,9 +216,6 @@ def english(ents, word=''):
                 label += ', transitive'
             elif 'intransitive' in tv and 'transitive' not in tv:
                 label += ', intransitive'
-        if two and e['roman']:
-            # a spelling read two ways (میں ma͠i "I", mẽ "in"): each sense names its reading
-            label += ' · ' + RM(plain(word), e['roman'])
         gl, seen = [], set()
         for g in e['glosses']:
             if g['weak'] and gl:
@@ -546,7 +542,9 @@ def build(rows, lex, exs):
         main = ents[0]
         word = plain(r['word'])
         # every reading the card's senses have, in their order (the beginner pass, 2026-11-19:
-        # a card of two readings showed only the first -- شکر śukr "thanks", śakar "sugar")
+        # a card of two readings showed only the first -- شکر śukr "thanks", śakar "sugar").
+        # The reading is NOT written beside its sense in `English`: that field is the front of
+        # the English -> Urdu card, and it would name the answer.
         roman = roman_norm(ROMAN_HEAD.get(word, '')) or ' · '.join(readings(ents, word)) \
             or ROMAN_BY_HAND.get(r['word'], '')
         ex = exs.get(r['key'], [])

@@ -190,6 +190,41 @@ insert with no place fails that script), `portuguese-order.js`, `portuguese-fix.
 A figure typed into a `descSub` is held to the order by `portuguese-order.js`; the counts are recounted on
 every run.
 
+## The Urdu decks: the generator, the record, the pinned ids and the order (Nov 2026)
+
+Six decks: the alphabet (card type `ur-abc`) and A1, A2, B1, B2 and the phrases (card type `urdu`). They
+differ from the decks above in one thing: **the generator (`.claude/urdu/`, Python, a 150 MB cache) rebuilds
+them byte for byte**, which was proved before the pass and after it (`docs/lang-decks.md`, "The Urdu
+beginner pass"). So a fault the generator can fix is fixed THERE, and the record holds only what is a
+decision about one card or one order: which cards move down a level, which are added, the order, the end
+of each description. **A word is ONE NOTE with two card templates**, so the pin is of note ids (a card id
+is the note id, plus `~2` for English → Urdu).
+
+    node urdu-fix.js --check                  # the six decks are what the record, the pin and the order make of them
+    node urdu-order.js --check                # the order file is what its rules give
+    node ../urdu/check-urdu.js                # no word on two levels, pinned ids, one romanisation scheme
+    python3 ../urdu/inserts.py --check        # the record's added cards are what the generator's code builds (needs the cache; not in CI)
+    python3 ../urdu/alphabet.py --verify      # every sound and rule of the alphabet deck is in its pinned Wikipedia revision (not in CI)
+
+| file | what it is |
+|---|---|
+| `urdu-fixes.json` | the record. `add`: deck id → rows, each `word`, `id` and `why`, and either `from` (a MOVE: the generator deals the card to that deck; `urdu-fix.js` takes it out of there whole, so a generator fix reaches it) or `fields` and `src` (an INSERT: a card no deck had). **`add` is written by `../urdu/inserts.py`, never by hand** — its lists are at the top of that script. `decks`: each deck's `subtitle` template, `descSub` pairs, and `tail`, the paragraph that ends its description and is recounted on every run. |
+| `urdu-ids.json` | deck id → headword (for the alphabet, the letter as printed) → the number in the note's id. **Never delete or renumber a row.** A note that leaves a deck has its row moved to `_retired` (72 of them) by the move's own row. APPLIED, so a deck the generator has just numbered by position is numbered back. A new alphabet note gets its row here by hand; a new word card gets it from its `add` row. |
+| `urdu-order.json` | deck id → every headword in the order the deck is dealt (A1, A2, the phrases). Written by `urdu-order.js`; a list that is not exactly the deck's headwords is refused. A deck with no entry (B1, B2, the alphabet) keeps the order the generator wrote. |
+| `urdu-order.js` | how that file is computed, from the PINNED NUMBER (the generator's frequency rank) and never from the file's own order: A1's hand-written head of 75, the closed sets at stated note numbers, a sentence after its rarest word; A2 with the compound numbers last; the phrases by reading level. A card the record added to A1 that is named nowhere is an error. `--report` prints where everything fell. |
+| `urdu-fix.js` | applies all three, in this order: the moves and inserts, the dup check, the ids, the order, the subtitles and descriptions. Writes Python's `json.dump` bytes, so a deck it has nothing to say about is not rewritten. |
+| `../urdu/inserts.py` | builds the `add` rows: checks every move against the generator's selection, and builds an insert's fields with `build_deck.py`'s own functions from kaikki (the months), `lex.json` (the numbers) or Tatoeba by sentence id (two phrase cards, romanised by joining Wiktionary's romanisation of each word). |
+
+`urdu-fix.js` finds its decks by CARD TYPE (`urdu`, `ur-abc`). **A rebuild**, after any change to the
+generator: `python3 ../urdu/run.py --level a1` … `a2`, `b1`, `b2`, `phr` (all five: a moved card lives in
+the deck it came from until `urdu-fix.js` moves it, and is not stored in the record), `../urdu/alphabet.py`,
+`../urdu/inserts.py`, `urdu-fix.js`, `urdu-order.js`, `urdu-fix.js` again, `node .claude/build-lang-decks.js`.
+`urdu_level.words_below` reads the record, so each level is dealt the list it was dealt before anything
+moved. To move a word down: add it to a list at the top of `inserts.py`, run the sequence from
+`inserts.py` on, and name it in the head or a set of `urdu-order.js` if it lands in A1. To add a letter or
+a sign to the alphabet: a row of `LETTERS` in `alphabet.py` whose comparison is a cell of the key and
+whose rule is a quoted phrase (`--verify`), and its number in `urdu-ids.json`.
+
 ## Changing the card type's CSS
 
 `deckcore.js` holds it, and every built deck file carries a **copy** — so an edit there does not reach a

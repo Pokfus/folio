@@ -7,7 +7,9 @@ rule there and in the Hindi plan applies here unless this file says otherwise. A
 "Add an Urdu language collection."
 
 **STATUS (2026-11-12): the alphabet deck, A1 to B2 and the phrases deck are built** (`.claude/urdu/`,
-§6–§10). **C1 is not, by the owner's decision**: the source ran dry (§9, §10).
+§6–§10). **C1 is not, by the owner's decision**: the source ran dry (§9, §10). **2026-11-19: the beginner
+pass (§11)** — the generator repaired, and a record, a pin and an order applied after it; the counts in
+§1's table and in §6–§10 are the generator's, before the record.
 
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any later deck this plan produces. The collection's first commit carried one (raising the day's Hindi
@@ -230,3 +232,23 @@ English Wiktionary defines about sixty Urdu expressions in all, against Hindi's 
   `extract.py` keeps the first, so a proverb's card showed half of it. `build_deck.ROMAN_HEAD` restores the
   headword line's text, verbatim, for the five affected (two of them had no romanisation form at all);
   `extract.py` is untouched so the levels do not move.
+
+## 11. The beginner pass (2026-11-19)
+
+The six decks audited as a learner with no Urdu and no knowledge of the script meets them, then repaired.
+The findings, with their measurements, what was built and what was decided against are in
+`docs/lang-decks.md`, "The Urdu beginner pass"; the files are tabled in `.claude/decks/README.md`, "The Urdu
+decks". What changes for this plan:
+
+- **§3, the card.** The forms line now opens with the word WITH its vowel marks where Wiktionary's headword
+  line writes them (`with its marks`); the headword itself is still printed as Urdu is written. A spelling
+  with two readings shows both in `Roman` (`ma͠i · mẽ`). The romanisation is one scheme (`ur.roman_norm`).
+- **§4.** The full verb table's future IS read now (the pronoun is taken off the cell); its present
+  perfect is still not shown. `میں` carries both etymologies, `بہتر` both readings.
+- **§6, the alphabet.** 60 notes; every sound side is quoted from Wikipedia at two pinned revisions
+  (`alphabet.py --verify`).
+- **A deck file is the generator's output AFTER the record** (`.claude/decks/urdu-fixes.json`,
+  `urdu-ids.json`, `urdu-order.json`): shipped, A1 is 537 notes, A2 806, B1 994, B2 1,457, the phrases 41.
+  Card ids are pinned and no longer positions. A re-run of the whole sequence is byte-identical (proved
+  twice, once from `main`'s decks in a scratch copy).
+- **§9, §10 stand**: B2 is the top and there is no C1, and B2's description now says why.

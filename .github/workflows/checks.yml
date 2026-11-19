@@ -343,6 +343,18 @@ jobs:
       - name: build-german-sounds --check (the German sounds deck is what its table and Goethe A1 give)
         if: ${{ !cancelled() }}
         run: node .claude/decks/build-german-sounds.js --check
+      # The Urdu decks (2026-11-19, the Urdu beginner pass): urdu-fixes.json (the cards moved down to A1 and A2,
+      # the cards added, the end of each description), urdu-order.json and the pinned ids, over the six decks of
+      # card type `urdu` and `ur-abc`. All three read only the repository: no cache, no network, no browser.
+      - name: urdu-fix --check (the Urdu decks carry their record, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/urdu-fix.js --check
+      - name: urdu-order --check (the Urdu order file is what its rules give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/urdu-order.js --check
+      - name: check-urdu (no word on two levels, pinned ids, one romanisation scheme, balanced markup)
+        if: ${{ !cancelled() }}
+        run: node .claude/urdu/check-urdu.js
       # The Portuguese decks (2026-11-16, the Portuguese beginner pass): portuguese-fixes.json (the cards CAPLE A1
       # gains, the repaired meanings, the order, the pinned ids, the counts a description states), applied after
       # the shared paradigm-fixes.json.
