@@ -35,9 +35,25 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1356", released: "2026-11-18T02:23Z" };
+window.FOLIO_VERSION = { v: "1.1357", released: "2026-11-19T03:52Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-11-19",
+    t: "Who is this? minigame, home page tidy, map labels, Download all",
+    items: [
+      "A new daily minigame, <b>Who is this?</b>: name the historical figure in a portrait from four options.",
+      "The home page is tidier: a narrower daily quote, Term of the day styled like Suggested reading, no week-ahead strip, Today laid out like This week.",
+      "The minigame chest bar on tablets and desktops now looks as it does on a phone.",
+      "A collection row with decks to fetch or refresh now carries one <b>Download all</b> or <b>Update all</b> button.",
+      "A card's timeline shows three dates either side on tablets and desktops, and a whole timeline has a <b>Back to card</b> button.",
+      "Map names of states, regions and seas are now in a serif; seas and deserts never get a dot, and Mount Olympus is always a peak.",
+      "In map windows the Discovered chip sits beside the Location heading, the night Collection/All switch is softer and the source line is gone.",
+      "Eight map windows redrawn: sharper Western Desert borders, Alexander's and Carthage's full extents, and states for three leaders.",
+      "12 new glossary terms, more glossary links on two United States cards, and new or better pictures on three cards.",
+      "Timelines added to 4 more cards, and date lines or map points improved on 3 cards.",
+    ],
+  },
   {
     d: "2026-11-18",
     t: "BC or AD dates, map window labels, US state lines, 30 glossary terms",
