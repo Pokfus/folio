@@ -252,6 +252,14 @@ the form English-language scholarship and the reference works use; the decision 
 | Chinese Communist Party (CCP), People's Liberation Army (PLA), Red Army, Eighth Route Army, New Fourth Army | Pa-lu chün, Hsin-ssu chün, New 4th Army | CPC, Communist Party of China, Balujun, Xinsijun | the party and its armies, the abbreviation after the full name once; *CPC*, the party's own English, an alias for cited titles; the glossary's `Red_Army` is the Soviet army, so a "Red Army" in a China card mislinks (for the owner) |
 | Manchukuo, Mukden, Shenyang, Kwantung Army, Hong Kong | Manchoukuo, Man-chou-kuo, Hongkong, Hong-Kong | Manzhouguo, Xinjing, Hsinking, Fengtian, Guandong Army | *Manchukuo* the English name (*Manzhouguo* the pinyin an alias); *Mukden* the period name of Shenyang in the incident's name and the period's sentences, *Shenyang* the city otherwise; the *Kwantung Army* the English name of the Japanese army in Manchuria |
 | Nanjing Massacre, Marco Polo Bridge, Taierzhuang | Nanking Massacre, Lukouchiao, Taierhchwang, T'ai-erh-chuang | Rape of Nanking, Lugou Bridge, Tai'erzhuang | the war's events by the slugs' forms; *Rape of Nanking* stands in cited titles (Iris Chang) and an "also known as" sentence |
+| Xinjiang, Uyghurs, Kashgar, Xinjiang Production and Construction Corps | Sinkiang, Hsin-chiang, Kashghar | East Turkestan, Eastern Turkestan, Kashi, Bingtuan | the peoples and frontiers (added for the eighth hundred, Nov 2026); *East Turkestan* the name of the two short-lived republics and of the exiles' usage, said whose |
+| Tibet, Lhasa, Dalai Lama, Panchen Lama, Golden Urn | Thibet, Lassa | Xizang, Tubo, Panchen Erdeni | *Xizang* the PRC's Chinese name, an alias |
+| Altan Khan, Tümed, Hohhot, Rouran, Shatuo, Li Keyong | Juan-juan, Jou-jan, Sha-t'o, Li K'o-yung | Anda, Altan Qan, Guihua, Ruanruan, Ruru | the steppe peoples; *Guihua* the Ming name of Hohhot, kept for that time |
+| Lifan Yuan, booi, Willow Palisade, Imperial Household Department | Li-fan yüan, Li-fan Yuan, boo-i | Court of Colonial Affairs, Neiwufu, booi aha | the Qing's Inner Asian offices by the slugs' forms |
+| Tiandihui, tusi, gaitu guiliu, jimi, yamen, kowtow, lijin | T'ien-ti hui, t'u-ssu, kai-t'u kuei-liu, chi-mi, ya-men, kotow | Heaven and Earth Society, Hongmen, Triads, native chieftain, koutou, likin | *likin*, the period's English (the glossary's `Likin_(taxation)`), stands in cited titles and an "also called" sentence; *lijin* in the card's voice |
+| Zhuang, Nong Zhigao, Miao, Yi, Baiyue, Dian | Nung Chih-kao, Pai-yüeh | Nùng Trí Cao, Hmong, Nuosu, Lolo, Hundred Yue | *Lolo* an old exonym, used only as a quoted or historical name; *Hmong* the self-name of one Miao group, never a synonym for all |
+| xiangqi, tai chi, siheyuan, baijiu, Lu Yu, Yuan Mei, Fan Zhongyan, Liu Zhiji | hsiang-ch'i, t'ai chi, T'ai chi ch'üan, Lu Yü, Yüan Mei, Fan Chung-yen, Liu Chih-chi | Chinese chess, taijiquan, tai chi chuan, shaojiu | *tai chi* the English name and the live answer; *taijiquan* the pinyin, an alias |
+| Shanxi merchants, Huguang, huiguan | Shansi merchants, Hukuang, hui-kuan | Jin merchants, Jinshang | *Shanxi*, never confused with *Shaanxi* |
 
 ## Mythology and legend
 
@@ -860,9 +868,97 @@ and is audited as an ordinary card. Dates already set elsewhere that this hundre
 | the identity survey began / the latest reading | 1992 / June 2026 | the Election Study Center (`cnh-699`) |
 | the Cairo declaration / the peace treaty signed / in force / the UN seat | 1943 / 8 September 1951 / 28 April 1952 / 25 October 1971 | the Cairo text; the treaty; the CRS (`cnh-700`) |
 
+## The imperial state, society and the peoples (the eighth hundred)
+
+Filled batch by batch from `cnh-701` (B71 on). The eighth hundred leaves the dynastic order: it is the themed decks on the imperial
+state (`cn-government`), society and everyday life (`cn-society`) and the peoples and frontiers (`cn-peoples`), so a card here often
+dates an institution across several dynasties. **The protected lines** of its two individuals (`cnh-733` Empress Dowager Feng,
+`cnh-781` Altan Khan) are pinned below to their lines as they stood on main on 2026-11-19 (the years only; ages, days and months
+left out), and are not rows of this table. Dates already set elsewhere that this hundred must agree with: the Qin unification 221
+BCE and the empire's end, the abdication of 12 February 1912 (`cnh-191`, `cnh-575`); the examinations ended 1905 (`cnh-348`,
+`cnh-427`); the Grand Council c. 1729 (`cnh-550`); the Macartney embassy 1793 (`cnh-556`).
+
+| event | the collection says | source |
+|---|---|---|
+| the imperial state founded / ended | 221 BCE / 12 February 1912 | Chavannes; FRUS 1912 (`cnh-701`, `cnh-702`) |
+| Puyi expelled from the palace | 5 November 1924 | Sixth Tone; the Palace Museum (`cnh-702`) |
+| the eight-legged essay most widely written / suspended / dropped | c. 1450 – 1850 / 1663 / 1901 | Des Forges; Guo (`cnh-705`) |
+| the examinations abolished | 2 September 1905 | Bai and Jia (`cnh-706`; the year 1905 with `cnh-348`, `cnh-427`) |
+| the rule of avoidance: the Ming general rule / the Qing province ban / the lots reform | 1393 / 1655 / 1824 | Ho Ping-ti; Koss (`cnh-707`) |
+| the palace memorials: the earliest and latest kept | 1673 / 1911 | Qin and Gao (`cnh-708`) |
+| the Qing Ministry of Rites founded | 1631 | Keliher (`cnh-709`) |
+| the Great Qing code issued / recast / last revised | 1646 / 1740 / 1905 | Weimar; Ng and Palmer (`cnh-713`) |
+| mutilating punishments ended / the five reformed | 167 BCE / 24 April 1905 | Chavannes; Bourgon (`cnh-714`) |
+| the Yellow Registers compiled / the archive lost | 1381 – 1642 / 1645 | Zhang (`cnh-715`) |
+| lijin first collected / abolished | 3 October 1853 / 1 January 1931 | Beal; FRUS 1931 (`cnh-716`) |
+| the ting quota frozen | 1712 | Liu and Fei (`cnh-717`) |
+| the kaizhong proposed / silver accepted | 1370 / 1492 | An (`cnh-718`) |
+| the ever-normal granaries / Wang Anshi's loans proposed / the price debate | c. 54 BCE / 1069 / 1748 | the *Hanshu*; Will and Wong (`cnh-719`) |
+| the weisuo: the commands split / the army counted | 1380 / 1392 | the *Mingshi* (`cnh-720`) |
+| the Green Standard Army in service / the count recorded | 1644 – 1911 / 1812 | Zheng; Mayers (`cnh-721`) |
+| Shanhai Pass built / the battle / seized / protected | 1381 / 1644 / January 1933 / 1961 | Li et al.; Park (`cnh-722`) |
+| the border wall begun / the peace with Altan Khan | 1437 / 1571 | Yang et al. (`cnh-723`; 1571 with `cnh-781`) |
+| the Siyi Guan founded / renamed / merged | 1407 / 1644 / 1748 | Rong Fan (`cnh-724`) |
+| the Yu ji tu engraved / the copy carved | 1136 / 1142 | the Library of Congress (`cnh-726`) |
+| the Kaogong ji dated / appended | c. 500 – 400 BCE / c. 155 – 129 BCE | Wenren; Sivin (`cnh-727`) |
+| the Hall of Mental Cultivation built / rebuilt / closed / reopened | 1537 / 1722 – 1735 / December 2015 / 26 December 2025 | the Palace Museum (`cnh-728`) |
+| the Temple of Agriculture built / renovated / last ploughing / protected | 1420 / 1753 / 1906 / 2001 | the WMF; the *Mingshi* (`cnh-729`) |
+| the Eastern Depot founded / ended | 1420 / 1644 | Hucker; Tsai (`cnh-730`) |
+| the Imperial Household Department abolished / restored / seven offices / state funds | 1653 / 1661 / 1677 / 1857 | the Palace Museum (`cnh-731`) |
+| secret succession introduced / first used / last used | 1723 / 1735 / 1850 | Academia Sinica (`cnh-732`) |
+| the Dazexiang uprising began / ended | 209 BCE / 208 BCE | Chavannes (`cnh-734`, `cnh-717`) |
+| the Tiandihui founded / the uprising / the Hong Kong ban | c. 1761 – 1762 / 1787 / January 1845 | Wang and Kwok; ter Haar (`cnh-735`) |
+| the Shitong completed | 710 CE | CUHK (`cnh-736`) |
+| "standard histories" first used / the last presented | 552 – 555 CE / 1739 | Ng and Wang (`cnh-737`) |
+| the archive sacks sold / bought back / resold | c. 1921 / 1922 / 1929 | Ma; Ye and Esherick (`cnh-739`) |
+| the Qing History Project launched / the draft submitted / reported shelved | August 2002 / 2018 / 2023 | Guangming ribao; the CMP (`cnh-740`) |
+| the first charitable estate | 1049, or 1050 | FoAR; McDermott (`cnh-744`) |
+| one field, two masters in use | c. 1500 – 1949 | Palmer; Xu (`cnh-746`) |
+| the Shanxi merchants: grain for salt / the banks begin / heavy losses | 1370 / c. 1820 / 1911 | An; Morck and Yang (`cnh-747`; 1370 with `cnh-718`) |
+| the huiguan: firm evidence / the Beijing survey published | 1573 – 1619 / 1921 | Ho; Gamble (`cnh-748`) |
+| widow chastity: the honoured suicide / the shrine | 1435 / 1498 | Carlitz (`cnh-750`) |
+| the Marriage Law promulgated / the campaign / replaced | 1 May 1950 / March 1953 / 1 January 1981 | Hsi; the Library of Congress (`cnh-751`) |
+| foot binding began / banned / banned again / died out | c. 900 CE / 1898 / 1912 / c. 1850 – 1950 | Yodo; Gavrilets (`cnh-753`) |
+| the Three Character Classic's attributed author / its first record | 1223 – 1296 / 1508 | Kang and Lian (`cnh-754`) |
+| the mourning grades charted / in law | 168 BCE / 267 CE, or 196 CE | Goldin; Chen (`cnh-756`) |
+| the Chen Clan Hall built / the museum / protected | 1888 – 1894, or 1890 – 1894 / 1959 / 1988 | Bao and Huang (`cnh-757`) |
+| the calendar: the leap cycle / the year start fixed / reformed / the solar calendar | c. 600 – 400 BCE / 104 BCE / 1644 / 1912 | Chavannes; the Palace Museum (`cnh-760`) |
+| the Suiyuan shidan published | 1792 | Giles (`cnh-761`) |
+| Champa rice distributed | 1012 | the cited studies (`cnh-762`) |
+| the Classic of Tea written | c. 780 CE | Benn's reviewers (`cnh-763`) |
+| distilled spirit attested | 1330 | Hu Sihui, through Schottenhammer (`cnh-764`) |
+| the mandarin squares worn / the rules revised | 1391 – 1912 / 1527 | the *Mingshi*; Cammann (`cnh-765`) |
+| the Nanjing wall begun / completed / breached | 1366, or 1368 / 1393 / 19 July 1864 | the cited studies (`cnh-767`) |
+| the ward drums set / the code / the hours extended | c. 636 CE / 653 CE / 965 CE | the cited studies (`cnh-768`) |
+| the tai chi legend attested / the name / the simplified set / listed | 1669 / 1867 / 1956 / 17 December 2020 | Wile; the heritage centre (`cnh-770`) |
+| the 1953 census ordered / taken / published | 3 April 1953 / 30 June 1953 / 1 November 1954 | Orleans (`cnh-771`) |
+| Sichuan: the land order / the main influx / the settler rules | 1649 / 1671 – 1776 / 1690 | Huang (`cnh-772`) |
+| the ethnic classification: the field survey / the last group recognised / the list complete | 1954 / 1979 / July 1982 | Bulag; *The Paper* (`cnh-773`) |
+| the Ordos conquered / retaken / raiders enter / the peace | 215 BCE / 127 BCE / 1462 / 1571 | the *Shiji*; the cited articles (`cnh-777`; 1571 with `cnh-723`, `cnh-781`) |
+| the jimi prefectures introduced / undermined | 630 CE / 682 CE | the cited studies (`cnh-778`) |
+| the Rouran founded / destroyed | c. 402 CE / 552 – 555 CE | Kradin; the *Zhou shu* (`cnh-779`) |
+| the Shatuo fled east / ruled the north | 808 CE / 923 – 951 CE | Barenghi (`cnh-780`) |
+| the Manchu name / the throne taken / the rule ended | 12 November 1635 / 6 June 1644 / 12 February 1912 | Sun (`cnh-782`) |
+| the Golden Urn introduced / the rules issued / revived | 1792 / 1793 (the PRC's; Goldstein 1792) / 1995 | the white paper; Goldstein (`cnh-783`) |
+| the Corps founded / dissolved / restored | October 1954 / March 1975 / December 1981 | the 2014 white paper (`cnh-785`) |
+| the Panthay uprising / the north-west rising / the Ningxia region | 1856 – 1873 / 1862 / 25 October 1958 | the cited studies (`cnh-787`) |
+| the Great Mosque: the claimed founding / the rebuilding / protected | 742 CE (traditional) / 1392 / 1988 | the 2026 study (`cnh-788`) |
+| the Dian culture / the kingdom active / submitted | c. 700 BCE – 100 CE / c. 500 – 109 BCE / 109 BCE | Allard; Yao (`cnh-789`) |
+| the Miao revolt | 1795 – 1797 | the National Palace Museum (`cnh-790`) |
+| the Zhuang: the revolt / the first region / the region founded / renamed | 1052 / December 1952 / 5 March 1958 / 12 October 1965 | the cited studies (`cnh-791`) |
+| the Yi: chiefs replaced / the region / the reforms / the script approved | 1722 – 1736 (the reign) / 1 October 1952 / 1956 / 1 October 1980 | the cited studies (`cnh-792`) |
+| the Yue first named / the southern commanderies | 239 BCE / 214 BCE | Chavannes; Brindley (`cnh-793`) |
+| the tusi abolitions / the late grants | 1723 – 1735 / 1886 | the *Mingshi*; the cited studies (`cnh-794`) |
+| the Willow Palisade built / the new line / the migration ban | 1644 – 1681 / 1670 – 1681 / 1740 | Bulag; Sepe (`cnh-795`) |
+| the Lifan Yuan founded / renamed / diplomacy ceded / a ministry | 1636 / 1638 / 1861 / 1906 (reference works 1907) | Hu (`cnh-796`) |
+| the yeonhaengsa imposed / merged / the last sent / returned | 1637 / 1645 / 12 July 1894 / 25 May 1895 | the NIKH; FRUS 1895 (`cnh-797`) |
+| the Ming–Hồ War decided / invaded / the capitals fell / ended | 29 April 1406 / 19 November 1406 / January 1407 / 16 – 17 June 1407 | the Ming Shi-lu (`cnh-798`) |
+| the King of Na seal granted / found | 57 CE / 23 February 1784 | the Fukuoka museum (`cnh-799`) |
+| regional ethnic autonomy: the first region / promised / enacted / amended | 1947 / 1949 / 31 May 1984 / 28 February 2001 | the NPC (`cnh-800`) |
+
 ## Later periods
 
-To be filled from `cnh-701` on.
+To be filled from `cnh-801` on.
 
 ## Chronology pins
 
@@ -1120,6 +1216,8 @@ cnh-648: 1883; 1942; 1944; 1946
 cnh-674: 1907; 1959; 1969; 1971
 cnh-677: 1921; 1976; 1981; 2008
 cnh-678: 1904; 1920; 1926; 1978; 1997
+cnh-733: 442; 466; 476; 490
+cnh-781: 1550; 1571; 1578
 cnh-101: 1250; 1046
 cnh-103: 1046; 1040; 1122
 cnh-104: 1046; 1044; 1122
@@ -1560,4 +1658,84 @@ cnh-697: 1990; 1991; 1996
 cnh-698: 1949; 1993; 2008; 2016
 cnh-699: 1992; 2026
 cnh-700: 1943; 1951; 1952; 1971
+cnh-701: 221; 1912
+cnh-702: 221; 1912; 1924
+cnh-704: 1168; 1534; 1903; 1905
+cnh-705: 1450; 1850; 1663; 1901
+cnh-706: 1368; 1905
+cnh-707: 202; 220; 1393; 1655; 1824
+cnh-708: 1673; 1911
+cnh-709: 1631; 1905
+cnh-710: 221; 1912
+cnh-713: 1646; 1740; 1905
+cnh-714: 167; 1905
+cnh-715: 1381; 1642; 1645
+cnh-716: 1853; 1931
+cnh-717: 209; 1712
+cnh-718: 1370; 1492
+cnh-719: 54; 1069; 1748
+cnh-720: 1368; 1644; 1380; 1392
+cnh-721: 1644; 1911; 1812
+cnh-722: 1381; 1644; 1933; 1961
+cnh-723: 1368; 1644; 1437; 1571
+cnh-724: 1407; 1644; 1748
+cnh-726: 1136; 1142
+cnh-727: 500; 400; 155; 129
+cnh-728: 1537; 1722; 1735; 2015; 2025
+cnh-729: 1420; 1753; 1906; 2001
+cnh-730: 1420; 1644
+cnh-731: 1653; 1661; 1677; 1857
+cnh-732: 1723; 1735; 1850
+cnh-734: 209; 208
+cnh-735: 1761; 1762; 1787; 1845
+cnh-736: 710; 661; 721
+cnh-737: 552; 555; 1739
+cnh-739: 1921; 1922; 1929
+cnh-740: 2002; 2018; 2023
+cnh-744: 1049; 1050
+cnh-745: 1368; 1911
+cnh-746: 1500; 1949
+cnh-747: 1370; 1820; 1911
+cnh-748: 1573; 1619; 1921
+cnh-750: 1435; 1498
+cnh-751: 1950; 1953; 1981
+cnh-753: 900; 1898; 1912; 1850; 1950
+cnh-754: 1223; 1296; 1508
+cnh-756: 168; 267; 196
+cnh-757: 1888; 1890; 1894; 1959; 1988
+cnh-760: 600; 400; 104; 1644; 1912
+cnh-761: 1792
+cnh-762: 1012
+cnh-763: 780
+cnh-764: 1330
+cnh-765: 1391; 1912; 1527
+cnh-766: 1368; 1911; 2003
+cnh-767: 1366; 1368; 1393; 1864
+cnh-768: 636; 653; 965
+cnh-769: 762; 2008
+cnh-770: 1669; 1867; 1956; 2020
+cnh-771: 1953; 1954
+cnh-772: 1649; 1671; 1776; 1690
+cnh-773: 1953; 1954; 1979; 1982
+cnh-777: 215; 127; 1462; 1571
+cnh-778: 630; 682
+cnh-779: 402; 552; 555
+cnh-780: 808; 923; 951
+cnh-782: 1635; 1644; 1912
+cnh-783: 1792; 1793; 1995
+cnh-785: 1954; 1975; 1981
+cnh-787: 1856; 1873; 1862; 1958
+cnh-788: 742; 1392; 1988
+cnh-789: 700; 100; 500; 109
+cnh-790: 1795; 1797
+cnh-791: 1052; 1952; 1958; 1965
+cnh-792: 1722; 1736; 1952; 1956; 1980
+cnh-793: 239; 214
+cnh-794: 1723; 1735; 1886
+cnh-795: 1644; 1681; 1670; 1740
+cnh-796: 1636; 1638; 1861; 1906
+cnh-797: 1637; 1645; 1894; 1895
+cnh-798: 1406; 1407
+cnh-799: 57; 1784
+cnh-800: 1947; 1949; 1984; 2001
 ```
