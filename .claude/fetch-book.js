@@ -19975,6 +19975,125 @@ const BOOKS = {
     fixes: [["something_precedes", "something precedes", "System of all Principles, Second Analogy: an underscore typed for a space"]],
     minChars: 3000,
   },
+  "descartes-discourse-on-method": {
+    title: "Discourse on the Method",
+    // the work's own French title, as the first edition's title page sets it
+    subtitle: "Discours de la méthode pour bien conduire sa raison, et chercher la vérité dans les sciences",
+    author: "René Descartes",
+    translator: "John Veitch",
+    edition: "Second edition, Sutherland and Knox, Edinburgh, 1853",
+    written: "1637",
+    year: 1637,
+    /* ---------- THE LICENCE, and it needs no qualification ----------
+       Descartes published the Discourse in 1637 and died in 1650. Veitch's translation is the second
+       edition, Edinburgh, Sutherland and Knox, 1853 (the scan's title page); John Veitch died in 1894, so
+       the English clears the pre-1929 rule, life plus seventy and life plus a hundred alike — Wikisource's
+       own translation-licence tag on the work says both layers are public domain worldwide. The
+       transcription is proofread page by page (every page fetched carries `data-page-quality="3"`).
+
+       ---------- WHAT IS TAKEN ----------
+       Descartes's own prefatory note ("If this Discourse appear too long to be read at once…") and the six
+       Parts, each one wiki page. Not taken: Veitch's translator's preface and his long introduction — the
+       part of the volume that argues with the text rather than carrying it — and the title page.
+
+       THE ORIGINAL is Victor Cousin's edition (Œuvres de Descartes, tome I, Levrault, Paris, 1824), as
+       VALIDATED on French Wikisource (every scan page at `pagequality level="4"`), one page per Part, in
+       Cousin's spelling, which modernises 1637's but keeps the old -ois endings ("j'étois", "devois"). Adam and Tannery's 1902 text is there too, but it keeps 1637's long s and u-for-v
+       ("diſcours", "trouuera") and stands as ONE page; Cousin's reads cleanly and is already cut by Part.
+       The prefatory note stands on Cousin's work page under his own bibliographical note, which is cut
+       (`reFixes` below). */
+    rights:
+      "Public domain worldwide. René Descartes published the Discourse in 1637 and died in 1650. John " +
+      "Veitch's translation was first published in 1850 and this second edition in Edinburgh in 1853; " +
+      "Veitch died in 1894. The text is the proofread Wikisource transcription of the 1853 printing.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Discourse_on_the_Method",
+
+    /* THE FRONT MATTER — chapter 0. Every fact is a matter of record (the 1637 printing, the three essays
+       it prefaced, Part IV's cogito, the condemnation of Galileo that Part VI alludes to); where the reading
+       of the book is a matter of interpretation it says so rather than picking a side. */
+    about: [
+      "<b>The Discourse on the Method</b> is a short book in which René Descartes tells how he came to " +
+        "doubt everything he had been taught, and what he found he could not doubt. It is written in the " +
+        "first person, as the story of one mind, and offered, he says, not as a method every reader must " +
+        "follow but as an account of the one he had followed himself. Its fourth part holds the sentence it " +
+        "is remembered by: <i>I think, therefore I am</i> — in the French, <i>je pense, donc je suis</i>.",
+      "Descartes divides it himself, in a note before the first part, into six. The first is on the " +
+        "sciences he was taught and why they left him unsatisfied. The second gives the four rules of his " +
+        "method: to accept nothing as true that is not clearly known to be so, to divide each difficulty " +
+        "into as many parts as possible, to proceed in order from the simplest to the most complex, and to " +
+        "make reviews so complete that nothing is left out. The third sets out a provisional morality to " +
+        "live by while everything else is in doubt. The fourth proves, from the thinking self, the existence " +
+        "of God and of the soul. The fifth sketches his physics — including the motion of the heart and the " +
+        "difference between men and animals, which he took to be machines — and the sixth explains why he " +
+        "had held back a larger work, and why he publishes this.",
+      "Descartes was born in 1596 at La Haye in Touraine, in France, and educated by the Jesuits at La " +
+        "Flèche. He served as a volunteer in the armies of the Dutch Republic and of Bavaria, and it was in a " +
+        "winter in Germany, he says in the second part, that he shut himself up alone in a stove-heated " +
+        "room and began the thinking this book recounts. From the late 1620s he lived in the Netherlands. " +
+        "He had a treatise on the world ready when he learned in 1633 that Galileo had been condemned in " +
+        "Rome, and he withheld it; the sixth part speaks of that decision without naming him. The " +
+        "<i>Discourse</i> was published anonymously at Leiden in 1637, in French rather than Latin, as the " +
+        "preface to three essays — the <i>Optics</i>, the <i>Meteorology</i> and the <i>Geometry</i> — " +
+        "which were to show the method at work. The <i>Meditations</i> followed in 1641. He died in " +
+        "Stockholm in 1650, at the court of Queen Christina of Sweden.",
+      "The book is often taken as the beginning of modern philosophy: the turn from authority to the " +
+        "individual's own reason, and the starting point of a long argument about how the mind knows the " +
+        "world. How far its doubt is a real one, and whether the step from the thinking self to God holds, " +
+        "were questioned in Descartes's own lifetime and are argued over still.",
+      "John Veitch's translation was first published in 1850; this is his second edition, Edinburgh, " +
+        "1853. He made it from the French but compared it throughout with the Latin version of 1644, which " +
+        "Descartes had revised, and followed the Latin where he judged it clearer — so the two columns here " +
+        "do not always say quite the same thing. The text is given in the book's own order: Descartes's prefatory note, then the six parts, so " +
+        "a tab's number runs one ahead of the part's. The few notes are Veitch's. Not included: his " +
+        "translator's preface, his introduction and the title page. Beside it stands the French, in Victor " +
+        "Cousin's edition of 1824, whose spelling keeps the old endings (<i>j'étois</i>, <i>devois</i>); " +
+        "the two are paired part by part, since neither " +
+        "numbers anything smaller.",
+    ],
+
+    chapterWord: "Section",
+    chapters: Array.from({ length: 7 }, (_, i) => i + 1),
+    page: (n) => "Discourse on the Method/" + (n === 1 ? "Prefatory Note by the Author" : "Part " + (n - 1)),
+    // the Parts have no titles; the note's is the edition's own, with its brackets dropped
+    titleOf: (n) => (n === 1 ? "Prefatory Note by the Author" : "Part " + toRoman(n - 1)),
+    /* The edition's own heads, which Folio prints above the text itself: "DISCOURSE ON METHOD." over each
+       Part, "PART I." and so on, and "[PREFATORY NOTE BY THE AUTHOR.]". dropHeads strips blocks only from
+       the START of a section. */
+    dropHeads: [/^DISCOURSE ON METHOD\.?$/i, /^[PР][AА]R[TТ]\s+[IVX]+\.?$/i, /^\[?PREFATORY NOTE BY THE AUTHOR\.?\]?$/i],
+    /* Part VI's head is typed "РАRТ VI." with three CYRILLIC letters (Р, А, Т), so the head pattern above
+       accepts either alphabet. The slips below were found by a word-by-word diff of the whole import against
+       Project Gutenberg #59 (Veitch's translation; it spells -or and -ize where this printing spells -our and
+       -ise, and drops the comma this printing sets before a parenthesis — those differences are left), and
+       each is taken only where the Wikisource reading is not a reading at all. */
+    reFixes: [
+      [/(?<![A-Za-z])exibited(?![A-Za-z])/g, "exhibited", "III: `exibited` for `exhibited`; Gutenberg #59 prints it"],
+      [/our partial imperfection, those\. ['\u2019\u2018]possessing truth/g, "our partial imperfection, those possessing truth",
+       "IV, the last sentence: a stray full stop and apostrophe; Gutenberg #59 reads `those possessing truth`"],
+      [/for after the, error of those/g, "for after the error of those", "V: a stray comma; Gutenberg #59 has none"],
+    ],
+    // the note is one paragraph of some 800 characters; every Part is far longer
+    minChars: 500,
+
+    original: {
+      lang: "fr",
+      langName: "French",
+      perChapter: true,
+      wiki: "fr.wikisource.org",
+      page: (n) => {
+        const B = "Discours de la méthode (éd. Cousin)";
+        return n === 1 ? B : B + "/" + ["Première", "Deuxième", "Troisième", "Quatrième", "Cinquième", "Sixième"][n - 2] + " partie";
+      },
+      // the header inside the transclusion, the Part's <h2>, and the work page's furniture round the note
+      prep: "cousin",
+      edition: "Œuvres de Descartes, tome I, ed. Victor Cousin, Levrault, Paris, 1824, as validated at French Wikisource",
+      rights:
+        "Public domain worldwide: Descartes published this in 1637 and died in 1650. The transcription is " +
+        "of Victor Cousin's edition of 1824; Cousin died in 1867.",
+      sourceName: "Wikisource (French)",
+      sourceUrl: "https://fr.wikisource.org/wiki/Discours_de_la_m%C3%A9thode_(%C3%A9d._Cousin)",
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -27500,6 +27619,39 @@ function contratPrep(h, warn) {
   return b.slice(0, hm.index) + fence + b.slice(hm.index + hm[0].length);
 }
 
+/* `original.prep: "cousin"` — Victor Cousin's Discours de la méthode (1824) on French Wikisource (Nov 2026).
+   Like the Contrat's pages these carry the wiki's header INSIDE the transclusion as `ws-noexport` divs
+   (removed balanced), and each Part opens on an <h2> "PREMIÈRE PARTIE." that Folio prints itself. The work
+   page holds Descartes's prefatory note BETWEEN Cousin's own bibliographical note, the title and the
+   contents list; only the note's one block ("Si ce discours semble trop long…") is kept, and a page with
+   neither an <h2> head nor that block is warned rather than passed through. */
+function cousinPrep(h, warn) {
+  let b = h;
+  for (let k = 0; k < 20; k++) {
+    const m = /<div\b[^>]*class="[^"]*\bws-noexport\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const e = blockEnd(b, m.index, "div");
+    if (e < 0) { warn("an unbalanced ws-noexport block was left in place"); break; }
+    b = b.slice(0, m.index) + b.slice(e);
+  }
+  const note = b.indexOf("Si ce discours semble trop long");
+  if (note >= 0) {
+    const s = b.lastIndexOf('<div class="alinea"', note);
+    const e = s < 0 ? -1 : blockEnd(b, s, "div");
+    if (e < 0) { warn("the prefatory note's block was not found whole"); return b; }
+    // the block's own div would become a blockquote; the note is a paragraph of prose
+    const inner = b.slice(s, e).replace(/^<div\b[^>]*>/, "").replace(/<\/div>$/, "");
+    return '<div class="prp-pages-output" lang="fr"><p>' + inner + "</p></div>";
+  }
+  // Part VI's closing "FIN DU DISCOURS DE LA MÉTHODE." and the spacer above it are Cousin's, not Descartes's
+  b = b.replace(/<div style="line-height:[^"]*">\s*<br>\s*<\/div>\s*(?=<div style="text-align:center;[^"]*">\s*<b>FIN DU DISCOURS)/, "")
+    .replace(/<div style="text-align:center;[^"]*">\s*<b>FIN DU DISCOURS DE LA MÉTHODE\.<\/b>\s*<\/div>/, "");
+  const before = b.length;
+  b = b.replace(/<h2\b[^>]*>(?:(?!<\/h2>)[\s\S])*?PARTIE(?:(?!<\/h2>)[\s\S])*?<\/h2>/, "");
+  if (b.length === before) warn("no PARTIE head found");
+  return b;
+}
+
 /* Turn ONE page of another wiki into one chapter's html — the `perChapter` original, added with The
    Prince (Aug 2026) and the simplest of the three wiki shapes rather than a complication of them.
    Seneca's Latin gives one page per BOOK of the collection with the letters as headings inside it, so
@@ -27520,6 +27672,7 @@ let ORIG_TIPS = 0;
 function originalChapter(h, O, warn) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
   if (O && O.prep === "contrat") b = contratPrep(b, warn);
+  if (O && O.prep === "cousin") b = cousinPrep(b, warn);
   /* A PAGE TYPED ONTO THE WIKI RATHER THAN TRANSCLUDED FROM A SCAN has no `prp-pages-output` wrapper
      at all, so the slice below returns -1 and this throws on a page holding the whole text. Falling
      back automatically would be wrong for the same reason it is wrong on the translation side: a

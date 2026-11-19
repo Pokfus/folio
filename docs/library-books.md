@@ -12,7 +12,22 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently sixty-seven:
+  matter (chapter 0 — see the Library bullet). Currently seventy-two:
+  `descartes-discourse-on-method` (~131 KB, **7 sections** — Descartes's prefatory note and the six Parts, so a tab runs
+  one ahead of the Part; `chapterWord: "Section"` — **7 notes**, all Veitch's; original **French**, paired on the PART
+  as The Prince is on the chapter). John Veitch's translation, second edition, Sutherland and Knox, Edinburgh, 1853
+  (preface dated October 1850), proofread on Wikisource; one wiki page per Part, plain prose, so the generic extractor
+  reads it. `dropHeads` takes the edition's "DISCOURSE ON METHOD." / "PART I." / "[PREFATORY NOTE BY THE AUTHOR.]" —
+  **Part VI's head is typed with three Cyrillic letters ("РАRТ VI.")**, so its pattern accepts both alphabets. Three
+  `reFixes`, each found by a word diff of the whole import against Gutenberg #59 (Veitch from another printing: -or,
+  -ize, no comma before a parenthesis — those left): `exibited`, a stray `. '` in Part IV's last sentence, a stray
+  comma in Part V. Veitch says in his preface he compared the French with the 1644 Latin and sometimes followed the
+  Latin; the front matter says so. The French is Victor Cousin's edition (Œuvres I, Levrault, Paris, 1824), validated
+  on fr.wikisource, one page per Part (`perChapter`, **`prep: "cousin"`** — see `docs/library-importer.md`); the
+  prefatory note is cut off the work page. Adam–Tannery (1902) was rejected: one page, and 1637's long s and u-for-v.
+  Public domain worldwide: Descartes d. 1650, Veitch d. 1894, Cousin d. 1867. Colour `#5A0009` (14.3: the band is
+  full; the philosophers stand 20.5 or more off). `glossOff`: Meditations (Descartes's, not Marcus Aurelius's),
+  Germany. Excerpt: the cogito, Part IV. Not included: Veitch's preface and introduction, the title page.
   `rousseau-social-contract` (~260 KB, **49 sections** — Rousseau's Foreword and the 48 chapters of the four Books, so a
   tab runs one ahead of the chapter's place; each title opens with its numeral in its Book, the Books are the `parts`;
   `chapterWord: "Section"` — **47 notes**, Rousseau's with a few of Cole's; original **French**, paired on the CHAPTER as
