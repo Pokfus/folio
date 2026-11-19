@@ -54,8 +54,8 @@
   card, and 21 of A1's cards printed their own Russian word in it, inside an example in brackets ("that (я
   знаю, что…, I know that…)", "since (+ genitive: с утра, since the morning)"). Every bracket of an English
   side that holds a form the card itself shows is wrapped in `<span class="uc-eg">`, and the card type's
-  CSS (`EG_CSS`, appended once) hides that span on the question and shows it again on the answer; the
-  Russian → English card, where the bracket is the lesson, is untouched. Done on every run, to every
+  CSS (`EG_CSS`, kept at the end of the stylesheet) hides that span wherever the English side stands
+  under "Say it in Russian"; the Russian → English card, where the bracket is the lesson, is untouched. Done on every run, to every
   `torfl` deck, and never twice.
 
   `decks`  `{ <deck id>: { dropDup?, subtitle?, descSub? } }`.
@@ -189,7 +189,7 @@ function formsOf(c) {
   for (const m of (c.fields.Russian + c.fields.Forms + c.fields.Table).matchAll(/>([^<>]+)</g)) for (const t of ruToks(m[1])) out.add(t);
   return out;
 }
-const EG_CSS = "\n/* a bracket that prints the card's own Russian word is not shown on the English → Russian question */\n.uc-ask + .uc-field .uc-eg {\n  display: none;\n}\n.uc-ask + .uc-field:has(~ hr) .uc-eg {\n  display: inline;\n}\n";
+const EG_CSS = "\n/* a bracket that prints the card's own Russian word is not shown on the English → Russian card */\n.uc-ask + .uc-field .uc-eg {\n  display: none;\n}\n";
 function wrapOwn(c) {
   const own = formsOf(c);
   c.fields.English = c.fields.English.replace(/(<span class="uc-eg">)?\(([^()<>]*)\)/g, (all, done, inner) =>
@@ -276,7 +276,7 @@ for (const id of order) {
   }
   recount(d);
   for (const c of d.cards) wrapOwn(c);
-  if (!d.meta.types.torfl.css.includes(".uc-eg")) d.meta.types.torfl.css += EG_CSS;
+  d.meta.types.torfl.css = d.meta.types.torfl.css.replace(/\n\/\* a bracket that prints the card's own Russian word[\s\S]*$/, "") + EG_CSS;
   // 5. the pinned ids
   const pin = PIN[id] || (PIN[id] = {}), ret = (PIN._retired = PIN._retired || {}), retired = ret[id] || {};
   const have = new Set(d.cards.map((c) => c.fields.Word));

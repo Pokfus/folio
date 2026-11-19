@@ -190,10 +190,17 @@ out.ruphrase = { why: "Tiered by the lowest deck whose headwords and listed form
 const descA1 = (((REC.decks || {}).torfla1 || {}).descSub || []).map((p) => p[1]).join(" ");
 if (descA1) {
   for (const s of SETS) if (!descA1.includes("note " + s.at)) fail("the A1 description does not say that " + s.name + " begin at note " + s.at);
-  if (!descA1.includes(HEAD.length + " ")) fail("the A1 description does not state the head's " + HEAD.length + " notes");
+  if (!descA1.includes("first " + HEAD.length + " notes")) fail("the A1 description does not state the head's " + HEAD.length + " notes");
+  if (!descA1.includes("in " + Math.ceil(A.list.length / 5) + " days")) fail("the A1 description does not say the deck takes " + Math.ceil(A.list.length / 5) + " days");
+  const dayOf = (w) => Math.ceil((A.list.indexOf(w) + 1) / 5);
+  if (dayOf("привет") !== 1 || !descA1.includes("привет on day one")) fail("привет is not on day one, or the A1 description does not say so");
+  if (Math.max(...["я", "ты", "он", "она", "оно", "мы", "вы", "они"].map(dayOf)) !== 6 || !descA1.includes("the pronouns by day 6")) fail("the pronouns do not end on day 6, or the A1 description does not say so");
 }
 const descPh = (((REC.decks || {}).ruphrase || {}).descSub || []).map((p) => p[1]).join(" ");
-if (descPh) P.tiers.forEach((n, i) => { if (!descPh.includes(String(n))) fail("the phrases description does not state the " + n + " of tier " + (SHELF[i] || "none")); });
+if (descPh) {
+  P.tiers.forEach((n, i) => { if (!descPh.includes(String(n))) fail("the phrases description does not state the " + n + " of tier " + (SHELF[i] || "none")); });
+  if (!descPh.includes("takes " + Math.ceil(P.list.length / 5) + " days")) fail("the phrases description does not say the deck takes " + Math.ceil(P.list.length / 5) + " days");
+}
 
 if (REPORT) {
   const day = (w) => Math.ceil((A.list.indexOf(w) + 1) / 5);

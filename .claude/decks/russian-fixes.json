@@ -1548,7 +1548,17 @@
     "семьдесят": "torfla1/семьдесят",
     "восемьдесят": "torfla1/восемьдесят",
     "девяносто": "torfla1/девяносто"
-   }
+   },
+   "descSub": [
+    [
+     "295 of the 750 come from a vocabulary written",
+     "282 of the 737 come from a vocabulary written"
+    ],
+    [
+     "the numbers to a million,",
+     "the numbers above a hundred (thirteen to ninety were moved to A1 in November 2026, to stand with one to twelve),"
+    ]
+   ]
   },
   "ruphrase": {
    "dropDup": {
@@ -1560,7 +1570,41 @@
     "я не говорю по-русски": "torfla1/я не говорю по-русски",
     "до завтра": "torfla1/до завтра",
     "где туалет": "torfla1/где туалет"
-   }
+   },
+   "descSub": [
+    [
+     "The commonest come first: что это, не знаю, я не знаю, не думаю. ",
+     "Eight expressions of a first exchange (как вас зовут, я не понимаю, сколько это стоит) were moved to TORFL A1 in November 2026. "
+    ],
+    [
+     "THE ORDER is how many sentences of the Tatoeba corpus use each expression, counted on whole words. 114 of the 482 appear in no sentence there at all, and they are kept and dealt last rather than dropped:",
+     "THE ORDER is by what you can already read: first the 97 expressions spelled entirely with words and forms the TORFL A1 deck shows, then 42 that need A2 as well, 45 B1, 25 B2, 17 C1 and 18 C2, and last the 230 that hold a word or a form no deck shows. So this deck can be begun beside A1 — its first 97 notes need nothing else — and not only after C2, where the shelf lists it. Inside each group the order is how many sentences of the Tatoeba corpus use the expression, counted on whole words. 114 of the 474 appear in no sentence there at all, and they are kept, last in their group, rather than dropped:"
+    ],
+    [
+     "Every Russian word is printed with its stress mark; the sentences are printed as they were written. ",
+     "Every expression is printed with the stress marks Wiktionary's own headword carries (23 of the 474 have a word it leaves unmarked); the sentences are printed as they were written. At the default of ten new cards a day, both directions together, the deck takes 95 days. "
+    ]
+   ]
+  },
+  "torfla1": {
+   "descSub": [
+    [
+     "345 of the 500 come from a vocabulary written",
+     "Of the 500 words the generator chose, 345 come from a vocabulary written"
+    ],
+    [
+     "since a list of word forms ranks книгу above книга. The cards are dealt by that frequency, so the words you meet most often come first. ",
+     "since a list of word forms ranks книгу above книга. 49 more were added by hand in November 2026, after a beginner's audit of the shelf: 28 words no deck taught — весь, так, такой, себя, чем, просто, конечно and others that the frequency rule had turned away as forms of other words, and five courtesies — each built from the same sources, 13 numbers from thirteen to ninety moved up from A2, and 8 phrases of a first exchange (как вас зовут, я не понимаю, сколько это стоит) moved up from the phrases deck. That these 49 are Elementary material is a judgement, not a citation. THE ORDER is a teaching one: the first 136 notes are laid out by hand — the courtesies, a first exchange, the pronouns, ten verbs, the question words, zero to ten, the commonest function words — and after them the words come by frequency, with the days of the week together from note 151, the numbers above ten from note 201, the colours from note 251 and the months and the seasons from note 301. At the default of ten new cards a day, both directions together, that is five words a day: привет on day one, the pronouns by day 6, and the whole deck in 110 days. "
+    ],
+    [
+     "are cards of their own beside идти́ and е́хать, because the difference is the lesson. ",
+     "are cards of their own beside идти́ and е́хать, because the difference is the lesson, and each card of such a pair says which of the two it is and names the other. "
+    ],
+    [
+     "learn the alphabet first with the Russian alphabet deck, which is the first deck in this collection. ",
+     "learn the alphabet first with the Russian alphabet deck, the first deck in this collection, and keep Russian — Sounds and spelling beside this one: it says what the spelling does not (an unstressed о, a final д, the г of его). "
+    ]
+   ]
   }
  }
 }

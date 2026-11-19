@@ -352,6 +352,16 @@ jobs:
       - name: build-portuguese-sounds --check (the Portuguese sounds deck is what its table and CAPLE A1 give)
         if: ${{ !cancelled() }}
         run: node .claude/decks/build-portuguese-sounds.js --check
+      # The Russian decks (2026-11-19, the Russian beginner pass): russian-fixes.json (the cards TORFL A1 gains, the
+      # repaired cards, the order, the pinned ids, the counts a description states); the alphabet and the sounds
+      # deck are both written from russian-sounds.json and TORFL A1. A rebuild by .claude/torfl/run.py is not byte
+      # for byte and numbers a deck by position, so these two checks are what keeps a reader's progress on its word.
+      - name: russian-fix --check (the Russian decks carry their record, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/russian-fix.js --check
+      - name: build-russian-sounds --check (the Russian alphabet and sounds decks are what their table and TORFL A1 give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/build-russian-sounds.js --check
       - name: jlpt check-ids (every Japanese card id is the one ids.json pins)
         if: ${{ !cancelled() }}
         run: node .claude/jlpt/check-ids.js

@@ -190,6 +190,38 @@ insert with no place fails that script), `portuguese-order.js`, `portuguese-fix.
 A figure typed into a `descSub` is held to the order by `portuguese-order.js`; the counts are recounted on
 every run.
 
+## The Russian decks: the record, the order, the pinned ids, the alphabet and the sounds deck (Nov 2026)
+
+Seven decks of card type `torfl` (TORFL A1 to C2 and the phrases), written by `.claude/torfl/run.py` (Python,
+about 1.3 GB of live corpora) — and **a rebuild is not byte for byte** (measured 2026-11-19: A1 moved four
+notes, the phrases 92), so every change is in a record (`docs/lang-decks.md`, "The Russian beginner pass"), on
+the German model: **a word is ONE NOTE with two card templates**, so the pin is of note ids (a card id is the
+note id, plus `~2` for English → Russian). The alphabet (`ru-abc`) and the sounds deck (`rusound`) are written
+from one sourced table.
+
+    node russian-fix.js --check             # the Russian record, the order and the pinned ids
+    node build-russian-sounds.js --check    # the alphabet and the sounds deck are what their table and TORFL A1 give
+    node ../torfl/check-torfl.js a1         # one deck read as a reader would (a1 … c2, phrases, alphabet)
+
+| file | what it is |
+|---|---|
+| `russian-fixes.json` | the record: `insert` (a card's six `fields`, MOVED byte for byte with `from`, or BUILT by `../torfl/extra.py` with the Tatoeba ids of its sentences in `src`), `notes` (`senses`, `forms`, `table`, `tableFrom`, `ex`, `glossAdd` on a card the deck has), `decks.<id>.dropDup` (`Word → "<lower deck>/<its Word>"`), `subtitle` and `descSub`. A note's key is its `Word` field: the headword without stress, an aspect pair as `делать, сделать`. |
+| `russian-ids.json` | deck id → `Word` (a letter, a sounds row's key) → the number in the note's id. **Never delete or renumber a row.** A removed note's row moves to `_retired` (21 of them). APPLIED, so a deck numbered by position is numbered back. |
+| `russian-order.json` | deck id → the full list of `Word`s in the order the deck is dealt (TORFL A1, the phrases). May be edited by hand; a list that is not exactly the deck's headwords is refused. A deck with no entry is dealt in the order of its pinned numbers. |
+| `russian-order.js` | how that file is computed, from the PINNED NUMBER: A1's hand-written head, four closed sets each placed at a note number, look-alikes forty apart; the phrases by reading level. It fails if a figure a `descSub` states (a set's note, the head's length, the days) no longer matches the order. `--report` prints the measurements. |
+| `russian-merge-extra.js` | copies the cards `../torfl/extra.py` built (in the gitignored cache) into `russian-fixes.json`. Not a CI step. |
+| `russian-sounds.json` | the table behind BOTH the alphabet and the sounds deck: cells, notes and sentences quoted from three Wikipedia pages at the revisions it names, and the English Wiktionary's transcription of each example word. A row's `key` is what its id is pinned to. |
+| `build-russian-sounds.js` | writes `Russian-Alphabet` (`ru-abc`, two cards a letter) and `Russian-Sounds-and-Spelling` (`rusound`, one card a note). **Reads no live source**: the table and the shipped A1 deck. |
+
+`russian-fix.js` finds its decks by CARD TYPE (`torfl`). **Never `run.py --level <x>` to refresh a deck.** To
+add a word to A1: name it in `EXTRA` in `../torfl/extra.py` and run it (it needs the cache: `run.py` fetches
+it), read the three sentences it prints, `russian-merge-extra.js`, then name the word in the head or in a set
+in `russian-order.js` (an insert with no place fails that script), `russian-order.js`, `russian-fix.js`,
+`build-russian-sounds.js` (a meaning or a stress it shows is A1's) and `node .claude/build-lang-decks.js`. To
+move a word down from a higher deck: an `insert` with the card's `fields` copied and `from`, and a `dropDup` row
+on the deck it leaves. Every bracket of an English side that prints the card's own Russian word is wrapped and
+hidden on the English → Russian card by `russian-fix.js` itself, on every run.
+
 ## Changing the card type's CSS
 
 `deckcore.js` holds it, and every built deck file carries a **copy** — so an edit there does not reach a
