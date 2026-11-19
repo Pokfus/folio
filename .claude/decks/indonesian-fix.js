@@ -68,6 +68,7 @@
         {start:<deck id>}         the shelf day another deck begins on
         {day:<headword>}          the day of THIS deck on which a headword's first card is dealt
         {inserted}                how many notes this record's `insert` gives the deck
+        {n:<subdeck>}             how many of this deck's notes are filed in a subdeck
         {l1}                      how many of this deck's notes are written only with UKBI 1's words and forms
       A token that cannot be filled is an error.
 
@@ -333,11 +334,12 @@ for (const id of order) {
     if (k === "start" && span.has(arg)) return fmt(span.get(arg).first);
     if (k === "day") { const i = d.cards.findIndex((c) => c.fields.Word === arg); if (i >= 0) return fmt(Math.ceil((i + 1) / PER_DAY)); }
     if (k === "inserted") return fmt(((REC.insert || {})[id] || []).length);
+    if (k === "n") return fmt(d.cards.filter((c) => c.sub === arg).length);
     if (k === "l1") return fmt(d.cards.filter((c) => toks(c.fields.Word).every((t) => shown1.has(t))).length);
     errors.push(id + ": the token " + all + " cannot be filled");
     return all;
   });
-  if (dm.subtitle !== undefined) { d.meta.subtitle = fill(dm.subtitle); recount(d); }
+  if (dm.subtitle !== undefined) d.meta.subtitle = fill(dm.subtitle);
   if (dm.lead === undefined) continue;
   const m = (ANCHOR[id] || LEVEL_ANCHOR).exec(d.meta.desc);
   if (!m) { errors.push(id + ": the generator's opening words are not in the description, so the lead has no place"); continue; }
