@@ -938,6 +938,13 @@ BCE and the empire's end, the abdication of 12 February 1912 (`cnh-191`, `cnh-57
 | the jimi prefectures introduced / undermined | 630 CE / 682 CE | the cited studies (`cnh-778`) |
 | the Rouran founded / destroyed | c. 402 CE / 552 – 555 CE | Kradin; the *Zhou shu* (`cnh-779`) |
 | the Shatuo fled east / ruled the north | 808 CE / 923 – 951 CE | Barenghi (`cnh-780`) |
+| the Manchu name / the throne taken / the rule ended | 12 November 1635 / 6 June 1644 / 12 February 1912 | Sun (`cnh-782`) |
+| the Golden Urn introduced / the rules issued / revived | 1792 / 1793 (the PRC's; Goldstein 1792) / 1995 | the white paper; Goldstein (`cnh-783`) |
+| the Corps founded / dissolved / restored | October 1954 / March 1975 / December 1981 | the 2014 white paper (`cnh-785`) |
+| the Panthay uprising / the north-west rising / the Ningxia region | 1856 – 1873 / 1862 / 25 October 1958 | the cited studies (`cnh-787`) |
+| the Great Mosque: the claimed founding / the rebuilding / protected | 742 CE (traditional) / 1392 / 1988 | the 2026 study (`cnh-788`) |
+| the Dian culture / the kingdom active / submitted | c. 700 BCE – 100 CE / c. 500 – 109 BCE / 109 BCE | Allard; Yao (`cnh-789`) |
+| the Miao revolt | 1795 – 1797 | the National Palace Museum (`cnh-790`) |
 
 ## Later periods
 
@@ -1704,4 +1711,11 @@ cnh-777: 215; 127; 1462; 1571
 cnh-778: 630; 682
 cnh-779: 402; 552; 555
 cnh-780: 808; 923; 951
+cnh-782: 1635; 1644; 1912
+cnh-783: 1792; 1793; 1995
+cnh-785: 1954; 1975; 1981
+cnh-787: 1856; 1873; 1862; 1958
+cnh-788: 742; 1392; 1988
+cnh-789: 700; 100; 500; 109
+cnh-790: 1795; 1797
 ```

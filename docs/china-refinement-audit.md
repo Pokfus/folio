@@ -436,8 +436,8 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Shennong and tea | Lu Yu's *Classic of Tea* (c. 760 – 780 CE) says tea "began with Shennong"; the later tale of the leaf falling into his boiling water; the earliest secure evidence of tea drinking from texts of the Han and the tea found in the tomb of Emperor Jing (died 141 BCE) — confirmed B77 (`cnh-763`: Lu Yu's line on the *Chajing*'s own text) | `cnh-763` | — | `cnh-006` |
 | Xiangqi's origin | the game credited to Shennong, to Han Xin or to Emperor Wu of the Northern Zhou, whose *Xiangjing* (569 CE) is lost and whose game may not be xiangqi; the earliest tale of a recognisable game in Niu Sengru's Tang collection; the board's river and palace attested in the Song — refined B77 (`cnh-769`: Han Xin and Emperor Wu of the Northern Zhou told as traditions; the Shennong credit on no page read and not told; the Tang tale through Murray's translation) | `cnh-769` | — | — |
 | Tai chi's origin | Zhang Sanfeng, the Daoist of Wudang, as its founder — a story of the 19th century (the Wu and Yang lineages' texts), built on Huang Zongxi's epitaph for Wang Zhengnan (1669), which credits him with the "internal school" of boxing; Chen Wangting of Chenjiagou (17th century) as the founder, Tang Hao's case of the 1930s; each told as whose — confirmed B77 (`cnh-770`: the legend attested 1669, Tang Hao's case dated 1931 by Wile) | `cnh-770` | — | — |
-| The Great Mosque of Xi'an's founding | the stele dated 742 CE claiming a Tang foundation, held by historians a later work; the buildings standing from the Ming (a rebuilding of 1392 claimed) — PROVISIONAL | `cnh-788` | `cnh-787` | — |
-| Chiyou as the Miao's ancestor | the identification of the Miao with the Sanmiao of the late texts and of Chiyou as their forebear — a modern and in part 20th-century reading, never ancient fact; the Sanmiao in the *Shangshu* and the *Shiji* as Shun's banished enemies — PROVISIONAL | `cnh-790` | — | `cnh-008`, `cnh-009` |
+| The Great Mosque of Xi'an's founding | the stele dated 742 CE claiming a Tang foundation, held by historians a later work; the buildings standing from the Ming (a rebuilding of 1392 claimed) — confirmed B79 (`cnh-788`: the stele held a later work; 1392 the open 2026 study's date for the rebuilding) | `cnh-788` | `cnh-787` | — |
+| Chiyou as the Miao's ancestor | the identification of the Miao with the Sanmiao of the late texts and of Chiyou as their forebear — a modern and in part 20th-century reading, never ancient fact; the Sanmiao in the *Shangshu* and the *Shiji* as Shun's banished enemies — confirmed B79 (`cnh-790`: told as a modern identification, Legge 1879 for the Sanmiao) | `cnh-790` | — | `cnh-008`, `cnh-009` |
 | The King of Na seal | the gold seal the *Hou Hanshu* says Emperor Guangwu gave the envoy of Nu of Wa in 57 CE, held to be the seal a farmer found on Shikanoshima in 1784; the doubts of forgery and the tests that answer them, each said whose — PROVISIONAL | `cnh-799` | — | `jp-` (read, never edited) |
 
 ## Working a card
@@ -590,7 +590,7 @@ otherwise.
 | B76 | Society and everyday life (`cn-society`) | `cnh-751`–`cnh-760` | 10 | 105 | **done 2026-11-19** |
 | B77 | Society and everyday life (`cn-society`) | `cnh-761`–`cnh-770` | 10 | 100 | **done 2026-11-19** |
 | B78 | Society and everyday life (`cn-society`) / The peoples and frontiers of China (`cn-peoples`) | `cnh-771`–`cnh-780` | 10 | 99 | **done 2026-11-19** |
-| B79 | The peoples and frontiers of China (`cn-peoples`) | `cnh-781`–`cnh-790` | 10 | 106 | to do |
+| B79 | The peoples and frontiers of China (`cn-peoples`) | `cnh-781`–`cnh-790` | 10 | 106 | **done 2026-11-19** |
 | B80 | The peoples and frontiers of China (`cn-peoples`) | `cnh-791`–`cnh-800` | 10 | 111 | to do |
 | B81 | Land, trade and money (`cn-economy`) | `cnh-801`–`cnh-810` | 10 | 104 | to do |
 | B82 | Land, trade and money (`cn-economy`) | `cnh-811`–`cnh-820` | 10 | 101 | to do |
@@ -4699,3 +4699,29 @@ survey", "Shatuo settled", "Turks settled", "Defeated by Türks"); every questio
 Read by eye: every claim on a contested present-day matter (the classification, the census categories, sinicisation as policy) said whose. **Chinese names corrected**: `cnh-778`.
 Kept unconfirmed: 华夷之辨. **Spellings**: no hit. **check-citations**: no mismatch. **Glossary**: eight rewritten, `cnh-771` and its sibling `cnh-772`'s kept where right.
 **Locator**: `cnh-771`'s card reads as a place card with none (for the owner; it is an event).
+
+### B79 — `cnh-781`–`cnh-790`, the peoples and frontiers: Altan Khan to the Miao (2026-11-19)
+
+Run as B71. Every cited URL answered (100 citations, 59 distinct). **Pictures were not touched.** **The old cards cited Chinese Wikisource about twenty-five times, census
+images (JPEGs) for figures, two Wikisource white papers, Lattimore and Serruys through uploads, and carried places, men and states in labels ("Raid on Beijing", "Peace with
+Ming", "Met Dalai Lama" on the protected line, kept; "Yunnan revolt", "Northwest revolt", "Ming repairs", "Yizhou revolts", "Submitted to Han").** These cards carry the
+collection's most contested present-day matters: every claim on Tibet and Xinjiang today is said whose — the state's white papers and census communiqués, the Dalai Lama's
+office, the UN human rights office, Human Rights Watch, the Uyghur Human Rights Project, the US Treasury, China's foreign ministry — with each side's denial or answer beside it,
+never in the card's own voice (read in full before the apply).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-781` Altan Khan | 6 | 6 → 6 | **PROTECTED line untouched** (1550, 1571 and 1578 in the background); the two Wikisource *Mingshi* juan, the DLI Lattimore and the Serruys upload replaced (juan 327 on the Kanseki text with its Siku forms 諳達, Rossabi, Jagou [in French], the Dalai Lama's office); the 1542 silk speech, two regnal conversions, Guihua, *banshen* and Koko Nor dropped. |
+| `cnh-782` Manchu people | 7 | 7 → 7 | **"Ruled China 1644 – 1912" → `Named 12 November 1635` (Sun) / `Throne taken 6 June 1644` / `Rule ended 12 February 1912`**; the *Qingshi gao* and its 1599 dropped; the death count and "only since the 1980s" (no page) dropped; the census through its spreadsheet. |
+| `cnh-783` Golden Urn | 5 | 6 → 6 | line kept (`Introduced 1792` / `Rules issued 1793` / `Revived 1995`; 1793 the PRC's, Goldstein 1792); Gardner's Treasury of Lives essay and the white paper; the stele, the Shamarpa, the blank slip and the Mongol draws dropped; **how often the urn was used is two claims with owners** (three of five Dalai Lamas, the white paper; one, the Dalai Lama's statement). |
+| `cnh-784` Tibetan people | 8 | 8 → 8 | line empty; the *Old Book of Tang* through Bushell's 1880 translation; the census JPEG → the statistics bureau's spreadsheet; 1950 – 51 and 1959 told in each side's words with their owners. |
+| `cnh-785` Xinjiang Production and Construction Corps | 6 | 6 → 7 | **`Dissolved 1975` → `Dissolved March 1975`**; the 2014 white paper from gov.cn (the 2003 one dropped); Seymour 2000, Cai 2012; the 2020 sanctions and the foreign ministry's answer; the Corps' own account, one historian's "Han colonisation" and the UHRP's "colonising force" each said whose. |
+| `cnh-786` Uyghurs | 8 | 8 → 8 | line empty; **the census figure from Xinjiang's 2020 communiqué [in Chinese]** (11,624,257, 44.96 per cent), not a picture; the 1934 rendering order (no page) dropped; the name's revival through the received account and Atwood 2017's challenge; the 2019 white paper, the UN office, Human Rights Watch and the government's denial side by side. |
+| `cnh-787` Hui people | 7 | 7 → 7 | **"Yunnan revolt" and "Northwest revolt from 1862" (places, a "from") → `Uprising 1856 – 1873` / `Rising began 1862` / `Region founded 25 October 1958`**; a Spanish article on the Panthay rising, the census yearbook, CGTN for the state's view; the Huihui etymology, Zuo Zongtang and Ma Hualong (no page) dropped; the *minzu* classification the state's, beside the Hui's own views. |
+| `cnh-788` Great Mosque of Xi'an | 6 | 6 → 6 | **"Ming repairs 1368 – 1424" (two emperors' reigns) → `Traditional 742 CE` / `Rebuilding 1392` / `Protected 1988`**; an open 2026 study and Steinhardt 2013 replace the walled paper and Wikisource; four courtyards (a radio page) and five (the study) each said whose. Locator label repeats the answer term (for the owner). |
+| `cnh-789` Dian kingdom | 6 | 6 → 6 | **"Yizhou revolts 86 BCE and 42 CE" → `Culture dated c. 700 BCE – 100 CE` / `Active c. 500 – 109 BCE` / `Submitted 109 BCE`**; Elias 2024, Allard 2015, Yao 2008, *The Paper* [in Chinese], China Daily; the Dian-and-Yelang seal claim dropped. **Name 滇 → 滇国 Diānguó.** No locator (a state). |
+| `cnh-790` Miao people | 7 | 7 → 8 | **"Chiefs replaced 1726 – 1731" (on no page) off: `Revolt 1795 – 1797`**; Legge 1879, McMahon 2016, the National Palace Museum, Leiden, the census spreadsheet; Ortai, Fukang'an and Mingliang dropped; Chiyou as ancestor told as a modern identification. |
+
+**Legend (register)**: the Great Mosque's 742 stele confirmed as held a later work (the 1392 rebuilding the study's date); Chiyou as the Miao's ancestor confirmed as a modern
+reading. **Protected**: `cnh-781`'s line unchanged (diffed after the apply). **Chinese names corrected**: `cnh-789`. **Spellings**: no hit. **check-citations**: no mismatch. **Glossary**:
+all ten rewritten. **Locators**: `cnh-789` (a state) has none and wants none.
