@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1371", released: "2026-11-19T05:09Z" };
+window.FOLIO_VERSION = { v: "1.1374", released: "2026-11-19T05:17Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-19",
-    t: "Seven new books in the Library, from Hamlet and Darwin to Jerome",
+    t: "Who is this? minigame, seven Library books, home page and map changes",
     items: [
       "<b>100 new cards</b> in Japan, from the Kamakura shogunate and the Mongol invasions to Muromachi culture, with 95 new glossary terms.",
       "Shakespeare's <b>Hamlet</b> is in the Library, in the Yale edition of 1917, with its list of characters and every gloss.",
@@ -57,6 +57,18 @@ window.CHANGELOG = [
       "<b>Persian A1</b> now opens with the greetings, numbers and weekdays come together, and verbs show their spoken, perfect and negative forms.",
       "Russian gains a <b>Sounds and spelling</b> deck, and <b>TORFL A1</b> now opens with hello, thank you and please, with numbers, days and months together and 49 more words.",
       "<b>Urdu A1</b> now opens with the greetings, with numbers, days and months together; Urdu cards show a word's vowel marks, and the alphabet deck cites its sounds.",
+      "A new daily minigame, <b>Who is this?</b>: name the historical figure in a portrait from four options.",
+      "The home page is tidier: a narrower daily quote, Term of the day styled like Suggested reading, no week-ahead strip, Today laid out like This week.",
+      "The minigame chest bar on tablets and desktops now looks as it does on a phone.",
+      "A collection row with decks to fetch or refresh now carries one <b>Download all</b> or <b>Update all</b> button.",
+      "A card's timeline shows three dates either side on tablets and desktops, and a whole timeline has a <b>Back to card</b> button.",
+      "Map names of states, regions and seas are now in a serif; seas and deserts never get a dot, and Mount Olympus is always a peak.",
+      "In map windows the Discovered chip sits beside the Location heading, the night Collection/All switch is softer and the source line is gone.",
+      "Nine map windows redrawn: sharper Western Desert borders, the whole Spartan state, Alexander's and Carthage's full extents, and states for three leaders.",
+      "12 new glossary terms, more glossary links across United States cards, and new or better pictures on three cards.",
+      "Timelines added to 4 more cards, and date lines or map points improved on 3 cards.",
+      "100 new cards in <b>Ancient Egypt</b>, from the end of Kushite rule through the Saite and Persian periods to Ptolemaic Egypt, with 83 new glossary terms.",
+      "New Geography collection, <b>Historical States</b>: a past state is highlighted on the map at its greatest extent and you name it; 14 cards so far, in seven period decks.",
     ],
   },
   {

@@ -1,17 +1,17 @@
 {
- "generated": "2026-11-19T05:08Z",
+ "generated": "2026-11-19T04:57Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8461,
-  "redirect-broader": 808,
-  "redirect-variant": 496,
+  "ok": 8557,
+  "redirect-broader": 816,
+  "redirect-variant": 500,
   "section-redirect": 194,
   "disambiguation": 158,
-  "none": 1194,
-  "disambig-resolved": 109,
+  "none": 1197,
+  "disambig-resolved": 111,
   "list-page": 6,
   "search-match": 10,
-  "no-article": 20
+  "no-article": 21
  },
  "cards": {
   "wh-001": {
@@ -90177,6 +90177,841 @@
    "answer": "Esarhaddon",
    "title": "Esarhaddon",
    "url": "https://en.wikipedia.org/wiki/Esarhaddon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-501": {
+   "answer": "Sack of Thebes",
+   "title": "Sack of Thebes",
+   "url": "https://en.wikipedia.org/wiki/Sack_of_Thebes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-502": {
+   "answer": "Tantamani",
+   "title": "Tantamani",
+   "url": "https://en.wikipedia.org/wiki/Tantamani",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-503": {
+   "answer": "Arakamani",
+   "title": "Arakamani",
+   "url": "https://en.wikipedia.org/wiki/Arakamani",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-504": {
+   "answer": "Amanirenas",
+   "title": "Amanirenas",
+   "url": "https://en.wikipedia.org/wiki/Amanirenas",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-505": {
+   "answer": "Meroitic script",
+   "title": "Meroitic script",
+   "url": "https://en.wikipedia.org/wiki/Meroitic_script",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-506": {
+   "answer": "Late Period of ancient Egypt",
+   "title": "Late Period of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Late_Period_of_Egypt",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Late Period of ancient Egypt"
+  },
+  "eg-507": {
+   "answer": "Twenty-sixth Dynasty of Egypt",
+   "title": "Twenty-sixth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Twenty-sixth_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-508": {
+   "answer": "Psamtik I",
+   "title": "Psamtik I",
+   "url": "https://en.wikipedia.org/wiki/Psamtik_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-509": {
+   "answer": "Necho I",
+   "title": "Necho I",
+   "url": "https://en.wikipedia.org/wiki/Necho_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-510": {
+   "answer": "Sais",
+   "title": "Sais, Egypt",
+   "url": "https://en.wikipedia.org/wiki/Sais,_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-511": {
+   "answer": "Tahpanhes",
+   "title": "Tahpanhes",
+   "url": "https://en.wikipedia.org/wiki/Tahpanhes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-512": {
+   "answer": "Hellenion",
+   "title": "Hellenion",
+   "url": "https://en.wikipedia.org/wiki/Hellenion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-513": {
+   "answer": "Rhodopis",
+   "title": "Rhodopis",
+   "url": "https://en.wikipedia.org/wiki/Rhodopis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-514": {
+   "answer": "Necho II",
+   "title": "Necho II",
+   "url": "https://en.wikipedia.org/wiki/Necho_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-515": {
+   "answer": "Canal of the Pharaohs",
+   "title": "Canal of the Pharaohs",
+   "url": "https://en.wikipedia.org/wiki/Canal_of_the_Pharaohs",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-516": {
+   "answer": "Erythraean Sea",
+   "title": "Erythraean Sea",
+   "url": "https://en.wikipedia.org/wiki/Erythraean_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-517": {
+   "answer": "Ashur-uballit II",
+   "title": "Ashur-uballit II",
+   "url": "https://en.wikipedia.org/wiki/Ashur-uballit_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-518": {
+   "answer": "Battle of Carchemish",
+   "title": "Battle of Carchemish",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Carchemish",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-519": {
+   "answer": "Psamtik II",
+   "title": "Psamtik II",
+   "url": "https://en.wikipedia.org/wiki/Psamtik_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-520": {
+   "answer": "Potasimto",
+   "title": "Potasimto",
+   "url": "https://en.wikipedia.org/wiki/Potasimto",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-521": {
+   "answer": "Apries",
+   "title": "Apries",
+   "url": "https://en.wikipedia.org/wiki/Apries",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-522": {
+   "answer": "Amasis II",
+   "title": "Amasis II",
+   "url": "https://en.wikipedia.org/wiki/Amasis_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-523": {
+   "answer": "Neith",
+   "title": "Neith",
+   "url": "https://en.wikipedia.org/wiki/Neith",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-524": {
+   "answer": "Tomb of Ibi",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Qakare Ibi",
+    "Egyptian pyramids",
+    "Deir el-Gabrawi",
+    "Ibi (Egyptian noble)",
+    "Ibi (nomarch)"
+   ]
+  },
+  "eg-525": {
+   "answer": "Pefnefdineit",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "eg-526": {
+   "answer": "Petition of Peteese",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ancient Egyptian religion",
+    "Pediese",
+    "Amun",
+    "Petiese",
+    "Maat"
+   ]
+  },
+  "eg-527": {
+   "answer": "Demotic",
+   "title": "Demotic Egyptian language",
+   "url": "https://en.wikipedia.org/wiki/Demotic_Egyptian_language",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Demotic"
+  },
+  "eg-528": {
+   "answer": "Buchis",
+   "title": "Buchis",
+   "url": "https://en.wikipedia.org/wiki/Buchis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-529": {
+   "answer": "Tuna el-Gebel",
+   "title": "Tuna el-Gebel",
+   "url": "https://en.wikipedia.org/wiki/Tuna_el-Gebel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-530": {
+   "answer": "Animal mummy",
+   "title": "Animal mummy",
+   "url": "https://en.wikipedia.org/wiki/Animal_mummy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-531": {
+   "answer": "Battle of Pelusium",
+   "title": "Battle of Pelusium",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Pelusium",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-532": {
+   "answer": "Psamtik III",
+   "title": "Psamtik III",
+   "url": "https://en.wikipedia.org/wiki/Psamtik_III",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-533": {
+   "answer": "27th Dynasty of Egypt",
+   "title": "Twenty-seventh Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Twenty-seventh_Dynasty_of_Egypt",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "27th Dynasty of Egypt"
+  },
+  "eg-534": {
+   "answer": "Aryandes",
+   "title": "Aryandes",
+   "url": "https://en.wikipedia.org/wiki/Aryandes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-535": {
+   "answer": "Statue of Darius",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Egyptian statue of Darius the Great",
+    "Darius the Great",
+    "Palace of Darius in Susa",
+    "Cleopatra",
+    "Twenty-seventh Dynasty of Egypt"
+   ]
+  },
+  "eg-536": {
+   "answer": "Demotic Chronicle",
+   "title": "Demotic Chronicle",
+   "url": "https://en.wikipedia.org/wiki/Demotic_Chronicle",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-537": {
+   "answer": "Temple of Hibis",
+   "title": "Temple of Hibis",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Hibis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-538": {
+   "answer": "Udjahorresnet",
+   "title": "Udjahorresnet",
+   "url": "https://en.wikipedia.org/wiki/Udjahorresnet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-539": {
+   "answer": "Inaros II",
+   "title": "Inaros II",
+   "url": "https://en.wikipedia.org/wiki/Inaros_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-540": {
+   "answer": "Sesostris",
+   "title": "Sesostris",
+   "url": "https://en.wikipedia.org/wiki/Sesostris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-541": {
+   "answer": "Rhampsinit",
+   "title": "Rhampsinit",
+   "url": "https://en.wikipedia.org/wiki/Rhampsinit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-542": {
+   "answer": "Elephantine papyri",
+   "title": "Elephantine papyri and ostraca",
+   "url": "https://en.wikipedia.org/wiki/Elephantine_papyri_and_ostraca",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Elephantine papyri"
+  },
+  "eg-543": {
+   "answer": "Mibtahiah",
+   "title": "Mibtahiah",
+   "url": "https://en.wikipedia.org/wiki/Mibtahiah",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-544": {
+   "answer": "Twenty-ninth Dynasty",
+   "title": "Twenty-ninth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Twenty-ninth_Dynasty_of_Egypt",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Twenty-ninth Dynasty"
+  },
+  "eg-545": {
+   "answer": "Amyrtaeus",
+   "title": "Amyrtaeus",
+   "url": "https://en.wikipedia.org/wiki/Amyrtaeus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-546": {
+   "answer": "Thirtieth Dynasty",
+   "title": "Thirtieth Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Thirtieth_Dynasty_of_Egypt",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Thirtieth Dynasty"
+  },
+  "eg-547": {
+   "answer": "Nectanebo I",
+   "title": "Nectanebo I",
+   "url": "https://en.wikipedia.org/wiki/Nectanebo_I",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-548": {
+   "answer": "Behbeit el-Hagar",
+   "title": "Behbeit El Hagar",
+   "url": "https://en.wikipedia.org/wiki/Behbeit_El_Hagar",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Behbeit el-Hagar"
+  },
+  "eg-549": {
+   "answer": "Nectanebo II",
+   "title": "Nectanebo II",
+   "url": "https://en.wikipedia.org/wiki/Nectanebo_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-550": {
+   "answer": "Alexander Romance",
+   "title": "Alexander Romance",
+   "url": "https://en.wikipedia.org/wiki/Alexander_Romance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-551": {
+   "answer": "Thirty-first Dynasty of Egypt",
+   "title": "Thirty-first Dynasty of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Thirty-first_Dynasty_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-552": {
+   "answer": "Mentor of Rhodes",
+   "title": "Mentor of Rhodes",
+   "url": "https://en.wikipedia.org/wiki/Mentor_of_Rhodes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-553": {
+   "answer": "Harpocrates",
+   "title": "Harpocrates",
+   "url": "https://en.wikipedia.org/wiki/Harpocrates",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-554": {
+   "answer": "Boston Green Head",
+   "title": "Boston Green Head",
+   "url": "https://en.wikipedia.org/wiki/Boston_Green_Head",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-555": {
+   "answer": "Instruction of Ankhsheshonq",
+   "title": "Instruction of Ankhsheshonq",
+   "url": "https://en.wikipedia.org/wiki/Instruction_of_Ankhsheshonq",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-556": {
+   "answer": "Metternich Stela",
+   "title": "Metternich Stela",
+   "url": "https://en.wikipedia.org/wiki/Metternich_Stela",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-557": {
+   "answer": "Khabash",
+   "title": "Khabash",
+   "url": "https://en.wikipedia.org/wiki/Khabash",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-558": {
+   "answer": "Petosiris",
+   "title": "Petosiris",
+   "url": "https://en.wikipedia.org/wiki/Petosiris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-559": {
+   "answer": "Sonchis of Sais",
+   "title": "Sonchis of Sais",
+   "url": "https://en.wikipedia.org/wiki/Sonchis_of_Sais",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-560": {
+   "answer": "Mazaces",
+   "title": "Mazaces",
+   "url": "https://en.wikipedia.org/wiki/Mazaces",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-561": {
+   "answer": "Ptolemais Hermiou",
+   "title": "Ptolemais Hermiou",
+   "url": "https://en.wikipedia.org/wiki/Ptolemais_Hermiou",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-562": {
+   "answer": "Cleomenes of Naucratis",
+   "title": "Cleomenes of Naucratis",
+   "url": "https://en.wikipedia.org/wiki/Cleomenes_of_Naucratis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-563": {
+   "answer": "Siwa Oasis",
+   "title": "Siwa Oasis",
+   "url": "https://en.wikipedia.org/wiki/Siwa_Oasis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-564": {
+   "answer": "Rhakotis",
+   "title": "Rhacotis",
+   "url": "https://en.wikipedia.org/wiki/Rhacotis",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Rhakotis"
+  },
+  "eg-565": {
+   "answer": "Alexander IV",
+   "title": "Alexander IV of Macedon",
+   "url": "https://en.wikipedia.org/wiki/Alexander_IV_of_Macedon",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Alexander IV"
+  },
+  "eg-566": {
+   "answer": "Tomb of Alexander the Great",
+   "title": "Tomb of Alexander the Great",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_Alexander_the_Great",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-567": {
+   "answer": "Ptolemaic cult of Alexander the Great",
+   "title": "Ptolemaic cult of Alexander the Great",
+   "url": "https://en.wikipedia.org/wiki/Ptolemaic_cult_of_Alexander_the_Great",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-568": {
+   "answer": "High Priest of Ptah",
+   "title": "High Priest of Ptah",
+   "url": "https://en.wikipedia.org/wiki/High_Priest_of_Ptah",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-569": {
+   "answer": "Serapis",
+   "title": "Serapis",
+   "url": "https://en.wikipedia.org/wiki/Serapis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-570": {
+   "answer": "Serapeum of Alexandria",
+   "title": "Serapeum of Alexandria",
+   "url": "https://en.wikipedia.org/wiki/Serapeum_of_Alexandria",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-581": {
+   "answer": "Kerkeosiris",
+   "title": "Kerkeosiris",
+   "url": "https://en.wikipedia.org/wiki/Kerkeosiris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-582": {
+   "answer": "Ptolemy II Philadelphus",
+   "title": "Ptolemy II Philadelphus",
+   "url": "https://en.wikipedia.org/wiki/Ptolemy_II_Philadelphus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-583": {
+   "answer": "Great Mendes Stela",
+   "title": "Great Mendes Stela",
+   "url": "https://en.wikipedia.org/wiki/Great_Mendes_Stela",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-584": {
+   "answer": "Battle of Panium",
+   "title": "Battle of Panium",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Panium",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-585": {
+   "answer": "Ptolemy III Euergetes",
+   "title": "Ptolemy III Euergetes",
+   "url": "https://en.wikipedia.org/wiki/Ptolemy_III_Euergetes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-586": {
+   "answer": "Canopus Decree",
+   "title": "Decree of Canopus",
+   "url": "https://en.wikipedia.org/wiki/Decree_of_Canopus",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Canopus Decree"
+  },
+  "eg-587": {
+   "answer": "Ptolemy IV Philopator",
+   "title": "Ptolemy IV Philopator",
+   "url": "https://en.wikipedia.org/wiki/Ptolemy_IV_Philopator",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-588": {
+   "answer": "Great Theban Revolt",
+   "title": "Great Theban Revolt",
+   "url": "https://en.wikipedia.org/wiki/Great_Theban_Revolt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-589": {
+   "answer": "Horwennefer",
+   "title": "Horwennefer",
+   "url": "https://en.wikipedia.org/wiki/Horwennefer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-590": {
+   "answer": "Ptolemy V Epiphanes",
+   "title": "Ptolemy V Epiphanes",
+   "url": "https://en.wikipedia.org/wiki/Ptolemy_V_Epiphanes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-591": {
+   "answer": "Raphia Decree",
+   "title": "Raphia Decree",
+   "url": "https://en.wikipedia.org/wiki/Raphia_Decree",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-592": {
+   "answer": "Mammisi",
+   "title": "Mammisi",
+   "url": "https://en.wikipedia.org/wiki/Mammisi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-593": {
+   "answer": "Temple of Edfu",
+   "title": "Temple of Edfu",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Edfu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-594": {
+   "answer": "Dendera zodiac",
+   "title": "Dendera zodiac",
+   "url": "https://en.wikipedia.org/wiki/Dendera_zodiac",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-595": {
+   "answer": "Philae",
+   "title": "Philae temple complex",
+   "url": "https://en.wikipedia.org/wiki/Philae_temple_complex",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Philae"
+  },
+  "eg-596": {
+   "answer": "Temple of Kom Ombo",
+   "title": "Temple of Kom Ombo",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Kom_Ombo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-597": {
+   "answer": "House of Life",
+   "title": "House of Life",
+   "url": "https://en.wikipedia.org/wiki/House_of_Life",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-598": {
+   "answer": "Manetho",
+   "title": "Manetho",
+   "url": "https://en.wikipedia.org/wiki/Manetho",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-599": {
+   "answer": "Temple of Onias",
+   "title": "Land of Onias",
+   "url": "https://en.wikipedia.org/wiki/Land_of_Onias",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Temple of Onias"
+  },
+  "eg-600": {
+   "answer": "Ptolemy VIII Physcon",
+   "title": "Ptolemy VIII Physcon",
+   "url": "https://en.wikipedia.org/wiki/Ptolemy_VIII_Physcon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-571": {
+   "answer": "Lake Mareotis",
+   "title": "Lake Mariout",
+   "url": "https://en.wikipedia.org/wiki/Lake_Mariout",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Lake Mareotis"
+  },
+  "eg-572": {
+   "answer": "Aristophanes of Byzantium",
+   "title": "Aristophanes of Byzantium",
+   "url": "https://en.wikipedia.org/wiki/Aristophanes_of_Byzantium",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-573": {
+   "answer": "Sostratus of Cnidus",
+   "title": "Sostratus of Cnidus",
+   "url": "https://en.wikipedia.org/wiki/Sostratus_of_Cnidus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-574": {
+   "answer": "Agathocles of Egypt",
+   "title": "Agathocles of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Agathocles_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-575": {
+   "answer": "Machimoi",
+   "title": "Machimoi",
+   "url": "https://en.wikipedia.org/wiki/Machimoi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-576": {
+   "answer": "Menches",
+   "title": "Menches",
+   "url": "https://en.wikipedia.org/wiki/Menches",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-577": {
+   "answer": "Papyrus Revenue Laws",
+   "title": "Papyrus Revenue Laws",
+   "url": "https://en.wikipedia.org/wiki/Papyrus_Revenue_Laws",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-578": {
+   "answer": "Ptolemaic coinage",
+   "title": "Ptolemaic coinage",
+   "url": "https://en.wikipedia.org/wiki/Ptolemaic_coinage",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-579": {
+   "answer": "Arsinoite nome",
+   "title": "Faiyum",
+   "url": "https://en.wikipedia.org/wiki/Faiyum",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Arsinoite nome"
+  },
+  "eg-580": {
+   "answer": "Zenon Archive",
+   "title": "Zenon of Kaunos",
+   "url": "https://en.wikipedia.org/wiki/Zenon_of_Kaunos",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Zenon Archive"
+  },
+  "hs-001": {
+   "answer": "Neo-Assyrian Empire",
+   "title": "Neo-Assyrian Empire",
+   "url": "https://en.wikipedia.org/wiki/Neo-Assyrian_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-501": {
+   "answer": "Qing dynasty",
+   "title": "Qing dynasty",
+   "url": "https://en.wikipedia.org/wiki/Qing_dynasty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-502": {
+   "answer": "Ottoman Empire",
+   "title": "Ottoman Empire",
+   "url": "https://en.wikipedia.org/wiki/Ottoman_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-002": {
+   "answer": "Neo-Babylonian Empire",
+   "title": "Neo-Babylonian Empire",
+   "url": "https://en.wikipedia.org/wiki/Neo-Babylonian_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-101": {
+   "answer": "Achaemenid Empire",
+   "title": "Achaemenid Empire",
+   "url": "https://en.wikipedia.org/wiki/Achaemenid_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-102": {
+   "answer": "Xiongnu",
+   "title": "Xiongnu",
+   "url": "https://en.wikipedia.org/wiki/Xiongnu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-301": {
+   "answer": "Umayyad Caliphate",
+   "title": "Umayyad Caliphate",
+   "url": "https://en.wikipedia.org/wiki/Umayyad_Caliphate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-401": {
+   "answer": "Mongol Empire",
+   "title": "Mongol Empire",
+   "url": "https://en.wikipedia.org/wiki/Mongol_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-402": {
+   "answer": "Yuan dynasty",
+   "title": "Yuan dynasty",
+   "url": "https://en.wikipedia.org/wiki/Yuan_dynasty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-601": {
+   "answer": "Soviet Union",
+   "title": "Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Soviet_Union",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-602": {
+   "answer": "Spanish Empire",
+   "title": "Spanish Empire",
+   "url": "https://en.wikipedia.org/wiki/Spanish_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-201": {
+   "answer": "Roman Empire",
+   "title": "Roman Empire",
+   "url": "https://en.wikipedia.org/wiki/Roman_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-202": {
+   "answer": "Han dynasty",
+   "title": "Han dynasty",
+   "url": "https://en.wikipedia.org/wiki/Han_dynasty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-302": {
+   "answer": "Tang dynasty",
+   "title": "Tang dynasty",
+   "url": "https://en.wikipedia.org/wiki/Tang_dynasty",
    "via": "glossary",
    "status": "ok"
   },

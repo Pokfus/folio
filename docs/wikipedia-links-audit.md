@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 8461 | the title is the article |
+| `ok` | 8481 | the title is the article |
 | `redirect-variant` | 496 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 109 | chosen from a disambiguation page by hint words — listed below |
+| `disambig-resolved` | 111 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 10 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 808 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 811 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 194 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 158 | only a disambiguation page; no link could be chosen |
-| `none` | 1194 | nothing matched; no link |
+| `section-redirect` | 190 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 154 | only a disambiguation page; no link could be chosen |
+| `none` | 1191 | nothing matched; no link |
 
-**9891 of 11456 cards get a link.** The three "no link" rows are the honest state: a card whose
+**9916 of 11470 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (808)
+## Redirected to a differently named article — check each (811)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -217,6 +217,15 @@ The answer redirects to an article with another name. Most are the same subject 
 - `eg-489` **Victory Stele of Piye** → [Stele of Piye](https://en.wikipedia.org/wiki/Stele_of_Piye) (from `Victory Stele of Piye`)
 - `eg-491` **25th Dynasty of Egypt** → [Twenty-fifth Dynasty of Egypt](https://en.wikipedia.org/wiki/Twenty-fifth_Dynasty_of_Egypt) (from `25th Dynasty of Egypt`)
 - `eg-499` **Eltekeh** → [Ge'alya](https://en.wikipedia.org/wiki/Ge'alya) (from `Eltekeh`)
+- `eg-506` **Late Period of ancient Egypt** → [Late Period of Egypt](https://en.wikipedia.org/wiki/Late_Period_of_Egypt) (from `Late Period of ancient Egypt`)
+- `eg-533` **27th Dynasty of Egypt** → [Twenty-seventh Dynasty of Egypt](https://en.wikipedia.org/wiki/Twenty-seventh_Dynasty_of_Egypt) (from `27th Dynasty of Egypt`)
+- `eg-542` **Elephantine papyri** → [Elephantine papyri and ostraca](https://en.wikipedia.org/wiki/Elephantine_papyri_and_ostraca) (from `Elephantine papyri`)
+- `eg-548` **Behbeit el-Hagar** → [Behbeit El Hagar](https://en.wikipedia.org/wiki/Behbeit_El_Hagar) (from `Behbeit el-Hagar`)
+- `eg-571` **Lake Mareotis** → [Lake Mariout](https://en.wikipedia.org/wiki/Lake_Mariout) (from `Lake Mareotis`)
+- `eg-579` **Arsinoite nome** → [Faiyum](https://en.wikipedia.org/wiki/Faiyum) (from `Arsinoite nome`)
+- `eg-580` **Zenon Archive** → [Zenon of Kaunos](https://en.wikipedia.org/wiki/Zenon_of_Kaunos) (from `Zenon Archive`)
+- `eg-595` **Philae** → [Philae temple complex](https://en.wikipedia.org/wiki/Philae_temple_complex) (from `Philae`)
+- `eg-599` **Temple of Onias** → [Land of Onias](https://en.wikipedia.org/wiki/Land_of_Onias) (from `Temple of Onias`)
 - `fd-050` **Côte d'Ivoire** → [Ivory Coast](https://en.wikipedia.org/wiki/Ivory_Coast) (from `Côte d'Ivoire`)
 - `fd-088` **Czechia** → [Czech Republic](https://en.wikipedia.org/wiki/Czech_Republic) (from `Czechia`)
 - `fd-174` **Cabo Verde** → [Cape Verde](https://en.wikipedia.org/wiki/Cape_Verde) (from `Cabo Verde`)
@@ -377,12 +386,6 @@ The answer redirects to an article with another name. Most are the same subject 
 - `jp-131` **kentoshi** → [Japanese missions to Tang China](https://en.wikipedia.org/wiki/Japanese_missions_to_Tang_China) (from `Kentōshi`)
 - `jp-151` **nikki bungaku** → [Poetic diary](https://en.wikipedia.org/wiki/Poetic_diary) (from `Nikki bungaku`)
 - `jp-187` **Later Three-Year War** → [Gosannen War](https://en.wikipedia.org/wiki/Gosannen_War) (from `Later Three-Year War`)
-- `jp-231` **Great Buddha of Kamakura** → [Kōtoku-in](https://en.wikipedia.org/wiki/K%C5%8Dtoku-in) (from `Great Buddha of Kamakura`)
-- `jp-250` **Issan Ichinei** → [Yishan Yining](https://en.wikipedia.org/wiki/Yishan_Yining) (from `Issan Ichinei`)
-- `jp-284` **yamajiro** → [Japanese castle](https://en.wikipedia.org/wiki/Japanese_castle) (from `Yamajiro`)
-- `jp-292` **chanoyu** → [Japanese tea ceremony](https://en.wikipedia.org/wiki/Japanese_tea_ceremony) (from `Chanoyu`)
-- `jp-296` **karesansui** → [Japanese dry garden](https://en.wikipedia.org/wiki/Japanese_dry_garden) (from `Karesansui`)
-- `jp-298` **suibokuga** → [Ink wash painting](https://en.wikipedia.org/wiki/Ink_wash_painting) (from `Suibokuga`)
 - `ko-002` **Korean Peninsula** → [Korea](https://en.wikipedia.org/wiki/Korea) (from `Korean Peninsula`)
 - `ko-005` **Changma** → [East Asian rainy season](https://en.wikipedia.org/wiki/East_Asian_rainy_season) (from `Changma`)
 - `ko-014` **West Liao River** → [Xiliao River](https://en.wikipedia.org/wiki/Xiliao_River) (from `West Liao River`)
@@ -853,7 +856,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (109)
+## Settled from a disambiguation page (111)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -873,6 +876,8 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `ec-032` **specialisation** → [Division of labour](https://en.wikipedia.org/wiki/Division_of_labour) (via the disambiguation page `Specialization`)
 - `eep-152` **Cluster** → [Open cluster](https://en.wikipedia.org/wiki/Open_cluster) (via the disambiguation page `Cluster`)
 - `eep-289` **Iron Triangle** → [Iron triangle (US politics)](https://en.wikipedia.org/wiki/Iron_triangle_(US_politics)) (via the disambiguation page `Iron Triangle`)
+- `eg-527` **Demotic** → [Demotic Egyptian language](https://en.wikipedia.org/wiki/Demotic_Egyptian_language) (via the disambiguation page `Demotic`)
+- `eg-565` **Alexander IV** → [Alexander IV of Macedon](https://en.wikipedia.org/wiki/Alexander_IV_of_Macedon) (via the disambiguation page `Alexander IV`)
 - `gc-803` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
 - `gga-002` **Polarity** → [Polarity (international relations)](https://en.wikipedia.org/wiki/Polarity_(international_relations)) (via the disambiguation page `Polarity`)
 - `gga-042` **Penholder** → [Penholder (United Nations)](https://en.wikipedia.org/wiki/Penholder_(United_Nations)) (via the disambiguation page `Penholder`)
@@ -982,7 +987,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (158)
+## Disambiguation pages that could not be settled (154)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -1071,10 +1076,6 @@ Pick the right article by hand, or leave the card without a link.
 - `jp-072` **Tenji** — `Tenji` is a disambiguation page; its links: `Emperor Tenji`
 - `jp-093` **kokubunji** — `Kokubunji` is a disambiguation page; its links: `Kokubunji, Tokyo`, `Kokubunji, Kagawa`, `Kokubunji, Tochigi`, `87271 Kokubunji`, `Seibu Kokubunji Line`, `Kokubunji Station`
 - `jp-100` **Jinmu** — `Jinmu` is a disambiguation page; its links: `Jinmu Cape`
-- `jp-216` **soryo** — `Soryo` is a disambiguation page; its links: `Fuyumi Soryo`, `Sōryō, Hiroshima`, `Soryo, Republic of Karelia`
-- `jp-269` **wako** — `Wako` is a disambiguation page; its links: `Amos Wako`, `Haruo Wakō`, `Naoki Wako`, `WAKO (AM)`, `Wako (retailer)`, `Wako Matsumoto`
-- `jp-271` **ikki** — `Ikki` is a disambiguation page; its links: `Iga ikki`, `Ikki Twins`, `Kaga ikki`, `Kōka ikki`, `Monthly Ikki`, `Saika Ikki`
-- `jp-288` **Gozan** — `Gozan` is a disambiguation page
 - `ko-018` **Jeju** — `Jeju` is a disambiguation page; its links: `Jeju Island`, `Jeju people`, `Jeju City`, `Jeju Province`, `Jeju dog`, `Jeju language`
 - `ko-053` **Gija** — `Kija` is a disambiguation page; its links: `Gija Joseon`, `Gija people`
 - `ko-060` **minjok** — `Minjok` is a disambiguation page; its links: `Minjok historiography`, `Minjok jeonggi`, `Baedal Minjok`, `Korean Minjok Leadership Academy`
@@ -1156,7 +1157,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (194)
+## Section redirects — no dedicated page (190)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1241,10 +1242,6 @@ Wikipedia treats these as part of another article. No link.
 - `jp-012` **shell midden** — `Shell midden` only redirects into `Midden#Shells`
 - `jp-092` **Kegon** — `Kegon` only redirects into `Huayan#Japanese Kegon`
 - `jp-106` **Thirty-Eight Years' War** — `Thirty-Eight Years' War` only redirects into `Emishi#Thirty-Eight Years' War`
-- `jp-218` **Kamakura Buddhism** — `Kamakura Buddhism` only redirects into `Buddhism in Japan#Kamakura Buddhism (1185–1333) - new schools of Buddhism`
-- `jp-243` **shinkoku** — `Shinkoku` only redirects into `History of Shinto#Shinto-Buddhist doctrine and Shinkoku thought`
-- `jp-267` **shugo daimyo** — `Shugo daimyō` only redirects into `Daimyo#Shugo-daimyō`
-- `jp-277` **Eiraku Tsuho** — `Eiraku Tsuho` only redirects into `Yongle Tongbao#In Japan`
 - `ko-029` **Korean Bronze Age** — `Korean Bronze Age` only redirects into `Prehistoric Korea#Bronze Age`
 - `ko-038` **Early Iron Age** — `Early Iron Age` only redirects into `Iron Age#Beginning`
 - `ko-039` **shell midden** — `Shell midden` only redirects into `Midden#Shells`
@@ -1355,7 +1352,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1194)
+## No article found (1191)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1757,6 +1754,10 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-418` **Autobiography of Ineni** — search suggests `Thutmose II`, `Thutmose I`, `Index of ancient Egypt–related articles`, `Amenhotep I`
 - `eg-436` **Djeme** — search suggests `Wadjkare`, `Osorkon IV`, `Pinedjem I`, `Medinet Habu`, `Phoibammon of Preht`
 - `eg-449` **silver coffin of Psusennes I** — search suggests `Psusennes I`, `Art of ancient Egypt`, `Wendjebauendjed`, `Amenemope (pharaoh)`, `Egyptian Museum`
+- `eg-524` **Tomb of Ibi** — search suggests `Qakare Ibi`, `Egyptian pyramids`, `Deir el-Gabrawi`, `Ibi (Egyptian noble)`, `Ibi (nomarch)`
+- `eg-525` **Pefnefdineit**
+- `eg-526` **Petition of Peteese** — search suggests `Ancient Egyptian religion`, `Pediese`, `Amun`, `Petiese`, `Maat`
+- `eg-535` **Statue of Darius** — search suggests `Egyptian statue of Darius the Great`, `Darius the Great`, `Palace of Darius in Susa`, `Cleopatra`, `Twenty-seventh Dynasty of Egypt`
 - `gga-001` **Security, prosperity and values** — search suggests `Prosperity theology`, `Core Socialist Values`, `National interest`, `Personal life of Mahathir Mohamad`, `Greater East Asia Co-Prosperity Sphere`
 - `gga-003` **Structural power**
 - `gga-004` **Operational code**
@@ -2183,13 +2184,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `jp-179` **bushidan** — search suggests `Orient (manga)`, `Hōjō Tokimasa`, `Revenge of the Soga Brothers`, `Taira no Yoshifumi`, `Kikuchi clan`
 - `jp-182` **hokumen no bushi** — search suggests `Saitō Dōsan`, `Cloistered rule`, `Minamoto clan`, `Minamoto no Yoshiie`, `Kyushin-ryū`
 - `jp-184` **Johei-Tengyo Rebellion** — search suggests `Tengyō`, `Jōhei`, `Tengyō no Ran`, `Emperor Suzaku`, `Taira no Masakado`
-- `jp-215` **shitaji chubun** — search suggests `Jisha-ryō`, `Nanboku-chō period`
-- `jp-217` **ichigobun**
-- `jp-241` **Southern Route Army** — search suggests `Eighth Route Army`, `Route Army`, `New Fourth Army`, `Eighteenth Army (Japan)`, `New Fourth Army Incident`
-- `jp-246` **ikoku keigo banyaku**
-- `jp-248` **Hachiman Gudokun** — search suggests `Mongol invasions of Japan`, `Empress Jingū`, `Azumi-no-isora`, `Ushi-oni`, `History of Shinto`
-- `jp-264` **tally trade** — search suggests `Japanese missions to Ming China`, `Japan–Ming trade-ship flag`, `Ningbo incident`, `Fortune Global 500`, `Bamboo tally`
-- `jp-286` **doboshu** — search suggests `Taikomochi`, `Hon'ami Kōetsu`, `Nōami`, `Maeda Toshiie`, `Shingei`
 - `ko-016` **Goryeo long wall** — search suggests `Ch'ŏlli changsŏng`, `Goryeo`, `Mongol invasions of Korea`, `Timeline of Korean history`, `Ganghwasanseong Fortress`
 - `ko-021` **Palaeolithic Korea** — search suggests `Prehistoric Korea`, `Korea under Japanese rule`, `List of monarchs of Korea`, `Three Kingdoms of Korea`, `National Museum of Korea`
 - `ko-022` **Jeongok-ri** — search suggests `Jeongok station`, `List of archaeological sites in Korea`, `Jeongok Prehistory Museum`, `Yeoncheon County`, `Gyeongwon Line`
