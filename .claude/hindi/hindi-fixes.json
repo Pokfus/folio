@@ -1,0 +1,684 @@
+{
+ "_": "hindi-fixes.json — the record hindi-fix.js applies to the Hindi decks after .claude/hindi/run.py and alphabet.py have written them (its header has the format). A fault that is the generator's is repaired in the generator, not here. Written 2026-11-19, the Hindi beginner pass (docs/lang-decks.md).",
+ "insert": {
+  "hindia1": [
+   {
+    "word": "आप कैसे हैं",
+    "id": 501,
+    "from": "hiphrase/आप कैसे हैं",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">आप कैसे हैं</div>",
+     "Roman": "āp kaise ha͠i?",
+     "Word": "आप कैसे हैं",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase, not कैसे हो, तुम कैसे हो</div><div class=\"uc-gl\">how are you?</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"नमस्ते, आप कैसे हैं?\"></span>नमस्ते, <b>आप</b> <b>कैसे</b> <b>हैं</b>?</div><div class=\"uc-exe\">Hello and how are you?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"आप कैसे हैं? बहुत बढ़िया। और आप? बहुत बढ़िया, शुक्रिया।\"></span><b>आप</b> <b>कैसे</b> <b>हैं</b>? बहुत बढ़िया। और <b>आप</b>? बहुत बढ़िया, शुक्रिया।</div><div class=\"uc-exe\">How are you? Great. And you? Great, thank you.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"आप कैसे हैं?\"></span><b>आप</b> <b>कैसे</b> <b>हैं</b>?</div><div class=\"uc-exe\">How are you?</div></div>"
+    },
+    "why": "Moved from the phrases deck, which the shelf lists last (day 1,063 at the default pace): a formula a learner needs in the first week. Fields byte for byte as run.py --level phr wrote them on 2026-11-19."
+   },
+   {
+    "word": "मैं ठीक हूँ",
+    "id": 502,
+    "from": "hiphrase/मैं ठीक हूँ",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">मैं ठीक हूँ</div>",
+     "Roman": "ma͠i ṭhīk hū̃",
+     "Word": "मैं ठीक हूँ",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">I am fine</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"मैं ठीक हूँ।\"></span><b>मैं</b> <b>ठीक</b> <b>हूँ</b>।</div><div class=\"uc-exe\">I&#x27;m OK.</div></div>"
+    },
+    "why": "Moved from the phrases deck, which the shelf lists last (day 1,063 at the default pace): a formula a learner needs in the first week. Fields byte for byte as run.py --level phr wrote them on 2026-11-19."
+   },
+   {
+    "word": "आपका नाम क्या है",
+    "id": 503,
+    "from": "hiphrase/आपका नाम क्या है",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">आपका नाम क्या है</div>",
+     "Roman": "āpkā nām kyā hai?",
+     "Word": "आपका नाम क्या है",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">what is your name (formal)</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"आपका नाम क्या है?\"></span><b>आपका</b> <b>नाम</b> <b>क्या</b> <b>है</b>?</div><div class=\"uc-exe\">What&#x27;s your name?</div></div>"
+    },
+    "why": "Moved from the phrases deck, which the shelf lists last (day 1,063 at the default pace): a formula a learner needs in the first week. Fields byte for byte as run.py --level phr wrote them on 2026-11-19."
+   },
+   {
+    "word": "माफ़ कीजिए",
+    "id": 504,
+    "from": "hiphrase/माफ़ कीजिए",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">माफ़ कीजिए</div>",
+     "Roman": "māf kījie",
+     "Word": "माफ़ कीजिए",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">excuse me; (I am) sorry; forgive me (apology)</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"माफ़ कीजिए, क्या समय हुआ है?\"></span><b>माफ़</b> <b>कीजिए</b>, क्या समय हुआ है?</div><div class=\"uc-exe\">Excuse me, what time is it?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"माफ़ कीजिए पर हम आपकी मदद नहीं कर सकते।\"></span><b>माफ़</b> <b>कीजिए</b> पर हम आपकी मदद नहीं कर सकते।</div><div class=\"uc-exe\">We are sorry we can&#x27;t help you.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"माफ़ कीजिए।\"></span><b>माफ़</b> <b>कीजिए</b>।</div><div class=\"uc-exe\">Excuse me.</div></div>"
+    },
+    "why": "Moved from the phrases deck, which the shelf lists last (day 1,063 at the default pace): a formula a learner needs in the first week. Fields byte for byte as run.py --level phr wrote them on 2026-11-19."
+   },
+   {
+    "word": "जी हाँ",
+    "id": 505,
+    "from": "hiphrase/जी हाँ",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">जी हाँ</div>",
+     "Roman": "jī hā̃",
+     "Word": "जी हाँ",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">yes</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"जी हाँ!\"></span><b>जी</b> <b>हाँ</b>!</div><div class=\"uc-exe\">Yes!</div></div>"
+    },
+    "why": "Moved from the phrases deck, which the shelf lists last (day 1,063 at the default pace): a formula a learner needs in the first week. Fields byte for byte as run.py --level phr wrote them on 2026-11-19."
+   },
+   {
+    "word": "जी नहीं",
+    "id": 506,
+    "from": "hiphrase/जी नहीं",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">जी नहीं</div>",
+     "Roman": "jī nahī̃",
+     "Word": "जी नहीं",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">no</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"मैं तुम्हारे बिना जी नहीं सकता।\"></span>मैं तुम्हारे बिना <b>जी</b> <b>नहीं</b> सकता।</div><div class=\"uc-exe\">I can&#x27;t live without you.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"मैं तुम्हारे बगैर जी नहीं सकती।\"></span>मैं तुम्हारे बगैर <b>जी</b> <b>नहीं</b> सकती।</div><div class=\"uc-exe\">I can&#x27;t live without you.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"इनसान सपने देखे बिना जी नहीं सकता है।\"></span>इनसान सपने देखे बिना <b>जी</b> <b>नहीं</b> सकता है।</div><div class=\"uc-exe\">Man can&#x27;t live without dreams.</div></div>"
+    },
+    "ex": [],
+    "why": "Moved from the phrases deck, which the shelf lists last (day 1,063 at the default pace): a formula a learner needs in the first week. Fields byte for byte as run.py --level phr wrote them on 2026-11-19, except its three sentences, which were all of जी नहीं सकता, \"cannot live\" (the verb जीना): taken off. Tatoeba has no short sentence that opens with the phrase, so the card has none."
+   },
+   {
+    "word": "कोई बात नहीं",
+    "id": 507,
+    "from": "hiphrase/कोई बात नहीं",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">कोई बात नहीं</div>",
+     "Roman": "koī bāt nahī̃",
+     "Word": "कोई बात नहीं",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">no problem; it’s no big deal</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"&quot;मैं समझा सकता हूँ।&quot; &quot;समझाने वाली कोई बात नहीं है।&quot;\"></span>&quot;मैं समझा सकता हूँ।&quot; &quot;समझाने वाली <b>कोई</b> <b>बात</b> <b>नहीं</b> है।&quot;</div><div class=\"uc-exe\">&quot;I can explain it.&quot; &quot;There&#x27;s no explanation.&quot;</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"&quot;मैं समझा सकती हूँ।&quot; &quot;समझाने वाली कोई बात नहीं है।&quot;\"></span>&quot;मैं समझा सकती हूँ।&quot; &quot;समझाने वाली <b>कोई</b> <b>बात</b> <b>नहीं</b> है।&quot;</div><div class=\"uc-exe\">&quot;I can explain it.&quot; &quot;There&#x27;s no explanation.&quot;</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"कोई बात नहीं।\"></span><b>कोई</b> <b>बात</b> <b>नहीं</b>।</div><div class=\"uc-exe\">No problem.</div></div>"
+    },
+    "ex": [
+     [
+      "कोई बात नहीं।",
+      "No problem.",
+      "Tatoeba 6830414 (hin) / 551443 (eng)"
+     ]
+    ],
+    "why": "Moved from the phrases deck, which the shelf lists last (day 1,063 at the default pace): a formula a learner needs in the first week. Fields byte for byte as run.py --level phr wrote them on 2026-11-19, except its sentences: the card's third is kept and the two of समझाने वाली कोई बात नहीं है, \"there is nothing to explain\", which is not the formula, are taken off."
+   },
+   {
+    "word": "नमस्कार",
+    "id": 508,
+    "from": "hindia2/नमस्कार",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">नमस्कार</div>",
+     "Roman": "namaskār",
+     "Word": "नमस्कार",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">a salutation; a greeting used for most purposes including hello, good morning/afternoon, and goodbye</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"नमस्कार।\"></span><b>नमस्कार</b>।</div><div class=\"uc-exe\">Hello!</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"नमस्कार, टॉम।\"></span><b>नमस्कार</b>, टॉम।</div><div class=\"uc-exe\">Hello, Tom.</div></div>"
+    },
+    "why": "Moved from Hindi A2, note 199: the greeting beside नमस्ते. Fields byte for byte as run.py --level a2 wrote them on 2026-11-19."
+   },
+   {
+    "word": "शून्य",
+    "id": 509,
+    "from": "hindia2/शून्य",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">शून्य</div>",
+     "Roman": "śūnya",
+     "Word": "शून्य",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">zero; 0</div></div><div class=\"uc-sense\"><div class=\"uc-pos\">adjective</div><div class=\"uc-gl\">empty, vacuous</div></div><div class=\"uc-sense\"><div class=\"uc-pos\">noun, masculine</div><ol class=\"uc-gls\"><li>nil, nothing, squat, naught, null</li><li>nothingness</li></ol></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    },
+    "why": "Moved from Hindi A2, note 545: zero, to stand before one to ten. Fields byte for byte as run.py --level a2 wrote them on 2026-11-19."
+   },
+   {
+    "word": "तेरह",
+    "id": 510,
+    "from": "hindia2/तेरह",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">तेरह</div>",
+     "Roman": "terah",
+     "Word": "तेरह",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">thirteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    },
+    "why": "Moved from Hindi A2 (note 712 there, about day 257 at the default pace), where the generator's inventory had put the numbers above twelve: A1 had eleven, twelve, twenty and fifty, and a set learnt in two decks a hundred days apart is not learnt as a set. Fields byte for byte as run.py --level a2 wrote them on 2026-11-19."
+   },
+   {
+    "word": "चौदह",
+    "id": 511,
+    "from": "hindia2/चौदह",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">चौदह</div>",
+     "Roman": "caudah",
+     "Word": "चौदह",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">fourteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    },
+    "why": "Moved from Hindi A2 (note 711 there, about day 257 at the default pace), where the generator's inventory had put the numbers above twelve: A1 had eleven, twelve, twenty and fifty, and a set learnt in two decks a hundred days apart is not learnt as a set. Fields byte for byte as run.py --level a2 wrote them on 2026-11-19."
+   },
+   {
+    "word": "पंद्रह",
+    "id": 512,
+    "from": "hindia2/पंद्रह",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">पंद्रह</div>",
+     "Roman": "pandrah",
+     "Word": "पंद्रह",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">fifteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"मैं पंद्रह साल शिक्षिका थी।\"></span>मैं <b>पंद्रह</b> साल शिक्षिका थी।</div><div class=\"uc-exe\">I was a teacher for fifteen years.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"भारत का स्वतंत्रता दिवस पंद्रह अगस्त को मनाया जाता है।\"></span>भारत का स्वतंत्रता दिवस <b>पंद्रह</b> अगस्त को मनाया जाता है।</div><div class=\"uc-exe\">India&#x27;s Independence Day is celebrated on the fifteenth of August.</div></div>"
+    },
+    "why": "Moved from Hindi A2 (note 670 there, about day 248 at the default pace), where the generator's inventory had put the numbers above twelve: A1 had eleven, twelve, twenty and fifty, and a set learnt in two decks a hundred days apart is not learnt as a set. Fields byte for byte as run.py --level a2 wrote them on 2026-11-19."
+   },
+   {
+    "word": "सोलह",
+    "id": 513,
+    "from": "hindia2/सोलह",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">सोलह</div>",
+     "Roman": "solah",
+     "Word": "सोलह",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">sixteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"विद्यालय में सिर्फ सोलह प्रतिशत अध्यापक औरतें हैं।\"></span>विद्यालय में सिर्फ <b>सोलह</b> प्रतिशत अध्यापक औरतें हैं।</div><div class=\"uc-exe\">Only sixteen percent of the teachers at the school are female.</div></div>"
+    },
+    "why": "Moved from Hindi A2 (note 750 there, about day 264 at the default pace), where the generator's inventory had put the numbers above twelve: A1 had eleven, twelve, twenty and fifty, and a set learnt in two decks a hundred days apart is not learnt as a set. Fields byte for byte as run.py --level a2 wrote them on 2026-11-19."
+   },
+   {
+    "word": "सत्रह",
+    "id": 514,
+    "from": "hindia2/सत्रह",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">सत्रह</div>",
+     "Roman": "satrah",
+     "Word": "सत्रह",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">seventeen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"कल मेरा जन्मदिन है, और मैं सत्रह साल का हो जाऊँगा।\"></span>कल मेरा जन्मदिन है, और मैं <b>सत्रह</b> साल का हो जाऊँगा।</div><div class=\"uc-exe\">Tomorrow is my birthday and I will be seventeen.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"कल मेरा जन्मदिन है, और मैं सत्रह साल की हो जाऊँगी।\"></span>कल मेरा जन्मदिन है, और मैं <b>सत्रह</b> साल की हो जाऊँगी।</div><div class=\"uc-exe\">Tomorrow is my birthday and I will be seventeen.</div></div>"
+    },
+    "why": "Moved from Hindi A2 (note 749 there, about day 264 at the default pace), where the generator's inventory had put the numbers above twelve: A1 had eleven, twelve, twenty and fifty, and a set learnt in two decks a hundred days apart is not learnt as a set. Fields byte for byte as run.py --level a2 wrote them on 2026-11-19."
+   },
+   {
+    "word": "अठारह",
+    "id": 515,
+    "from": "hindia2/अठारह",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">अठारह</div>",
+     "Roman": "aṭhārah",
+     "Word": "अठारह",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">eighteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"सैम अठारह साल की उम्र में आर्मी में भर्ती हुआ था।\"></span>सैम <b>अठारह</b> साल की उम्र में आर्मी में भर्ती हुआ था।</div><div class=\"uc-exe\">Sam joined the army when he was eighteen.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"जब मैं अठारह साल का था मैंने गाड़ी चलानी सीखी और लाईसेंस बनवालिया।\"></span>जब मैं <b>अठारह</b> साल का था मैंने गाड़ी चलानी सीखी और लाईसेंस बनवालिया।</div><div class=\"uc-exe\">I learned to drive a car and got a driver&#x27;s license when I was eighteen.</div></div>"
+    },
+    "why": "Moved from Hindi A2 (note 709 there, about day 256 at the default pace), where the generator's inventory had put the numbers above twelve: A1 had eleven, twelve, twenty and fifty, and a set learnt in two decks a hundred days apart is not learnt as a set. Fields byte for byte as run.py --level a2 wrote them on 2026-11-19."
+   },
+   {
+    "word": "उन्नीस",
+    "id": 516,
+    "from": "hindia2/उन्नीस",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">उन्नीस</div>",
+     "Roman": "unnīs",
+     "Word": "उन्नीस",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">nineteen</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"तब वह उन्नीस साल की थी।\"></span>तब वह <b>उन्नीस</b> साल की थी।</div><div class=\"uc-exe\">She was nineteen then.</div></div>"
+    },
+    "why": "Moved from Hindi A2 (note 726 there, about day 260 at the default pace), where the generator's inventory had put the numbers above twelve: A1 had eleven, twelve, twenty and fifty, and a set learnt in two decks a hundred days apart is not learnt as a set. Fields byte for byte as run.py --level a2 wrote them on 2026-11-19."
+   },
+   {
+    "word": "तीस",
+    "id": 517,
+    "from": "hindia2/तीस",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">तीस</div>",
+     "Roman": "tīs",
+     "Word": "तीस",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">thirty</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"टॉम तीस मिनट रुका।\"></span>टॉम <b>तीस</b> मिनट रुका।</div><div class=\"uc-exe\">Tom waited for thirty minutes.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"तीस हजार लोग मारे गये।\"></span><b>तीस</b> हजार लोग मारे गये।</div><div class=\"uc-exe\">Thirty-thousand people were killed.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"मेरी उम्र तीस से ज़्यादा है।\"></span>मेरी उम्र <b>तीस</b> से ज़्यादा है।</div><div class=\"uc-exe\">I&#x27;m over thirty.</div></div>"
+    },
+    "why": "Moved from Hindi A2 (note 631 there, about day 241 at the default pace), where the generator's inventory had put the numbers above twelve: A1 had eleven, twelve, twenty and fifty, and a set learnt in two decks a hundred days apart is not learnt as a set. Fields byte for byte as run.py --level a2 wrote them on 2026-11-19."
+   },
+   {
+    "word": "चालीस",
+    "id": 518,
+    "from": "hindia2/चालीस",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">चालीस</div>",
+     "Roman": "cālīs",
+     "Word": "चालीस",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">forty</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"चालीस दिनों के लिये काफ़ी खाना था।\"></span><b>चालीस</b> दिनों के लिये काफ़ी खाना था।</div><div class=\"uc-exe\">There was enough food for forty days.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"मेरी क्लास में चालीस विद्यार्थी हैं।\"></span>मेरी क्लास में <b>चालीस</b> विद्यार्थी हैं।</div><div class=\"uc-exe\">My class is made up of forty students.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"दस, बीस, तीस, चालीस, पचास, साठ, सत्तर, अस्सी, नब्बे, सौ।\"></span>दस, बीस, तीस, <b>चालीस</b>, पचास, साठ, सत्तर, अस्सी, नब्बे, सौ।</div><div class=\"uc-exe\">Ten, twenty, thirty, forty, fifty, sixty, seventy, eighty, ninety, hundred.</div></div>"
+    },
+    "why": "Moved from Hindi A2 (note 675 there, about day 249 at the default pace), where the generator's inventory had put the numbers above twelve: A1 had eleven, twelve, twenty and fifty, and a set learnt in two decks a hundred days apart is not learnt as a set. Fields byte for byte as run.py --level a2 wrote them on 2026-11-19."
+   },
+   {
+    "word": "साठ",
+    "id": 519,
+    "from": "hindia2/साठ",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">साठ</div>",
+     "Roman": "sāṭh",
+     "Word": "साठ",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">sixty</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"वे कम-से-कम साठ बरस के तो होंगे।\"></span>वे कम-से-कम <b>साठ</b> बरस के तो होंगे।</div><div class=\"uc-exe\">He must be over sixty.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"क्या आप कृपया चिट्ठी पे एक साठ पैसे का डाक टिकिट लगवा देंगे?\"></span>क्या आप कृपया चिट्ठी पे एक <b>साठ</b> पैसे का डाक टिकिट लगवा देंगे?</div><div class=\"uc-exe\">Will you please stick a 60-cent stamp on the envelope?</div></div>"
+    },
+    "why": "Moved from Hindi A2 (note 724 there, about day 259 at the default pace), where the generator's inventory had put the numbers above twelve: A1 had eleven, twelve, twenty and fifty, and a set learnt in two decks a hundred days apart is not learnt as a set. Fields byte for byte as run.py --level a2 wrote them on 2026-11-19."
+   },
+   {
+    "word": "सत्तर",
+    "id": 520,
+    "from": "hindia2/सत्तर",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">सत्तर</div>",
+     "Roman": "sattar",
+     "Word": "सत्तर",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">seventy</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"स्कूल सत्तर साल पहले स्थापित हुआ था।\"></span>स्कूल <b>सत्तर</b> साल पहले स्थापित हुआ था।</div><div class=\"uc-exe\">The school was founded seventy years ago.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"आदमी सत्तर प्रतिशत पानी का बना हुआ है।\"></span>आदमी <b>सत्तर</b> प्रतिशत पानी का बना हुआ है।</div><div class=\"uc-exe\">Man is 70% water.</div></div>"
+    },
+    "why": "Moved from Hindi A2 (note 716 there, about day 258 at the default pace), where the generator's inventory had put the numbers above twelve: A1 had eleven, twelve, twenty and fifty, and a set learnt in two decks a hundred days apart is not learnt as a set. Fields byte for byte as run.py --level a2 wrote them on 2026-11-19."
+   },
+   {
+    "word": "अस्सी",
+    "id": 521,
+    "from": "hindia2/अस्सी",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">अस्सी</div>",
+     "Roman": "assī",
+     "Word": "अस्सी",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">eighty</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    },
+    "why": "Moved from Hindi A2 (note 718 there, about day 258 at the default pace), where the generator's inventory had put the numbers above twelve: A1 had eleven, twelve, twenty and fifty, and a set learnt in two decks a hundred days apart is not learnt as a set. Fields byte for byte as run.py --level a2 wrote them on 2026-11-19."
+   },
+   {
+    "word": "नब्बे",
+    "id": 522,
+    "from": "hindia2/नब्बे",
+    "fields": {
+     "Hindi": "<div class=\"uc-word\">नब्बे</div>",
+     "Roman": "nabbe",
+     "Word": "नब्बे",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">number</div><div class=\"uc-gl\">ninety</div></div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"उसे अंग्रेज़ी में नब्बे अंक मिले।\"></span>उसे अंग्रेज़ी में <b>नब्बे</b> अंक मिले।</div><div class=\"uc-exe\">He got 90 on his English test.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"उसके अंग्रेज़ी में नब्बे मार्क्स आएँ हैं।\"></span>उसके अंग्रेज़ी में <b>नब्बे</b> मार्क्स आएँ हैं।</div><div class=\"uc-exe\">He got 90 in English.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"नब्बे होने के बावजूद टॉम के नानाजी एक सक्रिय जीवन बिताते हैं।\"></span><b>नब्बे</b> होने के बावजूद टॉम के नानाजी एक सक्रिय जीवन बिताते हैं।</div><div class=\"uc-exe\">At 90, Tom&#x27;s grandfather still leads a very active life.</div></div>"
+    },
+    "why": "Moved from Hindi A2 (note 732 there, about day 261 at the default pace), where the generator's inventory had put the numbers above twelve: A1 had eleven, twelve, twenty and fifty, and a set learnt in two decks a hundred days apart is not learnt as a set. Fields byte for byte as run.py --level a2 wrote them on 2026-11-19."
+   },
+   {
+    "word": "चाहिए",
+    "id": 523,
+    "roman": "cāhie",
+    "senses": [
+     [
+      "fixed form of a verb",
+      [
+       "should, ought to"
+      ]
+     ]
+    ],
+    "forms": [
+     [
+      "also written",
+      "चाहिये",
+      "cāhiye"
+     ]
+    ],
+    "ex": [
+     [
+      "मुझे चलना चाहिए।",
+      "Well, I must be going.",
+      "Tatoeba 491847 (hin) / 43011 (eng)"
+     ],
+     [
+      "मुझे दूध चाहिए।",
+      "I want milk.",
+      "Tatoeba 1841359 (hin) / 3941705 (eng)"
+     ],
+     [
+      "नहीं चाहिए।",
+      "I don't want it.",
+      "Tatoeba 2070178 (hin) / 452696 (eng)"
+     ]
+    ],
+    "why": "A card of no deck, though चाहिए stands in 21 of A1's sentences: the generator deals lemmas and this is filed as a form. Meaning, romanisation and the other spelling: the English Wiktionary's entry चाहिए (\"third-person plural present imperative of चाहना (cāhnā): should, ought to\"; alternative form चाहिये, cāhiye), English Wiktionary via kaikki.org, read 2026-11-19. Sentences: Tatoeba, each named by id."
+   },
+   {
+    "word": "मेरा नाम ... है",
+    "id": 524,
+    "show": "मेरा नाम … है",
+    "roman": "merā nām ... hai",
+    "senses": [
+     [
+      "phrase",
+      [
+       "my name is..."
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "मेरा नाम राहुल है।",
+      "My name is Rahul.",
+      "Tatoeba 3936562 (hin) / 3850035 (eng)",
+      [
+       "मेरा",
+       "नाम",
+       "है"
+      ]
+     ],
+     [
+      "मेरा नाम जेम्स है।",
+      "My name is James.",
+      "Tatoeba 3647858 (hin) / 3647235 (eng)",
+      [
+       "मेरा",
+       "नाम",
+       "है"
+      ]
+     ]
+    ],
+    "why": "A card of no deck: the phrases generator leaves out a template with a gap. Headword, meaning and romanisation: the English Wiktionary's entry मेरा नाम ... है (phrase, \"my name is...\"), English Wiktionary via kaikki.org, read 2026-11-19. Sentences: Tatoeba, each named by id; neither is one the card नाम already carries."
+   }
+  ]
+ },
+ "notes": {
+  "hindia1/कि": {
+   "exDrop": [
+    "सत्य कि ही जीत होती है।"
+   ],
+   "why": "The sentence is a misspelling of की, the possessive (\"Truth alone triumphs\"), and shows nothing of कि, \"that\"."
+  },
+  "hindia1/जी": {
+   "exDrop": [
+    "उसने लम्बी ज़िन्दगी जी।"
+   ],
+   "why": "The sentence is of the verb जीना (\"She lived a long life\"), not of the particle."
+  },
+  "hindia1/धन्यवाद": {
+   "hint": "not शुक्रिया",
+   "why": "The English → Hindi card could not tell the two apart: both open with the same meaning. The generator's own device (dedupe-glosses.py), by hand where the sides are not letter for letter the same."
+  },
+  "hindia1/शुक्रिया": {
+   "hint": "not धन्यवाद",
+   "why": "The English → Hindi card could not tell the two apart: both open with the same meaning. The generator's own device (dedupe-glosses.py), by hand where the sides are not letter for letter the same."
+  },
+  "hindia1/नमस्ते": {
+   "hint": "not नमस्कार",
+   "why": "The English → Hindi card could not tell the two apart: both open with the same meaning. The generator's own device (dedupe-glosses.py), by hand where the sides are not letter for letter the same."
+  },
+  "hindia1/नमस्कार": {
+   "hint": "not नमस्ते",
+   "why": "The English → Hindi card could not tell the two apart: both open with the same meaning. The generator's own device (dedupe-glosses.py), by hand where the sides are not letter for letter the same."
+  },
+  "hindia1/अगर": {
+   "hint": "not यदि",
+   "why": "The English → Hindi card could not tell the two apart: both open with the same meaning. The generator's own device (dedupe-glosses.py), by hand where the sides are not letter for letter the same."
+  },
+  "hindia1/कार": {
+   "hint": "not गाड़ी",
+   "why": "The English → Hindi card could not tell the two apart: both open with the same meaning. The generator's own device (dedupe-glosses.py), by hand where the sides are not letter for letter the same."
+  },
+  "hindia1/सड़क": {
+   "hint": "not रास्ता",
+   "why": "The English → Hindi card could not tell the two apart: both open with the same meaning. The generator's own device (dedupe-glosses.py), by hand where the sides are not letter for letter the same."
+  },
+  "hindia2/सहायता": {
+   "hint": "not मदद",
+   "why": "A lower deck's everyday word has the same first meaning (the Persian- or Arabic-derived word beside this Sanskrit-derived one); the hint is on the higher card, so it names a word already learnt."
+  },
+  "hindia2/मित्र": {
+   "hint": "not दोस्त",
+   "why": "A lower deck's everyday word has the same first meaning (the Persian- or Arabic-derived word beside this Sanskrit-derived one); the hint is on the higher card, so it names a word already learnt."
+  },
+  "hindia2/वर्ष": {
+   "hint": "not साल",
+   "why": "A lower deck's everyday word has the same first meaning (the Persian- or Arabic-derived word beside this Sanskrit-derived one); the hint is on the higher card, so it names a word already learnt."
+  },
+  "hindia2/प्रतीक्षा": {
+   "hint": "not इंतज़ार",
+   "why": "A lower deck's everyday word has the same first meaning (the Persian- or Arabic-derived word beside this Sanskrit-derived one); the hint is on the higher card, so it names a word already learnt."
+  },
+  "hindia2/प्रयास": {
+   "hint": "not कोशिश",
+   "why": "A lower deck's everyday word has the same first meaning (the Persian- or Arabic-derived word beside this Sanskrit-derived one); the hint is on the higher card, so it names a word already learnt."
+  },
+  "hindib1/पुस्तक": {
+   "hint": "not किताब",
+   "why": "A lower deck's everyday word has the same first meaning (the Persian- or Arabic-derived word beside this Sanskrit-derived one); the hint is on the higher card, so it names a word already learnt."
+  },
+  "hindib1/प्रश्न": {
+   "hint": "not सवाल",
+   "why": "A lower deck's everyday word has the same first meaning (the Persian- or Arabic-derived word beside this Sanskrit-derived one); the hint is on the higher card, so it names a word already learnt."
+  },
+  "hindia1/मेरा": {
+   "exDrop": [
+    "यह मेरा लंड है।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindia1/छोटा": {
+   "exDrop": [
+    "मेरा शिश्न छोटा है।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindia1/लंबा": {
+   "exDrop": [
+    "कहावत तो आपने सुनी ही होगी: लंबा नाक, लंबा लंड।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindia1/सिर": {
+   "exDrop": [
+    "सेक्स के बाद मैं उसके पेट पर सिर रख कर सो गई।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindia2/खींचना": {
+   "exDrop": [
+    "सामी ने अपने लंड का फ़ोटो खींचा।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindia2/लायक़": {
+   "exDrop": [
+    "उसकी छोटी बहन चोदने लायक है।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindia2/प्रवेश": {
+   "exDrop": [
+    "लिंग ने योनी में प्रवेश किया।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindia2/ख़ूबसूरत": {
+   "exDrop": [
+    "मेरी योनि खूबसूरत है!"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindib1/चूसना": {
+   "exDrop": [
+    "जा कर लंड चूस!",
+    "क्या आपने कभी शिश्न चूसा है?",
+    "क्या तुमने कभी शिश्न चूसा है?"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindib1/सोवियत": {
+   "exDrop": [
+    "मैं ने एक सोवियत-अमरीकी औरत के साथ सेक्स किया।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindib2/मैनेजर": {
+   "exDrop": [
+    "सामी ने अपने मैनेजर को चोदा।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindib2/चाटना": {
+   "exDrop": [
+    "आपने उसके शिश्न को चाटा।",
+    "आपने उनके शिश्न को चाटा।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindib2/कहावत": {
+   "exDrop": [
+    "कहावत तो आपने सुनी ही होगी: लंबा नाक, लंबा लंड।",
+    "कहावत तो तुमने सुनी ही होगी: लंबा नाक, लंबा लंड।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindic1/सामी": {
+   "exDrop": [
+    "सामी चोद रहा था।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  }
+ },
+ "decks": {
+  "hindia1": {
+   "descSub": [
+    [
+     "281 of the 500 come from a vocabulary",
+     "281 of the {n} come from a vocabulary"
+    ],
+    [
+     "every form of a noun or a verb added together. The cards are dealt by that frequency, so the words you meet most often come first. ",
+     "every form of a noun or a verb added together; and {added} more were added in November 2026 because a beginner needs them before either list would have dealt them: नमस्कार, zero, thirteen to nineteen and six of the tens, moved down from Hindi A2, seven everyday formulas moved from the phrases deck (आप कैसे हैं, मैं ठीक हूँ, आपका नाम क्या है, माफ़ कीजिए, जी हाँ, जी नहीं, कोई बात नहीं), and चाहिए and मेरा नाम … है, which no deck had. THE ORDER IS A TEACHING ORDER. The first {head} words are chosen by hand: the greetings and courtesies, a first exchange (how are you, I am fine, my name is), the pronouns and possessives, the commonest postpositions and verbs, the question words, zero to ten, and a dozen words every sentence leans on. After them the words come by that frequency, the commonest first, with three closed sets kept together: the days of the week from word {daysAt}, the colours from word {coloursAt} and the numbers above ten from word {numbersAt}. AT TEN NEW CARDS A DAY, the default for a language deck, both directions of a word arrive together, so this is five words a day: नमस्ते is the first card, the courtesies take {courtesyDays} days and the whole deck {days}. "
+    ],
+    [
+     "behind the All forms fold their present, future, subjunctive and imperative by person. ",
+     "behind the All forms fold their present, future, subjunctive and imperative by person; होना, to be, also shows है, था and होगा there. The possessives and का show the forms that agree (मेरा, मेरी, मेरे), an adjective that never changes is marked invariable, and a verb that is also used after another verb (रहना for the progressive, जाना for the passive) says so. "
+    ]
+   ]
+  },
+  "hindia2": {
+   "dropDup": {
+    "नमस्कार": "hindia1/नमस्कार",
+    "शून्य": "hindia1/शून्य",
+    "तेरह": "hindia1/तेरह",
+    "चौदह": "hindia1/चौदह",
+    "पंद्रह": "hindia1/पंद्रह",
+    "सोलह": "hindia1/सोलह",
+    "सत्रह": "hindia1/सत्रह",
+    "अठारह": "hindia1/अठारह",
+    "उन्नीस": "hindia1/उन्नीस",
+    "तीस": "hindia1/तीस",
+    "चालीस": "hindia1/चालीस",
+    "साठ": "hindia1/साठ",
+    "सत्तर": "hindia1/सत्तर",
+    "अस्सी": "hindia1/अस्सी",
+    "नब्बे": "hindia1/नब्बे",
+    "गर्म": "hindia1/गरम",
+    "बिलकुल": "hindia1/बिल्कुल"
+   },
+   "descSub": [
+    [
+     "241 of the 750 come from a vocabulary",
+     "227 of the {n} come from a vocabulary"
+    ],
+    [
+     "and the other 509 are the commonest remaining words",
+     "and the other 506 are the commonest remaining words"
+    ],
+    [
+     "The cards are dealt by that frequency, so the words you meet most often come first. ",
+     "The cards are dealt by that frequency, so the words you meet most often come first, with the twelve months kept together from word {monthsAt}. "
+    ]
+   ],
+   "why": "dropDup: the same word in another spelling, which a lower deck already cards (the inventory named one spelling, the frequency fill dealt the other); and the fifteen cards moved down to Hindi A1."
+  },
+  "hindib1": {
+   "dropDup": {
+    "बसंत": "hindia2/वसंत"
+   },
+   "descSub": [
+    [
+     "177 of the 1000 come from a vocabulary",
+     "177 of the {n} come from a vocabulary"
+    ],
+    [
+     "and the other 823 are the commonest remaining words",
+     "and the other 822 are the commonest remaining words"
+    ]
+   ],
+   "why": "dropDup: the same word in another spelling, which a lower deck already cards (the inventory named one spelling, the frequency fill dealt the other)."
+  },
+  "hindib2": {
+   "dropDup": {
+    "दुःख": "hindia2/दुख",
+    "महत्त्व": "hindib1/महत्व",
+    "कुरसी": "hindia1/कुर्सी"
+   },
+   "descSub": [
+    [
+     "152 of the 1500 come from a vocabulary",
+     "152 of the {n} come from a vocabulary"
+    ],
+    [
+     "and the other 1348 are the commonest remaining words",
+     "and the other 1345 are the commonest remaining words"
+    ]
+   ],
+   "why": "dropDup: the same word in another spelling, which a lower deck already cards (the inventory named one spelling, the frequency fill dealt the other)."
+  },
+  "hiphrase": {
+   "dropDup": {
+    "आप कैसे हैं": "hindia1/आप कैसे हैं",
+    "मैं ठीक हूँ": "hindia1/मैं ठीक हूँ",
+    "आपका नाम क्या है": "hindia1/आपका नाम क्या है",
+    "माफ़ कीजिए": "hindia1/माफ़ कीजिए",
+    "जी हाँ": "hindia1/जी हाँ",
+    "जी नहीं": "hindia1/जी नहीं",
+    "कोई बात नहीं": "hindia1/कोई बात नहीं"
+   },
+   "descSub": [
+    [
+     "Within each subdeck the expressions come in the order of how many of Tatoeba's Hindi sentences contain them,",
+     "WHERE TO BEGIN: within each subdeck the expressions are grouped by the lowest level deck whose words and forms spell them — {a1} with Hindi A1 alone ({phrasesA1} of the {phrases} everyday phrases), then {a2}, {b1}, {b2} and {c1} that need A2, B1, B2 and C1, and last the {none} that use a word no level cards — so the everyday phrases can be begun beside Hindi A1, and the proverbs, none of which A1 alone spells, are better left until B1. At ten new cards a day, five expressions, the deck's {cards} cards take {days} days. Seven of the commonest formulas (आप कैसे हैं, माफ़ कीजिए, कोई बात नहीं …) are cards of Hindi A1 and not repeated here. Inside a group the expressions come in the order of how many of Tatoeba's Hindi sentences contain them,"
+    ]
+   ],
+   "why": "dropDup: the seven formulas moved down to Hindi A1."
+  }
+ }
+}

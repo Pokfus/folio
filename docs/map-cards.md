@@ -778,6 +778,7 @@ Cliopatria folds into an empire or an occupation that year (Canada, South Africa
 Republic) are drawn with their own later row through `rowsAt: [[1920, 1920, rowYear]]`, their borders being the same, and
 the entity's note says so; the Spanish empire's composite stands aside in 1920 (`exceptYears`) for Spain alone.
 `cnh-656` uses the same block with `label: "Territory"` for one state's own present-day ground.
+A group may also name history.bin **extents** (`pol:ext_…`, 2026-11-19, `gr-231`: Lacedaemon as `pol:ext_sparta` + `pol:ext_messenia` in 600 BCE): the window paints them itself — the group's tint and one outline round their union — at a year they are alive in, and on the still renderer leaves the present-day `keys` untinted (docs/atlas-v2-card-windows.md "An extent as a members group").
 
 ### Three groups, a zoom and a timeline (`members.span`, 2026-10-29, on request)
 

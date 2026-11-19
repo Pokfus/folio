@@ -57,8 +57,11 @@
   margin-top: 8px;
   font-size: 15px;
 }
-.uc-fi + .uc-fi {
-  margin-left: 14px;
+/* one form (its label, the Persian, the romanisation) wraps as ONE piece: with a third item on a
+   verb's line (the spoken forms, Nov 2026) a phone broke "PAST" from "STEM" */
+.uc-fi {
+  display: inline-block;
+  margin: 0 7px;
 }
 .uc-fl {
   margin-right: 6px;

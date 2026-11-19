@@ -6,8 +6,9 @@
 Reads `.claude/arabic-cache/kaikki-ar.jsonl` (~870 MB) and writes `dict.json`:
 bare page title -> [entry], each entry carrying only what a card prints or a
 matcher needs — the vowelled headword, its romanisation, gender, plural(s),
-feminine, a verb's non-past, verbal noun, form number and its past and non-past
-indicative cells, the root, the first glosses (for disambiguation only: the
+feminine, a verb's non-past, verbal noun, form number, its past and non-past
+indicative cells and its imperative, a numeral's other gender, a pronoun's
+suffix form, the root, the first glosses (for disambiguation only: the
 cards' English is written by hand in `inventory.py`), and every inflected form
 folded, for finding the word in a sentence.
 """
@@ -32,6 +33,19 @@ def cells(forms, aspect):
         g = "f" if "feminine" in t else "m"
         if p and n:
             out.setdefault("%s|%s|%s" % (p[0], g, n[0]), f["form"])
+    return out
+
+
+def imperative(forms):
+    """the imperative's three everyday cells (to a man, to a woman, to several), keyed like `cells`."""
+    out = {}
+    for f in forms:
+        t = set(f.get("tags") or [])
+        if not {"imperative", "active", "second-person"} <= t or "dual" in t:
+            continue
+        n = "s" if "singular" in t else "p" if "plural" in t else None
+        if n:
+            out.setdefault("s|%s|%s" % ("f" if "feminine" in t else "m", n), f["form"])
     return out
 
 
@@ -82,6 +96,21 @@ def main():
                 r["vn"] = tag("noun-from-verb")
                 r["past"] = cells(forms, "past")
                 r["pres"] = cells(forms, "non-past")
+                r["imp"] = imperative(forms)
+            # (Nov 2026, the beginner pass) three things a card now prints and Wiktionary states:
+            # a numeral's other gender (ثَلَاثَة lists ثَلَاث as its masculine), the suffix a pronoun becomes when
+            # it is attached (أَنَا lists ـِي and ـنِي; هِيَ carries "enclitic form ـهَا" on its headword line),
+            # and a second headword on the same entry (مِنْ فَضْلِكَ, مِنْ فَضْلِكِ)
+            if e["pos"] == "num":
+                r["masc"] = tag("masculine")
+            if e["pos"] == "pron":
+                enc = [f["form"][len("enclitic form "):] for f in forms if f["form"].startswith("enclitic form ")]
+                enc += [f["form"] for f in forms if f["form"].startswith("ـ")
+                        and set(f.get("tags") or []) & {"enclitic", "genitive", "accusative"}]
+                r["encl"] = list(dict.fromkeys(enc))
+            alt = [f["form"] for f in canon[1:] if ar.WORD.fullmatch(ar.bare(f["form"]).replace(" ", "").rstrip("؟") or "-")]
+            if alt:
+                r["alt"] = alt
             D.setdefault(ar.bare(e["word"]), []).append(r)
             n += 1
     json.dump(D, open(os.path.join(ar.CACHE, "dict.json"), "w", encoding="utf-8"), ensure_ascii=False)

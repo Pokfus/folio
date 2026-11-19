@@ -4,8 +4,17 @@
     python3 .claude/arabic/run.py                 # Arabic A1
     python3 .claude/arabic/run.py --level a2      # Arabic A2, on top of A1 (builds A1's word list if missing)
     python3 .claude/arabic/run.py --no-fetch      # reuse whatever is cached
-    python3 .claude/arabic/alphabet.py            # the Arabic Alphabet deck (hand-written, no cache)
     python3 .claude/arabic/phrases.py             # Arabic Phrases and Expressions (after every level)
+
+AFTER ANY REBUILD (Nov 2026, the beginner pass): the generator numbers a deck by position and knows nothing
+of the cards a level has gained since, so its output is the INPUT of the record —
+
+    node .claude/arabic/arabic-fix.js             # the pinned ids, the inserts, the order, the descriptions
+    node .claude/arabic/build-arabic-alphabet.js  # the Alphabet deck, from arabic-alphabet.json and A1
+    node .claude/build-lang-decks.js
+
+and `git status` is then clean: every level reproduces itself from a fresh fetch, the sentence corpus
+being pinned by id (`examples.TATOEBA_MAX`).  `alphabet.py` is gone; `alphabet_table.py` writes the table.
 
 Caches in `.claude/arabic-cache/` (~1.4 GB, gitignored).  See
 `docs/arabic-decks-plan.md` for the plan and the findings.
@@ -17,7 +26,7 @@ THE STAGES, in order, each writing into the cache for the next:
     examples.py        three Tatoeba sentences each
     build_deck.py      forms rows, conjugation tables, markup, the deck file
 
-A re-run reproduces the shipped deck byte for byte; read the diff if it does not.
+A re-run followed by arabic-fix.js reproduces the shipped deck byte for byte; read the diff if it does not.
 """
 import argparse, os, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

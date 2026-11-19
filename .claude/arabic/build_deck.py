@@ -26,8 +26,11 @@ THE FORMS ROW, read from Wiktionary's tables, never derived:
     (كِتَاب → كُتُب) and cannot be guessed, so they are learnt with the noun;
   * adjective: the feminine, the plural, and the elative (كَبِير → أَكْبَر);
   * verb: the present (non-past) third person, the verbal noun and the verb's
-    form (I–X), with a past and present table of eight persons behind the
-    All forms fold.
+    form (I–X), with a past and present table of eight persons and the
+    imperative (to a man, to a woman, to several) behind the All forms fold;
+  * number: three to ten show both genders (ثَلَاثَة, and ثَلَاث as Wiktionary's
+    "masculine"); pronoun: the suffix it becomes when attached (أَنَا → ـِي، ـنِي);
+    a greeting said to a man: the same said to a woman, where Wiktionary has it.
 """
 import argparse, html, json, os, re, sys
 
@@ -49,6 +52,27 @@ REPORT = []
 # a card without one).  لَوْ "if": l + a + w, the sukūn writing no vowel; لَا سِيَّمَا "especially", B2.
 ROMAN = {"لَوْ": "law", "لَا سِيَّمَا": "lā siyyamā", "ضَغْط الدَّم": "ḍaḡṭ ad-dam", "مُحَرِّك بَحْث": "muḥarrik baḥṯ"}
 NOFORMS = {"كُلّ", "بَعْض", "غَيْر", "أَحَد", "مِثْل"}
+# ROMANISED FROM THE PRINTED VOWELS (Nov 2026, the beginner pass), by `ar.translit`, never typed.  Wiktionary
+# romanises three greetings at a pause (ṣabāḥ al-ḵayr) under a headword printed with its endings
+# (صَبَاحُ الْخَيْرِ), so the letters and their check disagreed; one carries the entry's question mark; and
+# for two words the extract's "romanization" is not one at all (دَجَاج read "basilectal", وِلَادَة قَيْصَرِيَّة "t").
+ROMAN_BY_RULE = {"صَبَاحُ الْخَيْرِ", "مَسَاءُ الْخَيْرِ", "تُصْبِحُ عَلَى خَيْرٍ", "كَيْفَ حَالُكَ", "دَجَاج", "وِلَادَة قَيْصَرِيَّة"}
+IMPERATIVE = [("أَنْتَ", "s|m|s"), ("أَنْتِ", "s|f|s"), ("أَنْتُمْ", "s|m|p")]
+_DICT = []
+
+
+def said_to_a_woman(h, key):
+    """`h` with its final ـكَ read ـكِ, IF Wiktionary has that form as a headword of the same page."""
+    if not h.endswith("كَ"):
+        return ""
+    if not _DICT:
+        _DICT.append(ar.load_dict())
+    want = h[:-1] + "ِ"
+    clean = lambda x: " ".join(x.replace("ٱ", "ا").replace("؟", "").split())
+    for e in _DICT[0].get(key, []):
+        if any(clean(x) == want for x in [e["head"]] + e.get("alt", [])):
+            return want
+    return ""
 
 
 def A(s, cls=""):
@@ -70,7 +94,25 @@ def forms_html(w):
     items = []
     if w["head"] in NOFORMS:
         return ""
-    if pos in ("noun", "name") and " " not in w["head"]:
+    fem = said_to_a_woman(w["head"], w["key"]) if " " in w["head"] else ""
+    if fem:
+        items.append(("to a woman", fem, True))
+    elif pos == "num":
+        # Wiktionary files the form in ة as the feminine and lists the other as its masculine
+        masc = [m for m in e.get("masc", []) if CLEAN.match(m)]
+        if masc and e.get("g") == "f":
+            items.append(("gender", "feminine", False))
+            items.append(("masculine", masc[0], True))
+    elif pos == "pron":
+        # the suffix the pronoun becomes when attached (my, me; your; his …); a spelling that is another
+        # one with a final fatḥa (ـِيَ beside ـِي), or its vowel-harmony twin in i (ـهِ beside ـهُ), is left out
+        enc = [x for x in e.get("encl", []) if CLEAN.match(x) and len(ar.bare(x)) <= 4]
+        enc = [x for x in enc if not (x.endswith("َ") and x[:-1] in enc) and not ("ِ" in x and x.replace("ِ", "ُ") in enc)]
+        if enc and w["head"] != "أَنْتَ":
+            items.append(("as a suffix", "، ".join(enc[:2]), True))
+        elif e.get("encl") and w["head"] == "أَنْتَ":
+            items.append(("as a suffix", e["encl"][0], True))
+    elif pos in ("noun", "name") and " " not in w["head"]:
         if e.get("g"):
             items.append(("gender", {"m": "masculine", "f": "feminine"}[e["g"]], False))
         pl = [p for p in e.get("pl", []) if CLEAN.match(p)][:2]
@@ -106,6 +148,11 @@ def table_html(w):
         rows = "".join('<div class="uc-cjr"><span class="uc-cj-p">%s</span><span class="uc-cj-f">%s</span></div>'
                        % (A(p), A(e[key][k])) for p, k in PERSONS if e[key].get(k))
         blocks.append('<div class="uc-cj"><div class="uc-cjh">%s</div>%s</div>' % (name, rows))
+    if e.get("imp"):
+        rows = "".join('<div class="uc-cjr"><span class="uc-cj-p">%s</span><span class="uc-cj-f">%s</span></div>'
+                       % (A(p), A(e["imp"][k])) for p, k in IMPERATIVE if e["imp"].get(k))
+        if rows:
+            blocks.append('<div class="uc-cj"><div class="uc-cjh">imperative</div>%s</div>' % rows)
     return '<div class="uc-cjg">%s</div>' % "".join(blocks)
 
 
@@ -141,7 +188,7 @@ def main():
     stats = {"nouns_pl": 0, "verbs": 0, "adjs": 0, "ex3": 0, "ex0": 0, "roman": 0}
     for i, w in enumerate(wl["words"]):
         h = headword(w)
-        roman = w["e"].get("roman", "") or ROMAN.get(h, "")
+        roman = ar.translit(h) if h in ROMAN_BY_RULE else w["e"].get("roman", "") or ROMAN.get(h, "")
         forms = forms_html(w)
         stats["nouns_pl"] += 'uc-fl">plural' in forms and w["e"]["pos"] in ("noun", "name")
         stats["verbs"] += w["e"]["pos"] == "verb"
