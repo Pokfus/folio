@@ -988,6 +988,16 @@ Wang Yangming (`cnh-528`); the Treaty of Nanking 29 August 1842 (`cnh-562`); the
 | the fish-scale registers: the survey / the later survey | 1379 / 1581 | Yee; Ray Huang (`cnh-807`) |
 | the ban liang first cast / the standard coin / the four-zhu coin / last issued | c. 340 BCE / 221 BCE / 175 BCE / 118 BCE | Thierry; Pollard and Liu (`cnh-809`; 221 with `cnh-191`) |
 | the Great Ming Treasure Note: the office / first issued / the silver tax | 1374 / 1375 / 1436 | Theobald; Horesh (`cnh-810`; 1436 with `cnh-523`) |
+| sycee: taxes paid in silver / abolished with the tael | 1581 / 1933 | Sun et al.; the cited studies (`cnh-811`; with `cnh-522`, `cnh-523`) |
+| Hankou: the river shifted / the office moved / opened to trade / walled | 1465 – 1470 / 1613 / 9 March 1861 / 1864 | Ren et al.; Li and Zhang; Mayers (`cnh-812`) |
+| the caoyun: the canal rebuilt / sea transport / the late shipments | 1411 / 1826 / 1902 – 1905 | the cited studies; Morse (`cnh-813`) |
+| the Sogdian Ancient Letters written / found | c. 313 CE / 1907 | Sims-Williams; Livshits (`cnh-814`) |
+| Shu brocade's classic centre / the loom models buried | c. 200 BCE – 900 CE / c. 157 – 88 BCE | Zhao et al. (`cnh-815`) |
+| the Tea Horse Road's Qing road / the bridge opened | 1700 – 1950 / 1702 | Liu (`cnh-816`) |
+| the Belitung ship sailed / the dated bowl / found | c. 825 – 850 CE / 826 CE / 1998 | Kan; Flecker (`cnh-817`) |
+| the Maritime Trade Supervisorate attested / reorganised / new offices / an office added | c. 700 – 800 CE / 971 CE / 999 CE / 1087 | Hirth and Rockhill; Quanzhou (`cnh-818`) |
+| the junk described / the oldest hull / the word attested | 1124 / c. 1277 / c. 1300 | Xu Jing; the Quanzhou ship study; Yule and Burnell (`cnh-819`) |
+| "comprador" attested / the Hong monopoly ended | 1533 / 29 August 1842 | Yule and Burnell; Mayers (`cnh-820`; with `cnh-562`) |
 
 ## Later periods
 
@@ -1811,4 +1821,14 @@ cnh-804: 246; 95; 1932
 cnh-807: 1379; 1581
 cnh-809: 340; 221; 175; 118
 cnh-810: 1374; 1375; 1436
+cnh-811: 1581; 1933
+cnh-812: 1465; 1470; 1613; 1861; 1864
+cnh-813: 1411; 1826; 1902; 1905
+cnh-814: 313; 1907
+cnh-815: 200; 900; 157; 88
+cnh-816: 1700; 1950; 1702
+cnh-817: 825; 850; 826; 1998
+cnh-818: 700; 800; 971; 999; 1087
+cnh-819: 1124; 1277; 1300
+cnh-820: 1533; 1842
 ```

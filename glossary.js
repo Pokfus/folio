@@ -15632,7 +15632,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Fish-scale_registers": "1379",
 "Banliang": "221 BCE",
 "Great_Ming_Treasure_Note": "1375",
-"Sogdian_Ancient_Letters": "c. 313–314 CE",
+"Sogdian_Ancient_Letters": "c. 313 CE",
 "Belitung_shipwreck": "c. 825 – 850 CE",
 "Maritime_Trade_Supervisorate": "971 CE",
 "Lüshi_Chunqiu": "c. 239 BCE",
@@ -26379,7 +26379,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Djed": ["djed","djed pillar","djed column","djed amulet"],
 "Scarab_(artifact)": ["scarab","scarabs","heart scarab","heart scarabs","scarab seal"],
 "Birth_tusk": ["apotropaic wand","apotropaic wands","birth tusks","magic wand","magic ivories"],
-"Heka_(god)": ["Heka","Heke"]
+"Heka_(god)": ["Heka","Heke"],
+"Caoyun": ["Grain transport","Tribute grain","Ts'ao-yün"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
