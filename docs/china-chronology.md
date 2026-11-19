@@ -1012,6 +1012,11 @@ Wang Yangming (`cnh-528`); the Treaty of Nanking 29 August 1842 (`cnh-562`); the
 | the *Liezi*'s received text (Zhang Zhan's edition) | c. 370 CE | the IEP (`cnh-841`) |
 | the "Qiwulun" dated | c. 400 – 300 BCE | the SEP; Chen Guying (`cnh-842`) |
 | the *Han Feizi* completed | c. 230 BCE | Schlager (`cnh-846`; Han Fei's death 233 BCE in prose) |
+| the Ten Wings written / the earliest copy | c. 500 – 100 BCE / c. 175 BCE | the SEP; Shaughnessy (`cnh-851`) |
+| the Xiping Stone Classics ordered / carved | 175 CE / c. 175 – 183 CE | the cited studies (`cnh-852`) |
+| the *Great Learning* composed / the exam decree | c. 300 – 200 BCE / 1313 | Eno; Mailla (`cnh-853`; 1313 with `cnh-832`) |
+| the White Tiger Discussions held | 79 CE | Jian (`cnh-854`) |
+| the *Taijitu shuo* written / edited / anthologised | c. 1000 – 1100 / 1169 / 1175 | the cited studies (`cnh-859`) |
 
 ## Later periods
 
@@ -1859,4 +1864,9 @@ cnh-838: 300; 1993
 cnh-841: 370
 cnh-842: 400; 300
 cnh-846: 230
+cnh-851: 500; 100; 175
+cnh-852: 175; 183
+cnh-853: 300; 200; 1313
+cnh-854: 79
+cnh-859: 1000; 1100; 1169; 1175
 ```
