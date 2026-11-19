@@ -2837,6 +2837,23 @@ Re-run after touching: `node .claude/fetch-book.js kant-critique-of-pure-reason 
 block(s) fenced, 181 lifted, 7 table(s) read as blocks, 5 asterisk row(s), 2 note(s) inside a note spliced", then
 `node .claude/book-audit.js`.
 
+## The `monumentum` layout — three columns per chapter on LacusCurtius (Nov 2026, the Res Gestae)
+
+`extractMonumentum` / `monumentumGroups` / `monumentumEnglish` / `monumentumLatin` / `monumentumPages`; the six pages
+cached as `.claude/book-cache/augustus-res-gestae/en-<n>.html`, accepted only when `</HTML>` has arrived. What is worth
+carrying to the next LacusCurtius book set as a table:
+
+- **One row per chapter, a cell per language** (`<TD CLASS="Latin|Greek|English">`). The English cells are joined into a
+  page of their own with the page's EXPLANATORY notes only (after `<A ID="endnotes_explanatory">`) and handed to
+  `extractThayer`, so Thayer's notes, `º` marks and line numbers go by the Diodorus rules. The critical notes (`#cnoteN`)
+  are on the Latin and go with their markers.
+- **Strip `on…=` attributes with `on[A-Za-z]+=`** — `on[A-Z][a-z]+=` does not match `onMouseOver`, and the pop-up markup
+  then leaks (`º` in the Latin was the symptom). Thayer's `conversion` / `glossary` bullets (`•`) go too.
+- **Number a chapter by its visible figure, not its anchor**: the Latin of chapter 34 is anchored `NAME="34G"`.
+- **The Loeb prints supplied words in italics**; Thayer's `<SPAN CLASS="emend">` becomes `<i>` on the Latin side only.
+- **A note on a heading outside the table** (the Summary's 145) is moved after the first chapter number of its group.
+- Re-run after touching: `node .claude/fetch-book.js augustus-res-gestae` (reads the cache), compare the two columns'
+  `data-n` lists per Part, and grep the output for `Thayer`, `º`, `•`, `onMouse`.
 ## `original.prep: "cousin"` — a header inside the transclusion, and a note off the work page (Nov 2026, the Discourse on the Method)
 
 `cousinPrep(h, warn)` runs in `originalChapter` on Victor Cousin's *Discours de la méthode* (1824) on French
@@ -2852,3 +2869,21 @@ Latin letters alone leaves it as a blockquote at the top of the section, and not
 Re-run after touching: `node .claude/fetch-book.js descartes-discourse-on-method --force` (7 English and 7 French
 fetches), check 7 notes, the three `reFixes` applied once each, no `<blockquote>` in either file, and
 `node .claude/book-audit.js`.
+
+## `head: "letter"` — a letter titled from its own printed heading (Nov 2026, Jerome's Letters)
+
+Fremantle's edition (NPNF II/6) heads every letter with one plain paragraph — "Letter XIV. To Heliodorus, Monk." —
+and Wikisource's contents page lists only "Letter 1" … "Letter 150", so the heading is the one place the
+addressee is named. `letterHead` reads it off the RAW page before cleanBody (reference `<sup>`s stripped first,
+numeric entities decoded so "Æmona" is stored as the character), **checks the numeral against the page asked for**
+and warns on a mismatch, and returns the rest as the title; the paragraph itself is then peeled by the book's
+`dropLeadParas` (capped at 100 characters after the numeral, so prose cannot match), with `dropHeadMarkers`
+carrying any footnote marker down. A page with NO heading is not guessed at: only `headSupplied[n]` is used, each
+with its source in a comment (Letter 148, from CCEL's copy of the same edition), and the run prints how many
+titles were read and how many supplied. One trap met on the way: the rule under the volume's half-title arrives as
+twelve `&#8212;` entities, and `dropLeadParas` flattens entities to spaces, so `/^[—–-]{3,}$/` cannot see it — the
+entry declares `/^$/` for a block of nothing but entities.
+
+Re-run after touching: `node .claude/fetch-book.js jerome-letters --force` (150 pages), check "149 letters titled
+from their own printed heading, 1 from a heading the entry supplies" and "648 section numbers across 150 chapters
+— 71 chapter(s) with NONE" (the summaries), then `node .claude/book-audit.js`.

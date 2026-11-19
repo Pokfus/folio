@@ -1,0 +1,643 @@
+{
+ "insert": {
+  "arabica1": [
+   {
+    "word": "صَبَاح النُّور",
+    "id": 501,
+    "from": "arabicphrase/صَبَاح النُّور",
+    "why": "The reply to A1's صَبَاحُ الْخَيْرِ, which a learner needs the day they learn the greeting; the phrases deck is the last on the shelf.",
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">صَبَاح النُّور</div>",
+     "Word": "صَبَاح النُّور",
+     "Roman": "ṣabāḥ an-nūr",
+     "English": "<div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">good morning (the reply to صَبَاحُ الْخَيْرِ)</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "مَسَاء النُّور",
+    "id": 502,
+    "from": "arabicphrase/مَسَاء النُّور",
+    "why": "The reply to A1's مَسَاءُ الْخَيْرِ.",
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">مَسَاء النُّور</div>",
+     "Word": "مَسَاء النُّور",
+     "Roman": "masāʔ an-nūr",
+     "English": "<div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">good evening (the reply to مَسَاءُ الْخَيْرِ)</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "شُكْرًا جَزِيلًا",
+    "id": 503,
+    "from": "arabicphrase/شُكْرًا جَزِيلًا",
+    "why": "A1 has شُكْرًا; this is the form a learner hears beside it.",
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">شُكْرًا جَزِيلًا</div>",
+     "Word": "شُكْرًا جَزِيلًا",
+     "Roman": "šukran jazīlan",
+     "English": "<div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">thank you very much</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"شكراً جزيلاً لك يا دكتور.\"></span><b>شكراً جزيلاً</b> لك يا دكتور.</div><div class=\"uc-exe\">Thank you very much, doctor.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"شكرا جزيلا على دعوتك لي.\"></span><b>شكرا جزيلا</b> على دعوتك لي.</div><div class=\"uc-exe\">Thank you so much for inviting me.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"شكراً جزيلاً . أنا أقدر هذا.\"></span><b>شكراً جزيلاً</b> . أنا أقدر هذا.</div><div class=\"uc-exe\">Thanks a lot. I appreciate that.</div></div>"
+    }
+   },
+   {
+    "word": "إِلَى اللِّقَاءِ",
+    "id": 504,
+    "from": "arabicphrase/إِلَى اللِّقَاءِ",
+    "why": "A1 had one goodbye, مَعَ السَّلَامَةِ, said to the one leaving.",
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">إِلَى اللِّقَاءِ</div>",
+     "Word": "إِلَى اللِّقَاءِ",
+     "Roman": "ʔilā l-liqāʔi",
+     "English": "<div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">goodbye, see you</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"إلى اللّقاء بعد حين يا يانّي.\"></span><b>إلى اللّقاء</b> بعد حين يا يانّي.</div><div class=\"uc-exe\">See you around, Yanni.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"إلى اللّقاء بعد حين يا زيري.\"></span><b>إلى اللّقاء</b> بعد حين يا زيري.</div><div class=\"uc-exe\">See you later, Ziri.</div></div>"
+    }
+   },
+   {
+    "word": "تَشَرَّفْنَا",
+    "id": 505,
+    "from": "arabicphrase/تَشَرَّفْنَا",
+    "why": "The close of a first exchange of names.",
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">تَشَرَّفْنَا</div>",
+     "Word": "تَشَرَّفْنَا",
+     "Roman": "tašarrafnā",
+     "English": "<div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">nice to meet you (literally, we are honoured)</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "اِسْمِي",
+    "id": 506,
+    "why": "The first thing a learner says, and no deck had it. Wiktionary's phrase entry اِسْمِي ...",
+    "wiktionary": "اسمي (phrase)",
+    "src": [
+     7215531,
+     2423788,
+     383374
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">اِسْمِي</div>",
+     "Word": "اِسْمِي",
+     "Roman": "ismī",
+     "English": "<div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">my name is …</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"اسمي أحمد.\"></span><b>اسمي</b> أحمد.</div><div class=\"uc-exe\">My name is Ahmad.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"اسمي إيميلي.\"></span><b>اسمي</b> إيميلي.</div><div class=\"uc-exe\">My name is Emily.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"اسمي جاك.\"></span><b>اسمي</b> جاك.</div><div class=\"uc-exe\">My name is Jack.</div></div>"
+    }
+   },
+   {
+    "word": "مَا اسْمُكَ",
+    "id": 507,
+    "why": "The question that اِسْمِي answers. Wiktionary's phrase entry, whose second headword is the form said to a woman.",
+    "wiktionary": "ما اسمك (phrase); romanised by ar.translit",
+    "src": [
+     332223
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">مَا اسْمُكَ</div>",
+     "Word": "مَا اسْمُكَ",
+     "Roman": "mā smuka",
+     "English": "<div class=\"uc-pos\">phrase</div><div class=\"uc-gl\">what is your name? (to a man)</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">to a woman</span><span dir=\"rtl\" lang=\"ar\">مَا اسْمُكِ</span></span></div>",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"ما اسمُك؟\"></span><b>ما اسمُك</b>؟</div><div class=\"uc-exe\">What&#x27;s your name?</div></div>"
+    }
+   },
+   {
+    "word": "يَنَايِر",
+    "id": 508,
+    "why": "A1's topics name \"time, days and months\" and no Arabic deck carded a month. The name used in Egypt, Sudan and Yemen (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669).",
+    "wiktionary": "يناير (name)",
+    "src": [
+     448349
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">يَنَايِر</div>",
+     "Word": "يَنَايِر",
+     "Roman": "yanāyir",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">January</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">gender</span>masculine</span></div>",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"يناير هو أول شهر في السنة.\"></span><b>يناير</b> هو أول شهر في السنة.</div><div class=\"uc-exe\">January is the first month of the year.</div></div>"
+    }
+   },
+   {
+    "word": "فِبْرَايِر",
+    "id": 509,
+    "why": "A1's topics name \"time, days and months\" and no Arabic deck carded a month. The name used in Egypt, Sudan and Yemen (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669).",
+    "wiktionary": "فبراير (name)",
+    "src": [
+     383051
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">فِبْرَايِر</div>",
+     "Word": "فِبْرَايِر",
+     "Roman": "fibrāyir",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">February</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">gender</span>masculine</span></div>",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"سأكون قد درست الإنجليزية لخمس سنوات مع حلول فبراير المقبل.\"></span>سأكون قد درست الإنجليزية لخمس سنوات مع حلول <b>فبراير</b> المقبل.</div><div class=\"uc-exe\">I will have been studying English for five years next February.</div></div>"
+    }
+   },
+   {
+    "word": "مَارِس",
+    "id": 510,
+    "why": "A1's topics name \"time, days and months\" and no Arabic deck carded a month. The name used in Egypt, Sudan and Yemen (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669).",
+    "wiktionary": "مارس (name)",
+    "src": [
+     4940308,
+     371571,
+     373046
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">مَارِس</div>",
+     "Word": "مَارِس",
+     "Roman": "māris",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">March</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">gender</span>masculine</span></div>",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"ولدت في 18 من مارس عام 1994.\"></span>ولدت في 18 من <b>مارس</b> عام 1994.</div><div class=\"uc-exe\">I was born on March 18th 1994.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"سوف أسافر في مارس-آذار.\"></span>سوف أسافر في <b>مارس</b>-آذار.</div><div class=\"uc-exe\">I&#x27;ll be leaving in March.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"كان الطقس باردًا هنا طوال شهر آذار- مارس.\"></span>كان الطقس باردًا هنا طوال شهر آذار- <b>مارس</b>.</div><div class=\"uc-exe\">It was cold here through March.</div></div>"
+    }
+   },
+   {
+    "word": "أَبْرِيل",
+    "id": 511,
+    "why": "A1's topics name \"time, days and months\" and no Arabic deck carded a month. The name used in Egypt, Sudan and Yemen (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669).",
+    "wiktionary": "أبريل (name)",
+    "src": [
+     1594420,
+     1932976,
+     672562
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">أَبْرِيل</div>",
+     "Word": "أَبْرِيل",
+     "Roman": "ʔabrīl",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">April</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">gender</span>masculine</span></div>",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"سيُرفع الراتب بداية من أبريل.\"></span>سيُرفع الراتب بداية من <b>أبريل</b>.</div><div class=\"uc-exe\">The salary will go up starting in April.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"في اليابان السنة الدراسية الجديدة تبدأ في أبريل.\"></span>في اليابان السنة الدراسية الجديدة تبدأ في <b>أبريل</b>.</div><div class=\"uc-exe\">In Japan a new school year starts in April.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"تمتد السنة المالية في اليابان من 1 أبريل حتى 31 مارس من السنة التالية.\"></span>تمتد السنة المالية في اليابان من 1 <b>أبريل</b> حتى 31 مارس من السنة التالية.</div><div class=\"uc-exe\">Japan&#x27;s fiscal year runs from April 1 till March 31 in the following year.</div></div>"
+    }
+   },
+   {
+    "word": "مَايُو",
+    "id": 512,
+    "why": "A1's topics name \"time, days and months\" and no Arabic deck carded a month. The name used in Egypt, Sudan and Yemen (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669).",
+    "wiktionary": "مايو (name)",
+    "src": [
+     1054194,
+     1573397,
+     832728
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">مَايُو</div>",
+     "Word": "مَايُو",
+     "Roman": "māyū",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">May</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">gender</span>masculine</span></div>",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"شهر مايو هو شهر للأمهات.\"></span>شهر <b>مايو</b> هو شهر للأمهات.</div><div class=\"uc-exe\">The month of May is the month of mothers.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"هل ولدت في شهر مايو؟\"></span>هل ولدت في شهر <b>مايو</b>؟</div><div class=\"uc-exe\">Was it in May that I was born?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"الخامس من مايو هو يوم ميلادها.\"></span>الخامس من <b>مايو</b> هو يوم ميلادها.</div><div class=\"uc-exe\">His birthday is May 5th.</div></div>"
+    }
+   },
+   {
+    "word": "يُونْيُو",
+    "id": 513,
+    "why": "A1's topics name \"time, days and months\" and no Arabic deck carded a month. The name used in Egypt, Sudan and Yemen (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669).",
+    "wiktionary": "يونيو (name)",
+    "src": [
+     3659815,
+     7316984
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">يُونْيُو</div>",
+     "Word": "يُونْيُو",
+     "Roman": "yūnyū",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">June</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">gender</span>masculine</span></div>",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"ستتزوج ابنتي في يونيو\"></span>ستتزوج ابنتي في <b>يونيو</b></div><div class=\"uc-exe\">My daughter is getting married in June.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"عيد ميلاد سامي في السّادس من يونيو.\"></span>عيد ميلاد سامي في السّادس من <b>يونيو</b>.</div><div class=\"uc-exe\">Sami&#x27;s birthday is on June, 6th.</div></div>"
+    }
+   },
+   {
+    "word": "يُولْيُو",
+    "id": 514,
+    "why": "A1's topics name \"time, days and months\" and no Arabic deck carded a month. The name used in Egypt, Sudan and Yemen (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669).",
+    "wiktionary": "يوليو (name)",
+    "src": [
+     1901566,
+     376343
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">يُولْيُو</div>",
+     "Word": "يُولْيُو",
+     "Roman": "yūlyū",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">July</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">gender</span>masculine</span></div>",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"نحن نحتفل بمهرجان النجمة في يوليو.\"></span>نحن نحتفل بمهرجان النجمة في <b>يوليو</b>.</div><div class=\"uc-exe\">We celebrate the Star Festival in July.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"وصلت أسعار الأسهم ذروتها في يوليو الماضي.\"></span>وصلت أسعار الأسهم ذروتها في <b>يوليو</b> الماضي.</div><div class=\"uc-exe\">The stock reached its high point last July.</div></div>"
+    }
+   },
+   {
+    "word": "أَغُسْطُس",
+    "id": 515,
+    "why": "A1's topics name \"time, days and months\" and no Arabic deck carded a month. The name used in Egypt, Sudan and Yemen (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669).",
+    "wiktionary": "أغسطس (name)",
+    "src": [
+     6129369
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">أَغُسْطُس</div>",
+     "Word": "أَغُسْطُس",
+     "Roman": "ʔaḡusṭus",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">August</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">gender</span>masculine</span></div>",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"غادر فاضل البلد في الثّالث و العشرين من أغسطس.\"></span>غادر فاضل البلد في الثّالث و العشرين من <b>أغسطس</b>.</div><div class=\"uc-exe\">Fadil left the country on August 23.</div></div>"
+    }
+   },
+   {
+    "word": "سِبْتِمْبِر",
+    "id": 516,
+    "why": "A1's topics name \"time, days and months\" and no Arabic deck carded a month. The name used in Egypt, Sudan and Yemen (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669).",
+    "wiktionary": "سبتمبر (name)",
+    "src": [
+     376355,
+     6984186
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">سِبْتِمْبِر</div>",
+     "Word": "سِبْتِمْبِر",
+     "Roman": "sibtimbir",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">September</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"تبدأ الدراسة في أوروبا شهر سبتمبر.\"></span>تبدأ الدراسة في أوروبا شهر <b>سبتمبر</b>.</div><div class=\"uc-exe\">School starts in September in Europe.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"بدأ سامي دراسته الجامعيّة في سبتمبر.\"></span>بدأ سامي دراسته الجامعيّة في <b>سبتمبر</b>.</div><div class=\"uc-exe\">Sami started college in September.</div></div>"
+    }
+   },
+   {
+    "word": "أُكْتُوبِر",
+    "id": 517,
+    "why": "A1's topics name \"time, days and months\" and no Arabic deck carded a month. The name used in Egypt, Sudan and Yemen (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669).",
+    "wiktionary": "أكتوبر (name)",
+    "src": [
+     4923365,
+     13222173,
+     13554318
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">أُكْتُوبِر</div>",
+     "Word": "أُكْتُوبِر",
+     "Roman": "ʔuktūbir",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">October</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"سيتخرج توم في أكتوبر.\"></span>سيتخرج توم في <b>أكتوبر</b>.</div><div class=\"uc-exe\">Tom will graduate in October.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"عيد ميلادي في العشرين من أكتوبر.\"></span>عيد ميلادي في العشرين من <b>أكتوبر</b>.</div><div class=\"uc-exe\">My birthday is October twentieth.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"في أكتوبر سوف نذهب الى برلين\"></span>في <b>أكتوبر</b> سوف نذهب الى برلين</div><div class=\"uc-exe\">In October, we&#x27;ll go to Berlin.</div></div>"
+    }
+   },
+   {
+    "word": "نُوفِمْبِر",
+    "id": 518,
+    "why": "A1's topics name \"time, days and months\" and no Arabic deck carded a month. The name used in Egypt, Sudan and Yemen (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669).",
+    "wiktionary": "نوفمبر (name)",
+    "src": [
+     1580682,
+     12173086
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">نُوفِمْبِر</div>",
+     "Word": "نُوفِمْبِر",
+     "Roman": "nūfimbir",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">November</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"أُمضيَت المعاهدة يوم 18 نوفمبر 1903.\"></span>أُمضيَت المعاهدة يوم 18 <b>نوفمبر</b> 1903.</div><div class=\"uc-exe\">The treaty was signed on November 18, 1903.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"هذا يوم حار بشكل لا يعقل في شهر نوفمبر.\"></span>هذا يوم حار بشكل لا يعقل في شهر <b>نوفمبر</b>.</div><div class=\"uc-exe\">It&#x27;s an unreasonably warm November day.</div></div>"
+    }
+   },
+   {
+    "word": "دِيسِمْبِر",
+    "id": 519,
+    "why": "A1's topics name \"time, days and months\" and no Arabic deck carded a month. The name used in Egypt, Sudan and Yemen (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669).",
+    "wiktionary": "ديسمبر (noun)",
+    "src": [
+     8372719
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">دِيسِمْبِر</div>",
+     "Word": "دِيسِمْبِر",
+     "Roman": "dīsimbir",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">December</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"أنا في إضراب من 8 إلى 12 ديسمبر.\"></span>أنا في إضراب من 8 إلى 12 <b>ديسمبر</b>.</div><div class=\"uc-exe\">I&#x27;m striking from the 8th to the 12th of December.</div></div>"
+    }
+   }
+  ],
+  "arabica2": [
+   {
+    "word": "كَانُون الثَّانِي",
+    "id": 601,
+    "why": "The second set of month names, \"used primarily in Iraq, Syria, Jordan, Lebanon and Palestine\" (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669); A1 has the other twelve.",
+    "wiktionary": "كانون الثاني (name); romanised by ar.translit",
+    "src": [],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">كَانُون الثَّانِي</div>",
+     "Word": "كَانُون الثَّانِي",
+     "Roman": "kānūn aṯ-ṯānī",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">January (the name used in Iraq and the Levant)</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "شُبَاط",
+    "id": 602,
+    "why": "The second set of month names, \"used primarily in Iraq, Syria, Jordan, Lebanon and Palestine\" (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669); A1 has the other twelve.",
+    "wiktionary": "شباط (name)",
+    "src": [],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">شُبَاط</div>",
+     "Word": "شُبَاط",
+     "Roman": "šubāṭ",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">February (the name used in Iraq and the Levant)</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">gender</span>masculine</span></div>",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "آذَار",
+    "id": 603,
+    "why": "The second set of month names, \"used primarily in Iraq, Syria, Jordan, Lebanon and Palestine\" (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669); A1 has the other twelve.",
+    "wiktionary": "آذار (name)",
+    "src": [
+     5297675
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">آذَار</div>",
+     "Word": "آذَار",
+     "Roman": "ʔāḏār",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">March (the name used in Iraq and the Levant)</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">gender</span>masculine</span></div>",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"ولدت في 18 من آذار عام 1994.\"></span>ولدت في 18 من <b>آذار</b> عام 1994.</div><div class=\"uc-exe\">I was born on March 18th 1994.</div></div>"
+    }
+   },
+   {
+    "word": "نَيْسَان",
+    "id": 604,
+    "why": "The second set of month names, \"used primarily in Iraq, Syria, Jordan, Lebanon and Palestine\" (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669); A1 has the other twelve.",
+    "wiktionary": "نيسان (name)",
+    "src": [],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">نَيْسَان</div>",
+     "Word": "نَيْسَان",
+     "Roman": "naysān",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">April (the name used in Iraq and the Levant)</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">gender</span>masculine</span></div>",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "أَيَّار",
+    "id": 605,
+    "why": "The second set of month names, \"used primarily in Iraq, Syria, Jordan, Lebanon and Palestine\" (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669); A1 has the other twelve.",
+    "wiktionary": "أيار (name)",
+    "src": [],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">أَيَّار</div>",
+     "Word": "أَيَّار",
+     "Roman": "ʔayyār",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">May (the name used in Iraq and the Levant)</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">gender</span>masculine</span></div>",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "حَزِيرَان",
+    "id": 606,
+    "why": "The second set of month names, \"used primarily in Iraq, Syria, Jordan, Lebanon and Palestine\" (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669); A1 has the other twelve.",
+    "wiktionary": "حزيران (name)",
+    "src": [],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">حَزِيرَان</div>",
+     "Word": "حَزِيرَان",
+     "Roman": "ḥazīrān",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">June (the name used in Iraq and the Levant)</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">gender</span>masculine</span></div>",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "تَمُّوز",
+    "id": 607,
+    "why": "The second set of month names, \"used primarily in Iraq, Syria, Jordan, Lebanon and Palestine\" (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669); A1 has the other twelve.",
+    "wiktionary": "تموز (name)",
+    "src": [
+     4954042
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">تَمُّوز</div>",
+     "Word": "تَمُّوز",
+     "Roman": "tammūz",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">July (the name used in Iraq and the Levant)</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">gender</span>masculine</span></div>",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"ستحصد ماري قمحها في تموز.\"></span>ستحصد ماري قمحها في <b>تموز</b>.</div><div class=\"uc-exe\">Mary will harvest her wheat in July.</div></div>"
+    }
+   },
+   {
+    "word": "آب",
+    "id": 608,
+    "why": "The second set of month names, \"used primarily in Iraq, Syria, Jordan, Lebanon and Palestine\" (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669); A1 has the other twelve.",
+    "wiktionary": "آب (name)",
+    "src": [],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">آب</div>",
+     "Word": "آب",
+     "Roman": "ʔāb",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">August (the name used in Iraq and the Levant)</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "أَيْلُول",
+    "id": 609,
+    "why": "The second set of month names, \"used primarily in Iraq, Syria, Jordan, Lebanon and Palestine\" (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669); A1 has the other twelve.",
+    "wiktionary": "أيلول (name)",
+    "src": [
+     2604818
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">أَيْلُول</div>",
+     "Word": "أَيْلُول",
+     "Roman": "ʔaylūl",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">September (the name used in Iraq and the Levant)</div>",
+     "Forms": "<div class=\"uc-forms\"><span class=\"uc-fi\"><span class=\"uc-fl\">gender</span>masculine</span></div>",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"في سبتمبر/أيلول، توجد كثير من قناديل البحر في المحيط.\"></span>في سبتمبر/<b>أيلول</b>، توجد كثير من قناديل البحر في المحيط.</div><div class=\"uc-exe\">There are lots of jellyfish in the ocean in September.</div></div>"
+    }
+   },
+   {
+    "word": "تِشْرِين الْأَوَّل",
+    "id": 610,
+    "why": "The second set of month names, \"used primarily in Iraq, Syria, Jordan, Lebanon and Palestine\" (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669); A1 has the other twelve.",
+    "wiktionary": "تشرين الأول (name); romanised by ar.translit",
+    "src": [
+     4122480
+    ],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">تِشْرِين الْأَوَّل</div>",
+     "Word": "تِشْرِين الْأَوَّل",
+     "Roman": "tišrīn al-ʔawwal",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">October (the name used in Iraq and the Levant)</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\" dir=\"rtl\" lang=\"ar\"><span class=\"uc-tts uc-exsay\" data-say=\"يقولون ان في كل سنة اعداد السياح في تشرين الأول تكون الاعظم .\"></span>يقولون ان في كل سنة اعداد السياح في <b>تشرين الأول</b> تكون الاعظم .</div><div class=\"uc-exe\">They say that every year the number of tourists is greatest in October.</div></div>"
+    }
+   },
+   {
+    "word": "تِشْرِين الثَّانِي",
+    "id": 611,
+    "why": "The second set of month names, \"used primarily in Iraq, Syria, Jordan, Lebanon and Palestine\" (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669); A1 has the other twelve.",
+    "wiktionary": "تشرين الثاني (name); romanised by ar.translit",
+    "src": [],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">تِشْرِين الثَّانِي</div>",
+     "Word": "تِشْرِين الثَّانِي",
+     "Roman": "tišrīn aṯ-ṯānī",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">November (the name used in Iraq and the Levant)</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    }
+   },
+   {
+    "word": "كَانُون الْأَوَّل",
+    "id": 612,
+    "why": "The second set of month names, \"used primarily in Iraq, Syria, Jordan, Lebanon and Palestine\" (Wikipedia, \"Arabic names of Gregorian months\", revision 1351495669); A1 has the other twelve.",
+    "wiktionary": "كانون الأول (name); romanised by ar.translit",
+    "src": [],
+    "fields": {
+     "Arabic": "<div class=\"uc-word\" dir=\"rtl\" lang=\"ar\">كَانُون الْأَوَّل</div>",
+     "Word": "كَانُون الْأَوَّل",
+     "Roman": "kānūn al-ʔawwal",
+     "English": "<div class=\"uc-pos\">noun</div><div class=\"uc-gl\">December (the name used in Iraq and the Levant)</div>",
+     "Forms": "",
+     "Table": "",
+     "Examples": ""
+    }
+   }
+  ]
+ },
+ "_": "arabic-fixes.json — the Arabic decks' record, applied by arabic-fix.js (its header says what each part is). `insert` is written by arabic_insert.py and never by hand; `decks` is written here.",
+ "decks": {
+  "arabica1": {
+   "descSub": [
+    [
+     "and the cards are dealt by how often each word occurs in a frequency list built from Arabic film and television subtitles, the greetings first, so the words you meet most often come early.",
+     "and the cards are dealt in an order made for a first reader: the greetings with their replies, thanks, please and sorry, yes and no and a first exchange of names; then the pronouns, the words for this and that, the question words, the commonest little words, twelve everyday verbs and zero to ten. After those 79 the order is how often each word occurs in a frequency list built from Arabic film and television subtitles, with each closed set kept together: the numbers above ten, the days of the week after the word for day, the months after the word for month, and the colours."
+    ],
+    [
+     "Every headword is printed WITH its short vowels",
+     "THE PACE, since a deck cannot set it: at the default of ten new cards a day, both directions together, which is five words a day, this deck takes 0 days. NINETEEN CARDS WERE ADDED TO THE TOPIC LIST'S BUILD, and are named here: the replies to good morning and good evening, thank you very much, a second goodbye and nice to meet you were moved down from Arabic Phrases and Expressions; 'my name is' and 'what is your name?' are phrase entries of the English Wiktionary; and the twelve months are given in the names used in Egypt, Sudan and Yemen, which Wikipedia ('Arabic names of Gregorian months') calls 'widely regarded as standard across the Arab world' — Arabic A2 has the twelve used in Iraq and the Levant. Every headword is printed WITH its short vowels"
+    ],
+    [
+     "the Arabic Alphabet deck teaches the letters first.",
+     "the Arabic Alphabet deck teaches the letters, the vowel signs and the article first."
+    ],
+    [
+     "behind the All forms fold.",
+     "behind the All forms fold. A pronoun shows the suffix it becomes when it is attached to a word (أَنَا 'I', and ـِي or ـنِي for 'my' and 'me'); a greeting said to a man shows the form said to a woman; and the numbers three to ten show both their genders, because, in the words of Wikipedia's 'Arabic grammar', 'Numerals 3–10 have a peculiar rule of agreement known as polarity: A feminine referrer agrees with a numeral in masculine gender and vice versa'."
+    ]
+   ]
+  },
+  "arabica2": {
+   "descSub": [
+    [
+     "Every headword is printed WITH its short vowels",
+     "THE PACE, since a deck cannot set it: at the default of ten new cards a day, both directions together, which is five words a day, this deck takes 0 days. Twelve cards were added to the topic list's build and stand last: the months in the names 'used primarily in Iraq, Syria, Jordan, Lebanon and Palestine' (Wikipedia, 'Arabic names of Gregorian months'), from the English Wiktionary; Arabic A1 has the other twelve. Every headword is printed WITH its short vowels"
+    ],
+    [
+     "the Arabic Alphabet deck teaches the letters first.",
+     "the Arabic Alphabet deck teaches the letters, the vowel signs and the article first."
+    ]
+   ]
+  },
+  "arabicb1": {
+   "descSub": [
+    [
+     "Every headword is printed WITH its short vowels",
+     "THE PACE, since a deck cannot set it: at the default of ten new cards a day, both directions together, which is five words a day, this deck takes 0 days. Every headword is printed WITH its short vowels"
+    ],
+    [
+     "the Arabic Alphabet deck teaches the letters first.",
+     "the Arabic Alphabet deck teaches the letters, the vowel signs and the article first."
+    ]
+   ]
+  },
+  "arabicb2": {
+   "descSub": [
+    [
+     "Every headword is printed WITH its short vowels",
+     "THE PACE, since a deck cannot set it: at the default of ten new cards a day, both directions together, which is five words a day, this deck takes 0 days. Every headword is printed WITH its short vowels"
+    ],
+    [
+     "the Arabic Alphabet deck teaches the letters first.",
+     "the Arabic Alphabet deck teaches the letters, the vowel signs and the article first."
+    ]
+   ]
+  },
+  "arabicc1": {
+   "descSub": [
+    [
+     "Every headword is printed WITH its short vowels",
+     "THE PACE, since a deck cannot set it: at the default of ten new cards a day, both directions together, which is five words a day, this deck takes 0 days. Every headword is printed WITH its short vowels"
+    ],
+    [
+     "the Arabic Alphabet deck teaches the letters first.",
+     "the Arabic Alphabet deck teaches the letters, the vowel signs and the article first."
+    ]
+   ]
+  },
+  "arabicphrase": {
+   "dropDup": {
+    "صَبَاح النُّور": "arabica1/صَبَاح النُّور",
+    "مَسَاء النُّور": "arabica1/مَسَاء النُّور",
+    "شُكْرًا جَزِيلًا": "arabica1/شُكْرًا جَزِيلًا",
+    "إِلَى اللِّقَاءِ": "arabica1/إِلَى اللِّقَاءِ",
+    "تَشَرَّفْنَا": "arabica1/تَشَرَّفْنَا"
+   },
+   "descSub": [
+    [
+     "Nothing here is taught by any of the five, so the two can be studied together without repeating an entry.",
+     "Nothing here is taught by any of the five, so the two can be studied together without repeating an entry; five formulas a first reader needs at once (the replies to good morning and good evening, thank you very much, goodbye, nice to meet you) were moved to Arabic A1. THE PACE, since a deck cannot set it: the three subdecks are dealt side by side, so at the default of ten new cards a day, both directions together, the deck takes about 0 days."
+    ],
+    [
+     "Within each subdeck the expressions are ordered by how many of Tatoeba's Arabic sentences contain them, so the ones met most often come first.",
+     "Within each subdeck the expressions come in the order they can be read: first those spelled entirely with words and forms an Arabic A1 card shows (0 of the 0), so the deck can be begun beside A1; then those A2, B1, B2 and C1 add; and last those that use a word no level deck cards (0). Within a level they are ordered by how many of Tatoeba's Arabic sentences contain them."
+    ],
+    [
+     "89 expressions Wiktionary does not romanise were romanised in the same scheme from their vowels.",
+     "the expressions Wiktionary does not romanise were romanised in the same scheme from their vowels."
+    ]
+   ]
+  }
+ }
+}

@@ -92,6 +92,38 @@ def roman_of(e):
     return ''
 
 
+# THE PRONUNCIATION (the beginner pass, 2026-11-19).  The romanisation is a TRANSLITERATION,
+# Wiktionary's own scheme, and over A1's headwords a third of them do not give the sound
+# (bola for /bɔla/, hoōẇa for /hɔo̯a/).  Wiktionary also gives most headwords an IPA
+# transcription, and the card prints it beside the romanisation.  Which one: the first
+# PHONEMIC transcription (/.../) it labels Rarh -- the dialect of the Kolkata region the
+# standard colloquial language is built on -- else the first it leaves unlabelled, else the
+# first of any kind.  Copied, never composed.
+def ipa_of(e):
+    snd = [(s['ipa'], s.get('note') or '') for s in e.get('sounds') or [] if s.get('ipa')]
+    ph = [x for x in snd if x[0].startswith('/')]
+    for pick in (lambda n: n == 'Rarh', lambda n: 'Rarh' in n, lambda n: not n):
+        for ipa, note in ph:
+            if pick(note):
+                return ipa
+    return (ph or snd or [('', '')])[0][0]
+
+
+# WHOSE WORD IT IS.  Wiktionary labels a sense that belongs to one community or one side of
+# the border -- "(Hinduism)", "(chiefly Islam)", "(chiefly India)" -- and the card keeps
+# that label, since the deck teaches both standards.  Read off the gloss's own leading
+# bracket; a label that is not one of these is left to the tags.
+WHOSE = re.compile(r'^(?:chiefly |mainly |mostly )?(?:Hinduism|Islam|India|Bangladesh|West Bengal)$')
+
+
+def whose(s):
+    m = re.match(r'^\(([^()]*)\)', ((s.get('raw_glosses') or [''])[-1]).strip())
+    if not m:
+        return ''
+    keep = [x.strip() for x in m.group(1).split(',') if WHOSE.match(x.strip())]
+    return ', '.join(keep)
+
+
 def is_formof(s):
     return 'form_of' in s or 'alt_of' in s or 'form-of' in (s.get('tags') or []) \
         or 'alt-of' in (s.get('tags') or [])
@@ -152,24 +184,24 @@ def main():
             fos = [nfc(t.get('word', '')) for s in senses for t in s.get('form_of') or []]
             if alts and all('alt_of' in s for s in senses) and is_bengali(alts[0]):
                 formonly.setdefault(fold(w), {'word': w, 'alt_of': fold(alts[0]),
-                                              'roman': roman_of(e)})
+                                              'roman': roman_of(e), 'ipa': ipa_of(e)})
             elif fos and is_bengali(fos[0]) and pos not in ('pron', 'det', 'postp'):
                 formonly.setdefault(fold(w), {'word': w, 'alt_of': fold(fos[0]),
-                                              'roman': roman_of(e)})
+                                              'roman': roman_of(e), 'ipa': ipa_of(e)})
             elif pos in ('pron', 'det', 'postp'):
                 gl = [{'g': clean_gloss((s.get('glosses') or [''])[-1]), 'weak': False, 'tags': []}
                       for s in senses if s.get('glosses')]
                 L = formonly.setdefault(fold(w), {'word': w, 'entries': []})
                 if 'entries' in L:
-                    L['entries'].append({'pos': pos, 'roman': roman_of(e), 'gender': '',
-                                         'glosses': gl, 'table': [], 'urdu': '', 'formal_alt': []})
+                    L['entries'].append({'pos': pos, 'roman': roman_of(e), 'ipa': ipa_of(e),
+                                         'gender': '', 'glosses': gl, 'table': [], 'urdu': '', 'formal_alt': []})
             continue
         gl = []
         for s in real:
             tags = set(s.get('tags') or [])
             g = clean_gloss((s.get('glosses') or [''])[-1])
             if g:
-                gl.append({'g': g, 'weak': bool(tags & WEAK),
+                gl.append({'g': g, 'weak': bool(tags & WEAK), 'whose': whose(s),
                            'tags': sorted(tags & {'formal', 'informal', 'colloquial', 'figuratively',
                                                   'transitive', 'intransitive', 'idiomatic', 'slang',
                                                   'Hinduism', 'Islam', 'honorific', 'familiar'})})
@@ -191,7 +223,8 @@ def main():
                     and set(tg) & {'objective', 'possessive', 'genitive', 'locative'}:
                 table.append({'f': nfc(f['form']), 'r': clean_roman(f.get('roman')),
                               't': ['genitive' if t == 'possessive' else t for t in tg]})
-        ent = {'pos': pos, 'etym': e.get('etymology_number', ''), 'roman': roman_of(e), 'gender': '', 'glosses': gl,
+        ent = {'pos': pos, 'etym': e.get('etymology_number', ''), 'roman': roman_of(e),
+               'ipa': ipa_of(e), 'gender': '', 'glosses': gl,
                'table': table,
                'urdu': next((f['form'] for f in e.get('forms') or [] if 'Urdu' in (f.get('tags') or [])), ''),
                'formal_alt': [nfc(f['form']) for f in e.get('forms') or []
