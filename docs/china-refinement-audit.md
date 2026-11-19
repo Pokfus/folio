@@ -562,7 +562,7 @@ otherwise.
 | B62 | Civil War (`col-36`) | `cnh-611`–`cnh-620` | 10 | 105 | **done 2026-11-19** |
 | B63 | Civil War (`col-36`) | `cnh-621`–`cnh-630` | 10 | 103 | **done 2026-11-19** |
 | B64 | World War II (`col-37`) | `cnh-631`–`cnh-640` | 10 | 97 | **done 2026-11-19** |
-| B65 | World War II (`col-37`) | `cnh-641`–`cnh-650` | 10 | 117 | to do |
+| B65 | World War II (`col-37`) | `cnh-641`–`cnh-650` | 10 | 117 | **done 2026-11-19** |
 | B66 | World War II (`col-37`) / People's Republic of China (`col-38`) | `cnh-651`–`cnh-660` | 10 | 99 | to do |
 | B67 | People's Republic of China (`col-38`) | `cnh-661`–`cnh-670` | 10 | 103 | to do |
 | B68 | People's Republic of China (`col-38`) | `cnh-671`–`cnh-680` | 10 | 104 | to do |
@@ -1280,6 +1280,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-638` | none | not re-checked (pictures paused): wanted |
 | `cnh-639` | none | not re-checked (pictures paused): wanted |
 | `cnh-640` | none | not re-checked (pictures paused): wanted |
+| `cnh-641` | none | not re-checked (pictures paused): wanted |
+| `cnh-642` | none | not re-checked (pictures paused): wanted |
+| `cnh-643` | none | not re-checked (pictures paused): wanted |
+| `cnh-644` | none | not re-checked (pictures paused): wanted |
+| `cnh-645` | none | not re-checked (pictures paused): wanted |
+| `cnh-646` | none | not re-checked (pictures paused): wanted |
+| `cnh-647` | none | not re-checked (pictures paused): wanted |
+| `cnh-648` | none | not re-checked (pictures paused): wanted |
+| `cnh-649` | none | not re-checked (pictures paused): wanted |
+| `cnh-650` | none | not re-checked (pictures paused): wanted |
 
 ## Glossary candidates
 
@@ -4142,3 +4152,35 @@ corrected; 抗日战争 kept (the standard term on both sides; 第二次中日�
 the Nanjing toll confirmed (with the killing-contest verdict of 18 December 1947 also giving over 300,000). **check-citations**: one false
 alarm (`cnh-635`'s Russian title transliterated). **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-633`
 (Hsinking) and `cnh-639` want locators (`L.missing`). Timelines unchanged.
+
+### B65 — `cnh-641`–`cnh-650`, World War II: the Battle of Taierzhuang to Unit 731 (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl. **Pictures were not touched.** **The old cards cited Digital Library of
+India uploads of in-copyright books (Carlson, Utley, Madame Chiang, Chiang Yee), Hong Kong newspapers uploaded by a user, Wikisource
+and up to four primary texts a card; carried the battle template ("c. 40,000 – 50,000 killed and wounded", "22,000 – 100,000 Chinese
+casualties"), cities, men, treaties and states in labels ("Changsha falls", "Hengyang falls", "Wang died", "Basic Treaty", "Yang Jingyu
+dies", "Cut by Japan"), days on no page (19 April 1944, 22 March 1938) and descriptive Chinese names (花园口决堤事件).** Each count is now
+whose (the relief survey's, Japan's official history, the Military Council's, the party's), and Unit 731's 3,000 is a witness's.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-641` Battle of Taierzhuang | 6 | 6 → 6 | **The battle template off, the 40,000 – 50,000 (unsourced) with it: `Fought 23 March – 7 April 1938` (the old 22 March start on no page; `ww2-408` agrees with 23 March); the Japanese staff blaming one detachment commander, twenty war correspondents, Guo Moruo's propaganda office; every count said whose; Hung (an open UC Press book), Xinhua on mod.gov.cn [in Chinese], FRUS 1938, Kutoh**; Carlson, Utley and Madame Chiang (scans) dropped. Timeline set to 23 March – 7 April 1938. |
+| `cnh-642` 1938 Yellow River flood | 6 | 6 → 6 | **"River restored" → `Breach closed 1947`; the register row confirmed: the breach at Huayuankou on 9 June 1938, the government blaming Japanese bombing through the war, the 1948 relief survey's 893,303 dead with Anhui estimated, Muscolino's "well over 800,000"; the Japanese spokesman to the American diplomat; two FRUS telegrams for the Hong Kong newspapers (user uploads)**. **Name 花园口决堤事件 (on no page) → 花园口决堤 Huāyuánkǒu Juédī.** |
+| `cnh-643` Wang Jingwei regime | 6 | 7 → 6 | **"Basic Treaty" and "Wang died" (a treaty and a man) off: `Inaugurated 30 March 1940` / `Recognised 30 November 1940` / `Dissolved August 1945`; the regime's own name (the National Government), Lin Sen nominal in Chongqing, the ministers reading Sun's will; the mainland's 伪 prefix (the CPPCC's paper) and Taiwan's textbooks' "pro-Japanese" each whose**; the telegram's 29 December (published 30 December, Yang) dropped; the Wikisource text and the Serfass thesis replaced. Name 汪精卫政权 kept, unconfirmed. |
+| `cnh-644` Hundred Regiments Offensive | 6 | 6 → 6 | **The battle template off: `Began 20 August 1940` / `Ended 5 December 1940` (`ww2-416`'s 3 December noted); the Zhengtai railway, Mao's "truly exciting" cable, Peng Dehuai's ten days early; every count said whose (Li Jun [in Chinese])**; three Chinese sources cut to one; Opper no longer cited for army sizes; the glossary's "105 regiments" (unsourced) dropped. |
+| `cnh-645` Jin-Cha-Ji Border Region | 5 | 6 → 5 | **`Founded 1937` / `First government 10 January 1938` / `Assembly met 1943`; Nie Rongzhen out of the Wutai mountains to Fuping, the assembly's three Communists of nine under Sun's portrait, Norman Bethune (12 November 1939); "the first base behind enemy lines" and the twelve million said to be the party's own**; Carlson (a scan) and its "ten million / 100,000 km²" dropped; the Kotobank entry on the offensive (`cnh-644`'s) dropped. |
+| `cnh-646` New Fourth Army incident | 6 | 6 → 6 | **"Army disbanded" → `Army abolished 17 January 1941` (the designation, the army said disbanded by 12 January); Ye Ting and Xiang Ying, the foreign ministry's "military discipline", Chen Yi and Liu Shaoqi's rebuilt army; the day of the attack each account's (6 January the Communists' to the embassy, 7 January the party page); Lai 2013, a Taiwan Defense Journal article**; four primary texts cut to two. **Name 皖南事变 → 新四军事件 Xīnsìjūn Shìjiàn**, the ROC's term the answer translates (皖南事变 the PRC's, in prose). |
+| `cnh-647` Burma Road | 7 | 7 → 7 | **"Cut by Japan" (a state) → `Cut 1942`; "Convoys resume" → `First convoy 4 February 1945`; reopened 18 October 1940, not the 10th (Khine); the gorges and the workforce as Khine's figure, the sixteen agencies on the road, the Ledo junction; Moedict [in Chinese]**; Chiang Yee (a scan, a third primary) dropped. |
+| `cnh-648` Joseph Stilwell | 7 | 7 → 7 | **All three phrasings new, without years and away from `ww2-425`'s clues: the "Peanut" diary entry and Roosevelt's message, Berkeley, Beijing, Tianjin and Beiping, the walk out of Burma; FRUS cut to two documents, *Mission* cited at chapter 4**; a phrasing ending inside a quotation reworded after the apply. Protected: the line stays (Moedict misprints his birth year 1884; not used). |
+| `cnh-649` Operation Ichi-Go | 6 | 6 → 6 | **"Launched 19 April 1944" (on no page) and three rows naming fallen cities off: `Began 17 April 1944` (the Japanese monograph JM-72's first crossing) / `Ended 10 December 1944` (the junction at Suilu); Okamura's air-base aim, Guilin and Liuzhou lost on one day, half the North China battalions pulled; Liu Feng 2023 [in Chinese], Coble 2023**; the Henan peasants (`cnh-651`'s) and Stilwell (`cnh-648`'s) left out. Timeline set to 17 April – 10 December 1944. 豫湘桂战役 the PRC's name, in notes. |
+| `cnh-650` Unit 731 | 7 | 7 → 7 | **"Pingfang built by 1939" ("by" a non-date) and "Destroyed August 1945", "Khabarovsk trial 1949" (not in its cited essay; an institution) off: `Experiments 1933 – 1945` / `Established 1936` (Tsuneishi); the register row refined: the 3,000 is Kawashima Kiyoshi's testimony quoted in the indictment, not the court's count; maruta, the American expert and the paid-for data, the textbook screening; Yang Yanjun 2013 [in Chinese]**. Pinyin yāo kept (the spoken digit; the dictionary's yī for the owner). |
+
+Read by eye. **Confusability**: the correspondents and Guo Moruo `cnh-641`'s; the bombing blamed and the survey `cnh-642`'s; Sun's will
+in Nanjing `cnh-643`'s; Mao's "truly exciting" `cnh-644`'s; Bethune and the three of nine `cnh-645`'s; "military discipline" `cnh-646`'s;
+the sixteen agencies `cnh-647`'s; "Peanut" `cnh-648`'s; the air bases `cnh-649`'s; maruta `cnh-650`'s. **Legend**: the flood's dead
+(the survey's estimate), the Taierzhuang reports (known inflated), Unit 731's dead (a witness's figure) are each said so. **Chinese names
+corrected**: `cnh-642` 花园口决堤, `cnh-646` 新四军事件 (the ROC's term; 皖南事变 the PRC's). Kept unconfirmed: 汪精卫政权. **Spellings**:
+0 hits on the drafts. **Myth register**: the 1938 flood's dead and Unit 731 confirmed and refined (rows updated in the seventh hundred's
+sum). **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the apply and the `cnh-648` phrasing fix). For the
+owner: `cnh-641`, `643`, `644`, `645` and `647` want locators (`L.missing`; Taierzhuang District, Fuping); `cnh-650`'s pinyin yāo or yī.
+Timelines set: `cnh-641` (23 March – 7 April 1938), `cnh-649` (17 April – 10 December 1944).

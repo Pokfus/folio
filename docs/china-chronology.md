@@ -803,6 +803,15 @@ and is audited as an ordinary card. Dates already set elsewhere that this hundre
 | the Battle of Wuhan (the government's dates) | 12 June – 25 October 1938 | the *China Handbook* (`cnh-638`) |
 | the move inland proclaimed / Chongqing made the auxiliary capital | 20 November 1937 / 6 September 1940 | FRUS; Zhou and Wang (`cnh-639`) |
 | the bombing of Chongqing / the centre burned / the tunnel | February 1938 – August 1943 / 4 May 1939 / 5 June 1941 | Chan; the AP; Hu and Huang (`cnh-640`) |
+| the Battle of Taierzhuang | 23 March – 7 April 1938 | Zhao and Cong (`cnh-641`) |
+| the Yellow River dyke breached / the breach closed | 9 June 1938 / 1947 | Muscolino; Yang Jintao (`cnh-642`) |
+| the Wang Jingwei regime inaugurated / recognised by Japan / dissolved | 30 March 1940 / 30 November 1940 / August 1945 | FRUS; Yang; Ishijima (`cnh-643`) |
+| the Hundred Regiments Offensive | 20 August – 5 December 1940 | Li Jun (`cnh-644`) |
+| the Jin-Cha-Ji base founded / its first government / its assembly | 1937 / 10 January 1938 / 1943 | Mao; Opper (`cnh-645`) |
+| the New Fourth Army attacked / abolished / rebuilt | 6 January 1941 / 17 January 1941 / 20 January 1941 | FRUS; Andō; Lai (`cnh-646`) |
+| the Burma Road built / closed / cut / the first convoy | 1937 – 1938 / July – October 1940 / 1942 / 4 February 1945 | Khine; Heck; Romanus and Sunderland (`cnh-647`) |
+| Operation Ichi-Go | 17 April – 10 December 1944 | JM-72 (`cnh-649`) |
+| Unit 731's experiments / established | 1933 – 1945 / 1936 | Tsuneishi (`cnh-650`) |
 
 ## Later periods
 
@@ -1448,4 +1457,13 @@ cnh-637: 1937; 1947; 1948
 cnh-638: 1938
 cnh-639: 1937; 1940
 cnh-640: 1938; 1939; 1941; 1943
+cnh-641: 1938
+cnh-642: 1938; 1947
+cnh-643: 1940; 1940; 1945
+cnh-644: 1940; 1940
+cnh-645: 1937; 1938; 1943
+cnh-646: 1941
+cnh-647: 1937; 1938; 1940; 1942; 1945
+cnh-649: 1944
+cnh-650: 1933; 1945; 1936
 ```
