@@ -812,3 +812,39 @@ of its own — its present-day `keys` are only the fallback and the frame.
 `russia-subjects` — instead of `world`; `ko-006` shades Heilongjiang, Jilin and Liaoning as Manchuria. A present-day
 members window with no seat (`at`) now names its group (`data-map-name`, written by `cardLocatorWindowHTML`) rather
 than its first key. `test-map-cards.js` §1 checks the keys against the named layer.
+
+## A state of the past as the question (the `past-states` layer, 2026-11-19, on request)
+
+> "The cards should show an atlas window showing a highlighted state's borders and ask something along the lines of
+> 'What was the highlighted state in the year [year when greatest extent of borders was reached]'."
+
+The Historical States collection (`geo-states`, prefix `hs-`; 📖 `docs/historical-states-card-plan.md` has the rules of
+its cards, what is in and what is left out) is a map card on a sixth layer whose shapes are not a shape file but the
+polities of `atlas/data/history.bin`, each drawn in ONE year.
+
+- **The layer** is generated: `build-card-faces.js` (`PAST_LAYERS`) writes `layers["past-states"]` into
+  `atlas/data/card-faces.js` — key (the Atlas's name for the state in that year) → `[entity id, label lon, lat, west,
+  south, east, north, year, view lon, view lat, zoom]` — for every `polity` of the history that is not a 1920
+  `snapshot` series of `.claude/polity-spec.json`. The year, the zoom and the box are `entityExtent`
+  (`build-glossary-places.js`, the glossary windows' rule: the first year in which the area of the state's faces is
+  largest); the view's centre is the middle of the box (a box half the globe wide keeps the area-weighted centre); the
+  label point is the anchor of the largest face alive that year, a point inside the state. `card-neighbours.js` gets
+  the layer's neighbours, exact: the polities whose faces of that year share an arc with the state's.
+- **The card**: `map: { layer: "past-states", key }`, the key dropped once `places` carries the registry id (`pol:…`,
+  a registry row), exactly as every other map card. The YEAR is not stored on the card: the window reads it from the
+  layer's row, and the card's question says it in words — `add-card.js` refuses a card whose question does not name
+  the row's year, and `build-card-faces.js --check` (CI) fails when a rebuild of the history moves it.
+- **The window** (`pastLayer` in `atlas/atlas-windows.js`; `past: true` in `CARD_MAP_LAYERS`): `needHistory: "full"`
+  on the hub, then it WAITS for the history before it mounts (a glossary window draws today's map meanwhile; a
+  question must not), and draws `year` with `neutral`, the entity as the one `exact` highlight, rivers and lakes on,
+  today's provinces off. Before the answer nothing is named; after it the state is named by the card's `answerText`
+  at the label point and the other states of the year by `otherStateNames`. No studied siblings, no scope switch.
+- **Where the year cannot be drawn** — the still Canvas 2D renderer (no WebGL2), a refused or failed fetch of
+  `history.bin` (`hub.historyFailed()`, new on the hub and on the engine's controller), a hub another window holds on
+  a war slice, the file copy of the site (no twin of the whole history) — the window is the plain sentence
+  (`.mc-plain-note`) and the rest of the card is intact.
+- **Cost**: a card's window fetches the whole history (9.1 MB, cached by the browser after the first card) and the
+  water file; `card-faces.js` grew by 16 KB for the layer's 157 rows.
+- **Guarded by** `.claude/test-past-states.js` (the layer against `history.bin`, every `hs-` card's year in its
+  question and date line, the window's spec and pixels before and after the answer, both fallbacks) — re-run after
+  touching `pastLayer`, `PAST_LAYERS`, `entityExtent` or the layer's rows in `CARD_MAP_LAYERS` / `MAP_LAYERS`.

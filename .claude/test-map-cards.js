@@ -134,6 +134,8 @@ function staticChecks() {
     "china-provinces": { shapes: cpNames, points: CPCAP, what: "province" },
     "russia-subjects": { shapes: rsNames, points: RCEN, what: "federal subject" },
     "india-states": { shapes: inNames, points: INCAP, what: "state or union territory", seatOf: seatOfIN },
+    /* the sixth layer (2026-11-19): the states of the past, read off history.bin into card-faces.js — no dot table; its own suite is test-past-states.js (docs/map-cards.md, last section) */
+    "past-states": { shapes: new Set(Object.keys(cfWin.ATLAS_CARD_FACES.layers["past-states"] || {})), points: {}, what: "state" },
   };
 
   const dwin = {};

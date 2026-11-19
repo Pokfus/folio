@@ -24462,6 +24462,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        its physical geography turns on. `lotus` is the India HISTORY collection's and is deliberately not reused (the
        two Chinas' rule). Not drawn new, so not looked at small beyond what every other `drop` row already shows. */
     "geo-india": "drop",
+    /* Historical States (2026-11-19) takes the EXISTING `crown`, which no collection wore: kingdoms and empires are what the
+       collection is, and the mark is already drawn and already in the symbol picker. Not drawn new, so not looked at small
+       beyond the picker's own rows. */
+    "geo-states": "crown",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
   function iconSvg(key) { return ICON_SVG_OPEN + (ICON_PATH[key] || ICON_PATH.cards) + "</svg>"; }
@@ -30858,7 +30862,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        below, which is what keeps them out of History and gives the daily-study list its mark for them, and
        the Collections page draws them at the head of the Shared decks section (`specialCollections`). */
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", "geo-india": "Geography", psych: "Science", bio: "Science", paleo: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special", eep: "Special", gga: "Special" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", flags: "Geography", "geo-china": "Geography", "geo-russia": "Geography", "geo-india": "Geography", "geo-states": "Geography", psych: "Science", bio: "Science", paleo: "Science", astro: "Science", econ: "Science", phil: "Philosophy", art: "The Arts", arch: "The Arts", middleearth: "The Arts", westeros: "The Arts", pea: "Special", eep: "Special", gga: "Special" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
   /* WHAT KIND OF CARDS ARE IN HERE — one mark per SECTION, for the daily-study list (Sep 2026, on
      request: "in the active decks section, instead of their golden collection icons on the left, they
@@ -30949,6 +30953,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "geo-us": 100, "geo-china": 58, "geo-world": 471, flags: 466, "geo-russia": 163,
     /* India's 190 planned (docs/india-geography-card-plan.md): 36 states and union territories, 34 capitals, 40 cities, 40 + 40 physical. */
     "geo-india": 190,
+    /* Historical States' 137 (docs/historical-states-card-plan.md): the polities of the Atlas's history that are states, in seven period decks. */
+    "geo-states": 137,
   };
   /* The line under a collection's name: "complete", or how far through the plan it is. Only where the
      figure means something — a collection with no cards yet already says "Planned" on its own pill. */
@@ -31987,6 +31993,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        never read as one row), 29 from Russia's amber; 6.2:1 against white. Laterite is the subject's own argument: the word was coined
        for the red building earth of Malabar (Buchanan, 1807), and it takes none of the flag's colours. */
     "geo-india": { bg: "#934E3F" },
+    /* slate ink (Historical States, in the Geography section, 2026-11-19) — MEASURED like the rest: swept in CIELAB inside the shelf's band
+       (L 28-55, chroma 25-62, 4.5:1 against white), the magenta band's standing rejection kept and the greens left out (the section has two).
+       The shelf holds 85 hues now and the free peak was a burnt orange (ΔE 13.5), which on THIS section's shelf sits beside India's laterite
+       and Russia's amber; the next free family was this grey-blue, ΔE 12.4 from its nearest neighbour anywhere (Polish) and well apart from
+       every Geography hue (China's is a saturated cobalt). L 43, chroma 29, 5.8:1 against white. The ink of an old atlas's borders. */
+    "geo-states": { bg: "#546494" },
     /* THE SEVEN LANGUAGE COLLECTIONS. The hues were MEASURED and unevocative when the section shipped —
        swept in CIELAB and handed out alphabetically, on the reasoning that a flag colour would be a claim,
        Spanish not being Spain's and French being spoken on five continents. **THAT REASONING WAS OVERRULED
@@ -32349,7 +32361,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     "geo-us": "2026-08-15", "geo-world": "2026-08-28", psych: "2026-08-28", "geo-china": "2026-08-29",
     ww2: "2026-09-05", bio: "2026-09-05", "col-42": "2026-09-05", korea: "2026-09-06", "col-41": "2026-09-06",
     japan: "2026-09-06", art: "2026-09-06", "geo-russia": "2026-09-14", pea: "2026-09-17", egypt: "2026-09-18",
-    flags: "2026-09-18", gga: "2026-10-10", "geo-india": "2026-10-30",
+    flags: "2026-09-18", gga: "2026-10-10", "geo-india": "2026-10-30", "geo-states": "2026-11-19",
   };
   function fmtYmd(s) {
     const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || ""));
@@ -39819,6 +39831,11 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* "india-states" (2026-11-14): India's 28 states and 8 union territories, which the core does not carry — their faces are the lazy atlas/data/admin1.bin (docs/atlas-v2-admin1-layer.md),
        loaded by the hub the first time a window names one; `what` is the deck's whole question shape ("the state or union territory shaded on the map", docs/india-geography-card-plan.md). */
     "india-states": { what: "state or union territory", plural: "states and union territories", points: "INDIA_CAPITALS", dotWhat: "city" },
+    /* "past-states" (2026-11-19, the Historical States collection; docs/historical-states-card-plan.md): a state of the PAST as the question. Its shapes are the polities of the Atlas's
+       history (atlas/data/history.bin), each drawn in the year of its greatest extent — the year, the view and the zoom are the layer's own row in card-faces.js (build-card-faces.js), and the
+       card's question names that year. `past` is what the window reads (atlas-windows.js `pastLayer`): the whole history at that year, the state in gold, every other state plain, nothing named
+       before the answer. No dot table: the collection has no capitals deck. */
+    "past-states": { what: "state", plural: "states", past: true },
   };
   /* THE CEILING IS WHAT THE POLYGONS SUPPORT, and it is worth stating because the temptation is to set it
      by what a state needs. us-states.js is stored at 3dp, so every vertex sits on a 0.001° grid; at zoom Z
@@ -39965,7 +39982,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        clue and the dot is the question, so the label must not tell a reader to name the state. It still
        gives the answer away to nobody — see the accessibility note in the block header, which is why the
        label describes the task rather than the shape. */
-    const said = spec.dot
+    const said = spec.def.past
+      ? "An interactive globe on the borders of a year of the past, with one state shaded. Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom. Which state was it?"
+      : spec.dot
       ? "An interactive globe with one " + what + " shaded and a dot marking a " + dotWhat + " in it. Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom. Which " + dotWhat + " is it?"
       : "An interactive globe with one " + what + " shaded. Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom. Which " + what + " is it?";
     return '<div class="map-card" data-map-layer="' + esc(spec.layer) + '" data-map-key="' + esc(spec.key) + '"' +

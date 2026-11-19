@@ -11362,7 +11362,10 @@ window.CARD_DATA = [
 {"id":"eg-497","num":"497","category":"Ancient Egypt","question":"Steeper and far smaller than their Old Kingdom forerunners, the <span class=\"blank\">_____</span> of El-Kurru, Nuri and Meroë stood over rock-cut burial chambers reached by stairways from the east.","answer":"Nubian pyramids","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Built</span><span class=\"dt-v\">c. 750 BCE – 350 CE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Nubian pyramids","tags":["building","history","religion","kush","nubia","egypt","sudan"],"difficulty":3,"locator":{"name":"Nubian pyramids","at":[31.9164,18.5644],"zoom":9}},
 {"id":"eg-498","num":"498","category":"Ancient Egypt","question":"A round portrait face of Taharqa tops a lion body whose mane copies sphinxes of Amenemhat III on the granite <span class=\"blank\">_____</span> from his temple of Amun at Kawa.","answer":"Sphinx of Taharqo","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Made</span><span class=\"dt-v\">690 – 664 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Sphinx of Taharqo","tags":["object","art","egypt","kush","nubia","late period"],"difficulty":5},
 {"id":"eg-499","num":"499","category":"Ancient Egypt","question":"In the plain of <span class=\"blank\">_____</span> in 701 BCE, Sennacherib says, he defeated the chariots and archers of Egypt and Kush who had come to help rebel Ekron.","answer":"Eltekeh","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Date</span><span class=\"dt-v\">701 BCE</span><span class=\"dt-k\">Location</span><span class=\"dt-v\">Eltekeh, Philistia</span><span class=\"dt-k\">Result</span><span class=\"dt-v\">Assyrian victory, disputed</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Eltekeh","tags":["battle","history","warfare","egypt","kush","assyria","levant"],"difficulty":5,"locator":{"name":"Eltekeh","at":[34.7661,31.885],"zoom":9,"kind":"battle"}},
-{"id":"eg-500","num":"500","category":"Ancient Egypt","question":"In 671 BCE the Assyrian king <span class=\"blank\">_____</span> took Memphis in half a day and carried Taharqa’s queen and his heir Ushanahuru off to Assyria.","answer":"Esarhaddon","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Reigned</span><span class=\"dt-v\">680 – 669 BCE</span><span class=\"dt-k\">Took Memphis</span><span class=\"dt-v\">671 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Esarhaddon","tags":["ruler","history","warfare","assyria","egypt","kush","late period"],"difficulty":3}
+{"id":"eg-500","num":"500","category":"Ancient Egypt","question":"In 671 BCE the Assyrian king <span class=\"blank\">_____</span> took Memphis in half a day and carried Taharqa’s queen and his heir Ushanahuru off to Assyria.","answer":"Esarhaddon","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Reigned</span><span class=\"dt-v\">680 – 669 BCE</span><span class=\"dt-k\">Took Memphis</span><span class=\"dt-v\">671 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Esarhaddon","tags":["ruler","history","warfare","assyria","egypt","kush","late period"],"difficulty":3},
+{"id":"hs-001","num":"001","category":"Geography","question":"In 675 BCE, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Neo-Assyrian Empire","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Empire</span><span class=\"dt-v\">c. 912 – 609 BCE</span><span class=\"dt-k\">Nineveh falls</span><span class=\"dt-v\">612 BCE</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">675 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Neo-Assyrian Empire","tags":["empire","history","geography","politics","iron age","asia","iraq"],"difficulty":2,"map":{"layer":"past-states"},"facts":[["Heartland","Northern Iraq, on the Tigris"],["Capitals","Kalhu, later Nineveh"],["Area as drawn","1.39M km² (539k sq mi)"]]},
+{"id":"hs-501","num":"501","category":"Geography","question":"In 1794, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Qing dynasty","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Named Qing</span><span class=\"dt-v\">14 May 1636</span><span class=\"dt-k\">Beijing taken</span><span class=\"dt-v\">6 June 1644</span><span class=\"dt-k\">Abdicated</span><span class=\"dt-v\">12 February 1912</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">1794</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Qing dynasty","tags":["dynasty","history","geography","politics","warfare","china","asia"],"difficulty":2,"map":{"layer":"past-states"},"facts":[["Heartland","China, with the Manchu homeland in its north-east"],["Capitals","Shenyang, later Beijing"],["Area as drawn","12.5M km² (4.82M sq mi)"]]},
+{"id":"hs-502","num":"502","category":"Geography","question":"In 1595, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Ottoman Empire","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Reckoned from</span><span class=\"dt-v\">1299</span><span class=\"dt-k\">Sultanate ended</span><span class=\"dt-v\">1 November 1922</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">1595</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ottoman Empire","tags":["empire","history","geography","warfare","turkey","asia","europe"],"difficulty":1,"map":{"layer":"past-states"},"facts":[["Heartland","Anatolia, in modern Turkey"],["Capital","Constantinople, now Istanbul"],["Area as drawn","4.27M km² (1.65M sq mi)"]]}
 ];
 
 window.COLLECTION_TREE = {
@@ -29532,6 +29535,61 @@ window.COLLECTION_TREE = {
         {
           "id": "geo-india-mountains",
           "title": "Mountains, deserts and caves",
+          "placeholder": false,
+          "cardIds": []
+        }
+      ]
+    },
+    {
+      "id": "geo-states",
+      "title": "Historical States",
+      "total": 3,
+      "placeholder": false,
+      "children": [
+        {
+          "id": "geo-states-first",
+          "title": "The first states, to 500 BCE",
+          "placeholder": false,
+          "cardIds": [
+            "hs-001"
+          ]
+        },
+        {
+          "id": "geo-states-classical",
+          "title": "The classical world, 500 – 1 BCE",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "geo-states-empires",
+          "title": "The age of empires, 1 – 500 CE",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "geo-states-early-medieval",
+          "title": "The early Middle Ages, 500 – 1000",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "geo-states-medieval",
+          "title": "The high and late Middle Ages, 1000 – 1500",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "geo-states-early-modern",
+          "title": "The early modern world, 1500 – 1800",
+          "placeholder": false,
+          "cardIds": [
+            "hs-501",
+            "hs-502"
+          ]
+        },
+        {
+          "id": "geo-states-modern",
+          "title": "The modern world, 1800 – 1945",
           "placeholder": false,
           "cardIds": []
         }

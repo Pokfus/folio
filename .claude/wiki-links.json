@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-16T02:38Z",
+ "generated": "2026-11-19T04:54Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8386,
+  "ok": 8389,
   "redirect-broader": 802,
   "redirect-variant": 492,
   "section-redirect": 190,
@@ -90177,6 +90177,27 @@
    "answer": "Esarhaddon",
    "title": "Esarhaddon",
    "url": "https://en.wikipedia.org/wiki/Esarhaddon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-001": {
+   "answer": "Neo-Assyrian Empire",
+   "title": "Neo-Assyrian Empire",
+   "url": "https://en.wikipedia.org/wiki/Neo-Assyrian_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-501": {
+   "answer": "Qing dynasty",
+   "title": "Qing dynasty",
+   "url": "https://en.wikipedia.org/wiki/Qing_dynasty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-502": {
+   "answer": "Ottoman Empire",
+   "title": "Ottoman Empire",
+   "url": "https://en.wikipedia.org/wiki/Ottoman_Empire",
    "via": "glossary",
    "status": "ok"
   }

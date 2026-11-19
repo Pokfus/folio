@@ -106,6 +106,14 @@
        joiners in a second tint). `data-map-year` and `data-map-groups` (history entity ids, `|` within a group, `;` between groups) come from app.js cardMembers; the hub
        loads the whole history (as a glossary window's state does) and each group is a highlight of that year's states. On the still renderer (no WebGL2) no past year can be
        drawn, so the window keeps today's countries (`data-map-key`) in gold, as it did before. */
+    /* A STATE OF THE PAST AS THE QUESTION (2026-11-19, the Historical States collection; docs/historical-states-card-plan.md): a map card on a layer flagged `past` (app.js CARD_MAP_LAYERS
+       `past-states`). Its shape is an entity of history.bin and its row of card-faces.js carries the YEAR OF ITS GREATEST EXTENT, the view's centre and the zoom (build-card-faces.js), so the
+       window asks the hub for the whole history, as a glossary window's state does, and draws that year: the state in the selection gold, every other state of the year plain. Unlike a
+       glossary window it is the card's QUESTION, so it is never today's map with nothing shaded: the window stays in its loading state until the history has arrived, and where it cannot
+       (no WebGL2; the file copy of the site, which has no twin of the whole history; a refused fetch) it prints one plain sentence. Nothing is named before the answer; after it, the
+       state by the card's own answer and the other states of that year (otherStateNames). No studied siblings and no scope switch: a place studied in another year is not on this map. */
+    const pastLayer = !isGloss && !isMembers && !isWar && !!(def && def.past);
+    let pastYear = null, pastView = null, pastOK = false;
     const memYear = isMembers && host.getAttribute("data-map-year") ? Number(host.getAttribute("data-map-year")) : null;
     const memGroups = memYear != null ? String(host.getAttribute("data-map-groups") || "").split(";").map((g) => g.split("|").filter(Boolean)).filter((g) => g.length) : [];
     let memHist = false;
@@ -123,7 +131,7 @@
        finer level is in the same 4.3 MB file as the coarse one, so "never fetched" can only mean the file is not fetched): the card's own river from `rivers.js` is still drawn in gold. */
     const lightReader = !!(S.settings && S.settings.saveData) || !!(typeof navigator !== "undefined" && navigator.connection && navigator.connection.saveData === true);
     const isWaterSubject = () => { const w = window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.water; return !!sibCard && !!w && w.cards.indexOf(sibCard) >= 0; };   // the registry kind of the locator's place (build-card-faces.js); a name only for a locator with no resolved place, decided there
-    const wantWater = (!!sibCard || !!hiRegion || isGloss) && !lightReader;   // a glossary window draws its rivers and lakes as a locator does
+    const wantWater = (!!sibCard || !!hiRegion || isGloss || pastLayer) && !lightReader;   // a glossary window draws its rivers and lakes as a locator does, and so does a state of the past: the Nile and the Euphrates are how a reader finds an early state
     /* THE OWN PLACE'S MARK BY ITS KIND (2026-11-14, the owner: "'Aegean Sea' should not be a dot, but also a region, with a blue italicised label … apply this to other seas, lakes,
        rivers"; "make the symbol for Mount Olympus … a mountain (triangle) instead of a dot. Apply this to other cards about individual mountains"). Decided by the place REGISTRY's kind,
        never by the name in the window: for a card, `ATLAS_CARD_FACES.marks` (build-card-faces.js: `water` and `peak` lists of locator cards); for a glossary window, the registry kind its
@@ -154,7 +162,7 @@
     const reliefNow = () => { const r = !lightReader && !onCellular && window.AtlasEmbed && window.AtlasEmbed.reliefSetting ? window.AtlasEmbed.reliefSetting() : null; return r && r.on ? { relief: true, strength: r.strength } : { relief: false }; };
     const subdiv = sibCard ? (CMAP_SUBDIV[(root0 || {}).id] || null) : null;
     /* a map card's window draws the collection's studied places too (app.js cardMapHTML `data-map-sib`, 2026-11-07); it stays a map card in everything else */
-    const sibOf = sibCard || (!isGloss && !isWar ? host.getAttribute("data-map-sib") || "" : "");
+    const sibOf = sibCard || (!isGloss && !isWar && !pastLayer ? host.getAttribute("data-map-sib") || "" : "");
     /* THE SCOPE SWITCH (2026-11-18, on request: "in the top left of every atlas window should be a switch to depict either all the locations within the collection (current system) or all
        unlocked locations in all history/science/philosophy collections"): "col" draws this collection's studied places (locatorSiblings), "all" every studied place of every History, Science and
        Philosophy collection (app.js locatorSiblingsAll). A per-viewer convenience in localStorage (`folio.atlasWinScope`), shared by every window on the page through `folio:winscope`. */
@@ -185,13 +193,19 @@
     const hubOptions = { host: {} };
     const wantsFront = isWar && WAR_FRONT_CARDS.has(sibCard);   // the war that owns the front line reads the Second World War slice (see WAR_FRONT_CARDS), on file:// too
     if (isWar) { hubOptions.needHistory = wantsFront ? "ww2" : "wars"; hubOptions.ownHolds = 1; }
-    if (glossYear != null || (memYear != null && memGroups.length)) { hubOptions.needHistory = "full"; hubOptions.ownHolds = 1; }   // a state at its greatest extent: the whole history (a hub on a war slice with no window on it is replaced)   // a hub on the other slice is replaced when no other window or pending window is on it (AtlasEmbed.ensure)
+    if (glossYear != null || pastLayer || (memYear != null && memGroups.length)) { hubOptions.needHistory = "full"; hubOptions.ownHolds = 1; }   // a state at its greatest extent: the whole history (a hub on a war slice with no window on it is replaced)   // a hub on the other slice is replaced when no other window or pending window is on it (AtlasEmbed.ensure)
     let tlSteps = [], tlIdx = -1, tlSpan = null;   // the timeline's steps (none: no timeline), the step the pin stands on, the war's own years
     const tlStep = () => (tlIdx >= 0 ? tlSteps[tlIdx] : null);
     function model() {
       FACES = window.ATLAS_CARD_FACES; const L = FACES && FACES.layers[layerName]; if (!L) return false;
       if (!key && keyCard) { key = cardMapKeys(CARD_BY_ID[keyCard]).join("|"); if (!key) return false; host.setAttribute("data-map-key", key); }   // written back: the host contract (`data-map-key`) holds once the window has its model
       if (key) for (const k of key.split("|")) { const t = L[k]; if (!t) return false; targets.push({ n: k, id: t[0], c: [t[1], t[2]], b: [t[3], t[4], t[5], t[6]] }); }
+      if (pastLayer) {   // the year, the view and the zoom are the row's own (build-card-faces.js); the name the window writes after the answer is the card's answer, not the layer's key
+        const t = targets.length ? L[targets[0].n] : null; if (!t || !isFinite(t[7])) return false;
+        pastYear = t[7]; pastView = [t[8], t[9], t[10]]; host.setAttribute("data-map-year", String(pastYear));
+        const pc = CARD_BY_ID[host.getAttribute("data-map-sib") || ""], an = pc ? String(pc.answerText || pc.answer || "").replace(/<[^>]+>/g, "").trim() : "";
+        if (an) targets[0].n = an;
+      }
       if (glossFace) targets.push({ n: host.getAttribute("data-map-atname") || "", id: glossFace, c: null, b: null });   // the glossary window's face: framed by its own `at` and zoom (fit), tinted by id
       const atAttr = host.getAttribute("data-map-at");
       if (atAttr) { const at = atAttr.split(",").map(Number); if (at.length !== 2 || !isFinite(at[0]) || !isFinite(at[1])) return false; dot = { n: host.getAttribute("data-map-atname") || "", c: at }; }
@@ -212,6 +226,7 @@
     const ringsBox = (rings) => ringsBBox(rings);
     function fit() {
       if (isGloss) { const g = dot ? dot.c : [0, 0]; home = { lon: g[0], lat: g[1], zoom: Math.max(CMAP_ZMIN, Math.min(CMAP_ZMAX, zoomAttr || CMAP_ZLOC)) }; return; }   // the generator framed it (build-glossary-places.js)
+      if (pastLayer && pastView) { home = { lon: pastView[0], lat: pastView[1], zoom: Math.max(CMAP_ZMIN, Math.min(CMAP_ZMAX, zoomAttr || pastView[2] || 4)) }; return; }   // a state of the past: framed by its row (build-card-faces.js)
       const at = targets.length ? targets[0].c : dot ? dot.c : [0, 0];
       let lon = at[0], lat = at[1], z = targets.length ? 4 : CMAP_ZLOC;
       /* a river that IS the question (app.js cardLocatorFront: the window on the card's front, not yet named) is framed on its own traced line rather than on its
@@ -613,10 +628,10 @@
       if (isWar) warMarks(st, ctx, api);
       ctx.textBaseline = "middle"; ctx.lineJoin = "round";
       for (const n of plan) { ctx.font = n.font; ctx.textAlign = n.align; ctx.lineWidth = n.lw; ctx.strokeStyle = halo; ctx.strokeText(n.text, n.x, n.y); ctx.fillStyle = n.color; ctx.fillText(n.text, n.x, n.y); }
-      if (isWar || memHist) {   // the other states' names, last: they give way to every mark and every name above (otherStateNames)
+      if (isWar || memHist || (pastOK && revealed)) {   // the other states' names, last: they give way to every mark and every name above (otherStateNames); on a state of the past only once the answer is shown
         const taken = markBoxes.map((m) => m.box).concat(nameBoxes.map((q) => q.box), (lastLabels || []).map((l) => [l.tx - l.w / 2 - 3, l.ty - 9, l.tx + l.w / 2 + 3, l.ty + 9]));
         if (ctlR) taken.push(ctlR); if (sbR) taken.push(sbR); if (scopeR) taken.push(scopeR);
-        otherStateNames(st, api, ctx, taken, memHist ? (tlStep() ? tlStep().year : memYear) : tlStep() ? tlStep().year : Number(host.getAttribute("data-map-year")));
+        otherStateNames(st, api, ctx, taken, pastOK ? pastYear : memHist ? (tlStep() ? tlStep().year : memYear) : tlStep() ? tlStep().year : Number(host.getAttribute("data-map-year")));
       }
       ctx.restore();
     }
@@ -719,6 +734,20 @@
             mountWindow(hub, warYear); });   // Phase 4b: a war whose sides the loaded history has no faces for keeps V1's window too — on file:// the history twin is the 2a pilot slice (11 entities), and a window that tints nothing and frames the planet is worse than V1's
         }
         if (glossYear != null && hub.canvas2d) { plain("This browser cannot draw a state of the past (it needs WebGL2)."); return; }   // the still renderer draws no history; the popup drops the block
+        if (pastLayer) {
+          /* the question is the map of a past year, so nothing is drawn until that year can be: the window keeps its loading state while the history (9 MB) is on its way */
+          const PAST_SORRY = "This map needs the Atlas’s borders of the past, which could not be loaded here. The answer and the rest of the card are all there.";
+          /* …and with "Describe geography maps" on, the sentence naming the state's neighbours of that year is printed all the same: it is the one clue such a reader has */
+          const pastPlain = (why) => { if (wantsAlt) { try { describeMap(); } catch (e) {} } plain(why); };
+          if (hub.canvas2d) { pastPlain("This browser cannot draw a state of the past (it needs WebGL2). The answer and the rest of the card are all there."); return; }
+          hub.startHistory("full");
+          return new Promise((res) => {
+            let done = false; const fin = (ok) => { if (done) return; done = true; off(); clearTimeout(tm); clearInterval(iv); res(ok); };
+            const off = hub.onChange(() => { if (hub.historyOK()) fin(true); }), tm = setTimeout(() => fin(false), 150000);
+            const iv = setInterval(() => { if (stopped || (hub.historyFailed && hub.historyFailed()) || (hub.historyKind && hub.historyKind() !== "full")) fin(false); else if (hub.historyOK()) fin(true); }, 400);   // a failed fetch fires no change; a hub left on a war slice by another window cannot draw this year
+            if (hub.historyOK() && hub.historyKind() === "full") fin(true);
+          }).then((ok) => { if (stopped) return; if (!ok) { pastPlain(PAST_SORRY); return; } pastOK = true; mountWindow(hub, null); });
+        }
         /* A UNIT OF THE LAZY ADMIN-1 FILE (2026-11-14; docs/atlas-v2-admin1-layer.md §3.2): India's states are faces of atlas/data/admin1.bin, which the hub loads into its own slot the first time a highlight
            names one (atlas-embed.js). The still renderer (no WebGL2) has no such slot, and a file that could not be read leaves nothing to shade: either way the window is the plain sentence, never India unshaded. */
         if (targets.some((t) => hub.needsAdmin1 && hub.needsAdmin1(t.id))) {
@@ -789,9 +818,9 @@
         win = window.AtlasEmbed.view(cv, {
           zmin: CMAP_ZMIN, zmax: CMAP_ZMAX,
           spec: () => ({
-            layers: Object.assign({ borders: true, provinces: usStates || (!isWar && (layerName !== "world" || !!subdiv)), admin1Box: usStates ? US_STATES_BOX : undefined, admin1Max: 60, neutral: isWar || glossYear != null || memHist, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject(), peoples: glossPeople ? "all" : undefined, peopleOnly: glossPeople ? glossFace : undefined }, reliefNow()),
-            year: glossYear != null ? glossYear : memHist ? (tlStep() ? tlStep().year : memYear) : tlStep() ? tlStep().year : warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined, history: wantsFront ? "ww2" : undefined, front: !!(tlStep() && tlStep().front), frontDate: tlStep() && tlStep().front ? tlStep().date : null,
-            highlights: memHist ? memGroups.map((ids, i) => { const t = i === 0 ? TINT_SEL : i === 1 ? (X.TINT_LATE || TINT_SEL) : (X.TINT_THIRD || X.TINT_LATE || TINT_SEL); return { ids, rgb: t.rgb.split(",").map(Number), a: t.fillA, line: t.line, lineWidth: 2.2, glow: t.glow, glowBlur: 7, exact: true }; }) : targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9, exact: glossYear != null }] : [],
+            layers: Object.assign({ borders: true, provinces: usStates || (!isWar && !pastLayer && (layerName !== "world" || !!subdiv)), admin1Box: usStates ? US_STATES_BOX : undefined, admin1Max: 60, neutral: isWar || glossYear != null || memHist || pastOK, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject(), peoples: glossPeople ? "all" : undefined, peopleOnly: glossPeople ? glossFace : undefined }, reliefNow()),
+            year: glossYear != null ? glossYear : pastOK ? pastYear : memHist ? (tlStep() ? tlStep().year : memYear) : tlStep() ? tlStep().year : warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined, history: wantsFront ? "ww2" : undefined, front: !!(tlStep() && tlStep().front), frontDate: tlStep() && tlStep().front ? tlStep().date : null,
+            highlights: memHist ? memGroups.map((ids, i) => { const t = i === 0 ? TINT_SEL : i === 1 ? (X.TINT_LATE || TINT_SEL) : (X.TINT_THIRD || X.TINT_LATE || TINT_SEL); return { ids, rgb: t.rgb.split(",").map(Number), a: t.fillA, line: t.line, lineWidth: 2.2, glow: t.glow, glowBlur: 7, exact: true }; }) : targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9, exact: glossYear != null || pastOK }] : [],
           }),
           draw: (st, api, ctx) => marks(st, api, ctx),
           extraSettled: (st, o) => anchorsCurrent(st, o),

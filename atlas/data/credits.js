@@ -7,7 +7,7 @@
    files' headers name them (build-history.js, geometry-fixes.json). */
 window.ATLAS_CREDITS = {
  "format": 1,
- "generated": "2026-11-18T01:14:58.690Z",
+ "generated": "2026-11-19T04:52:23.760Z",
  "generator": "folio atlas-build: build-credits.js (0.1.0)",
  "filesRead": 671,
  "sources": [
@@ -55,6 +55,14 @@ window.ATLAS_CREDITS = {
       }
      ],
      "files": [
+      {
+       "path": "atlas/data/card-faces.js",
+       "count": 1
+      },
+      {
+       "path": "atlas/data/card-neighbours.js",
+       "count": 1
+      },
       {
        "path": "atlas/data/findit-areas.js",
        "count": 1

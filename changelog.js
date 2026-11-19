@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1370", released: "2026-11-19T04:12Z" };
+window.FOLIO_VERSION = { v: "1.1371", released: "2026-11-19T04:54Z" };
 
 window.CHANGELOG = [
   {
@@ -55,7 +55,7 @@ window.CHANGELOG = [
       "Indonesian gains a <b>Sounds and spelling</b> deck, and <b>UKBI 1</b> now opens with halo, terima kasih and selamat pagi, with numbers, days and months together.",
       "<b>Persian A1</b> now opens with the greetings, numbers and weekdays come together, and verbs show their spoken, perfect and negative forms.",
       "Russian gains a <b>Sounds and spelling</b> deck, and <b>TORFL A1</b> now opens with hello, thank you and please, with numbers, days and months together and 49 more words.",
-      "<b>Urdu A1</b> now opens with the greetings, with numbers, days and months together; Urdu cards show a word's vowel marks, and the alphabet deck cites its sounds.",
+      "<b>Urdu A1</b> now opens with the greetings, with numbers, days and months together; Urdu cards show a word's vowel marks, and the alphabet deck cites its sounds.",      "New Geography collection, <b>Historical States</b>: a past state is highlighted on the map at its greatest extent and you name it; 3 cards so far, in seven period decks.",
     ],
   },
   {
