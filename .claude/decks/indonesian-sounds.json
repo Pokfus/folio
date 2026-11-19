@@ -1,0 +1,750 @@
+{
+ "_": "indonesian-sounds.json — the table behind decks/Indonesian-Sounds-and-Spelling.folio-deck.json, read by build-indonesian-sounds.js. NOTHING IN IT IS COMPOSED. Every `like` (the English sound a letter resembles) is the 'English approximation' cell of Wikipedia's Help:IPA/Indonesian and Malay at the revision in `sources.ipa`, and every `ipa` the symbol of the same row; a `when` is words of that page's note on the lax vowels. The second row of ng is the page's two rows for ŋ and ɡ side by side, which is what the three words' own transcriptions show. A consonant's or a vowel's `says` is a sentence of that page's notes, except e's and g's, which are sentences of 'Indonesian language' (`sources.language`). The rules: where the stress falls is two sentences of 'Indonesian language'; di and ke, and the word written twice, are sentences and table cells of 'Indonesian orthography' (`sources.orthography`); the prefix meng- is three sentences of 'Nasal assimilation' in 'Malay phonology' (`sources.phonology`), which is the page Help:IPA sends its reader to, and its pairs are read off the Forms rows of the UKBI 1 cards named in `pairsFrom`; -ku, -mu and -nya are the glosses of those three entries of the English Wiktionary. A cut is marked […]. Every word is a UKBI 1 headword, and the transcription beside it is the English Wiktionary's own (its narrow one where it gives one), read from the kaikki.org extraction fetched on 2026-11-19; a word with an empty transcription has none there. A row's `key` is what its note id is pinned to in indonesian-ids.json: never rename one.",
+ "sources": {
+  "ipa": {
+   "title": "Help:IPA/Indonesian and Malay",
+   "url": "https://en.wikipedia.org/wiki/Help:IPA/Indonesian_and_Malay",
+   "revid": 1334069601,
+   "timestamp": "2026-01-21T09:59:49Z"
+  },
+  "orthography": {
+   "title": "Indonesian orthography",
+   "url": "https://en.wikipedia.org/wiki/Indonesian_orthography",
+   "revid": 1384102587,
+   "timestamp": "2026-11-06T16:20:24Z"
+  },
+  "phonology": {
+   "title": "Malay phonology",
+   "url": "https://en.wikipedia.org/wiki/Malay_phonology",
+   "revid": 1379837430,
+   "timestamp": "2026-10-12T05:12:50Z"
+  },
+  "language": {
+   "title": "Indonesian language",
+   "url": "https://en.wikipedia.org/wiki/Indonesian_language",
+   "revid": 1385665763,
+   "timestamp": "2026-11-14T16:10:24Z"
+  },
+  "wiktionary": {
+   "title": "English Wiktionary, via the kaikki.org extraction",
+   "url": "https://kaikki.org/dictionary/Indonesian/",
+   "fetched": "2026-11-19"
+  }
+ },
+ "vowels": [
+  {
+   "key": "vowel:a",
+   "show": "a",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/a/",
+     "like": "f<b>a</b>ther",
+     "words": [
+      [
+       "apa",
+       "[ˈa.pa]"
+      ],
+      [
+       "nama",
+       "[ˈna.ma]"
+      ],
+      [
+       "makan",
+       "[ˈma.kan]"
+      ]
+     ],
+     "mark": "a"
+    }
+   ]
+  },
+  {
+   "key": "vowel:e",
+   "show": "e",
+   "says": "Both /e/ and /ə/ are represented with ⟨e⟩.",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/ə/",
+     "like": "tak<b>e</b>n, <b>a</b>bout",
+     "words": [
+      [
+       "besar",
+       "[bəˈsar]"
+      ],
+      [
+       "empat",
+       "[əmˈpat̪̚]"
+      ],
+      [
+       "selamat",
+       "[səˈla.mat̪̚]"
+      ]
+     ],
+     "mark": "e"
+    },
+    {
+     "when": "",
+     "ipa": "/e/",
+     "like": "cl<b>ay</b>",
+     "words": [
+      [
+       "sore",
+       "[ˈso.re]"
+      ],
+      [
+       "meja",
+       "[ˈme.d͡ʒa]"
+      ]
+     ],
+     "mark": "e"
+    },
+    {
+     "when": "",
+     "ipa": "/ɛ/",
+     "like": "f<b>e</b>stival",
+     "words": [
+      [
+       "enak",
+       "[ˈɛ.nak̚]"
+      ],
+      [
+       "merah",
+       "[ˈmɛ.rah]"
+      ],
+      [
+       "teh",
+       "[ˈt̪ɛh]"
+      ]
+     ],
+     "mark": "e"
+    }
+   ]
+  },
+  {
+   "key": "vowel:i",
+   "show": "i",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/i/",
+     "like": "s<b>ee</b>",
+     "words": [
+      [
+       "ini",
+       "[ˈi.ni]"
+      ],
+      [
+       "tiga",
+       "[ˈt̪i.ɡa]"
+      ],
+      [
+       "kita",
+       "[ˈki.t̪a]"
+      ]
+     ],
+     "mark": "i"
+    },
+    {
+     "when": "in closed final syllables",
+     "ipa": "[ɪ]",
+     "like": "b<b>i</b>n",
+     "words": [
+      [
+       "kecil",
+       "[kəˈt͡ʃɪl]"
+      ],
+      [
+       "adik",
+       "[ˈa.dɪk̚]"
+      ],
+      [
+       "lain",
+       "[ˈla.ɪn]"
+      ]
+     ],
+     "mark": "i(?=[^aeiou]$)"
+    }
+   ]
+  },
+  {
+   "key": "vowel:o",
+   "show": "o",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/o/",
+     "like": "st<b>o</b>ry",
+     "words": [
+      [
+       "orang",
+       "[ˈo.raŋ]"
+      ],
+      [
+       "roti",
+       "[ˈro.t̪i]"
+      ],
+      [
+       "kopi",
+       "[ˈko.pi]"
+      ]
+     ],
+     "mark": "o"
+    },
+    {
+     "when": "in closed final syllables",
+     "ipa": "[ɔ]",
+     "like": "<b>o</b>ff",
+     "words": [
+      [
+       "tolong",
+       "[ˈt̪ɔ.lɔŋ]"
+      ],
+      [
+       "bodoh",
+       "[ˈbo.dɔh]"
+      ],
+      [
+       "kotor",
+       "[ˈko.t̪ɔr]"
+      ]
+     ],
+     "mark": "o(?=[^aeiou]+$)"
+    }
+   ]
+  },
+  {
+   "key": "vowel:u",
+   "show": "u",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/u/",
+     "like": "c<b>oo</b>l",
+     "words": [
+      [
+       "itu",
+       "[ˈi.t̪u]"
+      ],
+      [
+       "satu",
+       "[ˈsa.t̪u]"
+      ],
+      [
+       "bukan",
+       "[ˈbu.kan]"
+      ]
+     ],
+     "mark": "u"
+    },
+    {
+     "when": "in closed final syllables",
+     "ipa": "[ʊ]",
+     "like": "f<b>oo</b>t",
+     "words": [
+      [
+       "minum",
+       "[ˈmi.nʊm]"
+      ],
+      [
+       "duduk",
+       "[ˈdu.dʊk̚]"
+      ],
+      [
+       "masuk",
+       "[ˈma.sʊk̚]"
+      ]
+     ],
+     "mark": "u(?=[^aeiou]$)"
+    }
+   ]
+  },
+  {
+   "key": "vowel:ai",
+   "show": "ai",
+   "says": "The diphthongs /ai, au/, which only occur in open syllables, are often merged into [e, o], respectively, especially in Java.",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/ai/",
+     "like": "b<b>ye</b>",
+     "words": [
+      [
+       "sampai",
+       "/sampai̯/"
+      ],
+      [
+       "pantai",
+       "[ˈpan̪.t̪ai̯]"
+      ]
+     ],
+     "mark": "ai$"
+    }
+   ]
+  },
+  {
+   "key": "vowel:au",
+   "show": "au",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/au/",
+     "like": "h<b>ow</b>",
+     "words": [
+      [
+       "mau",
+       "[ˈmau̯]"
+      ],
+      [
+       "atau",
+       "[ˈa.t̪au̯]"
+      ],
+      [
+       "kalau",
+       "[ˈka.lau̯]"
+      ]
+     ],
+     "mark": "au$"
+    }
+   ]
+  }
+ ],
+ "consonants": [
+  {
+   "key": "letter:c",
+   "show": "c",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/tʃ/",
+     "like": "it<b>ch</b>y",
+     "words": [
+      [
+       "cepat",
+       "[t͡ʃəˈpat̪̚]"
+      ],
+      [
+       "cukup",
+       "[ˈt͡ʃu.kʊp̚]"
+      ],
+      [
+       "kecil",
+       "[kəˈt͡ʃɪl]"
+      ]
+     ],
+     "mark": "c"
+    }
+   ]
+  },
+  {
+   "key": "letter:g",
+   "show": "g",
+   "says": "⟨g⟩ is always /ɡ/ (\"hard\")",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/ɡ/",
+     "like": "<b>g</b>ain",
+     "words": [
+      [
+       "pagi",
+       "[ˈpa.ɡi]"
+      ],
+      [
+       "pergi",
+       "[pərˈɡi]"
+      ],
+      [
+       "juga",
+       "[ˈd͡ʒu.ɡa]"
+      ]
+     ],
+     "mark": "g"
+    }
+   ]
+  },
+  {
+   "key": "letter:h",
+   "show": "h",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/h/",
+     "like": "<b>h</b>at",
+     "words": [
+      [
+       "sudah",
+       "[ˈsu.dah]"
+      ],
+      [
+       "rumah",
+       "[ˈru.mah]"
+      ],
+      [
+       "tahu",
+       "[ˈt̪a.hu]"
+      ]
+     ],
+     "mark": "h"
+    }
+   ]
+  },
+  {
+   "key": "letter:k",
+   "show": "k",
+   "says": "/p/, /t/, /k/ are unaspirated, as in the Romance languages, or as in English spy, sty, sky. In final position, they are unreleased [p̚, t̪̚, ʔ̚], with final k being a glottal stop, but remaining as [k̚] for many Indonesian speakers, especially in loanwords.",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/k/",
+     "like": "s<b>k</b>y",
+     "words": [
+      [
+       "kita",
+       "[ˈki.t̪a]"
+      ],
+      [
+       "kamu",
+       "[ˈka.mu]"
+      ],
+      [
+       "aku",
+       "[ˈa.ku]"
+      ]
+     ],
+     "mark": "k"
+    },
+    {
+     "when": "",
+     "ipa": "/ʔ/",
+     "like": "uh<b>-</b>oh",
+     "words": [
+      [
+       "tidak",
+       "[ˈt̪i.daʔ]"
+      ],
+      [
+       "banyak",
+       "[ˈba.ɲaʔ]"
+      ],
+      [
+       "anak",
+       "[ˈa.nak̚]"
+      ]
+     ],
+     "mark": "k$"
+    }
+   ]
+  },
+  {
+   "key": "letter:kh",
+   "show": "kh",
+   "says": "The fricatives [f, z, ʃ, x] are found in loanwords only.",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/x/",
+     "like": "<i>Scottish</i> lo<b>ch</b>",
+     "words": [
+      [
+       "terakhir",
+       "[t̪əˈra.xɪr]"
+      ]
+     ],
+     "mark": "kh"
+    }
+   ]
+  },
+  {
+   "key": "letter:ng",
+   "show": "ng",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/ŋ/",
+     "like": "feeli<b>ng</b>",
+     "words": [
+      [
+       "dengan",
+       "[dəˈŋan]"
+      ],
+      [
+       "orang",
+       "[ˈo.raŋ]"
+      ],
+      [
+       "yang",
+       "[ˈjaŋ]"
+      ]
+     ],
+     "mark": "ng(?!g)"
+    },
+    {
+     "when": "",
+     "ipa": "/ŋ/ /ɡ/",
+     "like": "feeli<b>ng</b>, <b>g</b>ain",
+     "words": [
+      [
+       "tinggal",
+       "[ˈt̪iŋ.ɡal]"
+      ],
+      [
+       "tunggu",
+       "[ˈt̪uŋ.ɡu]"
+      ],
+      [
+       "minggu",
+       "[ˈmiŋ.ɡu]"
+      ]
+     ],
+     "mark": "ngg"
+    }
+   ]
+  },
+  {
+   "key": "letter:ny",
+   "show": "ny",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/ɲ/",
+     "like": "ca<b>ny</b>on",
+     "words": [
+      [
+       "banyak",
+       "[ˈba.ɲaʔ]"
+      ],
+      [
+       "punya",
+       "[ˈpu.ɲa]"
+      ],
+      [
+       "hanya",
+       "[ˈha.ɲa]"
+      ]
+     ],
+     "mark": "ny"
+    }
+   ]
+  },
+  {
+   "key": "letter:r",
+   "show": "r",
+   "says": "[…] in Standard Indonesian, it is an alveolar tap [ɾ] or trill [r].",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/r/",
+     "like": "<i>Spanish</i> <b>r</b>ío",
+     "words": [
+      [
+       "dari",
+       "[ˈda.ri]"
+      ],
+      [
+       "besar",
+       "[bəˈsar]"
+      ],
+      [
+       "rumah",
+       "[ˈru.mah]"
+      ]
+     ],
+     "mark": "r"
+    }
+   ]
+  },
+  {
+   "key": "letter:v",
+   "show": "v",
+   "says": "The letter v is pronounced as /f/ in Indonesian.",
+   "rows": [
+    {
+     "when": "",
+     "ipa": "/f/",
+     "like": "<b>f</b>estival",
+     "words": [
+      [
+       "November",
+       "[noˈfem.bər]"
+      ]
+     ],
+     "mark": "v"
+    }
+   ]
+  }
+ ],
+ "rules": [
+  {
+   "key": "rule:stress",
+   "show": "ˈ",
+   "kind": "Indonesian stress",
+   "name": "where the stress falls",
+   "says": "It is generally the penultimate syllable that is stressed, unless its vowel is a schwa /ə/. If the penult has a schwa, then stress usually moves to the final syllable.",
+   "words": [
+    [
+     "makan",
+     "[ˈma.kan]"
+    ],
+    [
+     "selamat",
+     "[səˈla.mat̪̚]"
+    ],
+    [
+     "besar",
+     "[bəˈsar]"
+    ],
+    [
+     "empat",
+     "[əmˈpat̪̚]"
+    ]
+   ]
+  },
+  {
+   "key": "rule:di-ke",
+   "show": "di · ke",
+   "kind": "Indonesian spelling",
+   "name": "apart, or joined to the word",
+   "says": "The writing of di- and ke- (prefixes) can be distinguished from di and ke (prepositions), where di- and ke- are written together with the words that follow them, for example, diambil, kehendak ('taken', 'desire'), while di and ke are written separately from the words that follow them, for example, di rumah, ke pasar ('at home', 'to the market').",
+   "words": [
+    [
+     "di mana",
+     "[di ˈma.na]"
+    ],
+    [
+     "ke mana",
+     "[ˌkə ˈma.na]"
+    ],
+    [
+     "di sini",
+     ""
+    ]
+   ]
+  },
+  {
+   "key": "rule:reduplication",
+   "show": "anak-anak",
+   "kind": "Indonesian spelling",
+   "name": "the word written twice",
+   "says": "Reduplication, mostly used in the plural form of words, has to be fully written with letters […].",
+   "pairs": [
+    [
+     "anak-anak",
+     "children"
+    ],
+    [
+     "bermain-main",
+     "playing around"
+    ],
+    [
+     "kebarat-baratan",
+     "westernish"
+    ]
+   ],
+   "words": [
+    [
+     "laki-laki",
+     "[ˌla.ki ˈla.ki]"
+    ],
+    [
+     "sama-sama",
+     "[ˌsa.ma ˈsa.ma]"
+    ],
+    [
+     "benar-benar",
+     "/bə.nar.bəˈnar/"
+    ],
+    [
+     "hati-hati",
+     ""
+    ]
+   ]
+  },
+  {
+   "key": "rule:meng",
+   "show": "meng-",
+   "kind": "Indonesian spelling",
+   "name": "the prefix changes with the root's first sound",
+   "says": "Important in the derivation of Malay verbs and nouns is the assimilation of the nasal consonant at the end of the derivational prefixes meng- /məŋ/, a verbal prefix, and peng- /pəŋ/, a nominal prefix. The nasal segment is dropped before sonorant consonants (nasals /m, n, ɲ, ŋ/, liquids /l, r/, and approximants /w, j/). It is retained before and assimilates to obstruent consonants: labial /m/ before labial /p, b/, alveolar /n/ before alveolar /t, d/, post-alveolar /ɲ/ before /tʃ, dʒ/ and /s/, velar /ŋ/ before other sounds (velar /k, ɡ/, glottal /h/, all vowels). In addition, following voiceless obstruents, apart from /tʃ/ (that is /p, t, s, k/), are dropped […].",
+   "heads": [
+    "root",
+    "with meng-"
+   ],
+   "pairsFrom": [
+    "melihat",
+    "membuat",
+    "memakai",
+    "mendengar",
+    "menulis",
+    "mencari",
+    "mengambil",
+    "mengenal"
+   ],
+   "words": [
+    [
+     "melihat",
+     "[məˈli.hat̪̚]"
+    ],
+    [
+     "membuat",
+     "[məmˈbu.at̪̚]"
+    ],
+    [
+     "mendengar",
+     "[mən.dəˈŋar]"
+    ],
+    [
+     "mengambil",
+     "[məˈŋam.bɪl]"
+    ]
+   ]
+  },
+  {
+   "key": "rule:enclitics",
+   "show": "-nya",
+   "kind": "Indonesian spelling",
+   "name": "-ku, -mu, -nya (my, your, his, her, its): written onto the word",
+   "says": "[…] as a possessive adjective […] as a direct or indirect object […] as an object of a preposition […]",
+   "heads": [
+    "",
+    "English Wiktionary"
+   ],
+   "pairs": [
+    [
+     "-ku",
+     "first person singular oblique enclitic pronoun"
+    ],
+    [
+     "-mu",
+     "second person oblique enclitic pronoun"
+    ],
+    [
+     "-nya",
+     "Third person singular oblique enclitic pronoun"
+    ],
+    [
+     "-nya",
+     "used to mark definiteness"
+    ],
+    [
+     "-nya",
+     "used to form sentence adverbs (including discourse markers), often from nouns or adjectives; -ly"
+    ]
+   ],
+   "words": [
+    [
+     "dirimu",
+     ""
+    ],
+    [
+     "semuanya",
+     "[sə.muˈa.ɲa]"
+    ],
+    [
+     "sebenarnya",
+     "[sə.bəˈnar.ɲa]"
+    ]
+   ]
+  }
+ ]
+}

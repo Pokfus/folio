@@ -190,6 +190,162 @@ insert with no place fails that script), `portuguese-order.js`, `portuguese-fix.
 A figure typed into a `descSub` is held to the order by `portuguese-order.js`; the counts are recounted on
 every run.
 
+## The Indonesian decks: the record, the order, the pinned ids and the sounds deck (Nov 2026)
+
+Eight decks of card type `ukbi`: the seven UKBI levels and the phrases, written by `.claude/ukbi/run.py`
+(Python, 178 MB of live corpora, one level per run on top of the shipped decks below it). A re-run is not
+byte for byte the shipped deck (`docs/lang-decks.md`, "The Indonesian beginner pass"), so every change is in a
+record applied after it, on the German model: **a word is ONE NOTE with two card templates**, so the pin is
+of note ids (a card id is the note id, plus `~2` for English → Indonesian).
+
+    node indonesian-fix.js --check             # the Indonesian record, the order and the pinned ids
+    node indonesian-order.js --check           # indonesian-order.json is what the rules give
+    node build-indonesian-sounds.js --check    # the sounds deck is what its table and UKBI 1 give
+
+| file | what it is |
+|---|---|
+| `indonesian-fixes.json` | the record: `insert` (a moved card's five `fields` byte for byte with `from`, or `senses` / `forms` / `ex` with a source for every sentence), `notes` (`senses`, `forms`, `ex`, `exDrop`, `exAdd`, `hint`), `decks.<id>.dropDup`, `subtitle`, `descSub`, and `lead`, the paragraph put before the generator's own description, whose figures are tokens (`{days}`, `{first}`, `{day:<headword>}`, `{shelfDays}` …) filled on every run. Every meaning is the English Wiktionary's, with the register its sense is tagged with; every sentence names its Tatoeba id. |
+| `indonesian-ids.json` | deck id → headword (a sounds row's key) → the number in the note's id. **Never delete or renumber a row.** A removed note's row moves to `_retired` (5 of them); APPLIED, so a deck numbered by position is numbered back. |
+| `indonesian-order.json` | deck id → the full list of headwords in the order the deck is dealt (UKBI 1, the phrases). May be edited by hand; a list that is not exactly the deck's headwords is refused. A deck with no entry is dealt in the order of its pinned numbers. |
+| `indonesian-order.js` | how that file is computed, from the PINNED NUMBER: UKBI 1's hand-written head, four closed sets each placed at a note number, a derived word never before its root; the phrases by reading level inside each of their three subdecks. `--report` prints the measurements. |
+| `indonesian-sounds.json` | the sounds table: cells and sentences quoted from four Wikipedia pages at the revisions it names, three glosses of the English Wiktionary, and Wiktionary's transcription of each example word. A row's `key` is what its id is pinned to. |
+| `build-indonesian-sounds.js` | writes `Indonesian-Sounds-and-Spelling` (card type `idsound`). **Reads no live source**: the table and the shipped UKBI 1 deck. |
+
+`indonesian-fix.js` finds its decks by CARD TYPE (`ukbi`) and skips the combined one-file deck (`ukbiall`,
+gitignored). **A level reads the shipped decks below it**, so do not rebuild a level as a side effect: a
+rebuild of UKBI 2 or 3 now leaves out the words the record moved down (UKBI 1 carries them) and fills the
+level with other words, which arrive unpinned, and a rebuild of UKBI 1 gives other sentences on 76 cards. To add a word to UKBI 1: an `insert`
+entry (the next free id above 506, its senses, three sentences each naming its Tatoeba id, a `why`),
+`indonesian-fix.js`, then name the headword in `HEAD` or in a set in `indonesian-order.js` or let it fall by
+its number, `indonesian-order.js`, `indonesian-fix.js` again, `build-indonesian-sounds.js`, and
+`node .claude/build-lang-decks.js`. To move a word down from a higher deck: the same, with the card's
+`fields` copied into the entry and a `dropDup` row on the deck it leaves. The counts a description states
+are recounted on every run, and a lead's figures are tokens, so none is typed.
+
+## The Arabic decks: the same three files, kept in `.claude/arabic/` (Nov 2026)
+
+The seven Arabic decks follow the German model — a record, a pin, an order, each with a `--check` — but
+their files live beside their generator in `.claude/arabic/`, not here (`docs/lang-decks.md`, "The Arabic
+beginner pass"): `arabic-fix.js` (`arabic-fixes.json`, `arabic-ids.json`), `arabic-order.js`
+(`arabic-order.json`) and `build-arabic-alphabet.js` (`arabic-alphabet.json`). They find their decks by
+card type (`arabic`, `ar-abc`), and unlike the German decks every Arabic level CAN be rebuilt byte for byte.
+
+## The Bengali decks: the pinned ids, the order and the sourced alphabet deck (Nov 2026)
+
+Seven decks: six of card type `bengali` (A1 to C1 and the phrases) and the alphabet (`bn-abc`, with its
+rule cards `bn-rule`). Unlike the German or Portuguese decks they CAN be rebuilt byte for byte
+(`.claude/bengali/run.py`, Python, 156 MB of cached sources), so the beginner pass (`docs/lang-decks.md`,
+"The Bengali beginner pass") put every change to a card's CONTENT in the generator and left the record
+three things: **a word is ONE NOTE with two card templates**, so the pin is of note ids (a card id is the
+note id, plus `~2` for English → Bengali); the order; and the sentences of a description that state an
+order or a pace. There is no `bengali-fixes.json`: nothing is edited by hand.
+
+    node bengali-fix.js --check              # the pinned ids, the order, the computed sentences
+    node build-bengali-alphabet.js --check   # the alphabet deck is what its table and the level decks give
+    node ../bengali/check-bengali.js         # no word twice, no pointer gloss, every id the pinned one
+    node ../bengali/check-update.js          # a browser: an old reader keeps ids and progress (not in CI)
+
+| file | what it is |
+|---|---|
+| `bengali-common.js` | what the scripts share: finding the decks by CARD TYPE, a note's key (`Word`; an alphabet note's `Key`), the forms a card shows. |
+| `bengali-ids.json` | deck id → key → the number in the note's id. **Never delete or renumber a row.** A removed note's row moves to `_retired` (10 of them); a note that returns takes its number back. APPLIED, so a deck the generator numbered by position is numbered back. Seeded from the decks at commit `2b3cf5c`. |
+| `bengali-fix.js` | applies the pin and the order to the `bengali` decks and writes the computed sentences; `--pin` only numbers new notes; `--check` writes nothing. The alphabet deck is only checked here. |
+| `bengali-order.json` | deck id → the full list of headwords in the order the deck is dealt (A1, A2, the phrases). May be edited by hand; a list that is not exactly the deck's headwords is refused. A deck with no entry is dealt in the order of its pinned numbers. |
+| `bengali-order.js` | how that file is computed, from the PINNED NUMBER: A1's hand-written head and its closed sets (a set stands where its commonest member would, or begins at a note number; no set is split), A2's numbers, months and seasons, the phrases by reading level inside each subdeck. `--report` prints the measurements. |
+| `bengali-alphabet.json` | the alphabet's table: cells and sentences of Wikipedia's Help:IPA/Bengali and "Bengali alphabet" at the revisions it names. **Written by `bengali-alphabet-quote.js`, never by hand.** A row's `key` is what its id is pinned to. |
+| `bengali-alphabet-quote.js` | cuts that table out of the two pages' wikitext (its header has the two `curl` lines). Which letters, signs and rules get a card, and which passages stand on each, is chosen here: `ROWS`, `RULES`, `PASSAGES`. A template it does not know stops it. |
+| `build-bengali-alphabet.js` | writes `Bengali-Alphabet`. **Reads no live source**: the table and the shipped level decks, whose cards are its example words. Applies the pin. |
+
+**After any `run.py`** (each level reads the WORDS of the ones below it, so a1, a2, b1, b2, c1, phr in
+that order): `bengali-fix.js --pin`, `bengali-order.js`, `bengali-fix.js`, `build-bengali-alphabet.js`,
+`node .claude/build-lang-decks.js`. To add a word to A1: name it in `.claude/bengali/inventory.py` and
+raise `TARGET['a1']` in `bengali_level.py` by one (a target left alone pushes the last fill word down the
+shelf), run the levels, then the steps above; name it in the head or a set in `bengali-order.js` or it
+falls after the frequency order by its new number. To change what a card says, change the generator; to
+change what an alphabet card says, change `bengali-alphabet-quote.js` and re-cut the table.
+
+## The Hindi decks: the record, the order and the pinned ids (Nov 2026)
+
+Seven decks: six of card type `hindi` (A1 to C1 and the phrases) and the alphabet (`hi-abc`, with its
+reading rules, `hi-read`). Unlike the German and Spanish decks they CAN be rebuilt byte for byte
+(`.claude/hindi/run.py`, `alphabet.py`; 280 MB of live corpora, proved 2026-11-19), so the split is: **a
+fault that is the generator's is repaired in the generator; a hand judgement is in the record**, applied
+after it (`docs/lang-decks.md`, "The Hindi beginner pass"). The files live in `.claude/hindi/`, not here.
+
+    node ../hindi/hindi-fix.js --check     # the decks are what the record, the order and the pin give
+    node ../hindi/hindi-order.js --check   # hindi-order.json is what its rules give
+    node ../hindi/check-hindi.js           # the pipeline's own faults; every id is its pinned number
+
+| file | what it is |
+|---|---|
+| `hindi-fixes.json` | the record: `insert` (a card moved from another deck, its seven `fields` byte for byte with `from`; or a new one with `roman` / `senses` / `forms` / `ex`, every sentence naming its Tatoeba ids), `notes` (`exDrop`, `exOnly`, `hint`), `decks.<id>.dropDup` and `descSub`. |
+| `hindi-ids.json` | deck id → key (a word's `Word`, a letter's `Letter`, a rule's `Key`) → the number in the note's id. **Never delete or renumber a row.** A removed note's row moves to `_retired` (28); a respelling renames the key. APPLIED, so a deck numbered by position is numbered back. |
+| `hindi-order.json` | deck id → `order` (A1, A2, the phrases) and `facts`, the figures the descriptions state. A deck with no entry is dealt by pinned number. |
+| `hindi-order.js` | how that file is computed, from the PINNED NUMBER (the generator's frequency rank): A1's hand-written head and three closed sets placed at a note number; A2's months together; the phrases by reading level. `--report` prints the measurements. |
+| `hindi-fix.js` | applies all three, recounts every figure a description states, writes `{fact}` placeholders from the order. Idempotent: `--check` is "applying it changes nothing". |
+
+**A rebuild**: `python3 ../hindi/run.py --level <x>` (any level alone — `hindi_level.words_below` reads the
+record and counts a moved card where the generator dealt it), `python3 ../hindi/alphabet.py`,
+`hindi-order.js` if a headword changed, `hindi-fix.js`, `node .claude/build-lang-decks.js`. To add a word
+to A1: an `insert` entry (the next free id above 524, a `why`), name it in `HEAD` or a set in
+`hindi-order.js` (an insert with no place fails that script), then the two scripts. To move a word down:
+the same with the card's `fields` copied in and a `dropDup` row on the deck it leaves. A reading rule is
+a row of `RULES` in `alphabet.py`, with its quote and revision.
+## The Persian decks: the generator, then the record (Nov 2026)
+
+Seven decks of card type `persian` and `fa-abc`. Unlike the German and Portuguese sets they CAN be rebuilt
+byte for byte (`.claude/persian/run.py`, `alphabet.py`; the sentence pool is pinned), so their files live in
+`.claude/persian/`, not here, and the rule has two halves (`docs/lang-decks.md`, "The Persian beginner pass"):
+a fault of the generator is fixed in the generator and every level rebuilt; a move, an addition, an order, a
+pinned number or a description's count is in the record.
+
+    node ../persian/persian-fix.js --check     # the record, the order and the pinned ids
+    node ../persian/persian-order.js --check   # persian-order.json is what its script computes
+    node ../persian/check-persian.js           # the seven decks, card by card
+
+| file | what it is |
+|---|---|
+| `persian-fixes.json` | the record: `insert` (a card MOVED down from a higher deck, `from: "<deck>/<word>"`, or BUILT for A1 by `run.py --level x1`, `from: "x1/<word>"`), `notes` (`leadSense`), `decks.<id>.dropDup`, `subtitle`, `descSub` with recounted tokens. |
+| `persian-ids.json` | deck id → headword (a letter, for the alphabet) → the number in the note's id. **Never delete or renumber a row.** A removed note's row moves to `_retired`. APPLIED. |
+| `persian-order.json` | deck id → the headwords in the order the deck is dealt (the alphabet, A1, A2, the phrases). Written by `persian-order.js` from the pinned numbers; B1 to C1 are dealt by pinned number. |
+
+After a rebuild: `run.py --level x1 --no-fetch`, `persian-fix.js --refresh`, `persian-order.js`,
+`persian-fix.js`, `node .claude/build-lang-decks.js`. To add a word to A1: name it in `inventory.X1`, run
+`--level x1`, add an `insert` entry (`from: "x1/<word>"`, the next free id, a `why`), `--refresh`, then name
+it in `HEAD` or a set in `persian-order.js` (an insert with no place fails that script).
+
+## The Russian decks: the record, the order, the pinned ids, the alphabet and the sounds deck (Nov 2026)
+
+Seven decks of card type `torfl` (TORFL A1 to C2 and the phrases), written by `.claude/torfl/run.py` (Python,
+about 1.3 GB of live corpora) — and **a rebuild is not byte for byte** (measured 2026-11-19: A1 moved four
+notes, the phrases 92), so every change is in a record (`docs/lang-decks.md`, "The Russian beginner pass"), on
+the German model: **a word is ONE NOTE with two card templates**, so the pin is of note ids (a card id is the
+note id, plus `~2` for English → Russian). The alphabet (`ru-abc`) and the sounds deck (`rusound`) are written
+from one sourced table.
+
+    node russian-fix.js --check             # the Russian record, the order and the pinned ids
+    node build-russian-sounds.js --check    # the alphabet and the sounds deck are what their table and TORFL A1 give
+    node ../torfl/check-torfl.js a1         # one deck read as a reader would (a1 … c2, phrases, alphabet)
+
+| file | what it is |
+|---|---|
+| `russian-fixes.json` | the record: `insert` (a card's six `fields`, MOVED byte for byte with `from`, or BUILT by `../torfl/extra.py` with the Tatoeba ids of its sentences in `src`), `notes` (`senses`, `forms`, `table`, `tableFrom`, `ex`, `glossAdd` on a card the deck has), `decks.<id>.dropDup` (`Word → "<lower deck>/<its Word>"`), `subtitle` and `descSub`. A note's key is its `Word` field: the headword without stress, an aspect pair as `делать, сделать`. |
+| `russian-ids.json` | deck id → `Word` (a letter, a sounds row's key) → the number in the note's id. **Never delete or renumber a row.** A removed note's row moves to `_retired` (21 of them). APPLIED, so a deck numbered by position is numbered back. |
+| `russian-order.json` | deck id → the full list of `Word`s in the order the deck is dealt (TORFL A1, the phrases). May be edited by hand; a list that is not exactly the deck's headwords is refused. A deck with no entry is dealt in the order of its pinned numbers. |
+| `russian-order.js` | how that file is computed, from the PINNED NUMBER: A1's hand-written head, four closed sets each placed at a note number, look-alikes forty apart; the phrases by reading level. It fails if a figure a `descSub` states (a set's note, the head's length, the days) no longer matches the order. `--report` prints the measurements. |
+| `russian-merge-extra.js` | copies the cards `../torfl/extra.py` built (in the gitignored cache) into `russian-fixes.json`. Not a CI step. |
+| `russian-sounds.json` | the table behind BOTH the alphabet and the sounds deck: cells, notes and sentences quoted from three Wikipedia pages at the revisions it names, and the English Wiktionary's transcription of each example word. A row's `key` is what its id is pinned to. |
+| `build-russian-sounds.js` | writes `Russian-Alphabet` (`ru-abc`, two cards a letter) and `Russian-Sounds-and-Spelling` (`rusound`, one card a note). **Reads no live source**: the table and the shipped A1 deck. |
+
+`russian-fix.js` finds its decks by CARD TYPE (`torfl`). **Never `run.py --level <x>` to refresh a deck.** To
+add a word to A1: name it in `EXTRA` in `../torfl/extra.py` and run it (it needs the cache: `run.py` fetches
+it), read the three sentences it prints, `russian-merge-extra.js`, then name the word in the head or in a set
+in `russian-order.js` (an insert with no place fails that script), `russian-order.js`, `russian-fix.js`,
+`build-russian-sounds.js` (a meaning or a stress it shows is A1's) and `node .claude/build-lang-decks.js`. To
+move a word down from a higher deck: an `insert` with the card's `fields` copied and `from`, and a `dropDup` row
+on the deck it leaves. Every bracket of an English side that prints the card's own Russian word is wrapped and
+hidden on the English → Russian card by `russian-fix.js` itself, on every run.
+
 ## The Urdu decks: the generator, the record, the pinned ids and the order (Nov 2026)
 
 Six decks: the alphabet (card type `ur-abc`) and A1, A2, B1, B2 and the phrases (card type `urdu`). They

@@ -5,6 +5,13 @@ twelfth language set, the Hindi set's sister: `.claude/bengali/` is `.claude/hin
 in 📖 `docs/hindi-decks-plan.md` and `docs/lang-decks.md` applies here unless this file says otherwise. Asked
 for on 2026-11-09: "Add a Bengali language collection."
 
+**THE BEGINNER PASS (2026-11-19) CHANGED WHAT FOLLOWS** — read 📖 `docs/lang-decks.md` "The Bengali
+beginner pass" first. Card ids are pinned (`.claude/decks/bengali-ids.json`), not positions; every card
+carries Wiktionary's pronunciation (the field `IPA`) under the romanisation; A1 is 511 notes in a teaching
+order, A2 751, B1 998, the phrases 101; the alphabet deck is 80 notes built by
+`.claude/decks/build-bengali-alphabet.js` from two Wikipedia pages at pinned revisions, and `alphabet.py`
+is gone. §3 to §11 below are the decks as first built.
+
 **STATUS (2026-11-12): all seven decks are built** — the alphabet, A1 to C1 and the phrases deck
 (`.claude/bengali/`, §6–11); C1 is 622 words, not 1,500, by the owner's choice (§10).
 

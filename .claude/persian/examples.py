@@ -20,7 +20,7 @@ the shorter, then the lower sentence id -- so a re-run is byte-identical.  A
 Persian sentence with several English translations takes the shortest.  Each
 sentence is used at most once per deck.
 """
-import csv, json, os, sys
+import csv, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fa import fold, nfc, tokens
@@ -28,12 +28,31 @@ from persian_level import f
 
 csv.field_size_limit(10 ** 8)
 
+# THE SENTENCE POOL IS PINNED (2026-11-19, the beginner pass).  Tatoeba's export is rewritten every
+# Saturday, and the decks were built on the export of 2026-11-07: a week later three new pairs changed
+# one card's sentences in each of A1, A2 and B1, so "a re-run is byte-identical" held only until the
+# next export.  A Persian sentence ADDED after that export is not read (the fifth column of
+# `pes_sentences_detailed.tsv`; `\N` there is an old sentence with no date, and is read), which makes all
+# seven decks reproduce themselves on a later export.  It cannot undo a sentence Tatoeba later deletes
+# or rewrites: `persian-fix.js --check` (the committed decks) is what CI holds, not a rebuild.
+PINNED = '2026-11-07 23:59:59'
+
+# A SENTENCE FILED UNDER PERSIAN THAT IS NOT PERSIAN (2026-11-19).  Three of the cards' sentences
+# were Sorani Kurdish, tagged `pes` on Tatoeba (`بۆچی منت وەستاند؟` on A1's و, the letter و
+# bolded inside a word): the Kurdish letters ۆ ە ێ ڕ ڵ ھ ڤ are in no Persian word, so a sentence
+# holding one is not read.
+NOT_PERSIAN = re.compile('[ۆەێڕڵھڤ]')
+
 
 def load():
     fa = {}
     for row in csv.reader(open('pes_sentences_detailed.tsv', encoding='utf-8'), delimiter='\t',
                           quoting=csv.QUOTE_NONE):
         if len(row) >= 3:
+            if len(row) >= 5 and row[4][:1].isdigit() and row[4] > PINNED:
+                continue
+            if NOT_PERSIAN.search(row[2]):
+                continue
             fa[row[0]] = nfc(row[2]).strip()
     links = {}
     for row in csv.reader(open('pes-eng_links.tsv', encoding='utf-8'), delimiter='\t',
@@ -89,7 +108,7 @@ def main():
     for i, (_, _, _, ft) in enumerate(toks):
         for t in set(ft):
             index.setdefault(t, []).append(i)
-    used, out = set(), {}
+    used, out, ids = set(), {}, {}
     for row in rows:
         L = lex[row['via']] if row.get('via') else lex[row['key']]
         words = fold(row['word']).split()
@@ -127,10 +146,14 @@ def main():
             used.add(c[0])
             _, s, en, _ = toks[c[0]]
             picked.append([s, en, sorted(set(c[2]))])
+            ids.setdefault(row['key'], []).append(toks[c[0]][0])
             if len(picked) == 3:
                 break
         out[row['key']] = picked
     json.dump(out, open(f('examples.json'), 'w', encoding='utf-8'), ensure_ascii=False)
+    # which Tatoeba sentence each one is (the Persian sentence's id), for a record that must
+    # name its sources (`persian-fixes.json`); no deck reads it
+    json.dump(ids, open(f('example-ids.json'), 'w', encoding='utf-8'), ensure_ascii=False)
     n3 = sum(1 for v in out.values() if len(v) == 3)
     n0 = sum(1 for v in out.values() if not v)
     print(f'  {len(pairs)} sentence pairs; three sentences for {n3} words, none for {n0}')
