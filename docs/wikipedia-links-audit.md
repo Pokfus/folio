@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 8415 | the title is the article |
-| `redirect-variant` | 493 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 109 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 8659 | the title is the article |
+| `redirect-variant` | 509 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 112 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 10 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 802 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 827 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 190 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 191 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 154 | only a disambiguation page; no link could be chosen |
-| `none` | 1187 | nothing matched; no link |
+| `none` | 1203 | nothing matched; no link |
 
-**9836 of 11386 cards get a link.** The three "no link" rows are the honest state: a card whose
+**10124 of 11700 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (802)
+## Redirected to a differently named article — check each (827)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -217,6 +217,15 @@ The answer redirects to an article with another name. Most are the same subject 
 - `eg-489` **Victory Stele of Piye** → [Stele of Piye](https://en.wikipedia.org/wiki/Stele_of_Piye) (from `Victory Stele of Piye`)
 - `eg-491` **25th Dynasty of Egypt** → [Twenty-fifth Dynasty of Egypt](https://en.wikipedia.org/wiki/Twenty-fifth_Dynasty_of_Egypt) (from `25th Dynasty of Egypt`)
 - `eg-499` **Eltekeh** → [Ge'alya](https://en.wikipedia.org/wiki/Ge'alya) (from `Eltekeh`)
+- `eg-506` **Late Period of ancient Egypt** → [Late Period of Egypt](https://en.wikipedia.org/wiki/Late_Period_of_Egypt) (from `Late Period of ancient Egypt`)
+- `eg-533` **27th Dynasty of Egypt** → [Twenty-seventh Dynasty of Egypt](https://en.wikipedia.org/wiki/Twenty-seventh_Dynasty_of_Egypt) (from `27th Dynasty of Egypt`)
+- `eg-542` **Elephantine papyri** → [Elephantine papyri and ostraca](https://en.wikipedia.org/wiki/Elephantine_papyri_and_ostraca) (from `Elephantine papyri`)
+- `eg-548` **Behbeit el-Hagar** → [Behbeit El Hagar](https://en.wikipedia.org/wiki/Behbeit_El_Hagar) (from `Behbeit el-Hagar`)
+- `eg-571` **Lake Mareotis** → [Lake Mariout](https://en.wikipedia.org/wiki/Lake_Mariout) (from `Lake Mareotis`)
+- `eg-579` **Arsinoite nome** → [Faiyum](https://en.wikipedia.org/wiki/Faiyum) (from `Arsinoite nome`)
+- `eg-580` **Zenon Archive** → [Zenon of Kaunos](https://en.wikipedia.org/wiki/Zenon_of_Kaunos) (from `Zenon Archive`)
+- `eg-595` **Philae** → [Philae temple complex](https://en.wikipedia.org/wiki/Philae_temple_complex) (from `Philae`)
+- `eg-599` **Temple of Onias** → [Land of Onias](https://en.wikipedia.org/wiki/Land_of_Onias) (from `Temple of Onias`)
 - `fd-050` **Côte d'Ivoire** → [Ivory Coast](https://en.wikipedia.org/wiki/Ivory_Coast) (from `Côte d'Ivoire`)
 - `fd-088` **Czechia** → [Czech Republic](https://en.wikipedia.org/wiki/Czech_Republic) (from `Czechia`)
 - `fd-174` **Cabo Verde** → [Cape Verde](https://en.wikipedia.org/wiki/Cape_Verde) (from `Cabo Verde`)
@@ -646,6 +655,17 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ru-570` **Second All-Russian Congress of Soviets** → [Second All-Russian Congress of Soviets of Workers' and Soldiers' Deputies](https://en.wikipedia.org/wiki/Second_All-Russian_Congress_of_Soviets_of_Workers'_and_Soldiers'_Deputies) (from `Second All-Russian Congress of Soviets`)
 - `ru-573` **Sovnarkom** → [Council of People's Commissars](https://en.wikipedia.org/wiki/Council_of_People's_Commissars) (from `Sovnarkom`)
 - `ru-578` **Supreme Council of the National Economy** → [Supreme Soviet of the National Economy](https://en.wikipedia.org/wiki/Supreme_Soviet_of_the_National_Economy) (from `Supreme Council of the National Economy`)
+- `ru-607` **Peace of Riga** → [Treaty of Riga](https://en.wikipedia.org/wiki/Treaty_of_Riga) (from `Peace of Riga`)
+- `ru-608` **Red Army invasion of Georgia** → [Soviet invasion of Georgia](https://en.wikipedia.org/wiki/Soviet_invasion_of_Georgia) (from `Red Army invasion of Georgia`)
+- `ru-613` **Treaty on the Creation of the USSR** → [Treaty on the Creation of the Union of Soviet Socialist Republics](https://en.wikipedia.org/wiki/Treaty_on_the_Creation_of_the_Union_of_Soviet_Socialist_Republics) (from `Treaty on the Creation of the USSR`)
+- `ru-631` **Soviet industrialisation** → [Industrialization in the Soviet Union](https://en.wikipedia.org/wiki/Industrialization_in_the_Soviet_Union) (from `Soviet industrialisation`)
+- `ru-634` **Soviet collectivisation** → [Collectivization in the Soviet Union](https://en.wikipedia.org/wiki/Collectivization_in_the_Soviet_Union) (from `Soviet collectivization`)
+- `ru-650` **Tukhachevsky affair** → [Case of the Trotskyist Anti-Soviet Military Organization](https://en.wikipedia.org/wiki/Case_of_the_Trotskyist_Anti-Soviet_Military_Organization) (from `Tukhachevsky affair`)
+- `ru-653` **Stalin Constitution** → [1936 Constitution of the Soviet Union](https://en.wikipedia.org/wiki/1936_Constitution_of_the_Soviet_Union) (from `Stalin Constitution`)
+- `ru-664` **First Battle of Kiev** → [Battle of Kiev (1941)](https://en.wikipedia.org/wiki/Battle_of_Kiev_(1941)) (from `First Battle of Kiev`)
+- `ru-673` **German mistreatment of Soviet prisoners of war** → [German atrocities committed against Soviet prisoners of war](https://en.wikipedia.org/wiki/German_atrocities_committed_against_Soviet_prisoners_of_war) (from `German mistreatment of Soviet prisoners of war`)
+- `ru-694` **Zhdanovshchina** → [Zhdanov Doctrine](https://en.wikipedia.org/wiki/Zhdanov_Doctrine) (from `Zhdanovshchina`)
+- `ru-696` **death of Stalin** → [Death and state funeral of Joseph Stalin](https://en.wikipedia.org/wiki/Death_and_state_funeral_of_Joseph_Stalin) (from `Death of Stalin`)
 - `us-002` **settlement of the Americas** → [Peopling of the Americas](https://en.wikipedia.org/wiki/Peopling_of_the_Americas) (from `Settlement of the Americas`)
 - `us-017` **Mississippian culture** → [Mississippian period (archaeology)](https://en.wikipedia.org/wiki/Mississippian_period_(archaeology)) (from `Mississippian culture`)
 - `us-023` **Chaco Canyon** → [Chaco Culture National Historical Park](https://en.wikipedia.org/wiki/Chaco_Culture_National_Historical_Park) (from `Chaco Canyon`)
@@ -847,7 +867,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (109)
+## Settled from a disambiguation page (112)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -867,6 +887,8 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `ec-032` **specialisation** → [Division of labour](https://en.wikipedia.org/wiki/Division_of_labour) (via the disambiguation page `Specialization`)
 - `eep-152` **Cluster** → [Open cluster](https://en.wikipedia.org/wiki/Open_cluster) (via the disambiguation page `Cluster`)
 - `eep-289` **Iron Triangle** → [Iron triangle (US politics)](https://en.wikipedia.org/wiki/Iron_triangle_(US_politics)) (via the disambiguation page `Iron Triangle`)
+- `eg-527` **Demotic** → [Demotic Egyptian language](https://en.wikipedia.org/wiki/Demotic_Egyptian_language) (via the disambiguation page `Demotic`)
+- `eg-565` **Alexander IV** → [Alexander IV of Macedon](https://en.wikipedia.org/wiki/Alexander_IV_of_Macedon) (via the disambiguation page `Alexander IV`)
 - `gc-803` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
 - `gga-002` **Polarity** → [Polarity (international relations)](https://en.wikipedia.org/wiki/Polarity_(international_relations)) (via the disambiguation page `Polarity`)
 - `gga-042` **Penholder** → [Penholder (United Nations)](https://en.wikipedia.org/wiki/Penholder_(United_Nations)) (via the disambiguation page `Penholder`)
@@ -934,6 +956,7 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `ru-416` **Nicholas I** → [Nicholas I of Russia](https://en.wikipedia.org/wiki/Nicholas_I_of_Russia) (via the disambiguation page `Nicholas I`)
 - `ru-441` **Alexander II** → [Alexander II of Russia](https://en.wikipedia.org/wiki/Alexander_II_of_Russia) (via the disambiguation page `Alexander II`)
 - `ru-477` **Alexander III** → [Alexander III of Russia](https://en.wikipedia.org/wiki/Alexander_III_of_Russia) (via the disambiguation page `Alexander III`)
+- `ru-644` **special settlements** → [Special settlements in the Soviet Union](https://en.wikipedia.org/wiki/Special_settlements_in_the_Soviet_Union) (via the disambiguation page `Special settlement`)
 - `us-021` **Moundville** → [Moundville, Alabama](https://en.wikipedia.org/wiki/Moundville,_Alabama) (via the disambiguation page `Moundville`)
 - `us-028` **Mogollon** → [Mogollon, New Mexico](https://en.wikipedia.org/wiki/Mogollon,_New_Mexico) (via the disambiguation page `Mogollon`)
 - `us-031` **Northwest Coast** → [Indigenous peoples of the Pacific Northwest Coast](https://en.wikipedia.org/wiki/Indigenous_peoples_of_the_Pacific_Northwest_Coast) (via the disambiguation page `Northwest Coast`)
@@ -1146,7 +1169,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (190)
+## Section redirects — no dedicated page (191)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1309,6 +1332,7 @@ Wikipedia treats these as part of another article. No link.
 - `ru-409` **Polish–Saxon crisis** — `Polish–Saxon crisis` only redirects into `Congress of Vienna#Polish-Saxon crisis`
 - `ru-514` **Potemkin mutiny** — `Potemkin mutiny` only redirects into `Russian battleship Potemkin#Mutiny`
 - `ru-588` **military specialists** — `Military specialist` only redirects into `Military history of the Soviet Union#Tsarist and revolutionary background`
+- `ru-647` **assassination of Sergei Kirov** — `Assassination of Sergei Kirov` only redirects into `Sergei Kirov#Assassination`
 - `us-105` **Coronado expedition** — `Coronado expedition` only redirects into `Francisco Vázquez de Coronado#Coronado Expedition`
 - `us-348` **War Hawks** — `War Hawks` only redirects into `War hawk#Historical group`
 - `us-388` **log cabin campaign** — `Log cabin campaign` only redirects into `1840 United States presidential election#Campaign`
@@ -1341,7 +1365,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1187)
+## No article found (1203)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1743,6 +1767,10 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-418` **Autobiography of Ineni** — search suggests `Thutmose II`, `Thutmose I`, `Index of ancient Egypt–related articles`, `Amenhotep I`
 - `eg-436` **Djeme** — search suggests `Wadjkare`, `Osorkon IV`, `Pinedjem I`, `Medinet Habu`, `Phoibammon of Preht`
 - `eg-449` **silver coffin of Psusennes I** — search suggests `Psusennes I`, `Art of ancient Egypt`, `Wendjebauendjed`, `Amenemope (pharaoh)`, `Egyptian Museum`
+- `eg-524` **Tomb of Ibi** — search suggests `Qakare Ibi`, `Egyptian pyramids`, `Deir el-Gabrawi`, `Ibi (Egyptian noble)`, `Ibi (nomarch)`
+- `eg-525` **Pefnefdineit**
+- `eg-526` **Petition of Peteese** — search suggests `Ancient Egyptian religion`, `Pediese`, `Amun`, `Petiese`, `Maat`
+- `eg-535` **Statue of Darius** — search suggests `Egyptian statue of Darius the Great`, `Darius the Great`, `Palace of Darius in Susa`, `Cleopatra`, `Twenty-seventh Dynasty of Egypt`
 - `gga-001` **Security, prosperity and values** — search suggests `Prosperity theology`, `Core Socialist Values`, `National interest`, `Personal life of Mahathir Mohamad`, `Greater East Asia Co-Prosperity Sphere`
 - `gga-003` **Structural power**
 - `gga-004` **Operational code**
@@ -2437,6 +2465,12 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ru-557` **first coalition government** — search suggests `Sixth National Government of New Zealand`, `List of countries with coalition governments`, `War of the First Coalition`, `15 October Coalition`, `Russia–Syria–Iran–Iraq coalition`
 - `ru-558` **First All-Russian Congress of Soviets** — search suggests `All-Russian Congress of Soviets`, `Second All-Russian Congress of Soviets of Workers' and Soldiers' Deputies`, `First All-Russian Congress of Soviets of Workers' and Soldiers' Deputies`, `All-Russian Central Executive Committee`, `Supreme Soviet of Russia`
 - `ru-565` **Petrograd Red Guard** — search suggests `Red Guards (Russia)`, `Russian Civil War`, `Red Terror`, `Semyonovsky Life Guards Regiment`, `Russian Revolution`
+- `ru-601` **pogroms of 1918–1921** — search suggests `Pogroms during the Russian Civil War`, `Pogrom`, `Lwów pogrom (1918)`, `Odessa pogroms`, `Pogroms in the Russian Empire`
+- `ru-652` **Stalin’s cult of personality** — search suggests `Joseph Stalin's cult of personality`, `On the Cult of Personality and Its Consequences`, `Cult of personality`, `North Korean cult of personality`, `List of cults of personality`
+- `ru-665` **evacuation of Soviet industry** — search suggests `Evacuation in the Soviet Union`, `Evacuation of East Prussia`, `North Korea–Russia relations`, `Soviet industry in World War II`, `Evacuation of Manchukuo`
+- `ru-674` **Punished peoples** — search suggests `Punisher`, `Russian citizenship law`, `The Punisher (TV series)`, `Punisher (disambiguation)`, `The Punisher (2004 film)`
+- `ru-687` **Soviet war dead** — search suggests `World War II casualties of the Soviet Union`, `Soviet War Memorial (Vienna)`, `Polish–Soviet War`, `Soviet War Memorial (Tiergarten)`, `Dead Hand`
+- `ru-688` **Trudarmiya** — search suggests `Nikolai Yudin`
 - `us-004` **coastal migration route** — search suggests `Peopling of the Americas`, `Coastal Georgia`, `Monarch butterfly migration`, `Recent African origin of modern humans`, `Migrants' African routes`
 - `us-009` **North American Archaic** — search suggests `Midwestern United States`, `United States`, `Beer in the United States`, `North America`, `Archaic Dog Burials in the Midwest United States`
 - `us-016` **Hopewell interaction sphere** — search suggests `Hopewell Ceremonial Earthworks`, `Hopewell tradition`, `Great Hopewell Road`, `Point Peninsula complex`, `Laurel complex`

@@ -243,6 +243,15 @@ the form English-language scholarship and the reference works use; the decision 
 | Boxers, Yihetuan, Kang Youwei, Liang Qichao, Hundred Days' Reform | I-ho-ch'üan, I-ho-t'uan, K'ang Yu-wei, Kang Yu-wei, Liang Ch'i-ch'ao, Liang Chi-chao, Hundred Days Reform | Yihequan, Boxer Uprising, Righteous and Harmonious Fists, Wuxu Reform | |
 | Sun Yat-sen, Puyi, Yuan Shikai, Chiang Kai-shek, Kuomintang, Whampoa, Beiyang government | Sun Yatsen, Sun Yat Sen, P'u-i, Pu-yi, Yuan Shih-k'ai, Yuan Shih-kai, Chiang Kai-Shek, Kuo-min-tang, Pei-yang | Sun Zhongshan, Sun Wen, Sun Yixian, Pu Yi, Xuantong Emperor, Hongxian Emperor, Jiang Jieshi, Jiang Zhongzheng, Guomindang, KMT, Huangpu | the Republic: *Sun Yat-sen* and *Chiang Kai-shek* the English names (house forms, never reported); *Kuomintang* the slug's form, *Guomindang* the pinyin an alias; *Whampoa* the period name of the academy, *Huangpu* an alias |
 | Chen Duxiu, Hu Shi, Lu Xun, New Culture Movement, May Fourth Movement | Ch'en Tu-hsiu, Chen Tu-hsiu, Lu Hsün, Lu Hsun | Hu Shih, Zhou Shuren, New Youth, Xin Qingnian | *Hu Shi* in the card's voice; *Hu Shih*, his own English spelling and the slug, cited as printed (an author's name) and not reported |
+| Mao Zedong, Zhou Enlai, Zhu De, Lin Biao, Peng Dehuai, Liu Shaoqi, Deng Xiaoping, Hua Guofeng | Mao Tse-tung, Mao Tsetung, Mao Tse-Tung, Chou En-lai, Chou Enlai, Chu Teh, Lin Piao, P'eng Te-huai, Peng Teh-huai, Liu Shao-ch'i, Liu Shao-chi, Teng Hsiao-p'ing, Teng Hsiao-ping, Hua Kuo-feng | Chairman Mao, Mao Runzhi | the People's Republic's leaders (added for the seventh hundred, Nov 2026), surname and name split, by the common forms (毛泽东, 周恩来 — never a courtesy name); *Mao Tse-tung* stands in the title of the *Quotations from Chairman Mao Tse-tung* (`cnh-672`'s live answer, kept) and of the *Selected Works*, and a hit inside that title is the title, not a fault |
+| Jiang Qing, Kang Sheng, Chen Boda, Zhang Chunqiao, Wang Hongwen, Yao Wenyuan, Gang of Four | Chiang Ch'ing, K'ang Sheng, Ch'en Po-ta, Chen Po-ta, Chang Ch'un-ch'iao, Chang Chun-chiao, Wang Hung-wen, Yao Wen-yuan | Siren bang, Madame Mao | the Cultural Revolution's radicals; "Chiang Ching" is not listed because it would also hit Chiang Ching-kuo |
+| Zhang Xueliang, Yang Hucheng, Wang Jingwei, Joseph Stilwell | Chang Hsüeh-liang, Chang Hsueh-liang, Yang Hu-ch'eng, Yang Hu-cheng, Wang Ching-wei | the Young Marshal, Wang Zhaoming, Vinegar Joe | the Xi'an Incident's two generals and the head of the collaborationist regime; *Stilwell* by his English name |
+| Chiang Ching-kuo, Lee Teng-hui, Taipei, Kaohsiung, Kinmen, Matsu Islands | Jiang Jingguo, Li Denghui, Taibei, Gaoxiong | Quemoy, Jinmen, Mazu Islands | Taiwan's people and places in their own romanisation, as the ROC writes them (never converted to pinyin); *Quemoy* the older English name of Kinmen, an alias; "Matsu" for the islands is the ROC's own spelling and a hit on the goddess's row (*Mazu*) there is the islands, not a fault |
+| Yan'an, Jiangxi Soviet, Ruijin, Zunyi, Xi'an, Chongqing, Wuhan | Yenan, Yen-an, Yan An, Kiangsi, Juichin, Tsunyi, Tsun-i, Sian, Hsi-an, Chungking, Ch'ung-ch'ing | Chinese Soviet Republic, Hankou, Hankow | the wartime and Red Army places; *Chungking*, the period's spelling, only inside a cited title |
+| Beijing, Beiping | Peiping, Pei-p'ing, Pei-ching | Peking, Peking University, Convention of Peking | *Beijing* the city; *Beiping* its name from 1928 to 1949 where the sentence is about that time; *Peking*, the older English name, kept in proper names (Peking University, the Convention of Peking, Peking Man) and cited titles and never reported |
+| Chinese Communist Party (CCP), People's Liberation Army (PLA), Red Army, Eighth Route Army, New Fourth Army | Pa-lu chün, Hsin-ssu chün, New 4th Army | CPC, Communist Party of China, Balujun, Xinsijun | the party and its armies, the abbreviation after the full name once; *CPC*, the party's own English, an alias for cited titles; the glossary's `Red_Army` is the Soviet army, so a "Red Army" in a China card mislinks (for the owner) |
+| Manchukuo, Mukden, Shenyang, Kwantung Army, Hong Kong | Manchoukuo, Man-chou-kuo, Hongkong, Hong-Kong | Manzhouguo, Xinjing, Hsinking, Fengtian, Guandong Army | *Manchukuo* the English name (*Manzhouguo* the pinyin an alias); *Mukden* the period name of Shenyang in the incident's name and the period's sentences, *Shenyang* the city otherwise; the *Kwantung Army* the English name of the Japanese army in Manchuria |
+| Nanjing Massacre, Marco Polo Bridge, Taierzhuang | Nanking Massacre, Lukouchiao, Taierhchwang, T'ai-erh-chuang | Rape of Nanking, Lugou Bridge, Tai'erzhuang | the war's events by the slugs' forms; *Rape of Nanking* stands in cited titles (Iris Chang) and an "also known as" sentence |
 
 ## Mythology and legend
 
@@ -746,9 +755,114 @@ single whip 1581 (`cnh-381`), the examinations ended 1905 (`cnh-348`, `cnh-427`)
 | the treaty ports: the first treaty / the factory right / given up | 1842 / 1895 / 1943 | the Office of the Historian; Ma (`cnh-599`) |
 | the International Settlement formed / given up | 1863 / 11 January 1943 | Pott; Ma (`cnh-600`) |
 
+## The Republic at war to Taiwan (the seventh hundred)
+
+Filled batch by batch from `cnh-601` (B61 on). **The protected lines** of the seventh hundred's individuals
+(`cnh-605`, `608`, `615`, `616`, `648`, `674`, `677`, `678`) are pinned below to their lines as they stood on main on 2026-11-19
+(the years only; ages, days and months left out), and are not rows of this table; `cnh-675` (the Gang of Four) names a group
+and is audited as an ordinary card. Dates already set elsewhere that this hundred must agree with: the Republic's constitution
+1 January 1947 and the government moved December 1949 (`cnh-577`), extraterritoriality given up 11 January 1943 (`cnh-563`,
+`cnh-599`, `cnh-600`), the Nanjing decade 1927 – 1937 or 1928 – 1937 (`cnh-596`), the Northern Expedition ended 29 December 1928
+(`cnh-594`), the Nationalist government's tutelage ended 25 December 1947 (`cnh-597`).
+
+| event | the collection says | source |
+|---|---|---|
+| China's first cotton-mill project / work began | 1878 / 1889 | Couling (`cnh-601`) |
+| the Rural Reconstruction Movement began (Ding County chosen) | 1926 | Price (`cnh-602`) |
+| the work-study scheme relaunched / its main wave / the students deported | 1916 / 1919 – 1921 / October 1921 | Miranda; Luo; Xinhua (`cnh-603`) |
+| the suffrage groups / the Nanjing protest / the quota clause / in force | November 1911 / 19 March 1912 / 1 January 1947 / March 1947 | Carter; the Ministry of Justice; Liu (`cnh-604`) |
+| the Civil War began / resumed / ended | 1927 / 1946 / 1949 | the Office of the Historian; Rummel (`cnh-606`) |
+| the Chinese Soviet Republic proclaimed at Ruijin / the base abandoned | 7 November 1931 / October 1934 | the party chronology; Mao (`cnh-607`) |
+| the encirclement campaigns began / the fifth began / ended | 1930 / September 1933 / 1934 | Mao; the party chronology; Averill (`cnh-609`) |
+| the Long March set out / arrived / the armies united | October 1934 / October 1935 / October 1936 | FRUS; Mao; the party chronology (`cnh-610`) |
+| the Zunyi Conference | 15 – 17 January 1935 | the party chronology (`cnh-611`) |
+| Yan'an the party's headquarters / occupied | 13 January 1937 – March 1947 / 19 March 1947 | the party chronology (`cnh-612`) |
+| the Rectification campaign / the keynote speech / the rescue campaign | 1942 – 1944 / 1 February 1942 / 15 July 1943 | Teiwes; Mao; Yu (`cnh-613`) |
+| Mao Zedong Thought: national form / enshrined / dropped / redefined | October 1938 / 23 April – 11 June 1945 / 26 September 1956 / 27 June 1981 | Mao; the party; Kampen; the 1981 resolution (`cnh-614`) |
+| the Xi'an Incident / Zhang Xueliang sentenced | 12 – 25 December 1936 / 31 December 1936 | Wu (`cnh-617`) |
+| the Second United Front proclaimed | 22 – 23 September 1937 | Xinhua (`cnh-618`) |
+| the Outline Land Law adopted / published | 13 September 1947 / 10 October 1947 | Mao (`cnh-619`) |
+| the Chongqing talks began / the Double Tenth Agreement signed | 28 August 1945 / 10 October 1945 | Mao; Cheng (`cnh-620`) |
+| the Marshall Mission / the ceasefire / the army agreement | December 1945 – January 1947 / 10 January 1946 / 25 February 1946 | Yang; the ROC National Archives (`cnh-621`) |
+| the gold yuan issued / controls ended / replaced | 19 August 1948 / November 1948 / 2 July 1949 | Lin; Coble (`cnh-622`) |
+| the Liaoshen campaign | 12 September – 2 November 1948 | Mao; the ROC National Archives (`cnh-623`) |
+| the Huaihai campaign | 6 November 1948 – 10 January 1949 | Mao (`cnh-624`) |
+| the Pingjin campaign | 29 November 1948 – 31 January 1949 | the ROC National Archives (`cnh-625`) |
+| the Yangtze crossing campaign | 20 April – 2 June 1949 | Zhang Jingjing (`cnh-626`) |
+| the retreat to Taiwan: peak / the move announced / the cabinet moved | June – December 1949 / 8 December 1949 / 9 December 1949 | Lin Tongfa; FRUS (`cnh-627`) |
+| the CPPCC opened / the People's Republic proclaimed | 21 September 1949 / 1 October 1949 | Mao; FRUS (`cnh-628`) |
+| Johnson's *Peasant Nationalism* / the years it studies | 1962 / 1937 – 1945 | Bernal; Chen and Kung (`cnh-629`) |
+| the Siege of Changchun | May – 19 October 1948 | Sautin; Li and Zhang (`cnh-630`) |
+| the Second Sino-Japanese War | 7 July 1937 – 2 September 1945 | Eastman; the PRC embassy (`cnh-631`) |
+| the Mukden explosion / China's appeal to the League | 18 September 1931 / 21 September 1931 | the National Diet Library; Lytton (`cnh-632`) |
+| Manchukuo declared / inaugurated / an empire / collapsed | 18 February 1932 / 9 March 1932 / 1 March 1934 / 1945 | the Tokyo judgment; Lytton (`cnh-633`) |
+| the Northeast United Army declared / retreated / reorganised / returned | 20 February 1936 / c. 1940 / August 1942 / September 1945 | 12371.cn; Hao (`cnh-634`) |
+| the Marco Polo Bridge clash | 7 July 1937 | the Tokyo judgment (`cnh-635`) |
+| the Battle of Shanghai | 13 August – 12 November 1937 | the Tokyo judgment (`cnh-636`) |
+| Nanjing fell / the Nanjing verdict / the Tokyo judgment | 13 December 1937 / 10 March 1947 / 12 November 1948 | the Tokyo judgment; CSSN (`cnh-637`) |
+| the Battle of Wuhan (the government's dates) | 12 June – 25 October 1938 | the *China Handbook* (`cnh-638`) |
+| the move inland proclaimed / Chongqing made the auxiliary capital | 20 November 1937 / 6 September 1940 | FRUS; Zhou and Wang (`cnh-639`) |
+| the bombing of Chongqing / the centre burned / the tunnel | February 1938 – August 1943 / 4 May 1939 / 5 June 1941 | Chan; the AP; Hu and Huang (`cnh-640`) |
+| the Battle of Taierzhuang | 23 March – 7 April 1938 | Zhao and Cong (`cnh-641`) |
+| the Yellow River dyke breached / the breach closed | 9 June 1938 / 1947 | Muscolino; Yang Jintao (`cnh-642`) |
+| the Wang Jingwei regime inaugurated / recognised by Japan / dissolved | 30 March 1940 / 30 November 1940 / August 1945 | FRUS; Yang; Ishijima (`cnh-643`) |
+| the Hundred Regiments Offensive | 20 August – 5 December 1940 | Li Jun (`cnh-644`) |
+| the Jin-Cha-Ji base founded / its first government / its assembly | 1937 / 10 January 1938 / 1943 | Mao; Opper (`cnh-645`) |
+| the New Fourth Army attacked / abolished / rebuilt | 6 January 1941 / 17 January 1941 / 20 January 1941 | FRUS; Andō; Lai (`cnh-646`) |
+| the Burma Road built / closed / cut / the first convoy | 1937 – 1938 / July – October 1940 / 1942 / 4 February 1945 | Khine; Heck; Romanus and Sunderland (`cnh-647`) |
+| Operation Ichi-Go | 17 April – 10 December 1944 | JM-72 (`cnh-649`) |
+| Unit 731's experiments / established | 1933 – 1945 / 1936 | Tsuneishi (`cnh-650`) |
+| the Henan famine / the press report / relief by rail | autumn 1942 – spring 1943 / 1 February 1943 / April 1943 | Baker; FRUS (`cnh-651`) |
+| the refugee flight began / the relief body / the postwar count | 13 August 1937 / 27 April 1938 / end of 1946 | Polit; the *China Handbook*; Fu (`cnh-652`) |
+| the terms handed at Zhijiang / the Nanjing surrender signed | 21 – 23 August 1945 / 9 September 1945 | the *China Handbook* (`cnh-653`) |
+| the Four Policemen proposed / set out / the Chinese talks / the Charter in force | 29 May 1942 / 29 November 1943 / 29 September 1944 / 24 October 1945 | FRUS; the Office of the Historian (`cnh-654`) |
+| the Memorial Hall opened / rebuilt / the first state rite | 15 August 1985 / 13 December 2007 / 13 December 2014 | the Memorial Hall (`cnh-655`) |
+| the People's Republic proclaimed / its constitution / amended | 1 October 1949 / 4 December 1982 / 11 March 2018 | the Office of the Historian; the constitution (`cnh-656`) |
+| the Agrarian Reform Law / the campaign | 30 June 1950 / 1950 – 1952 | Liu Shaoqi (`cnh-657`) |
+| the Double Ten Directive / the campaign against counter-revolutionaries | 10 October 1950 / 1950 – 1953 | Yang Kuisong (`cnh-658`) |
+| the Volunteers ordered in / the armistice / withdrawn | 8 October 1950 / 27 July 1953 / October 1958 | Mao; Shen and Xia (`cnh-659`) |
+| the First Five-Year Plan / adopted | 1953 – 1957 / 30 July 1955 | the plan (`cnh-660`) |
+| the general line / the upsurge / the fixed interest ended | 1953 / 1955 – 1956 / September 1966 | Saitō; Walker (`cnh-661`) |
+| "a hundred flowers" proposed / the contradictions speech / the views aired | 28 April 1956 / 27 February 1957 / 8 May – 7 June 1957 | the party; Mao (`cnh-662`) |
+| the Anti-Rightist Campaign began / labels removed / review completed | 8 June 1957 / 1978 / 1981 | Mao; the party history office (`cnh-663`) |
+| the Great Leap Forward | May 1958 – winter 1960 | the party (`cnh-664`) |
+| the commune resolution / townships restored / the communes dissolved | 29 August 1958 / 4 December 1982 / winter 1982 – 1983 | the Central Committee; the NPC; Dikötter (`cnh-665`) |
+| the Great Chinese Famine | 1959 – 1961 | Ó Gráda (`cnh-666`) |
+| the Lushan Conference opened / Peng's letter / Mao's rebuttal / the plenum | 2 July / 14 July / 23 July / 2 – 16 August 1959 | the party news site (`cnh-667`) |
+| the Sino-Soviet rift opened / the experts recalled / the border clashes | February 1956 / 16 July 1960 / 2 – 15 March 1969 | the NSC; Luan; Lüthi (`cnh-668`) |
+| the Seven Thousand Cadres Conference / Liu's speech / Mao's self-criticism | 11 January – 7 February 1962 / 27 January / 30 January 1962 | Liu; Mao (`cnh-669`) |
+| the Cultural Revolution / enrolment halted / the party's verdict | May 1966 – October 1976 / 13 June 1966 / 27 June 1981 | the party (`cnh-670`) |
+| the Red Guards appeared / the first and last reviews | June 1966 / 18 August 1966 / 26 November 1966 | People's Daily Online (`cnh-671`) |
+| the *Quotations*: first edition / revised / the foreword / withdrawn | 1 May 1964 / 1 August 1965 / 16 December 1966 / 12 February 1979 | a Chinese account; Lin Biao (`cnh-672`) |
+| the Down to the Countryside mass phase / the directive | 1968 – 1980 / 22 December 1968 | Fiskesjö; the party (`cnh-673`) |
+| the Gang of Four arrested / tried | 6 October 1976 / 20 November 1980 – 25 January 1981 | the party; Zheng (`cnh-675`) |
+| Nixon's visit / the Shanghai Communiqué / relations | 21 – 28 February 1972 / 27 February 1972 / 1 January 1979 | FRUS; the Office of the Historian (`cnh-676`) |
+| Boluan Fanzheng began / the truth debate / the third plenum / the resolution | October 1976 / 11 May 1978 / December 1978 / 27 June 1981 | the party; Zhang; Worden (`cnh-679`) |
+| the reform: third plenum / urban reform / the market economy | December 1978 / October 1984 / November 1993 | Worden; Deng; the 1993 communiqué (`cnh-680`) |
+| the Xiaogang pact / endorsed / terms lengthened / extended | December 1978 / 1982 / 1984 / 1993 | Deakin and Meng (`cnh-681`) |
+| the zones decided / the first four / Hainan | July 1979 / August – October 1980 / 1988 | Zeng (`cnh-682`) |
+| the open letter / abortions peaked / two children | 25 September 1980 / 1983 / 1 January 2016 | Xinhua; Mei and Jiang; Wang (`cnh-683`) |
+| the 1989 protests began / martial law / the crackdown | 15 April / 20 May / 3 – 4 June 1989 | the Office of the Historian (`cnh-684`) |
+| the southern talks / circulated | 18 January – 21 February 1992 / 28 February 1992 | Deng; the party (`cnh-685`) |
+| the accession approved / joined | 10 November 2001 / 11 December 2001 | the WTO; the USTR (`cnh-686`) |
+| the towns opened / custody ended / the census day | 1984 / 1 August 2003 / 1 November 2020 | Chan; Amnesty; the NBS (`cnh-687`) |
+| the hukou: urban rules / national rules / reformed | 1951 / January 1958 / 24 July 2014 | Chan; the State Council (`cnh-688`) |
+| the Joint Declaration / the handover | 19 December 1984 / 1 July 1997 | the Joint Declaration (`cnh-689`) |
+| the Belt and Road announced / the official plan | September – October 2013 / 28 March 2015 | the NDRC (`cnh-690`) |
+| Taiwan ceded / the decree powers / the first civilian governor-general / Japanese rule ended | 17 April 1895 / March 1896 / October 1919 / 1945 | the NDL; Takekoshi; Goto (`cnh-691`) |
+| the surrender at Taipei / Retrocession Day restored | 25 October 1945 / 28 May 2025 | Yang; the Ministry of Justice (`cnh-692`) |
+| February 28: the spark / the rising / troops landed / the purge ended | 27 February / 28 February / 8 March / 16 May 1947 | the 228 Foundation (`cnh-693`) |
+| the White Terror (two countings) / the rebellion act / the compensation act | 1949 – 1987, or 1949 – 1992 / 21 June 1949 / 17 June 1998 | Li; the National Human Rights Museum (`cnh-694`) |
+| martial law declared / lifted | 20 May 1949 / 15 July 1987 | CNA (`cnh-695`) |
+| land reform / American aid | 1949 – 1953 / 1951 – 1965 | Duan; Jacoby (`cnh-696`) |
+| the Wild Lily sit-in / the conference / the seniors retired / the direct vote | 16 – 22 March 1990 / 28 June – 4 July 1990 / 31 December 1991 / March 1996 | the ICFT; Kuo and Chen; the CRS (`cnh-697`) |
+| cross-Strait: divided / the first summit / talks resumed / links cut | December 1949 / April 1993 / June 2008 / June 2016 | the CRS; the Taiwan Affairs Office (`cnh-698`) |
+| the identity survey began / the latest reading | 1992 / June 2026 | the Election Study Center (`cnh-699`) |
+| the Cairo declaration / the peace treaty signed / in force / the UN seat | 1943 / 8 September 1951 / 28 April 1952 / 25 October 1971 | the Cairo text; the treaty; the CRS (`cnh-700`) |
+
 ## Later periods
 
-To be filled from `cnh-601` on.
+To be filled from `cnh-701` on.
 
 ## Chronology pins
 
@@ -998,6 +1112,14 @@ cnh-587: 1879; 1915; 1921; 1927; 1942
 cnh-588: 1891; 1917; 1938; 1942; 1962
 cnh-589: 1881; 1904; 1906; 1918; 1936
 cnh-593: 1887; 1924; 1926; 1928; 1975
+cnh-605: 1868; 1912; 1917; 1923; 1940
+cnh-608: 1893; 1943; 1949; 1976
+cnh-615: 1898; 1946; 1949; 1976
+cnh-616: 1886; 1928; 1949; 1976
+cnh-648: 1883; 1942; 1944; 1946
+cnh-674: 1907; 1959; 1969; 1971
+cnh-677: 1921; 1976; 1981; 2008
+cnh-678: 1904; 1920; 1926; 1978; 1997
 cnh-101: 1250; 1046
 cnh-103: 1046; 1040; 1122
 cnh-104: 1046; 1044; 1122
@@ -1346,4 +1468,96 @@ cnh-597: 1925; 1928; 1947
 cnh-598: 1912; 1919; 1924; 1928
 cnh-599: 1842; 1895; 1943
 cnh-600: 1863; 1943
+cnh-601: 1878; 1889
+cnh-602: 1926
+cnh-603: 1916; 1919; 1921
+cnh-604: 1911; 1912; 1947
+cnh-606: 1927; 1946; 1949
+cnh-607: 1931; 1934
+cnh-609: 1930; 1933; 1934
+cnh-610: 1934; 1935; 1936
+cnh-611: 1935
+cnh-612: 1937; 1947
+cnh-613: 1942; 1944; 1943
+cnh-614: 1938; 1945; 1956; 1981
+cnh-617: 1936
+cnh-618: 1937
+cnh-619: 1947
+cnh-620: 1945
+cnh-621: 1945; 1947; 1946
+cnh-622: 1948; 1949
+cnh-623: 1948
+cnh-624: 1948; 1949
+cnh-625: 1948; 1949
+cnh-626: 1949
+cnh-627: 1949
+cnh-628: 1949
+cnh-629: 1962; 1937; 1945
+cnh-630: 1948
+cnh-631: 1937; 1945
+cnh-632: 1931
+cnh-633: 1932; 1934; 1945
+cnh-634: 1936; 1940; 1942; 1945
+cnh-635: 1937
+cnh-636: 1937
+cnh-637: 1937; 1947; 1948
+cnh-638: 1938
+cnh-639: 1937; 1940
+cnh-640: 1938; 1939; 1941; 1943
+cnh-641: 1938
+cnh-642: 1938; 1947
+cnh-643: 1940; 1940; 1945
+cnh-644: 1940; 1940
+cnh-645: 1937; 1938; 1943
+cnh-646: 1941
+cnh-647: 1937; 1938; 1940; 1942; 1945
+cnh-649: 1944
+cnh-650: 1933; 1945; 1936
+cnh-651: 1942; 1943
+cnh-652: 1937; 1938; 1946
+cnh-653: 1945
+cnh-654: 1942; 1943; 1944; 1945
+cnh-655: 1985; 2007; 2014
+cnh-656: 1949; 1982; 2018
+cnh-657: 1950; 1952
+cnh-658: 1950; 1953
+cnh-659: 1950; 1953; 1958
+cnh-660: 1953; 1957; 1955
+cnh-661: 1953; 1955; 1956; 1966
+cnh-662: 1956; 1957
+cnh-663: 1957; 1978; 1981
+cnh-664: 1958; 1960
+cnh-665: 1958; 1982; 1983
+cnh-666: 1959; 1961
+cnh-667: 1959
+cnh-668: 1956; 1960; 1969
+cnh-669: 1962
+cnh-670: 1966; 1976; 1981
+cnh-671: 1966
+cnh-672: 1964; 1965; 1966; 1979
+cnh-673: 1968; 1980
+cnh-675: 1976; 1980; 1981
+cnh-676: 1972; 1979
+cnh-679: 1976; 1978; 1981
+cnh-680: 1978; 1984; 1993
+cnh-681: 1978; 1982; 1984; 1993
+cnh-682: 1979; 1980; 1988
+cnh-683: 1980; 1983; 2016
+cnh-684: 1989
+cnh-685: 1992
+cnh-686: 2001
+cnh-687: 1984; 2003; 2020
+cnh-688: 1951; 1958; 2014
+cnh-689: 1984; 1997
+cnh-690: 2013; 2015
+cnh-691: 1895; 1896; 1919; 1945
+cnh-692: 1945; 2025
+cnh-693: 1947
+cnh-694: 1949; 1987; 1992; 1998
+cnh-695: 1949; 1987
+cnh-696: 1949; 1953; 1951; 1965
+cnh-697: 1990; 1991; 1996
+cnh-698: 1949; 1993; 2008; 2016
+cnh-699: 1992; 2026
+cnh-700: 1943; 1951; 1952; 1971
 ```

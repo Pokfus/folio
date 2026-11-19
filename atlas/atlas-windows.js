@@ -106,9 +106,25 @@
        joiners in a second tint). `data-map-year` and `data-map-groups` (history entity ids, `|` within a group, `;` between groups) come from app.js cardMembers; the hub
        loads the whole history (as a glossary window's state does) and each group is a highlight of that year's states. On the still renderer (no WebGL2) no past year can be
        drawn, so the window keeps today's countries (`data-map-key`) in gold, as it did before. */
+    /* A STATE OF THE PAST AS THE QUESTION (2026-11-19, the Historical States collection; docs/historical-states-card-plan.md): a map card on a layer flagged `past` (app.js CARD_MAP_LAYERS
+       `past-states`). Its shape is an entity of history.bin and its row of card-faces.js carries the YEAR OF ITS GREATEST EXTENT, the view's centre and the zoom (build-card-faces.js), so the
+       window asks the hub for the whole history, as a glossary window's state does, and draws that year: the state in the selection gold, every other state of the year plain. Unlike a
+       glossary window it is the card's QUESTION, so it is never today's map with nothing shaded: the window stays in its loading state until the history has arrived, and where it cannot
+       (no WebGL2; the file copy of the site, which has no twin of the whole history; a refused fetch) it prints one plain sentence. Nothing is named before the answer; after it, the
+       state by the card's own answer and the other states of that year (otherStateNames). No studied siblings and no scope switch: a place studied in another year is not on this map. */
+    const pastLayer = !isGloss && !isMembers && !isWar && !!(def && def.past);
+    let pastYear = null, pastView = null, pastOK = false;
     const memYear = isMembers && host.getAttribute("data-map-year") ? Number(host.getAttribute("data-map-year")) : null;
     const memGroups = memYear != null ? String(host.getAttribute("data-map-groups") || "").split(";").map((g) => g.split("|").filter(Boolean)).filter((g) => g.length) : [];
     let memHist = false;
+    /* AN EXTENT AS A MEMBERS GROUP (2026-11-19, on request: gr-231's window "must show the borders of the whole Spartan state"; docs/atlas-v2-card-windows.md "An extent as a members
+       group"). A group may name history.bin EXTENTS (`pol:ext_…`, the authored or derived war extents) — Lacedaemon's two halves, `pol:ext_sparta` and `pol:ext_messenia`. The engine
+       draws an extent only where a war gives it a role (atlas.js `presShown`), so such ids are not engine highlights: the window asks the hub for their rings at the window's year
+       (`entityRings`, the worker's `face-rings`) and paints them itself — the group's tint over the land, and ONE outline round the union of the group's faces (no line where two of
+       its extents meet). Only a window whose group names an extent changes; on the still renderer (no history) its present-day `keys` are NOT tinted, since they would claim far more. */
+    const EXT_ID = /^pol:ext_/;
+    const memExt = memGroups.map((g) => g.filter((id) => EXT_ID.test(id))), memHasExt = memExt.some((g) => g.length > 0);
+    const extR = { key: "", asked: "", groups: null };
     // a members window may carry a timeline over its states' own years (`members.span`, 2026-10-29): "y0,y1"
     const memSpan = memYear != null && host.getAttribute("data-map-span") ? host.getAttribute("data-map-span").split(",").map(Number).filter((v) => isFinite(v)) : null;
     const readPts = (a) => (a ? a.trim().split(/\s+/).map((q) => q.split(",").map(Number)).filter((q) => q.length === 2 && isFinite(q[0]) && isFinite(q[1])) : null);
@@ -123,7 +139,7 @@
        finer level is in the same 4.3 MB file as the coarse one, so "never fetched" can only mean the file is not fetched): the card's own river from `rivers.js` is still drawn in gold. */
     const lightReader = !!(S.settings && S.settings.saveData) || !!(typeof navigator !== "undefined" && navigator.connection && navigator.connection.saveData === true);
     const isWaterSubject = () => { const w = window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.water; return !!sibCard && !!w && w.cards.indexOf(sibCard) >= 0; };   // the registry kind of the locator's place (build-card-faces.js); a name only for a locator with no resolved place, decided there
-    const wantWater = (!!sibCard || !!hiRegion || isGloss) && !lightReader;   // a glossary window draws its rivers and lakes as a locator does
+    const wantWater = (!!sibCard || !!hiRegion || isGloss || pastLayer) && !lightReader;   // a glossary window draws its rivers and lakes as a locator does, and so does a state of the past: the Nile and the Euphrates are how a reader finds an early state
     /* THE OWN PLACE'S MARK BY ITS KIND (2026-11-14, the owner: "'Aegean Sea' should not be a dot, but also a region, with a blue italicised label … apply this to other seas, lakes,
        rivers"; "make the symbol for Mount Olympus … a mountain (triangle) instead of a dot. Apply this to other cards about individual mountains"). Decided by the place REGISTRY's kind,
        never by the name in the window: for a card, `ATLAS_CARD_FACES.marks` (build-card-faces.js: `water` and `peak` lists of locator cards); for a glossary window, the registry kind its
@@ -132,7 +148,12 @@
        shaded as a sea area is. A water card asked as a QUESTION (the name not yet shown) whose outline is not known keeps its dot: without it the window would mark nothing. A mountain
        or a hill draws the Atlas page's peak triangle (study.js markClass "peak") in the own mark's gold. */
     const WATER_KINDS = /^(river|lake|sea|ocean|strait|gulf)$/, placeKind = isGloss ? String(host.getAttribute("data-map-placekind") || "") : "";
-    const markList = (k) => { const m = window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.marks; return !!sibCard && !!m && Array.isArray(m[k]) && m[k].indexOf(sibCard) >= 0; };
+    const marksHas = (k, id) => { const m = window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.marks; return !!id && !!m && Array.isArray(m[k]) && m[k].indexOf(id) >= 0; };
+    const markList = (k) => marksHas(k, sibCard);
+    /* A SIBLING'S MARK BY ITS KIND TOO (2026-11-19, on request: "in all Ancient Greece atlas windows Mount Olympus must show the triangular mountain"; "the Aegean Sea must never be a dot"): the rule above
+       was the card's OWN place only, so every other card's window drew Mount Olympus and the Aegean Sea as red dots. A studied sibling whose place is water (`marks.water`, its locator kind
+       sea or shelf) or a desert (study.js areaOf) is its name alone, a water name blue and italic, an area's italic; one whose place is a mountain or a hill (`marks.peak`) the red peak triangle. */
+    const sibAreaOf = (d) => { if (d.kind === "battle") return null; if (d.kind === "sea" || d.kind === "shelf" || marksHas("water", d.id)) return "water"; const A = window.AtlasStudy; const a = A && A.areaOf ? A.areaOf(d.kind === "point" ? "" : d.kind, d.n) : null; return a; };
     const waterName = () => locKind === "sea" || locKind === "river" || (isGloss ? WATER_KINDS.test(placeKind) : markList("water"));
     const peakMark = () => (isGloss ? placeKind === "mountain" || placeKind === "hill" : markList("peak"));
     let wRings = null, wRingsAsked = false;   // the water's own outline out of findit-waters.js: null not yet known, false none
@@ -154,7 +175,7 @@
     const reliefNow = () => { const r = !lightReader && !onCellular && window.AtlasEmbed && window.AtlasEmbed.reliefSetting ? window.AtlasEmbed.reliefSetting() : null; return r && r.on ? { relief: true, strength: r.strength } : { relief: false }; };
     const subdiv = sibCard ? (CMAP_SUBDIV[(root0 || {}).id] || null) : null;
     /* a map card's window draws the collection's studied places too (app.js cardMapHTML `data-map-sib`, 2026-11-07); it stays a map card in everything else */
-    const sibOf = sibCard || (!isGloss && !isWar ? host.getAttribute("data-map-sib") || "" : "");
+    const sibOf = sibCard || (!isGloss && !isWar && !pastLayer ? host.getAttribute("data-map-sib") || "" : "");
     /* THE SCOPE SWITCH (2026-11-18, on request: "in the top left of every atlas window should be a switch to depict either all the locations within the collection (current system) or all
        unlocked locations in all history/science/philosophy collections"): "col" draws this collection's studied places (locatorSiblings), "all" every studied place of every History, Science and
        Philosophy collection (app.js locatorSiblingsAll). A per-viewer convenience in localStorage (`folio.atlasWinScope`), shared by every window on the page through `folio:winscope`. */
@@ -185,13 +206,19 @@
     const hubOptions = { host: {} };
     const wantsFront = isWar && WAR_FRONT_CARDS.has(sibCard);   // the war that owns the front line reads the Second World War slice (see WAR_FRONT_CARDS), on file:// too
     if (isWar) { hubOptions.needHistory = wantsFront ? "ww2" : "wars"; hubOptions.ownHolds = 1; }
-    if (glossYear != null || (memYear != null && memGroups.length)) { hubOptions.needHistory = "full"; hubOptions.ownHolds = 1; }   // a state at its greatest extent: the whole history (a hub on a war slice with no window on it is replaced)   // a hub on the other slice is replaced when no other window or pending window is on it (AtlasEmbed.ensure)
+    if (glossYear != null || pastLayer || (memYear != null && memGroups.length)) { hubOptions.needHistory = "full"; hubOptions.ownHolds = 1; }   // a state at its greatest extent: the whole history (a hub on a war slice with no window on it is replaced)   // a hub on the other slice is replaced when no other window or pending window is on it (AtlasEmbed.ensure)
     let tlSteps = [], tlIdx = -1, tlSpan = null;   // the timeline's steps (none: no timeline), the step the pin stands on, the war's own years
     const tlStep = () => (tlIdx >= 0 ? tlSteps[tlIdx] : null);
     function model() {
       FACES = window.ATLAS_CARD_FACES; const L = FACES && FACES.layers[layerName]; if (!L) return false;
       if (!key && keyCard) { key = cardMapKeys(CARD_BY_ID[keyCard]).join("|"); if (!key) return false; host.setAttribute("data-map-key", key); }   // written back: the host contract (`data-map-key`) holds once the window has its model
       if (key) for (const k of key.split("|")) { const t = L[k]; if (!t) return false; targets.push({ n: k, id: t[0], c: [t[1], t[2]], b: [t[3], t[4], t[5], t[6]] }); }
+      if (pastLayer) {   // the year, the view and the zoom are the row's own (build-card-faces.js); the name the window writes after the answer is the card's answer, not the layer's key
+        const t = targets.length ? L[targets[0].n] : null; if (!t || !isFinite(t[7])) return false;
+        pastYear = t[7]; pastView = [t[8], t[9], t[10]]; host.setAttribute("data-map-year", String(pastYear));
+        const pc = CARD_BY_ID[host.getAttribute("data-map-sib") || ""], an = pc ? String(pc.answerText || pc.answer || "").replace(/<[^>]+>/g, "").trim() : "";
+        if (an) targets[0].n = an;
+      }
       if (glossFace) targets.push({ n: host.getAttribute("data-map-atname") || "", id: glossFace, c: null, b: null });   // the glossary window's face: framed by its own `at` and zoom (fit), tinted by id
       const atAttr = host.getAttribute("data-map-at");
       if (atAttr) { const at = atAttr.split(",").map(Number); if (at.length !== 2 || !isFinite(at[0]) || !isFinite(at[1])) return false; dot = { n: host.getAttribute("data-map-atname") || "", c: at }; }
@@ -212,6 +239,7 @@
     const ringsBox = (rings) => ringsBBox(rings);
     function fit() {
       if (isGloss) { const g = dot ? dot.c : [0, 0]; home = { lon: g[0], lat: g[1], zoom: Math.max(CMAP_ZMIN, Math.min(CMAP_ZMAX, zoomAttr || CMAP_ZLOC)) }; return; }   // the generator framed it (build-glossary-places.js)
+      if (pastLayer && pastView) { home = { lon: pastView[0], lat: pastView[1], zoom: Math.max(CMAP_ZMIN, Math.min(CMAP_ZMAX, zoomAttr || pastView[2] || 4)) }; return; }   // a state of the past: framed by its row (build-card-faces.js)
       const at = targets.length ? targets[0].c : dot ? dot.c : [0, 0];
       let lon = at[0], lat = at[1], z = targets.length ? 4 : CMAP_ZLOC;
       /* a river that IS the question (app.js cardLocatorFront: the window on the card's front, not yet named) is framed on its own traced line rather than on its
@@ -240,12 +268,16 @@
       home = { lon, lat, zoom: Math.max(CMAP_ZMIN, Math.min(CMAP_ZMAX, zoomAttr || z)) };
     }
     // colours of the marks' labels, from the theme as V1 read them
-    let ink = "#221808", halo = "rgba(255,255,255,0.94)", font = "system-ui, sans-serif", water = "rgba(31,122,170,0.72)", waterInk = "#204d6f";
+    let ink = "#221808", halo = "rgba(255,255,255,0.94)", font = "system-ui, sans-serif", areaFont = "Georgia, serif", water = "rgba(31,122,170,0.72)", waterInk = "#204d6f";
     function cols() {
       const cs = getComputedStyle(document.body), g = (n) => (cs.getPropertyValue(n) || "").trim();
       const rgb = (h) => { h = String(h).replace("#", ""); if (h.length === 3) h = h.split("").map((c) => c + c).join(""); const n = parseInt(h, 16) || 0; return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
       const p = rgb(g("--paper") || "#fff"), dark = (p[0] * 0.299 + p[1] * 0.587 + p[2] * 0.114) < 128;
       ink = dark ? "#ffffff" : "#221808"; halo = dark ? "rgba(0,0,0,0.9)" : "rgba(255,255,255,0.94)"; font = g("--sans") || "system-ui, sans-serif";
+      /* AN AREA'S NAME IS IN THE SERIF (2026-11-19, on request: "names of states, regions, peoples, bodies of water, deserts, mountain ranges and other areas in a different font from specific
+         point locations — a serif"): a state, a war side, a region, a water, a range is set in the theme's serif (study.js areaSerif: --serif, else --display, else Lora, all already loaded);
+         a city's, a site's, a battle's, a building's or a peak's name keeps the sans */
+      areaFont = (window.AtlasStudy && window.AtlasStudy.areaSerif) ? window.AtlasStudy.areaSerif(g("--serif"), g("--display")) : (g("--serif") || "Georgia, serif");
       water = dark ? "rgba(120,170,220,0.8)" : "rgba(31,122,170,0.72)";
       /* a water NAME's ink (2026-11-14, the owner: "a blue italicised label to indicate it's a body of water"): the Atlas page's own `waterInk` (atlas.js readPalette, the one
          definition) — a deep blue-ink by day (the ink mixed half toward rgb(31,122,170)), a pale blue at night (rgb(140,204,255) a little toward the paper) */
@@ -309,7 +341,9 @@
       if (!stN.rows) return;
       const skipFaces = new Set((lastLabels || []).filter((l) => l.principal || l.ground).map((l) => l.face));
       const skipNames = new Set((lastLabels || []).map((l) => String(l.n || "").trim().toLowerCase()));
-      ctx.save(); ctx.font = "500 11px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.lineJoin = "round"; ctx.lineWidth = 3;
+      /* a state of the past (pastLayer) is named once, by its card's answer at its label point: the Atlas's own name for it that year (the layer's key) is not written a second time */
+      if (pastOK) { if (key) skipNames.add(key.split("|")[0].trim().toLowerCase()); if (targets.length) skipNames.add(String(targets[0].n || "").trim().toLowerCase()); }
+      ctx.save(); ctx.font = "500 11px " + areaFont; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.lineJoin = "round"; ctx.lineWidth = 3;
       const hit = (b, o) => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1], placed = taken.slice(), out = [];
       const rows = stN.rows.filter((r) => r.v && stN.byFace.has(r.face) && !skipFaces.has(r.face)).sort((a, b) => (b.km2 || 1) * Math.max(0.02, b.vis) - (a.km2 || 1) * Math.max(0.02, a.vis));
       const seen = new Set();
@@ -352,7 +386,7 @@
       const cvR = cv.getBoundingClientRect(), zc = host.querySelector(".mc-zoom");
       if (!api.fast || !warMarks.ctl) { const zr = zc ? zc.getBoundingClientRect() : null; warMarks.ctl = zr && zr.width ? [zr.left - cvR.left - 6, zr.top - cvR.top - 6, zr.right - cvR.left + 6, zr.bottom - cvR.top + 6] : null; }
       const ctl = warMarks.ctl;
-      ctx.save(); ctx.font = "600 12.5px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.save(); ctx.font = "600 12.5px " + areaFont; ctx.textAlign = "center"; ctx.textBaseline = "middle";
       const placed2 = [], named = [], labelsNow = [];
       const hit = (b, o) => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1];
       // per side: its name, the name's width, and the points inside its faces (the biggest face on screen first, each face's best point first) that are on the globe's near side
@@ -434,10 +468,54 @@
       ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(sb.text, x0, y - 8); ctx.fillStyle = ink; ctx.fillText(sb.text, x0, y - 8);
       ctx.restore();
     }
+    const memTint = (i) => (i === 0 ? TINT_SEL : i === 1 ? (X.TINT_LATE || TINT_SEL) : (X.TINT_THIRD || X.TINT_LATE || TINT_SEL));
+    const extYear = () => (tlStep() ? tlStep().year : memYear);
+    const extKey = (level) => extYear() + "@" + Math.min(2, level | 0);
+    const extCurrent = (o) => !memHist || !memHasExt || extR.key === extKey(o.level);
+    let extCv = null;
+    function extPath(c, api, rings) {   // unit-vector rings -> a path in the window's CSS px, broken behind the horizon
+      for (const ring of rings) {
+        const n = ring.length / 3; let pen = false;
+        for (let i = 0; i <= n; i++) {
+          const j = (i % n) * 3, p = api.projectV(ring[j], ring[j + 1], ring[j + 2]);
+          if (p[2] < 0.002) { pen = false; continue; }
+          if (pen) c.lineTo(p[0], p[1]); else { c.moveTo(p[0], p[1]); pen = true; }
+        }
+      }
+    }
+    function paintExtents(ctx, api) {
+      const key = extKey(api.level);
+      if (extR.key !== key && extR.asked !== key && winHub && winHub.entityRings) {
+        extR.asked = key; const y = extYear(), lv = Math.min(2, api.level | 0);
+        Promise.all(memExt.map((ids) => (ids.length ? winHub.entityRings(ids, y, lv) : Promise.resolve({ faces: [], rings: [] })))).then((rs) => {
+          if (stopped || extR.asked !== key) return;
+          if (rs.some((r) => r == null)) { extR.asked = ""; return; }   // the history is not in yet: asked again at the next frame (the hub's onChange redraws when it lands)
+          extR.key = key; extR.groups = rs.map((r, i) => ({ rings: r.rings, tint: memTint(i) })); if (win) win.schedule();
+        }, () => { extR.asked = ""; });
+      }
+      if (!extR.groups) return;
+      for (const g of extR.groups) {
+        if (!g.rings.length) continue;
+        const t = g.tint;
+        // the fill: the group's tint over the land (the land mask keeps it off the sea where the window's coast is finer than the rings' level)
+        paintMasked(ctx, api, (m) => { m.beginPath(); extPath(m, api, g.rings); m.fillStyle = "rgba(" + t.rgb + "," + t.fillA + ")"; m.fill(); });
+        // the outline: a band OUTSIDE the union only, stroked at twice the width with the union's own fill then cut out of it, so a line two of the group's extents share is not drawn
+        if (!extCv) extCv = document.createElement("canvas");
+        if (extCv.width !== cv.width || extCv.height !== cv.height) { extCv.width = cv.width; extCv.height = cv.height; }
+        const o = extCv.getContext("2d"); o.setTransform(1, 0, 0, 1, 0, 0); o.clearRect(0, 0, extCv.width, extCv.height); o.setTransform(api.dpr, 0, 0, api.dpr, 0, 0);
+        o.beginPath(); extPath(o, api, g.rings);
+        o.lineJoin = "round"; o.lineCap = "round"; o.lineWidth = 2 * 2.2; o.strokeStyle = t.line; o.stroke();
+        o.globalCompositeOperation = "destination-out"; o.fillStyle = "#000"; o.fill(); o.globalCompositeOperation = "source-over";
+        ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+        if (!api.fast && t.glow) { ctx.shadowColor = t.glow; ctx.shadowBlur = 7 * api.dpr; ctx.drawImage(extCv, 0, 0); ctx.shadowBlur = 0; ctx.shadowColor = "transparent"; }
+        ctx.drawImage(extCv, 0, 0); ctx.restore();
+      }
+    }
     function marks(st, api, ctx) {
       cols();
       ctx.save(); ctx.setTransform(api.dpr, 0, 0, api.dpr, 0, 0);
       const W = api.cw, H = api.ch, shelf = locKind === "shelf", sea = locKind === "sea";
+      if (memHist && memHasExt) paintExtents(ctx, api);   // a members group's extents (2026-11-19): under every mark and name
       // the authored area (or a water place's known outline, shaded as a sea)
       const wr = waterRings(), areaRings = locArea || wr, seaLike = sea || (!!wr && !locArea);
       if (areaRings) {
@@ -496,7 +574,7 @@
       const droppedNames = [];
       const nm0 = gameCapFirst(dot ? dot.n : isMembers && host.getAttribute("data-map-name") ? host.getAttribute("data-map-name") : targets.length ? targets[0].n : "");   // a seatless members window: its group's name (app.js cardLocatorWindowHTML)
       // ---- the marks ----
-      let sibAt = [], anchorAt = null, faceAt = [], alsoAt = [];
+      let sibAt = [], anchorAt = null, faceAt = [], alsoAt = [], areaAt = [];
       if (sibOf && !isWar) {
         const groups = new Map();
         const meLoc = cardLocator(CARD_BY_ID[sibOf]), hideSet = new Set((meLoc && meLoc.hide) || []);   // places this card's window leaves off (`locator.hide`)
@@ -513,6 +591,7 @@
             const P = (FACES.dots[d.map.layer] || {})[d.map.dot]; if (!P) continue;
             d = { id: d.id, n: d.n, c: [P[0], P[1]], kind: "point" };
           }
+          if (d.kind !== "regionname" && !d.map) { const ar = sibAreaOf(d); if (ar) { const nmA = String(d.n || "").trim().toLowerCase(); if (nmA && nmA !== String(nm0 || "").trim().toLowerCase() && !(dot && nmA === String(dot.n || "").trim().toLowerCase())) { const p = api.project(d.c[0], d.c[1]); if (inView(api, p)) areaAt.push([p[0], p[1], d.n, true, ar === "water" ? waterInk : null]); } continue; } if (marksHas("peak", d.id)) d = Object.assign({}, d, { kind: "peak" }); }   // an area is a name, never a dot; a mountain the peak triangle (2026-11-19)
           if (d.kind === "regionname") { if (String(d.n).trim().toLowerCase() !== String(nm0 || "").trim().toLowerCase()) { const p = api.project(d.c[0], d.c[1]); if (inView(api, p)) faceAt.push([p[0], p[1], d.n, true]); } continue; }   // a region of the collection (an area: its name italic): its name alone (app.js locatorSiblings)
           const k = String(d.within || d.n || "").trim().toLowerCase(); if (!k || (locWithin && k === locWithin)) continue; if (anchor && k === anchor.n.toLowerCase()) continue;
           // the card's OWN place, studied on another card (2026-10-29, the owner: "the atlas window seems to display the text label for Alexandria twice, possibly because i already discovered
@@ -530,24 +609,25 @@
         for (const a of (meLoc && meLoc.also) || []) { const p = api.project(a.at[0], a.at[1]); if (!inView(api, p)) continue; if (a.label) faceAt.push([p[0], p[1], a.name, true]); else if (a.role) alsoAt.push([p[0], p[1], a.name, a.role]); else sibAt.push([p[0], p[1], a.name, "point"]); }
         for (const aa of alsoAt) addMark(aa[3] === "capital" ? "square" : "dot", aa[0], aa[1], 6, 6);
         if (anchor) { const p = api.project(anchor.c[0], anchor.c[1]); if (inView(api, p)) anchorAt = [p[0], p[1]]; }
-        for (const sa of sibAt) addMark(sa[3] === "battle" ? "swords" : "dot", sa[0], sa[1], sa[3] === "battle" ? 8 : 4.6, sa[3] === "battle" ? 8 : 4.6);
+        for (const sa of sibAt) addMark(sa[3] === "battle" ? "swords" : sa[3] === "peak" ? "peak" : "dot", sa[0], sa[1], sa[3] === "battle" ? 8 : sa[3] === "peak" ? 5.6 : 4.6, sa[3] === "battle" ? 8 : sa[3] === "peak" ? 5.6 : 4.6);
         if (anchorAt) addMark("home", anchorAt[0], anchorAt[1], 5.6, 5.6);
       }
       const isWall = locKind === "wall";   // a wall (2026-11-13, on request: Hadrian's Wall drawn as the line it is): a thick line along its spine, no peaks, no dot
       if (locSpine && isWall) { for (const q of locSpine) { const p = api.project(q[0], q[1]); if (inView(api, p)) addMark("wall", p[0], p[1], 3, 3); } }
       else if (locSpine) { const mh = Math.max(3, Math.min(9, 3.4 * Math.sqrt(st.zoom / CMAP_ZLOC))), mw = mh * 0.85; for (const q of locSpine) { const p = api.project(q[0], q[1]); if (inView(api, p)) addMark("peak", p[0], p[1] - mh * 0.1, mw + 1, mh * 0.65 + 1); } }
       let ownDotAt = null;
-      const isWater = waterName(), noDotWater = isWater && (revealed || !!locArea || !!wr), isPeak = !isWater && peakMark();
+      const ownDesert = !isGloss && !!dot && !!window.AtlasStudy && !!window.AtlasStudy.areaOf && window.AtlasStudy.areaOf(locKind === "point" ? "" : locKind, dot.n) === "desert";   // a desert is an area: no dot once named, as a water (2026-11-19)
+      const isWater = waterName(), noDotWater = (isWater || ownDesert) && (revealed || !!locArea || !!wr), isPeak = !isWater && peakMark();
       /* THE SQUARE IS A CAPITAL'S (2026-11-16, the owner: "in gloss popup atlas windows, locations should only ever use square icons if they are currently the capital city of a country"):
          a glossary window's own point is the gold square only when its registry kind is `capital` (a present-day national capital; app.js glossWindowHTML clears the kind where Natural
          Earth's flag is not one), every other point the gold circle. A card's window keeps its rule: the square without a sibling, the circle with them. */
-      const ownSquare = isGloss ? placeKind === "capital" : (!sibCard || (isMembers && memYear != null) || ((cardLocator(CARD_BY_ID[sibCard]) || {}).role === "capital"));   // a ruler's capital at the card's own dot (`locator.role`, 2026-11-18)   // a state's seat on its own year's borders is its capital: the square (2026-11-18)
+      const ownSquare = isGloss ? placeKind === "capital" : (!sibCard || (isMembers && memYear != null && !cardLocator(CARD_BY_ID[sibCard])) || ((cardLocator(CARD_BY_ID[sibCard]) || {}).role === "capital"));   // the seat is the square only when it IS the dot: a card with a locator draws the locator's place there (rm-371's Nola, a death place, 2026-11-19), square only by `locator.role`   // a ruler's capital at the card's own dot (`locator.role`, 2026-11-18)   // a state's seat on its own year's borders is its capital: the square (2026-11-18)
       if (dot && !noDotWater && !(locKind === "river" && !!ownLines) && locKind !== "range" && !isWall && locKind !== "region" && locKind !== "sea" && locKind !== "shelf") { const p = api.project(dot.c[0], dot.c[1]); if (p[2] >= 0) { ownDotAt = p; addMark(locKind === "battle" ? "swords" : isPeak ? "peak" : ownSquare ? "square" : "dot", p[0], p[1], locKind === "battle" ? 9 : 7, locKind === "battle" ? 9 : 7); } }
       // ---- the names, in priority order ----
       if (ownLines && revealed) {   // the card's own river: its name on the line, at the first of several stretches that is clear
         const lines = ownLines.filter((l) => l && l.length > 1).sort((p1, p2) => p2.length - p1.length);   // the river's stretches, the longest first
         if (lines.length) {
-          const rf = "italic 600 13px " + font, lbl = gameCapFirst(ownName), w = wOf(rf, lbl), pts = [];
+          const rf = "italic 600 13px " + areaFont, lbl = gameCapFirst(ownName), w = wOf(rf, lbl), pts = [];
           for (const dy of [0, -11, 11]) for (const line of lines) for (const f of [0.5, 0.45, 0.55, 0.4, 0.6, 0.35, 0.65, 0.3, 0.7, 0.25, 0.75, 0.2, 0.8, 0.15, 0.85, 0.1, 0.9, 0.05, 0.95]) { const q = line[Math.min(line.length - 1, Math.floor(line.length * f))], p = api.project(q[0], q[1]); if (p[2] >= 0 && p[0] > 0 && p[0] < W && p[1] > 0 && p[1] < H) pts.push(centred(p[0], p[1] + dy, w, 8)); }   // on the line at the middle first, then along it, then just above and below it
           for (const line of lines) for (const f of [0.5, 0.4, 0.6, 0.3, 0.7, 0.2, 0.8, 0.1, 0.9]) { const q = line[Math.min(line.length - 1, Math.floor(line.length * f))], p = api.project(q[0], q[1]); if (p[2] >= 0 && p[0] > 0 && p[0] < W && p[1] > 0 && p[1] < H) for (const c of ring1(p[0], p[1], 2, w, 8).slice(0, 4)) pts.push(c); }   // then beside the line, to its right and left, above and below
           placeName(lbl, rf, pts, { must: true, own: true, color: waterInk });   // a river's name is a water name: blue, italic
@@ -561,23 +641,27 @@
           const beside = !!dot && !noDotWater && locKind !== "region" && locKind !== "range" && !isWall && locKind !== "sea" && locKind !== "shelf";
           /* AN AREA'S NAME IS ITALIC (2026-11-14, the owner: "region labels (e.g. Faiyum, Cyclades, Eastern Desert etc.) should be italicised"): every own name that stands ON its ground rather than
              beside a mark — a region, a range, a sea, a shelf, a water place, a glossary area or state — as the Atlas page sets its areas; a point's name beside its dot, and a wall's, stay upright */
-          const ownFont = (!beside && !isWall ? "italic " : "") + "600 13px " + font;
+          const ownFont = (!beside && !isWall ? "italic " : "") + "600 13px " + (beside || isWall ? font : areaFont);
           // beside a dot: to its right as always (10 px from its centre), then the other places round it; on an area or a range: centred on its label point, then above and below it
           placeName(nm0, ownFont, (w) => beside ? around(p[0], p[1], 7, w, 8).map((c, n) => (n === 0 ? Object.assign(c, { x: p[0] + 10, box: [p[0] + 8, c.y - 8, p[0] + 12 + w, c.y + 8] }) : c)) : [centred(p[0], p[1], w, 8), centred(p[0], p[1] - 18, w, 8), centred(p[0], p[1] + 18, w, 8), centred(p[0] - w / 2 - 14, p[1], w, 8), centred(p[0] + w / 2 + 14, p[1], w, 8)], { must: true, own: true, color: isWater ? waterInk : ink });
         }
       }
       if (anchorAt) placeName(anchor.n, "600 11.5px " + font, (w) => around(anchorAt[0], anchorAt[1], 5.6, w, 8), {});
       for (const aa of alsoAt) { const nm = gameCapFirst(aa[2]); if (nm) placeName(nm, "600 12px " + font, (w) => around(aa[0], aa[1], 6, w, 8), { own: true }); }   // the card's own further places (a person's birth and death, a ruler's capital) outrank the siblings
+      /* a studied sea's or desert's name (2026-11-19: it was a dot with its name beside it, laid with the siblings; now a name alone it stands on open ground, so it is laid before the
+         siblings' names, which have their eight places round their dots to choose from) — on its point, else a little above, below or to either side */
+      for (const fa of areaAt) { const nm = gameCapFirst(fa[2]); if (nm) placeName(nm, "italic 500 11px " + areaFont, (w) => [0, -14, 14, -28, 28].map((dy) => centred(fa[0], fa[1] + dy, w, 7)).concat([centred(fa[0] - w / 2, fa[1], w, 7), centred(fa[0] + w / 2, fa[1], w, 7)]), fa[4] ? { color: fa[4] } : {}); }
       sibAt.sort((a, b) => Math.hypot(a[0] - api.cw / 2, a[1] - api.ch / 2) - Math.hypot(b[0] - api.cw / 2, b[1] - api.ch / 2));   // the nearest to the window's centre first: they are the places the card is about
       for (const sa of sibAt) { const nm = gameCapFirst(sa[2]); if (nm) placeName(nm, "500 11px " + font, (w) => around(sa[0], sa[1], 4.6, w, 7), {}); }
       // a studied state's or country's name (a geography map card): centred on its label point, else just above or below it — never far from its own ground
       faceAt.sort((a, b) => Math.hypot(a[0] - api.cw / 2, a[1] - api.ch / 2) - Math.hypot(b[0] - api.cw / 2, b[1] - api.ch / 2));
-      for (const fa of faceAt) { const nm = gameCapFirst(fa[2]); if (nm) placeName(nm, (fa[3] ? "italic " : "") + "500 11px " + font, (w) => [centred(fa[0], fa[1], w, 7), centred(fa[0], fa[1] - 14, w, 7), centred(fa[0], fa[1] + 14, w, 7)], {}); }
+      for (const fa of faceAt) { const nm = gameCapFirst(fa[2]); if (nm) placeName(nm, (fa[3] ? "italic " : "") + "500 11px " + areaFont, (w) => [centred(fa[0], fa[1], w, 7), centred(fa[0], fa[1] - 14, w, 7), centred(fa[0], fa[1] + 14, w, 7)], {}); }
       lastBoxes = { names: nameBoxes.map((q) => ({ text: q.text, own: q.own, box: q.box.slice() })), marks: markBoxes.map((m) => ({ kind: m.kind, box: m.box.slice() })), dropped: droppedNames.slice(), ctl: ctlR ? ctlR.slice() : null, scale: sb ? { text: sb.text, px: sb.len, box: sb.box.slice() } : null };
       // ---- drawing: the marks, then the names ----
       if (sibOf && !isWar) {
         for (const sa of sibAt) {
           if (sa[3] === "battle") paintSwords(ctx, sa[0], sa[1], 6.5);
+          else if (sa[3] === "peak") { ctx.beginPath(); ctx.moveTo(sa[0], sa[1] - 5); ctx.lineTo(sa[0] + 5, sa[1] + 3.6); ctx.lineTo(sa[0] - 5, sa[1] + 3.6); ctx.closePath(); ctx.lineJoin = "round"; ctx.fillStyle = "rgba(200,69,60,.9)"; ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.75)"; ctx.stroke(); }   // a studied mountain: the Atlas's peak triangle, in the siblings' red
           else { ctx.beginPath(); ctx.arc(sa[0], sa[1], 3.4, 0, Math.PI * 2); ctx.fillStyle = "rgba(200,69,60,.9)"; ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.75)"; ctx.stroke(); }
         }
         for (const aa of alsoAt) {
@@ -613,10 +697,10 @@
       if (isWar) warMarks(st, ctx, api);
       ctx.textBaseline = "middle"; ctx.lineJoin = "round";
       for (const n of plan) { ctx.font = n.font; ctx.textAlign = n.align; ctx.lineWidth = n.lw; ctx.strokeStyle = halo; ctx.strokeText(n.text, n.x, n.y); ctx.fillStyle = n.color; ctx.fillText(n.text, n.x, n.y); }
-      if (isWar || memHist) {   // the other states' names, last: they give way to every mark and every name above (otherStateNames)
+      if (isWar || memHist || (pastOK && revealed)) {   // the other states' names, last: they give way to every mark and every name above (otherStateNames); on a state of the past only once the answer is shown
         const taken = markBoxes.map((m) => m.box).concat(nameBoxes.map((q) => q.box), (lastLabels || []).map((l) => [l.tx - l.w / 2 - 3, l.ty - 9, l.tx + l.w / 2 + 3, l.ty + 9]));
         if (ctlR) taken.push(ctlR); if (sbR) taken.push(sbR); if (scopeR) taken.push(scopeR);
-        otherStateNames(st, api, ctx, taken, memHist ? (tlStep() ? tlStep().year : memYear) : tlStep() ? tlStep().year : Number(host.getAttribute("data-map-year")));
+        otherStateNames(st, api, ctx, taken, pastOK ? pastYear : memHist ? (tlStep() ? tlStep().year : memYear) : tlStep() ? tlStep().year : Number(host.getAttribute("data-map-year")));
       }
       ctx.restore();
     }
@@ -719,6 +803,20 @@
             mountWindow(hub, warYear); });   // Phase 4b: a war whose sides the loaded history has no faces for keeps V1's window too — on file:// the history twin is the 2a pilot slice (11 entities), and a window that tints nothing and frames the planet is worse than V1's
         }
         if (glossYear != null && hub.canvas2d) { plain("This browser cannot draw a state of the past (it needs WebGL2)."); return; }   // the still renderer draws no history; the popup drops the block
+        if (pastLayer) {
+          /* the question is the map of a past year, so nothing is drawn until that year can be: the window keeps its loading state while the history (9 MB) is on its way */
+          const PAST_SORRY = "This map needs the Atlas’s borders of the past, which could not be loaded here. The answer and the rest of the card are all there.";
+          /* …and with "Describe geography maps" on, the sentence naming the state's neighbours of that year is printed all the same: it is the one clue such a reader has */
+          const pastPlain = (why) => { if (wantsAlt) { try { describeMap(); } catch (e) {} } plain(why); };
+          if (hub.canvas2d) { pastPlain("This browser cannot draw a state of the past (it needs WebGL2). The answer and the rest of the card are all there."); return; }
+          hub.startHistory("full");
+          return new Promise((res) => {
+            let done = false; const fin = (ok) => { if (done) return; done = true; off(); clearTimeout(tm); clearInterval(iv); res(ok); };
+            const off = hub.onChange(() => { if (hub.historyOK()) fin(true); }), tm = setTimeout(() => fin(false), 150000);
+            const iv = setInterval(() => { if (stopped || (hub.historyFailed && hub.historyFailed()) || (hub.historyKind && hub.historyKind() !== "full")) fin(false); else if (hub.historyOK()) fin(true); }, 400);   // a failed fetch fires no change; a hub left on a war slice by another window cannot draw this year
+            if (hub.historyOK() && hub.historyKind() === "full") fin(true);
+          }).then((ok) => { if (stopped) return; if (!ok) { pastPlain(PAST_SORRY); return; } pastOK = true; mountWindow(hub, null); });
+        }
         /* A UNIT OF THE LAZY ADMIN-1 FILE (2026-11-14; docs/atlas-v2-admin1-layer.md §3.2): India's states are faces of atlas/data/admin1.bin, which the hub loads into its own slot the first time a highlight
            names one (atlas-embed.js). The still renderer (no WebGL2) has no such slot, and a file that could not be read leaves nothing to shade: either way the window is the plain sentence, never India unshaded. */
         if (targets.some((t) => hub.needsAdmin1 && hub.needsAdmin1(t.id))) {
@@ -789,12 +887,12 @@
         win = window.AtlasEmbed.view(cv, {
           zmin: CMAP_ZMIN, zmax: CMAP_ZMAX,
           spec: () => ({
-            layers: Object.assign({ borders: true, provinces: usStates || (!isWar && (layerName !== "world" || !!subdiv)), admin1Box: usStates ? US_STATES_BOX : undefined, admin1Max: 60, neutral: isWar || glossYear != null || memHist, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject(), peoples: glossPeople ? "all" : undefined, peopleOnly: glossPeople ? glossFace : undefined }, reliefNow()),
-            year: glossYear != null ? glossYear : memHist ? (tlStep() ? tlStep().year : memYear) : tlStep() ? tlStep().year : warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined, history: wantsFront ? "ww2" : undefined, front: !!(tlStep() && tlStep().front), frontDate: tlStep() && tlStep().front ? tlStep().date : null,
-            highlights: memHist ? memGroups.map((ids, i) => { const t = i === 0 ? TINT_SEL : i === 1 ? (X.TINT_LATE || TINT_SEL) : (X.TINT_THIRD || X.TINT_LATE || TINT_SEL); return { ids, rgb: t.rgb.split(",").map(Number), a: t.fillA, line: t.line, lineWidth: 2.2, glow: t.glow, glowBlur: 7, exact: true }; }) : targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9, exact: glossYear != null }] : [],
+            layers: Object.assign({ borders: true, provinces: usStates || (!isWar && !pastLayer && (layerName !== "world" || !!subdiv)), admin1Box: usStates ? US_STATES_BOX : undefined, admin1Max: 60, neutral: isWar || glossYear != null || memHist || pastOK, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject(), peoples: glossPeople ? "all" : undefined, peopleOnly: glossPeople ? glossFace : undefined }, reliefNow()),
+            year: glossYear != null ? glossYear : pastOK ? pastYear : memHist ? (tlStep() ? tlStep().year : memYear) : tlStep() ? tlStep().year : warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined, history: wantsFront ? "ww2" : undefined, front: !!(tlStep() && tlStep().front), frontDate: tlStep() && tlStep().front ? tlStep().date : null,
+            highlights: memHist ? memGroups.map((ids, i) => { const t = memTint(i); return { ids: ids.filter((id) => !EXT_ID.test(id)), rgb: t.rgb.split(",").map(Number), a: t.fillA, line: t.line, lineWidth: 2.2, glow: t.glow, glowBlur: 7, exact: true }; }).filter((h) => h.ids.length) : targets.length && !memHasExt ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9, exact: glossYear != null || pastOK }] : [],
           }),
           draw: (st, api, ctx) => marks(st, api, ctx),
-          extraSettled: (st, o) => anchorsCurrent(st, o),
+          extraSettled: (st, o) => anchorsCurrent(st, o) && extCurrent(o),
         });
         mark("a2:window-mounted");
         win.setHome(home.lon, home.lat, home.zoom); win.setView(home.lon, home.lat, home.zoom);
@@ -1051,7 +1149,8 @@
       if (!named.rows) return;
       const pv = (getComputedStyle(document.body).getPropertyValue("--paper").trim() || "#ffffff").replace("#", ""), pn = parseInt(pv.length === 3 ? pv.replace(/./g, "$&$&") : pv.slice(0, 6), 16);
       const dark = isFinite(pn) && (((pn >> 16) & 255) * 0.299 + ((pn >> 8) & 255) * 0.587 + (pn & 255) * 0.114) < 128;
-      ctx.save(); ctx.font = "600 12px system-ui, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.lineJoin = "round"; ctx.lineWidth = 3.2;
+      const csF = getComputedStyle(document.body), serifF = window.AtlasStudy && window.AtlasStudy.areaSerif ? window.AtlasStudy.areaSerif(csF.getPropertyValue("--serif").trim(), csF.getPropertyValue("--display").trim()) : "Georgia, serif";   // a state is an area: its name in the serif (2026-11-19)
+      ctx.save(); ctx.font = "600 12px " + serifF; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.lineJoin = "round"; ctx.lineWidth = 3.2;
       ctx.strokeStyle = dark ? "rgba(0,0,0,0.9)" : "rgba(255,255,255,0.94)"; ctx.fillStyle = dark ? "#ffffff" : "#221808";
       const placed = [], out = [], hit = (b, o) => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1];
       const rows = named.rows.filter((r) => r.v && named.byFace.has(r.face)).sort((a, b) => (b.km2 || 1) * Math.max(0.02, b.vis) - (a.km2 || 1) * Math.max(0.02, a.vis));

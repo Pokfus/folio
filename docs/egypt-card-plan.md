@@ -201,6 +201,38 @@ Three answer terms collided between batches before import and were moved: Tefnak
 so `eg-475` took Nimlot of Hermopolis; Kawa stays at `eg-486`, so `eg-495` took the Shrine of Taharqa;
 Rehoboam stays at `eg-454`, so `eg-467` took Hoshea.
 
+**`eg-501`–`eg-600` (written together, in ten parallel batches) retitled 72 lines** (some only an article,
+a year or a dynasty's "of Egypt"), and the list below shows the term each card answers. The same kinds:
+
+- **Already taken**: Meroë (`wh-417`) → Arakamani, the first king buried there; Naucratis (`gr-221`) → the
+  Hellenion; Abu Simbel (`eg-349`) → Potasimto, the general its graffiti name; Cambyses II (`gr-385`) → Psamtik
+  III; Darius I (`gr-386`) → the Statue of Darius; Herodotus (`gr-440`) → Sesostris at `eg-540` and Rhampsinit at
+  `eg-541`; archaism (`eg-474`) → the Tomb of Ibi (TT36); Apis, Mnevis, Bubastis and the Serapeum → Buchis and Tuna
+  el-Gebel; Ptolemaic Egypt (`gr-767`) → Ptolemais Hermiou; Alexander, the Oracle of Ammon and the founding of
+  Alexandria (`gr-701`, `gr-721`, `gr-720`) → Cleomenes of Naucratis, Siwa Oasis and Rhakotis; Ptolemy I Soter
+  (`gr-766`) → Alexander IV, the boy pharaoh he governed for; Hellenistic kingship (`gr-773`) → the Ptolemaic cult of
+  Alexander; Alexandria, its Library and its Lighthouse (`rm-766`, `gr-802`, `gr-804`) → Lake Mareotis, Aristophanes
+  of Byzantium and Sostratus of Cnidus; Cleruchy (`gr-482`) → Kerkeosiris; Arsinoe II (`gr-776`) → the Great Mendes
+  Stela; the Syrian Wars (`gr-793`) → the Battle of Panium; Raphia (`gr-794`) → Ptolemy IV Philopator; the Rosetta
+  Stone (`wh-207`) → Ptolemy V Epiphanes at `eg-590` and the Raphia Decree at `eg-591`; Dendera (`eg-154`) → the
+  Dendera zodiac.
+- **The line named an area**: `eg-504`, `eg-509`, `eg-511`, `eg-513`, `eg-516`, `eg-517`, `eg-523`, `eg-525`,
+  `eg-526`, `eg-531`, `eg-534`, `eg-536`, `eg-539`, `eg-543`, `eg-548`, `eg-550`–`eg-560`, `eg-562`, `eg-566`,
+  `eg-568`, `eg-574`–`eg-577`, `eg-579`, `eg-588`, `eg-592`, `eg-597`, `eg-599`, `eg-600`. The codification of the
+  law under Darius has no term of its own, so `eg-536` teaches it through the Demotic Chronicle, on whose back it is
+  copied.
+- **Two subjects on one line**: Tantamani and the withdrawal → Tantamani; the 28th and 29th Dynasties → the 29th
+  (the 28th is Amyrtaeus, `eg-545`).
+- **Wikipedia's head word differs**: the Canal of the Pharaohs, Horwennefer (Hugronaphor), the Temple of Kom Ombo;
+  the Canopus Decree keys as `Decree_of_Canopus`, the Temple of Onias as `Land_of_Onias`, the Statue of Darius as
+  `Egyptian_statue_of_Darius_the_Great`, the Zenon Archive as `Zenon_of_Kaunos`; Pefnefdineit and the Petition of
+  Peteese have no article of their own and show no Learn-more tile.
+
+Two answer terms collided between batches before import and were moved: the Demotic Chronicle stays at `eg-536`,
+so `eg-557` took Khabash; Rhakotis stays at `eg-564`, so `eg-574` took Agathocles of Egypt.
+`eg-597` took the House of Life, which was also the unwritten line `eg-924`; that line now reads the House of
+Books at Edfu, the temple library room whose wall lists its books, a subject to research when it is written.
+
 ## Making the collection
 
 Four things had to be decided because nothing existed to inherit them from.
@@ -1035,10 +1067,10 @@ safe.
     eg-498  Sphinx of Taharqo
     eg-499  Eltekeh
     eg-500  Esarhaddon
-    eg-501  The sack of Thebes in 663 BCE
-    eg-502  Tantamani and the Kushite withdrawal
-    eg-503  Meroë
-    eg-504  The Meroitic kingdom after Egypt
+    eg-501  Sack of Thebes
+    eg-502  Tantamani
+    eg-503  Arakamani
+    eg-504  Amanirenas
     eg-505  Meroitic script
 
 ### The Late Period — `eg-late-period`
@@ -1046,103 +1078,103 @@ safe.
     eg-506  Late Period of ancient Egypt
     eg-507  Twenty-sixth Dynasty of Egypt
     eg-508  Psamtik I
-    eg-509  The reunification of Egypt under Sais
+    eg-509  Necho I
     eg-510  Sais
-    eg-511  Greek and Carian mercenaries in Egypt
-    eg-512  Naucratis
-    eg-513  Greek trade with Saite Egypt
+    eg-511  Tahpanhes
+    eg-512  Hellenion
+    eg-513  Rhodopis
     eg-514  Necho II
-    eg-515  The canal from the Nile to the Red Sea
-    eg-516  The circumnavigation of Africa
-    eg-517  Egypt and the fall of Assyria
+    eg-515  Canal of the Pharaohs
+    eg-516  Erythraean Sea
+    eg-517  Ashur-uballit II
     eg-518  Battle of Carchemish
     eg-519  Psamtik II
-    eg-520  The Abu Simbel graffiti
+    eg-520  Potasimto
     eg-521  Apries
     eg-522  Amasis II
-    eg-523  The Saite renaissance
-    eg-524  Saite art and archaism
-    eg-525  Saite administration
-    eg-526  The Saite temple economy
+    eg-523  Neith
+    eg-524  Tomb of Ibi
+    eg-525  Pefnefdineit
+    eg-526  Petition of Peteese
     eg-527  Demotic
-    eg-528  Late Period animal cults
-    eg-529  The animal necropolises
+    eg-528  Buchis
+    eg-529  Tuna el-Gebel
     eg-530  Animal mummy
-    eg-531  The Achaemenid conquest of Egypt
-    eg-532  Cambyses II in Egypt
-    eg-533  Twenty-seventh Dynasty of Egypt
-    eg-534  Egypt as a Persian satrapy
-    eg-535  Darius I and Egypt
-    eg-536  The codification of Egyptian law under Darius
+    eg-531  Battle of Pelusium
+    eg-532  Psamtik III
+    eg-533  27th Dynasty of Egypt
+    eg-534  Aryandes
+    eg-535  Statue of Darius
+    eg-536  Demotic Chronicle
     eg-537  Temple of Hibis
     eg-538  Udjahorresnet
-    eg-539  Egyptian revolts against Persia
-    eg-540  Herodotus in Egypt
-    eg-541  Herodotus as a source for Egypt
+    eg-539  Inaros II
+    eg-540  Sesostris
+    eg-541  Rhampsinit
     eg-542  Elephantine papyri
-    eg-543  The Jewish garrison at Elephantine
-    eg-544  The Twenty-eighth and Twenty-ninth Dynasties
+    eg-543  Mibtahiah
+    eg-544  Twenty-ninth Dynasty
     eg-545  Amyrtaeus
-    eg-546  Thirtieth Dynasty of Egypt
+    eg-546  Thirtieth Dynasty
     eg-547  Nectanebo I
-    eg-548  The temple building of the Thirtieth Dynasty
+    eg-548  Behbeit el-Hagar
     eg-549  Nectanebo II
-    eg-550  The last native pharaoh
-    eg-551  The second Persian conquest of Egypt
-    eg-552  Greek soldiers in Late Period Egypt
-    eg-553  Late Period votive bronzes
-    eg-554  Late Period statuary
-    eg-555  Late Period wisdom literature
-    eg-556  Egyptian healing statues
-    eg-557  Egyptian identity under foreign rule
-    eg-558  The Late Period priesthood
-    eg-559  Egypt's reputation in the Greek world
-    eg-560  The arrival of Alexander
+    eg-550  Alexander Romance
+    eg-551  Thirty-first Dynasty of Egypt
+    eg-552  Mentor of Rhodes
+    eg-553  Harpocrates
+    eg-554  Boston Green Head
+    eg-555  Instruction of Ankhsheshonq
+    eg-556  Metternich Stela
+    eg-557  Khabash
+    eg-558  Petosiris
+    eg-559  Sonchis of Sais
+    eg-560  Mazaces
 
 ## Greco-Roman Egypt
 
 ### Ptolemaic Egypt — `eg-ptolemaic`
 
-    eg-561  Ptolemaic Kingdom
-    eg-562  Alexander in Egypt
-    eg-563  The oracle of Ammon at Siwa
-    eg-564  The founding of Alexandria
-    eg-565  Ptolemy I Soter
-    eg-566  The seizure of Alexander's body
-    eg-567  Ptolemaic kingship
-    eg-568  The Ptolemies as pharaohs
+    eg-561  Ptolemais Hermiou
+    eg-562  Cleomenes of Naucratis
+    eg-563  Siwa Oasis
+    eg-564  Rhakotis
+    eg-565  Alexander IV
+    eg-566  Tomb of Alexander the Great
+    eg-567  Ptolemaic cult of Alexander the Great
+    eg-568  High Priest of Ptah
     eg-569  Serapis
     eg-570  Serapeum of Alexandria
-    eg-571  Alexandria
-    eg-572  Library of Alexandria
-    eg-573  Lighthouse of Alexandria
-    eg-574  The population of Ptolemaic Alexandria
-    eg-575  Greeks and Egyptians in Ptolemaic Egypt
-    eg-576  Ptolemaic administration
-    eg-577  The Ptolemaic tax system
+    eg-571  Lake Mareotis
+    eg-572  Aristophanes of Byzantium
+    eg-573  Sostratus of Cnidus
+    eg-574  Agathocles of Egypt
+    eg-575  Machimoi
+    eg-576  Menches
+    eg-577  Papyrus Revenue Laws
     eg-578  Ptolemaic coinage
-    eg-579  The Faiyum under the Ptolemies
+    eg-579  Arsinoite nome
     eg-580  Zenon Archive
-    eg-581  Ptolemaic land tenure
+    eg-581  Kerkeosiris
     eg-582  Ptolemy II Philadelphus
-    eg-583  Arsinoe II
-    eg-584  The Syrian Wars and Egypt
+    eg-583  Great Mendes Stela
+    eg-584  Battle of Panium
     eg-585  Ptolemy III Euergetes
     eg-586  Canopus Decree
-    eg-587  Ptolemy IV and the Battle of Raphia
-    eg-588  The revolts of Upper Egypt
-    eg-589  Hugronaphor and the rebel pharaohs
-    eg-590  Rosetta Stone
-    eg-591  The Memphis decrees and the priestly synods
-    eg-592  Ptolemaic temple building
+    eg-587  Ptolemy IV Philopator
+    eg-588  Great Theban Revolt
+    eg-589  Horwennefer
+    eg-590  Ptolemy V Epiphanes
+    eg-591  Raphia Decree
+    eg-592  Mammisi
     eg-593  Temple of Edfu
-    eg-594  Dendera Temple complex
+    eg-594  Dendera zodiac
     eg-595  Philae
-    eg-596  Kom Ombo
-    eg-597  The temple as a repository of Egyptian learning
+    eg-596  Temple of Kom Ombo
+    eg-597  House of Life
     eg-598  Manetho
-    eg-599  The Jews of Ptolemaic Egypt
-    eg-600  Ptolemaic decline
+    eg-599  Temple of Onias
+    eg-600  Ptolemy VIII Physcon
     eg-601  Rome and the Ptolemies
     eg-602  Ptolemy XII
     eg-603  Cleopatra
@@ -1499,7 +1531,7 @@ safe.
     eg-921  Egyptian letters as a form
     eg-922  Egyptian technical texts
     eg-923  Egyptian onomastica
-    eg-924  House of Life
+    eg-924  The House of Books at Edfu
     eg-925  The copying and transmission of Egyptian texts
     eg-926  The Egyptian book
     eg-927  Demotic literature

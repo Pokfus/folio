@@ -87,8 +87,8 @@ an English review of the same work, and say in the ledger where a card had to ch
 **The date lines of the cards about ONE human being, historical or legendary, are refined in another thread
 and are left alone here.** The list is `node .claude/person-cards.js --list` (`individual` and `legendary`)
 plus every card tagged `ruler` or `person` it does not catch, confirmed against main on 2026-11-08 for the first
-hundred, on 2026-11-12 for the second, on 2026-11-12 for the third and on 2026-11-13 for the fourth, on 2026-11-13 for the fifth and on 2026-11-14 for the sixth (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
-and Zhang Yi) and `cnh-184` (the Four Lords) are tagged `person` but name groups: they are audited as ordinary cards. `cnh-audit.js` reads the block below: on these cards it
+hundred, on 2026-11-12 for the second, on 2026-11-12 for the third and on 2026-11-13 for the fourth, on 2026-11-13 for the fifth and on 2026-11-14 for the sixth, and on 2026-11-19 for the seventh (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
+and Zhang Yi), `cnh-184` (the Four Lords) and `cnh-675` (the Gang of Four) are tagged `person` but name groups: they are audited as ordinary cards. `cnh-audit.js` reads the block below: on these cards it
 sets the date line's own findings aside (one `P.protected` note counts them) but still checks that the
 background carries every year on the line (`D.not-in-prose`) and the pins; `precheck.js` fails a draft whose
 patch carries `answerDate`, `undatable` or `timeline` for one of them.
@@ -253,6 +253,14 @@ cnh-587 Chen Duxiu            (individual; the person template)
 cnh-588 Hu Shi                (individual; the person template)
 cnh-589 Lu Xun                (individual; the person template)
 cnh-593 Chiang Kai-shek       (individual; the person template)
+cnh-605 Cai Yuanpei           (individual; the person template)
+cnh-608 Mao Zedong            (individual; the person template)
+cnh-615 Zhou Enlai            (individual; the person template)
+cnh-616 Zhu De                (individual; the person template)
+cnh-648 Joseph Stilwell       (individual; the person template)
+cnh-674 Lin Biao              (individual; the person template)
+cnh-677 Hua Guofeng           (individual; the person template)
+cnh-678 Deng Xiaoping         (individual; the person template)
 ```
 
 - The draft's patch omits `answerDate`, `undatable` and `timeline`; its `pins` and `chronology` are read from
@@ -403,6 +411,20 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Yuan Shikai and the Hundred Days | Yuan said to have betrayed the reformers' plot to Ronglu in 1898; his own diary and later scholarship dispute it — refined B58 (`cnh-571`, `cnh-578`: the reformers' and most foreign historians' version against Yuan's own account; Hummel's "generally believed"; his diary on no page read) | `cnh-571` | `cnh-578`, `cnh-569` | — |
 | Lu Xun's slide show at Sendai | the lantern slide of a Chinese man about to be executed as a spy in the Russo-Japanese War, which he says turned him from medicine to letters; his own preface to *Call to Arms* (1922), the slide never found — confirmed B59 (`cnh-589`: his preface dated 3 December 1922; Takeuchi's doubt, the Fujino memoir's shooting, the slides found but not that one) | `cnh-589` | — | — |
 | The May Fourth slogans | "Mr Democracy and Mr Science" (Chen Duxiu in *New Youth*, 1919) and the students' slogans of 4 May 1919, as the period's own texts give them — confirmed in part B59 (`cnh-585`: the students' slogans as Tsi C. Wang's 1927 account gives them, 还我青岛 from the police files; "Mr Democracy and Mr Science" Chen's, *New Youth* January 1919; 外争国权，内惩国贼 on no page read) | `cnh-585` | `cnh-586`, `cnh-587` | — |
+| The Long March's distance and the Luding Bridge | the "25,000 li" (about 12,500 km) the party's own figure for the First Front Army's march of 1934 – 1935; the crossing of the chain bridge at Luding in May 1935 as an assault under fire, as Edgar Snow's *Red Star over China* (1937) told it from the marchers' accounts; later walkers and historians doubt both the distance and the fighting at the bridge — confirmed B61 (`cnh-610`: the *Selected Works* note's 25,000 li as 12,500 km, the party's figure; Snow's thirty volunteers at Luding, 1937; the AP's report of two walkers' 3,700 miles) | `cnh-610` | `cnh-608`, `cnh-611`, `cnh-616` | — |
+| The Xi'an Incident's terms | Chiang Kai-shek detained at Xi'an by Zhang Xueliang and Yang Hucheng in December 1936 and released that month; whether he accepted terms (an end to the civil war, a united front against Japan) is told differently by his own published diary-account (1937), which says he promised nothing in writing, and by the Communist and Zhang's later accounts — confirmed B62 (`cnh-617`: Chiang's own account, *Si-an pan-yüeh chi*, Nanking 1937, says he signed nothing; Mao's statement of 28 December 1936; Beijing's account now) | `cnh-617` | `cnh-615`, `cnh-618` | — |
+| The Nanjing Massacre's death toll | the International Military Tribunal for the Far East (judgment of 1948): over 200,000 killed in Nanjing and its vicinity in the first six weeks; the Nanjing War Crimes Tribunal (1947): over 300,000, the figure the Memorial Hall carries; scholars' estimates from tens of thousands to 200,000 and more, each said whose; the denials of Japanese nationalist writers named as denials, never as one side of a scholarly debate — confirmed B64 (`cnh-637`: the Tokyo judgment, read 4 – 12 November 1948, over 200,000; the Nanjing tribunal's verdict of 10 March 1947 and the killing-contest verdict of 18 December 1947, over 300,000; Japanese scholars' range through Askew; the "illusion" school and the "fabrication" claim named as denials) | `cnh-637` | `cnh-631`, `cnh-636`, `cnh-655` | `ww2-`, `jp-` (read, never edited) |
+| Unit 731 | the Kwantung Army's biological warfare unit at Pingfang near Harbin; the experiments on prisoners and the field attacks with plague; the dead (the Khabarovsk trial of 1949 heard of about 3,000 killed in the unit; the field attacks' tolls are estimates); the immunity the United States gave its officers for their data — confirmed and refined B65 (`cnh-650`: the 3,000 is Kawashima Kiyoshi's testimony quoted in the Khabarovsk indictment, "not less than 3,000" at Pingfang 1940 – 1945, not the court's count; the chemical work was Unit 516's, Tsuneishi; the immunity from Daqing Yang and Yang Yanjun) | `cnh-650` | `cnh-631` | `ww2-` |
+| The 1938 Yellow River flood's dead | the Nationalist army breaching the dykes at Huayuankou in June 1938 to slow the Japanese advance, the government at first blaming Japanese bombing; the dead given in counts from several hundred thousand to about 900,000 (the postwar and the PRC figures and scholars' estimates differ — each whose) — confirmed B65 (`cnh-642`: the breach at Huayuankou on 9 June 1938, the government blaming Japanese bombing through the war; the 1948 relief survey's 893,303 dead with Anhui estimated; Muscolino's "well over 800,000"; no separate PRC figure found) | `cnh-642` | `cnh-631`, `cnh-638` | — |
+| The Henan famine of 1942 – 1943 | drought, locusts and the armies' grain levies; Theodore H. White's reporting for *Time* (1943), the *Ta Kung Pao* suspended for its own; the dead (estimates from one to three million, each whose) — confirmed with an addition B66 (`cnh-651`: White reported for *Time* already in October 1942; the dead as Garnaut's a little under a million through Baker, Muscolino's some two million and the common three million, which Ma Yong thinks inflated) | `cnh-651` | `cnh-652` | — |
+| The Great Chinese Famine's toll | the excess deaths of 1959 – 1961 as demographers and historians estimate them from census data (from about 15 to 45 million and more, each estimate whose — Ashton et al. 1984, Yang Jisheng, Dikötter among them), never a count; the 1981 resolution's "serious losses" — refined B64 – B67 (`cnh-664`, `cnh-666`: from Yang Jisheng's 16.2 million from official data to at least 45 million, Dikötter; Ashton et al. not read, jstor walled; the party journal's dismissal as the state's account) | `cnh-666` | `cnh-664`, `cnh-665`, `cnh-667` | — |
+| The Lushan Conference and Peng Dehuai's letter | Peng's private letter to Mao of July 1959 criticising the Great Leap's excesses, Mao's attack on it at the conference, Peng dismissed as defence minister (Lin Biao in his place) and the campaign against "right opportunism" that followed; the letter's text as the party later published it — confirmed in outline B67 (`cnh-667`: the letter dated 14 July 1959, Mao's attack of 23 July, the "anti-Party group" resolution; Peng's dismissal attested here only by Charles 1961; "private" letter on no page) | `cnh-667` | `cnh-664`, `cnh-674` | — |
+| The Little Red Book's print figures | the copies printed between 1964 and the late 1970s given as "over a billion" and more — the publishers' and the party's printing claims, never an audited count — confirmed as claims B68 (`cnh-672`: Leese's just over a billion official volumes 1966 – 1969, Cook's "well over a billion", a press figure of over five billion, the Chinese account's 1,055 million from May 1964 to 12 February 1979 — each whose) | `cnh-672` | `cnh-670`, `cnh-674` | — |
+| Lin Biao's flight and death | the official account: Lin, his wife Ye Qun and his son Lin Liguo fled after a failed plot (the "Project 571" outline) and died when their aircraft crashed in Mongolia on 13 September 1971; the plot and the flight are known mainly from the party's own documents and are doubted in part by scholars — confirmed and dated B68 (`cnh-674`: Zhou Enlai's report to the Tenth Congress, 24 August 1973 — Project 571, the flight on 13 September, the crash "at Undur Khan"; the party biography: 10 km south of the Berkh mining area in Khentii) | — | `cnh-674`, `cnh-670`, `cnh-677` | — |
+| The Gang of Four's trial | Jiang Qing, Zhang Chunqiao, Yao Wenyuan and Wang Hongwen arrested in October 1976 and tried with Lin Biao's surviving associates by a special court in 1980 – 1981 (the two death sentences suspended); the 1981 resolution blaming the "counter-revolutionary cliques" for the Cultural Revolution's crimes and Mao for "mistakes" — the state's account, said whose — confirmed B68 (`cnh-675`: arrested 6 October 1976 by the party's own page; the special court 20 November 1980 – 25 January 1981; the two death sentences suspended and commuted in 1983; the prosecution's 750,000 persecuted and 34,375 dead as its count) | `cnh-675` | `cnh-670`, `cnh-677`, `cnh-679` | — |
+| Deng's southern tour remarks | his talks at Wuchang, Shenzhen, Zhuhai and Shanghai in January – February 1992, as published in his *Selected Works* volume 3; "to get rich is glorious" attributed to him, never found in his texts — confirmed in part B69 (`cnh-685`: the talks dated 18 January – 21 February 1992 and circulated as Document No. 2 on 28 February; "to get rich is glorious" never found in his words; the "*Selected Works* volume 3" detail not confirmed on the page read) | `cnh-685` | `cnh-678`, `cnh-680` | `pea-` (read) |
+| The 1989 death toll | the government's figures (over 200 civilians and several dozen soldiers in its report of June 1989); the figure attributed to the Chinese Red Cross and withdrawn; diplomats' cables' higher estimates; the Tiananmen Mothers' named list — each source's, never one as fact — corrected B69 (`cnh-684`: the government's end-of-June report gave over 200 civilians and several dozen soldiers dead, through Amnesty — not "a few hundred, soldiers included"; the other counts each whose) | `cnh-684` | `cnh-678` | `pea-` (read) |
+| The February 28 incident's dead | the Executive Yuan's research report of 1992: 18,000 to 28,000 dead, an estimate; other counts lower and higher, each whose — confirmed with its owner B70 (`cnh-693`: the 18,000 – 28,000 is Chen Kuan-cheng's demographic estimate in the 1992 report, a "rough estimate" to another director of the 228 Foundation, 2005; the report's appendix names 344 dead; the National Human Rights Museum reads it as 10,000 – 20,000) | `cnh-693` | `cnh-692`, `cnh-694`, `cnh-695` | — |
 
 ## Working a card
 
@@ -536,16 +558,16 @@ otherwise.
 | B58 | Qing (`col-33`) / Early Republic (`col-35`) | `cnh-571`–`cnh-580` | 10 | 117 | **done 2026-11-14** |
 | B59 | Early Republic (`col-35`) | `cnh-581`–`cnh-590` | 10 | 110 | **done 2026-11-14** |
 | B60 | Early Republic (`col-35`) | `cnh-591`–`cnh-600` | 10 | 118 | **done 2026-11-14** |
-| B61 | Early Republic (`col-35`) / Civil War (`col-36`) | `cnh-601`–`cnh-610` | 10 | 116 | to do |
-| B62 | Civil War (`col-36`) | `cnh-611`–`cnh-620` | 10 | 105 | to do |
-| B63 | Civil War (`col-36`) | `cnh-621`–`cnh-630` | 10 | 103 | to do |
-| B64 | World War II (`col-37`) | `cnh-631`–`cnh-640` | 10 | 97 | to do |
-| B65 | World War II (`col-37`) | `cnh-641`–`cnh-650` | 10 | 117 | to do |
-| B66 | World War II (`col-37`) / People's Republic of China (`col-38`) | `cnh-651`–`cnh-660` | 10 | 99 | to do |
-| B67 | People's Republic of China (`col-38`) | `cnh-661`–`cnh-670` | 10 | 103 | to do |
-| B68 | People's Republic of China (`col-38`) | `cnh-671`–`cnh-680` | 10 | 104 | to do |
-| B69 | People's Republic of China (`col-38`) | `cnh-681`–`cnh-690` | 10 | 104 | to do |
-| B70 | Republic of China (Taiwan) (`col-39`) | `cnh-691`–`cnh-700` | 10 | 99 | to do |
+| B61 | Early Republic (`col-35`) / Civil War (`col-36`) | `cnh-601`–`cnh-610` | 10 | 116 | **done 2026-11-19** |
+| B62 | Civil War (`col-36`) | `cnh-611`–`cnh-620` | 10 | 105 | **done 2026-11-19** |
+| B63 | Civil War (`col-36`) | `cnh-621`–`cnh-630` | 10 | 103 | **done 2026-11-19** |
+| B64 | World War II (`col-37`) | `cnh-631`–`cnh-640` | 10 | 97 | **done 2026-11-19** |
+| B65 | World War II (`col-37`) | `cnh-641`–`cnh-650` | 10 | 117 | **done 2026-11-19** |
+| B66 | World War II (`col-37`) / People's Republic of China (`col-38`) | `cnh-651`–`cnh-660` | 10 | 99 | **done 2026-11-19** |
+| B67 | People's Republic of China (`col-38`) | `cnh-661`–`cnh-670` | 10 | 103 | **done 2026-11-19** |
+| B68 | People's Republic of China (`col-38`) | `cnh-671`–`cnh-680` | 10 | 104 | **done 2026-11-19** |
+| B69 | People's Republic of China (`col-38`) | `cnh-681`–`cnh-690` | 10 | 104 | **done 2026-11-19** |
+| B70 | Republic of China (Taiwan) (`col-39`) | `cnh-691`–`cnh-700` | 10 | 99 | **done 2026-11-19** |
 | B71 | The imperial state (`cn-government`) | `cnh-701`–`cnh-710` | 10 | 102 | to do |
 | B72 | The imperial state (`cn-government`) | `cnh-711`–`cnh-720` | 10 | 111 | to do |
 | B73 | The imperial state (`cn-government`) | `cnh-721`–`cnh-730` | 10 | 105 | to do |
@@ -1218,6 +1240,106 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-598` | none | not re-checked (pictures paused): wanted — the party flag |
 | `cnh-599` | none | not re-checked (pictures paused): wanted |
 | `cnh-600` | none | not re-checked (pictures paused): wanted — the Bund |
+| `cnh-601` | none | not re-checked (pictures paused): wanted |
+| `cnh-602` | none | not re-checked (pictures paused): wanted |
+| `cnh-603` | none | not re-checked (pictures paused): wanted |
+| `cnh-604` | none | not re-checked (pictures paused): wanted |
+| `cnh-605` | none | not re-checked (pictures paused): wanted |
+| `cnh-606` | none | not re-checked (pictures paused): wanted |
+| `cnh-607` | none | not re-checked (pictures paused): wanted |
+| `cnh-608` | none | not re-checked (pictures paused): wanted |
+| `cnh-609` | none | not re-checked (pictures paused): wanted |
+| `cnh-610` | none | not re-checked (pictures paused): wanted |
+| `cnh-611` | none | not re-checked (pictures paused): wanted |
+| `cnh-612` | none | not re-checked (pictures paused): wanted |
+| `cnh-613` | none | not re-checked (pictures paused): wanted |
+| `cnh-614` | none | not re-checked (pictures paused): wanted |
+| `cnh-615` | none | not re-checked (pictures paused): wanted |
+| `cnh-616` | none | not re-checked (pictures paused): wanted |
+| `cnh-617` | none | not re-checked (pictures paused): wanted |
+| `cnh-618` | none | not re-checked (pictures paused): wanted |
+| `cnh-619` | none | not re-checked (pictures paused): wanted |
+| `cnh-620` | none | not re-checked (pictures paused): wanted |
+| `cnh-621` | none | not re-checked (pictures paused): wanted |
+| `cnh-622` | none | not re-checked (pictures paused): wanted |
+| `cnh-623` | none | not re-checked (pictures paused): wanted |
+| `cnh-624` | none | not re-checked (pictures paused): wanted |
+| `cnh-625` | none | not re-checked (pictures paused): wanted |
+| `cnh-626` | none | not re-checked (pictures paused): wanted |
+| `cnh-627` | none | not re-checked (pictures paused): wanted |
+| `cnh-628` | none | not re-checked (pictures paused): wanted |
+| `cnh-629` | none | not re-checked (pictures paused): wanted |
+| `cnh-630` | none | not re-checked (pictures paused): wanted |
+| `cnh-631` | none | not re-checked (pictures paused): wanted |
+| `cnh-632` | none | not re-checked (pictures paused): wanted |
+| `cnh-633` | none | not re-checked (pictures paused): wanted |
+| `cnh-634` | none | not re-checked (pictures paused): wanted |
+| `cnh-635` | none | not re-checked (pictures paused): wanted |
+| `cnh-636` | none | not re-checked (pictures paused): wanted |
+| `cnh-637` | none | not re-checked (pictures paused): wanted |
+| `cnh-638` | none | not re-checked (pictures paused): wanted |
+| `cnh-639` | none | not re-checked (pictures paused): wanted |
+| `cnh-640` | none | not re-checked (pictures paused): wanted |
+| `cnh-641` | none | not re-checked (pictures paused): wanted |
+| `cnh-642` | none | not re-checked (pictures paused): wanted |
+| `cnh-643` | none | not re-checked (pictures paused): wanted |
+| `cnh-644` | none | not re-checked (pictures paused): wanted |
+| `cnh-645` | none | not re-checked (pictures paused): wanted |
+| `cnh-646` | none | not re-checked (pictures paused): wanted |
+| `cnh-647` | none | not re-checked (pictures paused): wanted |
+| `cnh-648` | none | not re-checked (pictures paused): wanted |
+| `cnh-649` | none | not re-checked (pictures paused): wanted |
+| `cnh-650` | none | not re-checked (pictures paused): wanted |
+| `cnh-651` | none | not re-checked (pictures paused): wanted |
+| `cnh-652` | none | not re-checked (pictures paused): wanted |
+| `cnh-653` | none | not re-checked (pictures paused): wanted |
+| `cnh-654` | none | not re-checked (pictures paused): wanted |
+| `cnh-655` | none | not re-checked (pictures paused): wanted |
+| `cnh-656` | none | not re-checked (pictures paused): wanted |
+| `cnh-657` | none | not re-checked (pictures paused): wanted |
+| `cnh-658` | none | not re-checked (pictures paused): wanted |
+| `cnh-659` | none | not re-checked (pictures paused): wanted |
+| `cnh-660` | none | not re-checked (pictures paused): wanted |
+| `cnh-661` | none | not re-checked (pictures paused): wanted |
+| `cnh-662` | none | not re-checked (pictures paused): wanted |
+| `cnh-663` | none | not re-checked (pictures paused): wanted |
+| `cnh-664` | none | not re-checked (pictures paused): wanted |
+| `cnh-665` | none | not re-checked (pictures paused): wanted |
+| `cnh-666` | none | not re-checked (pictures paused): wanted |
+| `cnh-667` | none | not re-checked (pictures paused): wanted |
+| `cnh-668` | none | not re-checked (pictures paused): wanted |
+| `cnh-669` | none | not re-checked (pictures paused): wanted |
+| `cnh-670` | none | not re-checked (pictures paused): wanted |
+| `cnh-671` | none | not re-checked (pictures paused): wanted |
+| `cnh-672` | none | not re-checked (pictures paused): wanted |
+| `cnh-673` | none | not re-checked (pictures paused): wanted |
+| `cnh-674` | none | not re-checked (pictures paused): wanted |
+| `cnh-675` | none | not re-checked (pictures paused): wanted |
+| `cnh-676` | none | not re-checked (pictures paused): wanted |
+| `cnh-677` | none | not re-checked (pictures paused): wanted |
+| `cnh-678` | none | not re-checked (pictures paused): wanted |
+| `cnh-679` | none | not re-checked (pictures paused): wanted |
+| `cnh-680` | none | not re-checked (pictures paused): wanted |
+| `cnh-681` | none | not re-checked (pictures paused): wanted |
+| `cnh-682` | none | not re-checked (pictures paused): wanted |
+| `cnh-683` | none | not re-checked (pictures paused): wanted |
+| `cnh-684` | none | not re-checked (pictures paused): wanted |
+| `cnh-685` | none | not re-checked (pictures paused): wanted |
+| `cnh-686` | none | not re-checked (pictures paused): wanted |
+| `cnh-687` | none | not re-checked (pictures paused): wanted |
+| `cnh-688` | none | not re-checked (pictures paused): wanted |
+| `cnh-689` | none | not re-checked (pictures paused): wanted |
+| `cnh-690` | none | not re-checked (pictures paused): wanted |
+| `cnh-691` | none | not re-checked (pictures paused): wanted |
+| `cnh-692` | none | not re-checked (pictures paused): wanted |
+| `cnh-693` | none | not re-checked (pictures paused): wanted |
+| `cnh-694` | none | not re-checked (pictures paused): wanted |
+| `cnh-695` | none | not re-checked (pictures paused): wanted |
+| `cnh-696` | none | not re-checked (pictures paused): wanted |
+| `cnh-697` | none | not re-checked (pictures paused): wanted |
+| `cnh-698` | none | not re-checked (pictures paused): wanted |
+| `cnh-699` | none | not re-checked (pictures paused): wanted |
+| `cnh-700` | none | not re-checked (pictures paused): wanted |
 
 ## Glossary candidates
 
@@ -3938,3 +4060,417 @@ Whampoa points at central Guangzhou, not the academy on Changzhou Island; `cnh-5
 `cnh-526` the Jesuit missions is Zhaoqing (the first residence); `cnh-582` the Labour Corps is the Chinese cemetery at Nolette;
 `cnh-515` the treasure voyages is Changle. `migrate-places.js --check` and `build-wars.js --check` were not re-run; on main they already
 report known failures.
+
+### B61 — `cnh-601`–`cnh-610`, the early Republic and the Civil War: the cotton mill to the Long March (2026-11-19)
+
+The seventh hundred's first batch, run as the sixth's were (`AGENT.md`, the notes file, two cards an agent, at most ten at once);
+every draft read by eye and prechecked before `batch.sh` applied it. Every cited URL answered at the batch's own curl but one,
+`cnh-604`'s loc.gov newspaper page, which answers 403 to curl and was read through its `?fo=json` and text service. **Pictures were
+not touched.** **The old cards cited Chinese Wikisource (resolutions, constitutions, Cai Yuanpei's essays, Zhao Shiyan's articles —
+up to six a card) and Digital Library of India uploads of in-copyright books on archive.org (Snow's *Red Star over China*,
+Guillermaz, Tawney, Peck, Belden); carried the war template with casualty totals ("c. 2,800,000 – 3,000,000", "(22 years, 4
+months)") and places and counts in labels ("Cromford 1771", "Ding County 1926", "Lyon expulsion", "Reached Shaanxi", "Mills in China
+122").** Each card now reads at most one Chinese text (the party's own chronology on cpc.people.com.cn, Xinhua, the People's Daily, a
+scholar's article), beside the Office of the Historian, FRUS, the Marxists Internet Archive and modern scholarship.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-601` cotton mill | 8 | 8 → 8 | **Cromford 1771 (an English mill), "1889, Shanghai" (a place) and "122 by the end of 1926" (a count) off: `First project 1878` / `Work began 1889` (Couling); Zhang Zhidong's Wuchang mill, imports' 70 per cent, the *China Year Book*'s 1926 figures as its own; the 1925 shooting's dead as the CCP circular's two and Pott's one; Kubo [in Japanese], Chevrier on Bergère [in French]**; the British sentences, Rong Zongjing's mills and the 20,000 strikers (on no page) dropped. `G.date` stands: the glossary's `Cotton_mill` is the general type ("1771 – present"), for the owner. |
+| `cnh-602` Rural Reconstruction Movement | 6 | 6 → 6 | **"Ding County 1926", "Zouping school 1931" and "Moved to Sichuan institute, 1940" (places and words) off: `Began 1926` (Price 1934; Paulston's 1929 for concentrating on the county in notes); the four diseases, Liang Shuming's Shandong wing, the move west; Lynch and a Xinhua page for Tawney and the Yen primer (in-copyright scans)**. |
+| `cnh-603` Diligent Work–Frugal Study Movement | 6 | 7 → 7 | **"Founded 1912" (on no page) and "Lyon expulsion" (a place) off: `Relaunched 1916` / `Main wave 1919 – 1921` / `Deported October 1921`; the Sino-French Institute occupied, about forty young women, the founders' Paris circle and soybean factory; Barman and Dulioust [in French], Zhao Shiyan on the Marxists Internet Archive**; three Wikisource texts and two OpenEdition pages (Anubis wall) replaced. Timeline 1916 – 1921; the glossary's 1912 – 1921 now 1916 – 1921. |
+| `cnh-604` Chinese women's suffrage movement | 6 | 6 → 6 | **`Began November 1911` / `Protest 19 March 1912` / `Quota clause 1 January 1947` / `Quotas enacted March 1947` for "Assembly stormed" and "Draft charter 1936"; Tang Qunying's pistols, Shen Peizhen's slap at the Kuomintang congress, the 1947 constitution's reserved seats (the Ministry of Justice text), an American wire report of March 1912 on loc.gov (read through `?fo=json`)**; four Wikisource texts, Peck's Catt biography (a scan) and the Guangdong seats (on no page) dropped. Timeline 1911 – 1947. |
+| `cnh-605` Cai Yuanpei | 6 | 6 → 6 | **The three Wikisource texts replaced: the Lin Shu exchange and Gu Hongming's queue from Cai Suiang's article [in Chinese], the five parts of schooling from Luo 2021; the 1923 resignation and its cause new; the May Fourth phrasing replaced**; the 1912 ban on the classics (on no other page) dropped. Protected: the line stays (flagged below). |
+| `cnh-606` Chinese Civil War | 8 | 8 → 8 | **The war template off: `Began 1927` / `Resumed 1946` / `Ended 1949` (the Office of the Historian, Rummel); each side's name for the war (Mao's "People's War of Liberation", the Nationalists' "rebels") and the ROC's mobilisation ended from 1 May 1991; the toll said to be unagreed, Rummel's figures folding it into all China's wars to 1949**; six Wikisource texts replaced; the campaigns, truces and retreat off the phrasings. Name 国共内战 kept; 解放战争 and 戡乱 in notes. |
+| `cnh-607` Jiangxi Soviet | 6 | 8 → 7 | **The Guillermaz scan and the Wikisource constitution dropped, and with them the constitution's clauses, Mao's "3 million" and the death tolls; the party chronology's Central Soviet Area, Mao chosen at Ruijin weeks after the Gannan conference's attack, the salt from nitre under the blockade, the Nationalists' morality slogans; Averill, Griffin, Dillon**. The line stands (`Proclaimed 7 November 1931` / `Abandoned October 1934`). |
+| `cnh-608` Mao Zedong | 9 | 10 → 9 | **The Snow and Guillermaz scans and two Wikisource resolutions replaced: the Hunan report, the 1920 self-government articles, the 1981 verdict "merits primary, errors secondary" (the party's own); the party chronology's 1943 Politburo chairmanship**; the "stood up" speech left to `cnh-628`. Protected: the line stays (flagged below). |
+| `cnh-609` encirclement campaigns | 6 | 7 → 6 | **The war template off: `Began 1930` / `Fifth began September 1933` / `Ended 1934`; the blockhouse "anaconda", the "bandit suppression" provinces under military headquarters, the first campaign's lure-in-deep; 围剿 the Communists' word (the Nationalists said 剿匪)**; the Guillermaz and Snow scans, the beheaded commander and "70 per cent political" (on no page) dropped. Timeline 1930 – 1934. |
+| `cnh-610` Long March | 8 | 8 → 8 | **"Reached Shaanxi" (a place) → `Arrived October 1935`; the register row confirmed: the 25,000 li the party figure (the *Selected Works* note), Snow's thirty volunteers at Luding (1937), the walkers' 3,700 miles; a little over three thousand women; Koo [in Korean]**; the Guillermaz and Snow scans dropped (Snow read through Columbia's excerpt). |
+
+Read by eye. **Confusability**: the war's two phases and names `cnh-606`'s, the soviet's capital and blockade `cnh-607`'s, the
+blockhouses `cnh-609`'s, the bridge and the distance `cnh-610`'s; Mao's own life `cnh-608`'s (the "stood up" speech left to `cnh-628`,
+the Thought to `cnh-614`); the work-study students' France `cnh-603`'s, Deng's and Zhou's lives their own cards'. **Legend**: the Long
+March's distance and the Luding crossing (the party's figure, Snow's telling, the walkers' measure) and the 1981 verdict on Mao are each
+said whose. **Chinese names**: none corrected; 围剿 found to be the Communists' word for the campaigns (the Nationalists said 剿匪).
+Kept: 国共内战 (解放战争 the PRC's name for 1946 – 1949, 戡乱 the ROC's), 中央苏区 (the base; the state was 中华苏维埃共和国); the
+capitalisation of 乡村建设运动's pinyin left open. **Spellings**: "Peiping" in two FRUS titles (`cnh-609`, `cnh-610`), cited as printed.
+**Myth register**: the Long March's distance and the Luding Bridge confirmed (the *Selected Works* note's 25,000 li; Snow 1937; the AP's
+report of the walkers' 3,700 miles). **check-citations**: one false alarm (`cnh-610`'s Korean author in Korean order). **Protected lines:
+unchanged** (diffed after the apply). For the owner: `cnh-608`'s "Party chairman 20 March 1943" is the Politburo and Secretariat
+chairmanship (the party chronology); the Central Committee's chairmanship dates from 19 June 1945; its birth and death days on no page
+read; `cnh-605`'s 1868 against *Who's Who* 1925's 1867 (the Chinese year straddling), its 11 January and 5 March on no page read, and two
+pages count his presidency of Peking University to 1927. `cnh-601`'s `G.date` is the general `Cotton_mill` entry's date. Timelines set
+with `set-timeline.js`: `cnh-603` (1916 – 1921), `cnh-604` (1911 – 1947), `cnh-609` (1930 – 1934).
+
+### B62 — `cnh-611`–`cnh-620`, the Civil War: the Zunyi Conference to the Double Tenth Agreement (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl but `cnh-612`'s loc.gov newspaper page (403 to curl; read through
+`?fo=json`). **Pictures were not touched.** **The old cards cited the party's resolutions of 1945 and 1981, Chiang's and Mao's
+speeches and the land laws on Chinese Wikisource, Snow, Guillermaz, Forman, Bertram, Belden and Chiang's *Fortnight in Sian* in
+Digital Library of India uploads; carried men, places, texts and institutions in labels ("Zhang sentenced", "Anhui clash", "Wild
+Lilies", "Party HQ", "US observers", "CCP manifesto") and dates belonging to other events ("Directive 4 May 1946" on the 1947 law,
+"All-out war 26 June 1946" on the Chongqing agreement).** The party's own accounts (the chronology on cpc.people.com.cn, the 1981
+resolution on the Marxists Internet Archive, 12371.cn, Xinhua) are now each said to be the party's.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-611` Zunyi Conference | 6 | 8 → 7 | **The line stands (`Held 15 – 17 January 1935`); Otto Braun's plea that he was only an adviser, Bo Gu replaced by Zhang Wentian, the 1981 resolution's "vital turning point" (as the party's account — "in 2021" corrected: the 1981 text already says it); the dating dispute (Yang's 18 January; Kampen's misprint for 8 February) and Wang Jiaxiang**; the Guillermaz and Snow scans and two Wikisource resolutions dropped; Chen Yun's outline lost to the one-Chinese-source cap. |
+| `cnh-612` Yan'an | 7 | 8 → 7 | **"Party HQ" (an institution), "Bombed 1938 – 1939" (on no page) and "US observers July 1944" (a group) off: `Headquarters 13 January 1937 – March 1947` / `Occupied 19 March 1947`; the observers' plane in the ancient grave, the town given up "of their own accord", Maoist mythology against the scholars' despotism; a 1939 AP report on loc.gov (read through `?fo=json`)**; Forman and Kiely dropped. |
+| `cnh-613` Yan'an Rectification Movement | 6 | 8 → 6 | **"Wild Lilies March 1942" (a text) off: `Campaign 1942 – 1944` (Teiwes) / `Keynote speech 1 February 1942` / `Rescue launched 15 July 1943`; the three ill winds, Kang Sheng's rescue campaign and Mao's apology, Wang Shiwei; Kampen's "18, later 22" documents for "22"; Yu Jizeng [in Chinese]**; Wang Shiwei's execution year (on no allowed page) left out; the halt dated 8 August 1943 by Yu and 30 July by the party chronology, for the owner. Timeline 1942 – 1944. |
+| `cnh-614` Mao Zedong Thought | 7 | 8 → 7 | **`National form October 1938` / `Enshrined 23 April – 11 June 1945` / `Dropped 26 September 1956` (Kampen: the propaganda department's order, the Eighth Congress statutes) / `Redefined 27 June 1981`; the 1981 resolution's "crystallisation of collective wisdom" as the party's own; Ambrogio**; the 1969 constitution (`cnh-674`'s clue), Liu Shaoqi's speech and "Reform Our Study" dropped. |
+| `cnh-615` Zhou Enlai | 8 | 8 → 8 | **The Snow scan and three FRUS documents replaced by the Foreign Ministry's biography [in Chinese] and reviews of Chen Jian's 2024 life; Whampoa and the Shanghai underground, Bandung's "common ground", the American memo's pragmatist beside Mao the visionary**; the Marshall, Xi'an and Zunyi clues left to their cards; the glossary's "headed" the political department → "acting director". Protected: the line stays. |
+| `cnh-616` Zhu De | 7 | 8 → 7 | **The Snow and Forman uploads dropped; the Jinggang pairing with Mao ("one man" to the peasants), his admission to the party in Germany with Zhou Enlai a sponsor, the "black commander" sent to Guangzhou; the 1938 French review [in French] and CSSN [in Chinese]**; the old "aged 90" (against the line's 89) and the Yangtze order (`cnh-626`'s) dropped; the glossary's "took up Marxism in Germany" corrected. Protected: the line stays. |
+| `cnh-617` Xi'an Incident | 7 | 7 → 7 | **"Zhang sentenced" (a man) → `Sentenced 31 December 1936`; the register row confirmed with detail: the terms told as Chiang's 1937 account (*Si-an pan-yüeh chi*), Mao's and Beijing's; Chiang found by the rock above Huaqing Pool, the spoken promise, Moscow's telegram; Wu 1976, Van Slyke, Garver; the *Dictionnaire historique du Japon* [in French]**; Bertram and "A Fortnight in Sian" (scans), "rather die than sign" (on no page) dropped. |
+| `cnh-618` Second United Front | 7 | 8 → 8 | **"Anhui clash January 1941" (a place; `cnh-646`'s event; no page ends the front there) off: `Proclaimed 22 – 23 September 1937`; the manifesto printed by the Nationalists' own news agency, the pledges (soviets abolished, confiscation dropped), the diplomat's "definitely a thing of the past"; Xinhua [in Chinese], FRUS 1937**; two Wikisource texts replaced; the glossary's "1937 – 1941" now 1937. Timeline set to 22 September 1937. **Pinyin Dì-èr Cì kept to match `cnh-591`** (`cnh-561`, `567` write lower-case cì — for the owner). |
+| `cnh-619` Outline Land Law | 6 | 6 → 7 | **"Directive 4 May 1946" (another text, the May Fourth Directive) off: `Adopted 13 September 1947` / `Published 10 October 1947`; Liu Shaoqi's Xibaipo conference, equal shares by head, Mao on the earlier directive's lack of thoroughness and the Shanxi-Suiyuan excesses; Cheng 2023, Noellert 2020, Tanaka 1978; a 12371.cn page said to be the state's account**; Belden (a scan) dropped; no death toll (on no page read). |
+| `cnh-620` Double Tenth Agreement | 6 | 7 → 6 | **"All-out war 26 June 1946" (`cnh-606`'s) off: `Talks began 28 August 1945` / `Signed 10 October 1945`; Mao's flight with Hurley, the divisions and the eight base areas conceded, "only words on paper" and Shangdang; Cheng's open ANU Press book**; both Wikisource texts replaced; the summary's issue to the press on 11 October (FRUS) against the People's Daily's 10 October, no row added. |
+
+Read by eye. **Confusability**: Braun's plea and Bo Gu's fall `cnh-611`'s, the observers' plane `cnh-612`'s, the ill winds and the
+rescue campaign `cnh-613`'s, the 1956 dropping `cnh-614`'s; Zhou's Whampoa and Bandung `cnh-615`'s, Zhu's Jinggang pairing `cnh-616`'s;
+Huaqing Pool and the spoken promise `cnh-617`'s, the manifesto in the Nationalists' agency `cnh-618`'s; Liu Shaoqi's Xibaipo conference
+`cnh-619`'s (`cnh-657` keeps the 1950 law), Mao's flight with Hurley `cnh-620`'s (the Marshall truce `cnh-621`'s). **Legend**: the Zunyi
+"turning point" (the 1945 and 1981 resolutions' — the party's), the Xi'an terms (each teller's), Zhu De and the rice up the mountain
+(doubted) are each said whose. **Chinese names**: none corrected. Kept unconfirmed: 延安整风运动 (延安整风 and 整风运动 printed apart).
+`cnh-618`'s Dì-èr Cì kept with `cnh-591`. **Spellings**: 0 hits on the drafts. **Myth register**: the Xi'an Incident's terms confirmed
+(Chiang's 1937 account, Mao's statement of 28 December 1936, Beijing's account). **check-citations**: no mismatch. **Protected lines:
+unchanged** (diffed after the apply). For the owner: `cnh-616`'s "(age 89)" is Western count (a 1976 memorandum's "90-year old" Chinese
+reckoning), its days on no page read; `cnh-615`'s Huai'an against a 1971 CIA report's Shaoxing (the ancestral home). Timelines set:
+`cnh-613` (1942 – 1944), `cnh-618` (22 September 1937, its old end in 1941 being on no page).
+
+### B63 — `cnh-621`–`cnh-630`, the Civil War: the Marshall Mission to the Siege of Changchun (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl. **Pictures were not touched.** **The old cards carried the battle
+template on all five campaigns with casualty totals no page prints ("c. 541,000", "689,099 casualties, incl. 327,000 Nationalists
+captured", "c. 559,000", "490,000", "31,078 military casualties, 150,000 – 200,000 civilians starved") and "Location" rows; cited
+Wikisource and five FRUS telegrams a card; and named institutions and states in labels ("CPPCC opened", "USSR recognised", "Taipei
+seat").** The campaigns' figures are now each side's (the Communists', Taiwan's National Archives, the US consuls', Zhang Zhenglu's,
+the state media's), and the "peaceful liberation" of Beiping and the "stood up" speech are told as whose.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-621` Marshall Mission | 7 | 7 → 8 | **The line stands (`Mission December 1945 – January 1947` / `Ceasefire 10 January 1946` / `Army agreement 25 February 1946`, agreeing with `cnh-615`'s protected row); the Committee of Three, Marshall's statement of 7 January 1947 on "almost overwhelming suspicion", Mao's "smoke-screen"; Yang 2022, the Marshall Foundation, the ROC National Archives**; five primary texts cut to two, the 108 and 60 divisions dropped with their FRUS document. **Name 马歇尔使华 (on no page) → 马歇尔调处 Mǎxiē'ěr Tiáochǔ** (the ROC archive's term). |
+| `cnh-622` gold yuan | 6 | 8 → 6 | **"Replaced July 1949" (its FRUS document does not say it) → `Replaced 2 July 1949` (Lin [in Japanese]); `Controls ended November 1948` (Coble); Chiang Ching-kuo's economic police in Shanghai, one note for three million fabi, the British diplomat on the spared hoarders**; the Wikisource text of Wang Yunwu's statement and three FRUS telegrams dropped. The glossary's "yuan" links to `Yuan_dynasty` (for the owner). |
+| `cnh-623` Liaoshen campaign | 6 | 8 → 6 | **The battle template off, "c. 541,000 casualties" (on no page) with it: `Began 12 September 1948` / `Ended 2 November 1948`; Mao's Jinzhou order, Tashan and the column from Shenyang, the two sides' tallies of nearly half a million (the Communists' 470,000, Taiwan's 472,000); Shenyang entered 1 November (the US consul)**; Changchun cut to a clause, Lin Biao to his command. |
+| `cnh-624` Huaihai campaign | 7 | 7 → 7 | **The battle template off, the 689,099 and 327,000 (on no page) with it: `Began 6 November 1948` / `Ended 10 January 1949`; the wheelbarrow saying "credited to" Chen Yi (a 2021 party journal only), Huang Wei at Shuangduiji, Du Yuming at Chenguanzhuang; Huang Baitao killed (Mao's editors) or a suicide (Bjorge)**. |
+| `cnh-625` Pingjin campaign | 6 | 7 → 6 | **The battle template off, "Location Hebei" and the 559,000 (unsourced) with it: `Began 29 November 1948` / `Ended 31 January 1949` (the ROC National Archives [in Chinese]); Fu Zuoyi's terms as the American consul heard them, Xinbao'an, Tianjin in a day; the "peaceful liberation" told as the PRC's, the ROC's and Dai Qing's**; "Pingjin" said to join Beiping's second syllable and Tianjin's first. |
+| `cnh-626` Yangtze River Crossing campaign | 6 | 8 → 6 | **The battle template off: `Began 20 April 1949` / `Ended 2 June 1949`; the *Amethyst* (who fired first each side's), the wooden boats from Hukou to Jiangyin, the rejected Agreement on Internal Peace; Nanjing taken on 23 April (the PRC's) or the 24th (the US embassy's)**; the glossary's "launched on 21 April" corrected (`cnh-616`'s order day kept apart). Timeline set to 20 April – 2 June 1949. |
+| `cnh-627` Great Retreat | 7 | 7 → 7 | **"Taipei seat" (a place) → `Move announced 8 December 1949` (Lin Tongfa) / `Cabinet moved 9 December 1949` (Ambassador Koo, FRUS); Lin's figures (about 500,000 troops, more than 600,000 officials and civilians) for "1.2 million in all"; the American estimate of the bullion, the census's nine hundred thousand mainlanders, the three waves**; 7 and 10 December (on no page that would open) left out. `G.date` stands: "Great Retreat" resolves to `Great_Retreat_(Russia)` (for the owner). |
+| `cnh-628` Proclamation of the People's Republic of China | 8 | 8 → 9 | **"CPPCC opened" (an institution) → `Assembly opened 21 September 1949`; "USSR recognised" (a state) off; the proclamation from the US consul's same-day translation (FRUS); "stood up" told as the CPPCC speech's, not the gate's, the misattribution named; Dong Xiwen's painting altered (Gao Gang 1954, Liu Shaoqi 1967 — not 1972 — both restored 1979, Hung 2007)**; two Wikisource texts and the 1954 constitution (`cnh-656`'s) dropped. |
+| `cnh-629` peasant nationalism | 6 | 7 → 7 | **`Published 1962` / `Period studied 1937 – 1945`; told as Chalmers Johnson's thesis and coinage, his 1977 reply, Bernal's 1970 review, Chen and Kung 2020, Li Jinzheng 2012 [in Chinese]**; FRUS, Acheson, Pepper (a reference list only) and the "1989 survey" (on no page) dropped from the card and the glossary. |
+| `cnh-630` Siege of Changchun | 6 | 7 → 6 | **The battle template off, the 31,078 (unsourced) with it, and "23 May" (on no page): `Began May 1948` / `Ended 19 October 1948`; the soybean shells kept out, the state media blaming the garrison's general, Zhang Zhenglu's banned history (about 150,000 starved, through the AP 1990) against the 2018 state-media count (58,063), each said whose; Sautin's Cambridge thesis**. |
+
+Read by eye. **Confusability**: the Committee of Three `cnh-621`'s (Zhou's own life `cnh-615`'s); Chiang Ching-kuo's Shanghai police
+`cnh-622`'s; Jinzhou and Tashan `cnh-623`'s, the wheelbarrows and Shuangduiji `cnh-624`'s, Fu Zuoyi and Xinbao'an `cnh-625`'s, the
+*Amethyst* and the wooden boats `cnh-626`'s, the bullion and the census `cnh-627`'s, the painting `cnh-628`'s, the soybean shells
+`cnh-630`'s (Liaoshen keeps Changchun to a clause). **Legend**: the wheelbarrow saying (credited), "stood up" (misattributed to the
+gate), Pingjin's "peaceful liberation" (three tellings), the Changchun dead (two counts) are each said so. **Chinese names corrected**:
+`cnh-621` 马歇尔使华 → 马歇尔调处 Mǎxiē'ěr Tiáochǔ (the ROC archive's term; the old form on no page). Kept: 大撤退 (the ROC says 政府遷臺),
+开国大典 (the text itself is titled 中央人民政府公告). **Spellings**: "Peiping" in two FRUS titles (`cnh-628`), cited as printed. **Myth
+register**: no row touched. **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the apply). For the owner:
+`cnh-627` resolves to the glossary's `Great_Retreat_(Russia)` (`G.date`), `cnh-622`'s "yuan" to `Yuan_dynasty`; `cnh-623` (Jinzhou) and
+`cnh-630` (Changchun) want locators (`L.missing`). Timeline reset: `cnh-626` (20 April – 2 June 1949).
+
+### B64 — `cnh-631`–`cnh-640`, World War II: the Second Sino-Japanese War to the Bombing of Chongqing (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl but two: `cnh-640`'s loc.gov page (403 to curl; read through `?fo=json`)
+and `cnh-634`'s Hao article on pdv.jes.su, which did not answer three tries at the batch but answered the agent, whose saved copy (the
+whole article) stands. **Pictures were not touched.** **The old cards carried the war and battle templates with tolls no page prints
+("c. 14,000,000 – 22,000,000 dead", "c. 234,000 – 347,000", "c. 286,000 – 536,000"), men, treaties, places and institutions in labels
+("Puyi installed", "Tangku Truce", "Yang Jingyu dies", "CCP manifesto", "Lushan speech", "Appeal to League"), and two dates belonging to
+other events ("War redated 2017" on the Mukden card, "Memorial law 2014" on the massacre's); and cited Wikisource, Gutenberg and
+in-copyright scans (Carlson, Utley, White and Jacoby, Han Suyin).** The Tokyo tribunal's judgment, the Lytton report, FRUS and the
+*China Handbook* are now the period's voices, each said whose.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-631` Second Sino-Japanese War | 8 | 8 → 9 | **The war template off ("(8 years, 1 month)", "c. 14,000,000 – 22,000,000 dead" on no page): `Began 7 July 1937` / `Ended 2 September 1945`; the PRC's 2017 redating to a fourteen-year war told in prose on this card only, with Taiwan's answer through CNA [in Chinese] (a drafted `Start redated 2017` row came off after the apply: the Atlas's war table, `build-wars.js`, read it as the war's end); the "China Incident", Mao's three stages; the toll as Beijing's over 35 million killed or wounded, Eastman's 15 – 20 million dead, Mitter's over 14 million**; the united front (`cnh-618`'s) and Cairo sentences cut. |
+| `cnh-632` Mukden Incident | 7 | 7 → 7 | **"Appeal to League" (an institution) → `Appeal lodged 21 September 1931`; "War redated 2017" moved to `cnh-631`; the dummy rifles at the North Barracks, the American consul on Japan's losses, Ishiwara Kanji and Itagaki Seishirō (Kawada 2018 [in Japanese])**; a China Daily piece [in Chinese] blaming non-resistance, its figures beside Lytton's and the consul's. |
+| `cnh-633` Manchukuo | 7 | 7 → 8 | **"Puyi installed", "Tangku Truce" and "Puyi pardoned 1959" (a man, a treaty and `cnh-576`'s) off: `Declared 18 February 1932` / `Inaugurated 9 March 1932` / `Made an empire 1 March 1934` / `Collapsed 1945`; the Japanese deputies and the Tuesday Meeting, wangdao rendered as "love" to the Lytton commission, Tokyo's first peace condition; Moedict for the name**; the Wikisource 1960 report and an archive.org organic law dropped. |
+| `cnh-634` Northeast Anti-Japanese United Army | 6 | 8 → 7 | **"Yang Jingyu dies" (a man) and "Retreat to USSR" (a state) off: `Declared 20 February 1936` / `Retreated c. 1940` / `Reorganised August 1942` / `Returned September 1945`; the marching songs and the court case, fewer than a thousand into the Soviet training brigade, the Koreans nearly nine in ten; Heward 2023, Hao 2020 [in Russian], Guan 2023 [in Japanese]**; three Chinese sources cut to one; Choe Yong-gon, "11 armies" and "30,000 men" (on no page) dropped, in the glossary too. Hao's host did not answer the batch's curl; the agent's saved copy stands. |
+| `cnh-635` Marco Polo Bridge Incident | 7 | 7 → 7 | **"CCP manifesto" and "Lushan speech" (an institution, a place) off: `Clash 7 July 1937`; Chiang's three conditions, his no-withdrawal order, the unannounced manoeuvre and the disclaimed missing soldier; who fired first each side's; Zakurdaev [in Russian] on the bridge**; Wikisource and Gutenberg replaced; the bridge's building years and Shimura's name (on no page) dropped. The glossary's "Beijing" for 1937 (house Beiping) for the owner. |
+| `cnh-636` Battle of Shanghai | 7 | 7 → 7 | **The battle template off: `Began 13 August 1937` / `Ended 12 November 1937` (the Tokyo judgment; `ww2-097`'s 26 November noted); the "eight hundred heroes" about four hundred (Yang Tianshi), the howitzers that failed, the Chinese bombs on the settlements; casualties each side's**; the "Bloody Saturday" photograph (on no page) dropped. |
+| `cnh-637` Nanjing Massacre | 8 | 8 → 8 | **"Memorial law 27 February 2014" (`cnh-655`'s) and "Tokyo judgment 4 November 1948" (the day the reading began) off: `City fell 13 December 1937` / `Verdict 10 March 1947` / `Judgment 12 November 1948`; the register row confirmed: the Nanjing court's over 300,000 (the PRC's account through CSSN), the Tokyo tribunal's over 200,000, Japanese scholars' range (Askew), the "illusion" school and the "fabrication" claim named as denials; the killing contest, the Safety Zone's rice**; the Wikisource Tani verdict replaced; the glossary's "early February 1938" end cleared by hand. |
+| `cnh-638` Battle of Wuhan | 6 | 6 → 6 | **The battle template off: `Began 12 June 1938` / `Ended 25 October 1938` (the government's *China Handbook*; Yang's 6 June – 26 October in prose); the spokesman's shield for the move inland, gas at Matang, the Military Council's 256,000 against Japan's official 31,486**; Carlson, White and Jacoby and Han Suyin (scans) and Chiang's message (Wikisource) dropped; the Soviet pilots (on no page for the campaign) left out. |
+| `cnh-639` Free China | 6 | 6 → 7 | **The line stands (`Move proclaimed 20 November 1937` / `Capital decree 6 September 1940`, now on FRUS and Zhou and Wang); "Free China" said whose (the American reports' English name; the Great Rear at home); Sichuan's men and grain, the universities and the inflation, the auxiliary capital**; two Wikisource texts and two scans dropped. |
+| `cnh-640` Bombing of Chongqing | 7 | 7 → 7 | **`Began February 1938` / `Centre burned 4 May 1939` / `Tunnel disaster 5 June 1941` / `Ended August 1943`; the shelters of the rich and the poor, the tunnel's dead each count's (461, 992, up to 12,000, about 15,000, the AP's 2,000 dead or injured), the American diplomat on the unguarded centre; a 1939 AP report on loc.gov (read through `?fo=json`)**; White, Han Suyin and the old FRUS 1941 document dropped. |
+
+Read by eye. **Confusability**: the "China Incident" and Mao's three stages `cnh-631`'s; the dummy rifles `cnh-632`'s; the Tuesday
+Meeting `cnh-633`'s (Puyi's life `cnh-576`'s); the songs and the training brigade `cnh-634`'s; Chiang's conditions `cnh-635`'s; the
+warehouse `cnh-636`'s; the court's 300,000 and the killing contest `cnh-637`'s (the Hall `cnh-655`'s); the shield for the move inland
+`cnh-638`'s; the Great Rear `cnh-639`'s; the tunnel `cnh-640`'s. **Legend**: the "eight hundred heroes" (about four hundred), who fired
+first at the bridge (each side's), the Nanjing toll (three counts, the denials named as such) are each said so. **Chinese names**: none
+corrected; 抗日战争 kept (the standard term on both sides; 第二次中日战争 in notes). **Spellings**: 0 hits on the drafts. **Myth register**:
+the Nanjing toll confirmed (with the killing-contest verdict of 18 December 1947 also giving over 300,000). **check-citations**: one false
+alarm (`cnh-635`'s Russian title transliterated). **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-633`
+(Hsinking) and `cnh-639` want locators (`L.missing`). Timelines unchanged.
+
+### B65 — `cnh-641`–`cnh-650`, World War II: the Battle of Taierzhuang to Unit 731 (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl. **Pictures were not touched.** **The old cards cited Digital Library of
+India uploads of in-copyright books (Carlson, Utley, Madame Chiang, Chiang Yee), Hong Kong newspapers uploaded by a user, Wikisource
+and up to four primary texts a card; carried the battle template ("c. 40,000 – 50,000 killed and wounded", "22,000 – 100,000 Chinese
+casualties"), cities, men, treaties and states in labels ("Changsha falls", "Hengyang falls", "Wang died", "Basic Treaty", "Yang Jingyu
+dies", "Cut by Japan"), days on no page (19 April 1944, 22 March 1938) and descriptive Chinese names (花园口决堤事件).** Each count is now
+whose (the relief survey's, Japan's official history, the Military Council's, the party's), and Unit 731's 3,000 is a witness's.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-641` Battle of Taierzhuang | 6 | 6 → 6 | **The battle template off, the 40,000 – 50,000 (unsourced) with it: `Fought 23 March – 7 April 1938` (the old 22 March start on no page; `ww2-408` agrees with 23 March); the Japanese staff blaming one detachment commander, twenty war correspondents, Guo Moruo's propaganda office; every count said whose; Hung (an open UC Press book), Xinhua on mod.gov.cn [in Chinese], FRUS 1938, Kutoh**; Carlson, Utley and Madame Chiang (scans) dropped. Timeline set to 23 March – 7 April 1938. |
+| `cnh-642` 1938 Yellow River flood | 6 | 6 → 6 | **"River restored" → `Breach closed 1947`; the register row confirmed: the breach at Huayuankou on 9 June 1938, the government blaming Japanese bombing through the war, the 1948 relief survey's 893,303 dead with Anhui estimated, Muscolino's "well over 800,000"; the Japanese spokesman to the American diplomat; two FRUS telegrams for the Hong Kong newspapers (user uploads)**. **Name 花园口决堤事件 (on no page) → 花园口决堤 Huāyuánkǒu Juédī.** |
+| `cnh-643` Wang Jingwei regime | 6 | 7 → 6 | **"Basic Treaty" and "Wang died" (a treaty and a man) off: `Inaugurated 30 March 1940` / `Recognised 30 November 1940` / `Dissolved August 1945`; the regime's own name (the National Government), Lin Sen nominal in Chongqing, the ministers reading Sun's will; the mainland's 伪 prefix (the CPPCC's paper) and Taiwan's textbooks' "pro-Japanese" each whose**; the telegram's 29 December (published 30 December, Yang) dropped; the Wikisource text and the Serfass thesis replaced. Name 汪精卫政权 kept, unconfirmed. |
+| `cnh-644` Hundred Regiments Offensive | 6 | 6 → 6 | **The battle template off: `Began 20 August 1940` / `Ended 5 December 1940` (`ww2-416`'s 3 December noted); the Zhengtai railway, Mao's "truly exciting" cable, Peng Dehuai's ten days early; every count said whose (Li Jun [in Chinese])**; three Chinese sources cut to one; Opper no longer cited for army sizes; the glossary's "105 regiments" (unsourced) dropped. |
+| `cnh-645` Jin-Cha-Ji Border Region | 5 | 6 → 5 | **`Founded 1937` / `First government 10 January 1938` / `Assembly met 1943`; Nie Rongzhen out of the Wutai mountains to Fuping, the assembly's three Communists of nine under Sun's portrait, Norman Bethune (12 November 1939); "the first base behind enemy lines" and the twelve million said to be the party's own**; Carlson (a scan) and its "ten million / 100,000 km²" dropped; the Kotobank entry on the offensive (`cnh-644`'s) dropped. |
+| `cnh-646` New Fourth Army incident | 6 | 6 → 6 | **"Army disbanded" → `Army abolished 17 January 1941` (the designation, the army said disbanded by 12 January); Ye Ting and Xiang Ying, the foreign ministry's "military discipline", Chen Yi and Liu Shaoqi's rebuilt army; the day of the attack each account's (6 January the Communists' to the embassy, 7 January the party page); Lai 2013, a Taiwan Defense Journal article**; four primary texts cut to two. **Name 皖南事变 → 新四军事件 Xīnsìjūn Shìjiàn**, the ROC's term the answer translates (皖南事变 the PRC's, in prose). |
+| `cnh-647` Burma Road | 7 | 7 → 7 | **"Cut by Japan" (a state) → `Cut 1942`; "Convoys resume" → `First convoy 4 February 1945`; reopened 18 October 1940, not the 10th (Khine); the gorges and the workforce as Khine's figure, the sixteen agencies on the road, the Ledo junction; Moedict [in Chinese]**; Chiang Yee (a scan, a third primary) dropped. |
+| `cnh-648` Joseph Stilwell | 7 | 7 → 7 | **All three phrasings new, without years and away from `ww2-425`'s clues: the "Peanut" diary entry and Roosevelt's message, Berkeley, Beijing, Tianjin and Beiping, the walk out of Burma; FRUS cut to two documents, *Mission* cited at chapter 4**; a phrasing ending inside a quotation reworded after the apply. Protected: the line stays (Moedict misprints his birth year 1884; not used). |
+| `cnh-649` Operation Ichi-Go | 6 | 6 → 6 | **"Launched 19 April 1944" (on no page) and three rows naming fallen cities off: `Began 17 April 1944` (the Japanese monograph JM-72's first crossing) / `Ended 10 December 1944` (the junction at Suilu); Okamura's air-base aim, Guilin and Liuzhou lost on one day, half the North China battalions pulled; Liu Feng 2023 [in Chinese], Coble 2023**; the Henan peasants (`cnh-651`'s) and Stilwell (`cnh-648`'s) left out. Timeline set to 17 April – 10 December 1944. 豫湘桂战役 the PRC's name, in notes. |
+| `cnh-650` Unit 731 | 7 | 7 → 7 | **"Pingfang built by 1939" ("by" a non-date) and "Destroyed August 1945", "Khabarovsk trial 1949" (not in its cited essay; an institution) off: `Experiments 1933 – 1945` / `Established 1936` (Tsuneishi); the register row refined: the 3,000 is Kawashima Kiyoshi's testimony quoted in the indictment, not the court's count; maruta, the American expert and the paid-for data, the textbook screening; Yang Yanjun 2013 [in Chinese]**. Pinyin yāo kept (the spoken digit; the dictionary's yī for the owner). |
+
+Read by eye. **Confusability**: the correspondents and Guo Moruo `cnh-641`'s; the bombing blamed and the survey `cnh-642`'s; Sun's will
+in Nanjing `cnh-643`'s; Mao's "truly exciting" `cnh-644`'s; Bethune and the three of nine `cnh-645`'s; "military discipline" `cnh-646`'s;
+the sixteen agencies `cnh-647`'s; "Peanut" `cnh-648`'s; the air bases `cnh-649`'s; maruta `cnh-650`'s. **Legend**: the flood's dead
+(the survey's estimate), the Taierzhuang reports (known inflated), Unit 731's dead (a witness's figure) are each said so. **Chinese names
+corrected**: `cnh-642` 花园口决堤, `cnh-646` 新四军事件 (the ROC's term; 皖南事变 the PRC's). Kept unconfirmed: 汪精卫政权. **Spellings**:
+0 hits on the drafts. **Myth register**: the 1938 flood's dead and Unit 731 confirmed and refined (rows updated in the seventh hundred's
+sum). **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the apply and the `cnh-648` phrasing fix). For the
+owner: `cnh-641`, `643`, `644`, `645` and `647` want locators (`L.missing`; Taierzhuang District, Fuping); `cnh-650`'s pinyin yāo or yī.
+Timelines set: `cnh-641` (23 March – 7 April 1938), `cnh-649` (17 April – 10 December 1944).
+
+### B66 — `cnh-651`–`cnh-660`, World War II and the People's Republic: the famine of 1942–1943 to the First Five-Year Plan (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl but four: two loc.gov country-study item pages (`cnh-657`, `658`; 403 to
+curl, `?fo=json` answers), the Memorial Hall's English page (`cnh-655`; it answered a second try) and `cnh-651`'s Ca' Foscari chapter
+PDF (no answer at the batch; the agent's saved copy stands). **Pictures were not touched.** **The old cards cited White's *Time*
+article, Hsueh, Kuan Ta-tung and other user uploads, the 1950 law and the 1982 constitution on Wikisource, and FRUS for claims its
+documents do not make; carried places, men, institutions and words in labels ("Zhijiang talks", "Okamura cleared", "Put to Stalin",
+"UN founded", "Wuhan count", "Memorial day 13 December, from 2014"); and gave the famine, Land Reform and the counter-revolutionary
+campaign their tolls as fact.** Every toll is now whose (Garnaut, Muscolino, Ray Huang, the 1954 public security report through Yang
+Kuisong, the CIA), and the party's own pages are said to be its account.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-651` Chinese famine of 1942–1943 | 6 | 7 → 7 | **"In Time 22 March 1943" (a publication) → `Relief by rail April 1943` (FRUS); `Press report 1 February 1943`; the register row confirmed with an addition: White reported already in October 1942; the *Ta Kung Pao*'s three-day suspension, the tax in kind, the grain trains after the correspondents saw Chiang; the dead as Garnaut's a little under a million (through Baker), Muscolino's some two million and the common three million (Ma Yong [in Chinese] doubting it)**; White's *Time* article (406 to curl) and his five-million projection dropped. |
+| `cnh-652` refugee crisis | 6 | 7 → 7 | **"Wuhan count 1938" (a place, not a date) and "War ended" off: `Began 13 August 1937` / `Relief body 27 April 1938` / `Postwar report end of 1946` (the relief administration's 82,210,158, Fu 2024 [in Chinese]); the sixteen million from the Shanghai triangle, Wuhan's newcomers, the relief stations; Polit [in Polish], Schoppa, MacKinnon, Mitter, the *China Handbook***; half the old background (the war's total dead, `cnh-631`'s) and its three sources cut. The glossary's `Refugee_crisis` is a general entry, and the card's wiki link points at the general article (for the owner). |
+| `cnh-653` Nanjing surrender ceremony | 6 | 6 → 7 | **"Zhijiang talks" (a place) and "Okamura cleared 26 January 1949" (a man; another event) off: `Terms handed 21 – 23 August 1945` / `Signed 9 September 1945`; nine in the morning on the ninth of the ninth in the Central Military Academy's hall, the envoy at Zhijiang, Okamura's acquittal in prose (Yang Lijun and Kushner)**; Lary (a landing page with no text) and Mao's re-arrest statement dropped; the Missouri left to `cnh-631`. |
+| `cnh-654` Four Policemen | 6 | 7 → 6 | **"Put to Stalin" (a man), "UN founded" and "PRC seated" (institutions; `cnh-700`'s) off: `Proposed 29 May 1942` (to Molotov, FRUS) / `Set out 29 November 1943` / `Chinese talks 29 September 1944` / `In force 24 October 1945`; Stalin's warning at Tehran, the White House cocktails, China as a junior partner and Brazil at Dumbarton Oaks (Takahashi 2021)**. Pinyin Sì Jǐngchá (a number and a noun, split) flagged; the glossary's 1943 – 1945 against the card's 1942 left for the owner. |
+| `cnh-655` Nanjing Massacre Memorial Hall | 7 | 7 → 8 | **"Expanded 1997 and 2007" and "Memorial day 13 December, from 2014" ("and", "from") off: `Opened 15 August 1985` / `Rebuilt 13 December 2007` / `First state rite 13 December 2014`; the drab tomb-like design against Yuhuatai, the opening on the day of a Yasukuni visit, the ceremonial courtyard; the wall's 300,000 as the Chinese government's figure beside the Tokyo tribunal's and Japanese specialists'**; the NPC's 2014 decision on no host that opens, so the first state rite (the museum's history page) dates it. |
+| `cnh-656` People's Republic of China | 9 | 9 → 9 | **`Proclaimed 1 October 1949` / `Constitution 4 December 1982` / `Amended 11 March 2018` (the constitution's text); Article 1's leading role of the party as the state's account, the cadre system and "regionally decentralised authoritarianism" as scholars' (Lary, Weng, Miller, Lu and Tsai)**; "stood up" (`cnh-628`'s) and "merits primary" (`cnh-608`'s) off; Taiwan only as where the Nationalists fled. The glossary's `China` (a country entry) does not contradict the card and stays. |
+| `cnh-657` Land Reform Movement | 7 | 7 → 7 | **`Law promulgated 30 June 1950` / `Campaign 1950 – 1952` (the 1952 end the PRC editors', not Mao's 1951 forecast); the rich peasants' fields kept, "speaking bitterness" and the hereditary class labels, Liu Shaoqi's "abolished but not physically eliminated"; Ray Huang's three to five million dead as Gao and Liu cite it [in Chinese], a scholar's figure; Javed (ANU Press)**; an archive.org upload, the *Études rurales* article (a bot wall) and a mirror dropped. |
+| `cnh-658` Campaign to Suppress Counterrevolutionaries | 6 | 7 → 7 | **`Directive 10 October 1950` / `Campaign 1950 – 1953`; "strike surely, accurately and relentlessly", the 1954 public security report's 2.62 million arrests and 712,000 executions as Yang Kuisong cites them [in Chinese] (he thinks them low), Mao's one per thousand and Fujian's 2.4, a 1969 CIA study's two to three million — each whose**; the Korean War cut to a clause. |
+| `cnh-659` People's Volunteer Army | 7 | 8 → 8 | **"Ordered in" → `Ordered 8 October 1950`; `Withdrawn October 1958`; Mao Anying killed at Peng Dehuai's headquarters, the divisions rebuilding after the armistice, the Soviet copy of Mao's refusal to Stalin (Shen and Xia, NKIDP; Leitenberg, CWIHP); every casualty figure whose, the martyrs' register including deaths after the armistice**; the glossary's "about 114,000 killed in action" now 114,084 killed in action or accidents. |
+| `cnh-660` First Five-Year Plan | 7 | 7 → 7 | **`Plan period 1953 – 1957` / `Adopted 30 July 1955`; Li Fuchun's report and the late adoption, the Soviet-aided core projects by province, the 1953 census's half a billion; Lardy (Cambridge), Jiang Pu [in Russian]**; Mao's 1956 "lop-sided stress" corrected (said of some East European countries); Hsueh 1960 (an upload) and the "yuan" sums dropped. The words "First Five-Year Plan" are an alias of the glossary's Soviet plans (for the owner); the plan's own text is an archive.org copy of a state document. |
+
+Read by eye. **Confusability**: the *Ta Kung Pao* and the grain trains `cnh-651`'s (the flood's dead `cnh-642`'s); the relief stations
+`cnh-652`'s; the ninth of the ninth `cnh-653`'s (the Missouri `cnh-631`'s); the Molotov cocktails `cnh-654`'s (the UN seat `cnh-700`'s); the
+tomb design `cnh-655`'s (the massacre's tolls `cnh-637`'s); Article 1 `cnh-656`'s (the ceremony `cnh-628`'s); the class labels `cnh-657`'s
+(the 1947 law `cnh-619`'s); the quotas `cnh-658`'s; Mao Anying `cnh-659`'s; the census `cnh-660`'s. **Legend**: the famine's dead
+(estimates), the land reform's dead (a scholar's estimate), the executions (a report's figure thought low) are each said so. **Chinese
+names**: none corrected; kept unconfirmed 难民危机 (scholarship writes 难民问题 or 难民潮). **Spellings**: 0 hits on the drafts. **Myth
+register**: the Henan famine confirmed (White's reporting began in October 1942). **check-citations**: no mismatch. **Protected lines:
+unchanged** (diffed after the apply). For the owner: `cnh-652`'s general glossary entry and wiki link; `cnh-660`'s glossary alias trap;
+`cnh-654`'s glossary date; `cnh-656` wants no locator (`L.missing` on a state). Timelines unchanged.
+
+### B67 — `cnh-661`–`cnh-670`, the People's Republic: socialist transformation to the Cultural Revolution (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl. **Pictures were not touched.** **The old cards cited Wikisource for the
+party's resolutions, the commune regulations and the 1982 constitution, user uploads (Kuan Ta-tung), bot-walled articles (Chen Ziming,
+Smil) for rightist and famine counts, and a Red Guard text for Mao's Lushan talk; carried men and institutions in labels ("Mao's speech",
+"Peng's letter", "Liu's speech", "Ninth Congress", "Party verdict", "Beidaihe ruling"), "From 1956" as a value, a census as a famine's date
+and "Exams scrapped" for a postponement.** The party's own histories (cpc.people.com.cn, the 1981 resolution, its chronicles) are now
+each said to be the party's, and every rightist count, famine toll and death estimate whose.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-661` Socialist transformation | 6 | 6 → 7 | **"Fixed interest From 1956" (words, "From") → `Interest ended September 1966`; `General line 1953` / `Upsurge 1955 – 1956`; the joint state–private firms, Mao's "woman with bound feet" (31 July 1955), Walker's 14.2 and 91.2 per cent, the party's "peaceful buying-out" as its own account; Saitō [in Japanese]**; Kuan Ta-tung (an upload) and every figure only it carried (99 per cent, 400,000 shops, "5 per cent for 7 years") dropped. **Pinyin → shèhuì zhǔyì gǎizào** (split; reversible). |
+| `cnh-662` Hundred Flowers Campaign | 7 | 7 → 7 | **"Mao's speech" (a man) → `Speech 27 February 1957`; `Proposed 28 April 1956` / `Views aired 8 May – 7 June 1957`; the 8 June counter-attack left to `cnh-663`; Li Ruzhen's phrase, the six tests, the blossom imagery; the trap reading as Mao's own 1 July "overt scheme" against the Library of Congress study and the party page**; the Zhang Bojun and Luo Longji proposals (a bot-walled source) dropped from the card and the glossary. Timeline set to 28 April 1956 – 7 June 1957. Name 百花运动 kept, unconfirmed. |
+| `cnh-663` Anti-Rightist Campaign | 7 | 8 → 7 | **"Largely over summer 1958" (only a second Chinese page prints it) off: `Began 8 June 1957` (Mao's directive) / `Labels removed 1978` / `Review completed 1981`; "spew out their venom", the party's own more than 550,000 labelled and some 3,000 verdicts standing, Jiabiangou; Shen Zhihua, Teiwes**; Chen Ziming (a bot wall) and the higher counts resting on him dropped, in the glossary too. **Pinyin → Fǎnyòu Yùndòng** (反右派斗争 the party's own term). Timeline set to 8 June 1957. |
+| `cnh-664` Great Leap Forward | 8 | 8 → 8 | **"General line May 1958" and "Communes August 1958" (`cnh-665`'s) → `Began May 1958` / `Ended winter 1960`; the Beidaihe steel target of 10.7 million tonnes and "overtake Britain within 15 years or less" from the party's own history, the "sputniks" and Anhui's irrigation drive, the party's verdict; the famine's toll as Yang Jisheng's 16.2 million to Dikötter's minimum of 45 million**; Lushan and Smil (a bot wall) dropped; the backyard furnaces (on no page cited) not named. |
+| `cnh-665` people's commune | 7 | 7 → 7 | **"Prototype April 1958" and "Revised rules 27 September 1962" (on no page that opens) and "Beidaihe ruling" (a place) off: `Resolution 29 August 1958` (*Peking Review*) / `Townships back 4 December 1982` (*Beijing Review*) / `Dissolved winter 1982 – 1983` (Dikötter); the canteens' free food turned to punishment, Da Fo's nineteen villages (Thaxton); Rothschild 2026, Bramall, Ó Gráda**; three Wikisource texts replaced. |
+| `cnh-666` Great Chinese Famine | 7 | 7 → 7 | **"Worst year 1960" and "Census 1982" (another event) off: `Famine 1959 – 1961`; the register row refined: every toll whose and how made, from Yang Jisheng's 16.2 million to at least 45 million (Dikötter), the institutional study of the food-rich regions, the party journal's dismissal as the state's account; 三年大饥荒 the critics' name, 三年困难时期 the party's**; Smil replaced by Rothschild. |
+| `cnh-667` Lushan Conference | 6 | 8 → 6 | **"Peng's letter" and "Mao's reply" (men) → `Opened 2 July 1959` / `Letter 14 July 1959` / `Rebuttal 23 July 1959` / `Plenum 2 – 16 August 1959`; the register row confirmed in outline; Mao's threat to lead the peasants in the speech's own words, the "anti-Party group" resolution later declared wrong; the party news site [in Chinese], Bernstein 2006, Schoenhals and Stone 1990, Charles 1961**; two Wikisource texts and a Red Guard text dropped; "petty-bourgeois fanaticism" as Peng's words, the "private" letter and the canteens' 400 million (on no page) dropped. Timeline set to 2 July – 16 August 1959. |
+| `cnh-668` Sino-Soviet split | 7 | 7 → 7 | **"Alliance signed 14 February 1950" (the treaty, through FRUS's note, now in prose) → `Rift opened February 1956` / `Experts recalled 16 July 1960` (Luan Jinghe [in Chinese]: 1,390 experts) / `Border clashes 2 – 15 March 1969`; Zhenbao's dead as the Soviet count (Ostermann) and "some 50" (Burr); Lüthi 2012**. **Name 中苏交恶 (a description) → 中苏分裂 Zhōng-Sū fēnliè** (the CASS page). Timeline set to February 1956 – March 1969. |
+| `cnh-669` Seven Thousand Cadres Conference | 6 | 7 → 6 | **"Liu's speech" and "Mao's talk" (men) → `Speech 27 January 1962` / `Self-criticism 30 January 1962`; Mao's own responsibility, the Hunan peasants' natural and man-made disasters as Liu reported them, the ponds that never dried, the cuts to the towns; Wemheuer 2010, 許楽 2024 [in Japanese], the party chronicle [in Chinese]**; the rift sentences (Bianco and Nakagane behind bot walls) replaced by the chronicle's own admission of disagreement unresolved. |
+| `cnh-670` Cultural Revolution | 9 | 9 → 9 | **"Dated by Party", "Ninth Congress" and "Party verdict" (institutions) and "Exams scrapped 13 June 1966" (wrong: enrolment was postponed; the exams abolished 24 July) → `Began May 1966` / `Enrolment halted 13 June 1966` / `Ended October 1976` / `Verdict 27 June 1981`; the county-annals scholars' million or more dead, mostly victims of the authorities; the 1981 resolution as the party's verdict; the Cultural Revolution Group**; the 8 August Decision (an unquotable PDF) replaced by the party chronicle [in Chinese]. |
+
+Read by eye. **Confusability**: the fixed interest and bound feet `cnh-661`'s; Li Ruzhen's phrase and the blossoms `cnh-662`'s (the 8 June
+editorial `cnh-663`'s); Jiabiangou `cnh-663`'s; the steel target and the sputniks `cnh-664`'s; the canteens and Da Fo `cnh-665`'s; the
+food-rich regions `cnh-666`'s; Mao's threat at Mount Lu `cnh-667`'s; Zhenbao and the experts' recall `cnh-668`'s; Mao's self-criticism and
+the ponds `cnh-669`'s; the county annals and the Cultural Revolution Group `cnh-670`'s. **Legend**: the trap reading of the Hundred Flowers
+(Mao's own claim), "three parts natural, seven parts man-made" (the peasants' words as Liu reported them), the famine's toll (estimates)
+are each said so. **Chinese names corrected**: `cnh-668` 中苏分裂; pinyin `cnh-661` shèhuì zhǔyì gǎizào, `cnh-663` Fǎnyòu Yùndòng. Kept
+unconfirmed: 百花运动. **Spellings**: 0 hits on the drafts. **Myth register**: the Great Famine's toll refined (from Yang Jisheng's 16.2
+million), Lushan and Peng's letter confirmed in outline. **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after
+the apply). Timelines set: `cnh-662` (28 April 1956 – 7 June 1957), `cnh-663` (8 June 1957), `cnh-667` (2 July – 16 August 1959),
+`cnh-668` (February 1956 – March 1969).
+
+### B68 — `cnh-671`–`cnh-680`, the People's Republic: the Red Guards to the reform and opening up (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl but two: `cnh-673`'s Europe PMC full text (a 502 outage at the batch; the
+agent's saved copy stands) and `cnh-677`'s Taylor and Francis DOI (403 to curl; it resolves). **Pictures were not touched.** **The old
+cards cited Wikisource for the resolutions, the court texts, the 1993 decision and the 1978 article, an FBIS transcript, OpenEdition pages
+now walled and a dead PDF; carried men, places and institutions in labels ("Mao's letter", "Beijing rally", "Mao's directive", "Nixon's
+visit", "Liu cleared", "Truth article"), a "from" value, a rally that was the second review called the first, and print runs and death
+counts as fact.** The Little Red Book's billions, the Gang of Four's victims and the sent-down millions are now each whose.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-671` Red Guards | 8 | 8 → 8 | **"Mao's letter" (a man), "Beijing rally 31 August 1966" (a place; the second review, not the first) and "Workers sent in" off: `Appeared June 1966` / `First review 18 August 1966` / `Last review 26 November 1966`; the Tsinghua middle school and "it is right to rebel", the bloodline couplet, Mao as the "black hand"; the 13 million and the workers each said whose; Yi Xiaocuo, the Sciences Po chronology, Walder (Stanford)**; seven primary sources cut to three. The party dates the first group to June 1966, Zhang Fang's essay to 29 May (for the owner). |
+| `cnh-672` Quotations from Chairman Mao Tse-tung | 8 | 8 → 8 | **`First edition 1 May 1964` / `Revised 1 August 1965` / `Foreword 16 December 1966` / `Withdrawn 12 February 1979` (the old 1979 row on no page); Lin Biao's foreword and the "spiritual atom bomb", the trial printing, the propaganda department's order; the register row confirmed as claims: Leese's just over a billion official volumes, Cook's "well over a billion", the press's five billion, the Chinese account's 1,055 million**; the old author line "Lin Piao" → Lin Biao; "Mao Tse-tung" kept in the title. |
+| `cnh-673` Down to the Countryside Movement | 7 | 7 → 7 | **"Mao's directive" (a man) → `Directive 22 December 1968`, `Mass phase 1968 – 1980` first; the Huining editor's note, the CIA memo's seven million from provincial broadcasts, the shared cemetery outside Shanghai; the numbers each whose (Zhao and Su's 17.7 million, Fiskesjö's 17 – 20 million)**; four OpenEdition sources (a bot wall) and the "17,919,800" (on no page that opens) dropped. Timeline set to 1968 – 1980. Europe PMC answered 502 at the batch's curl; the agent's saved full text stands. |
+| `cnh-674` Lin Biao | 7 | 8 → 8 | **The two Wikisource texts replaced by the 1969 constitution on the Marxists Internet Archive and Zhou Enlai's 1973 report; the register row confirmed and dated (Zhou's report of 24 August 1973: Project 571, the flight on 13 September, the crash "at Undur Khan"); the greatcoat wound and the Soviet treatment, the head-of-state quarrel as the CIA read it**; the Liaoshen command and the foreword left to their cards. Protected: the line stays (flagged below). |
+| `cnh-675` Gang of Four | 7 | 7 → 9 | **"Overthrown October 1976" → `Arrested 6 October 1976` (the party's own page, said whose) / `Tried 20 November 1980 – 25 January 1981`; Mao's "gang of four" as the 1981 resolution's account, the Zhongnanhai arrests ordered by Hua Guofeng and Ye Jianying, the televised trial; the prosecution's 750,000 persecuted and 34,375 dead as its count; the 1983 commutation; Zheng (UMKC), Bout, the Library of Congress study**; two Wikisource court texts dropped. The register row confirmed. |
+| `cnh-676` Shanghai Communiqué | 7 | 7 → 7 | **"Nixon's visit" (a man) and "Relations from 1 January 1979" ("from") → `Visit 21 – 28 February 1972` / `Issued 27 February 1972` / `Relations begin 1 January 1979` (FRUS 1969 – 1976 XVII, the Office of the Historian); "one China" unchallenged, renshi against chengren (a CRS report), the hegemony clause; the PRC embassy's text**; Wikisource replaced; Taiwan's status one clause. |
+| `cnh-677` Hua Guofeng | 6 | 7 → 8 | **The dead researchmap PDF, Wikisource and the FBIS transcript replaced (the NPC's reprint of Xinhua's obituary, Teiwes and Sun, Oksenberg and Yeung, Domes, the CIA's 1977 study); born Su Zhu, Xiangtan and Hunan, the "two whatevers" quoted from the 1981 resolution with Deng calling them unacceptable, the posts given up in turn; "at ease" as the CIA's reading**. Protected: the line stays (flagged below). |
+| `cnh-678` Deng Xiaoping | 8 | 8 → 8 | **Wikisource replaced by the PRC's biography on cpc.people.com.cn [in Chinese]; the Jiangxi dismissal and the tractor plant, Guang'an to France and the Youth League at eighteen, the cat proverb as Liu Bocheng's yellow-or-black in Deng's 1962 text (Béja's black-or-white noted); Wang, Shambaugh, Pye, Teiwes and Sun**; the Carter talk, 1989 and the southern tour out of the background; "to get rich is glorious" left out (no page read discusses it). Protected: the line stays. |
+| `cnh-679` Boluan Fanzheng | 6 | 8 → 7 | **"Truth article" (a text) → `Debate opened 11 May 1978`; "Liu cleared" (a man) off; `Began October 1976` added so the card sorts with its glossary; the verdicts overturned, Hu Yaobang's approval of the article, Liu Shaoqi cleared; Huang Yibing [in Chinese], the Library of Congress study, Schoenhals 1991**; three Wikisource texts and Li-Ogawa (404) dropped; the term's translation and the "4,600 cadres" (unsourced) dropped. Timeline set to October 1976 – 27 June 1981. |
+| `cnh-680` Chinese economic reform | 8 | 8 → 8 | **`Third plenum December 1978` / `Urban reform October 1984` / `Market economy November 1993` (the 1993 communiqué); "crossing the river by feeling stones", the dual track and "growing out of the plan", the township enterprises the leaders "by no means anticipated" (Deng, June 1987); the GDP figures as Zhu 2012's**; three Wikisource texts dropped with the grain-price and dual-price claims; the special zones, the southern tour and "yuan" kept off. Timeline set to December 1978. |
+
+Read by eye. **Confusability**: the Tsinghua middle school and the bloodline couplet `cnh-671`'s; the atom-bomb foreword `cnh-672`'s (Lin's
+life `cnh-674`'s); Huining and the cemetery `cnh-673`'s; the greatcoat `cnh-674`'s; the Zhongnanhai arrests and the televised trial
+`cnh-675`'s (Hua's own life `cnh-677`'s); renshi and chengren `cnh-676`'s; Su Zhu and the "two whatevers" `cnh-677`'s; the tractor plant
+and the cat `cnh-678`'s; the truth debate `cnh-679`'s; feeling the stones `cnh-680`'s (the household system `cnh-681`'s). **Legend**: Mao's
+"gang of four" (the resolution's account), Lin Biao's flight (Zhou's report — the official account), the cat proverb (Liu Bocheng's in Deng's
+own text), the print figures (claims) are each said so. **Chinese names**: none corrected. **Spellings**: "Mao Tse-tung" in `cnh-672`'s title
+and its glossary's (kept). **Myth register**: the Little Red Book's figures, Lin Biao's flight and the Gang of Four's trial confirmed.
+**check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-674`'s "Öndörkhaan, Mongolia"
+is loose (the party biography: 10 km south of the Berkh mining area in Khentii; Zhou's report "at Undur Khan") and its 17 September 1959 on
+no page read; `cnh-677`'s 7 October 1976 and 28 June 1981 on no page read (the obituary makes him acting premier from February 1976); the
+Red Guards' first group dated June 1966 (the party) or 29 May (Zhang Fang). Timelines set: `cnh-673` (1968 – 1980), `cnh-679` (October 1976
+– 27 June 1981), `cnh-680` (December 1978).
+
+### B69 — `cnh-681`–`cnh-690`, the People's Republic: the household responsibility system to the Belt and Road Initiative (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl but `cnh-683`'s Springer DOI (403 to curl; it resolves). **Pictures were
+not touched.** **The old cards cited Wikisource for the zone regulations, Chen Xitong's report and the hukou rules (five on one card),
+walled OpenEdition and PMC pages, and a script page for the WTO protocol; carried places, men, institutions and counts in labels
+("Xiaogang pact", "Wan Li visit", "Contracts 15 years, 1984", "Hainan added", "Macau returned", "Party charter", "Applied to GATT"), and
+gave Guangdong's 95 per cent to all China.** The state's figures (the births averted, the 1989 dead, the floating population) are now
+each said whose, beside demographers', scholars' and Amnesty's.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-681` household responsibility system | 7 | 7 → 7 | **"Xiaogang pact" (a place), "Wan Li visit" (a man) and "Contracts 15 years, 1984" (a count and words) off: `Secret pact December 1978` / `Endorsed 1982` / `Term lengthened 1984` / `Term extended 1993`; the fingerprinted paper in the national museum (told as the story it became), Deng praising the Anhui counties, one economist's half of the growth (Lin) — each whose; the state portal's 93 and the Library of Congress study's 98 per cent by 1984**; the old "95% by 1983" (Guangdong's figure for all China), in the glossary too; three Wikisource texts replaced. |
+| `cnh-682` special economic zone | 7 | 7 → 7 | **"Hainan added" (a place) → `Zone added 1988`; `Decided July 1979` / `First zones August – October 1980` (26 August on no page that opens); Shekou's "time is money", the foreign firms' half tax and freedom to hire and fire, Shannon's first zone; the growth figures as a World Bank economist cites them**; the Wikisource regulations replaced by the party chronicle; a phrasing that took `cnh-685`'s Shanghai clue reworded before the apply. |
+| `cnh-683` one-child policy | 8 | 8 → 9 | **"Peak of coercion" → `Abortions peaked 1983`; the open letter's "advocated, not imposed", Song Jian's cybernetic projections (Greenhalgh), fines in multiples of income; every figure whose (the 14.37 million abortions official, the 20.7 million sterilisations Wang, Gu and Cai's, the 400 million births averted the government's, Goodkind's 360 – 520 million one demographer's)**; two Chinese sources cut to one; Whyte et al. and Zeng and Hesketh (PMC walled) replaced. |
+| `cnh-684` Tiananmen Square protests of 1989 | 9 | 9 → 10 | **"Crushed" → `Crackdown 3 – 4 June 1989`; the Goddess of Democracy, Deng's "counter-revolutionary rebellion" of 9 June, the 2021 resolution's "serious political disturbance" — each the state's account and dated; the register row followed and corrected: the government's report gave over 200 civilians and several dozen soldiers, Amnesty quoting it**; the Wikisource text of Chen Xitong's report replaced. The glossary gains the alias "Tiananmen Square protests of 1989". **Pinyin → Liùsì Shìjiàn** (as its neighbours). |
+| `cnh-685` southern tour | 7 | 7 → 8 | **"Party congress" (an institution) → `Circulated 28 February 1992` (Document No. 2, the party chronicle [in Chinese]); the Hong Kong reporters and the silent national press, "the Left the chief danger", Jiang Zemin's "new stage"; "to get rich is glorious" never found in Deng's words (a CSMonitor piece: not Schell's attribution either)**; the third primary text (`cnh-682`'s 1984 talk) dropped. `G.none` stands: an alias "southern tour" would link the Qing emperors' tours to Deng's (for the owner). 南方谈话 the party's term, in notes. |
+| `cnh-686` Protocol on the Accession of the People's Republic of China | 6 | 8 → 7 | **"Applied to GATT" and "WTO member" (institutions) off: `Approved 10 November 2001` / `Joined 11 December 2001` (1986 in prose); Doha, Section 15's surrogate prices and their 2016 expiry dispute, the three-year trading rights and the special safeguard; Lai 2001 (Long Yongtu, the seat vacated in 1950), a 2018 law-journal comment**; the docs.wto.org link (a script page) replaced by a full copy of WT/L/432. |
+| `cnh-687` floating population | 7 | 8 → 8 | **"Towns opened 13 October 1984" (the day on no page) → `Towns opened 1984`; `Custody ended 1 August 2003` / `Census count 1 November 2020`; the census's six-month definition, the "blind flow" and the 1950s label told apart, the Guangzhou death that ended custody; every figure whose and what it counted (the bureau's 221 million, one study's 170.6 million, the Ministry's 45.4 per cent)**; three Wikisource texts, a walled article and a Chinese NBS report dropped. Three articles cited by NCBI efetch (Europe PMC down all session). |
+| `cnh-688` hukou | 7 | 8 → 8 | **`Urban rules 1951` / `National rules January 1958` / `Reformed 24 July 2014`; moves made subject to the destination's approval, the agricultural and non-agricultural types and what each carried, the 2014 opinion abolishing them (gov.cn [in Chinese])**; five Wikisource texts dropped; Luo Ruiqing's speech (on no allowed host) dropped; the migrants' numbers left to `cnh-687`. |
+| `cnh-689` handover of Hong Kong | 8 | 8 → 8 | **"Macau returned" (a place) off: `Declaration 19 December 1984` / `Handover 1 July 1997`; the New Territories lease, each side's words ("resume the exercise of sovereignty", "transfer of sovereignty" in Hansard, "return to the motherland" in the 2014 white paper [in Chinese]), Deng's refusal to discuss sovereignty, the Basic Law (4 April 1990)**; Macau one sentence (Edmonds and Yee); "midnight" and the garrison sentence (on no page) dropped, in the glossary too. |
+| `cnh-690` Belt and Road Initiative | 8 | 8 → 9 | **"Party charter" (an institution) off: `Announced September – October 2013` / `Official plan 28 March 2015` (the NDRC); Xi's Astana and Jakarta speeches, AidData's hidden debts, "debt-trap diplomacy" as an Indian analyst's label of January 2017 with Rhodium's and the Lowy Institute's doubts; every figure whose (Beijing's, the CFR's, AidData's)**; three OpenEdition sources (a bot wall) dropped. |
+
+Read by eye. **Confusability**: the fingerprinted paper `cnh-681`'s; Shekou and the half tax `cnh-682`'s; Song Jian's projections
+`cnh-683`'s; the Goddess of Democracy `cnh-684`'s; the Hong Kong reporters and the Shanghai regret `cnh-685`'s (a duplicate on `cnh-682`
+caught); Doha and Section 15 `cnh-686`'s; the six-month definition `cnh-687`'s; the two types `cnh-688`'s; the New Territories lease
+`cnh-689`'s; debt-trap diplomacy `cnh-690`'s. **Legend**: the Xiaogang pact (the story it became), "to get rich is glorious" (never found),
+the births averted (the government's claim), the 1989 dead (each source's) are each said so. **Chinese names**: none corrected; `cnh-684`'s
+pinyin capitalised as its neighbours. **Spellings**: 0 hits on the drafts. **Myth register**: the 1989 toll followed and corrected (the
+report's over 200 civilians and several dozen soldiers); Deng's southern tour remarks confirmed (the "Selected Works vol. 3" detail not
+confirmed on the page read). **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the apply). For the owner:
+`cnh-685`'s `G.none` (an alias "southern tour" would mislink the Qing emperors' tours). Timelines unchanged.
+
+### B70 — `cnh-691`–`cnh-700`, the Republic of China (Taiwan): the Government-General to the political status of Taiwan (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl. **Pictures were not touched.** **The old cards cited Wikisource for the
+treaty, the martial-law proclamation (five texts on one card), the Land-to-the-Tiller Act and the 1992 talks, the Taipei Times and
+OpenEdition pages now walled; carried places, laws, texts, states and institutions in labels ("Law No. 63", "Cairo promise", "Kinmen and
+Matsu", "US aid", "Hong Kong talks", "ECFA signed", "Japan renounces", "UN seat changes", "Anti-Secession"), a decade span in a glossary
+date and a descriptive Chinese name (台湾问题).** Taiwan's own pages (the Presidential Office, the Ministry of Justice, the National Human
+Rights Museum, the 228 Foundation, the Election Study Center) are now said whose beside the PRC's white paper and scholarship.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-691` Government-General of Taiwan | 6 | 6 → 6 | **"Law No. 63" (a law) and "Office built 1919" → `Decree powers March 1896` / `Civilian head October 1919` (Den Kenjirō, Goto 2012 [in Japanese]); `Ceded 17 April 1895` / `Ended 1945`; the delegated ordinances the Diet doubted, Kodama and Gotō Shinpei, the headquarters' tower now the Presidential Office**; Law 63 renewed three times, replaced in 1906, superseded in 1921 (not "renewed until 1921"); the Wikisource treaty replaced by FRUS 1895, two OpenEdition sources (a bot wall) by Goto and the Presidential Office; the revolts list and the 1905 census (on no page) dropped. |
+| `cnh-692` Retrocession Day | 6 | 7 → 6 | **"Cairo promise" (a place) off: `Surrender 25 October 1945` / `Holiday restored 28 May 2025` (the act's announcement, the Ministry of Justice database); Andō Rikichi's surrender to Chen Yi, the restored holiday's longer name honouring Kuningtou, the DPP's "only MacArthur's order" and Beijing's memorial — each whose; the separate End of War Memorial Day of 15 August**; two Wikisource texts and the Taipei Times (403) dropped. |
+| `cnh-693` February 28 incident | 7 | 8 → 9 | **"State apology 1995" off (in prose, the Presidential Office): `Spark 27 February 1947` / `Uprising 28 February 1947` / `Troops landed 8 March 1947` / `Purge ended 16 May 1947`; the widow and the Monopoly Bureau, the settlement committees, Keelung; the register row confirmed with its owner: Chen Kuan-cheng's 18,000 – 28,000 in the 1992 report, a "rough estimate" to another director, the report's 344 named dead, the museum's 10,000 – 20,000**; a third FRUS document and the Taipei Times dropped. Timeline set to 27 February – 16 May 1947. |
+| `cnh-694` White Terror | 7 | 7 → 7 | **`Dated 1949 – 1987` (Li 2026) / `Also dated 1949 – 1992` (the National Human Rights Museum) / `Rebellion act 21 June 1949` / `Compensation act 17 June 1998`; the spy and independence labels, informants and island prisons under Chiang Ching-kuo, the commission's six thousand verdicts overturned; every figure whose**; two Wikisource texts replaced (the museum's timeline, CNA [in Chinese]); "140,000 tried" (with no owner on any page) dropped; martial law left to `cnh-695`. |
+| `cnh-695` Martial law in Taiwan | 7 | 7 → 7 | **"Kinmen and Matsu 1948 – 1992" (places) off, the islands' war-zone years in prose: `Declared 20 May 1949` / `Lifted 15 July 1987` (CNA; the 1995 act's 14 July in notes); the banned sighing "ah", the newspaper page caps, the hint to the *Washington Post*, Kinmen after Kuningtou; the ROC Presidential Office on the Temporary Provisions, *Taiwan Communiqué* 31**; five Wikisource texts dropped with the proclamation's clauses; "the world's longest" (CNA's own voice only) dropped. Name 台湾戒严时期 kept, unconfirmed (戒嚴時期 in the 1995 act). |
+| `cnh-696` Taiwan Miracle | 7 | 7 → 9 | **"US aid" (a state) → `Aid 1951 – 1965`; `Land reform 1949 – 1953`; "Taiwan Miracle" said to be scholars' label (a 1986 book title); the landlords paid in shares of four state companies, Jacoby's evaluation (industry up 324 per cent 1951 – 63, not "quintupled"; the 1964 cut-off Bell's proposal, not Washington's judgement), the growth debate; the Land Reform Memorial Museum [in Chinese]**; the Wikisource Land-to-the-Tiller Act replaced; K. T. Li and the Kaohsiung zone (on no page) left out; the glossary's "1950s – 1990s" (decades) cleared by hand. |
+| `cnh-697` Wild Lily student movement | 6 | 8 → 7 | **"Old members out" → `Seniors retired 31 December 1991`; `Conference 28 June – 4 July 1990` added; `Direct vote March 1996`; the "seven hundred emperors" banner, Lee Teng-hui's meeting with fifty representatives, the lily sculpture; the phrasings rewritten (all three carried "students" and figures over 99)**; the Swarthmore database (CAPTCHA), the Taipei Times (403) and the court's page dropped. |
+| `cnh-698` Cross-Strait relations | 7 | 7 → 7 | **"Hong Kong talks November 1992" (a place; the month wrong — late October, Ma and `pea-201`) and "ECFA signed" (an agreement) off: `Divided December 1949` / `First summit April 1993` / `Talks resumed June 2008` / `Links cut June 2016`; the semi-official foundation and association, the NPC's 1979 message, the formula each side reads its own way — the "1992 Consensus" named by Su Chi in 2000, the KMT's, Beijing's, the DPP's and Tsai's readings each whose**; three OpenEdition sources and the Taipei Times dropped; "Jinmen" → Kinmen. |
+| `cnh-699` Taiwanese identity | 7 | 7 → 9 | **"Majority reached 2009" (only in a chart image) off: `Series begins 1992` / `Latest reading June 2026` (63.1 per cent, through a Storm Media report [in Chinese]); the question's wording from the Election Study Center's methodology; the resistance to Japanese rule and the February 28 memory as roots (Hughes, Chang)**; the 1992 baseline and the 2020 high through a news explainer (weak sourcing, the Taipei Times walled). "Taiwanese" links to the glossary's `Taiwan` (unavoidable; for the owner). |
+| `cnh-700` political status of Taiwan | 7 | 7 → 8 | **"Cairo communiqué", "Japan renounces", "UN seat changes" and "Anti-Secession" (a text, a state, an institution, a law) → `Declared 1943` / `Peace signed 8 September 1951` / `Peace in force 28 April 1952` / `Seat changed 25 October 1971` (the 2005 law in prose); the PRC's (the 2022 white paper), the parties' and President Lai's (2024), the US's and the "undetermined status" view (Chen and Reisman 1972, Dutton 2025) each whose**. **Name 台湾问题 (the "Taiwan question") → 台湾地位 Táiwān dìwèi** (a Wu San-lien Foundation page). |
+
+Read by eye. **Confusability**: the delegated ordinances and the tower `cnh-691`'s; Andō's surrender and the restored holiday `cnh-692`'s;
+the widow and Keelung `cnh-693`'s; the island prisons and the overturned verdicts `cnh-694`'s; the banned "ah" and Kinmen `cnh-695`'s; the
+landlords' shares and the aid's shrinking share `cnh-696`'s; the seven hundred emperors and the lily `cnh-697`'s; the foundation and the
+formula `cnh-698`'s; the survey's question and its roots `cnh-699`'s; the four positions `cnh-700`'s (the Shanghai Communiqué's wording
+`cnh-676`'s, the 1943 treaties `cnh-563`'s). **Legend**: the February 28 dead (one demographer's estimate), "Taiwan Miracle" (a label),
+the 1992 Consensus (a later name with several readings), the undetermined status (one view) are each said so. **Chinese names corrected**:
+`cnh-700` 台湾地位. Kept unconfirmed: 台湾戒严时期, 台湾奇迹. **Spellings**: "Matsu" (the islands, the ROC's spelling; a hit on the goddess's
+row) twice; Kuningtou written as the ROC's 2025 act spells it on `cnh-692` and `cnh-695` (`cnh-695`'s source prints Guningtou). **Myth
+register**: the February 28 dead confirmed with its owner. **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the
+apply). Timeline set: `cnh-693` (27 February – 16 May 1947).
+
+### The seventh hundred, in sum
+
+`cnh-601`–`cnh-700` (the end of the early Republic, the Civil War, the Second Sino-Japanese War, the People's Republic and the Republic
+of China on Taiwan) are done: 730 sources became 722 and 56 glossary entries were rewritten (two stale glossary dates, `Nanjing_Massacre`'s
+and `Taiwan_Miracle`'s, cleared by hand). `cnh-audit.js --range=cnh-601:cnh-700` reads 79 of 100 cards with nothing but a missing picture;
+what remains is 100 cards with no picture (pictures stayed paused), 6 advisory `W.not-why`, 10 `L.missing` (the campaigns `cnh-623`, `630`,
+`641`, `644`, the states `cnh-633`, `643`, `645`, `656`, the places `cnh-639`, `647`), 2 `G.date` (`cnh-601`'s general `Cotton_mill` entry,
+`cnh-627` resolving to `Great_Retreat_(Russia)`), 1 `G.none` (`cnh-685`; an alias "southern tour" would link the Qing emperors' tours) and
+2 `Z.reading?` that are polyphones or readings (`cnh-650`'s yāo, `cnh-677`'s Huà). `check-cnh-spellings.js` reads 7 hits over the hundred,
+each a title or a name as printed ("Peiping" in four FRUS titles, "Mao Tse-tung" in `cnh-672`'s live title, "Matsu" for the islands twice).
+Fifty agents worked two cards each, never more than ten at once (one resumed to draft a glossary entry); their clues went into a shared
+list as each draft came back. Each batch was applied alone, verified field by field against its drafts, diffed for the protected lines and
+committed with its docs; `origin/main` was merged after B64 and again before the PR.
+
+What the hundred found, again and again:
+- **The party's own texts and the period's books in the wrong places.** The 1945 and 1981 resolutions, Mao's speeches, the land laws, the
+  constitutions, Chen Xitong's report and the court texts were cited on Chinese Wikisource; Snow's *Red Star over China*, Guillermaz,
+  Carlson, Utley, Belden, Forman, White and Jacoby, Han Suyin, Kuan Ta-tung and Hsueh in Digital Library of India or user uploads of books in
+  copyright. Every one is gone: the party's texts come from the Marxists Internet Archive, cpc.people.com.cn and its chronicles (each said
+  to be the party's account), the period from FRUS, the Office of the Historian, the Tokyo judgment, the Lytton report and the *China
+  Handbook*.
+- **The war and battle templates with tolls no page prints.** "c. 2,800,000 – 3,000,000", "c. 14,000,000 – 22,000,000 dead", "c. 541,000",
+  "689,099 casualties", "c. 559,000", "31,078 military casualties", "c. 40,000 – 50,000": all off; every count a source gives is told in
+  prose as that source's (the Communists', Taiwan's National Archives, Japan's official history, the relief survey, a witness at Khabarovsk).
+- **Labels naming men, places, texts, laws and institutions.** "Zhang sentenced", "Peng's letter", "Mao's directive", "Nixon's visit", "Liu
+  cleared", "Anhui clash", "Hong Kong talks", "Cairo promise", "Law No. 63", "CCP manifesto", "Ninth Congress", "UN seat changes": all dates
+  only now.
+- **Dates belonging to other events.** The May Fourth Directive on the 1947 law, the civil war's all-out start on the Chongqing agreement, a
+  2017 redating on the Mukden card and a 2014 memorial law on the massacre's, Puyi's pardon on Manchukuo's, a census on the famine's. One
+  late row on a war card (`cnh-631`'s "Start redated 2017") was caught after the apply because the Atlas's war table (`build-wars.js`) read it
+  as the war's end; agents were told thereafter never to put a later row on a war or battle card's line.
+- **Tolls and figures as fact.** The famine, Land Reform, the counter-revolutionary campaign, the Anti-Rightist Campaign, the Cultural
+  Revolution, Nanjing, Changchun, the 1938 flood, the Little Red Book, the one-child policy's births averted, 1989 and February 28 are now each
+  a set of counts with owners — the state's, the party's, demographers', scholars' — and the denials of Nanjing are named as denials.
+
+**The Chinese name.** Corrected: `cnh-621` 马歇尔调处, `cnh-642` 花园口决堤, `cnh-646` 新四军事件 (the ROC's term; 皖南事变 the PRC's),
+`cnh-668` 中苏分裂, `cnh-700` 台湾地位; pinyin `cnh-661` shèhuì zhǔyì gǎizào, `cnh-663` Fǎnyòu Yùndòng, `cnh-684` Liùsì Shìjiàn. Kept
+unconfirmed for want of a page printing the compound, for the owner: 延安整风运动, 汪精卫政权, 难民危机, 百花运动, 台湾戒严时期, 台湾奇迹.
+Each side's other name given in notes or prose where the PRC and the ROC differ: 解放战争 / 戡乱, 围剿 (the Communists' word) / 剿匪, 三年困难时期,
+南方谈话, 豫湘桂战役, 政府遷臺. `cnh-618`'s Dì-èr Cì kept with `cnh-591` (lower-case cì on `cnh-561`, `567`) and `cnh-654`'s split Sì Jǐngchá
+flagged. **Spellings**: nine rows added for the leaders, the radicals, the Xi'an generals, Taiwan's names, the wartime places, Beijing and
+Beiping, the party and its armies, Manchukuo and Mukden and the war's events; "Peiping" (cited titles), "Lin Piao" (an author line, fixed)
+and "Jinmen" (fixed) were caught.
+
+**The myth register** gained fourteen rows at the start, each confirmed or corrected by the batch that drafted its card (the rows say which):
+the 1989 toll corrected (the report's over 200 civilians and several dozen soldiers); Unit 731 refined (the 3,000 a witness's); the Great
+Famine's toll refined; the Long March, the Xi'an terms, Nanjing, the 1938 flood, the Henan famine, the Little Red Book, Lin Biao, the Gang of
+Four and February 28 confirmed; Lushan and Deng's southern tour confirmed in outline or in part.
+
+**The protected cards** (`cnh-605`, `608`, `615`, `616`, `648`, `674`, `677`, `678`) kept their `answerDate`, `undatable` and `timeline` byte for
+byte through every apply, the `cnh-648` phrasing fix and the merge of main. Every background now carries the years on its card's line. Rows
+flagged for the owner, left as they stand: `cnh-608`'s "Party chairman 20 March 1943" (the Politburo and Secretariat chairmanship; the Central
+Committee's from 19 June 1945); `cnh-674`'s "Öndörkhaan, Mongolia" (loose: 10 km south of the Berkh mining area in Khentii); `cnh-605`'s 1868
+(*Who's Who* 1925: 1867); `cnh-616`'s "(age 89)" (Western count); and days on the person template on no page read — `cnh-605`'s 11 January and
+5 March, `cnh-608`'s birth and death days, `cnh-616`'s, `cnh-674`'s 17 September 1959, `cnh-677`'s 7 October 1976 and 28 June 1981 (the
+obituary makes him acting premier from February 1976).
+
+**For the owner, outside the hundred**: the glossary's `Red_Army` is the Soviet army, so "Red Army" on a China card mislinks; "First Five-Year
+Plan" is an alias of the Soviet plans' entry; "Great Retreat" resolves to `Great_Retreat_(Russia)`; "yuan" to `Yuan_dynasty`; "Lushan" to
+`Mount_Lu`; `cnh-652`'s glossary entry and wiki link are the general `Refugee_crisis`; `cnh-654`'s glossary dates the idea 1943 – 1945 against
+the card's 1942. The house capitalisation of an event's pinyin remains open.
+
+### Locators (2026-11-19, the seventh hundred)
+
+**No locator was added.** The Wikipedia API answered the session's one test call with a rate-limit page, so `add-locators.js` was not run.
+Wanted, as the drafts read them: `cnh-623` Liaoshen (Jinzhou), `cnh-630` Changchun, `cnh-641` Taierzhuang (Taierzhuang District), `cnh-644`
+the Hundred Regiments (the Zhengtai railway; no single point), `cnh-645` Jin-Cha-Ji (Fuping), `cnh-633` Manchukuo (Hsinking, Changchun),
+`cnh-639` Free China (Chongqing), `cnh-647` the Burma Road (Kunming to Lashio; no single point), the states `cnh-643` and `cnh-656` (none);
+`cnh-632` Mukden has none (Liutiaohu would be the point). Points to review: `cnh-655` the Memorial Hall's label "Nanjing" (Jiangdongmen),
+`cnh-689` the handover's label names the term (Hong Kong), `cnh-620` the Double Tenth's label (Chongqing), `cnh-617` the Xi'an Incident's point
+at Huaqing Pool, `cnh-646`'s at Jing County (not Maolin), `cnh-681`'s Xiaogang (a village for a concept). Still waiting from earlier hundreds:
+the list in the sixth hundred's note.
