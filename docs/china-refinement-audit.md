@@ -584,7 +584,7 @@ otherwise.
 | B70 | Republic of China (Taiwan) (`col-39`) | `cnh-691`–`cnh-700` | 10 | 99 | **done 2026-11-19** |
 | B71 | The imperial state (`cn-government`) | `cnh-701`–`cnh-710` | 10 | 102 | **done 2026-11-19** |
 | B72 | The imperial state (`cn-government`) | `cnh-711`–`cnh-720` | 10 | 111 | **done 2026-11-19** |
-| B73 | The imperial state (`cn-government`) | `cnh-721`–`cnh-730` | 10 | 105 | to do |
+| B73 | The imperial state (`cn-government`) | `cnh-721`–`cnh-730` | 10 | 105 | **done 2026-11-19** |
 | B74 | The imperial state (`cn-government`) | `cnh-731`–`cnh-740` | 10 | 104 | to do |
 | B75 | Society and everyday life (`cn-society`) | `cnh-741`–`cnh-750` | 10 | 101 | to do |
 | B76 | Society and everyday life (`cn-society`) | `cnh-751`–`cnh-760` | 10 | 105 | to do |
@@ -4543,3 +4543,30 @@ hereditary households `cnh-720`'s. **Legend**: Chen Sheng's "lateness means deat
 Guo's reading of it as a pretext). **Chinese names corrected**: `cnh-712` 衙门, `cnh-715` 黄册, `cnh-716` líjīn, `cnh-718` 开中法, `cnh-717` yáoyì. Kept unconfirmed: 卫所制;
 `cnh-719`'s split Chángpíng cāng and `cnh-720`'s Wèisuǒ zhì (the orthography would join them; house practice mixed — for the owner). **Spellings**: no hit.
 **check-citations**: no mismatch. **Glossary**: all ten rewritten. **Locator**: `cnh-715` kept (Xuanwu Lake, the archive's site). No protected card in the batch.
+
+### B73 — `cnh-721`–`cnh-730`, the imperial state: the Green Standard Army to the Eastern Depot (2026-11-19)
+
+Run as B71. Every cited URL answered (95 citations, 63 distinct). **Pictures were not touched.** **The old cards cited Chinese Wikisource about twenty times, ChinaKnowledge
+twice, Library of Congress pages now walled (two kept through their JSON records, three dropped), a Springer chapter behind a script wall and Beijing government pages that
+now reset; and carried places, states and men in labels ("Qing entry", "Taken by Japan", "Guyuan added", "Wei Huan survey", "Amherst refuses", "Zhenjiang copy", "Joined
+Zhouli", "Dadu altars", "Yongzheng moved").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-721` Green Standard Army | 6 | 6 → 6 | **"Organised 1644 – 1647" → `In service 1644 – 1911` / `Count recorded 1812`**; Zheng Tianting 1955 [in Chinese] (its facts only, not its register), Orbach 2021, Peng 2021; the Guangxi figures, the 1852 date and the braves' pay (Wikisource, the walled chapter) dropped. |
+| `cnh-722` Shanhai Pass | 7 | 7 → 8 | **`Built 1381` / `Battle 1644` / `Seized January 1933` / `Protected 1961`**; Li et al. 2023 in *Heritage Science* (not its preprint), Park 2017 [in Korean], China National Defence News [in Chinese] (a popular account, its figures said whose), Martini 1654; four Wikisource histories dropped. "Peiping" in two FRUS titles (as printed). check-citations reads Park's DOI as a different paper: Crossref carries the article's English title, which the citation gives in brackets — the same paper. |
+| `cnh-723` Nine Border Garrisons | 6 | 6 → 6 | **"Guyuan added 1501" and "Wei Huan survey 1541" (a place, a man; no page opened) → `In use 1368 – 1644` / `Wall begun 1437` / `Peace made 1571`**; Yang et al. 2024 (Shanxi Town for the old "Taiyuan"); the Ming shi on Wikisource and three walled Library of Congress records dropped, with Xu Lun and Huo Ji. |
+| `cnh-724` Siyi Guan | 5 | 5 → 5 | **"Abolished 1903" (no source found) off: `Founded 1407` / `Renamed 1644` / `Merged 1748`**; Rong Fan 2026, Kawazumi [in Japanese]; the bureaus added in the 16th century told without a year (Wuyun Gaowa's 1578 and Rong Fan's 1597 disagree). |
+| `cnh-725` kowtow | 8 | 8 → 8 | **"Amherst refuses 1816" (a man) and "Bows accepted 29 June 1873" off: the line is now empty and `undatable` true** (a practice); Kitson 2017, Stevenson 2021, Wang Kaixi 2023 [in Chinese], FRUS 1873 (Prince Gong's "a hundred reverences"), Koike 2009 [in Japanese] (Germany's demand of 1901), Harrison 2017; Li Hongzhang's argument and the Ming rules of 1394 (no page) dropped; all three phrasings new. check-cards reads "Prince Chun" in a phrasing as a modern scholar (a false positive: the Qing prince sent to Berlin in 1901). |
+| `cnh-726` Yu ji tu | 6 | 6 → 6 | **"Zhenjiang copy 1142" (a place) → `Copy carved 1142`**; the Library of Congress pages through their JSON records; "6 months later" → "less than six months apart"; the grid's squares each source's (5,110 the Library of Congress's, 5,113 a Shaanxi bureau's [in Chinese]); Liu Yu of Qi (刘豫, not the house's Liu Yu 刘裕) left unnamed. |
+| `cnh-727` Kaogong ji | 6 | 6 → 6 | **"Joined Zhouli" (a text) and "Dadu altars 1293" (a place) → `Dated c. 500 – 400 BCE` / `Appended c. 155 – 129 BCE`**; the claim that Dadu followed the text now the common view, with Meng's case that it did not; Biot 1851 [in French], Wenren 2014, Guan and Herrmann 2020, Sivin 2022, the Central Axis Center, Meng 2006 [in Chinese]. |
+| `cnh-728` Hall of Mental Cultivation | 6 | 7 → 6 | **"Built c. 1522 – 1566", "Yongzheng moved 1723" (a man) and "Regency began 1861" → `Built 1537` / `Rebuilt 1722 – 1735` / `Closed December 2015` / `Reopened 26 December 2025`**; seven Chinese sources (three on Wikisource) cut to one (the Palace Museum's Zhang Kegui); the 1861 regency and Shunzhi's death (no page opened) dropped. |
+| `cnh-729` Temple of Agriculture | 6 | 7 → 6 | **"Museum opened 1991" (no page) → `Built 1420` / `Renovated 1753` / `Last ploughing 1906` (the World Monuments Fund's year) / `Protected 2001`**; Emperor Wen's field of 178 BCE and Yongzheng's order of 1727 dropped. check-cards reads "Yongzheng Emperor" in a phrasing as a modern scholar (a false positive). Pinyin Xiānnóng tán kept (the orthography would join it; for the owner). |
+| `cnh-730` Eastern Depot | 6 | 6 → 6 | line kept (`Founded 1420` / `Ended 1644`; 1420 Hucker's and Tsai's, the *Mingshi* says only "after the move of the capital"); the four drinkers story and the 1655 iron tablets dropped; the "founded by the ancestors" defence put in its later reign; the glossary's "1620s" cleared. |
+
+Read by eye. **Confusability**: hereditary against enlisted `cnh-721`'s, the 1933 swords `cnh-722`'s, the 1571 peace `cnh-723`'s (Altan Khan's own card `cnh-781` keeps the
+person), the translators' bureaus `cnh-724`'s, the German demand `cnh-725`'s (Macartney `cnh-556`'s), the grid `cnh-726`'s, the altars `cnh-727`'s, the screen and the regency
+`cnh-728`'s, the ploughing `cnh-729`'s, the drinkers' tale gone `cnh-730`'s. **Legend**: the kowtow register row (`cnh-556`): the Qing claim that Macartney performed the
+full rite is now on a page read (Wang Kaixi; Kitson). The `cnh-726` second Think-it-through does not open "Why" (advisory). **Chinese names**: all checked; kept unconfirmed
+none; the split pinyin of `cnh-726` Yǔ jì tú and `cnh-729` noted for the owner. **Spellings**: "Peiping" twice in FRUS titles. **check-citations**: one false mismatch
+(`cnh-722`, above). **Glossary**: all ten rewritten. **Locators**: none added; `cnh-723` would want none (a frontier system). No protected card in the batch.

@@ -895,6 +895,15 @@ BCE and the empire's end, the abdication of 12 February 1912 (`cnh-191`, `cnh-57
 | the kaizhong proposed / silver accepted | 1370 / 1492 | An (`cnh-718`) |
 | the ever-normal granaries / Wang Anshi's loans proposed / the price debate | c. 54 BCE / 1069 / 1748 | the *Hanshu*; Will and Wong (`cnh-719`) |
 | the weisuo: the commands split / the army counted | 1380 / 1392 | the *Mingshi* (`cnh-720`) |
+| the Green Standard Army in service / the count recorded | 1644 – 1911 / 1812 | Zheng; Mayers (`cnh-721`) |
+| Shanhai Pass built / the battle / seized / protected | 1381 / 1644 / January 1933 / 1961 | Li et al.; Park (`cnh-722`) |
+| the border wall begun / the peace with Altan Khan | 1437 / 1571 | Yang et al. (`cnh-723`; 1571 with `cnh-781`) |
+| the Siyi Guan founded / renamed / merged | 1407 / 1644 / 1748 | Rong Fan (`cnh-724`) |
+| the Yu ji tu engraved / the copy carved | 1136 / 1142 | the Library of Congress (`cnh-726`) |
+| the Kaogong ji dated / appended | c. 500 – 400 BCE / c. 155 – 129 BCE | Wenren; Sivin (`cnh-727`) |
+| the Hall of Mental Cultivation built / rebuilt / closed / reopened | 1537 / 1722 – 1735 / December 2015 / 26 December 2025 | the Palace Museum (`cnh-728`) |
+| the Temple of Agriculture built / renovated / last ploughing / protected | 1420 / 1753 / 1906 / 2001 | the WMF; the *Mingshi* (`cnh-729`) |
+| the Eastern Depot founded / ended | 1420 / 1644 | Hucker; Tsai (`cnh-730`) |
 
 ## Later periods
 
@@ -1615,4 +1624,13 @@ cnh-717: 209; 1712
 cnh-718: 1370; 1492
 cnh-719: 54; 1069; 1748
 cnh-720: 1368; 1644; 1380; 1392
+cnh-721: 1644; 1911; 1812
+cnh-722: 1381; 1644; 1933; 1961
+cnh-723: 1368; 1644; 1437; 1571
+cnh-724: 1407; 1644; 1748
+cnh-726: 1136; 1142
+cnh-727: 500; 400; 155; 129
+cnh-728: 1537; 1722; 1735; 2015; 2025
+cnh-729: 1420; 1753; 1906; 2001
+cnh-730: 1420; 1644
 ```
