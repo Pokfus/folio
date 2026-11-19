@@ -28276,6 +28276,12 @@ window.COLLECTION_TREE = {
             "gw-949",
             "gw-950"
           ]
+        },
+        {
+          "id": "geo-world-islands",
+          "title": "The largest islands",
+          "placeholder": false,
+          "cardIds": []
         }
       ]
     },

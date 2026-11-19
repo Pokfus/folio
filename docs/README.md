@@ -141,7 +141,7 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `mesopotamia-card-plan.md` | Ancient Mesopotamia (`mesopotamia`) | `me-` |
 | `art-card-plan.md` | Visual Art (`art`) — a TIMELINE tree; the artwork card format is built | `art-` |
 | `geography-card-plan.md` | Geography (`geo-us`) — **not** a 1000-card plan | `geo-` |
-| `world-geography-card-plan.md` | World Geography (`geo-world`) — 571 cards: countries and capitals by population, plus the water and mountains decks | `gw-` |
+| `world-geography-card-plan.md` | World Geography (`geo-world`) — 571 cards: countries and capitals by population, plus the water, mountains and largest-islands decks | `gw-` |
 | `china-geography-card-plan.md` | China (`geo-china`) — 58 cards, sorted by population | `gc-` |
 | `india-geography-card-plan.md` | India (`geo-india`) — 190 planned: states and union territories, capitals (both waiting for India's admin-1 in the Atlas), other great cities, water, mountains | `gin-` |
 | `russia-geography-card-plan.md` | Russia (`geo-russia`) — 163 map cards sorted by population, plus the water and mountains decks (`gru-801`–`940`) | `gru-` |
