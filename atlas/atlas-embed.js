@@ -74,6 +74,7 @@
         startHistory: (kind) => E.startHistory(kind),
         historyKind: () => E.historyKind(),   // null (not started), "wars" (the war-window slice), "ww2" (the Second World War window's) or "full"
         historyOK: () => E.historyOK(),
+        historyFailed: () => !!(E.historyFailed && E.historyFailed()),   // the history file did not arrive: a window whose question is a state of the past prints the plain sentence (atlas-windows.js `pastLayer`)
         warView: (id, short, share) => E.warFrame(id, short, share),
         warSides: (id, year) => E.warSides(id, year),
         statesAt: (year) => (E.statesAt ? E.statesAt(year) : []),   // the polities alive in a year, their faces and their names in it (Find it's reveal, Nov 2026)

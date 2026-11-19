@@ -11462,7 +11462,21 @@ window.CARD_DATA = [
 {"id":"eg-577","num":"577","category":"Ancient Egypt","question":"Corrected in the office of Apollonius the dioiketes in 259 BCE, the <span class=\"blank\">_____</span> fixed the price at which farmers had to sell their sesame and castor seed to the crown.","answer":"Papyrus Revenue Laws","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Written</span><span class=\"dt-v\">259 – 258 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Papyrus Revenue Laws","tags":["text","economy","history","egypt","ptolemaic","law"],"difficulty":5},
 {"id":"eg-578","num":"578","category":"Ancient Egypt","question":"A letter of 258 BCE shows the Alexandria mint melting foreign coins brought by merchants and striking new ones, part of the closed system of <span class=\"blank\">_____</span> the kings imposed on Egypt.","answer":"Ptolemaic coinage","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Struck</span><span class=\"dt-v\">c. 323 – 30 BCE</span><span class=\"dt-k\">Recoinage letter</span><span class=\"dt-v\">258 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ptolemaic coinage","tags":["object","economy","history","egypt","ptolemaic"],"difficulty":4},
 {"id":"eg-579","num":"579","category":"Ancient Egypt","question":"Late in the reign of Ptolemy II the Faiyum was renamed the <span class=\"blank\">_____</span> after the deified queen, its lake shrunk by Greek engineers to win farmland for soldier-settlers.","answer":"Arsinoite nome","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Renamed</span><span class=\"dt-v\">before 246 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Arsinoite nome","tags":["place","geography","history","egypt","ptolemaic","faiyum"],"difficulty":4,"locator":{"name":"Arsinoite nome","at":[30.5808,29.4536],"zoom":8}},
-{"id":"eg-580","num":"580","category":"Ancient Egypt","question":"Found by villagers digging for fertiliser at Philadelphia in the Faiyum, the <span class=\"blank\">_____</span> of some 2,000 papyri shows a Carian Greek running the estate of Ptolemy II’s finance minister.","answer":"Zenon Archive","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Letters</span><span class=\"dt-v\">c. 261 – 229 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Zenon Archive","tags":["text","economy","history","egypt","ptolemaic","faiyum"],"difficulty":4,"locator":{"name":"Faiyum","at":[30.5808,29.4536],"zoom":9}}
+{"id":"eg-580","num":"580","category":"Ancient Egypt","question":"Found by villagers digging for fertiliser at Philadelphia in the Faiyum, the <span class=\"blank\">_____</span> of some 2,000 papyri shows a Carian Greek running the estate of Ptolemy II’s finance minister.","answer":"Zenon Archive","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Letters</span><span class=\"dt-v\">c. 261 – 229 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Zenon Archive","tags":["text","economy","history","egypt","ptolemaic","faiyum"],"difficulty":4,"locator":{"name":"Faiyum","at":[30.5808,29.4536],"zoom":9}},
+{"id":"hs-001","num":"001","category":"Geography","question":"In 675 BCE, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Neo-Assyrian Empire","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Empire</span><span class=\"dt-v\">c. 912 – 609 BCE</span><span class=\"dt-k\">Nineveh falls</span><span class=\"dt-v\">612 BCE</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">675 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Neo-Assyrian Empire","tags":["empire","history","geography","politics","iron age","asia","iraq"],"difficulty":2,"map":{"layer":"past-states"},"facts":[["Heartland","Northern Iraq, on the Tigris"],["Capitals","Kalhu, later Nineveh"],["Area as drawn","1.39M km² (539k sq mi)"]]},
+{"id":"hs-501","num":"501","category":"Geography","question":"In 1794, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Qing dynasty","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Named Qing</span><span class=\"dt-v\">14 May 1636</span><span class=\"dt-k\">Beijing taken</span><span class=\"dt-v\">6 June 1644</span><span class=\"dt-k\">Abdicated</span><span class=\"dt-v\">12 February 1912</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">1794</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Qing dynasty","tags":["dynasty","history","geography","politics","warfare","china","asia"],"difficulty":2,"map":{"layer":"past-states"},"facts":[["Heartland","China, with the Manchu homeland in its north-east"],["Capitals","Shenyang, later Beijing"],["Area as drawn","12.5M km² (4.82M sq mi)"]]},
+{"id":"hs-502","num":"502","category":"Geography","question":"In 1595, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Ottoman Empire","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Reckoned from</span><span class=\"dt-v\">1299</span><span class=\"dt-k\">Sultanate ended</span><span class=\"dt-v\">1 November 1922</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">1595</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Ottoman Empire","tags":["empire","history","geography","warfare","turkey","asia","europe"],"difficulty":1,"map":{"layer":"past-states"},"facts":[["Heartland","Anatolia, in modern Turkey"],["Capital","Constantinople, now Istanbul"],["Area as drawn","4.27M km² (1.65M sq mi)"]]},
+{"id":"hs-002","num":"002","category":"Geography","question":"In 600 BCE, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Neo-Babylonian Empire","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Ruled Babylon</span><span class=\"dt-v\">626 – 539 BCE</span><span class=\"dt-k\">Jerusalem burnt</span><span class=\"dt-v\">586 BCE</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">600 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Neo-Babylonian Empire","tags":["empire","history","geography","politics","iron age","iraq"],"difficulty":2,"map":{"layer":"past-states"},"facts":[["Heartland","Babylonia, in present-day Iraq, on the Euphrates"],["Capital","Babylon"],["Area as drawn","707k km² (273k sq mi)"]]},
+{"id":"hs-101","num":"101","category":"Geography","question":"In 480 BCE, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Achaemenid Empire","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Lasted</span><span class=\"dt-v\">c. 550 – 330 BCE</span><span class=\"dt-k\">Babylon taken</span><span class=\"dt-v\">539 BCE</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">480 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Achaemenid Empire","tags":["empire","history","geography","politics","warfare","iron age","iran"],"difficulty":3,"map":{"layer":"past-states"},"facts":[["Heartland","Fars, in southern Iran"],["Capitals","Pasargadae, later Susa among others"],["Area as drawn","5.63M km² (2.17M sq mi)"]]},
+{"id":"hs-102","num":"102","category":"Geography","question":"In 144 BCE, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Xiongnu","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Empire</span><span class=\"dt-v\">c. 209 BCE – 100 CE</span><span class=\"dt-k\">Split in two</span><span class=\"dt-v\">48 CE</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">144 BCE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Xiongnu","tags":["empire","history","geography","warfare","migration","asia","china"],"difficulty":3,"map":{"layer":"past-states"},"facts":[["Heartland","The steppe of present-day Mongolia"],["Ruler","The chanyu"],["Area as drawn","5.61M km² (2.16M sq mi)"]]},
+{"id":"hs-301","num":"301","category":"Geography","question":"In 732 CE, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Umayyad Caliphate","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Caliphate</span><span class=\"dt-v\">661 – 750 CE</span><span class=\"dt-k\">ʿAbd al-Malik</span><span class=\"dt-v\">685 – 705 CE</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">732 CE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Umayyad Caliphate","tags":["state","history","geography","politics","asia","religion"],"difficulty":3,"map":{"layer":"past-states"},"facts":[["Heartland","Syria"],["Capital","Damascus"],["Area as drawn","9.86M km² (3.81M sq mi)"]]},
+{"id":"hs-401","num":"401","category":"Geography","question":"In 1279, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Mongol Empire","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Founded</span><span class=\"dt-v\">1206</span><span class=\"dt-k\">Civil war</span><span class=\"dt-v\">1260 – 1264</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">1279</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Mongol Empire","tags":["empire","history","geography","state","warfare","trade","asia"],"difficulty":1,"map":{"layer":"past-states"},"facts":[["Heartland","The eastern steppe, in Mongolia"],["Capitals","Karakorum, later Dadu, now Beijing"],["Area as drawn","27.9M km² (10.8M sq mi)"]]},
+{"id":"hs-402","num":"402","category":"Geography","question":"In 1352, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Yuan dynasty","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Dynasty</span><span class=\"dt-v\">1271 – 1368</span><span class=\"dt-k\">All China</span><span class=\"dt-v\">1279 – 1368</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">1352</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Yuan dynasty","tags":["dynasty","history","geography","china","mongols","state","yuan dynasty"],"difficulty":2,"map":{"layer":"past-states"},"facts":[["Heartland","China and Mongolia"],["Capitals","Dadu, now Beijing, and Shangdu"],["Area as drawn","14.2M km² (5.48M sq mi)"]]},
+{"id":"hs-601","num":"601","category":"Geography","question":"In 1945, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Soviet Union","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Founded</span><span class=\"dt-v\">30 December 1922</span><span class=\"dt-k\">Constitution</span><span class=\"dt-v\">31 January 1924</span><span class=\"dt-k\">Dissolved</span><span class=\"dt-v\">26 December 1991</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">1945</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Soviet Union","tags":["state","history","geography","politics","communism","russia","20th century"],"difficulty":1,"map":{"layer":"past-states"},"facts":[["Heartland","Central Russia, around Moscow"],["Capital","Moscow"],["Area as drawn","23.4M km² (9.04M sq mi)"]]},
+{"id":"hs-602","num":"602","category":"Geography","question":"In 1806, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Spanish Empire","answerDate":"<div class=\"dt\"><span class=\"dt-k\">In the Americas</span><span class=\"dt-v\">1492 – 1898</span><span class=\"dt-k\">Mainland ended</span><span class=\"dt-v\">1824</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">1806</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Spanish Empire","tags":["empire","history","geography","spain","south america","north america","asia"],"difficulty":2,"map":{"layer":"past-states"},"facts":[["Heartland","Castile, in Spain"],["First viceroyalties","New Spain and Peru"],["Area as drawn","11.6M km² (4.46M sq mi)"]]},
+{"id":"hs-201","num":"201","category":"Geography","question":"In 117 CE, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Roman Empire","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Emperors</span><span class=\"dt-v\">from 27 BCE</span><span class=\"dt-k\">West ends</span><span class=\"dt-v\">476 CE, by convention</span><span class=\"dt-k\">East ends</span><span class=\"dt-v\">1453 CE</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">117 CE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Roman Empire","tags":["empire","history","geography","politics","warfare","rome","classical"],"difficulty":1,"map":{"layer":"past-states"},"facts":[["Heartland","Italy and the Mediterranean"],["Capitals","Rome, later also Constantinople"],["Area as drawn","5.27M km² (2.04M sq mi)"]]},
+{"id":"hs-202","num":"202","category":"Geography","question":"In 91 CE, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Han dynasty","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Western Han</span><span class=\"dt-v\">206 BCE – 9 CE</span><span class=\"dt-k\">Xin interregnum</span><span class=\"dt-v\">9 – 23 CE</span><span class=\"dt-k\">Eastern Han</span><span class=\"dt-v\">25 – 220 CE</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">91 CE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Han dynasty","tags":["dynasty","history","geography","politics","china","iron age"],"difficulty":2,"map":{"layer":"past-states"},"facts":[["Heartland","Around Xi’an and Luoyang, on the Wei and Luo rivers"],["Capitals","Chang’an, later Luoyang"],["Area as drawn","4.55M km² (1.76M sq mi)"]]},
+{"id":"hs-302","num":"302","category":"Geography","question":"In 661 CE, the state highlighted on the map was <span class=\"blank\">_____</span>.","answer":"Tang dynasty","answerDate":"<div class=\"dt\"><span class=\"dt-k\">Ruled</span><span class=\"dt-v\">618 – 907 CE</span><span class=\"dt-k\">Zhou interregnum</span><span class=\"dt-v\">690 – 705 CE</span><span class=\"dt-k\">Revolt began</span><span class=\"dt-v\">755 CE</span><span class=\"dt-k\">Map year</span><span class=\"dt-v\">661 CE</span></div>","traditional":"","hanzi":"","pinyin":"","translations":"","citation":"","answerText":"Tang dynasty","tags":["dynasty","history","geography","politics","china","asia","tang dynasty"],"difficulty":2,"map":{"layer":"past-states"},"facts":[["Heartland","The Guanzhong basin, around Xi’an"],["Capital","Chang’an"],["Area as drawn","8.69M km² (3.36M sq mi)"]]}
 ];
 
 window.COLLECTION_TREE = {
@@ -29736,6 +29750,77 @@ window.COLLECTION_TREE = {
           "title": "Mountains, deserts and caves",
           "placeholder": false,
           "cardIds": []
+        }
+      ]
+    },
+    {
+      "id": "geo-states",
+      "title": "Historical States",
+      "total": 14,
+      "placeholder": false,
+      "children": [
+        {
+          "id": "geo-states-first",
+          "title": "The first states, to 500 BCE",
+          "placeholder": false,
+          "cardIds": [
+            "hs-001",
+            "hs-002"
+          ]
+        },
+        {
+          "id": "geo-states-classical",
+          "title": "The classical world, 500 – 1 BCE",
+          "placeholder": false,
+          "cardIds": [
+            "hs-101",
+            "hs-102"
+          ]
+        },
+        {
+          "id": "geo-states-empires",
+          "title": "The age of empires, 1 – 500 CE",
+          "placeholder": false,
+          "cardIds": [
+            "hs-201",
+            "hs-202"
+          ]
+        },
+        {
+          "id": "geo-states-early-medieval",
+          "title": "The early Middle Ages, 500 – 1000",
+          "placeholder": false,
+          "cardIds": [
+            "hs-301",
+            "hs-302"
+          ]
+        },
+        {
+          "id": "geo-states-medieval",
+          "title": "The high and late Middle Ages, 1000 – 1500",
+          "placeholder": false,
+          "cardIds": [
+            "hs-401",
+            "hs-402"
+          ]
+        },
+        {
+          "id": "geo-states-early-modern",
+          "title": "The early modern world, 1500 – 1800",
+          "placeholder": false,
+          "cardIds": [
+            "hs-501",
+            "hs-502"
+          ]
+        },
+        {
+          "id": "geo-states-modern",
+          "title": "The modern world, 1800 – 1945",
+          "placeholder": false,
+          "cardIds": [
+            "hs-601",
+            "hs-602"
+          ]
         }
       ]
     },

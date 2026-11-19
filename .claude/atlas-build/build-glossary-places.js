@@ -135,7 +135,7 @@ function joinCards({ terms, cards, reg, fold, pinned }) {
 }
 
 /* pure: an entity's year of greatest extent and its frame, from history.bin's header (entities, steps [entity, from, to, face], faceKm2, faceAnchor) and the file's vertices (lon/lat quantised by `quantum`,
-   arcOffset per arc, faces[].rings of signed arc refs). Returns { year, lon, lat, zoom, km2 } or null when the entity has no step. */
+   arcOffset per arc, faces[].rings of signed arc refs). Returns { year, lon, lat, zoom, km2, box, at } or null when the entity has no step. */
 function entityExtent(T, id) {
   const H = T.header, ei = H.entities.findIndex((e) => e.id === id); if (ei < 0) return null;
   const e = H.entities[ei];
@@ -165,7 +165,10 @@ function entityExtent(T, id) {
     }
   }
   const zoom = isFinite(x0) ? zoomFor([x0 + lon, y0, x1 + lon, y1]) : 4;
-  return { year: best, lon, lat, zoom, km2: Math.round(bestA) };
+  /* …and, for a map card on the states of the past (build-card-faces.js `past-states`, 2026-11-19): `box`, that frame (its longitudes unwrapped about the centre, so they may pass ±180), and `at`,
+     the anchor of the largest face alive that year — a point INSIDE the state for its name to stand on, where the centre of a state that rings a sea lies in the water */
+  let big = null; for (const q of alive) { if (!H.faceAnchor[q.st[3]]) continue; const a = (H.faceKm2[q.st[3]] || 0) * q.s; if (!big || a > big.a) big = { a, p: H.faceAnchor[q.st[3]] }; }
+  return { year: best, lon, lat, zoom, km2: Math.round(bestA), box: isFinite(x0) ? [x0 + lon, y0, x1 + lon, y1] : null, at: big ? [big.p[0], big.p[1]] : [lon, lat] };
 }
 
 /* pure: the window rows from the pins, the card joins and the frames. `faces` is card-faces.js's layers (name → [id, cx, cy, x0, y0, x1, y1]) and `extent(id)` the entity frame */
