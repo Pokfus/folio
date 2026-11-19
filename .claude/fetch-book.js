@@ -1273,6 +1273,57 @@ const SC_TITLES = [
   "The Dictatorship", "The Censorship", "Civil Religion", "Conclusion",
 ];
 
+/* APOLLODORUS'S TEI, both columns (Nov 2026). Every rule here was measured over both pairs of files first.
+   · BOTH: the Epitome's file (index 1) has chapters and sections but no book division, so one is put
+     round it, numbered 4 — the reader slices a book to the end of the body, so no closing tag is needed.
+   · THE GREEK: its `<NOTE ED="Frazer">1</NOTE>` (1,075 of them, upper case) are bare reference figures
+     pointing at Frazer's apparatus, which the file does not carry; left in, the tag strip would set a
+     loose "1" in the middle of the Greek.
+   · THE ENGLISH, five things the shared reader would print wrong:
+     1. GREEK LEFT IN BETA CODE — three Greek journal titles in the notes (`<title xml:lang="grc">`,
+        "*)arxaiologiko\n *delti/on") and two quotations of Euripides' Iphigenia in Tauris in a note on
+        Epitome 6.26 (`<l>`, `<speaker>`). Everything else Greek in these files is Unicode (243 elements).
+        Decoded with the Satyricon's `betaGreek`, and only inside those three elements; a capital's
+        marks are written BEFORE its letter here ("*)ore/sths", the TLG order), which betaGreek does not
+        read, so they are moved after it first. A run it cannot compose is left as it stands.
+     2. A SPOKEN EXCHANGE (`<sp><speaker>`) has no shape in the reader, so the speaker's name heads the
+        line it speaks ("Ὀρέστης: τάφος δὲ …") and the lines break as any quoted verse does.
+     3. A CITATION IN THE PROSE — six `<bibl>` after a quotation in Apollodorus's own text, which the Loeb
+        prints as a footnote ("Hesiod, Shield of Hercules, 223 sq.") — becomes a note, Pausanias's rule;
+        the one reading "unknown" (the lines on Actaeon's dogs, which the Loeb prints with no source)
+        goes.
+     4. THE SPACE INSIDE A BRACKET — "Sea ( Pontus)", "him( fifty daughters" — is the digital edition's,
+        not Frazer's: the space moves outside the bracket. "TGF(2)" and "4.90(160)ff." are untouched.
+     5. A SPACE BEFORE A NOTE — "Sicily <note>…</note>;" — would set the marker apart from its word and
+        leave "Sicily ;" in the prose; it goes. */
+function apoTei(xml, k, type) {
+  let x = xml.replace(/<NOTE\b[^>]*>[^<]*<\/NOTE>/g, "");
+  if (k === 1) {
+    const re = new RegExp('<div\\b[^>]*type="' + type + '"[^>]*>');
+    if (!re.test(x)) throw new Error("the Epitome's TEI has no " + type + " division to number");
+    x = x.replace(re, (t) => t + '<div subtype="book" type="textpart" n="4">');
+  }
+  if (type !== "translation") return x;
+  const beta = (t) => (/[a-z][()\/\\=|]|\*[()]/i.test(t) && !/[Ͱ-Ͽἀ-῿]/.test(t) ? betaGreek(t.replace(/\*([()\/\\=|+]+)([a-z])/gi, "*$2$1")) || t : t);
+  x = x.replace(/(<(l|speaker)\b[^>]*>|<title\b[^>]*xml:lang="grc"[^>]*>)([^<]*)(?=<\/(?:l|speaker|title)>)/g,
+    (w, open, tag, t) => open + beta(t));
+  x = x.replace(/<sp\b[^>]*>\s*<speaker\b[^>]*>([^<]*)<\/speaker>\s*<l\b([^>]*)>/g, "<l$2>$1: ").replace(/<\/?sp\b[^>]*>/g, "");
+  const body = x.indexOf("<body");
+  let b = x.slice(body);
+  b = b.replace(/<note\b[\s\S]*?<\/note>|<bibl\b[^>]*>([\s\S]*?)<\/bibl>/g, (whole, cite) => {
+    if (cite === undefined) return whole;
+    const t = cite.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+    return /^unknown$/i.test(t) ? "" : '<note anchored="true">' + t + "</note>";
+  });
+  // through any tags in between: "(<bibl> <title>The Fragments" and "Φλέγρα</foreign> </bibl>)"
+  b = b.replace(/(?<=\p{Ll})\(\s+/gu, " (")
+    .replace(/\(((?:\s*<[a-z][^>]*>)*)\s+/g, (w, tags) => "(" + tags.replace(/^\s+/, "").replace(/>\s+</g, "><"))
+    .replace(/\s+((?:<\/[a-z]+>\s*)*)\)/g, (w, tags) => tags.replace(/\s+/g, "") + ")")
+    .replace(/<\/foreign>\)(?=\p{L})/gu, "</foreign>) ")
+    .replace(/\s+(?=<note\b)/g, "");
+  return x.slice(0, body) + b;
+}
+
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -17748,6 +17799,80 @@ const BOOKS = {
     chapters: [1, 2, 3, 4, 5],
   },
 
+  hamlet: {
+    title: "Hamlet",
+    subtitle: "The Tragedy of Hamlet, Prince of Denmark",
+    author: "William Shakespeare",
+    // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+    edition: "The Yale Shakespeare, ed. Jack Randall Crawford, Yale University Press, New Haven, 1917",
+    written: "c. 1600",
+    year: 1600,
+
+    /* ---------- THE LICENCE, AND WHY THIS EDITION ----------
+       The play has never been in copyright. The edition is the Yale Shakespeare's of 1917, the same
+       series as Macbeth's, Romeo and Juliet's and Julius Caesar's and transcribed on Wikisource in the
+       same way (proofread scan, glosses as hover tooltips, end notes on their own page), so the `yale`
+       layout reads it. Crawford lived 1878–1968 (his Wikisource author page; Wikidata Q19560296):
+       public domain in the United States under the pre-1929 rule, but where the term is life plus
+       seventy (the United Kingdom, the European Union) NOT until 2039 — the first Yale play on the
+       shelf that is public domain in the United States only, which the rights text says, as the
+       Nicomachean Ethics' does. The appendices and the index are the editor's apparatus and are left
+       behind, as for Macbeth. No Chorus, so no `prePage`. */
+    rights:
+      "Public domain in the United States. Shakespeare wrote the play around 1600 and it was first " +
+      "printed in 1603, so the work itself has never been in copyright. The text here is the Yale " +
+      "Shakespeare edition edited by Jack Randall Crawford and published by Yale University Press in " +
+      "1917, before 1929, so its copyright has expired in the United States. Crawford died in 1968, so " +
+      "his edition remains in copyright in countries whose term is the editor's life plus seventy " +
+      "years, including the United Kingdom and the European Union, until 2039. What is taken is the " +
+      "play, the edition's list of characters, Crawford's glosses from the foot of each page and his " +
+      "end notes, which are set with the glosses that point to them; his appendices and index are not " +
+      "reproduced.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Hamlet_(1917)_Yale",
+
+    about: [
+      "<b>Hamlet</b> opens on the battlements of Elsinore, where the guards have twice seen a ghost in " +
+        "the armour of the dead King of Denmark. His son, Prince Hamlet, is in mourning, and angry that his " +
+        "mother Gertrude has married his uncle Claudius, now king, within two months. The ghost speaks to " +
+        "Hamlet: Claudius poured poison in his ear as he slept in his orchard, and Hamlet must avenge him. " +
+        "Hamlet swears to, and resolves to put on an antic disposition, a show of madness, while he does.",
+      "He delays, and the play is built out of the delay. Claudius sets Rosencrantz and Guildenstern, " +
+        "Hamlet's old schoolfellows, to spy on him, and his counsellor Polonius uses his daughter Ophelia, " +
+        "whom Hamlet has courted, as bait. A company of travelling players gives Hamlet his test: he has " +
+        "them act a murder like his father's before the court, and Claudius's flight from it convinces him. " +
+        "Yet he spares Claudius at prayer, and minutes later, in his mother's closet, stabs Polonius through " +
+        "a curtain in the belief that it is the king.",
+      "Claudius ships Hamlet to England with a letter ordering his death; Hamlet escapes, by way of a pirate " +
+        "ship, and comes home. Ophelia, her father dead, has gone mad and drowned, and her brother Laertes " +
+        "has returned to avenge them both. Claudius arranges a fencing match between the two with a poisoned " +
+        "blade and a poisoned cup. In the last scene the queen drinks the poison, Laertes and Hamlet are both " +
+        "struck with the blade, and Hamlet kills Claudius before he dies, giving his voice for the crown to " +
+        "Fortinbras of Norway, who arrives to find the court dead.",
+      "The story is an old Danish one: Saxo Grammaticus told it of Amleth around 1200, and it reached " +
+        "the Elizabethan stage through a French retelling by François de Belleforest. An earlier English " +
+        "play of Hamlet, now lost, was being acted by the 1590s. Shakespeare's is the longest of his plays " +
+        "and holds his best-known soliloquy, <i>To be, or not to be: that is the question</i>.",
+      "Three early versions survive and all three differ: a short and garbled quarto of 1603, a full " +
+        "quarto of 1604 and the First Folio of 1623. The text here is the <i>Yale Shakespeare</i> edition " +
+        "of 1917, edited by Jack Randall Crawford, in modernised spelling. It rests on the 1604 quarto and " +
+        "the Folio, and lines found in the quarto but not in the Folio are set in square brackets, as are " +
+        "stage directions an editor has added. Its line numbers are the edition's, printed every few lines, " +
+        "and can differ by a line or two from another edition's. The numbered notes are Crawford's: the " +
+        "short glosses at the foot of each page, and, where a gloss sent the reader to the back of the book, " +
+        "the longer note it pointed to. The notes are in American spelling, and the speakers' names are " +
+        "abbreviated as his page prints them.",
+    ],
+
+    layout: "yale",
+    page: (n) => "Hamlet (1917) Yale/Text/Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    notesPage: "Hamlet (1917) Yale/Notes",
+    castPage: "Hamlet (1917) Yale/Text",
+    chapterWord: "Act",
+    titleOf: (n) => "Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    chapters: [1, 2, 3, 4, 5],
+  },
+
   "classic-of-tea": {
     title: "The Classic of Tea",
     subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -19004,6 +19129,133 @@ const BOOKS = {
     },
   },
 
+  "apollodorus-library": {
+    title: "The Library",
+    // the work's own Greek title, as Perseus's Greek column gives it
+    subtitle: "Βιβλιοθήκη",
+    author: "Apollodorus",
+    translator: "Sir James George Frazer",
+    edition: "Apollodorus, The Library, with an English translation by Sir James George Frazer, 2 volumes, Loeb Classical Library, William Heinemann and Harvard University Press, 1921",
+    // "generally dated to the first or second century AD" (Wikipedia, Bibliotheca (Apollodorus)); Frazer's
+    // introduction sets the earliest possible date at the middle of the first century BCE (it quotes Castor)
+    written: "1st–2nd century CE",
+
+    /* ---------- THE LICENCE: expired on every ground, plus Perseus's digital edition ----------
+       Frazer's Loeb was published in 1921 (London: Heinemann; Cambridge, Mass.: Harvard University
+       Press — the imprint both Perseus files record), so it is public domain in the United States as a
+       pre-1929 publication. Frazer died on 7 May 1941, so the term of life plus seventy ran out at the
+       end of 2011, and the translation, his Greek text (Wagner's Teubner of 1894, revised by him) and his
+       notes are free everywhere that counts from the author's death. Perseus's digital editions are CC
+       BY-SA 4.0, stated in each file's own <availability>. Robin Hard's Oxford translation of 1997 and
+       Keith Aldrich's of 1975 are in copyright and are named so nobody reaches for them. */
+    rights:
+      "Public domain on every ground, in both columns. The English is Sir James George Frazer's " +
+      "translation, published with his Greek text in two volumes of the Loeb Classical Library by " +
+      "William Heinemann in London and Harvard University Press in Cambridge, Massachusetts, in 1921, so " +
+      "it is public domain in the United States as a pre-1929 publication; Frazer died in 1941, so it is " +
+      "also public domain wherever copyright lasts for the author's life plus seventy years. The notes " +
+      "are his, from the same edition. The digital editions of both texts are prepared by the Perseus " +
+      "Digital Library at Tufts University and are released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence. The Library was written in Greek in the first " +
+      "or second century CE. (Robin Hard's translation of 1997 is still in copyright and is not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0548.tlg001/",
+
+    /* THE FRONT MATTER. The authorship and the date from Frazer's own introduction (§ I, "The Author and
+       his Book": Photius's "Apollodorus the Grammarian", the Castor reference at 2.1.3, nothing later
+       than the return of the Heraclids, Rome never named) and from Wikipedia's article on the work
+       ("first or second century AD", Photius's epigram, the break in Theseus' story); the Epitome's
+       story from Frazer's introduction (Wagner's Vatican manuscript No. 950 in 1885, Papadopulos-
+       Kerameus's Codex Sabbaiticus two years later, Wagner's Teubner of 1894). Nothing here is recalled. */
+    about: [
+      "<b>The Library</b> is the one handbook of Greek mythology to survive from antiquity more or " +
+        "less whole. It tells the stories in order, from the beginning of the world to the end of the " +
+        "age of heroes: Sky and Earth and the Titans, Zeus's war on them, the gods and their loves; " +
+        "then family by family the descendants of Deucalion, of Inachus and of Agenor, with Jason and " +
+        "the Argonauts, Perseus, Heracles and his labours, Oedipus and the Seven against Thebes, the " +
+        "Athenian kings and Theseus; and, in the Epitome, Pelops' house, the Trojan War, the homecomings " +
+        "of the Greeks and the wanderings of Odysseus. It explains nothing and judges nothing. It " +
+        "summarises, naming its authorities as it goes — Hesiod, Homer, Pherecydes, the tragedians — " +
+        "and often says plainly that the versions differ.",
+      "Almost nothing is known of the author. The manuscripts call him Apollodorus the Athenian, " +
+        "grammarian, which identified him with a well-known scholar of the second century BCE; but the " +
+        "book quotes the chronicler Castor, a contemporary of Cicero, so it cannot be earlier than the " +
+        "middle of the first century BCE, and it is now generally dated to the first or second century " +
+        "CE. Modern writers call him Apollodorus, or Pseudo-Apollodorus to keep the two apart. The book " +
+        "never mentions Rome or anything later than the age of heroes, so it gives no other clue to its " +
+        "date.",
+      "The last part of the work was lost from every complete manuscript: the text breaks off in the " +
+        "middle of the story of Theseus. What followed is known from two abridgements found in the " +
+        "1880s — an epitome in a Vatican manuscript, discovered by Richard Wagner in 1885, and fragments " +
+        "of a similar one in a manuscript at Jerusalem from the monastery of St Sabbas, found two years " +
+        "later by A. Papadopulos-Kerameus. Frazer printed the two together as the <b>Epitome</b>, from " +
+        "the point where the full text ends, and it is the fourth tab here. It is a summary of a " +
+        "summary, and reads like one.",
+      "The translation and the Greek text are Frazer's, published in the Loeb Classical Library in " +
+        "1921; his Greek follows Richard Wagner's edition of 1894. Frazer was the author of <i>The " +
+        "Golden Bough</i>, and his notes are famous in their own right: they set each story beside its " +
+        "other ancient tellings and, often, beside parallels from folklore round the world. They are " +
+        "carried in full in the notes under each book. The long essays of his Appendix, to which some " +
+        "notes refer, are not included. <b>The small figures in the text are the citation numbers, " +
+        "chapter and section</b>: “Apollodorus 2.5.11” means book 2, chapter 5, section 11, the Epitome " +
+        "is cited as “Epitome 7.17”, and each row of the two-column page is one section.",
+    ],
+
+    /* PROSE IN BOOKS OF CHAPTERS AND SECTIONS — Strabo's layout, paired on the SECTION: a chapter runs to
+       28 sections (1.9, the Argonauts) and Frazer's notes to pages, so a chapter row would set pages of
+       English beside pages of Greek. MEASURED over both pairs of files before choosing: the Library's 209
+       sections and the Epitome's 177 carry the same numbers in the same order on both sides, nothing
+       missing either way. The Epitome is a second work in Perseus's catalogue (tlg002), so it is the
+       second of `urls` and is read as book 4 — its file has chapters and sections but no book division,
+       so `teiRaw` puts one round it (index 1). */
+    source: "tei",
+    urls: [
+      "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0548/tlg001/tlg0548.tlg001.perseus-eng2.xml",
+      "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0548/tlg002/tlg0548.tlg002.perseus-eng2.xml",
+    ],
+    layout: "chaptered",
+    pairOn: "section",
+    chapterWord: "Book",
+    chapters: [1, 2, 3, 4],
+    // the edition's own heads: "BOOK I" … "BOOK III", then "EPITOME"
+    titleOf: (n) => ["Book I", "Book II", "Book III", "Epitome"][n - 1],
+    teiRaw: (xml, k) => apoTei(xml, k, "translation"),
+    /* THE TRANSCRIPTION'S SLIPS, each read against the Internet Archive's scan of the printed volume (the
+       copy Perseus's own header links). book-scan.js put up 28 candidates; one is a slip. Seen and LEFT
+       because the page prints them so: "Ajax, son of Oeleus" (Epitome 3.11; Oileus elsewhere), "Pellas"
+       among the suitors of Penelope (Epitome 7.29), and "Otreus", "Horus", "Athenion", which are names. */
+    fixes: [
+      ["Damascenus, Frag 20 (Fragmenta Historicorum Graccorum", "Damascenus, Frag. 20 (Fragmenta Historicorum Graecorum",
+        "a note on 2.5.11 — a letter misread and a full stop dropped (the scan: Frag. 20 … Graecorum)"],
+      /* not a slip of the page but of the digital edition's markup: an attribute's tail pasted into the text,
+         which prints the reference twice with `">P">` between */
+      ['1460a 32"&gt;P"&gt;Aristot. Poet. 1460a 32</bibl>', "1460a 32</bibl>",
+        "a note on 2.7.4 — markup pasted into a citation, printing it twice"],
+    ],
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "chaptered",
+      edition: "Apollodorus, The Library, Greek text edited by Sir James George Frazer after Richard Wagner, Loeb Classical Library, 1921",
+      rights:
+        "Public domain on every ground. The Library was written in Greek in the first or second century " +
+        "CE. The text printed here is Sir James George Frazer's, based on Richard Wagner's Teubner " +
+        "edition of 1894 and published in the Loeb Classical Library in 1921; Frazer died in 1941, so it " +
+        "is public domain everywhere. The digital edition is prepared by the Perseus Digital Library at " +
+        "Tufts University and is released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0548.tlg001/",
+      urls: [
+        "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0548/tlg001/tlg0548.tlg001.perseus-grc2.xml",
+        "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0548/tlg002/tlg0548.tlg002.perseus-grc2.xml",
+      ],
+      teiRaw: (xml, k) => apoTei(xml, k, "edition"),
+    },
+  },
+
   "declaration-of-independence": {
     title: "The Declaration of Independence",
     subtitle: "In Congress, July 4, 1776",
@@ -19973,6 +20225,455 @@ const BOOKS = {
     prep: "kant",
     /* A transcription slip: an underscore typed for a space, which no printing has; markup, not a reading. */
     fixes: [["something_precedes", "something precedes", "System of all Principles, Second Analogy: an underscore typed for a space"]],
+    minChars: 3000,
+  },
+  "augustus-res-gestae": {
+    title: "Res Gestae Divi Augusti",
+    subtitle: "The Deeds of the Divine Augustus",
+    author: "Augustus",
+    translator: "Frederick W. Shipley",
+    edition: "Velleius Paterculus and Res Gestae Divi Augusti, with an English translation by Frederick W. Shipley, Loeb Classical Library, William Heinemann and G. P. Putnam's Sons, 1924",
+    // the last chapter: "At the time of writing this I was in my seventy-sixth year" — 14 CE; begun much earlier
+    written: "14 CE",
+    year: 14,
+
+    /* ---------- THE LICENCE: the Cassius Dio ground, two layers ----------
+       Shipley's Loeb was published in 1924 — before 1929 — so it is public domain in the United
+       States; LacusCurtius's home page for the work names "the Loeb edition, 1924" as the source of all
+       three texts. WHAT IS NOT CLAIMED is a life-plus-seventy term: Shipley's death year was not
+       established this session (Wikimedia's API refused the lookup), so none is asserted — the Ovid
+       discipline. The Latin is the inscription, two thousand years old, as Shipley printed it from
+       Mommsen (1883) and Diehl (1918). The SECOND layer is the transcription, Bill Thayer's: every page
+       taken is a one-asterisk page, which his site states is in the public domain. His own notes, his
+       `º` marks and his links are not taken.
+       WHAT WAS LOOKED AT AND NOT USED: Thomas Bushnell's translation of 1998 on Wikisource ("The Deeds
+       of the Divine Augustus") is under the translator's copyright with a permissive licence that
+       requires its notice to be kept — not public domain, so not on this shelf. */
+    rights:
+      "Two layers, both stated. Frederick W. Shipley's translation and his text of the Latin were " +
+      "published in the Loeb Classical Library in 1924, before 1929, so their copyright has expired in " +
+      "the United States. The text is taken from Bill Thayer's transcription on LacusCurtius, which " +
+      "states that its pages of this kind are in the public domain; Thayer's own notes are not " +
+      "reproduced. (Thomas Bushnell's translation of 1998, often found online, is in copyright and is " +
+      "not used.)",
+    sourceName: "LacusCurtius",
+    sourceUrl: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Augustus/Res_Gestae/home.html",
+
+    /* THE FRONT MATTER — chapter 0. Every fact is the text's own or Shipley's Introduction to the Loeb
+       (pp. 332–340 of the volume, on LacusCurtius), and is said as his where it is a judgment. */
+    about: [
+      "<b>The Res Gestae</b> is the account of his own life that the first Roman emperor left to be read " +
+        "after his death. Suetonius (<i>Augustus</i> 101) records that Augustus deposited it with the " +
+        "Vestal Virgins along with his will, as “a résumé of his acts which he wished to have " +
+        "engraved upon bronze tablets to be set up before his mausoleum.” The mausoleum still stands in " +
+        "Rome; the bronze tablets are long gone.",
+      "What survives is the copies the cities of the empire cut into the walls of their temples of " +
+        "Augustus. The fullest is at Ancyra, the modern Ankara, on the Temple of Rome and Augustus: the " +
+        "Latin on the inner walls of the porch, in six columns, and a Greek version on an outer wall. " +
+        "Fragments of the same Greek were found at Apollonia, and pieces of a Latin copy at Antioch in " +
+        "Pisidia in 1914. The Ancyra copy is so much the most complete that the document is often called " +
+        "after it, the <i>Monumentum Ancyranum</i>; Mommsen called it the “Queen of Inscriptions.”",
+      "Shipley divides its thirty-five chapters into three groups: the honours the Senate and people " +
+        "gave Augustus and the services they rewarded (chapters 1–14), the money he spent from his " +
+        "own purse on the state, the veterans, the people of Rome and their games (15–24), and his " +
+        "deeds in peace and war (25–35). It is written in the first person, plainly, and almost as a " +
+        "list. It names none of his enemies — not Antony, Brutus and Cassius, Lepidus or Sextus " +
+        "Pompey — and of his family only Agrippa, Tiberius, Gaius and Lucius, where their names were " +
+        "joined to his in public honours.",
+      "The last chapter says it was written in his seventy-sixth year, which is 14 CE, the year he died. " +
+        "Shipley judges that it was begun much earlier: a draft was probably complete by 2 BCE, and " +
+        "passages were added or changed later. After the thirty-five chapters stands a short " +
+        "<b>Summary</b> in the third person, written after his death; the Loeb's note, after Mommsen, " +
+        "says it is not by Tiberius but apparently by a local magistrate of Ancyra.",
+      "The translation and the Latin are <b>Frederick W. Shipley's</b>, from the Loeb Classical Library " +
+        "volume of 1924, and the numbered notes are his historical notes. His Latin is based on Mommsen's " +
+        "edition of 1883, supplemented by Diehl's of 1918. Where the stone is lost and the words have " +
+        "been supplied, from the Greek or by conjecture, the Latin is printed in <i>italics</i>, as the " +
+        "Loeb prints it. The accents mark the long vowels the stone itself marks, and § stands for " +
+        "the sign the stone uses to end a sentence. The six Parts are the Loeb's division. The text is " +
+        "Bill Thayer's transcription on LacusCurtius, where the Greek version can be read too; it is not " +
+        "set beside this one.",
+    ],
+
+    source: "html",
+    layout: "monumentum",
+    pageUrl: (p) => "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Augustus/Res_Gestae/" + p + "*.html",
+    // Thayer's six pages are the Loeb's six Parts; the sixth also holds the Summary, Folio's seventh tab
+    pages: [1, 2, 3, 4, 5, 6].map((i) => (i === 6 ? { page: "6", n: 6, summary: 7 } : { page: String(i), n: i })),
+    chapterWord: "Part",
+    chapters: [1, 2, 3, 4, 5, 6, 7],
+    // transcribed: the Loeb heads them "Part I" … "Part VI" and "Summary"
+    titleOf: (n) => (n === 7 ? "Summary" : "Part " + ["I", "II", "III", "IV", "V", "VI"][n - 1]),
+    // the Summary is four short paragraphs
+    minChars: 300,
+
+    original: {
+      lang: "la",
+      langName: "Latin",
+      layout: "monumentum",
+      edition: "The Latin of the Monumentum Ancyranum as printed in F. W. Shipley's Loeb (1924), after Mommsen (1883) and Diehl (1918)",
+      rights:
+        "Public domain. Augustus wrote the text before 14 CE; this is the Latin as Shipley printed it in " +
+        "1924, public domain in the United States as a pre-1929 publication, in Bill Thayer's " +
+        "public-domain transcription on LacusCurtius.",
+      sourceName: "LacusCurtius",
+      sourceUrl: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Augustus/Res_Gestae/home.html",
+      minChars: 300,
+    },
+  },
+  "descartes-discourse-on-method": {
+    title: "Discourse on the Method",
+    // the work's own French title, as the first edition's title page sets it
+    subtitle: "Discours de la méthode pour bien conduire sa raison, et chercher la vérité dans les sciences",
+    author: "René Descartes",
+    translator: "John Veitch",
+    edition: "Second edition, Sutherland and Knox, Edinburgh, 1853",
+    written: "1637",
+    year: 1637,
+    /* ---------- THE LICENCE, and it needs no qualification ----------
+       Descartes published the Discourse in 1637 and died in 1650. Veitch's translation is the second
+       edition, Edinburgh, Sutherland and Knox, 1853 (the scan's title page); John Veitch died in 1894, so
+       the English clears the pre-1929 rule, life plus seventy and life plus a hundred alike — Wikisource's
+       own translation-licence tag on the work says both layers are public domain worldwide. The
+       transcription is proofread page by page (every page fetched carries `data-page-quality="3"`).
+
+       ---------- WHAT IS TAKEN ----------
+       Descartes's own prefatory note ("If this Discourse appear too long to be read at once…") and the six
+       Parts, each one wiki page. Not taken: Veitch's translator's preface and his long introduction — the
+       part of the volume that argues with the text rather than carrying it — and the title page.
+
+       THE ORIGINAL is Victor Cousin's edition (Œuvres de Descartes, tome I, Levrault, Paris, 1824), as
+       VALIDATED on French Wikisource (every scan page at `pagequality level="4"`), one page per Part, in
+       Cousin's spelling, which modernises 1637's but keeps the old -ois endings ("j'étois", "devois"). Adam and Tannery's 1902 text is there too, but it keeps 1637's long s and u-for-v
+       ("diſcours", "trouuera") and stands as ONE page; Cousin's reads cleanly and is already cut by Part.
+       The prefatory note stands on Cousin's work page under his own bibliographical note, which is cut
+       (`reFixes` below). */
+    rights:
+      "Public domain worldwide. René Descartes published the Discourse in 1637 and died in 1650. John " +
+      "Veitch's translation was first published in 1850 and this second edition in Edinburgh in 1853; " +
+      "Veitch died in 1894. The text is the proofread Wikisource transcription of the 1853 printing.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Discourse_on_the_Method",
+
+    /* THE FRONT MATTER — chapter 0. Every fact is a matter of record (the 1637 printing, the three essays
+       it prefaced, Part IV's cogito, the condemnation of Galileo that Part VI alludes to); where the reading
+       of the book is a matter of interpretation it says so rather than picking a side. */
+    about: [
+      "<b>The Discourse on the Method</b> is a short book in which René Descartes tells how he came to " +
+        "doubt everything he had been taught, and what he found he could not doubt. It is written in the " +
+        "first person, as the story of one mind, and offered, he says, not as a method every reader must " +
+        "follow but as an account of the one he had followed himself. Its fourth part holds the sentence it " +
+        "is remembered by: <i>I think, therefore I am</i> — in the French, <i>je pense, donc je suis</i>.",
+      "Descartes divides it himself, in a note before the first part, into six. The first is on the " +
+        "sciences he was taught and why they left him unsatisfied. The second gives the four rules of his " +
+        "method: to accept nothing as true that is not clearly known to be so, to divide each difficulty " +
+        "into as many parts as possible, to proceed in order from the simplest to the most complex, and to " +
+        "make reviews so complete that nothing is left out. The third sets out a provisional morality to " +
+        "live by while everything else is in doubt. The fourth proves, from the thinking self, the existence " +
+        "of God and of the soul. The fifth sketches his physics — including the motion of the heart and the " +
+        "difference between men and animals, which he took to be machines — and the sixth explains why he " +
+        "had held back a larger work, and why he publishes this.",
+      "Descartes was born in 1596 at La Haye in Touraine, in France, and educated by the Jesuits at La " +
+        "Flèche. He served as a volunteer in the armies of the Dutch Republic and of Bavaria, and it was in a " +
+        "winter in Germany, he says in the second part, that he shut himself up alone in a stove-heated " +
+        "room and began the thinking this book recounts. From the late 1620s he lived in the Netherlands. " +
+        "He had a treatise on the world ready when he learned in 1633 that Galileo had been condemned in " +
+        "Rome, and he withheld it; the sixth part speaks of that decision without naming him. The " +
+        "<i>Discourse</i> was published anonymously at Leiden in 1637, in French rather than Latin, as the " +
+        "preface to three essays — the <i>Optics</i>, the <i>Meteorology</i> and the <i>Geometry</i> — " +
+        "which were to show the method at work. The <i>Meditations</i> followed in 1641. He died in " +
+        "Stockholm in 1650, at the court of Queen Christina of Sweden.",
+      "The book is often taken as the beginning of modern philosophy: the turn from authority to the " +
+        "individual's own reason, and the starting point of a long argument about how the mind knows the " +
+        "world. How far its doubt is a real one, and whether the step from the thinking self to God holds, " +
+        "were questioned in Descartes's own lifetime and are argued over still.",
+      "John Veitch's translation was first published in 1850; this is his second edition, Edinburgh, " +
+        "1853. He made it from the French but compared it throughout with the Latin version of 1644, which " +
+        "Descartes had revised, and followed the Latin where he judged it clearer — so the two columns here " +
+        "do not always say quite the same thing. The text is given in the book's own order: Descartes's prefatory note, then the six parts, so " +
+        "a tab's number runs one ahead of the part's. The few notes are Veitch's. Not included: his " +
+        "translator's preface, his introduction and the title page. Beside it stands the French, in Victor " +
+        "Cousin's edition of 1824, whose spelling keeps the old endings (<i>j'étois</i>, <i>devois</i>); " +
+        "the two are paired part by part, since neither " +
+        "numbers anything smaller.",
+    ],
+
+    chapterWord: "Section",
+    chapters: Array.from({ length: 7 }, (_, i) => i + 1),
+    page: (n) => "Discourse on the Method/" + (n === 1 ? "Prefatory Note by the Author" : "Part " + (n - 1)),
+    // the Parts have no titles; the note's is the edition's own, with its brackets dropped
+    titleOf: (n) => (n === 1 ? "Prefatory Note by the Author" : "Part " + toRoman(n - 1)),
+    /* The edition's own heads, which Folio prints above the text itself: "DISCOURSE ON METHOD." over each
+       Part, "PART I." and so on, and "[PREFATORY NOTE BY THE AUTHOR.]". dropHeads strips blocks only from
+       the START of a section. */
+    dropHeads: [/^DISCOURSE ON METHOD\.?$/i, /^[PР][AА]R[TТ]\s+[IVX]+\.?$/i, /^\[?PREFATORY NOTE BY THE AUTHOR\.?\]?$/i],
+    /* Part VI's head is typed "РАRТ VI." with three CYRILLIC letters (Р, А, Т), so the head pattern above
+       accepts either alphabet. The slips below were found by a word-by-word diff of the whole import against
+       Project Gutenberg #59 (Veitch's translation; it spells -or and -ize where this printing spells -our and
+       -ise, and drops the comma this printing sets before a parenthesis — those differences are left), and
+       each is taken only where the Wikisource reading is not a reading at all. */
+    reFixes: [
+      [/(?<![A-Za-z])exibited(?![A-Za-z])/g, "exhibited", "III: `exibited` for `exhibited`; Gutenberg #59 prints it"],
+      [/our partial imperfection, those\. ['\u2019\u2018]possessing truth/g, "our partial imperfection, those possessing truth",
+       "IV, the last sentence: a stray full stop and apostrophe; Gutenberg #59 reads `those possessing truth`"],
+      [/for after the, error of those/g, "for after the error of those", "V: a stray comma; Gutenberg #59 has none"],
+    ],
+    // the note is one paragraph of some 800 characters; every Part is far longer
+    minChars: 500,
+
+    original: {
+      lang: "fr",
+      langName: "French",
+      perChapter: true,
+      wiki: "fr.wikisource.org",
+      page: (n) => {
+        const B = "Discours de la méthode (éd. Cousin)";
+        return n === 1 ? B : B + "/" + ["Première", "Deuxième", "Troisième", "Quatrième", "Cinquième", "Sixième"][n - 2] + " partie";
+      },
+      // the header inside the transclusion, the Part's <h2>, and the work page's furniture round the note
+      prep: "cousin",
+      edition: "Œuvres de Descartes, tome I, ed. Victor Cousin, Levrault, Paris, 1824, as validated at French Wikisource",
+      rights:
+        "Public domain worldwide: Descartes published this in 1637 and died in 1650. The transcription is " +
+        "of Victor Cousin's edition of 1824; Cousin died in 1867.",
+      sourceName: "Wikisource (French)",
+      sourceUrl: "https://fr.wikisource.org/wiki/Discours_de_la_m%C3%A9thode_(%C3%A9d._Cousin)",
+    },
+  },
+  "more-utopia": {
+    title: "Utopia",
+    // the short form of the title the first edition (Louvain, 1516) prints in Latin
+    subtitle: "De optimo rei publicae statu deque nova insula Utopia",
+    author: "Thomas More",
+    translator: "Gilbert Burnet",
+    edition: "Utopia, translated by Gilbert Burnet, edited by Henry Morley, Cassell & Company, London, 1901",
+    written: "1516",
+    year: 1516,
+    /* ---------- THE LICENCE, and it needs no qualification ----------
+       More's Latin was printed at Louvain in 1516 and he died in 1535. Burnet's English was first printed
+       in 1684 and Burnet died in 1715; Henry Morley, whose edition this is, died in 1894 (his Wikisource
+       author page). The printing transcribed is Cassell's of 1901, before 1929. Wikisource's own tag on the
+       work is PD-old for the original and the translation alike. The transcription is a plain one, typed
+       onto the wiki with no scan behind it (no `prp-pages-output`), so `body: "plain"`, as Thucydides.
+
+       ---------- WHAT IS TAKEN ----------
+       Morley's nine chapters, one wiki page each. Not taken: Morley's introduction (an editor's essay, as
+       Marriott's and Cole's are left out), and the letters of Peter Giles and Paludanus that Wikisource
+       attaches to the work page from another source. MORLEY'S CHAPTER 1 IS MORE'S BOOK I AND THE OPENING
+       OF BOOK II: Book II begins with no heading, mid-chapter, on "The island of Utopia is in the middle
+       two hundred miles broad", and his chapters 2–9 are Book II's own eight sections (De urbibus …
+       De religionibus). So no `parts`: a Book I / Book II split would cut a page. The front matter says so.
+
+       NO ORIGINAL: la.wikisource has the Latin in two Books with Book II's sections, which cannot be
+       paired with chapter 1 here without cutting it. The Robinson translation of 1551 has no page on
+       English Wikisource (the translations page links one that does not exist). */
+    rights:
+      "Public domain worldwide. Thomas More published Utopia in Latin in 1516 and died in 1535. " +
+      "Gilbert Burnet's English translation was first printed in 1684 and Burnet died in 1715; Henry " +
+      "Morley, who edited this printing of 1901, died in 1894.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Utopia_(1901)",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Where the
+       reading is divided — above all on how far More meant the island seriously — it says so. */
+    about: [
+      "<b>Utopia</b> is a dialogue about the best state of a commonwealth, and the book that gave the " +
+        "word to every language. Thomas More tells how, on an embassy to Flanders, he was introduced by " +
+        "his friend Peter Giles to Raphael Hythloday, a Portuguese traveller who had sailed with Amerigo " +
+        "Vespucci and gone on alone. The first part is their conversation in a garden at Antwerp: why " +
+        "Raphael will not serve a king, and what is wrong with England — thieves hanged for stealing " +
+        "bread they had no other way to get, and farmland enclosed for pasture until, as he puts it, " +
+        "the sheep devour the men. The second is Raphael's description of the island of Utopia, where " +
+        "there is no private property and no money, everyone works six hours a day, and the citizens " +
+        "choose their magistrates and tolerate one another's religions.",
+      "The name is a Greek joke: <i>ou-topos</i>, no place, with an echo of <i>eu-topos</i>, a good place. " +
+        "Raphael's surname is put together from Greek words for nonsense, and the island's capital, " +
+        "Amaurot, is the dim or shadowy city. How seriously More meant the island has been argued over " +
+        "ever since — as a programme, as a satire on the Europe of his day, as a learned game in the " +
+        "manner of Plato's <i>Republic</i>, or as all three — and the book ends with More himself " +
+        "declining to agree with everything Raphael has said, while wishing rather than hoping to see " +
+        "many of the island's customs followed at home.",
+      "More was born in London in 1478, the son of a judge, trained as a lawyer, and was a close friend " +
+        "of Erasmus. He wrote the description of the island first, in the Low Countries in 1515, and the " +
+        "dialogue of the first part after his return. The book was printed in Latin at Louvain in 1516, " +
+        "with Erasmus and Giles seeing it through the press. More rose in Henry VIII's service to become " +
+        "Lord Chancellor in 1529, resigned in 1532, and was beheaded in 1535 for refusing the oath that " +
+        "acknowledged the king as head of the Church in England. The Catholic Church canonised him in " +
+        "1935.",
+      "The first English translation, Ralph Robinson's, appeared in 1551. The one given here is Gilbert " +
+        "Burnet's of 1684 — the work of the churchman and historian who later became Bishop of Salisbury — " +
+        "in Henry Morley's edition, as Cassell printed it in 1901. Morley divides the book into nine " +
+        "chapters. The first holds the whole of More's first book and the opening of the second, where " +
+        "Raphael begins on the island's shape, its cities and its farms; the island part begins without " +
+        "a heading, on the paragraph <i>The island of Utopia is in the middle two hundred miles " +
+        "broad</i>. The other eight chapters are the sections of the second book, under their own " +
+        "titles. Not included: Morley's introduction, the prefatory letters and the verses printed with " +
+        "the first editions.",
+    ],
+
+    source: "wiki",
+    body: "plain",
+    dropHeadings: true,
+    /* Each page opens on its title in capitals in a centred block ({{c|<h3>…</h3>}}), which reaches the
+       reader as a quotation of the tab's own title. Measured: the nine pages carry no other centred block. */
+    dropHeads: [/^(?:DISCOURSES OF RAPHAEL HYTHLODAY|OF (?:THEIR|THE) [A-Z ,]+)/],
+    chapterWord: "Chapter",
+    chapters: Array.from({ length: 9 }, (_, i) => i + 1),
+    page: (n) => "Utopia (1901)/Chapter " + n,
+    /* ---------- SLIPS IN THE TRANSCRIPTION, each checked against a second witness ----------
+       A word-by-word diff of the whole import against Project Gutenberg #2130 — the same Morley edition of
+       Burnet, typed separately — found seven differences besides the chapter titles. Five are taken: a
+       Wikisource reading that is not a word or that breaks its sentence, where Gutenberg's is the plain
+       sense. Two are left: "a mean of the public safety" (a period form, possibly the page's), and
+       "work so much on them", where Gutenberg's "on there" is the slip. */
+    fixes: [
+      ["when they trained over land", "when they travelled over land", "chapter 1: 'trained' for 'travelled' (beside 'when they went by water'); Gutenberg #2130"],
+      ["the dobots", "the abbots", "chapter 1: 'dobots' is not a word; Gutenberg #2130 reads 'abbots'"],
+      ["if I speak with, I must repeat", "if I speak truth, I must repeat", "chapter 1: 'speak with' breaks the sentence (set against 'as for lying'); Gutenberg #2130"],
+      ["to their case or health", "to their ease or health", "a c for an e; Gutenberg #2130"],
+      ["by the seventies of law", "by the severities of law", "'seventies' for 'severities'; Gutenberg #2130"],
+    ],
+    // transcribed from the work page's contents list
+    titleOf: (n) => [
+      "Discourses of Raphael Hythloday, of the Best State of a Commonwealth",
+      "Of Their Towns, Particularly of Amaurot",
+      "Of Their Magistrates",
+      "Of Their Trades, and Manner of Life",
+      "Of Their Traffic",
+      "Of the Travelling of the Utopians",
+      "Of Their Slaves, and of Their Marriages",
+      "Of Their Military Discipline",
+      "Of the Religions of the Utopians",
+    ][n - 1],
+    // the shortest, chapter 3, Of Their Magistrates, is about 3,000 characters of wikitext
+    minChars: 2000,
+  },
+  "darwin-origin-of-species": {
+    title: "On the Origin of Species",
+    // the title page's full title, after the short one every reader knows it by
+    subtitle: "By Means of Natural Selection, or the Preservation of Favoured Races in the Struggle for Life",
+    author: "Charles Darwin",
+    /* NO `translator`: written in English, as Leviathan was. */
+    edition: "The first edition, John Murray, London, 1859",
+    written: "1859",
+    year: 1859,
+    /* ---------- THE LICENCE, and it needs no qualification ----------
+       Darwin died in 1882 and the book was printed in 1859, so there is no copyright in it anywhere. The
+       transcription is Wikisource's, of the facsimile scan `Origin of Species 1859 facsimile.djvu`, and
+       VALIDATED page by page (every page fetched carries `data-page-quality="4"`, the highest grade —
+       proofread and then checked by a second contributor). The pages carry no footnotes: the first edition
+       has none, Darwin saying in his Introduction that this "Abstract" cannot give references and
+       authorities. THE LATER EDITIONS ARE NOT USED: Darwin revised the book five times (1860, 1861, 1866,
+       1869, 1872), and the first edition is the text of 1859, the one a reader is usually pointed at. */
+    rights:
+      "Public domain worldwide. Charles Darwin published On the Origin of Species in London in 1859 " +
+      "and died in 1882, so the book has never been in copyright anywhere since. The text is the " +
+      "validated Wikisource transcription of the first edition, from a facsimile scan.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/On_the_Origin_of_Species_(1859)",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Every fact in
+       it was checked against the record or against this text (the one "evolved", the absent "evolution",
+       the line on the origin of man, the Abstract, Wallace); the later editions' changes are the ones every
+       account of the book's history agrees on. */
+    about: [
+      "<b>On the Origin of Species</b> argues that species are not fixed, each created separately, but " +
+        "descended from earlier species and changed over very long periods of time. Charles Darwin's " +
+        "mechanism for the change is <i>natural selection</i>. Living things vary; more are born than can " +
+        "survive; in the struggle for existence that follows, any variation that gives an advantage, " +
+        "however slight, tends to be preserved and passed on, and any that does harm tends to be " +
+        "destroyed. Over thousands of generations, Darwin argues, small differences add up to new " +
+        "varieties, and varieties to new species, so that all living things are related, like the " +
+        "branches of one great tree.",
+      "Darwin called the book <i>one long argument</i>, and it is built like one. It opens on what " +
+        "breeders do with pigeons, dogs and crops (chapter I), and moves from selection by man to " +
+        "variation in the wild, the struggle for existence and natural selection itself (II–IV), with " +
+        "the laws of variation after them (V). Then he turns to the objections — the difficulties of the " +
+        "theory, instinct, the sterility of hybrids, and the gaps in the fossil record (VI–IX). The rest " +
+        "shows what the theory explains: the succession of fossils, the geographical distribution of " +
+        "plants and animals, and the facts of classification, embryology and rudimentary organs " +
+        "(X–XIII). The last chapter recapitulates the whole, and ends on the book's most famous sentence.",
+      "Darwin was born in Shrewsbury in 1809. From 1831 to 1836 he sailed round the world as naturalist " +
+        "on HMS <i>Beagle</i>, and what he saw in South America and the Galápagos Islands set him on the " +
+        "question. He opened his first notebook on the transmutation of species in 1837, wrote a sketch " +
+        "of his theory in 1842 and a longer essay in 1844, and then worked on it for years without " +
+        "publishing. In 1858 Alfred Russel Wallace, collecting in the Malay Archipelago, sent him an " +
+        "essay that reached almost the same conclusion; papers by both men were read together at the " +
+        "Linnean Society in London that July. Darwin then wrote the <i>Origin</i> in about thirteen " +
+        "months, as what he called an abstract of the larger book he had planned. John Murray published " +
+        "it on 24 November 1859. Darwin died at his home, Down House in Kent, in 1882 and was buried in " +
+        "Westminster Abbey.",
+      "The book was argued over at once, and it changed biology. Darwin revised it five times; in the " +
+        "second edition the closing sentence gained the words <i>by the Creator</i>, and the fifth " +
+        "adopted Herbert Spencer's phrase <i>survival of the fittest</i>. The word <i>evolution</i> does " +
+        "not appear in this first edition — the only form of it is <i>evolved</i>, the book's last " +
+        "word. Darwin could not say how variations arise or how they are inherited (<i>the laws " +
+        "governing inheritance are quite unknown</i>, he writes); that was answered only in the " +
+        "twentieth century, when genetics joined his theory. Of human beings the book says one sentence: " +
+        "<i>Light will be thrown on the origin of man and his history.</i> He took up the subject in " +
+        "<i>The Descent of Man</i> (1871).",
+      "The text here is the first edition of 1859, in its own spelling (<i>palæontology</i>, " +
+        "<i>organisation</i>). It is given in the book's own order: the Introduction and the fourteen " +
+        "chapters, so a tab's number runs one ahead of the chapter's, whose Roman numeral opens each " +
+        "title. The italic lines that open each chapter are Darwin's own summary of its contents, " +
+        "printed under the chapter heading; the italic words that open some paragraphs are his " +
+        "headings within the chapter. The book's one illustration, the folding diagram of branching " +
+        "descent described in chapter IV, is not reproduced here. Not included: the title page with " +
+        "its two epigraphs (from William Whewell and Francis Bacon), the contents and the index.",
+    ],
+    chapterWord: "Section",
+    chapters: Array.from({ length: 15 }, (_, i) => i + 1),
+    page: (n) => "On the Origin of Species (1859)/" + (n === 1 ? "Introduction" : "Chapter " + toRoman(n - 1)),
+    titleOf: (n) => [null, "Introduction",
+      "I. Variation under Domestication",
+      "II. Variation under Nature",
+      "III. Struggle for Existence",
+      "IV. Natural Selection",
+      "V. Laws of Variation",
+      "VI. Difficulties on Theory",
+      "VII. Instinct",
+      "VIII. Hybridism",
+      "IX. On the Imperfection of the Geological Record",
+      "X. On the Geological Succession of Organic Beings",
+      "XI. Geographical Distribution",
+      "XII. Geographical Distribution — continued",
+      "XIII. Mutual Affinities of Organic Beings: Morphology: Embryology: Rudimentary Organs",
+      "XIV. Recapitulation and Conclusion",
+    ][n],
+    /* The printed heads: the half-title and rule over the Introduction, and each chapter's centred
+       "CHAPTER IV." with its small-capital title, which the tab already says. */
+    dropHeads: [/^ON THE ORIGIN OF SPECIES\.$/, /^═+$/, /^INTRODUCTION\.$/, /^CHAPTER [IVXL]+\.(?:\s|$)/],
+    reFixes: [
+      /* DARWIN'S ARGUMENT OF EACH CHAPTER, the small-type list of its topics printed under the head (and
+         repeated in his contents), arrives as an indented block — a blockquote, which would read as a
+         quotation. Set as the italic head line the reader already has for a printed rubric. Two rows,
+         in this order: the opening tag where its block holds an argument (one run of text with a dash),
+         then the closing tag of the block the first row opened. */
+      [/<blockquote>(?=[^<]*—[^<]*<\/blockquote>)/g, '<p class="bk-head">',
+       "each chapter's argument: open it as a head line rather than a quotation"],
+      [/(?<=<p class="bk-head">[^<]*)<\/blockquote>/g, "</p>", "each chapter's argument: close it"],
+      /* The blank line the transcription keeps before a paragraph (a section break before Darwin's run-in
+         italic heads, and the space under each chapter head) arrives as a <br> opening the paragraph. */
+      [/<p><br>\n(?=[^<\s]|<i>)/g, "<p>", "a <br> opening a paragraph: the transcription's blank line"],
+      /* THE ONE ILLUSTRATION. Darwin's folding diagram of divergence (the binder's instruction: "to front
+         page 117") is transcribed as a picture and a bracketed caption that stand in the middle of a
+         sentence on p. 116–117, and the transcription closes and reopens its page wrapper around it, which
+         breaks a second sentence on p. 117–118. The Library sets no pictures (as the Classic of Tea's
+         utensils), so the caption goes and both sentences are joined as printed; the front matter says the
+         diagram is not reproduced. */
+      [/in the second chapter,<\/p>\s*<blockquote>\s*<p>\[DIAGRAM OF DIVERGENCE OF TAXA\]<\/p>\s*<\/blockquote> that on an average/g,
+       "in the second chapter, that on an average", "IV: the diagram's caption, mid-sentence on p. 116–117"],
+      [/worthy of record in a systematic work\.\n<p>The intervals between/g,
+       "worthy of record in a systematic work.</p>\n<p>The intervals between",
+       "IV: the close of the paragraph the diagram interrupted, which the transcription leaves as a bare run"],
+      [/made their parents variable,<\/p>\s*<p>and the tendency/g, "made their parents variable, and the tendency",
+       "IV: a sentence broken where the transcription reopens its page wrapper after the diagram (p. 117–118)"],
+      /* The one table, Ramsay's thicknesses of the British strata in chapter IX, flattened by the tag strip
+         into loose lines with each figure on its own; set one stratum to a line. */
+      [/<\/p>\nFeet\.\nPalæozoic strata \(not including igneous beds\)\n57,154\nSecondary strata\n13,190\nTertiary strata\n2,240\n/g,
+       "</p>\n<blockquote><p>Feet.<br>Palæozoic strata (not including igneous beds): 57,154<br>Secondary strata: 13,190<br>Tertiary strata: 2,240</p></blockquote>\n",
+       "IX: the table of the strata's thicknesses, one row to a line"],
+    ],
     minChars: 3000,
   },
 };
@@ -27191,6 +27892,119 @@ function extractThayer(pages, book, warn) {
   return { chapters: out, counts: c };
 }
 
+/* ============================================================
+   THE RES GESTAE ON LACUSCURTIUS — three columns per chapter, six pages     (layout: "monumentum")
+   ============================================================
+   Nov 2026, adding the Res Gestae Divi Augusti. Bill Thayer sets Shipley's Loeb of 1924 as the Loeb
+   printed it: a table, one row per chapter, the Latin of the inscription, the ancient Greek version
+   and Shipley's English side by side (`<TD CLASS="Latin">`, `"Greek"`, `"English"`), on six pages that
+   are the Loeb's Parts I–VI; the sixth also carries the third-person Summary, its four paragraphs
+   numbered S1–S4. So the English and the Latin come out of ONE fetch, as the Magna Carta's do.
+   The English cells are joined into a page of their own and handed to `thayerPage` with the page's
+   EXPLANATORY notes only — the same reader as Diodorus, so Thayer's notes, his `º` marks and his
+   line numbers leave by the same rules. The Latin cells are read here. What is worth carrying:
+   · THE LATIN'S CRITICAL NOTES (`#cnoteN`, Shipley's notes on the text) go with their markers: an
+     original column has no note fold (see `writeOriginal`).
+   · THE LOEB PRINTS ITS SUPPLEMENTS IN ITALICS — the words restored where the stone is lost
+     (Introduction, "The Text"). Thayer sets them as `<SPAN CLASS="emend">` in a brighter colour; here
+     they become italic again, which is the edition's own convention. On the English side the same
+     span is ordinary text, as on every other LacusCurtius book.
+   · A CHAPTER IS NUMBERED BY ITS VISIBLE FIGURE, NEVER BY ITS ANCHOR: the Latin of chapter 34 is
+     anchored `NAME="34G"`, a slip for "34L".
+   · Greek is not taken: Folio's reader sets one original beside a translation, and Augustus wrote
+     in Latin.
+   · The apices (´) and the § marks are the stone's, as the Loeb prints them, and stay. */
+function monumentumGroups(h, page) {
+  let s = h.replace(/\r/g, "").replace(/<!--[\s\S]*?-->/g, "").replace(/\s*on[A-Za-z]+="[^"]*"/g, "");
+  // Thayer's conversion and glossary bullets (`•`, a pop-up of metres or a definition) are his, not the Loeb's
+  s = s.replace(/<A CLASS="(?:conversion|glossary)"[^>]*>[^<]*<\/A>/gi, "");
+  const cells = [...s.matchAll(/<TD CLASS="(Latin|Greek|English)">([\s\S]*?)<\/TD>/gi)];
+  if (!cells.length) throw new Error("page " + page + ": no Latin / Greek / English cells");
+  const groups = {};
+  const summary = (c) => /<A CLASS="chapter" NAME="S\d/i.test(c);
+  cells.forEach((m) => {
+    const lang = m[1].toLowerCase();
+    if (lang === "greek") return;
+    const k = summary(m[2]) ? "S" : "P";
+    (groups[k] = groups[k] || { en: [], la: [] })[lang === "english" ? "en" : "la"].push(m[2]);
+  });
+  /* The Summary's heading carries a Loeb note (145: who wrote it), and the heading is not a cell. Its
+     marker is moved to just after the first chapter number of the Summary's English, so the note keeps
+     a marker rather than being reported uncited. */
+  const head = s.match(/<H2[^>]*>\s*Summary[^<]*(<A CLASS="ref"[^>]*>[^<]*<\/A>)/i);
+  if (head && groups.S) groups.S.en[0] = groups.S.en[0].replace(/(<A CLASS="chapter"[^>]*>[^<]*<\/A>)/i, "$1" + head[1]);
+  return { s: s, groups: groups };
+}
+function monumentumEnglish(s, cells) {
+  // the page's own header and footer stay so `thayerPage` finds its landmarks; the body is the English
+  const ex = s.search(/<A ID="endnotes_explanatory"><\/A>/i);
+  if (ex < 0) throw new Error("no explanatory notes on the page");
+  const foot = s.search(/<TABLE CLASS="footer"/i);
+  const body = cells.join("\n").replace(/<A CLASS="chapter" NAME="S(\d+)">/gi, '<A CLASS="chapter" NAME="$1">');
+  return "<BODY>\n" + body + '\n<A ID="endnotes"></A>' + s.slice(ex + '<A ID="endnotes_explanatory"></A>'.length, foot) +
+    s.slice(foot);
+}
+function monumentumLatin(cells, where, c, warn) {
+  const out = [], chs = [];
+  cells.forEach((t) => {
+    t = t.replace(/<A CLASS="(correction|comment)"[^>]*>[^<]*<\/A>/gi, () => { c.thayerMarks++; return ""; });
+    t = t.replace(/<A CLASS="ref"[^>]*HREF="[^"#]*#(c?note)([^"\s]*)\s*"[^>]*>[^<]*<\/A>/gi, (w, k) => {
+      if (k === "cnote") c.critical++; else c.otherRefs++;
+      return "";
+    });
+    t = t.replace(/<A CLASS="sec" NAME="?[^">]*"?>[^<]*<\/A>\s*/gi, () => { c.lines++; return ""; });
+    t = t.replace(/<A CLASS="chapter" NAME="?[^">]*"?>([^<]*)<\/A>/gi, (w, shown) => {
+      const k = parseInt(shown, 10);
+      if (!(k >= 1)) { warn(where + ": a Latin chapter mark reads " + JSON.stringify(shown)); return ""; }
+      chs.push(k);
+      return '<span class="bk-n" data-n="' + k * 100 + '">' + k + "</span> ";
+    });
+    // the Loeb's italic supplements: `thayerSpans` makes a `source` span italic
+    c.supplied += (t.match(/<SPAN CLASS="emend">/gi) || []).length;
+    t = t.replace(/<SPAN CLASS="emend">/gi, '<SPAN CLASS="source">');
+    out.push(...thayerParas(thayerClean(t, false)));
+  });
+  for (let i = 1; i < chs.length; i++)
+    if (chs[i] !== chs[i - 1] + 1) warn(where + ": Latin chapter " + chs[i] + " follows " + chs[i - 1]);
+  return { html: out.join("\n").replace(/<i>\s*<\/i>/g, "").replace(/<\/i>(\s*)<i>/g, "$1"), chapters: chs };
+}
+function extractMonumentum(pages, book, warn) {
+  const tc = { correction: 0, comment: 0, emend: 0, contents: 0, thayerLists: 0, myNotes: 0, myRefs: 0,
+    secs: 0, carried: 0, unused: [] };
+  const lc = { thayerMarks: 0, critical: 0, otherRefs: 0, lines: 0, supplied: 0 };
+  const out = [];
+  const unusedByPage = {};
+  book.pages.forEach((pg) => {
+    const g = monumentumGroups(pages[pg.page], pg.page);
+    [["P", pg.n], ["S", pg.summary]].forEach(([k, n]) => {
+      const grp = g.groups[k];
+      if (!grp) return;
+      if (!n) throw new Error("page " + pg.page + ": rows of kind " + k + " and no chapter to put them in");
+      const en = extractThayer({ [n]: [{ id: pg.page, html: monumentumEnglish(g.s, grp.en) }] },
+        { chapters: [n], chapterWord: book.chapterWord }, warn);
+      const ch = en.chapters[0];
+      for (const k in en.counts) if (k !== "unused") tc[k] += en.counts[k];
+      tc.unused.push(...en.counts.unused);
+      const la = monumentumLatin(grp.la, book.chapterWord + " " + n, lc, warn);
+      const enN = (ch.html.match(/data-n="(\d+)"/g) || []).join();
+      const laN = (la.html.match(/data-n="(\d+)"/g) || []).join();
+      if (enN !== laN) warn(book.chapterWord + " " + n + ": the columns' chapter numbers differ — " + enN + " / " + laN);
+      out.push({ n: n, html: ch.html, notes: ch.notes, latin: la.html, count: ch.count, first: la.chapters[0], last: ch.last });
+    });
+    // a note is unused only if NEITHER group on the page cited it
+    const used = new Set();
+    tc.unused.forEach((u) => { const [w, id] = [u.slice(0, u.lastIndexOf(" ")), u.slice(u.lastIndexOf(" ") + 1)];
+      if (w.endsWith("(" + pg.page + ")")) unusedByPage[pg.page + "#" + id] = (unusedByPage[pg.page + "#" + id] || 0) + 1; });
+    tc.unused = [];
+    const groupsOnPage = Object.keys(g.groups).length;
+    Object.keys(unusedByPage).forEach((key) => {
+      if (key.startsWith(pg.page + "#") && unusedByPage[key] < groupsOnPage) used.add(key);
+    });
+    used.forEach((key) => delete unusedByPage[key]);
+  });
+  return { chapters: out, counts: tc, latinCounts: lc, unused: Object.keys(unusedByPage) };
+}
+
 function extractTablets(h, book, warn) {
   /* CRLF, NORMALISED AT THE DOOR, and it is worth a line because of how it fails. This host serves
      the page with Windows line endings; every other source on the shelf does not, so `esc` — which
@@ -27500,6 +28314,39 @@ function contratPrep(h, warn) {
   return b.slice(0, hm.index) + fence + b.slice(hm.index + hm[0].length);
 }
 
+/* `original.prep: "cousin"` — Victor Cousin's Discours de la méthode (1824) on French Wikisource (Nov 2026).
+   Like the Contrat's pages these carry the wiki's header INSIDE the transclusion as `ws-noexport` divs
+   (removed balanced), and each Part opens on an <h2> "PREMIÈRE PARTIE." that Folio prints itself. The work
+   page holds Descartes's prefatory note BETWEEN Cousin's own bibliographical note, the title and the
+   contents list; only the note's one block ("Si ce discours semble trop long…") is kept, and a page with
+   neither an <h2> head nor that block is warned rather than passed through. */
+function cousinPrep(h, warn) {
+  let b = h;
+  for (let k = 0; k < 20; k++) {
+    const m = /<div\b[^>]*class="[^"]*\bws-noexport\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const e = blockEnd(b, m.index, "div");
+    if (e < 0) { warn("an unbalanced ws-noexport block was left in place"); break; }
+    b = b.slice(0, m.index) + b.slice(e);
+  }
+  const note = b.indexOf("Si ce discours semble trop long");
+  if (note >= 0) {
+    const s = b.lastIndexOf('<div class="alinea"', note);
+    const e = s < 0 ? -1 : blockEnd(b, s, "div");
+    if (e < 0) { warn("the prefatory note's block was not found whole"); return b; }
+    // the block's own div would become a blockquote; the note is a paragraph of prose
+    const inner = b.slice(s, e).replace(/^<div\b[^>]*>/, "").replace(/<\/div>$/, "");
+    return '<div class="prp-pages-output" lang="fr"><p>' + inner + "</p></div>";
+  }
+  // Part VI's closing "FIN DU DISCOURS DE LA MÉTHODE." and the spacer above it are Cousin's, not Descartes's
+  b = b.replace(/<div style="line-height:[^"]*">\s*<br>\s*<\/div>\s*(?=<div style="text-align:center;[^"]*">\s*<b>FIN DU DISCOURS)/, "")
+    .replace(/<div style="text-align:center;[^"]*">\s*<b>FIN DU DISCOURS DE LA MÉTHODE\.<\/b>\s*<\/div>/, "");
+  const before = b.length;
+  b = b.replace(/<h2\b[^>]*>(?:(?!<\/h2>)[\s\S])*?PARTIE(?:(?!<\/h2>)[\s\S])*?<\/h2>/, "");
+  if (b.length === before) warn("no PARTIE head found");
+  return b;
+}
+
 /* Turn ONE page of another wiki into one chapter's html — the `perChapter` original, added with The
    Prince (Aug 2026) and the simplest of the three wiki shapes rather than a complication of them.
    Seneca's Latin gives one page per BOOK of the collection with the letters as headings inside it, so
@@ -27520,6 +28367,7 @@ let ORIG_TIPS = 0;
 function originalChapter(h, O, warn) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
   if (O && O.prep === "contrat") b = contratPrep(b, warn);
+  if (O && O.prep === "cousin") b = cousinPrep(b, warn);
   /* A PAGE TYPED ONTO THE WIKI RATHER THAN TRANSCLUDED FROM A SCAN has no `prp-pages-output` wrapper
      at all, so the slice below returns -1 and this throws on a page holding the whole text. Falling
      back automatically would be wrong for the same reason it is wrong on the translation side: a
@@ -27978,6 +28826,18 @@ function teiProse(raw) {
    than anything the translator wrote, there are 834 of them, and every one would read as a typo. It
    is done in this reader instead of in teiInline because teiInline is shared with five shipped books
    and a rule that rewrites their punctuation is a rule that has to be proved against all five. */
+/* The English TEI file(s) of a `chaptered` book, cached — one `url`, or several `urls` (Apollodorus).
+   `reuse` reads a cached file even under --force, as the original side's reconciliation always has. */
+async function enTeiFiles(reuse) {
+  const out = [];
+  for (const [k, u] of (BOOK.urls || [BOOK.url]).entries()) {
+    const cf = path.join(CACHE, k ? "en-tei-" + (k + 1) + ".xml" : "en-tei.xml");
+    if ((reuse || !FORCE) && fs.existsSync(cf)) out.push(fs.readFileSync(cf, "utf8"));
+    else { const t = await fetchText(u); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, t); out.push(t); }
+  }
+  return out;
+}
+
 function teiBookChapters(xml, opts, warn) {
   const body = xml.slice(xml.indexOf("<body"));
   if (body.length < 1000) throw new Error("no <body> in the TEI file");
@@ -32592,6 +33452,26 @@ function chajingZhPart(json, n, warn, c) {
   return '<p><span class="bk-n" data-n="' + n + '">' + n + "</span></p>\n" + ps.join("\n");
 }
 
+/* The six pages of a `monumentum` book, each cached as served and accepted only WHOLE — the LacusCurtius
+   host drops connections mid-page, and a cut page is well-formed up to where it stops. Both halves read
+   this, so an --only-original run on a clean checkout fetches what it needs. */
+async function monumentumPages() {
+  const pages = {};
+  for (const pg of BOOK.pages) {
+    const cf = path.join(CACHE, "en-" + pg.page + ".html");
+    let h = !FORCE && fs.existsSync(cf) ? fs.readFileSync(cf, "utf8") : "";
+    for (let a = 0; !/<\/HTML>\s*$/i.test(h); a++) {
+      if (a === 6) throw new Error("could not fetch a whole page " + pg.page + " from " + BOOK.sourceName);
+      if (a) await sleep(4000 * a);
+      try { h = await fetchText(BOOK.pageUrl(pg.page)); } catch (e) { h = ""; }
+    }
+    fs.mkdirSync(CACHE, { recursive: true });
+    fs.writeFileSync(cf, h);
+    pages[pg.page] = h;
+  }
+  return pages;
+}
+
 async function fetchEnglish() {
   /* A book with no `translator` is not a gap in its entry — it is a book that was written in English
      and has nobody standing between the reader and the author. Le Morte d'Arthur is the first, so the
@@ -32768,14 +33648,15 @@ async function fetchEnglish() {
 
   if (BOOK.source === "tei" && BOOK.layout === "chaptered") {
     const warn = (m) => warnings.push(m);
-    const cf = path.join(CACHE, "en-tei.xml");
-    let xml;
-    if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
-    else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
-    // `teiRaw` — a book's own transform of its TEI before anything reads it (Pausanias, Oct 2026)
-    xml = correctRaw(BOOK.teiRaw ? BOOK.teiRaw(xml) : xml);
-    const books = teiBookChapters(xml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
-      fence: BOOK.fence, preface: BOOK.preface, crossBook: BOOK.crossBookChapters }, warn);
+    /* AN ENGLISH IN SEVERAL FILES (Nov 2026, Apollodorus): Perseus keeps the Library's three books and
+       its Epitome as two works, so `urls` lists them, each is cached apart (en-tei.xml, en-tei-2.xml …),
+       and the books of every file are merged — the original side's Diodorus rule on this side. `teiRaw`
+       is told which file it is reading (its second argument, the index), since only the Epitome's file
+       needs a book division put round it. A book with one `url` reads exactly as before. */
+    const xmls = await enTeiFiles();
+    const books = Object.assign({}, ...xmls.map((x, k) =>
+      teiBookChapters(correctRaw(BOOK.teiRaw ? BOOK.teiRaw(x, k) : x), { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
+        fence: BOOK.fence, preface: BOOK.preface, crossBook: BOOK.crossBookChapters }, warn)));
     for (const n of BOOK.chapters) {
       if (n < FROM || n > TO) continue;
       const got = books[n];
@@ -33619,6 +34500,23 @@ async function fetchEnglish() {
       "(his, and not public domain)");
     // at import every one of these was cited only from a book's left-out table of contents — read them if the count moves
     if (c.unused.length) console.log("  " + c.unused.length + " Loeb note(s) no marker in the text cites: " + c.unused.join(", "));
+    return writeEnglish(chapters, warnings);
+  }
+
+  if (BOOK.layout === "monumentum") {
+    const warn = (m) => warnings.push(m);
+    const g = extractMonumentum(await monumentumPages(), BOOK, warn);
+    g.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.html.length < (BOOK.minChars || 200)) throw new Error(BOOK.chapterWord + " " + ch.n + " came back short");
+      chapters.push({ n: ch.n, t: titles[ch.n] || chapterTitle(ch.n), p: partOf(ch.n), html: ch.html, notes: ch.notes });
+      console.log("  " + chapterTitle(ch.n) + " — chapters " + ch.first + "–" + ch.last + " (" + ch.count + "), " +
+        ch.notes.length + " notes (" + (ch.html.length / 1024).toFixed(0) + " KB)");
+    });
+    const c = g.counts;
+    console.log("  " + c.secs + " line numbers dropped; " + (c.correction + c.comment) + " of Thayer's tooltip marks, " +
+      c.myNotes + " of his notes inside Loeb notes and " + c.myRefs + " marker(s) citing his own notes dropped");
+    if (g.unused.length) console.log("  Loeb note(s) no marker cites: " + g.unused.join(", "));
     return writeEnglish(chapters, warnings);
   }
 
@@ -34521,6 +35419,21 @@ async function fetchOriginal() {
   /* MAGNA CARTA'S LATIN — printed above each chapter's English on the same page, so it is read back
      out of the English side's own cache (fetched if a clean checkout has none). Both columns carry the
      same single marker per chapter, written by the extractor. */
+  if (O.layout === "monumentum") {
+    console.log("\nReading the " + O.langName + " original out of the same pages — " + O.edition);
+    const g = extractMonumentum(await monumentumPages(), BOOK, warn);
+    g.chapters.forEach((ch) => {
+      if (ch.n < FROM || ch.n > TO) return;
+      if (ch.latin.length < (O.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + ch.n + " came back short (" + ch.latin.length + " chars)");
+      byNum[ch.n] = ch.latin;
+    });
+    const c = g.latinCounts;
+    console.log("  " + Object.keys(byNum).length + " parts; " + c.supplied + " supplements set in italics, as the Loeb " +
+      "prints them; " + c.critical + " critical-note markers and " + c.lines + " line numbers dropped; " +
+      c.thayerMarks + " of Thayer's tooltip marks removed");
+    return writeOriginal(byNum, warnings);
+  }
   if (O.layout === "mckechnie") {
     console.log("\nReading the " + O.langName + " original out of the same page — " + O.edition);
     const cf = path.join(CACHE, "en-page.html");
@@ -34772,14 +35685,11 @@ async function fetchOriginal() {
           en[n] = { html: JSON.parse(fs.readFileSync(cf, "utf8")).html, notes: [] };
         }
       } else {
-        const enCache = path.join(CACHE, "en-tei.xml");
-        let enXml;
-        if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
-        else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
-        en = teiBookChapters(BOOK.teiRaw ? BOOK.teiRaw(enXml) : enXml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
-          fence: BOOK.fence, preface: BOOK.preface, crossBook: BOOK.crossBookChapters }, warn);
+        en = Object.assign({}, ...(await enTeiFiles(true)).map((x, k) =>
+          teiBookChapters(BOOK.teiRaw ? BOOK.teiRaw(x, k) : x, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
+            fence: BOOK.fence, preface: BOOK.preface, crossBook: BOOK.crossBookChapters }, warn)));
       }
-      const or = Object.assign({}, ...xmls.map((x) => teiBookChapters(O.teiRaw ? O.teiRaw(x) : x, { pairOn: BOOK.pairOn,
+      const or = Object.assign({}, ...xmls.map((x, k) => teiBookChapters(O.teiRaw ? O.teiRaw(x, k) : x, { pairOn: BOOK.pairOn,
         sectionChapters: BOOK.sectionChapters, fence: O.fence, preface: O.preface, crossBook: O.crossBookChapters }, warn)));
       /* AN ORIGINAL FOR SOME BOOKS ONLY (Oct 2026, Polybius). Where two editions number a book's
          chapters alike but mean different passages by the numbers, a pairing on the number sets each
