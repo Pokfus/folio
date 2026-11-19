@@ -50,7 +50,7 @@ REFUSE = {
     "عَلَى": ["لعلي"],
     "سَأَلَ": ["المسألة"],
     "جَاءَ": ["فاجأ"],
-    "صَارَ": ["أصِرَّ"],
+    "صَارَ": ["أصِرَّ", "النصر"],
     "نَهْر": ["انهار"],
     "كُوب": ["كوبي"],
     "سَكَنَ": ["مسكون"],
@@ -59,6 +59,15 @@ REFUSE = {
     "دَفَعَ": ["دافِع"],
     "بَيْنَ": ["بينها لي"],
     "رِجْل": ["رجلًا"],
+    # (Nov 2026, the beginner pass: A1 read again once its ids were pinned.)  Under أَنَّ: an insult, a
+    # sentence of أَنْ and one of A2's كَأَنَّ.  Unsuited to a first deck: a suicide, an insult, a sexual line.
+    # Another word: `التنس` is tennis, `النصر` victory, `تَبِعَ` "he followed".
+    "أَنَّ": ["عاهرة", "يَنْبَغِيْ أَنْ", "كأنّ"],
+    "حَاوَلَ": ["قتل نفسها"],
+    "كَامِل": ["غبيّ"],
+    "جِنْسِيَّة": ["الجنسيّة الخطيرة"],
+    "نَسِيَ": ["التنس", "لاعب تنس", "كرة تنس", "مضرب تنس"],
+    "بَاعَ": ["تَبِعَ", "تبع "],
 }
 # Sentences refused everywhere: political or violent, or a garbled pairing.
 REFUSE_ANY = ["إسرائيل فوق القانون", "هَاجَمَ اْلإرْهَابِيُّونَ", "علاقات جنسيّة", "رد ديما", "صفّ كليتيّ"]
@@ -183,10 +192,22 @@ REFUSE_EN_C1 = {
 REFUSE_ANY_EN_C1 = ["Polisario", "Russia", "Muslims don't", "Observant Muslims", "Sahrawi", "smothered"]
 
 
+# THE SENTENCE CORPUS IS PINNED BY ID (Nov 2026, the beginner pass).  Tatoeba's export is rebuilt every week
+# and its sentence ids only grow, so "a re-run is byte-identical" held only for whoever still had the
+# export the decks were built from: fetched afresh on 2026-11-19, three sentences added after the build
+# (14111747, 14114695, 14116574) changed two cards of A2 and one of B1.  No Arabic sentence above this id
+# is read, here or in phrases.py, and with it all five levels and the phrases reproduce themselves from a
+# fresh fetch.  Raise it only on purpose, when a level is to be given newer sentences — and read the diff.
+TATOEBA_MAX = 14111746
+
+
 def read_tsv(name):
     with bz2.open(os.path.join(ar.CACHE, name), "rt", encoding="utf-8") as fh:
         for line in fh:
-            yield line.rstrip("\n").split("\t")
+            r = line.rstrip("\n").split("\t")
+            if name == "ara_sentences.tsv.bz2" and r[0].isdigit() and int(r[0]) > TATOEBA_MAX:
+                continue
+            yield r
 
 
 def strip_final_mark(s):

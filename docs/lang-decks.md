@@ -3450,11 +3450,15 @@ changed was the one that had been wrong all along.
   matching only. **📖 `docs/russian-decks-plan.md` — READ BEFORE TOUCHING ANY RUSSIAN DECK**: the plan, the owner's
   decisions and §10's as-built findings (the homograph rules, the pronouns' shared table, the refused film words).
 - `.claude/arabic/` — the generator behind the **Arabic** decks (Nov 2026, on request: "Add an Arabic language
-  collection."): `decks/Arabic-Alphabet.folio-deck.json` (31 notes — the 28 letters with their four shapes, then
-  ء ة ى — `alphabet.py`, hand-written, no sources) and `decks/Arabic-A1.folio-deck.json` (500 notes / 1,000 cards,
-  Modern Standard Arabic). `python3 .claude/arabic/run.py [--no-fetch]`, cache `.claude/arabic-cache/` (gitignored,
+  collection."): `decks/Arabic-Alphabet.folio-deck.json` (54 notes since the beginner pass of 2026-11-19 — 31
+  letters, 16 signs, 7 rules, every sound a quotation: `alphabet_table.py`, `build-arabic-alphabet.js`; it was
+  31 notes from a hand-written `alphabet.py`) and `decks/Arabic-A1.folio-deck.json` (519 notes, Modern Standard
+  Arabic). **EVERY NOTE ID IS PINNED AND THE GENERATOR'S OUTPUT IS THE INPUT OF A RECORD** (`arabic-ids.json`,
+  `arabic-fixes.json`, `arabic-order.json`, applied by `node .claude/arabic/arabic-fix.js` after any rebuild; "The
+  Arabic beginner pass" below and `docs/arabic-decks-plan.md` §7). `python3 .claude/arabic/run.py [--no-fetch]`, cache `.claude/arabic-cache/` (gitignored,
   ~1.4 GB), checks `node .claude/arabic/check-arabic.js` and `node .claude/arabic/render-arabic.js a1|alphabet`
-  (imports through the Studio and asserts the rendered direction is `rtl`); a re-run is byte-identical. ASSEMBLED:
+  (imports through the Studio and asserts the rendered direction is `rtl`); a re-run followed by `arabic-fix.js` is
+  byte-identical, from a fresh fetch too, the sentence corpus being pinned by id (`examples.TATOEBA_MAX`). ASSEMBLED:
   no Arabic exam publishes a word list, so the inventory is written for the A1 topics (`inventory.py`, with
   hand-written English glosses) and dealt by subtitle frequency. Headwords fully vowelled, sentences as written,
   romanisation on the back, every Arabic run `dir="rtl"` — and the deck CSS hooks on `[dir="rtl"]`, never
@@ -3662,7 +3666,7 @@ changed was the one that had been wrong all along.
   (via Wikipedia); the hue is measured, `#9F51B4`.
 - `.claude/bengali/` — the generator behind the Bengali decks (Nov 2026, on request: "Add a Bengali language
   collection"; the Hindi set's decisions taken for its sister).
-  **READ THIS FIRST (2026-11-19, the Bengali beginner pass — its section is below, after the Portuguese
+  **READ THIS FIRST (2026-11-19, the Bengali beginner pass — its section is below, after the Arabic
   one).** The figures in this entry are the decks as first built; they are now A1 511, A2 751, B1 998,
   the phrases 101 and the alphabet 80 notes. **A CARD ID IS PINNED TO ITS NOTE**
   (`.claude/decks/bengali-ids.json`) and no longer a position; **the generator's output is not what
@@ -5039,6 +5043,180 @@ and in `.claude/decks/README.md`, "The Portuguese decks"; this section is the re
 - **`check-caple.js`'s browser half does not finish**, on `main` or on the branch: it imports the deck
   through `#studio` and waits for an element that no longer appears. Its file half passes on all seven
   decks; one probe was updated (por favor is now A1's).
+
+## The Arabic beginner pass (2026-11-19)
+
+On request, the audit the Japanese, Mandarin, Spanish, Italian, German and Portuguese decks had been given:
+**what does a learner with no Arabic and no Arabic script meet, in the order the shelf itself recommends** —
+Alphabet, A1, A2, B1, B2, C1, then the phrases? Every figure was measured on the seven decks as shipped that
+morning, at the language default of ten new cards a day with both directions together, which is five words a
+day. The rules are in `docs/arabic-decks-plan.md` §7 and the headers of the scripts in `.claude/arabic/`;
+this section is the reasoning.
+
+### What the audit found, by what it costs a beginner
+
+1. **The alphabet deck stopped at the letters, and A1 cannot be read with letters alone.** Its 31 notes
+   were the 28 letters and ء ة ى; its description said the short vowels "are not cards here". Every A1
+   headword is fully vowelled: of the 500, 453 carry a fatḥa, 199 a sukūn, 183 a kasra, 74 a ḍamma, 64 a
+   shadda and 20 a tanwīn (17 ـً, 3 ـٍ); 126 spell a long ā, 53 a long ī, 17 a long ū; 74 write a hamza on
+   a carrier (أ 59, إ 4, ؤ 2, ئ 9) and 3 a madda; 20 carry the article, before a sun letter (السَّبْت) or a moon
+   letter (الْيَوْمَ), 18 begin with a hamzat al-waṣl, 15 hold a lām-alif, 8 a
+   dagger alif, and 312 have one of the six one-sided letters inside the word. None of it had a card.
+   261 headwords contain ع ح خ غ ق or an emphatic.
+2. **Nothing on an alphabet card was sourced** (`alphabet.py`: "hand-written, no sources read"). What it
+   claimed that no page here supports: ض as "the sound Arabic is named for, 'the language of the ḍād'"; ع as
+   "a voiced squeeze of the throat muscles" and ح as "pushed from deep in the throat" (Help:IPA/Arabic says
+   "no equivalent in English" and "hello, but pronounced in the back of the throat"); ص "darkens the vowels
+   beside it"; ه "said even at the end of a word"; ى "a yāʔ that has lost its dots"; ة said t "when a word
+   follows it closely" (the page: only with a case ending or in the construct state); ر "as in Spanish pero"
+   (the page has perro); and every English key word (bed, ten, dog, kite, lamp, moon …), which were not the
+   page's (bee, stop, dash, scape, lease, me).
+3. **The courtesies were scattered through A1 by a subtitle count, or last on the shelf.** السلام عليكم was
+   note 2, but مَرْحَبًا was note 83 (day 17), شُكْرًا 78 (day 16), نَعَمْ 46, آسِف 92, أَهْلًا 240 (day 48) and
+   عَفْوًا 399 (day 80). The replies to good morning and good evening, شكرا جزيلا, إلى اللقاء and تشرفنا were in
+   the phrases deck: day 708 at the earliest. "My name is" and "what is your name?" were cards of no deck;
+   neither are لو سمحت, بخير or تفضل, which the English Wiktionary does not have as entries. من فضلك and
+   كيف حالك gave the form said to a man and no other.
+4. **A1's order after its eleven greetings was the frequency list**: note 12 was أَنَّ "that", then لَا,
+   كَانَ, هٰذَا, فِي. One to ten ran from note 86 to 422 and zero was 475; the days from 352 to 488; the
+   colours from 276 to 448; the eight subject pronouns from 18 to 224; the ten question words from 20 to 203;
+   the twelve commonest verbs lay between 14 and 261 (ate, drank, wrote and read at 181 to 261). **No deck carded a month**, though A1's description lists "time, days and months".
+5. **The example sentences are short and almost all unvowelled, and nothing said so.** Three tokens at the
+   median in A1 and A2, four above; 50 of A1's 1,449 are fully vowelled (3.5%) and 361 carry any mark.
+   Counted the generator's way with the pronoun suffixes also split off: 67.3% of the words in a card's
+   sentences had been met on arrival in A1 (394 sentences whole; 51.5% and 13 of 126 over the first fifty
+   notes); a reader who has finished A1 has met 48.0% of A2's sentence words, and in the order the cards
+   arrive 81% to 87% from A2 to C1. 9% to 13% of tokens are a form of no card of any level (توم 25 times).
+6. **Verbs lacked the imperative; numbers showed nothing.** All 82 A1 verbs carry the past and present of
+   eight persons, and 81 the present stem (so كَتَبَ يَكْتُبُ against جَلَسَ يَجْلِسُ is on the card), the verbal
+   noun and the form I–X. No root, no participle, no jussive or subjunctive, no dual or feminine plural
+   person. Of the 244 verb forms A1's sentences mark, 36 were not on the card: imperatives and jussives
+   (قُمْ, خُذْ, لَا تَنْسَ), verbal nouns with the article, and seven that were another word. The twenty
+   numbers had an empty Forms row; the rule that three to ten take the opposite gender was nowhere.
+7. **Ten A1 sentences were wrong or unsuited.** Under أَنَّ: an insult, a sentence of أَنْ and one of
+   كَأَنَّ. A suicide, an insult and a sexual line on three more cards. نَسِيَ "to forget" showed tennis
+   (التنس), صَارَ victory (النصر), بَاعَ "he followed" (تَبِعَ).
+8. **Six romanisations disagreed with their card.** The scheme itself is one scheme (Wiktionary's) in the
+   alphabet and all six word decks: 55 of 3,664 Roman fields differ from what the pipeline's own rules give
+   for the printed vowels, and 49 of those are a loanword's o or e (dōlār) or a hyphen. The six: three
+   greetings romanised at a pause (ṣabāḥ al-ḵayr) under a headword printed with its endings (صَبَاحُ
+   الْخَيْرِ); kayfa ḥāluka? with the entry's question mark; دَجَاج reading "basilectal" and وِلَادَة قَيْصَرِيَّة
+   "t". Single words are printed and romanised at a pause throughout; only the greetings carry endings.
+9. **"A re-run is byte-identical" was not true of a fresh fetch.** Rebuilt on 2026-11-19 from 936 MB of
+   newly fetched sources, five decks reproduced and A2 (two cards) and B1 (one) did not: Tatoeba's weekly
+   export had gained three sentences.
+10. **Every id was positional and nothing was pinned**, in all seven decks.
+11. **The phrases were ordered by a count that is mostly zero.** Their order was how many Tatoeba sentences
+    contain the expression; 138 of the 164 have none, so most of each subdeck was alphabetical. 20 are
+    spelled with A1's words and forms alone. No expression is carded twice between a level and the
+    phrases: 14 phrases name God, three A1 cards and one A2 card do, and none is the same formula.
+12. **The reverse card was sound.** No two notes of a deck share an English field; 17 groups (36 notes) in
+    A1 share a first gloss and every one is told apart in brackets ("this (masculine)", "uncle (father's
+    brother)"); A1 asks with 1.09 senses on average; no English field names its own answer (five across the
+    shelf name ANOTHER Arabic word).
+13. **Gender and number were mostly sound**: 226 of A1's 247 nouns show a gender and 196 a plural (the
+    others are mass nouns and names of days); 59 of 61 adjectives a feminine, 57 a plural, 39 an elative.
+    No card shows a dual or a definite form, and neither the feminine-singular agreement of non-human
+    plurals nor the construct state is explained anywhere.
+14. **The levels are what their descriptions say**, a written inventory dealt by subtitle count. No
+    headword is a card of a lower deck; 15, 25, 40 and 15 (A2 to C1) are the same letters as a lower
+    headword and a different word (عَلِمَ, عَلَّمَ), and 43, 102, 148 and 100 stand in a lower word's Wiktionary
+    table as its verbal noun or participle — derived words, not duplicates. The median subtitle rank of a
+    level's first 300 words is 443, 1,249, 3,598, 7,051 and 17,809. The steps are 500, 600, 800, 900, 700,
+    and C1 does end the shelf: 430 of its 700 cards have no sentence. No dialect word was found: the
+    inventories are written MSA and the subtitle list only orders them.
+15. **The pace was stated nowhere**: the alphabet 7 days, A1 100, B1 reached on day 228, the shelf 721.
+
+### What was built
+
+- **Note ids pinned** (`arabic-ids.json`, 3,695 rows seeded; 3,744 now, and 5 retired), before anything
+  moved, and APPLIED. Checked in a browser with the decks as shipped: a reader holding the old Alphabet, A1
+  and phrases with 20 notes studied in BOTH directions took the three Updates ("23 new cards · 31 cards
+  corrected"; "19 new cards · 106 cards corrected"; "5 cards dropped from the list (kept here, with their
+  progress)"); all 695 old note ids carry the same letter or word, all 40 schedules are untouched, and the
+  five notes the phrases lost are still on the device.
+- **The corpus pinned** (`examples.TATOEBA_MAX`): no Arabic sentence above id 14111746 is read, and all seven
+  decks rebuild byte for byte from a fresh fetch. Proved again after every generator change: the generator,
+  then `arabic-fix.js` and `build-arabic-alphabet.js`, leave `git status` clean.
+- **Generator fixes** (they belong to every level and every level reproduces): the imperative as a third
+  block of all 778 verb tables; three to ten show both genders (Wiktionary's "masculine" beside the
+  headword); nine pronouns show their suffix (أَنَا: ـِي، ـنِي); من فضلك and كيف حالك show the form said to a
+  woman (Wiktionary's second headword); the six romanisations, by `ar.translit`; ten refusals, which the
+  generator replaced with its next sentence.
+- **An Arabic record** (`arabic-fixes.json`, `arabic-fix.js`, by card type `arabic`): 31 inserts, 5 drops,
+  the descriptions. **A1 gains 19 notes** (ids 501–519): five MOVED byte for byte from the phrases (the two
+  replies, شكرا جزيلا, إلى اللقاء, تشرفنا; `dropDup` there, their rows in `_retired`), اِسْمِي and مَا اسْمُكَ
+  (Wiktionary's phrase entries, sentences from Tatoeba by id), and the twelve months in the names used in
+  Egypt, Sudan and Yemen. **A2 gains the twelve used in Iraq and the Levant** (601–612; Tatoeba has a
+  sentence for four). A new card is a record and not an inventory line because an A1 line competes in every
+  level above it: `مارس` would have split B1's مَارَسَ and taken its sentences.
+- **An order for A1** (`arabic-order.js`): 79 notes by hand, named by pinned number — greetings and replies,
+  thanks, please, sorry, yes and no, a first exchange of names, the pronouns, this and that, the question
+  words, seven little words, twelve verbs, zero to ten — then the frequency order with the numbers above
+  ten, the days after يَوْم, the months after شَهْر and the colours each together, and look-alikes forty
+  apart. مَرْحَبًا is day one, شُكْرًا day two, please, sorry and yes day three, "my name is" day five; أَنَّ is
+  note 80.
+- **The alphabet deck rebuilt from quotations** (`alphabet_table.py`, `build-arabic-alphabet.js`): 54 notes,
+  101 cards — the 31 letters (each keeps its id), 16 signs (two cards each) and 7 rules (one card each, card
+  type `ar-rule`). Every sound is the IPA value and "English approximation" cell of Help:IPA/Arabic
+  (revision 1380899154); shapes, names' spellings, joining, hamza, vowel signs, nunation, gemination, sukūn
+  and dagger alif are cells and sentences of "Arabic alphabet" (1386233872); the article's rule and lists
+  are "Sun and moon letters" (1378024909). The script refuses a sentence that is not in the revision word
+  for word. Names are vowelled as Wiktionary vowels them and romanised by `ar.translit`; every example is an
+  A1 card. It is dealt signs-first: direction, the three short vowels and the sukūn, then the letters.
+- **The phrases by reading level**, each subdeck: 14 that an A1 card spells, then 9, 10, 6, 5, and 115 that
+  use a word no level cards; its description said the old order and now says this one.
+- **The pace stated** in all seven descriptions and recounted on every run, with every other figure a
+  description states. **CI**: `arabic-fix.js --check`, `arabic-order.js --check`,
+  `build-arabic-alphabet.js --check`.
+
+### What was decided against, and why
+
+- **Adding words through the inventory.** It re-deals the levels above (see the record, above).
+- **Re-ordering A2 to C1.** 81% to 87% of a card's sentence words have been met on arrival.
+- **The root on a card.** Wiktionary names one for 43 of A1's 82 verbs and 66 of 240 nouns: a row on half
+  the cards.
+- **The jussive and subjunctive, the participles, the dual and feminine plural persons.** The table would
+  double; the imperative was the form the sentences used and the card lacked.
+- **A dual or a definite form on every noun.** Both are regular, and the article has two rule cards.
+- **A grammar deck** (the construct state, agreement of non-human plurals, negation with لم and لن). One
+  rule could be quoted where a card shows the forms it is about — the polarity of three to ten, in A1's
+  description — and the rest would be explanation with no card under it.
+- **Cards for the attached pronouns.** They are a Forms row on the pronoun they belong to.
+- **أَنْتُمَا and أَنْتُنَّ.** A2 has هُمَا and B1 هُنَّ; the verb tables show eight persons and these are not
+  among them.
+- **Vowelling the sentences.** No source here vowels a Tatoeba sentence, and a vowelling is never typed. The
+  alphabet's last card says, in Wikipedia's words, why bare text can be read more than one way.
+- **Subdecks for the sets.** The app deals subdecks in parallel, a day apart.
+- **A C2 deck.** The plan's §6 stands: Wiktionary and Tatoeba run dry at C1.
+
+### Limits to know about
+
+- **The new order costs the first sentences.** Over A1's first fifty notes 44.4% of a sentence's words have
+  been met on arrival and 6 of 114 sentences can be read whole, against 51.5% and 13 of 126: the frequency
+  list put the commonest little words first, and those are what a sentence is made of. Over the whole deck
+  65.9% against 67.3%. The courtesies arrive on days 1 to 5 instead of 16 to 80; that was the trade.
+- **That the courtesies, the two name phrases and the months are A1 material is a judgement here**; A1's
+  description names the nineteen.
+- **لو سمحت, بخير, تفضل and "I am fine" are still on no card**: Wiktionary has no usable entry and nothing
+  is vowelled by hand.
+- **Wikipedia's "widely regarded as standard" for the Egyptian month names carries a citation-needed tag**
+  in the revision quoted (1351495669); the description quotes it as Wikipedia's.
+- **The moved replies are printed without case endings** (صَبَاح النُّور beside A1's صَبَاحُ الْخَيْرِ): they
+  moved byte for byte. كُرَة الْقَدَمِ keeps Wiktionary's kurat al-qadam.
+- **ثَمَانِيَة shows no second gender** (Wiktionary lists none), nor do one and two, which agree normally.
+- **A1 was not read card by card.** The ten sentences were found by searching for telltale English and for
+  marked forms that were not on the card; a homograph with a word outside the deck may stand elsewhere.
+- **The alphabet quotes three pages**: a quoted sentence keeps their ALA-LC romanisation (fatḥah, ʾalif)
+  beside the decks' own (fatḥa, ʔalif); ـٌ has no example, no A1 headword carrying one; the comparisons are
+  the page's (one is "RP dawn"); ة and the sukūn have a description and no English comparison.
+- **A reader who already holds the phrases deck keeps the five cards that moved** and meets them again in A1.
+- **`alphabet_table.py --check` and `arabic_insert.py` need the cache** and are not CI steps.
+- **`render-arabic.js` does run** (the Studio import other languages' checkers stall on finishes here): `a1`
+  and `alphabet` pass, the second after its loop was taught that the alphabet now opens with cards that have
+  no shapes row. `b1` to `c1` were not rendered; their only change is the imperative block A1's card shows.
+- **The whole shelf is 3,744 notes: 732 days at the default pace, about two years**; A1 ends on day 115 and
+  B1 begins on day 239.
 
 ## The Bengali beginner pass (2026-11-19)
 
