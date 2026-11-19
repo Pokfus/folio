@@ -558,6 +558,16 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     check("…and offering Download with the file size",
       /^Download [\d.,]+ (KB|MB)$/.test(pend[0].dl.trim()), pend[0].dl);
     check("…with no counts and nothing to study", !pend[0].counts && !pend[0].review);
+    /* THE COLLECTION ROW ABOVE IT OFFERS THE LOT IN ONE PRESS (Nov 2026, on request): any collection row
+       with a deck waiting under it — folded or not — carries one `[data-dlall]` button naming every such
+       deck once, "Download all <size>" while any is still to be fetched. */
+    const all = await page.evaluate((parent) => {
+      const b = document.querySelector('.active-deck[data-drag="' + parent + '"] > [data-dlall]');
+      return b ? { text: b.textContent.trim(), decks: b.dataset.decks, ups: b.dataset.ups } : null;
+    }, pend[0].parent);
+    check("…and its language row carries one Download all for it",
+      !!all && /^Download all [\d.,]+ (KB|MB)$/.test(all.text) && all.decks === pend[0].deck.replace(/^u:/, "").split("/")[0] && !all.ups,
+      JSON.stringify(all));
   }
 
   /* AND THE BUTTON REALLY FETCHES, once, and the row becomes the deck. This is the assertion the whole

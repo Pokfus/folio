@@ -4855,10 +4855,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     collections at once from a row that names none of them.
   · **A LANGUAGE'S HEADER IS A SYNTHESISED CONTAINER, AND IT IS STUDIED AND REMOVED LIKE ANY OTHER**
     (`langCtxId`, `.dk-langhead`, `data-langhead`). **It seeds SHUT, like a collection and like a community
-    deck with subdecks (Oct 2026, on request), and while EVERY deck under it is still to be fetched it carries
-    `Download all <size>` (`[data-langdlall]`, `data-decks`)**, which runs the per-row `langDeckDownload` over
-    the decks one after another and repaints once at the end, so the button and its deck-counting bar survive
-    the first file landing. It claims cards — `entryCardIds` unions its members,
+    deck with subdecks (Oct 2026, on request), and — like EVERY collection row since Nov 2026 (a language, a
+    curated collection, a group, a community collection, a signpost; `dlUnder` / `dlAllBtn` in the home list's
+    row builder) — while ANY deck drawn under it, folded or not, is still to be fetched or stale it carries ONE
+    `Download all <size>` / `Update all` (`[data-dlall]`, `data-decks` / `data-shared` / `data-ups`, each deck
+    once)**, which runs the per-row calls (`langDeckDownload`, `communityFetchDeckById` + `uDeckInstall`,
+    `langDeckUpdate`) over the decks one after another and repaints once at the end, so the button and its
+    deck-counting bar survive the first file landing; updates end on one `openDeckUpdateSheet`.
+    `test-lang-decks.js` asserts the button. It claims cards — `entryCardIds` unions its members,
     which is what draws its pile counts and its bar — and **a row that claims cards and refuses to deal them
     is the only one on the list that does**, so it carries `data-review` and takes the generic
     tap-studies / hold-opens-the-options pair. **It studies as a GROUP, not as a deck** (`entryScope`), both
