@@ -13028,6 +13028,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      14.8, none read beside More, and the books that are stand off — Augustine 20.5, Rousseau 24.1, Plato
      41.8, Hobbes 54.4, Luther 61.4, Machiavelli 80.9. It reads 8.79:1 on the tightest light paper. */
   "Thomas More": "#5A0009",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-six colours placed (Nov 2026, adding the Discourse on the Method):
+     CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. The band is full: a sweep at a step of 3 tops out at 14.6, and its
+     best sit by Plato, Kant, Aquinas or Augustine. THE EURIPIDES TEST, kept strict here: the first candidate of
+     the sweep whose every philosopher stands 19 or more off is this brick red (13.9): its nearest are
+     Aristophanes 13.9, Sophocles 14.0, Sun Tzu 14.1 and Strabo 14.2, none read beside Descartes; the
+     philosophers stand off — More 19.7, Rousseau 28.1, Augustine 34.7, Plato 40.0, Hobbes 63.0, Kant 64.7,
+     Aristotle 68.9, Seneca 73.7, Lucretius 74.0, Aquinas 93.5. (The dark crimson first measured for this row,
+     #5A0009, was taken by More's the same day.) It reads 4.74:1 on the tightest light paper. */
+  "René Descartes": "#962A30",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -17085,6 +17095,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          category of "Inherence and Subsistence", not how a society gets its living; PROVIDENCE is divine, not
          the capital of Rhode Island; and "the Republic of Plato" is the dialogue, not the form of state. */
       glossOff: ["Wolf", "Subsistence", "Providence", "Republic"],
+    },
+    {
+      id: "descartes-discourse-on-method",
+      title: "Discourse on the Method",
+      subtitle: "Discours de la méthode pour bien conduire sa raison, et chercher la vérité dans les sciences",
+      author: "René Descartes",
+      written: "1637",
+      year: 1637,
+      translator: "John Veitch",
+      edition: "Second edition, Sutherland and Knox, Edinburgh, 1853",
+      /* No limit to state: Descartes died in 1650 and Veitch in 1894. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. René Descartes published the Discourse in 1637 and died in 1650. John " +
+        "Veitch's translation was first published in 1850 and this second edition in Edinburgh in 1853; " +
+        "Veitch died in 1894. The text is the proofread Wikisource transcription of the 1853 printing.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Discourse_on_the_Method",
+      /* Paired on the PART, as The Prince is on the chapter: neither Veitch nor Cousin numbers anything below
+         it. The French is Victor Cousin's edition (Paris, 1824) as validated on French Wikisource. Seven
+         sections — Descartes's prefatory note and the six Parts — so "Section", and a tab runs one ahead of
+         the Part (The Social Contract's arrangement). */
+      origLang: "fr",
+      origName: "French",
+      chapterWord: "Section",
+      count: 7,
+      total: 7,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 7 sections
+         (every `.ttip`, Nov 2026). The MEDITATIONS of the front matter are Descartes's of 1641, not Marcus
+         Aurelius's; and Descartes's GERMANY is the Empire of the Thirty Years' War, not the modern state (as on
+         Leviathan's shelf). */
+      glossOff: ["Meditations", "Germany"],
     },
     {
       id: "more-utopia",
@@ -26816,6 +26857,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "'The increase of pasture,' said I, 'by which your sheep, which are naturally mild, and easily kept in order, may be said now to devour men and unpeople, not only villages, but towns; for wherever it is found that the sheep of any soil yield a softer and richer wool than ordinary, there the nobility and gentry, and even those holy men, the abbots! not contented with the old rents which their farms yielded, nor thinking it enough that they, living at their ease, do no good to the public, resolve to do it hurt instead of good. They stop the course of agriculture, destroying houses and towns, reserving only the churches, and enclose grounds that they may lodge their sheep in them." },
     { book: "kant-critique-of-pure-reason", n: 2, t: "Preface to the Second Edition", p: 11,
       text: "It appears to me that the examples of mathematics and natural philosophy, which, as we have seen, were brought into their present condition by a sudden revolution, are sufficiently remarkable to fix our attention on the essential circumstances of the change which has proved so advantageous to them, and to induce us to make the experiment of imitating them, so far as the analogy which, as rational sciences, they bear to metaphysics may permit. It has hitherto been assumed that our cognition must conform to the objects; but all attempts to ascertain anything about these objects a priori, by means of conceptions, and thus to extend the range of our knowledge, have been rendered abortive by this assumption. Let us then make the experiment whether we may not be more successful in metaphysics, if we assume that the objects must conform to our cognition. This appears, at all events, to accord better with the possibility of our gaining the end we have in view, that is to say, of arriving at the cognition of objects a priori, of determining something with respect to these objects, before they are given to us. We here propose to do just what Copernicus did in attempting to explain the celestial movements. When he found that he could make no progress by assuming that all the heavenly bodies revolved round the spectator, he reversed the process, and tried the experiment of assuming that the spectator revolved, while the stars remained at rest." },
+    { book: "descartes-discourse-on-method", n: 5, t: "Part IV", p: 0,
+      text: "But immediately upon this I observed that, whilst I thus wished to think that all was false, it was absolutely necessary that I, who thus thought, should be somewhat; and as I observed that this truth, I think, hence I am, was so certain and of such evidence, that no ground of doubt, however extravagant, could be alleged by the Sceptics capable of shaking it, I concluded that I might, without scruple, accept it as the first principle of the Philosophy of which I was in search." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
       text: "Again:—\"Why does not the pope, whose wealth is to-day greater than the riches of the richest, build just this one church of St. Peter with his own money, rather than with the money of poor believers?\"" },
     { book: "kalidasa-shakuntala", n: 6, t: "Act IV", p: 138,
