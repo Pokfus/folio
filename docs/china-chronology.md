@@ -839,6 +839,16 @@ and is audited as an ordinary card. Dates already set elsewhere that this hundre
 | Nixon's visit / the Shanghai Communiqué / relations | 21 – 28 February 1972 / 27 February 1972 / 1 January 1979 | FRUS; the Office of the Historian (`cnh-676`) |
 | Boluan Fanzheng began / the truth debate / the third plenum / the resolution | October 1976 / 11 May 1978 / December 1978 / 27 June 1981 | the party; Zhang; Worden (`cnh-679`) |
 | the reform: third plenum / urban reform / the market economy | December 1978 / October 1984 / November 1993 | Worden; Deng; the 1993 communiqué (`cnh-680`) |
+| the Xiaogang pact / endorsed / terms lengthened / extended | December 1978 / 1982 / 1984 / 1993 | Deakin and Meng (`cnh-681`) |
+| the zones decided / the first four / Hainan | July 1979 / August – October 1980 / 1988 | Zeng (`cnh-682`) |
+| the open letter / abortions peaked / two children | 25 September 1980 / 1983 / 1 January 2016 | Xinhua; Mei and Jiang; Wang (`cnh-683`) |
+| the 1989 protests began / martial law / the crackdown | 15 April / 20 May / 3 – 4 June 1989 | the Office of the Historian (`cnh-684`) |
+| the southern talks / circulated | 18 January – 21 February 1992 / 28 February 1992 | Deng; the party (`cnh-685`) |
+| the accession approved / joined | 10 November 2001 / 11 December 2001 | the WTO; the USTR (`cnh-686`) |
+| the towns opened / custody ended / the census day | 1984 / 1 August 2003 / 1 November 2020 | Chan; Amnesty; the NBS (`cnh-687`) |
+| the hukou: urban rules / national rules / reformed | 1951 / January 1958 / 24 July 2014 | Chan; the State Council (`cnh-688`) |
+| the Joint Declaration / the handover | 19 December 1984 / 1 July 1997 | the Joint Declaration (`cnh-689`) |
+| the Belt and Road announced / the official plan | September – October 2013 / 28 March 2015 | the NDRC (`cnh-690`) |
 
 ## Later periods
 
@@ -1520,4 +1530,14 @@ cnh-675: 1976; 1980; 1981
 cnh-676: 1972; 1979
 cnh-679: 1976; 1978; 1981
 cnh-680: 1978; 1984; 1993
+cnh-681: 1978; 1982; 1984; 1993
+cnh-682: 1979; 1980; 1988
+cnh-683: 1980; 1983; 2016
+cnh-684: 1989
+cnh-685: 1992
+cnh-686: 2001
+cnh-687: 1984; 2003; 2020
+cnh-688: 1951; 1958; 2014
+cnh-689: 1984; 1997
+cnh-690: 2013; 2015
 ```

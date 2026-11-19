@@ -20835,7 +20835,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Hungarian_Revolution_of_1956": ["Hungarian Revolution","Hungarian Uprising"],
 "Decolonization": ["Decolonisation"],
 "Mahatma_Gandhi": ["Mohandas Gandhi","Mohandas Karamchand Gandhi"],
-"1989_Tiananmen_Square_protests_and_massacre": ["Tiananmen Square protests"],
+"1989_Tiananmen_Square_protests_and_massacre": ["Tiananmen Square protests","Tiananmen Square protests of 1989"],
 "Reform_and_opening_up": ["Chinese economic reform"],
 "Globalization": ["Globalisation","globalisation"],
 "September_11_attacks": ["9/11","September 11 attacks"],

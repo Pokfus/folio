@@ -566,7 +566,7 @@ otherwise.
 | B66 | World War II (`col-37`) / People's Republic of China (`col-38`) | `cnh-651`–`cnh-660` | 10 | 99 | **done 2026-11-19** |
 | B67 | People's Republic of China (`col-38`) | `cnh-661`–`cnh-670` | 10 | 103 | **done 2026-11-19** |
 | B68 | People's Republic of China (`col-38`) | `cnh-671`–`cnh-680` | 10 | 104 | **done 2026-11-19** |
-| B69 | People's Republic of China (`col-38`) | `cnh-681`–`cnh-690` | 10 | 104 | to do |
+| B69 | People's Republic of China (`col-38`) | `cnh-681`–`cnh-690` | 10 | 104 | **done 2026-11-19** |
 | B70 | Republic of China (Taiwan) (`col-39`) | `cnh-691`–`cnh-700` | 10 | 99 | to do |
 | B71 | The imperial state (`cn-government`) | `cnh-701`–`cnh-710` | 10 | 102 | to do |
 | B72 | The imperial state (`cn-government`) | `cnh-711`–`cnh-720` | 10 | 111 | to do |
@@ -1320,6 +1320,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-678` | none | not re-checked (pictures paused): wanted |
 | `cnh-679` | none | not re-checked (pictures paused): wanted |
 | `cnh-680` | none | not re-checked (pictures paused): wanted |
+| `cnh-681` | none | not re-checked (pictures paused): wanted |
+| `cnh-682` | none | not re-checked (pictures paused): wanted |
+| `cnh-683` | none | not re-checked (pictures paused): wanted |
+| `cnh-684` | none | not re-checked (pictures paused): wanted |
+| `cnh-685` | none | not re-checked (pictures paused): wanted |
+| `cnh-686` | none | not re-checked (pictures paused): wanted |
+| `cnh-687` | none | not re-checked (pictures paused): wanted |
+| `cnh-688` | none | not re-checked (pictures paused): wanted |
+| `cnh-689` | none | not re-checked (pictures paused): wanted |
+| `cnh-690` | none | not re-checked (pictures paused): wanted |
 
 ## Glossary candidates
 
@@ -4316,3 +4326,35 @@ is loose (the party biography: 10 km south of the Berkh mining area in Khentii; 
 no page read; `cnh-677`'s 7 October 1976 and 28 June 1981 on no page read (the obituary makes him acting premier from February 1976); the
 Red Guards' first group dated June 1966 (the party) or 29 May (Zhang Fang). Timelines set: `cnh-673` (1968 – 1980), `cnh-679` (October 1976
 – 27 June 1981), `cnh-680` (December 1978).
+
+### B69 — `cnh-681`–`cnh-690`, the People's Republic: the household responsibility system to the Belt and Road Initiative (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl but `cnh-683`'s Springer DOI (403 to curl; it resolves). **Pictures were
+not touched.** **The old cards cited Wikisource for the zone regulations, Chen Xitong's report and the hukou rules (five on one card),
+walled OpenEdition and PMC pages, and a script page for the WTO protocol; carried places, men, institutions and counts in labels
+("Xiaogang pact", "Wan Li visit", "Contracts 15 years, 1984", "Hainan added", "Macau returned", "Party charter", "Applied to GATT"), and
+gave Guangdong's 95 per cent to all China.** The state's figures (the births averted, the 1989 dead, the floating population) are now
+each said whose, beside demographers', scholars' and Amnesty's.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-681` household responsibility system | 7 | 7 → 7 | **"Xiaogang pact" (a place), "Wan Li visit" (a man) and "Contracts 15 years, 1984" (a count and words) off: `Secret pact December 1978` / `Endorsed 1982` / `Term lengthened 1984` / `Term extended 1993`; the fingerprinted paper in the national museum (told as the story it became), Deng praising the Anhui counties, one economist's half of the growth (Lin) — each whose; the state portal's 93 and the Library of Congress study's 98 per cent by 1984**; the old "95% by 1983" (Guangdong's figure for all China), in the glossary too; three Wikisource texts replaced. |
+| `cnh-682` special economic zone | 7 | 7 → 7 | **"Hainan added" (a place) → `Zone added 1988`; `Decided July 1979` / `First zones August – October 1980` (26 August on no page that opens); Shekou's "time is money", the foreign firms' half tax and freedom to hire and fire, Shannon's first zone; the growth figures as a World Bank economist cites them**; the Wikisource regulations replaced by the party chronicle; a phrasing that took `cnh-685`'s Shanghai clue reworded before the apply. |
+| `cnh-683` one-child policy | 8 | 8 → 9 | **"Peak of coercion" → `Abortions peaked 1983`; the open letter's "advocated, not imposed", Song Jian's cybernetic projections (Greenhalgh), fines in multiples of income; every figure whose (the 14.37 million abortions official, the 20.7 million sterilisations Wang, Gu and Cai's, the 400 million births averted the government's, Goodkind's 360 – 520 million one demographer's)**; two Chinese sources cut to one; Whyte et al. and Zeng and Hesketh (PMC walled) replaced. |
+| `cnh-684` Tiananmen Square protests of 1989 | 9 | 9 → 10 | **"Crushed" → `Crackdown 3 – 4 June 1989`; the Goddess of Democracy, Deng's "counter-revolutionary rebellion" of 9 June, the 2021 resolution's "serious political disturbance" — each the state's account and dated; the register row followed and corrected: the government's report gave over 200 civilians and several dozen soldiers, Amnesty quoting it**; the Wikisource text of Chen Xitong's report replaced. The glossary gains the alias "Tiananmen Square protests of 1989". **Pinyin → Liùsì Shìjiàn** (as its neighbours). |
+| `cnh-685` southern tour | 7 | 7 → 8 | **"Party congress" (an institution) → `Circulated 28 February 1992` (Document No. 2, the party chronicle [in Chinese]); the Hong Kong reporters and the silent national press, "the Left the chief danger", Jiang Zemin's "new stage"; "to get rich is glorious" never found in Deng's words (a CSMonitor piece: not Schell's attribution either)**; the third primary text (`cnh-682`'s 1984 talk) dropped. `G.none` stands: an alias "southern tour" would link the Qing emperors' tours to Deng's (for the owner). 南方谈话 the party's term, in notes. |
+| `cnh-686` Protocol on the Accession of the People's Republic of China | 6 | 8 → 7 | **"Applied to GATT" and "WTO member" (institutions) off: `Approved 10 November 2001` / `Joined 11 December 2001` (1986 in prose); Doha, Section 15's surrogate prices and their 2016 expiry dispute, the three-year trading rights and the special safeguard; Lai 2001 (Long Yongtu, the seat vacated in 1950), a 2018 law-journal comment**; the docs.wto.org link (a script page) replaced by a full copy of WT/L/432. |
+| `cnh-687` floating population | 7 | 8 → 8 | **"Towns opened 13 October 1984" (the day on no page) → `Towns opened 1984`; `Custody ended 1 August 2003` / `Census count 1 November 2020`; the census's six-month definition, the "blind flow" and the 1950s label told apart, the Guangzhou death that ended custody; every figure whose and what it counted (the bureau's 221 million, one study's 170.6 million, the Ministry's 45.4 per cent)**; three Wikisource texts, a walled article and a Chinese NBS report dropped. Three articles cited by NCBI efetch (Europe PMC down all session). |
+| `cnh-688` hukou | 7 | 8 → 8 | **`Urban rules 1951` / `National rules January 1958` / `Reformed 24 July 2014`; moves made subject to the destination's approval, the agricultural and non-agricultural types and what each carried, the 2014 opinion abolishing them (gov.cn [in Chinese])**; five Wikisource texts dropped; Luo Ruiqing's speech (on no allowed host) dropped; the migrants' numbers left to `cnh-687`. |
+| `cnh-689` handover of Hong Kong | 8 | 8 → 8 | **"Macau returned" (a place) off: `Declaration 19 December 1984` / `Handover 1 July 1997`; the New Territories lease, each side's words ("resume the exercise of sovereignty", "transfer of sovereignty" in Hansard, "return to the motherland" in the 2014 white paper [in Chinese]), Deng's refusal to discuss sovereignty, the Basic Law (4 April 1990)**; Macau one sentence (Edmonds and Yee); "midnight" and the garrison sentence (on no page) dropped, in the glossary too. |
+| `cnh-690` Belt and Road Initiative | 8 | 8 → 9 | **"Party charter" (an institution) off: `Announced September – October 2013` / `Official plan 28 March 2015` (the NDRC); Xi's Astana and Jakarta speeches, AidData's hidden debts, "debt-trap diplomacy" as an Indian analyst's label of January 2017 with Rhodium's and the Lowy Institute's doubts; every figure whose (Beijing's, the CFR's, AidData's)**; three OpenEdition sources (a bot wall) dropped. |
+
+Read by eye. **Confusability**: the fingerprinted paper `cnh-681`'s; Shekou and the half tax `cnh-682`'s; Song Jian's projections
+`cnh-683`'s; the Goddess of Democracy `cnh-684`'s; the Hong Kong reporters and the Shanghai regret `cnh-685`'s (a duplicate on `cnh-682`
+caught); Doha and Section 15 `cnh-686`'s; the six-month definition `cnh-687`'s; the two types `cnh-688`'s; the New Territories lease
+`cnh-689`'s; debt-trap diplomacy `cnh-690`'s. **Legend**: the Xiaogang pact (the story it became), "to get rich is glorious" (never found),
+the births averted (the government's claim), the 1989 dead (each source's) are each said so. **Chinese names**: none corrected; `cnh-684`'s
+pinyin capitalised as its neighbours. **Spellings**: 0 hits on the drafts. **Myth register**: the 1989 toll followed and corrected (the
+report's over 200 civilians and several dozen soldiers); Deng's southern tour remarks confirmed (the "Selected Works vol. 3" detail not
+confirmed on the page read). **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the apply). For the owner:
+`cnh-685`'s `G.none` (an alias "southern tour" would mislink the Qing emperors' tours). Timelines unchanged.
