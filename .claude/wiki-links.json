@@ -2,16 +2,16 @@
  "generated": "2026-11-19T04:57Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8481,
-  "redirect-broader": 811,
-  "redirect-variant": 496,
-  "section-redirect": 190,
-  "disambiguation": 154,
-  "none": 1191,
-  "disambig-resolved": 111,
+  "ok": 8630,
+  "redirect-broader": 827,
+  "redirect-variant": 508,
+  "section-redirect": 195,
+  "disambiguation": 158,
+  "none": 1203,
+  "disambig-resolved": 112,
   "list-page": 6,
   "search-match": 10,
-  "no-article": 20
+  "no-article": 21
  },
  "cards": {
   "wh-001": {
@@ -91012,6 +91012,1538 @@
    "answer": "Tang dynasty",
    "title": "Tang dynasty",
    "url": "https://en.wikipedia.org/wiki/Tang_dynasty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-281": {
+   "answer": "gekokujo",
+   "title": "Gekokujō",
+   "url": "https://en.wikipedia.org/wiki/Gekokuj%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-282": {
+   "answer": "shugodai",
+   "title": "Shugodai",
+   "url": "https://en.wikipedia.org/wiki/Shugodai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-283": {
+   "answer": "ashigaru",
+   "title": "Ashigaru",
+   "url": "https://en.wikipedia.org/wiki/Ashigaru",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-284": {
+   "answer": "yamajiro",
+   "title": null,
+   "url": null,
+   "via": "manual",
+   "status": "no-article",
+   "manual": true
+  },
+  "jp-285": {
+   "answer": "Go-Kashiwabara",
+   "title": "Emperor Go-Kashiwabara",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Go-Kashiwabara",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Go-Kashiwabara"
+  },
+  "jp-286": {
+   "answer": "doboshu",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Taikomochi",
+    "Hon'ami Kōetsu",
+    "Nōami",
+    "Maeda Toshiie",
+    "Shingei"
+   ]
+  },
+  "jp-287": {
+   "answer": "Higashiyama culture",
+   "title": "Higashiyama culture",
+   "url": "https://en.wikipedia.org/wiki/Higashiyama_culture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-288": {
+   "answer": "Gozan",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Gozan",
+   "suggestions": []
+  },
+  "jp-289": {
+   "answer": "Noh",
+   "title": "Noh",
+   "url": "https://en.wikipedia.org/wiki/Noh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-290": {
+   "answer": "Zeami",
+   "title": "Zeami Motokiyo",
+   "url": "https://en.wikipedia.org/wiki/Zeami_Motokiyo",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Zeami"
+  },
+  "jp-201": {
+   "answer": "Kamakura shogunate",
+   "title": "Kamakura shogunate",
+   "url": "https://en.wikipedia.org/wiki/Kamakura_shogunate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-202": {
+   "answer": "Minamoto no Yoritomo",
+   "title": "Minamoto no Yoritomo",
+   "url": "https://en.wikipedia.org/wiki/Minamoto_no_Yoritomo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-203": {
+   "answer": "samurai-dokoro",
+   "title": "Samurai-dokoro",
+   "url": "https://en.wikipedia.org/wiki/Samurai-dokoro",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-204": {
+   "answer": "shogun",
+   "title": "Shogun",
+   "url": "https://en.wikipedia.org/wiki/Shogun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-205": {
+   "answer": "jito",
+   "title": "Jitō",
+   "url": "https://en.wikipedia.org/wiki/Jit%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-206": {
+   "answer": "Minamoto no Yoshitsune",
+   "title": "Minamoto no Yoshitsune",
+   "url": "https://en.wikipedia.org/wiki/Minamoto_no_Yoshitsune",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-207": {
+   "answer": "Gikeiki",
+   "title": "Gikeiki",
+   "url": "https://en.wikipedia.org/wiki/Gikeiki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-208": {
+   "answer": "Minamoto no Sanetomo",
+   "title": "Minamoto no Sanetomo",
+   "url": "https://en.wikipedia.org/wiki/Minamoto_no_Sanetomo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-209": {
+   "answer": "Hojo clan",
+   "title": "Hōjō clan",
+   "url": "https://en.wikipedia.org/wiki/H%C5%8Dj%C5%8D_clan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-210": {
+   "answer": "shikken",
+   "title": "Shikken",
+   "url": "https://en.wikipedia.org/wiki/Shikken",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-211": {
+   "answer": "Hojo Masako",
+   "title": "Hōjō Masako",
+   "url": "https://en.wikipedia.org/wiki/H%C5%8Dj%C5%8D_Masako",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-212": {
+   "answer": "Jokyu War",
+   "title": "Jōkyū War",
+   "url": "https://en.wikipedia.org/wiki/J%C5%8Dky%C5%AB_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-213": {
+   "answer": "Rokuhara Tandai",
+   "title": "Rokuhara Tandai",
+   "url": "https://en.wikipedia.org/wiki/Rokuhara_Tandai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-214": {
+   "answer": "Goseibai Shikimoku",
+   "title": "Goseibai Shikimoku",
+   "url": "https://en.wikipedia.org/wiki/Goseibai_Shikimoku",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-215": {
+   "answer": "shitaji chubun",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Jisha-ryō",
+    "Nanboku-chō period"
+   ]
+  },
+  "jp-216": {
+   "answer": "soryo",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Soryo",
+   "suggestions": [
+    "Fuyumi Soryo",
+    "Sōryō, Hiroshima",
+    "Soryo, Republic of Karelia"
+   ]
+  },
+  "jp-217": {
+   "answer": "ichigobun",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "jp-218": {
+   "answer": "Kamakura Buddhism",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Kamakura Buddhism",
+   "target": "Buddhism in Japan#Kamakura Buddhism (1185–1333) - new schools of Buddhism"
+  },
+  "jp-219": {
+   "answer": "Honen",
+   "title": "Hōnen",
+   "url": "https://en.wikipedia.org/wiki/H%C5%8Dnen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-220": {
+   "answer": "Jodo-shu",
+   "title": "Jōdo-shū",
+   "url": "https://en.wikipedia.org/wiki/J%C5%8Ddo-sh%C5%AB",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-231": {
+   "answer": "Great Buddha of Kamakura",
+   "title": "Kōtoku-in",
+   "url": "https://en.wikipedia.org/wiki/K%C5%8Dtoku-in",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Great Buddha of Kamakura"
+  },
+  "jp-232": {
+   "answer": "Shin Kokin Wakashu",
+   "title": "Shin Kokin Wakashū",
+   "url": "https://en.wikipedia.org/wiki/Shin_Kokin_Wakash%C5%AB",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-233": {
+   "answer": "Hojoki",
+   "title": "Hōjōki",
+   "url": "https://en.wikipedia.org/wiki/H%C5%8Dj%C5%8Dki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-234": {
+   "answer": "tokuso",
+   "title": "Tokusō",
+   "url": "https://en.wikipedia.org/wiki/Tokus%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-235": {
+   "answer": "Genko War",
+   "title": "Genkō War",
+   "url": "https://en.wikipedia.org/wiki/Genk%C5%8D_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-236": {
+   "answer": "Mongol invasions of Japan",
+   "title": "Mongol invasions of Japan",
+   "url": "https://en.wikipedia.org/wiki/Mongol_invasions_of_Japan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-237": {
+   "answer": "Hojo Tokimune",
+   "title": "Hōjō Tokimune",
+   "url": "https://en.wikipedia.org/wiki/H%C5%8Dj%C5%8D_Tokimune",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-238": {
+   "answer": "Dazaifu",
+   "title": "Dazaifu (government)",
+   "url": "https://en.wikipedia.org/wiki/Dazaifu_(government)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-239": {
+   "answer": "Battle of Bun'ei",
+   "title": "Battle of Bun'ei",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Bun'ei",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-240": {
+   "answer": "Genko Borui",
+   "title": "Genkō Bōrui",
+   "url": "https://en.wikipedia.org/wiki/Genk%C5%8D_B%C5%8Drui",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-251": {
+   "answer": "Kenmu Restoration",
+   "title": "Kenmu Restoration",
+   "url": "https://en.wikipedia.org/wiki/Kenmu_Restoration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-252": {
+   "answer": "Go-Daigo",
+   "title": "Emperor Go-Daigo",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Go-Daigo",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Go-Daigo"
+  },
+  "jp-253": {
+   "answer": "Ashikaga Takauji",
+   "title": "Ashikaga Takauji",
+   "url": "https://en.wikipedia.org/wiki/Ashikaga_Takauji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-254": {
+   "answer": "Nanboku-cho period",
+   "title": "Nanboku-chō period",
+   "url": "https://en.wikipedia.org/wiki/Nanboku-ch%C5%8D_period",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-255": {
+   "answer": "Southern Court",
+   "title": "Southern Court",
+   "url": "https://en.wikipedia.org/wiki/Southern_Court",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-256": {
+   "answer": "Kusunoki Masashige",
+   "title": "Kusunoki Masashige",
+   "url": "https://en.wikipedia.org/wiki/Kusunoki_Masashige",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-257": {
+   "answer": "Taiheiki",
+   "title": "Taiheiki",
+   "url": "https://en.wikipedia.org/wiki/Taiheiki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-258": {
+   "answer": "Ashikaga shogunate",
+   "title": "Ashikaga shogunate",
+   "url": "https://en.wikipedia.org/wiki/Ashikaga_shogunate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-259": {
+   "answer": "Muromachi period",
+   "title": "Muromachi period",
+   "url": "https://en.wikipedia.org/wiki/Muromachi_period",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-260": {
+   "answer": "Ashikaga Yoshimitsu",
+   "title": "Ashikaga Yoshimitsu",
+   "url": "https://en.wikipedia.org/wiki/Ashikaga_Yoshimitsu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-261": {
+   "answer": "Go-Kameyama",
+   "title": "Emperor Go-Kameyama",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Go-Kameyama",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Go-Kameyama"
+  },
+  "jp-262": {
+   "answer": "Kinkaku-ji",
+   "title": "Kinkaku-ji",
+   "url": "https://en.wikipedia.org/wiki/Kinkaku-ji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-263": {
+   "answer": "Ningbo incident",
+   "title": "Ningbo incident",
+   "url": "https://en.wikipedia.org/wiki/Ningbo_incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-264": {
+   "answer": "tally trade",
+   "title": "Japanese missions to Ming China",
+   "url": "https://en.wikipedia.org/wiki/Japanese_missions_to_Ming_China",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
+  },
+  "jp-265": {
+   "answer": "Ashikaga Yoshimasa",
+   "title": "Ashikaga Yoshimasa",
+   "url": "https://en.wikipedia.org/wiki/Ashikaga_Yoshimasa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-266": {
+   "answer": "Ginkaku-ji",
+   "title": "Ginkaku-ji",
+   "url": "https://en.wikipedia.org/wiki/Ginkaku-ji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-267": {
+   "answer": "shugo daimyo",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Shugo daimyō",
+   "target": "Daimyo#Shugo-daimyō"
+  },
+  "jp-268": {
+   "answer": "Kanto kubo",
+   "title": "Kantō kubō",
+   "url": "https://en.wikipedia.org/wiki/Kant%C5%8D_kub%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-269": {
+   "answer": "wako",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Wako",
+   "suggestions": [
+    "Amos Wako",
+    "Haruo Wakō",
+    "Naoki Wako",
+    "WAKO (AM)",
+    "Wako (retailer)",
+    "Wako Matsumoto"
+   ]
+  },
+  "jp-270": {
+   "answer": "Oei Invasion",
+   "title": "Ōei Invasion",
+   "url": "https://en.wikipedia.org/wiki/%C5%8Cei_Invasion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-221": {
+   "answer": "Shinran",
+   "title": "Shinran",
+   "url": "https://en.wikipedia.org/wiki/Shinran",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-222": {
+   "answer": "Jodo Shinshu",
+   "title": "Jōdo Shinshū",
+   "url": "https://en.wikipedia.org/wiki/J%C5%8Ddo_Shinsh%C5%AB",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-223": {
+   "answer": "Nichiren",
+   "title": "Nichiren",
+   "url": "https://en.wikipedia.org/wiki/Nichiren",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-224": {
+   "answer": "Nichiren Buddhism",
+   "title": "Nichiren Buddhism",
+   "url": "https://en.wikipedia.org/wiki/Nichiren_Buddhism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-225": {
+   "answer": "Eisai",
+   "title": "Eisai",
+   "url": "https://en.wikipedia.org/wiki/Eisai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-226": {
+   "answer": "Dogen",
+   "title": "Dōgen",
+   "url": "https://en.wikipedia.org/wiki/D%C5%8Dgen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-227": {
+   "answer": "Soto",
+   "title": "Sōtō",
+   "url": "https://en.wikipedia.org/wiki/S%C5%8Dt%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-228": {
+   "answer": "Kencho-ji",
+   "title": "Kenchō-ji",
+   "url": "https://en.wikipedia.org/wiki/Kench%C5%8D-ji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-229": {
+   "answer": "Kei school",
+   "title": "Kei school",
+   "url": "https://en.wikipedia.org/wiki/Kei_school",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-230": {
+   "answer": "Unkei",
+   "title": "Unkei",
+   "url": "https://en.wikipedia.org/wiki/Unkei",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-241": {
+   "answer": "Southern Route Army",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Eighth Route Army",
+    "Route Army",
+    "New Fourth Army",
+    "Eighteenth Army (Japan)",
+    "New Fourth Army Incident"
+   ]
+  },
+  "jp-242": {
+   "answer": "Battle of Koan",
+   "title": "Battle of Kōan",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_K%C5%8Dan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-243": {
+   "answer": "shinkoku",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Shinkoku",
+   "target": "History of Shinto#Shinto-Buddhist doctrine and Shinkoku thought"
+  },
+  "jp-244": {
+   "answer": "typhoon",
+   "title": "Typhoon",
+   "url": "https://en.wikipedia.org/wiki/Typhoon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-245": {
+   "answer": "Moko Shurai Ekotoba",
+   "title": "Mōko Shūrai Ekotoba",
+   "url": "https://en.wikipedia.org/wiki/M%C5%8Dko_Sh%C5%ABrai_Ekotoba",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-246": {
+   "answer": "ikoku keigo banyaku",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "jp-247": {
+   "answer": "Takezaki Suenaga",
+   "title": "Takezaki Suenaga",
+   "url": "https://en.wikipedia.org/wiki/Takezaki_Suenaga",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-248": {
+   "answer": "Hachiman Gudokun",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mongol invasions of Japan",
+    "Empress Jingū",
+    "Azumi-no-isora",
+    "Ushi-oni",
+    "History of Shinto"
+   ]
+  },
+  "jp-249": {
+   "answer": "Takashima Kozaki Site",
+   "title": "Takashima Kōzaki Site",
+   "url": "https://en.wikipedia.org/wiki/Takashima_K%C5%8Dzaki_Site",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-250": {
+   "answer": "Issan Ichinei",
+   "title": "Yishan Yining",
+   "url": "https://en.wikipedia.org/wiki/Yishan_Yining",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Issan Ichinei"
+  },
+  "jp-271": {
+   "answer": "ikki",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Ikki",
+   "suggestions": [
+    "Iga ikki",
+    "Ikki Twins",
+    "Kaga ikki",
+    "Kōka ikki",
+    "Monthly Ikki",
+    "Saika Ikki"
+   ]
+  },
+  "jp-272": {
+   "answer": "Ikko-ikki",
+   "title": "Ikkō-ikki",
+   "url": "https://en.wikipedia.org/wiki/Ikk%C5%8D-ikki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-273": {
+   "answer": "Yamashiro ikki",
+   "title": "Yamashiro ikki",
+   "url": "https://en.wikipedia.org/wiki/Yamashiro_ikki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-274": {
+   "answer": "Hine-no-sho",
+   "title": "Hine-no-shō",
+   "url": "https://en.wikipedia.org/wiki/Hine-no-sh%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-275": {
+   "answer": "bashaku",
+   "title": "Bashaku",
+   "url": "https://en.wikipedia.org/wiki/Bashaku",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-276": {
+   "answer": "za",
+   "title": "Za (guilds)",
+   "url": "https://en.wikipedia.org/wiki/Za_(guilds)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-277": {
+   "answer": "Eiraku Tsuho",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Eiraku Tsuho",
+   "target": "Yongle Tongbao#In Japan"
+  },
+  "jp-278": {
+   "answer": "Onin War",
+   "title": "Ōnin War",
+   "url": "https://en.wikipedia.org/wiki/%C5%8Cnin_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-279": {
+   "answer": "Nishijin",
+   "title": "Nishijin",
+   "url": "https://en.wikipedia.org/wiki/Nishijin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-280": {
+   "answer": "Meio incident",
+   "title": "Meiō incident",
+   "url": "https://en.wikipedia.org/wiki/Mei%C5%8D_incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-291": {
+   "answer": "kyogen",
+   "title": "Kyōgen",
+   "url": "https://en.wikipedia.org/wiki/Ky%C5%8Dgen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-292": {
+   "answer": "chanoyu",
+   "title": "Japanese tea ceremony",
+   "url": "https://en.wikipedia.org/wiki/Japanese_tea_ceremony",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Chanoyu"
+  },
+  "jp-293": {
+   "answer": "wabi-cha",
+   "title": "Wabi-cha",
+   "url": "https://en.wikipedia.org/wiki/Wabi-cha",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-294": {
+   "answer": "wabi-sabi",
+   "title": "Wabi-sabi",
+   "url": "https://en.wikipedia.org/wiki/Wabi-sabi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-295": {
+   "answer": "ikebana",
+   "title": "Ikebana",
+   "url": "https://en.wikipedia.org/wiki/Ikebana",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-296": {
+   "answer": "karesansui",
+   "title": "Japanese dry garden",
+   "url": "https://en.wikipedia.org/wiki/Japanese_dry_garden",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Karesansui"
+  },
+  "jp-297": {
+   "answer": "Ryoan-ji",
+   "title": "Ryōan-ji",
+   "url": "https://en.wikipedia.org/wiki/Ry%C5%8Dan-ji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-298": {
+   "answer": "suibokuga",
+   "title": "Ink wash painting",
+   "url": "https://en.wikipedia.org/wiki/Ink_wash_painting",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Suibokuga"
+  },
+  "jp-299": {
+   "answer": "Sesshu Toyo",
+   "title": "Sesshū Tōyō",
+   "url": "https://en.wikipedia.org/wiki/Sessh%C5%AB_T%C5%8Dy%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-300": {
+   "answer": "Kano school",
+   "title": "Kanō school",
+   "url": "https://en.wikipedia.org/wiki/Kan%C5%8D_school",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-601": {
+   "answer": "pogroms of 1918–1921",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Pogroms during the Russian Civil War",
+    "Pogrom",
+    "Lwów pogrom (1918)",
+    "Odessa pogroms",
+    "Pogroms in the Russian Empire"
+   ]
+  },
+  "ru-602": {
+   "answer": "Russian famine of 1921–1922",
+   "title": "Russian famine of 1921–1922",
+   "url": "https://en.wikipedia.org/wiki/Russian_famine_of_1921%E2%80%931922",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-603": {
+   "answer": "White émigrés",
+   "title": "White émigré",
+   "url": "https://en.wikipedia.org/wiki/White_%C3%A9migr%C3%A9",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "White émigrés"
+  },
+  "ru-604": {
+   "answer": "Treaty of Tartu",
+   "title": "Treaty of Tartu (Estonia–Russia)",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Tartu_(Estonia%E2%80%93Russia)",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Treaty of Tartu (Russian–Estonian)"
+  },
+  "ru-605": {
+   "answer": "Polish–Soviet War",
+   "title": "Polish–Soviet War",
+   "url": "https://en.wikipedia.org/wiki/Polish%E2%80%93Soviet_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-606": {
+   "answer": "Battle of Warsaw",
+   "title": "Battle of Warsaw (1920)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Warsaw_(1920)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-607": {
+   "answer": "Peace of Riga",
+   "title": "Treaty of Riga",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Riga",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Peace of Riga"
+  },
+  "ru-608": {
+   "answer": "Red Army invasion of Georgia",
+   "title": "Soviet invasion of Georgia",
+   "url": "https://en.wikipedia.org/wiki/Soviet_invasion_of_Georgia",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Red Army invasion of Georgia"
+  },
+  "ru-609": {
+   "answer": "Basmachi movement",
+   "title": "Basmachi movement",
+   "url": "https://en.wikipedia.org/wiki/Basmachi_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-610": {
+   "answer": "Kronstadt rebellion",
+   "title": "Kronstadt rebellion",
+   "url": "https://en.wikipedia.org/wiki/Kronstadt_rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-611": {
+   "answer": "Tambov Rebellion",
+   "title": "Tambov Rebellion",
+   "url": "https://en.wikipedia.org/wiki/Tambov_Rebellion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-612": {
+   "answer": "New Economic Policy",
+   "title": "New Economic Policy",
+   "url": "https://en.wikipedia.org/wiki/New_Economic_Policy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-613": {
+   "answer": "Treaty on the Creation of the USSR",
+   "title": "Treaty on the Creation of the Union of Soviet Socialist Republics",
+   "url": "https://en.wikipedia.org/wiki/Treaty_on_the_Creation_of_the_Union_of_Soviet_Socialist_Republics",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Treaty on the Creation of the USSR"
+  },
+  "ru-614": {
+   "answer": "1924 Constitution of the Soviet Union",
+   "title": "1924 Constitution of the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/1924_Constitution_of_the_Soviet_Union",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-615": {
+   "answer": "Korenizatsiya",
+   "title": "Korenizatsiia",
+   "url": "https://en.wikipedia.org/wiki/Korenizatsiia",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Korenizatsiya"
+  },
+  "ru-616": {
+   "answer": "Joseph Stalin",
+   "title": "Joseph Stalin",
+   "url": "https://en.wikipedia.org/wiki/Joseph_Stalin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-617": {
+   "answer": "Georgian affair",
+   "title": "Georgian affair",
+   "url": "https://en.wikipedia.org/wiki/Georgian_affair",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-618": {
+   "answer": "Lenin's Testament",
+   "title": "Lenin's Testament",
+   "url": "https://en.wikipedia.org/wiki/Lenin's_Testament",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-619": {
+   "answer": "Gorki Leninskiye",
+   "title": "Gorki Leninskiye",
+   "url": "https://en.wikipedia.org/wiki/Gorki_Leninskiye",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-620": {
+   "answer": "Lenin's Mausoleum",
+   "title": "Lenin's Mausoleum",
+   "url": "https://en.wikipedia.org/wiki/Lenin's_Mausoleum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-621": {
+   "answer": "Lenin Enrolment",
+   "title": "Lenin Enrollment",
+   "url": "https://en.wikipedia.org/wiki/Lenin_Enrollment",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Lenin Enrolment"
+  },
+  "ru-622": {
+   "answer": "Left Opposition",
+   "title": "Left Opposition",
+   "url": "https://en.wikipedia.org/wiki/Left_Opposition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-623": {
+   "answer": "Socialism in one country",
+   "title": "Socialism in one country",
+   "url": "https://en.wikipedia.org/wiki/Socialism_in_one_country",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-624": {
+   "answer": "United Opposition",
+   "title": "United Opposition (Soviet Union)",
+   "url": "https://en.wikipedia.org/wiki/United_Opposition_(Soviet_Union)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-625": {
+   "answer": "Ramón Mercader",
+   "title": "Ramón Mercader",
+   "url": "https://en.wikipedia.org/wiki/Ram%C3%B3n_Mercader",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-626": {
+   "answer": "Right Opposition",
+   "title": "Right Opposition",
+   "url": "https://en.wikipedia.org/wiki/Right_Opposition",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-627": {
+   "answer": "Nikolai Bukharin",
+   "title": "Nikolai Bukharin",
+   "url": "https://en.wikipedia.org/wiki/Nikolai_Bukharin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-628": {
+   "answer": "Great Break",
+   "title": "Great Break (Soviet Union)",
+   "url": "https://en.wikipedia.org/wiki/Great_Break_(Soviet_Union)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-629": {
+   "answer": "Material balance planning",
+   "title": "Material balance planning",
+   "url": "https://en.wikipedia.org/wiki/Material_balance_planning",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-630": {
+   "answer": "Gosplan",
+   "title": "Gosplan",
+   "url": "https://en.wikipedia.org/wiki/Gosplan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-631": {
+   "answer": "Soviet industrialisation",
+   "title": "Industrialization in the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Industrialization_in_the_Soviet_Union",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Soviet industrialisation"
+  },
+  "ru-632": {
+   "answer": "Magnitogorsk",
+   "title": "Magnitogorsk",
+   "url": "https://en.wikipedia.org/wiki/Magnitogorsk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-633": {
+   "answer": "Dnieper Hydroelectric Station",
+   "title": "Dnieper Hydroelectric Station",
+   "url": "https://en.wikipedia.org/wiki/Dnieper_Hydroelectric_Station",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-634": {
+   "answer": "Soviet collectivisation",
+   "title": "Collectivization in the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Collectivization_in_the_Soviet_Union",
+   "via": "variant",
+   "status": "redirect-broader",
+   "from": "Soviet collectivization"
+  },
+  "ru-635": {
+   "answer": "Dekulakisation",
+   "title": "Dekulakization",
+   "url": "https://en.wikipedia.org/wiki/Dekulakization",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Dekulakisation"
+  },
+  "ru-636": {
+   "answer": "Kolkhoz",
+   "title": "Kolkhoz",
+   "url": "https://en.wikipedia.org/wiki/Kolkhoz",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-637": {
+   "answer": "Soviet famine of 1930–1933",
+   "title": "Soviet famine of 1930–1933",
+   "url": "https://en.wikipedia.org/wiki/Soviet_famine_of_1930%E2%80%931933",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-638": {
+   "answer": "Holodomor",
+   "title": "Holodomor",
+   "url": "https://en.wikipedia.org/wiki/Holodomor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-639": {
+   "answer": "Kazakh famine of 1930–1933",
+   "title": "Kazakh famine of 1930–1933",
+   "url": "https://en.wikipedia.org/wiki/Kazakh_famine_of_1930%E2%80%931933",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-640": {
+   "answer": "Internal passport",
+   "title": "Internal passport",
+   "url": "https://en.wikipedia.org/wiki/Internal_passport",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-641": {
+   "answer": "Stakhanovite movement",
+   "title": "Stakhanovite movement",
+   "url": "https://en.wikipedia.org/wiki/Stakhanovite_movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-642": {
+   "answer": "Gulag",
+   "title": "Gulag",
+   "url": "https://en.wikipedia.org/wiki/Gulag",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-643": {
+   "answer": "White Sea–Baltic Canal",
+   "title": "White Sea–Baltic Canal",
+   "url": "https://en.wikipedia.org/wiki/White_Sea%E2%80%93Baltic_Canal",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-644": {
+   "answer": "special settlements",
+   "title": "Special settlements in the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Special_settlements_in_the_Soviet_Union",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Special settlement"
+  },
+  "ru-645": {
+   "answer": "Great Purge",
+   "title": "Great Purge",
+   "url": "https://en.wikipedia.org/wiki/Great_Purge",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-646": {
+   "answer": "Moscow trials",
+   "title": "Moscow trials",
+   "url": "https://en.wikipedia.org/wiki/Moscow_trials",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-647": {
+   "answer": "assassination of Sergei Kirov",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Assassination of Sergei Kirov",
+   "target": "Sergei Kirov#Assassination"
+  },
+  "ru-648": {
+   "answer": "NKVD Order No. 00447",
+   "title": "NKVD Order No. 00447",
+   "url": "https://en.wikipedia.org/wiki/NKVD_Order_No._00447",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-649": {
+   "answer": "Nikolai Yezhov",
+   "title": "Nikolai Yezhov",
+   "url": "https://en.wikipedia.org/wiki/Nikolai_Yezhov",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-650": {
+   "answer": "Tukhachevsky affair",
+   "title": "Case of the Trotskyist Anti-Soviet Military Organization",
+   "url": "https://en.wikipedia.org/wiki/Case_of_the_Trotskyist_Anti-Soviet_Military_Organization",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Tukhachevsky affair"
+  },
+  "ru-651": {
+   "answer": "Lavrentiy Beria",
+   "title": "Lavrentiy Beria",
+   "url": "https://en.wikipedia.org/wiki/Lavrentiy_Beria",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-652": {
+   "answer": "Stalin’s cult of personality",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Joseph Stalin's cult of personality",
+    "On the Cult of Personality and Its Consequences",
+    "Cult of personality",
+    "North Korean cult of personality",
+    "List of cults of personality"
+   ]
+  },
+  "ru-653": {
+   "answer": "Stalin Constitution",
+   "title": "1936 Constitution of the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/1936_Constitution_of_the_Soviet_Union",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Stalin Constitution"
+  },
+  "ru-654": {
+   "answer": "Franco-Soviet Treaty of Mutual Assistance",
+   "title": "Franco-Soviet Treaty of Mutual Assistance",
+   "url": "https://en.wikipedia.org/wiki/Franco-Soviet_Treaty_of_Mutual_Assistance",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-655": {
+   "answer": "Molotov-Ribbentrop Pact",
+   "title": "Molotov–Ribbentrop Pact",
+   "url": "https://en.wikipedia.org/wiki/Molotov%E2%80%93Ribbentrop_Pact",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Molotov-Ribbentrop Pact"
+  },
+  "ru-656": {
+   "answer": "Great Patriotic War",
+   "title": "Great Patriotic War (term)",
+   "url": "https://en.wikipedia.org/wiki/Great_Patriotic_War_(term)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-657": {
+   "answer": "Soviet invasion of Poland",
+   "title": "Soviet invasion of Poland",
+   "url": "https://en.wikipedia.org/wiki/Soviet_invasion_of_Poland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-658": {
+   "answer": "Katyn massacre",
+   "title": "Katyn massacre",
+   "url": "https://en.wikipedia.org/wiki/Katyn_massacre",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-659": {
+   "answer": "Winter War",
+   "title": "Winter War",
+   "url": "https://en.wikipedia.org/wiki/Winter_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-660": {
+   "answer": "State continuity of the Baltic states",
+   "title": "State continuity of the Baltic states",
+   "url": "https://en.wikipedia.org/wiki/State_continuity_of_the_Baltic_states",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-661": {
+   "answer": "Operation Barbarossa",
+   "title": "Operation Barbarossa",
+   "url": "https://en.wikipedia.org/wiki/Operation_Barbarossa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-662": {
+   "answer": "Defence of Brest Fortress",
+   "title": "Defense of Brest Fortress",
+   "url": "https://en.wikipedia.org/wiki/Defense_of_Brest_Fortress",
+   "via": "variant",
+   "status": "ok"
+  },
+  "ru-663": {
+   "answer": "Yelnya offensive",
+   "title": "Yelnya offensive",
+   "url": "https://en.wikipedia.org/wiki/Yelnya_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-664": {
+   "answer": "First Battle of Kiev",
+   "title": "Battle of Kiev (1941)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kiev_(1941)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "First Battle of Kiev"
+  },
+  "ru-665": {
+   "answer": "evacuation of Soviet industry",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Evacuation in the Soviet Union",
+    "Evacuation of East Prussia",
+    "North Korea–Russia relations",
+    "Soviet industry in World War II",
+    "Evacuation of Manchukuo"
+   ]
+  },
+  "ru-666": {
+   "answer": "Battle of Moscow",
+   "title": "Battle of Moscow",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Moscow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-667": {
+   "answer": "Siege of Leningrad",
+   "title": "Siege of Leningrad",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Leningrad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-668": {
+   "answer": "Road of Life",
+   "title": "Road of Life",
+   "url": "https://en.wikipedia.org/wiki/Road_of_Life",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-669": {
+   "answer": "Central Headquarters of the Partisan Movement",
+   "title": "Central Headquarters of the Partisan Movement",
+   "url": "https://en.wikipedia.org/wiki/Central_Headquarters_of_the_Partisan_Movement",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-670": {
+   "answer": "Reichskommissariat Ostland",
+   "title": "Reichskommissariat Ostland",
+   "url": "https://en.wikipedia.org/wiki/Reichskommissariat_Ostland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-671": {
+   "answer": "Black Book of Soviet Jewry",
+   "title": "The Black Book of Soviet Jewry",
+   "url": "https://en.wikipedia.org/wiki/The_Black_Book_of_Soviet_Jewry",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-672": {
+   "answer": "Babi Yar",
+   "title": "Babi Yar",
+   "url": "https://en.wikipedia.org/wiki/Babi_Yar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-673": {
+   "answer": "German mistreatment of Soviet prisoners of war",
+   "title": "German atrocities committed against Soviet prisoners of war",
+   "url": "https://en.wikipedia.org/wiki/German_atrocities_committed_against_Soviet_prisoners_of_war",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "German mistreatment of Soviet prisoners of war"
+  },
+  "ru-674": {
+   "answer": "Punished peoples",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Punisher",
+    "Russian citizenship law",
+    "The Punisher (TV series)",
+    "Punisher (disambiguation)",
+    "The Punisher (2004 film)"
+   ]
+  },
+  "ru-675": {
+   "answer": "Deportation of the Crimean Tatars",
+   "title": "Deportation of the Crimean Tatars",
+   "url": "https://en.wikipedia.org/wiki/Deportation_of_the_Crimean_Tatars",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-676": {
+   "answer": "Battle of Stalingrad",
+   "title": "Battle of Stalingrad",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Stalingrad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-677": {
+   "answer": "Operation Uranus",
+   "title": "Operation Uranus",
+   "url": "https://en.wikipedia.org/wiki/Operation_Uranus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-678": {
+   "answer": "Battle of Kursk",
+   "title": "Battle of Kursk",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Kursk",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-679": {
+   "answer": "ALSIB",
+   "title": "ALSIB",
+   "url": "https://en.wikipedia.org/wiki/ALSIB",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-680": {
+   "answer": "Arctic convoys",
+   "title": "Arctic convoys of World War II",
+   "url": "https://en.wikipedia.org/wiki/Arctic_convoys_of_World_War_II",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Arctic convoys"
+  },
+  "ru-681": {
+   "answer": "Operation Bagration",
+   "title": "Operation Bagration",
+   "url": "https://en.wikipedia.org/wiki/Operation_Bagration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-682": {
+   "answer": "Battle of Radzymin",
+   "title": "Battle of Radzymin (1944)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Radzymin_(1944)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-683": {
+   "answer": "Prague offensive",
+   "title": "Prague offensive",
+   "url": "https://en.wikipedia.org/wiki/Prague_offensive",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-684": {
+   "answer": "Battle of Berlin",
+   "title": "Battle of Berlin",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Berlin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-685": {
+   "answer": "rape during the occupation of Germany",
+   "title": "Rape during the occupation of Germany",
+   "url": "https://en.wikipedia.org/wiki/Rape_during_the_occupation_of_Germany",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-686": {
+   "answer": "Soviet–Japanese War",
+   "title": "Soviet–Japanese War",
+   "url": "https://en.wikipedia.org/wiki/Soviet%E2%80%93Japanese_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-687": {
+   "answer": "Soviet war dead",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "World War II casualties of the Soviet Union",
+    "Soviet War Memorial (Vienna)",
+    "Polish–Soviet War",
+    "Soviet War Memorial (Tiergarten)",
+    "Dead Hand"
+   ]
+  },
+  "ru-688": {
+   "answer": "Trudarmiya",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Nikolai Yudin"
+   ]
+  },
+  "ru-689": {
+   "answer": "Soviet women in World War II",
+   "title": "Soviet women in World War II",
+   "url": "https://en.wikipedia.org/wiki/Soviet_women_in_World_War_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-690": {
+   "answer": "Immortal Regiment",
+   "title": "Immortal Regiment",
+   "url": "https://en.wikipedia.org/wiki/Immortal_Regiment",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-691": {
+   "answer": "Soviet famine of 1946–1947",
+   "title": "Soviet famine of 1946–1947",
+   "url": "https://en.wikipedia.org/wiki/Soviet_famine_of_1946%E2%80%931947",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-692": {
+   "answer": "Eastern Bloc",
+   "title": "Eastern Bloc",
+   "url": "https://en.wikipedia.org/wiki/Eastern_Bloc",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-693": {
+   "answer": "Soviet atomic bomb project",
+   "title": "Soviet atomic bomb project",
+   "url": "https://en.wikipedia.org/wiki/Soviet_atomic_bomb_project",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-694": {
+   "answer": "Zhdanovshchina",
+   "title": "Zhdanov Doctrine",
+   "url": "https://en.wikipedia.org/wiki/Zhdanov_Doctrine",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Zhdanovshchina"
+  },
+  "ru-695": {
+   "answer": "Doctors' plot",
+   "title": "Doctors' plot",
+   "url": "https://en.wikipedia.org/wiki/Doctors'_plot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-696": {
+   "answer": "death of Stalin",
+   "title": "Death and state funeral of Joseph Stalin",
+   "url": "https://en.wikipedia.org/wiki/Death_and_state_funeral_of_Joseph_Stalin",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Death of Stalin"
+  },
+  "ru-697": {
+   "answer": "Nikita Khrushchev",
+   "title": "Nikita Khrushchev",
+   "url": "https://en.wikipedia.org/wiki/Nikita_Khrushchev",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-698": {
+   "answer": "On the Cult of Personality and Its Consequences",
+   "title": "On the Cult of Personality and Its Consequences",
+   "url": "https://en.wikipedia.org/wiki/On_the_Cult_of_Personality_and_Its_Consequences",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-699": {
+   "answer": "de-Stalinisation",
+   "title": "De-Stalinization",
+   "url": "https://en.wikipedia.org/wiki/De-Stalinization",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "De-Stalinisation"
+  },
+  "ru-700": {
+   "answer": "Khrushchev Thaw",
+   "title": "Khrushchev thaw",
+   "url": "https://en.wikipedia.org/wiki/Khrushchev_thaw",
    "via": "glossary",
    "status": "ok"
   }
