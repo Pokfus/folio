@@ -28,12 +28,23 @@ from persian_level import f
 
 csv.field_size_limit(10 ** 8)
 
+# THE SENTENCE POOL IS PINNED (2026-11-19, the beginner pass).  Tatoeba's export is rewritten every
+# Saturday, and the decks were built on the export of 2026-11-07: a week later three new pairs changed
+# one card's sentences in each of A1, A2 and B1, so "a re-run is byte-identical" held only until the
+# next export.  A Persian sentence ADDED after that export is not read (the fifth column of
+# `pes_sentences_detailed.tsv`; `\N` there is an old sentence with no date, and is read), which makes all
+# seven decks reproduce themselves on a later export.  It cannot undo a sentence Tatoeba later deletes
+# or rewrites: `persian-fix.js --check` (the committed decks) is what CI holds, not a rebuild.
+PINNED = '2026-11-07 23:59:59'
+
 
 def load():
     fa = {}
     for row in csv.reader(open('pes_sentences_detailed.tsv', encoding='utf-8'), delimiter='\t',
                           quoting=csv.QUOTE_NONE):
         if len(row) >= 3:
+            if len(row) >= 5 and row[4][:1].isdigit() and row[4] > PINNED:
+                continue
             fa[row[0]] = nfc(row[2]).strip()
     links = {}
     for row in csv.reader(open('pes-eng_links.tsv', encoding='utf-8'), delimiter='\t',
