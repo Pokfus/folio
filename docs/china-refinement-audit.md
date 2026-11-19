@@ -87,8 +87,8 @@ an English review of the same work, and say in the ledger where a card had to ch
 **The date lines of the cards about ONE human being, historical or legendary, are refined in another thread
 and are left alone here.** The list is `node .claude/person-cards.js --list` (`individual` and `legendary`)
 plus every card tagged `ruler` or `person` it does not catch, confirmed against main on 2026-11-08 for the first
-hundred, on 2026-11-12 for the second, on 2026-11-12 for the third and on 2026-11-13 for the fourth, on 2026-11-13 for the fifth and on 2026-11-14 for the sixth (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
-and Zhang Yi) and `cnh-184` (the Four Lords) are tagged `person` but name groups: they are audited as ordinary cards. `cnh-audit.js` reads the block below: on these cards it
+hundred, on 2026-11-12 for the second, on 2026-11-12 for the third and on 2026-11-13 for the fourth, on 2026-11-13 for the fifth and on 2026-11-14 for the sixth, and on 2026-11-19 for the seventh (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
+and Zhang Yi), `cnh-184` (the Four Lords) and `cnh-675` (the Gang of Four) are tagged `person` but name groups: they are audited as ordinary cards. `cnh-audit.js` reads the block below: on these cards it
 sets the date line's own findings aside (one `P.protected` note counts them) but still checks that the
 background carries every year on the line (`D.not-in-prose`) and the pins; `precheck.js` fails a draft whose
 patch carries `answerDate`, `undatable` or `timeline` for one of them.
@@ -253,6 +253,14 @@ cnh-587 Chen Duxiu            (individual; the person template)
 cnh-588 Hu Shi                (individual; the person template)
 cnh-589 Lu Xun                (individual; the person template)
 cnh-593 Chiang Kai-shek       (individual; the person template)
+cnh-605 Cai Yuanpei           (individual; the person template)
+cnh-608 Mao Zedong            (individual; the person template)
+cnh-615 Zhou Enlai            (individual; the person template)
+cnh-616 Zhu De                (individual; the person template)
+cnh-648 Joseph Stilwell       (individual; the person template)
+cnh-674 Lin Biao              (individual; the person template)
+cnh-677 Hua Guofeng           (individual; the person template)
+cnh-678 Deng Xiaoping         (individual; the person template)
 ```
 
 - The draft's patch omits `answerDate`, `undatable` and `timeline`; its `pins` and `chronology` are read from
@@ -403,6 +411,20 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Yuan Shikai and the Hundred Days | Yuan said to have betrayed the reformers' plot to Ronglu in 1898; his own diary and later scholarship dispute it — refined B58 (`cnh-571`, `cnh-578`: the reformers' and most foreign historians' version against Yuan's own account; Hummel's "generally believed"; his diary on no page read) | `cnh-571` | `cnh-578`, `cnh-569` | — |
 | Lu Xun's slide show at Sendai | the lantern slide of a Chinese man about to be executed as a spy in the Russo-Japanese War, which he says turned him from medicine to letters; his own preface to *Call to Arms* (1922), the slide never found — confirmed B59 (`cnh-589`: his preface dated 3 December 1922; Takeuchi's doubt, the Fujino memoir's shooting, the slides found but not that one) | `cnh-589` | — | — |
 | The May Fourth slogans | "Mr Democracy and Mr Science" (Chen Duxiu in *New Youth*, 1919) and the students' slogans of 4 May 1919, as the period's own texts give them — confirmed in part B59 (`cnh-585`: the students' slogans as Tsi C. Wang's 1927 account gives them, 还我青岛 from the police files; "Mr Democracy and Mr Science" Chen's, *New Youth* January 1919; 外争国权，内惩国贼 on no page read) | `cnh-585` | `cnh-586`, `cnh-587` | — |
+| The Long March's distance and the Luding Bridge | the "25,000 li" (about 12,500 km) the party's own figure for the First Front Army's march of 1934 – 1935; the crossing of the chain bridge at Luding in May 1935 as an assault under fire, as Edgar Snow's *Red Star over China* (1937) told it from the marchers' accounts; later walkers and historians doubt both the distance and the fighting at the bridge — PROVISIONAL (seventh hundred) | `cnh-610` | `cnh-608`, `cnh-611`, `cnh-616` | — |
+| The Xi'an Incident's terms | Chiang Kai-shek detained at Xi'an by Zhang Xueliang and Yang Hucheng in December 1936 and released that month; whether he accepted terms (an end to the civil war, a united front against Japan) is told differently by his own published diary-account (1937), which says he promised nothing in writing, and by the Communist and Zhang's later accounts — PROVISIONAL | `cnh-617` | `cnh-615`, `cnh-618` | — |
+| The Nanjing Massacre's death toll | the International Military Tribunal for the Far East (judgment of 1948): over 200,000 killed in Nanjing and its vicinity in the first six weeks; the Nanjing War Crimes Tribunal (1947): over 300,000, the figure the Memorial Hall carries; scholars' estimates from tens of thousands to 200,000 and more, each said whose; the denials of Japanese nationalist writers named as denials, never as one side of a scholarly debate — PROVISIONAL | `cnh-637` | `cnh-631`, `cnh-636`, `cnh-655` | `ww2-`, `jp-` (read, never edited) |
+| Unit 731 | the Kwantung Army's biological and chemical warfare unit at Pingfang near Harbin; the experiments on prisoners and the field attacks with plague; the dead (the Khabarovsk trial of 1949 heard of about 3,000 killed in the unit; the field attacks' tolls are estimates); the immunity the United States gave its officers for their data — PROVISIONAL | `cnh-650` | `cnh-631` | `ww2-` |
+| The 1938 Yellow River flood's dead | the Nationalist army breaching the dykes at Huayuankou in June 1938 to slow the Japanese advance, the government at first blaming Japanese bombing; the dead given in counts from several hundred thousand to about 900,000 (the postwar and the PRC figures and scholars' estimates differ — each whose) — PROVISIONAL | `cnh-642` | `cnh-631`, `cnh-638` | — |
+| The Henan famine of 1942 – 1943 | drought, locusts and the armies' grain levies; Theodore H. White's reporting for *Time* (1943), the *Ta Kung Pao* suspended for its own; the dead (estimates from one to three million, each whose) — PROVISIONAL | `cnh-651` | `cnh-652` | — |
+| The Great Chinese Famine's toll | the excess deaths of 1959 – 1961 as demographers and historians estimate them from census data (from about 15 to 45 million and more, each estimate whose — Ashton et al. 1984, Yang Jisheng, Dikötter among them), never a count; the 1981 resolution's "serious losses" — PROVISIONAL | `cnh-666` | `cnh-664`, `cnh-665`, `cnh-667` | — |
+| The Lushan Conference and Peng Dehuai's letter | Peng's private letter to Mao of July 1959 criticising the Great Leap's excesses, Mao's attack on it at the conference, Peng dismissed as defence minister (Lin Biao in his place) and the campaign against "right opportunism" that followed; the letter's text as the party later published it — PROVISIONAL | `cnh-667` | `cnh-664`, `cnh-674` | — |
+| The Little Red Book's print figures | the copies printed between 1964 and the late 1970s given as "over a billion" and more — the publishers' and the party's printing claims, never an audited count — PROVISIONAL | `cnh-672` | `cnh-670`, `cnh-674` | — |
+| Lin Biao's flight and death | the official account: Lin, his wife Ye Qun and his son Lin Liguo fled after a failed plot (the "Project 571" outline) and died when their aircraft crashed in Mongolia on 13 September 1971; the plot and the flight are known mainly from the party's own documents and are doubted in part by scholars — PROVISIONAL | — | `cnh-674`, `cnh-670`, `cnh-677` | — |
+| The Gang of Four's trial | Jiang Qing, Zhang Chunqiao, Yao Wenyuan and Wang Hongwen arrested in October 1976 and tried with Lin Biao's surviving associates by a special court in 1980 – 1981 (the two death sentences suspended); the 1981 resolution blaming the "counter-revolutionary cliques" for the Cultural Revolution's crimes and Mao for "mistakes" — the state's account, said whose — PROVISIONAL | `cnh-675` | `cnh-670`, `cnh-677`, `cnh-679` | — |
+| Deng's southern tour remarks | his talks at Wuchang, Shenzhen, Zhuhai and Shanghai in January – February 1992, as published in his *Selected Works* volume 3; "to get rich is glorious" attributed to him, never found in his texts — PROVISIONAL | `cnh-685` | `cnh-678`, `cnh-680` | `pea-` (read) |
+| The 1989 death toll | the government's figures (a few hundred, soldiers included, in its reports of June 1989); the figure attributed to the Chinese Red Cross and withdrawn; diplomats' cables' higher estimates; the Tiananmen Mothers' named list — each source's, never one as fact — PROVISIONAL | `cnh-684` | `cnh-678` | `pea-` (read) |
+| The February 28 incident's dead | the Executive Yuan's research report of 1992: 18,000 to 28,000 dead, an estimate; other counts lower and higher, each whose — PROVISIONAL | `cnh-693` | `cnh-692`, `cnh-694`, `cnh-695` | — |
 
 ## Working a card
 

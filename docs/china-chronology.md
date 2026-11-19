@@ -243,6 +243,15 @@ the form English-language scholarship and the reference works use; the decision 
 | Boxers, Yihetuan, Kang Youwei, Liang Qichao, Hundred Days' Reform | I-ho-ch'üan, I-ho-t'uan, K'ang Yu-wei, Kang Yu-wei, Liang Ch'i-ch'ao, Liang Chi-chao, Hundred Days Reform | Yihequan, Boxer Uprising, Righteous and Harmonious Fists, Wuxu Reform | |
 | Sun Yat-sen, Puyi, Yuan Shikai, Chiang Kai-shek, Kuomintang, Whampoa, Beiyang government | Sun Yatsen, Sun Yat Sen, P'u-i, Pu-yi, Yuan Shih-k'ai, Yuan Shih-kai, Chiang Kai-Shek, Kuo-min-tang, Pei-yang | Sun Zhongshan, Sun Wen, Sun Yixian, Pu Yi, Xuantong Emperor, Hongxian Emperor, Jiang Jieshi, Jiang Zhongzheng, Guomindang, KMT, Huangpu | the Republic: *Sun Yat-sen* and *Chiang Kai-shek* the English names (house forms, never reported); *Kuomintang* the slug's form, *Guomindang* the pinyin an alias; *Whampoa* the period name of the academy, *Huangpu* an alias |
 | Chen Duxiu, Hu Shi, Lu Xun, New Culture Movement, May Fourth Movement | Ch'en Tu-hsiu, Chen Tu-hsiu, Lu Hsün, Lu Hsun | Hu Shih, Zhou Shuren, New Youth, Xin Qingnian | *Hu Shi* in the card's voice; *Hu Shih*, his own English spelling and the slug, cited as printed (an author's name) and not reported |
+| Mao Zedong, Zhou Enlai, Zhu De, Lin Biao, Peng Dehuai, Liu Shaoqi, Deng Xiaoping, Hua Guofeng | Mao Tse-tung, Mao Tsetung, Mao Tse-Tung, Chou En-lai, Chou Enlai, Chu Teh, Lin Piao, P'eng Te-huai, Peng Teh-huai, Liu Shao-ch'i, Liu Shao-chi, Teng Hsiao-p'ing, Teng Hsiao-ping, Hua Kuo-feng | Chairman Mao, Mao Runzhi | the People's Republic's leaders (added for the seventh hundred, Nov 2026), surname and name split, by the common forms (毛泽东, 周恩来 — never a courtesy name); *Mao Tse-tung* stands in the title of the *Quotations from Chairman Mao Tse-tung* (`cnh-672`'s live answer, kept) and of the *Selected Works*, and a hit inside that title is the title, not a fault |
+| Jiang Qing, Kang Sheng, Chen Boda, Zhang Chunqiao, Wang Hongwen, Yao Wenyuan, Gang of Four | Chiang Ch'ing, K'ang Sheng, Ch'en Po-ta, Chen Po-ta, Chang Ch'un-ch'iao, Chang Chun-chiao, Wang Hung-wen, Yao Wen-yuan | Siren bang, Madame Mao | the Cultural Revolution's radicals; "Chiang Ching" is not listed because it would also hit Chiang Ching-kuo |
+| Zhang Xueliang, Yang Hucheng, Wang Jingwei, Joseph Stilwell | Chang Hsüeh-liang, Chang Hsueh-liang, Yang Hu-ch'eng, Yang Hu-cheng, Wang Ching-wei | the Young Marshal, Wang Zhaoming, Vinegar Joe | the Xi'an Incident's two generals and the head of the collaborationist regime; *Stilwell* by his English name |
+| Chiang Ching-kuo, Lee Teng-hui, Taipei, Kaohsiung, Kinmen, Matsu Islands | Jiang Jingguo, Li Denghui, Taibei, Gaoxiong | Quemoy, Jinmen, Mazu Islands | Taiwan's people and places in their own romanisation, as the ROC writes them (never converted to pinyin); *Quemoy* the older English name of Kinmen, an alias; "Matsu" for the islands is the ROC's own spelling and a hit on the goddess's row (*Mazu*) there is the islands, not a fault |
+| Yan'an, Jiangxi Soviet, Ruijin, Zunyi, Xi'an, Chongqing, Wuhan | Yenan, Yen-an, Yan An, Kiangsi, Juichin, Tsunyi, Tsun-i, Sian, Hsi-an, Chungking, Ch'ung-ch'ing | Chinese Soviet Republic, Hankou, Hankow | the wartime and Red Army places; *Chungking*, the period's spelling, only inside a cited title |
+| Beijing, Beiping | Peiping, Pei-p'ing, Pei-ching | Peking, Peking University, Convention of Peking | *Beijing* the city; *Beiping* its name from 1928 to 1949 where the sentence is about that time; *Peking*, the older English name, kept in proper names (Peking University, the Convention of Peking, Peking Man) and cited titles and never reported |
+| Chinese Communist Party (CCP), People's Liberation Army (PLA), Red Army, Eighth Route Army, New Fourth Army | Pa-lu chün, Hsin-ssu chün, New 4th Army | CPC, Communist Party of China, Balujun, Xinsijun | the party and its armies, the abbreviation after the full name once; *CPC*, the party's own English, an alias for cited titles; the glossary's `Red_Army` is the Soviet army, so a "Red Army" in a China card mislinks (for the owner) |
+| Manchukuo, Mukden, Shenyang, Kwantung Army, Hong Kong | Manchoukuo, Man-chou-kuo, Hongkong, Hong-Kong | Manzhouguo, Xinjing, Hsinking, Fengtian, Guandong Army | *Manchukuo* the English name (*Manzhouguo* the pinyin an alias); *Mukden* the period name of Shenyang in the incident's name and the period's sentences, *Shenyang* the city otherwise; the *Kwantung Army* the English name of the Japanese army in Manchuria |
+| Nanjing Massacre, Marco Polo Bridge, Taierzhuang | Nanking Massacre, Lukouchiao, Taierhchwang, T'ai-erh-chuang | Rape of Nanking, Lugou Bridge, Tai'erzhuang | the war's events by the slugs' forms; *Rape of Nanking* stands in cited titles (Iris Chang) and an "also known as" sentence |
 
 ## Mythology and legend
 
@@ -746,9 +755,22 @@ single whip 1581 (`cnh-381`), the examinations ended 1905 (`cnh-348`, `cnh-427`)
 | the treaty ports: the first treaty / the factory right / given up | 1842 / 1895 / 1943 | the Office of the Historian; Ma (`cnh-599`) |
 | the International Settlement formed / given up | 1863 / 11 January 1943 | Pott; Ma (`cnh-600`) |
 
+## The Republic at war to Taiwan (the seventh hundred)
+
+Filled batch by batch from `cnh-601` (B61 on). **The protected lines** of the seventh hundred's individuals
+(`cnh-605`, `608`, `615`, `616`, `648`, `674`, `677`, `678`) are pinned below to their lines as they stood on main on 2026-11-19
+(the years only; ages, days and months left out), and are not rows of this table; `cnh-675` (the Gang of Four) names a group
+and is audited as an ordinary card. Dates already set elsewhere that this hundred must agree with: the Republic's constitution
+1 January 1947 and the government moved December 1949 (`cnh-577`), extraterritoriality given up 11 January 1943 (`cnh-563`,
+`cnh-599`, `cnh-600`), the Nanjing decade 1927 – 1937 or 1928 – 1937 (`cnh-596`), the Northern Expedition ended 29 December 1928
+(`cnh-594`), the Nationalist government's tutelage ended 25 December 1947 (`cnh-597`).
+
+| event | the collection says | source |
+|---|---|---|
+
 ## Later periods
 
-To be filled from `cnh-601` on.
+To be filled from `cnh-701` on.
 
 ## Chronology pins
 
@@ -998,6 +1020,14 @@ cnh-587: 1879; 1915; 1921; 1927; 1942
 cnh-588: 1891; 1917; 1938; 1942; 1962
 cnh-589: 1881; 1904; 1906; 1918; 1936
 cnh-593: 1887; 1924; 1926; 1928; 1975
+cnh-605: 1868; 1912; 1917; 1923; 1940
+cnh-608: 1893; 1943; 1949; 1976
+cnh-615: 1898; 1946; 1949; 1976
+cnh-616: 1886; 1928; 1949; 1976
+cnh-648: 1883; 1942; 1944; 1946
+cnh-674: 1907; 1959; 1969; 1971
+cnh-677: 1921; 1976; 1981; 2008
+cnh-678: 1904; 1920; 1926; 1978; 1997
 cnh-101: 1250; 1046
 cnh-103: 1046; 1040; 1122
 cnh-104: 1046; 1044; 1122
