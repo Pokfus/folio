@@ -134,12 +134,17 @@ function describe(id, d) {
   const START = /The cards are dealt /, END = "The deck teaches the standard colloquial";
   if (id === "bengalia1") {
     const head = O.HEADS.bengalia1, sets = O.SETS.bengalia1, S = (i) => span(o, sets[i].words);
-    const day = (w) => dayOf(o.indexOf(w));
+    // "x and y on day 1, z on day 2": the words named, grouped by the day they are first dealt
+    const byDay = (words) => {
+      const g = new Map();
+      for (const w of words) { if (o.indexOf(w) < 0) bad(id + ": the description names " + w + ", which is not a card"); const d = dayOf(o.indexOf(w)); g.set(d, (g.get(d) || []).concat(w)); }
+      return [...g.entries()].sort((a, b) => a[0] - b[0]).map(([d, ws]) => (ws.length > 1 ? ws.slice(0, -1).join(", ") + " and " + ws[ws.length - 1] : ws[0]) + " on day " + d).join(", ");
+    };
     const [n0, n10] = span(o, ["শূন্য", "দশ"]);
     desc = between(desc, START, END,
       "The cards are dealt in a teaching order, not by frequency alone. The first " + head.length + " are chosen by hand: " +
-      "the courtesies of both communities (নমস্কার and আসসালামু আলাইকুম on day " + day("নমস্কার") + ", হ্যাঁ and না on day " + day("হ্যাঁ") +
-      ", ধন্যবাদ on day " + day("ধন্যবাদ") + "), a first exchange (আপনি কেমন আছেন, আপনার নাম কি), the pronouns with their three levels " +
+      "the courtesies of both communities (" + byDay(["নমস্কার", "আসসালামু আলাইকুম", "হ্যাঁ", "না", "ধন্যবাদ", "দয়া করে", "দুঃখিত"]) +
+      "), a first exchange (আপনি কেমন আছেন, আপনার নাম কি), the pronouns with their three levels " +
       "of address, the sixteen commonest verbs, the question words, zero to ten (notes " + n0 + " to " + n10 + ") and the small words " +
       "sentences are joined with. After them the words come by that frequency, the commonest first, with the closed sets kept " +
       "together: the days of the week (notes " + S(0).join(" to ") + "), the colours (" + S(1).join(" to ") +
