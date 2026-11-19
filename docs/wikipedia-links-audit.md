@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 8731 | the title is the article |
-| `redirect-variant` | 510 | spelling / plural / qualifier differed; same subject |
-| `disambig-resolved` | 112 | chosen from a disambiguation page by hint words — listed below |
+| `ok` | 8785 | the title is the article |
+| `redirect-variant` | 515 | spelling / plural / qualifier differed; same subject |
+| `disambig-resolved` | 114 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 10 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 832 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 838 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 195 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 160 | only a disambiguation page; no link could be chosen |
-| `none` | 1213 | nothing matched; no link |
+| `section-redirect` | 199 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 161 | only a disambiguation page; no link could be chosen |
+| `none` | 1251 | nothing matched; no link |
 
-**10202 of 11790 cards get a link.** The three "no link" rows are the honest state: a card whose
+**10269 of 11900 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (832)
+## Redirected to a differently named article — check each (838)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -231,6 +231,12 @@ The answer redirects to an article with another name. Most are the same subject 
 - `eg-651` **Apophthegmata Patrum** → [Sayings of the Desert Fathers](https://en.wikipedia.org/wiki/Sayings_of_the_Desert_Fathers) (from `Apophthegmata Patrum`)
 - `eg-659` **Muslim conquest of Egypt** → [Arab conquest of Egypt](https://en.wikipedia.org/wiki/Arab_conquest_of_Egypt) (from `Muslim conquest of Egypt`)
 - `eg-660` **Hieroglyphica** → [Horapollo](https://en.wikipedia.org/wiki/Horapollo) (from `Hieroglyphica`)
+- `eg-703` **personal piety** → [Popular piety](https://en.wikipedia.org/wiki/Popular_piety) (from `Personal piety`)
+- `eg-705` **hypostyle hall** → [Hypostyle](https://en.wikipedia.org/wiki/Hypostyle) (from `Hypostyle hall`)
+- `eg-709` **Reshep** → [Resheph](https://en.wikipedia.org/wiki/Resheph) (from `Reshep`)
+- `eg-716` **Memphite Theology** → [Shabaka Stone](https://en.wikipedia.org/wiki/Shabaka_Stone) (from `Memphite Theology`)
+- `eg-728` **Apep** → [Apophis](https://en.wikipedia.org/wiki/Apophis) (from `Apep`)
+- `eg-739` **On Isis and Osiris** → [Moralia](https://en.wikipedia.org/wiki/Moralia) (from `On Isis and Osiris`)
 - `fd-050` **Côte d'Ivoire** → [Ivory Coast](https://en.wikipedia.org/wiki/Ivory_Coast) (from `Côte d'Ivoire`)
 - `fd-088` **Czechia** → [Czech Republic](https://en.wikipedia.org/wiki/Czech_Republic) (from `Czechia`)
 - `fd-174` **Cabo Verde** → [Cape Verde](https://en.wikipedia.org/wiki/Cape_Verde) (from `Cabo Verde`)
@@ -877,7 +883,7 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ww2-980` **Luxembourg Agreement** → [Reparations Agreement between Israel and the Federal Republic of Germany](https://en.wikipedia.org/wiki/Reparations_Agreement_between_Israel_and_the_Federal_Republic_of_Germany) (from `Luxembourg Agreement`)
 - `ww2-994` **National World War II Memorial** → [World War II Memorial](https://en.wikipedia.org/wiki/World_War_II_Memorial) (from `National World War II Memorial`)
 
-## Settled from a disambiguation page (112)
+## Settled from a disambiguation page (114)
 
 The answer alone is a disambiguation page; the link below was chosen because its qualifier matched the card's own question or the collection's hints.
 
@@ -899,6 +905,8 @@ The answer alone is a disambiguation page; the link below was chosen because its
 - `eep-289` **Iron Triangle** → [Iron triangle (US politics)](https://en.wikipedia.org/wiki/Iron_triangle_(US_politics)) (via the disambiguation page `Iron Triangle`)
 - `eg-527` **Demotic** → [Demotic Egyptian language](https://en.wikipedia.org/wiki/Demotic_Egyptian_language) (via the disambiguation page `Demotic`)
 - `eg-565` **Alexander IV** → [Alexander IV of Macedon](https://en.wikipedia.org/wiki/Alexander_IV_of_Macedon) (via the disambiguation page `Alexander IV`)
+- `eg-743` **ka** → [Ka (pharaoh)](https://en.wikipedia.org/wiki/Ka_(pharaoh)) (via the disambiguation page `Ka`)
+- `eg-744` **ba** → [Ba (pharaoh)](https://en.wikipedia.org/wiki/Ba_(pharaoh)) (via the disambiguation page `BA`)
 - `gc-803` **Grand Canal** → [Grand Canal (China)](https://en.wikipedia.org/wiki/Grand_Canal_(China)) (via the disambiguation page `Grand Canal`)
 - `gga-002` **Polarity** → [Polarity (international relations)](https://en.wikipedia.org/wiki/Polarity_(international_relations)) (via the disambiguation page `Polarity`)
 - `gga-042` **Penholder** → [Penholder (United Nations)](https://en.wikipedia.org/wiki/Penholder_(United_Nations)) (via the disambiguation page `Penholder`)
@@ -1009,7 +1017,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (160)
+## Disambiguation pages that could not be settled (161)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -1033,6 +1041,7 @@ Pick the right article by hand, or leave the card without a link.
 - `eg-001` **Kemet** — `Kemet` is a disambiguation page; its links: `Sons of Kemet`, `Km and Km.t (Kemet) (hieroglyphs)`, `KEMET Corporation`
 - `eg-655` **Theophilus of Alexandria** — `Theophilus of Alexandria` is a disambiguation page; its links: `Theophilus III of Alexandria`, `Theophilus I of Alexandria`
 - `eg-685` **naos** — `Naos` is a disambiguation page; its links: `NAOS (satellite)`, `Naos (hieroglyph)`
+- `eg-742` **ib** — `IB` is a disambiguation page; its links: `IB affair`, `Ib (cuneiform)`, `Ib Larsen`, `Ib River`, `Ib Holm Sørensen`, `Ib and Little Christina`
 - `geo-502` **Austin** — `Austin` is a disambiguation page; its links: `Austin, Arkansas`, `Austin, Chicago`, `Austin, Colorado`, `Austin, Indiana`, `Austin, Kentucky`, `Austin, Manitoba`
 - `geo-504` **Providence** — `Providence` is a disambiguation page; its links: `Divine providence`, `Eye of Providence`, `Fort Providence`, `HMS Providence`, `Old Providence`, `Providence, Alabama`
 - `geo-509` **Augusta** — `Augusta` is a disambiguation page; its links: `The Augustas`, `254 Augusta`, `Augusta, Arkansas`, `Augusta, Georgia`, `Augusta, Illinois`, `Augusta, Indiana`
@@ -1185,7 +1194,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (195)
+## Section redirects — no dedicated page (199)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1231,6 +1240,10 @@ Wikipedia treats these as part of another article. No link.
 - `eg-100` **Meidum Pyramid** — `Meidum Pyramid` only redirects into `Meidum#Pyramid`
 - `eg-203` **Middle Egyptian** — `Middle Egyptian` only redirects into `Egyptian language#Middle Egyptian`
 - `eg-396` **Sacred lake** — `Sacred lake` only redirects into `Sacred waters#Lakes and underground water`
+- `eg-691` **barque shrine** — `Barque shrine` only redirects into `Barque#Barques and barque shrines in Ancient Egypt`
+- `eg-707` **Ra-Horakhty** — `Ra-Horakhty` only redirects into `Ra#Gods merged with Ra`
+- `eg-745` **akh** — `Akh` only redirects into `Ancient Egyptian conception of the soul#Akh (intellect)`
+- `eg-749` **weighing of the heart** — `Weighing of the heart` only redirects into `Ancient Egyptian afterlife beliefs#Judgment of the dead`
 - `gga-141` **Child mortality rate** — `Child mortality rate` only redirects into `Child mortality#Rate`
 - `gga-168` **Secondary sanctions** — `Secondary sanctions` only redirects into `United States government sanctions#Secondary sanctions`
 - `gga-232` **Premature deindustrialisation** — `Premature deindustrialization` only redirects into `Technological unemployment#Premature deindustrialization`
@@ -1385,7 +1398,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1213)
+## No article found (1251)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1801,6 +1814,44 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-687` **hem-netjer** — search suggests `Functions of the Pharaoh`, `Khufu`, `Akhty (deity)`, `Menkheperre`, `Netjeraperef`
 - `eg-689` **wab priest** — search suggests `Amenemhat (High Priest of Amun)`, `Imhotep`, `Bastet`, `Bakenkhonsu`, `Shery (Egypt)`
 - `eg-690` **Festival of Bubastis** — search suggests `Bubastis`, `Cats in ancient Egypt`, `Sed Festival`, `Bastet`, `List of Egyptian deities`
+- `eg-692` **Dakhla Stela**
+- `eg-693` **offering formula**
+- `eg-694` **ear stela**
+- `eg-701` **cippus of Horus** — search suggests `Horus on the Crocodiles`, `Osiris myth`, `Art of ancient Egypt`, `Ptolemaic Kingdom`, `Metternich Stela`
+- `eg-702` **Dream Book** — search suggests `Joseph: King of Dreams`, `The Prince of Egypt`, `The Prince of Egypt (musical)`, `Oneiromancy`, `Joseph (Genesis)`
+- `eg-708` **daily temple ritual** — search suggests `Temple of Edfu`, `Ancient Egyptian religion`, `Mortuary temple of Hatshepsut`, `Ancient Egyptian funerary practices`, `Abydos, Egypt`
+- `eg-710` **democratisation of the afterlife** — search suggests `Egypt`, `Khenti-Amentiu`, `Chinese sculpture`, `State (polity)`, `World government`
+- `eg-711` **Bremner-Rhind Papyrus** — search suggests `List of papyri from ancient Egypt`, `Autofellatio`, `Eye of Ra`, `Raymond O. Faulkner`, `Egyptien de tradition`
+- `eg-721` **Great Hymn to Osiris** — search suggests `Osiris`, `Horus`, `Osiris myth`, `Isis`, `Djed`
+- `eg-725` **Festival of Drunkenness** — search suggests `Sekhmet`, `Hathor`, `Karnak`, `Bastet`, `Beer in Egypt`
+- `eg-733` **divine birth** — search suggests `Ancient Egyptian deities`, `Depiction of Hatshepsut's birth and coronation`, `Miraculous birth`, `Mut`, `Gerald Massey`
+- `eg-734` **Son of Ra** — search suggests `Ra`, `Amun`, `Eye of Ra`, `Egyptian mythology`, `List of Egyptian deities`
+- `eg-735` **Isis and the Secret Name of Ra** — search suggests `Isis`, `Ra`, `Ancient Egyptian deities`, `Osiris`, `Mysteries of Isis`
+- `eg-736` **Distant Goddess** — search suggests `Ancient Egyptian deities`, `Hathor`, `Egypt`, `Mehit`, `Eye of Ra`
+- `eg-737` **Horus of Behdet** — search suggests `Horus`, `Nome (Egypt)`, `Winged sun`, `Ancient Egyptian religion`, `Stele of Ankh-ef-en-Khonsu`
+- `eg-747` **imperishable stars** — search suggests `Egyptian astronomy`, `Ikhemu-sek`, `The Indestructibles`, `Howard Carter`, `Pyramid Texts`
+- `eg-750` **Hall of the Two Truths** — search suggests `Maat`, `The Prince of Egypt`, `Ancient Egypt`, `Grand Egyptian Museum`, `Hall of Records`
+- `eg-753` **per-nefer** — search suggests `Memphis, Egypt`, `Egyptian hieroglyphs`, `Nome (Egypt)`, `Giza`, `List of Egyptian deities`
+- `eg-754` **Ritual of Embalming** — search suggests `The Ritual of Embalming Papyrus`, `Ancient Egyptian funerary practices`, `Apis Papyrus`, `Embalming`, `Anubis`
+- `eg-756` **paraschistes**
+- `eg-759` **tekenu** — search suggests `Leopard skin (clothing in Ancient Egypt)`
+- `eg-760` **mummy board** — search suggests `Unlucky Mummy`, `The Mummy Returns`, `The Mummy (2017 film)`, `The Mummy (1932 film)`, `Revenge of the Mummy`
+- `eg-761` **anthropoid coffin** — search suggests `Ancient Egyptian coffins`, `Anthropoid ceramic coffins`, `Coffin`, `Rishi coffin`, `Ancient Egypt`
+- `eg-763` **mummy mask** — search suggests `Mask of Tutankhamun`, `Tutankhamun's mummy`, `317a and 317b mummies`, `Fayum mummy portraits`, `List of Egyptian mummies (royalty)`
+- `eg-766` **Books of the Netherworld** — search suggests `Ancient Egyptian afterlife beliefs`, `Qed-her`, `Tomb of Tutankhamun`, `Ancient Egyptian funerary texts`, `Ancient Egyptian religion`
+- `eg-768` **pyramid complex** — search suggests `Giza pyramid complex`, `Egyptian pyramids`, `Pyramid of Djoser`, `List of Egyptian pyramids`, `Construction of the Egyptian pyramids`
+- `eg-773` **offering list** — search suggests `Ancient Egyptian offering formula`, `List of Egyptian hieroglyphs`, `List of Egyptian deities`, `List of portraiture offerings with Ancient Egyptian hieroglyphs`, `Egypt`
+- `eg-774` **Raemkai** — search suggests `Raemka`, `Djedkare Isesi`
+- `eg-776` **overseer shabti** — search suggests `Ushabti`, `Ancient Egypt`, `Art of ancient Egypt`, `Egyptian faience`, `Webensenu`
+- `eg-777` **servant statue** — search suggests `Colossal statue of Amenhotep III and Tiye`, `Abu Simbel`, `List of ancient Egyptian statuary with amulet necklaces`, `Cleopatra`, `Department of Egyptian Antiquities of the Louvre`
+- `eg-781` **Leopold-Amherst Papyrus** — search suggests `Papyrus Leopold II`, `Amherst papyri`, `List of papyri from ancient Egypt`, `Elephantine papyri and ostraca`, `William Tyssen-Amherst, 1st Baron Amherst of Hackney`
+- `eg-782` **coffin reuse** — search suggests `Ancient Egyptian coffins`, `Katebet`, `Ancient Egyptian funerary practices`, `Nehmes Bastet`, `TT1`
+- `eg-785` **djeret** — search suggests `Pabasa`, `Arqamani`
+- `eg-787` **akh iqer en Ra**
+- `eg-788` **ancestor bust** — search suggests `Veneration of the dead`, `Bust of Cleopatra`, `Cleopatra`, `Ancestor worship`, `Roman portraiture`
+- `eg-792` **Window of Appearance** — search suggests `Window`, `Egyptian hieroglyphs`, `Muhammad Ali of Egypt`, `Trézéguet (Egyptian footballer)`, `Cornice`
+- `eg-798` **presentation of Maat** — search suggests `Assessors of Maat`, `Ancient Egyptian deities`, `Papyrus of Ani`, `Cairo Contemporary Dance Center`, `Ammit`
+- `eg-799` **smiting scene** — search suggests `Second Dynasty of Egypt`, `Plagues of Egypt`, `Smite (video game)`, `Temple of Beit el-Wali`, `Nefertiti`
 - `gga-001` **Security, prosperity and values** — search suggests `Prosperity theology`, `Core Socialist Values`, `National interest`, `Personal life of Mahathir Mohamad`, `Greater East Asia Co-Prosperity Sphere`
 - `gga-003` **Structural power**
 - `gga-004` **Operational code**

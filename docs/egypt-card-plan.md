@@ -265,6 +265,39 @@ a spelling or Wikipedia's full head word), and the list below shows the term eac
 Two answer terms collided between batches before import and were moved: the Gnomon of the Idios Logos stays at
 `eg-613`, so `eg-625` took Soknopaiou Nesos; Isis stays at `eg-668`, so `eg-636` took the Navigium Isidis.
 
+**`eg-701`–`eg-800` (written together, in ten parallel batches) retitled 80 lines** (a few only an article, a
+spelling or a plural), and the list below shows the term each card answers. The same kinds:
+
+- **Already taken**: the Metternich Stela (`eg-556`) → the cippus of Horus; the Dream Stele (`eg-274`) → the Dream
+  Book; the Great Hypostyle Hall (`eg-394`) → the hypostyle hall; Ra (`eg-663`) → Khepri; Amun-Ra (an alias of
+  `Amun`) → Ra-Horakhty; Atenism (`eg-299`) → the democratisation of the afterlife; Seth (`eg-670`) → Byblos; Nut
+  (`eg-679`) → the Book of Nut; the royal titulary (`eg-072`) → Son of Ra; Herodotus (`wh-331`, `gr-440`) → Diodorus
+  Siculus; mummification (`wh-214`) → the per-nefer; the Book of the Dead (`wh-215`) → the Papyrus of Ani; the
+  Amduat and its companions (`eg-407`–`eg-409`) → the Books of the Netherworld; the false door and the mastaba
+  (`eg-137`, `eg-065`) → the Tomb of Perneb; the Tomb of Kha and Merit and Yuya (`eg-423`, `eg-286`) → Senebtisi;
+  the ushabti (`eg-206`) → the overseer shabti; Meketre (`eg-172`) → the servant statue; the South Tombs Cemetery
+  (`eg-316`) → the soul house; the Giza West Field (`eg-138`) and the Theban Necropolis → the Memphite Necropolis;
+  the Abbott and Mayer papyri (`eg-373`, `eg-374`) → the Leopold-Amherst Papyrus; the Royal Cache and Bab el-Gasus →
+  coffin reuse; the Fayum portraits (`eg-626`) → the Books of Breathing; pharaoh (`wh-209`) → the prenomen; the
+  pschent (`eg-075`) → the Deshret; Maat (`eg-681`) → the presentation of Maat; the God's Wife of Amun (`eg-291`) →
+  the Great Royal Wife.
+- **The line named an area**: most of the rest — `eg-702`–`eg-711`, `eg-713`, `eg-715`, `eg-721`, `eg-725`,
+  `eg-730`–`eg-740`, `eg-742`, `eg-747`, `eg-750`, `eg-754`, `eg-756`, `eg-759`, `eg-760`, `eg-765`, `eg-767`,
+  `eg-768`, `eg-771`–`eg-775`, `eg-778`, `eg-783`–`eg-785`, `eg-787`–`eg-789`, `eg-792`, `eg-793`, `eg-795`,
+  `eg-800`. The Destruction of Mankind is the first part of the Book of the Heavenly Cow (`eg-726`), so `eg-725`
+  took the Festival of Drunkenness that re-enacted its end; the democratisation of the afterlife is a modern model
+  and its card says that many now reject it.
+- **Two subjects on one line**: the name and the shadow → the ren; the king as Horus and son of Ra → Son of Ra.
+- **Wikipedia's head word differs**: Nun keys as `Nu_(mythology)`, the Ka and Ba as `Ka_(Egyptian_soul)` and
+  `Ba_(Egyptian_soul)`, the Leopold-Amherst Papyrus as `Papyrus_Leopold_II`, Pott's disease as `Pott_disease`, Reshep
+  as `Resheph`. The serpent is keyed `Apep`, not `Apophis`, because Apophis is already an alias of the king Apepi
+  (`eg-229`). Thirty-nine of the hundred have no article of their own and show no Learn-more tile.
+
+Two answer terms collided between batches before import and were moved: the Bremner-Rhind Papyrus stays at
+`eg-711`, so `eg-740` took the historiola; the Tomb of Perneb stays at `eg-770`, so `eg-773` took the offering list.
+`eg-705` took the hypostyle hall, which was also the unwritten line `eg-956`; that line now carries `eg-705`'s old
+subject, the temple as a model of the cosmos, to research when it is written.
+
 ## Making the collection
 
 Four things had to be decided because nothing existed to inherit them from.
@@ -1318,117 +1351,117 @@ safe.
     eg-698  Scarab
     eg-699  Apotropaic wand
     eg-700  Heka
-    eg-701  Egyptian magical spells and their uses
-    eg-702  Egyptian dream interpretation
-    eg-703  Egyptian personal piety
-    eg-704  Egyptian ethics and the ideal life
-    eg-705  The temple as a model of the cosmos
-    eg-706  Egyptian solar theology
-    eg-707  Egyptian syncretism
-    eg-708  Egyptian religion and the state
-    eg-709  Foreign gods in Egypt
-    eg-710  How Egyptian religion changed over three thousand years
+    eg-701  Cippus of Horus
+    eg-702  Dream Book
+    eg-703  Personal piety
+    eg-704  Instruction of Kagemni
+    eg-705  Hypostyle hall
+    eg-706  Khepri
+    eg-707  Ra-Horakhty
+    eg-708  Daily temple ritual
+    eg-709  Reshep
+    eg-710  Democratisation of the afterlife
 
 ### Myth and cosmology — `eg-myth`
 
-    eg-711  Ancient Egyptian creation myths
-    eg-712  Nu
-    eg-713  The primeval mound
+    eg-711  Bremner-Rhind Papyrus
+    eg-712  Nun
+    eg-713  Benben
     eg-714  Ennead
-    eg-715  The Heliopolitan cosmogony
+    eg-715  Shu
     eg-716  Memphite theology
     eg-717  Ogdoad
     eg-718  Atum
     eg-719  Osiris myth
-    eg-720  The murder of Osiris
-    eg-721  The conception of Horus
-    eg-722  The Contendings of Horus and Set
+    eg-720  Byblos
+    eg-721  Great Hymn to Osiris
+    eg-722  Contendings of Horus and Seth
     eg-723  Eye of Horus
     eg-724  Eye of Ra
-    eg-725  The Destruction of Mankind
+    eg-725  Festival of Drunkenness
     eg-726  Book of the Heavenly Cow
-    eg-727  The solar barque
+    eg-727  Solar barque
     eg-728  Apep
     eg-729  Duat
-    eg-730  Egyptian conceptions of the sky
-    eg-731  The Egyptian cosmos
-    eg-732  Egyptian sacred geography
-    eg-733  Egyptian myths of kingship
-    eg-734  The king as Horus and son of Ra
-    eg-735  Egyptian tales of the gods
-    eg-736  The myth of the Distant Goddess
-    eg-737  Myth and the temple wall
-    eg-738  Egyptian myth in Greek and Roman writers
-    eg-739  Plutarch on Isis and Osiris
-    eg-740  The problem of writing Egyptian mythology
+    eg-730  Book of Nut
+    eg-731  Akhet
+    eg-732  Bigeh
+    eg-733  Divine birth
+    eg-734  Son of Ra
+    eg-735  Isis and the Secret Name of Ra
+    eg-736  Distant Goddess
+    eg-737  Horus of Behdet
+    eg-738  Diodorus Siculus
+    eg-739  On Isis and Osiris
+    eg-740  Historiola
 
 ### Death, burial and the afterlife — `eg-death`
 
     eg-741  Ancient Egyptian funerary practices
-    eg-742  Egyptian conceptions of the person
+    eg-742  Ib
     eg-743  Ka
     eg-744  Ba
     eg-745  Akh
-    eg-746  The name and the shadow
-    eg-747  Egyptian ideas of the afterlife
-    eg-748  Field of Reeds
-    eg-749  The weighing of the heart
-    eg-750  The judgement of the dead
-    eg-751  The negative confession
+    eg-746  Ren
+    eg-747  Imperishable stars
+    eg-748  Aaru
+    eg-749  Weighing of the heart
+    eg-750  Hall of the Two Truths
+    eg-751  Negative Confession
     eg-752  Ammit
-    eg-753  Mummification
-    eg-754  The stages of embalming
+    eg-753  Per-nefer
+    eg-754  Ritual of Embalming
     eg-755  Natron
-    eg-756  The Egyptian embalmers
+    eg-756  Paraschistes
     eg-757  Canopic jar
-    eg-758  Opening of the Mouth ceremony
-    eg-759  The Egyptian funeral procession
-    eg-760  Egyptian coffins
-    eg-761  Anthropoid coffins
-    eg-762  Egyptian sarcophagi
-    eg-763  Egyptian funerary masks
-    eg-764  Book of the Dead
-    eg-765  The spells of the Book of the Dead
-    eg-766  The Egyptian netherworld books
-    eg-767  Egyptian tomb architecture
-    eg-768  The pyramid as a tomb form
-    eg-769  The Egyptian rock-cut tomb
-    eg-770  The tomb chapel and the false door
-    eg-771  Egyptian funerary stelae
-    eg-772  The funerary offering cult
-    eg-773  The purpose of Egyptian tomb decoration
-    eg-774  Scenes of daily life in Egyptian tombs
-    eg-775  Egyptian grave goods
-    eg-776  The duties of the shabti
-    eg-777  Egyptian tomb models
-    eg-778  Egyptian animal burials
-    eg-779  The burial of the Egyptian poor
-    eg-780  Egyptian cemeteries and their organisation
-    eg-781  Tomb robbery in ancient Egypt
-    eg-782  The reuse of tombs and coffins
-    eg-783  What mummies show about Egyptian health
-    eg-784  Disease and life expectancy in ancient Egypt
-    eg-785  Egyptian mourning
+    eg-758  Opening of the Mouth
+    eg-759  Tekenu
+    eg-760  Mummy board
+    eg-761  Anthropoid coffin
+    eg-762  Sarcophagus
+    eg-763  Mummy mask
+    eg-764  Papyrus of Ani
+    eg-765  Heart scarab
+    eg-766  Books of the Netherworld
+    eg-767  Funerary cone
+    eg-768  Pyramid complex
+    eg-769  Rock-cut tomb
+    eg-770  Tomb of Perneb
+    eg-771  Slab stela
+    eg-772  Djefaihapi
+    eg-773  Offering list
+    eg-774  Raemkai
+    eg-775  Senebtisi
+    eg-776  Overseer shabti
+    eg-777  Servant statue
+    eg-778  Abutiu
+    eg-779  Soul house
+    eg-780  Memphite Necropolis
+    eg-781  Leopold-Amherst Papyrus
+    eg-782  Coffin reuse
+    eg-783  Schistosomiasis
+    eg-784  Pott's disease
+    eg-785  Djeret
     eg-786  Letters to the dead
-    eg-787  Egyptian ancestor cults
-    eg-788  The dead in Egyptian daily life
-    eg-789  Why the Egyptian record is a record of the dead
-    eg-790  Egyptian funerary religion after the pharaohs
+    eg-787  Akh iqer en Ra
+    eg-788  Ancestor bust
+    eg-789  House of eternity
+    eg-790  Books of Breathing
 
 ## Kingship, State and Society
 
 ### Kingship and the state — `eg-kingship`
 
-    eg-791  Pharaoh
-    eg-792  Egyptian royal ideology
-    eg-793  The five names of the Egyptian king
+    eg-791  Prenomen
+    eg-792  Window of Appearance
+    eg-793  Nebty name
     eg-794  Cartouche
-    eg-795  Egyptian royal regalia
-    eg-796  Crowns of Egypt
+    eg-795  Crook and flail
+    eg-796  Deshret
     eg-797  Uraeus
-    eg-798  The king as guarantor of maat
-    eg-799  The smiting scene
-    eg-800  Egyptian royal women
+    eg-798  Presentation of Maat
+    eg-799  Smiting scene
+    eg-800  Great Royal Wife
     eg-801  Female pharaohs
     eg-802  Royal succession in ancient Egypt
     eg-803  Egyptian coregency
@@ -1598,7 +1631,7 @@ safe.
     eg-953  Egyptian stone architecture
     eg-954  The Egyptian column
     eg-955  Pylon
-    eg-956  Hypostyle hall
+    eg-956  The temple as a model of the cosmos
     eg-957  Egyptian obelisks
     eg-958  Egyptian temple plans and their meaning
     eg-959  Egyptian rock-cut architecture
