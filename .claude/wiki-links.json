@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-16T02:38Z",
+ "generated": "2026-11-19T04:47Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8386,
-  "redirect-broader": 802,
-  "redirect-variant": 492,
+  "ok": 8391,
+  "redirect-broader": 803,
+  "redirect-variant": 494,
   "section-redirect": 190,
-  "disambiguation": 154,
-  "none": 1187,
+  "disambiguation": 155,
+  "none": 1188,
   "disambig-resolved": 109,
   "list-page": 6,
   "search-match": 10,
@@ -90179,6 +90179,88 @@
    "url": "https://en.wikipedia.org/wiki/Esarhaddon",
    "via": "glossary",
    "status": "ok"
+  },
+  "jp-281": {
+   "answer": "gekokujo",
+   "title": "Gekokujō",
+   "url": "https://en.wikipedia.org/wiki/Gekokuj%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-282": {
+   "answer": "shugodai",
+   "title": "Shugodai",
+   "url": "https://en.wikipedia.org/wiki/Shugodai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-283": {
+   "answer": "ashigaru",
+   "title": "Ashigaru",
+   "url": "https://en.wikipedia.org/wiki/Ashigaru",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-284": {
+   "answer": "yamajiro",
+   "title": "Japanese castle",
+   "url": "https://en.wikipedia.org/wiki/Japanese_castle",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Yamajiro"
+  },
+  "jp-285": {
+   "answer": "Go-Kashiwabara",
+   "title": "Emperor Go-Kashiwabara",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Go-Kashiwabara",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Go-Kashiwabara"
+  },
+  "jp-286": {
+   "answer": "doboshu",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Taikomochi",
+    "Hon'ami Kōetsu",
+    "Nōami",
+    "Maeda Toshiie",
+    "Shingei"
+   ]
+  },
+  "jp-287": {
+   "answer": "Higashiyama culture",
+   "title": "Higashiyama culture",
+   "url": "https://en.wikipedia.org/wiki/Higashiyama_culture",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-288": {
+   "answer": "Gozan",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Gozan",
+   "suggestions": []
+  },
+  "jp-289": {
+   "answer": "Noh",
+   "title": "Noh",
+   "url": "https://en.wikipedia.org/wiki/Noh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-290": {
+   "answer": "Zeami",
+   "title": "Zeami Motokiyo",
+   "url": "https://en.wikipedia.org/wiki/Zeami_Motokiyo",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Zeami"
   }
  }
 }

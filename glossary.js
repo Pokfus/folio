@@ -11890,7 +11890,17 @@ window.GLOSSARY = {
 "Xunzi": "",
 "Ren_(philosophy)": "",
 "Li_(Confucianism)": "",
-"Yin_and_yang": ""
+"Yin_and_yang": "",
+"Gekokujō": "",
+"Shugodai": "",
+"Ashigaru": "",
+"Yamajiro": "",
+"Emperor_Go-Kashiwabara": "",
+"Dōbōshū": "",
+"Higashiyama_culture": "",
+"Five_Mountain_System": "",
+"Noh": "",
+"Zeami_Motokiyo": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17832,7 +17842,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Automatic_Computing_Engine": "1946",
 "National_Physical_Laboratory_(United_Kingdom)": "1900",
 "Mencius": "4th century BCE",
-"Xunzi": "c. 310 – after 238 BCE"
+"Xunzi": "c. 310 – after 238 BCE",
+"Emperor_Go-Kashiwabara": "1464–1526",
+"Zeami_Motokiyo": "c. 1363–c. 1443"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -25495,7 +25507,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "National_Physical_Laboratory_(United_Kingdom)": ["National Physical Laboratory"],
 "Mencius": ["Mengzi"],
 "Xunzi": ["Xun Kuang"],
-"Yin_and_yang": ["yin-yang","yinyang"]
+"Yin_and_yang": ["yin-yang","yinyang"],
+"Gekokujō": ["Gekokujo","gekokujō","gekokujo"],
+"Shugodai": ["shugodai"],
+"Ashigaru": ["ashigaru"],
+"Yamajiro": ["yamajiro","mountain castle"],
+"Emperor_Go-Kashiwabara": ["Go-Kashiwabara","Emperor Go-Kashiwabara"],
+"Dōbōshū": ["Doboshu","dōbōshū","doboshu"],
+"Higashiyama_culture": ["Higashiyama bunka"],
+"Five_Mountain_System": ["Gozan","Five Mountains","Five Mountains system"],
+"Noh": ["Nō","Nōgaku","Nohgaku","Noh theatre"],
+"Zeami_Motokiyo": ["Zeami","Kanze Motokiyo"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -37595,7 +37617,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Xunzi": ["person","philosopher","confucianism","philosophy","warring states"],
 "Ren_(philosophy)": ["concept","philosophy","confucianism","ethics"],
 "Li_(Confucianism)": ["concept","philosophy","confucianism","religion","ethics"],
-"Yin_and_yang": ["concept","philosophy","religion","daoism","confucianism"]
+"Yin_and_yang": ["concept","philosophy","religion","daoism","confucianism"],
+"Gekokujō": ["concept","history","japan","politics"],
+"Shugodai": ["title","history","japan","politics","samurai"],
+"Ashigaru": ["people","history","japan","warfare","samurai"],
+"Yamajiro": ["building","history","japan","warfare","architecture"],
+"Emperor_Go-Kashiwabara": ["ruler","history","japan","politics"],
+"Dōbōshū": ["institution","history","japan","art"],
+"Higashiyama_culture": ["culture","history","japan","art","buddhism"],
+"Five_Mountain_System": ["institution","history","japan","buddhism","literature"],
+"Noh": ["practice","history","japan","art","literature"],
+"Zeami_Motokiyo": ["person","history","japan","art","literature"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
