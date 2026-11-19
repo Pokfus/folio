@@ -198,6 +198,40 @@ beginner pass"): `arabic-fix.js` (`arabic-fixes.json`, `arabic-ids.json`), `arab
 (`arabic-order.json`) and `build-arabic-alphabet.js` (`arabic-alphabet.json`). They find their decks by
 card type (`arabic`, `ar-abc`), and unlike the German decks every Arabic level CAN be rebuilt byte for byte.
 
+## The Bengali decks: the pinned ids, the order and the sourced alphabet deck (Nov 2026)
+
+Seven decks: six of card type `bengali` (A1 to C1 and the phrases) and the alphabet (`bn-abc`, with its
+rule cards `bn-rule`). Unlike the German or Portuguese decks they CAN be rebuilt byte for byte
+(`.claude/bengali/run.py`, Python, 156 MB of cached sources), so the beginner pass (`docs/lang-decks.md`,
+"The Bengali beginner pass") put every change to a card's CONTENT in the generator and left the record
+three things: **a word is ONE NOTE with two card templates**, so the pin is of note ids (a card id is the
+note id, plus `~2` for English → Bengali); the order; and the sentences of a description that state an
+order or a pace. There is no `bengali-fixes.json`: nothing is edited by hand.
+
+    node bengali-fix.js --check              # the pinned ids, the order, the computed sentences
+    node build-bengali-alphabet.js --check   # the alphabet deck is what its table and the level decks give
+    node ../bengali/check-bengali.js         # no word twice, no pointer gloss, every id the pinned one
+    node ../bengali/check-update.js          # a browser: an old reader keeps ids and progress (not in CI)
+
+| file | what it is |
+|---|---|
+| `bengali-common.js` | what the scripts share: finding the decks by CARD TYPE, a note's key (`Word`; an alphabet note's `Key`), the forms a card shows. |
+| `bengali-ids.json` | deck id → key → the number in the note's id. **Never delete or renumber a row.** A removed note's row moves to `_retired` (10 of them); a note that returns takes its number back. APPLIED, so a deck the generator numbered by position is numbered back. Seeded from the decks at commit `2b3cf5c`. |
+| `bengali-fix.js` | applies the pin and the order to the `bengali` decks and writes the computed sentences; `--pin` only numbers new notes; `--check` writes nothing. The alphabet deck is only checked here. |
+| `bengali-order.json` | deck id → the full list of headwords in the order the deck is dealt (A1, A2, the phrases). May be edited by hand; a list that is not exactly the deck's headwords is refused. A deck with no entry is dealt in the order of its pinned numbers. |
+| `bengali-order.js` | how that file is computed, from the PINNED NUMBER: A1's hand-written head and its closed sets (a set stands where its commonest member would, or begins at a note number; no set is split), A2's numbers, months and seasons, the phrases by reading level inside each subdeck. `--report` prints the measurements. |
+| `bengali-alphabet.json` | the alphabet's table: cells and sentences of Wikipedia's Help:IPA/Bengali and "Bengali alphabet" at the revisions it names. **Written by `bengali-alphabet-quote.js`, never by hand.** A row's `key` is what its id is pinned to. |
+| `bengali-alphabet-quote.js` | cuts that table out of the two pages' wikitext (its header has the two `curl` lines). Which letters, signs and rules get a card, and which passages stand on each, is chosen here: `ROWS`, `RULES`, `PASSAGES`. A template it does not know stops it. |
+| `build-bengali-alphabet.js` | writes `Bengali-Alphabet`. **Reads no live source**: the table and the shipped level decks, whose cards are its example words. Applies the pin. |
+
+**After any `run.py`** (each level reads the WORDS of the ones below it, so a1, a2, b1, b2, c1, phr in
+that order): `bengali-fix.js --pin`, `bengali-order.js`, `bengali-fix.js`, `build-bengali-alphabet.js`,
+`node .claude/build-lang-decks.js`. To add a word to A1: name it in `.claude/bengali/inventory.py` and
+raise `TARGET['a1']` in `bengali_level.py` by one (a target left alone pushes the last fill word down the
+shelf), run the levels, then the steps above; name it in the head or a set in `bengali-order.js` or it
+falls after the frequency order by its new number. To change what a card says, change the generator; to
+change what an alphabet card says, change `bengali-alphabet-quote.js` and re-cut the table.
+
 ## Changing the card type's CSS
 
 `deckcore.js` holds it, and every built deck file carries a **copy** — so an edit there does not reach a

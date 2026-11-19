@@ -365,6 +365,19 @@ jobs:
       - name: build-arabic-alphabet --check (the Arabic Alphabet deck is what its table and Arabic A1 give)
         if: ${{ !cancelled() }}
         run: node .claude/arabic/build-arabic-alphabet.js --check
+      # The Bengali decks (2026-11-19, the Bengali beginner pass): bengali-ids.json (every note id pinned, the
+      # alphabet's included), bengali-order.json (A1, A2 and the phrases) and the sentences of a description
+      # that state an order or a pace, over the decks of card type `bengali` and `bn-abc`; the alphabet deck
+      # from its table of quoted cells. All three read only the repository.
+      - name: bengali-fix --check (the Bengali decks carry their pinned ids, their order and their computed sentences)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/bengali-fix.js --check
+      - name: build-bengali-alphabet --check (the Bengali alphabet deck is what its table and the level decks give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/build-bengali-alphabet.js --check
+      - name: check-bengali (no word twice, no pointer gloss, every id the pinned one)
+        if: ${{ !cancelled() }}
+        run: node .claude/bengali/check-bengali.js
       - name: jlpt check-ids (every Japanese card id is the one ids.json pins)
         if: ${{ !cancelled() }}
         run: node .claude/jlpt/check-ids.js
