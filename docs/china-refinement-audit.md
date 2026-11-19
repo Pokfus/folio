@@ -586,7 +586,7 @@ otherwise.
 | B72 | The imperial state (`cn-government`) | `cnh-711`–`cnh-720` | 10 | 111 | **done 2026-11-19** |
 | B73 | The imperial state (`cn-government`) | `cnh-721`–`cnh-730` | 10 | 105 | **done 2026-11-19** |
 | B74 | The imperial state (`cn-government`) | `cnh-731`–`cnh-740` | 10 | 104 | **done 2026-11-19** |
-| B75 | Society and everyday life (`cn-society`) | `cnh-741`–`cnh-750` | 10 | 101 | to do |
+| B75 | Society and everyday life (`cn-society`) | `cnh-741`–`cnh-750` | 10 | 101 | **done 2026-11-19** |
 | B76 | Society and everyday life (`cn-society`) | `cnh-751`–`cnh-760` | 10 | 105 | to do |
 | B77 | Society and everyday life (`cn-society`) | `cnh-761`–`cnh-770` | 10 | 100 | to do |
 | B78 | Society and everyday life (`cn-society`) / The peoples and frontiers of China (`cn-peoples`) | `cnh-771`–`cnh-780` | 10 | 99 | to do |
@@ -4601,3 +4601,29 @@ with the exhibition and Wenley's arithmetic, though the scan's subject heading g
 sources — Pinto's article is Portuguese, its journal *História da Historiografia* trips the Spanish signal; both added to `SAME_LANGUAGE_OK` with the reason. **Spellings**: no hit.
 **check-citations**: no mismatch. **Glossary**: all rewritten (`Tiandihui` dated "founded 1761 or 1762" in its own words). Overlap for the owner: `cnh-731` gives 1661 for the
 restaffing, `cnh-749`'s old text 1662.
+
+### B75 — `cnh-741`–`cnh-750`, society and everyday life: the four occupations to widow chastity (2026-11-19)
+
+Run as B71. Every cited URL answered except two that the urlcheck reads as 404: the Taiwan Ministry of Education's *Revised Mandarin Chinese Dictionary* serves its
+real entries (四民, 分家) with a 404 status, a quirk of the site, and both pages were read and saved. **Pictures were not touched.** **The old cards cited Chinese Wikisource
+about eighteen times, Digital Library of India uploads (Twitchett, Burgess), a private upload of a Met book, an SSRN copy and Dissertation Reviews (now walled), and carried
+a decade in two glossary entries and a count in a label ("Peking count 413 halls").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-741` four occupations | 7 | 8 → 7 | line empty, `undatable` kept; six Wikisource texts replaced (Mann 2000, Legge's *Mencius*, Pines in the SEP, Esherick and Rankin, the Ministry dictionary [in Chinese]); the *Guanzi* dated to the 3rd century BCE; "pillar people", Gaozu's measures against merchants and Sima Qian's saying (no page) dropped. |
+| `cnh-742` household division | 6 | 7 → 6 | line empty; the Qing code through Staunton 1810 (section 87); Shang Yang's doubled tax, Jia Yi's complaint and the Tang code's penalty (no open page) dropped; "1970s – 80s" → 1973 – 1987 in prose (the studies' years). |
+| `cnh-743` filial piety | 8 | 8 → 8 | line empty; the Han emperors' posthumous "xiao" begins with Emperor Hui, not every emperor; "memorised from the Han" → "probably taught from childhood"; the *Xiaojing*'s disputed date added; seven Wikisource and upload sources replaced. |
+| `cnh-744` charitable estate | 6 | 6 → 6 | **"Backed by edict 1064" and Fan Chunren (no open page) off: `Dated 1049` / `Also dated 1050`** (two studies differ: FoAR, McDermott); Walton and Rowe kept. **Name: 義莊 in the simplified field → 义庄.** |
+| `cnh-745` gentry | 7 | 7 → 7 | line kept (`Flourished 1368 – 1911`); Gu Yanwu's figure through Chang's quotation, now early Qing not late Ming; **"status could not be inherited" corrected** (Chang on the inheritance privilege); the "1.3 per cent" share dropped; the bad-gentry study through its JEH version. **Name: 紳士 in both fields → 绅士 / 紳士** (Chang's Chinese text). The glossary's `Landed_gentry_in_China` gains the alias "gentry" (clears `G.none`). |
+| `cnh-746` one field, two masters | 5 | 5 → 5 | **"Court ruling 1937" (Wikisource only) off: `In use c. 1500 – 1949`**; both Judicial Yuan texts dropped with Qidong's 80 per cent and the price ratio; Palmer 1987, Xu's LSE thesis, Pomeranz on the Cambridge page. **Name 一田兩主 (traditional in the simplified field) → 一田二主 yītián èrzhǔ** (Qian; 一田两主 an alias). |
+| `cnh-747` Shanxi merchants | 6 | 6 → 6 | **"Remittance banks c. 1820 – 1930" (the end only in a dissertation title) → `Grain for salt 1370` / `Banks begin c. 1820` / `Heavy losses 1911`**; An Jiesheng [in Chinese], Morck and Yang (NBER), Wagel 1915; the kaizhong lead phrasing left to `cnh-718`; the glossary's decade and Wikisource cleared. |
+| `cnh-748` huiguan | 6 | 6 → 6 | **"Peking count 413 halls in 1921" (a count) → `Firm evidence 1573 – 1619` / `Survey published 1921`**, the 413 told in prose as Gamble's; 413, 1874 and 1898 out of the phrasings; Burgess (a DLI upload) replaced by An. Glossary kept. |
+| `cnh-749` booi | 5 | 5 → 5 | **"Qing rule 1644 – 1912" (the dynasty's span) and "Booi household 1662" (the *Qingshi gao* only) off: line empty** (no page dates the booi's start); Brunnert's banner colours, Porter's "slave to master", Choi on Mu Qixian [in Korean]; Kutcher (no saved page) dropped; Jia's year corrected to 2025. |
+| `cnh-750` widow chastity | 6 | 6 → 6 | **"State honours 1368 – 1912" and "Qian shrine 1498" (a name) → `Widow's suicide 1435` / `Shrine built 1498`** (Carlitz); the "ten thousand women" and the Board of Rites figures (Wikisource) dropped; Elliott, Mann, Doolittle. Two of six sources open (no open scholarship answered; advisory). Name 守节 kept, unconfirmed. |
+
+Read by eye. **Confusability**: the *Guanzi*'s four `cnh-741`'s, the proverb from the *Rulin waishi* `cnh-742`'s, the emperors' names `cnh-743`'s, the Fan estate `cnh-744`'s, Gu
+Yanwu's privileges and the Henan dike boycott `cnh-745`'s, the white deeds `cnh-746`'s, the salt-for-grain origin `cnh-747`'s (the system itself `cnh-718`'s), the survey `cnh-748`'s,
+the diarist `cnh-749`'s (the Household Department `cnh-731`'s), the shrine `cnh-750`'s. **Legend**: none told as fact. **Chinese names corrected**: `cnh-744` 义庄, `cnh-745` 绅士,
+`cnh-746` 一田二主. Kept unconfirmed: 守节. **Spellings**: no hit ("Shaanxi" on `cnh-747` the neighbouring province, intended). **check-citations**: no mismatch. **Glossary**: nine
+rewritten, `cnh-748` kept.

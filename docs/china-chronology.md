@@ -912,6 +912,11 @@ BCE and the empire's end, the abdication of 12 February 1912 (`cnh-191`, `cnh-57
 | "standard histories" first used / the last presented | 552 – 555 CE / 1739 | Ng and Wang (`cnh-737`) |
 | the archive sacks sold / bought back / resold | c. 1921 / 1922 / 1929 | Ma; Ye and Esherick (`cnh-739`) |
 | the Qing History Project launched / the draft submitted / reported shelved | August 2002 / 2018 / 2023 | Guangming ribao; the CMP (`cnh-740`) |
+| the first charitable estate | 1049, or 1050 | FoAR; McDermott (`cnh-744`) |
+| one field, two masters in use | c. 1500 – 1949 | Palmer; Xu (`cnh-746`) |
+| the Shanxi merchants: grain for salt / the banks begin / heavy losses | 1370 / c. 1820 / 1911 | An; Morck and Yang (`cnh-747`; 1370 with `cnh-718`) |
+| the huiguan: firm evidence / the Beijing survey published | 1573 – 1619 / 1921 | Ho; Gamble (`cnh-748`) |
+| widow chastity: the honoured suicide / the shrine | 1435 / 1498 | Carlitz (`cnh-750`) |
 
 ## Later periods
 
@@ -1649,4 +1654,10 @@ cnh-736: 710; 661; 721
 cnh-737: 552; 555; 1739
 cnh-739: 1921; 1922; 1929
 cnh-740: 2002; 2018; 2023
+cnh-744: 1049; 1050
+cnh-745: 1368; 1911
+cnh-746: 1500; 1949
+cnh-747: 1370; 1820; 1911
+cnh-748: 1573; 1619; 1921
+cnh-750: 1435; 1498
 ```
