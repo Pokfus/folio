@@ -233,6 +233,38 @@ so `eg-557` took Khabash; Rhakotis stays at `eg-564`, so `eg-574` took Agathocle
 `eg-597` took the House of Life, which was also the unwritten line `eg-924`; that line now reads the House of
 Books at Edfu, the temple library room whose wall lists its books, a subject to research when it is written.
 
+**`eg-601`–`eg-700` (written together, in ten parallel batches) retitled 68 lines** (a few only an article,
+a spelling or Wikipedia's full head word), and the list below shows the term each card answers. The same kinds:
+
+- **Already taken**: Cleopatra VII (`gr-876`, `rm-384`) → Ptolemy XIII Theos Philopator and Papyrus Bingen 45, her
+  ordinance for a Roman; Actium and Caesarion (`rm-387`, `gr-874`, `gr-875`) → the death of Cleopatra; Roman Egypt
+  (`rm-765`) → the epistrategos; the annexation (`rm-388`) → the Battle of Alexandria of 30 BCE; the prefect (`rm-811`) →
+  Aelius Gallus; the grain supply (`rm-767`) → the embole; the Roman census (`rm-073`) → the house-by-house census;
+  Alexandria (`gr-801`, `rm-766`) → the Letter of Claudius to the Alexandrians; Zenobia (`rm-562`) → the Palmyrene
+  invasion of Egypt; Diocletian (`rm-566`) → Pompey's Pillar; the Antonine Plague (`rm-518`) → the Plague of Cyprian;
+  the Diocletianic persecution (`rm-573`) → the Era of the Martyrs; Christian monasticism and the Desert Fathers
+  (`wh-492`, `rm-613`) → Kellia and the Apophthegmata Patrum; Philae (`eg-595`) → the Blemmyes; Roman Egypt again →
+  the Apion family for Byzantine Egypt; Ancient Egyptian religion (`wh-216`) → interpretatio graeca; Amun-Ra (an alias
+  of `Amun`) → the Theban Triad; the cult image (`gr-969`) → the naos; the Opet, Valley and Sed festivals (`eg-399`,
+  `eg-434`, `eg-076`) → the Festival of Bubastis; the Chapelle Rouge and White Chapel → the barque shrine; the oracle
+  (`gr-977`) and the Banishment and Bentresh stelae → the Dakhla Stela; the votive offering (`gr-976`) → the ear stela;
+  the animal mummy, Apis, Mnevis, Buchis and the Serapeum → the sacred ibis and the sacred bull.
+- **The line named an area**: `eg-601`, `eg-608`, `eg-611`, `eg-613`–`eg-615`, `eg-618`, `eg-620`, `eg-622`–`eg-625`,
+  `eg-627`, `eg-630`, `eg-631`, `eg-634`–`eg-636`, `eg-638`, `eg-641`, `eg-642`, `eg-645`, `eg-647`, `eg-655`,
+  `eg-656`, `eg-660`, `eg-683`, `eg-686`, `eg-687`, `eg-689`, `eg-697`, `eg-699`. Two are loose fits and say so in
+  their notes: interpretatio graeca for Egyptian religion, and the Theban Triad for Amun-Ra.
+- **Two subjects on one line**: Nut and Geb → Nut; Shu and Tefnut → Tefnut (a bare `Shu` surface would link Shu Han and
+  Shu brocade); Bes and Taweret → Taweret, with Bes carrying household religion at `eg-683`.
+- **Wikipedia's head word differs**: Set keys as `Set_(deity)`, case-sensitive, answered as Seth; Nut as
+  `Nut_(goddess)`; Heka as `Heka_(god)`; Pachomius as `Pachomius_the_Great`; Theophilus as `Theophilus_I_of_Alexandria`;
+  the apotropaic wand as `Birth_tusk`; Kom el-Shoqafa as `Catacombs_of_Kom_El_Shoqafa`. The laographia, the
+  house-by-house census, the Gnomon of the Idios Logos, the Letter of Claudius, the embole, the hem-netjer, the wab priest,
+  the Festival of Bubastis, the Dakhla Stela, the offering formula and the ear stela have no article of their own and show
+  no Learn-more tile.
+
+Two answer terms collided between batches before import and were moved: the Gnomon of the Idios Logos stays at
+`eg-613`, so `eg-625` took Soknopaiou Nesos; Isis stays at `eg-668`, so `eg-636` took the Navigium Isidis.
+
 ## Making the collection
 
 Four things had to be decided because nothing existed to inherit them from.
@@ -1175,87 +1207,87 @@ safe.
     eg-598  Manetho
     eg-599  Temple of Onias
     eg-600  Ptolemy VIII Physcon
-    eg-601  Rome and the Ptolemies
-    eg-602  Ptolemy XII
-    eg-603  Cleopatra
-    eg-604  Cleopatra and Rome
-    eg-605  The end of the Ptolemaic Kingdom
+    eg-601  Ptolemy XI Alexander II
+    eg-602  Ptolemy XII Auletes
+    eg-603  Ptolemy XIII Theos Philopator
+    eg-604  Papyrus Bingen 45
+    eg-605  Death of Cleopatra
 
 ### Roman Egypt — `eg-roman`
 
-    eg-606  Egypt (Roman province)
-    eg-607  The Roman annexation of Egypt
-    eg-608  Egypt as the emperor's private province
-    eg-609  Prefect of Egypt
-    eg-610  The Egyptian grain supply of Rome
-    eg-611  Roman taxation in Egypt
-    eg-612  The Roman census in Egypt
-    eg-613  Status and privilege in Roman Egypt
-    eg-614  The Greek cities of Roman Egypt
-    eg-615  Alexandria under Rome
-    eg-616  The Jews of Roman Alexandria
-    eg-617  The Jewish revolt of 115–117 in Egypt
-    eg-618  Roman Egypt and the Red Sea trade
+    eg-606  Epistrategos
+    eg-607  Battle of Alexandria
+    eg-608  Tiberius Julius Alexander
+    eg-609  Aelius Gallus
+    eg-610  Embole
+    eg-611  Laographia
+    eg-612  House-by-house census
+    eg-613  Gnomon of the Idios Logos
+    eg-614  Antinoopolis
+    eg-615  Letter of Claudius to the Alexandrians
+    eg-616  Alexandrian riots of 38 CE
+    eg-617  Kitos War
+    eg-618  Periplus of the Erythraean Sea
     eg-619  Berenice Troglodytica
-    eg-620  The Eastern Desert quarries
+    eg-620  Mons Porphyrites
     eg-621  Mons Claudianus
-    eg-622  The Roman army in Egypt
-    eg-623  Egyptian temples under Roman rule
-    eg-624  Roman emperors as pharaohs
-    eg-625  The decline of the Egyptian priesthood
+    eg-622  Legio XXII Deiotariana
+    eg-623  Temple of Esna
+    eg-624  Temple of Dendur
+    eg-625  Soknopaiou Nesos
     eg-626  Fayum mummy portraits
-    eg-627  Roman-period burial in Egypt
+    eg-627  Kom el-Shoqafa
     eg-628  Oxyrhynchus
     eg-629  Oxyrhynchus Papyri
-    eg-630  Everyday life in the papyri
-    eg-631  Egyptian magic in the Roman period
+    eg-630  Papyrus Oxyrhynchus 119
+    eg-631  Arnouphis
     eg-632  Greek Magical Papyri
     eg-633  Hermeticism
-    eg-634  Greco-Egyptian alchemy
-    eg-635  Egyptian cults in the Roman Empire
-    eg-636  Isis outside Egypt
-    eg-637  The Antonine Plague in Egypt
-    eg-638  The third-century crisis in Egypt
-    eg-639  Zenobia and Egypt
-    eg-640  Diocletian in Egypt
+    eg-634  Zosimos of Panopolis
+    eg-635  Temple of Isis at Pompeii
+    eg-636  Navigium Isidis
+    eg-637  Plague of Cyprian
+    eg-638  Mussius Aemilianus
+    eg-639  Palmyrene invasion of Egypt
+    eg-640  Pompey's Pillar
 
 ### Christian Egypt and the end — `eg-late-antique`
 
-    eg-641  Christianity in Roman Egypt
-    eg-642  Church of Alexandria
-    eg-643  The Diocletianic persecution in Egypt
+    eg-641  Rylands Library Papyrus P52
+    eg-642  Patriarch of Alexandria
+    eg-643  Era of the Martyrs
     eg-644  Coptic language
-    eg-645  Coptic literature
+    eg-645  Shenoute
     eg-646  Nag Hammadi library
-    eg-647  Gnosticism in Egypt
-    eg-648  Egyptian monasticism
+    eg-647  Basilides
+    eg-648  Kellia
     eg-649  Anthony the Great
     eg-650  Pachomius
-    eg-651  Desert Fathers
+    eg-651  Apophthegmata Patrum
     eg-652  Athanasius of Alexandria
     eg-653  Cyril of Alexandria
     eg-654  Coptic Orthodox Church
-    eg-655  The end of the Egyptian temples
-    eg-656  The last hieroglyphic inscription
-    eg-657  The closing of Philae
-    eg-658  Byzantine Egypt
-    eg-659  The Muslim conquest of Egypt
-    eg-660  What survived of ancient Egypt
+    eg-655  Theophilus of Alexandria
+    eg-656  Graffito of Esmet-Akhom
+    eg-657  Blemmyes
+    eg-658  Apion family
+    eg-659  Muslim conquest of Egypt
+    eg-660  Hieroglyphica
 
 ## Gods and the Dead
 
 ### Gods and religion — `eg-religion`
 
-    eg-661  Ancient Egyptian religion
-    eg-662  The Egyptian pantheon
+    eg-661  Interpretatio graeca
+    eg-662  Ancient Egyptian deities
     eg-663  Ra
     eg-664  Amun
-    eg-665  Amun-Ra
+    eg-665  Theban Triad
     eg-666  Ptah
     eg-667  Osiris
     eg-668  Isis
     eg-669  Horus
-    eg-670  Set (deity)
+    eg-670  Seth
     eg-671  Nephthys
     eg-672  Anubis
     eg-673  Thoth
@@ -1264,27 +1296,27 @@ safe.
     eg-676  Bastet
     eg-677  Sobek
     eg-678  Khnum
-    eg-679  Nut and Geb
-    eg-680  Shu and Tefnut
+    eg-679  Nut
+    eg-680  Tefnut
     eg-681  Maat
-    eg-682  Bes and Taweret
-    eg-683  Egyptian household religion
+    eg-682  Taweret
+    eg-683  Bes
     eg-684  Egyptian temple
-    eg-685  The sanctuary and the cult image
-    eg-686  The daily temple ritual
-    eg-687  Ancient Egyptian priesthood
-    eg-688  The lector priest
-    eg-689  Purity and the priestly life
-    eg-690  Ancient Egyptian festivals
-    eg-691  The portable barque and the divine procession
-    eg-692  Egyptian oracles
-    eg-693  The Egyptian offering formula
-    eg-694  Votive offerings in Egypt
-    eg-695  Sacred animals of ancient Egypt
-    eg-696  The sacred bulls of Egypt
-    eg-697  Egyptian amulets
+    eg-685  Naos
+    eg-686  Kyphi
+    eg-687  Hem-netjer
+    eg-688  Lector priest
+    eg-689  Wab priest
+    eg-690  Festival of Bubastis
+    eg-691  Barque shrine
+    eg-692  Dakhla Stela
+    eg-693  Offering formula
+    eg-694  Ear stela
+    eg-695  Sacred ibis
+    eg-696  Sacred bull
+    eg-697  Djed
     eg-698  Scarab
-    eg-699  Ancient Egyptian magic
+    eg-699  Apotropaic wand
     eg-700  Heka
     eg-701  Egyptian magical spells and their uses
     eg-702  Egyptian dream interpretation

@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-19T05:42Z",
+ "generated": "2026-11-19T21:25Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8659,
-  "redirect-broader": 827,
-  "redirect-variant": 509,
-  "section-redirect": 195,
-  "disambiguation": 158,
-  "none": 1203,
+  "ok": 8735,
+  "redirect-broader": 832,
+  "redirect-variant": 512,
+  "section-redirect": 196,
+  "disambiguation": 160,
+  "none": 1216,
   "disambig-resolved": 112,
   "list-page": 6,
   "search-match": 10,
@@ -92755,6 +92755,792 @@
    "answer": "Severny Island",
    "title": "Severny Island",
    "url": "https://en.wikipedia.org/wiki/Severny_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-601": {
+   "answer": "Ptolemy XI Alexander II",
+   "title": "Ptolemy XI Alexander II",
+   "url": "https://en.wikipedia.org/wiki/Ptolemy_XI_Alexander_II",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-602": {
+   "answer": "Ptolemy XII Auletes",
+   "title": "Ptolemy XII Auletes",
+   "url": "https://en.wikipedia.org/wiki/Ptolemy_XII_Auletes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-603": {
+   "answer": "Ptolemy XIII Theos Philopator",
+   "title": "Ptolemy XIII Theos Philopator",
+   "url": "https://en.wikipedia.org/wiki/Ptolemy_XIII_Theos_Philopator",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-604": {
+   "answer": "Papyrus Bingen 45",
+   "title": "Papyrus Bingen 45",
+   "url": "https://en.wikipedia.org/wiki/Papyrus_Bingen_45",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-605": {
+   "answer": "death of Cleopatra",
+   "title": "Death of Cleopatra",
+   "url": "https://en.wikipedia.org/wiki/Death_of_Cleopatra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-606": {
+   "answer": "epistrategos",
+   "title": "Epistrategos",
+   "url": "https://en.wikipedia.org/wiki/Epistrategos",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-607": {
+   "answer": "Battle of Alexandria",
+   "title": "Battle of Alexandria (30 BC)",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Alexandria_(30_BC)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-608": {
+   "answer": "Tiberius Julius Alexander",
+   "title": "Tiberius Julius Alexander",
+   "url": "https://en.wikipedia.org/wiki/Tiberius_Julius_Alexander",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-609": {
+   "answer": "Aelius Gallus",
+   "title": "Aelius Gallus",
+   "url": "https://en.wikipedia.org/wiki/Aelius_Gallus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-610": {
+   "answer": "embole",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Democratic Republic of the Congo at the 2010 Summer Youth Olympics"
+   ]
+  },
+  "eg-611": {
+   "answer": "laographia",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Fustanella",
+    "3 Maccabees",
+    "Animal as Bridegroom",
+    "Richard MacGillivray Dawkins",
+    "History of anthropology"
+   ]
+  },
+  "eg-612": {
+   "answer": "house-by-house census",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Egypt, Pennsylvania",
+    "Incest in ancient Egypt",
+    "Nubians",
+    "Census",
+    "House of Representatives (Japan)"
+   ]
+  },
+  "eg-613": {
+   "answer": "Gnomon of the Idios Logos",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Roman Egypt",
+    "Adoption in ancient Rome"
+   ]
+  },
+  "eg-614": {
+   "answer": "Antinoopolis",
+   "title": "Antinoöpolis",
+   "url": "https://en.wikipedia.org/wiki/Antino%C3%B6polis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-615": {
+   "answer": "Letter of Claudius to the Alexandrians",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Claudius",
+    "Roman Egypt",
+    "Pilate cycle",
+    "Library of Alexandria",
+    "Herod Agrippa"
+   ]
+  },
+  "eg-616": {
+   "answer": "Alexandrian riots of 38 CE",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Alexandrian riots (38 CE)",
+    "Alexandrian riots",
+    "Alexandria riot",
+    "Roman Egypt",
+    "History of the Jews in Alexandria"
+   ]
+  },
+  "eg-617": {
+   "answer": "Kitos War",
+   "title": "Kitos War",
+   "url": "https://en.wikipedia.org/wiki/Kitos_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-618": {
+   "answer": "Periplus of the Erythraean Sea",
+   "title": "Periplus of the Erythraean Sea",
+   "url": "https://en.wikipedia.org/wiki/Periplus_of_the_Erythraean_Sea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-619": {
+   "answer": "Berenice Troglodytica",
+   "title": "Berenice Troglodytica",
+   "url": "https://en.wikipedia.org/wiki/Berenice_Troglodytica",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-620": {
+   "answer": "Mons Porphyrites",
+   "title": "Mons Porphyrites",
+   "url": "https://en.wikipedia.org/wiki/Mons_Porphyrites",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-621": {
+   "answer": "Mons Claudianus",
+   "title": "Mons Claudianus",
+   "url": "https://en.wikipedia.org/wiki/Mons_Claudianus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-622": {
+   "answer": "Legio XXII Deiotariana",
+   "title": "Legio XXII Deiotariana",
+   "url": "https://en.wikipedia.org/wiki/Legio_XXII_Deiotariana",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-623": {
+   "answer": "Temple of Esna",
+   "title": "Temple of Esna",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Esna",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-624": {
+   "answer": "Temple of Dendur",
+   "title": "Temple of Dendur",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Dendur",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-625": {
+   "answer": "Soknopaiou Nesos",
+   "title": "Soknopaiou Nesos",
+   "url": "https://en.wikipedia.org/wiki/Soknopaiou_Nesos",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-626": {
+   "answer": "Fayum mummy portraits",
+   "title": "Fayum mummy portraits",
+   "url": "https://en.wikipedia.org/wiki/Fayum_mummy_portraits",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-627": {
+   "answer": "Kom el-Shoqafa",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Catacombs of Kom El Shoqafa",
+    "Ancient Egyptian architecture",
+    "Roman Egypt",
+    "Alexandria",
+    "Wonders of the World"
+   ]
+  },
+  "eg-628": {
+   "answer": "Oxyrhynchus",
+   "title": "Oxyrhynchus",
+   "url": "https://en.wikipedia.org/wiki/Oxyrhynchus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-629": {
+   "answer": "Oxyrhynchus Papyri",
+   "title": "Oxyrhynchus Papyri",
+   "url": "https://en.wikipedia.org/wiki/Oxyrhynchus_Papyri",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-630": {
+   "answer": "Papyrus Oxyrhynchus 119",
+   "title": "Papyrus Oxyrhynchus 119",
+   "url": "https://en.wikipedia.org/wiki/Papyrus_Oxyrhynchus_119",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-631": {
+   "answer": "Arnouphis",
+   "title": "Arnouphis",
+   "url": "https://en.wikipedia.org/wiki/Arnouphis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-632": {
+   "answer": "Greek Magical Papyri",
+   "title": "Greek Magical Papyri",
+   "url": "https://en.wikipedia.org/wiki/Greek_Magical_Papyri",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-633": {
+   "answer": "Hermeticism",
+   "title": "Hermeticism",
+   "url": "https://en.wikipedia.org/wiki/Hermeticism",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-634": {
+   "answer": "Zosimos of Panopolis",
+   "title": "Zosimos of Panopolis",
+   "url": "https://en.wikipedia.org/wiki/Zosimos_of_Panopolis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-635": {
+   "answer": "Temple of Isis at Pompeii",
+   "title": "Temple of Isis (Pompeii)",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Isis_(Pompeii)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Temple of Isis at Pompeii"
+  },
+  "eg-636": {
+   "answer": "Navigium Isidis",
+   "title": "Navigium Isidis",
+   "url": "https://en.wikipedia.org/wiki/Navigium_Isidis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-637": {
+   "answer": "Plague of Cyprian",
+   "title": "Plague of Cyprian",
+   "url": "https://en.wikipedia.org/wiki/Plague_of_Cyprian",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-638": {
+   "answer": "Mussius Aemilianus",
+   "title": "Lucius Mussius Aemilianus",
+   "url": "https://en.wikipedia.org/wiki/Lucius_Mussius_Aemilianus",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Mussius Aemilianus"
+  },
+  "eg-639": {
+   "answer": "Palmyrene invasion of Egypt",
+   "title": "Palmyrene invasion of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Palmyrene_invasion_of_Egypt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-640": {
+   "answer": "Pompey's Pillar",
+   "title": "Pompey's Pillar",
+   "url": "https://en.wikipedia.org/wiki/Pompey's_Pillar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-641": {
+   "answer": "Rylands Library Papyrus P52",
+   "title": "Rylands Library Papyrus P52",
+   "url": "https://en.wikipedia.org/wiki/Rylands_Library_Papyrus_P52",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-642": {
+   "answer": "Patriarch of Alexandria",
+   "title": "Patriarch of Alexandria",
+   "url": "https://en.wikipedia.org/wiki/Patriarch_of_Alexandria",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-643": {
+   "answer": "Era of the Martyrs",
+   "title": "Era of the Martyrs",
+   "url": "https://en.wikipedia.org/wiki/Era_of_the_Martyrs",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-644": {
+   "answer": "Coptic language",
+   "title": "Coptic language",
+   "url": "https://en.wikipedia.org/wiki/Coptic_language",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-645": {
+   "answer": "Shenoute",
+   "title": "Shenoute",
+   "url": "https://en.wikipedia.org/wiki/Shenoute",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-646": {
+   "answer": "Nag Hammadi library",
+   "title": "Nag Hammadi library",
+   "url": "https://en.wikipedia.org/wiki/Nag_Hammadi_library",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-647": {
+   "answer": "Basilides",
+   "title": "Basilides",
+   "url": "https://en.wikipedia.org/wiki/Basilides",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-648": {
+   "answer": "Kellia",
+   "title": "Kellia",
+   "url": "https://en.wikipedia.org/wiki/Kellia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-649": {
+   "answer": "Anthony the Great",
+   "title": "Anthony the Great",
+   "url": "https://en.wikipedia.org/wiki/Anthony_the_Great",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-650": {
+   "answer": "Pachomius",
+   "title": "Pachomius the Great",
+   "url": "https://en.wikipedia.org/wiki/Pachomius_the_Great",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Pachomius"
+  },
+  "eg-651": {
+   "answer": "Apophthegmata Patrum",
+   "title": "Sayings of the Desert Fathers",
+   "url": "https://en.wikipedia.org/wiki/Sayings_of_the_Desert_Fathers",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Apophthegmata Patrum"
+  },
+  "eg-652": {
+   "answer": "Athanasius of Alexandria",
+   "title": "Athanasius of Alexandria",
+   "url": "https://en.wikipedia.org/wiki/Athanasius_of_Alexandria",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-653": {
+   "answer": "Cyril of Alexandria",
+   "title": "Cyril of Alexandria",
+   "url": "https://en.wikipedia.org/wiki/Cyril_of_Alexandria",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-654": {
+   "answer": "Coptic Orthodox Church",
+   "title": "Coptic Orthodox Church",
+   "url": "https://en.wikipedia.org/wiki/Coptic_Orthodox_Church",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-655": {
+   "answer": "Theophilus of Alexandria",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Theophilus of Alexandria",
+   "suggestions": [
+    "Theophilus III of Alexandria",
+    "Theophilus I of Alexandria"
+   ]
+  },
+  "eg-656": {
+   "answer": "Graffito of Esmet-Akhom",
+   "title": "Graffito of Esmet-Akhom",
+   "url": "https://en.wikipedia.org/wiki/Graffito_of_Esmet-Akhom",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-657": {
+   "answer": "Blemmyes",
+   "title": "Blemmyes",
+   "url": "https://en.wikipedia.org/wiki/Blemmyes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-658": {
+   "answer": "Apion family",
+   "title": "Apion family",
+   "url": "https://en.wikipedia.org/wiki/Apion_family",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-659": {
+   "answer": "Muslim conquest of Egypt",
+   "title": "Arab conquest of Egypt",
+   "url": "https://en.wikipedia.org/wiki/Arab_conquest_of_Egypt",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Muslim conquest of Egypt"
+  },
+  "eg-660": {
+   "answer": "Hieroglyphica",
+   "title": "Horapollo",
+   "url": "https://en.wikipedia.org/wiki/Horapollo",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Hieroglyphica"
+  },
+  "eg-661": {
+   "answer": "interpretatio graeca",
+   "title": "Interpretatio graeca",
+   "url": "https://en.wikipedia.org/wiki/Interpretatio_graeca",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-662": {
+   "answer": "ancient Egyptian deities",
+   "title": "Ancient Egyptian deities",
+   "url": "https://en.wikipedia.org/wiki/Ancient_Egyptian_deities",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-663": {
+   "answer": "Ra",
+   "title": "Ra",
+   "url": "https://en.wikipedia.org/wiki/Ra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-664": {
+   "answer": "Amun",
+   "title": "Amun",
+   "url": "https://en.wikipedia.org/wiki/Amun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-665": {
+   "answer": "Theban Triad",
+   "title": "Theban Triad",
+   "url": "https://en.wikipedia.org/wiki/Theban_Triad",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-666": {
+   "answer": "Ptah",
+   "title": "Ptah",
+   "url": "https://en.wikipedia.org/wiki/Ptah",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-667": {
+   "answer": "Osiris",
+   "title": "Osiris",
+   "url": "https://en.wikipedia.org/wiki/Osiris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-668": {
+   "answer": "Isis",
+   "title": "Isis",
+   "url": "https://en.wikipedia.org/wiki/Isis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-669": {
+   "answer": "Horus",
+   "title": "Horus",
+   "url": "https://en.wikipedia.org/wiki/Horus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-670": {
+   "answer": "Seth",
+   "title": "Seth",
+   "url": "https://en.wikipedia.org/wiki/Seth",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eg-671": {
+   "answer": "Nephthys",
+   "title": "Nephthys",
+   "url": "https://en.wikipedia.org/wiki/Nephthys",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-672": {
+   "answer": "Anubis",
+   "title": "Anubis",
+   "url": "https://en.wikipedia.org/wiki/Anubis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-673": {
+   "answer": "Thoth",
+   "title": "Thoth",
+   "url": "https://en.wikipedia.org/wiki/Thoth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-674": {
+   "answer": "Hathor",
+   "title": "Hathor",
+   "url": "https://en.wikipedia.org/wiki/Hathor",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-675": {
+   "answer": "Sekhmet",
+   "title": "Sekhmet",
+   "url": "https://en.wikipedia.org/wiki/Sekhmet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-676": {
+   "answer": "Bastet",
+   "title": "Bastet",
+   "url": "https://en.wikipedia.org/wiki/Bastet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-677": {
+   "answer": "Sobek",
+   "title": "Sobek",
+   "url": "https://en.wikipedia.org/wiki/Sobek",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-678": {
+   "answer": "Khnum",
+   "title": "Khnum",
+   "url": "https://en.wikipedia.org/wiki/Khnum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-679": {
+   "answer": "Nut",
+   "title": "Nut (goddess)",
+   "url": "https://en.wikipedia.org/wiki/Nut_(goddess)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-680": {
+   "answer": "Tefnut",
+   "title": "Tefnut",
+   "url": "https://en.wikipedia.org/wiki/Tefnut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-681": {
+   "answer": "Maat",
+   "title": "Maat",
+   "url": "https://en.wikipedia.org/wiki/Maat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-682": {
+   "answer": "Taweret",
+   "title": "Taweret",
+   "url": "https://en.wikipedia.org/wiki/Taweret",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-683": {
+   "answer": "Bes",
+   "title": "Bes",
+   "url": "https://en.wikipedia.org/wiki/Bes",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-684": {
+   "answer": "Egyptian temple",
+   "title": "Egyptian temple",
+   "url": "https://en.wikipedia.org/wiki/Egyptian_temple",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-685": {
+   "answer": "naos",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Naos",
+   "suggestions": [
+    "NAOS (satellite)",
+    "Naos (hieroglyph)"
+   ]
+  },
+  "eg-686": {
+   "answer": "kyphi",
+   "title": "Kyphi",
+   "url": "https://en.wikipedia.org/wiki/Kyphi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-687": {
+   "answer": "hem-netjer",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Functions of the Pharaoh",
+    "Khufu",
+    "Akhty (deity)",
+    "Menkheperre",
+    "Netjeraperef"
+   ]
+  },
+  "eg-688": {
+   "answer": "lector priest",
+   "title": "Lector priest",
+   "url": "https://en.wikipedia.org/wiki/Lector_priest",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-689": {
+   "answer": "wab priest",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Amenemhat (High Priest of Amun)",
+    "Imhotep",
+    "Bastet",
+    "Bakenkhonsu",
+    "Shery (Egypt)"
+   ]
+  },
+  "eg-690": {
+   "answer": "Festival of Bubastis",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Bubastis",
+    "Cats in ancient Egypt",
+    "Sed Festival",
+    "Bastet",
+    "List of Egyptian deities"
+   ]
+  },
+  "eg-691": {
+   "answer": "barque shrine",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Barque shrine",
+   "target": "Barque#Barques and barque shrines in Ancient Egypt"
+  },
+  "eg-692": {
+   "answer": "Dakhla Stela",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "eg-693": {
+   "answer": "offering formula",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "eg-694": {
+   "answer": "ear stela",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "eg-695": {
+   "answer": "sacred ibis",
+   "title": "African sacred ibis",
+   "url": "https://en.wikipedia.org/wiki/African_sacred_ibis",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Sacred ibis"
+  },
+  "eg-696": {
+   "answer": "sacred bull",
+   "title": "Sacred bull",
+   "url": "https://en.wikipedia.org/wiki/Sacred_bull",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-697": {
+   "answer": "djed",
+   "title": "Djed",
+   "url": "https://en.wikipedia.org/wiki/Djed",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-698": {
+   "answer": "scarab",
+   "title": "Scarab (artifact)",
+   "url": "https://en.wikipedia.org/wiki/Scarab_(artifact)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-699": {
+   "answer": "apotropaic wand",
+   "title": "Birth tusk",
+   "url": "https://en.wikipedia.org/wiki/Birth_tusk",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Apotropaic wand"
+  },
+  "eg-700": {
+   "answer": "Heka",
+   "title": "Heka (god)",
+   "url": "https://en.wikipedia.org/wiki/Heka_(god)",
    "via": "glossary",
    "status": "ok"
   }
