@@ -428,7 +428,7 @@ all history/science/philosophy collections".
   the union of the group's faces — a band outside the union, so the line two extents share is not drawn — with the glow on a settled frame.
   `extraSettled` waits for the rings. Ids that are not extents in the same group stay engine highlights as before. On the still renderer (no WebGL2,
   no history) a window whose group names an extent does NOT tint its present-day `keys` (Greece would claim far more); it shows its dot alone.
-- **gr-231**: `members.year` −600, one group "Sparta" (Laconia and Messenia) = both extents, `label: "Territory"`, `keys: ["Greece"]` (the fallback's
+- **gr-231**: `members.year` −464 (the owner's choice, 2026-11-19: the extents' second span, 464–455 BCE; first drawn at −600), `locator.role` "capital" (Sparta's square), one group "Sparta" (Laconia and Messenia) = both extents, `label: "Territory"`, `keys: ["Greece"]` (the fallback's
   frame only), `locator.zoom` 26. 600 BCE is the extents' last alive year before the Third Messenian War, after the Second Messenian War (668 BCE by
   tradition, gr-237) and before Messenia was freed (370–369 BCE, gr-235), so the union is the whole state; the card's own "peak c. 500 BCE" falls
   between the two alive spans, and no geometry was extended to reach it. The key's note gives Sparta's hold on Messenia only — no source line above a
