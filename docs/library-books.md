@@ -12,7 +12,17 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently seventy-four:
+  matter (chapter 0 — see the Library bullet). Currently seventy-five:
+  `apollodorus-library` (~975 KB English, ~250 KB Greek, **4 tabs** — Books I–III and the **Epitome**, **1,066 notes**,
+  Frazer's own; original **Greek**, paired on the SECTION as Strabo is, 386 of 386). Sir James George Frazer's Loeb of
+  1921, translation and Greek text (after Wagner's Teubner, 1894), from Perseus (`tlg0548.tlg001` and `.tlg002`, CC
+  BY-SA 4.0); public domain worldwide (pre-1929, Frazer d. 1941). **The first English side read from several TEI
+  files** — `urls` on the chaptered branch (`enTeiFiles`), the original side's Diodorus rule, with `teiRaw(xml, k)` told
+  which file it reads. The Epitome's file has no book division, so `apoTei` puts one round it (n 4); it also drops the
+  Greek's 1,075 bare `<NOTE>` figures, decodes five beta-code runs in the English notes (a capital's marks stand before
+  its letter there, which `betaGreek` does not read), sets a `<speaker>` at the head of its line, turns six citations in
+  the prose into notes and moves the edition's spaces out of brackets. Frazer's Appendix essays are not carried. Two
+  `fixes`, read against the Internet Archive scan.
   `descartes-discourse-on-method` (~131 KB, **7 sections** — Descartes's prefatory note and the six Parts, so a tab runs
   one ahead of the Part; `chapterWord: "Section"` — **7 notes**, all Veitch's; original **French**, paired on the PART
   as The Prince is on the chapter). John Veitch's translation, second edition, Sutherland and Knox, Edinburgh, 1853

@@ -1273,6 +1273,57 @@ const SC_TITLES = [
   "The Dictatorship", "The Censorship", "Civil Religion", "Conclusion",
 ];
 
+/* APOLLODORUS'S TEI, both columns (Nov 2026). Every rule here was measured over both pairs of files first.
+   · BOTH: the Epitome's file (index 1) has chapters and sections but no book division, so one is put
+     round it, numbered 4 — the reader slices a book to the end of the body, so no closing tag is needed.
+   · THE GREEK: its `<NOTE ED="Frazer">1</NOTE>` (1,075 of them, upper case) are bare reference figures
+     pointing at Frazer's apparatus, which the file does not carry; left in, the tag strip would set a
+     loose "1" in the middle of the Greek.
+   · THE ENGLISH, five things the shared reader would print wrong:
+     1. GREEK LEFT IN BETA CODE — three Greek journal titles in the notes (`<title xml:lang="grc">`,
+        "*)arxaiologiko\n *delti/on") and two quotations of Euripides' Iphigenia in Tauris in a note on
+        Epitome 6.26 (`<l>`, `<speaker>`). Everything else Greek in these files is Unicode (243 elements).
+        Decoded with the Satyricon's `betaGreek`, and only inside those three elements; a capital's
+        marks are written BEFORE its letter here ("*)ore/sths", the TLG order), which betaGreek does not
+        read, so they are moved after it first. A run it cannot compose is left as it stands.
+     2. A SPOKEN EXCHANGE (`<sp><speaker>`) has no shape in the reader, so the speaker's name heads the
+        line it speaks ("Ὀρέστης: τάφος δὲ …") and the lines break as any quoted verse does.
+     3. A CITATION IN THE PROSE — six `<bibl>` after a quotation in Apollodorus's own text, which the Loeb
+        prints as a footnote ("Hesiod, Shield of Hercules, 223 sq.") — becomes a note, Pausanias's rule;
+        the one reading "unknown" (the lines on Actaeon's dogs, which the Loeb prints with no source)
+        goes.
+     4. THE SPACE INSIDE A BRACKET — "Sea ( Pontus)", "him( fifty daughters" — is the digital edition's,
+        not Frazer's: the space moves outside the bracket. "TGF(2)" and "4.90(160)ff." are untouched.
+     5. A SPACE BEFORE A NOTE — "Sicily <note>…</note>;" — would set the marker apart from its word and
+        leave "Sicily ;" in the prose; it goes. */
+function apoTei(xml, k, type) {
+  let x = xml.replace(/<NOTE\b[^>]*>[^<]*<\/NOTE>/g, "");
+  if (k === 1) {
+    const re = new RegExp('<div\\b[^>]*type="' + type + '"[^>]*>');
+    if (!re.test(x)) throw new Error("the Epitome's TEI has no " + type + " division to number");
+    x = x.replace(re, (t) => t + '<div subtype="book" type="textpart" n="4">');
+  }
+  if (type !== "translation") return x;
+  const beta = (t) => (/[a-z][()\/\\=|]|\*[()]/i.test(t) && !/[Ͱ-Ͽἀ-῿]/.test(t) ? betaGreek(t.replace(/\*([()\/\\=|+]+)([a-z])/gi, "*$2$1")) || t : t);
+  x = x.replace(/(<(l|speaker)\b[^>]*>|<title\b[^>]*xml:lang="grc"[^>]*>)([^<]*)(?=<\/(?:l|speaker|title)>)/g,
+    (w, open, tag, t) => open + beta(t));
+  x = x.replace(/<sp\b[^>]*>\s*<speaker\b[^>]*>([^<]*)<\/speaker>\s*<l\b([^>]*)>/g, "<l$2>$1: ").replace(/<\/?sp\b[^>]*>/g, "");
+  const body = x.indexOf("<body");
+  let b = x.slice(body);
+  b = b.replace(/<note\b[\s\S]*?<\/note>|<bibl\b[^>]*>([\s\S]*?)<\/bibl>/g, (whole, cite) => {
+    if (cite === undefined) return whole;
+    const t = cite.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+    return /^unknown$/i.test(t) ? "" : '<note anchored="true">' + t + "</note>";
+  });
+  // through any tags in between: "(<bibl> <title>The Fragments" and "Φλέγρα</foreign> </bibl>)"
+  b = b.replace(/(?<=\p{Ll})\(\s+/gu, " (")
+    .replace(/\(((?:\s*<[a-z][^>]*>)*)\s+/g, (w, tags) => "(" + tags.replace(/^\s+/, "").replace(/>\s+</g, "><"))
+    .replace(/\s+((?:<\/[a-z]+>\s*)*)\)/g, (w, tags) => tags.replace(/\s+/g, "") + ")")
+    .replace(/<\/foreign>\)(?=\p{L})/gu, "</foreign>) ")
+    .replace(/\s+(?=<note\b)/g, "");
+  return x.slice(0, body) + b;
+}
+
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -19078,6 +19129,133 @@ const BOOKS = {
     },
   },
 
+  "apollodorus-library": {
+    title: "The Library",
+    // the work's own Greek title, as Perseus's Greek column gives it
+    subtitle: "Βιβλιοθήκη",
+    author: "Apollodorus",
+    translator: "Sir James George Frazer",
+    edition: "Apollodorus, The Library, with an English translation by Sir James George Frazer, 2 volumes, Loeb Classical Library, William Heinemann and Harvard University Press, 1921",
+    // "generally dated to the first or second century AD" (Wikipedia, Bibliotheca (Apollodorus)); Frazer's
+    // introduction sets the earliest possible date at the middle of the first century BCE (it quotes Castor)
+    written: "1st–2nd century CE",
+
+    /* ---------- THE LICENCE: expired on every ground, plus Perseus's digital edition ----------
+       Frazer's Loeb was published in 1921 (London: Heinemann; Cambridge, Mass.: Harvard University
+       Press — the imprint both Perseus files record), so it is public domain in the United States as a
+       pre-1929 publication. Frazer died on 7 May 1941, so the term of life plus seventy ran out at the
+       end of 2011, and the translation, his Greek text (Wagner's Teubner of 1894, revised by him) and his
+       notes are free everywhere that counts from the author's death. Perseus's digital editions are CC
+       BY-SA 4.0, stated in each file's own <availability>. Robin Hard's Oxford translation of 1997 and
+       Keith Aldrich's of 1975 are in copyright and are named so nobody reaches for them. */
+    rights:
+      "Public domain on every ground, in both columns. The English is Sir James George Frazer's " +
+      "translation, published with his Greek text in two volumes of the Loeb Classical Library by " +
+      "William Heinemann in London and Harvard University Press in Cambridge, Massachusetts, in 1921, so " +
+      "it is public domain in the United States as a pre-1929 publication; Frazer died in 1941, so it is " +
+      "also public domain wherever copyright lasts for the author's life plus seventy years. The notes " +
+      "are his, from the same edition. The digital editions of both texts are prepared by the Perseus " +
+      "Digital Library at Tufts University and are released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence. The Library was written in Greek in the first " +
+      "or second century CE. (Robin Hard's translation of 1997 is still in copyright and is not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0548.tlg001/",
+
+    /* THE FRONT MATTER. The authorship and the date from Frazer's own introduction (§ I, "The Author and
+       his Book": Photius's "Apollodorus the Grammarian", the Castor reference at 2.1.3, nothing later
+       than the return of the Heraclids, Rome never named) and from Wikipedia's article on the work
+       ("first or second century AD", Photius's epigram, the break in Theseus' story); the Epitome's
+       story from Frazer's introduction (Wagner's Vatican manuscript No. 950 in 1885, Papadopulos-
+       Kerameus's Codex Sabbaiticus two years later, Wagner's Teubner of 1894). Nothing here is recalled. */
+    about: [
+      "<b>The Library</b> is the one handbook of Greek mythology to survive from antiquity more or " +
+        "less whole. It tells the stories in order, from the beginning of the world to the end of the " +
+        "age of heroes: Sky and Earth and the Titans, Zeus's war on them, the gods and their loves; " +
+        "then family by family the descendants of Deucalion, of Inachus and of Agenor, with Jason and " +
+        "the Argonauts, Perseus, Heracles and his labours, Oedipus and the Seven against Thebes, the " +
+        "Athenian kings and Theseus; and, in the Epitome, Pelops' house, the Trojan War, the homecomings " +
+        "of the Greeks and the wanderings of Odysseus. It explains nothing and judges nothing. It " +
+        "summarises, naming its authorities as it goes — Hesiod, Homer, Pherecydes, the tragedians — " +
+        "and often says plainly that the versions differ.",
+      "Almost nothing is known of the author. The manuscripts call him Apollodorus the Athenian, " +
+        "grammarian, which identified him with a well-known scholar of the second century BCE; but the " +
+        "book quotes the chronicler Castor, a contemporary of Cicero, so it cannot be earlier than the " +
+        "middle of the first century BCE, and it is now generally dated to the first or second century " +
+        "CE. Modern writers call him Apollodorus, or Pseudo-Apollodorus to keep the two apart. The book " +
+        "never mentions Rome or anything later than the age of heroes, so it gives no other clue to its " +
+        "date.",
+      "The last part of the work was lost from every complete manuscript: the text breaks off in the " +
+        "middle of the story of Theseus. What followed is known from two abridgements found in the " +
+        "1880s — an epitome in a Vatican manuscript, discovered by Richard Wagner in 1885, and fragments " +
+        "of a similar one in a manuscript at Jerusalem from the monastery of St Sabbas, found two years " +
+        "later by A. Papadopulos-Kerameus. Frazer printed the two together as the <b>Epitome</b>, from " +
+        "the point where the full text ends, and it is the fourth tab here. It is a summary of a " +
+        "summary, and reads like one.",
+      "The translation and the Greek text are Frazer's, published in the Loeb Classical Library in " +
+        "1921; his Greek follows Richard Wagner's edition of 1894. Frazer was the author of <i>The " +
+        "Golden Bough</i>, and his notes are famous in their own right: they set each story beside its " +
+        "other ancient tellings and, often, beside parallels from folklore round the world. They are " +
+        "carried in full in the notes under each book. The long essays of his Appendix, to which some " +
+        "notes refer, are not included. <b>The small figures in the text are the citation numbers, " +
+        "chapter and section</b>: “Apollodorus 2.5.11” means book 2, chapter 5, section 11, the Epitome " +
+        "is cited as “Epitome 7.17”, and each row of the two-column page is one section.",
+    ],
+
+    /* PROSE IN BOOKS OF CHAPTERS AND SECTIONS — Strabo's layout, paired on the SECTION: a chapter runs to
+       28 sections (1.9, the Argonauts) and Frazer's notes to pages, so a chapter row would set pages of
+       English beside pages of Greek. MEASURED over both pairs of files before choosing: the Library's 209
+       sections and the Epitome's 177 carry the same numbers in the same order on both sides, nothing
+       missing either way. The Epitome is a second work in Perseus's catalogue (tlg002), so it is the
+       second of `urls` and is read as book 4 — its file has chapters and sections but no book division,
+       so `teiRaw` puts one round it (index 1). */
+    source: "tei",
+    urls: [
+      "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0548/tlg001/tlg0548.tlg001.perseus-eng2.xml",
+      "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0548/tlg002/tlg0548.tlg002.perseus-eng2.xml",
+    ],
+    layout: "chaptered",
+    pairOn: "section",
+    chapterWord: "Book",
+    chapters: [1, 2, 3, 4],
+    // the edition's own heads: "BOOK I" … "BOOK III", then "EPITOME"
+    titleOf: (n) => ["Book I", "Book II", "Book III", "Epitome"][n - 1],
+    teiRaw: (xml, k) => apoTei(xml, k, "translation"),
+    /* THE TRANSCRIPTION'S SLIPS, each read against the Internet Archive's scan of the printed volume (the
+       copy Perseus's own header links). book-scan.js put up 28 candidates; one is a slip. Seen and LEFT
+       because the page prints them so: "Ajax, son of Oeleus" (Epitome 3.11; Oileus elsewhere), "Pellas"
+       among the suitors of Penelope (Epitome 7.29), and "Otreus", "Horus", "Athenion", which are names. */
+    fixes: [
+      ["Damascenus, Frag 20 (Fragmenta Historicorum Graccorum", "Damascenus, Frag. 20 (Fragmenta Historicorum Graecorum",
+        "a note on 2.5.11 — a letter misread and a full stop dropped (the scan: Frag. 20 … Graecorum)"],
+      /* not a slip of the page but of the digital edition's markup: an attribute's tail pasted into the text,
+         which prints the reference twice with `">P">` between */
+      ['1460a 32"&gt;P"&gt;Aristot. Poet. 1460a 32</bibl>', "1460a 32</bibl>",
+        "a note on 2.7.4 — markup pasted into a citation, printing it twice"],
+    ],
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "chaptered",
+      edition: "Apollodorus, The Library, Greek text edited by Sir James George Frazer after Richard Wagner, Loeb Classical Library, 1921",
+      rights:
+        "Public domain on every ground. The Library was written in Greek in the first or second century " +
+        "CE. The text printed here is Sir James George Frazer's, based on Richard Wagner's Teubner " +
+        "edition of 1894 and published in the Loeb Classical Library in 1921; Frazer died in 1941, so it " +
+        "is public domain everywhere. The digital edition is prepared by the Perseus Digital Library at " +
+        "Tufts University and is released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0548.tlg001/",
+      urls: [
+        "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0548/tlg001/tlg0548.tlg001.perseus-grc2.xml",
+        "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0548/tlg002/tlg0548.tlg002.perseus-grc2.xml",
+      ],
+      teiRaw: (xml, k) => apoTei(xml, k, "edition"),
+    },
+  },
+
   "declaration-of-independence": {
     title: "The Declaration of Independence",
     subtitle: "In Congress, July 4, 1776",
@@ -28313,6 +28491,18 @@ function teiProse(raw) {
    than anything the translator wrote, there are 834 of them, and every one would read as a typo. It
    is done in this reader instead of in teiInline because teiInline is shared with five shipped books
    and a rule that rewrites their punctuation is a rule that has to be proved against all five. */
+/* The English TEI file(s) of a `chaptered` book, cached — one `url`, or several `urls` (Apollodorus).
+   `reuse` reads a cached file even under --force, as the original side's reconciliation always has. */
+async function enTeiFiles(reuse) {
+  const out = [];
+  for (const [k, u] of (BOOK.urls || [BOOK.url]).entries()) {
+    const cf = path.join(CACHE, k ? "en-tei-" + (k + 1) + ".xml" : "en-tei.xml");
+    if ((reuse || !FORCE) && fs.existsSync(cf)) out.push(fs.readFileSync(cf, "utf8"));
+    else { const t = await fetchText(u); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, t); out.push(t); }
+  }
+  return out;
+}
+
 function teiBookChapters(xml, opts, warn) {
   const body = xml.slice(xml.indexOf("<body"));
   if (body.length < 1000) throw new Error("no <body> in the TEI file");
@@ -33103,14 +33293,15 @@ async function fetchEnglish() {
 
   if (BOOK.source === "tei" && BOOK.layout === "chaptered") {
     const warn = (m) => warnings.push(m);
-    const cf = path.join(CACHE, "en-tei.xml");
-    let xml;
-    if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
-    else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
-    // `teiRaw` — a book's own transform of its TEI before anything reads it (Pausanias, Oct 2026)
-    xml = correctRaw(BOOK.teiRaw ? BOOK.teiRaw(xml) : xml);
-    const books = teiBookChapters(xml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
-      fence: BOOK.fence, preface: BOOK.preface, crossBook: BOOK.crossBookChapters }, warn);
+    /* AN ENGLISH IN SEVERAL FILES (Nov 2026, Apollodorus): Perseus keeps the Library's three books and
+       its Epitome as two works, so `urls` lists them, each is cached apart (en-tei.xml, en-tei-2.xml …),
+       and the books of every file are merged — the original side's Diodorus rule on this side. `teiRaw`
+       is told which file it is reading (its second argument, the index), since only the Epitome's file
+       needs a book division put round it. A book with one `url` reads exactly as before. */
+    const xmls = await enTeiFiles();
+    const books = Object.assign({}, ...xmls.map((x, k) =>
+      teiBookChapters(correctRaw(BOOK.teiRaw ? BOOK.teiRaw(x, k) : x), { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
+        fence: BOOK.fence, preface: BOOK.preface, crossBook: BOOK.crossBookChapters }, warn)));
     for (const n of BOOK.chapters) {
       if (n < FROM || n > TO) continue;
       const got = books[n];
@@ -35107,14 +35298,11 @@ async function fetchOriginal() {
           en[n] = { html: JSON.parse(fs.readFileSync(cf, "utf8")).html, notes: [] };
         }
       } else {
-        const enCache = path.join(CACHE, "en-tei.xml");
-        let enXml;
-        if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
-        else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
-        en = teiBookChapters(BOOK.teiRaw ? BOOK.teiRaw(enXml) : enXml, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
-          fence: BOOK.fence, preface: BOOK.preface, crossBook: BOOK.crossBookChapters }, warn);
+        en = Object.assign({}, ...(await enTeiFiles(true)).map((x, k) =>
+          teiBookChapters(BOOK.teiRaw ? BOOK.teiRaw(x, k) : x, { pairOn: BOOK.pairOn, sectionChapters: BOOK.sectionChapters,
+            fence: BOOK.fence, preface: BOOK.preface, crossBook: BOOK.crossBookChapters }, warn)));
       }
-      const or = Object.assign({}, ...xmls.map((x) => teiBookChapters(O.teiRaw ? O.teiRaw(x) : x, { pairOn: BOOK.pairOn,
+      const or = Object.assign({}, ...xmls.map((x, k) => teiBookChapters(O.teiRaw ? O.teiRaw(x, k) : x, { pairOn: BOOK.pairOn,
         sectionChapters: BOOK.sectionChapters, fence: O.fence, preface: O.preface, crossBook: O.crossBookChapters }, warn)));
       /* AN ORIGINAL FOR SOME BOOKS ONLY (Oct 2026, Polybius). Where two editions number a book's
          chapters alike but mean different passages by the numbers, a pairing on the number sets each
