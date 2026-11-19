@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"93a0906d66a4afdf","counts":{"terms":1005,"points":769,"countries":236,"windows":1682,"faces":394,"years":105},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"c001c3fdeb48f9a8","counts":{"terms":1005,"points":769,"countries":236,"windows":1684,"faces":394,"years":107},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -2383,6 +2383,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"93a0906d66a4afdf","counts":
 "South_Tombs_Cemetery,_Amarna":[30.896,27.645,"coord",0,0,0],
 "Southern_Ocean":[90,-65,"coord",0,0,0],
 "Southern_Qi":[110.181,26.988,"polity","pol:southern_qi",480,3.56],
+"Soviet_Union":[84.313,59.117,"polity","pol:ussr",1945,0.85],
 "Spain":[-3.46,40.09,"country","adm0:esp",0,3.75],
 "Spanish_Empire":[-80.299,-5.362,"polity","pol:spanish_empire",1806,0.85],
 "Sparta":[22.424,37.082,"site",0,0,0],
@@ -2650,6 +2651,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"93a0906d66a4afdf","counts":
 "Xiaozhai_Tiankeng":[109.47,30.751,"region",0,0,0],
 "Xin_dynasty":[103.43,31.461,"polity","pol:xin",6,1.46],
 "Xinjiang":[85.425,41.122,"admin1","adm1:chn:cn-xj",0,4.03],
+"Xiongnu":[98.471,45.819,"polity","pol:xiongnu",-144,1.72],
 "Xuchang":[113.82,34.024,"city",0,0,0],
 "Xuzhou":[117.178,34.282,"city",0,0,0],
 "Yamalo-Nenets_Autonomous_Okrug":[75.187,65.412,"admin1","adm1:rus:ru-yan",0,6.01],

@@ -1,8 +1,8 @@
 {
- "generated": "2026-11-19T04:54Z",
+ "generated": "2026-11-19T04:57Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8389,
+  "ok": 8400,
   "redirect-broader": 802,
   "redirect-variant": 492,
   "section-redirect": 190,
@@ -90198,6 +90198,83 @@
    "answer": "Ottoman Empire",
    "title": "Ottoman Empire",
    "url": "https://en.wikipedia.org/wiki/Ottoman_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-002": {
+   "answer": "Neo-Babylonian Empire",
+   "title": "Neo-Babylonian Empire",
+   "url": "https://en.wikipedia.org/wiki/Neo-Babylonian_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-101": {
+   "answer": "Achaemenid Empire",
+   "title": "Achaemenid Empire",
+   "url": "https://en.wikipedia.org/wiki/Achaemenid_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-102": {
+   "answer": "Xiongnu",
+   "title": "Xiongnu",
+   "url": "https://en.wikipedia.org/wiki/Xiongnu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-301": {
+   "answer": "Umayyad Caliphate",
+   "title": "Umayyad Caliphate",
+   "url": "https://en.wikipedia.org/wiki/Umayyad_Caliphate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-401": {
+   "answer": "Mongol Empire",
+   "title": "Mongol Empire",
+   "url": "https://en.wikipedia.org/wiki/Mongol_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-402": {
+   "answer": "Yuan dynasty",
+   "title": "Yuan dynasty",
+   "url": "https://en.wikipedia.org/wiki/Yuan_dynasty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-601": {
+   "answer": "Soviet Union",
+   "title": "Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Soviet_Union",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-602": {
+   "answer": "Spanish Empire",
+   "title": "Spanish Empire",
+   "url": "https://en.wikipedia.org/wiki/Spanish_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-201": {
+   "answer": "Roman Empire",
+   "title": "Roman Empire",
+   "url": "https://en.wikipedia.org/wiki/Roman_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-202": {
+   "answer": "Han dynasty",
+   "title": "Han dynasty",
+   "url": "https://en.wikipedia.org/wiki/Han_dynasty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "hs-302": {
+   "answer": "Tang dynasty",
+   "title": "Tang dynasty",
+   "url": "https://en.wikipedia.org/wiki/Tang_dynasty",
    "via": "glossary",
    "status": "ok"
   }

@@ -116,6 +116,7 @@ const settled = (page, ms) => page.waitForFunction(() => { const h = document.qu
     const back = await page.evaluate(() => { const m = document.querySelector(".map-card")._folioMap; return { names: m.boxes().names.map((n) => n.text), own: m.boxes().names.filter((n) => n.own).map((n) => n.text), states: m.stateNames().map((s) => s.n), year: document.querySelector(".map-card").getAttribute("data-map-year") }; });
     check("after the answer the state is named by the card's own answer", back.own.join() === answer, back.names.join(", "));
     check("…and the other states of that year by the Atlas's names", back.states.length >= 1, back.states.join(", "));
+    check("the state itself is named ONCE: neither its answer nor the Atlas's key for it is among the other states", back.states.indexOf(answer) < 0 && back.states.indexOf(R.key) < 0 && back.names.filter((n) => n === answer).length === 1, back.states.join(", "));
     check("the year did not move on the reveal", back.year === String(year));
     check("no console or page errors", errs.length === 0, errs.slice(0, 3).join(" | "));
     await browser.close();

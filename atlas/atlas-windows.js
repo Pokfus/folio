@@ -324,6 +324,8 @@
       if (!stN.rows) return;
       const skipFaces = new Set((lastLabels || []).filter((l) => l.principal || l.ground).map((l) => l.face));
       const skipNames = new Set((lastLabels || []).map((l) => String(l.n || "").trim().toLowerCase()));
+      /* a state of the past (pastLayer) is named once, by its card's answer at its label point: the Atlas's own name for it that year (the layer's key) is not written a second time */
+      if (pastOK) { if (key) skipNames.add(key.split("|")[0].trim().toLowerCase()); if (targets.length) skipNames.add(String(targets[0].n || "").trim().toLowerCase()); }
       ctx.save(); ctx.font = "500 11px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.lineJoin = "round"; ctx.lineWidth = 3;
       const hit = (b, o) => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1], placed = taken.slice(), out = [];
       const rows = stN.rows.filter((r) => r.v && stN.byFace.has(r.face) && !skipFaces.has(r.face)).sort((a, b) => (b.km2 || 1) * Math.max(0.02, b.vis) - (a.km2 || 1) * Math.max(0.02, a.vis));
