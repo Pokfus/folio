@@ -8,6 +8,14 @@ for on 2026-11-09: "Add a Farsi language collection."
 **STATUS (2026-11-12): COMPLETE — the alphabet deck, every level A1 to C1, and the phrases deck are built**
 (`.claude/persian/`).
 
+**THE BEGINNER PASS (2026-11-19) CHANGED WHAT §3 TO §11 DESCRIBE** — read `docs/lang-decks.md`, "The Persian
+beginner pass", before relying on a count or a rule below. In short: note ids are pinned and the decks are
+ordered and edited through a record (`persian-fix.js`, `persian-order.js`; the generator's output is never
+shipped as it is); the counts are 43 / 522 / 735 / 999 / 1,500 / 1,500 / 105; a verb's table is the one headed
+literary Iranian, with the present perfect, the negative and the spoken forms; ق is romanised ġ on every card;
+the alphabet's sounds are quoted from Wikipedia at pinned revisions; and the sentence pool is pinned to the
+export of 2026-11-07, which is what makes "a re-run is byte-identical" true on a later day.
+
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump** for
 any deck this plan produces. The first commit carried one changelog item (folded into Hindi's line of the same
 day) and one bump, because it also changed the APP (the shelf's hue in `app.js`).
