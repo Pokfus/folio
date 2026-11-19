@@ -17748,6 +17748,80 @@ const BOOKS = {
     chapters: [1, 2, 3, 4, 5],
   },
 
+  hamlet: {
+    title: "Hamlet",
+    subtitle: "The Tragedy of Hamlet, Prince of Denmark",
+    author: "William Shakespeare",
+    // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+    edition: "The Yale Shakespeare, ed. Jack Randall Crawford, Yale University Press, New Haven, 1917",
+    written: "c. 1600",
+    year: 1600,
+
+    /* ---------- THE LICENCE, AND WHY THIS EDITION ----------
+       The play has never been in copyright. The edition is the Yale Shakespeare's of 1917, the same
+       series as Macbeth's, Romeo and Juliet's and Julius Caesar's and transcribed on Wikisource in the
+       same way (proofread scan, glosses as hover tooltips, end notes on their own page), so the `yale`
+       layout reads it. Crawford lived 1878–1968 (his Wikisource author page; Wikidata Q19560296):
+       public domain in the United States under the pre-1929 rule, but where the term is life plus
+       seventy (the United Kingdom, the European Union) NOT until 2039 — the first Yale play on the
+       shelf that is public domain in the United States only, which the rights text says, as the
+       Nicomachean Ethics' does. The appendices and the index are the editor's apparatus and are left
+       behind, as for Macbeth. No Chorus, so no `prePage`. */
+    rights:
+      "Public domain in the United States. Shakespeare wrote the play around 1600 and it was first " +
+      "printed in 1603, so the work itself has never been in copyright. The text here is the Yale " +
+      "Shakespeare edition edited by Jack Randall Crawford and published by Yale University Press in " +
+      "1917, before 1929, so its copyright has expired in the United States. Crawford died in 1968, so " +
+      "his edition remains in copyright in countries whose term is the editor's life plus seventy " +
+      "years, including the United Kingdom and the European Union, until 2039. What is taken is the " +
+      "play, the edition's list of characters, Crawford's glosses from the foot of each page and his " +
+      "end notes, which are set with the glosses that point to them; his appendices and index are not " +
+      "reproduced.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Hamlet_(1917)_Yale",
+
+    about: [
+      "<b>Hamlet</b> opens on the battlements of Elsinore, where the guards have twice seen a ghost in " +
+        "the armour of the dead King of Denmark. His son, Prince Hamlet, is in mourning, and angry that his " +
+        "mother Gertrude has married his uncle Claudius, now king, within two months. The ghost speaks to " +
+        "Hamlet: Claudius poured poison in his ear as he slept in his orchard, and Hamlet must avenge him. " +
+        "Hamlet swears to, and resolves to put on an antic disposition, a show of madness, while he does.",
+      "He delays, and the play is built out of the delay. Claudius sets Rosencrantz and Guildenstern, " +
+        "Hamlet's old schoolfellows, to spy on him, and his counsellor Polonius uses his daughter Ophelia, " +
+        "whom Hamlet has courted, as bait. A company of travelling players gives Hamlet his test: he has " +
+        "them act a murder like his father's before the court, and Claudius's flight from it convinces him. " +
+        "Yet he spares Claudius at prayer, and minutes later, in his mother's closet, stabs Polonius through " +
+        "a curtain in the belief that it is the king.",
+      "Claudius ships Hamlet to England with a letter ordering his death; Hamlet escapes, by way of a pirate " +
+        "ship, and comes home. Ophelia, her father dead, has gone mad and drowned, and her brother Laertes " +
+        "has returned to avenge them both. Claudius arranges a fencing match between the two with a poisoned " +
+        "blade and a poisoned cup. In the last scene the queen drinks the poison, Laertes and Hamlet are both " +
+        "struck with the blade, and Hamlet kills Claudius before he dies, giving his voice for the crown to " +
+        "Fortinbras of Norway, who arrives to find the court dead.",
+      "The story is an old Danish one: Saxo Grammaticus told it of Amleth around 1200, and it reached " +
+        "the Elizabethan stage through a French retelling by François de Belleforest. An earlier English " +
+        "play of Hamlet, now lost, was being acted by the 1590s. Shakespeare's is the longest of his plays " +
+        "and holds his best-known soliloquy, <i>To be, or not to be: that is the question</i>.",
+      "Three early versions survive and all three differ: a short and garbled quarto of 1603, a full " +
+        "quarto of 1604 and the First Folio of 1623. The text here is the <i>Yale Shakespeare</i> edition " +
+        "of 1917, edited by Jack Randall Crawford, in modernised spelling. It rests on the 1604 quarto and " +
+        "the Folio, and lines found in the quarto but not in the Folio are set in square brackets, as are " +
+        "stage directions an editor has added. Its line numbers are the edition's, printed every few lines, " +
+        "and can differ by a line or two from another edition's. The numbered notes are Crawford's: the " +
+        "short glosses at the foot of each page, and, where a gloss sent the reader to the back of the book, " +
+        "the longer note it pointed to. The notes are in American spelling, and the speakers' names are " +
+        "abbreviated as his page prints them.",
+    ],
+
+    layout: "yale",
+    page: (n) => "Hamlet (1917) Yale/Text/Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    notesPage: "Hamlet (1917) Yale/Notes",
+    castPage: "Hamlet (1917) Yale/Text",
+    chapterWord: "Act",
+    titleOf: (n) => "Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    chapters: [1, 2, 3, 4, 5],
+  },
+
   "classic-of-tea": {
     title: "The Classic of Tea",
     subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -20093,6 +20167,114 @@ const BOOKS = {
       sourceName: "Wikisource (French)",
       sourceUrl: "https://fr.wikisource.org/wiki/Discours_de_la_m%C3%A9thode_(%C3%A9d._Cousin)",
     },
+  },
+  "more-utopia": {
+    title: "Utopia",
+    // the short form of the title the first edition (Louvain, 1516) prints in Latin
+    subtitle: "De optimo rei publicae statu deque nova insula Utopia",
+    author: "Thomas More",
+    translator: "Gilbert Burnet",
+    edition: "Utopia, translated by Gilbert Burnet, edited by Henry Morley, Cassell & Company, London, 1901",
+    written: "1516",
+    year: 1516,
+    /* ---------- THE LICENCE, and it needs no qualification ----------
+       More's Latin was printed at Louvain in 1516 and he died in 1535. Burnet's English was first printed
+       in 1684 and Burnet died in 1715; Henry Morley, whose edition this is, died in 1894 (his Wikisource
+       author page). The printing transcribed is Cassell's of 1901, before 1929. Wikisource's own tag on the
+       work is PD-old for the original and the translation alike. The transcription is a plain one, typed
+       onto the wiki with no scan behind it (no `prp-pages-output`), so `body: "plain"`, as Thucydides.
+
+       ---------- WHAT IS TAKEN ----------
+       Morley's nine chapters, one wiki page each. Not taken: Morley's introduction (an editor's essay, as
+       Marriott's and Cole's are left out), and the letters of Peter Giles and Paludanus that Wikisource
+       attaches to the work page from another source. MORLEY'S CHAPTER 1 IS MORE'S BOOK I AND THE OPENING
+       OF BOOK II: Book II begins with no heading, mid-chapter, on "The island of Utopia is in the middle
+       two hundred miles broad", and his chapters 2–9 are Book II's own eight sections (De urbibus …
+       De religionibus). So no `parts`: a Book I / Book II split would cut a page. The front matter says so.
+
+       NO ORIGINAL: la.wikisource has the Latin in two Books with Book II's sections, which cannot be
+       paired with chapter 1 here without cutting it. The Robinson translation of 1551 has no page on
+       English Wikisource (the translations page links one that does not exist). */
+    rights:
+      "Public domain worldwide. Thomas More published Utopia in Latin in 1516 and died in 1535. " +
+      "Gilbert Burnet's English translation was first printed in 1684 and Burnet died in 1715; Henry " +
+      "Morley, who edited this printing of 1901, died in 1894.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Utopia_(1901)",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out. Where the
+       reading is divided — above all on how far More meant the island seriously — it says so. */
+    about: [
+      "<b>Utopia</b> is a dialogue about the best state of a commonwealth, and the book that gave the " +
+        "word to every language. Thomas More tells how, on an embassy to Flanders, he was introduced by " +
+        "his friend Peter Giles to Raphael Hythloday, a Portuguese traveller who had sailed with Amerigo " +
+        "Vespucci and gone on alone. The first part is their conversation in a garden at Antwerp: why " +
+        "Raphael will not serve a king, and what is wrong with England — thieves hanged for stealing " +
+        "bread they had no other way to get, and farmland enclosed for pasture until, as he puts it, " +
+        "the sheep devour the men. The second is Raphael's description of the island of Utopia, where " +
+        "there is no private property and no money, everyone works six hours a day, and the citizens " +
+        "choose their magistrates and tolerate one another's religions.",
+      "The name is a Greek joke: <i>ou-topos</i>, no place, with an echo of <i>eu-topos</i>, a good place. " +
+        "Raphael's surname is put together from Greek words for nonsense, and the island's capital, " +
+        "Amaurot, is the dim or shadowy city. How seriously More meant the island has been argued over " +
+        "ever since — as a programme, as a satire on the Europe of his day, as a learned game in the " +
+        "manner of Plato's <i>Republic</i>, or as all three — and the book ends with More himself " +
+        "declining to agree with everything Raphael has said, while wishing rather than hoping to see " +
+        "many of the island's customs followed at home.",
+      "More was born in London in 1478, the son of a judge, trained as a lawyer, and was a close friend " +
+        "of Erasmus. He wrote the description of the island first, in the Low Countries in 1515, and the " +
+        "dialogue of the first part after his return. The book was printed in Latin at Louvain in 1516, " +
+        "with Erasmus and Giles seeing it through the press. More rose in Henry VIII's service to become " +
+        "Lord Chancellor in 1529, resigned in 1532, and was beheaded in 1535 for refusing the oath that " +
+        "acknowledged the king as head of the Church in England. The Catholic Church canonised him in " +
+        "1935.",
+      "The first English translation, Ralph Robinson's, appeared in 1551. The one given here is Gilbert " +
+        "Burnet's of 1684 — the work of the churchman and historian who later became Bishop of Salisbury — " +
+        "in Henry Morley's edition, as Cassell printed it in 1901. Morley divides the book into nine " +
+        "chapters. The first holds the whole of More's first book and the opening of the second, where " +
+        "Raphael begins on the island's shape, its cities and its farms; the island part begins without " +
+        "a heading, on the paragraph <i>The island of Utopia is in the middle two hundred miles " +
+        "broad</i>. The other eight chapters are the sections of the second book, under their own " +
+        "titles. Not included: Morley's introduction, the prefatory letters and the verses printed with " +
+        "the first editions.",
+    ],
+
+    source: "wiki",
+    body: "plain",
+    dropHeadings: true,
+    /* Each page opens on its title in capitals in a centred block ({{c|<h3>…</h3>}}), which reaches the
+       reader as a quotation of the tab's own title. Measured: the nine pages carry no other centred block. */
+    dropHeads: [/^(?:DISCOURSES OF RAPHAEL HYTHLODAY|OF (?:THEIR|THE) [A-Z ,]+)/],
+    chapterWord: "Chapter",
+    chapters: Array.from({ length: 9 }, (_, i) => i + 1),
+    page: (n) => "Utopia (1901)/Chapter " + n,
+    /* ---------- SLIPS IN THE TRANSCRIPTION, each checked against a second witness ----------
+       A word-by-word diff of the whole import against Project Gutenberg #2130 — the same Morley edition of
+       Burnet, typed separately — found seven differences besides the chapter titles. Five are taken: a
+       Wikisource reading that is not a word or that breaks its sentence, where Gutenberg's is the plain
+       sense. Two are left: "a mean of the public safety" (a period form, possibly the page's), and
+       "work so much on them", where Gutenberg's "on there" is the slip. */
+    fixes: [
+      ["when they trained over land", "when they travelled over land", "chapter 1: 'trained' for 'travelled' (beside 'when they went by water'); Gutenberg #2130"],
+      ["the dobots", "the abbots", "chapter 1: 'dobots' is not a word; Gutenberg #2130 reads 'abbots'"],
+      ["if I speak with, I must repeat", "if I speak truth, I must repeat", "chapter 1: 'speak with' breaks the sentence (set against 'as for lying'); Gutenberg #2130"],
+      ["to their case or health", "to their ease or health", "a c for an e; Gutenberg #2130"],
+      ["by the seventies of law", "by the severities of law", "'seventies' for 'severities'; Gutenberg #2130"],
+    ],
+    // transcribed from the work page's contents list
+    titleOf: (n) => [
+      "Discourses of Raphael Hythloday, of the Best State of a Commonwealth",
+      "Of Their Towns, Particularly of Amaurot",
+      "Of Their Magistrates",
+      "Of Their Trades, and Manner of Life",
+      "Of Their Traffic",
+      "Of the Travelling of the Utopians",
+      "Of Their Slaves, and of Their Marriages",
+      "Of Their Military Discipline",
+      "Of the Religions of the Utopians",
+    ][n - 1],
+    // the shortest, chapter 3, Of Their Magistrates, is about 3,000 characters of wikitext
+    minChars: 2000,
   },
 };
 

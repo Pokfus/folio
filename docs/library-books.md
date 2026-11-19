@@ -12,7 +12,7 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently seventy-two:
+  matter (chapter 0 — see the Library bullet). Currently seventy-four:
   `descartes-discourse-on-method` (~131 KB, **7 sections** — Descartes's prefatory note and the six Parts, so a tab runs
   one ahead of the Part; `chapterWord: "Section"` — **7 notes**, all Veitch's; original **French**, paired on the PART
   as The Prince is on the chapter). John Veitch's translation, second edition, Sutherland and Knox, Edinburgh, 1853
@@ -25,8 +25,8 @@ book added later will meet the same traps.
   Latin; the front matter says so. The French is Victor Cousin's edition (Œuvres I, Levrault, Paris, 1824), validated
   on fr.wikisource, one page per Part (`perChapter`, **`prep: "cousin"`** — see `docs/library-importer.md`); the
   prefatory note is cut off the work page. Adam–Tannery (1902) was rejected: one page, and 1637's long s and u-for-v.
-  Public domain worldwide: Descartes d. 1650, Veitch d. 1894, Cousin d. 1867. Colour `#5A0009` (14.3: the band is
-  full; the philosophers stand 20.5 or more off). `glossOff`: Meditations (Descartes's, not Marcus Aurelius's),
+  Public domain worldwide: Descartes d. 1650, Veitch d. 1894, Cousin d. 1867. Colour `#962A30` (13.9: the band is
+  full; every philosopher stands 19.7 or more off — More took `#5A0009` the same day). `glossOff`: Meditations (Descartes's, not Marcus Aurelius's),
   Germany. Excerpt: the cogito, Part IV. Not included: Veitch's preface and introduction, the title page.
   `rousseau-social-contract` (~260 KB, **49 sections** — Rousseau's Foreword and the 48 chapters of the four Books, so a
   tab runs one ahead of the chapter's place; each title opens with its numeral in its Book, the Books are the `parts`;
@@ -64,6 +64,18 @@ book added later will meet the same traps.
   Colour `#592F85` (14.8: the band is full; the philosophers stand 19.6 or more off). `glossOff`: Wolf (Christian
   Wolff), Subsistence (the category), Providence, Republic (Plato's) — swept over all 19 sections. Excerpt: the
   Copernican passage of the second preface. Not included: the translator's preface, the contents and the errata.
+  `more-utopia` (~230 KB, **9 chapters**, no notes, no original; Gilbert Burnet's translation of 1684 in Henry
+  Morley's edition, Cassell, London, 1901 — a PLAIN transcription with no scan behind it, so `body: "plain"`, as
+  Thucydides). Morley's chapter 1 is More's Book I AND the opening of Book II (the island begins headless on "The
+  island of Utopia is in the middle two hundred miles broad"); chapters 2–9 are Book II's own eight sections, so no
+  `parts`, and the front matter says where Book II begins. Each page's centred capital title goes by `dropHeads`.
+  Titles transcribed from the work page's contents (`titleOf`). **No original**: la.wikisource's Latin is in two
+  Books and cannot be paired with chapter 1 uncut; Robinson's 1551 translation has no page on en.wikisource.
+  Public domain worldwide (More d. 1535, Burnet d. 1715, Morley d. 1894). 5 `fixes`, each from a word diff against
+  Gutenberg #2130 (the same Morley edition): trained → travelled, dobots → abbots, speak with → speak truth,
+  case → ease, seventies → severities; "a mean of the public safety" and "work so much on them" are left. Colour
+  `#5A0009` (14.3: the band is full; Plato, whose Republic it is read beside, 41.8 off). `glossOff`: 6 keys — see the comment on the app.js entry. Excerpt: the sheep that
+  devour men. Not included: Morley's introduction, the prefatory letters and verses.
   `hobbes-leviathan` (~1.2 MB, **49 sections** — Hobbes's Introduction, chapters I–XLVII and the Review and
   Conclusion, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
   **no notes**, no original; the first edition, the 'Head' issue, Andrew Crooke, London, 1651, proofread on
@@ -406,6 +418,14 @@ book added later will meet the same traps.
   end notes reach the page. Two mistyped printed line numbers (III. i. 273, V. i. 52) are put right off the
   scan by `plineFixes`, BEFORE extraction — put right afterwards by `fixes`, the six glosses keyed to them
   were lost, "dogs of war" and its end note among them. Shakespeare's `BOOK_AUTHOR_COLOR` row colours it.
+  `hamlet` (~388 KB, all 5 acts, **1,278 notes**, no original — the Yale Shakespeare of 1917, ed. Jack
+  Randall Crawford, 1878–1968 (Wikisource author page; Wikidata Q19560296), so public domain in the US by the
+  pre-1929 rule ONLY: in copyright under life plus seventy until 2039, and the rights text says so, in the
+  Nicomachean Ethics' form; `layout: "yale"` as it stands, no Chorus, no `plineFixes` — the run printed no
+  "counted line N where the page prints M" warning). 1,253 glosses land on their word, 5 on their text, 19 at
+  a line's end (15 warned: the lemma's spelling differs from the line's, e.g. "sulllies"), none lost; all 222
+  end notes reach the page. Fetched through `api`'s index.php fallback (api.php rate-limited from the first
+  request). Its home excerpt is "To be, or not to be" (Act III, `p: 25`). Shakespeare's row colours it.
   `marco-polo` (~2.77 MB, all 235 chapters, **788 notes**, no original — Sir Henry Yule's
   translation in the third edition of 1903 as revised by Henri Cordier, and **the first book here
   printed in TWO source files**, which costs a second fetch and one loop and matters only because
