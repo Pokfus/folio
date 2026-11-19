@@ -221,13 +221,44 @@ def main():
                                                   'transitive', 'intransitive', 'idiomatic', 'slang',
                                                   'Islam', 'honorific', 'familiar', 'Iran'})})
         table, spoken = [], []
+        # WHICH TABLE A ROW IS FROM (2026-11-19).  A verb's entry carries up to five conjugation
+        # tables one after another -- literary Iranian, colloquial Tehrani, dialectal, literary
+        # Dari, colloquial Kabuli -- and the extraction flattens them into one list of forms, a
+        # marker row (`inflection-template`) before each.  The table's own header names its
+        # variety, so each row is tagged with it (`l`: `ir`, `teh`, `x` for any other, `?` for a
+        # table whose header is lost); `build_deck.py` reads the standard forms off
+        # the `ir` rows and the spoken ones off the `teh` rows.  Until then a table was told from
+        # a Classical one by its macrons alone, and `murdan`, `šikastan`, `šumurdan` -- Classical
+        # readings with no long vowel in them -- were printed as Iranian.
+        heads_ = [re.sub('<[^>]+>', '', (t.get('args') or {}).get('header', ''))
+                  for t in e.get('inflection_templates') or [] if (t.get('args') or {}).get('header')]
+        marks_ = [f.get('form', '') for f in e.get('forms') or []
+                  if 'inflection-template' in (f.get('tags') or [])]
+        # The extraction sometimes loses a table's header (دادن: five tables, four headers, the
+        # literary Iranian one gone with its rows).  The headers are then matched from the END,
+        # and only if every pair agrees on its family -- a `prs-conj` table is Dari, Kabuli or
+        # Classical, a `fa-conj` one Iranian; the tables left over at the front stay untagged.
+        off = len(marks_) - len(heads_)
+        prs = lambda h: any(x in h for x in ('Dari', 'Kabuli', 'Classical', 'Hazaragi', 'Herati'))
+        if off < 0 or any(marks_[off + i].startswith('prs-') != prs(h) for i, h in enumerate(heads_)):
+            heads_, off = [], 0
+        some = bool(heads_)
+        ti = -1
         for f in e.get('forms') or []:
+            if 'inflection-template' in (f.get('tags') or []):
+                ti += 1
             if f.get('source') in ('declension', 'conjugation', 'inflection'):
+                h = heads_[ti - off] if 0 <= ti - off < len(heads_) else ''
+                lect = ('ir' if 'literary Iranian' in h else 'teh' if 'colloquial Tehrani' in h
+                        else 'x' if h else '?' if some else '')
                 for x, r, sp in cells(f):
                     if sp:
                         spoken.append({'f': x, 'r': r, 't': f.get('tags') or []})
                     else:
-                        table.append({'f': zwnj(x, r, w), 'r': r, 't': f.get('tags') or []})
+                        row_ = {'f': zwnj(x, r, w), 'r': r, 't': f.get('tags') or []}
+                        if lect:
+                            row_['l'] = lect
+                        table.append(row_)
         tags_of = lambda f: set(f.get('tags') or [])
         head = [f for f in e.get('forms') or [] if not f.get('source')]
         ent = {

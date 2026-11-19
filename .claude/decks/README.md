@@ -291,6 +291,28 @@ to A1: an `insert` entry (the next free id above 524, a `why`), name it in `HEAD
 `hindi-order.js` (an insert with no place fails that script), then the two scripts. To move a word down:
 the same with the card's `fields` copied in and a `dropDup` row on the deck it leaves. A reading rule is
 a row of `RULES` in `alphabet.py`, with its quote and revision.
+## The Persian decks: the generator, then the record (Nov 2026)
+
+Seven decks of card type `persian` and `fa-abc`. Unlike the German and Portuguese sets they CAN be rebuilt
+byte for byte (`.claude/persian/run.py`, `alphabet.py`; the sentence pool is pinned), so their files live in
+`.claude/persian/`, not here, and the rule has two halves (`docs/lang-decks.md`, "The Persian beginner pass"):
+a fault of the generator is fixed in the generator and every level rebuilt; a move, an addition, an order, a
+pinned number or a description's count is in the record.
+
+    node ../persian/persian-fix.js --check     # the record, the order and the pinned ids
+    node ../persian/persian-order.js --check   # persian-order.json is what its script computes
+    node ../persian/check-persian.js           # the seven decks, card by card
+
+| file | what it is |
+|---|---|
+| `persian-fixes.json` | the record: `insert` (a card MOVED down from a higher deck, `from: "<deck>/<word>"`, or BUILT for A1 by `run.py --level x1`, `from: "x1/<word>"`), `notes` (`leadSense`), `decks.<id>.dropDup`, `subtitle`, `descSub` with recounted tokens. |
+| `persian-ids.json` | deck id → headword (a letter, for the alphabet) → the number in the note's id. **Never delete or renumber a row.** A removed note's row moves to `_retired`. APPLIED. |
+| `persian-order.json` | deck id → the headwords in the order the deck is dealt (the alphabet, A1, A2, the phrases). Written by `persian-order.js` from the pinned numbers; B1 to C1 are dealt by pinned number. |
+
+After a rebuild: `run.py --level x1 --no-fetch`, `persian-fix.js --refresh`, `persian-order.js`,
+`persian-fix.js`, `node .claude/build-lang-decks.js`. To add a word to A1: name it in `inventory.X1`, run
+`--level x1`, add an `insert` entry (`from: "x1/<word>"`, the next free id, a `why`), `--refresh`, then name
+it in `HEAD` or a set in `persian-order.js` (an insert with no place fails that script).
 
 ## Changing the card type's CSS
 

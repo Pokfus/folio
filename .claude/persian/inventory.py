@@ -126,4 +126,14 @@ C1 = [
     ('literary connectors and adverbs', 'گرچه'),
 ]
 
-INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2, 'c1': C1}
+# A1's additions (`run.py --level x1`; `persian_level.EXTRA` has the why): words Wiktionary
+# has and no deck carded -- the formula of every Persian offer (بفرمایید), "I don't know", the
+# "what is" of اسم شما چیست, "there is", and the one colour A1's set lacked.
+X1 = [
+    ('greetings and politeness', 'بفرمایید نمی‌دانم'),
+    ('questions', 'چیست'),
+    ('everyday verbs', 'هست:verb'),
+    ('colours', 'قهوه‌ای'),
+]
+
+INVENTORY = {'a1': A1, 'a2': A2, 'b1': B1, 'b2': B2, 'c1': C1, 'x1': X1}

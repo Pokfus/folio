@@ -3870,7 +3870,14 @@ changed was the one that had been wrong all along.
   romanisation on every card. **Built: `decks/Persian-Alphabet.folio-deck.json`** (39 notes), **A1,
   `decks/Persian-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Persian-A2.folio-deck.json`**
   (750 notes / 1,500 cards, 2026-11-12: the months let through as nouns) **and B1, `decks/Persian-B1.folio-deck.json`** (1,000 notes / 2,000 cards, the same day: romanisation read off the headword line) **and B2, `decks/Persian-B2.folio-deck.json`** (1,500 notes / 3,000 cards, the same day: Wiktionary lacks much of the level's formal vocabulary, so the fill carries it) **and C1, `decks/Persian-C1.folio-deck.json`** (1,500 notes / 3,000 cards, the same day: the inventory checked against Wiktionary before it was written). Every level is built, and **the phrases deck, `decks/Persian-Phrases-and-Expressions.folio-deck.json`** (106 expressions: 47 phrases, 39 idioms, 20 proverbs; `phrases.py`, Hindi's, carried over). The set is complete. `python3 .claude/persian/run.py [--level a1]`,
-  `python3 .claude/persian/alphabet.py`, `node .claude/persian/check-persian.js`; a re-run is byte-identical. What
+  `python3 .claude/persian/alphabet.py`, `node .claude/persian/check-persian.js`; a re-run is byte-identical. **READ
+  THIS FIRST (2026-11-19, the Persian beginner pass — its section is near the foot of this file): a deck straight
+  from the generator is never shipped.** After any rebuild: `run.py --level x1 --no-fetch`, `node
+  .claude/persian/persian-fix.js --refresh`, `node .claude/persian/persian-order.js`, `node
+  .claude/persian/persian-fix.js`, `node .claude/build-lang-decks.js`. NOTE IDS ARE PINNED
+  (`persian-ids.json`; never delete or renumber a row), cards moved down or added to A1 are in
+  `persian-fixes.json`, the order is `persian-order.json`, and the counts are now 43 / 522 / 735 / 999 / 1,500 /
+  1,500 / 105. A fault of the generator is fixed in the generator and every level rebuilt. What
   Persian needed that Hindi did not — the fold (Arabic ي ك, marks and the joiner ignored, the madda kept), the
   joiner put back into Wiktionary's tables, the SPOKEN forms counted for the written word, right to left, the
   Classical / Dari tables withheld — is 📖 `docs/persian-decks-plan.md`. The collection is named "Persian
@@ -5753,6 +5760,153 @@ gave the committed bytes each time.
   screenshots at 390 px) were scratch scripts, not suites.
 - **The whole shelf is now 5,605 notes, 11,199 cards: 1,123 days at the default pace, 3.1 years**; B1
   begins on day 267.
+
+## The Persian beginner pass (2026-11-19)
+
+On request, the audit the Japanese, Mandarin, Spanish, Italian, German and Portuguese decks had been given:
+**what does a learner with no Persian and no knowledge of its script meet, in the order the shelf itself
+recommends** — Alphabet, A1 to C1, then the phrases? Every figure was measured on the seven decks as shipped
+that morning, at the language default of ten new cards a day with both directions together, which is five
+words a day. The rules are in the `.claude/persian/` entry above and in the headers of
+`.claude/persian/persian-fix.js` and `persian-order.js`; this section is the reasoning.
+
+**The generator was proved first, and that decided where each fix went.** `run.py` claims a byte-identical
+re-run. On the day it was not: Tatoeba's export of 2026-11-14 had three new pairs and one card's sentences
+moved in each of A1, A2 and B1. With the sentence pool pinned to the export the decks were built on
+(`examples.py`, `PINNED`), all seven decks rebuilt byte for byte (sha256 against the committed files), and
+again after every generator change that was not meant to move a card. So a fault OF THE GENERATOR was fixed
+in the generator and every level rebuilt; a move, an addition, an order, a pinned number or a description's
+count is in the Persian RECORD. Each item below says which.
+
+### What the audit found, by what it costs a beginner
+
+1. **The greetings were weeks away and three were in no deck.** A1 was dealt by subtitle frequency: day one
+   was کردن · بودن · که · من · به. سلام was note 83 (day 25, the alphabet's eight days first), خداحافظ day
+   83, مرسی day 85, صبح بخیر and شب بخیر day 87, خواهش می‌کنم day 70. Of the four registers of thanks, ممنون
+   (A1) was glossed "grateful, thankful; a grateful person" and nothing else, مرسی carried no word that it is
+   informal, متشکرم was in A2 (day 132), سپاسگزار in B2 and سپاس in C1 (day 760). اسم شما چیست was the tenth
+   card of the phrases deck, the last on the shelf (day 1,060). بفرمایید, نمی‌دانم, چیست and هست were cards
+   of no deck, and neither خسته نباشید nor چطوری is an entry of the English Wiktionary. بله was romanised
+   "bali", the reading of the word its gloss pointed to.
+2. **The verb tables taught another variety on 26 cards, and no card showed a negative or a perfect.**
+   Wiktionary prints up to five conjugation tables per verb (literary Iranian, colloquial Tehrani,
+   dialectal, literary Dari, colloquial Kabuli) and the extraction flattens them; the card took the first
+   row without a macron. 437 cells on 26 cards were not literary Iranian: مردن printed murdam, شکستن
+   šikastam, خندیدن mē-xandam, and **دادن, the fourteenth word of the deck, printed the colloquial present
+   می‌دم, می‌دین, می‌دن as the written one** (its literary table is lost in the extraction, with those of
+   its six compounds). Every verb showed both stems (54 of A1's 55) and a table of present, past, future,
+   subjunctive and imperative (51), but not the present perfect or the negative: of the 187 verb forms
+   bolded in A1's own sentences 136 were cells of the card's table. بودن, داشتن and توانستن have no table
+   (Wiktionary's has no romanised cells).
+3. **Written against spoken was one clause of the description.** 24 of A1's 500 cards showed a spoken
+   form, 2 of its 55 verbs; می‌خواهم, which is said mixâm, showed nothing, though Wiktionary's colloquial
+   table was in the cache. The sentences are written Persian: 17 of A1's 1,423 hold one of 32 unambiguous
+   spoken forms (یه, اون, میگم …), 0.7% to 1.5% on the other levels.
+4. **The alphabet deck's sounds had no source, and three were wrong for Iran.** â was "a as in father", the
+   DARI cell of Wikipedia's key (the Farsi one is "off, but longer"); ġ "like the French r"; o "a short
+   version of go"; and seven letters were "found only in words from Arabic", which no source here says and
+   صد contradicts. It taught the four shapes, the seven letters that do not join forward (seven, not six:
+   ا د ذ ر ز ژ و), the four added letters, the letters with one sound, the three marks, tašdid, hamze and
+   tanvin — and not the half-space, the silent و of خواهر, or a final ی read â. 400 of A1's 500 headwords
+   (80%) hold a short vowel the script does not write, 1.23 each; 101 hold a و, 135 a ی, 65 end in ه.
+5. **One sound, two romanisations.** Wiktionary's policy page names two practices, and both were on the
+   cards: ق was q on 7 A1 headwords and ġ on 31 (164 and 258 over the five levels), where the alphabet deck
+   teaches one letter. Otherwise the scheme is one from the alphabet to C1 (â, x, š, ž, č, '), vowel length
+   is marked, and the ezafe is written wherever a headword has one (-e on 36 of the phrases). **No example
+   sentence has a romanisation**, so a beginner cannot sound one out; seven headwords keep a Classical ô or î
+   (فراموش کردن, افسوس, لوبیا, هوشیار, گود, گوگرد, سمور; آغازیدن).
+6. **The closed sets were scattered.** One was note 7, two 100, three 159, four to ten 337 to 420, eleven
+   and twelve 464 and 477; thirteen to nineteen and forty to ninety were in A2 (days 230 to 252), zero in B1
+   (day 396), **and nine was in no deck**: نه na "no" and نه noh "nine" are one spelling, the card was the
+   first, and one of its three sentences was "at nine o'clock". The days ran from note 439 to 498 in the
+   order شنبه, جمعه, یکشنبه, دوشنبه, چهارشنبه, پنجشنبه, سه‌شنبه. The twelve solar months are A2's (days 128
+   to 256), the seasons A2's; no Gregorian month is carded but مه, and of the Arabic ones رمضان. A1 has six
+   colours; قهوه‌ای was in no deck. او was note 194 and ایشان 486, the other pronouns in the first fifty; the
+   six prepositions were in the first 34 notes and the question words between note 24 and note 349.
+7. **Nothing said who says a word to whom.** Wiktionary tags a sense formal, informal, colloquial or slang
+   and the cards printed none of it (104 cards over the six decks).
+8. **Three sentences were Kurdish**, filed as Persian on Tatoeba: A1's و bolded the letter و inside
+   وەستاند.
+9. **Nouns are sound.** No gender. 157 of A1's 248 nouns show a plural, 70 two (the Arabic beside the
+   Persian: اخبار, خبر‌ها), 52 an Arabic or broken one; the object form with را, the ezafe, the indefinite ـی
+   and the possessives are behind the fold on the 33 nouns Wiktionary declines. را is its own card.
+10. **Compound verbs are carded as compounds, and are few**: 5 of A1's 500, 39 of the levels' 5,250 (کردن 28
+    of them), the noun also a card in 34; کردن's card says it is the light verb that makes verbs of nouns.
+11. **The reverse card is sound.** No two notes of a deck share an English field (the generator labels
+    them "not X": 8, 14 and 18 notes from B1 up). 16 A1 notes in 8 pairs share a FIRST gloss (چی / چه, ولی
+    / اما, زیبا / قشنگ) with their other glosses differing. Of the Persian / Arabic-loan pairs both are
+    carded, levels apart: سپاس C1, تشکر A2; دشوار B2, مشکل and سخت A1.
+12. **The sentences are short but not graded.** A1's average 5.5 words (54 of 1,423 over ten); 60% of their
+    words had been met on arrival and 85 could be read whole; over the first fifty notes 41% and 1 of 146.
+    None for 14, 74, 267, 758 and 1,076 notes, A1 to C1.
+13. **The phrases.** 47 everyday, 39 idioms, 20 proverbs, as its description says, ordered by Tatoeba's
+    count. 10, 4 and 2 are spelt with A1's words and stood at positions 1 to 26, 48 to 63 and 89 to 93;
+    none is carded twice. ta'ârof was named in two glosses and nowhere a reader would look.
+14. **The pace was stated nowhere**: the alphabet 8 days, A1 done on day 108, B1 reached on day 258, the
+    shelf 1,079 days (2.96 years). Every level's description does say it is no examination's list.
+
+### What was built
+
+- **Note ids pinned** (`persian-ids.json`, 5,395 rows seeded from the seven decks as shipped, before
+  anything moved; every deck was numbered by position). Checked in a browser: a reader holding the old
+  Alphabet, A1 and phrases with 34 notes studied in BOTH directions pressed Update on each and kept all 68
+  schedules on the same ids and the same words ("4 new cards", "22 new cards", "1 card dropped from the
+  list (kept here, with its progress)"), the dropped note staying on the device. From the files: of the
+  old ids 17 are retired and none is reused.
+- **In the generator** (every level rebuilt, and nothing else moved): the table a card shows is the one
+  HEADED literary Iranian (`extract.py` tags each row with its table's variety, matching lost headers from
+  the end); a verb's forms line quotes the colloquial Tehrani "I" and "he, she" (می‌رم، می‌ره; 157 verbs);
+  the All forms fold gains the present perfect and the negative (191 verbs; the rule quoted from
+  Wikipedia's "Persian verbs", revision 1375231292, and no negative written for a form that begins with a
+  vowel letter); ق is ġ everywhere; a sense's register is printed; نه carries nine; بله is bale; a sentence
+  with a Kurdish letter is not read; the forms line wraps by item.
+- **The alphabet re-sourced and four notes added** (`alphabet.py`, 43 notes): every English comparison is
+  the Farsi cell of Help:IPA/Persian (revision 1379048408), what a letter does in a word a sentence of
+  "Persian alphabet" (1385657500); the silent و of خوا after و, the final ه after ه, the final ی after ی,
+  the half-space last. Its ids are in its table.
+- **The Persian record** (`persian-fixes.json`, applied by `persian-fix.js`). 22 notes for A1 (ids 501 to
+  522): 17 MOVED byte for byte from A2 (thirteen to nineteen, forty to ninety, متشکرم, خانم), B1 (صفر) and
+  the phrases (اسم شما چیست), each dropped where it stood with its number retired; 5 BUILT BY THE
+  GENERATOR'S OWN STAGES (`run.py --level x1`: بفرمایید, نمی‌دانم, چیست, هست, قهوه‌ای), their Tatoeba ids
+  in the record. ممنون leads with "thank you, thanks", the meaning its own three sentences give it.
+- **An order** (`persian-order.json`): A1's first 80 notes by hand — the courtesies (سلام is day one), a
+  first exchange, the pronouns, twelve verbs, the function words, the question words, zero to ten — then
+  the frequency order with the days from Saturday at note 121, the numbers above ten at 151, the colours at
+  201; A2's seasons and solar months in the calendar's order; the phrases by reading level inside each
+  subdeck. Over A1 99 of 1,451 sentences can now be read whole (10 of 134 over the first fifty notes).
+- **The descriptions**: A1's says in plain words that written and spoken Persian differ and how (a sentence
+  of Wikipedia's "Persian phonology", 1386489168), states the order and the pace; the phrases' says when to
+  start it and what ta'ârof is ("Taarof", 1385845637); every count is recounted on each run.
+- **CI**: `persian-fix.js --check`, `persian-order.js --check`, `check-persian.js` (which now holds ids to
+  the pin, and fails on a q or a Kurdish letter).
+
+### What was decided against, and why
+
+- **A table for دادن by rule.** Its literary forms (می‌دهم mi-daham) are not in the extraction and no rule
+  gives them from the stem ده; the seven cards have their stems and spoken forms and no table, like بودن.
+- **A romanisation for the sentences.** The script does not write the ezafe or the short vowels, so a
+  word-by-word lookup would be wrong where a beginner most needs it; the speaker reads them.
+- **Moving the months to A1, or adding the Gregorian ones.** The inventory places the solar months in A2
+  by design; they are now together there. Wiktionary's Gregorian month entries were not read.
+- **Re-ordering B1 to C1**, and hints on the pairs that share a first gloss: their other glosses differ.
+- **A grammar deck** (the ezafe, را, the indefinite ـی). The zir card states the ezafe, the tables show
+  the forms, and nothing else on the shelf could be quoted.
+- **Cards for خسته نباشید, چطوری, خوبم**: not entries of the English Wiktionary.
+- **Look-alikes kept apart** (letters that differ by a dot): not measured.
+
+### Limits to know about
+
+- **A1 was read through its head and its closed sets, not card by card**; A2 to C1 were not read.
+- **Seven verb cards lost a table that was wrong and gained none**; three verbs whose literary table
+  Wiktionary romanises the Classical way (انداختن, پذیرفتن, بلعیدن) have no table or cells without a reading.
+- **The moved cards and the five new ones were not chosen from a source**: that zero, the tens and the
+  courtesies are A1 material is a judgement, and A1's description says they were added.
+- **A reader who already holds A2, B1 or the phrases keeps the card that moved** and meets it again in A1.
+- **The pin on the sentence pool cannot undo a sentence Tatoeba deletes or rewrites**; a rebuild months
+  from now may differ, and `persian-fix.js --check` holds the committed decks, not a rebuild.
+- **How common each level's first 300 words are was not measured**, nor the spoken register of a sentence
+  beyond the 32 forms counted.
+- **The shelf is now 5,404 notes: 1,081 days at the default pace, 2.96 years**; A1 ends on day 113.
 
 ## The DELE card-by-card audit, beyond A1 — the batch log
 
