@@ -260,6 +260,14 @@ the form English-language scholarship and the reference works use; the decision 
 | Zhuang, Nong Zhigao, Miao, Yi, Baiyue, Dian | Nung Chih-kao, Pai-yüeh | Nùng Trí Cao, Hmong, Nuosu, Lolo, Hundred Yue | *Lolo* an old exonym, used only as a quoted or historical name; *Hmong* the self-name of one Miao group, never a synonym for all |
 | xiangqi, tai chi, siheyuan, baijiu, Lu Yu, Yuan Mei, Fan Zhongyan, Liu Zhiji | hsiang-ch'i, t'ai chi, T'ai chi ch'üan, Lu Yü, Yüan Mei, Fan Chung-yen, Liu Chih-chi | Chinese chess, taijiquan, tai chi chuan, shaojiu | *tai chi* the English name and the live answer; *taijiquan* the pinyin, an alias |
 | Shanxi merchants, Huguang, huiguan | Shansi merchants, Hukuang, hui-kuan | Jin merchants, Jinshang | *Shanxi*, never confused with *Shaanxi* |
+| Daodejing, Daoism, Daoist, Huang–Lao, Celestial Masters, Quanzhen, Lingbao, Shangqing | Tao Te Ching, Tao-te ching, Tao Teh King, Dao De Jing, Daode jing, Ch'üan-chen, Ling-pao, Shang-ch'ing | Taoism, Taoist, Huang-Lao, Huanglao, Laozi (the book), Tianshi Dao, Way of the Five Pecks of Rice, Way of the Celestial Masters, Quanzhen School | the Daoist names (added for the ninth hundred, Nov 2026); *Daoism* in the card's voice although the glossary's slug is `Taoism` (its title, and "Taoist" in a cited title, are not reported; for the owner); *Huang–Lao* with the en dash of its slug (the hyphened *Huang-Lao* of earlier cards not reported); Legge's *Tâo Teh King* cited as printed |
+| Zhang Daoling, Ge Hong, Ge Xuan, Wang Zhe, Heshang Gong, Baopuzi, Cook Ding | Chang Tao-ling, Zhang Tao-ling, Ko Hung, Ko Hsüan, Wang Che, Wang Ch'ung-yang, Ho-shang Kung, Pao-p'u-tzu, Pao-p'u tzu, Baopu zi | Zhang Ling, Wang Chongyang, Heshanggong, Butcher Ding, Pao Ding, Baopu | *Zhang Ling* the name the histories give him, an alias |
+| Liji, Zhongyong, Great Learning, Ten Wings, Wu Xing, He Tu and Luo Shu, Zisi, Zengzi | Li Chi, Li Ki, Chung Yung, Chung-yung, Ta Hsüeh, Ta-hsüeh, Ho-t'u, Lo-shu, Tzu-ssu, Tseng-tzu | Book of Rites, Record of Rites, Doctrine of the Mean, Daxue, Yizhuan, Wuxing, Five Phases, five phases, Five Agents, Hetu, Luoshu, Zeng Shen | the Confucian texts by the live answers; Legge's *Lî Kî* cited as printed; *Wuxing* not reported (it is also a place name, Huzhou's old name) |
+| Yan Hui, Zilu, Gaozi, Mozi, Gongshu Ban, Shen Buhai, Hui Shi, Zou Yan, Liu Xin, Wang Bi, Li Ao | Yen Hui, Tzu-lu, Tzu Lu, Kao Tzu, Kao-tzu, Kung-shu Pan, Shen Pu-hai, Hui Shih, Tsou Yen, Wang Pi | Yan Yuan, Zhong You, Ji Lu, Lu Ban, Gongshu Zi, Shenzi | the early thinkers; *Lu Ban*, the craftsman's later name and patron god, an alias of Gongshu Ban said so |
+| Zhou Dunyi, Zhang Zai, Cheng Hao, Cheng Yi, Lu Jiuyuan, Wang Fuzhi, Huang Zongxi, Yan Ruoqu, Zhang Zhidong, Zhang Junmai, Ding Wenjiang | Chou Tun-i, Chang Tsai, Ch'eng Hao, Ch'eng I, Cheng I, Lu Chiu-yüan, Wang Fu-chih, Huang Tsung-hsi, Yen Jo-chü, Chang Chih-tung | Lu Xiangshan, Chuanshan, Lizhou, Carsun Chang, V. K. Ting | the later Confucians; *Carsun Chang* and *V. K. Ting*, their own English names, stand in cited titles and an author line |
+| Kumarajiva, Dharmaraksa, An Shigao, Huiyuan, Zhiyi, Fazang, Daoxuan, Huineng, Baizhang Huaihai, Tiantai, Huayan, Chan, Pure Land, Mount Wutai, Mogao Caves | Chu-fa-hu, An Shih-kao, Hui-yüan, Chih-i, Fa-tsang, Tao-hsüan, Hui-neng, Pai-chang Huai-hai, Pai-chang, T'ien-t'ai, Hua-yen, Ch'an, Wu-t'ai shan | Kumārajīva, Dharmarakṣa, Zhu Fahu, Wutai Shan, Wutaishan, Qingliang Shan, Qianfodong, Caves of the Thousand Buddhas | the Buddhist names; Sanskrit names without diacritics in the card's voice (the slugs' `Kumārajīva` and `Dharmarakṣa` are their titles); *Zen* only for Japan |
+| Liu Ying, Emperor Taiwu, Cui Hao, Kou Qianzhi, Wenchang Wang, Dongyue Dadi, City God, Luo Qing, Eternal Venerable Mother, Aluoben | Ts'ui Hao, K'ou Ch'ien-chih, Wen-ch'ang, Tung-yüeh ta-ti, Ch'eng-huang, Lo Ch'ing | Wenchang Dijun, Zitong Dijun, Zhang Yazi, Emperor of the Eastern Peak, Chenghuang, Luo Zu, Wusheng Laomu, Alopen, Olopun | the gods and the sects; *City God* the English name, *Chenghuang* the Chinese an alias |
+| Jiangnan, qianzhuang, sycee, comprador, Pan Jixun, Huang Daopo, Zhengguo Canal, Qimin yaoshu, Hemudu, caoyun, feng shui, luopan | Kiangnan, Chiang-nan, ch'ien-chuang, Pan Chi-hsün, Huang Tao-p'o, Cheng-kuo, Ch'i-min yao-shu, Ho-mu-tu, ts'ao-yün, fengshui | native banks, yuanbao, maiban, Zhengguo Qu, Ch'i-min yao shu, Grain Transport | the economy's names; *sycee* and *comprador* the period's English, lower-case as common nouns; *Hankou* in the card's voice, *Hankow* (the row above) cited as printed |
 
 ## Mythology and legend
 
@@ -956,9 +964,27 @@ BCE and the empire's end, the abdication of 12 February 1912 (`cnh-191`, `cnh-57
 | the King of Na seal granted / found | 57 CE / 23 February 1784 | the Fukuoka museum (`cnh-799`) |
 | regional ethnic autonomy: the first region / promised / enacted / amended | 1947 / 1949 / 31 May 1984 / 28 February 2001 | the NPC (`cnh-800`) |
 
+## Land, trade and money, philosophy and religion (the ninth hundred)
+
+Filled batch by batch from `cnh-801` (B81 on). The ninth hundred is three themed decks: land, trade and money (`cn-economy`),
+Chinese philosophy (`cn-thought`) and religion and ritual (`cn-religion`), so a card here often dates a text, a school or a cult
+across several dynasties, and a text is dated by its making or its first attestation, never by its traditional author's life.
+**The protected lines** of its thirty-three individuals (the thinkers, the translators and the founders, listed in
+`docs/china-refinement-audit.md`, "Protected date lines") are pinned below to their lines as they stood on main on 2026-11-19
+(the years only; ages, days and months left out), and are not rows of this table. Dates already set elsewhere that this hundred
+must agree with: the Qin unification 221 BCE (`cnh-191`); the supremacy of Confucianism 136 BCE (`cnh-238`) and Dong Zhongshu
+(`cnh-237`); the White Horse Temple's traditional 68 CE (`cnh-267`); the Northern Wei 386 – 534 CE (`cnh-330`); the Grand Canal's
+main works 605 – 610 CE (`cnh-350`); Wu Zetian emperor from 16 October 690 CE (`cnh-371`); Xuanzang's journey 629 – 645 CE
+(`cnh-388`); the persecution of 845 CE (`cnh-389`); the Song 960 – 1279 (`cnh-421`); the jiaozi's state issue 1023 (`cnh-436`);
+Zhu Xi 1130 – 1200 and the Neo-Confucian masters 1017 – 1200 (`cnh-459`, `cnh-460`); Matteo Ricci in China 1582 – 1610 (`cnh-527`);
+Wang Yangming (`cnh-528`); the Treaty of Nanking 29 August 1842 (`cnh-562`); the kaizhong 1370 / 1492 (`cnh-718`, `cnh-747`).
+
+| event | the collection says | source |
+|---|---|---|
+
 ## Later periods
 
-To be filled from `cnh-801` on.
+To be filled from `cnh-901` on.
 
 ## Chronology pins
 
@@ -1218,6 +1244,39 @@ cnh-677: 1921; 1976; 1981; 2008
 cnh-678: 1904; 1920; 1926; 1978; 1997
 cnh-733: 442; 466; 476; 490
 cnh-781: 1550; 1571; 1578
+cnh-805: 1521; 1578; 1595
+cnh-824: 1245; 1295; 1330
+cnh-828: 521; 481
+cnh-829: 542; 480
+cnh-836: 420; 350
+cnh-839: 179; 157; 100; 200
+cnh-840: 400; 200
+cnh-843: 470; 430; 391
+cnh-844: 507; 444
+cnh-845: 400; 337
+cnh-847: 370; 313; 310
+cnh-850: 305; 240
+cnh-855: 46; 7; 1; 23
+cnh-856: 226; 249
+cnh-857: 772; 798; 841
+cnh-858: 1020; 1069; 1077
+cnh-860: 1033; 1107
+cnh-861: 1619; 1692
+cnh-862: 1139; 1175; 1193
+cnh-864: 1636; 1704
+cnh-865: 1610; 1662; 1663; 1695
+cnh-877: 34; 142; 156
+cnh-881: 1113; 1159; 1167; 1170
+cnh-882: 65; 70; 71
+cnh-883: 148; 170
+cnh-884: 233; 286; 310
+cnh-885: 344; 383; 401; 402; 409; 413
+cnh-886: 596; 667
+cnh-887: 538; 575; 597
+cnh-888: 643; 712
+cnh-889: 334; 402; 416
+cnh-891: 720; 814
+cnh-895: 408; 423; 452; 446
 cnh-101: 1250; 1046
 cnh-103: 1046; 1040; 1122
 cnh-104: 1046; 1044; 1122
