@@ -645,7 +645,8 @@
   // per-card "don't auto-gloss these terms" list — set when the editor removes a gloss link in the background, so it stays removed
   /* A TERM ONE CARD MUST NOT AUTO-LINK, SHIPPED (2026-11-18, on request: ww2-899's "wheel orders" are an Enigma machine's rotors, not the wheel):
      the baked twin of the editor's `ADMIN_EDITS.glossOff`, merged under it. A hand-written data-k still links. */
-  const GLOSS_OFF_CARD = { "ww2-899": ["Wheel"] };
+  /* …and us-375 (2026-11-19, on request): "Declaration of Independence" links site-wide, but its "Anti-Masonic Declaration of Independence" is another document */
+  const GLOSS_OFF_CARD = { "ww2-899": ["Wheel"], "us-375": ["United_States_Declaration_of_Independence"] };
   function glossOffList(id) {
     const ed = (id && ADMIN_EDITS.glossOff && ADMIN_EDITS.glossOff[id]) || [], sh = (id && GLOSS_OFF_CARD[id]) || [];
     return sh.length ? ed.concat(sh.filter((k) => ed.indexOf(k) < 0)) : ed;

@@ -50,7 +50,7 @@ window.CHANGELOG = [
       "Map names of states, regions and seas are now in a serif; seas and deserts never get a dot, and Mount Olympus is always a peak.",
       "In map windows the Discovered chip sits beside the Location heading, the night Collection/All switch is softer and the source line is gone.",
       "Eight map windows redrawn: sharper Western Desert borders, Alexander's and Carthage's full extents, and states for three leaders.",
-      "12 new glossary terms, more glossary links on two United States cards, and new or better pictures on three cards.",
+      "12 new glossary terms, more glossary links across United States cards, and new or better pictures on three cards.",
       "Timelines added to 4 more cards, and date lines or map points improved on 3 cards.",
     ],
   },

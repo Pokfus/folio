@@ -25525,7 +25525,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Treaty_of_Canandaigua": ["Canandaigua","Pickering Treaty"],
 "William_Pitt,_1st_Earl_of_Chatham": ["William Pitt the Elder","Pitt the Elder"],
 "Great_Law_of_Peace": ["Great Tree of Peace"],
-"Townshend_Acts": ["Townshend duties"]
+"Townshend_Acts": ["Townshend duties"],
+"United_States_Declaration_of_Independence": ["Declaration of Independence"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
