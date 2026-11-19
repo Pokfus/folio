@@ -2836,3 +2836,28 @@ Gated on `prep === "kant"`, so inert on every other book.
 Re-run after touching: `node .claude/fetch-book.js kant-critique-of-pure-reason --force` (24 pages), check "181 heading
 block(s) fenced, 181 lifted, 7 table(s) read as blocks, 5 asterisk row(s), 2 note(s) inside a note spliced", then
 `node .claude/book-audit.js`.
+
+## `prep: "freud"` — a chapter's printed head dropped, the Critique's heading pass reused (Nov 2026, The Interpretation of Dreams)
+
+`freudPrep(h, n, warn)` runs on the raw page before `kantPrep` (which `prep: "freud"` also runs), and `freudFinish` after
+`kantFinish`, before `kantNestedNotes` (which warns on any note no marker cites). Brill's 1913 transcription marks its
+heads exactly as Meiklejohn's does — `wst-center` for a head, `wst-block-center` for verse — so the heading pass is
+shared rather than copied. What is this book's own: **the leading run of centred blocks whose text is capitals or a
+numeral is the chapter's printed head and is DROPPED**, since Folio's title already prints it (lifted, it would stand
+twice); a reference inside it is held and set by `freudFinish` as an italic line at the head of the section, its note
+taken out of the fold and the markers renumbered (the Lysis rule). **Only the edition's heads are fenced** — a lettered
+"(a) …", "Dream of July…", "Analysis", "II. "A Beautiful Dream"" — every other centred block is re-classed
+`wst-block-center` so the generic pass makes it a blockquote (a quotation set on its own line is not a heading). On the
+front page (`n === 1`) the title leaf and the contents table are dropped as whole transclusion blocks, and the run
+THROWS unless it finds both. A right-set printer's signature between two halves of a sentence is dropped and the
+paragraph carried across it; a `<figure>` followed by its "Fig. N." caption becomes "[Fig. N: a diagram, not reproduced
+here.]", and any other figure is warned. **The inline `<style>` MediaWiki puts before a template's first use must be
+matched as `<style[^>]*>[^<]*</style>`**: a lazy `[\s\S]*?` there backtracks across every earlier `</style>` and the
+replacement swallowed a page and a half of chapter V, note 12's marker with it — caught only by `kantNestedNotes`'
+"cited by no marker" warning. The run prints "13 printed chapter head block(s) dropped, 1 head note(s) set as a line,
+2 front-page leaf/leaves dropped, 1 signature mark(s) dropped, 3 diagram(s) set as a line, 8 centred quotation(s) left
+as blocks" and "26 heading block(s) fenced, 26 lifted" (the Literary Index's head and its sub-head included). Gated on `prep === "freud"`.
+
+Re-run after touching: `node .claude/fetch-book.js freud-interpretation-of-dreams --force` (nine pages), check those
+two lines and 184 notes with no warning, then `node .claude/book-audit.js`.
+

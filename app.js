@@ -13020,6 +13020,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      sweep's other near-best were refused on the same test: a magenta stood 14.6 from Plato, a green 14.5 from
      Aquinas, a brown 16.9 from Augustine. It reads 5.83:1 on the tightest light paper. */
   "Immanuel Kant": "#592F85",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-five colours placed (Nov 2026, adding The Interpretation of
+     Dreams): CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and
+     4.5:1 on every light paper, card and second paper, a sweep at a step of 3. The band is full: the best
+     anywhere is a magenta at 14.6, which stands 14.9 from Plato, and the next a maroon 15.1 from Sophocles —
+     refused on THE EURIPIDES TEST, since Freud's fifth chapter reads the Oedipus Rex and his book is read
+     beside the philosophers. This olive green stands 14.2 from the Book of Documents, 14.7 from the Rigveda,
+     15.3 from the Quran and 16.1 from Aquinas, none a book read beside Freud. It reads 4.70:1 on the tightest
+     light paper (the green at 14.5 read 4.52, right at the bar). */
+  "Sigmund Freud": "#305D00",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -17046,6 +17055,40 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          category of "Inherence and Subsistence", not how a society gets its living; PROVIDENCE is divine, not
          the capital of Rhode Island; and "the Republic of Plato" is the dialogue, not the form of state. */
       glossOff: ["Wolf", "Subsistence", "Providence", "Republic"],
+    },
+    {
+      id: "freud-interpretation-of-dreams",
+      title: "The Interpretation of Dreams",
+      subtitle: "Die Traumdeutung",
+      author: "Sigmund Freud",
+      written: "1899, dated 1900",
+      year: 1899,
+      translator: "A. A. Brill",
+      edition: "Authorised translation of the third edition, The Macmillan Company, New York, 1913",
+      /* Public domain in the US (published 1913) and under life plus seventy (Freud d. 1939, Brill d. 1948).
+         See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States and in countries of life plus seventy years. Sigmund Freud died in " +
+        "1939. A. A. Brill's translation was published in New York in 1913 and its translator died in 1948. " +
+        "The text is the validated Wikisource transcription of the 1913 printing, from a scan of the book.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Interpretation_of_Dreams_(Freud)",
+      /* NO `origLang`: Brill translates the third German edition (1911), and no proofread German of it is
+         paired. Nine sections: the four prefaces, Freud's seven chapters and his Literary Index, so a tab
+         runs one ahead of the chapter, whose numeral opens each title (Leviathan's arrangement). */
+      chapterWord: "Section",
+      count: 9,
+      total: 9,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all nine sections (every `.ttip`,
+         Nov 2026). Freud's JODL is Friedrich Jodl the psychologist, not the general; MAINE is Maine de Biran;
+         PALLAS is Athene, not Claudius's freedman; MORA is Daudet's Duc de Mora; LYONS is a governess, Miss
+         Lyons; SAPPHO is Daudet's novel; CZECH is the language and the people of Moravia, not the modern
+         republic; his SEXUAL SELECTION is a parent's preference for the child of the other sex, not Darwin's;
+         and SUI, YORK ("New York"), EVOLUTION, TASTE, PATHOLOGY, PSYCHOLOGY and PHILOSOPHY are words inside the
+         titles of books he cites. */
+      glossOff: ["Alfred_Jodl", "Maine", "Marcus_Antonius_Pallas", "Mora_(military_unit)", "Lyon", "Sappho",
+        "Czech_Republic", "Sexual_selection", "Sui_dynasty", "York", "Evolution", "Taste", "Pathology", "Psychology",
+        "Philosophy"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -26743,6 +26786,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "Whatsoever therefore is consequent to a time of Warre, where every man is Enemy to every man; the same is consequent to the time, wherein men live without other security, than what their own strength, and their own invention shall furnish them withall. In such condition, there is no place for Industry; because the fruit thereof is uncertain: and consequently no Culture of the Earth; no Navigation, nor use of the commodities that may be imported by Sea; no commodious Building; no Instruments of moving, and removing such things as require much force; no Knowledge of the face of the Earth; no account of Time; no Arts; no Letters; no Society; and which is worst of all, continuall feare, and danger of violent death; And the life of man, solitary, poore, nasty, brutish, and short." },
     { book: "kant-critique-of-pure-reason", n: 2, t: "Preface to the Second Edition", p: 11,
       text: "It appears to me that the examples of mathematics and natural philosophy, which, as we have seen, were brought into their present condition by a sudden revolution, are sufficiently remarkable to fix our attention on the essential circumstances of the change which has proved so advantageous to them, and to induce us to make the experiment of imitating them, so far as the analogy which, as rational sciences, they bear to metaphysics may permit. It has hitherto been assumed that our cognition must conform to the objects; but all attempts to ascertain anything about these objects a priori, by means of conceptions, and thus to extend the range of our knowledge, have been rendered abortive by this assumption. Let us then make the experiment whether we may not be more successful in metaphysics, if we assume that the objects must conform to our cognition. This appears, at all events, to accord better with the possibility of our gaining the end we have in view, that is to say, of arriving at the cognition of objects a priori, of determining something with respect to these objects, before they are given to us. We here propose to do just what Copernicus did in attempting to explain the celestial movements. When he found that he could make no progress by assuming that all the heavenly bodies revolved round the spectator, he reversed the process, and tried the experiment of assuming that the spectator revolved, while the stars remained at rest." },
+    { book: "freud-interpretation-of-dreams", n: 3, t: "II. Method of Dream Interpretation: The Analysis of a Sample Dream", p: 50,
+      text: "I could still spend much time upon it; I could draw further explanations from it, and bring up new problems which it bids us consider. I even know the points from which further thought associations might be traced; but such considerations as are connected with every dream of one's own restrain me from the work of interpretation. Whoever is ready to condemn such reserve, may himself try to be more straightforward than I. I am content with the discovery which has been just made. If the method of dream interpretation here indicated is followed, it will be found that the dream really has meaning, and is by no means the expression of fragmentary brain activity, which the authors would have us believe. When the work of interpretation has been completed the dream may be recognised as the fulfilment of a wish." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
       text: "Again:—\"Why does not the pope, whose wealth is to-day greater than the riches of the richest, build just this one church of St. Peter with his own money, rather than with the money of poor believers?\"" },
     { book: "kalidasa-shakuntala", n: 6, t: "Act IV", p: 138,

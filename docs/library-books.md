@@ -12,7 +12,33 @@ book added later will meet the same traps.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently sixty-seven:
+  matter (chapter 0 — see the Library bullet). Currently sixty-eight:
+  `freud-interpretation-of-dreams` (~1.2 MB, **9 sections** — the four prefaces (Freud's "Introductory Remarks" to the
+  first edition, his prefaces to the second and third, Brill's translator's preface), chapters I–VII and Freud's
+  Literary Index, so a tab runs one ahead of the chapter, whose numeral opens each title; `chapterWord: "Section"` —
+  **184 notes**, Freud's and a few of Brill's ("Transl."), no original; A. A. Brill's authorised translation of the
+  THIRD edition (1911), Macmillan, New York, 1913, validated on Wikisource (`data-page-quality="4"` on every page) from
+  the scan `Freud - The interpretation of dreams.djvu`). Titles transcribed from the 1913 contents page (`titleOf`).
+  Public domain in the US (published 1913) and under life plus seventy (Freud d. 1939, Brill d. 1948 — Wikisource's
+  own licence tag); not in a life-plus-eighty country before 2029. **No original**: the third German edition was not
+  looked for; the first (1899) is a shorter, different text. **The Literary Index is shipped** because the prose
+  cites it by number — chapter I alone carries 155 raised numbers (`Maury<sup>48</sup>`), plain superscripts
+  that are not footnote markers. **`prep: "freud"`** (`freudPrep` / `freudFinish`, then the Critique's
+  `kantPrep` / `kantFinish`): the chapter's printed head (numeral and capitals title) is dropped, and chapter I's
+  head note ("To the first publication of this book, 1900.") set as an italic line at the head of the section; the
+  front page's title leaf and contents table are dropped; the lettered heads ("(a) The Condensation Work"),
+  "Dream of July 23–24, 1895", "Analysis" and "II. "A Beautiful Dream"" become `bk-head` lines, every other centred
+  block (eight quotations set on their own line, the funeral placard, the Faust speakers) a blockquote; one printer's
+  signature ("L", page 162) is dropped and its sentence rejoined; **the three diagrams of the psychic apparatus in
+  chapter VII are set as a bracketed line each** ("[Fig. 1: a diagram, not reproduced here.]"), since the shelf
+  carries no pictures. `wrapBareRuns: true` keeps "Cicero (<i>De Divinatione</i>…" in one paragraph. The "the / an"
+  placard diagram in chapter VI loses its spacing and reads as three lines. Two "on p. 63"-style cross-references are
+  the printed pages, kept (book-audit lists them). Colour `#305D00` (14.2: the band is full; a magenta and a maroon
+  that measured better stood next to Plato and Sophocles). `glossOff`: Jodl (Friedrich), Maine (de Biran), Pallas
+  (Athene), Mora (Daudet's duke), Lyons (Miss Lyons), Sappho (Daudet's novel), Czech, Sexual selection, and the words
+  in cited titles (Sui, York, Evolution, Taste, Pathology, Psychology, Philosophy) — swept over all nine sections.
+  Excerpt: the end of the Irma analysis, "the dream may be recognised as the fulfilment of a wish". Not included: the
+  title leaf, the contents and the subject index.
   `rousseau-social-contract` (~260 KB, **49 sections** — Rousseau's Foreword and the 48 chapters of the four Books, so a
   tab runs one ahead of the chapter's place; each title opens with its numeral in its Book, the Books are the `parts`;
   `chapterWord: "Section"` — **47 notes**, Rousseau's with a few of Cole's; original **French**, paired on the CHAPTER as

@@ -19975,6 +19975,96 @@ const BOOKS = {
     fixes: [["something_precedes", "something precedes", "System of all Principles, Second Analogy: an underscore typed for a space"]],
     minChars: 3000,
   },
+  "freud-interpretation-of-dreams": {
+    title: "The Interpretation of Dreams",
+    subtitle: "Die Traumdeutung",
+    author: "Sigmund Freud",
+    translator: "A. A. Brill",
+    edition: "Authorised translation of the third edition, The Macmillan Company, New York, 1913",
+    written: "1899, dated 1900",
+    year: 1899,
+    /* ---------- THE LICENCE ----------
+       Freud died in 1939; the German was first published in 1899 (its title page dated 1900). A. A. Brill's
+       translation of the third edition (1911) was published by Macmillan in New York in 1913, so it clears the
+       pre-1931 US publication rule; Brill died in 1948, so it clears life plus seventy as well (Wikisource's own
+       Translation license tag on the page: original PD/US 1939, translation PD/US 1948). The transcription is
+       Wikisource's, of the scan `Freud - The interpretation of dreams.djvu`, every page fetched validated
+       (`data-page-quality="4"`). James Strachey's translation (Standard Edition, 1953) and every later one are
+       in copyright and none is used.
+       NO ORIGINAL: Brill translates the THIRD edition (1911); no proofread German of that edition was looked
+       for on de.wikisource, and the first edition (1899) is a shorter, different text, so a facing column
+       would pair two editions that do not say the same thing (the Kant entry's reason). */
+    rights:
+      "Public domain in the United States and in countries of life plus seventy years. Sigmund Freud died in " +
+      "1939. A. A. Brill's translation was published in New York in 1913 and its translator died in 1948. " +
+      "The text is the validated Wikisource transcription of the 1913 printing, from a scan of the book.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Interpretation_of_Dreams_(Freud)",
+
+    /* THE FRONT MATTER — chapter 0. Every fact was checked against the transcription itself or a record,
+       not recalled; nothing is said of the theory's standing that is interpretation rather than record. */
+    about: [
+      "<b>The Interpretation of Dreams</b> is Sigmund Freud's argument that dreams have a meaning and that " +
+        "the meaning can be found. A dream, he holds, is not random noise from a sleeping brain but a " +
+        "psychic act with a purpose: it is the fulfilment of a wish. Most dreams do not look like wishes " +
+        "because the wish is one the dreamer would rather not admit, and a <i>censorship</i> in the mind " +
+        "lets it through only in disguise. The dream as it is remembered, the <i>manifest content</i>, is " +
+        "that disguise; its <i>latent</i> thoughts are recovered by letting the dreamer associate freely " +
+        "to each of its pieces in turn.",
+      "The book has seven chapters. The first surveys what earlier writers had said about dreams. The " +
+        "second sets out Freud's method on one of his own, the dream of Irma's injection, and the next two " +
+        "argue that every dream fulfils a wish and explain why so many are distorted. The fifth turns to " +
+        "the material dreams are made of — the events of the previous day, childhood memories, bodily " +
+        "sensations — and to typical dreams, among them the dreams of the death of a parent, where Freud " +
+        "reads Sophocles' <i>Oedipus</i> and, in a long note, Shakespeare's <i>Hamlet</i>. The sixth, the longest, is the " +
+        "<i>dream-work</i>: the means, such as condensation and displacement, by which the latent thoughts " +
+        "are turned into the dream. The seventh builds from all this a model of the mind, with an " +
+        "unconscious, a preconscious and the censorship between them.",
+      "Freud was born in 1856 at Freiberg in Moravia and grew up in Vienna, where he trained in medicine " +
+        "and neurology and set up in practice treating nervous illness. Working with his patients' " +
+        "associations, he found that they told him their dreams, and he began analysing his own. The book " +
+        "appeared in November 1899 with the date 1900 on its title page, and sold slowly; Freud later wrote " +
+        "that it held the most valuable of all his discoveries. He enlarged it in later editions, and the psychoanalytic " +
+        "movement grew up around it. In 1938, after Germany annexed Austria, Freud left Vienna for London, " +
+        "where he died in 1939.",
+      "This English is <b>A. A. Brill's of 1913</b>, the first translation, made from the third German " +
+        "edition of 1911. Brill was a New York psychiatrist and Freud's first English translator. The " +
+        "notes are Freud's own, with a few of Brill's, marked “Transl.”. Freud's three prefaces and Brill's " +
+        "translator's preface form the first section here, so a tab's number runs one ahead of Freud's chapter " +
+        "number, which opens each title. The last section is Freud's <b>Literary Index</b>, the list of works " +
+        "he cites: the small raised numbers in the text (Maury<sup>48</sup>) are its numbers, not notes. The " +
+        "three diagrams of the mind in chapter VII are pictures and are not reproduced; a bracketed line marks " +
+        "each. The title page, the contents and the subject index are left out. The motto on the title page is " +
+        "from Virgil's <i>Aeneid</i>: <i>Flectere si " +
+        "nequeo superos, Acheronta movebo</i> — if I cannot bend the powers above, I will stir up the " +
+        "underworld.",
+    ],
+
+    /* THE TAB IS NOT FREUD'S CHAPTER, as Leviathan's is not Hobbes's: the prefaces stand before chapter I,
+       so `n` runs 1..8 and each title opens on the chapter's numeral as the 1913 contents page prints it. */
+    chapterWord: "Section",
+    chapters: Array.from({ length: 9 }, (_, i) => i + 1),
+    page: (n) => "The Interpretation of Dreams (Freud)" + (n === 1 ? "" : "/Chapter " + (n - 1)),
+    // transcribed from the 1913 contents page, never composed
+    titleOf: (n) => [
+      null,
+      "Prefaces",
+      "I. The Scientific Literature on the Problems of the Dream",
+      "II. Method of Dream Interpretation: The Analysis of a Sample Dream",
+      "III. The Dream is the Fulfilment of a Wish",
+      "IV. Distortion in Dreams",
+      "V. The Material and Sources of Dreams",
+      "VI. The Dream-Work",
+      "VII. The Psychology of the Dream Activities",
+      "VIII. Literary Index",
+    ][n],
+    /* Brill's centred heads and the front page's title leaf and contents — see freudPrep. No `sections`:
+       the book has no numbered divisions below the chapter's lettered heads. */
+    prep: "freud",
+    // a page that opens after a block may open on a bare run of text (Cicero, chapter I) — see wrapBareRuns
+    wrapBareRuns: true,
+    minChars: 3000,
+  },
 };
 
 /* ---------- args ---------- */
@@ -23079,6 +23169,106 @@ function kantNestedNotes(html, notes, warn) {
   return { html, notes };
 }
 const KANT = { heads: 0, tables: 0, lifted: 0, stars: 0, nested: 0 };
+
+/* ---------- THE INTERPRETATION OF DREAMS: Brill's printed heads (Nov 2026) ----------
+   `prep: "freud"`, run on the RAW page before the notes are gathered and before cleanBody, then `freudFinish`
+   on what cleanBody returns. Brill's 1913 transcription sets every heading as a `wst-center` div — the
+   chapter's own head ("VI" over "THE DREAM-WORK"), its lettered sections ("(a) The Condensation Work"),
+   the four prefaces' titles — and its verse as `wst-block-center`, which is exactly the Critique's split,
+   so `kantPrep` / `kantFinish` do the work (a heading becomes a `bk-head` line, verse stays a blockquote).
+   Two things are this book's own:
+   · THE CHAPTER'S PRINTED HEAD IS DROPPED, not lifted: the numeral and the capitals title are what Folio's
+     own chapter title already prints, so lifted they would stand twice. Only the leading run of centred
+     blocks whose text is all capitals or a numeral goes; the lettered heads below are mixed case. The one
+     head that carries a note (chapter I's, "To the first publication of this book, 1900.") keeps it: the
+     note is set as an italic line at the head of the section, where the printed page puts it, and taken
+     out of the fold (the Lysis rule in docs/library-importer.md — an uncited note loses its meaning).
+   · THE FRONT PAGE carries the title leaf, the four prefaces and the contents table, each a transclusion
+     block of its own; the title leaf and the contents go, the prefaces stay, the note list stays. */
+const FREUD_HEADNOTE = "@@FRHN@@";
+const FREUD = { heads: 0, headNotes: 0, leaves: 0, sigs: 0, figs: 0, quotes: 0 };
+function freudPrep(h, n, warn) {
+  const textOf = (s) => s.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<sup\b[\s\S]*?<\/sup>/g, "")
+    .replace(/<[^>]*>/g, "").replace(/&#32;|&#160;|&nbsp;|&#8203;|\u200b/g, " ").replace(/\s+/g, " ").trim();
+  let b = h;
+  if (n === 1) {
+    const blocks = [];
+    for (const m of b.matchAll(/<div class="prp-pages-output"/g)) {
+      const e = blockEnd(b, m.index, "div");
+      if (e < 0) throw new Error("freud: an unbalanced transclusion block on the front page");
+      blocks.push({ at: m.index, end: e, t: textOf(b.slice(m.index, e)) });
+    }
+    const drop = blocks.filter((x) => /^THE INTERPRETATION OF DREAMS\s*BY/.test(x.t) || /^CONTENTS\b/.test(x.t));
+    if (drop.length !== 2) throw new Error("freud: expected the title leaf and the contents on the front page, found " + drop.length);
+    drop.reverse().forEach((x) => { b = b.slice(0, x.at) + b.slice(x.end); FREUD.leaves++; });
+    return b;
+  }
+  /* A PRINTER'S SIGNATURE (the gathering letter "L" at the foot of page 162) transcribed as a right-set
+     block between the two halves of a sentence: dropped, and the sentence's paragraph carried on across it
+     to the next block, as the printed page reads. */
+  b = b.replace(/<\/p>\s*(?:<style\b[^>]*>[^<]*<\/style>|<link\b[^>]*>)?\s*<div class="wst-right\b[^"]*"[^>]*>\s*<p>\s*<span[^>]*>\s*([A-Z]{1,2})\s*<\/span>\s*<\/p>\s*<\/div>([\s\S]*?)(?=<p\b|<div\b)/g,
+    (m, sig, run) => { FREUD.sigs++; return run.replace(/\s+$/, "") + "</p>\n"; });
+  /* THE THREE DIAGRAMS of the psychic apparatus in chapter VII are pictures, and no book on the shelf
+     carries a picture. Each is set as one bracketed line naming its printed caption, so the sentence that
+     introduces it ("has therefore the following appearance:") does not run on into the next paragraph as if
+     nothing had been there. */
+  b = b.replace(/<figure\b[\s\S]*?<\/figure>\s*(?:<link\b[^>]*>\s*)?<div class="wst-center\b[^"]*"[^>]*>\s*<p>\s*(?:<span[^>]*>)?\s*Fig\.?\s*(\d+)\.\s*(?:<\/span>)?\s*<\/p>\s*<\/div>/g,
+    (m, k) => { FREUD.figs++; return "<p><i>[Fig. " + k + ": a diagram, not reproduced here.]</i></p>"; });
+  if (/<figure\b/.test(b)) warn("a figure that is not one of the captioned diagrams");
+  /* A CENTRED BLOCK THAT IS NOT A HEADING — a quotation set on its own line ("You may not tell the best…",
+     the Virgil motto), the placard of the dream before his father's funeral, the speakers' names of the
+     Faust passage — is left to the generic pass, which makes it a blockquote. Only the edition's heads are
+     fenced as heads: a lettered head "(a) …", "Dream of July 23–24, 1895", "Analysis", and the numbered
+     dream "II. "A Beautiful Dream"". */
+  const isHead = (t) => /^\(\s*[a-h]\s*\)/.test(t) || /^Dream of July/.test(t) || /^Analysis\.?$/.test(t) || /^II\. "A Beautiful Dream"$/.test(t);
+  const start = b.indexOf('<div class="prp-pages-output"');
+  if (start < 0) throw new Error("freud: no transclusion on the page");
+  for (const m of [...b.matchAll(/<div class="wst-center\b[^"]*"[^>]*>/g)].reverse()) {
+    if (m.index < start) continue;
+    const e = blockEnd(b, m.index, "div");
+    if (e < 0) continue;
+    const t = textOf(b.slice(m.index, e));
+    if (/^[A-Z0-9 .,:;'’\-–—()]+$/.test(t) || isHead(t)) continue;
+    b = b.slice(0, m.index) + m[0].replace("wst-center", "wst-block-center") + b.slice(m.index + m[0].length);
+    FREUD.quotes++;
+  }
+  let at = start + 1, held = "";
+  for (let guard = 0; guard < 6; guard++) {
+    const rx = /<div class="wst-center\b[^"]*"[^>]*>/g;
+    rx.lastIndex = at;
+    const m = rx.exec(b);
+    const pAt = b.indexOf("<p", at);
+    if (!m || (pAt >= 0 && pAt < m.index)) break;
+    const e = blockEnd(b, m.index, "div");
+    if (e < 0) break;
+    const inner = b.slice(m.index, e), t = textOf(inner);
+    if (!t || !/^[A-Z0-9 .,:;'’\-–—()]+$/.test(t)) break;
+    for (const r of inner.matchAll(/<sup\b[^>]*class="reference"[\s\S]*?<\/sup>/g)) held += r[0];
+    b = b.slice(0, m.index) + b.slice(e);
+    at = m.index;
+    FREUD.heads++;
+  }
+  if (!FREUD.heads) warn("no printed chapter head was found to drop");
+  if (held) b = b.slice(0, at) + "<p>" + FREUD_HEADNOTE + held + "</p>" + b.slice(at);
+  return b;
+}
+function freudFinish(html, notes, warn) {
+  const rx = new RegExp("<p>\\s*" + FREUD_HEADNOTE + '((?:<sup class="fn" data-fn="\\d+"></sup>)+)\\s*</p>');
+  const m = rx.exec(html);
+  if (m) {
+    const ks = [...m[1].matchAll(/data-fn="(\d+)"/g)].map((x) => +x[1]);
+    const lines = ks.map((k) => "<p><i>" + notes[k - 1].trim() + "</i></p>").join("\n");
+    html = html.replace(m[0], lines);
+    ks.sort((x, y) => y - x).forEach((k) => {
+      notes.splice(k - 1, 1);
+      html = html.replace(/<sup class="fn" data-fn="(\d+)"><\/sup>/g,
+        (x, d) => (+d > k ? '<sup class="fn" data-fn="' + (+d - 1) + '"></sup>' : x));
+      FREUD.headNotes++;
+    });
+  }
+  if (html.includes(FREUD_HEADNOTE)) { warn("a head's note was not set"); html = html.split(FREUD_HEADNOTE).join(""); }
+  return { html, notes };
+}
 
 /* ---------- THE 1651 LEVIATHAN: a printer's page read off its own markup (Nov 2026) ----------
    `prep: "leviathan"`, run on the RAW page before the notes are gathered and before cleanBody, then
@@ -33742,7 +33932,8 @@ async function fetchEnglish() {
       h = got.h; tFromText = got.t; SIDENOTES.fenced += got.side;
     }
     /* Meiklejohn's headings and tables — see kantPrep. Every page of a section, so the extras below too. */
-    if (BOOK.prep === "kant") h = kantPrep(h, warn);
+    if (BOOK.prep === "freud") h = freudPrep(h, n, warn);
+    if (BOOK.prep === "kant" || BOOK.prep === "freud") h = kantPrep(h, warn);
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
        the RAW page, before the notes are gathered and before cleanBody, because by the time cleanBody
@@ -33836,7 +34027,7 @@ async function fetchEnglish() {
         await sleep(700);
         if (BOOK.pageMark) BOOK.expect = BOOK.pageMark(extra);
         let eh = await api(extra);
-        if (BOOK.prep === "kant") eh = kantPrep(eh, warn);
+        if (BOOK.prep === "kant" || BOOK.prep === "freud") eh = kantPrep(eh, warn);
         const eg = notesOf(eh);
         const ekeep = endnotes && eg.notes.length ? resolveEndnotes(eg, endnotes, warn) : null;
         let ehtml = cleanBody(eh, eg.ids, BOOK, quiet);
@@ -33855,6 +34046,12 @@ async function fetchEnglish() {
         html = kantFinish(html, warn);
         const got = kantNestedNotes(html, notes, warn);
         html = got.html; notes = got.notes;
+      }
+      if (BOOK.prep === "freud") {
+        html = kantFinish(html, warn);
+        const got = freudFinish(html, notes, warn);
+        const nn = kantNestedNotes(got.html, got.notes, warn);
+        html = nn.html; notes = nn.notes;
       }
       if (multi && BOOK.sections && !/class="bk-n"/.test(html))
         warn("no section numbers found — the chapter will pair as one whole block");
@@ -34393,6 +34590,8 @@ function writeEnglish(chapters, warnings) {
       " carrying Caxton's own rubric (" + MALORY.odd + " of them set as a centred block instead), " +
       MALORY.books + " book half-title(s) lifted out, " +
       MALORY.notesOnHeads + " footnote marker(s) carried off a heading");
+  if (FREUD.heads || FREUD.leaves)
+    console.log("  " + FREUD.heads + " printed chapter head block(s) dropped, " + FREUD.headNotes + " head note(s) set as a line, " + FREUD.leaves + " front-page leaf/leaves dropped, " + FREUD.sigs + " signature mark(s) dropped, " + FREUD.figs + " diagram(s) set as a line, " + FREUD.quotes + " centred quotation(s) left as blocks");
   if (KANT.heads || KANT.lifted)
     console.log("  " + KANT.heads + " heading block(s) fenced, " + KANT.lifted + " lifted, " + KANT.tables + " table(s) read as blocks, " + KANT.stars + " asterisk row(s), " + KANT.nested + " note(s) inside a note spliced" +
       (KANT.heads === KANT.lifted ? "" : " — MISMATCH, a heading was lost or merged"));
