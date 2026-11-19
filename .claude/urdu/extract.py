@@ -60,6 +60,20 @@ def roman_of(e):
     return ''
 
 
+def marked_of(e, w):
+    """The headword WITH its vowel marks, where Wiktionary's headword line writes them
+    (`کِتاب`, the entry's `canonical` form) and it is the same word letter for letter --
+    `توڑنا`'s line is written with a plain `ر`, and is not taken.  The beginner pass
+    (2026-11-19): a card prints the word as Urdu writes it and, beneath, as a
+    dictionary does, so the marks the alphabet deck teaches are met on real words."""
+    for f in e.get('forms') or []:
+        if 'canonical' in (f.get('tags') or []):
+            c = nfc(f.get('form', ''))
+            if re.search('[\u064e-\u0652]', c) and fold(c) == fold(w) and is_urdu(c):
+                return c
+    return ''
+
+
 def gender_of(e):
     for h in e.get('head_templates') or []:
         g = (h.get('args') or {}).get('1', '')
@@ -161,7 +175,7 @@ def main():
                     and is_urdu(f.get('form', '')):
                 table.append({'f': nfc(f['form']), 'r': f.get('roman', ''), 't': f.get('tags') or []})
         ent = {'pos': pos, 'etym': e.get('etymology_number', ''), 'roman': roman_of(e), 'gender': gender_of(e), 'glosses': gl,
-               'table': table,
+               'table': table, 'marked': marked_of(e, w),
                'hindi': next((f['form'] for f in e.get('forms') or [] if 'Hindi' in (f.get('tags') or [])), '')}
         lemmas.setdefault(fold(w), {'word': w, 'entries': []})['entries'].append(ent)
     for k, L in lemmas.items():

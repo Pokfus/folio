@@ -3,13 +3,18 @@
    Reads every decks/Urdu-*.folio-deck.json and fails on the faults this pipeline has had or could have:
    a word taught on two levels, a card defined by a pointer rather than English ("alternative spelling of …",
    "inflection of …"), a headword that is not in the Urdu script, a level card with no romanisation, a forms label
-   the generator does not write, unbalanced HTML, an id out of sequence, two notes sharing an English side
-   (the reverse card would have two answers). */
+   the generator does not write, unbalanced HTML, an id that is not the note's PINNED number
+   (`.claude/decks/urdu-ids.json`: since the beginner pass of 2026-11-19 an id is no longer a position), a number
+   used twice or retired, two notes sharing an English side (the reverse card would have two answers), a
+   romanisation carrying a letter of another scheme (`ur.roman_norm`). */
 "use strict";
 const fs = require("fs");
 const path = require("path");
 const DIR = path.join(__dirname, "..", "..", "decks");
-const LABELS = new Set(["plural", "oblique plural", "feminine", "past"]);
+const LABELS = new Set(["plural", "oblique plural", "feminine", "past", "with its marks"]);
+const PIN = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "decks", "urdu-ids.json"), "utf8"));
+// the letters of another romanisation scheme, which `ur.roman_norm` rewrites
+const OTHER = /[šğčʿʻ’‘ḥṣẓẕḵžḡṉṃṇēōw]/;
 // a gloss that IS a pointer, anchored at its start: "genitive of میں (ma͠i); my, mine" carries its meaning
 const POINTER = /^(?:alternative|obsolete|dated|rare) (?:form|spelling) of |^(?:inflection|synonym) of [^;]*$|^(?:direct|oblique|dative|genitive|ergative)[^;]* of \S+(?: \([^)]*\))?$/i;
 const URDU = /^[\u0600-\u06ff\u0750-\u077f\ufb50-\ufdff\ufe70-\ufeff\u200c\u200d ]+$/;
@@ -24,10 +29,14 @@ for (const f of files) {
   const d = JSON.parse(fs.readFileSync(path.join(DIR, f), "utf8"));
   const id = d.meta.id;
   const alphabet = /Alphabet/.test(d.meta.title);
-  const sides = new Map();
+  const sides = new Map(), ids = new Set();
   d.cards.forEach((c, i) => {
     const F = c.fields, w = F.Word;
-    if (c.id !== "u_" + id + "_" + (i + 1)) bad(f + ": card " + (i + 1) + " has id " + c.id);
+    const key = alphabet ? F.Letter.replace(/<[^>]+>/g, "") : w, n = (PIN[id] || {})[key];
+    if (!n || c.id !== "u_" + id + "_" + n) bad(f + ": " + key + " has id " + c.id + ", its pinned number is " + n);
+    if (ids.has(c.id)) bad(f + ": the id " + c.id + " is used twice");
+    ids.add(c.id);
+    if (Object.values((PIN._retired || {})[id] || {}).includes(n)) bad(f + ": " + key + " carries a retired number");
     if (!URDU.test(w || "")) bad(f + ": card " + (i + 1) + " Word is not in the Urdu script: " + w);
     if (SHORT.test(w || "")) bad(f + ": card " + (i + 1) + " Word carries vowel marks: " + w);
     if (alphabet) {
@@ -38,6 +47,7 @@ for (const f of files) {
     if (seen.has(w)) bad(f + ": " + w + " is already taught in " + seen.get(w));
     seen.set(w, f);
     if (!F.Roman) bad(f + ": " + w + " has no romanisation");
+    if (OTHER.test(F.Roman.normalize("NFC"))) bad(f + ": " + w + " is romanised in another scheme: " + F.Roman);
     if (!F.English) bad(f + ": " + w + " has no English");
     for (const g of F.English.replace(/<\/(li|div)>/g, "\n").replace(/<[^>]+>/g, "").split("\n"))
       if (POINTER.test(g.trim())) bad(f + ": " + w + " is defined by a pointer: " + g.trim());

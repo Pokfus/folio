@@ -3449,7 +3449,18 @@ changed was the one that had been wrong all along.
   EVERY level, since the stages are shared**: most of the fixes above were found while adding level 2 and
   every one of them changed level 1 as well. **A community deck is not a change to Folio**, so these get no
   changelog line and no version bump. Not part of the site.
-- `.claude/torfl/` — the generator behind the **Russian** decks (Oct 2026): `decks/Russian-Alphabet.folio-deck.json`
+- `.claude/torfl/` — the generator behind the **Russian** decks (Oct 2026).
+  **READ THIS FIRST (2026-11-19, the Russian beginner pass — its section is near the foot of this file).** The
+  figures in the rest of this entry are the decks AS THE GENERATOR WROTE THEM. Since the pass the Russian decks
+  carry a record, an order and pinned ids (`.claude/decks/russian-fix.js`, `russian-fixes.json`,
+  `russian-ids.json`, `russian-order.js` / `.json`; `.claude/decks/README.md` "The Russian decks"): TORFL A1 is
+  549 notes in a teaching order, A2 737, the phrases 474 tiered by reading level, the alphabet is written by
+  `.claude/decks/build-russian-sounds.js` from a sourced table (`alphabet.py` is gone) and a ninth deck,
+  `Russian-Sounds-and-Spelling`, stands between the alphabet and A1. **NEVER run `run.py --level <x>` to refresh a
+  deck**: a rebuild on a fresh fetch is not byte for byte (A1 moved four notes, the phrases 92, measured
+  2026-11-19) and the generator numbers by position. `extra.py` builds cards for NAMED words with the
+  generator's own stages, for the record. The entry as written in Oct 2026:
+  `decks/Russian-Alphabet.folio-deck.json`
   (33 letters, `alphabet.py`, hand-written, no sources), `decks/TORFL-A1-Russian.folio-deck.json` (500 notes /
   1,000 cards) `decks/TORFL-A2-Russian.folio-deck.json` (750 / 1,500) `decks/TORFL-B1-Russian.folio-deck.json` (1,000 / 2,000) `decks/TORFL-B2-Russian.folio-deck.json` (1,500 / 3,000), `decks/TORFL-C1-Russian.folio-deck.json` (1,500 / 3,000) and `decks/TORFL-C2-Russian.folio-deck.json` (1,000 / 2,000) — C1 and C2 mostly hand-written inventory, on the owner's decision — and `decks/Russian-Phrases-and-Expressions.folio-deck.json` (482 / 964, `--level phr`). `python3 .claude/torfl/run.py [--level a2] [--no-fetch]`, cache `.claude/torfl-cache/` (gitignored,
   ~1.3 GB), checker `node .claude/torfl/check-torfl.js a1|a2|b1|b2|c1|c2|phrases|alphabet`. PYTHON and ONE LEVEL PER RUN, like UKBI, and
@@ -3725,7 +3736,15 @@ changed was the one that had been wrong all along.
   Wikipedia's 13.5 million; the hue is measured, `#6F69D2` (re-swept at the merge with Arabic and Telugu on the shelf).
 - `.claude/urdu/` — the generator behind the Urdu decks (Nov 2026, on request: "Add an Urdu language
   collection"; Hindi's answers of the same day taken: CEFR A1–C1 assembled, a script deck, romanisation on
-  every card). **Built: the alphabet, `decks/Urdu-Alphabet.folio-deck.json`** (56 notes), **A1,
+  every card). **READ THIS FIRST (2026-11-19, the Urdu beginner pass — its section is near the foot of this
+  file): A DECK FILE IS NO LONGER WHAT `run.py` WRITES.** After the generator comes a record:
+  `python3 .claude/urdu/run.py --level <x>` for all five levels → `alphabet.py` → `inserts.py` →
+  `node .claude/decks/urdu-fix.js` → `urdu-order.js` → `urdu-fix.js` → `node .claude/build-lang-decks.js`.
+  **A card id is PINNED to its note** (`.claude/decks/urdu-ids.json`; never delete or renumber a row), a card
+  moved between decks or added to one is a row of `urdu-fixes.json`, and the counts below are the
+  generator's, before the record (shipped: alphabet 60, A1 537, A2 806, B1 994, B2 1,457, phrases 41). A
+  fault the generator can fix is fixed in the generator; `.claude/decks/README.md` "The Urdu decks" has the
+  table of files. `.claude/urdu/` imports nothing from `.claude/hindi/` and nothing imports it. **Built: the alphabet, `decks/Urdu-Alphabet.folio-deck.json`** (56 notes), **A1,
   `decks/Urdu-A1.folio-deck.json`** (500 notes / 1,000 cards), **A2, `decks/Urdu-A2.folio-deck.json`**
   (750 / 1,500), **B1, `decks/Urdu-B1.folio-deck.json`** (1,000 / 2,000) **and B2,
   `decks/Urdu-B2.folio-deck.json`** (1,500 / 3,000; all three 2026-11-12, on request — B2 reaches the end of
@@ -5907,6 +5926,347 @@ count is in the Persian RECORD. Each item below says which.
 - **How common each level's first 300 words are was not measured**, nor the spoken register of a sentence
   beyond the 32 forms counted.
 - **The shelf is now 5,404 notes: 1,081 days at the default pace, 2.96 years**; A1 ends on day 113.
+
+## The Russian beginner pass (2026-11-19)
+
+On request, the audit the Japanese, Mandarin, Spanish, Italian, German and Portuguese decks had been given:
+**what does a learner with no Russian and no Cyrillic meet, in the order the shelf itself recommends** —
+Alphabet, A1, A2, B1, B2, C1, C2, then the phrases? Every figure was measured on the eight decks as shipped
+that morning, at the language default of ten new cards a day with both directions together, which is five
+words a day. The rules are in the `.claude/torfl/` entry above and in `.claude/decks/README.md`; this
+section is the reasoning.
+
+### What the audit found, by what it costs a beginner
+
+1. **Some of the commonest words of Russian were on no deck at all, at any level.** One rule of `select.py`
+   — "a function-word entry that is an inflected form of another lemma is not a note", written for было and
+   знаешь — also turned away так (a form of така, a currency), весь (an imperative of весить), такой, себя,
+   чем ("than", and the instrumental of что), просто, конечно and ладно (short forms of adjectives). Measured
+   against the generator's own lemma frequency: 18 of the 100 commonest lemmas and 48 of the commonest 300 were
+   carded nowhere among 6,250 words (some rightly: было, знаешь and давай are forms; убить, мистер and сэр are
+   refused). 682 of the 8,854 word tokens of A1's own example sentences (7.7%) were forms no A1 card shows:
+   все 56 times, так 44, больше 43, то 24, раз 22, лучше 21.
+2. **The courtesies were the last cards of A1.** привет was note 497 of 500 (day 100 of A1), до свидания 493,
+   доброе утро 494, добрый день 495, добрый вечер 499, спокойной ночи 474, как дела 470, меня зовут 428,
+   здравствуйте 341 (day 69); спасибо was 55 (day 11), да 72, нет 46, пожалуйста 103. как вас зовут and как
+   тебя зовут were in the phrases deck, last on the shelf (day 1,258 onwards); извините and простите are forms
+   on the cards of извинять (235) and прощать (168). здравствуйте and здравствуй both said "hello" and nothing
+   else: Wiktionary's own labels (formal or plural; informal) had been dropped. ты and вы were glossed well.
+3. **Nothing said how a word is read beyond one sound a letter.** The word decks carry no romanisation, so the
+   alphabet deck was the only key. Of A1's 500 notes 174 have an unstressed о and 116 an unstressed а, 115 an
+   unstressed е or я, 239 a consonant softened by the next vowel and 158 by ь, 28 a final voiced consonant
+   read voiceless (хлеб, год, друг), 25 a voiced consonant devoiced by the next one, 23 an и or е read [ɨ] after
+   ж, ш, ц, 14 end in -ться, 7 write a consonant nobody says, 6 are что or built on it, 3 read г as [v] (его,
+   сегодня, ничего), and 382 hold one of В Н Р С У Х. The alphabet deck said one of these things (unstressed
+   о "is said like а"). **And it named no source**: its English comparisons were the author's ("b as in bed",
+   "a long, soft sh, as in fresh sheep said quickly" — a pronunciation Help:IPA/Russian calls obsolete), as
+   were "said with the tongue low" (л), "with the tongue pulled back" (ш, ы) and "between the i of bit and
+   the u of put" (ы); six of its example words were not A1 cards (нос, фото and юг are A2's, подъезд and цвет B1's, ёлка C1's).
+   Stress is printed on every headword, which is right; nothing said what an unstressed vowel does.
+4. **A1 was dealt by a frequency the generator computes, and the closed sets were scattered.** Day one was
+   что, ты, я, не, он. One to ten ran from note 44 to 416, eleven and twelve were 491 and 476, **thirteen to
+   ninety were the last cards of A2** (notes 687 to 750), a year after one to twelve. The days ran from 415
+   to 465 (среда last), the months from 429 to 492, the seasons 448 to 496, six colours 343 to 444. мочь,
+   "can", was note 489, because the frequency list gives может and могу to other entries (its lemma count
+   was 1,560); хотеть was 169. The question words ran from 1 (что) to 383 (чей). The pronouns, the possessives
+   and the commonest prepositions were early (notes 2 to 69) and every pronoun carries its six cases.
+5. **Three determiners had no table, and three possessives showed the wrong word.** этот, тот and какой
+   shipped with no All-forms panel: Wiktionary keeps one declension table per spelling and the note was built
+   from the entry that does not hold it (эту stands 11 times in A1's sentences, эта 10, этой 7). его, её
+   and их, glossed "his", "her", "their", each carried three sentences of the accusative of он, она, они.
+6. **The verbs of motion did not point at each other.** идти and ходить, ехать and ездить were separate cards,
+   as the plan wanted, with the same meanings ("to go, to walk") and nothing to tell them apart on either
+   card or either direction; the description said "the difference is the lesson". 22 cards on the shelf are
+   one of such a pair.
+7. **21 A1 cards printed their own answer on the English → Russian front**: the hand-written glosses of the
+   function words carry a Russian example in brackets ("that (я знаю, что…, I know that…)", "since (+ genitive:
+   с утра…)") and the English side is the question of the second card. Three more on A2 and B1.
+8. **Five of A1's 22 prepositions named no case** (из-за, против, над, между, насчёт), no numeral said what
+   the noun after it does, and no card showed об or обо (19 tokens of A1's sentences).
+9. **Nouns, adjectives and verbs were sound.** All 184 A1 nouns show their gender (the 27 soft-sign nouns
+   among them: день masculine, ночь feminine), 173 a genitive, a plural and the twelve-cell table (the others
+   are indeclinable or have one number); the mobile vowel and the moving stress are in the table (отца́, ру́ку);
+   человек shows люди and ребёнок дети. 30 of 39 adjectives show short forms; 3 a comparative. All 80 aspect
+   pairs are one note with both verbs conjugated (present and future), every verb has its past by gender and
+   its imperative. говорить / сказать is one note ON PURPOSE: only mutual pairings are taken and that is
+   Wiktionary's, the textbook's suppletive pair. Of 1,538 bolded forms in A1's sentences 9 are on no card.
+   No verb's gloss names the case it governs.
+10. **The reverse card was otherwise sound.** No two notes of a deck share an English field; 10 A1 notes share a
+    first gloss; 2.04 senses a note. An aspect pair's English → Russian card shows "verb, imperfective /
+    perfective", so it does say that two verbs are wanted.
+11. **Example sentences are six words at the median, ten at most, and printed without stress** (Tatoeba's are
+    unstressed). In arrival order 84.9% of a sentence's words had been met at A1 (647 of 1,500 sentences whole)
+    and 62% over the first fifty notes (8 of 150); 93% at A2 to C2. 19 sentences on the whole shelf name a
+    weapon, the police, death or drink (1 at A1): the refusal lists did their work.
+12. **The levels are assembled, and say so plainly**: every description states that this is not the exam
+    board's list. No headword of a level is a card of a lower one; 30 are a FORM on a lower card (дорога and
+    вина at A2, особенно, душ, зло at B1 — homographs). Against the generator's lemma rank the median of a
+    level's first 300 words is 194, 671, 1,567, 2,925, 4,952 and 6,089: the gradient is real. The shelf is
+    6,250 words, not 7,250.
+13. **The phrases were ordered by the corpus, and their description overstated the stress.** 75 of the 482
+    were spelled entirely with A1's words and forms, at a median position of 66; 23 are printed with a word
+    Wiktionary's headword leaves unmarked. None was carded twice with A1.
+14. **Every id was positional and a rebuild is not byte for byte.** One fetch on 2026-11-19, then `--no-fetch`
+    into a scratch copy: two runs agree byte for byte with each other, and differ from the shipped decks — A1
+    the same 500 words with three notes' sentences changed and four notes in another position, A2 six notes'
+    sentences, the phrases 92 notes in another position. The alphabet reproduced exactly.
+15. **The pace**: the alphabet 7 days; the first greeting day 18 (спасибо) and day 107 (привет); A1 done on
+    day 107; B1 begun on day 258; the whole shelf 1,354 days, 3.7 years.
+
+### What was built
+
+- **Note ids pinned** (`russian-ids.json`, 6,765 rows seeded before anything moved, the alphabet included;
+  6,820 with the sounds deck and the inserts). Checked two ways. From the files, all eight decks against
+  `main`: of 6,765 old ids 6,744 name the same word, 21 are retired, none is reused; 6,638 notes are
+  byte-identical in every field, 84 are changed by an entry of the record (the 33 letters among them) and 22
+  have only a bracket wrapped (below). In a browser: a reader holding the old Alphabet, A1 and phrases with
+  twenty notes scheduled in BOTH directions pressed Update on each ("33 cards corrected"; "49 new cards, 53
+  cards corrected"; "8 cards dropped from the list (kept here, with their progress)") and kept all forty
+  schedules on the same words, the four dropped notes among them staying on the device.
+- **A Russian record** (`russian-fixes.json`, applied by `russian-fix.js` to every deck of card type `torfl`),
+  with an order (`russian-order.json`, `russian-order.js`) and the pin: German's model. HAND EDITS ARE IN THE
+  RECORD; the generator gained two things only — `extra.py`, which builds a card for a named word with the
+  generator's own stages, and one line of `build_deck.py` (a table is looked for on every entry of a note).
+  The rule of finding 1 is LEFT AS IT IS and documented where it stands: changing it would change what every
+  level's rebuild selects.
+- **49 notes for A1** (ids 501 to 549). 28 BUILT by `extra.py` from the English Wiktionary (kaikki.org) and
+  Tatoeba, every sentence named by id and chosen for what an A1 reader has met: себя, весь, так, такой, чем,
+  просто, конечно, ладно, ну, раз, правда, больше, лучше, раньше, более, возможно, может быть, жаль,
+  действительно, плохо, быстро, при, парень, and the courtesies не за что, до встречи, большое спасибо, добро
+  пожаловать, приятного аппетита. 21 MOVED byte for byte: thirteen to ninety from A2 (13) and a first exchange
+  from the phrases (как вас зовут, как тебя зовут, я не понимаю, сколько это стоит, вы говорите по-английски,
+  я не говорю по-русски, до завтра, где туалет), each `dropDup`ped where it was with its row in `_retired`.
+  7 of the 100 commonest lemmas are now on no deck (было, знаешь, все, потому, то, давай, бог) and 2.4% of
+  A1's sentence tokens are forms no A1 card shows.
+- **51 cards repaired**, each with its source in the record: the three tables and the three possessives'
+  sentences (finding 5); здравствуйте and здравствуй with Wiktionary's own labels; 22 verbs of motion with a
+  line saying which of the pair this is and naming the other (Wikipedia, "Russian grammar", revision
+  1382046455); the case on из-за, против, над and между (the same article); "noun after it" on fifteen
+  numerals and the thirteen moved ones (Wikipedia, "Russian declension", revision 1378080150); об and обо on о; у's second meaning reworded.
+- **The answer taken off its own question**: every bracket of an English side that holds a form the card
+  itself shows is wrapped (`uc-eg`, 25 cards) and hidden wherever the English side stands under "Say it in
+  Russian"; the Russian → English card is unchanged.
+- **An order for A1** (`russian-order.json`): 136 notes by hand — the courtesies, a first exchange, the
+  pronouns, ten verbs, the question words, zero to ten, the commonest function words, then the words finding 1
+  restored — then the frequency order with the days of the week from note 151 (day 31), the numbers above ten
+  from 201, the colours from 251, the months and the seasons from 301, and look-alikes forty apart. привет is
+  day one, the courtesies take three days, the pronouns end on day 6, мочь is day 10. Over the deck 86.8% of a
+  sentence's words have been met on arrival and 937 of 1,645 sentences can be read whole (647 of 1,500).
+- **`Russian — Sounds and spelling`** (27 notes, one card each, card type `rusound`, between the alphabet and
+  A1): nine cards on the vowels (о, а, е, я without the stress; ё, ю, ы, у; и and е after ж ш ц), twelve on
+  consonant letters and groups (ь, ъ, the [j] of е ё ю я, й, г as [v], ч in что, щ, ж and ш, ц, -ться, х, р)
+  and six rules (the letters that look Latin, the stress mark, hard and soft, final devoicing, assimilation,
+  silent consonants). Sounds and English comparisons are cells of Wikipedia's Help:IPA/Russian (revision
+  1383914368), rules its notes and sentences of "Russian alphabet" (1381885718) and "Russian phonology"
+  (1385867680); every example word is an A1 card with its speaker, A1's stress and the English Wiktionary's
+  transcription, copied by machine.
+- **The alphabet rebuilt from a source**: each letter's name, sounds and English equivalent are the three
+  cells of the Letters table of "Russian alphabet" (the same revision), each example word an A1 card with
+  Wiktionary's transcription. Same card type, fields, templates and ids. `alphabet.py` is deleted;
+  `build-russian-sounds.js` writes both decks.
+- **The phrases tiered by reading level** (97 A1, 42 A2, 45 B1, 25 B2, 17 C1, 18 C2, 230 no deck), their
+  description saying that the deck can begin beside A1; **the pace stated** in the alphabet, sounds, A1 and
+  phrases descriptions and held to the order by `russian-order.js`; **the counts recounted** on every run.
+- **`check-torfl.js`** asserts the pinned id in place of the positional one. **CI**: `russian-fix.js --check`
+  and `build-russian-sounds.js --check`. **Shared files touched**: `.claude/build-lang-decks.js` (one rule:
+  the Russian sounds deck ranks after the alphabet), `lang-decks.js` (regenerated), `checks.yml` (two steps).
+
+### What was decided against, and why
+
+- **Rebuilding any level, or fixing the selection rule in `select.py`.** A rebuild is not byte for byte, each
+  level is cut against the ones below it, and a changed rule re-selects all six.
+- **Re-ordering A2 to C2.** 93% of a card's sentence words have been met on arrival.
+- **Stress marks on the example sentences.** No open source marks them; an accentuator would be typing stress
+  by hand, and homographs (за́мок, замо́к) are where it would be wrong.
+- **A grammar deck** (the cases, aspect, ты and вы). The cards show the forms; the rules quoted on cards here
+  are the three a card could not be read without (motion, numerals, a preposition's case).
+- **Cards for всё, все, то, давай and the other forms.** Each is on its lemma's card, whose table and
+  sentences show it; весь's card glosses the two.
+- **Carding the refused film words** (умереть, смерть, бог, полиция, кровь, война: on no deck). The plan's
+  refusal is the owner's; where each belongs is a level's inventory, not a beginner pass.
+- **The case a verb governs, the comparative on every adjective, the instrumental of два.** Each needs its
+  Wiktionary entry read for some hundreds of cards.
+- **Subdecks for the sets.** The app deals subdecks in parallel, a day apart.
+- **A changed card type for the alphabet.** Its ids and templates are what a reader's progress hangs on.
+
+### Limits to know about
+
+- **The head's sentences are still long**: over the first fifty notes 47% of words met and 6 of 150 sentences
+  whole (62% and 8 before): courtesies arrive before the words their sentences use.
+- **A2 to C2 and the phrases were not read card by card**; the repairs above A1 are the verbs of motion.
+- **That the 49 additions are Elementary material is a judgement**, as the A1 description says.
+- **A reader who already holds A2 or the phrases keeps the 21 cards that moved** and meets them again in A1.
+- **насчёт names no case** (the article does not list it), and хорошо and ну share the first gloss "well".
+- **The sounds deck's small labels** (stressed, unstressed, last in the word) say where the letter stands in
+  the words under them; they are labels, not quoted rules. It has no card for the letters that sound as an
+  English speaker expects, and none for intonation.
+- **The bracket hidden on the English → Russian card stays hidden on that card's answer side**; the other
+  direction shows it.
+- **`extra.py`'s cards are in the record, not rebuilt in CI**: the cache it reads is 1.3 GB.
+- **The whole shelf is now 6,286 words, 474 phrases and 60 notes of letters and sounds: 1,363 days at the
+  default pace, 3.7 years**; привет is day 8 for a reader who finishes the alphabet first, A1 ends on day 120.
+
+## The Urdu beginner pass (2026-11-19)
+
+On request, the audit the Japanese, Mandarin, Spanish, Italian, German and Portuguese decks had been given:
+**what does a learner with no Urdu, and no knowledge of its script, meet in the order the shelf itself
+recommends** — Alphabet, A1, A2, B1, B2, then the phrases? Every figure was measured on the six decks as
+shipped that morning, at the language default of ten new cards a day with both directions together, which is
+five words a day. The rules are in the `.claude/urdu/` entry above and in `.claude/decks/README.md` ("The
+Urdu decks"); this section is the reasoning. No Hindi, Arabic or Persian pass had landed to borrow from.
+
+**The generator's claim was proved first**: one fetch of the live sources (kaikki, Tatoeba, the subtitle
+list, `wordfreq` on `PYTHONPATH`), then `--no-fetch` into a scratch copy, and all six files came out with
+the committed checksums. So, unlike the Spanish, German and Italian decks, a fault the generator can fix IS
+fixed in the generator, and only a decision about one card or one order is in a record.
+
+### What the audit found, by what it costs a beginner
+
+1. **The script cannot be sounded out, and no card showed a vowel mark.** 328 of A1's 500 headwords (66%)
+   have a short vowel no letter writes, 136 a و or ی that is one of two or three vowels, and only 89 can be
+   read off the letters alone (A2 91% ambiguous, B1 91%, B2 90%). The alphabet deck taught zabar, zer, pesh,
+   tashdid and jazm on one example each, and then no headword of any level carried a mark again; three
+   adverbs were printed without their do zabar and romanised -an (فورا fauran). No card taught do zabar,
+   khari zabar or the izafat.
+2. **The second commonest word of the language was on no card.** میں is "I" (ma͠i) and "in" (mẽ); the card
+   kept one etymology and gave "I". A card of two readings showed only the first (شکر śukr "thanks" over
+   the sense "sugar", śakar).
+3. **The greetings were late, on another deck, or nowhere.** Thank you was note 137 (day 39, the alphabet
+   first), yes 52, خدا حافظ 449 (day 101), سلام 425; آداب was B1's note 667 (day 395); سلام علیکم, اللہ حافظ,
+   how are you, what is your name, good morning and good night were in the phrases deck, last on the
+   shelf: day 762 on. On no card at all, for want of a Wiktionary entry: السلام علیکم and its answer,
+   مہربانی, براہ کرم, معاف کیجیے, جی ہاں, آپ کیسے ہیں, میں ٹھیک ہوں, and the postposition تک.
+4. **A1 was dealt by lemma frequency and the closed sets were scattered.** Day one was کا · میں · ہونا ·
+   کرنا · سے, and نے on day three is the list's doing, not a teaching choice. One to ten ran from note 11
+   to 416; eleven and twelve were 436 and 437, thirteen to nineteen in A2 (536 to 686), the tens in A1 and
+   A2, zero in B1; of the 72 compound numbers from twenty-one to ninety-nine, each of which has a form of
+   its own, 45 were carded (43 in B2, 2 in B1) though Wiktionary defines all 72. The days were notes 376 to
+   473. Four months of twelve were carded (two in A2, two in B1): Wiktionary defines all twelve, eight as
+   proper nouns, which `extract.py` does not read. The question words ran from note 16 (کیا) to 404 (کب).
+5. **The agreeing forms were missing where sentences use them most.** کا had no Forms row and no table:
+   کی and کے were on no card. میرا, ہمارا and تمہارا showed no feminine or plural (the pronoun entry led and
+   the determiner entry held the table); A1's sentences use میرے 33 times and میری 29. The 24 commonest verbs
+   of A1 (کرنا, جانا, دینا — the ones on Wiktionary's full table) showed the present, the continuous and
+   three imperatives but NO future, while the rarer verbs, on the generated table, did; ہونا showed تھا and
+   not تھی. Nouns were sound: 240 of 243 carry their gender, 160 an oblique plural.
+6. **The romanisation was two schemes.** It is Wiktionary's, and 87 of 3,799 fields carried another
+   system's letters (š for ś, č, ž, ḥ, ṣ, ẓ, ḵ, ğ, a curled ’ for ain, ē, ō, w, ṉ: 2 in A1, 12 in A2, 25
+   in B1, 46 in B2, 2 phrases). Three were wrong against their own spelling (توڑنا tornā, بڑھنا baṛnā, دراڑ
+   darār: Wiktionary's headword lines). Otherwise sound: the consonants of the Roman field agree with the
+   spelling on 3,480 fields, 175 more double a consonant the spelling writes once (no tashdid), 60 read a
+   ن as nasalisation; length is marked on 2,672, retroflexes on 326 of 328. The alphabet's 56 example
+   words carry the same romanisation as their level cards. Against the Hindi decks: 1,581 words are on
+   both shelves (by Wiktionary's Hindi spelling), 1,258 with the same Roman field; the rest differ by
+   Wiktionary's own conventions (a final ہ is -a here and -ā there, ain is written here).
+7. **Nothing the alphabet deck said about a sound could be traced.** Its description named "the standard
+   description of Urdu's alphabet and sounds". Sixteen of its English comparisons are not the ones
+   Wikipedia's key gives (p as in spin for spot, r as in Spanish pero, ں as in French bon, "a throat sound
+   in Arabic"), and "never starts a word", "light and clear" and "rare, in words from Persian and French"
+   are in no source read here. No Nastaliq face was installed where the decks were built: the rendering
+   had not been looked at.
+8. **Card ids were positions.** All six decks; a re-ordered A1 would have moved every schedule.
+9. **The reverse card was mostly sound.** No two notes share an English field (the generator's `not X`
+   labels); 9 groups share a first gloss in A1, 7, 11 and 29 above. 20 of 3,835 English sides contain
+   their own romanised answer, because the English word IS the loan (paisa, film, hajj). The pronouns'
+   meanings are Wiktionary's grammar wording.
+10. **Example sentences**: 7 words at the median (42 at most). On arrival 67% of a sentence's words had
+    been met in A1 and 89 of 1,051 sentences could be read whole (first fifty notes 57%, 6 of 150); 19% of
+    the words in A1's sentences were on no card of any level; 87 are about Tom or Mary. A2 has sentences on
+    340 of 750 cards, B1 254 of 1,000, B2 100 of 1,500.
+11. **The pace was stated nowhere**: the alphabet to day 12, A1 to 112, A2 to 262, B1 to 462, B2 to 762,
+    the phrases to 771; 3,855 notes, 2.1 years.
+12. **The levels are honest about what they are, except at the top.** No headword is a card of a lower
+    level (a form on a lower card: 4, 4 and 19). The median lemma rank of a level's first 300 is 188, 688,
+    1,520 and 3,010; 528 of B2's 1,500 are under two per million. B2's description did not say that it is
+    the top or why.
+13. **The phrases**: 49, of which 8 were spelled entirely with A1's cards, all everyday formulas; 33 use a
+    word no level cards (Arabic and Persian formulas). The order was Tatoeba's count.
+
+### What was built
+
+**In the generator** (`.claude/urdu/`; every level rebuilt, and the rebuild proved twice):
+
+- **The word with its vowel marks**, first on the forms line, wherever Wiktionary's headword line writes
+  them and it is the same word letter for letter (`extract.marked_of`, `build_deck.marks_item`): 361 of
+  A1's 537 cards, 578, 756 and 972 above. The do zabar and khari zabar a headword leaves out are there.
+- **Both readings of a spelling that has two** (`readings`): میں is `ma͠i · mẽ` with the postposition's
+  meanings, بہتر "better" and seventy-two. The reading is NOT written beside its sense: `English` is the
+  front of the reverse card (a screenshot caught that).
+- **The future on the full verb table** (`full_future`: its cells carry the pronoun and no tense tag), the
+  oblique infinitive on every table, and تھی / تھیں on ہونا: 63 verbs gained a future.
+- **A possessive's and کا's feminine and plural** (`table_entry`, `gendered`): the determiner entry's
+  table when the pronoun entry has none, which also gives وہ and یہ their oblique forms (اس, اسے, ان).
+- **One romanisation scheme** (`ur.roman_norm`, 91 fields and every table cell) and **a retroflex or a
+  breath the spelling shows** (`ur.roman_fit`: the three wrong ones, restored only when the consonants of
+  spelling and romanisation line up otherwise).
+- **The alphabet deck sourced**: every English comparison is a cell of Wikipedia's Help:IPA/Hindi and
+  Urdu (revision 1367857599), every rule a quoted phrase of "Urdu alphabet" (revision 1385216687), and
+  `alphabet.py --verify` checks 52 cells, 19 phrases and the four groups of letters that sound alike
+  against the two revisions. Four notes added: do zabar, khari zabar, the izafat, and و as a short u after
+  خ. Its description says what the script does not show, with the figures of finding 1.
+- **`words_below` reads the record**, so a level rebuilt alone is dealt the list it was dealt before a
+  card moved out of it.
+
+**In a record** (`.claude/decks/urdu-fixes.json`, applied by `urdu-fix.js`, on the German model):
+
+- **Note ids pinned** (`urdu-ids.json`, 3,855 rows seeded from the shipped positions, checked equal),
+  before anything moved. Checked in a browser with the decks as shipped: a reader holding the old
+  Alphabet, A1 and phrases with seven notes of each studied in BOTH directions took the three Updates and
+  kept the same 42 ids on the same words and letters with their schedules; the eight notes the phrases
+  deck dropped stayed on the device.
+- **72 cards moved down** (a move is a row, never a copy: `urdu-fix.js` takes the generator's own card,
+  and the old number goes to `_retired`). To A1: eight formulas of the phrases deck, آداب, zero and two
+  months from B1, thirteen to nineteen, six tens and two months from A2. To A2: 45 compound numbers from
+  B1 and B2.
+- **36 cards added**, their fields built by `inserts.py` with the generator's own code: eight months
+  (Wiktionary's proper-noun entries), 26 compound numbers (Wiktionary's entries no fill reached), and
+  two Tatoeba sentences as phrase cards (جی ہاں, 477094; میں بھی ٹھیک ہوں, 1580444), romanised by joining
+  Wiktionary's romanisation of each word.
+- **An order** (`urdu-order.json`, computed by `urdu-order.js` from the pinned number): A1's first 75
+  notes by hand, then frequency with eleven to a thousand from note 101, the days from 151 and the
+  months behind them, the colours from 201; A2 with twenty-one to ninety-nine as its last 71 cards; the
+  phrases by the lowest level that spells them. A greeting and thank you are day one, how are you day
+  four, zero to ten days 12 to 14, نے day 16.
+- **The descriptions**: each ends with a paragraph the record rewrites and recounts on every run — what
+  moved, the order, the pace, and on B2 that it is the top and why there is no C1.
+- **CI**: `urdu-fix.js --check`, `urdu-order.js --check`, `check-urdu.js` (now reading the pin).
+
+After it: A1 537 notes, A2 806, B1 994, B2 1,457, the phrases 41, the alphabet 60; 3,895 notes, 779 days.
+In A1 69% of a sentence's words have been met on arrival and 15% are on no card (67% and 19%).
+
+### What was decided against, and why
+
+- **A C1.** The plan's §10 stands: the source has nothing left, and B2's description now says so.
+- **Moving the romanisation off the front.** It is the owner's decision (the plan's §1), and finding 1 is
+  the reason for it: a new word cannot be read without it.
+- **Cards for السلام علیکم, please and تک.** No source the decks are built from defines them, and a
+  romanisation is never typed. آپ کیسی ہیں (Tatoeba 4272499) was left out for that reason: کیسی is on no
+  Wiktionary entry. The A1 description lists what is missing.
+- **A card for the silent و** (خواب). Wikipedia's article says it is not pronounced; Wiktionary romanises
+  the word xvāb. The two sources disagree, so the deck says nothing.
+- **Folding the phrases deck into A1.** Its eight A1 formulas moved; the other 41 are idioms, proverbs and
+  Arabic formulas, and they are now in reading order.
+- **Rewriting Wiktionary's meanings** (the pronouns' grammar wording, the 20 loans that name themselves)
+  and **shorter sentences for the head**: a content pass of its own.
+- **Feminine verb tables.** A table is one gender; the feminine is shown where it is irregular (the past)
+  and on ہونا.
+- **Subdecks for the sets.** The app deals subdecks side by side.
+
+### Limits to know about
+
+- **The head's sentences are still long**: over A1's first fifty notes 52% of words met (8 of 128
+  sentences whole); the courtesies have few sentences and the common words' are Tatoeba's.
+- **The marked spelling is Wiktionary's headword line**, on 68% of the cards; where the line is unmarked
+  the card shows none, and the marks are not checked against the romanisation.
+- **`roman_norm` is a rule over letters**: á (two cards) and EḌZ are left as the source writes them.
+- **Rebuilding one level needs the levels its added cards came from** rebuilt with it (`urdu-fix.js` says
+  which): a moved card is not stored in the record.
+- **`alphabet.py --verify` and `inserts.py --check` need the cache and are not CI steps.**
+- **The Nastaliq face**: screenshots were taken with Noto Nastaliq Urdu installed for the purpose (phone
+  width, right to left, no overflow); a device without a Nastaliq face falls back to Naskh, as before.
+- **A reader who already holds the phrases deck, A2, B1 or B2 keeps the cards that moved** and meets them
+  again where they now are.
+- **Not read card by card**: the 72 moved and 36 added cards were; the other 3,787 are as generated.
 
 ## The DELE card-by-card audit, beyond A1 — the batch log
 

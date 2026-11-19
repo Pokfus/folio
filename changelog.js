@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1369", released: "2026-11-19T04:29Z" };
+window.FOLIO_VERSION = { v: "1.1371", released: "2026-11-19T04:58Z" };
 
 window.CHANGELOG = [
   {
@@ -54,6 +54,8 @@ window.CHANGELOG = [
       "The Hindi alphabet deck gains <b>eleven reading rules</b>, and <b>Hindi A1</b> now opens with namaste, thank you and please, with numbers, days and colours together.",
       "Indonesian gains a <b>Sounds and spelling</b> deck, and <b>UKBI 1</b> now opens with halo, terima kasih and selamat pagi, with numbers, days and months together.",
       "<b>Persian A1</b> now opens with the greetings, numbers and weekdays come together, and verbs show their spoken, perfect and negative forms.",
+      "Russian gains a <b>Sounds and spelling</b> deck, and <b>TORFL A1</b> now opens with hello, thank you and please, with numbers, days and months together and 49 more words.",
+      "<b>Urdu A1</b> now opens with the greetings, with numbers, days and months together; Urdu cards show a word's vowel marks, and the alphabet deck cites its sounds.",
       "A new daily minigame, <b>Who is this?</b>: name the historical figure in a portrait from four options.",
       "The home page is tidier: a narrower daily quote, Term of the day styled like Suggested reading, no week-ahead strip, Today laid out like This week.",
       "The minigame chest bar on tablets and desktops now looks as it does on a phone.",

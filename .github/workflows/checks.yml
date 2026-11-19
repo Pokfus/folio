@@ -359,6 +359,18 @@ jobs:
       - name: check-hindi (the Hindi decks' own faults; every note id is its pinned number)
         if: ${{ !cancelled() }}
         run: node .claude/hindi/check-hindi.js
+      # The Urdu decks (2026-11-19, the Urdu beginner pass): urdu-fixes.json (the cards moved down to A1 and A2,
+      # the cards added, the end of each description), urdu-order.json and the pinned ids, over the six decks of
+      # card type `urdu` and `ur-abc`. All three read only the repository: no cache, no network, no browser.
+      - name: urdu-fix --check (the Urdu decks carry their record, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/urdu-fix.js --check
+      - name: urdu-order --check (the Urdu order file is what its rules give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/urdu-order.js --check
+      - name: check-urdu (no word on two levels, pinned ids, one romanisation scheme, balanced markup)
+        if: ${{ !cancelled() }}
+        run: node .claude/urdu/check-urdu.js
       # The Portuguese decks (2026-11-16, the Portuguese beginner pass): portuguese-fixes.json (the cards CAPLE A1
       # gains, the repaired meanings, the order, the pinned ids, the counts a description states), applied after
       # the shared paradigm-fixes.json.
@@ -419,6 +431,16 @@ jobs:
       - name: check-persian (the seven Persian decks, card by card)
         if: ${{ !cancelled() }}
         run: node .claude/persian/check-persian.js
+      # The Russian decks (2026-11-19, the Russian beginner pass): russian-fixes.json (the cards TORFL A1 gains, the
+      # repaired cards, the order, the pinned ids, the counts a description states); the alphabet and the sounds
+      # deck are both written from russian-sounds.json and TORFL A1. A rebuild by .claude/torfl/run.py is not byte
+      # for byte and numbers a deck by position, so these two checks are what keeps a reader's progress on its word.
+      - name: russian-fix --check (the Russian decks carry their record, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/russian-fix.js --check
+      - name: build-russian-sounds --check (the Russian alphabet and sounds decks are what their table and TORFL A1 give)
+        if: ${{ !cancelled() }}
+        run: node .claude/decks/build-russian-sounds.js --check
       - name: jlpt check-ids (every Japanese card id is the one ids.json pins)
         if: ${{ !cancelled() }}
         run: node .claude/jlpt/check-ids.js

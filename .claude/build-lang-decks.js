@@ -179,6 +179,9 @@ function levelRank(title) {
   /* SPANISH'S SOUNDS AND SPELLING COME BEFORE A1 (Nov 2026, docs/lang-decks.md "The Spanish beginner pass"):
      the alphabet is the reader's own, but ñ, ll, rr, j, the silent h, c and g before e and i, and the
      written accent are not, and no word card says how they are read. */
+  /* RUSSIAN'S SOUNDS AND SPELLING COME AFTER ITS ALPHABET (Nov 2026, docs/lang-decks.md "The Russian beginner
+     pass"): the deck says how the letters are read, so it stands between the alphabet (-1) and A1 (0). */
+  if (/^Russian — Sounds and spelling$/.test(title)) return -0.5;
   if (/\bSounds and spelling\b/.test(title)) return -1;
   const m = /\b([ABC][12])\b/.exec(title);
   if (m) return LEVELS.indexOf(m[1]);

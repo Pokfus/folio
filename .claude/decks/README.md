@@ -314,6 +314,73 @@ After a rebuild: `run.py --level x1 --no-fetch`, `persian-fix.js --refresh`, `pe
 `--level x1`, add an `insert` entry (`from: "x1/<word>"`, the next free id, a `why`), `--refresh`, then name
 it in `HEAD` or a set in `persian-order.js` (an insert with no place fails that script).
 
+## The Russian decks: the record, the order, the pinned ids, the alphabet and the sounds deck (Nov 2026)
+
+Seven decks of card type `torfl` (TORFL A1 to C2 and the phrases), written by `.claude/torfl/run.py` (Python,
+about 1.3 GB of live corpora) — and **a rebuild is not byte for byte** (measured 2026-11-19: A1 moved four
+notes, the phrases 92), so every change is in a record (`docs/lang-decks.md`, "The Russian beginner pass"), on
+the German model: **a word is ONE NOTE with two card templates**, so the pin is of note ids (a card id is the
+note id, plus `~2` for English → Russian). The alphabet (`ru-abc`) and the sounds deck (`rusound`) are written
+from one sourced table.
+
+    node russian-fix.js --check             # the Russian record, the order and the pinned ids
+    node build-russian-sounds.js --check    # the alphabet and the sounds deck are what their table and TORFL A1 give
+    node ../torfl/check-torfl.js a1         # one deck read as a reader would (a1 … c2, phrases, alphabet)
+
+| file | what it is |
+|---|---|
+| `russian-fixes.json` | the record: `insert` (a card's six `fields`, MOVED byte for byte with `from`, or BUILT by `../torfl/extra.py` with the Tatoeba ids of its sentences in `src`), `notes` (`senses`, `forms`, `table`, `tableFrom`, `ex`, `glossAdd` on a card the deck has), `decks.<id>.dropDup` (`Word → "<lower deck>/<its Word>"`), `subtitle` and `descSub`. A note's key is its `Word` field: the headword without stress, an aspect pair as `делать, сделать`. |
+| `russian-ids.json` | deck id → `Word` (a letter, a sounds row's key) → the number in the note's id. **Never delete or renumber a row.** A removed note's row moves to `_retired` (21 of them). APPLIED, so a deck numbered by position is numbered back. |
+| `russian-order.json` | deck id → the full list of `Word`s in the order the deck is dealt (TORFL A1, the phrases). May be edited by hand; a list that is not exactly the deck's headwords is refused. A deck with no entry is dealt in the order of its pinned numbers. |
+| `russian-order.js` | how that file is computed, from the PINNED NUMBER: A1's hand-written head, four closed sets each placed at a note number, look-alikes forty apart; the phrases by reading level. It fails if a figure a `descSub` states (a set's note, the head's length, the days) no longer matches the order. `--report` prints the measurements. |
+| `russian-merge-extra.js` | copies the cards `../torfl/extra.py` built (in the gitignored cache) into `russian-fixes.json`. Not a CI step. |
+| `russian-sounds.json` | the table behind BOTH the alphabet and the sounds deck: cells, notes and sentences quoted from three Wikipedia pages at the revisions it names, and the English Wiktionary's transcription of each example word. A row's `key` is what its id is pinned to. |
+| `build-russian-sounds.js` | writes `Russian-Alphabet` (`ru-abc`, two cards a letter) and `Russian-Sounds-and-Spelling` (`rusound`, one card a note). **Reads no live source**: the table and the shipped A1 deck. |
+
+`russian-fix.js` finds its decks by CARD TYPE (`torfl`). **Never `run.py --level <x>` to refresh a deck.** To
+add a word to A1: name it in `EXTRA` in `../torfl/extra.py` and run it (it needs the cache: `run.py` fetches
+it), read the three sentences it prints, `russian-merge-extra.js`, then name the word in the head or in a set
+in `russian-order.js` (an insert with no place fails that script), `russian-order.js`, `russian-fix.js`,
+`build-russian-sounds.js` (a meaning or a stress it shows is A1's) and `node .claude/build-lang-decks.js`. To
+move a word down from a higher deck: an `insert` with the card's `fields` copied and `from`, and a `dropDup` row
+on the deck it leaves. Every bracket of an English side that prints the card's own Russian word is wrapped and
+hidden on the English → Russian card by `russian-fix.js` itself, on every run.
+
+## The Urdu decks: the generator, the record, the pinned ids and the order (Nov 2026)
+
+Six decks: the alphabet (card type `ur-abc`) and A1, A2, B1, B2 and the phrases (card type `urdu`). They
+differ from the decks above in one thing: **the generator (`.claude/urdu/`, Python, a 150 MB cache) rebuilds
+them byte for byte**, which was proved before the pass and after it (`docs/lang-decks.md`, "The Urdu
+beginner pass"). So a fault the generator can fix is fixed THERE, and the record holds only what is a
+decision about one card or one order: which cards move down a level, which are added, the order, the end
+of each description. **A word is ONE NOTE with two card templates**, so the pin is of note ids (a card id
+is the note id, plus `~2` for English → Urdu).
+
+    node urdu-fix.js --check                  # the six decks are what the record, the pin and the order make of them
+    node urdu-order.js --check                # the order file is what its rules give
+    node ../urdu/check-urdu.js                # no word on two levels, pinned ids, one romanisation scheme
+    python3 ../urdu/inserts.py --check        # the record's added cards are what the generator's code builds (needs the cache; not in CI)
+    python3 ../urdu/alphabet.py --verify      # every sound and rule of the alphabet deck is in its pinned Wikipedia revision (not in CI)
+
+| file | what it is |
+|---|---|
+| `urdu-fixes.json` | the record. `add`: deck id → rows, each `word`, `id` and `why`, and either `from` (a MOVE: the generator deals the card to that deck; `urdu-fix.js` takes it out of there whole, so a generator fix reaches it) or `fields` and `src` (an INSERT: a card no deck had). **`add` is written by `../urdu/inserts.py`, never by hand** — its lists are at the top of that script. `decks`: each deck's `subtitle` template, `descSub` pairs, and `tail`, the paragraph that ends its description and is recounted on every run. |
+| `urdu-ids.json` | deck id → headword (for the alphabet, the letter as printed) → the number in the note's id. **Never delete or renumber a row.** A note that leaves a deck has its row moved to `_retired` (72 of them) by the move's own row. APPLIED, so a deck the generator has just numbered by position is numbered back. A new alphabet note gets its row here by hand; a new word card gets it from its `add` row. |
+| `urdu-order.json` | deck id → every headword in the order the deck is dealt (A1, A2, the phrases). Written by `urdu-order.js`; a list that is not exactly the deck's headwords is refused. A deck with no entry (B1, B2, the alphabet) keeps the order the generator wrote. |
+| `urdu-order.js` | how that file is computed, from the PINNED NUMBER (the generator's frequency rank) and never from the file's own order: A1's hand-written head of 75, the closed sets at stated note numbers, a sentence after its rarest word; A2 with the compound numbers last; the phrases by reading level. A card the record added to A1 that is named nowhere is an error. `--report` prints where everything fell. |
+| `urdu-fix.js` | applies all three, in this order: the moves and inserts, the dup check, the ids, the order, the subtitles and descriptions. Writes Python's `json.dump` bytes, so a deck it has nothing to say about is not rewritten. |
+| `../urdu/inserts.py` | builds the `add` rows: checks every move against the generator's selection, and builds an insert's fields with `build_deck.py`'s own functions from kaikki (the months), `lex.json` (the numbers) or Tatoeba by sentence id (two phrase cards, romanised by joining Wiktionary's romanisation of each word). |
+
+`urdu-fix.js` finds its decks by CARD TYPE (`urdu`, `ur-abc`). **A rebuild**, after any change to the
+generator: `python3 ../urdu/run.py --level a1` … `a2`, `b1`, `b2`, `phr` (all five: a moved card lives in
+the deck it came from until `urdu-fix.js` moves it, and is not stored in the record), `../urdu/alphabet.py`,
+`../urdu/inserts.py`, `urdu-fix.js`, `urdu-order.js`, `urdu-fix.js` again, `node .claude/build-lang-decks.js`.
+`urdu_level.words_below` reads the record, so each level is dealt the list it was dealt before anything
+moved. To move a word down: add it to a list at the top of `inserts.py`, run the sequence from
+`inserts.py` on, and name it in the head or a set of `urdu-order.js` if it lands in A1. To add a letter or
+a sign to the alphabet: a row of `LETTERS` in `alphabet.py` whose comparison is a cell of the key and
+whose rule is a quoted phrase (`--verify`), and its number in `urdu-ids.json`.
+
 ## Changing the card type's CSS
 
 `deckcore.js` holds it, and every built deck file carries a **copy** — so an edit there does not reach a

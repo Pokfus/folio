@@ -4,7 +4,14 @@
     python3 .claude/torfl/run.py                 # A1
     python3 .claude/torfl/run.py --level a2      # another level
     python3 .claude/torfl/run.py --no-fetch      # reuse whatever is cached
-    python3 .claude/torfl/alphabet.py            # the alphabet deck (no sources)
+    python3 .claude/torfl/extra.py               # cards for NAMED words, for the record (its header)
+
+A REBUILD IS NOT A REFRESH (Nov 2026, the beginner pass).  The decks carry a
+record, an order and pinned ids (`.claude/decks/russian-fix.js`, whose header
+says why and what to run after this), and a rebuild on a fresh fetch is not
+byte for byte: measured on 2026-11-19, `--level a1` moved four notes and changed
+three notes' sentences, `--level phr` moved 92.  The alphabet deck is written by
+`.claude/decks/build-russian-sounds.js` now, from a sourced table.
 
 ONE LEVEL PER RUN (`torfl_level` reads the level once, at import).  Downloads
 its sources into `.claude/torfl-cache/` (gitignored, about 1.3 GB, the
