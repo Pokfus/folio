@@ -1,10 +1,10 @@
 {
- "generated": "2026-11-16T02:38Z",
+ "generated": "2026-11-19T05:42Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8386,
+  "ok": 8415,
   "redirect-broader": 802,
-  "redirect-variant": 492,
+  "redirect-variant": 493,
   "section-redirect": 190,
   "disambiguation": 154,
   "none": 1187,
@@ -90177,6 +90177,217 @@
    "answer": "Esarhaddon",
    "title": "Esarhaddon",
    "url": "https://en.wikipedia.org/wiki/Esarhaddon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-301": {
+   "answer": "Greenland",
+   "title": "Greenland",
+   "url": "https://en.wikipedia.org/wiki/Greenland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-302": {
+   "answer": "New Guinea",
+   "title": "New Guinea",
+   "url": "https://en.wikipedia.org/wiki/New_Guinea",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-303": {
+   "answer": "Borneo",
+   "title": "Borneo",
+   "url": "https://en.wikipedia.org/wiki/Borneo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-304": {
+   "answer": "Madagascar",
+   "title": "Madagascar",
+   "url": "https://en.wikipedia.org/wiki/Madagascar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-305": {
+   "answer": "Baffin Island",
+   "title": "Baffin Island",
+   "url": "https://en.wikipedia.org/wiki/Baffin_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-306": {
+   "answer": "Sumatra",
+   "title": "Sumatra",
+   "url": "https://en.wikipedia.org/wiki/Sumatra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-307": {
+   "answer": "Honshu",
+   "title": "Honshu",
+   "url": "https://en.wikipedia.org/wiki/Honshu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-308": {
+   "answer": "Victoria Island",
+   "title": "Victoria Island",
+   "url": "https://en.wikipedia.org/wiki/Victoria_Island",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Victoria Island (Canada)"
+  },
+  "gw-309": {
+   "answer": "Great Britain",
+   "title": "Great Britain",
+   "url": "https://en.wikipedia.org/wiki/Great_Britain",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-310": {
+   "answer": "Ellesmere Island",
+   "title": "Ellesmere Island",
+   "url": "https://en.wikipedia.org/wiki/Ellesmere_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-311": {
+   "answer": "Sulawesi",
+   "title": "Sulawesi",
+   "url": "https://en.wikipedia.org/wiki/Sulawesi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-312": {
+   "answer": "South Island",
+   "title": "South Island",
+   "url": "https://en.wikipedia.org/wiki/South_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-313": {
+   "answer": "Java",
+   "title": "Java",
+   "url": "https://en.wikipedia.org/wiki/Java",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-314": {
+   "answer": "North Island",
+   "title": "North Island",
+   "url": "https://en.wikipedia.org/wiki/North_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-315": {
+   "answer": "Newfoundland",
+   "title": "Newfoundland (island)",
+   "url": "https://en.wikipedia.org/wiki/Newfoundland_(island)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-316": {
+   "answer": "Cuba",
+   "title": "Cuba",
+   "url": "https://en.wikipedia.org/wiki/Cuba",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-317": {
+   "answer": "Luzon",
+   "title": "Luzon",
+   "url": "https://en.wikipedia.org/wiki/Luzon",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-318": {
+   "answer": "Iceland",
+   "title": "Iceland",
+   "url": "https://en.wikipedia.org/wiki/Iceland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-319": {
+   "answer": "Mindanao",
+   "title": "Mindanao",
+   "url": "https://en.wikipedia.org/wiki/Mindanao",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-320": {
+   "answer": "Ireland",
+   "title": "Ireland",
+   "url": "https://en.wikipedia.org/wiki/Ireland",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-321": {
+   "answer": "Hokkaido",
+   "title": "Hokkaido",
+   "url": "https://en.wikipedia.org/wiki/Hokkaido",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-322": {
+   "answer": "Hispaniola",
+   "title": "Hispaniola",
+   "url": "https://en.wikipedia.org/wiki/Hispaniola",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-323": {
+   "answer": "Sakhalin",
+   "title": "Sakhalin",
+   "url": "https://en.wikipedia.org/wiki/Sakhalin",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-324": {
+   "answer": "Banks Island",
+   "title": "Banks Island",
+   "url": "https://en.wikipedia.org/wiki/Banks_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-325": {
+   "answer": "Sri Lanka",
+   "title": "Sri Lanka",
+   "url": "https://en.wikipedia.org/wiki/Sri_Lanka",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-326": {
+   "answer": "Tasmania",
+   "title": "Tasmania",
+   "url": "https://en.wikipedia.org/wiki/Tasmania",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-327": {
+   "answer": "Devon Island",
+   "title": "Devon Island",
+   "url": "https://en.wikipedia.org/wiki/Devon_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-328": {
+   "answer": "Alexander Island",
+   "title": "Alexander Island",
+   "url": "https://en.wikipedia.org/wiki/Alexander_Island",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-329": {
+   "answer": "Isla Grande de Tierra del Fuego",
+   "title": "Isla Grande de Tierra del Fuego",
+   "url": "https://en.wikipedia.org/wiki/Isla_Grande_de_Tierra_del_Fuego",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "gw-330": {
+   "answer": "Severny Island",
+   "title": "Severny Island",
+   "url": "https://en.wikipedia.org/wiki/Severny_Island",
    "via": "glossary",
    "status": "ok"
   }

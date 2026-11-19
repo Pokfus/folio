@@ -9548,6 +9548,29 @@ Authority, Geoscience Australia), Parks Canada and the national park agencies, U
 pages, NASA Earth Observatory, explorers' narratives in published translation, and journal articles with
 DOIs. Never Wikipedia; never a source not opened; every URL curled before the card is committed.
 
+### As written (2026-11-19): COMPLETE at 30 of 30
+
+Drafted by six research helpers from sources they opened, reviewed here, imported through
+`import-batch.js`: 19 new glossary terms, the other eleven answers reusing existing terms. Every cited URL
+was re-curled; the Canadian Encyclopedia's six pages answer 403 to scripted fetches (its bot wall, read in a
+browser, as in the physical decks), and every Europe PMC full-text API link was moved to the same paper's
+`pmc.ncbi.nlm.nih.gov/articles/PMC…/` page, because the API answered 503 to a batch check. What the
+writing decided:
+- **The Area cell is rarely the *Global Islands* figure** the running order follows: no helper could open
+  that data set, so each card gives the figure its own sources print (Statistics Canada via the Canadian
+  Encyclopedia, LINZ, the Japan Statistical Yearbook, the ABS, FAO AQUASTAT, journal papers) and several
+  are the whole territory's or a district's figure rather than the main island's (Greenland, Madagascar,
+  Iceland, Java). Eight Area cells are `?` where no opened source gave the island alone (Sumatra, Great
+  Britain, Hokkaido, Hispaniola, Sakhalin, Alexander Island, Isla Grande de Tierra del Fuego, Severny
+  Island); the highest point is `?` on ten.
+- **`Sakhalin` is a new term for the island**; `Sakhalin_Oblast` keeps its alias "Sakhalin", which its
+  Atlas pin depends on (the registry row is named "Sakhalin"), and the bare name links to the island
+  because a term's own name wins over another's alias (`buildGlossIndex`).
+- Atlas places on 4 of the 30 (what `migrate-places.js` derives today); the rest want registry rows.
+- Not in the text for want of an opened source: the Soviet taking of southern Sakhalin in 1945, the
+  1930 Canada–Norway settlement over the Sverdrup Islands, the name "Tsar Bomba", and the removal of the
+  Nenets from Novaya Zemlya.
+
 ## The day UNdata stopped existing — 864 citations, migrated rather than replaced (2026-09-14)
 
 `data.un.org/en/iso/<cc>.html` is the spine above. **It is gone.** The root answers 200, every country

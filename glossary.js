@@ -11890,7 +11890,26 @@ window.GLOSSARY = {
 "Xunzi": "",
 "Ren_(philosophy)": "",
 "Li_(Confucianism)": "",
-"Yin_and_yang": ""
+"Yin_and_yang": "",
+"Borneo": "",
+"Baffin_Island": "",
+"Sumatra": "",
+"Victoria_Island_(Canada)": "",
+"Ellesmere_Island": "",
+"South_Island": "",
+"North_Island": "",
+"Java": "",
+"Newfoundland_(island)": "",
+"Luzon": "",
+"Mindanao": "",
+"Hispaniola": "",
+"Sakhalin": "",
+"Banks_Island": "",
+"Tasmania": "",
+"Devon_Island": "",
+"Alexander_Island": "",
+"Isla_Grande_de_Tierra_del_Fuego": "",
+"Severny_Island": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -20347,6 +20366,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Kingdom_of_Galicia–Volhynia": ["Galicia–Volhynia","Galicia-Volhynia","Galician–Volhynian principality","Galician-Volhynian principality"],
 "Sack_of_Kiev_(1169)": ["sack of Kyiv","sack of Kiev"],
 "The_Tale_of_Igor's_Campaign": ["Tale of Igor's Campaign","Lay of Igor's Campaign","Slovo o polku Igoreve"],
+"Sakhalin_Oblast": ["Sakhalin"],
 "Mongol_invasion_of_Kievan_Rus'": ["Mongol invasion of Rus'","Mongol invasion of Rus’"],
 "Siege_of_Kiev_(1240)": ["siege of Kyiv","siege of Kiev"],
 "Siege_of_Ryazan": ["sack of Ryazan"],
@@ -20366,7 +20386,6 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Yamalo-Nenets_Autonomous_Okrug": ["Yamalo-Nenets"],
 "Adygea": ["Republic of Adygea"],
 "Karachay-Cherkessia": ["Karachay-Cherkess Republic"],
-"Sakhalin_Oblast": ["Sakhalin"],
 "Tuva": ["Republic of Tyva","Tyva"],
 "Kamchatka_Krai": ["Kamchatka"],
 "Kalmykia": ["Republic of Kalmykia"],
@@ -25495,7 +25514,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "National_Physical_Laboratory_(United_Kingdom)": ["National Physical Laboratory"],
 "Mencius": ["Mengzi"],
 "Xunzi": ["Xun Kuang"],
-"Yin_and_yang": ["yin-yang","yinyang"]
+"Yin_and_yang": ["yin-yang","yinyang"],
+"Victoria_Island_(Canada)": ["Victoria Island"],
+"South_Island": ["Te Waipounamu"],
+"North_Island": ["Te Ika-a-Māui"],
+"Newfoundland_(island)": ["Newfoundland"],
+"Isla_Grande_de_Tierra_del_Fuego": ["Tierra del Fuego"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -37595,7 +37619,26 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Xunzi": ["person","philosopher","confucianism","philosophy","warring states"],
 "Ren_(philosophy)": ["concept","philosophy","confucianism","ethics"],
 "Li_(Confucianism)": ["concept","philosophy","confucianism","religion","ethics"],
-"Yin_and_yang": ["concept","philosophy","religion","daoism","confucianism"]
+"Yin_and_yang": ["concept","philosophy","religion","daoism","confucianism"],
+"Borneo": ["place","geography","island","asia","brunei","indonesia","malaysia"],
+"Baffin_Island": ["place","geography","island","arctic","canada"],
+"Sumatra": ["place","geography","island","indonesia","asia"],
+"Victoria_Island_(Canada)": ["place","geography","island","canada","arctic"],
+"Ellesmere_Island": ["place","geography","island","canada","arctic"],
+"South_Island": ["place","geography","island","new zealand","oceania"],
+"North_Island": ["place","geography","island","new zealand","oceania"],
+"Java": ["place","geography","island","indonesia","asia"],
+"Newfoundland_(island)": ["place","geography","island","canada","north america"],
+"Luzon": ["place","geography","island","philippines","asia"],
+"Mindanao": ["place","geography","island","philippines","asia"],
+"Hispaniola": ["place","geography","island","caribbean","haiti","dominican republic"],
+"Sakhalin": ["place","geography","island","asia","russia","japan"],
+"Banks_Island": ["place","geography","island","arctic","canada"],
+"Tasmania": ["place","geography","island","australia","oceania"],
+"Devon_Island": ["place","geography","island","canada","arctic"],
+"Alexander_Island": ["place","geography","island","antarctica"],
+"Isla_Grande_de_Tierra_del_Fuego": ["place","geography","island","argentina","chile","south america"],
+"Severny_Island": ["place","geography","island","russia","arctic"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
