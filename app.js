@@ -13064,6 +13064,15 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      well off — Hobbes 30.9, Lucretius 47.7, Plato 52.2, Aristotle 60.5, Kant 76.2. It reads 6.91:1 on the
      tightest light paper. */
   "Charles Darwin": "#573006",
+  /* MEASURED AS EVERY ROW ABOVE, with seventy colours placed (Nov 2026, adding Jerome's Letters): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on every
+     light paper, card and second paper. A sweep at a step of 3, refined to 1 around the best, tops out at
+     14.4 — the band is full. The crimson first measured for this row (#832D78) was taken by Augustus the same
+     day, 1.1 away. THE EURIPIDES TEST: this violet's nearest are Snorri Sturluson and Valmiki 14.4, Plato 14.5
+     and the Song of Roland 14.7, none a book read beside Jerome; the ones that are stand well off — Kant 17.0,
+     Augustus 19.3, Dante 21.5, the King James Bible 27.0, Seneca 30.0, Luther 37.7, Virgil 40.6, Augustine
+     52.5, Bede 63.4, Boethius 70.2, Aquinas 102.5. It reads 5.39:1 on the tightest light paper. */
+  "Jerome": "#5D3B75",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -17293,6 +17302,49 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          Glacial period, natural and sexual selection, and the countries and seas of Darwin's own world. */
       glossOff: ["Marcus_Antonius_Pallas", "Philippi", "Silla", "Rhea_(mythology)", "Lernaean_Hydra", "Sound",
         "Jerusalem", "Jordan", "Arabs", "Arabian_Peninsula", "Iran"],
+    },
+    {
+      id: "jerome-letters",
+      title: "The Letters of St. Jerome",
+      subtitle: "Epistulae",
+      author: "Jerome",
+      /* Letter 1 is "probably the earliest extant composition of Jerome (c. 370)" in the edition's own
+         headnote, and the last letters to Augustine are of 418–419; `year` is the first, for the date sort. */
+      written: "c. 370–419 CE",
+      year: 370,
+      translator: "W. H. Fremantle",
+      edition:
+        "A Select Library of the Nicene and Post-Nicene Fathers of the Christian Church, " +
+        "Second Series, Vol. VI, ed. Philip Schaff and Henry Wace, 1893",
+      /* A LIMIT TO STATE, on two of the three translators: published 1893, so public domain in the United
+         States; Fremantle died in 1916, but Wikisource gives Martley only as "c. 1860 – c. 1920" and Lewis
+         no dates at all, so no life-plus-seventy claim is made for theirs. See .claude/fetch-book.js. */
+      rights:
+        "Jerome died in 420. W. H. Fremantle's translation, made with the Rev. G. Lewis and the Rev. " +
+        "W. G. Martley, was published in 1893 in the Nicene and Post-Nicene Fathers, Second Series, " +
+        "Volume VI, so it is in the public domain in the United States. Fremantle died in 1916, so his " +
+        "share is out of copyright wherever the term runs for the author's life plus seventy years; the " +
+        "dates of his two assistants are not established, so no such claim is made for theirs. The " +
+        "volume's Prolegomena, treatises and prefaces are not reproduced. There is no Latin facing it, " +
+        "and the book's own first page says why.",
+      sourceName: "Wikisource",
+      sourceUrl:
+        "https://en.wikisource.org/wiki/Nicene_and_Post-Nicene_Fathers:_Series_II/Volume_VI/The_Letters_of_St._Jerome",
+      /* ONE LETTER TO A TAB, Seneca's shape, numbered as every edition numbers them (Vallarsi's 1–150), each
+         titled from its own printed heading ("To Heliodorus, Monk"). About fifty are printed by this edition
+         as a summary only; the front matter says so. No `origLang`: Migne's Latin on Latin Wikisource could
+         not be paired — see .claude/fetch-book.js. */
+      chapterWord: "Letter",
+      count: 150,
+      total: 150,
+      /* Vallarsi's five classes, as Migne heads them in Patrologia Latina 22. */
+      parts: [
+        { n: 1, label: "The desert", note: "Letters 1–18 · 370–380, mostly from the desert of Chalcis" },
+        { n: 2, label: "Rome", note: "Letters 19–45 · the three years in Rome, with Damasus, Marcella and Paula" },
+        { n: 3, label: "Bethlehem, to 400", note: "Letters 46–95 · from 386, and the Origenist quarrel" },
+        { n: 4, label: "Bethlehem, from 401", note: "Letters 96–144 · Augustine, the sack of Rome, the Pelagians" },
+        { n: 5, label: "Of uncertain date", note: "Letters 145–150 · three of them not his" },
+      ],
     },
   ];
   const BOOK_BY_ID = {};
