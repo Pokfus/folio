@@ -2,7 +2,9 @@
 /* test-atlas-scope.js — the card windows' scope switch, top-left (2026-11-18, on request: "a switch to depict either all the locations within the
    collection (current system) or all unlocked locations in all history/science/philosophy collections"). Guards `mountScope` / `sibFor` in
    atlas/atlas-windows.js and `locatorSiblingsAll` in app.js. Also checks a person's birth and death places (`locator.also` with a role) are drawn
-   and named on wh-380. Uses playwright (NODE_PATH, as CI). */
+   and named on wh-380. Since 2026-11-19 also: a studied sea (the Aegean, gr-001) is a name and never a dot, a studied mountain (Olympus, gr-905) is the peak triangle
+   on every other Greek card's window, "Discovered!" stands after the section's heading (not over the switch), and at night the chosen half of the switch wears the
+   relief button's pressed colours. Uses playwright (NODE_PATH, as CI). */
 "use strict";
 const fs = require("fs"), path = require("path"), http = require("http");
 const ROOT = path.join(__dirname, "..");
@@ -25,7 +27,7 @@ const srv = http.createServer((rq, rs) => {
   // a reader who has studied Rome's Ostia and Greece's palaces and sanctuaries
   await page.addInitScript(() => {
     const rec = { due: Date.now() + 9e8, ivl: 9, ease: 2.5, status: "review", reps: 2, first: "2026-08-01" }, cards = {};
-    ["gr-004", "gr-008", "gr-011", "gr-012", "gr-013", "gr-042", "gr-049", "gr-058", "gr-067", "gr-069", "rm-003"].forEach((id) => { cards[id] = rec; });
+    ["gr-004", "gr-008", "gr-011", "gr-012", "gr-013", "gr-042", "gr-049", "gr-058", "gr-067", "gr-069", "rm-003", "gr-001", "gr-905"].forEach((id) => { cards[id] = rec; });
     if (!sessionStorage.getItem("seeded")) { localStorage.setItem("folio_v1", JSON.stringify({ cards, settings: { newPerDay: 5 } })); localStorage.removeItem("folio.atlasWinScope"); sessionStorage.setItem("seeded", "1"); }
   });
   const up = async (id) => {
@@ -54,6 +56,22 @@ const srv = http.createServer((rq, rs) => {
   check("a person's window names the birth and the death places", d.names.indexOf("Lumbini") >= 0 && d.names.indexOf("Kushinagar") >= 0, d.names.join(", "));
   const ws = await page.evaluate(() => { const h = document.querySelector(".card-loc .map-card"), zc = h.querySelector(".mc-scope").getBoundingClientRect(), cv = h.querySelector(".mc-canvas").getBoundingClientRect(); return { left: zc.left - cv.left, top: zc.top - cv.top }; });
   check("the switch sits in the top-left corner", ws.left < 20 && ws.top < 20, JSON.stringify(ws));
+  // a Greek card near both: the Aegean Sea is its name alone (no mark under or beside it), Mount Olympus the peak triangle
+  await up("gr-140");
+  await page.evaluate(() => { const h = document.querySelector(".card-loc .map-card"); h._folioMap.pan(0, 0); });
+  await page.waitForTimeout(2000);
+  const g = await page.evaluate(() => { const bx = document.querySelector(".card-loc .map-card")._folioMap.boxes(); return { names: bx.names, marks: bx.marks, dropped: bx.dropped }; });
+  const aeg = g.names.find((n) => n.text === "Aegean Sea"), near = (m, b, pad) => { const cx = (m.box[0] + m.box[2]) / 2, cy = (m.box[1] + m.box[3]) / 2; return cx > b[0] - pad && cx < b[2] + pad && cy > b[1] - pad && cy < b[3] + pad; };
+  check("a studied sea is named on another card's window, and never a dot (the Aegean Sea, gr-001)", !!aeg && !g.marks.some((m) => m.kind !== "home" && near(m, aeg.box, 10)), JSON.stringify({ names: g.names.map((n) => n.text), dropped: g.dropped, aeg: aeg && aeg.box, marks: g.marks.filter((m) => aeg && near(m, aeg.box, 10)) }));
+  check("a studied mountain is the peak triangle on another card's window (Mount Olympus, gr-905)", g.names.some((n) => n.text === "Mount Olympus") && g.marks.some((m) => m.kind === "peak"), g.marks.map((m) => m.kind).join(","));
+  const chip = await page.evaluate(() => { const c = document.querySelector(".card-loc .mc-new"); return { inHead: !!(c && c.parentElement.classList.contains("loc-head") && c.previousElementSibling && c.previousElementSibling.classList.contains("label")), inWindow: !!document.querySelector(".card-loc .map-card > .mc-new") }; });
+  check("\"Discovered!\" stands after the Location heading, not inside the window over the switch", chip.inHead && !chip.inWindow, JSON.stringify(chip));
+  const night = await page.evaluate(() => {
+    document.body.classList.add("night");
+    const on = document.querySelector(".card-loc .mc-scope button.on"), probe = document.createElement("span"); probe.style.cssText = "background:var(--card);color:var(--indigo)"; document.body.appendChild(probe);
+    const a = getComputedStyle(on), p = getComputedStyle(probe), r = { bg: a.backgroundColor, fg: a.color, wantBg: p.backgroundColor, wantFg: p.color }; probe.remove(); document.body.classList.remove("night"); return r;
+  });
+  check("at night the chosen scope wears the relief button's pressed colours (card ground, indigo ink), not white", night.bg === night.wantBg && night.fg === night.wantFg, JSON.stringify(night));
   check("no page errors", !errs.length, errs.join(" | "));
   await b.close(); srv.close();
   console.log("\n" + pass + " passed, " + fail + " failed"); process.exit(fail ? 1 : 0);

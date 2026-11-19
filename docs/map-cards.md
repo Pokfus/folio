@@ -778,6 +778,7 @@ Cliopatria folds into an empire or an occupation that year (Canada, South Africa
 Republic) are drawn with their own later row through `rowsAt: [[1920, 1920, rowYear]]`, their borders being the same, and
 the entity's note says so; the Spanish empire's composite stands aside in 1920 (`exceptYears`) for Spain alone.
 `cnh-656` uses the same block with `label: "Territory"` for one state's own present-day ground.
+A group may also name history.bin **extents** (`pol:ext_…`, 2026-11-19, `gr-231`: Lacedaemon as `pol:ext_sparta` + `pol:ext_messenia` in 600 BCE): the window paints them itself — the group's tint and one outline round their union — at a year they are alive in, and on the still renderer leaves the present-day `keys` untinted (docs/atlas-v2-card-windows.md "An extent as a members group").
 
 ### Three groups, a zoom and a timeline (`members.span`, 2026-10-29, on request)
 
@@ -798,7 +799,7 @@ of its own — its present-day `keys` are only the fallback and the frame.
   location and death location … the state they ruled … including its capital with a square icon"): `"birth"`, `"death"` or `"capital"` draws the
   place in the card's own gold — a capital as the square — and names it before any sibling; the window then opens framed on the locator's dot and
   every role'd place together (`fit`, at most zoom 10). An entry with no role keeps its red sibling dot. `also[].label: true` is a region's name
-  alone, italic, with no mark (`eg-004`'s Upper and Lower Egypt). A members window on a past year's borders draws its seat (`at`) as the square. `locator.role: "capital"` marks the card's own dot as a ruler's capital and draws it as the square (61 ruler cards whose capital is
+  alone, italic, with no mark (`eg-004`'s Upper and Lower Egypt). A members window on a past year's borders draws its seat (`at`) as the square — only when the card has no locator: with one, the dot is the locator's place and is the square only by `locator.role` (2026-11-19: `rm-371`'s Nola, Augustus's death place, was drawn as a capital; `ownSquare` in `atlas-windows.js`). `locator.role: "capital"` marks the card's own dot as a ruler's capital and draws it as the square (61 ruler cards whose capital is
   their own dot, written by the person-places pass of 2026-11-18).
 - `hide: ["Burkhan Khaldun"]` — names of other cards' places this card's window leaves off even when the reader has
   studied them (`ru-001`, the Eurasian Steppe). A studied sibling at the card's own place (same name, or within

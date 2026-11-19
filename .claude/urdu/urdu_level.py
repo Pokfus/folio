@@ -109,16 +109,40 @@ def f(name):
 _DECKS = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'decks')
 
 
+_RECORD = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'decks', 'urdu-fixes.json')
+
+
 def words_below():
-    """Every lemma a lower level teaches, read off its SHIPPED deck file (`Word`)."""
+    """Every lemma a lower level's LIST holds -- the list this generator dealt, whatever the
+    record has since moved.
+
+    The beginner pass (2026-11-19) moved cards between the shipped decks (thirteen to nineteen
+    from A2 to A1, the greetings from the phrases to A1 ...) and added cards no list had, all
+    through `.claude/decks/urdu-fixes.json`.  A shipped deck is therefore no longer the list
+    its level was dealt from, and reading it as one would re-deal every level above a move:
+    A2, finding thirteen in A1, would top itself up with B1's first word.  So a deck's list is
+    its shipped cards, MINUS what the record added to it, PLUS what the record moved out of
+    it -- the same set before the record is applied and after, which is what lets one level
+    be rebuilt alone and `urdu-fix.js` put the moves back.
+    """
     from ur import fold
+    added, left = {}, {}
+    if os.path.exists(_RECORD):
+        rec = json.load(open(_RECORD, encoding='utf-8'))
+        for deck, rows in (rec.get('add') or {}).items():
+            for r in rows:
+                added.setdefault(deck, set()).add(fold(r['word']))
+                if r.get('from'):
+                    left.setdefault(r['from'], set()).add(fold(r['word']))
     out = set()
     for lvl in BELOW.get(LEVEL, []):
         p = os.path.join(_DECKS, DECK_FILES[lvl])
         if not os.path.exists(p):
             raise SystemExit(f'{LEVEL} is built on {lvl}, but {p} is missing')
+        words = set()
         for c in json.load(open(p, encoding='utf-8'))['cards']:
             w = (c.get('fields') or {}).get('Word', '')
             if w:
-                out.add(fold(w))
+                words.add(fold(w))
+        out |= (words - added.get(DECK_IDS[lvl], set())) | left.get(DECK_IDS[lvl], set())
     return out

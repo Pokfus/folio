@@ -14,17 +14,22 @@ the three short-vowel marks, the doubling mark, the hamza and the -an ending
 that a beginner meets in لطفاً.  Each letter shows its FOUR SHAPES (alone, and
 joined at the start, middle and end of a word), since the shape a reader meets
 is almost never the one in the alphabet chart; the seven letters that never
-join to the letter after them say so instead.
+join to the letter after them say so instead.  Since the beginner pass
+(2026-11-19) four more notes stand where they teach: the silent و of خوا, the
+final ه that is the vowel e, the final ی read â, and the half-space (U+200C).
 
-WHAT THE SOUNDS ARE.  An approximation in English words, as learner's
-alphabets give them, never IPA, with the romanisation the level decks use
-(Wiktionary's Iranian one: â, x for kh, š, ž, ġ).  PERSIAN SPELLS SOME SOUNDS
-WITH SEVERAL LETTERS -- s with س ث ص, z with ز ذ ض ظ, t with ت ط, h with ه ح,
-the gargled g with غ ق -- the extra letters kept from the Arabic words that
-brought them.  Each such card says so, and its sound side is told apart by
-the example word it asks for, so the reverse card has one answer.  The
-descriptions are the standard ones of modern Iranian (Tehran) Persian; no
-corpus is read, and a re-run is byte-identical whenever `lex.json` is.
+WHAT THE SOUNDS ARE.  An English comparison QUOTED from Wikipedia's
+Help:IPA/Persian at a pinned revision, never IPA and never typed from memory
+(the table's own comment has the list), with the romanisation the level decks
+use (Wiktionary's Iranian one: â, x for kh, š, ž, ġ).  PERSIAN SPELLS SOME
+SOUNDS WITH SEVERAL LETTERS -- s with س ث ص, z with ز ذ ض ظ, t with ت ط, h
+with ه ح, and in Tehran one sound for غ ق.  Each such card names the others,
+and its sound side is told apart by the example word it asks for, so the
+reverse card has one answer.  No corpus is read, and a re-run is
+byte-identical whenever `lex.json` is.
+
+THE IDS ARE IN THE TABLE, not the position: a note's number is pinned in
+`persian-ids.json` and `persian-fix.js --check` holds the deck to it.
 """
 import html, json, os, sys
 
@@ -37,81 +42,108 @@ TYPE_ID = 'fa-abc'
 COLOR = '#008763'
 ZWJ = '\u200d'
 
-# (letter, its Persian name (what the speaker says), romanisation, joins forward?,
-#  sound, example word, its meaning)
-ONE = 'one of the letters for '
+# WHERE EVERY SOUND SIDE COMES FROM (2026-11-19, the beginner pass).  Until then the comparisons
+# were "the standard description of modern Iranian Persian", which no reader could check, and
+# three of them were not the Iranian sound at all: â was "a as in father" (the key's DARI cell;
+# the Farsi one is "off, but longer"), ġ "like the French r", o "a short version of go"; and
+# seven letters were "found only in words from Arabic", which no source here says and صد
+# "hundred" contradicts.  Now:
+#   · an English comparison is the FARSI cell of Wikipedia's Help:IPA/Persian (revision
+#     1379048408) for that sound -- boy, pen, tall, sock, joy, chip, hat, loch (Scottish), den,
+#     jazz, vision, shake, fast, cat, gate, land, man, neck, oven, yard; bat, "between bait and
+#     bet", story, "off, but longer", beat, cool; bay, goal -- and "letters with one sound" are the
+#     letters that key lists in one row (ت ط · س ص ث · ز ذ ض ظ · ه ح · ع ء), غ and ق by its note
+#     ("In the modern Tehrani accent ... the phonemes of غ and ق are allophones");
+#   · what a letter does in a word is a sentence of "Persian alphabet" (revision 1385657500):
+#     the four added letters, the seven that "do not connect to the following letter", the
+#     "silent alef which carries the short vowel", ه and و as "proxy letters" for a final vowel,
+#     tanvin ("the word ends in an alveolar nasal sound without the addition of the letter nun"),
+#     the non-joiner ("Certain morphemes (such as the plural ending -hâ) ... are separated from
+#     the word using the zero-width non-joiner");
+#   · the readings of the words named are the English Wiktionary's (xâhar, hattâ, četowr).
+#
+# (id, letter, its Persian name (what the speaker says), romanisation, joins forward?,
+#  sound, example word, its meaning).  THE ID IS THE NUMBER IN THE NOTE'S ID AND IS PINNED
+#  (`persian-ids.json`): 1 to 39 are the notes as first shipped, in the alphabet's order; a
+#  note added later takes the next free number wherever it stands in the list.
 LETTERS = [
-    ('ا', 'الف', 'â', False, '"a" as in father, long; at the START of a word alef only carries '
-     'the short vowel that follows it (اسب asb)', 'باد', 'wind'),
-    ('ب', 'ب', 'b', True, '"b" as in bed', 'برادر', 'brother'),
-    ('پ', 'پ', 'p', True, '"p" as in pen — one of the four letters Persian added to the Arabic '
-     'alphabet', 'پدر', 'father'),
-    ('ت', 'ت', 't', True, '"t" as in ten — the everyday t', 'تو', 'you'),
-    ('ث', 'ث', 's', True, '"s" — ' + ONE + 's (with س and ص), found only in words from Arabic',
+    (1, 'ا', 'الف', 'â', False, 'the long vowel â: "o" as in off, but longer. At the START of a word '
+     'alef is silent and carries the short vowel that follows it (اسب asb)', 'باد', 'wind'),
+    (2, 'ب', 'ب', 'b', True, '"b" as in boy', 'برادر', 'brother'),
+    (3, 'پ', 'پ', 'p', True, '"p" as in pen — one of the four letters Persian added to the Arabic '
+     'alphabet (پ چ ژ گ)', 'پدر', 'father'),
+    (4, 'ت', 'ت', 't', True, '"t" as in tall; ط is a second letter for the same sound', 'تو', 'you'),
+    (5, 'ث', 'ث', 's', True, '"s" as in sock — the same sound as س and ص: three letters, one sound',
      'ثانیه', 'second (of time)'),
-    ('ج', 'جیم', 'j', True, '"j" as in jam', 'جا', 'place'),
-    ('چ', 'چ', 'č', True, '"ch" as in church — a letter Persian added', 'چای', 'tea'),
-    ('ح', 'ح', 'h', True, '"h" — ' + ONE + 'h (with ه), found only in words from Arabic', 'حال',
+    (6, 'ج', 'جیم', 'j', True, '"j" as in joy', 'جا', 'place'),
+    (7, 'چ', 'چ', 'č', True, '"ch" as in chip — a letter Persian added', 'چای', 'tea'),
+    (8, 'ح', 'ح', 'h', True, '"h" as in hat — the same sound as ه: two letters, one sound', 'حال',
      'state, condition'),
-    ('خ', 'خ', 'x', True, '"kh", rasped at the back of the mouth as in Scottish loch', 'خانه',
-     'house'),
-    ('د', 'دال', 'd', False, '"d" as in dog', 'در', 'door'),
-    ('ذ', 'ذال', 'z', False, '"z" — ' + ONE + 'z (with ز, ض and ظ), found only in words from Arabic',
-     'ذهن', 'mind'),
-    ('ر', 'ر', 'r', False, '"r" said with one light tap of the tongue, as in Spanish pero', 'روز',
-     'day'),
-    ('ز', 'ز', 'z', False, '"z" as in zoo — the everyday z', 'زن', 'woman'),
-    ('ژ', 'ژ', 'ž', False, 'the "s" of pleasure — a letter Persian added', 'ژاکت', 'jacket'),
-    ('س', 'سین', 's', True, '"s" as in sun — the everyday s', 'سال', 'year'),
-    ('ش', 'شین', 'š', True, '"sh" as in ship', 'شب', 'night'),
-    ('ص', 'صاد', 's', True, '"s" — ' + ONE + 's (with س and ث), found only in words from Arabic',
-     'صبح', 'morning'),
-    ('ض', 'ضاد', 'z', True, '"z" — ' + ONE + 'z (with ز, ذ and ظ), found only in words from Arabic',
-     'ضعیف', 'weak'),
-    ('ط', 'طا', 't', True, '"t" — ' + ONE + 't (with ت), found only in words from Arabic', 'طلا',
-     'gold'),
-    ('ظ', 'ظا', 'z', True, '"z" — ' + ONE + 'z (with ز, ذ and ض), found only in words from Arabic',
-     'ظهر', 'noon'),
-    ('ع', 'عین', '\'', True, 'a catch in the throat, as in the middle of uh-oh, or nothing at all; '
-     'found only in words from Arabic', 'عکس', 'photograph'),
-    ('غ', 'غین', 'ġ', True, 'a gargled "g" at the back of the throat, like the French r; in Iran '
-     'said exactly as ق', 'غذا', 'food'),
-    ('ف', 'ف', 'f', True, '"f" as in fan', 'فردا', 'tomorrow'),
-    ('ق', 'قاف', 'ġ', True, 'the same gargled "g" as غ — in Iran the two letters sound alike; ق is '
-     'the one in most words from Arabic', 'قهوه', 'coffee'),
-    ('ک', 'کاف', 'k', True, '"k" as in kit', 'کتاب', 'book'),
-    ('گ', 'گاف', 'g', True, '"g" as in go — a letter Persian added', 'گل', 'flower'),
-    ('ل', 'لام', 'l', True, '"l" as in leaf', 'لب', 'lip'),
-    ('م', 'میم', 'm', True, '"m" as in man', 'ماه', 'moon, month'),
-    ('ن', 'نون', 'n', True, '"n" as in no', 'نان', 'bread'),
-    ('و', 'واو', 'v · u · o', False, '"v" as in van; also the long vowel "oo" as in food (دور dur), '
-     'and "o" in a few words (تو to, و o "and")', 'وقت', 'time'),
-    ('ه', 'ه', 'h', True, '"h" as in hat — the everyday h; at the END of a word usually silent, '
-     'marking a final e (خانه xâne)', 'هوا', 'air, weather'),
-    ('ی', 'ی', 'y · i', True, '"y" as in yes; also the long vowel "ee" as in see (سیب sib)', 'یک',
-     'one'),
+    (9, 'خ', 'خ', 'x', True, 'the "ch" of Scottish loch', 'خانه', 'house'),
+    (10, 'د', 'دال', 'd', False, '"d" as in den', 'در', 'door'),
+    (11, 'ذ', 'ذال', 'z', False, '"z" as in jazz — the same sound as ز, ض and ظ: four letters, one '
+     'sound', 'ذهن', 'mind'),
+    (12, 'ر', 'ر', 'r', False, 'a flapped or rolled r', 'روز', 'day'),
+    (13, 'ز', 'ز', 'z', False, '"z" as in jazz; ذ, ض and ظ are three more letters for the same sound',
+     'زن', 'woman'),
+    (14, 'ژ', 'ژ', 'ž', False, 'the "si" of vision — a letter Persian added', 'ژاکت', 'jacket'),
+    (15, 'س', 'سین', 's', True, '"s" as in sock; ث and ص are two more letters for the same sound',
+     'سال', 'year'),
+    (16, 'ش', 'شین', 'š', True, '"sh" as in shake', 'شب', 'night'),
+    (17, 'ص', 'صاد', 's', True, '"s" as in sock — the same sound as س and ث', 'صبح', 'morning'),
+    (18, 'ض', 'ضاد', 'z', True, '"z" as in jazz — the same sound as ز, ذ and ظ', 'ضعیف', 'weak'),
+    (19, 'ط', 'طا', 't', True, '"t" as in tall — the same sound as ت', 'طلا', 'gold'),
+    (20, 'ظ', 'ظا', 'z', True, '"z" as in jazz — the same sound as ز, ذ and ض', 'ظهر', 'noon'),
+    (21, 'ع', 'عین', '\'', True, 'a catch in the throat (a glottal stop), the sound in the middle of '
+     'Cockney "water" — the same sound as the hamze ء. The romanisation writes it \' inside or at '
+     'the end of a word (ساعت sâ\'at) and leaves it out at the start', 'عکس', 'photograph'),
+    (22, 'غ', 'غین', 'ġ', True, 'like the "g" of got, but deeper in the throat; in Tehran the same '
+     'sound as ق', 'غذا', 'food'),
+    (23, 'ف', 'ف', 'f', True, '"f" as in fast', 'فردا', 'tomorrow'),
+    (24, 'ق', 'قاف', 'ġ', True, 'like the "g" of got, but deeper in the throat — in Tehran the same '
+     'sound as غ, and the same ġ in the romanisation', 'قهوه', 'coffee'),
+    (25, 'ک', 'کاف', 'k', True, '"c" as in cat', 'کتاب', 'book'),
+    (26, 'گ', 'گاف', 'g', True, '"g" as in gate — a letter Persian added', 'گل', 'flower'),
+    (27, 'ل', 'لام', 'l', True, '"l" as in land', 'لب', 'lip'),
+    (28, 'م', 'میم', 'm', True, '"m" as in man', 'ماه', 'moon, month'),
+    (29, 'ن', 'نون', 'n', True, '"n" as in neck', 'نان', 'bread'),
+    (30, 'و', 'واو', 'v · u · o · ow', False, '"v" as in oven; the long vowel u, "oo" as in cool '
+     '(دور dur); o as in story in a few words (تو to, دو do); ow, the "oa" of goal (چطور četowr). '
+     'After خ it may be silent (خواهر xâhar)', 'وقت', 'time'),
+    (41, 'خوا', 'خوا', 'xâ', None, 'the silent و: in خوا the و is written and not said, so it is '
+     'read xâ, never xvâ (خواستن xâstan "to want", خواب xâb "sleep")', 'خواهر', 'sister'),
+    (31, 'ه', 'ه', 'h', True, '"h" as in hat; ح is a second letter for the same sound. At the END of '
+     'a word it is usually silent and stands for a vowel (the next card)', 'هوا', 'air, weather'),
+    (40, ZWJ + 'ه', 'ه', 'e', None, 'the silent ه at the END of a word: not h but the vowel e, '
+     'between the vowels of bait and bet (بچه bače "child", سه se "three")', 'خانه', 'house'),
+    (32, 'ی', 'ی', 'y · i · ey', True, '"y" as in yard; the long vowel i, "ea" as in beat (سیب sib); '
+     'ey, the "ay" of bay (کی key "when")', 'یک', 'one'),
+    (42, ZWJ + 'ی', 'ی', 'â', None, 'ی at the END of a few words from Arabic is read â, like alef',
+     'حتی', 'even'),
     # آ and the marks
-    ('آ', 'آ', 'â', False, 'alef with the madda above: "a" as in father at the START of a word, '
-     'where plain alef would carry a short vowel', 'آب', 'water'),
-    ('بَ', 'زبر', 'a', None, 'zebar, the stroke above: the short vowel "a", as in cat; usually not '
+    (33, 'آ', 'آ', 'â', False, 'alef with the madda above: the long vowel â ("o" as in off, but '
+     'longer) at the START of a word, where plain alef would carry a short vowel', 'آب', 'water'),
+    (34, 'بَ', 'زبر', 'a', None, 'zebar, the stroke above: the short vowel a, as in bat; usually not '
      'written', 'بد', 'bad'),
-    ('بِ', 'زیر', 'e', None, 'zir, the stroke below: the short vowel "e", as in bed; usually not '
-     'written, and also the ezafe that links two words (کتابِ من ketâb-e man "my book")', 'دل',
-     'heart'),
-    ('بُ', 'پیش', 'o', None, 'piš, the small و above: the short vowel "o", as in a short version of '
-     'go; usually not written', 'گل', 'flower'),
-    ('بّ', 'تشدید', '—', None, 'tašdid, the small w-shape above: the consonant is DOUBLED, held a '
-     'moment longer; usually not written', 'بچه', 'child'),
-    ('ء', 'همزه', '\' ', None, 'hamze: a catch in the throat, as ع; written on its own or sitting on '
-     'ا, و or ی', 'سؤال', 'question'),
-    ('اً', 'تنوین', 'an', None, 'tanvin, the double stroke on alef: the ending "-an" of adverbs from '
-     'Arabic', 'لطفاً', 'please'),
+    (35, 'بِ', 'زیر', 'e', None, 'zir, the stroke below: the short vowel e, between the vowels of bait '
+     'and bet; usually not written. The same unwritten e links a word to the word that describes '
+     'it — the ezafe: کتابِ من ketâb-e man "my book"', 'دل', 'heart'),
+    (36, 'بُ', 'پیش', 'o', None, 'piš, the small و above: the short vowel o, as in story; usually not '
+     'written', 'گل', 'flower'),
+    (37, 'بّ', 'تشدید', '—', None, 'tašdid, the small w-shape above: the consonant is DOUBLED; '
+     'usually not written, and the romanisation writes the letter twice', 'اول', 'first'),
+    (38, 'ء', 'همزه', '\' ', None, 'hamze: a catch in the throat, the same sound as ع; written on its '
+     'own or sitting on ا, و or ی', 'سؤال', 'question'),
+    (39, 'اً', 'تنوین', 'an', None, 'tanvin, the double stroke on alef: the word ends in -an with no ن '
+     'written; the stroke itself is often left off (لطفا)', 'لطفاً', 'please'),
+    (43, 'می‌روم', 'نیم‌فاصله', '—', None, 'the half-space (zero-width non-joiner): no sound. It '
+     'ends a letter\'s join without leaving a gap, between a word and a prefix or an ending written '
+     'with it (می‌روم mi-ravam "I go"); the romanisation shows it as a hyphen', 'آن‌ها', 'they'),
 ]
 
 # Example words whose romanisation is not on their Wiktionary entry in a form the
 # level decks use; written here in the same system.
-ROMAN_BY_HAND = {'گل': 'gol', 'بد': 'bad', 'دل': 'del', 'بچه': 'bačče', 'لطفاً': 'lotfan',
-                 'سؤال': "so'âl"}
+ROMAN_BY_HAND = {'گل': 'gol', 'بد': 'bad', 'دل': 'del', 'لطفاً': 'lotfan', 'سؤال': "so'âl"}
 
 FIELDS = ['Letter', 'Name', 'Shapes', 'Sound', 'Clue', 'Example', 'Word']
 
@@ -237,7 +269,8 @@ def main():
         raise SystemExit('alphabet.py reads the example words\' romanisation from lex.json: '
                          'run `python3 .claude/persian/run.py` once first')
     cards, missing = [], []
-    for i, (shown, name, rom, joins, sound, word, meaning) in enumerate(LETTERS, 1):
+    assert len({r[0] for r in LETTERS}) == len(LETTERS), 'an id is used twice'
+    for i, shown, name, rom, joins, sound, word, meaning in LETTERS:
         L = lex.get(fold(word)) or {}
         wr = ROMAN_BY_HAND.get(word, '') \
             or next((e['roman'] for e in L.get('entries', []) if e.get('roman')), '')
@@ -259,25 +292,33 @@ def main():
     assert len(set(fronts)) == n, 'two letters share a sound side: the reverse card is unanswerable'
     if missing:
         raise SystemExit('no romanisation for: ' + ' '.join(missing))
+    days = -(-2 * n // 10)
     desc = (
-        f"The Persian alphabet: {n} notes, in the alphabet's order — the thirty-two letters (the "
-        "twenty-eight of Arabic and the four Persian added, پ چ ژ گ), then آ, the three short-vowel "
-        "marks, the doubling mark, the hamza and the -an ending of لطفاً. The first deck of the "
-        "Persian collection. Both directions: see a letter and recall its sound, or see a sound "
-        "and recall the letter, each a card with its own schedule. Persian is written right to "
-        "left, and most letters join the letters on both sides, changing shape as they do, so "
-        "each letter is shown in its four shapes — alone, and at the start, middle and end of a "
-        "word; the seven that never join the letter after them (ا د ذ ر ز ژ و) say so. Every note "
-        "gives the romanisation the level decks use, the sound described in English words, and "
-        "one everyday word that shows it, with a speaker beside the letter and the word. Persian "
-        "spells some sounds with more than one letter — s with س ث ص, z with ز ذ ض ظ, t with ت ط, "
-        "h with ه ح, the gargled g with غ ق — keeping the extra letters in words that came from "
-        "Arabic; their cards say which is the everyday one, and the sound side names the word "
-        "it asks for, so every card has one answer. The short vowels are usually NOT written, "
-        "which is why the level decks romanise every word. The sounds are those of modern "
-        "Iranian (Tehran) Persian, approximated in English as every learner's alphabet does. "
-        "Sources: the standard description of modern Iranian Persian; the example words' "
-        "romanisations are English Wiktionary's, via the kaikki.org extraction (CC BY-SA 4.0)."
+        f"The Persian alphabet: {n} notes — the thirty-two letters in the alphabet's order (the "
+        "twenty-eight of Arabic and the four Persian added, پ چ ژ گ), each followed by what it "
+        "does that its name does not say (the silent و of خواهر, the final ه that is a vowel, the "
+        "final ی read â), then آ, the three short-vowel marks, the doubling mark, the hamza, the "
+        "-an ending of لطفاً and the half-space of می‌روم. The first deck of the Persian "
+        "collection. Both directions: see a letter and recall its sound, or see a sound and recall "
+        "the letter, each a card with its own schedule. "
+        f"AT THE DEFAULT PACE of ten new cards a day the {n} notes are {2 * n} cards and take "
+        f"{days} days; A1 can be started beside it, since every word card prints its romanisation. "
+        "Persian is written right to left, and most letters join the letters on both sides, "
+        "changing shape as they do, so each letter is shown in its four shapes — alone, and at "
+        "the start, middle and end of a word; the seven that never join the letter after them "
+        "(ا د ذ ر ز ژ و) say so. Every note gives the romanisation the level decks use, the sound "
+        "compared with an English word, and one everyday word that shows it, with a speaker "
+        "beside the letter and the word. Persian spells some sounds with more than one letter — s "
+        "with س ث ص, z with ز ذ ض ظ, t with ت ط, h with ه ح, and in Tehran one sound for غ and ق "
+        "— and each such card names the others; the sound side names the word it asks for, so "
+        "every card has one answer. THE SHORT VOWELS ARE USUALLY NOT WRITTEN, which is why the "
+        "level decks romanise every word: four A1 words in five have a vowel the script does not "
+        "show. The sounds are those of modern Iranian (Tehran) Persian. Sources. The English "
+        "comparisons are the Farsi cells of Wikipedia's Help:IPA/Persian (revision 1379048408), "
+        "as are the groups of letters with one sound; the four added letters, the seven that do "
+        "not join, the silent alef, the final ه, tanvin and the half-space are sentences of "
+        "Wikipedia's \"Persian alphabet\" (revision 1385657500), both CC BY-SA 4.0; the example "
+        "words' romanisations are English Wiktionary's, via the kaikki.org extraction (CC BY-SA 4.0)."
     )
     meta = {
         'id': 'faabc', 'title': 'Persian Alphabet',
