@@ -559,7 +559,7 @@ otherwise.
 | B59 | Early Republic (`col-35`) | `cnh-581`–`cnh-590` | 10 | 110 | **done 2026-11-14** |
 | B60 | Early Republic (`col-35`) | `cnh-591`–`cnh-600` | 10 | 118 | **done 2026-11-14** |
 | B61 | Early Republic (`col-35`) / Civil War (`col-36`) | `cnh-601`–`cnh-610` | 10 | 116 | **done 2026-11-19** |
-| B62 | Civil War (`col-36`) | `cnh-611`–`cnh-620` | 10 | 105 | to do |
+| B62 | Civil War (`col-36`) | `cnh-611`–`cnh-620` | 10 | 105 | **done 2026-11-19** |
 | B63 | Civil War (`col-36`) | `cnh-621`–`cnh-630` | 10 | 103 | to do |
 | B64 | World War II (`col-37`) | `cnh-631`–`cnh-640` | 10 | 97 | to do |
 | B65 | World War II (`col-37`) | `cnh-641`–`cnh-650` | 10 | 117 | to do |
@@ -1250,6 +1250,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-608` | none | not re-checked (pictures paused): wanted |
 | `cnh-609` | none | not re-checked (pictures paused): wanted |
 | `cnh-610` | none | not re-checked (pictures paused): wanted |
+| `cnh-611` | none | not re-checked (pictures paused): wanted |
+| `cnh-612` | none | not re-checked (pictures paused): wanted |
+| `cnh-613` | none | not re-checked (pictures paused): wanted |
+| `cnh-614` | none | not re-checked (pictures paused): wanted |
+| `cnh-615` | none | not re-checked (pictures paused): wanted |
+| `cnh-616` | none | not re-checked (pictures paused): wanted |
+| `cnh-617` | none | not re-checked (pictures paused): wanted |
+| `cnh-618` | none | not re-checked (pictures paused): wanted |
+| `cnh-619` | none | not re-checked (pictures paused): wanted |
+| `cnh-620` | none | not re-checked (pictures paused): wanted |
 
 ## Glossary candidates
 
@@ -4010,3 +4020,38 @@ chairmanship (the party chronology); the Central Committee's chairmanship dates 
 read; `cnh-605`'s 1868 against *Who's Who* 1925's 1867 (the Chinese year straddling), its 11 January and 5 March on no page read, and two
 pages count his presidency of Peking University to 1927. `cnh-601`'s `G.date` is the general `Cotton_mill` entry's date. Timelines set
 with `set-timeline.js`: `cnh-603` (1916 – 1921), `cnh-604` (1911 – 1947), `cnh-609` (1930 – 1934).
+
+### B62 — `cnh-611`–`cnh-620`, the Civil War: the Zunyi Conference to the Double Tenth Agreement (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl but `cnh-612`'s loc.gov newspaper page (403 to curl; read through
+`?fo=json`). **Pictures were not touched.** **The old cards cited the party's resolutions of 1945 and 1981, Chiang's and Mao's
+speeches and the land laws on Chinese Wikisource, Snow, Guillermaz, Forman, Bertram, Belden and Chiang's *Fortnight in Sian* in
+Digital Library of India uploads; carried men, places, texts and institutions in labels ("Zhang sentenced", "Anhui clash", "Wild
+Lilies", "Party HQ", "US observers", "CCP manifesto") and dates belonging to other events ("Directive 4 May 1946" on the 1947 law,
+"All-out war 26 June 1946" on the Chongqing agreement).** The party's own accounts (the chronology on cpc.people.com.cn, the 1981
+resolution on the Marxists Internet Archive, 12371.cn, Xinhua) are now each said to be the party's.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-611` Zunyi Conference | 6 | 8 → 7 | **The line stands (`Held 15 – 17 January 1935`); Otto Braun's plea that he was only an adviser, Bo Gu replaced by Zhang Wentian, the 1981 resolution's "vital turning point" (as the party's account — "in 2021" corrected: the 1981 text already says it); the dating dispute (Yang's 18 January; Kampen's misprint for 8 February) and Wang Jiaxiang**; the Guillermaz and Snow scans and two Wikisource resolutions dropped; Chen Yun's outline lost to the one-Chinese-source cap. |
+| `cnh-612` Yan'an | 7 | 8 → 7 | **"Party HQ" (an institution), "Bombed 1938 – 1939" (on no page) and "US observers July 1944" (a group) off: `Headquarters 13 January 1937 – March 1947` / `Occupied 19 March 1947`; the observers' plane in the ancient grave, the town given up "of their own accord", Maoist mythology against the scholars' despotism; a 1939 AP report on loc.gov (read through `?fo=json`)**; Forman and Kiely dropped. |
+| `cnh-613` Yan'an Rectification Movement | 6 | 8 → 6 | **"Wild Lilies March 1942" (a text) off: `Campaign 1942 – 1944` (Teiwes) / `Keynote speech 1 February 1942` / `Rescue launched 15 July 1943`; the three ill winds, Kang Sheng's rescue campaign and Mao's apology, Wang Shiwei; Kampen's "18, later 22" documents for "22"; Yu Jizeng [in Chinese]**; Wang Shiwei's execution year (on no allowed page) left out; the halt dated 8 August 1943 by Yu and 30 July by the party chronology, for the owner. Timeline 1942 – 1944. |
+| `cnh-614` Mao Zedong Thought | 7 | 8 → 7 | **`National form October 1938` / `Enshrined 23 April – 11 June 1945` / `Dropped 26 September 1956` (Kampen: the propaganda department's order, the Eighth Congress statutes) / `Redefined 27 June 1981`; the 1981 resolution's "crystallisation of collective wisdom" as the party's own; Ambrogio**; the 1969 constitution (`cnh-674`'s clue), Liu Shaoqi's speech and "Reform Our Study" dropped. |
+| `cnh-615` Zhou Enlai | 8 | 8 → 8 | **The Snow scan and three FRUS documents replaced by the Foreign Ministry's biography [in Chinese] and reviews of Chen Jian's 2024 life; Whampoa and the Shanghai underground, Bandung's "common ground", the American memo's pragmatist beside Mao the visionary**; the Marshall, Xi'an and Zunyi clues left to their cards; the glossary's "headed" the political department → "acting director". Protected: the line stays. |
+| `cnh-616` Zhu De | 7 | 8 → 7 | **The Snow and Forman uploads dropped; the Jinggang pairing with Mao ("one man" to the peasants), his admission to the party in Germany with Zhou Enlai a sponsor, the "black commander" sent to Guangzhou; the 1938 French review [in French] and CSSN [in Chinese]**; the old "aged 90" (against the line's 89) and the Yangtze order (`cnh-626`'s) dropped; the glossary's "took up Marxism in Germany" corrected. Protected: the line stays. |
+| `cnh-617` Xi'an Incident | 7 | 7 → 7 | **"Zhang sentenced" (a man) → `Sentenced 31 December 1936`; the register row confirmed with detail: the terms told as Chiang's 1937 account (*Si-an pan-yüeh chi*), Mao's and Beijing's; Chiang found by the rock above Huaqing Pool, the spoken promise, Moscow's telegram; Wu 1976, Van Slyke, Garver; the *Dictionnaire historique du Japon* [in French]**; Bertram and "A Fortnight in Sian" (scans), "rather die than sign" (on no page) dropped. |
+| `cnh-618` Second United Front | 7 | 8 → 8 | **"Anhui clash January 1941" (a place; `cnh-646`'s event; no page ends the front there) off: `Proclaimed 22 – 23 September 1937`; the manifesto printed by the Nationalists' own news agency, the pledges (soviets abolished, confiscation dropped), the diplomat's "definitely a thing of the past"; Xinhua [in Chinese], FRUS 1937**; two Wikisource texts replaced; the glossary's "1937 – 1941" now 1937. Timeline set to 22 September 1937. **Pinyin Dì-èr Cì kept to match `cnh-591`** (`cnh-561`, `567` write lower-case cì — for the owner). |
+| `cnh-619` Outline Land Law | 6 | 6 → 7 | **"Directive 4 May 1946" (another text, the May Fourth Directive) off: `Adopted 13 September 1947` / `Published 10 October 1947`; Liu Shaoqi's Xibaipo conference, equal shares by head, Mao on the earlier directive's lack of thoroughness and the Shanxi-Suiyuan excesses; Cheng 2023, Noellert 2020, Tanaka 1978; a 12371.cn page said to be the state's account**; Belden (a scan) dropped; no death toll (on no page read). |
+| `cnh-620` Double Tenth Agreement | 6 | 7 → 6 | **"All-out war 26 June 1946" (`cnh-606`'s) off: `Talks began 28 August 1945` / `Signed 10 October 1945`; Mao's flight with Hurley, the divisions and the eight base areas conceded, "only words on paper" and Shangdang; Cheng's open ANU Press book**; both Wikisource texts replaced; the summary's issue to the press on 11 October (FRUS) against the People's Daily's 10 October, no row added. |
+
+Read by eye. **Confusability**: Braun's plea and Bo Gu's fall `cnh-611`'s, the observers' plane `cnh-612`'s, the ill winds and the
+rescue campaign `cnh-613`'s, the 1956 dropping `cnh-614`'s; Zhou's Whampoa and Bandung `cnh-615`'s, Zhu's Jinggang pairing `cnh-616`'s;
+Huaqing Pool and the spoken promise `cnh-617`'s, the manifesto in the Nationalists' agency `cnh-618`'s; Liu Shaoqi's Xibaipo conference
+`cnh-619`'s (`cnh-657` keeps the 1950 law), Mao's flight with Hurley `cnh-620`'s (the Marshall truce `cnh-621`'s). **Legend**: the Zunyi
+"turning point" (the 1945 and 1981 resolutions' — the party's), the Xi'an terms (each teller's), Zhu De and the rice up the mountain
+(doubted) are each said whose. **Chinese names**: none corrected. Kept unconfirmed: 延安整风运动 (延安整风 and 整风运动 printed apart).
+`cnh-618`'s Dì-èr Cì kept with `cnh-591`. **Spellings**: 0 hits on the drafts. **Myth register**: the Xi'an Incident's terms confirmed
+(Chiang's 1937 account, Mao's statement of 28 December 1936, Beijing's account). **check-citations**: no mismatch. **Protected lines:
+unchanged** (diffed after the apply). For the owner: `cnh-616`'s "(age 89)" is Western count (a 1976 memorandum's "90-year old" Chinese
+reckoning), its days on no page read; `cnh-615`'s Huai'an against a 1971 CIA report's Shaoxing (the ancestral home). Timelines set:
+`cnh-613` (1942 – 1944), `cnh-618` (22 September 1937, its old end in 1941 being on no page).

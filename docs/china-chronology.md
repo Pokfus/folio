@@ -775,6 +775,14 @@ and is audited as an ordinary card. Dates already set elsewhere that this hundre
 | the Chinese Soviet Republic proclaimed at Ruijin / the base abandoned | 7 November 1931 / October 1934 | the party chronology; Mao (`cnh-607`) |
 | the encirclement campaigns began / the fifth began / ended | 1930 / September 1933 / 1934 | Mao; the party chronology; Averill (`cnh-609`) |
 | the Long March set out / arrived / the armies united | October 1934 / October 1935 / October 1936 | FRUS; Mao; the party chronology (`cnh-610`) |
+| the Zunyi Conference | 15 – 17 January 1935 | the party chronology (`cnh-611`) |
+| Yan'an the party's headquarters / occupied | 13 January 1937 – March 1947 / 19 March 1947 | the party chronology (`cnh-612`) |
+| the Rectification campaign / the keynote speech / the rescue campaign | 1942 – 1944 / 1 February 1942 / 15 July 1943 | Teiwes; Mao; Yu (`cnh-613`) |
+| Mao Zedong Thought: national form / enshrined / dropped / redefined | October 1938 / 23 April – 11 June 1945 / 26 September 1956 / 27 June 1981 | Mao; the party; Kampen; the 1981 resolution (`cnh-614`) |
+| the Xi'an Incident / Zhang Xueliang sentenced | 12 – 25 December 1936 / 31 December 1936 | Wu (`cnh-617`) |
+| the Second United Front proclaimed | 22 – 23 September 1937 | Xinhua (`cnh-618`) |
+| the Outline Land Law adopted / published | 13 September 1947 / 10 October 1947 | Mao (`cnh-619`) |
+| the Chongqing talks began / the Double Tenth Agreement signed | 28 August 1945 / 10 October 1945 | Mao; Cheng (`cnh-620`) |
 
 ## Later periods
 
@@ -1392,4 +1400,12 @@ cnh-606: 1927; 1946; 1949
 cnh-607: 1931; 1934
 cnh-609: 1930; 1933; 1934
 cnh-610: 1934; 1935; 1936
+cnh-611: 1935
+cnh-612: 1937; 1947
+cnh-613: 1942; 1944; 1943
+cnh-614: 1938; 1945; 1956; 1981
+cnh-617: 1936
+cnh-618: 1937
+cnh-619: 1947
+cnh-620: 1945
 ```
