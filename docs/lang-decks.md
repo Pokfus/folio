@@ -5760,6 +5760,7 @@ gave the committed bytes each time.
   screenshots at 390 px) were scratch scripts, not suites.
 - **The whole shelf is now 5,605 notes, 11,199 cards: 1,123 days at the default pace, 3.1 years**; B1
   begins on day 267.
+
 ## The Persian beginner pass (2026-11-19)
 
 On request, the audit the Japanese, Mandarin, Spanish, Italian, German and Portuguese decks had been given:
