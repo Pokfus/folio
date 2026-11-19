@@ -41279,7 +41279,16 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* `layer` (optional, 2026-10-30, on request: Manchuria's card shaded as China's three north-eastern provinces): the keys are names of that
        map-card layer (`china-provinces`, `us-states`, `russia-subjects`) instead of the `world` layer's countries. */
     const layer = m.layer && CARD_MAP_LAYERS[m.layer] ? String(m.layer) : "world";
-    return { name: name, note: String(m.note || "").trim(), keys: keys, at: at, atName: at ? String(m.atName || "").trim() : "", label: String(m.label || "").trim(), year: groups.length ? year : null, groups: groups, span: span, zoom: Number(m.zoom) || 0, layer: layer };
+    return { name: name, note: membersNote(m.note), keys: keys, at: at, atName: at ? String(m.atName || "").trim() : "", label: String(m.label || "").trim(), year: groups.length ? year : null, groups: groups, span: span, zoom: Number(m.zoom) || 0, layer: layer };
+  }
+  /* NO SOURCE LINE ABOVE A WINDOW (2026-11-19, on request: "remove the source attribution line above atlas windows"): a members note that only says whose
+     borders these are ("borders as the Cliopatria dataset maps them") is dropped at render, and a note that starts with that clause keeps only what follows it;
+     the dataset is credited on #credits, which is generated from the data files' headers. */
+  function membersNote(n) {
+    let s = String(n || "").trim();
+    const SRC = /^borders(?: and years)? as the [^;]*? maps them\s*(?:;\s*|$)/i;   // a function-local regex: no TDZ for a caller during boot
+    if (SRC.test(s)) { s = s.replace(SRC, "").trim(); if (s) s = s.charAt(0).toUpperCase() + s.slice(1); }
+    return s;
   }
   /* WHAT YEAR'S BORDERS (2026-11-13, on request: "ensure that atlas windows displaying states or polities always mention below the
      window what year's borders are depicted"): a members window on a past year says that year; one on today's countries says so; a
@@ -41515,11 +41524,13 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     /* THE LEGEND STANDS ABOVE THE WINDOW, under the section's heading (2026-11-18, on request: "in atlas windows depicting states with
        timelines and/or a legend, the legend should be above the atlas window (below the section header)"). It is inside `.card-loc` now;
        the Atlas popup's `noLocator` lifts it out before it removes the window (mountCardBack), so it still survives there. */
-    return '<div class="card-loc"><span class="label">' + (w ? "Who fought" : m ? esc(m.label || "Members") : "Location") + "</span>" +
+    /* "DISCOVERED!" STANDS AFTER THE HEADING (2026-11-19, on request: the chip at the window's top left covered the Collection / All switch), inline, not over the map. */
+    return '<div class="card-loc"><div class="loc-head"><span class="label">' + (w ? "Who fought" : m ? esc(m.label || "Members") : "Location") + "</span>" + mcNewHTML() + "</div>" +
       cardWarKeyHTML(w) + cardMembersKeyHTML(m) +
       cardLocatorWindowHTML(c, l, w, m, "map-loc" + (w ? " map-war" : m ? " map-members" : ""), said, true) +
       "</div>";
   }
+  function mcNewHTML() { return '<span class="mc-new" role="status" hidden>' + esc(t("Discovered!")) + "</span>"; }
   // the window itself: on the back (`named`, with the globe button) or, for a card whose locator asks (cardLocatorFront), as the question on the front
   function cardLocatorWindowHTML(c, l, w, m, cls, said, named) {
     const at = l ? l.at : m && m.at, atName = l ? l.name : m ? m.atName : "";
@@ -41574,7 +41585,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       /* THE CHIP SHIPS IN THE MARKUP, HIDDEN, rather than being created when the answer is revealed —
          `#toast`'s own rule: a live region inserted at the moment it has something to say is one the
          screen reader has not been watching, and the announcement is lost. */
-      '<span class="mc-new" role="status" hidden>' + esc(t("Discovered!")) + "</span>" +
+      (named ? "" : mcNewHTML()) +   // on the back the chip stands after the section's heading (cardLocatorHTML); a front window has no heading, so it keeps it
       "</div>";
   }
   /* ---------- THE READER'S OWN NOTE (Sep 2026) ----------
