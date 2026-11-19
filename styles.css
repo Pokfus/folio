@@ -2009,6 +2009,8 @@ body.no-tts .ans-cn .ac-say{display:none;}
 .mc-scope button{border:0; background:transparent; color:var(--ink-soft); font:600 calc(11px * var(--fs, 1))/1 var(--sans); padding:7px 9px; min-height:29px; cursor:pointer;}
 .mc-scope button + button{border-left:1px solid var(--rule);}
 .mc-scope button.on{background:var(--ink); color:var(--card);}
+/* at night the chosen half is the relief button's pressed look (.mc-relief[aria-pressed="true"]), not a slab of near-white ink (2026-11-19, on request) */
+.night .mc-scope button.on{background:var(--card); color:var(--indigo); box-shadow:inset 0 0 0 1px var(--indigo);}
 .mc-scope button:focus-visible{outline:2px solid var(--accent, #b8862b); outline-offset:-2px;}
 .map-card.mc-loading .mc-scope, .map-card.mc-failed .mc-scope, .map-card.mc-plain .mc-scope{display:none;}
 .mc-btn{
@@ -2033,6 +2035,7 @@ body.no-tts .ans-cn .ac-say{display:none;}
   border:1px solid color-mix(in srgb, var(--newterm) 38%, transparent);
   animation:mcNewIn .34s var(--ease) both;
 }
+.map-card:has(> .mc-scope) > .mc-new{top:44px;}   /* a window that keeps its chip (a front window: no heading to stand after) puts it under the Collection / All switch */
 .mc-new[hidden]{display:none;}   /* the author `display` would beat the UA rule and pin it open */
 @keyframes mcNewIn{from{opacity:0; transform:translateY(-4px) scale(.96);} to{opacity:1; transform:none;}}
 /* The "Drag to turn · zoom to look closer" chip that sat bottom-left is gone (Sep 2026, on request); the
@@ -2316,6 +2319,10 @@ body.wb-down .study-card.draw-card .scratch{display:none;}
 .gloss-atlas .map-card.mc-failed::after{content:"";}
 .card-loc{margin-top:20px;}
 .card-loc .label{display:block; margin-bottom:7px;}
+/* the heading's row: the section's label, then "Discovered!" inline after it (2026-11-19: over the map it covered the Collection / All switch) */
+.card-loc .loc-head{display:flex; align-items:center; flex-wrap:wrap; gap:4px 9px; margin-bottom:7px;}
+.card-loc .loc-head .label{margin:0;}
+.card-loc .loc-head .mc-new{position:static;}
 .map-card.map-loc{margin-bottom:0;}
 .map-loc .mc-canvas{height:clamp(180px, 30vh, 260px);}
 /* a fifth taller on a tablet and a desktop (2026-11-13, on request); the phone keeps its height */

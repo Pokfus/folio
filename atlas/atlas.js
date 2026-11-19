@@ -137,29 +137,31 @@
   const KIND_LABEL = { country: "Country", admin1: "Province or state", capital: "Capital", city: "City", town: "Town", sea: "Sea", ocean: "Ocean", strait: "Strait", gulf: "Gulf or bay", lake: "Lake", river: "River", island: "Island", "island-group": "Island group", range: "Mountain range", region: "Region", site: "Site", mountain: "Mountain", hill: "Hill", cape: "Cape", polity: "Polity", people: "People", culture: "Culture", extent: "Authored extent" };
   /* THE LABEL STYLES (Q-L2 a): small capitals for territories and regions, italic for water, upright for
      cities, in the site's own font tokens — the display face for names of places, the serif for water.
+     AN AREA'S NAME IS IN THE SERIF (2026-11-19, on request): every territory, region, range, island, people and water style is face "area" — study.js areaSerif (the
+     theme's serif, else its display face when that is a serif, else Lora; no webfont added) — and a point's (capital, city, town) keeps the sans.
      `size` is CSS px; `track` the letter spacing in px (ours, drawn glyph by glyph — never the canvas's
      letterSpacing); `caps` draws lower-case letters as capitals at `smallScale` of the size. */
   const STYLES = [
-    { id: "country-l", face: "display", size: 17, weight: 700, caps: true, track: 2.4 },
-    { id: "country-m", face: "display", size: 13.5, weight: 700, caps: true, track: 1.8 },
-    { id: "country-s", face: "display", size: 11, weight: 700, caps: true, track: 1.1 },
-    { id: "admin1", face: "display", size: 10.5, weight: 600, caps: true, track: 1.0 },
+    { id: "country-l", face: "area", size: 17, weight: 700, caps: true, track: 2.4 },
+    { id: "country-m", face: "area", size: 13.5, weight: 700, caps: true, track: 1.8 },
+    { id: "country-s", face: "area", size: 11, weight: 700, caps: true, track: 1.1 },
+    { id: "admin1", face: "area", size: 10.5, weight: 600, caps: true, track: 1.0 },
     { id: "capital", face: "sans", size: 12.5, weight: 700, caps: false, track: 0 },
     { id: "city", face: "sans", size: 11.5, weight: 600, caps: false, track: 0 },
     { id: "town", face: "sans", size: 10, weight: 500, caps: false, track: 0 },
-    { id: "water-l", face: "serif", size: 15, weight: 400, italic: true, caps: false, track: 1.6 },
-    { id: "water-m", face: "serif", size: 12.5, weight: 400, italic: true, caps: false, track: 0.8 },
-    { id: "water-s", face: "serif", size: 11, weight: 400, italic: true, caps: false, track: 0.3 },
-    { id: "river", face: "serif", size: 11, weight: 400, italic: true, caps: false, track: 0.2 },
-    { id: "region-l", face: "display", size: 13, weight: 600, caps: true, track: 3.0 },
-    { id: "region", face: "display", size: 10.5, weight: 600, caps: true, track: 1.8 },
-    { id: "range", face: "display", size: 10.5, weight: 600, caps: true, track: 1.6 },
-    { id: "island", face: "sans", size: 10, weight: 500, caps: false, track: 0.8 },
+    { id: "water-l", face: "area", size: 15, weight: 400, italic: true, caps: false, track: 1.6 },
+    { id: "water-m", face: "area", size: 12.5, weight: 400, italic: true, caps: false, track: 0.8 },
+    { id: "water-s", face: "area", size: 11, weight: 400, italic: true, caps: false, track: 0.3 },
+    { id: "river", face: "area", size: 11, weight: 400, italic: true, caps: false, track: 0.2 },
+    { id: "region-l", face: "area", size: 13, weight: 600, caps: true, track: 3.0 },
+    { id: "region", face: "area", size: 10.5, weight: 600, caps: true, track: 1.8 },
+    { id: "range", face: "area", size: 10.5, weight: 600, caps: true, track: 1.6 },
+    { id: "island", face: "area", size: 10, weight: 500, caps: false, track: 0.8 },
     // a people's or a culture's name (2c, design §2.5): SPACED ITALIC, mixed case — the territory's small capitals' opposite; the same face as water's italic
     // but tracked wide and in ink, so an italic name is told from a sea's by its spacing and its colour as well as by where it lies
-    { id: "people-l", face: "serif", size: 16, weight: 400, italic: true, caps: false, track: 4.2 },
-    { id: "people-m", face: "serif", size: 13.5, weight: 400, italic: true, caps: false, track: 3.2 },
-    { id: "people-s", face: "serif", size: 11.5, weight: 400, italic: true, caps: false, track: 2.4 },
+    { id: "people-l", face: "area", size: 16, weight: 400, italic: true, caps: false, track: 4.2 },
+    { id: "people-m", face: "area", size: 13.5, weight: 400, italic: true, caps: false, track: 3.2 },
+    { id: "people-s", face: "area", size: 11.5, weight: 400, italic: true, caps: false, track: 2.4 },
   ];
   const SMALL_SCALE = 0.78;
   /* TEXT SIZE REACHES THE NAMES (Oct 2026, owner decision; v1's canvas labels followed it, v2's did not until now). Settings → Text size sets `--fs` on <body> (styles.css `body[data-fs]`: .8 … 1.32, one stop lower on a
@@ -1952,7 +1954,8 @@
     function themeFaces() {
       const cs = getComputedStyle(document.body);
       const g = (n, d) => cs.getPropertyValue(n).trim() || d;
-      return { display: g("--display", "system-ui, sans-serif"), sans: g("--sans", "system-ui, sans-serif"), serif: g("--serif", "Georgia, serif") };
+      const serif = g("--serif", "Georgia, serif"), display = g("--display", "system-ui, sans-serif");
+      return { display: display, sans: g("--sans", "system-ui, sans-serif"), serif: serif, area: root.AtlasStudy && root.AtlasStudy.areaSerif ? root.AtlasStudy.areaSerif(serif, display) : serif };
     }
     const fontOf = (st, px) => `${st.italic ? "italic " : ""}${st.weight} ${px}px ${faces[st.face]}`;   // ctx.font must carry a pixel size
     function measureMetrics() {

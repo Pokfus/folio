@@ -398,3 +398,18 @@ all history/science/philosophy collections".
   whose `sectionOf` is History, Science or Philosophy — and the window still keeps only the studied ones. Remembered per viewer in localStorage
   (`folio.atlasWinScope`); a change repaints every window on the page (`folio:winscope`). Its box is ground no name may cover.
   `test-atlas-scope.js` guards it, and a person's role'd `also` places (`docs/map-cards.md`).
+
+## The chip after the heading, areas never a dot, the areas' serif (2026-11-19)
+
+- **"Discovered!" stands after the section's heading** (`.card-loc .loc-head`, `mcNewHTML` in `app.js`): over the window's top left it covered the
+  scope switch. A front window (a locator that asks) has no heading and keeps the chip in the window, under the switch.
+- **At night the chosen half of the scope switch** wears the relief button's pressed look (card ground, indigo ink and edge), not near-white ink.
+- **No source line above a window**: a members note that only credits the dataset ("borders as the Cliopatria dataset maps them") is dropped at
+  render (`membersNote`); a note that begins with it keeps what follows. The dataset stays on `#credits`.
+- **A sibling's mark by its kind**: a studied sibling whose place is water (`marks.water`, locator kind `sea` / `shelf`) or a desert
+  (`study.js areaOf`) is its NAME alone — a water name blue — laid before the siblings' point names; one whose place is a mountain or a hill
+  (`marks.peak`) is the red peak triangle (Mount Olympus on every Greek card). A card's own desert draws no dot once named, as a water.
+  `study.js markClass` returns null for every area kind, desert and shelf included. `test-study.js` and `test-atlas-scope.js` guard it.
+- **Areas in the serif, points in the sans** (`study.js areaSerif`: the theme's `--serif` when it is a serif, else `--display`, else Lora):
+  on the Atlas page every territory, region, range, island, people and water style is face `area`; in a window a state's, a war side's, a
+  sibling area's and the own area's name. A city's, a site's, a battle's, a building's and a peak's name keeps the sans.
