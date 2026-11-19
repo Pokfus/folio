@@ -28188,22 +28188,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           const members = (langCtx.get(id) || []).filter((e) => !nestParentOf(e));
           const kids = members.concat(kidsOf(id));
           const h = groupColor(id) || langCtxHue(id) || hue;
-          /* WHEN EVERY DECK UNDER IT IS STILL TO BE DOWNLOADED, THE LANGUAGE ROW OFFERS TO FETCH THEM ALL
-             (Oct 2026, on request: "when all decks in an active collection need to be downloaded, the
-             collection itself should also display a download button which downloads every deck within it
-             at once"). The decks are collected by DECK id, once each, however many entries of a deck the
-             reader holds; the button carries the sum of the catalogue's sizes, as each row's own does. A
-             container with one deck already here offers nothing — the remaining rows have their own button. */
-          const dlAll = [], dlSeen = new Set();
-          let dlBytes = 0, dlEvery = kids.length > 0;
-          kids.forEach((e) => {
-            const dId = uDeckIdOf(e), cat = dId && !UDECKS[dId] && entryPending(e) ? langCatalogById(dId) : null;
-            if (!cat) { dlEvery = false; return; }
-            if (dlSeen.has(dId)) return;
-            dlSeen.add(dId); dlAll.push(dId); dlBytes += cat.bytes || 0;
-          });
-          rows.push({ langhead: true, id, title: langCtxName(id), depth, parent: parentKey, drag: id, hue: h, kids,
-                      dlAll: dlEvery ? dlAll : [], dlBytes });
+          // its "Download all" / "Update all" button is gathered once the list is built (see dlUnder below)
+          rows.push({ langhead: true, id, title: langCtxName(id), depth, parent: parentKey, drag: id, hue: h, kids });
           orderedIds(id, kids).forEach((c) => emit(c, depth + 1, id, h));
           return;
         }
@@ -28462,6 +28448,41 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // the container chain each row hangs from, for the fold — the same reading adSyncFold takes off the DOM
       const parentOf = new Map();
       rows.forEach((r) => parentOf.set(r.drag, r.parent || ""));
+      /* EVERY COLLECTION ROW OFFERS ONE BUTTON FOR WHAT IS WAITING UNDER IT (Nov 2026, on request: "if an
+         active collection has any decks inside it that need updating or downloading, the collection's own
+         banner should include a single Download (or Update) button that installs all of them at once"). It
+         generalises the language header's old "Download all", which appeared only while EVERY deck under it
+         was still to be fetched: any collection-like row — a language, a curated collection, a group, a
+         community collection, a signpost collection — now gathers each pending (catalogue or shared) and
+         stale deck drawn anywhere beneath it, folded or not, ONCE per deck. "Download all" while any of them
+         is still to be fetched, "Update all" when every one is an update. Wired by `[data-dlall]`. */
+      const dlUnder = new Map();
+      const isCollRow = (r) => !!(r.langhead || r.group || r.coll || (r.node && !r.node.parentId));
+      const rowByDrag = new Map(rows.map((r) => [r.drag, r]));
+      rows.forEach((r) => {
+        const dl = r.pending && !r.shared && langCatalogById(r.pending) ? r.pending : "";
+        const sh = r.pending && r.shared ? r.shared : "";
+        const up = r.update || "";
+        if (!dl && !sh && !up) return;
+        for (let p = parentOf.get(r.drag); p; p = parentOf.get(p)) {
+          const c = rowByDrag.get(p);
+          if (!c || !isCollRow(c) || c.pending) continue;
+          let a = dlUnder.get(p);
+          if (!a) dlUnder.set(p, (a = { dl: [], sh: [], up: [], bytes: 0 }));
+          if (dl && a.dl.indexOf(dl) < 0) { a.dl.push(dl); a.bytes += (langCatalogById(dl) || {}).bytes || 0; }
+          if (sh && a.sh.indexOf(sh) < 0) a.sh.push(sh);
+          if (up && a.up.indexOf(up) < 0) a.up.push(up);
+        }
+      });
+      const dlAllBtn = (r) => {
+        const a = dlUnder.get(r.drag);
+        if (!a) return "";
+        const fetch = a.dl.length + a.sh.length;
+        // a size only where every file to fetch states one: a shared deck's weight is unknown (see the pending row)
+        const label = fetch ? "Download all" + (a.dl.length && !a.sh.length ? " " + fmtDeckSize(a.bytes) : "") : "Update all";
+        const n = fetch + a.up.length;
+        return `<button class="btn tiny dk-dl dk-dlall${fetch ? "" : " dk-up"}" type="button" data-dlall="${esc(r.drag)}" data-decks="${esc(a.dl.join(" "))}" data-shared="${esc(a.sh.join(" "))}" data-ups="${esc(a.up.join(" "))}" title="${esc((fetch ? "Download" : "Update") + " " + plural(n, "deck", "decks") + " in " + rowTitle(r) + " at once")}">${esc(label)}</button>`;
+      };
       /* ONE reading of a row's name, for the two places that had grown their own copy of the same
          expression — the drag handle's label and the row's own title. A reader's rename beats everything
          (see `adOwnTitle`), then whatever the build put on the row, then the node's title; a group's
@@ -28540,11 +28561,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${deadlineTagHTML(r.drag)}</div>
                 ${adProg(entryCardIds(r.drag))}
               </div>
-              ${r.dlAll && r.dlAll.length
-                /* every deck of the language is still to be fetched: one button for the lot (see the row builder),
-                   wired by `[data-langdlall]` beside the per-deck `[data-langdl]` */
-                ? `<button class="btn tiny dk-dl" type="button" data-langdlall="${esc(r.drag)}" data-decks="${esc(r.dlAll.join(" "))}">Download all ${esc(fmtDeckSize(r.dlBytes))}</button>`
-                : ""}
+              ${dlAllBtn(r)}
               ${chev}
             </div>`;
           }
@@ -28566,6 +28583,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
                 ${adProg(entryCardIds(r.drag))}
               </div>
+              ${dlAllBtn(r)}
               ${chev}
             </div>`;
           }
@@ -28607,7 +28625,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}${deadlineTagHTML(r.drag)}</div>
                 ${adProg(entryCardIds(r.drag))}
               </div>
-              ${up}
+              ${up}${dlAllBtn(r)}
               ${chev}
             </div>`;
           }
@@ -28620,6 +28638,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${deadlineTagHTML(r.node.id)}</div>
                 ${adProg(entryCardIds(r.node.id))}
               </div>
+              ${dlAllBtn(r)}
               ${chev}
             </div>`;
           }
@@ -28655,6 +28674,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
             <div class="dk-body">
               <div class="dk-line"><span class="dk-title">${esc(title)}</span>${deadlineTagHTML(r.drag)}</div>
             </div>
+            ${dlAllBtn(r)}
             ${chev}
           </div>`;
         })
@@ -29390,47 +29410,63 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         renderInPlace();   // the reader is standing on this list: the row turns into the deck under them
       });
     });
-    /* EVERY DECK OF A LANGUAGE IN ONE PRESS (Oct 2026, on request) — the button the language's own row
-       carries while all of its decks are still to be fetched (see the row builder). The decks are fetched
-       ONE AFTER ANOTHER through the same `langDeckDownload` each row's button uses, so a deck arriving this
-       way is in every respect the deck that would have arrived from its own row — same import, same
-       `langRev`, same cascade of subdeck entries. The page is repainted ONCE, after the last of them, rather
-       than once per deck through `uImportDone`: that repaint rebuilds this very list and would take the
-       button, and the bar in it, away under the reader after the first file. The bar counts decks as well as
-       bytes ("2/5 · 40%"), each deck's own percentage filling its share of the whole. A deck that fails is
-       reported and the rest still land; its row keeps its own button for another try. */
-    root.querySelectorAll("[data-langdlall]").forEach((b) => {
+    /* EVERY PENDING DECK UNDER A COLLECTION IN ONE PRESS (Oct 2026 for a language whose decks were all still
+       to be fetched; Nov 2026 for any collection row with anything waiting under it — see dlUnder in the row
+       builder). The decks are fetched ONE AFTER ANOTHER through the very calls each row's own button makes —
+       `langDeckDownload` for a catalogue deck, `communityFetchDeckById` + `uDeckInstall` for a shared one,
+       `langDeckUpdate` for a stale one — so a deck arriving this way is in every respect the deck that would
+       have arrived from its own row. The page is repainted ONCE, after the last of them, rather than once per
+       deck through `uImportDone`: that repaint rebuilds this very list and would take the button, and the bar
+       in it, away under the reader after the first file. The bar counts decks as well as bytes ("2/5 · 40%"),
+       each deck's own percentage filling its share of the whole. A deck that fails is reported and the rest
+       still land; its row keeps its own button for another try. Updates end on the one update sheet. */
+    root.querySelectorAll("[data-dlall]").forEach((b) => {
       b.addEventListener("pointerdown", (e) => e.stopPropagation());
       b.addEventListener("click", async (e) => {
         e.stopPropagation();
         if (b.disabled) return;
-        const ids = String(b.dataset.decks || "").split(" ").filter(Boolean);
-        if (!ids.length) return;
+        const list = (k) => String(b.dataset[k] || "").split(" ").filter(Boolean);
+        const jobs = list("decks").map((id) => ["dl", id])
+          .concat(list("shared").map((id) => ["sh", id]), list("ups").map((id) => ["up", id]));
+        if (!jobs.length) return;
+        const fetching = jobs.some((j) => j[0] !== "up");
         b.disabled = true;
         const was = b.textContent;
         b.classList.add("dk-dl-busy");
-        b.innerHTML = '<span class="dkdl-t">Downloading…</span><i class="dkdl-fill" style="width:0%"></i>';
+        b.innerHTML = '<span class="dkdl-t">' + (fetching ? "Downloading…" : "Updating…") + '</span><i class="dkdl-fill" style="width:0%"></i>';
         const fill = b.querySelector(".dkdl-fill"), lab = b.querySelector(".dkdl-t");
-        const saves = [], failed = [];
+        const saves = [], failed = [], updated = [];
         let got = 0;
-        for (let i = 0; i < ids.length; i++) {
-          const r = await langDeckDownload(ids[i], (have, total) => {
+        for (let i = 0; i < jobs.length; i++) {
+          const kind = jobs[i][0], id = jobs[i][1];
+          const step = (have, total) => {
             if (!b.isConnected) return;
             const part = total > 0 ? Math.min(1, have / total) : 0;   // this file's share, or none where the server sends no length
-            fill.style.width = (((i + part) / ids.length) * 100).toFixed(1) + "%";
-            lab.textContent = (i + 1) + "/" + ids.length + (total > 0 ? " · " + Math.round(part * 100) + "%" : "");
-          });
-          if (r.error) failed.push(r.error);
-          else { got++; if (r.saved) saves.push(r.saved); }
+            fill.style.width = (((i + part) / jobs.length) * 100).toFixed(1) + "%";
+            lab.textContent = (i + 1) + "/" + jobs.length + (total > 0 ? " · " + Math.round(part * 100) + "%" : "");
+          };
+          step(0, 0);
+          let r;
+          if (kind === "sh") {
+            const row = await communityFetchDeckById(id);
+            r = (row.error || !row.row) ? { error: row.error === "notfound" ? "That deck is no longer available" : (row.error || "Couldn't load that deck.") }
+              : await uDeckInstall(row.row, row.cards, row.gloss);
+          } else r = await (kind === "up" ? langDeckUpdate : langDeckDownload)(id, step);
+          if (!r || r.error) { failed.push((r && r.error) || "A deck couldn't be read."); continue; }
+          got++;
+          if (r.saved) saves.push(r.saved);
+          if (kind === "up") updated.push(r);
         }
         if (!got) { b.disabled = false; b.classList.remove("dk-dl-busy"); b.textContent = was; toast(failed[0] || "Those decks couldn't be read."); return; }
-        renderInPlace();   // the reader is standing on this list: the rows turn into the decks under them
         if (saves.length) {
           const slow = setTimeout(() => toast("Saving the decks to this device…"), 400);
           await Promise.all(saves);
           clearTimeout(slow);
         }
-        toast(failed.length ? "Downloaded " + got + " of " + ids.length + " decks — " + failed[0] : "Downloaded " + got + (got === 1 ? " deck" : " decks"));
+        renderInPlace();   // the reader is standing on this list: the rows turn into the decks under them
+        const verb = fetching ? "Downloaded " : "Updated ";
+        toast(failed.length ? verb + got + " of " + jobs.length + " decks — " + failed[0] : verb + got + (got === 1 ? " deck" : " decks"));
+        if (updated.length) openDeckUpdateSheet(updated);
       });
     });
     /* THE SAME BUTTON, FETCHING THE SAME FILE, FOR A DECK ALREADY HERE (Sep 2026, on the 蛋糕 report).
