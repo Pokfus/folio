@@ -1534,6 +1534,55 @@ on a number word).
 Arkhangelsk) and drifted the report and indexes, reverted per the standing order before
 `card-places.js` and `glossary-places.js` were rebuilt with `--install`; `check-places.js` passes 31 of 31.
 
+### What carried this batch — `ru-601` to `ru-700`
+
+A hundred cards in one session (2026-11-19): the rest of `ru-civil-war`, all of `ru-stalin` and
+`ru-great-patriotic-war`, and the first ten of `ru-after-stalin`, written as before by ten parallel passes of
+ten, each checked by a dry-run validator (`add-card.js --dry-run`, `add-glossary.js` in a sandbox copy, and a
+clash check against every answer in every collection and against the other passes) and imported serially.
+**Every line's SUBJECT stands, so the list below is unchanged**; where the answer term is not the line's own
+words it is recorded here (the `ru-096` rule):
+
+| line | answer term | line | answer term |
+|---|---|---|---|
+| ru-601 | pogroms of 1918–1921 | ru-603 | White émigrés |
+| ru-604 | Treaty of Tartu | ru-608 | Red Army invasion of Georgia |
+| ru-613 | Treaty on the Creation of the USSR | ru-614 | 1924 Constitution of the Soviet Union |
+| ru-617 | Georgian affair | ru-619 | Gorki Leninskiye |
+| ru-620 | Lenin's Mausoleum | ru-621 | Lenin Enrolment |
+| ru-624 | United Opposition | ru-625 | Ramón Mercader |
+| ru-628 | Great Break | ru-629 | Material balance planning |
+| ru-634 | Soviet collectivisation | ru-640 | Internal passport |
+| ru-644 | special settlements | ru-650 | Tukhachevsky affair |
+| ru-652 | Stalin’s cult of personality | ru-653 | Stalin Constitution |
+| ru-654 | Franco-Soviet Treaty of Mutual Assistance | ru-660 | State continuity of the Baltic states |
+| ru-662 | Defence of Brest Fortress | ru-663 | Yelnya offensive |
+| ru-664 | First Battle of Kiev | ru-669 | Central Headquarters of the Partisan Movement |
+| ru-670 | Reichskommissariat Ostland | ru-671 | Black Book of Soviet Jewry |
+| ru-673 | German mistreatment of Soviet prisoners of war | ru-674 | Punished peoples |
+| ru-679 | ALSIB | ru-682 | Battle of Radzymin |
+| ru-683 | Prague offensive | ru-685 | rape during the occupation of Germany |
+| ru-687 | Soviet war dead | ru-688 | Trudarmiya |
+| ru-689 | Soviet women in World War II | ru-690 | Immortal Regiment |
+| ru-691 | Soviet famine of 1946–1947 | ru-692 | Eastern Bloc |
+| ru-694 | Zhdanovshchina |  |  |
+
+**TWENTY-FOUR ANSWERS ARE DELIBERATELY SHARED**, far more than in any earlier batch, because the Great Patriotic
+War deck covers the same war as `ww2-261`–`ww2-400` (the plan's table above): `ru-616` *Joseph Stalin* (`wh-901`), `ru-638` *Holodomor* (`wh-903`), `ru-645` *Great Purge* (`wh-904`), `ru-650` *Tukhachevsky affair* (`ww2-269`), `ru-655` *Molotov-Ribbentrop Pact* (`ww2-127`, `wh-917`), `ru-657` *Soviet invasion of Poland* (`ww2-146`), `ru-658` *Katyn massacre* (`ww2-155`), `ru-659` *Winter War* (`ww2-159`), `ru-661` *Operation Barbarossa* (`wh-924`, `ww2-261`), `ru-664` *First Battle of Kiev* (`ww2-274`), `ru-665` *evacuation of Soviet industry* (`ww2-864`), `ru-666` *Battle of Moscow* (`ww2-280`), `ru-667` *Siege of Leningrad* (`wh-925`, `ww2-276`), `ru-668` *Road of Life* (`ww2-278`), `ru-672` *Babi Yar* (`ww2-745`), `ru-673` *German mistreatment of Soviet prisoners of war* (`ww2-289`), `ru-675` *Deportation of the Crimean Tatars* (`ww2-807`), `ru-676` *Battle of Stalingrad* (`wh-926`, `ww2-301`), `ru-677` *Operation Uranus* (`ww2-305`), `ru-678` *Battle of Kursk* (`ww2-336`), `ru-680` *Arctic convoys* (`ww2-320`), `ru-681` *Operation Bagration* (`ww2-347`), `ru-684` *Battle of Berlin* (`wh-939`, `ww2-381`), `ru-687` *Soviet war dead* (`ww2-390`). Each is written from
+the Soviet side and its memory, with three questions that avoid the existing card's angles, and uses the existing
+glossary term; the steer is recorded in each card's `notes`. **If the owner would rather these were distinct
+terms, these are the cards to revisit.** 74 glossary terms are new. `ru-638` and `ru-674` are cross-listed to `ru-peoples`, as the
+Cross-listing section asks.
+
+**DATES**: 6 person and 17 battle/war templates from the passes' sidecars (two results shortened, Moscow's end
+given as January 1942 and Radzymin's date as the counter-attack of 3 August 1944); every contested figure (famine,
+Gulag, Terror, war dead, the rapes of 1945) is a range with its owner in the background, and each card's
+`notes` record the choices. **Russian names** for all hundred are in `.claude/russia-names.json`; ru-604, 624,
+629, 660, 671, 673 and 694 are renderings, ru-640's is unconfirmed, the rest Russian Wikipedia titles. Two questions were reworded
+after import (an abbreviation "No." read as a sentence break). Twelve Wikipedia links were marked CHECK and all
+point at the right article; none was set by hand. `migrate-places.js` drifted only the report, reverted;
+`check-places.js` passes 31 of 31.
+
 ---
 
 # The list
