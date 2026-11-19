@@ -391,6 +391,14 @@ book added later will meet the same traps.
   end notes reach the page. Two mistyped printed line numbers (III. i. 273, V. i. 52) are put right off the
   scan by `plineFixes`, BEFORE extraction — put right afterwards by `fixes`, the six glosses keyed to them
   were lost, "dogs of war" and its end note among them. Shakespeare's `BOOK_AUTHOR_COLOR` row colours it.
+  `hamlet` (~388 KB, all 5 acts, **1,278 notes**, no original — the Yale Shakespeare of 1917, ed. Jack
+  Randall Crawford, 1878–1968 (Wikisource author page; Wikidata Q19560296), so public domain in the US by the
+  pre-1929 rule ONLY: in copyright under life plus seventy until 2039, and the rights text says so, in the
+  Nicomachean Ethics' form; `layout: "yale"` as it stands, no Chorus, no `plineFixes` — the run printed no
+  "counted line N where the page prints M" warning). 1,253 glosses land on their word, 5 on their text, 19 at
+  a line's end (15 warned: the lemma's spelling differs from the line's, e.g. "sulllies"), none lost; all 222
+  end notes reach the page. Fetched through `api`'s index.php fallback (api.php rate-limited from the first
+  request). Its home excerpt is "To be, or not to be" (Act III, `p: 25`). Shakespeare's row colours it.
   `marco-polo` (~2.77 MB, all 235 chapters, **788 notes**, no original — Sir Henry Yule's
   translation in the third edition of 1903 as revised by Henri Cordier, and **the first book here
   printed in TWO source files**, which costs a second fetch and one loop and matters only because

@@ -17748,6 +17748,80 @@ const BOOKS = {
     chapters: [1, 2, 3, 4, 5],
   },
 
+  hamlet: {
+    title: "Hamlet",
+    subtitle: "The Tragedy of Hamlet, Prince of Denmark",
+    author: "William Shakespeare",
+    // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+    edition: "The Yale Shakespeare, ed. Jack Randall Crawford, Yale University Press, New Haven, 1917",
+    written: "c. 1600",
+    year: 1600,
+
+    /* ---------- THE LICENCE, AND WHY THIS EDITION ----------
+       The play has never been in copyright. The edition is the Yale Shakespeare's of 1917, the same
+       series as Macbeth's, Romeo and Juliet's and Julius Caesar's and transcribed on Wikisource in the
+       same way (proofread scan, glosses as hover tooltips, end notes on their own page), so the `yale`
+       layout reads it. Crawford lived 1878–1968 (his Wikisource author page; Wikidata Q19560296):
+       public domain in the United States under the pre-1929 rule, but where the term is life plus
+       seventy (the United Kingdom, the European Union) NOT until 2039 — the first Yale play on the
+       shelf that is public domain in the United States only, which the rights text says, as the
+       Nicomachean Ethics' does. The appendices and the index are the editor's apparatus and are left
+       behind, as for Macbeth. No Chorus, so no `prePage`. */
+    rights:
+      "Public domain in the United States. Shakespeare wrote the play around 1600 and it was first " +
+      "printed in 1603, so the work itself has never been in copyright. The text here is the Yale " +
+      "Shakespeare edition edited by Jack Randall Crawford and published by Yale University Press in " +
+      "1917, before 1929, so its copyright has expired in the United States. Crawford died in 1968, so " +
+      "his edition remains in copyright in countries whose term is the editor's life plus seventy " +
+      "years, including the United Kingdom and the European Union, until 2039. What is taken is the " +
+      "play, the edition's list of characters, Crawford's glosses from the foot of each page and his " +
+      "end notes, which are set with the glosses that point to them; his appendices and index are not " +
+      "reproduced.",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Hamlet_(1917)_Yale",
+
+    about: [
+      "<b>Hamlet</b> opens on the battlements of Elsinore, where the guards have twice seen a ghost in " +
+        "the armour of the dead King of Denmark. His son, Prince Hamlet, is in mourning, and angry that his " +
+        "mother Gertrude has married his uncle Claudius, now king, within two months. The ghost speaks to " +
+        "Hamlet: Claudius poured poison in his ear as he slept in his orchard, and Hamlet must avenge him. " +
+        "Hamlet swears to, and resolves to put on an antic disposition, a show of madness, while he does.",
+      "He delays, and the play is built out of the delay. Claudius sets Rosencrantz and Guildenstern, " +
+        "Hamlet's old schoolfellows, to spy on him, and his counsellor Polonius uses his daughter Ophelia, " +
+        "whom Hamlet has courted, as bait. A company of travelling players gives Hamlet his test: he has " +
+        "them act a murder like his father's before the court, and Claudius's flight from it convinces him. " +
+        "Yet he spares Claudius at prayer, and minutes later, in his mother's closet, stabs Polonius through " +
+        "a curtain in the belief that it is the king.",
+      "Claudius ships Hamlet to England with a letter ordering his death; Hamlet escapes, by way of a pirate " +
+        "ship, and comes home. Ophelia, her father dead, has gone mad and drowned, and her brother Laertes " +
+        "has returned to avenge them both. Claudius arranges a fencing match between the two with a poisoned " +
+        "blade and a poisoned cup. In the last scene the queen drinks the poison, Laertes and Hamlet are both " +
+        "struck with the blade, and Hamlet kills Claudius before he dies, giving his voice for the crown to " +
+        "Fortinbras of Norway, who arrives to find the court dead.",
+      "The story is an old Danish one: Saxo Grammaticus told it of Amleth around 1200, and it reached " +
+        "the Elizabethan stage through a French retelling by François de Belleforest. An earlier English " +
+        "play of Hamlet, now lost, was being acted by the 1590s. Shakespeare's is the longest of his plays " +
+        "and holds his best-known soliloquy, <i>To be, or not to be: that is the question</i>.",
+      "Three early versions survive and all three differ: a short and garbled quarto of 1603, a full " +
+        "quarto of 1604 and the First Folio of 1623. The text here is the <i>Yale Shakespeare</i> edition " +
+        "of 1917, edited by Jack Randall Crawford, in modernised spelling. It rests on the 1604 quarto and " +
+        "the Folio, and lines found in the quarto but not in the Folio are set in square brackets, as are " +
+        "stage directions an editor has added. Its line numbers are the edition's, printed every few lines, " +
+        "and can differ by a line or two from another edition's. The numbered notes are Crawford's: the " +
+        "short glosses at the foot of each page, and, where a gloss sent the reader to the back of the book, " +
+        "the longer note it pointed to. The notes are in American spelling, and the speakers' names are " +
+        "abbreviated as his page prints them.",
+    ],
+
+    layout: "yale",
+    page: (n) => "Hamlet (1917) Yale/Text/Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    notesPage: "Hamlet (1917) Yale/Notes",
+    castPage: "Hamlet (1917) Yale/Text",
+    chapterWord: "Act",
+    titleOf: (n) => "Act " + ["I", "II", "III", "IV", "V"][n - 1],
+    chapters: [1, 2, 3, 4, 5],
+  },
+
   "classic-of-tea": {
     title: "The Classic of Tea",
     subtitle: "The Ch‘a Ching, the First Book About Tea",
