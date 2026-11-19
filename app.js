@@ -13020,15 +13020,59 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      sweep's other near-best were refused on the same test: a magenta stood 14.6 from Plato, a green 14.5 from
      Aquinas, a brown 16.9 from Augustine. It reads 5.83:1 on the tightest light paper. */
   "Immanuel Kant": "#592F85",
-  /* MEASURED AS EVERY ROW ABOVE, with sixty-five colours placed (Nov 2026, adding Jerome's Letters): CIELAB
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-five colours placed (Nov 2026, adding the Res Gestae): CIELAB
+     distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on all
+     forty-five light papers, cards and second papers. A sweep of the cube at a step of 3 tops out at 14.6, and
+     this purple is that best. THE EURIPIDES TEST: its nearest are Valmiki 14.6, Plato 14.9, Euripides 14.9
+     and Thucydides 15.0, none a book read beside Augustus; the Romans who are stand off — Polybius 16.0,
+     Tacitus 27.1, Seneca 27.6, Ovid 28.6, Cassius Dio 35.6, Virgil 42.1, Livy 59.8, Suetonius 83.0 and
+     Julius Caesar 83.4. It reads 4.70:1 on the tightest light paper. */
+  "Augustus": "#84307B",
+  /* Nov 2026, adding Utopia; the band is still full. Measured as the rows above (CIE76 over L 12.3–47.8,
+     chroma 18–85, 4.5:1 on all forty-five light papers, cards and second papers, 22 or more from the fifteen
+     light inks), a sweep of the cube at a step of 3 tops out at 14.6. THE EURIPIDES TEST: the sweep's best
+     were magentas 14.6–14.9 from Plato, whose Republic is the book Utopia is read beside, and a green 14.5
+     from Aquinas, so this dark claret was taken: its nearest are Livy 14.3, the Poetic Edda 14.7 and Virgil
+     14.8, none read beside More, and the books that are stand off — Augustine 20.5, Rousseau 24.1, Plato
+     41.8, Hobbes 54.4, Luther 61.4, Machiavelli 80.9. It reads 8.79:1 on the tightest light paper. */
+  "Thomas More": "#5A0009",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-six colours placed (Nov 2026, adding the Discourse on the Method):
+     CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. The band is full: a sweep at a step of 3 tops out at 14.6, and its
+     best sit by Plato, Kant, Aquinas or Augustine. THE EURIPIDES TEST, kept strict here: the first candidate of
+     the sweep whose every philosopher stands 19 or more off is this brick red (13.9): its nearest are
+     Aristophanes 13.9, Sophocles 14.0, Sun Tzu 14.1 and Strabo 14.2, none read beside Descartes; the
+     philosophers stand off — More 19.7, Rousseau 28.1, Augustine 34.7, Plato 40.0, Hobbes 63.0, Kant 64.7,
+     Aristotle 68.9, Seneca 73.7, Lucretius 74.0, Aquinas 93.5. (The dark crimson first measured for this row,
+     #5A0009, was taken by More's the same day.) It reads 4.74:1 on the tightest light paper. */
+  "René Descartes": "#962A30",
+  /* Nov 2026, adding Apollodorus's Library, the band still full. Measured as the rows above: CIE76 distance,
+     L 12.3–47.8 and chroma 18–85, 22 or more from the fifteen light inks and 4.5:1 on all forty-five light
+     papers, cards and second papers; a sweep of the cube at a step of 3, refined to 1 around the best, tops
+     out at 14.9. THE EURIPIDES TEST refused that best, a magenta 14.9 from EURIPIDES, whose plays are among
+     the Library's sources, so this dark green was taken at 14.7: its nearest are Aquinas 14.7, the Quran 14.9
+     and the Rigveda 14.9, none read beside a handbook of Greek myth, and the books that are stand well off —
+     Diodorus 37.4, Sophocles 69.6, Pausanias 75.3, Ovid 86.6, Euripides 115.0, Homer 118.5. It reads 4.59:1
+     on the tightest light paper. */
+  "Apollodorus": "#2F5F00",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-nine colours placed (Nov 2026, adding On the Origin of Species):
+     CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     all forty-five light papers, cards and second papers. The band is full: a sweep at a step of 3 tops out at
+     14.2. THE EURIPIDES TEST: the sweep's best, a violet, stood 16.1 from Kant, and the oxblood first taken for
+     this row was taken by Thomas More's the same day, so this dark brown was chosen: its nearest are Livy 14.2,
+     Vyasa's Bhagavad Gita 14.5 and Diodorus 14.5, none read beside Darwin, and the books that might be stand
+     well off — Hobbes 30.9, Lucretius 47.7, Plato 52.2, Aristotle 60.5, Kant 76.2. It reads 6.91:1 on the
+     tightest light paper. */
+  "Charles Darwin": "#573006",
+  /* MEASURED AS EVERY ROW ABOVE, with seventy colours placed (Nov 2026, adding Jerome's Letters): CIELAB
      distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on every
      light paper, card and second paper. A sweep at a step of 3, refined to 1 around the best, tops out at
-     14.9 — the band is full. THE EURIPIDES TEST: this crimson's nearest are Thucydides, Plato and Euripides at
-     14.9 and Polybius 15.2, none a book read beside Jerome; the ones that are stand well off — Luther 19.0,
-     the King James Bible 25.3, Seneca 28.6, Virgil 41.4, Augustine 57.6, Bede 71.9, Boethius 84.2, Aquinas
-     114.9. The sweep's other near-best were refused on the same test: a green 14.5 from Aquinas, a deep red
-     14.8 from Virgil, whom Jerome quotes on every other page. It reads 4.84:1 on the tightest light paper. */
-  "Jerome": "#832D78",
+     14.4 — the band is full. The crimson first measured for this row (#832D78) was taken by Augustus the same
+     day, 1.1 away. THE EURIPIDES TEST: this violet's nearest are Snorri Sturluson and Valmiki 14.4, Plato 14.5
+     and the Song of Roland 14.7, none a book read beside Jerome; the ones that are stand well off — Kant 17.0,
+     Augustus 19.3, Dante 21.5, the King James Bible 27.0, Seneca 30.0, Luther 37.7, Virgil 40.6, Augustine
+     52.5, Bede 63.4, Boethius 70.2, Aquinas 102.5. It reads 5.39:1 on the tightest light paper. */
+  "Jerome": "#5D3B75",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -16248,6 +16292,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       total: 5,
     },
     {
+      id: "hamlet",
+      title: "Hamlet",
+      subtitle: "The Tragedy of Hamlet, Prince of Denmark",
+      author: "William Shakespeare",
+      /* "c.": written around 1599–1601; first printed in the quarto of 1603. */
+      written: "c. 1600",
+      year: 1600,
+      // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+      edition: "The Yale Shakespeare, ed. Jack Randall Crawford, Yale University Press, New Haven, 1917",
+      /* The play has never been in copyright; the Yale edition was published in 1917 and its editor died
+         in 1968 (Wikidata Q19560296), so it clears the US pre-1929 rule but NOT life plus seventy until
+         2039 — public domain in the United States only, which the rights text says. */
+      rights:
+        "Public domain in the United States. Shakespeare wrote the play around 1600 and it was first " +
+        "printed in 1603, so the work itself has never been in copyright. The text here is the Yale " +
+        "Shakespeare edition edited by Jack Randall Crawford and published by Yale University Press in " +
+        "1917, before 1929, so its copyright has expired in the United States. Crawford died in 1968, so " +
+        "his edition remains in copyright in countries whose term is the editor's life plus seventy " +
+        "years, including the United Kingdom and the European Union, until 2039. What is taken is the " +
+        "play, the edition's list of characters, Crawford's glosses from the foot of each page and his " +
+        "end notes, which are set with the glosses that point to them; his appendices and index are not " +
+        "reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Hamlet_(1917)_Yale",
+      /* NO `origLang`: Shakespeare's English is the original. Five acts, each a tab; the list of
+         characters at the head of Act I. */
+      chapterWord: "Act",
+      count: 5,
+      total: 5,
+    },
+    {
       id: "classic-of-tea",
       title: "The Classic of Tea",
       subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -16532,6 +16607,42 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         { n: 2, label: "From the Trojan War to the death of Alexander", note: "Books 11–17" },
         { n: 3, label: "After Alexander", note: "Books 18–20" },
       ],
+    },
+    {
+      id: "apollodorus-library",
+      title: "The Library",
+      // the work's own Greek title, as the Perseus Greek column gives it
+      subtitle: "Βιβλιοθήκη",
+      author: "Apollodorus",
+      /* "Generally dated to the first or second century AD" (Wikipedia); Frazer's introduction puts the
+         earliest possible date at the middle of the first century BCE, since the book quotes Castor. The
+         key is a single year inside the span. */
+      written: "1st–2nd century CE",
+      year: 100,
+      translator: "Sir James George Frazer",
+      edition: "Loeb Classical Library, 1921",
+      /* Expired on every ground: the Loeb of 1921 is pre-1929 and Frazer died in 1941. Perseus's digital
+         editions are CC BY-SA 4.0. See .claude/fetch-book.js. */
+      rights:
+        "Public domain on every ground, in both columns. The English is Sir James George Frazer's " +
+        "translation, published with his Greek text in two volumes of the Loeb Classical Library by " +
+        "William Heinemann in London and Harvard University Press in Cambridge, Massachusetts, in 1921, so " +
+        "it is public domain in the United States as a pre-1929 publication; Frazer died in 1941, so it is " +
+        "also public domain wherever copyright lasts for the author's life plus seventy years. The notes " +
+        "are his, from the same edition. The digital editions of both texts are prepared by the Perseus " +
+        "Digital Library at Tufts University and are released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence. The Library was written in Greek in the first " +
+        "or second century CE. (Robin Hard's translation of 1997 is still in copyright and is not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0548.tlg001/",
+      /* Paired on the SECTION, Strabo's way — "Apollodorus 2.5.11" is book, chapter, section, and a marker
+         reads "5.11" inside book 2 — and the two columns agree on all 386 sections. The fourth tab is the
+         Epitome, the abridgement that carries the lost end of the work. */
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Book",
+      count: 4,
+      total: 4,
     },
     {
       id: "anglo-saxon-chronicle",
@@ -17055,6 +17166,142 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          category of "Inherence and Subsistence", not how a society gets its living; PROVIDENCE is divine, not
          the capital of Rhode Island; and "the Republic of Plato" is the dialogue, not the form of state. */
       glossOff: ["Wolf", "Subsistence", "Providence", "Republic"],
+    },
+    {
+      id: "augustus-res-gestae",
+      title: "Res Gestae Divi Augusti",
+      subtitle: "The Deeds of the Divine Augustus",
+      author: "Augustus",
+      // the last chapter: "At the time of writing this I was in my seventy-sixth year" — 14 CE
+      written: "14 CE",
+      year: 14,
+      translator: "Frederick W. Shipley",
+      edition: "Velleius Paterculus and Res Gestae Divi Augusti, Loeb Classical Library, William Heinemann and G. P. Putnam's Sons, 1924",
+      /* The Cassius Dio ground: a 1924 Loeb, public domain in the United States as a pre-1929 publication, in
+         Bill Thayer's public-domain transcription. Shipley's death year was not established, so no
+         life-plus term is claimed. See .claude/fetch-book.js. */
+      rights:
+        "Two layers, both stated. Frederick W. Shipley's translation and his text of the Latin were " +
+        "published in the Loeb Classical Library in 1924, before 1929, so their copyright has expired in " +
+        "the United States. The text is taken from Bill Thayer's transcription on LacusCurtius, which " +
+        "states that its pages of this kind are in the public domain; Thayer's own notes are not " +
+        "reproduced. (Thomas Bushnell's translation of 1998, often found online, is in copyright and is " +
+        "not used.)",
+      sourceName: "LacusCurtius",
+      sourceUrl: "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Augustus/Res_Gestae/home.html",
+      /* Paired on Augustus's CHAPTER, both columns read off the same LacusCurtius pages (the Loeb prints
+         them a row at a time) — see `layout: "monumentum"` in the importer. The Greek version is not set. */
+      origLang: "la",
+      origName: "Latin",
+      /* The Loeb's six Parts and its Summary; the thirty-five chapters are the section numbers inside them. */
+      chapterWord: "Part",
+      count: 7,
+      total: 7,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all seven Parts (every `.ttip`,
+         Nov 2026). The MODERN COUNTRIES and CONTINENTS go where Augustus means a Roman province or an ancient
+         land, as on the Primary Chronicle's and the King James Bible's shelves: the Spains, the Gauls and
+         Germany as provinces, Egypt, Syria, Asia and Africa as provinces, Greater Armenia, all Italy, the kings
+         of India, and Ethiopia, which here is the kingdom of Meroë. NAMESAKES: Caesar is Tiberius, Gaius or
+         Lucius Caesar and "the grove of the Caesars", never the dictator; Tiberius Nero is Tiberius, not the
+         emperor Nero; Quintus Lucretius, Marcus Crassus and Paullus Fabius Maximus are the consuls of 19, 14 and
+         11 BCE, not the poet, the triumvir or the Delayer; Jupiter Libertas is not a freedman; Pax Augusta is
+         not the capital of Maine; and the embassies of chapter 31 are envoys, not a modern permanent mission. */
+      glossOff: ["Germany", "Spain", "Italy", "Egypt", "Syria", "Armenia", "India", "Ethiopia", "Asia", "Africa",
+        "Julius_Caesar", "Nero", "Lucretius", "Marcus_Licinius_Crassus", "Quintus_Fabius_Maximus", "Libertus",
+        "Augusta", "Embassy"],
+      id: "descartes-discourse-on-method",
+      title: "Discourse on the Method",
+      subtitle: "Discours de la méthode pour bien conduire sa raison, et chercher la vérité dans les sciences",
+      author: "René Descartes",
+      written: "1637",
+      year: 1637,
+      translator: "John Veitch",
+      edition: "Second edition, Sutherland and Knox, Edinburgh, 1853",
+      /* No limit to state: Descartes died in 1650 and Veitch in 1894. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. René Descartes published the Discourse in 1637 and died in 1650. John " +
+        "Veitch's translation was first published in 1850 and this second edition in Edinburgh in 1853; " +
+        "Veitch died in 1894. The text is the proofread Wikisource transcription of the 1853 printing.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Discourse_on_the_Method",
+      /* Paired on the PART, as The Prince is on the chapter: neither Veitch nor Cousin numbers anything below
+         it. The French is Victor Cousin's edition (Paris, 1824) as validated on French Wikisource. Seven
+         sections — Descartes's prefatory note and the six Parts — so "Section", and a tab runs one ahead of
+         the Part (The Social Contract's arrangement). */
+      origLang: "fr",
+      origName: "French",
+      chapterWord: "Section",
+      count: 7,
+      total: 7,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 7 sections
+         (every `.ttip`, Nov 2026). The MEDITATIONS of the front matter are Descartes's of 1641, not Marcus
+         Aurelius's; and Descartes's GERMANY is the Empire of the Thirty Years' War, not the modern state (as on
+         Leviathan's shelf). */
+      glossOff: ["Meditations", "Germany"],
+    },
+    {
+      id: "more-utopia",
+      title: "Utopia",
+      subtitle: "De optimo rei publicae statu deque nova insula Utopia",
+      author: "Thomas More",
+      written: "1516",
+      year: 1516,
+      translator: "Gilbert Burnet",
+      edition: "Utopia, translated by Gilbert Burnet, edited by Henry Morley, Cassell & Company, London, 1901",
+      /* No limit to state: More died in 1535, Burnet in 1715, Morley in 1894. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Thomas More published Utopia in Latin in 1516 and died in 1535. " +
+        "Gilbert Burnet's English translation was first printed in 1684 and Burnet died in 1715; Henry " +
+        "Morley, who edited this printing of 1901, died in 1894.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Utopia_(1901)",
+      /* NO `origLang`: the Latin on la.wikisource is in two Books, and Morley's first chapter holds Book I
+         and the opening of Book II, so the two cannot be paired without cutting a page. Nine chapters,
+         Morley's, titled from the work page's contents; no parts, for the same reason. */
+      chapterWord: "Chapter",
+      count: 9,
+      total: 9,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 9 chapters (every `.ttip`,
+         Nov 2026). Plato's 'Commonwealth' is the Republic, not the Commonwealth of Nations; Providence is
+         divine, not the capital of Rhode Island; the monstrous Colossus is a figure of speech, not the statue
+         at Rhodes; the Germans are the mercenaries of More's day and "the Greek" Hythloday knows is the
+         language, not the modern states; the Syrians beside the Romans and Carthaginians are the ancient
+         kingdom's, as on Leviathan's shelf. */
+      glossOff: ["Commonwealth_of_Nations", "Providence", "Colossus_of_Rhodes", "Germany", "Greece", "Syria"],
+    },
+    {
+      id: "darwin-origin-of-species",
+      title: "On the Origin of Species",
+      subtitle: "By Means of Natural Selection, or the Preservation of Favoured Races in the Struggle for Life",
+      author: "Charles Darwin",
+      written: "1859",
+      year: 1859,
+      /* NO `translator`: written in English, like Leviathan. */
+      edition: "The first edition, John Murray, London, 1859",
+      /* No limit to state: printed in 1859, its author dead since 1882. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Charles Darwin published On the Origin of Species in London in 1859 " +
+        "and died in 1882, so the book has never been in copyright anywhere since. The text is the " +
+        "validated Wikisource transcription of the first edition, from a facsimile scan.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/On_the_Origin_of_Species_(1859)",
+      /* NO `origLang`: the book is English. Fifteen sections — Darwin's Introduction and his fourteen
+         chapters — so a tab's number runs one ahead of the chapter's, whose Roman numeral opens each title
+         (Leviathan's arrangement; the front matter says so). No `parts`: the book has none. */
+      chapterWord: "Section",
+      count: 15,
+      total: 15,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 15 sections (every `.ttip`,
+         93 keys, Nov 2026). NAMESAKES: Darwin's Pallas is Peter Simon Pallas the naturalist, not Mark Antony's
+         freedman; his Philippi is the naturalist R. A. Philippi, not the Macedonian city; the Silla of Caracas
+         is a mountain, not the Korean kingdom; his Rhea is the American ostrich, not the Titaness; his Hydra is
+         the freshwater polyp, not the Lernaean monster. ORDINARY WORDS and names inside names: the Sounds of
+         Tierra del Fuego (inlets, not acoustics), the Jerusalem artichoke, Mr. Smith of Jordan Hill, and an
+         Arab or Arabian horse (a breed, not the people or the peninsula). Iran is the legendary "Iran and
+         Turan" of a quotation, not the modern state. What stays is right in place: Agassiz, Lubbock, the
+         Glacial period, natural and sexual selection, and the countries and seas of Darwin's own world. */
+      glossOff: ["Marcus_Antonius_Pallas", "Philippi", "Silla", "Rhea_(mythology)", "Lernaean_Hydra", "Sound",
+        "Jerusalem", "Jordan", "Arabs", "Arabian_Peninsula", "Iran"],
     },
     {
       id: "jerome-letters",
@@ -26773,6 +27020,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "He jests at scars, that never felt a wound. [Juliet appears above at a window.] But, soft! what light through yonder window breaks? It is the east, and Juliet is the sun! Arise, fair sun, and kill the envious moon, Who is already sick and pale with grief, That thou her maid art far more fair than she: Be not her maid, since she is envious; Her vestal livery is but sick and green, And none but fools do wear it; cast it off. It is my lady; O! it is my love: O! that she knew she were. She speaks, yet she says nothing: what of that? Her eye discourses; I will answer it. I am too bold, 'tis not to…" },
     { book: "julius-caesar", n: 3, t: "Act III", p: 142,
       text: "Friends, Romans, countrymen, lend me your ears; I come to bury Cæsar, not to praise him. The evil that men do lives after them, The good is oft interred with their bones; So let it be with Cæsar. The noble Brutus Hath told you Cæsar was ambitious; If it were so, it was a grievous fault, And grievously hath Cæsar answer'd it. Here, under leave of Brutus and the rest,— For Brutus is an honourable man; So are they all, all honourable men,— Come I to speak in Cæsar's funeral. He was my friend, faithful and just to me: But Brutus says he was ambitious; And Brutus is…" },
+    { book: "hamlet", n: 3, t: "Act III", p: 25,
+      text: "To be, or not to be: that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and, by a sleep to say we end The heart-ache and the thousand natural shocks That flesh is heir to, 'tis a consummation Devoutly to be wish'd. To die, to sleep; To sleep: perchance to dream: ay, there's the rub; For in that sleep of death what dreams may come When we have shuffled off this mortal coil, Must give us pause. There's the respect That makes calamity of so…" },
     { book: "classic-of-tea", n: 1, t: "The Origin of Tea", p: 1,
       text: "Tea is a fine tree of the South. Its height is from one to two feet to several tens of feet. The tea plants which grow on the hills and by the streams of Pa Shan [in the province of Szechwan] are sometimes so big that it takes two men to encircle them with their arms. They are cut down and then their leaves are plucked. A tea plant is like kua lu, a tree growing in Canton, the leaves of which are bitter and acrid in taste; its leaves are like those of the gardenia; its flowers are like the white cinnamon roses; its seeds are like those of the palm and coconut palm; its stalks are like those…" },
     { book: "magna-carta", n: 39, t: "Chapter 39", p: 1,
@@ -26781,6 +27030,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "Their ritual, then, is such as I have described. As you enter the temple that they name the Parthenon, all the sculptures you see on what is called the pediment refer to the birth of Athena, those on the rear pediment represent the contest for the land between Athena and Poseidon. The statue itself is made of ivory and gold. On the middle of her helmet is placed a likeness of the Sphinx—the tale of the Sphinx I will give when I come to my description of Boeotia—and on either side of the helmet are griffins in relief. These griffins, Aristeas of Proconnesus says in his poem, fight for the gold…" },
     { book: "strabo-geography", n: 1, t: "Book 1", p: 0,
       text: "IF the scientific investigation of any subject be the proper avocation of the philosopher, Geography, the science of which we propose to treat, is certainly entitled to a high place; and this is evident from many considerations. They who first ventured to handle the matter were distinguished men. Homer, Anaximander the Milesian, and Hecataeus, (his fellow-citizen according to Eratosthenes,) Democritus, Eudoxus, Dicaearchus, Ephorus, with many others, and after these Erastosthenes, Polybius, and Posidonius, all of them philosophers. Nor is the great learning, through which alone this subject…" },
+    { book: "apollodorus-library", n: 1, t: "Book I", p: 31,
+      text: "Prometheus moulded men out of water and earth and gave them also fire, which, unknown to Zeus, he had hidden in a stalk of fennel. But when Zeus learned of it, he ordered Hephaestus to nail his body to Mount Caucasus, which is a Scythian mountain. On it Prometheus was nailed and kept bound for many years. Every day an eagle swooped on him and devoured the lobes of his liver, which grew by night. That was the penalty that Prometheus paid for the theft of fire until Hercules afterwards released him, as we shall show in dealing with Hercules." },
     { book: "diodorus-library", n: 2, t: "Book 2", p: 5,
       text: "Since after the founding of this city Ninus made a campaign against Bactriana, where he married Semiramis, the most renowned of all women of whom we have any record, it is necessary first of all to tell how she rose from a lowly fortune to such fame. Now there is in Syria a city known as Ascalon, and not far from it a large and deep lake, full of fish. On its shore is a precinct of a famous goddess whom the Syrians call Derceto; and this goddess has the head of a woman but all the rest of her body is that of a fish, the reason being something like this. The story as given by the most learned…" },
     { book: "anglo-saxon-chronicle", n: 1, t: "To 599", p: 0,
@@ -26793,8 +27044,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "We hold these Truths to be self-evident, that all Men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty, and the Pursuit of Happiness.—That to secure these Rights, Governments are instituted among Men, deriving their just Powers from the Consent of the Governed, that whenever any Form of Government becomes destructive of these Ends, it is the Right of the People to alter or to abolish it, and to institute new Government, laying its Foundation on such Principles, and organizing its Powers in such Form, as to them shall…" },
     { book: "hobbes-leviathan", n: 14, t: "XIII. Of the Naturall Condition of Mankind, as concerning their Felicity, and Misery", p: 12,
       text: "Whatsoever therefore is consequent to a time of Warre, where every man is Enemy to every man; the same is consequent to the time, wherein men live without other security, than what their own strength, and their own invention shall furnish them withall. In such condition, there is no place for Industry; because the fruit thereof is uncertain: and consequently no Culture of the Earth; no Navigation, nor use of the commodities that may be imported by Sea; no commodious Building; no Instruments of moving, and removing such things as require much force; no Knowledge of the face of the Earth; no account of Time; no Arts; no Letters; no Society; and which is worst of all, continuall feare, and danger of violent death; And the life of man, solitary, poore, nasty, brutish, and short." },
+    { book: "more-utopia", n: 1, t: "Discourses of Raphael Hythloday, of the Best State of a Commonwealth", p: 2,
+      text: "'The increase of pasture,' said I, 'by which your sheep, which are naturally mild, and easily kept in order, may be said now to devour men and unpeople, not only villages, but towns; for wherever it is found that the sheep of any soil yield a softer and richer wool than ordinary, there the nobility and gentry, and even those holy men, the abbots! not contented with the old rents which their farms yielded, nor thinking it enough that they, living at their ease, do no good to the public, resolve to do it hurt instead of good. They stop the course of agriculture, destroying houses and towns, reserving only the churches, and enclose grounds that they may lodge their sheep in them." },
     { book: "kant-critique-of-pure-reason", n: 2, t: "Preface to the Second Edition", p: 11,
       text: "It appears to me that the examples of mathematics and natural philosophy, which, as we have seen, were brought into their present condition by a sudden revolution, are sufficiently remarkable to fix our attention on the essential circumstances of the change which has proved so advantageous to them, and to induce us to make the experiment of imitating them, so far as the analogy which, as rational sciences, they bear to metaphysics may permit. It has hitherto been assumed that our cognition must conform to the objects; but all attempts to ascertain anything about these objects a priori, by means of conceptions, and thus to extend the range of our knowledge, have been rendered abortive by this assumption. Let us then make the experiment whether we may not be more successful in metaphysics, if we assume that the objects must conform to our cognition. This appears, at all events, to accord better with the possibility of our gaining the end we have in view, that is to say, of arriving at the cognition of objects a priori, of determining something with respect to these objects, before they are given to us. We here propose to do just what Copernicus did in attempting to explain the celestial movements. When he found that he could make no progress by assuming that all the heavenly bodies revolved round the spectator, he reversed the process, and tried the experiment of assuming that the spectator revolved, while the stars remained at rest." },
+    { book: "augustus-res-gestae", n: 6, t: "Part VI", p: 2,
+      text: "In my sixth and seventh consulships, when I had extinguished the flames of civil war, after receiving by universal consent the absolute control of affairs, I transferred the republic from my own control to the will of the senate and the Roman people. For this service on my part I was given the title of Augustus by decree of the senate, and the doorposts of my house were covered with laurels by public act, and a civic crown was fixed above my door, and a golden shield was placed in the Curia Julia whose inscription testified that the senate and the Roman people gave me this in recognition of my valour, my clemency, my justice, and my piety. After that time I took precedence of all in rank, but of power I possessed no more than those who were my colleagues in any magistracy." },
+    { book: "descartes-discourse-on-method", n: 5, t: "Part IV", p: 0,
+      text: "But immediately upon this I observed that, whilst I thus wished to think that all was false, it was absolutely necessary that I, who thus thought, should be somewhat; and as I observed that this truth, I think, hence I am, was so certain and of such evidence, that no ground of doubt, however extravagant, could be alleged by the Sceptics capable of shaking it, I concluded that I might, without scruple, accept it as the first principle of the Philosophy of which I was in search." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
       text: "Again:—\"Why does not the pope, whose wealth is to-day greater than the riches of the richest, build just this one church of St. Peter with his own money, rather than with the money of poor believers?\"" },
     { book: "kalidasa-shakuntala", n: 6, t: "Act IV", p: 138,
@@ -26803,6 +27060,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "The LORD is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul: he leadeth me in the paths of righteousness for his name’s sake. Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me. Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over. Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever." },
     { book: "quran", n: 1, t: "The Opening", p: 1,
       text: "In the name of Allah, the Beneficent, the Merciful. Praise be to Allah, Lord of the Worlds, The Beneficent, the Merciful. Owner of the Day of Judgment, Thee (alone) we worship; Thee (alone) we ask for help. Show us the straight path, The path of those whom Thou hast favoured; Not (the path) of those who earn Thine anger nor of those who go astray." },
+    { book: "darwin-origin-of-species", n: 15, t: "XIV. Recapitulation and Conclusion", p: 48,
+      text: "It is interesting to contemplate an entangled bank, clothed with many plants of many kinds, with birds singing on the bushes, with various insects flitting about, and with worms crawling through the damp earth, and to reflect that these elaborately constructed forms, so different from each other, and dependent on each other in so complex a manner, have all been produced by laws acting around us. These laws, taken in the largest sense, being Growth with Reproduction; Inheritance which is almost implied by reproduction; Variability from the indirect and direct action of the external conditions of life, and from use and disuse; a Ratio of Increase so high as to lead to a Struggle for Life, and as a consequence to Natural Selection, entailing Divergence of Character and the Extinction of less-improved forms. Thus, from the war of nature, from famine and death, the most exalted object which we are capable of conceiving, namely, the production of the higher animals, directly follows. There is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved." },
   ];
   function homeDailyExcerpt() {
     const list = HOME_EXCERPTS.filter((e) => BOOK_BY_ID[e.book]);
