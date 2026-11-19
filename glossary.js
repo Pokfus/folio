@@ -22445,7 +22445,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Investigation_of_things": ["Gewu"],
 "Huang_Zongxi": ["Huang Lizhou"],
 "Quanxue_pian": ["Exhortation to Study","Exhortation to Learn"],
-"Science_and_Metaphysics_debate": ["Debate on Science and the View of Life","Kexue yu rensheng guan"],
+"Science_and_Metaphysics_debate": ["Debate on Science and the View of Life","Kexue yu rensheng guan","Kexue yu xuanxue lunzhan"],
 "Wenchang_Wang": ["Wenchang Dijun"],
 "Qingming_Festival": ["Tomb-Sweeping Day","Qingming Jie"],
 "City_God_(China)": ["Chenghuang","City God"],
@@ -26382,7 +26382,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Heka_(god)": ["Heka","Heke"],
 "Caoyun": ["Grain transport","Tribute grain","Ts'ao-yün"],
 "Gaozi": ["Kao Tzu","Kao-tzu"],
-"Hui_Shi": ["Huizi","Hui Shih"]
+"Hui_Shi": ["Huizi","Hui Shih"],
+"Dongyue_Dadi": ["Emperor of the Eastern Peak","Tung-yüeh ta-ti"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */

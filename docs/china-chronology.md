@@ -1017,6 +1017,11 @@ Wang Yangming (`cnh-528`); the Treaty of Nanking 29 August 1842 (`cnh-562`); the
 | the *Great Learning* composed / the exam decree | c. 300 – 200 BCE / 1313 | Eno; Mailla (`cnh-853`; 1313 with `cnh-832`) |
 | the White Tiger Discussions held | 79 CE | Jian (`cnh-854`) |
 | the *Taijitu shuo* written / edited / anthologised | c. 1000 – 1100 / 1169 / 1175 | the cited studies (`cnh-859`) |
+| the *Quanxue pian* published | 1898 | Woodbridge (`cnh-866`) |
+| the Science and Metaphysics debate: the lecture / the anthology | 14 February 1923 / December 1923 | Nelson; Vrhovski (`cnh-867`; the card's timeline) |
+| Wenchang: the cult formed / made thearch / struck off / restored | c. 1100 – 1200 / 1316 / 1370 / 1801 | Burton-Rose (`cnh-868`) |
+| Qingming: described / a public holiday | 1147 / 2008 | Meng Yuanlao; the cited studies (`cnh-869`) |
+| the god of Mount Tai: made king / the title extended / lengthened / removed | 725 CE / 1008 / 1291 / 1370 | Chavannes (`cnh-870`; 1008 with `cnh-874`) |
 
 ## Later periods
 
@@ -1869,4 +1874,9 @@ cnh-852: 175; 183
 cnh-853: 300; 200; 1313
 cnh-854: 79
 cnh-859: 1000; 1100; 1169; 1175
+cnh-866: 1898
+cnh-867: 1923
+cnh-868: 1100; 1200; 1316; 1370; 1801
+cnh-869: 1147; 2008
+cnh-870: 725; 1008; 1291; 1370
 ```
