@@ -904,6 +904,14 @@ BCE and the empire's end, the abdication of 12 February 1912 (`cnh-191`, `cnh-57
 | the Hall of Mental Cultivation built / rebuilt / closed / reopened | 1537 / 1722 – 1735 / December 2015 / 26 December 2025 | the Palace Museum (`cnh-728`) |
 | the Temple of Agriculture built / renovated / last ploughing / protected | 1420 / 1753 / 1906 / 2001 | the WMF; the *Mingshi* (`cnh-729`) |
 | the Eastern Depot founded / ended | 1420 / 1644 | Hucker; Tsai (`cnh-730`) |
+| the Imperial Household Department abolished / restored / seven offices / state funds | 1653 / 1661 / 1677 / 1857 | the Palace Museum (`cnh-731`) |
+| secret succession introduced / first used / last used | 1723 / 1735 / 1850 | Academia Sinica (`cnh-732`) |
+| the Dazexiang uprising began / ended | 209 BCE / 208 BCE | Chavannes (`cnh-734`, `cnh-717`) |
+| the Tiandihui founded / the uprising / the Hong Kong ban | c. 1761 – 1762 / 1787 / January 1845 | Wang and Kwok; ter Haar (`cnh-735`) |
+| the Shitong completed | 710 CE | CUHK (`cnh-736`) |
+| "standard histories" first used / the last presented | 552 – 555 CE / 1739 | Ng and Wang (`cnh-737`) |
+| the archive sacks sold / bought back / resold | c. 1921 / 1922 / 1929 | Ma; Ye and Esherick (`cnh-739`) |
+| the Qing History Project launched / the draft submitted / reported shelved | August 2002 / 2018 / 2023 | Guangming ribao; the CMP (`cnh-740`) |
 
 ## Later periods
 
@@ -1633,4 +1641,12 @@ cnh-727: 500; 400; 155; 129
 cnh-728: 1537; 1722; 1735; 2015; 2025
 cnh-729: 1420; 1753; 1906; 2001
 cnh-730: 1420; 1644
+cnh-731: 1653; 1661; 1677; 1857
+cnh-732: 1723; 1735; 1850
+cnh-734: 209; 208
+cnh-735: 1761; 1762; 1787; 1845
+cnh-736: 710; 661; 721
+cnh-737: 552; 555; 1739
+cnh-739: 1921; 1922; 1929
+cnh-740: 2002; 2018; 2023
 ```

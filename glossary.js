@@ -15288,7 +15288,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Yu_ji_tu": "1136",
 "Temple_of_Agriculture": "1420",
 "Eastern_Depot": "1420–1644",
-"Imperial_Household_Department": "1661–1924",
+"Imperial_Household_Department": "1661",
 "Secret_succession": "1723–1850",
 "Empress_Dowager_Feng": "died 490 CE",
 "Chen_Sheng_and_Wu_Guang_uprising": "209–208 BCE",
