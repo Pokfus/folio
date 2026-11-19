@@ -190,6 +190,14 @@ insert with no place fails that script), `portuguese-order.js`, `portuguese-fix.
 A figure typed into a `descSub` is held to the order by `portuguese-order.js`; the counts are recounted on
 every run.
 
+## The Arabic decks: the same three files, kept in `.claude/arabic/` (Nov 2026)
+
+The seven Arabic decks follow the German model — a record, a pin, an order, each with a `--check` — but
+their files live beside their generator in `.claude/arabic/`, not here (`docs/lang-decks.md`, "The Arabic
+beginner pass"): `arabic-fix.js` (`arabic-fixes.json`, `arabic-ids.json`), `arabic-order.js`
+(`arabic-order.json`) and `build-arabic-alphabet.js` (`arabic-alphabet.json`). They find their decks by
+card type (`arabic`, `ar-abc`), and unlike the German decks every Arabic level CAN be rebuilt byte for byte.
+
 ## Changing the card type's CSS
 
 `deckcore.js` holds it, and every built deck file carries a **copy** — so an edit there does not reach a

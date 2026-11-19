@@ -352,6 +352,19 @@ jobs:
       - name: build-portuguese-sounds --check (the Portuguese sounds deck is what its table and CAPLE A1 give)
         if: ${{ !cancelled() }}
         run: node .claude/decks/build-portuguese-sounds.js --check
+      # The Arabic decks (2026-11-19, the Arabic beginner pass): arabic-fixes.json (the cards A1 and A2 gain, the
+      # five the phrases lose to A1, the counts a description states), arabic-order.json and arabic-ids.json over
+      # the six decks of card type `arabic`; the alphabet deck from its table of quotations and Arabic A1. All
+      # read only the repository.
+      - name: arabic-fix --check (the Arabic decks carry their record, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/arabic/arabic-fix.js --check
+      - name: arabic-order --check (arabic-order.json is what the rules give for the decks as they stand)
+        if: ${{ !cancelled() }}
+        run: node .claude/arabic/arabic-order.js --check
+      - name: build-arabic-alphabet --check (the Arabic Alphabet deck is what its table and Arabic A1 give)
+        if: ${{ !cancelled() }}
+        run: node .claude/arabic/build-arabic-alphabet.js --check
       - name: jlpt check-ids (every Japanese card id is the one ids.json pins)
         if: ${{ !cancelled() }}
         run: node .claude/jlpt/check-ids.js
