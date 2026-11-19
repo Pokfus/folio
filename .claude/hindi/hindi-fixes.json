@@ -485,6 +485,94 @@
   "hindib1/प्रश्न": {
    "hint": "not सवाल",
    "why": "A lower deck's everyday word has the same first meaning (the Persian- or Arabic-derived word beside this Sanskrit-derived one); the hint is on the higher card, so it names a word already learnt."
+  },
+  "hindia1/मेरा": {
+   "exDrop": [
+    "यह मेरा लंड है।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindia1/छोटा": {
+   "exDrop": [
+    "मेरा शिश्न छोटा है।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindia1/लंबा": {
+   "exDrop": [
+    "कहावत तो आपने सुनी ही होगी: लंबा नाक, लंबा लंड।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindia1/सिर": {
+   "exDrop": [
+    "सेक्स के बाद मैं उसके पेट पर सिर रख कर सो गई।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindia2/खींचना": {
+   "exDrop": [
+    "सामी ने अपने लंड का फ़ोटो खींचा।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindia2/लायक़": {
+   "exDrop": [
+    "उसकी छोटी बहन चोदने लायक है।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindia2/प्रवेश": {
+   "exDrop": [
+    "लिंग ने योनी में प्रवेश किया।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindia2/ख़ूबसूरत": {
+   "exDrop": [
+    "मेरी योनि खूबसूरत है!"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindib1/चूसना": {
+   "exDrop": [
+    "जा कर लंड चूस!",
+    "क्या आपने कभी शिश्न चूसा है?",
+    "क्या तुमने कभी शिश्न चूसा है?"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindib1/सोवियत": {
+   "exDrop": [
+    "मैं ने एक सोवियत-अमरीकी औरत के साथ सेक्स किया।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindib2/मैनेजर": {
+   "exDrop": [
+    "सामी ने अपने मैनेजर को चोदा।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindib2/चाटना": {
+   "exDrop": [
+    "आपने उसके शिश्न को चाटा।",
+    "आपने उनके शिश्न को चाटा।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindib2/कहावत": {
+   "exDrop": [
+    "कहावत तो आपने सुनी ही होगी: लंबा नाक, लंबा लंड।",
+    "कहावत तो तुमने सुनी ही होगी: लंबा नाक, लंबा लंड।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
+  },
+  "hindic1/सामी": {
+   "exDrop": [
+    "सामी चोद रहा था।"
+   ],
+   "why": "Tatoeba's sentence is obscene and the card's word is not: taken off. (A card whose own headword is a sexual term keeps its sentences; the generator's SWEARS list is about headwords.)"
   }
  },
  "decks": {
