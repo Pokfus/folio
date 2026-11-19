@@ -1,0 +1,1008 @@
+{
+ "_": "indonesian-fixes.json — every hand edit to an Indonesian deck of card type ukbi, applied by indonesian-fix.js after .claude/ukbi/run.py (its header has the format). Nothing in it is composed: a meaning is a gloss of the English Wiktionary (via kaikki.org, the extraction fetched on 2026-11-19) with the register its sense is tagged with in brackets as the dictionary prints it, a root is the base its etymology or its head line names, a sentence is a Tatoeba sentence named by id. A cut is said to be a cut in its why.",
+ "insert": {
+  "ukbi1": [
+   {
+    "word": "tidak apa-apa",
+    "id": 501,
+    "from": "ukbi3/tidak apa-apa",
+    "fields": {
+     "Indonesian": "<div class=\"uc-word\">tidak apa-apa<span class=\"uc-tts uc-say\" data-say=\"tidak apa-apa\"></span></div>",
+     "Word": "tidak apa-apa",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">it&#x27;s okay; no problem; it&#x27;s nothing; it doesn&#x27;t matter</div></div>",
+     "Forms": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Tidak apa-apa.\"></span><b>Tidak apa-apa</b>.</div><div class=\"uc-exe\">It&#x27;s OK.</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Kamu tidak apa-apa?\"></span>Kamu <b>tidak apa-apa</b>?</div><div class=\"uc-exe\">Are you all right?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Kami berdua tidak apa-apa.\"></span>Kami berdua <b>tidak apa-apa</b>.</div><div class=\"uc-exe\">We&#x27;re both fine.</div></div>"
+    },
+    "why": "Moved from UKBI 3 (note 383) byte for byte: the answer to maaf and to terima kasih, which are UKBI 1 cards dealt on its first days."
+   },
+   {
+    "word": "kau",
+    "id": 502,
+    "senses": [
+     [
+      "pronoun",
+      [
+       "(poetic, regional) Second-person singular pronoun: you, your, yours"
+      ]
+     ]
+    ],
+    "ex": [
+     [
+      "Kau mau minum apa?",
+      "What do you want to drink?",
+      "Tatoeba 4626358 (English 400184)"
+     ],
+     [
+      "Apa kau punya kopi?",
+      "Do you have any coffee?",
+      "Tatoeba 4261513 (English 3636312)"
+     ],
+     [
+      "Kau mau pergi ke mana?",
+      "Where are you going?",
+      "Tatoeba 4604211 (English 416367)"
+     ]
+    ],
+    "why": "The example sentences of the eight decks say kau for you 163 times (18 of them in UKBI 1) and no deck carded it: the generator drops a sense tagged regional. Meaning and tags: English Wiktionary via kaikki.org, extraction fetched 2026-11-19, kept on the card as the dictionary prints them."
+   },
+   {
+    "word": "dari mana",
+    "id": 503,
+    "from": "ukbi2/dari mana",
+    "fields": {
+     "Indonesian": "<div class=\"uc-word\">dari mana<span class=\"uc-tts uc-say\" data-say=\"dari mana\"></span></div>",
+     "Word": "dari mana",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">adverb</div><div class=\"uc-gl\">from where?</div></div>",
+     "Forms": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Dari mana kamu?\"></span><b>Dari mana</b> kamu?</div><div class=\"uc-exe\">Where have you been?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Kamu dari mana?\"></span>Kamu <b>dari mana</b>?</div><div class=\"uc-exe\">Where are you from?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Dari mana asalmu?\"></span><b>Dari mana</b> asalmu?</div><div class=\"uc-exe\">Where do you come from?</div></div>"
+    },
+    "why": "Moved from UKBI 2 (note 382) byte for byte: di mana and ke mana are UKBI 1 cards and the three are one set."
+   },
+   {
+    "word": "yang mana",
+    "id": 504,
+    "from": "ukbi2/yang mana",
+    "fields": {
+     "Indonesian": "<div class=\"uc-word\">yang mana<span class=\"uc-tts uc-say\" data-say=\"yang mana\"></span></div>",
+     "Word": "yang mana",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">pronoun</div><ol class=\"uc-gls\"><li>which (one)?</li><li>which</li></ol></div>",
+     "Forms": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Ini yang mana?\"></span>Ini <b>yang mana</b>?</div><div class=\"uc-exe\">Which one is this?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Meja yang mana?\"></span>Meja <b>yang mana</b>?</div><div class=\"uc-exe\">Which table?</div></div><div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Bukumu yang mana?\"></span>Bukumu <b>yang mana</b>?</div><div class=\"uc-exe\">Which is your book?</div></div>"
+    },
+    "why": "Moved from UKBI 2 (note 373) byte for byte: the last of the question words (apa, siapa, di mana, ke mana, dari mana, kapan, bagaimana, mengapa, berapa), the others all UKBI 1 cards."
+   },
+   {
+    "word": "selamat jalan",
+    "id": 505,
+    "from": "idphrase/selamat jalan",
+    "fields": {
+     "Indonesian": "<div class=\"uc-word\">selamat jalan<span class=\"uc-tts uc-say\" data-say=\"selamat jalan\"></span></div>",
+     "Word": "selamat jalan",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">bon voyage</div></div>",
+     "Forms": "",
+     "Examples": ""
+    },
+    "why": "Moved from the phrases deck (note 66), last on the shelf, byte for byte: UKBI 1 cards selamat pagi, siang, sore, malam, datang and tinggal, and selamat jalan is what is said to the one who leaves."
+   },
+   {
+    "word": "selamat makan",
+    "id": 506,
+    "from": "idphrase/selamat makan",
+    "fields": {
+     "Indonesian": "<div class=\"uc-word\">selamat makan<span class=\"uc-tts uc-say\" data-say=\"selamat makan\"></span></div>",
+     "Word": "selamat makan",
+     "English": "<div class=\"uc-sense\"><div class=\"uc-pos\">interjection</div><div class=\"uc-gl\">bon appétit; enjoy your meal</div></div>",
+     "Forms": "",
+     "Examples": "<div class=\"uc-exi\"><div class=\"uc-exz\"><span class=\"uc-tts uc-exsay\" data-say=\"Selamat makan.\"></span><b>Selamat makan</b>.</div><div class=\"uc-exe\">Bon appetit.</div></div>"
+    },
+    "why": "Moved from the phrases deck (note 67) byte for byte, with selamat jalan: the same formula, of UKBI 1's own words."
+   }
+  ]
+ },
+ "notes": {
+  "ukbi1/aku": {
+   "senses": [
+    [
+     "pronoun",
+     [
+      "(informal) first person singular pronoun: I, me, my"
+     ]
+    ]
+   ],
+   "exDrop": [
+    "Aku ngantuk!"
+   ],
+   "exAdd": [
+    [
+     "Aku haus.",
+     "I'm thirsty.",
+     "Tatoeba 3804906 (English 1814)"
+    ]
+   ],
+   "why": "The sense is tagged informal in English Wiktionary via kaikki.org, extraction fetched 2026-11-19; saya carries the same meaning tagged polite, and the English → Indonesian card could not tell the two apart. Aku ngantuk! is colloquial (ngantuk is on no card and is not the standard mengantuk)."
+  },
+  "ukbi1/saya": {
+   "senses": [
+    [
+     "pronoun",
+     [
+      "(polite) first person singular pronoun: I, me, my"
+     ]
+    ],
+    [
+     "interjection",
+     [
+      "(polite) response that confirms that the speaker is paying attention: yes"
+     ]
+    ]
+   ],
+   "why": "Both senses are tagged polite in English Wiktionary via kaikki.org, extraction fetched 2026-11-19."
+  },
+  "ukbi1/kamu": {
+   "senses": [
+    [
+     "pronoun",
+     [
+      "(informal, usually singular) second person pronoun: you, your"
+     ]
+    ]
+   ],
+   "why": "Tagged informal, singular, usually in English Wiktionary via kaikki.org, extraction fetched 2026-11-19; Anda carried the same words but for a hyphen."
+  },
+  "ukbi1/Anda": {
+   "senses": [
+    [
+     "pronoun",
+     [
+      "(formal) second-person pronoun: you, your"
+     ]
+    ]
+   ],
+   "why": "Tagged formal in English Wiktionary via kaikki.org, extraction fetched 2026-11-19."
+  },
+  "ukbi1/kenapa": {
+   "senses": [
+    [
+     "pronoun",
+     [
+      "(informal) why; for what reason",
+      "what is it"
+     ]
+    ]
+   ],
+   "why": "The first sense is tagged informal in English Wiktionary via kaikki.org, extraction fetched 2026-11-19; mengapa is the untagged word for the same question."
+  },
+  "ukbi1/beliau": {
+   "senses": [
+    [
+     "pronoun",
+     [
+      "(honorific) he, she; him, her (referring to someone highly respected, of higher status or older)",
+      "(honorific) his, her"
+     ]
+    ]
+   ],
+   "why": "Both senses are tagged honorific in English Wiktionary via kaikki.org, extraction fetched 2026-11-19."
+  },
+  "ukbi1/ini": {
+   "senses": [
+    [
+     "determiner",
+     [
+      "this (the (thing) here)",
+      "this (known (thing) just mentioned)",
+      "this (known (thing) about to be mentioned)"
+     ]
+    ],
+    [
+     "pronoun",
+     [
+      "this (The thing, item, etc. being indicated)"
+     ]
+    ],
+    [
+     "adverb",
+     [
+      "only, just"
+     ]
+    ]
+   ],
+   "why": "The card opened on the adverb (only, just) over three sentences of the determiner. The same senses of English Wiktionary via kaikki.org, extraction fetched 2026-11-19, the determiner first and the pronoun (which the card lacked) added."
+  },
+  "ukbi1/dia": {
+   "senses": [
+    [
+     "pronoun",
+     [
+      "he",
+      "she"
+     ]
+    ]
+   ],
+   "why": "The second entry (a verb, to fold lontar leaves into haik) is another word spelled the same, which no sentence shows."
+  },
+  "ukbi1/dan": {
+   "senses": [
+    [
+     "conjunction",
+     [
+      "and (used to connect two similar words, phrases, et cetera)"
+     ]
+    ]
+   ],
+   "exDrop": [
+    "Dan patah hati."
+   ],
+   "exAdd": [
+    [
+     "Makan dan minum.",
+     "Eat and drink.",
+     "Tatoeba 13683398 (English 37659)"
+    ]
+   ],
+   "why": "Dan patah hati is a sentence about a man called Dan; the noun (a rank in judo) is another word spelled the same."
+  },
+  "ukbi1/bisa": {
+   "senses": [
+    [
+     "verb",
+     [
+      "can, be able"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "venom: a poison carried by an animal, usually injected into an enemy or prey by biting or stinging",
+      "bad: unfavorable, negative, evil, unhealthy"
+     ]
+    ]
+   ],
+   "why": "The card opened on the noun (venom) over two sentences of the verb; the same senses of English Wiktionary via kaikki.org, extraction fetched 2026-11-19, the verb first."
+  },
+  "ukbi1/tak": {
+   "senses": [
+    [
+     "adverb",
+     [
+      "tidak (“not”)"
+     ]
+    ]
+   ],
+   "why": "The two nouns (the sound of a pitted shell; the stroke of a piston) are other words spelled the same, which no sentence shows."
+  },
+  "ukbi1/halo": {
+   "senses": [
+    [
+     "interjection",
+     [
+      "hello"
+     ]
+    ]
+   ],
+   "why": "The noun (the ring of light round the sun) is the English word halo, and its gloss began with the answer to the English → Indonesian card."
+  },
+  "ukbi1/dalam": {
+   "senses": [
+    [
+     "preposition",
+     [
+      "inside, in, within"
+     ]
+    ],
+    [
+     "adjective",
+     [
+      "deep",
+      "paternal side",
+      "inner, internal"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "inside, indoors",
+      "interior"
+     ]
+    ]
+   ],
+   "why": "The preposition, which two of the three sentences show, was not on the card: English Wiktionary via kaikki.org, extraction fetched 2026-11-19 has it."
+  },
+  "ukbi1/selamat": {
+   "senses": [
+    [
+     "interjection",
+     [
+      "congratulations!"
+     ]
+    ],
+    [
+     "adjective",
+     [
+      "safe",
+      "healthy",
+      "successful",
+      "happy, merry",
+      "good",
+      "enjoy"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "safety",
+      "wholeness"
+     ]
+    ]
+   ],
+   "why": "The adjective, which is the selamat of selamat pagi and selamat datang, was not on the card: English Wiktionary via kaikki.org, extraction fetched 2026-11-19 has it."
+  },
+  "ukbi1/permisi": {
+   "senses": [
+    [
+     "interjection",
+     [
+      "said as a polite request for an individual's attention; to pass, to apologize for one's inconvenience, equivalent to pardon, or excuse me"
+     ]
+    ],
+    [
+     "noun",
+     [
+      "permission, authorisation; consent (especially formal consent from someone in authority)",
+      "leave (permission to be absent; time away from one's work)",
+      "forgiveness, apology"
+     ]
+    ]
+   ],
+   "why": "The same senses of English Wiktionary via kaikki.org, extraction fetched 2026-11-19, the interjection first: it is the word a beginner says."
+  },
+  "ukbi1/sedang": {
+   "senses": [
+    [
+     "adverb",
+     [
+      "Progressive aspect without necessarily a final perspective.",
+      "meanwhile; in that moment; at that time."
+     ]
+    ],
+    [
+     "adjective",
+     [
+      "of intermediate size, degree, amount etc; medium",
+      "in the middle of a range; intermediate",
+      "neither very good nor very bad; rated somewhere in the middle of all others in the same category; average"
+     ]
+    ]
+   ],
+   "why": "The same senses, the adverb first: it is one of the aspect words (sudah, sedang, akan, belum, masih, pernah) and is dealt with them."
+  },
+  "ukbi1/lagi": {
+   "senses": [
+    [
+     "adverb",
+     [
+      "again, anew, anymore; any longer",
+      "back and forth",
+      "(informal) in the process of"
+     ]
+    ]
+   ],
+   "why": "A cut: the gloss read “again, anew, (bukan ... lagi) anymore; any longer”, which names the answer on the English → Indonesian card. The third sense is tagged informal in English Wiktionary via kaikki.org, extraction fetched 2026-11-19."
+  },
+  "ukbi1/silakan": {
+   "senses": [
+    [
+     "interjection",
+     [
+      "please (when offering)"
+     ]
+    ],
+    [
+     "adverb",
+     [
+      "Modifies a verb to ask if the listener can please do the verb."
+     ]
+    ]
+   ],
+   "why": "A cut: the second gloss went on “For example: silakan membaca surat itu means …”, which names the answer on the English → Indonesian card."
+  },
+  "ukbi1/sudah": {
+   "exDrop": [
+    "Dia udah ngontak kamu belum?"
+   ],
+   "exAdd": [
+    [
+     "Kami sudah makan.",
+     "We've eaten.",
+     "Tatoeba 13684134 (English 5424130)"
+    ]
+   ],
+   "why": "The sentence was colloquial (udah, ngontak), which the deck says it does not teach."
+  },
+  "ukbi1/tahu": {
+   "exDrop": [
+    "Beri aku tahu!"
+   ],
+   "exAdd": [
+    [
+     "Aku tahu.",
+     "I know.",
+     "Tatoeba 11306625 (English 319990)"
+    ],
+    [
+     "Saya tidak tahu.",
+     "I don't know.",
+     "Tatoeba 1109561 (English 349064)"
+    ]
+   ],
+   "why": "The first sentence of to know was Give me tofu!, the noun."
+  },
+  "ukbi1/saat": {
+   "exDrop": [
+    "Saat masada."
+   ],
+   "exAdd": [
+    [
+     "Saya masih pelajar saat itu.",
+     "I was still a student then.",
+     "Tatoeba 1212254 (English 1216170)"
+    ]
+   ],
+   "why": "Saat masada is a Turkish sentence (The watch is on the table) filed under Indonesian on Tatoeba (8204923)."
+  },
+  "ukbi1/seperti": {
+   "exDrop": [
+    "Tom sepertinya sedih."
+   ],
+   "exAdd": [
+    [
+     "Dia tidak seperti itu.",
+     "He's not like that.",
+     "Tatoeba 12554860 (English 10123299)"
+    ]
+   ],
+   "why": "All three sentences were of sepertinya (it seems); one of seperti (like) is put first."
+  },
+  "ukbi1/nama": {
+   "exDrop": [
+    "Namanya Tom.",
+    "Namaku John."
+   ],
+   "exAdd": [
+    [
+     "Nama saya Tom.",
+     "My name is Tom.",
+     "Tatoeba 10717828 (English 1173265)"
+    ],
+    [
+     "Siapa nama Anda?",
+     "What is your name?",
+     "Tatoeba 365994 (English 70623)"
+    ]
+   ],
+   "why": "The first exchange a beginner needs, in the formal register: the English Wiktionary has no entry for nama saya or siapa nama Anda, so they are sentences on this card and not cards."
+  },
+  "ukbi1/menjadi": {
+   "forms": [
+    [
+     "root",
+     "jadi"
+    ],
+    [
+     "active",
+     "menjadi"
+    ]
+   ],
+   "why": "The card showed no root. Glossed active of jadi (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/mendengar": {
+   "forms": [
+    [
+     "root",
+     "dengar"
+    ],
+    [
+     "active",
+     "mendengar"
+    ],
+    [
+     "passive",
+     "didengar"
+    ]
+   ],
+   "why": "The card showed no root. Glossed active of dengar; the passive is the one dengar's entry lists (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/memakai": {
+   "forms": [
+    [
+     "root",
+     "pakai"
+    ],
+    [
+     "active",
+     "memakai"
+    ],
+    [
+     "passive",
+     "dipakai"
+    ]
+   ],
+   "why": "The card showed no root. Etymology meng- + pakai; pakai's entry lists both forms (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/membantu": {
+   "forms": [
+    [
+     "root",
+     "bantu"
+    ],
+    [
+     "active",
+     "membantu"
+    ]
+   ],
+   "why": "The card showed no root. Etymology meng- + bantu; bantu's entry lists it as its active (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/bekerja": {
+   "forms": [
+    [
+     "root",
+     "kerja"
+    ],
+    [
+     "active",
+     "bekerja"
+    ]
+   ],
+   "why": "The card showed no root. Etymology ber- + kerja; kerja's entry lists it as its active (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/membeli": {
+   "forms": [
+    [
+     "root",
+     "beli"
+    ],
+    [
+     "active",
+     "membeli"
+    ],
+    [
+     "passive",
+     "dibeli"
+    ]
+   ],
+   "why": "The card showed no root. Etymology meng- + beli; the row had the two forms and no root (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/menulis": {
+   "forms": [
+    [
+     "root",
+     "tulis"
+    ],
+    [
+     "active",
+     "menulis"
+    ],
+    [
+     "passive",
+     "ditulis"
+    ]
+   ],
+   "why": "The card showed no root. Etymology meng- + tulis; the row had the two forms and no root (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/menemukan": {
+   "forms": [
+    [
+     "root",
+     "temu"
+    ],
+    [
+     "meng- -kan",
+     "menemukan"
+    ],
+    [
+     "passive",
+     "ditemukan"
+    ]
+   ],
+   "why": "The card showed no root. Etymology temu + meng- -kan; the row called menemukan its own root (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/melakukan": {
+   "forms": [
+    [
+     "root",
+     "laku"
+    ],
+    [
+     "meng- -kan",
+     "melakukan"
+    ]
+   ],
+   "why": "The card showed no root. Etymology laku + meng- -kan (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/memiliki": {
+   "forms": [
+    [
+     "root",
+     "milik"
+    ],
+    [
+     "meng- -i",
+     "memiliki"
+    ]
+   ],
+   "why": "The card showed no root. Etymology milik + meng- -i (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/membunuh": {
+   "forms": [
+    [
+     "root",
+     "bunuh"
+    ],
+    [
+     "meng-",
+     "membunuh"
+    ]
+   ],
+   "why": "The card showed no root. Etymology meng- + bunuh (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/merasa": {
+   "forms": [
+    [
+     "root",
+     "rasa"
+    ],
+    [
+     "meng-",
+     "merasa"
+    ]
+   ],
+   "why": "The card showed no root. Etymology rasa + meng- (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/bertemu": {
+   "forms": [
+    [
+     "root",
+     "temu"
+    ],
+    [
+     "ber-",
+     "bertemu"
+    ]
+   ],
+   "why": "The card showed no root. Etymology ber- + temu (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/berhenti": {
+   "forms": [
+    [
+     "root",
+     "henti"
+    ],
+    [
+     "ber-",
+     "berhenti"
+    ]
+   ],
+   "why": "The card showed no root. Etymology ber- + henti (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/berbicara": {
+   "forms": [
+    [
+     "root",
+     "bicara"
+    ],
+    [
+     "ber-",
+     "berbicara"
+    ]
+   ],
+   "why": "The card showed no root. Etymology ber- + bicara (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/berjalan": {
+   "forms": [
+    [
+     "root",
+     "jalan"
+    ],
+    [
+     "ber-",
+     "berjalan"
+    ]
+   ],
+   "why": "The card showed no root. Etymology ber- + jalan (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/belajar": {
+   "forms": [
+    [
+     "root",
+     "ajar"
+    ],
+    [
+     "ber-",
+     "belajar"
+    ]
+   ],
+   "why": "The card showed no root. Etymology ber- + ajar (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/berhasil": {
+   "forms": [
+    [
+     "root",
+     "hasil"
+    ],
+    [
+     "ber-",
+     "berhasil"
+    ]
+   ],
+   "why": "The card showed no root. Etymology ber- + hasil (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/berada": {
+   "forms": [
+    [
+     "root",
+     "ada"
+    ],
+    [
+     "ber-",
+     "berada"
+    ]
+   ],
+   "why": "The card showed no root. Etymology ber- + ada (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/bersama": {
+   "forms": [
+    [
+     "root",
+     "sama"
+    ],
+    [
+     "ber-",
+     "bersama"
+    ]
+   ],
+   "why": "The card showed no root. Etymology ber- + sama (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/terjadi": {
+   "forms": [
+    [
+     "root",
+     "jadi"
+    ],
+    [
+     "ter-",
+     "terjadi"
+    ],
+    [
+     "emphatic",
+     "terjadilah"
+    ]
+   ],
+   "why": "The card showed no root. Etymology ter- + jadi; the row called terjadi its own root (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/terlihat": {
+   "forms": [
+    [
+     "root",
+     "lihat"
+    ],
+    [
+     "ter-",
+     "terlihat"
+    ]
+   ],
+   "why": "The card showed no root. Etymology ter- + lihat (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/kehilangan": {
+   "forms": [
+    [
+     "root",
+     "hilang"
+    ],
+    [
+     "ke- -an",
+     "kehilangan"
+    ]
+   ],
+   "why": "The card showed no root. Etymology hilang + ke- -an (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/pekerjaan": {
+   "forms": [
+    [
+     "root",
+     "kerja"
+    ],
+    [
+     "per- -an",
+     "pekerjaan"
+    ]
+   ],
+   "why": "The card showed no root. Etymology per- -an + kerja (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/makanan": {
+   "forms": [
+    [
+     "root",
+     "makan"
+    ],
+    [
+     "-an",
+     "makanan"
+    ]
+   ],
+   "why": "The card showed no root. Etymology makan + -an (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/minuman": {
+   "forms": [
+    [
+     "root",
+     "minum"
+    ],
+    [
+     "-an",
+     "minuman"
+    ]
+   ],
+   "why": "The card showed no root. Etymology minum + -an (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/bantuan": {
+   "forms": [
+    [
+     "root",
+     "bantu"
+    ],
+    [
+     "-an",
+     "bantuan"
+    ]
+   ],
+   "why": "The card showed no root. Etymology bantu + -an (English Wiktionary via kaikki.org, extraction fetched 2026-11-19)."
+  },
+  "ukbi1/ingin": {
+   "hint": "mau",
+   "why": "Its first meaning is word for word the first meaning of mau."
+  },
+  "ukbi1/mau": {
+   "hint": "ingin",
+   "why": "Its first meaning is word for word the first meaning of ingin."
+  },
+  "ukbi1/juga": {
+   "hint": "pun",
+   "why": "Its first meaning is word for word the first meaning of pun."
+  },
+  "ukbi1/pun": {
+   "hint": "juga",
+   "why": "Its first meaning is word for word the first meaning of juga."
+  },
+  "ukbi1/ayo": {
+   "hint": "ayolah",
+   "why": "Its first meaning is word for word the first meaning of ayolah."
+  },
+  "ukbi1/ayolah": {
+   "hint": "ayo",
+   "why": "Its first meaning is word for word the first meaning of ayo."
+  },
+  "ukbi1/benar": {
+   "hint": "sungguh",
+   "why": "Its first meaning is word for word the first meaning of sungguh."
+  },
+  "ukbi1/sungguh": {
+   "hint": "benar",
+   "why": "Its first meaning is word for word the first meaning of benar."
+  },
+  "ukbi1/sana": {
+   "hint": "situ",
+   "why": "Its first meaning is word for word the first meaning of situ."
+  },
+  "ukbi1/situ": {
+   "hint": "sana",
+   "why": "Its first meaning is word for word the first meaning of sana."
+  },
+  "ukbi1/perlu": {
+   "hint": "butuh",
+   "why": "Its first meaning is word for word the first meaning of butuh."
+  },
+  "ukbi1/butuh": {
+   "hint": "perlu",
+   "why": "Its first meaning is word for word the first meaning of perlu."
+  },
+  "ukbi1/ketika": {
+   "hint": "kapan",
+   "why": "Its first meaning is word for word the first meaning of kapan."
+  },
+  "ukbi1/kapan": {
+   "hint": "ketika",
+   "why": "Its first meaning is word for word the first meaning of ketika."
+  },
+  "ukbi1/setelah": {
+   "hint": "kemudian",
+   "why": "Its first meaning is word for word the first meaning of kemudian."
+  },
+  "ukbi1/kemudian": {
+   "hint": "setelah",
+   "why": "Its first meaning is word for word the first meaning of setelah."
+  },
+  "ukbi1/terus": {
+   "hint": "lurus",
+   "why": "Its first meaning is word for word the first meaning of lurus."
+  },
+  "ukbi1/lurus": {
+   "hint": "terus",
+   "why": "Its first meaning is word for word the first meaning of terus."
+  }
+ },
+ "decks": {
+  "ukbi1": {
+   "subtitle": "{notes} words · start here: level 1 of 7 · both directions, as two cards per word",
+   "lead": "START HERE if you have no Indonesian. This is the first of eight decks on the shelf, studied in the order UKBI 1 to UKBI 7 and then the phrases, with the short deck Indonesian — Sounds and spelling beside this one. UKBI is a proficiency test and not a course: its lowest predicate, Terbatas, is level 1 here, and this deck is the survival vocabulary that predicate describes. THE ORDER: the first {day:sebuah} days are a head written by hand — the courtesies (halo, terima kasih and sama-sama on day {day:halo}, selamat pagi and apa kabar on day {day:selamat pagi}, maaf and permisi on day {day:maaf}), the parts of the day, I and you (saya, aku, Anda, kamu on day {day:saya}), siapa and nama, here and there, the commonest verbs from day {day:mau}, the aspect words and the negations (sudah and belum on day {day:sudah}, jangan on day {day:jangan}), the question words from day {day:kapan}, and nol to sepuluh on days {day:nol} to {day:sepuluh}. After it the commonest words come first, with the numbers above ten dealt as one run from day {day:sebelas}, the days of the week from day {day:Senin}, the colours from day {day:warna} and the months from day {day:Januari}, and no derived word before its root. THE PACE: the default is ten new cards a day, and a word is two cards, so five words a day. The deck takes {days} days; UKBI 2 begins on day {start:ukbi2} of the shelf, UKBI 3 on day {start:ukbi3}, UKBI 4 on day {start:ukbi4}, and the eight decks together are {shelfNotes} words, {shelfDays} days, {shelfYears} years. A deck cannot set its own limit: raise it in the deck's options to go faster. WHAT THE CARDS SHOW OF THE GRAMMAR, since no deck explains it. Register: saya (polite) and aku (informal) are both I, Anda (formal) and kamu (informal) both you, and each card says which in brackets as the dictionary does; kau, which the shelf's example sentences use for you, carries the dictionary's own label; kita is we with the listener and kami we without. Negation: tidak (its card says verbs, adverbs and adjectives), bukan (its three sentences each negate a noun), belum (not yet) and jangan (don't) are four cards. Time: a verb has no tenses, and sudah, sedang, akan, belum, masih and pernah are cards dealt together. Building words: a Forms row names a word's root and, where the dictionary names it, the affix it is built with (meng-, ber-, ter-, ke- -an, -an); how meng- changes with its root, the word written twice (hati-hati), and -ku, -mu and -nya written onto a word (namamu, your name) are cards of the sounds deck: many sentences carry a form with -ku, -mu or -nya and no Forms row shows one. {inserted} of the {notes} are not the generator's and were put in by hand in November 2026: kau is new, with its meaning from the English Wiktionary and its sentences from Tatoeba; dari mana and yang mana came down from UKBI 2, tidak apa-apa from UKBI 3, selamat jalan and selamat makan from the phrases deck. —",
+   "descSub": [
+    [
+     "378 of the 500 come from a vocabulary",
+     "378 of the 500 words the generator chose come from a vocabulary"
+    ],
+    [
+     "The cards are ordered by that frequency, so the words you meet most often come first.",
+     "After the hand-written head the cards are in the order of that frequency, so the words you meet most often come first."
+    ],
+    [
+     "Everything here is standard Indonesian, bahasa baku, because",
+     "Everything the generator chose is standard Indonesian, bahasa baku, because"
+    ]
+   ]
+  },
+  "ukbi2": {
+   "dropDup": {
+    "dari mana": "ukbi1/dari mana",
+    "yang mana": "ukbi1/yang mana"
+   },
+   "subtitle": "{notes} words · level 2 of 7 · both directions, as two cards per word",
+   "lead": "LEVEL 2 OF 7 on the Indonesian shelf, studied after UKBI 1: not a place to begin (UKBI 1 is, with Indonesian — Sounds and spelling beside it). At the default of ten new cards a day, which is five words, this deck begins on day {first} of the shelf and takes {days} days; UKBI 3 begins on day {start:ukbi3}, and the eight decks together are {shelfNotes} words, {shelfDays} days, {shelfYears} years. dari mana and yang mana, which this list chose, stand in UKBI 1 with the other question words since November 2026. —",
+   "descSub": [
+    [
+     "313 of the 750 come from a vocabulary",
+     "313 of the 750 words the generator chose come from a vocabulary"
+    ]
+   ]
+  },
+  "idphrase": {
+   "dropDup": {
+    "selamat jalan": "ukbi1/selamat jalan",
+    "selamat makan": "ukbi1/selamat makan"
+   },
+   "subtitle": "{notes} expressions · {n:Phrases} everyday, {n:Idioms} idioms, {n:Proverbs} proverbs · last on the shelf · both directions",
+   "lead": "THE LAST DECK on the Indonesian shelf, after UKBI 7, and not a first phrase book: the greetings and courtesies (selamat pagi, terima kasih, apa kabar, selamat jalan, selamat makan) are cards of UKBI 1. THE ORDER inside each of the three subdecks is by reading level: first the expressions written only with words and forms a UKBI 1 card shows ({l1} of the {notes}), then those that need UKBI 2, and so on up to UKBI 7, the expressions with a word no deck cards last. The app deals the three subdecks side by side. At the default of ten new cards a day, which is five expressions, the deck takes {days} days, from day {first} of the shelf to day {last}. —",
+   "descSub": [
+    [
+     "Within each subdeck the order is by how often the expression turns up in those corpora, commonest first.",
+     "Within each subdeck, among expressions of one reading level, the order is by how often the expression turns up in those corpora, commonest first."
+    ],
+    [
+     "so only 100 of these 228 occur in one at all",
+     "so only 100 of the 228 the generator chose occur in one at all"
+    ]
+   ]
+  },
+  "ukbi3": {
+   "subtitle": "{notes} words · level 3 of 7 · both directions, as two cards per word",
+   "lead": "LEVEL 3 OF 7 on the Indonesian shelf, studied after UKBI 2: not a place to begin (UKBI 1 is, with Indonesian — Sounds and spelling beside it). At the default of ten new cards a day, which is five words, this deck begins on day {first} of the shelf and takes {days} days; UKBI 4 begins on day {start:ukbi4}, and the eight decks together are {shelfNotes} words, {shelfDays} days, {shelfYears} years. tidak apa-apa, which this list chose, stands in UKBI 1 with the other courtesies since November 2026. —",
+   "dropDup": {
+    "tidak apa-apa": "ukbi1/tidak apa-apa"
+   }
+  },
+  "ukbi4": {
+   "subtitle": "{notes} words · level 4 of 7 · both directions, as two cards per word",
+   "lead": "LEVEL 4 OF 7 on the Indonesian shelf, studied after UKBI 3: not a place to begin (UKBI 1 is, with Indonesian — Sounds and spelling beside it). At the default of ten new cards a day, which is five words, this deck begins on day {first} of the shelf and takes {days} days; UKBI 5 begins on day {start:ukbi5}, and the eight decks together are {shelfNotes} words, {shelfDays} days, {shelfYears} years. —"
+  },
+  "ukbi5": {
+   "subtitle": "{notes} words · level 5 of 7 · both directions, as two cards per word",
+   "lead": "LEVEL 5 OF 7 on the Indonesian shelf, studied after UKBI 4: not a place to begin (UKBI 1 is, with Indonesian — Sounds and spelling beside it). At the default of ten new cards a day, which is five words, this deck begins on day {first} of the shelf and takes {days} days; UKBI 6 begins on day {start:ukbi6}, and the eight decks together are {shelfNotes} words, {shelfDays} days, {shelfYears} years. —"
+  },
+  "ukbi6": {
+   "subtitle": "{notes} words · level 6 of 7 · both directions, as two cards per word",
+   "lead": "LEVEL 6 OF 7 on the Indonesian shelf, studied after UKBI 5: not a place to begin (UKBI 1 is, with Indonesian — Sounds and spelling beside it). At the default of ten new cards a day, which is five words, this deck begins on day {first} of the shelf and takes {days} days; UKBI 7 begins on day {start:ukbi7}, and the eight decks together are {shelfNotes} words, {shelfDays} days, {shelfYears} years. —"
+  },
+  "ukbi7": {
+   "subtitle": "{notes} words · level 7 of 7 · both directions, as two cards per word",
+   "lead": "LEVEL 7 OF 7 on the Indonesian shelf, studied after UKBI 6: not a place to begin (UKBI 1 is, with Indonesian — Sounds and spelling beside it). At the default of ten new cards a day, which is five words, this deck begins on day {first} of the shelf and takes {days} days; the phrases begin on day {start:idphrase}, and the eight decks together are {shelfNotes} words, {shelfDays} days, {shelfYears} years. —"
+  }
+ }
+}

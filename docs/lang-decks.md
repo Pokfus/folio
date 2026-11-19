@@ -2728,6 +2728,16 @@ changed was the one that had been wrong all along.
   `UKBI-6-Sangat-Unggul-Indonesian.folio-deck.json`** (2,500 / 5,000, 1.14 MB) and **level 7
   `UKBI-7-Istimewa-Indonesian.folio-deck.json`** (1,500 / 3,000, 618 KB — smaller than the level below it,
   for the reason its own bullet gives).
+  **READ THIS FIRST (2026-11-19, the Indonesian beginner pass — its section is near the foot of this file).**
+  The sizes above are the generator's: the shipped UKBI 1 is 506 notes, UKBI 2 748, UKBI 3 999 and the
+  phrases 226, because every hand edit since is in a RECORD applied after `run.py`
+  (`.claude/decks/indonesian-fixes.json`, `indonesian-ids.json`, `indonesian-order.json`, by
+  `indonesian-fix.js`, which finds its decks by the card type `ukbi`), and a ninth deck, `Indonesian — Sounds
+  and spelling`, is written by `build-indonesian-sounds.js`. **A note id is PINNED to its headword** and is
+  no longer its position. **A re-run is not byte for byte the shipped deck** (measured that day: 76 of level
+  1's cards came back with other sentences), and **a level reads the shipped decks below it**, so never
+  rebuild a level as a side effect; after any rebuild run `indonesian-fix.js`. 📖 `.claude/decks/README.md`
+  "The Indonesian decks" has the table of files.
   `python3 .claude/ukbi/run.py [--level 1..7] [--no-fetch]`. Six stages, caching its
   corpora in `.claude/ukbi-cache/` (~180 MB, gitignored). PYTHON, like `.claude/dele/` and `.claude/goethe/`
   and unlike every other helper here, for the same reason: a further level is a re-run rather than a rebuild.
@@ -5052,6 +5062,177 @@ and in `.claude/decks/README.md`, "The Portuguese decks"; this section is the re
 - **`check-caple.js`'s browser half does not finish**, on `main` or on the branch: it imports the deck
   through `#studio` and waits for an element that no longer appears. Its file half passes on all seven
   decks; one probe was updated (por favor is now A1's).
+
+## The Indonesian beginner pass (2026-11-19)
+
+On request, the audit the Japanese, Mandarin, Spanish, Italian, German and Portuguese decks had been given:
+**what does a learner with no Indonesian meet, in the order the shelf itself recommends** — UKBI 1 to UKBI
+7, then the phrases? Every figure was measured on the eight decks as shipped that morning, at the language
+default of ten new cards a day with both directions together, which is five words a day. The rules are in
+the `.claude/ukbi/` entry above and in `.claude/decks/README.md`; this section is the reasoning.
+
+### What the audit found, by what it costs a beginner
+
+1. **The courtesies were weeks in, and UKBI 1 was dealt by a subtitle frequency list.** Day one was aku,
+   yang, tidak, ini, itu. halo was note 238 (day 48), terima kasih 275 (day 55), sama-sama 430 (day 86),
+   apa kabar 436 (day 88), selamat pagi 441 (day 89), selamat sore 492 (day 99); maaf 101 (day 21), tolong
+   159, permisi 313. All of them WERE carded, two-word phrases included (19 of the 500 headwords were
+   phrases). Three were not in UKBI 1 at all: selamat jalan and selamat makan stood in the phrases deck,
+   last on the shelf (notes 66 and 67, day 1,964), and tidak apa-apa in UKBI 3 (note 383, day 327). The
+   English Wiktionary has no entry for nama saya or siapa nama Anda, so neither was a card anywhere.
+2. **The closed sets were scattered.** nol to sepuluh ran from note 56 (satu) to 474 (nol), sebelas was 495;
+   the days of the week 463 to 500; the months 461 to 493; the colours 349 to 471. The pronouns: aku 1, dia
+   7, kita 11, mereka 17, Anda 18, saya 21, kami 23, kamu 30, kalian 52, ia 127, beliau 451. The question
+   words: apa 10, bagaimana 44, siapa 61, kenapa 69, mengapa 116, di mana 121, berapa 216, kapan 287, ke
+   mana 292, and dari mana and yang mana in UKBI 2 (notes 382 and 373). aku before saya is a frequency
+   accident (2,051,910 subtitle occurrences), not a teaching choice.
+3. **Nothing said how a letter is read.** Of UKBI 1's 500 headwords 194 contain e, which is /ə/, /e/ or /ɛ/
+   with nothing to mark which; 15 contain c, 53 ng and 10 ngg, 7 ny, 24 end in k, 1 has kh and none sy;
+   255 contain at least one. No deck and no description mentioned any of it, or where the stress falls.
+4. **Twenty-two cards of UKBI 1's head were not what they said, or could not be told apart backwards.** ini opened
+   on "only, just"; bisa on "venom"; dia carried "to fold lontar leaves"; dan a judo rank and a sentence
+   about a man called Dan; tak two nouns; saat a Turkish sentence (Saat masada, "The watch is on the
+   table"); tahu's first sentence was "Give me tofu!"; seperti's three sentences were all of sepertinya;
+   dalam lacked "in" and selamat lacked the adjective that selamat pagi is made with. kamu and Anda had
+   the same English but for a hyphen, and aku and saya the same first line: the dictionary tags them
+   informal, formal, informal and polite, and the cards did not say so. 24 notes shared a first gloss in
+   12 groups, 4 of them hinted (the generator labels only wholly identical English sides); a card asks
+   English → Indonesian with 2.15 senses on average; 17 fronts contained their own answer, 11 of them
+   loanwords that are the same word in English (hotel, bus).
+5. **The affix family was on fewer cards than the description implied.** 67 of 500 cards carried a Forms
+   row. Of the 27 meN- verbs that are headwords, 15 showed their root; of the 11 ber- verbs, none; of the 4
+   ter- words, none; menemukan and terjadi were labelled their own root, and menulis — the description's
+   own example — showed no root. The rows that exist show every change of meN- (me- before l, mem- before
+   b and before a dropped p, men- before c, d, j and a dropped t, meng- before a vowel, h and a dropped k)
+   except meny- before a dropped s, and nothing says it is one prefix. 198 of the 1,430 forms the example
+   sentences mark carry -ku, -mu or -nya, which no card shows or explains. 19 pairs of root and derived
+   word were both cards, a median of 93 notes apart, 4 with the derived word first. Reduplication: four
+   headwords (benar-benar, laki-laki, hati-hati, sama-sama) and eight plural cells (orang-orang),
+   unexplained.
+6. **The grammar a card can show was there and not together.** sudah 27, akan 9, pernah 60, telah 63, masih
+   89, sedang 105, belum 137; tidak 3, bukan 42, jangan 45. orang carries its classifier sense, sebuah was
+   117, buah 375, ekor is UKBI 2. Nothing anywhere explained tidak against bukan, the aspect words, a
+   classifier or -nya.
+7. **kau was on no card and in 163 example sentences** (18 of UKBI 1's): the generator drops a sense the
+   dictionary tags regional. bilang (tagged colloquial) is on none either, in 19 sentences. The colloquial
+   words the deck promises not to teach are rare in its sentences: 10 of UKBI 1's 1,430 (0.7%), and under
+   1% at every level.
+8. **No description said where to start, what the pace is, or how long the shelf is.** UKBI 1 said it was
+   "the lowest of the seven"; no deck said "start here" or named the next. UKBI 1 was 100 days, UKBI 3
+   began on day 251, and the eight decks were 9,978 notes: 1,996 days, 5.5 years.
+9. **Every description overstated its sentences.** "Three apiece for 494" at UKBI 1 was 434; 703 was 636,
+   814 was 771, 779 was 744, 382 was 360, 174 was 163, 28 was 26, and the phrases' 4 was 3 (a pass over the
+   shelf took repeated sentences off the cards after the generator had written the figure). The cards
+   showing a passive were 61, 65, 56, 26 and 3 at levels 2, 3, 4, 6 and 7, for 62, 71, 57, 29 and 4.
+10. **The phrases were not in the order of their level.** Their order is how often two corpora have them,
+    then the alphabet. 37 of the 228 are written only with words and forms UKBI 1 cards show, at median
+    positions 37 of 84, 53 of 111 and 25 of 33; 49 contain a word no deck cards.
+11. **The example sentences are short and mostly readable.** Three words at the median in UKBI 1, rising to
+    eight at UKBI 6. In the order the cards arrive, counting an affixed form as met only if a card shows
+    it, 68% of a sentence's words had been met at UKBI 1, 75% at UKBI 2, 78% at UKBI 3 and 80 to 85% above;
+    over UKBI 1's first fifty notes it was 51%, with 10 of 144 sentences readable whole.
+12. **The levels are cleanly cut.** No headword of any level is a card of a lower one, or a form a lower
+    card shows. By the dictionary's own etymologies 6, 37, 53, 106, 149 and 137 headwords of levels 2 to 7
+    are derived from a lower level's headword. Against the subtitle list the generator uses, the median
+    rank of a level's first 300 words is 169, 595, 1,543, 3,416, 7,190, 14,616 and 33,625. The sizes (500,
+    750, 1,000, 1,500, 2,000, 2,500, 1,500) are 100 to 500 days each; level 7's own description says why it
+    is smaller, in words that read correctly ("a fact about the sources rather than about the predicate").
+13. **The generator cannot reproduce a deck.** With its five sources fetched fresh (178 MB: kaikki 70 MB,
+    Tatoeba 112 MB, the frequency list and Global Voices 2 MB), `run.py --level 1 --no-fetch` into a scratch
+    copy gave the same 500 headwords with 29 in another position, 76 with other sentences, 14 with other
+    meanings and 3 with another Forms row. "Leaves levels 1–5 byte-identical" in the entry above is a
+    sentence about FILE NAMES (only level 6's had a space) with the corpora of that day.
+
+### What was built
+
+- **Note ids pinned** (`indonesian-ids.json`, 9,978 rows, 10,000 with the sounds deck and kau), before
+  anything moved: all eight decks were numbered by position and none had a pin. Checked in a browser with
+  the decks as shipped: a reader holding the old UKBI 1, UKBI 2, UKBI 3 and phrases with 20 notes studied
+  in BOTH directions took the four Updates and kept the same 40 ids on the same words with their schedules
+  ("6 new cards, 68 cards corrected"; "2 cards dropped from the list (kept here, with their progress)";
+  "1 card dropped…"; "2 cards dropped…"), the five dropped notes staying on the device.
+- **An Indonesian record** (`indonesian-fixes.json`, applied by `indonesian-fix.js` to every deck of card
+  type `ukbi`), with an order (`indonesian-order.json`, `indonesian-order.js`) and the pin. Every fix is a
+  hand edit of this kind; nothing was rebuilt and the generator is untouched.
+- **6 notes for UKBI 1** (ids 501 to 506): kau, new (the dictionary's meaning with its own label "poetic,
+  regional", three Tatoeba sentences), and five MOVED byte for byte — tidak apa-apa from UKBI 3, dari mana
+  and yang mana from UKBI 2, selamat jalan and selamat makan from the phrases — each `dropDup`ped where it
+  was, with its row in `_retired`. No headword is carded twice on the shelf.
+- **68 UKBI 1 cards repaired**: the register in brackets as the dictionary tags it on aku, saya, kamu, Anda,
+  kenapa and beliau; a first sense or a homograph put right on ini, dia, dan, bisa, tak, halo, dalam,
+  selamat, permisi, sedang, lagi and silakan (the last two are cuts, said to be); a sentence replaced on
+  aku, dan, sudah, tahu, saat and seperti, and Nama saya Tom and Siapa nama Anda? put on nama; a root, and
+  the affix as the dictionary writes it (meng- -kan, ber-, ter-, ke- -an, -an), on 27 cards whose etymology
+  or head line names one; and the generator's own "not …" label on the 18 notes of nine pairs that share a
+  first meaning (ingin and mau, juga and pun).
+- **An order for UKBI 1**: 105 notes by hand — the courtesies, the parts of the day, I and you in both
+  registers, a first exchange, here and there, the commonest verbs, the aspect words and the negations, the
+  question words, nol to sepuluh, the first function words — then the frequency order, with the numbers
+  above ten from note 151, the days of the week from 201, the colours from 251 and the months from 301,
+  and no derived word before its root. halo and terima kasih are day one, selamat pagi and apa kabar day
+  two, saya, aku, Anda and kamu day five. Over the first fifty notes 57% of sentence words have been met
+  and 27 of 133 sentences can be read whole (51% and 10 of 144).
+- **`Indonesian — Sounds and spelling`** (21 notes, one card each, card type `idsound`): the five vowels,
+  ai and au, nine consonant letters and pairs (c, g, h, k, kh, ng, ny, r, v), and five rules — the stress,
+  di and ke apart or joined, the word written twice, how meng- changes with its root, and -ku, -mu, -nya.
+  English comparisons and notes are cells of Wikipedia's Help:IPA/Indonesian and Malay (revision
+  1334069601); the rules are sentences of "Indonesian orthography" (1384102587), "Malay phonology"
+  (1379837430, the nasal assimilation) and "Indonesian language" (1385665763, the two e's and the stress);
+  every example word is a UKBI 1 card with its speaker and the English Wiktionary's transcription, and the
+  meng- card's pairs are read off the Forms rows of eight UKBI 1 cards.
+- **The phrases dealt by reading level** inside each subdeck (36 of the 226 written with UKBI 1's words
+  first, the 49 with a word on no card last).
+- **A lead on every description**, its figures tokens filled on each run: UKBI 1 says start here, the
+  order, the pace, the shelf's length, and what the cards show of register, negation, aspect and affixes;
+  UKBI 2 to 7 say which level they are, the day they begin and that UKBI 1 is the place to start; the
+  phrases say they are last and how they are ordered. **The counts a description states are recounted on
+  every run**, which corrected the figures of finding 9.
+- **CI**: `indonesian-fix.js --check`, `indonesian-order.js --check` and
+  `build-indonesian-sounds.js --check`. `check-ukbi.js` and `check-phrases.js` were brought up to the
+  decks (their header notes say what changed).
+
+### What was decided against, and why
+
+- **Re-running the generator**, for any level. It cannot reproduce a deck (finding 13), and each level
+  reads the shipped decks below it: a rebuilt UKBI 2 or 3 would now leave out the three words that moved
+  down and fill itself with other words, unpinned.
+- **Re-cutting the levels or their sizes.** The gradient is steady (finding 11 and 12) and a beginner can
+  take the step from 1 to 2 to 3; what was missing was saying how long each is.
+- **Re-ordering UKBI 2 to 7.** 75% to 85% of a card's sentence words have been met on arrival.
+- **Subdecks for the sets.** The app deals subdecks in parallel, a day apart.
+- **A grammar deck.** Nothing on the shelf can be quoted for tidak against bukan, the aspect words or the
+  classifiers beyond what the cards show, so the UKBI 1 description points at the cards and says no more.
+  The two rules of word-building that ARE quoted (meng-, the enclitics) are cards of the sounds deck.
+- **Cards for bilang, engkau, nggak and the other colloquial words.** The deck says it teaches the standard
+  language, and the dictionary tags them colloquial or regional; kau is the one exception, for its 163
+  sentences, with the dictionary's label on the card.
+- **Cards for nama saya and siapa nama Anda.** The dictionary has no entry to take a meaning from; they are
+  the first two sentences of nama's card.
+- **Roots on bertanya, berdiri and mencoba**, whose entries give no etymology, and **on the affixed words
+  of UKBI 2 to 7** (89, 84, 78, 80, 71 and 15 rows as shipped): each wants its own entry read.
+- **Hints above UKBI 1** (31, 24, 52, 55, 105 and 28 notes share a first gloss at levels 2 to 7), and
+  repairing glosses such as berkata's "to be in a state of saying".
+- **Moving more phrasebook lines into UKBI 1** (saya tersesat, panggil polisi, apakah Anda berbicara
+  bahasa Inggris): they need words UKBI 1 does not card, and now stand first in the phrases deck.
+- **Cards for j, y, w and the other letters read as in English**, and for sy and z, which no UKBI 1
+  headword contains.
+
+### Limits to know about
+
+- **UKBI 1 was not read card by card.** The first 75 cards of the old order and the 105 of the head were;
+  a wrong first sense or a foreign sentence may stand elsewhere (saat's did).
+- **A reader who already holds UKBI 2, UKBI 3 or the phrases keeps the five cards that moved** and meets
+  them again in UKBI 1.
+- **That the courtesies and kau are level 1 material is a judgement here**, not a citation; UKBI publishes
+  no word list, and the description says the six are not the generator's.
+- **Register is shown only where the dictionary tags a sense**: ia, dia and tak carry no tag there and none
+  on the card.
+- **The ng card's second row** sets the page's cells for ŋ and ɡ side by side; no source table has a row
+  for ngg. The transcriptions are the English Wiktionary's narrow ones, which mark unreleased stops; three
+  example words have none there (di sini, hati-hati, dirimu).
+- **`check-ukbi.js`, `check-phrases.js` and `check-combined.js` import through the Studio** and are not
+  CI steps; what was run of them, and what was not, is in the pull request.
+- **The whole shelf is now 9,979 notes: 1,998 days at the default pace, 5.5 years.**
 
 ## The Arabic beginner pass (2026-11-19)
 

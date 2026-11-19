@@ -190,6 +190,38 @@ insert with no place fails that script), `portuguese-order.js`, `portuguese-fix.
 A figure typed into a `descSub` is held to the order by `portuguese-order.js`; the counts are recounted on
 every run.
 
+## The Indonesian decks: the record, the order, the pinned ids and the sounds deck (Nov 2026)
+
+Eight decks of card type `ukbi`: the seven UKBI levels and the phrases, written by `.claude/ukbi/run.py`
+(Python, 178 MB of live corpora, one level per run on top of the shipped decks below it). A re-run is not
+byte for byte the shipped deck (`docs/lang-decks.md`, "The Indonesian beginner pass"), so every change is in a
+record applied after it, on the German model: **a word is ONE NOTE with two card templates**, so the pin is
+of note ids (a card id is the note id, plus `~2` for English → Indonesian).
+
+    node indonesian-fix.js --check             # the Indonesian record, the order and the pinned ids
+    node indonesian-order.js --check           # indonesian-order.json is what the rules give
+    node build-indonesian-sounds.js --check    # the sounds deck is what its table and UKBI 1 give
+
+| file | what it is |
+|---|---|
+| `indonesian-fixes.json` | the record: `insert` (a moved card's five `fields` byte for byte with `from`, or `senses` / `forms` / `ex` with a source for every sentence), `notes` (`senses`, `forms`, `ex`, `exDrop`, `exAdd`, `hint`), `decks.<id>.dropDup`, `subtitle`, `descSub`, and `lead`, the paragraph put before the generator's own description, whose figures are tokens (`{days}`, `{first}`, `{day:<headword>}`, `{shelfDays}` …) filled on every run. Every meaning is the English Wiktionary's, with the register its sense is tagged with; every sentence names its Tatoeba id. |
+| `indonesian-ids.json` | deck id → headword (a sounds row's key) → the number in the note's id. **Never delete or renumber a row.** A removed note's row moves to `_retired` (5 of them); APPLIED, so a deck numbered by position is numbered back. |
+| `indonesian-order.json` | deck id → the full list of headwords in the order the deck is dealt (UKBI 1, the phrases). May be edited by hand; a list that is not exactly the deck's headwords is refused. A deck with no entry is dealt in the order of its pinned numbers. |
+| `indonesian-order.js` | how that file is computed, from the PINNED NUMBER: UKBI 1's hand-written head, four closed sets each placed at a note number, a derived word never before its root; the phrases by reading level inside each of their three subdecks. `--report` prints the measurements. |
+| `indonesian-sounds.json` | the sounds table: cells and sentences quoted from four Wikipedia pages at the revisions it names, three glosses of the English Wiktionary, and Wiktionary's transcription of each example word. A row's `key` is what its id is pinned to. |
+| `build-indonesian-sounds.js` | writes `Indonesian-Sounds-and-Spelling` (card type `idsound`). **Reads no live source**: the table and the shipped UKBI 1 deck. |
+
+`indonesian-fix.js` finds its decks by CARD TYPE (`ukbi`) and skips the combined one-file deck (`ukbiall`,
+gitignored). **A level reads the shipped decks below it**, so do not rebuild a level as a side effect: a
+rebuild of UKBI 2 or 3 now leaves out the words the record moved down (UKBI 1 carries them) and fills the
+level with other words, which arrive unpinned, and a rebuild of UKBI 1 gives other sentences on 76 cards. To add a word to UKBI 1: an `insert`
+entry (the next free id above 506, its senses, three sentences each naming its Tatoeba id, a `why`),
+`indonesian-fix.js`, then name the headword in `HEAD` or in a set in `indonesian-order.js` or let it fall by
+its number, `indonesian-order.js`, `indonesian-fix.js` again, `build-indonesian-sounds.js`, and
+`node .claude/build-lang-decks.js`. To move a word down from a higher deck: the same, with the card's
+`fields` copied into the entry and a `dropDup` row on the deck it leaves. The counts a description states
+are recounted on every run, and a lead's figures are tokens, so none is typed.
+
 ## The Arabic decks: the same three files, kept in `.claude/arabic/` (Nov 2026)
 
 The seven Arabic decks follow the German model — a record, a pin, an order, each with a `--check` — but
