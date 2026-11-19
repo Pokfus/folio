@@ -998,6 +998,12 @@ Wang Yangming (`cnh-528`); the Treaty of Nanking 29 August 1842 (`cnh-562`); the
 | the Maritime Trade Supervisorate attested / reorganised / new offices / an office added | c. 700 – 800 CE / 971 CE / 999 CE / 1087 | Hirth and Rockhill; Quanzhou (`cnh-818`) |
 | the junk described / the oldest hull / the word attested | 1124 / c. 1277 / c. 1300 | Xu Jing; the Quanzhou ship study; Yule and Burnell (`cnh-819`) |
 | "comprador" attested / the Hong monopoly ended | 1533 / 29 August 1842 | Yule and Burnell; Mayers (`cnh-820`; with `cnh-562`) |
+| the qianzhuang guild formed | 1776 | Kruglova (`cnh-821`) |
+| the salt merchants: silver paid / the syndicates set | 1492 / 1617 | An; Theobald (`cnh-822`; 1492 with `cnh-718`) |
+| Yunnan copper: mining promoted / state control / supplied the mints / peak output | 1682 / 1705 / 1738 / 1764 | Giersch; Dunstan; von Glahn (`cnh-823`) |
+| the Great Divergence dated / also dated | 1700 – 1750 / 1800 | Broadberry, Guan and Li; Goldstone (`cnh-825`) |
+| Huang–Lao flourished / the Mawangdui copies buried | c. 300 – 100 BCE / 168 BCE | the cited studies (`cnh-826`) |
+| the *Lüshi Chunqiu* compiled | c. 239 BCE | Knoblock and Riegel, through the SEP (`cnh-827`) |
 
 ## Later periods
 
@@ -1831,4 +1837,10 @@ cnh-817: 825; 850; 826; 1998
 cnh-818: 700; 800; 971; 999; 1087
 cnh-819: 1124; 1277; 1300
 cnh-820: 1533; 1842
+cnh-821: 1776
+cnh-822: 1492; 1617
+cnh-823: 1682; 1705; 1738; 1764
+cnh-825: 1700; 1750; 1800
+cnh-826: 300; 100; 168
+cnh-827: 239
 ```
