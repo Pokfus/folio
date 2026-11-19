@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-19T04:47Z",
+ "generated": "2026-11-19T05:00Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8391,
-  "redirect-broader": 803,
-  "redirect-variant": 494,
-  "section-redirect": 190,
-  "disambiguation": 155,
-  "none": 1188,
+  "ok": 8431,
+  "redirect-broader": 804,
+  "redirect-variant": 496,
+  "section-redirect": 192,
+  "disambiguation": 157,
+  "none": 1191,
   "disambig-resolved": 109,
   "list-page": 6,
   "search-match": 10,
@@ -90261,6 +90261,390 @@
    "via": "answer",
    "status": "redirect-variant",
    "from": "Zeami"
+  },
+  "jp-201": {
+   "answer": "Kamakura shogunate",
+   "title": "Kamakura shogunate",
+   "url": "https://en.wikipedia.org/wiki/Kamakura_shogunate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-202": {
+   "answer": "Minamoto no Yoritomo",
+   "title": "Minamoto no Yoritomo",
+   "url": "https://en.wikipedia.org/wiki/Minamoto_no_Yoritomo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-203": {
+   "answer": "samurai-dokoro",
+   "title": "Samurai-dokoro",
+   "url": "https://en.wikipedia.org/wiki/Samurai-dokoro",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-204": {
+   "answer": "shogun",
+   "title": "Shogun",
+   "url": "https://en.wikipedia.org/wiki/Shogun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-205": {
+   "answer": "jito",
+   "title": "Jitō",
+   "url": "https://en.wikipedia.org/wiki/Jit%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-206": {
+   "answer": "Minamoto no Yoshitsune",
+   "title": "Minamoto no Yoshitsune",
+   "url": "https://en.wikipedia.org/wiki/Minamoto_no_Yoshitsune",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-207": {
+   "answer": "Gikeiki",
+   "title": "Gikeiki",
+   "url": "https://en.wikipedia.org/wiki/Gikeiki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-208": {
+   "answer": "Minamoto no Sanetomo",
+   "title": "Minamoto no Sanetomo",
+   "url": "https://en.wikipedia.org/wiki/Minamoto_no_Sanetomo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-209": {
+   "answer": "Hojo clan",
+   "title": "Hōjō clan",
+   "url": "https://en.wikipedia.org/wiki/H%C5%8Dj%C5%8D_clan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-210": {
+   "answer": "shikken",
+   "title": "Shikken",
+   "url": "https://en.wikipedia.org/wiki/Shikken",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-211": {
+   "answer": "Hojo Masako",
+   "title": "Hōjō Masako",
+   "url": "https://en.wikipedia.org/wiki/H%C5%8Dj%C5%8D_Masako",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-212": {
+   "answer": "Jokyu War",
+   "title": "Jōkyū War",
+   "url": "https://en.wikipedia.org/wiki/J%C5%8Dky%C5%AB_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-213": {
+   "answer": "Rokuhara Tandai",
+   "title": "Rokuhara Tandai",
+   "url": "https://en.wikipedia.org/wiki/Rokuhara_Tandai",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-214": {
+   "answer": "Goseibai Shikimoku",
+   "title": "Goseibai Shikimoku",
+   "url": "https://en.wikipedia.org/wiki/Goseibai_Shikimoku",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-215": {
+   "answer": "shitaji chubun",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Jisha-ryō",
+    "Nanboku-chō period"
+   ]
+  },
+  "jp-216": {
+   "answer": "soryo",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Soryo",
+   "suggestions": [
+    "Fuyumi Soryo",
+    "Sōryō, Hiroshima",
+    "Soryo, Republic of Karelia"
+   ]
+  },
+  "jp-217": {
+   "answer": "ichigobun",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "jp-218": {
+   "answer": "Kamakura Buddhism",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Kamakura Buddhism",
+   "target": "Buddhism in Japan#Kamakura Buddhism (1185–1333) - new schools of Buddhism"
+  },
+  "jp-219": {
+   "answer": "Honen",
+   "title": "Hōnen",
+   "url": "https://en.wikipedia.org/wiki/H%C5%8Dnen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-220": {
+   "answer": "Jodo-shu",
+   "title": "Jōdo-shū",
+   "url": "https://en.wikipedia.org/wiki/J%C5%8Ddo-sh%C5%AB",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-231": {
+   "answer": "Great Buddha of Kamakura",
+   "title": "Kōtoku-in",
+   "url": "https://en.wikipedia.org/wiki/K%C5%8Dtoku-in",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Great Buddha of Kamakura"
+  },
+  "jp-232": {
+   "answer": "Shin Kokin Wakashu",
+   "title": "Shin Kokin Wakashū",
+   "url": "https://en.wikipedia.org/wiki/Shin_Kokin_Wakash%C5%AB",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-233": {
+   "answer": "Hojoki",
+   "title": "Hōjōki",
+   "url": "https://en.wikipedia.org/wiki/H%C5%8Dj%C5%8Dki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-234": {
+   "answer": "tokuso",
+   "title": "Tokusō",
+   "url": "https://en.wikipedia.org/wiki/Tokus%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-235": {
+   "answer": "Genko War",
+   "title": "Genkō War",
+   "url": "https://en.wikipedia.org/wiki/Genk%C5%8D_War",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-236": {
+   "answer": "Mongol invasions of Japan",
+   "title": "Mongol invasions of Japan",
+   "url": "https://en.wikipedia.org/wiki/Mongol_invasions_of_Japan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-237": {
+   "answer": "Hojo Tokimune",
+   "title": "Hōjō Tokimune",
+   "url": "https://en.wikipedia.org/wiki/H%C5%8Dj%C5%8D_Tokimune",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-238": {
+   "answer": "Dazaifu",
+   "title": "Dazaifu (government)",
+   "url": "https://en.wikipedia.org/wiki/Dazaifu_(government)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-239": {
+   "answer": "Battle of Bun'ei",
+   "title": "Battle of Bun'ei",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Bun'ei",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-240": {
+   "answer": "Genko Borui",
+   "title": "Genkō Bōrui",
+   "url": "https://en.wikipedia.org/wiki/Genk%C5%8D_B%C5%8Drui",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-251": {
+   "answer": "Kenmu Restoration",
+   "title": "Kenmu Restoration",
+   "url": "https://en.wikipedia.org/wiki/Kenmu_Restoration",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-252": {
+   "answer": "Go-Daigo",
+   "title": "Emperor Go-Daigo",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Go-Daigo",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Go-Daigo"
+  },
+  "jp-253": {
+   "answer": "Ashikaga Takauji",
+   "title": "Ashikaga Takauji",
+   "url": "https://en.wikipedia.org/wiki/Ashikaga_Takauji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-254": {
+   "answer": "Nanboku-cho period",
+   "title": "Nanboku-chō period",
+   "url": "https://en.wikipedia.org/wiki/Nanboku-ch%C5%8D_period",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-255": {
+   "answer": "Southern Court",
+   "title": "Southern Court",
+   "url": "https://en.wikipedia.org/wiki/Southern_Court",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-256": {
+   "answer": "Kusunoki Masashige",
+   "title": "Kusunoki Masashige",
+   "url": "https://en.wikipedia.org/wiki/Kusunoki_Masashige",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-257": {
+   "answer": "Taiheiki",
+   "title": "Taiheiki",
+   "url": "https://en.wikipedia.org/wiki/Taiheiki",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-258": {
+   "answer": "Ashikaga shogunate",
+   "title": "Ashikaga shogunate",
+   "url": "https://en.wikipedia.org/wiki/Ashikaga_shogunate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-259": {
+   "answer": "Muromachi period",
+   "title": "Muromachi period",
+   "url": "https://en.wikipedia.org/wiki/Muromachi_period",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-260": {
+   "answer": "Ashikaga Yoshimitsu",
+   "title": "Ashikaga Yoshimitsu",
+   "url": "https://en.wikipedia.org/wiki/Ashikaga_Yoshimitsu",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-261": {
+   "answer": "Go-Kameyama",
+   "title": "Emperor Go-Kameyama",
+   "url": "https://en.wikipedia.org/wiki/Emperor_Go-Kameyama",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Go-Kameyama"
+  },
+  "jp-262": {
+   "answer": "Kinkaku-ji",
+   "title": "Kinkaku-ji",
+   "url": "https://en.wikipedia.org/wiki/Kinkaku-ji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-263": {
+   "answer": "Ningbo incident",
+   "title": "Ningbo incident",
+   "url": "https://en.wikipedia.org/wiki/Ningbo_incident",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-264": {
+   "answer": "tally trade",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Japanese missions to Ming China",
+    "Japan–Ming trade-ship flag",
+    "Ningbo incident",
+    "Fortune Global 500",
+    "Bamboo tally"
+   ]
+  },
+  "jp-265": {
+   "answer": "Ashikaga Yoshimasa",
+   "title": "Ashikaga Yoshimasa",
+   "url": "https://en.wikipedia.org/wiki/Ashikaga_Yoshimasa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-266": {
+   "answer": "Ginkaku-ji",
+   "title": "Ginkaku-ji",
+   "url": "https://en.wikipedia.org/wiki/Ginkaku-ji",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-267": {
+   "answer": "shugo daimyo",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Shugo daimyō",
+   "target": "Daimyo#Shugo-daimyō"
+  },
+  "jp-268": {
+   "answer": "Kanto kubo",
+   "title": "Kantō kubō",
+   "url": "https://en.wikipedia.org/wiki/Kant%C5%8D_kub%C5%8D",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "jp-269": {
+   "answer": "wako",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "Wako",
+   "suggestions": [
+    "Amos Wako",
+    "Haruo Wakō",
+    "Naoki Wako",
+    "WAKO (AM)",
+    "Wako (retailer)",
+    "Wako Matsumoto"
+   ]
+  },
+  "jp-270": {
+   "answer": "Oei Invasion",
+   "title": "Ōei Invasion",
+   "url": "https://en.wikipedia.org/wiki/%C5%8Cei_Invasion",
+   "via": "glossary",
+   "status": "ok"
   }
  }
 }
