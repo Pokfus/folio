@@ -11890,7 +11890,19 @@ window.GLOSSARY = {
 "Xunzi": "",
 "Ren_(philosophy)": "",
 "Li_(Confucianism)": "",
-"Yin_and_yang": ""
+"Yin_and_yang": "",
+"Daniel_Dulany_the_Younger": "",
+"Declaration_on_the_Rights_of_Indigenous_Peoples": "",
+"Hard_clam": "",
+"Hiawatha_Belt": "",
+"House_of_Commons_of_Great_Britain": "",
+"James_Otis_Jr.": "",
+"John_Dickinson": "",
+"Long_Island_(New_York)": "",
+"Mashpee_Wampanoag_Tribe": "",
+"Parliament_of_Great_Britain": "",
+"Treaty_of_Canandaigua": "",
+"William_Pitt,_1st_Earl_of_Chatham": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -17832,7 +17844,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Automatic_Computing_Engine": "1946",
 "National_Physical_Laboratory_(United_Kingdom)": "1900",
 "Mencius": "4th century BCE",
-"Xunzi": "c. 310 – after 238 BCE"
+"Xunzi": "c. 310 – after 238 BCE",
+"Daniel_Dulany_the_Younger": "1722–1797",
+"Declaration_on_the_Rights_of_Indigenous_Peoples": "13 September 2007",
+"House_of_Commons_of_Great_Britain": "1707–1800",
+"James_Otis_Jr.": "1725–1783",
+"John_Dickinson": "1732–1808",
+"Parliament_of_Great_Britain": "1707–1800",
+"Treaty_of_Canandaigua": "11 November 1794",
+"William_Pitt,_1st_Earl_of_Chatham": "1708–1778"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -19758,7 +19778,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Pueblo_peoples": ["Pueblo people"],
 "Algonquian_languages": ["Algonquian"],
 "Great_Basin_peoples": ["Great Basin"],
-"Haudenosaunee_Confederacy": ["Iroquois Confederacy","Six Nations"],
+"Haudenosaunee_Confederacy": ["Iroquois Confederacy","Six Nations","Haudenosaunee"],
 "Pre-contact_America": ["precontact America"],
 "Comanche": ["Comanches","Nermernuh"],
 "Comancheria": ["Comanchería"],
@@ -25495,7 +25515,18 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "National_Physical_Laboratory_(United_Kingdom)": ["National Physical Laboratory"],
 "Mencius": ["Mengzi"],
 "Xunzi": ["Xun Kuang"],
-"Yin_and_yang": ["yin-yang","yinyang"]
+"Yin_and_yang": ["yin-yang","yinyang"],
+"Daniel_Dulany_the_Younger": ["Daniel Dulany"],
+"Declaration_on_the_Rights_of_Indigenous_Peoples": ["UNDRIP"],
+"Hard_clam": ["quahog"],
+"Hiawatha_Belt": ["Hiawatha belt"],
+"James_Otis_Jr.": ["James Otis"],
+"Mashpee_Wampanoag_Tribe": ["Mashpee Wampanoag"],
+"Treaty_of_Canandaigua": ["Canandaigua","Pickering Treaty"],
+"William_Pitt,_1st_Earl_of_Chatham": ["William Pitt the Elder","Pitt the Elder"],
+"Great_Law_of_Peace": ["Great Tree of Peace"],
+"Townshend_Acts": ["Townshend duties"],
+"United_States_Declaration_of_Independence": ["Declaration of Independence"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -37595,7 +37626,19 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Xunzi": ["person","philosopher","confucianism","philosophy","warring states"],
 "Ren_(philosophy)": ["concept","philosophy","confucianism","ethics"],
 "Li_(Confucianism)": ["concept","philosophy","confucianism","religion","ethics"],
-"Yin_and_yang": ["concept","philosophy","religion","daoism","confucianism"]
+"Yin_and_yang": ["concept","philosophy","religion","daoism","confucianism"],
+"Daniel_Dulany_the_Younger": ["person","history","law","politics","united states","american revolution"],
+"Declaration_on_the_Rights_of_Indigenous_Peoples": ["text","law","politics","human rights","united nations"],
+"Hard_clam": ["animal","biology","zoology","north america","marine life"],
+"Hiawatha_Belt": ["object","history","people","north america","wampum"],
+"House_of_Commons_of_Great_Britain": ["institution","politics","government","history","britain"],
+"James_Otis_Jr.": ["person","history","law","politics","united states","american revolution"],
+"John_Dickinson": ["person","history","politics","law","united states","american revolution"],
+"Long_Island_(New_York)": ["place","geography","island","united states","new york"],
+"Mashpee_Wampanoag_Tribe": ["people","history","north america","united states","new england"],
+"Parliament_of_Great_Britain": ["institution","politics","government","history","britain"],
+"Treaty_of_Canandaigua": ["text","history","law","north america","united states"],
+"William_Pitt,_1st_Earl_of_Chatham": ["person","history","politics","britain","prime minister"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
