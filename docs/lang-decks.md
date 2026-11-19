@@ -3736,7 +3736,15 @@ changed was the one that had been wrong all along.
   Wikipedia's 13.5 million; the hue is measured, `#6F69D2` (re-swept at the merge with Arabic and Telugu on the shelf).
 - `.claude/urdu/` — the generator behind the Urdu decks (Nov 2026, on request: "Add an Urdu language
   collection"; Hindi's answers of the same day taken: CEFR A1–C1 assembled, a script deck, romanisation on
-  every card). **Built: the alphabet, `decks/Urdu-Alphabet.folio-deck.json`** (56 notes), **A1,
+  every card). **READ THIS FIRST (2026-11-19, the Urdu beginner pass — its section is near the foot of this
+  file): A DECK FILE IS NO LONGER WHAT `run.py` WRITES.** After the generator comes a record:
+  `python3 .claude/urdu/run.py --level <x>` for all five levels → `alphabet.py` → `inserts.py` →
+  `node .claude/decks/urdu-fix.js` → `urdu-order.js` → `urdu-fix.js` → `node .claude/build-lang-decks.js`.
+  **A card id is PINNED to its note** (`.claude/decks/urdu-ids.json`; never delete or renumber a row), a card
+  moved between decks or added to one is a row of `urdu-fixes.json`, and the counts below are the
+  generator's, before the record (shipped: alphabet 60, A1 537, A2 806, B1 994, B2 1,457, phrases 41). A
+  fault the generator can fix is fixed in the generator; `.claude/decks/README.md` "The Urdu decks" has the
+  table of files. `.claude/urdu/` imports nothing from `.claude/hindi/` and nothing imports it. **Built: the alphabet, `decks/Urdu-Alphabet.folio-deck.json`** (56 notes), **A1,
   `decks/Urdu-A1.folio-deck.json`** (500 notes / 1,000 cards), **A2, `decks/Urdu-A2.folio-deck.json`**
   (750 / 1,500), **B1, `decks/Urdu-B1.folio-deck.json`** (1,000 / 2,000) **and B2,
   `decks/Urdu-B2.folio-deck.json`** (1,500 / 3,000; all three 2026-11-12, on request — B2 reaches the end of
@@ -6097,6 +6105,168 @@ section is the reasoning.
 - **`extra.py`'s cards are in the record, not rebuilt in CI**: the cache it reads is 1.3 GB.
 - **The whole shelf is now 6,286 words, 474 phrases and 60 notes of letters and sounds: 1,363 days at the
   default pace, 3.7 years**; привет is day 8 for a reader who finishes the alphabet first, A1 ends on day 120.
+
+## The Urdu beginner pass (2026-11-19)
+
+On request, the audit the Japanese, Mandarin, Spanish, Italian, German and Portuguese decks had been given:
+**what does a learner with no Urdu, and no knowledge of its script, meet in the order the shelf itself
+recommends** — Alphabet, A1, A2, B1, B2, then the phrases? Every figure was measured on the six decks as
+shipped that morning, at the language default of ten new cards a day with both directions together, which is
+five words a day. The rules are in the `.claude/urdu/` entry above and in `.claude/decks/README.md` ("The
+Urdu decks"); this section is the reasoning. No Hindi, Arabic or Persian pass had landed to borrow from.
+
+**The generator's claim was proved first**: one fetch of the live sources (kaikki, Tatoeba, the subtitle
+list, `wordfreq` on `PYTHONPATH`), then `--no-fetch` into a scratch copy, and all six files came out with
+the committed checksums. So, unlike the Spanish, German and Italian decks, a fault the generator can fix IS
+fixed in the generator, and only a decision about one card or one order is in a record.
+
+### What the audit found, by what it costs a beginner
+
+1. **The script cannot be sounded out, and no card showed a vowel mark.** 328 of A1's 500 headwords (66%)
+   have a short vowel no letter writes, 136 a و or ی that is one of two or three vowels, and only 89 can be
+   read off the letters alone (A2 91% ambiguous, B1 91%, B2 90%). The alphabet deck taught zabar, zer, pesh,
+   tashdid and jazm on one example each, and then no headword of any level carried a mark again; three
+   adverbs were printed without their do zabar and romanised -an (فورا fauran). No card taught do zabar,
+   khari zabar or the izafat.
+2. **The second commonest word of the language was on no card.** میں is "I" (ma͠i) and "in" (mẽ); the card
+   kept one etymology and gave "I". A card of two readings showed only the first (شکر śukr "thanks" over
+   the sense "sugar", śakar).
+3. **The greetings were late, on another deck, or nowhere.** Thank you was note 137 (day 39, the alphabet
+   first), yes 52, خدا حافظ 449 (day 101), سلام 425; آداب was B1's note 667 (day 395); سلام علیکم, اللہ حافظ,
+   how are you, what is your name, good morning and good night were in the phrases deck, last on the
+   shelf: day 762 on. On no card at all, for want of a Wiktionary entry: السلام علیکم and its answer,
+   مہربانی, براہ کرم, معاف کیجیے, جی ہاں, آپ کیسے ہیں, میں ٹھیک ہوں, and the postposition تک.
+4. **A1 was dealt by lemma frequency and the closed sets were scattered.** Day one was کا · میں · ہونا ·
+   کرنا · سے, and نے on day three is the list's doing, not a teaching choice. One to ten ran from note 11
+   to 416; eleven and twelve were 436 and 437, thirteen to nineteen in A2 (536 to 686), the tens in A1 and
+   A2, zero in B1; of the 72 compound numbers from twenty-one to ninety-nine, each of which has a form of
+   its own, 45 were carded (43 in B2, 2 in B1) though Wiktionary defines all 72. The days were notes 376 to
+   473. Four months of twelve were carded (two in A2, two in B1): Wiktionary defines all twelve, eight as
+   proper nouns, which `extract.py` does not read. The question words ran from note 16 (کیا) to 404 (کب).
+5. **The agreeing forms were missing where sentences use them most.** کا had no Forms row and no table:
+   کی and کے were on no card. میرا, ہمارا and تمہارا showed no feminine or plural (the pronoun entry led and
+   the determiner entry held the table); A1's sentences use میرے 33 times and میری 29. The 24 commonest verbs
+   of A1 (کرنا, جانا, دینا — the ones on Wiktionary's full table) showed the present, the continuous and
+   three imperatives but NO future, while the rarer verbs, on the generated table, did; ہونا showed تھا and
+   not تھی. Nouns were sound: 240 of 243 carry their gender, 160 an oblique plural.
+6. **The romanisation was two schemes.** It is Wiktionary's, and 87 of 3,799 fields carried another
+   system's letters (š for ś, č, ž, ḥ, ṣ, ẓ, ḵ, ğ, a curled ’ for ain, ē, ō, w, ṉ: 2 in A1, 12 in A2, 25
+   in B1, 46 in B2, 2 phrases). Three were wrong against their own spelling (توڑنا tornā, بڑھنا baṛnā, دراڑ
+   darār: Wiktionary's headword lines). Otherwise sound: the consonants of the Roman field agree with the
+   spelling on 3,480 fields, 175 more double a consonant the spelling writes once (no tashdid), 60 read a
+   ن as nasalisation; length is marked on 2,672, retroflexes on 326 of 328. The alphabet's 56 example
+   words carry the same romanisation as their level cards. Against the Hindi decks: 1,581 words are on
+   both shelves (by Wiktionary's Hindi spelling), 1,258 with the same Roman field; the rest differ by
+   Wiktionary's own conventions (a final ہ is -a here and -ā there, ain is written here).
+7. **Nothing the alphabet deck said about a sound could be traced.** Its description named "the standard
+   description of Urdu's alphabet and sounds". Sixteen of its English comparisons are not the ones
+   Wikipedia's key gives (p as in spin for spot, r as in Spanish pero, ں as in French bon, "a throat sound
+   in Arabic"), and "never starts a word", "light and clear" and "rare, in words from Persian and French"
+   are in no source read here. No Nastaliq face was installed where the decks were built: the rendering
+   had not been looked at.
+8. **Card ids were positions.** All six decks; a re-ordered A1 would have moved every schedule.
+9. **The reverse card was mostly sound.** No two notes share an English field (the generator's `not X`
+   labels); 9 groups share a first gloss in A1, 7, 11 and 29 above. 20 of 3,835 English sides contain
+   their own romanised answer, because the English word IS the loan (paisa, film, hajj). The pronouns'
+   meanings are Wiktionary's grammar wording.
+10. **Example sentences**: 7 words at the median (42 at most). On arrival 67% of a sentence's words had
+    been met in A1 and 89 of 1,051 sentences could be read whole (first fifty notes 57%, 6 of 150); 19% of
+    the words in A1's sentences were on no card of any level; 87 are about Tom or Mary. A2 has sentences on
+    340 of 750 cards, B1 254 of 1,000, B2 100 of 1,500.
+11. **The pace was stated nowhere**: the alphabet to day 12, A1 to 112, A2 to 262, B1 to 462, B2 to 762,
+    the phrases to 771; 3,855 notes, 2.1 years.
+12. **The levels are honest about what they are, except at the top.** No headword is a card of a lower
+    level (a form on a lower card: 4, 4 and 19). The median lemma rank of a level's first 300 is 188, 688,
+    1,520 and 3,010; 528 of B2's 1,500 are under two per million. B2's description did not say that it is
+    the top or why.
+13. **The phrases**: 49, of which 8 were spelled entirely with A1's cards, all everyday formulas; 33 use a
+    word no level cards (Arabic and Persian formulas). The order was Tatoeba's count.
+
+### What was built
+
+**In the generator** (`.claude/urdu/`; every level rebuilt, and the rebuild proved twice):
+
+- **The word with its vowel marks**, first on the forms line, wherever Wiktionary's headword line writes
+  them and it is the same word letter for letter (`extract.marked_of`, `build_deck.marks_item`): 361 of
+  A1's 537 cards, 578, 756 and 972 above. The do zabar and khari zabar a headword leaves out are there.
+- **Both readings of a spelling that has two** (`readings`): میں is `ma͠i · mẽ` with the postposition's
+  meanings, بہتر "better" and seventy-two. The reading is NOT written beside its sense: `English` is the
+  front of the reverse card (a screenshot caught that).
+- **The future on the full verb table** (`full_future`: its cells carry the pronoun and no tense tag), the
+  oblique infinitive on every table, and تھی / تھیں on ہونا: 63 verbs gained a future.
+- **A possessive's and کا's feminine and plural** (`table_entry`, `gendered`): the determiner entry's
+  table when the pronoun entry has none, which also gives وہ and یہ their oblique forms (اس, اسے, ان).
+- **One romanisation scheme** (`ur.roman_norm`, 91 fields and every table cell) and **a retroflex or a
+  breath the spelling shows** (`ur.roman_fit`: the three wrong ones, restored only when the consonants of
+  spelling and romanisation line up otherwise).
+- **The alphabet deck sourced**: every English comparison is a cell of Wikipedia's Help:IPA/Hindi and
+  Urdu (revision 1367857599), every rule a quoted phrase of "Urdu alphabet" (revision 1385216687), and
+  `alphabet.py --verify` checks 52 cells, 19 phrases and the four groups of letters that sound alike
+  against the two revisions. Four notes added: do zabar, khari zabar, the izafat, and و as a short u after
+  خ. Its description says what the script does not show, with the figures of finding 1.
+- **`words_below` reads the record**, so a level rebuilt alone is dealt the list it was dealt before a
+  card moved out of it.
+
+**In a record** (`.claude/decks/urdu-fixes.json`, applied by `urdu-fix.js`, on the German model):
+
+- **Note ids pinned** (`urdu-ids.json`, 3,855 rows seeded from the shipped positions, checked equal),
+  before anything moved. Checked in a browser with the decks as shipped: a reader holding the old
+  Alphabet, A1 and phrases with seven notes of each studied in BOTH directions took the three Updates and
+  kept the same 42 ids on the same words and letters with their schedules; the eight notes the phrases
+  deck dropped stayed on the device.
+- **72 cards moved down** (a move is a row, never a copy: `urdu-fix.js` takes the generator's own card,
+  and the old number goes to `_retired`). To A1: eight formulas of the phrases deck, آداب, zero and two
+  months from B1, thirteen to nineteen, six tens and two months from A2. To A2: 45 compound numbers from
+  B1 and B2.
+- **36 cards added**, their fields built by `inserts.py` with the generator's own code: eight months
+  (Wiktionary's proper-noun entries), 26 compound numbers (Wiktionary's entries no fill reached), and
+  two Tatoeba sentences as phrase cards (جی ہاں, 477094; میں بھی ٹھیک ہوں, 1580444), romanised by joining
+  Wiktionary's romanisation of each word.
+- **An order** (`urdu-order.json`, computed by `urdu-order.js` from the pinned number): A1's first 75
+  notes by hand, then frequency with eleven to a thousand from note 101, the days from 151 and the
+  months behind them, the colours from 201; A2 with twenty-one to ninety-nine as its last 71 cards; the
+  phrases by the lowest level that spells them. A greeting and thank you are day one, how are you day
+  four, zero to ten days 12 to 14, نے day 16.
+- **The descriptions**: each ends with a paragraph the record rewrites and recounts on every run — what
+  moved, the order, the pace, and on B2 that it is the top and why there is no C1.
+- **CI**: `urdu-fix.js --check`, `urdu-order.js --check`, `check-urdu.js` (now reading the pin).
+
+After it: A1 537 notes, A2 806, B1 994, B2 1,457, the phrases 41, the alphabet 60; 3,895 notes, 779 days.
+In A1 69% of a sentence's words have been met on arrival and 15% are on no card (67% and 19%).
+
+### What was decided against, and why
+
+- **A C1.** The plan's §10 stands: the source has nothing left, and B2's description now says so.
+- **Moving the romanisation off the front.** It is the owner's decision (the plan's §1), and finding 1 is
+  the reason for it: a new word cannot be read without it.
+- **Cards for السلام علیکم, please and تک.** No source the decks are built from defines them, and a
+  romanisation is never typed. آپ کیسی ہیں (Tatoeba 4272499) was left out for that reason: کیسی is on no
+  Wiktionary entry. The A1 description lists what is missing.
+- **A card for the silent و** (خواب). Wikipedia's article says it is not pronounced; Wiktionary romanises
+  the word xvāb. The two sources disagree, so the deck says nothing.
+- **Folding the phrases deck into A1.** Its eight A1 formulas moved; the other 41 are idioms, proverbs and
+  Arabic formulas, and they are now in reading order.
+- **Rewriting Wiktionary's meanings** (the pronouns' grammar wording, the 20 loans that name themselves)
+  and **shorter sentences for the head**: a content pass of its own.
+- **Feminine verb tables.** A table is one gender; the feminine is shown where it is irregular (the past)
+  and on ہونا.
+- **Subdecks for the sets.** The app deals subdecks side by side.
+
+### Limits to know about
+
+- **The head's sentences are still long**: over A1's first fifty notes 52% of words met (8 of 128
+  sentences whole); the courtesies have few sentences and the common words' are Tatoeba's.
+- **The marked spelling is Wiktionary's headword line**, on 68% of the cards; where the line is unmarked
+  the card shows none, and the marks are not checked against the romanisation.
+- **`roman_norm` is a rule over letters**: á (two cards) and EḌZ are left as the source writes them.
+- **Rebuilding one level needs the levels its added cards came from** rebuilt with it (`urdu-fix.js` says
+  which): a moved card is not stored in the record.
+- **`alphabet.py --verify` and `inserts.py --check` need the cache and are not CI steps.**
+- **The Nastaliq face**: screenshots were taken with Noto Nastaliq Urdu installed for the purpose (phone
+  width, right to left, no overflow); a device without a Nastaliq face falls back to Naskh, as before.
+- **A reader who already holds the phrases deck, A2, B1 or B2 keeps the cards that moved** and meets them
+  again where they now are.
+- **Not read card by card**: the 72 moved and 36 added cards were; the other 3,787 are as generated.
 
 ## The DELE card-by-card audit, beyond A1 — the batch log
 
