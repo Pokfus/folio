@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 8659 | the title is the article |
-| `redirect-variant` | 509 | spelling / plural / qualifier differed; same subject |
+| `ok` | 8731 | the title is the article |
+| `redirect-variant` | 510 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 112 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 10 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 827 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 832 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 191 | only a redirect into a section exists: no dedicated page, no link |
-| `disambiguation` | 154 | only a disambiguation page; no link could be chosen |
-| `none` | 1203 | nothing matched; no link |
+| `section-redirect` | 195 | only a redirect into a section exists: no dedicated page, no link |
+| `disambiguation` | 160 | only a disambiguation page; no link could be chosen |
+| `none` | 1213 | nothing matched; no link |
 
-**10124 of 11700 cards get a link.** The three "no link" rows are the honest state: a card whose
+**10202 of 11790 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (827)
+## Redirected to a differently named article — check each (832)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -226,6 +226,11 @@ The answer redirects to an article with another name. Most are the same subject 
 - `eg-580` **Zenon Archive** → [Zenon of Kaunos](https://en.wikipedia.org/wiki/Zenon_of_Kaunos) (from `Zenon Archive`)
 - `eg-595` **Philae** → [Philae temple complex](https://en.wikipedia.org/wiki/Philae_temple_complex) (from `Philae`)
 - `eg-599` **Temple of Onias** → [Land of Onias](https://en.wikipedia.org/wiki/Land_of_Onias) (from `Temple of Onias`)
+- `eg-635` **Temple of Isis at Pompeii** → [Temple of Isis (Pompeii)](https://en.wikipedia.org/wiki/Temple_of_Isis_(Pompeii)) (from `Temple of Isis at Pompeii`)
+- `eg-650` **Pachomius** → [Pachomius the Great](https://en.wikipedia.org/wiki/Pachomius_the_Great) (from `Pachomius`)
+- `eg-651` **Apophthegmata Patrum** → [Sayings of the Desert Fathers](https://en.wikipedia.org/wiki/Sayings_of_the_Desert_Fathers) (from `Apophthegmata Patrum`)
+- `eg-659` **Muslim conquest of Egypt** → [Arab conquest of Egypt](https://en.wikipedia.org/wiki/Arab_conquest_of_Egypt) (from `Muslim conquest of Egypt`)
+- `eg-660` **Hieroglyphica** → [Horapollo](https://en.wikipedia.org/wiki/Horapollo) (from `Hieroglyphica`)
 - `fd-050` **Côte d'Ivoire** → [Ivory Coast](https://en.wikipedia.org/wiki/Ivory_Coast) (from `Côte d'Ivoire`)
 - `fd-088` **Czechia** → [Czech Republic](https://en.wikipedia.org/wiki/Czech_Republic) (from `Czechia`)
 - `fd-174` **Cabo Verde** → [Cape Verde](https://en.wikipedia.org/wiki/Cape_Verde) (from `Cabo Verde`)
@@ -386,6 +391,11 @@ The answer redirects to an article with another name. Most are the same subject 
 - `jp-131` **kentoshi** → [Japanese missions to Tang China](https://en.wikipedia.org/wiki/Japanese_missions_to_Tang_China) (from `Kentōshi`)
 - `jp-151` **nikki bungaku** → [Poetic diary](https://en.wikipedia.org/wiki/Poetic_diary) (from `Nikki bungaku`)
 - `jp-187` **Later Three-Year War** → [Gosannen War](https://en.wikipedia.org/wiki/Gosannen_War) (from `Later Three-Year War`)
+- `jp-231` **Great Buddha of Kamakura** → [Kōtoku-in](https://en.wikipedia.org/wiki/K%C5%8Dtoku-in) (from `Great Buddha of Kamakura`)
+- `jp-250` **Issan Ichinei** → [Yishan Yining](https://en.wikipedia.org/wiki/Yishan_Yining) (from `Issan Ichinei`)
+- `jp-292` **chanoyu** → [Japanese tea ceremony](https://en.wikipedia.org/wiki/Japanese_tea_ceremony) (from `Chanoyu`)
+- `jp-296` **karesansui** → [Japanese dry garden](https://en.wikipedia.org/wiki/Japanese_dry_garden) (from `Karesansui`)
+- `jp-298` **suibokuga** → [Ink wash painting](https://en.wikipedia.org/wiki/Ink_wash_painting) (from `Suibokuga`)
 - `ko-002` **Korean Peninsula** → [Korea](https://en.wikipedia.org/wiki/Korea) (from `Korean Peninsula`)
 - `ko-005` **Changma** → [East Asian rainy season](https://en.wikipedia.org/wiki/East_Asian_rainy_season) (from `Changma`)
 - `ko-014` **West Liao River** → [Xiliao River](https://en.wikipedia.org/wiki/Xiliao_River) (from `West Liao River`)
@@ -999,7 +1009,7 @@ No title was the answer, but one search hit has exactly the answer's words in an
 - `ww2-700` **Allied Military Government of Occupied Territory** → [Allied Military Government of Occupied Territories](https://en.wikipedia.org/wiki/Allied_Military_Government_of_Occupied_Territories)
 - `ww2-711` **Second Department of the Polish General Staff** → [Second Department of Polish General Staff](https://en.wikipedia.org/wiki/Second_Department_of_Polish_General_Staff)
 
-## Disambiguation pages that could not be settled (154)
+## Disambiguation pages that could not be settled (160)
 
 Pick the right article by hand, or leave the card without a link.
 
@@ -1021,6 +1031,8 @@ Pick the right article by hand, or leave the card without a link.
 - `eep-257` **Berlin Plus** — `Berlin Plus` is a disambiguation page; its links: `Berlin Plus agreement`, `Berlin Plus package`
 - `eep-294` **SAFE** — `SAFE` is a disambiguation page; its links: `Safe (disambiguation)`, `Safe Ireland`, `SAFE (cable system)`, `SAFE Act (disambiguation)`, `SAFE (New Zealand organisation)`, `Safe affordable fission engine`
 - `eg-001` **Kemet** — `Kemet` is a disambiguation page; its links: `Sons of Kemet`, `Km and Km.t (Kemet) (hieroglyphs)`, `KEMET Corporation`
+- `eg-655` **Theophilus of Alexandria** — `Theophilus of Alexandria` is a disambiguation page; its links: `Theophilus III of Alexandria`, `Theophilus I of Alexandria`
+- `eg-685` **naos** — `Naos` is a disambiguation page; its links: `NAOS (satellite)`, `Naos (hieroglyph)`
 - `geo-502` **Austin** — `Austin` is a disambiguation page; its links: `Austin, Arkansas`, `Austin, Chicago`, `Austin, Colorado`, `Austin, Indiana`, `Austin, Kentucky`, `Austin, Manitoba`
 - `geo-504` **Providence** — `Providence` is a disambiguation page; its links: `Divine providence`, `Eye of Providence`, `Fort Providence`, `HMS Providence`, `Old Providence`, `Providence, Alabama`
 - `geo-509` **Augusta** — `Augusta` is a disambiguation page; its links: `The Augustas`, `254 Augusta`, `Augusta, Arkansas`, `Augusta, Georgia`, `Augusta, Illinois`, `Augusta, Indiana`
@@ -1088,6 +1100,10 @@ Pick the right article by hand, or leave the card without a link.
 - `jp-072` **Tenji** — `Tenji` is a disambiguation page; its links: `Emperor Tenji`
 - `jp-093` **kokubunji** — `Kokubunji` is a disambiguation page; its links: `Kokubunji, Tokyo`, `Kokubunji, Kagawa`, `Kokubunji, Tochigi`, `87271 Kokubunji`, `Seibu Kokubunji Line`, `Kokubunji Station`
 - `jp-100` **Jinmu** — `Jinmu` is a disambiguation page; its links: `Jinmu Cape`
+- `jp-216` **soryo** — `Soryo` is a disambiguation page; its links: `Fuyumi Soryo`, `Sōryō, Hiroshima`, `Soryo, Republic of Karelia`
+- `jp-269` **wako** — `Wako` is a disambiguation page; its links: `Amos Wako`, `Haruo Wakō`, `Naoki Wako`, `WAKO (AM)`, `Wako (retailer)`, `Wako Matsumoto`
+- `jp-271` **ikki** — `Ikki` is a disambiguation page; its links: `Iga ikki`, `Ikki Twins`, `Kaga ikki`, `Kōka ikki`, `Monthly Ikki`, `Saika Ikki`
+- `jp-288` **Gozan** — `Gozan` is a disambiguation page
 - `ko-018` **Jeju** — `Jeju` is a disambiguation page; its links: `Jeju Island`, `Jeju people`, `Jeju City`, `Jeju Province`, `Jeju dog`, `Jeju language`
 - `ko-053` **Gija** — `Kija` is a disambiguation page; its links: `Gija Joseon`, `Gija people`
 - `ko-060` **minjok** — `Minjok` is a disambiguation page; its links: `Minjok historiography`, `Minjok jeonggi`, `Baedal Minjok`, `Korean Minjok Leadership Academy`
@@ -1169,7 +1185,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (191)
+## Section redirects — no dedicated page (195)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1254,6 +1270,10 @@ Wikipedia treats these as part of another article. No link.
 - `jp-012` **shell midden** — `Shell midden` only redirects into `Midden#Shells`
 - `jp-092` **Kegon** — `Kegon` only redirects into `Huayan#Japanese Kegon`
 - `jp-106` **Thirty-Eight Years' War** — `Thirty-Eight Years' War` only redirects into `Emishi#Thirty-Eight Years' War`
+- `jp-218` **Kamakura Buddhism** — `Kamakura Buddhism` only redirects into `Buddhism in Japan#Kamakura Buddhism (1185–1333) - new schools of Buddhism`
+- `jp-243` **shinkoku** — `Shinkoku` only redirects into `History of Shinto#Shinto-Buddhist doctrine and Shinkoku thought`
+- `jp-267` **shugo daimyo** — `Shugo daimyō` only redirects into `Daimyo#Shugo-daimyō`
+- `jp-277` **Eiraku Tsuho** — `Eiraku Tsuho` only redirects into `Yongle Tongbao#In Japan`
 - `ko-029` **Korean Bronze Age** — `Korean Bronze Age` only redirects into `Prehistoric Korea#Bronze Age`
 - `ko-038` **Early Iron Age** — `Early Iron Age` only redirects into `Iron Age#Beginning`
 - `ko-039` **shell midden** — `Shell midden` only redirects into `Midden#Shells`
@@ -1365,7 +1385,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1203)
+## No article found (1213)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1771,6 +1791,16 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-525` **Pefnefdineit**
 - `eg-526` **Petition of Peteese** — search suggests `Ancient Egyptian religion`, `Pediese`, `Amun`, `Petiese`, `Maat`
 - `eg-535` **Statue of Darius** — search suggests `Egyptian statue of Darius the Great`, `Darius the Great`, `Palace of Darius in Susa`, `Cleopatra`, `Twenty-seventh Dynasty of Egypt`
+- `eg-610` **embole** — search suggests `Democratic Republic of the Congo at the 2010 Summer Youth Olympics`
+- `eg-611` **laographia** — search suggests `Fustanella`, `3 Maccabees`, `Animal as Bridegroom`, `Richard MacGillivray Dawkins`, `History of anthropology`
+- `eg-612` **house-by-house census** — search suggests `Egypt, Pennsylvania`, `Incest in ancient Egypt`, `Nubians`, `Census`, `House of Representatives (Japan)`
+- `eg-613` **Gnomon of the Idios Logos** — search suggests `Roman Egypt`, `Adoption in ancient Rome`
+- `eg-615` **Letter of Claudius to the Alexandrians** — search suggests `Claudius`, `Roman Egypt`, `Pilate cycle`, `Library of Alexandria`, `Herod Agrippa`
+- `eg-616` **Alexandrian riots of 38 CE** — search suggests `Alexandrian riots (38 CE)`, `Alexandrian riots`, `Alexandria riot`, `Roman Egypt`, `History of the Jews in Alexandria`
+- `eg-627` **Kom el-Shoqafa** — search suggests `Catacombs of Kom El Shoqafa`, `Ancient Egyptian architecture`, `Roman Egypt`, `Alexandria`, `Wonders of the World`
+- `eg-687` **hem-netjer** — search suggests `Functions of the Pharaoh`, `Khufu`, `Akhty (deity)`, `Menkheperre`, `Netjeraperef`
+- `eg-689` **wab priest** — search suggests `Amenemhat (High Priest of Amun)`, `Imhotep`, `Bastet`, `Bakenkhonsu`, `Shery (Egypt)`
+- `eg-690` **Festival of Bubastis** — search suggests `Bubastis`, `Cats in ancient Egypt`, `Sed Festival`, `Bastet`, `List of Egyptian deities`
 - `gga-001` **Security, prosperity and values** — search suggests `Prosperity theology`, `Core Socialist Values`, `National interest`, `Personal life of Mahathir Mohamad`, `Greater East Asia Co-Prosperity Sphere`
 - `gga-003` **Structural power**
 - `gga-004` **Operational code**
@@ -2197,6 +2227,12 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `jp-179` **bushidan** — search suggests `Orient (manga)`, `Hōjō Tokimasa`, `Revenge of the Soga Brothers`, `Taira no Yoshifumi`, `Kikuchi clan`
 - `jp-182` **hokumen no bushi** — search suggests `Saitō Dōsan`, `Cloistered rule`, `Minamoto clan`, `Minamoto no Yoshiie`, `Kyushin-ryū`
 - `jp-184` **Johei-Tengyo Rebellion** — search suggests `Tengyō`, `Jōhei`, `Tengyō no Ran`, `Emperor Suzaku`, `Taira no Masakado`
+- `jp-215` **shitaji chubun** — search suggests `Jisha-ryō`, `Nanboku-chō period`
+- `jp-217` **ichigobun**
+- `jp-241` **Southern Route Army** — search suggests `Eighth Route Army`, `Route Army`, `New Fourth Army`, `Eighteenth Army (Japan)`, `New Fourth Army Incident`
+- `jp-246` **ikoku keigo banyaku**
+- `jp-248` **Hachiman Gudokun** — search suggests `Mongol invasions of Japan`, `Empress Jingū`, `Azumi-no-isora`, `Ushi-oni`, `History of Shinto`
+- `jp-286` **doboshu** — search suggests `Taikomochi`, `Hon'ami Kōetsu`, `Nōami`, `Maeda Toshiie`, `Shingei`
 - `ko-016` **Goryeo long wall** — search suggests `Ch'ŏlli changsŏng`, `Goryeo`, `Mongol invasions of Korea`, `Timeline of Korean history`, `Ganghwasanseong Fortress`
 - `ko-021` **Palaeolithic Korea** — search suggests `Prehistoric Korea`, `Korea under Japanese rule`, `List of monarchs of Korea`, `Three Kingdoms of Korea`, `National Museum of Korea`
 - `ko-022` **Jeongok-ri** — search suggests `Jeongok station`, `List of archaeological sites in Korea`, `Jeongok Prehistory Museum`, `Yeoncheon County`, `Gyeongwon Line`
