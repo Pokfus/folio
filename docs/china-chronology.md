@@ -923,6 +923,21 @@ BCE and the empire's end, the abdication of 12 February 1912 (`cnh-191`, `cnh-57
 | the mourning grades charted / in law | 168 BCE / 267 CE, or 196 CE | Goldin; Chen (`cnh-756`) |
 | the Chen Clan Hall built / the museum / protected | 1888 – 1894, or 1890 – 1894 / 1959 / 1988 | Bao and Huang (`cnh-757`) |
 | the calendar: the leap cycle / the year start fixed / reformed / the solar calendar | c. 600 – 400 BCE / 104 BCE / 1644 / 1912 | Chavannes; the Palace Museum (`cnh-760`) |
+| the Suiyuan shidan published | 1792 | Giles (`cnh-761`) |
+| Champa rice distributed | 1012 | the cited studies (`cnh-762`) |
+| the Classic of Tea written | c. 780 CE | Benn's reviewers (`cnh-763`) |
+| distilled spirit attested | 1330 | Hu Sihui, through Schottenhammer (`cnh-764`) |
+| the mandarin squares worn / the rules revised | 1391 – 1912 / 1527 | the *Mingshi*; Cammann (`cnh-765`) |
+| the Nanjing wall begun / completed / breached | 1366, or 1368 / 1393 / 19 July 1864 | the cited studies (`cnh-767`) |
+| the ward drums set / the code / the hours extended | c. 636 CE / 653 CE / 965 CE | the cited studies (`cnh-768`) |
+| the tai chi legend attested / the name / the simplified set / listed | 1669 / 1867 / 1956 / 17 December 2020 | Wile; the heritage centre (`cnh-770`) |
+| the 1953 census ordered / taken / published | 3 April 1953 / 30 June 1953 / 1 November 1954 | Orleans (`cnh-771`) |
+| Sichuan: the land order / the main influx / the settler rules | 1649 / 1671 – 1776 / 1690 | Huang (`cnh-772`) |
+| the ethnic classification: the field survey / the last group recognised / the list complete | 1954 / 1979 / July 1982 | Bulag; *The Paper* (`cnh-773`) |
+| the Ordos conquered / retaken / raiders enter / the peace | 215 BCE / 127 BCE / 1462 / 1571 | the *Shiji*; the cited articles (`cnh-777`; 1571 with `cnh-723`, `cnh-781`) |
+| the jimi prefectures introduced / undermined | 630 CE / 682 CE | the cited studies (`cnh-778`) |
+| the Rouran founded / destroyed | c. 402 CE / 552 – 555 CE | Kradin; the *Zhou shu* (`cnh-779`) |
+| the Shatuo fled east / ruled the north | 808 CE / 923 – 951 CE | Barenghi (`cnh-780`) |
 
 ## Later periods
 
@@ -1672,4 +1687,21 @@ cnh-754: 1223; 1296; 1508
 cnh-756: 168; 267; 196
 cnh-757: 1888; 1890; 1894; 1959; 1988
 cnh-760: 600; 400; 104; 1644; 1912
+cnh-761: 1792
+cnh-762: 1012
+cnh-763: 780
+cnh-764: 1330
+cnh-765: 1391; 1912; 1527
+cnh-766: 1368; 1911; 2003
+cnh-767: 1366; 1368; 1393; 1864
+cnh-768: 636; 653; 965
+cnh-769: 762; 2008
+cnh-770: 1669; 1867; 1956; 2020
+cnh-771: 1953; 1954
+cnh-772: 1649; 1671; 1776; 1690
+cnh-773: 1953; 1954; 1979; 1982
+cnh-777: 215; 127; 1462; 1571
+cnh-778: 630; 682
+cnh-779: 402; 552; 555
+cnh-780: 808; 923; 951
 ```
