@@ -9749,6 +9749,7 @@ button.tl-lab:focus-visible{outline:2px solid var(--indigo); outline-offset:2px;
   .tl-list.laid .tl-lab{line-height:1.25;}
   .tl-list.laid .tl-t{display:block; overflow:hidden; text-overflow:ellipsis;}
   .tl-list.laid .tl-w{display:block; margin:1px 0 0;}
+  .tl-it.outer{display:none;}   /* a phone keeps two each side; a desktop and a tablet show three (cardTimelineItems) */
 }
 .kin-row:focus-visible{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
 

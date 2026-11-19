@@ -4297,6 +4297,12 @@
      book the reader reached some other way. `bookSeek` is the quotation the reader is to find the paragraph of
      (`bookParaFind`), consumed by the book's first full paint. */
   let bookHold = null, bookSeek = null;
+  /* …AND THE SAME TRIP INTO THE TIMELINE PAGE AND BACK (2026-11-19, on request: "going to Egypt's whole timeline there
+     should be a button to go back to the card the reader was studying"). The delegated `.tl-all` listener fills it —
+     `{ card, rec }`, `rec` the study record captured BEFORE routing (route() clears it) or null where the card was not
+     being studied — and PAGES.timeline shows the "Back to card" pill while it holds. It survives moves WITHIN the
+     timeline page (the collection picker, the day buttons) and route() drops it on any other page. */
+  let tlHold = null;
 
   // remember which gloss popups are open (owning route + term + position) so a page reload can re-open them.
   // Uses sessionStorage: it survives an F5 / dev-server live-reload in the SAME tab, but a tab/browser CLOSE clears it,
@@ -17352,6 +17358,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     // …and the book hold to the book a card's quotation opened: any other page, or another book, ends it
     if (!(name === "book" && bookHold && params && params.id === bookHold.book)) bookHold = null;
     if (name !== "book") bookSeek = null;
+    if (name !== "timeline") tlHold = null;   // the timeline page's way back to its card (PAGES.timeline)
     document.querySelectorAll(".bk-tocard").forEach((el) => el.remove());   // the reader's pill lives on <body>; PAGES.book draws it again
     // the Atlas opens on the reader's own atlas every time — see the note beside `atlasTab`
     /* An admin-only route is refused HERE and not in the page, so a deep link, a Back and a stray
@@ -30206,6 +30213,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (sel) sel.addEventListener("change", () => route("timeline", sel.value ? { q: sel.value } : {}));
     root.querySelector("#tlpMine").addEventListener("change", (e) => { try { localStorage.setItem("folio.timeline.mine", e.target.checked ? "1" : "0"); } catch (er) {} PAGES.timeline(root, params); });
     root.querySelectorAll(".tlp-row").forEach((b) => b.addEventListener("click", () => route("card", { id: b.dataset.card })));
+    /* "BACK TO CARD" (2026-11-19, on request): only when a card's "whole timeline" link brought the reader here (`tlHold`).
+       The book reader's pill (`.bk-tocard`: on <body>, pinned above the tab bar, removed by route() on every move), since
+       the reader scrolls a long axis away from the page head. It returns to the study session as it was (the queue, the
+       card, the answer showing), else to the card's own address. One use: the hold is spent. */
+    document.querySelectorAll(".bk-tocard").forEach((el) => el.remove());
+    if (tlHold && (tlHold.rec || tlHold.card)) {
+      const tc = document.createElement("button");
+      tc.type = "button"; tc.className = "bk-tocard tlp-tocard"; tc.id = "tlpToCard";
+      tc.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg><span>Back to card</span>';
+      document.body.appendChild(tc);
+      tc.addEventListener("click", () => {
+        const h = tlHold; tlHold = null;
+        if (h && h.rec) { writeStudySession(h.rec); route("study", { scope: h.rec.scope, resume: h.rec }); }
+        else if (h && h.card) route("card", { id: h.card });
+        else route("home");
+      });
+    }
   };
 
   /* ---------- WEAK SPOTS (2026-11-15, on request: "retention by deck, tag and period, with a one-tap 'study my
@@ -42021,7 +42046,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       .sort((a, b) => a.s.start - b.s.start || (a.c.id < b.c.id ? -1 : a.c.id > b.c.id ? 1 : 0));
     const i = pool.findIndex((x) => x.c.id === c.id);
     if (i < 0) return null;
-    const list = pool.slice(Math.max(0, i - 2), i + 3);
+    /* THREE BEFORE AND THREE AFTER (2026-11-19, on request: "on desktop and tablet the nearest 3 dates before and 3 after;
+       on a phone keep 2 and 2"). Seven go into the markup; the third on each side is `outer`, which the phone's ledger
+       hides (`.tl-it.outer` in styles.css) and `tlLayout` leaves out of its window and lanes, so one card back serves
+       every width and a resize across 640 px re-lays it with no re-render. */
+    const list = pool.slice(Math.max(0, i - 3), i + 4);
+    list.forEach((x) => { x.outer = Math.abs(pool.indexOf(x) - i) > 2; });
     return list.length > 1 ? list : null;
   }
   function cardTimelineHTML(c) {
@@ -42032,7 +42062,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       list.map((x) => {
         const self = x.c.id === c.id, lo = cardLocalized(x.c);
         const title = lo.answerText || String(lo.answer || "").replace(/<[^>]*>/g, "");
-        return '<li class="tl-it' + (self ? " self" : "") + (x.s.period ? " period" : " event") + '" data-card="' + esc(x.c.id) + '" data-s="' + x.s.start + '" data-e="' + (x.s.end == null ? "" : x.s.end) + '">' +
+        return '<li class="tl-it' + (self ? " self" : "") + (x.outer ? " outer" : "") + (x.s.period ? " period" : " event") + '" data-card="' + esc(x.c.id) + '" data-s="' + x.s.start + '" data-e="' + (x.s.end == null ? "" : x.s.end) + '">' +
           '<i class="tl-mark" aria-hidden="true"></i>' +
           (self ? '<span class="tl-lab" aria-current="true">' : (() => { const k = cardTimelineTermKey(x.c); return k ? '<button type="button" class="tl-lab" data-tlterm="' + esc(k) + '" title="' + esc(title) + ' in the glossary">' : '<button type="button" class="tl-lab" data-kin="' + esc(x.c.id) + '">'; })()) +
           '<span class="tl-t">' + esc(title) + '</span><span class="tl-w">' + esc(x.s.label) + "</span>" +
@@ -42074,13 +42104,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!ol) return;
     ol.classList.add("laid");
     ol.querySelectorAll(".tl-deco").forEach((d) => d.remove());
-    const items = Array.from(ol.querySelectorAll(".tl-it")).map((li) => ({
+    const phone = matchMedia("(max-width:640px)").matches, tablet = !phone && matchMedia("(max-width:1024px)").matches;
+    // a phone shows two each side: the third (`.outer`, hidden there by CSS) takes no part in the window or the lanes
+    const items = Array.from(ol.querySelectorAll(".tl-it")).filter((li) => !(phone && li.classList.contains("outer"))).map((li) => ({
       li, s: +li.dataset.s, e: li.dataset.e === "" ? null : +li.dataset.e, self: li.classList.contains("self"),
       mark: li.querySelector(".tl-mark"), lab: li.querySelector(".tl-lab") }));
     items.forEach((i) => { i.li.style.cssText = ""; i.lab.style.cssText = ""; i.mark.className = "tl-mark"; });
     const W = ol.clientWidth;
     if (!W || !items.length) return;
-    const phone = matchMedia("(max-width:640px)").matches, tablet = !phone && matchMedia("(max-width:1024px)").matches;
     const win = tlWindow(items), clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
     ol.classList.toggle("two", tablet);   // on a tablet a name's date goes on the line below it (on request); a desktop keeps it behind
     if (!phone) {
@@ -53920,6 +53951,22 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     bookHold = { book: p2.id, card: b.dataset.cqcard || "", rec: current.name === "study" ? readStudySession() : null };
     route("book", p2);
   });
+  /* A CARD'S "WHOLE TIMELINE" LINK, WITH A WAY BACK (2026-11-19, on request). Delegated like the quotation's button, so
+     every surface that draws a card back (the study page, `#card`, the card of the day, Card info) is covered. The study
+     record is captured BEFORE routing, which clears it (`tlHold`; PAGES.timeline draws the pill). A modified click
+     (new tab, new window) is left to the browser. */
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest("a.tl-all");
+    if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const m = /#timeline\/(.+)$/.exec(a.getAttribute("href") || "");
+    if (!m) return;
+    e.preventDefault();
+    let q = m[1]; try { q = decodeURIComponent(q); } catch (er) {}
+    const tl = a.closest(".tl");
+    tlHold = { card: (tl && tl.dataset.tl) || "", rec: current.name === "study" ? readStudySession() : null };
+    route("timeline", { q });
+    window.scrollTo(0, 0);
+  });
   // badges: one delegated listener flips a badge over to its "how to earn it" back, and back again on a
   // second click (covers both the profile and a friend's badge grid, which render the same markup)
   document.addEventListener("click", (e) => {
@@ -54033,8 +54080,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       return;
     }
     if (hh === "study" && current.name !== "study") {   // back/forward onto a study address — resume, or go home if the session is gone
-      const rec = readStudySession() || atlasHold || (bookHold && bookHold.rec);   // …or the session a card window's globe button (Phase 4b) or a quotation's book button left behind
-      atlasHold = null; bookHold = null;
+      const rec = readStudySession() || atlasHold || (bookHold && bookHold.rec) || (tlHold && tlHold.rec);   // …or the session a card window's globe button (Phase 4b), a quotation's book button or a "whole timeline" link left behind
+      atlasHold = null; bookHold = null; tlHold = null;
       if (rec) { writeStudySession(rec); route("study", { scope: rec.scope, resume: rec }); } else route("home");
       return;
     }
