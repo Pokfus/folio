@@ -13020,6 +13020,24 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      sweep's other near-best were refused on the same test: a magenta stood 14.6 from Plato, a green 14.5 from
      Aquinas, a brown 16.9 from Augustine. It reads 5.83:1 on the tightest light paper. */
   "Immanuel Kant": "#592F85",
+  /* Nov 2026, adding Utopia; the band is still full. Measured as the rows above (CIE76 over L 12.3–47.8,
+     chroma 18–85, 4.5:1 on all forty-five light papers, cards and second papers, 22 or more from the fifteen
+     light inks), a sweep of the cube at a step of 3 tops out at 14.6. THE EURIPIDES TEST: the sweep's best
+     were magentas 14.6–14.9 from Plato, whose Republic is the book Utopia is read beside, and a green 14.5
+     from Aquinas, so this dark claret was taken: its nearest are Livy 14.3, the Poetic Edda 14.7 and Virgil
+     14.8, none read beside More, and the books that are stand off — Augustine 20.5, Rousseau 24.1, Plato
+     41.8, Hobbes 54.4, Luther 61.4, Machiavelli 80.9. It reads 8.79:1 on the tightest light paper. */
+  "Thomas More": "#5A0009",
+  /* MEASURED AS EVERY ROW ABOVE, with sixty-six colours placed (Nov 2026, adding the Discourse on the Method):
+     CIELAB distance, L 12.3–47.8 and chroma 18–85, 22 or more from all fifteen light themes' inks and 4.5:1 on
+     every light paper, card and second paper. The band is full: a sweep at a step of 3 tops out at 14.6, and its
+     best sit by Plato, Kant, Aquinas or Augustine. THE EURIPIDES TEST, kept strict here: the first candidate of
+     the sweep whose every philosopher stands 19 or more off is this brick red (13.9): its nearest are
+     Aristophanes 13.9, Sophocles 14.0, Sun Tzu 14.1 and Strabo 14.2, none read beside Descartes; the
+     philosophers stand off — More 19.7, Rousseau 28.1, Augustine 34.7, Plato 40.0, Hobbes 63.0, Kant 64.7,
+     Aristotle 68.9, Seneca 73.7, Lucretius 74.0, Aquinas 93.5. (The dark crimson first measured for this row,
+     #5A0009, was taken by More's the same day.) It reads 4.74:1 on the tightest light paper. */
+  "René Descartes": "#962A30",
   /* Nov 2026, adding Apollodorus's Library, the band still full. Measured as the rows above: CIE76 distance,
      L 12.3–47.8 and chroma 18–85, 22 or more from the fifteen light inks and 4.5:1 on all forty-five light
      papers, cards and second papers; a sweep of the cube at a step of 3, refined to 1 around the best, tops
@@ -16248,6 +16266,37 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       total: 5,
     },
     {
+      id: "hamlet",
+      title: "Hamlet",
+      subtitle: "The Tragedy of Hamlet, Prince of Denmark",
+      author: "William Shakespeare",
+      /* "c.": written around 1599–1601; first printed in the quarto of 1603. */
+      written: "c. 1600",
+      year: 1600,
+      // NO `translator`, as Macbeth: written in English, so the rights box names the edition.
+      edition: "The Yale Shakespeare, ed. Jack Randall Crawford, Yale University Press, New Haven, 1917",
+      /* The play has never been in copyright; the Yale edition was published in 1917 and its editor died
+         in 1968 (Wikidata Q19560296), so it clears the US pre-1929 rule but NOT life plus seventy until
+         2039 — public domain in the United States only, which the rights text says. */
+      rights:
+        "Public domain in the United States. Shakespeare wrote the play around 1600 and it was first " +
+        "printed in 1603, so the work itself has never been in copyright. The text here is the Yale " +
+        "Shakespeare edition edited by Jack Randall Crawford and published by Yale University Press in " +
+        "1917, before 1929, so its copyright has expired in the United States. Crawford died in 1968, so " +
+        "his edition remains in copyright in countries whose term is the editor's life plus seventy " +
+        "years, including the United Kingdom and the European Union, until 2039. What is taken is the " +
+        "play, the edition's list of characters, Crawford's glosses from the foot of each page and his " +
+        "end notes, which are set with the glosses that point to them; his appendices and index are not " +
+        "reproduced.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Hamlet_(1917)_Yale",
+      /* NO `origLang`: Shakespeare's English is the original. Five acts, each a tab; the list of
+         characters at the head of Act I. */
+      chapterWord: "Act",
+      count: 5,
+      total: 5,
+    },
+    {
       id: "classic-of-tea",
       title: "The Classic of Tea",
       subtitle: "The Ch‘a Ching, the First Book About Tea",
@@ -17091,6 +17140,67 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          category of "Inherence and Subsistence", not how a society gets its living; PROVIDENCE is divine, not
          the capital of Rhode Island; and "the Republic of Plato" is the dialogue, not the form of state. */
       glossOff: ["Wolf", "Subsistence", "Providence", "Republic"],
+    },
+    {
+      id: "descartes-discourse-on-method",
+      title: "Discourse on the Method",
+      subtitle: "Discours de la méthode pour bien conduire sa raison, et chercher la vérité dans les sciences",
+      author: "René Descartes",
+      written: "1637",
+      year: 1637,
+      translator: "John Veitch",
+      edition: "Second edition, Sutherland and Knox, Edinburgh, 1853",
+      /* No limit to state: Descartes died in 1650 and Veitch in 1894. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. René Descartes published the Discourse in 1637 and died in 1650. John " +
+        "Veitch's translation was first published in 1850 and this second edition in Edinburgh in 1853; " +
+        "Veitch died in 1894. The text is the proofread Wikisource transcription of the 1853 printing.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Discourse_on_the_Method",
+      /* Paired on the PART, as The Prince is on the chapter: neither Veitch nor Cousin numbers anything below
+         it. The French is Victor Cousin's edition (Paris, 1824) as validated on French Wikisource. Seven
+         sections — Descartes's prefatory note and the six Parts — so "Section", and a tab runs one ahead of
+         the Part (The Social Contract's arrangement). */
+      origLang: "fr",
+      origName: "French",
+      chapterWord: "Section",
+      count: 7,
+      total: 7,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of the front matter and all 7 sections
+         (every `.ttip`, Nov 2026). The MEDITATIONS of the front matter are Descartes's of 1641, not Marcus
+         Aurelius's; and Descartes's GERMANY is the Empire of the Thirty Years' War, not the modern state (as on
+         Leviathan's shelf). */
+      glossOff: ["Meditations", "Germany"],
+    },
+    {
+      id: "more-utopia",
+      title: "Utopia",
+      subtitle: "De optimo rei publicae statu deque nova insula Utopia",
+      author: "Thomas More",
+      written: "1516",
+      year: 1516,
+      translator: "Gilbert Burnet",
+      edition: "Utopia, translated by Gilbert Burnet, edited by Henry Morley, Cassell & Company, London, 1901",
+      /* No limit to state: More died in 1535, Burnet in 1715, Morley in 1894. See .claude/fetch-book.js. */
+      rights:
+        "Public domain worldwide. Thomas More published Utopia in Latin in 1516 and died in 1535. " +
+        "Gilbert Burnet's English translation was first printed in 1684 and Burnet died in 1715; Henry " +
+        "Morley, who edited this printing of 1901, died in 1894.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Utopia_(1901)",
+      /* NO `origLang`: the Latin on la.wikisource is in two Books, and Morley's first chapter holds Book I
+         and the opening of Book II, so the two cannot be paired without cutting a page. Nine chapters,
+         Morley's, titled from the work page's contents; no parts, for the same reason. */
+      chapterWord: "Chapter",
+      count: 9,
+      total: 9,
+      /* WHAT THE GLOSSARY MUST NOT LINK — swept against the rendered page of all 9 chapters (every `.ttip`,
+         Nov 2026). Plato's 'Commonwealth' is the Republic, not the Commonwealth of Nations; Providence is
+         divine, not the capital of Rhode Island; the monstrous Colossus is a figure of speech, not the statue
+         at Rhodes; the Germans are the mercenaries of More's day and "the Greek" Hythloday knows is the
+         language, not the modern states; the Syrians beside the Romans and Carthaginians are the ancient
+         kingdom's, as on Leviathan's shelf. */
+      glossOff: ["Commonwealth_of_Nations", "Providence", "Colossus_of_Rhodes", "Germany", "Greece", "Syria"],
     },
   ];
   const BOOK_BY_ID = {};
@@ -26766,6 +26876,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "He jests at scars, that never felt a wound. [Juliet appears above at a window.] But, soft! what light through yonder window breaks? It is the east, and Juliet is the sun! Arise, fair sun, and kill the envious moon, Who is already sick and pale with grief, That thou her maid art far more fair than she: Be not her maid, since she is envious; Her vestal livery is but sick and green, And none but fools do wear it; cast it off. It is my lady; O! it is my love: O! that she knew she were. She speaks, yet she says nothing: what of that? Her eye discourses; I will answer it. I am too bold, 'tis not to…" },
     { book: "julius-caesar", n: 3, t: "Act III", p: 142,
       text: "Friends, Romans, countrymen, lend me your ears; I come to bury Cæsar, not to praise him. The evil that men do lives after them, The good is oft interred with their bones; So let it be with Cæsar. The noble Brutus Hath told you Cæsar was ambitious; If it were so, it was a grievous fault, And grievously hath Cæsar answer'd it. Here, under leave of Brutus and the rest,— For Brutus is an honourable man; So are they all, all honourable men,— Come I to speak in Cæsar's funeral. He was my friend, faithful and just to me: But Brutus says he was ambitious; And Brutus is…" },
+    { book: "hamlet", n: 3, t: "Act III", p: 25,
+      text: "To be, or not to be: that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep; No more; and, by a sleep to say we end The heart-ache and the thousand natural shocks That flesh is heir to, 'tis a consummation Devoutly to be wish'd. To die, to sleep; To sleep: perchance to dream: ay, there's the rub; For in that sleep of death what dreams may come When we have shuffled off this mortal coil, Must give us pause. There's the respect That makes calamity of so…" },
     { book: "classic-of-tea", n: 1, t: "The Origin of Tea", p: 1,
       text: "Tea is a fine tree of the South. Its height is from one to two feet to several tens of feet. The tea plants which grow on the hills and by the streams of Pa Shan [in the province of Szechwan] are sometimes so big that it takes two men to encircle them with their arms. They are cut down and then their leaves are plucked. A tea plant is like kua lu, a tree growing in Canton, the leaves of which are bitter and acrid in taste; its leaves are like those of the gardenia; its flowers are like the white cinnamon roses; its seeds are like those of the palm and coconut palm; its stalks are like those…" },
     { book: "magna-carta", n: 39, t: "Chapter 39", p: 1,
@@ -26788,8 +26900,12 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       text: "We hold these Truths to be self-evident, that all Men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty, and the Pursuit of Happiness.—That to secure these Rights, Governments are instituted among Men, deriving their just Powers from the Consent of the Governed, that whenever any Form of Government becomes destructive of these Ends, it is the Right of the People to alter or to abolish it, and to institute new Government, laying its Foundation on such Principles, and organizing its Powers in such Form, as to them shall…" },
     { book: "hobbes-leviathan", n: 14, t: "XIII. Of the Naturall Condition of Mankind, as concerning their Felicity, and Misery", p: 12,
       text: "Whatsoever therefore is consequent to a time of Warre, where every man is Enemy to every man; the same is consequent to the time, wherein men live without other security, than what their own strength, and their own invention shall furnish them withall. In such condition, there is no place for Industry; because the fruit thereof is uncertain: and consequently no Culture of the Earth; no Navigation, nor use of the commodities that may be imported by Sea; no commodious Building; no Instruments of moving, and removing such things as require much force; no Knowledge of the face of the Earth; no account of Time; no Arts; no Letters; no Society; and which is worst of all, continuall feare, and danger of violent death; And the life of man, solitary, poore, nasty, brutish, and short." },
+    { book: "more-utopia", n: 1, t: "Discourses of Raphael Hythloday, of the Best State of a Commonwealth", p: 2,
+      text: "'The increase of pasture,' said I, 'by which your sheep, which are naturally mild, and easily kept in order, may be said now to devour men and unpeople, not only villages, but towns; for wherever it is found that the sheep of any soil yield a softer and richer wool than ordinary, there the nobility and gentry, and even those holy men, the abbots! not contented with the old rents which their farms yielded, nor thinking it enough that they, living at their ease, do no good to the public, resolve to do it hurt instead of good. They stop the course of agriculture, destroying houses and towns, reserving only the churches, and enclose grounds that they may lodge their sheep in them." },
     { book: "kant-critique-of-pure-reason", n: 2, t: "Preface to the Second Edition", p: 11,
       text: "It appears to me that the examples of mathematics and natural philosophy, which, as we have seen, were brought into their present condition by a sudden revolution, are sufficiently remarkable to fix our attention on the essential circumstances of the change which has proved so advantageous to them, and to induce us to make the experiment of imitating them, so far as the analogy which, as rational sciences, they bear to metaphysics may permit. It has hitherto been assumed that our cognition must conform to the objects; but all attempts to ascertain anything about these objects a priori, by means of conceptions, and thus to extend the range of our knowledge, have been rendered abortive by this assumption. Let us then make the experiment whether we may not be more successful in metaphysics, if we assume that the objects must conform to our cognition. This appears, at all events, to accord better with the possibility of our gaining the end we have in view, that is to say, of arriving at the cognition of objects a priori, of determining something with respect to these objects, before they are given to us. We here propose to do just what Copernicus did in attempting to explain the celestial movements. When he found that he could make no progress by assuming that all the heavenly bodies revolved round the spectator, he reversed the process, and tried the experiment of assuming that the spectator revolved, while the stars remained at rest." },
+    { book: "descartes-discourse-on-method", n: 5, t: "Part IV", p: 0,
+      text: "But immediately upon this I observed that, whilst I thus wished to think that all was false, it was absolutely necessary that I, who thus thought, should be somewhat; and as I observed that this truth, I think, hence I am, was so certain and of such evidence, that no ground of doubt, however extravagant, could be alleged by the Sceptics capable of shaking it, I concluded that I might, without scruple, accept it as the first principle of the Philosophy of which I was in search." },
     { book: "luther-ninety-five-theses", n: 2, t: "Disputation on the Power and Efficacy of Indulgences", p: 87,
       text: "Again:—\"Why does not the pope, whose wealth is to-day greater than the riches of the richest, build just this one church of St. Peter with his own money, rather than with the money of poor believers?\"" },
     { book: "kalidasa-shakuntala", n: 6, t: "Act IV", p: 138,
