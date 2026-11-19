@@ -109,6 +109,14 @@
     const memYear = isMembers && host.getAttribute("data-map-year") ? Number(host.getAttribute("data-map-year")) : null;
     const memGroups = memYear != null ? String(host.getAttribute("data-map-groups") || "").split(";").map((g) => g.split("|").filter(Boolean)).filter((g) => g.length) : [];
     let memHist = false;
+    /* AN EXTENT AS A MEMBERS GROUP (2026-11-19, on request: gr-231's window "must show the borders of the whole Spartan state"; docs/atlas-v2-card-windows.md "An extent as a members
+       group"). A group may name history.bin EXTENTS (`pol:ext_…`, the authored or derived war extents) — Lacedaemon's two halves, `pol:ext_sparta` and `pol:ext_messenia`. The engine
+       draws an extent only where a war gives it a role (atlas.js `presShown`), so such ids are not engine highlights: the window asks the hub for their rings at the window's year
+       (`entityRings`, the worker's `face-rings`) and paints them itself — the group's tint over the land, and ONE outline round the union of the group's faces (no line where two of
+       its extents meet). Only a window whose group names an extent changes; on the still renderer (no history) its present-day `keys` are NOT tinted, since they would claim far more. */
+    const EXT_ID = /^pol:ext_/;
+    const memExt = memGroups.map((g) => g.filter((id) => EXT_ID.test(id))), memHasExt = memExt.some((g) => g.length > 0);
+    const extR = { key: "", asked: "", groups: null };
     // a members window may carry a timeline over its states' own years (`members.span`, 2026-10-29): "y0,y1"
     const memSpan = memYear != null && host.getAttribute("data-map-span") ? host.getAttribute("data-map-span").split(",").map(Number).filter((v) => isFinite(v)) : null;
     const readPts = (a) => (a ? a.trim().split(/\s+/).map((q) => q.split(",").map(Number)).filter((q) => q.length === 2 && isFinite(q[0]) && isFinite(q[1])) : null);
@@ -434,10 +442,54 @@
       ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(sb.text, x0, y - 8); ctx.fillStyle = ink; ctx.fillText(sb.text, x0, y - 8);
       ctx.restore();
     }
+    const memTint = (i) => (i === 0 ? TINT_SEL : i === 1 ? (X.TINT_LATE || TINT_SEL) : (X.TINT_THIRD || X.TINT_LATE || TINT_SEL));
+    const extYear = () => (tlStep() ? tlStep().year : memYear);
+    const extKey = (level) => extYear() + "@" + Math.min(2, level | 0);
+    const extCurrent = (o) => !memHist || !memHasExt || extR.key === extKey(o.level);
+    let extCv = null;
+    function extPath(c, api, rings) {   // unit-vector rings -> a path in the window's CSS px, broken behind the horizon
+      for (const ring of rings) {
+        const n = ring.length / 3; let pen = false;
+        for (let i = 0; i <= n; i++) {
+          const j = (i % n) * 3, p = api.projectV(ring[j], ring[j + 1], ring[j + 2]);
+          if (p[2] < 0.002) { pen = false; continue; }
+          if (pen) c.lineTo(p[0], p[1]); else { c.moveTo(p[0], p[1]); pen = true; }
+        }
+      }
+    }
+    function paintExtents(ctx, api) {
+      const key = extKey(api.level);
+      if (extR.key !== key && extR.asked !== key && winHub && winHub.entityRings) {
+        extR.asked = key; const y = extYear(), lv = Math.min(2, api.level | 0);
+        Promise.all(memExt.map((ids) => (ids.length ? winHub.entityRings(ids, y, lv) : Promise.resolve({ faces: [], rings: [] })))).then((rs) => {
+          if (stopped || extR.asked !== key) return;
+          if (rs.some((r) => r == null)) { extR.asked = ""; return; }   // the history is not in yet: asked again at the next frame (the hub's onChange redraws when it lands)
+          extR.key = key; extR.groups = rs.map((r, i) => ({ rings: r.rings, tint: memTint(i) })); if (win) win.schedule();
+        }, () => { extR.asked = ""; });
+      }
+      if (!extR.groups) return;
+      for (const g of extR.groups) {
+        if (!g.rings.length) continue;
+        const t = g.tint;
+        // the fill: the group's tint over the land (the land mask keeps it off the sea where the window's coast is finer than the rings' level)
+        paintMasked(ctx, api, (m) => { m.beginPath(); extPath(m, api, g.rings); m.fillStyle = "rgba(" + t.rgb + "," + t.fillA + ")"; m.fill(); });
+        // the outline: a band OUTSIDE the union only, stroked at twice the width with the union's own fill then cut out of it, so a line two of the group's extents share is not drawn
+        if (!extCv) extCv = document.createElement("canvas");
+        if (extCv.width !== cv.width || extCv.height !== cv.height) { extCv.width = cv.width; extCv.height = cv.height; }
+        const o = extCv.getContext("2d"); o.setTransform(1, 0, 0, 1, 0, 0); o.clearRect(0, 0, extCv.width, extCv.height); o.setTransform(api.dpr, 0, 0, api.dpr, 0, 0);
+        o.beginPath(); extPath(o, api, g.rings);
+        o.lineJoin = "round"; o.lineCap = "round"; o.lineWidth = 2 * 2.2; o.strokeStyle = t.line; o.stroke();
+        o.globalCompositeOperation = "destination-out"; o.fillStyle = "#000"; o.fill(); o.globalCompositeOperation = "source-over";
+        ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+        if (!api.fast && t.glow) { ctx.shadowColor = t.glow; ctx.shadowBlur = 7 * api.dpr; ctx.drawImage(extCv, 0, 0); ctx.shadowBlur = 0; ctx.shadowColor = "transparent"; }
+        ctx.drawImage(extCv, 0, 0); ctx.restore();
+      }
+    }
     function marks(st, api, ctx) {
       cols();
       ctx.save(); ctx.setTransform(api.dpr, 0, 0, api.dpr, 0, 0);
       const W = api.cw, H = api.ch, shelf = locKind === "shelf", sea = locKind === "sea";
+      if (memHist && memHasExt) paintExtents(ctx, api);   // a members group's extents (2026-11-19): under every mark and name
       // the authored area (or a water place's known outline, shaded as a sea)
       const wr = waterRings(), areaRings = locArea || wr, seaLike = sea || (!!wr && !locArea);
       if (areaRings) {
@@ -791,10 +843,10 @@
           spec: () => ({
             layers: Object.assign({ borders: true, provinces: usStates || (!isWar && (layerName !== "world" || !!subdiv)), admin1Box: usStates ? US_STATES_BOX : undefined, admin1Max: 60, neutral: isWar || glossYear != null || memHist, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject(), peoples: glossPeople ? "all" : undefined, peopleOnly: glossPeople ? glossFace : undefined }, reliefNow()),
             year: glossYear != null ? glossYear : memHist ? (tlStep() ? tlStep().year : memYear) : tlStep() ? tlStep().year : warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined, history: wantsFront ? "ww2" : undefined, front: !!(tlStep() && tlStep().front), frontDate: tlStep() && tlStep().front ? tlStep().date : null,
-            highlights: memHist ? memGroups.map((ids, i) => { const t = i === 0 ? TINT_SEL : i === 1 ? (X.TINT_LATE || TINT_SEL) : (X.TINT_THIRD || X.TINT_LATE || TINT_SEL); return { ids, rgb: t.rgb.split(",").map(Number), a: t.fillA, line: t.line, lineWidth: 2.2, glow: t.glow, glowBlur: 7, exact: true }; }) : targets.length ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9, exact: glossYear != null }] : [],
+            highlights: memHist ? memGroups.map((ids, i) => { const t = memTint(i); return { ids: ids.filter((id) => !EXT_ID.test(id)), rgb: t.rgb.split(",").map(Number), a: t.fillA, line: t.line, lineWidth: 2.2, glow: t.glow, glowBlur: 7, exact: true }; }).filter((h) => h.ids.length) : targets.length && !memHasExt ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9, exact: glossYear != null }] : [],
           }),
           draw: (st, api, ctx) => marks(st, api, ctx),
-          extraSettled: (st, o) => anchorsCurrent(st, o),
+          extraSettled: (st, o) => anchorsCurrent(st, o) && extCurrent(o),
         });
         mark("a2:window-mounted");
         win.setHome(home.lon, home.lat, home.zoom); win.setView(home.lon, home.lat, home.zoom);
