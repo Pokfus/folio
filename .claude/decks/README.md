@@ -232,6 +232,34 @@ shelf), run the levels, then the steps above; name it in the head or a set in `b
 falls after the frequency order by its new number. To change what a card says, change the generator; to
 change what an alphabet card says, change `bengali-alphabet-quote.js` and re-cut the table.
 
+## The Hindi decks: the record, the order and the pinned ids (Nov 2026)
+
+Seven decks: six of card type `hindi` (A1 to C1 and the phrases) and the alphabet (`hi-abc`, with its
+reading rules, `hi-read`). Unlike the German and Spanish decks they CAN be rebuilt byte for byte
+(`.claude/hindi/run.py`, `alphabet.py`; 280 MB of live corpora, proved 2026-11-19), so the split is: **a
+fault that is the generator's is repaired in the generator; a hand judgement is in the record**, applied
+after it (`docs/lang-decks.md`, "The Hindi beginner pass"). The files live in `.claude/hindi/`, not here.
+
+    node ../hindi/hindi-fix.js --check     # the decks are what the record, the order and the pin give
+    node ../hindi/hindi-order.js --check   # hindi-order.json is what its rules give
+    node ../hindi/check-hindi.js           # the pipeline's own faults; every id is its pinned number
+
+| file | what it is |
+|---|---|
+| `hindi-fixes.json` | the record: `insert` (a card moved from another deck, its seven `fields` byte for byte with `from`; or a new one with `roman` / `senses` / `forms` / `ex`, every sentence naming its Tatoeba ids), `notes` (`exDrop`, `exOnly`, `hint`), `decks.<id>.dropDup` and `descSub`. |
+| `hindi-ids.json` | deck id → key (a word's `Word`, a letter's `Letter`, a rule's `Key`) → the number in the note's id. **Never delete or renumber a row.** A removed note's row moves to `_retired` (28); a respelling renames the key. APPLIED, so a deck numbered by position is numbered back. |
+| `hindi-order.json` | deck id → `order` (A1, A2, the phrases) and `facts`, the figures the descriptions state. A deck with no entry is dealt by pinned number. |
+| `hindi-order.js` | how that file is computed, from the PINNED NUMBER (the generator's frequency rank): A1's hand-written head and three closed sets placed at a note number; A2's months together; the phrases by reading level. `--report` prints the measurements. |
+| `hindi-fix.js` | applies all three, recounts every figure a description states, writes `{fact}` placeholders from the order. Idempotent: `--check` is "applying it changes nothing". |
+
+**A rebuild**: `python3 ../hindi/run.py --level <x>` (any level alone — `hindi_level.words_below` reads the
+record and counts a moved card where the generator dealt it), `python3 ../hindi/alphabet.py`,
+`hindi-order.js` if a headword changed, `hindi-fix.js`, `node .claude/build-lang-decks.js`. To add a word
+to A1: an `insert` entry (the next free id above 524, a `why`), name it in `HEAD` or a set in
+`hindi-order.js` (an insert with no place fails that script), then the two scripts. To move a word down:
+the same with the card's `fields` copied in and a `dropDup` row on the deck it leaves. A reading rule is
+a row of `RULES` in `alphabet.py`, with its quote and revision.
+
 ## Changing the card type's CSS
 
 `deckcore.js` holds it, and every built deck file carries a **copy** — so an edit there does not reach a

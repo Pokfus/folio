@@ -8,6 +8,10 @@ file says otherwise. Asked for on 2026-11-09: "Add a Hindi language collection."
 **STATUS (2026-11-12): the collection is complete** — the alphabet deck, every level A1 to C1 and the
 phrases deck are built (`.claude/hindi/`, §6–11).
 
+**SINCE 2026-11-19 the shipped decks are the generator's output with a record applied** (§12): the counts
+in the table and in §6–11 are the generator's; shipped are the alphabet 71, A1 524, A2 733, B1 999, B2
+1,497, C1 1,500, the phrases 281, with every note id pinned (`hindi-ids.json`).
+
 A deck under `decks/` is community content, not a change to Folio: **no changelog line and no version bump**
 for any deck this plan produces. The collection's first commit carried one line and one bump, because it
 also changed the APP (the shelf's hue in `app.js`) — the Turkish and Russian precedent.
@@ -257,3 +261,20 @@ sentences, 11 have three. The description states both.
 `साथ गाना` "to sing along") — its labels are the source's, stated as such. Synonymous idioms are kept side by
 side (`छाती चौड़ी होना`, `सीना चौड़ा होना`, `छाती फूलना`), the shelf's duplicate pass labelling their shared
 English. `दफ़ा हो जा` ("get lost!") is rude and kept, as an expression a learner hears.
+
+## 12. The beginner pass (2026-11-19)
+
+The audit, what it found, what was built and what was decided against are 📖 `docs/lang-decks.md`, "The
+Hindi beginner pass"; the files are 📖 `.claude/decks/README.md`, "The Hindi decks". In short:
+
+- **The generator still rebuilds every deck byte for byte** (proved before and after its changes), and
+  gained: होना's present, past and presumptive; a Forms row on the possessives and का; "invariable" on an
+  indeclinable adjective; an auxiliary block on रहना, जाना, लेना, देना, लगना; करके; the headword printed
+  in the spelling of the entry the card shows (27 gained their nukta); an inventory word reached through a
+  pointer takes its own romanisation. `alphabet.py` gained ऑ and eleven sourced reading rules.
+- **What a generator cannot know is a record**: `hindi-fixes.json` (24 notes into A1, six duplicates
+  dropped, 21 sentences taken off, fourteen hints), `hindi-order.json` (A1's teaching order, A2's months,
+  the phrases by reading level) and `hindi-ids.json`, applied by `node .claude/hindi/hindi-fix.js` after
+  any rebuild. Never edit a Hindi deck file by hand, and never renumber a note.
+- **A level's SIZE is no longer round**, and must not be "restored": the numbers that left A2 are in A1.
+

@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1365", released: "2026-11-19T04:00Z" };
+window.FOLIO_VERSION = { v: "1.1366", released: "2026-11-19T04:03Z" };
 
 window.CHANGELOG = [
   {
@@ -51,6 +51,7 @@ window.CHANGELOG = [
       "New in the Library: <b>The Letters of St. Jerome</b>, all 150 in W. H. Fremantle's 1893 translation, one letter to a tab.",
       "The <b>Arabic Alphabet</b> deck now teaches the vowel signs and the article from cited sources, and <b>Arabic A1</b> opens with the greetings and gains the months.",
       "Bengali cards now show each word's <b>pronunciation</b>, <b>Bengali A1</b> opens with greetings (nomoskar, dhonnobad), and the Alphabet deck adds conjuncts and reading rules.",
+      "The Hindi alphabet deck gains <b>eleven reading rules</b>, and <b>Hindi A1</b> now opens with namaste, thank you and please, with numbers, days and colours together.",
     ],
   },
   {

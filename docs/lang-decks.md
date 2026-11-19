@@ -3651,6 +3651,15 @@ changed was the one that had been wrong all along.
   consonants are described phonetically in one line, not taught.
 - `.claude/hindi/` — the generator behind the Hindi decks (Nov 2026, on request: "Add a Hindi language
   collection", then the owner's answers: CEFR A1–C1 assembled, a Devanagari deck, romanisation on every card).
+  **READ THIS FIRST (2026-11-19, the Hindi beginner pass — its section is near the foot of this file).** The
+  counts below are the generator's; the shipped decks are the generator's output WITH A RECORD APPLIED
+  (`hindi-fixes.json` → `node .claude/hindi/hindi-fix.js`, the order `hindi-order.json` ←
+  `hindi-order.js`, the pin `hindi-ids.json`): A1 524, A2 733, B1 999, B2 1,497, the phrases 281, the alphabet
+  71 (60 letters, 11 reading rules of card type `hi-read`). **Every note id is pinned to its headword and
+  applied**, so a rebuild, which numbers by position, is numbered back. A rebuild is `run.py --level <x>`
+  (any level alone: `hindi_level.words_below` undoes the record's moves) → `alphabet.py` → `hindi-fix.js` →
+  `build-lang-decks.js`, and reproduces the committed files byte for byte (proved 2026-11-19, 280 MB
+  fetched). A fault that is the generator's goes in the generator; a hand judgement goes in the record.
   **Built: the alphabet, `decks/Hindi-Alphabet.folio-deck.json`** (59 notes) **and A1,
   `decks/Hindi-A1.folio-deck.json`** (500 notes / 1,000 cards) **and A2, `decks/Hindi-A2.folio-deck.json`**
   (750 notes) **and B1, `decks/Hindi-B1.folio-deck.json`** (1,000 notes)
@@ -5387,6 +5396,182 @@ on aspiration.
 - **That the twelve words are A1 and A2 material is a judgement here**, not a citation.
 - **No card was read one by one.** The diff against the shipped decks was: the new field, 137 table rows,
   83 labelled meanings, two sentences re-dealt, the moved words.
+
+## The Hindi beginner pass (2026-11-19)
+
+On request, the audit the Mandarin, Spanish, Italian, German and Portuguese decks had been given: **what
+does a learner with no Hindi and no Devanagari meet, in the order the shelf itself recommends** — the
+alphabet, A1 to C1, then the phrases? Every figure was measured on the seven decks as shipped that
+morning, at the language default of ten new cards a day with both directions together, which is five words
+a day. The rules are in the `.claude/hindi/` entry above and in `.claude/decks/README.md` "The Hindi
+decks"; this section is the reasoning.
+
+### What the audit found, by what it costs a beginner
+
+1. **The alphabet deck did not get a reader to A1's first words.** It taught the letters well (eleven
+   vowels each with its sign, anusvara against chandrabindu, the halant, the five nukta letters, and an
+   English comparison or a tongue position for every retroflex, dental and aspirate) and said nothing of
+   how they are read together. Its first card said "every consonant carries [a] unless a sign says
+   otherwise": 218 of A1's 491 one-word headwords end in a consonant whose a is silent and 105 drop one
+   inside the word (कमरा kamrā). 68 A1 headwords hold a joined consonant, 50 different ones (71
+   occurrences); the deck taught four as letters (8 of the 71) and no rule, and र, which takes three
+   shapes, is in 17. Of A1's first 100 headwords 60 needed a rule the deck never stated. ॉ (डॉक्टर,
+   कॉफ़ी) was on no note; nothing spoke of vowel length as a contrast or of stress.
+2. **The courtesies were late or last on the shelf.** नमस्ते was note 372 of A1 (day 87 with the alphabet
+   first), अलविदा 371, शुक्रिया 322, धन्यवाद and कृपया 110 and 109 (day 34), हाँ 38. आप कैसे हैं, मैं ठीक हूँ,
+   आपका नाम क्या है, माफ़ कीजिए, जी हाँ, जी नहीं and कोई बात नहीं were in the phrases deck, which the shelf
+   lists after C1: day 1,063 onwards. नमस्कार and zero were A2's. चाहिए, in 21 of A1's sentences, and
+   मेरा नाम … है were cards of no deck (फिर मिलेंगे and ठीक है still are: finding under Limits).
+3. **The verb "to be" showed none of its commonest forms.** होना's table gave होता है and Wiktionary's
+   definite future होएगा. है stands in 578 of A1's 1,450 sentences, हैं in 135, हूँ in 82, था / थे / थी in
+   120, होगा / होगी in 28; none of the seven was a cell of any card.
+4. **Nothing showed agreement on the possessives or on का.** मेरा, तुम्हारा, आपका, उसका, इसका, हमारा, उनका,
+   अपना and का carried no Forms row: मेरे and मेरी are in 73 A1 sentences, के and की in 127. 44 of A1's 74
+   adjectives are invariable and showed an empty row, which reads the same as a row nobody filled.
+5. **A1 was dealt by a subtitle frequency list.** Day one was होना · मैं · करना · कि · नहीं. One to ten ran
+   from note 12 to 462, eleven and twelve were 494 and 482 with thirteen to nineteen in A2 (709 to 750),
+   the tens were split the same way, the days ran 454 to 495, the colours 419 to 469, the question words
+   18 to 499, the pronouns 2 to 425. The months were all A2's, notes 609 to 743.
+6. **The progressive and the compound verbs were explained nowhere.** 85 A1 sentences hold a progressive
+   (कर रहा है) and रहना's card stopped at Wiktionary's third sense, the fourth being "an aspectual
+   auxiliary, marking the continuous aspect"; the same for जाना (the passive), लेना, देना, लगना. ने, in
+   96 sentences, is glossed "marker of the ergative case with perfective-aspect transitive verbs" and
+   nothing more; तू / तुम / आप are told apart only by their glosses and the pronoun tables.
+7. **Card faults.** 27 headwords were printed without the nukta their own romanisation had (सफेद over
+   safed, काफी over kāfī: the dump's first entry, a nuqtaless pointer, named the lemma); nine inventory
+   words reached through a pointer printed the OTHER spelling's romanisation (वसंत over basant, गरम over
+   garm); करना's "having done" was करकर; six words were carded twice in two spellings (कुर्सी A1 / कुरसी
+   B2, गरम / गर्म, बिल्कुल / बिलकुल, वसंत / बसंत, दुख / दुःख, महत्व / महत्त्व); कि's third sentence was a
+   misspelt की, जी's second the verb जीना, जी नहीं's three all "cannot live"; and eighteen sentences on
+   fourteen cards whose word is not obscene were (मेरा, छोटा, लंबा and सिर in A1), found on a screenshot.
+8. **The romanisation was sound.** One scheme on every card of all seven decks, Wiktionary's (ISO-like
+   with c / ch, ś / ṣ, ṛ for the flap, x ġ q z f, a tilde for a nasal vowel, anusvara resolved to its
+   nasal), which marks length, retroflexes, nasalisation and schwa deletion; 55 of the alphabet's 59
+   example words are level cards and all 55 agree. Beyond finding 7 the Roman field and the spelling
+   disagree nowhere; 62 form romanisations of 39,553 are empty (irregular pasts, होइये).
+9. **Gender and number were sound**: 241 of A1's 243 noun senses carry a gender, 207 an oblique plural,
+   the direct plural where it differs, and the full direct / oblique / vocative table behind the fold; 26
+   of the 30 adjectives in -ā show feminine and plural. **Verbs were otherwise sound**: all 77 carry the
+   past, its feminine, stem, habitual, present, future, subjunctive and the imperative at three levels
+   (कर / करो / कीजिये); of 233 verb forms A1's sentences mark, 10 are on no table.
+10. **The reverse card was mostly sound.** No two notes of a deck share an English side (the generator's
+    `not X` labels); A1 asks with 2.0 senses a note. 30 groups of A1 notes share a first gloss, four notes
+    hinted; the fronts that truly could not be told apart were धन्यवाद / शुक्रिया, नमस्ते / नमस्कार, अगर
+    / यदि, कार / गाड़ी, सड़क / रास्ता. Sanskrit- and Persian-derived pairs sit a deck apart unhinted (किताब
+    A1 / पुस्तक B1, मदद / सहायता A2, दोस्त / मित्र, साल / वर्ष).
+11. **Sentences are five words at the median** (six or seven above A1). In the order the cards arrived,
+    counting a form as met only if a card shows it: A1 72.8% of words met and 289 of 1,450 sentences
+    whole (57.4% and 12 of 150 over the first fifty notes); A2 77%, B1 80%, B2 82%, C1 83%.
+12. **The levels are what their descriptions say**: a topic inventory plus lemma frequency. No headword is
+    also a lower card; 4, 9, 12 and 25 are a form a lower card shows, mostly a noun spelled like a verb
+    stem (डर / डरना), six of them the true duplicates of finding 7. Median lemma count of a level's first
+    300 words: 505, 89, 32, 12, 4 (median rank in the form list 275, 847, 1,885, 3,752, 7,550). C1's fill
+    is close to noise, as the plan already says.
+13. **The phrases were roughly in a usable order and their description did not say so**: 32 of the 97
+    everyday phrases are spelled with A1's words and forms, at a median position of 20; 18 of 157 idioms;
+    no proverb. 128 of the deck's expressions use a word no level cards.
+14. **The pace was stated nowhere**: the alphabet 12 days, A1 100, B1 reached on day 263, the shelf 1,120
+    days, 3.1 years.
+
+### The generator was proved first
+
+`run.py` and `alphabet.py` were run for all seven decks into a scratch copy before anything was changed:
+five files fetched (kaikki's Hindi extract 168 MB, Tatoeba's English sentences 109 MB, three small ones;
+280 MB), **all seven sha256 sums equal to the committed files**. So a generator fault was repaired in the
+generator and every level rebuilt: only the intended fields moved (Forms on 916 notes, 901 of them the
+word "invariable"; Hindi and Word on 27; Table on 16; Roman on 9; English on 7), no id, no order, no
+sentence. After the record was written the whole pipeline was run again three ways (B1 alone, A2 alone,
+the phrases alone, then all levels and the alphabet) on top of the committed decks: generator plus record
+gave the committed bytes each time.
+
+### What was built
+
+- **Note ids pinned** (`hindi-ids.json`, 5,597 rows seeded from the decks as shipped, before anything
+  moved; now 5,605 and 28 retired). From the files: of the 5,597 old ids 5,542 name the same word, 27 the
+  same word respelled with its nukta, 28 are retired, none is reused. In a browser, with the decks as
+  shipped: a reader holding the old Alphabet, A1 and phrases with 29 notes scheduled in BOTH directions
+  pressed the three Updates ("12 new cards"; "24 new cards · 74 cards corrected"; "7 cards dropped from
+  the list (kept here, with their progress)") and kept all 58 schedules on the same words, the seven
+  notes the phrases lost staying on the device.
+- **In the generator** (every level reproduces): होना's own blocks (is, am, are · was, were · will be,
+  must be); a Forms row on the possessives and का (feminine, plural / oblique: sixteen A1 cards) and
+  "invariable" on an adjective Wiktionary marks indeclinable; an "as an auxiliary, after another verb"
+  block from the senses Wiktionary lists after the third (रहना, जाना, लेना, देना, लगना, डालना, होना);
+  करके; the 27 headwords and the nine romanisations of finding 7.
+- **In `alphabet.py`**: ऑ, and **eleven reading rules** (card type `hi-read`, one card each): the silent
+  final a, the a dropped inside a word, vowel length, the half letter, the letter joined to क, the doubled
+  letter, र before and र after, रु and रू, the plain dot that nasalises, the stress. Each shows the rule
+  on an A1 card with the generator's romanisation and quotes one sentence of Wikipedia at a revision
+  ("Schwa deletion in Indo-Aryan languages" 1381118256, "Devanagari" 1385113141, "Hindustani phonology"
+  1386279681); the plain-words line above the quote claims nothing the quote does not. The first card now
+  says where the a is silent.
+- **A Hindi record** (`hindi-fixes.json`, applied by `hindi-fix.js` to every deck of card type `hindi` or
+  `hi-abc`): **24 notes for A1** (ids 501 to 524) — 22 MOVED byte for byte (नमस्कार, zero, thirteen to
+  nineteen and six tens from A2; the seven formulas of finding 2 from the phrases), each `dropDup`ped
+  where it was with its row in `_retired`, and चाहिए and मेरा नाम … है NEW (Wiktionary via kaikki, read
+  2026-11-19; sentences Tatoeba, named by id); **six spelling duplicates dropped** from A2, B1 and B2;
+  **21 sentences taken off 16 cards**; **fourteen reverse-card hints** (the five pairs of finding 10,
+  and पुस्तक, प्रश्न, सहायता, मित्र, वर्ष, प्रतीक्षा, प्रयास on the HIGHER card, so the hint names a word
+  already learnt).
+- **An order** (`hindi-order.json`, computed by `hindi-order.js` from the pinned number, which is the
+  generator's frequency rank). A1: 94 notes by hand — the courtesies (three days), a first exchange, the
+  pronouns and possessives, nine postpositions, twelve verbs, the question words, zero to ten, twelve
+  function words — then frequency with the days from note 151, the colours from 201 and the numbers above
+  ten from 251. नमस्ते is the first card; आप कैसे हैं is day four of the deck. A2: the twelve months
+  together from note 605. The phrases: by reading level inside each subdeck (49 / 33 / 30 / 21 / 20 and
+  128 no level; 30 of the 90 everyday phrases with A1 alone).
+- **The pace stated** in the alphabet, A1 and phrases descriptions, every figure written in from the
+  order's `facts` or recounted, none typed: the alphabet's 131 cards 14 days, A1 105 days.
+- **CI**: `hindi-fix.js --check`, `hindi-order.js --check` and `check-hindi.js` (which had never been a
+  step; its "id out of sequence" test is now "the id is the note's pinned number").
+
+### What was decided against, and why
+
+- **Moving words by editing the inventory.** A1 is cut at 500, so one word added to its inventory pushes
+  a fill word into A2, and so on up: every boundary would trade notes, each a retired id and a second
+  copy for a reader who holds both decks. The record moves 22 cards and nothing else shifts.
+- **Dropping the six duplicates in `select.py`.** The same cascade, from B1 upwards; `dropDup` leaves
+  B1 at 999 and B2 at 1,497.
+- **A progressive row, and a feminine set, in every verb's table.** Wiktionary's conjugation table has no
+  कर रहा है cell (its one "progressive" cell is करते-करते), and a form is never typed by hand. The
+  auxiliary's own card now says what it does.
+- **A grammar deck** (ने and the ergative, तू / तुम / आप, the oblique case, compound verbs). Only a
+  script rule could be quoted cleanly; what could be shown on a card was put on the card.
+- **A teaching order for the alphabet's letters.** The traditional order is the order of every primer and
+  dictionary, the deck is finished before A1 on the shelf, and every example word needs later letters in
+  any order. The rules were placed after the block they need.
+- **Re-ordering B1 to C1**: 80% to 83% of a card's sentence words have been met on arrival.
+- **Removing obscene sentences in `examples.py`.** A sentence is used once per deck, so a stoplist there
+  re-deals other cards' sentences. The record takes off the eighteen; a rebuild keeps them off.
+- **Respelling कीजिये as कीजिए, गए for गये.** Both spellings are current, the table is Wiktionary's, and
+  Tatoeba's sentences use both (कीजिए six times in A1 on cards showing कीजिये).
+- **Cards for फिर मिलेंगे and ठीक है**: neither is an entry of the English Wiktionary. क्षमा कीजिए stands
+  as a sentence on क्षमा's card.
+- **Look-alikes forty notes apart** (the German rule). Hindi's pairs are a postposition and its adverb
+  (पीछे / के पीछे), which the part-of-speech label already tells apart on the reverse card.
+
+### Limits to know about
+
+- **The head's sentences still lean on words that arrive later.** Over A1's first fifty notes 49.7% of
+  sentence words have been met on arrival and 14 of 135 sentences can be read whole, against 57.4% and 12
+  of 150 by frequency: a greeting's sentence uses function words the frequency order had already dealt.
+  Over the whole deck 75.8% and 382 of 1,482, against 72.8% and 289, which is the forms now shown.
+- **The reading rules quote three articles** and were chosen by what A1's headwords need: no rule for
+  द्ध-style stacked letters, for यह and वह as they are spoken, or for the a before ह. The plain-words
+  line of each is this pass's paraphrase of its quote.
+- **A reader who already holds A2 or the phrases keeps the cards that moved** and meets them again in A1.
+- **That the courtesies, the numbers and चाहिए are A1 material is a judgement here**; the A1 description
+  says which 24 were added and from where.
+- **The decks were not read card by card.** The head of A1 was; the faults of finding 7 were found by
+  measurement, by one screenshot and by a search of the English sides. A sentence filed under the wrong
+  word may stand elsewhere (कि's did).
+- **Byte-identity depends on live sources.** kaikki regenerates its extract and Tatoeba its exports; on
+  2026-11-19 both still gave the committed files. A later rebuild that differs is the sources moving, and
+  the pin and the record are what keep the ids and the order when it does.
+- **`check-hindi.js` reads files only**; the browser checks of this pass (the Update press, the card
+  screenshots at 390 px) were scratch scripts, not suites.
+- **The whole shelf is now 5,605 notes, 11,199 cards: 1,123 days at the default pace, 3.1 years**; B1
+  begins on day 267.
 
 ## The DELE card-by-card audit, beyond A1 — the batch log
 

@@ -343,6 +343,18 @@ jobs:
       - name: build-german-sounds --check (the German sounds deck is what its table and Goethe A1 give)
         if: ${{ !cancelled() }}
         run: node .claude/decks/build-german-sounds.js --check
+      # The Hindi decks (2026-11-19, the Hindi beginner pass): hindi-fixes.json (the cards A1 gains, the
+      # duplicates A2 to B2 lose, the sentences taken off), hindi-order.json and the pinned ids, over the decks
+      # of card type `hindi` and `hi-abc`. All three read only the repository.
+      - name: hindi-order --check (hindi-order.json is what its rules give)
+        if: ${{ !cancelled() }}
+        run: node .claude/hindi/hindi-order.js --check
+      - name: hindi-fix --check (the Hindi decks carry their record, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/hindi/hindi-fix.js --check
+      - name: check-hindi (the Hindi decks' own faults; every note id is its pinned number)
+        if: ${{ !cancelled() }}
+        run: node .claude/hindi/check-hindi.js
       # The Portuguese decks (2026-11-16, the Portuguese beginner pass): portuguese-fixes.json (the cards CAPLE A1
       # gains, the repaired meanings, the order, the pinned ids, the counts a description states), applied after
       # the shared paradigm-fixes.json.
