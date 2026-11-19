@@ -155,6 +155,13 @@
   letter-spacing: 0.02em;
   opacity: 0.6;
 }
+/* The pronunciation in IPA, under the romanisation (the beginner pass, 2026-11-19). */
+.uc-ipa {
+  margin-top: 1px;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  opacity: 0.6;
+}
 .uc-fr {
   margin-left: 5px;
   font-size: 0.82em;
