@@ -565,7 +565,7 @@ otherwise.
 | B65 | World War II (`col-37`) | `cnh-641`–`cnh-650` | 10 | 117 | **done 2026-11-19** |
 | B66 | World War II (`col-37`) / People's Republic of China (`col-38`) | `cnh-651`–`cnh-660` | 10 | 99 | **done 2026-11-19** |
 | B67 | People's Republic of China (`col-38`) | `cnh-661`–`cnh-670` | 10 | 103 | **done 2026-11-19** |
-| B68 | People's Republic of China (`col-38`) | `cnh-671`–`cnh-680` | 10 | 104 | to do |
+| B68 | People's Republic of China (`col-38`) | `cnh-671`–`cnh-680` | 10 | 104 | **done 2026-11-19** |
 | B69 | People's Republic of China (`col-38`) | `cnh-681`–`cnh-690` | 10 | 104 | to do |
 | B70 | Republic of China (Taiwan) (`col-39`) | `cnh-691`–`cnh-700` | 10 | 99 | to do |
 | B71 | The imperial state (`cn-government`) | `cnh-701`–`cnh-710` | 10 | 102 | to do |
@@ -1310,6 +1310,16 @@ whether its current picture looks wrong from its title, description and credit.
 | `cnh-668` | none | not re-checked (pictures paused): wanted |
 | `cnh-669` | none | not re-checked (pictures paused): wanted |
 | `cnh-670` | none | not re-checked (pictures paused): wanted |
+| `cnh-671` | none | not re-checked (pictures paused): wanted |
+| `cnh-672` | none | not re-checked (pictures paused): wanted |
+| `cnh-673` | none | not re-checked (pictures paused): wanted |
+| `cnh-674` | none | not re-checked (pictures paused): wanted |
+| `cnh-675` | none | not re-checked (pictures paused): wanted |
+| `cnh-676` | none | not re-checked (pictures paused): wanted |
+| `cnh-677` | none | not re-checked (pictures paused): wanted |
+| `cnh-678` | none | not re-checked (pictures paused): wanted |
+| `cnh-679` | none | not re-checked (pictures paused): wanted |
+| `cnh-680` | none | not re-checked (pictures paused): wanted |
 
 ## Glossary candidates
 
@@ -4271,3 +4281,38 @@ unconfirmed: 百花运动. **Spellings**: 0 hits on the drafts. **Myth register*
 million), Lushan and Peng's letter confirmed in outline. **check-citations**: no mismatch. **Protected lines: unchanged** (diffed after
 the apply). Timelines set: `cnh-662` (28 April 1956 – 7 June 1957), `cnh-663` (8 June 1957), `cnh-667` (2 July – 16 August 1959),
 `cnh-668` (February 1956 – March 1969).
+
+### B68 — `cnh-671`–`cnh-680`, the People's Republic: the Red Guards to the reform and opening up (2026-11-19)
+
+Run as B61. Every cited URL answered at the batch's own curl but two: `cnh-673`'s Europe PMC full text (a 502 outage at the batch; the
+agent's saved copy stands) and `cnh-677`'s Taylor and Francis DOI (403 to curl; it resolves). **Pictures were not touched.** **The old
+cards cited Wikisource for the resolutions, the court texts, the 1993 decision and the 1978 article, an FBIS transcript, OpenEdition pages
+now walled and a dead PDF; carried men, places and institutions in labels ("Mao's letter", "Beijing rally", "Mao's directive", "Nixon's
+visit", "Liu cleared", "Truth article"), a "from" value, a rally that was the second review called the first, and print runs and death
+counts as fact.** The Little Red Book's billions, the Gang of Four's victims and the sent-down millions are now each whose.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-671` Red Guards | 8 | 8 → 8 | **"Mao's letter" (a man), "Beijing rally 31 August 1966" (a place; the second review, not the first) and "Workers sent in" off: `Appeared June 1966` / `First review 18 August 1966` / `Last review 26 November 1966`; the Tsinghua middle school and "it is right to rebel", the bloodline couplet, Mao as the "black hand"; the 13 million and the workers each said whose; Yi Xiaocuo, the Sciences Po chronology, Walder (Stanford)**; seven primary sources cut to three. The party dates the first group to June 1966, Zhang Fang's essay to 29 May (for the owner). |
+| `cnh-672` Quotations from Chairman Mao Tse-tung | 8 | 8 → 8 | **`First edition 1 May 1964` / `Revised 1 August 1965` / `Foreword 16 December 1966` / `Withdrawn 12 February 1979` (the old 1979 row on no page); Lin Biao's foreword and the "spiritual atom bomb", the trial printing, the propaganda department's order; the register row confirmed as claims: Leese's just over a billion official volumes, Cook's "well over a billion", the press's five billion, the Chinese account's 1,055 million**; the old author line "Lin Piao" → Lin Biao; "Mao Tse-tung" kept in the title. |
+| `cnh-673` Down to the Countryside Movement | 7 | 7 → 7 | **"Mao's directive" (a man) → `Directive 22 December 1968`, `Mass phase 1968 – 1980` first; the Huining editor's note, the CIA memo's seven million from provincial broadcasts, the shared cemetery outside Shanghai; the numbers each whose (Zhao and Su's 17.7 million, Fiskesjö's 17 – 20 million)**; four OpenEdition sources (a bot wall) and the "17,919,800" (on no page that opens) dropped. Timeline set to 1968 – 1980. Europe PMC answered 502 at the batch's curl; the agent's saved full text stands. |
+| `cnh-674` Lin Biao | 7 | 8 → 8 | **The two Wikisource texts replaced by the 1969 constitution on the Marxists Internet Archive and Zhou Enlai's 1973 report; the register row confirmed and dated (Zhou's report of 24 August 1973: Project 571, the flight on 13 September, the crash "at Undur Khan"); the greatcoat wound and the Soviet treatment, the head-of-state quarrel as the CIA read it**; the Liaoshen command and the foreword left to their cards. Protected: the line stays (flagged below). |
+| `cnh-675` Gang of Four | 7 | 7 → 9 | **"Overthrown October 1976" → `Arrested 6 October 1976` (the party's own page, said whose) / `Tried 20 November 1980 – 25 January 1981`; Mao's "gang of four" as the 1981 resolution's account, the Zhongnanhai arrests ordered by Hua Guofeng and Ye Jianying, the televised trial; the prosecution's 750,000 persecuted and 34,375 dead as its count; the 1983 commutation; Zheng (UMKC), Bout, the Library of Congress study**; two Wikisource court texts dropped. The register row confirmed. |
+| `cnh-676` Shanghai Communiqué | 7 | 7 → 7 | **"Nixon's visit" (a man) and "Relations from 1 January 1979" ("from") → `Visit 21 – 28 February 1972` / `Issued 27 February 1972` / `Relations begin 1 January 1979` (FRUS 1969 – 1976 XVII, the Office of the Historian); "one China" unchallenged, renshi against chengren (a CRS report), the hegemony clause; the PRC embassy's text**; Wikisource replaced; Taiwan's status one clause. |
+| `cnh-677` Hua Guofeng | 6 | 7 → 8 | **The dead researchmap PDF, Wikisource and the FBIS transcript replaced (the NPC's reprint of Xinhua's obituary, Teiwes and Sun, Oksenberg and Yeung, Domes, the CIA's 1977 study); born Su Zhu, Xiangtan and Hunan, the "two whatevers" quoted from the 1981 resolution with Deng calling them unacceptable, the posts given up in turn; "at ease" as the CIA's reading**. Protected: the line stays (flagged below). |
+| `cnh-678` Deng Xiaoping | 8 | 8 → 8 | **Wikisource replaced by the PRC's biography on cpc.people.com.cn [in Chinese]; the Jiangxi dismissal and the tractor plant, Guang'an to France and the Youth League at eighteen, the cat proverb as Liu Bocheng's yellow-or-black in Deng's 1962 text (Béja's black-or-white noted); Wang, Shambaugh, Pye, Teiwes and Sun**; the Carter talk, 1989 and the southern tour out of the background; "to get rich is glorious" left out (no page read discusses it). Protected: the line stays. |
+| `cnh-679` Boluan Fanzheng | 6 | 8 → 7 | **"Truth article" (a text) → `Debate opened 11 May 1978`; "Liu cleared" (a man) off; `Began October 1976` added so the card sorts with its glossary; the verdicts overturned, Hu Yaobang's approval of the article, Liu Shaoqi cleared; Huang Yibing [in Chinese], the Library of Congress study, Schoenhals 1991**; three Wikisource texts and Li-Ogawa (404) dropped; the term's translation and the "4,600 cadres" (unsourced) dropped. Timeline set to October 1976 – 27 June 1981. |
+| `cnh-680` Chinese economic reform | 8 | 8 → 8 | **`Third plenum December 1978` / `Urban reform October 1984` / `Market economy November 1993` (the 1993 communiqué); "crossing the river by feeling stones", the dual track and "growing out of the plan", the township enterprises the leaders "by no means anticipated" (Deng, June 1987); the GDP figures as Zhu 2012's**; three Wikisource texts dropped with the grain-price and dual-price claims; the special zones, the southern tour and "yuan" kept off. Timeline set to December 1978. |
+
+Read by eye. **Confusability**: the Tsinghua middle school and the bloodline couplet `cnh-671`'s; the atom-bomb foreword `cnh-672`'s (Lin's
+life `cnh-674`'s); Huining and the cemetery `cnh-673`'s; the greatcoat `cnh-674`'s; the Zhongnanhai arrests and the televised trial
+`cnh-675`'s (Hua's own life `cnh-677`'s); renshi and chengren `cnh-676`'s; Su Zhu and the "two whatevers" `cnh-677`'s; the tractor plant
+and the cat `cnh-678`'s; the truth debate `cnh-679`'s; feeling the stones `cnh-680`'s (the household system `cnh-681`'s). **Legend**: Mao's
+"gang of four" (the resolution's account), Lin Biao's flight (Zhou's report — the official account), the cat proverb (Liu Bocheng's in Deng's
+own text), the print figures (claims) are each said so. **Chinese names**: none corrected. **Spellings**: "Mao Tse-tung" in `cnh-672`'s title
+and its glossary's (kept). **Myth register**: the Little Red Book's figures, Lin Biao's flight and the Gang of Four's trial confirmed.
+**check-citations**: no mismatch. **Protected lines: unchanged** (diffed after the apply). For the owner: `cnh-674`'s "Öndörkhaan, Mongolia"
+is loose (the party biography: 10 km south of the Berkh mining area in Khentii; Zhou's report "at Undur Khan") and its 17 September 1959 on
+no page read; `cnh-677`'s 7 October 1976 and 28 June 1981 on no page read (the obituary makes him acting premier from February 1976); the
+Red Guards' first group dated June 1966 (the party) or 29 May (Zhang Fang). Timelines set: `cnh-673` (1968 – 1980), `cnh-679` (October 1976
+– 27 June 1981), `cnh-680` (December 1978).

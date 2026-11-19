@@ -832,6 +832,13 @@ and is audited as an ordinary card. Dates already set elsewhere that this hundre
 | the Sino-Soviet rift opened / the experts recalled / the border clashes | February 1956 / 16 July 1960 / 2 – 15 March 1969 | the NSC; Luan; Lüthi (`cnh-668`) |
 | the Seven Thousand Cadres Conference / Liu's speech / Mao's self-criticism | 11 January – 7 February 1962 / 27 January / 30 January 1962 | Liu; Mao (`cnh-669`) |
 | the Cultural Revolution / enrolment halted / the party's verdict | May 1966 – October 1976 / 13 June 1966 / 27 June 1981 | the party (`cnh-670`) |
+| the Red Guards appeared / the first and last reviews | June 1966 / 18 August 1966 / 26 November 1966 | People's Daily Online (`cnh-671`) |
+| the *Quotations*: first edition / revised / the foreword / withdrawn | 1 May 1964 / 1 August 1965 / 16 December 1966 / 12 February 1979 | a Chinese account; Lin Biao (`cnh-672`) |
+| the Down to the Countryside mass phase / the directive | 1968 – 1980 / 22 December 1968 | Fiskesjö; the party (`cnh-673`) |
+| the Gang of Four arrested / tried | 6 October 1976 / 20 November 1980 – 25 January 1981 | the party; Zheng (`cnh-675`) |
+| Nixon's visit / the Shanghai Communiqué / relations | 21 – 28 February 1972 / 27 February 1972 / 1 January 1979 | FRUS; the Office of the Historian (`cnh-676`) |
+| Boluan Fanzheng began / the truth debate / the third plenum / the resolution | October 1976 / 11 May 1978 / December 1978 / 27 June 1981 | the party; Zhang; Worden (`cnh-679`) |
+| the reform: third plenum / urban reform / the market economy | December 1978 / October 1984 / November 1993 | Worden; Deng; the 1993 communiqué (`cnh-680`) |
 
 ## Later periods
 
@@ -1506,4 +1513,11 @@ cnh-667: 1959
 cnh-668: 1956; 1960; 1969
 cnh-669: 1962
 cnh-670: 1966; 1976; 1981
+cnh-671: 1966
+cnh-672: 1964; 1965; 1966; 1979
+cnh-673: 1968; 1980
+cnh-675: 1976; 1980; 1981
+cnh-676: 1972; 1979
+cnh-679: 1976; 1978; 1981
+cnh-680: 1978; 1984; 1993
 ```
