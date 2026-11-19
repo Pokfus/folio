@@ -1,14 +1,14 @@
 {
- "generated": "2026-11-19T21:25Z",
+ "generated": "2026-11-19T22:50Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8735,
-  "redirect-broader": 832,
-  "redirect-variant": 512,
-  "section-redirect": 196,
-  "disambiguation": 160,
-  "none": 1216,
-  "disambig-resolved": 112,
+  "ok": 8779,
+  "redirect-broader": 838,
+  "redirect-variant": 515,
+  "section-redirect": 199,
+  "disambiguation": 161,
+  "none": 1247,
+  "disambig-resolved": 114,
   "list-page": 6,
   "search-match": 10,
   "no-article": 21
@@ -93541,6 +93541,860 @@
    "answer": "Heka",
    "title": "Heka (god)",
    "url": "https://en.wikipedia.org/wiki/Heka_(god)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-701": {
+   "answer": "cippus of Horus",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Horus on the Crocodiles",
+    "Osiris myth",
+    "Art of ancient Egypt",
+    "Ptolemaic Kingdom",
+    "Metternich Stela"
+   ]
+  },
+  "eg-702": {
+   "answer": "Dream Book",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Joseph: King of Dreams",
+    "The Prince of Egypt",
+    "The Prince of Egypt (musical)",
+    "Oneiromancy",
+    "Joseph (Genesis)"
+   ]
+  },
+  "eg-703": {
+   "answer": "personal piety",
+   "title": "Popular piety",
+   "url": "https://en.wikipedia.org/wiki/Popular_piety",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Personal piety"
+  },
+  "eg-704": {
+   "answer": "Instruction of Kagemni",
+   "title": "Instructions of Kagemni",
+   "url": "https://en.wikipedia.org/wiki/Instructions_of_Kagemni",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Instruction of Kagemni"
+  },
+  "eg-705": {
+   "answer": "hypostyle hall",
+   "title": "Hypostyle",
+   "url": "https://en.wikipedia.org/wiki/Hypostyle",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Hypostyle hall"
+  },
+  "eg-706": {
+   "answer": "Khepri",
+   "title": "Khepri",
+   "url": "https://en.wikipedia.org/wiki/Khepri",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-707": {
+   "answer": "Ra-Horakhty",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Ra-Horakhty",
+   "target": "Ra#Gods merged with Ra"
+  },
+  "eg-708": {
+   "answer": "daily temple ritual",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Temple of Edfu",
+    "Ancient Egyptian religion",
+    "Mortuary temple of Hatshepsut",
+    "Ancient Egyptian funerary practices",
+    "Abydos, Egypt"
+   ]
+  },
+  "eg-709": {
+   "answer": "Reshep",
+   "title": "Resheph",
+   "url": "https://en.wikipedia.org/wiki/Resheph",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Reshep"
+  },
+  "eg-710": {
+   "answer": "democratisation of the afterlife",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Egypt",
+    "Khenti-Amentiu",
+    "Chinese sculpture",
+    "State (polity)",
+    "World government"
+   ]
+  },
+  "eg-711": {
+   "answer": "Bremner-Rhind Papyrus",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of papyri from ancient Egypt",
+    "Autofellatio",
+    "Eye of Ra",
+    "Raymond O. Faulkner",
+    "Egyptien de tradition"
+   ]
+  },
+  "eg-712": {
+   "answer": "Nun",
+   "title": "Nun",
+   "url": "https://en.wikipedia.org/wiki/Nun",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eg-713": {
+   "answer": "benben",
+   "title": "Benben",
+   "url": "https://en.wikipedia.org/wiki/Benben",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-714": {
+   "answer": "Ennead",
+   "title": "Ennead",
+   "url": "https://en.wikipedia.org/wiki/Ennead",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-715": {
+   "answer": "Shu",
+   "title": "Shu (god)",
+   "url": "https://en.wikipedia.org/wiki/Shu_(god)",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Shu (Egyptian god)"
+  },
+  "eg-716": {
+   "answer": "Memphite Theology",
+   "title": "Shabaka Stone",
+   "url": "https://en.wikipedia.org/wiki/Shabaka_Stone",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Memphite Theology"
+  },
+  "eg-717": {
+   "answer": "Ogdoad",
+   "title": "Ogdoad (Egyptian)",
+   "url": "https://en.wikipedia.org/wiki/Ogdoad_(Egyptian)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-718": {
+   "answer": "Atum",
+   "title": "Atum",
+   "url": "https://en.wikipedia.org/wiki/Atum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-719": {
+   "answer": "Osiris myth",
+   "title": "Osiris myth",
+   "url": "https://en.wikipedia.org/wiki/Osiris_myth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-720": {
+   "answer": "Byblos",
+   "title": "Byblos",
+   "url": "https://en.wikipedia.org/wiki/Byblos",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-721": {
+   "answer": "Great Hymn to Osiris",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Osiris",
+    "Horus",
+    "Osiris myth",
+    "Isis",
+    "Djed"
+   ]
+  },
+  "eg-722": {
+   "answer": "Contendings of Horus and Seth",
+   "title": "The Contendings of Horus and Seth",
+   "url": "https://en.wikipedia.org/wiki/The_Contendings_of_Horus_and_Seth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-723": {
+   "answer": "Eye of Horus",
+   "title": "Eye of Horus",
+   "url": "https://en.wikipedia.org/wiki/Eye_of_Horus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-724": {
+   "answer": "Eye of Ra",
+   "title": "Eye of Ra",
+   "url": "https://en.wikipedia.org/wiki/Eye_of_Ra",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-725": {
+   "answer": "Festival of Drunkenness",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Sekhmet",
+    "Hathor",
+    "Karnak",
+    "Bastet",
+    "Beer in Egypt"
+   ]
+  },
+  "eg-726": {
+   "answer": "Book of the Heavenly Cow",
+   "title": "Book of the Heavenly Cow",
+   "url": "https://en.wikipedia.org/wiki/Book_of_the_Heavenly_Cow",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-727": {
+   "answer": "solar barque",
+   "title": "Solar barque",
+   "url": "https://en.wikipedia.org/wiki/Solar_barque",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-728": {
+   "answer": "Apep",
+   "title": "Apophis",
+   "url": "https://en.wikipedia.org/wiki/Apophis",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Apep"
+  },
+  "eg-729": {
+   "answer": "Duat",
+   "title": "Duat",
+   "url": "https://en.wikipedia.org/wiki/Duat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-730": {
+   "answer": "Book of Nut",
+   "title": "Book of Nut",
+   "url": "https://en.wikipedia.org/wiki/Book_of_Nut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-731": {
+   "answer": "akhet",
+   "title": "Akhet (hieroglyph)",
+   "url": "https://en.wikipedia.org/wiki/Akhet_(hieroglyph)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-732": {
+   "answer": "Bigeh",
+   "title": "Bigeh",
+   "url": "https://en.wikipedia.org/wiki/Bigeh",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-733": {
+   "answer": "divine birth",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ancient Egyptian deities",
+    "Depiction of Hatshepsut's birth and coronation",
+    "Miraculous birth",
+    "Mut",
+    "Gerald Massey"
+   ]
+  },
+  "eg-734": {
+   "answer": "Son of Ra",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ra",
+    "Amun",
+    "Eye of Ra",
+    "Egyptian mythology",
+    "List of Egyptian deities"
+   ]
+  },
+  "eg-735": {
+   "answer": "Isis and the Secret Name of Ra",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Isis",
+    "Ra",
+    "Ancient Egyptian deities",
+    "Osiris",
+    "Mysteries of Isis"
+   ]
+  },
+  "eg-736": {
+   "answer": "Distant Goddess",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ancient Egyptian deities",
+    "Hathor",
+    "Egypt",
+    "Mehit",
+    "Eye of Ra"
+   ]
+  },
+  "eg-737": {
+   "answer": "Horus of Behdet",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Horus",
+    "Nome (Egypt)",
+    "Winged sun",
+    "Ancient Egyptian religion",
+    "Stele of Ankh-ef-en-Khonsu"
+   ]
+  },
+  "eg-738": {
+   "answer": "Diodorus Siculus",
+   "title": "Diodorus Siculus",
+   "url": "https://en.wikipedia.org/wiki/Diodorus_Siculus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-739": {
+   "answer": "On Isis and Osiris",
+   "title": "Moralia",
+   "url": "https://en.wikipedia.org/wiki/Moralia",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "On Isis and Osiris"
+  },
+  "eg-740": {
+   "answer": "historiola",
+   "title": "Historiola",
+   "url": "https://en.wikipedia.org/wiki/Historiola",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-741": {
+   "answer": "Ancient Egyptian funerary practices",
+   "title": "Ancient Egyptian funerary practices",
+   "url": "https://en.wikipedia.org/wiki/Ancient_Egyptian_funerary_practices",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-742": {
+   "answer": "ib",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "disambiguation",
+   "from": "IB",
+   "suggestions": [
+    "IB affair",
+    "Ib (cuneiform)",
+    "Ib Larsen",
+    "Ib River",
+    "Ib Holm Sørensen",
+    "Ib and Little Christina"
+   ]
+  },
+  "eg-743": {
+   "answer": "ka",
+   "title": "Ka (pharaoh)",
+   "url": "https://en.wikipedia.org/wiki/Ka_(pharaoh)",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Ka"
+  },
+  "eg-744": {
+   "answer": "ba",
+   "title": "Ba (pharaoh)",
+   "url": "https://en.wikipedia.org/wiki/Ba_(pharaoh)",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "BA"
+  },
+  "eg-745": {
+   "answer": "akh",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Akh",
+   "target": "Ancient Egyptian conception of the soul#Akh (intellect)"
+  },
+  "eg-746": {
+   "answer": "ren",
+   "title": "Ren (philosophy)",
+   "url": "https://en.wikipedia.org/wiki/Ren_(philosophy)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-747": {
+   "answer": "imperishable stars",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Egyptian astronomy",
+    "Ikhemu-sek",
+    "The Indestructibles",
+    "Howard Carter",
+    "Pyramid Texts"
+   ]
+  },
+  "eg-748": {
+   "answer": "Aaru",
+   "title": "Aaru",
+   "url": "https://en.wikipedia.org/wiki/Aaru",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-749": {
+   "answer": "weighing of the heart",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Weighing of the heart",
+   "target": "Ancient Egyptian afterlife beliefs#Judgment of the dead"
+  },
+  "eg-750": {
+   "answer": "Hall of the Two Truths",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Maat",
+    "The Prince of Egypt",
+    "Ancient Egypt",
+    "Grand Egyptian Museum",
+    "Hall of Records"
+   ]
+  },
+  "eg-751": {
+   "answer": "Negative Confession",
+   "title": "Negative Confession",
+   "url": "https://en.wikipedia.org/wiki/Negative_Confession",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-752": {
+   "answer": "Ammit",
+   "title": "Ammit",
+   "url": "https://en.wikipedia.org/wiki/Ammit",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-753": {
+   "answer": "per-nefer",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Memphis, Egypt",
+    "Egyptian hieroglyphs",
+    "Nome (Egypt)",
+    "Giza",
+    "List of Egyptian deities"
+   ]
+  },
+  "eg-754": {
+   "answer": "Ritual of Embalming",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "The Ritual of Embalming Papyrus",
+    "Ancient Egyptian funerary practices",
+    "Apis Papyrus",
+    "Embalming",
+    "Anubis"
+   ]
+  },
+  "eg-755": {
+   "answer": "natron",
+   "title": "Natron",
+   "url": "https://en.wikipedia.org/wiki/Natron",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-756": {
+   "answer": "paraschistes",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "eg-757": {
+   "answer": "canopic jar",
+   "title": "Canopic jar",
+   "url": "https://en.wikipedia.org/wiki/Canopic_jar",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-758": {
+   "answer": "Opening of the Mouth",
+   "title": "Opening of the mouth ceremony",
+   "url": "https://en.wikipedia.org/wiki/Opening_of_the_mouth_ceremony",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Opening of the Mouth"
+  },
+  "eg-759": {
+   "answer": "tekenu",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Leopard skin (clothing in Ancient Egypt)"
+   ]
+  },
+  "eg-760": {
+   "answer": "mummy board",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Unlucky Mummy",
+    "The Mummy Returns",
+    "The Mummy (2017 film)",
+    "The Mummy (1932 film)",
+    "Revenge of the Mummy"
+   ]
+  },
+  "eg-761": {
+   "answer": "anthropoid coffin",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ancient Egyptian coffins",
+    "Anthropoid ceramic coffins",
+    "Coffin",
+    "Rishi coffin",
+    "Ancient Egypt"
+   ]
+  },
+  "eg-762": {
+   "answer": "sarcophagus",
+   "title": "Sarcophagus",
+   "url": "https://en.wikipedia.org/wiki/Sarcophagus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-763": {
+   "answer": "mummy mask",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Mask of Tutankhamun",
+    "Tutankhamun's mummy",
+    "317a and 317b mummies",
+    "Fayum mummy portraits",
+    "List of Egyptian mummies (royalty)"
+   ]
+  },
+  "eg-764": {
+   "answer": "Papyrus of Ani",
+   "title": "Papyrus of Ani",
+   "url": "https://en.wikipedia.org/wiki/Papyrus_of_Ani",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-765": {
+   "answer": "heart scarab",
+   "title": "Heart scarab",
+   "url": "https://en.wikipedia.org/wiki/Heart_scarab",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-766": {
+   "answer": "Books of the Netherworld",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ancient Egyptian afterlife beliefs",
+    "Qed-her",
+    "Tomb of Tutankhamun",
+    "Ancient Egyptian funerary texts",
+    "Ancient Egyptian religion"
+   ]
+  },
+  "eg-767": {
+   "answer": "funerary cone",
+   "title": "Funerary cone",
+   "url": "https://en.wikipedia.org/wiki/Funerary_cone",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-768": {
+   "answer": "pyramid complex",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Giza pyramid complex",
+    "Egyptian pyramids",
+    "Pyramid of Djoser",
+    "List of Egyptian pyramids",
+    "Construction of the Egyptian pyramids"
+   ]
+  },
+  "eg-769": {
+   "answer": "rock-cut tomb",
+   "title": "Rock-cut tomb",
+   "url": "https://en.wikipedia.org/wiki/Rock-cut_tomb",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-770": {
+   "answer": "Tomb of Perneb",
+   "title": "Tomb of Perneb",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_Perneb",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-781": {
+   "answer": "Leopold-Amherst Papyrus",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Papyrus Leopold II",
+    "Amherst papyri",
+    "List of papyri from ancient Egypt",
+    "Elephantine papyri and ostraca",
+    "William Tyssen-Amherst, 1st Baron Amherst of Hackney"
+   ]
+  },
+  "eg-782": {
+   "answer": "coffin reuse",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ancient Egyptian coffins",
+    "Katebet",
+    "Ancient Egyptian funerary practices",
+    "Nehmes Bastet",
+    "TT1"
+   ]
+  },
+  "eg-783": {
+   "answer": "schistosomiasis",
+   "title": "Schistosomiasis",
+   "url": "https://en.wikipedia.org/wiki/Schistosomiasis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-784": {
+   "answer": "Pott's disease",
+   "title": "Pott's disease",
+   "url": "https://en.wikipedia.org/wiki/Pott's_disease",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eg-785": {
+   "answer": "djeret",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Pabasa",
+    "Arqamani"
+   ]
+  },
+  "eg-786": {
+   "answer": "letters to the dead",
+   "title": "Letters to the dead",
+   "url": "https://en.wikipedia.org/wiki/Letters_to_the_dead",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-787": {
+   "answer": "akh iqer en Ra",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": []
+  },
+  "eg-788": {
+   "answer": "ancestor bust",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Veneration of the dead",
+    "Bust of Cleopatra",
+    "Cleopatra",
+    "Ancestor worship",
+    "Roman portraiture"
+   ]
+  },
+  "eg-789": {
+   "answer": "house of eternity",
+   "title": "House of Eternity (Ancient Egypt)",
+   "url": "https://en.wikipedia.org/wiki/House_of_Eternity_(Ancient_Egypt)",
+   "via": "search",
+   "status": "ok"
+  },
+  "eg-790": {
+   "answer": "Books of Breathing",
+   "title": "Books of Breathing",
+   "url": "https://en.wikipedia.org/wiki/Books_of_Breathing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-791": {
+   "answer": "prenomen",
+   "title": "Prenomen (Ancient Egypt)",
+   "url": "https://en.wikipedia.org/wiki/Prenomen_(Ancient_Egypt)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-792": {
+   "answer": "Window of Appearance",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Window",
+    "Egyptian hieroglyphs",
+    "Muhammad Ali of Egypt",
+    "Trézéguet (Egyptian footballer)",
+    "Cornice"
+   ]
+  },
+  "eg-793": {
+   "answer": "Nebty name",
+   "title": "Nebty name",
+   "url": "https://en.wikipedia.org/wiki/Nebty_name",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-794": {
+   "answer": "cartouche",
+   "title": "Cartouche",
+   "url": "https://en.wikipedia.org/wiki/Cartouche",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-795": {
+   "answer": "crook and flail",
+   "title": "Crook and flail",
+   "url": "https://en.wikipedia.org/wiki/Crook_and_flail",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-796": {
+   "answer": "Deshret",
+   "title": "Deshret",
+   "url": "https://en.wikipedia.org/wiki/Deshret",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-797": {
+   "answer": "uraeus",
+   "title": "Uraeus",
+   "url": "https://en.wikipedia.org/wiki/Uraeus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-798": {
+   "answer": "presentation of Maat",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Assessors of Maat",
+    "Ancient Egyptian deities",
+    "Papyrus of Ani",
+    "Cairo Contemporary Dance Center",
+    "Ammit"
+   ]
+  },
+  "eg-799": {
+   "answer": "smiting scene",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Second Dynasty of Egypt",
+    "Plagues of Egypt",
+    "Smite (video game)",
+    "Temple of Beit el-Wali",
+    "Nefertiti"
+   ]
+  },
+  "eg-800": {
+   "answer": "Great Royal Wife",
+   "title": "Great Royal Wife",
+   "url": "https://en.wikipedia.org/wiki/Great_Royal_Wife",
    "via": "glossary",
    "status": "ok"
   }
