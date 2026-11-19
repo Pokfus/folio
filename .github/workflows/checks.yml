@@ -352,6 +352,18 @@ jobs:
       - name: build-portuguese-sounds --check (the Portuguese sounds deck is what its table and CAPLE A1 give)
         if: ${{ !cancelled() }}
         run: node .claude/decks/build-portuguese-sounds.js --check
+      # The Persian decks (2026-11-19, the Persian beginner pass): persian-fixes.json (the cards A1 gains, the
+      # cards moved down, the counts a description states), persian-order.json and the pinned note ids, all in
+      # .claude/persian/; check-persian.js reads the seven shipped decks for the faults the pipeline has had.
+      - name: persian-fix --check (the Persian decks carry their record, their order and their pinned ids)
+        if: ${{ !cancelled() }}
+        run: node .claude/persian/persian-fix.js --check
+      - name: persian-order --check (persian-order.json is what its script computes)
+        if: ${{ !cancelled() }}
+        run: node .claude/persian/persian-order.js --check
+      - name: check-persian (the seven Persian decks, card by card)
+        if: ${{ !cancelled() }}
+        run: node .claude/persian/check-persian.js
       - name: jlpt check-ids (every Japanese card id is the one ids.json pins)
         if: ${{ !cancelled() }}
         run: node .claude/jlpt/check-ids.js
