@@ -26970,11 +26970,14 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const d = document.createElement("div"); d.innerHTML = String(glossText(k) || "");
     d.querySelectorAll("sup").forEach((x) => x.remove());
     const txt = (d.textContent || "").replace(/\s+/g, " ").trim();
+    /* THE SUGGESTED READING BOX'S TEMPLATE (2026-11-19, on request: "ensure the Daily Gloss and the Suggested Reading boxes
+       look similar"): the picture where the spine stands, title / dates / a small mono line in `.hb-body`, then the
+       definition as the passage is drawn — a rule, a small label, serif text fading out downwards (`.hb-next`). */
     return '<span class="hb-k">Term of the day</span>' +
-      '<span class="ht-term">' + (img ? '<img class="ht-img" src="' + esc(img.src) + '" alt="' + esc(img.alt || img.title || title) + '" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : "") +
-      '<span class="ht-body"><b>' + (GLOSS_WORK_KEYS.has(k) ? "<i>" + esc(title) + "</i>" : esc(title)) + "</b>" +
-      (dates ? "<span>" + esc(glossDatesFlat(dates)) + "</span>" : "") + "</span></span>" +
-      '<span class="ht-text">' + esc(txt) + "</span>";
+      '<span class="hb-book ht-term">' + (img ? '<img class="ht-img" src="' + esc(img.src) + '" alt="' + esc(img.alt || img.title || title) + '" loading="lazy" decoding="async" referrerpolicy="no-referrer">' : "") +
+      '<span class="hb-body"><b>' + (GLOSS_WORK_KEYS.has(k) ? "<i>" + esc(title) + "</i>" : esc(title)) + "</b>" +
+      (dates ? "<span>" + esc(glossDatesFlat(dates)) + "</span>" : "") + "<em>From the glossary</em></span></span>" +
+      '<span class="hb-next ht-text"><span class="hb-next-k">Definition</span><span class="hb-next-p">' + esc(txt) + "</span></span>";
   }
   function homeTermHTML() {
     const k = dataReady("glossExtra") ? homeTermPick() : null;
@@ -27122,8 +27125,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (trio) {
       const gd = figs(day), gw = figs(week);
       return '<div class="home-trio" role="group" aria-label="Today and this week">' +
-        '<div class="home-box ht-cell ht-today"><span class="hb-k">Today</span><div class="ht-big">' + day.cards + '</div><div class="ht-lab">cards studied</div>' +
-          '<div class="ht-pair"><div><b>' + esc(gd.time) + '</b><div class="ht-lab">time studied</div></div><div><b class="g">' + gd.recall + '</b><div class="ht-lab">recalled</div></div></div></div>' +
+        /* TODAY IS LAID OUT AS THIS WEEK IS (2026-11-19, on request): three label / figure rows, not a big number over a pair */
+        '<div class="home-box ht-cell ht-today"><span class="hb-k">Today</span><div class="ht-rows">' +
+          '<div><span>cards</span><b>' + day.cards + '</b></div><div><span>time</span><b>' + esc(gd.time) + '</b></div><div><span>recalled</span><b class="g">' + gd.recall + "</b></div></div></div>" +
         '<div class="home-box ht-cell ht-days"><span class="hb-k">The last seven days</span>' + bars + "</div>" +
         '<div class="home-box ht-cell ht-week"><span class="hb-k">This week</span><div class="ht-rows">' +
           '<div><span>cards</span><b>' + week.cards + '</b></div><div><span>time</span><b>' + esc(gw.time) + '</b></div><div><span>recalled</span><b class="g">' + gw.recall + "</b></div></div></div></div>";
@@ -28974,9 +28978,6 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       if (!rb || rb.classList.contains("hero")) return;
       const p = listPiles(), st = rvState(p);
       rb.innerHTML = rvBannerInner(p);
-      // the week ahead's Today is the banner's own count, so a fold that changes one redraws the other (rvWeekHTML)
-      const wk = root.querySelector(".rv-week");
-      if (wk) { const t = document.createElement("div"); t.innerHTML = rvWeekHTML(p.nw + p.lr + p.rv, activeIds.length); if (t.firstElementChild) wk.replaceWith(t.firstElementChild); }
       rb.querySelectorAll(".xp[data-pct]").forEach((x) => { const f = x.querySelector(".xp-fill"); if (f) f.style.width = x.dataset.pct + "%"; });
       rb.classList.toggle("done", st.done); rb.classList.toggle("won", st.won);
       if (rg) { rg.classList.toggle("rv-done", st.done); rg.classList.toggle("rv-won", st.won); }
@@ -29187,9 +29188,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
               it: with the discovery row gone the grid is the last thing on the page, and a block of six
               coloured squares under nothing at all does not say what it is. */""}
         ${homeWeekHTML(true)}
-        ${/* THE WEEK AHEAD stands here, between the Today / This week figures and the minigames, the full width of
-              the column (Nov 2026, on request) — it was at the foot of the daily-study banner (rvWeekHTML) */""}
-        ${fresh ? "" : rvWeekHTML(pileN, activeIds.length)}
+        ${/* THE WEEK AHEAD (rvWeekHTML) is no longer drawn on the home page (2026-11-19, on request: "remove the upcoming
+              week card load bar"); the full forecast stays under Account → Review statistics. */""}
         <section class="games-sec">
           <div class="games-top"><h2 class="games-head">Minigames</h2>${sweepRowHTML()}</div>
           ${gameGrid}

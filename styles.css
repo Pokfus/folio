@@ -3939,6 +3939,9 @@ body.night .profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){backg
    the page head and the day's work, so it needs no ordering rule and no phone override of its own. */
 .daily-quote{position:relative; margin:0 0 26px; padding:38px 0; text-align:center; background:none; box-shadow:none;
   display:flex; flex-direction:column; justify-content:center;}
+/* 30% NARROWER ON A TABLET AND A DESKTOP (2026-11-19, on request: "so longer quotes become taller rather than wider"); a phone's
+   column is narrow enough already */
+@media (min-width:641px){ .daily-quote{max-width:70%; margin-left:auto; margin-right:auto;} }
 .daily-quote blockquote{margin:0; font-family:var(--serif); font-size:calc(18px * var(--fs)); font-style:italic; line-height:1.5; color:var(--ink);}
 .daily-quote blockquote::before{content:"\201C"; display:block; font-family:var(--display); font-style:normal; font-size:calc(34px * var(--fs)); line-height:.4; color:var(--zh); opacity:.75; margin-bottom:8px;}
 .daily-quote figcaption{margin-top:9px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);}
@@ -10155,12 +10158,9 @@ body.night .games-sec .game-tile.done .gt-check, body.night .games-sec .game-til
 .ht-rows b{color:var(--ink); font-size:calc(16px * var(--fs)); font-weight:800; font-variant-numeric:tabular-nums; white-space:nowrap;}
 .home-two > .home-week{display:none;}
 .home-box.home-term{display:flex; flex-direction:column;}
-.ht-term{display:flex; gap:14px; align-items:center;}
-.ht-img{width:62px; height:62px; flex:none; object-fit:cover; border-radius:8px; background:var(--paper-2); box-shadow:var(--shadow-md);}
-.ht-body{min-width:0;}
-.ht-body b{display:block; font-family:var(--serif); font-weight:600; font-size:calc(16px * var(--fs)); line-height:1.3; overflow-wrap:anywhere;}
-.ht-body span{display:block; font-size:calc(12.5px * var(--fs)); color:var(--ink-quiet);}
-.ht-text{display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:7; overflow:hidden; margin-top:14px; padding-top:12px; border-top:1px solid var(--rule); font-family:var(--serif); font-size:calc(14.5px * var(--fs)); line-height:1.6; color:var(--ink-soft);}
+/* the term box wears the Suggested reading box's template (2026-11-19, on request): `.hb-book` / `.hb-body` / `.hb-next`,
+   the picture standing where the book's spine does, at the spine's height */
+.ht-img{width:62px; height:62px; flex:none; object-fit:cover; border-radius:4px 7px 7px 4px; background:var(--paper-2); box-shadow:var(--shadow-md);}
 /* a tablet: the same three cells, the middle one a little narrower and the type a step smaller, so 641–1024px holds them */
 @media (min-width:641px) and (max-width:1024px){
   .home-trio{grid-template-columns:1fr 1.2fr 1fr; gap:12px;}
@@ -10452,6 +10452,24 @@ button.home-box:focus-visible{outline:2px solid var(--indigo-bright); outline-of
   .home-foot .home-about{text-align:center;}
   .home-foot .site-ver{margin:0; width:100%; text-align:center;}
 }
+/* THE PHONE'S CHEST RAIL AT EVERY WIDTH (2026-11-19, on request: "make the desktop and tablet version look like the mobile
+   version"): the desktop's 3x3 miniature and the tablet's glyph-disc card give way to the phone's design P4 — a bare row under
+   the heading, the count at the left, the ten games as plain segments, the chest capping the right end. After the two
+   breakpoint blocks above, at their specificity, so these win everywhere. */
+.games-sec .games-top{gap:10px 12px;}
+.games-sec .sweep-meter{display:none;}
+.games-sec .sweep-row{flex:1 1 100%; justify-content:flex-start; padding:0; border:0; border-radius:0; background:none; box-shadow:none; gap:10px;}
+.games-sec .sweep-rail{display:flex; align-items:center; flex:1 1 auto; min-width:0; gap:10px;}
+.games-sec .sr-count{font-size:calc(11.5px * var(--fs)); white-space:nowrap;}
+.games-sec .sr-steps{flex:1 1 auto; display:flex; align-items:center; min-width:0; gap:3px;}
+.games-sec .sr-step{display:block; flex:1 1 0; width:auto; height:calc(6px * var(--fs)); border-radius:99px; border:0; background:var(--rule); transition:background .25s var(--ease);}
+.games-sec .sr-step svg{display:none;}
+.games-sec .sr-step.on{background:var(--good, #4F9D67);}
+.games-sec .sr-step.won{background-image:linear-gradient(100deg, #E5C765 0%, #BE9829 100%); background-color:#D2AE47;}
+.games-sec .sr-link{display:none;}
+.games-sec .sweep-chest{width:calc(34px * var(--fs)); height:calc(28px * var(--fs));}
+.games-sec .sweep-chest .chest-svg{transform:translateY(-5.2%);}
+.games-sec .sweep-chest .lock-svg{background:var(--paper);}
 
 /* ============================================================
    COLLECTIONS PAGE — the Oct 2026 redesign (see docs/mockups/collections-redesigns/final/)
