@@ -2836,3 +2836,19 @@ Gated on `prep === "kant"`, so inert on every other book.
 Re-run after touching: `node .claude/fetch-book.js kant-critique-of-pure-reason --force` (24 pages), check "181 heading
 block(s) fenced, 181 lifted, 7 table(s) read as blocks, 5 asterisk row(s), 2 note(s) inside a note spliced", then
 `node .claude/book-audit.js`.
+
+## `original.prep: "cousin"` — a header inside the transclusion, and a note off the work page (Nov 2026, the Discourse on the Method)
+
+`cousinPrep(h, warn)` runs in `originalChapter` on Victor Cousin's *Discours de la méthode* (1824) on French
+Wikisource. As with the Contrat, each page carries the wiki header INSIDE `prp-pages-output` as `ws-noexport` divs
+(removed balanced); each Part opens on an `<h2>` "PREMIÈRE PARTIE." (removed; a page without one is warned); Part VI
+ends on Cousin's centred "FIN DU DISCOURS DE LA MÉTHODE." and a spacer (removed). Section 1 is Descartes's prefatory
+note, which stands on the WORK page between Cousin's bibliographical note, the title and the contents list: only the
+`alinea` div holding "Si ce discours semble trop long…" is kept, as one paragraph. Gated on `prep === "cousin"`.
+
+On the English side, Veitch's Part VI head is typed "РАRТ VI." with Cyrillic Р, А, Т — a `dropHeads` pattern in
+Latin letters alone leaves it as a blockquote at the top of the section, and nothing throws.
+
+Re-run after touching: `node .claude/fetch-book.js descartes-discourse-on-method --force` (7 English and 7 French
+fetches), check 7 notes, the three `reFixes` applied once each, no `<blockquote>` in either file, and
+`node .claude/book-audit.js`.
