@@ -19635,7 +19635,7 @@ const BOOKS = {
   },
 
   "king-james-bible": {
-    title: "The King James Bible",
+    title: "The Bible",
     subtitle: "The Holy Bible, Authorized Version, 1611",
     /* NO AUTHOR TO NAME. The Bible is the work of many hands over more than a thousand years, and
        tradition's attributions (Moses, David, Solomon, the evangelists, Paul) cover only part of it and
