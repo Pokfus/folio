@@ -12758,7 +12758,18 @@ window.GLOSSARY = {
 "Dara_(Gaya)": "",
 "Book_of_Liang": "",
 "Gyeongju_Kim_clan": "",
-"Federation": ""
+"Federation": "",
+"Hall_of_Supreme_Harmony": "",
+"Zhuozhou": "",
+"Emperor_Jing_of_Han": "",
+"Zhang_Fei": "",
+"Liu_Biao": "",
+"Liu_Zhang": "",
+"Xiahou_Yuan": "",
+"Battle_of_Xiaoting": "",
+"Baidicheng": "",
+"Fengjie_County": "",
+"Liu_Shan": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -18994,7 +19005,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Minamoto_no_Yoriie": "1182–1204",
 "Tokugawa_Yoshinobu": "1837–1913",
 "Fujiwara_no_Nobutaka": "died 1001",
-"Gogugwon_of_Goguryeo": "died 371"
+"Gogugwon_of_Goguryeo": "died 371",
+"Emperor_Jing_of_Han": "188–141 BCE",
+"Zhang_Fei": "d. 221 CE",
+"Liu_Biao": "d. 208 CE",
+"Xiahou_Yuan": "d. 219 CE",
+"Battle_of_Xiaoting": "221–222 CE",
+"Liu_Shan": "207–271 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -27405,7 +27422,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Honam": ["Honam region"],
 "Dara_(Gaya)": ["Dara","Daraguk"],
 "Book_of_Liang": ["Liangshu"],
-"Gyeongju_Kim_clan": ["Kim lineage"]
+"Gyeongju_Kim_clan": ["Kim lineage"],
+"Hall_of_Supreme_Harmony": ["Fengtian Hall","Taihedian","Taihe Dian","Huangji Hall"],
+"Zhuozhou": ["Zhuo commandery","Zhuo County"],
+"Emperor_Jing_of_Han": ["emperor Jing","Han Jingdi"],
+"Zhang_Fei": ["Zhang Yide"],
+"Liu_Zhang": ["Liu Jiyu"],
+"Battle_of_Xiaoting": ["Battle of Yiling","invasion of Wu"],
+"Baidicheng": ["Baidi","Bodi","White Emperor City"],
+"Fengjie_County": ["Fengjie"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -40411,7 +40436,18 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Dara_(Gaya)": ["state","korea","gaya","archaeology","history"],
 "Book_of_Liang": ["book","history","china","korea","historiography"],
 "Gyeongju_Kim_clan": ["family","korea","silla","dynasty","history"],
-"Federation": ["concept","politics","government","law"]
+"Federation": ["concept","politics","government","law"],
+"Hall_of_Supreme_Harmony": ["building","china","beijing","architecture","ming","qing","history"],
+"Zhuozhou": ["place","china","han","three kingdoms","history"],
+"Emperor_Jing_of_Han": ["person","china","han","emperor","history"],
+"Zhang_Fei": ["person","china","three kingdoms","shu han","general","history"],
+"Liu_Biao": ["person","china","han","warlord","history"],
+"Liu_Zhang": ["person","china","han","warlord","sichuan","history"],
+"Xiahou_Yuan": ["person","china","han","three kingdoms","wei","general","history"],
+"Battle_of_Xiaoting": ["battle","china","three kingdoms","shu han","eastern wu","history"],
+"Baidicheng": ["place","china","three kingdoms","shu han","yangzi","history"],
+"Fengjie_County": ["place","china","chongqing","yangzi","history"],
+"Liu_Shan": ["person","china","three kingdoms","shu han","emperor","history"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
