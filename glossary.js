@@ -18601,7 +18601,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Satrap_Stela": "311 BCE",
 "Tomb_of_Nebamun_and_Ipuky": "c. 1386 – 1330 BCE",
 "Gilukhipa": "c. 1376 BCE",
-"TT40": "c. 1347–1318 BCE"
+"TT40": "c. 1347–1318 BCE",
+"Night_Revels_of_Han_Xizai": "c. 900 – 1000 CE",
+"Four_Masters_of_the_Yuan_dynasty": "c. 1600 – 1700"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */

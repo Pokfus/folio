@@ -1101,6 +1101,12 @@ January 1917 (`cnh-586`, `cnh-588`); Lu Xun's "Diary of a Madman" 1918 (`cnh-589
 | the Tianyi Pavilion built / made a museum | 1561 – 1566 / 1994 | Situ 2007 (`cnh-938`) |
 | "Diary of a Madman" written / printed | April 1918 / May 1918 | the card's sources (`cnh-939`) |
 | scar literature's high tide / "Scar" printed | 1977 – 1984 / 11 August 1978 | Huang 2001; the Academy of Chinese Studies (`cnh-940`) |
+| the six principles: dated / also dated | c. 400 – 500 CE / c. 500 – 600 CE | Hirth; Sernelj 2025 (`cnh-943`) |
+| the Orchid Pavilion preface written | 353 CE | the card's sources (`cnh-944`) |
+| the Four Treasures attested as a set | 986 CE | Wylie (`cnh-945`) |
+| the *Mustard Seed Garden Manual*: part 1 / parts 2 and 3 | 1679 / 1701, also dated 1687 | the card's sources (`cnh-947`) |
+| the *Night Revels*: painted / the surviving copy | c. 900 – 1000 CE / c. 1127 – 1279 | the card's sources (`cnh-949`) |
+| the Four Masters grouped | c. 1600 – 1700 | the Rijksmuseum Bulletin (`cnh-950`) |
 
 ## Chronology pins
 
