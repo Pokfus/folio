@@ -15,7 +15,7 @@
    claims that were never established — learning styles, left- and right-brained people, the Mozart
    effect — and equally the one where a famous study is now read very differently from the
    way it was first reported. So a statement here says what was actually measured (Milgram's 26 of 40,
-   the 54 per cent of a lie-detection meta-analysis), and where a celebrated experiment has not held up
+   the 54% of a lie-detection meta-analysis), and where a celebrated experiment has not held up
    the `why` says so plainly rather than repeating the textbook version.
    TWO OF ITS THIRTEEN ARE ABOUT STUDYING ITSELF — the testing effect and the spacing effect — which is
    not a joke at the reader's expense: they are the two best-replicated findings in the whole category

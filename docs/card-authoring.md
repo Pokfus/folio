@@ -139,6 +139,8 @@ exists).
   `check-style.js` rule 6 enforces it; `--fix --only=6` converts.
 - **A span counted back from today runs from old to new** (2026-11-13, on request): "16,000 to 11,000 years
   ago", "between 50 and 40 million years ago", never the larger number second.
+- **A percentage takes the sign** (2026-11-20, on request): "35%", "5%", "between 15 and 20%", never
+  "35 per cent", "35 percent" or "five per cent". A quotation keeps its own words.
 - **Times of day are numerals with a colon and AM / PM** (2026-11-13, on request): "11:15 AM", "5:00 PM",
   never "five o'clock", "6.00", "11 am" or a 24-hour "13:32". Quotations keep their own wording.
 - **Saint is written in full in a name** (2026-11-13, on request): Saint Petersburg, Saint Louis, Saint Paul's

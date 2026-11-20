@@ -13,6 +13,10 @@
         single century stays a numeral ordinal ("21st century", rule 2). The Roman voting and army units
         called centuries ("the 80 centuries of the first class") are counts of units, not of time, and are
         masked (`CENT_UNIT_EXCLUDE`).
+     7. A percentage is written with the sign: "35%", never "35 per cent", "35 percent" or "five per cent"
+        (2026-11-20, on request: "'per cent' should always be written as '%'"). Report-only; a quotation in
+        curly quotes keeps its own words, and "a few per cent" or "percent agreement" (a method's name) are not
+        figures. Citations are masked like every rule's.
      5. A changelog DAY TITLE is at most 72 characters (report-only, changelog.js) — see the rule's own
         note at the foot of this file for the measurement behind the number.
    Usage:
@@ -203,6 +207,8 @@ function eraFix(text) {
   return { text, n };
 }
 
+/* --- rule 7: a percentage takes the sign --- */
+const PCT_RE = /(?:\d|\b(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety)(?:-[a-z]+)?|½)\s+(?:per\s?cent|percent)\b/gi;
 function findAll(text, re, kind, out, file) {
   let m;
   re.lastIndex = 0;
@@ -315,6 +321,9 @@ for (const file of FILES) {
     });
   } else if (!FIX) findAll(text, CENT_RE, "centuries-numeral (should be words)", report, name);
   text = text.replace(/CENTMASK(\d+)CENTMASK/g, (m0, i) => centMasks[Number(i)]);
+
+  // rule 7 — a percentage is "35%", never "35 per cent" / "five per cent" (report-only; a quoted passage is skipped)
+  if (!FIX) findAll(text.replace(/“[^”]*”/g, (q) => q.replace(/per\s?cent|percent/gi, "PCTQ")), PCT_RE, "per cent (write the % sign)", report, name);
 
   // rule 1 — compound numbers (proper names masked first so they're never converted)
   const masks = [];

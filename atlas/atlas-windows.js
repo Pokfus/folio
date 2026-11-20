@@ -136,6 +136,8 @@
     const readPts = (a) => (a ? a.trim().split(/\s+/).map((q) => q.split(",").map(Number)).filter((q) => q.length === 2 && isFinite(q[0]) && isFinite(q[1])) : null);
     const readRings = (a) => { if (!a) return null; const out = String(a).split(";").map((r) => readPts(r)).filter((r) => r && r.length >= 3); return out.length ? out : null; };
     const locArea = readRings(host.getAttribute("data-map-area")), locSpine = readPts(host.getAttribute("data-map-spine"));
+    // a ROUTE's lines (2026-11-20, the Silk Road): polylines separated by ";", points by a space (app.js cardLocatorWindowHTML)
+    const locRoutes = (() => { const a = host.getAttribute("data-map-routes"); if (!a) return null; const out = a.split(";").map((r) => readPts(r)).filter((r) => r && r.length >= 2); return out.length ? out : null; })();
     const locWithin = String(host.getAttribute("data-map-within") || "").trim().toLowerCase(), locLabelPt = readPts(host.getAttribute("data-map-label"));
     const zoomAttr = Number(host.getAttribute("data-map-zoom")) || 0;
     const root0 = sibCard ? cardCollectionRoot(sibCard) : null;
@@ -269,7 +271,7 @@
       /* a river that IS the question (app.js cardLocatorFront: the window on the card's front, not yet named) is framed on its own traced line rather than on its
          mouth, so the whole river is in view — only the stretches within 25° of the locator's point, since a rivers.js name may also hold a namesake's (the Colorado's in Argentina) */
       const riverExt = !host.hasAttribute("data-map-named") && locKind === "river" && ownLines && dot ? ownLines.filter((l) => l && l.length > 1 && l.some((q) => Math.abs(q[0] - dot.c[0]) < 25 && Math.abs(q[1] - dot.c[1]) < 25)) : null;
-      const ext = locArea || (locSpine ? [locSpine] : null) || (riverExt && riverExt.length ? riverExt : null);
+      const ext = locArea || (locSpine ? [locSpine] : null) || locRoutes || (riverExt && riverExt.length ? riverExt : null);
       if (!targets.length && ext && ext.length) {
         const b = ringsBox(ext); lon = wrapLon((b[0] + b[2]) / 2); lat = (b[1] + b[3]) / 2;
         const span = Math.max(b[3] - b[1], (b[2] - b[0]) * Math.cos(lat * DEG), 0.2); z = 0.85 / (0.46 * DEG * span);
@@ -655,7 +657,8 @@
         for (const sa of sibAt) addMark(sa[3] === "battle" ? "swords" : sa[3] === "peak" ? "peak" : sa[3] === "capital" ? "square" : "dot", sa[0], sa[1], sa[3] === "battle" ? 8 : sa[3] === "peak" ? 5.6 : 4.6, sa[3] === "battle" ? 8 : sa[3] === "peak" ? 5.6 : 4.6);
         if (anchorAt) addMark("home", anchorAt[0], anchorAt[1], 5.6, 5.6);
       }
-      const isWall = locKind === "wall";   // a wall (2026-11-13, on request: Hadrian's Wall drawn as the line it is): a thick line along its spine, no peaks, no dot
+      const isWall = locKind === "wall" || (locKind === "route" && !!locRoutes);   // a route is drawn like a wall: its lines, no dot   // a wall (2026-11-13, on request: Hadrian's Wall drawn as the line it is): a thick line along its spine, no peaks, no dot
+      if (locRoutes) { for (const r of locRoutes) for (const q of r) { const p = api.project(q[0], q[1]); if (inView(api, p)) addMark("wall", p[0], p[1], 3, 3); } }
       if (locSpine && isWall) { for (const q of locSpine) { const p = api.project(q[0], q[1]); if (inView(api, p)) addMark("wall", p[0], p[1], 3, 3); } }
       else if (locSpine) { const mh = Math.max(3, Math.min(9, 3.4 * Math.sqrt(st.zoom / CMAP_ZLOC))), mw = mh * 0.85; for (const q of locSpine) { const p = api.project(q[0], q[1]); if (inView(api, p)) addMark("peak", p[0], p[1] - mh * 0.1, mw + 1, mh * 0.65 + 1); } }
       let ownDotAt = null;
@@ -717,6 +720,11 @@
         if (anchorAt) { const q = 4.4; ctx.fillStyle = "rgba(200,69,60,.92)"; ctx.fillRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2); ctx.lineWidth = 1.2; ctx.strokeStyle = "rgba(255,255,255,0.8)"; ctx.strokeRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2); }
       }
       if (ownLines) { ctx.save(); ctx.strokeStyle = TINT_SEL.line; ctx.lineWidth = 2.6; ctx.shadowColor = TINT_SEL.glow; ctx.shadowBlur = 9; ctx.beginPath(); for (const ln of ownLines) addPath(ctx, api, ln, false); ctx.stroke(); ctx.restore(); }
+      if (locRoutes) {   // a route: each line dashed, gold on a dark casing (the stops joined in order — schematic, which the dashes say)
+        ctx.save(); ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.beginPath(); for (const r of locRoutes) addPath(ctx, api, r, false);
+        ctx.setLineDash([7, 5]); ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.lineWidth = 4.6; ctx.stroke();
+        ctx.strokeStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.lineWidth = 2.4; ctx.stroke(); ctx.restore();
+      }
       if (locSpine && isWall) {   // a wall: one thick line, gold on a dark casing, so it reads over land and relief at any zoom
         ctx.save(); ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.beginPath(); addPath(ctx, api, locSpine, false);
         ctx.strokeStyle = "rgba(60,40,0,.8)"; ctx.lineWidth = 6.5; ctx.stroke();

@@ -4134,6 +4134,14 @@
        several collections and share no tag, so `text` is the test rather than a root: the term links in a card whose background names
        the empire (and in a popup whose own term's description does), and the "themes" of a book or a painting stay plain everywhere else.
        Not a bare /Byzanti/: gr-357, a poet's card, cites "the Suda, a Byzantine reference work" beside "his great theme". */
+    /* ASTRONOMY'S OWN SENSES (2026-11-20, on request: "vacuum (collection-specific gloss)", "Sun (collection-specific)", "eccentricity
+       (collection-specific gloss)"): "the Sun god" in an Egyptian card, "a vacuum of power", "his eccentricity" are not these terms.
+       Jupiter and Saturn carry their bare names as aliases of the PLANETS here only — in a Roman card they are the gods. */
+    Sun: { roots: ["astro"], tags: ["astronomy"] },
+    Vacuum: { roots: ["astro"], tags: ["astronomy", "physics"] },
+    Orbital_eccentricity: { roots: ["astro"], tags: ["astronomy"] },
+    "Jupiter_(planet)": { roots: ["astro"], tags: ["astronomy"] },
+    "Saturn_(planet)": { roots: ["astro"], tags: ["astronomy"] },
     "Theme_(Byzantine_district)": { roots: [], text: /Byzantine (?:Empire|empire|emperors?|state|army|provinces?)|Byzantium|Eastern Roman Empire/, tags: ["byzantium", "byzantine", "byzantine empire"] },
   };
   /* A TERM THAT MEANS SOMETHING ELSE INSIDE A COLLECTION (2026-11-16, on request: "in the Ancient Egypt collection,
@@ -41567,7 +41575,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      Doggerland the floor of the North Sea, and a `region` clips its wash to the present-day coast — so
      each of those cards drew the coasts either side of its subject and left the subject itself blank. A
      shelf is drawn in the region's own gold, because it WAS land, and with no clip at all. */
-  const LOC_KINDS = ["point", "battle", "river", "range", "region", "sea", "shelf", "wall"];   // "wall" (2026-11-13): a thick line along a `spine`, Hadrian's Wall
+  const LOC_KINDS = ["point", "battle", "river", "range", "region", "sea", "shelf", "wall", "route"];   // "route" (2026-11-20): dashed lines along `routes`, the Silk Road's stopping places joined in order   // "wall" (2026-11-13): a thick line along a `spine`, Hadrian's Wall
   // a list of [lon, lat] pairs, validated rather than trusted: `locator` is hand-authored in data.js and a
   // transposed pair draws a region in the wrong ocean without anything throwing
   function locPts(v) {
@@ -41627,6 +41635,10 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        to its dot exactly as a missing area always has. */
     const area = kind === "region" || kind === "sea" || kind === "shelf" ? locRings(l.area) : null;
     const spine = kind === "range" || kind === "wall" ? locPts(l.spine) : null;
+    /* `routes` (2026-11-20, on request: the Silk Road's window should "draw lines showing the common routes"): a ROUTE locator is one or more
+       polylines, each an ordered list of [lon, lat] stopping places a source names (their coordinates the gazetteer's), drawn as dashed lines with
+       no dot — schematic, the stops joined in order, never a traced road. A route that does not validate is dropped. */
+    const routes = kind === "route" && Array.isArray(l.routes) ? l.routes.map((r) => locPts(r)).filter(Boolean) : null;
     /* `within` names the CITY a place stands inside — "Rome" on the Forum, the hills and the Cloaca — and
        is what lets a map fold the collection's places in one city into one mark (see the sibling pass in
        startCardGlobe). `label` is where a REGION's name is written when its bbox centre is out at sea. */
@@ -41650,7 +41662,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        drawn on the FRONT, unnamed until the answer is shown, and not again on the back (see cardLocatorFront). */
     /* `alone` (2026-11-18, on request: "the atlas tag 'Italian peninsula' should not be displayed in the atlas windows of other cards"): this card's
        place is drawn on its OWN window only — never as a sibling on another card's (locatorSiblings). `hide` is the viewing card's choice; this is the place's. */
-    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, within: within, label: lab, hide: hide, also: also, ask: l.ask === true, alone: l.alone === true, role: /^(birth|death|capital)$/.test(String(l.role || "")) ? l.role : "" };   // `role` "capital": the card's own dot IS the ruler's capital, drawn as the square (2026-11-18)
+    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine, routes: routes && routes.length ? routes : null, within: within, label: lab, hide: hide, also: also, ask: l.ask === true, alone: l.alone === true, role: /^(birth|death|capital)$/.test(String(l.role || "")) ? l.role : "" };   // `role` "capital": the card's own dot IS the ruler's capital, drawn as the square (2026-11-18)
   }
   /* ---------- WHO FOUGHT, AND WHO WON (`card.war`; Sep 2026, on request) ----------
      A war card's atlas window shades the two sides in two colours — the victors green, the defeated red
@@ -42024,6 +42036,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // rings separated by ";", points by a space — `readRings` is the other half of this (see startCardGlobe)
       (l && l.area ? ' data-map-area="' + warRingsAttr(l.area) + '"' : "") +
       (l && l.spine ? ' data-map-spine="' + l.spine.map((q) => q[0] + "," + q[1]).join(" ") + '"' : "") +
+      (l && l.routes ? ' data-map-routes="' + l.routes.map((r) => r.map((q) => q[0] + "," + q[1]).join(" ")).join(";") + '"' : "") +
       /* THE TWO SIDES, one pair of attributes each: the names the map may carry, `|`-joined exactly as
          `data-map-key` joins a card's several polygons, and the authored extent in the rings encoding
          above. A side has one or the other and never both (see `cardWar`), so only one of each pair is
@@ -46722,9 +46735,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 <circle class="pie-knob" id="pieKnob" r="7"/>
               </svg>
               <div class="pie-readrow">
-                <button class="wy-step" id="piePrev" type="button" aria-label="One per cent less">${chev("15 18 9 12 15 6")}</button>
+                <button class="wy-step" id="piePrev" type="button" aria-label="1% less">${chev("15 18 9 12 15 6")}</button>
                 <div class="pie-readout" id="pieRead" aria-hidden="true"></div>
-                <button class="wy-step" id="pieNext" type="button" aria-label="One per cent more">${chev("9 6 15 12 9 18")}</button>
+                <button class="wy-step" id="pieNext" type="button" aria-label="1% more">${chev("9 6 15 12 9 18")}</button>
               </div>
               <p class="pie-hint" id="pieHint">Drag around the pie to cut your slice.</p>
             </div>
@@ -54279,7 +54292,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     findit: [{ h: "The globe, once selected", rows: [["Enter", "Drop a pin at the centre, then confirm it"]].concat(KS_MAPWIN) }],
     crossword: [{ rows: [["← ↑ → ↓", "Move between squares"], ["Backspace", "On an empty square: step back"],
                          ["Enter", "The next clue"]] }],
-    pie: [{ h: "The pie, once selected", rows: [["← →", "One per cent less or more"], ["Page Up / Down", "Ten per cent"],
+    pie: [{ h: "The pie, once selected", rows: [["← →", "1% less or more"], ["Page Up / Down", "Ten per cent"],
                    ["Home / End", "0 or 100 per cent"], ["Enter", "Lock in your answer"]] }],
     admin: [{ rows: [["↑ ↓", "The previous or next entry in the list"], ["Ctrl + Z", "Undo the last edit"],
                      ["Ctrl + B / I", "Bold or italic, in a text field (U: underline, in the rich editor)"]] }],
