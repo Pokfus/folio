@@ -12782,7 +12782,19 @@ window.GLOSSARY = {
 "Bolan_Pass": "",
 "Aravalli_Range": "",
 "Indo-Gangetic_Plain": "",
-"Kurukshetra": ""
+"Kurukshetra": "",
+"Xishuipo": "",
+"I_Ching": "",
+"Ferdinand_von_Richthofen": "",
+"Pazyryk_culture": "",
+"Pamir_Mountains": "",
+"Fergana_Valley": "",
+"Alfalfa": "",
+"Loulan": "",
+"Hong_Kong_Observatory": "",
+"Wang_Chong": "",
+"Lunheng": "",
+"Zhao_Yi": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -19024,7 +19036,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Liu_Biao": "d. 208 CE",
 "Xiahou_Yuan": "d. 219 CE",
 "Battle_of_Xiaoting": "221–222 CE",
-"Liu_Shan": "207–271 CE"
+"Liu_Shan": "207–271 CE",
+"Ferdinand_von_Richthofen": "1833–1905",
+"Wang_Chong": "27–c. 97 CE",
+"Zhao_Yi": "1727–1814"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -27456,7 +27471,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Bolan_Pass": ["Bolan"],
 "Aravalli_Range": ["Aravalli hills","Aravallis","Aravalli Hills"],
 "Indo-Gangetic_Plain": ["Indo-Gangetic plain","Indo-Gangetic Plains","Indus-Ganga Plain"],
-"Kurukshetra": ["Kurukṣetra"]
+"Kurukshetra": ["Kurukṣetra"],
+"I_Ching": ["Book of Changes","Yijing","Zhouyi"],
+"Ferdinand_von_Richthofen": ["Richthofen"],
+"Pazyryk_culture": ["Pazyryk"],
+"Pamir_Mountains": ["Pamirs","Pamir"],
+"Fergana_Valley": ["Ferghana","Fergana","Ferghana Valley"],
+"Alfalfa": ["lucerne"],
+"Loulan": ["Loulan Kingdom"],
+"Wang_Chong": ["Wang Ch'ung"],
+"Lunheng": ["Lun-heng"],
+"Zhao_Yi": ["Chao I"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27710,7 +27735,9 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Bolan_Pass": true,
 "Aravalli_Range": true,
 "Indo-Gangetic_Plain": true,
-"Kurukshetra": true
+"Kurukshetra": true,
+"Xishuipo": true,
+"Zhao_Yi": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -40496,7 +40523,19 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Bolan_Pass": ["place","geography","pakistan","balochistan","history"],
 "Aravalli_Range": ["place","geography","mountains","india","rajasthan"],
 "Indo-Gangetic_Plain": ["place","geography","india","pakistan","bangladesh"],
-"Kurukshetra": ["place","city","religion","india","haryana"]
+"Kurukshetra": ["place","city","religion","india","haryana"],
+"Xishuipo": ["place","archaeology","neolithic","china","henan","yangshao"],
+"I_Ching": ["book","china","philosophy","divination","confucianism","classic"],
+"Ferdinand_von_Richthofen": ["person","geography","geology","germany","china","silk road"],
+"Pazyryk_culture": ["culture","archaeology","nomads","altai","siberia","steppe"],
+"Pamir_Mountains": ["place","mountains","central asia","geography","silk road"],
+"Fergana_Valley": ["place","valley","central asia","silk road","agriculture"],
+"Alfalfa": ["plant","agriculture","botany","fodder","legume"],
+"Loulan": ["state","oasis","tarim basin","silk road","xinjiang"],
+"Hong_Kong_Observatory": ["institution","meteorology","hong kong","astronomy","weather"],
+"Wang_Chong": ["person","philosophy","china","han dynasty","scepticism"],
+"Lunheng": ["book","philosophy","china","han dynasty","scepticism"],
+"Zhao_Yi": ["person","history","china","qing dynasty","poetry"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
