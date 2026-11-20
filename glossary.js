@@ -12650,7 +12650,29 @@ window.GLOSSARY = {
 "Yale_University": "",
 "Abae": "",
 "Acastus": "",
-"Aeson": ""
+"Aeson": "",
+"Aeëtes": "",
+"Anavros": "",
+"Antihero": "",
+"Argo": "",
+"Book_of_Numbers": "",
+"Chiron": "",
+"Claros": "",
+"Creusa_(daughter_of_Creon)": "",
+"Cucumber": "",
+"Dedi": "",
+"Elkab": "",
+"Garlic": "",
+"Iolcus": "",
+"Isotope_analysis": "",
+"Melon": "",
+"Middle_Egypt": "",
+"Pelias": "",
+"Phrixus": "",
+"Planctae": "",
+"Radish": "",
+"Satire": "",
+"Trophonius": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -27202,7 +27224,21 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Triassic–Jurassic_extinction_event": ["end-Triassic extinction","end-Triassic mass extinction","Triassic–Jurassic extinction"],
 "Tyrannosaurus": ["Tyrannosaurus rex","T. rex"],
 "Western_United_States": ["American West"],
-"Yale_University": ["Yale","Yale College"]
+"Yale_University": ["Yale","Yale College"],
+"Aeëtes": ["Aeetes"],
+"Anavros": ["Anaurus"],
+"Antihero": ["anti-hero","anti-heroes","antiheroes"],
+"Chiron": ["Cheiron"],
+"Claros": ["Clarus"],
+"Creusa_(daughter_of_Creon)": ["Glauce"],
+"Elkab": ["El Kab","El-Kab","Nekheb","Eileithyiapolis"],
+"Iolcus": ["Iolcos","Iolkos"],
+"Isotope_analysis": ["strontium isotope analysis","strontium isotope analyses","isotope analyses"],
+"Middle_Egypt": ["Heptanomis"],
+"Planctae": ["Wandering Rocks","Planktai"],
+"Radish": ["radishes"],
+"Satire": ["satirist","satirists","satirical"],
+"Trophonius": ["Trophonios"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27429,7 +27465,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Abraham": true,
 "Halle_(Saale)": true,
 "Henry_Thomas_Buckle": true,
-"Syriac_language": true
+"Syriac_language": true,
+"Argo": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -40083,7 +40120,29 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Yale_University": ["institution","education","science","united states"],
 "Abae": ["city","religion","greece","phocis","oracle"],
 "Acastus": ["person","mythology","greece","thessaly"],
-"Aeson": ["person","mythology","greece","thessaly"]
+"Aeson": ["person","mythology","greece","thessaly"],
+"Aeëtes": ["ruler","mythology","greece","colchis"],
+"Anavros": ["place","geography","mythology","greece","thessaly"],
+"Antihero": ["concept","literature","drama"],
+"Argo": ["object","mythology","greece","ship"],
+"Book_of_Numbers": ["text","religion","bible","judaism"],
+"Chiron": ["creature","mythology","greece","centaur"],
+"Claros": ["place","religion","greece","ionia","oracle"],
+"Creusa_(daughter_of_Creon)": ["person","mythology","greece","corinth"],
+"Cucumber": ["plant","food","agriculture","botany"],
+"Dedi": ["person","literature","egypt","magic"],
+"Elkab": ["city","archaeology","egypt","upper egypt"],
+"Garlic": ["plant","food","medicine","agriculture"],
+"Iolcus": ["city","mythology","greece","thessaly"],
+"Isotope_analysis": ["technology","science","archaeology","chemistry"],
+"Melon": ["plant","food","agriculture","botany"],
+"Middle_Egypt": ["place","geography","egypt","nile"],
+"Pelias": ["person","mythology","greece","thessaly"],
+"Phrixus": ["person","mythology","greece","boeotia"],
+"Planctae": ["place","mythology","greece","sea"],
+"Radish": ["plant","food","agriculture","botany"],
+"Satire": ["concept","literature","humour","rome"],
+"Trophonius": ["person","hero","mythology","greece","religion","oracle"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
