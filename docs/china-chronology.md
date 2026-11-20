@@ -1075,6 +1075,16 @@ January 1917 (`cnh-586`, `cnh-588`); Lu Xun's "Diary of a Madman" 1918 (`cnh-589
 | regular script in common use / matured | 220 – 420 CE / 618 – 907 CE | the Li, Han and Becker chapter (`cnh-908`) |
 | Classical Chinese fully formed / reform urged / schools switch | c. 600 – 500 BCE / 1917 / 1920 | Giles 1901 (his judgement); Wang 1927 (`cnh-909`) |
 | the *Fangyan* compiled | c. 1 – 100 CE | Chung and Han 2022 (`cnh-910`) |
+| the *Zhongyuan yinyun* completed | 1324 | Nagashima 1941 (`cnh-911`) |
+| the *Qieyun* compiled / revised / enlarged as the *Guangyun* | 601 CE / 751 CE / 1007 – 1011 | Carr (`cnh-912`) |
+| the Kangxi Dictionary ordered / completed | 1710 / 1716 | Vedal; Couling (`cnh-913`) |
+| the *Shuowen jiezi* completed / presented | c. 100 CE / 121 CE | Wylie; Couling (`cnh-914`) |
+| Latinxua: work begun / adopted / the Border Region's trials | 1928 / September 1931 / October 1940 – 1943 | the Soviet commission; Wang 2022 (`cnh-915`) |
+| simplified characters: the first table / the scheme / the second draft / withdrawn | August 1935 / January 1956 / 20 December 1977 / 24 June 1986 | the card's sources (`cnh-916`) |
+| Pinyin approved / recommended by the UN conference / the US library standard | 11 February 1958 / 1977 / 1 October 2000 | the card's sources (`cnh-917`) |
+| the *Yiwenzhi*: the Han history compiled / the collation begun | c. 54 – 92 CE / 26 BCE | Mayers; Hunter 2018 (`cnh-918`) |
+| *Three Hundred Tang Poems* compiled / first printed | c. 1763 / 1764 | Jiang Yin (`cnh-919`) |
+| the Nineteen Old Poems collected in the *Wen xuan* | c. 530 CE | the card's sources (`cnh-920`) |
 
 ## Chronology pins
 
