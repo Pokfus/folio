@@ -260,6 +260,14 @@ the form English-language scholarship and the reference works use; the decision 
 | Zhuang, Nong Zhigao, Miao, Yi, Baiyue, Dian | Nung Chih-kao, Pai-yüeh | Nùng Trí Cao, Hmong, Nuosu, Lolo, Hundred Yue | *Lolo* an old exonym, used only as a quoted or historical name; *Hmong* the self-name of one Miao group, never a synonym for all |
 | xiangqi, tai chi, siheyuan, baijiu, Lu Yu, Yuan Mei, Fan Zhongyan, Liu Zhiji | hsiang-ch'i, t'ai chi, T'ai chi ch'üan, Lu Yü, Yüan Mei, Fan Chung-yen, Liu Chih-chi | Chinese chess, taijiquan, tai chi chuan, shaojiu | *tai chi* the English name and the live answer; *taijiquan* the pinyin, an alias |
 | Shanxi merchants, Huguang, huiguan | Shansi merchants, Hukuang, hui-kuan | Jin merchants, Jinshang | *Shanxi*, never confused with *Shaanxi* |
+| Daodejing, Daoism, Daoist, Huang–Lao, Celestial Masters, Quanzhen, Lingbao, Shangqing | Tao Te Ching, Tao-te ching, Tao Teh King, Dao De Jing, Daode jing, Ch'üan-chen, Ling-pao, Shang-ch'ing | Taoism, Taoist, Huang-Lao, Huanglao, Laozi (the book), Tianshi Dao, Way of the Five Pecks of Rice, Way of the Celestial Masters, Quanzhen School | the Daoist names (added for the ninth hundred, Nov 2026); *Daoism* in the card's voice although the glossary's slug is `Taoism` (its title, and "Taoist" in a cited title, are not reported; for the owner); *Huang–Lao* with the en dash of its slug (the hyphened *Huang-Lao* of earlier cards not reported); Legge's *Tâo Teh King* cited as printed |
+| Zhang Daoling, Ge Hong, Ge Xuan, Wang Zhe, Heshang Gong, Baopuzi, Cook Ding | Chang Tao-ling, Zhang Tao-ling, Ko Hung, Ko Hsüan, Wang Che, Wang Ch'ung-yang, Ho-shang Kung, Pao-p'u-tzu, Pao-p'u tzu, Baopu zi | Zhang Ling, Wang Chongyang, Heshanggong, Butcher Ding, Pao Ding, Baopu | *Zhang Ling* the name the histories give him, an alias |
+| Liji, Zhongyong, Great Learning, Ten Wings, Wu Xing, He Tu and Luo Shu, Zisi, Zengzi | Li Chi, Li Ki, Chung Yung, Chung-yung, Ta Hsüeh, Ta-hsüeh, Ho-t'u, Lo-shu, Tzu-ssu, Tseng-tzu | Book of Rites, Record of Rites, Doctrine of the Mean, Daxue, Yizhuan, Wuxing, Five Phases, five phases, Five Agents, Hetu, Luoshu, Zeng Shen | the Confucian texts by the live answers; Legge's *Lî Kî* cited as printed; *Wuxing* not reported (it is also a place name, Huzhou's old name) |
+| Yan Hui, Zilu, Gaozi, Mozi, Gongshu Ban, Shen Buhai, Hui Shi, Zou Yan, Liu Xin, Wang Bi, Li Ao | Yen Hui, Tzu-lu, Tzu Lu, Kao Tzu, Kao-tzu, Kung-shu Pan, Shen Pu-hai, Hui Shih, Tsou Yen, Wang Pi | Yan Yuan, Zhong You, Ji Lu, Lu Ban, Gongshu Zi, Shenzi | the early thinkers; *Lu Ban*, the craftsman's later name and patron god, an alias of Gongshu Ban said so |
+| Zhou Dunyi, Zhang Zai, Cheng Hao, Cheng Yi, Lu Jiuyuan, Wang Fuzhi, Huang Zongxi, Yan Ruoqu, Zhang Zhidong, Zhang Junmai, Ding Wenjiang | Chou Tun-i, Chang Tsai, Ch'eng Hao, Ch'eng I, Cheng I, Lu Chiu-yüan, Wang Fu-chih, Huang Tsung-hsi, Yen Jo-chü, Chang Chih-tung | Lu Xiangshan, Chuanshan, Lizhou, Carsun Chang, V. K. Ting | the later Confucians; *Carsun Chang* and *V. K. Ting*, their own English names, stand in cited titles and an author line |
+| Kumarajiva, Dharmaraksa, An Shigao, Huiyuan, Zhiyi, Fazang, Daoxuan, Huineng, Baizhang Huaihai, Tiantai, Huayan, Chan, Pure Land, Mount Wutai, Mogao Caves | Chu-fa-hu, An Shih-kao, Hui-yüan, Chih-i, Fa-tsang, Tao-hsüan, Hui-neng, Pai-chang Huai-hai, Pai-chang, T'ien-t'ai, Hua-yen, Ch'an, Wu-t'ai shan | Kumārajīva, Dharmarakṣa, Zhu Fahu, Wutai Shan, Wutaishan, Qingliang Shan, Qianfodong, Caves of the Thousand Buddhas | the Buddhist names; Sanskrit names without diacritics in the card's voice (the slugs' `Kumārajīva` and `Dharmarakṣa` are their titles); *Zen* only for Japan |
+| Liu Ying, Emperor Taiwu, Cui Hao, Kou Qianzhi, Wenchang Wang, Dongyue Dadi, City God, Luo Qing, Eternal Venerable Mother, Aluoben | Ts'ui Hao, K'ou Ch'ien-chih, Wen-ch'ang, Tung-yüeh ta-ti, Ch'eng-huang, Lo Ch'ing | Wenchang Dijun, Zitong Dijun, Zhang Yazi, Emperor of the Eastern Peak, Chenghuang, Luo Zu, Wusheng Laomu, Alopen, Olopun | the gods and the sects; *City God* the English name, *Chenghuang* the Chinese an alias |
+| Jiangnan, qianzhuang, sycee, comprador, Pan Jixun, Huang Daopo, Zhengguo Canal, Qimin yaoshu, Hemudu, caoyun, feng shui, luopan | Kiangnan, Chiang-nan, ch'ien-chuang, Pan Chi-hsün, Huang Tao-p'o, Cheng-kuo, Ch'i-min yao-shu, Ho-mu-tu, ts'ao-yün, fengshui | native banks, yuanbao, maiban, Zhengguo Qu, Ch'i-min yao shu, Grain Transport | the economy's names; *sycee* and *comprador* the period's English, lower-case as common nouns; *Hankou* in the card's voice, *Hankow* (the row above) cited as printed |
 
 ## Mythology and legend
 
@@ -956,9 +964,85 @@ BCE and the empire's end, the abdication of 12 February 1912 (`cnh-191`, `cnh-57
 | the King of Na seal granted / found | 57 CE / 23 February 1784 | the Fukuoka museum (`cnh-799`) |
 | regional ethnic autonomy: the first region / promised / enacted / amended | 1947 / 1949 / 31 May 1984 / 28 February 2001 | the NPC (`cnh-800`) |
 
+## Land, trade and money, philosophy and religion (the ninth hundred)
+
+Filled batch by batch from `cnh-801` (B81 on). The ninth hundred is three themed decks: land, trade and money (`cn-economy`),
+Chinese philosophy (`cn-thought`) and religion and ritual (`cn-religion`), so a card here often dates a text, a school or a cult
+across several dynasties, and a text is dated by its making or its first attestation, never by its traditional author's life.
+**The protected lines** of its thirty-three individuals (the thinkers, the translators and the founders, listed in
+`docs/china-refinement-audit.md`, "Protected date lines") are pinned below to their lines as they stood on main on 2026-11-19
+(the years only; ages, days and months left out), and are not rows of this table. Dates already set elsewhere that this hundred
+must agree with: the Qin unification 221 BCE (`cnh-191`); the supremacy of Confucianism 136 BCE (`cnh-238`) and Dong Zhongshu
+(`cnh-237`); the White Horse Temple's traditional 68 CE (`cnh-267`); the Northern Wei 386 – 534 CE (`cnh-330`); the Grand Canal's
+main works 605 – 610 CE (`cnh-350`); Wu Zetian emperor from 16 October 690 CE (`cnh-371`); Xuanzang's journey 629 – 645 CE
+(`cnh-388`); the persecution of 845 CE (`cnh-389`); the Song 960 – 1279 (`cnh-421`); the jiaozi's state issue 1023 (`cnh-436`);
+Zhu Xi 1130 – 1200 and the Neo-Confucian masters 1017 – 1200 (`cnh-459`, `cnh-460`); Matteo Ricci in China 1582 – 1610 (`cnh-527`);
+Wang Yangming (`cnh-528`); the Treaty of Nanking 29 August 1842 (`cnh-562`); the kaizhong 1370 / 1492 (`cnh-718`, `cnh-747`).
+
+| event | the collection says | source |
+|---|---|---|
+| the Song economic revolution dated / also dated (the Northern Song) | c. 750 – 1100 CE / 960 – 1127 CE | von Glahn; the cited studies (`cnh-801`; 960 with `cnh-421`) |
+| the *Qimin yaoshu* completed | c. 533 – 544 CE | the cited studies (`cnh-802`) |
+| the Hemudu culture dated / also dated | c. 7000 – 5300 BP / c. 7000 – 5000 BP | Eda; Xie (`cnh-803`) |
+| the Zhengguo Canal dated / restored / rebuilt | 246 BCE / 95 BCE / 1932 | the ICID (`cnh-804`) |
+| the fish-scale registers: the survey / the later survey | 1379 / 1581 | Yee; Ray Huang (`cnh-807`) |
+| the ban liang first cast / the standard coin / the four-zhu coin / last issued | c. 340 BCE / 221 BCE / 175 BCE / 118 BCE | Thierry; Pollard and Liu (`cnh-809`; 221 with `cnh-191`) |
+| the Great Ming Treasure Note: the office / first issued / the silver tax | 1374 / 1375 / 1436 | Theobald; Horesh (`cnh-810`; 1436 with `cnh-523`) |
+| sycee: taxes paid in silver / abolished with the tael | 1581 / 1933 | Sun et al.; the cited studies (`cnh-811`; with `cnh-522`, `cnh-523`) |
+| Hankou: the river shifted / the office moved / opened to trade / walled | 1465 – 1470 / 1613 / 9 March 1861 / 1864 | Ren et al.; Li and Zhang; Mayers (`cnh-812`) |
+| the caoyun: the canal rebuilt / sea transport / the late shipments | 1411 / 1826 / 1902 – 1905 | the cited studies; Morse (`cnh-813`) |
+| the Sogdian Ancient Letters written / found | c. 313 CE / 1907 | Sims-Williams; Livshits (`cnh-814`) |
+| Shu brocade's classic centre / the loom models buried | c. 200 BCE – 900 CE / c. 157 – 88 BCE | Zhao et al. (`cnh-815`) |
+| the Tea Horse Road's Qing road / the bridge opened | 1700 – 1950 / 1702 | Liu (`cnh-816`) |
+| the Belitung ship sailed / the dated bowl / found | c. 825 – 850 CE / 826 CE / 1998 | Kan; Flecker (`cnh-817`) |
+| the Maritime Trade Supervisorate attested / reorganised / new offices / an office added | c. 700 – 800 CE / 971 CE / 999 CE / 1087 | Hirth and Rockhill; Quanzhou (`cnh-818`) |
+| the junk described / the oldest hull / the word attested | 1124 / c. 1277 / c. 1300 | Xu Jing; the Quanzhou ship study; Yule and Burnell (`cnh-819`) |
+| "comprador" attested / the Hong monopoly ended | 1533 / 29 August 1842 | Yule and Burnell; Mayers (`cnh-820`; with `cnh-562`) |
+| the qianzhuang guild formed | 1776 | Kruglova (`cnh-821`) |
+| the salt merchants: silver paid / the syndicates set | 1492 / 1617 | An; Theobald (`cnh-822`; 1492 with `cnh-718`) |
+| Yunnan copper: mining promoted / state control / supplied the mints / peak output | 1682 / 1705 / 1738 / 1764 | Giersch; Dunstan; von Glahn (`cnh-823`) |
+| the Great Divergence dated / also dated | 1700 – 1750 / 1800 | Broadberry, Guan and Li; Goldstone (`cnh-825`) |
+| Huang–Lao flourished / the Mawangdui copies buried | c. 300 – 100 BCE / 168 BCE | the cited studies (`cnh-826`) |
+| the *Lüshi Chunqiu* compiled | c. 239 BCE | Knoblock and Riegel, through the SEP (`cnh-827`) |
+| the *Liji* compiled | c. 200 BCE – 200 CE | Legge; Eno (`cnh-831`) |
+| the *Zhongyong* composed / attested / the exam decree | c. 300 – 200 BCE / c. 100 BCE / 1313 | Eno; Legge; Mailla (`cnh-832`, `cnh-853`; with `cnh-491`) |
+| the Confucius temple: the imperial rite / the sole sage / the images removed | 195 BCE / 628 CE / 1530 | Legge; Murray (`cnh-833`) |
+| the "Discourse on Heaven" written | c. 300 – 200 BCE | Goldin; Elstein (`cnh-835`) |
+| the Guodian slips buried / excavated | c. 300 BCE / 1993 | Kirkland; the SEP (`cnh-838`) |
+| the *Liezi*'s received text (Zhang Zhan's edition) | c. 370 CE | the IEP (`cnh-841`) |
+| the "Qiwulun" dated | c. 400 – 300 BCE | the SEP; Chen Guying (`cnh-842`) |
+| the *Han Feizi* completed | c. 230 BCE | Schlager (`cnh-846`; Han Fei's death 233 BCE in prose) |
+| the Ten Wings written / the earliest copy | c. 500 – 100 BCE / c. 175 BCE | the SEP; Shaughnessy (`cnh-851`) |
+| the Xiping Stone Classics ordered / carved | 175 CE / c. 175 – 183 CE | the cited studies (`cnh-852`) |
+| the *Great Learning* composed / the exam decree | c. 300 – 200 BCE / 1313 | Eno; Mailla (`cnh-853`; 1313 with `cnh-832`) |
+| the White Tiger Discussions held | 79 CE | Jian (`cnh-854`) |
+| the *Taijitu shuo* written / edited / anthologised | c. 1000 – 1100 / 1169 / 1175 | the cited studies (`cnh-859`) |
+| the *Quanxue pian* published | 1898 | Woodbridge (`cnh-866`) |
+| the Science and Metaphysics debate: the lecture / the anthology | 14 February 1923 / December 1923 | Nelson; Vrhovski (`cnh-867`; the card's timeline) |
+| Wenchang: the cult formed / made thearch / struck off / restored | c. 1100 – 1200 / 1316 / 1370 / 1801 | Burton-Rose (`cnh-868`) |
+| Qingming: described / a public holiday | 1147 / 2008 | Meng Yuanlao; the cited studies (`cnh-869`) |
+| the god of Mount Tai: made king / the title extended / lengthened / removed | 725 CE / 1008 / 1291 / 1370 | Chavannes (`cnh-870`; 1008 with `cnh-874`) |
+| the City God cult dated / also dated / the Ming titles granted / removed | c. 479 – 557 CE / c. 220 – 589 CE / 1369 / 1370 | Zou and Yang (`cnh-871`) |
+| the compass needle attested / its deviation noted | c. 1000 – 1100 / 1111 – 1117 | the cited studies (`cnh-872`) |
+| the almanac: the printing ban / the dated copy / the guide printed / revised | 835 CE / 877 CE / 1683 / 1741 | Whitfield; Foster (`cnh-873`) |
+| the Fengshan first certain / last held | 110 BCE / 1008 | Chavannes (`cnh-874`; the *Shiji*'s 219 BCE for the First Emperor in prose) |
+| the Mingtang: the rites held / built / rebuilt / cut down | 106 BCE / 688 CE / 696 CE / 737 CE | Chavannes; Zhang (`cnh-875`) |
+| Lingbao released / catalogued / the canon listed | c. 400 CE / 437 CE / 471 CE | the *Encyclopedia of Taoism* (`cnh-876`) |
+| the *Baopuzi* written | c. 320 CE | Pregadio; the cited studies (`cnh-878`) |
+| the Daozang: the first canon / first printed / burned / completed | c. 740 CE / 1119 / 1281 / 1445 | the cited studies (`cnh-879`) |
+| the White Cloud Temple founded / the canon reprinted | 1228 / 1923 – 1926 | Bretschneider; Pregadio (`cnh-880`) |
+| the *Platform Sutra*: the earliest text / revised / the standard text | c. 780 CE / 967 CE / 1291 | Schlütter (`cnh-890`) |
+| the Dazu carvings: the earliest / the main phase / resumed / World Heritage | c. 650 CE / 892 – 1252 CE / 1078 / 1999 | the ICOMOS evaluation; Chen (`cnh-892`) |
+| the Mogao Caves: the traditional first cave / the oldest caves / the dated cave / World Heritage | 366 CE / c. 420 – 429 CE / 538 CE / 1987 | Chavannes; the cited studies (`cnh-893`) |
+| Mount Wutai: the court envoys / the first record | 661 – 662 CE / c. 679 – 684 CE | the cited studies (`cnh-894`) |
+| the Great Cloud Sutra commentary presented | 690 CE | the *Jiu Tangshu*; Rothschild (`cnh-896`; with `cnh-371`) |
+| the *Tianzhu shiyi* drafted / printed / the second edition | 1596 / 1603 / 1607 | the cited studies (`cnh-898`) |
+| the Nestorian Stele erected / found / also dated / moved | 781 CE / 1623 / 1625 / 1907 | Deeg; Saeki (`cnh-899`) |
+| the Eternal Venerable Mother attested / the scripture / the temples razed | 1629 / 1652 / 1839 | Pu; de Groot (`cnh-900`) |
+
 ## Later periods
 
-To be filled from `cnh-801` on.
+To be filled from `cnh-901` on.
 
 ## Chronology pins
 
@@ -1218,6 +1302,39 @@ cnh-677: 1921; 1976; 1981; 2008
 cnh-678: 1904; 1920; 1926; 1978; 1997
 cnh-733: 442; 466; 476; 490
 cnh-781: 1550; 1571; 1578
+cnh-805: 1521; 1578; 1595
+cnh-824: 1245; 1295; 1330
+cnh-828: 521; 481
+cnh-829: 542; 480
+cnh-836: 420; 350
+cnh-839: 179; 157; 100; 200
+cnh-840: 400; 200
+cnh-843: 470; 430; 391
+cnh-844: 507; 444
+cnh-845: 400; 337
+cnh-847: 370; 313; 310
+cnh-850: 305; 240
+cnh-855: 46; 7; 1; 23
+cnh-856: 226; 249
+cnh-857: 772; 798; 841
+cnh-858: 1020; 1069; 1077
+cnh-860: 1033; 1107
+cnh-861: 1619; 1692
+cnh-862: 1139; 1175; 1193
+cnh-864: 1636; 1704
+cnh-865: 1610; 1662; 1663; 1695
+cnh-877: 34; 142; 156
+cnh-881: 1113; 1159; 1167; 1170
+cnh-882: 65; 70; 71
+cnh-883: 148; 170
+cnh-884: 233; 286; 310
+cnh-885: 344; 383; 401; 402; 409; 413
+cnh-886: 596; 667
+cnh-887: 538; 575; 597
+cnh-888: 643; 712
+cnh-889: 334; 402; 416
+cnh-891: 720; 814
+cnh-895: 408; 423; 452; 446
 cnh-101: 1250; 1046
 cnh-103: 1046; 1040; 1122
 cnh-104: 1046; 1044; 1122
@@ -1738,4 +1855,62 @@ cnh-797: 1637; 1645; 1894; 1895
 cnh-798: 1406; 1407
 cnh-799: 57; 1784
 cnh-800: 1947; 1949; 1984; 2001
+cnh-801: 750; 1100; 960; 1127
+cnh-802: 533; 544
+cnh-803: 7000; 5300; 5000
+cnh-804: 246; 95; 1932
+cnh-807: 1379; 1581
+cnh-809: 340; 221; 175; 118
+cnh-810: 1374; 1375; 1436
+cnh-811: 1581; 1933
+cnh-812: 1465; 1470; 1613; 1861; 1864
+cnh-813: 1411; 1826; 1902; 1905
+cnh-814: 313; 1907
+cnh-815: 200; 900; 157; 88
+cnh-816: 1700; 1950; 1702
+cnh-817: 825; 850; 826; 1998
+cnh-818: 700; 800; 971; 999; 1087
+cnh-819: 1124; 1277; 1300
+cnh-820: 1533; 1842
+cnh-821: 1776
+cnh-822: 1492; 1617
+cnh-823: 1682; 1705; 1738; 1764
+cnh-825: 1700; 1750; 1800
+cnh-826: 300; 100; 168
+cnh-827: 239
+cnh-831: 200
+cnh-832: 300; 200; 100; 1313
+cnh-833: 195; 628; 1530
+cnh-835: 300; 200
+cnh-838: 300; 1993
+cnh-841: 370
+cnh-842: 400; 300
+cnh-846: 230
+cnh-851: 500; 100; 175
+cnh-852: 175; 183
+cnh-853: 300; 200; 1313
+cnh-854: 79
+cnh-859: 1000; 1100; 1169; 1175
+cnh-866: 1898
+cnh-867: 1923
+cnh-868: 1100; 1200; 1316; 1370; 1801
+cnh-869: 1147; 2008
+cnh-870: 725; 1008; 1291; 1370
+cnh-871: 479; 557; 220; 589; 1369; 1370
+cnh-872: 1000; 1100; 1111; 1117
+cnh-873: 835; 877; 1683; 1741
+cnh-874: 110; 1008
+cnh-875: 106; 688; 696; 737
+cnh-876: 400; 437; 471
+cnh-878: 320
+cnh-879: 740; 1119; 1281; 1445
+cnh-880: 1228; 1923; 1926
+cnh-890: 780; 967; 1291
+cnh-892: 650; 892; 1252; 1078; 1999
+cnh-893: 366; 420; 429; 538; 1987
+cnh-894: 661; 662; 679; 684
+cnh-896: 690
+cnh-898: 1596; 1603; 1607
+cnh-899: 781; 1623; 1625; 1907
+cnh-900: 1629; 1652; 1839
 ```
