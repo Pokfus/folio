@@ -791,6 +791,13 @@ steps are the years inside the span at which any of the groups' entities begins,
 `year` where that is a step, else at the halfway point. With no seat (`at`) a members window on a past year names nothing
 of its own — its present-day `keys` are only the fallback and the frame.
 
+**A group may name a people or a culture** (2026-11-20, on request: "in the atlas window I do not see the Hunnic empire highlighted",
+`rm-630`, `pol:huns`). Such an entity is a presence, not a state face, and the window used to switch the peoples off, so it drew
+nothing. A members window on a past year now sets `peoples: "all"` with `peopleOnly` = its groups' ids (`|`-joined; `presShown` in
+`atlas.js` accepts one id or several), so only its own peoples are drawn and no other people's, and a people whose id the window
+tints (`setTints`, not Find it's flat area round) takes the tint's colour for its stipple at 0.9 with a soft wash (`PRES_TINT_WASH`)
+instead of the neutral ink (`presenceDraw`). The presence has no outline (the mask pass outlines states only).
+
 ## A locator's extra places and hidden siblings (`locator.also`, `locator.hide`, 2026-10-29, on request)
 
 - `also: [{ name, at: [lon, lat] }]` — further places of the card's OWN subject, drawn as named dots beside its own
