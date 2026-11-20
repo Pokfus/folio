@@ -12639,7 +12639,18 @@ window.GLOSSARY = {
 "Late_Jurassic": "",
 "Late_Triassic": "",
 "Megalosaurus": "",
-"Pangaea": ""
+"Pangaea": "",
+"Patagotitan": "",
+"Sauropoda": "",
+"Triassic–Jurassic_extinction_event": "",
+"Triceratops": "",
+"Tyrannosaurus": "",
+"Western_United_States": "",
+"YPM_1980": "",
+"Yale_University": "",
+"Abae": "",
+"Acastus": "",
+"Aeson": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -18857,7 +18868,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Iguanodon": "c. 140 – 110 Mya",
 "Late_Jurassic": "c. 161.5 – 143.1 Mya",
 "Late_Triassic": "c. 237 – 201.4 Mya",
-"Megalosaurus": "c. 166 Mya"
+"Megalosaurus": "c. 166 Mya",
+"Patagotitan": "c. 101 Mya",
+"Triassic–Jurassic_extinction_event": "c. 201.5 Mya",
+"Triceratops": "c. 68 – 66 Mya",
+"Tyrannosaurus": "c. 68 – 66 Mya",
+"Yale_University": "est. 1701"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -27181,7 +27197,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Ammonoidea": ["ammonite","ammonites","ammonoid","ammonoids"],
 "Ginkgo": ["ginkgo","ginkgoes","ginkgos","Ginkgo biloba","maidenhair tree"],
 "Ichthyosaur": ["ichthyosaur","ichthyosaurs","Ichthyosauria"],
-"Pangaea": ["Pangea"]
+"Pangaea": ["Pangea"],
+"Sauropoda": ["sauropod","sauropods","sauropod dinosaurs"],
+"Triassic–Jurassic_extinction_event": ["end-Triassic extinction","end-Triassic mass extinction","Triassic–Jurassic extinction"],
+"Tyrannosaurus": ["Tyrannosaurus rex","T. rex"],
+"Western_United_States": ["American West"],
+"Yale_University": ["Yale","Yale College"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -40051,7 +40072,18 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Late_Jurassic": ["era","geology","palaeontology","jurassic","deep time"],
 "Late_Triassic": ["era","geology","palaeontology","triassic","deep time"],
 "Megalosaurus": ["animal","dinosaurs","palaeontology","jurassic","britain"],
-"Pangaea": ["place","geology","geography","deep time"]
+"Pangaea": ["place","geology","geography","deep time"],
+"Patagotitan": ["animal","dinosaurs","palaeontology","sauropod","cretaceous","argentina"],
+"Sauropoda": ["animal","dinosaurs","palaeontology","sauropod","mesozoic"],
+"Triassic–Jurassic_extinction_event": ["event","geology","palaeontology","extinction","deep time"],
+"Triceratops": ["animal","dinosaurs","palaeontology","cretaceous","united states"],
+"Tyrannosaurus": ["animal","dinosaurs","palaeontology","cretaceous","united states"],
+"Western_United_States": ["place","geography","history","united states"],
+"YPM_1980": ["fossil","palaeontology","dinosaurs","sauropod","jurassic","united states"],
+"Yale_University": ["institution","education","science","united states"],
+"Abae": ["city","religion","greece","phocis","oracle"],
+"Acastus": ["person","mythology","greece","thessaly"],
+"Aeson": ["person","mythology","greece","thessaly"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
