@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"3beefc81db5e27fb","counts":{"terms":1008,"points":772,"countries":236,"windows":1748,"faces":394,"years":107},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"0e6a9408e299b6de","counts":{"terms":1008,"points":772,"countries":236,"windows":1750,"faces":394,"years":107},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1200,6 +1200,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"3beefc81db5e27fb","counts":
 "Bermuda":[-64.76,32.3,"country","adm0:bmu",0,40],
 "Bhimbetka_rock_shelters":[77.614,22.939,"site",0,0,0],
 "Bhutan":[90.04,27.54,"country","adm0:btn",0,22.99],
+"Bigeh":[32.885,24.021,"coord",0,0,0],
 "Bihar":[85.613,25.68,"admin1","adm1:ind:in-br",0,15.29],
 "Bir_Kiseiba":[29.917,22.683,"site",0,0,0],
 "Bithynia_and_Pontus":[29.918,40.763,"coord",0,0,0],
@@ -2584,6 +2585,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"3beefc81db5e27fb","counts":
 "Tomb_of_King_Muryeong":[127.117,36.45,"coord",0,0,0],
 "Tomb_of_King_Tongmyong":[125.923,38.895,"coord",0,0,0],
 "Tomb_of_Nefertari":[32.593,25.728,"coord",0,0,0],
+"Tomb_of_Perneb":[31.216,29.871,"coord",0,0,0],
 "Tomb_of_Seti_I":[32.602,25.74,"coord",0,0,0],
 "Tomb_of_Tutankhamun":[32.601,25.74,"coord",0,0,0],
 "Tombos_(Nubia)":[30.389,19.712,"coord",0,0,0],
