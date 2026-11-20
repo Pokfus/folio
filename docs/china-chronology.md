@@ -1130,6 +1130,14 @@ January 1917 (`cnh-586`, `cnh-588`); Lu Xun's "Diary of a Madman" 1918 (`cnh-589
 | Fangmatan: Tomb 1 / Tomb 5 / found | c. 300 – 200 BCE / 179 – 141 BCE / 1986 | the card's sources (`cnh-975`) |
 | the Dunhuang Diamond Sutra printed / found | 11 May 868 CE / 1900 | the card's sources (`cnh-976`) |
 | the *Wujing zongyao* dated | 1044 | the card's sources (`cnh-978`) |
+| the Mao Kun map drawn / preface / presented | c. 1425 – 1430 / 1621 / 1628 | Liang 2016 (`cnh-981`) |
+| the Dunhuang star chart dated / also dated | c. 649 – 684 CE / c. 940 CE | Bonnet-Bidaud (`cnh-982`) |
+| the Beijing observatory refitted / its instruments / removed | c. 1670 / 1673 / 1900 – 1901 | the card's sources (`cnh-983`) |
+| SN 185 appeared / last seen | 7 December 185 CE / 187 CE, also dated 186 CE | the card's sources (`cnh-984`) |
+| the Taichu calendar adopted / replaced | 104 BCE / 85 CE | the card's sources (`cnh-985`) |
+| the *Zhoubi* compiled | c. 100 BCE – 100 CE | the card's sources (`cnh-986`) |
+| the *Nine Chapters* compiled / commentary / annotated | c. 200 BCE – 50 CE / 263 CE / c. 640 CE | the card's sources (`cnh-987`) |
+| the Zhaozhou Bridge built / restored | c. 595 – 605 CE / 1952 – 1958 | the card's sources (`cnh-990`) |
 
 ## Chronology pins
 
