@@ -476,7 +476,7 @@
      Keep this list in step with EXTRA_FIELDS in .claude/card-io.js — split-cards.js --check slices
      this declaration out by text and fails if the two have drifted, because a field app.js expects
      lazily and the splitter leaves eager is a field that ships twice. */
-  const CARD_EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image", "wiki", "questions", "places"];   // `places` (Atlas v2 Phase 3a): the registry ids a card points at; nothing reads it until 3b
+  const CARD_EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image", "wiki", "questions", "places", "example"];   // `places` (Atlas v2 Phase 3a): the registry ids a card points at; nothing reads it until 3b
   const cardExtraPrefix = (id) => String(id || "").replace(/-\d+$/, "");
   /* Has this card's heavy half arrived? A community card never has one (its whole record is in the
      deck file), and a card with no prefix we ship simply answers yes so nothing waits for ever. */
@@ -42200,6 +42200,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        locator, for the reason the locator is outside it: this is not prose, it is a set of links, and a
        reader who has shut the fold to see only the answer has not asked to lose it. */
     /* THE ATLAS WINDOW COMES FIRST, directly under the Background (Oct 2026, on request: "put the atlas sections of cards right below the background section, so above the timeline and nearby and sources sections"). */
+    /* A WORKED EXAMPLE (2026-11-20, on request: ph-049's truth table "between the background section and
+       sources section") — directly under the Background fold, above the Atlas box. See cardExampleHTML. */
+    html += cardExampleHTML(c);
     html += cardLocatorHTML(c);
     /* …then WHEN this was, beside what came just before and after it in the collection (see cardTimelineHTML):
        below the Atlas box, on request, with the Nearby rail after it. */
@@ -42631,6 +42634,28 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         b.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); openGlossWin(b.dataset.tlterm, b); }); });
       tlLayout(el);
     });
+  }
+  /* THE EXAMPLE SECTION (2026-11-20, on request). An optional HEAVY field (CARD_EXTRA_FIELDS) for a card whose
+     subject is best shown worked through — a truth table for "truth table". It is DATA, not markup:
+       example: { intro?: "<sentence, b/i/sup allowed>", table: { head: ["p", "q", …], rows: [["T", "F", …], …] }, note?: "…" }
+     so the cells are escaped here and the card file carries no table HTML for an editor to break. A card
+     without the field renders exactly as before. Guarded by .claude/test-card-example.js. */
+  function cardExampleHTML(c) {
+    const ex = c && c.example;
+    if (!ex || typeof ex !== "object") return "";
+    const t = ex.table && Array.isArray(ex.table.rows) ? ex.table : null;
+    if (!t && !ex.intro) return "";
+    const esc = (s) => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const prose = (s) => '<p class="ex-text">' + String(s).replace(/<(?!\/?(?:b|i|sup)\b)[^>]*>/g, "") + "</p>";
+    let h = '<div class="card-example"><span class="label">Example</span>';
+    if (ex.intro) h += prose(ex.intro);
+    if (t) {
+      h += '<div class="ex-scroll"><table class="ex-table">';
+      if (Array.isArray(t.head) && t.head.length) h += "<thead><tr>" + t.head.map((x) => '<th scope="col">' + esc(x) + "</th>").join("") + "</tr></thead>";
+      h += "<tbody>" + t.rows.map((r) => "<tr>" + (Array.isArray(r) ? r : []).map((x) => "<td>" + esc(x) + "</td>").join("") + "</tr>").join("") + "</tbody></table></div>";
+    }
+    if (ex.note) h += prose(ex.note);
+    return h + "</div>";
   }
   function cardLeadsToHTML(c) {
     const edges = cardLeadsTo(c);
@@ -51070,7 +51095,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (cardTimelineField(c)) o.timeline = cardTimelineField(c); if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (c.flagCard === true) o.flagCard = true; if (c.drawCard === true) o.drawCard = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardMembers(c)) o.members = c.members; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (cardTimelineField(c)) o.timeline = cardTimelineField(c); if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (c.artwork === true) o.artwork = true; if (c.flagCard === true) o.flagCard = true; if (c.drawCard === true) o.drawCard = true; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardWar(c)) o.war = c.war; if (cardMembers(c)) o.members = c.members; if (cardQuote(c)) o.quote = c.quote; if (cardWhy(c).length) o.why = c.why; if (cardLeadsTo(c).length) o.leadsTo = c.leadsTo; if (c.example && typeof c.example === "object") o.example = c.example; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };

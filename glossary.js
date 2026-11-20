@@ -19580,7 +19580,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Naqada_culture": ["Naqada period"],
 "Old_Kingdom_of_Egypt": ["Old Kingdom"],
 "Pyramid_of_Djoser": ["Step Pyramid of Djoser","Step Pyramid"],
-"Great_Pyramid_of_Giza": ["Great Pyramid","Pyramid of Khufu"],
+"Great_Pyramid_of_Giza": ["Great Pyramid","Pyramid of Khufu","pyramid of Cheops","Pyramid of Cheops"],
 "Great_Sphinx_of_Giza": ["Great Sphinx","Sphinx of Giza"],
 "Book_of_the_Dead": ["Book of Going Forth by Day","Spells for Going Forth by Day"],
 "Middle_Kingdom_of_Egypt": ["Middle Kingdom"],
@@ -21006,7 +21006,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Renaissance": ["Italian Renaissance"],
 "Italian_city-states": ["Italian city-state","city-states of Italy"],
 "House_of_Medici": ["Medici","Medici family"],
-"Renaissance_humanism": ["Renaissance humanist"],
+"Renaissance_humanism": ["Renaissance humanist","humanist","humanists"],
 "Petrarch": ["Francesco Petrarca","Petrarca"],
 "Leonardo_da_Vinci": ["da Vinci"],
 "Michelangelo": ["Michelangelo Buonarroti","Michelagnolo"],
@@ -25899,7 +25899,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Bracero_Program": ["Bracero program","braceros"],
 "Zoot_Suit_Riots": ["Zoot Suit Riot","zoot suit riots"],
 "United_States_Office_of_War_Information": ["Office of War Information","OWI"],
-"Project_Y": ["Los Alamos Laboratory","Site Y"],
+"Project_Y": ["Los Alamos Laboratory","Site Y","Los Alamos"],
 "European_theatre_of_World_War_II": ["European theater of World War II"],
 "United_States_Army_Air_Forces": ["Army Air Forces"],
 "Debate_over_the_atomic_bombings_of_Hiroshima_and_Nagasaki": ["debate over the atomic bombings"],
@@ -26986,6 +26986,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
 window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
+"Battle_of_the_Alamo": true,
 "Bek_(sculptor)": true,
 "Montu": true,
 "Operation_Overlord": true,

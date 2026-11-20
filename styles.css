@@ -9590,6 +9590,14 @@ body[data-theme="carnelian"].night .collection-deco{
 /* CAUSAL CHAINS — "what came of this" (see cardLeadsToHTML in app.js). A list of links at the foot of
    the answer, outside the Background fold. Set as rows rather than as a sentence: each edge is a
    separate claim about the past and reads as one. */
+/* THE EXAMPLE SECTION (see cardExampleHTML in app.js): a worked example under the Background fold —
+   a small ruled table that scrolls sideways on its own rather than widening a phone's page. */
+.card-example{margin-top:18px;}
+.card-example .ex-text{margin:0 0 10px; line-height:1.6;}
+.card-example .ex-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 0 10px;}
+.card-example .ex-table{border-collapse:collapse; font-family:var(--mono); font-size:calc(14px * var(--fs)); min-width:60%;}
+.card-example .ex-table th,.card-example .ex-table td{border:1px solid var(--rule); padding:6px 14px; text-align:center;}
+.card-example .ex-table th{font-weight:600; color:var(--indigo); background:var(--indigo-wash);}
 .leadsto{margin-top:18px;}
 .lt-list{list-style:none; margin:8px 0 0; padding:0; display:flex; flex-direction:column; gap:2px;}
 .lt-row{margin:0;}

@@ -9788,3 +9788,12 @@ division-capital city tier are inert dead code.
     typing is safe; it is select-all, paste and heavy restructuring that strip them. **Check the marker
     count after editing prose that carries citations**, which is what `check-overlay.js` does.
   **📖 `docs/accounts-sync.md` also carries this bullet's account, moved out of here.**
+### Card example section (2026-11-20)
+
+On request (ph-049: "between the background section and sources section, add an Example section showcasing a truth
+table"), a card may carry the optional HEAVY field `example` — `{ intro?, table: { head: [...], rows: [[...]] }, note? }` —
+listed in `CARD_EXTRA_FIELDS` (app.js) and `EXTRA_FIELDS` (`.claude/card-io.js`), which `split-cards.js --check` keeps
+equal. `cardExampleHTML` draws it as `.card-example` directly under the Background fold and above the Atlas box; the
+cells are DATA and are escaped (the intro and note keep only `<b>`, `<i>`, `<sup>`), so no table markup lives in a card
+file. `serializeCardData` carries it through the editor's export. Re-run after touching `cardExampleHTML`, the field
+lists or the `.card-example` rules: `node .claude/test-card-example.js`.
