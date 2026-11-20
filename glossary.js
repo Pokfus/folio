@@ -12573,7 +12573,30 @@ window.GLOSSARY = {
 "Constitution_of_Medina": "",
 "Dalmatia": "",
 "Dark_Ages_(historiography)": "",
-"English_Revolution": ""
+"English_Revolution": "",
+"Halle_(Saale)": "",
+"Henry_Hallam": "",
+"Henry_Thomas_Buckle": "",
+"Ibn_Hisham": "",
+"Ibn_Ishaq": "",
+"Jabal_al-Nour": "",
+"Jacob_Burckhardt": "",
+"Julius_Nepos": "",
+"Khadija_bint_Khuwaylid": "",
+"Mecca": "",
+"Medina": "",
+"Prophet": "",
+"Syriac_language": "",
+"Yathrib": "",
+"Year_of_the_Elephant": "",
+"Zeno_(emperor)": "",
+"Black_hole": "",
+"California_Institute_of_Technology": "",
+"Cavendish_Laboratory": "",
+"Enrico_Fermi_Award": "",
+"General_Advisory_Committee": "",
+"Harvard_University": "",
+"John_Donne": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -18759,7 +18782,19 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Uhud": "625 CE",
 "Battle_of_the_Trench": "627 CE",
 "Christoph_Cellarius": "1638–1707",
-"English_Revolution": "1640–1660"
+"English_Revolution": "1640–1660",
+"Henry_Hallam": "1777–1859",
+"Henry_Thomas_Buckle": "1821–1862",
+"Ibn_Ishaq": "c. 704–767",
+"Jacob_Burckhardt": "1818–1897",
+"Julius_Nepos": "reigned 474–475 CE; died 480",
+"Year_of_the_Elephant": "c. 570 CE",
+"Zeno_(emperor)": "reigned 474–491 CE",
+"California_Institute_of_Technology": "founded 1891",
+"Cavendish_Laboratory": "founded 1874",
+"Enrico_Fermi_Award": "founded 1956",
+"Harvard_University": "founded 1636",
+"John_Donne": "1572–1631"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -27046,7 +27081,21 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battle_of_the_Trench": ["Battle of the Khandaq","Siege of Medina"],
 "Christoph_Cellarius": ["Christophorus Cellarius"],
 "Constitution_of_Medina": ["Charter of Medina"],
-"English_Revolution": ["English revolution"]
+"English_Revolution": ["English revolution"],
+"Halle_(Saale)": ["Halle","Halle an der Saale"],
+"Henry_Thomas_Buckle": ["Buckle"],
+"Ibn_Hisham": ["Ibn Hishām"],
+"Ibn_Ishaq": ["Ibn Isḥāq","Muhammad ibn Ishaq"],
+"Jabal_al-Nour": ["Mount Hira","Cave of Hira","Jabal al-Nur"],
+"Jacob_Burckhardt": ["Jakob Burckhardt"],
+"Khadija_bint_Khuwaylid": ["Khadija","Khadijah"],
+"Mecca": ["Makkah"],
+"Syriac_language": ["Syriac"],
+"Zeno_(emperor)": ["Emperor Zeno"],
+"California_Institute_of_Technology": ["Caltech","Cal Tech"],
+"Enrico_Fermi_Award": ["Fermi Award","Enrico Fermi Presidential Award"],
+"General_Advisory_Committee": ["General Advisory Committee of the Atomic Energy Commission"],
+"Harvard_University": ["Harvard","Harvard College"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27270,7 +27319,10 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Baris_(ship)": true,
 "Kite_(unit)": true,
 "Meret_people": true,
-"Abraham": true
+"Abraham": true,
+"Halle_(Saale)": true,
+"Henry_Thomas_Buckle": true,
+"Syriac_language": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -39847,7 +39899,30 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Constitution_of_Medina": ["text","history","religion","islam","politics","arabia"],
 "Dalmatia": ["place","history","geography","croatia","rome","europe"],
 "Dark_Ages_(historiography)": ["era","history","historiography","europe","concept","middle ages"],
-"English_Revolution": ["event","history","politics","england","revolution","17th century"]
+"English_Revolution": ["event","history","politics","england","revolution","17th century"],
+"Halle_(Saale)": ["city","history","geography","germany","europe"],
+"Henry_Hallam": ["person","history","historiography","england","europe","literature"],
+"Henry_Thomas_Buckle": ["person","history","historiography","england","europe"],
+"Ibn_Hisham": ["person","history","religion","islam","historiography","arabia"],
+"Ibn_Ishaq": ["person","history","religion","islam","historiography","arabia"],
+"Jabal_al-Nour": ["place","religion","history","islam","arabia","mountain"],
+"Jacob_Burckhardt": ["person","history","art","historiography","switzerland","renaissance"],
+"Julius_Nepos": ["ruler","history","rome","late antiquity","dalmatia"],
+"Khadija_bint_Khuwaylid": ["person","history","religion","islam","arabia","women"],
+"Mecca": ["city","history","religion","islam","arabia","saudi arabia"],
+"Medina": ["city","history","religion","islam","arabia","saudi arabia"],
+"Prophet": ["concept","religion","history","judaism","christianity","islam"],
+"Syriac_language": ["language","history","writing","christianity","syria","mesopotamia"],
+"Yathrib": ["place","history","religion","islam","arabia","oasis"],
+"Year_of_the_Elephant": ["event","history","religion","islam","arabia","calendar"],
+"Zeno_(emperor)": ["ruler","history","byzantine","rome","late antiquity","constantinople"],
+"Black_hole": ["concept","science","astronomy","physics"],
+"California_Institute_of_Technology": ["institution","education","science","united states","california"],
+"Cavendish_Laboratory": ["institution","science","physics","cambridge","britain"],
+"Enrico_Fermi_Award": ["institution","science","physics","united states","nuclear weapons"],
+"General_Advisory_Committee": ["institution","history","science","united states","nuclear weapons","cold war"],
+"Harvard_University": ["institution","education","history","united states","massachusetts"],
+"John_Donne": ["person","literature","religion","england","poetry"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
