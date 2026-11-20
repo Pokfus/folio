@@ -1,4 +1,4 @@
-/* The King James Bible — Anonymous, translated by the King James translators.
+/* The Bible — Anonymous, translated by the King James translators.
    The Authorized Version of 1611, in the standard text of 1769, as transcribed by the CrossWire Bible Society and published by eBible.org. Public domain, with one limit that is not a copyright. The King James Bible was first printed in 1611, and the text given here is the standard text of 1769, so it is out of copyright everywhere. In the United Kingdom, however, the right to print it belongs to the Crown under royal letters patent that have no end date, and is exercised by licensed printers — eBible.org names Cambridge University Press, Oxford University Press and Collins. That right is not copyright and has no force outside the United Kingdom. The text is the CrossWire Bible Society's transcription as published by eBible.org, which places it in the public domain. The dedication to King James, the translators' preface and the summaries at the head of each chapter are not reproduced.
    Source: eBible.org — https://ebible.org/kjv/
 

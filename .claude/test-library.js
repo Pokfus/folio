@@ -1512,11 +1512,11 @@ function aeneidChecks() {
        narrowed shelf reads as a library of one; unfiltered it says the one, "41 of 41" being a sum nobody
        asked for; and it comes back when the box is cleared. */
     check("the shelf says how many books it holds",
-      new RegExp("^" + search.all + " books?$").test(search.count0.trim()), search.count0 + " vs " + search.all + " tiles");
+      new RegExp("^" + search.all + " texts?$").test(search.count0.trim()), search.count0 + " vs " + search.all + " tiles");
     check("...and how many the filter is showing, of how many",
-      new RegExp("^1 of " + search.all + " books$").test(search.count1.trim()), search.count1);
+      new RegExp("^1 of " + search.all + " texts$").test(search.count1.trim()), search.count1);
     check("...saying nothing matched rather than a bare zero",
-      /^0 of \d+ books$/.test(search.countNone.trim()), search.countNone);
+      /^0 of \d+ texts$/.test(search.countNone.trim()), search.countNone);
     check("...and it goes back when the search is cleared", search.count2 === search.count0, search.count2);
     // a banner the SEARCH painted must still be a book you can open — the hold sheet is wired per element
     const afterFilter = await page.evaluate(async () => {
