@@ -92,6 +92,12 @@
     const warAttr = host.classList.contains("map-war");
     const locKind = host.getAttribute("data-map-kind") || "point";
     const isMembers = host.classList.contains("map-members");   // an organisation's member countries as the targets, its seat as the dot (app.js cardMembers)
+    /* A SET OF AREAS IN TWO SHADES (`members.areas`, 2026-11-20, us-084: today's Indian reservations and Oklahoma's former ones). `data-map-areas` names a generated
+       set (atlas/data/<set>.js, bundle `area:<set>`, .claude/atlas-build/build-area-sets.js): two parts of delta-coded lon/lat rings, painted by the window on its own
+       canvas and cut by the land mask exactly as a locator's authored area is (`paintMasked`) — no engine primitive, so WebGL2 and the Canvas 2D path draw it alike.
+       The first part in the card's gold (TINT_AREA1), the second in a lighter gold (TINT_AREA2); the set's own `frame` opens the window. */
+    const areaSetName = isMembers ? String(host.getAttribute("data-map-areas") || "") : "";
+    let areaSet = null;
     const isWar = warAttr;   // a war window is drawn at a year of the war on the engine's history: its sides tinted in the years they fought, nothing outside them
     /* A GLOSSARY WINDOW (2026-10-23, the owner; docs/glossary-atlas-windows.md): host class `map-gloss`, the card windows' zoom, recentre and relief buttons (the host's markup since 2026-10-24, wired below like any window's; no globe button), a drag, a pinch or the wheel move and zoom it
        (AtlasEmbed.view's own), and the term's place is THE ONLY thing marked: a gold mark and the name for a point (the square a present-day capital's, the circle any other's, 2026-11-16), the name alone for an area, and for `data-map-face` — a present-day country or province (as a
@@ -199,6 +205,7 @@
     const need = [ensureData("atlas2"), ensureData("atlas2embed"), ensureData("atlas2cards")];
     if (keyCard || sibKeyless) need.push(ensureData("atlas2places"));
     if (wantsAlt) need.push(ensureData("atlas2nbr"));
+    if (areaSetName) need.push(ensureData("area:" + areaSetName));
     if (isWar) need.push(ensureData("atlas2wars"));
     if (wantsOwnRiver) { need.push(ensureData("rivers1")); if (hiRegion && DATA_BUNDLES["river_" + hiRegion]) need.push(ensureData("river_" + hiRegion)); }
     let FACES = null, targets = [], dot = null, ownLines = null, ownName = "";
@@ -223,7 +230,12 @@
       const atAttr = host.getAttribute("data-map-at");
       if (atAttr) { const at = atAttr.split(",").map(Number); if (at.length !== 2 || !isFinite(at[0]) || !isFinite(at[1])) return false; dot = { n: host.getAttribute("data-map-atname") || "", c: at }; }
       else { const dn = host.getAttribute("data-map-dot"); if (dn) { const D = FACES.dots[layerName] || {}; const p = D[dn]; if (!p) return false; dot = { n: p[3] || dn, c: [p[0], p[1]] }; } }
-      if (!targets.length && !dot && !isWar) return false;
+      if (areaSetName) {
+        const A = window.ATLAS_AREA_SETS && window.ATLAS_AREA_SETS[areaSetName]; if (!A || !Array.isArray(A.parts) || !A.parts.length) return false;
+        const dec = (e) => { const out = []; let x = e[0], y = e[1]; out.push([x / A.q, y / A.q]); for (let i = 2; i < e.length; i += 2) { x += e[i]; y += e[i + 1]; out.push([x / A.q, y / A.q]); } return out; };
+        areaSet = { frame: A.frame, parts: A.parts.map((pt) => ({ id: pt.id, rings: pt.rings.map(dec) })) };
+      }
+      if (!targets.length && !dot && !isWar && !areaSet) return false;
       if (wantsOwnRiver) {   // the card's own river, by its name or a glossary alias, out of rivers.js (and the frame's hi-res set where there is one)
         const LOW = window.RIVERS || [], HR = hiRegion && window.HIRES_RIVER ? window.HIRES_RIVER[hiRegion] : null;
         const RIV = HR ? LOW.filter((r) => !HR.sup.has(String(r.n))).concat(HR.rivers) : LOW;
@@ -258,6 +270,10 @@
           const x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs), y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
           if (x1 - x0 < 180) { lon = (x0 + x1) / 2; lat = (y0 + y1) / 2; const span = Math.max(y1 - y0, (x1 - x0) * Math.cos(lat * DEG), 0.2); z = Math.max(CMAP_ZLOC, Math.min(10, 0.5 / (0.46 * DEG * span))); }
         }
+      }
+      if (!targets.length && areaSet && areaSet.frame) {   // a set of areas: its own frame (the contiguous United States for the reservations)
+        const b = areaSet.frame; lon = (b[0] + b[2]) / 2; lat = (b[1] + b[3]) / 2;
+        const span = Math.max(b[3] - b[1], (b[2] - b[0]) * Math.cos(lat * DEG), 0.2); z = 1.25 / (0.46 * DEG * span);   // the country fills the window (a reservation is small: every pixel counts)
       }
       if (targets.length) {
         let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const t of targets) { if (t.b[0] < x0) x0 = t.b[0]; if (t.b[1] < y0) y0 = t.b[1]; if (t.b[2] > x1) x1 = t.b[2]; if (t.b[3] > y1) y1 = t.b[3]; }
@@ -526,6 +542,17 @@
           if (locArea) { m.setLineDash([7, 5]); m.strokeStyle = sea ? water : TINT_SEL.line; m.lineWidth = 2; m.stroke(); m.setLineDash([]); }   // Find it's marine outline is filled only: Natural Earth splits a sea into several polygons, whose shared edges would show as seams
         };
         if (shelf) paintArea(ctx); else paintMasked(ctx, api, paintArea, sea);
+      }
+      if (areaSet) {   // a set of areas in two shades (members.areas): the lighter second part first, the first part over it; even-odd, so a ring's holes stay open
+        const tints = [X.TINT_AREA1 || TINT_SEL, X.TINT_AREA2 || TINT_SEL], thin = api.fast ? 0.6 : 0.9;
+        paintMasked(ctx, api, (m) => {
+          for (let i = areaSet.parts.length - 1; i >= 0; i--) {
+            const t = tints[Math.min(i, 1)];
+            m.beginPath(); for (const ring of areaSet.parts[i].rings) addPath(m, api, ring, true);
+            m.fillStyle = "rgba(" + t.rgb + "," + t.fillA + ")"; m.fill("evenodd");
+            m.strokeStyle = t.line; m.lineWidth = thin; m.stroke();
+          }
+        }, false);
       }
       /* THE WINDOW'S NAMES, LAID OUT BY THE LABEL ENGINE'S RULES (Oct 2026, the owner's phone: on the Tiber's window "Pyrgi", "Veii" and "Tiber" ran into one another and into the dots). Everything that is not a name is a MARK and
          is ground no name may cover — every sibling's dot (whether or not its name is placed), the home square, the card's own dot, the range's peaks — and the zoom controls are ground too. The names are then placed one at a time
