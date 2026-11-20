@@ -1085,6 +1085,13 @@ January 1917 (`cnh-586`, `cnh-588`); Lu Xun's "Diary of a Madman" 1918 (`cnh-589
 | the *Yiwenzhi*: the Han history compiled / the collation begun | c. 54 – 92 CE / 26 BCE | Mayers; Hunter 2018 (`cnh-918`) |
 | *Three Hundred Tang Poems* compiled / first printed | c. 1763 / 1764 | Jiang Yin (`cnh-919`) |
 | the Nineteen Old Poems collected in the *Wen xuan* | c. 530 CE | the card's sources (`cnh-920`) |
+| cipai: tunes attested / the Qing handbook | 906 – 940 CE / 1715 | Jao Tsung-i; the *Yuding cipu* (`cnh-922`) |
+| the Eight Masters: their lives / Mao Kun's anthology's preface | 768 CE – 1112 / 1579 | the card's sources (`cnh-924`) |
+| the *Lienü zhuan* compiled | c. 100 – 1 BCE | Wylie (`cnh-926`) |
+| the *Soushen ji* compiled / the rebuilt text first printed | c. 300 – 350 CE / 1603 | Campany; Puglia (`cnh-927`) |
+| "the Four Great Classical Novels" attested in today's sense | 1981 | Guo 2023 (`cnh-928`) |
+| the *Water Margin* first printed / banned | c. 1500 – 1550 / 1642 | Gregory 2023 (`cnh-929`) |
+| the *Journey to the West* first printed | 1592 | the card's sources (`cnh-930`) |
 
 ## Chronology pins
 
