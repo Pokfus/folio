@@ -27324,7 +27324,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Nihon_Shoki": ["Chronicle of Japan"],
 "Saturn_(planet)": ["Saturn"],
 "Vairocana": ["Rushana"],
-"Wiryeseong": ["Hanseong"]
+"Wiryeseong": ["Hanseong"],
+"Polaris": ["Pole Star"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27561,7 +27562,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Szczecin": true,
 "Anhalt-Zerbst": true,
 "Russian_Imperial_Guard": true,
-"Cesare_Beccaria": true
+"Cesare_Beccaria": true,
+"Guqin": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */

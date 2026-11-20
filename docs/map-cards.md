@@ -874,3 +874,14 @@ empty: the set's `frame` opens the window. The key above the window has one row 
   draws cessions and reservations without saying which is which), so the legend says "in Oklahoma", and the card's note
   says that courts since *McGirt v. Oklahoma* (2020) have held several of them never disestablished.
 - Guarded by `build-area-sets.js --check` (CI, offline), `test-map-cards.js` §1 and `test-atlas-windows.js` §11.
+
+## A route as the locator (`kind: "route"`, `routes`, 2026-11-20, on request)
+
+> "In the atlas window, remove Dunhuang and instead draw lines showing the common routes of the Silk Road." (`cnh-230`)
+
+`locator: { name, at, kind: "route", routes: [[[lon, lat], …], …] }` — each route an ordered list of stopping places that a
+source names, their coordinates the gazetteer's (or Wikidata's), never typed. `cardLocator` keeps the routes that validate
+(`locPts`), `cardLocatorWindowHTML` writes them as `data-map-routes` (points by a space, routes by `;`), and
+`atlas/atlas-windows.js` draws each as a DASHED gold line on a dark casing — schematic, the stops joined in order, which the
+dashes say — with no dot (a route is drawn as a wall is: `isWall`), frames the window on them, keeps names off them, and
+writes the card's own name at `at` (or `label`). The `at` point only places the name.
