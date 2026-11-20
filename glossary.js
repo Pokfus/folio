@@ -22749,7 +22749,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Wu_Liang_Shrine": ["Wu Family Shrines"],
 "Bianzhong": ["編鐘","pien-chung"],
 "Pipa": ["琵琶","p'i-p'a"],
-"Guqin": ["古琴"],
+"Guqin": ["古琴","qin"],
 "Kunqu": ["Kun Qu","Kun opera","昆曲","崑曲"],
 "Mei_Lanfang": ["Mei Lan-fang","梅蘭芳"],
 "Dingjun_Mountain_(film)": ["Dingjun Mountain"],

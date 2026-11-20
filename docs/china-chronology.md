@@ -1115,6 +1115,16 @@ January 1917 (`cnh-586`, `cnh-588`); Lu Xun's "Diary of a Madman" 1918 (`cnh-589
 | Longquan celadon made (dated pieces) | c. 1000 – 1450 CE | museum records (`cnh-956`) |
 | blue and white: earliest dated / the gap / kiln ban / repeated | 1351 / 1354 – 1436 / 1439 / 1448 | Tai (`cnh-957`) |
 | carved lacquer: early piece / described / dated piece | c. 1300 / 1387 / 1585 | the card's sources (`cnh-959`) |
+| huanghuali described | 1387, also dated 1388 | the Ricci Library (`cnh-961`) |
+| the Fujian tulou: first built / peak / inscribed | c. 1000 – 1300 / c. 1600 – 1950 / 2008 | the card's sources (`cnh-962`) |
+| the Nanchan Temple: repaired / found / restored | 782 CE / 1953 / 1974 – 1975 | the card's sources (`cnh-963`) |
+| the Giant Wild Goose Pagoda: founded / rebuilt / brick casing | 652 CE / 701 – 704 CE / 1573 – 1620 | the card's sources (`cnh-964`) |
+| the *Yuanye* written / printed | 1631 / 1634 | Kotobank (`cnh-965`) |
+| the Wu Liang Shrine carved / excavated | c. 150 CE / 1786 | the card's sources (`cnh-966`) |
+| bianzhong first made / the Zeng set buried | c. 1046 – 771 BCE / c. 433 BCE | the card's sources (`cnh-967`) |
+| the pipa's name attested / music printed | c. 25 – 220 CE / 1818 | the card's sources (`cnh-968`) |
+| an early surviving qin / proclaimed / inscribed | 756 CE / 2003 / 2008 | the card's sources (`cnh-969`) |
+| Kunqu emerged / proclaimed / inscribed | c. 1300 – 1400 / 2001 / 2008 | Fu Jin (`cnh-970`) |
 
 ## Chronology pins
 
