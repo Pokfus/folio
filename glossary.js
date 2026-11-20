@@ -12611,7 +12611,24 @@ window.GLOSSARY = {
 "Auschwitz_I": "",
 "Buna_Werke": "",
 "Campania": "",
-"Continental_Congress": ""
+"Continental_Congress": "",
+"Giuseppe_Fiorelli": "",
+"John_Dunlap": "",
+"Monowitz_concentration_camp": "",
+"Nuceria_Alfaterna": "",
+"Oświęcim": "",
+"Pelasgians": "",
+"Richard_Henry_Lee": "",
+"Rudolf_Höss": "",
+"Sarno_(river)": "",
+"Sinti": "",
+"The_Crown": "",
+"Tyrrhenians": "",
+"United_States_Holocaust_Memorial_Museum": "",
+"Ammonoidea": "",
+"Apatosaurus": "",
+"Camarasaurus": "",
+"Como_Bluff": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -18818,7 +18835,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "University_of_Göttingen": "founded 1737",
 "Auschwitz_I": "1940–1945",
 "Buna_Werke": "1941–1945",
-"Continental_Congress": "1774–1781"
+"Continental_Congress": "1774–1781",
+"Giuseppe_Fiorelli": "1823–1896",
+"John_Dunlap": "1747–1812",
+"Monowitz_concentration_camp": "1942–1945",
+"Richard_Henry_Lee": "1732–1794",
+"Apatosaurus": "c. 152 – 145 Mya"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -27130,7 +27152,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "University_of_California,_Berkeley": ["UC Berkeley","University of California at Berkeley"],
 "University_of_Göttingen": ["Georg-August-Universität Göttingen","Göttingen University"],
 "Auschwitz_I": ["Auschwitz main camp"],
-"Buna_Werke": ["Buna works","Buna plant","Buna-Werke"]
+"Buna_Werke": ["Buna works","Buna plant","Buna-Werke"],
+"Monowitz_concentration_camp": ["Auschwitz III","Auschwitz III-Monowitz","Auschwitz-Monowitz","Monowitz"],
+"Nuceria_Alfaterna": ["Nuceria"],
+"Oświęcim": ["Oswiecim"],
+"Rudolf_Höss": ["Höss","Rudolf Hoess","Hoess","Rudolf Höß"],
+"Sarno_(river)": ["Sarnus","Sarno"],
+"The_Crown": ["British Crown"],
+"Tyrrhenians": ["Tyrrheni","Tyrsenians"],
+"United_States_Holocaust_Memorial_Museum": ["US Holocaust Memorial Museum","U.S. Holocaust Memorial Museum","USHMM"],
+"Ammonoidea": ["ammonite","ammonites","ammonoid","ammonoids"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -39972,7 +40003,24 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Auschwitz_I": ["place","history","holocaust","second world war","poland","germany"],
 "Buna_Werke": ["building","industry","history","holocaust","second world war","poland","germany"],
 "Campania": ["place","history","geography","rome","italy","campania"],
-"Continental_Congress": ["institution","politics","history","united states","american revolution"]
+"Continental_Congress": ["institution","politics","history","united states","american revolution"],
+"Giuseppe_Fiorelli": ["person","archaeology","history","italy","pompeii"],
+"John_Dunlap": ["person","history","printing","united states","american revolution"],
+"Monowitz_concentration_camp": ["place","history","holocaust","second world war","poland","germany"],
+"Nuceria_Alfaterna": ["city","history","rome","italy","campania"],
+"Oświęcim": ["city","history","holocaust","second world war","poland"],
+"Pelasgians": ["people","history","greece","mythology","italy","aegean"],
+"Richard_Henry_Lee": ["person","politics","history","united states","american revolution","virginia"],
+"Rudolf_Höss": ["person","history","holocaust","second world war","germany","ss"],
+"Sarno_(river)": ["place","geography","history","italy","campania","river","rome"],
+"Sinti": ["people","history","holocaust","second world war","germany","romani"],
+"The_Crown": ["institution","politics","law","history","united kingdom","monarchy"],
+"Tyrrhenians": ["people","history","archaeology","italy","etruscans","greece"],
+"United_States_Holocaust_Memorial_Museum": ["institution","history","holocaust","museum","united states"],
+"Ammonoidea": ["animal","palaeontology","geology","mesozoic"],
+"Apatosaurus": ["animal","dinosaurs","palaeontology","sauropod","jurassic","united states"],
+"Camarasaurus": ["animal","dinosaurs","palaeontology","sauropod","jurassic","united states"],
+"Como_Bluff": ["place","palaeontology","geology","dinosaurs","jurassic","united states"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
