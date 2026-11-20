@@ -12745,7 +12745,20 @@ window.GLOSSARY = {
 "Apsis": "",
 "Anomalistic_year": "",
 "Umbra": "",
-"Penumbra": ""
+"Penumbra": "",
+"Gaogouli_County": "",
+"Kyeru": "",
+"Chungju": "",
+"Five_bu_of_Goguryeo": "",
+"Geum_River": "",
+"Gogugwon_of_Goguryeo": "",
+"Yeongsan_River": "",
+"Goryeong_County": "",
+"Honam": "",
+"Dara_(Gaya)": "",
+"Book_of_Liang": "",
+"Gyeongju_Kim_clan": "",
+"Federation": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -18980,7 +18993,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Minamoto_no_Yoshinaka": "1154–1184",
 "Minamoto_no_Yoriie": "1182–1204",
 "Tokugawa_Yoshinobu": "1837–1913",
-"Fujiwara_no_Nobutaka": "died 1001"
+"Fujiwara_no_Nobutaka": "died 1001",
+"Gogugwon_of_Goguryeo": "died 371"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -27380,7 +27394,18 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Semi-major_and_semi-minor_axes": ["semi-major axis","semi-minor axis"],
 "Orbital_eccentricity": ["eccentricity"],
 "Apsis": ["perihelion","aphelion","perigee","apogee"],
-"Anomalistic_year": ["anomalistic"]
+"Anomalistic_year": ["anomalistic"],
+"Gaogouli_County": ["Gaogouli"],
+"Kyeru": ["Gyeru","Gyeru-bu","Gyerubu"],
+"Five_bu_of_Goguryeo": ["five pu","Five pu of Goguryeo"],
+"Geum_River": ["Geum"],
+"Gogugwon_of_Goguryeo": ["Gogugwon","King Gogugwon"],
+"Yeongsan_River": ["Yeongsan basin","Yeongsan"],
+"Goryeong_County": ["Goryeong"],
+"Honam": ["Honam region"],
+"Dara_(Gaya)": ["Dara","Daraguk"],
+"Book_of_Liang": ["Liangshu"],
+"Gyeongju_Kim_clan": ["Kim lineage"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27623,7 +27648,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Nara_(city)": true,
 "Suma-ku": true,
 "Sun": true,
-"Big_Bang": true
+"Big_Bang": true,
+"Chungju": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -40372,7 +40398,20 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Apsis": ["concept","astronomy","orbit"],
 "Anomalistic_year": ["concept","astronomy","calendar"],
 "Umbra": ["concept","astronomy","eclipse"],
-"Penumbra": ["concept","astronomy","eclipse"]
+"Penumbra": ["concept","astronomy","eclipse"],
+"Gaogouli_County": ["place","korea","goguryeo","china","han-dynasty","history"],
+"Kyeru": ["concept","korea","goguryeo","dynasty","history"],
+"Chungju": ["city","korea","south-korea","goguryeo","history"],
+"Five_bu_of_Goguryeo": ["institution","korea","goguryeo","government","history"],
+"Geum_River": ["river","korea","geography","baekje","history"],
+"Gogugwon_of_Goguryeo": ["person","korea","goguryeo","king","history"],
+"Yeongsan_River": ["river","korea","geography","mahan","baekje"],
+"Goryeong_County": ["place","korea","gaya","daegaya","history"],
+"Honam": ["place","korea","geography","region","history"],
+"Dara_(Gaya)": ["state","korea","gaya","archaeology","history"],
+"Book_of_Liang": ["book","history","china","korea","historiography"],
+"Gyeongju_Kim_clan": ["family","korea","silla","dynasty","history"],
+"Federation": ["concept","politics","government","law"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
