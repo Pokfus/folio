@@ -12596,7 +12596,22 @@ window.GLOSSARY = {
 "Enrico_Fermi_Award": "",
 "General_Advisory_Committee": "",
 "Harvard_University": "",
-"John_Donne": ""
+"John_Donne": "",
+"Leslie_Groves": "",
+"Max_Born": "",
+"Nuclear_weapon": "",
+"Quantum_mechanics": "",
+"Theoretical_physics": "",
+"Thermonuclear_weapon": "",
+"United_States_Atomic_Energy_Commission": "",
+"United_States_Department_of_Energy": "",
+"University_of_California,_Berkeley": "",
+"University_of_Göttingen": "",
+"Acerrae": "",
+"Auschwitz_I": "",
+"Buna_Werke": "",
+"Campania": "",
+"Continental_Congress": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -18794,7 +18809,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Cavendish_Laboratory": "founded 1874",
 "Enrico_Fermi_Award": "founded 1956",
 "Harvard_University": "founded 1636",
-"John_Donne": "1572–1631"
+"John_Donne": "1572–1631",
+"Leslie_Groves": "1896–1970",
+"Max_Born": "1882–1970",
+"United_States_Atomic_Energy_Commission": "1946–1975",
+"United_States_Department_of_Energy": "founded 1977",
+"University_of_California,_Berkeley": "founded 1868",
+"University_of_Göttingen": "founded 1737",
+"Auschwitz_I": "1940–1945",
+"Buna_Werke": "1941–1945",
+"Continental_Congress": "1774–1781"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -27095,7 +27119,18 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "California_Institute_of_Technology": ["Caltech","Cal Tech"],
 "Enrico_Fermi_Award": ["Fermi Award","Enrico Fermi Presidential Award"],
 "General_Advisory_Committee": ["General Advisory Committee of the Atomic Energy Commission"],
-"Harvard_University": ["Harvard","Harvard College"]
+"Harvard_University": ["Harvard","Harvard College"],
+"Leslie_Groves": ["Groves","General Groves","Leslie R. Groves"],
+"Nuclear_weapon": ["atomic bomb","atomic bombs","atom bomb","nuclear weapons","nuclear bomb","nuclear bombs","atomic weapon","atomic weapons"],
+"Quantum_mechanics": ["quantum theory","quantum physics"],
+"Theoretical_physics": ["theoretical physicist","theoretical physicists"],
+"Thermonuclear_weapon": ["hydrogen bomb","hydrogen bombs","H-bomb","H-bombs","thermonuclear bomb","thermonuclear weapons"],
+"United_States_Atomic_Energy_Commission": ["Atomic Energy Commission","US Atomic Energy Commission","U.S. Atomic Energy Commission"],
+"United_States_Department_of_Energy": ["Department of Energy","US Department of Energy","U.S. Department of Energy"],
+"University_of_California,_Berkeley": ["UC Berkeley","University of California at Berkeley"],
+"University_of_Göttingen": ["Georg-August-Universität Göttingen","Göttingen University"],
+"Auschwitz_I": ["Auschwitz main camp"],
+"Buna_Werke": ["Buna works","Buna plant","Buna-Werke"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -39922,7 +39957,22 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Enrico_Fermi_Award": ["institution","science","physics","united states","nuclear weapons"],
 "General_Advisory_Committee": ["institution","history","science","united states","nuclear weapons","cold war"],
 "Harvard_University": ["institution","education","history","united states","massachusetts"],
-"John_Donne": ["person","literature","religion","england","poetry"]
+"John_Donne": ["person","literature","religion","england","poetry"],
+"Leslie_Groves": ["person","history","warfare","united states","second world war","nuclear weapons"],
+"Max_Born": ["person","science","physics","germany","quantum mechanics"],
+"Nuclear_weapon": ["technology","warfare","science","nuclear weapons","second world war","cold war"],
+"Quantum_mechanics": ["theory","science","physics","quantum mechanics"],
+"Theoretical_physics": ["concept","science","physics"],
+"Thermonuclear_weapon": ["technology","warfare","science","nuclear weapons","cold war"],
+"United_States_Atomic_Energy_Commission": ["institution","history","science","united states","nuclear weapons","cold war"],
+"United_States_Department_of_Energy": ["institution","politics","science","united states","nuclear weapons"],
+"University_of_California,_Berkeley": ["institution","education","science","united states","california"],
+"University_of_Göttingen": ["institution","science","education","germany","physics"],
+"Acerrae": ["city","history","rome","italy","campania"],
+"Auschwitz_I": ["place","history","holocaust","second world war","poland","germany"],
+"Buna_Werke": ["building","industry","history","holocaust","second world war","poland","germany"],
+"Campania": ["place","history","geography","rome","italy","campania"],
+"Continental_Congress": ["institution","politics","history","united states","american revolution"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
