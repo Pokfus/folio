@@ -87,7 +87,7 @@ an English review of the same work, and say in the ledger where a card had to ch
 **The date lines of the cards about ONE human being, historical or legendary, are refined in another thread
 and are left alone here.** The list is `node .claude/person-cards.js --list` (`individual` and `legendary`)
 plus every card tagged `ruler` or `person` it does not catch, confirmed against main on 2026-11-08 for the first
-hundred, on 2026-11-12 for the second, on 2026-11-12 for the third and on 2026-11-13 for the fourth, on 2026-11-13 for the fifth and on 2026-11-14 for the sixth, on 2026-11-19 for the seventh and on 2026-11-19 for the eighth (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
+hundred, on 2026-11-12 for the second, on 2026-11-12 for the third and on 2026-11-13 for the fourth, on 2026-11-13 for the fifth and on 2026-11-14 for the sixth, on 2026-11-19 for the seventh, on 2026-11-19 for the eighth and on 2026-11-19 for the ninth (the snapshot of each line is the run's `protected.json`). `cnh-179` (Su Qin
 and Zhang Yi), `cnh-184` (the Four Lords) and `cnh-675` (the Gang of Four) are tagged `person` but name groups: they are audited as ordinary cards. `cnh-audit.js` reads the block below: on these cards it
 sets the date line's own findings aside (one `P.protected` note counts them) but still checks that the
 background carries every year on the line (`D.not-in-prose`) and the pins; `precheck.js` fails a draft whose
@@ -263,6 +263,39 @@ cnh-677 Hua Guofeng           (individual; the person template)
 cnh-678 Deng Xiaoping         (individual; the person template)
 cnh-733 Empress Dowager Feng  (individual; the person template)
 cnh-781 Altan Khan            (ruler)
+cnh-805 Pan Jixun              (individual; the person template)
+cnh-824 Huang Daopo            (individual; the person template)
+cnh-828 Yan Hui                (individual; the person template)
+cnh-829 Zilu                   (individual; the person template)
+cnh-836 Gaozi                  (individual; the person template)
+cnh-839 Heshang Gong           (individual)
+cnh-840 Cook Ding              (individual)
+cnh-843 Mozi                   (individual; the person template)
+cnh-844 Gongshu Ban            (individual; the person template)
+cnh-845 Shen Buhai             (individual; the person template)
+cnh-847 Hui Shi                (individual; the person template)
+cnh-850 Zou Yan                (individual; the person template)
+cnh-855 Liu Xin                (individual; the person template)
+cnh-856 Wang Bi                (individual; the person template)
+cnh-857 Li Ao                  (individual; the person template)
+cnh-858 Zhang Zai              (individual; the person template)
+cnh-860 Cheng Yi               (individual; the person template)
+cnh-861 Wang Fuzhi             (individual; the person template)
+cnh-862 Lu Jiuyuan             (individual; the person template)
+cnh-864 Yan Ruoqu              (individual; the person template)
+cnh-865 Huang Zongxi           (individual; the person template)
+cnh-877 Zhang Daoling          (individual; the person template)
+cnh-881 Wang Zhe               (individual; the person template)
+cnh-882 Liu Ying               (individual; the person template)
+cnh-883 An Shigao              (individual; the person template)
+cnh-884 Dharmaraksa            (individual; the person template)
+cnh-885 Kumarajiva             (individual; the person template)
+cnh-886 Daoxuan                (individual; the person template)
+cnh-887 Zhiyi                  (individual; the person template)
+cnh-888 Fazang                 (individual; the person template)
+cnh-889 Huiyuan                (individual; the person template)
+cnh-891 Baizhang Huaihai       (individual; the person template)
+cnh-895 Emperor Taiwu of Northern Wei (ruler; the person template)
 ```
 
 - The draft's patch omits `answerDate`, `undatable` and `timeline`; its `pins` and `chronology` are read from
@@ -353,7 +386,7 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | The Gonghe regency | two readings: the dukes of Zhou and Shao ruling together (the *Shiji*) or He, the Earl of Gong, ruling (the *Bamboo Annals*, and the *Zhuangzi* as Chavannes notes); the excavated *Xinian* gives the regency fourteen years, whether it names He not confirmed; 841 BCE the first year of the continuous count (one study, Zhang 2023, moves it to 850 – 837 BCE) — confirmed B14 (`cnh-134`) | `cnh-134` | `cnh-133`, `cnh-135` | — |
 | Baosi and the beacon fires | Baosi born of the dragons' foam kept since the Xia; King You lighting the beacons to make her laugh until the lords stopped coming (the *Shiji*, c. 100 BCE; a drum version in the *Lüshi Chunqiu*); the excavated *Xinian* (Warring States) tells the fall with no beacons; the "Zheng yue" ode of the *Shijing* names her first — confirmed B14 (`cnh-136`, `cnh-137`), the drum version not checked | `cnh-137` | `cnh-136`, `cnh-138` | — |
 | The end of the Western Zhou and the two kings | the Marquis of Shen and the Quanrong kill King You; King Ping raised in the east while a rival, Yuchen, King Hui of Xie, ruled for 21 years until the Marquis of Jin killed him (the *Bamboo Annals*, where the duke of Guo raises him and he is a son of King You, and the *Xinian*, where he is the dead king's younger brother; the *Shiji* gives only Ping) — confirmed B14 (`cnh-138`, `cnh-139`: Zhang 2023, Legge) | `cnh-138`, `cnh-139` | `cnh-136`, `cnh-140`, `cnh-141` | — |
-| Jie Zitui and the cold food | the follower passed over after Chong'er's exile, withdrawing with his mother, Mianshang set aside for offerings to him (the Zuo Zhuan, Duke Xi 24, and the *Shiji*); the forest burned to bring him out and the cold-food custom, a later legend — set B15 (`cnh-149`) | — | `cnh-149` | — |
+| Jie Zitui and the cold food | the follower passed over after Chong'er's exile, withdrawing with his mother, Mianshang set aside for offerings to him (the Zuo Zhuan, Duke Xi 24, and the *Shiji*); the forest burned to bring him out and the cold-food custom, a later legend — set B15 (`cnh-149`) | — | `cnh-149`, `cnh-869` | — |
 | The burning of the books and burying of the scholars | the 213 BCE order to burn the *Shijing*, the *Shangshu* and the schools' writings outside the court academicians' copies, on Li Si's memorial, and the 212 BCE execution of 460 scholars at Xianyang (the *Shiji*, Qin annals and Li Si's biography, c. 100 BCE); "burying alive" as the traditional reading of 坑; the scholars as Confucians and the burning as a total loss, later Han readings; the *Shiji* itself has Fusu protest that the victims "all model themselves on Confucius"; modern doubters (the victims as *fangshi*, Zufferey 1997; the burying perhaps never done, Eno; Confucianism not the target, Pines; a smaller loss than the tradition says, Strähle); the melon-ditch tale a later legend — confirmed B21 (`cnh-202`) | `cnh-202` | `cnh-195`, `cnh-212` | — |
 | Xu Fu and the isles | Xu Fu (the *Shiji* also writes Xu Shi) asking leave in 219 BCE to seek Penglai, Fangzhang and Yingzhou with young men and women, and the great fish in 210 BCE (the *Shiji*, Qin annals); settling a plain and never returning (the *Shiji*, Huainan biography); his landing in Japan near Mount Fuji, first written down in Yichu's compilation of 955 from a Japanese monk's telling (Wu 2014) — agrees with the Penglai row; confirmed B21 (`cnh-210`) | `cnh-210` | `cnh-021`, `cnh-192` | `cnh-021` |
 | The Shaqiu plot and the forged edict | the First Emperor's death at Shaqiu in 210 BCE; Zhao Gao, Li Si and Huhai hiding it, the body carried back with salted fish, and the forged edicts ordering Fusu and Meng Tian to die (the *Shiji*, Qin annals and Li Si's biography; Zhao Gao's own phrase 沙丘之謀 in chap. 87) — confirmed B22 (`cnh-211`); the excavated *Zhao Zheng shu* (Peking University slips), in which the emperor is said to name Huhai himself, NOT confirmed (no open source) | `cnh-211` | `cnh-195`, `cnh-206`, `cnh-212` | — |
@@ -368,9 +401,9 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Fu Jian's whips and the wind and cranes at Fei River | Fu Jian boasting that his host could dam the Yangtze by throwing in their whips, and his routed army hearing the wind and the cranes' cries as the pursuing Jin (the *Jinshu*, compiled under the Tang, 646 – 648 CE); Xie An playing *weiqi* as the news came (juan 79) — confirmed B31 (`cnh-310`: the whips and the cranes in juan 114; Zhu Xu's shout in neither juan read; the "million" Zhu Xu's rhetoric, not a count) | `cnh-310` | `cnh-308`, `cnh-309`, `cnh-315` | — |
 | Wang Xizhi's Orchid Pavilion preface | the gathering at the Orchid Pavilion in 353 CE and Wang Xizhi's preface to its poems; Taizong's love of the original and its burial with him (Tang tellings, He Yanzhi's account); the surviving versions copies — provisional | `cnh-319` | `cnh-357` | — |
 | The Peach Blossom Spring | Tao Yuanming's own prose tale of a fisherman finding a hidden valley whose people fled the Qin, told as fiction by its author — provisional | `cnh-320` | — | — |
-| Emperor Wu of Liang and Bodhidharma | the emperor's question about his merit and Bodhidharma's "no merit"; a Chan legend first told centuries later (the 8th-century Chan histories), not in the earliest notice of Bodhidharma — provisional | — | `cnh-327` | — |
+| Emperor Wu of Liang and Bodhidharma | the emperor's question about his merit and Bodhidharma's "no merit"; a Chan legend first told centuries later (the 8th-century Chan histories), not in the earliest notice of Bodhidharma — provisional | — | `cnh-327`, `cnh-890` | — |
 | The Xuanwu Gate incident as told | Li Shimin killing his brothers Li Jiancheng and Li Yuanji at the palace gate and his father's abdication, in the court histories written under Taizong's own eye (the *Old* and *New Book of Tang*, the *Zizhi tongjian*), which make the brothers the plotters — confirmed B36 (`cnh-356`, `cnh-358`: the record descends from the official account Taizong ordered after seeing his historians' work; Sima Guang doubted the banquet plot) | `cnh-358` | `cnh-356`, `cnh-357` | — |
-| Wu Zetian as the only empress regnant and the hostile tradition | the only woman to rule China as emperor in her own name (the Wu Zhou, 690 – 705 CE); the stories of the strangled daughter and the mutilated rivals from later hostile historians — B38 (`cnh-371`): told as hostile reports; the strangled daughter in Giles but not in the *Old Book* juan 51, its earliest text still unconfirmed | `cnh-371`, `cnh-372` | `cnh-364` | — |
+| Wu Zetian as the only empress regnant and the hostile tradition | the only woman to rule China as emperor in her own name (the Wu Zhou, 690 – 705 CE); the stories of the strangled daughter and the mutilated rivals from later hostile historians — B38 (`cnh-371`): told as hostile reports; the strangled daughter in Giles but not in the *Old Book* juan 51, its earliest text still unconfirmed | `cnh-371`, `cnh-372` | `cnh-364`, `cnh-896` | — |
 | Yang Guifei: the lychees, Mawei and the Song of Everlasting Sorrow | lychees rushed by relay to the court; her death at Mawei Station when the escort mutinied (756 CE); Bai Juyi's "Song of Everlasting Sorrow" (806 or 807 CE; Beauchamp prints 807) and later legend — confirmed B38 (`cnh-375`: the lychees told as Mayers's account and Du Fu's poem; the An Lushan love story later lore, Owen) | `cnh-375` | `cnh-373`, `cnh-377`, `cnh-393` | — |
 | An Lushan's adoption by Yang Guifei | An Lushan made Yang Guifei's adopted son, the washing ceremony; told in later histories and anecdote collections — confirmed B38 (`cnh-377`: the *Old Book of Tang* juan 200A has him ask for it himself; the three-day washing is the *Zizhi tongjian*'s, juan 216) | — | `cnh-377`, `cnh-375` | — |
 | Li Bai drowning while embracing the moon | the poet drowning as he leaned from a boat to embrace the moon's reflection; a later legend, against the earlier accounts of illness — confirmed B40 (`cnh-391`: a legend Hong Mai already doubted in the 12th century) | — | `cnh-391` | — |
@@ -439,6 +472,37 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | The Great Mosque of Xi'an's founding | the stele dated 742 CE claiming a Tang foundation, held by historians a later work; the buildings standing from the Ming (a rebuilding of 1392 claimed) — confirmed B79 (`cnh-788`: the stele held a later work; 1392 the open 2026 study's date for the rebuilding) | `cnh-788` | `cnh-787` | — |
 | Chiyou as the Miao's ancestor | the identification of the Miao with the Sanmiao of the late texts and of Chiyou as their forebear — a modern and in part 20th-century reading, never ancient fact; the Sanmiao in the *Shangshu* and the *Shiji* as Shun's banished enemies — confirmed B79 (`cnh-790`: told as a modern identification, Legge 1879 for the Sanmiao) | `cnh-790` | — | `cnh-008`, `cnh-009` |
 | The King of Na seal | the gold seal the *Hou Hanshu* says Emperor Guangwu gave the envoy of Nu of Wa in 57 CE, held to be the seal a farmer found on Shikanoshima in 1784; the doubts of forgery and the tests that answer them, each said whose — confirmed B80 (`cnh-799`: found 23 February 1784, the Fukuoka museum; the doubts and the measurement, knob and lettering studies each whose) | `cnh-799` | — | `jp-` (read, never edited) |
+| Laozi's journey west and the Daodejing | the *Shiji* (c. 100 BCE, juan 63): Laozi, a keeper of the Zhou archives, leaves as the Zhou declines; Yin Xi, keeper of the pass, asks him to write; he writes a book in two parts of some 5,000 characters, and no one knows where he ended; the pass named Hangu by later tellings (another reading makes it the San Pass); the *Liexian zhuan*'s vapour that Yin Xi saw; the later "conversion of the barbarians" (Wang Fu's *Huahu jing*, c. 300 CE); the Guodian slips (buried c. 300 BCE) the oldest copies, of a text that grew — confirmed B84 (`cnh-837`: the *Shiji* writes only 至關, "came to a pass"; Hangu the later name; the *Liexian zhuan*'s vapour through the *Jijie*'s quotation) | `cnh-837` | `cnh-826`, `cnh-838`, `cnh-839`, `cnh-841`, `cnh-856`, `cnh-876`, `cnh-877`, `cnh-889`, `cnh-897` | — |
+| Confucius meeting Laozi | the *Shiji* (Laozi's biography and the house of Confucius) has Confucius go to Zhou to ask Laozi about the rites; the *Liji* ("Zengzi wen") has him quote Lao Dan on funeral rites; the *Zhuangzi* tells several meetings; Han tomb reliefs show it; whether this Lao Dan is the *Daodejing*'s author is a later identification — PROVISIONAL | — | any card that tells it | — |
+| Heshang Gong and Emperor Wen | the old man by the river who taught Emperor Wen of Han (r. 180 – 157 BCE) the *Daodejing* and rose into the air, told in the preface ascribed to Ge Xuan and in the *Shenxian zhuan* (4th century CE); the commentary dated by modern scholars to the Later Han or after — confirmed in part B84 (`cnh-839`: told from the preface ascribed to Ge Xuan; the *Shenxian zhuan* version on no saved page; the commentary's date disputed from the Western Han to the 6th century) | `cnh-839` | `cnh-837` | — |
+| The *Zhuangzi*'s parables | Cook Ding, the butterfly dream, Hui Shi at the Hao bridge and the book's Confucius: fictions of the book, told as its, never as events; the Inner Chapters held its oldest layer; the surviving text Guo Xiang's edition (he died 312 CE) — confirmed B84 – B85 for Cook Ding and the "Qiwulun" (`cnh-840`, `cnh-842`) | `cnh-840`, `cnh-842` | `cnh-828`, `cnh-847` | — |
+| The disciples' stories | Zilu tying his cap strings as he was cut down in Wey (the *Zuo Zhuan*, Duke Ai 15, 480 BCE); Yan Hui's poverty and early death and Confucius's grief (the *Analects*); the *Liji* and the *Zhuangzi*'s later scenes told as theirs — confirmed B83 (`cnh-828`, `cnh-829`) | `cnh-828`, `cnh-829` | `cnh-830`, `cnh-833` | — |
+| Gongshu Ban and Mozi at Chu | the *Mozi*'s "Gongshu" chapter: Mozi walks ten days and nights to Chu, plays out the siege with his belt for a wall, parries nine attacks and says his pupils already hold Song's walls — the Mohists' telling of their master; Gongshu Ban later worshipped as Lu Ban, the builders' god — confirmed B85 (`cnh-844`, the *Mozi* on zggdwx) | `cnh-844` | `cnh-843` | — |
+| He Tu and Luo Shu | the "Xici" of the *Changes* ("the Yellow River gave forth the Chart, the Luo the Writing") and *Analects* 9.9 name them; the dragon-horse bringing the Chart to Fuxi and the turtle the Writing to Yu are Han tellings; the number diagrams now called by those names first printed in the Song (Zhu Xi's commentary on the *Changes*, 12th century, after earlier Song masters) — corrected B85 (`cnh-848`: the *Liji* already has "the map borne by a horse"; the dragon-horse and tortoise given final shape in the commentary credited to Kong Anguo; Liu Xin's pairing with Fuxi and Yu late Former Han, the *Hanshu*; the number diagrams first made public under Huizong, 1101 – 1125, Mayers and Legge; Zhu Xi's role on no saved page) | `cnh-848` | `cnh-851` | `cnh-005`, `cnh-013` |
+| Confucius and the Ten Wings | the *Shiji* (house of Confucius) and the *Hanshu* credit Confucius with the "Wings"; Ouyang Xiu (11th century) doubted it; modern scholars date them to the Warring States and the early Han; the Mawangdui silk manuscript carries some of them with other commentaries — confirmed in part B86 (`cnh-851`: tradition's ascription and the modern dating; Ouyang Xiu's doubt on no page read) | `cnh-851` | `cnh-848` | — |
+| Zisi, Zengzi and the two chapters | the *Shiji* says Zisi made the *Zhongyong*; Zhu Xi (12th century) took the *Great Learning*'s opening for Confucius's words set down by Zengzi and the rest for Zengzi's pupils; both are chapters of the *Liji*, compiled in the Han; modern scholars doubt both attributions — confirmed B84 – B86 for both (`cnh-853`: Eno, the attributions generally held inventions; Zhu Xi's classic and commentary in Legge; `cnh-832`: the *Shiji* names Zisi; Eno: the *Liji* texts carry no author, the attributions generally held inventions) | `cnh-832`, `cnh-853` | `cnh-831`, `cnh-833` | — |
+| The *Liezi*'s age | the preface ascribed to Liu Xiang (Western Han) and its master of the 5th – 4th century BCE; the surviving text with Zhang Zhan's commentary (4th century CE), held by many scholars to be compiled then — confirmed B85 (`cnh-841`: Zhang Zhan's edition c. 370 CE, the IEP) | `cnh-841` | — | — |
+| Liu Xin and the forged classics | the charge that he forged the Old Text books (the *Zuo Zhuan*, the *Zhouli*) for Wang Mang, made by Song and Qing writers and argued at length by Kang Youwei (*Xinxue weijing kao*, 1891), rejected by most scholars since — PROVISIONAL | `cnh-855` | `cnh-864` | `cnh-246`, `cnh-571` |
+| The Old Text *Shangshu* chapters | the 25 chapters with Kong Anguo's commentary presented by Mei Ze under Emperor Yuan of the Eastern Jin (317 – 322 CE), shown a forgery by Yan Ruoqu (*Shangshu guwen shuzheng*, printed after his death) after Song and Ming doubters; the Tsinghua manuscripts carry versions of some chapters that differ from Mei Ze's — PROVISIONAL | `cnh-864` | `cnh-855` | — |
+| Emperor Ming's dream and Buddhism's arrival | the golden man seen in a dream, the envoys sent west, the *Sutra in Forty-two Sections* and the White Horse Temple: told in that sutra's preface and the *Mouzi* (dated by scholars from the late 2nd to the 4th century CE, as `cnh-267` has it) and in the *Hou Hanshu* (5th century); the edict of 65 CE on Liu Ying, prince of Chu, keeping Buddhist fasts, the earliest dated notice of Buddhists in China — the edict confirmed B89 (`cnh-882`, the *Hou Hanshu* 72) | — | `cnh-882`, `cnh-894`, `cnh-897` | `cnh-267` |
+| Mount Wutai and Manjusri | the mountain read as Manjusri's "Clear and Cool Mountain" of the *Avatamsaka* by the 7th century (Huixiang's *Gu Qingliang zhuan*); the temple there said founded under Emperor Ming, 68 CE, a later tradition; the Tang court's missions and Ennin's diary (840 CE) — corrected B90 (`cnh-894`: 68 CE on no saved page; the court envoys of 661 – 662 CE and Huixiang's record c. 679 – 684 CE the first) | `cnh-894` | `cnh-886` | `cnh-267` |
+| Lezun and the first Mogao cave | the stele of 698 CE (Cave 332) dating the first cave to 366 CE, when the monk Lezun saw a golden light like a thousand Buddhas; the earliest surviving caves dated by scholars to the early 5th century — confirmed B90 (`cnh-893`: the stele read by Chavannes; the oldest caves c. 420 – 429 CE) | `cnh-893` | — | — |
+| Huiyuan's vow and the White Lotus Society | the vow before Amitabha's image in 402 CE with 123 followers (Liu Yimin's text, in Huiyuan's biography in the *Gaoseng zhuan*, c. 519 CE); the "White Lotus Society" name and Huiyuan as the Pure Land's first patriarch from the Song; the "three laughs at Tiger Creek" a later painting theme — confirmed B89 (`cnh-889`: the *Gaoseng zhuan* juan 6, 123 people, the year only as 歲在攝提; 402 Mochizuki's conversion; the name and the patriarch's rank later) | `cnh-889` | — | — |
+| Kumarajiva's tongue | the *Gaoseng zhuan*'s (c. 519 CE) story that his tongue did not burn on the pyre, proof of his translations; his death given as 409 or 413 CE by different sources — confirmed B89 (`cnh-885`: Huijiao's biography, the Xiaoyao Garden pyre; the 409 / 413 dispute Felbur's) | `cnh-885` | — | — |
+| Huineng and the verse contest | the *Platform Sutra*'s own story: the unlettered southerner, Shenxiu's verse and Huineng's answer, Hongren's night transmission of Bodhidharma's robe; first in the Dunhuang text (c. 780 CE), shaped by the Southern school's polemic (Shenhui, 8th century); held by modern scholars no record of Huineng's words — confirmed B89 (`cnh-890`: the contest is in the Dunhuang text; "not a single thing exists" only in Huixin's revision; the robe not named Bodhidharma's in the Dunhuang passage) | `cnh-890` | `cnh-891` | — |
+| Baizhang's rule | "a day without work, a day without food" and the first Chan monastic code credited to him: the saying in later Chan records, the code known only from later texts (the Yuan court's *Chixiu Baizhang qinggui*, 1330s); some scholars doubt he wrote any code — confirmed B90 (`cnh-891`: no Tang record links him with a code; later tradition made him author of the "Rules of Purity") | `cnh-891` | — | — |
+| Zhang Daoling's revelation | Lord Lao appearing to him on Mount Heming in 142 CE and the covenant of orthodox unity — the Celestial Masters' own texts, from the 3rd century CE; the histories name Zhang Ling briefly as founder of the Five Pecks of Rice; his 122 years Daoist tradition (the protected line says "by tradition") — confirmed B88 (`cnh-877`: Kleeman and the SEP give 142 CE as the traditional date; the revelation told in Ge Hong's *Shenxian zhuan*; the *Sanguozhi* names only Zhang Ling of the five pecks) | `cnh-877` | `cnh-876`, `cnh-879`, `cnh-880` | — |
+| Ge Xuan and the Lingbao scriptures | the scriptures Ge Chaofu released c. 400 CE said to descend from Ge Xuan, Ge Hong's great-uncle, who had them from the gods; Lu Xiujing's catalogue of 437 CE — corrected B88 (`cnh-876`: the *Encyclopedia of Taoism* calls Ge Xuan "an uncle" of Ge Hong, not a great-uncle; the transmission through Zheng Yin "seems to have been fabricated"; the canon listed 471 CE) | `cnh-876` | `cnh-878` | — |
+| Wang Zhe and the immortals | his meeting with immortals at Ganhe in 1159, named in Quanzhen hagiography as Lü Dongbin (and Zhongli Quan), and the "tomb of the living dead" he dug; told in Quanzhen texts of the 13th century — confirmed B89 (`cnh-881`: the Jin stele's two men in felt cloaks are unnamed; the immortals' names come from later tradition) | `cnh-881` | `cnh-880` | `cnh-022` |
+| The Fengshan and the First Emperor on Mount Tai | the 72 ancient kings who made the sacrifices, of whom Guan Zhong named 12 to Duke Huan (the *Shiji*'s "Treatise on the Feng and Shan", c. 100 BCE); the First Emperor's ascent in 219 BCE and the storm under a tree that he ennobled (the same treatise) — confirmed B88 (`cnh-874`: Chavannes reads the 72 kings as an artificial theory probably made to urge Emperor Wu; the First Emperor's feng claimed by the *Shiji*, unmentioned on his own inscription; 110 BCE the first certain performance) | `cnh-874` | `cnh-870`, `cnh-875` | — |
+| Wenchang and Zhang Yazi | the god of literature identified with Zhang Yazi, the snake god of Zitong, said to have died in battle under the Jin (a Ming record); the spirit-written *Book of Transformations* (1181) as his own life — confirmed in part B87 (`cnh-868`: Zhang Yazi and the Zitong cult merged with the six stars; the 1181 date on no saved page) | `cnh-868` | `cnh-871` | — |
+| Mount Tai and the dead | Mount Tai as where souls go (Han tomb texts; the *Hou Hanshu*'s Wuhuan sending their dead to a Red Mountain as the Chinese to Mount Tai); the god titled from 725 CE; Huang Feihu as the god only in the Ming novel *Fengshen yanyi* — confirmed B87 (`cnh-870`: the 725 title a king's, Chavannes) | `cnh-870` | `cnh-874` | — |
+| The City God's first temples | the temples claimed for the 3rd century (Wuhu, 239 CE, a Ming survey's claim); Li Yangbing's rain pact of 759 CE the earliest dated text; the Ming founder's reform making the cult part of the state's rites — corrected B88 (`cnh-871`: the *Mingshi*'s own survey says the cult's beginning is not known and cites Li Yangbing's record without a year; Zou and Yang give the Qi–Liang period, 479 – 557 CE, after Deng Siyu, and others 220 – 589 CE; the Ming titles 1369, removed 1370; the 239 CE Wuhu temple the Ming survey's claim; 759 on no citable page) | `cnh-871` | `cnh-868` | — |
+| Emperor Taiwu's persecution | the *Wei shu*'s "Treatise on Buddhism and Daoism" (551 – 554 CE): weapons and wine found in a Chang'an monastery, Cui Hao urging the edict of 446 CE against Kou Qianzhi's counsel; the Buddhist histories' tale of his death as punishment — confirmed in part B90 (`cnh-895`: the *Wei shu* 114 gives the monastery's weapons and brewing gear, Cui Hao urging the decree, the crown prince's delay; the punishment tale not told) | `cnh-895` | `cnh-877` | `cnh-330` |
+| The Great Cloud Sutra "forged" | the *Old Tang History* says ten monks forged the sutra in 690 CE; one study (Forte, 1976) shows the sutra an older translation and the presented work a commentary (the Dunhuang copy) reading the empress as a female ruler foretold — confirmed B90 (`cnh-896`: the *Jiu Tangshu* 6; Rothschild after Forte; Onishi's S.2658 and the four-volume edition) | `cnh-896` | `cnh-900` | `cnh-371` |
+| Aluoben and the stele | the stele's own account (781 CE) of Aluoben reaching Chang'an in 635 CE and the edict of 638; found near Xi'an in the 1620s (the year disputed); called a Jesuit forgery by some European writers of the 18th century and held genuine since — corrected B90 (`cnh-899`: found in 1623 by Diaz's account or early 1625 by Saeki's; the charge made by La Croze and Voltaire and still pressed by Salisbury in 1853, Legge) | `cnh-899` | `cnh-898` | — |
+| The Eternal Venerable Mother | the mother in the "true emptiness native home" calling her lost children back, in the precious scrolls; Luo Qing's *Five Books in Six Volumes* (16th century) the first great texts of the teaching; the sects called "White Lotus" by the state — corrected B90 (`cnh-900`: Luo Qing's books, first printed 1509, name an Ancestor of the Limitless, not the Mother; Mingkong made the Unborn Mother the highest deity, writing in her name by 1629, Pu) | `cnh-900` | `cnh-897` | `cnh-020` |
+| Huang Daopo and the Li of Hainan | Tao Zongyi's *Chuogeng lu* (1366): an old woman Huang came from Yazhou (Hainan) to Wunijing in Songjiang in the late 13th century and taught the Li's cotton tools; her shrine in Tao's own account, the child bride's flight a later telling — corrected B83 (`cnh-824`: Tao names no Li and no year, only Yazhou and "early in the dynasty"; the late 13th century inferred from an early Ming collection; the shrine Tao's own, built at her death and fallen again; the child bride's flight a modern tale) | `cnh-824` | `cnh-801`, `cnh-806` | — |
 
 ## Working a card
 
@@ -4802,3 +4866,326 @@ against 1662). `cnh-709` and `cnh-794` sort late for want of a sourced start.
 point), `cnh-789` the Dian kingdom (Shizhaishan would be the point), `cnh-795` the Willow Palisade (a line; none), `cnh-766` siheyuan (a building type; none). Points to review:
 `cnh-704` the Jiangnan Examination Hall's label repeats the answer term ("Nanjing Imperial Examination Museum" would be a place); `cnh-788` the Great Mosque's label repeats the
 answer term; `cnh-715` kept (Xuanwu Lake, the archive's site). Still waiting from earlier hundreds: the list in the seventh hundred's note.
+
+### B81 — `cnh-801`–`cnh-810`, land, trade and money: the Song economic revolution to the Great Ming Treasure Note (2026-11-19)
+
+The ninth hundred's first batch, run as the eighth's were (`AGENT.md`, the notes file, two cards an agent, at most ten at once, `REFINE_PREFIX=cnh-`);
+every draft read by eye and prechecked before `batch.sh` applied it. Every cited URL answered (88 citations, 56 distinct). **Pictures were not touched**
+(Wikimedia answered 429; none of the ten has one); **ctext.org answered 403** for text pages, so the classics came from the Kanseki Repository's GitHub
+texts and zggdwx.com. **The old cards cited Chinese Wikisource some thirty times (the *Shiji*, *Hanshu*, *Songshi*, *Mingshi*, *Qingshi gao*, the
+*Hefang yilan*, the *Dongjing menghua lu*, the *Shuijing zhu*), carried two to five Chinese sources a card, and three regnal years of their own
+conversion (1020, 1387, 1578)**; every one is gone, and with it every figure only they carried.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-801` Song economic revolution | 6 | 6 → 7 | **"Song dynasty 960 – 1279 CE" (a dynasty, not the change) → `Dated c. 750 – 1100 CE` / `Also dated 960 – 1127 CE`** (the Northern Song as the heart of it); von Glahn, Walton, Deng, Horesh, and Li Bozhong [in Chinese] doubting it was a revolution at all; the iron output as disputed estimates; Hartwell 1962 (a script wall) not cited. |
+| `cnh-802` Qimin yaoshu | 5 | 5 → 5 | **"Court printing 1020 CE" off** (Li Tao's Tianxi 4, converted by the old card, only on Wikisource); the Song printing told in the source's own reign; four Wikisource texts replaced (the Kanseki title page, eLife on the mung bean, the pastoral dairy recipes); Bretschneider's outdated 5th-century date not used. |
+| `cnh-803` Hemudu culture | 6 | 6 → 6 | **"Occupied c. 5000 – 3400 BCE" (resting on an image-only scan no one can read) → `Dated c. 7000 – 5300 BP` / `Also dated c. 7000 – 5000 BP`** (each study's own BP range, as `cnh-043` and `cnh-047`); the four layers, the 23-metre house and the rice-layer depth dropped with the scan; the domestication and farming-society debates each said whose. Locator: Yuyao the city, not the site. |
+| `cnh-804` Zhengguo Canal | 5 | 5 → 5 | `Built c. 246 BCE` → **`Dated 246 BCE` / `Restored 95 BCE` / `Rebuilt 1932`** (the ICID); the *Shiji* 29 on the Kanseki text for the spy-engineer and "never a year of famine"; Li Si and the Bai Canal (Wikisource) dropped. Name 郑国渠: the simplified compound on no saved page. |
+| `cnh-805` Pan Jixun | 5 | 5 → 5 | **protected line kept**; four Wikisource texts replaced by the *Mingshi* 223 (Kanseki), Chen et al. 2012, the China Biographical Database and Kinoshita; the 1580 figures, the 1590 flood and "died aged 75" dropped. For the owner: the Mostern interview prints 1511 for his birth; the days and months on no page read; the *Mingshi*'s 75 sui against the line's "age 73"; the CBDB cited as a bilingual database (counted Chinese, the card falls one under its bar). |
+| `cnh-806` Jiangnan | 6 | 6 → 6 | line empty (kept); five Wikisource texts replaced by Han Yu's preface (Kanseki; its Zhenyuan 18 not converted), Couling 1917, Hamashima and two Cleveland silk and porcelain records; the old Jiangnan circuit and the Qing split into Jiangsu and Anhui; the Ming grain quotas and Fan Chengda's proverbs dropped. |
+| `cnh-807` Fish-scale registers | 5 | 5 → 6 | **"Hongwu survey 1387 CE" and "Wanli survey 1578 CE" (the old card's conversions, a reign in each label) → `Survey 1379` / `Later survey 1581`** (Yee's bracketed Hongwu 12; Ray Huang's land survey of 1581); the *Mingshi* 77 (Kanseki), Tsurumi [in Japanese], Heijdra. The usual 1387 is on no saved page (for the owner; `cnh-505`'s ledger took it off too). Pinyin lower-cased, yúlín túcè. |
+| `cnh-808` Rent resistance | 5 | 5 → 5 | line empty (kept); three Wikisource texts and a second Chinese source replaced by Bianco 1998 [in French] and 1986, Miki [in Japanese], the *Mingshi* 165 (Kanseki); Deng Maoqi's "1449" (no page prints it) dropped, the rising told as the *Mingshi*'s quarrel over customary gifts; Bianco's "too celebrated" thesis. Pinyin lower-cased, kàngzū. |
+| `cnh-809` Ban liang | 6 | 6 → 6 | **"Qin unification 221 BCE" as the coin's start (the old tradition) → `First cast c. 340 BCE` / `Standard coin 221 BCE` / `Four-zhu coin 175 BCE` / `Last issued 118 BCE`** (hoards and bamboo statutes, Thierry [in French], Pollard and Liu); the National Museum specimen (the site resets) dropped. Pinyin lower-cased, bànliǎng. |
+| `cnh-810` Great Ming Treasure Note | 6 | 6 → 6 | `Office founded 1374` / **`First issued 1375` / `Silver tax 1436`** (with `cnh-523`); three Wikisource histories cut to the *Mingshi* 81 (Kanseki); the 160 cash a note, the 1376 and 1397 grain rates and the 3 cash of 1448 (no cited text) dropped; the informers' reward (Vissering's 250 taels against the *Mingshi*'s 25) left out. |
+
+Read by eye. **Confusability**: the guilds and the "Medieval Revolution" label `cnh-801`'s, the dairy recipes `cnh-802`'s, the geese and the spades `cnh-803`'s, the
+spy-engineer `cnh-804`'s, the scouring levees `cnh-805`'s, Han Yu's nine parts in ten `cnh-806`'s, the warp and weft `cnh-807`'s, the gifts quarrel `cnh-808`'s, the upper and
+lower money `cnh-809`'s, the rice price in notes `cnh-810`'s (the jiaozi `cnh-436` and the kaizhong `cnh-718` kept apart). **Legend**: none told as fact. **Chinese names**:
+pinyin `cnh-807`, `cnh-808`, `cnh-809`; kept unconfirmed 郑国渠 (simplified). **Spellings**: no hit in the drafts. **check-citations**: no mismatch. **Glossary**: all ten
+rewritten (`Fish-scale_registers` now 1379). **Two advisory `W.not-why`** (`cnh-801`, `cnh-802`). The apply stopped on `cnh-810` once (a transient error) and was re-run for it
+alone, then verified. Protected line (`cnh-805`): unchanged.
+
+### B82 — `cnh-811`–`cnh-820`, land, trade and money: sycee to the comprador (2026-11-19)
+
+Run as B81. 90 citations, 58 distinct: every one answered but `cnh-816`'s *International Journal of Business Anthropology* page, which answers 409 to the research
+user agent and serves a browser normally (its text saved by the agent; kept). **Pictures were not touched.** **The old cards cited Chinese Wikisource about thirty times
+(the *Mingshi*, *Songshi*, *Yuanshi*, *Qingshi gao*, the *Huayang guozhi*, the *Guangyang zaji*, Fei Zhu's *Shu jin pu*, the treaties), a Digital Library of India
+*Serindia*, Silk Road Seattle (now 403) and Project Gutenberg (down); carried places and men in labels ("Luoyang burnt", "Guangzhou office", "Yuan Quanzhou", "Xu
+Jing's report", "Odoric's text", "Tong's service", "Beisheng market") and regnal conversions of their own (1371, 1472, 1645).**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-811` sycee | 6 | 6 → 6 | **empty → `Taxed in silver 1581` / `Abolished 1933`** (with `cnh-522`, `cnh-523`); three Wikisource juan and their claims (the 1375 ban, the 1436 commutation, Qianlong and Daoguang figures) dropped; Ma and Zhao, Sun et al., Liu; the "fine silk" etymology hedged as Hobson-Jobson and Edkins do. Pinyin lower-cased, yíndìng. |
+| `cnh-812` Hankou | 6 | 6 → 6 | **"Treaty 26 June 1858" / "Expedition March 1861" → `River shifted 1465 – 1470` / `Office moved 1613` / `Opened to trade 9 March 1861` / `Walled 1864`**; the "four great gathering places" told as a Qing saying (Liu Xianting's *Guangyang zaji* is open only on Wikisource); Ren et al., Li and Zhang [in Chinese], Ma and Long, Mayers. |
+| `cnh-813` caoyun | 6 | 6 → 6 | **"Relay granaries 733", "First by sea 1282" (Wikisource only), "Ming quota 1472" and "Qing quota 1645" (the old card's conversions) → `Canal rebuilt 1411` / `Sea transport 1826` / `Late shipments 1902 – 1905`**; the *Mingshi* 79 (Kanseki), Morse, Couling, Chen, Tan et al., Leonard. No page dates the system's beginning, so the card sorts at 1411 (for the owner). Pinyin lower-cased, cáoyùn. |
+| `cnh-814` Sogdian Ancient Letters | 5 | 5 → 5 | **"Luoyang burnt 311 CE" (a place, another event) off: `Written c. 313 CE` / `Found 1907`**; Silk Road Seattle (403) and the DLI *Serindia* replaced by Livshits and Trombert [in French]. Locator: Dunhuang the town, not Stein's watch-tower T.XII.a. **Pinyin Sūtèwén → Sùtèwén.** |
+| `cnh-815` Shu brocade | 6 | 6 → 6 | **"Song institute 1083" and "Tea-horse looms 1129" (Wikisource only) off: `Classic centre c. 200 BCE – 900 CE` / `Loom models c. 157 – 88 BCE`** (Zhao et al.); the *Huayang guozhi* (Kanseki), Hosie 1922; the loom-model questions left to `cnh-994`. Three of the new sources are slight open-access journals (the pattern history, the modern weave, the heritage status; for the owner). |
+| `cnh-816` Tea Horse Road | 6 | 6 → 6 | **"Ming bureaus 1371" (a conversion) and "Beisheng market 1665" (a place) → `Qing road 1700 – 1950` / `Bridge opened 1702`** (Liu); the *Mingshi* 80 (Kanseki), Hosie 1890, Rockhill 1891, Yang et al.; "since the Tang and Song" → "since the Song". The card sorts at 1700 for want of a sourced start (for the owner). **Pinyin Chámǎ gǔdào → Chámǎ Gǔdào** (a proper name). |
+| `cnh-817` Belitung shipwreck | 6 | 6 → 6 | `Dated bowl 826 CE` → `Bowl dated 826 CE`, **`Found 1998` added**; two Wikisource texts (a sentence on Tang trade generally) dropped; the Asian Civilisations Museum and Chen Kelun [in Chinese]; the commercial salvage, the cancelled Smithsonian show; Flecker's 838 against the 826 reading kept as "thought to be". Locator: the island's centre, not the site (2°41′ S, 107°35′ E). |
+| `cnh-818` Maritime Trade Supervisorate | 6 | 8 → 6 | **"Guangzhou office 971 CE" (a place; Hirth says 971 reorganised the office) and "Yuan Quanzhou 1277" → `Attested c. 700 – 800 CE` / `Reorganised 971 CE` / `New offices 999 CE` / `Office added 1087`**; seven Wikisource citations cut to the *Mingshi* 81 (Kanseki); Hirth and Rockhill, Oláh, Zurndorfer, Nakajima. Pinyin lower-cased, shìbósī. |
+| `cnh-819` junk | 7 | 7 → 7 | **"Xu Jing's report", "Quanzhou ship", "Odoric's text" (a man, a place, a text) → `Described 1124` / `Oldest hull c. 1277` / `Word attested c. 1300`**; four Wikisource texts cut to Xu Jing on the Kanseki text; Miller and Maltz, Salmon and Lombard [in French], the Nanhai I study; the Zheng He and tax figures dropped. Name 戎克船 kept, unconfirmed (no open Chinese page prints it). |
+| `cnh-820` comprador | 6 | 6 → 6 | **"Nanking treaty 1842" and "Tong's service 1863 – 1873" (a place, a man) → `Word attested 1533` / `Monopoly ended 29 August 1842`** (the Hong merchants' monopoly ended by article 5, the comprador's turning point, explained in the background); Mayers's treaty text for Wikisource, Hunter on archive.org for Gutenberg; Zeng Jize's refusal. Pinyin lower-cased, mǎibàn. |
+
+Read by eye. **Confusability**: the private stamps `cnh-811`'s, the Qing saying `cnh-812`'s, the sea transport `cnh-813`'s, Mewnai `cnh-814`'s, the Brocade Office `cnh-815`'s,
+the porters `cnh-816`'s, the black reef `cnh-817`'s, the duty rates `cnh-818`'s, the balance-beam hull `cnh-819`'s, Zeng Jize `cnh-820`'s (the Quanzhou cards and the haijin
+`cnh-521` kept apart). **Legend**: none. **Chinese names**: pinyin `cnh-811`, `cnh-813`, `cnh-814`, `cnh-816`, `cnh-818`, `cnh-820`; kept unconfirmed 戎克船. **Spellings**: no hit.
+**check-citations**: no mismatch. **Glossary**: nine rewritten (`cnh-817`'s kept, it agrees). No protected card in the batch.
+
+### B83 — `cnh-821`–`cnh-830`, land, trade and money and Chinese philosophy: the qianzhuang to shu (2026-11-19)
+
+Run as B81. Every cited URL answered (102 citations, 62 distinct). **Pictures were not touched.** **The old cards cited Chinese Wikisource some
+thirty-five times (the *Shiji*, the *Mingshi*, the *Qingshi gao*, the *Analects*, the *Mengzi*, Tao Zongyi's *Chuogeng lu*, the salt gazetteers),
+a modern thesis and Gutenberg's Hunter; carried a man and a place in labels ("Cao Shen in Qi", "Court quarrel"), and the old questions of
+`cnh-825` carried dates and year counts.**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-821` qianzhuang | 5 | 5 → 6 | **empty → `Guild formed 1776`** (Kruglova [in Russian]); Liu 2016; Hunter (Gutenberg down, his sentence about foreign houses) dropped; the old question gave away "cash shop". Pinyin lower-cased, qiánzhuāng. |
+| `cnh-822` Yangzhou salt merchants | 6 | 6 → 8 | **"Kaizhong begun 1370" and "Ticket system 1849" (no page) off: `Silver paid 1492` / `Syndicates set 1617`** (with `cnh-718`); four Wikisource texts replaced by An [in Chinese], Theobald, Okamoto [in Japanese], the Cleveland Museum, Chang Chien 1913, Morse; the Ma brothers' garden; "yinwo" and the river-bank stages dropped. Name 扬州盐商 kept, unconfirmed (no page prints the compound). |
+| `cnh-823` Yunnan copper | 5 | 5 → 6 | **`Mining promoted 1682` / `State control 1705` / `Supplied mints 1738` / `Peak output 1764`**; Vogel's thesis (a modern book) and three Wikisource texts replaced by Giersch, Dunstan, von Glahn, the *Qingshi gao* on zggdwx, Ueda [in Japanese], Hosie. |
+| `cnh-824` Huang Daopo | 6 | 6 → 7 | **protected line kept**; five Wikisource texts gone, Tao Zongyi read on the Kanseki text; the background carries 1245, 1295 and 1330, said as later reckonings (no early source gives her birth or death; for the owner). **Register corrected** (below). |
+| `cnh-825` Great Divergence | 7 | 7 → 7 | **empty → `Dated 1700 – 1750` / `Also dated 1800`** (Broadberry, Guan and Li; Goldstone); the three questions rewritten without dates; Pomeranz's coal and ghost acres and the California School in the background; the Deng and O'Brien working-paper number corrected. Pinyin lower-cased, dà fēnliú. |
+| `cnh-826` Huang–Lao | 6 | 6 → 6 | **"Cao Shen in Qi c. 194 – 186 BCE" (a man, a place) and "Court quarrel 139 BCE" (a conversion no page prints) → `Flourished c. 300 – 100 BCE` / `Copies buried 168 BCE`**; four Wikisource texts and an MDPI article gone; the questions kept off `cnh-238` and `cnh-845`. |
+| `cnh-827` Lüshi Chunqiu | 6 | 6 → 8 | line kept (`Compiled c. 239 BCE`; 241 – 238 BCE in prose); the *Shiji* 85 (Kanseki), Jacoby twice, the SEP twice, Riegel, Legge's *Li Ki*, Wylie; the Xuyi conversion, Ban Gu's catalogue figures and a calendar study dropped; the plan of twelve, eight and six books and the burial chapters. |
+| `cnh-828` Yan Hui | 7 | 7 → 8 | **protected line kept**; six Wikisource pages replaced by the *Shiji* 67 (Kanseki), Legge's *Analects* with notes, the *Li Ki*, four SEP entries and the IEP; 521 BCE said as thirty years after the traditional 551, 481 BCE as the year some writers give (Legge). For the owner: "age c. 39–40" sits uneasily with the *Shiji*'s early death. |
+| `cnh-829` Zilu | 6 | 6 → 8 | **protected line kept**; the *Shiji* 67 (Kanseki), Legge's *Analects*, *Zuo Zhuan* and *Li Ki*, Mayers, the SEP and IEP, Chen Lisheng; the questions' "9 years younger" and "480 BCE" out; the gate story corrected (he went in behind a messenger). For the owner: Mayers gives 543 BCE for the birth, Legge 479 BCE for the death. |
+| `cnh-830` shu (reciprocity) | 5 | 6 → 5 | line empty and `undatable` (kept); Legge 1893, the *Mengzi* (Kanseki), Csikszentmihalyi and Wong (SEP), Richey (IEP); the competing translations; "three passages" (not in the SEP) dropped; the third question moved off `cnh-853`. |
+
+Read by eye. **Confusability**: the rubber boom `cnh-821`'s, the Ma brothers `cnh-822`'s, the mule trains `cnh-823`'s, the Wunijing shrine `cnh-824`'s, the ghost acres
+`cnh-825`'s, Yuan Gu and the pig `cnh-826`'s, the gold at the market gate `cnh-827`'s, the mean lane `cnh-828`'s, the cap strings `cnh-829`'s, Zigong's one word `cnh-830`'s.
+**Legend (register)**: Huang Daopo **corrected** — Tao Zongyi's *Chuogeng lu* (1366) says only that she came from Yazhou "early in the dynasty", naming no Li and no
+year; the late 13th century is inferred from an early Ming collection; the shrine is Tao's own (built at her death, rebuilt, fallen again); the child bride's flight a
+modern tale. The disciples' stories confirmed (`cnh-828`, `cnh-829`). **Chinese names**: pinyin `cnh-821`, `cnh-825`; kept unconfirmed 扬州盐商. **Spellings**: no hit.
+**check-citations**: no mismatch. **Glossary**: all ten rewritten. **Three advisory `W.not-why`.** **Protected lines** (`cnh-824`, `cnh-828`, `cnh-829`): unchanged.
+
+### B84 — `cnh-831`–`cnh-840`, Chinese philosophy: the Liji to Cook Ding (2026-11-19)
+
+Run as B81. Every cited URL answered (87 citations, 46 distinct). **Pictures were not touched.** **The old cards cited Chinese Wikisource some forty times
+(the *Shiji*, *Hou Hanshu*, *Mingshi*, the *Mengzi*, *Xunzi*, *Zhuangzi*, *Laozi* and its commentaries, the *Liji*), a Digital Library of India scan and a
+Gutenberg Legge; dated a text by a man ("Named in Shiji") and carried a reign span as a date (`cnh-832`'s "1312 – 1320").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-831` Liji | 7 | 7 → 7 | **`Edited c. 100 BCE – 200 CE` → `Compiled c. 200 BCE – 200 CE`**; five Wikisource pages and an unread paywalled paper replaced by Legge's *Li Ki*, the *Hou Hanshu* (Kanseki), Eno, the SEP, Brill, Cambridge and a Spanish article [in Spanish]; the two Dais' cutting (214 → 85 → 46, Ma Rong's three) told as Legge's account, set against the *Hou Hanshu*'s Qiao Ren with 49 sections before Ma Rong. |
+| `cnh-832` Zhongyong | 6 | 6 → 6 | **"Named in Shiji c. 100 BCE" (a text in a label) and "Exam textbook 1312 – 1320" (Legge's reign span) → `Composed c. 300 – 200 BCE` / `Attested c. 100 BCE` / `Exam decree 1313`** (Mailla [in French] prints the year in which he records the examinations' establishment; the *Yuanshi* gives Huangqing 2, not converted; with `cnh-491`); "exams ended 1908" → 1905. Register confirmed (Zisi). |
+| `cnh-833` Wenmiao | 5 | 5 → 6 | **"Han sacrifice 85", "Tang decree 630", "Reform 1530" → `Imperial rite 195 BCE` / `Made sole sage 628 CE` / `Images removed 1530`** (Legge); five Wikisource pages and a Gutenberg Legge replaced by Legge 1893, the *Mingshi* 50 (Kanseki), Murray, Huang, the SEP; 1382 (a reign year no page converts) dropped. |
+| `cnh-834` Four Beginnings | 6 | 6 → 6 | line empty (kept); five Wikisource sources replaced by the *Mengzi* 2A.6 (Kanseki), Legge 1895, the IEP, the SEP's Xunzi and Korean Confucianism entries. `check-cards` reads Ki Taesŭng (the 16th-century Korean Confucian) in a question as a modern scholar (the known false positive). Pinyin lower-cased, sìduān. |
+| `cnh-835` Discourse on Heaven | 5 | 5 → 5 | **empty → `Written c. 300 – 200 BCE`**; Wikisource and a DLI scan replaced by the *Xunzi* 17 on zggdwx, Goldin (SEP), Elstein (IEP), Rogacz, Wong (SEP); the *Shiji* omen claim and a chapter numeral in a question dropped. |
+| `cnh-836` Gaozi | 5 | 6 → 5 | **protected line kept**; the *Mengzi* 6A on zggdwx, Legge 1875, the IEP, the SEP twice; the personal name Buhai is Zhao Qi's, not Zhu Xi's. For the owner: c. 420 – 350 BCE on no scholarly page. |
+| `cnh-837` Hangu Pass | 5 | 5 → 6 | line empty (kept); the *Shiji* 63 with the *Jijie* (Kanseki), Mayers, Legge, the SEP, the IEP, a V&A object record; **the *Shiji* names no gate (至關), Hangu the later name** (register confirmed); the *Liexian zhuan*'s vapour through the *Jijie*'s quotation; Xiang Yu dropped (a second Chinese text). |
+| `cnh-838` Guodian Chu Slips | 5 | 5 → 5 | **`Excavated 1993` added**; all three questions rewritten (one carried 1993, one "about 300 BCE"); Kirkland, the SEP, Huang and Cheng, the IEP, the *Shiji* 63. |
+| `cnh-839` Heshang Gong | 5 | 5 → 5 | **protected line kept**; Wikisource and Shidian pages replaced (one Chinese, one French); the flight legend told from the preface ascribed to Ge Xuan (the *Shenxian zhuan* version on no saved page); the date dispute (Western Han to the 6th century) and Liu Zhiji's attack. For the owner: Emperor Wen's accession 179 (the SEP) or 180 (Chen Xia). `check-citations` reads "Chen Xia" against Crossref's "Xia Chen" (name order; the same author). |
+| `cnh-840` Cook Ding | 6 | 6 → 6 | **protected line kept**; two Wikisource pages replaced by the Kanseki chapter with Guo Xiang's and Cheng Xuanying's commentaries; the cook the book's invention; Guo Xiang's edition named. |
+
+Read by eye. **Confusability**: the Dais' cutting `cnh-831`'s, the axle length `cnh-832`'s, the sole sage `cnh-833`'s, the child at the well `cnh-834`'s, the rain
+without prayers `cnh-835`'s, the willow `cnh-836`'s, the bronze on an ox `cnh-837`'s, "the Great One generates water" `cnh-838`'s, the old man by the river `cnh-839`'s, the
+unworn blade `cnh-840`'s. **Legend (register)**: Laozi's journey west confirmed (the *Shiji* names no gate); Heshang Gong confirmed in part (the preface ascribed to Ge
+Xuan; the *Shenxian zhuan* not read); Zisi and the *Zhongyong* confirmed; the *Zhuangzi*'s parables confirmed for Cook Ding. **Chinese names**: pinyin `cnh-834`.
+**Spellings**: no hit. **check-citations**: one false mismatch (`cnh-839`). **Glossary**: all ten rewritten. **Three advisory `W.not-why`.** **Protected lines**
+(`cnh-836`, `cnh-839`, `cnh-840`): unchanged.
+
+### B85 — `cnh-841`–`cnh-850`, Chinese philosophy: the Liezi to Zou Yan (2026-11-19)
+
+Run as B81. Every cited URL answered (90 citations, 48 distinct). **Pictures were not touched.** **The old cards cited Chinese Wikisource some
+forty-five times (the *Shiji*, *Hanshu*, the *Mozi*, *Han Feizi*, *Zhuangzi*, *Liezi*, the *Changes* and its apocrypha, the *Chunqiu fanlu*); dated texts by
+their authors' lives or deaths ("Master lived", "Editor died", "Han Fei died") and carried a setting as a date ("Setting 403 – 221 BCE").** Six of the ten
+are protected (`cnh-843`, `844`, `845`, `847`, `850`; and `cnh-849`'s empty line kept).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-841` Liezi | 6 | 6 → 7 | **"Master lived c. 500 – 300 BCE" (the author's life) and "Extant text 265 – 316 CE" (the Western Jin, against the sources) → `Received text c. 370 CE`** (Zhang Zhan's edition, the IEP; Lesain puts him c. 327 – 397); four Wikisource texts replaced; the tag "western jin" → "jin dynasty". Register confirmed. |
+| `cnh-842` Qiwulun | 6 | 6 → 6 | **"Editor died 312 CE" (a man) and "Setting 403 – 221 BCE" → `Dated c. 400 – 300 BCE`**, the doubt over authorship stated; two Wikisource texts and Giles (a third copy of the text) dropped. `check-citations` reads "Chen Guying" against Crossref's "Guying Chen" (name order). |
+| `cnh-843` Mozi | 7 | 8 → 7 | **protected line kept**; six Wikisource pages replaced by the *Shiji* 74 with the *Jijie* (Kanseki), Legge twice, the SEP twice, the IEP, a Brill volume; 470, 430 and 391 said as estimates. For the owner: no saved page prints those years. |
+| `cnh-844` Gongshu Ban | 5 | 6 → 6 | **protected line kept**; the *Mozi* "Gongshu" on zggdwx, Legge's *Mencius* note, Mayers, Ruitenbeek's *Lu Ban jing*; 507 and 444 as later reckonings (on no page; for the owner). Name 公输般 kept (the *Mozi* writes 公输盘). Register confirmed. |
+| `cnh-845` Shen Buhai | 6 | 6 → 6 | **protected line kept**; six Wikisource pages replaced by Giles, Chavannes [in French] (351 and 337 BCE), the *Han Feizi* "Ding fa" (Kanseki), Pines (SEP), the IEP, Schlager; **"17 years of technique" → seventy** (the text reads 七十年). For the owner: no page gives a birth year (c. 400 BCE called an estimate). |
+| `cnh-846` Two Handles | 5 | 6 → 5 | **"Han Fei died 233 BCE" (a man; the idea dated by its author's death) → `Completed c. 230 BCE`** (Schlager on the book), 233 in prose; Wikisource gone. `check-cards` reads the italic *Han Feizi* in a question as a scholar (a book; false positive). **Pinyin Èr bǐng → Èrbǐng.** |
+| `cnh-847` Hui Shi | 5 | 5 → 6 | **protected line kept**; five Wikisource texts replaced by Fraser (SEP) and its supplement, the *Zhuangzi* 33 on zggdwx, Giles 1889, Hu Shih 1922, the IEP; the law-code story softened; the stonemason of Ying. For the owner: c. 370 and c. 310 BCE on no page (380 – 305, 380 – 300 and active 313 found). |
+| `cnh-848` He Tu and Luo Shu | 5 | 6 → 6 | line empty (kept); all six Wikisource sources replaced by Legge twice, the *Hanshu* 27A (Kanseki), Shin, Mayers, Miura [in Japanese]; the Liu Mu, Zhu Xi and Zhang Yuchu claims (no open page) dropped. **Traditional form in the simplified field → 河图洛书.** Register corrected. |
+| `cnh-849` Wu Xing | 6 | 6 → 7 | line empty (kept; no page dates the first attestations); five Wikisource pages and their *Chunqiu fanlu* claims gone; the Great Plan in Legge's wording, of disputed date; the First Emperor's water rule from Chavannes [in French]. Pinyin lower-cased, wǔxíng (`Z.reading?` reads the polyphone háng). |
+| `cnh-850` Zou Yan | 5 | 5 → 6 | **protected line kept**; Wikisource gone, the *Shiji* 74 (Kanseki); the *Hanshu* chapter counts and the misread titles dropped. **Name → 邹衍 / 鄒衍.** For the owner: the *Shiji* has a king of Liang greet him, a reign that ended before the line's 305 BCE. |
+
+Read by eye. **Confusability**: the wind-rider `cnh-841`'s, the eels and monkeys `cnh-842`'s, the stonemason `cnh-847`'s, the hat and robe keepers `cnh-846`'s (kept out of
+`cnh-845`'s questions), the magic square `cnh-848`'s, the water rule `cnh-849`'s, the Red Region `cnh-850`'s. **Legend (register)**: the *Liezi*'s age confirmed; Gongshu Ban
+and Mozi at Chu confirmed; the *Zhuangzi*'s parables confirmed for the "Qiwulun"; He Tu and Luo Shu corrected (below). **Chinese names**: `cnh-848` 河图洛书, `cnh-850`
+邹衍; pinyin `cnh-846`, `cnh-849`. **Spellings**: no hit. **check-citations**: one false mismatch (`cnh-842`). **Glossary**: all ten rewritten. **One advisory `W.not-why`.**
+**Protected lines**: unchanged.
+
+### B86 — `cnh-851`–`cnh-860`, Chinese philosophy: the Ten Wings to Cheng Yi (2026-11-19)
+
+Run as B81. Every cited URL answered (93 citations, 46 distinct). **Pictures were not touched.** **The old cards cited Chinese Wikisource some forty times (the
+*Hanshu*, *Hou Hanshu*, *Sanguozhi*, *Sui shu*, *Songshi*, the *Changes*, Li Ao's and Zhou Dunyi's works) and a Digital Library of India scan; dated a text by its
+author's life ("Author lived 1017 – 1073") and by a man's preface ("Zhu Xi's preface 1189", on no page).** Five of the ten are protected.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-851` Ten Wings | 5 | 6 → 5 | **`Mawangdui copy c. 175 BCE` → `Written c. 500 – 100 BCE` / `Earliest copy c. 175 BCE`**; five Wikisource sources replaced by Lu Deming (Kanseki), Legge 1882, the SEP and its appendix, Shaughnessy; the 1993 Mawangdui edition was incomplete, not "in full"; Ouyang Xiu and Kong Yingda (no allowed host) dropped. |
+| `cnh-852` Xiping Stone Classics | 5 | 5 → 5 | **"To Chang'an 586 CE" (the *Sui shu* only) off: `Ordered 175 CE` / `Carved c. 175 – 183 CE`**; Wikisource replaced, Kenmochi [in Japanese]; "wrote in red" dropped (the Siku text reads 冊, not 丹). Locator: modern Luoyang, not the site. |
+| `cnh-853` Great Learning | 7 | 7 → 7 | **"Zhu Xi's preface 1189" (a man; on no page) → `Composed c. 300 – 200 BCE` / `Exam decree 1313`** (with `cnh-832`); Wikisource and the DLI scan replaced by Eno, Legge 1893, the SEP twice, the IEP, the *Yuanshi* (Kanseki), Mailla; "until 1908" → abolished 1905. Register confirmed (Zengzi). |
+| `cnh-854` White Tiger Discussions | 5 | 5 → 5 | line kept (`Held 79 CE`); five Wikisource pages replaced by the *Hou Hanshu* (Kanseki), Jian (*Early China*, 2022), the SEP twice, Wylie; the three bonds (no allowed source) dropped; 79 CE out of the questions. Name 白虎通 kept (the record's title; 白虎觀會議 the event's modern name — for the owner). `check-cards` reads Wei Ying (the Han official) as a modern scholar (false positive). |
+| `cnh-855` Liu Xin | 6 | 6 → 8 | **protected line kept**; five Wikisource sources cut to the *Hanshu* 36 (Kanseki), Mayers, Giles, Wylie, Zhang, Isaiéva [in French], Fan, the IEP; the scroll counts and the *Zizhi tongjian* dropped. For the owner: 46 BCE and the 7 – 1 BCE row on no page. |
+| `cnh-856` Wang Bi | 6 | 6 → 6 | **protected line kept**; the *Sanguozhi* 28 (Kanseki), the SEP, the IEP, Mayers, Jin, Shin; the Sui catalogue and Tang edict dropped; his age at death the SEP's 23. For the owner: the "Shandong" sub-row is unsourced. |
+| `cnh-857` Li Ao | 5 | 6 → 5 | **protected line kept**; the *Fuxing shu* (Kanseki) and Kotobank [in Japanese], which prints 772, 798 and 841; the History Office memorial and the 12,000 strings dropped; **the glossary's portrait of the modern Taiwanese writer Li Ao removed**. For the owner: the IEP gives c. 772 – 836. |
+| `cnh-858` Zhang Zai | 6 | 6 → 7 | **protected line kept**; the *Songshi* (Kanseki), Zuo, the IEP, Kotobank; **pinyin Zhāng Zǎi → Zhāng Zài** (`Z.reading?` reads the polyphone). For the owner: his death (Xining 10.12.29) falls in early 1078. |
+| `cnh-859` Taijitu shuo | 5 | 6 → 6 | **"Author lived 1017 – 1073" → `Written c. 1000 – 1100` / `Edited 1169` / `Anthologised 1175`**; four Wikisource citations replaced; **the old variant claim was backwards** — the *Songshi* and the collected works both read 無極而太極, and Zhu Xi complained that the court historians had added 自…為; Chen Tuan's diagram lineage and Zhu Xi's rejection of it. |
+| `cnh-860` Cheng Yi | 6 | 6 → 6 | **protected line kept**; Wikisource and the unsourced *Er Cheng yishu* claims dropped, the *Songshi* (Kanseki). For the owner: the *Songshi*'s 75 sui against "age 73–74". |
+
+Read by eye. **Confusability**: the seven writings in ten sections `cnh-851`'s, the thousand carriages `cnh-852`'s, the first of the Four Books `cnh-853`'s, the Shiqu
+precedent `cnh-854`'s, the Qilue `cnh-855`'s, Pei Hui's question `cnh-856`'s, the altered first line `cnh-859`'s (the Zhu Xi questions of `cnh-851`, `cnh-853`, `cnh-859` and
+`cnh-863` kept on different angles). **Legend (register)**: Zisi and Zengzi confirmed (`cnh-853`); Confucius and the Ten Wings told as tradition (`cnh-851`; Ouyang Xiu's
+doubt on no page read). **Chinese names**: pinyin `cnh-858`. **Spellings**: no hit. **check-citations**: no mismatch. **Glossary**: all ten rewritten. **Protected lines**:
+unchanged.
+
+### B87 — `cnh-861`–`cnh-870`, Chinese philosophy and religion and ritual: Wang Fuzhi to Dongyue Dadi (2026-11-19)
+
+Run as B81. Every cited URL answered (93 citations, 52 distinct). **Pictures were not touched.** **The old cards cited Chinese Wikisource some forty times (the
+*Songshi*, *Mingshi*, *Qingshi gao*, Meng Yuanlao, the *Fengshen yanyi*, the Wenchang tracts), Digital Library of India uploads of Fung Yu-lan and Hummel and an
+in-copyright Chan upload; one old source was mislabelled (`cnh-861`'s, the unsigned Gale *Encyclopedia of World Biography* entry); labels named men ("Zhang's
+lecture", "Ding's reply") and a lunar month ("Edict 6th month 1898").** Five of the ten are protected.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-861` Wang Fuzhi | 6 | 6 → 6 | **protected line kept**; the *Qingshi gao* 480 on zggdwx, four SEP entries; 1679 and 1863 (no page prints them) dropped. For the owner: the death day and place on no page. |
+| `cnh-862` Lu Jiuyuan | 6 | 6 → 7 | **protected line kept**; Wikisource, the DLI Fung Yu-lan and the in-copyright Chan upload removed; the *Songshi* 434 (Kanseki), the SEP, the IEP, Ching 1974 (for 1175), the REP; 1172, "the universe is my mind" and the Goose Lake poem dropped. For the owner: the glossary picture's credit names no author. |
+| `cnh-863` investigation of things | 6 | 6 → 6 | line empty (kept); rebuilt on Zhu Xi's *Daxue zhangju* (Kanseki), Legge 1861, the SEP twice, the IEP, Shino; the 72 explanations and others' readings (no reachable page) dropped; all three questions new (the old ones repeated `cnh-853` and `cnh-862`). **Pinyin Géwù → géwù.** |
+| `cnh-864` Yan Ruoqu | 5 | 5 → 6 | **protected line kept**; none of the five old sources allowed (four Wikisource, Hummel via DLI); the *Shuzheng* juan 2 (Kanseki), Legge 1865, Giles, Itō, Shino, Yao; Huai'an, the 1679 examination and the 1745 printing dropped; the three men he blamed and Mao Qiling's reply. For the owner: the Taiyuan birthplace (some accounts say Huai'an). |
+| `cnh-865` Huang Zongxi | 6 | 6 → 7 | **protected line kept**; all six old sources barred; three SEP entries, Zong, Giles, the *Qingshi gao* 480 [in Chinese], Kotobank [in Japanese]; the questions' decade and year out. For the owner: 1662 on no page (Kotobank gives 1663 alone). `check-cards` reads "Ming Confucian" as a scholar (false positive). |
+| `cnh-866` Quanxue pian | 5 | 5 → 6 | **"Written 1898" / "Edict 6th month 1898" (a lunar month) → `Published 1898`**; Woodbridge 1900 kept; the 24-chapter split (on no open page) dropped. |
+| `cnh-867` Science and Metaphysics debate | 5 | 5 → 6 | **"Zhang's lecture", "Ding's reply 15 and 22 April 1923" (men; the replies Wikisource-only) → `Lecture 14 February 1923` / `Anthology December 1923`**; Nelson, the IEP, Vrhovski, Gao and Isozaki [in Japanese], Peng, Ciaudo. The draft's "Enlarged ed. February 1924" and its timeline change were dropped before the apply (an edition, not the debate; the 1924 edition stays in prose); the timeline stays 14 February – December 1923. |
+| `cnh-868` Wenchang Wang | 5 | 5 → 5 | **"Middle rank 1856" (unsourced) off; `Cult formed c. 1100 – 1200` added** before `Made thearch 1316` / `Struck off 1370` / `Restored 1801`; four Wikisource pages replaced by the *Mingshi* (Kanseki), the 1906 *Yinzhi wen* translation, two Cleveland pages; Burton-Rose kept; the Jiaqing temple story dropped. For the owner: the answer is Wikipedia's title; Wenchang Dijun the god's usual name. |
+| `cnh-869` Qingming Festival | 7 | 7 → 8 | **"Solar term 15 days after the equinox" (not a date) / "Public holiday from 1 January 2008" → `Described 1147` / `Public holiday 2008`**; seven Wikisource citations cut to Meng Yuanlao on the Kanseki text; Xuanzong's Cold Food edicts and the *Huainanzi* dropped; Jie Zitui's death a late legend (register agrees). |
+| `cnh-870` Dongyue Dadi | 5 | 6 → 5 | **"Made prince 725 CE" → `Made king 725 CE`** (Chavannes), with `Title extended 1008` / `Title lengthened 1291` / `Titles removed 1370`; Wikisource replaced by Chavannes 1910 and the *Fengshen yanyi*; the year of the move to emperor (illegible in Chavannes's OCR) not given. |
+
+Read by eye. **Confusability**: Wu Sangui's memorial `cnh-861`'s, the footnotes to himself `cnh-862`'s, "reach" and "rectify" `cnh-863`'s, the blank headings `cnh-864`'s, the
+ruler as guest `cnh-865`'s, Japan, Turkey, Siam and Cuba `cnh-866`'s, the camps' labels `cnh-867`'s, the seventeen rebirths `cnh-868`'s, the paper towers `cnh-869`'s, the Wuhuan
+notice `cnh-870`'s. **Legend (register)**: Wenchang and Zhang Yazi confirmed (the *Book of Transformations*' 1181 not confirmed); Mount Tai and the dead confirmed (725 a
+king's title); Jie Zitui agrees. **Chinese names**: pinyin `cnh-863`. **Spellings**: no hit. **check-citations**: no mismatch. **Glossary**: all ten rewritten. **Protected
+lines**: unchanged.
+
+### B88 — `cnh-871`–`cnh-880`, religion and ritual: the City God to the White Cloud Temple (2026-11-19)
+
+Run as B81. Every cited URL answered (91 citations, 52 distinct). **Pictures were not touched.** **The old cards cited Chinese Wikisource some fifty times (the
+*Shiji*, *Hanshu*, *Hou Hanshu*, *Jiu Tangshu*, *Songshi*, *Yuanshi*, *Mingshi*, the *Baopuzi*, the *Daozang* catalogues), Needham and Davis 1934 uploads (in copyright),
+an unfetchable Springer chapter and MDPI; carried men and places in labels ("Qin account", "Wu of Han", "Guangwu", "Wu Zetian", "Han Wu hall", "Song rite", "Palace
+named"), an "after" value and regnal conversions of their own (1280, 687 – 688).** One of the ten is protected (`cnh-877`).
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-871` City God | 6 | 6 → 6 | **"Rain pact 759 CE" and "Capital rite 1651" (no citable page prints them) off: `Dated c. 479 – 557 CE` / `Also dated c. 220 – 589 CE` / `Titles granted 1369` / `Titles removed 1370`** (Zou and Yang); all six Wikisource citations replaced by Zou and Yang, the *Mingshi* 49 (Kanseki), Couling, Doolittle, Kojima [in Japanese], Yan and Wei. Register corrected. |
+| `cnh-872` luopan | 6 | 6 → 6 | **"Points fixed c. 713 – 741 CE" (Needham's upload) → `Needle attested c. 1000 – 1100`; "Pilots' needle" → `Deviation noted 1111 – 1117`**; de Groot, Klaproth [in French], Wylie, Watanabe [in Japanese], two Science Museum Group records; the three-rings tradition dropped with Needham. Pinyin lower-cased, luópán. |
+| `cnh-873` Chinese almanac | 6 | 6 → 6 | **"Dunhuang print" (a place) → `Dated copy 877 CE`; "Revised 1739 – 1741" (1739 only a regnal year) → `Guide printed 1683` / `Revised 1741`**; four Wikisource sources replaced by Whitfield, Foster, Harkness, Doolittle, Wylie, the *Xieji bianfang shu* (Kanseki); all three phrasings new. Pinyin lower-cased, tōngshū. |
+| `cnh-874` Fengshan | 6 | 6 → 6 | **"Qin account 219 BCE", "Wu of Han 110 BCE", "Guangwu 56 CE", "Song rite 1008 CE" (men in labels) → `First certain 110 BCE` / `Last held 1008`** (the lead's label: the *Shiji*'s 219 BCE for the First Emperor is told in prose against his silent inscription); Chavannes [in French], Couling, the Taipei National Palace Museum [in Chinese], Kasamatsu [in Japanese], Legge, Lee [in Korean]. Register confirmed. Pinyin lower-cased, fēngshàn. |
+| `cnh-875` Mingtang | 5 | 6 → 6 | **"Han Wu hall after 110 BCE" (an "after" value, a man), "Guangwu 56 CE", "Wu Zetian 687 – 688 CE" (on no page) → `Rites held 106 BCE` / `Built 688 CE` / `Rebuilt 696 CE` / `Cut down 737 CE`**; all six Wikisource citations replaced by Legge's *Li Ki* and *Mencius*, Chavannes [in French], Zhang, Minamizawa, Skrypnik [in Russian] (whose 689 and 695 are told in prose). `L.missing`: a building with no locator (locators paused). |
+| `cnh-876` Lingbao | 6 | 6 → 6 | `Released c. 400 CE` / `Catalogued 437 CE`, **`Canon listed 471 CE` added**; Wikisource replaced by four *Encyclopedia of Taoism* entries, Bokenkamp, the *Zhen'gao* [in Chinese]. Register corrected (Ge Xuan "an uncle" of Ge Hong). |
+| `cnh-877` Zhang Daoling | 6 | 6 → 6 | **protected line kept**; five Wikisource sources gone; the Pure Bond, the 173 CE stele and the line's ages told; Emperor Shun, Kou Qianzhi's purge, 1276 and 1368 dropped. Register confirmed. For the owner: Mount Qingcheng on no saved page (Giles and Mayers say Mount Longhu); Mayers gives age 123. |
+| `cnh-878` Baopuzi | 6 | 6 → 8 | **empty → `Written c. 320 CE`**; four Wikisource sources, an unfetchable Springer chapter and Davis's 1934 upload replaced; "never compounded" told as the *Baopuzi*'s own words. **Traditional 抱樸子 → 抱朴子** (the *Daozang* text's form; OpenCC holds 朴 the same in both scripts — the lead first kept 抱樸子, which `Z.trad` flagged, and re-applied the draft's form). |
+| `cnh-879` Daozang | 6 | 6 → 6 | **"Song canon 1119" / "Ming canon 1445" → `First canon c. 740 CE` / `First printed 1119` / `Burned 1281` / `Completed 1445`**; three Wikisource sources, Ge Hong's list, the *Sui shu* count and the converted 1280 dropped; the *Yuanshi* 11 (Kanseki), Pregadio's SEP, the IEP; "Kublai" (the house form) in the glossary. `check-cards` reads the Zhengtong Emperor as a scholar (false positive). |
+| `cnh-880` White Cloud Temple | 6 | 6 → 6 | **"Palace named 1227 CE" (another building) → `Founded 1228`** (the preface dated 1228), `Canon reprinted 1923 – 1926` kept; four Wikisource sources replaced by Bretschneider, Bredon, the *Jiaqing yitong zhi*, the SEP. Locator: a modern district, not the abbey. |
+
+Read by eye. **Confusability**: the wall and dry moat `cnh-871`'s, the net of rings `cnh-872`'s, the East Market copy `cnh-873`'s, Guangwu's refusal `cnh-874`'s, the
+Kunlun passage `cnh-875`'s, the Master of Ritual `cnh-876`'s, the rice bandits `cnh-877`'s, cinnabar and quicksilver `cnh-878`'s, the 70,000 woodblocks `cnh-879`'s, Qiu
+Chuji's birthday crowds `cnh-880`'s. **Legend (register)**: the City God's first temples corrected; the Fengshan confirmed; Zhang Daoling's revelation confirmed; Ge Xuan
+and Lingbao corrected (below). **Chinese names**: `cnh-878` 抱朴子; pinyin `cnh-872`, `cnh-873`, `cnh-874`. **Spellings**: no hit. **check-citations**: no mismatch.
+**Glossary**: all ten rewritten. **Protected line** (`cnh-877`): unchanged.
+
+### B89 — `cnh-881`–`cnh-890`, religion and ritual: Wang Zhe to the Platform Sutra (2026-11-19)
+
+Run as B81. Every cited URL answered (90 citations, 55 distinct). **Pictures were not touched.** **The old cards cited Chinese Wikisource some fifty times (the
+*Hou Hanshu*, *Jinshu*, the *Gaoseng zhuan* and its sequels, the *Ganshui xianyuan lu*, the Dunhuang *Platform Sutra*), an unauthorised copy of a paywalled article and
+an unlicensed terebess copy; nine of the ten are protected.** The apply stopped once, on `cnh-883`'s glossary draft (it cited a footnote 3 it did not carry); the
+footnote was dropped and the apply re-run from `cnh-883`, then verified field by field.
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-881` Wang Zhe | 6 | 6 → 6 | **protected line kept**; five Wikisource sources replaced by the *Ganshui xianyuan lu* juan 1 (the Jin stele, Kanseki), Goossaert, Pregadio twice, Marsone [in French], Bretschneider; the Genghis anecdote dropped. Name 王嚞 (the stele writes 喆). Register confirmed. For the owner: the glossary portrait carries a faint watermark. |
+| `cnh-882` Liu Ying | 5 | 5 → 6 | **protected line kept**; the *Hou Hanshu* 72 (Kanseki), Hatani [in Japanese], Maspero [in French], the SEP twice, EBSCO; the edict of 65 CE told from the *Hou Hanshu*. For the owner: 70 and 71 CE are computed from Hatani's printed start of the reign, not printed. |
+| `cnh-883` An Shigao | 6 | 6 → 6 | **protected line kept**; five Wikisource pages replaced by the *Gaoseng zhuan* 1 (Kanseki), Zacchetti twice, Harrison, Nanjio, Universalis [in French]; 146 and 148 out of the questions; the Kongoji scrolls of 1999 and the late catalogue's 176 titles. |
+| `cnh-884` Dharmaraksa | 5 | 5 → 6 | **protected line kept**; the *Gaoseng zhuan* 1, Boucher, Murano [in Japanese] (prints 286), Nanjio, Universalis; Felbur kept; the line's 233 and 310 in the background; the colophons (a second Chinese text) dropped. |
+| `cnh-885` Kumarajiva | 6 | 6 → 6 | **protected line kept**; four Wikisource texts and an unauthorised copy of a paywalled article replaced by Felbur, the *Gaoseng zhuan* (CBETA), the IEP, Peng and Sun, Lee, Giles; the draft's own conversion of Hongshi 11 dropped, the 409 / 413 dispute Felbur's, the arrival early 402. Register confirmed. For the owner: "age c. 67" against the line's dates (65 or 69). |
+| `cnh-886` Daoxuan | 5 | 5 → 7 | **protected line kept**; Zanning (CBETA), Landry, Zhao, Newhall, Ōtani [in Japanese], Sokolova and Heirman, Nicol; the 869 conversion and "220 scrolls" dropped. For the owner: Chang'an as birthplace (Zanning gives Dantu or Changcheng). |
+| `cnh-887` Zhiyi | 6 | 6 → 7 | **protected line kept**; six Wikisource pages replaced by the SEP, Swanson (Persée), two *Hualin* articles, Giles, Couling, the *Xu gaoseng zhuan* 17 (Kanseki); 591, 594, 598 and 605 (no page prints them) dropped; the founder debate. For the owner: "3 August 597" (both early biographies give Kaihuang 17, 11th month; the modern sources 598). |
+| `cnh-888` Fazang | 5 | 5 → 5 | **protected line kept**; the SEP, the IEP, the REP, Chen's Brill book, the *Song gaoseng zhuan* 5; the old claim that he passed the teaching straight to Chengguan corrected; 670 and 699 dropped. |
+| `cnh-889` Huiyuan | 6 | 6 → 6 | **protected line kept**; six Wikisource sources replaced by Mochizuki and Pruden, Jones, Wang Bangwei, the IEP, the *Gaoseng zhuan* (Kanseki), Edkins; the age 83 dropped. **Traditional in the simplified field → 慧远.** Register confirmed. `check-citations` reads "Wang Bangwei" against "Bangwei Wang" (name order). |
+| `cnh-890` Platform Sutra | 7 | 7 → 7 | **"Dunhuang text", "Huixin edition", "Zongbao edition" (a place, men) → `Earliest text c. 780 CE` / `Revised 967 CE` / `Standard text 1291`**; the terebess copy and Wikisource replaced by Schlütter, the IEP, the SEP, two reviews, the Dunhuang text (Kanseki), Edkins. Register confirmed. |
+
+Read by eye. **Confusability**: the felt-cloaked men `cnh-881`'s, the silk for ransom `cnh-882`'s, the Kongoji scrolls `cnh-883`'s, the Dunhuang Bodhisattva `cnh-884`'s,
+the Xiaoyao Garden pyre `cnh-885`'s, the protectors of the Dharma `cnh-886`'s, the Wise One `cnh-887`'s, the golden lion `cnh-888`'s, the Tiger Creek `cnh-889`'s, the mirror
+stand `cnh-890`'s. **Legend (register)**: Wang Zhe and the immortals, Kumarajiva's tongue, Huiyuan's vow and Huineng's verse contest confirmed (below); Emperor Ming's
+dream: the edict of 65 CE confirmed from the *Hou Hanshu* (`cnh-882`). **Chinese names**: `cnh-889` 慧远. **Spellings**: no hit. **check-citations**: one false mismatch.
+**Glossary**: all ten rewritten. **Protected lines**: unchanged.
+
+### B90 — `cnh-891`–`cnh-900`, religion and ritual: Baizhang Huaihai to the Eternal Venerable Mother (2026-11-19)
+
+Run as B81. 88 citations, 59 distinct: every one answered but two — `cnh-895`'s Oxford chapter (its DOI resolves; academic.oup.com answers 403 to curl; the abstract
+saved by the agent; kept) and `cnh-898`'s *Asian Studies* article, which answered 503 at the batch's curl and 200 a minute later. **Pictures were not touched.** **The
+old cards cited Chinese Wikisource some thirty-five times (the *Wei shu*, *Jiu Tangshu*, the *Song gaoseng zhuan*, the stele text, the precious scrolls), Moule 1930,
+an in-copyright 1985 translation, UNESCO and MDPI; dated a goddess by a man's life ("Luo Qing lived 1442 – 1527"), a stone by the events it tells ("Aluoben arrives
+635", "Edict 638"), a sutra by a dynasty's founding ("Zhou founded 690") and a temple by a legend ("Temple legend 68 CE").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-891` Baizhang Huaihai | 5 | 5 → 5 | **protected line kept**; four Wikisource sources gone, Zanning (Kanseki); Poceski kept, Ogawa [in Japanese], a Korean study [in Korean], Edkins; Mount Baizhang placed in Xinwu (Zanning), not Hongzhou; Changle, the ordinations and the age 66 dropped. Register confirmed. For the owner: Birth 720 only by counting back Zanning's age of 95; Poceski and Ogawa print 749 – 814. |
+| `cnh-892` Dazu Rock Carvings | 6 | 6 → 6 | **"Beishan begun 892", "Baodingshan 1174 – 1252" (places) → `Earliest c. 650 CE` / `Main phase 892 – 1252 CE` / `Resumed 1078` / `World Heritage 1999`**; the MDPI source (403) replaced by Jia et al.; the years out of the questions; Beishan's end (1146 or 1162) told as disputed. |
+| `cnh-893` Mogao Caves | 7 | 7 → 9 | **"Tang peak", "Tibetan rule" (eras) off: `Traditional 366 CE` / `Oldest caves c. 420 – 429 CE` / `Dated cave 538 CE` / `World Heritage 1987`**; the 735 count and Moretti (a bot check) and Ma Shichang (walled) dropped; Kwon chipped [in Korean]. Register confirmed. Locator: Dunhuang town, not the caves. |
+| `cnh-894` Mount Wutai | 6 | 6 → 6 | **"Temple legend 68 CE" (on no saved page) and "Tang era" off: `Court envoys 661 – 662 CE` / `First record c. 679 – 684 CE`**; the old card's reign conversions, two Wikisource texts, UNESCO and MDPI dropped; Huixiang's *Gu Qingliang zhuan* (CBETA), Ito [in Japanese]. Register corrected. |
+| `cnh-895` Emperor Taiwu of Northern Wei | 5 | 5 → 7 | **protected line kept**; five Wikisource sources replaced by the *Wei shu* 114 (Kanseki), de Groot 1903, Pearce twice, Kotobank [in Japanese]; "buried alive" softened to "killed". Register confirmed in part. For the owner: the death day on the line is unverified. |
+| `cnh-896` Great Cloud Sutra | 6 | 5 → 5 | **"Zhou founded 690 CE" (another event) off: `Presented 690 CE`**; Wikisource replaced by the *Jiu Tangshu* 6 (Kanseki), Rothschild, Onishi [in Japanese], Girard [in French], Orbodoeva [in Russian]. Register confirmed. |
+| `cnh-897` Three teachings | 6 | 6 → 6 | line empty (kept); all six Wikisource sources replaced by Soothill, the IEP, the SEP twice, Fokin [in Russian], Liu Mi's text (Kanseki); the 827 and Gaozu debates and the *Mouzi* dropped; the tripod saying kept apart from Xiaozong's mind, body and world. `check-cards` reads Liu Mi (the Yuan writer) as a scholar (false positive). Pinyin lower-cased, sānjiào (the owner may prefer the capital). |
+| `cnh-898` Tianzhu shiyi | 5 | 5 → 6 | **"Drafted 1595 – 1596" → `Drafted 1596`; "Terms banned 1704" off; `Second edition 1607` added**; the in-copyright 1985 translation and Wikisource dropped, and with them the manuscript readers, the Sanhuai debate and the 22 August 1603 introduction. |
+| `cnh-899` Nestorian Stele | 6 | 6 → 6 | **"Aluoben arrives 635", "Edict 638" (events the stone tells) → `Found 1623` / `Also dated 1625` / `Moved 1907`** after `Erected 781 CE`; Wikisource and Moule 1930 replaced by Deeg, Xie, Zhu, Saeki, Legge, the *Jiu Tangshu* 18A (Kanseki); 635 and 638 in the background. Register corrected. |
+| `cnh-900` Eternal Venerable Mother | 5 | 5 → 5 | **"Luo Qing lived 1442 – 1527" (a man), "Formula recorded 1724", "Palace attack 1813" → `Attested 1629` / `Scripture 1652` / `Temples razed 1839`**; five Chinese sources cut to one (Pu), DuBois, Jones, de Groot twice. Register corrected. |
+
+Read by eye. **Confusability**: Xinwu's peak `cnh-891`'s, the herdsmen `cnh-892`'s, Yuan Rong's cave `cnh-893`'s, Huize's screen painting `cnh-894`'s, Gai Wu's monastery
+`cnh-895`'s, the goddess Pure Radiance `cnh-896`'s, the tripod `cnh-897`'s, Valignano's catechism `cnh-898`'s, the Syriac names `cnh-899`'s, Dipamkara and Shakyamuni sent for
+the lost children `cnh-900`'s. **Legend (register)**: Baizhang's rule, Lezun's first cave and the Great Cloud Sutra confirmed; Emperor Taiwu's persecution confirmed in part;
+Mount Wutai, Aluoben and the stele, and the Eternal Venerable Mother corrected (below). **Chinese names**: pinyin `cnh-897`. **Spellings**: no hit. **check-citations**: no
+mismatch. **Glossary**: all ten rewritten. **Protected lines** (`cnh-891`, `cnh-895`): unchanged.
+
+### The ninth hundred, in sum
+
+`cnh-801`–`cnh-900` (land, trade and money; Chinese philosophy; religion and ritual) are done: 582 sources became 612 and 96 glossary entries were rewritten.
+`cnh-audit.js --range=cnh-801:cnh-900` reads every card with nothing but a missing picture except these: 100 cards with no picture (pictures stayed paused), 10 advisory
+`W.not-why`, 1 `L.missing` (`cnh-875` the Mingtang, a building), and 7 `Z.reading?` that are polyphones read rightly (五行 wǔxíng, 張載 Zài, 封禪 shàn, 道藏 and 法藏 zàng,
+白雲觀 Guàn, 鳩摩羅什 shí). No `Q.sibling`. `check-cnh-spellings.js` reads no hit in the hundred's cards. Fifty agents worked two cards each, never more than ten at once; their clues went into a shared list as each draft came back. Each batch was applied alone,
+verified field by field against its drafts, diffed for the protected lines and committed with its docs. Four drafts were edited by the lead before the apply (`cnh-867`'s
+1924 row and timeline, `cnh-874`'s "First certain", `cnh-878`'s traditional form — then restored to the draft's — and `cnh-883`'s glossary footnote).
+
+What the hundred found, again and again:
+- **Chinese Wikisource for every classic.** Some four hundred citations of the *Shiji*, the standard histories, the Four Books, the *Mozi*, *Xunzi*, *Zhuangzi*, *Laozi*,
+  *Liezi* and *Han Feizi*, the Buddhist biographies, the Daoist canon and the precious scrolls — up to seven Chinese sources a card — and Fung Yu-lan, Chan Wing-tsit,
+  Needham, Hummel and Hucker through Digital Library of India or user uploads of books in copyright. The classics are now read on the Kanseki Repository's texts,
+  zggdwx.com or CBETA, one Chinese source a card; the philosophy through the Stanford and Internet Encyclopedias, Legge, Giles, Mayers, Couling, Chavannes and de Groot.
+- **Texts dated by their authors' lives.** "Author lived 1017 – 1073", "Master lived", "Editor died 312 CE", "Han Fei died 233 BCE", "Luo Qing lived 1442 – 1527": each
+  text, school or cult is now dated by its own making or first attestation ("Written c. 1000 – 1100", "Received text c. 370 CE", "Completed c. 230 BCE", "Attested 1629").
+- **Regnal years converted by the old cards.** 1020, 1371, 1382, 1387, 1472, 1578, 1645, 1739, 869, 1280 and the reign span 1312 – 1320: off wherever no page prints the
+  Western year, the source's own reckoning told in prose.
+- **Labels naming men, places and texts.** "Zhu Xi's preface", "Zhang's lecture", "Ding's reply", "Han Wu hall", "Wu Zetian", "Qin account", "Guangzhou office",
+  "Luoyang burnt", "Dunhuang print", "Huixin edition", "Named in Shiji", "Cao Shen in Qi": dates only now.
+- **Legend in the card's voice.** Laozi at the pass, Heshang Gong, the Ten Wings, Zisi and Zengzi, the dragon-horse and the tortoise, Zhang Daoling's revelation, Lezun's
+  vision, Mount Wutai's Han temple, Huineng's verse, Baizhang's rule and the Eternal Mother are now each what a named text tells, with its date.
+
+**The Chinese name.** Corrected: `cnh-848` 河图洛书 and `cnh-889` 慧远 (each the traditional form in the simplified field), `cnh-850` 邹衍, `cnh-878` 抱朴子; pinyin on
+`cnh-807`, `cnh-808`, `cnh-809`, `cnh-811`, `cnh-813`, `cnh-814` (Sùtèwén), `cnh-816`, `cnh-818`, `cnh-820`, `cnh-821`, `cnh-825`, `cnh-834`, `cnh-846`, `cnh-849`, `cnh-858`
+(Zài), `cnh-863`, `cnh-872`, `cnh-873`, `cnh-874`, `cnh-897`. Kept unconfirmed for want of a page printing the compound, for the owner: 郑国渠 (simplified), 戎克船,
+扬州盐商; `cnh-854`'s 白虎通 (the record's title; 白虎觀會議 the event's modern name) and `cnh-868`'s answer "Wenchang Wang" (Wenchang Dijun) for the owner. **Spellings**:
+eight rows added at the start; no variant was caught in the cards' own voice.
+
+**The myth register** gained thirty-one rows at the start (and three rows' mention columns); each was confirmed, corrected or left in part by the batch that drafted its
+card: corrected — Huang Daopo (Tao names no Li and no year), He Tu and Luo Shu (the diagrams made public under Huizong), the City God's first temples (759 on no citable
+page), Ge Xuan and Lingbao ("an uncle"), Mount Wutai (68 CE on no saved page), Aluoben and the stele (the forgery charge into the 19th century) and the Eternal Venerable
+Mother (Mingkong, by 1629); confirmed — Laozi's journey west (the *Shiji* names no gate), the disciples, Gongshu Ban and Mozi, the *Zhuangzi*'s parables, the *Liezi*'s age,
+Zisi and Zengzi, the Fengshan, Zhang Daoling, Wang Zhe, Kumarajiva's tongue, Huiyuan's vow, Huineng's verse, Baizhang's rule, Lezun, the Great Cloud Sutra, Mount Tai and
+the dead; in part — Heshang Gong, the Ten Wings, Wenchang (1181 unconfirmed), Emperor Ming's dream (the edict of 65 CE), Emperor Taiwu's persecution. Not drafted or not
+told: Confucius meeting Laozi (no card tells it), Liu Xin's forgery and the Old Text *Shangshu* (told on their cards, no register note).
+
+**The protected cards** (thirty-three: the thinkers, the translators, the founders and Emperor Taiwu) kept their `answerDate`, `undatable` and `timeline` byte for byte
+through every apply and re-apply; every background carries its line's years. Flagged for the owner, left as they stand: `cnh-805` Mostern's 1511; `cnh-824` 1245 and 1330 on
+no early source; `cnh-828` "age c. 39–40"; `cnh-829` Mayers's 543 and Legge's 479; `cnh-836` c. 420 – 350 on no scholarly page; `cnh-839` Emperor Wen's accession 179 or
+180; `cnh-843` 470, 430, 391 and `cnh-844` 507, 444 on no page; `cnh-845` no birth year; `cnh-847` 370 and 310 (380 – 305 found); `cnh-850` 305 (a king of Liang greets him);
+`cnh-855` 46 BCE and 7 – 1 BCE; `cnh-856` "Shandong"; `cnh-857` the IEP's 836; `cnh-858` 1077 is early 1078; `cnh-860` 75 sui; `cnh-861` the death day and place; `cnh-864`
+Taiyuan (Huai'an in some accounts); `cnh-865` 1662 (1663 found); `cnh-877` Mount Qingcheng (Longhu) and age 123; `cnh-882` 70 and 71 computed; `cnh-885` "age c. 67";
+`cnh-886` Chang'an (Dantu or Changcheng); `cnh-887` 3 August 597 (598); `cnh-891` 720 (749 found); `cnh-895` the death day; and days and months on most person templates
+on no page read.
+
+**For the owner, outside the hundred**: `test-card-timeline.js` fails three checks on main as on this branch (not from this work); the same tool false positives as the
+eighth hundred (`check-cards.js` reads Wei Ying, Liu Mi, Ki Taesŭng, the Zhengtong Emperor, "Ming Confucian" and the italic *Han Feizi* as modern scholars;
+`check-citations.js` reads reversed name order as a mismatch); `cnh-813`, `cnh-816` and the `cnh-709` / `cnh-794` pair sort late for want of a sourced start; the glossary
+portraits of `cnh-881` (a watermark) and `cnh-862` (no author in the credit). The house capitalisation of a common noun's pinyin (`cnh-897` sānjiào) remains open.
+
+### Locators (2026-11-19, the ninth hundred)
+
+**No locator was added**: Wikimedia answered 429 all session and `add-locators.js` was not run. Wanted: `cnh-875` the Mingtang (Luoyang's Tang site; the audit's only
+`L.missing`). Points to review: `cnh-803` Hemudu's point is the city of Yuyao, not the site; `cnh-804` Jingyang the county town, not the canal head (north-west of Wangqiao);
+`cnh-814` Dunhuang the town, not Stein's watch-tower T.XII.a; `cnh-817` the island's centre, not the wreck (2°41′ S, 107°35′ E); `cnh-852` modern Luoyang, not the Han
+academy; `cnh-880` a modern district, not the abbey; `cnh-893` Dunhuang town, not the caves. Kept: `cnh-813` Huai'an, `cnh-815` Chengdu, `cnh-816` Kangding (Dajianlu),
+`cnh-837` Lingbao, `cnh-870` Mount Tai. Still waiting from earlier hundreds: the lists in the seventh and eighth hundreds' notes.
