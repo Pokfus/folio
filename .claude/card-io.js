@@ -54,7 +54,7 @@ const EXTRA_DIR = path.join(ROOT, "data-extra");
    — the two are compared by .claude/split-cards.js --check, which fails if they
    have drifted, because a field app.js expects lazily and the splitter leaves
    eager is a field that silently doubles. */
-const EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image", "wiki", "questions", "places"];   // `places` (Atlas v2 Phase 3a): the registry ids a card points at — heavy because nothing on the eager path reads it yet (3b derives the Personal Atlas in the worker from it); written only by migrate-places.js, add-places.js and (a map card's, from its authored key — map-places.js) add-card.js
+const EXTRA_FIELDS = ["abstract", "sources", "why", "quote", "image", "wiki", "questions", "places", "example"];   // `places` (Atlas v2 Phase 3a): the registry ids a card points at — heavy because nothing on the eager path reads it yet (3b derives the Personal Atlas in the worker from it); written only by migrate-places.js, add-places.js and (a map card's, from its authored key — map-places.js) add-card.js; `example` (2026-11-20): an optional worked example, { intro, table: { head, rows }, note }, drawn under the Background by cardExampleHTML
 
 /* An artwork card's picture is its question, so it never moves. */
 const keepsImage = (c) => !!c.artwork;

@@ -791,6 +791,13 @@ steps are the years inside the span at which any of the groups' entities begins,
 `year` where that is a step, else at the halfway point. With no seat (`at`) a members window on a past year names nothing
 of its own — its present-day `keys` are only the fallback and the frame.
 
+**A group may name a people or a culture** (2026-11-20, on request: "in the atlas window I do not see the Hunnic empire highlighted",
+`rm-630`, `pol:huns`). Such an entity is a presence, not a state face, and the window used to switch the peoples off, so it drew
+nothing. A members window on a past year now sets `peoples: "all"` with `peopleOnly` = its groups' ids (`|`-joined; `presShown` in
+`atlas.js` accepts one id or several), so only its own peoples are drawn and no other people's, and a people whose id the window
+tints (`setTints`, not Find it's flat area round) takes the tint's colour for its stipple at 0.9 with a soft wash (`PRES_TINT_WASH`)
+instead of the neutral ink (`presenceDraw`). The presence has no outline (the mask pass outlines states only).
+
 ## A locator's extra places and hidden siblings (`locator.also`, `locator.hide`, 2026-10-29, on request)
 
 - `also: [{ name, at: [lon, lat] }]` — further places of the card's OWN subject, drawn as named dots beside its own
@@ -849,3 +856,21 @@ polities of `atlas/data/history.bin`, each drawn in ONE year.
 - **Guarded by** `.claude/test-past-states.js` (the layer against `history.bin`, every `hs-` card's year in its
   question and date line, the window's spec and pixels before and after the answer, both fallbacks) — re-run after
   touching `pastLayer`, `PAST_LAYERS`, `entityExtent` or the layer's rows in `CARD_MAP_LAYERS` / `MAP_LAYERS`.
+
+### A set of areas in two shades (`members.areas`, 2026-11-20, on request)
+
+> "Add an atlas window depicting the areas of all current Indian reservations and a second shade for former Indian reservations." (`us-084`)
+
+`members.areas: { set, shades: [{ name, note }, { name, note }] }` names a GENERATED set of rings, `atlas/data/<set>.js`
+(lazy bundle `area:<set>` in `DATA_BUNDLES`), and the window paints its first part in a strong gold (`TINT_AREA1`) and its
+second in a lighter gold (`TINT_AREA2`) on its own canvas, cut by the land mask exactly as a locator's authored `area` is
+(`paintMasked` in `atlas-windows.js`) — no engine primitive, so WebGL2 and the Canvas 2D path draw it alike. `keys` may be
+empty: the set's `frame` opens the window. The key above the window has one row per shade, then the card's `note`.
+- **The one set, `us-reservations`** (`.claude/atlas-build/build-area-sets.js`, 117 KB): the Census Bureau's 2023 AIANNH
+  cartographic boundary file (public domain, pinned as `census-cb-2023-aiannh`), simplified at 500 m. "current" =
+  reservations with their off-reservation trust land (MTFCC G2100) and legal joint-use areas; "former" = the Oklahoma tribal
+  statistical areas (G2140, and their joint-use areas), which the Census Bureau defines as the boundaries of the former
+  reservations in Oklahoma. **No open dataset classifies former reservations elsewhere** (the USFS digitisation of Royce 1899
+  draws cessions and reservations without saying which is which), so the legend says "in Oklahoma", and the card's note
+  says that courts since *McGirt v. Oklahoma* (2020) have held several of them never disestablished.
+- Guarded by `build-area-sets.js --check` (CI, offline), `test-map-cards.js` §1 and `test-atlas-windows.js` §11.

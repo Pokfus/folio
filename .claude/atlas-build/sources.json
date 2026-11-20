@@ -1738,6 +1738,28 @@
         "build-land-changes.js (the dated land-change layer: the Zuiderzee polders' land outlines and the CBS water units)"
       ],
       "fetchedBy": "build-land-changes.js --fetch — not fetch-sources.js (the service has no archive to hash once; the page hashes are in the cache)"
+    },
+    {
+      "id": "census-cb-2023-aiannh",
+      "name": "U.S. Census Bureau, 2023 Cartographic Boundary File — American Indian / Alaska Native / Native Hawaiian Areas, 1:500,000 (cb_2023_us_aiannh_500k)",
+      "version": "2023 vintage (boundaries as of 1 January 2023), as served by www2.census.gov on 2026-11-20",
+      "url": "https://www2.census.gov/geo/tiger/GENZ2023/shp/cb_2023_us_aiannh_500k.zip",
+      "sha256": "a7ff9b57b4346dd191d43719c7014f9abedcaabaf3ea9f4219cd3db2c307b19f",
+      "bytes": 1512270,
+      "licence": "PD",
+      "licenceUrl": "https://www.usa.gov/government-works",
+      "attribution": "U.S. Census Bureau, 2023 Cartographic Boundary File, American Indian/Alaska Native/Native Hawaiian Areas, 1:500,000 (a work of the United States government: public domain). Simplified by Folio; Oklahoma tribal statistical areas are the Census Bureau's outlines of the former reservations in Oklahoma.",
+      "retrieved": "2026-11-20",
+      "reachable": "2026-11-20 200 through the agent proxy (www2.census.gov)",
+      "files": [
+        "cb_2023_us_aiannh_500k.shp",
+        "cb_2023_us_aiannh_500k.dbf",
+        "cb_2023_us_aiannh_500k.shx",
+        "cb_2023_us_aiannh_500k.prj"
+      ],
+      "usedBy": [
+        "build-area-sets.js (2026-11-20: atlas/data/us-reservations.js, the reservations window of us-084)"
+      ]
     }
   ],
   "blocked": [

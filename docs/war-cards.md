@@ -36,6 +36,15 @@ Built Sep 2026, on request:
 A side carries a `name` — what the legend calls it — and **either** `keys` **or** `area`, never both.
 `years` and `zoom` are overrides; neither is needed by an ordinary card.
 
+**One map: `year` (2026-11-20, the owner on `gr-521`: "The atlas maps are very messy and primitive. Replace it with a
+single map showing the two sides at the start of the war").** `"year": -431` — a whole year inside the war's years
+(`card-war.js` refuses any other) — draws the war window at that year ALONE: no timeline under it, the sides as the
+engine draws them in that year (`gr-521`: the poleis of `war-poleis.json` in 431 BCE), and a line under the key, "The two
+sides in 431 BCE". `cardWar` (app.js) passes it as `data-war-year`; `atlas-windows.js` skips `warTimeline` and the
+halfway pin when it is set. It changes nothing else: `wars.js`, the war's years and the inventory
+(`war-timeline-inventory.js` still counts the war's steps) are as before. Only `gr-521` carries one (`wh-330`, the same
+war, keeps its timeline).
+
 ---
 
 ## The six decisions
