@@ -16,8 +16,13 @@
 
    A date is YYYY, YYYY-MM or YYYY-MM-DD (a leading "-" for BCE: -0218); the precision is kept and drawn
    ("1925" ends at the end of 1925, "1923-11" at the end of November). Only a card whose kind — its first
-   tag — is `event`, `era`, `battle` or `war` is accepted; `--force` overrides for a card whose kind is
-   mis-tagged, and says so. Goes through card-io like every writer. */
+   tag — is `event`, `era`, `battle` or `war` is accepted, OR A RULER (2026-11-20, on request: "cards about
+   individuals should not have timeline sections. Make an exception for rulers (emperors, kings, presidents,
+   prime ministers etc). The dates of their reign should be shown as periods"): a `person` / `ruler` card
+   tagged `ruler`, or a person whose date line has a President, Prime Minister, Chancellor or In power row —
+   its timeline is its reign, a period (`from … to`), never `at`. `.claude/set-ruler-timelines.js` writes them
+   all from the reign row. `--force` overrides for a card whose kind is mis-tagged, and says so. Goes through
+   card-io like every writer. */
 "use strict";
 const { loadCards, writeCards } = require("./card-io");
 const KINDS = new Set(["event", "era", "battle", "war"]);
@@ -30,11 +35,13 @@ const { cards, tree } = loadCards();
 const c = cards.find((x) => x.id === id);
 if (!c) die("no card " + id);
 const kind = (c.tags || [])[0] || "";
+const isRuler = (kind === "person" || kind === "ruler") && ((c.tags || []).includes("ruler") || /dt-k">(President|Prime Minister|Chancellor|In power)</.test(c.answerDate || ""));
 let field = null;
 if (mode === "at") { if (!DATE.test(a[2] || "")) die("bad date " + a[2]); field = { at: a[2] }; }
 else if (mode === "from") { if (a[3] !== "to" || !DATE.test(a[2] || "") || !DATE.test(a[4] || "")) die("usage: from <date> to <date>"); if (a[4] < a[2] && a[2][0] !== "-") die("ends before it starts"); field = { from: a[2], to: a[4] }; }
 else if (mode !== "none") die("mode must be at, from or none");
-if (field && !KINDS.has(kind)) { if (!force) die(id + " is a " + (kind || "card with no kind") + ", not an event, era, battle or war — not a timeline card (--force overrides)"); console.log("set-timeline: " + id + " is tagged " + kind + "; writing anyway (--force)"); }
+if (field && isRuler && field.at && !force) die(id + " is a ruler: its timeline is its reign, a period — use from <date> to <date>");
+if (field && !KINDS.has(kind) && !isRuler) { if (!force) die(id + " is a " + (kind || "card with no kind") + ", not an event, era, battle, war or ruler — not a timeline card (--force overrides)"); console.log("set-timeline: " + id + " is tagged " + kind + "; writing anyway (--force)"); }
 if (field) c.timeline = field; else delete c.timeline;
 writeCards(cards, tree);
 console.log("set-timeline: " + id + " " + c.answerText + " → " + (field ? JSON.stringify(field) : "none"));

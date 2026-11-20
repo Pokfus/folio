@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1386", released: "2026-11-20T04:14Z" };
+window.FOLIO_VERSION = { v: "1.1387", released: "2026-11-20T20:45Z" };
 
 window.CHANGELOG = [
   {
@@ -48,13 +48,16 @@ window.CHANGELOG = [
       "A language with an alphabet deck now deals its <b>alphabet first</b>: no new words or phrases until every letter has been studied.",
       "Read-aloud now says a one-letter word such as French <i>à</i> as a word rather than naming the letter.",
       "<b>100 more China cards are rewritten</b>, from the Three-Self Patriotic Movement to Tu Youyou, completing the collection's refinement.",
-      "<b>128 new glossary terms</b>, linked from cards in World History, Egypt, Greece, Rome, the Second World War, the United States, Philosophy and Palaeontology.",
-      "<b>New pictures</b> on 9 cards across Egypt, Rome, the Second World War, the United States, Russia and Palaeontology.",
+      "<b>173 new glossary terms</b>, linked from cards in World History, Egypt, Greece, Rome, the Second World War, the United States, Russia, Philosophy, Psychology, Biology and Palaeontology.",
+      "<b>New pictures</b> on 11 cards across Egypt, Rome, the Second World War, the United States, Russia, Psychology and Palaeontology.",
       "A card can now carry an <b>Example</b> section, and the truth table card shows one worked through.",
       "Card Atlas windows: a <b>people's realm</b> such as the Huns' is now shaded, and <b>Rome and Athens</b> are always drawn as capital squares.",
       "The Peloponnesian War card now shows <b>one map</b> of the two sides in 431 BCE, and two cards moved their map to Rome and Philadelphia.",
+      "Cards about <b>rulers</b> (emperors, kings, presidents, prime ministers) now have a <b>Timeline</b> section, their reign drawn as a period.",
+      "Percentages on cards and in the glossary are now always written with the <b>% sign</b>.",
+      "Two Russian rulers' Atlas windows now shade the <b>Russian Empire</b> at its height under them, and two cards highlight Moscow.",
       "A new Atlas window shades <b>today's Indian reservations</b> and, in a lighter gold, Oklahoma's former ones.",
-      "Two date lines now give a camp's <b>population and death toll</b> and a dinosaur's <b>first and last appearance and length</b>.",
+      "Three date lines now give a camp's <b>population and death toll</b>, a dinosaur's <b>first and last appearance and length</b>, and the organ that makes a molecule.",
     ],
   },
   {

@@ -12672,7 +12672,52 @@ window.GLOSSARY = {
 "Planctae": "",
 "Radish": "",
 "Satire": "",
-"Trophonius": ""
+"Trophonius": "",
+"Auricle_(anatomy)": "",
+"Outer_ear": "",
+"Middle_ear": "",
+"Inner_ear": "",
+"Eardrum": "",
+"Ear_canal": "",
+"Malleus": "",
+"Incus": "",
+"Stapes": "",
+"Oval_window": "",
+"Neglinnaya_(river)": "",
+"Taynitskaya_Tower": "",
+"Spasskaya_Tower": "",
+"Pietro_Antonio_Solari": "",
+"Palace_of_Facets": "",
+"Marco_Ruffo": "",
+"Aloisio_da_Milano": "",
+"Estradiol": "",
+"Bile": "",
+"Emulsion": "",
+"Biological_membrane": "",
+"Hydrophobe": "",
+"Sterol": "",
+"Phytosterol": "",
+"Ergosterol": "",
+"Sphingomyelin": "",
+"Oxygen": "",
+"Hopanoids": "",
+"Lipoprotein": "",
+"William_Cullen": "",
+"Henry_K._Beecher": "",
+"Cochrane_(organisation)": "",
+"Irritable_bowel_syndrome": "",
+"Harvey_Fletcher": "",
+"Hertz": "",
+"Amplitude": "",
+"Decibel": "",
+"Watt_(unit)": "",
+"Timbre": "",
+"Szczecin": "",
+"Anhalt-Zerbst": "",
+"Russian_Imperial_Guard": "",
+"Cesare_Beccaria": "",
+"Khanate": "",
+"Social_pathology": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -18895,7 +18940,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Triassic–Jurassic_extinction_event": "c. 201.5 Mya",
 "Triceratops": "c. 68 – 66 Mya",
 "Tyrannosaurus": "c. 68 – 66 Mya",
-"Yale_University": "est. 1701"
+"Yale_University": "est. 1701",
+"Taynitskaya_Tower": "1485",
+"Spasskaya_Tower": "1491",
+"Pietro_Antonio_Solari": "c. 1450–1493",
+"Palace_of_Facets": "1487–1491",
+"William_Cullen": "1710–1790",
+"Cesare_Beccaria": "1735–1794"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -27239,7 +27290,34 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Planctae": ["Wandering Rocks","Planktai"],
 "Radish": ["radishes"],
 "Satire": ["satirist","satirists","satirical"],
-"Trophonius": ["Trophonios"]
+"Trophonius": ["Trophonios"],
+"Auricle_(anatomy)": ["pinna","auricle","pinnae"],
+"Outer_ear": ["external ear"],
+"Middle_ear": ["tympanic cavity"],
+"Eardrum": ["tympanic membrane"],
+"Ear_canal": ["auditory canal","external auditory canal","external acoustic meatus"],
+"Neglinnaya_(river)": ["Neglinnaya","Neglinnaya River"],
+"Taynitskaya_Tower": ["Taynitskaya","Tainitskaya Tower"],
+"Spasskaya_Tower": ["Spasskaya","Spassky Gate","Saviour's Gate"],
+"Pietro_Antonio_Solari": ["Pietro Solari","Pyotr Fryazin"],
+"Palace_of_Facets": ["Granovitaya Palata","Faceted Chamber","Hall of the Facets"],
+"Marco_Ruffo": ["Marco Fryazin","Mark Fryazin"],
+"Aloisio_da_Milano": ["Aloisio da Carcano","Aloisio da Carezano","Aleviz Fryazin","Aleviz the Old","Aloisio the Old"],
+"Estradiol": ["oestradiol"],
+"Bile": ["bile salt"],
+"Emulsion": ["emulsification","emulsify","emulsified","emulsifies","emulsifying"],
+"Biological_membrane": ["membrane","biological membranes"],
+"Hydrophobe": ["hydrophobic","hydrophobicity"],
+"Phytosterol": ["plant sterol"],
+"Hopanoids": ["hopanoid"],
+"Henry_K._Beecher": ["Henry Beecher","Henry Knowles Beecher"],
+"Cochrane_(organisation)": ["Cochrane review","Cochrane reviews","Cochrane Collaboration"],
+"Irritable_bowel_syndrome": ["IBS"],
+"Watt_(unit)": ["watt","watts"],
+"Timbre": ["tone quality"],
+"Szczecin": ["Stettin"],
+"Russian_Imperial_Guard": ["Guards regiments"],
+"Cesare_Beccaria": ["Beccaria"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27470,7 +27548,13 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Halle_(Saale)": true,
 "Henry_Thomas_Buckle": true,
 "Syriac_language": true,
-"Argo": true
+"Argo": true,
+"Cochrane_(organisation)": true,
+"Watt_(unit)": true,
+"Szczecin": true,
+"Anhalt-Zerbst": true,
+"Russian_Imperial_Guard": true,
+"Cesare_Beccaria": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -40146,7 +40230,52 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Planctae": ["place","mythology","greece","sea"],
 "Radish": ["plant","food","agriculture","botany"],
 "Satire": ["concept","literature","humour","rome"],
-"Trophonius": ["person","hero","mythology","greece","religion","oracle"]
+"Trophonius": ["person","hero","mythology","greece","religion","oracle"],
+"Auricle_(anatomy)": ["anatomy","hearing","biology","psychology"],
+"Outer_ear": ["anatomy","hearing","biology","psychology"],
+"Middle_ear": ["anatomy","hearing","biology","psychology"],
+"Inner_ear": ["anatomy","hearing","biology","psychology"],
+"Eardrum": ["anatomy","hearing","biology","psychology"],
+"Ear_canal": ["anatomy","hearing","biology","psychology"],
+"Malleus": ["anatomy","hearing","biology","psychology"],
+"Incus": ["anatomy","hearing","biology","psychology"],
+"Stapes": ["anatomy","hearing","biology","psychology"],
+"Oval_window": ["anatomy","hearing","biology","psychology"],
+"Neglinnaya_(river)": ["river","geography","russia","moscow"],
+"Taynitskaya_Tower": ["building","architecture","history","russia","moscow"],
+"Spasskaya_Tower": ["building","architecture","history","russia","moscow"],
+"Pietro_Antonio_Solari": ["person","architecture","history","italy","russia"],
+"Palace_of_Facets": ["building","architecture","history","russia","moscow"],
+"Marco_Ruffo": ["person","architecture","history","italy","russia"],
+"Aloisio_da_Milano": ["person","architecture","history","italy","russia"],
+"Estradiol": ["object","biology","hormones","reproduction","medicine"],
+"Bile": ["object","biology","anatomy","digestion","medicine"],
+"Emulsion": ["concept","chemistry","biology","digestion"],
+"Biological_membrane": ["concept","biology","cells","anatomy"],
+"Hydrophobe": ["concept","chemistry","biology"],
+"Sterol": ["object","biology","chemistry","lipids"],
+"Phytosterol": ["object","biology","chemistry","botany","nutrition"],
+"Ergosterol": ["object","biology","chemistry","fungi","medicine"],
+"Sphingomyelin": ["object","biology","chemistry","lipids","cells"],
+"Oxygen": ["object","chemistry","biology","element"],
+"Hopanoids": ["object","biology","chemistry","microbiology","lipids"],
+"Lipoprotein": ["object","biology","medicine","lipids","blood"],
+"William_Cullen": ["person","medicine","chemistry","history","scotland"],
+"Henry_K._Beecher": ["person","medicine","psychology","research methods","ethics","history"],
+"Cochrane_(organisation)": ["organisation","medicine","research methods","evidence"],
+"Irritable_bowel_syndrome": ["condition","medicine","digestion","psychology"],
+"Harvey_Fletcher": ["person","physics","sound","hearing","psychology"],
+"Hertz": ["unit","physics","sound","hearing"],
+"Amplitude": ["concept","physics","sound","waves"],
+"Decibel": ["unit","physics","sound","hearing"],
+"Watt_(unit)": ["unit","physics","energy","sound"],
+"Timbre": ["concept","sound","hearing","psychology","music"],
+"Szczecin": ["city","poland","germany","prussia","pomerania","history"],
+"Anhalt-Zerbst": ["state","germany","principality","history"],
+"Russian_Imperial_Guard": ["institution","russia","military","history"],
+"Cesare_Beccaria": ["person","law","philosophy","enlightenment","italy","history"],
+"Khanate": ["concept","state","mongols","tatars","history"],
+"Social_pathology": ["concept","sociology","history","medicine"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
@@ -40218,7 +40347,8 @@ window.GLOSSARY_TITLES = Object.assign(window.GLOSSARY_TITLES || {}, {
 "Tomb_of_Amenhotep_II": "Tomb of Amenhotep II",
 "Nitocris_I_(Divine_Adoratrice)": "Nitocris I",
 "Apis_(deity)": "Apis",
-"Nut_(goddess)": "Nut"
+"Nut_(goddess)": "Nut",
+"Watt_(unit)": "Watt"
 });
 
 /* ============================================================================
