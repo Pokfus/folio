@@ -12628,7 +12628,18 @@ window.GLOSSARY = {
 "Ammonoidea": "",
 "Apatosaurus": "",
 "Camarasaurus": "",
-"Como_Bluff": ""
+"Como_Bluff": "",
+"Diplodocus": "",
+"Early_Jurassic": "",
+"Ginkgo": "",
+"Hylaeosaurus": "",
+"Ichthyosaur": "",
+"Iguanodon": "",
+"Jura_Mountains": "",
+"Late_Jurassic": "",
+"Late_Triassic": "",
+"Megalosaurus": "",
+"Pangaea": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -18840,7 +18851,13 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "John_Dunlap": "1747–1812",
 "Monowitz_concentration_camp": "1942–1945",
 "Richard_Henry_Lee": "1732–1794",
-"Apatosaurus": "c. 152 – 145 Mya"
+"Apatosaurus": "c. 152 – 145 Mya",
+"Diplodocus": "c. 152 – 145 Mya",
+"Early_Jurassic": "c. 201.4 – 174.7 Mya",
+"Iguanodon": "c. 140 – 110 Mya",
+"Late_Jurassic": "c. 161.5 – 143.1 Mya",
+"Late_Triassic": "c. 237 – 201.4 Mya",
+"Megalosaurus": "c. 166 Mya"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -27161,7 +27178,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "The_Crown": ["British Crown"],
 "Tyrrhenians": ["Tyrrheni","Tyrsenians"],
 "United_States_Holocaust_Memorial_Museum": ["US Holocaust Memorial Museum","U.S. Holocaust Memorial Museum","USHMM"],
-"Ammonoidea": ["ammonite","ammonites","ammonoid","ammonoids"]
+"Ammonoidea": ["ammonite","ammonites","ammonoid","ammonoids"],
+"Ginkgo": ["ginkgo","ginkgoes","ginkgos","Ginkgo biloba","maidenhair tree"],
+"Ichthyosaur": ["ichthyosaur","ichthyosaurs","Ichthyosauria"],
+"Pangaea": ["Pangea"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -40020,7 +40040,18 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Ammonoidea": ["animal","palaeontology","geology","mesozoic"],
 "Apatosaurus": ["animal","dinosaurs","palaeontology","sauropod","jurassic","united states"],
 "Camarasaurus": ["animal","dinosaurs","palaeontology","sauropod","jurassic","united states"],
-"Como_Bluff": ["place","palaeontology","geology","dinosaurs","jurassic","united states"]
+"Como_Bluff": ["place","palaeontology","geology","dinosaurs","jurassic","united states"],
+"Diplodocus": ["animal","dinosaurs","palaeontology","sauropod","jurassic","united states"],
+"Early_Jurassic": ["era","geology","palaeontology","jurassic","deep time"],
+"Ginkgo": ["plant","botany","palaeontology","china"],
+"Hylaeosaurus": ["animal","dinosaurs","palaeontology","cretaceous","britain"],
+"Ichthyosaur": ["animal","palaeontology","marine reptiles","mesozoic"],
+"Iguanodon": ["animal","dinosaurs","palaeontology","cretaceous","britain","belgium"],
+"Jura_Mountains": ["place","geography","geology","france","switzerland"],
+"Late_Jurassic": ["era","geology","palaeontology","jurassic","deep time"],
+"Late_Triassic": ["era","geology","palaeontology","triassic","deep time"],
+"Megalosaurus": ["animal","dinosaurs","palaeontology","jurassic","britain"],
+"Pangaea": ["place","geology","geography","deep time"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
