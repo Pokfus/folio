@@ -12717,7 +12717,16 @@ window.GLOSSARY = {
 "Russian_Imperial_Guard": "",
 "Cesare_Beccaria": "",
 "Khanate": "",
-"Social_pathology": ""
+"Social_pathology": "",
+"Ōtomo_no_Otomaro": "",
+"Sakanoue_no_Tamuramaro": "",
+"Minamoto_no_Yoshinaka": "",
+"Kamakura": "",
+"Minamoto_no_Yoriie": "",
+"Tokugawa_Yoshinobu": "",
+"Nara_(city)": "",
+"Refuge_in_Buddhism": "",
+"Four_Heavenly_Kings": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -18946,7 +18955,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Pietro_Antonio_Solari": "c. 1450–1493",
 "Palace_of_Facets": "1487–1491",
 "William_Cullen": "1710–1790",
-"Cesare_Beccaria": "1735–1794"
+"Cesare_Beccaria": "1735–1794",
+"Ōtomo_no_Otomaro": "731–809",
+"Sakanoue_no_Tamuramaro": "758–811",
+"Minamoto_no_Yoshinaka": "1154–1184",
+"Minamoto_no_Yoriie": "1182–1204",
+"Tokugawa_Yoshinobu": "1837–1913"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -27325,7 +27339,15 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Saturn_(planet)": ["Saturn"],
 "Vairocana": ["Rushana"],
 "Wiryeseong": ["Hanseong"],
-"Polaris": ["Pole Star"]
+"Polaris": ["Pole Star"],
+"Ōtomo_no_Otomaro": ["Otomo no Otomaro"],
+"Minamoto_no_Yoshinaka": ["Kiso Yoshinaka","Yoshinaka"],
+"Minamoto_no_Yoriie": ["Yoriie"],
+"Tokugawa_Yoshinobu": ["Keiki"],
+"Nara_(city)": ["Nara"],
+"Refuge_in_Buddhism": ["Three Treasures","Three Jewels","Triple Gem"],
+"Four_Heavenly_Kings": ["Heavenly Kings","four Heavenly Kings","Shitennō"],
+"Yamato_polity": ["Yamato court"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27563,7 +27585,9 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Anhalt-Zerbst": true,
 "Russian_Imperial_Guard": true,
 "Cesare_Beccaria": true,
-"Guqin": true
+"Guqin": true,
+"Kamakura": true,
+"Nara_(city)": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -40284,7 +40308,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Russian_Imperial_Guard": ["institution","russia","military","history"],
 "Cesare_Beccaria": ["person","law","philosophy","enlightenment","italy","history"],
 "Khanate": ["concept","state","mongols","tatars","history"],
-"Social_pathology": ["concept","sociology","history","medicine"]
+"Social_pathology": ["concept","sociology","history","medicine"],
+"Ōtomo_no_Otomaro": ["person","japan","history","nara period","heian period","shogun"],
+"Sakanoue_no_Tamuramaro": ["person","japan","history","heian period","shogun","emishi"],
+"Minamoto_no_Yoshinaka": ["person","japan","history","genpei war","minamoto","shogun"],
+"Kamakura": ["city","japan","history","kamakura","kanagawa"],
+"Minamoto_no_Yoriie": ["person","japan","history","kamakura shogunate","minamoto","shogun"],
+"Tokugawa_Yoshinobu": ["person","japan","history","tokugawa shogunate","meiji restoration","shogun"],
+"Nara_(city)": ["city","japan","history","nara"],
+"Refuge_in_Buddhism": ["concept","buddhism","religion"],
+"Four_Heavenly_Kings": ["concept","buddhism","religion","mythology"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
