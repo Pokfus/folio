@@ -12544,7 +12544,36 @@ window.GLOSSARY = {
 "William_(hippopotamus_figurine)": "",
 "Throne_of_Princess_Sitamun": "",
 "Iuty": "",
-"Hor_Awibre": ""
+"Hor_Awibre": "",
+"Allan_Marquand": "",
+"Artificial_intelligence": "",
+"Baruch_Spinoza": "",
+"Charles_Sanders_Peirce": "",
+"Contingency_(philosophy)": "",
+"Contradiction_(logic)": "",
+"Emil_Leon_Post": "",
+"Enthymeme": "",
+"Eugen_Müller": "",
+"George_Boole": "",
+"Jan_Łukasiewicz": "",
+"John_Venn": "",
+"Lewis_Carroll": "",
+"Logical_conjunction": "",
+"Logical_disjunction": "",
+"Ludwig_Wittgenstein": "",
+"Prior_Analytics": "",
+"Syllogism": "",
+"Tractatus_Logico-Philosophicus": "",
+"William_Stanley_Jevons": "",
+"Abraham": "",
+"Battle_of_Badr": "",
+"Battle_of_Uhud": "",
+"Battle_of_the_Trench": "",
+"Christoph_Cellarius": "",
+"Constitution_of_Medina": "",
+"Dalmatia": "",
+"Dark_Ages_(historiography)": "",
+"English_Revolution": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -18714,7 +18743,23 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Ostracon_of_Senenmut": "c. 1473–1458 BCE",
 "Treasure_of_El_Lahun": "c. 1887–1813 BCE",
 "William_(hippopotamus_figurine)": "c. 1961–1878 BCE",
-"Throne_of_Princess_Sitamun": "c. 1386–1347 BCE"
+"Throne_of_Princess_Sitamun": "c. 1386–1347 BCE",
+"Allan_Marquand": "1853–1924",
+"Baruch_Spinoza": "1632–1677",
+"Charles_Sanders_Peirce": "1839–1914",
+"Emil_Leon_Post": "1897–1954",
+"George_Boole": "1815–1864",
+"Jan_Łukasiewicz": "1878–1956",
+"John_Venn": "1834–1923",
+"Lewis_Carroll": "1832–1898",
+"Ludwig_Wittgenstein": "1889–1951",
+"Tractatus_Logico-Philosophicus": "1921",
+"William_Stanley_Jevons": "1835–1882",
+"Battle_of_Badr": "624 CE",
+"Battle_of_Uhud": "625 CE",
+"Battle_of_the_Trench": "627 CE",
+"Christoph_Cellarius": "1638–1707",
+"English_Revolution": "1640–1660"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -26981,7 +27026,27 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "William_(hippopotamus_figurine)": ["William the Hippo","William the faience hippopotamus"],
 "Throne_of_Princess_Sitamun": ["Chair of Sitamun","Chair of Princess Sitamun","Throne of Sitamun"],
 "Iuty": ["Auta","Iuty (sculptor)"],
-"Hor_Awibre": ["ka statue of Awibre Hor","Awibre Hor","Auibre Hor"]
+"Hor_Awibre": ["ka statue of Awibre Hor","Awibre Hor","Auibre Hor"],
+"Allan_Marquand": ["Marquand"],
+"Baruch_Spinoza": ["Spinoza","Benedict de Spinoza","Benedictus de Spinoza"],
+"Charles_Sanders_Peirce": ["Peirce","C. S. Peirce","Charles Peirce","Charles S. Peirce"],
+"Emil_Leon_Post": ["Emil Post","Emil L. Post"],
+"Eugen_Müller": ["Eugen Müller"],
+"George_Boole": ["Boole"],
+"Jan_Łukasiewicz": ["Łukasiewicz","Lukasiewicz","Jan Lukasiewicz"],
+"John_Venn": ["John Venn"],
+"Lewis_Carroll": ["Charles Dodgson","Charles Lutwidge Dodgson","Charles L. Dodgson"],
+"Logical_conjunction": ["logical conjunction"],
+"Logical_disjunction": ["inclusive disjunction","logical disjunction","exclusive disjunction"],
+"Ludwig_Wittgenstein": ["Wittgenstein"],
+"William_Stanley_Jevons": ["Jevons","Stanley Jevons","W. S. Jevons"],
+"Abraham": ["Abram"],
+"Battle_of_Badr": ["Badr"],
+"Battle_of_Uhud": ["Uhud"],
+"Battle_of_the_Trench": ["Battle of the Khandaq","Siege of Medina"],
+"Christoph_Cellarius": ["Christophorus Cellarius"],
+"Constitution_of_Medina": ["Charter of Medina"],
+"English_Revolution": ["English revolution"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27204,7 +27269,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Per-nefer": true,
 "Baris_(ship)": true,
 "Kite_(unit)": true,
-"Meret_people": true
+"Meret_people": true,
+"Abraham": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -39752,7 +39818,36 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "William_(hippopotamus_figurine)": ["object","art","egypt","middle kingdom"],
 "Throne_of_Princess_Sitamun": ["object","art","egypt","new kingdom"],
 "Iuty": ["person","art","egypt","new kingdom"],
-"Hor_Awibre": ["ruler","art","egypt","middle kingdom"]
+"Hor_Awibre": ["ruler","art","egypt","middle kingdom"],
+"Allan_Marquand": ["person","logic","art","united states","19th century"],
+"Artificial_intelligence": ["technology","science","philosophy","computing","20th century"],
+"Baruch_Spinoza": ["person","philosophy","netherlands","rationalism","17th century"],
+"Charles_Sanders_Peirce": ["person","philosophy","logic","united states","pragmatism","19th century"],
+"Contingency_(philosophy)": ["concept","philosophy","logic","metaphysics"],
+"Contradiction_(logic)": ["concept","philosophy","logic","mathematics"],
+"Emil_Leon_Post": ["person","mathematics","logic","united states","20th century"],
+"Enthymeme": ["concept","philosophy","logic","rhetoric","argument","greece"],
+"Eugen_Müller": ["person","logic","mathematics","germany","20th century"],
+"George_Boole": ["person","mathematics","logic","england","19th century"],
+"Jan_Łukasiewicz": ["person","logic","philosophy","poland","20th century"],
+"John_Venn": ["person","logic","mathematics","england","19th century"],
+"Lewis_Carroll": ["person","literature","logic","mathematics","england","19th century"],
+"Logical_conjunction": ["concept","philosophy","logic","mathematics"],
+"Logical_disjunction": ["concept","philosophy","logic","mathematics"],
+"Ludwig_Wittgenstein": ["person","philosophy","logic","austria","20th century"],
+"Prior_Analytics": ["text","philosophy","logic","aristotle","greece"],
+"Syllogism": ["concept","philosophy","logic","argument","greece"],
+"Tractatus_Logico-Philosophicus": ["text","philosophy","logic","austria","20th century"],
+"William_Stanley_Jevons": ["person","economics","logic","england","19th century"],
+"Abraham": ["person","religion","history","judaism","christianity","islam"],
+"Battle_of_Badr": ["battle","history","warfare","islam","arabia"],
+"Battle_of_Uhud": ["battle","history","warfare","islam","arabia"],
+"Battle_of_the_Trench": ["battle","history","warfare","islam","arabia"],
+"Christoph_Cellarius": ["person","history","historiography","germany","europe","scholarship"],
+"Constitution_of_Medina": ["text","history","religion","islam","politics","arabia"],
+"Dalmatia": ["place","history","geography","croatia","rome","europe"],
+"Dark_Ages_(historiography)": ["era","history","historiography","europe","concept","middle ages"],
+"English_Revolution": ["event","history","politics","england","revolution","17th century"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
