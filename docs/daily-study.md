@@ -9,6 +9,13 @@ rest — why the allowance is per deck rather than global, why the pooled review
 every count is derived rather than tallied, and the faults that left a reader studying one deck for
 thirty days while the other never appeared.
 
+**The alphabet comes first (Nov 2026, on request).** In a language whose ALPHABET deck the reader has added
+(a catalogue file matching `Alphabet|Hiragana|Katakana`), the language's row (`buildSession`'s group branch),
+its count (`entryPiles`) and the pooled review (`reviewQueue`) deal no new card from a word or phrase deck while
+any alphabet card is still new (`langAlphabetPending`, `isScriptCard` — a "Sounds and spelling" deck is never
+held). Reviews are untouched; a word deck studied on its own row still deals its words; a language set to
+Random is not held.
+
 The four bullets below are as they stood in CLAUDE.md, verbatim.
 
 - **Daily review order** (`S.settings.reviewRandom`): **Ordered** (labelled "Chrono" until Aug 2026, renamed on
