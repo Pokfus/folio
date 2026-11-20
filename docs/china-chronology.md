@@ -1107,6 +1107,14 @@ January 1917 (`cnh-586`, `cnh-588`); Lu Xun's "Diary of a Madman" 1918 (`cnh-589
 | the *Mustard Seed Garden Manual*: part 1 / parts 2 and 3 | 1679 / 1701, also dated 1687 | the card's sources (`cnh-947`) |
 | the *Night Revels*: painted / the surviving copy | c. 900 – 1000 CE / c. 1127 – 1279 | the card's sources (`cnh-949`) |
 | the Four Masters grouped | c. 1600 – 1700 | the Rijksmuseum Bulletin (`cnh-950`) |
+| the handscroll attested | c. 300 – 400 CE | the card's sources (`cnh-951`) |
+| the Xiling Seal Society founded | 1904 | the card's sources (`cnh-952`) |
+| the Mao Gong ding cast / found | c. 827 – 782 BCE / c. 1850 | the National Palace Museum; Nipponica (`cnh-953`) |
+| jade suits in use / banned / first found intact | c. 206 BCE – 220 CE / 222 CE / 1968 | the card's sources (`cnh-954`) |
+| Ding ware attested / at its best | c. 650 CE / 1111 – 1125 CE | Bushell (`cnh-955`) |
+| Longquan celadon made (dated pieces) | c. 1000 – 1450 CE | museum records (`cnh-956`) |
+| blue and white: earliest dated / the gap / kiln ban / repeated | 1351 / 1354 – 1436 / 1439 / 1448 | Tai (`cnh-957`) |
+| carved lacquer: early piece / described / dated piece | c. 1300 / 1387 / 1585 | the card's sources (`cnh-959`) |
 
 ## Chronology pins
 
