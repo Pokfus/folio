@@ -12732,7 +12732,20 @@ window.GLOSSARY = {
 "Epidemic": "",
 "Utsubo_Monogatari": "",
 "Akashi_family": "",
-"Suma-ku": ""
+"Suma-ku": "",
+"Vacuum": "",
+"Sun": "",
+"Andromeda_Galaxy": "",
+"James_Webb_Space_Telescope": "",
+"Cosmic_microwave_background": "",
+"Big_Bang": "",
+"Galaxy": "",
+"Semi-major_and_semi-minor_axes": "",
+"Orbital_eccentricity": "",
+"Apsis": "",
+"Anomalistic_year": "",
+"Umbra": "",
+"Penumbra": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -27360,7 +27373,14 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Epidemic": ["pestilence"],
 "Utsubo_Monogatari": ["Tale of Utsubo","Utsuho Monogatari","Tale of the Hollow Tree"],
 "Akashi_family": ["Lady of Akashi","Akashi Lady","Akashi Novice","Akashi Empress","Princess from Akashi"],
-"Suma-ku": ["Suma","Suma Ward"]
+"Suma-ku": ["Suma","Suma Ward"],
+"Andromeda_Galaxy": ["Andromeda galaxy","M31"],
+"James_Webb_Space_Telescope": ["JWST"],
+"Cosmic_microwave_background": ["cosmic microwave background radiation","CMB"],
+"Semi-major_and_semi-minor_axes": ["semi-major axis","semi-minor axis"],
+"Orbital_eccentricity": ["eccentricity"],
+"Apsis": ["perihelion","aphelion","perigee","apogee"],
+"Anomalistic_year": ["anomalistic"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27601,7 +27621,9 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Guqin": true,
 "Kamakura": true,
 "Nara_(city)": true,
-"Suma-ku": true
+"Suma-ku": true,
+"Sun": true,
+"Big_Bang": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -40337,7 +40359,20 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Epidemic": ["concept","medicine","epidemiology","disease","history"],
 "Utsubo_Monogatari": ["object","literature","japan","heian","fiction"],
 "Akashi_family": ["character","literature","japan","heian","genji"],
-"Suma-ku": ["place","japan","kobe","literature","coast"]
+"Suma-ku": ["place","japan","kobe","literature","coast"],
+"Vacuum": ["concept","physics","astronomy"],
+"Sun": ["object","astronomy","star"],
+"Andromeda_Galaxy": ["object","astronomy","galaxy"],
+"James_Webb_Space_Telescope": ["object","astronomy","telescope"],
+"Cosmic_microwave_background": ["concept","astronomy","cosmology"],
+"Big_Bang": ["concept","astronomy","cosmology"],
+"Galaxy": ["concept","astronomy","galaxy"],
+"Semi-major_and_semi-minor_axes": ["concept","astronomy","geometry"],
+"Orbital_eccentricity": ["concept","astronomy","orbit"],
+"Apsis": ["concept","astronomy","orbit"],
+"Anomalistic_year": ["concept","astronomy","calendar"],
+"Umbra": ["concept","astronomy","eclipse"],
+"Penumbra": ["concept","astronomy","eclipse"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
