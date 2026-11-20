@@ -22772,7 +22772,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Fan_Shengzhi_shu": ["Fan Sheng-chih shu"],
 "Traditional_Chinese_medicine": ["TCM"],
 "Bencao_Gangmu": ["Compendium of Materia Medica"],
-"Huangdi_Neijing": ["Neijing","Yellow Emperor’s Inner Classic"],
+"Huangdi_Neijing": ["Neijing","Yellow Emperor’s Inner Classic","Suwen","Lingshu"],
 "Tu_Youyou": ["Youyou Tu"],
 "Philip_V_of_Macedon": ["Philip V"],
 "Antiochus_III_the_Great": ["Antiochus III"],

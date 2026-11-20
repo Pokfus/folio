@@ -43,7 +43,7 @@ window.CHANGELOG = [
     t: "Ancient Egypt cards, and the last hundred China cards rewritten",
     items: [
       "<b>100 new cards</b> in <b>Ancient Egypt</b>, on the state and the army, daily life, the economy and the scripts, with 91 new glossary terms.",
-      "<b>90 more China cards are rewritten</b>, from the Three-Self Patriotic Movement to the Zhaozhou Bridge, with new sources and dates.",
+      "<b>100 more China cards are rewritten</b>, from the Three-Self Patriotic Movement to Tu Youyou, completing the collection's refinement.",
     ],
   },
   {

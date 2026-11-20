@@ -1138,6 +1138,11 @@ January 1917 (`cnh-586`, `cnh-588`); Lu Xun's "Diary of a Madman" 1918 (`cnh-589
 | the *Zhoubi* compiled | c. 100 BCE – 100 CE | the card's sources (`cnh-986`) |
 | the *Nine Chapters* compiled / commentary / annotated | c. 200 BCE – 50 CE / 263 CE / c. 640 CE | the card's sources (`cnh-987`) |
 | the Zhaozhou Bridge built / restored | c. 595 – 605 CE / 1952 – 1958 | the card's sources (`cnh-990`) |
+| Dujiangyan begun / inscribed | c. 256 BCE / 2000 | the card's sources (`cnh-992`) |
+| the drawloom depicted / described | 960 – 1279 CE / 1637 CE | Becker and Wagner (`cnh-994`) |
+| the *Fan Shengzhi shu* written / quoted | c. 100 – 1 BCE / c. 544 CE | the card's sources (`cnh-995`) |
+| the *Bencao gangmu* completed / printed | 1578 / 1596 | the card's sources (`cnh-998`) |
+| the *Huangdi neijing* compiled | c. 100 – 1 BCE | the card's sources (`cnh-999`) |
 
 ## Chronology pins
 

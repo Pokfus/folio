@@ -525,8 +525,8 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Zhang Heng's seismoscope working | the *Hou Hanshu* (juan 59) has the instrument of 132 CE drop a ball for a quake no one felt in Luoyang, confirmed days later by a courier from Longxi; how it worked unknown, the modern models reconstructions — PROVISIONAL | — | — (no card of the tenth hundred tells it) | `cnh-263` |
 | Ma Jun and the south-pointing chariot | the chariot said made by the Yellow Emperor against Chiyou or by the Duke of Zhou for envoys (later legends); Ma Jun's chariot of the 230s CE told in Fu Xuan's account quoted in Pei Songzhi's notes to the *Sanguozhi* (429 CE) and in the *Song shu*'s treatise; a geared, not magnetic, device — confirmed B99 (`cnh-989`: the *Sanguozhi* 29 with Pei Songzhi's notes on Kanseki) | `cnh-989` | `cnh-973`, `cnh-980` | `cnh-009` |
 | The compass's first records | the Han *Lunheng*'s *sinan* (south-governor) read by some as a lodestone spoon and doubted by others; the *Wujing zongyao*'s (1044) south-pointing fish of magnetised iron leaf; Shen Kuo's needle in the *Dream Pool Essays* (c. 1088) the first clear account of a magnetised needle and of declination; the sea compass attested by Zhu Yu (1119) — confirmed B98 (`cnh-978`: the 1044 fish on Kanseki; `cnh-980`: Shen Kuo's needle; `cnh-973`: the lodestone spoon of the schoolbooks a modern model) | — | `cnh-973`, `cnh-978`, `cnh-980`, `cnh-981` | — |
-| Bian Que | the physician of the *Shiji* (juan 105, c. 100 BCE), whose stories span the 6th to the 4th century BCE (Duke Jian of Zhao, the prince of Guo, Duke Huan of Qi) — read by modern scholars as a composite or a type, not one man; his needle and stone reviving the prince of Guo, the *Shiji*'s telling — PROVISIONAL | — | `cnh-997` | — |
-| The Yellow Emperor and Qi Bo | the *Huangdi neijing* framed as the Yellow Emperor's dialogues with Qi Bo and other ministers; a compilation of the Western Han (the *Hanshu*'s catalogue the first notice), never the legendary ruler's words — PROVISIONAL | `cnh-999` | `cnh-996`, `cnh-997` | `cnh-007` |
+| Bian Que | the physician of the *Shiji* (juan 105, c. 100 BCE), whose stories span the 6th to the 4th century BCE (Duke Jian of Zhao, the prince of Guo, Duke Huan of Qi) — read by modern scholars as a composite or a type, not one man; his needle and stone reviving the prince of Guo, the *Shiji*'s telling — confirmed B100 (`cnh-997`: the *Shiji* 105 on Kanseki) | — | `cnh-997` | — |
+| The Yellow Emperor and Qi Bo | the *Huangdi neijing* framed as the Yellow Emperor's dialogues with Qi Bo and other ministers; a compilation of the Western Han (the *Hanshu*'s catalogue the first notice), never the legendary ruler's words — confirmed B100 (`cnh-996`: the *Hanshu* catalogue on Kanseki; `cnh-999`: the *Suwen* juan 1, the catalogue through the SEP) | `cnh-999` | `cnh-996`, `cnh-997` | `cnh-007` |
 | The guqin's makers | the instrument's invention given to Shennong (five strings, King Wen adding two: the *Sui shu*) or to Fuxi (King Wu adding two: the Tang history), told as legends; Confucius learning a piece from Shi Xiang (the *Shiji*, house of Confucius) — confirmed in part B97 (`cnh-969`: Shennong through Mayers and the *Sui shu* 15 on Kanseki, Fuxi through Van Aalst, Shi Xiang through Chavannes) | — | `cnh-969` | `cnh-005`, `cnh-006` |
 | The Lienü zhuan's women and the Soushen ji's origins | Liu Xiang compiling the *Lienü zhuan* to admonish the throne (the *Hanshu*, juan 36); Gan Bao's two family marvels — his father's maid reviving in the tomb and his brother's trance — as the *Soushen ji*'s spur (the *Jinshu*, juan 82, 646 – 648 CE) — Gan Bao's marvels confirmed B93 (`cnh-927`: "more than ten years" in the tomb, through Campany 2005; the *Jinshu* 82 is not on Kanseki); Liu Xiang's purpose told B93 (`cnh-926`) | `cnh-926`, `cnh-927` | — | — |
 | Sima Xiangru and Zhuo Wenjun | the widow eloping by night with the poet, the couple keeping a wine shop in Linqiong, her father relenting: the *Shiji* (juan 117, c. 100 BCE), retold in the *Hanshu* (juan 57) — confirmed B93 (`cnh-921`: the *Shiji* 117 on Kanseki) | `cnh-921` | — | — |
@@ -539,12 +539,12 @@ confirmed or corrected, with its source, by the batch that drafts the row's own 
 | Huang Quan's cranes | the Shu court painter's cranes on the Six Cranes Hall wall (944 CE) so lifelike that live cranes stood beside them (the Song catalogues, Guo Ruoxu and the *Xuanhe huapu*, 1120) — confirmed B95 (`cnh-948`: Guo Ruoxu on Kanseki) | `cnh-948` | — | — |
 | Gu Hongzhong and Han Xizai's banquets | the Southern Tang ruler sending the court painter to watch the minister's night revels and paint them from memory (the *Xuanhe huapu*, 1120, and later tellings); the surviving scroll held by modern scholars a later (Song) copy — confirmed B95 (`cnh-949`: the *Xuanhe huapu* juan 7 on Kanseki; the copy Southern Song by its curator) | `cnh-949` | — | — |
 | The pipa contest in Chang'an | the east market's Kang Kunlun outplayed by a "woman" of the west market who was the monk Duan Shanben in disguise, in the Zhenyuan years (785 – 805 CE): Duan Anjie's *Yuefu zalu* (late 9th century); Bai Juyi's "Pipa xing" (816 CE) — told B97 (`cnh-968`) from the *Lei shuo*'s "Pipa lu" excerpt on Kanseki (the *Yuefu zalu* has no file); 785 – 805 and 816 on no saved page | — | `cnh-968` | — |
-| Ximen Bao and the river god's brides | the magistrate of Ye ending the yearly "marriage" of a girl to the Lord of the River by throwing the shaman and her disciples into the water, then digging twelve canals: Chu Shaosun's addition to the *Shiji* (juan 126, 1st century BCE); the *Hanshu* gives the canals to Shi Qi a century later — PROVISIONAL | `cnh-991` | `cnh-992` | — |
-| Li Bing and the river god | the Shu governor credited with the Dujiangyan (the *Shiji*'s treatise on the waterways calls him only the governor Bing, the *Hanshu*'s repeat Li Bing); his three stone men and pact with the river god (the *Huayang guozhi*, 4th century CE); his fight with the god as a bull (Ying Shao's *Fengsu tongyi*, late 2nd century CE, from quotation) and the son Erlang a later cult — PROVISIONAL | `cnh-992` | — | — |
+| Ximen Bao and the river god's brides | the magistrate of Ye ending the yearly "marriage" of a girl to the Lord of the River by throwing the shaman and her disciples into the water, then digging twelve canals: Chu Shaosun's addition to the *Shiji* (juan 126, 1st century BCE); the *Hanshu* gives the canals to Shi Qi a century later — confirmed B100 (`cnh-991`: the *Shiji* 126 on Kanseki; "three disciples and the three elders"; the *Hanshu*'s Shi Qi account not told) | `cnh-991` | `cnh-992` | — |
+| Li Bing and the river god | the Shu governor credited with the Dujiangyan (the *Shiji*'s treatise on the waterways calls him only the governor Bing, the *Hanshu*'s repeat Li Bing); his three stone men and pact with the river god (the *Huayang guozhi*, 4th century CE); his fight with the god as a bull (Ying Shao's *Fengsu tongyi*, late 2nd century CE, from quotation) and the son Erlang a later cult — the three stone men confirmed B100 (`cnh-992`: the *Huayang guozhi* on Kanseki); the bull fight and Erlang not told | `cnh-992` | — | — |
 | The Zhaozhou Bridge's builder | Li Chun named as builder in Zhang Jiazhen's Tang inscription (8th century), as the bridge's own records say; the craftsman Lu Ban and the Immortals' donkey later legend; Goguryeo spies and the stone lions a local tale — Li Chun confirmed B99 (`cnh-990`); the Lu Ban legend and the lions not told (no citable page) | `cnh-990` | — | `cnh-844` |
 | Dingjun Mountain, the first Chinese film | Huang Zhong killing Xiahou Yuan in 219 CE (the *Sanguozhi*), the scene the novel (chapter 71) and the opera made famous; the 1905 Fengtai studio film with Tan Xinpei "usually named" the first Chinese film, its date and existence known from later memoirs (the film lost) — B98 (`cnh-972`): the battle confirmed (the *Sanguozhi* on zggdwx); "known from later memoirs, the film lost" on no citable page, not told | `cnh-972` | — | — |
 | The finding of the library cave | Wang Yuanlu's men noticing a crack in a painted wall of Cave 16 while clearing sand in 1900 (the date and the finder vary in the accounts, Stein's of 1907 the first in English); Stein's 1907 purchase and Pelliot's of 1908 — B94 (`cnh-937`): Stein names two finders of the crack; Pelliot's 1908 days on no saved page; the sealing told as a debate, 1035, 1006 or the 13th century (`cnh-976`, B98) | `cnh-937` | `cnh-976` | `cnh-893` |
-| Ge Hong's recipe and artemisinin | Tu Youyou's own account (the Lasker and Nobel lectures, 2011 and 2015) of reading Ge Hong's *Zhouhou beiji fang* (4th century CE) — qinghao steeped in water, wrung out and drunk — and turning to a cold extraction, which gave sample 191 on 4 October 1971; the shared work of Project 523 and the credit disputed by others in it — PROVISIONAL | `cnh-1000` | — | — |
+| Ge Hong's recipe and artemisinin | Tu Youyou's own account (the Lasker and Nobel lectures, 2011 and 2015) of reading Ge Hong's *Zhouhou beiji fang* (4th century CE) — qinghao steeped in water, wrung out and drunk — and turning to a cold extraction, which gave sample 191 on 4 October 1971; the shared work of Project 523 and the credit disputed by others in it — confirmed B100 (`cnh-1000`: the *Zhouhou fang* juan 3 on Kanseki and the Lasker lecture; Faurant names other institutes and never Tu) | `cnh-1000` | — | — |
 | The embroidered map of Wu | a consort of Sun Quan of Wu stitching a map of the realm in silk and called "needle-peerless" (Wang Jia's *Shiyi ji*, 4th century CE); the twelve emblems of the *Shangshu*'s "Yi Ji" as the earliest mention of embroidered robes — confirmed B96 (`cnh-960`: the *Shiyi ji* on Kanseki, where the "needle-peerless" character is lost; Legge shows half of the twelve emblems embroidered) | — | `cnh-960` | — |
 | Confucius and the worn bindings | Confucius reading the *Changes* until the leather thongs of its bamboo slips broke three times (韋編三絕, the *Shiji*, house of Confucius, c. 100 BCE) — B94 (`cnh-936`): told as a possibly invented story | — | `cnh-936` | — |
 
@@ -700,26 +700,26 @@ otherwise.
 | B78 | Society and everyday life (`cn-society`) / The peoples and frontiers of China (`cn-peoples`) | `cnh-771`–`cnh-780` | 10 | 99 | **done 2026-11-19** |
 | B79 | The peoples and frontiers of China (`cn-peoples`) | `cnh-781`–`cnh-790` | 10 | 106 | **done 2026-11-19** |
 | B80 | The peoples and frontiers of China (`cn-peoples`) | `cnh-791`–`cnh-800` | 10 | 111 | **done 2026-11-19** |
-| B81 | Land, trade and money (`cn-economy`) | `cnh-801`–`cnh-810` | 10 | 104 | to do |
-| B82 | Land, trade and money (`cn-economy`) | `cnh-811`–`cnh-820` | 10 | 101 | to do |
-| B83 | Land, trade and money (`cn-economy`) / Chinese philosophy (`cn-thought`) | `cnh-821`–`cnh-830` | 10 | 100 | to do |
-| B84 | Chinese philosophy (`cn-thought`) | `cnh-831`–`cnh-840` | 10 | 98 | to do |
-| B85 | Chinese philosophy (`cn-thought`) | `cnh-841`–`cnh-850` | 10 | 98 | to do |
-| B86 | Chinese philosophy (`cn-thought`) | `cnh-851`–`cnh-860` | 10 | 88 | to do |
-| B87 | Chinese philosophy (`cn-thought`) / Religion and ritual (`cn-religion`) | `cnh-861`–`cnh-870` | 10 | 93 | to do |
-| B88 | Religion and ritual (`cn-religion`) | `cnh-871`–`cnh-880` | 10 | 108 | to do |
-| B89 | Religion and ritual (`cn-religion`) | `cnh-881`–`cnh-890` | 10 | 105 | to do |
-| B90 | Religion and ritual (`cn-religion`) | `cnh-891`–`cnh-900` | 10 | 108 | to do |
-| B91 | Religion and ritual (`cn-religion`) / Language and literature (`cn-language`) | `cnh-901`–`cnh-910` | 10 | 104 | to do |
-| B92 | Language and literature (`cn-language`) | `cnh-911`–`cnh-920` | 10 | 97 | to do |
-| B93 | Language and literature (`cn-language`) | `cnh-921`–`cnh-930` | 10 | 101 | to do |
-| B94 | Language and literature (`cn-language`) | `cnh-931`–`cnh-940` | 10 | 91 | to do |
-| B95 | Language and literature (`cn-language`) / Art, architecture and music (`cn-arts`) | `cnh-941`–`cnh-950` | 10 | 109 | to do |
-| B96 | Art, architecture and music (`cn-arts`) | `cnh-951`–`cnh-960` | 10 | 90 | to do |
-| B97 | Art, architecture and music (`cn-arts`) | `cnh-961`–`cnh-970` | 10 | 104 | to do |
-| B98 | Art, architecture and music (`cn-arts`) / Science, technology and medicine (`cn-science`) | `cnh-971`–`cnh-980` | 10 | 94 | to do |
-| B99 | Science, technology and medicine (`cn-science`) | `cnh-981`–`cnh-990` | 10 | 109 | to do |
-| B100 | Science, technology and medicine (`cn-science`) | `cnh-991`–`cnh-1000` | 10 | 99 | to do |
+| B81 | Land, trade and money (`cn-economy`) | `cnh-801`–`cnh-810` | 10 | 104 | **done 2026-11-19** |
+| B82 | Land, trade and money (`cn-economy`) | `cnh-811`–`cnh-820` | 10 | 101 | **done 2026-11-19** |
+| B83 | Land, trade and money (`cn-economy`) / Chinese philosophy (`cn-thought`) | `cnh-821`–`cnh-830` | 10 | 100 | **done 2026-11-19** |
+| B84 | Chinese philosophy (`cn-thought`) | `cnh-831`–`cnh-840` | 10 | 98 | **done 2026-11-19** |
+| B85 | Chinese philosophy (`cn-thought`) | `cnh-841`–`cnh-850` | 10 | 98 | **done 2026-11-19** |
+| B86 | Chinese philosophy (`cn-thought`) | `cnh-851`–`cnh-860` | 10 | 88 | **done 2026-11-19** |
+| B87 | Chinese philosophy (`cn-thought`) / Religion and ritual (`cn-religion`) | `cnh-861`–`cnh-870` | 10 | 93 | **done 2026-11-19** |
+| B88 | Religion and ritual (`cn-religion`) | `cnh-871`–`cnh-880` | 10 | 108 | **done 2026-11-19** |
+| B89 | Religion and ritual (`cn-religion`) | `cnh-881`–`cnh-890` | 10 | 105 | **done 2026-11-19** |
+| B90 | Religion and ritual (`cn-religion`) | `cnh-891`–`cnh-900` | 10 | 108 | **done 2026-11-19** |
+| B91 | Religion and ritual (`cn-religion`) / Language and literature (`cn-language`) | `cnh-901`–`cnh-910` | 10 | 104 | **done 2026-11-20** |
+| B92 | Language and literature (`cn-language`) | `cnh-911`–`cnh-920` | 10 | 97 | **done 2026-11-20** |
+| B93 | Language and literature (`cn-language`) | `cnh-921`–`cnh-930` | 10 | 101 | **done 2026-11-20** |
+| B94 | Language and literature (`cn-language`) | `cnh-931`–`cnh-940` | 10 | 91 | **done 2026-11-20** |
+| B95 | Language and literature (`cn-language`) / Art, architecture and music (`cn-arts`) | `cnh-941`–`cnh-950` | 10 | 109 | **done 2026-11-20** |
+| B96 | Art, architecture and music (`cn-arts`) | `cnh-951`–`cnh-960` | 10 | 90 | **done 2026-11-20** |
+| B97 | Art, architecture and music (`cn-arts`) | `cnh-961`–`cnh-970` | 10 | 104 | **done 2026-11-20** |
+| B98 | Art, architecture and music (`cn-arts`) / Science, technology and medicine (`cn-science`) | `cnh-971`–`cnh-980` | 10 | 94 | **done 2026-11-20** |
+| B99 | Science, technology and medicine (`cn-science`) | `cnh-981`–`cnh-990` | 10 | 109 | **done 2026-11-20** |
+| B100 | Science, technology and medicine (`cn-science`) | `cnh-991`–`cnh-1000` | 10 | 99 | **done 2026-11-20** |
 ## Running a batch (the harness, `.claude/wh-refine/`)
 
 The World History harness, run with `REFINE_PREFIX=cnh-`. It keeps its working files in a scratch directory
@@ -5477,3 +5477,113 @@ Read by eye. **Confusability**: the Treasure-ship yard `cnh-981`'s, the three sc
 81 parts `cnh-985`'s, the rain-hat heaven `cnh-986`'s, the 15-by-16 field `cnh-987`'s, heaven, earth, man and thing `cnh-988`'s, "empty argument" `cnh-989`'s, the 28 rings
 `cnh-990`'s. **Legend (register)**: Ma Jun's chariot and the Zhaozhou Bridge's builder confirmed. **Chinese names**: unchanged. **Spellings**: no hit. **check-citations**:
 no mismatch. **Glossary**: all ten rewritten. **Protected lines** (`cnh-988`, `cnh-989`): unchanged.
+
+### B100 — `cnh-991`–`cnh-1000`, science, technology and medicine: Ximen Bao to Tu Youyou (2026-11-20)
+
+Run as B91; the collection's last batch and its one four-digit id, `cnh-1000`, which `prep.js`, `precheck.js`, `batch.sh` and `apply.js` handled unchanged (the audit's
+protected-cards reader was widened to four digits in the hundred's first commit). Every cited URL answered (104 citations, 62 distinct). `batch.sh` reached its time limit
+during `check-citations` on `cnh-998`; the last three cards were checked by hand afterwards (no mismatch). **Pictures were not touched.** **The old cards cited Chinese
+Wikisource thirty-six times, Needham, Wagner's and Harper's books through uploads, Bray's in-copyright book and UNESCO; dated a book by its author's life ("Author lived
+1518 – 1593 CE"), a loom by a later story about it ("Story written c. 500 – 599 CE"), a medical classic by a catalogue's converted year ("Copy deposited after 26 BCE") and
+by other texts in a tomb ("Tomb texts sealed 168 BCE"), and a heritage site by an institution ("World Heritage 2000 CE").**
+
+| card | bar | sources | the main changes |
+|---|---|---|---|
+| `cnh-991` Ximen Bao | 5 | 5 → 5 | **protected line kept**; four Wikisource texts and Needham → the *Shiji* 126 (Kanseki), Chavannes vol. 5 [in French], Giles 1898, Du 2020 and de Groot 1910; "three pupils and one elder" corrected to three disciples and the three elders; 403 and 387 in the background. Register confirmed. |
+| `cnh-992` Dujiangyan | 7 | 7 → 7 | `Begun c. 256 BCE` (a saved page prints it) / **"World Heritage" → `Inscribed 2000`**; the *Huayang guozhi* (Kanseki), Chavannes vol. 3, Huang, Hong, Couling, Xue [in Japanese] and Peng; Needham's figures dropped. Register confirmed (the stone men). Locator label: the answer term itself, better the head works. |
+| `cnh-993` Du Shi | 5 | 5 → 5 | **protected line kept**; four Wikisource texts and Wagner's *Science and Civilisation* volume from an upload → his *Hou Hanshu* biography (Kanseki, Siku juan 61), Heibonsha via Kotobank [in Japanese], two open texts by Wagner and a 2026 report; the "Nong Shu 1313" commentary shown to be the Tang commentary under the biography; Han Ji (the *Sanguozhi* only) dropped. For the owner: no open page prints 38 CE (Jianwu 14 only). |
+| `cnh-994` Drawloom | 6 | 6 → 6 | **"Story written c. 500 – 599 CE" (a story, not the loom) → `Depicted 960 – 1279 CE`** (Becker and Wagner print the Song painting's span; the lead's query withdrawn) / `Described 1637 CE`; the *Tiangong kaiwu* (Gutenberg; no KR number), Becker and Wagner (free from the rights holder), *Antiquity* 2017 on Laoguanshan, two open articles and Hosie 1922; the Laoguanshan models and the Julu loom shown to be multi-shaft looms, not drawlooms. |
+| `cnh-995` Fan Shengzhi shu | 5 | 5 → 7 | `Written c. 100 – 1 BCE` / **`Quoted c. 544 CE`** (eLife prints 544); three Wikisource texts and Bray's in-copyright upload → the *Qimin yaoshu* juan 1 (Kanseki) and open studies; the *Hanshu*'s 9 writers and 114 chapters and the 1958 trials dropped. |
+| `cnh-996` Traditional Chinese medicine | 7 | 7 → 8 | line empty (kept); Wikisource, Needham and the *Suwen* → the *Hanshu* catalogue (Kanseki) and modern sources; Cochrane's largely inconclusive findings and aristolochic-acid harm told plainly. Register confirmed. |
+| `cnh-997` Acupuncture | 8 | 8 → 8 | line empty (kept); Wikisource, Harper (an in-copyright upload) and UNESCO (refused) → the *Shiji* 105 (Kanseki), the Mawangdui moxibustion texts, the Song standard (1026 or 1027), NCCIH and Cochrane, impartially; Liu Sheng's needles (on no open page) dropped. Register confirmed (Bian Que). |
+| `cnh-998` Bencao Gangmu | 6 | 6 → 7 | **"Author lived 1518 – 1593 CE" and "Preface 1590" (dated only by its reign year) off → `Completed 1578` / `Printed 1596`**; the Siku summary, Wang Shizhen's preface, the son's memorial and the rules (Kanseki) as the Chinese source; "a handful of qinghao" corrected to Ge Hong's recipe. |
+| `cnh-999` Huangdi Neijing | 7 | 7 → 7 | **"Copy deposited after 26 BCE" (converted) and "Tomb texts sealed 168 BCE" (other texts) off; `Compiled c. 100 – 1 BCE`**; seven Wikisource texts and Harper's upload → the *Suwen* juan 1 (Kanseki), Raphals twice (SEP), Wylie, Mayers, Tu's lecture and the NLM; the Outer Classic's "39" (the *Hanshu* prints 37) off with the counts. Register confirmed. |
+| `cnh-1000` Tu Youyou | 7 | 7 → 8 | **protected line kept**; Ge Hong from the *Zhouhou fang* juan 3 (Kanseki), the Lasker page and White et al. added, the press release dropped; Faurant's credit claim corrected (he names other institutes, never Tu); the glossary's "Stockholm" (on no page) → Karolinska. Register confirmed. |
+
+Read by eye. **Confusability**: the bride "not pretty enough" `cnh-991`'s, the Fish Mouth `cnh-992`'s, "father Shao, mother Du" `cnh-993`'s, the boy aloft `cnh-994`'s, the
+horse-bone soak `cnh-995`'s, the four colleges `cnh-996`'s, the wax-sealed bronze figures `cnh-997`'s, Wang Shizhen's garden `cnh-998`'s, a hundred against fifty
+`cnh-999`'s, the team swallowing the extract `cnh-1000`'s. **Legend (register)**: Ximen Bao, Li Bing's stone men, Bian Que, the Yellow Emperor and Qi Bo, Ge Hong's recipe
+confirmed. **Chinese names**: unchanged; two `Z.reading?` polyphones read rightly (范 Fàn, 華 Huà). **Spellings**: no hit. **check-citations**: no mismatch. **Glossary**:
+all ten rewritten. **Protected lines** (`cnh-991`, `cnh-993`, `cnh-1000`): unchanged.
+
+### The tenth hundred, in sum
+
+`cnh-901`–`cnh-1000` (the last two religion cards; language and literature; art, architecture and music; science, technology and medicine) are done: 638 sources became
+655 and 95 glossary entries were rewritten. `cnh-audit.js --range=cnh-901:cnh-1000` reads every card with nothing but a missing picture except these: 100 cards with no
+picture (pictures stayed paused), 1 advisory `W.not-why` (`cnh-964`), no `L.missing`, and 8 `Z.reading?` that are polyphones read rightly (相如 xiàng, 傳 zhuàn three times,
+韦利's separator, 琵琶 pípá, 華 Huà, 范 Fàn). No `Q.sibling`. `check-cnh-spellings.js` reads one hit in the hundred, a modern author's own name (Huang Chieh Yu) in `cnh-943`'s
+source list. Fifty agents worked two cards each, never more than ten at once; their question angles went into a shared USED CLUES list as each draft came back. Each batch
+was applied alone (B95 twice by accident, checked whole after), verified field by field against its drafts, diffed for the protected lines and committed with its docs. The
+lead edited or sent back eight drafts before the apply: `cnh-902`'s Shang row struck, `cnh-918`'s line made to date the treatise itself, `cnh-936`'s invented end year
+"330", `cnh-937`'s unmarked glossary source, `cnh-953`'s citation moved to the Library of Congress's JSON view, and queries on `cnh-994` (withdrawn), `cnh-956` and
+`cnh-909` (kept, for the owner).
+
+What the hundred found, again and again:
+- **Chinese Wikisource for every text.** 320 citations of the standard histories, the dictionaries, the novels, the poems, the painting treatises and the medical
+  classics — up to seven a card — and Needham, Tsien, Hummel, Karlgren, Waley, Harper, Bray and the Yangs' translations through Digital Library of India, lending scans
+  or user uploads of books in copyright. The texts are now read on the Kanseki Repository (sixty citations), zggdwx.com, CBETA or Gutenberg, one Chinese source a card;
+  the rest is open scholarship (Sino-Platonic Papers, J-STAGE, PMC, OpenEdition, Persée, the SEP, MacTutor), museum records (the V&A, Cleveland, the Art Institute, the
+  Palace Museum, the National Palace Museum, the Library of Congress) and the out-of-copyright English and French (Wylie, Mayers, Giles, Bushell, Couling, Carter,
+  Chavannes, Pelliot, Stein).
+- **Works dated by their authors' lives.** "Author lived 365 – 427 CE", "Author lived 1640 – 1715 CE", "Author died 12 February 1763 CE", "Credited maker lived 151 –
+  230 CE", "Ji Kang lived", "Members lived" as three named men: each book, script, instrument or group is now dated by its own making, printing or attestation
+  ("Completed 1578", "Preface dated 1679", "Grouped c. 1600 – 1700"), or its line is left empty where no page dates it (`cnh-925`, `cnh-979`, `cnh-980`).
+- **Things dated by other events.** The Fangmatan site by a tale found in it, a sutra by its cave's sealing, a map by Zheng He's voyages, a film by the battle it shows, a
+  novel by the bandits behind it, a gun by the wars it may have served, a slip book by the paper that replaced it, a ware by the court's flight south and a shipwreck,
+  the Needham Question by publishers' contracts: all off, or in prose.
+- **Reigns, dynasties, regnal conversions and two values on a row.** "Xuande reign", "Yuan dynasty 1280 – 1367", "Yongming era", "Ming decree 1370", "Band active 1121",
+  "Huali described 1387", "1763 or 1764", "433 BCE or later", "186 CE or 187 CE", "Kiln bans 1439 and 1448": a year stands only where a saved page prints it, and a
+  disputed date is two rows.
+- **Counts and modern reprints on date lines.** "Characters 700, then 501, now 272", "Entries 9,353", "Rhyme groups 19", "Zeng set 65 bells", "Reprinted 1931": gone.
+- **Legend in the card's voice.** Cangjie, Cheng Miao, Cai Lun "inventing" paper, Meng Tian's brush, the guqin's makers, Wu Daozi's one day, Huang Quan's cranes, Lu Ban's
+  bridge, Ximen Bao and Li Bing's river gods: each is now what a named text tells, with its date, or left out where no page carries it.
+
+**The Chinese name.** Corrected: `cnh-905` 石鼓 (the stones, not the inscription 石鼓文); pinyin on `cnh-913`, `cnh-914`, `cnh-954`, `cnh-965`, `cnh-966`, `cnh-971`.
+Kept unconfirmed for want of a page printing the form, for the owner: `cnh-944`'s full title 蘭亭集序, `cnh-954`'s 玉衣 alone, `cnh-984`'s 中平二年客星 (the record's own words).
+**Spellings**: seven rows added at the start; no variant caught in the cards' own voice.
+
+**The myth register** gained thirty rows at the start and five rows' mention columns; each was confirmed, corrected or told in part by the batch that drafted its card:
+corrected — Cheng Miao (Xu Shen already names him), the novels' authors (the Tianqi gazetteer carries no year; Qing scholars first made the Wu Cheng'en attribution);
+confirmed — Cangjie, the four tones named (the eight guests), Sima Xiangru and Zhuo Wenjun, Gan Bao's marvels, the Water Margin and Song Jiang, Xuanzang (the record and
+the pagoda), the Peach Blossom Spring, Liu Xie and Shen Yue, Pu Songling's preface, Wu Daozi, Huang Quan, Gu Hongzhong, the map of Wu, Cai Lun (reported), the compass's
+records, Ma Jun's chariot, the Zhaozhou Bridge's Li Chun, Ximen Bao, Li Bing's stone men, Bian Que, the Yellow Emperor and Qi Bo, Ge Hong's recipe; in part — Wang Xizhi's
+preface, the guqin's makers, Dingjun Mountain (the battle; the memoirs on no page), the library cave (two finders; the sealing a debate), Confucius's bindings, Meng
+Tian's brush (tradition), the pipa contest (from an excerpt). Not told by any card of the hundred: Zhang Heng's seismoscope, the Eight Immortals, Li Bai's drowning;
+Wang Zhaojun told only through Ma Zhiyuan's play.
+
+**The protected cards** (fifteen: the writers, painters, scholars and inventors) kept their `answerDate`, `undatable` and `timeline` byte for byte through every apply;
+every background carries its line's years. Flagged for the owner, left as they stand: `cnh-921` Nanchong (the *Shiji* says Chengdu) and 117 (two articles give 118);
+`cnh-923` "Play written c. 1270 – 1300" (the sources say "late 13th century"); `cnh-941` 16 May (Xinhua gives 18 May), Qichun and the birth day; `cnh-942` 19 August (Simon
+gives 16 August); `cnh-948` 903 and 965 "ca." in Taipei, Kaifeng on no page; `cnh-958` 1664 (Cordier gives 25 February 1663); `cnh-971` the two days; `cnh-988` 1249 and 1314
+(Siu only; MacTutor c. 1260 – 1320; Mikami says unknown); `cnh-993` 38 CE (Jianwu 14 only); and days and months on most person templates on no page read.
+
+**For the owner, outside the hundred**: `test-card-timeline.js` fails three checks on main as on this branch (not from this work); the same tool false positives as before
+(`check-citations.js` reads reversed name order, a translator Crossref lists as author, a Hangul name beside the romanised one, a romanised Japanese title and an online
+date as mismatches; `Z.reading?` polyphones); `cnh-918`'s c. 54 – 92 CE against `cnh-260`'s c. 54 – 80 CE (chinaknowledge.de); dates left to the owner on non-protected
+cards: `cnh-903`'s Sui span, `cnh-909`'s Giles row, `cnh-924`'s "Members lived", `cnh-956`'s 1450, `cnh-983`'s missing Ming row; empty lines on `cnh-925`, `cnh-979`, `cnh-980`.
+
+### Locators (2026-11-20, the tenth hundred)
+
+**No locator was added**: Wikimedia answered 429 all session and `add-locators.js` was not run. Points to review (the point is the town, county or city, not the site, or
+the label is the answer term): `cnh-905` Fengxiang town (the findspot c. 11 km south, at Sanzhiyuan); `cnh-938` Ningbo (within a few hundred metres; the label should be
+the pavilion); `cnh-952` West Lake (the society stands on Solitary Hill); `cnh-954` Mancheng county, not the Lingshan tombs; `cnh-962` Yongding county (ten components in
+three counties; Chengqi Lou if one point is wanted); `cnh-963` Wutai county seat (the hall at about 38.70 N, 113.11 E); `cnh-964` Xi'an (the pagoda at about 34.22 N,
+108.96 E); `cnh-966` Jiaxiang county seat (the shrines about 15 km south); `cnh-972` Mian County (the battle's mountain, questionable for a film); `cnh-975` Tianshui city,
+not the site; `cnh-976` and `cnh-982` Dunhuang (the findspot is the Mogao Caves, Cave 17); `cnh-979` Acheng district (Banlachengzi has no point); `cnh-983` the right point,
+labelled "Beijing"; `cnh-992` the right point, labelled with the answer term. Kept: `cnh-921` Chengdu, `cnh-923` Beijing, `cnh-937` the Mogao Caves, `cnh-946` Chang'an,
+`cnh-949` Nanjing, `cnh-953` Qishan County (the reported findspot), `cnh-955` Quyang, `cnh-956` Longquan, `cnh-957` and `cnh-958` Jingdezhen, `cnh-959` Xitang, `cnh-970` Kunshan,
+`cnh-971` Beijing, `cnh-977` Wuxi, `cnh-981` Nanjing, `cnh-988` Beijing, `cnh-989` Fufeng, `cnh-990` the bridge, `cnh-993` Nanyang, `cnh-1000` Ningbo. Still waiting from earlier
+hundreds: the lists in the seventh, eighth and ninth hundreds' notes.
+
+## The refinement, closed (2026-11-20)
+
+With B100 every card of the China collection, `cnh-001` to `cnh-1000`, has been re-researched and rewritten once under these rules, in ten hundreds and a hundred
+batches between 2026-11-08 and 2026-11-20 (PRs #639, #679, #702, #715, #717, #722, #786, #790, #792 and this one). What the refinement changed, across the collection:
+the old cards' habit of citing Chinese Wikisource (some four hundred citations in the ninth hundred and 320 in the tenth alone), copyrighted books through uploads and walled or refusing hosts is gone; every
+source is a page that answered when it was cited and was saved; every claim in a background or a Think-it-through answer is quoted from the source its marker points
+at; a date line carries only dates, labelled without names, one value a row, and a year only where a page prints it; legend is told as what a named text says, with the
+myth register's row; the Chinese name, the house spellings and every glossary entry agree with the card. What it left undone, for later passes: **pictures** (paused all
+run while Wikimedia answered 429; `## Pictures to redo` and every hundred's notes list them), **locators** (none added since the sixth hundred; each hundred's Locators
+note lists the points to fix), the **protected lines** of the individuals (left to their own thread; each hundred lists the rows its sources dispute), and the owner's
+open questions gathered in each "in sum" section. The rules, the harness (`.claude/wh-refine/`, `cnh-audit.js`, `check-cnh-spellings.js`) and this ledger stay as the
+record of how each card came to read as it does.
