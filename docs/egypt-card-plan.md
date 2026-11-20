@@ -315,6 +315,22 @@ everyday life, the economy — and took a concrete term inside it. The ones that
   `eg-861` and the Tomb of Nebamun and Ipuky at `eg-879`, so `eg-828` took the harvest scene and `eg-829` the
   overseer of craftsmen.
 
+**`eg-901`–`eg-1000` (written together, in ten parallel batches) retitled most lines** to the term each card
+answers; the lines in the list now read as the answers. Area lines (poetry, tools, timekeeping, the column)
+took a concrete term inside them, and the ones that had to move for another reason were:
+
+- **Already taken**: papyrus (`wh-208`) and *Cyperus papyrus* (`eg-881`) → the Prisse Papyrus; Kemit, the Late
+  Egyptian Miscellanies' neighbours, Letters to the Dead, the Heqanakht papyri, Demotic, the Demotic Chronicle and
+  Ankhsheshonq → the model letter, the Calendar of Lucky and Unlucky Days, the Inaros–Petubastis cycle and the
+  Oracle of the Potter; Sinuhe, Wenamun, Two Brothers, the Shipwrecked Sailor and Papyrus Harris 500 → the Taking
+  of Joppa, the Punt reliefs and the Cairo Vase; the Great Sphinx, Khafre Enthroned, the Seated Scribe, the serdab
+  and the Tomb of Nebamun → Rahotep and Nofret, Kaaper and the copper statues of Pepi I; the mastaba, the hypostyle
+  hall, the benben, the sacred lake, Abu Simbel and Malkata → the cavetto cornice, the primeval mound, the dromos,
+  the Temple of Derr and the Palace of Apries; the hekat, deben and seked → the aroura; the Khufu ship and the
+  Abydos boats → the Dahshur boats; Heka, Thoth and the House of Life → Papyrus Berlin 3027 and the Book of Thoth.
+- **`eg-917` answers the Cairo Vase**, the name the published translation uses, rather than "the Cairo Love
+  Songs", which none of the card's sources uses.
+
 ## Making the collection
 
 Four things had to be decided because nothing existed to inherit them from.
@@ -1590,49 +1606,49 @@ safe.
     eg-898  Late Egyptian
     eg-899  The decipherment of Egyptian hieroglyphs
     eg-900  Scribal palette
-    eg-901  Papyrus
+    eg-901  Prisse Papyrus
     eg-902  Ostracon
-    eg-903  The Egyptian scribe
-    eg-904  Scribal training in ancient Egypt
-    eg-905  Literacy in ancient Egypt
-    eg-906  Ancient Egyptian literature
-    eg-907  Egyptian wisdom literature
+    eg-903  scribe
+    eg-904  sebayt
+    eg-905  literacy
+    eg-906  Immortality of Writers
+    eg-907  wisdom literature
     eg-908  Maxims of Ptahhotep
     eg-909  Instruction of Any
     eg-910  Instruction of Amenemope
-    eg-911  Egyptian narrative fiction
+    eg-911  Taking of Joppa
     eg-912  Tale of the Doomed Prince
-    eg-913  Egyptian travel narrative
-    eg-914  Egyptian poetry
-    eg-915  Egyptian hymns
+    eg-913  Punt reliefs
+    eg-914  Harper's Songs
+    eg-915  Hymns to Senusret III
     eg-916  Hymn to the Nile
-    eg-917  Egyptian love songs
-    eg-918  Egyptian laments
-    eg-919  Egyptian autobiography
-    eg-920  The Egyptian royal inscription as a genre
-    eg-921  Egyptian letters as a form
-    eg-922  Egyptian technical texts
-    eg-923  Egyptian onomastica
-    eg-924  The House of Books at Edfu
-    eg-925  The copying and transmission of Egyptian texts
-    eg-926  The Egyptian book
-    eg-927  Demotic literature
-    eg-928  The Setne stories
-    eg-929  Egyptian literature in the Greco-Roman period
-    eg-930  What survives of Egyptian literature, and why
+    eg-917  Cairo Vase
+    eg-918  Lamentations of Isis and Nephthys
+    eg-919  Bakenkhonsu
+    eg-920  Königsnovelle
+    eg-921  model letter
+    eg-922  Calendar of Lucky and Unlucky Days
+    eg-923  Onomasticon of Amenope
+    eg-924  House of Books
+    eg-925  colophon
+    eg-926  papyrus roll
+    eg-927  Inaros–Petubastis cycle
+    eg-928  Setne Khamwas and Si-Osire
+    eg-929  Oracle of the Potter
+    eg-930  Ramesseum Papyri
 
 ### Art and architecture — `eg-art`
 
     eg-931  Ancient Egyptian art
-    eg-932  The conventions of Egyptian art
-    eg-933  The Egyptian canon of proportions
-    eg-934  Egyptian relief carving
-    eg-935  Sunk and raised relief
-    eg-936  Egyptian painting
-    eg-937  Egyptian pigments
-    eg-938  Egyptian statuary
-    eg-939  Egyptian royal statuary
-    eg-940  Egyptian private statues
+    eg-932  hierarchical proportion
+    eg-933  canon of proportions
+    eg-934  Mastaba of Ti
+    eg-935  sunk relief
+    eg-936  Meidum Geese
+    eg-937  Egyptian blue
+    eg-938  Rahotep and Nofret
+    eg-939  copper statues of Pepi I
+    eg-940  Kaaper
     eg-941  Egyptian colossal sculpture
     eg-942  Sphinx
     eg-943  Figured ostraca and artists' sketches
@@ -1643,56 +1659,56 @@ safe.
     eg-948  Egyptian furniture as art
     eg-949  The Egyptian artist and the workshop
     eg-950  Style and change in Egyptian art
-    eg-951  Ancient Egyptian architecture
-    eg-952  Egyptian mudbrick building
-    eg-953  Egyptian stone architecture
-    eg-954  The Egyptian column
+    eg-951  cavetto cornice
+    eg-952  mudbrick
+    eg-953  sandstone
+    eg-954  Hathor column
     eg-955  Pylon
-    eg-956  The temple as a model of the cosmos
-    eg-957  Egyptian obelisks
-    eg-958  Egyptian temple plans and their meaning
-    eg-959  Egyptian rock-cut architecture
-    eg-960  Egyptian palaces
-    eg-961  Egyptian fortress architecture
-    eg-962  Egyptian building techniques
-    eg-963  Egyptian surveying and orientation
-    eg-964  The astronomical alignment of Egyptian monuments
-    eg-965  Ornament and meaning in Egyptian decoration
-    eg-966  Egyptian colour symbolism
-    eg-967  Amarna art reconsidered
-    eg-968  Egyptian art under foreign rule
-    eg-969  Egyptian influence on later art
+    eg-956  primeval mound
+    eg-957  obelisk
+    eg-958  dromos
+    eg-959  Temple of Derr
+    eg-960  Palace of Apries
+    eg-961  Kumma
+    eg-962  foundation deposit
+    eg-963  Seshat
+    eg-964  merkhet
+    eg-965  winged sun
+    eg-966  lapis lazuli
+    eg-967  Bek
+    eg-968  Trajan’s Kiosk
+    eg-969  Pyramid of Cestius
     eg-970  Egyptomania
 
 ### Science, medicine and technology — `eg-science`
 
-    eg-971  Ancient Egyptian mathematics
+    eg-971  Egyptian mathematics
     eg-972  Egyptian numerals
     eg-973  Egyptian fraction
     eg-974  Rhind Mathematical Papyrus
     eg-975  Moscow Mathematical Papyrus
-    eg-976  Egyptian geometry and land measurement
+    eg-976  aroura
     eg-977  Ancient Egyptian units of measurement
     eg-978  Cubit
     eg-979  Egyptian astronomy
-    eg-980  The Egyptian civil calendar
+    eg-980  Egyptian civil calendar
     eg-981  Sothic cycle
     eg-982  Decan
-    eg-983  Egyptian star clocks and water clocks
-    eg-984  Timekeeping in ancient Egypt
+    eg-983  water clock
+    eg-984  unequal hours
     eg-985  Ancient Egyptian medicine
-    eg-986  Egyptian physicians
+    eg-986  swnw
     eg-987  Edwin Smith Papyrus
     eg-988  Ebers Papyrus
-    eg-989  Egyptian surgery
-    eg-990  Egyptian pharmacology
-    eg-991  Dentistry in ancient Egypt
-    eg-992  Magic and medicine in Egypt
-    eg-993  Egyptian technology
-    eg-994  Egyptian tools
-    eg-995  Egyptian woodworking and joinery
-    eg-996  Egyptian shipbuilding
-    eg-997  Egyptian glassmaking
-    eg-998  Egyptian materials and their working
-    eg-999  Egyptian knowledge and its transmission
-    eg-1000 What the Egyptians knew
+    eg-989  splint
+    eg-990  castor oil
+    eg-991  Hesy-Ra
+    eg-992  Papyrus Berlin 3027
+    eg-993  bow drill
+    eg-994  adze
+    eg-995  mortise and tenon
+    eg-996  Dahshur boats
+    eg-997  cobalt glass
+    eg-998  electrum
+    eg-999  Chaeremon of Alexandria
+    eg-1000 Book of Thoth

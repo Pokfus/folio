@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"30c89b1ff7d6dd40","counts":{"terms":1008,"points":772,"countries":236,"windows":1757,"faces":394,"years":107},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"ffcfd0c65b942c5d","counts":{"terms":1008,"points":772,"countries":236,"windows":1761,"faces":394,"years":107},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1620,6 +1620,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"30c89b1ff7d6dd40","counts":
 "Hong_Kong":[114.183,22.307,"city",0,0,0],
 "Hongze_Lake":[118.585,33.286,"lake",0,0,0],
 "Honshu":[138,36,"coord",0,0,0],
+"House_of_Books":[32.873,24.978,"coord",0,0,0],
 "House_of_the_Vettii":[14.485,40.752,"coord",0,0,0],
 "Huai_River":[119.704,32.308,"coord",0,0,0],
 "Huangguoshu_Waterfall":[105.666,25.992,"region",0,0,0],
@@ -1932,6 +1933,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"30c89b1ff7d6dd40","counts":
 "Mashuk":[43.088,44.05,"coord",0,0,0],
 "Massachusetts":[-71.999,42.374,"admin1","adm1:usa:us-ma",0,25.76],
 "Massalia":[5.373,43.292,"city",0,0,0],
+"Mastaba_of_Ti":[31.216,29.871,"coord",0,0,0],
 "Matterhorn":[7.659,45.976,"coord",0,0,0],
 "Mauna_Kea":[-155.468,19.821,"mountain",0,0,0],
 "Mauna_Loa":[-155.6,19.483,"mountain",0,0,0],
@@ -2259,6 +2261,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"30c89b1ff7d6dd40","counts":
 "Putorana_Plateau":[94.158,69.047,"coord",0,0,0],
 "Pyongyang":[125.753,39.021,"capital",0,0,0],
 "Pyramid_of_Ahmose":[31.938,26.175,"coord",0,0,0],
+"Pyramid_of_Cestius":[12.481,41.877,"coord",0,0,0],
 "Pyramid_of_Djoser":[31.217,29.871,"coord",0,0,0],
 "Pyramid_of_Khafre":[31.131,29.976,"coord",0,0,0],
 "Pyramid_of_Menkaure":[31.128,29.973,"coord",0,0,0],
@@ -2597,6 +2600,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"30c89b1ff7d6dd40","counts":
 "Tonga":[-175.16,-21.21,"country","adm0:ton",0,11.63],
 "Toumba_building":[23.675,38.413,"coord",0,0,0],
 "Trajan's_Forum":[12.486,41.895,"site",0,0,0],
+"Trajan's_Kiosk":[32.885,24.025,"coord",0,0,0],
 "Trajan's_Market":[12.486,41.896,"site",0,0,0],
 "Trans-Siberian_Railway":[131.885,43.115,"coord",0,0,0],
 "Treasuries_at_Delphi":[22.501,38.482,"coord",0,0,0],
