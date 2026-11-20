@@ -12534,7 +12534,17 @@ window.GLOSSARY = {
 "Dahshur_boats": "",
 "Cobalt_glass": "",
 "Chaeremon_of_Alexandria": "",
-"Book_of_Thoth": ""
+"Book_of_Thoth": "",
+"Pedestals_of_Biahmu": "",
+"Androsphinx": "",
+"Ostracon_of_Senenmut": "",
+"Tomb_of_Two_Brothers": "",
+"Treasure_of_El_Lahun": "",
+"Core-formed_glass": "",
+"William_(hippopotamus_figurine)": "",
+"Throne_of_Princess_Sitamun": "",
+"Iuty": "",
+"Hor_Awibre": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -18697,7 +18707,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Ebers_Papyrus": "c. 1550 BCE",
 "Papyrus_Berlin_3027": "c. 1450 BCE",
 "Chaeremon_of_Alexandria": "1st century CE",
-"Book_of_Thoth": "c. 1–200 CE"
+"Book_of_Thoth": "c. 1–200 CE",
+"Pedestals_of_Biahmu": "c. 1859–1813 BCE",
+"Ostracon_of_Senenmut": "c. 1473–1458 BCE",
+"Treasure_of_El_Lahun": "c. 1887–1813 BCE",
+"William_(hippopotamus_figurine)": "c. 1961–1878 BCE",
+"Throne_of_Princess_Sitamun": "c. 1386–1347 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -26954,7 +26969,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Dahshur_boats": ["Dashur boats","Dahshur boat"],
 "Cobalt_glass": ["cobalt blue glass","cobalt-blue glass"],
 "Chaeremon_of_Alexandria": ["Chaeremon the Stoic","Cheremon of Alexandria"],
-"Book_of_Thoth": ["Demotic Book of Thoth","Books of Thoth"]
+"Book_of_Thoth": ["Demotic Book of Thoth","Books of Thoth"],
+"Pedestals_of_Biahmu": ["Colossi of Biahmu","Biahmu colossi","Pyramids of Biahmu"],
+"Androsphinx": ["androsphinxes","man-headed sphinx","human-headed sphinx"],
+"Ostracon_of_Senenmut": ["Senenmut ostracon","gridded sketch of Senenmut"],
+"Tomb_of_Two_Brothers": ["tomb of Nakhtankh and Khnumnakht","Tomb of the Two Brothers"],
+"Treasure_of_El_Lahun": ["Lahun treasure","Treasure of Lahun","El Lahun treasure"],
+"Core-formed_glass": ["core-formed glass","core-formed vessel","core-formed vessels"],
+"William_(hippopotamus_figurine)": ["William the Hippo","William the faience hippopotamus"],
+"Throne_of_Princess_Sitamun": ["Chair of Sitamun","Chair of Princess Sitamun","Throne of Sitamun"],
+"Iuty": ["Auta","Iuty (sculptor)"],
+"Hor_Awibre": ["ka statue of Awibre Hor","Awibre Hor","Auibre Hor"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -39714,7 +39739,17 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Dahshur_boats": ["object","technology","egypt"],
 "Cobalt_glass": ["technology","craft","science"],
 "Chaeremon_of_Alexandria": ["person","philosophy","religion","egypt"],
-"Book_of_Thoth": ["text","religion","philosophy","egypt"]
+"Book_of_Thoth": ["text","religion","philosophy","egypt"],
+"Pedestals_of_Biahmu": ["object","art","history","egypt","middle kingdom"],
+"Androsphinx": ["object","art","religion","egypt"],
+"Ostracon_of_Senenmut": ["object","art","egypt","new kingdom"],
+"Tomb_of_Two_Brothers": ["building","art","egypt","middle kingdom"],
+"Treasure_of_El_Lahun": ["object","art","egypt","middle kingdom"],
+"Core-formed_glass": ["technology","art","egypt","new kingdom"],
+"William_(hippopotamus_figurine)": ["object","art","egypt","middle kingdom"],
+"Throne_of_Princess_Sitamun": ["object","art","egypt","new kingdom"],
+"Iuty": ["person","art","egypt","new kingdom"],
+"Hor_Awibre": ["ruler","art","egypt","middle kingdom"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

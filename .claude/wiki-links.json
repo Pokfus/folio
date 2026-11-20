@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-20T01:28Z",
+ "generated": "2026-11-20T01:39Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8899,
-  "redirect-broader": 853,
+  "ok": 8904,
+  "redirect-broader": 856,
   "redirect-variant": 519,
   "section-redirect": 203,
   "disambiguation": 163,
-  "none": 1299,
+  "none": 1301,
   "disambig-resolved": 116,
   "list-page": 6,
   "search-match": 11,
@@ -96176,6 +96176,93 @@
    "url": "https://en.wikipedia.org/wiki/Book_of_Thoth",
    "via": "glossary",
    "status": "ok"
+  },
+  "eg-941": {
+   "answer": "Colossi of Biahmu",
+   "title": "Pedestals of Biahmu",
+   "url": "https://en.wikipedia.org/wiki/Pedestals_of_Biahmu",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Colossi of Biahmu"
+  },
+  "eg-942": {
+   "answer": "androsphinx",
+   "title": "Sphinx",
+   "url": "https://en.wikipedia.org/wiki/Sphinx",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Androsphinx"
+  },
+  "eg-943": {
+   "answer": "Ostracon of Senenmut",
+   "title": "Ostracon of Senenmut",
+   "url": "https://en.wikipedia.org/wiki/Ostracon_of_Senenmut",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-944": {
+   "answer": "Tomb of Two Brothers",
+   "title": "Tomb of Two Brothers",
+   "url": "https://en.wikipedia.org/wiki/Tomb_of_Two_Brothers",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-945": {
+   "answer": "Treasure of El Lahun",
+   "title": "Treasure of El Lahun",
+   "url": "https://en.wikipedia.org/wiki/Treasure_of_El_Lahun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-946": {
+   "answer": "core-formed glass",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Egyptian faience",
+    "History of glass",
+    "Glass bead making",
+    "Roman glass",
+    "Hellenistic glass"
+   ]
+  },
+  "eg-947": {
+   "answer": "William the Hippo",
+   "title": "William (hippopotamus figurine)",
+   "url": "https://en.wikipedia.org/wiki/William_(hippopotamus_figurine)",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "William the Hippo"
+  },
+  "eg-948": {
+   "answer": "Throne of Princess Sitamun",
+   "title": "Throne of Princess Sitamun",
+   "url": "https://en.wikipedia.org/wiki/Throne_of_Princess_Sitamun",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-949": {
+   "answer": "Iuty",
+   "title": "Iuty",
+   "url": "https://en.wikipedia.org/wiki/Iuty",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-950": {
+   "answer": "ka statue of Awibre Hor",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Hor Awibre",
+    "Ka statue",
+    "Art of ancient Egypt",
+    "Hatshepsut",
+    "Ramesses II"
+   ]
   }
  }
 }

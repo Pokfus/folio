@@ -330,6 +330,9 @@ took a concrete term inside them, and the ones that had to move for another reas
   Abydos boats → the Dahshur boats; Heka, Thoth and the House of Life → Papyrus Berlin 3027 and the Book of Thoth.
 - **`eg-917` answers the Cairo Vase**, the name the published translation uses, rather than "the Cairo Love
   Songs", which none of the card's sources uses.
+- **Collided between batches before import** and moved: Kaaper stays at `eg-940`, Bek at `eg-967` and Hesy-Ra at
+  `eg-991`, so `eg-944` took the Tomb of Two Brothers, `eg-949` the sculptor Iuty and `eg-950` the ka statue of
+  Awibre Hor.
 
 ## Making the collection
 
@@ -1649,16 +1652,16 @@ safe.
     eg-938  Rahotep and Nofret
     eg-939  copper statues of Pepi I
     eg-940  Kaaper
-    eg-941  Egyptian colossal sculpture
-    eg-942  Sphinx
-    eg-943  Figured ostraca and artists' sketches
-    eg-944  Egyptian woodwork
-    eg-945  Egyptian metalwork
-    eg-946  Egyptian glass
-    eg-947  Egyptian glazed ware
-    eg-948  Egyptian furniture as art
-    eg-949  The Egyptian artist and the workshop
-    eg-950  Style and change in Egyptian art
+    eg-941  Colossi of Biahmu
+    eg-942  androsphinx
+    eg-943  Ostracon of Senenmut
+    eg-944  Tomb of Two Brothers
+    eg-945  Treasure of El Lahun
+    eg-946  core-formed glass
+    eg-947  William the Hippo
+    eg-948  Throne of Princess Sitamun
+    eg-949  Iuty
+    eg-950  ka statue of Awibre Hor
     eg-951  cavetto cornice
     eg-952  mudbrick
     eg-953  sandstone

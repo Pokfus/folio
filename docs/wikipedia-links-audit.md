@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 8899 | the title is the article |
+| `ok` | 8904 | the title is the article |
 | `redirect-variant` | 519 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 116 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 11 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 853 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 856 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 203 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 163 | only a disambiguation page; no link could be chosen |
-| `none` | 1299 | nothing matched; no link |
+| `none` | 1301 | nothing matched; no link |
 
-**10405 of 12090 cards get a link.** The three "no link" rows are the honest state: a card whose
+**10413 of 12100 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (853)
+## Redirected to a differently named article — check each (856)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -248,6 +248,9 @@ The answer redirects to an article with another name. Most are the same subject 
 - `eg-930` **Ramesseum Papyri** → [Dramatic Ramesseum Papyrus](https://en.wikipedia.org/wiki/Dramatic_Ramesseum_Papyrus) (from `Ramesseum Papyri`)
 - `eg-931` **Ancient Egyptian art** → [Art of ancient Egypt](https://en.wikipedia.org/wiki/Art_of_ancient_Egypt) (from `Ancient Egyptian art`)
 - `eg-933` **canon of proportions** → [Artistic canons of body proportions](https://en.wikipedia.org/wiki/Artistic_canons_of_body_proportions) (from `Canon of proportions`)
+- `eg-941` **Colossi of Biahmu** → [Pedestals of Biahmu](https://en.wikipedia.org/wiki/Pedestals_of_Biahmu) (from `Colossi of Biahmu`)
+- `eg-942` **androsphinx** → [Sphinx](https://en.wikipedia.org/wiki/Sphinx) (from `Androsphinx`)
+- `eg-947` **William the Hippo** → [William (hippopotamus figurine)](https://en.wikipedia.org/wiki/William_(hippopotamus_figurine)) (from `William the Hippo`)
 - `eg-951` **cavetto cornice** → [Cavetto](https://en.wikipedia.org/wiki/Cavetto) (from `Cavetto cornice`)
 - `eg-958` **dromos** → [Chumbi Valley](https://en.wikipedia.org/wiki/Chumbi_Valley) (from `Dromo`)
 - `eg-986` **swnw** → [Ancient Egyptian medicine](https://en.wikipedia.org/wiki/Ancient_Egyptian_medicine) (from `Swnw`)
@@ -1422,7 +1425,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1299)
+## No article found (1301)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -1921,6 +1924,8 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `eg-927` **Inaros–Petubastis cycle** — search suggests `List of pharaohs`, `Ramesses II`, `Index of ancient Egypt–related articles`, `List of wars involving Iran (before 1979)`
 - `eg-938` **Rahotep and Nofret** — search suggests `Nofret`, `Prince Rahotep`, `Art of ancient Egypt`, `Prince Djedi`, `Old Kingdom of Egypt`
 - `eg-939` **copper statues of Pepi I** — search suggests `Pepi I Meryre`, `Pepi II Neferkare`, `Sixth Dynasty of Egypt`, `Pyramid of Pepi I`, `Merenre Nemtyemsaf I`
+- `eg-946` **core-formed glass** — search suggests `Egyptian faience`, `History of glass`, `Glass bead making`, `Roman glass`, `Hellenistic glass`
+- `eg-950` **ka statue of Awibre Hor** — search suggests `Hor Awibre`, `Ka statue`, `Art of ancient Egypt`, `Hatshepsut`, `Ramesses II`
 - `eg-954` **Hathor column** — search suggests `Hathor`, `Dendera temple complex`, `Mortuary temple of Hatshepsut`, `Memphis, Egypt`, `Horus`
 - `eg-956` **primeval mound** — search suggests `Ancient Egyptian creation myths`, `Benben`, `Atum`, `Tatenen`, `Egyptian pyramids`
 - `eg-960` **Palace of Apries** — search suggests `Memphis, Egypt`, `List of palaces in Egypt`, `Amasis II`, `List of palaces`, `Conspiracies in ancient Egypt`
