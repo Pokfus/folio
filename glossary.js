@@ -12726,7 +12726,13 @@ window.GLOSSARY = {
 "Tokugawa_Yoshinobu": "",
 "Nara_(city)": "",
 "Refuge_in_Buddhism": "",
-"Four_Heavenly_Kings": ""
+"Four_Heavenly_Kings": "",
+"Echizen_Province": "",
+"Fujiwara_no_Nobutaka": "",
+"Epidemic": "",
+"Utsubo_Monogatari": "",
+"Akashi_family": "",
+"Suma-ku": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -18960,7 +18966,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Sakanoue_no_Tamuramaro": "758–811",
 "Minamoto_no_Yoshinaka": "1154–1184",
 "Minamoto_no_Yoriie": "1182–1204",
-"Tokugawa_Yoshinobu": "1837–1913"
+"Tokugawa_Yoshinobu": "1837–1913",
+"Fujiwara_no_Nobutaka": "died 1001"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -27347,7 +27354,13 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Nara_(city)": ["Nara"],
 "Refuge_in_Buddhism": ["Three Treasures","Three Jewels","Triple Gem"],
 "Four_Heavenly_Kings": ["Heavenly Kings","four Heavenly Kings","Shitennō"],
-"Yamato_polity": ["Yamato court"]
+"Yamato_polity": ["Yamato court"],
+"Echizen_Province": ["Echizen province","Echizen"],
+"Fujiwara_no_Nobutaka": ["Nobutaka"],
+"Epidemic": ["pestilence"],
+"Utsubo_Monogatari": ["Tale of Utsubo","Utsuho Monogatari","Tale of the Hollow Tree"],
+"Akashi_family": ["Lady of Akashi","Akashi Lady","Akashi Novice","Akashi Empress","Princess from Akashi"],
+"Suma-ku": ["Suma","Suma Ward"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27587,7 +27600,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Cesare_Beccaria": true,
 "Guqin": true,
 "Kamakura": true,
-"Nara_(city)": true
+"Nara_(city)": true,
+"Suma-ku": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -40317,7 +40331,13 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Tokugawa_Yoshinobu": ["person","japan","history","tokugawa shogunate","meiji restoration","shogun"],
 "Nara_(city)": ["city","japan","history","nara"],
 "Refuge_in_Buddhism": ["concept","buddhism","religion"],
-"Four_Heavenly_Kings": ["concept","buddhism","religion","mythology"]
+"Four_Heavenly_Kings": ["concept","buddhism","religion","mythology"],
+"Echizen_Province": ["place","japan","province","heian","history"],
+"Fujiwara_no_Nobutaka": ["person","japan","heian","fujiwara","history"],
+"Epidemic": ["concept","medicine","epidemiology","disease","history"],
+"Utsubo_Monogatari": ["object","literature","japan","heian","fiction"],
+"Akashi_family": ["character","literature","japan","heian","genji"],
+"Suma-ku": ["place","japan","kobe","literature","coast"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
