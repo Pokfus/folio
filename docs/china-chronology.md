@@ -1092,6 +1092,15 @@ January 1917 (`cnh-586`, `cnh-588`); Lu Xun's "Diary of a Madman" 1918 (`cnh-589
 | "the Four Great Classical Novels" attested in today's sense | 1981 | Guo 2023 (`cnh-928`) |
 | the *Water Margin* first printed / banned | c. 1500 – 1550 / 1642 | Gregory 2023 (`cnh-929`) |
 | the *Journey to the West* first printed | 1592 | the card's sources (`cnh-930`) |
+| the *Jin Ping Mei* attested / printed / preface dated | 1596 / 1610 / 1617 | Lu Xun; Tanaka (`cnh-931`) |
+| the *Dream of the Red Chamber* circulating / printed | 1759 / 1791, also dated 1792 | Lu Xun; the card's sources (`cnh-932`) |
+| the *Strange Tales*: preface / first printed | 1679 / 1766 | the Library of Congress; Lu Xun (`cnh-933`) |
+| the *Peony Pavilion* completed | 1598 | the card's sources (`cnh-934`) |
+| the *Wenxin diaolong* completed | c. 500 CE | the card's sources (`cnh-935`) |
+| bamboo and wooden slips' main use began | c. 500 – 400 BCE | Liu et al. (`cnh-936`) |
+| the Tianyi Pavilion built / made a museum | 1561 – 1566 / 1994 | Situ 2007 (`cnh-938`) |
+| "Diary of a Madman" written / printed | April 1918 / May 1918 | the card's sources (`cnh-939`) |
+| scar literature's high tide / "Scar" printed | 1977 – 1984 / 11 August 1978 | Huang 2001; the Academy of Chinese Studies (`cnh-940`) |
 
 ## Chronology pins
 

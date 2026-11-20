@@ -15880,7 +15880,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Strange_Tales_from_a_Chinese_Studio": "1679–1766",
 "The_Peony_Pavilion": "1598",
 "Wenxin_Diaolong": "c. 500 CE",
-"Bamboo_and_wooden_slips": "98 BCE–137 CE",
+"Bamboo_and_wooden_slips": "c. 500 – 400 BCE",
 "Arthur_Waley": "1889–1966",
 "Lantingji_Xu": "353 CE",
 "Mustard_Seed_Garden_Manual_of_Painting": "1679–1701",
