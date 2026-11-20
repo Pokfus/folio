@@ -4134,6 +4134,14 @@
        several collections and share no tag, so `text` is the test rather than a root: the term links in a card whose background names
        the empire (and in a popup whose own term's description does), and the "themes" of a book or a painting stay plain everywhere else.
        Not a bare /Byzanti/: gr-357, a poet's card, cites "the Suda, a Byzantine reference work" beside "his great theme". */
+    /* ASTRONOMY'S OWN SENSES (2026-11-20, on request: "vacuum (collection-specific gloss)", "Sun (collection-specific)", "eccentricity
+       (collection-specific gloss)"): "the Sun god" in an Egyptian card, "a vacuum of power", "his eccentricity" are not these terms.
+       Jupiter and Saturn carry their bare names as aliases of the PLANETS here only — in a Roman card they are the gods. */
+    Sun: { roots: ["astro"], tags: ["astronomy"] },
+    Vacuum: { roots: ["astro"], tags: ["astronomy", "physics"] },
+    Orbital_eccentricity: { roots: ["astro"], tags: ["astronomy"] },
+    "Jupiter_(planet)": { roots: ["astro"], tags: ["astronomy"] },
+    "Saturn_(planet)": { roots: ["astro"], tags: ["astronomy"] },
     "Theme_(Byzantine_district)": { roots: [], text: /Byzantine (?:Empire|empire|emperors?|state|army|provinces?)|Byzantium|Eastern Roman Empire/, tags: ["byzantium", "byzantine", "byzantine empire"] },
   };
   /* A TERM THAT MEANS SOMETHING ELSE INSIDE A COLLECTION (2026-11-16, on request: "in the Ancient Egypt collection,
@@ -46722,9 +46730,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
                 <circle class="pie-knob" id="pieKnob" r="7"/>
               </svg>
               <div class="pie-readrow">
-                <button class="wy-step" id="piePrev" type="button" aria-label="One per cent less">${chev("15 18 9 12 15 6")}</button>
+                <button class="wy-step" id="piePrev" type="button" aria-label="1% less">${chev("15 18 9 12 15 6")}</button>
                 <div class="pie-readout" id="pieRead" aria-hidden="true"></div>
-                <button class="wy-step" id="pieNext" type="button" aria-label="One per cent more">${chev("9 6 15 12 9 18")}</button>
+                <button class="wy-step" id="pieNext" type="button" aria-label="1% more">${chev("9 6 15 12 9 18")}</button>
               </div>
               <p class="pie-hint" id="pieHint">Drag around the pie to cut your slice.</p>
             </div>
@@ -54279,7 +54287,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     findit: [{ h: "The globe, once selected", rows: [["Enter", "Drop a pin at the centre, then confirm it"]].concat(KS_MAPWIN) }],
     crossword: [{ rows: [["← ↑ → ↓", "Move between squares"], ["Backspace", "On an empty square: step back"],
                          ["Enter", "The next clue"]] }],
-    pie: [{ h: "The pie, once selected", rows: [["← →", "One per cent less or more"], ["Page Up / Down", "Ten per cent"],
+    pie: [{ h: "The pie, once selected", rows: [["← →", "1% less or more"], ["Page Up / Down", "Ten per cent"],
                    ["Home / End", "0 or 100 per cent"], ["Enter", "Lock in your answer"]] }],
     admin: [{ rows: [["↑ ↓", "The previous or next entry in the list"], ["Ctrl + Z", "Undo the last edit"],
                      ["Ctrl + B / I", "Bold or italic, in a text field (U: underline, in the rich editor)"]] }],
