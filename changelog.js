@@ -35,13 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1381", released: "2026-11-20T00:26Z" };
+window.FOLIO_VERSION = { v: "1.1383", released: "2026-11-20T00:28Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-11-20",
-    t: "The Library's texts, sans-serif scripts, the alphabet first",
+    t: "Egypt cards, the Library's texts, sans-serif scripts, alphabet first",
     items: [
+      "<b>100 new cards</b> in <b>Ancient Egypt</b>, on the state and the army, daily life, the economy and the scripts, with 91 new glossary terms.",
       "The Library now calls its works <b>texts</b>, and the King James Bible is shelved as <b>The Bible</b>.",
       "Every non-Latin script on the site is now set in a <b>sans-serif</b>, so no flourish reads as part of a letter.",
       "A language with an alphabet deck now deals its <b>alphabet first</b>: no new words or phrases until every letter has been studied.",
@@ -81,7 +82,7 @@ window.CHANGELOG = [
       "Timelines added to 4 more cards, and date lines or map points improved on 3 cards.",
       "300 new cards in <b>Ancient Egypt</b>, from the end of Kushite rule through Ptolemaic and Roman Egypt to the gods, myth, burial and kingship, with 268 new glossary terms.",
       "New Geography collection, <b>Historical States</b>: a past state is highlighted on the map at its greatest extent and you name it; 14 cards so far, in seven period decks.",
-      "<b>200 more China cards are rewritten</b>, from the cotton mill to regional ethnic autonomy, with new sources and dates.",
+      "<b>300 more China cards are rewritten</b>, from the cotton mill to the Eternal Venerable Mother, with new sources and dates.",
     ],
   },
   {

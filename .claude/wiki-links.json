@@ -1,16 +1,16 @@
 {
- "generated": "2026-11-19T22:53Z",
+ "generated": "2026-11-20T00:11Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8785,
-  "redirect-broader": 838,
-  "redirect-variant": 515,
-  "section-redirect": 199,
+  "ok": 8838,
+  "redirect-broader": 845,
+  "redirect-variant": 518,
+  "section-redirect": 200,
   "disambiguation": 161,
-  "none": 1251,
-  "disambig-resolved": 114,
+  "none": 1285,
+  "disambig-resolved": 115,
   "list-page": 6,
-  "search-match": 10,
+  "search-match": 11,
   "no-article": 21
  },
  "cards": {
@@ -94492,6 +94492,939 @@
    "url": "https://en.wikipedia.org/wiki/Memphite_Necropolis",
    "via": "glossary",
    "status": "ok"
+  },
+  "eg-801": {
+   "answer": "Nitocris",
+   "title": "Nitocris",
+   "url": "https://en.wikipedia.org/wiki/Nitocris",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-802": {
+   "answer": "iry-pat",
+   "title": "Iry-pat",
+   "url": "https://en.wikipedia.org/wiki/Iry-pat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-803": {
+   "answer": "coregency",
+   "title": "Coregency",
+   "url": "https://en.wikipedia.org/wiki/Coregency",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-804": {
+   "answer": "royal harem",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Harem",
+    "Conspiracies in ancient Egypt",
+    "Harem of the Muhammad Ali dynasty",
+    "Harem conspiracy",
+    "Slavery in Egypt"
+   ]
+  },
+  "eg-805": {
+   "answer": "vizier",
+   "title": "Vizier (Ancient Egypt)",
+   "url": "https://en.wikipedia.org/wiki/Vizier_(Ancient_Egypt)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-806": {
+   "answer": "Overseer of the Treasury",
+   "title": "Overseer of the treasuries",
+   "url": "https://en.wikipedia.org/wiki/Overseer_of_the_treasuries",
+   "via": "search",
+   "status": "search-match"
+  },
+  "eg-807": {
+   "answer": "Papyrus Lansing",
+   "title": "Papyrus Lansing",
+   "url": "https://en.wikipedia.org/wiki/Papyrus_Lansing",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-808": {
+   "answer": "Overseer of the Granaries",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Minmose (overseer of granaries)",
+    "Sobekemsaf (13th Dynasty)",
+    "Joseph's granaries",
+    "Ancient Egypt",
+    "Khnumhotep and Niankhkhnum"
+   ]
+  },
+  "eg-809": {
+   "answer": "Tomb of Menna",
+   "title": "TT69",
+   "url": "https://en.wikipedia.org/wiki/TT69",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Tomb of Menna"
+  },
+  "eg-810": {
+   "answer": "Wilbour Papyrus",
+   "title": "Wilbour Papyrus",
+   "url": "https://en.wikipedia.org/wiki/Wilbour_Papyrus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-811": {
+   "answer": "Legal Code of Hermopolis",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Slavery in ancient Egypt",
+    "Moses",
+    "Border control",
+    "Passport",
+    "Nabataean inscriptions"
+   ]
+  },
+  "eg-812": {
+   "answer": "kenbet",
+   "title": "Kerma",
+   "url": "https://en.wikipedia.org/wiki/Kerma",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Kenbet"
+  },
+  "eg-813": {
+   "answer": "Rhinocolura",
+   "title": "Rhinocorura",
+   "url": "https://en.wikipedia.org/wiki/Rhinocorura",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Rhinocolura"
+  },
+  "eg-814": {
+   "answer": "Metjen",
+   "title": "Metjen",
+   "url": "https://en.wikipedia.org/wiki/Metjen",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-815": {
+   "answer": "haty-a",
+   "title": "Haty-a",
+   "url": "https://en.wikipedia.org/wiki/Haty-a",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-816": {
+   "answer": "Walls of the Ruler",
+   "title": "Walls of the Ruler",
+   "url": "https://en.wikipedia.org/wiki/Walls_of_the_Ruler",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-817": {
+   "answer": "Uronarti",
+   "title": "Uronarti",
+   "url": "https://en.wikipedia.org/wiki/Uronarti",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-818": {
+   "answer": "Sherden",
+   "title": "Sherden",
+   "url": "https://en.wikipedia.org/wiki/Sherden",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-819": {
+   "answer": "mace",
+   "title": "Mace (bludgeon)",
+   "url": "https://en.wikipedia.org/wiki/Mace_(bludgeon)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-820": {
+   "answer": "Battle of the Delta",
+   "title": "Battle of the Delta",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_the_Delta",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-831": {
+   "answer": "Adoption Papyrus",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Rylands Library Papyrus P52",
+    "Ancient Egyptian literature",
+    "Thebes, Egypt",
+    "Textbook of Aramaic Documents from Ancient Egypt",
+    "Ancient Egypt"
+   ]
+  },
+  "eg-832": {
+   "answer": "nebet per",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Gynaecopolis",
+    "Women in Egypt",
+    "Index of ancient Egypt–related articles",
+    "Feminism in Egypt",
+    "Atfih"
+   ]
+  },
+  "eg-833": {
+   "answer": "brother–sister marriage",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Incest in ancient Egypt",
+    "Fawzia of Egypt",
+    "Brothers of Jesus",
+    "Cousin marriage in the Middle East",
+    "Marriage of convenience"
+   ]
+  },
+  "eg-834": {
+   "answer": "Papyrus Turin 2021",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Museo Egizio",
+    "List of Egyptian inventions and discoveries",
+    "List of pharaohs",
+    "List of papyri from ancient Egypt",
+    "Elephantine papyri and ostraca"
+   ]
+  },
+  "eg-835": {
+   "answer": "sidelock of youth",
+   "title": "Sidelock of youth",
+   "url": "https://en.wikipedia.org/wiki/Sidelock_of_youth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-836": {
+   "answer": "Kemit",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ancient Egyptian literature",
+    "Epistle",
+    "Mysteries of Osiris",
+    "François-Bernard Mâche"
+   ]
+  },
+  "eg-837": {
+   "answer": "beautiful name",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Egyptian hieroglyphs",
+    "Nofret",
+    "Cleopatra",
+    "Al Ahly SC",
+    "Nefermaat"
+   ]
+  },
+  "eg-838": {
+   "answer": "lit clos",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Louis de Paor",
+    "Observance of Christmas by country",
+    "Neymar",
+    "List of international airports by country",
+    "Galley"
+   ]
+  },
+  "eg-839": {
+   "answer": "niwt",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Thebes, Egypt",
+    "Outline of ancient Egypt",
+    "Upper Egypt",
+    "Townsite-city-region (hieroglyph)",
+    "Inebu-hedj"
+   ]
+  },
+  "eg-840": {
+   "answer": "headrest",
+   "title": "Head restraint",
+   "url": "https://en.wikipedia.org/wiki/Head_restraint",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Headrest"
+  },
+  "eg-841": {
+   "answer": "onion",
+   "title": "Onion",
+   "url": "https://en.wikipedia.org/wiki/Onion",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-842": {
+   "answer": "pefsu",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Egyptian algebra",
+    "Moscow Mathematical Papyrus",
+    "List of Egyptian inventions and discoveries",
+    "Rhind Mathematical Papyrus"
+   ]
+  },
+  "eg-843": {
+   "answer": "zythos",
+   "title": "Zythos",
+   "url": "https://en.wikipedia.org/wiki/Zythos",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-844": {
+   "answer": "shendyt",
+   "title": "Shendyt",
+   "url": "https://en.wikipedia.org/wiki/Shendyt",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-845": {
+   "answer": "wig",
+   "title": "Wig",
+   "url": "https://en.wikipedia.org/wiki/Wig",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-846": {
+   "answer": "kohl",
+   "title": "Kohl (cosmetics)",
+   "url": "https://en.wikipedia.org/wiki/Kohl_(cosmetics)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-847": {
+   "answer": "broad collar",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Usekh collar",
+    "Pectoral (Ancient Egypt)",
+    "Farouk of Egypt",
+    "Copts",
+    "Vicia faba"
+   ]
+  },
+  "eg-848": {
+   "answer": "sistrum",
+   "title": "Sistrum",
+   "url": "https://en.wikipedia.org/wiki/Sistrum",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-849": {
+   "answer": "muu dancers",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Dance in ancient Egypt",
+    "List of PlayStation (console) games (M–Z)",
+    "Index of fashion articles",
+    "3 Words (song)",
+    "Criticism of Human Rights Watch"
+   ]
+  },
+  "eg-850": {
+   "answer": "hounds and jackals",
+   "title": "Hounds and jackals",
+   "url": "https://en.wikipedia.org/wiki/Hounds_and_jackals",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-851": {
+   "answer": "senet",
+   "title": "Senet",
+   "url": "https://en.wikipedia.org/wiki/Senet",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-852": {
+   "answer": "throwstick",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Egyptian faience",
+    "Djsr (arm with powerstick)",
+    "Throw stick (hieroglyph)",
+    "Department of Egyptian Antiquities of the Louvre",
+    "Hyksos"
+   ]
+  },
+  "eg-853": {
+   "answer": "hippopotamus",
+   "title": "Hippopotamus",
+   "url": "https://en.wikipedia.org/wiki/Hippopotamus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-854": {
+   "answer": "cat",
+   "title": "Cat",
+   "url": "https://en.wikipedia.org/wiki/Cat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-855": {
+   "answer": "sycamore fig",
+   "title": "Ficus sycomorus",
+   "url": "https://en.wikipedia.org/wiki/Ficus_sycomorus",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Sycamore fig"
+  },
+  "eg-856": {
+   "answer": "baris",
+   "title": "Baris (ship)",
+   "url": "https://en.wikipedia.org/wiki/Baris_(ship)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-857": {
+   "answer": "Abu Ballas Trail",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Abu Ballas",
+    "Cave of Swimmers",
+    "Cave of Beasts",
+    "Deaths in October 2023",
+    "List of Stone Age art"
+   ]
+  },
+  "eg-858": {
+   "answer": "Wag festival",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Festival of the Dead",
+    "Amazon (company)",
+    "Joann Fletcher",
+    "18th Venice International Film Festival",
+    "2014 Cannes Film Festival"
+   ]
+  },
+  "eg-859": {
+   "answer": "head cone",
+   "title": "Head cone",
+   "url": "https://en.wikipedia.org/wiki/Head_cone",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-860": {
+   "answer": "Turin Satirical-Erotic Papyrus",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Turin Erotic Papyrus",
+    "List of papyri from ancient Egypt"
+   ]
+  },
+  "eg-861": {
+   "answer": "Heqanakht papyri",
+   "title": "Heqanakht Papyri",
+   "url": "https://en.wikipedia.org/wiki/Heqanakht_Papyri",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-862": {
+   "answer": "oracle of Amenhotep I",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Amenhotep I",
+    "Memphis, Egypt",
+    "Ancient Egypt",
+    "Amenhotep (20th dynasty High Priest of Amun)",
+    "Aten"
+   ]
+  },
+  "eg-863": {
+   "answer": "Caromemphites",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Carian language"
+   ]
+  },
+  "eg-864": {
+   "answer": "whyt",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Wardrobe of Mary, Queen of Scots",
+    "The Thumb"
+   ]
+  },
+  "eg-865": {
+   "answer": "life expectancy",
+   "title": "Life expectancy",
+   "url": "https://en.wikipedia.org/wiki/Life_expectancy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-866": {
+   "answer": "redistribution",
+   "title": "Redistribution (cultural anthropology)",
+   "url": "https://en.wikipedia.org/wiki/Redistribution_(cultural_anthropology)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-867": {
+   "answer": "ard",
+   "title": "Ard (plough)",
+   "url": "https://en.wikipedia.org/wiki/Ard_(plough)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-868": {
+   "answer": "basin irrigation",
+   "title": "Surface irrigation",
+   "url": "https://en.wikipedia.org/wiki/Surface_irrigation",
+   "via": "glossary",
+   "status": "redirect-broader",
+   "from": "Basin irrigation"
+  },
+  "eg-869": {
+   "answer": "peret",
+   "title": "Peret",
+   "url": "https://en.wikipedia.org/wiki/Peret",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eg-870": {
+   "answer": "shaduf",
+   "title": "Shadoof",
+   "url": "https://en.wikipedia.org/wiki/Shadoof",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Shaduf"
+  },
+  "eg-871": {
+   "answer": "basilike ge",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Roman Egypt",
+    "Monarchism"
+   ]
+  },
+  "eg-872": {
+   "answer": "Satrap Stela",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Late Period of Egypt",
+    "Ancient Egypt",
+    "Index of ancient Egypt–related articles",
+    "List of pharaohs",
+    "Khabash"
+   ]
+  },
+  "eg-873": {
+   "answer": "emmer",
+   "title": "Emmer",
+   "url": "https://en.wikipedia.org/wiki/Emmer",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-874": {
+   "answer": "hekat",
+   "title": "Hekat",
+   "url": "https://en.wikipedia.org/wiki/Hekat",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-875": {
+   "answer": "kite",
+   "title": "Kite",
+   "url": "https://en.wikipedia.org/wiki/Kite",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eg-876": {
+   "answer": "deben",
+   "title": "Deben (unit)",
+   "url": "https://en.wikipedia.org/wiki/Deben_(unit)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-877": {
+   "answer": "hacksilver",
+   "title": "Hacksilver",
+   "url": "https://en.wikipedia.org/wiki/Hacksilver",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-878": {
+   "answer": "shuty",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of Egyptian hieroglyphs",
+    "Shuti hieroglyph (two-feather adornment)"
+   ]
+  },
+  "eg-879": {
+   "answer": "Tomb of Nebamun and Ipuky",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Usekh collar"
+   ]
+  },
+  "eg-880": {
+   "answer": "flax",
+   "title": "Flax",
+   "url": "https://en.wikipedia.org/wiki/Flax",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-881": {
+   "answer": "Cyperus papyrus",
+   "title": "Cyperus papyrus",
+   "url": "https://en.wikipedia.org/wiki/Cyperus_papyrus",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-882": {
+   "answer": "potter’s wheel",
+   "title": "Potter's wheel",
+   "url": "https://en.wikipedia.org/wiki/Potter's_wheel",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-883": {
+   "answer": "Tura",
+   "title": "Tura, Egypt",
+   "url": "https://en.wikipedia.org/wiki/Tura,_Egypt",
+   "via": "disambiguation",
+   "status": "disambig-resolved",
+   "from": "Tura"
+  },
+  "eg-884": {
+   "answer": "Wadi el-Hudi",
+   "title": "Wadi el-Hudi",
+   "url": "https://en.wikipedia.org/wiki/Wadi_el-Hudi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-885": {
+   "answer": "Wadi Allaqi",
+   "title": "Wadi Allaqi",
+   "url": "https://en.wikipedia.org/wiki/Wadi_Allaqi",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-886": {
+   "answer": "Timna Valley",
+   "title": "Timna Valley",
+   "url": "https://en.wikipedia.org/wiki/Timna_Valley",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-887": {
+   "answer": "cedar of Lebanon",
+   "title": "Cedrus libani",
+   "url": "https://en.wikipedia.org/wiki/Cedrus_libani",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Cedar of Lebanon"
+  },
+  "eg-888": {
+   "answer": "Mersa Gawasis",
+   "title": "Mersa Gawasis",
+   "url": "https://en.wikipedia.org/wiki/Mersa_Gawasis",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-889": {
+   "answer": "Elephantine",
+   "title": "Elephantine",
+   "url": "https://en.wikipedia.org/wiki/Elephantine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-890": {
+   "answer": "oxhide ingot",
+   "title": "Oxhide ingot",
+   "url": "https://en.wikipedia.org/wiki/Oxhide_ingot",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-891": {
+   "answer": "Egyptian language",
+   "title": "Egyptian language",
+   "url": "https://en.wikipedia.org/wiki/Egyptian_language",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-892": {
+   "answer": "Ptolemaic hieroglyphs",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of Egyptian hieroglyphs",
+    "Ptolemaic Kingdom",
+    "Egyptian Hieroglyphs Extended-A",
+    "Egyptian hieroglyphs",
+    "Demotic Egyptian script"
+   ]
+  },
+  "eg-895": {
+   "answer": "hieratic",
+   "title": "Hieratic",
+   "url": "https://en.wikipedia.org/wiki/Hieratic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-896": {
+   "answer": "Old Coptic",
+   "title": "Old Coptic",
+   "url": "https://en.wikipedia.org/wiki/Old_Coptic",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-898": {
+   "answer": "Late Egyptian",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "Late Egyptian",
+   "target": "Egyptian language#Late Egyptian"
+  },
+  "eg-900": {
+   "answer": "scribal palette",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Scribe equipment (hieroglyph)",
+    "Scribe",
+    "List of ancient Egyptian scribes",
+    "Ancient Egyptian literature",
+    "Maat"
+   ]
+  },
+  "eg-821": {
+   "answer": "Gilukhipa",
+   "title": "Gilukhipa",
+   "url": "https://en.wikipedia.org/wiki/Gilukhipa",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-822": {
+   "answer": "TT40",
+   "title": "TT40",
+   "url": "https://en.wikipedia.org/wiki/TT40",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "eg-823": {
+   "answer": "usurpation of monuments",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Nineteenth Dynasty of Egypt",
+    "Twentieth Dynasty of Egypt",
+    "Art of ancient Egypt",
+    "Giza pyramid complex",
+    "New Kingdom of Egypt"
+   ]
+  },
+  "eg-824": {
+   "answer": "topographical list",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "List of Egyptian deities",
+    "List of Theban tombs",
+    "List of ultras of Africa",
+    "TT34",
+    "List of ancient Egyptian royal consorts"
+   ]
+  },
+  "eg-825": {
+   "answer": "netjer nefer",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Nome (Egypt)",
+    "Kemetism",
+    "Akhenaten",
+    "Nynetjer",
+    "Neferhetepes"
+   ]
+  },
+  "eg-826": {
+   "answer": "Egyptian kinship system",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Upper Egypt",
+    "Genetic history of Egypt",
+    "Ancient Egyptian race controversy",
+    "Ancient Egyptian religion",
+    "Mamluk Sultanate"
+   ]
+  },
+  "eg-827": {
+   "answer": "gold of honour",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Egypt",
+    "Mask of Tutankhamun",
+    "Guard of honour",
+    "Joseph (Genesis)",
+    "Order of the Virtues (Egypt)"
+   ]
+  },
+  "eg-828": {
+   "answer": "harvest scene",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Harvest festival",
+    "Egypt",
+    "Renenutet",
+    "Ancient Egypt",
+    "Ptolemaic Kingdom"
+   ]
+  },
+  "eg-829": {
+   "answer": "overseer of craftsmen",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Ancient Egypt",
+    "Memphis, Egypt",
+    "Pepyankh the Middle",
+    "Ankhu",
+    "Meir, Egypt"
+   ]
+  },
+  "eg-830": {
+   "answer": "meret",
+   "title": "Meret",
+   "url": "https://en.wikipedia.org/wiki/Meret",
+   "via": "answer",
+   "status": "ok"
+  },
+  "eg-893": {
+   "answer": "phonetic complement",
+   "title": "Phonetic complement",
+   "url": "https://en.wikipedia.org/wiki/Phonetic_complement",
+   "via": "glossary",
+   "status": "ok",
+   "manual": true
+  },
+  "eg-894": {
+   "answer": "determinative",
+   "title": "Determinative",
+   "url": "https://en.wikipedia.org/wiki/Determinative",
+   "via": "glossary",
+   "status": "ok",
+   "manual": true
+  },
+  "eg-897": {
+   "answer": "Coptic alphabet",
+   "title": "Coptic script",
+   "url": "https://en.wikipedia.org/wiki/Coptic_script",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Coptic alphabet",
+   "manual": true
+  },
+  "eg-899": {
+   "answer": "decipherment of Egyptian hieroglyphs",
+   "title": "Decipherment of ancient Egyptian scripts",
+   "url": "https://en.wikipedia.org/wiki/Decipherment_of_ancient_Egyptian_scripts",
+   "via": "glossary",
+   "status": "redirect-variant",
+   "from": "Decipherment of Egyptian hieroglyphs",
+   "manual": true
   }
  }
 }

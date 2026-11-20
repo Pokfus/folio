@@ -298,6 +298,23 @@ Two answer terms collided between batches before import and were moved: the Brem
 `eg-705` took the hypostyle hall, which was also the unwritten line `eg-956`; that line now carries `eg-705`'s old
 subject, the temple as a model of the cosmos, to research when it is written.
 
+**`eg-801`–`eg-900` (written together, in ten parallel batches) retitled 90 lines** to the term each card
+answers; ten kept their line (`eg-805`, `eg-810`, `eg-851`, `eg-868`, `eg-870`, `eg-876`, `eg-891`, `eg-895`,
+`eg-897`, `eg-899`). Almost all of them named an area — kingship's administration, law and army, the whole of
+everyday life, the economy — and took a concrete term inside it. The ones that had to move for another reason:
+
+- **Already taken**: the female kings Hatshepsut, Sobekneferu, Twosret and Merneith → Nitocris; the Amarna letters
+  (`wh-270`) and the Egyptian–Hittite treaty (`eg-346`) → Gilukhipa; pharaoh (`wh-209`) → netjer nefer; the Land
+  of Punt (`wh-208`) → Mersa Gawasis; Egyptian hieroglyphs (`wh-206`) → Ptolemaic hieroglyphs; Demotic (`eg-527`)
+  → Old Coptic; Middle Egyptian (`eg-203`) → Late Egyptian; papyrus and the ostracon (`eg-901`, `eg-902`) → the
+  scribal palette; Nome, Nomarch, Buhen, Semna, the chariot, the khopesh and the Medjay → Metjen, Uronarti, the
+  mace and the Sherden; the Satire of the Trades (`eg-179`) → the Turin Satirical-Erotic Papyrus.
+- **Collided between batches before import** and moved: the kenbet stays at `eg-812`, so `eg-862` took the
+  oracle of Amenhotep I; *niwt* stays at `eg-839`, so `eg-864` took *whyt*; Metjen stays at `eg-814`, so `eg-871`
+  took the *basilike ge*; the pefsu stays at `eg-842`, so `eg-874` took the hekat; the Heqanakht papyri stay at
+  `eg-861` and the Tomb of Nebamun and Ipuky at `eg-879`, so `eg-828` took the harvest scene and `eg-829` the
+  overseer of craftsmen.
+
 ## Making the collection
 
 Four things had to be decided because nothing existed to inherit them from.
@@ -1462,117 +1479,117 @@ safe.
     eg-798  Presentation of Maat
     eg-799  Smiting scene
     eg-800  Great Royal Wife
-    eg-801  Female pharaohs
-    eg-802  Royal succession in ancient Egypt
-    eg-803  Egyptian coregency
-    eg-804  The Egyptian royal court
+    eg-801  Nitocris
+    eg-802  Iry-pat
+    eg-803  Coregency
+    eg-804  Royal harem
     eg-805  Vizier (Ancient Egypt)
-    eg-806  Ancient Egyptian administration
-    eg-807  The Egyptian scribal bureaucracy
-    eg-808  The Egyptian treasury and granaries
-    eg-809  Taxation in ancient Egypt
+    eg-806  Overseer of the Treasury
+    eg-807  Papyrus Lansing
+    eg-808  Overseer of the Granaries
+    eg-809  Tomb of Menna
     eg-810  The Wilbour Papyrus
-    eg-811  Ancient Egyptian law
-    eg-812  Egyptian courts and legal documents
-    eg-813  Punishment in ancient Egypt
-    eg-814  The nome and provincial government
-    eg-815  Egyptian towns and their governance
-    eg-816  Egyptian frontier control
-    eg-817  Egyptian fortresses
-    eg-818  The Egyptian army through time
-    eg-819  Egyptian weapons and warfare
-    eg-820  Egyptian naval activity
-    eg-821  Egyptian diplomacy and treaties
-    eg-822  Egyptian tribute and foreign policy
-    eg-823  The royal monument as propaganda
-    eg-824  Reading royal claims critically
-    eg-825  Continuity and change in Egyptian kingship
+    eg-811  Legal Code of Hermopolis
+    eg-812  Kenbet
+    eg-813  Rhinocolura
+    eg-814  Metjen
+    eg-815  Haty-a
+    eg-816  Walls of the Ruler
+    eg-817  Uronarti
+    eg-818  Sherden
+    eg-819  Mace
+    eg-820  Battle of the Delta
+    eg-821  Gilukhipa
+    eg-822  TT40
+    eg-823  Usurpation of monuments
+    eg-824  Topographical list
+    eg-825  Netjer nefer
 
 ### Society and everyday life — `eg-society`
 
-    eg-826  Ancient Egyptian society
-    eg-827  The Egyptian social order
-    eg-828  Egyptian peasants and agricultural labour
-    eg-829  Egyptian craftsmen
-    eg-830  Dependent labour in ancient Egypt
-    eg-831  Slavery in ancient Egypt
-    eg-832  Women in ancient Egypt
-    eg-833  Marriage in ancient Egypt
-    eg-834  Egyptian divorce and property
-    eg-835  Childhood in ancient Egypt
-    eg-836  Egyptian education
-    eg-837  Egyptian names and naming
-    eg-838  Egyptian houses
-    eg-839  Egyptian towns and villages
-    eg-840  Egyptian furniture
-    eg-841  Ancient Egyptian cuisine
-    eg-842  Bread and beer in Egypt
-    eg-843  Egyptian brewing and baking
-    eg-844  Ancient Egyptian clothing
-    eg-845  Egyptian wigs and hairstyles
-    eg-846  Egyptian cosmetics
-    eg-847  Egyptian jewellery
-    eg-848  Music in ancient Egypt
-    eg-849  Dance in ancient Egypt
-    eg-850  Egyptian games and toys
+    eg-826  Egyptian kinship system
+    eg-827  Gold of honour
+    eg-828  Harvest scene
+    eg-829  Overseer of craftsmen
+    eg-830  Meret
+    eg-831  Adoption Papyrus
+    eg-832  Nebet per
+    eg-833  Brother–sister marriage
+    eg-834  Papyrus Turin 2021
+    eg-835  Sidelock of youth
+    eg-836  Kemit
+    eg-837  Beautiful name
+    eg-838  Lit clos
+    eg-839  Niwt
+    eg-840  Headrest
+    eg-841  Onion
+    eg-842  Pefsu
+    eg-843  Zythos
+    eg-844  Shendyt
+    eg-845  Wig
+    eg-846  Kohl
+    eg-847  Broad collar
+    eg-848  Sistrum
+    eg-849  Muu dancers
+    eg-850  Hounds and jackals
     eg-851  Senet
-    eg-852  Hunting and fishing in ancient Egypt
-    eg-853  Animals in ancient Egypt
-    eg-854  Cats in ancient Egypt
-    eg-855  Egyptian gardens
-    eg-856  Egyptian boats and river travel
-    eg-857  Desert travel and the Egyptian roads
-    eg-858  Festivals in Egyptian daily life
-    eg-859  Egyptian feasting
-    eg-860  Egyptian humour and satire
-    eg-861  Egyptian personal letters
-    eg-862  Village disputes and local justice
-    eg-863  Resident foreigners in Egypt
-    eg-864  Egyptian population and settlement
-    eg-865  What a lifetime looked like in ancient Egypt
+    eg-852  Throwstick
+    eg-853  Hippopotamus
+    eg-854  Cat
+    eg-855  Sycamore fig
+    eg-856  Baris
+    eg-857  Abu Ballas Trail
+    eg-858  Wag festival
+    eg-859  Head cone
+    eg-860  Turin Satirical-Erotic Papyrus
+    eg-861  Heqanakht papyri
+    eg-862  Oracle of Amenhotep I
+    eg-863  Caromemphites
+    eg-864  Whyt
+    eg-865  Life expectancy
 
 ### Land, trade and the economy — `eg-economy`
 
-    eg-866  The economy of ancient Egypt
-    eg-867  Ancient Egyptian agriculture
+    eg-866  Redistribution
+    eg-867  Ard
     eg-868  Basin irrigation
-    eg-869  The Egyptian agricultural year
+    eg-869  Peret
     eg-870  Shaduf
-    eg-871  Land tenure in ancient Egypt
-    eg-872  Egyptian temple estates
-    eg-873  Egyptian grain and its storage
-    eg-874  Rations and payment in kind
-    eg-875  Egyptian weights and values
+    eg-871  Basilike ge
+    eg-872  Satrap Stela
+    eg-873  Emmer
+    eg-874  Hekat
+    eg-875  Kite
     eg-876  Deben
-    eg-877  Egypt before coinage
-    eg-878  Egyptian markets and exchange
-    eg-879  Egyptian craft workshops
-    eg-880  Egyptian linen production
-    eg-881  Papyrus as a product
-    eg-882  Egyptian pottery production
-    eg-883  Egyptian quarries
-    eg-884  Egyptian mining expeditions
-    eg-885  Egyptian gold mining
-    eg-886  Egyptian copper and metalworking
-    eg-887  Egyptian trade with the Levant
-    eg-888  Land of Punt
-    eg-889  Egyptian trade with Nubia
-    eg-890  Egypt in the Bronze Age world economy
+    eg-877  Hacksilver
+    eg-878  Shuty
+    eg-879  Tomb of Nebamun and Ipuky
+    eg-880  Flax
+    eg-881  Cyperus papyrus
+    eg-882  Potter’s wheel
+    eg-883  Tura
+    eg-884  Wadi el-Hudi
+    eg-885  Wadi Allaqi
+    eg-886  Timna Valley
+    eg-887  Cedar of Lebanon
+    eg-888  Mersa Gawasis
+    eg-889  Elephantine
+    eg-890  Oxhide ingot
 
 ## Writing, Art and Knowledge
 
 ### Writing and literature — `eg-writing`
 
     eg-891  Egyptian language
-    eg-892  Egyptian hieroglyphs
-    eg-893  How hieroglyphs work
-    eg-894  Determinatives and phonograms
+    eg-892  Ptolemaic hieroglyphs
+    eg-893  Phonetic complement
+    eg-894  Determinative
     eg-895  Hieratic
-    eg-896  Demotic script
+    eg-896  Old Coptic
     eg-897  Coptic alphabet
-    eg-898  The stages of the Egyptian language
+    eg-898  Late Egyptian
     eg-899  The decipherment of Egyptian hieroglyphs
-    eg-900  Egyptian writing materials
+    eg-900  Scribal palette
     eg-901  Papyrus
     eg-902  Ostracon
     eg-903  The Egyptian scribe
