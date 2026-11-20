@@ -7803,9 +7803,10 @@
     // buried too: a card put off until tomorrow is not part of what this deck offers today
     const ids = entryCardIds(id).filter((c) => avail.has(c) && !isSuspended(c) && !isBuried(c));
     const lrIds = [], rvIds = [], nwIds = [];
+    const held = isLangCtxId(id) && langAlphabetPending(id);   // the language's row deals only its alphabet as new
     ids.forEach((cid) => {
       const c = S.cards[cid];
-      if (!c) { nwIds.push(cid); return; }
+      if (!c) { if (!held || isScriptCard(cid)) nwIds.push(cid); return; }
       if (schedIsLearning(c.status)) lrIds.push(cid);
       else if (isDueNow(cid)) rvIds.push(cid);
     });
@@ -7882,7 +7883,7 @@
        `seen` stays GLOBAL across the buckets, so a card claimed by one deck cannot be dealt twice — a card
        a language's cap then drops is out of this session, which it would be anyway, the only decks it can
        sit in also being that language's. */
-    const buckets = new Map();
+    const buckets = new Map(), alphaHeld = new Map();
     const bucketFor = (k) => { let b = buckets.get(k); if (!b) buckets.set(k, b = { due: [], fresh: [] }); return b; };
     activeEntryIds().forEach((e) => {
       // "Skip today" sits the deck out without removing it — its LANGUAGE can sit it out too
@@ -7899,6 +7900,12 @@
           seen.add(id); b.due.push(id); if (!learning) rv--;
         });
       let nw = deckNewRemaining(e);
+      // a language still learning its alphabet introduces only alphabet cards — see langAlphabetPending
+      const lk = langCtxOf(e);
+      if (lk && !isScriptEntry(e)) {
+        if (!alphaHeld.has(lk)) alphaHeld.set(lk, langAlphabetPending(lk));
+        if (alphaHeld.get(lk)) nw = 0;
+      }
       // Anki's third switch: off, a deck that has used up its review allowance introduces nothing new either
       if (!deckLimits(e).newIgnoresReview) nw = Math.min(nw, rv);
       // dedupe BEFORE the slice, or a card an earlier deck already claimed eats one of this deck's places
@@ -16846,7 +16853,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     },
     {
       id: "king-james-bible",
-      title: "The King James Bible",
+      title: "The Bible",
       subtitle: "The Holy Bible, Authorized Version, 1611",
       /* Many hands over more than a thousand years; tradition's attributions cover only part of it.
          Shelved as the Rigveda is, and keyed for colour by id — see bookColor. */
@@ -21614,9 +21621,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
      likely to have skimmed. Each has its own "?" bringing it back. */
   const LIB_TOUR_KEY = "folio_library_tour_v1";
   const LIB_HELP_TIPS = [
-    "<b>Whole books, not extracts</b> — every work here is out of copyright and complete, in a named edition, with the translator and the grounds for shelving it stated on the book's own first page.",
-    "<b>Find your way</b> — search by title, author or date, sort the shelf either way, and hold a book for its options: star it to the top of the shelf, or share it.",
-    "<b>Open one and it stays open</b> — Folio remembers the paragraph you stopped at, on every device you are signed in to. The rest of the reading — the chapters, the original language, marking up a page — is explained the first time you open a book.",
+    "<b>Whole texts, not extracts</b> — every work here is out of copyright and complete, in a named edition, with the translator and the grounds for shelving it stated on the text's own first page.",
+    "<b>Find your way</b> — search by title, author or date, sort the shelf either way, and hold a text for its options: star it to the top of the shelf, or share it.",
+    "<b>Open one and it stays open</b> — Folio remembers the paragraph you stopped at, on every device you are signed in to. The rest of the reading — the chapters, the original language, marking up a page — is explained the first time you open a text.",
   ];
   function openLibHelp(quiet) {
     pageHelp("The Library", LIB_HELP_TIPS, "Start reading",
@@ -23970,12 +23977,25 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
   function cardSpeakText(el) {
     return String((el && (el.getAttribute("data-say") || el.textContent)) || "").replace(/\s+/g, " ").trim();
   }
+  /* A ONE-LETTER WORD IS SPOKEN AS A WORD (Nov 2026, on a report that the French card "à" was read out as
+     "a accent grave"). Speech engines spell a lone character, so a word that is one accented letter comes back
+     as the letter's NAME. In the languages listed, the plain letter's name is the word's own sound (French à
+     and a are both /a/, Italian è is near enough to the letter e), so the base letter is what is spoken. Only a
+     single accented Latin letter is touched, and only in these languages: Vietnamese, say, keeps its tone
+     letters, whose names are what its alphabet deck teaches. */
+  const SPEAK_LETTER_LANGS = /^(fr|it|pt|es|ca)$/;
+  function speakableWord(text, lang) {
+    const t = String(text || "").normalize("NFC");
+    if (Array.from(t).length !== 1 || !SPEAK_LETTER_LANGS.test(String(lang || "").toLowerCase().split(/[-_]/)[0])) return text;
+    const base = t.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    return base !== t && /^[a-z]$/i.test(base) ? base.toLowerCase() : text;
+  }
   function cardSpeak(el) {
     if (!el || !ttsSupported()) return;
-    const text = cardSpeakText(el);
-    if (!text) return;
     const holder = el.closest("[lang]");
     const lang = holder ? holder.getAttribute("lang") : "";
+    const text = speakableWord(cardSpeakText(el), lang);
+    if (!text) return;
     ttsStop();                              // …which also clears every .tts-playing, so mark it after
     const gen = _ttsSeq;
     try {
@@ -32860,7 +32880,9 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // cards, so leaving it out here would let a buried card come back through one
       const gIds = studyOrder(scope.id, entryCardIds(scope.id).filter((id) => !isSuspended(id) && !isBuried(id) && availG.has(id)));
       const gDue = capReviews(gIds.filter((id) => isDueNow(id)).sort(byDue), deckReviewRemaining(scope.id)).take;
-      const gUnseen = gIds.filter((id) => !isSeen(id));
+      // a language still learning its alphabet deals only alphabet cards as new — see langAlphabetPending
+      const gHeld = gLang && langAlphabetPending(scope.id);
+      const gUnseen = gIds.filter((id) => !isSeen(id) && (!gHeld || isScriptCard(id)));
       // by difficulty the day's new cards are the group's EASIEST unseen ones, not its first ones sorted — see the deck branch
       const gNew = (deckByDifficulty(scope.id) ? sortByDifficulty(gUnseen) : gUnseen).slice(0, Math.max(deckNewRemaining(scope.id), 0));
       queue = mixPiles(orderPile(scope.id, gDue), orderPile(scope.id, gNew));
@@ -33843,7 +33865,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const words = bookFold(q).split(/\s+/).filter(Boolean);
       const hits = sorted.filter((b) => bookMatches(b, words));
       if (!hits.length)
-        return `<div class="lib-none"><p>No book here matches <b>${esc(q.trim())}</b>.</p></div>`;
+        return `<div class="lib-none"><p>No text here matches <b>${esc(q.trim())}</b>.</p></div>`;
       const favs = hits.filter((b) => isBookFav(b.id));
       const rest = hits.filter((b) => !isBookFav(b.id));
       return favs.length ? section("Favourites", favs) + section("Everything else", rest) : section("", rest);
@@ -33858,20 +33880,20 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const countLine = (q) => {
       const words = bookFold(q).split(/\s+/).filter(Boolean);
       const shown = sorted.filter((b) => bookMatches(b, words)).length, all = sorted.length;
-      const n = (v) => v + " book" + (v === 1 ? "" : "s");
+      const n = (v) => v + " text" + (v === 1 ? "" : "s");
       return words.length ? `${shown} of ${n(all)}` : n(all);
     };
     root.innerHTML = `
       <div class="page-head">
         <span class="eyebrow">Library</span>
-        <h1>Books</h1>
-        <p>Historical books in the public domain, completely free to read.</p>
+        <h1>Texts</h1>
+        <p>Historical texts in the public domain, completely free to read.</p>
       </div>
       ${/* The picker ships whatever the shelf holds, one book included — it was asked for outright, and
             a control that appears the day a second book lands is one nobody knows to look for. Beside it
             the direction, in the chosen field's own words rather than as a bare arrow. */""}
       <div class="lib-tools">
-        <div class="lib-search"><input type="search" id="bkFilter" placeholder="Search these books…" autocomplete="off" aria-label="Search the library by title, author or date" value="${esc(bookQuery)}"></div>
+        <div class="lib-search"><input type="search" id="bkFilter" placeholder="Search these texts…" autocomplete="off" aria-label="Search the library by title, author or date" value="${esc(bookQuery)}"></div>
         <span class="lib-count" id="bkCount" aria-live="polite">${countLine(bookQuery)}</span>
         ${sortPickerHTML("bkSort", BOOK_SORTS, key)}${sortDirHTML("bkSortDir", BOOK_SORTS, key, rev)}
         ${/* the way back to the first-visit card, exactly as the Atlas's "?" is — a page that explains
@@ -33972,7 +33994,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<button type="button" class="dm-item' + (fav ? " dm-choice on" : "") + '" data-act="fav" aria-pressed="' + (fav ? "true" : "false") + '">' +
         "<b>" + (fav ? "Remove from favourites" : "Add to favourites") + "</b>" +
         "<small>" + (fav ? "Take it out of the section at the top of the shelf" : "Pin it to a section at the top of the shelf") + "</small></button>" +
-      '<button type="button" class="dm-item" data-act="share"><b>Share this book</b>' +
+      '<button type="button" class="dm-item" data-act="share"><b>Share this text</b>' +
         "<small>A link that opens it here, at its first page</small></button>";
     return deckSheet("Options for " + b.title, html, (ov, close) => {
       ov.querySelectorAll(".dm-item").forEach((btn) => btn.addEventListener("click", () => {
@@ -36859,6 +36881,35 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const d = uDeckIdOf(entryId);
     const cat = d ? langCatalogById(d) : null;
     return cat ? langCtxId(cat.lang) : "";
+  }
+  /* THE ALPHABET COMES FIRST (Nov 2026, on request: "in every language collection with an alphabet deck, words
+     and phrases should not appear in default card order until the alphabet deck has been fully studied").
+     An alphabet deck is a catalogue deck whose file is the language's script — `*-Alphabet*`, and Japanese's
+     two kana decks. While any card of an alphabet deck the reader has ADDED is still new, a language's word and
+     phrase decks (every deck but the alphabet and a "Sounds and spelling" deck) introduce nothing new through the language's row or the pooled review; their reviews are untouched,
+     and a word deck studied on its own row still deals its words, since the reader asked for that deck by
+     name. "Random" is a deliberate choice against the default order, so a language set to it is not held.
+     Suspended alphabet cards do not hold it (they will never be studied). */
+  const ALPHABET_DECK_RX = /Alphabet|Hiragana|Katakana/;
+  function isAlphabetDeckId(deckId) {
+    const cat = langCatalogById(deckId);
+    return !!(cat && ALPHABET_DECK_RX.test(cat.file || ""));
+  }
+  function isAlphabetEntry(entryId) { const d = uDeckIdOf(entryId); return !!d && isAlphabetDeckId(d); }
+  // …and what is never held back: the alphabet itself, and a "Sounds and spelling" deck, which teaches how
+  // the letters are read and is neither words nor phrases
+  const SCRIPT_DECK_RX = /Alphabet|Hiragana|Katakana|Sounds-and-Spelling/;
+  function isScriptDeckId(deckId) {
+    const cat = langCatalogById(deckId);
+    return !!(cat && SCRIPT_DECK_RX.test(cat.file || ""));
+  }
+  function isScriptEntry(entryId) { const d = uDeckIdOf(entryId); return !!d && isScriptDeckId(d); }
+  function isScriptCard(id) { const c = UCARDS[uCardBaseId(id)]; return !!(c && c.deckId && isScriptDeckId(c.deckId)); }
+  // true while the language `langId` holds back its words: an added alphabet deck has a card still new
+  function langAlphabetPending(langId) {
+    if (!isLangCtxId(langId) || deckOrderMode(langId) === "random") return false;
+    return langCtxEntries(langId).some((e) => isAlphabetEntry(e) &&
+      entryCardIds(e).some((id) => !isSeen(id) && !isSuspended(id)));
   }
   function langCtxEntries(id) {
     return activeEntryIds().filter((e) => {
