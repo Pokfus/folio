@@ -56,7 +56,7 @@ const AUDIT_DOC = path.join(__dirname, "..", "docs", "china-refinement-audit.md"
 const PROTECTED = new Set();
 if (fs.existsSync(AUDIT_DOC)) {
   const m = /```protected-cards\n([\s\S]*?)```/.exec(fs.readFileSync(AUDIT_DOC, "utf8"));
-  if (m) m[1].split("\n").forEach((l) => { const r = /^(cnh-\d{3})\b/.exec(l.trim()); if (r) PROTECTED.add(r[1]); });
+  if (m) m[1].split("\n").forEach((l) => { const r = /^(cnh-\d{3,4})\b/.exec(l.trim()); if (r) PROTECTED.add(r[1]); });
 }
 global.AUDIT_PROTECTED = PROTECTED;   // precheck.js reads it: a protected card's patch may not carry its date line
 const SET_ASIDE = /^D\.(shape|rows|label|era|not-a-date|c-in-range|dangling|sort)$/;

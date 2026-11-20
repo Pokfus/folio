@@ -268,6 +268,13 @@ the form English-language scholarship and the reference works use; the decision 
 | Kumarajiva, Dharmaraksa, An Shigao, Huiyuan, Zhiyi, Fazang, Daoxuan, Huineng, Baizhang Huaihai, Tiantai, Huayan, Chan, Pure Land, Mount Wutai, Mogao Caves | Chu-fa-hu, An Shih-kao, Hui-yüan, Chih-i, Fa-tsang, Tao-hsüan, Hui-neng, Pai-chang Huai-hai, Pai-chang, T'ien-t'ai, Hua-yen, Ch'an, Wu-t'ai shan | Kumārajīva, Dharmarakṣa, Zhu Fahu, Wutai Shan, Wutaishan, Qingliang Shan, Qianfodong, Caves of the Thousand Buddhas | the Buddhist names; Sanskrit names without diacritics in the card's voice (the slugs' `Kumārajīva` and `Dharmarakṣa` are their titles); *Zen* only for Japan |
 | Liu Ying, Emperor Taiwu, Cui Hao, Kou Qianzhi, Wenchang Wang, Dongyue Dadi, City God, Luo Qing, Eternal Venerable Mother, Aluoben | Ts'ui Hao, K'ou Ch'ien-chih, Wen-ch'ang, Tung-yüeh ta-ti, Ch'eng-huang, Lo Ch'ing | Wenchang Dijun, Zitong Dijun, Zhang Yazi, Emperor of the Eastern Peak, Chenghuang, Luo Zu, Wusheng Laomu, Alopen, Olopun | the gods and the sects; *City God* the English name, *Chenghuang* the Chinese an alias |
 | Jiangnan, qianzhuang, sycee, comprador, Pan Jixun, Huang Daopo, Zhengguo Canal, Qimin yaoshu, Hemudu, caoyun, feng shui, luopan | Kiangnan, Chiang-nan, ch'ien-chuang, Pan Chi-hsün, Huang Tao-p'o, Cheng-kuo, Ch'i-min yao-shu, Ho-mu-tu, ts'ao-yün, fengshui | native banks, yuanbao, maiban, Zhengguo Qu, Ch'i-min yao shu, Grain Transport | the economy's names; *sycee* and *comprador* the period's English, lower-case as common nouns; *Hankou* in the card's voice, *Hankow* (the row above) cited as printed |
+| Shuowen Jiezi, Xu Shen, Qieyun, Lu Fayan, Guangyun, Zhongyuan Yinyun, Zhou Deqing, Fangyan, Yang Xiong, Yiwenzhi, Kangxi Dictionary | Shuo-wen chieh-tzu, Shuowen Chieh-tzu, Hsü Shen, Ch'ieh-yün, Lu Fa-yen, Kuang-yün, Chung-yüan yin-yün, Chou Te-ch'ing, Fang-yen, Yang Hsiung, I-wen chih | Shuowen, Shuowen jiezi, Explaining Graphs and Analysing Characters, Kangxi zidian, Kangxi Zidian | the dictionaries and the language's names (added for the tenth hundred, Nov 2026); Giles's and Wieger's titles cited as printed |
+| small seal script, clerical script, regular script, Classical Chinese, Pinyin, Latinxua Sin Wenz, Simplified Chinese characters, Cheng Miao, Zhong Yao | hsiao-chuan, li-shu, k'ai-shu, Ch'eng Miao, Chung Yao | xiaozhuan, lishu, kaishu, wenyan, Hanyu Pinyin, Latinxua, Sin Wenz, Beifangxua, jiantizi | the scripts in lower case as common nouns where the live answer is (the answers' own capitals kept) |
+| Cao Xueqin, Gao E, Pu Songling, Tang Xianzu, Ma Zhiyuan, Sima Xiangru, Liu Xie, Gan Bao, Liu Xiang, Hu Feng, Wang Shizhen, Luo Guanzhong, Shi Nai'an, Wu Cheng'en | Ts'ao Hsüeh-ch'in, Kao E, Kao Ê, P'u Sung-ling, T'ang Hsien-tsu, Ma Chih-yüan, Ssu-ma Hsiang-ju, Liu Hsieh, Kan Pao, Liu Hsiang, Wang Shih-chen, Lo Kuan-chung, Shih Nai-an, Wu Ch'eng-en | Cao Zhan, Liuquan, Ruoshi, Changqing, Yanzhou, Shi Naian | the writers, surname and name split; *Wang Shizhen* the Ming writer (1526 – 1590), never confused with the Qing poet of the same romanisation |
+| Dream of the Red Chamber, Jin Ping Mei, Strange Tales from a Chinese Studio, Peony Pavilion, Wenxin Diaolong, Soushen ji, Lienü zhuan, Nineteen Old Poems, Three Hundred Tang Poems, cipai | Hung-lou meng, Hung Lou Meng, Chin P'ing Mei, Chin Ping Mei, Liao-chai chih-i, Liao Chai, Mu-tan t'ing, Wen-hsin tiao-lung, Sou-shen chi, Lieh-nü chuan, T'ang-shih san-pai shou, tz'u-p'ai | Honglou meng, Story of the Stone, The Story of the Stone, Shitou ji, The Golden Lotus, Plum in the Golden Vase, Liaozhai zhiyi, Liaozhai, Mudan ting, Huanhun ji, Gushi shijiu shou, Tangshi sanbai shou, ci | the books by their English titles where the live answer has one, else by the pinyin |
+| Wu Daozi, Huang Quan, Xie He, Gu Hongzhong, Han Xizai, Huang Gongwang, Ni Zan, Wang Meng, Wu Zhen, Xiling Seal Society, Mustard Seed Garden, Jingdezhen, Longquan, Ding ware, huanghuali, tulou, Wu Liang Shrine, Nanchan Temple, Ji Cheng, Yuanye | Wu Tao-tzu, Wu Tao-hsüan, Huang Ch'üan, Hsieh Ho, Ku Hung-chung, Han Hsi-tsai, Huang Kung-wang, Ni Tsan, Wu Chen, Hsi-ling, Chieh-tzu yüan, Ching-te-chen, King-te-chen, Kingtehchen, Lung-ch'üan, Ting ware, huang-hua-li, Wu Liang Tz'u, Nan-ch'an, Chi Ch'eng, Yüan-yeh | Wu Daoxuan, Jieziyuan huazhuan, Jieziyuan, Xiling Yinshe, Ding yao, Longquan yao, Wu Liang Ci, Nanchan Si | the painters and the crafts; *Jingdezhen* in the card's voice, d'Entrecolles's *King-te-tching* cited as printed |
+| guqin, pipa, bianzhong, Kunqu, Peking opera, Mei Lanfang, Tan Xinpei, Dingjun Mountain, Wei Liangfu | ku-ch'in, p'i-p'a, pien-chung, K'un-ch'ü, Mei Lan-fang, Mei Lan Fang, T'an Hsin-p'ei, Ting-chün shan, Wei Liang-fu | qin, Kunju, Kunqiang, jingju, Beijing opera, Dingjunshan | *Peking opera* the English name and the live answer's form, *Beijing opera* an alias |
+| Zhu Shijie, Ma Jun, Ximen Bao, Li Bing, Dujiangyan, Du Shi, Zhaozhou Bridge, Li Chun, Hua Sui, Wujing Zongyao, Dream Pool Essays, Zhoubi Suanjing, Liu Hui, Li Shizhen, Bencao Gangmu, Huangdi Neijing, Bian Que, Qi Bo, Tu Youyou, artemisinin | Chu Shih-chieh, Ma Chün, Hsi-men Pao, Li Ping, Tu-chiang-yen, Tu Shih, Chao-chou, Li Ch'un, Wu-ching tsung-yao, Meng-ch'i pi-t'an, Chou-pi suan-ching, Chou Pei Suan Ching, Li Shih-chen, Pen-ts'ao kang-mu, Pen Ts'ao Kang Mu, Huang-ti nei-ching, Huang Ti Nei Ching, Pien Ch'üeh, Ch'i Po, T'u Yu-yu | Anji Bridge, Mengxi bitan, qinghaosu, Compendium of Materia Medica, The Yellow Emperor's Inner Classic, Suwen, Lingshu, Qinghao | the science and medicine names; Needham's spellings cited as printed in his titles |
 
 ## Mythology and legend
 
@@ -1040,9 +1047,102 @@ Wang Yangming (`cnh-528`); the Treaty of Nanking 29 August 1842 (`cnh-562`); the
 | the Nestorian Stele erected / found / also dated / moved | 781 CE / 1623 / 1625 / 1907 | Deeg; Saeki (`cnh-899`) |
 | the Eternal Venerable Mother attested / the scripture / the temples razed | 1629 / 1652 / 1839 | Pu; de Groot (`cnh-900`) |
 
-## Later periods
+## Language, literature, art and science (the tenth hundred)
 
-To be filled from `cnh-901` on.
+Filled batch by batch from `cnh-901` (B91 on). The tenth and last hundred opens with the last two religion cards
+(`cn-religion`), then three themed decks: language and literature, art, architecture and music, and science, technology and
+medicine, so a card here often dates a script, a book, a ware or an invention across several dynasties, and a text, a school or
+a work of art is dated by its own making or its first attestation, never by its author's life. **The protected lines** of its
+fifteen individuals (the writers, painters, scholars and inventors, listed in `docs/china-refinement-audit.md`, "Protected date
+lines") are pinned below to their lines as they stood on main on 2026-11-20 (the years only; ages, days and months left out),
+and are not rows of this table. Dates already set elsewhere that this hundred must agree with: the Qin unification 221 BCE
+(`cnh-191`); the Han 206 BCE – 220 CE (`cnh-213`); Cai Lun's paper presented 105 CE (`cnh-262`); Zhang Heng's seismoscope 132 CE
+(`cnh-263`); the Orchid Pavilion gathering 353 CE (`cnh-319`); Tao Yuanming c. 365 – 427 CE (`cnh-320`); the Tang 618 – 907 CE
+(`cnh-355`); Xuanzang's journey 629 – 645 CE (`cnh-388`); Li Bai 701 – 762 CE (`cnh-391`); the Song 960 – 1279 (`cnh-421`); Bi
+Sheng's type 1041 – 1048 (`cnh-439`); the Ming 1368 – 1644 (`cnh-503`); Zheng He's voyages 1405 – 1433 (`cnh-514`); the *Siku
+quanshu* ordered 1772 (`cnh-552`); the Boxer siege of 1900 (`cnh-572`); the New Culture Movement and Hu Shi's reform essay of
+January 1917 (`cnh-586`, `cnh-588`); Lu Xun's "Diary of a Madman" 1918 (`cnh-589`); the Mogao Caves (`cnh-893`).
+
+| event | the collection says | source |
+|---|---|---|
+| the Three-Self manifesto / the preparatory committee / renamed | July 1950 / April 1951 / 1954 | the CUHK introduction to Wu Yaozong's works (`cnh-901`) |
+| folk religion's public revival / the heritage programme | 1978 / 2004 | You 2020 (`cnh-902`) |
+| the four tones: the language of the rhyme books / the Sui rhyme books | c. 500 – 600 CE / 581 – 618 CE | Karlgren 1923; a PLOS study (`cnh-903`) |
+| the six categories defined | c. 100 CE | Bottéro and Harbsmeier (`cnh-904`) |
+| the Stone Drums: dated / found / first attested / taken north | c. 500 – 400 BCE / c. 600 CE / c. 627 – 649 CE / 1126 | Wagner; Bushell (`cnh-905`) |
+| small seal script standardised / the stones set up | 221 BCE / 219 BCE | Chavannes (`cnh-906`) |
+| clerical script in office use / dominant | 221 – 206 BCE / 206 BCE – 220 CE | the card's sources (`cnh-907`) |
+| regular script in common use / matured | 220 – 420 CE / 618 – 907 CE | the Li, Han and Becker chapter (`cnh-908`) |
+| Classical Chinese fully formed / reform urged / schools switch | c. 600 – 500 BCE / 1917 / 1920 | Giles 1901 (his judgement); Wang 1927 (`cnh-909`) |
+| the *Fangyan* compiled | c. 1 – 100 CE | Chung and Han 2022 (`cnh-910`) |
+| the *Zhongyuan yinyun* completed | 1324 | Nagashima 1941 (`cnh-911`) |
+| the *Qieyun* compiled / revised / enlarged as the *Guangyun* | 601 CE / 751 CE / 1007 – 1011 | Carr (`cnh-912`) |
+| the Kangxi Dictionary ordered / completed | 1710 / 1716 | Vedal; Couling (`cnh-913`) |
+| the *Shuowen jiezi* completed / presented | c. 100 CE / 121 CE | Wylie; Couling (`cnh-914`) |
+| Latinxua: work begun / adopted / the Border Region's trials | 1928 / September 1931 / October 1940 – 1943 | the Soviet commission; Wang 2022 (`cnh-915`) |
+| simplified characters: the first table / the scheme / the second draft / withdrawn | August 1935 / January 1956 / 20 December 1977 / 24 June 1986 | the card's sources (`cnh-916`) |
+| Pinyin approved / recommended by the UN conference / the US library standard | 11 February 1958 / 1977 / 1 October 2000 | the card's sources (`cnh-917`) |
+| the *Yiwenzhi*: the Han history compiled / the collation begun | c. 54 – 92 CE / 26 BCE | Mayers; Hunter 2018 (`cnh-918`) |
+| *Three Hundred Tang Poems* compiled / first printed | c. 1763 / 1764 | Jiang Yin (`cnh-919`) |
+| the Nineteen Old Poems collected in the *Wen xuan* | c. 530 CE | the card's sources (`cnh-920`) |
+| cipai: tunes attested / the Qing handbook | 906 – 940 CE / 1715 | Jao Tsung-i; the *Yuding cipu* (`cnh-922`) |
+| the Eight Masters: their lives / Mao Kun's anthology's preface | 768 CE – 1112 / 1579 | the card's sources (`cnh-924`) |
+| the *Lienü zhuan* compiled | c. 100 – 1 BCE | Wylie (`cnh-926`) |
+| the *Soushen ji* compiled / the rebuilt text first printed | c. 300 – 350 CE / 1603 | Campany; Puglia (`cnh-927`) |
+| "the Four Great Classical Novels" attested in today's sense | 1981 | Guo 2023 (`cnh-928`) |
+| the *Water Margin* first printed / banned | c. 1500 – 1550 / 1642 | Gregory 2023 (`cnh-929`) |
+| the *Journey to the West* first printed | 1592 | the card's sources (`cnh-930`) |
+| the *Jin Ping Mei* attested / printed / preface dated | 1596 / 1610 / 1617 | Lu Xun; Tanaka (`cnh-931`) |
+| the *Dream of the Red Chamber* circulating / printed | 1759 / 1791, also dated 1792 | Lu Xun; the card's sources (`cnh-932`) |
+| the *Strange Tales*: preface / first printed | 1679 / 1766 | the Library of Congress; Lu Xun (`cnh-933`) |
+| the *Peony Pavilion* completed | 1598 | the card's sources (`cnh-934`) |
+| the *Wenxin diaolong* completed | c. 500 CE | the card's sources (`cnh-935`) |
+| bamboo and wooden slips' main use began | c. 500 – 400 BCE | Liu et al. (`cnh-936`) |
+| the Tianyi Pavilion built / made a museum | 1561 – 1566 / 1994 | Situ 2007 (`cnh-938`) |
+| "Diary of a Madman" written / printed | April 1918 / May 1918 | the card's sources (`cnh-939`) |
+| scar literature's high tide / "Scar" printed | 1977 – 1984 / 11 August 1978 | Huang 2001; the Academy of Chinese Studies (`cnh-940`) |
+| the six principles: dated / also dated | c. 400 – 500 CE / c. 500 – 600 CE | Hirth; Sernelj 2025 (`cnh-943`) |
+| the Orchid Pavilion preface written | 353 CE | the card's sources (`cnh-944`) |
+| the Four Treasures attested as a set | 986 CE | Wylie (`cnh-945`) |
+| the *Mustard Seed Garden Manual*: part 1 / parts 2 and 3 | 1679 / 1701, also dated 1687 | the card's sources (`cnh-947`) |
+| the *Night Revels*: painted / the surviving copy | c. 900 – 1000 CE / c. 1127 – 1279 | the card's sources (`cnh-949`) |
+| the Four Masters grouped | c. 1600 – 1700 | the Rijksmuseum Bulletin (`cnh-950`) |
+| the handscroll attested | c. 300 – 400 CE | the card's sources (`cnh-951`) |
+| the Xiling Seal Society founded | 1904 | the card's sources (`cnh-952`) |
+| the Mao Gong ding cast / found | c. 827 – 782 BCE / c. 1850 | the National Palace Museum; Nipponica (`cnh-953`) |
+| jade suits in use / banned / first found intact | c. 206 BCE – 220 CE / 222 CE / 1968 | the card's sources (`cnh-954`) |
+| Ding ware attested / at its best | c. 650 CE / 1111 – 1125 CE | Bushell (`cnh-955`) |
+| Longquan celadon made (dated pieces) | c. 1000 – 1450 CE | museum records (`cnh-956`) |
+| blue and white: earliest dated / the gap / kiln ban / repeated | 1351 / 1354 – 1436 / 1439 / 1448 | Tai (`cnh-957`) |
+| carved lacquer: early piece / described / dated piece | c. 1300 / 1387 / 1585 | the card's sources (`cnh-959`) |
+| huanghuali described | 1387, also dated 1388 | the Ricci Library (`cnh-961`) |
+| the Fujian tulou: first built / peak / inscribed | c. 1000 – 1300 / c. 1600 – 1950 / 2008 | the card's sources (`cnh-962`) |
+| the Nanchan Temple: repaired / found / restored | 782 CE / 1953 / 1974 – 1975 | the card's sources (`cnh-963`) |
+| the Giant Wild Goose Pagoda: founded / rebuilt / brick casing | 652 CE / 701 – 704 CE / 1573 – 1620 | the card's sources (`cnh-964`) |
+| the *Yuanye* written / printed | 1631 / 1634 | Kotobank (`cnh-965`) |
+| the Wu Liang Shrine carved / excavated | c. 150 CE / 1786 | the card's sources (`cnh-966`) |
+| bianzhong first made / the Zeng set buried | c. 1046 – 771 BCE / c. 433 BCE | the card's sources (`cnh-967`) |
+| the pipa's name attested / music printed | c. 25 – 220 CE / 1818 | the card's sources (`cnh-968`) |
+| an early surviving qin / proclaimed / inscribed | 756 CE / 2003 / 2008 | the card's sources (`cnh-969`) |
+| Kunqu emerged / proclaimed / inscribed | c. 1300 – 1400 / 2001 / 2008 | Fu Jin (`cnh-970`) |
+| *Dingjun Mountain* filmed | 1905 | the card's sources (`cnh-972`) |
+| the Needham Question first noticed / posed in public | c. 1938 / 1944 | the Needham Research Institute; Sivin (`cnh-974`) |
+| Fangmatan: Tomb 1 / Tomb 5 / found | c. 300 – 200 BCE / 179 – 141 BCE / 1986 | the card's sources (`cnh-975`) |
+| the Dunhuang Diamond Sutra printed / found | 11 May 868 CE / 1900 | the card's sources (`cnh-976`) |
+| the *Wujing zongyao* dated | 1044 | the card's sources (`cnh-978`) |
+| the Mao Kun map drawn / preface / presented | c. 1425 – 1430 / 1621 / 1628 | Liang 2016 (`cnh-981`) |
+| the Dunhuang star chart dated / also dated | c. 649 – 684 CE / c. 940 CE | Bonnet-Bidaud (`cnh-982`) |
+| the Beijing observatory refitted / its instruments / removed | c. 1670 / 1673 / 1900 – 1901 | the card's sources (`cnh-983`) |
+| SN 185 appeared / last seen | 7 December 185 CE / 187 CE, also dated 186 CE | the card's sources (`cnh-984`) |
+| the Taichu calendar adopted / replaced | 104 BCE / 85 CE | the card's sources (`cnh-985`) |
+| the *Zhoubi* compiled | c. 100 BCE – 100 CE | the card's sources (`cnh-986`) |
+| the *Nine Chapters* compiled / commentary / annotated | c. 200 BCE – 50 CE / 263 CE / c. 640 CE | the card's sources (`cnh-987`) |
+| the Zhaozhou Bridge built / restored | c. 595 – 605 CE / 1952 – 1958 | the card's sources (`cnh-990`) |
+| Dujiangyan begun / inscribed | c. 256 BCE / 2000 | the card's sources (`cnh-992`) |
+| the drawloom depicted / described | 960 – 1279 CE / 1637 CE | Becker and Wagner (`cnh-994`) |
+| the *Fan Shengzhi shu* written / quoted | c. 100 – 1 BCE / c. 544 CE | the card's sources (`cnh-995`) |
+| the *Bencao gangmu* completed / printed | 1578 / 1596 | the card's sources (`cnh-998`) |
+| the *Huangdi neijing* compiled | c. 100 – 1 BCE | the card's sources (`cnh-999`) |
 
 ## Chronology pins
 
@@ -1335,6 +1435,21 @@ cnh-888: 643; 712
 cnh-889: 334; 402; 416
 cnh-891: 720; 814
 cnh-895: 408; 423; 452; 446
+cnh-921: 179; 117
+cnh-923: 1250; 1270; 1300; 1321
+cnh-937: 1849; 1900; 1907; 1931
+cnh-941: 1902; 1954; 1955; 1978; 1985
+cnh-942: 1889; 1913; 1929; 1918; 1966
+cnh-946: 685; 689; 720; 750; 758; 759
+cnh-948: 903; 944; 965
+cnh-958: 1664; 1712; 1722; 1741
+cnh-971: 1894; 1905; 1930; 1961
+cnh-977: 1439; 1490; 1513
+cnh-988: 1249; 1299; 1303; 1314
+cnh-989: 220; 265; 233; 237
+cnh-991: 403; 387
+cnh-993: 31; 38
+cnh-1000: 1930; 1971; 2015
 cnh-101: 1250; 1046
 cnh-103: 1046; 1040; 1122
 cnh-104: 1046; 1044; 1122
