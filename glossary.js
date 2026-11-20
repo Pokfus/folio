@@ -15892,7 +15892,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Dingjun_Mountain_(film)": "1905",
 "Diamond_Sutra": "868 CE",
 "Hua_Sui": "1439–1513",
-"Wujing_Zongyao": "1040–1044",
+"Wujing_Zongyao": "1044",
 "Heilongjiang_hand_cannon": "c. 1288",
 "Dream_Pool_Essays": "c. 1088",
 "Dunhuang_Star_Chart": "c. 649–684 CE",

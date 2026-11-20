@@ -1125,6 +1125,11 @@ January 1917 (`cnh-586`, `cnh-588`); Lu Xun's "Diary of a Madman" 1918 (`cnh-589
 | the pipa's name attested / music printed | c. 25 – 220 CE / 1818 | the card's sources (`cnh-968`) |
 | an early surviving qin / proclaimed / inscribed | 756 CE / 2003 / 2008 | the card's sources (`cnh-969`) |
 | Kunqu emerged / proclaimed / inscribed | c. 1300 – 1400 / 2001 / 2008 | Fu Jin (`cnh-970`) |
+| *Dingjun Mountain* filmed | 1905 | the card's sources (`cnh-972`) |
+| the Needham Question first noticed / posed in public | c. 1938 / 1944 | the Needham Research Institute; Sivin (`cnh-974`) |
+| Fangmatan: Tomb 1 / Tomb 5 / found | c. 300 – 200 BCE / 179 – 141 BCE / 1986 | the card's sources (`cnh-975`) |
+| the Dunhuang Diamond Sutra printed / found | 11 May 868 CE / 1900 | the card's sources (`cnh-976`) |
+| the *Wujing zongyao* dated | 1044 | the card's sources (`cnh-978`) |
 
 ## Chronology pins
 
