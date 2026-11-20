@@ -18900,6 +18900,7 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
 window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
+"Heinrich_Himmler": ["Himmler"],
 "Megara": ["Megarian","Megarians"],
 "Aristocracy": ["aristocratic"],
 "Papyrus": ["papyri"],
