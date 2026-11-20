@@ -12769,7 +12769,20 @@ window.GLOSSARY = {
 "Battle_of_Xiaoting": "",
 "Baidicheng": "",
 "Fengjie_County": "",
-"Liu_Shan": ""
+"Liu_Shan": "",
+"Advaita_Vedanta": "",
+"Brihadaranyaka_Upanishad": "",
+"Yajnavalkya": "",
+"Ājīvika": "",
+"Sistan": "",
+"Irrawaddy_River": "",
+"Dhaba_(archaeological_site)": "",
+"Cape_of_Good_Hope": "",
+"Khyber_Pass": "",
+"Bolan_Pass": "",
+"Aravalli_Range": "",
+"Indo-Gangetic_Plain": "",
+"Kurukshetra": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -27430,7 +27443,20 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Liu_Zhang": ["Liu Jiyu"],
 "Battle_of_Xiaoting": ["Battle of Yiling","invasion of Wu"],
 "Baidicheng": ["Baidi","Bodi","White Emperor City"],
-"Fengjie_County": ["Fengjie"]
+"Fengjie_County": ["Fengjie"],
+"Advaita_Vedanta": ["Advaita","Advaita Vedānta"],
+"Brihadaranyaka_Upanishad": ["Bṛhadāraṇyaka Upaniṣad","Brihadaranyaka"],
+"Yajnavalkya": ["Yājñavalkya","Yajñavalkya"],
+"Ājīvika": ["Ajivika","Ajivikas","Ājīvikas"],
+"Sistan": ["Seistan","Sistān"],
+"Irrawaddy_River": ["Irrawaddy","Ayeyarwady","Ayeyarwady River"],
+"Dhaba_(archaeological_site)": ["Dhaba"],
+"Cape_of_Good_Hope": ["Cabo da Boa Esperança"],
+"Khyber_Pass": ["Khyber","Khaibar"],
+"Bolan_Pass": ["Bolan"],
+"Aravalli_Range": ["Aravalli hills","Aravallis","Aravalli Hills"],
+"Indo-Gangetic_Plain": ["Indo-Gangetic plain","Indo-Gangetic Plains","Indus-Ganga Plain"],
+"Kurukshetra": ["Kurukṣetra"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -27674,7 +27700,17 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Suma-ku": true,
 "Sun": true,
 "Big_Bang": true,
-"Chungju": true
+"Chungju": true,
+"Ājīvika": true,
+"Sistan": true,
+"Irrawaddy_River": true,
+"Dhaba_(archaeological_site)": true,
+"Cape_of_Good_Hope": true,
+"Khyber_Pass": true,
+"Bolan_Pass": true,
+"Aravalli_Range": true,
+"Indo-Gangetic_Plain": true,
+"Kurukshetra": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -40447,7 +40483,20 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_Xiaoting": ["battle","china","three kingdoms","shu han","eastern wu","history"],
 "Baidicheng": ["place","china","three kingdoms","shu han","yangzi","history"],
 "Fengjie_County": ["place","china","chongqing","yangzi","history"],
-"Liu_Shan": ["person","china","three kingdoms","shu han","emperor","history"]
+"Liu_Shan": ["person","china","three kingdoms","shu han","emperor","history"],
+"Advaita_Vedanta": ["concept","philosophy","religion","hinduism","india"],
+"Brihadaranyaka_Upanishad": ["text","religion","philosophy","hinduism","india"],
+"Yajnavalkya": ["person","philosophy","religion","hinduism","india"],
+"Ājīvika": ["concept","religion","philosophy","india","magadha"],
+"Sistan": ["place","geography","iran","afghanistan","history"],
+"Irrawaddy_River": ["river","geography","myanmar","burma","southeast asia"],
+"Dhaba_(archaeological_site)": ["place","archaeology","prehistory","india","human evolution"],
+"Cape_of_Good_Hope": ["place","geography","south africa","exploration","portugal"],
+"Khyber_Pass": ["place","geography","pakistan","afghanistan","history"],
+"Bolan_Pass": ["place","geography","pakistan","balochistan","history"],
+"Aravalli_Range": ["place","geography","mountains","india","rajasthan"],
+"Indo-Gangetic_Plain": ["place","geography","india","pakistan","bangladesh"],
+"Kurukshetra": ["place","city","religion","india","haryana"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
