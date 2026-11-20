@@ -41711,7 +41711,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
        the Achaemenid Empire correctly filling the middle of it and the Greek allies a green speck — a
        true map, and not a map of the war. A card may frame the THEATRE instead; the reader zooms out for
        the rest, and nothing about what is shaded changes. */
-    return { victors: victors, losers: losers, years: ys && ys[0] <= ys[1] ? ys : null, zoom: Number(w.zoom) || 0, group: w.group === true };
+    /* `year` pins the window to ONE year of the war, with no timeline (2026-11-20, gr-521: "a single map showing the two sides at the start of the war"; docs/war-cards.md) */
+    return { victors: victors, losers: losers, years: ys && ys[0] <= ys[1] ? ys : null, zoom: Number(w.zoom) || 0, group: w.group === true, year: Number.isInteger(w.year) ? w.year : null };
   }
   /* ---------- THE MEMBERS OF AN ORGANISATION OF STATES (`card.members`; Oct 2026, on request) ----------
      `members: { name, note, keys: [...], at: [lon, lat], atName }` — the League of Nations' window shades
@@ -41955,7 +41956,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       '<b class="wk-name">' + esc(s.name) + '</b> <span class="wk-role">' + role + '</span></span>';
     return '<div class="war-key">' +
       row(TINT_WIN, w.victors, "victors", "wk-win") +
-      row(TINT_LOSE, w.losers, "defeated", "wk-lose") + "</div>";
+      row(TINT_LOSE, w.losers, "defeated", "wk-lose") +
+      (w.year != null ? '<span class="wk-side wk-note wk-borders wk-year"><span class="wk-role">The two sides in ' + esc(yearLabel(w.year)) + "</span></span>" : "") + "</div>";   // a war drawn at one year (`war.year`) says which
   }
   // "lon,lat lon,lat …", rings separated by ";" — `readRings` in startCardGlobe is the other half of this
   function warRingsAttr(rings) { return rings.map((ring) => ring.map((q) => q[0] + "," + q[1]).join(" ")).join(";"); }
@@ -42029,7 +42031,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       (w ? (w.victors.keys.length ? ' data-war-v="' + esc(w.victors.keys.join("|")) + '"' : "") +
            (w.victors.area ? ' data-war-varea="' + warRingsAttr(w.victors.area) + '"' : "") +
            (w.losers.keys.length ? ' data-war-l="' + esc(w.losers.keys.join("|")) + '"' : "") +
-           (w.losers.area ? ' data-war-larea="' + warRingsAttr(w.losers.area) + '"' : "") : "") +
+           (w.losers.area ? ' data-war-larea="' + warRingsAttr(w.losers.area) + '"' : "") +
+           (w.year != null ? ' data-war-year="' + w.year + '"' : "") : "") +
       /* ONE zoom attribute for both, and ON A WAR WINDOW THE LOCATOR'S OWN ZOOM IS IGNORED OUTRIGHT
          rather than used as a fallback. It was a fallback for an hour and `rm-153` showed what that
          costs: the Second Samnite War carries a `zoom: 8` chosen to frame the town of Neapolis, which

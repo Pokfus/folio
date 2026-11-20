@@ -17,6 +17,8 @@
  *       "years":   [-218, -201]
  *     }
  *
+ * and, optionally, `"year": -431` — the window draws that one year of the war and no timeline.
+ *
  * A SIDE IS EITHER NAMED ON A MAP FOLIO HAS OR DRAWN AS AN AUTHORED EXTENT, NEVER BOTH. `keys` is the
  * list of names that belligerent goes by across Folio's maps — `world.js` for the card's own window and
  * the thirteen era maps for the personal atlas, which call Japan the Empire of Japan and Russia the
@@ -185,8 +187,11 @@ function checkWar(card, cardYears) {
   const w = card && card.war;
   if (w == null) return null;
   if (typeof w !== "object" || Array.isArray(w)) return "card.war must be an object with `victors` and `losers`.";
-  const extra = Object.keys(w).filter((k) => ["victors", "losers", "years", "zoom", "group"].indexOf(k) < 0);
-  if (extra.length) return "card.war carries " + extra.join(", ") + " — it takes `victors`, `losers` and an optional `years`, `zoom` and `group`.";
+  const extra = Object.keys(w).filter((k) => ["victors", "losers", "years", "zoom", "group", "year"].indexOf(k) < 0);
+  if (extra.length) return "card.war carries " + extra.join(", ") + " — it takes `victors`, `losers` and an optional `years`, `zoom`, `group` and `year`.";
+  /* `year` PINS THE WINDOW TO ONE YEAR (2026-11-20, the owner on gr-521: "Replace it with a single map showing the two sides at the start of the war"): the card's war window is
+     drawn at that year alone, with no timeline under it (atlas-windows.js; docs/war-cards.md "One map: `year`"). It must be a whole year inside the war's own years. */
+  if (w.year != null && (!Number.isInteger(w.year))) return "card.war.year must be a whole year (negative for BCE) — the one year the window draws, with no timeline.";
   /* `group: true` marks a war that GROUPS other war cards — the Samnite Wars over the First, Second and
      Third (Oct 2026, on request: "Wars cards which group several other cards should not be included on the
      personal or full atlas"). Its own card window still shades both sides; the personal atlas skips it, so
@@ -257,6 +262,7 @@ function checkWar(card, cardYears) {
     if (!y) {
       return "card.war has no years to draw in — the personal atlas shows a war in the years it ran and in no others, and this card's date line yields none. Give the block its own `years: [from, to]` (negative for BCE).";
     }
+    if (w.year != null && (w.year < y.y0 || w.year > y.y1)) return "card.war.year " + w.year + " is outside the war's years (" + y.y0 + ".." + y.y1 + ") — the window would tint nothing.";
   }
   return null;
 }

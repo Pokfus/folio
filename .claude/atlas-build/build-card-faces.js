@@ -198,11 +198,14 @@ function build() {
    locators whose place's REGISTRY kind is water (the same pick), and of the name fallback only a name that BEGINS or ENDS with the water word ("Caspian Sea",
    "Lake Onega", "River Deben"; not "Operation Sea Lion" or "Fish River Canyon"; a ", <place>" qualifier set aside) — the window draws no dot for them and writes the name as a
    water name, blue and italic — `marks.rings` those of them whose locator name is a water outline of Find it's table (atlas/data/findit-waters.js: the window shades it,
-   fetching that file only for these), and `marks.peak` those whose place is a mountain or a hill, whose own mark is the Atlas's peak triangle (study.js markClass). */
+   fetching that file only for these), and `marks.peak` those whose place is a mountain or a hill, whose own mark is the Atlas's peak triangle (study.js markClass).
+   THE CAPITAL'S SQUARE (2026-11-20, the owner: "Ensure Rome and Athens always have square icons instead of dots in atlas windows"): `marks.capital` is the locators whose
+   place — the registry row whose name or alias IS the locator's name — is of kind `capital` (a present-day national capital — the glossary windows' rule of 2026-11-16, applied to the cards): the window draws its own mark, a studied
+   sibling at it and an `also` entry of the same name as the capital's square (atlas-windows.js `capitalCard` / `capitalName`). */
 function waterCards() {
   const R = require(path.join(ROOT, ".claude", "places-registry.js")), reg = R.loadRegistry();
   const WATER = new Set(["river", "lake", "sea", "ocean", "strait", "gulf"]), NAME = /\b(lake|lagoon|loch|lough|bay|gulf|strait|channel|sea|river)\b/i;
-  const registry = [], declared = [], byName = [], peak = [], nameWater = [];
+  const registry = [], declared = [], byName = [], peak = [], nameWater = [], capital = [];
   const byId = new Map((loadCards().cards || loadCards()).map((c) => [c.id, c]));
   const FW = (() => { const g = { window: {} }; new Function("window", fs.readFileSync(path.join(ROOT, "atlas", "data", "findit-waters.js"), "utf8"))(g.window); return g.window.ATLAS_FINDIT_WATERS.waters; })();
   const EDGE = /^(lake|lagoon|loch|lough|bay|gulf|strait|sea|river)\b|\b(lake|lagoon|loch|lough|bay|gulf|strait|sea|river)$/i;
@@ -210,14 +213,15 @@ function waterCards() {
     if (!c.locator) continue;
     const kind = c.locator.kind || "point", rows = (c.places || []).map((id) => reg.rows.get(id)).filter(Boolean);
     if (rows.length) {
-      const f = R.fold(c.locator.name || ""), pick = rows.find((q) => R.fold(q.name || "") === f || (q.aliases || []).some((a) => R.fold(a) === f)) || rows[0];
+      const f = R.fold(c.locator.name || ""), named = rows.find((q) => R.fold(q.name || "") === f || (q.aliases || []).some((a) => R.fold(a) === f)), pick = named || rows[0];
       if (WATER.has(pick.kind)) registry.push(c.id);
       else if (pick.kind === "mountain" || pick.kind === "hill") peak.push(c.id);
+      else if (named && named.kind === "capital") capital.push(c.id);   // only a locator NAMED as the capital (its name or an alias): not the Forum, the pomerium or Arpinum, whose first place is Rome
     } else if (kind === "river" || kind === "sea") declared.push(c.id);
     else if (kind === "point" && NAME.test(c.locator.name || "")) { byName.push(c.id); if (EDGE.test(String(c.locator.name).split(",")[0].trim())) nameWater.push(c.id); }
   }
   const sort = (l) => l.slice().sort();
-  return { cards: sort(registry.concat(declared, byName)), registry: registry.length, declared: sort(declared), byName: sort(byName), marks: { water: sort(registry.concat(nameWater)), rings: sort(registry.concat(nameWater).filter((id) => FW[String((byId.get(id).locator || {}).name || "").trim().toLowerCase()])), peak: sort(peak) } };
+  return { cards: sort(registry.concat(declared, byName)), registry: registry.length, declared: sort(declared), byName: sort(byName), marks: { water: sort(registry.concat(nameWater)), rings: sort(registry.concat(nameWater).filter((id) => FW[String((byId.get(id).locator || {}).name || "").trim().toLowerCase()])), peak: sort(peak), capital: sort(capital) } };
 }
 const W = waterCards();
 const r = build();

@@ -162,6 +162,18 @@
     const sibAreaOf = (d) => { if (d.kind === "battle") return null; if (d.kind === "sea" || d.kind === "shelf" || marksHas("water", d.id)) return "water"; const A = window.AtlasStudy; const a = A && A.areaOf ? A.areaOf(d.kind === "point" ? "" : d.kind, d.n) : null; return a; };
     const waterName = () => locKind === "sea" || locKind === "river" || (isGloss ? WATER_KINDS.test(placeKind) : markList("water"));
     const peakMark = () => (isGloss ? placeKind === "mountain" || placeKind === "hill" : markList("peak"));
+    /* THE CAPITAL'S SQUARE IN EVERY CARD WINDOW (2026-11-20, the owner: "Ensure Rome and Athens always have square icons instead of dots in atlas windows"). A point whose place is a
+       present-day national capital in the registry — the glossary windows' rule of 2026-11-16 — is the square, never the dot: the card's own mark (`capitalCard(sibCard)`, from
+       `ATLAS_CARD_FACES.marks.capital`, build-card-faces.js), a studied sibling (its card in that list, or its group named as one of those cards' places) and an `also` entry
+       named as one (`capitalName`). Rome and Athens are 136 of the 354 cards it covers. */
+    const capList = () => { const m = window.ATLAS_CARD_FACES && window.ATLAS_CARD_FACES.marks; return m && Array.isArray(m.capital) ? m.capital : null; };
+    const capitalCard = (id) => { const l = capList(); return !!id && !!l && l.indexOf(id) >= 0; };
+    let capNames = null;
+    const capitalName = (n) => {
+      const l = capList(); if (!l) return false;
+      if (!capNames) { capNames = new Set(); for (const id of l) { const c = CARD_BY_ID[id], lc = c && cardLocator(c); if (lc && lc.name) capNames.add(String(lc.name).trim().toLowerCase()); } }
+      return capNames.has(String(n || "").trim().toLowerCase());
+    };
     let wRings = null, wRingsAsked = false;   // the water's own outline out of findit-waters.js: null not yet known, false none
     function waterRings() {
       if (locArea || !dot || !waterName()) return null;
@@ -589,7 +601,7 @@
            no clear place takes its first one, and a sibling dot under it is left off this window — never drawn under the name. */
         if (o.must && o.own && !clear(at.box)) {
           for (let i = markBoxes.length - 1; i >= 0; i--) {
-            const mb = markBoxes[i]; if (mb.kind !== "dot" || !hit(at.box, mb.box)) continue;
+            const mb = markBoxes[i]; if ((mb.kind !== "dot" && mb.kind !== "square") || !hit(at.box, mb.box)) continue;
             const cx = (mb.box[0] + mb.box[2]) / 2, cy = (mb.box[1] + mb.box[3]) / 2;
             const k = sibAt.findIndex((sa) => Math.abs(sa[0] - cx) < 0.5 && Math.abs(sa[1] - cy) < 0.5);
             if (k >= 0) { sibAt.splice(k, 1); markBoxes.splice(i, 1); }
@@ -626,17 +638,21 @@
           if (dot && (k === String(dot.n || "").trim().toLowerCase() || (d.c && Math.abs(d.c[0] - dot.c[0]) < 0.03 && Math.abs(d.c[1] - dot.c[1]) < 0.03))) continue;
           const isCity = !d.within || String(d.n || "").trim().toLowerCase() === k; let g = groups.get(k);
           if (!g) groups.set(k, g = { n: d.within || d.n, c: d.c, kind: d.kind, city: isCity }); else if (isCity && !g.city) { g.c = d.c; g.n = d.n; g.kind = d.kind; g.city = true; }
+          if (isCity && capitalCard(d.id)) g.cap = true;
         }
-        groups.forEach((g) => { const p = api.project(g.c[0], g.c[1]); if (inView(api, p)) sibAt.push([p[0], p[1], g.n, g.kind]); });
+        groups.forEach((g) => { const p = api.project(g.c[0], g.c[1]); if (inView(api, p)) sibAt.push([p[0], p[1], g.n, g.kind !== "battle" && (g.cap || capitalName(g.n)) ? "capital" : g.kind]); });
         // a region's name that a studied DOT of the same name already carries (Uruk: the city's card and the Uruk period's region, 2026-11-15) is named once, at the dot
         if (faceAt.length && sibAt.length) { const dotNames = new Set(sibAt.map((sa) => String(sa[2] || "").trim().toLowerCase())); faceAt = faceAt.filter((fa) => !(fa[3] && dotNames.has(String(fa[2] || "").trim().toLowerCase()))); }
         // the card's own further places (`locator.also`): drawn whether or not anything has been studied, as named dots beside its own
         /* …in the card's own gold when the entry has a role (a person's birth and death places, a ruler's capital as the square; 2026-11-18), as a region's italic name alone when it is a `label`,
            else the red sibling dot it always was */
-        for (const a of (meLoc && meLoc.also) || []) { const p = api.project(a.at[0], a.at[1]); if (!inView(api, p)) continue; if (a.label) faceAt.push([p[0], p[1], a.name, true]); else if (a.role) alsoAt.push([p[0], p[1], a.name, a.role]); else sibAt.push([p[0], p[1], a.name, "point"]); }
+        for (const a of (meLoc && meLoc.also) || []) { const p = api.project(a.at[0], a.at[1]); if (!inView(api, p)) continue; if (a.label) faceAt.push([p[0], p[1], a.name, true]); else if (a.role) alsoAt.push([p[0], p[1], a.name, capitalName(a.name) ? "capital" : a.role]); else sibAt.push([p[0], p[1], a.name, capitalName(a.name) ? "capital" : "point"]); }
+        if (alsoAt.length) { const an = new Set(alsoAt.map((aa) => String(aa[2] || "").trim().toLowerCase())); sibAt = sibAt.filter((sa) => !an.has(String(sa[2] || "").trim().toLowerCase())); }   // a studied sibling at one of the card's own role'd places (wh-327's Athens) is that mark, not a second one
         for (const aa of alsoAt) addMark(aa[3] === "capital" ? "square" : "dot", aa[0], aa[1], 6, 6);
-        if (anchor) { const p = api.project(anchor.c[0], anchor.c[1]); if (inView(api, p)) anchorAt = [p[0], p[1]]; }
-        for (const sa of sibAt) addMark(sa[3] === "battle" ? "swords" : sa[3] === "peak" ? "peak" : "dot", sa[0], sa[1], sa[3] === "battle" ? 8 : sa[3] === "peak" ? 5.6 : 4.6, sa[3] === "battle" ? 8 : sa[3] === "peak" ? 5.6 : 4.6);
+        // the collection's home square where one of the card's own `also` places stands (gr-328's Athens, the Greece collection's home): the card's own mark and name, drawn once
+        const alsoIsHome = anchor && ((meLoc && meLoc.also) || []).some((a) => a && !a.label && Array.isArray(a.at) && (String(a.name || "").trim().toLowerCase() === anchor.n.toLowerCase() || (Math.abs(a.at[0] - anchor.c[0]) < 0.03 && Math.abs(a.at[1] - anchor.c[1]) < 0.03)));
+        if (anchor && !alsoIsHome) { const p = api.project(anchor.c[0], anchor.c[1]); if (inView(api, p)) anchorAt = [p[0], p[1]]; }
+        for (const sa of sibAt) addMark(sa[3] === "battle" ? "swords" : sa[3] === "peak" ? "peak" : sa[3] === "capital" ? "square" : "dot", sa[0], sa[1], sa[3] === "battle" ? 8 : sa[3] === "peak" ? 5.6 : 4.6, sa[3] === "battle" ? 8 : sa[3] === "peak" ? 5.6 : 4.6);
         if (anchorAt) addMark("home", anchorAt[0], anchorAt[1], 5.6, 5.6);
       }
       const isWall = locKind === "wall";   // a wall (2026-11-13, on request: Hadrian's Wall drawn as the line it is): a thick line along its spine, no peaks, no dot
@@ -648,7 +664,7 @@
       /* THE SQUARE IS A CAPITAL'S (2026-11-16, the owner: "in gloss popup atlas windows, locations should only ever use square icons if they are currently the capital city of a country"):
          a glossary window's own point is the gold square only when its registry kind is `capital` (a present-day national capital; app.js glossWindowHTML clears the kind where Natural
          Earth's flag is not one), every other point the gold circle. A card's window keeps its rule: the square without a sibling, the circle with them. */
-      const ownSquare = isGloss ? placeKind === "capital" : (!sibCard || (isMembers && memYear != null && !cardLocator(CARD_BY_ID[sibCard])) || ((cardLocator(CARD_BY_ID[sibCard]) || {}).role === "capital"));   // the seat is the square only when it IS the dot: a card with a locator draws the locator's place there (rm-371's Nola, a death place, 2026-11-19), square only by `locator.role`   // a ruler's capital at the card's own dot (`locator.role`, 2026-11-18)   // a state's seat on its own year's borders is its capital: the square (2026-11-18)
+      const ownSquare = isGloss ? placeKind === "capital" : (!sibCard || (isMembers && memYear != null && !cardLocator(CARD_BY_ID[sibCard])) || ((cardLocator(CARD_BY_ID[sibCard]) || {}).role === "capital") || capitalCard(sibCard));   // the seat is the square only when it IS the dot: a card with a locator draws the locator's place there (rm-371's Nola, a death place, 2026-11-19), square only by `locator.role`   // a ruler's capital at the card's own dot (`locator.role`, 2026-11-18)   // a state's seat on its own year's borders is its capital: the square (2026-11-18)
       if (dot && !noDotWater && !(locKind === "river" && !!ownLines) && locKind !== "range" && !isWall && locKind !== "region" && locKind !== "sea" && locKind !== "shelf") { const p = api.project(dot.c[0], dot.c[1]); if (p[2] >= 0) { ownDotAt = p; addMark(locKind === "battle" ? "swords" : isPeak ? "peak" : ownSquare ? "square" : "dot", p[0], p[1], locKind === "battle" ? 9 : 7, locKind === "battle" ? 9 : 7); } }
       // ---- the names, in priority order ----
       if (ownLines && revealed) {   // the card's own river: its name on the line, at the first of several stretches that is clear
@@ -689,6 +705,7 @@
         for (const sa of sibAt) {
           if (sa[3] === "battle") paintSwords(ctx, sa[0], sa[1], 6.5);
           else if (sa[3] === "peak") { ctx.beginPath(); ctx.moveTo(sa[0], sa[1] - 5); ctx.lineTo(sa[0] + 5, sa[1] + 3.6); ctx.lineTo(sa[0] - 5, sa[1] + 3.6); ctx.closePath(); ctx.lineJoin = "round"; ctx.fillStyle = "rgba(200,69,60,.9)"; ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.75)"; ctx.stroke(); }   // a studied mountain: the Atlas's peak triangle, in the siblings' red
+          else if (sa[3] === "capital") { const q = 3.6; ctx.fillStyle = "rgba(200,69,60,.9)"; ctx.fillRect(sa[0] - q, sa[1] - q, q * 2, q * 2); ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.75)"; ctx.strokeRect(sa[0] - q, sa[1] - q, q * 2, q * 2); }   // a capital among the siblings: the square (capitalName)
           else { ctx.beginPath(); ctx.arc(sa[0], sa[1], 3.4, 0, Math.PI * 2); ctx.fillStyle = "rgba(200,69,60,.9)"; ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.75)"; ctx.stroke(); }
         }
         for (const aa of alsoAt) {
@@ -825,7 +842,10 @@
             if (hub.historyOK()) fin(true);
           }).then((ok) => { if (stopped) return; if (!ok) { plain(SORRY); return; } { const sd = hub.warSides(sibCard); if (!sd || (!sd.v && !sd.l)) { plain(SORRY); return; } }
             /* the timeline's steps and where the pin opens (2026-10-19): the step nearest the card's own date when it names one year inside the war, else the war's last step; the window's year is that step's */
-            try { tlSteps = timelineSteps(hub.warTimeline(sibCard)); } catch (e) { tlSteps = []; }
+            /* ONE MAP (2026-11-20, gr-521): a card whose `war.year` names a year inside the war (app.js cardWar → `data-war-year`) is drawn at that year alone, with no timeline */
+            const pinYear = host.hasAttribute("data-war-year") ? Number(host.getAttribute("data-war-year")) : NaN;
+            if (Number.isInteger(pinYear) && pinYear >= WT.y[0] && pinYear <= WT.y[1]) { tlSteps = []; warYear = pinYear; host.setAttribute("data-map-year", String(warYear)); }
+            else { try { tlSteps = timelineSteps(hub.warTimeline(sibCard)); } catch (e) { tlSteps = []; } }
             if (tlSteps.length) { tlSpan = WT.y.slice(); const c0 = CARD_BY_ID[sibCard]; tlIdx = startStep(tlSteps, tlSpan, X.cardSpanYears && c0 ? X.cardSpanYears(c0) : []); warYear = tlSteps[tlIdx].year; host.setAttribute("data-map-year", String(warYear)); }
             mountWindow(hub, warYear); });   // Phase 4b: a war whose sides the loaded history has no faces for keeps V1's window too — on file:// the history twin is the 2a pilot slice (11 entities), and a window that tints nothing and frames the planet is worse than V1's
         }
