@@ -55,7 +55,7 @@ window.CHANGELOG = [
       "The Peloponnesian War card now shows <b>one map</b> of the two sides in 431 BCE, and two cards moved their map to Rome and Philadelphia.",
       "Cards about <b>rulers</b> (emperors, kings, presidents, prime ministers) now have a <b>Timeline</b> section, their reign drawn as a period.",
       "Percentages on cards and in the glossary are now always written with the <b>% sign</b>.",
-      "Two Russian rulers' Atlas windows now shade the <b>Russian Empire</b> at its height under them, and two cards highlight Moscow.",
+      "Two Russian cards' Atlas windows now highlight <b>Moscow</b>.",
       "A new Atlas window shades <b>today's Indian reservations</b> and, in a lighter gold, Oklahoma's former ones.",
       "Three date lines now give a camp's <b>population and death toll</b>, a dinosaur's <b>first and last appearance and length</b>, and the organ that makes a molecule.",
     ],
