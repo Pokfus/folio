@@ -40,9 +40,10 @@ window.FOLIO_VERSION = { v: "1.1382", released: "2026-11-20T00:19Z" };
 window.CHANGELOG = [
   {
     d: "2026-11-20",
-    t: "Ancient Egypt cards on the state, daily life, the economy and writing",
+    t: "Ancient Egypt cards, and the last hundred China cards rewritten",
     items: [
       "<b>100 new cards</b> in <b>Ancient Egypt</b>, on the state and the army, daily life, the economy and the scripts, with 91 new glossary terms.",
+      "<b>10 more China cards are rewritten</b>, from the Three-Self Patriotic Movement to the Fangyan, with new sources and dates.",
     ],
   },
   {

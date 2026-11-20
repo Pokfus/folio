@@ -1065,6 +1065,16 @@ January 1917 (`cnh-586`, `cnh-588`); Lu Xun's "Diary of a Madman" 1918 (`cnh-589
 
 | event | the collection says | source |
 |---|---|---|
+| the Three-Self manifesto / the preparatory committee / renamed | July 1950 / April 1951 / 1954 | the CUHK introduction to Wu Yaozong's works (`cnh-901`) |
+| folk religion's public revival / the heritage programme | 1978 / 2004 | You 2020 (`cnh-902`) |
+| the four tones: the language of the rhyme books / the Sui rhyme books | c. 500 – 600 CE / 581 – 618 CE | Karlgren 1923; a PLOS study (`cnh-903`) |
+| the six categories defined | c. 100 CE | Bottéro and Harbsmeier (`cnh-904`) |
+| the Stone Drums: dated / found / first attested / taken north | c. 500 – 400 BCE / c. 600 CE / c. 627 – 649 CE / 1126 | Wagner; Bushell (`cnh-905`) |
+| small seal script standardised / the stones set up | 221 BCE / 219 BCE | Chavannes (`cnh-906`) |
+| clerical script in office use / dominant | 221 – 206 BCE / 206 BCE – 220 CE | the card's sources (`cnh-907`) |
+| regular script in common use / matured | 220 – 420 CE / 618 – 907 CE | the Li, Han and Becker chapter (`cnh-908`) |
+| Classical Chinese fully formed / reform urged / schools switch | c. 600 – 500 BCE / 1917 / 1920 | Giles 1901 (his judgement); Wang 1927 (`cnh-909`) |
+| the *Fangyan* compiled | c. 1 – 100 CE | Chung and Han 2022 (`cnh-910`) |
 
 ## Chronology pins
 
