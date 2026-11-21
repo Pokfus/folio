@@ -130,6 +130,14 @@
        its extents meet). Only a window whose group names an extent changes; on the still renderer (no history) its present-day `keys` are NOT tinted, since they would claim far more. */
     const EXT_ID = /^pol:ext_/;
     const memExt = memGroups.map((g) => g.filter((id) => EXT_ID.test(id))), memHasExt = memExt.some((g) => g.length > 0);
+    /* A BORDER PACK'S STATE AS A MEMBERS GROUP (2026-11-20; docs/atlas-v2-border-packs.md): an id history.bin does not carry but a pack of atlas/data/border-packs.js does
+       (`pol:russian_empire`) is painted exactly as an extent is — the group's tint over the land and one outline round the group — from the pack's rings in the window's year
+       (`hub.packRings`), the pack fetched by the hub the first time (`hub.startPack`). The card names it as any state (`members.groups[].ids`). Unlike an extent, on the still
+       renderer the present-day `keys` ARE tinted (they are the state's own ground today, as for any history state); a pack that cannot be read is the plain sentence. Read when
+       the window mounts (the index is in the atlas2cards bundle). */
+    const packOf = (id) => { const X = window.ATLAS_BORDER_PACKS; return X && X.ids && Object.prototype.hasOwnProperty.call(X.ids, id) ? X.ids[id].pack : null; };
+    const painted = (id) => EXT_ID.test(id) || !!packOf(id);
+    let memPaint = memExt, memHasPaint = memHasExt;
     const extR = { key: "", asked: "", groups: null };
     // a members window may carry a timeline over its states' own years (`members.span`, 2026-10-29): "y0,y1"
     const memSpan = memYear != null && host.getAttribute("data-map-span") ? host.getAttribute("data-map-span").split(",").map(Number).filter((v) => isFinite(v)) : null;
@@ -501,7 +509,7 @@
     const memTint = (i) => (i === 0 ? TINT_SEL : i === 1 ? (X.TINT_LATE || TINT_SEL) : (X.TINT_THIRD || X.TINT_LATE || TINT_SEL));
     const extYear = () => (tlStep() ? tlStep().year : memYear);
     const extKey = (level) => extYear() + "@" + Math.min(2, level | 0);
-    const extCurrent = (o) => !memHist || !memHasExt || extR.key === extKey(o.level);
+    const extCurrent = (o) => !memHist || !memHasPaint || extR.key === extKey(o.level);
     let extCv = null;
     function extPath(c, api, rings) {   // unit-vector rings -> a path in the window's CSS px, broken behind the horizon
       for (const ring of rings) {
@@ -517,9 +525,15 @@
       const key = extKey(api.level);
       if (extR.key !== key && extR.asked !== key && winHub && winHub.entityRings) {
         extR.asked = key; const y = extYear(), lv = Math.min(2, api.level | 0);
-        Promise.all(memExt.map((ids) => (ids.length ? winHub.entityRings(ids, y, lv) : Promise.resolve({ faces: [], rings: [] })))).then((rs) => {
+        const groupRings = (ids) => {   // an extent's rings from the history, a pack state's from its pack (one request per pack); null while either is not in
+          const ext = ids.filter((id) => EXT_ID.test(id)), byPack = new Map();
+          for (const id of ids) { const p = packOf(id); if (p) { let l = byPack.get(p); if (!l) byPack.set(p, l = []); l.push(id); } }
+          const ps = []; if (ext.length) ps.push(winHub.entityRings(ext, y, lv)); for (const [p, l] of byPack) ps.push(winHub.packRings ? winHub.packRings(p, l, y, lv) : Promise.resolve(null));
+          return Promise.all(ps).then((rs) => (rs.some((r) => r == null) ? null : { faces: [], rings: [].concat.apply([], rs.map((r) => r.rings)) }));
+        };
+        Promise.all(memPaint.map((ids) => (ids.length ? groupRings(ids) : Promise.resolve({ faces: [], rings: [] })))).then((rs) => {
           if (stopped || extR.asked !== key) return;
-          if (rs.some((r) => r == null)) { extR.asked = ""; return; }   // the history is not in yet: asked again at the next frame (the hub's onChange redraws when it lands)
+          if (rs.some((r) => r == null)) { extR.asked = ""; return; }   // the history (or a pack) is not in yet: asked again at the next frame (the hub's onChange redraws when it lands)
           extR.key = key; extR.groups = rs.map((r, i) => ({ rings: r.rings, tint: memTint(i) })); if (win) win.schedule();
         }, () => { extR.asked = ""; });
       }
@@ -545,7 +559,7 @@
       cols();
       ctx.save(); ctx.setTransform(api.dpr, 0, 0, api.dpr, 0, 0);
       const W = api.cw, H = api.ch, shelf = locKind === "shelf", sea = locKind === "sea";
-      if (memHist && memHasExt) paintExtents(ctx, api);   // a members group's extents (2026-11-19): under every mark and name
+      if (memHist && memHasPaint) paintExtents(ctx, api);   // a members group's extents (2026-11-19): under every mark and name
       // the authored area (or a water place's known outline, shaded as a sea)
       const wr = waterRings(), areaRings = locArea || wr, seaLike = sea || (!!wr && !locArea);
       if (areaRings) {
@@ -880,6 +894,17 @@
           const stopA1 = tlStop; tlStop = () => { offA1(); stopA1(); };
         }
         memHist = memYear != null && memGroups.length > 0 && !hub.canvas2d;
+        memPaint = memGroups.map((g) => g.filter(painted)); memHasPaint = memPaint.some((g) => g.length > 0);
+        if (memHist) {   // a border pack's state (2026-11-20): the hub fetches the pack; one that cannot be read leaves the state undrawn, so the window says so instead
+          const memPacks = [...new Set([].concat.apply([], memGroups).map(packOf).filter(Boolean))];
+          if (memPacks.length) {
+            for (const p of memPacks) hub.startPack(p);
+            const packFailed = () => memPacks.some((p) => hub.packState(p) === "failed");
+            if (packFailed()) { plain("This map needs a state’s borders that could not be loaded here. The rest of the card is all there."); return; }
+            const offPk = hub.onChange(() => { if (!stopped && packFailed()) { offPk(); plain("This map needs a state’s borders that could not be loaded here. The rest of the card is all there."); } });
+            const stopPk = tlStop; tlStop = () => { offPk(); stopPk(); };
+          }
+        }
         if (memHist) host.classList.add("map-members-hist");
         mountWindow(hub, null);
         if (memHist && memSpan && memSpan.length === 2 && hub.entsTimeline) {
@@ -944,7 +969,7 @@
           spec: () => ({
             layers: Object.assign({ borders: true, provinces: usStates || (!isWar && !pastLayer && (layerName !== "world" || !!subdiv)), admin1Box: usStates ? US_STATES_BOX : undefined, admin1Max: 60, neutral: isWar || glossYear != null || memHist || pastOK, rivers: wantWater && !isWar, lakes: wantWater && !isWar, riverFine: isWaterSubject(), peoples: glossPeople || memHist ? "all" : undefined, peopleOnly: glossPeople ? glossFace : memHist ? [].concat.apply([], memGroups).join("|") : undefined }, reliefNow()),
             year: glossYear != null ? glossYear : pastOK ? pastYear : memHist ? (tlStep() ? tlStep().year : memYear) : tlStep() ? tlStep().year : warYear != null ? warYear : undefined, war: isWar ? sibCard : undefined, history: wantsFront ? "ww2" : undefined, front: !!(tlStep() && tlStep().front), frontDate: tlStep() && tlStep().front ? tlStep().date : null,
-            highlights: memHist ? memGroups.map((ids, i) => { const t = memTint(i); return { ids: ids.filter((id) => !EXT_ID.test(id)), rgb: t.rgb.split(",").map(Number), a: t.fillA, line: t.line, lineWidth: 2.2, glow: t.glow, glowBlur: 7, exact: true }; }).filter((h) => h.ids.length) : targets.length && !memHasExt ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9, exact: glossYear != null || pastOK }] : [],
+            highlights: memHist ? memGroups.map((ids, i) => { const t = memTint(i); return { ids: ids.filter((id) => !painted(id)), rgb: t.rgb.split(",").map(Number), a: t.fillA, line: t.line, lineWidth: 2.2, glow: t.glow, glowBlur: 7, exact: true }; }).filter((h) => h.ids.length) : targets.length && !memHasExt ? [{ ids: targets.map((t) => t.id), rgb: TINT_SEL.rgb.split(",").map(Number), a: TINT_SEL.fillA, line: TINT_SEL.line, lineWidth: 2.6, glow: TINT_SEL.glow, glowBlur: 9, exact: glossYear != null || pastOK }] : [],
           }),
           draw: (st, api, ctx) => marks(st, api, ctx),
           extraSettled: (st, o) => anchorsCurrent(st, o) && extCurrent(o),

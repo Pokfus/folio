@@ -7,9 +7,9 @@
    files' headers name them (build-history.js, geometry-fixes.json). */
 window.ATLAS_CREDITS = {
  "format": 1,
- "generated": "2026-11-20T04:11:53.145Z",
+ "generated": "2026-11-20T23:18:59.777Z",
  "generator": "folio atlas-build: build-credits.js (0.1.0)",
- "filesRead": 672,
+ "filesRead": 676,
  "sources": [
   {
    "id": "cbs-wijken-buurten-2024",
@@ -77,6 +77,10 @@ window.ATLAS_CREDITS = {
       }
      ],
      "files": [
+      {
+       "path": "atlas/data/borders/",
+       "count": 3
+      },
       {
        "path": "atlas/data/card-faces.js",
        "count": 1
@@ -258,6 +262,10 @@ window.ATLAS_CREDITS = {
       {
        "path": "atlas/data/admin1.bin.js",
        "count": 1
+      },
+      {
+       "path": "atlas/data/borders/",
+       "count": 3
       },
       {
        "path": "atlas/data/card-faces.js",
@@ -583,6 +591,10 @@ window.ATLAS_CREDITS = {
       {
        "path": "atlas/data/admin1.bin.js",
        "count": 1
+      },
+      {
+       "path": "atlas/data/borders/",
+       "count": 3
       },
       {
        "path": "atlas/data/gazetteer.js",

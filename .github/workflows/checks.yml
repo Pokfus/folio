@@ -270,6 +270,13 @@ jobs:
       - name: check-admin1 (Atlas v2, the lazy admin-1 layer)
         if: ${{ !cancelled() }}
         run: node .claude/atlas-build/check-admin1.js
+      # THE BORDER PACKS (2026-11-20; docs/atlas-v2-border-packs.md): atlas/data/borders/<pack>.bin, states the card windows draw that history.bin does not carry.
+      # check-border-packs.js proves each pack's header, core, sources, states and years against border-packs.json, every ring closing at every level, the index
+      # border-packs.js, the budgets and every card that names a pack's state; --rebuild runs build-history.js --pack <name> --check for each pack, offline from
+      # the committed extract border-packs-source.json, and fails unless the rebuild is byte-identical.
+      - name: check-border-packs --rebuild (Atlas v2, the border packs)
+        if: ${{ !cancelled() }}
+        run: node .claude/atlas-build/check-border-packs.js --rebuild
       # A CARD WINDOW'S SET OF AREAS (2026-11-20, us-084's reservations): build-area-sets.js --check reads atlas/data/us-reservations.js offline — its sources header
       # equal to sources.json's Census entry, both parts present, every vertex inside the United States, the 200 KB budget (it regenerates byte for byte only where the source is cached).
       - name: build-area-sets --check (Atlas v2, a card window's set of areas)

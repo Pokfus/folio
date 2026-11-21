@@ -275,7 +275,7 @@
      worker, so a warm first window is a read and a draw. The revision is a hash of everything that shapes that output (atlas-worker.js, atlas-format.js, vendor/earcut.js and topology.bin's build id);
      `.claude/atlas-build/check-core-cache.js` fails CI when it lags and `--install` rewrites it. A stale or unreadable cache is ignored, never an error; the worker's own `meta` replaces the cached header
      if its build id differs. Since Oct 2026 the Atlas page uses it as well, for its FIRST FRAME ONLY: it is still `ready` when every level has arrived from the worker, but the coarse globe no longer waits for the file. */
-  const CORE_CACHE_REV = "466ba5b20b:9bde0dc16ffce93f";
+  const CORE_CACHE_REV = "a98b9c7413:9bde0dc16ffce93f";
   const idbOpen = () => new Promise((res, rej) => { try { const r = indexedDB.open("folio-atlas2", 1); r.onupgradeneeded = () => r.result.createObjectStore("core"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); r.onblocked = () => rej(new Error("blocked")); } catch (e) { rej(e); } });
   const idbGet = (key) => idbOpen().then((db) => new Promise((res, rej) => { const q = db.transaction("core").objectStore("core").get(key); q.onsuccess = () => { db.close(); res(q.result || null); }; q.onerror = () => { db.close(); rej(q.error); }; }));
   const idbPut = (key, val) => idbOpen().then((db) => new Promise((res, rej) => { const t = db.transaction("core", "readwrite"); t.objectStore("core").put(val, key); t.oncomplete = () => { db.close(); res(true); }; t.onerror = () => { db.close(); rej(t.error); }; t.onabort = () => { db.close(); rej(t.error); }; }));
@@ -1110,7 +1110,8 @@
         if (/^tile /.test(m.message)) { stats.tileErrors++; landTiles.failed(m.message.split(" ")[1].replace(/:$/, "")); return; }
         if (/^water-tile /.test(m.message)) { waterTiles.failed(m.message.split(" ")[1].replace(/:$/, "")); return; }
         if (/^water/.test(m.message)) { layersNote.hidden = false; layersNote.textContent = "The rivers and lakes could not be read: " + m.message; return; }
-        if (/^admin1/.test(m.message)) { adm1.failed = true; adm1.why = m.message; adm1Changed(); return; }   // the admin-1 slot is an extra: its failure is a window's plain sentence, never the Atlas's
+        if (/^admin1/.test(m.message)) { adm1.failed = true; adm1.why = m.message; adm1Changed(); return; }
+        if (/^pack:/.test(m.message)) { const P = packs.get(m.message.slice(5).split(":")[0]); if (P) { P.failed = true; P.why = m.message; invalidate(); } return; }   // a border pack is a window's extra, never the Atlas's   // the admin-1 slot is an extra: its failure is a window's plain sentence, never the Atlas's
         fail("The Atlas data could not be read: " + m.message); return;
       }
       if (m.type === "meta") {
@@ -1177,6 +1178,7 @@
       if (m.type === "face-anchors") { const r = faceAnchorWait.get(m.seq); faceAnchorWait.delete(m.seq); if (r) r.cb(m.rows, r.q); return; }
       if (m.type === "face-rings") { const er = entRingWait.get(m.seq); if (er) { entRingWait.delete(m.seq); er({ faces: m.faces, rings: m.rings }); return; } if (selRingsPending === m.seq) { selRingsPending = null; selRings = { key: m.seq, faces: m.faces, rings: m.rings, level: Number(String(m.seq).split("@")[1]) }; invalidateLabels(); } return; }
       if (m.slot === "adm1") { onAdmin1Message(m); return; }
+      if (m.type === "pack-meta") { onPackMeta(m); return; }
       if (m.type === "history-meta") { onHistoryMeta(m); return; }
       if (m.type === "history-segs") { bracket(() => R.setHistorySegs(m.level, { segs: m.segs, segRange: m.segRange, segCap: m.segCap }), "histSegs"); if (time.hist) time.hist.segLevels++; invalidate(); return; }
       if (m.type === "history-faces") { onHistoryFaces(m); return; }
@@ -1434,6 +1436,38 @@
         adm1.bytes = buffer.byteLength;
         postToWorker({ type: "history", slot: "adm1", buffer });
       }).catch((e) => { adm1.failed = true; adm1.why = String(e && e.message || e); adm1Changed(); });
+    }
+    /* BORDER PACKS (2026-11-20; docs/atlas-v2-border-packs.md): atlas/data/borders/<name>.bin, a state a card window names (`members.groups[].ids`) that history.bin does
+       not carry, in history.bin's format, conflated onto the same core. A card window starts one (`startPack`) when its group names an id of atlas/data/border-packs.js;
+       the worker keeps it in a slot of its own (`pack:<name>`) and the window asks for the rings of its faces in the window's year (`packRings`) and paints them itself,
+       as it paints a war extent — nothing of a pack reaches the renderer, the alive set, the page, the Personal Atlas, the search or the names. Over http only: the
+       file copy of the site and the still renderer (no WebGL2) mark it failed at once, and the window says so in a sentence. */
+    const packs = new Map();
+    function ensurePack(name) {
+      let P = packs.get(name); if (P) return P;
+      packs.set(name, P = { started: true, ready: false, failed: false, why: "", header: null, ids: new Map(), stepsOf: new Map() });
+      if (STATIC2D || FILE || !/^[a-z0-9][a-z0-9-]*$/.test(String(name))) { P.failed = true; P.why = STATIC2D ? "no WebGL2" : FILE ? "not on the file copy" : "bad name"; return P; }
+      fetch("atlas/data/borders/" + name + ".bin").then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.arrayBuffer(); }).then((buffer) => {
+        if (disposed) return;
+        postToWorker({ type: "history", slot: "pack:" + name, buffer });
+      }).catch((e) => { P.failed = true; P.why = String(e && e.message || e); invalidate(); });
+      return P;
+    }
+    function onPackMeta(m) {
+      const P = packs.get(String(m.slot).slice(5)); if (!P) return;
+      P.header = m.header; P.ids = new Map(m.header.entities.map((e, i) => [e.id, i])); P.stepsOf = new Map();
+      for (const st of m.header.steps) { let l = P.stepsOf.get(st[0]); if (!l) P.stepsOf.set(st[0], l = []); l.push([st[1], st[2], st[3]]); }
+      P.ready = true; invalidate();
+    }
+    // the rings of a pack's states alive in `y`, at `level`: { faces, rings } as `entityRings` answers; null while a pack they need is not in
+    function packRings(name, ids, y, level, cb) {
+      const P = packs.get(name);
+      if (!P || !P.ready || disposed) { cb(null); return; }
+      const faces = [];
+      for (const id of ids || []) { const i = P.ids.get(id); const l = i == null ? null : P.stepsOf.get(i); if (l) for (const st of l) if (st[0] <= y && st[1] >= y && faces.indexOf(st[2]) < 0) faces.push(st[2]); }
+      if (!faces.length) { cb({ faces: [], rings: [] }); return; }
+      const seq = "ent-rings:" + (++entRingSeq); entRingWait.set(seq, cb);
+      postToWorker({ type: "face-rings", seq, slot: "pack:" + name, faces, level: Math.max(0, Math.min(2, level | 0)) });
     }
     function onAdmin1Message(m) {
       if (m.type === "history-meta") {
@@ -3445,7 +3479,7 @@
       && (!view.relief.on || !reliefStarted || reliefFailed || (!!reliefIndex && R.reliefLoaded("0") && view.relief.tiles.every((k) => R.reliefLoaded(k)) && reliefTiles.pending.size === 0
         && view.relief.detail.every((k) => R.reliefDetailLoaded(k)) && detailTiles.pending.size === 0));
     const waterSettled = () => (!waterStarted || waterFailed || (!!waterHeader && R.waterLevelLoaded(2))) && landChangesSettled();
-    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, startAdmin1: () => ensureAdmin1(), admin1FacesOf: (id) => admin1FacesOf(id), setAdmin1Tints: (map) => setAdmin1Tints(map), setAdmin1Mask: (set) => setAdmin1Mask(set), admin1Settled: (level) => admin1Settled(level), admin1Failed: () => adm1.failed, admin1Ready: () => !!(adm1.ready && adm1.faceEntity), webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), historyFailed: () => !!time.failed /* the history file did not arrive (a refused fetch; the file copy of the site has no twin of the whole history): a window that cannot be drawn without it says so (atlas-windows.js `pastLayer`, 2026-11-19) */, warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), statesAt: (y) => statesAt(y), entityRings: (ids, y, level, cb) => entityRings(ids, y, level, cb), faceAnchors: (faces, cb, near) => faceAnchors(faces, cb, near), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.view && !time.fade && time.presEnts && time.presEnts.length) time.view.pfaces = presenceDraw(null, 1); if (time.hist) { uploadStyle(); invalidate(); } }, kindOfId: (id) => { const i = time.hist ? entityIndexOfId(id) : -1; const e = i >= 0 && time.ents[i]; return e ? e.kind : null; }, setFlat: (on) => { on = !!on; if (!!layers.flat !== on || flatBorderOn !== on) { layers.flat = on; flatBorderOn = on; histBorderStyle(); if (time.hist) { restyleHist(); invalidate(); } } }, setMask: (map) => { if (map) { if (!time.gameMask) time.gameStash = time.gameTints; time.gameTints = map; time.gameMask = true; } else if (time.gameMask) { time.gameTints = time.gameStash; time.gameStash = null; time.gameMask = false; } histBorderStyle(); restyleHist(); },
+    const controller = { embed: EMBED ? { plan: () => plan(), layout: () => layout(), setRes: (sc) => setRes(sc), el, setHook: (f) => { embedHook = f; }, startAdmin1: () => ensureAdmin1(), startPack: (name) => { ensurePack(name); }, packState: (name) => { const P = packs.get(name); return !P ? null : P.failed ? "failed" : P.ready ? "ready" : "loading"; }, packRings: (name, ids, y, level, cb) => packRings(name, ids, y, level, cb), admin1FacesOf: (id) => admin1FacesOf(id), setAdmin1Tints: (map) => setAdmin1Tints(map), setAdmin1Mask: (set) => setAdmin1Mask(set), admin1Settled: (level) => admin1Settled(level), admin1Failed: () => adm1.failed, admin1Ready: () => !!(adm1.ready && adm1.faceEntity), webgl: !STATIC2D, base: () => base, size: () => [cssW, cssH], rotation: () => { rotation(); return view.rot; }, startHistory: (kind) => ensureHistory(kind), historyKind: () => (histStarted ? histKind : null), historyFailed: () => !!time.failed /* the history file did not arrive (a refused fetch; the file copy of the site has no twin of the whole history): a window that cannot be drawn without it says so (atlas-windows.js `pastLayer`, 2026-11-19) */, warFrame: (id, short, share) => warFrame(id, short, share), warSides: (id, year) => warSidesOf(id, year), statesAt: (y) => statesAt(y), entityRings: (ids, y, level, cb) => entityRings(ids, y, level, cb), faceAnchors: (faces, cb, near) => faceAnchors(faces, cb, near), warColours: () => ({ victor: warRGB.victor.slice(), loser: warRGB.loser.slice() }), refreshPresence: () => refreshPresence(), setTints: (map) => { time.gameTints = map && map.size ? map : null; if (time.view && !time.fade && time.presEnts && time.presEnts.length) time.view.pfaces = presenceDraw(null, 1); if (time.hist) { uploadStyle(); invalidate(); } }, kindOfId: (id) => { const i = time.hist ? entityIndexOfId(id) : -1; const e = i >= 0 && time.ents[i]; return e ? e.kind : null; }, setFlat: (on) => { on = !!on; if (!!layers.flat !== on || flatBorderOn !== on) { layers.flat = on; flatBorderOn = on; histBorderStyle(); if (time.hist) { restyleHist(); invalidate(); } } }, setMask: (map) => { if (map) { if (!time.gameMask) time.gameStash = time.gameTints; time.gameTints = map; time.gameMask = true; } else if (time.gameMask) { time.gameTints = time.gameStash; time.gameStash = null; time.gameMask = false; } histBorderStyle(); restyleHist(); },
         lonLatAt: (x, y) => { const p = unproject(x, y); return p ? [p.lon, p.lat] : null; },
         /* the entity ids under a point in the year the controller is at — Find-it's ID-pass scoring: the states (a contested face's two claimants too) in a past year, the country or admin-1 unit in a present one */
         idsAt: (x, y) => {
