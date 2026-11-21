@@ -137,7 +137,16 @@ const NEST_SHARE = 0.8, NEST_RATIO = 2;   // nested, not contested: the overlap 
 // the pilot slice (2a; the file:// twin carries this much, with a sentence): the Mediterranean and Near East, 550 BCE – 650 CE
 const SLICE = { years: [-550, 650], region: { lon0: -25, lat0: 5, lon1: 95, lat1: 62 }, series: ["rome", "carthage", "achaemenid", "macedon", "ptolemaic", "seleucid", "byzantium", "sasanian"] };
 const BAND = (() => { const i = argv.indexOf("--years"); if (i < 0) return null; const [a, b] = argv[i + 1].split(",").map(Number); if (!(a < b)) throw new Error("--years A,B"); return [a, b]; })();
-const USE_CACHE = !argv.includes("--no-cache");
+/* BORDER PACKS (2026-11-20; docs/atlas-v2-border-packs.md): `--pack <name>` builds ONE lazy pack — atlas/data/borders/<name>.bin, in this file's
+   format, of the states border-packs.json lists for it, each drawn in the years its cards need — with the SAME conflation as history.bin, onto the
+   same committed core, but against nothing else: history.bin, its slices and every file generated from it are never read or written. The rows come
+   from the committed extract border-packs-source.json (`--extract` writes it from the pinned Cliopatria file), so `--check` runs offline in CI and
+   fails unless the rebuild is byte-identical. Every branch of the main build below that a pack changes is guarded by PACK; without --pack nothing
+   here runs and history.bin's build is the one it was. */
+const PACK = (() => { const i = argv.indexOf("--pack"); if (i < 0) return null; const n = argv[i + 1]; if (!/^[a-z0-9][a-z0-9-]*$/.test(n || "")) throw new Error("--pack <name>: lowercase letters, digits and hyphens"); return n; })();
+const PACK_EXTRACT = !!PACK && argv.includes("--extract"), PACK_CHECK = !!PACK && argv.includes("--check");
+if (PACK && argv.includes("--years")) throw new Error("--pack takes its years from border-packs.json, not --years");
+const USE_CACHE = !argv.includes("--no-cache") && !PACK;
 /* ---------- the tolerances, chosen from --measure (§7 "Phase 2a — as built") ---------- */
 const SRC = { clio: "cliopatria", coast: "osm-land-polygons", adm0: "ne-10m-admin0", wd: "wikidata-capitals", hosner: "hosner-2016", authored: "folio-authored-extents", ohm: "ohm-lacedaemon", usfs: "usfs-royce-cessions", sched: "usfs-royce-schedule", control: "ww2-atlas-control", atlas: "us-army-battlefront-atlas", pleiades: "pleiades-places" };
 const TOLERANCE_M = { [SRC.clio]: 15000 };    // Cliopatria's stated precision class (§2.3 step 4): no snap may exceed it
@@ -282,20 +291,24 @@ function ringPos(k, t) {
 }
 
 /* ================= 1. the sources: Cliopatria's rows for every card-linked series, the capitals ================= */
-const spec = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "polity-spec.json"), "utf8"));
+const PACKS = PACK ? require("./lib/border-packs.js") : null;
+const spec = PACK ? PACKS.packSpec(PACK) : JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "polity-spec.json"), "utf8"));
 /* Phase 2d: the series the war sides add live in war-series.json (same shape), so v1's polity builder and its tests, which read polity-spec.json, are untouched */
+if (!PACK) {
 const WAR_SPEC = JSON.parse(fs.readFileSync(path.join(HERE, "war-series.json"), "utf8"));
 for (const [k, p] of Object.entries(WAR_SPEC.polities)) { if (spec.polities[k]) throw new Error(`war-series.json redefines ${k}, which polity-spec.json holds`); spec.polities[k] = p; }
 for (const [card, l] of Object.entries(WAR_SPEC.links || {})) { const o = spec.links[card] || (spec.links[card] = {}); for (const k of ["v", "l", "area"]) if (l[k]) o[k] = [...new Set((o[k] || []).concat(l[k]))]; }
-ensureSource(SRC.clio, { verifyOnly: true });
+}
+if (!PACK || PACK_EXTRACT) ensureSource(SRC.clio, { verifyOnly: true });
 const clioSrc = headerSources([SRC.clio])[0];
 // the coast and the present-day borders are referenced, not re-read: their source records are the core's own header entries
 const coastSrc = CH.sources.find((s) => s.id === SRC.coast), adm0Src = CH.sources.find((s) => s.id === SRC.adm0);
 if (!coastSrc || !adm0Src) throw new Error("the core header lacks the OSM or the Natural Earth admin-0 source entry");
 const clioFile = path.join(HERE, "src", SRC.clio, "cliopatria_polities_only.geojson");
-if (!fs.existsSync(clioFile)) throw new Error("run fetch-sources.js cliopatria first (" + clioFile + ")");
+if ((!PACK || PACK_EXTRACT) && !fs.existsSync(clioFile)) throw new Error("run fetch-sources.js cliopatria first (" + clioFile + ")");
 say("reading Cliopatria…");
-const GJ = JSON.parse(fs.readFileSync(clioFile, "utf8"));
+// a pack reads its rows from the committed extract (written here by --extract from the pinned file), never the 44 MB source
+const GJ = PACK ? PACKS.packRows(PACK, PACK_EXTRACT ? clioFile : null, clioSrc.sha256, spec) : JSON.parse(fs.readFileSync(clioFile, "utf8"));
 const byName = new Map();
 for (const f of GJ.features) { const n = f.properties.Name; let l = byName.get(n); if (!l) byName.set(n, l = []); l.push(f); }
 say(`Cliopatria: ${GJ.features.length} rows, ${byName.size} names`);
@@ -371,7 +384,7 @@ for (const f of JSON.parse(fs.readFileSync(path.join(HERE, "polity-qids.json"), 
    fixed one in the labelling (the Roman Kingdom over the Etruscans: an overlap under SLIVER_KM2 would otherwise go to the neighbour with the longest shared edge,
    which handed Rome to the Etruscans for 750–551 BCE). A fix is Folio's adaptation of CC BY 4.0 data and the header's sources entry for Cliopatria names it
    (`adaptations`), so the credits page does. Nothing else is bent by hand: one fix, one polity, the smallest edit that meets its check. */
-const GEOM_FIXES = JSON.parse(fs.readFileSync(path.join(HERE, "geometry-fixes.json"), "utf8")).fixes.map((f) => Object.assign({ used: 0 }, f));
+const GEOM_FIXES = JSON.parse(fs.readFileSync(path.join(HERE, "geometry-fixes.json"), "utf8")).fixes.filter((f) => !PACK || spec.polities[f.series]).map((f) => Object.assign({ used: 0 }, f));
 const GEOM_FIXES_SHA = crypto.createHash("sha256").update(fs.readFileSync(path.join(HERE, "geometry-fixes.json"))).digest("hex");
 const ringKm2Deg = (ring) => { let a = 0; const lat0 = ring.reduce((t, p) => t + p[1], 0) / ring.length, k = Math.cos(lat0 * D2R); for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) a += (ring[j][0] - ring[i][0]) * k * (ring[j][1] + ring[i][1]) / 2; return Math.abs(a) * 111195 * 111195 / 1e6; };
 const ringHoldsDeg = (ring, p) => { let c = false; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) if ((ring[i][1] > p[1]) !== (ring[j][1] > p[1]) && p[0] < (ring[j][0] - ring[i][0]) * (p[1] - ring[i][1]) / (ring[j][1] - ring[i][1]) + ring[i][0]) c = !c; return c; };
@@ -426,7 +439,7 @@ for (const fx of GEOM_FIXES) if (!fx.used && !BAND) throw new Error("geometry-fi
 /* a culture's years are NOT bounded below by Cliopatria's 3400 BCE (the states' floor, YEAR_MIN): the Yangshao outlines begin in 5000 BCE and the
    rail runs to 10,000 BCE. The floor of a culture is the rail's own, or the band a --years run asks for. */
 const CULT_Y0 = BAND ? BAND[0] : -10000;
-{
+if (!PACK) {   // a border pack has no presence layer
   const cardYears = require("../card-links.js").loadCardYears(fs.readFileSync(path.join(ROOT, "app.js"), "utf8"));
   const cardsById = new Map(require("../card-io.js").loadCards().cards.map((c) => [c.id, c]));
   const spanOf = (key) => {   // v1's `need` rule: an extent's years from the cards that link it
@@ -487,7 +500,7 @@ const CULT_Y0 = BAND ? BAND[0] : -10000;
    the coast like a people (an approximation has no border line), with Folio's own authoring as its "source" (header source `folio-authored-extents`,
    flagged `authored`, not a third-party dataset) and a note saying so. Their years are the years the cards that use them are at war (lib/war-resolve.js);
    a side that a series answers (the card's link, its name, its keys) is NOT an extent. Nothing is invented here: the rings are the cards' own. */
-{
+if (!PACK) {
   const WR = require("./lib/war-resolve.js").resolveWars({ cards: require("../card-io.js").loadCards().cards, cardYears: require("../card-links.js").loadCardYears(fs.readFileSync(path.join(ROOT, "app.js"), "utf8")) });
   /* the extents DERIVED from an open source (build-war-extents.js → war-extents.json, built from pins this build re-checks): the Western Confederacy from the USFS
      Royce cessions and Sparta and Messenia from OpenHistoricalMap's Lacedaemon. They replace the card's authored ring for their key; the entity says what it is made of */
@@ -526,7 +539,7 @@ const CULT_Y0 = BAND ? BAND[0] : -10000;
    planar region; every face is conflated alone onto the coast like a people (the plate's frame, and the coast, are its only edges; its own edge is a soft arc
    whose face class is APPROXIMATE, never FIRM — a front is a redrawn map, not a surveyed line). */
 const FRONTS = { sets: [], plates: [], skipped: [], steps: 0 };
-{
+if (!PACK) {
   const FP = JSON.parse(fs.readFileSync(path.join(HERE, "fronts-plates.json"), "utf8"));
   for (const [id, sha] of Object.entries(FP.sources)) { const pin = headerSources([id])[0]; if (pin.sha256 !== sha) throw new Error(`fronts-plates.json was built from ${id} ${sha}, not the pinned ${pin.sha256}: run build-fronts-plates.js`); }
   const PC = require("polygon-clipping");
@@ -575,7 +588,7 @@ for (const s of presenceSeries) s.rows.sort((a, b) => a.from - b.from);
 presenceSeries.sort((a, b) => a.key.localeCompare(b.key));
 const presenceRows = [];
 for (const s of presenceSeries) for (const r of s.rows) { prepareRow(s, r); presenceRows.push(r); }
-for (const [k, v] of QID_FIXES) if (!v.used && !BAND) throw new Error("polity-qids.json: the fix for " + k + " matches no row of Cliopatria (stale, or the key is wrong)");
+for (const [k, v] of QID_FIXES) if (!v.used && !BAND && !PACK) throw new Error("polity-qids.json: the fix for " + k + " matches no row of Cliopatria (stale, or the key is wrong)");
 allRows.sort((a, b) => a.series.key.localeCompare(b.series.key) || a.from - b.from);
 allRows.forEach((r, i) => { r.id = i; });
 presenceRows.forEach((r, i) => { r.id = allRows.length + i; });
@@ -1533,7 +1546,7 @@ function vecQ(p) { return G.vec(p[0], p[1], Q); }
 /* ================= 7. the period capitals (frozen/state-capitals.json — the retired state-capitals.js — by card → polity) ================= */
 const FROZEN_CAPS = JSON.parse(fs.readFileSync(path.join(HERE, "frozen", "state-capitals.json"), "utf8"));
 const cities = [];
-{
+if (!PACK) {   // a pack names no period capitals: its cards carry their own marks
   const capSpec = JSON.parse(fs.readFileSync(path.join(ROOT, ".claude", "state-capitals-spec.json"), "utf8"));
   const SC = FROZEN_CAPS.table || {};
   const ALIAS = { "ancient carthage": "carthage", "antigonid dynasty": "macedon" };
@@ -1579,6 +1592,7 @@ if (GEOM_FIXES.length) sources[0].adaptations = GEOM_FIXES.map((fx) => ({ series
 // the retrieval date of the capitals: the day the generated state-capitals.js was last committed, frozen with the table (Phase 5 deleted the file; docs/atlas-v2-phase5-plan.md §4.6)
 const scRetrieved = FROZEN_CAPS.retrieved; if (!/^\d{4}-\d{2}-\d{2}$/.test(scRetrieved || "")) throw new Error("frozen/state-capitals.json has no retrieval date");
 sources.push({ id: SRC.wd, name: "Wikidata — the period capitals of the pilot polities (each state's P36 statements with their qualifiers, via state-capitals.js)", version: "state-capitals.js as committed", url: "https://www.wikidata.org/", licence: "CC0", licenceUrl: "https://creativecommons.org/publicdomain/zero/1.0/", attribution: "Wikidata, CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/).", retrieved: scRetrieved });
+if (!PACK) {   // a pack is Cliopatria on the OSM coast and the present-day borders: the first three sources only
 sources.push(headerSources([SRC.hosner])[0]);   // index 4 (SRC_IDX): the Yangshao and Longshan outlines
 // index 5: Folio's own authored war extents. Not a third-party dataset: no url, no hash, no licence to honour beyond Folio's own; `authored` tells the credits page and the checker so
 sources.push({ id: SRC.authored, name: "Folio’s own authored war extents (the `war.area` of the war cards — a dozen hand-placed points each, approximate by construction)", version: "as committed on the cards", url: "", licence: "Folio’s own content", licenceUrl: "", attribution: "Folio", retrieved: "", sha256: "", authored: true });
@@ -1589,6 +1603,7 @@ sources.push(headerSources([SRC.control])[0]);   // index 9: the monthly maps of
 sources.push(headerSources([SRC.atlas])[0]);     // index 10: the fortnightly plates of 1943–45 (the front line)
 sources.push(headerSources([SRC.pleiades])[0]);  // index 11: the towns of the Peloponnesian War's two sides (war-poleis.json, through build-war-extents.js)
 if (sources.length !== 12 || sources[SRC_IDX.hosner].id !== SRC.hosner || sources[SRC_IDX.wd].id !== SRC.wd || sources[SRC_IDX.coast].id !== SRC.coast) throw new Error("the header source order no longer matches SRC_IDX");
+}
 const topology = {
   quantum: Q, lod: { intervals_m: LOD_M, note: "the core's three resident levels; a core-referencing arc takes the core's ranks" },
   generated: null, generator: "folio atlas-build: build-history.js (" + require("./package.json").version + ")", sources,
@@ -1603,6 +1618,7 @@ const topology = {
     faceAnchor: facesOut.map((f) => (f.anchor ? deg(f.anchor[0], f.anchor[1]) : null)),   // a point inside the face (the piece's first interior sample), for cards, tests and the fly-to
   },
 };
+if (PACK) { PACKS.finish({ pack: PACK, spec, topology, report, log, check: PACK_CHECK, install: INSTALL, dry: DRY, say }); process.exit(0); }   // a pack ends here: none of what follows (the forecast, the coverage, history.bin) is a pack's
 const bytes = F.write(topology);
 const sha = crypto.createHash("sha256").update(bytes).digest("hex");
 say(`history.bin: ${bytes.length} bytes (${(bytes.length / 1e6).toFixed(3)} MB decimal), sha256 ${sha}`);

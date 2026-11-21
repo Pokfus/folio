@@ -566,7 +566,7 @@
     if (msg.type === "water-tile") return handleWaterTile(msg, post);
     if (msg.type === "land-changes") return guard(handleLandChanges(msg, post), "land changes: ");
     if (msg.type === "relief") { handleRelief(msg, post); return null; }
-    if (msg.type === "history") return guard(handleHistory(msg, post), msg.slot === "adm1" ? "admin1: " : "history: ");
+    if (msg.type === "history") return guard(handleHistory(msg, post), msg.slot === "adm1" ? "admin1: " : isPackSlot(msg.slot) ? msg.slot + ": " : "history: ");
     if (msg.type === "history-faces") return guard(handleHistoryFaces(msg, post), msg.slot === "adm1" ? "admin1 faces: " : "history faces: ");
     if (msg.type === "history-evict") { const S = slotOf(msg); if (S) for (const k of msg.keys || []) S.resident.delete(k); return null; }
     if (msg.type === "gazetteer") { loadGazetteer(msg.table); post({ type: "gazetteer", rows: GZ.rows.length }); return null; }
@@ -579,7 +579,7 @@
     if (msg.type === "face-rings") { handleFaceRings(msg, post); return null; }
     /* a lost GL context (Phase 1c): the main thread keeps nothing after upload, so the resident levels are
        rebuilt here from the raw files this worker kept — the same code path as the first load */
-    if (msg.type === "rebuild") { return (async () => { if (RAW.topology) await handleLoad({ type: "load", buffer: RAW.topology, rebuild: true }, post); if (RAW.water) await handleWater({ type: "water", buffer: RAW.water }, post); if (RAW.landChanges) await handleLandChanges(RAW.landChanges, post); if (RAW.history) { HIST = null; await handleHistory({ type: "history", buffer: RAW.history }, post); } if (RAW.adm1) { ADM1 = null; await handleHistory({ type: "history", slot: "adm1", buffer: RAW.adm1 }, post); } })(); }
+    if (msg.type === "rebuild") { return (async () => { if (RAW.topology) await handleLoad({ type: "load", buffer: RAW.topology, rebuild: true }, post); if (RAW.water) await handleWater({ type: "water", buffer: RAW.water }, post); if (RAW.landChanges) await handleLandChanges(RAW.landChanges, post); if (RAW.history) { HIST = null; await handleHistory({ type: "history", buffer: RAW.history }, post); } if (RAW.adm1) { ADM1 = null; await handleHistory({ type: "history", slot: "adm1", buffer: RAW.adm1 }, post); } for (const [slot, buffer] of RAW.packs) { PACKS.delete(slot); await handleHistory({ type: "history", slot, buffer }, post); } })(); }
     if (msg.type === "load") return guard(handleLoad(msg, post), "topology: ");
     return null;
   }
@@ -599,6 +599,7 @@
     CORE = { T, pos };
     if (HIST_PENDING) { const m = HIST_PENDING; HIST_PENDING = null; handle(m, post); }
     if (ADM1_PENDING) { const m = ADM1_PENDING; ADM1_PENDING = null; handle(m, post); }
+    while (PACK_PENDING.length) handle(PACK_PENDING.shift(), post);
     const faceEntity = new Uint32Array(T.faces.length);
     T.faces.forEach((f, i) => { faceEntity[i] = f.entity; });
     post({ type: "meta", header: T.header, faceEntity, parseMs: now() - t0 }, [faceEntity.buffer]);
@@ -650,13 +651,18 @@
      path is too short or too bent; a river repeats every ~400 px along its polyline; a city sits beside its
      marker on the first free side of four. Labels behind the horizon are not candidates; those near the limb
      carry an alpha for the fade. */
-  const RAW = { topology: null, water: null, history: null, landChanges: null, adm1: null };
+  const RAW = { topology: null, water: null, history: null, landChanges: null, adm1: null, packs: new Map() };
   let CORE = null, HIST = null, HIST_PENDING = null;
   /* THE SECOND SLOT (2026-11-14; docs/atlas-v2-admin1-layer.md §3.2): atlas/data/admin1.bin, the present-day admin-1 units of the countries the core does not carry, in history.bin's format.
      It is held BESIDE `HIST` (the page's history or a war slice), never instead of it, through the same code: the reader, the buildId check, the per-level geometry, the lazy
      triangulation and its LRU. A message names it with `slot: "adm1"`; every reply about it carries the same tag. */
   let ADM1 = null, ADM1_PENDING = null;
-  const slotOf = (msg) => (msg && msg.slot === "adm1" ? ADM1 : HIST);
+  /* BORDER PACKS (2026-11-20; docs/atlas-v2-border-packs.md): atlas/data/borders/<pack>.bin, states a card window needs that history.bin does not carry, in its format.
+     Each is a slot of its own, `slot: "pack:<name>"`, held beside HIST and ADM1 through the same reader, buildId check and per-level geometry. Nothing is triangulated
+     for a pack: a window asks only for its faces' RINGS (`face-rings` with the slot) and paints them itself, as it paints an extent. */
+  const PACKS = new Map(), PACK_PENDING = [];
+  const isPackSlot = (slot) => typeof slot === "string" && slot.indexOf("pack:") === 0;
+  const slotOf = (msg) => (msg && msg.slot === "adm1" ? ADM1 : msg && isPackSlot(msg.slot) ? PACKS.get(msg.slot) || null : HIST);
   let GZ = null, RIVER_LINES = null, RIVER_CAPS = null, METRICS = null;
   /* Phase 4 / 0c: display names that change with the year (atlas/data/polity-names.js, sent by the page): entity id → [[from, to, name, qid]…] */
   let POLITY_NAMES = null;
@@ -1442,8 +1448,8 @@
     L = { T: LT, pos }; S.levels[level] = L; return L;
   }
   async function handleHistory(msg, post) {
-    const A1 = msg.slot === "adm1", tag = A1 ? "admin1: " : "history: ";
-    if (!CORE) { if (A1) ADM1_PENDING = msg; else HIST_PENDING = msg; return; }   // the core is still loading: parsed once it is in
+    const A1 = msg.slot === "adm1", PK = isPackSlot(msg.slot), tag = A1 ? "admin1: " : PK ? msg.slot + ": " : "history: ";
+    if (!CORE) { if (A1) ADM1_PENDING = msg; else if (PK) PACK_PENDING.push(msg); else HIST_PENDING = msg; return; }   // the core is still loading: parsed once it is in
     const t0 = now();
     let T;
     try { T = await readTopology(msg.buffer); } catch (e) { post({ type: "error", message: tag + e.message }); return; }
@@ -1451,6 +1457,13 @@
     if (!H.core || H.core.buildId !== CORE.T.header.buildId) { post({ type: "error", message: tag + "built on core " + (H.core && H.core.buildId) + ", this is " + CORE.T.header.buildId }); return; }
     if (!T.coreArc) { post({ type: "error", message: tag + "no coreRef section" }); return; }
     if (A1 && H.kindOf !== "admin1") { post({ type: "error", message: tag + "not an admin-1 file" }); return; }
+    if (PK && H.kindOf !== "border-pack") { post({ type: "error", message: tag + "not a border pack" }); return; }
+    if (PK) {   // a pack: kept for its rings (handleFaceRings); its header is all the main thread needs
+      RAW.packs.set(msg.slot, msg.buffer);
+      PACKS.set(msg.slot, { T, H, empty: H.arcEmpty || null, levels: [], meshes: new Map(), resident: new Set(), order: [], junctions: root.AtlasFormat.historyJunctions(T, CORE.T) });
+      post({ type: "pack-meta", slot: msg.slot, header: H, ms: Math.round(now() - t0) });
+      return;
+    }
     const S = { T, H, empty: H.arcEmpty || null, levels: [], meshes: new Map(), resident: new Set(), order: [], junctions: root.AtlasFormat.historyJunctions(T, CORE.T) };
     if (A1) { RAW.adm1 = msg.buffer; ADM1 = S; adm1Rows(); } else { RAW.history = msg.buffer; HIST = S; }
     await tick();
@@ -1510,10 +1523,11 @@
      with the view's own projection: no mask pass, no read-back, exact at any pan, pinch or turn. A ring an arc of the level leaves out (arcMinLod) is left out. */
   function handleFaceRings(msg, post) {
     const rings = [], faces = [], transfer = [];
-    if (HIST) {
-      const level = Math.max(0, Math.min(2, msg.level | 0)), L = histLevel(level);
+    const S = msg.slot ? slotOf(msg) : HIST;   // a border pack's faces name their slot (2026-11-20); every other caller asks the history's
+    if (S) {
+      const level = Math.max(0, Math.min(2, msg.level | 0)), L = histLevel(level, S);
       for (const fi of msg.faces || []) {
-        const f = HIST.T.faces[fi]; if (!f) continue; faces.push(fi);
+        const f = S.T.faces[fi]; if (!f) continue; faces.push(fi);
         for (const ring of faceRings(L.T, f, level)) { const a = new Float32Array(ring.length * 3); let k = 0; for (const i of ring) { a[k++] = L.pos[3 * i]; a[k++] = L.pos[3 * i + 1]; a[k++] = L.pos[3 * i + 2]; } rings.push(a); transfer.push(a.buffer); }
       }
     }

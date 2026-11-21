@@ -1,0 +1,20 @@
+{
+  "_about": "THE BORDER PACKS (docs/atlas-v2-border-packs.md): states the card windows draw from a small lazy file of their own, atlas/data/borders/<pack>.bin, instead of history.bin. One row per state: its label, the Cliopatria v0.2.0 name(s) of its rows, the YEARS the cards need (each drawn by the one row alive in it), the cards that name it (members.groups[].ids: [\"pol:<key>\"]) and why. A key must not be a series of polity-spec.json or war-series.json. Add a state with `node .claude/atlas-build/add-border.js <key> --cliopatria \"<Name>\" --years A,B --card <id>`; rebuild one pack with `build-history.js --pack <name> --extract --install`; CI runs check-border-packs.js.",
+  "packs": {
+    "goguryeo": {
+      "states": {
+        "goguryeo": { "label": "Goguryeo", "cliopatria": ["Goguryeo"], "years": [480], "cards": ["ko-106"], "why": "ko-106: the kingdom at its greatest extent; Cliopatria's rows of 480–489 and 523–554 are its largest (408,926 km²), and 480 is the first year of them." }
+      }
+    },
+    "russian-empire": {
+      "states": {
+        "russian_empire": { "label": "Russian Empire", "cliopatria": ["Russian Empire"], "years": [1724,1796], "cards": ["ru-276","ru-341"], "why": "ru-276: Peter the Great near the end of his reign (1724); ru-341: Catherine the Great's empire in the year of her death (1796)." }
+      }
+    },
+    "silla": {
+      "states": {
+        "silla": { "label": "Silla", "cliopatria": ["Silla","Unified Silla"], "years": [682], "cards": ["ko-161"], "why": "ko-161: Silla at its peak. Cliopatria's Silla rows end at 681 (86,616 km² from 567); its \"Unified Silla\" rows from 682 are the same kingdom after the unification and its largest (149,880 km² in 682–891), and 682 is the first year of them." }
+      }
+    }
+  }
+}

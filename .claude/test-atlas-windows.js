@@ -613,6 +613,52 @@ const count = (page, sel, fnSrc, box) => page.evaluate(([s, src, b]) => { const 
     await ctx.close();
   }
 
+  /* ---------------- 12) a border pack's state as a members group (2026-11-20; docs/atlas-v2-border-packs.md) ---------------- */
+  if (want(12)) {
+    sect("12) border packs: a state history.bin does not carry, drawn from its lazy pack — ru-341, ru-276, ko-106, ko-161");
+    const CASES = [
+      { id: "ru-341", pack: "russian-empire", year: 1796, name: "Russian Empire", min: 4000 },
+      { id: "ru-276", pack: "russian-empire", year: 1724, name: "Russian Empire", min: 4000 },
+      { id: "ko-106", pack: "goguryeo", year: 480, name: "Goguryeo", min: 1500 },
+      { id: "ko-161", pack: "silla", year: 682, name: "Silla", min: 800 },
+    ];
+    for (const C of CASES) {
+      const { ctx, page } = await newPage(browser, { viewport: { width: 1100, height: 900 } });
+      await page.goto(url("#card/" + C.id), { waitUntil: "load" });
+      const reqs0 = requests.length;
+      await page.reload({ waitUntil: "load" });
+      await page.evaluate(() => { const b = [...document.querySelectorAll("button")].find((x) => /show answer|reveal/i.test(x.textContent || "")); if (b) b.click(); });
+      await windowReady(page); await windowSettled(page).catch(() => {});
+      await page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h._folioMap && h._folioMap.settled && h._folioMap.settled(); }, null, { timeout: 180000 }).catch(() => {});
+      await page.waitForTimeout(800);
+      const info = await page.evaluate(() => {
+        const h = document.querySelector(".map-card"), cv = h.querySelector(".mc-canvas"), P = h._folioMap.probe();
+        const hub = AtlasEmbed.hub(), c2 = document.createElement("canvas"); c2.width = cv.width; c2.height = cv.height; hub.draw(P.spec, c2.getContext("2d"), { dpr: P.dpr, fast: false });
+        const a = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data, b = c2.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
+        let gold = 0;
+        for (let i = 0; i < a.length; i += 4) { if (Math.abs(a[i] - b[i]) + Math.abs(a[i + 1] - b[i + 1]) + Math.abs(a[i + 2] - b[i + 2]) < 24) continue; if (a[i] > a[i + 2] + 30 && a[i + 1] > a[i + 2] + 10) gold++; }   // the selection gold painted over the year's land
+        return { engine: h.getAttribute("data-map-engine"), plain: h.classList.contains("mc-plain"), year: h.getAttribute("data-map-year"), groups: h.getAttribute("data-map-groups"), key: [...document.querySelectorAll(".members-key .wk-side")].map((e) => e.textContent.replace(/\s+/g, " ").trim()), gold, spec: { year: P.spec.year } };
+      });
+      check(`${C.id}: the window is drawn on the engine at ${C.year}, its group the pack's state`, info.engine === "v2" && !info.plain && Number(info.year) === C.year && /pol:/.test(info.groups || ""), JSON.stringify({ engine: info.engine, plain: info.plain, year: info.year, groups: info.groups }));
+      check(`${C.id}: …the state painted in the gold over the year's land (window against the engine's own frame)`, info.gold > C.min, String(info.gold));
+      check(`${C.id}: …its key names the state`, info.key.some((k) => k.indexOf(C.name) === 0), JSON.stringify(info.key));
+      const got = requests.slice(reqs0);
+      check(`${C.id}: …fetching atlas/data/borders/${C.pack}.bin once, and history.bin once`, got.filter((u) => new RegExp("atlas/data/borders/" + C.pack + "\\.bin$").test(u)).length === 1 && got.filter((u) => /atlas\/data\/history\.bin$/.test(u)).length === 1, got.filter((u) => /borders|history/.test(u)).join(", "));
+      const shot = process.env.FOLIO_SHOTS ? path.join(process.env.FOLIO_SHOTS, C.id + "-border-pack.png") : null;
+      if (shot) { await page.locator(".card-loc").screenshot({ path: shot }); console.log("  (screenshot: " + shot + ")"); }
+      await ctx.close();
+    }
+    {   // a pack that cannot be read: the plain sentence, never the year's map without the state
+      const { ctx, page } = await newPage(browser, { viewport: { width: 1100, height: 900 } });
+      await page.route(/atlas\/data\/borders\//, (r) => r.abort());
+      await page.goto(url("#card/ko-106"), { waitUntil: "load" });
+      await page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h.classList.contains("mc-plain"); }, null, { timeout: 120000 }).catch(() => {});
+      const plain = await page.evaluate(() => { const h = document.querySelector(".map-card"); return { plain: !!h && h.classList.contains("mc-plain"), text: h ? h.textContent.replace(/\s+/g, " ").trim() : "" }; });
+      check("ko-106 with its pack refused: the window is the plain sentence", plain.plain && /could not be loaded/.test(plain.text), JSON.stringify(plain));
+      await ctx.close();
+    }
+  }
+
   sect("errors");
   check("no console or page errors anywhere in this suite", errors.length === 0, errors.slice(0, 3).join(" | "));
   await browser.close(); server.close();

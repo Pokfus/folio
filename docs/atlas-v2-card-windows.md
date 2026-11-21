@@ -437,3 +437,7 @@ all history/science/philosophy collections".
   between the two alive spans, and no geometry was extended to reach it. The key's note gives Sparta's hold on Messenia only — no source line above a
   window, on request; OpenHistoricalMap is credited on `#credits` through the extent's `sources` header. Every other window is unchanged (no other members group names an extent; the Peloponnesian War window `gr-521` and the Lydia members
   window `gr-226` were screenshotted before and after: identical, and pixel-equal within the renderer's own run-to-run noise).
+
+## A border pack's state as a members group (2026-11-20, on request)
+
+A members group may name a state of a lazy BORDER PACK (`atlas/data/borders/<pack>.bin`, which pack: `atlas/data/border-packs.js`) instead of `history.bin`. The window paints it exactly as an extent above (`packOf` / `painted`, `paintExtents` → `groupRings` → `hub.packRings`), the hub fetching the pack once (`hub.startPack`; the worker's slot `pack:<name>`, rings only). The still renderer tints the present-day `keys`; a pack that cannot be read is the plain sentence. `test-atlas-windows.js` §12. 📖 `docs/atlas-v2-border-packs.md`.

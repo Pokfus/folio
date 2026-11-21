@@ -81,6 +81,11 @@
         /* the rings of the faces some entities have in a year, as unit vectors (2026-11-19: an extent named by a members group, which the engine draws only for a war): Promise of
            { faces, rings: [Float32Array xyz …] }, or null while the history is not in */
         entityRings: (ids, year, level) => new Promise((res) => { if (!E.entityRings) { res(null); return; } E.entityRings(ids, year, level, res); }),
+        /* BORDER PACKS (2026-11-20; docs/atlas-v2-border-packs.md): a state history.bin does not carry, in atlas/data/borders/<pack>.bin (which pack: atlas/data/border-packs.js).
+           `startPack` fetches it once into the worker's slot; `packState` is null | "loading" | "ready" | "failed"; `packRings` answers as `entityRings` does */
+        startPack: (name) => { if (E.startPack) E.startPack(name); },
+        packState: (name) => (E.packState ? E.packState(name) : "failed"),
+        packRings: (name, ids, year, level) => new Promise((res) => { if (!E.packRings) { res(null); return; } E.packRings(name, ids, year, level, res); }),
         warTimeline: (id) => E.warTimeline(id),
         entsTimeline: (ids, span) => (E.entsTimeline ? E.entsTimeline(ids, span) : null),   // a members window's steps: the years its states change inside its span (2026-10-29)   // the war's dated steps (years of change; the front's plate dates when the file has them): a war window's timeline
         /* a point inside each of the faces, on the visible part of the view the hub is in now (the worker's label anchor; `near`, [{ face, lon, lat }], searches a face in the piece nearest that point — a war window passes each side's principal's capital): Promise of [{ face, v: unit vector | null (the best point), pts: [{ v, clear }] (up to twelve, best first), clear (px of the view it was asked in), vis, km2 }] — a point on the sphere, not a screen
