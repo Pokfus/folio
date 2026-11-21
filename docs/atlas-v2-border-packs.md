@@ -94,8 +94,9 @@ The report (PR #798): a fresh `build-history.js --no-cache` with the spec unchan
     says of −1046;
   - cnh-157 (Song) now dates −641, −637, −546, −286 and rm-553 (Sasanian) 224 and 226: `audit-seats.js` classes all four as **source**
     (the raw rows leave the card's point 4.0 km and 347.7 km outside — the entries `seats-known.json` already holds for −638..−637 and 224).
-  Whitelisting them (`KNOWN_FAULTS`, `audit-seats.js --write-known`) is the owner's decision and was NOT done here; neither was a rebuilt
-  `history.bin` committed (nothing a pack needs depends on it).
+  On the owner's decision (2026-11-21) both are recorded as source faults: one `KNOWN_FAULTS` line in `check-history.js` and
+  `audit-seats.js --write-known` (Song −641, −637, −546, −286; Sasanian 224, 226); `check-history.js` passes. No rebuilt `history.bin`
+  was committed (nothing a pack needs depends on it; the committed file's only staleness is `pol:ext_zhou`'s span).
 - **Rule for later**: after a date-line edit to a war card with an authored extent, or to a card a seat is read from, `history.bin`'s
   extent years and `check-history.js`'s card-derived assertions move; rebuild (`--no-cache`) when the extent's years matter, and run
   `check-history.js` either way.
