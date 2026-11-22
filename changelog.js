@@ -35,9 +35,21 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.1388", released: "2026-11-21T00:03Z" };
+window.FOLIO_VERSION = { v: "1.1389", released: "2026-11-22T16:50Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-11-22",
+    t: "Sounds, synced study settings and relief in card maps",
+    items: [
+      "<b>New sound effects</b>: revealing an answer, finishing a study session, adding a deck, a favourite and every daily game's verdict.",
+      "Your <b>study settings</b> (daily limits, review order and the rest) now follow you across your signed-in devices.",
+      "Card map windows now show <b>relief</b> by default for new readers.",
+      "The <b>“Not quite — what it is”</b> box no longer appears under the answer after a wrong typed answer.",
+      "A glossary term inside a longer phrase now links at its <b>first mention</b> in a card, not the second.",
+      "1 picture added in United States and 11 new glossary terms for Japan; a few Japan glossary links now open the right term.",
+    ],
+  },
   {
     d: "2026-11-21",
     t: "More states of the past in card maps",

@@ -12794,7 +12794,18 @@ window.GLOSSARY = {
 "Hong_Kong_Observatory": "",
 "Wang_Chong": "",
 "Lunheng": "",
-"Zhao_Yi": ""
+"Zhao_Yi": "",
+"Awa_Province_(Chiba)": "",
+"Battle_of_Ishibashiyama": "",
+"Hōjō_Tokimasa": "",
+"Minamoto_no_Noriyori": "",
+"Minamoto_no_Yoshitomo": "",
+"Prince_Mochihito": "",
+"Sagami_River": "",
+"Seii_taishōgun": "",
+"Tsurugaoka_Hachiman-gū": "",
+"Wakamiya_Ōji": "",
+"Izu_Province": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -19039,7 +19050,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Liu_Shan": "207–271 CE",
 "Ferdinand_von_Richthofen": "1833–1905",
 "Wang_Chong": "27–c. 97 CE",
-"Zhao_Yi": "1727–1814"
+"Zhao_Yi": "1727–1814",
+"Battle_of_Ishibashiyama": "1180",
+"Hōjō_Tokimasa": "1138–1215",
+"Minamoto_no_Noriyori": "d. 1193",
+"Minamoto_no_Yoshitomo": "1123–1160",
+"Prince_Mochihito": "1151–1180",
+"Seii_taishōgun": "794–1867",
+"Tsurugaoka_Hachiman-gū": "1063",
+"Wakamiya_Ōji": "1182"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -23285,7 +23304,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Kalchyk_(river)": ["Kalka River","Kalchyk","Kalets"],
 "Kanagawa_Prefecture": ["Kanagawa"],
 "Sea_of_Japan": ["Japan Sea"],
-"Shogun": ["shoguns"],
+"Shogun": ["shoguns","shōgun","shōguns","Shōgun"],
 "Molecular_clock": ["molecular dating"],
 "Mummy": ["mummies"],
 "Abu_Rawash": ["Abu Roash","Abou Rawash"],
@@ -23484,7 +23503,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Taebaek_Mountains": ["Taebaek"],
 "38th_parallel_north": ["38th parallel"],
 "Bonin_Islands": ["Bonin","Ogasawara Islands"],
-"Izu_Islands": ["Izu","Izu chain"],
+"Izu_Islands": ["Izu chain","Izu Oshima","Izu Ōshima"],
 "Ryukyu_Islands": ["Ryukyus","Ryukyu chain"],
 "Sobaek_Mountains": ["Sobaek","Sobaek range"],
 "Caucasus": ["Caucasus Mountains"],
@@ -25622,18 +25641,18 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Kondei": ["kondei"],
 "Bushidan": ["bushidan"],
 "Minamoto_clan": ["Minamoto clan","Seiwa Genji"],
-"Taira_clan": ["Heishi","Taira family"],
+"Taira_clan": ["Heishi","Taira family","Taira"],
 "Hokumen_no_bushi": ["hokumen no bushi","Hokumen no Bushi","warriors of the north face"],
 "Taira_no_Masakado": ["Masakado","Taira Masakado"],
 "Jōhei–Tengyō_Rebellion": ["Jōhei–Tengyō Rebellion","Johei-Tengyo Rebellion","Jōhei-Tengyō Rebellion","Tengyō no Ran","Jōhei-Tengyō no Ran"],
 "Fujiwara_no_Sumitomo": ["Sumitomo"],
 "Former_Nine_Years'_War": ["Former Nine Years’ War","Former Nine Years War","Zenkunen War","Zenkunen no eki"],
 "Gosannen_War": ["Later Three-Year War","Later Three Years’ War","Later Three Years War","Gosannen no eki"],
-"Northern_Fujiwara": ["Ōshū Fujiwara","Oshu Fujiwara","Fujiwara of Mutsu"],
+"Northern_Fujiwara": ["Ōshū Fujiwara","Oshu Fujiwara","Fujiwara of Mutsu","northern Fujiwara"],
 "Hiraizumi": ["Hiraizumi, Iwate"],
 "Chūson-ji": ["Chuson-ji","Chusonji","Chūsonji"],
 "Hōgen_rebellion": ["Hōgen Rebellion","Hogen Rebellion","Hogen rebellion","Hōgen War"],
-"Heiji_rebellion": ["Heiji Rebellion","Heiji War"],
+"Heiji_rebellion": ["Heiji Rebellion","Heiji War","Heiji war"],
 "Taira_no_Kiyomori": ["Kiyomori","Taira Kiyomori"],
 "Fukuhara-kyō": ["Fukuhara-kyo","Fukuhara","Fukuhara capital"],
 "Genpei_War": ["Genpei war","Gempei War","Jishō–Juei War","Jisho-Juei War"],
@@ -26798,7 +26817,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Minamoto_no_Sanetomo": ["Sanetomo","Minamoto Sanetomo"],
 "Hōjō_clan": ["Hojo clan","Hōjō family","Hojo family"],
 "Shikken": ["shikken"],
-"Hōjō_Masako": ["Hojo Masako"],
+"Hōjō_Masako": ["Hojo Masako","Masako"],
 "Jōkyū_War": ["Jokyu War","Jōkyū Disturbance","Jokyu Disturbance"],
 "Rokuhara_Tandai": ["Rokuhara tandai"],
 "Goseibai_Shikimoku": ["Goseibai shikimoku","Jōei Code","Joei Code","Jōei Shikimoku","Joei Shikimoku"],
@@ -27481,7 +27500,18 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Loulan": ["Loulan Kingdom"],
 "Wang_Chong": ["Wang Ch'ung"],
 "Lunheng": ["Lun-heng"],
-"Zhao_Yi": ["Chao I"]
+"Zhao_Yi": ["Chao I"],
+"Awa_Province_(Chiba)": ["Awa Province (Chiba)","Bōshū"],
+"Battle_of_Ishibashiyama": ["Ishibashiyama"],
+"Hōjō_Tokimasa": ["Hojo Tokimasa","Tokimasa"],
+"Minamoto_no_Noriyori": ["Noriyori","Minamoto Noriyori"],
+"Minamoto_no_Yoshitomo": ["Yoshitomo","Minamoto Yoshitomo"],
+"Prince_Mochihito": ["Mochihito"],
+"Sagami_River": ["Sagami river","Sagamigawa"],
+"Seii_taishōgun": ["seii taishōgun","sei-i taishōgun","Sei-i Taishōgun","seii taishogun"],
+"Tsurugaoka_Hachiman-gū": ["Tsurugaoka Hachimangū","Tsurugaoka Hachimangu","Tsurugaoka Hachiman Shrine"],
+"Wakamiya_Ōji": ["Wakamiya Oji","Wakamiya Ōji Avenue","Wakamiya Oji Avenue"],
+"Izu_Province": ["Izu","Zushū"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -40535,7 +40565,18 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hong_Kong_Observatory": ["institution","meteorology","hong kong","astronomy","weather"],
 "Wang_Chong": ["person","philosophy","china","han dynasty","scepticism"],
 "Lunheng": ["book","philosophy","china","han dynasty","scepticism"],
-"Zhao_Yi": ["person","history","china","qing dynasty","poetry"]
+"Zhao_Yi": ["person","history","china","qing dynasty","poetry"],
+"Awa_Province_(Chiba)": ["place","japan","province","history","geography"],
+"Battle_of_Ishibashiyama": ["battle","history","japan","genpei war","warfare"],
+"Hōjō_Tokimasa": ["person","history","japan","kamakura","politics"],
+"Minamoto_no_Noriyori": ["person","japan","history","genpei war","minamoto"],
+"Minamoto_no_Yoshitomo": ["person","japan","history","heian","minamoto"],
+"Prince_Mochihito": ["person","history","japan","heian","genpei war"],
+"Sagami_River": ["river","geography","japan","place","water"],
+"Seii_taishōgun": ["title","history","japan","government","shogun"],
+"Tsurugaoka_Hachiman-gū": ["building","religion","history","japan","shinto","kamakura"],
+"Wakamiya_Ōji": ["place","history","japan","kamakura","city"],
+"Izu_Province": ["place","japan","province","history","geography"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

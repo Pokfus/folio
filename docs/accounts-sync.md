@@ -118,6 +118,17 @@ link is followed, so the panel says so rather than reporting a change that has n
 once on a phone is the whole account page.
 
 
+## The study settings sync (2026-11-22)
+
+On request ("active collection settings like daily limits or deck-specific limits should synchronise across devices").
+A deck's own limits were already synced (`deckOpts` is a PROGRESS_FIELD); the DEFAULTS every deck follows lived only in
+`S.settings`, a device record. `progressBlob()` now adds ONE derived field, `studySettings`, picked from `S.settings` by
+`SYNCED_SETTINGS` (newPerDay, maxReviewsPerDay, limitsCustom, reviewRandom, reviewOrder, questionVariety, loadBalance,
+easyDays, attemptFirst, recallFirst, dayEnd, sched, retention, fsrsParams), and `applyProgress` writes the keys it carries
+back (`applyStudySettings`). `PROGRESS_FIELDS` itself is unchanged (`test-progress-registers.js` pins it); the boot
+reconcile's per-field merge includes `studySettings`. A row without the field (older, or a fresh account) leaves this
+device's settings alone. Theme, text size, sound and the other device preferences stay local.
+
 ## The account page, compacted — and deleting an account (2026-11-16)
 
 Out of an audit of the page: signed in it was ten screens on a laptop and fifteen on a phone.

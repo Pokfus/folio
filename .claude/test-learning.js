@@ -187,10 +187,10 @@ head("5) the wiring that cannot be seen from the page");
   check("gradeCloze hands the typed guess back", /function gradeCloze\(qEl, answer\) \{\s*\n\s*if \(!qEl\) return \[\];/.test(src));
   check("the order page goes straight to studying, whatever was picked", /setOrderPicked\(entry, mode\);\s*\n\s*route\("study", \{ scope \}\);/.test(src));
   check("styles exist for every new block",
-    [".crit-pip", ".op-card", ".elab", ".miss-lead", ".leadsto", ".confuse-row", ".fg-track", ".how-claim", ".reveal-hint"]
+    [".crit-pip", ".op-card", ".elab", ".leadsto", ".confuse-row", ".fg-track", ".how-claim", ".reveal-hint"]
       .every((c) => css.indexOf(c) >= 0));
   // the ad-blocker trap: never name a class `ad-…` (see CLAUDE.md)
-  const newClasses = ["crit-row", "op-card", "elab", "miss-lead", "leadsto", "lt-go", "confuse-row", "fg-col", "how-claim"];
+  const newClasses = ["crit-row", "op-card", "elab", "leadsto", "lt-go", "confuse-row", "fg-col", "how-claim"];
   check("no new class is one an ad blocker hides", newClasses.every((c) => !/^ads?[-_]/.test(c)));
 }
 
@@ -333,7 +333,7 @@ if (!process.env.FOLIO_SKIP_BROWSER) {
     await page.waitForTimeout(200);
     check("typing anything opens it — an ATTEMPT, not the right answer", !(await page.$eval("#reveal-btn", (e) => e.disabled)));
     await page.click("#reveal-btn"); await page.waitForTimeout(500);
-    check("a missed card is told what the thing was, not just its name", !!(await page.$(".miss-lead")));
+    check("a missed card draws no \"Not quite\" box (removed 2026-11-22)", !(await page.$(".miss-lead")));
 
     head("9) the confusion register, and an elaboration prompt on every card");
     await seed({ active: ["wh-evolution"], cards: {}, confused: {}, orderPicked: { "review:all": "" },
