@@ -2023,7 +2023,9 @@
 
   /* ---------- UI sound effects — synthesized with the Web Audio API (no files, zero deps) ----------
      sfx(name): click (buttons — a soft bubble pop), toggle (switches), pop (reveal / image viewer), good / bad (grades),
-     discover (a term or place opened for the first time),
+     discover (a term or place opened for the first time), reveal / reveal-right (a study card's answer shown — the second when
+     the typed answer was right), complete / timeup (a study session ends), add / remove (a deck in or out of the daily study),
+     fav (a favourite), plus good / bad on every daily game's verdict (2026-11-22),
      win (level-ups, achievements, perfect games). Gated by Settings → Sound effects (S.settings.sfx,
      on by default); the shared AudioContext is created lazily and resumed inside the click gesture,
      which satisfies every browser's autoplay policy. Volumes are deliberately tiny. */
@@ -2129,6 +2131,8 @@
   }
   function sfx(name) {
     if (!sfxEnabled()) return;
+    // never queue a sound outside a gesture (a page drawn at load): a suspended context would play it late, on the next tap
+    try { if (navigator.userActivation && !navigator.userActivation.isActive && (!_sfxCtx || _sfxCtx.state !== "running")) return; } catch (e) {}
     const ctx = sfxCtx(); if (!ctx) return;
     const t = ctx.currentTime + 0.001;
     // the bubble itself, and a quieter one an octave above it that dies first — see sfxBubble
@@ -2143,6 +2147,30 @@
       sfxTone(ctx, t + 0.19, 1976, 0.26, 0.02, "sine");
       sfxTone(ctx, t + 0.28, 2637, 0.22, 0.014, "sine");
     }
+    /* ---- added 2026-11-22 (on request: sounds for a reveal, a finished session and more) ---- */
+    else if (name === "reveal") {   // a card turning over: a soft paper tap and an airy rising glide
+      sfxTap(ctx, t, 1800, 0.03, 0.035);
+      sfxTone(ctx, t + 0.01, 520, 0.16, 0.04, "sine", 780);
+      sfxTone(ctx, t + 0.08, 1040, 0.14, 0.012, "sine");
+    }
+    else if (name === "reveal-right") {   // the same turn, ending on a bright interval: what was typed was the answer
+      sfxTap(ctx, t, 1800, 0.03, 0.035);
+      sfxTone(ctx, t + 0.01, 587, 0.1, 0.04, "sine", 784);
+      sfxTone(ctx, t + 0.1, 1175, 0.2, 0.03, "triangle");
+    }
+    else if (name === "complete") {   // a study session finished: a calm rising arpeggio settling on a held chord
+      [392, 494, 587, 784].forEach((f, i) => sfxTone(ctx, t + i * 0.1, f, 0.22, 0.04, "triangle"));
+      [392, 587, 784].forEach((f) => sfxTone(ctx, t + 0.42, f, 0.8, 0.022, "sine"));
+      sfxTone(ctx, t + 0.5, 1568, 0.5, 0.012, "sine");
+    }
+    else if (name === "timeup") {   // a timed box ran out: two soft falling bell tones
+      sfxTone(ctx, t, 880, 0.3, 0.04, "sine"); sfxTone(ctx, t + 0.22, 659, 0.45, 0.04, "sine");
+    }
+    else if (name === "add") {   // a deck joins the daily study: a quick upward pair
+      sfxTone(ctx, t, 523, 0.08, 0.04, "triangle"); sfxTone(ctx, t + 0.07, 784, 0.14, 0.04, "triangle");
+    }
+    else if (name === "remove") sfxTone(ctx, t, 494, 0.14, 0.035, "sine", 330);   // …and leaves it: one soft falling glide
+    else if (name === "fav") { sfxTone(ctx, t, 988, 0.12, 0.03, "sine"); sfxTone(ctx, t + 0.06, 1319, 0.2, 0.022, "sine"); }   // a favourite: a small chime
     else if (name === "levelup") {   // the level-up fanfare: a quick rising run into a held major chord with a sparkle on top
       [392, 523, 659, 784].forEach((f, i) => sfxTone(ctx, t + i * 0.07, f, 0.14, 0.05, "triangle"));
       [523, 659, 784, 1047].forEach((f) => sfxTone(ctx, t + 0.32, f, 0.55, 0.03, "triangle"));
@@ -2419,7 +2447,20 @@
      are separate functions rather than one with a flag because the difference matters in one direction only
      and getting it wrong is invisible: a blob that carries the log is a log that is capped again, since the
      whole record is re-sent on every save. */
-  function progressBlob() { const p = {}; PROGRESS_FIELDS.forEach((k) => { p[k] = S[k]; }); return JSON.parse(JSON.stringify(p)); }
+  /* THE STUDY SETTINGS SYNC TOO (2026-11-22, on request: "active collection settings like daily limits or deck-specific limits
+     should synchronise across devices"). A deck's own limits were already synced (`deckOpts`); the DEFAULTS every deck follows —
+     new cards a day, the review cap, the order, variety, the day's end, easy days, the schedule — live in `S.settings`, which is a
+     device record (theme, text size, sound), so they never left the device. They ride in the blob as ONE derived field,
+     `studySettings`, picked from `S.settings` by `SYNCED_SETTINGS` and written back by `applyProgress`; `S.settings` stays the one
+     place every reader reads, so nothing migrates. A blob without the field (an older row, a fresh account) leaves this device's
+     settings as they are, and only keys the blob carries are written. */
+  const SYNCED_SETTINGS = ["newPerDay", "maxReviewsPerDay", "limitsCustom", "reviewRandom", "reviewOrder", "questionVariety", "loadBalance", "easyDays", "attemptFirst", "recallFirst", "dayEnd", "sched", "retention", "fsrsParams"];
+  function studySettingsBlob() { const o = {}, st = (S && S.settings) || {}; SYNCED_SETTINGS.forEach((k) => { if (st[k] !== undefined) o[k] = st[k]; }); return o; }
+  function applyStudySettings(o) {
+    if (!o || typeof o !== "object" || Array.isArray(o) || !S.settings) return;
+    SYNCED_SETTINGS.forEach((k) => { if (o[k] !== undefined) S.settings[k] = JSON.parse(JSON.stringify(o[k])); });
+  }
+  function progressBlob() { const p = {}; PROGRESS_FIELDS.forEach((k) => { p[k] = S[k]; }); p.studySettings = studySettingsBlob(); return JSON.parse(JSON.stringify(p)); }
   /* Install a whole progress record. The per-review log rides ALONGSIDE rather than inside it — it has a
      table of its own — so it is cleared here by name, which is the load-bearing half: without it, signing
      into a second account on one device would leave the first reader's card-by-card history sitting in Card
@@ -2435,6 +2476,7 @@
   function applyProgress(p, keepLog) {
     const base = emptyProgress();
     PROGRESS_FIELDS.forEach((k) => { S[k] = JSON.parse(JSON.stringify(p && p[k] !== undefined ? p[k] : base[k])); });
+    applyStudySettings(p && p.studySettings);   // the synced study defaults (see SYNCED_SETTINGS); absent = this device's stay
     /* An adopted blob carries its own `themes`, so a reader signing in on a fresh device must not have
        the theme they are wearing pulled out from under them: grandfather again on the new set, exactly as
        boot does. `themeGrandfather` only ever unlocks, so this can never take one away. */
@@ -3443,7 +3485,7 @@
          writers arrive. */
       const merged = Object.assign({}, row.data || {});
       if (movedDuringPull) {
-        PROGRESS_FIELDS.forEach((k) => {
+        PROGRESS_FIELDS.concat("studySettings").forEach((k) => {
           if (stableJson(afterPull[k]) !== stableJson(beforePull[k])) merged[k] = afterPull[k];
         });
       }
@@ -4202,7 +4244,12 @@
         const surface = m[0];
         let key = resolveGlossKey(idx, surface);
         if (key && redir && redir[key] && (redir[key] in (window.GLOSSARY || {}))) key = redir[key];
-        if (!key || linked.has(key) || surface.toLowerCase() === answer) continue;
+        /* A MATCH THAT RESOLVES TO NOTHING MUST NOT SWALLOW THE NAME INSIDE IT (2026-11-22, on a report: jp-202 linked
+           Go-Shirakawa at its SECOND mention). The pattern is case-insensitive, so "emperor Go-Shirakawa" matched the
+           proper surface "Emperor Go-Shirakawa", failed its exact-case lookup and consumed the whole phrase; the
+           search now resumes one character in, where "Go-Shirakawa" alone is found. */
+        if (!key) { idx.re.lastIndex = m.index + 1; continue; }
+        if (linked.has(key) || surface.toLowerCase() === answer) continue;
         if (!frag) frag = document.createDocumentFragment();
         if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
         const span = document.createElement("span");
@@ -23131,7 +23178,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          render() because the collections page is a tree the reader has expanded by hand, and rebuilding
          it would fold that back up. */
       refreshAddButtons();
-      toast(wantOn ? "Added to daily review" : "Removed from review");
+      toast(wantOn ? "Added to daily review" : "Removed from review"); sfx(wantOn ? "add" : "remove");
     });
   }
   // re-state every + / ✓ on the page from S.active. `data-id` is a tree node, `data-uadd` one of the
@@ -34012,7 +34059,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
           const on = toggleBookFav(id);
           close();
           render();
-          toast(on ? "Added to favourites" : "Removed from favourites");
+          toast(on ? "Added to favourites" : "Removed from favourites"); if (on) sfx("fav");
           return;
         }
         close();
@@ -35402,7 +35449,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     const n = uDeckStudyIds(d.cardIds || []).length;
     const msg = "Imported “" + d.title + "” — " + plural(n, "card", "cards");
     if (isActive(entry)) { toast(msg); return; }
-    toastAction(msg, "Add to daily study", () => { addActive(entry); refreshAddButtons(); toast("Added to daily review"); });
+    toastAction(msg, "Add to daily study", () => { addActive(entry); refreshAddButtons(); toast("Added to daily review"); sfx("add"); });
   }
   /* Cards added to a deck in ONE write. The Studio's own setters save per field, which is right for a
      keystroke and wrong for a pasted list of five hundred: this sanitizes each record the way an import
@@ -37040,7 +37087,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
         const wantOn = !ids.every(isActive);
         ids.forEach((id) => { if (wantOn) addActive(id); else removeActive(id); });
         refreshAddButtons();
-        toast(wantOn ? "Added to daily review" : "Removed from review");
+        toast(wantOn ? "Added to daily review" : "Removed from review"); sfx(wantOn ? "add" : "remove");
       });
     });
   }
@@ -38490,6 +38537,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            than a slip. Saying "I don't know" counts as a miss: it is the reader telling us so. */
         const attempted = saidDunno || typedVals.some((v) => String(v || "").trim());
         const missed = attempted && !typedVals.some((v) => answerNear(v, c));
+        if (fromReader) sfx(attempted && !missed && !saidDunno ? "reveal-right" : "reveal");
         if (typedVals.length) noteConfusion(id, typedVals);
         cardMapReveal(cardRoot);   // the map may now name what it was shading — the shape and its name together
         cardArtReveal(cardRoot, c);   // …and an artwork may now be titled, credited and enlarged
@@ -38538,17 +38586,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
            strip above it already follows. */
         inner.querySelectorAll("[data-kin]").forEach((b) =>
           b.addEventListener("click", (e) => { e.stopPropagation(); openCardPeek(b.dataset.kin); }));
-        /* ELABORATED FEEDBACK ON A MISS. The term alone is knowledge-of-correct-response (d = 0.32); the
-           term with a sentence saying what it IS is the beginning of an explanation (d = 0.49), and the
-           reader gets it without having to open a fold they may have collapsed months ago. Drawn only
-           when the card was actually attempted and actually missed — a reader who got it right does not
-           need to be told what they just recalled. */
-        if (missed) {
-          const lead = cardFirstSentence(c);
-          const ansBox = inner.querySelector(".answer");
-          if (lead && ansBox) ansBox.insertAdjacentHTML("afterend",
-            '<div class="miss-lead"><span class="miss-kind">Not quite — what it is</span><p>' + lead + "</p></div>");
-        }
+        /* (2026-11-22, on request: the "Not quite — what it is" box drawn under the answer on a miss is gone.) */
         /* ONE ELABORATION PROMPT PER SESSION (see elabPromptHTML). Injected here rather than built into
            `buildBack`, because the budget belongs to the session and `buildBack` is also what the editor's
            preview and the card browser draw. It goes directly above the Background head — after the answer,
@@ -38826,6 +38864,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       // and no other device should be offered one either
       // …except a cram, which wrote neither record and must not clear another device's handoff (see startCram)
       if (!cram) { clearStudySession(); clearHandoff(); save(); }
+      if (studiedThisSession > 0 || (how && how.timeUp)) sfx(how && how.timeUp ? "timeup" : "complete");
       hideGradeBar();
       hideWBTools();
       root.innerHTML = "";
@@ -43853,6 +43892,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     function choose(i) {
       const item = Q[qi], correctIdx = item.options.indexOf(item.correct), right = i === correctIdx;
       results[qi] = right; if (right) score++;
+      sfx(right ? "good" : "bad");
       root.querySelectorAll("#opts .opt").forEach((b, idx) => {
         b.disabled = true;
         if (idx === correctIdx) b.classList.add("correct");
@@ -44140,6 +44180,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     }
     function answer(guess, btn) {
       const it = picks[r], correct = guess === it.a; results[r] = correct; if (correct) score++;
+      sfx(correct ? "good" : "bad");
       root.querySelectorAll("#tfopts .opt").forEach((b) => { b.disabled = true; const v = b.dataset.v === "1"; if (v === it.a) b.classList.add("correct"); else if (b === btn) b.classList.add("wrong"); });
       const rev = root.querySelector("#tfreveal"); rev.hidden = false;
       rev.innerHTML = `
@@ -44301,6 +44342,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const { it, options } = rounds[r];
       const correctIdx = options.indexOf(it.who), right = opt === it.who;
       results[r] = right; if (right) score++;
+      sfx(right ? "good" : "bad");
       root.querySelectorAll("#opts .opt").forEach((b, idx) => {
         b.disabled = true;
         if (idx === correctIdx) b.classList.add("correct");
@@ -44745,6 +44787,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
          they no longer do is move. */
       if (!GAME_DAY) S.chrono = { date: todayStr(), best: score, plays: 1, solved: solved };
       markGamePlayed("chrono", solved, score, N);
+      if (!solved) sfx(score * 2 >= N ? "good" : "bad");   // a perfect order gets markGamePlayed's fanfare
       save();
       checkAchievements();
       const res = root.querySelector("#chrono-result");
@@ -46078,6 +46121,7 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
       const { it, options } = rounds[r];
       const right = opt === it.label;
       results[r] = right; if (right) score++;
+      sfx(right ? "good" : "bad");
       root.querySelectorAll("#picOpts .opt").forEach((b, i) => {
         b.disabled = true;
         if (options[i] === it.label) b.classList.add("correct");
@@ -54683,7 +54727,8 @@ const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language"
     if (!el || el.disabled) return;
     const g = el.closest(".grade");
     if (g) { sfx(g.classList.contains("again") ? "bad" : (g.classList.contains("good") || g.classList.contains("easy")) ? "good" : "click"); return; }
-    if (el.id === "reveal-btn" || el.closest(".card-img")) { sfx("pop"); return; }
+    if (el.id === "reveal-btn") return;   // the reveal sounds from showAnswer itself (button, Enter and Space alike)
+    if (el.closest(".card-img")) { sfx("pop"); return; }
     if (el.classList.contains("switch") || el.getAttribute("role") === "switch") { sfx("toggle"); return; }
     sfx("click");
   }, true);

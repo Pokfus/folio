@@ -9612,15 +9612,6 @@ body[data-theme="carnelian"].night .collection-deco{
 .cp-dates{margin:2px 0 10px;}
 .cp-lead{margin:0 0 4px; font-size:calc(14.5px * var(--fs)); line-height:1.62; color:var(--ink-soft);}
 
-/* ELABORATED FEEDBACK ON A MISSED CARD (see the gradeCloze block in app.js). The defining sentence,
-   directly under the answer and outside the Background fold, so a reader whose fold is collapsed still
-   gets an explanation rather than a bare term. Set in the answer's own red so it reads as part of the
-   correction rather than as the start of the prose below it. */
-.miss-lead{margin:12px 0 0; padding:11px 13px; border-radius:10px;
-  background:var(--zh-wash); border:1px solid var(--rule);}
-.miss-kind{display:block; font-size:calc(10px * var(--fs)); letter-spacing:.06em;
-  text-transform:uppercase; color:var(--zh); margin-bottom:5px;}
-.miss-lead p{margin:0; font-size:calc(14px * var(--fs)); line-height:1.6; color:var(--ink);}
 /* the wrong option a reader actually chose, explained (see PAGES.challenge). Set apart from the answer's
    own note above it by a rule rather than a colour, so it reads as a second paragraph and not a warning. */
 .mc-chose{border-top:1px solid var(--rule); padding-top:10px; margin-top:10px;}

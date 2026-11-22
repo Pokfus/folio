@@ -362,7 +362,9 @@
     /* A WINDOW'S OWN SWITCH (Oct 2026, on request: an icon button in each window): a device-local preference that OVERRIDES the Atlas's Legend switch for the windows only, strength still the Legend's.
        Absent = follow the Atlas, which is what every window did before the button existed. */
     let pref = null; try { pref = localStorage.getItem(RELIEF_PREF_KEY); } catch (e) { pref = null; }
-    reliefCache = { on: pref === "1" ? true : pref === "0" ? false : !!(l && l.relief), strength: l && isFinite(Number(l.strength)) ? Math.max(0.2, Math.min(1, Number(l.strength))) : 0.7 };
+    /* A NEW READER (2026-11-22, on request): no window switch and no saved Atlas layers at all → relief ON in the windows; once either is saved, it decides as before. */
+    let saved = null; try { saved = localStorage.getItem("folio_atlas2_layers_v2"); } catch (e) { saved = null; }
+    reliefCache = { on: pref === "1" ? true : pref === "0" ? false : saved == null ? true : !!(l && l.relief), strength: l && isFinite(Number(l.strength)) ? Math.max(0.2, Math.min(1, Number(l.strength))) : 0.7 };
     return reliefCache;
   }
   const RELIEF_PREF_KEY = "folio_window_relief_v1";
