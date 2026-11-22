@@ -646,7 +646,8 @@
   /* A TERM ONE CARD MUST NOT AUTO-LINK, SHIPPED (2026-11-18, on request: ww2-899's "wheel orders" are an Enigma machine's rotors, not the wheel):
      the baked twin of the editor's `ADMIN_EDITS.glossOff`, merged under it. A hand-written data-k still links. */
   /* …and us-375 (2026-11-19, on request): "Declaration of Independence" links site-wide, but its "Anti-Masonic Declaration of Independence" is another document */
-  const GLOSS_OFF_CARD = { "ww2-899": ["Wheel"], "us-375": ["United_States_Declaration_of_Independence"] };
+  /* …and jp-234, jp-237, jp-239 (2026-11-22, on request): "Taira" links the Taira clan, but these cards' first Taira is Taira no Yoritsuna or Taira no Kagetaka, men with no term of their own, and no bare clan mention follows */
+  const GLOSS_OFF_CARD = { "ww2-899": ["Wheel"], "us-375": ["United_States_Declaration_of_Independence"], "jp-234": ["Taira_clan"], "jp-237": ["Taira_clan"], "jp-239": ["Taira_clan"], "gw-907": ["Izu_Province"] };   // gw-907: "Fuji-Hakone-Izu National Park" is the park's name, not the old province
   function glossOffList(id) {
     const ed = (id && ADMIN_EDITS.glossOff && ADMIN_EDITS.glossOff[id]) || [], sh = (id && GLOSS_OFF_CARD[id]) || [];
     return sh.length ? ed.concat(sh.filter((k) => ed.indexOf(k) < 0)) : ed;

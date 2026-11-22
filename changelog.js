@@ -47,7 +47,7 @@ window.CHANGELOG = [
       "Card map windows now show <b>relief</b> by default for new readers.",
       "The <b>“Not quite — what it is”</b> box no longer appears under the answer after a wrong typed answer.",
       "A glossary term inside a longer phrase now links at its <b>first mention</b> in a card, not the second.",
-      "1 picture added in United States and 10 new glossary terms for Japan.",
+      "1 picture added in United States and 11 new glossary terms for Japan; a few Japan glossary links now open the right term.",
     ],
   },
   {

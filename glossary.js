@@ -12804,7 +12804,8 @@ window.GLOSSARY = {
 "Sagami_River": "",
 "Seii_taishōgun": "",
 "Tsurugaoka_Hachiman-gū": "",
-"Wakamiya_Ōji": ""
+"Wakamiya_Ōji": "",
+"Izu_Province": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -23502,7 +23503,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Taebaek_Mountains": ["Taebaek"],
 "38th_parallel_north": ["38th parallel"],
 "Bonin_Islands": ["Bonin","Ogasawara Islands"],
-"Izu_Islands": ["Izu","Izu chain"],
+"Izu_Islands": ["Izu chain","Izu Oshima","Izu Ōshima"],
 "Ryukyu_Islands": ["Ryukyus","Ryukyu chain"],
 "Sobaek_Mountains": ["Sobaek","Sobaek range"],
 "Caucasus": ["Caucasus Mountains"],
@@ -27509,7 +27510,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Sagami_River": ["Sagami river","Sagamigawa"],
 "Seii_taishōgun": ["seii taishōgun","sei-i taishōgun","Sei-i Taishōgun","seii taishogun"],
 "Tsurugaoka_Hachiman-gū": ["Tsurugaoka Hachimangū","Tsurugaoka Hachimangu","Tsurugaoka Hachiman Shrine"],
-"Wakamiya_Ōji": ["Wakamiya Oji","Wakamiya Ōji Avenue","Wakamiya Oji Avenue"]
+"Wakamiya_Ōji": ["Wakamiya Oji","Wakamiya Ōji Avenue","Wakamiya Oji Avenue"],
+"Izu_Province": ["Izu","Zushū"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -40573,7 +40575,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Sagami_River": ["river","geography","japan","place","water"],
 "Seii_taishōgun": ["title","history","japan","government","shogun"],
 "Tsurugaoka_Hachiman-gū": ["building","religion","history","japan","shinto","kamakura"],
-"Wakamiya_Ōji": ["place","history","japan","kamakura","city"]
+"Wakamiya_Ōji": ["place","history","japan","kamakura","city"],
+"Izu_Province": ["place","japan","province","history","geography"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
