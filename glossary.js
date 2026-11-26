@@ -13070,7 +13070,9 @@ window.GLOSSARY = {
 "Urengoy_gas_field": "",
 "Baikal–Amur_Mainline": "",
 "Revolutions_of_1989": "",
-"International_sanctions_during_the_Russo-Ukrainian_war": ""
+"International_sanctions_during_the_Russo-Ukrainian_war": "",
+"Geography_of_Russia": "",
+"Climate_of_Russia": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -41420,7 +41422,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Urengoy_gas_field": ["place","industry","russia","siberia"],
 "Baikal–Amur_Mainline": ["building","history","technology","russia","siberia"],
 "Revolutions_of_1989": ["event","history","politics","cold war","eastern europe","20th century"],
-"International_sanctions_during_the_Russo-Ukrainian_war": ["event","politics","economics","international relations","russia"]
+"International_sanctions_during_the_Russo-Ukrainian_war": ["event","politics","economics","international relations","russia"],
+"Geography_of_Russia": ["place","geography","russia","siberia"],
+"Climate_of_Russia": ["concept","geography","climate","russia"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

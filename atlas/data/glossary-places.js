@@ -5,7 +5,7 @@
    centre, the registry kind ("coord" for a card locator's coordinate), the face to tint (a country's or province's registry id, or a history.bin entity),
    the year of a state's or people's greatest extent (0 = today), the zoom (0 = the locator's default). Terms do not contribute to the Personal Atlas
    (Q-P3 c); every number is read off a registry row or history.bin, whose headers carry the sources, so `sources` above is empty. */
-window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"3ac08d34ff5eaea6","counts":{"terms":1014,"points":778,"countries":236,"windows":1781,"faces":394,"years":107},"ids":{
+window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"a606d5864a1301df","counts":{"terms":1014,"points":778,"countries":236,"windows":1781,"faces":394,"years":107},"ids":{
 "Abu_Gorab":"pl:q2038886",
 "Abu_Rawash":"pl:q335278",
 "Abusir":"pl:q336098",
@@ -1240,6 +1240,7 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"3ac08d34ff5eaea6","counts":
 "Bubastis":[31.51,30.573,"coord",0,0,0],
 "Bubastite_Portal":[32.657,25.719,"coord",0,0,0],
 "Bucharest":[26.098,44.435,"capital",0,0,0],
+"Budapest":[19.051,47.493,"coord",0,0,0],
 "Buenos_Aires":[-58.399,-34.601,"capital",0,0,0],
 "Buhen":[31.283,21.917,"site",0,0,0],
 "Bulgaria":[25.16,42.51,"country","adm0:bgr",0,14.92],
@@ -2101,7 +2102,6 @@ window.ATLAS_GLOSSARY_PLACES = {"format":2,"digest":"3ac08d34ff5eaea6","counts":
 "Netherlands":[5.61,52.42,"country","adm0:nld",0,24.82],
 "Neva":[30.661,59.809,"river",0,0,0],
 "Nevada_(state)":[-117.02,39.43,"admin1","adm1:usa:us-nv",0,9.79],
-"Nevsky_Prospect":[30.353,59.932,"coord",0,0,0],
 "New_Caledonia":[165.08,-21.06,"country","adm0:ncl",0,16.25],
 "New_Carthage":[-0.983,37.6,"site",0,0,0],
 "New_Echota":[-84.91,34.54,"site",0,0,0],

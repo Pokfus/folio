@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 8988 | the title is the article |
+| `ok` | 8990 | the title is the article |
 | `redirect-variant` | 520 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 117 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 11 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 865 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 864 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
 | `section-redirect` | 203 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 164 | only a disambiguation page; no link could be chosen |
-| `none` | 1305 | nothing matched; no link |
+| `none` | 1304 | nothing matched; no link |
 
-**10508 of 12200 cards get a link.** The three "no link" rows are the honest state: a card whose
+**10509 of 12200 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (865)
+## Redirected to a differently named article — check each (864)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -704,7 +704,6 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ru-726` **Declaration of State Sovereignty of the RSFSR** → [Declaration of State Sovereignty of the Russian SFSR](https://en.wikipedia.org/wiki/Declaration_of_State_Sovereignty_of_the_Russian_SFSR) (from `Declaration of State Sovereignty of the RSFSR`)
 - `ru-741` **power vertical** → [Political groups under Vladimir Putin's presidency](https://en.wikipedia.org/wiki/Political_groups_under_Vladimir_Putin's_presidency) (from `Power vertical`)
 - `ru-748` **Russian invasion of Ukraine** → [Russo-Ukrainian war (2022–present)](https://en.wikipedia.org/wiki/Russo-Ukrainian_war_(2022%E2%80%93present)) (from `Russian invasion of Ukraine`)
-- `ru-749` **Sanctions against Russia** → [Sanctions involving Russia](https://en.wikipedia.org/wiki/Sanctions_involving_Russia) (from `Sanctions against Russia`)
 - `ru-757` **Russian Arctic** → [Far North (Russia)](https://en.wikipedia.org/wiki/Far_North_(Russia)) (from `Russian Arctic`)
 - `ru-764` **Don River** → [Don (river)](https://en.wikipedia.org/wiki/Don_(river)) (from `Don River`)
 - `ru-784` **Great Abatis Line** → [Great Zasechnaya cherta](https://en.wikipedia.org/wiki/Great_Zasechnaya_cherta) (from `Great Abatis Line`)
@@ -1436,7 +1435,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1305)
+## No article found (1304)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2648,7 +2647,6 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ru-688` **Trudarmiya** — search suggests `Nikolai Yudin`
 - `ru-708` **October 1964 Plenum** — search suggests `October 1964`, `Vladimir Lenin`, `Albania–Russia relations`, `Communist Party of the Soviet Union`, `Copyright law of Russia`
 - `ru-731` **Gaidar reforms** — search suggests `Yeltsin–Gaidar government reforms`, `Yegor Gaidar`, `Mikhail Poltoranin`, `List of presidents of Russia`, `List of libraries in Russia`
-- `ru-751` **natural zones of Russia** — search suggests `Geography of Russia`, `Economy of Russia`, `Wildlife of Russia`, `Russo-Ukrainian war`, `Russia`
 - `ru-791` **Ilminsky system** — search suggests `Bashkir alphabet`, `Yañalif`, `Tatar alphabets`, `Order of Saint Anna`, `Tatar language`
 - `us-004` **coastal migration route** — search suggests `Peopling of the Americas`, `Coastal Georgia`, `Monarch butterfly migration`, `Recent African origin of modern humans`, `Migrants' African routes`
 - `us-009` **North American Archaic** — search suggests `Midwestern United States`, `United States`, `Beer in the United States`, `North America`, `Archaic Dog Burials in the Midwest United States`

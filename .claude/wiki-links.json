@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-26T18:16Z",
+ "generated": "2026-11-26T18:21Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8988,
-  "redirect-broader": 865,
+  "ok": 8990,
+  "redirect-broader": 864,
   "redirect-variant": 520,
   "section-redirect": 203,
   "disambiguation": 164,
-  "none": 1305,
+  "none": 1304,
   "disambig-resolved": 117,
   "list-page": 6,
   "search-match": 11,
@@ -96636,18 +96636,11 @@
    "status": "ok"
   },
   "ru-751": {
-   "answer": "natural zones of Russia",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Geography of Russia",
-    "Economy of Russia",
-    "Wildlife of Russia",
-    "Russo-Ukrainian war",
-    "Russia"
-   ]
+   "answer": "Geography of Russia",
+   "title": "Geography of Russia",
+   "url": "https://en.wikipedia.org/wiki/Geography_of_Russia",
+   "via": "glossary",
+   "status": "ok"
   },
   "ru-752": {
    "answer": "East European Plain",
@@ -96721,9 +96714,9 @@
    "status": "ok"
   },
   "ru-762": {
-   "answer": "Continental climate",
-   "title": "Continental climate",
-   "url": "https://en.wikipedia.org/wiki/Continental_climate",
+   "answer": "Climate of Russia",
+   "title": "Climate of Russia",
+   "url": "https://en.wikipedia.org/wiki/Climate_of_Russia",
    "via": "glossary",
    "status": "ok"
   },
@@ -96792,9 +96785,9 @@
    "status": "ok"
   },
   "ru-782": {
-   "answer": "Nevsky Prospect",
-   "title": "Nevsky Prospect",
-   "url": "https://en.wikipedia.org/wiki/Nevsky_Prospect",
+   "answer": "Saint Petersburg",
+   "title": "Saint Petersburg",
+   "url": "https://en.wikipedia.org/wiki/Saint_Petersburg",
    "via": "glossary",
    "status": "ok"
   },
@@ -96941,16 +96934,16 @@
    "from": "Evenks"
   },
   "ru-771": {
-   "answer": "Black Sea Fleet",
-   "title": "Black Sea Fleet",
-   "url": "https://en.wikipedia.org/wiki/Black_Sea_Fleet",
+   "answer": "Black Sea",
+   "title": "Black Sea",
+   "url": "https://en.wikipedia.org/wiki/Black_Sea",
    "via": "glossary",
    "status": "ok"
   },
   "ru-772": {
-   "answer": "Baltic Fleet",
-   "title": "Baltic Fleet",
-   "url": "https://en.wikipedia.org/wiki/Baltic_Fleet",
+   "answer": "Baltic Sea",
+   "title": "Baltic Sea",
+   "url": "https://en.wikipedia.org/wiki/Baltic_Sea",
    "via": "glossary",
    "status": "ok"
   },
