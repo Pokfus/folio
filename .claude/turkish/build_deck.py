@@ -17,10 +17,14 @@ THE FORMS ROW is the part of Turkish a learner cannot guess -- suffixes under
 vowel harmony and consonant change -- READ from the dictionary's table, never
 derived:
   * noun: plural, accusative, dative, locative, ablative, genitive
-    (`kitaplar kitabı kitaba kitapta kitaptan kitabın`);
-  * pronoun: the same cases, no plural (its plural is another card's word);
+    (`kitaplar kitabı kitaba kitapta kitaptan kitabın`), then two POSSESSED forms, "my" and
+    "his, her" (`kitabım kitabı`; `arabam arabası`) -- the beginner pass of Nov 2026 measured A1's
+    sentences: 316 of 4,561 words were a possessed form of an A1 noun and no card showed one;
+  * pronoun: the same cases, and its plural where that is not another card's word (`o`: `onlar`,
+    `bu`: `bunlar` -- but not `ben`: `biz`, which is a card);
   * verb: present, aorist, past and future, third person singular
-    (`gidiyor gider gitti gidecek`).  THE VERB TABLE'S PERSON TAGS ARE SHIFTED
+    (`gidiyor gider gitti gidecek`), then the NEGATIVE of the present (`gitmiyor`) and the two
+    commands, to `sen` and to `siz` (`git`, `gidin`), added by the same pass.  THE VERB TABLE'S PERSON TAGS ARE SHIFTED
     BY ONE ROW in this extraction (`giderim` is tagged third person), so a
     tense's cell is the THIRD row of that tense's first block, found by its
     tense tag, and every cell is checked against the shape its tense must have
@@ -74,6 +78,14 @@ def senses_of(word, D):
             # a dated English term inside an otherwise sound gloss is dropped, not shown: `siyahi` (the
             # neutral Turkish word) is glossed "black person of African descent, Negro"
             g = ", ".join(x for x in g.split(", ") if x not in DATED_TERMS)
+            # SEN AGAINST SIZ.  Turkish says "you" two ways, and Wiktionary tags a sense that is one of
+            # them `formal` or `informal` -- `nasılsın` and `nasılsınız` are both glossed "how are you",
+            # `hoş geldin` and `hoş geldiniz` both "welcome".  The tag is printed after the gloss, so the
+            # English -> Turkish card says which is asked (the beginner pass of Nov 2026).  Only where
+            # the gloss does not say it already (`sen`: "you (singular, informal)").
+            reg = next((x for x in ("formal", "informal") if x in (s.get("t") or [])), None)
+            if g and reg and not re.search(r"\b%s\b" % reg, g, re.I):
+                g = "%s (%s)" % (g, reg)
             if g and g not in gl:
                 gl.append(g)
         if gl:
@@ -101,6 +113,12 @@ CASES = [("plural", {"nominative", "plural"}, {"possessive"}),
          ("locative", {"locative", "singular"}, {"possessive"}),
          ("ablative", {"ablative", "singular"}, {"possessive"}),
          ("genitive", {"genitive", "singular"}, {"possessive"})]
+# The two possessed forms, nominative, one thing owned: the tags are matched whole, since every other
+# cell of the possessive table carries these and a case or a plural besides.
+POSSESSED = [("my", {"first-person", "nominative", "possessed-single", "possessive", "singular"},
+              lambda f: f.endswith("m")),
+             ("his, her", {"third-person", "nominative", "possessed-single", "possessive", "singular"},
+              lambda f: f[-1] in "ıiuü")]
 VERB = [("present", "continuative", lambda f: f.endswith("yor")),
         ("aorist", "aorist", lambda f: f.endswith("r")),
         ("past", "past", lambda f: re.search(r"[dt][ıiuü]$", f) is not None),
@@ -114,7 +132,7 @@ VOWEL_END = set("aeıioöuü")
 # `n` after a lexicalised possessive (havalimanı-n-ı, birisi-n-e), `y` in `suyun`.  Wiktionary's table
 # drops it altogether now and then (`belirtii`, `ezgii`): such a cell is dropped and reported.  A first
 # version demanded the regular consonant and refused every lexicalised possessive.
-BUFFER = {"accusative", "dative", "genitive"}
+BUFFER = {"accusative", "dative", "genitive", "his, her"}
 
 
 def cell_ok(word, label, f):
@@ -123,16 +141,26 @@ def cell_ok(word, label, f):
     return f[len(word)] not in VOWEL_END
 
 
-def noun_row(word, e, pron=False):
+def noun_row(word, e, pron=False, D=None):
     t = tr.table_forms(e, word)
     cells = []
     for label, need, avoid in CASES:
-        if pron and label == "plural":
-            continue
         hit = next((f for f, tg in t if need <= set(tg) and not set(tg) & avoid), None)
+        if pron and label == "plural" and (not hit or "-" in hit or " " in hit
+                                           or any(tr.live(x) for x in (D or {}).get(hit, []))):
+            continue      # `ben`: `biz` is a card of its own; `o`: `onlar` is on no card but this one
         if hit and hit != word:
             if not cell_ok(word, label, hit):
                 REPORT.append("%s: %s cell %r lacks its buffer consonant, dropped" % (word, label, hit))
+                continue
+            cells.append((label, hit))
+    if not pron:
+        for label, need, shape in POSSESSED:
+            hit = next((f for f, tg in t if set(tg) == need), None)
+            if not hit or hit == word or not hit.strip("- "):
+                continue
+            if not shape(hit) or not cell_ok(word, label, hit):
+                REPORT.append("%s: %s cell %r has the wrong shape, dropped" % (word, label, hit))
                 continue
             cells.append((label, hit))
     return cells
@@ -185,6 +213,16 @@ def aorist_doubtful(f, word=""):
     return FREQ.get(alt, 0) > 10 * max(1, FREQ.get(f, 0)) or rule_disagrees
 
 
+def siz_doubtful(f, stem):
+    """The command to `siz`, checked against the corpus as the aorist is.  The table narrows the stem of
+    `demek` and gives `diyin` (391 in the subtitles) where Turkish writes `deyin` (4,004); `yemek`'s
+    `yiyin` (2,307, against `yeyin` 117) and `gitmek`'s `gidin` stand.  A cell is dropped when the same
+    ending on the UNCHANGED stem is ten times commoner."""
+    aorist_doubtful("", "")            # loads FREQ
+    alt = stem + ("y" if stem[-1] in VOWEL_END else "") + f[-2:]
+    return alt != f and FREQ.get(alt, 0) > 10 * max(1, FREQ.get(f, 0))
+
+
 def verb_row(word, e):
     t = tr.table_forms(e, word)
     cells = []
@@ -201,6 +239,29 @@ def verb_row(word, e):
             continue
         if label == "aorist" and aorist_doubtful(f, word):
             REPORT.append("%s: aorist %r is rare in the corpus beside its other vowel, dropped" % (word, f))
+            continue
+        cells.append((label, f))
+    # THE NEGATIVE AND THE COMMANDS, found as the tenses are: by the block's tense tags and the row's
+    # place in it (the person tags are shifted, see above), each checked against its shape.  The negative
+    # of the present is the third row of the `negative`+`continuative` block (`gitmiyor`); the imperative
+    # block has no first person, so its first row is the command to `sen`, which is the bare stem (`git`),
+    # and its third the command to `siz` (`gidin`).
+    stem = word[:-3]
+    for label, tags, off, shape in (
+            ("negative", {"negative", "continuative"}, 2, lambda f: re.search(r"m[ıiuü]yor$", f) is not None),
+            ("imperative", {"imperative"}, 0, lambda f: f == stem),
+            ("imperative (siz)", {"imperative"}, 2, lambda f: re.search(r"[ıiuü]n$", f) is not None)):
+        start = next((i for i, (f, tg) in enumerate(t) if set(tg) & OTHER_TENSES == tags), None)
+        if start is None or start + off >= len(t):
+            REPORT.append("%s: no %s block" % (word, label))
+            continue
+        f = t[start + off][0]
+        if not shape(f) or f[0] != word[0]:
+            REPORT.append("%s: %s cell %r has the wrong shape, dropped" % (word, label, f))
+            continue
+        if label == "imperative (siz)" and siz_doubtful(f, stem):
+            REPORT.append("%s: imperative (siz) %r is ten times rarer in the corpus than the stem kept whole, "
+                          "dropped" % (word, f))
             continue
         cells.append((label, f))
     return cells
@@ -230,7 +291,7 @@ def forms_html(word, D):
     if e["pos"] == "verb":
         cells = verb_row(word, e)
     elif e["pos"] == "pron":
-        cells = noun_row(word, e, pron=True)
+        cells = noun_row(word, e, pron=True, D=D)
     elif e["pos"] == "noun" and not any(x["pos"] in CLOSED for x in L):
         cells = noun_row(word, e)
     else:

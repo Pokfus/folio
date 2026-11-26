@@ -60,7 +60,7 @@ before changing the thing it names.
 | `library-importer.md` | `.claude/fetch-book.js` — the 23 layouts, the extraction faults, the per-book options. |
 | `lang-decks.md` | The community and language decks' generators, and every pipeline's findings. |
 | `russian-decks-plan.md` | The plan for the Russian language decks (TORFL A1–C2 + phrases): word source, lemma order, stress, aspect pairs, the as-built findings per level. Alphabet, A1–C2 and phrases are built. |
-| `turkish-decks-plan.md` | The plan for the Turkish language decks (A1–C1 + phrases): sources checked, the card, the pitfalls, the build order, open decisions. |
+| `turkish-decks-plan.md` | The plan for the Turkish language decks (A1–C1 + phrases): sources checked, the card, the pitfalls, the build order, the decisions, and (§9) what the beginner pass of Nov 2026 changed. |
 | `arabic-decks-plan.md` | The Arabic language decks (Modern Standard Arabic): the alphabet, A1 to C1 and a phrases deck are built (lower levels frozen: rules found later are gated); word source, the vowelled card, right-to-left markup, the fold, the count and sentence rules, next levels; §7 the Nov 2026 record, pin and order (`arabic-fix.js`). |
 | `hausa-decks-plan.md` | The plan for the Hausa language decks (Boko alphabet, A1–B1 assembled to CEFR from thin sources, phrases): the owner's decisions, what Wiktionary lacks and the hand glosses, the card, the findings. Complete: alphabet, A1, A2 (439 notes) and phrases (90); no B1, the source used up. |
 | `persian-decks-plan.md` | The plan for the Persian (Farsi) language decks (alphabet, A1–C1 assembled to CEFR, phrases): sources, the card, right-to-left, the findings. Complete: alphabet, A1–C1 and phrases are built. |

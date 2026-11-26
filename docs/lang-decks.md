@@ -3630,6 +3630,33 @@ changed was the one that had been wrong all along.
   gloss "that place" and are told apart only by the shared "not …" label; `misafir` opens on Wiktionary's
   first sense, "leucoma", before "guest"; and A2's fill carries the subtitles' crime-drama vocabulary
   (`cinayet`, `ceset`, `katil`, `silah`) on frequency, as every subtitle-ordered deck on the shelf does.
+  **THE BEGINNER PASS (2026-11-26) — the generator is no longer the last word on a deck.** "The Turkish
+  beginner pass" below is the reasoning; the rules it left are these. (1) **A deck is the generator's output
+  with a RECORD applied** (`.claude/decks/turkish-fixes.json`, `turkish-ids.json`, `turkish-order.json`,
+  applied by `turkish-fix.js`; `.claude/decks/README.md`, "The Turkish decks"): ids are PINNED, never
+  positions, so `run.py` alone leaves a deck numbered wrongly and unordered — always follow it with
+  `inserts.py`, `turkish-fix.js`, `turkish-order.js`, `turkish-fix.js`, `build-turkish-sounds.js`,
+  `turkish-fix.js`. (2) **"A re-run is byte-identical" is true of the code, not of the sources**: with every
+  source fetched fresh on 2026-11-26 the six decks came out with 3 sentences and 11 phrase positions other
+  than shipped, each traced to Tatoeba's export (a sentence that gained its full stop, a new sentence, counts
+  that moved). The pin and the order file make the positions harmless. (3) **`tr.words_below` reads the
+  record**, for `select.taught_below` and `phrases.taught`: a card the record moved down is still dealt to
+  the level it was generated in, and `turkish-fix.js` moves it again. (4) **The forms row is longer**: a noun
+  ends with `my` and `his, her` (the nominative, one thing owned: the cells whose tags are exactly those),
+  a verb with `negative` (the third row of the `negative`+`continuative` block), `imperative` and
+  `imperative (siz)` (the first and third rows of the `imperative` block, which has no first person); a
+  pronoun shows its plural where that is no live headword (`o`: `onlar`). Each is checked by shape, and the
+  command to `siz` against the corpus (`siz_doubtful`: the table gives `diyin` for `demek`, 391 in the
+  subtitles against `deyin` 4,004 — dropped and reported). (5) **A sentence is found by the word's forms
+  MINUS other words' spellings** (`examples.forms_of(strict=True)`): a form that is another live headword's
+  own spelling, a cell of a pronoun's table, or — for a verb whose stem is a word (`var`, `et`, `geç`) — a
+  cell of that word's table, finds no sentence. A pronoun's own card keeps every cell. What it cannot see is
+  a word whose own spelling is two words (`bin`, `hala` for `hâlâ`). (6) **A sense tagged `formal` or
+  `informal` prints the tag after its gloss** (`nasılsınız`: "how are you? (formal)"), which is what tells
+  sen from siz on the English → Turkish card. (7) **The programme's PDF moved** in Nov 2026 (the 2024 URL is
+  a 404); `run.py` names the new one, the same edition and ISBN, and the phrases deck rebuilt from it
+  counts the same 43 phrases. (8) **`mi`, `de` and the one-word formulas are cards of A1 by the record**,
+  not by `select.py`, whose exclusion of `mi` and `de` stands for the frequency fill.
 - `.claude/korean/` — the generator behind the **Korean decks** (Nov 2026, on request: "And a Korean language
   collection."). **Built, five files**: `Korean-Alphabet-Hangul` (40 letters), `Korean-Stage-A` (922 notes),
   `Korean-Stage-B` (2,063), `Korean-Stage-C` (2,806) and `Korean-Phrases-and-Expressions` (517: 41 phrases, 316
@@ -6428,6 +6455,221 @@ In A1 69% of a sentence's words have been met on arrival and 15% are on no card 
   check-delf's "repairs are in the deck" assertion fails on main and on this branch alike (it looks for
   a bare word where the headword carries its article), and the phrases deck's subtitle may not say DELF
   or DALF, which is why it says "A1's words".
+
+## The Turkish beginner pass (2026-11-26)
+
+On request, the audit the Japanese, Mandarin, Spanish, Italian, German, Portuguese, Indonesian and Urdu decks
+had been given: **what does a learner with no Turkish meet, in the order the shelf itself recommends** — A1
+to C1, then the phrases? Every figure was measured on the six decks as shipped that morning, at the language
+default of ten new cards a day with both directions together, which is five words a day. The rules are in
+the `.claude/turkish/` entry above and in `.claude/decks/README.md` ("The Turkish decks"); this section is
+the reasoning.
+
+**The generator's claim was proved first**: one fetch of the live sources (kaikki 463 MB, Tatoeba's three
+exports, the subtitle list; the programme's PDF from its new address, the old one answering 404), then
+`--no-fetch` into a scratch copy. A1, A2 and B2 came out with the committed checksums. B1 differed in two
+sentence fields and C1 in one (Tatoeba's `Çok pis dövüştük` had gained its full stop; a new sentence of
+`masraf` sorted before an old one), and the phrases deck in the position of 11 of its 483 notes, every field
+and the description equal (the order is Tatoeba's count, which had moved). So the code is reproducible and
+the sources are live: unlike the Spanish, German and Indonesian decks, a fault the generator can fix IS fixed
+in the generator, and only a decision about one card or one order is in a record — the Urdu arrangement.
+
+### What the audit found, by what it costs a beginner
+
+1. **Every sentence is built of suffixed forms, and the cards showed a third of them.** Of the 4,561 words
+   in A1's 1,493 example sentences, 2,289 (50%) were a headword or a form some A1 card shows; 921 (20%) were
+   a form of an A1 word that NO card showed, by the dictionary's own tables: 316 possessed forms (`babam`,
+   `köpeğim`, `ihtiyacım`, `gözlerini`), 93 imperatives, 91 pasts and 88 presents in a person other than the
+   third, 56 aorists, 49 negatives, 43 adjectives with the copula (`üzgünüm`, `iyiyim`); and 1,351 (30%)
+   were no form of any A1 card (Tom 69 times; the question particle 64; `hava`, an A2 card, 17). A noun card
+   showed its plural and five cases (237 cards with the pronouns, 44 of them with a stem that changes:
+   `kitap → kitabı`, `ağız → ağzı`, `çocuk → çocuğu`) and no possessed form; a verb card the third person
+   of four tenses (the aorist's irregulars are there: `gelir`, `alır`, `olur`, `bilir`) and no negative, no
+   command, no form for siz. Of the 216 verb forms A1's sentences mark, 8 are the infinitive, 59 a form the
+   card shows and 149 neither. Vowel harmony was one sentence of each description ("a suffix's vowel
+   follows the vowels of the word") and on no card: nothing said that -ler / -lar or -i / -ı / -ü / -u are
+   one ending each.
+2. **The courtesies were weeks, months or years away.** `evet` was note 17 and `lütfen` 75 (day 15), but
+   `teşekkürler` was 129 (day 26) and `merhaba` 132 (day 27); `selam`, `günaydın`, `pardon` and
+   `affedersiniz` were A2 (days 104, 163, 176, 177), `sağ ol` and `buyurun` B1 (days 247, 249),
+   `hoş geldiniz` B2 (day 454), and `teşekkür ederim`, `rica ederim`, `iyi günler`, `iyi akşamlar`,
+   `iyi geceler`, `hoşça kal`, `güle güle`, `adınız ne`, `benim adım`, `kolay gelsin`, `afiyet olsun` and
+   `geçmiş olsun` were in the phrases deck, which the shelf lists after C1: day 861 at the earliest. On no
+   card at all: `nasılsın`, `nasılsınız` and `görüşürüz` (Wiktionary files them as phrases of one word; the
+   phrases stage wants two words and the level stages do not read phrases), and `özür dilerim` and
+   `iyiyim` (no entry).
+3. **A1 was dealt by subtitle frequency and the closed sets were scattered.** Day one was bir · bu · ben ·
+   sen · o. One to ten ran from note 1 (`bir`) to 322 (`dokuz`), the tens from 341 to 467, `sıfır` was B2's
+   note 249 (day 470) and `milyon` A2. The days of the week were notes 308 to 389, the months 364 to 433,
+   the seasons 291 to 470, nine colours 229 to 444 with `kahverengi` and `gri` in B2, the ordinals 224 to
+   300 with `dördüncü` and `beşinci` in B2. The pronouns: ben 3, sen 4, o 5, biz 101, siz 278, and `onlar`
+   on no card (the programme's inventory names it; the dictionary files it as a form of `o`, and `o`'s row
+   left its plural out). The question words: ne 7, neden 37, nasıl 39, kim 69, nerede 131, kaç 179, nereden
+   191, hangi 207, `niye` and `niçin` in A2, `nereye` and `ne zaman` on no card. var 18, değil 19, yok 28;
+   the question particle `mi` on no card (`select.py` excludes it by name), as `de`, "too" (11 sentence
+   words). The verbs were early (olmak 6 … almak 36) except `yemek` 95 and `içmek`, A2's note 91 (day 119);
+   `su` and `ad` were A2 too, though `meyve suyu` is an A1 card and `adınız ne` the first question.
+4. **Nothing said how a letter is read.** 219 of A1's 500 headwords contain a letter that does not have its
+   English value: ı 61, ş 49, ü 45, ç 36, ğ 26, c 25, ö 24, the circumflex 3, j 2 (A2 279 of 600, B1 485 of
+   999, B2 599 of 1,197, C1 510 of 997). No deck and no description mentioned a sound, the stress, or that
+   ğ is not a g.
+5. **Thirty-odd sentences of A1 showed another word.** A sentence was matched to a card by any cell of the
+   word's table: `demek` "to say" carried `Ben de gittim` ("I also went": `de` is its imperative too), `on`
+   "ten" three sentences of `onu / onun / ondan` ("him, his, from him"), `varmak` "to arrive" three of
+   `var` "there is", `iç` "inside" two of `için` "for", `etmek` `Et yer misin?` ("do you eat meat?"), `ay`
+   "moon" a bear (`ayı`), `mart` a seagull (`martı`), `doğu` "east" two births (`doğum`). 39 A1 cards changed
+   a sentence when the rules under "What was built" went in, 34 of A2, 43 of B1, 49 of B2 and 16 of C1.
+6. **The reverse card was mostly sound, and did not tell sen from siz.** A1 asks English → Turkish with
+   2.4 senses on average (173 of 500 notes have three or more). Notes sharing a first gloss: 6 groups in A1
+   (adam and insan, geri and arka, tüm and bütün, ilk and birinci, bot and çizme, şurası and orası — only
+   the last hinted, the generator labelling wholly identical English sides alone), 9, 10, 17 and 11 above,
+   19 in the phrases (35 of 42 notes hinted). 6 fronts in A1 contain their own answer, every one a loan that
+   is the same word in English (plan, park, jet, jeton) or a gloss that quotes it (22, 25 and 16 at B1 to
+   C1). Wiktionary tags a sense formal or informal and the cards dropped the tag: `hoş geldin` and
+   `hoş geldiniz` were both "welcome", `nasılsın` and `nasılsınız` would both have been "how are you".
+7. **The example sentences are short and half-readable.** Three words at the median at every level (8 at
+   most in A1, 13 in C1). In the order the cards arrive, counting a suffixed form as met only if a card
+   shows it, 46% of a sentence's words had been met at A1 (94 of 1,493 sentences readable whole), 51% at
+   A2, 56% at B1, 59% at B2, 62% at C1; over A1's first fifty notes 34%, with 2 of 150 sentences readable.
+8. **The pace was stated nowhere**, and no deck said where to start. A1 was 100 days, A2 ran to day 220,
+   B1 began on day 221, B2 on 421, C1 on 661, the phrases on 861: 4,776 notes, 957 days, 2.6 years.
+9. **The levels are cleanly cut, and A1 is a school syllabus.** No headword is a card of two decks. A
+   headword that is a form a lower card shows: 5 in A2 (`gelir` "income", `yazar` "writer"), 12, 9 and 3
+   above, every one a word in its own right. The median rank of a level's first 300 headwords in the
+   subtitle list is 464, 574, 1,857, 5,103 and 10,711: A1 and A2 are nearly as common as each other, because
+   A1 is the programme's themes (`silgi`, `uçurtma`, `zürafa`, `jeton`) and A2 took the common words they
+   left (`su`, `ad`, `hava`, `herkes`, `kapı`). Every description says, truthfully and at length, that the
+   scope is a syllabus's and not an exam's, and from A2 Folio's own.
+10. **The phrases were in the order of Tatoeba's counts, not of their level.** Of the 118 everyday phrases
+    11 are spelled entirely with words and forms an A1 card shows (7 more by A2, 3 by B1, 3 by B2, 2 by C1,
+    and 92 use a word or form no card shows); of the 304 idioms 21, 42, 26, 20, 9 and 186; of the 61
+    proverbs 5 in all and 56 none. 202 of the 483 have no sentence.
+11. **Card ids were positions**, on all six decks.
+
+### What was built
+
+**In the generator** (`.claude/turkish/`; every level rebuilt, and rebuilt again AFTER the record had moved
+cards, one level at a time in a scrambled order over the shipped decks: all six files equal to the first run):
+
+- **Two possessed forms on every noun row**, `my` and `his, her` (`kitabım`, `kitabı`; `arabam`, `arabası`),
+  read from the dictionary's table as the cases are: 1,880 cards on the five levels. **The negative of the
+  present and the two commands on every verb row** (`gitmiyor`; `git`, to sen; `gidin`, to siz): 593
+  cards. **A pronoun's plural where it is no card of its own** (`o`: `onlar`, `bu`: `bunlar`, `kim`:
+  `kimler`). Each cell is checked by its shape, and the command to siz against the corpus: the table's
+  `diyin` (391 in the subtitles; `deyin` 4,004) is dropped and reported, as a passive verb's missing
+  imperative block is (`bilinmek`).
+- **A sentence is no longer found by another word's spelling** (finding 5; `examples.forms_of`, strict): a
+  form that is another live headword's spelling, a cell of a pronoun's table, or a cell of the word a
+  verb's stem is (`var`). A number's suffix is not a word (`1972'de` had tokenised to `de`). Six listed
+  nouns are not shown by a sentence in which their spelling stands as a verb (`bin`, `et`, `yaz`, `yer`,
+  `de`, `iç`: `Bir otobüse bin`), and a hand table of five lines holds what no rule sees (`hala` for
+  `hâlâ`, `vardı`). The twin rule was tried on every such word first and took `Bir köpeğim var` and
+  `Saat kaç?`, which is why it is a list.
+- **The register of a sense, printed after its gloss** where Wiktionary tags it formal or informal:
+  44 cards, 19 of them phrases (`nasılsınız`: "how are you? (formal)"; `hoşça kal`; `lütfen`).
+- **`tr.words_below` reads the record**, so a level, or the phrases deck, rebuilt alone is dealt the list it
+  was dealt before a card moved out of it. `run.py` fetches the programme from its new address.
+
+**In a record** (`.claude/decks/turkish-fixes.json`, applied by `turkish-fix.js`, on the Urdu model):
+
+- **Note ids pinned** (`turkish-ids.json`, 4,776 rows seeded from the shipped positions and checked equal),
+  before anything moved. Checked in a browser with the decks as shipped: a reader holding the old A1 and the old phrases, with
+  25 and 27 notes studied in BOTH directions, took the two Updates ("38 new cards, 294 cards corrected";
+  "19 cards corrected, 16 cards dropped from the list (kept here, with their progress)") and kept all 104
+  card ids on the same words with their schedules; every one of the 983 old note ids still named its word,
+  and the 16 notes the phrases file dropped stayed on the device.
+- **31 cards moved down to A1** (a move is a row, never a copy; the old number goes to `_retired`): 16
+  everyday formulas of the phrases deck; `selam`, `günaydın`, `affedersiniz`, `pardon`, `ad`, `su` and
+  `içmek` from A2; `sağ ol` and `buyurun` from B1; `hoş geldiniz`, `sıfır`, `dördüncü`, `beşinci`,
+  `kahverengi` and `gri` from B2. No headword is carded twice on the shelf.
+- **7 cards added to A1**, their fields built by `inserts.py` with the generator's own code from the
+  English Wiktionary's entries and Tatoeba: `mi`, `de`, `nasılsın`, `nasılsınız`, `görüşürüz`, `ne kadar`
+  and `özür dilemek`, whose sentences are `özür dilerim`.
+- **An order** (`turkish-order.json`, computed by `turkish-order.js` from the pinned number): A1's first
+  100 notes by hand — the greetings and courtesies, the pronouns, a first exchange, sorry and excuse me,
+  this and that, var / yok / değil with `mi` and `de`, fourteen verbs (yemek and içmek among them), the question words,
+  zero to ten, five postpositions, five formulas — then frequency with twenty to a thousand and the
+  ordinals from note 121, the days from 151, the months and seasons from 161, the colours from 201, the
+  compass points from 301; the phrases by the lowest level that spells them, inside each subdeck (16 of
+  the 102 everyday phrases, 24 of the idioms and no proverb by A1's cards and forms). `merhaba`
+  and `teşekkür ederim` are day one, good morning to good night day three, `nasılsın` day five, the verbs
+  days 11 to 13, the question words days 14 to 16, zero to ten days 17 and 18.
+- **The descriptions**: each ends with a paragraph the record rewrites and recounts on every run — what
+  moved, the order, the pace, where to start, what a card shows since the pass, sen against siz, and on A1
+  what is still on no card and why.
+- **Two reverse-card hints** in A1, the generator's own `not …` label: `teşekkür ederim` and `sağ ol`,
+  both "thank you", which the record brought together.
+
+**`Turkish — Sounds and spelling`** (24 notes, one card each, card type `trsound`;
+`build-turkish-sounds.js` from `turkish-sounds.json`): the eight vowels, eight consonant letters (c, ç, g, ğ,
+j, r, ş, y) and eight rules — the circumflex, the stress, the suffix with e or a, the suffix with i, ı, ü or
+u, the present in -iyor, the final consonant that softens before a vowel, the suffix whose d becomes t, and
+the particles written apart (`mi`, `de`). Every sound and English comparison is a cell of the letter's row in
+the table of Wikipedia's "Turkish alphabet" (revision 1387730069), every note and rule a quoted run of that
+article, of "Turkish phonology" (1384242891) or of "Turkish grammar" (1379006387); `sounds.py --verify`
+fetches the three revisions and checks all 62 cells and quotations, and was seen to fail on an altered one.
+Every example word is an A1 card with its speaker and the English Wiktionary's transcription
+(`sounds.py --fill`), and **a rule's table of forms is read off the Forms rows of the A1 cards it names**
+(ev, gün, göz, kız, oda, okul: plural and locative), so a rule shows only what a card shows.
+
+**CI**: `turkish-fix.js --check`, `turkish-order.js --check`, `build-turkish-sounds.js --check` and
+`check-turkish.js` (which was in no workflow, and now reads the pin).
+
+After it: A1 538 notes, A2 593, B1 997, B2 1,191, C1 997, the phrases 467, the sounds deck 24; 4,807
+notes, 963 days. In A1 49% of a sentence's words have been met on arrival (46%) and 152 of 1,601 sentences
+can be read whole (94 of 1,493); over the first fifty notes 50% and 20 of 149 (34% and 2 of 150). A2 to C1:
+55%, 60%, 63% and 64% (51%, 56%, 59%, 62%), the new cells alone.
+
+### What was decided against, and why
+
+- **Changing §8 of the plan.** The spine is the programme's vocabulary, B1+ is folded into B1, the names
+  are English. The 38 cards A1 gained are said, in its description, not to be the programme's.
+- **A grammar deck.** The suffix rules that can be QUOTED are cards of the sounds deck, each with forms off
+  A1's own rows; the buffer consonants (`araba`, `arabayı`, `arabası`) and the verb's personal endings are
+  on the cards and have no rule, no sentence having been found to quote for them.
+- **More cells on a row.** The other persons of a tense (`gidiyorum`, `gittin`: 179 sentence words) would
+  need five more cells on every verb; the aorist negative (`gitmez`) and the potential likewise. A row is
+  eight cells on a noun and seven on a verb, three lines on a phone.
+- **Cards for `nereye`, `onlar`, `ne zaman`, `özür dilerim`, `iyiyim`, `Türkçe`, `Türkiye`.** The English
+  Wiktionary files the first two only as forms of another word, has no entry for the next three, and files
+  the last two as names, which no stage reads; a meaning is never typed. `onlar` is on `o`'s row, `özür
+  dilerim` is the sentences of `özür dilemek`.
+- **Moving `iyiyim, teşekkürler` to A1.** The phrases deck holds it beside `iyiyim, teşekkür ederim`, and
+  the generator tells the two apart with the label "not iyiyim, teşekkür ederim" — which, on the English →
+  Turkish front, is most of the answer. It stays where its twin is.
+- **Moving every common A2 word down** (`hava`, `herkes`, `kapı`, `zaten`). A1 is the programme's list
+  (finding 9); what moved is what a first exchange needs. A2 follows directly.
+- **Re-ordering A2 to C1**, where 51% to 62% of a sentence's words have been met; and **shorter sentences
+  for the head**, the median being three words already.
+- **Subdecks for the sets.** The app deals subdecks in parallel, a day apart.
+- **Hints above A1** (9, 10, 17 and 11 groups share a first gloss) and for the loans that name themselves.
+- **Cards for the letters read as in English**, and for the two l's and k's, which an English reader does
+  not misread.
+- **Help:IPA/Turkish as the source of the comparisons.** It is keyed by sound; the alphabet article's table
+  is keyed by letter, which is what a card is, and one source keeps the comparisons of one kind.
+
+### Limits to know about
+
+- **A word whose own spelling is two words is fixed only where it was read**: the six listed twins and the
+  five lines of the hand table are A1's shortest headwords. The same fault stands unread above A1
+  (`gelir`, `yazar`, `okur` are B-level cards).
+- **The forms are the English Wiktionary's table**, checked by shape and not by a second source, except
+  the aorist and the command to siz, which the corpus witnesses.
+- **`lütfen` reads "please (formal)"**: the tag is the dictionary's.
+- **That the 38 cards are A1 material is a judgement here**, not a citation: the programme's "Dil
+  İfadeleri" columns were not read for them, though 43 of the phrases deck's formulas occur in its text.
+- **A reader who already holds A2, B1, B2 or the phrases keeps the cards that moved** and meets them again
+  in A1.
+- **Rebuilding one level needs the levels its moved cards came from** rebuilt with it: a moved card is not
+  stored in the record.
+- **`inserts.py --check` and `sounds.py --verify` need the cache or the network and are not CI steps.**
+- **The head's sentences were not replaced**: over A1's first fifty notes half the words have been met.
+- **Not read card by card**: the 38 added and moved cards, the head, A1's short headwords' sentences and
+  the sounds deck were; the other 4,700 are as generated, with the new cells checked by rule.
+- **`selamünaleyküm` (C1) has two sentences that do not contain it**: its table carries stray cells. Seen,
+  left.
+- **The whole shelf is 4,807 notes: 963 days at the default pace, 2.6 years.**
+
 
 ## The DELE card-by-card audit, beyond A1 — the batch log
 

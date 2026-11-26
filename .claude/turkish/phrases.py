@@ -53,12 +53,9 @@ EXCLUDE = {
 
 
 def taught():
-    out = set()
-    root = os.path.join(tr.HERE, "..", "..", "decks")
-    for lv in LEVEL_FILES:
-        with open(os.path.join(root, "Turkish-%s.folio-deck.json" % lv), encoding="utf-8") as fh:
-            out |= {c["fields"]["Word"] for c in json.load(fh)["cards"]}
-    return out
+    # through the record (`tr.words_below`): a formula the record moved from this deck down to A1 was
+    # not dealt to A1 by the generator, so it is still dealt here, and `turkish-fix.js` moves it again
+    return tr.words_below([lv.lower() for lv in LEVEL_FILES])
 
 
 def senses_taught(entry):

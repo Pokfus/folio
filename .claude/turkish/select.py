@@ -182,14 +182,8 @@ def lemma_counts(D, freq):
 def taught_below(level):
     """Headwords already in the shipped decks of the levels below (none for A1)."""
     order = ["a1", "a2", "b1", "b2", "c1"]
-    out = set()
-    root = os.path.join(tr.HERE, "..", "..", "decks")
-    for lv in order[:order.index(level)]:
-        p = os.path.join(root, "Turkish-%s.folio-deck.json" % lv.upper())
-        with open(p, encoding="utf-8") as fh:
-            for c in json.load(fh)["cards"]:
-                out.add(c["fields"]["Word"])
-    return out
+    # through the record (`tr.words_below`): what the generator dealt there, not what a hand move left
+    return tr.words_below(order[:order.index(level)])
 
 
 def main():
