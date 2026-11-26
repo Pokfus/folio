@@ -26,21 +26,21 @@ accepted only when the title IS the answer. Nothing is guessed.
 
 | status | cards | meaning |
 |---|---:|---|
-| `ok` | 9014 | the title is the article |
+| `ok` | 9040 | the title is the article |
 | `redirect-variant` | 519 | spelling / plural / qualifier differed; same subject |
 | `disambig-resolved` | 116 | chosen from a disambiguation page by hint words — listed below |
 | `search-match` | 11 | a search hit with the answer's words in another order — listed below |
-| `redirect-broader` | 866 | redirected to a differently named article — listed below, a glance each |
+| `redirect-broader` | 868 | redirected to a differently named article — listed below, a glance each |
 | `list-page` | 6 | only a list / timeline / index page matched: no dedicated article, no link |
-| `section-redirect` | 203 | only a redirect into a section exists: no dedicated page, no link |
+| `section-redirect` | 204 | only a redirect into a section exists: no dedicated page, no link |
 | `disambiguation` | 165 | only a disambiguation page; no link could be chosen |
-| `none` | 1299 | nothing matched; no link |
+| `none` | 1300 | nothing matched; no link |
 
-**10533 of 12220 cards get a link.** The three "no link" rows are the honest state: a card whose
+**10561 of 12250 cards get a link.** The three "no link" rows are the honest state: a card whose
 answer is a descriptive phrase ("Palace storerooms and pithoi") has no dedicated article, and the box
 simply does not render for it.
 
-## Redirected to a differently named article — check each (866)
+## Redirected to a differently named article — check each (868)
 
 The answer redirects to an article with another name. Most are the same subject under Wikipedia's preferred title; a few will be a broader article the term is only a part of. Strike a line here and set that card's entry to `none` in `wiki-links.json` where the target is too broad.
 
@@ -709,6 +709,8 @@ The answer redirects to an article with another name. Most are the same subject 
 - `ru-764` **Don River** → [Don (river)](https://en.wikipedia.org/wiki/Don_(river)) (from `Don River`)
 - `ru-784` **Great Abatis Line** → [Great Zasechnaya cherta](https://en.wikipedia.org/wiki/Great_Zasechnaya_cherta) (from `Great Abatis Line`)
 - `ru-800` **Evenks** → [Evenki people](https://en.wikipedia.org/wiki/Evenki_people) (from `Evenks`)
+- `ru-817` **Jadidism** → [Jadid](https://en.wikipedia.org/wiki/Jadid) (from `Jadidism`)
+- `ru-832` **Autonomous Soviet Socialist Republic** → [Autonomous republics and oblasts of the Soviet Union](https://en.wikipedia.org/wiki/Autonomous_republics_and_oblasts_of_the_Soviet_Union) (from `Autonomous Soviet Socialist Republic`)
 - `ru-856` **Ober-Procurator** → [Procurator (Russia)](https://en.wikipedia.org/wiki/Procurator_(Russia)) (from `Ober-Procurator`)
 - `us-002` **settlement of the Americas** → [Peopling of the Americas](https://en.wikipedia.org/wiki/Peopling_of_the_Americas) (from `Settlement of the Americas`)
 - `us-017` **Mississippian culture** → [Mississippian period (archaeology)](https://en.wikipedia.org/wiki/Mississippian_period_(archaeology)) (from `Mississippian culture`)
@@ -1229,7 +1231,7 @@ The only match is a list, timeline or index page. Not a dedicated article, so no
 - `wh-179` **Sumerian city-state** — only an index page matched: `List of cities of the ancient Near East`
 - `wh-517` **peasant revolt** — only an index page matched: `List of peasant revolts`
 
-## Section redirects — no dedicated page (203)
+## Section redirects — no dedicated page (204)
 
 Wikipedia treats these as part of another article. No link.
 
@@ -1404,6 +1406,7 @@ Wikipedia treats these as part of another article. No link.
 - `ru-514` **Potemkin mutiny** — `Potemkin mutiny` only redirects into `Russian battleship Potemkin#Mutiny`
 - `ru-588` **military specialists** — `Military specialist` only redirects into `Military history of the Soviet Union#Tsarist and revolutionary background`
 - `ru-647` **assassination of Sergei Kirov** — `Assassination of Sergei Kirov` only redirects into `Sergei Kirov#Assassination`
+- `ru-819` **History of the Jews in the Russian Empire** — `History of the Jews in the Russian Empire` only redirects into `History of the Jews in Russia#Russian Empire`
 - `ru-854` **White clergy** — `White clergy` only redirects into `Secular clergy#Eastern Orthodox Church`
 - `us-105` **Coronado expedition** — `Coronado expedition` only redirects into `Francisco Vázquez de Coronado#Coronado Expedition`
 - `us-348` **War Hawks** — `War Hawks` only redirects into `War hawk#Historical group`
@@ -1437,7 +1440,7 @@ Wikipedia treats these as part of another article. No link.
 - `ww2-937` **Target Committee** — `Target Committee` only redirects into `Military Policy Committee#Target Committee`
 - `ww2-971` **London Charter** — `London Charter` only redirects into `Nuremberg trials#Nuremberg charter`
 
-## No article found (1299)
+## No article found (1300)
 
 Search suggestions are listed where Wikipedia returned any; none was accepted automatically because none has the answer as its title.
 
@@ -2645,6 +2648,7 @@ Search suggestions are listed where Wikipedia returned any; none was accepted au
 - `ru-708` **October 1964 Plenum** — search suggests `October 1964`, `Vladimir Lenin`, `Albania–Russia relations`, `Communist Party of the Soviet Union`, `Copyright law of Russia`
 - `ru-731` **Gaidar reforms** — search suggests `Yeltsin–Gaidar government reforms`, `Yegor Gaidar`, `Mikhail Poltoranin`, `List of presidents of Russia`, `List of libraries in Russia`
 - `ru-791` **Ilminsky system** — search suggests `Bashkir alphabet`, `Yañalif`, `Tatar alphabets`, `Order of Saint Anna`, `Tatar language`
+- `ru-892` **meshchane** — search suggests `Moscow`, `Tsarist Russia`, `The Philistines`, `Private Committee`, `Merchant guild (Russian Empire)`
 - `us-004` **coastal migration route** — search suggests `Peopling of the Americas`, `Coastal Georgia`, `Monarch butterfly migration`, `Recent African origin of modern humans`, `Migrants' African routes`
 - `us-009` **North American Archaic** — search suggests `Midwestern United States`, `United States`, `Beer in the United States`, `North America`, `Archaic Dog Burials in the Midwest United States`
 - `us-016` **Hopewell interaction sphere** — search suggests `Hopewell Ceremonial Earthworks`, `Hopewell tradition`, `Great Hopewell Road`, `Point Peninsula complex`, `Laurel complex`

@@ -13095,7 +13095,34 @@ window.GLOSSARY = {
 "Yasak": "",
 "North_Caucasus": "",
 "Circassians": "",
-"Georgia_within_the_Russian_Empire": ""
+"Georgia_within_the_Russian_Empire": "",
+"Erivan_Governorate": "",
+"Baku_Governorate": "",
+"Kazakhs": "",
+"Russian_Turkestan": "",
+"Central_Asian_revolt_of_1916": "",
+"Islam_in_Russia": "",
+"Jadid": "",
+"Buddhism_in_Russia": "",
+"History_of_the_Jews_in_Russia": "",
+"Shtetl": "",
+"Republics_of_the_Soviet_Union": "",
+"Autonomous_republics_and_oblasts_of_the_Soviet_Union": "",
+"Parade_of_sovereignties": "",
+"Ethnic_groups_in_Russia": "",
+"Russian_Orthodox_Church": "",
+"Byzantine_commonwealth": "",
+"Divine_Liturgy": "",
+"Russian_icons": "",
+"Merchant_guild_(Russian_Empire)": "",
+"Meshchane": "",
+"Raznochintsy": "",
+"Nizhny_Novgorod_Fair": "",
+"Ministry_of_National_Education_(Russian_Empire)": "",
+"Likbez": "",
+"Banya_(sauna)": "",
+"Russian_cuisine": "",
+"Vodka": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -19470,7 +19497,16 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "First_five-year_plan_(Soviet_Union)": "1928–1932",
 "Red_Guards_(Russia)": "1917–1918",
 "White_Terror_(Russia)": "1917–1922",
-"Mithridatic_Wars": "89 – 63 BCE"
+"Mithridatic_Wars": "89 – 63 BCE",
+"Central_Asian_revolt_of_1916": "1916",
+"Republics_of_the_Soviet_Union": "1922–1991",
+"Autonomous_republics_and_oblasts_of_the_Soviet_Union": "1919–1991",
+"Parade_of_sovereignties": "1988–1991",
+"Merchant_guild_(Russian_Empire)": "1721–1917",
+"Meshchane": "1775–1917",
+"Nizhny_Novgorod_Fair": "1817–1930",
+"Ministry_of_National_Education_(Russian_Empire)": "1802–1917",
+"Likbez": "1919–1930s"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -28129,7 +28165,29 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Chukchi_people": ["Chukchi","Chukchis"],
 "Nenets": ["Nenets people","Samoyeds"],
 "Yasak": ["yasak","iasak"],
-"Circassians": ["Adyghe","Circassian"]
+"Circassians": ["Adyghe","Circassian"],
+"Kazakhs": ["Kazakh"],
+"Russian_Turkestan": ["Turkestan Governorate-General"],
+"Central_Asian_revolt_of_1916": ["Central Asian revolt","Urkun"],
+"Islam_in_Russia": ["Muslims in Russia"],
+"Jadid": ["Jadidism","Jadids"],
+"History_of_the_Jews_in_Russia": ["History of the Jews in the Russian Empire","Jews in the Russian Empire"],
+"Shtetl": ["shtetls","mestechko"],
+"Republics_of_the_Soviet_Union": ["union republics","Soviet republics"],
+"Autonomous_republics_and_oblasts_of_the_Soviet_Union": ["Autonomous Soviet Socialist Republic","ASSR","autonomous republic","autonomous oblast"],
+"Parade_of_sovereignties": ["parade of sovereignties"],
+"Ethnic_groups_in_Russia": ["ethnic groups in Russia","peoples of Russia"],
+"Byzantine_commonwealth": ["Byzantine Commonwealth"],
+"Russian_icons": ["Russian icon","Russian icon painting"],
+"Merchant_guild_(Russian_Empire)": ["merchant guild","merchant guilds","kupechestvo"],
+"Meshchane": ["meshchanin","meshchanstvo","petty bourgeoisie (Russia)"],
+"Raznochintsy": ["raznochinets","people of various ranks"],
+"Nizhny_Novgorod_Fair": ["Makaryev Fair","Nizhny Novgorod fair"],
+"Ministry_of_National_Education_(Russian_Empire)": ["Ministry of Public Education","Ministry of Popular Enlightenment"],
+"Likbez": ["likbez","liquidation of illiteracy"],
+"Banya_(sauna)": ["banya","Russian bath"],
+"Russian_cuisine": ["Russian food"],
+"Vodka": ["vodka"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -41489,7 +41547,34 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Yasak": ["institution","history","economics","russia"],
 "North_Caucasus": ["place","geography","history","russia","caucasus"],
 "Circassians": ["people","history","russia","caucasus"],
-"Georgia_within_the_Russian_Empire": ["era","history","russia","georgia","caucasus"]
+"Georgia_within_the_Russian_Empire": ["era","history","russia","georgia","caucasus"],
+"Erivan_Governorate": ["state","history","politics","russia","armenia","caucasus"],
+"Baku_Governorate": ["state","history","politics","russia","azerbaijan","caucasus"],
+"Kazakhs": ["people","history","russia","kazakhstan","central asia"],
+"Russian_Turkestan": ["state","history","colonialism","russia","central asia"],
+"Central_Asian_revolt_of_1916": ["event","rebellion","history","russia","central asia"],
+"Islam_in_Russia": ["religion","islam","history","russia"],
+"Jadid": ["concept","education","religion","islam","history"],
+"Buddhism_in_Russia": ["religion","buddhism","history","russia"],
+"History_of_the_Jews_in_Russia": ["people","history","religion","judaism","russia"],
+"Shtetl": ["place","history","religion","judaism"],
+"Republics_of_the_Soviet_Union": ["institution","history","politics","soviet union"],
+"Autonomous_republics_and_oblasts_of_the_Soviet_Union": ["institution","history","politics","soviet union"],
+"Parade_of_sovereignties": ["event","history","politics","soviet union"],
+"Ethnic_groups_in_Russia": ["people","history","politics","russia"],
+"Russian_Orthodox_Church": ["institution","religion","christianity","russia"],
+"Byzantine_commonwealth": ["concept","history","religion","byzantium"],
+"Divine_Liturgy": ["practice","religion","christianity","liturgy"],
+"Russian_icons": ["object","art","religion","russia"],
+"Merchant_guild_(Russian_Empire)": ["institution","history","society","economics","russia"],
+"Meshchane": ["institution","history","society","russia"],
+"Raznochintsy": ["people","history","society","russia"],
+"Nizhny_Novgorod_Fair": ["institution","economics","history","russia","trade"],
+"Ministry_of_National_Education_(Russian_Empire)": ["institution","education","history","politics","russia"],
+"Likbez": ["event","education","history","russia","soviet union"],
+"Banya_(sauna)": ["practice","culture","history","russia"],
+"Russian_cuisine": ["culture","food","history","russia"],
+"Vodka": ["object","history","economics","russia"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */

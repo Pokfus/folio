@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-26T21:45Z",
+ "generated": "2026-11-26T21:52Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 9014,
-  "redirect-broader": 866,
+  "ok": 9040,
+  "redirect-broader": 868,
   "redirect-variant": 519,
-  "section-redirect": 203,
+  "section-redirect": 204,
   "disambiguation": 165,
-  "none": 1299,
+  "none": 1300,
   "disambig-resolved": 116,
   "list-page": 6,
   "search-match": 11,
@@ -97119,6 +97119,227 @@
    "answer": "Georgia within the Russian Empire",
    "title": "Georgia within the Russian Empire",
    "url": "https://en.wikipedia.org/wiki/Georgia_within_the_Russian_Empire",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-811": {
+   "answer": "Erivan Governorate",
+   "title": "Erivan Governorate",
+   "url": "https://en.wikipedia.org/wiki/Erivan_Governorate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-812": {
+   "answer": "Baku Governorate",
+   "title": "Baku Governorate",
+   "url": "https://en.wikipedia.org/wiki/Baku_Governorate",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-813": {
+   "answer": "Kazakhs",
+   "title": "Kazakhs",
+   "url": "https://en.wikipedia.org/wiki/Kazakhs",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-814": {
+   "answer": "Russian Turkestan",
+   "title": "Russian Turkestan",
+   "url": "https://en.wikipedia.org/wiki/Russian_Turkestan",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-815": {
+   "answer": "Central Asian revolt of 1916",
+   "title": "Central Asian revolt of 1916",
+   "url": "https://en.wikipedia.org/wiki/Central_Asian_revolt_of_1916",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-816": {
+   "answer": "Islam in Russia",
+   "title": "Islam in Russia",
+   "url": "https://en.wikipedia.org/wiki/Islam_in_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-817": {
+   "answer": "Jadidism",
+   "title": "Jadid",
+   "url": "https://en.wikipedia.org/wiki/Jadid",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Jadidism"
+  },
+  "ru-818": {
+   "answer": "Buddhism in Russia",
+   "title": "Buddhism in Russia",
+   "url": "https://en.wikipedia.org/wiki/Buddhism_in_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-819": {
+   "answer": "History of the Jews in the Russian Empire",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "section-redirect",
+   "from": "History of the Jews in the Russian Empire",
+   "target": "History of the Jews in Russia#Russian Empire"
+  },
+  "ru-820": {
+   "answer": "Shtetl",
+   "title": "Shtetl",
+   "url": "https://en.wikipedia.org/wiki/Shtetl",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-831": {
+   "answer": "Republics of the Soviet Union",
+   "title": "Republics of the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Republics_of_the_Soviet_Union",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-832": {
+   "answer": "Autonomous Soviet Socialist Republic",
+   "title": "Autonomous republics and oblasts of the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Autonomous_republics_and_oblasts_of_the_Soviet_Union",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Autonomous Soviet Socialist Republic"
+  },
+  "ru-833": {
+   "answer": "Population transfer in the Soviet Union",
+   "title": "Population transfer in the Soviet Union",
+   "url": "https://en.wikipedia.org/wiki/Population_transfer_in_the_Soviet_Union",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-834": {
+   "answer": "parade of sovereignties",
+   "title": "Parade of sovereignties",
+   "url": "https://en.wikipedia.org/wiki/Parade_of_sovereignties",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-835": {
+   "answer": "ethnic groups in Russia",
+   "title": "Ethnic groups in Russia",
+   "url": "https://en.wikipedia.org/wiki/Ethnic_groups_in_Russia",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-836": {
+   "answer": "Russian Orthodox Church",
+   "title": "Russian Orthodox Church",
+   "url": "https://en.wikipedia.org/wiki/Russian_Orthodox_Church",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-837": {
+   "answer": "Eastern Orthodoxy",
+   "title": "Eastern Orthodoxy",
+   "url": "https://en.wikipedia.org/wiki/Eastern_Orthodoxy",
+   "via": "answer",
+   "status": "ok"
+  },
+  "ru-838": {
+   "answer": "Byzantine commonwealth",
+   "title": "Byzantine commonwealth",
+   "url": "https://en.wikipedia.org/wiki/Byzantine_commonwealth",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-839": {
+   "answer": "Divine Liturgy",
+   "title": "Divine Liturgy",
+   "url": "https://en.wikipedia.org/wiki/Divine_Liturgy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-840": {
+   "answer": "Russian icons",
+   "title": "Russian icons",
+   "url": "https://en.wikipedia.org/wiki/Russian_icons",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-891": {
+   "answer": "merchant guild",
+   "title": "Merchant guild (Russian Empire)",
+   "url": "https://en.wikipedia.org/wiki/Merchant_guild_(Russian_Empire)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-892": {
+   "answer": "meshchane",
+   "title": null,
+   "url": null,
+   "via": null,
+   "status": "none",
+   "suggestions": [
+    "Moscow",
+    "Tsarist Russia",
+    "The Philistines",
+    "Private Committee",
+    "Merchant guild (Russian Empire)"
+   ]
+  },
+  "ru-893": {
+   "answer": "raznochintsy",
+   "title": "Raznochintsy",
+   "url": "https://en.wikipedia.org/wiki/Raznochintsy",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-894": {
+   "answer": "Nizhny Novgorod Fair",
+   "title": "Nizhny Novgorod Fair",
+   "url": "https://en.wikipedia.org/wiki/Nizhny_Novgorod_Fair",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-895": {
+   "answer": "Ivanovo",
+   "title": "Ivanovo",
+   "url": "https://en.wikipedia.org/wiki/Ivanovo",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-896": {
+   "answer": "Ministry of National Education",
+   "title": "Ministry of National Education (Russian Empire)",
+   "url": "https://en.wikipedia.org/wiki/Ministry_of_National_Education_(Russian_Empire)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-897": {
+   "answer": "likbez",
+   "title": "Likbez",
+   "url": "https://en.wikipedia.org/wiki/Likbez",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-898": {
+   "answer": "banya",
+   "title": "Banya (sauna)",
+   "url": "https://en.wikipedia.org/wiki/Banya_(sauna)",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-899": {
+   "answer": "Russian cuisine",
+   "title": "Russian cuisine",
+   "url": "https://en.wikipedia.org/wiki/Russian_cuisine",
+   "via": "glossary",
+   "status": "ok"
+  },
+  "ru-900": {
+   "answer": "vodka",
+   "title": "Vodka",
+   "url": "https://en.wikipedia.org/wiki/Vodka",
    "via": "glossary",
    "status": "ok"
   }
