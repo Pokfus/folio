@@ -911,12 +911,12 @@ BCE and the empire's end, the abdication of 12 February 1912 (`cnh-191`, `cnh-57
 | the ever-normal granaries / Wang Anshi's loans proposed / the price debate | c. 54 BCE / 1069 / 1748 | the *Hanshu*; Will and Wong (`cnh-719`) |
 | the weisuo: the commands split / the army counted | 1380 / 1392 | the *Mingshi* (`cnh-720`) |
 | the Green Standard Army in service / the count recorded | 1644 – 1911 / 1812 | Zheng; Mayers (`cnh-721`) |
-| Shanhai Pass built / the battle / seized / protected | 1381 / 1644 / January 1933 / 1961 | Li et al.; Park (`cnh-722`) |
+| the imperial examination: begun / abolished | 581 – 618 CE / 1905 | the card's sources (`cnh-704`) |
 | the border wall begun / the peace with Altan Khan | 1437 / 1571 | Yang et al. (`cnh-723`; 1571 with `cnh-781`) |
 | the Siyi Guan founded / renamed / merged | 1407 / 1644 / 1748 | Rong Fan (`cnh-724`) |
 | the Yu ji tu engraved / the copy carved | 1136 / 1142 | the Library of Congress (`cnh-726`) |
 | the Kaogong ji dated / appended | c. 500 – 400 BCE / c. 155 – 129 BCE | Wenren; Sivin (`cnh-727`) |
-| the Hall of Mental Cultivation built / rebuilt / closed / reopened | 1537 / 1722 – 1735 / December 2015 / 26 December 2025 | the Palace Museum (`cnh-728`) |
+| the Hall of Supreme Harmony: completed / renamed / burned / rebuilt | 1420 / 1645 / 1679 / 1695 | the Palace Museum (`cnh-728`) |
 | the Temple of Agriculture built / renovated / last ploughing / protected | 1420 / 1753 / 1906 / 2001 | the WMF; the *Mingshi* (`cnh-729`) |
 | the Eastern Depot founded / ended | 1420 / 1644 | Hucker; Tsai (`cnh-730`) |
 | the Imperial Household Department abolished / restored / seven offices / state funds | 1653 / 1661 / 1677 / 1857 | the Palace Museum (`cnh-731`) |
@@ -954,8 +954,6 @@ BCE and the empire's end, the abdication of 12 February 1912 (`cnh-191`, `cnh-57
 | the Rouran founded / destroyed | c. 402 CE / 552 – 555 CE | Kradin; the *Zhou shu* (`cnh-779`) |
 | the Shatuo fled east / ruled the north | 808 CE / 923 – 951 CE | Barenghi (`cnh-780`) |
 | the Manchu name / the throne taken / the rule ended | 12 November 1635 / 6 June 1644 / 12 February 1912 | Sun (`cnh-782`) |
-| the Golden Urn introduced / the rules issued / revived | 1792 / 1793 (the PRC's; Goldstein 1792) / 1995 | the white paper; Goldstein (`cnh-783`) |
-| the Corps founded / dissolved / restored | October 1954 / March 1975 / December 1981 | the 2014 white paper (`cnh-785`) |
 | the Panthay uprising / the north-west rising / the Ningxia region | 1856 – 1873 / 1862 / 25 October 1958 | the cited studies (`cnh-787`) |
 | the Great Mosque: the claimed founding / the rebuilding / protected | 742 CE (traditional) / 1392 / 1988 | the 2026 study (`cnh-788`) |
 | the Dian culture / the kingdom active / submitted | c. 700 BCE – 100 CE / c. 500 – 109 BCE / 109 BCE | Allard; Yao (`cnh-789`) |
@@ -1009,23 +1007,25 @@ Wang Yangming (`cnh-528`); the Treaty of Nanking 29 August 1842 (`cnh-562`); the
 | the salt merchants: silver paid / the syndicates set | 1492 / 1617 | An; Theobald (`cnh-822`; 1492 with `cnh-718`) |
 | Yunnan copper: mining promoted / state control / supplied the mints / peak output | 1682 / 1705 / 1738 / 1764 | Giersch; Dunstan; von Glahn (`cnh-823`) |
 | the Great Divergence dated / also dated | 1700 – 1750 / 1800 | Broadberry, Guan and Li; Goldstone (`cnh-825`) |
-| Huang–Lao flourished / the Mawangdui copies buried | c. 300 – 100 BCE / 168 BCE | the cited studies (`cnh-826`) |
-| the *Lüshi Chunqiu* compiled | c. 239 BCE | Knoblock and Riegel, through the SEP (`cnh-827`) |
-| the *Liji* compiled | c. 200 BCE – 200 CE | Legge; Eno (`cnh-831`) |
-| the *Zhongyong* composed / attested / the exam decree | c. 300 – 200 BCE / c. 100 BCE / 1313 | Eno; Legge; Mailla (`cnh-832`, `cnh-853`; with `cnh-491`) |
-| the Confucius temple: the imperial rite / the sole sage / the images removed | 195 BCE / 628 CE / 1530 | Legge; Murray (`cnh-833`) |
-| the "Discourse on Heaven" written | c. 300 – 200 BCE | Goldin; Elstein (`cnh-835`) |
+| the Hundred Schools flourished | c. 500 – 221 BCE | the card's sources (`cnh-827`) |
+| Confucius: born / the rites with Qi / died | 551 BCE, traditional (also 552 BCE) / 500 BCE / 479 BCE | Sima Qian; the card's sources (`cnh-828`; protected) |
+| the *Analects*: compiled, by tradition / the Haihun tomb copy | 479 BCE / 59 BCE | Ban Gu; the card's sources (`cnh-829`) |
+| the *Zhongyong* composed / attested / the exam decree | c. 300 – 200 BCE / c. 100 BCE / 1313 | Eno; Legge; Mailla (`cnh-853`; with `cnh-491`) |
+| Mencius: born / died | c. 372 BCE / c. 289 BCE | the card's sources (`cnh-834`; protected) |
+| Xunzi: born / died | c. 310 BCE / 238 BCE, or later | the card's sources (`cnh-835`; protected) |
+| Laozi: born, by tradition | 604 BCE | Legge (`cnh-837`; protected) |
 | the Guodian slips buried / excavated | c. 300 BCE / 1993 | Kirkland; the SEP (`cnh-838`) |
-| the *Liezi*'s received text (Zhang Zhan's edition) | c. 370 CE | the IEP (`cnh-841`) |
-| the "Qiwulun" dated | c. 400 – 300 BCE | the SEP; Chen Guying (`cnh-842`) |
-| the *Han Feizi* completed | c. 230 BCE | Schlager (`cnh-846`; Han Fei's death 233 BCE in prose) |
+| Zhuangzi: born / died | c. 369 BCE / c. 298 BCE | the IEP (`cnh-842`; protected) |
+| the Mohists flourished | 479 – 221 BCE | the card's sources (`cnh-844`) |
+| Han Feizi: born / died | c. 280 BCE / 233 BCE | the card's sources (`cnh-846`; protected) |
+| the School of Names named | c. 200 – 100 BCE | the card's sources (`cnh-847`) |
 | the Ten Wings written / the earliest copy | c. 500 – 100 BCE / c. 175 BCE | the SEP; Shaughnessy (`cnh-851`) |
 | the Xiping Stone Classics ordered / carved | 175 CE / c. 175 – 183 CE | the cited studies (`cnh-852`) |
-| the *Great Learning* composed / the exam decree | c. 300 – 200 BCE / 1313 | Eno; Mailla (`cnh-853`; 1313 with `cnh-832`) |
+| the *Great Learning* composed / the exam decree | c. 300 – 200 BCE / 1313 | Eno; Mailla (`cnh-853`) |
 | the White Tiger Discussions held | 79 CE | Jian (`cnh-854`) |
 | the *Taijitu shuo* written / edited / anthologised | c. 1000 – 1100 / 1169 / 1175 | the cited studies (`cnh-859`) |
 | the *Quanxue pian* published | 1898 | Woodbridge (`cnh-866`) |
-| the Science and Metaphysics debate: the lecture / the anthology | 14 February 1923 / December 1923 | Nelson; Vrhovski (`cnh-867`; the card's timeline) |
+| New Confucianism: the first works / the manifesto | 1921 – 1932 / 1958 | the card's sources (`cnh-867`) |
 | Wenchang: the cult formed / made thearch / struck off / restored | c. 1100 – 1200 / 1316 / 1370 / 1801 | Burton-Rose (`cnh-868`) |
 | Qingming: described / a public holiday | 1147 / 2008 | Meng Yuanlao; the cited studies (`cnh-869`) |
 | the god of Mount Tai: made king / the title extended / lengthened / removed | 725 CE / 1008 / 1291 / 1370 | Chavannes (`cnh-870`; 1008 with `cnh-874`) |
@@ -1033,12 +1033,11 @@ Wang Yangming (`cnh-528`); the Treaty of Nanking 29 August 1842 (`cnh-562`); the
 | the compass needle attested / its deviation noted | c. 1000 – 1100 / 1111 – 1117 | the cited studies (`cnh-872`) |
 | the almanac: the printing ban / the dated copy / the guide printed / revised | 835 CE / 877 CE / 1683 / 1741 | Whitfield; Foster (`cnh-873`) |
 | the Fengshan first certain / last held | 110 BCE / 1008 | Chavannes (`cnh-874`; the *Shiji*'s 219 BCE for the First Emperor in prose) |
-| the Mingtang: the rites held / built / rebuilt / cut down | 106 BCE / 688 CE / 696 CE / 737 CE | Chavannes; Zhang (`cnh-875`) |
+| the Temple of Heaven: completed / the cults separated / the hall burned / World Heritage | 1420 / 1530 / 1889 / 1998 | the card's sources (`cnh-875`) |
 | Lingbao released / catalogued / the canon listed | c. 400 CE / 437 CE / 471 CE | the *Encyclopedia of Taoism* (`cnh-876`) |
 | the *Baopuzi* written | c. 320 CE | Pregadio; the cited studies (`cnh-878`) |
 | the Daozang: the first canon / first printed / burned / completed | c. 740 CE / 1119 / 1281 / 1445 | the cited studies (`cnh-879`) |
 | the White Cloud Temple founded / the canon reprinted | 1228 / 1923 – 1926 | Bretschneider; Pregadio (`cnh-880`) |
-| the *Platform Sutra*: the earliest text / revised / the standard text | c. 780 CE / 967 CE / 1291 | Schlütter (`cnh-890`) |
 | the Dazu carvings: the earliest / the main phase / resumed / World Heritage | c. 650 CE / 892 – 1252 CE / 1078 / 1999 | the ICOMOS evaluation; Chen (`cnh-892`) |
 | the Mogao Caves: the traditional first cave / the oldest caves / the dated cave / World Heritage | 366 CE / c. 420 – 429 CE / 538 CE / 1987 | Chavannes; the cited studies (`cnh-893`) |
 | Mount Wutai: the court envoys / the first record | 661 – 662 CE / c. 679 – 684 CE | the cited studies (`cnh-894`) |
@@ -1117,7 +1116,7 @@ January 1917 (`cnh-586`, `cnh-588`); Lu Xun's "Diary of a Madman" 1918 (`cnh-589
 | carved lacquer: early piece / described / dated piece | c. 1300 / 1387 / 1585 | the card's sources (`cnh-959`) |
 | huanghuali described | 1387, also dated 1388 | the Ricci Library (`cnh-961`) |
 | the Fujian tulou: first built / peak / inscribed | c. 1000 – 1300 / c. 1600 – 1950 / 2008 | the card's sources (`cnh-962`) |
-| the Nanchan Temple: repaired / found / restored | 782 CE / 1953 / 1974 – 1975 | the card's sources (`cnh-963`) |
+| dougong: the earliest image / the term attested / codified / the rules revised | c. 310 BCE / 616 CE / 1103 / 1734 | the card's sources (`cnh-963`) |
 | the Giant Wild Goose Pagoda: founded / rebuilt / brick casing | 652 CE / 701 – 704 CE / 1573 – 1620 | the card's sources (`cnh-964`) |
 | the *Yuanye* written / printed | 1631 / 1634 | Kotobank (`cnh-965`) |
 | the Wu Liang Shrine carved / excavated | c. 150 CE / 1786 | the card's sources (`cnh-966`) |
@@ -1128,8 +1127,6 @@ January 1917 (`cnh-586`, `cnh-588`); Lu Xun's "Diary of a Madman" 1918 (`cnh-589
 | *Dingjun Mountain* filmed | 1905 | the card's sources (`cnh-972`) |
 | the Needham Question first noticed / posed in public | c. 1938 / 1944 | the Needham Research Institute; Sivin (`cnh-974`) |
 | Fangmatan: Tomb 1 / Tomb 5 / found | c. 300 – 200 BCE / 179 – 141 BCE / 1986 | the card's sources (`cnh-975`) |
-| the Dunhuang Diamond Sutra printed / found | 11 May 868 CE / 1900 | the card's sources (`cnh-976`) |
-| the *Wujing zongyao* dated | 1044 | the card's sources (`cnh-978`) |
 | the Mao Kun map drawn / preface / presented | c. 1425 – 1430 / 1621 / 1628 | Liang 2016 (`cnh-981`) |
 | the Dunhuang star chart dated / also dated | c. 649 – 684 CE / c. 940 CE | Bonnet-Bidaud (`cnh-982`) |
 | the Beijing observatory refitted / its instruments / removed | c. 1670 / 1673 / 1900 – 1901 | the card's sources (`cnh-983`) |
@@ -1151,6 +1148,9 @@ figure that is on the date line is pinned. **A protected card is pinned to its l
 records what the other thread wrote, so a draft that drops one of its figures from the line is caught.
 
 ```chronology-pins
+cnh-837: 604
+cnh-834: 372; 289
+cnh-963: 310; 616; 1103; 1734
 cnh-002: 221
 cnh-003: 200; 300
 cnh-004: 139; 220; 316; 435
@@ -1404,15 +1404,12 @@ cnh-733: 442; 466; 476; 490
 cnh-781: 1550; 1571; 1578
 cnh-805: 1521; 1578; 1595
 cnh-824: 1245; 1295; 1330
-cnh-828: 521; 481
-cnh-829: 542; 480
+cnh-828: 551; 500; 479
+cnh-829: 479; 59
 cnh-836: 420; 350
-cnh-839: 179; 157; 100; 200
-cnh-840: 400; 200
 cnh-843: 470; 430; 391
-cnh-844: 507; 444
-cnh-845: 400; 337
-cnh-847: 370; 313; 310
+cnh-844: 479; 221
+cnh-847: 200; 100
 cnh-850: 305; 240
 cnh-855: 46; 7; 1; 23
 cnh-856: 226; 249
@@ -1425,7 +1422,6 @@ cnh-864: 1636; 1704
 cnh-865: 1610; 1662; 1663; 1695
 cnh-877: 34; 142; 156
 cnh-881: 1113; 1159; 1167; 1170
-cnh-882: 65; 70; 71
 cnh-883: 148; 170
 cnh-884: 233; 286; 310
 cnh-885: 344; 383; 401; 402; 409; 413
@@ -1892,7 +1888,7 @@ cnh-699: 1992; 2026
 cnh-700: 1943; 1951; 1952; 1971
 cnh-701: 221; 1912
 cnh-702: 221; 1912; 1924
-cnh-704: 1168; 1534; 1903; 1905
+cnh-704: 581; 618; 1905
 cnh-705: 1450; 1850; 1663; 1901
 cnh-706: 1368; 1905
 cnh-707: 202; 220; 1393; 1655; 1824
@@ -1908,12 +1904,11 @@ cnh-718: 1370; 1492
 cnh-719: 54; 1069; 1748
 cnh-720: 1368; 1644; 1380; 1392
 cnh-721: 1644; 1911; 1812
-cnh-722: 1381; 1644; 1933; 1961
 cnh-723: 1368; 1644; 1437; 1571
 cnh-724: 1407; 1644; 1748
 cnh-726: 1136; 1142
 cnh-727: 500; 400; 155; 129
-cnh-728: 1537; 1722; 1735; 2015; 2025
+cnh-728: 1420; 1645; 1679; 1695
 cnh-729: 1420; 1753; 1906; 2001
 cnh-730: 1420; 1644
 cnh-731: 1653; 1661; 1677; 1857
@@ -1954,8 +1949,6 @@ cnh-778: 630; 682
 cnh-779: 402; 552; 555
 cnh-780: 808; 923; 951
 cnh-782: 1635; 1644; 1912
-cnh-783: 1792; 1793; 1995
-cnh-785: 1954; 1975; 1981
 cnh-787: 1856; 1873; 1862; 1958
 cnh-788: 742; 1392; 1988
 cnh-789: 700; 100; 500; 109
@@ -1991,23 +1984,18 @@ cnh-821: 1776
 cnh-822: 1492; 1617
 cnh-823: 1682; 1705; 1738; 1764
 cnh-825: 1700; 1750; 1800
-cnh-826: 300; 100; 168
-cnh-827: 239
-cnh-831: 200
-cnh-832: 300; 200; 100; 1313
-cnh-833: 195; 628; 1530
-cnh-835: 300; 200
+cnh-827: 500; 221
+cnh-835: 310; 238
 cnh-838: 300; 1993
-cnh-841: 370
-cnh-842: 400; 300
-cnh-846: 230
+cnh-842: 369; 298
+cnh-846: 280; 233
 cnh-851: 500; 100; 175
 cnh-852: 175; 183
 cnh-853: 300; 200; 1313
 cnh-854: 79
 cnh-859: 1000; 1100; 1169; 1175
 cnh-866: 1898
-cnh-867: 1923
+cnh-867: 1921; 1932; 1958
 cnh-868: 1100; 1200; 1316; 1370; 1801
 cnh-869: 1147; 2008
 cnh-870: 725; 1008; 1291; 1370
@@ -2015,12 +2003,11 @@ cnh-871: 479; 557; 220; 589; 1369; 1370
 cnh-872: 1000; 1100; 1111; 1117
 cnh-873: 835; 877; 1683; 1741
 cnh-874: 110; 1008
-cnh-875: 106; 688; 696; 737
+cnh-875: 1420; 1530; 1889; 1998
 cnh-876: 400; 437; 471
 cnh-878: 320
 cnh-879: 740; 1119; 1281; 1445
 cnh-880: 1228; 1923; 1926
-cnh-890: 780; 967; 1291
 cnh-892: 650; 892; 1252; 1078; 1999
 cnh-893: 366; 420; 429; 538; 1987
 cnh-894: 661; 662; 679; 684

@@ -1,13 +1,13 @@
 {
- "generated": "2026-11-26T20:57Z",
+ "generated": "2026-11-26T22:03Z",
  "source": "en.wikipedia.org",
  "counts": {
-  "ok": 8996,
-  "redirect-broader": 865,
+  "ok": 9006,
+  "redirect-broader": 863,
   "redirect-variant": 520,
   "section-redirect": 202,
-  "disambiguation": 164,
-  "none": 1299,
+  "disambiguation": 165,
+  "none": 1290,
   "disambig-resolved": 116,
   "list-page": 6,
   "search-match": 11,
@@ -47843,9 +47843,9 @@
    "status": "ok"
   },
   "cnh-704": {
-   "answer": "Jiangnan Examination Hall",
-   "title": "Jiangnan Examination Hall",
-   "url": "https://en.wikipedia.org/wiki/Jiangnan_Examination_Hall",
+   "answer": "imperial examination",
+   "title": "Imperial examination",
+   "url": "https://en.wikipedia.org/wiki/Imperial_examination",
    "via": "glossary",
    "status": "ok"
   },
@@ -47981,11 +47981,12 @@
    "status": "ok"
   },
   "cnh-722": {
-   "answer": "Shanhai Pass",
-   "title": "Shanhai Pass",
-   "url": "https://en.wikipedia.org/wiki/Shanhai_Pass",
-   "via": "glossary",
-   "status": "ok"
+   "answer": "Great Wall",
+   "title": "Great Wall of China",
+   "url": "https://en.wikipedia.org/wiki/Great_Wall_of_China",
+   "via": "answer",
+   "status": "redirect-variant",
+   "from": "Great Wall"
   },
   "cnh-723": {
    "answer": "Nine Border Garrisons",
@@ -48034,9 +48035,9 @@
    "from": "Kaogong ji"
   },
   "cnh-728": {
-   "answer": "Hall of Mental Cultivation",
-   "title": "Hall of Mental Cultivation",
-   "url": "https://en.wikipedia.org/wiki/Hall_of_Mental_Cultivation",
+   "answer": "Hall of Supreme Harmony",
+   "title": "Hall of Supreme Harmony",
+   "url": "https://en.wikipedia.org/wiki/Hall_of_Supreme_Harmony",
    "via": "glossary",
    "status": "ok"
   },
@@ -48438,9 +48439,9 @@
    "status": "ok"
   },
   "cnh-783": {
-   "answer": "Golden Urn",
-   "title": "Golden Urn",
-   "url": "https://en.wikipedia.org/wiki/Golden_Urn",
+   "answer": "Tibet",
+   "title": "Tibet",
+   "url": "https://en.wikipedia.org/wiki/Tibet",
    "via": "glossary",
    "status": "ok"
   },
@@ -48453,9 +48454,9 @@
    "from": "Tibetan people"
   },
   "cnh-785": {
-   "answer": "Xinjiang Production and Construction Corps",
-   "title": "Xinjiang Production and Construction Corps",
-   "url": "https://en.wikipedia.org/wiki/Xinjiang_Production_and_Construction_Corps",
+   "answer": "Xinjiang",
+   "title": "Xinjiang",
+   "url": "https://en.wikipedia.org/wiki/Xinjiang",
    "via": "glossary",
    "status": "ok"
   },
@@ -56083,99 +56084,75 @@
    "status": "ok"
   },
   "cnh-826": {
-   "answer": "Huang–Lao",
-   "title": "Huang–Lao",
-   "url": "https://en.wikipedia.org/wiki/Huang%E2%80%93Lao",
-   "via": "glossary",
+   "answer": "Chinese philosophy",
+   "title": "Chinese philosophy",
+   "url": "https://en.wikipedia.org/wiki/Chinese_philosophy",
+   "via": "answer",
    "status": "ok"
   },
   "cnh-827": {
-   "answer": "Lüshi Chunqiu",
-   "title": "Lüshi Chunqiu",
-   "url": "https://en.wikipedia.org/wiki/L%C3%BCshi_Chunqiu",
-   "via": "glossary",
+   "answer": "Hundred Schools of Thought",
+   "title": "Hundred Schools of Thought",
+   "url": "https://en.wikipedia.org/wiki/Hundred_Schools_of_Thought",
+   "via": "answer",
    "status": "ok"
   },
   "cnh-828": {
-   "answer": "Yan Hui",
-   "title": "Yan Hui",
-   "url": "https://en.wikipedia.org/wiki/Yan_Hui",
+   "answer": "Confucius",
+   "title": "Confucius",
+   "url": "https://en.wikipedia.org/wiki/Confucius",
    "via": "glossary",
    "status": "ok"
   },
   "cnh-829": {
-   "answer": "Zilu",
-   "title": "Zhong You",
-   "url": "https://en.wikipedia.org/wiki/Zhong_You",
-   "via": "answer",
-   "status": "redirect-broader",
-   "from": "Zilu"
+   "answer": "Analects",
+   "title": "Analects",
+   "url": "https://en.wikipedia.org/wiki/Analects",
+   "via": "glossary",
+   "status": "ok"
   },
   "cnh-830": {
-   "answer": "Shu (reciprocity)",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Golden Rule",
-    "Religion in China",
-    "Chinese folk religion",
-    "China–United States relations",
-    "History of religion in China"
-   ]
+   "answer": "ren",
+   "title": "Ren (philosophy)",
+   "url": "https://en.wikipedia.org/wiki/Ren_(philosophy)",
+   "via": "glossary",
+   "status": "ok"
   },
   "cnh-831": {
-   "answer": "Liji",
-   "title": "Book of Rites",
-   "url": "https://en.wikipedia.org/wiki/Book_of_Rites",
-   "via": "answer",
-   "status": "redirect-broader",
-   "from": "Liji"
+   "answer": "li",
+   "title": "Li (Confucianism)",
+   "url": "https://en.wikipedia.org/wiki/Li_(Confucianism)",
+   "via": "glossary",
+   "status": "ok"
   },
   "cnh-832": {
-   "answer": "Zhongyong",
-   "title": "Doctrine of the Mean",
-   "url": "https://en.wikipedia.org/wiki/Doctrine_of_the_Mean",
+   "answer": "junzi",
+   "title": "Junzi",
+   "url": "https://en.wikipedia.org/wiki/Junzi",
    "via": "answer",
-   "status": "redirect-broader",
-   "from": "Zhongyong"
+   "status": "ok"
   },
   "cnh-833": {
-   "answer": "Wenmiao",
-   "title": "Temple of Confucius",
-   "url": "https://en.wikipedia.org/wiki/Temple_of_Confucius",
-   "via": "answer",
-   "status": "redirect-broader",
-   "from": "Wenmiao"
+   "answer": "Confucianism",
+   "title": "Confucianism",
+   "url": "https://en.wikipedia.org/wiki/Confucianism",
+   "via": "glossary",
+   "status": "ok"
   },
   "cnh-834": {
-   "answer": "Four Beginnings",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Four Great Inventions",
-    "China",
-    "Gang of Four",
-    "Four Greats (China)",
-    "Chengyu"
-   ]
+   "answer": "Mencius",
+   "title": "Mencius",
+   "url": "https://en.wikipedia.org/wiki/Mencius",
+   "via": "glossary",
+   "status": "ok"
   },
   "cnh-835": {
-   "answer": "Discourse on Heaven",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Tale of King Mu, Son of Heaven",
-    "Tianxia",
-    "Ruguanxue",
-    "Seven heavens",
-    "Chinese theology"
-   ]
+   "answer": "Xunzi",
+   "title": "Xunzi (philosopher)",
+   "url": "https://en.wikipedia.org/wiki/Xunzi_(philosopher)",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "cnh-836": {
    "answer": "Gaozi",
@@ -56185,9 +56162,9 @@
    "status": "ok"
   },
   "cnh-837": {
-   "answer": "Hangu Pass",
-   "title": "Hangu Pass",
-   "url": "https://en.wikipedia.org/wiki/Hangu_Pass",
+   "answer": "Laozi",
+   "title": "Laozi",
+   "url": "https://en.wikipedia.org/wiki/Laozi",
    "via": "glossary",
    "status": "ok"
   },
@@ -56200,45 +56177,35 @@
    "from": "Guodian Chu Slips"
   },
   "cnh-839": {
-   "answer": "Heshang Gong",
-   "title": "Heshang Gong",
-   "url": "https://en.wikipedia.org/wiki/Heshang_Gong",
-   "via": "glossary",
-   "status": "ok"
+   "answer": "Dao",
+   "title": "Tao",
+   "url": "https://en.wikipedia.org/wiki/Tao",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Dao"
   },
   "cnh-840": {
-   "answer": "Cook Ding",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Dream of Ding Village",
-    "China",
-    "King Ding of Zhou",
-    "Margaret Hie Ding Lin",
-    "Kung Pao chicken"
-   ]
-  },
-  "cnh-841": {
-   "answer": "Liezi",
-   "title": "Liezi",
-   "url": "https://en.wikipedia.org/wiki/Liezi",
+   "answer": "wu wei",
+   "title": "Wu wei",
+   "url": "https://en.wikipedia.org/wiki/Wu_wei",
    "via": "glossary",
    "status": "ok"
   },
+  "cnh-841": {
+   "answer": "Daoism",
+   "title": "Taoism",
+   "url": "https://en.wikipedia.org/wiki/Taoism",
+   "via": "answer",
+   "status": "redirect-broader",
+   "from": "Daoism"
+  },
   "cnh-842": {
-   "answer": "Qiwulun",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Mount Tai",
-    "Zhang Binglin",
-    "Glossary of Zhuangzi exegesis",
-    "Zuowang"
-   ]
+   "answer": "Zhuangzi",
+   "title": "Zhuang Zhou",
+   "url": "https://en.wikipedia.org/wiki/Zhuang_Zhou",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "cnh-843": {
    "answer": "Mozi",
@@ -56248,54 +56215,41 @@
    "status": "ok"
   },
   "cnh-844": {
-   "answer": "Gongshu Ban",
-   "title": "Lu Ban",
-   "url": "https://en.wikipedia.org/wiki/Lu_Ban",
+   "answer": "Mohism",
+   "title": "Mohism",
+   "url": "https://en.wikipedia.org/wiki/Mohism",
    "via": "manual",
    "status": "ok",
    "manual": true
   },
   "cnh-845": {
-   "answer": "Shen Buhai",
-   "title": "Shen Buhai",
-   "url": "https://en.wikipedia.org/wiki/Shen_Buhai",
+   "answer": "Legalism",
+   "title": "Legalism (Chinese philosophy)",
+   "url": "https://en.wikipedia.org/wiki/Legalism_(Chinese_philosophy)",
    "via": "glossary",
    "status": "ok"
   },
   "cnh-846": {
-   "answer": "Two Handles",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Legalism (Chinese philosophy)",
-    "China",
-    "Taiwan",
-    "Handle System",
-    "Wooden ox"
-   ]
+   "answer": "Han Feizi",
+   "title": "Han Fei",
+   "url": "https://en.wikipedia.org/wiki/Han_Fei",
+   "via": "manual",
+   "status": "ok",
+   "manual": true
   },
   "cnh-847": {
-   "answer": "Hui Shi",
-   "title": "Hui Shi",
-   "url": "https://en.wikipedia.org/wiki/Hui_Shi",
-   "via": "glossary",
+   "answer": "School of Names",
+   "title": "School of Names",
+   "url": "https://en.wikipedia.org/wiki/School_of_Names",
+   "via": "answer",
    "status": "ok"
   },
   "cnh-848": {
-   "answer": "He Tu and Luo Shu",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Cartography of China",
-    "Resurrection (2025 film)",
-    "Zhang He",
-    "List of gods in the Investiture of the Gods",
-    "Penghou"
-   ]
+   "answer": "yin and yang",
+   "title": "Yin and yang",
+   "url": "https://en.wikipedia.org/wiki/Yin_and_yang",
+   "via": "glossary",
+   "status": "ok"
   },
   "cnh-849": {
    "answer": "Wu Xing",
@@ -56440,18 +56394,11 @@
    ]
   },
   "cnh-867": {
-   "answer": "Science and Metaphysics debate",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "Metaphysics",
-    "Ontology",
-    "Philosophy",
-    "East–West cultural debate",
-    "History of metaphysics"
-   ]
+   "answer": "New Confucianism",
+   "title": "New Confucianism",
+   "url": "https://en.wikipedia.org/wiki/New_Confucianism",
+   "via": "answer",
+   "status": "ok"
   },
   "cnh-868": {
    "answer": "Wenchang Wang",
@@ -56505,18 +56452,11 @@
    "manual": true
   },
   "cnh-875": {
-   "answer": "Mingtang",
-   "title": null,
-   "url": null,
-   "via": null,
-   "status": "none",
-   "suggestions": [
-    "1911 Revolution",
-    "Wei-ming temple",
-    "CCTV-10",
-    "Wu Zetian",
-    "Old City of Luoyang"
-   ]
+   "answer": "Temple of Heaven",
+   "title": "Temple of Heaven",
+   "url": "https://en.wikipedia.org/wiki/Temple_of_Heaven",
+   "via": "answer",
+   "status": "ok"
   },
   "cnh-876": {
    "answer": "Lingbao",
@@ -56563,9 +56503,9 @@
    "manual": true
   },
   "cnh-882": {
-   "answer": "Liu Ying",
-   "title": "Liu Ying (prince)",
-   "url": "https://en.wikipedia.org/wiki/Liu_Ying_(prince)",
+   "answer": "Chinese Buddhism",
+   "title": "Chinese Buddhism",
+   "url": "https://en.wikipedia.org/wiki/Chinese_Buddhism",
    "via": "glossary",
    "status": "ok"
   },
@@ -56620,10 +56560,10 @@
    "manual": true
   },
   "cnh-890": {
-   "answer": "Platform Sutra",
-   "title": "Platform Sutra",
-   "url": "https://en.wikipedia.org/wiki/Platform_Sutra",
-   "via": "glossary",
+   "answer": "Chan Buddhism",
+   "title": "Chan Buddhism",
+   "url": "https://en.wikipedia.org/wiki/Chan_Buddhism",
+   "via": "answer",
    "status": "ok"
   },
   "cnh-891": {
@@ -57160,10 +57100,10 @@
    "status": "ok"
   },
   "cnh-963": {
-   "answer": "Nanchan Temple",
-   "title": "Nanchan Temple",
-   "url": "https://en.wikipedia.org/wiki/Nanchan_Temple",
-   "via": "glossary",
+   "answer": "dougong",
+   "title": "Dougong",
+   "url": "https://en.wikipedia.org/wiki/Dougong",
+   "via": "answer",
    "status": "ok"
   },
   "cnh-964": {
@@ -57254,9 +57194,9 @@
    "status": "ok"
   },
   "cnh-976": {
-   "answer": "Diamond Sutra",
-   "title": "Diamond Sutra",
-   "url": "https://en.wikipedia.org/wiki/Diamond_Sutra",
+   "answer": "woodblock printing",
+   "title": "Woodblock printing",
+   "url": "https://en.wikipedia.org/wiki/Woodblock_printing",
    "via": "glossary",
    "status": "ok"
   },
@@ -57268,9 +57208,9 @@
    "status": "ok"
   },
   "cnh-978": {
-   "answer": "Wujing Zongyao",
-   "title": "Wujing Zongyao",
-   "url": "https://en.wikipedia.org/wiki/Wujing_Zongyao",
+   "answer": "gunpowder",
+   "title": "Gunpowder",
+   "url": "https://en.wikipedia.org/wiki/Gunpowder",
    "via": "glossary",
    "status": "ok"
   },
@@ -57282,9 +57222,9 @@
    "status": "ok"
   },
   "cnh-980": {
-   "answer": "Dream Pool Essays",
-   "title": "Dream Pool Essays",
-   "url": "https://en.wikipedia.org/wiki/Dream_Pool_Essays",
+   "answer": "compass",
+   "title": "Compass",
+   "url": "https://en.wikipedia.org/wiki/Compass",
    "via": "glossary",
    "status": "ok"
   },

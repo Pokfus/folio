@@ -135,39 +135,39 @@ plan line now reads the new answer; the original subject is the findings file's 
 
 | id | original subject | current answer | caused by |
 |---|---|---|---|
-| cnh-722 | Great Wall | Shanhai Pass | wh-407 |
-| cnh-704 | imperial examination | Jiangnan Examination Hall | wh-525 |
-| cnh-783 | Tibet | Golden Urn | gc-031 |
-| cnh-785 | Xinjiang | Xinjiang Production and Construction Corps | gc-021 |
-| cnh-728 | Hall of Supreme Harmony | Hall of Mental Cultivation | arch-355 (unwritten) |
-| cnh-875 | Temple of Heaven | Mingtang | arch-356 (unwritten) |
-| cnh-963 | Dougong | Nanchan Temple | arch-346 (unwritten) |
-| cnh-826 | Chinese philosophy | Huang–Lao | phi-286 (unwritten) |
-| cnh-827 | Hundred Schools of Thought | Lüshi Chunqiu | phi-287 (unwritten) |
-| cnh-828 | Confucius | Yan Hui | wh-399, phi-288 |
-| cnh-829 | Analects | Zilu | phi-289 (unwritten) |
-| cnh-830 | Ren | Shu | phi-290 (unwritten) |
-| cnh-831 | Li | Liji | phi-291 (unwritten) |
-| cnh-832 | Junzi | Zhongyong | phi-292 (unwritten) |
-| cnh-833 | Confucianism | Wenmiao | wh-400 |
-| cnh-834 | Mencius | Four Beginnings | phi-295 (unwritten) |
-| cnh-835 | Xunzi | Discourse on Heaven | phi-297 (unwritten) |
-| cnh-837 | Laozi | Hangu Pass | phi-300 (unwritten) |
-| cnh-839 | Dao | Heshang Gong | phi plan line (unwritten) |
-| cnh-840 | Wu wei | Cook Ding | phi plan line (unwritten) |
-| cnh-842 | Zhuangzi | Qiwulun | phi-304 (unwritten) |
-| cnh-841 | Taoism | Liezi | wh-401 |
-| cnh-844 | Mohism | Gongshu Ban | phi plan line (unwritten) |
-| cnh-845 | Legalism | Shen Buhai | wh-402 |
-| cnh-846 | Han Feizi | Two Handles | phi plan line (unwritten) |
-| cnh-847 | School of Names | Hui Shi | phi plan line (unwritten) |
-| cnh-848 | Yin and yang | He Tu and Luo Shu | phi plan line (unwritten) |
-| cnh-867 | New Confucianism | Science and Metaphysics debate | phi-336 (unwritten) |
-| cnh-882 | Chinese Buddhism | Liu Ying | wh-415 |
-| cnh-890 | Chan | Platform Sutra | wh-539 Zen |
-| cnh-976 | Woodblock printing | Diamond Sutra | wh-526 |
-| cnh-978 | Gunpowder | Wujing Zongyao | wh-530 |
-| cnh-980 | Compass | Dream Pool Essays | wh-531 |
+| cnh-722 | Great Wall | Shanhai Pass | wh-407 — **rewritten 2026-11-26** |
+| cnh-704 | imperial examination | Jiangnan Examination Hall | wh-525 — **rewritten 2026-11-26** |
+| cnh-783 | Tibet | Golden Urn | gc-031 — **rewritten 2026-11-26** |
+| cnh-785 | Xinjiang | Xinjiang Production and Construction Corps | gc-021 — **rewritten 2026-11-26** |
+| cnh-728 | Hall of Supreme Harmony | Hall of Mental Cultivation | arch-355 (unwritten) — **rewritten 2026-11-26** |
+| cnh-875 | Temple of Heaven | Mingtang | arch-356 (unwritten) — **rewritten 2026-11-26** |
+| cnh-963 | Dougong | Nanchan Temple | arch-346 (unwritten) — **rewritten 2026-11-26** |
+| cnh-826 | Chinese philosophy | Huang–Lao | phi-286 (unwritten) — **rewritten 2026-11-26** |
+| cnh-827 | Hundred Schools of Thought | Lüshi Chunqiu | phi-287 (unwritten) — **rewritten 2026-11-26** |
+| cnh-828 | Confucius | Yan Hui | wh-399, phi-288 — **rewritten 2026-11-26** |
+| cnh-829 | Analects | Zilu | phi-289 (unwritten) — **rewritten 2026-11-26** |
+| cnh-830 | Ren | Shu | phi-290 (unwritten) — **rewritten 2026-11-26** |
+| cnh-831 | Li | Liji | phi-291 (unwritten) — **rewritten 2026-11-26** |
+| cnh-832 | Junzi | Zhongyong | phi-292 (unwritten) — **rewritten 2026-11-26** |
+| cnh-833 | Confucianism | Wenmiao | wh-400 — **rewritten 2026-11-26** |
+| cnh-834 | Mencius | Four Beginnings | phi-295 (unwritten) — **rewritten 2026-11-26** |
+| cnh-835 | Xunzi | Discourse on Heaven | phi-297 (unwritten) — **rewritten 2026-11-26** |
+| cnh-837 | Laozi | Hangu Pass | phi-300 (unwritten) — **rewritten 2026-11-26** |
+| cnh-839 | Dao | Heshang Gong | phi plan line (unwritten) — **rewritten 2026-11-26** |
+| cnh-840 | Wu wei | Cook Ding | phi plan line (unwritten) — **rewritten 2026-11-26** |
+| cnh-842 | Zhuangzi | Qiwulun | phi-304 (unwritten) — **rewritten 2026-11-26** |
+| cnh-841 | Taoism | Liezi | wh-401 — **rewritten 2026-11-26** |
+| cnh-844 | Mohism | Gongshu Ban | phi plan line (unwritten) — **rewritten 2026-11-26** |
+| cnh-845 | Legalism | Shen Buhai | wh-402 — **rewritten 2026-11-26** |
+| cnh-846 | Han Feizi | Two Handles | phi plan line (unwritten) — **rewritten 2026-11-26** |
+| cnh-847 | School of Names | Hui Shi | phi plan line (unwritten) — **rewritten 2026-11-26** |
+| cnh-848 | Yin and yang | He Tu and Luo Shu | phi plan line (unwritten) — **rewritten 2026-11-26** |
+| cnh-867 | New Confucianism | Science and Metaphysics debate | phi-336 (unwritten) — **rewritten 2026-11-26** |
+| cnh-882 | Chinese Buddhism | Liu Ying | wh-415 — **rewritten 2026-11-26** |
+| cnh-890 | Chan | Platform Sutra | wh-539 Zen — **rewritten 2026-11-26** |
+| cnh-976 | Woodblock printing | Diamond Sutra | wh-526 — **rewritten 2026-11-26** |
+| cnh-978 | Gunpowder | Wujing Zongyao | wh-530 — **rewritten 2026-11-26** |
+| cnh-980 | Compass | Dream Pool Essays | wh-531 — **rewritten 2026-11-26** |
 
 ### Ancient Egypt
 

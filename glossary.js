@@ -13078,7 +13078,16 @@ window.GLOSSARY = {
 "White_Terror_(Russia)": "",
 "Yam_(route)": "",
 "Mithridatic_Wars": "",
-"Saturn_(mythology)": ""
+"Saturn_(mythology)": "",
+"Chinese_philosophy": "",
+"Dougong": "",
+"Han_Fei": "",
+"Hundred_Schools_of_Thought": "",
+"Junzi": "",
+"Mohism": "",
+"New_Confucianism": "",
+"School_of_Names": "",
+"Temple_of_Heaven": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -19453,7 +19462,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "First_five-year_plan_(Soviet_Union)": "1928–1932",
 "Red_Guards_(Russia)": "1917–1918",
 "White_Terror_(Russia)": "1917–1922",
-"Mithridatic_Wars": "89 – 63 BCE"
+"Mithridatic_Wars": "89 – 63 BCE",
+"Han_Fei": "c. 280 – 233 BCE",
+"Hundred_Schools_of_Thought": "c. 500 – 221 BCE",
+"Mohism": "479 – 221 BCE",
+"New_Confucianism": "1921 – present",
+"Temple_of_Heaven": "1420"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -28098,7 +28112,16 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Baikal–Amur_Mainline": ["Baikal-Amur Mainline","BAM","Baikal–Amur Railway"],
 "Revolutions_of_1989": ["Autumn of Nations"],
 "International_sanctions_during_the_Russo-Ukrainian_war": ["Sanctions against Russia","sanctions on Russia"],
-"Red_Guards_(Russia)": ["Red Guard (Russia)"]
+"Red_Guards_(Russia)": ["Red Guard (Russia)"],
+"Chinese_philosophy": ["Zhongguo zhexue"],
+"Dougong": ["dou gong","tou-kung","bracket set"],
+"Han_Fei": ["Han Feizi"],
+"Hundred_Schools_of_Thought": ["Hundred Schools","Zhuzi baijia"],
+"Junzi": ["Chün-tzu"],
+"Mohism": ["Mohists","Mohist school","Mojia"],
+"New_Confucianism": ["Modern Confucianism","Contemporary New Confucianism"],
+"School_of_Names": ["Mingjia","Logicians","Dialecticians"],
+"Temple_of_Heaven": ["Tiantan","Altar of Heaven"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -41441,7 +41464,16 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "White_Terror_(Russia)": ["event","history","warfare","politics","russia"],
 "Yam_(route)": ["institution","history","mongols","asia","russia"],
 "Mithridatic_Wars": ["war","warfare","history","rome","greece","anatolia","hellenistic"],
-"Saturn_(mythology)": ["deity","religion","history","rome"]
+"Saturn_(mythology)": ["deity","religion","history","rome"],
+"Chinese_philosophy": ["concept","philosophy","history","china"],
+"Dougong": ["technology","architecture","building","china"],
+"Han_Fei": ["person","philosophy","politics","china","warring states"],
+"Hundred_Schools_of_Thought": ["era","philosophy","history","china","warring states"],
+"Junzi": ["concept","philosophy","ethics","confucianism","china"],
+"Mohism": ["school","philosophy","ethics","china","warring states"],
+"New_Confucianism": ["concept","philosophy","confucianism","china","modern"],
+"School_of_Names": ["school","philosophy","logic","china","warring states"],
+"Temple_of_Heaven": ["building","religion","ritual","china","beijing"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
