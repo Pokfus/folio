@@ -1652,6 +1652,77 @@ every collection's places, so all of it was reverted per the standing order. The
 Almaty, Stepanakert, the White House, Viskuli, Minsk, the rivers and others) carry no derived `places` yet — a later
 `--fetch` run will add them.
 
+### What carried this batch — `ru-801` to `ru-900`
+
+A hundred cards in one session (2026-11-26): the last 35 of `ru-peoples`, all 40 of `ru-church` and the first 25 of
+`ru-society`, written by ten parallel passes of ten, each checked by a dry-run validator (`add-card.js --dry-run`,
+`add-glossary.js` in a sandbox copy) and imported serially. Written under the new rule (an answer is unique within the
+collection only), so no line was steered for another collection's sake; the steers below are all inside Russia or to a
+term with a Wikipedia article. **Every line's SUBJECT stands, so the list below is unchanged**; where the answer term is
+not the line's own words it is recorded here (the `ru-096` rule):
+
+| line | answer term | line | answer term |
+|---|---|---|---|
+| ru-802 | Nenets | ru-804 | Russian conquest of Siberia |
+| ru-806 | North Caucasus | ru-809 | Dagestan |
+| ru-810 | Georgia within the Russian Empire | ru-811 | Erivan Governorate |
+| ru-812 | Baku Governorate | ru-815 | Central Asian revolt of 1916 |
+| ru-819 | History of the Jews in the Russian Empire | ru-820 | Shtetl |
+| ru-823 | Jewish Colonisation Association | ru-824 | Jewish Autonomous Oblast |
+| ru-825 | Western Krai | ru-828 | Russification of Finland |
+| ru-829 | Baltic Governorates | ru-830 | Soviet people |
+| ru-832 | Autonomous Soviet Socialist Republic | ru-834 | parade of sovereignties |
+| ru-835 | ethnic groups in Russia | ru-838 | Byzantine commonwealth |
+| ru-839 | Divine Liturgy | ru-842 | Novgorod school |
+| ru-843 | Kirillo-Belozersky Monastery | ru-844 | Hesychasm |
+| ru-847 | Passion bearer | ru-851 | Tented roof |
+| ru-852 | Znamenny chant | ru-853 | Russian Orthodox bell ringing |
+| ru-854 | White clergy | ru-855 | Josephites |
+| ru-856 | Ober-Procurator | ru-857 | Bespopovtsy |
+| ru-858 | Doukhobors | ru-863 | Local Council of 1917–1918 |
+| ru-864 | Patriarch of Moscow and all Rus' | ru-866 | seizure of church valuables |
+| ru-868 | anti-religious campaign of 1928–1941 | ru-870 | Bishops' Council of 1943 |
+| ru-872 | Council for Religious Affairs | ru-873 | Millennium of the Christianization of Rus' |
+| ru-874 | Law on Freedom of Conscience and Religious Associations | ru-875 | Holy Rus' |
+| ru-876 | Social estates in the Russian Empire | ru-877 | Decree on the Abolition of Estates and Civil Ranks |
+| ru-878 | Russian nobility | ru-879 | usadba |
+| ru-881 | Yuri's Day | ru-882 | revision list |
+| ru-883 | Barshchina | ru-884 | kholop |
+| ru-885 | serf theatre | ru-887 | selo |
+| ru-888 | izba | ru-889 | Maslenitsa |
+| ru-890 | volost | ru-891 | merchant guild |
+| ru-894 | Nizhny Novgorod Fair | ru-895 | Ivanovo |
+| ru-896 | Ministry of National Education | ru-897 | likbez |
+| ru-900 | vodka |  |  |
+
+**Same-collection steers**: *Treaty of Georgievsk* (`ru-371`) → Georgia within the Russian Empire; *Pale of Settlement*
+(`ru-370`) → the history of the Jews; *korenizatsiya* (`ru-615`) → Soviet people; *Third Rome* (`ru-183`) → the
+Byzantine commonwealth; *Northern Thebaid* (`ru-145`) → Kirillo-Belozersky; *Boris and Gleb* (`ru-056`) → passion
+bearer; *Stoglav*, the non-possessors and Joseph of Volokolamsk (`ru-199`, `182`, `180`) → the Josephites; the *Most
+Holy Synod* and *Spiritual Regulation* (`ru-300`, `301`) → the Ober-Procurator; *Old Believers* and *Raskol*
+(`ru-263`, `262`) → the Bespopovtsy; *Official Nationality* (`ru-422`) → Holy Rus'; the *three-field system*
+(`ru-776`) → Maslenitsa for the peasant year. `ru-876` and `ru-877` were kept apart (the estates, then their abolition
+in 1917) so the two do not twin.
+
+**GLOSSARY**: 90 terms are new. **Non-article keys**: `Meshchane` (no English article) and `Barshchina` (a section
+redirect to Corvée); `usadba` has no term. The term written as `Josephites` was a disambiguation page and was re-keyed
+to `Possessors`, with Josephites as its alias. Several terms are keyed to the article title with the card's answer as
+an alias (`Secular_clergy`, `Procurator_(Russia)`, `Jadid`, `History_of_the_Jews_in_Russia`,
+`Autonomous_republics_and_oblasts_of_the_Soviet_Union`, the 1958–1964 campaign, the 1000th anniversary). Skipped as
+already present: Russian conquest of Siberia, Chechens, Dagestan, Population transfer in the Soviet Union, Eastern
+Orthodox Church, Pogrom, Jewish Autonomous Oblast, Yuri's Day, Ivanovo.
+
+**WIKIPEDIA LINKS**: nine set by hand in `wiki-links.json` (`ru-819`, `855`, `863`, `866`, `868`, `870`, `871`, `873`,
+`885`), where the answer is not the article's title. No dedicated article: `ru-854`, `879`, `881`, `883`, `892`.
+
+**DATES**: person templates for Seraphim of Sarov, John of Kronstadt and Patriarch Tikhon (New Style, from Wikipedia;
+Seraphim's birth year is 1754 in some sources and 1759 in others) and a war template for the 1916 revolt (start and
+result only: no source opened gives a single end date). **Sources** are mostly Russian-language peer-reviewed articles,
+since several English hosts refused this session. Each was opened and is cited ` [in Russian]`. Contested figures (the Chechen
+deportation count, the Soviet anti-religious arrests, Solovki prisoner numbers, Soviet literacy) carry their owner.
+`check-cards.js` (report only) finds nothing new in this batch. The new locators carry no derived `places` yet, as with
+the last batch.
+
 ---
 
 # The list
