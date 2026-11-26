@@ -4187,6 +4187,8 @@
        Jupiter and Saturn carry their bare names as aliases of the PLANETS here only — in a Roman card they are the gods. */
     /* "recite its Vedic hymns from memory" in a history card is not the cognitive faculty (2026-11-22, on request: "memory should be a collection-specific gloss for psychology") */
     Memory: { roots: ["psych"], tags: ["psychology", "neuroscience"] },
+    /* the inference, not the kidnapping: "abduction" links by itself only in Philosophy (2026-11-26, on request, ph-026) */
+    Abductive_reasoning: { roots: ["phil"], tags: ["philosophy", "logic", "epistemology"] },
     Sun: { roots: ["astro"], tags: ["astronomy"] },
     Vacuum: { roots: ["astro"], tags: ["astronomy", "physics"] },
     Orbital_eccentricity: { roots: ["astro"], tags: ["astronomy"] },

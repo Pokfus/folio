@@ -12834,7 +12834,18 @@ window.GLOSSARY = {
 "Marathi_language": "",
 "Pandit": "",
 "Patanjali": "",
-"Pāṇini": ""
+"Pāṇini": "",
+"Alexander_Gottlieb_Baumgarten": "",
+"Alfred_Tarski": "",
+"Bayes'_theorem": "",
+"Critique_of_Judgment": "",
+"David_Hume": "",
+"Epagoge": "",
+"Francis_Bacon": "",
+"Joseph_Addison": "",
+"Of_the_Standard_of_Taste": "",
+"Pragmatic_theory_of_truth": "",
+"The_Spectator_(1711)": ""
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -19093,7 +19104,15 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Kaiseraugst": "c. 300 CE",
 "Old_Indo-Aryan": "c. 1750 – 250 BCE",
 "Patanjali": "c. 2nd century BCE",
-"Pāṇini": "c. 4th century BCE"
+"Pāṇini": "c. 4th century BCE",
+"Alexander_Gottlieb_Baumgarten": "1714–1762",
+"Alfred_Tarski": "1901–1983",
+"Critique_of_Judgment": "1790",
+"David_Hume": "1711–1776",
+"Francis_Bacon": "1561–1626",
+"Joseph_Addison": "1672–1719",
+"Of_the_Standard_of_Taste": "1757",
+"The_Spectator_(1711)": "1711–1712, revived 1714"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -24350,7 +24369,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Validity_(logic)": ["deductive validity","logical validity","valid argument","valid arguments"],
 "Soundness": ["sound argument","sound arguments"],
 "Problem_of_induction": ["Hume's problem of induction"],
-"Abductive_reasoning": ["abductive inference","retroduction"],
+"Abductive_reasoning": ["abductive inference","retroduction","abduction"],
 "Necessity_and_sufficiency": ["necessary and sufficient conditions","necessary and sufficient condition","necessary condition","sufficient condition","necessary conditions","sufficient conditions"],
 "Begging_the_question": ["petitio principii"],
 "Straw_man": ["straw man fallacy"],
@@ -27571,7 +27590,17 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Patanjali": ["Patañjali"],
 "Pāṇini": ["Panini"],
 "New_York_City": ["New York","New York's"],
-"New_York_(state)": ["New York State","New York state","state of New York","State of New York","colony of New York","Province of New York","province of New York"]
+"New_York_(state)": ["New York State","New York state","state of New York","State of New York","colony of New York","Province of New York","province of New York"],
+"Alexander_Gottlieb_Baumgarten": ["Baumgarten"],
+"Alfred_Tarski": ["Tarski"],
+"Bayes'_theorem": ["Bayes’ theorem","Bayes's theorem","Bayes' rule"],
+"Critique_of_Judgment": ["Critique of Judgement","Critique of the Power of Judgment"],
+"Epagoge": ["epagōgē"],
+"Pragmatic_theory_of_truth": ["pragmatist theories","pragmatist theory of truth","pragmatic theories of truth"],
+"Aristotle": ["Aristotelian"],
+"Bayesian_inference": ["Bayesian"],
+"Correspondence_theory_of_truth": ["correspondence theory"],
+"Coherence_theory_of_truth": ["coherence theory"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -40665,7 +40694,18 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Marathi_language": ["concept","language","linguistics","india","literature"],
 "Pandit": ["concept","title","scholar","religion","hinduism","sanskrit","india"],
 "Patanjali": ["person","scholar","grammar","language","sanskrit","philosophy","yoga","india"],
-"Pāṇini": ["person","scholar","grammar","language","linguistics","sanskrit","india"]
+"Pāṇini": ["person","scholar","grammar","language","linguistics","sanskrit","india"],
+"Alexander_Gottlieb_Baumgarten": ["person","philosopher","philosophy","aesthetics","germany"],
+"Alfred_Tarski": ["person","philosopher","mathematics","logic","poland"],
+"Bayes'_theorem": ["concept","mathematics","probability","philosophy","logic"],
+"Critique_of_Judgment": ["text","book","philosophy","aesthetics","germany"],
+"David_Hume": ["person","philosopher","philosophy","scotland","enlightenment"],
+"Epagoge": ["concept","philosophy","logic","greece","aristotle"],
+"Francis_Bacon": ["person","philosopher","philosophy","england","politician"],
+"Joseph_Addison": ["person","writer","politician","england","literature"],
+"Of_the_Standard_of_Taste": ["text","essay","philosophy","aesthetics","scotland"],
+"Pragmatic_theory_of_truth": ["concept","philosophy","epistemology","logic","truth"],
+"The_Spectator_(1711)": ["text","periodical","england","literature","journalism"]
 });
 
 /* Optional display title per term (slug -> title) where the slug's words are not the name to show. */
