@@ -24,7 +24,8 @@
   The KIND is read off the keys: `start` makes a war, `date` a battle, `founding` a city, and only that
   kind's keys are accepted. The opening part is required (it is what marks the line as its template);
   every other part may be left out where the sources give nothing — a missing figure is a missing row,
-  never a guess. `results` in place of `result` labels the row "Results" (more than one outcome). A
+  never a guess. `troops` (Nov 2026) writes a "Troops" row, the strengths engaged, which the house now
+  prefers to a casualty row on a battle or a war (a war keeps at most 4 rows in all). `results` in place of `result` labels the row "Results" (more than one outcome). A
   war's opening event and peace treaty are the dimmed continuation lines under its two dates: give
   ["date"] alone where there is none. The war's DURATION is computed and put in brackets after the End
   date — never write it yourself (see `duration` below).
@@ -81,8 +82,8 @@ function duration(S, E) {
 }
 
 const KINDS = {
-  war: { first: "start", keys: ["start", "end", "casualties", "result", "results"] },
-  battle: { first: "date", keys: ["date", "location", "casualties", "result", "results"] },
+  war: { first: "start", keys: ["start", "end", "troops", "casualties", "result", "results"] },
+  battle: { first: "date", keys: ["date", "location", "troops", "casualties", "result", "results"] },
   city: { first: "founding", keys: ["founding", "peak", "population"] },
 };
 const str = (v) => String(v == null ? "" : v).trim();
@@ -107,12 +108,14 @@ function rowsFor(id, spec) {
     for (const v of [s, e]) if (v && v[1] && /[()]/.test(v[1])) die(id + ": no brackets in \"" + v[1] + "\"");
     rows.push(["Start", s[0]]); if (s[1]) rows.push(["", s[1]]);
     if (e) { rows.push(["End", e[0] + " (" + duration(S, E) + ")"]); if (e[1]) rows.push(["", e[1]]); }
+    if (spec.troops != null) { figure(id, "troops", str(spec.troops)); rows.push(["Troops", str(spec.troops)]); }
     if (spec.casualties != null) { figure(id, "casualties", str(spec.casualties)); rows.push(["Casualties", str(spec.casualties)]); }
     if (res) rows.push([resLabel, res]);
   } else if (kind === "battle") {
     parseDate(id, "date", str(spec.date));
     rows.push(["Date", str(spec.date)]);
     if (spec.location != null) { if (/[()]/.test(spec.location)) die(id + ": no brackets in the location"); rows.push(["Location", str(spec.location)]); }
+    if (spec.troops != null) { figure(id, "troops", str(spec.troops)); rows.push(["Troops", str(spec.troops)]); }
     if (spec.casualties != null) { figure(id, "casualties", str(spec.casualties)); rows.push(["Casualties", str(spec.casualties)]); }
     if (res) rows.push([resLabel, res]);
   } else {
